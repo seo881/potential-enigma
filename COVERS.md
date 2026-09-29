@@ -14,3 +14,9 @@ Slots bound to the Cover field:
 - Hubs: AAB, SQB, LP card image 9f4d88f4-... (class added, rebound from Thumbnail); Form hub new image 33868d6a-...
 - Templates (new images, prepended in the card link): AAB 480f5f8b-..., SQB a6ca094c-..., LP ca16aadc-..., Form 1d9a132d-...
 Rollback: remove the 5 new image elements, remove class from 9f4d88f4 on 3 hubs and rebind to Thumbnail, delete the 4 fields.
+
+## Live (imported 2026-09-29)
+Covers (SVG): AAB 6abbb81095974b2ce616fe7c, SQB 6abbb8123311c47795024674, LP 6abbb81e7da1d9fc3027518a, Form 6abbb81f9fee69e3212d1b7b
+Share images (PNG 1200x630, Thumbnail Image): AAB 6abbb81095974b2ce616fe70, SQB 6abbb8113311c4779502466f, LP 6abbb81e7da1d9fc3027518e, Form 6abbb81f9fee69e3212d1b77
+Previous Thumbnail on all 4 items was the placeholder file 6a901aa8cda440349cd42c6c (restore it to roll back).
+Carousels unhidden on the 4 hubs: section acd0c79f-f838-9a2e-53c7-b22c5244fdb6 (rollback: visibility false). First-draft duplicate 86e5ccd1-... stays hidden.
