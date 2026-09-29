@@ -56,7 +56,7 @@ def lp2():
     b+=t(270,504,"Travel case",25,700)+t(270,538,"$29 · ships with your order",18,500,"#6b7280")+pill(126,616,220,56,"#0a0a0a","Add to order",size=19)
     b+=f'<rect x="624" y="392" width="480" height="312" rx="22" fill="{L}" stroke="{A}" stroke-width="2" stroke-dasharray="10 8"/>'
     b+=t(656,448,"10% off your next order",26,800)+t(656,482,"Use it within 30 days",19,500,"#374151")
-    b+=f'<rect x="656" y="512" width="416" height="84" rx="16" fill="#fff"/>'+t(864,568,"THANKS10",36,800,anchor="middle",ls=2)
+    b+=f'<rect x="656" y="512" width="416" height="84" rx="16" fill="#fff"/>'+t(864,568,"THANKS10",36,800,anchor="middle",ls=4)
     b+=pill(656,620,190,52,A,"Copy code",size=19)
     return svg(b,"lp")
 def lp3():
@@ -96,7 +96,7 @@ def form1():
     b+=pill(88,630,456,62,"#0a0a0a","Apply to the program",size=20)
     b+=conn("M576 380 L 636 380",A)
     b+=card(636,166,508,430)+check(690,230,32)+t(740,226,"Approved",30,800)+t(740,258,"Audience 18k · US West",19,500,"#6b7280")
-    b+=f'<rect x="668" y="302" width="444" height="124" rx="18" fill="{L}" stroke="{A}" stroke-width="2" stroke-dasharray="10 8"/>'+t(698,346,"Your referral code",17,700,A)+t(698,398,"MAYA15",40,800,ls=2)
+    b+=f'<rect x="668" y="302" width="444" height="124" rx="18" fill="{L}" stroke="{A}" stroke-width="2" stroke-dasharray="10 8"/>'+t(698,346,"Your referral code",17,700,A)+t(698,398,"MAYA15",40,800,ls=5)
     b+=t(668,482,"Welcome kit ships Friday",22,700)+t(668,516,"Tracked link sent by email",18,500,"#6b7280")
     b+=pill(636,636,340,56,"#fff","Saved to creators table",tc="#111827",size=18,dot="#22c55e")
     return svg(b,"form")

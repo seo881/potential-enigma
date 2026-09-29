@@ -13,3 +13,9 @@ Webflow imports each image from its raw URL at a fixed commit, so files never ne
 - Shape: canvas ratio must equal the slot's CSS aspect-ratio (3/2 for .build-usecase_image)
 - Legibility: no text under 11px at the slot's desktop display width (830px)
 - Layout (qa.py): no text overlaps, no text crossing a shape edge, nothing off-canvas
+
+## v3: vector delivery (current)
+Published images are SVGs with every letter converted to vector outlines (Inter, shaped by HarfBuzz with kerning).
+Browsers draw them at the screen's native resolution, so they are sharp on every display and zoom level,
+Webflow does not create resized copies of them, and there is no font dependency. `pipeline/outline.py` does the conversion.
+Each file is verified in two independent renderers (cairo and librsvg). The WebP renders stay as a raster fallback.
