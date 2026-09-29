@@ -2,6 +2,7 @@
 import ds5 as L, math
 from qa import width as tw
 PALS={
+ "aab": dict(acc="#7C3AED",acc2="#4F46E5",accd="#5B21B6",accs="#F1ECFF",accm="#DDD3FF",bg1="#FCFBFF",bg2="#EFE9FF",glow="#E2D6FF",grid="#6D28D9",spot="#8B5CF6",sh="#2E1065",line="#E6E3F0",hair="#EEEBF5",stroke1="#A78BFA",stroke2="#818CF8"),
  "lp":  dict(acc="#2563EB",acc2="#1D4ED8",accd="#1E40AF",accs="#EAF1FF",accm="#BFD7FF",bg1="#FBFCFF",bg2="#E6EEFF",glow="#D3E2FF",grid="#1D4ED8",spot="#3B82F6",sh="#1E3A8A",line="#E2E7F2",hair="#ECF0F7",stroke1="#93C5FD",stroke2="#818CF8"),
  "form":dict(acc="#047857",acc2="#0F766E",accd="#065F46",accs="#E6F7EF",accm="#BCEBD5",bg1="#FAFFFC",bg2="#E1F6EC",glow="#CBF0DE",grid="#047857",spot="#10B981",sh="#064E3B",line="#E0EDE7",hair="#EBF4EF",stroke1="#6EE7B7",stroke2="#5EEAD4"),
  "sqb": dict(acc="#C2410C",acc2="#9A3412",accd="#9A3412",accs="#FFF1E6",accm="#FED7B0",bg1="#FFFCF8",bg2="#FFEDDC",glow="#FFE0C4",grid="#C2410C",spot="#F97316",sh="#7C2D12",line="#F0E6DD",hair="#F6EEE7",stroke1="#FDBA74",stroke2="#FB923C"),
