@@ -25,7 +25,9 @@ def convert(svg_text):
         if not s.strip(): parent[el].remove(el); continue
         size=float(el.get('font-size',16)); w,(hf,tt,gs,upm,order)=fnt(el.get('font-weight','400'))
         ls=float(el.get('letter-spacing',0) or 0); op=el.get('opacity','1'); anchor=el.get('text-anchor','start')
-        buf=hb.Buffer(); buf.add_str(s); buf.guess_segment_properties(); hb.shape(hf,buf,{"kern":True,"liga":True})
+        feats={"kern":True,"liga":True}
+        if el.get("data-tnum"): feats["tnum"]=True
+        buf=hb.Buffer(); buf.add_str(s); buf.guess_segment_properties(); hb.shape(hf,buf,feats)
         sc=size/upm; pen_x=0; glyphs=[]
         # map clusters back to run colors
         bounds=[]; pos=0

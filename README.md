@@ -19,3 +19,9 @@ Published images are SVGs with every letter converted to vector outlines (Inter,
 Browsers draw them at the screen's native resolution, so they are sharp on every display and zoom level,
 Webflow does not create resized copies of them, and there is no font dependency. `pipeline/outline.py` does the conversion.
 Each file is verified in two independent renderers (cairo and librsvg). The WebP renders stay as a raster fallback.
+
+## v5 design system (current standard, approved)
+`pipeline/scenes_v5.py`: prompt-to-app motif, three depth levels with a spotlight on the hero card, one 60/1140 grid,
+Lucide icons (ISC), and in-SVG motion (CSS keyframes, disabled under prefers-reduced-motion).
+Gates (`pipeline/qa3.py`): WCAG AA contrast against each text's real background (gradients scored at their lightest stop),
+occlusion-aware overlap and edge checks, off-canvas, 11px minimum on screen, and a build-time keycap-spacing guard.
