@@ -129,3 +129,9 @@ All 16 props are CMS-bound. Removed the old "Global / Sticky List (Icons)" insta
 Rollback: remove 51b2669c; insert 7a11ed6a-ab12-c739-dba4-4e0c0eca1e46 before §11 and bind Heading→580544c7, Description→a3204871, Item1-4 Title/Description→s1-4 fields, Button Text "".
 Fade: new IX3 i-da197b65 "Build hubs / 7-step how-to comes into focus". It copies i-dcb777ac but targets .sticky_list-item (471c3d25-01b0-ba09-6099-51e9ae643e5b); scope is the 8 pages.
 Only one scroll trigger is allowed per interaction, hence the twin. Rollback: delete i-da197b65.
+
+## #2 SQB collection 6ab24754757025d10940d04e (60/60). Deleted empty legacy fields (null on item 6aba7afb…):
+80b73b278c2dd90c6cbda5d94752670d MultiRef "ASQB - CRM by Industry" acrm---crm-builder→6a3a6bea… · 9701937b3df9ed7ce6c814e13f9165fb RichText "ASQB - CRM by Industry Copy" ·
+de89a69679cbc5a053990098024a252f MultiRef "ASQB - CRM by Department"→6a3a6bea… · 37a0b7229c25f373443686f164394e33 RichText "ASQB - CRM by Department Copy" ·
+6aefbdb43618479bc2a10c583ca18c42 MultiRef "ASQB - CRM by Business Size"→6a3a6bea… · a05d6088602f517d133f6beafb0d6d76 RichText "ASQB - CRM by Business Size Copy"
+How-to IDs: title 9fdc6a4a5b6adeff1ba323b2b693eb89 · desc 28af26808a77e039c6c4a731f42edacb · s1 6768b0a2c2df893c08006bc6bcc3c4e1/afbf9bb305ff756647dd7cfa42426167 · s2 d3d154a4ec7d54bcf0cb9521eaceeb02/3238143d6b4aaee777a7f2c9f6822792 · s3 edf1f2675fdd4c78c1eb21506c1bc9b6/cfc27aa639d5589387a0bd4439c38342 · s4 838f74ee9d6c64946e431dc2c7f5633e/f803990b27a4bd4244193e500cb35a81
