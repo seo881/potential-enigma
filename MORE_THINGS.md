@@ -105,3 +105,9 @@ The child templates use "Global / Sticky List (Icons)" 7a11ed6a… (4 steps).
 There are 6 empty legacy CRM fields per collection (acrm---crm-builder, -by-industry-copy, -by-department, -by-department-copy, -by-business-size, -by-business-size-copy), null on the items. They free exactly the 6 slots needed for steps 5–7.
 - LP thank-you-page 6ab5158e… and Form creator-application 6ab505a8…: now their hub's 5-row table (originals in tables/lp_child_original.html and tables/form_child_original.html). isDraft still true.
 #3 COMPLETE: each hub and its child pages show the same 5-row named-competitor table; headings and subheadings stay page-specific.
+
+## 18:4x IST: gap below the testimonials (section_stats → next section), our 8 pages only
+The stats and features sections both use the same section-padding var top and bottom. Page-level rule: .section_stats{padding-bottom:1.5rem}.
+- Hubs: added to the existing hub embeds (b8a2c5a1…, 25e43d56…, 3b7963ef…, 9dd01394…).
+- Templates: new embeds (class hide, prepended to main-wrapper): AAB 42aee989-7399-cdba-6b8a-e6b43970f486 · LP cd6dd4bb-f02c-fece-484d-ed9f5dde5dcc · Form 33851df7-d88d-1492-6f50-7c340f86f0b2 · SQB 46520f82-686f-e070-d13f-57167c417482.
+Rollback: remove the line or the embed.
