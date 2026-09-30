@@ -103,3 +103,5 @@ Rollback: write the saved original HTML back into the field.
 #2 plan: the hubs use component "Global / Sticky List" 9730644b-cdbc-73d2-8383-ad695f602395, with props Heading, How to create desc, HW_Step_01..07 Title/des (step 7 des = "Text").
 The child templates use "Global / Sticky List (Icons)" 7a11ed6a… (4 steps).
 There are 6 empty legacy CRM fields per collection (acrm---crm-builder, -by-industry-copy, -by-department, -by-department-copy, -by-business-size, -by-business-size-copy), null on the items. They free exactly the 6 slots needed for steps 5–7.
+- LP thank-you-page 6ab5158e… and Form creator-application 6ab505a8…: now their hub's 5-row table (originals in tables/lp_child_original.html and tables/form_child_original.html). isDraft still true.
+#3 COMPLETE: each hub and its child pages show the same 5-row named-competitor table; headings and subheadings stay page-specific.
