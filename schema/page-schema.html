@@ -1,0 +1,39 @@
+<script>
+/* Emergent build hubs: page JSON-LD (Organization, WebSite, WebPage, BreadcrumbList, FAQPage) built from what this page renders: title, meta description, the visible breadcrumb, and window.awbFAQ. Template-scoped. */
+(function () {
+  function run() {
+    if (document.getElementById('awb-jsonld')) return;
+    var O = 'https://emergent.sh', u = O + location.pathname.replace(/\/+$/, ''), org = { '@id': O + '/#organization' };
+    var md = document.querySelector('meta[name="description"]');
+    var g = [
+      { '@type': 'Organization', '@id': O + '/#organization', 'name': 'Emergent', 'url': O + '/',
+        'logo': 'https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg' },
+      { '@type': 'WebSite', '@id': O + '/#website', 'url': O + '/', 'name': 'Emergent', 'publisher': org },
+      { '@type': 'WebPage', '@id': u + '#webpage', 'url': u, 'name': document.title.trim(),
+        'description': md ? md.getAttribute('content').trim() : undefined, 'inLanguage': 'en',
+        'isPartOf': { '@id': O + '/#website' }, 'breadcrumb': { '@id': u + '#breadcrumb' }, 'publisher': org }
+    ];
+    var bc = document.querySelector('.build_breadcrumbs'), items = [];
+    if (bc) Array.prototype.forEach.call(bc.children, function (el) {
+      var t = (el.textContent || '').replace(/\s+/g, ' ').trim();
+      if (!t || t === '/') return;
+      var h = el.getAttribute('href');
+      items.push({ '@type': 'ListItem', 'position': items.length + 1, 'name': t,
+                   'item': h ? new URL(h, O + '/').href.replace(/^https?:\/\/[^/]+/, O) : u });
+    });
+    if (items.length > 1) { items[items.length - 1].item = u; g.push({ '@type': 'BreadcrumbList', '@id': u + '#breadcrumb', 'itemListElement': items }); }
+    else delete g[2].breadcrumb;
+    var f = window.awbFAQ, rx = /\[([^\]]+)\]\(([^)]+)\)/g;
+    var qs = (f && Array.isArray(f.items) ? f.items : []).filter(function (i) { return i && i.q && i.a; }).map(function (i) {
+      return { '@type': 'Question', 'name': String(i.q).trim(),
+               'acceptedAnswer': { '@type': 'Answer', 'text': String(i.a).replace(rx, '<a href="$2">$1</a>').trim() } };
+    });
+    if (qs.length) g.push({ '@type': 'FAQPage', '@id': u + '#faqpage', 'isPartOf': { '@id': u + '#webpage' }, 'mainEntity': qs });
+    var s = document.createElement('script');
+    s.type = 'application/ld+json'; s.id = 'awb-jsonld';
+    s.text = JSON.stringify({ '@context': 'https://schema.org', '@graph': g });
+    document.head.appendChild(s);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+})();
+</script>
