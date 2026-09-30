@@ -101,3 +101,14 @@ On each hub: the banner is inserted after section_product-integrations; More thi
 Templates: old §11 hidden: LP d8a90b8f-…-88a1, Form 24cd8ebc-…-65cc, AAB cadd555f-…-d979, SQB ba847d5e-…-f779.
 Verified order on the AAB hub: … integrations section → banner → carousel → table → how-to → blog → pricing → FAQ → More things → (old §11 hidden) → CTA.
 Rollback: remove the 2 instances per page; set the hidden elements' visibility back to true.
+
+## Logo fixes (2026-09-30 16:0x IST)
+New assets from commit b9475e4 (images/logos/): hubspot 6abce51e75d593a5c63e0241, gmail 6abce527894d74e0fcb60eb0, notion 6abce85b7514544eb33d7c7f, google-sheets 6abce86258cc505000785874.
+- Google Sheets tile image 088920eb-…-a073: set to 6abce86258cc505000785874 (was 6aba69b4a230565c3d4c1cff).
+- Notion tile image …-a07b: NOT yet swapped (429). Still on 6aba3de9ee7ca4b5088922ad.
+- HubSpot …-a06b and Gmail …-a077 were already changed by ANOTHER agent at 16:04 IST to 6abce59a3c5ebfc8b4d51cab / 6abce5a1fa9c5fa556ba8a58 ("int-banner-logo-*.svg"). I left them untouched pending Divit.
+Rollback: Sheets back to 6aba69b4a230565c3d4c1cff.
+
+## Audit issues flagged on the AI Automation Builder template (pending)
+- "Non-descriptive link content": most likely the 9 identical "View all pages" links. Proposed fix: "View all website pages", "View all app pages", … per card.
+- "Duplicate ID": not yet located (429). Candidate: the hero form (#email-form / #field) duplicated by the Signup Modal form, inherited from the CRM clone.
