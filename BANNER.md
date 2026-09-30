@@ -82,3 +82,22 @@ Hubs: pending.
 New tiles: d58d13fe-783e-fc40-43ed-07c671c1b841, 4e97ea69-473d-1b9f-513e-bba3f3465529, 38d06748-70be-50cd-2df5-363769bbfd97, 7719d814-4813-20dc-1e9f-e3ebca669918.
 Compact sizing: tile aspect-ratio auto, padding 1rem/0.875rem, radius 10px; logo 1.875rem; name 0.8125rem nowrap; grid gap 0.625rem. Grid is 4 across on desktop, 6 on tablet, 3 on mobile.
 Rollback: remove the 4 tiles; restore tile aspect-ratio 1/1, radius 12px, logo 2.5rem, name 0.9375rem.
+
+## Logo fix (2026-09-30)
+HubSpot (clipped by a tight viewBox) → new asset 6abce59a3c5ebfc8b4d51cab: Simple Icons CC0 path in #FF7A59, viewBox -4 -4 32 32.
+Gmail (simplified mark) → new asset 6abce5a1fa9c5fa556ba8a58: official 4-colour 2020 mark, square centred frame.
+Source: logos/*.svg @ 20476b7. Set on component images 088920eb-…-a06b (HubSpot) and …-a077 (Gmail).
+Rollback: set the assetIds back to 6aba3db0358d9d5435e52b73 / 6aba3dcbe9697870784a63e3. The old assets are untouched and still used by the hub chips.
+The other 10 logos were checked in Divit's screenshot and render cleanly.
+
+## Hub pass (2026-09-30)
+On each hub: the banner is inserted after section_product-integrations; More things is inserted directly after the Global/FAQ; old blocks are HIDDEN (visibility false), not deleted.
+| Hub | Banner inst | More things inst | Hidden: orbit banner / spacer / old §11 |
+|---|---|---|---|
+| LP 6aaa658e… | c30f5504-060e-bffb-2bbe-dd096ce70598 | 24e0e006-800e-dd1d-9972-089be48321d5 | 13829ba5-695a-f487-3b54-ad7c924f8be2 / 9c8e3d06-0bab-12b7-7ead-617497c6aed4 / f350b269-7ea7-1a0f-3cd9-5ce3e33898bd |
+| Form 6aabb4c5… | 17bd5422-cf28-b9b8-724a-615faebc4dad | 0a700be6-0cad-24d9-4fe8-9d54c19b67fc | e0f4d321-5094-59a7-790d-22132be392ab / e0f4d321-…-392aa / 5175601b-006f-1460-b96d-c84aa9968d64 |
+| AAB 6ab24643… | e5417864-6522-13d9-c894-9451cbf1af8d | a1d7763f-d07a-01b0-5055-ea231a4bfc8f | 13829ba5-… / 9c8e3d06-… / fdfbf8cf-c309-6002-0123-486847fc1192 |
+| SQB 6ab246c3… | 2408c195-7499-75f2-0609-4722a353e9ca | f95b60b2-4aaf-a779-d572-9d90f9fc815b | 13829ba5-… / 9c8e3d06-… / 6f1cd26d-cadb-90d0-329b-a5994b1dc5fc |
+Templates: old §11 hidden: LP d8a90b8f-…-88a1, Form 24cd8ebc-…-65cc, AAB cadd555f-…-d979, SQB ba847d5e-…-f779.
+Verified order on the AAB hub: … integrations section → banner → carousel → table → how-to → blog → pricing → FAQ → More things → (old §11 hidden) → CTA.
+Rollback: remove the 2 instances per page; set the hidden elements' visibility back to true.
