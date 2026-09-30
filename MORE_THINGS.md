@@ -69,3 +69,9 @@ One-line guarantee: embed f11a368f-b61f-71b3-3a28-0292c126a76b (class hide) insi
 - ≤479px: 12.5px labels.
 Measured: the longest label (Marketing Automation SaaS Builder) is 242px at 14px. Text room: 252px at 1280 (3 columns), 230px at 768 (2 columns, 13px = 224), 220px at 360 (12.5px = 216).
 Rollback: remove the embed.
+
+## 17:5x IST: 3 columns restored (Divit). The grid is never overridden now. Embed f11a368f… uses fluid label sizes instead:
+- 992–1279px: clamp(11px, 1.87vw − 8px, 14px), 12px side padding.
+- 768–991px: clamp(11px, 2.8vw − 8.8px, 14px).
+- ≤767px: clamp(11px, 5.6vw − 8.1px, 14px).
+nowrap stays, with an ellipsis safety.
