@@ -167,3 +167,10 @@ Tables v2 (Emergent cells only): Form and SQB Response limits "None"→"Unlimite
 Applied to the 3 hub embeds (fd1c2c5f…) and 3 child items (6ab505a8…, 6aba7afb…, 6aba7ac4…).
 v1 is kept in tables/*_hub_5row_v1.html. LP is unchanged ("No per-visitor pricing" was Divit-approved).
 Related articles: LP and Form hubs sort newest first; AAB and SQB hubs sort oldest first (the sort prop is not settable by API, so this is a Designer fix). Templates show newest site-wide.
+
+## 19:4x IST: audit applied (Designer). Old values are in audit/hubs.json ("cur") and in the transcript reads.
+LP hub: H1, cards heading, features heading, F2 (rich text rebuilt: H3 50ed1fc8… + P, stray break removed, 'database you own'), integrations H2, table H2 and subheading, how-to s1/s3.
+Form hub: H1, cards heading/subheading/card1/card2, features heading, F2 (H3 30445a1a… rebuilt), table subheading, how-to heading and s1, table v3 (Google Forms 'No limit').
+AAB hub: H1, cards heading/subheading/card1/card2, features heading, F4/F6 (H3 0cfa8ba1… / 74a0490b… rebuilt), how-to heading and s3, CTA, integrations H2, table H2 and subheading, table v3.
+Deleted the hidden duplicate carousel 86e5ccd1-891e-bb61-1762-8591adc90744.
+Rich-text method: set the prop to plain text (the paragraph), then data_element_builder prepends an H3 into {page, instance, prop}. set_text on inner rich-text elements returns "Element not found".
