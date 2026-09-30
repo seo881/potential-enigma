@@ -138,3 +138,9 @@ How-to IDs: title 9fdc6a4a5b6adeff1ba323b2b693eb89 · desc 28af26808a77e039c6c4a
 SQB new fields: s5 3bb393c2a3e24ed2a218d1c713d8c271/42c13fbd6dcfc4d02c26c88b1c9ea9a5 · s6 ed47e57f9f2ec43842b247d1d105304a/3785563adcc43bfd8ce426be1dbd58f6 · s7 3e0584ddd03c0f0f7d75cb68f30cbd84/c04014d6d7981ae310cf7539482808a0.
 Item written. Template: 7-step instance dea4db77-0ba0-cbea-43fd-598cf3ce42a6 bound (16 props). Old 4-step ba847d5e-…-f776 removed.
 Carousels hidden (set_visibility false; re-show = true): templates AAB cadd555f-…-d9f6, LP d8a90b8f-…-8951, Form 24cd8ebc-…-667c, SQB ba847d5e-…-f7f6; hubs acd0c79f-f838-9a2e-53c7-b22c5244fdb6 on all 4.
+
+## #2 LP collection 6aaaa937fe1a8d180b7c9f83 (60/60). Deleted empty legacy fields (null on item 6ab5158e…):
+0dcf913c44f42e4a3669ddb9a22796d8 MultiRef "ALPB - CRM by Industry"→6a3a6bea… · d3ef4366695e67b644d4c5aad9d63278 RichText "ALPB - CRM by Industry Copy" ·
+8ae4a8e4cc55d4614bf41df58d2de663 MultiRef "ALPB - CRM by Department"→6a3a6bea… · 826c840f592e53f3fbbfcf0301398cf8 RichText "ALPB - CRM by Department Copy" ·
+96709b1f06a85f9ebd8aedb2d7e4fb90 MultiRef "ALPB - CRM by Business Size"→6a3a6bea… · d0bc576a2f94588569de5f803ac15f28 RichText "ALPB - CRM by Business Size Copy"
+How-to IDs: title c28f71edc04afa0fa4fc37a6a3c716a4 · desc 4de413a8c3610b205c5ac7125c7e230b · s1 49f7275532a620b28e9efe2b02acbc15/a3b20b4fa5f80fc2c1724e2e358092d6 · s2 195967de079efc676d9b927a72d8b927/b90382acc0f8040d8ea600a7096c21ad · s3 c654a2b122fbd0403e1118b534c86f12/6d96a37632edfef9d432a5f916c98bfa · s4 2faccaf2e6779fb7452b60a46dcf1058/aebe9fae7686a9e780c6af3b9d993738
