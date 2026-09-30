@@ -95,3 +95,11 @@ Rows kept (Emergent beats all 3 named competitors):
 - LP: How you build / Where submissions go / Visitor limits / A/B testing / Code ownership
 - Form: How you build / Response limits / Where responses live / Payments in the form / Code ownership
 Next: child items' acrm---why-emergent-table → same 5-row table as their hub (originals to be saved first). Then #2, the 7-step how-to.
+Child tables (acrm---why-emergent-table), isDraft still true on every item:
+- AAB approval-workflow 6aba7ac4…: now the AAB hub 5-row table (original in tables/aab_child_original.html).
+- SQB customer-satisfaction 6aba7afb…: now the SQB hub 5-row table (original in tables/sqb_child_original.html).
+- LP thank-you-page and Form creator-application: pending (back up first, then update).
+Rollback: write the saved original HTML back into the field.
+#2 plan: the hubs use component "Global / Sticky List" 9730644b-cdbc-73d2-8383-ad695f602395, with props Heading, How to create desc, HW_Step_01..07 Title/des (step 7 des = "Text").
+The child templates use "Global / Sticky List (Icons)" 7a11ed6a… (4 steps).
+There are 6 empty legacy CRM fields per collection (acrm---crm-builder, -by-industry-copy, -by-department, -by-department-copy, -by-business-size, -by-business-size-copy), null on the items. They free exactly the 6 slots needed for steps 5–7.
