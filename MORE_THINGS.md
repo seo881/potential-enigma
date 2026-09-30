@@ -1,0 +1,31 @@
+# "More things you can build" component (b4a27b0c-2847-3338-522f-2cf9e51e2671), edited 2026-09-30 at Divit's request
+This is a component-definition edit. It affects every instance: the Testing page, the 4 child templates, and the hubs once they're placed. No classes were modified.
+
+## Why the dashed divider misaligned
+hub-card is a flex column and hub-card_links has margin-top:auto plus a dashed border-top, so the list is pinned to the card bottom. The divider only moved because some labels wrapped to 2 lines (e.g. "Project Management Web App Builder", 255px against about 169px available at a 992px viewport).
+Fix: every label is now one line. I measured with Inter at 14/500 +4%; the worst new label is under 169px, so dividers align at every width.
+
+## Labels (text block id → OLD → NEW); all in the component, links/hrefs unchanged
+2687 Portfolio Website Builder → Portfolio website | 268b eCommerce Website Builder → Ecommerce website | 268f Restaurant Website Builder → Restaurant website
+26a4 Food Delivery App Builder → Food delivery app | 26a8 Fitness App Builder → Fitness app | 26ac Ecommerce App Builder → Ecommerce app
+26c1 Project Management Web App Builder → Project management | 26c5 Booking Web App Builder → Booking system | 26c9 Inventory Management Web App Builder → Inventory management
+26de SaaS CRM Builder → CRM platform | 26e2 Project Management SaaS Builder → Project management | 26e6 HR Management SaaS Builder → HR management
+26fb KPI Dashboard Builder → KPI dashboard | 26ff Sales Management Dashboard Builder → Sales dashboard | 2703 Executive Dashboard Builder → Executive dashboard
+2718 Sales CRM Builder → Sales CRM | 271c Real Estate Investor CRM Builder → Investor CRM | 2720 Small Businesses CRM Builder → Small business CRM
+2735 Customer Support Agent Builder → Support agent | 2739 Lead Generation Agent Builder → Lead generation agent | 273d (old not captured) → Recruiting agent
+2752/2756/275a (old not captured) → Employee scheduling / Appointment booking / Shift scheduling
+276f/2773/2777 (old not captured) → Support chatbot / Ecommerce chatbot / Real estate chatbot
+All ids are prefixed b4a27b0c-2847-3338-522f-2cf9e51e…
+
+## View-all (2693, 26b0, 26cd, 26ea, 2707, 2724, 2741, 275e, 277b): "View all N+ pages" → "View all pages". Each links to that builder's hub page.
+
+## Descriptions (paragraph id: OLD → NEW)
+2681 Build and publish responsive websites with AI, from landing pages to complete websites. → Responsive websites from a prompt, from a single page to a full site.
+269e Create and launch mobile apps with AI, without the complexity of traditional app development. → Mobile apps for iOS and Android, built and launched from a prompt.
+26bb Build and ship fully functional web apps with custom interfaces, logic, and workflows. → Web apps with real logic, data, and workflows, built from a prompt.
+26d8 Build complete SaaS products with user accounts, subscriptions, dashboards, and core product workflows. → SaaS products with accounts, subscriptions, and dashboards built in.
+26f5 Create interactive dashboards to visualize data, track KPIs, and manage business operations. → Live dashboards for your data, KPIs, and day-to-day operations.
+2712 Build custom CRMs for managing contacts, leads, pipelines, campaigns, and automated workflows. → A CRM built around your contacts, pipeline, and workflows.
+272f Create AI agents that can understand tasks, use tools, automate workflows, and work across your business. → AI agents that take on tasks, use your tools, and run workflows.
+274c Build scheduling and booking systems that automate calendars, shifts, and reminders. → Scheduling and booking systems with calendars, shifts, and reminders.
+2769 Build AI chatbots trained on your content and deploy them on your site or any channel. → Chatbots trained on your content, live on your site or any channel.

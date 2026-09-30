@@ -77,3 +77,8 @@ Child templates, final order: … use-case → Integrations banner → how-to �
 | SQB 6ab24754… | 5c72ca2f-163a-601c-4a59-6b9105560546 | 3f0bd7d6-1a7d-182c-8bc8-fbf5525487f6 | how-to …f776 before §11 …f779; FAQ 8dd08c41-…-60d5 after carousel …f7f6 |
 Rollback per template: remove the 2 instances. Moving how-to/FAQ back is optional, since their relative order to everything else is unchanged.
 Hubs: pending.
+
+## 12 tiles (2026-09-30): added PayPal (6aba3de2…), Asana (6aba3df7…), Calendly (6aba3dd3…), Twilio (6aba3e18…) inside the component grid 088920eb-…-a061.
+New tiles: d58d13fe-783e-fc40-43ed-07c671c1b841, 4e97ea69-473d-1b9f-513e-bba3f3465529, 38d06748-70be-50cd-2df5-363769bbfd97, 7719d814-4813-20dc-1e9f-e3ebca669918.
+Compact sizing: tile aspect-ratio auto, padding 1rem/0.875rem, radius 10px; logo 1.875rem; name 0.8125rem nowrap; grid gap 0.625rem. Grid is 4 across on desktop, 6 on tablet, 3 on mobile.
+Rollback: remove the 4 tiles; restore tile aspect-ratio 1/1, radius 12px, logo 2.5rem, name 0.9375rem.
