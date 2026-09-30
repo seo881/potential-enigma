@@ -147,3 +147,9 @@ How-to IDs: title c28f71edc04afa0fa4fc37a6a3c716a4 · desc 4de413a8c3610b205c5ac
 LP new fields: s5 e73ce29ddb08e691f339bf9a99005bbb/57ac21b0bfa570789ba53f45ef12251b · s6 0e9b13e5739c5daee9cb14ee707e9a1d/3d00912aaa5602816a0b1a6150c6daf6 · s7 a103770e20acff5702a2234230e95031/18cf25dbbc9c424a01c062ad11a9aa62.
 Item written. Template: 7-step instance b7085709-325c-47dc-df0a-304a4712fd03 bound. Old 4-step d8a90b8f-…-889e removed.
 Old component (7a11ed6a) prop map for rollback: Heading 4c013f09-d562-429e-f453-63642abe1dce · Description 814c6b86-8204-6aba-cd7b-21f46c8c67e7 · Button Text 347ff1a5-c4f3-70f8-415d-b3a05dad6fd2 = "" · Item1 T/D 92ad76ac-df81-893b-73d7-9d07bbc23a77/5c984d17-9685-bff1-35e0-f6b1f29d5b10 · Item2 1ad46bed-d2d8-5fae-b0e1-a1118873723e/48401fd1-a63f-6280-9f91-1514a5996721 · Item3 2bd8d76e-e8a5-d83e-f0c8-5eff6bcad1f3/8be0e9ca-0ae4-d475-039d-9d421e904ccb · Item4 777be265-0fcf-e885-eb10-29991a15e73d/dec646ad-9e0c-1948-e11c-3daff88dc0ed
+
+## #2 Form collection 6aaaaa02995bb2f9f4d6a36c (60/60). Deleted empty legacy fields (null on item 6ab505a8…):
+c503633e51ff866d297ae9192f719b51 MultiRef "AFB - CRM by Industry"→6a3a6bea… · 6a983a11eba22ed98c997a575f0cd497 RichText "AFB - CRM by Industry Copy" ·
+3454c64517fc23af007d5e041056dc13 MultiRef "AFB - CRM by Department"→6a3a6bea… · e37915dc6c4a504b6d16ba9efbabd57d RichText "AFB - CRM by Department Copy" ·
+5affefb84c122f2820e04e57493df6e2 MultiRef "AFB - CRM by Business Size"→6a3a6bea… · b7c41d607104672dee2c6cd0c3793511 RichText "AFB - CRM by Business Size Copy"
+How-to IDs: title d2413f0b0ac05bf62d65f1b220134004 · desc 82ab5f20e6de29638473cb93059ad2ef · s1 4dc3402cb2a7a71da6a47893fd99aec5/d69654c05c0436788fe0e76f64155420 · s2 f1db675b17168dba619141a4302e4150/8c412bfcd13e68402c2517380f4b7d7c · s3 69a7c39b26009edaa6d6000968b671be/e69f9290fb5fb5bd5b60163d1561209e · s4 a3dccf9cdad7dc5dbdf79f99255a1a4c/63e20e804dc9695448f76c9d9471dc48
