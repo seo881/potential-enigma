@@ -157,3 +157,13 @@ Form new fields: s5 5b21258793f4329034e5dd9a6758f989/fdc670f42483427bc293fd6e263
 Item written. Template: 7-step instance b70d6134-eec6-21c1-3d15-d3927acaff22 bound. Old 4-step 24cd8ebc-…-65c9 removed.
 Verified the SQB template has only dea4db77 (the new one).
 #2 COMPLETE on all 4 templates: 7-step "Global / Sticky List" CMS-bound, fade i-da197b65 on the 8 pages. Hubs already use this component.
+
+## 19:3x IST: comparison CTA + positive table phrasing
+Template comparison CTA ("Global / Table Comparison" cba0e5d1, prop Button Text 9a6d9caf-c294-2a9c-f81e-dc8d19dc65c1) was empty; it is now CMS-bound to explore-cta:
+AAB instance cadd555f-…-d9d8 → 9a1fda497a5b6155b47e5e40585b7546 · SQB ba847d5e-…-f7d8 → 380d92718921afecb6e98fbc13a5b9dd · LP d8a90b8f-…-8900 → 6ad11e8fe33f02f6fb6898e23d2ec8d5 · Form 24cd8ebc-…-662b → 51414cb4a8a55e8270ba9b781c897bff.
+Rollback: set Button Text to "".
+Hub table CTAs already had text: Build My Landing Page / Form / Automation / Survey.
+Tables v2 (Emergent cells only): Form and SQB Response limits "None"→"Unlimited"; SQB Behavior at cap "No cap"→"Keeps collecting, no cap"; AAB "No task or execution cap"→"Keeps running, no task cap".
+Applied to the 3 hub embeds (fd1c2c5f…) and 3 child items (6ab505a8…, 6aba7afb…, 6aba7ac4…).
+v1 is kept in tables/*_hub_5row_v1.html. LP is unchanged ("No per-visitor pricing" was Divit-approved).
+Related articles: LP and Form hubs sort newest first; AAB and SQB hubs sort oldest first (the sort prop is not settable by API, so this is a Designer fix). Templates show newest site-wide.
