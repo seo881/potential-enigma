@@ -153,3 +153,7 @@ c503633e51ff866d297ae9192f719b51 MultiRef "AFB - CRM by Industry"→6a3a6bea… 
 3454c64517fc23af007d5e041056dc13 MultiRef "AFB - CRM by Department"→6a3a6bea… · e37915dc6c4a504b6d16ba9efbabd57d RichText "AFB - CRM by Department Copy" ·
 5affefb84c122f2820e04e57493df6e2 MultiRef "AFB - CRM by Business Size"→6a3a6bea… · b7c41d607104672dee2c6cd0c3793511 RichText "AFB - CRM by Business Size Copy"
 How-to IDs: title d2413f0b0ac05bf62d65f1b220134004 · desc 82ab5f20e6de29638473cb93059ad2ef · s1 4dc3402cb2a7a71da6a47893fd99aec5/d69654c05c0436788fe0e76f64155420 · s2 f1db675b17168dba619141a4302e4150/8c412bfcd13e68402c2517380f4b7d7c · s3 69a7c39b26009edaa6d6000968b671be/e69f9290fb5fb5bd5b60163d1561209e · s4 a3dccf9cdad7dc5dbdf79f99255a1a4c/63e20e804dc9695448f76c9d9471dc48
+Form new fields: s5 5b21258793f4329034e5dd9a6758f989/fdc670f42483427bc293fd6e26335966 · s6 615efe57dbf7ba1fa0916986bf1fd84d/5644adcbdc973f399d0912c9df2dc02b · s7 8363dcf441d51bc3f1321ccb6b22628a/509a8094688868d773bcb94e00ef5e0f.
+Item written. Template: 7-step instance b70d6134-eec6-21c1-3d15-d3927acaff22 bound. Old 4-step 24cd8ebc-…-65c9 removed.
+Verified the SQB template has only dea4db77 (the new one).
+#2 COMPLETE on all 4 templates: 7-step "Global / Sticky List" CMS-bound, fade i-da197b65 on the 8 pages. Hubs already use this component.
