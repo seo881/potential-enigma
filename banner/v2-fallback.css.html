@@ -1,0 +1,12 @@
+<style>
+/* Integrations banner: slow aurora drift behind the content. GPU-only (transform), paused for reduced-motion users. */
+@keyframes int-glow-a { 0% { transform: translate3d(0, 0, 0) scale(1); } 50% { transform: translate3d(9rem, 4rem, 0) scale(1.12); } 100% { transform: translate3d(2rem, 7rem, 0) scale(0.96); } }
+@keyframes int-glow-b { 0% { transform: translate3d(0, 0, 0) scale(1); } 50% { transform: translate3d(-8rem, -5rem, 0) scale(1.1); } 100% { transform: translate3d(-3rem, -9rem, 0) scale(0.95); } }
+.int-banner_glow.is-violet { animation: int-glow-a 22s ease-in-out infinite alternate; }
+.int-banner_glow.is-blue { animation: int-glow-b 26s ease-in-out infinite alternate; }
+.int-banner_tile:hover .int-banner_logo { transform: scale(1.1); }
+@media (prefers-reduced-motion: reduce) {
+  .int-banner_glow { animation: none !important; }
+  .int-banner_tile, .int-banner_logo, .int-banner_button { transition: none !important; }
+}
+</style>
