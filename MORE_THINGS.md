@@ -122,3 +122,10 @@ Deleted legacy CRM fields, all empty on the only item (verified 6aba7ac4… fiel
 - f2affcfca32190651a007bad95ccd065 RichText "AATB - CRM by Business Size Copy" slug acrm---crm-by-business-size-copy
 Rollback: recreate the same types and names (no data to restore).
 Existing how-to field IDs: title 580544c71e663a5c30a43f28fb6838c9 · desc a3204871b4f124e19c027bfb65637cd6 · s1 893d6562e86409d721a7f3bc8d4a4de6/1f053b64d3c135de478636e65259bbb6 · s2 315e39e322936054194b9e4b47671c6a/f55a95da465e6d1d7acfee38ab4ccb12 · s3 86cf60a12dd1bc90885539ca4a1126c3/4f6c04cd43b23eafc2e0a5dac06dfdbb · s4 be91f7c10d3a4649967d40b8b1a61dc1/5e75052ea5f0de70e63bf07b40c87dad
+New AAB how-to fields: s5 title 3ca34f47cd33444ef7cd6fa8608048c9 / des 113e018f984bf8bd6e0bc722caf36b99 · s6 d56fbcd7fac45d50b27b86126bc5ff33 / 4338b339cf27c14e3fa3388c06aa8282 · s7 fd9a45567c75fea2bbb0195b066546a0 / ddf874a6e18508351f116c91799944d1 (slugs aatb---how-to-step-5..7-title/des).
+Item 6aba7ac4…: how-to title, desc and steps 1–7 written from howto/howto7.json. Old step 1–4 copy is in the item backup read at 18:3x (see transcript).
+AAB template: inserted "Global / Sticky List" 9730644b instance 51b2669c-ced8-5bdb-bb3b-f27864048814 (before hidden §11, i.e. right after the banner).
+All 16 props are CMS-bound. Removed the old "Global / Sticky List (Icons)" instance cadd555f-…-d976 (instances cannot be hidden).
+Rollback: remove 51b2669c; insert 7a11ed6a-ab12-c739-dba4-4e0c0eca1e46 before §11 and bind Heading→580544c7, Description→a3204871, Item1-4 Title/Description→s1-4 fields, Button Text "".
+Fade: new IX3 i-da197b65 "Build hubs / 7-step how-to comes into focus". It copies i-dcb777ac but targets .sticky_list-item (471c3d25-01b0-ba09-6099-51e9ae643e5b); scope is the 8 pages.
+Only one scroll trigger is allowed per interaction, hence the twin. Rollback: delete i-da197b65.
