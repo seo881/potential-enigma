@@ -56,3 +56,10 @@ Tile names fixed via the element text setting (the nested build had left placeho
 IX3: i-91daba51 "Build hubs / Integrations banner reveal", scope = 4 hubs + 4 templates. Scroll trigger on .int-banner at top 85%: card opacity 0→100, y 48→0, scale 0.98→1 (1.0s, expo.out); tiles opacity 0→100, y 18→0 (0.7s, position 0.3, stagger 0.06). Reduced motion: off; tiny/small: skip to end.
 Rollback: delete i-91daba51; remove the 3 elements above; remove the 3 glow styles.
 Logos: all 8 assets are SVG (resolution-independent).
+
+## v3 "turned up" (2026-09-30, for review; v2 kept as fallback in banner/v2-fallback.*)
+- Embed 52c0f5c4-… now holds banner/v3-turned-up.css.html: 3 aurora glows on 14s/17s/20s loops with wide drift, a 28s rotating sheen (::before), grain overlay (::after), lilac shimmer sweeping the H2 every 9s, gradient ring on tile hover/focus.
+- New elements in the card: glow cyan c6b19274-a294-7d41-374f-1dd982c6dea1 (is-cyan 3809bb5a-…), spotlight 225f795a-3e21-2d99-e6f7-d79987e358f5 (is-spot f2a074cd-…).
+- Style tweaks (our classes only): int-banner_glow mix-blend-mode screen; is-violet/is-blue stronger; int-banner_tile position relative + isolation.
+- IX3 i-1e93bc94 "Build hubs / Integrations banner cursor spotlight": mouse-move on .int-banner moves the spotlight (xPercent −120→120, yPercent −90→90, smoothness .85). Desktop only; reduced motion off. Scope: 4 hubs + 4 templates.
+Rollback to v2: see banner/v2-fallback.md (set embed code back, remove the 2 elements + 2 combos, delete i-1e93bc94, drop mix-blend-mode/isolation).
