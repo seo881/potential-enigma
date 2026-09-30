@@ -174,3 +174,11 @@ Form hub: H1, cards heading/subheading/card1/card2, features heading, F2 (H3 304
 AAB hub: H1, cards heading/subheading/card1/card2, features heading, F4/F6 (H3 0cfa8ba1… / 74a0490b… rebuilt), how-to heading and s3, CTA, integrations H2, table H2 and subheading, table v3.
 Deleted the hidden duplicate carousel 86e5ccd1-891e-bb61-1762-8591adc90744.
 Rich-text method: set the prop to plain text (the paragraph), then data_element_builder prepends an H3 into {page, instance, prop}. set_text on inner rich-text elements returns "Element not found".
+SQB hub: H1, subhead, cards heading/card1/card3, features heading, F2/F3 (H3 42559f39… / 273c1c0b… rebuilt), how-to s1, integrations H2, table H2 and subheading, table v3 (Interact).
+Deleted the hidden duplicate carousel 86e5ccd1….
+FAQs (collection 6a1985ab…): 8 answers updated (Form 1, AAB 4, SQB 3). Originals in audit/faq_rollback.json. The items are published, so the edits stage until the next site publish.
+Child tables v3 synced: AAB 6aba7ac4…, SQB 6aba7afb…, Form 6ab505a8… (all still isDraft true).
+Meta titles set: "Free AI Landing Page Builder: Live in Minutes | Emergent" · "Free AI Form Builder With Unlimited Responses | Emergent" · "Workflow Automation Software With No Task Caps | Emergent" · "Free AI Survey Maker, Quiz Maker & Poll Maker | Emergent". The LP page name is now "AI Landing Page Builder".
+Schema rebuilt on all 4 hubs: Organization + WebSite + WebPage (new name, isPartOf) + FAQPage (live answers, word for word) + BreadcrumbList.
+NOT touched: sitewide components (section_stats, Global/Pricing). Standing rule: never.
+PENDING (Designer only, API can't set Sort): the related-articles sort on the AAB and SQB hubs → Publishing date, Descending.
