@@ -75,3 +75,10 @@ Rollback: remove the embed.
 - 768–991px: clamp(11px, 2.8vw − 8.8px, 14px).
 - ≤767px: clamp(11px, 5.6vw − 8.1px, 14px).
 nowrap stays, with an ellipsis safety.
+
+## 18:2x IST: final revisions
+#1 Gap under the hero: new combo section_ai-hero.is-tight-bottom b9f6808f-d24f-8186-40bf-707a092cbdd7 (pb 2.5rem / tablet 2rem / mobile 1.5rem; the base class is 12/10/8/6rem).
+Applied to the template heroes only: AAB cadd555f-…-d7cb, LP d8a90b8f-…-872b, Form 8722ef76-…-6799, SQB ba847d5e-…-f5cb.
+Rollback: set their classes back to [section_ai-hero].
+#3 Hub tables are hub-specific with named competitors (AAB: Zapier/Make/n8n; SQB: SurveyMonkey/Typeform/Interact). Hub embed fd1c2c5f-bfde-ed88-6f57-20e4ef04369f.
+Proposed: per hub family, 5 rows chosen from the hub table, shared by the hub and all its child pages. Awaiting Divit.
