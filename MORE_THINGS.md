@@ -47,3 +47,25 @@ The card padding is 1.5rem at every breakpoint (verified), so the full-bleed mat
 | Chatbot 2761 | 7a1f54b6-7419-b52c-2681-2dd1f556e9de | 6abcededc2678fd8ec1356dc |
 The icon wraps (267a, 2697, 26b4, 26d1, 26ee, 270b, 2728, 2745, 2762) now carry [hub-card_icon-wrap, is-on-cover].
 Rollback: remove the 9 images; set the icon wraps back to [hub-card_icon-wrap].
+
+## Anchors + links v2 (2026-09-30 ~17:35 IST), per Sannivas's URL list + the Top Pages sheet; every destination verified live in its CMS collection first
+| Card | Anchor text | href |
+|---|---|---|
+| Website | Portfolio Website Builder · Ecommerce Website Builder · 3D Website Builder | /ai-website-builder/portfolio · /ecommerce · /3d (replaces restaurant) |
+| App | Ecommerce App Builder · Game App Builder · Cryptocurrency Wallet App Builder | /ai-app-builder/ecommerce · /game · /cryptocurrency-wallet |
+| Web App | Progressive Web App Builder · Python Web App Builder · Gaming Web App Builder | /ai-web-app-builder/progressive · /python · /gaming |
+| SaaS | SEO SaaS Builder · Healthcare SaaS Builder · Marketing Automation SaaS Builder | /ai-saas-builder/seo · /healthcare · /marketing-automation |
+| Dashboard | SEO Dashboard Builder · Marketing Dashboard Builder · KPI Dashboard Builder | /ai-dashboard-builder/seo · /marketing · /kpi |
+| CRM | Marketing CRM Builder · Startup CRM Builder · Customer Support CRM Builder | /ai-crm-builder/marketing · /startups · /customer-support |
+| Agent | SEO Agent Builder · Voice Agent Builder · Marketing Agent Builder | /ai-agent-builder/seo · /voice · /marketing |
+| Schedule | Social Media Scheduler Builder · Course Schedule Planner Builder · Class Schedule Builder | /ai-schedule-builder/social-media · /course · /class |
+| Chatbot | Lead Qualification Chatbot Builder · Customer Support Chatbot Builder · HR Chatbot Builder | /ai-chatbot-builder/lead-qualification · /customer-support · /hr |
+Previous hrefs (for rollback): website portfolio/ecommerce/restaurant; app food-delivery/fitness/ecommerce; web app project-management/booking/inventory-management; saas crm/project-management/hr-management; dashboard kpi/sales-management/executive; crm sales/real-estate-investor/small-business; agent customer-support/lead-generation/recruiting; schedule employee/appointment/shift; chatbot customer-service/ecommerce/real-estate.
+
+One-line guarantee: embed f11a368f-b61f-71b3-3a28-0292c126a76b (class hide) inside the component, scoped to .hub-cards_section:
+- nowrap on links, with an ellipsis safety on the label.
+- 992–1199px: the grid goes to 2 columns.
+- 1200–1279px and ≤991px: 13px labels with 14px side padding.
+- ≤479px: 12.5px labels.
+Measured: the longest label (Marketing Automation SaaS Builder) is 242px at 14px. Text room: 252px at 1280 (3 columns), 230px at 768 (2 columns, 13px = 224), 220px at 360 (12.5px = 216).
+Rollback: remove the embed.
