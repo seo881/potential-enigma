@@ -43,3 +43,16 @@ Old orbit banners to be hidden, not deleted:
 
 ## Schema cleanup the same session
 The 4 runtime schema embeds were removed after the Designer-pasted Schema markup was verified (rawJsonLdSchema, reference token format). The code is kept in schema/page-schema.html.
+
+## v2 motion layer (2026-09-30)
+Inside the card (4055660b-a8da-dbaf-69db-e7952697d8c9) on the AI Automation Builder template:
+- motion embed (class hide) 52c0f5c4-f170-c2de-7712-11d0d82958e5: keyframes int-glow-a / int-glow-b, tile-hover logo scale, prefers-reduced-motion off switch
+- glow violet 06c7abc7-0ef5-95b9-61b6-a52fc338f31c (int-banner_glow + is-violet)
+- glow blue 7abbc50e-044d-17d7-fdee-2a28b103b143 (int-banner_glow + is-blue)
+New styles: int-banner_glow d693edfe-1dba-1df1-cee1-d6385700383d, combos is-violet b6f10776-2532-d934-86a0-2bac2d5fa0c7 and is-blue 7775e5e7-1600-a136-437a-543feb107363.
+Updated (our own classes only): int-banner (position relative, overflow hidden, isolation), int-banner_content and int-banner_grid (z-index 2), int-banner_logo (transition).
+Tile names fixed via the element text setting (the nested build had left placeholder text).
+
+IX3: i-91daba51 "Build hubs / Integrations banner reveal", scope = 4 hubs + 4 templates. Scroll trigger on .int-banner at top 85%: card opacity 0→100, y 48→0, scale 0.98→1 (1.0s, expo.out); tiles opacity 0→100, y 18→0 (0.7s, position 0.3, stagger 0.06). Reduced motion: off; tiny/small: skip to end.
+Rollback: delete i-91daba51; remove the 3 elements above; remove the 3 glow styles.
+Logos: all 8 assets are SVG (resolution-independent).
