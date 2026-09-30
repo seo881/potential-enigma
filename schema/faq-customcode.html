@@ -1,0 +1,19 @@
+<script>
+/* Emergent build hubs: FAQPage JSON-LD from window.awbFAQ, the same data the FAQ accordion renders. */
+(function () {
+  function run() {
+    if (document.getElementById('awb-faq-jsonld')) return;
+    var f = window.awbFAQ, rx = /\[([^\]]+)\]\(([^)]+)\)/g;
+    var qs = (f && Array.isArray(f.items) ? f.items : []).filter(function (i) { return i && i.q && i.a; }).map(function (i) {
+      return { '@type': 'Question', 'name': String(i.q).trim(),
+               'acceptedAnswer': { '@type': 'Answer', 'text': String(i.a).replace(rx, '<a href="$2">$1</a>').trim() } };
+    });
+    if (!qs.length) return;
+    var s = document.createElement('script');
+    s.type = 'application/ld+json'; s.id = 'awb-faq-jsonld';
+    s.text = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': qs });
+    document.head.appendChild(s);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+})();
+</script>
