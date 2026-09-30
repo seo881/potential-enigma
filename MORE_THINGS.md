@@ -111,3 +111,14 @@ The stats and features sections both use the same section-padding var top and bo
 - Hubs: added to the existing hub embeds (b8a2c5a1…, 25e43d56…, 3b7963ef…, 9dd01394…).
 - Templates: new embeds (class hide, prepended to main-wrapper): AAB 42aee989-7399-cdba-6b8a-e6b43970f486 · LP cd6dd4bb-f02c-fece-484d-ed9f5dde5dcc · Form 33851df7-d88d-1492-6f50-7c340f86f0b2 · SQB 46520f82-686f-e070-d13f-57167c417482.
 Rollback: remove the line or the embed.
+
+## #2 fields: AI Automation Builder collection 6ab2470540448c8f7d1ccbf0 (was 60/60)
+Deleted legacy CRM fields, all empty on the only item (verified 6aba7ac4… fieldData = null for all six), with no template binding:
+- e539899bc3a5fbab16a79480da5bbaaa MultiReference "AATB - CRM by Industry" slug acrm---crm-builder → CRM builder coll 6a3a6beafcbf2114d556f4f4
+- c7ca5e325fecd9527ed42253cd8fb5bc RichText "AATB - CRM by Industry Copy" slug acrm---crm-by-industry-copy
+- 26cdea0f3ad0f21d289ab36ac2b38c4d MultiReference "AATB - CRM by Department" slug acrm---crm-by-department → 6a3a6beafcbf2114d556f4f4
+- b99f8d98a32528409e9640bb5e8faa2d RichText "AATB - CRM by Department Copy" slug acrm---crm-by-department-copy
+- 851802d657fe95a3d4318bd72bc2e4dd MultiReference "AATB - CRM by Business Size" slug acrm---crm-by-business-size → 6a3a6beafcbf2114d556f4f4
+- f2affcfca32190651a007bad95ccd065 RichText "AATB - CRM by Business Size Copy" slug acrm---crm-by-business-size-copy
+Rollback: recreate the same types and names (no data to restore).
+Existing how-to field IDs: title 580544c71e663a5c30a43f28fb6838c9 · desc a3204871b4f124e19c027bfb65637cd6 · s1 893d6562e86409d721a7f3bc8d4a4de6/1f053b64d3c135de478636e65259bbb6 · s2 315e39e322936054194b9e4b47671c6a/f55a95da465e6d1d7acfee38ab4ccb12 · s3 86cf60a12dd1bc90885539ca4a1126c3/4f6c04cd43b23eafc2e0a5dac06dfdbb · s4 be91f7c10d3a4649967d40b8b1a61dc1/5e75052ea5f0de70e63bf07b40c87dad
