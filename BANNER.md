@@ -63,3 +63,17 @@ Logos: all 8 assets are SVG (resolution-independent).
 - Style tweaks (our classes only): int-banner_glow mix-blend-mode screen; is-violet/is-blue stronger; int-banner_tile position relative + isolation.
 - IX3 i-1e93bc94 "Build hubs / Integrations banner cursor spotlight": mouse-move on .int-banner moves the spotlight (xPercent −120→120, yPercent −90→90, smoothness .85). Desktop only; reduced motion off. Scope: 4 hubs + 4 templates.
 Rollback to v2: see banner/v2-fallback.md (set embed code back, remove the 2 elements + 2 combos, delete i-1e93bc94, drop mix-blend-mode/isolation).
+
+## Rollout (2026-09-30), approved v3
+Banner converted to component "Build hubs / Integrations banner" 088920eb-03f5-b79b-e93c-585301aaa052 (group Build hubs). The source section on the AI Automation Builder template was replaced by its first instance.
+New component placed from the dev's "More things you can build" b4a27b0c-2847-3338-522f-2cf9e51e2671 (group Hub Cards, 9 card visibility props, all default on).
+
+Child templates, final order: … use-case → Integrations banner → how-to → old §11 (section_build-hub) → comparison → related → pricing → carousel → FAQ → More things you can build → CTA.
+| Template | Banner instance | More things instance | Moves made (rollback = move back) |
+|---|---|---|---|
+| LP 6aaaa937… | d9fcd0f1-d027-8915-7d85-ab0505644e8f | b1c79508-8de4-dc8f-93ab-d5f750df25d8 | how-to …889e before §11 …88a1; FAQ 0bc02375-…-911c after carousel …8951 |
+| Form 6aaaaa03… | 6e369d69-9cc7-35a9-8c66-f739e7cc1db7 | 762a301c-5955-e42a-b4f9-01abfb74e948 | how-to …65c9 before §11 …65cc; FAQ 734e06be-…-9bb0 after carousel …667c |
+| AAB 6ab24705… | (converted source instance) | 67729791-12bd-aa85-0c54-5986aa1813ad | FAQ 57af2551-…-d9a8 after carousel …d9f6 |
+| SQB 6ab24754… | 5c72ca2f-163a-601c-4a59-6b9105560546 | 3f0bd7d6-1a7d-182c-8bc8-fbf5525487f6 | how-to …f776 before §11 …f779; FAQ 8dd08c41-…-60d5 after carousel …f7f6 |
+Rollback per template: remove the 2 instances. Moving how-to/FAQ back is optional, since their relative order to everything else is unchanged.
+Hubs: pending.
