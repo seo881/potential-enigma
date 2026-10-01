@@ -205,3 +205,6 @@ Hero prompt box: the same "Build page hero" component as the live builder hubs, 
 Copy is in features/feats.json. Titles are 22-38 chars and wrap-checked at 24 chars/line (stricter than the live render), so all are 1-2 lines. Bodies are 165-184 chars, spread 10-13 per hub. No em dashes.
 Method: set the rich-text prop to the paragraph, then prepend an H3 (no class, same as the original). Read back on all 4 hubs: 6 x (title + paragraph).
 The SQB titles were missing for a short time (the builder call was not approved on the first attempt); restored.
+2026-10-01: child explore-cta switched to first person to match the hubs (all still isDraft true).
+"Build My Approval Workflow" / "Build My Customer Satisfaction Survey" / "Build My Thank You Page" / "Build My Creator Application Form".
+Previous values: "Build Your …".
