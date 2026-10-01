@@ -200,3 +200,8 @@ Em dashes removed (full rescan of hub copy, components, FAQs):
 Card copy levelled (titles 32-41 chars = 2 lines; bodies within 12 chars per hub): cards/cards.json. Originals are in the transcript reads of 2026-10-01.
 Card image-above-text: page-level CSS in the 4 hub embeds (b8a2c5a1, 25e43d56, 3b7963ef, 9dd01394) flex-column + order. The shared component 763a7c4c is untouched. Rollback: remove the 3 card lines.
 Hero prompt box: the same "Build page hero" component as the live builder hubs, with props only. Component internals are not API-readable, so Divit to confirm in Preview.
+
+## 2026-10-01 features grid levelled on 4 hubs (section_features instance 7a732eca-…; component untouched)
+Copy is in features/feats.json. Titles are 22-38 chars and wrap-checked at 24 chars/line (stricter than the live render), so all are 1-2 lines. Bodies are 165-184 chars, spread 10-13 per hub. No em dashes.
+Method: set the rich-text prop to the paragraph, then prepend an H3 (no class, same as the original). Read back on all 4 hubs: 6 x (title + paragraph).
+The SQB titles were missing for a short time (the builder call was not approved on the first attempt); restored.
