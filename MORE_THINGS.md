@@ -182,3 +182,10 @@ Meta titles set: "Free AI Landing Page Builder: Live in Minutes | Emergent" · "
 Schema rebuilt on all 4 hubs: Organization + WebSite + WebPage (new name, isPartOf) + FAQPage (live answers, word for word) + BreadcrumbList.
 NOT touched: sitewide components (section_stats, Global/Pricing). Standing rule: never.
 PENDING (Designer only, API can't set Sort): the related-articles sort on the AAB and SQB hubs → Publishing date, Descending.
+
+## 2026-10-01 pre-launch QA (4 hubs)
+Interactions: all 9 build-hub IX3 present, scopes correct (use-case reveal/tilt on templates only; the rest on the 8 pages). Sitewide i-c9cb180a has showMarkers:true (NOT ours, not touched; Webflow renders markers in Designer/preview only).
+Links: hub page-level links OK (Explore integrations → Integrations page; CTAs → modal; hidden legacy cards → page links). More things: 27 child anchors + 9 View all + 9 title links OK. Banner: /integrations + 12 tiles, all 12 integration items published. Chips (12 per hub): every /integrations/<slug> verified published (slack, stripe, hubspot, salesforce, google-sheets, gmail, notion, airtable, paypal, asana, calendly, twilio, excel, klaviyo, attio, square, supabase); chips without a page (Webhook, Postgres, GA4, Meta Pixel, PostHog, Hotjar, Zapier) go to /integrations.
+Icons: banner "corrected" logos are byte-equivalent re-uploads of the chip logos; added alt text to 4 banner assets that had none.
+Rebuilt rich-text feature cards verified (H3 + P) on LP F2 and AAB F4/F6.
+Open for Divit: related-articles sort on AAB and SQB hubs (Designer), and the 'exclude from sitemap' toggle is not readable by API — confirm it is off in page settings.
