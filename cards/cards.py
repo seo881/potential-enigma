@@ -1,0 +1,33 @@
+import json
+C = {
+"sqb": [
+ ("Every response in a database you own.", "SurveyMonkey Advantage includes 15,000 responses a year, then charges $0.15 per extra. Typeform Basic stops collecting at 100 a month. Emergent writes every response to a database in your project, with no cap and no overage."),
+ ("Surveys, quizzes, and polls in one build.", "SurveyMonkey runs surveys, Interact runs quizzes, and Slido runs live polls. Emergent builds all three, and every response lands in the same database, so one customer view covers your surveys, quizzes, and polls."),
+ ("Branded to you, on your own domain.", "No vendor logo in the footer and no vendor subdomain in the URL. Publish on your own domain (built in, uses credits), keep every result in your own database, and export the whole codebase whenever you want to leave."),
+],
+"aab": [
+ ("Every automation ships with its app.", "Most workflow tools run steps between apps you already pay for. Emergent builds the workflow, the form it fires from, the database it logs to, and the dashboard your team reads, as one codebase you own and can change."),
+ ("No task cap stopping workflows mid-month.", "Zapier bills a task for every action step, and its $19.99 Professional plan includes 750 tasks a month on annual billing. n8n Cloud Starter stops at 2,500 executions. Emergent runs on shared credits, with no per-task meter."),
+ ("Real code, exported to your repository.", "Every workflow is generated as code, not stored inside a vendor's canvas. Push it to your GitHub, deploy it anywhere, and stop worrying about a vendor changing the execution model or the price per operation on you."),
+],
+"lp": [
+ ("Own the database behind your leads.", "Every landing page Emergent builds is wired to a real database table in your project. Query it, export it, or build an app on top of it. No lead-storage fees, no export limits, and no per-lead pricing on any plan."),
+ ("Publish on your own domain from day one.", "Custom domain, SSL, and CDN are built into Emergent, with no third-party hosting to set up; custom domains use credits. Push the code to your repo whenever you like. No page-count tier and no per-visitor pricing."),
+ ("Change any section with one message.", "Rewrite the hero, swap the CTA, add a testimonials row, or generate a second variant to test. Every change is one message in plain English, not a session in a page editor, and every version stays in your repo."),
+],
+"form": [
+ ("Every response in a database you own.", "Typeform closes the form at the monthly cap. Jotform stops accepting submissions. Emergent writes every response to a database in your project that you own. No cap, no per-response charge, no CSV export dance."),
+ ("Logic, scoring, and payments, every plan.", "Conditional fields, calculations, scoring, routing, and payments in the form, included from the free tier. Jotform meters payment submissions on every plan, and Typeform stops collecting at its monthly cap."),
+ ("Publish anywhere from one build.", "A standalone URL on your own domain, an iframe or inline embed on WordPress or any other site, or a one-question-per-screen conversational flow when you ask for it. Same form, three surfaces, one set of submissions."),
+]}
+bad=0
+for h,cards in C.items():
+    tl=[len(t) for t,_ in cards]; bl=[len(b) for _,b in cards]
+    spread=max(bl)-min(bl)
+    for t,b in cards:
+        assert "\u2014" not in t+b and "\u2013" not in t+b
+    ok = max(tl)<=41 and spread<=12
+    bad += not ok
+    print(f"{h:5} titles {tl}  bodies {bl}  spread {spread}  {'OK' if ok else 'FIX'}")
+json.dump(C,open("cards.json","w"),ensure_ascii=False)
+print("needs fixing:",bad)

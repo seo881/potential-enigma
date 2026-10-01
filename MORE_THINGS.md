@@ -189,3 +189,14 @@ Links: hub page-level links OK (Explore integrations → Integrations page; CTAs
 Icons: banner "corrected" logos are byte-equivalent re-uploads of the chip logos; added alt text to 4 banner assets that had none.
 Rebuilt rich-text feature cards verified (H3 + P) on LP F2 and AAB F4/F6.
 Open for Divit: related-articles sort on AAB and SQB hubs (Designer), and the 'exclude from sitemap' toggle is not readable by API — confirm it is off in page settings.
+
+## 2026-10-01 pre-launch fixes (hubs only; child items stay drafts, NOT published)
+Em dashes removed (full rescan of hub copy, components, FAQs):
+- SQB: how-to step 2 + how-to desc.
+- AAB: how-to step 3; integrations card 1 paragraph (f55c5493-…-38fa).
+- FAQs: AAB 6ab249c80dc672dfb044a16c/a166/a15c/a15a/a158 and SQB 6ab2480dede0a8922f281d3b/d35.
+- Clean already: LP, Form, banner, More things, all 4 heroes, tables.
+- Schema rebuilt for AAB + SQB to match the FAQs word for word.
+Card copy levelled (titles 32-41 chars = 2 lines; bodies within 12 chars per hub): cards/cards.json. Originals are in the transcript reads of 2026-10-01.
+Card image-above-text: page-level CSS in the 4 hub embeds (b8a2c5a1, 25e43d56, 3b7963ef, 9dd01394) flex-column + order. The shared component 763a7c4c is untouched. Rollback: remove the 3 card lines.
+Hero prompt box: the same "Build page hero" component as the live builder hubs, with props only. Component internals are not API-readable, so Divit to confirm in Preview.
