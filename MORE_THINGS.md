@@ -208,3 +208,10 @@ The SQB titles were missing for a short time (the builder call was not approved 
 2026-10-01: child explore-cta switched to first person to match the hubs (all still isDraft true).
 "Build My Approval Workflow" / "Build My Customer Satisfaction Survey" / "Build My Thank You Page" / "Build My Creator Application Form".
 Previous values: "Build Your …".
+
+## 2026-10-01: schema parity with the live reference hubs (AI Website / App / Dashboard Builder)
+The reference hubs carry WebPage (about → #softwareapplication) + FAQPage + BreadcrumbList + SoftwareApplication + Product.
+Added SoftwareApplication + Product to all 4 hubs, same structure and the same 5 pricing offers (Free 0, Standard 20 / 17 annual, Pro 200 / 167 annual, Enterprise ×2).
+Builder-specific: name, applicationCategory (LP DesignApplication; others BusinessApplication), applicationSubCategory, category, featureList (only page-claimed features), description = meta description.
+Kept Organization + WebSite (extra, harmless). FAQ text unchanged (latest, em-dash-free).
+Needs a site publish to go live. Re-run the Rich Results Test afterwards.
