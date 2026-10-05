@@ -229,3 +229,14 @@ Restore plan (pending Divit's go):
 1. Duplicate into "Build hubs / More things you can build" and move our 8 instances onto it.
 2. Revert b4a27b0c to the logged originals.
 Originals NOT captured: labels 273d, 2752/2756/275a, 276f/2773/2777 and the "View all N+ pages" counts (need the dev or a backup).
+
+## 2026-10-05: child pages formatting pass (4 draft CMS items; our pages only, nothing shared)
+Rewritten to the hub limits (H2 ≤48, subheads ≤135, hero subhead ≈ hub length):
+- features H2 + subhead, use-case H2, "why" H2 + subhead, hero description.
+- 24 feature boxes levelled (bodies 165-182, spread ≤12 per page).
+- FAQ heading "Got Questions? We've Got Answers" → "[Topic] Questions, Answered"; FAQ answers unchanged.
+- CSAT H1 left as approved.
+Originals: childqa/originals_2026-10-05.json; full old feature HTML is in the transcript read of 2026-10-05.
+Template schema: the API rejects CMS-linked (raw) schema, so the Designer paste code is in childqa/*-template.html.
+It mirrors the reference child template (6a184b3f…): Organization, BreadcrumbList, CollectionPage, child SoftwareApplication, hub SoftwareApplication, Product.
+Not yet applied (needs Divit's paste).
