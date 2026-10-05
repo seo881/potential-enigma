@@ -215,3 +215,17 @@ Added SoftwareApplication + Product to all 4 hubs, same structure and the same 5
 Builder-specific: name, applicationCategory (LP DesignApplication; others BusinessApplication), applicationSubCategory, category, featureList (only page-claimed features), description = meta description.
 Kept Organization + WebSite (extra, harmless). FAQ text unchanged (latest, em-dash-free).
 Needs a site publish to go live. Re-run the Rich Results Test afterwards.
+
+## 2026-10-05: value-card alignment fix (4 hubs, page-scoped)
+Cause: after the image-above-text flip, the text block stayed bottom-pinned (the variant's layout), so titles started at different heights.
+Fix: added justify-content:flex-start on the item, margin-top:0 + justify/align-content flex-start on the content, flex:0 0 auto on the image.
+Embeds b8a2c5a1 / 25e43d56 / 3b7963ef / 9dd01394. Needs a site publish.
+
+## 2026-10-05: INCIDENT. "More things you can build" (b4a27b0c) is the developer's component (group Hub Cards, 9 instances = our 8 + his Testing page).
+On 2026-09-30 I edited its DEFINITION (labels, hrefs, descriptions, View-all text, 9 cover images + hub-card_cover class, icon-wrap combo is-on-cover, embed f11a368f).
+That changed his Testing page too. It should have been a duplicate.
+Every other build-hub change was instance props or page-level embeds. The banner 088920eb is ours (8 instances, all ours). No existing class was modified.
+Restore plan (pending Divit's go):
+1. Duplicate into "Build hubs / More things you can build" and move our 8 instances onto it.
+2. Revert b4a27b0c to the logged originals.
+Originals NOT captured: labels 273d, 2752/2756/275a, 276f/2773/2777 and the "View all N+ pages" counts (need the dev or a backup).
