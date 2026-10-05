@@ -240,3 +240,14 @@ Originals: childqa/originals_2026-10-05.json; full old feature HTML is in the tr
 Template schema: the API rejects CMS-linked (raw) schema, so the Designer paste code is in childqa/*-template.html.
 It mirrors the reference child template (6a184b3f…): Organization, BreadcrumbList, CollectionPage, child SoftwareApplication, hub SoftwareApplication, Product.
 Not yet applied (needs Divit's paste).
+
+## 2026-10-05: final QA
+Hubs: all 4 exported via the localization API (83 nodes each: text, component overrides, embeds) and scanned by script. Clean.
+No dashes, Postgres, we/our, British spellings, placeholders, or curly quotes; links verified 2026-10-01. Hub FAQ answers (56) are clean.
+Card-alignment root cause existed only in the 4 hub value cards (the component is absent from the child templates); fixed.
+Child drafts fixed:
+- features H2 → Title Case (matches the other child headings);
+- LP: "enquiry" → "inquiry" (tab 4 + hero prompt), serial comma in tab 2, meta description reworded;
+- AAB: "red-lines" → "redlines";
+- Form: serial commas across tabs, FAQ, hero prompts and meta; affiliate prompt "10,000 followers" → "10,000 monthly reach" (matches the tab and image).
+Left as-is (image-field alt text; editing via API would re-import the files): 3 alt texts use "enquiry" or drop a serial comma (LP uc-4, AAB uc-2/uc-3, SQB uc-1). Divit can edit them in the CMS item editor.
