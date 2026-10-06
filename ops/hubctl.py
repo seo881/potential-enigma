@@ -275,4 +275,7 @@ CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cm
         "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch}
 if __name__ == "__main__":
     if len(sys.argv) < 2 or sys.argv[1] not in CMDS: print(__doc__); sys.exit(0)
-    sys.exit(CMDS[sys.argv[1]](sys.argv[2:]) or 0)
+    try:
+        sys.exit(CMDS[sys.argv[1]](sys.argv[2:]) or 0)
+    except (IndexError, ValueError):
+        print(f"usage error for '{sys.argv[1]}'.\n" + __doc__); sys.exit(2)
