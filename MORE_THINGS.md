@@ -251,3 +251,12 @@ Child drafts fixed:
 - AAB: "red-lines" → "redlines";
 - Form: serial commas across tabs, FAQ, hero prompts and meta; affiliate prompt "10,000 followers" → "10,000 monthly reach" (matches the tab and image).
 Left as-is (image-field alt text; editing via API would re-import the files): 3 alt texts use "enquiry" or drop a serial comma (LP uc-4, AAB uc-2/uc-3, SQB uc-1). Divit can edit them in the CMS item editor.
+
+## 2026-10-06: child pages Phase 1 (rulebook + audit fixes; 4 draft items, 11 fields, text only)
+Approved by Divit. Backup committed first (1214f8b); rollback = re-send childedits/2026-10-06/before.json fields per item.
+LP 6ab5158e: meta description ("real examples" promise removed, 141c); feature 5 + how-to step 6 + FAQ (Shopify: scripts no longer run on its thank you page since Aug 2026, so linked post-purchase page, not redirect; "built-in" removed); FAQ examples answer points to the 4 use cases; FAQ templates "Load the template" -> "Start from the closest one"; hub link added to the "for free" answer (LP was the only page without one); mockup "our" -> "my".
+Form 6ab505a8: FAQ application-limit answer, vendor numbers removed.
+AAB 6aba7ac4: chip "Multi-Level Routing" (Title Case, hyphenated compound).
+SQB 6aba7afb: hero 35 -> 30 words (174c); feature 3 unconfirmed free-tier claim replaced, band kept (bodies 167-179, spread 12).
+Feature bands held: LP 172-179 (spread 7). All items isDraft true. Read-back diff: planned fields byte-identical, 0 unexpected changes.
+Phase 0 findings: 7-step how-to CMS-bound on all 4 templates (16 props each, verified live). The runtime FAQ schema embed listed in SCHEMA.md is NOT on the Form template (3 hidden embeds = spacing CSS, mockup script, prompt submit). Child pages currently have no FAQPage source; the pending Designer-paste schema has none either. Open for Divit.
