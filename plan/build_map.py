@@ -61,6 +61,14 @@ for _, r in fin[fin["Page type"] != "Hub page"].iterrows():
         "notes": None if pd.isna(r["Notes"]) else r["Notes"], "status": "planned",
     }
 
+# --- watch-list and intent flags: attach guidance to every page whose primary the row names ---
+wl = pd.read_excel(SRC, "Watch-list & intent flags", header=3)
+for _, r in wl.iterrows():
+    text = str(r["Keywords"]).lower()
+    for p in pages.values():
+        if re.search(r"(?<![a-z])" + re.escape(p["primary"].lower()) + r"(?![a-z])", text):
+            p.setdefault("watch", []).append(f'{r["Type"]}: {r["Why flagged"]} Guidance: {r["Guidance"]}')
+
 # --- overrides: reconcile with the live pages Divit keeps as-is ---
 def kws(p): return {s["kw"].lower() for s in p["secondaries"]} | {p["primary"].lower()}
 for o in ov["moves"]:          # move keywords from one URL to another (or create the live page entry)

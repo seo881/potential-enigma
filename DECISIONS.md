@@ -1,0 +1,24 @@
+# Decisions log (Divit)
+
+Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
+
+## 2026-10-06
+- **Parallel setup is persistent.** Everything lives in this repo (runbook, rules, config, plan generator, status, logs) and in two skills; no chat holds state that is not committed.
+- **Build order:** descending total volume (primary + secondaries), lowest-volume pages last. Wave 4 quiz pages (need a playable quiz) at the end.
+- **The 4 existing child pages stay as they are** (thank-you-page, creator-application, approval-workflow, customer-satisfaction): primaries, slugs and content unchanged. The keyword plan was reconciled to them (`plan/overrides.json`): the CSAT cluster stays on `/customer-satisfaction`; `/approval-workflow` keeps "approval workflow" as primary; `/creator-application` stays live although the Semrush plan cut it.
+- **FAQ schema on child templates: not needed.** Google shows no FAQ rich results; JS-built schema is unseen by most AI crawlers.
+- **Carousels stay hidden** until there are child pages to show.
+- **Meta title rule:** a keyword-led natural phrase ending " | Emergent", colon optional, 60 chars and about 580px max. No keyword lists ("Examples, Templates, Builder") and no slogans ("Confirm, Deliver, Convert").
+- **Titles and H1s:** LP title "Free Thank You Page Templates and Examples | Emergent"; SQB title "Customer Satisfaction Survey: Free CSAT Template | Emergent"; SQB H1 "Build a Customer Satisfaction Survey That Acts on Every Low Score". Other H1s kept.
+- **Hub profile locked:** see `rules/HUB_RULES.md` section 4.
+- **Phase 1 fixes approved and applied** to the 4 child drafts (Shopify claim, "real examples" promise, vendor numbers in the Form FAQ, LP hub link, chip casing, SQB hero length, unconfirmed free-tier claim removed). Rollback in `childedits/2026-10-06/`.
+- **Python automation pipelines (Sheets + Gemini + Drive + direct publish) are retired.** All CMS work goes through the Webflow connector with a review gate. Their hard-coded keys must be rotated.
+
+## 2026-09-29 to 2026-10-05 (from the handoff and MORE_THINGS.md)
+- No change to the live site without explicit approval; plan first; rollback always ready; touch nothing outside scope; never edit component definitions or existing classes; never make a site-wide style change.
+- Copy is operator grade; never narrow the audience; write "Emergent's", never "our".
+- Approved claims: SOC 2 Type I and ISO 27001; custom domains included in Emergent and use credits; conversational one-question flows; no task cap; no response caps. See `rules/claims.json`.
+- Rolling vendor numbers: use wording that does not need monthly updates.
+- Comparison tables put Emergent first, darker grey alternating column.
+- Image standard: v5 design system, outlined SVG at the slot's exact aspect (use-case 3:2, object-fit fill), share images PNG 1200x630. No Anthropic API key in the image process.
+- GitHub token is fine-grained to this repo only, expires 2026-12-28; never commit it.

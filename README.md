@@ -1,3 +1,5 @@
+> **New chat? Start with [RUNBOOK.md](RUNBOOK.md).** Child-page production: rules, config, QC, status and logs all live in this repo.
+
 # Emergent build-hub image pipeline
 
 Automated images for the Build hubs (LP, Form, Automation, Survey & Quiz).
