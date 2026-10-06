@@ -260,3 +260,10 @@ AAB 6aba7ac4: chip "Multi-Level Routing" (Title Case, hyphenated compound).
 SQB 6aba7afb: hero 35 -> 30 words (174c); feature 3 unconfirmed free-tier claim replaced, band kept (bodies 167-179, spread 12).
 Feature bands held: LP 172-179 (spread 7). All items isDraft true. Read-back diff: planned fields byte-identical, 0 unexpected changes.
 Phase 0 findings: 7-step how-to CMS-bound on all 4 templates (16 props each, verified live). The runtime FAQ schema embed listed in SCHEMA.md is NOT on the Form template (3 hidden embeds = spacing CSS, mockup script, prompt submit). Child pages currently have no FAQPage source; the pending Designer-paste schema has none either. Open for Divit.
+
+## 2026-10-06: D1 titles (approved by Divit). Backup 70ca8f5 (childedits/2026-10-06/d1_before.json).
+LP meta title "Thank You Page: Examples, Templates, Builder | Emergent" -> "Thank You Page Builder: Confirm, Deliver, Convert | Emergent" (60c, 552px).
+SQB meta title "Customer Satisfaction Survey Template & CSAT | Emergent" -> "Customer Satisfaction Survey: Free CSAT Template | Emergent" (59c, 562px).
+SQB H1 (name) "...That Feeds Your Whole Product" -> "Build a Customer Satisfaction Survey That Acts on Every Low Score". Slug unchanged.
+Other H1s and meta titles kept. Read-back diff: only these 3 fields changed; both items isDraft true.
+Hub profile locked: meta "{Keyword}: {benefit} | Emergent" (<=60c, <=~580px); H1 "Build a/an {Keyword} {outcome}" (differs from meta); Why "Why Build Your {Keyword} With Emergent?" (<=48c, short keyword form if over); How-to "How to Build/Create a/an {Keyword}" (verb by search phrasing).
