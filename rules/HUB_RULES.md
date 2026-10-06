@@ -26,6 +26,18 @@ Applies to every child page in the four build hubs (AI Landing Page Builder, AI 
 - **Subject-verb agreement** is checked by reading every sentence whose subject is a list or a collective noun.
 - **Numbers:** numerals for 10 and above and for all amounts, scores and durations. Thousands separators. Currency as $4,800.00 only where cents matter.
 
+## 2b. Human voice: the page must never read as AI-written
+
+The reader should feel an operator who has built this many times wrote it. Claude Code is only how we scale; the standard is a senior human writer's.
+
+- **Specific beats general.** Name the fields, the trigger, the approver, the tool, the number. "Route anything over $5,000 to the CFO" beats "handle complex approvals".
+- **Say what Emergent builds, not how it feels.** No hype, no promises of transformation. Plain verbs: builds, sends, saves, routes, flags, exports.
+- **Banned vocabulary [QC P1]:** the AI-tell list in `rules/ai_tells.json` (seamless, unlock, elevate, empower, delve, robust-as-filler, "in today's...", "the power of", "it's not just X, it's Y", and the rest). Borderline words (leverage, streamline, ensure, solution, journey) are flagged [QC P2] and stay only when they are the plainest literal word.
+- **Rhythm.** Vary sentence length and openers; no run of sentences starting the same way [QC P2]; no connector openers (Moreover, Furthermore, Additionally). Short declaratives are fine. One idea per sentence.
+- **No filler structures:** no "Whether you're X or Y", no rhetorical questions in body copy, no tidy triplets everywhere, no summary sentence restating the paragraph.
+- **Read it aloud.** If a sentence would sound strange said by a product lead to a customer, rewrite it.
+- **Voice of the examples:** concrete, slightly unglamorous details (order #10482, a $180 client dinner, a two-day reminder) are what make a page read as real.
+
 ## 3. SEO method (from the Semrush plan)
 
 Read the page's brief first: `python3 ops/hubctl.py brief <url>`. It gives the primary, every secondary with volume, intent, KD, the SERP verdict, the AMBER angle, SERP features, the top 10, watch-list guidance and the sibling pages in the same cluster.

@@ -15,16 +15,18 @@ What exists, what does not yet, and what is next. Update this file whenever a se
 | Claude Code layer: `CLAUDE.md`, `page-writer` and `page-reviewer` subagents | repo root, `.claude/agents/` | |
 | Bulk operations: claim up to 50, `next <state>`, `bulk-payload` (100 drafts per call), `bulk-verify`, `publish-payload` (100 per call) | `ops/hubctl.py` | |
 | Image brief schema (writers produce it with the copy) | `docs/IMAGE_BRIEF.md` | draft; consumed by the recipe library |
+| Human-voice standard and AI-tell checks | `rules/HUB_RULES.md` 2b, `rules/ai_tells.json`, QC codes A1-A4 | approved pages: 0 hits; planted AI copy: every tell caught |
+| Claude Code config: `.mcp.json` (Webflow), `.claude/settings.json` (permissions), macOS-ready `ops/setup.sh`, setup guide | repo root, `docs/CLAUDE_CODE_SETUP.md` | Linux path tested; macOS path to be confirmed on Divit's machine |
 | One-shot setup for any chat | `ops/setup.sh` | fresh public clone at 28fe7fb: image bootstrap OK (20 scenes, all gates clean), keyword map rebuilt, QC smoke PASS, SETUP OK |
 
 ## Not built yet (next, in order)
-1. **Image recipe library** (coordinator, about 1 day). The 11 approved layouts become functions that render a page's `image_brief` (`docs/IMAGE_BRIEF.md`), plus a numbers-consistency check, a `build.py` command that renders all briefs in a state, and one contact sheet per page. Validated by re-rendering the 16 approved scenes. Writers do not wait for it: they write briefs now; rendering catches up.
+1. **Image recipe library** (coordinator, about 1 day), including making the image pipeline run on macOS so Claude Code can render too (today it is Linux-only: `pipeline/bootstrap.sh` uses apt and fixed paths). The 11 approved layouts become functions that render a page's `image_brief` (`docs/IMAGE_BRIEF.md`), plus a numbers-consistency check, a `build.py` command that renders all briefs in a state, and one contact sheet per page. Validated by re-rendering the 16 approved scenes. Writers do not wait for it: they write briefs now; rendering catches up.
 2. **Daily review page** for Divit (calibration in full, then a 10% sample plus flagged pages).
 3. **Dry run**: 5 pages end to end (write → review → images → review page → drafts → verify), then the calibration batch (10 per hub, reviewed in full by Divit), then 200 a day.
 
 ## Waiting on Divit
 - Install the two skills, and replace `Kickoff.md` in the Project with the updated `KICKOFF.md` (adds the writer and reviewer prompts and Claude Code mode).
-- Choose the runtime: Claude Code (recommended for 200 a day; needs the workbook in `private/` and the Webflow MCP connected) or Claude.ai chats (about 12 chats a day). Check that your plan's usage limits cover about 200 pages a day of writing and review.
+- Runtime chosen: Claude Code. Run `docs/CLAUDE_CODE_SETUP.md` on your machine and report the result of the check in step 4.
 - Rotate the keys hard-coded in the old Python pipelines (Webflow token, Google service account, Gemini proxy key).
 - Document-template pages (87, mostly Form, incl. queue #1, #2, #6): build now with a "generated document" angle, or park until the template can show a downloadable output.
 - Playable quiz pages (48, 28.7% of queue volume): scope a quiz build (the collections are at the field cap, so it would reuse an embed field, like the FAQ does).

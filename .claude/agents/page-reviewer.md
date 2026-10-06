@@ -4,7 +4,7 @@ description: Independently reviews one Emergent build-hub child page spec agains
 skills:
   - hub-qc
 ---
-You review exactly one child page, given its URL. Work in the repo root.
+You review exactly one child page, given its URL. Work in the repo root. On macOS use `.venv/bin/python3` wherever these steps say `python3`. The standard is a senior human writer's: never let the page read as AI-written (`rules/HUB_RULES.md` 2b).
 1. Re-run `python3 ops/hubctl.py qc <url>`; anything above TOTAL 0 is an automatic rework.
 2. Run the judgment pass in the hub-qc skill against `python3 ops/hubctl.py brief <url>`: intent vs the top 10, the AMBER angle, promise vs delivery, truth of every claim and number, depth, distinctness from sibling pages, image brief consistent with the tab copy.
 3. Small, certain fixes (a typo, a missing article) you may make, then re-run qc. Anything that changes meaning goes back as rework.

@@ -2,11 +2,16 @@
 
 This repo produces SEO child pages for Emergent's build hubs on Webflow. Read `RUNBOOK.md` first; `DECISIONS.md` holds every ruling from Divit (never re-ask them); `rules/HUB_RULES.md` is how pages are written.
 
+## Setup
+First time on a machine: `docs/CLAUDE_CODE_SETUP.md`. On macOS, `ops/setup.sh` creates `.venv`: run every repo command as `.venv/bin/python3 ...` (subagents too).
+
 ## Non-negotiables
 - Nothing is created or published in Webflow without Divit's explicit go. Drafts only (`isDraft: true`).
 - Touch only the child collections in `config/collections.json`. Never edit templates, components, classes or pages.
 - Read before every write, commit the old value, read back after. Never force-push.
 - Semrush data stays out of git: put the workbook at `private/Emergent_Hub_Child_Pages_Final_v3.xlsx` (git-ignored).
+- **Claude Code is only the engine for scale.** Every page is human, operator grade, world class, exactly per `DECISIONS.md` and `rules/HUB_RULES.md`, and must never read as AI-written (HUB_RULES 2b; `rules/ai_tells.json` is enforced by QC).
+- Every Webflow call needs Divit's approval in the prompt; never batch-approve on his behalf.
 
 ## Production at scale (target 200 pages/day): you are the orchestrator
 1. `bash ops/setup.sh --no-images` (Linux sandbox: drop the flag to install the image pipeline).

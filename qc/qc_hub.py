@@ -19,7 +19,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CFG = json.load(open(os.path.join(ROOT, "config", "collections.json")))
 MAP_PATH = os.path.join(ROOT, "plan", "keyword_map.json")
 KMAP = json.load(open(MAP_PATH)) if os.path.exists(MAP_PATH) else None
-FONT = "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf"
+FONTS = ["/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", "/System/Library/Fonts/Supplemental/Arial.ttf", "/Library/Fonts/Arial.ttf"]
+FONT = next((f for f in FONTS if os.path.exists(f)), FONTS[0])
 
 # ---------------- text helpers ----------------
 def strip_html(s): return unescape(re.sub(r"<[^>]+>", " ", s or "")).replace("\\\"", '"')
@@ -85,6 +86,7 @@ WE_OUR = re.compile(r"(?i)(?<![\w\-])(we|we're|we've|our|ours|us)(?![\w\-])")
 VENDOR = ["zapier", "make", "n8n", "typeform", "jotform", "google forms", "surveymonkey", "unbounce", "leadpages", "instapage", "landingi",
           "qualtrics", "wix", "framer", "hubspot", "tally", "fillout", "power automate", "wrike", "pandadoc", "approveit", "interact"]
 CLAIMS = json.load(open(os.path.join(ROOT, "rules", "claims.json")))
+TELLS = json.load(open(os.path.join(ROOT, "rules", "ai_tells.json")))
 
 # ---------------- checks ----------------
 def check(spec, siblings):
@@ -261,6 +263,29 @@ def check(spec, siblings):
         for m in re.finditer(c["rx"], body, re.I):
             if c.get("status") == "banned": add("P0", "C1", "body", f'banned claim: "{m.group(0)}" ({c["why"]})')
             elif c.get("status") == "confirm": add("P2", "C1", "body", f'claim to confirm with Divit: "{m.group(0)}" ({c["why"]})')
+    # ---------- A: human voice (never reads as AI-written) ----------
+    for k, v in F.items():
+        if not isinstance(v, str) or k in ("why_table", "mockup", "category", "slug"): continue
+        plain = strip_html(re.sub(r"<style>.*?</style>", "", v, flags=re.S))
+        low = plain.lower()
+        for w in TELLS["block"]:
+            if re.search(r"(?<![a-z\-])" + re.escape(w) + r"(?![a-z\-])", low): add("P1", "A1", k, f'AI-tell word "{w}": rewrite in plain operator language')
+        for w in TELLS["flag"]:
+            if re.search(r"(?<![a-z\-])" + re.escape(w) + r"(?![a-z\-])", low): add("P2", "A2", k, f'"{w}": keep only if literal and the plainest word')
+        sentences = [x.strip() for x in re.split(r"(?<=[.?])\s+", plain) if x.strip()]
+        for pat in TELLS["patterns"]:
+            hit = any(re.search(pat["rx"], x, re.I) for x in sentences)
+            if hit: add("P1" if pat["level"] == "block" else "P2", "A3", k, pat["why"])
+    # repeated sentence openers across the page (templated rhythm)
+    openers = {}
+    for k, v in F.items():
+        if not isinstance(v, str) or k in ("why_table", "mockup", "faq"): continue
+        for x in re.split(r"(?<=[.?])\s+", strip_html(v)):
+            w = x.strip().split()
+            if len(w) >= 6: openers.setdefault(" ".join(w[:2]).lower(), []).append(k)
+    for o, ks in openers.items():
+        if len(ks) >= 4 and o not in ("every response", "every page"): add("P2", "A4", "body", f'{len(ks)} sentences open with "{o}": vary the rhythm')
+
     # ---------- D: duplication against siblings in the same hub ----------
     sents = {s.strip() for s in re.split(r"(?<=[.?])\s+", body) if len(s.split()) >= 9}
     for sib in siblings:

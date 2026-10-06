@@ -1,0 +1,12 @@
+{
+ "_note": "Words and patterns that make copy read as machine-written. 'block' = P1 (must be rewritten). 'flag' = P2 (reviewer decides; fine when literal, e.g. 'customer journey'). Add entries with a dated line in DECISIONS.md.",
+ "block": ["delve", "seamless", "seamlessly", "unlock", "unlocks", "unleash", "elevate", "elevates", "empower", "empowers", "game-changer", "game-changing", "revolutionize", "revolutionizes", "cutting-edge", "state-of-the-art", "harness", "tapestry", "realm", "embark", "effortless", "effortlessly", "supercharge", "next-level", "transformative", "holistic", "synergy", "paradigm", "testament", "vibrant", "bustling", "meticulous", "meticulously", "ever-evolving", "ever-changing", "fast-paced", "look no further", "rest assured", "say goodbye to", "hassle-free", "peace of mind", "in today's", "at the end of the day", "in conclusion", "best-in-class", "world-class", "one-stop", "dive into", "deep dive", "take it to the next level", "the power of", "imagine a world", "a myriad of", "plethora", "navigate the complexities", "in the world of", "when it comes to", "it's important to note", "it's worth noting"],
+ "flag": ["leverage", "robust", "streamline", "streamlines", "crucial", "pivotal", "comprehensive", "journey", "landscape", "moreover", "furthermore", "additionally", "ensure", "ensures", "enhance", "enhances", "boost", "boosts", "powerful", "innovative", "solution", "solutions", "unparalleled", "tailored", "dynamic"],
+ "patterns": [
+  {"rx": "\\bwhether you(?:'re| are)\\b[^.]{0,80}\\bor\\b", "level": "flag", "why": "'Whether you're X or Y' is a stock AI opener"},
+  {"rx": "\\b(it'?s|this is) not just\\b[^.]{0,60}\\b(it'?s|but)\\b", "level": "block", "why": "'It's not just X, it's Y' is a stock AI construction"},
+  {"rx": "\\bnot only\\b[^.]{0,80}\\bbut also\\b", "level": "flag", "why": "'not only... but also' reads templated"},
+  {"rx": "^(Moreover|Furthermore|Additionally|In addition|Ultimately|Overall),", "level": "flag", "why": "connector-word sentence openers read machine-written"},
+  {"rx": "\\b(With Emergent, you can|Emergent makes it easy to|Emergent allows you to|Emergent enables you to)\\b", "level": "flag", "why": "generic product-speak; say what Emergent builds"}
+ ]
+}
