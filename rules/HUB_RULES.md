@@ -80,10 +80,12 @@ Read the page's brief first: `python3 ops/hubctl.py brief <url>`. It gives the p
 
 Only claims in `rules/claims.json` (approved) may be stated as fact. Anything else about Emergent's capabilities, compliance, pricing or limits goes to Divit first. The agent can build what is explicitly asked, so "you can build X" is fine; "Emergent includes Y out of the box" needs a source.
 
-## 7. Batches and variety
-
-- A batch is at most 10 pages per chat (5 is the default), reviewed together.
-- Within a batch and a hub, vary H1 hooks, why descriptions, FAQ phrasing and feature 6. Two pages must never share two or more identical sentences [QC].
+## 7. Batches, scale and variety
+- Content-first: writers produce copy and the image brief; review, images, drafts and publishing are separate bulk stages (`RUNBOOK.md` section 2). Target 200 pages a day across all writers.
+- A writer chat takes 25 pages; a Claude Code writer subagent takes exactly 1. Commit every 5 pages.
+- Every page is reviewed by an independent reviewer before images. Nobody reviews their own writing.
+- Divit reviews the first batch of each hub in full (calibration), then a daily random 10% plus every flagged page. A defect he finds becomes a rule, and QC re-runs on all unpublished pages.
+- Within a hub, vary H1 hooks, why descriptions, FAQ phrasing and feature 6. Two pages must never share two or more identical sentences [QC]. At 200 pages a day this check is what keeps pages from reading alike: treat a D1 failure as a writing problem, not a wording tweak.
 - Check the last page of a batch as carefully as the first.
 
 ## 8. Fixing (from the QC rulebook)

@@ -5,6 +5,8 @@ description: Quality-check Emergent build-hub child pages before they are create
 
 # hub-qc: the gate before Webflow and before publish
 
+You are an **independent reviewer**: never review a page you wrote. In bulk work, take pages with `python3 ops/hubctl.py next qc_pass <HUB>` and end each with `hubctl state <url> reviewed --note ...` or `hubctl state <url> rework --note "<field: what to fix>"`. Small, certain fixes (a typo, an article) you may make and re-run QC; anything that changes meaning goes back as rework.
+
 Prime directive: a page moves forward only at QC TOTAL = 0 (P0 + P1). P2 items are read and either fixed or explicitly accepted in the review notes. Rules only tighten; changing one needs Divit and a dated line in `DECISIONS.md`.
 
 ## Setup
@@ -25,7 +27,10 @@ Run `python3 ops/hubctl.py brief <url>` and check, writing each as P0/P1/P2:
 3. **Truth:** every Emergent claim is in the register; every third-party fact is current; nothing contradicts another field (numbers, steps, tab content vs images).
 4. **Depth:** the definition up top where an AI Overview appears; FAQ questions match how people ask; the how-to is specific to this primary, not generic.
 5. **Distinctness:** reads as its own page, not a sibling with nouns swapped; tab H3s do not use sibling primaries; watch-list guidance from the brief is followed.
-6. **Images:** each matches its tab copy; numbers add up; one hero; cursor on a button edge; true-size review done.
+6. **Image brief and images:** the brief matches its tab copy (people, numbers, statuses agree); after rendering, each contact sheet shows one hero, readable text, numbers that add up, the cursor on a button edge.
+
+## Divit's daily review page
+Build one review page per day: a table of every page that reached `images` (URL, primary, H1, meta title, QC result, reviewer notes, contact sheet link), with the calibration batch (first batch of each hub) shown in full and, afterwards, a random 10% plus every page with an accepted P2 or a reviewer note shown in full. Divit's rejections become rule fixes (`rules/HUB_RULES.md`, `qc/qc_hub.py`, dated in `DECISIONS.md`), then QC re-runs on every page not yet published.
 
 ## Report format
 For each page: `url | QC TOTAL | P0 list | P1 list | P2 list (fixed / accepted with reason)`. Then a batch line: pages passing, pages blocked, and the one decision (if any) that needs Divit. Fix methodology: root cause first, re-run the whole batch after any fix, never weaken a rule to pass.

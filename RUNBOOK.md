@@ -29,33 +29,44 @@ git -c http.extraheader="AUTHORIZATION: basic $B" push -q origin main 2>&1 | sed
 ```
 If the push is rejected: `git pull --rebase origin main`, inspect what came in, push again.
 
-## 2. Roles and ownership
+## 2. The production pipeline (content-first, staged; target 200 pages/day)
 
+Every stage runs in bulk and in parallel. A page moves through states in `status/<dir>.json`:
+
+| Stage | Who | What | Exit state |
+|---|---|---|---|
+| 1. Claim | Orchestrator | `hubctl claim <HUB> 25 --by <id>` per hub in today's plan; commit and push status | claimed |
+| 2. Write | **Writer** (one page per writer, fresh context) | Brief → spec (all fields + `image_brief` per `docs/IMAGE_BRIEF.md`) → `hubctl qc` until TOTAL = 0 | qc_pass |
+| 3. Review | **Reviewer** (independent; never its own pages) | Code QC re-run + judgment pass (hub-qc skill) against the brief | reviewed or rework |
+| 4. Images | Image stage (Linux: Claude.ai chat or a Linux Claude Code session) | Render every reviewed page's brief through the recipe library, gates, one contact sheet per page | images |
+| 5. Divit's review | Divit | Daily review page. First batch per hub (calibration): every page in full. Then: a random 10% of the day plus everything flagged. Rejections become rule fixes, re-run on all pending pages | approved |
+| 6. Create drafts | Orchestrator | Commit + push, `hubctl bulk-payload <HUB> --sha <sha>` → `data_cms_tool` (100 drafts per call), read back to disk, `hubctl bulk-verify` | cms_draft |
+| 7. Publish | Orchestrator, on Divit's go | `hubctl publish-payload <HUB>` (100 per call) | published |
+
+Quality is layered so volume never lowers it: code QC (zero tolerance), an independent reviewer per page, pre-approved image recipes with code gates, and Divit's calibration plus sampling. A defect Divit finds becomes a QC rule or a `HUB_RULES.md` line (ratchet), then QC re-runs on every page not yet published.
+
+### Mode A (recommended): Claude Code
+One orchestrator session in the repo (`CLAUDE.md` loads automatically) spawns `page-writer` and `page-reviewer` subagents (`.claude/agents/`), each in its own context, many in parallel. Setup once: clone the repo, put the Semrush workbook at `private/Emergent_Hub_Child_Pages_Final_v3.xlsx`, connect the Webflow MCP server (`claude mcp add`, then authorise), run `bash ops/setup.sh`. Skills load from `.claude/skills/`. Git uses Divit's own credentials. The image pipeline needs Linux (`pipeline/bootstrap.sh`); on macOS run stage 4 in a Claude.ai chat.
+
+### Mode B (works today): Claude.ai Project chats
+Same stages, more chats: about 8 writer chats a day (2 per hub, 25 pages each, two rounds), 2 reviewer chats, 1 image-and-publish chat, 1 coordinator. Start each with its prompt in `KICKOFF.md`. A writer chat writes copy only (no images, no Webflow read-backs), so 25 pages fit in one chat.
+
+### Ownership (both modes)
 | Role | Writes | Never touches |
 |---|---|---|
-| **Coordinator** (one chat) | `qc/`, `ops/`, `plan/`, `rules/`, `config/`, `skills/`, `pipeline/`, `DECISIONS.md`, `RUNBOOK.md`, `SETUP_STATUS.md`; publishing; cross-hub QC | Page copy for hubs that have a hub chat |
-| **Hub chat** (one per hub: LP, Form, Auto, SurveyQuiz) | Its own collection in Webflow; `specs/<dir>/`, `images/<dir>/`, `status/<dir>.json`, `logs/<dir>.md` | Other hubs' files and collections; templates, components, classes, pages, interactions; shared code (ask the coordinator) |
+| Orchestrator / coordinator | `qc/`, `ops/`, `plan/`, `rules/`, `config/`, `.claude/`, `pipeline/`, `docs/`, `DECISIONS.md`, `RUNBOOK.md`, `SETUP_STATUS.md`; Webflow creates and publishes | Page copy it did not write (other than reviewer-approved fixes) |
+| Writer | `specs/<dir>/<its pages>`, `status/<dir>.json` (its pages), `logs/<dir>.md` | Webflow, shared code, rules, other pages |
+| Reviewer | State and notes of the pages it reviews; small certain fixes | Webflow, pages it wrote |
+| Image stage | `images/<dir>/`, image fields of specs, manifest | Copy fields |
 
-Repo dirs: LP `lp`, Form `form`, Auto `aab`, SurveyQuiz `sqb`. Because each chat writes only its own files, parallel pushes never conflict.
+Repo dirs: LP `lp`, Form `form`, Auto `aab`, SurveyQuiz `sqb`. Writers in the same hub claim disjoint pages, and every push rebases first, so parallel work does not collide.
 
-When a small hub finishes its queue, its chat moves to Form by taking a queue range the coordinator assigns in `logs/form.md`.
-
-## 3. The page lifecycle (hub chat)
-
-| # | Step | Command / action | State after |
-|---|---|---|---|
-| 1 | Claim the next pages (5 by default, max 10) | `python3 ops/hubctl.py claim <HUB> 5 --by <chat-id>`, then commit and push status | claimed |
-| 2 | Read the brief | `python3 ops/hubctl.py brief <url>` (Wave 3: get the live top 10 first; apply the cut rules) | |
-| 3 | Create the spec | `python3 ops/hubctl.py init <url>`, then write every field per `rules/HUB_RULES.md` | spec |
-| 4 | QC until clean | `python3 ops/hubctl.py qc <url>`; fix root causes; TOTAL must be 0 | qc_pass |
-| 5 | Images | Write the image spec from the tab copy; build, gate and review at true size (`IMAGE_PIPELINE_KT.md`; recipe library per `SETUP_STATUS.md`) | images |
-| 6 | Review | One review page per batch: copy, image contact sheet, QC report. Wait for Divit's go | review → approved |
-| 7 | Commit and push | Images and specs; then verify raw URLs at the SHA (`pipeline/build.py verify`) | |
-| 8 | Create the CMS item as a draft | `python3 ops/hubctl.py payload <url> --sha <sha>`; pass `ops/out/<slug>.payload.json` as the `actions` of `data_cms_tool` | |
-| 9 | Verify and record | Read the item back (see 4.3), `hubctl verify`, then `hubctl record <url> --item-id <id> --file-id <field>=<id> ...`; commit | cms_draft |
-| 10 | Publish (coordinator, after Divit's go) | `python3 ops/hubctl.py publish-payload <HUB>` → `data_cms_tool` | published |
-
-Log every step that changes Webflow: `python3 ops/hubctl.py log <HUB> "<what, item ID, rollback>"`.
+## 3. Throughput (daily plan for 200 pages)
+- Claim 50 per hub per day (Form can take more as smaller hubs finish).
+- Writers: about 200 specs. Reviewers: about 200. Images: about 1,200 renders, all from briefs.
+- Drafts: 2 create calls per hub (100 each). Publish: same.
+- Divit: about 1 hour (calibration days: more).
+- Dependencies that cap the rate: plan usage limits for the model; Divit's daily review; the Wave 3 top-10 pull before queue rank 208; the recipe library before stage 4.
 
 ## 4. Webflow facts (hard-won; do not relearn)
 1. **IDs and field slugs** are in `config/collections.json`. Never write a slug that is not there. The child collections are at Webflow's field cap: no new fields.
@@ -72,7 +83,7 @@ Log every step that changes Webflow: `python3 ops/hubctl.py log <HUB> "<what, it
 - Divit's go before any create, and again before publish.
 
 ## 6. Ending a chat (always)
-Before the context runs long (about 10 pages), stop at a clean state:
+Before the context runs long (a writer chat: about 25 pages; a coordinator: when replies slow down), stop at a clean state:
 1. Commit and push everything (specs, images, status, log).
 2. Add a line to `logs/<hub>.md`: what is done, what is in progress and its exact state, the next step.
 3. Tell Divit to open a new chat with the kickoff prompt from `KICKOFF.md`.
@@ -88,5 +99,6 @@ Before the context runs long (about 10 pages), stop at a clean state:
 | `qc/qc_hub.py`, `rules/claims.json`, `rules/HUB_RULES.md` | QC engine, claims register, writing rules |
 | `ops/hubctl.py`, `ops/setup.sh` | Operations CLI, setup |
 | `pipeline/`, `images/`, `manifest.json`, `assets.json` | v5 image pipeline and outputs |
-| `skills/` | Sources of the two skills (`hub-content`, `hub-qc`) |
+| `.claude/skills/`, `.claude/agents/`, `CLAUDE.md` | The two skills (also packaged for Claude.ai), writer and reviewer subagents, Claude Code context |
+| `docs/IMAGE_BRIEF.md` | The structured image brief writers produce with the copy |
 | `MORE_THINGS.md`, `childedits/`, `audit/`, `tables/`, `schema/` | History of earlier sessions |
