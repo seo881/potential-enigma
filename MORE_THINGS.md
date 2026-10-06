@@ -267,3 +267,10 @@ SQB meta title "Customer Satisfaction Survey Template & CSAT | Emergent" -> "Cus
 SQB H1 (name) "...That Feeds Your Whole Product" -> "Build a Customer Satisfaction Survey That Acts on Every Low Score". Slug unchanged.
 Other H1s and meta titles kept. Read-back diff: only these 3 fields changed; both items isDraft true.
 Hub profile locked: meta "{Keyword}: {benefit} | Emergent" (<=60c, <=~580px); H1 "Build a/an {Keyword} {outcome}" (differs from meta); Why "Why Build Your {Keyword} With Emergent?" (<=48c, short keyword form if over); How-to "How to Build/Create a/an {Keyword}" (verb by search phrasing).
+
+## 2026-10-06: LP meta title revised again (approved by Divit). Backup 94297ae (childedits/2026-10-06/lp_title2_before.json).
+"Thank You Page Builder: Confirm, Deliver, Convert | Emergent" -> "Free Thank You Page Templates and Examples | Emergent" (53c, 525px).
+Reason: slogan titles waste the title; search-led wording (keyword + examples/templates modifiers + Free). Interim until the Semrush sheet decides the primary keyword.
+Profile widened: meta title is a keyword-led natural phrase ending " | Emergent" (colon optional), <=60c and <=~580px.
+FAQ schema on child templates: Divit decided not needed (no Google rich result; JS-built schema unseen by most AI crawlers). Closed.
+Carousels: stay hidden until there are child pages to show (re-show IDs logged above).
