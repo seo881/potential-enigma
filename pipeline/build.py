@@ -10,9 +10,10 @@ Run from the repo root after `bash pipeline/bootstrap.sh`:
   python3 pipeline/build.py record  <hub/slug> <kind> <fileId> [<fileId>...]  # kind: usecase (4 ids in uc order) | cover | og
 Every build step runs the gates and REFUSES to write a file that fails."""
 import sys, os, re, io, json, hashlib, base64, subprocess, importlib, urllib.request
-sys.path.insert(0, '/home/claude/pipe')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _alias  # noqa: F401  (ds5/hubs5/covers5 names)
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-REVIEW = '/home/claude/review'
+from paths import REVIEW
 PAGES = json.load(open(os.path.join(REPO, 'pipeline', 'pages.json')))
 UC_FIELDS = ["awb---key-feature-1-image", "acrm---key-feature-2-image", "acrm---key-feature-3-image", "acrm---key-feature-4-image"]
 RAW = "https://raw.githubusercontent.com/seo881/potential-enigma/{sha}/{path}"
@@ -40,7 +41,7 @@ def gates_cover(svg):
     if small: issues.append(f"LEGIBILITY {len(small)} text(s) under 11px at the ~360px card (need >=26 design px)")
     return issues
 def render(svg_path, width, out):
-    subprocess.run(['rsvg-convert', '-w', str(width), '-o', out, svg_path], check=True)
+    import raster; raster.to_png(svg_path, out, width)
 def sheet(pngs, cols, tile, out, gap=20):
     from PIL import Image
     ims = [Image.open(p).convert('RGB').resize(tile, Image.LANCZOS) for p in pngs]
@@ -106,8 +107,8 @@ def build_og(key, write=True):
     b += f'<image x="590" y="130" width="590" height="369" href="data:image/svg+xml;base64,{cov}"/>'
     L.W, L.H = 1200, 630; s = L.canvas(b, title="", desc=""); L.W, L.H = 1200, 800
     v = outline.convert(s); path = os.path.join(REPO, 'images', key, 'og.png')
-    tmp_svg = '/tmp/_og.svg'; open(tmp_svg, 'w').write(v); tmp_png = '/tmp/_og.png'
-    subprocess.run(['rsvg-convert', '-w', '1200', '-h', '630', '-o', tmp_png, tmp_svg], check=True)
+    import tempfile; tmp_svg = os.path.join(tempfile.gettempdir(), '_og.svg'); open(tmp_svg, 'w').write(v); tmp_png = os.path.join(tempfile.gettempdir(), '_og.png')
+    import raster; raster.to_png(tmp_svg, tmp_png, 1200, 630)
     buf = io.BytesIO(); Image.open(tmp_png).convert('RGB').save(buf, 'PNG', optimize=True); data = buf.getvalue()
     if write:
         open(path, 'wb').write(data); os.makedirs(REVIEW, exist_ok=True)

@@ -5,7 +5,8 @@ import uharfbuzz as hb
 from fontTools.ttLib import TTFont
 from fontTools.pens.svgPathPen import SVGPathPen
 NS='http://www.w3.org/2000/svg'; ET.register_namespace('',NS); XL='http://www.w3.org/1999/xlink'
-FD='/root/.fonts/'; WEIGHTS={400:'Regular',500:'Medium',600:'SemiBold',700:'Bold',800:'ExtraBold'}
+from paths import FONT_DIR as FD
+WEIGHTS={400:'Regular',500:'Medium',600:'SemiBold',700:'Bold',800:'ExtraBold'}
 _F={}
 def fnt(w):
     w=min(WEIGHTS,key=lambda k:abs(k-int(w)))

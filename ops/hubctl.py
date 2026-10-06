@@ -12,6 +12,8 @@
   bulk-payload HUB --sha SHA        create_collection_items actions (100 items per action) for every approved page without an item ID
   bulk-verify HUB READBACK.json     verify every page of HUB found in a stored read-back; records item IDs and file IDs
   next STATE [HUB]                  list pages waiting in a state (for orchestrators and reviewers)
+  images URL                        render the page's image_brief into its 6 images + contact sheet (engine), state -> images
+  images-batch STATE [HUB]          render every page in STATE (normally 'reviewed'); prints a summary
   publish-payload HUB               publish_collection_items actions (100 per call) for every verified cms_draft page (only after Divit's go)
   log HUB TEXT                      append a dated line to logs/<hub>.md
 
@@ -236,6 +238,23 @@ def cmd_next(args):
         for url, e in sorted(load_st(hub)["pages"].items(), key=lambda x: x[1].get("queue_rank", 0)):
             if e.get("state") == state: print(f"{hub:10s} #{e.get('queue_rank','-'):<4} {url}  {e.get('note','')}")
 
+def _engine():
+    sys.path.insert(0, os.path.join(ROOT, "pipeline")); import engine; return engine
+
+def cmd_images(args):
+    url = args[0]; ok = _engine().render_spec(spath(url))
+    if ok: set_state(url, "images")
+    sys.exit(0 if ok else 1)
+
+def cmd_images_batch(args):
+    state = args[0]; hubs = [args[1]] if len(args) > 1 else list(CFG["hubs"]); eng = _engine(); done = bad = 0
+    for hub in hubs:
+        for url, e in sorted(load_st(hub)["pages"].items(), key=lambda x: x[1].get("queue_rank", 0)):
+            if e.get("state") != state: continue
+            if eng.render_spec(spath(url)): set_state(url, "images"); done += 1
+            else: set_state(url, "rework", note="image brief blocked: see engine output"); bad += 1
+    print(f"rendered {done}; sent back to rework {bad}")
+
 def cmd_publish_payload(args):
     hub = args[0]; h = CFG["hubs"][hub]; st = load_st(hub); ids = []
     for url, e in st["pages"].items():
@@ -253,7 +272,7 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next}
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch}
 if __name__ == "__main__":
     if len(sys.argv) < 2 or sys.argv[1] not in CMDS: print(__doc__); sys.exit(0)
     sys.exit(CMDS[sys.argv[1]](sys.argv[2:]) or 0)

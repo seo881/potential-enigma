@@ -18,7 +18,7 @@ First time on a machine: `docs/CLAUDE_CODE_SETUP.md`. On macOS, `ops/setup.sh` c
 2. `python3 ops/hubctl.py claim <HUB> 25 --by orchestrator` for each hub in the day's plan; commit and push the status.
 3. For each claimed page, spawn a **page-writer** subagent (one page per subagent, many in parallel). Each returns when its spec passes `qc` with TOTAL 0 and the page is in state `qc_pass`.
 4. For each `qc_pass` page (`hubctl next qc_pass`), spawn a **page-reviewer** subagent. It never reviews a page it wrote. It sets `reviewed` or `rework` with notes; send `rework` pages back to a writer.
-5. Image stage: render every `reviewed` page's `image_brief` through the recipe library, run the gates, produce contact sheets (`SETUP_STATUS.md` says whether the library is live).
+5. Image stage: `python3 ops/hubctl.py images-batch reviewed` renders every reviewed page's `image_brief` (6 images, gates, a contact sheet per page in `.cache/review/`). Read each contact sheet before Divit's review: one hero, readable text, numbers that add up, the story matching the tab copy.
 6. Build the daily review page for Divit (calibration batch: every page; afterwards: a random 10% plus everything flagged). Only his go moves pages to `approved`.
 7. Commit and push; `hubctl bulk-payload <HUB> --sha <sha>`; create drafts via the Webflow MCP (100 per call); read back; `hubctl bulk-verify`. Publish only on Divit's go (`hubctl publish-payload`).
 8. Log every Webflow change in `logs/<dir>.md`. Commit after every stage so any session can resume.

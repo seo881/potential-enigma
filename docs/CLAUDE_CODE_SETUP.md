@@ -18,7 +18,7 @@ Run `claude` once and sign in with the Claude account Emergent uses. Official do
 git clone https://github.com/seo881/potential-enigma.git ~/emergent-hubs
 cd ~/emergent-hubs
 mkdir -p private && cp ~/Downloads/Emergent_Hub_Child_Pages_Final_v3.xlsx private/   # Semrush data stays out of git
-bash ops/setup.sh                                    # expect: SETUP OK
+bash ops/setup.sh                                    # expect: SETUP OK (also installs the image engine and test-renders 16 scenes)
 ```
 Push access: the first `git push` asks for credentials. Use the GitHub account that owns `seo881/potential-enigma`, or the fine-grained token from the handoff as the password (macOS Keychain remembers it).
 

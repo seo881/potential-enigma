@@ -286,6 +286,23 @@ def check(spec, siblings):
     for o, ks in openers.items():
         if len(ks) >= 4 and o not in ("every response", "every page"): add("P2", "A4", "body", f'{len(ks)} sentences open with "{o}": vary the rhythm')
 
+    # ---------- I: image brief (rendered in memory through the engine and its gates) ----------
+    frozen_spec = spec.get("status") in ("live-draft", "published")
+    if not frozen_spec:
+        if not spec.get("image_brief"):
+            add("P1", "I1", "image_brief", "missing: write the 4 tabs, cover and og per docs/IMAGE_BRIEF.md")
+        else:
+            try:
+                sys.path.insert(0, os.path.join(ROOT, "pipeline")); import engine
+                iss, notes = engine.lint(spec)
+                for x in iss: add("P1", "I1", "image_brief", x)
+                for x in notes: add("P2", "I2", "image_brief", x)
+            except Exception as e:
+                add("P2", "I0", "image_brief", f"image lint skipped ({type(e).__name__}: {e}); run bash ops/setup.sh")
+            for i, tb in enumerate(spec["image_brief"].get("tabs", []), 1):
+                p_ = (tb.get("prompt") or "").strip()
+                if p_ and not (40 <= len(p_) <= 95): add("P2", "I3", f"tab {i} prompt", f"{len(p_)} chars; a prompt chip reads best at 60-85")
+
     # ---------- D: duplication against siblings in the same hub ----------
     sents = {s.strip() for s in re.split(r"(?<=[.?])\s+", body) if len(s.split()) >= 9}
     for sib in siblings:

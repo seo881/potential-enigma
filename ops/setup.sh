@@ -9,17 +9,19 @@ PY=python3
 if [ "$(uname)" = "Darwin" ]; then
   # macOS (Claude Code on Divit's machine): isolated venv, Arial for SERP widths, image stage elsewhere until it is ported
   [ -d .venv ] || python3 -m venv .venv
-  .venv/bin/pip install -q --upgrade pip >/dev/null 2>&1; .venv/bin/pip install -q pandas openpyxl pillow >/dev/null 2>&1
-  PY=.venv/bin/python3; set -- --no-images
+  .venv/bin/pip install -q --upgrade pip >/dev/null 2>&1
+  .venv/bin/pip install -q pandas openpyxl pillow uharfbuzz fonttools resvg-py >/dev/null 2>&1 || { echo "  ERROR: pip install failed"; exit 1; }
+  PY=.venv/bin/python3
   echo "  macOS: using .venv (run every repo command as .venv/bin/python3 ...)"
 else
-  pip install -q pandas openpyxl pillow --break-system-packages >/dev/null 2>&1 || true
+  pip install -q pandas openpyxl pillow uharfbuzz fonttools resvg-py --break-system-packages >/dev/null 2>&1 || true
 fi
 if [ "$1" != "--no-images" ]; then
-  echo "[3/5] image pipeline bootstrap (Inter, Lucide, cairosvg, rsvg)"
-  bash pipeline/bootstrap.sh | tail -2
+  echo "[3/5] image engine: pinned assets (Inter 4.1, Lucide 1.52.0) and a smoke render of the 16 reference scenes"
+  if [ "$(uname)" = "Darwin" ] || [ ! -d /root ]; then $PY pipeline/assets.py; else bash pipeline/bootstrap.sh | tail -1; fi
+  $PY pipeline/engine.py lint pipeline/briefs/*.json | grep -E "^(OK|BLOCKED)" | sed 's/^/  /'
 else
-  echo "[3/5] image pipeline skipped (--no-images; on macOS the image stage runs in a Linux session until the recipe library is ported)"
+  echo "[3/5] image engine skipped (--no-images)"
 fi
 echo "[4/5] keyword map from the Semrush workbook in the Project"
 WB=${WB:-}

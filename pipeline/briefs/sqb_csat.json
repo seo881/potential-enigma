@@ -1,0 +1,410 @@
+{
+ "_demo": true,
+ "hub": "SurveyQuiz",
+ "url": "/ai-survey-and-quiz-builder/demo-csat",
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R10",
+    "title": "SaaS onboarding satisfaction survey",
+    "prompt": "Survey new accounts on day 7, 30, and 90, and alert the CSM on any low score",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Onboarding satisfaction, Acme Corp",
+       "sub": "CSAT and effort at each touch"
+      },
+      {
+       "type": "timeline",
+       "items": [
+        {
+         "label": "Day 7",
+         "chip": "CSAT 5, easy"
+        },
+        {
+         "label": "Day 30",
+         "chip": "CSAT 4, easy"
+        },
+        {
+         "label": "Day 90",
+         "chip": "CSAT 2, hard",
+         "kind": "bad"
+        }
+       ]
+      }
+     ]
+    },
+    "kpi": {
+     "icon": "chart-column",
+     "label": "Replies",
+     "value": "64%",
+     "sub": "this quarter"
+    },
+    "hero": {
+     "kind": "card",
+     "channel": "cs-alerts",
+     "action": {
+      "label": "Schedule a call"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Low score from Acme Corp",
+       "sub": "Day 90, CSAT 2, effort: hard"
+      },
+      {
+       "type": "quote",
+       "text": "Setting up SSO took our IT team a week.",
+       "sub": "CSM: Dana Ruiz, previous scores 5 and 4"
+      }
+     ]
+    },
+    "alt": "A three-touch onboarding survey tracks CSAT and effort at day 7, 30 and 90, and alerts the customer success manager on a low score."
+   },
+   {
+    "recipe": "R4",
+    "title": "Post-purchase satisfaction survey",
+    "prompt": "A week after delivery, ask for ratings, request reviews from 5-star buyers, flag the rest",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "How did we do?",
+       "size": 24,
+       "sub": "Delivered Thursday"
+      },
+      {
+       "type": "item",
+       "title": "Trail runner 2",
+       "sub": "Black, size 9",
+       "swatch": "#FDBA74"
+      },
+      {
+       "type": "stars",
+       "label": "Product",
+       "n": 5
+      },
+      {
+       "type": "stars",
+       "label": "Delivery",
+       "n": 4
+      },
+      {
+       "type": "textarea",
+       "lines": [
+        "Came early, love them"
+       ]
+      },
+      {
+       "type": "button",
+       "label": "Submit",
+       "full": true,
+       "h": 52
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "chips",
+       "items": [
+        [
+         "5 stars",
+         "ok"
+        ]
+       ]
+      },
+      {
+       "type": "list",
+       "row_h": 60,
+       "items": [
+        {
+         "initials": "MC",
+         "name": "Review request sent to M. Chen",
+         "sub": "Link to the Trail runner 2 product page"
+        }
+       ]
+      },
+      {
+       "type": "quote",
+       "text": "Came early, love them",
+       "sub": "Product 5, delivery 4 · posted after review"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "action": {
+      "label": "Start exchange"
+     },
+     "blocks": [
+      {
+       "type": "chips",
+       "items": [
+        [
+         "2 stars",
+         "bad"
+        ]
+       ]
+      },
+      {
+       "type": "title",
+       "title": "Returns team flagged",
+       "size": 24,
+       "sub": "Order #10377, sizing issue"
+      },
+      {
+       "type": "quote",
+       "text": "Runs small, I need a size up."
+      }
+     ]
+    },
+    "alt": "A post-purchase survey rates product and delivery, sends a review request to five-star buyers, and flags low ratings to the returns team."
+   },
+   {
+    "recipe": "R11",
+    "title": "B2B quarterly customer satisfaction survey",
+    "prompt": "Survey every account each quarter and write a per-account summary to HubSpot",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Q3 satisfaction by account",
+       "size": 20,
+       "chip": [
+        "Database",
+        "acc"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Account",
+        "Account exec",
+        "CSAT",
+        "NPS",
+        "vs Q2"
+       ],
+       "widths": [
+        0.29,
+        0.27,
+        0.14,
+        0.14,
+        0.16
+       ],
+       "bad": 2,
+       "num_cols": [
+        2,
+        3
+       ],
+       "signed_cols": [
+        4
+       ],
+       "rows": [
+        [
+         "Northwind",
+         "J. Alvarez",
+         "4.6",
+         "+52",
+         "+6"
+        ],
+        [
+         "Globex",
+         "R. Singh",
+         "4.2",
+         "+31",
+         "+2"
+        ],
+        [
+         "Initech",
+         "M. Rossi",
+         "3.1",
+         "−8",
+         "−24"
+        ],
+        [
+         "Umbrella Co",
+         "J. Alvarez",
+         "4.4",
+         "+40",
+         "+4"
+        ]
+       ]
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "QBR summary in HubSpot",
+       "size": 18
+      },
+      {
+       "type": "bullets",
+       "items": [
+        "Support response time is the top theme",
+        "Two users flagged onboarding effort",
+        "Renewal owner: M. Rossi"
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "action": {
+      "label": "Review account"
+     },
+     "blocks": [
+      {
+       "type": "chips",
+       "items": [
+        [
+         "AE alert",
+         "bad"
+        ]
+       ]
+      },
+      {
+       "type": "title",
+       "title": "NPS dropped 24 at Initech",
+       "sub": "Sent to M. Rossi with every comment"
+      }
+     ]
+    },
+    "alt": "A quarterly B2B survey scores CSAT and NPS per account, writes a summary to HubSpot, and alerts the account executive when NPS drops."
+   },
+   {
+    "recipe": "R10",
+    "title": "Support ticket CSAT survey",
+    "prompt": "When a ticket closes, send a CSAT survey and alert the lead on any score of 1 or 2",
+    "main": {
+     "blocks": [
+      {
+       "type": "columns",
+       "cols": [
+        {
+         "w": 0.46,
+         "gap": 18,
+         "blocks": [
+          {
+           "type": "chips",
+           "items": [
+            [
+             "Ticket #8841 closed",
+             "ok"
+            ]
+           ]
+          },
+          {
+           "type": "scale",
+           "question": [
+            "How satisfied are you with the help?"
+           ],
+           "selected": 4
+          }
+         ]
+        },
+        {
+         "w": 0.54,
+         "gap": 14,
+         "blocks": [
+          {
+           "type": "text",
+           "text": "CSAT by agent this week",
+           "size": 19
+          },
+          {
+           "type": "bars",
+           "max": 5,
+           "items": [
+            {
+             "label": "Sofia",
+             "value": 4.7
+            },
+            {
+             "label": "Marcus",
+             "value": 4.5
+            },
+            {
+             "label": "Tom",
+             "value": 3.2,
+             "flag": true
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "kpi": {
+     "icon": "gauge",
+     "label": "Team CSAT",
+     "value": "4.4",
+     "sub": "this week"
+    },
+    "hero": {
+     "kind": "card",
+     "channel": "support-leads",
+     "action": {
+      "label": "Open ticket"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Low score on ticket #8790",
+       "sub": "CSAT 2, Tom, Billing, resolved in 2 days"
+      },
+      {
+       "type": "quote",
+       "text": "I had to explain the refund issue three times."
+      }
+     ]
+    },
+    "alt": "A CSAT survey fires when a support ticket closes, feeds a per-agent dashboard, and alerts the support lead on a low score."
+   }
+  ],
+  "cover": {
+   "kind": "score",
+   "title": "How did we do?",
+   "stars": 5,
+   "label": "CSAT",
+   "value": "4.6",
+   "delta": "+0.4 this month",
+   "alt": "Customer satisfaction survey with a five-star rating and a CSAT of 4.6"
+  },
+  "og": {
+   "headline": "Build a customer satisfaction survey",
+   "alt": "Build a customer satisfaction survey with Emergent"
+  }
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/_demo/demo-csat/uc-1.svg",
+   "alt": "A three-touch onboarding survey tracks CSAT and effort at day 7, 30 and 90, and alerts the customer success manager on a low score."
+  },
+  "tab_image_2": {
+   "path": "images/_demo/demo-csat/uc-2.svg",
+   "alt": "A post-purchase survey rates product and delivery, sends a review request to five-star buyers, and flags low ratings to the returns team."
+  },
+  "tab_image_3": {
+   "path": "images/_demo/demo-csat/uc-3.svg",
+   "alt": "A quarterly B2B survey scores CSAT and NPS per account, writes a summary to HubSpot, and alerts the account executive when NPS drops."
+  },
+  "tab_image_4": {
+   "path": "images/_demo/demo-csat/uc-4.svg",
+   "alt": "A CSAT survey fires when a support ticket closes, feeds a per-agent dashboard, and alerts the support lead on a low score."
+  },
+  "cover_image": {
+   "path": "images/_demo/demo-csat/cover.svg",
+   "alt": "Customer satisfaction survey with a five-star rating and a CSAT of 4.6"
+  },
+  "share_image": {
+   "path": "images/_demo/demo-csat/og.png",
+   "alt": "Build a customer satisfaction survey with Emergent"
+  }
+ }
+}

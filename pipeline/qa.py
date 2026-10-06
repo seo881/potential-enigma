@@ -1,7 +1,7 @@
 """Automated QA: measure every <text> with real Inter metrics, flag overlaps and off-canvas text."""
 import re, xml.etree.ElementTree as ET
 from fontTools.ttLib import TTFont
-FD='/root/.fonts/'
+from paths import FONT_DIR as FD
 _F={}
 def font(w):
     w=int(w); name={400:'Regular',500:'Medium',600:'SemiBold',700:'Bold',800:'ExtraBold'}.get(min([400,500,600,700,800],key=lambda k:abs(k-w)))

@@ -1,0 +1,450 @@
+{
+ "_demo": true,
+ "hub": "Auto",
+ "url": "/ai-automation-builder/demo-approvals",
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R1",
+    "title": "Purchase order approval workflow",
+    "prompt": "Route purchase requests by amount and post each one to #approvals",
+    "main": {
+     "chrome": "Approvals",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "PR-2041 · MARKETING",
+       "title": "Design licenses ×12",
+       "size": 28,
+       "sub": "Requested by Nina Park · Figma, approved vendor",
+       "right": "$4,800.00",
+       "right_sub": "USD"
+      },
+      {
+       "type": "rule",
+       "text": "Rule matched: $500 to $5,000 → Department head"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Submitted",
+         "sub": "Nina Park · Design licenses ×12",
+         "right": "9:12 AM"
+        },
+        {
+         "state": "skip",
+         "title": "Manager review",
+         "sub": "Not required for this amount"
+        },
+        {
+         "state": "live",
+         "title": "Department head",
+         "sub": "Priya Shah · decision in #approvals",
+         "right": "In review"
+        },
+        {
+         "state": "next",
+         "title": "Sync to Xero",
+         "sub": "Bill created after approval"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "message",
+     "channel": "approvals",
+     "title": "Nina Park requested $4,800",
+     "lines": [
+      "for Design licenses ×12",
+      "Marketing · approved vendor"
+     ],
+     "button": "Approve",
+     "button2": "Decline"
+    },
+    "mini": {
+     "icon": "database",
+     "title": "Every decision is logged",
+     "sub": "Approver chain and timestamps"
+    },
+    "alt": "An Emergent prompt generates an approvals app that routes a $4,800 request to the department head, who approves it from a Slack message."
+   },
+   {
+    "recipe": "R2",
+    "title": "Invoice approval workflow",
+    "prompt": "Read each invoice, match it to its PO, and route anything over $1,000 to finance",
+    "main": {
+     "scan": true,
+     "blocks": [
+      {
+       "type": "doc_header",
+       "initials": "NS",
+       "title": "Northwind Supplies",
+       "sub": "billing@northwind.co",
+       "label": "INVOICE"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Invoice no.",
+         "INV-7731"
+        ],
+        [
+         "PO reference",
+         "PO-2231",
+         true
+        ],
+        [
+         "Due date",
+         "Nov 12, 2026"
+        ]
+       ]
+      },
+      {
+       "type": "lineitems",
+       "items": [
+        [
+         "Packaging supplies",
+         "$1,420.00"
+        ],
+        [
+         "Label printing",
+         "$640.00"
+        ],
+        [
+         "Freight",
+         "$280.00"
+        ]
+       ],
+       "total": [
+        "Total due",
+        "$2,340.00"
+       ]
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Extracted fields",
+       "size": 19,
+       "chip": [
+        "4 of 4 found",
+        "ok"
+       ]
+      },
+      {
+       "type": "extract",
+       "items": [
+        [
+         "Vendor",
+         "Northwind Supplies",
+         99
+        ],
+        [
+         "PO reference",
+         "PO-2231",
+         100
+        ],
+        [
+         "Total",
+         "$2,340.00",
+         99
+        ],
+        [
+         "Due date",
+         "Nov 12, 2026",
+         97
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "check",
+     "tone": "ok",
+     "title": "INV-7731 matches PO-2231",
+     "chip": [
+      "Amounts agree",
+      "ok"
+     ],
+     "blocks": [
+      {
+       "type": "rule",
+       "text": "Over $1,000 → Finance"
+      },
+      {
+       "type": "list",
+       "row_h": 52,
+       "items": [
+        {
+         "initials": "JA",
+         "name": "Approved by J. Alvarez",
+         "sub": "3 hours after arrival",
+         "chip": [
+          "Synced to Xero",
+          "ok"
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "alt": "Emergent reads an invoice, extracts vendor, PO and total, matches the purchase order, routes it to finance and syncs it to Xero."
+   },
+   {
+    "recipe": "R3",
+    "title": "Contract approval workflow",
+    "prompt": "Route contracts to legal, finance, and the sponsor in parallel, and nudge after two days",
+    "main": {
+     "blocks": [
+      {
+       "type": "doc_header",
+       "icon": "file-text",
+       "title": "Master services agreement",
+       "sub": "Version 3 · 14 pages"
+      },
+      {
+       "type": "filler",
+       "n": 4
+      },
+      {
+       "type": "redline",
+       "heading": "§ 4.2  Payment terms",
+       "before": "Invoices are payable within",
+       "old": "45 days",
+       "new": "30 days",
+       "after": "of receipt."
+      },
+      {
+       "type": "comment",
+       "initials": "LG",
+       "name": "Lena Grant · Legal",
+       "text": "Aligned with the finance policy."
+      },
+      {
+       "type": "filler",
+       "n": 3
+      },
+      {
+       "type": "note",
+       "icon": "signature",
+       "text": "E-signature unlocks when all three approve"
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Parallel review",
+       "size": 20,
+       "sub": "Sent Tuesday · 9:04 AM",
+       "chip": [
+        "2 of 3 approved",
+        "acc"
+       ]
+      },
+      {
+       "type": "list",
+       "items": [
+        {
+         "initials": "LG",
+         "name": "Lena Grant",
+         "sub": "Legal",
+         "chip": [
+          "Approved",
+          "ok"
+         ]
+        },
+        {
+         "initials": "OA",
+         "name": "Omar Aziz",
+         "sub": "Finance",
+         "chip": [
+          "Approved",
+          "ok"
+         ]
+        },
+        {
+         "initials": "DK",
+         "name": "David Kim",
+         "sub": "Executive sponsor",
+         "chip": [
+          "Waiting",
+          "warn"
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "bell",
+     "tone": "warn",
+     "title": "Reminder scheduled",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "David Kim · Thursday, 9:00 AM",
+       "size": 17,
+       "color": "sub"
+      },
+      {
+       "type": "meta",
+       "icon": "calendar-clock",
+       "kind": "muted",
+       "text": "Two days without a reply triggers it"
+      }
+     ]
+    },
+    "alt": "A contract goes to legal, finance and the executive sponsor in parallel, with a redline, two approvals and an automatic reminder."
+   },
+   {
+    "recipe": "R4",
+    "title": "Expense approval workflow",
+    "prompt": "Check expenses against the budget: managers approve in policy, finance reviews the rest",
+    "main": {
+     "blocks": [
+      {
+       "type": "text",
+       "text": "New expense",
+       "size": 22
+      },
+      {
+       "type": "receipt",
+       "merchant": "Bistro Nord",
+       "sub": "Oct 14 · 2 guests",
+       "total": "$180.00"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Category",
+         "Client dinner"
+        ],
+        [
+         "Project",
+         "Atlas"
+        ]
+       ]
+      },
+      {
+       "type": "button",
+       "label": "Submit",
+       "icon": "send",
+       "full": true
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Atlas · October budget",
+       "size": 19
+      },
+      {
+       "type": "budget",
+       "used": 3200,
+       "this": 180,
+       "total": 4000,
+       "legend": [
+        "Spent",
+        "This expense",
+        "Left"
+       ]
+      },
+      {
+       "type": "checks",
+       "items": [
+        "Receipt attached",
+        "Under the $250 meal limit",
+        "Within the budget"
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "blocks": [
+      {
+       "type": "list",
+       "row_h": 56,
+       "items": [
+        {
+         "initials": "ML",
+         "name": "Marcus Lee",
+         "sub": "Engineering manager",
+         "chip": [
+          "Within policy",
+          "ok"
+         ]
+        }
+       ]
+      },
+      {
+       "type": "text",
+       "text": "Approved in 12 minutes, added to the export queue",
+       "size": 18,
+       "weight": 500,
+       "color": "ink"
+      },
+      {
+       "type": "pill",
+       "label": "Approved",
+       "then": "Over policy goes to finance review"
+      }
+     ]
+    },
+    "alt": "An expense submitted from a phone is checked against the project budget and policy, then approved by the manager."
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "channel": "approvals",
+   "title": "$4,800 request",
+   "sub": "Design licenses",
+   "primary": "Approve",
+   "secondary": "Decline",
+   "alt": "Approval workflow: a $4,800 request approved from Slack"
+  },
+  "og": {
+   "headline": "Build an approval workflow your team actually uses",
+   "alt": "Build an approval workflow your team actually uses, with Emergent"
+  }
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/_demo/demo-approvals/uc-1.svg",
+   "alt": "An Emergent prompt generates an approvals app that routes a $4,800 request to the department head, who approves it from a Slack message."
+  },
+  "tab_image_2": {
+   "path": "images/_demo/demo-approvals/uc-2.svg",
+   "alt": "Emergent reads an invoice, extracts vendor, PO and total, matches the purchase order, routes it to finance and syncs it to Xero."
+  },
+  "tab_image_3": {
+   "path": "images/_demo/demo-approvals/uc-3.svg",
+   "alt": "A contract goes to legal, finance and the executive sponsor in parallel, with a redline, two approvals and an automatic reminder."
+  },
+  "tab_image_4": {
+   "path": "images/_demo/demo-approvals/uc-4.svg",
+   "alt": "An expense submitted from a phone is checked against the project budget and policy, then approved by the manager."
+  },
+  "cover_image": {
+   "path": "images/_demo/demo-approvals/cover.svg",
+   "alt": "Approval workflow: a $4,800 request approved from Slack"
+  },
+  "share_image": {
+   "path": "images/_demo/demo-approvals/og.png",
+   "alt": "Build an approval workflow your team actually uses, with Emergent"
+  }
+ }
+}

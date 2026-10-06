@@ -1,6 +1,6 @@
 """Design system v4 — reference quality. 1200x800 (3:2 slot), vector-only output."""
 import re, math, os
-ICON_DIR='/home/claude/lucide/package/icons/'
+from paths import ICON_DIR
 # ---------- tokens ----------
 INK="#0F172A"; SUB="#475569"; MUTED="#64748B"; LINE="#E6E3F0"; HAIR="#EEEBF5"
 ACC="#7C3AED"; ACC2="#6366F1"; ACC_D="#5B21B6"; ACC_S="#F1ECFF"; ACC_M="#DDD3FF"

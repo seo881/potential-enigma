@@ -16,13 +16,14 @@ What exists, what does not yet, and what is next. Update this file whenever a se
 | Bulk operations: claim up to 50, `next <state>`, `bulk-payload` (100 drafts per call), `bulk-verify`, `publish-payload` (100 per call) | `ops/hubctl.py` | |
 | Image brief schema (writers produce it with the copy) | `docs/IMAGE_BRIEF.md` | draft; consumed by the recipe library |
 | Human-voice standard and AI-tell checks | `rules/HUB_RULES.md` 2b, `rules/ai_tells.json`, QC codes A1-A4 | approved pages: 0 hits; planted AI copy: every tell caught |
+| **Image engine**: 11 recipes from the approved scenes, 44 blocks, covers, share images, fit and number checks, balance check, contact sheets; QC lint (I1/I2); `hubctl images` / `images-batch` | `pipeline/engine.py`, `pipeline/engine_blocks.py`, `docs/IMAGE_BRIEF.md`, `pipeline/briefs/` | all 16 approved scenes rebuilt from briefs, gates clean; 20/20 SVGs byte-identical on the Linux and macOS paths; the 24 live images still rebuild byte-identical |
+| Portable pipeline: path resolver, pinned assets (Inter 4.1, Lucide 1.52.0), renderer with a pure-Python fallback (`resvg-py`) | `pipeline/paths.py`, `assets.py`, `raster.py`, `_alias.py` | macOS path simulated end to end |
 | Claude Code config: `.mcp.json` (Webflow), `.claude/settings.json` (permissions), macOS-ready `ops/setup.sh`, setup guide | repo root, `docs/CLAUDE_CODE_SETUP.md` | Linux path tested; macOS path to be confirmed on Divit's machine |
 | One-shot setup for any chat | `ops/setup.sh` | fresh public clone at 28fe7fb: image bootstrap OK (20 scenes, all gates clean), keyword map rebuilt, QC smoke PASS, SETUP OK |
 
 ## Not built yet (next, in order)
-1. **Image recipe library** (coordinator, about 1 day), including making the image pipeline run on macOS so Claude Code can render too (today it is Linux-only: `pipeline/bootstrap.sh` uses apt and fixed paths). The 11 approved layouts become functions that render a page's `image_brief` (`docs/IMAGE_BRIEF.md`), plus a numbers-consistency check, a `build.py` command that renders all briefs in a state, and one contact sheet per page. Validated by re-rendering the 16 approved scenes. Writers do not wait for it: they write briefs now; rendering catches up.
-2. **Daily review page** for Divit (calibration in full, then a 10% sample plus flagged pages).
-3. **Dry run**: 5 pages end to end (write → review → images → review page → drafts → verify), then the calibration batch (10 per hub, reviewed in full by Divit), then 200 a day.
+1. **Daily review page** for Divit (calibration batch in full, then a 10% sample plus flagged pages), built from specs and contact sheets.
+2. **Dry run**: 5 pages end to end (write → review → images → review page → drafts → verify), then the calibration batch (10 per hub, reviewed in full by Divit), then 200 a day.
 
 ## Waiting on Divit
 - Install the two skills, and replace `Kickoff.md` in the Project with the updated `KICKOFF.md` (adds the writer and reviewer prompts and Claude Code mode).

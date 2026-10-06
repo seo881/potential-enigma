@@ -38,7 +38,7 @@ Every stage runs in bulk and in parallel. A page moves through states in `status
 | 1. Claim | Orchestrator | `hubctl claim <HUB> 25 --by <id>` per hub in today's plan; commit and push status | claimed |
 | 2. Write | **Writer** (one page per writer, fresh context) | Brief → spec (all fields + `image_brief` per `docs/IMAGE_BRIEF.md`) → `hubctl qc` until TOTAL = 0 | qc_pass |
 | 3. Review | **Reviewer** (independent; never its own pages) | Code QC re-run + judgment pass (hub-qc skill) against the brief | reviewed or rework |
-| 4. Images | Image stage (Linux: Claude.ai chat or a Linux Claude Code session) | Render every reviewed page's brief through the recipe library, gates, one contact sheet per page | images |
+| 4. Images | Orchestrator (any machine) | `hubctl images-batch reviewed`: the image engine renders every reviewed page's brief (6 images, gates, one contact sheet per page); a brief that fails goes back to `rework` | images |
 | 5. Divit's review | Divit | Daily review page. First batch per hub (calibration): every page in full. Then: a random 10% of the day plus everything flagged. Rejections become rule fixes, re-run on all pending pages | approved |
 | 6. Create drafts | Orchestrator | Commit + push, `hubctl bulk-payload <HUB> --sha <sha>` → `data_cms_tool` (100 drafts per call), read back to disk, `hubctl bulk-verify` | cms_draft |
 | 7. Publish | Orchestrator, on Divit's go | `hubctl publish-payload <HUB>` (100 per call) | published |
@@ -46,7 +46,7 @@ Every stage runs in bulk and in parallel. A page moves through states in `status
 Quality is layered so volume never lowers it: code QC (zero tolerance), an independent reviewer per page, pre-approved image recipes with code gates, and Divit's calibration plus sampling. A defect Divit finds becomes a QC rule or a `HUB_RULES.md` line (ratchet), then QC re-runs on every page not yet published.
 
 ### Mode A (recommended): Claude Code
-One orchestrator session in the repo (`CLAUDE.md` loads automatically) spawns `page-writer` and `page-reviewer` subagents (`.claude/agents/`), each in its own context, many in parallel. Setup once: clone the repo, put the Semrush workbook at `private/Emergent_Hub_Child_Pages_Final_v3.xlsx`, connect the Webflow MCP server (`claude mcp add`, then authorise), run `bash ops/setup.sh`. Skills load from `.claude/skills/`. Git uses Divit's own credentials. The image pipeline needs Linux (`pipeline/bootstrap.sh`); on macOS run stage 4 in a Claude.ai chat.
+One orchestrator session in the repo (`CLAUDE.md` loads automatically) spawns `page-writer` and `page-reviewer` subagents (`.claude/agents/`), each in its own context, many in parallel. Setup once: clone the repo, put the Semrush workbook at `private/Emergent_Hub_Child_Pages_Final_v3.xlsx`, connect the Webflow MCP server (`claude mcp add`, then authorise), run `bash ops/setup.sh`. Skills load from `.claude/skills/`. Git uses Divit's own credentials. The image engine runs on macOS and Linux alike (`ops/setup.sh` installs it; output SVGs are byte-identical on both).
 
 ### Mode B (works today): Claude.ai Project chats
 Same stages, more chats: about 8 writer chats a day (2 per hub, 25 pages each, two rounds), 2 reviewer chats, 1 image-and-publish chat, 1 coordinator. Start each with its prompt in `KICKOFF.md`. A writer chat writes copy only (no images, no Webflow read-backs), so 25 pages fit in one chat.
@@ -66,7 +66,7 @@ Repo dirs: LP `lp`, Form `form`, Auto `aab`, SurveyQuiz `sqb`. Writers in the sa
 - Writers: about 200 specs. Reviewers: about 200. Images: about 1,200 renders, all from briefs.
 - Drafts: 2 create calls per hub (100 each). Publish: same.
 - Divit: about 1 hour (calibration days: more).
-- Dependencies that cap the rate: plan usage limits for the model; Divit's daily review; the Wave 3 top-10 pull before queue rank 208; the recipe library before stage 4.
+- Dependencies that cap the rate: plan usage limits for the model; Divit's daily review; the Wave 3 top-10 pull before queue rank 208.
 
 ## 4. Webflow facts (hard-won; do not relearn)
 1. **IDs and field slugs** are in `config/collections.json`. Never write a slug that is not there. The child collections are at Webflow's field cap: no new fields.
@@ -100,5 +100,5 @@ Before the context runs long (a writer chat: about 25 pages; a coordinator: when
 | `ops/hubctl.py`, `ops/setup.sh` | Operations CLI, setup |
 | `pipeline/`, `images/`, `manifest.json`, `assets.json` | v5 image pipeline and outputs |
 | `.claude/skills/`, `.claude/agents/`, `CLAUDE.md` | The two skills (also packaged for Claude.ai), writer and reviewer subagents, Claude Code context |
-| `docs/IMAGE_BRIEF.md` | The structured image brief writers produce with the copy |
+| `docs/IMAGE_BRIEF.md`, `pipeline/engine.py`, `pipeline/engine_blocks.py`, `pipeline/briefs/` | Image brief guide; the image engine (11 recipes, 44 blocks, covers, share images); 4 worked briefs that rebuild the 16 approved scenes |
 | `MORE_THINGS.md`, `childedits/`, `audit/`, `tables/`, `schema/` | History of earlier sessions |
