@@ -32,7 +32,8 @@ Check: ask Claude Code "Run `.venv/bin/python3 ops/hubctl.py status`, then list 
 
 ## 5. Safety rails built into the repo
 - `.claude/settings.json` lets repo commands (`hubctl`, QC, git commit and push) run without prompts and blocks force-pushes, hard resets and reading `private/`.
-- **Every Webflow call still asks for your approval.** Approve creates only for batches you have signed off, and publishes only on your explicit go.
+- **Every Webflow call asks for your approval, in every permission mode, including auto mode.** An explicit `ask` rule (`mcp__webflow`) in `.claude/settings.json` forces the prompt. Approve creates only for batches you have signed off, and publishes only on your explicit go. Never choose "Yes, don't ask again" on a Webflow prompt.
+- File edits inside the repo are auto-approved (`defaultMode: acceptEdits`) so writers are not interrupted on every page.
 - Skills (`.claude/skills/`) and the writer and reviewer subagents (`.claude/agents/`) load from the repo, so updates arrive with `git pull`; nothing to reinstall.
 
 ## 6. Daily run

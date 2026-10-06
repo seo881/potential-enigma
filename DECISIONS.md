@@ -3,6 +3,7 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-06
+- **Claude Code permissions:** every Webflow MCP call prompts Divit (explicit ask rule, holds in auto mode); file edits auto-approved; force-push, hard reset and reading `private/` denied. Never answer a Webflow prompt with "don't ask again".
 - **Runtime: Claude Code** (Divit), for scale only. The content standard does not change: every page human, operator grade, world class, exactly per this log and `rules/HUB_RULES.md`. It must never read as AI-written: enforced by `rules/ai_tells.json` in QC (A1 block, A2/A3/A4 flag) and the reviewer's human-voice check (HUB_RULES 2b).
 - **Target 200 pages a day with no loss of quality.** Content-first staged pipeline: writers (copy + image brief) → independent reviewer per page → images rendered in bulk from briefs via the recipe library → Divit's review (first batch per hub in full, then a daily random 10% plus everything flagged) → bulk drafts (100 per call) → bulk publish on his go. Defects become rules and re-run on every unpublished page. Recommended runtime: Claude Code (orchestrator + per-page writer and reviewer subagents); Claude.ai Project chats remain a supported mode. See `RUNBOOK.md` section 2.
 - **Parallel setup is persistent.** Everything lives in this repo (runbook, rules, config, plan generator, status, logs) and in two skills; no chat holds state that is not committed.
