@@ -12,7 +12,7 @@ What exists, what does not yet, and what is next. Update this file whenever a se
 | Operations CLI (status, claim, brief, init, qc, state, payload, verify, record, publish-payload, log) | `ops/hubctl.py` | brief, init, qc and status tested on a real queue page |
 | Writing rules, decisions log, runbook, kickoff prompts | `rules/HUB_RULES.md`, `DECISIONS.md`, `RUNBOOK.md`, `KICKOFF.md` | |
 | Skills `hub-content` and `hub-qc` | `skills/` (sources), packaged `.skill` files given to Divit | validated with skill-creator |
-| One-shot setup for any chat | `ops/setup.sh` | fresh-clone test below |
+| One-shot setup for any chat | `ops/setup.sh` | fresh public clone at 28fe7fb: image bootstrap OK (20 scenes, all gates clean), keyword map rebuilt, QC smoke PASS, SETUP OK |
 
 ## Not built yet (next, in order)
 1. **Image recipe library** (coordinator). Turn the 11 approved layouts (R1-R11 in `IMAGE_PIPELINE_KT.md` Part 7) into functions driven by a per-page `image_spec` (recipe, prompt chip, people, amounts, statuses, hero card, alt), plus a numbers-consistency check and a `build.py` command that renders a page from its spec. Validate by re-rendering the 16 approved scenes. **Until this exists, hub chats can write and QC copy, but stop at the image step.**
