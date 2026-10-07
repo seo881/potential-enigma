@@ -173,6 +173,13 @@
    "via": "review",
    "by": "reviewer-batch-m7",
    "note": "rubric 10/10 by reviewer-batch-m7; 7 notes"
+  },
+  {
+   "t": "2026-10-07 15:28 UTC",
+   "state": "rework",
+   "via": "challenge",
+   "by": "challenger-batch-m3",
+   "note": "[truth | CONTENT_DEFECTS #7] feature_4: An absolute the page itself contradicts. tab_content_4 says \"the app confirms dates once the release is on file\", with no signer in that flow. tab_content_1 and its image show a payroll approver approving the Form 1005 reply (\"Approve reply\"), not the HR manag"
   }
  ],
  "plan": {
@@ -1150,6 +1157,66 @@
    "by": "reviewer-batch-m7",
    "via": "review",
    "date": "2026-10-07 15:16 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_description",
+   "issue": "Steps 6 (sending) and 7 (retention) happen after the letter is signed, so the five steps do not all turn the answer into a signed letter.",
+   "fix": "\"...and the rest take it from a draft to a signed, sent and filed letter.\"",
+   "by": "challenger-batch-m3",
+   "via": "challenge",
+   "date": "2026-10-07 15:28 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2a",
+   "field": "faq item 2; faq item 6",
+   "issue": "The sample letter puts every fact in one sentence, which goes against FAQ 2's own advice to list them one per line.",
+   "fix": "Lay the sample out as an opening line plus lines for title, start date and status, or soften FAQ 2.",
+   "by": "challenger-batch-m3",
+   "via": "challenge",
+   "date": "2026-10-07 15:28 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_3_des; faq item 9",
+   "issue": "The how-to tells HR to print a number for checking the letter, and FAQ 9 tells verifiers not to use that number. A reader sees two pieces of advice that pull against each other.",
+   "fix": "In step 3, point to the company's main HR line that a verifier can look up independently.",
+   "by": "challenger-batch-m3",
+   "via": "challenge",
+   "date": "2026-10-07 15:28 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "feature_3; tab_content_1",
+   "issue": "Tab 1 adds base pay on the authority of the borrower's signature on Form 1005, not a yes on the request form. That does not quite fit feature 3's \"only when\".",
+   "fix": "\"...only when the employee has agreed, on the request form or a lender's signed authorization.\"",
+   "by": "challenger-batch-m3",
+   "via": "challenge",
+   "date": "2026-10-07 15:28 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief tab 1 panel",
+   "issue": "Confidence bars at 100% suggest extraction scores on values that were copied from the HR table, not read from a document. A drawn \"100%\" is also the kind of absolute claim claims.json flags.",
+   "fix": "Replace the bars with a \"from HR table\" source tag, or drop the percentages.",
+   "by": "challenger-batch-m3",
+   "via": "challenge",
+   "date": "2026-10-07 15:28 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 10",
+   "issue": "An unsourced claim about general practice. It is low risk.",
+   "fix": "\"Pay figures go on a wage verification form, which payroll can complete.\"",
+   "by": "challenger-batch-m3",
+   "via": "challenge",
+   "date": "2026-10-07 15:28 UTC"
   }
  ],
  "reviews": [
@@ -1165,6 +1232,131 @@
    "date": "2026-10-07 14:58 UTC",
    "result": "fail",
    "blocking": 4,
+   "notes": 6
+  }
+ ],
+ "challenge": {
+  "by": "challenger-batch-m3",
+  "date": "2026-10-07 15:28 UTC",
+  "result": "fail",
+  "defects": [
+   "[truth | CONTENT_DEFECTS #7] feature_4: An absolute the page itself contradicts. tab_content_4 says \"the app confirms dates once the release is on file\", with no signer in that flow. tab_content_1 and its image show a payroll approver approving the Form 1005 reply (\"Approve reply\"), not the HR manager signing it. feature_4 also says every draft goes \"to the HR manager\", but tab 1 routes it to payroll and tab 3 to an HR generalist. -> Limit the claim to letters, e.g. \"Sends each letter draft to the HR reviewer you name to read and sign on screen. A draft left sitting for a full day sends that reviewer a reminder.\" Drop \"Nothing leaves the app unsigned\", or make tab 4 hold screening replies for a sign-off too.",
+   "[craft | CONTENT_DEFECTS #21] howto_step_1_des; tab_content_4; faq item 7: The written-consent-before-confirming rule is stated three times in different words, the same pattern as the #21 catalogue example (feature, tab and step). The step 1 sentence is also the reviewers' carried-over unsourced recommendation. -> Cut the consent sentence from step 1 and give it a new point, such as confirming the requester is who they say they are or checking the deadline. Keep tab 4 (the product's behavior) and FAQ 7 (the legal basis).",
+   "[craft | CONTENT_DEFECTS #21] howto_step_2_des; tab_content_3: The same idea twice: reasons for leaving are left out except where state law requires them. Tab 3 already makes this point through the Missouri exception. -> Cut the sentence from step 2 and replace it with something tab 3 does not say, e.g. how to state part-time hours or a role that changed.",
+   "[craft | CONTENT_DEFECTS #21] hero_description; features_subheading; faq item 2: The same pitch three times with the words swapped: a request form plus a letter HR signs. The hero needs it. The subheading sits directly under the hero and repeats it, and FAQ 2's hub-link sentence says it a third time. -> Keep the hero. Have the subheading introduce what the six features cover that a template does not (e.g. the HR record, consent and the sent-letter log), and have FAQ 2's hub sentence add something new, e.g. that each letter is drafted from the employee table."
+  ],
+  "findings": [
+   {
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "feature_4",
+    "quote": "Nothing leaves the app unsigned, and a draft left sitting for a full day sends the manager a reminder.",
+    "issue": "An absolute the page itself contradicts. tab_content_4 says \"the app confirms dates once the release is on file\", with no signer in that flow. tab_content_1 and its image show a payroll approver approving the Form 1005 reply (\"Approve reply\"), not the HR manager signing it. feature_4 also says every draft goes \"to the HR manager\", but tab 1 routes it to payroll and tab 3 to an HR generalist.",
+    "fix": "Limit the claim to letters, e.g. \"Sends each letter draft to the HR reviewer you name to read and sign on screen. A draft left sitting for a full day sends that reviewer a reminder.\" Drop \"Nothing leaves the app unsigned\", or make tab 4 hold screening replies for a sign-off too.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_1_des; tab_content_4; faq item 7",
+    "quote": "\"Ask for the employee's written consent before you confirm anything, even a start date, and keep that consent with the request.\" / \"No signed release, no answer ... A request without a release goes back to the firm\" / \"federal law requires written permission from the candidate first\"",
+    "issue": "The written-consent-before-confirming rule is stated three times in different words, the same pattern as the #21 catalogue example (feature, tab and step). The step 1 sentence is also the reviewers' carried-over unsourced recommendation.",
+    "fix": "Cut the consent sentence from step 1 and give it a new point, such as confirming the requester is who they say they are or checking the deadline. Keep tab 4 (the product's behavior) and FAQ 7 (the legal basis).",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_2_des; tab_content_3",
+    "quote": "\"Reasons for leaving stay out unless a state law requires them.\" / \"Anyone with an end date gets a narrower letter ... In Missouri ... a service letter within 45 days stating why they left.\"",
+    "issue": "The same idea twice: reasons for leaving are left out except where state law requires them. Tab 3 already makes this point through the Missouri exception.",
+    "fix": "Cut the sentence from step 2 and replace it with something tab 3 does not say, e.g. how to state part-time hours or a role that changed.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "hero_description; features_subheading; faq item 2",
+    "quote": "\"Emergent builds the request form and the letter behind it.\" / \"Emergent adds the request form and the HR sign-off.\" / \"turns that process into an app where every request becomes a draft for HR to sign\"",
+    "issue": "The same pitch three times with the words swapped: a request form plus a letter HR signs. The hero needs it. The subheading sits directly under the hero and repeats it, and FAQ 2's hub-link sentence says it a third time.",
+    "fix": "Keep the hero. Have the subheading introduce what the six features cover that a template does not (e.g. the HR record, consent and the sent-letter log), and have FAQ 2's hub sentence add something new, e.g. that each letter is drafted from the employee table.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_description",
+    "quote": "Steps 1 and 2 settle that, and the other five turn the answer into a signed letter.",
+    "issue": "Steps 6 (sending) and 7 (retention) happen after the letter is signed, so the five steps do not all turn the answer into a signed letter.",
+    "fix": "\"...and the rest take it from a draft to a signed, sent and filed letter.\"",
+    "severity": "note"
+   },
+   {
+    "criterion": "faq",
+    "rule": "HUB_RULES 2a",
+    "field": "faq item 2; faq item 6",
+    "quote": "\"then give the facts one per line so a lender can scan them\" / sample: \"Dana Reyes has worked at Northwind Logistics as a Payroll Specialist since March 4, 2022, full time.\"",
+    "issue": "The sample letter puts every fact in one sentence, which goes against FAQ 2's own advice to list them one per line.",
+    "fix": "Lay the sample out as an opening line plus lines for title, start date and status, or soften FAQ 2.",
+    "severity": "note"
+   },
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_3_des; faq item 9",
+    "quote": "\"plus a direct phone number a landlord or lender can call to check it\" / \"Call the employer on a number you look up yourself, not the one printed on the letter\"",
+    "issue": "The how-to tells HR to print a number for checking the letter, and FAQ 9 tells verifiers not to use that number. A reader sees two pieces of advice that pull against each other.",
+    "fix": "In step 3, point to the company's main HR line that a verifier can look up independently.",
+    "severity": "note"
+   },
+   {
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "feature_3; tab_content_1",
+    "quote": "\"Adds base pay to a letter only when the employee has said yes on the request form. Every other letter ... leaves compensation out entirely.\" / \"fills hire date, title and base pay from your HR table\"",
+    "issue": "Tab 1 adds base pay on the authority of the borrower's signature on Form 1005, not a yes on the request form. That does not quite fit feature 3's \"only when\".",
+    "fix": "\"...only when the employee has agreed, on the request form or a lender's signed authorization.\"",
+    "severity": "note"
+   },
+   {
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief tab 1 panel",
+    "quote": "Hire date / Title / Base pay ... 100%",
+    "issue": "Confidence bars at 100% suggest extraction scores on values that were copied from the HR table, not read from a document. A drawn \"100%\" is also the kind of absolute claim claims.json flags.",
+    "fix": "Replace the bars with a \"from HR table\" source tag, or drop the percentages.",
+    "severity": "note"
+   },
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 10",
+    "quote": "Payroll usually fills in the pay figures on a wage verification form.",
+    "issue": "An unsourced claim about general practice. It is low risk.",
+    "fix": "\"Pay figures go on a wage verification form, which payroll can complete.\"",
+    "severity": "note"
+   }
+  ],
+  "checked": [
+   "title and meta: meta title promises a sample and builder; sample delivered in FAQ 6; meta description claims (free-start) approved",
+   "H1 and hero: H1 scope matches primary; hero definition true; hero pitch repeated in subheading and FAQ 2 (#21)",
+   "features: six bodies checked against claims_used and tabs; feature_4 absolute contradicted by tabs 1 and 4; feature_3 vs tab 1 base pay",
+   "tab 1 Mortgage Lenders: Form 1005 claim against Fannie Mae source; image values (Mar 4, 2022, Payroll Specialist, $68,000) agree with alt and FAQ 6 sample; Globex lender, Northwind employer consistent",
+   "tab 2 Rental Applications: Sam Okafor, Lumen Apartments, maya@lumen.example (reserved domain), Maria Chen HR Manager agree with FAQ 6; missing title row already in review notes",
+   "tab 3 Former Employees: Missouri 290.140 conditions against domain source (statute site unreachable for re-read; reviewer note on 'refer to the section' stands); image table names spread across neutral outcomes (#29 ok); reasons-for-leaving repeated in step 2 (#21)",
+   "tab 4 Screening Firms: release flow matches image (Acme Screening, Jordan Lee, No file attached, returned with note); consent rule repeated with step 1 and FAQ 7 (#21)",
+   "how-to: seven steps read for truth, specificity and repeats; howto_description count of steps vs signing",
+   "comparison table: generated library table, rows and vendor facts unedited; K7 pending with Divit (not raised)",
+   "FAQ: all 10 items against PAA sources, Work Number and FCRA claims against domain_sources, links (hub link in item 2, siblings in 7 and 10 pending live)",
+   "cover and share image: cover 'Signed letter sent' matches tab 2 story and alt; share image text 'Free to start' approved"
+  ]
+ },
+ "challenges": [
+  {
+   "by": "challenger-batch-m3",
+   "date": "2026-10-07 15:28 UTC",
+   "result": "fail",
+   "defects": 4,
    "notes": 6
   }
  ]

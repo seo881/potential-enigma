@@ -175,6 +175,13 @@
    "via": "review",
    "by": "reviewer-batch-m7",
    "note": "rubric 10/10 by reviewer-batch-m7; 7 notes"
+  },
+  {
+   "t": "2026-10-07 15:28 UTC",
+   "state": "rework",
+   "via": "challenge",
+   "by": "challenger-batch-m3",
+   "note": "[truth | HUB_RULES 6] feature_6: This claims that collected answers (customer response data) are exported to the GitHub repository with the code. The approved ledger covers only code export to GitHub (code-export) and data living in a database the user owns (database-owned). Pushing response rows in"
   }
  ],
  "plan": {
@@ -1171,6 +1178,76 @@
    "by": "reviewer-batch-m7",
    "via": "review",
    "date": "2026-10-07 15:19 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_3_des; tab_content_1; tab_content_3; tab_content_4",
+   "issue": "The how-to recommends one rating plus one open question, but none of the four examples follows that advice.",
+   "fix": "\"Keep it to a rating, an open question and at most two more, with the open question right after the rating.\"",
+   "by": "challenger-batch-m3",
+   "via": "challenge",
+   "date": "2026-10-07 15:28 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_description",
+   "issue": "Step 7 (reading the comments each week) happens after the surveys go out, not before.",
+   "fix": "\"Settle the first six before the first survey goes out; the seventh is the weekly habit.\"",
+   "by": "challenger-batch-m3",
+   "via": "challenge",
+   "date": "2026-10-07 15:28 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 2a",
+   "field": "why_description",
+   "issue": "The contrast implies that SurveyMonkey, Typeform or Interact users need a support ticket to change logic, when they edit it themselves.",
+   "fix": "Contrast with something the table supports, e.g. response caps or code ownership.",
+   "by": "challenger-batch-m3",
+   "via": "challenge",
+   "date": "2026-10-07 15:28 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 3; faq item 6",
+   "issue": "Two FAQ answers open on the same dodge, so they read as a template.",
+   "fix": "Answer FAQ 6 directly, e.g. \"One useful split crosses two questions...\"",
+   "by": "challenger-batch-m3",
+   "via": "challenge",
+   "date": "2026-10-07 15:28 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 8",
+   "issue": "The answer says yes, but the page offers no template, and the ledger does not say Emergent has a template library.",
+   "fix": "Give the template's questions in the answer, or say that Emergent drafts one from a prompt.",
+   "by": "challenger-batch-m3",
+   "via": "challenge",
+   "date": "2026-10-07 15:28 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief tab 1 hero",
+   "issue": "The quote under the Price reason is about bag size (the \"Too much\" reason), not price.",
+   "fix": "Use a price quote, e.g. \"$24 a bag is more than I can justify.\"",
+   "by": "challenger-batch-m3",
+   "via": "challenge",
+   "date": "2026-10-07 15:28 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "HUB_RULES 2b",
+   "field": "howto_step_3_des; faq item 2",
+   "issue": "The sibling employee-satisfaction-survey FAQ 3 makes the same two points with the same example shapes (\"can't be read\", \"How much do you love our new tools?\").",
+   "fix": "Vary the example on one of the two pages.",
+   "by": "challenger-batch-m3",
+   "via": "challenge",
+   "date": "2026-10-07 15:28 UTC"
   }
  ],
  "reviews": [
@@ -1187,6 +1264,120 @@
    "result": "fail",
    "blocking": 4,
    "notes": 5
+  }
+ ],
+ "challenge": {
+  "by": "challenger-batch-m3",
+  "date": "2026-10-07 15:28 UTC",
+  "result": "fail",
+  "defects": [
+   "[truth | HUB_RULES 6] feature_6: This claims that collected answers (customer response data) are exported to the GitHub repository with the code. The approved ledger covers only code export to GitHub (code-export) and data living in a database the user owns (database-owned). Pushing response rows into a repo is a capability claim with no ledger entry, and putting customers' personal data in a git repo is also bad practice. -> \"Answers live in a database you own. Export the survey and its sorting rules to your GitHub repository whenever you like.\" Then add a new, approved detail in place of the answers clause.",
+   "[craft | CONTENT_DEFECTS #21] hero_description; feature_1; howto_step_1_des; faq item 2: Four fields say the same thing with the words swapped: state who you are asking and what you need to learn, and Emergent writes the survey from it. FAQ 2's hub sentence is close to a paraphrase of the hero. -> Keep the hero. Have FAQ 2's hub sentence add something the body lacks (e.g. that it sends each question one per screen on a phone), and cut the prompt sentence from step 1 or feature 1's first clause so each says something new."
+  ],
+  "findings": [
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "feature_6",
+    "quote": "Export the survey and its sorting rules to your GitHub repository whenever you like, together with every answer collected so far.",
+    "issue": "This claims that collected answers (customer response data) are exported to the GitHub repository with the code. The approved ledger covers only code export to GitHub (code-export) and data living in a database the user owns (database-owned). Pushing response rows into a repo is a capability claim with no ledger entry, and putting customers' personal data in a git repo is also bad practice.",
+    "fix": "\"Answers live in a database you own. Export the survey and its sorting rules to your GitHub repository whenever you like.\" Then add a new, approved detail in place of the answers clause.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "hero_description; feature_1; howto_step_1_des; faq item 2",
+    "quote": "\"Describe who you want to hear from and what you need to learn. Emergent builds the survey\" / \"Each question ties back to the one thing you need to learn\" / \"Put that decision at the top of your prompt.\" / \"drafts a customer survey from a plain description of who you are asking and why\"",
+    "issue": "Four fields say the same thing with the words swapped: state who you are asking and what you need to learn, and Emergent writes the survey from it. FAQ 2's hub sentence is close to a paraphrase of the hero.",
+    "fix": "Keep the hero. Have FAQ 2's hub sentence add something the body lacks (e.g. that it sends each question one per screen on a phone), and cut the prompt sentence from step 1 or feature 1's first clause so each says something new.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_3_des; tab_content_1; tab_content_3; tab_content_4",
+    "quote": "\"Use one rating and one open question\" / tab 1 \"three-question email\" / tab 3 rating, booked-window yes/no and open box / tab 4 \"four questions\"",
+    "issue": "The how-to recommends one rating plus one open question, but none of the four examples follows that advice.",
+    "fix": "\"Keep it to a rating, an open question and at most two more, with the open question right after the rating.\"",
+    "severity": "note"
+   },
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_description",
+    "quote": "Settle these seven calls before the first survey goes out.",
+    "issue": "Step 7 (reading the comments each week) happens after the surveys go out, not before.",
+    "fix": "\"Settle the first six before the first survey goes out; the seventh is the weekly habit.\"",
+    "severity": "note"
+   },
+   {
+    "criterion": "specificity",
+    "rule": "HUB_RULES 2a",
+    "field": "why_description",
+    "quote": "Change any of them with a prompt, not a support ticket.",
+    "issue": "The contrast implies that SurveyMonkey, Typeform or Interact users need a support ticket to change logic, when they edit it themselves.",
+    "fix": "Contrast with something the table supports, e.g. response caps or code ownership.",
+    "severity": "note"
+   },
+   {
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 3; faq item 6",
+    "quote": "\"There is no fixed five.\" / \"Lists vary, and there is no fixed count.\"",
+    "issue": "Two FAQ answers open on the same dodge, so they read as a template.",
+    "fix": "Answer FAQ 6 directly, e.g. \"One useful split crosses two questions...\"",
+    "severity": "note"
+   },
+   {
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 8",
+    "quote": "Is there a customer feedback survey template? Yes. A post-onboarding check-in and a delivery survey are two common first drafts.",
+    "issue": "The answer says yes, but the page offers no template, and the ledger does not say Emergent has a template library.",
+    "fix": "Give the template's questions in the answer, or say that Emergent drafts one from a prompt.",
+    "severity": "note"
+   },
+   {
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief tab 1 hero",
+    "quote": "\"Price led with 41 answers\" ... \"A smaller bag would have kept me.\"",
+    "issue": "The quote under the Price reason is about bag size (the \"Too much\" reason), not price.",
+    "fix": "Use a price quote, e.g. \"$24 a bag is more than I can justify.\"",
+    "severity": "note"
+   },
+   {
+    "criterion": "distinct",
+    "rule": "HUB_RULES 2b",
+    "field": "howto_step_3_des; faq item 2",
+    "quote": "\"rating the food and the price together gives a number nobody can read\" / \"Ask 'How was your visit?' instead of 'How much did you enjoy your visit?'\"",
+    "issue": "The sibling employee-satisfaction-survey FAQ 3 makes the same two points with the same example shapes (\"can't be read\", \"How much do you love our new tools?\").",
+    "fix": "Vary the example on one of the two pages.",
+    "severity": "note"
+   }
+  ],
+  "checked": [
+   "title and meta: meta title and description promise sorting comments, saving context and routing complaints, all delivered in features 3-5 and tabs",
+   "H1 and hero: H1 scope covers the primary; hero pitch repeated in feature 1, step 1 and FAQ 2 (#21)",
+   "features: six bodies against claims_used; feature_6 claims answers export to GitHub (not in ledger)",
+   "tab 1 Cancellation Survey: 41+33+21+17 = 112 of 160 in image, copy and alt; Stripe event against domain source; quote mismatch noted",
+   "tab 2 In-App Feedback: bug, idea, question, praise tags and the 9-reports Slack post match copy and alt",
+   "tab 3 Service Visit: job #4471, 2 stars, missed window, callback to dispatcher S. Park match copy and alt; Twilio sourced; names across outcomes ok (#29)",
+   "tab 4 Retail Stores: 12 stores, 4 questions, Store 07 3.7 vs 4.4 = -0.7 (> 0.5 trigger), other changes +0.1 correct; district manager email matches; cover agrees",
+   "how-to: seven steps read for truth and repeats; step 3 advice vs tab examples; howto_description timing",
+   "comparison table: generated from library, unedited; K7 (Interact) pending with Divit, not raised",
+   "FAQ: 10 items against PAA, related and secondary sources; McKinsey three C's against source; types of feedback against SurveyMonkey source; links (hub in item 2, siblings pending live)",
+   "cover and share image: Store 07 3.7 down 0.7 from 4.4 agrees with tab 4; share text approved"
+  ]
+ },
+ "challenges": [
+  {
+   "by": "challenger-batch-m3",
+   "date": "2026-10-07 15:28 UTC",
+   "result": "fail",
+   "defects": 2,
+   "notes": 7
   }
  ]
 }

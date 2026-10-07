@@ -176,6 +176,13 @@
    "via": "review",
    "by": "reviewer-batch-m7",
    "note": "rubric 10/10 by reviewer-batch-m7; 10 notes"
+  },
+  {
+   "t": "2026-10-07 15:28 UTC",
+   "state": "rework",
+   "via": "challenge",
+   "by": "challenger-batch-m3",
+   "note": "[truth | HUB_RULES 8] faq item 4: This is a statement of fact about the world, and the only source (Qualtrics survey-protection docs) covers one platform. \"Many survey platforms\" is unsourced. Reviewers noted it twice as soft. I block it because Divit's 2026-10-07 severity rule makes an unsourced st"
   }
  ],
  "plan": {
@@ -1410,6 +1417,26 @@
    "by": "reviewer-batch-m7",
    "via": "review",
    "date": "2026-10-07 15:21 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 6",
+   "field": "feature_6",
+   "issue": "\"Response tables\" can be read as the answers themselves going to GitHub. The ledger covers code export only.",
+   "fix": "\"Export the survey, its database schema and its dashboards...\"",
+   "by": "challenger-batch-m3",
+   "via": "challenge",
+   "date": "2026-10-07 15:28 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 3",
+   "issue": "The sibling customer-feedback-survey makes both points with the same example shapes (step 3 \"a number nobody can read\", FAQ 2 \"How much did you enjoy your visit?\").",
+   "fix": "Use a different neutral-wording example on one of the two pages.",
+   "by": "challenger-batch-m3",
+   "via": "challenge",
+   "date": "2026-10-07 15:28 UTC"
   }
  ],
  "reviews": [
@@ -1426,6 +1453,75 @@
    "result": "fail",
    "blocking": 2,
    "notes": 7
+  }
+ ],
+ "challenge": {
+  "by": "challenger-batch-m3",
+  "date": "2026-10-07 15:28 UTC",
+  "result": "fail",
+  "defects": [
+   "[truth | HUB_RULES 8] faq item 4: This is a statement of fact about the world, and the only source (Qualtrics survey-protection docs) covers one platform. \"Many survey platforms\" is unsourced. Reviewers noted it twice as soft. I block it because Divit's 2026-10-07 severity rule makes an unsourced statement of fact about the world blocking, and the fix costs one clause. -> \"Qualtrics, for one, logs an IP address and rough location with each response unless Anonymize Responses is switched on.\"",
+   "[craft | CONTENT_DEFECTS #21] hero_description; features_subheading; feature_1; howto_step_4_des; faq item 2: Five fields say the same thing: name the people and the topics, and Emergent builds the survey. Reviewer m7 found it in four fields and noted it because hero and FAQ 2 are template slots. I block it because #21 is a catalogue row (blocking under Divit's 2026-10-07 severity), and the subheading, feature 1 and step 4 are not template slots, so they can each say something new. -> Keep the hero. Have the subheading introduce what the features add (scoring, roster splits, follow-ups). Have step 4 name what to put in the brief that the hero does not cover (open dates, reminder rule, the privacy choice from step 3). Have FAQ 2's hub sentence add something new, e.g. renaming topics in staff language."
+  ],
+  "findings": [
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 4",
+    "quote": "Many survey platforms log an IP address and rough location with each response unless that is switched off, and Qualtrics calls its setting Anonymize Responses.",
+    "issue": "This is a statement of fact about the world, and the only source (Qualtrics survey-protection docs) covers one platform. \"Many survey platforms\" is unsourced. Reviewers noted it twice as soft. I block it because Divit's 2026-10-07 severity rule makes an unsourced statement of fact about the world blocking, and the fix costs one clause.",
+    "fix": "\"Qualtrics, for one, logs an IP address and rough location with each response unless Anonymize Responses is switched on.\"",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "hero_description; features_subheading; feature_1; howto_step_4_des; faq item 2",
+    "quote": "\"Name who works for you and what you want rated. Emergent builds the questions\" / \"One prompt that names your topics and sites gives your employee satisfaction survey every piece below.\" / \"Emergent writes a satisfaction item for each topic you name\" / \"Say who gets the survey, which topics it covers ... Emergent builds the survey with its response table and dashboards from that description.\" / \"writes an employee satisfaction survey template from a short description of your workforce\"",
+    "issue": "Five fields say the same thing: name the people and the topics, and Emergent builds the survey. Reviewer m7 found it in four fields and noted it because hero and FAQ 2 are template slots. I block it because #21 is a catalogue row (blocking under Divit's 2026-10-07 severity), and the subheading, feature 1 and step 4 are not template slots, so they can each say something new.",
+    "fix": "Keep the hero. Have the subheading introduce what the features add (scoring, roster splits, follow-ups). Have step 4 name what to put in the brief that the hero does not cover (open dates, reminder rule, the privacy choice from step 3). Have FAQ 2's hub sentence add something new, e.g. renaming topics in staff language.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "feature_6",
+    "quote": "Export the survey, its response tables and its dashboards to your own GitHub repository.",
+    "issue": "\"Response tables\" can be read as the answers themselves going to GitHub. The ledger covers code export only.",
+    "fix": "\"Export the survey, its database schema and its dashboards...\"",
+    "severity": "note"
+   },
+   {
+    "criterion": "distinct",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 3",
+    "quote": "\"Rate your schedule and workload\" can't be read when someone likes one and not the other ... \"How much do you love our new tools?\" pushes people toward yes.",
+    "issue": "The sibling customer-feedback-survey makes both points with the same example shapes (step 3 \"a number nobody can read\", FAQ 2 \"How much did you enjoy your visit?\").",
+    "fix": "Use a different neutral-wording example on one of the two pages.",
+    "severity": "note"
+   }
+  ],
+  "checked": [
+   "title and meta: 'Scored by Topic' and 'by site and shift, with confidential results' delivered in features 2-4, tabs and step 3",
+   "H1 and hero: H1 scope matches primary; hero pitch repeated across subheading, feature 1, step 4 and FAQ 2 (#21)",
+   "features: six bodies against claims_used; feature 2 top-box against Qualtrics source; feature 6 wording",
+   "tab 1 Whole Company: 287 of 350 = 82%; each topic count / 287 matches its percent (Pay 118 = 41%); cover 41% agrees",
+   "tab 2 Nursing Units: 4 West night 6 of 16 = 38% < 50% trigger; all other rows recomputed and above 50%; nurse manager email matches copy",
+   "tab 3 School District: nine schools, Cedar Primary 4 answers withheld (rule: under five); percentages recomputed; five-row sample already in review notes",
+   "tab 4 Remote vs Office: remote 140 / office 96 percentages recomputed; equipment 43% lowest remote; IT lead request list matches copy",
+   "how-to: description's 3-before / 2-after count verified against steps; steps read for truth and repeats",
+   "comparison table: employee variant, generated from library; pricing claims in why_description match table rows; K7 pending with Divit",
+   "FAQ: 10 items against sources; Spector JSS 36 items / nine facets / six-point scale against source; FAQ 5 arithmetic (1/30 = 3.3, 2/30 = 6.7); Gallup satisfaction vs engagement; links pending live",
+   "cover and share image: Pay 41% lowest of 7 topics agrees with tab 1"
+  ]
+ },
+ "challenges": [
+  {
+   "by": "challenger-batch-m3",
+   "date": "2026-10-07 15:28 UTC",
+   "result": "fail",
+   "defects": 2,
+   "notes": 2
   }
  ]
 }
