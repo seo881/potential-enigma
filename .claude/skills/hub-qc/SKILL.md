@@ -24,12 +24,16 @@ If the repo is not set up in this chat: `git clone https://github.com/seo881/pot
 - **F** FAQ sourced from the live SERP: every item has a recorded source that exists (F2), stays close to the searcher's phrasing (F3), and no eligible People Also Ask question is left unanswered (F4).
 - **T** rendered width: every field measured in the template's real typography against the widest approved rendering (T1); meta description pixels (L2); rich-text HTML shape identical to the approved live pages (S9).
 - **Image numbers:** every quantity drawn is declared and true (`image_brief.checks`), shared values match across images, and every glyph exists in the font.
+- **C2/C3** truth: no capability claim outside the approved ledger (high-risk terms block outright; `claims_used` lists the ledger ids), no unsourced third-party fact or statistic in prose.
+- **D2** near-duplicates: no section sharing more than 30% of its phrases with another page in the hub.
+- **F6/R3** SERP data under 30 days old; nothing changed since Divit's approval.
 - **Q** craft: keyword-label openers (Q1), sentence length (Q2), H1 scope (Q3), category variant for the comparison column (Q4).
 - **R** the reviewer's rubric is recorded and passing for any page past review (R1).
 - **I** the image brief, including the balance gate (no panel with more than 16% pooled empty space), rendered in memory through the image engine and its gates: fit, numbers adding up, one click, balance (I1 blocks, I2 notes).
 
 ## Layer 2: judgment (read the page against its brief)
 Run `python3 ops/hubctl.py brief <url>` and check, writing each as P0/P1/P2:
+0. **Claims:** every sentence about what Emergent does maps to an id in `claims_used`, and every id is approved in `rules/capabilities.json`. A claim with no matching entry is a defect, however plausible it sounds.
 1. **Intent:** would this page satisfy someone who searched the primary, given what the top 10 shows? Does an AMBER page carry its angle?
 2. **Promise vs delivery:** everything the title and meta promise ("examples", "templates", "free", "for Shopify") is on the page.
 3. **Truth:** every Emergent claim is in the register; every third-party fact is current; nothing contradicts another field (numbers, steps, tab content vs images).

@@ -480,6 +480,58 @@ def check(spec, siblings):
             r = rv.get(c["id"], {})
             if r.get("result") != "pass": add("P1", "R1", "review", f'rubric "{c["id"]}" is {r.get("result", "missing")}: {r.get("evidence", c["test"])[:90]}')
 
+    # ---------- C2/C3: capability ledger, sourced facts and statistics ----------
+    if spec.get("status") not in ("live-draft", "published"):
+        CAP = json.load(open(os.path.join(ROOT, "rules", "capabilities.json"))); FACTS = json.load(open(os.path.join(ROOT, "rules", "facts.json")))
+        copy_fields = {k: v for k, v in F.items() if isinstance(v, str) and k not in ("why_table", "category", "slug")}
+        for k, v in copy_fields.items():
+            plain = strip_html(v)
+            for pend in CAP["pending"]:
+                for m_ in re.finditer(pend["rx"], plain, re.I):
+                    add("P1", "C2", k, f'capability claim needs Divit\'s approval ({pend["id"]}): "{m_.group(0)}" ({pend["why"]})')
+        approved_ids = {c["id"] for c in CAP["approved"]}
+        used = spec.get("claims_used")
+        if used is None: add("P1", "C2", "claims_used", "list the capability-ledger ids this page relies on in spec.claims_used (rules/capabilities.json)")
+        else:
+            for cid in used:
+                if cid not in approved_ids: add("P1", "C2", "claims_used", f'"{cid}" is not an approved capability')
+        BRANDS = set()
+        for lf in glob.glob(os.path.join(ROOT, "rules", "competitors", "*.json")):
+            for name in json.load(open(lf))["competitors"]: BRANDS |= {b_.strip() for b_ in re.split(r"[/,()]", name) if len(b_.strip()) > 2 and "builder" not in b_.lower()}
+        BRANDS |= {"Shopify", "WooCommerce", "BigCommerce", "QuickBooks", "Xero", "NetSuite", "Salesforce", "HubSpot", "Slack", "Stripe", "PayPal", "Google", "Microsoft", "Notion", "Airtable", "Mailchimp", "Calendly", "Asana", "Monday", "Jira", "Coupa", "SAP", "Oracle"}
+        FACT_VERB = re.compile(r"\b(charges?|costs?|limits?|caps?|no longer|does not|doesn't|cannot|can't|only (offers|supports|allows)|requires?|stopped|removed|deprecated|lacks?|restricts?)\b", re.I)
+        STAT = re.compile(r"\b\d+(\.\d+)?\s?(%|percent\b)|\b\d+(\.\d+)?x (faster|more|fewer|less)\b|\b\d+ times (faster|more)\b", re.I)
+        matches = [m_ for f_ in FACTS["facts"] for m_ in f_["match"]]
+        for k, v in copy_fields.items():
+            if k == "mockup": continue
+            for sent in re.split(r"(?<=[.?!])\s+", strip_html(v)):
+                brand = next((b_ for b_ in BRANDS if re.search(r"\b" + re.escape(b_) + r"\b", sent)), None)
+                if (brand and FACT_VERB.search(sent)) or STAT.search(sent):
+                    if not any(m_ in sent for m_ in matches):
+                        add("P1", "C3", k, f'unsourced {"statistic" if STAT.search(sent) else "fact about " + brand}: "{sent[:90]}". Add it to rules/facts.json with a source, or remove it')
+        import datetime as _dt
+        for f_ in FACTS["facts"]:
+            if any(m_ in " ".join(strip_html(v) for v in copy_fields.values()) for m_ in f_["match"]):
+                if (_dt.date.today() - _dt.date.fromisoformat(f_["checked"])).days > 90: add("P1", "C3", "facts", f'fact "{f_["id"]}" was last checked {f_["checked"]}: re-check it')
+    # ---------- D2: near-duplicates (shared phrases) against every page in the hub ----------
+    if spec.get("status") not in ("live-draft", "published"):
+        sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as _G
+        for sec, ou, c_ in _G.similarity(spec, siblings):
+            if c_ > 0.30: add("P1", "D2", sec, f"{c_:.0%} of this section's phrases also appear on {ou}: rewrite it for this page")
+            elif c_ > 0.18: add("P2", "D2", sec, f"{c_:.0%} of this section's phrases also appear on {ou}")
+    # ---------- F6 / R3: SERP age, approval fingerprint ----------
+    if spec.get("status") not in ("live-draft", "published"):
+        try:
+            sys.path.insert(0, os.path.join(ROOT, "plan")); import serp as _S, datetime as _dt
+            lv = _S.load(spec["url"])
+            if lv and (_dt.date.today() - _dt.date.fromisoformat(lv["fetched"])).days > 30: add("P1", "F6", "serp", f"SERP data from {lv['fetched']} is over 30 days old: re-pull it and re-check the FAQ")
+        except Exception: pass
+        if spec.get("approval"):
+            try:
+                sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as _G
+                if _G.fingerprint(spec) != spec["approval"]["fingerprint"]: add("P0", "R3", "approval", "content or images changed after Divit approved this page: it must go back through review, challenge and approval")
+            except Exception as e: add("P1", "R3", "approval", f"cannot verify the approval fingerprint: {e}")
+
     # ---------- D: duplication against siblings in the same hub ----------
     sents = {s.strip() for s in re.split(r"(?<=[.?])\s+", body) if len(s.split()) >= 9}
     for sib in siblings:

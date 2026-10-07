@@ -36,7 +36,7 @@ Before writing, read `rules/CONTENT_DEFECTS.md`: every defect that has ever made
 - Primary in the meta title, H1, meta description and first FAQ item. Secondaries woven in once each where natural.
 - Never another page's primary in a heading. Link to sibling pages instead.
 - "Emergent" / "Emergent's", never we/our. No em dashes, curly quotes, "built-in", exclamation marks, CTAs in body copy.
-- Only claims in `rules/claims.json`. No vendor numbers unless checked that day and dated in the spec.
+- Only capabilities in `rules/capabilities.json` (approved section); list their ids in `claims_used`. Pending terms (money movement, tax, compliance, SLAs, security specifics, native mobile, accuracy numbers, e-signature, real-time) block until Divit approves. Third-party facts and statistics in prose only if they are in `rules/facts.json`. Comparison tables only from the library.
 - Vary hooks and phrasing across the batch; no two pages share sentences.
 
 ## When to stop and ask Divit

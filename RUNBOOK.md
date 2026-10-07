@@ -77,6 +77,26 @@ Repo dirs: LP `lp`, Form `form`, Auto `aab`, SurveyQuiz `sqb`. Writers in the sa
 4. Canary: create ONE page as a draft (`bulk-payload`, a single item), read it back, `bulk-verify`. Divit opens it in the Designer (template, that item selected) and checks every section as rendered. If it is right: `hubctl verified <url>`; then create the other drafts the same way.
 5. Publish only on Divit's go, after the link gate passes.
 
+## 3c. Safeguards (2026-10-07)
+| Safeguard | Where | What it prevents |
+|---|---|---|
+| Capability ledger (`rules/capabilities.json`) | QC C2, writer `claims_used`, reviewer and challenger | Claims Emergent cannot back; high-risk categories block until Divit approves |
+| Facts ledger (`rules/facts.json`) | QC C3 | Unsourced third-party facts and statistics in prose |
+| Approval fingerprint | `hubctl state approved`, `bulk-payload`, QC R3 | Anything changed after Divit's approval reaching Webflow |
+| Slug check before create | `hubctl cms-check`, `bulk-payload` | Duplicate CMS items after a rerun |
+| File locks and per-page history | `guards.lock`, every state change | Parallel agents overwriting each other; a full audit trail per page |
+| Near-duplicate detection | QC D2 (5-word phrases vs every page in the hub) | Pages that read like siblings with the nouns swapped |
+| SERP freshness | QC F6 (30 days), `bulk-payload` (60 days) | Writing or shipping from stale search data |
+| Live verification | `hubctl verify-live` | A published page that differs from what was approved; broken links |
+| Risk-based sampling | `hubctl sample` | Divit's review time going to low-risk pages |
+| Quality metrics | `hubctl metrics` | A lenient reviewer going unnoticed (alert above 15% challenger hit rate) |
+| Rules version and ratchet | `qc_passed.rules_version`, `hubctl recheck` | New rules protecting only future pages |
+| Image regression | `hubctl image-regress` | Engine changes silently altering approved images |
+| Library look-ahead | `hubctl lookahead` | Writers reaching pages whose competitors are not in the library |
+| DataForSEO budget | `hubctl serp-budget`, counter on every save | Runaway API spend |
+| Ranking feedback | `hubctl ranks-save`, `ranks-report` | Pages that never rank staying as they are |
+| Internal link graph | `hubctl links`, brief "LINK THESE" | Orphan pages with no inbound links |
+
 ## 4. Webflow facts (hard-won; do not relearn)
 1. **IDs and field slugs** are in `config/collections.json`. Never write a slug that is not there. The child collections are at Webflow's field cap: no new fields.
 2. **Drafts only.** Every create or update sends `isDraft: true`. Bulk updates on already-published items go live immediately; touch published items only with Divit's go.

@@ -22,6 +22,8 @@
   serp-status [HUB]                 claimed or in-progress pages that still need a live SERP
   images URL                        render the page's image_brief into its 6 images + contact sheet (engine), state -> images
   images-batch STATE [HUB]          render every page in STATE (normally 'reviewed'); prints a summary
+  cms-check HUB READBACK.json       record which queued slugs already exist in Webflow (required within the hour before creating)
+  metrics | sample [STATE] | links HUB | lookahead HUB [N] | serp-budget | ranks-save URL RAW | ranks-report | recheck | image-regress | verify-live URL [--html F]
   publish-payload HUB               publish_collection_items actions (100 per call) for every verified cms_draft page (only after Divit's go)
   log HUB TEXT                      append a dated line to logs/<hub>.md
 
@@ -53,11 +55,19 @@ def load_st(hub):
     p = st_path(hub)
     return json.load(open(p)) if os.path.exists(p) else {"hub": hub, "pages": {}}
 def save_st(hub, st): json.dump(st, open(st_path(hub), "w"), indent=1, sort_keys=True)
-def set_state(url, state, note=None, **extra):
-    hub = hub_of(url); st = load_st(hub); e = st["pages"].setdefault(url, {})
-    e.update({"state": state, "updated": now(), **extra})
-    if note: e["note"] = note
-    save_st(hub, st)
+def set_state(url, state, note=None, via=None, by=None, **extra):
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    hub = hub_of(url)
+    with G.lock("status-" + hub):
+        st = load_st(hub); e = st["pages"].setdefault(url, {})
+        e.update({"state": state, "updated": now(), **extra})
+        if note: e["note"] = note
+        save_st(hub, st)
+    sp = spath(url)
+    if os.path.exists(sp):
+        with G.lock("spec-" + url.rsplit("/", 1)[1]):
+            s = json.load(open(sp)); s.setdefault("history", []).append({"t": now(), "state": state, "via": via, "by": by, "note": (note or "")[:300]})
+            json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
 
 def cmd_status(args):
     m = kmap(); hubs = [args[0]] if args else list(CFG["hubs"])
@@ -119,6 +129,11 @@ def cmd_brief(args):
         print("LIVE SERP  not captured yet. Pull it first (DataForSEO, Google organic live advanced, United States, English,")
         print("           people_also_ask_click_depth 2) and save it: python3 ops/hubctl.py serp-save <url> <raw.json>")
     if p.get("wave3_evidence"): print(f"WAVE 3     {p['wave3_evidence']}")
+    try:
+        sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+        nl = [(u, n) for u, n in G.needs_links(p["hub"], 10) if u != p["url"]]
+        if nl: print("LINK THESE (live or approved siblings with the fewest inbound links; exact-match anchors in FAQ answers):\n" + "\n".join(f"   {n} inbound  {u}" for u, n in nl[:6]))
+    except Exception: pass
     sib = [q for q in m.values() if q["hub"] == p["hub"] and q["url"] != p["url"] and q["cluster"] == p["cluster"]]
     if sib:
         print("SIBLINGS IN THE SAME CLUSTER (do not use their primaries as headings; link to them where natural):")
@@ -145,7 +160,12 @@ def cmd_init(args):
     set_state(url, "spec"); print(f"created {os.path.relpath(path, ROOT)}")
 
 def cmd_qc(args):
-    return subprocess.call([sys.executable, os.path.join(ROOT, "qc", "qc_hub.py"), spath(args[0])])
+    rc = subprocess.call([sys.executable, os.path.join(ROOT, "qc", "qc_hub.py"), spath(args[0])])
+    if rc == 0:
+        sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+        sp = spath(args[0]); s = json.load(open(sp)); s["qc_passed"] = {"rules_version": G.rules_version(), "date": now()}
+        json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
+    return rc
 
 def cmd_payload(args):
     url = args[0]; sha = args[args.index("--sha") + 1]; hub = hub_of(url); h = CFG["hubs"][hub]
@@ -223,8 +243,8 @@ def cmd_review(args):
     if by == s.get("written_by"): sys.exit("the reviewer cannot be the agent that wrote the page")
     s["review"] = {"by": by, "date": now(), "rubric": rub}; s.pop("challenge", None); json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
     fails = [f"{k}: {v['evidence']}" for k, v in rub.items() if v["result"] == "fail"]
-    if fails: set_state(url, "rework", note=" | ".join(fails)); print("REWORK:\n  " + "\n  ".join(fails))
-    else: set_state(url, "reviewed", note=f"rubric 10/10 by {by}"); print("REVIEWED: rubric 10/10")
+    if fails: set_state(url, "rework", note=" | ".join(fails), via="review", by=by); print("REWORK:\n  " + "\n  ".join(fails))
+    else: set_state(url, "reviewed", note=f"rubric 10/10 by {by}", via="review", by=by); print("REVIEWED: rubric 10/10")
 
 def cmd_verified(args):
     url = args[0]; sp = spath(url); s = json.load(open(sp)); s["render_verified"] = now(); json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
@@ -241,8 +261,8 @@ def cmd_challenge(args):
     defects = [f"{d.get('field', '?')}: {d.get('issue', '')} -> {d.get('fix', '')}" for d in f["defects"]]
     s["challenge"] = {"by": by, "date": now(), "result": "fail" if defects else "pass", "defects": defects, "checked": f["checked"]}
     json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
-    if defects: set_state(url, "rework", note=" | ".join(defects)); print("REWORK:\n  " + "\n  ".join(defects))
-    else: set_state(url, "challenged", note=f"no defects found by {by}"); print("CHALLENGED: no defects found")
+    if defects: set_state(url, "rework", note=" | ".join(defects), via="challenge", by=by); print("REWORK:\n  " + "\n  ".join(defects))
+    else: set_state(url, "challenged", note=f"no defects found by {by}", via="challenge", by=by); print("CHALLENGED: no defects found")
 
 def cmd_state(args):
     url, state = args[0], args[1]
@@ -251,6 +271,9 @@ def cmd_state(args):
     if state == "approved":
         cur = load_st(hub_of(url))["pages"].get(url, {}).get("state")
         if cur != "challenged": sys.exit(f"only a challenged page can be approved (this one is '{cur}')")
+        sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+        sp = spath(url); s = json.load(open(sp)); s["approval"] = {"fingerprint": G.fingerprint(s), "date": now(), "rules_version": G.rules_version()}
+        json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
     note = args[args.index("--note") + 1] if "--note" in args else None
     set_state(url, state, note); print(f"{url} -> {state}")
 
@@ -268,10 +291,19 @@ def _field_data(url, sha):
 
 def cmd_bulk_payload(args):
     hub = args[0]; sha = args[args.index("--sha") + 1]; h = CFG["hubs"][hub]; st = load_st(hub); items = []
+    sys.path.insert(0, os.path.join(ROOT, "ops")); sys.path.insert(0, os.path.join(ROOT, "plan")); import guards as G, serp as S, datetime as _dt
     for url, e in sorted(st["pages"].items(), key=lambda x: x[1].get("queue_rank", 0)):
         if e.get("state") != "approved": continue
         s, fd = _field_data(url, sha)
         if s.get("item_id"): continue
+        if not s.get("approval") or G.fingerprint(s) != s["approval"]["fingerprint"]:
+            sys.exit(f"{url}: content or images changed after Divit approved it. Re-run review, challenge and approval.")
+        chk = e.get("cms_checked")
+        if not chk or (_dt.datetime.now(_dt.timezone.utc) - _dt.datetime.strptime(chk, "%Y-%m-%d %H:%M UTC").replace(tzinfo=_dt.timezone.utc)).total_seconds() > 3600:
+            sys.exit(f"{url}: no slug check in the last hour. Read the collection to disk and run hubctl cms-check {hub} <readback.json> first.")
+        if e.get("cms_exists"): sys.exit(f"{url}: an item with this slug already exists in Webflow ({e.get('cms_item_id')}); it would be duplicated. Record it with hubctl record, or delete the stray item first.")
+        live = S.load(url)
+        if live and (_dt.date.today() - _dt.date.fromisoformat(live["fetched"])).days > 60: sys.exit(f"{url}: SERP data is older than 60 days; re-pull it and re-run QC before creating")
         items.append({"isDraft": True, "fieldData": fd})
     if not items: sys.exit("no approved pages without an item ID")
     os.makedirs(os.path.join(ROOT, "ops", "out"), exist_ok=True)
@@ -312,6 +344,8 @@ def cmd_serp_save(args):
     try: rawj = json.load(open(raw))
     except ValueError: rawj = open(raw).read()
     p, n = S.save(url, rawj, kw)
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G; used = G.budget_use()
+    print(f"(DataForSEO calls today: {used})")
     print(f"saved {os.path.relpath(p, ROOT)}: {len(n['paa'])} PAA questions, {len(n['related'])} related searches, {len(n['organic'])} organic, features {n['features']}")
 
 def cmd_serp_keywords(args):
@@ -346,6 +380,103 @@ def cmd_library(args):
     for name, c in L["competitors"].items():
         ages = [(datetime.date.today() - datetime.date.fromisoformat(f["checked"])).days for f in c["facts"].values()]
         print(f"  {name:36s} {','.join(c['categories']):28s} facts: {', '.join(c['facts'])}  (oldest check {max(ages)} days)")
+
+def cmd_cms_check(args):
+    """Record, from a stored read-back of the whole collection, whether each queued page's slug already exists in Webflow."""
+    hub, rb = args[0], args[1]; items = _items_from_readback(rb)
+    by_slug = {it.get("fieldData", {}).get("slug"): it for it in items}
+    if not items: sys.exit("no items found in the read-back; read the full collection (list_collection_items, all pages) to disk first")
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    with G.lock("status-" + hub):
+        st = load_st(hub); n = 0
+        for url, e in st["pages"].items():
+            it = by_slug.get(url.rsplit("/", 1)[1])
+            e["cms_checked"] = now(); e["cms_exists"] = bool(it); e["cms_item_id"] = it["id"] if it else None; n += 1
+        save_st(hub, st)
+    print(f"slug check recorded for {n} pages against {len(items)} Webflow items; existing: {[u for u, e in st['pages'].items() if e.get('cms_exists')]}")
+
+def cmd_metrics(args):
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    m = G.metrics(); print(json.dumps(m, indent=1))
+    if m["alert"]: print("ALERT: the challenger is finding defects in more than 15% of reviewed pages. The reviewer is too lenient: tighten the rubric or the reviewer prompt.")
+
+def cmd_sample(args):
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    state = args[0] if args else "challenged"
+    urls = [u for u, e in G.all_status().items() if e.get("state") == state]
+    for u, why in G.sample(urls): print(f"{u}  <- {', '.join(why)}")
+
+def cmd_links(args):
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    hub = args[0]; g = G.link_graph(); print("Pages needing inbound links (fewest first):")
+    for u, n in G.needs_links(hub, 15): print(f"  {n} inbound  {u}")
+
+def cmd_lookahead(args):
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    hub, n = args[0], int(args[1]) if len(args) > 1 else 50
+    for url, have, missing in G.lookahead(hub, n, kmap()):
+        if len(have) < 3: print(f"{url}: library has {have or 'none'} of its top 10; research: {missing}")
+
+def cmd_serp_budget(args):
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    left, cap = G.budget_left(); print(f"DataForSEO calls left today: {left} of {cap}"); sys.exit(0 if left > 0 else 1)
+
+def cmd_ranks_save(args):
+    url, raw = args[0], args[1]; sys.path.insert(0, os.path.join(ROOT, "ops")); sys.path.insert(0, os.path.join(ROOT, "plan")); import guards as G, serp as S
+    try: data = json.load(open(raw))
+    except ValueError: data = open(raw).read()
+    items = [d for d in S._walk(S._parse_text(data)) if isinstance(d, dict) and d.get("type") == "organic"]
+    pos, purl = G.rank_from_serp(items); d = os.path.join(ROOT, "private", "ranks"); os.makedirs(d, exist_ok=True)
+    with open(os.path.join(d, url.strip("/").replace("/", "__") + ".jsonl"), "a") as f: f.write(json.dumps({"date": now(), "position": pos, "url": purl}) + "\n")
+    G.budget_use(); print(f"{url}: position {pos or 'not in the top 100'}")
+
+def cmd_ranks_report(args):
+    import datetime as _dt
+    d = os.path.join(ROOT, "private", "ranks"); refresh = []
+    for s in glob.glob(os.path.join(ROOT, "specs", "*", "*.json")):
+        sp = json.load(open(s)); pub = next((ev["t"] for ev in sp.get("history", []) if ev.get("state") == "published"), None)
+        if not pub: continue
+        age = (_dt.datetime.now(_dt.timezone.utc) - _dt.datetime.strptime(pub, "%Y-%m-%d %H:%M UTC").replace(tzinfo=_dt.timezone.utc)).days
+        f = os.path.join(d, sp["url"].strip("/").replace("/", "__") + ".jsonl")
+        pos = [json.loads(l)["position"] for l in open(f)] if os.path.exists(f) else []
+        best = min([p for p in pos if p] or [999])
+        if age >= 56 and best > 20: refresh.append((sp["url"], age, best if best < 999 else None))
+    for u, age, best in refresh: print(f"REFRESH {u}: live {age} days, best position {best or 'none in top 100'}")
+    print(f"{len(refresh)} page(s) for the refresh queue")
+
+def cmd_recheck(args):
+    """Ratchet: re-run QC on every page that passed under an older version of the rules; failures go to rework (or the fix queue if live)."""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    cur = G.rules_version(); fixq = []
+    for s in G.all_specs():
+        if s.get("status") == "live-draft" or not s.get("qc_passed") or s["qc_passed"].get("rules_version") == cur: continue
+        rc = subprocess.call([sys.executable, os.path.join(ROOT, "qc", "qc_hub.py"), s["_path"]], stdout=subprocess.DEVNULL)
+        st_ = G.all_status().get(s["url"], {}).get("state")
+        if rc == 0:
+            sp = json.load(open(s["_path"])); sp["qc_passed"] = {"rules_version": cur, "date": now()}; json.dump(sp, open(s["_path"], "w"), indent=1, ensure_ascii=False)
+        elif st_ in ("published", "cms_draft"): fixq.append(s["url"])
+        else: set_state(s["url"], "rework", note=f"rules changed ({cur}); QC now fails", via="recheck")
+    json.dump({"rules_version": cur, "date": now(), "pages": fixq}, open(os.path.join(ROOT, "status", "fix_queue.json"), "w"), indent=1)
+    print(f"recheck done at rules {cur}; live pages needing a fix: {len(fixq)}")
+
+def cmd_image_regress(args):
+    """Approved and live pages must re-render byte-identically with the current engine."""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); sys.path.insert(0, os.path.join(ROOT, "pipeline")); import guards as G, engine
+    bad = 0; n = 0
+    for s in G.all_specs():
+        if not s.get("approval"): continue
+        out, issues, _ = engine.build_all(s); n += 1
+        for rel, content in out:
+            if rel.endswith(".svg") and os.path.exists(os.path.join(ROOT, rel)) and open(os.path.join(ROOT, rel)).read() != content:
+                bad += 1; print(f"CHANGED {rel}")
+    print(f"image regression: {n} approved page(s) checked, {bad} file(s) would change"); sys.exit(1 if bad else 0)
+
+def cmd_verify_live(args):
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import verify_live as V
+    url = args[0]; html = open(args[args.index("--html") + 1]).read() if "--html" in args else None
+    ok, report = V.verify(json.load(open(spath(url))), html, check_links=("--html" not in args)); print("\n".join(report))
+    if ok: set_state(url, "published", note="live page verified", via="verify-live")
+    sys.exit(0 if ok else 1)
 
 def _engine():
     sys.path.insert(0, os.path.join(ROOT, "pipeline")); import engine; return engine
@@ -398,7 +529,9 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge}
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "sample": cmd_sample, "links": cmd_links,
+        "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
+        "recheck": cmd_recheck, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live}
 if __name__ == "__main__":
     if len(sys.argv) < 2 or sys.argv[1] not in CMDS: print(__doc__); sys.exit(0)
     try:
