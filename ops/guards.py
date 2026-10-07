@@ -245,7 +245,13 @@ def link_status(url, timeout=15):
     except urllib.error.HTTPError as e:
         return {"status": "blocked" if e.code in (401, 403, 429) or 300 <= e.code < 400 else "dead", "code": e.code, "final": url}   # a redirect that needs cookies is unverified, not dead
     except Exception as e:
-        return {"status": "dead", "code": None, "final": url, "error": type(e).__name__}
+        # a network blip is not a dead page: retry once, then only a name that does not resolve counts as dead
+        if timeout and not getattr(link_status, "_retry", False):
+            link_status._retry = True
+            try: return link_status(url, timeout)
+            finally: link_status._retry = False
+        dns = "Name or service not known" in str(e) or "nodename nor servname" in str(e) or "getaddrinfo" in str(e)
+        return {"status": "dead" if dns else "blocked", "code": None, "final": url, "error": type(e).__name__}
 def link_cache():
     return json.load(open(LINKS)) if os.path.exists(LINKS) else {}
 def check_links(urls):
