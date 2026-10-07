@@ -795,8 +795,8 @@
  ],
  "written_by": "writer-accounts-payable-automation-r3",
  "qc_passed": {
-  "rules_version": "386f1b31f9c8",
-  "date": "2026-10-07 14:32 UTC"
+  "rules_version": "d9a2b42f23de",
+  "date": "2026-10-07 14:39 UTC"
  },
  "history": [
   {
@@ -924,151 +924,104 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-07 14:39 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "reviewer-batch-m1",
+   "note": "rubric 10/10 by reviewer-batch-m1; 5 notes"
   }
  ],
  "review": {
-  "by": "reviewer-batch-c3a",
-  "date": "2026-10-07 13:51 UTC",
+  "by": "reviewer-batch-m1",
+  "date": "2026-10-07 14:39 UTC",
   "rubric": {
    "scope": {
     "result": "pass",
-    "evidence": "H1 \"Build Accounts Payable Automation From Inbox to Paid\", meta title \"Accounts Payable Automation Software | Emergent\" and hero \"Describe who signs off at which amount and the day you pay suppliers. Emergent builds the app that runs your AP inbox on those rules\" cover the whole payables job, not one feature or a sibling's topic (row 1 clear)."
+    "evidence": "H1 \"Build Accounts Payable Automation From Inbox to Paid\", meta title \"Accounts Payable Automation Software | Emergent\" and hero \"Describe who signs off at which amount and the day you pay suppliers\" cover the whole payables job (intake to payment), not invoice capture or approval routing alone."
    },
    "intent": {
     "result": "pass",
-    "evidence": "The top 10 is vendor explainers with an AI Overview. FAQ 1 defines the term (\"software that takes supplier invoices from receipt to payment\"), all 4 on-topic PAA questions are answered in their own words, the 5 jobs-drift PAA are skipped (row 9), FAQ 3 and the table name Tipalti, BILL and Stampli, and the how-to is 7 AP-specific steps."
+    "evidence": "Top 10 is vendor explainers plus an AI Overview: FAQ 1 defines the term, all four on-topic PAA questions are answered (\"How do you automate accounts payable?\", \"Is AI replacing accounts payable?\"), the five jobs-drift PAA are skipped, FAQ 3 and the table compare Tipalti, BILL and Stampli, and the 7-step how-to is AP-specific (tolerances, 2/10 net 30, last month's invoices as a test set)."
    },
    "specificity": {
-    "result": "fail",
-    "evidence": "why_table pricing cell \"Credits, no per-approver seats, no task cap\" is the automation hub default: the ap variant in rules/competitors/aab.json sets only build and output, so pricing falls back (row 26). FAQ 8 repeats it: \"There are no per-approver seats and no task cap\". Elsewhere the vocabulary is AP's own: \"Service invoices are checked against the PO, and goods invoices against the receipt too\", \"Terms of 2/10 net 30 give 2% off for paying within 10 days\"."
+    "result": "pass",
+    "evidence": "Pricing cell fixed: why_table Emergent pricing now reads \"Credits, free to start\" from the ap variant (Divit, 2026-10-07), no hub-default \"no task cap\"; FAQ 8 matches (\"Emergent runs on credits and is free to start\"). Vocabulary is AP's own: \"Service invoices are checked against the PO, and goods invoices against the receipt too\", \"Terms of 2/10 net 30\"."
    },
    "openers": {
     "result": "pass",
-    "evidence": "Every paragraph opens on a full sentence that says what happens: \"A PDF in the AP inbox or an upload from a vendor portal is read into fields\", \"Northwind's invoice is matched line by line to PO-3107\", \"Contractors invoice from a phone\", \"List every way invoices arrive today\". No label or verbless openers (rows 2 and 16 clear)."
+    "evidence": "Every paragraph opens on a full sentence that says what happens: \"A PDF in the AP inbox or an upload from a vendor portal is read into fields\", \"Northwind's invoice is matched line by line to PO-3107\", \"Pick the weekday your regular run goes out\"."
    },
    "craft": {
     "result": "pass",
-    "evidence": "No tacked-on endings or run-on lists (QC Q2, Q5, Q7 clean; rows 4, 6, 19 clear). The restatement class failed last cycle is fixed at its cited spots: feature_2 now adds the partial-delivery rule, howto_description no longer relists the hero. Remaining overlaps logged as notes (feature_2 / step 3 matching split; FAQ 2 / step 7 old process)."
+    "evidence": "No tacked-on endings, run-on lists or ranges (QC Q2/Q5/Q7 clean). Earlier restatement classes stay fixed: step 3 now owns only the two tolerances (\"Set the price tolerance and the quantity tolerance separately\"), step 4 no longer repeats \"any ERP with an API\", step 7's rising-hold-rate claim is gone."
    },
    "voice": {
     "result": "pass",
-    "evidence": "Calm, specific operator voice: \"and changes it when the policy does\", \"Next week's cash forecast becomes a lookup instead of a spreadsheet\", \"Switch on outgoing payments last\". Cycle-4 voice fixes hold: tab 1 \"the $60.00 difference goes to Dana Kim, the buyer, to approve or dispute\", tab 2/4 rhythm varied, step 4 \"such as QuickBooks\", no \"set X beside Y\"."
+    "evidence": "Calm operator voice with concrete detail: \"the $60.00 difference goes to Dana Kim, the buyer, to approve or dispute\", \"paper bills scanned at the front desk, and contractor emails sent to whoever hired them\", \"Next week's cash forecast becomes a lookup instead of a spreadsheet\"."
    },
    "truth": {
-    "result": "fail",
-    "evidence": "howto_step_7_des \"A hold rate that keeps rising usually means a tolerance is too tight.\" is an unsourced best-practice claim (not in plan.claims_to_source or domain_sources) and a fixed tolerance cannot make a hold rate keep rising (HUB_RULES 8, row 7). Everything else checks: all 10 claims_used ids approved; step 7 repo-versioning claim removed; 400 x $8 = $3,200; 2,000 x $0.43 = $860; $4,400 total; 2,000 x $0.03 = $60; $1,650 to $1,980 = +$330 = 20%; 14 bills / $38,210 on tab 2 and cover; $80 x 30 = $2,400; Oct 23, 2026 is a Friday; 2% of $12,000 = $240."
+    "result": "pass",
+    "evidence": "All 9 claims_used ids approved; every claims_to_source item has a domain_sources entry (matching, tolerances, partial receipts, 2/10 net 30, W-9/1099, NetSuite vendor bill, duplicates, NACHA, Tipalti/BILL/Stampli, AP role shift; FAQ 4 matches CONTENT_DEFECTS #7's approved form). Table cells come from the library. Numbers: 400 x $8 = $3,200; 2,000 x $0.43 = $860; $4,400 total; 2,000 x $0.03 = $60; $1,650 to $1,980 = +$330 = 20%; 14 bills / $38,210 on tab 2 and cover; 30 x $80 = $2,400; Oct 23, 2026 is a Friday; 2% of $12,000 = $240."
    },
    "distinct": {
     "result": "pass",
-    "evidence": "Watch-list split holds: capture goes to invoice automation (FAQ 5 \"For capture on its own, see invoice automation\"), sign-off only to approval workflow (FAQ 9). Tab H3 shapes differ from approval-workflow and sales-automation; hubctl plan-check 0 warnings; D2 clean."
+    "evidence": "Watch-list split holds: capture goes to invoice automation (FAQ 5 \"For capture on its own, see invoice automation\"), sign-off only to approval workflow (FAQ 9). Tab H3 shapes are distinct; D2 clean."
    },
    "faq": {
     "result": "pass",
-    "evidence": "10 on-topic items, each answered first (\"No. Software now does the keying...\", \"The best AP automation software depends on who you pay.\"). Hub link in item 2, 3 exact-match sibling links. Cycle-4 FAQ fixes hold: FAQ 2 now gives the order of work, FAQ 5 no longer restates feature_1, FAQ 10 \"Ask AP automation companies to demo your own approval chain\" reads naturally."
+    "evidence": "10 on-topic items, each answered first (\"No. Software now does the keying...\", \"The best AP automation software depends on who you pay.\"); hub link in item 2; 3 exact-match sibling links (invoice automation, accounting automation, approval workflow); 14 secondaries read naturally."
    },
    "images": {
-    "result": "fail",
-    "evidence": "tab_image_2 hero card \"Design tool bill is up 20%\" / \"Sent to Priya Shah, Department head, Waiting\" runs y=196-496 in uc-2.svg and its last element ends near y=396: about 96px empty at the foot against 26px top padding, with no action (row 5; hero cards are exempt from the engine balance gate). Other panels read full and the numbers add up: tab 1 $3,200 + $860 + $340 = $4,400, tab 3 five invoices across Acme Inc/Ltd/GmbH, tab 4 \"3 of 3 passed\", \"next on Oct 23\"."
+    "result": "pass",
+    "evidence": "Tab 2 hero fixed: Priya Shah's card now carries an Approve button with the cursor and reads full; both status labels say \"Waiting\". Each tab matches its copy: tab 1 \"Fasteners billed at $0.43, PO says $0.40 (+$60.00)\" to Dana Kim; tab 3 GBP/EUR accounts by entity with \"Spend by entity\"; tab 4 \"Joins the biweekly payout run on Friday, Oct 23\". Reserved .example domain only."
    }
   },
   "findings": [
    {
-    "criterion": "images",
-    "rule": "CONTENT_DEFECTS #5",
-    "field": "image_brief.tabs[2].hero (uc-2.svg)",
-    "quote": "Design tool bill is up 20% / $1,980.00, was $1,650.00 / Sent to Priya Shah, Department head, Waiting",
-    "issue": "The hero card is 300px tall (y=196 to 496) and its content ends near y=396, leaving about 96px empty at the foot against 26px of top padding, roughly a third of the card's block area. That is the visibly empty zone row 5 rejects (17-25% pooled was already visibly empty). The card also has no action, so tab 2 shows no click. The engine's balance gate skips hero cards (pipeline/engine.py line 63), which is why QC I1 passed.",
-    "fix": "Give Priya Shah's card its action, e.g. an Approve / Ask why button row with the cursor (the tab's one click), or size the card to its content. Coordinator: consider extending the balance gate to hero cards.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "truth",
-    "rule": "HUB_RULES 8; CONTENT_DEFECTS #7",
-    "field": "howto_step_7_des",
-    "quote": "A hold rate that keeps rising usually means a tolerance is too tight.",
-    "issue": "A best-practice diagnosis that is not in plan.claims_to_source or domain_sources. It is also doubtful: a tolerance is fixed, so it explains a high hold rate, not a rising one. A rising rate points to supplier price drift or receiving gaps. An AP lead would catch this.",
-    "fix": "Cut the sentence, or replace it with something true and sourced, e.g. \"If most held bills are approved unchanged, that tolerance is tighter than your policy needs; loosen it by prompting.\" Add any kept claim to claims_to_source with a source.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "specificity",
-    "rule": "CONTENT_DEFECTS #26; CONTENT_DEFECTS #8",
-    "field": "why_table (pricing row); faq item 8",
-    "quote": "Credits, no per-approver seats, no task cap",
-    "issue": "The ap variant sets only build and output, so the pricing cell falls back to the automation hub default. \"No task cap\" is automation-builder language an AP buyer does not use, and \"no per-approver seats\" sits against Tipalti's \"no per-user fees\" (row 8). FAQ 8 repeats it: \"There are no per-approver seats and no task cap, and it is free to start.\"",
-    "fix": "Coordinator adds a pricing value to the ap variant in rules/competitors/aab.json (e.g. \"Credits; approvers are not billed as seats\"), then regenerate the table with hubctl table. Rewrite FAQ 8's Emergent sentence to match and drop \"task cap\".",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "feature_2; howto_step_3_des",
-    "quote": "Service invoices are checked against the PO, and goods invoices against the receipt too. / Choose two-way matching for services and three-way matching for goods you receive.",
-    "issue": "The same matching split is said twice with the words swapped. This pair is the field pair row 21's own example came from.",
-    "fix": "Open step 3 on the decision only it owns (the two tolerances), e.g. \"Set the price tolerance and the quantity tolerance separately.\"",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 3; why_table (What you get row)",
+    "quote": "Tipalti is built for paying suppliers in many countries and currencies. ... Stampli keeps approvers' questions on the invoice, with an AI assistant.",
+    "issue": "Each vendor sentence partly restates the table's What you get cell (\"AP and global payments platform\"; \"AP platform built around the invoice, with an AI assistant\"). The answer still adds the fit by who you pay and BILL's SMB segment, so no rule is broken badly enough to block.",
+    "fix": "Keep the who-you-pay fit and drop what the table already says, e.g. lose \"with an AI assistant\".",
     "severity": "note"
    },
    {
     "criterion": "faq",
-    "rule": "CONTENT_DEFECTS #18; CONTENT_DEFECTS #21",
-    "field": "faq item 2; howto_step_7_des; faq item 7; howto_step_4_des",
-    "quote": "until then, approved bills post to the ledger while the old process still pays them / keep the old process as a fallback for one payment cycle; and to any other ERP that has one / or any ERP with an API",
-    "issue": "Two near-restatements between the FAQ and the how-to: run the old process alongside, and any ERP with an API.",
-    "fix": "Let one field own each point, and give the other something new.",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 8; why_table (Pricing model row)",
+    "quote": "Tipalti charges a platform fee plus per-invoice and payment fees",
+    "issue": "This repeats Tipalti's table cell almost word for word (\"Platform fee plus per-invoice and payment fees\"). QC Q6 does not scan the generated table. The previous reviewer asked for this wording, and the cost question needs a standalone answer.",
+    "fix": "Optional: answer with the pricing models in general (platform fee, per user, quote) and point to the table for who charges which.",
+    "severity": "note"
+   },
+   {
+    "criterion": "craft",
+    "rule": "HUB_RULES 2b",
+    "field": "why_description; feature_6; why_table (Code ownership)",
+    "quote": "With Emergent they are code in your repo, changed by prompting. / The matching rules and approval chain export to your GitHub repository",
+    "issue": "The code-in-your-repo point appears in three places. It is the page's angle, and feature_6 adds the engineer reading why a bill was held, so this is a note.",
+    "fix": "None required. If reworked, let why_description carry the contrast and feature_6 the audit detail.",
     "severity": "note"
    },
    {
     "criterion": "truth",
     "rule": "HUB_RULES 8",
-    "field": "faq item 8",
-    "quote": "Most accounts payable automation solutions charge per user, per invoice, or by quote, sometimes with a platform fee on top.",
-    "issue": "A market-wide claim with no domain_sources entry. The library supports it only for the three tabled vendors.",
-    "fix": "Anchor it to the table (\"Tipalti, BILL and Stampli charge a platform fee plus per-invoice fees, per user, or by quote\") or add a source.",
-    "severity": "note"
-   },
-   {
-    "criterion": "truth",
-    "rule": "HUB_RULES 6",
-    "field": "howto_step_4_des",
-    "quote": "GL code suggestions then come from how your team coded the same vendor's past bills.",
-    "issue": "No ledger entry names GL coding suggestions. The closest are prompt-build and ai-extraction.",
-    "fix": "Coordinator to confirm it maps to prompt-build; otherwise phrase it as a rule the app applies (\"defaults each vendor's GL code to the one used on its last bill\").",
-    "severity": "note"
-   },
-   {
-    "criterion": "images",
-    "rule": "CONTENT_DEFECTS #20",
-    "field": "image_brief.tabs[2] (uc-2.svg)",
-    "quote": "Department head ... In review / Sent to Priya Shah ... Waiting",
-    "issue": "One approval carries two status labels in the same image.",
-    "fix": "Use one label in both places (\"Waiting\" matches the copy's \"it waits for Priya Shah\").",
-    "severity": "note"
-   },
-   {
-    "criterion": "craft",
-    "rule": "HUB_RULES 2a",
-    "field": "feature_1; feature_3; feature_5; faq items 6, 8; howto_step_1_des",
-    "quote": "vendor, invoice number, due date and each line item / amount, vendor, entity, or GL code / QuickBooks, Xero, or NetSuite / who is holding it and when it falls due / per user, per invoice, or by quote / and contractor emails",
-    "issue": "The serial comma is used in some lists and not others.",
-    "fix": "Pick one style and apply it everywhere on the page.",
+    "field": "howto_step_7_des",
+    "quote": "If approvers keep releasing held bills unchanged, ask Emergent to widen the tolerance that held them.",
+    "issue": "This replaces the earlier blocking claim. It is an unsourced recommendation, which makes it a note.",
+    "fix": "None required.",
     "severity": "note"
    },
    {
     "criterion": "intent",
     "rule": "HUB_RULES 5",
-    "field": "why_table",
-    "quote": "BILL",
-    "issue": "QC K7: BILL is not in this page's top 10. Competitor ranking choice is pending with Divit.",
-    "fix": "Await Divit's K7 decision.",
-    "severity": "note"
-   },
-   {
-    "criterion": "faq",
-    "rule": "HUB_RULES 5",
-    "field": "faq items 5, 7, 9",
-    "quote": "invoice automation / accounting automation / approval workflow",
-    "issue": "FAQ links to sibling pages that may not be live yet. They fall under the publish gate, which is pending with Divit.",
-    "fix": "Hold at publish until the targets are live or ship in the same batch.",
+    "field": "why_table; domain_sources",
+    "quote": "<th scope=\"col\">BILL</th>; 13 sources",
+    "issue": "QC K7 (BILL is not in the top 10) and P4 (13 sources against a max of 8) are both pending with Divit, as are the FAQ links to pages that may not be live yet (items 5, 7, 9).",
+    "fix": "Await Divit's rulings.",
     "severity": "note"
    }
   ]
@@ -1085,6 +1038,13 @@
    "result": "fail",
    "blocking": 0,
    "notes": 0
+  },
+  {
+   "by": "reviewer-batch-c3a",
+   "date": "2026-10-07 13:51 UTC",
+   "result": "fail",
+   "blocking": 3,
+   "notes": 8
   }
  ],
  "plan": {
@@ -1281,6 +1241,56 @@
    "by": "reviewer-batch-c3a",
    "via": "review",
    "date": "2026-10-07 13:51 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 3; why_table (What you get row)",
+   "issue": "Each vendor sentence partly restates the table's What you get cell (\"AP and global payments platform\"; \"AP platform built around the invoice, with an AI assistant\"). The answer still adds the fit by who you pay and BILL's SMB segment, so no rule is broken badly enough to block.",
+   "fix": "Keep the who-you-pay fit and drop what the table already says, e.g. lose \"with an AI assistant\".",
+   "by": "reviewer-batch-m1",
+   "via": "review",
+   "date": "2026-10-07 14:39 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 8; why_table (Pricing model row)",
+   "issue": "This repeats Tipalti's table cell almost word for word (\"Platform fee plus per-invoice and payment fees\"). QC Q6 does not scan the generated table. The previous reviewer asked for this wording, and the cost question needs a standalone answer.",
+   "fix": "Optional: answer with the pricing models in general (platform fee, per user, quote) and point to the table for who charges which.",
+   "by": "reviewer-batch-m1",
+   "via": "review",
+   "date": "2026-10-07 14:39 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2b",
+   "field": "why_description; feature_6; why_table (Code ownership)",
+   "issue": "The code-in-your-repo point appears in three places. It is the page's angle, and feature_6 adds the engineer reading why a bill was held, so this is a note.",
+   "fix": "None required. If reworked, let why_description carry the contrast and feature_6 the audit detail.",
+   "by": "reviewer-batch-m1",
+   "via": "review",
+   "date": "2026-10-07 14:39 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_7_des",
+   "issue": "This replaces the earlier blocking claim. It is an unsourced recommendation, which makes it a note.",
+   "fix": "None required.",
+   "by": "reviewer-batch-m1",
+   "via": "review",
+   "date": "2026-10-07 14:39 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table; domain_sources",
+   "issue": "QC K7 (BILL is not in the top 10) and P4 (13 sources against a max of 8) are both pending with Divit, as are the FAQ links to pages that may not be live yet (items 5, 7, 9).",
+   "fix": "Await Divit's rulings.",
+   "by": "reviewer-batch-m1",
+   "via": "review",
+   "date": "2026-10-07 14:39 UTC"
   }
  ]
 }

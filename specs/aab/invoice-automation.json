@@ -1,0 +1,950 @@
+{
+ "url": "/ai-automation-builder/invoice-automation",
+ "hub": "Auto",
+ "item_id": null,
+ "status": "spec",
+ "written_by": "writer-invoice-automation",
+ "keywords": {
+  "primary": "invoice automation",
+  "secondaries_used": [
+   "invoice automation software",
+   "automated invoicing",
+   "invoice automation system",
+   "automated invoice processing",
+   "ai invoice automation",
+   "automated invoicing software",
+   "invoice processing automation",
+   "invoice workflow automation",
+   "automate invoice processing"
+  ]
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Invoice Automation Software, Built From a Prompt | Emergent",
+  "meta_description": "Describe the invoices you get and the ones you send. Emergent builds invoice automation that reads vendor PDFs and bills your clients.",
+  "h1": "Build Invoice Automation That Reads Bills and Sends Invoices",
+  "slug": "invoice-automation",
+  "product_name": "Invoice Automation Builder",
+  "hero_description": "Tell Emergent which invoices you receive and which you send. It builds the app that turns vendor PDFs into ledger entries and bills customers from hours or finished jobs.",
+  "breadcrumb": "Invoice Automation",
+  "category": "a33cd4fb124ec86a130809893b2b3896",
+  "explore_cta": "Build My Invoice Automation",
+  "features_heading": "What Invoice Automation Has to Handle",
+  "features_subheading": "Emergent builds invoice automation for the bills that arrive in your inbox and the invoices your team sends out each month.",
+  "feature_1": "<h3>Field extraction with a review queue</h3><p>Reads vendor, invoice number, dates, PO number and each line item from PDFs and scans. A field the model is unsure of goes to a review queue, not straight to the ledger.</p>",
+  "feature_2": "<h3>Duplicate checks before anything posts</h3><p>Compares every new invoice with that vendor's history on number, amount and date. A resent PDF under a new filename is held, and the first copy stays the bill of record.</p>",
+  "feature_3": "<h3>GL coding line by line</h3><p>Gives each line a GL account and cost center based on how that vendor's lines were coded before. Anything new waits for a person, and their choice is applied the next time.</p>",
+  "feature_4": "<h3>Invoices generated from your records</h3><p>Creates outgoing invoices from timesheets or closed jobs, using your own numbering and payment terms. Each invoice is saved as a PDF and a database row before anyone sends it.</p>",
+  "feature_5": "<h3>Sent with a payment link, then posted</h3><p>Emails each invoice with a Stripe payment link or one from the processor you connect, then posts it to QuickBooks or Xero. The dashboard lists every invoice still unpaid.</p>",
+  "feature_6": "<h3>Every rule exported to your GitHub</h3><p>The extraction and coding logic is exported to your GitHub repository, where an engineer can trace why any field was held. Invoice records live in a database you own.</p>",
+  "why_title": "Why Build Invoice Automation With Emergent?",
+  "why_description": "Invoice tools keep your coding rules inside their app. Emergent writes them as code in your GitHub repo, changed by prompting.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"emergent\" />\n        </th>\n        <th scope=\"col\">Stampli</th>\n        <th scope=\"col\">Tipalti</th>\n        <th scope=\"col\">BILL</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt for your AP process and the app around it</td>\n        <td class=\"col-other\">Sales-led setup with a customer success manager</td>\n        <td class=\"col-other\">Vendor platform, set up through onboarding</td>\n        <td class=\"col-other\">Self-serve signup, free trial on most plans</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">What you get</th>\n        <td class=\"col-brand\">Intake, matching, approvals, payment runs, and ledger, as code you own</td>\n        <td class=\"col-other\">AP platform built around the invoice, with an AI assistant</td>\n        <td class=\"col-other\">AP and global payments platform</td>\n        <td class=\"col-other\">AP and AR platform with a vendor payment network</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Pricing model</th>\n        <td class=\"col-brand\">Credits, free to start</td>\n        <td class=\"col-other\">Quote-based, priced on invoice volume</td>\n        <td class=\"col-other\">Platform fee plus per-invoice and payment fees, no per-user fees</td>\n        <td class=\"col-other\">Per user, per month; approver-only seats on higher plans</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full export to your repo</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "Invoice Workflows Teams Build First",
+  "tab_label_1": "Emailed PDFs",
+  "tab_label_2": "GL Coding by Line",
+  "tab_label_3": "Timesheet Invoices",
+  "tab_label_4": "Field Service Jobs",
+  "tab_content_1": "<h3>One bill record per PDF, with unsure fields held</h3><p>Vendor invoices emailed to the AP inbox are read into vendor, invoice number, dates, line items and total. Globex Industrial's INV-20817 comes through at $3,412.50, but the due date sits under a smudge on the scan. That one field waits for Maria Lopez to confirm, and every other field is already filled.</p>",
+  "tab_content_2": "<h3>Code each line from the vendor's own history</h3><p>Each line on a supplier invoice takes the GL account that the same item from that vendor got last time. On Initech Supply's six-line invoice, five lines are coded on arrival. The label printer, $240.00 and never bought from them before, goes to Sam Ortiz in finance to pick an account.</p>",
+  "tab_content_3": "<h3>Billable hours become client invoices on the 1st</h3><p>Hours logged against each client in October turn into one draft invoice per client on Nov 1. Acme's draft comes to $6,300.00, for 42 hours at $150. Ana Ruiz reviews the four drafts in one list, and nothing goes out until she approves. Each invoice then leaves by email with a Stripe payment link.</p>",
+  "tab_content_4": "<h3>The customer has the invoice before the van leaves</h3><p>A technician closes the job on a phone, and the labor and parts on it become an invoice. Job 4471 bills 1.5 hours at $120 and a $68.40 shutoff valve, $248.40 in all. Dana Whitfield gets it by email with a payment link, and the PDF stays attached to the job record.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { emailedPdfs: \"Build invoice automation for my AP inbox. Read every vendor PDF into vendor, invoice number, invoice date, due date, line items and total. When a field is hard to read, like a smudged due date, send only that field to Maria Lopez to confirm and fill in the rest. Save each invoice as a bill record with the PDF attached.\", glCodingByLine: \"Build a coding step for my supplier invoices. Give each line the GL account that the same item from that vendor was coded to before. When an item has never been bought from that vendor, send the line to Sam Ortiz in finance to pick an account, and post the coded bill to Xero once every line has one.\", timesheetInvoices: \"Build automated invoicing for my agency. On the 1st of each month, turn the hours logged against each client into one draft invoice at that client's hourly rate. Show me all the drafts in one list to approve, then email each invoice with a Stripe payment link and record it in Xero.\", fieldServiceJobs: \"Build invoicing for my plumbing business. When a technician marks a job complete on their phone, create an invoice from the labor hours and parts on that job, email it to the customer with a payment link, and attach the PDF to the job record so the office can see it.\" };</p>",
+  "howto_title": "How to Automate Invoice Processing",
+  "howto_description": "Start with a stack of real invoices, not a blank template. The first steps decide what the app reads and what it sends; the later ones connect it and put it in front of your team.",
+  "howto_step_1_title": "01 Collect a month of real invoices",
+  "howto_step_2_title": "02 Describe the bill record",
+  "howto_step_3_title": "03 Connect the inbox and your sources",
+  "howto_step_4_title": "04 Set coding and duplicate rules",
+  "howto_step_1_des": "Pull twenty invoices you received last month and five you sent. Include the hard ones: a phone photo, a scan with a stamp across the total, a two-page PDF. These samples show Emergent what the app has to read and what your own invoices look like.",
+  "howto_step_2_des": "Describe what lands in each bill record: vendor, invoice number, invoice and due dates, PO number, every line and the total. Name the fields a person must confirm before anything posts, for example any total over $10,000 or a vendor seen for the first time.",
+  "howto_step_3_des": "Connect the inbox vendors already email; nobody outside has to change a habit. For invoices you send, connect wherever billable work is recorded: a timesheet tool, a field service app, or Stripe orders. Emergent builds a sync for each one through its API.",
+  "howto_step_4_des": "Decide which field settles the GL account: the vendor, the item description or the department. Then tell Emergent what counts as a duplicate in your books, such as the same vendor and amount within 30 days, and who reviews a held invoice.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Invoice Automation Questions, Answered\", \"items\": [{\"q\": \"What is invoice automation?\", \"a\": \"Invoice automation is software that handles invoices without anyone retyping them. On the receiving side, it reads each vendor PDF into fields, codes the lines and saves a bill. On the sending side, it builds invoices from your own records and emails them with a way to pay.\"}, {\"q\": \"How can I automate my invoicing?\", \"a\": \"Start with the invoices you send most often and the record each one comes from: tracked hours, a finished job, a shipped order. Describe that source and your template, then say when invoices should go out. Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a> turns that description into automated invoicing that runs on schedule.\"}, {\"q\": \"Which invoice automation software is the best?\", \"a\": \"The best invoice automation software depends on which way your invoices travel. BILL handles payables and receivables in one account for small and midsize businesses. Stampli puts every conversation about a bill on the invoice record, with an assistant named Billy. Building your own fits when your coding rules would need workarounds in a packaged tool.\"}, {\"q\": \"Is there a free app that can create my own invoice?\", \"a\": \"Yes. Zoho Invoice has a free plan with recurring invoices and payment reminders, and QuickBooks offers a free web generator for one-off invoices. Emergent is free to start, and the invoicing app it builds keeps your template and your invoice data in a database you own.\"}, {\"q\": \"Does QuickBooks have an automated invoice system?\", \"a\": \"Yes, for recurring invoices. In QuickBooks Online, a scheduled recurring template creates the invoice and emails it on the interval you set. When an invoice depends on outside data, such as hours from another tool, you need an invoice automation system that reads that source first.\"}, {\"q\": \"Is there a free invoice generator available in QuickBooks?\", \"a\": \"Yes. QuickBooks has a free online invoice generator: enter your business details and line items, then download the invoice and send it yourself. Tracking payment status or adding a pay-now button means moving to a paid QuickBooks Online plan.\"}, {\"q\": \"How does automated invoice processing work?\", \"a\": \"Automated invoice processing starts when an invoice lands in a shared inbox, a vendor portal or a scanner folder. A model reads it into a structured bill, which posts to your accounting system once its checks pass. Matching it to a purchase order and paying it belong to <a href='https://emergent.sh/ai-automation-builder/accounts-payable-automation'>accounts payable automation</a>.\"}, {\"q\": \"What does AI invoice automation add to OCR?\", \"a\": \"OCR turns the page into text. AI invoice automation decides which text is the invoice number, which is the due date and which rows are line items, without a template for each vendor's layout. That matters most for vendors who redesign their invoices, or who send a phone photo instead of a PDF.\"}, {\"q\": \"Is automated invoicing software the same as invoice processing automation?\", \"a\": \"No. Automated invoicing software creates and emails the invoices you issue. It works from your own records, such as logged hours. Bills that vendors send you go through invoice processing automation instead. Following up on late payments is <a href='https://emergent.sh/ai-automation-builder/accounts-receivable-automation'>accounts receivable automation</a>, and one Emergent app can cover all of it.\"}, {\"q\": \"What does invoice workflow automation include?\", \"a\": \"Invoice workflow automation covers intake, extraction, duplicate checks, coding and posting to the ledger. Sign-off is one step inside that flow. If routing invoices for sign-off is the only part you need, an <a href='https://emergent.sh/ai-automation-builder/approval-workflow'>approval workflow</a> is the smaller build.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Design the invoice you send",
+  "howto_step_5_des": "Give Emergent your current invoice PDF and list the changes you want: a numbering format, payment terms, your logo, the payment link. Every invoice the app sends follows that template, and each one is stored as a PDF beside its database row.",
+  "howto_step_6_title": "06 Post to the ledger in parallel",
+  "howto_step_6_des": "Connect QuickBooks or Xero. Bills you receive post with their GL codes and the source PDF attached; invoices you send post as receivables. Run last month's invoices through the app first and compare its entries with the ones your team made by hand.",
+  "howto_step_7_title": "07 Go live and watch the review queue",
+  "howto_step_7_des": "Switch the inbox over at the start of a month. On the dashboard, track how many fields reach the review queue each week. When one vendor's invoices keep needing the same fix, ask Emergent for a rule that handles that vendor's layout.",
+  "prompt_chip_1": "PDF Extraction",
+  "prompt_chip_2": "Line-Item Coding",
+  "prompt_chip_3": "Duplicate Checks",
+  "prompt_chip_4": "Recurring Invoices",
+  "hero_prompt": "<p>Build invoice automation that reads vendor PDFs from my AP inbox and bills my clients from tracked hours.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/aab/invoice-automation/uc-1.svg",
+   "alt": "A Globex Industrial invoice for $3,412.50 is read into fields, and only the smudged due date is sent to Maria Lopez to confirm."
+  },
+  "tab_image_2": {
+   "path": "images/aab/invoice-automation/uc-2.svg",
+   "alt": "Five of six lines on an Initech Supply invoice take the GL account used for the same item before, and a new $240.00 label printer goes to Sam Ortiz to code."
+  },
+  "tab_image_3": {
+   "path": "images/aab/invoice-automation/uc-3.svg",
+   "alt": "Lumen Studio's October hours become four draft client invoices on Nov 1, totaling $13,860.00, and wait for Ana Ruiz to approve before they are emailed."
+  },
+  "tab_image_4": {
+   "path": "images/aab/invoice-automation/uc-4.svg",
+   "alt": "A plumbing technician closes job 4471 on a phone, and a $248.40 invoice for labor and a shutoff valve is emailed to the customer with a payment link."
+  },
+  "cover_image": {
+   "path": "images/aab/invoice-automation/cover.svg",
+   "alt": "Invoice automation: four client invoices totaling $13,860.00 ready to send"
+  },
+  "share_image": {
+   "path": "images/aab/invoice-automation/og.png",
+   "alt": "Build invoice automation for the bills you receive and the invoices you send, with Emergent"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-07 14:30 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-07 14:39 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "writer-invoice-automation",
+   "note": ""
+  },
+  {
+   "t": "2026-10-07 14:40 UTC",
+   "state": "images",
+   "via": null,
+   "by": null,
+   "note": ""
+  }
+ ],
+ "plan": {
+  "angle": "The top 10 is AP vendor explainers and listicles (Lido, Concur, Rillion, Basware, NetSuite) that treat invoice automation as one stage of payables. This page wins by covering both directions of an invoice: reading incoming PDFs into coded, de-duplicated bill records, and generating outgoing invoices from hours or finished jobs, shown as one app Emergent builds and the team owns as code. Matching, approvals and payment runs stay on the AP page.",
+  "tab_stories": [
+   "Globex's emailed invoice INV-20817 for $3,412.50 is read into fields, and the smudged due date alone waits for Maria Lopez to confirm.",
+   "Five of six lines on an Initech Supply invoice take the GL account they had last time, and a $240.00 label printer new to the vendor goes to Sam Ortiz to code.",
+   "Lumen Studio's October hours become one invoice per client on the 1st, and Acme's 42 hours at $150 wait in a draft list for Ana Ruiz before sending.",
+   "A Brightline Plumbing technician closes job 4471 on a phone, and the customer has a $248.40 invoice by email before the van leaves."
+  ],
+  "openers": [
+   "Vendor invoices emailed",
+   "Each line on",
+   "Hours logged against",
+   "A technician closes",
+   "Gather twenty invoices",
+   "Describe what lands",
+   "Connect the inbox",
+   "Decide which fields",
+   "Point the ledger",
+   "Send the first batch",
+   "Watch the review queue"
+  ],
+  "heading_shapes": [
+   "One bill record per PDF, with ...",
+   "Code each line from ...",
+   "Billable hours become ... on the 1st",
+   "The customer has the invoice before ..."
+  ],
+  "claims_to_source": [
+   "Invoice extraction models read vendor name, invoice number, dates, PO number, line items and totals from PDFs and scans",
+   "Duplicate invoices are caught by comparing vendor, invoice number, amount and date with past bills",
+   "QuickBooks Online can schedule recurring invoices that are created and emailed automatically",
+   "QuickBooks offers a free online invoice generator; tracking and pay-now buttons need a paid QuickBooks Online plan",
+   "Zoho Invoice has a free plan that includes recurring invoices and payment reminders",
+   "BILL handles payables and receivables in one platform for small and midsize businesses",
+   "Stripe can email an invoice with a link to a hosted invoice page where the customer pays",
+   "Stampli keeps approver and vendor communication on the invoice and has an AI assistant, Billy"
+  ]
+ },
+ "table": {
+  "vs": [
+   "Stampli",
+   "Tipalti",
+   "BILL"
+  ],
+  "rows": [
+   "build",
+   "output",
+   "pricing",
+   "ownership"
+  ],
+  "variant": "ap"
+ },
+ "faq_sources": [
+  {
+   "q": "What is invoice automation?",
+   "source": "definition",
+   "ref": "invoice automation"
+  },
+  {
+   "q": "How can I automate my invoicing?",
+   "source": "paa",
+   "ref": "How can I automate my invoicing?"
+  },
+  {
+   "q": "Which invoice automation software is the best?",
+   "source": "paa",
+   "ref": "Which invoice automation software is the best?"
+  },
+  {
+   "q": "Is there a free app that can create my own invoice?",
+   "source": "paa",
+   "ref": "Is there a free app that can create my own invoice?"
+  },
+  {
+   "q": "Does QuickBooks have an automated invoice system?",
+   "source": "paa",
+   "ref": "Does QuickBooks have an automated invoice system?"
+  },
+  {
+   "q": "Is there a free invoice generator available in QuickBooks?",
+   "source": "paa",
+   "ref": "Is there a free invoice generator available in QuickBooks?"
+  },
+  {
+   "q": "How does automated invoice processing work?",
+   "source": "secondary",
+   "ref": "automated invoice processing"
+  },
+  {
+   "q": "What does AI invoice automation add to OCR?",
+   "source": "secondary",
+   "ref": "ai invoice automation"
+  },
+  {
+   "q": "Is automated invoicing software the same as invoice processing automation?",
+   "source": "secondary",
+   "ref": "automated invoicing software"
+  },
+  {
+   "q": "What does invoice workflow automation include?",
+   "source": "secondary",
+   "ref": "invoice workflow automation"
+  }
+ ],
+ "claims_used": [
+  "prompt-build",
+  "api-connect",
+  "ai-extraction",
+  "code-export",
+  "database-owned",
+  "free-start"
+ ],
+ "domain_sources": [
+  {
+   "claim": "Invoice extraction models read vendor name, invoice number, dates, PO number, line items and totals from PDFs and scans",
+   "source_url": "https://learn.microsoft.com/en-us/ai-builder/prebuilt-invoice-processing",
+   "date": "2026-10-07"
+  },
+  {
+   "claim": "Duplicate invoices are caught by comparing vendor, invoice number, amount and date with past bills",
+   "source_url": "https://www.stampli.com/resources/duplicate-detection-and-fraud-prevention-in-accounts-payable/",
+   "date": "2026-10-07"
+  },
+  {
+   "claim": "QuickBooks Online can schedule recurring invoices that are created and emailed automatically",
+   "source_url": "https://quickbooks.intuit.com/learn-support/en-us/help-article/recurring-transactions/create-recurring-transactions-quickbooks-online/L3WoKX2R8_US_en_US",
+   "date": "2026-10-07"
+  },
+  {
+   "claim": "QuickBooks offers a free online invoice generator; tracking and pay-now buttons need a paid QuickBooks Online plan",
+   "source_url": "https://quickbooks.intuit.com/payments/invoicing/generator/",
+   "date": "2026-10-07"
+  },
+  {
+   "claim": "Zoho Invoice has a free plan that includes recurring invoices and payment reminders",
+   "source_url": "https://www.zoho.com/us/invoice/pricing/",
+   "date": "2026-10-07"
+  },
+  {
+   "claim": "BILL handles payables and receivables in one platform for small and midsize businesses",
+   "source_url": "https://www.bill.com/product/accounts-payable",
+   "date": "2026-10-07"
+  },
+  {
+   "claim": "Stripe can email an invoice with a link to a hosted invoice page where the customer pays",
+   "source_url": "https://docs.stripe.com/invoicing/hosted-invoice-page",
+   "date": "2026-10-07"
+  },
+  {
+   "claim": "Stampli keeps approver and vendor communication on the invoice and has an AI assistant, Billy",
+   "source_url": "https://www.stampli.com/meet-billy-automated-invoice-processing-assistant/",
+   "date": "2026-10-07"
+  }
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R2",
+    "title": "Vendor invoice field extraction",
+    "prompt": "Read vendor PDFs into fields and send only unclear fields to a person",
+    "main": {
+     "scan": true,
+     "blocks": [
+      {
+       "type": "doc_header",
+       "initials": "GI",
+       "title": "Globex Industrial",
+       "sub": "billing@globex.example",
+       "label": "INVOICE"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Invoice no.",
+         "INV-20817"
+        ],
+        [
+         "Invoice date",
+         "Oct 2, 2026"
+        ],
+        [
+         "Due date",
+         "Nov 1, 2026",
+         true
+        ]
+       ]
+      },
+      {
+       "type": "lineitems",
+       "items": [
+        [
+         "Hose fittings",
+         "$1,237.50"
+        ],
+        [
+         "Pressure gauges",
+         "$1,452.00"
+        ],
+        [
+         "Freight",
+         "$723.00"
+        ]
+       ],
+       "total": [
+        "Total due",
+        "$3,412.50"
+       ]
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Extracted fields",
+       "size": 19,
+       "chip": [
+        "1 to confirm",
+        "warn"
+       ]
+      },
+      {
+       "type": "extract",
+       "items": [
+        [
+         "Vendor",
+         "Globex Industrial",
+         99
+        ],
+        [
+         "Invoice no.",
+         "INV-20817",
+         98
+        ],
+        [
+         "Total",
+         "$3,412.50",
+         99
+        ],
+        [
+         "Due date",
+         "Nov 1, 2026",
+         61
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "eye",
+     "tone": "warn",
+     "title": "Due date needs a check",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "Smudged on the scan",
+       "size": 16,
+       "color": "sub"
+      },
+      {
+       "type": "meta",
+       "icon": "scan-line",
+       "kind": "acc",
+       "text": "Read at 61% confidence"
+      },
+      {
+       "type": "list",
+       "row_h": 52,
+       "items": [
+        {
+         "initials": "ML",
+         "name": "To Maria Lopez",
+         "sub": "Other fields filled",
+         "chip": [
+          "Waiting",
+          "warn"
+         ]
+        }
+       ]
+      }
+     ],
+     "action": {
+      "label": "Confirm",
+      "icon": "check"
+     }
+    },
+    "alt": "A Globex Industrial invoice for $3,412.50 is read into fields, and only the smudged due date is sent to Maria Lopez to confirm.",
+    "story": [
+     {
+      "copy": "the due date",
+      "image": "Due date needs a check"
+     },
+     {
+      "copy": "$3,412.50",
+      "image": "$3,412.50"
+     },
+     {
+      "copy": "INV-20817",
+      "image": "INV-20817"
+     },
+     {
+      "copy": "waits for Maria Lopez",
+      "image": "To Maria Lopez"
+     },
+     {
+      "copy": "every other field is already filled",
+      "image": "Other fields filled"
+     }
+    ]
+   },
+   {
+    "recipe": "R8",
+    "title": "Line-by-line GL coding",
+    "prompt": "Code each invoice line to the GL account that vendor's item had last time",
+    "rule": "Same item from this vendor before → reuse its GL account",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Initech Supply, INV-3381",
+       "sub": "6 lines, $1,720.00",
+       "size": 20,
+       "chip": [
+        "5 of 6 coded",
+        "ok"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Line",
+        "Amount",
+        "GL account"
+       ],
+       "widths": [
+        0.42,
+        0.22,
+        0.36
+       ],
+       "highlight": 5,
+       "row_h": 50,
+       "num_cols": [
+        1
+       ],
+       "rows": [
+        [
+         "Shipping boxes",
+         "$412.00",
+         "6100 Supplies"
+        ],
+        [
+         "Packing tape",
+         "$96.00",
+         "6100 Supplies"
+        ],
+        [
+         "Pallet wrap",
+         "$188.00",
+         "6100 Supplies"
+        ],
+        [
+         "Forklift service",
+         "$650.00",
+         "6400 Repairs"
+        ],
+        [
+         "Safety gloves",
+         "$134.00",
+         "6150 Safety"
+        ],
+        [
+         "Label printer",
+         "$240.00",
+         [
+          "Needs coding",
+          "warn"
+         ]
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "tag",
+     "tone": "warn",
+     "title": "Label printer, $240.00",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "New item for this vendor",
+       "size": 16,
+       "color": "sub"
+      },
+      {
+       "type": "meta",
+       "icon": "history",
+       "kind": "acc",
+       "text": "No past GL account on file"
+      },
+      {
+       "type": "text",
+       "text": "Sam Ortiz picks the account",
+       "size": 17,
+       "weight": 500,
+       "color": "ink"
+      }
+     ],
+     "action": {
+      "label": "Choose account",
+      "icon": "list"
+     }
+    },
+    "mini": {
+     "icon": "history",
+     "kind": "acc",
+     "title": "Coded from past bills",
+     "sub": "5 lines matched"
+    },
+    "alt": "Five of six lines on an Initech Supply invoice take the GL account used for the same item before, and a new $240.00 label printer goes to Sam Ortiz to code.",
+    "story": [
+     {
+      "copy": "takes the GL account that the same item from that vendor got last time",
+      "image": "Same item from this vendor before → reuse its GL account"
+     },
+     {
+      "copy": "The label printer, $240.00",
+      "image": "Label printer, $240.00"
+     },
+     {
+      "copy": "never bought from them before",
+      "image": "New item for this vendor"
+     },
+     {
+      "copy": "On Initech Supply's six-line invoice, five lines are coded on arrival",
+      "image": "5 of 6 coded"
+     },
+     {
+      "copy": "Sam Ortiz",
+      "image": "Sam Ortiz picks the account"
+     }
+    ]
+   },
+   {
+    "recipe": "R9",
+    "title": "Monthly invoices from timesheets",
+    "prompt": "Turn each client's logged hours into a draft invoice on the 1st",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "October invoices, drafts",
+       "sub": "Lumen Studio, created Nov 1",
+       "right": "$13,860.00",
+       "right_sub": "4 drafts"
+      },
+      {
+       "type": "list",
+       "cards": true,
+       "row_h": 84,
+       "items": [
+        {
+         "initials": "AC",
+         "name": "Acme",
+         "sub": "42 hours at $150",
+         "right": "$6,300.00"
+        },
+        {
+         "initials": "HF",
+         "name": "Halcyon Foods",
+         "sub": "18 hours at $150",
+         "right": "$2,700.00"
+        },
+        {
+         "initials": "PD",
+         "name": "Pinecrest Dental",
+         "sub": "26 hours at $135",
+         "right": "$3,510.00"
+        },
+        {
+         "initials": "OL",
+         "name": "Orbit Labs",
+         "sub": "9 hours at $150",
+         "right": "$1,350.00"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "file-check",
+     "title": "4 drafts for Ana Ruiz",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "Nothing sends until she approves",
+       "size": 17,
+       "weight": 500,
+       "color": "ink"
+      },
+      {
+       "type": "meta",
+       "icon": "credit-card",
+       "kind": "acc",
+       "text": "Each email has a Stripe pay link"
+      },
+      {
+       "type": "meta",
+       "icon": "calendar",
+       "kind": "acc",
+       "text": "Built from October hours"
+      }
+     ],
+     "action": {
+      "label": "Approve and send",
+      "icon": "send"
+     }
+    },
+    "mini": {
+     "icon": "book-open",
+     "kind": "acc",
+     "title": "Posted to Xero",
+     "sub": "As receivables, once sent"
+    },
+    "alt": "Lumen Studio's October hours become four draft client invoices on Nov 1, totaling $13,860.00, and wait for Ana Ruiz to approve before they are emailed.",
+    "story": [
+     {
+      "copy": "on Nov 1",
+      "image": "created Nov 1"
+     },
+     {
+      "copy": "42 hours at $150",
+      "image": "42 hours at $150"
+     },
+     {
+      "copy": "Acme's draft comes to $6,300.00",
+      "image": "$6,300.00"
+     },
+     {
+      "copy": "the four drafts",
+      "image": "4 drafts for Ana Ruiz"
+     },
+     {
+      "copy": "nothing goes out until she approves",
+      "image": "Nothing sends until she approves"
+     },
+     {
+      "copy": "Stripe payment link",
+      "image": "Each email has a Stripe pay link"
+     }
+    ]
+   },
+   {
+    "recipe": "R4",
+    "title": "Field service job invoice",
+    "prompt": "Invoice the customer from the job's labor and parts when the tech closes it",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Job 4471 complete",
+       "size": 22,
+       "sub": "Brightline Plumbing"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Technician",
+         "R. Gomez"
+        ],
+        [
+         "Labor rate",
+         "$120 an hour"
+        ]
+       ]
+      },
+      {
+       "type": "lineitems",
+       "compact": true,
+       "items": [
+        [
+         "Labor, 1.5 h",
+         "$180.00"
+        ],
+        [
+         "Shutoff valve",
+         "$68.40"
+        ]
+       ],
+       "total": [
+        "Total",
+        "$248.40"
+       ]
+      },
+      {
+       "type": "button",
+       "label": "Close job",
+       "icon": "check",
+       "full": true,
+       "h": 52
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Invoice INV-4471",
+       "size": 19,
+       "chip": [
+        "Emailed",
+        "ok"
+       ]
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Customer",
+         "Dana Whitfield"
+        ],
+        [
+         "Sent to",
+         "dana@example.com"
+        ]
+       ]
+      },
+      {
+       "type": "checks",
+       "items": [
+        "Payment link included",
+        "PDF attached to the job record"
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "mail-check",
+     "tone": "ok",
+     "title": "Invoice emailed, $248.40",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "Sent before the van leaves",
+       "size": 17,
+       "weight": 500,
+       "color": "ink"
+      },
+      {
+       "type": "pill",
+       "kind": "acc",
+       "icon": "credit-card",
+       "label": "Pay link",
+       "then": "Dana pays from her phone"
+      },
+      {
+       "type": "meta",
+       "icon": "clock",
+       "kind": "acc",
+       "text": "Due on receipt"
+      }
+     ],
+     "action": {
+      "label": "View invoice",
+      "icon": "file-text"
+     }
+    },
+    "alt": "A plumbing technician closes job 4471 on a phone, and a $248.40 invoice for labor and a shutoff valve is emailed to the customer with a payment link.",
+    "story": [
+     {
+      "copy": "before the van leaves",
+      "image": "Sent before the van leaves"
+     },
+     {
+      "copy": "Job 4471",
+      "image": "Job 4471 complete"
+     },
+     {
+      "copy": "1.5 hours",
+      "image": "Labor, 1.5 h"
+     },
+     {
+      "copy": "$68.40 shutoff valve",
+      "image": "$68.40"
+     },
+     {
+      "copy": "$248.40 in all",
+      "image": "Invoice emailed, $248.40"
+     },
+     {
+      "copy": "the PDF stays attached to the job record",
+      "image": "PDF attached to the job record"
+     },
+     {
+      "copy": "at $120",
+      "image": "$120 an hour"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "channel": "invoices",
+   "title": "4 invoices to send",
+   "sub": "$13,860.00 total",
+   "primary": "Send all",
+   "secondary": "Review",
+   "icon": "send",
+   "alt": "Invoice automation: four client invoices totaling $13,860.00 ready to send"
+  },
+  "og": {
+   "headline": "Build invoice automation for bills and invoices",
+   "alt": "Build invoice automation for the bills you receive and the invoices you send, with Emergent"
+  },
+  "checks": [
+   {
+    "expr": "1237.50 + 1452 + 723 == 3412.50",
+    "shows": [
+     "$1,237.50",
+     "$1,452.00",
+     "$723.00",
+     "$3,412.50"
+    ],
+    "where": 1
+   },
+   {
+    "fact": [
+     "99%",
+     "98%",
+     "61%"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "412 + 96 + 188 + 650 + 134 + 240 == 1720",
+    "shows": [
+     "$412.00",
+     "$96.00",
+     "$188.00",
+     "$650.00",
+     "$134.00",
+     "$240.00",
+     "$1,720.00"
+    ],
+    "where": 2
+   },
+   {
+    "expr": "42 * 150 == 6300",
+    "shows": [
+     "$6,300.00",
+     "$150"
+    ],
+    "where": 3
+   },
+   {
+    "expr": "18 * 150 == 2700",
+    "shows": [
+     "$2,700.00"
+    ],
+    "where": 3
+   },
+   {
+    "expr": "26 * 135 == 3510",
+    "shows": [
+     "$3,510.00",
+     "$135"
+    ],
+    "where": 3
+   },
+   {
+    "expr": "9 * 150 == 1350",
+    "shows": [
+     "$1,350.00"
+    ],
+    "where": 3
+   },
+   {
+    "expr": "6300 + 2700 + 3510 + 1350 == 13860",
+    "shows": [
+     "$13,860.00"
+    ],
+    "where": 3
+   },
+   {
+    "same": "$13,860.00",
+    "where": [
+     3,
+     "cover"
+    ]
+   },
+   {
+    "expr": "1.5 * 120 == 180",
+    "shows": [
+     "$180.00",
+     "$120"
+    ],
+    "where": 4
+   },
+   {
+    "expr": "180 + 68.40 == 248.40",
+    "shows": [
+     "$68.40",
+     "$248.40"
+    ],
+    "where": 4
+   }
+  ]
+ },
+ "qc_passed": {
+  "rules_version": "d9a2b42f23de",
+  "date": "2026-10-07 14:40 UTC"
+ },
+ "writers": [
+  "writer-invoice-automation"
+ ]
+}
