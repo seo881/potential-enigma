@@ -129,5 +129,5 @@ This is how "the image holds any variance" against "the copy sets a 2% tolerance
 3. Alt text: specific, one or two sentences, no "image of"; it becomes the CMS alt text.
 4. A panel under 55% full is flagged as looking empty: add a block or choose a tighter recipe.
 5. One moment per tab, frozen at its most informative point; the hero is that moment.
-6. Fictional people and companies (Northwind, Globex, Initech, Acme); real brands only as tools (Slack, Xero, HubSpot).
+6. Fictional people and companies (Northwind, Globex, Initech, Acme); real brands only as tools (Slack, Xero, HubSpot). Never a name that borrows third-party IP (Umbrella Co, Hooli, Stark, Vandelay, Dunder Mifflin, Wayne, Cyberdyne, Pied Piper). One company plays one role per page across all tabs (catalogue rows 23-24).
 7. The story matches the tab copy word for word on names, numbers and outcomes. The engine checks the `story` links (I4); the reviewer checks the rest on the contact sheet.

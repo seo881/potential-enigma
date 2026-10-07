@@ -27,6 +27,7 @@ If the repo is not set up in this chat: `git clone https://github.com/seo881/pot
 - **C2/C3** truth: no capability claim outside the approved ledger (high-risk terms block outright; `claims_used` lists the ledger ids), no unsourced third-party fact or statistic in prose.
 - **D2** near-duplicates: no section sharing more than 30% of its phrases with another page in the hub.
 - **F6/R3** SERP data under 30 days old; nothing changed since Divit's approval.
+- **P** plan before prose (P1) and sourced domain claims (P2).
 - **Q** craft: keyword-label openers (Q1), sentence length (Q2), H1 scope (Q3), category variant for the comparison column (Q4). Whole page, every instance reported: tacked-on endings ("which is what", "that is what" block; ", so" endings flag, more than 2 block) (Q5); any 6-word phrase in two different fields, FAQ answers included and the page's own keywords excluded (Q6); more than 3 "from X to Y" ranges (Q7); more than 8 "A, B, and C" lists, flagged (Q8).
 - **R** the reviewer's rubric is recorded and passing for any page past review (R1).
 - **I** the image brief, including the balance gate (no panel with more than 16% pooled empty space), rendered in memory through the image engine and its gates: fit, numbers adding up, one click, balance (I1 blocks, I2 notes). Copy-to-image story links (I4): every tab's `story` phrases exist in the tab copy and the drawn image, their numbers agree, every number in the tab copy is drawn, and every rule the image draws is linked to the copy.
@@ -53,3 +54,12 @@ For each page: `url | QC TOTAL | P0 list | P1 list | P2 list (fixed / accepted w
 
 ## Rework protocol (writers, reviewers, challengers)
 Fix the defect class, not the instance. After any note, search the whole page (every field, the FAQ, the image brief) for every occurrence of that class and fix them all, then search again, because rewrites create new instances. Reviewers and challengers list every instance they find. Each review cycle uses a new reviewer agent that reads the page cold before it reads earlier notes.
+
+## Findings are rule violations (2026-10-07)
+Every reviewer and challenger finding names the rubric criterion, cites the `rules/HUB_RULES.md` section or `rules/CONTENT_DEFECTS.md` row it breaks, quotes the field, and is marked `blocking` or `note`. `hubctl review` and `hubctl challenge` reject findings without a valid citation, and a criterion fails exactly when a blocking finding cites it. Only blocking findings send a page to rework; notes go to `spec.review_notes`, and `hubctl metrics` proposes a rule to Divit when a note recurs on 3+ pages. Check every third-party, legal and best-practice claim against `spec.domain_sources` (HUB_RULES 8): an unsourced or contradicted claim is blocking.
+
+## Batch mode
+One reviewer agent may review up to 4 pages, and one challenger up to 4, never a page it wrote or reviewed (hubctl refuses). Review each page as if it were the only one. Writers stay one page each.
+
+## Plan and sources (QC P1, P2)
+A spec without `spec.plan` (angle, four tab stories, openers, heading shapes, claims to source) is blocked, and so is any claim in the plan without a `spec.domain_sources` entry.

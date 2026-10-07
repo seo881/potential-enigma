@@ -89,8 +89,78 @@ def metrics():
                 if cause == "challenge": challenge_fail += 1
             if ev.get("via") == "challenge": challenged_after_review += 1
     hit = challenge_fail / challenged_after_review if challenged_after_review else None
-    return {"states": counts, "rework_causes": rework_causes, "challenges_run": challenged_after_review,
-            "challenger_hit_rate": hit, "alert": (hit is not None and challenged_after_review >= 10 and hit > 0.15)}
+    out = {"states": counts, "rework_causes": rework_causes, "challenges_run": challenged_after_review,
+           "challenger_hit_rate": hit, "alert": (hit is not None and challenged_after_review >= 10 and hit > 0.15)}
+    out.update(throughput(specs)); out["proposed_rules"] = recurring_notes(specs); out["tokens"] = token_usage()
+    return out
+
+# ---------------------------------------------------------------- findings: every defect cites the rule it breaks
+def rule_index():
+    hr = open(os.path.join(ROOT, "rules", "HUB_RULES.md")).read(); cd = open(os.path.join(ROOT, "rules", "CONTENT_DEFECTS.md")).read()
+    return set(re.findall(r"^## (\d+[a-z]?)\.", hr, re.M)), set(re.findall(r"^\| (\d+) \|", cd, re.M))
+RULE_RX = re.compile(r"HUB_RULES\s*§?\s*(\d+[a-z]?)|CONTENT_DEFECTS\s*(?:row\s*)?#?\s*(\d+)", re.I)
+def citations(rule):
+    return [("HUB_RULES " + a) if a else ("CONTENT_DEFECTS #" + b) for a, b in RULE_RX.findall(rule or "")]
+def validate_findings(findings, criteria):
+    """Errors for findings that do not name a rubric criterion, cite an existing HUB_RULES section or CONTENT_DEFECTS row,
+    or say whether they block. A defect is a rule violation; taste without a rule is not a finding."""
+    secs, rows = rule_index(); errs = []
+    for i, f in enumerate(findings, 1):
+        tag = f"finding {i} ({(f.get('field') or '?')})"
+        if f.get("criterion") not in criteria: errs.append(f"{tag}: criterion must be one of {sorted(criteria)}")
+        if f.get("severity") not in ("blocking", "note"): errs.append(f'{tag}: severity must be "blocking" or "note"')
+        if not (f.get("field") and f.get("issue")): errs.append(f"{tag}: field and issue are required")
+        cites = citations(f.get("rule"))
+        if not cites: errs.append(f'{tag}: rule must cite a HUB_RULES section (e.g. "HUB_RULES 2b") or a CONTENT_DEFECTS row (e.g. "CONTENT_DEFECTS #18")')
+        for c in cites:
+            k = c.split()[-1].lstrip("#")
+            if (c.startswith("HUB_RULES") and k not in secs) or (c.startswith("CONTENT_DEFECTS") and k not in rows):
+                errs.append(f"{tag}: {c} does not exist (sections {sorted(secs)}, rows {sorted(rows, key=int)})")
+    return errs
+def fmt_finding(f): return f"[{f['criterion']} | {'; '.join(citations(f['rule']))}] {f['field']}: {f['issue']}" + (f" -> {f['fix']}" if f.get("fix") else "")
+def recurring_notes(specs, min_pages=3):
+    """Notes (non-blocking findings) citing the same rule on 3+ pages: proposed rules for Divit."""
+    by = {}
+    for url, s in specs.items():
+        for n in s.get("review_notes", []):
+            for c in citations(n.get("rule")) or ["(no rule)"]:
+                by.setdefault((n.get("criterion"), c), {}).setdefault(url, n.get("issue", "")[:120])
+    return [{"criterion": k[0], "rule": k[1], "pages": len(v), "examples": list(v.items())[:3]} for k, v in sorted(by.items(), key=lambda x: -len(x[1])) if len(v) >= min_pages]
+
+# ---------------------------------------------------------------- throughput: cycles, first-pass yield, minutes per stage, tokens
+STAGE = {"claimed": "write", "spec": "write", "rework": "rewrite", "qc_pass": "images", "images": "review", "reviewed": "challenge", "challenged": "Divit"}
+def _t(ts): return datetime.datetime.strptime(ts, "%Y-%m-%d %H:%M UTC")
+def throughput(specs):
+    import statistics
+    stage_min, cycles, started, fpy, page_min = {}, {}, 0, 0, {}
+    for url, s in specs.items():
+        h = [e for e in s.get("history", []) if e.get("t")]
+        if s.get("status") in ("live-draft", "published") or not h: continue
+        started += 1
+        cycles[url] = sum(1 for e in h if e.get("via") == "review")
+        for a, b in zip(h, h[1:]):
+            st_ = STAGE.get(a.get("state"))
+            if st_: stage_min.setdefault(st_, []).append((_t(b["t"]) - _t(a["t"])).total_seconds() / 60)
+        first_ch = next((i for i, e in enumerate(h) if e.get("state") == "challenged"), None)
+        if first_ch is not None and not any(e.get("state") == "rework" for e in h[:first_ch]): fpy += 1
+        end = h[first_ch]["t"] if first_ch is not None else h[-1]["t"]
+        page_min[url] = round((_t(end) - _t(h[0]["t"])).total_seconds() / 60)
+    return {"first_pass_yield": {"pages": fpy, "of": started, "rate": round(fpy / started, 2) if started else None},
+            "cycles_per_page": {"avg": round(sum(cycles.values()) / len(cycles), 2) if cycles else None, "by_page": cycles},
+            "median_minutes_per_stage": {k: round(statistics.median(v), 1) for k, v in sorted(stage_min.items())},
+            "minutes_per_page_so_far": page_min}
+def usage_path(): return os.path.join(ROOT, "status", "usage.jsonl")
+def usage_log(url, tokens, role, agent=""):
+    with lock("usage"):
+        with open(usage_path(), "a") as fh: fh.write(json.dumps({"t": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC"), "url": url, "tokens": int(tokens), "role": role, "agent": agent}) + "\n")
+def token_usage():
+    if not os.path.exists(usage_path()): return {"note": "no usage logged (hubctl usage-log URL TOKENS --role ROLE)"}
+    per = {}
+    for l in open(usage_path()):
+        if l.strip():
+            r = json.loads(l); d = per.setdefault(r["url"], {"total": 0}); d["total"] += r["tokens"]; d[r["role"]] = d.get(r["role"], 0) + r["tokens"]
+    tot = [v["total"] for v in per.values()]
+    return {"by_page": per, "avg_per_page": round(sum(tot) / len(tot)) if tot else None}
 def sample(urls, seed=None, pct=0.10):
     """Risk-based: always the first page of each recipe or table category, pages with accepted P2s or with challenge defects
     in their history, pages using new ledger entries; then a random share of the rest."""

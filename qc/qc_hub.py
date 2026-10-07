@@ -35,6 +35,11 @@ def faq_obj(s):
 def mockup_keys(s):
     m = re.search(r"window\.awbMockup\s*=\s*\{(.*)\}\s*;", s or "", re.S)
     return re.findall(r'(?:^|,)\s*([A-Za-z0-9_]+)\s*:\s*"', m.group(1)) if m else None
+SETTING_BEFORE = re.compile(r"\b(over|under|above|below|more than|less than|at least|up to|within)\s+$", re.I)
+SETTING_AFTER = re.compile(r"^\s*(variance|tolerance|threshold|discount|off)\b", re.I)
+def is_setting(sent, m):
+    """A percentage that is a threshold or a setting ("over 10%", "a 2% tolerance", "15% off"), not an outcome statistic."""
+    return bool(SETTING_BEFORE.search(sent[:m.start()]) or SETTING_AFTER.search(sent[m.end():]))
 def sents_of(s): return [x.strip() for x in re.split(r"(?<=[.?!])\s+", (s or "").strip()) if x.strip()]
 def _stem(w): return w[:-1] if len(w) > 3 and w.endswith("s") and not w.endswith("ss") else w
 def kw_bag(s): return {_stem(w) for w in re.findall(r"[a-z0-9]+", (s or "").lower())}
@@ -556,6 +561,27 @@ def check(spec, siblings):
     tr = [(lab, m_.group(0)) for lab, tx in units for x in sents_of(tx) for m_ in TRIPLE.finditer(x)]
     if len(tr) > 8:
         for lab, x in tr: add("P2", "Q8", lab, f'"{x}" is one of {len(tr)} "A, B, and C" lists on the page (more than 8 reads templated): use pairs or one specific')
+    # ---------- P: plan before prose; domain claims verified and sourced (Divit, 2026-10-07) ----------
+    if spec.get("status") not in ("live-draft", "published"):
+        plan = spec.get("plan")
+        if not isinstance(plan, dict): add("P1", "P1", "plan", "no spec.plan: write the plan (angle, tab_stories, openers, heading_shapes, claims_to_source) and run hubctl plan-check before the prose")
+        else:
+            if len((plan.get("angle") or "").strip()) < 40: add("P1", "P1", "plan", "plan.angle: say in a sentence or two how this page wins against the top 10")
+            ts = plan.get("tab_stories") or []
+            if len(ts) != 4 or len({norm(x) for x in ts}) != 4 or any(len((x or "").split()) < 5 for x in ts): add("P1", "P1", "plan", "plan.tab_stories: four distinct one-sentence stories, one per tab")
+            op = plan.get("openers") or []
+            if len(op) < 4 or len({norm(x).split(" ")[0] for x in op if x}) < 4: add("P1", "P1", "plan", "plan.openers: at least four planned paragraph openers that start differently")
+            hs = plan.get("heading_shapes") or []
+            if len(hs) < 4 or len({norm(x) for x in hs}) < 4: add("P1", "P1", "plan", "plan.heading_shapes: four tab heading shapes, different from each other and from sibling pages (hubctl plan-check)")
+            if not isinstance(plan.get("claims_to_source"), list): add("P1", "P1", "plan", "plan.claims_to_source: list every claim about third-party systems, legal or professional terms, or best practice (empty list if none)")
+            else:
+                ds = spec.get("domain_sources") or []
+                for d_ in ds:
+                    if not (str(d_.get("source_url", "")).startswith("https://") and re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(d_.get("date", ""))) and d_.get("claim")):
+                        add("P1", "P2", "domain_sources", f'each source needs claim, an https source_url and an ISO date: {str(d_)[:80]}')
+                have = {norm(d_.get("claim", "")) for d_ in ds}
+                for c_ in plan["claims_to_source"]:
+                    if norm(c_) not in have: add("P1", "P2", "domain_sources", f'claim not verified: "{c_[:80]}". Check it with a web search and record {{claim, source_url, date}} in spec.domain_sources')
     # ---------- R: the reviewer's scored rubric must pass before a page moves past review ----------
     try:
         st_ = json.load(open(os.path.join(ROOT, "status", f"{h['repo_dir']}.json")))["pages"].get(spec["url"], {}).get("state")
@@ -597,9 +623,10 @@ def check(spec, siblings):
             if k == "mockup": continue
             for sent in re.split(r"(?<=[.?!])\s+", strip_html(v)):
                 brand = next((b_ for b_ in BRANDS if re.search(r"\b" + re.escape(b_) + r"\b", sent)), None)
-                if (brand and FACT_VERB.search(sent)) or STAT.search(sent):
+                stat = any(not is_setting(sent, m_) for m_ in STAT.finditer(sent))
+                if (brand and FACT_VERB.search(sent)) or stat:
                     if not any(m_ in sent for m_ in matches):
-                        add("P1", "C3", k, f'unsourced {"statistic" if STAT.search(sent) else "fact about " + brand}: "{sent[:90]}". Add it to rules/facts.json with a source, or remove it')
+                        add("P1", "C3", k, f'unsourced {"statistic" if stat else "fact about " + brand}: "{sent[:90]}". Add it to rules/facts.json with a source, or remove it')
         import datetime as _dt
         for f_ in FACTS["facts"]:
             if any(m_ in " ".join(strip_html(v) for v in copy_fields.values()) for m_ in f_["match"]):

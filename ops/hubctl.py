@@ -5,10 +5,10 @@
   brief URL                         keyword brief for a page (needs plan/keyword_map.json)
   init URL --by WRITER-ID           create the spec skeleton specs/<dir>/<slug>.json, recording who writes it
   qc URL                            run qc/qc_hub.py on that page's spec
-  state URL STATE [--note TEXT]     move a page to a new state (see STATES); 'reviewed' needs a passing rubric
+  state URL STATE [--note TEXT] [--by ID]   move a page to a new state; writers set qc_pass with --by so no agent reviews its own page
   verified URL                      Divit approved the page as rendered in the real Webflow template: it joins the width calibration
-  review URL RUBRIC.json --by ID    record the reviewer's scored rubric (page must be in state images); all pass -> reviewed, any fail -> rework
-  challenge URL FINDINGS.json --by ID   record the adversarial pass (page must be reviewed); no defects -> challenged, any -> rework
+  review URL RUBRIC.json --by ID    record the reviewer's rubric and rule-cited findings (state images); blocking -> rework, notes -> spec.review_notes
+  challenge URL FINDINGS.json --by ID   record the adversarial pass (state reviewed); blocking -> rework, notes kept; none blocking -> challenged
   payload URL --sha SHA             write ops/out/<slug>.payload.json: the exact data_cms_tool action
   verify URL READBACK.json          diff a stored CMS read-back against the spec (exit 1 on mismatch)
   record URL --item-id ID [--file-id FIELD=ID ...]   store Webflow IDs after a create/import
@@ -23,6 +23,8 @@
   images URL                        render the page's image_brief into its 6 images + contact sheet (engine), state -> images
   images-batch STATE [HUB]          render every page in STATE (normally 'reviewed'); prints a summary
   cms-check HUB READBACK.json       record which queued slugs already exist in Webflow (required within the hour before creating)
+  plan-check URL                    compare the page's plan and tab headings with the hub's other specs (run before writing prose)
+  usage-log URL TOKENS --role R     record an agent's token usage for a page (metrics reports tokens per page)
   metrics | sample [STATE] | links HUB | lookahead HUB [N] | serp-budget | ranks-save URL RAW | ranks-report | recheck | image-regress | verify-live URL [--html F]
   publish-payload HUB               publish_collection_items actions (100 per call) for every verified cms_draft page (only after Divit's go)
   log HUB TEXT                      append a dated line to logs/<hub>.md
@@ -81,6 +83,8 @@ def cmd_status(args):
 
 def cmd_claim(args):
     hub, n = args[0], int(args[1]); by = args[args.index("--by") + 1] if "--by" in args else "unknown"
+    pin = os.path.join(ROOT, ".hub")
+    if os.path.exists(pin) and open(pin).read().strip() != hub: sys.exit(f"this worktree works only hub {open(pin).read().strip()} (ops/worktrees.sh); claim {hub} from its own worktree")
     if n > 50: sys.exit("claim at most 50 pages at a time")
     m = kmap(); st = load_st(hub)
     queue = sorted([p for p in m.values() if p["hub"] == hub and p["status"] == "planned"], key=lambda p: p["queue_rank"])
@@ -230,26 +234,48 @@ def _rubric_ok(url):
     rv = (json.load(open(spath(url))).get("review") or {}).get("rubric", {})
     return [c["id"] for c in RUB if rv.get(c["id"], {}).get("result") != "pass"]
 
+def _authors(s):
+    """Every agent that wrote this page (first writer and each rework writer that set qc_pass with --by)."""
+    return {s.get("written_by")} | set(s.get("writers", []))
+def _reviewers(s): return {h.get("by") for h in s.get("reviews", [])} | {(s.get("review") or {}).get("by")}
+def _keep_notes(s, findings, by, via):
+    for f in findings:
+        if f["severity"] == "note": s.setdefault("review_notes", []).append({**{k: f.get(k) for k in ("criterion", "rule", "field", "issue", "fix")}, "by": by, "via": via, "date": now()})
+
 def cmd_review(args):
+    """RUBRIC.json: {"rubric": {criterion: {result, evidence}}, "findings": [{criterion, rule, field, quote, issue, fix, severity}]}.
+    Every finding cites the HUB_RULES section or CONTENT_DEFECTS row it breaks and is blocking or a note. Only blocking findings
+    send the page to rework; notes are kept in spec.review_notes (hubctl metrics proposes a rule when one recurs on 3+ pages)."""
     url, rf = args[0], args[1]; by = args[args.index("--by") + 1] if "--by" in args else "reviewer"
-    rub = json.load(open(rf)); RUB = json.load(open(os.path.join(ROOT, "rules", "rubric.json")))["criteria"]
-    missing = [c["id"] for c in RUB if c["id"] not in rub]
-    if missing: sys.exit(f"rubric incomplete, score every criterion: {missing}")
-    for k, v in rub.items():
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    raw = json.load(open(rf)); rub = raw.get("rubric", raw); findings = raw.get("findings", [])
+    RUB = json.load(open(os.path.join(ROOT, "rules", "rubric.json")))["criteria"]; ids = {c["id"] for c in RUB}
+    missing = [c for c in ids if c not in rub]
+    if missing: sys.exit(f"rubric incomplete, score every criterion: {sorted(missing)}")
+    for k in ids:
+        v = rub[k]
         if v.get("result") not in ("pass", "fail") or not v.get("evidence"): sys.exit(f'"{k}" needs result pass|fail and one line of evidence')
+    errs = G.validate_findings(findings, ids)
+    if errs: sys.exit("findings rejected (a defect is a rule violation: cite the rule):\n  " + "\n  ".join(errs))
+    blocking = [f for f in findings if f["severity"] == "blocking"]
+    for k in ids:
+        hit = [f for f in blocking if f["criterion"] == k]
+        if rub[k]["result"] == "fail" and not hit: sys.exit(f'"{k}" is scored fail but no blocking finding cites it: add the finding with its rule, or score it pass')
+        if rub[k]["result"] == "pass" and hit: sys.exit(f'"{k}" is scored pass but {len(hit)} blocking finding(s) cite it: score it fail, or mark them notes')
     sp = spath(url); s = json.load(open(sp))
     st_now = load_st(hub_of(url))["pages"].get(url, {}).get("state")
     if st_now != "images": sys.exit(f"review needs the page in state 'images' (QC passed and images rendered); it is '{st_now}'")
-    if by == s.get("written_by"): sys.exit("the reviewer cannot be the agent that wrote the page")
-    if by in {h.get("by") for h in s.get("reviews", [])} | {(s.get("review") or {}).get("by")}: sys.exit("every review cycle needs a new reviewer agent that reads the page cold; this one has reviewed it before")
-    if s.get("review"): s.setdefault("reviews", []).append({k: v for k, v in s["review"].items() if k != "rubric"} | {"result": "pass" if all(v.get("result") == "pass" for v in s["review"]["rubric"].values()) else "fail"})
+    if by in _authors(s): sys.exit("the reviewer cannot be an agent that wrote the page")
+    if by in _reviewers(s): sys.exit("every review cycle needs a new reviewer agent that reads the page cold; this one has reviewed it before")
+    if s.get("review"): s.setdefault("reviews", []).append({k: v for k, v in s["review"].items() if k not in ("rubric", "findings")} | {"result": "pass" if all(v.get("result") == "pass" for v in s["review"]["rubric"].values()) else "fail", "blocking": len([f for f in s["review"].get("findings", []) if f.get("severity") == "blocking"]), "notes": len([f for f in s["review"].get("findings", []) if f.get("severity") == "note"])})
     ch_ = s.pop("challenge", None)
     if ch_ and not any(c.get("by") == ch_.get("by") and c.get("date") == ch_.get("date") for c in s.get("challenges", [])):
         s.setdefault("challenges", []).append({"by": ch_.get("by"), "date": ch_.get("date"), "result": ch_.get("result"), "defects": len(ch_.get("defects", []))})
-    s["review"] = {"by": by, "date": now(), "rubric": rub}; json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
-    fails = [f"{k}: {v['evidence']}" for k, v in rub.items() if v["result"] == "fail"]
-    if fails: set_state(url, "rework", note=" | ".join(fails), via="review", by=by); print("REWORK:\n  " + "\n  ".join(fails))
-    else: set_state(url, "reviewed", note=f"rubric 10/10 by {by}", via="review", by=by); print("REVIEWED: rubric 10/10")
+    s["review"] = {"by": by, "date": now(), "rubric": rub, "findings": findings}; _keep_notes(s, findings, by, "review")
+    json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
+    notes = len(findings) - len(blocking)
+    if blocking: set_state(url, "rework", note=" | ".join(G.fmt_finding(f) for f in blocking), via="review", by=by); print(f"REWORK: {len(blocking)} blocking, {notes} notes\n  " + "\n  ".join(G.fmt_finding(f) for f in blocking))
+    else: set_state(url, "reviewed", note=f"rubric 10/10 by {by}; {notes} notes", via="review", by=by); print(f"REVIEWED: rubric 10/10, {notes} notes kept in spec.review_notes")
 
 def cmd_verified(args):
     url = args[0]; sp = spath(url); s = json.load(open(sp)); s["render_verified"] = now(); json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
@@ -257,19 +283,25 @@ def cmd_verified(args):
     print(f"{url} marked as verified in the template; width ceilings recalibrated with it")
 
 def cmd_challenge(args):
+    """FINDINGS.json: {"defects": [{criterion, rule, field, quote, issue, fix, severity}], "checked": [...]}. Same citation rule as review."""
     url, ff = args[0], args[1]; by = args[args.index("--by") + 1] if "--by" in args else "challenger"
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
     sp = spath(url); s = json.load(open(sp)); f = json.load(open(ff))
     st_now = load_st(hub_of(url))["pages"].get(url, {}).get("state")
     if st_now != "reviewed": sys.exit(f"challenge needs the page in state 'reviewed'; it is '{st_now}'")
-    if by in (s.get("written_by"), (s.get("review") or {}).get("by")): sys.exit("the challenger must be a different agent from the writer and the reviewer")
+    if by in _authors(s) | _reviewers(s): sys.exit("the challenger must be a different agent from every writer and reviewer of this page")
     if by in {h.get("by") for h in s.get("challenges", [])} | {(s.get("challenge") or {}).get("by")}: sys.exit("every cycle needs a new challenger agent; this one has challenged the page before")
     if not isinstance(f.get("defects"), list) or not f.get("checked"): sys.exit('findings need "defects": [...] (empty if none) and "checked": [what was examined, section by section]')
-    defects = [f"{d.get('field', '?')}: {d.get('issue', '')} -> {d.get('fix', '')}" for d in f["defects"]]
-    s["challenge"] = {"by": by, "date": now(), "result": "fail" if defects else "pass", "defects": defects, "checked": f["checked"]}
-    s.setdefault("challenges", []).append({"by": by, "date": s["challenge"]["date"], "result": s["challenge"]["result"], "defects": len(defects)})
+    ids = {c["id"] for c in json.load(open(os.path.join(ROOT, "rules", "rubric.json")))["criteria"]}
+    errs = G.validate_findings(f["defects"], ids)
+    if errs: sys.exit("findings rejected (a defect is a rule violation: cite the rule):\n  " + "\n  ".join(errs))
+    blocking = [d for d in f["defects"] if d["severity"] == "blocking"]; notes = len(f["defects"]) - len(blocking)
+    s["challenge"] = {"by": by, "date": now(), "result": "fail" if blocking else "pass", "defects": [G.fmt_finding(d) for d in blocking], "findings": f["defects"], "checked": f["checked"]}
+    s.setdefault("challenges", []).append({"by": by, "date": s["challenge"]["date"], "result": s["challenge"]["result"], "defects": len(blocking), "notes": notes})
+    _keep_notes(s, f["defects"], by, "challenge")
     json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
-    if defects: set_state(url, "rework", note=" | ".join(defects), via="challenge", by=by); print("REWORK:\n  " + "\n  ".join(defects))
-    else: set_state(url, "challenged", note=f"no defects found by {by}", via="challenge", by=by); print("CHALLENGED: no defects found")
+    if blocking: set_state(url, "rework", note=" | ".join(G.fmt_finding(d) for d in blocking), via="challenge", by=by); print(f"REWORK: {len(blocking)} blocking, {notes} notes\n  " + "\n  ".join(G.fmt_finding(d) for d in blocking))
+    else: set_state(url, "challenged", note=f"no blocking defects found by {by}; {notes} notes", via="challenge", by=by); print(f"CHALLENGED: no blocking defects, {notes} notes")
 
 def cmd_state(args):
     url, state = args[0], args[1]
@@ -288,7 +320,11 @@ def cmd_state(args):
                                 "Writers read it before writing: match its standard, not its words (QC D1/D2 block copied sentences).\n\n" + RV.page(url) + "\n")
             print(f"hub exemplar written: {os.path.relpath(ex, ROOT)}")
     note = args[args.index("--note") + 1] if "--note" in args else None
-    set_state(url, state, note); print(f"{url} -> {state}")
+    by = args[args.index("--by") + 1] if "--by" in args else None
+    if state == "qc_pass" and by:
+        sp = spath(url); s = json.load(open(sp))
+        if by not in s.setdefault("writers", []): s["writers"].append(by); json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
+    set_state(url, state, note, by=by); print(f"{url} -> {state}")
 
 def _field_data(url, sha):
     hub = hub_of(url); h = CFG["hubs"][hub]; s = json.load(open(spath(url))); fd = {}
@@ -410,6 +446,42 @@ def cmd_cms_check(args):
             e["cms_checked"] = now(); e["cms_exists"] = bool(it); e["cms_item_id"] = it["id"] if it else None; n += 1
         save_st(hub, st)
     print(f"slug check recorded for {n} pages against {len(items)} Webflow items; existing: {[u for u, e in st['pages'].items() if e.get('cms_exists')]}")
+
+def cmd_usage_log(args):
+    url, tokens = args[0], args[1]; role = args[args.index("--role") + 1] if "--role" in args else "agent"
+    agent = args[args.index("--agent") + 1] if "--agent" in args else ""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G; G.usage_log(url, tokens, role, agent); print(f"logged {tokens} tokens ({role}) for {url}")
+
+FUNC_WORDS = {"a", "an", "the", "that", "which", "with", "for", "to", "of", "in", "on", "by", "and", "or", "before", "after", "every", "each",
+              "your", "its", "it", "from", "into", "when", "who", "one", "all", "any", "no"}
+def heading_shape(h):
+    out = []
+    for w in re.findall(r"[a-z0-9']+", re.sub(r"<[^>]+>", " ", h or "").lower())[:7]:
+        t = "a" if w in ("a", "an") else (w if w in FUNC_WORDS else "X")
+        if not (t == "X" and out and out[-1] == "X"): out.append(t)
+    return " ".join(out[:4])   # the opening shape is what a reader hears as a formula
+def cmd_plan_check(args):
+    """Compare this page's plan and tab headings with every other spec in the hub: shared heading shapes, near-identical tab stories."""
+    url = args[0]; s = json.load(open(spath(url))); hub = hub_of(url); plan = s.get("plan") or {}
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    mine_h = [re.search(r"<h3[^>]*>(.*?)</h3>", s["fields"].get(f"tab_content_{i}", "") or "", re.S) for i in range(1, 5)]
+    mine_h = [m.group(1) for m in mine_h if m]
+    shapes = [heading_shape(x) for x in mine_h] + [heading_shape(x) for x in plan.get("heading_shapes", [])]
+    def words(t): return {w for w in re.findall(r"[a-z]+", (t or "").lower()) if w not in FUNC_WORDS and len(w) > 3}
+    issues = 0
+    if len(set(heading_shape(x) for x in mine_h)) < len(mine_h): print(f"WARN own tab headings share a shape: {[heading_shape(x) for x in mine_h]}"); issues += 1
+    for o in G.all_specs():
+        if o["url"] == url or o.get("hub") != hub: continue
+        oh = [re.search(r"<h3[^>]*>(.*?)</h3>", o["fields"].get(f"tab_content_{i}", "") or "", re.S) for i in range(1, 5)]
+        osh = {heading_shape(m.group(1)) for m in oh if m}
+        same = sorted(set(shapes) & osh)
+        if same: print(f"WARN heading shape shared with {o['url']}: {same}"); issues += 1
+        for i, st_ in enumerate(plan.get("tab_stories", []), 1):
+            for j, ost in enumerate((o.get("plan") or {}).get("tab_stories", []), 1):
+                a, b = words(st_), words(ost)
+                if a and b and len(a & b) / len(a | b) > 0.4: print(f"WARN tab story {i} is close to {o['url']} tab {j}: {sorted(a & b)[:8]}"); issues += 1
+        print(f"sibling {o['url']}: angle={((o.get('plan') or {}).get('angle') or '-')[:90]} | tab H3 shapes={sorted(osh)}")
+    print(f"plan-check {url}: {issues} warning(s)"); sys.exit(1 if issues else 0)
 
 def cmd_metrics(args):
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
@@ -545,7 +617,7 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "sample": cmd_sample, "links": cmd_links,
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
         "recheck": cmd_recheck, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live}
 if __name__ == "__main__":
