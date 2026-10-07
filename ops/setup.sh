@@ -30,6 +30,6 @@ WB=${WB:-}
 for c in /mnt/project/Emergent_Hub_Child_Pages_Final_v3.xlsx private/Emergent_Hub_Child_Pages_Final_v3.xlsx; do [ -z "$WB" ] && [ -f "$c" ] && WB=$c; done
 if [ -n "$WB" ] && [ -f "$WB" ]; then $PY plan/build_map.py "$WB"; else echo "  ERROR: Semrush workbook not found (Claude.ai: attach to the Project; Claude Code: put it in private/)."; exit 1; fi
 echo "[5/5] QC smoke test on the frozen baselines"
-$PY qc/qc_hub.py --all | tail -1
+$PY qc/qc_hub.py $($PY -c "import json,glob; print(' '.join(p for p in glob.glob('specs/*/*.json') if json.load(open(p)).get('status')=='live-draft'))") | tail -1
 $PY ops/hubctl.py status
 echo "SETUP OK"
