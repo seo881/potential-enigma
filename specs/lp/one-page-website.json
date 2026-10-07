@@ -176,6 +176,13 @@
    "via": "review",
    "by": "reviewer-batch-m6",
    "note": "rubric 10/10 by reviewer-batch-m6; 7 notes"
+  },
+  {
+   "t": "2026-10-07 15:23 UTC",
+   "state": "rework",
+   "via": "challenge",
+   "by": "challenger-batch-m2",
+   "note": "[truth | HUB_RULES 6] faq (item 3): Coming straight after the free-tier sentence, 'included as well' tells the reader the free tier includes a custom domain. The approved ledger says only that the free tier covers building and publishing (free-start) and that custom domains are included in Emergent "
   }
  ],
  "plan": {
@@ -1104,6 +1111,56 @@
    "by": "reviewer-batch-m6",
    "via": "review",
    "date": "2026-10-07 15:18 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #14",
+   "field": "feature_2",
+   "issue": "This states what the build does without a prompt. The second sentence frames its feature as a request ('Ask for a pinned header'), but this one does not. Anchors are code the agent writes for a one-page menu, so this is a note, not a block.",
+   "fix": "'Ask for a menu and each header link scrolls to its own section.'",
+   "by": "challenger-batch-m2",
+   "via": "challenge",
+   "date": "2026-10-07 15:23 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief.cover",
+   "issue": "The cover mixes two audiences. The visitor sees the 'Inquiry received' confirmation, but 'View inquiries' is the owner's action. No visitor gets that button.",
+   "fix": "A visitor confirmation with a visitor action (for example 'Back to the top'), or an owner card such as 'New inquiry' with 'View inquiries'.",
+   "by": "challenger-batch-m2",
+   "via": "challenge",
+   "date": "2026-10-07 15:23 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief.tabs[3].main",
+   "issue": "A green success check sits beside 'Race full' on the runner's phone. The same success-on-failure pattern was noted on the 404 cover.",
+   "fix": "Use a neutral or warn status for 'Race full', or title the status 'Waitlist open'.",
+   "by": "challenger-batch-m2",
+   "via": "challenge",
+   "date": "2026-10-07 15:23 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "feature_4; feature_6",
+   "issue": "Two of the six feature bodies lean on a 'Nothing ...' sentence. Feature 4's is a summary sentence that restates its title, 'not by dragging'.",
+   "fix": "Cut 'Nothing is dragged into place.' and use the space for a concrete detail of the edit.",
+   "by": "challenger-batch-m2",
+   "via": "challenge",
+   "date": "2026-10-07 15:23 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 2b",
+   "field": "image_brief.tabs[2].main",
+   "issue": "Tab 3's diner is 'Ana Brooks'. Tab 2 already has 'Ana Cruz' and 'Lee Brooks', so the page reads as one cast reshuffled, not four real businesses.",
+   "fix": "Use a name that does not reuse a first or last name from another tab.",
+   "by": "challenger-batch-m2",
+   "via": "challenge",
+   "date": "2026-10-07 15:23 UTC"
   }
  ],
  "reviews": [
@@ -1120,6 +1177,133 @@
    "result": "fail",
    "blocking": 1,
    "notes": 6
+  }
+ ],
+ "challenge": {
+  "by": "challenger-batch-m2",
+  "date": "2026-10-07 15:23 UTC",
+  "result": "fail",
+  "defects": [
+   "[truth | HUB_RULES 6] faq (item 3): Coming straight after the free-tier sentence, 'included as well' tells the reader the free tier includes a custom domain. The approved ledger says only that the free tier covers building and publishing (free-start) and that custom domains are included in Emergent and use credits (custom-domain). It says nothing about domains on the free tier. QC C1 flags the same sentence for confirmation. -> Keep the two claims apart: 'Yes. Emergent's free tier covers building a one page website and publishing it. Connecting your own domain uses credits.'",
+   "[truth | CONTENT_DEFECTS #7] faq (item 9): Escalated from reviewer-batch-m6's note. 'Most need...' is an unsupported generalization (row #7), and 'Template marketplaces sort ... by industry' and 'take the same rewriting' state facts about third parties with no domain_sources entry (HUB_RULES 8). Divit's 2026-10-07 severity ruling makes every catalogue row and every unsourced statement of fact blocking. 'True in practice' is not an exemption. -> Name one recorded source and state only what it shows, for example 'One Page Love lists one page website templates, free ones included, next to its gallery.' Then give the contrast in one sentence. Drop 'Most'.",
+   "[craft | CONTENT_DEFECTS #21] faq (item 9); faq (item 2); hero_description; howto_step_3_des: The same mechanic, 'describe the sections and Emergent builds it', appears four times with the words swapped. reviewer-batch-m6 called it a note because these are template slots. I judge it blocking. Row #21 is blocking under Divit's ruling, the rules have no template-slot exception, and FAQ 9 is not a slot that needs the mechanic: it repeats FAQ 2 almost word for word ('describe ... sections ... built'). -> Keep the mechanic in the hero, step 3 and FAQ 2, the item that holds the hub link. End FAQ 9 on what is new: a template is a sample you rewrite, and Emergent starts from your own sections and form.",
+   "[craft | CONTENT_DEFECTS #21] faq (item 4); faq (item 3): FAQ 4 repeats FAQ 3's point that building on Emergent is free. The two answers sit next to each other, so a reader gets the same idea twice. -> Open FAQ 4 with the recurring cost: 'The domain is the main recurring cost: you register it for a set term and renew it with your registrar.' Leave the free point to FAQ 3.",
+   "[craft | CONTENT_DEFECTS #21] howto_description; howto_step_2_des; howto_step_5_des: The intro restates steps 2 and 5. It also contradicts their order. It tells the reader to decide the form's questions 'first', before the prompt, but the steps write the prompt in step 3 and settle the form's fields in step 5, after the page is built. The prompt in step 3 does not mention the form at all. -> Give the intro something the steps do not say, such as the one decision the whole how-to serves, and reorder it so the form fields are settled before the prompt: move 'Decide where form entries go' ahead of 'Describe the page in one prompt' and add the fields to step 3's list of details."
+  ],
+  "findings": [
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "faq (item 3)",
+    "quote": "Emergent's free tier covers building a free one page website and publishing it. Connecting your own domain is included as well and is paid for in credits.",
+    "issue": "Coming straight after the free-tier sentence, 'included as well' tells the reader the free tier includes a custom domain. The approved ledger says only that the free tier covers building and publishing (free-start) and that custom domains are included in Emergent and use credits (custom-domain). It says nothing about domains on the free tier. QC C1 flags the same sentence for confirmation.",
+    "fix": "Keep the two claims apart: 'Yes. Emergent's free tier covers building a one page website and publishing it. Connecting your own domain uses credits.'",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq (item 9)",
+    "quote": "Template marketplaces sort one page website templates by industry. Most need your own photos and copy before they look like your business. Free one page website templates cost nothing up front and take the same rewriting.",
+    "issue": "Escalated from reviewer-batch-m6's note. 'Most need...' is an unsupported generalization (row #7), and 'Template marketplaces sort ... by industry' and 'take the same rewriting' state facts about third parties with no domain_sources entry (HUB_RULES 8). Divit's 2026-10-07 severity ruling makes every catalogue row and every unsourced statement of fact blocking. 'True in practice' is not an exemption.",
+    "fix": "Name one recorded source and state only what it shows, for example 'One Page Love lists one page website templates, free ones included, next to its gallery.' Then give the contrast in one sentence. Drop 'Most'.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq (item 9); faq (item 2); hero_description; howto_step_3_des",
+    "quote": "FAQ 9: 'describe your sections and Emergent builds a layout for your business'; FAQ 2: 'you describe the sections and the form in a prompt and the page is built from it'; hero: 'Describe the business and the sections it needs. Emergent builds the one page website in one pass'; step 3: 'Emergent builds the first version from that prompt'",
+    "issue": "The same mechanic, 'describe the sections and Emergent builds it', appears four times with the words swapped. reviewer-batch-m6 called it a note because these are template slots. I judge it blocking. Row #21 is blocking under Divit's ruling, the rules have no template-slot exception, and FAQ 9 is not a slot that needs the mechanic: it repeats FAQ 2 almost word for word ('describe ... sections ... built').",
+    "fix": "Keep the mechanic in the hero, step 3 and FAQ 2, the item that holds the hub link. End FAQ 9 on what is new: a template is a sample you rewrite, and Emergent starts from your own sections and form.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq (item 4); faq (item 3)",
+    "quote": "FAQ 4: 'It depends on what you add, and building one on Emergent can cost nothing.'; FAQ 3: 'Emergent's free tier covers building a free one page website and publishing it.'",
+    "issue": "FAQ 4 repeats FAQ 3's point that building on Emergent is free. The two answers sit next to each other, so a reader gets the same idea twice.",
+    "fix": "Open FAQ 4 with the recurring cost: 'The domain is the main recurring cost: you register it for a set term and renew it with your registrar.' Leave the free point to FAQ 3.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_description; howto_step_2_des; howto_step_5_des",
+    "quote": "howto_description: 'Plan the sections and the form before you write the prompt. Decide what the form asks first: it is where the page earns its keep.'; step 2: 'Write the sections down in the order a visitor needs them'; step 5: 'Pick the fields the form asks for and what happens to each entry'",
+    "issue": "The intro restates steps 2 and 5. It also contradicts their order. It tells the reader to decide the form's questions 'first', before the prompt, but the steps write the prompt in step 3 and settle the form's fields in step 5, after the page is built. The prompt in step 3 does not mention the form at all.",
+    "fix": "Give the intro something the steps do not say, such as the one decision the whole how-to serves, and reorder it so the form fields are settled before the prompt: move 'Decide where form entries go' ahead of 'Describe the page in one prompt' and add the fields to step 3's list of details.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #14",
+    "field": "feature_2",
+    "quote": "Every section gets an anchor, and each header link scrolls to its section.",
+    "issue": "This states what the build does without a prompt. The second sentence frames its feature as a request ('Ask for a pinned header'), but this one does not. Anchors are code the agent writes for a one-page menu, so this is a note, not a block.",
+    "fix": "'Ask for a menu and each header link scrolls to its own section.'",
+    "severity": "note"
+   },
+   {
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief.cover",
+    "quote": "Inquiry received / View inquiries",
+    "issue": "The cover mixes two audiences. The visitor sees the 'Inquiry received' confirmation, but 'View inquiries' is the owner's action. No visitor gets that button.",
+    "fix": "A visitor confirmation with a visitor action (for example 'Back to the top'), or an owner card such as 'New inquiry' with 'View inquiries'.",
+    "severity": "note"
+   },
+   {
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief.tabs[3].main",
+    "quote": "status: Race full / Waitlist open (green check)",
+    "issue": "A green success check sits beside 'Race full' on the runner's phone. The same success-on-failure pattern was noted on the 404 cover.",
+    "fix": "Use a neutral or warn status for 'Race full', or title the status 'Waitlist open'.",
+    "severity": "note"
+   },
+   {
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "feature_4; feature_6",
+    "quote": "feature_4: 'Nothing is dragged into place.'; feature_6: 'Nothing stays locked in Emergent.'",
+    "issue": "Two of the six feature bodies lean on a 'Nothing ...' sentence. Feature 4's is a summary sentence that restates its title, 'not by dragging'.",
+    "fix": "Cut 'Nothing is dragged into place.' and use the space for a concrete detail of the edit.",
+    "severity": "note"
+   },
+   {
+    "criterion": "images",
+    "rule": "HUB_RULES 2b",
+    "field": "image_brief.tabs[2].main",
+    "quote": "Name: Ana Brooks",
+    "issue": "Tab 3's diner is 'Ana Brooks'. Tab 2 already has 'Ana Cruz' and 'Lee Brooks', so the page reads as one cast reshuffled, not four real businesses.",
+    "fix": "Use a name that does not reuse a first or last name from another tab.",
+    "severity": "note"
+   }
+  ],
+  "checked": [
+   "title and meta: meta_title (primary present, ' | Emergent'), meta_description promise (one prompt, scroll order, form saving inquiries, free to start) delivered in features, tabs and FAQ 3",
+   "H1 and hero: H1 scope covers the whole job (site plus working form); hero_description claims map to prompt-build and database-owned; hero_prompt is a plain user sentence",
+   "features: all six bodies checked against claims_used (prompt-build covers editing by message, code-export for GitHub, custom-domain, database-owned); feature_2 automatic-anchor wording noted; feature 4/6 'Nothing' sentences noted",
+   "why_description and comparison table: generated from the library; Wix/Unbounce/Landingi 'Hosted only' and visitor limits are library facts; K7 and the build cell are pending with Divit, not re-raised",
+   "tab 1 (Freelance Portfolios) and uc-1: $3,000 vs $2,500 threshold agrees across copy, prompt, hero chip, alt and checks; Slack channel matches 'posts to her Slack'",
+   "tab 2 (Home Services) and uc-2: Benson Out of area agrees across copy, rule bar, hero card and alt; Ana Cruz highlight already in review_notes",
+   "tab 3 (Restaurants) and uc-3: 8-or-fewer rule, 10 guests and Lena by email agree across copy, image and alt; Friday 7:30 PM has no date, so no weekday conflict; name reuse noted",
+   "tab 4 (Community Events) and uc-4: 400 of 400, waitlist spot 12 and emailed confirmation agree across copy, image and alt; green check on 'Race full' noted",
+   "how-to: seven steps read for order and repetition; the description contradicts the order of steps 3 and 5 (blocking); step 4 menu advice already in review_notes",
+   "FAQ: all 10 items against PAA and related searches (F sources all present); FAQ 3 free-tier and domain claim against capabilities.json (blocking); FAQ 4 repeats FAQ 3 (blocking); FAQ 5 GitHub Pages, FAQ 7 ChatGPT preview, FAQ 8 US Copyright Office and FAQ 6 One Page Love checked against domain_sources; FAQ 9 unsourced generalization (blocking, escalated); links: hub link in item 2, thank-you-page and splash-page exact-match anchors",
+   "repeated ideas: describe-then-build mechanic traced across hero, step 3, FAQ 2 and FAQ 9 (blocking); database-owned idea in meta, why_description, feature_3 and tab 1 judged as one claim per slot with new detail each time",
+   "cover and share image: cover confirm card audience mismatch noted; OG headline matches the H1; contact sheet shows one hero per tab, readable text and reserved .example domains only"
+  ]
+ },
+ "challenges": [
+  {
+   "by": "challenger-batch-m2",
+   "date": "2026-10-07 15:23 UTC",
+   "result": "fail",
+   "defects": 5,
+   "notes": 5
   }
  ]
 }

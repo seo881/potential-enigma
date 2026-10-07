@@ -173,6 +173,13 @@
    "via": "review",
    "by": "reviewer-batch-m6",
    "note": "rubric 10/10 by reviewer-batch-m6; 7 notes"
+  },
+  {
+   "t": "2026-10-07 15:23 UTC",
+   "state": "rework",
+   "via": "challenge",
+   "by": "challenger-batch-m2",
+   "note": "[craft | CONTENT_DEFECTS #21] hero_description; features_subheading; howto_description; why_description; faq (item 2): The same idea, 'describe your site and Emergent builds it', appears five times with the words swapped. features_subheading and howto_description are not slots that need the product "
   }
  ],
  "plan": {
@@ -1018,6 +1025,56 @@
    "by": "reviewer-batch-m6",
    "via": "review",
    "date": "2026-10-07 15:18 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief.tabs[3].alt",
+   "issue": "The drawn Slack post names only one URL ('Top: /pricing-2024, 64 hits') and says '3 URLs need a 301'. The alt says it names all three.",
+   "fix": "'...and a Monday Slack post counts three URLs with 20 or more hits, led by /pricing-2024.'",
+   "by": "challenger-batch-m2",
+   "via": "challenge",
+   "date": "2026-10-07 15:23 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "A 404 page should not be indexed, so meta tags, schema and a sitemap entry are not the dimension a 404 buyer compares. A status-code or error-page row would be.",
+   "fix": "Coordinator: consider a status-code row in the library. Otherwise pick a row that matters for error pages.",
+   "by": "challenger-batch-m2",
+   "via": "challenge",
+   "date": "2026-10-07 15:23 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 6",
+   "field": "feature_6",
+   "issue": "A site's 404 must be served by the server that hosts the site. Hosting only the 404 page on Emergent while the rest of the site runs elsewhere does not work. The hosting-status-code capability is also pending with Divit.",
+   "fix": "'Deploy the code with the rest of your site, or host the whole site on Emergent under your custom domain.'",
+   "by": "challenger-batch-m2",
+   "via": "challenge",
+   "date": "2026-10-07 15:23 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq (item 3); faq (item 6)",
+   "issue": "FAQ 3's list of causes has no domain_sources entry, though it is common knowledge and in line with MDN's 'broken or dead links'. FAQ 6 is not always true: a site that redirects misses to its homepage shows a soft 404, which step 6 itself warns about.",
+   "fix": "FAQ 6: add 'unless the site redirects every miss to its homepage, which is a soft 404'.",
+   "by": "challenger-batch-m2",
+   "via": "challenge",
+   "date": "2026-10-07 15:23 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "tab_content_1",
+   "issue": "'An add' as a noun reads as shorthand, not as something a product lead would say aloud.",
+   "fix": "'Each add to cart from the error page is saved with the missed URL.'",
+   "by": "challenger-batch-m2",
+   "via": "challenge",
+   "date": "2026-10-07 15:23 UTC"
   }
  ],
  "reviews": [
@@ -1034,6 +1091,133 @@
    "result": "fail",
    "blocking": 2,
    "notes": 6
+  }
+ ],
+ "challenge": {
+  "by": "challenger-batch-m2",
+  "date": "2026-10-07 15:23 UTC",
+  "result": "fail",
+  "defects": [
+   "[craft | CONTENT_DEFECTS #21] hero_description; features_subheading; howto_description; why_description; faq (item 2): The same idea, 'describe your site and Emergent builds it', appears five times with the words swapped. features_subheading and howto_description are not slots that need the product mechanic, and both repeat the hero almost word for word. -> Keep the mechanic in the hero and FAQ 2. Have features_subheading introduce what the six features add up to, and end howto_description on its first sentence, or add a fact the steps need.",
+   "[craft | CONTENT_DEFECTS #21] feature_3; howto_step_5_des; tab_content_4: The miss log is described three times in nearly the same words: a feature, a how-to step and a tab. This is the catalogue's own example pattern for row #21 (feature, tab and step restating one rule). The hero ('a table of every URL that missed') and feature 6 ('its miss log') mention it again. -> Say once, in feature 3, that each miss is a row. Step 5 then teaches what to read in it (the referrer separates a typo from a partner's broken link, which it already says). Tab 4 starts from the table and shows the Monday list.",
+   "[craft | CONTENT_DEFECTS #21] feature_2; tab_content_2: Feature 2 and tab 2 give the same rule: search seeded from the words of a mistyped URL, one letter off. Tab 2's H3 'Search seeded from the broken URL' repeats it a third time. -> Let tab 2 own the mistyped-URL search. Have feature 2 say something else about search, for example what it searches (products, docs, help articles) and what it shows when nothing matches.",
+   "[craft | CONTENT_DEFECTS #21] tab_content_4; howto_step_7_des: The weekly review of the miss log that turns into 301s appears in both the tab and the how-to step, and the step title '07 Redirect what moved, every week' repeats it again. -> Keep the weekly cadence in tab 4. Have step 7 teach only the decision the tab does not: 301 for moved content, 410 for removed pages, and a recheck after releases that rename pages.",
+   "[truth | CONTENT_DEFECTS #7] faq (item 9): Escalated from reviewer-batch-m6's note. 'A page that many people see gets designed' is an unsupported generalization (row #7). 'it is the HTTP error a visitor reads on screen' presents 404 as the only error page visitors see, when 403 and 500 pages are shown too. It is an unsourced statement of fact (HUB_RULES 8). Under Divit's 2026-10-07 ruling both are blocking. -> Answer with what the sources support: a 404 is the error most visitors meet, because any dead link or typo produces one, and the code is printed on the page itself. Cut the 'gets designed' generalization, or source it."
+  ],
+  "findings": [
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "hero_description; features_subheading; howto_description; why_description; faq (item 2)",
+    "quote": "hero: 'Describe your site and Emergent builds the 404 page behind it'; features_subheading: 'Describe the site once and Emergent writes the page, the data behind it and the code you keep.'; howto_description: 'Emergent builds it from a description of your site.'; why_description: 'Emergent builds a working one from your prompt'; FAQ 2: 'you describe the page'",
+    "issue": "The same idea, 'describe your site and Emergent builds it', appears five times with the words swapped. features_subheading and howto_description are not slots that need the product mechanic, and both repeat the hero almost word for word.",
+    "fix": "Keep the mechanic in the hero and FAQ 2. Have features_subheading introduce what the six features add up to, and end howto_description on its first sentence, or add a fact the steps need.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_3; howto_step_5_des; tab_content_4",
+    "quote": "feature_3: 'Each missed URL lands as a row in a database you own'; step 5: 'Save each 404 hit with the requested URL and its referrer.'; tab 4: 'each 404 hit lands in a table with the URL, the referrer and a seven-day count'",
+    "issue": "The miss log is described three times in nearly the same words: a feature, a how-to step and a tab. This is the catalogue's own example pattern for row #21 (feature, tab and step restating one rule). The hero ('a table of every URL that missed') and feature 6 ('its miss log') mention it again.",
+    "fix": "Say once, in feature 3, that each miss is a row. Step 5 then teaches what to read in it (the referrer separates a typo from a partner's broken link, which it already says). Tab 4 starts from the table and shows the Monday list.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_2; tab_content_2",
+    "quote": "feature_2: 'Words from the broken URL prefill the box, and a visitor who mistyped a single letter is one click away.'; tab 2: 'When /docs/api/webhoks misses, the 404 splits the path into words and searches the docs.'",
+    "issue": "Feature 2 and tab 2 give the same rule: search seeded from the words of a mistyped URL, one letter off. Tab 2's H3 'Search seeded from the broken URL' repeats it a third time.",
+    "fix": "Let tab 2 own the mistyped-URL search. Have feature 2 say something else about search, for example what it searches (products, docs, help articles) and what it shows when nothing matches.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "tab_content_4; howto_step_7_des",
+    "quote": "tab 4: 'Every Monday, a Slack post to the web team lists the URLs with 20 or more hits as candidates for a 301 redirect.'; step 7: 'Sort the miss log by hits once a week. A URL whose content moved gets a 301 to its new address.'",
+    "issue": "The weekly review of the miss log that turns into 301s appears in both the tab and the how-to step, and the step title '07 Redirect what moved, every week' repeats it again.",
+    "fix": "Keep the weekly cadence in tab 4. Have step 7 teach only the decision the tab does not: 301 for moved content, 410 for removed pages, and a recheck after releases that rename pages.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq (item 9)",
+    "quote": "Because it is the HTTP error a visitor reads on screen, every time a link or a typed address points nowhere. A page that many people see gets designed, and the best 404 pages show a brand's personality in a few words.",
+    "issue": "Escalated from reviewer-batch-m6's note. 'A page that many people see gets designed' is an unsupported generalization (row #7). 'it is the HTTP error a visitor reads on screen' presents 404 as the only error page visitors see, when 403 and 500 pages are shown too. It is an unsourced statement of fact (HUB_RULES 8). Under Divit's 2026-10-07 ruling both are blocking.",
+    "fix": "Answer with what the sources support: a 404 is the error most visitors meet, because any dead link or typo produces one, and the code is printed on the page itself. Cut the 'gets designed' generalization, or source it.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief.tabs[3].alt",
+    "quote": "a Monday Slack post names the three with 20 or more hits",
+    "issue": "The drawn Slack post names only one URL ('Top: /pricing-2024, 64 hits') and says '3 URLs need a 301'. The alt says it names all three.",
+    "fix": "'...and a Monday Slack post counts three URLs with 20 or more hits, led by /pricing-2024.'",
+    "severity": "note"
+   },
+   {
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "SEO settings | Full control of the code: meta tags, schema, and sitemap",
+    "issue": "A 404 page should not be indexed, so meta tags, schema and a sitemap entry are not the dimension a 404 buyer compares. A status-code or error-page row would be.",
+    "fix": "Coordinator: consider a status-code row in the library. Otherwise pick a row that matters for error pages.",
+    "severity": "note"
+   },
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "feature_6",
+    "quote": "Host them on Emergent under your custom domain, or deploy the code wherever the rest of your site already runs.",
+    "issue": "A site's 404 must be served by the server that hosts the site. Hosting only the 404 page on Emergent while the rest of the site runs elsewhere does not work. The hosting-status-code capability is also pending with Divit.",
+    "fix": "'Deploy the code with the rest of your site, or host the whole site on Emergent under your custom domain.'",
+    "severity": "note"
+   },
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq (item 3); faq (item 6)",
+    "quote": "FAQ 3: 'Someone mistyped it, the page was deleted, or it moved without a redirect while old links kept the old address.'; FAQ 6: 'whatever loads is that site's 404 page'",
+    "issue": "FAQ 3's list of causes has no domain_sources entry, though it is common knowledge and in line with MDN's 'broken or dead links'. FAQ 6 is not always true: a site that redirects misses to its homepage shows a soft 404, which step 6 itself warns about.",
+    "fix": "FAQ 6: add 'unless the site redirects every miss to its homepage, which is a soft 404'.",
+    "severity": "note"
+   },
+   {
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "tab_content_1",
+    "quote": "An add from the error page is saved with the missed URL attached.",
+    "issue": "'An add' as a noun reads as shorthand, not as something a product lead would say aloud.",
+    "fix": "'Each add to cart from the error page is saved with the missed URL.'",
+    "severity": "note"
+   }
+  ],
+  "checked": [
+   "title and meta: meta_title 'Examples and Best Practices' delivered by the four site-type tabs and the status-code steps; meta_description promises examples by site type and status code rules, both delivered",
+   "H1 and hero: H1 covers the page's whole job (a 404 that finds the next page); hero claims map to prompt-build and database-owned; hero_prompt is a plain sentence",
+   "features: six bodies checked against claims_used; feature_1 hosted status code is pending with Divit and not re-raised; feature_2 and feature_3 repeat tab 2, step 5 and tab 4 (blocking); feature_6 hosting wording noted",
+   "why_description and comparison table: library-generated cells; Wix/Unbounce/Landingi K7 and the build cell are pending with Divit; SEO settings row relevance noted",
+   "tab 1 (Online Store) and uc-1: retired linen camp shirt, search prefilled 'linen shirt', bestsellers with add-to-cart, missed URL saved; $72 and $54 declared in checks; alt agrees",
+   "tab 2 (Developer Docs) and uc-2: /docs/api/webhoks, words 'api, webhoks', first result 'Webhooks: retries and signatures', docs home and support email under the result agree across copy, image and alt",
+   "tab 3 (Creative Studio) and uc-3: one line 'This page is out sketching', one button, homepage link below; the discipline chips from the earlier note are gone from the render",
+   "tab 4 (Site Migration) and uc-4: hits 64, 31, 22, 7, 4 give exactly 3 URLs at 20 or more, matching '3 URLs'; Monday Slack to web-team matches the copy; '301' overstatement already in review_notes; alt 'names the three' noted",
+   "how-to: seven steps; step 6 soft 404 checked against Google's http-network-errors source; step 7 410 Gone against MDN; step 5 and step 7 repeat tab 4 (blocking)",
+   "FAQ: 10 items, all sourced from PAA plus one secondary; FAQ 2 GitHub Pages 404.html, FAQ 7 USWDS whimsy guidance, FAQ 8 Search Console Page Indexing, FAQ 10 Google 2011 '404s do not hurt' checked against domain_sources; FAQ 9 generalization (blocking, escalated); FAQ 3 and FAQ 6 noted; links: hub link in item 2, thank-you-page and landing-page-seo (not yet live, pending with Divit)",
+   "repeated ideas: describe-then-build across five fields, miss log across three, URL-word search across two, weekly 301 review across two (all blocking)",
+   "cover and share image: cover green check beside 'Page not found' already in review_notes; OG headline matches the H1; only .example domains drawn; one hero per tab with readable text"
+  ]
+ },
+ "challenges": [
+  {
+   "by": "challenger-batch-m2",
+   "date": "2026-10-07 15:23 UTC",
+   "result": "fail",
+   "defects": 5,
+   "notes": 5
   }
  ]
 }
