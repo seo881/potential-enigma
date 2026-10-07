@@ -87,6 +87,7 @@ VENDOR = ["zapier", "make", "n8n", "typeform", "jotform", "google forms", "surve
           "qualtrics", "wix", "framer", "hubspot", "tally", "fillout", "power automate", "wrike", "pandadoc", "approveit", "interact"]
 CLAIMS = json.load(open(os.path.join(ROOT, "rules", "claims.json")))
 TELLS = json.load(open(os.path.join(ROOT, "rules", "ai_tells.json")))
+US = json.load(open(os.path.join(ROOT, "rules", "us_spelling.json")))
 
 # ---------------- checks ----------------
 def check(spec, siblings):
@@ -200,8 +201,11 @@ def check(spec, siblings):
         if k == "mockup": voice = ""   # user-voice prompts may say "my"
         for m in WE_OUR.finditer(voice):
             add("P0", "H1", k, f'"{m.group(0)}" (write "Emergent" or "Emergent\'s"; never we/our)')
-        for b in BRITISH:
-            if re.search(r"(?i)\b" + b, plain): add("P1", "H2", k, f"British spelling: {b}...")
+        for w_ in re.findall(r"[A-Za-z]+", plain):
+            lw = w_.lower()
+            if lw in US["map"]: add("P1", "H2", k, f'UK spelling "{w_}": use "{US["map"][lw]}"')
+            elif re.search(r"is(e|ed|es|ing|ation|ations|er|ers)$", lw) and len(lw) > 5 and not any(lw.startswith(x) or x in lw for x in US["ise_whitelist"]):
+                add("P1", "H2", k, f'UK -ise spelling "{w_}": use -ize ({re.sub("is(?=(e|ed|es|ing|ation|ations|er|ers)$)", "iz", lw)})')
         for e in article_errors(plain): add("P1", "H4", k, f'article: "{e}"')
     for k in ["h1", "features_heading", "usecase_heading", "why_title", "howto_title"] + [f"prompt_chip_{i}" for i in range(1, 5)] + [f"tab_label_{i}" for i in range(1, 5)]:
         e = title_case_errors(F.get(k, ""))

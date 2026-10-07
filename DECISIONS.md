@@ -2,6 +2,12 @@
 
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
+## 2026-10-07
+- **Wave 3 calls** (delegated by Divit to Claude's judgment): cut the 8 Rule A pages (citizen complaint, whistleblower, dependent verification, wire transfer request, 401k rollover, financial assistance, HSA reimbursement, dealer application); merge agency into design-agency landing page, author into book landing page, business coaching intake into life coaching intake. Applied in `plan/overrides.json`; 588 pages queued.
+- **Voice: a world-class SaaS company** (Stripe, Linear, Vercel, Notion): `rules/HUB_RULES.md` 2a; filler and hedge words flagged by QC.
+- **US spelling everywhere**, UK forms block (`rules/us_spelling.json`, QC H2).
+- **DataForSEO:** connected in Claude Code. Custom connectors are not allowed for the org in Claude.ai, so SERP pulls run in Claude Code; a chat that needs one gets the saved file uploaded.
+
 ## 2026-10-06
 - **FAQs come from People Also Ask** (Divit): live Google SERP per page through DataForSEO (MCP `https://mcp.dataforseo.com/mcp`, OAuth); every FAQ item carries a recorded source (PAA, related search, secondary, or the definition); QC F1-F5. SERP data stays in `private/` (git-ignored).
 - **Images on hold** (Divit): the hub palettes are not Emergent's brand colours. No image briefs or renders until the brand palette is set; then the engine's palettes change and everything re-renders. The 4 live pages' images are untouched.

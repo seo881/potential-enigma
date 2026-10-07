@@ -112,6 +112,18 @@ for o in ov["off_plan_live"]:  # live pages the sheet cut; kept per Divit, exclu
     pages[o["url"]] = {**o, "status": "live-off-plan", "secondaries": [], "total_msv": o["primary_msv"]}
 for u in ov["live_urls"]: pages[u]["status"] = "live-draft"
 
+# --- Wave 3 decisions: cuts and merges ---
+for u in ov.get("wave3_cuts", {}).get("urls", []):
+    if u in pages: pages[u]["status"] = "cut"; pages[u].setdefault("overrides", []).append("cut: " + ov["wave3_cuts"]["_why"])
+for src, dst in ov.get("wave3_merges", {}).get("pairs", []):
+    if src in pages and dst in pages:
+        s_, d_ = pages[src], pages[dst]; have = {d_["primary"].lower()} | {x["kw"].lower() for x in d_["secondaries"]}
+        for kw in [{"kw": s_["primary"], "msv": s_["primary_msv"]}] + s_["secondaries"]:
+            if kw["kw"].lower() not in have: d_["secondaries"].append(kw); have.add(kw["kw"].lower())
+        d_["secondaries"].sort(key=lambda x: -x["msv"]); d_["total_msv"] = d_["primary_msv"] + sum(x["msv"] for x in d_["secondaries"])
+        d_.setdefault("overrides", []).append(f"absorbed {src} (cannibalization merge)")
+        s_["status"] = "merged"; s_["merged_into"] = dst
+
 # --- queue: descending volume; Wave 4 (needs a playable quiz) last ---
 q = [p for p in pages.values() if p["status"] == "planned"]
 q.sort(key=lambda p: (p["wave"] == 4, -p["total_msv"], -p["primary_msv"]))
@@ -125,4 +137,4 @@ with open("plan/queue.csv", "w", newline="") as f:
         gap = ("playable quiz" if p["wave"] == 4 else
                "generated document (template SERP)" if docs >= 2 or "doc-template" in txt or "generated output" in txt or "letter" in p["primary"] else "")
         w.writerow([p["queue_rank"], p["hub"], p["url"], p["primary"], p["primary_msv"], p["kd"], p["total_msv"], p["wave"], p["verdict"], gap])
-print(f"pages: {len(pages)} | planned queue: {len(q)} | live-draft: {sum(p['status']=='live-draft' for p in pages.values())} | live-off-plan: {sum(p['status']=='live-off-plan' for p in pages.values())} | needs-decision: {sum(p['status']=='needs-decision' for p in pages.values())} | need a live SERP pull: {sum(1 for p in pages.values() if p.get('serp_needed'))}" + ("" if W3 else " | (Wave 3 report not found)"))
+print(f"pages: {len(pages)} | planned queue: {len(q)} | live-draft: {sum(p['status']=='live-draft' for p in pages.values())} | live-off-plan: {sum(p['status']=='live-off-plan' for p in pages.values())} | needs-decision: {sum(p['status']=='needs-decision' for p in pages.values())} | cut: {sum(p['status']=='cut' for p in pages.values())} | merged: {sum(p['status']=='merged' for p in pages.values())} | need a live SERP pull: {sum(1 for p in pages.values() if p.get('serp_needed'))}" + ("" if W3 else " | (Wave 3 report not found)"))

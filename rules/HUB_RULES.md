@@ -22,9 +22,29 @@ Applies to every child page in the four build hubs (AI Landing Page Builder, AI 
 - **No CTAs in body copy.** The template carries the CTA buttons ("Start building free", "Build My ..."). Body copy explains; it does not say "sign up now".
 - **Title Case [QC]** on the H1, section H2s, prompt chips and tab labels. AP style: lowercase only articles, coordinating conjunctions and prepositions of three letters or fewer (a, an, the, and, but, or, for, in, of, on, to, by, at, via, vs) unless first or last. Capitalise each part of a hyphenated compound ("Multi-Level Routing"). Feature H3s, tab H3s and how-to step titles are sentence case.
 - **Articles [QC]:** a/an by sound. "an FAQ", "an HR team", "an NPS question", "an SLA", "a UGC creator", "a one-page site", "an hour".
-- **US spelling [QC]:** inquiry, color, customize, behavior, favorite, license, center, canceled.
+- **US spelling everywhere [QC, blocking]:** -ize not -ise (organize, customize), color, behavior, center, catalog, license, inquiry, canceled, traveled, analyze, judgment, toward, among, while. Full list in `rules/us_spelling.json`.
 - **Subject-verb agreement** is checked by reading every sentence whose subject is a list or a collective noun.
 - **Numbers:** numerals for 10 and above and for all amounts, scores and durations. Thousands separators. Currency as $4,800.00 only where cents matter.
+
+## 2a. Voice: a world-class SaaS company (Divit, 2026-10-07)
+
+Every page should read like it came from the best product companies' marketing and docs teams: Stripe, Linear, Vercel, Notion, Figma. That voice is:
+
+- **Confident and calm.** State what the product does. No hype, no exclamation, no hedging ("can help you potentially"). If a claim needs a qualifier, it is the wrong claim.
+- **Precise.** Real nouns and numbers: "routes anything over $5,000 to the CFO", not "handles complex approvals". Name the trigger, the field, the tool, the outcome.
+- **Product-led.** Show the product doing the job; the reader infers the benefit. "Every response is a row in your database" beats "gain powerful insights".
+- **Economical.** Short declarative sentences, one idea each. Cut every word that does not change the meaning: very, really, just, simply, basically, actually, easily, a wide range of, in order to [QC flags them].
+- **Respectful of the reader.** Speak to a capable operator. Never explain the obvious, never sell with fear, never talk down.
+- **Consistent.** Same term for the same thing across the page (pick "response" or "submission", not both). Sentence case for body headings, Title Case where rule 2 says so.
+
+| Instead of | Write |
+|---|---|
+| Unlock seamless approvals that empower your team | Route each request to the right approver and log every decision |
+| Easily create beautiful forms in seconds | Describe the form; Emergent builds the fields, logic and database |
+| Our powerful AI handles everything for you | Emergent writes the workflow, the trigger and the dashboard from one prompt |
+| A wide range of integrations to supercharge your stack | Connects to Slack, HubSpot, Stripe and anything with an API |
+
+The reviewer's test for every paragraph: would it ship unedited on Linear's or Stripe's site?
 
 ## 2b. Human voice: the page must never read as AI-written
 

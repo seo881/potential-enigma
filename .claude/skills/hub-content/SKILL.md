@@ -28,6 +28,7 @@ You write copy and the image brief only. Review, images, Webflow drafts and publ
 
 ## Writing standard (the short version; the full one is rules/HUB_RULES.md)
 - Write the page that wins the actual SERP for the primary, at the depth the top 10 shows. Operator grade, specific, no fluff.
+- **Voice of a world-class SaaS company** (Stripe, Linear, Vercel, Notion): confident, precise, product-led, economical, US spelling throughout (`rules/HUB_RULES.md` 2a).
 - **It must never read as AI-written** (`rules/HUB_RULES.md` section 2b): concrete details, plain verbs, varied rhythm, none of the words in `rules/ai_tells.json`. Read every paragraph as if a product lead were saying it to a customer.
 - Primary in the meta title, H1, meta description and first FAQ item. Secondaries woven in once each where natural.
 - Never another page's primary in a heading. Link to sibling pages instead.

@@ -16,7 +16,7 @@ If the repo is not set up in this chat: `git clone https://github.com/seo881/pot
 `python3 qc/qc_hub.py <spec>` (or `--hub <HUB>`, `--all`). It checks:
 - **S** structure: fields in the collection map, required fields, `<h3>`+`<p>` shapes, how-to numbering, FAQ JSON (10-16 items, heading, `?`), 4 mockup keys, Emergent-first table, 6 images with alt.
 - **L** limits calibrated on approved pages: meta title (60 chars, 580px, " | Emergent"), meta description (110-160), H1 (differs from title, 70 chars, "Build ..."), hero (about 30 words), why (25 words), H2s (48 chars), feature bodies (165-182, spread 12), FAQ answers (15-75 words), chips and tabs (26 chars).
-- **H** hygiene: dashes, curly quotes, "built-in", "Type II", exclamations, emoji, we/our/us, British spellings, Title Case, a/an.
+- **H** hygiene: dashes, curly quotes, "built-in", "Type II", exclamations, emoji, we/our/us, US spelling everywhere (any UK form blocks), Title Case, a/an.
 - **K** keywords: primary placement, slug, exactly one hub link in the FAQ, no external FAQ links, sibling primaries in headings (cannibalisation), secondary coverage, competitors outside the page's top 10.
 - **V/C/D** vendor numbers without a dated check, claims against `rules/claims.json`, sentences duplicated from sibling pages.
 - **F** FAQ sourced from the live SERP: every item has a recorded source that exists (F2), stays close to the searcher's phrasing (F3), and no eligible People Also Ask question is left unanswered (F4).
@@ -28,7 +28,7 @@ Run `python3 ops/hubctl.py brief <url>` and check, writing each as P0/P1/P2:
 2. **Promise vs delivery:** everything the title and meta promise ("examples", "templates", "free", "for Shopify") is on the page.
 3. **Truth:** every Emergent claim is in the register; every third-party fact is current; nothing contradicts another field (numbers, steps, tab content vs images).
 4. **Depth:** the definition up top where an AI Overview appears; FAQ questions match how people ask; the how-to is specific to this primary, not generic.
-5. **Human voice:** would a reader suspect a machine wrote this? Look for generic claims where a specific detail belongs, hype verbs, tidy triplets, summary sentences, the same rhythm paragraph after paragraph. Any one of these is a rework note, even when the code QC passed.
+5. **Voice:** would this paragraph ship unedited on Linear's or Stripe's site (HUB_RULES 2a)? And would a reader suspect a machine wrote it? Look for generic claims where a specific detail belongs, hype verbs, tidy triplets, summary sentences, the same rhythm paragraph after paragraph. Any one of these is a rework note, even when the code QC passed.
 6. **Distinctness:** reads as its own page, not a sibling with nouns swapped; tab H3s do not use sibling primaries; watch-list guidance from the brief is followed.
 7. **Image brief and images:** the brief matches its tab copy (people, numbers, statuses agree); after rendering, each contact sheet shows one hero, readable text, numbers that add up, the cursor on a button edge.
 
