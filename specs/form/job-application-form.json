@@ -204,6 +204,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-07 13:23 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "reviewer-job-application-form-n1",
+   "note": "craft: Two classes. (1) Tacked-on sentence: faq item 6 ends 'Others call it an employment application form.' It is appended after 'Some employers print that title at the top of the page, but the questions underneath and the signed certification do not change.', so 'Others' points back across a sente"
   }
  ],
  "faq_sources": [
@@ -756,82 +763,67 @@
  },
  "qc_passed": {
   "rules_version": "5140b4a6404b",
-  "date": "2026-10-07 13:19 UTC"
+  "date": "2026-10-07 13:20 UTC"
  },
  "review": {
-  "by": "reviewer-job-application-form-c3",
-  "date": "2026-10-07 12:48 UTC",
+  "by": "reviewer-job-application-form-n1",
+  "date": "2026-10-07 13:23 UTC",
   "rubric": {
    "scope": {
     "result": "pass",
-    "evidence": "H1 'Build a Job Application Form That Feeds Your Hiring Pipeline', title 'Job Application Form Template and Builder | Emergent' and hero 'Emergent builds the job application form and its applicant database' cover the whole job, not one feature or a sibling topic (defect 1 clear)."
+    "evidence": "H1 'Build a Job Application Form That Feeds Your Hiring Pipeline', meta title 'Job Application Form Template and Builder | Emergent' and hero 'Emergent builds the job application form and its applicant table' cover the whole job (form, uploads, table, routing), not one feature and not new-employee or candidate-screening territory."
    },
    "intent": {
     "result": "pass",
-    "evidence": "Cycle-1 fix holds: FAQ 3 lays out the form field by field ('Work history, per job: employer, title, dates, supervisor, reason for leaving, permission to contact'), howto_step_2 gives the certification text, and FAQ 8 and FAQ 11 cover the blank printable PDF the top 10 (rocklinusd, circuit7, Iowa, DS-1950 PDFs) serve. No AMBER angle needed (Builder-fit); F5 accepted."
+    "evidence": "Top 10 is mostly blank PDFs and .doc files (rocklinusd, circuit7, Iowa, Intuit, Kit Carson, swssd, DS-1950). The page yields the template content and the printable form: FAQ 3 lists the six sections field by field ('Work history, per job: employer, title, dates, reason for leaving, \"May we contact this employer?\"'), howto_step_2 gives the certification text, FAQ 4 answers the blank PDF first ('a free, printable job application form PDF, blank and sized for letter paper'), FAQ 7 the one-page version, feature_4 and howto_step_6 the walk-in path. Cycle-1 intent fix holds. Builder-fit, no AMBER angle; F5 pending with Divit."
    },
    "specificity": {
     "result": "pass",
-    "evidence": "Hiring variant in the table ('Prompt for the application form and the hiring pipeline around it'); buyer vocabulary throughout: 'reasons for leaving and permission to contact references', 'any license due to lapse within 60 days is flagged for the recruiter before an interview is booked', 'months in the current role', 'a driver's license and recent violations' (defect 3 clear)."
+    "evidence": "Hiring variant in the table ('Prompt for the application form and the hiring pipeline around it'); buyer vocabulary throughout: 'tap the shifts they can work', 'a license number and the state that issued it', 'months in the current role', 'a driver's license and recent violations', 'Haddad_RN.pdf', 'A QR code at the counter'. No hub boilerplate."
    },
    "openers": {
     "result": "pass",
-    "evidence": "Every paragraph opens on a full sentence: feature_1 'Emergent drafts the six standard sections...', tab_content_1 'The first question is which store.', howto_step_6 'Decide what happens on paper.'; no keyword labels (defect 2 clear)."
+    "evidence": "Every paragraph opens on a full sentence that says what happens: feature_1 'Emergent drafts the six standard sections...', tab_content_1 'The first question is which store.', tab_content_3 'Employees apply with their employee ID...', howto_step_6 'Decide how paper applications get in.'; FAQ answers open answer-first ('Most forms use six sections.', 'Usually not.')."
    },
    "craft": {
-    "result": "pass",
-    "evidence": "Cycle-2 fix holds: zero ', so' and zero ', which' tails on the page; sentences end on their point ('...flagged for the recruiter before an interview is booked.', 'Anything else waits for the interview.'); longest FAQ sentence well under 32 words; no 'and not before'-style trailers (defects 4, 6 clear)."
+    "result": "fail",
+    "evidence": "Two classes. (1) Tacked-on sentence: faq item 6 ends 'Others call it an employment application form.' It is appended after 'Some employers print that title at the top of the page, but the questions underneath and the signed certification do not change.', so 'Others' points back across a sentence about something else; it exists to place a secondary. Fix: fold the name into the opening ('Yes. Application for employment form and employment application form are longer names for the same document.') and end on the certification point. Only instance. (2) Serial comma used inconsistently (HUB_RULES 2a 'Consistent'). With the comma: feature_1 'a date picker for the start date, a phone field, and a block that repeats'; feature_5 'role, location, stage, and owner'; howto_step_1 'the right to work, and pay expectations'; faq item 3 'education, references, and a signed, dated certification'. Without: why_description 'The form, the applicant table and the manager alerts'; tab_image_1 alt 'a store, a start date and the shifts the applicant can work'. Pick one style and apply it to all six."
    },
    "voice": {
-    "result": "pass",
-    "evidence": "Cycle-2 fix holds: tab openings now differ in shape ('The first question is which store.' / 'Each nurse or medical assistant gives...' / 'Employees apply with...' / 'Designers and other salaried candidates upload...'); the role-example triplet is split (nurse/designer in feature_2, delivery/cashier in howto_step_3); 'six standard sections' appears once, 'one record, not an inbox' is gone; lines like 'Applicants on a phone will finish a short form on a break; a long one waits for later.' read human."
+    "result": "fail",
+    "evidence": "(1) All four tab H3s use one formula, '[article] [modifier] application that [verb phrase]': tab_content_1 'An hourly job application that leads with availability'; tab_content_2 'A clinical job application that checks every credential'; tab_content_3 'An internal application that loops in the manager'; tab_content_4 'A professional application that sorts by must-haves'. Four in a row is the machine rhythm HUB_RULES 2b names, and HUB_RULES 5 says the tab H3 names the outcome, not the form type. Pages rewritten today do this (sales-automation 'Catch quiet deals before the forecast call'; AP 'Route each entity's bills to its own controller'). Fix: four outcome headings with different shapes, e.g. 'See who can cover weekends before you call', 'Catch a lapsing license before the interview'. (2) Three FAQ answers in a row open the same way: faq item 4 'Yes. Your form can produce...', item 5 'Yes. Ask Emergent for...', item 6 'Yes. An application for employment form is...'. Vary at least one (item 6 can open 'They are the same document.'). (3) Vague phrasing where a specific word belongs: hero_description 'every answer stays in data you own' (an answer stays in a database, not in 'data'); features_subheading 'These six pieces turn the answers into a shortlist' ('pieces' is filler, and feature_4 (PDF copies) and feature_6 (source code) have nothing to do with a shortlist). Fix: name what the six features cover, e.g. 'Below: the sections, the role branching, the uploads, the PDFs, the applicant table and where the form lives.'"
    },
    "truth": {
-    "result": "pass",
-    "evidence": "PDF story is now one rule: FAQ 11 'The blank PDF has as many rows as you ask for: request one past job and one reference, and Emergent lays it out on a single letter page', consistent with FAQ 8 'blank PDF, sized for letter paper', FAQ 9 'the most recent job and one reference', FAQ 5 'printable version for walk-ins' and feature_4 'A PDF copy of any application'; 'instead of three' is gone; meta 'Print a PDF of any application' matches feature_4. FAQ 4, 13, 14 describe built-app behaviour ('the app can save...', 'the app can send a short decline') within the capability principle; the typed signature carries no legal-validity claim. Table facts from the library (V2/V3 clean); claims_used all approved."
+    "result": "fail",
+    "evidence": "(1) The must-have rule in tab_content_4 is unclear and does not match the image: the copy says applicants 'answer the must-have questions: work authorization and salary range. Missing either one sends the application to a hold list.' A required question cannot be 'missing', and the copy never says what makes a salary range pass. The image's rule is a value test: 'Authorized, salary in range' / 'Salary in range, not authorized'. The mockup officeAndRemote has the same gap ('two must-have questions: work authorization and salary range. Put anyone who misses a must-have on a hold list'). Fix: state the rule in copy and mockup, e.g. 'Anyone without work authorization, or asking above the posted band, goes to a hold list.' (2) Heading overclaims: tab_content_2 H3 'checks every credential'. The body only collects a license number, issuing state and expiry and flags expiry within 60 days. Nothing is verified, and the CMA row has no check at all. Fix: say what happens ('flags a license before it lapses'). Earlier fixes verified: why_description no longer generalizes about competitors; CMA is now 'medical assistants give their certification'; tenure is checked before submit in copy and image; feature_5 says 'never caps applications'; FAQ 4 answers the blank PDF first; FAQ 9 is about roles. Table row labels 'Response limits'/'Where responses live' are pending with Divit (not failed)."
    },
    "distinct": {
-    "result": "pass",
-    "evidence": "Shift grid by store, clinical license-expiry flag, internal tenure check and must-have hold list are specific to hiring; new-employee-form, candidate-screening-form and creator-application are linked, not overlapped ('Payroll and emergency contact details come after the offer'); no sibling primary in a heading; D2 clean."
+    "result": "fail",
+    "evidence": "The tab H3 shape is the same as the sibling creator-application's, nouns swapped. Creator-application: 'An ambassador application that recruits your best customers', 'A UGC creator application that screens for content quality', 'A creator application for an affiliate or commission program', 'A content creator application for in-house or freelance roles'. This page: 'An hourly job application that leads with availability', 'A clinical job application that checks every credential', 'An internal application that loops in the manager', 'A professional application that sorts by must-haves'. Challenger-1 flagged this class (shared 'Emergent builds the form ...' shape with creator-application) in the hero, subheading and why. Those were fixed, but the tab H3s, the same class, were not. Bodies are distinct: shift grid, license expiry, tenure gate and must-have hold list are hiring-specific. Payroll goes to new-employee-form and scored screening to candidate-screening-form (FAQ 8, FAQ 10). D2 clean. Note: tab 4's knock-out hold list sits close to candidate-screening-form's ground. Keep it to two yes/no must-haves, with no scoring."
    },
    "faq": {
-    "result": "pass",
-    "evidence": "15 items, each answered in its first sentence ('Yes, if each section asks for less.', 'Usually not.'); cycle-2 repeats fixed with new information: FAQ 13 'set a size limit, for example 10 MB per file... refused at upload with a message', FAQ 14 'a confirmation email right away... a short decline', FAQ 4 'Haddad_RN.pdf'; FAQ 10 now answers use ('to decide whom to interview and hire'); FAQ 3 list is useful by design; links help ('new employee form', 'candidate screening form'); no contradictions between FAQ 4, 8, 9, 11."
+    "result": "fail",
+    "evidence": "There are 10 on-topic items, each answered in its first sentence. The hub link is in item 2, with exact-match sibling links 'new employee form' (item 8) and 'candidate screening form' (item 10). One secondary does not read naturally: faq item 6 places 'employment application form' as an appended last sentence, 'Others call it an employment application form.' (see craft). The run of 'Yes.' openers in items 4, 5 and 6 is logged under voice. Other secondaries read naturally ('If HR has a fillable job application form template it likes', 'a free, printable job application form PDF')."
    },
    "images": {
-    "result": "pass",
-    "evidence": "Tab 1 'Maya Ortiz applied, Cashier, available weekends', 'Sent to Leo Park, store manager', 'Weekends: yes, start Nov 3' match the store/shift/weekend copy; tab 2 'Dana Ruiz... Expires in 52 days, under 60', 'Sent to Karen Bell, recruiter', 'BLS and ACLS on file', Ben Walsh renamed; tab 3 '18 months in role, minimum 12', 'Priya Shah, Customer Ops', 'Separate from outside hires'; tab 4 3 Shortlist + 1 On hold = 'Shortlist ready: 3 applicants' and 'Hold list 1'. One cursor per panel, text readable, no collisions, panels full (defects 5, 10 clear)."
+    "result": "fail",
+    "evidence": "(1) tab_image_3: the copy says eligible applications 'alert the person's current manager', and the timeline shows 'Current manager alerted, Priya Shah, Customer Ops'. But the Slack hero posts to the shared channel '# manager-alerts' ('Jordan Lee applied, Senior Analyst, Finance, Customer Ops, 18 months in role'). The image does not show the alert reaching Priya Shah, and it broadcasts a confidential internal application to every manager in the channel, which an HR reader will notice. Fix: make it a direct message to Priya Shah (or a card addressed 'To Priya Shah, Customer Ops'). (2) tab_image_4 draws a rule the copy never states: 'Authorized, salary in range' x3 and 'Salary in range, not authorized', against copy 'answer the must-have questions: work authorization and salary range' (see truth). Align after the copy states the band rule. Verified fixed and correct: tab 1 shift chips 'Sat AM, Sat PM, Sun PM' below 'Start date Nov 3', chip 'Shift Availability'; tab 2 'Dana Ruiz, RN, Expires in 52 days, under 60', CMA row with no state; tab 3 'Tenure checked before submit' before 'Application submitted 9:12 AM', 'Separate from outside candidates'; tab 4 shortlist 3 + hold 1 = 4. Cover and OG match tab 1. One cursor per panel, text readable, no collisions."
    }
   }
  },
- "challenge": {
-  "by": "challenger-job-application-form-1",
-  "date": "2026-10-07 12:51 UTC",
-  "result": "fail",
-  "defects": [
-   "why_description: Untrue generalization about competitors (catalogue rows 7 and 8): 'Form tools stop at the submit button.' Jotform, which is in this page's own table and top 10, sells Jotform Tables, Approvals and workflow routing after submit. -> Drop the claim about other tools and state what Emergent builds, e.g. 'Emergent builds the form, the applicant table and the manager alerts as one app, and the code is yours.' (stay within 25 words).",
-   "hero_description / features_subheading / why_description: The same sentence appears three times in three sections: 'Emergent builds the job application form and its applicant database' (hero), 'Emergent builds the form and the record it feeds' (features_subheading), 'Emergent builds the form and the applicant pipeline behind it as one app' (why). The sibling creator-application uses the same shape twice ('Emergent builds the form, scoring, review queue, and the database behind it', 'Emergent builds the form, the screening, and the creator roster as one build you own'), so this reads like a template with the nouns swapped (HUB_RULES 2b rhythm, rubric voice/distinct). 'the record it feeds' is also vague. -> Keep the hero sentence. Replace the second sentence of features_subheading with something only this section says, e.g. 'Below are the six sections Emergent drafts and what each application turns into once it is submitted.' Rewrite why_description without 'Emergent builds the form and...' (see the why_description fix above).",
-   "feature_1: 'Each field gets a proper input.' is vague filler that does not say what the reader gets (HUB_RULES 2a: 'Name the trigger, the field, the tool'). -> Name the inputs, e.g. 'Start dates get a date picker, phone numbers a phone field, and work history repeats for every past job.' Re-balance the body to 165-182 characters.",
-   "tab_content_1 / tab_image_1 / prompt_chip_2: The copy says 'Applicants then tap the shifts they can work on a weekly grid and give a start date', and the chip says 'Availability Grid'. The image has no grid: it shows three weekend chips (Sat AM, Sat PM, Sun PM), with the start date above them. The rubric's images test needs the copy and image to match word for word. -> Either redraw the main panel as a small weekly grid (days by AM/PM, with Sat AM, Sat PM and Sun PM selected) placed below the start date, or change the copy to 'Applicants give a start date, then tap the shifts they can work.' and rename chip 2 to match (e.g. 'Shift Availability').",
-   "tab_content_2 / tab_image_2: The copy says 'Each nurse or medical assistant gives a license number and the state that issued it', but the image's Grace Liu row reads 'CMA' with no state. That is also the truth: CMA is a national certification (AAMA), not a license a state issues, so the copy is wrong about medical assistants. -> Change the copy to 'Each nurse gives a license number and the state that issued it; medical assistants give their certification.' Alternatively, replace the CMA row with a state-licensed role (e.g. 'LPN, Kentucky') and limit the sentence to nurses.",
-   "tab_content_3 / tab_image_3: The copy says 'Anyone short of the posting's minimum tenure is told before they submit', but the image's timeline puts 'Tenure checked' after 'Application received 9:12 AM', which shows the check happening after submission. -> Reorder the steps to 'Tenure checked (18 months in role, minimum 12)' then 'Application submitted 9:12 AM' then 'Current manager alerted' then 'Hiring manager review'. Or relabel step 1 'Tenure confirmed before submit'.",
-   "tab_image_3 (mini card): The mini card reads 'Separate from outside hires', while the copy says 'a table kept apart from outside candidates'. 'Hires' means people already hired, not external applicants, so the label is wrong. -> Change the mini card sub to 'Separate from outside candidates'.",
-   "tab_image_4: The story is that the list is 'Sorted by must-haves' (work authorization and salary range), and the hero says 'Each one meets every must-have'. Yet the shortlisted rows show unrelated or partial facts: Mara Cole 'Remote, portfolio attached' (a portfolio is not a must-have), Tom Baker 'Office, salary in range' (no authorization), Lena Fox 'Remote, work authorization' (no salary). The panel does not show why these three passed. -> Make every shortlisted sub show both must-haves, e.g. 'Remote, authorized, salary in range'. Keep Ivan Petrov 'No work authorization' as the one on hold.",
-   "feature_5 / why_table: One thing has three names on the page: 'applications' (body), 'a table that never caps submissions' (feature_5) and 'Response limits' / 'Where responses live' (table rows). HUB_RULES 2a says to use the same term for the same thing. -> feature_5: 'in a table that never caps applications'. Regenerate the table with row labels 'limits=Application limits' and 'data=Where applications live' (the same label override as 'uploads=Resume uploads').",
-   "faq item 4 (Can I download a job application form PDF?): The top 10 are blank PDFs and DOCs (rocklinusd, circuit7, Iowa, DS-1950), so this question asks for a blank form. The answer says 'Yes.' and then describes only filled copies of submitted applications, which misleads the searcher. The blank PDF only shows up four items later, in FAQ 8. -> Answer the blank form first: 'Yes. The form Emergent builds can give you a blank PDF of the same questions to print, and it can save each submitted application as a filled PDF ending with the applicant's typed signature and date.' Keep the Haddad_RN.pdf naming line. Trim FAQ 8 to the free-to-start and paper-intake points so the two don't repeat.",
-   "faq item 12 (Do I need separate job application forms for each role?): The question is about roles, but the evidence is about locations: 'Separate copies per location tend to drift: one store rewrites its availability question and the others never hear about it.' The answer then concludes about roles ('one form that branches by position'). The middle sentence argues a different question. -> Make the example about roles, e.g. 'Separate copies per role tend to drift: the cashier form gets a new availability question and the stock-clerk form never does.'"
-  ],
-  "checked": [
-   "meta title and meta description: keyword placement, length, 'Template and Builder' promise met by FAQ 5 and 8; no vendor numbers",
-   "H1, product_name, breadcrumb, explore_cta, hero_description, hero_prompt: scope covers the whole job; hero repeats the why phrasing (logged)",
-   "features heading, subheading, feature_1 to feature_6: claims mapped to claims_used (prompt-build, database-owned, no-caps, alerts, code-export, custom-domain, e-signature-capture); vague feature_1 line and term drift in feature_5 logged",
-   "why_title, why_description and why_table: library-generated facts (V2/V3 clean), hiring variant; competitor generalization and row labels logged",
-   "usecase tabs 1-4: H3, copy, mockup prompts and each image compared on names, numbers and sequence (Maya Ortiz/Leo Park/Nov 3; Dana Ruiz 52<60 and Karen Bell; 18 vs 12 months and Priya Shah; 3+1=4); grid, CMA state, tenure order, 'outside hires' and shortlist subs logged",
-   "image alts for tabs 1-4: agree with images and copy",
-   "how-to title, description and steps 01-07: action titles, specific to hiring, step 2 certification text, step 6 paper intake consistent with FAQ 8 and 11",
-   "FAQ: all 15 questions and answers read for answer-first, truth, intent and contradictions; the hub link in item 2 and the 3 sibling links (new employee form, candidate screening form, creator application) are exact-match; faq_sources checked; items 4 and 12 logged",
-   "cover (store-12-hiring, Maya Ortiz, Review/Later) and share image ('Build a job application form you own', Free to start) match tab 1 and the approved claims",
-   "sibling distinctness: compared with creator-application (shared 'Emergent builds the form ... behind it' shape logged); qc_hub.py re-run: TOTAL 0, P2 K7/F5 only (pending with Divit, not listed)"
-  ]
- }
+ "reviews": [
+  {
+   "by": "reviewer-job-application-form-c3",
+   "date": "2026-10-07 12:48 UTC",
+   "result": "pass"
+  }
+ ],
+ "challenges": [
+  {
+   "by": "challenger-job-application-form-1",
+   "date": "2026-10-07 12:51 UTC",
+   "result": "fail",
+   "defects": 11
+  }
+ ]
 }
