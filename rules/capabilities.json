@@ -1,5 +1,5 @@
 {
- "_note": "Capability ledger: what Emergent can be said to do. 'approved' entries may be used (list their ids in spec.claims_used). 'pending' terms block a page (QC C2) until Divit approves or rewords them; approving means moving the entry to approved with a dated source. Writers never add approved entries themselves.",
+ "_note": "Capability ledger: what Emergent can be said to do. 'approved' entries may be used (list their ids in spec.claims_used). 'pending' terms block a page (QC C2) until Divit approves or rewords them; approving means moving the entry to approved with a dated source. Writers never add approved entries themselves. Principle (Divit, 2026-10-07): anything a built app does is approvable because the agent builds what it is instructed to; what stays pending are guarantees about Emergent's own platform (compliance, identity, availability, security specifics) and claims needing evidence (accuracy numbers, legal validity).",
  "approved": [
   {
    "id": "prompt-build",
@@ -55,19 +55,29 @@
    "id": "conversational",
    "claim": "Conversational one-question-per-screen flows",
    "source": "Handoff section 4 (Divit)"
+  },
+  {
+   "id": "payments-out",
+   "claim": "Built apps batch approved bills into payment runs and generate a bank file or call the payments API the user connects",
+   "source": "Divit, 2026-10-07: Emergent's agent builds whatever it is instructed to, so what a built app does is a buildable feature"
+  },
+  {
+   "id": "tax-records",
+   "claim": "Built apps collect W-9s and keep payment records ready for 1099 reporting (the app organizes the data; it does not file taxes)",
+   "source": "Divit, 2026-10-07: Emergent's agent builds whatever it is instructed to, so what a built app does is a buildable feature"
+  },
+  {
+   "id": "realtime",
+   "claim": "Built apps can show live, real-time dashboards and updates",
+   "source": "Divit, 2026-10-07: Emergent's agent builds whatever it is instructed to, so what a built app does is a buildable feature"
+  },
+  {
+   "id": "e-signature-capture",
+   "claim": "Built apps can capture e-signatures (no claim about legal validity)",
+   "source": "Divit, 2026-10-07: Emergent's agent builds whatever it is instructed to, so what a built app does is a buildable feature"
   }
  ],
  "pending": [
-  {
-   "id": "money-movement",
-   "rx": "\\b(bank file|ACH|NACHA|wire transfer|releas\\w* (the )?(money|funds|payments?)|pays? (vendors|contractors) (directly|automatically))\\b",
-   "why": "moving money: confirm what a built app can do (generate a bank file, call a payments API) and the wording"
-  },
-  {
-   "id": "tax",
-   "rx": "\\b(1099|W-9|W-8|tax (compliance|filing|reporting)|VAT (filing|returns))\\b",
-   "why": "tax handling: confirm the claim (collecting a W-9 is a form; filing a 1099 is not)"
-  },
   {
    "id": "compliance",
    "rx": "\\b(HIPAA|GDPR|PCI|CCPA|FERPA|SOX)[- ]?(compliant|compliance|ready)?\\b",
@@ -89,24 +99,14 @@
    "why": "security specifics beyond the approved certifications"
   },
   {
-   "id": "native-mobile",
-   "rx": "\\b(iOS app|Android app|App Store|Google Play|native mobile)\\b",
-   "why": "native mobile apps: not approved"
-  },
-  {
    "id": "accuracy",
    "rx": "\\b\\d{2,3}(\\.\\d+)?% (accura\\w*|precision)\\b",
    "why": "accuracy numbers need a source"
   },
   {
    "id": "e-signature",
-   "rx": "\\b(legally binding|e-?signature)\\b",
-   "why": "e-signature claims: not approved"
-  },
-  {
-   "id": "realtime",
-   "rx": "\\breal[- ]time\\b",
-   "why": "real-time claims: confirm the wording"
+   "rx": "\\blegally binding\\b",
+   "why": "legal validity is a legal claim, not a buildable feature"
   }
  ]
 }

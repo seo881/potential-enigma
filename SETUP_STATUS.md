@@ -22,6 +22,11 @@ What exists, what does not yet, and what is next. Update this file whenever a se
 | Claude Code config: `.mcp.json` (Webflow), `.claude/settings.json` (permissions), macOS-ready `ops/setup.sh`, setup guide | repo root, `docs/CLAUDE_CODE_SETUP.md` | Linux path tested; macOS path to be confirmed on Divit's machine |
 | One-shot setup for any chat | `ops/setup.sh` | fresh public clone at 28fe7fb: image bootstrap OK (20 scenes, all gates clean), keyword map rebuilt, QC smoke PASS, SETUP OK |
 
+## Dry run (started 2026-10-07)
+- Pages: accounts-payable-automation (written by the coordinator, in state images for independent review and challenge), sales-automation, employee-engagement-survey, landing-page-seo, job-application-form (written in Claude Code).
+- Competitor libraries sourced for all five: AP (Tipalti, BILL, Stampli), sales (Salesforce Sales Cloud, HubSpot Sales Hub, Outreach), employee engagement (Culture Amp, Qualtrics EmployeeXM, SurveyMonkey), landing page SEO (Unbounce, Landingi, Wix; Instapage left out because its SEO settings could not be sourced), hiring forms (Google Forms, Typeform, Jotform with resume uploads). Emergent column variants: ap, sales, employee, seo, hiring.
+- No Webflow writes until Divit approves the previews; then a single-item canary.
+
 ## Not built yet (next, in order)
 1. **Competitor libraries for every page category** (coordinator): the four libraries hold the hub-level competitors plus AP vendors; each new category (sales tools, HR survey tools, SEO tools...) is added with sources before its first page is written.
 2. **Dry run**: 5 pages end to end (write → review → images → review page → drafts → verify), then the calibration batch (10 per hub, reviewed in full by Divit), then 200 a day.
