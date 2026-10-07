@@ -3,6 +3,9 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-06
+- **FAQs come from People Also Ask** (Divit): live Google SERP per page through DataForSEO (MCP `https://mcp.dataforseo.com/mcp`, OAuth); every FAQ item carries a recorded source (PAA, related search, secondary, or the definition); QC F1-F5. SERP data stays in `private/` (git-ignored).
+- **Images on hold** (Divit): the hub palettes are not Emergent's brand colours. No image briefs or renders until the brand palette is set; then the engine's palettes change and everything re-renders. The 4 live pages' images are untouched.
+- **Wave 3 SERP report merged** into the plan: 155 more pages have their top 10; 11 pages (8 cut Rule A, 3 merges) are held as `needs-decision` and out of the queue until Divit decides; 87 pages with no Semrush data get their live SERP from DataForSEO at brief time.
 - **Image engine for all new pages** (Divit asked for it before the dry run): images come from the page's `image_brief`, rendered through layouts taken from the 16 approved v5 scenes, with the same design system and gates. Validated by rebuilding all 16 approved scenes from briefs. The 24 live images are untouched (byte-identical rebuild). Contact sheets per page are reviewed before Divit's go.
 - **Claude Code permissions:** every Webflow MCP call prompts Divit (explicit ask rule, holds in auto mode); file edits auto-approved; force-push, hard reset and reading `private/` denied. Never answer a Webflow prompt with "don't ask again".
 - **Runtime: Claude Code** (Divit), for scale only. The content standard does not change: every page human, operator grade, world class, exactly per this log and `rules/HUB_RULES.md`. It must never read as AI-written: enforced by `rules/ai_tells.json` in QC (A1 block, A2/A3/A4 flag) and the reviewer's human-voice check (HUB_RULES 2b).

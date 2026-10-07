@@ -12,6 +12,8 @@
   bulk-payload HUB --sha SHA        create_collection_items actions (100 items per action) for every approved page without an item ID
   bulk-verify HUB READBACK.json     verify every page of HUB found in a stored read-back; records item IDs and file IDs
   next STATE [HUB]                  list pages waiting in a state (for orchestrators and reviewers)
+  serp-save URL RAW.json [KEYWORD]  normalise a DataForSEO SERP result into private/serp/ (PAA, related, top 10, features)
+  serp-status [HUB]                 claimed or in-progress pages that still need a live SERP
   images URL                        render the page's image_brief into its 6 images + contact sheet (engine), state -> images
   images-batch STATE [HUB]          render every page in STATE (normally 'reviewed'); prints a summary
   publish-payload HUB               publish_collection_items actions (100 per call) for every verified cms_draft page (only after Divit's go)
@@ -95,6 +97,20 @@ def cmd_brief(args):
         for i, u in enumerate(p["top10"], 1): print(f"   {i:>2}. {u}")
     else:
         print("TOP 10 not pulled (Wave 3): get the live top 10 before writing and apply the cut rules (plan/ISSUES.md).")
+    sys.path.insert(0, os.path.join(ROOT, "plan")); import serp as S
+    live = S.load(p["url"]); prims = {q["primary"].lower(): q["url"] for q in m.values() if q["url"] != p["url"] and q.get("status") != "live-off-plan"}
+    if live:
+        print(f"LIVE SERP  DataForSEO, Google US, {live['fetched']} | features: {', '.join(live['features'])}")
+        print("PEOPLE ALSO ASK (source every FAQ question from these first; mirror the phrasing; answer in your own words):")
+        for it in live["paa"]:
+            own = next((u for k, u in prims.items() if len(k.split()) > 1 and k in it["q"].lower() and k not in p["primary"].lower()), None)
+            print(f"   - {it['q']}" + (f"   [belongs to {own}: skip, it is that page's FAQ]" if own else ""))
+        if live["related"]: print("RELATED SEARCHES (fill remaining FAQ slots and secondaries from these):\n   " + " | ".join(live["related"]))
+        if not p.get("top10") and live["organic"]: print("TOP 10 (live):\n" + "\n".join(f"   {o['rank']:>2}. {o['url']}" for o in live["organic"]))
+    else:
+        print("LIVE SERP  not captured yet. Pull it first (DataForSEO, Google organic live advanced, United States, English,")
+        print("           people_also_ask_click_depth 2) and save it: python3 ops/hubctl.py serp-save <url> <raw.json>")
+    if p.get("wave3_evidence"): print(f"WAVE 3     {p['wave3_evidence']}")
     sib = [q for q in m.values() if q["hub"] == p["hub"] and q["url"] != p["url"] and q["cluster"] == p["cluster"]]
     if sib:
         print("SIBLINGS IN THE SAME CLUSTER (do not use their primaries as headings; link to them where natural):")
@@ -238,16 +254,36 @@ def cmd_next(args):
         for url, e in sorted(load_st(hub)["pages"].items(), key=lambda x: x[1].get("queue_rank", 0)):
             if e.get("state") == state: print(f"{hub:10s} #{e.get('queue_rank','-'):<4} {url}  {e.get('note','')}")
 
+def cmd_serp_save(args):
+    url, raw = args[0], args[1]; kw = args[2] if len(args) > 2 else None
+    sys.path.insert(0, os.path.join(ROOT, "plan")); import serp as S
+    try: rawj = json.load(open(raw))
+    except ValueError: rawj = open(raw).read()
+    p, n = S.save(url, rawj, kw)
+    print(f"saved {os.path.relpath(p, ROOT)}: {len(n['paa'])} PAA questions, {len(n['related'])} related searches, {len(n['organic'])} organic, features {n['features']}")
+
+def cmd_serp_status(args):
+    sys.path.insert(0, os.path.join(ROOT, "plan")); import serp as S
+    hubs = [args[0]] if args else list(CFG["hubs"]); n = 0
+    for hub in hubs:
+        for url, e in load_st(hub)["pages"].items():
+            if e.get("state") in ("claimed", "spec", "rework") and not S.load(url): print(f"needs SERP  {url}"); n += 1
+    print(f"{n} page(s) need a live SERP")
+
 def _engine():
     sys.path.insert(0, os.path.join(ROOT, "pipeline")); import engine; return engine
 
+def _hold():
+    h = CFG.get("images_on_hold")
+    if h: sys.exit(f"images are on hold since {h['since']}: {h['why']}")
+
 def cmd_images(args):
-    url = args[0]; ok = _engine().render_spec(spath(url))
+    _hold(); url = args[0]; ok = _engine().render_spec(spath(url))
     if ok: set_state(url, "images")
     sys.exit(0 if ok else 1)
 
 def cmd_images_batch(args):
-    state = args[0]; hubs = [args[1]] if len(args) > 1 else list(CFG["hubs"]); eng = _engine(); done = bad = 0
+    _hold(); state = args[0]; hubs = [args[1]] if len(args) > 1 else list(CFG["hubs"]); eng = _engine(); done = bad = 0
     for hub in hubs:
         for url, e in sorted(load_st(hub)["pages"].items(), key=lambda x: x[1].get("queue_rank", 0)):
             if e.get("state") != state: continue
@@ -272,7 +308,7 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch}
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status}
 if __name__ == "__main__":
     if len(sys.argv) < 2 or sys.argv[1] not in CMDS: print(__doc__); sys.exit(0)
     try:

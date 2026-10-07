@@ -61,6 +61,24 @@ for _, r in fin[fin["Page type"] != "Hub page"].iterrows():
         "notes": None if pd.isna(r["Notes"]) else r["Notes"], "status": "planned",
     }
 
+# --- Wave 3 SERP report (Semrush top 10 for the 242 pages the final workbook did not pull) ---
+import os as _os
+W3 = next((c for c in [_os.environ.get("PE_WAVE3", ""), "/mnt/project/Emergent_Wave3_SERP_Report.xlsx", "private/Emergent_Wave3_SERP_Report.xlsx"] if c and _os.path.exists(c)), None)
+if W3:
+    v3 = pd.read_excel(W3, "Verdicts"); t3 = pd.read_excel(W3, "Top 10 URLs")
+    t3["url"] = t3["URL"].map(norm_url); v3["url"] = v3["URL"].map(norm_url)
+    tops3 = {r.url: [r[f"#{i}"] for i in range(1, 11) if isinstance(r[f"#{i}"], str)] for _, r in t3.iterrows()}
+    for _, r in v3.iterrows():
+        p = pages.get(r.url)
+        if not p: continue
+        verdict = str(r["Verdict"]); note = None if pd.isna(r["Evidence note"]) else str(r["Evidence note"])
+        p["verdict"] = verdict; p["wave3_evidence"] = note
+        p["top10_mix"] = f'{int(r["Issuer-owned"])} issuer-owned, {int(r["Builders / e-sign"])} builders/e-sign, {int(r["Template sites"])} template sites, {int(r["Other"])} other' if not pd.isna(r["Issuer-owned"]) else None
+        if tops3.get(r.url): p["top10"] = tops3[r.url]
+        if verdict.startswith("AMBER") and note: p["angle"] = note
+        if verdict.startswith("RED") or verdict.startswith("MERGE"): p["status"] = "needs-decision"
+        if verdict.startswith("No Semrush"): p["serp_needed"] = True
+
 # --- watch-list and intent flags: attach guidance to every page whose primary the row names ---
 wl = pd.read_excel(SRC, "Watch-list & intent flags", header=3)
 for _, r in wl.iterrows():
@@ -107,4 +125,4 @@ with open("plan/queue.csv", "w", newline="") as f:
         gap = ("playable quiz" if p["wave"] == 4 else
                "generated document (template SERP)" if docs >= 2 or "doc-template" in txt or "generated output" in txt or "letter" in p["primary"] else "")
         w.writerow([p["queue_rank"], p["hub"], p["url"], p["primary"], p["primary_msv"], p["kd"], p["total_msv"], p["wave"], p["verdict"], gap])
-print(f"pages: {len(pages)} | planned queue: {len(q)} | live-draft: {sum(p['status']=='live-draft' for p in pages.values())} | live-off-plan: {sum(p['status']=='live-off-plan' for p in pages.values())}")
+print(f"pages: {len(pages)} | planned queue: {len(q)} | live-draft: {sum(p['status']=='live-draft' for p in pages.values())} | live-off-plan: {sum(p['status']=='live-off-plan' for p in pages.values())} | needs-decision: {sum(p['status']=='needs-decision' for p in pages.values())} | need a live SERP pull: {sum(1 for p in pages.values() if p.get('serp_needed'))}" + ("" if W3 else " | (Wave 3 report not found)"))

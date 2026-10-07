@@ -21,3 +21,8 @@ Source workbook: `Emergent_Hub_Child_Pages_Final_v3.xlsx` (Divit, Semrush US, Oc
 5. 87 queue pages (mostly Form) sit on document-template SERPs (eForms, LegalTemplates, DMV PDFs): searchers expect a printable or downloadable document. 8 of the top 50 are such pages, including #1, #2, #6. Flagged in queue.csv as "generated document (template SERP)". Wave 4 pages need a playable quiz. Neither capability exists on the child templates today.
 6. AI Overviews appear on 61% of Automation and 39% of LP primary SERPs: those pages need a definition block near the top (the template's definition sits in the FAQ at the bottom).
 7. 28 unassigned clusters in "Pass 3 new page ideas" (attachment style quiz 63,900; child travel consent form 29,860; rsvp website 9,000; email automation 7,720) are not in the queue.
+
+## Wave 3 SERP report (Emergent_Wave3_SERP_Report.xlsx, Project context)
+Merged by `build_map.py` (PE_WAVE3 env or /mnt/project or private/). Verdicts: 119 builder-fit, 25 AMBER (angle carried into the brief), 87 with no Semrush data (`serp_needed`: DataForSEO at brief time), 8 cut Rule A and 3 merges held as `needs-decision`:
+cut Rule A: citizen-complaint-form, whistleblower-form, dependent-verification-form, wire-transfer-request-form, 401k-rollover-form, financial-assistance-form, hsa-reimbursement-form, dealer-application-form.
+merge: agency-landing-page into design-agency-landing-page; author-landing-page into book-landing-page; business-coaching-intake-form into life-coaching-intake-form.

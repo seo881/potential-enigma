@@ -16,9 +16,9 @@ First time on a machine: `docs/CLAUDE_CODE_SETUP.md`. On macOS, `ops/setup.sh` c
 ## Production at scale (target 200 pages/day): you are the orchestrator
 1. `bash ops/setup.sh --no-images` (Linux sandbox: drop the flag to install the image pipeline).
 2. `python3 ops/hubctl.py claim <HUB> 25 --by orchestrator` for each hub in the day's plan; commit and push the status.
-3. For each claimed page, spawn a **page-writer** subagent (one page per subagent, many in parallel). Each returns when its spec passes `qc` with TOTAL 0 and the page is in state `qc_pass`.
+3. For each claimed page, spawn a **page-writer** subagent (it first pulls the live SERP through the `dataforseo` MCP and saves it with `hubctl serp-save`) (one page per subagent, many in parallel). Each returns when its spec passes `qc` with TOTAL 0 and the page is in state `qc_pass`.
 4. For each `qc_pass` page (`hubctl next qc_pass`), spawn a **page-reviewer** subagent. It never reviews a page it wrote. It sets `reviewed` or `rework` with notes; send `rework` pages back to a writer.
-5. Image stage: `python3 ops/hubctl.py images-batch reviewed` renders every reviewed page's `image_brief` (6 images, gates, a contact sheet per page in `.cache/review/`). Read each contact sheet before Divit's review: one hero, readable text, numbers that add up, the story matching the tab copy.
+5. Image stage (ON HOLD until Emergent's brand palette is set; `hubctl images` refuses while `images_on_hold` is in config): `python3 ops/hubctl.py images-batch reviewed` renders every reviewed page's `image_brief` (6 images, gates, a contact sheet per page in `.cache/review/`). Read each contact sheet before Divit's review: one hero, readable text, numbers that add up, the story matching the tab copy.
 6. Build the daily review page for Divit (calibration batch: every page; afterwards: a random 10% plus everything flagged). Only his go moves pages to `approved`.
 7. Commit and push; `hubctl bulk-payload <HUB> --sha <sha>`; create drafts via the Webflow MCP (100 per call); read back; `hubctl bulk-verify`. Publish only on Divit's go (`hubctl publish-payload`).
 8. Log every Webflow change in `logs/<dir>.md`. Commit after every stage so any session can resume.

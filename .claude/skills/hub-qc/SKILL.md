@@ -19,7 +19,8 @@ If the repo is not set up in this chat: `git clone https://github.com/seo881/pot
 - **H** hygiene: dashes, curly quotes, "built-in", "Type II", exclamations, emoji, we/our/us, British spellings, Title Case, a/an.
 - **K** keywords: primary placement, slug, exactly one hub link in the FAQ, no external FAQ links, sibling primaries in headings (cannibalisation), secondary coverage, competitors outside the page's top 10.
 - **V/C/D** vendor numbers without a dated check, claims against `rules/claims.json`, sentences duplicated from sibling pages.
-- **I** the image brief, rendered in memory through the image engine and its gates: fit, numbers adding up, one click, balance (I1 blocks, I2 notes).
+- **F** FAQ sourced from the live SERP: every item has a recorded source that exists (F2), stays close to the searcher's phrasing (F3), and no eligible People Also Ask question is left unanswered (F4).
+- **I** the image brief (paused while images are on hold), rendered in memory through the image engine and its gates: fit, numbers adding up, one click, balance (I1 blocks, I2 notes).
 
 ## Layer 2: judgment (read the page against its brief)
 Run `python3 ops/hubctl.py brief <url>` and check, writing each as P0/P1/P2:

@@ -288,7 +288,47 @@ def check(spec, siblings):
 
     # ---------- I: image brief (rendered in memory through the engine and its gates) ----------
     frozen_spec = spec.get("status") in ("live-draft", "published")
-    if not frozen_spec:
+    # ---------- F: FAQ sourced from what people actually search (live SERP via DataForSEO) ----------
+    if not frozen_spec and fq:
+        sys.path.insert(0, os.path.join(ROOT, "plan")); import serp as S
+        live = S.load(spec["url"])
+        if not live:
+            add("P1", "F1", "faq", "no live SERP captured for this page: pull it with DataForSEO and run hubctl serp-save before writing the FAQ")
+        else:
+            srcs = {x.get("q"): x for x in spec.get("faq_sources", [])}
+            paa_q = {S.tokens(i["q"]).__str__(): i["q"] for i in live["paa"]}
+            prims = {}
+            if KMAP:
+                prims = {q["primary"].lower(): u for u, q in KMAP.items() if u != spec["url"] and q.get("status") != "live-off-plan" and len(q["primary"].split()) > 1}
+            me_secs = {norm(x["kw"]) for x in (KMAP or {}).get(spec["url"], {}).get("secondaries", [])}
+            used_paa = set()
+            for it in fq.get("items", []):
+                src = srcs.get(it["q"])
+                if not src: add("P1", "F2", "faq", f'no source recorded in faq_sources for: "{it["q"][:60]}"'); continue
+                kind, ref = src.get("source"), src.get("ref", "")
+                if kind == "paa":
+                    match = next((i["q"] for i in live["paa"] if i["q"].strip().lower() == ref.strip().lower()), None)
+                    if not match: add("P1", "F2", "faq", f'source says PAA but "{ref[:60]}" is not in the captured PAA list')
+                    else:
+                        used_paa.add(match.lower())
+                        if S.similar(it["q"], match) < 0.5: add("P1", "F3", "faq", f'"{it["q"][:50]}" drifts too far from the PAA question "{match[:50]}"; keep the searcher\'s phrasing')
+                elif kind == "related":
+                    if not any(ref.strip().lower() == r.lower() for r in live["related"]): add("P1", "F2", "faq", f'related search "{ref[:50]}" is not in the captured list')
+                elif kind == "secondary":
+                    if norm(ref) not in me_secs: add("P1", "F2", "faq", f'"{ref[:50]}" is not one of this page\'s secondaries')
+                elif kind == "definition":
+                    if norm(ref) != norm(prim): add("P1", "F2", "faq", "a definition item must define the page's primary keyword")
+                else:
+                    add("P1", "F2", "faq", f'unknown source type "{kind}" (paa, related, secondary, definition)')
+            for i in live["paa"][:8]:
+                owner = next((u for k, u in prims.items() if k in i["q"].lower() and k not in prim.lower()), None)
+                if owner: continue                     # belongs on the sibling page that owns that primary
+                if i["q"].lower() not in used_paa: add("P1", "F4", "faq", f'People Also Ask question not answered: "{i["q"]}"')
+            if not live["paa"]: add("P2", "F5", "faq", "this SERP shows no People Also Ask box; FAQ comes from related searches and secondaries")
+    on_hold = CFG.get("images_on_hold")
+    if on_hold and not frozen_spec:
+        add("P2", "I0", "images", f"image brief and rendering on hold since {on_hold['since']} (brand palette pending)")
+    if not frozen_spec and not on_hold:
         if not spec.get("image_brief"):
             add("P1", "I1", "image_brief", "missing: write the 4 tabs, cover and og per docs/IMAGE_BRIEF.md")
         else:

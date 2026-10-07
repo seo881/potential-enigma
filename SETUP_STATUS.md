@@ -26,6 +26,9 @@ What exists, what does not yet, and what is next. Update this file whenever a se
 2. **Dry run**: 5 pages end to end (write → review → images → review page → drafts → verify), then the calibration batch (10 per hub, reviewed in full by Divit), then 200 a day.
 
 ## Waiting on Divit
+- Connect DataForSEO: Claude.ai (Settings → Connectors → Add custom connector → `https://mcp.dataforseo.com/mcp` → Connect) and Claude Code (`git pull`, start `claude`, approve the `dataforseo` server, `/mcp` → dataforseo → Authenticate).
+- Emergent brand palette (or permission to read it from the site's Webflow colour variables) to lift the image hold.
+- Decide the 11 Wave 3 pages held as needs-decision (8 cut, 3 merges).
 - Install the two skills, and replace `Kickoff.md` in the Project with the updated `KICKOFF.md` (adds the writer and reviewer prompts and Claude Code mode).
 - Runtime chosen: Claude Code. Run `docs/CLAUDE_CODE_SETUP.md` on your machine and report the result of the check in step 4.
 - Rotate the keys hard-coded in the old Python pipelines (Webflow token, Google service account, Gemini proxy key).
