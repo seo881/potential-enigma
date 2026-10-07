@@ -99,6 +99,8 @@ def save(url, raw, keyword=None, merge=False):
 TOK = re.compile(r"[a-z0-9]+")
 STOP = {"a", "an", "the", "is", "are", "do", "does", "how", "what", "can", "i", "you", "to", "of", "for", "in", "on", "and", "or", "my", "your", "with", "it"}
 def tokens(s): return {t for t in TOK.findall((s or "").lower()) if t not in STOP}
+GENERIC = {"ai", "seo", "automation", "automate", "automated", "app", "apps", "software", "tool", "tools", "builder", "online", "free", "best",
+           "template", "templates", "form", "forms", "page", "pages", "survey", "surveys", "quiz", "quizzes", "workflow", "workflows", "example", "examples"}
 def similar(a, b):
     ta, tb = tokens(a), tokens(b)
     return len(ta & tb) / max(1, len(ta | tb))
@@ -123,6 +125,9 @@ def eligible(live, page, prims=None):
         for k, u in (prims or {}).items():
             if len(k.split()) > 1 and k in ql and k not in page.get("primary", "").lower(): owner = u; break
         if owner: skip.append((q, f"belongs to {owner}")); continue
-        if not (tokens(q) & want): skip.append((q, "off topic (PAA expansion drift)")); continue
+        # a shared generic word ("ai", "seo", "automation") is not enough: "How to use AI to make $10,000 a month?" is not
+        # on topic for sales automation (Divit, 2026-10-07: 10 on-topic FAQ items, never padded with drift)
+        specific = (want - GENERIC) or want
+        if not (tokens(q) & specific): skip.append((q, "off topic (PAA expansion drift)")); continue
         ok.append(it)
     return ok, skip
