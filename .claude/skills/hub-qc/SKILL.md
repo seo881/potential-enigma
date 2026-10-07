@@ -63,3 +63,9 @@ One reviewer agent may review up to 4 pages, and one challenger up to 4, never a
 
 ## Plan and sources (QC P1, P2)
 A spec without `spec.plan` (angle, four tab stories, openers, heading shapes, claims to source) is blocked, and so is any claim in the plan without a `spec.domain_sources` entry.
+
+## Efficiency and severity (Divit, 2026-10-07)
+- Agents read `hubctl pack <url> --role reviewer|challenger` plus the spec, not the full rulebook.
+- Blocking: untrue claims, unsourced statements of fact about the world, every CONTENT_DEFECTS row (repeated ideas #21 included). Note: unsourced recommendations and wording improvements. Notes never trigger rework; `hubctl metrics` proposes a rule when one recurs on 3+ pages.
+- Sources: at most 8 per page (QC P4); liveness is `hubctl sources-check` (QC P3 blocks dead or moved sources), never an agent re-reading pages.
+- QC V4: a category variant must define every table row it is used with. Engine: hero cards are held to the balance gate (max 21% pooled), images draw only reserved example domains, and the code cover is only for codes.

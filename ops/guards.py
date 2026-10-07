@@ -227,3 +227,31 @@ def rank_from_serp(raw_items, domain="emergent.sh"):
         if it.get("type") == "organic" and domain in (it.get("domain") or it.get("url") or ""):
             return it.get("rank_group") or it.get("rank_absolute"), it.get("url")
     return None, None
+
+
+# ---------------------------------------------------------------- source liveness (the automated link check; agents never re-read pages for it)
+LINKS = os.path.join(ROOT, ".cache", "linkcheck.json")
+UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"
+def link_status(url, timeout=15):
+    """ok | dead | moved (redirects away from the cited page) | blocked (403/429: the site refuses bots; unverified, not dead)."""
+    import urllib.request, urllib.error, urllib.parse
+    req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "text/html,application/pdf,*/*"})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            final = r.geturl(); a, b = urllib.parse.urlparse(url), urllib.parse.urlparse(final)
+            same = a.netloc.split(":")[0].removeprefix("www.") == b.netloc.split(":")[0].removeprefix("www.")
+            moved = not same or (a.path.rstrip("/") != b.path.rstrip("/") and b.path.count("/") < a.path.count("/"))
+            return {"status": "moved" if moved else "ok", "code": r.status, "final": final}
+    except urllib.error.HTTPError as e:
+        return {"status": "blocked" if e.code in (401, 403, 429) or 300 <= e.code < 400 else "dead", "code": e.code, "final": url}   # a redirect that needs cookies is unverified, not dead
+    except Exception as e:
+        return {"status": "dead", "code": None, "final": url, "error": type(e).__name__}
+def link_cache():
+    return json.load(open(LINKS)) if os.path.exists(LINKS) else {}
+def check_links(urls):
+    with lock("linkcheck"):
+        c = link_cache()
+        for u in urls:
+            r = link_status(u); r["checked"] = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d"); c[u] = r
+        os.makedirs(os.path.dirname(LINKS), exist_ok=True); json.dump(c, open(LINKS, "w"), indent=1)
+    return {u: c[u] for u in urls}

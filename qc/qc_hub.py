@@ -493,6 +493,15 @@ def check(spec, siblings):
                 if vk in cats and spec["table"].get("variant") != vk:
                     add("P1", "Q4", "why_table", f'these competitors are "{vk}" tools: use --variant {vk} so the Emergent column speaks to this buyer'); break
         except Exception: pass
+    # ---------- V4: a category variant defines every row it is used with (Divit, 2026-10-07: no silent hub-default fallback) ----------
+    if spec.get("table") and spec["table"].get("variant") and spec.get("status") not in ("live-draft", "published"):
+        try:
+            sys.path.insert(0, os.path.join(ROOT, "ops")); import table as _TB2
+            _var = _TB2.lib(h["repo_dir"]).get("emergent_variants", {}).get(spec["table"]["variant"], {})
+            for r_ in spec["table"].get("rows", []):
+                rid = r_.split("=", 1)[0]
+                if rid not in _var: add("P1", "V4", "why_table", f'variant "{spec["table"]["variant"]}" does not define row "{rid}", so the hub default shows: the variant must set it (Divit), or drop the row')
+        except Exception as e: add("P2", "V4", "why_table", f"variant check skipped: {e}")
     # ---------- Q5-Q8: whole-page craft. Every instance is reported, so a writer fixes the class, not one example ----------
     units = []                                   # (field, text) for every piece of copy a reader sees
     for k in ["meta_title", "meta_description", "h1", "hero_description", "features_heading", "features_subheading", "why_title",
@@ -582,6 +591,18 @@ def check(spec, siblings):
                 have = {norm(d_.get("claim", "")) for d_ in ds}
                 for c_ in plan["claims_to_source"]:
                     if norm(c_) not in have: add("P1", "P2", "domain_sources", f'claim not verified: "{c_[:80]}". Check it with a web search and record {{claim, source_url, date}} in spec.domain_sources')
+    # ---------- P3/P4: sources are live (automated link check) and few (max 8) ----------
+    if spec.get("status") not in ("live-draft", "published") and spec.get("domain_sources"):
+        sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as _G3
+        lc = _G3.link_cache(); import datetime as _dt3
+        for d_ in spec["domain_sources"]:
+            u = d_.get("source_url"); r = lc.get(u)
+            if not r or (_dt3.date.today() - _dt3.date.fromisoformat(r["checked"])).days > 7: add("P1", "P3", "domain_sources", f"not link-checked in the last 7 days: run hubctl sources-check {spec['url']} ({u[:70]})")
+            elif r["status"] in ("dead", "moved"): add("P1", "P3", "domain_sources", f"source is {r['status']} ({r.get('code')}): {u[:70]}" + (f" -> {r['final'][:60]}" if r["status"] == "moved" else "") + ". Replace it or cut the claim")
+            elif r["status"] == "blocked": add("P2", "P3", "domain_sources", f"source refuses automated checks ({r.get('code')}), unverified: {u[:70]}")
+        n_src = len({d_.get("source_url") for d_ in spec["domain_sources"]})
+        started = (spec.get("history") or [{}])[0].get("t", "")
+        if n_src > 8: add("P1" if started >= "2026-10-07 14:30 UTC" else "P2", "P4", "domain_sources", f"{n_src} sources (max 8 per page): keep the ones the copy needs, primary first")
     # ---------- R: the reviewer's scored rubric must pass before a page moves past review ----------
     try:
         st_ = json.load(open(os.path.join(ROOT, "status", f"{h['repo_dir']}.json")))["pages"].get(spec["url"], {}).get("state")

@@ -4,7 +4,7 @@ description: Independently reviews one to four Emergent build-hub child pages (c
 skills:
   - hub-qc
 ---
-You review one to four child pages, given their URLs; review each page separately and completely, as if it were the only one. Work in the repo root. On macOS use `.venv/bin/python3` wherever these steps say `python3`. The standard is a senior human writer's: never let the page read as AI-written (`rules/HUB_RULES.md` 2b). Every review cycle uses a new reviewer agent; `hubctl review` refuses an agent that has reviewed the page before.
+Start each page with `python3 ops/hubctl.py pack <url> --role reviewer` and read that pack plus the spec, instead of the full rulebook. You review one to four child pages, given their URLs; review each page separately and completely, as if it were the only one. Work in the repo root. On macOS use `.venv/bin/python3` wherever these steps say `python3`. The standard is a senior human writer's: never let the page read as AI-written (`rules/HUB_RULES.md` 2b). Every review cycle uses a new reviewer agent; `hubctl review` refuses an agent that has reviewed the page before.
 1. Re-run `python3 ops/hubctl.py qc <url>`; anything above TOTAL 0 is an automatic rework.
 2. **Read the page cold first.** Before you look at earlier review notes or challenge findings, read the whole spec and the contact sheet as a first-time reader would, and run the judgment pass in the hub-qc skill against `python3 ops/hubctl.py brief <url>`: intent vs the top 10, the AMBER angle, promise vs delivery, truth of every claim and number, depth, distinctness from sibling pages, image brief consistent with the tab copy.
 3. **Then verify earlier fixes.** Read the earlier notes (`status/`, the spec's `review`, `reviews` and `challenge` records) and confirm each one is fixed everywhere, not only where it was noted.
@@ -19,3 +19,5 @@ You review one to four child pages, given their URLs; review each page separatel
 ```
    hubctl rejects findings without a cited rule. Blocking findings send the page to rework; notes are kept in `spec.review_notes`.
 Return per page: url, verdict, rubric n/10, blocking count, note count, and each blocking finding with its rule. Do not touch Webflow.
+
+**Severity (Divit, 2026-10-07).** Blocking: anything untrue, an unsourced statement of fact about the world (HUB_RULES 8), any CONTENT_DEFECTS row including repeated ideas (#21), anything the page cannot ship with. Note: an unsourced recommendation, a wording improvement, anything that breaks no rule badly enough to block. Notes never trigger rework. Do not open sources to test whether they load (that is `hubctl sources-check`); open one only to check what a stretched claim actually says.

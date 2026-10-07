@@ -119,7 +119,7 @@ This is how "the image holds any variance" against "the copy sets a 2% tolerance
 ## Covers (800x500, carousel card) and share image
 - `action`: `channel`, `title`, `sub`, `primary`, `secondary` (approval-style).
 - `confirm`: `title`, `button`, `icon` (browser with a big check).
-- `code`: `title`, `label`, `code`, `foot` (approved + code).
+- `code`: `title`, `label`, `code`, `foot` (approved + code). Only for a real code such as SAVE20 (engine-checked, row 31).
 - `score`: `title`, `stars` (optional), `label`, `value`, `delta`. With `stars`, a rating card; without, a shorter metric card (title, the metric and its delta), centred with no empty band.
 - `og`: `headline` (wraps to a 480px column, max 3 lines, no one-word last line; set `lines` to break it by hand).
 
@@ -127,7 +127,7 @@ This is how "the image holds any variance" against "the copy sets a 2% tolerance
 1. Everything must fit at the approved sizes; the lint names the field and the overflow. Shorten the words.
 2. Numbers add up (line items and totals, budgets); one `live` step; one click; 4 tabs exactly.
 3. Alt text: specific, one or two sentences, no "image of"; it becomes the CMS alt text.
-4. A panel under 55% full is flagged as looking empty: add a block or choose a tighter recipe.
+4. A panel under 55% full is flagged as looking empty: add a block or choose a tighter recipe. Hero cards are gated too: at most 21% pooled empty space (row 28).
 5. One moment per tab, frozen at its most informative point; the hero is that moment.
-6. Fictional people and companies (Northwind, Globex, Initech, Acme); real brands only as tools (Slack, Xero, HubSpot). Never a name that borrows third-party IP (Umbrella Co, Hooli, Stark, Vandelay, Dunder Mifflin, Wayne, Cyberdyne, Pied Piper). One company plays one role per page across all tabs (catalogue rows 23-24).
+6. Fictional people and companies (Northwind, Globex, Initech, Acme); real brands only as tools (Slack, Xero, HubSpot). Never a name that borrows third-party IP (Umbrella Co, Hooli, Stark, Vandelay, Dunder Mifflin, Wayne, Cyberdyne, Pied Piper). One company plays one role per page across all tabs (catalogue rows 23-24). Names never map ethnicity, gender or age onto a negative outcome (row 29). Domains and emails drawn in an image use reserved example domains only: northwind.example, maya@lumen.example, example.com (row 30, engine-checked).
 7. The story matches the tab copy word for word on names, numbers and outcomes. The engine checks the `story` links (I4); the reviewer checks the rest on the contact sheet.

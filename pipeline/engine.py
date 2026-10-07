@@ -62,6 +62,9 @@ def flow(blocks, x, y, w, h, where, top_gap=24, max_gap=40):
     pooled = (h - hs[0]) / h if n == 1 else max(0.0, h - sum(hs) - max_gap * (n - 1)) / h
     if "hero" not in where and pooled > 0.165:
         CTX.setdefault("balance", []).append(f"{CTX['where']}{where}: {pooled:.0%} of the panel is empty space pooled in one place (max 16%); add a block, a row or a richer element so the panel reads full")
+    # Hero cards are airier by design: the 16 approved scenes pool at most 21% (calibrated 2026-10-07, Divit's hero-gate decision)
+    if "hero" in where and pooled > 0.215:
+        CTX.setdefault("balance", []).append(f"{CTX['where']}{where}: the hero card is {pooled:.0%} empty space pooled in one place (max 21%); add a line, an action or a block, or use a shorter card")
     return s, used
 
 def panel_box(x, y, w, h, pad=28): return (x + pad, y + pad, w - 2 * pad, h - 2 * pad)
@@ -324,6 +327,18 @@ def check_story(spec, br, texts):
                 issues.append(f'story: tab {i}: the image draws the rule "{r}" but no story link ties it to the copy: add one, so the copy states the same rule')
     return issues
 
+RESERVED_DOMAIN = re.compile(r"(^|\.)(example\.(com|net|org)|[a-z0-9-]+\.(example|test|invalid))$")
+DOMAIN = re.compile(r"(?<![\w.-])((?:[a-z0-9-]+\.)+(?:com|co|io|net|org|app|ai|dev|so|us|uk|biz|info|xyz|tech|store|shop))(?![\w-])", re.I)
+def check_domains(texts):
+    """Images draw only reserved example domains (RFC 2606: example.com/.net/.org, *.example, *.test), never a real one (catalogue row 30)."""
+    out = []
+    for w, t in texts.items():
+        for m in DOMAIN.finditer(" ".join(t)):
+            d_ = m.group(1).lower()
+            if not RESERVED_DOMAIN.search(d_):
+                out.append(f"{'tab ' + str(w) if isinstance(w, int) else w}: draws the domain {d_}, which may be someone's real site or email. Use a reserved example domain (northwind.example, maya@lumen.example, example.com)")
+    return sorted(set(out))
+
 def check_glyphs(texts):
     from fontTools.ttLib import TTFont
     from paths import FONT_DIR
@@ -453,7 +468,10 @@ def build_all(spec):
     except BriefError as e: issues.append(str(e))
     issues += CTX.get("balance", [])
     texts = dict(CTX.get("texts", {}))
-    issues += check_numbers(br, texts) + check_glyphs(texts) + check_story(spec, br, texts)
+    issues += check_numbers(br, texts) + check_glyphs(texts) + check_story(spec, br, texts) + (check_domains(texts) if (spec.get("fields") and not spec.get("_demo")) else [])   # reference scenes rebuild approved live images: untouched
+    cov = br.get("cover", {})
+    if cov.get("kind") == "code" and not re.fullmatch(r"[A-Z0-9][A-Z0-9-]{3,15}", str(cov.get("code", ""))):
+        issues.append(f'cover: the code card is for a referral or discount code (like SAVE20); "{cov.get("code")}" is not one. Use the action, confirm or score cover (catalogue row 31)')
     return out, issues, list(CTX.get("warn", []))
 
 def lint(spec):

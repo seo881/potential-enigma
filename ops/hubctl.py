@@ -24,6 +24,8 @@
   images-batch STATE [HUB]          render every page in STATE (normally 'reviewed'); prints a summary
   cms-check HUB READBACK.json       record which queued slugs already exist in Webflow (required within the hour before creating)
   plan-check URL                    compare the page's plan and tab headings with the hub's other specs (run before writing prose)
+  pack URL --role writer|reviewer|challenger   one compact file for that agent: brief, the rules it needs, catalogue summary, exemplar
+  sources-check URL|--all            link-check every spec.domain_sources URL (cached for QC P3)
   usage-log URL TOKENS --role R     record an agent's token usage for a page (metrics reports tokens per page)
   metrics | sample [STATE] | links HUB | lookahead HUB [N] | serp-budget | ranks-save URL RAW | ranks-report | recheck | image-regress | verify-live URL [--html F]
   publish-payload HUB               publish_collection_items actions (100 per call) for every verified cms_draft page (only after Divit's go)
@@ -483,6 +485,48 @@ def cmd_plan_check(args):
         print(f"sibling {o['url']}: angle={((o.get('plan') or {}).get('angle') or '-')[:90]} | tab H3 shapes={sorted(osh)}")
     print(f"plan-check {url}: {issues} warning(s)"); sys.exit(1 if issues else 0)
 
+def cmd_sources_check(args):
+    """Check every spec.domain_sources URL of a page (or --all in-progress pages) and cache the result for QC P3."""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    specs = [json.load(open(spath(args[0])))] if args and args[0] != "--all" else [s for s in G.all_specs() if s.get("status") not in ("live-draft", "published")]
+    bad = 0
+    for s in specs:
+        urls = sorted({d["source_url"] for d in s.get("domain_sources", []) if d.get("source_url")})
+        for u, r in G.check_links(urls).items():
+            if r["status"] != "ok": print(f"{r['status'].upper():8s} {r.get('code')} {u}" + (f" -> {r['final']}" if r["status"] == "moved" else "")); bad += r["status"] in ("dead", "moved")
+        print(f"{s['url']}: {len(urls)} sources checked")
+    sys.exit(1 if bad else 0)
+
+PACK_RULES = {"writer": ["2", "2a", "2b", "5", "6", "8"], "reviewer": ["2a", "2b", "5", "6", "8"], "challenger": ["2a", "2b", "5", "6", "8"]}
+def cmd_pack(args):
+    """One compact file per role: the brief, the rules that role needs, a one-line catalogue, the exemplar excerpt."""
+    url = args[0]; role = args[args.index("--role") + 1] if "--role" in args else "writer"
+    if role not in PACK_RULES: sys.exit(f"role must be one of {list(PACK_RULES)}")
+    hub = hub_of(url); d = CFG["hubs"][hub]["repo_dir"]; slug = url.rsplit("/", 1)[1]
+    brief = subprocess.run([sys.executable, os.path.join(ROOT, "ops", "hubctl.py"), "brief", url], capture_output=True, text=True).stdout
+    hr = open(os.path.join(ROOT, "rules", "HUB_RULES.md")).read()
+    secs = re.split(r"(?m)^(?=## )", hr); keep = [x for x in secs if re.match(r"## (\d+[a-z]?)\.", x) and re.match(r"## (\d+[a-z]?)\.", x).group(1) in PACK_RULES[role]]
+    cat = []
+    for row in re.findall(r"(?m)^\| (\d+) \| ([^|]+)\|[^|]*\|[^|]*\| ([^|]+)\| ([^|]+)\|", open(os.path.join(ROOT, "rules", "CONTENT_DEFECTS.md")).read()):
+        cat.append(f"- #{row[0]} {row[1].strip()} ({row[2].strip()}; {row[3].strip()})")
+    ex = os.path.join(ROOT, "specs", d, "_exemplar.md"); exc = open(ex).read() if os.path.exists(ex) else ""
+    exc = (" ".join(exc.split()[:900]) + " ...") if exc else "(no exemplar yet for this hub)"
+    out = [f"# {role.title()} pack: {url}", "", "Read this pack and the spec (`" + os.path.relpath(spath(url), ROOT) + "`). It replaces the full rulebook for this task.", ""]
+    if role == "writer":
+        out += ["## Your job", "Plan first (spec.plan, `hubctl plan-check`), then write. At most 8 domain_sources, primary sources, from search snippets where they suffice; `hubctl sources-check <url>` verifies the links. On rework, fix BLOCKING findings only, each as a class across the page; notes never trigger edits. Run `hubctl qc` to TOTAL 0, then `hubctl state <url> qc_pass --by <id>`.", ""]
+    else:
+        rub = json.load(open(os.path.join(ROOT, "rules", "rubric.json")))["criteria"]
+        out += ["## Rubric", *[f"- **{c['id']}**: {c['test']}" for c in rub], "",
+                "## Findings", "Each finding: criterion, rule (HUB_RULES section or CONTENT_DEFECTS row), field, quote, issue, fix, severity. A defect is a rule violation; taste is not a finding.",
+                "**Blocking:** anything untrue or unsourced that states a fact about the world (HUB_RULES 8), any catalogue row (repeated ideas, #21, included), anything the page cannot ship with. **Note:** an unsourced recommendation, a wording improvement, anything that breaks no rule badly enough to block. Notes never trigger rework; they feed the proposed-rules queue.",
+                "Source liveness is the automated link check (`hubctl sources-check`); do not re-open sources to test them, only to check what a stretched claim says.", ""]
+    out += ["## Brief", "```", brief.strip(), "```", "", "## Rules (HUB_RULES, the sections this role needs)", *[x.strip() + "\n" for x in keep],
+            "## Defect catalogue (one line per row; full rows in rules/CONTENT_DEFECTS.md)", *cat, "", "## Hub exemplar (excerpt)", exc, ""]
+    if role == "writer":
+        out += ["## Image brief", open(os.path.join(ROOT, "docs", "IMAGE_BRIEF.md")).read()]
+    p = os.path.join(ROOT, ".cache", "packs", f"{slug}.{role}.md"); os.makedirs(os.path.dirname(p), exist_ok=True); open(p, "w").write("\n".join(out))
+    print(f"{os.path.relpath(p, ROOT)}  ({len(chr(10).join(out).split())} words)")
+
 def cmd_metrics(args):
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
     m = G.metrics(); print(json.dumps(m, indent=1))
@@ -617,7 +661,7 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
         "recheck": cmd_recheck, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live}
 if __name__ == "__main__":

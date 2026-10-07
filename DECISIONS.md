@@ -3,6 +3,11 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-07
+- **Divit's decisions after cycle 5, and the efficiency target (under 350k tokens and 1.5 cycles per new page):**
+  - AP variant pricing "Credits, free to start". One more blocking-only cycle for job-application-form and landing-page-seo. Survey and sales go to Divit's preview review; on his approval each becomes its hub's exemplar.
+  - Every category variant defines every row it is used with (QC V4). Rows that were falling back (ap/sales ownership; hiring limits, data, ownership; seo seo, ownership, data, visitors; employee pricing, data, ownership) were copied verbatim from the hub defaults so no table changed; Divit to confirm or replace.
+  - Approved checks and rows 27-31: source link check (hubctl sources-check, QC P3), hero balance gate (max 21%, calibrated on the 16 approved scenes), name patterns, reserved example domains in images (page specs only; the reference scenes that rebuild the live images are untouched), code cover only for codes. Repeated ideas (#21) are blocking; unsourced advice is blocking when it states a fact about the world, a note when it is a recommendation.
+  - Efficiency: rework fixes blocking findings only, notes never trigger edits; re-source only claims a blocking finding names; at most 8 sources per page (QC P4), search snippets preferred; agents read role packs (hubctl pack) instead of the full rulebook; batch review and challenge up to 4 pages per agent.
 - **Defects are rule violations; plan before prose; sourced domain claims** (Divit, after cycle 2: every page at QC 0, fresh reviews 4-7/10):
   - Every reviewer and challenger finding names the rubric criterion, cites the HUB_RULES section or CONTENT_DEFECTS row it breaks, and is blocking or a note. hubctl rejects findings without a valid citation; only blocking findings send a page to rework; notes go to spec.review_notes, and a note that recurs on 3+ pages is proposed as a rule (hubctl metrics).
   - Writers write spec.plan first (angle vs the top 10, four tab stories, opener variety, heading shapes different from siblings, claims to source) and run hubctl plan-check; QC P1 blocks a spec without a plan.
