@@ -6,8 +6,10 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOGO = "https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg"
 def lib(d): return json.load(open(os.path.join(ROOT, "rules", "competitors", f"{d}.json")))
 def _e(s): return escape(s, quote=False)
-def render(d, vs, rows):
+def render(d, vs, rows, variant=None):
     L = lib(d); vs = list(vs)
+    EM = dict(L["emergent"]); EM.update({k: v for k, v in L.get("emergent_variants", {}).get(variant or "", {}).items() if not k.startswith("_")})
+    if variant and variant not in L.get("emergent_variants", {}): raise ValueError(f'no emergent variant "{variant}" in the {d} library')
     if len(vs) != 3: raise ValueError("pick exactly 3 competitors")
     for c in vs:
         if c not in L["competitors"]: raise ValueError(f'"{c}" is not in the {d} library; add it with sources first')
@@ -30,7 +32,7 @@ def render(d, vs, rows):
             fact = L["competitors"][c]["facts"].get(rid)
             if not fact: raise ValueError(f'{c} has no verified fact for "{rid}"; pick another row or add it with a source')
             cells.append(fact["text"])
-        out += ["      <tr>", f'        <th scope="row">{_e(label)}</th>', f'        <td class="col-brand">{_e(L["emergent"][rid])}</td>']
+        out += ["      <tr>", f'        <th scope="row">{_e(label)}</th>', f'        <td class="col-brand">{_e(EM[rid])}</td>']
         out += [f'        <td class="col-other">{_e(t)}</td>' for t in cells]
         out += ["      </tr>"]
     out += ["    </tbody>", "  </table>", "</div></div>"]

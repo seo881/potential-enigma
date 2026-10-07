@@ -12,9 +12,10 @@
   bulk-payload HUB --sha SHA        create_collection_items actions (100 items per action) for every approved page without an item ID
   bulk-verify HUB READBACK.json     verify every page of HUB found in a stored read-back; records item IDs and file IDs
   next STATE [HUB]                  list pages waiting in a state (for orchestrators and reviewers)
-  table URL --vs A,B,C --rows id[=Label],...   build the comparison table from the vetted library (rules/competitors/)
+  table URL --vs A,B,C --rows id[=Label],... [--variant CAT]   build the comparison table from the vetted library (rules/competitors/)
   library HUB                       list the library: competitors, categories, dimensions, fact ages
   serp-save URL RAW.json [KEYWORD]  normalise a DataForSEO SERP result into private/serp/ (PAA, related, top 10, features)
+  serp-keywords URL RAW.json       add DataForSEO keyword ideas (related keywords) to the page's SERP capture
   serp-status [HUB]                 claimed or in-progress pages that still need a live SERP
   images URL                        render the page's image_brief into its 6 images + contact sheet (engine), state -> images
   images-batch STATE [HUB]          render every page in STATE (normally 'reviewed'); prints a summary
@@ -107,6 +108,7 @@ def cmd_brief(args):
         ok, skip = S.eligible(live, p, prims)
         for it in ok: print(f"   - {it['q']}")
         for q_, why in skip: print(f"   x {q_}   [skip: {why}]")
+        if live.get("keywords"): print("KEYWORD IDEAS (DataForSEO; more FAQ sources once PAA and secondaries are used):\n   " + " | ".join(f"{k['kw']} ({k['msv']})" for k in live["keywords"][:25]))
         if live["related"]: print("RELATED SEARCHES (fill remaining FAQ slots and secondaries from these):\n   " + " | ".join(live["related"]))
         if not p.get("top10") and live["organic"]: print("TOP 10 (live):\n" + "\n".join(f"   {o['rank']:>2}. {o['url']}" for o in live["organic"]))
     else:
@@ -264,6 +266,12 @@ def cmd_serp_save(args):
     p, n = S.save(url, rawj, kw)
     print(f"saved {os.path.relpath(p, ROOT)}: {len(n['paa'])} PAA questions, {len(n['related'])} related searches, {len(n['organic'])} organic, features {n['features']}")
 
+def cmd_serp_keywords(args):
+    sys.path.insert(0, os.path.join(ROOT, "plan")); import serp as S
+    try: rawj = json.load(open(args[1]))
+    except ValueError: rawj = open(args[1]).read()
+    p, n = S.save(args[0], rawj, merge=True); print(f"added {len(n['keywords'])} keyword ideas to {os.path.relpath(p, ROOT)}")
+
 def cmd_serp_status(args):
     sys.path.insert(0, os.path.join(ROOT, "plan")); import serp as S
     hubs = [args[0]] if args else list(CFG["hubs"]); n = 0
@@ -275,8 +283,9 @@ def cmd_serp_status(args):
 def cmd_table(args):
     url = args[0]; vs = [x.strip() for x in args[args.index("--vs") + 1].split(",")]; rows = [x.strip() for x in args[args.index("--rows") + 1].split(",")]
     sys.path.insert(0, os.path.join(ROOT, "ops")); import table as TB
-    d = CFG["hubs"][hub_of(url)]["repo_dir"]; html = TB.render(d, vs, rows)
-    sp = spath(url); s = json.load(open(sp)); s["fields"]["why_table"] = html; s["table"] = {"vs": vs, "rows": rows}
+    variant = args[args.index("--variant") + 1] if "--variant" in args else None
+    d = CFG["hubs"][hub_of(url)]["repo_dir"]; html = TB.render(d, vs, rows, variant)
+    sp = spath(url); s = json.load(open(sp)); s["fields"]["why_table"] = html; s["table"] = {"vs": vs, "rows": rows, "variant": variant}
     json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
     old = TB.stale(d, vs, rows)
     print(f"table written to {os.path.relpath(sp, ROOT)}: Emergent vs {', '.join(vs)}; rows {', '.join(rows)}")
@@ -318,6 +327,19 @@ def cmd_publish_payload(args):
             s = json.load(open(spath(url)))
             if s.get("item_id"): ids.append(s["item_id"])
     if not ids: sys.exit("no verified cms_draft pages to publish")
+    # FAQ links must never point at a page that is not live (or publishing in this batch)
+    batch = {url for url, e in st["pages"].items() if e.get("state") == "cms_draft"}
+    live = set()
+    for hk in CFG["hubs"]:
+        live |= {u for u, e in load_st(hk)["pages"].items() if e.get("state") == "published"}
+    live |= {json.load(open(f)).get("url") for f in glob.glob(os.path.join(ROOT, "specs", "*", "*.json")) if json.load(open(f)).get("status") == "live-draft"}
+    for url in sorted(batch):
+        s_ = json.load(open(spath(url))); bad = []
+        for u in re.findall(r"<a href=(?:\\?\"|')https://emergent\.sh([^\"'\\]+)", s_["fields"].get("faq", "")):
+            u = u.rstrip("/")
+            if u in {v["path"] for v in CFG["hubs"].values()}: continue
+            if u not in live and u not in batch: bad.append(u)
+        if bad: print(f"WARNING {url} links to pages not live yet: {bad}. Hold it, or publish those first.", file=sys.stderr)
     for i in range(0, len(ids), 100):
         print(json.dumps([{"label": f"publish {hub} batch {i//100+1}", "publish_collection_items": {"collection_id": h["collection_id"], "request": {"items": [{"id": x} for x in ids[i:i+100]]}}}], indent=1))
 
@@ -328,7 +350,7 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library}
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords}
 if __name__ == "__main__":
     if len(sys.argv) < 2 or sys.argv[1] not in CMDS: print(__doc__); sys.exit(0)
     try:

@@ -186,7 +186,7 @@ def render_tab(hub, tab, idx=1):
     hx, hy, hw, hh = fr["hero"]
     if rid == "R5" and tab.get("hero", {}).get("h"): hh = max(240, min(360, int(tab["hero"]["h"])))
     if not tab.get("hero"): raise BriefError(f"tab {idx}: a hero card is required (the one moment)")
-    b += hero(tab["hero"], hx, hy, hw, hh)
+    b += '<g class="float">' + hero(tab["hero"], hx, hy, hw, hh) + '</g>'     # the one moment drifts gently; resting frame unchanged
     if "mini" in fr:
         mx_, my_, mw_, mh_ = fr["mini"]
         if rid == "R5": my_ = max(my_, hy + hh + 34)

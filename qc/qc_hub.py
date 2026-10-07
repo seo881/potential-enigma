@@ -117,7 +117,7 @@ def check(spec, siblings):
     if F.get("faq") and fq is None and not any(x["code"] == "S5" for x in I): add("P0", "S5", "faq", "window.awbFAQ object not found")
     if fq:
         n = len(fq.get("items", []))
-        if not 10 <= n <= 16: add("P1", "S5", "faq", f"{n} FAQ items (expected 10-16)")
+        if n != 15: add("P1", "S5", "faq", f"{n} FAQ items (exactly 15)")
         if not fq.get("heading"): add("P0", "S5", "faq", "FAQ heading missing")
         qs = [i.get("q", "") for i in fq.get("items", [])]
         for q in qs:
@@ -227,12 +227,34 @@ def check(spec, siblings):
         if not has(F.get("hero_description", "") + F.get("features_subheading", "")): add("P2", "K2", "hero_description", "primary not in hero or features subheading")
         if not spec["url"].endswith("/" + F.get("slug", "")): add("P0", "K3", "slug", "slug does not match the spec URL")
     if fq:
-        link_rx = re.compile(r'<a href=\\?"https://emergent\.sh' + re.escape(h["path"]) + r'\\?">([^<]+)</a>')
-        n = sum(len(link_rx.findall(i.get("a", ""))) for i in fq.get("items", []))
-        if n != 1: add("P0", "K4", "faq", f"{n} hub links in FAQ answers (exactly 1, in the 'How do I create...' answer)")
-        other = re.findall(r'<a href=\\?"(https?://[^"\\]+)', F.get("faq", ""))
-        for u in other:
-            if not u.startswith("https://emergent.sh/"): add("P0", "K4", "faq", f"external link in FAQ: {u}")
+        A_RX = re.compile(r"<a href=(?:\\?\"|')([^\"'\\]+)(?:\\?\"|')>([^<]+)</a>")
+        hub_url = "https://emergent.sh" + h["path"]; hub_items = []; extra = []
+        for idx, it in enumerate(fq.get("items", []), 1):
+            links = A_RX.findall(it.get("a", ""))
+            if len(links) > 1: add("P1", "K4", "faq", f"item {idx} has {len(links)} links (one per answer)")
+            for u, txt_ in links:
+                if not u.startswith("https://emergent.sh/"): add("P0", "K4", "faq", f"external link in FAQ: {u}"); continue
+                if u.rstrip("/") == hub_url: hub_items.append(idx); continue
+                extra.append((idx, u, txt_))
+        if len(hub_items) != 1: add("P0", "K4", "faq", f"{len(hub_items)} hub links (exactly 1, to {hub_url})")
+        elif hub_items[0] != 2: add("P1", "K4", "faq", f"the hub link sits in item {hub_items[0]}; it belongs in item 2 (the how-to-build answer)")
+        if len(extra) > 3: add("P1", "K4", "faq", f"{len(extra)} related-page links (max 3)")
+        if len(extra) < 2 and KMAP: add("P2", "K4", "faq", f"only {len(extra)} related-page link(s); link 2-3 sibling pages with exact-match anchors")
+        for idx, u, txt_ in extra:
+            path = u.replace("https://emergent.sh", "").rstrip("/")
+            if idx == 1: add("P1", "K4", "faq", "no links in item 1 (the definition)")
+            tgt = (KMAP or {}).get(path)
+            hub_paths = {v["path"] for v in CFG["hubs"].values()}
+            if path in hub_paths: continue
+            if not tgt or tgt.get("status") in ("cut", "merged", "needs-decision"):
+                add("P1", "K4", "faq", f"link target {path} is not a planned or live Emergent page"); continue
+            if txt_.strip().lower() != tgt["primary"].lower(): add("P1", "K4", "faq", f'anchor "{txt_}" must be the target page\'s keyword "{tgt["primary"]}" (exact match)')
+        # secondary keywords: the FAQ should carry as many as it can
+        if KMAP and prim:
+            secs = [x["kw"].lower() for x in KMAP.get(spec["url"], {}).get("secondaries", [])]
+            ftxt = " ".join((i.get("q", "") + " " + strip_html(i.get("a", ""))).lower() for i in fq.get("items", []))
+            got = [x for x in secs if x in ftxt]; need = min(10, len(secs))
+            if len(got) < need: add("P1", "K8", "faq", f"FAQ carries {len(got)} of {len(secs)} secondaries verbatim (need {need}); missing e.g. {[x for x in secs if x not in got][:5]}")
     body = " ".join(strip_html(v) for k, v in F.items() if isinstance(v, str) and k not in ("why_table",))
     if KMAP and prim:
         me = KMAP.get(spec["url"], {})
@@ -271,7 +293,7 @@ def check(spec, siblings):
         else:
             try:
                 sys.path.insert(0, os.path.join(ROOT, "ops")); import table as TB
-                want = TB.render(h["repo_dir"], spec["table"]["vs"], spec["table"]["rows"])
+                want = TB.render(h["repo_dir"], spec["table"]["vs"], spec["table"]["rows"], spec["table"].get("variant"))
                 if want != t: add("P1", "V2", "why_table", "the table differs from the library (hand-edited or the library changed): regenerate it with hubctl table")
                 else: table_ok = True
                 for o in TB.stale(h["repo_dir"], spec["table"]["vs"], spec["table"]["rows"]): add("P1", "V3", "why_table", f"fact needs re-checking: {o}")
@@ -341,12 +363,14 @@ def check(spec, siblings):
                         if S.similar(it["q"], match) < 0.5: add("P1", "F3", "faq", f'"{it["q"][:50]}" drifts too far from the PAA question "{match[:50]}"; keep the searcher\'s phrasing')
                 elif kind == "related":
                     if not any(ref.strip().lower() == r.lower() for r in live["related"]): add("P1", "F2", "faq", f'related search "{ref[:50]}" is not in the captured list')
+                elif kind == "keyword":
+                    if not any(ref.strip().lower() == k_["kw"].lower() for k_ in live.get("keywords", [])): add("P1", "F2", "faq", f'keyword idea "{ref[:50]}" is not in the captured DataForSEO keyword list')
                 elif kind == "secondary":
                     if norm(ref) not in me_secs: add("P1", "F2", "faq", f'"{ref[:50]}" is not one of this page\'s secondaries')
                 elif kind == "definition":
                     if norm(ref) != norm(prim): add("P1", "F2", "faq", "a definition item must define the page's primary keyword")
                 else:
-                    add("P1", "F2", "faq", f'unknown source type "{kind}" (paa, related, secondary, definition)')
+                    add("P1", "F2", "faq", f'unknown source type "{kind}" (paa, related, secondary, keyword, definition)')
             me_page = (KMAP or {}).get(spec["url"], {"primary": prim, "secondaries": []})
             ok_paa, _skip = S.eligible(live, me_page, prims)
             for i in ok_paa[:10]:

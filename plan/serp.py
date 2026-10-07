@@ -72,13 +72,25 @@ def normalize(raw, keyword=None):
         for d in _walk(data):
             if isinstance(d.get("keyword"), str): kw = d["keyword"]; break
     features.discard("people_also_ask_element")
+    keywords, seen_k = [], set()
+    for d in _walk(data):                      # DataForSEO Labs related keywords / keyword suggestions
+        kd = d.get("keyword_data") if isinstance(d.get("keyword_data"), dict) else d
+        k_ = kd.get("keyword") if isinstance(kd, dict) else None
+        info = (kd.get("keyword_info") or {}) if isinstance(kd, dict) else {}
+        vol = info.get("search_volume", kd.get("search_volume") if isinstance(kd, dict) else None)
+        if isinstance(k_, str) and vol is not None and k_.lower() not in seen_k:
+            seen_k.add(k_.lower()); keywords.append({"kw": k_, "msv": vol})
     return {"keyword": kw, "source": "dataforseo", "engine": "google", "location": "United States", "language": "en",
-            "fetched": datetime.date.today().isoformat(), "paa": paa, "related": related, "organic": organic,
+            "fetched": datetime.date.today().isoformat(), "paa": paa, "related": related, "organic": organic, "keywords": sorted(keywords, key=lambda x: -(x["msv"] or 0))[:60],
             "features": sorted(f for f in features if f not in ("organic",))}
 
-def save(url, raw, keyword=None):
+def save(url, raw, keyword=None, merge=False):
     n = normalize(raw, keyword)
-    if not n["organic"] and not n["paa"]:
+    if merge:                                   # add keyword ideas to an existing SERP capture
+        old = load(url) or {}
+        if not old: raise ValueError("capture the SERP first (hubctl serp-save), then add keyword ideas")
+        old["keywords"] = n["keywords"]; n = old
+    elif not n["organic"] and not n["paa"]:
         raise ValueError("no organic results or PAA questions found in the raw SERP; check the tool call (Google organic, live advanced, United States, en)")
     p = path(url); os.makedirs(os.path.dirname(p), exist_ok=True)
     json.dump(n, open(p, "w"), indent=1, ensure_ascii=False)
