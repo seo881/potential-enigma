@@ -38,8 +38,9 @@ Every stage runs in bulk and in parallel. A page moves through states in `status
 | 1. Claim | Orchestrator | `hubctl claim <HUB> 25 --by <id>` per hub in today's plan; commit and push status | claimed |
 | 1b. Live SERP | Writer (or orchestrator in bulk) | DataForSEO Google organic SERP for the primary (United States, English, PAA click depth 2), saved with `hubctl serp-save <url> <raw.json>`; `hubctl serp-status` lists pages still missing it | claimed |
 | 2. Write | **Writer** (one page per writer, fresh context) | Brief (now with PAA and related searches) → spec (all fields, FAQ sourced from PAA with `faq_sources`, table from the library with `hubctl table`, `image_brief`) → `hubctl qc` until TOTAL = 0 | qc_pass |
-| 3. Review | **Reviewer** (independent; never its own pages) | Code QC re-run + judgment pass (hub-qc skill) against the brief | reviewed or rework |
-| 4. Images | Orchestrator (any machine) | `hubctl images-batch reviewed`: the image engine renders every reviewed page's brief (6 images, gates, one contact sheet per page); a brief that fails goes back to `rework` | images |
+| 3. Images | Orchestrator (any machine) | `hubctl images-batch qc_pass`: renders every QC-passed page's brief (6 images, gates, contact sheets); a brief that fails goes back to `rework` | images |
+| 4a. Review | **Reviewer** (a different agent from the writer) | Rubric 10/10 with evidence on copy and images (`hubctl review`) | reviewed or rework |
+| 4b. Challenge | **Challenger** (different from writer and reviewer) | Adversarial pass that assumes a defect and hunts for it, section by section (`hubctl challenge`) | challenged or rework |
 | 5. Divit's review | Divit (page preview per page: `python3 ops/preview.py <url>`, live SVGs, tabs, FAQ, table; reading copy: `ops/review.py`) | Daily review page. First batch per hub (calibration): every page in full. Then: a random 10% of the day plus everything flagged. Rejections become rule fixes, re-run on all pending pages | approved |
 | 6. Create drafts | Orchestrator | Commit + push, `hubctl bulk-payload <HUB> --sha <sha>` → `data_cms_tool` (100 drafts per call), read back to disk, `hubctl bulk-verify` | cms_draft |
 | 7. Publish | Orchestrator, on Divit's go | `hubctl publish-payload <HUB>` (100 per call) | published |

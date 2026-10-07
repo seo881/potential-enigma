@@ -5,7 +5,7 @@ description: Quality-check Emergent build-hub child pages before they are create
 
 # hub-qc: the gate before Webflow and before publish
 
-You are an **independent reviewer**: never review a page you wrote. In bulk work, take pages with `python3 ops/hubctl.py next qc_pass <HUB>` and end each with `hubctl state <url> reviewed --note ...` or `hubctl state <url> rework --note "<field: what to fix>"`. Small, certain fixes (a typo, an article) you may make and re-run QC; anything that changes meaning goes back as rework.
+Two independent roles use this skill, and neither may be the agent that wrote the page: the **reviewer** scores the rubric (`hubctl review`, page in state `images`), then a different agent, the **challenger**, hunts for defects assuming there is at least one (`hubctl challenge`, page in state `reviewed`; see `.claude/agents/page-challenger.md`). A page reaches Divit only after both pass. Never review or challenge a page you wrote. In bulk work, take pages with `python3 ops/hubctl.py next qc_pass <HUB>` and end each with `hubctl state <url> reviewed --note ...` or `hubctl state <url> rework --note "<field: what to fix>"`. Small, certain fixes (a typo, an article) you may make and re-run QC; anything that changes meaning goes back as rework.
 
 Prime directive: a page moves forward only at QC TOTAL = 0 (P0 + P1). P2 items are read and either fixed or explicitly accepted in the review notes. Rules only tighten; changing one needs Divit and a dated line in `DECISIONS.md`.
 

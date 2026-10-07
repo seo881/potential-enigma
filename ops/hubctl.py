@@ -3,11 +3,12 @@
   status [HUB]                      queue and state counts (all hubs, or one)
   claim HUB N --by CHAT             claim the next N unclaimed pages of HUB in queue order
   brief URL                         keyword brief for a page (needs plan/keyword_map.json)
-  init URL                          create the spec skeleton specs/<dir>/<slug>.json
+  init URL --by WRITER-ID           create the spec skeleton specs/<dir>/<slug>.json, recording who writes it
   qc URL                            run qc/qc_hub.py on that page's spec
   state URL STATE [--note TEXT]     move a page to a new state (see STATES); 'reviewed' needs a passing rubric
   verified URL                      Divit approved the page as rendered in the real Webflow template: it joins the width calibration
-  review URL RUBRIC.json --by ID    record the reviewer's scored rubric; all pass -> reviewed, any fail -> rework with the fixes
+  review URL RUBRIC.json --by ID    record the reviewer's scored rubric (page must be in state images); all pass -> reviewed, any fail -> rework
+  challenge URL FINDINGS.json --by ID   record the adversarial pass (page must be reviewed); no defects -> challenged, any -> rework
   payload URL --sha SHA             write ops/out/<slug>.payload.json: the exact data_cms_tool action
   verify URL READBACK.json          diff a stored CMS read-back against the spec (exit 1 on mismatch)
   record URL --item-id ID [--file-id FIELD=ID ...]   store Webflow IDs after a create/import
@@ -30,9 +31,10 @@ import json, os, sys, re, glob, datetime, subprocess
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CFG = json.load(open(os.path.join(ROOT, "config", "collections.json")))
-STATES = ["claimed", "spec", "qc_pass", "reviewed", "rework", "images", "approved", "cms_draft", "published", "parked"]
-# content-first pipeline: claimed -> spec -> qc_pass (code QC = 0) -> reviewed (independent reviewer) -> images (rendered + gated)
-#   -> approved (Divit: calibration batch in full, then daily sample) -> cms_draft (bulk create) -> published (bulk publish). rework sends a page back to its writer.
+STATES = ["claimed", "spec", "qc_pass", "images", "reviewed", "challenged", "approved", "rework", "cms_draft", "published", "parked"]
+# pipeline: claimed -> spec -> qc_pass (code QC = 0) -> images (rendered + gated) -> reviewed (independent reviewer, rubric 10/10)
+#   -> challenged (independent adversarial pass, zero defects) -> approved (Divit) -> cms_draft -> published. rework sends a page back to its writer.
+# The writer, the reviewer and the challenger must be three different agents (enforced here and in QC R1/R2).
 REPO_RAW = "https://raw.githubusercontent.com/seo881/potential-enigma"
 
 def now(): return datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
@@ -130,7 +132,8 @@ def cmd_init(args):
     fields = {k: "" for k in h["fields"] if k not in CFG["image_fields"]}
     for k in CFG["optional_fields"]: fields[k] = None
     fields["slug"] = slug; fields["category"] = CFG["category_option_ids"][hub]
-    spec = {"url": url, "hub": hub, "item_id": None, "status": "spec",
+    by = args[args.index("--by") + 1] if "--by" in args else (load_st(hub)["pages"].get(url, {}).get("by") or "unknown-writer")
+    spec = {"url": url, "hub": hub, "item_id": None, "status": "spec", "written_by": by,
             "keywords": {"primary": p["primary"], "secondaries_used": []},
             "vendor_facts_checked": None,
             "fields": fields,
@@ -215,7 +218,10 @@ def cmd_review(args):
     for k, v in rub.items():
         if v.get("result") not in ("pass", "fail") or not v.get("evidence"): sys.exit(f'"{k}" needs result pass|fail and one line of evidence')
     sp = spath(url); s = json.load(open(sp))
-    s["review"] = {"by": by, "date": now(), "rubric": rub}; json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
+    st_now = load_st(hub_of(url))["pages"].get(url, {}).get("state")
+    if st_now != "images": sys.exit(f"review needs the page in state 'images' (QC passed and images rendered); it is '{st_now}'")
+    if by == s.get("written_by"): sys.exit("the reviewer cannot be the agent that wrote the page")
+    s["review"] = {"by": by, "date": now(), "rubric": rub}; s.pop("challenge", None); json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
     fails = [f"{k}: {v['evidence']}" for k, v in rub.items() if v["result"] == "fail"]
     if fails: set_state(url, "rework", note=" | ".join(fails)); print("REWORK:\n  " + "\n  ".join(fails))
     else: set_state(url, "reviewed", note=f"rubric 10/10 by {by}"); print("REVIEWED: rubric 10/10")
@@ -225,10 +231,26 @@ def cmd_verified(args):
     sys.path.insert(0, os.path.join(ROOT, "ops")); import typeset as TS; TS.calibrate()
     print(f"{url} marked as verified in the template; width ceilings recalibrated with it")
 
+def cmd_challenge(args):
+    url, ff = args[0], args[1]; by = args[args.index("--by") + 1] if "--by" in args else "challenger"
+    sp = spath(url); s = json.load(open(sp)); f = json.load(open(ff))
+    st_now = load_st(hub_of(url))["pages"].get(url, {}).get("state")
+    if st_now != "reviewed": sys.exit(f"challenge needs the page in state 'reviewed'; it is '{st_now}'")
+    if by in (s.get("written_by"), (s.get("review") or {}).get("by")): sys.exit("the challenger must be a different agent from the writer and the reviewer")
+    if not isinstance(f.get("defects"), list) or not f.get("checked"): sys.exit('findings need "defects": [...] (empty if none) and "checked": [what was examined, section by section]')
+    defects = [f"{d.get('field', '?')}: {d.get('issue', '')} -> {d.get('fix', '')}" for d in f["defects"]]
+    s["challenge"] = {"by": by, "date": now(), "result": "fail" if defects else "pass", "defects": defects, "checked": f["checked"]}
+    json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
+    if defects: set_state(url, "rework", note=" | ".join(defects)); print("REWORK:\n  " + "\n  ".join(defects))
+    else: set_state(url, "challenged", note=f"no defects found by {by}"); print("CHALLENGED: no defects found")
+
 def cmd_state(args):
     url, state = args[0], args[1]
     if state not in STATES: sys.exit(f"state must be one of {STATES}")
-    if state == "reviewed" and _rubric_ok(url): sys.exit(f"cannot mark reviewed: rubric not passed for {_rubric_ok(url)}. Use hubctl review <url> <rubric.json>.")
+    if state in ("reviewed", "challenged"): sys.exit(f"'{state}' is set only by hubctl {'review' if state == 'reviewed' else 'challenge'}, never by hand")
+    if state == "approved":
+        cur = load_st(hub_of(url))["pages"].get(url, {}).get("state")
+        if cur != "challenged": sys.exit(f"only a challenged page can be approved (this one is '{cur}')")
     note = args[args.index("--note") + 1] if "--note" in args else None
     set_state(url, state, note); print(f"{url} -> {state}")
 
@@ -376,7 +398,7 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified}
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge}
 if __name__ == "__main__":
     if len(sys.argv) < 2 or sys.argv[1] not in CMDS: print(__doc__); sys.exit(0)
     try:

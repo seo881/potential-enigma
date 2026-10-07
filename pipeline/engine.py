@@ -253,6 +253,30 @@ def check_numbers(br, texts):
             v = float(re.sub(r"[^\d.]", "", n.replace(",", "")))
             if v not in declared[w]:
                 issues.append(f"{'tab ' + str(w) if isinstance(w, int) else w}: draws {n}, which no check or fact declares. Declare it (fact if it is standalone) so every number in the image is accounted for")
+    # a "fact" must be standalone: block any fact value that other numbers in the same image produce
+    def qty_vals(w):
+        out = []
+        for n in [n.rstrip(",.") for n in NUM.findall(" ".join(texts.get(w, [])))]:
+            if re.search(r"[$£€%]|\d,\d|\d\.\d", n): out.append(float(re.sub(r"[^\d.]", "", n.replace(",", ""))))
+        return out
+    for c in br.get("checks", []):
+        if "fact" not in c: continue
+        ws = c.get("where"); ws = ws if isinstance(ws, list) else [ws]
+        for w in ws:
+            allv = qty_vals(w)
+            for fv in vals(" ".join(c["fact"] if isinstance(c["fact"], list) else [c["fact"]])):
+                others = sorted({x for x in allv if x != fv})
+                hits = []
+                for i_, a_ in enumerate(others):
+                    for b_ in others[i_ + 1:]:
+                        for label, r in (("sum", a_ + b_), ("difference", b_ - a_), ("product", a_ * b_), ("ratio", b_ / a_ if a_ else None),
+                                         ("percent", 100 * a_ / b_ if b_ else None), ("percent change", 100 * (b_ - a_) / a_ if a_ else None)):
+                            if r is not None and abs(r - fv) < 0.005 and fv not in (0, 1): hits.append(f"{label} of {a_:g} and {b_:g}")
+                    for j_, b_ in enumerate(others[i_ + 1:], i_ + 1):
+                        for c_ in others[j_ + 1:]:
+                            if abs(a_ + b_ + c_ - fv) < 0.005: hits.append(f"sum of {a_:g}, {b_:g} and {c_:g}")
+                if hits:
+                    issues.append(f"{'tab ' + str(w) if isinstance(w, int) else w}: {fv:g} is declared a standalone fact but equals the {hits[0]} drawn in the same image. Declare it as an expr, or change the mock data so it is genuinely standalone")
     for w, t in texts.items():
         if w in covered or (isinstance(w, int) and br["tabs"][w - 1].get("no_derived")): continue
         nums = [n.rstrip(",.") for n in NUM.findall(" ".join(t))]

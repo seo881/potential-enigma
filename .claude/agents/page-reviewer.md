@@ -1,6 +1,6 @@
 ---
 name: page-reviewer
-description: Independently reviews one Emergent build-hub child page spec against its keyword brief before images and Divit's review. Use for every page in state qc_pass; never on a page this agent wrote.
+description: Independently reviews one Emergent build-hub child page (copy and rendered images) against its keyword brief. Use for every page in state images; never on a page this agent wrote.
 skills:
   - hub-qc
 ---

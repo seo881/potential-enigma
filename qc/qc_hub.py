@@ -455,7 +455,7 @@ def check(spec, siblings):
             if u_ == spec["url"] or q_.get("hub") != hub: continue
             sib = set(re.findall(r"[a-z]+", q_["primary"].lower())) - own - generic
             if sib and sib <= hook:
-                add("P2", "Q3", "h1", f'H1 leans on a sibling page\'s topic ("{q_["primary"]}"): make sure it states this page\'s whole job'); break
+                add("P1", "Q3", "h1", f'H1 leans on a sibling page\'s topic ("{q_["primary"]}"): state this page\'s whole job, not one part of it'); break
     if spec.get("table") and spec.get("status") not in ("live-draft", "published"):
         try:
             sys.path.insert(0, os.path.join(ROOT, "ops")); import table as _TB
@@ -469,7 +469,11 @@ def check(spec, siblings):
     try:
         st_ = json.load(open(os.path.join(ROOT, "status", f"{h['repo_dir']}.json")))["pages"].get(spec["url"], {}).get("state")
     except Exception: st_ = None
-    if st_ in ("reviewed", "images", "approved", "cms_draft", "published"):
+    if st_ in ("challenged", "approved", "cms_draft", "published"):
+        ch = spec.get("challenge") or {}
+        if ch.get("result") != "pass": add("P1", "R2", "challenge", f'adversarial challenge is {ch.get("result", "missing")}: {"; ".join(ch.get("defects", []))[:120]}')
+        if ch.get("by") and ch.get("by") in (spec.get("written_by"), (spec.get("review") or {}).get("by")): add("P1", "R2", "challenge", "the challenger must be a different agent from the writer and the reviewer")
+    if st_ in ("reviewed", "challenged", "approved", "cms_draft", "published"):
         RUB = json.load(open(os.path.join(ROOT, "rules", "rubric.json")))["criteria"]
         rv = (spec.get("review") or {}).get("rubric", {})
         for c in RUB:
