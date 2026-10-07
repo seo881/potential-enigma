@@ -23,7 +23,8 @@ Each tab:
   "kpi":   { "icon", "label", "value", "sub" },   // R10 only
   "rule":  "If X → Y",                     // R8 only
   "hero":  { ... },                        // every recipe: the one moment
-  "mini":  { "icon", "title", "sub", "kind": "ok|acc|warn" } }   // R1, R5, R6, R7, R8, R9
+  "mini":  { "icon", "title", "sub", "kind": "ok|acc|warn" },    // R1, R5, R6, R7, R8, R9
+  "story": [ { "copy": "exact phrase from this tab's copy", "image": "exact text drawn" } ] }   // every tab
 ```
 
 ## Recipes (frames)
@@ -94,11 +95,32 @@ Every quantity an image draws (money, percentages, decimals, grouped numbers) mu
 - `fact`: standalone numbers that are not derived from anything (a price, a confidence score). Never use `fact` for a total, a difference or a percentage change; the reviewer checks this.
 - `where`: the tab number (1-4) or "cover".
 
+## Story links: copy and image tell the same story (`story`)
+Every tab carries a `story` list that ties the tab copy to its image, one entry per key fact: the rule the tab is about, and every number the copy states.
+```json
+"story": [
+  {"copy": "any license due to lapse within 60 days", "image": "If a license expires within 60 days"},
+  {"copy": "more than a tenth", "image": "up more than 10%"}
+]
+```
+- `copy`: a phrase that appears word for word in that tab's copy (`tab_content_N`, heading or body).
+- `image`: text drawn in that tab's image, exactly as rendered (one text line, or a run of words across wrapped lines).
+- The numbers in the two sides must agree. Words count as numbers: "five" is 5, "a tenth" is 10, "half" is 50.
+
+The engine checks every link and QC blocks the tab (I4) when:
+1. a `copy` phrase is not in the tab copy, or an `image` text is not drawn in that tab;
+2. a linked pair states different numbers;
+3. the tab copy states a number the image never shows (draw it, or take it out of the copy);
+4. the image draws a rule (R8 `rule` banner or a `rule` block) that no story link ties to the copy;
+5. a tab has no story links at all.
+
+This is how "the image holds any variance" against "the copy sets a 2% tolerance" is caught before review: the rule drawn has to be linked to a phrase in the copy, and the numbers have to match.
+
 ## Covers (800x500, carousel card) and share image
 - `action`: `channel`, `title`, `sub`, `primary`, `secondary` (approval-style).
 - `confirm`: `title`, `button`, `icon` (browser with a big check).
 - `code`: `title`, `label`, `code`, `foot` (approved + code).
-- `score`: `title`, `stars`, `label`, `value`, `delta` (rating + metric).
+- `score`: `title`, `stars` (optional), `label`, `value`, `delta`. With `stars`, a rating card; without, a shorter metric card (title, the metric and its delta), centred with no empty band.
 - `og`: `headline` (wraps to a 480px column, max 3 lines, no one-word last line; set `lines` to break it by hand).
 
 ## Rules (the engine enforces the first four)
@@ -108,4 +130,4 @@ Every quantity an image draws (money, percentages, decimals, grouped numbers) mu
 4. A panel under 55% full is flagged as looking empty: add a block or choose a tighter recipe.
 5. One moment per tab, frozen at its most informative point; the hero is that moment.
 6. Fictional people and companies (Northwind, Globex, Initech, Acme); real brands only as tools (Slack, Xero, HubSpot).
-7. The story matches the tab copy word for word on names, numbers and outcomes. The reviewer checks this on the contact sheet.
+7. The story matches the tab copy word for word on names, numbers and outcomes. The engine checks the `story` links (I4); the reviewer checks the rest on the contact sheet.

@@ -241,7 +241,12 @@ def cmd_review(args):
     st_now = load_st(hub_of(url))["pages"].get(url, {}).get("state")
     if st_now != "images": sys.exit(f"review needs the page in state 'images' (QC passed and images rendered); it is '{st_now}'")
     if by == s.get("written_by"): sys.exit("the reviewer cannot be the agent that wrote the page")
-    s["review"] = {"by": by, "date": now(), "rubric": rub}; s.pop("challenge", None); json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
+    if by in {h.get("by") for h in s.get("reviews", [])} | {(s.get("review") or {}).get("by")}: sys.exit("every review cycle needs a new reviewer agent that reads the page cold; this one has reviewed it before")
+    if s.get("review"): s.setdefault("reviews", []).append({k: v for k, v in s["review"].items() if k != "rubric"} | {"result": "pass" if all(v.get("result") == "pass" for v in s["review"]["rubric"].values()) else "fail"})
+    ch_ = s.pop("challenge", None)
+    if ch_ and not any(c.get("by") == ch_.get("by") and c.get("date") == ch_.get("date") for c in s.get("challenges", [])):
+        s.setdefault("challenges", []).append({"by": ch_.get("by"), "date": ch_.get("date"), "result": ch_.get("result"), "defects": len(ch_.get("defects", []))})
+    s["review"] = {"by": by, "date": now(), "rubric": rub}; json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
     fails = [f"{k}: {v['evidence']}" for k, v in rub.items() if v["result"] == "fail"]
     if fails: set_state(url, "rework", note=" | ".join(fails), via="review", by=by); print("REWORK:\n  " + "\n  ".join(fails))
     else: set_state(url, "reviewed", note=f"rubric 10/10 by {by}", via="review", by=by); print("REVIEWED: rubric 10/10")
@@ -257,9 +262,11 @@ def cmd_challenge(args):
     st_now = load_st(hub_of(url))["pages"].get(url, {}).get("state")
     if st_now != "reviewed": sys.exit(f"challenge needs the page in state 'reviewed'; it is '{st_now}'")
     if by in (s.get("written_by"), (s.get("review") or {}).get("by")): sys.exit("the challenger must be a different agent from the writer and the reviewer")
+    if by in {h.get("by") for h in s.get("challenges", [])} | {(s.get("challenge") or {}).get("by")}: sys.exit("every cycle needs a new challenger agent; this one has challenged the page before")
     if not isinstance(f.get("defects"), list) or not f.get("checked"): sys.exit('findings need "defects": [...] (empty if none) and "checked": [what was examined, section by section]')
     defects = [f"{d.get('field', '?')}: {d.get('issue', '')} -> {d.get('fix', '')}" for d in f["defects"]]
     s["challenge"] = {"by": by, "date": now(), "result": "fail" if defects else "pass", "defects": defects, "checked": f["checked"]}
+    s.setdefault("challenges", []).append({"by": by, "date": s["challenge"]["date"], "result": s["challenge"]["result"], "defects": len(defects)})
     json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
     if defects: set_state(url, "rework", note=" | ".join(defects), via="challenge", by=by); print("REWORK:\n  " + "\n  ".join(defects))
     else: set_state(url, "challenged", note=f"no defects found by {by}", via="challenge", by=by); print("CHALLENGED: no defects found")
@@ -274,6 +281,12 @@ def cmd_state(args):
         sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
         sp = spath(url); s = json.load(open(sp)); s["approval"] = {"fingerprint": G.fingerprint(s), "date": now(), "rules_version": G.rules_version()}
         json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
+        ex = os.path.join(os.path.dirname(sp), "_exemplar.md")
+        if not os.path.exists(ex):
+            import review as RV
+            open(ex, "w").write(f"# Hub exemplar: {url}\n\nThe first page in this hub to pass review and challenge and be approved by Divit ({now()}). "
+                                "Writers read it before writing: match its standard, not its words (QC D1/D2 block copied sentences).\n\n" + RV.page(url) + "\n")
+            print(f"hub exemplar written: {os.path.relpath(ex, ROOT)}")
     note = args[args.index("--note") + 1] if "--note" in args else None
     set_state(url, state, note); print(f"{url} -> {state}")
 
@@ -352,7 +365,10 @@ def cmd_serp_keywords(args):
     sys.path.insert(0, os.path.join(ROOT, "plan")); import serp as S
     try: rawj = json.load(open(args[1]))
     except ValueError: rawj = open(args[1]).read()
-    p, n = S.save(args[0], rawj, merge=True); print(f"added {len(n['keywords'])} keyword ideas to {os.path.relpath(p, ROOT)}")
+    p, n = S.save(args[0], rawj, merge=True)
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G; used = G.budget_use()
+    print(f"(DataForSEO calls today: {used})")
+    print(f"added {len(n['keywords'])} keyword ideas to {os.path.relpath(p, ROOT)}")
 
 def cmd_serp_status(args):
     sys.path.insert(0, os.path.join(ROOT, "plan")); import serp as S

@@ -285,6 +285,45 @@ def check_numbers(br, texts):
             issues.append(f"{'tab ' + str(w) if isinstance(w, int) else w}: shows {len(nums)} numbers ({', '.join(nums[:4])}...) but declares no checks. Add image_brief.checks for every derived value (totals, differences, percentages, counts), or set no_derived: true on the tab if none is derived")
     return issues
 
+WORD_NUM = {"two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12,
+            "fifteen": 15, "twenty": 20, "thirty": 30, "tenth": 10, "half": 50, "quarter": 25}
+def _story_norm(s):
+    from html import unescape
+    return re.sub(r"\s+", " ", unescape(re.sub(r"<[^>]+>", " ", s or ""))).strip().lower()
+def _digits(s): return {float(x.replace(",", "")) for x in re.findall(r"(?<![\w:\-/])\d[\d,]*(?:\.\d+)?", s)}
+def _story_nums(s): return _digits(s) | {float(v) for w, v in WORD_NUM.items() if re.search(r"\b" + w + r"\b", s)}
+def _rules_drawn(tab):
+    out = [tab["rule"]] if tab.get("rule") else []
+    def walk(o):
+        if isinstance(o, dict):
+            if o.get("type") == "rule" and o.get("text"): out.append(o["text"])
+            for v in o.values(): walk(v)
+        elif isinstance(o, list):
+            for v in o: walk(v)
+    walk({k: v for k, v in tab.items() if k != "rule"}); return out
+def check_story(spec, br, texts):
+    """Copy-to-image story links: each tab's key rule and numbers must be in both the tab copy and the image (docs/IMAGE_BRIEF.md)."""
+    F = spec.get("fields") or {}
+    if spec.get("_demo") or not F.get("tab_content_1"): return []
+    issues = []
+    for i, tab in enumerate(br["tabs"], 1):
+        copy = _story_norm(F.get(f"tab_content_{i}", "")); drawn = _story_norm(" ".join(texts.get(i, [])))
+        st = tab.get("story") or []
+        if not st: issues.append(f'story: tab {i}: no story links. Add "story": [{{"copy": exact phrase from tab_content_{i}, "image": exact text drawn}}] for the tab\'s key rule and numbers'); continue
+        for e in st:
+            c, im = _story_norm(e.get("copy", "")), _story_norm(e.get("image", ""))
+            if not c or c not in copy: issues.append(f'story: tab {i}: copy "{e.get("copy", "")}" is not in tab_content_{i} word for word')
+            if not im or im not in drawn: issues.append(f'story: tab {i}: image text "{e.get("image", "")}" is not drawn in tab {i} exactly like that')
+            if c and im and _story_nums(c) != _story_nums(im):
+                issues.append(f'story: tab {i}: the numbers differ between copy "{e.get("copy", "")}" and image "{e.get("image", "")}": say the same thing in both')
+        for v in sorted(_digits(copy) - _story_nums(drawn)):
+            issues.append(f"story: tab {i}: the tab copy says {v:g} but the image never shows it: draw it, or take it out of the copy")
+        linked = [_story_norm(e.get("image", "")) for e in st]
+        for r in _rules_drawn(tab):
+            if not any(l_ and l_ in _story_norm(r) for l_ in linked):
+                issues.append(f'story: tab {i}: the image draws the rule "{r}" but no story link ties it to the copy: add one, so the copy states the same rule')
+    return issues
+
 def check_glyphs(texts):
     from fontTools.ttLib import TTFont
     from paths import FONT_DIR
@@ -322,12 +361,14 @@ def render_cover(hub, d):
         b += L.rect(X + 32, Y + 140, W_ - 64, 140, 20, L.ACC_S, L.ACC, 2.5) + T(X + 62, Y + 186, fit(d["label"], 26, 700, W_ - 124, "label"), 26, 700, L.ACC_D) + T(X + 62, Y + 250, fit(d["code"], 52, 800, W_ - 124, "code", 6), 52, 800, L.INK, ls=6)
         if d.get("foot"): b += T(X + 32, Y + 326, fit(d["foot"], 26, 600, W_ - 64, "foot"), 26, 600, L.SUB, tnum=True)
     elif k == "score":
-        X, Y, W_ = 130, 60, 540; b = H.spot(X, Y, W_, 380) + L.rect(X, Y, W_, 380, 28, "#fff", L.LINE, 1.5, "e2")
+        # with stars: the rating row sits under the title; without stars (a metric card) the card is shorter and centred
+        st_ = "stars" in d; Hc = 380 if st_ else 296; dy = 0 if st_ else -84
+        X, Y, W_ = 130, (500 - Hc) // 2 if not st_ else 60, 540; b = H.spot(X, Y, W_, Hc) + L.rect(X, Y, W_, Hc, 28, "#fff", L.LINE, 1.5, "e2")
         b += T(X + 36, Y + 76, fit(d["title"], 36, 800, W_ - 72, "title", -0.6), 36, 800, L.INK, ls=-0.6)
-        if "stars" in d: b += H.stars(X + 36, Y + 140, int(d["stars"]), 54, 14)
-        b += H.hair(X + 36, Y + 196, X + W_ - 36) + T(X + 36, Y + 262, fit(d["label"], 28, 700, 220, "label"), 28, 700, L.MUTED) + T(X + 36, Y + 330, fit(d["value"], 60, 800, 260, "value", -1.5), 60, 800, L.INK, ls=-1.5, tnum=True)
+        if st_: b += H.stars(X + 36, Y + 140, int(d["stars"]), 54, 14)
+        b += H.hair(X + 36, Y + 196 + dy, X + W_ - 36) + T(X + 36, Y + 262 + dy, fit(d["label"], 28, 700, 220, "label"), 28, 700, L.MUTED) + T(X + 36, Y + 330 + dy, fit(d["value"], 60, 800, 260, "value", -1.5), 60, 800, L.INK, ls=-1.5, tnum=True)
         if d.get("delta"):
-            lab = d["delta"]; cw = int(tw(lab, 26, 600) + 56); b += B.chip(X + W_ - 36 - cw, Y + 282, lab, d.get("delta_kind", "ok"), cw, 52, 26)
+            lab = d["delta"]; cw = int(tw(lab, 26, 600) + 56); b += B.chip(X + W_ - 36 - cw, Y + 282 + dy, lab, d.get("delta_kind", "ok"), cw, 52, 26)
     else:
         raise BriefError('cover.kind must be one of "action", "confirm", "code", "score"')
     alt = d.get("alt", "").strip()
@@ -412,7 +453,7 @@ def build_all(spec):
     except BriefError as e: issues.append(str(e))
     issues += CTX.get("balance", [])
     texts = dict(CTX.get("texts", {}))
-    issues += check_numbers(br, texts) + check_glyphs(texts)
+    issues += check_numbers(br, texts) + check_glyphs(texts) + check_story(spec, br, texts)
     return out, issues, list(CTX.get("warn", []))
 
 def lint(spec):

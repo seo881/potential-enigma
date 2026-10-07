@@ -35,6 +35,9 @@ def faq_obj(s):
 def mockup_keys(s):
     m = re.search(r"window\.awbMockup\s*=\s*\{(.*)\}\s*;", s or "", re.S)
     return re.findall(r'(?:^|,)\s*([A-Za-z0-9_]+)\s*:\s*"', m.group(1)) if m else None
+def sents_of(s): return [x.strip() for x in re.split(r"(?<=[.?!])\s+", (s or "").strip()) if x.strip()]
+def _stem(w): return w[:-1] if len(w) > 3 and w.endswith("s") and not w.endswith("ss") else w
+def kw_bag(s): return {_stem(w) for w in re.findall(r"[a-z0-9]+", (s or "").lower())}
 def title_px(s):
     try:
         from PIL import ImageFont
@@ -203,9 +206,11 @@ def check(spec, siblings):
                 if re.search(r"!(?!=)", plain): add("P0", "H1", k, label)
                 continue
             if re.search(rx, plain): add("P0", "H1", k, label)
-        voice = plain
+        # quoted form-field labels ("May we contact your employer?") are the form's words, not Emergent's voice
+        voice = strip_html((re.compile(r'\\"[^"\\]{1,80}\\"') if k == "faq" else re.compile(r'"[^"]{1,80}"')).sub(" ", txt))
         if k == "mockup": voice = ""   # user-voice prompts may say "my"
         for m in WE_OUR.finditer(voice):
+            if m.group(0) == "US": continue   # the country, not the pronoun
             add("P0", "H1", k, f'"{m.group(0)}" (write "Emergent" or "Emergent\'s"; never we/our)')
         for w_ in re.findall(r"[A-Za-z]+", plain):
             lw = w_.lower()
@@ -249,12 +254,30 @@ def check(spec, siblings):
             if not tgt or tgt.get("status") in ("cut", "merged", "needs-decision"):
                 add("P1", "K4", "faq", f"link target {path} is not a planned or live Emergent page"); continue
             if txt_.strip().lower() != tgt["primary"].lower(): add("P1", "K4", "faq", f'anchor "{txt_}" must be the target page\'s keyword "{tgt["primary"]}" (exact match)')
-        # secondary keywords: the FAQ should carry as many as it can
+        # secondary keywords: the FAQ should carry as many as it can. A secondary counts when all its words sit in one
+        # sentence, in any order, so writers never force an awkward exact string.
         if KMAP and prim:
             secs = [x["kw"].lower() for x in KMAP.get(spec["url"], {}).get("secondaries", [])]
-            ftxt = " ".join((i.get("q", "") + " " + strip_html(i.get("a", ""))).lower() for i in fq.get("items", []))
-            got = [x for x in secs if x in ftxt]; need = min(6, len(secs))
-            if len(got) < need: add("P1", "K8", "faq", f"FAQ carries {len(got)} of {len(secs)} secondaries verbatim (need {need}); missing e.g. {[x for x in secs if x not in got][:5]}")
+            fsents = []
+            for it_ in fq.get("items", []):
+                fsents.append(it_.get("q", "")); fsents += sents_of(strip_html(it_.get("a", "")))
+            fbags = [kw_bag(x) for x in fsents]
+            got = [x for x in secs if any(kw_bag(x) <= b_ for b_ in fbags)]; need = min(6, len(secs))
+            if len(got) < need: add("P1", "K8", "faq", f"FAQ carries {len(got)} of {len(secs)} secondaries (all words in one sentence, any order; need {need}); missing e.g. {[x for x in secs if x not in got][:5]}")
+            # two secondaries in back-to-back sentences of one answer reads as keyword stuffing
+            def sec_hits(sent):                  # verbatim secondaries, longest first; one inside the primary or a longer secondary does not count
+                low = " " + sent.lower() + " "; out = set()
+                for x in sorted(set(secs) | {prim.lower()}, key=len, reverse=True):
+                    rx = r"(?<![a-z0-9])" + re.escape(x) + r"(?![a-z0-9])"
+                    if re.search(rx, low):
+                        if x != prim.lower(): out.add(x)
+                        low = re.sub(rx, " | ", low)
+                return out
+            for idx, it_ in enumerate(fq.get("items", []), 1):
+                ss = sents_of(strip_html(it_.get("a", ""))); hits = [sec_hits(x_) for x_ in ss]
+                for j in range(len(ss) - 1):
+                    pair = next(((p, q) for p in sorted(hits[j]) for q in sorted(hits[j + 1]) if p != q), None)
+                    if pair: add("P1", "K8", f"faq item {idx}", f'secondaries "{pair[0]}" and "{pair[1]}" in back-to-back sentences read as keyword stuffing: "{ss[j][:50]}" / "{ss[j + 1][:50]}"')
     body = " ".join(strip_html(v) for k, v in F.items() if isinstance(v, str) and k not in ("why_table",))
     if KMAP and prim:
         me = KMAP.get(spec["url"], {})
@@ -386,7 +409,7 @@ def check(spec, siblings):
             try:
                 sys.path.insert(0, os.path.join(ROOT, "pipeline")); import engine
                 iss, notes = engine.lint(spec)
-                for x in iss: add("P1", "I1", "image_brief", x)
+                for x in iss: add("P1", "I4" if x.startswith("story:") else "I1", "image_brief", x)
                 for x in notes: add("P2", "I2", "image_brief", x)
             except Exception as e:
                 add("P2", "I0", "image_brief", f"image lint skipped ({type(e).__name__}: {e}); run bash ops/setup.sh")
@@ -465,6 +488,74 @@ def check(spec, siblings):
                 if vk in cats and spec["table"].get("variant") != vk:
                     add("P1", "Q4", "why_table", f'these competitors are "{vk}" tools: use --variant {vk} so the Emergent column speaks to this buyer'); break
         except Exception: pass
+    # ---------- Q5-Q8: whole-page craft. Every instance is reported, so a writer fixes the class, not one example ----------
+    units = []                                   # (field, text) for every piece of copy a reader sees
+    for k in ["meta_title", "meta_description", "h1", "hero_description", "features_heading", "features_subheading", "why_title",
+              "why_description", "usecase_heading", "howto_title", "howto_description"]:
+        if F.get(k): units.append((k, strip_html(F[k]).strip()))
+    for k in [f"feature_{i}" for i in range(1, 7)] + [f"tab_content_{i}" for i in range(1, 5)]:
+        pr = h3p(F.get(k, ""))
+        if pr: units.append((k, strip_html(pr[0]).strip() + ". " + strip_html(pr[1]).strip()))
+    for i in range(1, 8):
+        for suf in ("title", "des"):
+            if F.get(f"howto_step_{i}_{suf}"): units.append((f"howto_step_{i}_{suf}", strip_html(F[f"howto_step_{i}_{suf}"]).strip()))
+    for i_, it in enumerate((fq or {}).get("items", []), 1):
+        units.append((f"faq item {i_}", it.get("q", "").strip() + " " + strip_html(it.get("a", "")).strip()))
+    # Q5 tacked-on endings
+    TAIL = re.compile(r"\b(?:and )?(?:which|that) is what\b", re.I)
+    SO_TAIL = re.compile(r",\s+so\s+(?!far\b|on\b|much\b|many\b|long\b)", re.I)
+    so_hits = []
+    for lab, tx in units:
+        for x in sents_of(tx):
+            m_ = TAIL.search(x)
+            if m_: add("P1", "Q5", lab, f'tacked-on "{m_.group(0)}" clause: end the sentence on its point: "{x[:90]}"')
+            if SO_TAIL.search(x): so_hits.append((lab, x))
+    for lab, x in so_hits:
+        add("P1" if len(so_hits) > 2 else "P2", "Q5", lab, f'", so" ending ({len(so_hits)} on the page; more than 2 blocks): "{x[:90]}"')
+    # Q6 repetition inside the page: a 6-word phrase in two different fields (the page's own keywords excluded)
+    own_kws = sorted({prim.lower()} | {x["kw"].lower() for x in (KMAP or {}).get(spec["url"], {}).get("secondaries", [])}, key=len, reverse=True) if prim else []
+    grams = {}                                   # gram -> {field: [(segment id, position)]}
+    seg_tokens = {}
+    for lab, tx in units:
+        for si, x in enumerate(sents_of(tx)):
+            low = " " + x.lower() + " "
+            for kw_ in own_kws:
+                low = re.sub(r"(?<![a-z0-9])" + re.escape(kw_) + r"(?![a-z0-9])", " | ", low)
+            for gi, seg in enumerate(low.split("|")):
+                tk = re.findall(r"[a-z0-9$%][a-z0-9$%'\-]*", seg); sid = (lab, si, gi); seg_tokens[sid] = tk
+                for p in range(len(tk) - 5):
+                    grams.setdefault(" ".join(tk[p:p + 6]), {}).setdefault(lab, []).append((sid, p))
+    rep = {}                                     # (field, segment) -> set of start positions that repeat elsewhere
+    for g, where in grams.items():
+        if len(where) < 2: continue
+        for lab, occ in where.items():
+            for sid, p in occ: rep.setdefault(sid, set()).add(p)
+    found = {}                                   # maximal repeated phrase -> fields it appears in
+    for sid, ps in rep.items():
+        ps = sorted(ps); runs = [[ps[0], ps[0]]]
+        for p in ps[1:]:
+            if p <= runs[-1][1] + 1: runs[-1][1] = p
+            else: runs.append([p, p])
+        tk = seg_tokens[sid]
+        for a_, b_ in runs:
+            fields = set()
+            for p in range(a_, b_ + 1): fields |= set(grams[" ".join(tk[p:p + 6])])
+            phrase = " ".join(tk[a_:b_ + 6]); found[phrase] = found.get(phrase, set()) | fields
+    for phrase, fields in found.items():
+        if any(phrase != o and phrase in o for o in found): continue
+        add("P1", "Q6", ", ".join(sorted(fields)), f'"{phrase}" appears in {len(fields)} fields: say it once, and give the other field its own point')
+    # Q7 "from X to Y" ranges
+    FROMTO = re.compile(r"\bfrom\s+(?:[^\s,;:.?!]+\s+){0,5}?to\s+[^\s,;:.?!]+", re.I)
+    ft = [(lab, m_.group(0)) for lab, tx in units for m_ in FROMTO.finditer(tx)]
+    if len(ft) > 3:
+        for lab, x in ft: add("P1", "Q7", lab, f'"{x}" is one of {len(ft)} "from X to Y" ranges on the page (max 3): keep only real journeys')
+    # Q8 lists of three
+    # an item is 1-3 words and does not start like a clause ("routing rule, so the form and the" is not a list)
+    ITEM = r"(?!(?:so|which|that|then|but|while|because|when|where|if|and|or|it|they|you|we|this|these|each|every)\b)[\w$%'\-]+(?:\s[\w$%'\-]+){0,2}"
+    TRIPLE = re.compile(r"(?<![\w$%'\-])" + ITEM + r",\s" + ITEM + r",?\s(?:and|or)\s[\w$%'\-]+")
+    tr = [(lab, m_.group(0)) for lab, tx in units for x in sents_of(tx) for m_ in TRIPLE.finditer(x)]
+    if len(tr) > 8:
+        for lab, x in tr: add("P2", "Q8", lab, f'"{x}" is one of {len(tr)} "A, B, and C" lists on the page (more than 8 reads templated): use pairs or one specific')
     # ---------- R: the reviewer's scored rubric must pass before a page moves past review ----------
     try:
         st_ = json.load(open(os.path.join(ROOT, "status", f"{h['repo_dir']}.json")))["pages"].get(spec["url"], {}).get("state")
