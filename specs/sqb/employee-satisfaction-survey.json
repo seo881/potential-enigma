@@ -148,6 +148,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-07 15:04 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "reviewer-batch-m5",
+   "note": "[openers | CONTENT_DEFECTS #2] features_subheading: The paragraph is a verbless noun phrase, not a sentence, and it echoes its own heading (\"What a Satisfaction Survey Needs\"). The customer-feedback sibling has the same fragment. -> Write a full sentence that says what happens, e.g. \"Emergent builds"
   }
  ],
  "plan": {
@@ -1034,147 +1041,129 @@
   "date": "2026-10-07 14:56 UTC"
  },
  "review": {
-  "by": "reviewer-batch-m3",
-  "date": "2026-10-07 14:51 UTC",
+  "by": "reviewer-batch-m5",
+  "date": "2026-10-07 15:04 UTC",
   "rubric": {
    "scope": {
     "result": "pass",
-    "evidence": "H1 \"Build an Employee Satisfaction Survey Scored by Topic\"; hero names topics, sites and shifts."
+    "evidence": "H1 \"Build an Employee Satisfaction Survey Scored by Topic\"; hero \"scores each topic by site and shift\". Satisfaction, not engagement, per the watch list."
    },
    "intent": {
     "result": "pass",
-    "evidence": "All 7 PAA answered; example questions, template, score guidance; satisfaction kept apart from engagement per watch list."
+    "evidence": "All 7 eligible PAA answered (anonymity, good score, 5 questions, honest answers, positive comments, qualities); template, questions and a 7-step how-to; Spector JSS definition."
    },
    "specificity": {
     "result": "pass",
-    "evidence": "Nurse staffing by shift, principals by school, remote equipment; employee table variant."
+    "evidence": "Nurse staffing by unit and night shift, principals limited to their own school, remote home equipment to the IT lead; employee table variant (\"per employee by module\")."
    },
    "openers": {
-    "result": "pass",
-    "evidence": "Full-sentence openers (\"Emergent writes a satisfaction item...\", \"Nurses on every unit answer...\")."
+    "result": "fail",
+    "evidence": "features_subheading \"What Emergent builds into an employee satisfaction survey, and the code you keep once it is live.\" is a fragment (#2)."
    },
    "craft": {
-    "result": "fail",
-    "evidence": "Scoring rule, confidential/anonymous, overall item, act-on topics, same wording each year restated (#21)."
+    "result": "pass",
+    "evidence": "Last cycle's restatements are gone: the scoring rule is only in feature_2, confidential vs anonymous only in step 3, the overall item only in step 2, same-wording-next-year only in step 7. Varied sentence length."
    },
    "voice": {
     "result": "pass",
-    "evidence": "\"A split team and a lukewarm team can end up with the same average.\""
+    "evidence": "\"A split team and a lukewarm team can end up with the same average.\" \"Timestamps can give people away as well, if a manager knows who was on shift at 2 a.m.\""
    },
    "truth": {
-    "result": "pass",
-    "evidence": "Spector JSS 36 items/nine facets, top-box, confidential vs anonymous, Culture Amp thresholds all sourced; tab numbers check (118/287=41%)."
+    "result": "fail",
+    "evidence": "feature_4 \"The survey never asks for those details, which keeps people in small groups harder to identify\" is an unsourced privacy best-practice claim, and doubtful when the roster ties each answer to site and shift."
    },
    "distinct": {
     "result": "pass",
-    "evidence": "Topic-scored contentment with pay, staffing, planning time; engagement owns drivers and eNPS."
+    "evidence": "Owns contentment by topic (pay last, staffing by shift, planning time); the engagement sibling owns commitment and eNPS. The shared features-heading shape is hub-wide (note)."
    },
    "faq": {
-    "result": "fail",
-    "evidence": "FAQ 3, 4 and 5 restate body fields (#18)."
+    "result": "pass",
+    "evidence": "10 real questions, answer-first (\"Only when nothing stored beside an answer points back to a person.\"); FAQ 3, 4 and 5 now add new material (double-barreled items, IP and timestamp metadata, small-team arithmetic); hub link in item 2."
    },
    "images": {
-    "result": "fail",
-    "evidence": "Cover draws \"Lowest of 7 topics\" as a green chip (#20)."
+    "result": "pass",
+    "evidence": "Cover now draws \"Lowest of 7 topics\" in red; 118/287=41%, 6/16=38%, Cedar Primary 4 answers withheld, remote equipment 43% with 34/16/10 requests: all match the copy. One hero per tab."
    }
   },
   "findings": [
    {
-    "criterion": "images",
-    "rule": "CONTENT_DEFECTS #20",
-    "field": "image_brief cover (score delta)",
-    "quote": "\"Lowest of 7 topics\" drawn as a green chip beside \"Pay, satisfied 41%\"",
-    "issue": "The page's worst result is drawn in the positive (green) style; the cover reads as good news while tab 1 and the alt say pay came in last.",
-    "fix": "Draw the delta in the bad/warn tone (engine option needed: tell the coordinator) or pick a cover whose green chip is a true positive.",
+    "criterion": "openers",
+    "rule": "CONTENT_DEFECTS #2",
+    "field": "features_subheading",
+    "quote": "\"What Emergent builds into an employee satisfaction survey, and the code you keep once it is live.\"",
+    "issue": "The paragraph is a verbless noun phrase, not a sentence, and it echoes its own heading (\"What a Satisfaction Survey Needs\"). The customer-feedback sibling has the same fragment.",
+    "fix": "Write a full sentence that says what happens, e.g. \"Emergent builds each part below from your prompt, and the code stays yours once the survey is live.\"",
     "severity": "blocking"
    },
    {
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "feature_2; tab_content_1; howto_step_6_des",
-    "quote": "feature_2 \"Each topic is scored as the share of people who chose 4 or 5 on a 1-5 scale\"; tab 1 \"Each topic's score is the share of people who answered 4 or 5\"; step 6 \"Sort topics by percent satisfied\"",
-    "issue": "The scoring rule is stated in feature 2 and again in tab 1 with words swapped (the catalogue's own example shape).",
-    "fix": "Tab 1 shows the result (pay last, the raise complaint) without restating the rule.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "feature_3; howto_step_3_des; faq item 4; faq item 7; tab_content_3",
-    "quote": "feature_3 \"the survey states which kind it is and who sees what. A group below your minimum, such as five answers, shows no results\"; step 3 \"Confidential means the system can link answers to people for reminders and team splits. Anonymous means it stores no identity\"; faq 4 \"A confidential survey knows who answered, which lets it send reminders and split results by team... An anonymous survey stores no identity at all. Read what the first screen promises and how small a group can be before results are hidden\"; faq 7 \"If the survey says who sees what\"; tab 3 \"A school with fewer than five answers shows no results\"",
-    "issue": "Confidential-vs-anonymous and the minimum group size are each restated in three to five fields; step 3 and FAQ 4 are the same explanation.",
-    "fix": "Explain confidential vs anonymous once (step 3 or FAQ 4); the other field adds something new.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "howto_description; howto_step_1_des; faq item 3",
-    "quote": "howto_description \"picking topics you are prepared to change\"; step 1 \"Write down the parts of the job leadership can act on... Leave out what you cannot touch\"; faq 3 \"Cover only topics you can act on\"",
-    "issue": "Ask-only-what-you-can-change stated three times.",
-    "fix": "Keep it in step 1.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "feature_1; howto_step_2_des; faq item 3",
-    "quote": "feature_1 \"then closes with one overall question on how people feel about the job itself\"; step 2 \"Add one overall item on the job as a whole, and keep open questions to two at most\"; faq 3 \"Close with one overall item and one open question\"",
-    "issue": "One-overall-item restated three times.",
-    "fix": "Keep it in one field.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "faq item 5; howto_step_7_des",
-    "quote": "faq 5 \"Keep the wording of an employee job satisfaction survey fixed from year to year so the comparison holds\"; step 7 \"Next year, run the same items with the same wording to see whether those scores moved\"",
-    "issue": "Same-wording-each-year told twice.",
-    "fix": "Keep it in one.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "faq",
-    "rule": "CONTENT_DEFECTS #18",
-    "field": "faq item 4; faq item 3; faq item 5",
-    "quote": "faq 4 \"A confidential survey knows who answered... An anonymous survey stores no identity at all\"",
-    "issue": "FAQ 4 restates step 3; FAQ 3 restates feature 1, step 1 and step 2; FAQ 5 restates step 7.",
-    "fix": "Each answer adds what the body does not say (e.g. FAQ 4: who can still see metadata; FAQ 5: what a top-box score of 60-70% looks like in your own history).",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "feature_4",
+    "quote": "\"The survey never asks for those details, which keeps people in small groups harder to identify.\"",
+    "issue": "This states a privacy best practice as fact without a domain_sources entry. It is also doubtful: once a roster ties each answer to site and shift, the split is just as identifying. Only a minimum group size, or not linking the roster, protects small groups.",
+    "fix": "End on what is true and owned: \"The survey never asks for those details, so nobody mislabels their own shift.\" Or source the claim. Do not move the five-answer minimum here, because tab 3 already carries it.",
     "severity": "blocking"
    },
    {
     "criterion": "distinct",
     "rule": "CONTENT_DEFECTS #22",
-    "field": "feature_3; feature_4; faq item 2; faq item 4; howto_step_4_des; howto_step_7_des",
-    "quote": "feature_3 \"shows no results but still counts in the total\" vs employee-engagement-survey tab 1 \"yet those answers count in the total\"; feature_4 \"The survey never asks for those details\" vs engagement feature_5 \"without a single demographic question in the survey\"; step 7 \"Publish company results within a few weeks of closing\" vs engagement step 7 \"Publish company results within two weeks of close\"",
-    "issue": "Shared survey mechanics echo the engagement sibling. The angle (contentment by topic: pay, staffing, planning time) and all four tabs are its own, per the watch-list guidance, so the page reads as distinct.",
-    "fix": "Vary these sentences.",
+    "field": "features_heading",
+    "quote": "\"What a Satisfaction Survey Needs\" vs employee-engagement-survey \"What an Engagement Survey Needs to Work\" and customer-feedback-survey \"What a Feedback Survey Has to Do\"",
+    "issue": "The heading has the sibling shape with the nouns swapped. The \"What/Everything X Needs\" pattern runs across almost every spec in every hub, so this is reported to the coordinator as systemic rather than blocked on one page.",
+    "fix": "Pick a heading that names this page's content, e.g. \"Scores, Splits and Follow-Ups\".",
     "severity": "note"
    },
    {
     "criterion": "truth",
     "rule": "CONTENT_DEFECTS #7",
-    "field": "faq item 4; faq item 1",
-    "quote": "faq 4 \"Some are, and many are not.\"; faq 1 \"Results are usually reported topic by topic.\"",
-    "issue": "Generalizations not stated by the sources.",
-    "fix": "Source or soften.",
+    "field": "faq item 4; howto_step_6_des; faq item 5",
+    "quote": "faq 4 \"Many survey platforms log an IP address and rough location with each response\"; step 6 \"A score that is low on one shift or at one site usually needs a local fix, not a new policy\"; faq 5 \"outside benchmarks rarely ask your exact questions\"",
+    "issue": "These are soft generalizations. FAQ 4's source covers Qualtrics only, and steps 6 and FAQ 5 are unsourced advice.",
+    "fix": "faq 4 \"Platforms such as Qualtrics log...\"; frame step 6 and FAQ 5 as advice.",
+    "severity": "note"
+   },
+   {
+    "criterion": "voice",
+    "rule": "HUB_RULES 2a",
+    "field": "faq item 6; howto_step_2_des; feature_1",
+    "quote": "faq 6 \"How satisfied are you with your pay? With your workload?...\" vs step 2 \"Use statements such as 'I am satisfied with my pay for the work I do'\" and feature_1 \"One statement per part of the job\"",
+    "issue": "The body recommends statements, then FAQ 6 models question-form items.",
+    "fix": "Phrase FAQ 6's five as statements, or say either form works.",
+    "severity": "note"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "hero_description; howto_step_4_des",
+    "quote": "hero \"Name who works for you and what you want rated. Emergent builds the questions...\"; step 4 \"Say who gets the survey, which topics it covers... Emergent builds the survey with its response table and dashboards from that description.\"",
+    "issue": "The prompt-to-build pitch appears twice. It is mild, because step 4 is a real how-to step.",
+    "fix": "Let step 4 add what the hero does not say, such as the privacy rule wording or the close date.",
     "severity": "note"
    },
    {
     "criterion": "images",
     "rule": "CONTENT_DEFECTS #20",
     "field": "image_brief tab 3",
-    "quote": "\"District view\" table lists 5 schools; copy \"nine schools\"; mini \"all 9 schools\"",
-    "issue": "Five rows read as the whole district.",
-    "fix": "Label the table as a subset, or show the lowest five.",
+    "quote": "\"District view\" table lists 5 schools; copy \"nine schools\"",
+    "issue": "Still open from the last cycle: five rows read as the whole district.",
+    "fix": "Label the table \"5 of 9 schools\" or show the lowest five.",
+    "severity": "note"
+   },
+   {
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "SurveyMonkey | Culture Amp | Qualtrics EmployeeXM",
+    "issue": "Culture Amp and Qualtrics EmployeeXM are outside this page's top 10 (QC K7). Pending with Divit.",
+    "fix": "Await Divit's K7 ruling.",
     "severity": "note"
    },
    {
     "criterion": "faq",
     "rule": "HUB_RULES 5",
     "field": "faq item 10",
-    "quote": "employee-engagement-survey",
-    "issue": "Linked sibling is not live yet; pending with Divit.",
+    "quote": "employee engagement survey",
+    "issue": "The linked sibling is not live yet. Pending with Divit.",
     "fix": "Ship together.",
     "severity": "note"
    }
@@ -1220,6 +1209,85 @@
    "by": "reviewer-batch-m3",
    "via": "review",
    "date": "2026-10-07 14:51 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "features_heading",
+   "issue": "The heading has the sibling shape with the nouns swapped. The \"What/Everything X Needs\" pattern runs across almost every spec in every hub, so this is reported to the coordinator as systemic rather than blocked on one page.",
+   "fix": "Pick a heading that names this page's content, e.g. \"Scores, Splits and Follow-Ups\".",
+   "by": "reviewer-batch-m5",
+   "via": "review",
+   "date": "2026-10-07 15:04 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq item 4; howto_step_6_des; faq item 5",
+   "issue": "These are soft generalizations. FAQ 4's source covers Qualtrics only, and steps 6 and FAQ 5 are unsourced advice.",
+   "fix": "faq 4 \"Platforms such as Qualtrics log...\"; frame step 6 and FAQ 5 as advice.",
+   "by": "reviewer-batch-m5",
+   "via": "review",
+   "date": "2026-10-07 15:04 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "faq item 6; howto_step_2_des; feature_1",
+   "issue": "The body recommends statements, then FAQ 6 models question-form items.",
+   "fix": "Phrase FAQ 6's five as statements, or say either form works.",
+   "by": "reviewer-batch-m5",
+   "via": "review",
+   "date": "2026-10-07 15:04 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "hero_description; howto_step_4_des",
+   "issue": "The prompt-to-build pitch appears twice. It is mild, because step 4 is a real how-to step.",
+   "fix": "Let step 4 add what the hero does not say, such as the privacy rule wording or the close date.",
+   "by": "reviewer-batch-m5",
+   "via": "review",
+   "date": "2026-10-07 15:04 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief tab 3",
+   "issue": "Still open from the last cycle: five rows read as the whole district.",
+   "fix": "Label the table \"5 of 9 schools\" or show the lowest five.",
+   "by": "reviewer-batch-m5",
+   "via": "review",
+   "date": "2026-10-07 15:04 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "Culture Amp and Qualtrics EmployeeXM are outside this page's top 10 (QC K7). Pending with Divit.",
+   "fix": "Await Divit's K7 ruling.",
+   "by": "reviewer-batch-m5",
+   "via": "review",
+   "date": "2026-10-07 15:04 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 10",
+   "issue": "The linked sibling is not live yet. Pending with Divit.",
+   "fix": "Ship together.",
+   "by": "reviewer-batch-m5",
+   "via": "review",
+   "date": "2026-10-07 15:04 UTC"
+  }
+ ],
+ "reviews": [
+  {
+   "by": "reviewer-batch-m3",
+   "date": "2026-10-07 14:51 UTC",
+   "result": "fail",
+   "blocking": 7,
+   "notes": 4
   }
  ]
 }

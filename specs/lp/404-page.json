@@ -145,6 +145,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-07 15:03 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "reviewer-batch-m4",
+   "note": "[images | CONTENT_DEFECTS #20] image_brief.tabs[2].main: tab_content_3 states counts the image breaks: 'opens with one line' (the image draws two lines of copy) and 'one button ... A plain homepage link sits under the button for anyone who wants the full menu' (the image puts three discipline links "
   }
  ],
  "plan": {
@@ -719,166 +726,94 @@
   "writer-404-page-r1"
  ],
  "review": {
-  "by": "reviewer-batch-m2",
-  "date": "2026-10-07 14:47 UTC",
+  "by": "reviewer-batch-m4",
+  "date": "2026-10-07 15:03 UTC",
   "rubric": {
    "scope": {
     "result": "pass",
-    "evidence": "H1 'Build a 404 Page That Finds the Next Page', meta 'Examples and Best Practices' and hero cover the page, its search and its miss log."
+    "evidence": "H1 'Build a 404 Page That Finds the Next Page', meta title '404 Page Examples and Best Practices | Emergent' and hero ('search over your own content and a table of every URL that missed') cover the whole job."
    },
    "intent": {
     "result": "pass",
-    "evidence": "Definition up top for the AI Overview (FAQ 1), status-code rules from MDN and Google that the galleries skip (feature_1, howto_step_6), four examples by site type, and 9 PAA questions answered."
+    "evidence": "Definition first (FAQ 1, MDN-sourced) for the AI Overview; status-code rules the galleries skip (howto_step_6 soft 404, howto_step_7 301 and 410); four examples by site type; galleries named for examples (FAQ 5); all nine PAA questions answered plus '404 error page seo'."
    },
    "specificity": {
     "result": "pass",
-    "evidence": "Web-team vocabulary: '410', 'soft 404', 'referrer', 'seven-day count', '/docs/api/webhoks', 'Page Indexing report', 'a 301 redirect'."
+    "evidence": "Web-team vocabulary: '/docs/api/webhoks', 'referrer', 'seven-day count', '410 Gone', 'soft 404', 'Page Indexing report'. The 'Prompt for a campaign page' build cell is a library gap pending with Divit (note)."
    },
    "openers": {
-    "result": "fail",
-    "evidence": "Five feature bodies open on subjectless fragments (CONTENT_DEFECTS #2, #16): 'Puts a search box', 'Writes each missed URL', 'Keeps your site navigation', 'Generates the heading', 'Exports the 404 page'."
+    "result": "pass",
+    "evidence": "Cycle-1 fragments fixed: 'A search box on the error page queries', 'Each missed URL lands as a row', 'Your site navigation and footer stay', 'Emergent writes the heading', 'The 404 page and its miss log export'."
    },
    "craft": {
     "result": "fail",
-    "evidence": "Ideas restated across fields (CONTENT_DEFECTS #21): tone by site type (feature_5, howto_step_4, FAQ 7), header/footer/fonts (feature_4, howto_step_4), sort the miss log by hits for redirects (feature_3, howto_step_5, howto_step_7), admit the miss (howto_description, howto_step_2, FAQ 1), old links in newsletters (tab_content_4, FAQ 3)."
+    "evidence": "Ideas restated with words swapped (CONTENT_DEFECTS #21): howto_step_1_des 'a search box for typos, products for a store' vs howto_step_3_des 'On a store, show products in stock; on a docs site, the closest article.'; FAQ 3 'Someone mistyped it, the page was deleted, or it moved without a redirect' vs FAQ 4 'the page you wanted moved or the link is wrong.'"
    },
    "voice": {
     "result": "pass",
-    "evidence": "Plain and exact: 'Crawlers read the code; people read the page.' 'This page is out sketching.' No AI tells or hype."
+    "evidence": "Plain and exact: 'Crawlers read the code; people read the page.', 'This page is out sketching', 'a 404 page with a broken link of its own sends visitors in a circle.' No AI tells."
    },
    "truth": {
-    "result": "fail",
-    "evidence": "Emergent hosting returning a real 404 status is not in the capability ledger (feature_1 'Emergent sets the route for unknown URLs to answer with a 404 code'); fields contradict on 410 (feature_1 and howto_step_6 versus howto_step_7 'one that is gone for good stays a 404'); unsourced generalizations (FAQ 2 'Every host has a setting for it.', FAQ 9 'That visibility made 404 shorthand for missing')."
+    "result": "pass",
+    "evidence": "Cycle-1 fixes hold: no hosted-status guarantee in features_subheading, why_description, FAQ 2, tab_content_1 or tab 1 image; 410 consistent (only howto_step_7, MDN-sourced); 'Every host has a setting' and the FAQ 9 history removed. MDN, Google soft 404, 301, 2011 404s-and-ranking, USWDS, GitHub Pages and Search Console claims match domain_sources. feature_1 phrasing pending with Divit (note)."
    },
    "distinct": {
     "result": "pass",
-    "evidence": "Own page: store, API docs, studio, migration; thank-you and landing-page-seo siblings are linked, not mirrored."
+    "evidence": "Own page: store, API docs, studio, migration; thank-you-page and landing-page-seo linked, not mirrored; no sibling primary in a heading."
    },
    "faq": {
-    "result": "fail",
-    "evidence": "FAQ 6 restates howto_step_6 (CONTENT_DEFECTS #21): 'Open the network tab in your browser's developer tools ... The response should read 404; a 200 means...' versus 'read the response in your browser's network tab. It should say 404 ... A 200 on an error page is a soft 404'."
+    "result": "pass",
+    "evidence": "Ten on-topic questions, nine from PAA and one secondary, each answered first ('A 404 page is what a website shows...', 'No. A 404 on a URL that should not exist is normal'); hub link in item 2; cycle-1 FAQ 6 restatement of howto_step_6 is gone (now the made-up-path method)."
    },
    "images": {
     "result": "fail",
-    "evidence": "Tab 1 sells the retired product: the page reads 'This shirt has left the shop' for /products/linen-camp-shirt, then offers 'Linen camp shirt, sage, $68, in stock' with Add to cart, against copy 'Northwind's retired linen camp shirt' (CONTENT_DEFECTS #20)."
+    "evidence": "Tab 3 contradicts its copy (CONTENT_DEFECTS #20): copy 'Its 404 opens with one line, \"This page is out sketching,\" and one button' and 'A plain homepage link sits under the button'; image draws a second line 'It may be back. The work is here now.', then 'Or browse the work by discipline' with Identity, Packaging and Websites links between the button and the homepage link. Tabs 1, 2 and 4 match their copy."
    }
   },
   "findings": [
    {
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief.tabs[2].main",
+    "quote": "\"sub\": \"It may be back. The work is here now.\" ... \"Or browse the work by discipline\" ... Identity / Packaging / Websites",
+    "issue": "tab_content_3 states counts the image breaks: 'opens with one line' (the image draws two lines of copy) and 'one button ... A plain homepage link sits under the button for anyone who wants the full menu' (the image puts three discipline links between the button and the homepage link, so the homepage link is not under the button and is not the only way to the work). The mockup prompt also says 'Use one short line of copy'. Cycle 1 recorded this as a note; it is a catalogue row and the copy's numbers are contradicted, so it blocks.",
+    "fix": "In the brief, drop the heading 'sub' and the 'Or browse the work by discipline' text and chips, leaving heading, button, homepage linkbox and 'Error 404'; re-render and confirm the balance gate. Do not add the chips to the copy instead, since the tab's point is one line and one way out.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_3_des",
+    "quote": "On a store, show products in stock; on a docs site, the closest article.",
+    "issue": "What the page leads with by site type is said twice in the how-to: howto_step_1_des 'The source decides what the page leads with: a search box for typos, products for a store, a pointer for a move.' and howto_step_3_des (quoted). Second instance of the class: FAQ 4 'If you landed on one by accident, the page you wanted moved or the link is wrong.' restates FAQ 3 'Someone mistyped it, the page was deleted, or it moved without a redirect while old links kept the old address.'",
+    "fix": "Keep the site-type choice in howto_step_1; howto_step_3 ends after the three links (homepage, most visited section, contact). FAQ 4 opens on what to do ('Check the address for a typo, shorten the URL to its parent folder, or search the site for the page title.') without re-listing causes.",
+    "severity": "blocking"
+   },
+   {
     "criterion": "truth",
     "rule": "CONTENT_DEFECTS #14; HUB_RULES 6",
     "field": "feature_1",
-    "quote": "Emergent sets the route for unknown URLs to answer with a 404 code and your designed page, or a 410 for content removed on purpose.",
-    "issue": "Whether an Emergent-hosted app answers an unknown URL with a non-200 status is a guarantee about Emergent's own hosting, not something a prompt controls; no capability ledger entry covers it (claims_used lists only prompt-build, database-owned, code-export, custom-domain, api-connect). Every instance: features_subheading 'Emergent builds the error page, the status code it returns'; feature_1 (quoted); why_description 'Emergent builds one that returns the right status'; FAQ 2 'you describe the page and get the design and the routing in one build, with the 404 status set'; tab_content_1 'gets a 404 status'; tab_image_1 chip 'Status 404 returned'.",
-    "fix": "Divit decides whether to add a ledger entry for hosted status codes. Until then, phrase it as an instruction plus a test: 'Ask for unknown URLs to return a 404 status (or 410 for removed content), then check the response before launch', which howto_step_6 already teaches. Drop the status chip from tab 1 or relabel it.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "truth",
-    "rule": "HUB_RULES 8",
-    "field": "howto_step_7_des",
-    "quote": "one that is gone for good stays a 404",
-    "issue": "This contradicts feature_1 'or a 410 for content removed on purpose' and howto_step_6_des 'or 410 for content you removed for good'. MDN (the recorded source) gives 410 Gone for permanent removal.",
-    "fix": "'one that is gone for good returns a 404 or a 410' (or a 410 alone), consistent with feature_1 and step 6.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "truth",
-    "rule": "CONTENT_DEFECTS #7; HUB_RULES 8",
-    "field": "faq",
-    "quote": "Every host has a setting for it.",
-    "issue": "An unsupported generalization (FAQ 2). Same class in FAQ 9: 'Most HTTP errors happen out of sight, but a 404 appears on screen whenever a link points nowhere. Every site produces some. That visibility made 404 shorthand for missing' (unsourced causal and historical claims); FAQ 3 'Links in newsletters and on other sites go on sending people to a URL long after it changes.' is plausible but unsourced.",
-    "fix": "FAQ 2: 'Most hosts let you set one; on GitHub Pages, a file named 404.html...' FAQ 9: source the history (the Wikipedia HTTP 404 article in the top 10 is a start) or answer with what is verifiable: a 404 is the error people actually see on screen, so sites design for it.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "images",
-    "rule": "CONTENT_DEFECTS #20",
-    "field": "tab_image_1",
-    "quote": "This shirt has left the shop ... Linen camp shirt, sage $68, in stock ... Add to cart",
-    "issue": "The copy says the linen camp shirt is retired; the image says it has left the shop, then sells the same shirt as an in-stock bestseller, and the 'Added to cart' card pairs the missed URL with that same item. Copy also says 'bestsellers ... an add-to-cart button on each' (plural); one is drawn.",
-    "fix": "Show a different bestseller (for example 'Oxford shirt, navy, $72') and at least two bestseller rows, so the cart card shows another product added from the retired shirt's URL.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "openers",
-    "rule": "CONTENT_DEFECTS #16; CONTENT_DEFECTS #2",
-    "field": "feature_2",
-    "quote": "Puts a search box on the error page that queries your own products or docs.",
-    "issue": "Subjectless fragments open five feature bodies: feature_2 'Puts a search box...'; feature_3 'Writes each missed URL to a database you own...'; feature_4 'Keeps your site navigation and footer...'; feature_5 'Generates the heading and the next-step links...'; feature_6 'Exports the 404 page and its miss log...'. The row #16 fix names its subject ('Emergent generates...'), and approved pages use subjects or imperatives.",
-    "fix": "Give each a subject or make it an imperative, varied across the six: 'A search box on the error page queries your own products or docs.' 'Every missed URL lands in a database you own...' 'Ask for the copy in the tone you want...'",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "feature_5",
-    "quote": "Keep it plain for a bank or a clinic, or write a joke for a studio site whose visitors came to browse.",
-    "issue": "Tone by site type is restated in howto_step_4_des 'decide the tone up front: plain for services people rely on, lighter for a portfolio or a game' and FAQ 7 'Skip the humor on sites people need for critical services.'",
-    "fix": "Keep the rule once (FAQ 7, with the sourced USWDS guidance); feature_5 and howto_step_4 say something new.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "feature_4",
-    "quote": "Keeps your site navigation and footer on the error page, in your own fonts and colors.",
-    "issue": "Restated in howto_step_4_des 'Wrap the error message in the same header and footer as every other page. Match the fonts and colors'.",
-    "fix": "One field owns it; the other moves on (for example, howto_step_4 covers what to keep out of the error page's navigation).",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "feature_3",
-    "quote": "Sort by hits and the broken links worth fixing first rise to the top, each a candidate for a redirect.",
-    "issue": "Sort the miss log by hits and redirect the top ones is said in feature_3, howto_step_5_des 'Save each 404 hit with the requested URL and its referrer in a table you can sort. A weekly count by URL...', howto_step_7_des 'Sort the miss log by hits once a week. A URL whose content moved gets a 301' and tab_content_4 (the worked example).",
-    "fix": "Tab 4 is the example and howto_step_7 the instruction; feature_3 describes the log itself, and howto_step_5 merges into step 7 or covers what to log.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "howto_description",
-    "quote": "A useful 404 page admits the address is wrong",
-    "issue": "Restated in howto_step_2_des 'Admit the miss in one short heading' and FAQ 1 'A good 404 error page admits the miss in plain words, then offers search or a link'.",
-    "fix": "Keep it in howto_step_2; howto_description and FAQ 1 say something else.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "tab_content_4",
-    "quote": "Site migrations leave old addresses alive in newsletters and other people's posts.",
-    "issue": "Restated in FAQ 3 'Links in newsletters and on other sites go on sending people to a URL long after it changes.'",
-    "fix": "Cut the FAQ 3 sentence; its earlier causes already answer the question.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "faq",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "faq",
-    "quote": "Open the network tab in your browser's developer tools as you do it. The response should read 404; a 200 means the site serves its error page as if it were a normal one.",
-    "issue": "FAQ 6 restates howto_step_6_des 'read the response in your browser's network tab. It should say 404 ... A 200 on an error page is a soft 404', and FAQ 10 repeats it again ('a soft 404 that answers 200').",
-    "fix": "FAQ 6 answers how to find another site's 404 page (the made-up path) and stops; the status check stays in howto_step_6.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "images",
-    "rule": "CONTENT_DEFECTS #20",
-    "field": "tab_image_3",
-    "quote": "Or browse the work by discipline / Identity / Packaging / Websites",
-    "issue": "The copy promises 'one line' and 'one button' plus a plain homepage link; the image adds a subtitle and three discipline links. The story holds, but the drawn page is busier than the copy says.",
-    "fix": "Drop the discipline chips, or mention them in the copy.",
+    "quote": "Your prompt names the code: unknown URLs answer with a 404 and the designed page.",
+    "issue": "The hosted-status promise is gone everywhere else (features_subheading, why_description, FAQ 2 'the prompt can ask for unknown URLs to return a 404 status', tab_content_1, tab 1 image, all alt text), but feature_1 still states the result after the colon as fact. The capability entry for hosting status codes is pending with Divit, so this stays a note.",
+    "fix": "'Ask for a 404 by name in your prompt, then confirm the response with step 6 of the how-to before launch.' or wait for Divit's ledger entry.",
     "severity": "note"
    },
    {
-    "criterion": "specificity",
-    "rule": "CONTENT_DEFECTS #3",
-    "field": "why_table",
-    "quote": "Prompt for a campaign page",
-    "issue": "The LP library's default build cell does not describe a 404 page. No LP variant fits, so QC Q4 does not apply and the writer cannot fix it.",
-    "fix": "Coordinator: add an LP variant for site-utility pages.",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief.tabs[3].hero",
+    "quote": "3 URLs need a 301",
+    "issue": "tab_content_4 lists them 'as candidates for a 301 redirect', and howto_step_7 gives removed pages a 410, so 'need a 301' overstates.",
+    "fix": "'3 redirect candidates'.",
+    "severity": "note"
+   },
+   {
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief.cover",
+    "quote": "Page not found",
+    "issue": "The confirm cover draws a green success check beside 'Page not found', which reads as a contradiction.",
+    "fix": "Use the action cover, or a confirm title that is a success (e.g. 'Found: Webhooks guide' with 'Open article').",
     "severity": "note"
    },
    {
@@ -886,8 +821,17 @@
     "rule": "HUB_RULES 5",
     "field": "mockup",
     "quote": "docsHelpCenter",
-    "issue": "Mockup keys should be camelCase tab names; tab 2 is 'Developer Docs'. The template matches by order.",
+    "issue": "Carried from cycle 1: tab 2 is 'Developer Docs'.",
     "fix": "Rename to developerDocs.",
+    "severity": "note"
+   },
+   {
+    "criterion": "specificity",
+    "rule": "CONTENT_DEFECTS #3",
+    "field": "why_table",
+    "quote": "Prompt for a campaign page",
+    "issue": "LP site-type build cell, pending with Divit.",
+    "fix": "Coordinator: LP variant for site-utility pages.",
     "severity": "note"
    },
    {
@@ -895,17 +839,8 @@
     "rule": "HUB_RULES 5",
     "field": "why_table",
     "quote": "Wix | Unbounce | Landingi",
-    "issue": "QC K7: none of the three ranks in this page's top 10. This is pending with Divit.",
-    "fix": "Await Divit's ruling.",
-    "severity": "note"
-   },
-   {
-    "criterion": "faq",
-    "rule": "HUB_RULES 5",
-    "field": "faq",
-    "quote": "<a href='https://emergent.sh/ai-landing-page-builder/landing-page-seo'>landing page seo</a>",
-    "issue": "Links to landing-page-seo; held at publish until it is live. This is pending with Divit.",
-    "fix": "Ship together or relink.",
+    "issue": "K7 (none rank in this top 10) and the FAQ 10 link to landing-page-seo (not yet live) are pending with Divit.",
+    "fix": "Await Divit's rulings.",
     "severity": "note"
    }
   ]
@@ -960,6 +895,75 @@
    "by": "reviewer-batch-m2",
    "via": "review",
    "date": "2026-10-07 14:47 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #14; HUB_RULES 6",
+   "field": "feature_1",
+   "issue": "The hosted-status promise is gone everywhere else (features_subheading, why_description, FAQ 2 'the prompt can ask for unknown URLs to return a 404 status', tab_content_1, tab 1 image, all alt text), but feature_1 still states the result after the colon as fact. The capability entry for hosting status codes is pending with Divit, so this stays a note.",
+   "fix": "'Ask for a 404 by name in your prompt, then confirm the response with step 6 of the how-to before launch.' or wait for Divit's ledger entry.",
+   "by": "reviewer-batch-m4",
+   "via": "review",
+   "date": "2026-10-07 15:03 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief.tabs[3].hero",
+   "issue": "tab_content_4 lists them 'as candidates for a 301 redirect', and howto_step_7 gives removed pages a 410, so 'need a 301' overstates.",
+   "fix": "'3 redirect candidates'.",
+   "by": "reviewer-batch-m4",
+   "via": "review",
+   "date": "2026-10-07 15:03 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief.cover",
+   "issue": "The confirm cover draws a green success check beside 'Page not found', which reads as a contradiction.",
+   "fix": "Use the action cover, or a confirm title that is a success (e.g. 'Found: Webhooks guide' with 'Open article').",
+   "by": "reviewer-batch-m4",
+   "via": "review",
+   "date": "2026-10-07 15:03 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "mockup",
+   "issue": "Carried from cycle 1: tab 2 is 'Developer Docs'.",
+   "fix": "Rename to developerDocs.",
+   "by": "reviewer-batch-m4",
+   "via": "review",
+   "date": "2026-10-07 15:03 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "CONTENT_DEFECTS #3",
+   "field": "why_table",
+   "issue": "LP site-type build cell, pending with Divit.",
+   "fix": "Coordinator: LP variant for site-utility pages.",
+   "by": "reviewer-batch-m4",
+   "via": "review",
+   "date": "2026-10-07 15:03 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "K7 (none rank in this top 10) and the FAQ 10 link to landing-page-seo (not yet live) are pending with Divit.",
+   "fix": "Await Divit's rulings.",
+   "by": "reviewer-batch-m4",
+   "via": "review",
+   "date": "2026-10-07 15:03 UTC"
+  }
+ ],
+ "reviews": [
+  {
+   "by": "reviewer-batch-m2",
+   "date": "2026-10-07 14:47 UTC",
+   "result": "fail",
+   "blocking": 11,
+   "notes": 5
   }
  ]
 }

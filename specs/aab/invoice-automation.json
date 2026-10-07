@@ -146,6 +146,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-07 15:03 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "reviewer-batch-m4",
+   "note": "[truth | CONTENT_DEFECTS #7; HUB_RULES 8] why_description: A statement of fact about what most teams do, with no domain_sources entry. It is also contradicted on the page: FAQ 3 says 'BILL handles payables and receivables in one account', and howto_step_6 has bills and invoices posting to the same Q"
   }
  ],
  "plan": {
@@ -996,112 +1003,94 @@
   "writer-invoice-automation-r1"
  ],
  "review": {
-  "by": "reviewer-batch-m2",
-  "date": "2026-10-07 14:49 UTC",
+  "by": "reviewer-batch-m4",
+  "date": "2026-10-07 15:03 UTC",
   "rubric": {
    "scope": {
     "result": "pass",
-    "evidence": "H1 'Build Invoice Automation That Reads Bills and Sends Invoices' and hero ('turns vendor PDFs into ledger entries and bills customers from hours or finished jobs') state both directions, per the watch-list split from the AP page."
+    "evidence": "H1 'Build Invoice Automation That Reads Bills and Sends Invoices', meta title 'Invoice Automation Software, Built From a Prompt' and hero cover both directions, per the watch-list split (capture plus AR invoicing here; matching and payment on the AP page)."
    },
    "intent": {
     "result": "pass",
-    "evidence": "Explainer-and-vendor SERP: definition first (FAQ 1), how processing works, AI vs OCR, the QuickBooks and free-app PAA questions answered with sourced facts, and a how-to specific to invoices."
+    "evidence": "Explainer-and-vendor SERP: definition first (FAQ 1), how processing works (FAQ 7), AI vs OCR (FAQ 8), all five eligible PAA questions answered with sourced vendor facts (QuickBooks, Zoho Invoice, BILL, Stampli), and a seven-step how-to specific to invoices."
    },
    "specificity": {
     "result": "pass",
-    "evidence": "Finance vocabulary: 'GL account and cost center', 'bill of record', 'INV-20817', 'post as receivables', 'a scan with a stamp across the total'; the AP variant is used as QC Q4 requires for this competitor set."
+    "evidence": "Finance vocabulary: 'bill of record', 'GL accounts and cost centers', 'post as receivables under the customer's name', 'a scan with a stamp across the total', 'net 15 instead of net 30'; AP variant used as QC Q4 requires."
    },
    "openers": {
-    "result": "fail",
-    "evidence": "Five feature bodies open on subjectless fragments (CONTENT_DEFECTS #2, #16): 'Reads vendor, invoice number...', 'Compares every new invoice...', 'Gives each line a GL account...', 'Creates outgoing invoices...', 'Emails each invoice...'."
+    "result": "pass",
+    "evidence": "Cycle-1 fragments fixed: 'Each PDF or scan is read', 'A resent PDF under a new filename is held', 'GL accounts and cost centers come from', 'Outgoing invoices take', 'Customers get each invoice', 'The app's code exports'."
    },
    "craft": {
     "result": "fail",
-    "evidence": "Ideas restated across fields (CONTENT_DEFECTS #21): PDF plus database row (feature_4, howto_step_5), posting to QuickBooks or Xero (feature_5, howto_step_6), GL coding from vendor history (feature_3, tab_content_2), sources of outgoing invoices (feature_4, FAQ 2, howto_step_3, FAQ 9)."
+    "evidence": "features_subheading 'Emergent builds invoice automation for the bills that arrive in your inbox and the invoices your team sends out each month.' restates hero_description 'It builds the app that turns vendor PDFs into coded bills and drafts the invoices your clients owe you.' (CONTENT_DEFECTS #21)."
    },
    "voice": {
     "result": "pass",
-    "evidence": "Concrete and unglamorous: 'the due date sits under a smudge on the scan', 'The label printer, $240.00 and never bought from them before'. No AI tells."
+    "evidence": "Concrete and unglamorous: 'the due date sits under a smudge on the scan', 'Shipping boxes go to 6100 Supplies and the forklift service to 6400 Repairs', 'The customer has the invoice before the van leaves'. No AI tells."
    },
    "truth": {
-    "result": "pass",
-    "evidence": "Third-party facts match their sources (QuickBooks recurring invoices and free generator, Zoho Invoice free plan, BILL AP and AR, Stampli's Billy, Stripe hosted invoice page); Emergent claims map to prompt-build, ai-extraction, api-connect, code-export, database-owned, free-start; every drawn total adds up."
+    "result": "fail",
+    "evidence": "why_description 'Most teams read bills in one tool and send invoices from another.' is an unsourced generalization (CONTENT_DEFECTS #7, HUB_RULES 8), contradicted by the page's own FAQ 3 'BILL handles payables and receivables in one account' and howto_step_6 (QuickBooks or Xero carries both). Other third-party facts match domain_sources; every drawn total adds up."
    },
    "distinct": {
-    "result": "fail",
-    "evidence": "why_description, feature_6, howto_step_6 and howto_step_7 repeat the sibling accounts-payable-automation page with the nouns swapped (CONTENT_DEFECTS #22): 'Invoice tools keep your coding rules inside their app. Emergent writes them as code in your GitHub repo, changed by prompting.' versus AP 'In an AP suite, your approval rules live inside the vendor's app. With Emergent they are code in your repo, changed by prompting.'"
+    "result": "pass",
+    "evidence": "The cycle-1 AP swaps are rewritten: why_description, feature_6 ('If a client wants its own invoice format or a second company joins the books'), howto_step_6 'Connect QuickBooks or Xero' and howto_step_7 'Send first, then switch the inbox' now take this page's two-direction angle. Residual capture overlap with the AP page is a note."
    },
    "faq": {
-    "result": "pass",
-    "evidence": "10 on-topic items, 5 PAA, 4 secondaries, 1 definition; each answers in its first sentence ('Yes, for recurring invoices.'); links to AP, AR and approval-workflow carry the scope split."
+    "result": "fail",
+    "evidence": "Answers restate other answers (CONTENT_DEFECTS #21): FAQ 9 'Automated invoicing software creates and emails the invoices you issue.' vs FAQ 1 'On the sending side, it creates the invoices you issue and sends them'; FAQ 4 'QuickBooks offers a free web generator for one-off invoices' vs FAQ 6 'QuickBooks has a free online invoice generator'."
    },
    "images": {
     "result": "pass",
-    "evidence": "All numbers add up and match the copy: $3,412.50 with the due date held for Maria Lopez; 5 of 6 lines coded with the $240.00 label printer to Sam Ortiz; Acme 42 h x $150 = $6,300 within $13,860 across four drafts for Ana Ruiz; 1.5 h x $120 + $68.40 = $248.40 to Dana Whitfield at a reserved domain."
+    "evidence": "All numbers add up and match the copy: $1,237.50 + $1,452.00 + $723.00 = $3,412.50 with the 61% due date to Maria Lopez; 5 of 6 lines coded, $240.00 label printer to Sam Ortiz, $1,720.00 total; Acme 42 h at $150 = $6,300.00 within $13,860.00 (same on the cover); 1.5 h at $120 + $68.40 = $248.40 to dana@example.com."
    }
   },
   "findings": [
    {
-    "criterion": "distinct",
-    "rule": "CONTENT_DEFECTS #22",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7; HUB_RULES 8",
     "field": "why_description",
-    "quote": "Invoice tools keep your coding rules inside their app. Emergent writes them as code in your GitHub repo, changed by prompting.",
-    "issue": "The sibling /ai-automation-builder/accounts-payable-automation with the nouns swapped. Every instance: why_description versus AP 'In an AP suite, your approval rules live inside the vendor's app. With Emergent they are code in your repo, changed by prompting.'; feature_6 'The extraction and coding logic is exported to your GitHub repository, where an engineer can trace why any field was held. Invoice records live in a database you own.' versus AP feature_6 'The matching rules and approval chain export to your GitHub repository, where an engineer can read exactly why a bill was held. Bill and payment records stay in a database you own.'; howto_step_6 '06 Post to the ledger in parallel ... Run last month's invoices through the app first and compare its entries with the ones your team made by hand.' versus AP '06 Test with last month's invoices ... Run last month's invoices through the automated AP workflow before go-live ... differs from what your team did by hand'; howto_step_7 '07 Go live and watch the review queue / Switch the inbox over at the start of a month. On the dashboard, track ... When one vendor's invoices keep needing the same fix, ask Emergent for a rule' versus AP '07 Go live and watch cycle time / Point the AP inbox at the workflow on the first day of a payment cycle. On the dashboard, watch ... If approvers keep releasing held bills unchanged, ask Emergent to widen'.",
-    "fix": "Rewrite each field from this page's own angle (both directions of an invoice). why_description could contrast the two-tool setup ('Most teams read bills in one tool and send invoices from another'); feature_6 could name what an engineer extends (a new vendor layout, a client's invoice format); steps 6 and 7 need their own shapes, for example a parallel month comparing sent-invoice totals with the timesheet tool, and a go-live that starts with outgoing invoices.",
+    "quote": "Most teams read bills in one tool and send invoices from another.",
+    "issue": "A statement of fact about what most teams do, with no domain_sources entry. It is also contradicted on the page: FAQ 3 says 'BILL handles payables and receivables in one account', and howto_step_6 has bills and invoices posting to the same QuickBooks or Xero ledger, both tools that handle bills and invoices. (The line came from the cycle-1 fix suggestion, but it still needs to be true and sourced.)",
+    "fix": "State the contrast without a claim about most teams, e.g. 'Bills in and invoices out live in one app here, so a customer who also bills you is one record, not two.'",
     "severity": "blocking"
    },
    {
-    "criterion": "openers",
-    "rule": "CONTENT_DEFECTS #16; CONTENT_DEFECTS #2",
-    "field": "feature_1",
-    "quote": "Reads vendor, invoice number, dates, PO number and each line item from PDFs and scans.",
-    "issue": "Subjectless fragments open five feature bodies: feature_1 'Reads vendor, invoice number...'; feature_2 'Compares every new invoice with that vendor's history...'; feature_3 'Gives each line a GL account and cost center...'; feature_4 'Creates outgoing invoices from timesheets or closed jobs...'; feature_5 'Emails each invoice with a Stripe payment link...'. The row #16 fix names a subject; approved pages open with a subject or an imperative.",
-    "fix": "Give each a subject or an imperative, varied: 'Each PDF or scan is read into vendor, invoice number...'; 'A resent PDF under a new filename is held...'; 'Outgoing invoices are built from timesheets or closed jobs...'.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "feature_4",
-    "quote": "Each invoice is saved as a PDF and a database row before anyone sends it.",
-    "issue": "Restated in howto_step_5_des 'each one is stored as a PDF beside its database row'.",
-    "fix": "Keep it once; howto_step_5 ends on the template.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "feature_5",
-    "quote": "then posts it to QuickBooks or Xero",
-    "issue": "Posting both directions to QuickBooks or Xero is restated in howto_step_6_des 'Connect QuickBooks or Xero. Bills you receive post with their GL codes and the source PDF attached; invoices you send post as receivables.'",
-    "fix": "Let howto_step_6 own the ledger posting; feature_5 can stay on delivery and the unpaid list.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "tab_content_2",
-    "quote": "Each line on a supplier invoice takes the GL account that the same item from that vendor got last time.",
-    "issue": "This restates feature_3 'Gives each line a GL account and cost center based on how that vendor's lines were coded before. Anything new waits for a person', and the tab then repeats the exception ('never bought from them before, goes to Sam Ortiz'). This is the pattern of the catalogue's own example.",
-    "fix": "Open tab 2 straight on the Initech Supply case; let feature_3 own the rule and add what the tab does not (cost center, the choice reused next time).",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "craft",
+    "criterion": "faq",
     "rule": "CONTENT_DEFECTS #21",
     "field": "faq",
-    "quote": "the record each one comes from: tracked hours, a finished job, a shipped order",
-    "issue": "The sources of outgoing invoices are listed again and again: FAQ 2 (quoted); howto_step_3_des 'a timesheet tool, a field service app, or Stripe orders'; feature_4 'from timesheets or closed jobs'; FAQ 9 'It works from your own records, such as logged hours.'; FAQ 1 'it builds invoices from your own records'.",
-    "fix": "Name the sources once (howto_step_3); FAQ 2 answers with scheduling and approval, and FAQ 9 defines the difference without relisting.",
+    "quote": "Automated invoicing software creates and emails the invoices you issue.",
+    "issue": "FAQ 9 restates FAQ 1's two sides with the words swapped: FAQ 1 'On the receiving side, it reads each vendor PDF into fields... On the sending side, it creates the invoices you issue and sends them'; FAQ 9 'Automated invoicing software creates and emails the invoices you issue. The two point in opposite directions. Bills that vendors send you go through invoice processing automation instead.' Second instance: FAQ 4 'QuickBooks offers a free web generator for one-off invoices' repeats the subject of FAQ 6 'QuickBooks has a free online invoice generator'.",
+    "fix": "FAQ 9: answer 'No' and add what FAQ 1 does not say (for example, which teams need both, or where each one's data comes from and goes), and cut 'The two point in opposite directions.' FAQ 4: drop the QuickBooks generator (FAQ 6 owns it) and keep Zoho Invoice plus the Emergent sentence.",
     "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "features_subheading",
+    "quote": "Emergent builds invoice automation for the bills that arrive in your inbox and the invoices your team sends out each month.",
+    "issue": "Restates hero_description 'Tell Emergent which invoices you receive and which you send. It builds the app that turns vendor PDFs into coded bills and drafts the invoices your clients owe you.' one scroll later.",
+    "fix": "Let the subheading say what the six features share or what the grid covers that the hero does not, e.g. 'Six things an invoice app gets right before anything posts or sends.'",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "distinct",
+    "rule": "HUB_RULES 5",
+    "field": "feature_1",
+    "quote": "Each PDF or scan is read into vendor, invoice number, dates, PO number and line items. A field the model is unsure of goes to a review queue",
+    "issue": "Close to the AP sibling's feature_1 ('is read into fields: vendor, invoice number, due date, and each line item. Low-confidence fields wait for a person.'); feature_3/howto_step_4 coding from vendor history also echoes AP howto_step_4. The watch list gives capture to this page, so the AP page is the one to move.",
+    "fix": "Coordinator: when the AP page is next reworked, shift its feature_1 to what AP adds after capture.",
+    "severity": "note"
    },
    {
     "criterion": "specificity",
     "rule": "CONTENT_DEFECTS #26",
     "field": "why_table",
     "quote": "Intake, matching, approvals, payment runs, and ledger, as code you own",
-    "issue": "The table is the AP page's table (same three competitors, same rows, same Emergent cells). Its 'What you get' cell describes matching and payment runs, which FAQ 7 assigns to accounts payable automation, and says nothing about outgoing invoices. The library lacks invoice-focused competitors from this top 10 (Rossum, Basware), which is pending with Divit.",
-    "fix": "Drop the 'output' row or ask the coordinator for an invoice variant cell ('Bill capture, coding and outgoing invoices, as code you own') and invoice-side competitors.",
+    "issue": "Carried from cycle 1: the AP variant's cell describes matching and payment runs, which FAQ 7 assigns to accounts payable automation, and nothing about outgoing invoices. Invoice-side competitors (Rossum, Basware) are missing from the library; pending with Divit.",
+    "fix": "Coordinator: invoice variant cell and invoice-side competitors.",
     "severity": "note"
    },
    {
@@ -1109,26 +1098,8 @@
     "rule": "HUB_RULES 5",
     "field": "why_table",
     "quote": "Stampli | Tipalti | BILL",
-    "issue": "QC K7: none of the three ranks in this page's top 10. This is pending with Divit.",
-    "fix": "Await Divit's ruling.",
-    "severity": "note"
-   },
-   {
-    "criterion": "faq",
-    "rule": "HUB_RULES 5",
-    "field": "faq",
-    "quote": "<a href='https://emergent.sh/ai-automation-builder/accounts-receivable-automation'>accounts receivable automation</a>",
-    "issue": "Links to accounts-receivable-automation (and accounts-payable-automation) may not be live; held at publish if so. This is pending with Divit.",
-    "fix": "Ship together or relink.",
-    "severity": "note"
-   },
-   {
-    "criterion": "voice",
-    "rule": "HUB_RULES 2b",
-    "field": "faq",
-    "quote": "a shared inbox, a vendor portal or a scanner folder",
-    "issue": "Heavy use of three-item lists: FAQ 7 (quoted); FAQ 2 'tracked hours, a finished job, a shipped order'; howto_step_3 'a timesheet tool, a field service app, or Stripe orders'; howto_step_4 'the vendor, the item description or the department'; FAQ 8 'which text is the invoice number, which is the due date and which rows are line items'. Under the QC Q8 count, but the rhythm shows.",
-    "fix": "Turn two of them into pairs or single named examples.",
+    "issue": "K7 (none rank in this top 10) and FAQ links to accounts-payable-automation and accounts-receivable-automation (may not be live) are pending with Divit.",
+    "fix": "Await Divit's rulings.",
     "severity": "note"
    }
   ]
@@ -1173,6 +1144,45 @@
    "by": "reviewer-batch-m2",
    "via": "review",
    "date": "2026-10-07 14:49 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "HUB_RULES 5",
+   "field": "feature_1",
+   "issue": "Close to the AP sibling's feature_1 ('is read into fields: vendor, invoice number, due date, and each line item. Low-confidence fields wait for a person.'); feature_3/howto_step_4 coding from vendor history also echoes AP howto_step_4. The watch list gives capture to this page, so the AP page is the one to move.",
+   "fix": "Coordinator: when the AP page is next reworked, shift its feature_1 to what AP adds after capture.",
+   "by": "reviewer-batch-m4",
+   "via": "review",
+   "date": "2026-10-07 15:03 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "CONTENT_DEFECTS #26",
+   "field": "why_table",
+   "issue": "Carried from cycle 1: the AP variant's cell describes matching and payment runs, which FAQ 7 assigns to accounts payable automation, and nothing about outgoing invoices. Invoice-side competitors (Rossum, Basware) are missing from the library; pending with Divit.",
+   "fix": "Coordinator: invoice variant cell and invoice-side competitors.",
+   "by": "reviewer-batch-m4",
+   "via": "review",
+   "date": "2026-10-07 15:03 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "K7 (none rank in this top 10) and FAQ links to accounts-payable-automation and accounts-receivable-automation (may not be live) are pending with Divit.",
+   "fix": "Await Divit's rulings.",
+   "by": "reviewer-batch-m4",
+   "via": "review",
+   "date": "2026-10-07 15:03 UTC"
+  }
+ ],
+ "reviews": [
+  {
+   "by": "reviewer-batch-m2",
+   "date": "2026-10-07 14:49 UTC",
+   "result": "fail",
+   "blocking": 6,
+   "notes": 4
   }
  ]
 }

@@ -147,6 +147,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-07 15:02 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "reviewer-batch-m5",
+   "note": "[openers | CONTENT_DEFECTS #2] features_subheading; howto_description: Both section intros are verbless noun phrases, not sentences, and the features subheading mostly repeats its own heading (\"What a Feedback Survey Has to Do\"). -> Write each as a full sentence that says what happens, e.g. features"
   }
  ],
  "plan": {
@@ -862,166 +869,130 @@
   "writer-customer-feedback-survey-r1"
  ],
  "review": {
-  "by": "reviewer-batch-m3",
-  "date": "2026-10-07 14:51 UTC",
+  "by": "reviewer-batch-m5",
+  "date": "2026-10-07 15:02 UTC",
   "rubric": {
    "scope": {
     "result": "pass",
-    "evidence": "H1 \"Build a Customer Feedback Survey and Act on Every Comment\"."
+    "evidence": "H1 \"Build a Customer Feedback Survey and Act on Every Comment\"; the meta and hero cover the survey and what happens to its answers."
    },
    "intent": {
     "result": "pass",
-    "evidence": "All 5 PAA answered; question examples, template and software answers; how-to."
+    "evidence": "All 5 eligible PAA answered (\"What are the 5 questions on a questionnaire?\", three C's, four types); question examples, a template answer, a software answer and a 7-step how-to."
    },
    "specificity": {
     "result": "pass",
-    "evidence": "Stripe cancellations, Twilio texts, dispatcher callbacks, receipt QR codes."
+    "evidence": "Stripe cancellation, Twilio text two hours after the job closes, dispatcher callback at 2 stars, receipt QR at 12 stores with a 0.5-point drop rule."
    },
    "openers": {
-    "result": "pass",
-    "evidence": "Full-sentence openers throughout (\"Once Stripe reports...\", \"Two hours after...\")."
+    "result": "fail",
+    "evidence": "features_subheading \"What a customer feedback survey needs before each comment reaches someone who can act on it.\" and howto_description \"Seven calls to make before the first survey goes out.\" open on fragments (#2)."
    },
    "craft": {
     "result": "fail",
-    "evidence": "Theme tagging, context, rating+open question, event send and no-cap each restated across fields (#21)."
+    "evidence": "howto_step_6_des \"Five reports of one checkout bug in a day deserve a message\" restates tab 2's repeat-bug alert; howto_step_4_des \"price or too much coffee\" restates tab 1's reasons (#21)."
    },
    "voice": {
     "result": "pass",
-    "evidence": "\"A survey without one collects opinions nobody owns.\""
+    "evidence": "\"A survey without one collects opinions nobody owns.\" \"A haircut can be rated the same evening, while a delivered blender needs a week of use first.\" Plain, specific, varied rhythm."
    },
    "truth": {
-    "result": "pass",
-    "evidence": "McKinsey three C's, Pew wording/order, Stripe and Twilio claims sourced; tab 1 41+33+21+17=112."
+    "result": "fail",
+    "evidence": "faq 7 \"How easy it was to get help is the customer effort score question.\" defines a professional metric with no domain_sources entry (HUB_RULES 8)."
    },
    "distinct": {
     "result": "pass",
-    "evidence": "Owns open-ended comments; customer-satisfaction owns CSAT/NPS/CES scoring at four other moments."
+    "evidence": "Owns comments and acting on them; the customer-satisfaction sibling owns scores. Tabs (cancellation, in-app, repair visit, store receipts) do not overlap the sibling's."
    },
    "faq": {
     "result": "fail",
-    "evidence": "FAQ 2, 5 and 9 restate body fields (#18)."
+    "evidence": "faq 7 \"After a home visit, add whether the technician arrived in the booked window\" restates tab 3; faq 8 \"Common starting points are a cancellation survey or a store receipt survey\" restates tabs 1 and 4 (#18)."
    },
    "images": {
-    "result": "fail",
-    "evidence": "Tab 4 highlights Store 09 (+0.1) not Store 07 (-0.7); cover draws \"Down 0.7\" green (#20)."
+    "result": "pass",
+    "evidence": "Tab 4 now highlights Store 07 (-0.7, 3.7) and the cover draws \"Down 0.7 from 4.4\" in red; 41+33+21+17=112; 9 reports; job #4471 at 2 stars to the dispatcher. One hero per tab."
    }
   },
   "findings": [
    {
-    "criterion": "images",
-    "rule": "CONTENT_DEFECTS #20",
-    "field": "image_brief tab 4 (main table \"bad\": 2)",
-    "quote": "highlighted row \"Store 09 | 231 | 4.6 | 4.5 | +0.1\"; copy \"When a store's score falls more than 0.5 points\"; hero \"Store 07 fell to 3.7\"",
-    "issue": "The table marks Store 09 (+0.1) as the problem row; the drop is Store 07 (-0.7). The image contradicts its own hero and the copy.",
-    "fix": "Set the table's \"bad\" index to Store 07's row (1, zero-based) and re-render.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "images",
-    "rule": "CONTENT_DEFECTS #20",
-    "field": "image_brief cover (score delta)",
-    "quote": "\"Down 0.7 from 4.4\" drawn as a green chip",
-    "issue": "A drop is drawn in the positive (green) style, so the cover says good news where the alt and tab 4 say a store slipped.",
-    "fix": "Draw the delta in the bad/warn tone (engine option needed: tell the coordinator) or choose a cover whose green chip is a true positive.",
+    "criterion": "openers",
+    "rule": "CONTENT_DEFECTS #2",
+    "field": "features_subheading; howto_description",
+    "quote": "features_subheading \"What a customer feedback survey needs before each comment reaches someone who can act on it.\"; howto_description \"Seven calls to make before the first survey goes out.\"",
+    "issue": "Both section intros are verbless noun phrases, not sentences, and the features subheading mostly repeats its own heading (\"What a Feedback Survey Has to Do\").",
+    "fix": "Write each as a full sentence that says what happens, e.g. features_subheading \"Each part below moves a comment one step closer to someone who can fix it.\"; howto_description \"Make these seven calls before the first survey goes out.\"",
     "severity": "blocking"
    },
    {
     "criterion": "craft",
     "rule": "CONTENT_DEFECTS #21",
-    "field": "feature_3; faq item 5; faq item 9; howto_step_7_des",
-    "quote": "feature_3 \"Tag every open answer by type... then group it by theme with a count\"; faq 5 \"Tag each comment by type and theme, count the themes... Good customer survey software tags answers as they arrive\"; faq 9 \"Comments should be sorted by theme as they arrive\"; step 7 \"Read the largest themes each week\"",
-    "issue": "Tag-by-theme-and-count is restated in four fields.",
-    "fix": "Say it once in feature 3; FAQ 5 and FAQ 9 add what is new.",
+    "field": "howto_step_6_des; howto_step_4_des; howto_step_1_des",
+    "quote": "howto_step_6_des \"Five reports of one checkout bug in a day deserve a message.\" vs tab_content_2 \"When one bug is reported 9 times in a week, the product team's Slack channel gets the count\"; howto_step_4_des \"For a coffee subscription that could be price or too much coffee.\" vs tab 1's reasons (Price 41, Too much 33); howto_step_1_des \"which cancellation reason to fix first or which store needs a visit\" (tabs 1 and 4)",
+    "issue": "The how-to tells the tab stories again with the numbers swapped. Step 6 is tab 2's repeat-bug alert, and step 4 is tab 1's reason list. Step 1 leans on tabs 1 and 4 more lightly.",
+    "fix": "Give the steps examples the tabs do not use. Step 6 could weigh one refund threat against ten mild complaints. Step 4 could use a pilot from a different business, such as a gym or a SaaS onboarding.",
     "severity": "blocking"
-   },
-   {
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "feature_4; howto_step_5_des; faq item 5; faq item 9",
-    "quote": "feature_4 \"Store the customer ID and plan with every response, plus the order, store or technician involved. Filter by any of them to see where one complaint keeps coming from\"; step 5 \"Send the customer ID and the order or job number along with the survey link\"; faq 5 \"Slice by plan or store to see where a theme concentrates\"; faq 9 \"save each answer with the customer's context\"",
-    "issue": "Context-saved-with-each-answer and slice-to-find-the-source are each restated.",
-    "fix": "Keep it in feature 4 and step 5 (how); cut from FAQ 5 and 9.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "feature_1; howto_step_3_des; howto_step_4_des; faq item 1; features_subheading",
-    "quote": "feature_1 \"Emergent writes a rating and an open question, plus a reason list if you want one\"; step 3 \"Use one rating and one open question. Add a reason list only once the same answers start repeating\"; step 4 \"Recurring answers become the choices in your reason list\"; faq 1 \"Most pair a rating with an open question\"; subheading \"asks customers rated and open questions\"",
-    "issue": "Rating + open question + later reason list is told five times; step 3 and step 4 say the reason-list idea twice in a row.",
-    "fix": "Step 3 owns the question format, step 4 the pilot; feature 1 and FAQ 1 say something else.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "feature_2; howto_step_2_des; faq item 9",
-    "quote": "feature_2 \"Start the survey when a subscription is canceled or a job closes\"; step 2 \"Send it at the cancellation or the closed job, while the details are fresh\"; faq 9 \"Send the survey from the event that matters\"",
-    "issue": "Event-triggered send restated with the same two examples.",
-    "fix": "Use different examples or drop from one field.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "feature_6; why_description; faq item 9; faq item 10",
-    "quote": "feature_6 \"with no response cap\"; why_description \"with no cap on answers\"; faq 9 \"some customer survey tools cap answers per plan\"; faq 10 \"Responses have no cap, and a busy month never stops collection\"",
-    "issue": "No-response-cap stated in four fields besides the table.",
-    "fix": "Keep it in the table and one prose field.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "faq",
-    "rule": "CONTENT_DEFECTS #18",
-    "field": "faq item 2; faq item 5",
-    "quote": "faq 2 \"Decide what the answers will change, then write the fewest questions that inform it\"; faq 5 \"Tag each comment by type and theme, count the themes\"",
-    "issue": "FAQ 2 restates howto_description (\"deciding what the answers will change\") and step 1/3; FAQ 5 restates feature 3; FAQ 9 restates features 2-4.",
-    "fix": "Each FAQ answer adds what the body does not say.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "distinct",
-    "rule": "CONTENT_DEFECTS #22",
-    "field": "feature_4; howto_step_5_des; feature_6; feature_1",
-    "quote": "step 5 \"Send the customer ID and the order or job number along with the survey link\" vs customer-satisfaction feature_2 \"Pass the customer ID, account, plan, or ticket ID with the survey link\"; feature_1 \"Change any question by describing the edit\" vs \"Add or remove a question by describing it\"",
-    "issue": "Some mechanics echo the live customer-satisfaction sibling; the tabs, angle (comments, not scores) and FAQ are distinct, so the page reads as its own.",
-    "fix": "Vary these sentences.",
-    "severity": "note"
-   },
-   {
-    "criterion": "truth",
-    "rule": "HUB_RULES 8",
-    "field": "howto_step_2_des",
-    "quote": "\"Feedback requested weeks later is about memory more than the visit. One short survey per moment works better than an annual questionnaire covering everything.\"",
-    "issue": "Comparative best-practice claim with no domain source.",
-    "fix": "Source it or phrase as advice.",
-    "severity": "note"
    },
    {
     "criterion": "truth",
     "rule": "HUB_RULES 8",
     "field": "faq item 7",
     "quote": "\"How easy it was to get help is the customer effort score question.\"",
-    "issue": "Standard definition but not in domain_sources.",
-    "fix": "Add a source.",
+    "issue": "The answer defines a professional metric (CES) with no domain_sources entry. The last cycle logged it as a note, but HUB_RULES 8 blocks unsourced claims about professional terms. The page already has 8 sources (QC P4), so the fix is to rephrase or swap a source.",
+    "fix": "Drop the definition and keep the link as a pointer, e.g. \"Ask how easy it was to get help, and read the answers alongside the <customer effort score> page.\" Or replace a weaker source with a primary CES source (Gartner or the original HBR article).",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #18",
+    "field": "faq item 7; faq item 8",
+    "quote": "faq 7 \"After a home visit, add whether the technician arrived in the booked window.\" vs tab_content_3 \"whether the tech arrived in the booked window\"; faq 8 \"Common starting points are a cancellation survey or a store receipt survey.\" vs tabs 1 and 4",
+    "issue": "Two FAQ answers repeat tab content instead of adding to it.",
+    "fix": "FAQ 7 closes with something the body lacks, such as asking whether the issue stayed fixed a week later. FAQ 8 names template starting points the tabs do not show, such as post-onboarding or a delivery survey.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief tab 1",
+    "quote": "image \"Most on the large bag plan\", \"A smaller bag would have kept me.\", coffee icon, bar \"Too much\"; tab_content_1 never says coffee",
+    "issue": "The image tells a coffee-subscription story that only the mockup and step 4 name. A reader of the tab alone cannot decode \"Too much\".",
+    "fix": "Name the coffee subscription in tab 1's first sentence, or relabel the bar \"Too much coffee\".",
+    "severity": "note"
+   },
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 2b",
+    "field": "tab_content_1",
+    "quote": "\"Over 30 days, 112 of 160 canceling subscribers answered\"",
+    "issue": "A 70% response rate on a post-cancellation email is far above what exit surveys get, so the example reads glamorous rather than real.",
+    "fix": "Use a plainer rate, e.g. 38 of 160, and rescale the bars and checks.",
+    "severity": "note"
+   },
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 1",
+    "quote": "\"It collects reasons in the customer's own words, where a satisfaction survey tracks a score over time.\"",
+    "issue": "This is the page's positioning more than a sourced definition. It reads as framing, so it does not block.",
+    "fix": "Consider \"leans on reasons\" rather than a hard split.",
     "severity": "note"
    },
    {
     "criterion": "specificity",
     "rule": "CONTENT_DEFECTS #3",
     "field": "why_table",
-    "quote": "Interact (quiz specialist)",
-    "issue": "A quiz tool on a customer-feedback page; HubSpot and SurveyMonkey rank in the top 10. Pending with Divit (K7).",
-    "fix": "Await K7.",
+    "quote": "SurveyMonkey | Typeform | Interact (quiz specialist)",
+    "issue": "A quiz specialist on a customer-feedback page, and Typeform and Interact are outside the top 10 (QC K7). Pending with Divit.",
+    "fix": "Await Divit's K7 ruling.",
     "severity": "note"
    },
    {
     "criterion": "faq",
     "rule": "HUB_RULES 5",
     "field": "faq items 7 and 10",
-    "quote": "customer-effort-score; nps-survey",
-    "issue": "Links to pages that may not be live yet; pending with Divit.",
-    "fix": "Ship together or swap.",
+    "quote": "customer effort score; NPS survey",
+    "issue": "Links to pages that may not be live yet. Pending with Divit.",
+    "fix": "Ship together or swap for live pages.",
     "severity": "note"
    }
   ]
@@ -1076,6 +1047,65 @@
    "by": "reviewer-batch-m3",
    "via": "review",
    "date": "2026-10-07 14:51 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief tab 1",
+   "issue": "The image tells a coffee-subscription story that only the mockup and step 4 name. A reader of the tab alone cannot decode \"Too much\".",
+   "fix": "Name the coffee subscription in tab 1's first sentence, or relabel the bar \"Too much coffee\".",
+   "by": "reviewer-batch-m5",
+   "via": "review",
+   "date": "2026-10-07 15:02 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2b",
+   "field": "tab_content_1",
+   "issue": "A 70% response rate on a post-cancellation email is far above what exit surveys get, so the example reads glamorous rather than real.",
+   "fix": "Use a plainer rate, e.g. 38 of 160, and rescale the bars and checks.",
+   "by": "reviewer-batch-m5",
+   "via": "review",
+   "date": "2026-10-07 15:02 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 1",
+   "issue": "This is the page's positioning more than a sourced definition. It reads as framing, so it does not block.",
+   "fix": "Consider \"leans on reasons\" rather than a hard split.",
+   "by": "reviewer-batch-m5",
+   "via": "review",
+   "date": "2026-10-07 15:02 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "CONTENT_DEFECTS #3",
+   "field": "why_table",
+   "issue": "A quiz specialist on a customer-feedback page, and Typeform and Interact are outside the top 10 (QC K7). Pending with Divit.",
+   "fix": "Await Divit's K7 ruling.",
+   "by": "reviewer-batch-m5",
+   "via": "review",
+   "date": "2026-10-07 15:02 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq items 7 and 10",
+   "issue": "Links to pages that may not be live yet. Pending with Divit.",
+   "fix": "Ship together or swap for live pages.",
+   "by": "reviewer-batch-m5",
+   "via": "review",
+   "date": "2026-10-07 15:02 UTC"
+  }
+ ],
+ "reviews": [
+  {
+   "by": "reviewer-batch-m3",
+   "date": "2026-10-07 14:51 UTC",
+   "result": "fail",
+   "blocking": 8,
+   "notes": 5
   }
  ]
 }
