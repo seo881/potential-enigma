@@ -383,7 +383,7 @@ def render_cover(hub, d):
         if st_: b += H.stars(X + 36, Y + 140, int(d["stars"]), 54, 14)
         b += H.hair(X + 36, Y + 196 + dy, X + W_ - 36) + T(X + 36, Y + 262 + dy, fit(d["label"], 28, 700, 220, "label"), 28, 700, L.MUTED) + T(X + 36, Y + 330 + dy, fit(d["value"], 60, 800, 260, "value", -1.5), 60, 800, L.INK, ls=-1.5, tnum=True)
         if d.get("delta"):
-            lab = d["delta"]; cw = int(tw(lab, 26, 600) + 56); b += B.chip(X + W_ - 36 - cw, Y + 282 + dy, lab, d.get("delta_kind", "ok"), cw, 52, 26)
+            lab = d["delta"]; cw = int(tw(lab, 26, 600) + 56); b += B.chip(X + W_ - 36 - cw, Y + 282 + dy, lab, d.get("delta_kind") or ("bad" if re.match(r"\s*(down|lowest|fell|dropped|worst|[-\u2212])", lab.lower()) else "ok"), cw, 52, 26)   # a negative fact is never drawn green
     else:
         raise BriefError('cover.kind must be one of "action", "confirm", "code", "score"')
     alt = d.get("alt", "").strip()

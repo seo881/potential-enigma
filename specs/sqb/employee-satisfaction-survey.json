@@ -127,6 +127,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-07 14:51 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "reviewer-batch-m3",
+   "note": "[images | CONTENT_DEFECTS #20] image_brief cover (score delta): The page's worst result is drawn in the positive (green) style; the cover reads as good news while tab 1 and the alt say pay came in last. -> Draw the delta in the bad/warn tone (engine option needed: tell the coordinator) or pick a cov"
   }
  ],
  "plan": {
@@ -1001,5 +1008,194 @@
  "qc_passed": {
   "rules_version": "d9a2b42f23de",
   "date": "2026-10-07 14:44 UTC"
- }
+ },
+ "review": {
+  "by": "reviewer-batch-m3",
+  "date": "2026-10-07 14:51 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build an Employee Satisfaction Survey Scored by Topic\"; hero names topics, sites and shifts."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "All 7 PAA answered; example questions, template, score guidance; satisfaction kept apart from engagement per watch list."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Nurse staffing by shift, principals by school, remote equipment; employee table variant."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Full-sentence openers (\"Emergent writes a satisfaction item...\", \"Nurses on every unit answer...\")."
+   },
+   "craft": {
+    "result": "fail",
+    "evidence": "Scoring rule, confidential/anonymous, overall item, act-on topics, same wording each year restated (#21)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "\"A split team and a lukewarm team can end up with the same average.\""
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Spector JSS 36 items/nine facets, top-box, confidential vs anonymous, Culture Amp thresholds all sourced; tab numbers check (118/287=41%)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Topic-scored contentment with pay, staffing, planning time; engagement owns drivers and eNPS."
+   },
+   "faq": {
+    "result": "fail",
+    "evidence": "FAQ 3, 4 and 5 restate body fields (#18)."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Cover draws \"Lowest of 7 topics\" as a green chip (#20)."
+   }
+  },
+  "findings": [
+   {
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief cover (score delta)",
+    "quote": "\"Lowest of 7 topics\" drawn as a green chip beside \"Pay, satisfied 41%\"",
+    "issue": "The page's worst result is drawn in the positive (green) style; the cover reads as good news while tab 1 and the alt say pay came in last.",
+    "fix": "Draw the delta in the bad/warn tone (engine option needed: tell the coordinator) or pick a cover whose green chip is a true positive.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_2; tab_content_1; howto_step_6_des",
+    "quote": "feature_2 \"Each topic is scored as the share of people who chose 4 or 5 on a 1-5 scale\"; tab 1 \"Each topic's score is the share of people who answered 4 or 5\"; step 6 \"Sort topics by percent satisfied\"",
+    "issue": "The scoring rule is stated in feature 2 and again in tab 1 with words swapped (the catalogue's own example shape).",
+    "fix": "Tab 1 shows the result (pay last, the raise complaint) without restating the rule.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_3; howto_step_3_des; faq item 4; faq item 7; tab_content_3",
+    "quote": "feature_3 \"the survey states which kind it is and who sees what. A group below your minimum, such as five answers, shows no results\"; step 3 \"Confidential means the system can link answers to people for reminders and team splits. Anonymous means it stores no identity\"; faq 4 \"A confidential survey knows who answered, which lets it send reminders and split results by team... An anonymous survey stores no identity at all. Read what the first screen promises and how small a group can be before results are hidden\"; faq 7 \"If the survey says who sees what\"; tab 3 \"A school with fewer than five answers shows no results\"",
+    "issue": "Confidential-vs-anonymous and the minimum group size are each restated in three to five fields; step 3 and FAQ 4 are the same explanation.",
+    "fix": "Explain confidential vs anonymous once (step 3 or FAQ 4); the other field adds something new.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_description; howto_step_1_des; faq item 3",
+    "quote": "howto_description \"picking topics you are prepared to change\"; step 1 \"Write down the parts of the job leadership can act on... Leave out what you cannot touch\"; faq 3 \"Cover only topics you can act on\"",
+    "issue": "Ask-only-what-you-can-change stated three times.",
+    "fix": "Keep it in step 1.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_1; howto_step_2_des; faq item 3",
+    "quote": "feature_1 \"then closes with one overall question on how people feel about the job itself\"; step 2 \"Add one overall item on the job as a whole, and keep open questions to two at most\"; faq 3 \"Close with one overall item and one open question\"",
+    "issue": "One-overall-item restated three times.",
+    "fix": "Keep it in one field.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq item 5; howto_step_7_des",
+    "quote": "faq 5 \"Keep the wording of an employee job satisfaction survey fixed from year to year so the comparison holds\"; step 7 \"Next year, run the same items with the same wording to see whether those scores moved\"",
+    "issue": "Same-wording-each-year told twice.",
+    "fix": "Keep it in one.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #18",
+    "field": "faq item 4; faq item 3; faq item 5",
+    "quote": "faq 4 \"A confidential survey knows who answered... An anonymous survey stores no identity at all\"",
+    "issue": "FAQ 4 restates step 3; FAQ 3 restates feature 1, step 1 and step 2; FAQ 5 restates step 7.",
+    "fix": "Each answer adds what the body does not say (e.g. FAQ 4: who can still see metadata; FAQ 5: what a top-box score of 60-70% looks like in your own history).",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "feature_3; feature_4; faq item 2; faq item 4; howto_step_4_des; howto_step_7_des",
+    "quote": "feature_3 \"shows no results but still counts in the total\" vs employee-engagement-survey tab 1 \"yet those answers count in the total\"; feature_4 \"The survey never asks for those details\" vs engagement feature_5 \"without a single demographic question in the survey\"; step 7 \"Publish company results within a few weeks of closing\" vs engagement step 7 \"Publish company results within two weeks of close\"",
+    "issue": "Shared survey mechanics echo the engagement sibling. The angle (contentment by topic: pay, staffing, planning time) and all four tabs are its own, per the watch-list guidance, so the page reads as distinct.",
+    "fix": "Vary these sentences.",
+    "severity": "note"
+   },
+   {
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq item 4; faq item 1",
+    "quote": "faq 4 \"Some are, and many are not.\"; faq 1 \"Results are usually reported topic by topic.\"",
+    "issue": "Generalizations not stated by the sources.",
+    "fix": "Source or soften.",
+    "severity": "note"
+   },
+   {
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief tab 3",
+    "quote": "\"District view\" table lists 5 schools; copy \"nine schools\"; mini \"all 9 schools\"",
+    "issue": "Five rows read as the whole district.",
+    "fix": "Label the table as a subset, or show the lowest five.",
+    "severity": "note"
+   },
+   {
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 10",
+    "quote": "employee-engagement-survey",
+    "issue": "Linked sibling is not live yet; pending with Divit.",
+    "fix": "Ship together.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "feature_3; feature_4; faq item 2; faq item 4; howto_step_4_des; howto_step_7_des",
+   "issue": "Shared survey mechanics echo the engagement sibling. The angle (contentment by topic: pay, staffing, planning time) and all four tabs are its own, per the watch-list guidance, so the page reads as distinct.",
+   "fix": "Vary these sentences.",
+   "by": "reviewer-batch-m3",
+   "via": "review",
+   "date": "2026-10-07 14:51 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq item 4; faq item 1",
+   "issue": "Generalizations not stated by the sources.",
+   "fix": "Source or soften.",
+   "by": "reviewer-batch-m3",
+   "via": "review",
+   "date": "2026-10-07 14:51 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief tab 3",
+   "issue": "Five rows read as the whole district.",
+   "fix": "Label the table as a subset, or show the lowest five.",
+   "by": "reviewer-batch-m3",
+   "via": "review",
+   "date": "2026-10-07 14:51 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 10",
+   "issue": "Linked sibling is not live yet; pending with Divit.",
+   "fix": "Ship together.",
+   "by": "reviewer-batch-m3",
+   "via": "review",
+   "date": "2026-10-07 14:51 UTC"
+  }
+ ]
 }
