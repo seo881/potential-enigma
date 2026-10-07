@@ -11,6 +11,7 @@ The one table the reviewer uses to decide whether a finding blocks. Every findin
 | image-contradiction | blocking | An image that tells a different story from its tab copy on names, numbers or outcomes; one company playing incompatible roles across tabs; an alert drawn to a channel when the copy names a person. | CONTENT_DEFECTS #20, #24, #25 |
 | sibling-keyword | blocking | The page targets, headlines or answers a keyword or topic another page in the plan owns (`hubctl brief` lists the siblings). | CONTENT_DEFECTS #1 |
 | missing-intent | blocking | The page does not deliver what the top 10 and PAA show searchers want (comparison, how-to, examples, template), or an FAQ answer never answers its question. | HUB_RULES 5 |
+| image-names | blocking | A fictional name in an image that borrows third-party IP (Umbrella Co, Hooli, Stark), or names whose pattern maps ethnicity, gender or age onto a negative outcome (Divit, 2026-10-07). | CONTENT_DEFECTS #23, #29 |
 | repeated-idea | note | The same idea or phrase in several fields with words swapped. | CONTENT_DEFECTS #18, #21, #22 |
 | soft-quantifier | note | "Most", "many", "usually", "often" in advice or about no named third party. | CONTENT_DEFECTS #7 |
 | unsourced-advice | note | A recommendation (what the reader should do), not a statement of fact. | HUB_RULES 8 |

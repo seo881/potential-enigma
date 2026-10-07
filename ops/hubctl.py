@@ -294,8 +294,9 @@ def cmd_ready(args):
     if not s.get("review"): sys.exit("this page has not had its review yet: spawn a page-reviewer (hubctl review)")
     q = subprocess.run([sys.executable, os.path.join(ROOT, "ops", "hubctl.py"), "qc", url], capture_output=True, text=True).stdout
     if "TOTAL (P0+P1) = 0" not in q: sys.exit("QC is not at zero:\n" + q[-1500:])
-    nb = len([f for f in s["review"].get("findings", []) if f.get("severity") == "blocking"])
-    set_state(url, "reviewed", note=f"one rework applied by {by} for {nb} blocking finding(s) from {s['review']['by']}; ready for Divit", via="ready", by=by)
+    src = s.get("challenge") or s["review"]   # legacy pages: the challenger's findings counted as their one review (Divit, 2026-10-07)
+    nb = len([f for f in src.get("findings", []) if f.get("severity") == "blocking"])
+    set_state(url, "reviewed", note=f"one rework applied by {by} after {src['by']} ({nb} findings marked blocking then, fixed per rules/SEVERITY.md); ready for Divit", via="ready", by=by)
     print(f"{url} -> reviewed (ready for Divit's preview review)")
 
 def cmd_export_csv(args):
