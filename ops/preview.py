@@ -20,8 +20,9 @@ def build(url):
     panes = ""
     for i in range(1, 5):
         u, a = img(f"tab_image_{i}")
-        tabs += f'<button role="tab" aria-selected="{"true" if i == 1 else "false"}" aria-controls="pane{i}" id="tab{i}" data-i="{i}">{esc(F[f"tab_label_{i}"])}</button>'
-        panes += f'<div class="pane" role="tabpanel" id="pane{i}" aria-labelledby="tab{i}"{"" if i == 1 else " hidden"}><div class="pane-copy">{F[f"tab_content_{i}"]}</div><img src="{u}" alt="{a}" width="1200" height="800"></div>'
+        pid = url.rsplit("/", 1)[1][:12].replace("-", "")
+        tabs += f'<button role="tab" aria-selected="{"true" if i == 1 else "false"}" aria-controls="pane{pid}{i}" id="tab{pid}{i}" data-i="{i}">{esc(F[f"tab_label_{i}"])}</button>'
+        panes += f'<div class="pane" role="tabpanel" id="pane{pid}{i}" aria-labelledby="tab{pid}{i}"{"" if i == 1 else " hidden"}><div class="pane-copy">{F[f"tab_content_{i}"]}</div><img src="{u}" alt="{a}" width="1200" height="800"></div>'
     feats = "".join(f'<div class="feat">{F[f"feature_{i}"]}</div>' for i in range(1, 7))
     steps = "".join(f'<li><span class="n">{esc(F[f"howto_step_{i}_title"][:2])}</span><div><h3>{esc(F[f"howto_step_{i}_title"][3:])}</h3><p>{esc(F[f"howto_step_{i}_des"])}</p></div></li>' for i in range(1, 8))
     faqs = ""
@@ -95,10 +96,24 @@ details p{{color:var(--sub);margin:12px 0 0;max-width:820px}} details a{{color:v
 </main>
 <script>
 document.querySelectorAll('[role=tab]').forEach(t=>t.addEventListener('click',()=>{{
- document.querySelectorAll('[role=tab]').forEach(x=>x.setAttribute('aria-selected',x===t?'true':'false'));
- document.querySelectorAll('.pane').forEach(p=>p.hidden=p.id!=='pane'+t.dataset.i);}}));
+ const sec=t.closest('section');sec.querySelectorAll('[role=tab]').forEach(x=>x.setAttribute('aria-selected',x===t?'true':'false'));
+ sec.querySelectorAll('.pane').forEach(p=>p.hidden=p.id!==t.getAttribute('aria-controls'));}}));
 </script></body></html>"""
 
+def batch(urls, title="Review batch"):
+    """One page with every preview, an index at the top, so a batch reads in one sitting."""
+    pages = [build(u) for u in urls]; head = pages[0].split("<body>")[0].replace("<title>", f"<title>{html.escape(title)}: ")
+    items = "".join(f'<li><a href="#p{i}">{html.escape(json.load(open(HC.spath(u)))["fields"]["h1"])}</a> <span>{html.escape(u)}</span></li>' for i, u in enumerate(urls))
+    body = f'<div class="wrap" style="padding:32px 24px 8px"><h1 style="font-size:28px">{html.escape(title)}: {len(urls)} pages</h1><ol style="color:var(--sub);line-height:1.8">{items}</ol></div>'
+    for i, (u, pg) in enumerate(zip(urls, pages)):
+        inner = pg.split("<body>")[1].rsplit("<script>", 1)[0]
+        body += f'<div id="p{i}" style="border-top:6px solid var(--ink);margin-top:48px"></div>' + inner
+    script = pages[0].rsplit("<script>", 1)[1].rsplit("</script>", 1)[0]
+    script = "document.querySelectorAll('[role=tablist]').forEach(tl=>{tl.querySelectorAll('[role=tab]').forEach(t=>t.addEventListener('click',()=>{const sec=tl.parentElement;sec.querySelectorAll('[role=tab]').forEach(x=>x.setAttribute('aria-selected',x===t?'true':'false'));sec.querySelectorAll('.pane').forEach(p=>p.hidden=p.id!==t.getAttribute('aria-controls'));}));});"
+    return head + "<body>" + body + "<script>" + script + "</script></body></html>"
+
 if __name__ == "__main__":
+    if sys.argv[1] == "--batch":
+        out = sys.argv[2]; urls = sys.argv[3:]; open(out, "w").write(batch(urls)); print(f"batch preview: {out} ({os.path.getsize(out)//1024} KB, {len(urls)} pages)"); sys.exit()
     url = sys.argv[1]; out = sys.argv[2] if len(sys.argv) > 2 else os.path.join(ROOT, ".cache", "review", url.rsplit("/", 1)[1] + ".html")
     os.makedirs(os.path.dirname(out), exist_ok=True); open(out, "w").write(build(url)); print(f"preview: {out} ({os.path.getsize(out)//1024} KB)")
