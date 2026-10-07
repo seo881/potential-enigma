@@ -150,6 +150,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-07 12:39 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "reviewer-employee-engagement-survey-c2",
+   "note": "craft: Tacked-on ', so [benefit]' endings recur seven times (defect #4 pattern): feature_2 'The rule is stated on the first screen, so people know who sees what.'; feature_4 '..., so HR sees the handful of items that move it most...'; feature_5 '..., so results split by team without asking any emplo"
   }
  ],
  "faq_sources": [
@@ -761,48 +768,48 @@
   "date": "2026-10-07 12:37 UTC"
  },
  "review": {
-  "by": "reviewer-employee-engagement-survey-c1",
-  "date": "2026-10-07 12:33 UTC",
+  "by": "reviewer-employee-engagement-survey-c2",
+  "date": "2026-10-07 12:39 UTC",
   "rubric": {
    "scope": {
     "result": "pass",
-    "evidence": "H1 'Build an Employee Engagement Survey From Question to Action', title 'Employee Engagement Survey You Can Act On' and hero ('the questions, anonymous team results, driver analysis and manager dashboards') cover the whole job, not one feature or a sibling topic."
+    "evidence": "H1 'Build an Employee Engagement Survey From Question to Action', title 'Employee Engagement Survey You Can Act On' and hero ('the questions, anonymous team results, driver analysis and manager dashboards') state the whole job; no sibling topic."
    },
    "intent": {
     "result": "pass",
-    "evidence": "Top 10 is Gallup Q12, question lists (Culture Amp, DecisionWise), templates (SurveyMonkey) and vendor directories (SHRM, Perceptyx); the page gives ten example items ('I am proud to work here; I plan to be here in two years...'), a template FAQ, a vendor table and a 7-step how-to."
+    "evidence": "Top 10 is Gallup Q12, question lists (Culture Amp, DecisionWise), a SurveyMonkey template and vendor directories (SHRM, Perceptyx); the page gives ten example items in FAQ 5, a template answer (FAQ 14), a vendor table and FAQ 12, a 7-step how-to, and 9 of 9 PAA questions answered."
    },
    "specificity": {
     "result": "pass",
-    "evidence": "Buyer vocabulary throughout ('engagement index', 'eNPS', 'weakest driver', 'HR business partner', 'BambooHR, Workday'); table uses the employee variant: 'Pulse and annual surveys, anonymous reporting, and manager dashboards, as code you own'."
+    "evidence": "Buyer vocabulary throughout ('engagement index', 'eNPS', 'HR business partner', 'BambooHR, Workday'); table uses the employee variant 'Pulse and annual surveys, anonymous reporting, and manager dashboards, as code you own'."
    },
    "openers": {
     "result": "pass",
-    "evidence": "Every body paragraph opens with a full sentence that says what happens, e.g. tab 2 'Store and warehouse staff without a company email scan a QR code in the break room...'; FAQ 'Not exactly.' / 'Yes.' are direct answers, not labels."
+    "evidence": "Every paragraph opens on a full sentence that says what happens, e.g. tab 2 'Store and warehouse staff without a company email scan a QR code in the break room...'; FAQ 13 'Not exactly.' and FAQ 14 'Yes.' answer the question directly."
    },
    "craft": {
     "result": "fail",
-    "evidence": "feature_6: heading 'Action plans, and code you keep' glues two unrelated ideas into one block (manager action logs + GitHub export); give the block one idea (e.g. the action-plan loop) and let the why table/feature carry code export. Also 'two or three' recurs four times (feature_4 'the two or three items', feature_6 'two or three actions', step 6 'the two or three drivers', step 7 'two or three actions'): vary or cut, the repetition reads templated."
+    "evidence": "Tacked-on ', so [benefit]' endings recur seven times (defect #4 pattern): feature_2 'The rule is stated on the first screen, so people know who sees what.'; feature_4 '..., so HR sees the handful of items that move it most...'; feature_5 '..., so results split by team without asking any employee to describe themselves.'; tab_content_4 '..., so leaders see the pattern across 400 comments without reading each one.'; faq 1 '..., so HR knows where to act first.'; howto_description '..., so the steps start with...'; faq 9 'because it asks about two things, so a low score tells you nothing.' Plus tacked-on which-clauses: faq 4 'which turns the model into a score you can track', step 7 'which is what keeps people answering'. Rewrite each so the sentence ends on its own point; split cause and effect into separate sentences or cut the benefit tail."
    },
    "voice": {
-    "result": "pass",
-    "evidence": "Mostly concrete and plain ('the next survey asks if they landed'; 'Items nobody acts on make the survey longer and teach people that answering changes nothing'). P2 accepted-for-writer: howto_description triplet plus summary ('Seven steps take you from the first question to the first action plan') and FAQ 3 'Because commitment drops long before resignations arrive' (unsourced generalization, defect #7 pattern) are worth tightening in the rework."
+    "result": "fail",
+    "evidence": "Tidy triplets and stock parallel lists read machine-made: faq 3 'give every person the same anonymous channel, show problems by team instead of by rumor, and set a baseline...'; step 5 'why you are asking, who sees what, and when results come back'; step 1 'attrition in engineering, manager quality, workload after a hiring freeze'; step 4 'the survey, the response database and the dashboards' repeated as faq 2 'a working employee survey, its response database and its dashboards'. Phrases recycle across sections: 'who sees what' (feature_2, step 5), 'describe themselves' (feature_5, step 3), 'by describing it' / 'describe the edit' / 'by prompting' (feature_1, faq 14, step 4). Break the triplets, keep one instance of each recycled phrase."
    },
    "truth": {
     "result": "fail",
-    "evidence": "(1) faq item 10 '412 of 600 people answer and the engagement index is 72... The eNPS is +18' reuses tab 1's census (412 of 600, weighted index 72.0) but tab 1's teams give a company eNPS of (118x22+84x9-66x6+141x25)/409 = +15.8, and even Legal's 3 hidden answers at +100 cap it at +16.5; +18 cannot follow (defect #10). Use +16. (2) howto_step_3_des 'Pick the smallest group that can see results, usually five' says the opposite of the intent (it is the smallest group whose results anyone can see). (3) The anonymity rule is stated two ways: feature_2 'any group under five people' and tab 1 'Teams under five' (team size) vs tab 2 / FAQ 10 'once five people have answered' and the image 'Legal 3 answered, Hidden, under 5' (responses). State one rule, fewer than five answers, everywhere. Hidden teams' answers do count in the total (118+84+66+141+3 = 412), consistent with FAQ 10; keep it that way."
+    "evidence": "faq 10 'In a typical set of employee engagement survey results, 412 of 600 people answer, the engagement index is 72 out of 100 and the eNPS is +16' presents the page's own invented census as a norm (69% response, index 72, eNPS +16 as 'typical' is an unsourced benchmark, defect #7). Reword as this page's example ('In the census above...' or 'For example, ...'). Numbers otherwise verified: index (118x76+84x69+66x58+141x77)/409 = 72.0; eNPS 6481/409 = +15.8, +15.0 to +16.5 with Legal's 3 hidden answers, so +16 holds; +18 appears only on the Q3 quarterly check (tab 4, cover, alt)."
    },
    "distinct": {
     "result": "pass",
-    "evidence": "Own territory per the watch-list (commitment and eNPS drivers): census, frontline QR, post-reorg and quarterly eNPS scenes share nothing with /customer-satisfaction's account-tied CSAT/NPS scenes; satisfaction and pulse are handed off by link in FAQ 13 and 15. P2: the cover ('Rate us as a workplace' five-star card + score) mirrors the CSAT sibling's 'five-star rating and a CSAT of 4.6' cover and uses a star question this page never describes; swap to a 1-5 agreement item or the eNPS gauge."
+    "evidence": "Own territory per the watch-list (commitment and eNPS drivers): census, frontline QR, post-reorg and quarterly eNPS scenes share nothing with /customer-satisfaction's account-tied CSAT scenes; satisfaction and pulse are handed off by link in faq 13 and 15."
    },
    "faq": {
     "result": "fail",
-    "evidence": "15 items, each answered in its first sentence, but two answers read keyword-stuffed: item 12 asks about 'vendors' then forces 'employee engagement survey providers' and 'employee engagement survey companies' into two sentences; item 14 ends 'instead of reworking a static employee survey template or a sample employee engagement survey from a PDF'. Item 15 link reads 'see <a>pulse survey</a>' with no article; rewrite e.g. 'run a pulse survey'. Also item 15 'a short check of five to ten questions each quarter' contradicts tab 4's quarterly check of two questions."
+    "evidence": "15 real questions, each answered in its first sentence, but four answers repeat body copy on the same page: faq 1 'measures how committed people are to their work and their employer' is the features_subheading almost verbatim; faq 8 'Start with pride, intent to stay and recommending the company, then add items on managers, growth, recognition and workload' restates feature_1 and step 2 (the same driver list also appears in faq 1 and faq 5); faq 6 'Leave out items nobody will act on. They make the survey longer' restates step 1 'Items nobody acts on make the survey longer'; faq 14 'To change a question, a section or the anonymity rule, describe the edit' restates feature_1 'Add, reword or drop any item by describing it'. Each answer must add something the body does not say. P2: faq 11 'hide results below a minimum group size' should use the page's one rule wording (a minimum number of answers)."
    },
    "images": {
-    "result": "pass",
-    "evidence": "Each tab is one moment that matches its copy: uc-1 412 of 600 = 118+84+66+141+3, Legal 'Hidden, under 5', Support 'Log actions'; uc-2 'Question 3 of 12', English/Spanish, Store 214 '5 answered' unlocked for R. Diaz; uc-3 Platform 81 to 67 = -14 against a 10-point rule, Slack #hr-partners; uc-4 142+118+86+54 = 400, eNPS +18 up from +12 matching the cover '+6 this quarter'. P2: tab 4 copy says 'eNPS trends by team' while uc-4 shows the company score only."
+    "result": "fail",
+    "evidence": "Cover and share-image card 'Quarterly eNPS check-in' (+18, '+6 this quarter') has an empty band where the stars used to be: the card runs y=60 to 440 and the divider sits at y=256, leaving about 120px (roughly a third of the card) blank between the title and the score (defect #5, visible empty zone; it shows at the same proportion in og.png). Fill the band with something the page describes (e.g. the 0-10 recommend question or a Q2 to Q3 mini trend, +12 to +18) or shrink the card. Tabs 1-4 match their copy on names and numbers (412 of 600, Legal 3 'Hidden, under 5 answers', Store 214 five answers, Platform 81 to 67, 400 comments, +18 up from +12)."
    }
   }
  }
