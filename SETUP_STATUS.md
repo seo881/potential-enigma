@@ -17,17 +17,17 @@ What exists, what does not yet, and what is next. Update this file whenever a se
 | Image brief schema (writers produce it with the copy) | `docs/IMAGE_BRIEF.md` | draft; consumed by the recipe library |
 | Human-voice standard and AI-tell checks | `rules/HUB_RULES.md` 2b, `rules/ai_tells.json`, QC codes A1-A4 | approved pages: 0 hits; planted AI copy: every tell caught |
 | **Image engine**: 11 recipes from the approved scenes, 44 blocks, covers, share images, fit and number checks, balance check, contact sheets; QC lint (I1/I2); `hubctl images` / `images-batch` | `pipeline/engine.py`, `pipeline/engine_blocks.py`, `docs/IMAGE_BRIEF.md`, `pipeline/briefs/` | all 16 approved scenes rebuilt from briefs, gates clean; 20/20 SVGs byte-identical on the Linux and macOS paths; the 24 live images still rebuild byte-identical |
+| Review render (`ops/review.py`), competitor libraries and table generator (`ops/table.py`, `rules/competitors/`), QC V2/V3, PAA relevance filter, neutral-grey brand layer with rotating accents | repo | 4 approved tables regenerate byte-identically; sample page QC 0 |
 | Portable pipeline: path resolver, pinned assets (Inter 4.1, Lucide 1.52.0), renderer with a pure-Python fallback (`resvg-py`) | `pipeline/paths.py`, `assets.py`, `raster.py`, `_alias.py` | macOS path simulated end to end |
 | Claude Code config: `.mcp.json` (Webflow), `.claude/settings.json` (permissions), macOS-ready `ops/setup.sh`, setup guide | repo root, `docs/CLAUDE_CODE_SETUP.md` | Linux path tested; macOS path to be confirmed on Divit's machine |
 | One-shot setup for any chat | `ops/setup.sh` | fresh public clone at 28fe7fb: image bootstrap OK (20 scenes, all gates clean), keyword map rebuilt, QC smoke PASS, SETUP OK |
 
 ## Not built yet (next, in order)
-1. **Daily review page** for Divit (calibration batch in full, then a 10% sample plus flagged pages), built from specs and contact sheets.
+1. **Competitor libraries for every page category** (coordinator): the four libraries hold the hub-level competitors plus AP vendors; each new category (sales tools, HR survey tools, SEO tools...) is added with sources before its first page is written.
 2. **Dry run**: 5 pages end to end (write → review → images → review page → drafts → verify), then the calibration batch (10 per hub, reviewed in full by Divit), then 200 a day.
 
 ## Waiting on Divit
 - Connect DataForSEO: Claude.ai (Settings → Connectors → Add custom connector → `https://mcp.dataforseo.com/mcp` → Connect) and Claude Code (`git pull`, start `claude`, approve the `dataforseo` server, `/mcp` → dataforseo → Authenticate).
-- Emergent brand palette (or permission to read it from the site's Webflow colour variables) to lift the image hold.
 - Decide the 11 Wave 3 pages held as needs-decision (8 cut, 3 merges).
 - Install the two skills, and replace `Kickoff.md` in the Project with the updated `KICKOFF.md` (adds the writer and reviewer prompts and Claude Code mode).
 - Runtime chosen: Claude Code. Run `docs/CLAUDE_CODE_SETUP.md` on your machine and report the result of the check in step 4.

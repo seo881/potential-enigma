@@ -90,3 +90,27 @@ def tokens(s): return {t for t in TOK.findall((s or "").lower()) if t not in STO
 def similar(a, b):
     ta, tb = tokens(a), tokens(b)
     return len(ta & tb) / max(1, len(ta | tb))
+
+def topic_tokens(page):
+    """Meaningful tokens of the page's primary and secondaries, plus common abbreviations."""
+    toks = set()
+    for k in [page.get("primary", "")] + [x["kw"] for x in page.get("secondaries", [])]:
+        toks |= tokens(k)
+    abbr = {"accounts payable": "ap", "accounts receivable": "ar", "customer satisfaction": "csat", "net promoter": "nps", "search engine optimization": "seo", "human resources": "hr"}
+    for full, ab in abbr.items():
+        if full in page.get("primary", "").lower(): toks.add(ab)
+    return toks - {"form", "page", "template", "free", "online", "best", "software", "tool", "tools", "builder"}
+
+def eligible(live, page, prims=None):
+    """Split captured PAA questions into (eligible, skipped[(q, reason)]).
+    Skipped: questions that drift off topic (deeper PAA expansions often do) and questions that name another page's primary."""
+    want = topic_tokens(page); ok, skip = [], []
+    for it in live.get("paa", []):
+        q = it["q"]; ql = q.lower()
+        owner = None
+        for k, u in (prims or {}).items():
+            if len(k.split()) > 1 and k in ql and k not in page.get("primary", "").lower(): owner = u; break
+        if owner: skip.append((q, f"belongs to {owner}")); continue
+        if not (tokens(q) & want): skip.append((q, "off topic (PAA expansion drift)")); continue
+        ok.append(it)
+    return ok, skip

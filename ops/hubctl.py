@@ -12,6 +12,8 @@
   bulk-payload HUB --sha SHA        create_collection_items actions (100 items per action) for every approved page without an item ID
   bulk-verify HUB READBACK.json     verify every page of HUB found in a stored read-back; records item IDs and file IDs
   next STATE [HUB]                  list pages waiting in a state (for orchestrators and reviewers)
+  table URL --vs A,B,C --rows id[=Label],...   build the comparison table from the vetted library (rules/competitors/)
+  library HUB                       list the library: competitors, categories, dimensions, fact ages
   serp-save URL RAW.json [KEYWORD]  normalise a DataForSEO SERP result into private/serp/ (PAA, related, top 10, features)
   serp-status [HUB]                 claimed or in-progress pages that still need a live SERP
   images URL                        render the page's image_brief into its 6 images + contact sheet (engine), state -> images
@@ -102,9 +104,9 @@ def cmd_brief(args):
     if live:
         print(f"LIVE SERP  DataForSEO, Google US, {live['fetched']} | features: {', '.join(live['features'])}")
         print("PEOPLE ALSO ASK (source every FAQ question from these first; mirror the phrasing; answer in your own words):")
-        for it in live["paa"]:
-            own = next((u for k, u in prims.items() if len(k.split()) > 1 and k in it["q"].lower() and k not in p["primary"].lower()), None)
-            print(f"   - {it['q']}" + (f"   [belongs to {own}: skip, it is that page's FAQ]" if own else ""))
+        ok, skip = S.eligible(live, p, prims)
+        for it in ok: print(f"   - {it['q']}")
+        for q_, why in skip: print(f"   x {q_}   [skip: {why}]")
         if live["related"]: print("RELATED SEARCHES (fill remaining FAQ slots and secondaries from these):\n   " + " | ".join(live["related"]))
         if not p.get("top10") and live["organic"]: print("TOP 10 (live):\n" + "\n".join(f"   {o['rank']:>2}. {o['url']}" for o in live["organic"]))
     else:
@@ -270,6 +272,24 @@ def cmd_serp_status(args):
             if e.get("state") in ("claimed", "spec", "rework") and not S.load(url): print(f"needs SERP  {url}"); n += 1
     print(f"{n} page(s) need a live SERP")
 
+def cmd_table(args):
+    url = args[0]; vs = [x.strip() for x in args[args.index("--vs") + 1].split(",")]; rows = [x.strip() for x in args[args.index("--rows") + 1].split(",")]
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import table as TB
+    d = CFG["hubs"][hub_of(url)]["repo_dir"]; html = TB.render(d, vs, rows)
+    sp = spath(url); s = json.load(open(sp)); s["fields"]["why_table"] = html; s["table"] = {"vs": vs, "rows": rows}
+    json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
+    old = TB.stale(d, vs, rows)
+    print(f"table written to {os.path.relpath(sp, ROOT)}: Emergent vs {', '.join(vs)}; rows {', '.join(rows)}")
+    for o in old: print("  STALE (re-check before use):", o)
+
+def cmd_library(args):
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import table as TB, datetime
+    d = CFG["hubs"][args[0]]["repo_dir"]; L = TB.lib(d)
+    print(f"{args[0]} library, updated {L['updated']}. Dimensions: " + "; ".join(f"{k} ({' / '.join(v)})" for k, v in L["dimensions"].items()))
+    for name, c in L["competitors"].items():
+        ages = [(datetime.date.today() - datetime.date.fromisoformat(f["checked"])).days for f in c["facts"].values()]
+        print(f"  {name:36s} {','.join(c['categories']):28s} facts: {', '.join(c['facts'])}  (oldest check {max(ages)} days)")
+
 def _engine():
     sys.path.insert(0, os.path.join(ROOT, "pipeline")); import engine; return engine
 
@@ -308,7 +328,7 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status}
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library}
 if __name__ == "__main__":
     if len(sys.argv) < 2 or sys.argv[1] not in CMDS: print(__doc__); sys.exit(0)
     try:

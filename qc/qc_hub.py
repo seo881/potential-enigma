@@ -135,7 +135,13 @@ def check(spec, siblings):
         rows = re.findall(r'<th scope="row">', t)
         if len(rows) < 4: add("P1", "S7", "why_table", f"only {len(rows)} comparison rows (expected 4+)")
     # S8 images
-    imgs = spec.get("images", {})
+    imgs = {k: dict(v) for k, v in spec.get("images", {}).items()}
+    br = spec.get("image_brief") or {}
+    if br:                                   # before the render stage, the alt text lives in the brief
+        for i, tb in enumerate(br.get("tabs", []), 1): imgs.setdefault(f"tab_image_{i}", {}); imgs[f"tab_image_{i}"].setdefault("alt", tb.get("alt", "")) if imgs[f"tab_image_{i}"].get("alt") else imgs[f"tab_image_{i}"].update(alt=tb.get("alt", ""))
+        for k, src in (("cover_image", br.get("cover", {})), ("share_image", br.get("og", {}))):
+            imgs.setdefault(k, {})
+            if not imgs[k].get("alt"): imgs[k]["alt"] = src.get("alt", "")
     for k in CFG["image_fields"]:
         im = imgs.get(k)
         if not im: add("P0", "S8", k, "image missing (spec.images)")
@@ -246,7 +252,11 @@ def check(spec, siblings):
             hit = [s for s in secs if norm(s) in norm(body)]
             cov = len(hit) / len(secs)
             if cov < 0.4: add("P2", "K6", "body", f"covers {len(hit)}/{len(secs)} top secondaries ({cov:.0%}); missing e.g. {[s for s in secs if s not in hit][:4]}")
-        top = " ".join(me.get("top10", [])).lower()
+        try:
+            sys.path.insert(0, os.path.join(ROOT, "plan")); import serp as _S
+            _live = _S.load(spec["url"]) or {}
+        except Exception: _live = {}
+        top = " ".join(me.get("top10", []) + [o.get("url", "") for o in _live.get("organic", [])]).lower()
         if top and t:
             for hd in re.findall(r'<th scope="col">([^<]+)</th>', t):
                 brands = [b.strip().lower().replace(" ", "") for b in re.split(r"[/,()]", hd) if b.strip() and "builder" not in b.lower()]
@@ -254,7 +264,20 @@ def check(spec, siblings):
                 if brands and not any(b in flat for b in brands):
                     add("P2", "K7", "why_table", f'competitor "{hd}" is not in this page\'s top 10; prefer tools that rank for the query')
     # ---------- V/C: vendor numbers, claims ----------
-    if not spec.get("vendor_facts_checked"):
+    table_ok = False
+    if spec.get("status") not in ("live-draft", "published"):
+        if not spec.get("table"):
+            add("P1", "V2", "why_table", "build the comparison table from the vetted library: hubctl table <url> --vs A,B,C --rows ...")
+        else:
+            try:
+                sys.path.insert(0, os.path.join(ROOT, "ops")); import table as TB
+                want = TB.render(h["repo_dir"], spec["table"]["vs"], spec["table"]["rows"])
+                if want != t: add("P1", "V2", "why_table", "the table differs from the library (hand-edited or the library changed): regenerate it with hubctl table")
+                else: table_ok = True
+                for o in TB.stale(h["repo_dir"], spec["table"]["vs"], spec["table"]["rows"]): add("P1", "V3", "why_table", f"fact needs re-checking: {o}")
+            except Exception as e:
+                add("P1", "V2", "why_table", f"table spec invalid: {e}")
+    if not spec.get("vendor_facts_checked") and not table_ok:
         for cell in re.findall(r'<td class="col-other">(.*?)</td>', t, re.S):
             if re.search(r"(?<![A-Za-z])\d", strip_html(cell)):
                 add("P1", "V1", "why_table", f'competitor cell with a number needs a dated check (spec.vendor_facts_checked): "{strip_html(cell).strip()[:70]}"')
@@ -324,9 +347,9 @@ def check(spec, siblings):
                     if norm(ref) != norm(prim): add("P1", "F2", "faq", "a definition item must define the page's primary keyword")
                 else:
                     add("P1", "F2", "faq", f'unknown source type "{kind}" (paa, related, secondary, definition)')
-            for i in live["paa"][:8]:
-                owner = next((u for k, u in prims.items() if k in i["q"].lower() and k not in prim.lower()), None)
-                if owner: continue                     # belongs on the sibling page that owns that primary
+            me_page = (KMAP or {}).get(spec["url"], {"primary": prim, "secondaries": []})
+            ok_paa, _skip = S.eligible(live, me_page, prims)
+            for i in ok_paa[:10]:
                 if i["q"].lower() not in used_paa: add("P1", "F4", "faq", f'People Also Ask question not answered: "{i["q"]}"')
             if not live["paa"]: add("P2", "F5", "faq", "this SERP shows no People Also Ask box; FAQ comes from related searches and secondaries")
     on_hold = CFG.get("images_on_hold")

@@ -22,6 +22,22 @@ from engine_blocks import BriefError, CTX, fit, T
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PALETTE = {"LP": "lp", "Form": "form", "Auto": "aab", "SurveyQuiz": "sqb", "lp": "lp", "form": "form", "aab": "aab", "sqb": "sqb"}
 
+# Brand layer (Divit + the Webflow developer, 2026-10-07): neutral grey canvas behind every image; the artifact itself
+# (buttons, chips, charts, accents) keeps colour, varied by hub rather than purple everywhere. Applies to engine renders only;
+# build.py keeps the original palettes so the 24 live images stay reproducible until their re-render is approved.
+NEUTRAL = dict(bg1="#FAFAFA", bg2="#EEEEF0", glow="#FFFFFF", grid="#52525B", spot="#71717A", sh="#18181B", line="#E4E4E7", hair="#EFEFF1")
+H.PALS = {k: {**v, **NEUTRAL} for k, v in H.PALS.items()}
+ACCENTS = {"violet": "aab", "blue": "lp", "emerald": "form", "orange": "sqb"}
+ROTATION = ["blue", "emerald", "orange", "violet"]
+def accent_for(hub, tab, idx):
+    """One accent per image; the four tabs of a page rotate through the brand accents, starting with the hub's own."""
+    if tab.get("accent"):
+        if tab["accent"] not in ACCENTS: raise BriefError(f"tab {idx}: accent must be one of {', '.join(ACCENTS)}")
+        return ACCENTS[tab["accent"]]
+    own = next(k for k, v in ACCENTS.items() if v == PALETTE[hub])
+    order = [own] + [a for a in ROTATION if a != own]
+    return ACCENTS[order[(idx - 1) % len(order)]]
+
 # ------------------------------------------------------------------ layout
 def flow(blocks, x, y, w, h, where, top_gap=24, max_gap=40):
     """Lay blocks top to bottom inside (x, y, w, h). Gaps stretch (up to max_gap) to keep the panel balanced."""
@@ -138,7 +154,7 @@ def side_panel(d, x, y, w, h, where):
 
 # ------------------------------------------------------------------ one use-case image
 def render_tab(hub, tab, idx=1):
-    H.set_hub(PALETTE[hub]); CTX.update(clicks=0, av=0, where=f"tab {idx}: ")
+    H.set_hub(accent_for(hub, tab, idx)); CTX.update(clicks=0, av=0, where=f"tab {idx}: ")
     rid = tab.get("recipe"); fr = FRAMES.get(rid)
     if not fr: raise BriefError(f"tab {idx}: recipe must be one of {', '.join(FRAMES)}")
     p = tab["prompt"].strip().strip('"\u201c\u201d')
