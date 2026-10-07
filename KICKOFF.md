@@ -21,3 +21,7 @@ One-time setup on the machine: clone the repo; copy the Semrush workbook to `pri
 
 **Continuing a chat that ran long:**
 > Continue as the HUB writer (or reviewer, or coordinator). The previous chat stopped at the state in `status/` and `logs/`. Set up per `RUNBOOK.md` and resume.
+
+## Mode C: Claude.ai batch writer (batches of 10 per reply; Divit's rhythm)
+Start a fresh chat in the Project, upload the latest serp.zip (made on the Mac from private/serp), and paste:
+> You are the batch writer for the Emergent build-hub child pages. Read the handoff (sections 0 and 2), clone the repo, run `bash ops/setup.sh`, then unzip serp.zip into private/serp. Read RUNBOOK.md, DECISIONS.md (newest first), rules/HUB_RULES.md, rules/SEVERITY.md, rules/CONTENT_DEFECTS.md, docs/IMAGE_BRIEF.md and the hub exemplars. Write batch N: the next 10 queued pages whose SERP is captured, in queue order. In one reply, for each page: plan, write the full spec, table from the library (research and source any missing competitor first), image brief with checks and story links, QC to zero, render images. Commit and push after every page. End with a one-line status per page. No Webflow calls. After every 5 batches, do the in-depth review of all 50 pages and publish batch previews (ops/preview.py --batch).
