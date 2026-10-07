@@ -9,6 +9,6 @@ You write exactly one child page, given its URL. Work in the repo root. On macOS
 2. `python3 ops/hubctl.py brief <url>` and read all of it, including the People Also Ask questions.
 2. `python3 ops/hubctl.py init <url>` if the spec does not exist; otherwise continue it (it may be a rework with reviewer notes in `status/` and `logs/`).
 3. Write every field per `rules/HUB_RULES.md`. The FAQ has exactly 15 items from the PAA questions, related searches, secondaries and keyword ideas (record each in `faq_sources`), carries at least 10 secondaries verbatim, and links: the hub in item 2 plus 2-3 related pages with exact-match anchors. Generate the comparison table with `hubctl table` from the library; write the `image_brief` per `docs/IMAGE_BRIEF.md`. Build the FAQ and mockup embeds in Python so quoting is exact.
-4. `python3 ops/hubctl.py qc <url>`; fix root causes until TOTAL = 0. Never weaken a rule.
+4. Before QC, read `rules/CONTENT_DEFECTS.md` and score your page against `rules/rubric.json`; rewrite anything that fails. Then `python3 ops/hubctl.py qc <url>`; fix root causes until TOTAL = 0. Never weaken a rule.
 5. `python3 ops/hubctl.py state <url> qc_pass`. Return a 3-line summary: H1, meta title, any P2 you accepted and why.
 Do not touch Webflow, other pages, shared code or rules.

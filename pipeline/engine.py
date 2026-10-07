@@ -57,7 +57,11 @@ def flow(blocks, x, y, w, h, where, top_gap=24, max_gap=40):
     for bd, bh in zip(blocks, hs):
         part, _ = B.BLOCKS[bd["type"]](bd, x, yy, w); s += part; yy += bh + gap
     used = (sum(hs) + gap * (n - 1)) / h
-    if used < 0.55: CTX.setdefault("warn", []).append(f"{CTX['where']}{where}: only {used:.0%} of the panel is used (looks empty); add a block or pick a tighter recipe")
+    # Balance: empty space that pools in one place once spacing has stretched to its limit. Calibrated 2026-10-07:
+    # all 16 approved scenes pool at most 16%; the first AP sample's visibly empty panels pooled 17-25%.
+    pooled = (h - hs[0]) / h if n == 1 else max(0.0, h - sum(hs) - max_gap * (n - 1)) / h
+    if "hero" not in where and pooled > 0.165:
+        CTX.setdefault("balance", []).append(f"{CTX['where']}{where}: {pooled:.0%} of the panel is empty space pooled in one place (max 16%); add a block, a row or a richer element so the panel reads full")
     return s, used
 
 def panel_box(x, y, w, h, pad=28): return (x + pad, y + pad, w - 2 * pad, h - 2 * pad)
@@ -291,7 +295,7 @@ def brief_of(spec):
 
 def build_all(spec):
     """Render every image in memory. Returns (outputs, issues, warnings). outputs: list of (relpath, bytes|str)."""
-    hub = spec["hub"]; br = brief_of(spec); out, issues = [], []; CTX["warn"] = []
+    hub = spec["hub"]; br = brief_of(spec); out, issues = [], []; CTX["warn"] = []; CTX["balance"] = []
     cfg = json.load(open(os.path.join(REPO, "config", "collections.json")))
     d = f"images/{cfg['hubs'][hub]['repo_dir']}/{spec['url'].rsplit('/', 1)[1]}"
     if spec.get("_demo"): d = f"images/_demo/{spec['url'].rsplit('/', 1)[1]}"
@@ -314,6 +318,7 @@ def build_all(spec):
         if len(og.get("alt", "")) < 20: raise BriefError("og: alt text missing or too short")
         if cover_src: out.append((f"{d}/og.svg.tmp", render_og_svg(hub, og, cover_src)))
     except BriefError as e: issues.append(str(e))
+    issues += CTX.get("balance", [])
     return out, issues, list(CTX.get("warn", []))
 
 def lint(spec):

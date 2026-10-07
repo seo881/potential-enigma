@@ -5,7 +5,8 @@
   brief URL                         keyword brief for a page (needs plan/keyword_map.json)
   init URL                          create the spec skeleton specs/<dir>/<slug>.json
   qc URL                            run qc/qc_hub.py on that page's spec
-  state URL STATE [--note TEXT]     move a page to a new state (see STATES)
+  state URL STATE [--note TEXT]     move a page to a new state (see STATES); 'reviewed' needs a passing rubric
+  review URL RUBRIC.json --by ID    record the reviewer's scored rubric; all pass -> reviewed, any fail -> rework with the fixes
   payload URL --sha SHA             write ops/out/<slug>.payload.json: the exact data_cms_tool action
   verify URL READBACK.json          diff a stored CMS read-back against the spec (exit 1 on mismatch)
   record URL --item-id ID [--file-id FIELD=ID ...]   store Webflow IDs after a create/import
@@ -200,9 +201,28 @@ def cmd_record(args):
     json.dump(s, open(spath(url), "w"), indent=1, ensure_ascii=False)
     set_state(url, "cms_draft", item_id=s.get("item_id")); print("recorded")
 
+def _rubric_ok(url):
+    RUB = json.load(open(os.path.join(ROOT, "rules", "rubric.json")))["criteria"]
+    rv = (json.load(open(spath(url))).get("review") or {}).get("rubric", {})
+    return [c["id"] for c in RUB if rv.get(c["id"], {}).get("result") != "pass"]
+
+def cmd_review(args):
+    url, rf = args[0], args[1]; by = args[args.index("--by") + 1] if "--by" in args else "reviewer"
+    rub = json.load(open(rf)); RUB = json.load(open(os.path.join(ROOT, "rules", "rubric.json")))["criteria"]
+    missing = [c["id"] for c in RUB if c["id"] not in rub]
+    if missing: sys.exit(f"rubric incomplete, score every criterion: {missing}")
+    for k, v in rub.items():
+        if v.get("result") not in ("pass", "fail") or not v.get("evidence"): sys.exit(f'"{k}" needs result pass|fail and one line of evidence')
+    sp = spath(url); s = json.load(open(sp))
+    s["review"] = {"by": by, "date": now(), "rubric": rub}; json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
+    fails = [f"{k}: {v['evidence']}" for k, v in rub.items() if v["result"] == "fail"]
+    if fails: set_state(url, "rework", note=" | ".join(fails)); print("REWORK:\n  " + "\n  ".join(fails))
+    else: set_state(url, "reviewed", note=f"rubric 10/10 by {by}"); print("REVIEWED: rubric 10/10")
+
 def cmd_state(args):
     url, state = args[0], args[1]
     if state not in STATES: sys.exit(f"state must be one of {STATES}")
+    if state == "reviewed" and _rubric_ok(url): sys.exit(f"cannot mark reviewed: rubric not passed for {_rubric_ok(url)}. Use hubctl review <url> <rubric.json>.")
     note = args[args.index("--note") + 1] if "--note" in args else None
     set_state(url, state, note); print(f"{url} -> {state}")
 
@@ -350,7 +370,7 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords}
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review}
 if __name__ == "__main__":
     if len(sys.argv) < 2 or sys.argv[1] not in CMDS: print(__doc__); sys.exit(0)
     try:

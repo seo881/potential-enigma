@@ -26,6 +26,9 @@ You write copy and the image brief only. Review, images, Webflow drafts and publ
 3. **Rework:** pages a reviewer sent back (`hubctl next rework <HUB>`) come before new claims. Fix exactly what the note says, re-run QC, set `qc_pass`.
 4. **Hand-off:** when your pages are all `qc_pass`, log the range in `logs/<dir>.md` and stop. Reviewers take it from there.
 
+## First pass at the final standard
+Before writing, read `rules/CONTENT_DEFECTS.md`: every defect that has ever made a page less than world class, with the before and after. Before running QC, score your own page against the 10 criteria in `rules/rubric.json` (scope, intent, specificity, openers, craft, voice, truth, distinct, faq, images) and rewrite anything that fails. QC then catches what can be measured: keyword-led openers (Q1), sentences over 40 words (Q2), H1s that lean on a sibling's topic (Q3), the wrong Emergent column for the category (Q4), tacked-on endings (A1), and images with empty zones (I1). A page should pass QC on its first run.
+
 ## Writing standard (the short version; the full one is rules/HUB_RULES.md)
 - Write the page that wins the actual SERP for the primary, at the depth the top 10 shows. Operator grade, specific, no fluff.
 - **Voice of a world-class SaaS company** (Stripe, Linear, Vercel, Notion): confident, precise, product-led, economical, US spelling throughout (`rules/HUB_RULES.md` 2a).

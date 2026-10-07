@@ -22,7 +22,9 @@ If the repo is not set up in this chat: `git clone https://github.com/seo881/pot
 - **V/C/D** vendor numbers without a dated check, claims against `rules/claims.json`, sentences duplicated from sibling pages.
 - **FAQ shape:** exactly 15 items; at least 10 secondaries verbatim (K8); one hub link in item 2 and 2-3 exact-match links to real Emergent pages (K4).
 - **F** FAQ sourced from the live SERP: every item has a recorded source that exists (F2), stays close to the searcher's phrasing (F3), and no eligible People Also Ask question is left unanswered (F4).
-- **I** the image brief (paused while images are on hold), rendered in memory through the image engine and its gates: fit, numbers adding up, one click, balance (I1 blocks, I2 notes).
+- **Q** craft: keyword-label openers (Q1), sentence length (Q2), H1 scope (Q3), category variant for the comparison column (Q4).
+- **R** the reviewer's rubric is recorded and passing for any page past review (R1).
+- **I** the image brief, including the balance gate (no panel with more than 16% pooled empty space), rendered in memory through the image engine and its gates: fit, numbers adding up, one click, balance (I1 blocks, I2 notes).
 
 ## Layer 2: judgment (read the page against its brief)
 Run `python3 ops/hubctl.py brief <url>` and check, writing each as P0/P1/P2:
@@ -36,6 +38,9 @@ Run `python3 ops/hubctl.py brief <url>` and check, writing each as P0/P1/P2:
 
 ## Divit's daily review page
 Build one review page per day: a table of every page that reached `images` (URL, primary, H1, meta title, QC result, reviewer notes, contact sheet link), with the calibration batch (first batch of each hub) shown in full and, afterwards, a random 10% plus every page with an accepted P2 or a reviewer note shown in full. Divit's rejections become rule fixes (`rules/HUB_RULES.md`, `qc/qc_hub.py`, dated in `DECISIONS.md`), then QC re-runs on every page not yet published.
+
+## Scored rubric (required)
+Score all 10 criteria in `rules/rubric.json` pass or fail, each with one line of evidence that quotes the page, and write them to a JSON file `{"scope": {"result": "pass", "evidence": "..."}, ...}`. Record it with `python3 ops/hubctl.py review <url> <file> --by <id>`: all pass moves the page to `reviewed`; any fail sends it to `rework` with your evidence as the fix list. QC code R1 blocks any page past review without a full pass, and `hubctl state <url> reviewed` refuses without one. Check every row of `rules/CONTENT_DEFECTS.md` as you score. When you find a new kind of defect, tell the coordinator so it joins the catalogue.
 
 ## Report format
 For each page: `url | QC TOTAL | P0 list | P1 list | P2 list (fixed / accepted with reason)`. Then a batch line: pages passing, pages blocked, and the one decision (if any) that needs Divit. Fix methodology: root cause first, re-run the whole batch after any fix, never weaken a rule to pass.

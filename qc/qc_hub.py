@@ -394,6 +394,60 @@ def check(spec, siblings):
                 p_ = (tb.get("prompt") or "").strip()
                 if p_ and not (40 <= len(p_) <= 95): add("P2", "I3", f"tab {i} prompt", f"{len(p_)} chars; a prompt chip reads best at 60-85")
 
+    # ---------- Q: craft (the criteria behind every past rejection; see rules/CONTENT_DEFECTS.md) ----------
+    paras = []                                   # (field, text) for every prose paragraph a reader sees
+    for k in ["hero_description", "features_subheading", "why_description", "howto_description"]:
+        if F.get(k): paras.append((k, strip_html(F[k])))
+    for k in [f"feature_{i}" for i in range(1, 7)] + [f"tab_content_{i}" for i in range(1, 5)]:
+        pr = h3p(F.get(k, ""))
+        if pr: paras.append((k, strip_html(pr[1])))
+    for i in range(1, 8):
+        if F.get(f"howto_step_{i}_des"): paras.append((f"howto_step_{i}_des", F[f"howto_step_{i}_des"]))
+    for i_, it in enumerate((fq or {}).get("items", []), 1): paras.append((f"faq item {i_}", strip_html(it.get("a", ""))))
+    kws = sorted({prim.lower()} | {x["kw"].lower() for x in (KMAP or {}).get(spec["url"], {}).get("secondaries", [])}, key=len, reverse=True) if prim else []
+    LABEL_NEXT = {"for", "that", "which", "built", "designed", "made", "to", "with", "helps", "help", "tailored"}
+    for k, ptxt in paras:
+        sents = [x.strip() for x in re.split(r"(?<=[.?!])\s+", ptxt.strip()) if x.strip()]
+        if not sents: continue
+        first = sents[0]; fl = first.lower()
+        kw = next((x for x in kws if fl.startswith(x)), None)
+        if kw:
+            nxt = fl[len(kw):].strip().split(" ")[0] if fl[len(kw):].strip() else ""
+            if nxt in LABEL_NEXT or len(first.split()) < 7:
+                add("P1", "Q1", k, f'opens with a keyword label ("{first[:60]}"): open with a full sentence that says what happens')
+        for x in sents:
+            n_ = len(x.split())
+            if n_ > 40: add("P1", "Q2", k, f"{n_}-word sentence: split it (max 40; aim under 30): \"{x[:60]}...\"")
+            elif n_ > 32: add("P2", "Q2", k, f"{n_}-word sentence; consider splitting: \"{x[:50]}...\"")
+    if KMAP and prim and F.get("h1"):
+        generic = {"automation", "automate", "builder", "form", "forms", "survey", "surveys", "page", "pages", "template", "templates", "software", "app", "workflow", "workflows", "quiz", "landing", "build"}
+        own = set(re.findall(r"[a-z]+", prim.lower())) | {w for x in kws for w in re.findall(r"[a-z]+", x)}
+        hook = set(re.findall(r"[a-z]+", F["h1"].lower())) - own - generic
+        for u_, q_ in KMAP.items():
+            if u_ == spec["url"] or q_.get("hub") != hub: continue
+            sib = set(re.findall(r"[a-z]+", q_["primary"].lower())) - own - generic
+            if sib and sib <= hook:
+                add("P2", "Q3", "h1", f'H1 leans on a sibling page\'s topic ("{q_["primary"]}"): make sure it states this page\'s whole job'); break
+    if spec.get("table") and spec.get("status") not in ("live-draft", "published"):
+        try:
+            sys.path.insert(0, os.path.join(ROOT, "ops")); import table as _TB
+            _L = _TB.lib(h["repo_dir"]); cats = set()
+            for c in spec["table"]["vs"]: cats |= set(_L["competitors"].get(c, {}).get("categories", []))
+            for vk in _L.get("emergent_variants", {}):
+                if vk in cats and spec["table"].get("variant") != vk:
+                    add("P1", "Q4", "why_table", f'these competitors are "{vk}" tools: use --variant {vk} so the Emergent column speaks to this buyer'); break
+        except Exception: pass
+    # ---------- R: the reviewer's scored rubric must pass before a page moves past review ----------
+    try:
+        st_ = json.load(open(os.path.join(ROOT, "status", f"{h['repo_dir']}.json")))["pages"].get(spec["url"], {}).get("state")
+    except Exception: st_ = None
+    if st_ in ("reviewed", "images", "approved", "cms_draft", "published"):
+        RUB = json.load(open(os.path.join(ROOT, "rules", "rubric.json")))["criteria"]
+        rv = (spec.get("review") or {}).get("rubric", {})
+        for c in RUB:
+            r = rv.get(c["id"], {})
+            if r.get("result") != "pass": add("P1", "R1", "review", f'rubric "{c["id"]}" is {r.get("result", "missing")}: {r.get("evidence", c["test"])[:90]}')
+
     # ---------- D: duplication against siblings in the same hub ----------
     sents = {s.strip() for s in re.split(r"(?<=[.?])\s+", body) if len(s.split()) >= 9}
     for sib in siblings:

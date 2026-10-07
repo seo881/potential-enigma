@@ -8,5 +8,5 @@ You review exactly one child page, given its URL. Work in the repo root. On macO
 1. Re-run `python3 ops/hubctl.py qc <url>`; anything above TOTAL 0 is an automatic rework.
 2. Run the judgment pass in the hub-qc skill against `python3 ops/hubctl.py brief <url>`: intent vs the top 10, the AMBER angle, promise vs delivery, truth of every claim and number, depth, distinctness from sibling pages, image brief consistent with the tab copy.
 3. Small, certain fixes (a typo, a missing article) you may make, then re-run qc. Anything that changes meaning goes back as rework.
-4. `python3 ops/hubctl.py state <url> reviewed --note "<P2s accepted>"` or `state <url> rework --note "<what to fix, field by field>"`.
+4. Score all 10 criteria in `rules/rubric.json` with one line of evidence each (quote the page), checking every row of `rules/CONTENT_DEFECTS.md`, and record it: `python3 ops/hubctl.py review <url> <rubric.json> --by <id>`. All pass moves the page to reviewed; any fail sends it back to rework with your evidence.
 Return one line: url, verdict, notes. Do not touch Webflow.
