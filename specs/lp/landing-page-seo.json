@@ -260,6 +260,13 @@
    "via": "review",
    "by": "reviewer-batch-m1",
    "note": "rubric 10/10 by reviewer-batch-m1; 6 notes"
+  },
+  {
+   "t": "2026-10-07 14:46 UTC",
+   "state": "rework",
+   "via": "challenge",
+   "by": "challenger-batch-m1",
+   "note": "[truth | HUB_RULES 8] feature_5: Escalated from reviewer-batch-m1's note because it is untrue, not merely imprecise. Organic search clicks carry no UTM tags, so filtering a form's UTM field separates tagged paid leads from every untagged lead: direct, referral, email and organic together. The cited "
   }
  ],
  "faq_sources": [
@@ -1465,6 +1472,99 @@
    "by": "reviewer-batch-m1",
    "via": "review",
    "date": "2026-10-07 14:39 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief.tabs[3] (uc-4.svg)",
+   "issue": "The template is described as a shared sheet, but what downloads is a .xlsx file. The image contradicts itself on what Maya gets.",
+   "fix": "Sub \"A weekly plan in a spreadsheet\", or file \"content-calendar (Google Sheets copy)\".",
+   "by": "challenger-batch-m1",
+   "via": "challenge",
+   "date": "2026-10-07 14:46 UTC"
+  }
+ ],
+ "challenge": {
+  "by": "challenger-batch-m1",
+  "date": "2026-10-07 14:46 UTC",
+  "result": "fail",
+  "defects": [
+   "[truth | HUB_RULES 8] feature_5: Escalated from reviewer-batch-m1's note because it is untrue, not merely imprecise. Organic search clicks carry no UTM tags, so filtering a form's UTM field separates tagged paid leads from every untagged lead: direct, referral, email and organic together. The cited source (support.google.com/analytics/answer/10917952) gives utm_medium naming advice ('one unique utm_medium for each distinct channel'). It does not say UTM tags identify organic visits; GA4 does that from the referrer, which this form does not record. The title 'Leads saved with their landing URL' also no longer matches the body. -> \"...then filter on utm_medium to separate paid leads from the rest.\" Or record the referrer as well and say leads referred by a search engine are organic. Bring the title and body back to the same point.",
+   "[truth | HUB_RULES 8] faq item 5: Escalated from the reviewer-c5-seo and reviewer-batch-m1 note. The page's own how-to makes launch the same as publishing: step 6 says 'before launch' and step 7 says 'Publish the page on your own domain'. URL Inspection only inspects a URL that Google can fetch on a verified property, so it cannot tell you before launch whether the page can be indexed. As written, this is untrue. -> Make URL Inspection the first check after publishing (\"After publishing, run URL Inspection...\"), and keep the Rich Results Test and canonical check before launch.",
+   "[craft | CONTENT_DEFECTS #21] howto_step_2_des; howto_step_4_des; howto_description: Three fields give one instruction, matching the top-ranking pages, with the words swapped. Step 2 owns it. Step 4 repeats it ('the depth the top results set') between its own points (answer first, then the form), and howto_description repeats it a third time. -> Cut 'Cover the topic at the depth the top results set' from step 4 and give it a new detail, e.g. what the opening answer looks like for one query. Make howto_description frame the method without restating step 2.",
+   "[craft | CONTENT_DEFECTS #21] feature_2; howto_step_4_des: This is the second instance of the same class: the form goes after the opening section, said in feature_2 and again in step 4. Tab 1 already shows the case ('Demo form after the first section'). -> Keep the placement advice in step 4, and give feature_2 something only it says about the sections (e.g. H2 order from the prompt)."
+  ],
+  "findings": [
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "feature_5",
+    "quote": "Add utm_medium=cpc to your ad links, then filter on utm_medium to split paid leads from organic ones.",
+    "issue": "Escalated from reviewer-batch-m1's note because it is untrue, not merely imprecise. Organic search clicks carry no UTM tags, so filtering a form's UTM field separates tagged paid leads from every untagged lead: direct, referral, email and organic together. The cited source (support.google.com/analytics/answer/10917952) gives utm_medium naming advice ('one unique utm_medium for each distinct channel'). It does not say UTM tags identify organic visits; GA4 does that from the referrer, which this form does not record. The title 'Leads saved with their landing URL' also no longer matches the body.",
+    "fix": "\"...then filter on utm_medium to separate paid leads from the rest.\" Or record the referrer as well and say leads referred by a search engine are organic. Bring the title and body back to the same point.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 5",
+    "quote": "Close a landing page SEO checklist with three checks before launch. ... Then use URL Inspection in Search Console to see whether Google can index the page.",
+    "issue": "Escalated from the reviewer-c5-seo and reviewer-batch-m1 note. The page's own how-to makes launch the same as publishing: step 6 says 'before launch' and step 7 says 'Publish the page on your own domain'. URL Inspection only inspects a URL that Google can fetch on a verified property, so it cannot tell you before launch whether the page can be indexed. As written, this is untrue.",
+    "fix": "Make URL Inspection the first check after publishing (\"After publishing, run URL Inspection...\"), and keep the Rich Results Test and canonical check before launch.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_2_des; howto_step_4_des; howto_description",
+    "quote": "02 Match what the top results deliver ... note what they have in common: format, length ... Match the format / Cover the topic at the depth the top results set / Build the page to that standard",
+    "issue": "Three fields give one instruction, matching the top-ranking pages, with the words swapped. Step 2 owns it. Step 4 repeats it ('the depth the top results set') between its own points (answer first, then the form), and howto_description repeats it a third time.",
+    "fix": "Cut 'Cover the topic at the depth the top results set' from step 4 and give it a new detail, e.g. what the opening answer looks like for one query. Make howto_description frame the method without restating step 2.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_2; howto_step_4_des",
+    "quote": "The lead form goes where you place it: under the opening section or at the end. / place the form after that answer",
+    "issue": "This is the second instance of the same class: the form goes after the opening section, said in feature_2 and again in step 4. Tab 1 already shows the case ('Demo form after the first section').",
+    "fix": "Keep the placement advice in step 4, and give feature_2 something only it says about the sections (e.g. H2 order from the prompt).",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief.tabs[3] (uc-4.svg)",
+    "quote": "A weekly plan in a shared sheet / File: content-calendar.xlsx",
+    "issue": "The template is described as a shared sheet, but what downloads is a .xlsx file. The image contradicts itself on what Maya gets.",
+    "fix": "Sub \"A weekly plan in a spreadsheet\", or file \"content-calendar (Google Sheets copy)\".",
+    "severity": "note"
+   }
+  ],
+  "checked": [
+   "title and meta: 'One Page per Query' is delivered by step 1 and tab 1; 'seven steps' and 'launch checks from Google's own tools' (FAQ 5) are delivered; free to start",
+   "H1 and hero: whole-topic scope, not the PPC/campaign siblings; the hero 'title tag and schema you specify' avoids row 14",
+   "features: 1-6 for truth and ledger (prompt-build, code-export, database-owned); JSON-LD and canonical/sitemap 'on request' (row 14); feature_4 CrUX note already recorded; feature_5 UTM claim checked against its source (blocking)",
+   "why_title, why_description and why_table: seo variant library cells for Unbounce, Landingi and Wix; Wix/K7 and library cells pending with Divit",
+   "tab 1 and uc-1: query in title, H1 and URL; SoftwareApplication; demo form after the first section; landing URL attached; northwind.example and pinecrest.example are reserved",
+   "tab 2 and uc-2: four Colorado cities, H1s match the mockup (Denver high-rise, Boulder student, Aurora family, Fort Collins long-distance); LocalBusiness with branch address; #aurora-branch quote from Rosa Mendez, Nov 14",
+   "tab 3 and uc-3: Globex ahead on mobile (iOS and Android); BreadcrumbList Home > Compare > Acme vs Globex; three feature pages linked; acme.example is reserved",
+   "tab 4 and uc-4: preview before a single work-email field; HubSpot contact with the page as source; shared sheet vs .xlsx (note)",
+   "mockup prompts: four keys, consistent with the tabs",
+   "how-to: steps 1-7 against domain_sources (title-link, snippet, required properties, links-crawlable, optimize-cls, optimize-lcp); repeat check across steps (blocking #21 on steps 2/4 and feature_2/step 4)",
+   "FAQ: 10 items (2 PAA, related, secondaries), off-topic PAA skipped, hub link in item 2, PPC / local business / thank-you links; FAQ 3 Wix against support.wix sources; FAQ 4 canonicalization; FAQ 6 doorway policy; FAQ 9 A/B canonical; FAQ 5 URL Inspection timing (blocking)",
+   "cover and share: 'Page published' (not 'indexed', row 14); the OG headline matches the H1",
+   "earlier notes (schema/Search Console recurrences, FAQ 7 non sequitur, features_subheading definition) left as notes and not repeated",
+   "pending items (K7, P4 26 sources, links not yet live) left with Divit"
+  ]
+ },
+ "challenges": [
+  {
+   "by": "challenger-batch-m1",
+   "date": "2026-10-07 14:46 UTC",
+   "result": "fail",
+   "defects": 4,
+   "notes": 1
   }
  ]
 }

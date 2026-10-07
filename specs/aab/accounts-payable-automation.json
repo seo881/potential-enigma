@@ -931,6 +931,13 @@
    "via": "review",
    "by": "reviewer-batch-m1",
    "note": "rubric 10/10 by reviewer-batch-m1; 5 notes"
+  },
+  {
+   "t": "2026-10-07 14:46 UTC",
+   "state": "rework",
+   "via": "challenge",
+   "by": "challenger-batch-m1",
+   "note": "[truth | CONTENT_DEFECTS #7] features_subheading: Untrue on this page's own terms. Clean bills reach people too: tab_content_1 \"Clean matches go to the budget owner\", tab_content_3 \"the bill goes to that entity's controller for approval\", feature_3 \"Bills route by amount, vendor, entity, or GL code\""
   }
  ],
  "review": {
@@ -1291,6 +1298,107 @@
    "by": "reviewer-batch-m1",
    "via": "review",
    "date": "2026-10-07 14:39 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq item 1; faq item 2; why_table (What you get)",
+   "issue": "The same five-stage chain appears in two consecutive FAQ answers and in the generated table cell. It also appears in two orders: FAQ 1 says paid, then posted; FAQ 2 says the ledger, then payments. FAQ 2 adds the dependency and the payments-last advice, so this is a note.",
+   "fix": "Let FAQ 2 open on what is new (the order and why), and use one order for ledger and payment on both answers (bill posts on approval, payment posts on release, as feature_5 says).",
+   "by": "challenger-batch-m1",
+   "via": "challenge",
+   "date": "2026-10-07 14:46 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #18",
+   "field": "faq item 5; feature_1",
+   "issue": "FAQ 5 opens by restating feature_1. Its second sentence (the duplicate check) is new, so this is a note.",
+   "fix": "Open FAQ 5 on the duplicate check, or on what the capture step hands to matching.",
+   "by": "challenger-batch-m1",
+   "via": "challenge",
+   "date": "2026-10-07 14:46 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_4",
+   "issue": "Hours cannot be checked against a rate. The image checks the billed rate (\"Within the contract rate\"; \"Contract rate $80 an hour, 30 hours\").",
+   "fix": "\"the billed rate is checked against the contract rate\"",
+   "by": "challenger-batch-m1",
+   "via": "challenge",
+   "date": "2026-10-07 14:46 UTC"
+  }
+ ],
+ "challenge": {
+  "by": "challenger-batch-m1",
+  "date": "2026-10-07 14:46 UTC",
+  "result": "fail",
+  "defects": [
+   "[truth | CONTENT_DEFECTS #7] features_subheading: Untrue on this page's own terms. Clean bills reach people too: tab_content_1 \"Clean matches go to the budget owner\", tab_content_3 \"the bill goes to that entity's controller for approval\", feature_3 \"Bills route by amount, vendor, entity, or GL code\", and FAQ 1 \"Once a bill is approved\". Only tab 2 auto-approves. The subheading overgeneralizes, and it contradicts four fields. -> Say what is true across the page, e.g. \"With accounts payable automation, no one retypes an invoice, and a bill that breaks one of your rules is held with the reason shown.\" Check T1, because the field is a heading deck."
+  ],
+  "findings": [
+   {
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "features_subheading",
+    "quote": "people see only the bills that break one of your rules",
+    "issue": "Untrue on this page's own terms. Clean bills reach people too: tab_content_1 \"Clean matches go to the budget owner\", tab_content_3 \"the bill goes to that entity's controller for approval\", feature_3 \"Bills route by amount, vendor, entity, or GL code\", and FAQ 1 \"Once a bill is approved\". Only tab 2 auto-approves. The subheading overgeneralizes, and it contradicts four fields.",
+    "fix": "Say what is true across the page, e.g. \"With accounts payable automation, no one retypes an invoice, and a bill that breaks one of your rules is held with the reason shown.\" Check T1, because the field is a heading deck.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq item 1; faq item 2; why_table (What you get)",
+    "quote": "It reads each invoice and checks it against the purchase order. Once a bill is approved, it is paid in a scheduled run and posted to the ledger. / Automate in the order money moves: intake, matching, approvals, the ledger, then payments.",
+    "issue": "The same five-stage chain appears in two consecutive FAQ answers and in the generated table cell. It also appears in two orders: FAQ 1 says paid, then posted; FAQ 2 says the ledger, then payments. FAQ 2 adds the dependency and the payments-last advice, so this is a note.",
+    "fix": "Let FAQ 2 open on what is new (the order and why), and use one order for ledger and payment on both answers (bill posts on approval, payment posts on release, as feature_5 says).",
+    "severity": "note"
+   },
+   {
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #18",
+    "field": "faq item 5; feature_1",
+    "quote": "AP invoice automation turns each PDF into a bill record before anyone is asked to approve it. / A PDF in the AP inbox or an upload from a vendor portal is read into fields",
+    "issue": "FAQ 5 opens by restating feature_1. Its second sentence (the duplicate check) is new, so this is a note.",
+    "fix": "Open FAQ 5 on the duplicate check, or on what the capture step hands to matching.",
+    "severity": "note"
+   },
+   {
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_4",
+    "quote": "the hours are checked against the contract rate",
+    "issue": "Hours cannot be checked against a rate. The image checks the billed rate (\"Within the contract rate\"; \"Contract rate $80 an hour, 30 hours\").",
+    "fix": "\"the billed rate is checked against the contract rate\"",
+    "severity": "note"
+   }
+  ],
+  "checked": [
+   "title and meta: meta_title and meta_description match the H1 and hero, the promise (match to PO, free to start) is delivered, no sibling primary is used",
+   "H1 and hero: whole-job scope (inbox to paid); the hero claims map to prompt-build",
+   "features: all six against the ledger (ai-extraction low-confidence, alerts reminders and escalation, payments-out bank file or API, api-connect QBO/Xero/NetSuite, code-export GitHub, database-owned); partial-delivery and 2/3-way matching against domain_sources 0-2; features_subheading against tabs 1 and 3, feature 3 and FAQ 1 (blocking contradiction)",
+   "why_title, why_description and why_table: library cells for Tipalti, BILL and Stampli (ap variant); no false differentiator; BILL/K7 is pending with Divit",
+   "tab 1 and uc-1: 400 x $8 = $3,200; 2,000 x $0.43 = $860; total $4,400; 2,000 x $0.03 = $60; Dana Kim is the buyer in both; alt is consistent; northwind.example is a reserved domain",
+   "tab 2 and uc-2: $1,650 to $1,980 is +$330, or 20% (over 10%); Priya Shah shows Waiting in both places; 14 bills / $38,210 matches the cover; Oct 3 bill date",
+   "tab 3 and uc-3: Acme Ltd GBP and Acme GmbH EUR match the copy; 3 entities; spend by entity; Acme is an allowed name; one role per company",
+   "tab 4 and uc-4: 30 h x $80 = $2,400; Oct 23, 2026 is a Friday; period Oct 1-15; W-9 and 1099 wording within tax-records; wording note on hours vs rate",
+   "mockup prompts: four keys, consistent with the tabs (2% tolerance; 10% recurring threshold)",
+   "how-to: steps 1-7 checked for truth (2/10 net 30: 2% of $12,000 = $240, sourced), recommendations, and repeats of the features (step 3 now owns the tolerances); the step 4 GL-code note is already recorded",
+   "FAQ: 10 items with sources (4 PAA, 6 secondary), the off-topic PAA skipped, hub link in item 2, 3 sibling links, answer-first; FAQ 3 and 8 vendor facts against the library; FAQ 4 against row 7's approved form; FAQ 7 NetSuite against domain_sources 5",
+   "cover and share: Pay run 14 bills $38,210 matches uc-2; the action cover suits a release; the OG headline matches the H1",
+   "name and domain hygiene (rows 23, 29, 30): no negative outcome maps onto a name pattern; .example domains only",
+   "pending items (K7, links not yet live, P4 13 sources) left with Divit and not re-raised"
+  ]
+ },
+ "challenges": [
+  {
+   "by": "challenger-batch-m1",
+   "date": "2026-10-07 14:46 UTC",
+   "result": "fail",
+   "defects": 1,
+   "notes": 3
   }
  ]
 }

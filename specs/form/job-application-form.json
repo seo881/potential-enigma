@@ -302,6 +302,13 @@
    "via": "review",
    "by": "reviewer-batch-m1",
    "note": "rubric 10/10 by reviewer-batch-m1; 5 notes"
+  },
+  {
+   "t": "2026-10-07 14:46 UTC",
+   "state": "challenged",
+   "via": "challenge",
+   "by": "challenger-batch-m1",
+   "note": "no blocking defects found by challenger-batch-m1; 5 notes"
   }
  ],
  "faq_sources": [
@@ -1026,6 +1033,13 @@
    "result": "fail",
    "defects": 1,
    "notes": 8
+  },
+  {
+   "by": "challenger-batch-m1",
+   "date": "2026-10-07 14:46 UTC",
+   "result": "pass",
+   "defects": 0,
+   "notes": 5
   }
  ],
  "plan": {
@@ -1479,6 +1493,125 @@
    "by": "reviewer-batch-m1",
    "via": "review",
    "date": "2026-10-07 14:39 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #18",
+   "field": "faq item 2; hero_description",
+   "issue": "FAQ 2's first sentence restates the hero with the words swapped. The second sentence (edits go live on the same link) is new, so this is a note.",
+   "fix": "Keep the hub link and lead with something the hero does not say, e.g. what the first build includes per role, or editing live on the same link.",
+   "by": "challenger-batch-m1",
+   "via": "challenge",
+   "date": "2026-10-07 14:46 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_5; howto_step_5_des",
+   "issue": "Step 5 repeats feature_5's two ideas (stages in the table, Slack or email alerts) as instructions. The decision framing adds a little, so this is a note.",
+   "fix": "Give step 5 what only it can say, e.g. the actual stage names and who owns each.",
+   "by": "challenger-batch-m1",
+   "via": "challenge",
+   "date": "2026-10-07 14:46 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2b",
+   "field": "howto_description; howto_step_1_des",
+   "issue": "The how-to intro restates step 1 (a summary sentence).",
+   "fix": "Let the description frame the seven steps and leave the requirements list to step 1.",
+   "by": "challenger-batch-m1",
+   "via": "challenge",
+   "date": "2026-10-07 14:46 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq item 3",
+   "issue": "\"Most\" generalizes from one template site (domain_sources[0], eforms, which also fails automated checks). The six-section list is supported as a standard template, not as a majority claim.",
+   "fix": "\"A standard application has six sections.\"",
+   "by": "challenger-batch-m1",
+   "via": "challenge",
+   "date": "2026-10-07 14:46 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief.tabs[3].hero; tab_content_4",
+   "issue": "This matches the copy. No applicant is drawn above the band, so half of the hold rule has no example. That is acceptable, so this is a note.",
+   "fix": "None required.",
+   "by": "challenger-batch-m1",
+   "via": "challenge",
+   "date": "2026-10-07 14:46 UTC"
   }
- ]
+ ],
+ "challenge": {
+  "by": "challenger-batch-m1",
+  "date": "2026-10-07 14:46 UTC",
+  "result": "pass",
+  "defects": [],
+  "findings": [
+   {
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #18",
+    "field": "faq item 2; hero_description",
+    "quote": "Describe the role in a few sentences, and Emergent's AI form builder turns them into an online job application form with resume uploads and an applicant table. / Describe the role and what each applicant must provide. Emergent builds the job application form and the applicant table behind it",
+    "issue": "FAQ 2's first sentence restates the hero with the words swapped. The second sentence (edits go live on the same link) is new, so this is a note.",
+    "fix": "Keep the hub link and lead with something the hero does not say, e.g. what the first build includes per role, or editing live on the same link.",
+    "severity": "note"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_5; howto_step_5_des",
+    "quote": "Every application lands as a row with role, location, stage and owner ... The app then alerts the hiring manager by Slack or email. / Choose who hears about each application and how: the store manager in Slack, the recruiter by email. Then name the stages ... With a stage column added, the applicant table becomes the hiring pipeline",
+    "issue": "Step 5 repeats feature_5's two ideas (stages in the table, Slack or email alerts) as instructions. The decision framing adds a little, so this is a note.",
+    "fix": "Give step 5 what only it can say, e.g. the actual stage names and who owns each.",
+    "severity": "note"
+   },
+   {
+    "criterion": "craft",
+    "rule": "HUB_RULES 2b",
+    "field": "howto_description; howto_step_1_des",
+    "quote": "Settle what the role requires before you write a single question. / List what you need to know before a first call",
+    "issue": "The how-to intro restates step 1 (a summary sentence).",
+    "fix": "Let the description frame the seven steps and leave the requirements list to step 1.",
+    "severity": "note"
+   },
+   {
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq item 3",
+    "quote": "Most forms use six sections.",
+    "issue": "\"Most\" generalizes from one template site (domain_sources[0], eforms, which also fails automated checks). The six-section list is supported as a standard template, not as a majority claim.",
+    "fix": "\"A standard application has six sections.\"",
+    "severity": "note"
+   },
+   {
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief.tabs[3].hero; tab_content_4",
+    "quote": "Shortlist ready: 3 applicants / The rest land in the design team's hiring channel in Slack as a shortlist",
+    "issue": "This matches the copy. No applicant is drawn above the band, so half of the hold rule has no example. That is acceptable, so this is a note.",
+    "fix": "None required.",
+    "severity": "note"
+   }
+  ],
+  "checked": [
+   "title and meta: 'Template and Builder' is delivered by FAQ 3, FAQ 5 and the builder; the meta's resumes, owned table and blank PDF for walk-ins are each delivered (feature_3, feature_5, FAQ 4, step 6)",
+   "H1 and hero: whole-job scope (form into hiring pipeline), not screening or onboarding siblings; claims map to prompt-build and database-owned",
+   "features: openers are verbs or subjects (row 16); no-caps, alerts, custom-domain, code-export and e-signature-capture are in the ledger; the forklift certification is sourced (OSHA); the features_subheading contradiction from the earlier challenge is resolved ('one core record per candidate')",
+   "why_title, why_description and why_table: hiring variant; Jotform and Typeform caps and Google Forms cells come from the library; Google Forms/K7 is pending",
+   "tab 1 and uc-1: store asked first, start Nov 3, shifts Sat AM/Sat PM/Sun PM = weekends; Leo Park store manager by Slack; table saved",
+   "tab 2 and uc-2: 52 days <= 60 flagged; 9, 11 and 17 months clear; RN/LPN/CMA match nurses and medical assistants; BLS/ACLS; recruiter Karen Bell; license-number note already recorded",
+   "tab 3 and uc-3: 18 >= 12 months; confidential; final interview Oct 14 before the current manager's Slack DM; separate table; sourced to Brandeis policy",
+   "tab 4 and uc-4: 3 shortlisted + 1 hold = 4; hold is 'not authorized'; #design-hiring channel; names are spread (row 29 fixed)",
+   "mockup prompts: four keys, each matching its tab",
+   "how-to: steps 1-7 for truth (age/religion 'generally avoid', pay-history bans sourced to DOL, certification wording sourced) and repeats (step 5 vs feature_5 noted)",
+   "FAQ: 10 items from related searches and secondaries (no PAA box; F5 pending); hub link in item 2; new employee form and candidate screening form links; EEOC one-year retention checked against 29 CFR 1602.14; FAQ 6 is now the only answer on synonyms",
+   "cover and share: confirm cover 'Application submitted'; the cover alt note is already recorded; the OG headline is consistent",
+   "domains and names: .example only, Northwind is reserved, no IP-borrowing names",
+   "pending items (K7, F5, PDF ledger entry, P4 11 sources, links not yet live) left with Divit"
+  ]
+ }
 }
