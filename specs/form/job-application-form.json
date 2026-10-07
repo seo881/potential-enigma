@@ -49,9 +49,9 @@
   "tab_label_4": "Salaried Roles",
   "tab_content_1": "<h3>Know who can work weekends before you call</h3><p>The first question is which store. Applicants then give a start date and tap the shifts they can work. That store's manager hears about it in Slack, and the applicant table filters by weekend availability.</p>",
   "tab_content_2": "<h3>Catch any license due to lapse within 60 days</h3><p>Each nurse gives a license number and the state that issued it, and medical assistants give their certification. Every expiry date has its own field, and the recruiter sees the flag before an interview is booked. BLS and ACLS cards upload on the same screen.</p>",
-  "tab_content_3": "<h3>Current managers hear about internal moves in private</h3><p>Employees apply with their employee ID and their months in the current role. This posting asks for at least 12, and anyone short of it is told before they submit. Eligible applications reach the person's current manager as a Slack direct message and go to a table kept apart from outside candidates.</p>",
+  "tab_content_3": "<h3>Internal moves stay confidential until the final round</h3><p>Employees apply with their employee ID and months in their current role. This posting asks for at least 12, and anyone short is told before they submit. Applications sit in a table kept apart from outside candidates. The current manager gets a Slack direct message only once a final interview is booked.</p>",
   "tab_content_4": "<h3>The shortlist skips anyone who fails a must-have</h3><p>Designers upload a resume and a portfolio, and answer two must-haves: expected salary and US work authorization. Anyone without work authorization, or asking above the posted band, goes to a hold list. The rest land in the design team's hiring channel in Slack as a shortlist.</p>",
-  "mockup": "<p id=\"\">window.awbMockup = { hourlyRoles: \"I run six stores and need a job application form for hourly roles. Applicants pick their store first, then enter a start date and tap the shifts they can work. Send each application to that store's manager as a Slack message. Keep every applicant in one table I can filter by store and weekend availability.\", healthcareStaff: \"Set up a job application form for nurses and medical assistants at my clinic. Nurses enter a license number and the issuing state; medical assistants enter their certification. Give each expiry date its own field and add uploads for BLS and ACLS cards. Flag anyone whose credential expires within 60 days and tell my recruiter before an interview is booked.\", internalOpenings: \"Build an internal job application for my company. Employees enter their employee ID and months in their current role. This posting needs at least 12 months in role. Warn anyone short of that before they submit. Send their current manager a Slack direct message when they apply, and keep internal applicants in a separate table from outside candidates.\", salariedRoles: \"Design a job application form for my salaried roles, starting with a product designer opening. Ask for a resume and a portfolio upload, then two must-have questions: US work authorization and expected salary. Anyone without work authorization, or asking above the posted band, goes on a hold list. Post the rest to my design team's hiring channel in Slack as a shortlist.\" };</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { hourlyRoles: \"I run six stores and need a job application form for hourly roles. Applicants pick their store first, then enter a start date and tap the shifts they can work. Send each application to that store's manager as a Slack message. Keep every applicant in one table I can filter by store and weekend availability.\", healthcareStaff: \"Set up a job application form for nurses and medical assistants at my clinic. Nurses enter a license number and the issuing state; medical assistants enter their certification. Give each expiry date its own field and add uploads for BLS and ACLS cards. Flag anyone whose credential expires within 60 days and tell my recruiter before an interview is booked.\", internalOpenings: \"Build an internal job application for my company. Employees enter their employee ID and months in their current role. This posting needs at least 12 months in role. Warn anyone short of that before they submit. Keep each application confidential and route it to the hiring manager, in a table separate from outside candidates. Send the applicant's current manager a Slack direct message only when they are booked for a final interview.\", salariedRoles: \"Design a job application form for my salaried roles, starting with a product designer opening. Ask for a resume and a portfolio upload, then two must-have questions: US work authorization and expected salary. Anyone without work authorization, or asking above the posted band, goes on a hold list. Post the rest to my design team's hiring channel in Slack as a shortlist.\" };</p>",
   "howto_title": "How to Create a Job Application Form",
   "howto_description": "Settle what the role requires before you write a single question. Seven steps take you from that list to a published form that fills an applicant table.",
   "howto_step_1_title": "01 Write down what the role requires",
@@ -90,7 +90,7 @@
   },
   "tab_image_3": {
    "path": "images/form/job-application-form/uc-3.svg",
-   "alt": "An internal job application checks tenure before submit, 18 months in role against a 12-month minimum, then sends the employee's current manager a private Slack direct message."
+   "alt": "An internal job application checks tenure before submit, 18 months in role against a 12-month minimum, keeps the application confidential and messages the employee's current manager in Slack only once a final interview is booked."
   },
   "tab_image_4": {
    "path": "images/form/job-application-form/uc-4.svg",
@@ -281,6 +281,20 @@
    "via": "review",
    "by": "reviewer-c5-form",
    "note": "[truth | HUB_RULES 8] tab_content_3; mockup.internalOpenings; image_brief.tabs[2] (steps 'Current manager alerted', hero 'To Priya Shah'); images.tab_image_3.alt; domain_sources[6]: The page's own source for this tab (Brandeis staff transfer policy) says the opposite of what the tab models: \"An empl"
+  },
+  {
+   "t": "2026-10-07 14:32 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "writer-job-application-form-r7",
+   "note": ""
+  },
+  {
+   "t": "2026-10-07 14:32 UTC",
+   "state": "images",
+   "via": null,
+   "by": null,
+   "note": ""
   }
  ],
  "faq_sources": [
@@ -428,6 +442,12 @@
          ]
         }
        ]
+      },
+      {
+       "type": "text",
+       "text": "Shifts: Sat AM, Sat PM, Sun PM",
+       "size": 16,
+       "color": "sub"
       },
       {
        "type": "meta",
@@ -585,7 +605,7 @@
    {
     "recipe": "R1",
     "title": "Internal job application",
-    "prompt": "Check tenure on internal applications and alert the current manager",
+    "prompt": "Keep internal applications confidential until a final interview is booked",
     "main": {
      "chrome": "Internal Openings",
      "blocks": [
@@ -610,20 +630,21 @@
         },
         {
          "state": "done",
-         "title": "Application submitted",
+         "title": "Submitted confidentially",
          "sub": "Employee ID 40218",
-         "right": "9:12 AM"
+         "right": "Oct 2"
+        },
+        {
+         "state": "done",
+         "title": "Final interview booked",
+         "sub": "Hiring manager review complete",
+         "right": "Oct 14"
         },
         {
          "state": "live",
-         "title": "Current manager alerted",
+         "title": "Current manager told",
          "sub": "Priya Shah, direct message",
          "right": "Notified"
-        },
-        {
-         "state": "next",
-         "title": "Hiring manager review",
-         "sub": "Internal applicant table"
         }
        ]
       }
@@ -645,7 +666,7 @@
        "items": [
         {
          "initials": "JL",
-         "name": "Jordan Lee applied",
+         "name": "Jordan Lee has a final interview",
          "sub": "Senior Analyst, Finance"
         }
        ]
@@ -664,7 +685,7 @@
      "title": "Internal applicants",
      "sub": "Separate from outside candidates"
     },
-    "alt": "An internal job application checks tenure before submit, 18 months in role against a 12-month minimum, then sends the employee's current manager a private Slack direct message.",
+    "alt": "An internal job application checks tenure before submit, 18 months in role against a 12-month minimum, keeps the application confidential and messages the employee's current manager in Slack only once a final interview is booked.",
     "story": [
      {
       "copy": "asks for at least 12",
@@ -675,7 +696,11 @@
       "image": "Tenure checked before submit"
      },
      {
-      "copy": "current manager as a Slack direct message",
+      "copy": "a final interview is booked",
+      "image": "Final interview booked"
+     },
+     {
+      "copy": "gets a Slack direct message",
       "image": "Slack direct message, not a channel"
      },
      {
@@ -850,8 +875,8 @@
   "variant": "hiring"
  },
  "qc_passed": {
-  "rules_version": "aee383132d1f",
-  "date": "2026-10-07 14:11 UTC"
+  "rules_version": "386f1b31f9c8",
+  "date": "2026-10-07 14:32 UTC"
  },
  "review": {
   "by": "reviewer-c5-form",
@@ -1039,7 +1064,7 @@
   "tab_stories": [
    "A six-store retailer asks for store, start date and shifts, and the store manager can filter for weekend cover.",
    "A clinic collects nurse license numbers with issuing state and expiry, and any credential lapsing within 60 days is flagged for the recruiter.",
-   "Employees apply internally with tenure checked before submit, and their current manager is told privately by direct message.",
+   "Employees apply internally with tenure checked before submit, the application stays confidential, and their current manager gets a private Slack message only once a final interview is booked.",
    "Salaried designer applicants answer work authorization and expected pay, and anyone outside the posted band or without work authorization waits on a hold list."
   ],
   "openers": [
@@ -1055,7 +1080,7 @@
   "heading_shapes": [
    "X who X before",
    "X any X to X",
-   "X in X",
+   "X until the X",
    "the X who X"
   ],
   "claims_to_source": [
@@ -1065,7 +1090,7 @@
    "Nurse licenses are issued by a state board of nursing and carry a license number and an expiration date",
    "Medical assistants are mostly unlicensed by states; the CMA is a certification awarded by the AAMA",
    "BLS and ACLS are provider cards issued after American Heart Association courses",
-   "Internal transfer policies commonly set a minimum time in the current role and involve the current manager",
+   "Internal transfer policies commonly set a minimum time in the current role, keep the initial application confidential and bring in the current manager at the finalist interview stage",
    "Application questions that would reveal age or religion should generally be avoided",
    "Employers may ask for expected pay; a number of states ban asking for pay history",
    "Forklift operators are trained and certified by the employer under OSHA 1910.178(l)",
@@ -1104,7 +1129,7 @@
    "date": "2026-10-07"
   },
   {
-   "claim": "Internal transfer policies commonly set a minimum time in the current role and involve the current manager",
+   "claim": "Internal transfer policies commonly set a minimum time in the current role, keep the initial application confidential and bring in the current manager at the finalist interview stage",
    "source_url": "https://www.brandeis.edu/humanresources/policies/staff.internal.transfer.promotion.19.09.05.pdf",
    "date": "2026-10-07"
   },
@@ -1132,7 +1157,8 @@
  "writers": [
   "writer-job-application-form-r4",
   "writer-job-application-form-r5",
-  "writer-job-application-form-r6"
+  "writer-job-application-form-r6",
+  "writer-job-application-form-r7"
  ],
  "review_notes": [
   {
