@@ -752,7 +752,7 @@
  "written_by": "writer-accounts-payable-automation-r3",
  "qc_passed": {
   "rules_version": "5140b4a6404b",
-  "date": "2026-10-07 13:18 UTC"
+  "date": "2026-10-07 13:19 UTC"
  },
  "history": [
   {
@@ -838,52 +838,66 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-07 13:21 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "reviewer-accounts-payable-automation-n1",
+   "note": "craft: One rule is stated three times across body fields, with words swapped so QC Q6 misses it (row 18 class, body to body): (1) feature_2 \"A price or count outside your tolerance holds the bill for the buyer.\" (2) tab_content_1 \"A price or quantity outside the tolerance holds it.\" (3) howto_step_3"
   }
  ],
  "review": {
-  "by": "reviewer-accounts-payable-automation-c3",
-  "date": "2026-10-07 12:42 UTC",
+  "by": "reviewer-accounts-payable-automation-n1",
+  "date": "2026-10-07 13:21 UTC",
   "rubric": {
    "scope": {
     "result": "pass",
-    "evidence": "H1 \"Build Accounts Payable Automation From Inbox to Paid\", title \"Accounts Payable Automation Software | Emergent\" and hero \"Describe who signs off at which amount and the day you pay suppliers. Emergent builds the app that runs your AP inbox on those rules\" cover the whole payables job (row 1 clear)."
+    "evidence": "H1 \"Build Accounts Payable Automation From Inbox to Paid\", title \"Accounts Payable Automation Software | Emergent\" and hero \"Describe who signs off at which amount and the day you pay suppliers. Emergent builds the app that runs your AP inbox on those rules\" cover the whole payables job, not one feature (row 1 clear)."
    },
    "intent": {
     "result": "pass",
-    "evidence": "The top 10 is explainers and AP vendors. The page defines the term up top (\"moves a supplier invoice from inbox to paid without anyone retyping it\", FAQ 1), gives a seven-step \"How to Automate Accounts Payable\", names vendors (FAQ 3 and the table), covers benefits (FAQ 8) and answers all 4 on-topic PAA. The 5 jobs-drift PAA are skipped (row 9 clear)."
+    "evidence": "The top 10 is explainers and AP vendors with an AI Overview. FAQ 1 defines the term first (\"software that takes supplier invoices from receipt to payment\"), the how-to is \"How to Automate Accounts Payable\" in 7 AP-specific steps, FAQ 3 and the table name Tipalti, BILL and Stampli, and all 4 on-topic PAA are answered. The 5 jobs-drift PAA are skipped (row 9 clear)."
    },
    "specificity": {
     "result": "pass",
-    "evidence": "It uses AP vocabulary throughout: \"two-way matching for services and three-way matching for goods you receive\", \"A vendor offering 2/10 net 30 can go into an early-pay run before the tenth day\", \"a vendor bill linked to its purchase order, with the subsidiary and department set by your rules\". The table uses the ap variant \"Intake, matching, approvals, payment runs, and ledger, as code you own\" (row 3 clear)."
+    "evidence": "AP vocabulary throughout: \"Service invoices are checked against the purchase order, and goods invoices against the receipt as well\", \"A vendor offering 2/10 net 30 can go into an early-pay run before the tenth day\", \"an approved invoice becomes a vendor bill linked to its purchase order, with the subsidiary and department set by your rules\". Table uses the ap variant \"Intake, matching, approvals, payment runs, and ledger, as code you own\" (row 3 clear)."
    },
    "openers": {
     "result": "pass",
-    "evidence": "Every paragraph opens on a full sentence that says what happens: \"A PDF in the AP inbox or an upload from a vendor portal is read into fields\", \"Rent and software subscriptions arrive as recurring bills.\", \"List every way invoices arrive today\". No label openers (row 2 clear, Q1 clean)."
+    "evidence": "Every paragraph opens on a full sentence with a verb: \"A PDF in the AP inbox or an upload from a vendor portal is read into fields\", \"Bills route by amount, vendor, entity, or GL code\", \"Rent and software subscriptions arrive as recurring bills.\", \"List every way invoices arrive today\". No label openers, no verbless feature bodies (rows 2 and 16 clear)."
    },
    "craft": {
-    "result": "pass",
-    "evidence": "No \", so [benefit]\" or \", which\" tails remain (0 of each). Cycle 1 and 2 points are fixed: tab 2 is now four short sentences (\"A bill that rises by more than a tenth waits for the department head. The rest join Friday's payment run without a review.\"), feature_3 is split, and tab 1 posts after approval (\"a bill posts to NetSuite once it is approved\"). Row 4 and row 6 are clear."
+    "result": "fail",
+    "evidence": "One rule is stated three times across body fields, with words swapped so QC Q6 misses it (row 18 class, body to body): (1) feature_2 \"A price or count outside your tolerance holds the bill for the buyer.\" (2) tab_content_1 \"A price or quantity outside the tolerance holds it.\" (3) howto_step_3_des \"set how far a unit price or a received quantity may drift from the PO before the invoice is held for the buyer.\" Same class, second idea: hero_description \"Describe who signs off at which amount and the day you pay suppliers\" is restated by howto_description \"who approves what, how much variance you accept, and when suppliers get paid\" (the meta mirroring the hero is fine; the how-to intro should not be a third telling). FIX: keep the general tolerance rule in step 3 and the tab 1 story phrase (I4 needs it); give feature_2 a second sentence that says something new, such as what the hold shows the buyer (the line, the PO price and the variance). Rewrite howto_description so it says what this how-to adds rather than relisting the hero's inputs. No \", so\" tails (0), 3 from-X-to-Y ranges, no sentence over 32 words: rows 4, 6 and 19 clear."
    },
    "voice": {
     "result": "fail",
-    "evidence": "FAQ 2 is stitched from two body lines and adds nothing. howto_description says \"writing down the rules your controller already applies\" and the hero says \"Emergent builds the app that runs your AP inbox on those rules\". FAQ 2 repeats both: \"Write down the rules your controller already applies... It builds an app that reads every invoice in the AP inbox and applies those rules to it\". The page also leans on the \"from X to Y\" range 11 times. Four are filler ranges rather than real journeys: feature_1 \"from the vendor and invoice number down to each line item\", step 1 \"from the shared AP inbox to paper bills scanned at the front desk\", step 4 \"from QuickBooks to any ERP with an API\" and FAQ 2 \"from the approval threshold to the pay day\". The meta and FAQ 7 share \"from the AP inbox to the payment run\" word for word. FAQ 12 stacks two secondaries in back-to-back sentences, which reads as keyword stuffing: \"Most accounts payable automation solutions charge... AP automation solutions built on Emergent run on credits.\" FIX: give FAQ 2 something the body does not say, such as what the prompt for one rule looks like or what you review before it goes live. Rewrite the four filler ranges as plain lists or a single specific (\"QuickBooks or any ERP with an API\"). Change FAQ 7's opener so it no longer echoes the meta. Make FAQ 12's second sentence \"Emergent runs on credits.\" The FAQ still carries 10 or more secondaries without it."
+    "evidence": "(1) tab_content_1 \"and the buyer gets the $60.00 difference\" reads as if the buyer is paid $60. The image says \"Sent to Dana Kim, buyer / Approve the difference or dispute it\". FIX: \"and the $60.00 difference goes to the buyer to approve or dispute\" (keep \"the $60.00 difference\" for the I4 story link). (2) tab_content_2 is four flat declaratives of near-equal length, two of them passive: \"Rent and software subscriptions arrive as recurring bills. Each is compared with last month's amount. A bill that rises by more than a tenth waits for the department head. The rest join Friday's payment run without a review.\" tab_content_4 has the same four-beat shape and closes on a summary line: \"Every payment record stays ready for 1099 season.\" FIX: vary the rhythm and merge at least one pair of sentences in each tab, and end tab 4 on the payout rather than a wrap-up. (3) howto_step_7_des ends on a tacked-on line unrelated to the step: \"Every rule change is versioned in your repo.\" (see also truth). (4) howto_step_4_des \"Connect the ledger your team closes the books in, QuickBooks or any ERP with an API.\" The comma appositive reads as a splice; use \"such as QuickBooks or any ERP with an API\". (5) Verbal tic \"set X beside Y\" twice: FAQ 2 \"set every threshold in the generated approval chain beside your written policy\" and howto_step_6_des \"set its decisions beside what your team did by hand\". Accepted P2, not part of this fail: tab 2 \"rises by more than a tenth\" in place of 10% follows the pending C3 decision."
    },
    "truth": {
-    "result": "pass",
-    "evidence": "All 10 claims_used ids are approved in capabilities.json. FAQ 3 (\"Tipalti for global supplier payments, BILL for self-serve payables and receivables, and Stampli for invoice-centered AP with an AI assistant\") matches the aab library. The numbers agree: 400 x $8 = $3,200, 2,000 x $0.43 = $860, $3,200 + $860 + $340 = $4,400, 2,000 x $0.03 = $60 (FAQ 7 and tab 1), $1,650 to $1,980 = 20% > 10%, 14 bills / $38,210 (tab 2 and the cover), $80 x 30 = $2,400, and Oct 23, 2026 is a Friday. \"2/10 net 30\" is a standard trade term and is used correctly. P2: feature_2 sits under \"Two-way and three-way matching\" but says \"Each invoice is checked against its purchase order and goods receipt\", which is three-way only. Step 3 uses two-way for services. Worth a one-word fix (\"and, for goods, its receipt\") on the rework pass."
+    "result": "fail",
+    "evidence": "howto_step_7_des \"Every rule change is versioned in your repo.\" states platform behaviour as automatic (row 14). The ledger's code-export entry is only \"Full code export to the user's GitHub repository\"; it does not say each change is committed or versioned. FIX: drop the sentence, or reword within the ledger, e.g. \"Export the rules to your repo after each change and review them like any other code.\" Everything else checks out. All 10 claims_used ids are approved. FAQ 3 vendor descriptions and the table match the library (BILL/Tipalti settled). The numbers agree: 400 x $8 = $3,200; 2,000 x $0.43 = $860; $3,200 + $860 + $340 = $4,400; 2,000 x $0.03 = $60; $0.43 vs $0.40 is 7.5%, over the mockup's 2%; $1,650 to $1,980 = +$330 = 20%, over 10%; 14 bills / $38,210 match on tab 2 and the cover; $80 x 30 = $2,400. Oct 23, 2026 is a Friday, Nov 18 a Wednesday. Rows 7, 8, 12 and 13 clear (\"Design tool subscription\", no real brand)."
    },
    "distinct": {
     "result": "pass",
-    "evidence": "It follows the watch-list split. Capture is sent to \"For capture and matching on their own, see invoice automation\" and sign-off only to \"If sign-off is all you need, start with an approval workflow\", so the page stays end-to-end payables. No sibling primary appears in a heading, and K/D2 are clean."
+    "evidence": "The watch-list split holds. Capture is sent to invoice automation (FAQ 5 \"For capture and matching on their own, see invoice automation\") and sign-off only to approval workflow (FAQ 9 \"If sign-off is all you need, start with an approval workflow\"). Against the approval-workflow sibling, the routing feature is AP-specific (\"Bills route by amount, vendor, entity, or GL code\"), and no sentence is shared. No sibling primary appears in a heading. K/D2 clean."
    },
    "faq": {
-    "result": "pass",
-    "evidence": "15 real questions, each answered in its first sentence: FAQ 6 now opens \"AP invoice automation reads each invoice into fields, then checks those fields against the purchase order\", FAQ 7 \"An AP automation workflow is a fixed path...\", and FAQ 14 is a real question (\"Can an automated AP workflow catch duplicate invoices?\") with new content. FAQ 11 adds the NetSuite mapping and FAQ 15 adds what the test month turns up (\"vendors missing from the ERP\"). The hub link is in item 2, with 3 sibling links. The FAQ 2 and FAQ 12 repetition is scored under voice."
+    "result": "fail",
+    "evidence": "10 on-topic items, the hub link in item 2, and 3 exact-match sibling links. Three answers still fail. (1) FAQ 2 still restates the body, the class the cycle 3 reviewer failed it for (row 18). \"Give Emergent's AI automation builder your rules one sentence at a time, in plain English... Each sentence becomes a step in the workflow it builds\" repeats howto_step_2_des \"Describe the policy the way your controller would say it... Emergent turns those sentences into routing rules\". \"Before go-live, set every threshold in the generated approval chain beside your written policy\" repeats howto_step_6_des \"Run last month's invoices through the automated AP workflow before go-live and set its decisions beside what your team did by hand\". FIX: answer \"How do you automate accounts payable?\" with the order of work (intake, rules, matching, ledger, payment, test) in two sentences that point to the how-to, or with something the steps do not cover. (2) FAQ 5 \"A field read with low confidence, like a smudged invoice number on a scan, goes to a person first\" restates feature_1 \"Low-confidence fields wait for a person.\" The smudge example is new, but the claim is not. FIX: keep the example and cut the restated rule, or answer with what happens after the match. (3) FAQ 10 \"ask each of the AP automation companies to show it working\" is shoehorned to fit the secondary; a person would write \"ask each vendor\". FIX: place \"AP automation companies\" where it reads naturally, e.g. \"Most AP automation companies will run a demo on sample data; bring your own approval chain instead...\"."
    },
    "images": {
-    "result": "fail",
-    "evidence": "The tab 1 prompt drawn on the image reads \"Match every invoice to its PO and goods receipt, and hold any price variance\". The tab copy says \"A price or quantity outside the tolerance holds it\", the mockup says \"Hold anything with a price or quantity variance over 2 percent\", and step 3 says to \"set how far a unit price or a received quantity may drift from the PO before the invoice is held\". \"Any price variance\" means zero tolerance and drops quantity, so the image states a different rule from the copy. The rest of tab 1 agrees: \"Sent to Dana Kim, buyer / Approve the difference or dispute it\" matches \"sends the difference to the buyer\", and $0.43 against $0.40 (7.5%) is over the 2% tolerance. Tabs 2-4 and the cover match their copy (\"Rule matched: up more than 10% -> Department head\", \"Pays from the GBP account\", \"3 of 3 passed\", \"Joins the biweekly payout run on Friday, Oct 23\", \"Pay run: 14 bills $38,210\"). Each has one hero, and nothing collides. FIX: change the tab 1 prompt to something like \"Match every invoice to its PO and goods receipt, and hold anything over a 2% variance\" and re-render uc-1."
+    "result": "pass",
+    "evidence": "Every tab shows one moment that matches its copy, and the cycle 3 note is fixed: the tab 1 prompt now reads \"Match invoices to PO and receipt; hold any price or quantity outside the tolerance\", and the hero reads \"Fasteners billed at $0.43, PO says $0.40 (+$60.00)\" / \"Sent to Dana Kim, buyer\". Tab 2 shows \"Rule matched: up more than 10% -> Department head\", \"Up $330.00, a 20% increase\" and \"Friday payment run / Added once approved\". Tab 3 shows \"Routed to Acme Ltd / Pays from the GBP account\" and \"Spend by entity / October close, 3 entities\". Tab 4 shows \"3 of 3 passed\", \"Within the contract rate\", \"Payout runs every other Friday, next on Oct 23\" and \"Record ready for 1099 reporting\". The cover reads \"Pay run: 14 bills $38,210\". Text is readable, panels are full, nothing collides. P2 accepted: tab 2 \"AP inbox, Oct 3\" is a Saturday, which is plausible for an emailed bill."
    }
   }
- }
+ },
+ "reviews": [
+  {
+   "by": "reviewer-accounts-payable-automation-c3",
+   "date": "2026-10-07 12:42 UTC",
+   "result": "fail"
+  }
+ ]
 }
