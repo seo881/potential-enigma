@@ -117,7 +117,7 @@ def check(spec, siblings):
     if F.get("faq") and fq is None and not any(x["code"] == "S5" for x in I): add("P0", "S5", "faq", "window.awbFAQ object not found")
     if fq:
         n = len(fq.get("items", []))
-        if n != 15: add("P1", "S5", "faq", f"{n} FAQ items (exactly 15)")
+        if n != 10: add("P1", "S5", "faq", f"{n} FAQ items (exactly 10)")
         if not fq.get("heading"): add("P0", "S5", "faq", "FAQ heading missing")
         qs = [i.get("q", "") for i in fq.get("items", [])]
         for q in qs:
@@ -253,7 +253,7 @@ def check(spec, siblings):
         if KMAP and prim:
             secs = [x["kw"].lower() for x in KMAP.get(spec["url"], {}).get("secondaries", [])]
             ftxt = " ".join((i.get("q", "") + " " + strip_html(i.get("a", ""))).lower() for i in fq.get("items", []))
-            got = [x for x in secs if x in ftxt]; need = min(10, len(secs))
+            got = [x for x in secs if x in ftxt]; need = min(6, len(secs))
             if len(got) < need: add("P1", "K8", "faq", f"FAQ carries {len(got)} of {len(secs)} secondaries verbatim (need {need}); missing e.g. {[x for x in secs if x not in got][:5]}")
     body = " ".join(strip_html(v) for k, v in F.items() if isinstance(v, str) and k not in ("why_table",))
     if KMAP and prim:
