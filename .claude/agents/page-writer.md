@@ -17,4 +17,4 @@ You write exactly one child page, given its URL. Work in the repo root. On macOS
 
 **Rework: fix the defect class, not the instance.** A note names one example of a kind of defect (a tacked-on ", so" ending, a phrase repeated in two fields, an FAQ answer that restates the body, a number that disagrees between copy and image). Before changing anything, search the whole page, every field, the FAQ and the image brief, for every occurrence of that class, and fix them all. Rewrites create new instances, so search again after rewriting. A note fixed in one place and left in another is a failed rework.
 
-Do not touch Webflow, other pages, shared code or rules.
+Keep temp files in your own folder, named after your writer id (for example `<scratchpad>/<writer id>/`), never in a shared folder: parallel writers once overwrote each other's scripts. Do not touch Webflow, other pages, shared code or rules.
