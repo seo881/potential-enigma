@@ -246,6 +246,13 @@
    "via": "review",
    "by": "reviewer-batch-c4a",
    "note": "rubric 10/10 by reviewer-batch-c4a; 6 notes"
+  },
+  {
+   "t": "2026-10-07 14:05 UTC",
+   "state": "challenged",
+   "via": "challenge",
+   "by": "challenger-batch-c4a",
+   "note": "no blocking defects found by challenger-batch-c4a; 4 notes"
   }
  ],
  "faq_sources": [
@@ -1337,6 +1344,113 @@
    "by": "reviewer-batch-c4a",
    "via": "review",
    "date": "2026-10-07 13:59 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_2 (h3); prompt_chip_2; howto_step_4_des",
+   "issue": "Step 5 tells the reader \"If reminders or HRIS splits are on, the honest word is confidential, not anonymous.\" The census the page sells has both (tab 1 reminders, feature_5 HRIS splits), but three writer-controlled fields still label its protections \"anonymity\". This is the same contradiction the reviewer logged for the library's \"anonymous reporting\" cell, but these instances are in the page copy, not the library.",
+   "fix": "\"Reporting minimums you set\" (feature_2 H3); \"Confidentiality Rules\" or \"Reporting Minimums\" (chip, 26 chars max); \"the reporting minimum\" (step 4).",
+   "by": "challenger-batch-c4a",
+   "via": "challenge",
+   "date": "2026-10-07 14:05 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_1; howto_step_2_des",
+   "issue": "Read in sequence, the page invites rewording any item, then forbids rewording the core items. Both are true in context (editing a draft vs changing items between cycles), but the two fields contradict each other as written.",
+   "fix": "feature_1: \"Edit any driver item with one sentence; the core items stay fixed so cycles compare.\"",
+   "by": "challenger-batch-c4a",
+   "via": "challenge",
+   "date": "2026-10-07 14:05 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #10",
+   "field": "image_brief.tabs[0] table, Sales row (uc-1.svg); image_brief.checks",
+   "issue": "eNPS is (promoters minus detractors) / respondents x 100. With 84 respondents, the reachable values near 9 are 8.3 and 9.5, which round to 8 and 10, so +9 needs truncation. The other three rows round correctly. The eNPS cells are also declared as `fact`, though each is derived from the answered count drawn beside it.",
+   "fix": "Sales eNPS +10 (8 net promoters of 84), or answered 88 (8/88 = 9.1). Declare each as an expr, e.g. round(8 / 84 * 100) == 10.",
+   "by": "challenger-batch-c4a",
+   "via": "challenge",
+   "date": "2026-10-07 14:05 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq item 1",
+   "issue": "The source (Culture Amp support 205198325) states Culture Amp's own preference for confidential surveys. It does not show that most engagement surveys across vendors are confidential, so the claim generalizes from one vendor.",
+   "fix": "\"Most platforms run them confidentially: ...\" with a second source, or \"Engagement surveys are usually confidential, as Culture Amp's are: ...\"",
+   "by": "challenger-batch-c4a",
+   "via": "challenge",
+   "date": "2026-10-07 14:05 UTC"
+  }
+ ],
+ "challenge": {
+  "by": "challenger-batch-c4a",
+  "date": "2026-10-07 14:05 UTC",
+  "result": "pass",
+  "defects": [],
+  "findings": [
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_2 (h3); prompt_chip_2; howto_step_4_des",
+    "quote": "\"Anonymity thresholds you set\"; \"Anonymity Rules\"; \"the scale, the anonymity rule and the reminder schedule\"",
+    "issue": "Step 5 tells the reader \"If reminders or HRIS splits are on, the honest word is confidential, not anonymous.\" The census the page sells has both (tab 1 reminders, feature_5 HRIS splits), but three writer-controlled fields still label its protections \"anonymity\". This is the same contradiction the reviewer logged for the library's \"anonymous reporting\" cell, but these instances are in the page copy, not the library.",
+    "fix": "\"Reporting minimums you set\" (feature_2 H3); \"Confidentiality Rules\" or \"Reporting Minimums\" (chip, 26 chars max); \"the reporting minimum\" (step 4).",
+    "severity": "note"
+   },
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_1; howto_step_2_des",
+    "quote": "feature_1 \"Reword any item with one sentence.\"; step 2 \"never reword them between cycles. A changed item breaks the comparison with last year.\"",
+    "issue": "Read in sequence, the page invites rewording any item, then forbids rewording the core items. Both are true in context (editing a draft vs changing items between cycles), but the two fields contradict each other as written.",
+    "fix": "feature_1: \"Edit any driver item with one sentence; the core items stay fixed so cycles compare.\"",
+    "severity": "note"
+   },
+   {
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "image_brief.tabs[0] table, Sales row (uc-1.svg); image_brief.checks",
+    "quote": "Sales | 84 | 69 | +9",
+    "issue": "eNPS is (promoters minus detractors) / respondents x 100. With 84 respondents, the reachable values near 9 are 8.3 and 9.5, which round to 8 and 10, so +9 needs truncation. The other three rows round correctly. The eNPS cells are also declared as `fact`, though each is derived from the answered count drawn beside it.",
+    "fix": "Sales eNPS +10 (8 net promoters of 84), or answered 88 (8/88 = 9.1). Declare each as an expr, e.g. round(8 / 84 * 100) == 10.",
+    "severity": "note"
+   },
+   {
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq item 1",
+    "quote": "Most are confidential: the system knows who answered, but no manager sees one person's answers.",
+    "issue": "The source (Culture Amp support 205198325) states Culture Amp's own preference for confidential surveys. It does not show that most engagement surveys across vendors are confidential, so the claim generalizes from one vendor.",
+    "fix": "\"Most platforms run them confidentially: ...\" with a second source, or \"Engagement surveys are usually confidential, as Culture Amp's are: ...\"",
+    "severity": "note"
+   }
+  ],
+  "checked": [
+   "title and meta: meta_title 52 chars, primary first; meta_description promises confidential team results, eNPS, driver analysis and action plans, all delivered (tab 1, feature_3, feature_4, feature_6)",
+   "H1 and hero: H1 'Build an Employee Engagement Survey From Question to Action' covers the whole job; hero maps to prompt-build and database-owned; definition in features_subheading (AI Overview) sourced to SHRM",
+   "features: six bodies read against ledger and sources; feature_5 BambooHR/Workday fields sourced to their API docs; feature_2/feature_1 noted",
+   "why title, description and table: why_title and why_description notes already logged by reviewer c4a, not repeated; table from library (employee variant), anonymous-reporting cell and K7 pending with Divit",
+   "tab 1 and uc-1: 118+84+66+141+3 = 412 of 600, 69% correct; Legal hidden at 3 and counted; Support index 58 / eNPS -6 / 66 answered match table; 40 questions and two-week window match copy; Sales +9 rounding noted",
+   "tab 2 and uc-2: 12 questions, English/Spanish, QR codes, Store 214 at 5 answered opens, Warehouse 3 at 3 hidden, site manager R. Diaz; agrees with copy, mockup and alt",
+   "tab 3 and uc-3: 81-67=14 and the other four deltas correct; 10-point rule linked; Slack DM to Ana Ruiz addresses one person (defect 25 fixed); role clarity and intent to stay match copy",
+   "tab 4 and uc-4: 142+118+86+54 = 400, four themes, growth top; eNPS +18 up from +12 agrees in copy, KPI, alt and cover",
+   "how-to: 7 steps, actions, specific; two-week results claim matches the Culture Amp source (1-2 weeks); comment minimum sourced; step 5 confidential wording sourced to Qualtrics",
+   "FAQ: 10 items, all 5 eligible PAA answered, hub link in item 2, sibling links in items 9 and 10 (live status pending); 5 C's sourced; 10 example items count to 10 (4 core + 6 driver), consistent with step 2's four to six core items; watch-list (engagement vs satisfaction) followed in item 9; item 1 noted",
+   "cover and share image: cover +18 from +12 in Q2 agrees with tab 4; OG headline plain",
+   "deterministic QC: TOTAL 0; P2 K7 and T1 read (breadcrumb and explore CTA widths need a template check)"
+  ]
+ },
+ "challenges": [
+  {
+   "by": "challenger-batch-c4a",
+   "date": "2026-10-07 14:05 UTC",
+   "result": "pass",
+   "defects": 0,
+   "notes": 4
   }
  ]
 }
