@@ -133,6 +133,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-07 12:33 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "reviewer-employee-engagement-survey-c1",
+   "note": "craft: feature_6: heading 'Action plans, and code you keep' glues two unrelated ideas into one block (manager action logs + GitHub export); give the block one idea (e.g. the action-plan loop) and let the why table/feature carry code export. Also 'two or three' recurs four times (feature_4 'the two o"
   }
  ],
  "faq_sources": [
@@ -743,5 +750,51 @@
  "qc_passed": {
   "rules_version": "969671f9a8d7",
   "date": "2026-10-07 12:31 UTC"
+ },
+ "review": {
+  "by": "reviewer-employee-engagement-survey-c1",
+  "date": "2026-10-07 12:33 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Employee Engagement Survey From Question to Action', title 'Employee Engagement Survey You Can Act On' and hero ('the questions, anonymous team results, driver analysis and manager dashboards') cover the whole job, not one feature or a sibling topic."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is Gallup Q12, question lists (Culture Amp, DecisionWise), templates (SurveyMonkey) and vendor directories (SHRM, Perceptyx); the page gives ten example items ('I am proud to work here; I plan to be here in two years...'), a template FAQ, a vendor table and a 7-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout ('engagement index', 'eNPS', 'weakest driver', 'HR business partner', 'BambooHR, Workday'); table uses the employee variant: 'Pulse and annual surveys, anonymous reporting, and manager dashboards, as code you own'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every body paragraph opens with a full sentence that says what happens, e.g. tab 2 'Store and warehouse staff without a company email scan a QR code in the break room...'; FAQ 'Not exactly.' / 'Yes.' are direct answers, not labels."
+   },
+   "craft": {
+    "result": "fail",
+    "evidence": "feature_6: heading 'Action plans, and code you keep' glues two unrelated ideas into one block (manager action logs + GitHub export); give the block one idea (e.g. the action-plan loop) and let the why table/feature carry code export. Also 'two or three' recurs four times (feature_4 'the two or three items', feature_6 'two or three actions', step 6 'the two or three drivers', step 7 'two or three actions'): vary or cut, the repetition reads templated."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Mostly concrete and plain ('the next survey asks if they landed'; 'Items nobody acts on make the survey longer and teach people that answering changes nothing'). P2 accepted-for-writer: howto_description triplet plus summary ('Seven steps take you from the first question to the first action plan') and FAQ 3 'Because commitment drops long before resignations arrive' (unsourced generalization, defect #7 pattern) are worth tightening in the rework."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "(1) faq item 10 '412 of 600 people answer and the engagement index is 72... The eNPS is +18' reuses tab 1's census (412 of 600, weighted index 72.0) but tab 1's teams give a company eNPS of (118x22+84x9-66x6+141x25)/409 = +15.8, and even Legal's 3 hidden answers at +100 cap it at +16.5; +18 cannot follow (defect #10). Use +16. (2) howto_step_3_des 'Pick the smallest group that can see results, usually five' says the opposite of the intent (it is the smallest group whose results anyone can see). (3) The anonymity rule is stated two ways: feature_2 'any group under five people' and tab 1 'Teams under five' (team size) vs tab 2 / FAQ 10 'once five people have answered' and the image 'Legal 3 answered, Hidden, under 5' (responses). State one rule, fewer than five answers, everywhere. Hidden teams' answers do count in the total (118+84+66+141+3 = 412), consistent with FAQ 10; keep it that way."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own territory per the watch-list (commitment and eNPS drivers): census, frontline QR, post-reorg and quarterly eNPS scenes share nothing with /customer-satisfaction's account-tied CSAT/NPS scenes; satisfaction and pulse are handed off by link in FAQ 13 and 15. P2: the cover ('Rate us as a workplace' five-star card + score) mirrors the CSAT sibling's 'five-star rating and a CSAT of 4.6' cover and uses a star question this page never describes; swap to a 1-5 agreement item or the eNPS gauge."
+   },
+   "faq": {
+    "result": "fail",
+    "evidence": "15 items, each answered in its first sentence, but two answers read keyword-stuffed: item 12 asks about 'vendors' then forces 'employee engagement survey providers' and 'employee engagement survey companies' into two sentences; item 14 ends 'instead of reworking a static employee survey template or a sample employee engagement survey from a PDF'. Item 15 link reads 'see <a>pulse survey</a>' with no article; rewrite e.g. 'run a pulse survey'. Also item 15 'a short check of five to ten questions each quarter' contradicts tab 4's quarterly check of two questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Each tab is one moment that matches its copy: uc-1 412 of 600 = 118+84+66+141+3, Legal 'Hidden, under 5', Support 'Log actions'; uc-2 'Question 3 of 12', English/Spanish, Store 214 '5 answered' unlocked for R. Diaz; uc-3 Platform 81 to 67 = -14 against a 10-point rule, Slack #hr-partners; uc-4 142+118+86+54 = 400, eNPS +18 up from +12 matching the cover '+6 this quarter'. P2: tab 4 copy says 'eNPS trends by team' while uc-4 shows the company score only."
+   }
+  }
  }
 }
