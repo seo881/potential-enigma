@@ -69,6 +69,13 @@ Repo dirs: LP `lp`, Form `form`, Auto `aab`, SurveyQuiz `sqb`. Writers in the sa
 - Divit: about 1 hour (calibration days: more).
 - Dependencies that cap the rate: plan usage limits for the model; Divit's daily review; the Wave 3 top-10 pull before queue rank 208.
 
+## 3b. Dry run protocol (before any scale)
+1. Coordinator sources the competitor-library entries the dry-run pages need.
+2. Claude Code: `git pull`, `bash ops/setup.sh` (fetches Brockmann with checksums and recalibrates widths in exact mode).
+3. Writers → QC 0 → reviewers 10/10 rubric → images. Previews (`ops/preview.py`) and the reading copy to Divit.
+4. Canary: create ONE page as a draft (`bulk-payload`, a single item), read it back, `bulk-verify`. Divit opens it in the Designer (template, that item selected) and checks every section as rendered. If it is right: `hubctl verified <url>`; then create the other drafts the same way.
+5. Publish only on Divit's go, after the link gate passes.
+
 ## 4. Webflow facts (hard-won; do not relearn)
 1. **IDs and field slugs** are in `config/collections.json`. Never write a slug that is not there. The child collections are at Webflow's field cap: no new fields.
 2. **Drafts only.** Every create or update sends `isDraft: true`. Bulk updates on already-published items go live immediately; touch published items only with Divit's go.

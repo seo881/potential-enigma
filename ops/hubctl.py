@@ -6,6 +6,7 @@
   init URL                          create the spec skeleton specs/<dir>/<slug>.json
   qc URL                            run qc/qc_hub.py on that page's spec
   state URL STATE [--note TEXT]     move a page to a new state (see STATES); 'reviewed' needs a passing rubric
+  verified URL                      Divit approved the page as rendered in the real Webflow template: it joins the width calibration
   review URL RUBRIC.json --by ID    record the reviewer's scored rubric; all pass -> reviewed, any fail -> rework with the fixes
   payload URL --sha SHA             write ops/out/<slug>.payload.json: the exact data_cms_tool action
   verify URL READBACK.json          diff a stored CMS read-back against the spec (exit 1 on mismatch)
@@ -219,6 +220,11 @@ def cmd_review(args):
     if fails: set_state(url, "rework", note=" | ".join(fails)); print("REWORK:\n  " + "\n  ".join(fails))
     else: set_state(url, "reviewed", note=f"rubric 10/10 by {by}"); print("REVIEWED: rubric 10/10")
 
+def cmd_verified(args):
+    url = args[0]; sp = spath(url); s = json.load(open(sp)); s["render_verified"] = now(); json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import typeset as TS; TS.calibrate()
+    print(f"{url} marked as verified in the template; width ceilings recalibrated with it")
+
 def cmd_state(args):
     url, state = args[0], args[1]
     if state not in STATES: sys.exit(f"state must be one of {STATES}")
@@ -370,7 +376,7 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review}
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified}
 if __name__ == "__main__":
     if len(sys.argv) < 2 or sys.argv[1] not in CMDS: print(__doc__); sys.exit(0)
     try:

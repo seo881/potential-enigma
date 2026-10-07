@@ -199,7 +199,74 @@ def render_tab(hub, tab, idx=1):
     if CTX["clicks"] > 1: raise BriefError(f"tab {idx}: {CTX['clicks']} cursors; exactly one click per image (on the hero's button)")
     alt = tab.get("alt", "").strip()
     if not alt or len(alt) < 40: raise BriefError(f"tab {idx}: alt text missing or too short (one or two specific sentences)")
+    CTX.setdefault("texts", {})[idx] = visible_text(b)
     return L.canvas(b, title=tab.get("title", ""), desc=alt)
+
+def visible_text(svg_body):
+    from html import unescape
+    return [unescape(t) for t in re.findall(r"<text[^>]*>(.*?)</text>", svg_body, re.S)]
+
+NUM = re.compile(r"(?<![\w:])[$£€]?\d[\d,]*(?:\.\d+)?%?(?![\w:])")
+def _safe_eval(expr):
+    import ast, operator as op
+    ops = {ast.Add: op.add, ast.Sub: op.sub, ast.Mult: op.mul, ast.Div: op.truediv, ast.USub: op.neg, ast.Mod: op.mod}
+    cmps = {ast.Eq: lambda a, b: abs(a - b) < 1e-6, ast.NotEq: lambda a, b: abs(a - b) >= 1e-6, ast.Lt: op.lt, ast.LtE: op.le, ast.Gt: op.gt, ast.GtE: op.ge}
+    def ev(n):
+        if isinstance(n, ast.Expression): return ev(n.body)
+        if isinstance(n, ast.Constant) and isinstance(n.value, (int, float)): return n.value
+        if isinstance(n, ast.BinOp) and type(n.op) in ops: return ops[type(n.op)](ev(n.left), ev(n.right))
+        if isinstance(n, ast.UnaryOp) and type(n.op) in ops: return ops[type(n.op)](ev(n.operand))
+        if isinstance(n, ast.Call) and getattr(n.func, "id", "") == "round": return round(*[ev(x) for x in n.args])
+        if isinstance(n, ast.Compare) and len(n.ops) == 1 and type(n.ops[0]) in cmps: return cmps[type(n.ops[0])](ev(n.left), ev(n.comparators[0]))
+        raise BriefError(f"checks: only numbers, + - * / %, round() and one comparison are allowed: {expr}")
+    return ev(ast.parse(expr, mode="eval"))
+
+def check_numbers(br, texts):
+    """Every derived number is declared and true; every declared number is drawn exactly as written."""
+    issues = []; covered = set()
+    def where_txt(w): return " ".join(texts.get(w, []))
+    for c in br.get("checks", []):
+        ws = c.get("where"); ws = ws if isinstance(ws, list) else [ws]
+        for w in ws: covered.add(w)
+        if "expr" in c:
+            try:
+                if _safe_eval(c["expr"]) is not True: issues.append(f'checks: "{c["expr"]}" is false. The numbers in the image must add up.')
+            except BriefError as e: issues.append(str(e))
+            except ZeroDivisionError: issues.append(f'checks: division by zero in "{c["expr"]}"')
+            for sh in c.get("shows", []):
+                if not any(sh in where_txt(w) for w in ws): issues.append(f'checks: "{sh}" is declared for {ws} but is not drawn there exactly like that')
+        if "same" in c:
+            missing = [w for w in ws if c["same"] not in where_txt(w)]
+            if missing: issues.append(f'checks: "{c["same"]}" must appear in {ws}; missing in {missing}')
+    # every quantity drawn must be accounted for by value in that image's declarations (expr, shows, same or fact)
+    def vals(sx):
+        return {float(x.replace(",", "")) for x in re.findall(r"\d[\d,]*(?:\.\d+)?", sx)}
+    declared = {}
+    for c in br.get("checks", []):
+        ws = c.get("where"); ws = ws if isinstance(ws, list) else [ws]
+        src = " ".join([c.get("expr", ""), c.get("same", "")] + list(c.get("shows", [])) + list(c.get("fact", []) if isinstance(c.get("fact"), list) else [c.get("fact", "")]))
+        for w in ws: declared.setdefault(w, set()).update(vals(src))
+    for w, t in texts.items():
+        if w not in declared: continue
+        for n in [n.rstrip(",.") for n in NUM.findall(" ".join(t))]:
+            if not re.search(r"[$£€%]|\d,\d|\d\.\d", n): continue
+            v = float(re.sub(r"[^\d.]", "", n.replace(",", "")))
+            if v not in declared[w]:
+                issues.append(f"{'tab ' + str(w) if isinstance(w, int) else w}: draws {n}, which no check or fact declares. Declare it (fact if it is standalone) so every number in the image is accounted for")
+    for w, t in texts.items():
+        if w in covered or (isinstance(w, int) and br["tabs"][w - 1].get("no_derived")): continue
+        nums = [n.rstrip(",.") for n in NUM.findall(" ".join(t))]
+        nums = [n for n in nums if re.search(r"[$£€%]|\d,\d|\d\.\d", n)]      # quantities: money, percentages, decimals, grouped numbers (not IDs or years)
+        if len(nums) >= 2:
+            issues.append(f"{'tab ' + str(w) if isinstance(w, int) else w}: shows {len(nums)} numbers ({', '.join(nums[:4])}...) but declares no checks. Add image_brief.checks for every derived value (totals, differences, percentages, counts), or set no_derived: true on the tab if none is derived")
+    return issues
+
+def check_glyphs(texts):
+    from fontTools.ttLib import TTFont
+    from paths import FONT_DIR
+    cmap = set(TTFont(FONT_DIR + "Inter-Regular.ttf").getBestCmap())
+    bad = sorted({c for t in texts.values() for s in t for c in s if not c.isspace() and ord(c) not in cmap})
+    return [f"characters Inter cannot draw (they would render as boxes): {bad}"] if bad else []
 
 # ------------------------------------------------------------------ cover (800x500) and share image (1200x630)
 def big_button(x, y, w, h, label, ic=None, primary=True):
@@ -241,6 +308,7 @@ def render_cover(hub, d):
         raise BriefError('cover.kind must be one of "action", "confirm", "code", "score"')
     alt = d.get("alt", "").strip()
     if len(alt) < 20: raise BriefError("cover: alt text missing or too short")
+    CTX.setdefault("texts", {})["cover"] = visible_text(b)
     return cover_canvas(b, d.get("title", ""), alt)
 
 def og_lines(headline, lines=None):
@@ -295,7 +363,7 @@ def brief_of(spec):
 
 def build_all(spec):
     """Render every image in memory. Returns (outputs, issues, warnings). outputs: list of (relpath, bytes|str)."""
-    hub = spec["hub"]; br = brief_of(spec); out, issues = [], []; CTX["warn"] = []; CTX["balance"] = []
+    hub = spec["hub"]; br = brief_of(spec); out, issues = [], []; CTX["warn"] = []; CTX["balance"] = []; CTX["texts"] = {}
     cfg = json.load(open(os.path.join(REPO, "config", "collections.json")))
     d = f"images/{cfg['hubs'][hub]['repo_dir']}/{spec['url'].rsplit('/', 1)[1]}"
     if spec.get("_demo"): d = f"images/_demo/{spec['url'].rsplit('/', 1)[1]}"
@@ -319,6 +387,8 @@ def build_all(spec):
         if cover_src: out.append((f"{d}/og.svg.tmp", render_og_svg(hub, og, cover_src)))
     except BriefError as e: issues.append(str(e))
     issues += CTX.get("balance", [])
+    texts = dict(CTX.get("texts", {}))
+    issues += check_numbers(br, texts) + check_glyphs(texts)
     return out, issues, list(CTX.get("warn", []))
 
 def lint(spec):

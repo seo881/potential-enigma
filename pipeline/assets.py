@@ -17,4 +17,24 @@ def main():
         os.makedirs(ld, exist_ok=True)
         tarfile.open(fileobj=io.BytesIO(urllib.request.urlopen(LUCIDE, timeout=120).read())).extractall(ld)
     print("assets OK:", fd, os.path.join(ld, "package", "icons"))
+    brockmann()
+
+def brockmann():
+    """The template's heading font, for exact width checks. Needs access to Webflow's CDN (works on the production Mac)."""
+    import hashlib, json as _j
+    cfg = _j.load(open(os.path.join(os.path.dirname(CACHE), "config", "typography.json")))["font_sources"]
+    bd = os.path.join(CACHE, "fonts", "brockmann"); os.makedirs(bd, exist_ok=True); done = 0
+    for name, src in cfg.items():
+        if name.startswith("_"): continue
+        ttf = os.path.join(bd, f"Brockmann-{name}.ttf")
+        if os.path.exists(ttf): done += 1; continue
+        try:
+            data = urllib.request.urlopen(urllib.request.Request(src["url"], headers={"User-Agent": "Mozilla/5.0"}), timeout=60).read()
+        except Exception as e:
+            print(f"  Brockmann not fetched ({type(e).__name__}): heading widths stay approximate on this machine"); return
+        if hashlib.md5(data).hexdigest() != src["md5"]: print(f"  Brockmann-{name}: checksum mismatch, not used"); return
+        from fontTools.ttLib import TTFont
+        woff = os.path.join(bd, f"Brockmann-{name}.woff2"); open(woff, "wb").write(data)
+        f = TTFont(woff); f.flavor = None; f.save(ttf); done += 1
+    print(f"  Brockmann: {done}/4 weights ready, checksums verified")
 if __name__ == "__main__": main()

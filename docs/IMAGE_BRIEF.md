@@ -78,6 +78,22 @@ Each tab:
 
 Icons are Lucide names (lucide.dev/icons); an unknown name fails the lint.
 
+## Numbers: declare every one (`checks`)
+Every quantity an image draws (money, percentages, decimals, grouped numbers) must be accounted for in `image_brief.checks`, by value, for that image. The engine evaluates every expression, confirms every declared number is drawn exactly as written, and blocks the page otherwise.
+```json
+"checks": [
+  {"expr": "3200 + 860 + 340 == 4400", "shows": ["$3,200.00", "$860.00", "$340.00", "$4,400.00"], "where": 1},
+  {"expr": "round(330 / 1650 * 100) == 20", "shows": ["20%"], "where": 2},
+  {"same": "$38,210", "where": [2, "cover"]},
+  {"fact": ["99%", "97%"], "where": 2}
+]
+```
+- `expr`: numbers, + - * / %, `round()` and one comparison. It must be true.
+- `shows`: the strings exactly as drawn in that image.
+- `same`: a value that must appear identically in several images (a tab and the cover).
+- `fact`: standalone numbers that are not derived from anything (a price, a confidence score). Never use `fact` for a total, a difference or a percentage change; the reviewer checks this.
+- `where`: the tab number (1-4) or "cover".
+
 ## Covers (800x500, carousel card) and share image
 - `action`: `channel`, `title`, `sub`, `primary`, `secondary` (approval-style).
 - `confirm`: `title`, `button`, `icon` (browser with a big check).

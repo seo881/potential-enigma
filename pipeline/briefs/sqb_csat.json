@@ -343,7 +343,7 @@
     "kpi": {
      "icon": "gauge",
      "label": "Team CSAT",
-     "value": "4.4",
+     "value": "4.1",
      "sub": "this week"
     },
     "hero": {
@@ -379,7 +379,42 @@
   "og": {
    "headline": "Build a customer satisfaction survey",
    "alt": "Build a customer satisfaction survey with Emergent"
-  }
+  },
+  "checks": [
+   {
+    "expr": "3.1 < 4.2",
+    "shows": [
+     "3.1",
+     "4.2"
+    ],
+    "where": 3
+   },
+   {
+    "expr": "round((4.7 + 4.5 + 3.2) / 3, 1) == 4.1",
+    "shows": [
+     "4.7",
+     "4.5",
+     "3.2",
+     "4.1"
+    ],
+    "where": 4
+   },
+   {
+    "expr": "round(4.6 - 0.4, 1) == 4.2",
+    "shows": [
+     "4.6",
+     "0.4"
+    ],
+    "where": "cover"
+   },
+   {
+    "fact": [
+     "4.6",
+     "4.4"
+    ],
+    "where": 3
+   }
+  ]
  },
  "images": {
   "tab_image_1": {

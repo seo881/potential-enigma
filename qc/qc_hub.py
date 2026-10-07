@@ -394,6 +394,34 @@ def check(spec, siblings):
                 p_ = (tb.get("prompt") or "").strip()
                 if p_ and not (40 <= len(p_) <= 95): add("P2", "I3", f"tab {i} prompt", f"{len(p_)} chars; a prompt chip reads best at 60-85")
 
+    # ---------- T: rendered width in the template's real typography (ops/typeset.py) ----------
+    if spec.get("status") not in ("live-draft", "published"):
+        try:
+            sys.path.insert(0, os.path.join(ROOT, "ops")); import typeset as _TS
+            for sev, fld, msg in _TS.check(spec): add(sev, "T1", fld, msg)
+        except Exception as e:
+            add("P2", "T0", "typography", f"width check skipped ({type(e).__name__}: {e})")
+        if md:
+            try:
+                from PIL import ImageFont
+                dpx = round(ImageFont.truetype(FONT, 14).getlength(md))
+                if dpx > 920: add("P1", "L2", "meta_description", f"{dpx}px at Google's 14px Arial (truncates past about 920px)")
+            except Exception: pass
+        # structure: every rich-text field must have the same HTML skeleton as the approved live pages
+        def skel(html_):
+            return re.sub(r'\s+id=""', "", " ".join(re.findall(r"</?[a-z0-9]+[^>]*?>", html_ or "")))
+        base = next((b_ for b_ in siblings if b_.get("hub") == hub and b_.get("status") == "live-draft"), None)
+        if base:
+            for k_ in [f"feature_{i}" for i in range(1, 7)] + [f"tab_content_{i}" for i in range(1, 5)]:
+                if F.get(k_) and skel(F[k_]).replace(' id=""', "") != skel(base["fields"].get(k_, "")).replace(' id=""', ""):
+                    add("P0", "S9", k_, f"HTML shape differs from the approved live page ({skel(F[k_])[:60]} vs {skel(base['fields'].get(k_, ''))[:60]})")
+            if F.get("faq") and (not F["faq"].startswith("<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = ") or not F["faq"].endswith("; </script></div></div>")):
+                add("P0", "S9", "faq", "FAQ embed wrapper differs from the approved live pages")
+            if F.get("mockup") and not re.fullmatch(r'<p id="">window\.awbMockup = \{ .* \};</p>', F["mockup"], re.S):
+                add("P0", "S9", "mockup", "mockup embed shape differs from the approved live pages")
+            for k_ in ("hero_prompt",):
+                if F.get(k_) and not re.fullmatch(r"<p>[^<]+</p>", F[k_]): add("P0", "S9", k_, "must be a single <p>...</p> like the approved pages")
+
     # ---------- Q: craft (the criteria behind every past rejection; see rules/CONTENT_DEFECTS.md) ----------
     paras = []                                   # (field, text) for every prose paragraph a reader sees
     for k in ["hero_description", "features_subheading", "why_description", "howto_description"]:

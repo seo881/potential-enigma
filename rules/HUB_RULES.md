@@ -120,6 +120,9 @@ Only claims in `rules/claims.json` (approved) may be stated as fact. Anything el
 - Within a hub, vary H1 hooks, why descriptions, FAQ phrasing and feature 6. Two pages must never share two or more identical sentences [QC]. At 200 pages a day this check is what keeps pages from reading alike: treat a D1 failure as a writing problem, not a wording tweak.
 - Check the last page of a batch as carefully as the first.
 
+## 7b. Rendered width (the template's real typography) [QC T1]
+Every field is measured in the template's own type (Brockmann headings, Inter body, at the sizes and tracking set in Webflow) and may not render wider than the widest approved rendering of that field (`config/typography.json`). Shorten the words, never the meaning. The breadcrumb and the Explore button carry the keyword and are confirmed in the real template instead. Ceilings grow only with proof: a page Divit approves as rendered in Webflow (`hubctl verified`) joins the calibration. Meta descriptions stay within about 920px at Google's 14px Arial.
+
 ## 8. First pass at the final standard
 - The bar is set by `rules/rubric.json` (10 criteria) and `rules/CONTENT_DEFECTS.md` (every defect seen so far, before and after). The writer scores the page against both before QC; the reviewer scores it again, independently, and records the result (`hubctl review`). A page cannot move past review without 10/10 (QC R1).
 - What can be measured is blocked by code: Q1 keyword-label openers, Q2 sentences over 40 words, Q4 generic comparison column, A1 tacked-on endings and AI tells, I1 image panels with empty zones. Q3 flags H1s leaning on a sibling's topic for the rubric's scope check.

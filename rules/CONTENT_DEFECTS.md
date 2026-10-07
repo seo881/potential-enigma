@@ -12,6 +12,8 @@ Every defect that has made a page less than world class, why it fails, and what 
 | 6 | Run-on list sentences in FAQ answers | Compare AP automation companies on four things: how they price (per user, per invoice, or by quote), how much... (42 words) | Two sentences, 29 and 15 words | craft | QC Q2 (block over 40 words, flag over 32) |
 | 7 | Unsupported generalization | Teams usually move the same headcount from data entry to review and analysis. | AP roles shift from data entry toward review and control. | truth | Rubric `truth` |
 | 8 | False differentiator against a competitor | "No per-approver seats" as the edge over Tipalti, which also charges no per-user fees | Each vendor's pricing model stated factually from the library | truth | Library facts with sources; rubric `truth` |
+| 10 | A number that does not follow from the others | Support CSAT scene: agents 4.7, 4.5, 3.2 and a team CSAT of 4.4 | Team CSAT 4.1 (their average) | images | Engine `checks`: every drawn quantity declared and true |
+| 11 | Heading wider than the template renders cleanly | FAQ heading "Accounts Payable Automation Questions, Answered" at 828px (widest approved 656px) | "AP Automation Questions, Answered" (587px) | craft | QC T1 rendered-width ceilings |
 | 9 | Off-topic People Also Ask questions answered | "Which 3 jobs will survive AI?" on the AP page | Skipped as PAA drift | intent | Brief + QC F4 relevance filter |
 
 ## How to use it

@@ -22,6 +22,8 @@ If the repo is not set up in this chat: `git clone https://github.com/seo881/pot
 - **V/C/D** vendor numbers without a dated check, claims against `rules/claims.json`, sentences duplicated from sibling pages.
 - **FAQ shape:** exactly 15 items; at least 10 secondaries verbatim (K8); one hub link in item 2 and 2-3 exact-match links to real Emergent pages (K4).
 - **F** FAQ sourced from the live SERP: every item has a recorded source that exists (F2), stays close to the searcher's phrasing (F3), and no eligible People Also Ask question is left unanswered (F4).
+- **T** rendered width: every field measured in the template's real typography against the widest approved rendering (T1); meta description pixels (L2); rich-text HTML shape identical to the approved live pages (S9).
+- **Image numbers:** every quantity drawn is declared and true (`image_brief.checks`), shared values match across images, and every glyph exists in the font.
 - **Q** craft: keyword-label openers (Q1), sentence length (Q2), H1 scope (Q3), category variant for the comparison column (Q4).
 - **R** the reviewer's rubric is recorded and passing for any page past review (R1).
 - **I** the image brief, including the balance gate (no panel with more than 16% pooled empty space), rendered in memory through the image engine and its gates: fit, numbers adding up, one click, balance (I1 blocks, I2 notes).
@@ -34,7 +36,7 @@ Run `python3 ops/hubctl.py brief <url>` and check, writing each as P0/P1/P2:
 4. **Depth:** the definition up top where an AI Overview appears; FAQ questions match how people ask; the how-to is specific to this primary, not generic.
 5. **Voice:** would this paragraph ship unedited on Linear's or Stripe's site (HUB_RULES 2a)? And would a reader suspect a machine wrote it? Look for generic claims where a specific detail belongs, hype verbs, tidy triplets, summary sentences, the same rhythm paragraph after paragraph. Any one of these is a rework note, even when the code QC passed.
 6. **Distinctness:** reads as its own page, not a sibling with nouns swapped; tab H3s do not use sibling primaries; watch-list guidance from the brief is followed.
-7. **Image brief and images:** the brief matches its tab copy (people, numbers, statuses agree); after rendering, each contact sheet shows one hero, readable text, numbers that add up, the cursor on a button edge.
+7. **Image brief and images:** every `fact` in `image_brief.checks` is truly standalone (never a total, difference or percentage change); the brief matches its tab copy (people, numbers, statuses agree); after rendering, each contact sheet shows one hero, readable text, numbers that add up, the cursor on a button edge.
 
 ## Divit's daily review page
 Build one review page per day: a table of every page that reached `images` (URL, primary, H1, meta title, QC result, reviewer notes, contact sheet link), with the calibration batch (first batch of each hub) shown in full and, afterwards, a random 10% plus every page with an accepted P2 or a reviewer note shown in full. Divit's rejections become rule fixes (`rules/HUB_RULES.md`, `qc/qc_hub.py`, dated in `DECISIONS.md`), then QC re-runs on every page not yet published.
