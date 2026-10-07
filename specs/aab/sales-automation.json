@@ -174,6 +174,13 @@
    "via": "review",
    "by": "reviewer-batch-c4b",
    "note": "rubric 10/10 by reviewer-batch-c4b; 6 notes"
+  },
+  {
+   "t": "2026-10-07 14:04 UTC",
+   "state": "rework",
+   "via": "challenge",
+   "by": "challenger-c4-sales",
+   "note": "[truth | HUB_RULES 8] domain_sources (claims 1 and 2) -> faq items 3, 4, 5: The only source for the SFA definition and the CRM vs SFA distinction no longer exists: the Forrester URL returns HTTP 301 to https://www.forrester.com/b2b-marketing/, a marketing services page that says nothing about CRM or"
   }
  ],
  "faq_sources": [
@@ -1200,6 +1207,223 @@
    "by": "reviewer-batch-c4b",
    "via": "review",
    "date": "2026-10-07 14:00 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #10",
+   "field": "tab_image_3 (panel and hero)",
+   "issue": "The check runs every morning, so a deal with no touch for 19 days crossed the 14-day rule 5 mornings ago. 'Flagged this morning' only holds if the flag is raised again each day, and neither the tab copy nor the image says so. Tab 4 avoids the same problem with an explicit check (90 - 86 <= 7). Tab 3 has no equivalent, so a sales ops reader sees an alert that looks 5 days late.",
+   "fix": "Make Pinecrest 14 days quiet ('Pinecrest quiet for 14 days') and add a check that it crossed today. Or relabel the panel line 'Still flagged: 1 deal' and say in the tab copy that the alert repeats each morning.",
+   "by": "challenger-c4-sales",
+   "via": "challenge",
+   "date": "2026-10-07 14:04 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "tab_image_1 (table Owner column)",
+   "issue": "The tab copy says the rest 'rotate across the team' and 'HubSpot records the new owner'. In the image, the two rotation leads have no owner, only the word 'Rotation', so the drawn result does not match the copy.",
+   "fix": "Show the rep the rotation picked (for example 'Dana Ruiz (rotation)') so every row has an owner written to HubSpot.",
+   "by": "challenger-c4-sales",
+   "via": "challenge",
+   "date": "2026-10-07 14:04 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "tab_image_2 (steps) vs tab_content_2",
+   "issue": "The image and the mockup add 'booked meeting' as a stop condition that the tab copy does not have. The image also draws the stop as a fourth sequential step, but it is an exit condition.",
+   "fix": "Write 'Any reply or booked meeting ends the sequence' in the tab copy, or drop 'booked meeting' from the image.",
+   "by": "challenger-c4-sales",
+   "via": "challenge",
+   "date": "2026-10-07 14:04 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #24",
+   "field": "tab_image_2 vs tab_image_3 (and tab_image_3 alt)",
+   "issue": "The same team (Dana Ruiz, Marco Rossi, Jen Alvarez) runs tabs 2 and 3. Initech is an open Evaluation deal owned by Dana in tab 2 but is missing from tab 3's open-deal check. The alt says the whole check covers four deals.",
+   "fix": "Change the tab 3 alt to 'Open deals are checked...' (no count), or add an Initech row (Dana Ruiz, Evaluation, last touch 4 days).",
+   "by": "challenger-c4-sales",
+   "via": "challenge",
+   "date": "2026-10-07 14:04 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_5, tab_content_4, mockup (renewalReminders), tab_image_4 (mini and alt), image_brief tab 4 prompt, faq item 4",
+   "issue": "Elsewhere the page calls the record a 'deal' (feature_4, tab 2, tab 3, FAQ 2, 3, 5, 8, 9). HUB_RULES 2a requires the same term for the same thing. HubSpot, the CRM in tabs 1 to 4, calls this object a deal, so 'renewal opportunity in HubSpot' is Salesforce vocabulary on a HubSpot record.",
+   "fix": "Use 'deal' throughout: 'one renewal deal', 'Renewal deal created', 'logged on the deal'. Keep 'opportunity' only in FAQ 4, where it describes SFA in general terms.",
+   "by": "challenger-c4-sales",
+   "via": "challenge",
+   "date": "2026-10-07 14:04 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2b",
+   "field": "features_subheading",
+   "issue": "Not every feature runs on a rule. feature_6 is code export ('export to your GitHub as code') and feature_3 is a sync. The summary sentence overstates the grid.",
+   "fix": "For example: 'Sales automation hands the repeat steps of a deal to software, each on a rule your team can read.' Or cut the second sentence.",
+   "by": "challenger-c4-sales",
+   "via": "challenge",
+   "date": "2026-10-07 14:04 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #8",
+   "field": "feature_6",
+   "issue": "This sets up an implied differentiator that is not true of the CRMs in the table. In Salesforce and HubSpot, an admin reassigns a departing rep's records directly (mass transfer or reassign owner) without a support ticket. No domain source backs the contrast.",
+   "fix": "End on what Emergent does: 'When a rep leaves, moving their book is a prompt or a pull request.'",
+   "by": "challenger-c4-sales",
+   "via": "challenge",
+   "date": "2026-10-07 14:04 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2",
+   "field": "howto_step_5_des, howto_step_6_des",
+   "issue": "HUB_RULES 2 (Numbers) requires numerals for all durations. The images and tab copy follow it ('day 3', '14 days', '1 day'); these two do not.",
+   "fix": "'when 2 days pass with no update'; 'For 1 week' (or 'For a week').",
+   "by": "challenger-c4-sales",
+   "via": "challenge",
+   "date": "2026-10-07 14:04 UTC"
+  },
+  {
+   "criterion": "scope",
+   "rule": "CONTENT_DEFECTS #1",
+   "field": "meta_title",
+   "issue": "The meta title names two of the page's four jobs. The H1 and hero cover leads, deals and renewals, but the SERP title leaves out deal alerts and renewals. The rubric scope test covers the meta title.",
+   "fix": "Consider a whole-job title, for example 'Sales Automation From Lead to Renewal | Emergent' (check Q7 and the width).",
+   "by": "challenger-c4-sales",
+   "via": "challenge",
+   "date": "2026-10-07 14:04 UTC"
+  }
+ ],
+ "challenge": {
+  "by": "challenger-c4-sales",
+  "date": "2026-10-07 14:04 UTC",
+  "result": "fail",
+  "defects": [
+   "[truth | HUB_RULES 8] domain_sources (claims 1 and 2) -> faq items 3, 4, 5: The only source for the SFA definition and the CRM vs SFA distinction no longer exists: the Forrester URL returns HTTP 301 to https://www.forrester.com/b2b-marketing/, a marketing services page that says nothing about CRM or SFA. So the 'older category name' claim and the CRM/SFA split in FAQ 3, 4 and 5 have no source. That includes the answer to the page's second PAA question. HUB_RULES 8 says a claim that cannot be sourced comes out of the copy, and the hub-qc rule makes an unsourced claim blocking. -> Re-source both claims to a live primary or analyst source that says what the copy says, such as the Gartner glossary entry for sales force automation or a CRM vendor's own SFA definition page (Salesforce, Oracle, Microsoft). Update spec.domain_sources with the new URL and date. If no source supports 'older category name', cut 'older' from FAQ 4."
+  ],
+  "findings": [
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "domain_sources (claims 1 and 2) -> faq items 3, 4, 5",
+    "quote": "FAQ 4: 'Sales force automation, or SFA, is the older category name for software that runs a sales team's lead and opportunity work.' FAQ 3: 'A CRM stores the record of each account and deal. Sales force automation works on that record...' Source: https://www.forrester.com/blogs/crm-or-sfa-lets-set-the-record-straight/",
+    "issue": "The only source for the SFA definition and the CRM vs SFA distinction no longer exists: the Forrester URL returns HTTP 301 to https://www.forrester.com/b2b-marketing/, a marketing services page that says nothing about CRM or SFA. So the 'older category name' claim and the CRM/SFA split in FAQ 3, 4 and 5 have no source. That includes the answer to the page's second PAA question. HUB_RULES 8 says a claim that cannot be sourced comes out of the copy, and the hub-qc rule makes an unsourced claim blocking.",
+    "fix": "Re-source both claims to a live primary or analyst source that says what the copy says, such as the Gartner glossary entry for sales force automation or a CRM vendor's own SFA definition page (Salesforce, Oracle, Microsoft). Update spec.domain_sources with the new URL and date. If no source supports 'older category name', cut 'older' from FAQ 4.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "tab_image_3 (panel and hero)",
+    "quote": "'Rule: no touch in 14 days' / '1 deal flagged this morning' / 'Pinecrest quiet for 19 days'",
+    "issue": "The check runs every morning, so a deal with no touch for 19 days crossed the 14-day rule 5 mornings ago. 'Flagged this morning' only holds if the flag is raised again each day, and neither the tab copy nor the image says so. Tab 4 avoids the same problem with an explicit check (90 - 86 <= 7). Tab 3 has no equivalent, so a sales ops reader sees an alert that looks 5 days late.",
+    "fix": "Make Pinecrest 14 days quiet ('Pinecrest quiet for 14 days') and add a check that it crossed today. Or relabel the panel line 'Still flagged: 1 deal' and say in the tab copy that the alert repeats each morning.",
+    "severity": "note"
+   },
+   {
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "tab_image_1 (table Owner column)",
+    "quote": "Lumen Grove ... Owner 'Rotation'; Kestrel Supply ... Owner 'Rotation'",
+    "issue": "The tab copy says the rest 'rotate across the team' and 'HubSpot records the new owner'. In the image, the two rotation leads have no owner, only the word 'Rotation', so the drawn result does not match the copy.",
+    "fix": "Show the rep the rotation picked (for example 'Dana Ruiz (rotation)') so every row has an owner written to HubSpot.",
+    "severity": "note"
+   },
+   {
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "tab_image_2 (steps) vs tab_content_2",
+    "quote": "Image: 'Sequence stops / On any reply or booked meeting'; copy: 'Any reply ends the sequence and is logged on the deal.'",
+    "issue": "The image and the mockup add 'booked meeting' as a stop condition that the tab copy does not have. The image also draws the stop as a fourth sequential step, but it is an exit condition.",
+    "fix": "Write 'Any reply or booked meeting ends the sequence' in the tab copy, or drop 'booked meeting' from the image.",
+    "severity": "note"
+   },
+   {
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #24",
+    "field": "tab_image_2 vs tab_image_3 (and tab_image_3 alt)",
+    "quote": "Tab 2: 'Initech demo, Oct 6 / Owner: Dana Ruiz, stage Evaluation'; tab 3 alt: 'Four open deals are checked for days since the last touch'",
+    "issue": "The same team (Dana Ruiz, Marco Rossi, Jen Alvarez) runs tabs 2 and 3. Initech is an open Evaluation deal owned by Dana in tab 2 but is missing from tab 3's open-deal check. The alt says the whole check covers four deals.",
+    "fix": "Change the tab 3 alt to 'Open deals are checked...' (no count), or add an Initech row (Dana Ruiz, Evaluation, last touch 4 days).",
+    "severity": "note"
+   },
+   {
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_5, tab_content_4, mockup (renewalReminders), tab_image_4 (mini and alt), image_brief tab 4 prompt, faq item 4",
+    "quote": "feature_5 'logged on the opportunity'; tab_content_4 'gets one renewal opportunity'; alt 'gets one renewal opportunity in HubSpot'; image 'Renewal opportunity created'; faq 4 'lead and opportunity work'",
+    "issue": "Elsewhere the page calls the record a 'deal' (feature_4, tab 2, tab 3, FAQ 2, 3, 5, 8, 9). HUB_RULES 2a requires the same term for the same thing. HubSpot, the CRM in tabs 1 to 4, calls this object a deal, so 'renewal opportunity in HubSpot' is Salesforce vocabulary on a HubSpot record.",
+    "fix": "Use 'deal' throughout: 'one renewal deal', 'Renewal deal created', 'logged on the deal'. Keep 'opportunity' only in FAQ 4, where it describes SFA in general terms.",
+    "severity": "note"
+   },
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 2b",
+    "field": "features_subheading",
+    "quote": "Each of these six runs on a rule your team writes.",
+    "issue": "Not every feature runs on a rule. feature_6 is code export ('export to your GitHub as code') and feature_3 is a sync. The summary sentence overstates the grid.",
+    "fix": "For example: 'Sales automation hands the repeat steps of a deal to software, each on a rule your team can read.' Or cut the second sentence.",
+    "severity": "note"
+   },
+   {
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #8",
+    "field": "feature_6",
+    "quote": "When a rep leaves, moving their book is a prompt or a pull request, not a support ticket.",
+    "issue": "This sets up an implied differentiator that is not true of the CRMs in the table. In Salesforce and HubSpot, an admin reassigns a departing rep's records directly (mass transfer or reassign owner) without a support ticket. No domain source backs the contrast.",
+    "fix": "End on what Emergent does: 'When a rep leaves, moving their book is a prompt or a pull request.'",
+    "severity": "note"
+   },
+   {
+    "criterion": "craft",
+    "rule": "HUB_RULES 2",
+    "field": "howto_step_5_des, howto_step_6_des",
+    "quote": "'their manager is copied when two days pass with no update'; 'For one week, the app suggests an owner'",
+    "issue": "HUB_RULES 2 (Numbers) requires numerals for all durations. The images and tab copy follow it ('day 3', '14 days', '1 day'); these two do not.",
+    "fix": "'when 2 days pass with no update'; 'For 1 week' (or 'For a week').",
+    "severity": "note"
+   },
+   {
+    "criterion": "scope",
+    "rule": "CONTENT_DEFECTS #1",
+    "field": "meta_title",
+    "quote": "Sales Automation for Lead Routing and Follow-Up | Emergent",
+    "issue": "The meta title names two of the page's four jobs. The H1 and hero cover leads, deals and renewals, but the SERP title leaves out deal alerts and renewals. The rubric scope test covers the meta title.",
+    "fix": "Consider a whole-job title, for example 'Sales Automation From Lead to Renewal | Emergent' (check Q7 and the width).",
+    "severity": "note"
+   }
+  ],
+  "checked": [
+   "title and meta: meta_title 58 chars, primary leads; meta_description promises routing, demo follow-up and stalled deals, all delivered in tabs 1-3 and features; 'Free to start.' backed by free-start",
+   "H1 and hero: H1 'Build Sales Automation for Every Lead, Deal and Renewal' is whole-job, differs from the title, no sibling primary; hero 'routing, follow-ups and renewal alerts on top of your CRM, as code you own' maps to prompt-build, api-connect, code-export",
+   "features_subheading: definition present for the AI Overview; 'Each of these six runs on a rule' overstated (note)",
+   "features 1-6: claims mapped to api-connect (Gmail/Outlook, Salesforce/HubSpot APIs, Slack), alerts, code-export; no AI tells; feature_6 implied support-ticket contrast (note)",
+   "why_title and why_description: 'No rep is billed as a seat' covered by claims.json 'the built app has no per-seat pricing' and the CONTENT_DEFECTS #26 approved wording",
+   "why_table: generated from the sales variant; Emergent cells approved; competitor cells library-sourced; K7 pending with Divit (not repeated)",
+   "tab 1 and image: 850/2,400/310 >= 200 routed to Marco Rossi/Jen Alvarez, 120/45 to rotation; cover repeats Corbel 850 West Marco Rossi; 'Rotation' owner cells do not match 'HubSpot records the new owner' (note)",
+   "tab 2 and image: day 0/3/7 agree across copy, mockup, image and alt; Oct 6, 2026 is a Tuesday, day 7 = Oct 13 'Due today' is consistent; DM to Dana Ruiz fixes #25; 'booked meeting' stop condition not in copy (note)",
+   "tab 3 and image: 14-day rule, $36,000, 19 days, last email line, Friday forecast all agree with copy and alt; 'flagged this morning' vs 19 days (note); Initech missing from the open-deal count (note)",
+   "tab 4 and image: 90-day window, Monday run, Tidewater 86 days crossed this week (90-86<=7), four accounts with price and tickets, DM to Priya Shah, one renewal created; 'opportunity' vs 'deal' terminology (note)",
+   "mockup: 4 camelCase keys, user voice, all HubSpot (earlier Salesforce note fixed), stories match tabs",
+   "how-to: 7 steps, numbered, sentence case, specific to sales rollout (shadow week, one source first); durations 'two days' and 'one week' not numerals (note); the description's three/four split was already noted by the reviewer",
+   "FAQ 1-10: 10 items, sources recorded (2 PAA, 7 secondary, 1 keyword), both eligible PAA answered; hub link in item 2; sibling links crm-automation, lead-nurturing-workflow, approval-workflow (not-live gate pending with Divit); 9 secondaries carried; answers answer-first; FAQ 10's missing dollar figure is pending with Divit",
+   "domain sources: opened every URL. Trailhead Flow, Pipedrive workflows, HubSpot unenroll and rotate, HubSpot pricing and automation, Salesforce sales automation, Salesforce AI (drafts emails, 'likelihood that a lead will close'), Outreach sequences (auto email plus call task, redirected to a live article), HubSpot funnel ('first contact to closed deal') all support the copy; meticulosity and bettercloud return 403 to bots (their claims are not stated as 'common' in the copy); the Forrester SFA source 301-redirects to an unrelated marketing page (blocking)",
+   "cover and share image: cover Corbel/850/West/Marco Rossi agrees with tab 1 and alt; OG headline 'Build sales automation for every deal' is in scope; the code-cover-kind note is the reviewer's and not repeated",
+   "hygiene: QC TOTAL 0 (P2: K7 x2, T1 x4 within 3%); no dashes, curly quotes, we/our, UK spellings or AI-tell words found on reading"
+  ]
+ },
+ "challenges": [
+  {
+   "by": "challenger-c4-sales",
+   "date": "2026-10-07 14:04 UTC",
+   "result": "fail",
+   "defects": 1,
+   "notes": 9
   }
  ]
 }
