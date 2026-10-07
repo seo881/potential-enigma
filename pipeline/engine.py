@@ -355,7 +355,7 @@ def render_cover(hub, d):
     H.set_hub(PALETTE[hub]); CTX.update(clicks=0, av=0, where="cover: "); k = d.get("kind")
     if k == "action":
         b = H.spot(150, 80, 500, 340) + L.rect(150, 80, 500, 340, 28, "#fff", L.LINE, 1.5, "e2")
-        b += L.icon("hash", 186, 118, 30, L.SUB, 2.4) + T(226, 144, fit(d["channel"], 30, 700, 380, "channel"), 30, 700, L.INK) + H.hair(150, 176, 650)
+        b += L.icon("message-square" if d.get("dm") else "hash", 186, 118, 30, L.SUB, 2.4) + T(226, 144, fit(d["channel"], 30, 700, 380, "channel"), 30, 700, L.INK) + H.hair(150, 176, 650)   # dm: a direct message to the person the copy names (row 25)
         b += L.rect(186, 204, 64, 64, 16, "url(#gAcc)") + L.icon("sparkles", 202, 220, 32, "#fff", 2)
         b += T(272, 232, fit(d["title"], 32, 700, 350, "title"), 32, 700, L.INK, tnum=True) + T(272, 268, fit(d.get("sub", ""), 26, 500, 350, "sub"), 26, 500, L.MUTED)
         w1 = int(tw(d["primary"], 28, 700) + 38 + 56); w2 = int(tw(d.get("secondary", ""), 28, 700) + 56) if d.get("secondary") else 0

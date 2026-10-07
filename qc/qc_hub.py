@@ -610,7 +610,7 @@ def check(spec, siblings):
     try:
         st_ = json.load(open(os.path.join(ROOT, "status", f"{h['repo_dir']}.json")))["pages"].get(spec["url"], {}).get("state")
     except Exception: st_ = None
-    if st_ in ("challenged", "approved", "cms_draft", "published"):
+    if st_ == "challenged" or (st_ in ("approved", "cms_draft", "published") and spec.get("challenge")):   # challenger retired 2026-10-07: legacy pages only
         ch = spec.get("challenge") or {}
         if ch.get("result") != "pass": add("P1", "R2", "challenge", f'adversarial challenge is {ch.get("result", "missing")}: {"; ".join(ch.get("defects", []))[:120]}')
         if ch.get("by") and ch.get("by") in (spec.get("written_by"), (spec.get("review") or {}).get("by")): add("P1", "R2", "challenge", "the challenger must be a different agent from the writer and the reviewer")
@@ -671,7 +671,7 @@ def check(spec, siblings):
         if spec.get("approval"):
             try:
                 sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as _G
-                if _G.fingerprint(spec) != spec["approval"]["fingerprint"]: add("P0", "R3", "approval", "content or images changed after Divit approved this page: it must go back through review, challenge and approval")
+                if _G.fingerprint(spec) != spec["approval"]["fingerprint"]: add("P0", "R3", "approval", "content or images changed after Divit approved this page: it must go back through review and approval")
             except Exception as e: add("P1", "R3", "approval", f"cannot verify the approval fingerprint: {e}")
 
     # ---------- D: duplication against siblings in the same hub ----------

@@ -90,7 +90,7 @@ def metrics():
             if ev.get("via") == "challenge": challenged_after_review += 1
     hit = challenge_fail / challenged_after_review if challenged_after_review else None
     out = {"states": counts, "rework_causes": rework_causes, "challenges_run": challenged_after_review,
-           "challenger_hit_rate": hit, "alert": (hit is not None and challenged_after_review >= 10 and hit > 0.15)}
+           "challenger_hit_rate": hit, "alert": False}   # challenger retired (Divit, 2026-10-07): no alert
     out.update(throughput(specs)); out["proposed_rules"] = recurring_notes(specs); out["tokens"] = token_usage()
     return out
 
@@ -101,7 +101,10 @@ def rule_index():
 RULE_RX = re.compile(r"HUB_RULES\s*§?\s*(\d+[a-z]?)|CONTENT_DEFECTS\s*(?:row\s*)?#?\s*(\d+)", re.I)
 def citations(rule):
     return [("HUB_RULES " + a) if a else ("CONTENT_DEFECTS #" + b) for a, b in RULE_RX.findall(rule or "")]
-def validate_findings(findings, criteria):
+def severity_classes():
+    """{class: "blocking"|"note"} from rules/SEVERITY.md, the one severity table (Divit, 2026-10-07)."""
+    return dict(re.findall(r"(?m)^\| ([a-z-]+) \| (blocking|note) \|", open(os.path.join(ROOT, "rules", "SEVERITY.md")).read()))
+def validate_findings(findings, criteria, need_class=False):
     """Errors for findings that do not name a rubric criterion, cite an existing HUB_RULES section or CONTENT_DEFECTS row,
     or say whether they block. A defect is a rule violation; taste without a rule is not a finding."""
     secs, rows = rule_index(); errs = []
@@ -110,6 +113,11 @@ def validate_findings(findings, criteria):
         if f.get("criterion") not in criteria: errs.append(f"{tag}: criterion must be one of {sorted(criteria)}")
         if f.get("severity") not in ("blocking", "note"): errs.append(f'{tag}: severity must be "blocking" or "note"')
         if not (f.get("field") and f.get("issue")): errs.append(f"{tag}: field and issue are required")
+        if need_class:
+            sev = severity_classes()
+            if f.get("class") not in sev: errs.append(f'{tag}: class must be one of {sorted(sev)} (rules/SEVERITY.md)')
+            elif f.get("severity") in ("blocking", "note") and sev[f["class"]] != f["severity"]:
+                errs.append(f'{tag}: class "{f["class"]}" is {sev[f["class"]]} in rules/SEVERITY.md, not {f["severity"]}')
         cites = citations(f.get("rule"))
         if not cites: errs.append(f'{tag}: rule must cite a HUB_RULES section (e.g. "HUB_RULES 2b") or a CONTENT_DEFECTS row (e.g. "CONTENT_DEFECTS #18")')
         for c in cites:
@@ -128,7 +136,7 @@ def recurring_notes(specs, min_pages=3):
     return [{"criterion": k[0], "rule": k[1], "pages": len(v), "examples": list(v.items())[:3]} for k, v in sorted(by.items(), key=lambda x: -len(x[1])) if len(v) >= min_pages]
 
 # ---------------------------------------------------------------- throughput: cycles, first-pass yield, minutes per stage, tokens
-STAGE = {"claimed": "write", "spec": "write", "rework": "rewrite", "qc_pass": "images", "images": "review", "reviewed": "challenge", "challenged": "Divit"}
+STAGE = {"claimed": "write", "spec": "write", "rework": "rewrite", "qc_pass": "images", "images": "review", "reviewed": "Divit", "challenged": "Divit"}
 def _t(ts): return datetime.datetime.strptime(ts, "%Y-%m-%d %H:%M UTC")
 def throughput(specs):
     import statistics
@@ -141,7 +149,7 @@ def throughput(specs):
         for a, b in zip(h, h[1:]):
             st_ = STAGE.get(a.get("state"))
             if st_: stage_min.setdefault(st_, []).append((_t(b["t"]) - _t(a["t"])).total_seconds() / 60)
-        first_ch = next((i for i, e in enumerate(h) if e.get("state") == "challenged"), None)
+        first_ch = next((i for i, e in enumerate(h) if e.get("state") in ("reviewed", "challenged")), None)   # ready for Divit
         if first_ch is not None and not any(e.get("state") == "rework" for e in h[:first_ch]): fpy += 1
         end = h[first_ch]["t"] if first_ch is not None else h[-1]["t"]
         page_min[url] = round((_t(end) - _t(h[0]["t"])).total_seconds() / 60)

@@ -117,7 +117,7 @@ The engine checks every link and QC blocks the tab (I4) when:
 This is how "the image holds any variance" against "the copy sets a 2% tolerance" is caught before review: the rule drawn has to be linked to a phrase in the copy, and the numbers have to match.
 
 ## Covers (800x500, carousel card) and share image
-- `action`: `channel`, `title`, `sub`, `primary`, `secondary` (approval-style).
+- `action`: `channel`, `title`, `sub`, `primary`, `secondary` (approval-style). Set `"dm": true` and put the person's name in `channel` when the copy says one person gets a direct message (row 25).
 - `confirm`: `title`, `button`, `icon` (browser with a big check).
 - `code`: `title`, `label`, `code`, `foot` (approved + code). Only for a real code such as SAVE20 (engine-checked, row 31).
 - `score`: `title`, `stars` (optional), `label`, `value`, `delta`. With `stars`, a rating card; without, a shorter metric card (title, the metric and its delta), centred with no empty band.

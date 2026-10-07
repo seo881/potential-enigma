@@ -8,7 +8,9 @@
   state URL STATE [--note TEXT] [--by ID]   move a page to a new state; writers set qc_pass with --by so no agent reviews its own page
   verified URL                      Divit approved the page as rendered in the real Webflow template: it joins the width calibration
   review URL RUBRIC.json --by ID    record the reviewer's rubric and rule-cited findings (state images); blocking -> rework, notes -> spec.review_notes
-  challenge URL FINDINGS.json --by ID   record the adversarial pass (state reviewed); blocking -> rework, notes kept; none blocking -> challenged
+  ready URL --by ID                 after the one rework: QC 0 and images rendered -> reviewed (ready for Divit); no second review
+  export-csv HUB                    one row per page (every CMS field, image paths, alt text) -> .cache/review/<hub>.csv
+  challenge                         retired (Divit, 2026-10-07)
   payload URL --sha SHA             write ops/out/<slug>.payload.json: the exact data_cms_tool action
   verify URL READBACK.json          diff a stored CMS read-back against the spec (exit 1 on mismatch)
   record URL --item-id ID [--file-id FIELD=ID ...]   store Webflow IDs after a create/import
@@ -24,7 +26,7 @@
   images-batch STATE [HUB]          render every page in STATE (normally 'reviewed'); prints a summary
   cms-check HUB READBACK.json       record which queued slugs already exist in Webflow (required within the hour before creating)
   plan-check URL                    compare the page's plan and tab headings with the hub's other specs (run before writing prose)
-  pack URL --role writer|reviewer|challenger   one compact file for that agent: brief, the rules it needs, catalogue summary, exemplar
+  pack URL --role writer|reviewer   one compact file for that agent: brief, the rules it needs, catalogue summary, exemplar
   sources-check URL|--all            link-check every spec.domain_sources URL (cached for QC P3)
   usage-log URL TOKENS --role R     record an agent's token usage for a page (metrics reports tokens per page)
   metrics | sample [STATE] | links HUB | lookahead HUB [N] | serp-budget | ranks-save URL RAW | ranks-report | recheck | image-regress | verify-live URL [--html F]
@@ -38,9 +40,9 @@ import json, os, sys, re, glob, datetime, subprocess
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CFG = json.load(open(os.path.join(ROOT, "config", "collections.json")))
 STATES = ["claimed", "spec", "qc_pass", "images", "reviewed", "challenged", "approved", "rework", "cms_draft", "published", "parked"]
-# pipeline: claimed -> spec -> qc_pass (code QC = 0) -> images (rendered + gated) -> reviewed (independent reviewer, rubric 10/10)
-#   -> challenged (independent adversarial pass, zero defects) -> approved (Divit) -> cms_draft -> published. rework sends a page back to its writer.
-# The writer, the reviewer and the challenger must be three different agents (enforced here and in QC R1/R2).
+# pipeline (Divit, 2026-10-07): claimed -> spec -> qc_pass (code QC = 0) -> images (rendered + gated) -> one review (rules/SEVERITY.md)
+#   -> reviewed (no blocking) or rework -> one rework -> qc_pass -> images -> `hubctl ready` -> reviewed -> approved (Divit) -> cms_draft -> published.
+# The writer and the reviewer must be different agents. "challenged" is kept only for pages that passed the retired challenger pass.
 REPO_RAW = "https://raw.githubusercontent.com/seo881/potential-enigma"
 
 def now(): return datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
@@ -257,8 +259,8 @@ def cmd_review(args):
     for k in ids:
         v = rub[k]
         if v.get("result") not in ("pass", "fail") or not v.get("evidence"): sys.exit(f'"{k}" needs result pass|fail and one line of evidence')
-    errs = G.validate_findings(findings, ids)
-    if errs: sys.exit("findings rejected (a defect is a rule violation: cite the rule):\n  " + "\n  ".join(errs))
+    errs = G.validate_findings(findings, ids, need_class=True)
+    if errs: sys.exit("findings rejected (a defect is a rule violation: cite the rule, name its class from rules/SEVERITY.md):\n  " + "\n  ".join(errs))
     blocking = [f for f in findings if f["severity"] == "blocking"]
     for k in ids:
         hit = [f for f in blocking if f["criterion"] == k]
@@ -268,7 +270,7 @@ def cmd_review(args):
     st_now = load_st(hub_of(url))["pages"].get(url, {}).get("state")
     if st_now != "images": sys.exit(f"review needs the page in state 'images' (QC passed and images rendered); it is '{st_now}'")
     if by in _authors(s): sys.exit("the reviewer cannot be an agent that wrote the page")
-    if by in _reviewers(s): sys.exit("every review cycle needs a new reviewer agent that reads the page cold; this one has reviewed it before")
+    if s.get("review") and "--legacy" not in args: sys.exit("one review per page (Divit, 2026-10-07): after the one rework, run hubctl ready <url> --by <id>; the page then goes to Divit")
     if s.get("review"): s.setdefault("reviews", []).append({k: v for k, v in s["review"].items() if k not in ("rubric", "findings")} | {"result": "pass" if all(v.get("result") == "pass" for v in s["review"]["rubric"].values()) else "fail", "blocking": len([f for f in s["review"].get("findings", []) if f.get("severity") == "blocking"]), "notes": len([f for f in s["review"].get("findings", []) if f.get("severity") == "note"])})
     ch_ = s.pop("challenge", None)
     if ch_ and not any(c.get("by") == ch_.get("by") and c.get("date") == ch_.get("date") for c in s.get("challenges", [])):
@@ -284,7 +286,43 @@ def cmd_verified(args):
     sys.path.insert(0, os.path.join(ROOT, "ops")); import typeset as TS; TS.calibrate()
     print(f"{url} marked as verified in the template; width ceilings recalibrated with it")
 
+def cmd_ready(args):
+    """After the one rework: QC TOTAL 0 and images rendered (state images), the page has its one review -> reviewed, ready for Divit."""
+    url = args[0]; by = args[args.index("--by") + 1] if "--by" in args else "orchestrator"
+    s = json.load(open(spath(url))); st_now = load_st(hub_of(url))["pages"].get(url, {}).get("state")
+    if st_now != "images": sys.exit(f"ready needs the page in state 'images' (reworked, QC passed, images re-rendered); it is '{st_now}'")
+    if not s.get("review"): sys.exit("this page has not had its review yet: spawn a page-reviewer (hubctl review)")
+    q = subprocess.run([sys.executable, os.path.join(ROOT, "ops", "hubctl.py"), "qc", url], capture_output=True, text=True).stdout
+    if "TOTAL (P0+P1) = 0" not in q: sys.exit("QC is not at zero:\n" + q[-1500:])
+    nb = len([f for f in s["review"].get("findings", []) if f.get("severity") == "blocking"])
+    set_state(url, "reviewed", note=f"one rework applied by {by} for {nb} blocking finding(s) from {s['review']['by']}; ready for Divit", via="ready", by=by)
+    print(f"{url} -> reviewed (ready for Divit's preview review)")
+
+def cmd_export_csv(args):
+    """One row per page ready for Divit or later (or every spec with --all): every CMS field under its Webflow slug,
+    each image as its repo path plus an alt-text column. Written to .cache/review/<hub>.csv for review in a spreadsheet."""
+    import csv
+    hub = args[0]; h = CFG["hubs"][hub]; st = load_st(hub)
+    keep = None if "--all" in args else ("reviewed", "challenged", "approved", "cms_draft", "published")
+    imgs = [k for k in h["fields"] if k.startswith(("tab_image_", "cover_image", "share_image"))]
+    cols = ["url", "state"]
+    for k, slug in h["fields"].items(): cols += [slug, slug + " (alt)"] if k in imgs else [slug]
+    rows = []
+    for url, e in sorted(st["pages"].items(), key=lambda x: x[1].get("queue_rank", 0)):
+        if keep and e.get("state") not in keep or not os.path.exists(spath(url)): continue
+        s = json.load(open(spath(url))); r = {"url": url, "state": e.get("state")}
+        for k, slug in h["fields"].items():
+            if k in imgs: im = s.get("images", {}).get(k, {}); r[slug] = im.get("path", ""); r[slug + " (alt)"] = im.get("alt", "")
+            else: v = s["fields"].get(k); r[slug] = "" if v is None else v
+        rows.append(r)
+    out = os.path.join(ROOT, ".cache", "review", f"{h['repo_dir']}.csv"); os.makedirs(os.path.dirname(out), exist_ok=True)
+    with open(out, "w", newline="", encoding="utf-8") as fh:
+        w = csv.DictWriter(fh, fieldnames=cols); w.writeheader(); w.writerows(rows)
+    print(f"{os.path.relpath(out, ROOT)}: {len(rows)} page(s), {len(cols)} columns")
+
 def cmd_challenge(args):
+    sys.exit("the challenger pass is retired (Divit, 2026-10-07): one review with rules/SEVERITY.md, one rework, then Divit")
+def _cmd_challenge_retired(args):
     """FINDINGS.json: {"defects": [{criterion, rule, field, quote, issue, fix, severity}], "checked": [...]}. Same citation rule as review."""
     url, ff = args[0], args[1]; by = args[args.index("--by") + 1] if "--by" in args else "challenger"
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
@@ -308,17 +346,17 @@ def cmd_challenge(args):
 def cmd_state(args):
     url, state = args[0], args[1]
     if state not in STATES: sys.exit(f"state must be one of {STATES}")
-    if state in ("reviewed", "challenged"): sys.exit(f"'{state}' is set only by hubctl {'review' if state == 'reviewed' else 'challenge'}, never by hand")
+    if state in ("reviewed", "challenged"): sys.exit(f"'{state}' is set only by hubctl review or hubctl ready, never by hand")
     if state == "approved":
         cur = load_st(hub_of(url))["pages"].get(url, {}).get("state")
-        if cur != "challenged": sys.exit(f"only a challenged page can be approved (this one is '{cur}')")
+        if cur not in ("reviewed", "challenged"): sys.exit(f"only a reviewed page can be approved (this one is '{cur}')")
         sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
         sp = spath(url); s = json.load(open(sp)); s["approval"] = {"fingerprint": G.fingerprint(s), "date": now(), "rules_version": G.rules_version()}
         json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
         ex = os.path.join(os.path.dirname(sp), "_exemplar.md")
         if not os.path.exists(ex):
             import review as RV
-            open(ex, "w").write(f"# Hub exemplar: {url}\n\nThe first page in this hub to pass review and challenge and be approved by Divit ({now()}). "
+            open(ex, "w").write(f"# Hub exemplar: {url}\n\nThe first page in this hub to pass review and be approved by Divit ({now()}). "
                                 "Writers read it before writing: match its standard, not its words (QC D1/D2 block copied sentences).\n\n" + RV.page(url) + "\n")
             print(f"hub exemplar written: {os.path.relpath(ex, ROOT)}")
     note = args[args.index("--note") + 1] if "--note" in args else None
@@ -348,7 +386,7 @@ def cmd_bulk_payload(args):
         s, fd = _field_data(url, sha)
         if s.get("item_id"): continue
         if not s.get("approval") or G.fingerprint(s) != s["approval"]["fingerprint"]:
-            sys.exit(f"{url}: content or images changed after Divit approved it. Re-run review, challenge and approval.")
+            sys.exit(f"{url}: content or images changed after Divit approved it. Re-run review and approval.")
         chk = e.get("cms_checked")
         if not chk or (_dt.datetime.now(_dt.timezone.utc) - _dt.datetime.strptime(chk, "%Y-%m-%d %H:%M UTC").replace(tzinfo=_dt.timezone.utc)).total_seconds() > 3600:
             sys.exit(f"{url}: no slug check in the last hour. Read the collection to disk and run hubctl cms-check {hub} <readback.json> first.")
@@ -497,7 +535,7 @@ def cmd_sources_check(args):
         print(f"{s['url']}: {len(urls)} sources checked")
     sys.exit(1 if bad else 0)
 
-PACK_RULES = {"writer": ["2", "2a", "2b", "5", "6", "8"], "reviewer": ["2a", "2b", "5", "6", "8"], "challenger": ["2a", "2b", "5", "6", "8"]}
+PACK_RULES = {"writer": ["2", "2a", "2b", "5", "6", "8"], "reviewer": ["2a", "2b", "5", "6", "8"]}
 def cmd_pack(args):
     """One compact file per role: the brief, the rules that role needs, a one-line catalogue, the exemplar excerpt."""
     url = args[0]; role = args[args.index("--role") + 1] if "--role" in args else "writer"
@@ -518,7 +556,8 @@ def cmd_pack(args):
         rub = json.load(open(os.path.join(ROOT, "rules", "rubric.json")))["criteria"]
         out += ["## Rubric", *[f"- **{c['id']}**: {c['test']}" for c in rub], "",
                 "## Findings", "Each finding: criterion, rule (HUB_RULES section or CONTENT_DEFECTS row), field, quote, issue, fix, severity. A defect is a rule violation; taste is not a finding.",
-                "**Blocking:** anything untrue or unsourced that states a fact about the world (HUB_RULES 8), any catalogue row (repeated ideas, #21, included), anything the page cannot ship with. **Note:** an unsourced recommendation, a wording improvement, anything that breaks no rule badly enough to block. Notes never trigger rework; they feed the proposed-rules queue.",
+                "Every finding also names its `class` from the severity table below; the class decides blocking or note. Notes ship and never trigger rework; they feed the proposed-rules queue. There is one review per page.", "",
+                open(os.path.join(ROOT, "rules", "SEVERITY.md")).read(),
                 "Source liveness is the automated link check (`hubctl sources-check`); do not re-open sources to test them, only to check what a stretched claim says.", ""]
     out += ["## Brief", "```", brief.strip(), "```", "", "## Rules (HUB_RULES, the sections this role needs)", *[x.strip() + "\n" for x in keep],
             "## Defect catalogue (one line per row; full rows in rules/CONTENT_DEFECTS.md)", *cat, "", "## Hub exemplar (excerpt)", exc, ""]
@@ -530,11 +569,10 @@ def cmd_pack(args):
 def cmd_metrics(args):
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
     m = G.metrics(); print(json.dumps(m, indent=1))
-    if m["alert"]: print("ALERT: the challenger is finding defects in more than 15% of reviewed pages. The reviewer is too lenient: tighten the rubric or the reviewer prompt.")
 
 def cmd_sample(args):
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
-    state = args[0] if args else "challenged"
+    state = args[0] if args else "reviewed"
     urls = [u for u, e in G.all_status().items() if e.get("state") == state]
     for u, why in G.sample(urls): print(f"{u}  <- {', '.join(why)}")
 
@@ -661,7 +699,7 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
         "recheck": cmd_recheck, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live}
 if __name__ == "__main__":

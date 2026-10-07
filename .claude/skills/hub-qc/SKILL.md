@@ -5,7 +5,7 @@ description: Quality-check Emergent build-hub child pages before they are create
 
 # hub-qc: the gate before Webflow and before publish
 
-Two independent roles use this skill, and neither may be the agent that wrote the page. Every review cycle uses a new reviewer and every challenge a new challenger (hubctl refuses a repeat). The reviewer reads the page cold first, then verifies earlier fixes; both list **every instance** of each defect they find, with its field and a quote, so the writer fixes the class, not the example: the **reviewer** scores the rubric (`hubctl review`, page in state `images`), then a different agent, the **challenger**, hunts for defects assuming there is at least one (`hubctl challenge`, page in state `reviewed`; see `.claude/agents/page-challenger.md`). A page reaches Divit only after both pass. Never review or challenge a page you wrote. In bulk work, take pages with `python3 ops/hubctl.py next qc_pass <HUB>` and end each with `hubctl state <url> reviewed --note ...` or `hubctl state <url> rework --note "<field: what to fix>"`. Small, certain fixes (a typo, an article) you may make and re-run QC; anything that changes meaning goes back as rework.
+One review per page (Divit, 2026-10-07), by an agent that did not write it: the **reviewer** reads the page cold, scores the rubric and records findings with `hubctl review` (page in state `images`), each finding classed by `rules/SEVERITY.md`, the only severity source. No blocking finding -> `reviewed`; blocking -> one rework by a writer, QC to zero, re-render, `hubctl ready` -> `reviewed`, then Divit. There is no second review and no challenger pass (retired). List **every instance** of a blocking defect with its field and a quote, so the one rework fixes the class. Small, certain fixes (a typo, an article) you may make and re-run QC; anything that changes meaning goes back as rework.
 
 Prime directive: a page moves forward only at QC TOTAL = 0 (P0 + P1). P2 items are read and either fixed or explicitly accepted in the review notes. Rules only tighten; changing one needs Divit and a dated line in `DECISIONS.md`.
 
@@ -52,20 +52,20 @@ Score all 10 criteria in `rules/rubric.json` pass or fail, each with evidence th
 ## Report format
 For each page: `url | QC TOTAL | P0 list | P1 list | P2 list (fixed / accepted with reason)`. Then a batch line: pages passing, pages blocked, and the one decision (if any) that needs Divit. Fix methodology: root cause first, re-run the whole batch after any fix, never weaken a rule to pass.
 
-## Rework protocol (writers, reviewers, challengers)
-Fix the defect class, not the instance. After any note, search the whole page (every field, the FAQ, the image brief) for every occurrence of that class and fix them all, then search again, because rewrites create new instances. Reviewers and challengers list every instance they find. Each review cycle uses a new reviewer agent that reads the page cold before it reads earlier notes.
+## Rework protocol (one rework, blocking findings only)
+Fix the defect class, not the instance. For each blocking finding, search the whole page (every field, the FAQ, the image brief) for every occurrence of that class and fix them all, then search again, because rewrites create new instances. Notes ship and are never edited for.
 
 ## Findings are rule violations (2026-10-07)
-Every reviewer and challenger finding names the rubric criterion, cites the `rules/HUB_RULES.md` section or `rules/CONTENT_DEFECTS.md` row it breaks, quotes the field, and is marked `blocking` or `note`. `hubctl review` and `hubctl challenge` reject findings without a valid citation, and a criterion fails exactly when a blocking finding cites it. Only blocking findings send a page to rework; notes go to `spec.review_notes`, and `hubctl metrics` proposes a rule to Divit when a note recurs on 3+ pages. Check every third-party, legal and best-practice claim against `spec.domain_sources` (HUB_RULES 8): an unsourced or contradicted claim is blocking.
+Every reviewer finding names its `class` from `rules/SEVERITY.md`, the rubric criterion, cites the `rules/HUB_RULES.md` section or `rules/CONTENT_DEFECTS.md` row it breaks, quotes the field, and carries the severity the table gives its class. `hubctl review` rejects findings without a valid citation or with a severity that disagrees with the table, and a criterion fails exactly when a blocking finding cites it. Only blocking findings send a page to rework; notes go to `spec.review_notes`, and `hubctl metrics` proposes a rule to Divit when a note recurs on 3+ pages. Check every third-party, legal and best-practice claim against `spec.domain_sources` (HUB_RULES 8): an unsourced or contradicted statement of fact is blocking; an unsourced recommendation is a note.
 
 ## Batch mode
-One reviewer agent may review up to 4 pages, and one challenger up to 4, never a page it wrote or reviewed (hubctl refuses). Review each page as if it were the only one. Writers stay one page each.
+One reviewer agent may review up to 4 pages, never a page it wrote (hubctl refuses). Review each page as if it were the only one. Writers stay one page each.
 
 ## Plan and sources (QC P1, P2)
 A spec without `spec.plan` (angle, four tab stories, openers, heading shapes, claims to source) is blocked, and so is any claim in the plan without a `spec.domain_sources` entry.
 
 ## Efficiency and severity (Divit, 2026-10-07)
-- Agents read `hubctl pack <url> --role reviewer|challenger` plus the spec, not the full rulebook.
-- Blocking: untrue claims, unsourced statements of fact about the world, every CONTENT_DEFECTS row (repeated ideas #21 included). Note: unsourced recommendations and wording improvements. Notes never trigger rework; `hubctl metrics` proposes a rule when one recurs on 3+ pages.
+- Agents read `hubctl pack <url> --role reviewer` plus the spec, not the full rulebook.
+- Severity: `rules/SEVERITY.md` only (superseding the earlier "every CONTENT_DEFECTS row blocks"). Repeated ideas, soft quantifiers about no named third party, template slots: notes or not findings. Notes never trigger rework; `hubctl metrics` proposes a rule when one recurs on 3+ pages.
 - Sources: at most 8 per page (QC P4); liveness is `hubctl sources-check` (QC P3 blocks dead or moved sources), never an agent re-reading pages.
 - QC V4: a category variant must define every table row it is used with. Engine: hero cards are held to the balance gate (max 21% pooled), images draw only reserved example domains, and the code cover is only for codes.

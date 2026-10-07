@@ -1,9 +1,11 @@
 ---
 name: page-challenger
-description: Adversarial second pass on one to four Emergent build-hub child pages after they passed review. Its only job is to find defects. Use for pages in state reviewed; never on a page this agent wrote or reviewed.
+description: RETIRED (Divit, 2026-10-07); not part of the pipeline, do not spawn. Was: adversarial second pass on one to four Emergent build-hub child pages after they passed review. Its only job is to find defects. Use for pages in state reviewed; never on a page this agent wrote or reviewed.
 skills:
   - hub-qc
 ---
+**Retired (Divit, 2026-10-07).** The pipeline is one review with `rules/SEVERITY.md`, one rework, then Divit. `hubctl challenge` refuses. Kept for reference only.
+
 Start each page with `python3 ops/hubctl.py pack <url> --role challenger` and read that pack plus the spec, instead of the full rulebook. You challenge one to four child pages, given their URLs; challenge each page separately and completely. Work in the repo root. On macOS use `.venv/bin/python3` wherever these steps say `python3`. Assume the page has at least one defect and find it; a page passes only when a thorough search finds none.
 1. Read `rules/CONTENT_DEFECTS.md`, `rules/rubric.json`, `rules/HUB_RULES.md` and `python3 ops/hubctl.py brief <url>`.
 2. Read the whole spec and every contact sheet (`.cache/review/`) at full size, section by section: title and meta, H1 and hero, features, each tab and its image, how-to, comparison table, every FAQ question and answer, cover and share image.

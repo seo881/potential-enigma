@@ -39,8 +39,8 @@ Every stage runs in bulk and in parallel. A page moves through states in `status
 | 1b. Live SERP | Writer (or orchestrator in bulk) | DataForSEO Google organic SERP for the primary (United States, English, PAA click depth 2), saved with `hubctl serp-save <url> <raw.json>`; `hubctl serp-status` lists pages still missing it | claimed |
 | 2. Write | **Writer** (one page per writer, fresh context) | Brief (now with PAA and related searches) → spec (all fields, FAQ sourced from PAA with `faq_sources`, table from the library with `hubctl table`, `image_brief`) → `hubctl qc` until TOTAL = 0 | qc_pass |
 | 3. Images | Orchestrator (any machine) | `hubctl images-batch qc_pass`: renders every QC-passed page's brief (6 images, gates, contact sheets); a brief that fails goes back to `rework` | images |
-| 4a. Review | **Reviewer** (a different agent from the writer) | Rubric 10/10 with evidence on copy and images (`hubctl review`) | reviewed or rework |
-| 4b. Challenge | **Challenger** (different from writer and reviewer) | Adversarial pass that assumes a defect and hunts for it, section by section (`hubctl challenge`) | challenged or rework |
+| 4. Review (once) | **Reviewer** (a different agent from the writer) | One review per page; severity only from `rules/SEVERITY.md` (`hubctl review`). Notes ship | reviewed or rework |
+| 4b. One rework | **Writer** | Blocking findings only; QC to zero; `hubctl images <url>`; `hubctl ready <url> --by <id>` (no second review). The challenger pass is retired (Divit, 2026-10-07) | reviewed |
 | 5. Divit's review | Divit (page preview per page: `python3 ops/preview.py <url>`, live SVGs, tabs, FAQ, table; reading copy: `ops/review.py`) | Daily review page. First batch per hub (calibration): every page in full. Then: a random 10% of the day plus everything flagged. Rejections become rule fixes, re-run on all pending pages | approved |
 | 6. Create drafts | Orchestrator | Commit + push, `hubctl bulk-payload <HUB> --sha <sha>` → `data_cms_tool` (100 drafts per call), read back to disk, `hubctl bulk-verify` | cms_draft |
 | 7. Publish | Orchestrator, on Divit's go | `hubctl publish-payload <HUB>` (100 per call) | published |
@@ -80,7 +80,7 @@ Repo dirs: LP `lp`, Form `form`, Auto `aab`, SurveyQuiz `sqb`. Writers in the sa
 ## 3c. Safeguards (2026-10-07)
 | Safeguard | Where | What it prevents |
 |---|---|---|
-| Capability ledger (`rules/capabilities.json`) | QC C2, writer `claims_used`, reviewer and challenger | Claims Emergent cannot back; high-risk categories block until Divit approves |
+| Capability ledger (`rules/capabilities.json`) | QC C2, writer `claims_used`, reviewer | Claims Emergent cannot back; high-risk categories block until Divit approves |
 | Facts ledger (`rules/facts.json`) | QC C3 | Unsourced third-party facts and statistics in prose |
 | Approval fingerprint | `hubctl state approved`, `bulk-payload`, QC R3 | Anything changed after Divit's approval reaching Webflow |
 | Slug check before create | `hubctl cms-check`, `bulk-payload` | Duplicate CMS items after a rerun |
@@ -89,7 +89,7 @@ Repo dirs: LP `lp`, Form `form`, Auto `aab`, SurveyQuiz `sqb`. Writers in the sa
 | SERP freshness | QC F6 (30 days), `bulk-payload` (60 days) | Writing or shipping from stale search data |
 | Live verification | `hubctl verify-live` | A published page that differs from what was approved; broken links |
 | Risk-based sampling | `hubctl sample` | Divit's review time going to low-risk pages |
-| Quality metrics | `hubctl metrics` | A lenient reviewer going unnoticed (alert above 15% challenger hit rate) |
+| Quality metrics | `hubctl metrics` | Notes that recur on 3+ pages (proposed rules for Divit), first-pass yield, tokens per page |
 | Rules version and ratchet | `qc_passed.rules_version`, `hubctl recheck` | New rules protecting only future pages |
 | Image regression | `hubctl image-regress` | Engine changes silently altering approved images |
 | Library look-ahead | `hubctl lookahead` | Writers reaching pages whose competitors are not in the library |
@@ -135,5 +135,5 @@ Before the context runs long (a writer chat: about 25 pages; a coordinator: when
 ## Parallel hubs (four sessions) and batch review (2026-10-07)
 - `bash ops/worktrees.sh` creates `~/emergent-hubs-lp`, `-form`, `-auto`, `-survey`: one git worktree per hub, each pinned to its hub (`.hub`; `hubctl claim` refuses other hubs there), on a branch tracking `origin/main`. Git-ignored shared state (`.venv`, `private/`, `.cache/`, `.locks/`, the keyword map) is symlinked to the main checkout, so all sessions share one SERP store, one DataForSEO budget and one set of file locks.
 - Start one Claude Code session per worktree. Each claims only its hub's pages, and commits with `bash ops/sync.sh "<message>" <paths>`: it pulls with rebase first, then commits and pushes to `main` (retrying on a race). Status files are per hub, so sessions rarely touch the same file.
-- Per session: writers one page each (many in parallel); one reviewer agent may take up to 4 pages and one challenger up to 4, never a page it wrote or reviewed (`hubctl state <url> qc_pass --by <writer>` records authorship; review and challenge refuse authors and earlier reviewers).
-- After each agent returns, log its token usage for the page: `hubctl usage-log <url> <tokens> --role writer|reviewer|challenger` (a batch agent's tokens are split across its pages). `hubctl metrics` reports first-pass yield, cycles per page, median minutes per stage, tokens per page, and the notes that recur on 3+ pages (proposed rules for Divit).
+- Per session: writers one page each (many in parallel); one reviewer agent may take up to 4 pages, never a page it wrote (`hubctl state <url> qc_pass --by <writer>` records authorship; review refuses authors and a second review).
+- After each agent returns, log its token usage for the page: `hubctl usage-log <url> <tokens> --role writer|reviewer` (a batch agent's tokens are split across its pages). `hubctl metrics` reports first-pass yield, cycles per page, median minutes per stage, tokens per page, and the notes that recur on 3+ pages (proposed rules for Divit).

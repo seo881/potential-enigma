@@ -3,6 +3,12 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-07
+- **Final process (Divit, after the 8-page measurement run): stop the review loop.** Write in bulk, QC to zero, **one review** with a fixed severity table, **one rework**, then Divit reviews the previews.
+  - Severity table `rules/SEVERITY.md`, the only severity source for the reviewer. Blocking: untrue or unsourced claims, wrong facts, structure, image contradicting copy, a sibling's keyword, missing intent. Everything else is a note that ships. Every finding names its class; `hubctl review` rejects a class whose severity disagrees with the table.
+  - Template slots (hero pitch restated in FAQ 2) are not repeated ideas. Soft quantifiers are notes unless they state a fact about a named third party. Repeated ideas (#21) are notes. This supersedes the earlier rulings "repeated ideas become blocking" and the per-CONTENT_DEFECTS-row blocking rule.
+  - Challenger pass retired: the agent file stays, but it is out of the pipeline and CLAUDE.md; `hubctl challenge` refuses. After the one rework, `hubctl ready <url>` moves a QC-clean, re-rendered page to `reviewed`. Divit approves from `reviewed` (legacy `challenged` pages too).
+  - `hubctl export-csv <HUB>`: one row per page, every CMS field, image paths and alt text, `.cache/review/<hub>.csv`.
+  - Tonight (no more cycles): one-sentence fixes applied to accounts-payable-automation, landing-page-seo, rental-agreement-form, invoice-automation, document-automation; image flags fixed on sales-automation (code cover -> action cover drawn as a DM to the named rep; engine `dm` option) and employee-engagement-survey (two hero cards filled, code cover -> score cover). All 8 at QC 0, re-rendered, previewed, exported.
 - **Divit's decisions after cycle 5, and the efficiency target (under 350k tokens and 1.5 cycles per new page):**
   - AP variant pricing "Credits, free to start". One more blocking-only cycle for job-application-form and landing-page-seo. Survey and sales go to Divit's preview review; on his approval each becomes its hub's exemplar.
   - Every category variant defines every row it is used with (QC V4). Rows that were falling back (ap/sales ownership; hiring limits, data, ownership; seo seo, ownership, data, visitors; employee pricing, data, ownership) were copied verbatim from the hub defaults so no table changed; Divit to confirm or replace.
