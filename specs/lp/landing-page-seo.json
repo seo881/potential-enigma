@@ -170,6 +170,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-07 13:21 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "reviewer-landing-page-seo-n1",
+   "note": "craft: Tacked-on or summary clauses (CONTENT_DEFECTS #4): (1) tab_content_2 'Prompt for a page per branch, each with its own H1, service area and LocalBusiness schema, and no two pages read alike.' The last clause has no subject link to the prompt and also repeats the H3 'each with its own copy' ('e"
   }
  ],
  "faq_sources": [
@@ -683,49 +690,56 @@
   "date": "2026-10-07 13:19 UTC"
  },
  "review": {
-  "by": "reviewer-landing-page-seo-c1",
-  "date": "2026-10-07 12:32 UTC",
+  "by": "reviewer-landing-page-seo-n1",
+  "date": "2026-10-07 13:21 UTC",
   "rubric": {
    "scope": {
     "result": "pass",
-    "evidence": "H1 'Build Landing Page SEO Into Pages That Rank and Convert', title 'Landing Page SEO: How to Build Pages That Rank' and hero 'Describe the offer and the query it should rank for...' cover ranking plus conversion, the whole job, not a sibling's topic."
+    "evidence": "Meta title 'Landing Page SEO: How to Build Pages That Rank', H1 'Build Landing Page SEO Into Pages That Rank and Convert' and hero 'Name the query and describe the offer...' cover ranking plus conversion, the whole job; no sibling topic. (Outcome wording of 'Pages That Rank' is judged under truth.)"
    },
    "intent": {
     "result": "pass",
-    "evidence": "Top 10 is mostly guides (Semrush, Search Engine Land, Instapage blog); the page delivers a 7-step how-to ('Pick one query per page' ... 'Publish, submit and measure'), a checklist answer and four page-type examples. Off-topic PAA drift is judged under faq."
+    "evidence": "Top 10 is guides (Semrush, Search Engine Land, Coalition, MailerLite, Instapage blog) plus builders (Unbounce, Landingi, Zoho). Page carries a definition (FAQ 1 'Landing page SEO is the practice of getting one landing page to rank...'), a 7-step how-to ('01 Pick one query per page' ... '07 Publish, then measure each week'), a checklist answer and four page types, then the builder offer. Both PAA on-topic items answered ('How do you optimize landing pages?', 'Does Wix offer landing pages?')."
    },
    "specificity": {
-    "result": "fail",
-    "evidence": "why_table Emergent 'How you build' cell reads 'Prompt for a campaign page': hub boilerplate (CONTENT_DEFECTS #3) and a sibling's topic (campaign landing page) on a page about organic ranking. Fix in rules/competitors/lp.json: an seo-variant build cell (e.g. 'Prompt for a page built to rank for one query'), then regenerate the table; needs library sign-off."
+    "result": "pass",
+    "evidence": "Cycle-1 fix confirmed: table cell now 'Prompt for the page and its on-page SEO' (seo variant). Examples are concrete and unglamorous: 'shift scheduling software', 'movers in Denver', '/movers/fort-collins', 'Acme vs Globex', 'content calendar template', 'URL Inspection in Search Console'."
    },
    "openers": {
     "result": "pass",
-    "evidence": "Every paragraph opens on a full sentence: 'Name the query and Emergent writes the title tag...', 'City pages target searches like movers in Denver.', 'Choose the single query the page should rank for...'."
+    "evidence": "Every paragraph opens on a full sentence with a verb: 'A feature page targets one commercial query...', 'Choose the single query the page should rank for...', 'Export the page and its lead form...'. The shared shape of those openers is a voice problem, scored under voice."
    },
    "craft": {
-    "result": "pass",
-    "evidence": "Sentences carry one idea and end on the key word ('Organic leads stay separate from paid.', 'Fix layout shift before you publish.'); longest list sentence (checklist FAQ, 27 words) is under the 32-word flag."
+    "result": "fail",
+    "evidence": "Tacked-on or summary clauses (CONTENT_DEFECTS #4): (1) tab_content_2 'Prompt for a page per branch, each with its own H1, service area and LocalBusiness schema, and no two pages read alike.' The last clause has no subject link to the prompt and also repeats the H3 'each with its own copy' ('each with its own' twice in one tab). (2) howto_step_4_des ends on a summary restating 'Put the form after that answer': 'Visitors and crawlers should both reach the content before they reach the ask.' (3) tab_content_4 '...each lead is stored with its source page while the contact is created in HubSpot.' ('while' clause bolted on; split into two sentences). (4) faq_10 closes on an aphorism: 'In search, the homepage tends to rank for the brand name, while each landing page ranks for the problem it solves.'"
    },
    "voice": {
     "result": "fail",
-    "evidence": "Body copy holds up, but several FAQ lines read as keyword insertion or aphorism, not a writer: 'For landing pages for SEO, it means...', 'each landing page for SEO ranks for a specific problem', 'A search engine optimization landing page you have rewritten three times is a better teacher than a checklist.' howto_description ends on a summary line: 'Seven steps from keyword to an indexed page that converts.' Rewrite so each secondary sits where a person would say it, and cut the aphorism and summary."
+    "evidence": "Templated rhythm (HUB_RULES 2b 'no run of sentences starting the same way', 'same rhythm paragraph after paragraph'). A. Prompt-imperative openers, every instance: hero_description 'Name the query and describe the offer.'; feature_1 'Name the query in your prompt and Emergent writes...'; feature_2 'Tell Emergent what the searcher came for...' + 'Prompt for the lead form below the first answer.'; feature_3 'Ask for Product or LocalBusiness schema...' + 'Name a canonical URL and a sitemap entry in the same prompt...'; feature_4 'Ask for a responsive layout...'; feature_5 'Ask for the form to save...'; tab_content_1 'Prompt for the query in the title tag, H1 and URL...'; tab_content_2 'Prompt for a page per branch...'; tab_content_3 'Ask for the differences in a table...'; tab_content_4 'Ask for an email before the download...'; features_heading 'What to Ask for in an SEO Landing Page'; meta_description 'then prompt Emergent for...'. 13 prompt imperatives in 12 short fields; 5 of 6 features open this way, and the hero plus features 1 and 3 share the exact '[Imperative], and Emergent [verb]s' shape. Fix: state the SEO behaviour once as prompt-driven (hero or features_subheading), then let most features open on the result ('The title tag and H1 carry the query you name...', 'Product or LocalBusiness schema goes in as JSON-LD when the prompt asks') and vary the rest. B. All four tabs follow one three-beat template: definition opener ('A feature page targets one commercial query, such as...', 'City pages target searches like...', 'Comparison pages answer queries like...', 'Template pages target queries like...'), then 'Prompt for/Ask for...', then a lead-saved closer ('Each demo request is saved with its landing URL.', 'Quote requests are saved with the city attached...', 'The trial signup at the end records which comparison...', 'each lead is stored with its source page...'); the four tab H3s are also all imperatives ('Aim...', 'Publish...', 'Answer...', 'Turn...'). Vary at least two tabs' structure. C. Repeated device: 'one more prompt' in feature_1 ('one more prompt rewords the title') and feature_4 ('Each issue it flags is one more prompt to fix'). D. 'each' 27 times across 15 fields (e.g. features_subheading 'each organic visit', feature_5 'each submission', tab_content_1 'Each demo request', tab_content_2 'each with its own' x2, tab_content_4 'each lead', faq_6 'each follow-up question', faq_7 'one type and one query each', faq_9 'each one', faq_10 'each landing page', howto_step_7 'Each week'); cut at least half. E. Tidy triplets: feature_6 'Run any crawler against it, hand it to a developer, or host it elsewhere'; faq_4 'Thin copy, duplicate pages and a stray noindex tag'; howto_description 'Write the page..., check it on a phone..., and judge it by the leads'."
    },
    "truth": {
     "result": "fail",
-    "evidence": "SEO defaults are stated as automatic platform behavior with no ledger id in claims_used (only prompt-build, api-connect, code-export, database-owned, custom-domain, free-start): 'Each page gets a canonical tag and a sitemap entry', 'The layout is responsive from the first build', 'scripts load after the content', 'each sized to show in full on a results page' (Google truncates by pixel and rewrites titles; not a guarantee). Images show 'Indexed' / 'Page indexed', implying Emergent confirms Google indexing. Unsupported generalizations (CONTENT_DEFECTS #7): 'Search Console data from your own site teaches more than most courses', 'SEO friendly landing pages that answer the query in their opening lines are easier for those summaries to quote.' Fix: frame SEO features as what the prompt asks the build to include (or get a ledger entry from Divit), change 'Indexed' to a state Emergent can know (e.g. 'Published' / 'In sitemap'), and cut or soften the generalizations."
+    "evidence": "(1) faq_9 'Keep campaign duplicates and test variants out of the index with a noindex tag': Google's A/B testing guidance is rel=canonical to the original for test variants, not noindex; fix to 'point test variants at the original with a canonical tag'. (2) tab_content_3 'Ask for the differences in a table with Breadcrumb schema': Breadcrumb schema describes the page's position in the site, not a table; the sentence says the table carries it. Fix: 'Ask for the differences in a table, Breadcrumb schema on the page, and links to...'. (3) features_subheading '...and turning each organic visit into a lead': no page converts every visit; say 'turning organic visits into leads'. (4) Outcome promise against the 'no ranking promise' brief: h1 'Build Landing Page SEO Into Pages That Rank and Convert' (and share_image alt / OG title repeating it) states ranking as what Emergent builds; consider 'Build an SEO Landing Page That Converts Organic Traffic' or similar, keeping the meta title's how-to framing. (5) P2: feature_3 and howto_step_5_des recommend 'Product' schema for a software feature page ('Product for a feature page'); for SaaS, SoftwareApplication is the type Google documents; say 'Product or SoftwareApplication'. Cycle-1 truth fixes verified: no 'Each page gets a canonical tag', no 'responsive from the first build', no 'scripts load after the content', no 'Indexed' badge (cover and OG now 'Page published'), no 'teaches more than most courses' or AI-summary generalization; SEO behaviour is framed as prompted throughout (feature_3 'Name a canonical URL and a sitemap entry in the same prompt, and both go in'). Claims map to claims_used (prompt-build, api-connect for HubSpot/Slack, code-export, database-owned, custom-domain, free-start). Table is library-generated (V2/V3 clean); Wix K7 pending with Divit, not scored."
    },
    "distinct": {
     "result": "pass",
-    "evidence": "Organised around query types ('Feature Pages', 'City Pages', 'Comparison Pages', 'Template Pages') and on-page SEO steps; no sibling primary in headings; QC D2 clean against the hub."
+    "evidence": "Organised by query type ('Feature Pages', 'City Pages', 'Comparison Pages', 'Template Pages') and on-page SEO steps; nothing shared with thank-you-page beyond the FAQ link ('along with every thank you page'). PPC is split off in faq_4 ('For pages that only take paid clicks, build a PPC landing page instead') and local business in faq_7 ('For a single storefront or office, start with a local business landing page'). P2 watch: tab 2 'City Pages' (LocalBusiness schema, movers in Denver) sits close to the planned local-business-landing-page; keep that tab about multi-location query targeting when the sibling is written."
    },
    "faq": {
     "result": "fail",
-    "evidence": "Three QC-F4-forced drift items do not serve someone searching 'landing page seo' (CONTENT_DEFECTS #9): 'What is SEO expert salary?' is also not answered in its first sentence ('It depends on location, seniority...so check current listings'); 'How long will it take me to learn SEO?' and 'Can I learn SEO on my own?' are career questions with landing pages bolted on. Secondaries are forced in ('Search engine landing pages need unique copy', 'For landing pages for SEO'). Reviewer view: these three PAA items should be filtered as drift (F4 filter should require topic overlap beyond the single token 'seo'); replace with on-topic sources (related 'Landing page seo template', 'Types of landing page', keyword 'seo landing page design'). If Divit keeps F4 as is, the salary answer must still open with an answer."
+    "evidence": "10 on-topic items, sources recorded, drift removed (cycle-1 fix verified: salary/learn-SEO items gone), each answered in its first sentence. Fails CONTENT_DEFECTS #18 (an FAQ answer that restates the body), every instance: faq_2 'starts with one query per page and a format that matches the results already ranking for it' = howto steps 01 'Pick one query per page' and 02 'Match what the top results deliver'; 'a query-led title tag and H1, an answer up top' = step 03/04. faq_5 'a single query, placed first in the title tag and again in the H1' = howto_step_3_des 'Lead the title tag with the query... repeat it in the H1'; 'answers that query in its first two lines' = howto_step_4_des 'a plain answer in the first two lines'; 'Every image has alt text' = howto_step_5_des 'Give every image descriptive alt text'. faq_8 'Give every image a width and height to stop layout shift' = howto_step_6_des 'set its dimensions... fix layout shift' and feature_4 'fixed image sizes'. faq_6 'Open with an H1 that holds the query and a two-line answer' = mockup 'open with a two-line answer' and step 04. The same 'answer first' idea appears in 12 fields ('answer' 18 times: faq_1, faq_2, faq_5, faq_6, faq_8, feature_2, howto_step_2_des, howto_step_4_des, tab_content_1, tab_content_3, mockup). Fix: make faq_2 answer the PAA with what the steps don't cover (internal link anchors, refreshing an existing page, what Emergent adds) and keep faq_5 to the check-before-launch items not in the how-to (Rich Results Test, URL Inspection, inbound links); cut the dimension advice from faq_8 or from step 06. Plus the faq_9 noindex error under truth. Links pending with Divit (ppc, local business not yet live) not scored."
    },
    "images": {
     "result": "pass",
-    "evidence": "Each tab shows one moment matching its copy: Aurora quote 'City: Aurora' in #aurora-branch (tab 2 'posted to that branch's Slack channel'), 'Read: Acme vs Globex' (tab 3 'records which comparison the visitor read'), 'Contact created in HubSpot' (tab 4); cursor on button edges; balance gate passed. Minor: tab 1 email 'dana@globex.com' reuses tab 3's competitor brand; 'Indexed' badges flagged under truth."
+    "evidence": "Each tab shows one moment matching its copy: tab 1 checklist 'Query in the title tag / H1 / URL / Demo request form' and 'Demo request saved, Landing URL attached'; tab 2 '#aurora-branch', 'City: Aurora', 'LocalBusiness schema, On every city page'; tab 3 'Read: Acme vs Globex', 'Breadcrumb schema', chips 'Scheduling / Reporting / Payroll' matching the mockup's feature pages; tab 4 'Source: content calendar page', 'Contact created in HubSpot'. Cursor on button edges, panels full, cover 'Page published' (cycle-1 'Indexed' fixed); tab 1 email now 'dana@pinecrest.co' (cycle-1 note fixed). P2 notes: tab 4 'Download link emailed to Maya' is not in the tab copy ('Ask for an email before the download'); tab 2 H1s 'Movers in Denver/Boulder/Aurora/Fort Collins' are the city-swapped pattern the copy says to avoid ('no two pages read alike'), so vary one."
    }
   }
- }
+ },
+ "reviews": [
+  {
+   "by": "reviewer-landing-page-seo-c1",
+   "date": "2026-10-07 12:32 UTC",
+   "result": "fail"
+  }
+ ]
 }
