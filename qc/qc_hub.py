@@ -487,10 +487,13 @@ def check(spec, siblings):
     if spec.get("table") and spec.get("status") not in ("live-draft", "published"):
         try:
             sys.path.insert(0, os.path.join(ROOT, "ops")); import table as _TB
-            _L = _TB.lib(h["repo_dir"]); cats = set()
-            for c in spec["table"]["vs"]: cats |= set(_L["competitors"].get(c, {}).get("categories", []))
-            for vk in _L.get("emergent_variants", {}):
-                if vk in cats and spec["table"].get("variant") != vk:
+            # A variant is required only when every competitor is a specialist of that category and none is also a general tool
+            # (Typeform is a form builder and a hiring tool: a rental agreement page must not be forced into the hiring variant)
+            GENERAL = {"form-builder", "automation-platform", "landing-page-builder", "site-builder", "survey-tool", "quiz-tool"}
+            _L = _TB.lib(h["repo_dir"]); per = [set(_L["competitors"].get(c, {}).get("categories", [])) for c in spec["table"]["vs"]]
+            shared = set.intersection(*per) if per else set()
+            for vk in ([] if shared & GENERAL else _L.get("emergent_variants", {})):
+                if vk in shared and spec["table"].get("variant") != vk:
                     add("P1", "Q4", "why_table", f'these competitors are "{vk}" tools: use --variant {vk} so the Emergent column speaks to this buyer'); break
         except Exception: pass
     # ---------- V4: a category variant defines every row it is used with (Divit, 2026-10-07: no silent hub-default fallback) ----------
