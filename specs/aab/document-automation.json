@@ -127,6 +127,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-07 14:50 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "reviewer-batch-m3",
+   "note": "[truth | CONTENT_DEFECTS #24] tab_content_2: Two companies in one story: the deal that moves is Globex, the quote is for Acme. The reader cannot tell whose quote is $28,400. -> Use one company in the copy (the image says Acme renewal, Q-2291 for Acme), and align spec.plan.tab_stories[1]. | [images |"
   }
  ],
  "plan": {
@@ -804,9 +811,254 @@
  },
  "qc_passed": {
   "rules_version": "d9a2b42f23de",
-  "date": "2026-10-07 14:40 UTC"
+  "date": "2026-10-07 14:44 UTC"
  },
  "writers": [
   "writer-document-automation"
+ ],
+ "review": {
+  "by": "reviewer-batch-m3",
+  "date": "2026-10-07 14:50 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build Document Automation for What You Send and Receive\" covers both halves of the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition, examples, best-software answer (Gavel, AI Builder) and a 7-step how-to match the explainer/vendor top 10."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Engagement letters, ACORD-style certificates, HubSpot quotes, offer letters; clause rules and coverage minimums."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence (\"Mark the fields...\", \"Every answer in Calder Law's intake form...\")."
+   },
+   "craft": {
+    "result": "fail",
+    "evidence": "Clause rules, approval record, Slack/email review and the two-directions thesis each restated across fields (#21)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "\"A flat-fee matter skips the hourly rate table without anyone editing it.\" Specific, unhyped."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "tab 2 \"Globex deal\" vs \"Acme renewal\"; FAQ 6 unsourced definition."
+   },
+   "distinct": {
+    "result": "fail",
+    "evidence": "howto_description, step 3 and FAQ 4 reuse sibling formulas (#22)."
+   },
+   "faq": {
+    "result": "fail",
+    "evidence": "FAQ 8 restates feature 2/3; FAQ 10 restates feature 5/step 6 (#18)."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 2 image says Acme while copy says Globex deal (#20)."
+   }
+  },
+  "findings": [
+   {
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #24",
+    "field": "tab_content_2",
+    "quote": "\"When a Globex deal moves to the Proposal stage in HubSpot... The Acme renewal comes to $28,400.\"",
+    "issue": "Two companies in one story: the deal that moves is Globex, the quote is for Acme. The reader cannot tell whose quote is $28,400.",
+    "fix": "Use one company in the copy (the image says Acme renewal, Q-2291 for Acme), and align spec.plan.tab_stories[1].",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief tab 2",
+    "quote": "image \"ACME RENEWAL\", \"Q-2291 for Acme: $28,400.00\"; copy \"When a Globex deal moves to the Proposal stage\"",
+    "issue": "The image names a different deal from the copy.",
+    "fix": "Once the copy uses one name, make the image match it.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 6",
+    "quote": "\"Outgoing drafts still come from templates and rules; the intelligence sits on the incoming side.\"",
+    "issue": "An unsourced definition of intelligent document automation, and contestable: many tools use AI to draft outgoing documents. No domain_sources entry covers the term.",
+    "fix": "Source a definition of intelligent document automation, or cut the last sentence and define it only as AI reading unstructured files.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_1; howto_step_3_des; tab_content_1",
+    "quote": "feature_1 \"write each optional clause as a sentence. A flat-fee matter skips the hourly rate table\"; step 3 \"For every optional clause, write the condition that adds it: litigation matters get a retainer clause... Emergent turns each sentence into logic\"; tab 1 \"Because this matter is litigation, the draft adds the $5,000 retainer clause\"",
+    "issue": "The clause-rule-as-a-sentence idea appears in feature 1 and step 3, and step 3 reuses tab 1's litigation-retainer example.",
+    "fix": "Keep clause rules in step 3 with a new example; feature 1 says what the template does.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_5; howto_step_6_des; faq item 10",
+    "quote": "feature_5 \"Write each drafted or received document to a database you own, with the record it came from and who reviewed it\"; step 6 \"record who approved each file and when. That table becomes the audit history\"; faq 10 \"records who approved which version, and only then sends or files the document\"",
+    "issue": "The who-approved-what record is restated three times.",
+    "fix": "Say it once (feature 5); step 6 and FAQ 10 add what is new.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_4; howto_step_5_des",
+    "quote": "feature_4 \"goes to the named reviewer in Slack or email, with the file attached\"; step 5 \"Reviewers get the draft in Slack or email and approve it there or send it back\"",
+    "issue": "Reviewer-in-Slack-or-email is told twice.",
+    "fix": "Keep it in one field.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "hero_description; features_subheading; faq item 1; faq item 6; faq item 8",
+    "quote": "hero \"drafts from your data and reads every upload into fields\"; subheading \"Outgoing documents are drafted from your data... Incoming ones are read into fields\"; faq 1 \"It fills templates to draft letters and quotes, and it reads incoming PDFs\"; faq 6 \"Outgoing drafts still come from templates and rules\"; faq 8 \"Yes, in both directions\"",
+    "issue": "The two-directions thesis is restated in five fields (FAQ 7, which asks the question, may keep it).",
+    "fix": "Keep it in the hero and FAQ 7; FAQ 1, 6 and 8 add new information.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #18",
+    "field": "faq item 8",
+    "quote": "\"An app built with Emergent can save every drafted document as a PDF and attach it to the right record. It can also read an uploaded PDF... into fields.\"",
+    "issue": "Restates feature_2 (\"Every finished file is saved as a PDF and linked to the exact record\") and feature_3. FAQ 10 restates feature_5 and step 6.",
+    "fix": "Rewrite FAQ 8 around something new (fillable PDF forms, scanned vs digital PDFs) and FAQ 10 around what the body does not cover.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "howto_description; howto_step_3_des; faq item 4",
+    "quote": "howto_description \"the last four turn those decisions into a working app\" (accounts-payable-automation: \"The last four turn those decisions into a working app.\"); step 3 \"Emergent turns each sentence into logic you can read and change later by prompting\" (sales-automation step 2: \"Emergent turns those sentences into rules you can read and change later.\"); faq 4 \"The best document automation tool depends on which half of the job you need\" (invoice-automation: \"...depends on which way your invoices travel\"; AP: \"...depends on who you pay\")",
+    "issue": "Three sentences reuse sibling pages' formulas with nouns swapped.",
+    "fix": "Rewrite each in this page's own shape.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 1",
+    "quote": "\"The drafting half has an older name: document assembly.\"",
+    "issue": "The source (Wikipedia) says \"also known as\"; \"older\" goes past it.",
+    "fix": "\"The drafting half is also called document assembly.\"",
+    "severity": "note"
+   },
+   {
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief tab 1",
+    "quote": "copy \"the signed copy is saved to the matter record\"; image \"Saved to the matter record / Status: draft, in review\"",
+    "issue": "The image saves the draft; the copy saves the signed copy.",
+    "fix": "Align the status line, or the copy.",
+    "severity": "note"
+   },
+   {
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief tab 3",
+    "quote": "green shield chip \"$500,000 per occurrence on file\" under \"Under the $1,000,000 minimum\"",
+    "issue": "The failing limit is drawn in the tab's emerald accent, which reads as passed; the warn title still carries the outcome.",
+    "fix": "Use a block that is not tinted green for the failing value.",
+    "severity": "note"
+   },
+   {
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq item 5",
+    "quote": "\"an agreement usually passes through a contract approval workflow before anyone signs it\"",
+    "issue": "\"usually\" is an unsourced generalization.",
+    "fix": "\"can pass through\".",
+    "severity": "note"
+   },
+   {
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Zapier | Make (Integromat) | n8n",
+    "issue": "None rank in this top 10 (Automation Anywhere, Microsoft AI Builder, Conga, Gavel). Pending with Divit (K7).",
+    "fix": "Await K7 ruling.",
+    "severity": "note"
+   },
+   {
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq items 5 and 10",
+    "quote": "contract-approval-workflow; document-approval-workflow",
+    "issue": "Links to pages that may not be live yet; pending with Divit.",
+    "fix": "Ship together or swap.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 1",
+   "issue": "The source (Wikipedia) says \"also known as\"; \"older\" goes past it.",
+   "fix": "\"The drafting half is also called document assembly.\"",
+   "by": "reviewer-batch-m3",
+   "via": "review",
+   "date": "2026-10-07 14:50 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief tab 1",
+   "issue": "The image saves the draft; the copy saves the signed copy.",
+   "fix": "Align the status line, or the copy.",
+   "by": "reviewer-batch-m3",
+   "via": "review",
+   "date": "2026-10-07 14:50 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief tab 3",
+   "issue": "The failing limit is drawn in the tab's emerald accent, which reads as passed; the warn title still carries the outcome.",
+   "fix": "Use a block that is not tinted green for the failing value.",
+   "by": "reviewer-batch-m3",
+   "via": "review",
+   "date": "2026-10-07 14:50 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq item 5",
+   "issue": "\"usually\" is an unsourced generalization.",
+   "fix": "\"can pass through\".",
+   "by": "reviewer-batch-m3",
+   "via": "review",
+   "date": "2026-10-07 14:50 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "None rank in this top 10 (Automation Anywhere, Microsoft AI Builder, Conga, Gavel). Pending with Divit (K7).",
+   "fix": "Await K7 ruling.",
+   "by": "reviewer-batch-m3",
+   "via": "review",
+   "date": "2026-10-07 14:50 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq items 5 and 10",
+   "issue": "Links to pages that may not be live yet; pending with Divit.",
+   "fix": "Ship together or swap.",
+   "by": "reviewer-batch-m3",
+   "via": "review",
+   "date": "2026-10-07 14:50 UTC"
+  }
  ]
 }

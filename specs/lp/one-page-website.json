@@ -127,6 +127,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-07 14:45 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "reviewer-batch-m2",
+   "note": "[truth | CONTENT_DEFECTS #7; HUB_RULES 8] faq: Stated as a general fact about one-page websites, which is untrue: most hosted builders bill a recurring plan, and the page's own feature_5 and FAQ 3 say a custom domain on Emergent is billed in credits. Only the registration-and-renewal point is source"
   }
  ],
  "plan": {
@@ -756,10 +763,245 @@
   "variant": null
  },
  "qc_passed": {
-  "rules_version": "386f1b31f9c8",
-  "date": "2026-10-07 14:38 UTC"
+  "rules_version": "d9a2b42f23de",
+  "date": "2026-10-07 14:49 UTC"
  },
  "writers": [
   "writer-one-page-website"
+ ],
+ "review": {
+  "by": "reviewer-batch-m2",
+  "date": "2026-10-07 14:45 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a One Page Website With a Form That Works' and hero ('menu links that jump to each section, plus a form that saves to a database you own') cover the whole page, not one feature."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Example-led SERP (One Page Love, Awwwards, builder example roundups): four worked one-page sites in the tabs, when one page is enough (howto_step_1), sections in scroll order, and 8 PAA questions answered."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Small-business detail throughout: 'Harbor Lane Plumbing', 'Out of area', 'Parties of 8 or fewer', 'At 400 runners', 'your Google Business Profile and Instagram bio first'."
+   },
+   "openers": {
+    "result": "fail",
+    "evidence": "Two FAQ answers open on fragments (CONTENT_DEFECTS #2): FAQ 5 'Static hosting on a free service.'; FAQ 10 'A photographer's portfolio with an inquiry form, a plumber's page that checks the service area, a restaurant menu with reservations, a race page with registration.'"
+   },
+   "craft": {
+    "result": "fail",
+    "evidence": "Ideas restated across fields (CONTENT_DEFECTS #21): editing by message (features_subheading, feature_1, feature_4, FAQ 2, howto_step_6), menu links jump to sections (hero, feature_2, howto_step_4, FAQ 1), free tier plus domain in credits (feature_5, FAQ 3, FAQ 4), one action per page (howto_description, howto_step_1, FAQ 6, FAQ 10), entries to Slack or email (feature_3, howto_step_5)."
+   },
+   "voice": {
+    "result": "fail",
+    "evidence": "Summary sentences that restate the one before (HUB_RULES 2b): FAQ 5 'A page with an inquiry form needs somewhere to keep what visitors send.'; FAQ 3 'That makes a free one page website a real option.'"
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "FAQ 4 'The cost that recurs is the domain name' (untrue as a general statement; hosting plans recur); FAQ 8 'The legal question most site owners meet is copyright.' (unsupported generalization); FAQ 7 'Hosting the page and storing what its form collects are left to you.' (unsourced third-party claim)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own page: portfolio, plumber, restaurant, 5K race; splash-page and thank-you-page siblings are linked, not imitated; no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "fail",
+    "evidence": "FAQ 10 replays the four tab stories as its answer (CONTENT_DEFECTS #18, #21): 'A photographer's portfolio with an inquiry form, a plumber's page that checks the service area, a restaurant menu with reservations, a race page with registration.'"
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Each tab matches its copy: $2,500 Slack threshold with a $3,000 inquiry; Benson tagged Out of area; 10 guests sent to Lena; 400 of 400 spots and waitlist spots 11 and 12 with confirmation emailed; reserved domain danareyes.example."
+   }
+  },
+  "findings": [
+   {
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7; HUB_RULES 8",
+    "field": "faq",
+    "quote": "Building the page can cost nothing on a free tier. The cost that recurs is the domain name",
+    "issue": "Stated as a general fact about one-page websites, which is untrue: most hosted builders bill a recurring plan, and the page's own feature_5 and FAQ 3 say a custom domain on Emergent is billed in credits. Only the registration-and-renewal point is sourced (ICANN). Same class: FAQ 8 'The legal question most site owners meet is copyright.' (an unsourced claim about what most owners meet); FAQ 4 'Hiring a designer or buying a premium one page website theme adds a one-time fee.' (unsourced; design retainers recur).",
+    "fix": "FAQ 4: 'Building it can cost nothing on a free tier. Expect to renew the domain name with your registrar each term; a hosted plan or a designer adds to that.' FAQ 8: open on the sourced Copyright Office point without 'most site owners'.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Hosting the page and storing what its form collects are left to you.",
+    "issue": "A claim about a third-party system that the recorded OpenAI source (writing and code blocks, preview) does not cover.",
+    "fix": "Source it, or drop the sentence and let the Emergent sentence carry the contrast: 'Emergent also publishes the page, connects the domain and saves entries to a database you own.'",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "A form that stores entries needs a backend, which static hosting does not provide. A page with an inquiry form needs somewhere to keep what visitors send.",
+    "issue": "The second sentence restates the first (a summary sentence). Same class in FAQ 3: 'That makes a free one page website a real option.' restates 'its free tier covers building and publishing the page'.",
+    "fix": "Cut both restating sentences; if FAQ 3 needs a secondary, place 'free one page website' in a sentence that adds a fact.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "openers",
+    "rule": "CONTENT_DEFECTS #2",
+    "field": "faq",
+    "quote": "Static hosting on a free service.",
+    "issue": "The answer opens on a fragment. Same class in FAQ 10: 'A photographer's portfolio with an inquiry form, a plumber's page that checks the service area, a restaurant menu with reservations, a race page with registration.'",
+    "fix": "Open each with a full sentence: 'The cheapest way is static hosting on a free service such as GitHub Pages.'",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #18; CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "A photographer's portfolio with an inquiry form, a plumber's page that checks the service area, a restaurant menu with reservations, a race page with registration.",
+    "issue": "FAQ 10 restates the four tab stories (tab_content_1 to 4) instead of adding ideas.",
+    "fix": "Give ideas the tabs do not cover (an event venue, a wedding RSVP page, a book launch, a clinic's booking page), each with its one action.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_4",
+    "quote": "Send a message such as \"move reviews above pricing\" or \"add a second phone number to the footer,\" and Emergent rewrites that part of the code.",
+    "issue": "Editing by message is said five times: features_subheading 'each one changes with a follow-up message'; feature_1 'Adding a section later means naming it and saying where it should sit.'; feature_4 (quoted); FAQ 2 'Each change after that is another message.'; howto_step_6_des 'Describe anything awkward in a message and Emergent fixes it.'",
+    "fix": "Keep it in feature_4; let the other fields say something new (feature_1 on section order; FAQ 2 on what a beginner must decide; howto_step_6 on what to check).",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_2",
+    "quote": "Every section gets an anchor, and each header link scrolls to its section.",
+    "issue": "Menu links jumping to sections is restated in hero 'menu links that jump to each section', howto_step_4_des 'Ask for a header menu whose links jump to each section', FAQ 1 'Links in the menu jump down to a section instead of loading a new page.'",
+    "fix": "Feature_2 owns it; howto_step_4 keeps only its new advice (short section names, four or five links); FAQ 1 defines the term without the menu mechanics.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_5",
+    "quote": "Your page goes live on a custom domain, which Emergent includes and bills in credits. Publishing also works on the free tier",
+    "issue": "Restated in FAQ 3 'its free tier covers building and publishing the page ... Connecting your own domain is included as well and is paid for in credits.' and FAQ 4 'Building the page can cost nothing on a free tier.'",
+    "fix": "State the free tier and the domain billing once (FAQ 3 answers the question directly); feature_5 and FAQ 4 add what is new.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_1_des",
+    "quote": "A one-page site fits a business with one offer and one action a visitor should take",
+    "issue": "'One action per page' is restated in howto_description 'Start with the one thing a visitor should do', FAQ 6 'The best one page websites keep one action in view', FAQ 10 'Each of these one page website examples has one main action.'",
+    "fix": "Say it once (howto_step_1); FAQ 6 can describe what the best ones in galleries share beyond that.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_3",
+    "quote": "A new entry can also post to Slack or email whoever answers it.",
+    "issue": "Restated in howto_step_5_des 'a row in your database, an email to you, a Slack post for the large jobs'.",
+    "fix": "Keep the routing in howto_step_5; feature_3 can describe the row itself (fields, status, export).",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "specificity",
+    "rule": "CONTENT_DEFECTS #3",
+    "field": "why_table",
+    "quote": "Prompt for a campaign page",
+    "issue": "The LP library's default build cell speaks of campaign pages; a one-page business site is not one. The LP library has no fitting variant, so QC Q4 does not apply and the writer cannot fix it.",
+    "fix": "Coordinator: add an LP variant for site-type pages (for example 'Prompt for the full page and its form').",
+    "severity": "note"
+   },
+   {
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "mockup",
+    "quote": "localServiceBusinesses",
+    "issue": "Mockup keys should be camelCase tab names; tab 2 is 'Home Services'. The template matches by order.",
+    "fix": "Rename to homeServices.",
+    "severity": "note"
+   },
+   {
+    "criterion": "faq",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "The best one page websites keep one action in view and ask for little",
+    "issue": "Unsourced best-practice recommendation.",
+    "fix": "Source it or keep it as advice.",
+    "severity": "note"
+   },
+   {
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Wix | Unbounce | Landingi",
+    "issue": "QC K7: Unbounce and Landingi do not rank in this page's top 10 (Webflow, Wix, Squarespace and Framer do). This is pending with Divit.",
+    "fix": "Await Divit's ruling on K7 and missing library competitors.",
+    "severity": "note"
+   },
+   {
+    "criterion": "voice",
+    "rule": "HUB_RULES 2a",
+    "field": "faq",
+    "quote": "Can ChatGPT actually create a website?",
+    "issue": "QC A2 flags 'actually'. It mirrors the PAA wording, so keeping it is acceptable.",
+    "fix": "Keep it for F3 fidelity.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "specificity",
+   "rule": "CONTENT_DEFECTS #3",
+   "field": "why_table",
+   "issue": "The LP library's default build cell speaks of campaign pages; a one-page business site is not one. The LP library has no fitting variant, so QC Q4 does not apply and the writer cannot fix it.",
+   "fix": "Coordinator: add an LP variant for site-type pages (for example 'Prompt for the full page and its form').",
+   "by": "reviewer-batch-m2",
+   "via": "review",
+   "date": "2026-10-07 14:45 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "mockup",
+   "issue": "Mockup keys should be camelCase tab names; tab 2 is 'Home Services'. The template matches by order.",
+   "fix": "Rename to homeServices.",
+   "by": "reviewer-batch-m2",
+   "via": "review",
+   "date": "2026-10-07 14:45 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Unsourced best-practice recommendation.",
+   "fix": "Source it or keep it as advice.",
+   "by": "reviewer-batch-m2",
+   "via": "review",
+   "date": "2026-10-07 14:45 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: Unbounce and Landingi do not rank in this page's top 10 (Webflow, Wix, Squarespace and Framer do). This is pending with Divit.",
+   "fix": "Await Divit's ruling on K7 and missing library competitors.",
+   "by": "reviewer-batch-m2",
+   "via": "review",
+   "date": "2026-10-07 14:45 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "faq",
+   "issue": "QC A2 flags 'actually'. It mirrors the PAA wording, so keeping it is acceptable.",
+   "fix": "Keep it for F3 fidelity.",
+   "by": "reviewer-batch-m2",
+   "via": "review",
+   "date": "2026-10-07 14:45 UTC"
+  }
  ]
 }
