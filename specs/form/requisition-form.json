@@ -1,0 +1,831 @@
+{
+ "url": "/ai-form-builder/requisition-form",
+ "hub": "Form",
+ "item_id": null,
+ "status": "spec",
+ "written_by": "w-requisition-form",
+ "keywords": {
+  "primary": "requisition form",
+  "secondaries_used": [
+   "purchase request form",
+   "purchase requisition form",
+   "purchase order request form",
+   "po request form"
+  ]
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Requisition Form Builder for Any Request | Emergent",
+  "meta_description": "Build a requisition form for purchases, parts, new hires or lab tests. Each request is checked on submit and saved to a database you own.",
+  "h1": "Build a Requisition Form for Any Internal Request",
+  "slug": "requisition-form",
+  "product_name": "Requisition Form Builder",
+  "hero_description": "Describe what your team asks for and who reads it. Emergent builds the requisition form, numbers every request and checks it on submit. Each one lands in a table you own.",
+  "breadcrumb": "Requisition Form",
+  "category": "a3f1c6d3f1f5b72e83814b483a0ac3d5",
+  "explore_cta": "Build My Requisition Form",
+  "features_heading": "What a Request Carries Before Anyone Reads It",
+  "features_subheading": "A paper requisition depends on the requester remembering every field. These six pieces fill the gaps while the form is still open.",
+  "feature_1": "<h3>Requisition numbers on every submit</h3><p>Assign the next number in your series, such as REQ-0419, when a request is sent. The requester quotes it in any follow-up, and purchasing finds the request without searching.</p>",
+  "feature_2": "<h3>Department and cost center from a list</h3><p>Pick the department, and only its cost centers appear in the next dropdown. Nobody types a code from memory, and every request is charged where the budget owner expects it.</p>",
+  "feature_3": "<h3>Item lines with an estimated total</h3><p>Add each item with its quantity and estimated unit cost, and the total updates as the requester types. Approvers see the full amount at the top instead of adding up lines by hand.</p>",
+  "feature_4": "<h3>A reason field that cannot be skipped</h3><p>Ask why the item or role is needed and by what date, and make both required. The reader gets the business case with the request instead of emailing back to ask for it later.</p>",
+  "feature_5": "<h3>Attachments where policy needs them</h3><p>Require a vendor quote, a job description or a spec sheet on the request types that call for one. Other request types never show the upload, and the form stays short for them.</p>",
+  "feature_6": "<h3>Your code, in your repository</h3><p>Export the whole codebase to GitHub when IT wants the form on your own servers or wired into the ERP. The form and the requests table behind it belong to you, line for line.</p>",
+  "why_title": "Why Build Requisition Forms With Emergent?",
+  "why_description": "A fillable PDF collects a request and stops there. Someone still numbers it by hand and files the copy in a shared drive.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"emergent\" />\n        </th>\n        <th scope=\"col\">Jotform</th>\n        <th scope=\"col\">Google Forms</th>\n        <th scope=\"col\">Typeform</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt</td>\n        <td class=\"col-other\">Templates, editor, AI generator</td>\n        <td class=\"col-other\">Manual, field by field</td>\n        <td class=\"col-other\">Templates, editor, AI assist</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Where responses live</th>\n        <td class=\"col-brand\">A database table you own, plus any integration</td>\n        <td class=\"col-other\">Jotform account</td>\n        <td class=\"col-other\">Google Sheets</td>\n        <td class=\"col-other\">Typeform account</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Response limits</th>\n        <td class=\"col-brand\">Unlimited</td>\n        <td class=\"col-other\">100/mo free, 1,000 Bronze, 2,500 Silver, 10,000 Gold (form stops at cap)</td>\n        <td class=\"col-other\">No limit</td>\n        <td class=\"col-other\">10/mo free, 100 Basic, 1,000 Plus, 10,000 Business (form closes at cap)</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full export to your repo</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "The Requisitions Teams File Most Often",
+  "tab_label_1": "Office Purchases",
+  "tab_label_2": "Parts Crib",
+  "tab_label_3": "Hiring Requests",
+  "tab_label_4": "Hospital Labs",
+  "tab_content_1": "<h3>A repeat order for monitors joins the request already open</h3><p>Dana in operations at Northwind Logistics asks for 3 monitors for new hires. Before the request goes in, the form checks what her team already has open and finds REQ-0418, for 2 of the same model. She adds her 3 to it instead of filing her own. Purchasing reads REQ-0418 with 5 monitors on it.</p>",
+  "tab_content_2": "<h3>Every belt pulled for Extruder 3 lands on its asset</h3><p>A drive belt on Extruder 3 snapped mid-shift at Globex Plastics. The maintenance tech picks the machine from a list, requests 6 drive belts from the parts crib and collects them at the window. The crib marks them issued, and the $110.40 is charged to asset EX-03 instead of a general supplies account.</p>",
+  "tab_content_3": "<h3>Any salary above the band waits for a written reason</h3><p>Acme Robotics loses a QA engineer, and the team's manager opens a backfill requisition at level 3 with a salary of $128,000. The level 3 band tops out at $120,000. Before HR sees the request, the form asks him for a reason. He cites a competing offer, attaches the job description and sends it.</p>",
+  "tab_content_4": "<h3>No lab test leaves 4 West without its diagnosis code</h3><p>On 4 West at Cedar Valley Hospital, a nurse orders a CBC and a basic metabolic panel for a patient admitted overnight. The form will not send until each test carries a diagnosis code and a collection time. The core lab receives requisition L-20417 with both, and the tube labels print with the same number.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { officePurchases: \"I run operations at Northwind Logistics. Build a purchase requisition form for my team: item, quantity, cost center and a reason. Before someone submits, check our open requests for the same item from the same team. If one exists, offer to add their quantity to it instead of filing a new one, and show the updated total in the requests table.\", partsCrib: \"I manage maintenance at Globex Plastics. Build a parts crib request form my techs fill at the machine. They pick the machine from a list, then the part and quantity. When the crib marks the parts issued, charge the cost to that machine's asset number and add it to the asset's repair history.\", hiringRequests: \"I lead HR at Acme Robotics. Build a job requisition form for hiring managers: role, level, new role or backfill, salary and the job description as a required upload. If the salary is above the top of the band for that level, require a written reason before the request reaches HR.\", hospitalLabs: \"I run the core lab at Cedar Valley Hospital. Build a lab requisition form for nurses on the wards. They pick the unit, the patient's record number and the tests. Require a diagnosis code for every test and a collection time. Give each requisition a number and print tube labels with that number.\" };</p>",
+  "howto_title": "How to Create a Requisition Form",
+  "howto_description": "Start with the request that causes the most back-and-forth today, then add the others once it works.",
+  "howto_step_1_title": "01 Collect the paper or PDF version",
+  "howto_step_2_title": "02 Name who reads each request",
+  "howto_step_3_title": "03 Export your cost centers",
+  "howto_step_4_title": "04 Pick the numbering format",
+  "howto_step_1_des": "Pull the requisition your team uses now, paper or PDF, along with the last 10 requests filed on it. Mark the fields people skip most often. Those become required fields, and everything else can stay optional.",
+  "howto_step_2_des": "Write down who reads each type of request, such as purchasing for items and HR for new roles. One form can carry several request types, each with its own reader and its own required fields.",
+  "howto_step_3_des": "Export your departments and their cost centers from the accounting system as one spreadsheet. Requesters pick from that list instead of typing a code, which keeps every request charged to a code that exists.",
+  "howto_step_4_des": "Pick a prefix and a starting number, such as REQ-0001, that will not collide with the PO numbers purchasing already uses. A distinct prefix tells anyone reading an email whether it means the request or the order.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Requisition Form Questions, Answered\", \"items\": [{\"q\": \"What is a requisition form?\", \"a\": \"A requisition form is an internal request for something the organization has not committed to yet: goods, services, stock from a storeroom or a new hire. It records who is asking and why. Someone approves it before any order or job posting goes out.\"}, {\"q\": \"How do I create a requisition form?\", \"a\": \"List the fields your current form leaves blank most often and the attachment each request type needs. Describe them in one prompt to Emergent's <a href='https://emergent.sh/ai-form-builder'>AI form builder</a>. It builds the form with numbering and a table that stores every request.\"}, {\"q\": \"What is a requisition form in medical?\", \"a\": \"In medicine, a requisition is the order a clinician sends with a specimen, telling the lab which tests to run. It carries patient identifiers, the ordering provider, the tests and a diagnosis code for each one. In a hospital, it usually travels from the ward to the hospital's own lab.\"}, {\"q\": \"How do you write a requisition?\", \"a\": \"State what you need, how many, by when and the estimated cost. Add the cost center it should be charged to and a sentence on why. Attach a quote if your policy asks for one. After approval, <a href='https://emergent.sh/ai-automation-builder/purchase-order-automation'>purchase order automation</a> can turn the request into a PO.\"}, {\"q\": \"Can you provide an example of a requisition?\", \"a\": \"A facilities team asking for 4 office chairs at about $320 each, charged to cost center 4100, has written a purchase requisition. For a public example, look at GSA Form 49. It is the basic procurement request form used inside the US General Services Administration.\"}, {\"q\": \"Can you give me an example of a request letter?\", \"a\": \"A short request letter opens with the request, then gives the reason and the date it is needed. For example: Please approve two conference passes for March so the team can present the routing pilot. Inside a company, a requisition holds the same details as fields instead of prose.\"}, {\"q\": \"How to write a short request?\", \"a\": \"Put the ask in the first sentence and the reason in the second. Name the date you need an answer by, and leave out background the reader already knows. On a requisition, those map to the item and justification fields plus a needed-by date.\"}, {\"q\": \"Is a purchase requisition the same as a purchase order?\", \"a\": \"No. A purchase requisition form is the internal request to buy, filed by the person who needs the item. Purchasing reviews it and, once it is approved, issues the purchase order to the vendor. A <a href='https://emergent.sh/ai-form-builder/purchase-order-form'>purchase order form</a> is that outside document.\"}, {\"q\": \"What is a purchase request form?\", \"a\": \"It is the form an employee uses to ask the company to buy goods or services it does not have on hand. Most teams treat a purchase request form and a purchase requisition as the same thing. The fields are the item, quantity, estimated cost, cost center and reason. Teams that call it a PO request form use the same layout.\"}, {\"q\": \"Where can I get a requisition form template in Word?\", \"a\": \"Template sites offer a requisition form template in Word or Excel, and many university procurement offices post fillable PDFs. Those print well. Some offices file the result as a purchase order request form, since purchasing works from it. A built form adds what paper cannot do: numbering and a table of every request.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Describe the form to Emergent",
+  "howto_step_5_des": "Put the request types, required fields and the attachment each type needs into one prompt, and attach the spreadsheet. Emergent builds the form and a requests table behind it. Ask for changes in plain English as people use it.",
+  "howto_step_6_title": "06 Decide where each type goes next",
+  "howto_step_6_des": "Choose what happens on submit for each type. Item requests might post to purchasing in Slack while new roles go to a tracker HR already reads. Keep the requester copied on every update to their request.",
+  "howto_step_7_title": "07 Run five old requests through it",
+  "howto_step_7_des": "Re-enter five requests from last month, including one that went wrong at the time. Check that the number and cost center land in the table as expected and that the problem request is caught this time.",
+  "prompt_chip_1": "Request Numbers",
+  "prompt_chip_2": "Cost Centers",
+  "prompt_chip_3": "Duplicate Checks",
+  "prompt_chip_4": "Quote Uploads",
+  "hero_prompt": "<p>Build a requisition form that numbers each request and checks it before it is sent.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/form/requisition-form/uc-1.svg",
+   "alt": "An operations coordinator requests 3 monitors, and the form finds open request REQ-0418 for 2 of the same model from her team and offers to add hers to it, bringing it to 5."
+  },
+  "tab_image_2": {
+   "path": "images/form/requisition-form/uc-2.svg",
+   "alt": "A parts crib log shows 6 drive belts issued for $110.40 and charged to asset EX-03, Extruder 3, instead of a general supplies account."
+  },
+  "tab_image_3": {
+   "path": "images/form/requisition-form/uc-3.svg",
+   "alt": "A backfill job requisition for a level 3 QA engineer at $128,000 is held for a reason because the level 3 band tops out at $120,000, and the manager cites a competing offer."
+  },
+  "tab_image_4": {
+   "path": "images/form/requisition-form/uc-4.svg",
+   "alt": "Lab requisition L-20417 from 4 West at Cedar Valley Hospital orders a CBC and a basic metabolic panel with a diagnosis code on each test, and the core lab receives it with matching tube labels."
+  },
+  "cover_image": {
+   "path": "images/form/requisition-form/cover.svg",
+   "alt": "A confirmation that a request for monitors was added to open requisition REQ-0418, with a button to view the request."
+  },
+  "share_image": {
+   "path": "images/form/requisition-form/og.png",
+   "alt": "Build a requisition form that checks each request, with Emergent"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-07 20:42 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-07 20:48 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "w-requisition-form",
+   "note": ""
+  },
+  {
+   "t": "2026-10-07 20:49 UTC",
+   "state": "images",
+   "via": null,
+   "by": null,
+   "note": ""
+  }
+ ],
+ "plan": {
+  "angle": "The live top 10 is a definition blog (Nutrient), carbonless pads on Amazon, a fillable GSA Form 49, a nonprofit procurement manual, pdfFiller and Jotform templates, a dictionary entry and a university job requisition PDF. Google's AI Overview splits the term into purchase, internal stock and lab requisitions, and the related searches add hospitals and hiring. This page defines the term in one answer, then shows the four requisitions a searcher actually means: a purchase requisition that catches a duplicate request, a parts crib request charged to the machine, a job requisition checked against the pay band, and a hospital lab requisition that will not send without a diagnosis code. Approval routing and the PO itself stay on the purchase order siblings, linked from the FAQ.",
+  "tab_stories": [
+   "An office coordinator at Northwind Logistics asks for 3 monitors, and the form finds REQ-0418, an open request for 2 of the same model from the same team, and offers to add to it instead of filing a second.",
+   "A maintenance tech at Globex Plastics pulls 6 drive belts from the parts crib for Extruder 3, and the $110.40 is charged to that machine's asset number instead of a general supplies account.",
+   "An engineering manager at Acme Robotics opens a backfill for a level 3 QA engineer at $128,000, and because the level 3 band tops out at $120,000 the form asks for a written reason before HR sees it.",
+   "A nurse on 4 West at Cedar Valley Hospital orders a CBC and a basic metabolic panel, the form will not send until each test has a diagnosis code, and the core lab receives requisition L-20417 with the collection time."
+  ],
+  "openers": [
+   "Dana in operations at Northwind Logistics",
+   "A drive belt on Extruder 3 snapped",
+   "Acme Robotics loses a QA engineer",
+   "On 4 West at Cedar Valley Hospital",
+   "Pull the requisition your team uses now",
+   "Write down who reads each type",
+   "Export your departments",
+   "Pick a prefix",
+   "Put the request types",
+   "Choose what happens on submit",
+   "Re-enter five requests"
+  ],
+  "heading_shapes": [
+   "A repeat order for monitors joins the request already open",
+   "Every belt pulled for Extruder 3 lands on its asset",
+   "Any salary above the band waits for a written reason",
+   "No lab test leaves 4 West without its diagnosis code"
+  ],
+  "claims_to_source": [
+   "A requisition form is an internal request for goods, services or other resources made before any purchase or commitment",
+   "A purchase requisition is an internal request to buy that comes before the purchase order sent to the vendor",
+   "GSA Form 49 is the basic procurement request form the US General Services Administration uses when requisitioning equipment, supplies or services",
+   "A stores or materials requisition asks the warehouse or storeroom to issue items the organization already holds",
+   "A job requisition is an internal request for permission to fill a position, approved before recruiting starts",
+   "A lab requisition records the ordering provider, patient details, the tests ordered and a diagnosis code for each test",
+   "Some employers require the job description to be attached to every job requisition"
+  ]
+ },
+ "domain_sources": [
+  {
+   "claim": "A requisition form is an internal request for goods, services or other resources made before any purchase or commitment",
+   "source_url": "https://www.nutrient.io/blog/requisition-form/",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "A purchase requisition is an internal request to buy that comes before the purchase order sent to the vendor",
+   "source_url": "https://softwareconnect.com/learn/purchase-requisition-vs-purchase-order/",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "GSA Form 49 is the basic procurement request form the US General Services Administration uses when requisitioning equipment, supplies or services",
+   "source_url": "https://www.gsa.gov/cdnstatic/GSA_49.pdf",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "A stores or materials requisition asks the warehouse or storeroom to issue items the organization already holds",
+   "source_url": "https://www.accountingtools.com/articles/material-requisition-form",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "A job requisition is an internal request for permission to fill a position, approved before recruiting starts",
+   "source_url": "https://shrm.org/topics-tools/news/talent-acquisition/job-description-job-requisition-comes-first",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "A lab requisition records the ordering provider, patient details, the tests ordered and a diagnosis code for each test",
+   "source_url": "https://www.nationwidechildrens.org/specialties/laboratory-services/for-providers/requisition-information",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "Some employers require the job description to be attached to every job requisition",
+   "source_url": "https://www.daemen.edu/sites/daemen/files/DAEMEN%20JOB%20REQUISITION%20FORM%202021-Fillable.pdf",
+   "date": "2026-10-08"
+  }
+ ],
+ "table": {
+  "vs": [
+   "Jotform",
+   "Google Forms",
+   "Typeform"
+  ],
+  "rows": [
+   "build",
+   "data=Where responses live",
+   "limits=Response limits",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "faq_sources": [
+  {
+   "q": "What is a requisition form?",
+   "source": "paa",
+   "ref": "What is a requisition form?"
+  },
+  {
+   "q": "How do I create a requisition form?",
+   "source": "paa",
+   "ref": "How do I create a requisition form?"
+  },
+  {
+   "q": "What is a requisition form in medical?",
+   "source": "paa",
+   "ref": "What is a requisition form in medical?"
+  },
+  {
+   "q": "How do you write a requisition?",
+   "source": "paa",
+   "ref": "How do you write a requisition?"
+  },
+  {
+   "q": "Can you provide an example of a requisition?",
+   "source": "paa",
+   "ref": "Can you provide an example of a requisition?"
+  },
+  {
+   "q": "Can you give me an example of a request letter?",
+   "source": "paa",
+   "ref": "Can you give me an example of a request letter?"
+  },
+  {
+   "q": "How to write a short request?",
+   "source": "paa",
+   "ref": "How to write a short request?"
+  },
+  {
+   "q": "Is a purchase requisition the same as a purchase order?",
+   "source": "secondary",
+   "ref": "purchase requisition form"
+  },
+  {
+   "q": "What is a purchase request form?",
+   "source": "secondary",
+   "ref": "purchase request form"
+  },
+  {
+   "q": "Where can I get a requisition form template in Word?",
+   "source": "related",
+   "ref": "Requisition form template Word"
+  }
+ ],
+ "claims_used": [
+  "prompt-build",
+  "database-owned",
+  "code-export",
+  "alerts",
+  "no-caps"
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R6",
+    "title": "Office purchase request",
+    "prompt": "Check open requests for the same item before anyone files a new one",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "New purchase request",
+       "sub": "Northwind Logistics, Operations"
+      },
+      {
+       "type": "fields",
+       "items": [
+        [
+         "Item",
+         "Office monitor"
+        ],
+        [
+         "Quantity",
+         "3 monitors"
+        ],
+        [
+         "Reason",
+         "Desks for new hires"
+        ]
+       ]
+      },
+      {
+       "type": "button",
+       "label": "Submit request",
+       "icon": "send",
+       "full": true
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "copy",
+     "tone": "warn",
+     "title": "Open request found",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "REQ-0418, 2 of the same model",
+       "size": 18,
+       "color": "ink"
+      },
+      {
+       "type": "chips",
+       "items": [
+        [
+         "Operations",
+         "acc"
+        ],
+        [
+         "Open",
+         "ok"
+        ]
+       ]
+      },
+      {
+       "type": "meta",
+       "icon": "info",
+       "kind": "muted",
+       "text": "Add yours instead of a new request"
+      }
+     ],
+     "action": {
+      "label": "Add to REQ-0418",
+      "icon": "plus",
+      "primary": true
+     }
+    },
+    "mini": {
+     "icon": "database",
+     "title": "REQ-0418 now 5 monitors",
+     "sub": "Saved to the requests table",
+     "kind": "ok"
+    },
+    "alt": "An operations coordinator requests 3 monitors, and the form finds open request REQ-0418 for 2 of the same model from her team and offers to add hers to it, bringing it to 5.",
+    "story": [
+     {
+      "copy": "asks for 3 monitors",
+      "image": "3 monitors"
+     },
+     {
+      "copy": "REQ-0418, for 2 of the same model",
+      "image": "REQ-0418, 2 of the same model"
+     },
+     {
+      "copy": "checks what her team already has open",
+      "image": "Open request found"
+     },
+     {
+      "copy": "REQ-0418 with 5 monitors",
+      "image": "REQ-0418 now 5 monitors"
+     }
+    ]
+   },
+   {
+    "recipe": "R8",
+    "title": "Parts crib request",
+    "prompt": "Charge every part the crib issues to the machine it was pulled for",
+    "rule": "If parts are issued → charge the machine's asset",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Parts issued today",
+       "size": 20,
+       "chip": [
+        "Parts crib",
+        "acc"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Part",
+        "Qty",
+        "Asset",
+        "Cost"
+       ],
+       "widths": [
+        0.36,
+        0.14,
+        0.22,
+        0.28
+       ],
+       "row_h": 64,
+       "highlight": 0,
+       "num_cols": [
+        1,
+        3
+       ],
+       "rows": [
+        [
+         "Drive belt",
+         "6",
+         "EX-03",
+         "$110.40"
+        ],
+        [
+         "Hydraulic filter",
+         "2",
+         "PR-11",
+         "$64.00"
+        ],
+        [
+         "Shear pin",
+         "10",
+         "EX-01",
+         "$23.50"
+        ],
+        [
+         "Heater band",
+         "1",
+         "EX-02",
+         "$142.00"
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "wrench",
+     "tone": "ok",
+     "title": "Charged to EX-03",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "6 drive belts",
+       "size": 18,
+       "color": "ink"
+      },
+      {
+       "type": "text",
+       "text": "$18.40 each",
+       "size": 16,
+       "color": "sub"
+      },
+      {
+       "type": "chips",
+       "items": [
+        [
+         "Extruder 3",
+         "acc"
+        ],
+        [
+         "Issued",
+         "ok"
+        ]
+       ]
+      }
+     ],
+     "action": {
+      "label": "Open asset",
+      "icon": "external-link",
+      "primary": true
+     }
+    },
+    "mini": {
+     "icon": "package",
+     "title": "Issued at the window",
+     "sub": "Not general supplies",
+     "kind": "acc"
+    },
+    "alt": "A parts crib log shows 6 drive belts issued for $110.40 and charged to asset EX-03, Extruder 3, instead of a general supplies account.",
+    "story": [
+     {
+      "copy": "charged to asset EX-03",
+      "image": "If parts are issued → charge the machine's asset"
+     },
+     {
+      "copy": "6 drive belts",
+      "image": "6 drive belts"
+     },
+     {
+      "copy": "$110.40",
+      "image": "$110.40"
+     },
+     {
+      "copy": "Extruder 3",
+      "image": "Extruder 3"
+     },
+     {
+      "copy": "instead of a general supplies account",
+      "image": "Not general supplies"
+     },
+     {
+      "copy": "collects them at the window",
+      "image": "Issued at the window"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Job requisition",
+    "prompt": "Ask hiring managers for a reason when pay is above the band for the level",
+    "main": {
+     "chrome": "Acme Robotics HR",
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Backfill: QA engineer",
+       "sub": "Job requisition"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Level",
+         "Level 3"
+        ],
+        [
+         "Salary",
+         "$128,000",
+         true
+        ],
+        [
+         "Job description",
+         "Attached"
+        ]
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Role and level",
+         "sub": "Backfill"
+        },
+        {
+         "state": "live",
+         "title": "Pay check",
+         "sub": "Reason needed"
+        },
+        {
+         "state": "next",
+         "title": "HR review",
+         "sub": "After the reason"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "triangle-alert",
+     "tone": "warn",
+     "title": "Above the band",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "Level 3 tops out at $120,000",
+       "size": 18,
+       "color": "ink"
+      },
+      {
+       "type": "text",
+       "text": "Reason: competing offer",
+       "size": 16,
+       "color": "sub"
+      },
+      {
+       "type": "meta",
+       "icon": "lock",
+       "kind": "muted",
+       "text": "HR sees it once a reason is given"
+      }
+     ],
+     "action": {
+      "label": "Send to HR",
+      "icon": "send",
+      "primary": true
+     }
+    },
+    "mini": {
+     "icon": "paperclip",
+     "title": "Job description attached",
+     "sub": "Required on every requisition",
+     "kind": "ok"
+    },
+    "alt": "A backfill job requisition for a level 3 QA engineer at $128,000 is held for a reason because the level 3 band tops out at $120,000, and the manager cites a competing offer.",
+    "story": [
+     {
+      "copy": "$128,000",
+      "image": "$128,000"
+     },
+     {
+      "copy": "The level 3 band tops out at $120,000",
+      "image": "Level 3 tops out at $120,000"
+     },
+     {
+      "copy": "the form asks him for a reason",
+      "image": "Reason needed"
+     },
+     {
+      "copy": "He cites a competing offer",
+      "image": "Reason: competing offer"
+     },
+     {
+      "copy": "attaches the job description",
+      "image": "Job description attached"
+     }
+    ]
+   },
+   {
+    "recipe": "R2",
+    "title": "Hospital lab requisition",
+    "prompt": "Hold any lab requisition until each test has a diagnosis code",
+    "main": {
+     "blocks": [
+      {
+       "type": "doc_header",
+       "initials": "CV",
+       "title": "Core lab",
+       "sub": "Cedar Valley",
+       "label": "LAB REQUISITION"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Requisition",
+         "L-20417",
+         true
+        ],
+        [
+         "Unit",
+         "4 West"
+        ],
+        [
+         "Patient",
+         "Admitted overnight"
+        ],
+        [
+         "Collection time",
+         "Recorded"
+        ]
+       ]
+      },
+      {
+       "type": "checks",
+       "items": [
+        "CBC: diagnosis code added",
+        "Basic metabolic panel: code added"
+       ]
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Core lab queue",
+       "size": 19,
+       "chip": [
+        "This morning",
+        "acc"
+       ]
+      },
+      {
+       "type": "list",
+       "row_h": 64,
+       "items": [
+        {
+         "initials": "4W",
+         "name": "L-20417, 4 West",
+         "sub": "CBC, metabolic panel",
+         "chip": [
+          "Received",
+          "ok"
+         ]
+        },
+        {
+         "initials": "ED",
+         "name": "L-20416, Emergency",
+         "sub": "Troponin",
+         "chip": [
+          "Received",
+          "ok"
+         ]
+        },
+        {
+         "initials": "3E",
+         "name": "L-20415, 3 East",
+         "sub": "Blood culture",
+         "chip": [
+          "In progress",
+          "acc"
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "test-tube",
+     "tone": "ok",
+     "title": "Received by core lab",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "Requisition L-20417",
+       "size": 18,
+       "color": "ink"
+      },
+      {
+       "type": "chips",
+       "items": [
+        [
+         "CBC",
+         "acc"
+        ],
+        [
+         "Metabolic panel",
+         "acc"
+        ]
+       ]
+      },
+      {
+       "type": "meta",
+       "icon": "tag",
+       "kind": "muted",
+       "text": "Tube labels print the same number"
+      }
+     ],
+     "action": {
+      "label": "Print labels",
+      "icon": "printer",
+      "primary": true
+     }
+    },
+    "alt": "Lab requisition L-20417 from 4 West at Cedar Valley Hospital orders a CBC and a basic metabolic panel with a diagnosis code on each test, and the core lab receives it with matching tube labels.",
+    "story": [
+     {
+      "copy": "requisition L-20417",
+      "image": "Requisition L-20417"
+     },
+     {
+      "copy": "4 West",
+      "image": "4 West"
+     },
+     {
+      "copy": "each test carries a diagnosis code",
+      "image": "CBC: diagnosis code added"
+     },
+     {
+      "copy": "a collection time",
+      "image": "Collection time"
+     },
+     {
+      "copy": "the tube labels print with the same number",
+      "image": "Tube labels print the same number"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "confirm",
+   "title": "Added to REQ-0418",
+   "button": "View request",
+   "icon": "check",
+   "alt": "A confirmation that a request for monitors was added to open requisition REQ-0418, with a button to view the request."
+  },
+  "og": {
+   "headline": "Build a requisition form that checks each request",
+   "lines": null,
+   "alt": "Build a requisition form that checks each request, with Emergent"
+  },
+  "checks": [
+   {
+    "expr": "6 * 18.4 == 110.4",
+    "shows": [
+     "$18.40",
+     "$110.40"
+    ],
+    "where": 2
+   },
+   {
+    "fact": [
+     "$64.00",
+     "$23.50",
+     "$142.00"
+    ],
+    "where": 2
+   },
+   {
+    "expr": "128000 > 120000",
+    "shows": [
+     "$128,000",
+     "$120,000"
+    ],
+    "where": 3
+   },
+   {
+    "expr": "3 + 2 == 5",
+    "shows": [
+     "3 monitors",
+     "5 monitors"
+    ],
+    "where": 1
+   }
+  ]
+ },
+ "qc_passed": {
+  "rules_version": "1a87e7a55bea",
+  "date": "2026-10-07 20:49 UTC"
+ },
+ "writers": [
+  "w-requisition-form"
+ ]
+}
