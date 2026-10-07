@@ -720,7 +720,7 @@
  "written_by": "coordinator-claude-ai",
  "qc_passed": {
   "rules_version": "969671f9a8d7",
-  "date": "2026-10-07 12:20 UTC"
+  "date": "2026-10-07 12:22 UTC"
  },
  "history": [
   {
@@ -736,6 +736,59 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-07 12:25 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "reviewer-accounts-payable-automation-c1",
+   "note": "craft: tab_content_2 runs a four-verb list: \"The workflow checks each one against the expected amount, flags anything that jumped, routes increases for approval, and adds the rest to the next scheduled payment run\". It also says flag and route twice and drops the 10% threshold the mockup and image u"
   }
- ]
+ ],
+ "review": {
+  "by": "reviewer-accounts-payable-automation-c1",
+  "date": "2026-10-07 12:25 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build Accounts Payable Automation From Inbox to Paid\", title \"Accounts Payable Automation Software You Own\" and hero \"the intake, matching, routing, payment runs, and a ledger you own\" cover the whole payables job. No single feature and no sibling topic (catalogue row 1 clear)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "The top 10 is explainers plus vendor pages. The page gives the definition (features_subheading, FAQ 1), a seven-step how-to (\"How to Automate Accounts Payable\", the PAA wording), benefits (FAQ 8) and a vendor table. All 4 on-topic PAA are answered and the 5 jobs-drift PAA are skipped (row 9 clear). The FAQ 3 dodge is scored under faq."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "The copy uses the buyer's own terms: \"two-way or three-way matching per vendor type\", \"GL code\", \"W-9 ... ready for 1099 season\", \"paid from the right bank account\". The table uses the ap variant \"Intake, matching, approvals, payment runs, and ledger, as code you own\" (row 3 clear)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens with a full sentence that says what happens, e.g. \"Each invoice is read, matched to its purchase order and goods receipt...\" and \"List every way invoices arrive...\". There are no keyword-label openers (row 2 clear; QC Q1 clean)."
+   },
+   "craft": {
+    "result": "fail",
+    "evidence": "tab_content_2 runs a four-verb list: \"The workflow checks each one against the expected amount, flags anything that jumped, routes increases for approval, and adds the rest to the next scheduled payment run\". It also says flag and route twice and drops the 10% threshold the mockup and image use. feature_3 tacks a three-part \"with...\" clause onto the routing sentence: \"with a Slack or email request, reminders on a timer, and escalation when a deadline is missed\". FIX: split both into short sentences, one idea each, and state the 10% threshold in tab 2."
+   },
+   "voice": {
+    "result": "fail",
+    "evidence": "The same capture/match/approve/pay/post list is restated in the meta, hero, table, howto_description, feature_6 and FAQs 2, 5, 7 and 13. \"you own\" appears 5 times (title, hero, features_subheading, why_description, table), plus the OG headline. FAQ 3 opens on a platitude: \"The best accounts payable automation software is the one that fits your process\". FAQ 10 uses the stock phrase \"earns its place\". Together the repeated rhythm reads machine-written (HUB_RULES 2b). FIX: state the pipeline once in full and use concrete scenes elsewhere; keep \"you own\" to at most two places; rewrite FAQ 3 and FAQ 10 plainly."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "Tab 4 image says \"Payout runs every other Friday, next on Oct 24\" and \"Joins the biweekly payout run on Oct 24\", but Oct 24, 2026 is a Saturday. Tab 2 image shows \"Figma Organization plan / Software subscription, billed monthly\", but Figma bills its Organization plan annually, so that third-party fact is false (use a generic or monthly-billed vendor). feature_6 says \"the intake form, matching rules, approval chain, and ledger export to your GitHub repository as code\": the ledger is data in the user's database (database-owned), not code. FIX: Oct 23 (a Friday), a true vendor and billing cadence, and split code export from data ownership."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Follows the watch-list split. Capture and matching link out via \"For capture and matching on their own, see invoice automation\", and approval-only buyers go to \"start with an approval workflow\", so the page stays end-to-end payables. No sibling primary appears in any heading (QC K/D2 clean)."
+   },
+   "faq": {
+    "result": "fail",
+    "evidence": "FAQ 3, \"What is the best software for accounts payable automation?\", is not answered in its first sentence and names no software at all: \"The best ... is the one that fits your process. Suites that top lists of the best AP automation software work well...\". The second sentence is contorted to fit the secondary in, while the page's own table names Tipalti, BILL and Stampli. FIX: answer first with the named suites and what each suits, factually from the library, then when building your own fits. The other 14 are answer-first, with 4 links and 15 items."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "uc-4 schedules the payout for \"every other Friday, next on Oct 24\", a Saturday. uc-4 labels one check \"Bank verified\" on the phone but \"Bank details verified\" on the panel. It adds a \"Within the contract rate\" check that the tab copy and mockup never mention. Its hero reads \"Jordan Lee approved\" when M. Chen approved Jordan's invoice. uc-2's \"Figma Organization plan ... billed monthly\" is untrue, and \"Six seats added\" is a drawn quantity not declared in checks. uc-1, uc-3 and the cover are consistent and add up ($3,200 + $860 + $340 = $4,400; +$60.00 variance). FIX: correct the date, use one bank label, add the rate check to the tab copy or drop it, retitle the hero (\"CL-0142 approved\"), and declare or remove the seat count."
+   }
+  }
+ }
 }
