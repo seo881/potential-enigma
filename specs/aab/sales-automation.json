@@ -146,6 +146,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-07 13:48 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "reviewer-batch-c3b",
+   "note": "[images | CONTENT_DEFECTS #25] tab_image_2: The call task is posted to the shared #sales-team channel, while tab_content_2 says 'the rep gets a call task in Slack' and the alt says 'rep Dana Ruiz gets a call task in Slack'. -> Draw the call task as a Slack direct message to Dana Ruiz (or a card addr"
   }
  ],
  "faq_sources": [
@@ -723,53 +730,199 @@
  },
  "qc_passed": {
   "rules_version": "aee383132d1f",
-  "date": "2026-10-07 13:42 UTC"
+  "date": "2026-10-07 13:43 UTC"
  },
  "review": {
-  "by": "reviewer-sales-automation-n1",
-  "date": "2026-10-07 13:21 UTC",
+  "by": "reviewer-batch-c3b",
+  "date": "2026-10-07 13:48 UTC",
   "rubric": {
    "scope": {
     "result": "pass",
-    "evidence": "H1 'Build Sales Automation From New Lead to Signed Deal' and meta title 'Sales Automation Built Around Your Process | Emergent' cover the whole job, not one feature or a sibling topic. P2 (accepted, fix on rework): meta_description 'assigns every new lead and follows up until the buyer replies' and hero 'builds the lead routing and follow-ups' name two of six jobs; nothing on the page covers the 'Signed Deal' end of the H1 (quotes, contracts), the nearest is feature_5 discount approvals, while tab 4 goes past signature into renewals."
+    "evidence": "H1 'Build Sales Automation for Every Lead, Deal and Renewal', meta title 'Sales Automation for Lead Routing and Follow-Up | Emergent' and hero 'builds the routing, follow-ups and renewal alerts on top of your CRM' cover the whole job across the funnel; no sibling primary."
    },
    "intent": {
     "result": "pass",
-    "evidence": "Top 10 are explainers and tool lists (IBM, HubSpot glossary, Salesforce, Zendesk, betterproposals). The page gives the definition up top ('Sales automation is software that runs the repeat work of selling on rules'), the CRM vs SFA PAA, tools (FAQ 6 and the table), examples (FAQ 9 and four tabs) and a seven-step how-to specific to sales (routing rules, cadence, CRM and inboxes)."
+    "evidence": "Top 10 is definitions and tool roundups (IBM, Salesforce, HubSpot glossary, Outreach). Page gives the definition (features_subheading, FAQ 1), CRM vs SFA PAA (FAQ 3), tools (FAQ 6 plus table), cost (FAQ 10), examples (FAQ 9 plus four tabs) and a seven-step sales rollout how-to."
    },
    "specificity": {
-    "result": "fail",
-    "evidence": "PRICING CELL OFF-CATEGORY. why_table Emergent pricing: 'Credits, no per-approver seats, no task cap'. Against Salesforce Sales Cloud ('Per user, per month by edition') and HubSpot Sales Hub ('Per seat, per month'), the seat that costs a sales team money is the rep's, not an approver's; 'per-approver seats' is approval-workflow language (catalogue row 8) and 'no task cap' answers Zapier-style task pricing that neither CRM uses. The sales variant in rules/competitors/aab.json has no pricing override, so the hub default leaks in. Library change for Divit: a sales pricing variant built on the approved claim 'the built app has no per-seat pricing', e.g. 'Credits; reps are not billed as seats'. Same class elsewhere: faq10 'runs on credits with no task cap' (answers a per-user question with a task-cap point). GENERIC: meta_title 'Built Around Your Process' could head any hub page; name the sales job instead."
+    "result": "pass",
+    "evidence": "Sales vocabulary throughout: 'round-robin rotation', 'close date pushed twice', 'Friday's forecast call', 'partner manager'. Earlier fix verified: table cell now 'Credits; reps using the app are not billed as seats' (CONTENT_DEFECTS #26)."
    },
    "openers": {
     "result": "pass",
-    "evidence": "Every paragraph opens with a full sentence that says what happens: feature_1 'Demo requests and chat leads land in one table.'; feature_4 'A close date pushed twice, or a proposal with no answer after a week, sends the owner a Slack message.'; tab_content_3 'Every morning, each open deal is checked for days since its last logged activity.'; howto_step_2 'Describe assignment the way your sales ops lead would explain it to a new hire.' No keyword labels or verbless openers. (FAQ 6's empty opener is scored under faq.)"
+    "evidence": "Every paragraph opens on a full sentence: feature_1 'Demo requests, chat leads and event scans land in one table.'; tab_content_3 'Every morning, each open deal is checked...'; howto_step_6_des 'For one week, the app suggests an owner...'."
    },
    "craft": {
-    "result": "fail",
-    "evidence": "TACKED-ON ', and' ENDINGS: 11 sentences in prose fields bolt a second outcome on after a comma, so the sentence ends on an afterthought, not the important word: feature_2 ', and the outcome is written to the deal record in the CRM.'; feature_3 ', and no rep spends Friday afternoon typing it in.'; tab_content_1 'The rep gets a Slack alert, and the owner is set in HubSpot.'; tab_content_3 ', and its owner gets the deal value in Slack.'; tab_content_4 'The list posts to Slack on Monday, and a renewal opportunity opens in the CRM for each account.'; faq3 'Most CRMs include some of it, and teams that need more add a layer on top.'; faq4 ', and it runs on any CRM, HubSpot and Pipedrive included.'; faq5 ', and managers get a forecast built from the deals that are open today.'; faq8 'A form fill starts a nurture sequence, and a reply books a meeting.'; faq10 ', and it is free to start.'; howto_step_5 ', and it repeats daily until someone acts on it.' Three of four tab paragraphs end this way. Split them or restructure so each sentence carries one idea and ends on it; keep at most two on the page. (tab_content_1 'and the rest rotate across the team' and tab_content_2 'and another email follows on day 3' are real sequences and can stay.)"
+    "result": "pass",
+    "evidence": "Earlier tacked-on ', and' endings fixed (tab_content_1 now 'HubSpot records the new owner, then Slack alerts the rep.'). Remaining restatements recorded as notes (CONTENT_DEFECTS #21)."
    },
    "voice": {
-    "result": "fail",
-    "evidence": "HEDGE OPENER: faq6 'It depends on where the gap is.' (a machine tell; answer the question first). SAME IDEA TOLD TWICE: features_subheading 'Sales automation is software that runs the repeat work of selling on rules, while reps keep the conversations.' and faq1 'Sales automation is software that handles the admin of selling... Reps keep the work that needs judgment' (same definition, same opener, same 'reps keep' turn); feature_4 'The reminder repeats each morning until someone updates the deal.' and howto_step_5 'it repeats daily until someone acts on it'; howto_description 'Emergent turns those rules into a working app' and howto_step_2 'Emergent turns those sentences into rules'; faq5 'It logs each email and meeting against the deal' restates feature_3 'Sent emails and meeting notes sync to Salesforce or HubSpot'. Each repeated idea should appear once, the second place should add something new (catalogue row 18)."
+    "result": "pass",
+    "evidence": "Concrete, unglamorous details read human: 'without a rep typing it in on Friday afternoon', 'healthcare leads go to the rep who covers clinics'. FAQ 6 hedge opener fixed. Feature H3 shape repetition is a note."
    },
    "truth": {
     "result": "fail",
-    "evidence": "1) why_table Emergent pricing 'no per-approver seats, no task cap': not meaningful against per-user CRMs (see specificity); Salesforce and HubSpot do not sell by task, so 'no task cap' implies a limit they do not have (catalogue row 8 class). 2) faq4 'No. Salesforce automation means the flows and rules configured inside Salesforce' is stated as settled; 'salesforce automation' is widely used as a spelling of sales force automation (the term predates the company). Answer that it can mean either, then separate them. 3) howto_step_7 'every version of the workflow is saved in your repo' states platform behaviour as automatic (catalogue row 14); the approved claim is code export to GitHub, so write it as something the team does ('push each version to your repo'). 4) tab_content_4 H3 'Start every renewal 90 days before the contract ends' vs the image: the 'Renewal opportunity created' mini is for Hooli at '21 days', which means the opportunity was not started at 90 days; and 'a renewal opportunity opens in the CRM for each account' on a weekly list would reopen duplicates every Monday (also in mockup renewalReminders 'create a renewal opportunity for each account'). Say it opens when an account enters the 90-day window, and draw it for Northwind at 85 days. 5) Cross-tab cast contradicts the copy: Globex is a new inbound demo request routed to M. Rossi (uc-1, cover 'New lead: Globex'), an open $52,000 Evaluation deal (uc-3), and an existing customer at '$64,000 a year' renewing in 63 days under Priya Shah (uc-4). tab_content_1 says each request is 'checked against the CRM for an existing account' and howto_step_2 says 'Named accounts stay with their current owner', so an existing customer cannot land as a new lead with a new owner. Hooli (new 2,400-employee lead in uc-1, '$42,000 a year' customer in uc-4) and Northwind (Proposal deal in uc-3, customer in uc-4) repeat the problem. 6) uc-2: hero line 'Recap opened twice, last on Oct 10' while the timeline says 'Second email, Day 3, opened twice' and shows no opens on the recap. 7) faq8 'a reply books a meeting': a reply does not book anything; say a reply ends the sequence or sends a booking link."
+    "evidence": "Unsupported generalizations (CONTENT_DEFECTS #7): why_description 'Territories and cadences change every quarter.'; FAQ 6 'For most teams it is the CRM they already run'. Earlier truth fixes verified: FAQ 4 'It can mean either', renewal at 86 days for Tidewater, cast one role per company, FAQ 8 'A reply ends it'."
    },
    "distinct": {
-    "result": "fail",
-    "evidence": "Nouns swapped from the AP and approval-workflow siblings: howto_step_6 'Run a quarter of real leads and deals through the workflow before go-live... adjust any rule that disagrees by prompting, and replay it until the two lists match.' vs AP howto_step_6 'Run last month's invoices through the automated AP workflow before go-live... fix the rule by prompting and run the sample again until the two match.'; howto_step_7 'every version of the workflow is saved in your repo' vs AP step 7 'Every rule change is versioned in your repo' vs approval-workflow step 7 'with every version kept in exportable code'; why_description 'Sales platforms price by seat and keep your playbook in their app.' vs approval-workflow 'Most approval tools charge per user and keep the audit trail in their app.' and AP 'your approval rules live inside the vendor's app'; feature_6 'Routing rules and sequences export to your GitHub repository... hand the code to one of your engineers' vs AP feature_6 'The matching rules and the approval chain export to your GitHub repository as code your engineers can review.' Write a sales-specific dry run (e.g. a shadow week where the app suggests owners and reps accept or reassign) and a sales-specific go-live and why line."
+    "result": "pass",
+    "evidence": "Earlier nouns-swapped how-to fixed: step 6 'Run a shadow week' with reps assigning by hand; step 7 rolls out by lead source; feature_6 'When a rep leaves, moving their book is a prompt or a pull request'."
    },
    "faq": {
-    "result": "fail",
-    "evidence": "Exactly 10 on-topic items, hub link in item 2, sibling links to crm-automation, lead-nurturing-workflow and approval-workflow read naturally. Fails: faq6 'What are the best sales automation tools?' opens 'It depends on where the gap is.', not an answer in the first sentence; faq10 'How much does sales automation software cost?' never gives a cost or range and ends on 'no task cap', which does not apply to per-user CRMs; faq1 restates features_subheading (same definition); faq5 restates feature_3 (emails and meetings logged to the deal); faq4 opens with a flat 'No.' that is contestable (see truth)."
+    "result": "pass",
+    "evidence": "10 on-topic items, each answered first ('Sales automation is software that acts on events...', 'It can mean either.'), hub link in item 2, sibling links crm-automation, lead-nurturing-workflow, approval-workflow."
    },
    "images": {
     "result": "fail",
-    "evidence": "1) Third-party fictional IP (docs/IMAGE_BRIEF.md rule 6 lists neutral placeholders): 'Umbrella Co' (uc-3 table row, hero 'Umbrella Co quiet for 19 days', alt) is Capcom's Resident Evil villain corporation, a live trademark sold as merchandise; 'Hooli' (uc-1 table, uc-4 list, hero 'Hooli renews in 21 days', mini 'Hooli, in HubSpot', alt) is HBO's Silicon Valley; 'Stark Labs' (uc-1 table) leans on Marvel's Stark Industries and DC's S.T.A.R. Labs; 'Vandelay' (uc-1 table) is the Seinfeld gag. Replace all four with neutral invented names. Globex, Initech, Acme Corp and Northwind are the brief's own list and can stay. 2) uc-4 opportunity drawn for Hooli at 21 days against the H3 'Start every renewal 90 days before the contract ends' (see truth 4). 3) Same companies in incompatible roles across tabs: Globex new lead (uc-1, cover) vs $64,000-a-year customer (uc-4); Hooli new lead (uc-1) vs customer (uc-4); Northwind open deal (uc-3) vs customer (uc-4). 4) uc-2 'Recap opened twice' (hero) vs 'Second email, Day 3, opened twice' (timeline). 5) P2: owner names mix formats in one column, uc-3 'J. Alvarez', 'M. Rossi', 'Dana Ruiz'; 'Priya' is the healthcare rep in howto_step_2 and the account manager 'Priya Shah' in uc-4. Layout itself is good: one hero per panel, readable text, cursor on button edges, uc-1 routing and uc-3 counts add up."
+    "evidence": "Shared-channel alerts where the copy names one person (CONTENT_DEFECTS #25): tab_image_2 '# sales-team' 'Call Initech today' vs 'the rep gets a call task in Slack'; tab_image_4 '# renewals' vs 'The manager's Slack list'; cover_image '# sales-team' 'New lead: Corbel' Accept/Reassign vs 'Slack alerts the rep'. Earlier image fixes verified (Umbrella Co, Hooli, Stark Labs, Vandelay gone; owners in full names)."
    }
-  }
+  },
+  "findings": [
+   {
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #25",
+    "field": "tab_image_2",
+    "quote": "# sales-team ... Call Initech today ... Log call",
+    "issue": "The call task is posted to the shared #sales-team channel, while tab_content_2 says 'the rep gets a call task in Slack' and the alt says 'rep Dana Ruiz gets a call task in Slack'.",
+    "fix": "Draw the call task as a Slack direct message to Dana Ruiz (or a card addressed to her), not a channel post.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #25",
+    "field": "tab_image_4",
+    "quote": "# renewals ... Monday renewals: 4 accounts",
+    "issue": "Priya Shah's renewal list posts to a shared #renewals channel, while tab_content_4 says 'The manager's Slack list shows every account inside the window' (one person's list).",
+    "fix": "Draw it as a direct message to Priya Shah, or change the copy and mockup to name a renewals channel consistently.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #25",
+    "field": "cover_image (and share_image)",
+    "quote": "# sales-team / New lead: Corbel / Accept / Reassign",
+    "issue": "The cover posts Corbel to the shared #sales-team channel with Accept, implying anyone can claim it, while tab_content_1 routes Corbel to Marco Rossi ('Slack alerts the rep') and tab_image_1 shows 'Slack alert sent to Marco Rossi'. The OG card repeats the same panel.",
+    "fix": "Show the alert as a direct message to Marco Rossi ('New lead: Corbel, assigned to you') on the cover and share image.",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "why_description",
+    "quote": "Territories and cadences change every quarter.",
+    "issue": "Unsupported generalization stated as fact; many teams set territories annually. No domain source backs it.",
+    "fix": "State it conditionally: 'When territories or cadences change, each change is a prompt to code you own.'",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7; HUB_RULES 8",
+    "field": "faq (item 6)",
+    "quote": "For most teams it is the CRM they already run",
+    "issue": "'Most teams' is an unsourced generalization about what is best; nothing in domain_sources supports it.",
+    "fix": "Answer with the sourced fact: 'Salesforce Sales Cloud and HubSpot Sales Hub both include workflow automation, so the CRM a team already runs is the first place to look.'",
+    "severity": "blocking"
+   },
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "faq (item 10)",
+    "quote": "A 15-rep team pays for 15 seats at that edition's price.",
+    "issue": "Pending with Divit: no dollar figure for third-party pricing can be quoted without a rules/facts.json entry, so the cost answer gives a model, not a range.",
+    "fix": "Add a dollar range once a facts.json entry exists.",
+    "severity": "note"
+   },
+   {
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Salesforce Sales Cloud ... HubSpot Sales Hub",
+    "issue": "QC K7: neither competitor is in this page's top 10 (pending with Divit).",
+    "fix": "Divit's ruling on K7.",
+    "severity": "note"
+   },
+   {
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq (items 3 and 8)",
+    "quote": "crm-automation ... lead-nurturing-workflow",
+    "issue": "Links to pages not yet live; publish gate holds this page until they are (pending with Divit).",
+    "fix": "Publish with or after those pages.",
+    "severity": "note"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_4, howto_step_5_des; tab_content_1, faq item 2; tab_content_2, faq item 8",
+    "quote": "'A close date pushed twice' / 'a close date that keeps moving'; 'Companies with 200 or more employees go to the enterprise rep' / 'company size is the condition and the enterprise rep is the action'; 'Any reply ends the sequence' / 'A reply ends it'",
+    "issue": "Same idea restated across fields with words swapped; each second instance adds little.",
+    "fix": "Give step 5 and FAQ 2/8 their own examples (e.g. a renewal with an open P1 ticket; a partner referral).",
+    "severity": "note"
+   },
+   {
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #24; HUB_RULES 2a",
+    "field": "mockup (stalledDealAlerts)",
+    "quote": "check each open deal in Salesforce",
+    "issue": "Tabs 1 and 4 run the same team (Marco Rossi, Jen Alvarez, Dana Ruiz) on HubSpot; tab 3's prompt puts the pipeline in Salesforce. One team, two CRMs.",
+    "fix": "Use HubSpot in the tab 3 prompt, or give tab 3 a different team.",
+    "severity": "note"
+   },
+   {
+    "criterion": "craft",
+    "rule": "HUB_RULES 5",
+    "field": "howto_description; howto_step_1_des / howto_step_7_des",
+    "quote": "'The last four connect, test and launch the app' vs step 5 '05 Choose the alerts that matter'; step 1 'Put the demo form and outbound lists at the top' vs step 7 'Bring in outbound lists last'",
+    "issue": "Step 5 is a decision step, not connect/test/launch; outbound lists are first in step 1 and last in step 7.",
+    "fix": "Reword the description ('the last four connect, tune and launch') and drop 'and outbound lists' from step 1's top line.",
+    "severity": "note"
+   },
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "domain_sources",
+    "quote": "Outreach is a sales engagement platform built around sequences and calling -> pipeline.zoominfo.com",
+    "issue": "Sourced to a third-party blog; HUB_RULES 8 asks for the vendor's own documentation first.",
+    "fix": "Cite outreach.ai product documentation.",
+    "severity": "note"
+   },
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq (items 7, 8, 9)",
+    "quote": "'AI sales automation puts a language model inside rule-based steps'; 'An automated sales funnel is a buying path where each step starts when the prospect does something'; 'common examples are rebooking a no-show'",
+    "issue": "Term definitions and a 'common' claim with no domain_sources entry; low risk but unsourced.",
+    "fix": "Add a source for each definition or drop 'common'.",
+    "severity": "note"
+   },
+   {
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "tab_image_3",
+    "quote": "Pinecrest quiet for 19 days / $36,000 in Negotiation, sent to Dana Ruiz",
+    "issue": "tab_content_3 says the owner's Slack message carries 'the deal value and the last email sent'; the drawn alert shows no last email.",
+    "fix": "Add the last email line (subject and date) to the Stalled card.",
+    "severity": "note"
+   },
+   {
+    "criterion": "voice",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "feature_1, feature_2, feature_3",
+    "quote": "'Every new lead assigned on arrival' / 'Sequences sent from each rep's own inbox' / 'Activity written back to the CRM'",
+    "issue": "Three of six feature H3s share the noun plus past participle shape.",
+    "fix": "Vary one or two (e.g. 'Reps send sequences from their own inbox').",
+    "severity": "note"
+   },
+   {
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "tab_content_3",
+    "quote": "Each flagged deal needs a next step before Friday's forecast call.",
+    "issue": "Closing sentence restates the H3 'Quiet deals surface before Friday's forecast call'.",
+    "fix": "End on what the owner does, or cut the sentence.",
+    "severity": "note"
+   }
+  ]
  },
  "plan": {
   "angle": "The top 10 are definitions and tool roundups (IBM, Salesforce, HubSpot glossary, Outreach). This page answers the definition and the CRM vs SFA question in plain terms, then shows four concrete builds a sales ops lead would recognize, each with its trigger, threshold and where the record lands, plus a how-to written for a sales team's rollout.",
@@ -868,5 +1021,126 @@
  ],
  "writers": [
   "writer-sales-automation-r2"
+ ],
+ "reviews": [
+  {
+   "by": "reviewer-sales-automation-n1",
+   "date": "2026-10-07 13:21 UTC",
+   "result": "fail",
+   "blocking": 0,
+   "notes": 0
+  }
+ ],
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 6",
+   "field": "faq (item 10)",
+   "issue": "Pending with Divit: no dollar figure for third-party pricing can be quoted without a rules/facts.json entry, so the cost answer gives a model, not a range.",
+   "fix": "Add a dollar range once a facts.json entry exists.",
+   "by": "reviewer-batch-c3b",
+   "via": "review",
+   "date": "2026-10-07 13:48 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: neither competitor is in this page's top 10 (pending with Divit).",
+   "fix": "Divit's ruling on K7.",
+   "by": "reviewer-batch-c3b",
+   "via": "review",
+   "date": "2026-10-07 13:48 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq (items 3 and 8)",
+   "issue": "Links to pages not yet live; publish gate holds this page until they are (pending with Divit).",
+   "fix": "Publish with or after those pages.",
+   "by": "reviewer-batch-c3b",
+   "via": "review",
+   "date": "2026-10-07 13:48 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_4, howto_step_5_des; tab_content_1, faq item 2; tab_content_2, faq item 8",
+   "issue": "Same idea restated across fields with words swapped; each second instance adds little.",
+   "fix": "Give step 5 and FAQ 2/8 their own examples (e.g. a renewal with an open P1 ticket; a partner referral).",
+   "by": "reviewer-batch-c3b",
+   "via": "review",
+   "date": "2026-10-07 13:48 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #24; HUB_RULES 2a",
+   "field": "mockup (stalledDealAlerts)",
+   "issue": "Tabs 1 and 4 run the same team (Marco Rossi, Jen Alvarez, Dana Ruiz) on HubSpot; tab 3's prompt puts the pipeline in Salesforce. One team, two CRMs.",
+   "fix": "Use HubSpot in the tab 3 prompt, or give tab 3 a different team.",
+   "by": "reviewer-batch-c3b",
+   "via": "review",
+   "date": "2026-10-07 13:48 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 5",
+   "field": "howto_description; howto_step_1_des / howto_step_7_des",
+   "issue": "Step 5 is a decision step, not connect/test/launch; outbound lists are first in step 1 and last in step 7.",
+   "fix": "Reword the description ('the last four connect, tune and launch') and drop 'and outbound lists' from step 1's top line.",
+   "by": "reviewer-batch-c3b",
+   "via": "review",
+   "date": "2026-10-07 13:48 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "domain_sources",
+   "issue": "Sourced to a third-party blog; HUB_RULES 8 asks for the vendor's own documentation first.",
+   "fix": "Cite outreach.ai product documentation.",
+   "by": "reviewer-batch-c3b",
+   "via": "review",
+   "date": "2026-10-07 13:48 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq (items 7, 8, 9)",
+   "issue": "Term definitions and a 'common' claim with no domain_sources entry; low risk but unsourced.",
+   "fix": "Add a source for each definition or drop 'common'.",
+   "by": "reviewer-batch-c3b",
+   "via": "review",
+   "date": "2026-10-07 13:48 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "tab_image_3",
+   "issue": "tab_content_3 says the owner's Slack message carries 'the deal value and the last email sent'; the drawn alert shows no last email.",
+   "fix": "Add the last email line (subject and date) to the Stalled card.",
+   "by": "reviewer-batch-c3b",
+   "via": "review",
+   "date": "2026-10-07 13:48 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "feature_1, feature_2, feature_3",
+   "issue": "Three of six feature H3s share the noun plus past participle shape.",
+   "fix": "Vary one or two (e.g. 'Reps send sequences from their own inbox').",
+   "by": "reviewer-batch-c3b",
+   "via": "review",
+   "date": "2026-10-07 13:48 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "tab_content_3",
+   "issue": "Closing sentence restates the H3 'Quiet deals surface before Friday's forecast call'.",
+   "fix": "End on what the owner does, or cut the sentence.",
+   "by": "reviewer-batch-c3b",
+   "via": "review",
+   "date": "2026-10-07 13:48 UTC"
+  }
  ]
 }
