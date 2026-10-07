@@ -1,0 +1,796 @@
+{
+ "url": "/ai-survey-and-quiz-builder/customer-effort-score",
+ "hub": "SurveyQuiz",
+ "item_id": null,
+ "status": "spec",
+ "written_by": "w-customer-effort-score",
+ "keywords": {
+  "primary": "customer effort score",
+  "secondaries_used": [
+   "ces survey",
+   "customer effort survey",
+   "customer effort score survey",
+   "customer effort score survey template"
+  ]
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Customer Effort Score Survey and Formula | Emergent",
+  "meta_description": "See how a customer effort score is calculated, then build a survey that asks it the moment a task ends and routes every hard answer.",
+  "h1": "Build a Customer Effort Score Survey That Finds the Hard Step",
+  "slug": "customer-effort-score",
+  "product_name": "Customer Effort Score Survey Builder",
+  "hero_description": "Describe the task you want customers to rate. Emergent builds the customer effort score question, sends it when that task ends and keeps every answer in a database you own.",
+  "breadcrumb": "Customer Effort Score",
+  "category": "c727c2a1303d35e116ff59cd12aa3f74",
+  "explore_cta": "Build My Customer Effort Survey",
+  "features_heading": "What an Effort Survey Has to Get Right",
+  "features_subheading": "Each piece below helps a low score point at the step that caused it.",
+  "feature_1": "<h3>The standard statement, ready to send</h3><p>Emergent writes the standard agree statement, \"The company made it easy to handle my issue,\" on a seven-point scale. Swap in your company name and the task being rated.</p>",
+  "feature_2": "<h3>Sent the moment the task ends</h3><p>Trigger the question when a return label prints or a claim is submitted. Any tool with an API can start a send, and every send is logged with the customer it went to.</p>",
+  "feature_3": "<h3>Averages and top-box shares together</h3><p>Read each score two ways: the average on the seven-point scale and the share of answers at 5 or higher. Filter both by channel or by plan to see where effort climbs.</p>",
+  "feature_4": "<h3>A follow-up only for hard answers</h3><p>Show \"What made this hard?\" only to customers whose answer is low. Their picks are counted by step, and an open box under the list catches every reason the listed steps miss.</p>",
+  "feature_5": "<h3>High-effort answers sent to an owner</h3><p>Route a low score to whoever owns that article or flow, by Slack or email. The message quotes the customer's comment next to the score, and nobody needs a login to read it.</p>",
+  "feature_6": "<h3>Scores in your database, code in your repo</h3><p>Every answer is a row in a database you own. Export the survey and its scoring code to your GitHub repository at any point, and change either one later with a prompt.</p>",
+  "why_title": "Why Build Your Effort Survey With Emergent?",
+  "why_description": "The thresholds and routing behind every alert are code you can read. Edit them with a prompt instead of waiting on a vendor.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"emergent\" />\n        </th>\n        <th scope=\"col\">SurveyMonkey</th>\n        <th scope=\"col\">Typeform</th>\n        <th scope=\"col\">Interact (quiz specialist)</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt for the survey, quiz, or poll and the app around it</td>\n        <td class=\"col-other\">Templates and editor</td>\n        <td class=\"col-other\">Templates and editor, AI assist</td>\n        <td class=\"col-other\">Templates and AI quiz maker</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Response limits</th>\n        <td class=\"col-brand\">Unlimited</td>\n        <td class=\"col-other\">Basic 25/survey, Advantage 15,000/year, Team Advantage 50,000/year</td>\n        <td class=\"col-other\">Free 10/mo, Basic 100/mo (form stops at cap)</td>\n        <td class=\"col-other\">Free 100 completions/mo, Lite 500 leads/mo, Growth 2,000 leads/mo</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Behavior at cap</th>\n        <td class=\"col-brand\">Keeps collecting, no cap</td>\n        <td class=\"col-other\">Overage billed at $0.15 per extra response</td>\n        <td class=\"col-other\">Form stops collecting</td>\n        <td class=\"col-other\">Free plan quiz pauses; paid plans cap leads</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Where responses live</th>\n        <td class=\"col-brand\">A database table you own, plus any integration</td>\n        <td class=\"col-other\">SurveyMonkey account</td>\n        <td class=\"col-other\">Typeform account</td>\n        <td class=\"col-other\">Interact account</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full export to your repo</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "Four Tasks Worth Scoring for Effort",
+  "tab_label_1": "Help Center Articles",
+  "tab_label_2": "Online Returns",
+  "tab_label_3": "Integration Setup",
+  "tab_label_4": "Insurance Claims",
+  "tab_content_1": "<h3 id=\"\">The help article that sends readers to support</h3><p id=\"\">Every help article ends with the effort statement: this article made it easy to solve my problem. Scores average by article each week. Any article averaging under 5.0 goes to the docs lead in Slack, and this week \"Reset two-step login\" averaged 3.1 across 46 answers.</p>",
+  "tab_content_2": "<h3 id=\"\">Why returns feel hard, counted by step</h3><p id=\"\">When a shopper prints a return label, an email follows with the effort question. Anyone who answers 3 or lower picks the step that was hard from a short list. Last week, 64 of 240 answers were that low, and 38 of them named printing the label.</p>",
+  "tab_content_3": "<h3 id=\"\">When setup stalls, the CSM hears first</h3><p id=\"\">Right after an admin connects a first integration, the app asks how easy setup was. An answer of 2 or lower creates a HubSpot task for the account's customer success manager. The task names the step where the admin stalled, read from the setup log.</p>",
+  "tab_content_4": "<h3 id=\"\">Claim filing scored by claim type each month</h3><p id=\"\">Claimants who file online get a text with the effort statement as soon as the claim is submitted. Scores are reported as the share answering 5 or higher. In September, 312 of 400 claimants did, a score of 78, but water damage claims scored 59.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { helpCenterArticles: \"Add a customer effort question to the end of every article in my help center. Use the agree statement this article made it easy to solve my problem, on a seven-point scale. Average the scores by article each week. When an article averages under 5.0, post it to the docs lead in Slack with its average, its answer count and the comments.\", onlineReturns: \"Build an effort survey for my online store's returns. When a shopper prints a return label, email them one question about how easy the return was, rated 1 to 7. Anyone who answers 3 or lower picks the hard step: finding the order, printing the label or the drop-off point. Show a weekly chart of the hard steps.\", integrationSetup: \"Show an in-app effort question right after an admin connects their first integration in my software. Ask how easy setup was on a seven-point scale. When the answer is 2 or lower, create a HubSpot task for the account's customer success manager, naming the setup step where the admin stalled, read from our setup log.\", insuranceClaims: \"Text every claimant who files a claim online with the effort statement, as soon as the claim is submitted. Report the score each month as the share of answers at 5 or higher on the seven-point scale. Split the report by claim type, with the number of answers and the score for auto, home contents and water damage claims.\" };</p>",
+  "howto_title": "How to Run a Customer Effort Survey",
+  "howto_description": "Seven decisions shape whether the score points at a fix. Emergent builds the survey around the ones you make.",
+  "howto_step_1_title": "01 Pick one task to score",
+  "howto_step_2_title": "02 Ask while the task is fresh",
+  "howto_step_3_title": "03 Keep the standard wording",
+  "howto_step_4_title": "04 Ask why only when it was hard",
+  "howto_step_1_des": "Score a single task, such as filing a claim or connecting an integration, instead of the whole relationship. Effort only means something when the customer can still picture each step they took. Name that task at the top of your prompt.",
+  "howto_step_2_des": "Send the question the moment the task finishes, on the confirmation screen or in a text within the hour. A day later, customers rate their mood about your company instead of the steps. Set one trigger per task.",
+  "howto_step_3_des": "Use the agree statement on seven points and change only the task it names. Fixed wording lets this quarter's score sit beside last quarter's. Keep the scale in the same order every time, with strongly agree as 7.",
+  "howto_step_4_des": "Show the follow-up to customers who score 3 or lower, as a short list of steps with an open box under it. Customers who found the task easy never see it, and the survey stays one tap for most of them.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Effort Score Questions, Answered\", \"items\": [{\"q\": \"What is a customer effort score?\", \"a\": \"A customer effort score (CES) measures how easy one task was for a customer, like filing a claim or finding an answer. It comes from a single agree statement rated on seven points. Dixon, Freeman and Toman introduced it in a 2010 Harvard Business Review article.\"}, {\"q\": \"How do you calculate customer effort score?\", \"a\": \"There are two common methods. Average every answer: 50 answers adding up to 280 give 5.6. Or divide the answers at 5, 6 or 7 by the total, where 130 of 200 gives 65. Emergent's <a href='https://emergent.sh/ai-survey-and-quiz-builder'>AI survey builder</a> works out either one from the answers a customer effort score survey collects.\"}, {\"q\": \"What is a good customer effort score?\", \"a\": \"No universal benchmark exists, because scores move with the task, the scale and the method. Compare each task with its own past results instead. Run the same CES survey on the same task each month and treat a rising score as the good sign.\"}, {\"q\": \"What's a good CSAT score out of 5?\", \"a\": \"CSAT divides the 4s and 5s on a five-point scale by all answers, and no single cutoff fits every industry. Track that share against your own earlier months. A <a href='https://emergent.sh/ai-survey-and-quiz-builder/customer-satisfaction'>customer satisfaction survey</a> can carry the effort question in the same send.\"}, {\"q\": \"What are the 5 basic levels of customer satisfaction?\", \"a\": \"Most surveys label a five-point scale very dissatisfied, dissatisfied, neutral, satisfied and very satisfied. The top two count as satisfied when CSAT is calculated. An effort scale works the same way on seven points, with agreement in place of satisfaction.\"}, {\"q\": \"What are the three e's of customer experience?\", \"a\": \"In Forrester's CX Index, they are effectiveness, ease and emotion: whether the experience did its job, how easy it was and how it felt. Ease is the one a customer effort survey measures directly, one task at a time.\"}, {\"q\": \"What are the 5 C's of customer experience?\", \"a\": \"There is no standard list of five C's, and authors fill it with different words. The one most lists share is consistency, since customers judge a run of interactions together. A <a href='https://emergent.sh/ai-survey-and-quiz-builder/customer-experience-survey'>customer experience survey</a> shows whether it holds across channels.\"}, {\"q\": \"What are the five pillars of customer centricity?\", \"a\": \"Frameworks differ, and no five-pillar list is shared across the field. Most include measuring what customers go through and acting on what you learn. Effort scores cover the measuring part for single tasks such as a return or an account setup.\"}, {\"q\": \"What is the difference between customer effort score and NPS?\", \"a\": \"CES rates how easy one task was, right after it ends. Each <a href='https://emergent.sh/ai-survey-and-quiz-builder/nps-survey'>nps survey</a> asks how likely a customer is to recommend you on 0 to 10, then subtracts detractors (0 to 6) from promoters (9 or 10). Use effort to fix steps and NPS to follow the relationship.\"}, {\"q\": \"Is there a customer effort score survey template?\", \"a\": \"Yes. A customer effort score survey template needs the agree statement and a follow-up shown only after a low answer. Add fields for the task and the customer ID, and every score can be filtered later. Describe yours to Emergent and edit the result with a prompt.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Choose one way to report it",
+  "howto_step_5_des": "Report either the average or the top-box share, and keep that choice. Mixing the two on one dashboard makes a steady month look like a drop. Label the method on every chart you share.",
+  "howto_step_6_title": "06 Give each low score an owner",
+  "howto_step_6_des": "Decide who hears about a hard answer: the docs lead for an article, the success manager for a stalled setup. Set thresholds so alerts stay rare enough to be read the same day. Send the rest to a weekly review.",
+  "howto_step_7_title": "07 Fix the step, then measure again",
+  "howto_step_7_des": "Change the step customers named most often, then compare the next four weeks with the four before. If the score for that step rises while the others hold, the fix worked. Leave the question running after the change ships.",
+  "prompt_chip_1": "Effort Statement",
+  "prompt_chip_2": "Effort Follow-Up",
+  "prompt_chip_3": "CES Dashboard",
+  "prompt_chip_4": "Setup Effort Alert",
+  "hero_prompt": "<p>Build a customer effort score survey that asks right after checkout and flags every hard answer.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/sqb/customer-effort-score/uc-1.svg",
+   "alt": "A weekly table of help article effort scores flags \"Reset two-step login\" at a 3.1 average across 46 answers, and a Slack message sends it to the docs lead."
+  },
+  "tab_image_2": {
+   "path": "images/sqb/customer-effort-score/uc-2.svg",
+   "alt": "A returns effort dashboard shows 64 of 240 answers last week were 3 or lower, and 38 of those shoppers named printing the label as the hard step."
+  },
+  "tab_image_3": {
+   "path": "images/sqb/customer-effort-score/uc-3.svg",
+   "alt": "An admin scores integration setup a 2 after stalling on field mapping, and a HubSpot task naming that step is created for the account's success manager."
+  },
+  "tab_image_4": {
+   "path": "images/sqb/customer-effort-score/uc-4.svg",
+   "alt": "A September claim effort report scores all claims at 78, with 312 of 400 claimants answering 5 or higher, and flags water damage claims at 59."
+  },
+  "cover_image": {
+   "path": "images/sqb/customer-effort-score/cover.svg",
+   "alt": "Customer effort score card for the help article Reset two-step login, averaging 3.1, below the 5.0 floor"
+  },
+  "share_image": {
+   "path": "images/sqb/customer-effort-score/og.png",
+   "alt": "Build a customer effort score survey with Emergent"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-07 19:52 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-07 19:59 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "w-customer-effort-score",
+   "note": ""
+  },
+  {
+   "t": "2026-10-07 19:59 UTC",
+   "state": "images",
+   "via": null,
+   "by": null,
+   "note": ""
+  }
+ ],
+ "plan": {
+  "angle": "The top 10 (Qualtrics, IBM, Zendesk, SurveyMonkey, TechTarget, Gainsight) are glossary explainers: the definition, the 1-7 statement, a formula and a benchmark caveat. None shows a CES survey wired to the moment it scores or to what happens after a hard answer. This page answers the PAA questions plainly (how to calculate it, what is good, CSAT out of 5, the three e's) and then shows four effort surveys running inside a product: help articles averaged per page, an online return scored and broken down by the step that was hard, an integration setup whose low scores reach the account's CSM, and insurance claims reported as the share answering 5 to 7. The customer-satisfaction sibling owns ticket-close CSAT and effort; this page owns effort on self-service, returns, setup and claims.",
+  "tab_stories": [
+   "Every help article ends with the effort statement, scores average by article each week, and the two-step login article averaging 3.1 across 46 answers is sent to the docs lead in Slack.",
+   "A shopper who prints a return label gets the effort question by email, anyone answering 3 or lower picks the step that was hard, and last week 38 of 64 hard answers named printing the label.",
+   "Right after an admin connects a first integration, an in-app effort question appears, and an answer of 2 or lower creates a HubSpot task for the account's CSM with the step where setup stalled.",
+   "Claimants who file online get a text with the effort statement, and September's report shows 312 of 400 answering 5 or higher, a score of 78, with water damage claims at 59."
+  ],
+  "openers": [
+   "Every help article ends",
+   "When a shopper prints a return label",
+   "Right after an admin connects",
+   "Claimants who file online",
+   "Emergent writes the statement",
+   "Pick the one task",
+   "Send it inside the moment",
+   "Decide how you will score it"
+  ],
+  "heading_shapes": [
+   "The help article that sends readers to support",
+   "Why returns feel hard, counted by step",
+   "When setup stalls, the account manager hears first",
+   "Claim filing scored by claim type each month"
+  ],
+  "claims_to_source": [
+   "Customer effort score was introduced by Dixon, Freeman and Toman in a 2010 Harvard Business Review article",
+   "The CES statement asks customers to agree that the company made it easy to handle their issue, on a seven-point scale from strongly disagree to strongly agree",
+   "CES surveys are best sent right after the interaction, while it is fresh",
+   "CES is calculated either as the average of all answers or as the share of answers that are 5, 6 or 7",
+   "CSAT counts 4s and 5s on a 1-5 scale as satisfied and divides them by all answers",
+   "NPS asks likelihood to recommend on 0-10 and subtracts the percentage of detractors (0-6) from promoters (9-10)",
+   "Forrester's CX Index measures effectiveness, ease and emotion"
+  ]
+ },
+ "domain_sources": [
+  {
+   "claim": "Customer effort score was introduced by Dixon, Freeman and Toman in a 2010 Harvard Business Review article",
+   "source_url": "https://store.hbr.org/product/stop-trying-to-delight-your-customers/R1007L",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "The CES statement asks customers to agree that the company made it easy to handle their issue, on a seven-point scale from strongly disagree to strongly agree",
+   "source_url": "https://www.surveymonkey.com/learn/customer-feedback/how-to-use-customer-effort-score/",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "CES surveys are best sent right after the interaction, while it is fresh",
+   "source_url": "https://www.surveymonkey.com/learn/customer-feedback/how-to-use-customer-effort-score/",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "CES is calculated either as the average of all answers or as the share of answers that are 5, 6 or 7",
+   "source_url": "https://www.qualtrics.com/articles/customer-experience/service-metrics/",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "CSAT counts 4s and 5s on a 1-5 scale as satisfied and divides them by all answers",
+   "source_url": "https://www.surveymonkey.com/learn/customer-feedback/csat-score/",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "NPS asks likelihood to recommend on 0-10 and subtracts the percentage of detractors (0-6) from promoters (9-10)",
+   "source_url": "https://nps.bain.com/about/measuring-your-net-promoter-score/",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "Forrester's CX Index measures effectiveness, ease and emotion",
+   "source_url": "https://www.forrester.com/blogs/us-cx-index-2024-results",
+   "date": "2026-10-08"
+  }
+ ],
+ "table": {
+  "vs": [
+   "SurveyMonkey",
+   "Typeform",
+   "Interact (quiz specialist)"
+  ],
+  "rows": [
+   "build",
+   "limits",
+   "cap",
+   "data",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "faq_sources": [
+  {
+   "q": "What is a customer effort score?",
+   "source": "definition",
+   "ref": "customer effort score"
+  },
+  {
+   "q": "How do you calculate customer effort score?",
+   "source": "paa",
+   "ref": "How do you calculate customer effort score?"
+  },
+  {
+   "q": "What is a good customer effort score?",
+   "source": "paa",
+   "ref": "What is a good customer effort score?"
+  },
+  {
+   "q": "What's a good CSAT score out of 5?",
+   "source": "paa",
+   "ref": "What's a good CSAT score out of 5?"
+  },
+  {
+   "q": "What are the 5 basic levels of customer satisfaction?",
+   "source": "paa",
+   "ref": "What are the 5 basic levels of customer satisfaction?"
+  },
+  {
+   "q": "What are the three e's of customer experience?",
+   "source": "paa",
+   "ref": "What are the three e's of customer experience?"
+  },
+  {
+   "q": "What are the 5 C's of customer experience?",
+   "source": "paa",
+   "ref": "What are the 5 C's of customer experience?"
+  },
+  {
+   "q": "What are the five pillars of customer centricity?",
+   "source": "paa",
+   "ref": "What are the five pillars of customer centricity?"
+  },
+  {
+   "q": "What is the difference between customer effort score and NPS?",
+   "source": "related",
+   "ref": "Customer effort Score vs NPS"
+  },
+  {
+   "q": "Is there a customer effort score survey template?",
+   "source": "secondary",
+   "ref": "customer effort score survey template"
+  }
+ ],
+ "claims_used": [
+  "prompt-build",
+  "api-connect",
+  "database-owned",
+  "code-export",
+  "alerts",
+  "no-caps"
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R8",
+    "title": "Help article effort scores",
+    "prompt": "Score every help article for effort and send low averages to the docs lead",
+    "rule": "If an article averages under 5.0 → Slack the docs lead",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Article effort, this week",
+       "size": 20,
+       "chip": [
+        "Weekly average",
+        "acc"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Article",
+        "Answers",
+        "Average"
+       ],
+       "widths": [
+        0.54,
+        0.23,
+        0.23
+       ],
+       "row_h": 66,
+       "bad": 2,
+       "num_cols": [
+        1,
+        2
+       ],
+       "rows": [
+        [
+         "Export a report",
+         "88",
+         "6.2"
+        ],
+        [
+         "Add a teammate",
+         "64",
+         "5.8"
+        ],
+        [
+         "Reset two-step login",
+         "46",
+         "3.1"
+        ],
+        [
+         "Change billing date",
+         "31",
+         "5.4"
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "message",
+     "channel": "Dana Ruiz, docs lead",
+     "title": "Article below 5.0",
+     "lines": [
+      "Reset two-step login",
+      "3.1 across 46 answers"
+     ],
+     "button": "Open comments"
+    },
+    "mini": {
+     "icon": "book-open",
+     "kind": "acc",
+     "title": "Asked after each article",
+     "sub": "Easy to solve my problem?"
+    },
+    "alt": "A weekly table of help article effort scores flags \"Reset two-step login\" at a 3.1 average across 46 answers, and a Slack message sends it to the docs lead.",
+    "story": [
+     {
+      "copy": "averaging under 5.0",
+      "image": "If an article averages under 5.0"
+     },
+     {
+      "copy": "averaged 3.1 across 46 answers",
+      "image": "3.1 across 46 answers"
+     },
+     {
+      "copy": "goes to the docs lead",
+      "image": "docs lead"
+     },
+     {
+      "copy": "easy to solve my problem",
+      "image": "Easy to solve my problem?"
+     }
+    ]
+   },
+   {
+    "recipe": "R10",
+    "title": "Online return effort survey",
+    "prompt": "Ask shoppers how easy their return was and count the hard steps each week",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Hard steps picked by shoppers",
+       "size": 20
+      },
+      {
+       "type": "columns",
+       "cols": [
+        {
+         "w": 0.44,
+         "gap": 18,
+         "blocks": [
+          {
+           "type": "metric",
+           "label": "Answered 3 or lower",
+           "value": "64 of 240",
+           "sub": "Asked after the label prints"
+          }
+         ]
+        },
+        {
+         "w": 0.56,
+         "gap": 14,
+         "blocks": [
+          {
+           "type": "bars",
+           "max": 40,
+           "items": [
+            {
+             "label": "Label",
+             "value": 38,
+             "flag": true
+            },
+            {
+             "label": "Order",
+             "value": 14
+            },
+            {
+             "label": "Drop-off",
+             "value": 12
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "kpi": {
+     "icon": "package",
+     "label": "Last week",
+     "value": "240",
+     "sub": "Return answers"
+    },
+    "hero": {
+     "kind": "card",
+     "action": {
+      "label": "Open answers"
+     },
+     "blocks": [
+      {
+       "type": "chips",
+       "items": [
+        [
+         "Hardest step",
+         "bad"
+        ]
+       ]
+      },
+      {
+       "type": "title",
+       "title": "38 named printing the label",
+       "sub": "Out of 64 low answers"
+      },
+      {
+       "type": "quote",
+       "text": "My printer was out of ink."
+      }
+     ]
+    },
+    "alt": "A returns effort dashboard shows 64 of 240 answers last week were 3 or lower, and 38 of those shoppers named printing the label as the hard step.",
+    "story": [
+     {
+      "copy": "answers 3 or lower",
+      "image": "Answered 3 or lower"
+     },
+     {
+      "copy": "64 of 240",
+      "image": "64 of 240"
+     },
+     {
+      "copy": "38 of them named printing the label",
+      "image": "38 named printing the label"
+     },
+     {
+      "copy": "Last week",
+      "image": "Last week"
+     },
+     {
+      "copy": "prints a return label",
+      "image": "Asked after the label prints"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Integration setup effort",
+    "prompt": "Ask admins how easy setup was and open a HubSpot task on low answers",
+    "main": {
+     "chrome": "Initech Admin",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "ACCOUNT · ANNUAL PLAN",
+       "title": "Connect your CRM",
+       "size": 26,
+       "sub": "First integration for this workspace"
+      },
+      {
+       "type": "rule",
+       "text": "Rule: 2 or lower opens a task"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Connect account",
+         "sub": "Signed in and authorized"
+        },
+        {
+         "state": "live",
+         "title": "Map fields",
+         "sub": "Stalled here for 18 minutes"
+        },
+        {
+         "state": "next",
+         "title": "Test sync",
+         "sub": "Waiting on field mapping"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "clipboard-list",
+     "title": "HubSpot task",
+     "tone": "warn",
+     "chip": [
+      "Scored 2",
+      "warn"
+     ],
+     "action": {
+      "label": "Open task"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "For CSM J. Rivera",
+       "sub": "Admin stalled at: map fields"
+      },
+      {
+       "type": "text",
+       "text": "Due today, annual plan account",
+       "size": 16,
+       "color": "muted"
+      }
+     ]
+    },
+    "mini": {
+     "icon": "message-square",
+     "kind": "acc",
+     "title": "Asked after first integration",
+     "sub": "How easy was setup?"
+    },
+    "alt": "An admin scores integration setup a 2 after stalling on field mapping, and a HubSpot task naming that step is created for the account's success manager.",
+    "story": [
+     {
+      "copy": "An answer of 2 or lower",
+      "image": "Rule: 2 or lower opens a task"
+     },
+     {
+      "copy": "creates a HubSpot task",
+      "image": "HubSpot task"
+     },
+     {
+      "copy": "connects a first integration",
+      "image": "Asked after first integration"
+     },
+     {
+      "copy": "the step where the admin stalled",
+      "image": "Admin stalled at: map fields"
+     }
+    ]
+   },
+   {
+    "recipe": "R11",
+    "title": "Insurance claim effort report",
+    "prompt": "Text claimants the effort question and report the score by claim type",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Claim effort by type, September",
+       "size": 20,
+       "sub": "Texted when a claim is submitted"
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Claim type",
+        "Answers",
+        "5 or higher",
+        "Score"
+       ],
+       "widths": [
+        0.34,
+        0.22,
+        0.24,
+        0.2
+       ],
+       "bad": 2,
+       "num_cols": [
+        1,
+        2,
+        3
+       ],
+       "rows": [
+        [
+         "Auto",
+         "180",
+         "151",
+         "84"
+        ],
+        [
+         "Home contents",
+         "120",
+         "102",
+         "85"
+        ],
+        [
+         "Water damage",
+         "100",
+         "59",
+         "59"
+        ]
+       ]
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "All claims: 78",
+       "size": 18
+      },
+      {
+       "type": "bullets",
+       "items": [
+        "312 of 400 claimants",
+        "Share answering 5 or higher",
+        "One text per submitted claim"
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "action": {
+      "label": "Open answers"
+     },
+     "blocks": [
+      {
+       "type": "chips",
+       "items": [
+        [
+         "Lowest this month",
+         "bad"
+        ]
+       ]
+      },
+      {
+       "type": "title",
+       "title": "Water damage scored 59",
+       "sub": "59 of 100 answered 5 or higher"
+      }
+     ]
+    },
+    "alt": "A September claim effort report scores all claims at 78, with 312 of 400 claimants answering 5 or higher, and flags water damage claims at 59.",
+    "story": [
+     {
+      "copy": "312 of 400 claimants",
+      "image": "312 of 400 claimants"
+     },
+     {
+      "copy": "a score of 78",
+      "image": "All claims: 78"
+     },
+     {
+      "copy": "water damage claims scored 59",
+      "image": "Water damage scored 59"
+     },
+     {
+      "copy": "In September",
+      "image": "Claim effort by type, September"
+     },
+     {
+      "copy": "as soon as the claim is submitted",
+      "image": "Texted when a claim is submitted"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "score",
+   "title": "Reset two-step login",
+   "label": "Effort average",
+   "value": "3.1",
+   "delta": "Below the 5.0 floor",
+   "delta_kind": "bad",
+   "alt": "Customer effort score card for the help article Reset two-step login, averaging 3.1, below the 5.0 floor"
+  },
+  "og": {
+   "headline": "Build a customer effort score survey",
+   "lines": null,
+   "alt": "Build a customer effort score survey with Emergent"
+  },
+  "checks": [
+   {
+    "fact": [
+     "6.2",
+     "5.8",
+     "3.1",
+     "5.4"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "3.1 < 5.0",
+    "shows": [
+     "5.0"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "38 + 14 + 12 == 64",
+    "shows": [
+     "64 of 240"
+    ],
+    "where": 2
+   },
+   {
+    "expr": "round(151 / 180 * 100) == 84",
+    "shows": [
+     "84"
+    ],
+    "where": 4
+   },
+   {
+    "expr": "round(102 / 120 * 100) == 85",
+    "shows": [
+     "85"
+    ],
+    "where": 4
+   },
+   {
+    "expr": "round(59 / 100 * 100) == 59",
+    "shows": [
+     "59 of 100"
+    ],
+    "where": 4
+   },
+   {
+    "expr": "151 + 102 + 59 == 312",
+    "shows": [
+     "312 of 400 claimants"
+    ],
+    "where": 4
+   },
+   {
+    "expr": "180 + 120 + 100 == 400",
+    "shows": [
+     "180",
+     "120",
+     "100"
+    ],
+    "where": 4
+   },
+   {
+    "expr": "round(312 / 400 * 100) == 78",
+    "shows": [
+     "All claims: 78"
+    ],
+    "where": 4
+   },
+   {
+    "same": "3.1",
+    "where": [
+     1,
+     "cover"
+    ]
+   },
+   {
+    "expr": "3.1 < 5.0",
+    "shows": [
+     "3.1",
+     "Below the 5.0 floor"
+    ],
+    "where": "cover"
+   }
+  ]
+ },
+ "qc_passed": {
+  "rules_version": "1a87e7a55bea",
+  "date": "2026-10-07 19:59 UTC"
+ },
+ "writers": [
+  "w-customer-effort-score"
+ ]
+}
