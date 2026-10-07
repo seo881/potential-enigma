@@ -169,6 +169,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-07 15:18 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "reviewer-batch-m7",
+   "note": "[faq | HUB_RULES 5] faq item 9: The first sentence describes a scanner, not what automated document scanning does. HUB_RULES 5 requires answers answer-first and the rubric requires each FAQ answered in its first sentence. No other item on the page has this problem. -> Open with the answer and keep t"
   }
  ],
  "plan": {
@@ -856,7 +863,7 @@
  },
  "qc_passed": {
   "rules_version": "7f420beed4fc",
-  "date": "2026-10-07 15:08 UTC"
+  "date": "2026-10-07 15:14 UTC"
  },
  "writers": [
   "writer-document-automation",
@@ -864,94 +871,58 @@
   "writer-document-automation-r2"
  ],
  "review": {
-  "by": "reviewer-batch-m5",
-  "date": "2026-10-07 15:00 UTC",
+  "by": "reviewer-batch-m7",
+  "date": "2026-10-07 15:18 UTC",
   "rubric": {
    "scope": {
     "result": "pass",
-    "evidence": "H1 \"Build Document Automation for What You Send and Receive\" covers generation and processing; the meta and hero match it."
+    "evidence": "H1 \"Build Document Automation for What You Send and Receive\"; hero covers drafting (\"drafts from your data\") and processing (\"reads every upload into fields\"), the whole job."
    },
    "intent": {
     "result": "pass",
-    "evidence": "Definition (FAQ 1), examples (FAQ 3), best-software answer naming Gavel and AI Builder (FAQ 4), PDF question (FAQ 8) and a 7-step how-to match the explainer and vendor top 10."
+    "evidence": "Definition in FAQ 1, examples in FAQ 3, best-software question in FAQ 4 (Gavel, Microsoft AI Builder from the top 10), seven-step how-to; all three on-topic PAA questions answered."
    },
    "specificity": {
     "result": "pass",
-    "evidence": "Engagement letter with a $5,000 retainer clause, HubSpot Proposal stage, certificate of insurance per-occurrence limit, offer letter signed on a phone."
+    "evidence": "Engagement letter with a $5,000 retainer clause, HubSpot quote Q-2291, ACORD-style certificate with a $1,000,000 minimum, offer letter at $96,000; automation-builder table rows."
    },
    "openers": {
-    "result": "fail",
-    "evidence": "features_subheading opens on the fragment \"Six parts, one app.\" (#2)."
+    "result": "pass",
+    "evidence": "features_subheading now a full sentence: \"Start with the parts your first document needs.\" Feature bodies open \"Start\", \"Pull\", \"Read\", \"Set\", \"Write\", \"Export\"."
    },
    "craft": {
-    "result": "fail",
-    "evidence": "feature_2 \"linked to the exact record that produced it\" / feature_5 \"with the record it came from\"; feature_4 \"such as a quote total or a coverage minimum\" / step 4 \"such as a coverage minimum\" / step 5 \"such as quotes over a set amount\" (#21)."
+    "result": "pass",
+    "evidence": "Record-beside-file idea now only in feature_5; feature_4 uses new examples (\"a discount above 15% fails, as does a contract with no signature page\"); steps 4 and 5 use a changed bank account and a renewal at last year's price."
    },
    "voice": {
-    "result": "fail",
-    "evidence": "\"X, such as Y\" eight times across feature_3, feature_4, tab_content_1, howto_step_4_des (twice), howto_step_5_des and faq 6 (twice) (#22)."
+    "result": "pass",
+    "evidence": "\"such as\" now once on the page (tab_content_1); no hype verbs; concrete names and amounts throughout."
    },
    "truth": {
     "result": "pass",
-    "evidence": "Tab 2 now names Acme throughout (copy, \"ACME RENEWAL\", \"Q-2291 for Acme\"); ABA Rule 1.5(b), AI Builder, Gavel, HubSpot quotes and the Zapier template action match domain_sources; claims within the ledger."
+    "evidence": "Zapier template claim, ABA Model Rule 1.5(b), Gavel, Microsoft AI Builder and KPMG LLM definition match domain_sources; low-confidence review is in the ai-extraction ledger entry; numbers agree ($28,400 over $25,000; $500,000 under $1,000,000)."
    },
    "distinct": {
     "result": "pass",
-    "evidence": "Sibling formulas from the last cycle are gone (howto_description, step 3, FAQ 4 rewritten); QC D2/Q6 clean; tab H3 shapes are planned and distinct."
+    "evidence": "QC Q6/D2 clean; tab H3s (\"Catch an underinsured vendor before the job starts\") do not use sibling primaries."
    },
    "faq": {
     "result": "fail",
-    "evidence": "FAQ 6 \"a photo taken at an angle\", FAQ 8 \"A scan or a phone photo is only a picture of the page, and an AI model has to read it\", FAQ 9 \"reads that image into text and named fields\": one idea three times (#21)."
+    "evidence": "faq item 9 opens \"A scanner turns paper into an image.\", which does not answer \"What does automated document scanning do?\"; the answer only arrives in sentence two."
    },
    "images": {
     "result": "pass",
-    "evidence": "Acme, Q-2291, $28,400.00 over $25,000, Dev Patel; Ridgeline $500,000 under $1,000,000, Job on hold; Sam Okafor $96,000, Mei Chen: all match the copy. One hero per tab. Two carried-over drawing notes below."
+    "evidence": "Calder Law, Ana Ruiz, $5,000 retainer, Q-2291 $28,400, Dev Patel, Ridgeline Roofing $500,000 vs $1,000,000, Sam Okafor $96,000, Mei Chen match the copy; tab 1 now \"Only the approved version goes out\"."
    }
   },
   "findings": [
    {
-    "criterion": "openers",
-    "rule": "CONTENT_DEFECTS #2",
-    "field": "features_subheading",
-    "quote": "\"Six parts, one app. Use the ones your first document needs and add the rest when a second document calls for them.\"",
-    "issue": "The paragraph opens on a verbless fragment, and the \"N things, one Y\" slogan shape reads as machine-written.",
-    "fix": "Open on a full sentence that says what happens, e.g. \"Start with the parts your first document needs; the rest are there when a second document calls for them.\"",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "feature_2; feature_5; tab_content_1; tab_content_4; faq item 9",
-    "quote": "feature_2 \"Every finished file is saved as a PDF and linked to the exact record that produced it.\"; feature_5 \"Write each drafted or received document to a database you own, with the record it came from and who reviewed it.\"; tab_content_1 \"the signed copy is saved to the matter record\"; tab_content_4 \"the signed PDF is filed with the candidate record\"; faq 9 \"Keep the original scan linked to the record it produced.\"",
-    "issue": "Two features say the same thing: each file is stored against the record that produced it. Two tabs end on the same beat, and FAQ 9 repeats it as advice.",
-    "fix": "Let feature 5 own it. Feature 2 ends on something new, such as the HubSpot pull or a field that is missing. Tab 1 or tab 4 ends on a different outcome, such as the signature or the attorney's edit, and FAQ 9 gives a different piece of advice.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "feature_4; howto_step_4_des; howto_step_5_des",
-    "quote": "feature_4 \"Compare each value with the limit you set, such as a quote total or a coverage minimum.\"; howto_step_4_des \"Name the check that matters most, such as a coverage minimum or a missing date.\"; howto_step_5_des \"Set the line, such as quotes over a set amount or any letter going to a new client.\"",
-    "issue": "Tab 2 (quote over $25,000) and tab 3 (coverage minimum) already show the threshold examples. Feature 4 and steps 4 and 5 use them again. The last cycle flagged the same class when step 3 reused tab 1's retainer example.",
-    "fix": "Give feature 4 and steps 4 and 5 examples the tabs do not use (a discount above 15%, a W-9 with no TIN, a missing signature page), or drop the examples from the steps.",
-    "severity": "blocking"
-   },
-   {
     "criterion": "faq",
-    "rule": "CONTENT_DEFECTS #21; CONTENT_DEFECTS #18",
-    "field": "faq item 6; faq item 8; faq item 9",
-    "quote": "faq 6 \"uses AI to read files that have no fixed layout, such as supplier PDFs and scanned letters. Test it on your worst files... such as a faxed form or a photo taken at an angle\"; faq 8 \"A scan or a phone photo is only a picture of the page, and an AI model has to read it before any value exists.\"; faq 9 \"A scanner turns paper into an image; automated document scanning goes further and reads that image into text and named fields.\"",
-    "issue": "Three answers in a row make one point: a scan or photo is an image that AI has to read into fields. Feature 3 (\"AI reading for PDFs and scans\") already says it in the body.",
-    "fix": "Let FAQ 9 own the scan-to-fields explanation. FAQ 8 keeps only the digital-vs-scanned PDF test and what to ask senders for. FAQ 6 keeps the definition and adds something new, such as handling a low-confidence field.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "voice",
-    "rule": "CONTENT_DEFECTS #22; HUB_RULES 2b",
-    "field": "feature_3; feature_4; tab_content_1; howto_step_4_des; howto_step_5_des; faq item 6",
-    "quote": "feature_3 \"such as a policy number or an expiry date\"; feature_4 \"such as a quote total or a coverage minimum\"; tab_content_1 \"such as the matter type and the fee basis\"; howto_step_4_des \"such as a coverage minimum or a missing date\" and \"such as a changed bank account\"; howto_step_5_des \"such as quotes over a set amount\"; faq 6 \"such as supplier PDFs and scanned letters\" and \"such as a faxed form or a photo taken at an angle\"",
-    "issue": "The \"X, such as Y\" sentence shape appears eight times in six fields, twice in step 4 and twice in FAQ 6. The repeated cadence reads as templated.",
-    "fix": "Keep two at most. Name the thing directly instead (\"Read the policy number and expiry date into fields\"), or use a colon, or start a new sentence with the example.",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 9",
+    "quote": "\"A scanner turns paper into an image. Automated document scanning goes further: AI document automation reads that image into text and named fields, the same way it reads a phone photo.\"",
+    "issue": "The first sentence describes a scanner, not what automated document scanning does. HUB_RULES 5 requires answers answer-first and the rubric requires each FAQ answered in its first sentence. No other item on the page has this problem.",
+    "fix": "Open with the answer and keep the rest: \"Automated document scanning reads each scanned image into text and named fields, the same way AI document automation reads a phone photo. Scan each document as its own file, because twenty invoices saved as one PDF leave the app guessing where each one ends.\" Keep \"ai document automation\" and \"automated document scanning\" out of back-to-back sentences (K8).",
     "severity": "blocking"
    },
    {
@@ -959,26 +930,53 @@
     "rule": "HUB_RULES 8",
     "field": "faq item 1",
     "quote": "\"The drafting half has an older name: document assembly.\"",
-    "issue": "Still open from the last cycle: the source says \"also known as\". \"Older\" and \"the drafting half\" go past it, though the claim is broadly accurate.",
+    "issue": "Carried over twice: the source says \"also known as\"; \"older\" goes past it.",
     "fix": "\"The drafting side is also called document assembly.\"",
     "severity": "note"
    },
    {
     "criterion": "truth",
     "rule": "CONTENT_DEFECTS #7",
-    "field": "faq item 5; faq item 8",
-    "quote": "faq 5 \"an agreement usually passes through a contract approval workflow before anyone signs it\"; faq 8 \"every value comes out exactly as typed\"",
-    "issue": "Two soft generalizations. \"Usually\" is unsourced. Text from a digital PDF can still lose its table order.",
-    "fix": "faq 5 \"can pass through\"; faq 8 \"the text comes out as typed\".",
+    "field": "faq item 5",
+    "quote": "\"an agreement usually passes through a contract approval workflow before anyone signs it\"",
+    "issue": "Carried over: \"usually\" is an unsourced generalization.",
+    "fix": "\"can pass through\".",
+    "severity": "note"
+   },
+   {
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq item 6; howto_step_7_des; howto_description",
+    "quote": "faq 6 \"Judge a tool on last month's real files, and count how many fields a person had to correct.\"; step 7 \"Compare every draft with what the team would have written by hand.\"; howto_description \"Keep last month's files open\"",
+    "issue": "Test-on-last-month's-real-files advice appears in three places. Each has a different job (choosing a tool, piloting, preparing), so it is noted, not blocked.",
+    "fix": "FAQ 6 could end on something new, such as which layouts older template-based tools miss.",
     "severity": "note"
    },
    {
     "criterion": "images",
     "rule": "CONTENT_DEFECTS #20",
-    "field": "image_brief tab 1; image_brief tab 3",
-    "quote": "tab 1 mini \"Saved to the matter record / Status: draft, in review\" vs copy \"the signed copy is saved to the matter record\"; tab 3 green rule \"$500,000 per occurrence on file\" under \"Under the $1,000,000 minimum\"",
-    "issue": "Still open from the last cycle. Tab 1 saves the draft where the copy saves the signed copy, and tab 3 draws the failing limit in a passing colour. The titles still carry the outcome.",
-    "fix": "Tab 1 mini sub \"Signed copy saved on signature\"; tab 3 rule in the warn tone.",
+    "field": "image_brief tab 3",
+    "quote": "green block \"$500,000 per occurrence on file\" under \"Under the $1,000,000 minimum\"",
+    "issue": "Carried over: the failing limit is drawn in the passing tone.",
+    "fix": "Draw the rule in the warn tone.",
+    "severity": "note"
+   },
+   {
+    "criterion": "images",
+    "rule": "docs/IMAGE_BRIEF.md rule 5; CONTENT_DEFECTS #20",
+    "field": "image_brief tab 4",
+    "quote": "phone \"Sign offer letter\" button; card \"Signed by Sam Okafor\" and \"Sam Okafor signed\"",
+    "issue": "The tab shows the moment before signing and the moment after it at once, and the drawn sign button has no cursor on it.",
+    "fix": "Freeze one moment: either the phone mid-signature with the cards waiting, or the signed state without the sign button.",
+    "severity": "note"
+   },
+   {
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #25",
+    "field": "image_brief cover",
+    "quote": "\"# legal-intake / Draft letter ready / Jordan Park, litigation\"",
+    "issue": "The cover sends the draft alert to a shared channel; tab 1 sends the draft to Ana Ruiz. It is the cover, not a tab, so it is noted.",
+    "fix": "Address the cover alert to Ana Ruiz, or keep the channel and name Ana in it.",
     "severity": "note"
    },
    {
@@ -986,8 +984,8 @@
     "rule": "HUB_RULES 5",
     "field": "why_table",
     "quote": "Zapier | Make (Integromat) | n8n",
-    "issue": "None of the three ranks in this top 10 (QC K7). Pending with Divit.",
-    "fix": "Await Divit's K7 ruling.",
+    "issue": "None ranks in this top 10 (QC K7). Pending with Divit.",
+    "fix": "Await the K7 ruling.",
     "severity": "note"
    },
    {
@@ -1111,6 +1109,86 @@
    "by": "reviewer-batch-m5",
    "via": "review",
    "date": "2026-10-07 15:00 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 1",
+   "issue": "Carried over twice: the source says \"also known as\"; \"older\" goes past it.",
+   "fix": "\"The drafting side is also called document assembly.\"",
+   "by": "reviewer-batch-m7",
+   "via": "review",
+   "date": "2026-10-07 15:18 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq item 5",
+   "issue": "Carried over: \"usually\" is an unsourced generalization.",
+   "fix": "\"can pass through\".",
+   "by": "reviewer-batch-m7",
+   "via": "review",
+   "date": "2026-10-07 15:18 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq item 6; howto_step_7_des; howto_description",
+   "issue": "Test-on-last-month's-real-files advice appears in three places. Each has a different job (choosing a tool, piloting, preparing), so it is noted, not blocked.",
+   "fix": "FAQ 6 could end on something new, such as which layouts older template-based tools miss.",
+   "by": "reviewer-batch-m7",
+   "via": "review",
+   "date": "2026-10-07 15:18 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief tab 3",
+   "issue": "Carried over: the failing limit is drawn in the passing tone.",
+   "fix": "Draw the rule in the warn tone.",
+   "by": "reviewer-batch-m7",
+   "via": "review",
+   "date": "2026-10-07 15:18 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "docs/IMAGE_BRIEF.md rule 5; CONTENT_DEFECTS #20",
+   "field": "image_brief tab 4",
+   "issue": "The tab shows the moment before signing and the moment after it at once, and the drawn sign button has no cursor on it.",
+   "fix": "Freeze one moment: either the phone mid-signature with the cards waiting, or the signed state without the sign button.",
+   "by": "reviewer-batch-m7",
+   "via": "review",
+   "date": "2026-10-07 15:18 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #25",
+   "field": "image_brief cover",
+   "issue": "The cover sends the draft alert to a shared channel; tab 1 sends the draft to Ana Ruiz. It is the cover, not a tab, so it is noted.",
+   "fix": "Address the cover alert to Ana Ruiz, or keep the channel and name Ana in it.",
+   "by": "reviewer-batch-m7",
+   "via": "review",
+   "date": "2026-10-07 15:18 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "None ranks in this top 10 (QC K7). Pending with Divit.",
+   "fix": "Await the K7 ruling.",
+   "by": "reviewer-batch-m7",
+   "via": "review",
+   "date": "2026-10-07 15:18 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq items 5 and 10",
+   "issue": "Links to pages that may not be live yet. Pending with Divit.",
+   "fix": "Ship in the same batch or swap for live pages.",
+   "by": "reviewer-batch-m7",
+   "via": "review",
+   "date": "2026-10-07 15:18 UTC"
   }
  ],
  "reviews": [
@@ -1120,6 +1198,13 @@
    "result": "fail",
    "blocking": 9,
    "notes": 6
+  },
+  {
+   "by": "reviewer-batch-m5",
+   "date": "2026-10-07 15:00 UTC",
+   "result": "fail",
+   "blocking": 5,
+   "notes": 5
   }
  ]
 }

@@ -46,7 +46,7 @@
   "tab_label_4": "Screening Firms",
   "tab_content_1": "<h3>Lender forms answered from the payroll record</h3><p>A lender's Form 1005 arrives as a PDF with the borrower's signed authorization. Emergent reads the fields it asks for and fills hire date, title and base pay from your HR table. A payroll approver signs off on each reply before it goes back, and the log records which lender received it.</p>",
   "tab_content_2": "<h3>A signed letter for the landlord, salary optional</h3><p>Employees request a letter from a short form that asks who it is addressed to and whether salary should appear. The HR manager signs, and the landlord receives a PDF on company letterhead stating the job title and full-time status.</p>",
-  "tab_content_3": "<h3>Dates and the final title, with one Missouri exception</h3><p>Anyone with an end date gets a narrower letter: first day, last day and final title, reviewed by an HR generalist. In Missouri, leavers with 90 days of service at a corporation of seven or more can write by certified mail within a year. They get a service letter within 45 days stating why they left.</p>",
+  "tab_content_3": "<h3>Dates and the final title, with one Missouri exception</h3><p>Anyone with an end date gets a narrower letter: first day, last day and final title, reviewed by an HR generalist. In Missouri, leavers with 90 days of service at a corporation of seven or more employees can write by certified mail within a year. They get a service letter within 45 days stating why they left.</p>",
   "tab_content_4": "<h3>No signed release, no answer</h3><p>Screening firms use a verification page instead of calling HR. The firm names the candidate and uploads the signed release, and the app checks dates and title against the employee table. A request without a release goes back to the firm with a note, and the app confirms dates once the release is on file.</p>",
   "mockup": "<p id=\"\">window.awbMockup = { mortgageLenders: \"Build a verification page for mortgage lenders who send my company Form 1005. Read each uploaded PDF and check that the borrower signed the authorization. Fill hire date, job title and base pay from our HR table. Hold every reply until someone in payroll approves it, then send it back to the lender and log the lender's name and the date.\", rentalApplications: \"Make an employment verification letter request form for my employees. Ask who the letter is addressed to, the email it should go to and whether to include salary. Only add salary when they tick that box. Draft the letter on our letterhead with title, start date and full-time status, send it to our HR manager to sign, then email the PDF to the landlord.\", formerEmployees: \"Set up verification letters for people who no longer work at my company. If the HR table shows an end date, the letter states only first day, last day and final job title. An HR generalist reviews each one before release. For Missouri service letter requests from eligible leavers, add a field for the reason they left and show the 45-day due date.\", screeningFirms: \"Build a verification page for background screening firms so they stop calling HR. The firm enters the candidate's name and uploads the signed release. Check dates of employment and job title against our employee table. If no release is attached, send the request back to the firm with a note asking for it.\" };</p>",
   "howto_title": "How to Create a Verification Letter",
@@ -166,6 +166,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-07 15:16 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "reviewer-batch-m7",
+   "note": "rubric 10/10 by reviewer-batch-m7; 7 notes"
   }
  ],
  "plan": {
@@ -835,7 +842,7 @@
  },
  "qc_passed": {
   "rules_version": "7f420beed4fc",
-  "date": "2026-10-07 15:14 UTC"
+  "date": "2026-10-07 15:16 UTC"
  },
  "writers": [
   "writer-employment-verification-letter",
@@ -843,121 +850,94 @@
   "writer-employment-verification-letter-r2"
  ],
  "review": {
-  "by": "reviewer-batch-m5",
-  "date": "2026-10-07 14:58 UTC",
+  "by": "reviewer-batch-m7",
+  "date": "2026-10-07 15:16 UTC",
   "rubric": {
    "scope": {
     "result": "pass",
-    "evidence": "H1 \"Build an Employment Verification Letter Generator for HR\"; hero opens \"An employment verification letter confirms someone's job and dates of service.\" Whole job, no sibling topic."
+    "evidence": "H1 \"Build an Employment Verification Letter Generator for HR\"; hero \"An employment verification letter confirms someone's job and dates of service.\" Whole job, no sibling topic."
    },
    "intent": {
     "result": "pass",
-    "evidence": "Meta promises \"a short sample\"; FAQ 6 gives \"To whom it may concern: Dana Reyes has worked at Northwind Logistics...\". All 9 PAA questions answered; step 2 says what a letter confirms."
+    "evidence": "Meta promises \"what an employment verification letter confirms, a short sample\": step 2 lists what it confirms, FAQ 6 gives the Dana Reyes sample; all 9 PAA questions answered."
    },
    "specificity": {
     "result": "pass",
-    "evidence": "Form 1005, The Work Number, the signed release, letterhead, Missouri service letter: HR and lender vocabulary throughout."
+    "evidence": "Form 1005, The Work Number, signed release, letterhead, Missouri service letter; table uses the form-builder rows."
    },
    "openers": {
     "result": "pass",
-    "evidence": "Feature bodies open \"Asks\", \"Pulls\", \"Adds\", \"Sends\", \"Logs\"; tabs open on full sentences (\"A lender's Form 1005 arrives as a PDF...\"). Feature 6 opener logged as a note."
+    "evidence": "Feature bodies open \"Asks\", \"Pulls\", \"Adds\", \"Sends\", \"Logs\"; tabs open on full sentences (\"A lender's Form 1005 arrives as a PDF...\", \"Screening firms use a verification page...\"). Feature 6 hypothetical opener kept as a note."
    },
    "craft": {
-    "result": "fail",
-    "evidence": "features_subheading \"An employment verification letter template covers the wording\" / howto_description \"A sample employment verification letter shows the wording\"; feature_5 \"Logs each request beside the letter it produced\" / howto_step_7_des \"Store every signed letter next to the request it answered\"; tab_content_3 \"An HR generalist reviews each one before release\" / howto_step_5_des \"Send unusual letters to a second person before they go out, such as anything for a former employee\" (#21)."
+    "result": "pass",
+    "evidence": "Earlier #21 pairs resolved: howto_description now \"The hard part comes before the first request: deciding which facts HR will confirm\"; step 7 \"Agree on a retention period with counsel\"; step 5 \"one asking you to state weekly hours or a letter addressed to a court\"."
    },
    "voice": {
-    "result": "fail",
-    "evidence": "\"Nothing X until Y\" shape three times: feature_4 \"Nothing leaves the app unsigned\"; tab_content_1 \"Nothing goes back to the lender until someone in payroll approves the reply\"; tab_content_4 \"nothing is confirmed until the release is on file\" (#22)."
+    "result": "pass",
+    "evidence": "One gate sentence left (feature_4 \"Nothing leaves the app unsigned\"); tab 1 now \"A payroll approver signs off on each reply before it goes back\", tab 4 \"the app confirms dates once the release is on file\"."
    },
    "truth": {
-    "result": "fail",
-    "evidence": "tab_content_3 \"In Missouri, a former employee who asks in writing by certified mail can get a service letter within 45 days that also states why they left\" drops the statute's eligibility conditions."
+    "result": "pass",
+    "evidence": "tab_content_3 now carries the statute's conditions: \"leavers with 90 days of service at a corporation of seven or more employees can write by certified mail within a year\" (Mo. Rev. Stat. 290.140 in domain_sources); FCRA, Form 1005 and Work Number claims match their sources."
    },
    "distinct": {
     "result": "pass",
-    "evidence": "Feature 6 rewritten (\"letters in Spanish, or a nightly sync with your payroll system\"); QC Q6/D2 clean; tab H3 shapes differ from siblings."
+    "evidence": "QC Q6/D2 clean; tab H3s (\"No signed release, no answer\", \"Dates and the final title, with one Missouri exception\") differ from siblings."
    },
    "faq": {
     "result": "pass",
-    "evidence": "10 PAA-sourced questions, each answered first (\"Yes, if your employer reports to The Work Number.\"); hub link in item 2; the salary rule no longer restated in FAQ 1, 6, 10; FAQ 2 and 4 now add new material."
+    "evidence": "10 PAA-sourced questions, each answered in sentence one (\"Yes, if your employer reports to The Work Number.\", \"You can draft one...\"); hub link in item 2; sibling links in 7 and 10."
    },
    "images": {
     "result": "pass",
-    "evidence": "One hero per tab; Dana Reyes, $68,000 / year, Globex Loans, Ana Kim, Rosa Diaz 45 days, Jordan Lee, Acme Screening all match the copy; reserved domain maya@lumen.example. Missing title row on tab 2 logged as a note."
+    "evidence": "Dana Reyes, Mar 4, 2022, Payroll Specialist, $68,000 / year, Globex Loans, Ana Kim, Rosa Diaz 90+ days / 45 days, Jordan Lee, Acme Screening all match the copy; reserved domain maya@lumen.example; one hero per tab."
    }
   },
   "findings": [
    {
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21; CONTENT_DEFECTS #22",
-    "field": "features_subheading; howto_description",
-    "quote": "features_subheading \"An employment verification letter template covers the wording. Emergent adds the request form and the HR sign-off.\"; howto_description \"A sample employment verification letter shows the wording. These seven steps settle what HR confirms, who signs and where each letter goes.\"",
-    "issue": "The two section intros make the same point (a template or sample only gives you the wording) in the same sentence shape, with the words swapped.",
-    "fix": "Keep the template-vs-app contrast in one intro only. Give the other a different job, e.g. the how-to intro names the decision HR has to make before the first letter goes out.",
-    "severity": "blocking"
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "tab_content_3",
+    "quote": "In Missouri, leavers with 90 days of service at a corporation of seven or more employees can write by certified mail within a year.",
+    "issue": "Mo. Rev. Stat. 290.140 also requires the written request to refer specifically to the statute; the sentence omits that condition. The material conditions are now present, so this does not block.",
+    "fix": "Add \"citing the statute\" after \"by certified mail\", and add the condition to the domain_sources claim.",
+    "severity": "note"
    },
    {
     "criterion": "craft",
     "rule": "CONTENT_DEFECTS #21",
-    "field": "feature_5; howto_step_7_des; tab_content_3; howto_step_5_des",
-    "quote": "feature_5 \"Logs each request beside the letter it produced, with the signer and send date\" / howto_step_7_des \"Store every signed letter next to the request it answered.\"; tab_content_3 \"An HR generalist reviews each one before release.\" / howto_step_5_des \"Send unusual letters to a second person before they go out, such as anything for a former employee\"",
-    "issue": "Two ideas are each said twice with the words swapped. The letter is filed beside its request in feature 5 and step 7, and former-employee letters get a second reviewer in tab 3 and step 5. The previous fix moved step 7's reason but kept its first sentence.",
-    "fix": "Step 7 opens on what is new (the retention period, the dispute that the signed copy settles). Step 5 uses a different exception (a request for weekly hours, a letter addressed to a court), because tab 3 already covers former employees.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "voice",
-    "rule": "CONTENT_DEFECTS #22; HUB_RULES 2b",
-    "field": "feature_4; tab_content_1; tab_content_4",
-    "quote": "feature_4 \"Nothing leaves the app unsigned\"; tab_content_1 \"Nothing goes back to the lender until someone in payroll approves the reply\"; tab_content_4 \"nothing is confirmed until the release is on file\"",
-    "issue": "The same \"Nothing X until Y\" gate sentence appears three times across features and tabs. Tab 3's H3 \"nothing more\" and tab 4's H3 \"No signed release, no answer\" make the negation pattern more obvious still, and the repeated cadence reads as machine-written.",
-    "fix": "Keep at most one. Say the others positively and specifically, e.g. tab 1 \"Ana in payroll approves each reply, and only then does it go back to the lender\"; tab 4 \"The app confirms dates once the release is uploaded\".",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "truth",
-    "rule": "HUB_RULES 8; CONTENT_DEFECTS #7",
-    "field": "tab_content_3",
-    "quote": "\"In Missouri, a former employee who asks in writing by certified mail can get a service letter within 45 days that also states why they left.\"",
-    "issue": "Stated for every former employee, but Mo. Rev. Stat. 290.140 applies only to corporations with 7+ employees and to people with at least 90 days of service who request within one year of leaving, citing the statute. As written, the sentence is untrue for many Missouri employers and leavers. The prior cycle logged this as a note; it is a legal statement of fact that is wrong as worded, so it blocks.",
-    "fix": "Qualify it: \"In Missouri, an eligible former employee (90+ days of service, employer with 7 or more staff) who asks by certified mail within a year can get a service letter within 45 days that states why they left.\" Or say \"Missouri's service letter law can require...\" and keep the conditions in the source record.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "truth",
-    "rule": "CONTENT_DEFECTS #7",
-    "field": "tab_content_3",
-    "quote": "H3 \"Dates of service and the final title, nothing more\"",
-    "issue": "The H3 promises nothing more, then the paragraph adds a reason for leaving for Missouri requests.",
-    "fix": "Frame Missouri as the exception in the H3, or drop \"nothing more\" (this also helps the #22 finding).",
+    "field": "why_description; feature_5",
+    "quote": "why_description \"Requests and signed letters run in one app, and every one of them sits in a database you own.\"; feature_5 \"Logs each request beside the letter it produced, with the signer and send date, in a database you own.\"",
+    "issue": "The section intro restates feature 5's request-beside-letter record. It introduces the table's ownership row, so it is noted, not blocked.",
+    "fix": "Have why_description say what the table shows that a template site cannot (for example that a Typeform or Jotform response still needs a letter typed from it).",
     "severity": "note"
    },
    {
     "criterion": "openers",
     "rule": "CONTENT_DEFECTS #16",
     "field": "feature_6",
-    "quote": "\"Next quarter it might be letters in Spanish, or a nightly sync with your payroll system.\"",
-    "issue": "Five feature bodies open on a product verb and this one opens on a hedged hypothetical. It is a full sentence, so it does not block.",
-    "fix": "Open on what happens, e.g. \"Adds Spanish letters or a nightly payroll sync when you prompt for them...\"",
+    "quote": "Next quarter it might be letters in Spanish, or a nightly sync with your payroll system.",
+    "issue": "Carried over: the only feature body that opens on a hypothetical instead of a product verb.",
+    "fix": "Open on the verb, e.g. \"Adds Spanish letters or a nightly payroll sync when you prompt for them.\"",
     "severity": "note"
    },
    {
     "criterion": "images",
     "rule": "CONTENT_DEFECTS #20",
     "field": "image_brief tab 2",
-    "quote": "copy \"stating the job title and full-time status\"; drawn letter shows only Status \"Full time\" and Salary \"Not included\"",
-    "issue": "Still open from the last cycle: the drawn letter leaves out the job title the copy says it states. It is an omission, not a contradiction.",
-    "fix": "Add a Title row (Payroll Specialist or Sam's title) to the panel kv.",
+    "quote": "copy \"stating the job title and full-time status\"; drawn letter shows Status \"Full time\" and Salary \"Not included\" only",
+    "issue": "Carried over: the drawn letter leaves out the job title the copy names. An omission, not a contradiction.",
+    "fix": "Add a Title row to the letter panel.",
     "severity": "note"
    },
    {
     "criterion": "truth",
     "rule": "HUB_RULES 8",
     "field": "howto_step_1_des",
-    "quote": "\"Ask for the employee's written consent before you confirm anything, even a start date\"",
-    "issue": "An unsourced recommendation, carried over from the last cycle. It is fine as policy advice; no law requires consent to confirm dates.",
-    "fix": "Frame it as a policy choice, or source it.",
+    "quote": "Ask for the employee's written consent before you confirm anything, even a start date",
+    "issue": "Carried over: unsourced recommendation; no law requires consent to confirm dates.",
+    "fix": "Frame it as a policy choice.",
     "severity": "note"
    },
    {
@@ -965,8 +945,8 @@
     "rule": "HUB_RULES 5",
     "field": "why_table",
     "quote": "Jotform | Google Forms | Typeform",
-    "issue": "None of the three ranks in this page's top 10 (QC K7). Pending with Divit.",
-    "fix": "Await Divit's K7 ruling.",
+    "issue": "None ranks in this page's top 10 (QC K7). Pending with Divit.",
+    "fix": "Await the K7 ruling.",
     "severity": "note"
    },
    {
@@ -974,7 +954,7 @@
     "rule": "HUB_RULES 5",
     "field": "faq items 7 and 10",
     "quote": "background check form; reference check form",
-    "issue": "Links to sibling pages that are not live yet; the page is held at publish until they ship. Pending with Divit.",
+    "issue": "Links to sibling pages not live yet; held at publish. Pending with Divit.",
     "fix": "Ship in the same batch or swap for live pages.",
     "severity": "note"
    }
@@ -1100,6 +1080,76 @@
    "by": "reviewer-batch-m5",
    "via": "review",
    "date": "2026-10-07 14:58 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "tab_content_3",
+   "issue": "Mo. Rev. Stat. 290.140 also requires the written request to refer specifically to the statute; the sentence omits that condition. The material conditions are now present, so this does not block.",
+   "fix": "Add \"citing the statute\" after \"by certified mail\", and add the condition to the domain_sources claim.",
+   "by": "reviewer-batch-m7",
+   "via": "review",
+   "date": "2026-10-07 15:16 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "why_description; feature_5",
+   "issue": "The section intro restates feature 5's request-beside-letter record. It introduces the table's ownership row, so it is noted, not blocked.",
+   "fix": "Have why_description say what the table shows that a template site cannot (for example that a Typeform or Jotform response still needs a letter typed from it).",
+   "by": "reviewer-batch-m7",
+   "via": "review",
+   "date": "2026-10-07 15:16 UTC"
+  },
+  {
+   "criterion": "openers",
+   "rule": "CONTENT_DEFECTS #16",
+   "field": "feature_6",
+   "issue": "Carried over: the only feature body that opens on a hypothetical instead of a product verb.",
+   "fix": "Open on the verb, e.g. \"Adds Spanish letters or a nightly payroll sync when you prompt for them.\"",
+   "by": "reviewer-batch-m7",
+   "via": "review",
+   "date": "2026-10-07 15:16 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief tab 2",
+   "issue": "Carried over: the drawn letter leaves out the job title the copy names. An omission, not a contradiction.",
+   "fix": "Add a Title row to the letter panel.",
+   "by": "reviewer-batch-m7",
+   "via": "review",
+   "date": "2026-10-07 15:16 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_1_des",
+   "issue": "Carried over: unsourced recommendation; no law requires consent to confirm dates.",
+   "fix": "Frame it as a policy choice.",
+   "by": "reviewer-batch-m7",
+   "via": "review",
+   "date": "2026-10-07 15:16 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "None ranks in this page's top 10 (QC K7). Pending with Divit.",
+   "fix": "Await the K7 ruling.",
+   "by": "reviewer-batch-m7",
+   "via": "review",
+   "date": "2026-10-07 15:16 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq items 7 and 10",
+   "issue": "Links to sibling pages not live yet; held at publish. Pending with Divit.",
+   "fix": "Ship in the same batch or swap for live pages.",
+   "by": "reviewer-batch-m7",
+   "via": "review",
+   "date": "2026-10-07 15:16 UTC"
   }
  ],
  "reviews": [
@@ -1108,6 +1158,13 @@
    "date": "2026-10-07 14:50 UTC",
    "result": "fail",
    "blocking": 6,
+   "notes": 6
+  },
+  {
+   "by": "reviewer-batch-m5",
+   "date": "2026-10-07 14:58 UTC",
+   "result": "fail",
+   "blocking": 4,
    "notes": 6
   }
  ]
