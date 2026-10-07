@@ -181,6 +181,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-07 15:18 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "reviewer-batch-m6",
+   "note": "[craft | CONTENT_DEFECTS #21] features_subheading: The cycle-3 rewrite of features_subheading and howto_description moved both onto the idea howto_step_1 already owns, so the same split (fixed clause vs tenant field) is now said three times with words swapped. Every instance: features_subheading (qu"
   }
  ],
  "plan": {
@@ -880,85 +887,67 @@
   "date": "2026-10-07 15:07 UTC"
  },
  "review": {
-  "by": "reviewer-batch-m4",
-  "date": "2026-10-07 15:03 UTC",
+  "by": "reviewer-batch-m6",
+  "date": "2026-10-07 15:18 UTC",
   "rubric": {
    "scope": {
     "result": "pass",
-    "evidence": "H1 'Build a Rental Agreement Form Tenants Fill and Sign Online', meta title 'Free Rental Agreement Form Builder | Emergent' and hero (form, signature, every lease in a database you own) cover the whole job."
+    "evidence": "H1 'Build a Rental Agreement Form Tenants Fill and Sign Online', meta title 'Free Rental Agreement Form Builder', hero covers form, signature and lease records."
    },
    "intent": {
     "result": "pass",
-    "evidence": "SERP of government PDFs and paid template sites: feature_1 lists the terms a lease carries ('the rent with its due date and grace period, the late fee, the deposit, utilities, pets and who handles repairs'), the how-to covers state rules and signing order, and the FAQ answers nine live PAA questions plus a definition."
+    "evidence": "Template and government-PDF SERP answered with the terms an agreement needs (feature_1), state rules (howto_step_3), where to get free forms (FAQ 4, FAQ 5) and all nine PAA questions."
    },
    "specificity": {
     "result": "pass",
-    "evidence": "Landlord vocabulary: 'grace period', 'lead paint disclosure and EPA pamphlet', 'Add a guarantor as a separate signer', 'Birch Court', '$800 of the $2,400 rent'. Form-builder table has no specialist variant (Q4 clean)."
+    "evidence": "'quiet after 10 pm, overnight guests for 3 nights at most', 'All 48 units', '$800 of the $2,400 rent', 'A $300 damage deposit is collected through Stripe', 'units from before 1978 get the lead paint disclosure and EPA pamphlet'."
    },
    "openers": {
     "result": "pass",
-    "evidence": "Paragraphs open on full sentences with verbs: 'Emergent asks for the parties', 'A tenant who says they have a dog is asked its breed and weight', 'One link goes to the new tenant of a spare room', 'Guests booking the lake house accept the stay rules'."
+    "evidence": "Every body opens on a full sentence: 'Emergent asks for the parties...', 'A tenant who says they have a dog...', 'One link goes to the new tenant of a spare room.'"
    },
    "craft": {
     "result": "fail",
-    "evidence": "One idea restated with words swapped (CONTENT_DEFECTS #21): why_description 'Emergent ships the form and the lease records behind it as one app you own.'; howto_step_4_des 'Emergent builds the form and the lease table behind it.'; FAQ 9 'one prompt builds the rental agreement form along with a table of every signed lease', on top of the hero 'keeps every lease in a database you own'."
+    "evidence": "CONTENT_DEFECTS #21, introduced by the cycle-3 rewrite: 'fixed clause or tenant field' is said in features_subheading 'Emergent turns each one into a field the tenant fills in or a clause they cannot change.', howto_description 'The seven steps below decide what stays fixed in the lease and what each tenant fills in.' and howto_step_1_des 'These become fixed text in the agreement, and no tenant can edit them when they fill in the form.'"
    },
    "voice": {
     "result": "pass",
-    "evidence": "Calm and concrete: 'quiet after 10 pm, overnight guests for 3 nights at most. Rent is $950, due on the 1st.'; 'Fill the form as a fictional tenant, sign as both parties and read the PDF line by line.' No AI tells."
+    "evidence": "Plain, specific lines: 'One who parks on site gives a plate number for the permit.', 'Anyone still unsigned after two days gets a reminder'."
    },
    "truth": {
     "result": "pass",
-    "evidence": "Cycle-1 unsourced claims are gone ('Handwriting is rarely the issue', 'its templates are written for local law', 'Tenants usually sign first', 'in seconds'). Lease terms (Fairfax checklist), month-to-month vs lease (LA County DCBA), pre-1978 lead disclosure (EPA), Cal. Civ. Code 1624 and 1950.5 match domain_sources; claims map to claims_used incl. e-signature-capture; table generated from the library."
+    "evidence": "California deposit cap and 21 days (Civ. 1950.5), lease over one year in writing (Civ. 1624), handwriting as writing (Evid. 250), pre-1978 lead disclosure (EPA), Oklahoma four-page PDF all match domain_sources; e-signature-capture is used with no legal-validity claim; $800 x 3 = $2,400."
    },
    "distinct": {
     "result": "pass",
-    "evidence": "Own page: spare room, 48-unit building, three-roommate split, lake-house deposit; tenant-screening-form and lease-renewal-form linked, not used as headings."
+    "evidence": "Room, multi-unit, shared lease and vacation stays are its own; lease-renewal-form and tenant-screening-form are linked, not imitated; no sibling primary in a heading."
    },
    "faq": {
-    "result": "fail",
-    "evidence": "Two answers do not answer their question first (HUB_RULES 5): FAQ 5 'Where can I download a free tenant agreement?' opens 'Look for one labeled for your state and for the length of lease you plan to offer.'; FAQ 6 'Is a handwritten rental agreement legal?' opens 'California, for example, requires a lease longer than one year to be in writing and signed.' Cycle-1 attorney repeat is fixed (now only howto_step_7)."
+    "result": "pass",
+    "evidence": "Cycle-2 blocking fixed: FAQ 5 opens 'Government sites post them free: the Oklahoma Department of Commerce...'; FAQ 6 opens 'In California, yes'. All ten answer in the first sentence; FAQ 9 now answers with the free tier, not the lease table."
    },
    "images": {
     "result": "pass",
-    "evidence": "Each tab matches its copy: $950 due the 1st, quiet after 10 pm, 3 guest nights; Birch Court 48 units, 38 and 54 days under the 60-day rule, email to Dana Cole; $800 of $2,400 with Riley Nash unsigned 2 days, copies to all three; 4 pm, 11 am, 6 guests, $300 via Stripe, Stay confirmed. No relative dates to go stale."
+    "evidence": "Tab 1 $950 due the 1st, quiet after 10 pm, 3 nights; tab 2 Birch Court 48 units, 4B ends in 38 days, 2A 54 days, renewal email; tab 3 $800 shares of $2,400, Riley Nash unsigned 2 days, reminded; tab 4 4 pm, 11 am, 6 guests, $300 via Stripe, stay confirmed after signing."
    }
   },
   "findings": [
    {
-    "criterion": "faq",
-    "rule": "HUB_RULES 5",
-    "field": "faq",
-    "quote": "Look for one labeled for your state and for the length of lease you plan to offer.",
-    "issue": "FAQ 5 asks where to download a free tenant agreement; the answer says what to look for and never says where. Second instance of the class: FAQ 6 'Is a handwritten rental agreement legal?' opens 'California, for example, requires a lease longer than one year to be in writing and signed.', an example before (and instead of) the answer; the reader never gets a yes or no. The cycle-1 fix removed the unsourced 'Handwriting is rarely the issue' line but left the question unanswered. HUB_RULES 5 requires answers answer-first, and the rubric requires each FAQ answered in its first sentence.",
-    "fix": "FAQ 5: open with a place to download, without repeating FAQ 4 word for word, e.g. 'State and county housing sites offer them as Word or PDF downloads; pick one labeled for your state and your lease length.' FAQ 6: open with the answer and keep it inside the recorded source, e.g. 'Yes, a handwritten agreement is a written one: California, for example, only requires a lease longer than one year to be in writing and signed.' (if 'handwriting counts as writing' needs more than Civ. Code 1624, add a source such as Cal. Evidence Code 250).",
-    "severity": "blocking"
-   },
-   {
     "criterion": "craft",
     "rule": "CONTENT_DEFECTS #21",
-    "field": "why_description",
-    "quote": "Emergent ships the form and the lease records behind it as one app you own.",
-    "issue": "'Emergent builds the form plus a table of every lease' is restated with words swapped in three fields beyond the hero ('keeps every lease in a database you own') and feature_5 ('One table for every lease you manage'): why_description (quoted); howto_step_4_des 'Emergent builds the form and the lease table behind it.'; FAQ 9 'one prompt builds the rental agreement form along with a table of every signed lease.' A smaller instance of the same class: howto_description 'a published form that sends every agreement out for signature' restates the hero 'sends each finished agreement out for signature'.",
-    "fix": "Keep the idea in the hero and feature_5. why_description: say what the table comparison shows instead (for example what a downloaded template leaves you doing by hand). howto_step_4_des: stay on what to paste into the prompt and how edits go live. FAQ 9: answer the free-AI question with what the free tier covers. howto_description: end on what the seven steps decide, not the hero's promise.",
+    "field": "features_subheading",
+    "quote": "Emergent turns each one into a field the tenant fills in or a clause they cannot change.",
+    "issue": "The cycle-3 rewrite of features_subheading and howto_description moved both onto the idea howto_step_1 already owns, so the same split (fixed clause vs tenant field) is now said three times with words swapped. Every instance: features_subheading (quoted); howto_description 'The seven steps below decide what stays fixed in the lease and what each tenant fills in.'; howto_step_1_des 'These become fixed text in the agreement, and no tenant can edit them when they fill in the form.' The subheading also sits awkwardly over feature_1's heading 'Every term in its own field'.",
+    "fix": "Keep the idea once, in howto_step_1_des. features_subheading: say what the six features cover that the hero does not (for example 'Every agreement rests on the same core terms. These six features cover them, from the late fee to the lead paint disclosure.'). howto_description: name a different decision the steps make (for example signing order and who hears about a new lease), or drop its second sentence. Search the page again after the edit.",
     "severity": "blocking"
    },
    {
     "criterion": "truth",
-    "rule": "HUB_RULES 8",
-    "field": "faq",
-    "quote": "Watch for fees the agreement never names and repair duties pushed entirely onto the tenant.",
-    "issue": "Carried from cycle 1: the FAQ 10 red flags are unsourced best-practice advice, phrased as recommendations.",
-    "fix": "Add a tenant-rights source (state attorney general or HUD) or keep as advice.",
-    "severity": "note"
-   },
-   {
-    "criterion": "truth",
-    "rule": "HUB_RULES 8",
-    "field": "faq",
-    "quote": "County housing offices and state agencies publish free rental agreement forms as PDFs you print and fill by hand.",
-    "issue": "A fact about the world with no domain_sources entry; the brief's top 10 supports it (kitsap.gov, okcommerce.gov, sanantonio.gov PDFs), so it is true, but it is not recorded. Same for FAQ 9 'Paid template sites sell a finished document.'",
-    "fix": "Record one of the top-10 government PDFs as the source (within the 8-source cap).",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_1",
+    "quote": "Emergent asks for the parties, the address, the lease term, the rent with its due date and grace period, the late fee, the deposit, utilities, pets and who handles repairs.",
+    "issue": "Read with howto_step_1_des ('from the rent figure to who fixes a leaking tap. These become fixed text...') the reader cannot tell who is asked: feature_1 implies the rent and repairs are form fields, step 1 says they are fixed text. Ambiguous rather than false.",
+    "fix": "Make feature_1 say the agreement covers these terms ('The agreement covers the parties, ...'), so it does not contradict step 1.",
     "severity": "note"
    },
    {
@@ -966,7 +955,7 @@
     "rule": "HUB_RULES 2a",
     "field": "feature_2",
     "quote": "Everyone else never sees those two questions.",
-    "issue": "The feature names three follow-up questions (breed, weight, plate number), so 'those two questions' miscounts; it means two question sets.",
+    "issue": "Carried: three follow-up questions are named (breed, weight, plate number).",
     "fix": "'Everyone else skips those questions.'",
     "severity": "note"
    },
@@ -975,7 +964,7 @@
     "rule": "HUB_RULES 2",
     "field": "howto_step_1_des",
     "quote": "who fixes a leaking tap",
-    "issue": "'Tap' is British usage for the fixture; the page is US English.",
+    "issue": "Carried: 'faucet' is the US word.",
     "fix": "'who fixes a leaking faucet'.",
     "severity": "note"
    },
@@ -983,18 +972,9 @@
     "criterion": "voice",
     "rule": "HUB_RULES 2a",
     "field": "why_description",
-    "quote": "A downloaded template ends at the blank page.",
-    "issue": "Unclear: a template starts with blanks; the intended contrast (it stops being useful once printed) does not come through.",
-    "fix": "'A downloaded template stops at the printed page.' or name what it leaves undone (signatures, storage, reminders).",
-    "severity": "note"
-   },
-   {
-    "criterion": "images",
-    "rule": "HUB_RULES 5",
-    "field": "image_brief.tabs[0]",
-    "quote": "\"type\": \"button\", \"label\": \"Submit and sign\", \"icon\": \"send\", \"full\": true",
-    "issue": "Tab 1 is the only image with no click: neither the block button (no click: true) nor the hero has an action, so the contact sheet shows no cursor (docs/IMAGE_BRIEF.md: the hero holds the one click).",
-    "fix": "Add \"click\": true to the Submit and sign button, or give the hero an action.",
+    "quote": "A downloaded template ends at the blank page",
+    "issue": "Carried: a template starts with blanks; the contrast does not land.",
+    "fix": "'A downloaded template stops at the printed page'.",
     "severity": "note"
    },
    {
@@ -1002,8 +982,17 @@
     "rule": "CONTENT_DEFECTS #20",
     "field": "tab_image_1",
     "quote": "No smoking indoors",
-    "issue": "Carried from cycle 1: the image draws a house rule the tab copy never mentions.",
-    "fix": "Drop the chip or add the rule to tab_content_1.",
+    "issue": "Carried: a house rule the tab copy never names; tab 1 also still has no click on the hero.",
+    "fix": "Drop the chip; add click: true to 'Submit and sign'.",
+    "severity": "note"
+   },
+   {
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "tab_image_3",
+    "quote": "Landlord countersigns after all three",
+    "issue": "The heading says 'Nothing is final until the last roommate signs' and the copy sends the finished copy 'once the last signature is in'; the image adds a landlord countersignature after the roommates, so the last signature is the landlord's.",
+    "fix": "Say 'once the landlord countersigns' in the copy, or drop the countersign line from the image.",
     "severity": "note"
    },
    {
@@ -1011,8 +1000,17 @@
     "rule": "CONTENT_DEFECTS #23",
     "field": "tab_image_4",
     "quote": "Maya Lin",
-    "issue": "Carried from cycle 1: the guest shares a well-known living architect's name.",
+    "issue": "Carried: a well-known living architect's name.",
     "fix": "Use a plainly fictional name.",
+    "severity": "note"
+   },
+   {
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "County housing offices and state agencies publish free rental agreement forms as PDFs you print and fill by hand.",
+    "issue": "Carried: true per the top 10 (kitsap.gov, okcommerce.gov) but only the Oklahoma PDF is recorded; FAQ 10 red flags remain unsourced advice.",
+    "fix": "Optional: record kitsap.gov within the source cap.",
     "severity": "note"
    },
    {
@@ -1020,17 +1018,8 @@
     "rule": "HUB_RULES 5",
     "field": "mockup",
     "quote": "roommateHouseholds",
-    "issue": "Carried from cycle 1: mockup keys should be camelCase tab names; tab 3 is 'Shared Leases'.",
+    "issue": "Carried: tab 3 is 'Shared Leases'. K7, missing library competitors and links to not-yet-live pages pending with Divit.",
     "fix": "Rename to sharedLeases.",
-    "severity": "note"
-   },
-   {
-    "criterion": "specificity",
-    "rule": "HUB_RULES 5",
-    "field": "why_table",
-    "quote": "Jotform | Typeform | Google Forms",
-    "issue": "K7 and missing library competitors (LawDepot, DocuSign) pending with Divit; FAQ links to tenant-screening-form and lease-renewal-form, which may not be live yet, also pending.",
-    "fix": "Await Divit's rulings.",
     "severity": "note"
    }
   ]
@@ -1195,6 +1184,96 @@
    "by": "reviewer-batch-m4",
    "via": "review",
    "date": "2026-10-07 15:03 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_1",
+   "issue": "Read with howto_step_1_des ('from the rent figure to who fixes a leaking tap. These become fixed text...') the reader cannot tell who is asked: feature_1 implies the rent and repairs are form fields, step 1 says they are fixed text. Ambiguous rather than false.",
+   "fix": "Make feature_1 say the agreement covers these terms ('The agreement covers the parties, ...'), so it does not contradict step 1.",
+   "by": "reviewer-batch-m6",
+   "via": "review",
+   "date": "2026-10-07 15:18 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_2",
+   "issue": "Carried: three follow-up questions are named (breed, weight, plate number).",
+   "fix": "'Everyone else skips those questions.'",
+   "by": "reviewer-batch-m6",
+   "via": "review",
+   "date": "2026-10-07 15:18 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2",
+   "field": "howto_step_1_des",
+   "issue": "Carried: 'faucet' is the US word.",
+   "fix": "'who fixes a leaking faucet'.",
+   "by": "reviewer-batch-m6",
+   "via": "review",
+   "date": "2026-10-07 15:18 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "why_description",
+   "issue": "Carried: a template starts with blanks; the contrast does not land.",
+   "fix": "'A downloaded template stops at the printed page'.",
+   "by": "reviewer-batch-m6",
+   "via": "review",
+   "date": "2026-10-07 15:18 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "tab_image_1",
+   "issue": "Carried: a house rule the tab copy never names; tab 1 also still has no click on the hero.",
+   "fix": "Drop the chip; add click: true to 'Submit and sign'.",
+   "by": "reviewer-batch-m6",
+   "via": "review",
+   "date": "2026-10-07 15:18 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "tab_image_3",
+   "issue": "The heading says 'Nothing is final until the last roommate signs' and the copy sends the finished copy 'once the last signature is in'; the image adds a landlord countersignature after the roommates, so the last signature is the landlord's.",
+   "fix": "Say 'once the landlord countersigns' in the copy, or drop the countersign line from the image.",
+   "by": "reviewer-batch-m6",
+   "via": "review",
+   "date": "2026-10-07 15:18 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #23",
+   "field": "tab_image_4",
+   "issue": "Carried: a well-known living architect's name.",
+   "fix": "Use a plainly fictional name.",
+   "by": "reviewer-batch-m6",
+   "via": "review",
+   "date": "2026-10-07 15:18 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Carried: true per the top 10 (kitsap.gov, okcommerce.gov) but only the Oklahoma PDF is recorded; FAQ 10 red flags remain unsourced advice.",
+   "fix": "Optional: record kitsap.gov within the source cap.",
+   "by": "reviewer-batch-m6",
+   "via": "review",
+   "date": "2026-10-07 15:18 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "mockup",
+   "issue": "Carried: tab 3 is 'Shared Leases'. K7, missing library competitors and links to not-yet-live pages pending with Divit.",
+   "fix": "Rename to sharedLeases.",
+   "by": "reviewer-batch-m6",
+   "via": "review",
+   "date": "2026-10-07 15:18 UTC"
   }
  ],
  "reviews": [
@@ -1204,6 +1283,13 @@
    "result": "fail",
    "blocking": 8,
    "notes": 6
+  },
+  {
+   "by": "reviewer-batch-m4",
+   "date": "2026-10-07 15:03 UTC",
+   "result": "fail",
+   "blocking": 2,
+   "notes": 10
   }
  ]
 }
