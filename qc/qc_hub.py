@@ -230,6 +230,8 @@ def check(spec, siblings):
     SR = json.load(open(os.path.join(ROOT, "rules", "style_rules.json")))
     sys.path.insert(0, os.path.join(ROOT, "qc")); import serial_comma as _SC
     _copy = {k: v for k, v in F.items() if isinstance(v, str) and k not in ("why_table", "category", "slug")}
+    AUD = json.load(open(os.path.join(ROOT, "rules", "audience.json")))
+    _group = hub in AUD["group_hubs"] or spec["url"] in {u for v in AUD["group_pages"].values() for u in v}
     def _wre(w): return r"(?<![A-Za-z0-9])" + re.escape(w) + r"(?![A-Za-z0-9])"
     # S10: zero-width characters and empty paragraphs (stripped at export too)
     for k, v in F.items():
@@ -254,8 +256,9 @@ def check(spec, siblings):
         # A5: the built app does things, not Emergent
         m_ = re.search(r"\bEmergent(?:'s app)? (?:can |will |then )?(" + "|".join(SR["built_app_verbs"]) + r")\b", txt)
         if m_: add("P1", "A5", k, f'"{m_.group(0)}": the built form/app does this, not Emergent (Emergent builds it)')
-        # A6: never narrow the audience
+        # A6: never narrow the audience ("your team" is allowed on pages that target a group: rules/audience.json)
         for w in SR["narrowing"]:
+            if _group and w in AUD["group_phrases"]: continue
             if re.search(_wre(w), low): add("P1", "A6", k, f'audience-narrowing phrase "{w}": write for anyone (DECISIONS: never narrow the audience)'); break
         # C4: custom domains are built in and use credits
         for sent in sents_of(txt):

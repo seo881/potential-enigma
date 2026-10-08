@@ -12,7 +12,7 @@ Applies to every child page in the four build hubs (AI Landing Page Builder, AI 
 2. Before every write: read the current value and commit it. After every write: read back and diff. Rollback must always be one call.
 3. Touch only the pages in scope. Never edit a component definition, an existing class, a template, or another hub's collection.
 4. Do not assume. If something is borderline, ask, with options and a recommendation, one question at the end.
-5. Copy is operator grade: concrete, no fluff, never narrows the audience ("for you", "for your business"; "for your team" only when the subject is a group).
+5. Copy is operator grade: concrete, no fluff, never narrows the audience ("for you", "for your business"; "for your team" only when the subject is a group: the Auto and SurveyQuiz hubs and the internal, HR and approval forms listed in `rules/audience.json` [QC A6]).
 6. Write "Emergent" or "Emergent's". Never "we", "our", "us". **[QC]**
 7. Quality bar: world class. If asked "is this your best?", answer honestly.
 
