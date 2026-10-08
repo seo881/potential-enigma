@@ -19,4 +19,4 @@ Scope: the 4 child templates (Form `6aaaaa03995bb2f9f4d6a3c2`, LP `6aaaa937fe1a8
 | T11 | Meta, OG image, breadcrumbs, mobile table (rows 25-26) | Page settings (OG image = Thumbnail Image, Designer-only, unverified for LP/Form); comparison table embed | Verify in Designer/Preview; OG binding set in Designer if missing | - | YES (OG image) |
 | T12 | Audits panel (add-on 3) | Each template | Run Webflow's Audits panel; fix every high-priority item before the first publish | - | YES |
 
-Not a template edit: the placeholder testimonials and stats (`section_stats` component at default props) are live on all 4 hub pages and on the 4 templates. Report only; Divit rules on them.
+Not a template edit: the testimonials and stats (`section_stats`) on the 4 hub pages and 4 templates are real and accurate (Divit confirmed 2026-10-08, DECISIONS); no change, do not flag again.

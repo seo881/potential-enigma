@@ -3,6 +3,7 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-08
+- **The testimonials and stats in section_stats on the hub pages are real and accurate (Divit confirmed 2026-10-08); not placeholders, do not flag again.** Checked read-only on the live /ai-form-builder: stats 10M+ Active Builders Worldwide, 12M+ Apps Successfully Created, 200+ Countries Globally Reached; testimonials Alex Rivera (Founder, TaskFlow), Maya Chen (Product Lead, BrightSuite), Jordan Patel (Co-founder, LoopDesk).
 - **Standing work report after every task** (Divit): `reports/YYYY-MM-DD/HHMM-<slug>.md` with Request (verbatim), Actions and results, Numbers, Decisions (with their source), Files and commits, Webflow calls (IDs, before/after, rollback), Not done, Open questions; a line in `reports/INDEX.md`; nothing secret or from `private/`/`.cache/`, no SERP or AlsoAsked question text (public repo); push via `ops/sync.sh`; chat reply under 15 lines (summary, path, SHA). Rule text: RUNBOOK section 6, CLAUDE.md.
 - **Hub link and link-to-live** (Divit): every child page links directly to its hub page exactly once (FAQ item 2, QC K4, P0); 2-3 links to related child pages are welcome but only to pages live at publish time. Links to non-live pages ship as plain text and are re-linked when the target goes live.
 - **The 4 hub pages are live** (Divit confirmed 2026-10-08).

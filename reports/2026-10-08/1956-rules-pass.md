@@ -52,4 +52,4 @@ None (no reads or writes in this commit). The read-only template inspection it r
 2. 70 pages park under PA11: accept, or approve synonym candidates first to recover some?
 3. Template edits: go per edit (T1, T2, T3, T4, T5, T9, T11, T12 block first publish; T5 and T6 are Designer-only settings for you or the Webflow developer).
 4. Learn section (T3): Option A (newest posts site-wide) or hide when empty?
-5. Placeholder testimonials and stats on the 4 hubs and 4 templates: your ruling (report only so far).
+5. ~~Placeholder testimonials and stats on the 4 hubs and 4 templates: your ruling (report only so far).~~ CLOSED 2026-10-08: real and accurate, not placeholders (DECISIONS 2026-10-08).
