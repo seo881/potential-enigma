@@ -1,0 +1,746 @@
+{
+ "url": "/ai-form-builder/conditional-logic-form",
+ "hub": "Form",
+ "item_id": null,
+ "status": "spec",
+ "written_by": "w-conditional-logic-form",
+ "keywords": {
+  "primary": "conditional logic form",
+  "secondaries_used": [
+   "conditional logic forms"
+  ]
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Conditional Logic Form Builder | Emergent",
+  "meta_description": "Build a conditional logic form from a prompt. Fields show or hide by answer, submissions route by rule, and you own the database.",
+  "h1": "Build a Conditional Logic Form That Asks the Right Questions",
+  "slug": "conditional-logic-form",
+  "product_name": "Conditional Logic Form Builder",
+  "hero_description": "Describe each rule as you would say it. Emergent builds the conditional logic form, with fields that show or hide on an answer and routing after submit.",
+  "breadcrumb": "Conditional Logic Form",
+  "category": "a3f1c6d3f1f5b72e83814b483a0ac3d5",
+  "explore_cta": "Build My Conditional Logic Form",
+  "features_heading": "What a Rule Can Change on the Form",
+  "features_subheading": "A rule pairs an answer with an action. These six actions cover most of what people ask a form to do.",
+  "feature_1": "<h3>Fields that appear on the right answer</h3><p>Show a follow-up field only when an answer calls for it. A yes to food allergies opens a box asking which ones, and a no keeps it hidden and out of the stored response.</p>",
+  "feature_2": "<h3>Choices that narrow as people answer</h3><p>Remove options that stop fitting. Once a party is larger than a room holds, that room leaves the dropdown, and a delivery date list drops the days a route is already full.</p>",
+  "feature_3": "<h3>Conditions with more than one part</h3><p>Combine answers with AND and OR, such as a budget over $10,000 and a start date inside 30 days. Describe the condition in a sentence and change it later by asking for the edit.</p>",
+  "feature_4": "<h3>Routing that runs after submit</h3><p>Send each submission where its answers point. A large deal posts to a sales channel in Slack, while a support issue goes to the help desk inbox with the customer's plan attached.</p>",
+  "feature_5": "<h3>Required only when it applies</h3><p>Make a field mandatory when another answer calls for it. A tax ID becomes required once someone picks a business account, and stays optional for anyone signing up as a person.</p>",
+  "feature_6": "<h3>Rules you can read in your repo</h3><p>Export the form to your GitHub repository with every rule written out as code. A developer can trace why a field showed up for one person and add a condition without starting over.</p>",
+  "why_title": "Why Build Form Logic With Emergent?",
+  "why_description": "Each of these tools can branch on an answer. The gap is where responses live and who owns the code as rules grow.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"emergent\" />\n        </th>\n        <th scope=\"col\">Jotform</th>\n        <th scope=\"col\">Google Forms</th>\n        <th scope=\"col\">Typeform</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt</td>\n        <td class=\"col-other\">Templates, editor, AI generator</td>\n        <td class=\"col-other\">Manual, field by field</td>\n        <td class=\"col-other\">Templates, editor, AI assist</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Where responses live</th>\n        <td class=\"col-brand\">A database table you own, plus any integration</td>\n        <td class=\"col-other\">Jotform account</td>\n        <td class=\"col-other\">Google Sheets</td>\n        <td class=\"col-other\">Typeform account</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Response limits</th>\n        <td class=\"col-brand\">Unlimited</td>\n        <td class=\"col-other\">100/mo free, 1,000 Bronze, 2,500 Silver, 10,000 Gold (form stops at cap)</td>\n        <td class=\"col-other\">No limit</td>\n        <td class=\"col-other\">10/mo free, 100 Basic, 1,000 Plus, 10,000 Business (form closes at cap)</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full export to your repo</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "Four Forms, Four Kinds of Rule",
+  "tab_label_1": "Dog Boarding",
+  "tab_label_2": "Wedding Venue",
+  "tab_label_3": "Demo Requests",
+  "tab_label_4": "Grant Applications",
+  "tab_content_1": "<h3>Dose and schedule questions show up after a yes</h3><p>Owners booking a stay at Pinecrest Pet Lodge answer a question about medication. A no moves them on to feeding. A yes opens three required fields: the drug name, the dose and the times it is given. Staff see the schedule on the dog's record before drop-off, and no booking goes through with the dose left blank.</p>",
+  "tab_content_2": "<h3>With a guest count over 150, the garden room disappears</h3><p>Couples planning a wedding at Larkhill Barn type a guest count before they see the room choices. The garden room seats 150. A count above that takes it off the list and leaves the hall and the terrace. Nobody falls for a room the venue cannot offer, and the coordinator stops writing the same apology email.</p>",
+  "tab_content_3": "<h3>Demos for 200 seats or more go to a rep</h3><p>Seat count decides what happens when a team asks Northwind for a demo. Requests for 200 seats or more post to the enterprise sales channel in Slack with the company name and seat count. Smaller teams get an email with a link to book a 30-minute walkthrough. Both land in the same leads table.</p>",
+  "tab_content_4": "<h3>No one over the budget cap reaches question three</h3><p>Question two on the Riverbend Community Foundation grant application asks for the annual operating budget. Anything above $2,000,000 ends the form with a short message and a link to the foundation's capacity fund. Qualifying applicants move on to the narrative questions, and staff read eligible applications only.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { dogBoarding: \"I run a dog boarding lodge. Build a booking form with the owner's details, the dog's name, breed and stay dates. Ask whether the dog takes medication. If the answer is yes, show three required fields for the drug name, the dose and the times of day it is given. Put the medication schedule on each dog's record so staff can read it before drop-off.\", weddingVenue: \"We are a wedding venue with three spaces: a hall, a terrace and a garden room that seats 150. Build an inquiry form that asks for the date and guest count first. When the count is above 150, take the garden room out of the room choices. Save each inquiry to a table my coordinator can sort by date.\", demoRequests: \"Build a demo request form for our software company. Ask for company name, work email, role and the number of seats needed. If the request is for 200 seats or more, post it to our enterprise sales channel in Slack. Everyone else should get an email with a link to book a 30-minute walkthrough. Store every request in one leads table.\", grantApplications: \"Our community foundation needs a grant application. Question two asks for the organization's annual operating budget. If it is above $2,000,000, end the form with a short message and a link to our capacity fund. Eligible applicants continue to the narrative questions and a budget upload. Program staff should see eligible applications only.\" };</p>",
+  "howto_title": "How to Create a Conditional Logic Form",
+  "howto_description": "Rules are easier to get right on paper than inside a builder. Sketch them first and the form follows.",
+  "howto_step_1_title": "01 List the questions everyone answers",
+  "howto_step_2_title": "02 Write each rule as a sentence",
+  "howto_step_3_title": "03 Group rules by their trigger",
+  "howto_step_4_title": "04 Decide what hidden answers do",
+  "howto_step_1_des": "Start with the fields every person fills in whatever they choose, such as name and email. Then mark each question that only some people need, and next to it write the answer that should bring it in.",
+  "howto_step_2_des": "Give every rule a trigger and an action: if the budget is above the cap, end the form and show the referral message. A rule you can read aloud is one a colleague can check. Vague rules turn into bugs later.",
+  "howto_step_3_des": "Start from the answer, not the field it reveals. When two rules hang off the same question, put them side by side and check they never fight over one field, with one rule showing it and the other hiding it.",
+  "howto_step_4_des": "Hidden answers stay blank in the stored response. Decide what happens when someone fills a field and then changes the answer that revealed it. Clearing the old value keeps reports honest about who was asked what.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Conditional Logic Questions, Answered\", \"items\": [{\"q\": \"What is a conditional logic form?\", \"a\": \"A conditional logic form changes as people fill it in. Each rule watches an answer and acts on it: it shows a field, hides a choice, skips ahead or sends the response to a particular person. Everyone ends up answering only the questions that apply to them.\"}, {\"q\": \"How do I use conditional logic in forms?\", \"a\": \"Write each rule as an if-then sentence and attach it to the question that triggers it. With Emergent's <a href='https://emergent.sh/ai-form-builder'>AI form builder</a>, you describe those sentences in a prompt and get the form with its logic and a table for the responses. Test every path before you share the link.\"}, {\"q\": \"Can you give me an example of conditional logic?\", \"a\": \"A question about food allergies is the classic case. If someone answers yes, a text box appears asking which ones. If they answer no, the box never shows and nothing is stored for it. Spreadsheet formulas and code use the same if-then pattern.\"}, {\"q\": \"Can Google Forms do conditional logic?\", \"a\": \"Yes, through sections. Split the form into sections, open the menu on a multiple choice or dropdown question and pick Go to section based on answer. Each option then sends people to a chosen section or submits the form. The branching happens between sections, not on single fields.\"}, {\"q\": \"How can I use conditional logic in Jotform forms?\", \"a\": \"In the Jotform builder, open Settings and choose Conditions. Pick an action, such as showing or hiding a field, skipping to a page, updating a value or changing the email recipient. Then set the field and answer that trigger it. Conditions are part of the free Starter plan too.\"}, {\"q\": \"Which free form builder has the best conditional logic?\", \"a\": \"It depends on the rule. Google Forms jumps between sections, which covers a short survey. Jotform and Tally both offer field-level show and hide rules on their free plans. When the logic also has to route submissions or write to your own database, a form you build and own gives you the most room.\"}, {\"q\": \"What are some conditional logic form examples?\", \"a\": \"Event registrations add dietary questions for in-person guests only. Insurance quotes ask about a second driver after someone says one exists. A <a href='https://emergent.sh/ai-form-builder/creator-application'>creator application</a> can ask for follower counts only on the platforms an applicant picks.\"}, {\"q\": \"Does Microsoft Forms have conditional logic?\", \"a\": \"Yes, Microsoft calls it branching. Open More settings for question, choose Add branching, then pick the question each answer should lead to, or the end of the form. A branch can point forward to a later question, never back to an earlier one.\"}, {\"q\": \"Why is conditional logic not working in my form?\", \"a\": \"Check rule order first: when two rules touch the same field, the later one can undo the earlier one. Then confirm the trigger value matches the option text exactly, capital letters included. If both look right, preview the form and walk the path that fails, one answer at a time.\"}, {\"q\": \"Are conditional logic forms better than one long form?\", \"a\": \"They are when different people need different questions. A form where everyone answers every field gains nothing from rules. When whole groups of questions apply to some people only, conditional logic forms cut them for everyone else. If what is left still runs long, a <a href='https://emergent.sh/ai-form-builder/multi-step-form'>multi step form</a> splits it into screens.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Describe the form to Emergent",
+  "howto_step_5_des": "Paste your rule sentences into a prompt along with the fields and where each submission should go. Emergent builds the form and its logic together with the table behind them. Ask in plain English when a rule needs changing.",
+  "howto_step_6_title": "06 Route submissions by answer",
+  "howto_step_6_des": "Logic keeps working after someone clicks submit. Pick the answers that change who hears about a response, such as a seat count that sends a lead to sales or an urgent flag that emails the on-call manager.",
+  "howto_step_7_title": "07 Walk every path before launch",
+  "howto_step_7_des": "Fill the form once for each path, including edge values such as a guest count of exactly 150. Check what was stored after each run, and confirm the right person got each alert. Delete the test rows before sharing the link.",
+  "prompt_chip_1": "Field Visibility",
+  "prompt_chip_2": "Skip to a Section",
+  "prompt_chip_3": "Route by Answer",
+  "prompt_chip_4": "Required If",
+  "hero_prompt": "<p>Build a booking form that shows medication fields only when the owner says yes.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/form/conditional-logic-form/uc-1.svg",
+   "alt": "A dog boarding booking form at Pinecrest Pet Lodge shows three required medication fields that opened after the owner answered yes, with the schedule saved to the dog's record."
+  },
+  "tab_image_2": {
+   "path": "images/form/conditional-logic-form/uc-2.svg",
+   "alt": "A wedding venue's room list hides the garden room, which seats 150, for an inquiry of 184 guests while the hall and terrace stay on the list."
+  },
+  "tab_image_3": {
+   "path": "images/form/conditional-logic-form/uc-3.svg",
+   "alt": "A software company's demo request for 340 seats passes the 200-seat check and posts to the enterprise sales channel in Slack, skipping the email with a 30-minute walkthrough link."
+  },
+  "tab_image_4": {
+   "path": "images/form/conditional-logic-form/uc-4.svg",
+   "alt": "A grant application on a phone ends at question 2 when an organization enters a $2,450,000 budget, above the $2,000,000 cap, and links to the foundation's capacity fund."
+  },
+  "cover_image": {
+   "path": "images/form/conditional-logic-form/cover.svg",
+   "alt": "Conditional logic form: a demo request for 340 seats routed to the enterprise sales channel by its seat count"
+  },
+  "share_image": {
+   "path": "images/form/conditional-logic-form/og.png",
+   "alt": "Build a conditional logic form that fits each answer, with Emergent"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-08 06:04 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-08 06:11 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "w-conditional-logic-form",
+   "note": ""
+  },
+  {
+   "t": "2026-10-08 06:11 UTC",
+   "state": "images",
+   "via": null,
+   "by": null,
+   "note": ""
+  }
+ ],
+ "plan": {
+  "angle": "The top 10 is vendor help pages and feature pages (Tally, Slate, ClickUp, Gravity Forms, Jotform), a WordPress plugin listicle and a Notion news post. Each explains where to click inside one tool. None helps someone decide which rules a form needs, what happens to an answer once its field is hidden, or how to test every path before going live. This page treats a rule as a sentence you can read back: a trigger, a condition and an action. Four rule types carry it, each on a real form: a field that appears, a choice that disappears, a submission routed by its answers, and a form that ends early for people who do not qualify. It stays on single-screen field logic and post-submit routing, leaving step-by-step screens to the multi step form page.",
+  "tab_stories": [
+   "A dog boarding lodge asks whether the dog takes medication, and only a yes reveals required fields for the drug name, dose and the times it is given.",
+   "A wedding venue's inquiry form hides the garden room from the room choices once the guest count goes above its capacity of 150.",
+   "A software company's demo request sends teams of 200 seats or more to an account executive in Slack, while smaller teams get a booking link by email.",
+   "A community foundation's grant application ends at the second question for any organization with an annual budget above $2,000,000 and shows a link to the program that fits."
+  ],
+  "openers": [
+   "Owners booking a stay",
+   "Couples planning a wedding",
+   "Seat count decides",
+   "Question two asks",
+   "Write each rule as a sentence",
+   "Start from the answer",
+   "Hidden answers stay blank",
+   "Walk every path"
+  ],
+  "heading_shapes": [
+   "Dose and schedule questions show up after a yes",
+   "With a guest count over 150, the garden room disappears",
+   "Demos for 200 seats or more go to a rep",
+   "No one over the budget cap reaches question three"
+  ],
+  "claims_to_source": [
+   "Google Forms branches with Go to section based on answer on multiple choice and dropdown questions",
+   "Jotform conditions can show or hide fields, skip to a page, update a value and change the email recipient",
+   "Jotform conditions are added under Settings, then Conditions, in the form builder",
+   "Jotform conditional logic is available on the free plan",
+   "Microsoft Forms adds branching from More settings for question, then Add branching",
+   "Tally conditional logic is free for all users and can show or hide blocks"
+  ]
+ },
+ "table": {
+  "vs": [
+   "Jotform",
+   "Google Forms",
+   "Typeform"
+  ],
+  "rows": [
+   "build",
+   "data",
+   "limits",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "domain_sources": [
+  {
+   "claim": "Google Forms branches with Go to section based on answer on multiple choice and dropdown questions",
+   "source_url": "https://support.google.com/docs/answer/141062?hl=en",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "Jotform conditions can show or hide fields, skip to a page, update a value and change the email recipient",
+   "source_url": "https://www.jotform.com/help/57-smart-forms-conditional-logic-for-online-forms/",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "Jotform conditions are added under Settings, then Conditions, in the form builder",
+   "source_url": "https://www.jotform.com/help/316-how-to-show-or-hide-fields-base-on-users-answer/",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "Jotform conditional logic is available on the free plan",
+   "source_url": "https://www.jotform.com/answers/4893685-inquiry-does-starter-free-plan-include-the-use-of-conditional-logic",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "Microsoft Forms adds branching from More settings for question, then Add branching",
+   "source_url": "https://support.microsoft.com/en-us/office/use-branching-logic-in-microsoft-forms-16634fda-eddb-44da-856d-6a8213f0d8bb",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "Tally conditional logic is free for all users and can show or hide blocks",
+   "source_url": "https://tally.so/help/conditional-form-logic",
+   "date": "2026-10-08"
+  }
+ ],
+ "faq_sources": [
+  {
+   "q": "What is a conditional logic form?",
+   "source": "definition",
+   "ref": "conditional logic form"
+  },
+  {
+   "q": "How do I use conditional logic in forms?",
+   "source": "paa",
+   "ref": "How can I use conditional logic in forms?"
+  },
+  {
+   "q": "Can you give me an example of conditional logic?",
+   "source": "paa",
+   "ref": "Can you give me an example of conditional logic?"
+  },
+  {
+   "q": "Can Google Forms do conditional logic?",
+   "source": "paa",
+   "ref": "Can Google Forms do conditional logic?"
+  },
+  {
+   "q": "How can I use conditional logic in Jotform forms?",
+   "source": "paa",
+   "ref": "How can I use conditional logic in Jotform forms?"
+  },
+  {
+   "q": "Which free form builder has the best conditional logic?",
+   "source": "paa",
+   "ref": "Which free form builder has the best conditional logic?"
+  },
+  {
+   "q": "What are some conditional logic form examples?",
+   "source": "related",
+   "ref": "Conditional logic form examples"
+  },
+  {
+   "q": "Does Microsoft Forms have conditional logic?",
+   "source": "related",
+   "ref": "Microsoft Forms conditional logic"
+  },
+  {
+   "q": "Why is conditional logic not working in my form?",
+   "source": "related",
+   "ref": "Tally conditional logic not working"
+  },
+  {
+   "q": "Are conditional logic forms better than one long form?",
+   "source": "secondary",
+   "ref": "conditional logic forms"
+  }
+ ],
+ "claims_used": [
+  "prompt-build",
+  "database-owned",
+  "api-connect",
+  "alerts",
+  "code-export"
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R6",
+    "title": "Medication follow-up fields",
+    "prompt": "Show medication fields only when the owner says the dog takes medication",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Book a stay",
+       "sub": "Pinecrest Pet Lodge"
+      },
+      {
+       "type": "fields",
+       "items": [
+        [
+         "Does Biscuit take medication?",
+         "Yes"
+        ],
+        [
+         "Drug name",
+         "Carprofen"
+        ],
+        [
+         "Dose",
+         "One tablet"
+        ],
+        [
+         "Times of day",
+         "Morning and evening"
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "eye",
+     "tone": "acc",
+     "title": "Rule matched: medication is Yes",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "3 required fields opened",
+       "size": 20,
+       "sub": "Drug name, dose, times of day"
+      },
+      {
+       "type": "meta",
+       "icon": "lock",
+       "kind": "acc",
+       "text": "No booking with the dose blank"
+      },
+      {
+       "type": "meta",
+       "icon": "eye-off",
+       "kind": "ok",
+       "text": "A no skips straight to feeding"
+      }
+     ],
+     "action": {
+      "label": "View booking",
+      "icon": "file-text"
+     }
+    },
+    "mini": {
+     "icon": "database",
+     "kind": "ok",
+     "title": "Schedule on Biscuit's record",
+     "sub": "Staff read it before drop-off"
+    },
+    "alt": "A dog boarding booking form at Pinecrest Pet Lodge shows three required medication fields that opened after the owner answered yes, with the schedule saved to the dog's record.",
+    "story": [
+     {
+      "copy": "three required fields",
+      "image": "3 required fields opened"
+     },
+     {
+      "copy": "Pinecrest Pet Lodge",
+      "image": "Pinecrest Pet Lodge"
+     },
+     {
+      "copy": "no booking goes through with the dose left blank",
+      "image": "No booking with the dose blank"
+     },
+     {
+      "copy": "A no moves them on to feeding",
+      "image": "A no skips straight to feeding"
+     }
+    ]
+   },
+   {
+    "recipe": "R8",
+    "title": "Room choices by guest count",
+    "prompt": "Hide the garden room when the guest count is above its 150 seats",
+    "rule": "If guest count > 150 → hide the garden room",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Larkhill Barn rooms",
+       "size": 20,
+       "chip": [
+        "Inquiry form",
+        "acc"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Room",
+        "Seats",
+        "On the list"
+       ],
+       "widths": [
+        0.44,
+        0.24,
+        0.32
+       ],
+       "row_h": 72,
+       "num_cols": [
+        1
+       ],
+       "bad": 2,
+       "rows": [
+        [
+         "Hall",
+         "220",
+         [
+          "Shown",
+          "ok"
+         ]
+        ],
+        [
+         "Terrace",
+         "200",
+         [
+          "Shown",
+          "ok"
+         ]
+        ],
+        [
+         "Garden room",
+         "150",
+         [
+          "Hidden",
+          "bad"
+         ]
+        ]
+       ]
+      },
+      {
+       "type": "text",
+       "text": "Guest count is asked before rooms",
+       "size": 16,
+       "color": "muted"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "users",
+     "title": "Inquiry: 184 guests",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Garden room hidden",
+       "size": 20,
+       "sub": "Hall and terrace still offered"
+      },
+      {
+       "type": "meta",
+       "icon": "calendar",
+       "kind": "acc",
+       "text": "Saturday in June requested"
+      }
+     ],
+     "action": {
+      "label": "Open inquiry",
+      "icon": "arrow-right"
+     }
+    },
+    "mini": {
+     "icon": "mail",
+     "kind": "ok",
+     "title": "No apology emails",
+     "sub": "Every room offered fits"
+    },
+    "alt": "A wedding venue's room list hides the garden room, which seats 150, for an inquiry of 184 guests while the hall and terrace stay on the list.",
+    "story": [
+     {
+      "copy": "With a guest count over 150, the garden room disappears",
+      "image": "If guest count > 150 → hide the garden room"
+     },
+     {
+      "copy": "leaves the hall and the terrace",
+      "image": "Hall and terrace still offered"
+     },
+     {
+      "copy": "Larkhill Barn",
+      "image": "Larkhill Barn rooms"
+     },
+     {
+      "copy": "stops writing the same apology email",
+      "image": "No apology emails"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Demo request routing",
+    "prompt": "Send demo requests for 200 seats or more to the enterprise sales channel",
+    "main": {
+     "chrome": "Northwind demo requests",
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Globex",
+       "sub": "Demo request, 340 seats"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Request received",
+         "sub": "Work email and role"
+        },
+        {
+         "state": "done",
+         "title": "Seat check",
+         "sub": "200 seats or more",
+         "right": "340"
+        },
+        {
+         "state": "live",
+         "title": "Posted to enterprise sales",
+         "sub": "Slack channel"
+        },
+        {
+         "state": "skip",
+         "title": "Booking link email",
+         "sub": "30-minute walkthrough link"
+        }
+       ]
+      },
+      {
+       "type": "text",
+       "text": "Under 200 seats: email with booking link",
+       "size": 16,
+       "color": "muted"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "message",
+     "channel": "#enterprise-sales",
+     "title": "Demo request: Globex, 340 seats",
+     "lines": [
+      "Routed by seat count: 200 or more",
+      "Company and seat count attached"
+     ],
+     "button": "Claim lead"
+    },
+    "mini": {
+     "icon": "database",
+     "kind": "ok",
+     "title": "Saved to the leads table",
+     "sub": "Same table for both paths"
+    },
+    "alt": "A software company's demo request for 340 seats passes the 200-seat check and posts to the enterprise sales channel in Slack, skipping the email with a 30-minute walkthrough link.",
+    "story": [
+     {
+      "copy": "200 seats or more",
+      "image": "200 seats or more"
+     },
+     {
+      "copy": "30-minute walkthrough",
+      "image": "30-minute walkthrough link"
+     },
+     {
+      "copy": "with the company name and seat count",
+      "image": "Company and seat count attached"
+     },
+     {
+      "copy": "the same leads table",
+      "image": "Saved to the leads table"
+     },
+     {
+      "copy": "Northwind",
+      "image": "Northwind demo requests"
+     }
+    ]
+   },
+   {
+    "recipe": "R4",
+    "title": "Grant budget cap",
+    "prompt": "End the grant application early for budgets above the foundation's cap",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "QUESTION 2",
+       "title": "Operating budget",
+       "size": 22,
+       "sub": "Riverbend grant"
+      },
+      {
+       "type": "fields",
+       "items": [
+        [
+         "Budget for this fiscal year",
+         "$2,450,000"
+        ],
+        [
+         "Fiscal year ends",
+         "June 30"
+        ]
+       ]
+      },
+      {
+       "type": "text",
+       "text": "Enter the full annual amount",
+       "size": 16,
+       "color": "muted"
+      },
+      {
+       "type": "button",
+       "label": "Next",
+       "full": true,
+       "h": 52
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Eligibility rule",
+       "size": 19
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Budget cap",
+         "$2,000,000"
+        ],
+        [
+         "Entered",
+         "$2,450,000",
+         true
+        ],
+        [
+         "Question 3",
+         "Never shown"
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "info",
+     "tone": "warn",
+     "title": "Form ended early",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "This grant is for smaller groups",
+       "size": 20,
+       "sub": "Larger groups apply to a separate fund"
+      },
+      {
+       "type": "meta",
+       "icon": "x-circle",
+       "kind": "acc",
+       "text": "Narrative questions skipped"
+      },
+      {
+       "type": "meta",
+       "icon": "inbox",
+       "kind": "ok",
+       "text": "Staff read eligible applications only"
+      }
+     ],
+     "action": {
+      "label": "See the capacity fund",
+      "icon": "arrow-right"
+     }
+    },
+    "alt": "A grant application on a phone ends at question 2 when an organization enters a $2,450,000 budget, above the $2,000,000 cap, and links to the foundation's capacity fund.",
+    "story": [
+     {
+      "copy": "above $2,000,000",
+      "image": "$2,000,000"
+     },
+     {
+      "copy": "Question two on the",
+      "image": "QUESTION 2"
+     },
+     {
+      "copy": "reaches question three",
+      "image": "Question 3"
+     },
+     {
+      "copy": "capacity fund",
+      "image": "See the capacity fund"
+     },
+     {
+      "copy": "staff read eligible applications only",
+      "image": "Staff read eligible applications only"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "channel": "#enterprise-sales",
+   "title": "Globex, 340 seats",
+   "sub": "Routed by seat count",
+   "primary": "Claim",
+   "secondary": "View",
+   "alt": "Conditional logic form: a demo request for 340 seats routed to the enterprise sales channel by its seat count"
+  },
+  "og": {
+   "headline": "Build a conditional logic form that fits each answer",
+   "lines": null,
+   "alt": "Build a conditional logic form that fits each answer, with Emergent"
+  },
+  "checks": [
+   {
+    "expr": "184 > 150",
+    "shows": [
+     "184",
+     "150"
+    ],
+    "where": 2
+   },
+   {
+    "expr": "220 >= 184",
+    "shows": [
+     "220"
+    ],
+    "where": 2
+   },
+   {
+    "expr": "200 >= 184",
+    "shows": [
+     "200"
+    ],
+    "where": 2
+   },
+   {
+    "expr": "340 >= 200",
+    "shows": [
+     "340",
+     "200"
+    ],
+    "where": 3
+   },
+   {
+    "same": "340",
+    "where": [
+     3,
+     "cover"
+    ]
+   },
+   {
+    "expr": "2450000 > 2000000",
+    "shows": [
+     "$2,450,000",
+     "$2,000,000"
+    ],
+    "where": 4
+   }
+  ]
+ },
+ "qc_passed": {
+  "rules_version": "1a87e7a55bea",
+  "date": "2026-10-08 06:11 UTC"
+ },
+ "writers": [
+  "w-conditional-logic-form"
+ ]
+}
