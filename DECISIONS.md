@@ -3,6 +3,13 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-08
+- **LAUNCH RUN (Divit, 2026-10-08):**
+  - **Rules freeze for launch:** no new QC rule or rule change until batches 1-3 are live. New feedback goes to `plan/backlog.md`; only factual errors on a page are fixed immediately.
+  - **Review = batch review** (4 pages per agent) on every non-parked page (option (c) of `plan/rework-2026-10-08.md`); per-page cost is measured on batch 1 and logged. This review replaces any earlier review on the page (earlier reviews are archived in `spec.reviews`).
+  - **PA13 skim and the PA3 newly-passing read are ONE file per batch** for Divit: `.cache/review/batch-N.html`.
+  - **Deferred until after launch:** the 12 synonym rescues and the 51 second-pull pages. The 7 intent-mismatch pages stay parked. `rules/audience.json` accepted as is.
+  - **The 4 original child pages** (thank-you-page, creator-application, approval-workflow, customer-satisfaction) are brought to the same standard: slugs and primaries unchanged. This supersedes the 2026-10-06 "unchanged" line for their content.
+  - **Standing go for STAGED Webflow writes only:** CMS items with `isDraft: true` and template edits T1, T2, T4 and T9 (`plan/template-edits-2026-10-08.md`). Nothing is published, and site publish is never triggered, without Divit's explicit "publish batch N".
 - **The testimonials and stats in section_stats on the hub pages are real and accurate (Divit confirmed 2026-10-08); not placeholders, do not flag again.** Checked read-only on the live /ai-form-builder: stats 10M+ Active Builders Worldwide, 12M+ Apps Successfully Created, 200+ Countries Globally Reached; testimonials Alex Rivera (Founder, TaskFlow), Maya Chen (Product Lead, BrightSuite), Jordan Patel (Co-founder, LoopDesk).
 - **Standing work report after every task** (Divit): `reports/YYYY-MM-DD/HHMM-<slug>.md` with Request (verbatim), Actions and results, Numbers, Decisions (with their source), Files and commits, Webflow calls (IDs, before/after, rollback), Not done, Open questions; a line in `reports/INDEX.md`; nothing secret or from `private/`/`.cache/`, no SERP or AlsoAsked question text (public repo); push via `ops/sync.sh`; chat reply under 15 lines (summary, path, SHA). Rule text: RUNBOOK section 6, CLAUDE.md.
 - **Hub link and link-to-live** (Divit): every child page links directly to its hub page exactly once (FAQ item 2, QC K4, P0); 2-3 links to related child pages are welcome but only to pages live at publish time. Links to non-live pages ship as plain text and are re-linked when the target goes live.
