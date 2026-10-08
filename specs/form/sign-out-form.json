@@ -1,0 +1,712 @@
+{
+ "url": "/ai-form-builder/sign-out-form",
+ "hub": "Form",
+ "item_id": null,
+ "status": "spec",
+ "written_by": "w-sign-out-form",
+ "keywords": {
+  "primary": "sign out form",
+  "secondaries_used": [
+   "sign out forms",
+   "sign out form template"
+  ]
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Sign Out Form Builder for Schools and Staff | Emergent",
+  "meta_description": "Build a sign out form for school pickups and staff off site. Emergent checks the pickup list at the desk and flags anyone late coming back.",
+  "h1": "Build a Sign Out Form That Shows Who Is Away",
+  "slug": "sign-out-form",
+  "product_name": "Sign Out Form Builder",
+  "hero_description": "A sign out form records who left early and when they are due back. Describe the exits you track, and Emergent builds the form and the checks that run on each one.",
+  "breadcrumb": "Sign Out Form",
+  "category": "a3f1c6d3f1f5b72e83814b483a0ac3d5",
+  "explore_cta": "Build My Sign Out Form",
+  "features_heading": "What a Paper Sign-Out Sheet Leaves Out",
+  "features_subheading": "Nobody reads the clipboard by the door until something goes wrong. These features put a check on every exit as it happens.",
+  "feature_1": "<h3>Fields for leaving mid-day</h3><p>Asks who is leaving, who they leave with, the reason and when they expect to return. The form stamps the time out, and names fill in from a class roster you upload once.</p>",
+  "feature_2": "<h3>A pickup list at the front desk</h3><p>Checks the adult's name against the approved pickup list for that student. A name missing from the list holds the sign-out, and the office sees why before the child is called.</p>",
+  "feature_3": "<h3>A timer on every open pass</h3><p>Starts a timer when someone signs out. Set a limit for each destination, such as 10 minutes for the restroom, and any entry that runs past it turns red on the teacher's screen.</p>",
+  "feature_4": "<h3>Overdue alerts by name</h3><p>Sends a Slack direct message or an email when someone misses the return time they gave. The alert names the person, where they went and the minute they first signed out.</p>",
+  "feature_5": "<h3>Every exit and return in one row</h3><p>Saves each sign-out with both times in a database you own. Pull a semester of early dismissals for one student, or every late return this month, without paging through binders.</p>",
+  "feature_6": "<h3>Your code, in your GitHub</h3><p>Exports the whole sign-out app to your GitHub repo. A developer can connect it to another system through that system's API, or you can keep changing it with a plain prompt.</p>",
+  "why_title": "Why Build Sign Out Forms With Emergent?",
+  "why_description": "A printed sheet stops at the handwriting. Emergent builds the form with the pickup check and the late-return message attached.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"emergent\" />\n        </th>\n        <th scope=\"col\">Google Forms</th>\n        <th scope=\"col\">Jotform</th>\n        <th scope=\"col\">Typeform</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt</td>\n        <td class=\"col-other\">Manual, field by field</td>\n        <td class=\"col-other\">Templates, editor, AI generator</td>\n        <td class=\"col-other\">Templates, editor, AI assist</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Where responses live</th>\n        <td class=\"col-brand\">A database table you own, plus any integration</td>\n        <td class=\"col-other\">Google Sheets</td>\n        <td class=\"col-other\">Jotform account</td>\n        <td class=\"col-other\">Typeform account</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Response limits</th>\n        <td class=\"col-brand\">Unlimited</td>\n        <td class=\"col-other\">No limit</td>\n        <td class=\"col-other\">100/mo free, 1,000 Bronze, 2,500 Silver, 10,000 Gold (form stops at cap)</td>\n        <td class=\"col-other\">10/mo free, 100 Basic, 1,000 Plus, 10,000 Business (form closes at cap)</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full export to your repo</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "Four Exits a Sign Out Form Tracks",
+  "tab_label_1": "Early Dismissal",
+  "tab_label_2": "Hall Passes",
+  "tab_label_3": "Field Technicians",
+  "tab_label_4": "Weekend Leave",
+  "tab_content_1": "<h3>A child goes home only with a listed adult</h3><p>Front office staff at Maple Grove Elementary sign students out on a desk tablet. At 11:40 AM, Ray Dunn asks to take his nephew Eli Park to the dentist. His name is missing from Eli's pickup list. The form holds the sign-out and messages assistant principal Joan Whitaker in Slack, and she calls Eli's mother first.</p>",
+  "tab_content_2": "<h3>The pass that has been out for 14 minutes</h3><p>Ms. Ortega's science class signs out on a tablet by the door, picking the restroom, the nurse, the library or the counselor. Each pass starts a timer, and one open longer than 10 minutes turns red on her laptop. Theo Grant left for the library at 10:02 AM and is the only red row.</p>",
+  "tab_content_3": "<h3>A message goes out when a technician runs 30 minutes over</h3><p>Technicians at Brightline HVAC sign out from the shop with the job address and the time they expect to be back. Thirty minutes past that time with no sign-in, the app sends office manager Carla Reyes a Slack message. Sam Ito was due back from Birch Road at 3:00 PM, and Carla heard about it at 3:30 PM.</p>",
+  "tab_content_4": "<h3>Who is still away when Sunday check-in closes</h3><p>Weekend leave at Hillcrest Academy starts with a Friday sign-out that names the host and a return time. Check-in closes at 8:00 PM on Sunday. Tonight 23 of the 25 boarders who left are back, and house parent Daniel Okafor sees the two still away beside their hosts.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { earlyDismissal: \"Build a sign out form for our elementary school front office on a desk tablet. Ask for the student, the adult picking them up and the reason. Check the adult against that student's approved pickup list. If the name is missing, hold the sign-out and send our assistant principal a Slack message with both names and the time.\", hallPasses: \"I teach science and want a hall pass sign out on a tablet by my classroom door. Students pick the restroom, the nurse, the library or the counselor and tap out. Start a timer on each pass and turn the row red on my laptop when a pass stays open longer than 10 minutes.\", fieldTechnicians: \"Our HVAC technicians need to sign out from the shop on their phones with the job address and the time they expect to be back. If someone is 30 minutes past that time and has not signed back in, send our office manager a Slack message with the technician's name and the job address.\", weekendLeave: \"We run a boarding school and want students to sign out for weekend leave on Friday with where they are going, the adult hosting them and their return time. Sunday check-in closes at 8:00 PM. At that time, show our house parent everyone still away, with the host's name next to each student.\" };</p>",
+  "howto_title": "How to Make a Sign Out Form",
+  "howto_description": "Start with who leaves and what has to be true before they go. The fields and the checks follow from that.",
+  "howto_step_1_title": "01 Write down who leaves and why",
+  "howto_step_2_title": "02 Name the condition for leaving",
+  "howto_step_3_title": "03 Set a time limit per exit",
+  "howto_step_4_title": "04 Describe the form to Emergent",
+  "howto_step_1_des": "List the exits you need a record of, such as a parent collecting a child at noon or a technician driving to a job. Each exit has its own check, and that check decides which fields the form asks for.",
+  "howto_step_2_des": "At a school office, the adult must be on the pickup list. On a service crew, the technician must give a return time. Write each condition as one plain sentence, because that sentence becomes the rule the form applies.",
+  "howto_step_3_des": "A restroom pass might allow 10 minutes and a library visit 20, while a site visit runs to whatever time the technician enters. Pick who hears about an entry that runs over, and whether that arrives in Slack or by email.",
+  "howto_step_4_des": "Tell Emergent who signs out, which fields you need and which rules apply. It builds the form, the checks and a table holding every exit and return. Adding a grandparent to a pickup list later takes one more prompt.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Sign Out Form Questions, Answered\", \"items\": [{\"q\": \"What is a sign out form?\", \"a\": \"A sign out form records someone leaving a place before the day is over, with the time and the reason. Schools keep one at the front office and another by each classroom door. Workplaces use one for staff who step off site during a shift.\"}, {\"q\": \"How do you create a sign out sheet?\", \"a\": \"Choose the columns first: name, time out, destination and expected return, plus any check that has to pass before someone goes. Describe them to Emergent's <a href='https://emergent.sh/ai-form-builder'>AI form builder</a>, and it builds the form with a table of every exit. Then set it on a tablet where people leave.\"}, {\"q\": \"Is there a sign out form template I can start from?\", \"a\": \"Template sites offer printable sheets with the usual columns. A sign out form template has those columns but no rules, which means it cannot check a pickup list or time a hall pass. Describing your own form puts the rules in the first version.\"}, {\"q\": \"Can I get a sign out form as a PDF?\", \"a\": \"Yes. Excel and Word both save a finished sheet as a PDF from the Save As menu. Keep a printed copy at the desk for a day when the tablet is down, and type those entries into the form afterward.\"}, {\"q\": \"Can I build a sign out sheet template in Excel?\", \"a\": \"Microsoft offers free Excel templates to adapt. Or open a blank workbook with a column each for the student or employee, where they went and both times. Each entry still has to be typed by someone, and nobody is warned when a row stays open.\"}, {\"q\": \"What should a bathroom sign out sheet include?\", \"a\": \"Keep it to the student's name, the time out and the time back. A tablet version fills in both times and flags a pass after the limit you choose. The teacher spots a long absence at a glance instead of reading down a paper list.\"}, {\"q\": \"What is the difference between a sign in and out sheet and a sign out form?\", \"a\": \"A sign in and out sheet logs everyone who enters a building, and the exit time closes each visit. A sign out form starts at the exit, for someone expected to stay who is leaving early. Lobbies and job sites usually want a <a href='https://emergent.sh/ai-form-builder/sign-in-form'>sign in form</a>.\"}, {\"q\": \"How do I run an equipment sign in and out sheet?\", \"a\": \"Record the item, its tag number, who took it and when it is due back. Lending laptops or keys works better as a <a href='https://emergent.sh/ai-form-builder/checkout-form'>checkout form</a>, which keeps each item's condition at both ends of the loan.\"}, {\"q\": \"Who uses sign out forms?\", \"a\": \"Elementary schools use sign out forms when a parent collects a child early, and boarding schools add weekend leave. Service companies use them to see which technicians are out on jobs. Staff who will be gone a full day should file a <a href='https://emergent.sh/ai-form-builder/time-off-request-form'>time off request form</a>.\"}, {\"q\": \"What does a sample sign out sheet look like?\", \"a\": \"A sample sign out sheet has one row per exit, with columns for the name and destination, then the times out and back. A school version adds the adult collecting the child. A workplace version adds a phone number for anyone working alone off site.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Put the form where people leave",
+  "howto_step_5_des": "A tablet on the front desk suits a school office, and a classroom can mount one by the door. Technicians who leave from the field open the link on their phones. Test it once outdoors, in daylight, before the crew depends on it.",
+  "howto_step_6_title": "06 Make the return part of the routine",
+  "howto_step_6_des": "A sign-out with no return leaves a record that says someone is still away. Put the sign-in step on the same screen as the exit, and ask whoever closes the building to clear any open entry before they lock up.",
+  "howto_step_7_title": "07 Read the log each Friday",
+  "howto_step_7_des": "Scan the week's exits for patterns, like a student who leaves at the same hour every day or a crew that keeps running late. Each pattern points to a conversation or a new rule, and a new rule is one prompt.",
+  "prompt_chip_1": "Early Dismissal Log",
+  "prompt_chip_2": "Pickup List Checks",
+  "prompt_chip_3": "Hall Pass Timer",
+  "prompt_chip_4": "Late Return Alerts",
+  "hero_prompt": "<p>Build a sign out form for a school office that checks each adult against the pickup list.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/form/sign-out-form/uc-1.svg",
+   "alt": "A front desk tablet at Maple Grove Elementary holds Eli Park's early dismissal because Ray Dunn is not on his pickup list, and assistant principal Joan Whitaker gets a Slack message at 11:40 AM."
+  },
+  "tab_image_2": {
+   "path": "images/form/sign-out-form/uc-2.svg",
+   "alt": "A classroom hall pass log shows Theo Grant out at the library since 10:02 AM, his row red after 14 minutes because passes turn red past 10 minutes."
+  },
+  "tab_image_3": {
+   "path": "images/form/sign-out-form/uc-3.svg",
+   "alt": "A field service sign-out board shows Sam Ito due back from the Birch Road job at 3:00 PM, and at 3:30 PM office manager Carla Reyes gets a Slack message that he is 30 minutes overdue."
+  },
+  "tab_image_4": {
+   "path": "images/form/sign-out-form/uc-4.svg",
+   "alt": "A boarding school weekend leave table shows 23 of 25 boarders back when Sunday check-in closes at 8:00 PM, with the two still away listed beside their hosts for house parent Daniel Okafor."
+  },
+  "cover_image": {
+   "path": "images/form/sign-out-form/cover.svg",
+   "alt": "Sign out form: a confirmation that the student is signed out, with a button to sign back in"
+  },
+  "share_image": {
+   "path": "images/form/sign-out-form/og.png",
+   "alt": "Build a sign out form for school exits and staff off site, with Emergent"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-08 08:53 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-08 08:59 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "w-sign-out-form",
+   "note": ""
+  },
+  {
+   "t": "2026-10-08 08:59 UTC",
+   "state": "images",
+   "via": null,
+   "by": null,
+   "note": ""
+  }
+ ],
+ "plan": {
+  "angle": "The live top 10 for 'sign out form' answers nobody: two DocHub tax forms, a printed inventory sheet on a shopping site, a weather video, New Zealand court rules and a federal patient-rights rule. The keyword ideas say what people want: school sign-out sheets, bathroom passes, Excel and PDF templates. This page treats a sign out form as the record of someone leaving before the day is over, with a check attached to each exit: the pickup list at early dismissal, a timer on a hall pass, an expected return time for staff in the field, and a Sunday night roll of boarders still away.",
+  "tab_stories": [
+   "At an elementary school office, an adult signs a child out at 11:40 AM, the form checks the name against the child's approved pickup list, and an uncle who is not on it is held at the desk while the assistant principal gets a message.",
+   "In a seventh-grade classroom, students sign out on a tablet by the door for the restroom, nurse or library, and a pass open longer than 10 minutes turns red on the teacher's screen.",
+   "At a field service company, technicians sign out with a destination and an expected return time, and one who is 30 minutes past that time with no sign-in reaches the office manager by text.",
+   "At a boarding school, students sign out for the weekend with a destination and a return time, and at 8:00 PM Sunday the house parent sees the two boarders who have not signed back in."
+  ],
+  "openers": [
+   "Front office staff at Maple Grove Elementary",
+   "Ms. Ortega teaches seventh-grade science",
+   "Technicians at Brightline HVAC",
+   "Weekend leave at Hillcrest Academy",
+   "Checks the adult's name",
+   "Starts a timer",
+   "A sheet taped to the classroom door",
+   "Write down who leaves"
+  ],
+  "heading_shapes": [
+   "A child goes home only with a listed adult",
+   "The pass that has been out for 14 minutes",
+   "A message goes out when a technician runs 30 minutes over",
+   "Who is still away when Sunday check-in closes"
+  ],
+  "claims_to_source": [
+   "Microsoft offers free Excel templates",
+   "Excel and Word can save a file as a PDF"
+  ]
+ },
+ "table": {
+  "vs": [
+   "Google Forms",
+   "Jotform",
+   "Typeform"
+  ],
+  "rows": [
+   "build",
+   "data=Where responses live",
+   "limits=Response limits",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "domain_sources": [
+  {
+   "claim": "Microsoft offers free Excel templates",
+   "source_url": "https://excel.cloud.microsoft/create/en/templates/",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "Excel and Word can save a file as a PDF",
+   "source_url": "https://support.microsoft.com/en-us/office/save-or-convert-to-pdf-or-xps-in-office-desktop-apps-d85416c5-7d77-4fd6-a216-6f4bf7c7c110",
+   "date": "2026-10-08"
+  }
+ ],
+ "faq_sources": [
+  {
+   "q": "What is a sign out form?",
+   "source": "definition",
+   "ref": "sign out form"
+  },
+  {
+   "q": "How do you create a sign out sheet?",
+   "source": "keyword",
+   "ref": "sign out sheet"
+  },
+  {
+   "q": "Is there a sign out form template I can start from?",
+   "source": "secondary",
+   "ref": "sign out form template"
+  },
+  {
+   "q": "Can I get a sign out form as a PDF?",
+   "source": "related",
+   "ref": "Sign out form pdf"
+  },
+  {
+   "q": "Can I build a sign out sheet template in Excel?",
+   "source": "keyword",
+   "ref": "sign out sheet template excel"
+  },
+  {
+   "q": "What should a bathroom sign out sheet include?",
+   "source": "keyword",
+   "ref": "bathroom sign out sheet"
+  },
+  {
+   "q": "What is the difference between a sign in and out sheet and a sign out form?",
+   "source": "keyword",
+   "ref": "sign in and out sheet"
+  },
+  {
+   "q": "How do I run an equipment sign in and out sheet?",
+   "source": "keyword",
+   "ref": "equipment sign in and out sheet"
+  },
+  {
+   "q": "Who uses sign out forms?",
+   "source": "secondary",
+   "ref": "sign out forms"
+  },
+  {
+   "q": "What does a sample sign out sheet look like?",
+   "source": "keyword",
+   "ref": "sample sign out sheet"
+  }
+ ],
+ "claims_used": [
+  "prompt-build",
+  "alerts",
+  "database-owned",
+  "api-connect",
+  "code-export",
+  "realtime"
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R6",
+    "title": "Early dismissal check",
+    "prompt": "Hold any early dismissal when the adult is not on the pickup list",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Early dismissal",
+       "sub": "Maple Grove Elementary office"
+      },
+      {
+       "type": "fields",
+       "items": [
+        [
+         "Student",
+         "Eli Park"
+        ],
+        [
+         "Picked up by",
+         "Ray Dunn"
+        ],
+        [
+         "Reason",
+         "Dentist"
+        ]
+       ]
+      },
+      {
+       "type": "button",
+       "label": "Sign out",
+       "icon": "log-out",
+       "full": true
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "message-square",
+     "tone": "warn",
+     "title": "Slack DM to Joan Whitaker",
+     "blocks": [
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Adult",
+         "Ray Dunn"
+        ],
+        [
+         "Pickup list",
+         "Not listed",
+         true
+        ]
+       ]
+      }
+     ],
+     "action": {
+      "label": "Call parent",
+      "icon": "phone",
+      "primary": true
+     }
+    },
+    "mini": {
+     "icon": "shield-alert",
+     "kind": "warn",
+     "title": "Held at 11:40 AM",
+     "sub": "Sign-out on hold"
+    },
+    "alt": "A front desk tablet at Maple Grove Elementary holds Eli Park's early dismissal because Ray Dunn is not on his pickup list, and assistant principal Joan Whitaker gets a Slack message at 11:40 AM.",
+    "story": [
+     {
+      "copy": "missing from Eli's pickup list",
+      "image": "Not listed"
+     },
+     {
+      "copy": "At 11:40 AM",
+      "image": "Held at 11:40 AM"
+     },
+     {
+      "copy": "Joan Whitaker",
+      "image": "Slack DM to Joan Whitaker"
+     },
+     {
+      "copy": "Ray Dunn",
+      "image": "Ray Dunn"
+     }
+    ]
+   },
+   {
+    "recipe": "R8",
+    "title": "Hall pass timer",
+    "prompt": "Turn a hall pass red on my laptop after 10 minutes out of class",
+    "rule": "If a pass is open longer than 10 minutes → turn it red",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Hall passes, Ms. Ortega",
+       "size": 20
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Student",
+        "To",
+        "Out",
+        "Status"
+       ],
+       "widths": [
+        0.28,
+        0.24,
+        0.22,
+        0.26
+       ],
+       "row_h": 66,
+       "rows": [
+        [
+         "Theo Grant",
+         "Library",
+         "10:02 AM",
+         [
+          "14 min",
+          "bad"
+         ]
+        ],
+        [
+         "Leo Diaz",
+         "Restroom",
+         "10:11 AM",
+         [
+          "5 min",
+          "acc"
+         ]
+        ],
+        [
+         "Ava Cole",
+         "Nurse",
+         "9:31 AM",
+         [
+          "Back",
+          "ok"
+         ]
+        ],
+        [
+         "Mia Ross",
+         "Counselor",
+         "9:48 AM",
+         [
+          "Back",
+          "ok"
+         ]
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "timer",
+     "tone": "warn",
+     "title": "Theo Grant, 14 min",
+     "blocks": [
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Pass",
+         "Library"
+        ],
+        [
+         "Out since",
+         "10:02 AM",
+         true
+        ]
+       ]
+      }
+     ],
+     "action": {
+      "label": "Call the library",
+      "icon": "phone",
+      "primary": true
+     }
+    },
+    "mini": {
+     "icon": "laptop",
+     "kind": "acc",
+     "title": "Shown on her laptop",
+     "sub": "One red row"
+    },
+    "alt": "A classroom hall pass log shows Theo Grant out at the library since 10:02 AM, his row red after 14 minutes because passes turn red past 10 minutes.",
+    "story": [
+     {
+      "copy": "open longer than 10 minutes",
+      "image": "If a pass is open longer than 10 minutes"
+     },
+     {
+      "copy": "out for 14 minutes",
+      "image": "Theo Grant, 14 min"
+     },
+     {
+      "copy": "at 10:02 AM",
+      "image": "10:02 AM"
+     },
+     {
+      "copy": "Theo Grant",
+      "image": "Theo Grant"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Technician return check",
+    "prompt": "Message our office manager when a technician is 30 minutes overdue",
+    "main": {
+     "chrome": "Brightline sign-out board",
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Sam Ito, Birch Road job",
+       "sub": "Signed out from the shop"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Signed out",
+         "sub": "Job address added",
+         "right": "1:15 PM"
+        },
+        {
+         "state": "done",
+         "title": "Due back",
+         "sub": "Time Sam entered",
+         "right": "3:00 PM"
+        },
+        {
+         "state": "live",
+         "title": "No sign-in yet",
+         "sub": "30 minutes past due",
+         "right": "3:30 PM"
+        }
+       ]
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Technician",
+         "Sam Ito"
+        ],
+        [
+         "Job",
+         "Furnace repair, Birch Road"
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "message",
+     "channel": "Carla Reyes",
+     "title": "Sam Ito is 30 minutes overdue",
+     "lines": [
+      "Birch Road job, due back 3:00 PM"
+     ],
+     "button": "Call Sam"
+    },
+    "mini": {
+     "icon": "clock",
+     "kind": "warn",
+     "title": "Sent at 3:30 PM",
+     "sub": "Office manager"
+    },
+    "alt": "A field service sign-out board shows Sam Ito due back from the Birch Road job at 3:00 PM, and at 3:30 PM office manager Carla Reyes gets a Slack message that he is 30 minutes overdue.",
+    "story": [
+     {
+      "copy": "Thirty minutes past that time",
+      "image": "30 minutes past due"
+     },
+     {
+      "copy": "at 3:00 PM",
+      "image": "due back 3:00 PM"
+     },
+     {
+      "copy": "at 3:30 PM",
+      "image": "Sent at 3:30 PM"
+     },
+     {
+      "copy": "Carla Reyes",
+      "image": "Carla Reyes"
+     }
+    ]
+   },
+   {
+    "recipe": "R11",
+    "title": "Weekend leave roll",
+    "prompt": "Show our house parent which boarders are still away at Sunday check-in",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "23 of 25 back",
+       "size": 20,
+       "chip": [
+        "Sunday",
+        "acc"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Student",
+        "Host",
+        "Due",
+        "Status"
+       ],
+       "widths": [
+        0.3,
+        0.26,
+        0.2,
+        0.24
+       ],
+       "row_h": 44,
+       "bad": 1,
+       "rows": [
+        [
+         "Ivy Moss",
+         "L. Moss",
+         "6:00 PM",
+         [
+          "Back",
+          "ok"
+         ]
+        ],
+        [
+         "Nora Blake",
+         "J. Blake",
+         "7:30 PM",
+         [
+          "Away",
+          "bad"
+         ]
+        ],
+        [
+         "Ben Hart",
+         "S. Hart",
+         "5:00 PM",
+         [
+          "Back",
+          "ok"
+         ]
+        ],
+        [
+         "Owen Price",
+         "R. Shaw",
+         "8:00 PM",
+         [
+          "Away",
+          "bad"
+         ]
+        ],
+        [
+         "Lia Chen",
+         "M. Chen",
+         "4:30 PM",
+         [
+          "Back",
+          "ok"
+         ]
+        ]
+       ]
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Still away",
+       "size": 16
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Hosts",
+         "J. Blake, R. Shaw"
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "blocks": [
+      {
+       "type": "chips",
+       "items": [
+        [
+         "2 still away",
+         "warn"
+        ]
+       ]
+      },
+      {
+       "type": "title",
+       "title": "Check-in closed at 8:00 PM",
+       "sub": "Sent to Daniel Okafor"
+      }
+     ],
+     "action": {
+      "label": "Call hosts",
+      "icon": "phone",
+      "primary": true
+     }
+    },
+    "alt": "A boarding school weekend leave table shows 23 of 25 boarders back when Sunday check-in closes at 8:00 PM, with the two still away listed beside their hosts for house parent Daniel Okafor.",
+    "story": [
+     {
+      "copy": "23 of the 25",
+      "image": "23 of 25 back"
+     },
+     {
+      "copy": "the two still away",
+      "image": "2 still away"
+     },
+     {
+      "copy": "at 8:00 PM",
+      "image": "Check-in closed at 8:00 PM"
+     },
+     {
+      "copy": "Daniel Okafor",
+      "image": "Sent to Daniel Okafor"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "confirm",
+   "title": "You are signed out",
+   "button": "Sign back in",
+   "icon": "check",
+   "alt": "Sign out form: a confirmation that the student is signed out, with a button to sign back in"
+  },
+  "og": {
+   "headline": "Build a sign out form",
+   "lines": [
+    "Build a",
+    "sign out form"
+   ],
+   "alt": "Build a sign out form for school exits and staff off site, with Emergent"
+  },
+  "checks": [
+   {
+    "expr": "25 - 23 == 2",
+    "shows": [
+     "23 of 25 back",
+     "2 still away"
+    ],
+    "where": 4
+   }
+  ]
+ },
+ "qc_passed": {
+  "rules_version": "1a87e7a55bea",
+  "date": "2026-10-08 08:59 UTC"
+ },
+ "writers": [
+  "w-sign-out-form"
+ ]
+}
