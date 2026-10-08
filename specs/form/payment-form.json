@@ -1,0 +1,796 @@
+{
+ "url": "/ai-form-builder/payment-form",
+ "hub": "Form",
+ "item_id": null,
+ "status": "spec",
+ "written_by": "w-payment-form",
+ "keywords": {
+  "primary": "payment form",
+  "secondaries_used": [
+   "payment forms",
+   "payment form template",
+   "free payment form",
+   "payment form pdf"
+  ]
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Online Payment Form Builder | Emergent",
+  "meta_description": "Build a payment form that takes card payments through Stripe and records each one against the invoice or deposit it pays. Free to start.",
+  "h1": "Build a Payment Form That Matches Each Payment to Its Bill",
+  "slug": "payment-form",
+  "product_name": "Payment Form Builder",
+  "hero_description": "Say what people pay for and how much. Emergent builds the payment form, sends the card to Stripe and saves each payment next to the invoice or plan it settles.",
+  "breadcrumb": "Payment Form",
+  "category": "a3f1c6d3f1f5b72e83814b483a0ac3d5",
+  "explore_cta": "Build My Payment Form",
+  "features_heading": "What Sits Behind the Pay Button",
+  "features_subheading": "A card field is the easy part. The six pieces below tell you who paid and what happens next.",
+  "feature_1": "<h3>Card numbers stay with Stripe</h3><p>Payers type card details into Stripe's own fields, and the number goes from their browser to Stripe. Your table stores the amount and the Stripe payment ID, never the full number.</p>",
+  "feature_2": "<h3>Every payment points to its bill</h3><p>Attach a reference to each payment, such as an invoice number or a permit. Open any invoice to see every payment made against it and the day each one landed in your account.</p>",
+  "feature_3": "<h3>Amounts that arrive with the link</h3><p>Send a pay link with the invoice number and amount filled in. The payer checks both and adds a card. Nobody types $385 for a $3,850 invoice and leaves you chasing the rest.</p>",
+  "feature_4": "<h3>Deposits and installments on one record</h3><p>Ask for part of an estimate up front, or split tuition into dated payments a parent can see. The balance due on the record drops with each payment that succeeds, down to zero.</p>",
+  "feature_5": "<h3>A receipt for the payer, a ping for you</h3><p>Each payer gets an email receipt with a receipt number and what it covered. Your team hears about it in Slack or by email, with a link straight to that payment's record.</p>",
+  "feature_6": "<h3>Your domain, your database, your code</h3><p>Publish the form on your own domain. Payment records sit in a database you own, and the full source exports to GitHub whenever a developer wants to add a billing portal.</p>",
+  "why_title": "Why Build Payment Forms With Emergent?",
+  "why_description": "Paper forms ask for a card number in ink. Template builders take the card, then someone matches each payment to its invoice by hand.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"emergent\" />\n        </th>\n        <th scope=\"col\">Jotform</th>\n        <th scope=\"col\">Google Forms</th>\n        <th scope=\"col\">Typeform</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">Payments in the form</th>\n        <td class=\"col-brand\">Included</td>\n        <td class=\"col-other\">Included, metered per plan</td>\n        <td class=\"col-other\">No</td>\n        <td class=\"col-other\">Paid plans</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt</td>\n        <td class=\"col-other\">Templates, editor, AI generator</td>\n        <td class=\"col-other\">Manual, field by field</td>\n        <td class=\"col-other\">Templates, editor, AI assist</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Where responses live</th>\n        <td class=\"col-brand\">A database table you own, plus any integration</td>\n        <td class=\"col-other\">Jotform account</td>\n        <td class=\"col-other\">Google Sheets</td>\n        <td class=\"col-other\">Typeform account</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Response limits</th>\n        <td class=\"col-brand\">Unlimited</td>\n        <td class=\"col-other\">100/mo free, 1,000 Bronze, 2,500 Silver, 10,000 Gold (form stops at cap)</td>\n        <td class=\"col-other\">No limit</td>\n        <td class=\"col-other\">10/mo free, 100 Basic, 1,000 Plus, 10,000 Business (form closes at cap)</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full export to your repo</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "Four Kinds of Bills, Paid Online",
+  "tab_label_1": "Invoice Payments",
+  "tab_label_2": "Project Deposits",
+  "tab_label_3": "Tuition Plans",
+  "tab_label_4": "Permit Fees",
+  "tab_content_1": "<h3>Invoice INV-2047 marked paid by the client's card</h3><p>Larkspur Studio sends every invoice with a pay link. Halvorsen Dental opens it, finds INV-2047 and $3,850.00 already filled in, and pays by card. The invoice row switches to paid. Dana, the account lead, gets a Slack message naming the client and the amount.</p>",
+  "tab_content_2": "<h3>Kitchen jobs get a start date after the deposit is paid</h3><p>Birchline Remodeling quotes a kitchen at $14,000 and asks for $4,200.00 before work is booked. Once the homeowner signs the estimate, the payment form opens at that amount. The job stays off the crew calendar until that payment succeeds. Then the scheduler gets an email to book the start date.</p>",
+  "tab_content_3": "<h3>$1,200 tuition in one payment or three</h3><p>Cedar Hill Music School parents pick a plan when they enroll a child in the summer intensive. They pay $1,200 at once, or make three payments of $400 on June 15, July 15 and August 15. Stripe keeps the card on file for the later two. Each family's record lists the payment dates and marks the next charge.</p>",
+  "tab_content_4": "<h3>Receipt numbers inspectors look up from the truck</h3><p>Millbrook permit applicants pick a permit type, and the form prices it from the town's fee schedule. A deck permit costs $225.00: $180.00 for the permit and $45.00 for plan review. Each payment gets a receipt number, here MB-0318. The inspector searches that number on a phone before knocking.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { invoicePayments: \"I run a design studio and send invoices by email. Build a payment form that opens from a pay link with the invoice number and amount already filled in, like INV-2047 for $3,850.00. Clients add a card and pay through Stripe. Mark the invoice paid in my invoices table and send Dana, our account lead, a Slack message with the client and the amount.\", projectDeposits: \"My remodeling company takes a deposit before we book a job. After a homeowner signs an estimate, open a payment form for the deposit, for example $4,200.00 on a $14,000 kitchen. Keep the job off the crew calendar until the deposit is paid, then email our scheduler to book the start date.\", tuitionPlans: \"Our music school charges $1,200 for the summer intensive. Let parents pay it all at enrollment or in three payments of $400 on June 15, July 15 and August 15. Save the card with Stripe for the later charges. Show each family's payment dates on their record and mark the next charge.\", permitFees: \"Our town building department takes permit fees. Build a payment form where applicants pick the permit type and the fee comes from our schedule: a deck permit is $180.00 plus $45.00 for plan review. Give each payment a receipt number like MB-0318 and let inspectors look it up on a phone.\" };</p>",
+  "howto_title": "How to Make a Payment Form",
+  "howto_description": "Settle what each payment is for and where its record goes before you write the prompt.",
+  "howto_step_1_title": "01 List what people pay you for",
+  "howto_step_2_title": "02 Tie each payment to a reference",
+  "howto_step_3_title": "03 Keep the payer's fields short",
+  "howto_step_4_title": "04 Connect Stripe and choose methods",
+  "howto_step_1_des": "Write down every bill a payer settles through the form, such as an invoice or a deposit. Note the amount or how it is worked out, for example a fixed share of an estimate or a price from a fee schedule. Each one becomes a payment type.",
+  "howto_step_2_des": "Decide which number or name matches a payment to its bill, and put it in the pay link whenever you can. The payer then confirms the reference instead of typing it, and typos stop reaching your books.",
+  "howto_step_3_des": "Ask for a name, an email for the receipt and the reference. Leave out a card brand dropdown, because the processor reads the brand from the card number. Each field you add is one more place for a payer to stop before paying.",
+  "howto_step_4_des": "Connect your Stripe account, then decide which methods to accept. Cards cover most payers. Bank payments suit large invoices, and a saved card suits any plan that charges again later. Write the choice down, since it shapes the prompt.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Payment Form Questions, Answered\", \"items\": [{\"q\": \"What is a payment form?\", \"a\": \"A payment form collects what a payer owes and what it takes to charge them: a name, an email, the amount, what the payment is for, and card or bank details. Online, the card fields usually belong to a processor such as Stripe, which processes the payment.\"}, {\"q\": \"How to make a payment form?\", \"a\": \"List what people pay for, pick the reference that ties each payment to its bill, then connect a processor. Describe all of it to Emergent's <a href='https://emergent.sh/ai-form-builder'>AI form builder</a>. It builds the form and logs every payment to a table, with Stripe handling the cards.\"}, {\"q\": \"How do I show proof of payment?\", \"a\": \"Use the record of the payment itself: a receipt, a bank or card statement, or a canceled check. For cash, get a dated, signed receipt with the amount and reason. Online payments come with an emailed receipt number. Keep it instead of a filled-in payment form pdf, which shows what someone meant to pay, not what went through.\"}, {\"q\": \"What are the four forms of payment?\", \"a\": \"The usual four are cash, checks, debit cards and credit cards. Online payment forms take the two card types directly. Cash and checks still need a person to record them, with a field noting how the payer settled the bill.\"}, {\"q\": \"What are the most common forms of payment?\", \"a\": \"Online, the common methods are credit and debit cards, bank transfers and phone wallets that hold a card. When a payment covers products with quantities, an <a href='https://emergent.sh/ai-form-builder/order-form'>order form</a> adds the items and a total ahead of the card field.\"}, {\"q\": \"What are five common types of payment methods?\", \"a\": \"Cash, checks, debit cards, credit cards and bank transfers. For a card you plan to charge again, such as a monthly retainer, collect a signed <a href='https://emergent.sh/ai-form-builder/credit-card-authorization-form'>credit card authorization form</a> before the first charge.\"}, {\"q\": \"What is the most used form of payment?\", \"a\": \"Credit cards. In the Federal Reserve's 2025 Diary of Consumer Payment Choice, US consumers paid by credit card more often than by any other method, with cash ranked third. Put the card field first on a form that takes payments.\"}, {\"q\": \"What are the 7 methods of payment with examples?\", \"a\": \"Cash at a farmers market, a check for rent, a debit card at the grocery store and a credit card for a flight. Add an ACH transfer for payroll, a wire for a house closing and a phone wallet at a coffee shop. To pull payments by ACH, collect bank details with an <a href='https://emergent.sh/ai-form-builder/ach-form'>ACH form</a>.\"}, {\"q\": \"What are payment methods called?\", \"a\": \"Forms of payment or payment types. Point-of-sale systems call them tender types, and each method, such as cash, is set up as its own tender. On a form, label the field Payment method, since payers recognize that term.\"}, {\"q\": \"Is there a free payment form template?\", \"a\": \"Most form builders offer a payment form template you can copy. A PDF version stops at a blank card field that someone types in later. Emergent is free to start, and a free payment form built on its free tier can publish and take cards through Stripe.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Describe the form to Emergent",
+  "howto_step_5_des": "Put the payment types and the reference into a prompt in plain English. Emergent builds the form and the payments table, then connects Stripe. Ask for changes the same way, like a new fee or a fourth installment.",
+  "howto_step_6_title": "06 Decide who hears about payments",
+  "howto_step_6_des": "Route each payment to the person who acts on it: a Slack message to the account lead, an email to the scheduler or a daily summary for the bookkeeper. Give failed payments their own alert with a link to the record.",
+  "howto_step_7_title": "07 Pay one bill yourself before sharing",
+  "howto_step_7_des": "Switch Stripe to test mode and pay with a test card number. Read the receipt email, then open the payments table and check the row shows the right reference and amount. Move to live keys before the link goes out.",
+  "prompt_chip_1": "Card Payments",
+  "prompt_chip_2": "Invoice Pay Links",
+  "prompt_chip_3": "Installment Plans",
+  "prompt_chip_4": "Email Receipts",
+  "hero_prompt": "<p>Build a payment form my clients use to pay invoices by card.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/form/payment-form/uc-1.svg",
+   "alt": "A Larkspur Studio pay link opens with invoice INV-2047 and $3,850.00 filled in, and once Halvorsen Dental pays by card the invoice is marked paid and the account lead gets a Slack message."
+  },
+  "tab_image_2": {
+   "path": "images/form/payment-form/uc-2.svg",
+   "alt": "A Birchline Remodeling job record shows a signed $14,000 kitchen estimate and a $4,200.00 deposit paid, and the scheduler is emailed to book the start date."
+  },
+  "tab_image_3": {
+   "path": "images/form/payment-form/uc-3.svg",
+   "alt": "A parent enrolls a child in a $1,200 summer intensive on a phone and picks three payments of $400, and the family record shows June paid and the July 15 payment marked as next."
+  },
+  "tab_image_4": {
+   "path": "images/form/payment-form/uc-4.svg",
+   "alt": "A Millbrook permit receipt page shows a $180.00 deck permit and $45.00 plan review paid for $225.00, and an inspector looks up receipt MB-0318 on a phone before the visit."
+  },
+  "cover_image": {
+   "path": "images/form/payment-form/cover.svg",
+   "alt": "Payment form: the confirmation a payer sees after paying an invoice by card through Stripe"
+  },
+  "share_image": {
+   "path": "images/form/payment-form/og.png",
+   "alt": "Build a payment form with Emergent"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-08 00:24 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-08 00:36 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "w-payment-form",
+   "note": ""
+  },
+  {
+   "t": "2026-10-08 00:36 UTC",
+   "state": "images",
+   "via": null,
+   "by": null,
+   "note": ""
+  }
+ ],
+ "plan": {
+  "angle": "The live top 10 is template galleries (Jotform, forms.app, AidaForm), a scanned PDF on Scribd, Google Forms add-ons and payment plugin docs. Each shows a form that takes a card and stops there. This page shows the part they skip: every payment is tied to the bill it pays (an invoice number, a deposit on an estimate, one installment of a plan, a permit fee), lands as a row with its status, and gives the payer a receipt that works as proof of payment. It also answers the payment-method questions searchers ask, so the reader knows which methods to offer.",
+  "tab_stories": [
+   "A design studio emails invoice INV-2047 with a pay link; the client sees the number and $3,850.00 filled in, pays by card, and the account lead gets a Slack message that the invoice is paid.",
+   "A remodeling company asks for a 30% deposit on a signed $14,000 kitchen estimate, and the scheduler can book a start date only after the $4,200 deposit clears.",
+   "A music school lets parents pay $1,200 summer tuition at once or in three payments of $400, and each payment date shows on the family's record with the next charge marked.",
+   "A town building department takes permit fees online: the applicant picks a deck permit, pays $180 plus a $45 plan review, and the receipt number is what the inspector checks on site."
+  ],
+  "openers": [
+   "Larkspur Studio sends every invoice",
+   "Birchline Remodeling quotes a kitchen",
+   "Cedar Hill Music School parents pick",
+   "Millbrook permit applicants pick",
+   "Payers type card details",
+   "Attach a reference to each payment",
+   "Write down every bill",
+   "Switch Stripe to test mode"
+  ],
+  "heading_shapes": [
+   "Invoice INV-2047 marked paid by the client's card",
+   "Kitchen jobs get a start date after the deposit is paid",
+   "$1,200 tuition in one payment or three",
+   "Receipt numbers inspectors look up from the truck"
+  ],
+  "claims_to_source": [
+   "With Stripe's payment fields (Elements or Checkout), card details go from the customer's browser to Stripe and never reach the business's server",
+   "Stripe can save a customer's card during a payment and charge it later for future or recurring payments",
+   "Stripe's test mode accepts test card numbers so a payment flow can be tried without real charges",
+   "A payment form does not need a card type selector because the processor works out the card brand from the number",
+   "Proof of payment is a receipt, a financial account statement, a credit card statement or a canceled check",
+   "In the Federal Reserve's 2025 Diary of Consumer Payment Choice, credit cards were the most used payment instrument and cash ranked third",
+   "Point-of-sale systems call payment methods tender types, such as cash, debit or credit card"
+  ]
+ },
+ "domain_sources": [
+  {
+   "claim": "With Stripe's payment fields (Elements or Checkout), card details go from the customer's browser to Stripe and never reach the business's server",
+   "source_url": "https://docs.stripe.com/payments/elements",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "Stripe can save a customer's card during a payment and charge it later for future or recurring payments",
+   "source_url": "https://docs.stripe.com/payments/save-and-reuse",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "Stripe's test mode accepts test card numbers so a payment flow can be tried without real charges",
+   "source_url": "https://docs.stripe.com/testing",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "A payment form does not need a card type selector because the processor works out the card brand from the number",
+   "source_url": "https://web.dev/learn/forms/payment",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "Proof of payment is a receipt, a financial account statement, a credit card statement or a canceled check",
+   "source_url": "https://www.irs.gov/newsroom/tax-preparedness-series-gathering-essential-documents-for-next-filing-season",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "In the Federal Reserve's 2025 Diary of Consumer Payment Choice, credit cards were the most used payment instrument and cash ranked third",
+   "source_url": "https://www.frbservices.org/news/research/2025-findings-from-the-diary-of-consumer-payment-choice",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "Point-of-sale systems call payment methods tender types, such as cash, debit or credit card",
+   "source_url": "https://insights.enactor.co/wp-content/uploads/devdoc/docs/guides/configuration/HowToGuide-ConfiguringTenderTypes/",
+   "date": "2026-10-08"
+  }
+ ],
+ "table": {
+  "vs": [
+   "Jotform",
+   "Google Forms",
+   "Typeform"
+  ],
+  "rows": [
+   "payments",
+   "build",
+   "data=Where responses live",
+   "limits=Response limits",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "faq_sources": [
+  {
+   "q": "What is a payment form?",
+   "source": "paa",
+   "ref": "What is a payment form?"
+  },
+  {
+   "q": "How to make a payment form?",
+   "source": "paa",
+   "ref": "How to make a payment form?"
+  },
+  {
+   "q": "How do I show proof of payment?",
+   "source": "paa",
+   "ref": "How do I show proof of payment?"
+  },
+  {
+   "q": "What are the four forms of payment?",
+   "source": "paa",
+   "ref": "What are the four forms of payment?"
+  },
+  {
+   "q": "What are the most common forms of payment?",
+   "source": "paa",
+   "ref": "What are the most common forms of payment?"
+  },
+  {
+   "q": "What are five common types of payment methods?",
+   "source": "paa",
+   "ref": "What are five common types of payment methods?"
+  },
+  {
+   "q": "What is the most used form of payment?",
+   "source": "paa",
+   "ref": "What is the most used form of payment?"
+  },
+  {
+   "q": "What are the 7 methods of payment with examples?",
+   "source": "paa",
+   "ref": "What are the 7 methods of payment with examples?"
+  },
+  {
+   "q": "What are payment methods called?",
+   "source": "paa",
+   "ref": "What are payment methods called?"
+  },
+  {
+   "q": "Is there a free payment form template?",
+   "source": "secondary",
+   "ref": "payment form template"
+  }
+ ],
+ "claims_used": [
+  "prompt-build",
+  "api-connect",
+  "database-owned",
+  "alerts",
+  "code-export",
+  "custom-domain",
+  "free-start"
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R6",
+    "title": "Invoice payment",
+    "prompt": "Let clients pay an invoice from a link with the number and amount filled in",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Larkspur Studio",
+       "sub": "Pay an invoice"
+      },
+      {
+       "type": "fields",
+       "items": [
+        [
+         "Invoice",
+         "INV-2047"
+        ],
+        [
+         "Client",
+         "Halvorsen Dental"
+        ],
+        [
+         "Amount",
+         "$3,850.00"
+        ]
+       ]
+      },
+      {
+       "type": "button",
+       "label": "Pay $3,850.00",
+       "icon": "credit-card",
+       "full": true
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "action": {
+      "label": "Open invoice",
+      "icon": "file-text"
+     },
+     "blocks": [
+      {
+       "type": "status",
+       "title": "Invoice paid",
+       "sub": "INV-2047 marked paid"
+      },
+      {
+       "type": "list",
+       "row_h": 56,
+       "items": [
+        {
+         "initials": "HD",
+         "name": "Halvorsen Dental",
+         "sub": "$3,850.00 by Visa"
+        }
+       ]
+      },
+      {
+       "type": "meta",
+       "icon": "message-square",
+       "kind": "acc",
+       "text": "Sent to Dana Whitfield in Slack"
+      }
+     ]
+    },
+    "mini": {
+     "icon": "mail",
+     "kind": "ok",
+     "title": "Receipt emailed",
+     "sub": "To Halvorsen Dental"
+    },
+    "alt": "A Larkspur Studio pay link opens with invoice INV-2047 and $3,850.00 filled in, and once Halvorsen Dental pays by card the invoice is marked paid and the account lead gets a Slack message.",
+    "story": [
+     {
+      "copy": "INV-2047 and $3,850.00 already filled in",
+      "image": "$3,850.00"
+     },
+     {
+      "copy": "The invoice row switches to paid",
+      "image": "INV-2047 marked paid"
+     },
+     {
+      "copy": "Dana, the account lead, gets a Slack message",
+      "image": "Sent to Dana Whitfield in Slack"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Project deposit",
+    "prompt": "Hold a kitchen job off the calendar until the homeowner pays the deposit",
+    "main": {
+     "chrome": "Birchline jobs",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "SIGNED ESTIMATE",
+       "title": "Morrow kitchen remodel",
+       "size": 24,
+       "right": "$14,000",
+       "right_sub": "estimate total"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Crew",
+         "Not booked yet"
+        ]
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Estimate signed",
+         "sub": "By Lena Morrow"
+        },
+        {
+         "state": "done",
+         "title": "Deposit paid",
+         "sub": "$4,200.00 by card"
+        },
+        {
+         "state": "live",
+         "title": "Book the start date",
+         "sub": "Scheduler emailed"
+        },
+        {
+         "state": "next",
+         "title": "Crew calendar",
+         "sub": "Job added once booked"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "calendar",
+     "tone": "ok",
+     "title": "Ready to schedule",
+     "action": {
+      "label": "Book start date",
+      "icon": "calendar-check"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Morrow kitchen",
+       "size": 20,
+       "sub": "Deposit $4,200.00 paid"
+      },
+      {
+       "type": "meta",
+       "icon": "mail",
+       "kind": "acc",
+       "text": "Emailed to the scheduler"
+      }
+     ]
+    },
+    "mini": {
+     "icon": "lock",
+     "kind": "warn",
+     "title": "Off the calendar until paid",
+     "sub": "No deposit, no start date"
+    },
+    "alt": "A Birchline Remodeling job record shows a signed $14,000 kitchen estimate and a $4,200.00 deposit paid, and the scheduler is emailed to book the start date.",
+    "story": [
+     {
+      "copy": "quotes a kitchen at $14,000",
+      "image": "$14,000"
+     },
+     {
+      "copy": "asks for $4,200.00 before work is booked",
+      "image": "Deposit $4,200.00 paid"
+     },
+     {
+      "copy": "The job stays off the crew calendar until that payment succeeds",
+      "image": "Off the calendar until paid"
+     },
+     {
+      "copy": "the scheduler gets an email to book the start date",
+      "image": "Emailed to the scheduler"
+     }
+    ]
+   },
+   {
+    "recipe": "R4",
+    "title": "Tuition payment plan",
+    "prompt": "Let parents pay summer tuition in full or in three payments of $400",
+    "main": {
+     "blocks": [
+      {
+       "type": "text",
+       "text": "Cedar Hill Music School",
+       "size": 19
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Program",
+         "Summer intensive"
+        ],
+        [
+         "Student",
+         "Owen Price"
+        ],
+        [
+         "Plan",
+         "3 payments of $400"
+        ],
+        [
+         "Due today",
+         "$400"
+        ],
+        [
+         "Card",
+         "Saved in Stripe"
+        ]
+       ]
+      },
+      {
+       "type": "button",
+       "label": "Pay and enroll",
+       "icon": "credit-card",
+       "full": true
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Family record",
+       "size": 17,
+       "chip": [
+        "Plan active",
+        "ok"
+       ]
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Balance",
+         "$800"
+        ]
+       ]
+      },
+      {
+       "type": "timeline",
+       "items": [
+        {
+         "label": "$400 paid",
+         "chip": "Jun 15",
+         "kind": "ok"
+        },
+        {
+         "label": "$400 next",
+         "chip": "Jul 15",
+         "kind": "next",
+         "live": true
+        },
+        {
+         "label": "$400",
+         "chip": "Aug 15",
+         "kind": "next"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "action": {
+      "label": "View record",
+      "icon": "eye"
+     },
+     "blocks": [
+      {
+       "type": "status",
+       "title": "Enrolled",
+       "sub": "Summer intensive"
+      },
+      {
+       "type": "list",
+       "row_h": 56,
+       "items": [
+        {
+         "initials": "OP",
+         "name": "Owen Price",
+         "sub": "Piano, ages 10 to 12"
+        }
+       ]
+      },
+      {
+       "type": "text",
+       "text": "$1,200 tuition",
+       "size": 18
+      },
+      {
+       "type": "meta",
+       "icon": "calendar",
+       "kind": "acc",
+       "text": "Next charge Jul 15"
+      }
+     ]
+    },
+    "alt": "A parent enrolls a child in a $1,200 summer intensive on a phone and picks three payments of $400, and the family record shows June paid and the July 15 payment marked as next.",
+    "story": [
+     {
+      "copy": "three payments of $400",
+      "image": "3 payments of $400"
+     },
+     {
+      "copy": "$1,200 tuition",
+      "image": "$1,200 tuition"
+     },
+     {
+      "copy": "June 15",
+      "image": "Jun 15"
+     },
+     {
+      "copy": "July 15",
+      "image": "Jul 15"
+     },
+     {
+      "copy": "August 15",
+      "image": "Aug 15"
+     }
+    ]
+   },
+   {
+    "recipe": "R5",
+    "title": "Permit fee receipt",
+    "prompt": "Take building permit fees from our fee schedule and give each a receipt number",
+    "main": {
+     "chrome": "millbrook.example/permits/receipt",
+     "blocks": [
+      {
+       "type": "status",
+       "title": "Payment received",
+       "sub": "Deck permit, 14 Alder Lane"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Applicant",
+         "Sam Okafor"
+        ],
+        [
+         "Fee schedule",
+         "Residential"
+        ]
+       ]
+      },
+      {
+       "type": "lineitems",
+       "items": [
+        [
+         "Deck permit",
+         "$180.00"
+        ],
+        [
+         "Plan review",
+         "$45.00"
+        ]
+       ],
+       "total": [
+        "Total paid",
+        "$225.00"
+       ],
+       "compact": true
+      },
+      {
+       "type": "timeline",
+       "items": [
+        {
+         "label": "Paid",
+         "chip": "Receipt issued",
+         "kind": "ok"
+        },
+        {
+         "label": "Plan review",
+         "chip": "In queue",
+         "kind": "next",
+         "live": true
+        },
+        {
+         "label": "Inspection",
+         "chip": "After approval",
+         "kind": "next"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "h": 270,
+     "icon": "search",
+     "title": "Inspector lookup",
+     "action": {
+      "label": "Open permit",
+      "icon": "file-text"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Receipt MB-0318",
+       "size": 18,
+       "sub": "Deck permit, $225.00 paid"
+      },
+      {
+       "type": "meta",
+       "icon": "smartphone",
+       "kind": "acc",
+       "text": "Searched on a phone on site"
+      }
+     ]
+    },
+    "mini": {
+     "icon": "database",
+     "kind": "acc",
+     "title": "Saved to the permits table",
+     "sub": "Priced from the fee schedule"
+    },
+    "alt": "A Millbrook permit receipt page shows a $180.00 deck permit and $45.00 plan review paid for $225.00, and an inspector looks up receipt MB-0318 on a phone before the visit.",
+    "story": [
+     {
+      "copy": "A deck permit costs $225.00",
+      "image": "Deck permit, $225.00 paid"
+     },
+     {
+      "copy": "$180.00 for the permit",
+      "image": "$180.00"
+     },
+     {
+      "copy": "$45.00 for plan review",
+      "image": "$45.00"
+     },
+     {
+      "copy": "here MB-0318",
+      "image": "Receipt MB-0318"
+     },
+     {
+      "copy": "searches that number on a phone",
+      "image": "Searched on a phone on site"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "confirm",
+   "title": "Payment received",
+   "button": "View your receipt",
+   "icon": "check",
+   "alt": "Payment form: the confirmation a payer sees after paying an invoice by card through Stripe"
+  },
+  "og": {
+   "headline": "Build a payment form tied to every bill",
+   "lines": [
+    "Build a payment",
+    "form tied to",
+    "every bill"
+   ],
+   "alt": "Build a payment form with Emergent"
+  },
+  "checks": [
+   {
+    "fact": [
+     "$3,850.00"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "4200 / 14000 * 100 == 30",
+    "shows": [
+     "$14,000",
+     "$4,200.00"
+    ],
+    "where": 2
+   },
+   {
+    "expr": "400 * 3 == 1200",
+    "shows": [
+     "$400",
+     "$1,200"
+    ],
+    "where": 3
+   },
+   {
+    "expr": "1200 - 400 == 800",
+    "shows": [
+     "$800"
+    ],
+    "where": 3
+   },
+   {
+    "expr": "180 + 45 == 225",
+    "shows": [
+     "$180.00",
+     "$45.00",
+     "$225.00"
+    ],
+    "where": 4
+   }
+  ]
+ },
+ "qc_passed": {
+  "rules_version": "1a87e7a55bea",
+  "date": "2026-10-08 00:36 UTC"
+ },
+ "writers": [
+  "w-payment-form"
+ ]
+}
