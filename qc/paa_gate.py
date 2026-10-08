@@ -47,6 +47,13 @@ class Gate:
         self.spec = json.load(open(self.spec_path)) if os.path.exists(self.spec_path) else {}
         self.primary = (self.spec.get("keywords") or {}).get("primary") or self.slug.replace("-", " ")
         self.heads = [phrase_re(p) for p in [self.primary] + R("paa_synonyms.json")["pages"].get(self.slug, []) + list(extra_heads)]
+        # PA3 widened (Divit, 2026-10-08): head phrase reordered/inflected, or an approved secondary of the page (K8 test)
+        self.head_words = [stem(w) for w in norm(self.primary).split()]
+        secs = set((self.spec.get("keywords") or {}).get("secondaries_used") or [])
+        kmp = os.path.join(ROOT, "plan", "keyword_map.json")
+        if os.path.exists(kmp):
+            secs |= {x["kw"] for x in (json.load(open(kmp)).get(url, {}) or {}).get("secondaries", []) if x.get("kw")}
+        self.secondaries = sorted(secs)
         self.bl, self.pt = R("paa_blocklist.json"), R("paa_patterns.json")
         for e in self.bl["per_page"].get(self.slug, []):
             if not e.get("reason"): sys.exit(f"rules/paa_blocklist.json per_page {self.slug}: entry without a reason: {e.get('q')}")
@@ -61,6 +68,18 @@ class Gate:
             prim = (s.get("keywords") or {}).get("primary") or ""
             for f in s.get("faq_sources") or []:
                 if f.get("q"): self.siblings.append((s.get("url") or os.path.basename(p), prim, f["q"], content(f["q"])))
+
+    def pa3_widened(self, q):
+        qw = [stem(w) for w in re.split(r"[\s-]+", q) if w]
+        hw = self.head_words; win = max(4, len(hw))
+        if hw and all(w in qw for w in hw):
+            for i in range(len(qw)):
+                if set(hw) <= set(qw[i:i + win]): return "reordered or inflected head phrase"
+        qs = set(qw)
+        for k in self.secondaries:
+            kw = [stem(w) for w in re.split(r"[\s-]+", norm(k)) if w]
+            if kw and set(kw) <= qs: return f"secondary: {k}"
+        return None
 
     def asker(self, q):
         if any(re.search(p, q) for p in self.pt["respondent"]): return "respondent"
@@ -87,7 +106,10 @@ class Gate:
             if d == 2 and item.get("parent_verdict") == "reject": out.append(("PA2", "reject", "level 2 under a rejected parent"))
             if d == 2 and item.get("parent_verdict") == "flag": out.append(("PA2", "flag", "level 2 under a flagged parent"))
         # PA3 entity match: full head phrase or an approved synonym; a shared word never qualifies
-        if not any(h.search(q) for h in self.heads): out.append(("PA3", "reject", f'no full head phrase "{self.primary}" or approved synonym'))
+        if not any(h.search(q) for h in self.heads):
+            via = self.pa3_widened(q)
+            if via: out.append(("PA3w", "note", via))
+            else: out.append(("PA3", "reject", f'no head phrase "{self.primary}" (exact, reordered or inflected), approved secondary or synonym'))
         # PA4 wrong sense: global blocklist and the per-page skip list
         ws = [w for w in self.bl["wrong_sense"] if has(w, q)]
         if ws: out.append(("PA4", "reject", "wrong-sense term: " + ", ".join(ws)))

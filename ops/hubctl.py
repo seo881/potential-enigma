@@ -33,7 +33,7 @@
   pack URL --role writer|reviewer   one compact file for that agent: brief, the rules it needs, catalogue summary, exemplar
   sources-check URL|--all            link-check every spec.domain_sources URL (cached for QC P3)
   usage-log URL TOKENS --role R     record an agent's token usage for a page (metrics reports tokens per page)
-  metrics | sample [STATE] | links HUB | lookahead HUB [N] | serp-budget | ranks-save URL RAW | ranks-report | recheck [--states a,b] | image-regress | verify-live URL [--html F]
+  metrics | sample [STATE] | links HUB | links --relink | lookahead HUB [N] | serp-budget | ranks-save URL RAW | ranks-report | recheck [--states a,b] | image-regress | verify-live URL [--html F]
   publish-payload HUB               publish_collection_items actions (100 per call) for every verified cms_draft page (only after Divit's go)
   log HUB TEXT                      append a dated line to logs/<hub>.md
 
@@ -179,10 +179,17 @@ def cmd_qc(args):
         json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
     return rc
 
+def _record_pending(url, pend):
+    sp = spath(url); s = json.load(open(sp))
+    if s.get("pending_links") != pend:
+        s["pending_links"] = pend; json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
+    if pend: print(f"{url}: {len(pend)} link(s) to non-live pages sent as plain text: " + ", ".join(p["target"] for p in pend))
+
 def cmd_payload(args):
     url = args[0]; sha = args[args.index("--sha") + 1]; hub = hub_of(url); h = CFG["hubs"][hub]
     s = json.load(open(spath(url))); fd = {}
-    for k, v in s["fields"].items():
+    ex, pend = export_fields(url, s); _record_pending(url, pend)
+    for k, v in ex.items():
         if v is None or v == "" and k in CFG["optional_fields"]: continue
         fd[h["fields"][k]] = v
     for k, im in s["images"].items():
@@ -218,7 +225,7 @@ def cmd_verify(args):
     items = [it for it in _items_from_readback(rb) if it.get("fieldData", {}).get("slug") == slug]
     if not items: sys.exit(f"no item with slug {slug} in {rb}")
     it = items[0]; fd = it["fieldData"]; bad = []
-    for k, v in s["fields"].items():
+    for k, v in export_fields(url, s)[0].items():
         if v in (None, "") and k in CFG["optional_fields"]: continue
         if fd.get(h["fields"][k]) != v: bad.append(k)
     for k, im in s["images"].items():
@@ -401,9 +408,34 @@ def cmd_paa_resource(args):
     sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate
     return paa_gate.resource(args[0])
 
+ZW = re.compile("[\u200b\u200c\u200d\u2060\ufeff]|&zwj;|&#8205;|&zwnj;")
+EMPTY_P = re.compile(r"<p[^>]*>\s*(?:&nbsp;|\s)*</p>")
+def live_urls():
+    """Hub pages are live (Divit, 2026-10-08); a child page is live once published."""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    live = {h["path"] for h in CFG["hubs"].values()} | set(CFG.get("live_child_urls", []))
+    live |= {u for u, e in G.all_status().items() if e.get("state") == "published"}
+    return live
+def export_fields(url, s, live=None):
+    """What reaches Webflow: zero-width characters and empty paragraphs stripped (QC S10); links to child pages that are not live
+    become plain text and are listed as pending (DECISIONS 2026-10-08). The hub link (K4) is never stripped."""
+    live = live_urls() if live is None else live; out = {}; pending = []
+    hubs = tuple(h["path"] for h in CFG["hubs"].values())
+    a_re = re.compile(r"<a\s+href=(\\?['\"])(?:https?://(?:www\.)?emergent\.sh)?(/[a-z0-9/-]*)\1[^>]*>(.*?)</a>", re.S)
+    for k, v in s["fields"].items():
+        if not isinstance(v, str): out[k] = v; continue
+        v = EMPTY_P.sub("", ZW.sub("", v))
+        def _sub(m):
+            path = m.group(2).rstrip("/")
+            if path in hubs or path in live or not path.startswith(hubs): return m.group(0)
+            pending.append({"field": k, "target": path, "anchor": re.sub(r"<[^>]+>", "", m.group(3))}); return m.group(3)
+        out[k] = a_re.sub(_sub, v)
+    return out, pending
+
 def _field_data(url, sha):
     hub = hub_of(url); h = CFG["hubs"][hub]; s = json.load(open(spath(url))); fd = {}
-    for k, v in s["fields"].items():
+    ex, pend = export_fields(url, s); _record_pending(url, pend)
+    for k, v in ex.items():
         if v is None or (v == "" and k in CFG["optional_fields"]): continue
         fd[h["fields"][k]] = v
     for k, im in s["images"].items():
@@ -444,7 +476,7 @@ def cmd_bulk_verify(args):
         it = by_slug.get(url.rsplit("/", 1)[1])
         if not it: continue
         s = json.load(open(spath(url))); fd = it["fieldData"]; diff = []
-        for k, v in s["fields"].items():
+        for k, v in export_fields(url, s)[0].items():
             if v in (None, "") and k in CFG["optional_fields"]: continue
             if fd.get(h["fields"][k]) != v: diff.append(k)
         for k, im in s["images"].items():
@@ -613,6 +645,12 @@ def cmd_sample(args):
 
 def cmd_links(args):
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    if "--relink" in args:
+        live = live_urls(); n = 0
+        for s in G.all_specs():
+            ready = sorted({p["target"] for p in s.get("pending_links") or [] if p["target"] in live})
+            if ready: n += 1; print(f"  {s['url']}: re-link {', '.join(ready)} (rebuild its payload; the link is now live)")
+        print(f"pages to update: {n}"); return
     hub = args[0]; g = G.link_graph(); print("Pages needing inbound links (fewest first):")
     for u, n in G.needs_links(hub, 15): print(f"  {n} inbound  {u}")
 

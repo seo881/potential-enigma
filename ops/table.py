@@ -19,7 +19,7 @@ def render(d, vs, rows, variant=None):
            '<div class="cmp cmp--emg-first">', "  <table>", "    <colgroup>", '      <col class="col-feature" />', '      <col class="col-brand" />',
            '      <col class="col-other" />', '      <col class="col-other" />', '      <col class="col-other" />', "    </colgroup>", "    <thead>", "      <tr>",
            '        <th class="col-feature" scope="col"><span class="visually-hidden"></span></th>', '        <th class="col-brand-head" scope="col">',
-           f'          <img class="brand-logo" src="{LOGO}" alt="emergent" />', "        </th>"]
+           f'          <img class="brand-logo" src="{LOGO}" alt="Emergent" />', "        </th>"]
     out += [f'        <th scope="col">{_e(c)}</th>' for c in vs]
     out += ["      </tr>", "    </thead>", "    <tbody>"]
     for r in rows:

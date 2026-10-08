@@ -226,6 +226,52 @@ def check(spec, siblings):
     for k in ["h1", "features_heading", "usecase_heading", "why_title", "howto_title"] + [f"prompt_chip_{i}" for i in range(1, 5)] + [f"tab_label_{i}" for i in range(1, 5)]:
         e = title_case_errors(F.get(k, ""))
         if e: add("P1", "H3", k, f"Title Case: {e}")
+    # ---------- 2026-10-08 checks (Divit's registration-form feedback; audit/feedback-2026-10-08.md) ----------
+    SR = json.load(open(os.path.join(ROOT, "rules", "style_rules.json")))
+    sys.path.insert(0, os.path.join(ROOT, "qc")); import serial_comma as _SC
+    _copy = {k: v for k, v in F.items() if isinstance(v, str) and k not in ("why_table", "category", "slug")}
+    def _wre(w): return r"(?<![A-Za-z0-9])" + re.escape(w) + r"(?![A-Za-z0-9])"
+    # S10: zero-width characters and empty paragraphs (stripped at export too)
+    for k, v in F.items():
+        if isinstance(v, str) and (re.search("[\u200b\u200c\u200d\u2060\ufeff]|&zwj;|&#8205;|&zwnj;", v) or re.search(r"<p[^>]*>\s*(&nbsp;|\s)*</p>", v)):
+            add("P1", "S10", k, "zero-width character or empty paragraph (renders a blank line): remove it")
+    # V5: no plan tiers or rolling numbers in competitor table cells (Emergent column exempt)
+    for cell in re.findall(r'<td class="col-other">(.*?)</td>', F.get("why_table") or "", re.S):
+        _ct = strip_html(cell)
+        if re.search(r"\d", _ct) and (re.search(r"\b(" + "|".join(SR["plan_words"]) + r")\b", _ct, re.I) or re.search(r"/mo\b|/month|per month|/year|\$", _ct, re.I) or len(re.findall(r"\d[\d,.]*", _ct)) >= 2):
+            add("P1", "V5", "why_table", f'plan tiers or rolling numbers in a table cell: "{_ct[:70]}" (use wording that needs no monthly update)')
+    for k, v in _copy.items():
+        txt = strip_html(v); low = txt.lower()
+        # H3: serial comma (certain cases block and are auto-fixable; ambiguous ones are listed)
+        certain, ambiguous = _SC.find(v)
+        for _p, snip in certain: add("P1", "H3", k, f'serial comma missing: "...{strip_html(snip).strip()}..." (auto-fixable)')
+        for _p, snip in ambiguous: add("P2", "H3", k, f'possible list without a serial comma (check by hand): "...{strip_html(snip).strip()}..."')
+        # H4: UK idioms
+        for w, us in SR["uk_idioms"].items():
+            if re.search(_wre(w), low): add("P1", "H4", k, f'UK idiom "{w}": use "{us}"')
+        # A5: the built app does things, not Emergent
+        m_ = re.search(r"\bEmergent(?:'s app)? (?:can |will |then )?(" + "|".join(SR["built_app_verbs"]) + r")\b", txt)
+        if m_: add("P1", "A5", k, f'"{m_.group(0)}": the built form/app does this, not Emergent (Emergent builds it)')
+        # A6: never narrow the audience
+        for w in SR["narrowing"]:
+            if re.search(_wre(w), low): add("P1", "A6", k, f'audience-narrowing phrase "{w}": write for anyone (DECISIONS: never narrow the audience)'); break
+        # C4: custom domains are built in and use credits
+        for sent in sents_of(txt):
+            if re.search(r"\b(own|custom) domain", sent, re.I) and not re.search(r"credit|built in|built-in|included", sent, re.I):
+                add("P1", "C4", k, f'custom domain without the approved wording (built in, uses credits): "{sent[:70]}"')
+            # C5: GitHub export is on paid plans (emergent.sh/pricing: GitHub integration from Standard)
+            if re.search(r"github", sent, re.I) and re.search(r"export|push|sync|repo", sent, re.I) and not re.search(r"paid plan|standard|pro plan|on paid", sent, re.I):
+                add("P1", "C5", k, f'GitHub export without the plan qualifier (paid plans): "{sent[:70]}"')
+    # Q9: one word carrying too much of the page (repeated metaphor); keywords excluded
+    _kwords = {w for x in [prim] + list((spec.get("keywords") or {}).get("secondaries_used") or []) for w in re.findall(r"[a-z]+", x.lower())}
+    _cnt = {}
+    for k, v in _copy.items():
+        if k in ("mockup", "faq"): continue
+        for w in re.findall(r"[a-z]+", strip_html(v).lower()):
+            if len(w) > 3 and w not in SR["repeat_generic"] and w not in _kwords: _cnt[w] = _cnt.get(w, 0) + 1
+    for w, n in sorted(_cnt.items(), key=lambda x: -x[1])[:3]:
+        if n >= SR["repeat_threshold"]: add("P2", "Q9", "page", f'"{w}" appears {n} times outside the FAQ: vary it (repeated metaphor)')
+
     # ---------- K: keywords, links, cannibalization ----------
     if prim:
         pr = norm(prim)
