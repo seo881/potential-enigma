@@ -248,7 +248,9 @@ def check(spec, siblings):
         for _p, snip in ambiguous: add("P2", "H3", k, f'possible list without a serial comma (check by hand): "...{strip_html(snip).strip()}..."')
         # H4: UK idioms
         for w, us in SR["uk_idioms"].items():
-            if re.search(_wre(w), low): add("P1", "H4", k, f'UK idiom "{w}": use "{us}"')
+            bare = w in SR.get("uk_idioms_bare", [])   # British only when nothing follows it in the sentence (a tag ends it too)
+            rx = _wre(w) + (r"(?=\s*(?:[.,;:!?)\]\\\"|]|$))" if bare else "")
+            if re.search(rx, unescape(re.sub(r"<[^>]+>", " | ", v)).lower() if bare else low): add("P1", "H4", k, f'UK idiom "{w}": use "{us}"')
         # A5: the built app does things, not Emergent
         m_ = re.search(r"\bEmergent(?:'s app)? (?:can |will |then )?(" + "|".join(SR["built_app_verbs"]) + r")\b", txt)
         if m_: add("P1", "A5", k, f'"{m_.group(0)}": the built form/app does this, not Emergent (Emergent builds it)')
