@@ -90,7 +90,7 @@ Read the page's brief first: `python3 ops/hubctl.py brief <url>`. It gives the p
 
 ## 5. Field-by-field guide
 
-**Features (6) [QC]:** `<h3>title</h3><p>body</p>`. Titles are concrete capabilities, 2 lines max (48 chars). Bodies are 165-182 characters with a spread of 12 or less across the six, so the grid is level. Feature 6 is usually "Full code export"; vary its wording per page.
+**Features (6) [QC]:** `<h3>title</h3><p>body</p>`. Titles are concrete capabilities, 2 lines max (48 chars). Bodies are 165-182 characters with a spread of 12 or less across the six, so the grid is level. Feature 6 is usually "Full code export"; vary its wording per page, and say GitHub export is on paid plans ("export to your GitHub repository on paid plans"; GitHub integration starts at the Standard plan, https://emergent.sh/pricing) [QC C5].
 
 **Use-case tabs (4):** four distinct sub-use-cases of the primary, each a real segment searchers have (industries, roles, document types). Tab labels: Title Case, 26 chars max. Tab content `<h3>` + `<p>`: the H3 names the outcome, the paragraph says what gets built, what it connects to and what lands in the database. The tab copy is the brief for that tab's image: write it concretely enough to draw.
 
