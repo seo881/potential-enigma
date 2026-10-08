@@ -191,3 +191,92 @@ Phase 2 (DECISIONS 2026-10-08): one line per page, no question text. Per-questio
 - 2026-10-08 /ai-form-builder/creator-application [pull]: 25 questions; pass 0, reject 25, flag 0; rejects by rule: PA3 25, PA4 3; page: PA11 48 nodes, 25 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
 - 2026-10-08 /ai-automation-builder/approval-workflow [pull]: 12 questions; pass 2, reject 10, flag 0; rejects by rule: PA3 10; page: PA11 36 nodes, 12 distinct; 2 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
 - 2026-10-08 /ai-survey-and-quiz-builder/customer-satisfaction [pull]: 17 questions; pass 3, reject 13, flag 1; rejects by rule: PA3 13; page: PA11 40 nodes, 17 distinct; 3 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-08 /ai-form-builder/creator-application [spec]: 12 questions; pass 3, reject 8, flag 1; rejects by rule: PA3 8; page: PA12 12 items, not exactly 10; PA11 4 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build; PA12 item 2 has no hub link; PA12 0 items carrying a secondary, under 6
+- 2026-10-08 /ai-survey-and-quiz-builder/customer-satisfaction [spec]: 12 questions; pass 6, reject 6, flag 0; rejects by rule: PA3 6; page: PA12 12 items, not exactly 10; PA11 6 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build; PA12 item 2 has no hub link; PA12 0 items carrying a secondary, under 6
+- 2026-10-08 /ai-automation-builder/approval-workflow [spec]: 12 questions; pass 5, reject 7, flag 0; rejects by rule: PA12 1, PA3 6; page: PA12 12 items, not exactly 10; PA11 6 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build; PA12 item 2 has no hub link; PA12 0 items carrying a secondary, under 6
+- 2026-10-08 /ai-automation-builder/approval-workflow [pull+cand]: 12 questions; pass 2, reject 10, flag 0; rejects by rule: PA3 10; page: PA11 36 nodes, 12 distinct; 2 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-08 /ai-automation-builder/approval-workflow [pull]: 12 questions; pass 2, reject 10, flag 0; rejects by rule: PA3 10; page: PA11 36 nodes, 12 distinct; 2 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-08 /ai-survey-and-quiz-builder/customer-satisfaction [pull]: 17 questions; pass 3, reject 13, flag 1; rejects by rule: PA3 13; page: PA11 40 nodes, 17 distinct; 3 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-08 /ai-survey-and-quiz-builder/customer-satisfaction [pull+cand]: 17 questions; pass 3, reject 13, flag 1; rejects by rule: PA3 13; page: PA11 40 nodes, 17 distinct; 3 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-08 /ai-form-builder/creator-application [pull]: 25 questions; pass 0, reject 25, flag 0; rejects by rule: PA3 25, PA4 3; page: PA11 48 nodes, 25 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-08 /ai-landing-page-builder/thank-you-page [pull]: 24 questions; pass 4, reject 18, flag 2; rejects by rule: PA3 17, PA9 1; page: PA11 52 nodes, 24 distinct; 4 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-08 /ai-form-builder/creator-application [pull+cand]: 25 questions; pass 0, reject 25, flag 0; rejects by rule: PA3 25, PA4 3; page: PA11 48 nodes, 25 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-08 /ai-landing-page-builder/thank-you-page [spec]: 14 questions; pass 7, reject 3, flag 4; rejects by rule: PA1b 1, PA8 2; page: PA12 14 items, not exactly 10; PA12 item 2 is not how-to-build; PA12 item 2 has no hub link; PA12 0 items carrying a secondary, under 6
+- 2026-10-08 /ai-landing-page-builder/thank-you-page [pull+cand]: 24 questions; pass 4, reject 18, flag 2; rejects by rule: PA3 17, PA9 1; page: PA11 52 nodes, 24 distinct; 4 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-08 /ai-form-builder/massage-intake-form [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-08 /ai-automation-builder/sales-automation [spec]: 10 questions; pass 5, reject 0, flag 5; rejects by rule: none; page: PA12 item 2 is not how-to-build
+- 2026-10-08 /ai-automation-builder/task-automation [spec]: 10 questions; pass 6, reject 1, flag 3; rejects by rule: PA12 1; page: PA12 item 1 is not the definition; PA12 item 2 is not how-to-build
+- 2026-10-08 /ai-landing-page-builder/webinar-landing-page [spec]: 10 questions; pass 6, reject 2, flag 2; rejects by rule: PA3 2
+- 2026-10-08 /ai-form-builder/interest-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-08 /ai-form-builder/summer-camp-registration-form [spec]: 10 questions; pass 6, reject 2, flag 2; rejects by rule: PA3 1, PA9 1
+- 2026-10-08 /ai-form-builder/contact-form [spec]: 10 questions; pass 5, reject 1, flag 4; rejects by rule: PA8 1; page: PA12 item 2 is not how-to-build
+- 2026-10-08 /ai-landing-page-builder/event-landing-page [spec]: 10 questions; pass 6, reject 2, flag 2; rejects by rule: PA3 1, PA8 1
+- 2026-10-08 /ai-survey-and-quiz-builder/employee-engagement-survey [spec]: 10 questions; pass 2, reject 4, flag 4; rejects by rule: PA1 1, PA1b 1, PA3 4; page: PA11 6 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build
+- 2026-10-08 /ai-form-builder/feedback-form [spec]: 10 questions; pass 8, reject 1, flag 1; rejects by rule: PA1b 1
+- 2026-10-08 /ai-form-builder/conference-registration-form [spec]: 10 questions; pass 7, reject 2, flag 1; rejects by rule: PA3 2
+- 2026-10-08 /ai-automation-builder/document-automation [spec]: 10 questions; pass 3, reject 1, flag 6; rejects by rule: PA1 1; page: PA12 item 1 is not the definition; PA12 item 2 is not how-to-build
+- 2026-10-08 /ai-landing-page-builder/404-page [spec]: 10 questions; pass 4, reject 2, flag 4; rejects by rule: PA3 2
+- 2026-10-08 /ai-automation-builder/ecommerce-automation [spec]: 10 questions; pass 7, reject 1, flag 2; rejects by rule: PA3 1; page: PA12 item 2 is not how-to-build
+- 2026-10-08 /ai-form-builder/t-shirt-order-form [spec]: 10 questions; pass 7, reject 1, flag 2; rejects by rule: PA8 1
+- 2026-10-08 /ai-form-builder/massage-intake-form [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-08 /ai-form-builder/summer-camp-registration-form [pull]: 0 questions; pass 0, reject 0, flag 0; rejects by rule: none; page: PA11 0 nodes, 0 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-08 /ai-form-builder/conference-registration-form [pull]: 18 questions; pass 1, reject 17, flag 0; rejects by rule: PA10 2, PA3 17, PA4 1; page: PA11 52 nodes, 18 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-08 /ai-form-builder/interest-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-08 /ai-form-builder/registration-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-08 /ai-form-builder/job-application-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-08 /ai-form-builder/feedback-form [spec]: 10 questions; pass 9, reject 0, flag 1; rejects by rule: none
+- 2026-10-08 /ai-automation-builder/sales-automation [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-08 /ai-automation-builder/ecommerce-automation [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-08 /ai-automation-builder/sales-automation [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-08 /ai-automation-builder/document-automation [spec]: 10 questions; pass 4, reject 0, flag 6; rejects by rule: none
+- 2026-10-08 /ai-landing-page-builder/webinar-landing-page [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-08 /ai-form-builder/consultation-form [spec]: 10 questions; pass 7, reject 1, flag 2; rejects by rule: PA1 1, PA3 1
+- 2026-10-08 /ai-landing-page-builder/law-firm-landing-page [spec]: 10 questions; pass 5, reject 2, flag 3; rejects by rule: PA3 1, PA9 1; page: PA12 item 2 is not how-to-build
+- 2026-10-08 /ai-form-builder/employee-information-form [spec]: 10 questions; pass 6, reject 1, flag 3; rejects by rule: PA3 1
+- 2026-10-08 /ai-landing-page-builder/404-page [spec]: 10 questions; pass 5, reject 0, flag 5; rejects by rule: none
+- 2026-10-08 /ai-form-builder/client-onboarding-questionnaire [spec]: 10 questions; pass 5, reject 1, flag 4; rejects by rule: PA3 1
+- 2026-10-08 /ai-landing-page-builder/webinar-landing-page [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-08 /ai-automation-builder/task-automation [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-08 /ai-landing-page-builder/webinar-landing-page [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-08 /ai-form-builder/employee-information-form [pull]: 19 questions; pass 1, reject 17, flag 1; rejects by rule: PA3 16, PA4 1, PA9 1; page: PA11 40 nodes, 19 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-08 /ai-form-builder/consultation-form [pull]: 0 questions; pass 0, reject 0, flag 0; rejects by rule: none; page: PA11 0 nodes, 0 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-08 /ai-form-builder/sign-in-form [spec]: 10 questions; pass 8, reject 1, flag 1; rejects by rule: PA3 1; page: PA12 item 2 is not how-to-build
+- 2026-10-08 /ai-form-builder/contact-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-08 /ai-automation-builder/document-automation [spec]: 10 questions; pass 5, reject 0, flag 5; rejects by rule: none
+- 2026-10-08 /ai-landing-page-builder/event-landing-page [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-08 /ai-landing-page-builder/pricing-page [spec]: 10 questions; pass 5, reject 2, flag 3; rejects by rule: PA1 1, PA1b 1, PA3 1; page: PA12 1 items carrying a secondary, under 2
+- 2026-10-08 /ai-landing-page-builder/law-firm-landing-page [pull]: 19 questions; pass 0, reject 19, flag 0; rejects by rule: PA3 19, PA5 2; page: PA11 38 nodes, 19 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-08 /ai-landing-page-builder/event-landing-page [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-08 /ai-form-builder/client-onboarding-questionnaire [pull]: 17 questions; pass 0, reject 17, flag 0; rejects by rule: PA3 17; page: PA11 40 nodes, 17 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-08 /ai-form-builder/booking-form [spec]: 10 questions; pass 6, reject 1, flag 3; rejects by rule: PA3 1
+- 2026-10-08 /ai-landing-page-builder/event-landing-page [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-08 /ai-form-builder/conference-registration-form [spec]: 10 questions; pass 8, reject 1, flag 1; rejects by rule: PA3 1
+- 2026-10-08 /ai-form-builder/conference-registration-form [spec]: 10 questions; pass 8, reject 1, flag 1; rejects by rule: PA3 1
+- 2026-10-08 /ai-automation-builder/task-automation [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-08 /ai-form-builder/t-shirt-order-form [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-08 /ai-form-builder/summer-camp-registration-form [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-08 /ai-form-builder/consultation-form [spec]: 10 questions; pass 7, reject 1, flag 2; rejects by rule: PA1 1, PA3 1
+- 2026-10-08 /ai-form-builder/summer-camp-registration-form [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-08 /ai-form-builder/conference-registration-form [spec]: 10 questions; pass 8, reject 1, flag 1; rejects by rule: PA3 1
+- 2026-10-08 /ai-landing-page-builder/pricing-page [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-08 /ai-form-builder/sign-in-form [spec]: 10 questions; pass 9, reject 0, flag 1; rejects by rule: none
+- 2026-10-08 /ai-form-builder/client-onboarding-questionnaire [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-08 /ai-form-builder/employee-information-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-08 /ai-form-builder/client-onboarding-questionnaire [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-08 /ai-form-builder/sign-in-form [spec]: 10 questions; pass 9, reject 0, flag 1; rejects by rule: none
+- 2026-10-08 /ai-form-builder/employee-information-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-08 /ai-form-builder/checkout-form [spec]: 10 questions; pass 3, reject 1, flag 6; rejects by rule: PA4 1
+- 2026-10-08 /ai-form-builder/employee-information-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-08 /ai-automation-builder/approval-workflow [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-08 /ai-landing-page-builder/law-firm-landing-page [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-08 /ai-form-builder/booking-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-08 /ai-form-builder/checkout-form [pull]: 25 questions; pass 1, reject 24, flag 0; rejects by rule: PA10 2, PA3 24, PA5 2; page: PA11 52 nodes, 25 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-08 /ai-form-builder/checkout-form [pull+cand]: 25 questions; pass 1, reject 24, flag 0; rejects by rule: PA10 2, PA3 24, PA5 2; page: PA11 52 nodes, 25 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-08 /ai-survey-and-quiz-builder/customer-satisfaction [spec]: 10 questions; pass 9, reject 1, flag 0; rejects by rule: PA1b 1
+- 2026-10-08 /ai-landing-page-builder/pricing-page [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-08 /ai-landing-page-builder/pricing-page [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-08 /ai-landing-page-builder/thank-you-page [spec]: 10 questions; pass 7, reject 1, flag 2; rejects by rule: PA1b 1
+- 2026-10-08 /ai-landing-page-builder/law-firm-landing-page [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-08 /ai-survey-and-quiz-builder/employee-engagement-survey [spec]: 10 questions; pass 5, reject 0, flag 5; rejects by rule: none
+- 2026-10-08 /ai-automation-builder/approval-workflow [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-08 /ai-survey-and-quiz-builder/customer-satisfaction [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none

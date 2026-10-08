@@ -162,7 +162,10 @@ def advance(url, P, queue):
         if st == "autofix":
             n = autofix(url); note(P, "autofix", True, f"{n} deterministic edit(s)"); P["stage"] = "writer"; continue
         if st in ("writer", "rework"):
-            P["brief"] = writer_brief(url, P, st); return st
+            fresh = P.get("brief_for") == f"{st}:{P['fails'].get('check' if st == 'writer' else 'check2', 0)}"
+            if not (fresh and P.get("brief") and os.path.exists(os.path.join(ROOT, P["brief"]))):   # never rewrite a brief an agent is reading
+                P["brief"] = writer_brief(url, P, st); P["brief_for"] = f"{st}:{P['fails'].get('check' if st == 'writer' else 'check2', 0)}"
+            return st
         if st in ("check", "check2"):
             s = spec(url); probs = []
             t = qc_total(url)
