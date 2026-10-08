@@ -36,6 +36,8 @@
   metrics | sample [STATE] | links HUB | links --relink | lookahead HUB [N] | serp-budget | ranks-save URL RAW | ranks-report | recheck [--states a,b] | image-regress | verify-live URL [--html F]
   publish-payload HUB               publish_collection_items actions (100 per call) for every verified cms_draft page (only after Divit's go)
   log HUB TEXT                      append a dated line to logs/<hub>.md
+  ship BATCH [--payload SHA] | ship-done BATCH URL writer|review|rework --by ID [--fail TEXT] | ship-cms BATCH READBACK | ship-qc URL | ship-cost BATCH | readiness
+                                    launch pipeline per page (ops/ship.py) and the readiness board status/readiness.md
 
 HUB is one of LP, Form, Auto, SurveyQuiz. Status lives in status/<hub>.json; each hub chat writes only its own.
 """
@@ -416,6 +418,15 @@ def live_urls():
     live = {h["path"] for h in CFG["hubs"].values()} | set(CFG.get("live_child_urls", []))
     live |= {u for u, e in G.all_status().items() if e.get("state") == "published"}
     return live
+def prompt_embed(s, v):
+    """Template edit T1 (2026-10-08): the hero prompt field carries window.awbPrompt = {default, chips} after its <p>,
+    in the same embed shape the FAQ field round-trips through Webflow. Chip prompts come from spec.chip_prompts (4, in chip order)."""
+    import html as _h
+    d = _h.unescape(re.sub(r"<[^>]+>", "", v)).strip()
+    if not d or "window.awbPrompt" in v: return v
+    chips = [c.strip() if isinstance(c, str) and c.strip() else None for c in (s.get("chip_prompts") or [])][:4]
+    js = json.dumps({"default": d, "chips": chips + [None] * (4 - len(chips))}, ensure_ascii=False).replace("</", "<\\/")
+    return v + f"<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbPrompt = {js}; </script></div></div>"
 def export_fields(url, s, live=None):
     """What reaches Webflow: zero-width characters and empty paragraphs stripped (QC S10); links to child pages that are not live
     become plain text and are listed as pending (DECISIONS 2026-10-08). The hub link (K4) is never stripped."""
@@ -425,6 +436,7 @@ def export_fields(url, s, live=None):
     for k, v in s["fields"].items():
         if not isinstance(v, str): out[k] = v; continue
         v = EMPTY_P.sub("", ZW.sub("", v))
+        if k == "hero_prompt": v = prompt_embed(s, v)
         def _sub(m):
             path = m.group(2).rstrip("/")
             if path in hubs or path in live or not path.startswith(hubs): return m.group(0)
@@ -779,6 +791,12 @@ CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cm
         "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
         "recheck": cmd_recheck, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live}
+def _ship(name):
+    def run(args):
+        sys.path.insert(0, os.path.join(ROOT, "ops")); import ship
+        return ship.CMDS[name](args)
+    return run
+for _n in ("ship", "ship-done", "ship-cms", "ship-qc", "ship-cost", "readiness"): CMDS[_n] = _ship(_n)
 if __name__ == "__main__":
     if len(sys.argv) < 2 or sys.argv[1] not in CMDS: print(__doc__); sys.exit(0)
     try:
