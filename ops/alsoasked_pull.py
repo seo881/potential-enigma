@@ -22,6 +22,39 @@ def call(method, path, body=None):
         try: msg = json.load(e).get("message", "")
         except Exception: msg = ""
         return e.code, {"_error": str(msg)[:200]}
+    except (TimeoutError, urllib.error.URLError):
+        return 0, {"_error": "timeout", "status": "timeout"}
+
+PENDING = ("pending", "processing", "queued", "running")
+
+def poll(sid):
+    """GET /search/{id} until it leaves a pending state (free; up to 10 minutes)."""
+    import time
+    for _ in range(30):
+        s, r = call("GET", "/search/" + sid)
+        if s != 200 or r.get("status") not in PENDING: return s, r
+        time.sleep(20)
+    return s, r
+
+def from_history(term, depth, region, language):
+    """A finished search for the same term and settings already in the history (fetched free, no new billing)."""
+    s, h = call("GET", "/search")
+    hit = next((x for x in (h.get("results") or []) if x.get("terms") == [term] and x.get("depth") == depth and x.get("region") == region
+                and x.get("language") == language and x.get("status") == "success"), None) if s == 200 else None
+    return poll(hit["id"]) if hit else (None, None)
+
+def recover(term, depth, region, language):
+    """A synchronous search that timed out still runs (and is billed) server-side: find it in the search history
+    (GET /search) and fetch it with GET /search/{id}, polling up to 10 minutes while it is pending."""
+    import time
+    for _ in range(30):
+        s, h = call("GET", "/search")
+        hit = next((x for x in (h.get("results") or []) if x.get("terms") == [term] and x.get("depth") == depth
+                    and x.get("region") == region and x.get("language") == language), None) if s == 200 else None
+        if hit and hit.get("status") not in PENDING:
+            return call("GET", "/search/" + hit["id"])
+        time.sleep(20)
+    return 0, {"_error": "timeout; not recovered from history", "status": "timeout"}
 
 def credits(acc): return {k: v for k, v in acc.items() if "credit" in k.lower() and isinstance(v, (int, float))}
 
@@ -46,16 +79,21 @@ def main(argv):
     fresh = "--fresh" in argv
     while True:  # fresh:false first (a cache hit may be free); fresh:true only when that returns no_results
         s0, a0 = call("GET", "/account")
-        status, res = call("POST", "/search", {**body, "fresh": fresh})
+        recovered = False
+        hs, hr = (None, None) if fresh else from_history(term, depth, body["region"], body["language"])
+        if hs == 200 and hr.get("status") == "success": status, res, recovered = hs, hr, "history"
+        else: status, res = call("POST", "/search", {**body, "fresh": fresh})
+        if res.get("status") == "timeout": status, res = recover(term, depth, body["region"], body["language"]); recovered = True
+        elif res.get("status") in PENDING and res.get("id"): status, res = poll(res["id"]); recovered = "polled"
         s1, a1 = call("GET", "/account")
         b, a = (credits(a0), credits(a1)) if s0 == 200 and s1 == 200 else ({}, {})
         used = {k: b[k] - a.get(k, b[k]) for k in b}
-        print(f"HTTP {status} fresh={fresh} status={res.get('status')} cached={res.get('cached')}" + (f" ({res['_error']})" if "_error" in res else ""))
+        print(f"HTTP {status} fresh={fresh} recovered={recovered} status={res.get('status')} cached={res.get('cached')}" + (f" ({res['_error']})" if "_error" in res else ""))
         print("credits used: " + ", ".join(f"{k} {v}" for k, v in used.items()) + " | remaining: " + ", ".join(f"{k} {v}" for k, v in a.items()))
         os.makedirs(os.path.join(ROOT, "private", "alsoasked"), exist_ok=True)
         with open(os.path.join(ROOT, "private", "alsoasked", "credits.log"), "a") as f:
             f.write(json.dumps({"t": __import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat(timespec="seconds"), "slug": slug,
-                                "term": term, "depth": depth, "fresh": fresh, "http": status, "status": res.get("status"), "cached": res.get("cached"),
+                                "term": term, "depth": depth, "fresh": fresh, "recovered": recovered, "post": recovered != "history", "http": status, "status": res.get("status"), "cached": res.get("cached"),
                                 "before": b, "after": a, "used": used}) + "\n")
         if status == 200 and res.get("status") == "no_results" and not fresh: fresh = True; continue
         break

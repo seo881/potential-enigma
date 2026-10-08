@@ -404,6 +404,10 @@ def check(spec, siblings):
                     add("P1", "F2", "faq", f'unknown source type "{kind}" (paa, related, secondary, keyword, definition)')
             me_page = (KMAP or {}).get(spec["url"], {"primary": prim, "secondaries": []})
             ok_paa, _skip = S.eligible(live, me_page, prims)
+            # PA4 per-page skip list (Divit approved PA1-PA13, 2026-10-08): a logged, reasoned skip is not required by F4
+            _pp = json.load(open(os.path.join(ROOT, "rules", "paa_blocklist.json")))["per_page"].get(spec["url"].rsplit("/", 1)[1], [])
+            _pskip = {e["q"].strip().lower() for e in _pp if e.get("reason")}
+            ok_paa = [i for i in ok_paa if i["q"].strip().lower() not in _pskip]
             for i in ok_paa[:10]:
                 if i["q"].lower() not in used_paa: add("P1", "F4", "faq", f'People Also Ask question not answered: "{i["q"]}"')
             if not live["paa"]: add("P2", "F5", "faq", "this SERP shows no People Also Ask box; FAQ comes from related searches and secondaries")
