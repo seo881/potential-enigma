@@ -1,0 +1,849 @@
+{
+ "url": "/ai-form-builder/time-sheet-form",
+ "hub": "Form",
+ "item_id": null,
+ "status": "spec",
+ "written_by": "w-time-sheet-form",
+ "keywords": {
+  "primary": "time sheet form",
+  "secondaries_used": [
+   "timesheet form",
+   "time sheet forms"
+  ]
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Time Sheet Form That Totals Hours | Emergent",
+  "meta_description": "What a time sheet form should collect, how to set one up, and an app that deducts unpaid lunches and splits out overtime before approval.",
+  "h1": "Build a Time Sheet Form That Does the Math",
+  "slug": "time-sheet-form",
+  "product_name": "Time Sheet Form Builder",
+  "hero_description": "A time sheet form records the hours someone worked each day, minus unpaid breaks. Emergent builds one around your pay period and the person who approves each sheet.",
+  "breadcrumb": "Time Sheet Form",
+  "category": "a3f1c6d3f1f5b72e83814b483a0ac3d5",
+  "explore_cta": "Build My Time Sheet Form",
+  "features_heading": "Hours Counted the Way Payroll Reads Them",
+  "features_subheading": "A printable sheet leaves the adding to whoever checks it on Friday. Emergent's version does the math as each day goes in.",
+  "feature_1": "<h3>Daily totals from punch times</h3><p>Turns each day's punch-in and punch-out times into hours, minus breaks, then adds the days into a week. Nobody types a total by hand, which is where most sheets go wrong.</p>",
+  "feature_2": "<h3>Unpaid meal breaks deducted</h3><p>Subtracts meal breaks of 30 minutes or more and leaves short rest breaks in the day's hours. That is the line the Department of Labor draws between paid and unpaid breaks.</p>",
+  "feature_3": "<h3>Overtime kept in its own column</h3><p>Moves any time beyond 40 hours in the workweek into a separate overtime column. The supervisor approves both figures together, and your payroll provider applies the rate.</p>",
+  "feature_4": "<h3>A job or client code on each entry</h3><p>Asks for a job number or client code on every line and returns any entry left blank. Hours then roll up per code, ready for a job costing report or the next client invoice.</p>",
+  "feature_5": "<h3>Approval that locks the sheet</h3><p>Sends each submitted sheet to the employee's supervisor in Slack or email. Approved entries lock, and any later edit needs a reason and records who changed it and when.</p>",
+  "feature_6": "<h3>Code you can take anywhere</h3><p>Exports the full codebase to your GitHub repo. Your developers can add a payroll API sync or a kiosk clock-in screen, or ask Emergent for either one in a new prompt.</p>",
+  "why_title": "Why Build Time Sheets With Emergent?",
+  "why_description": "Each entry and every later edit is stored in a database you own, ready for the payroll export.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"emergent\" />\n        </th>\n        <th scope=\"col\">Google Forms</th>\n        <th scope=\"col\">Jotform</th>\n        <th scope=\"col\">Typeform</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">Where responses live</th>\n        <td class=\"col-brand\">A database table you own, plus any integration</td>\n        <td class=\"col-other\">Google Sheets</td>\n        <td class=\"col-other\">Jotform account</td>\n        <td class=\"col-other\">Typeform account</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt</td>\n        <td class=\"col-other\">Manual, field by field</td>\n        <td class=\"col-other\">Templates, editor, AI generator</td>\n        <td class=\"col-other\">Templates, editor, AI assist</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Response limits</th>\n        <td class=\"col-brand\">Unlimited</td>\n        <td class=\"col-other\">No limit</td>\n        <td class=\"col-other\">100/mo free, 1,000 Bronze, 2,500 Silver, 10,000 Gold (form stops at cap)</td>\n        <td class=\"col-other\">10/mo free, 100 Basic, 1,000 Plus, 10,000 Business (form closes at cap)</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full export to your repo</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "Time Sheet Forms by Type of Work",
+  "tab_label_1": "Hourly Overtime",
+  "tab_label_2": "Construction Crews",
+  "tab_label_3": "Home Care Visits",
+  "tab_label_4": "Pay Period Close",
+  "tab_content_1": "<h3>Which of the 43.5 hours count as overtime</h3><p>Warehouse weeks rarely end at 40. An associate works five days with a 30-minute unpaid lunch each day. The form deducts every lunch, totals the week at 43.5 hours and separates the 3.5 past 40. Federal law requires overtime pay for those hours, and the supervisor approves them as overtime first.</p>",
+  "tab_content_2": "<h3>Every hour lands on a job number</h3><p>Construction payroll and job costing read the same sheet. A site foreman logs a crew of five against Job 2207 and Job 2214, and the form totals each job as entries arrive. One six-hour entry came in with no job code. It goes back to the worker to fix and stays out of both totals until then.</p>",
+  "tab_content_3": "<h3>Proof of each visit, signed by the client</h3><p>Home care runs on visits, not shifts. An aide taps start when she arrives at a client's home and finish when she leaves. Before she goes, the client signs on her phone screen. The visit reaches the agency's scheduler with the signature attached, and its 2.5 hours land on the aide's time sheet.</p>",
+  "tab_content_4": "<h3>Who still owes a sheet by Monday</h3><p>Payroll can only run on sheets that exist. The pay period closes Sunday night. On Monday morning a Slack message tells the office manager that 10 of 12 sheets are approved and two never came in. One click sends both people a reminder, and each late sheet goes to its supervisor once it is submitted.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { hourlyOvertime: \"Build a weekly time sheet for my warehouse staff. Each day they enter a clock-in time, a clock-out time and their lunch length. Subtract lunches of 30 minutes or more, total the week and move anything past 40 hours into an overtime column. Send the sheet to the shift supervisor to approve, with regular and overtime hours shown separately.\", constructionCrews: \"Make a crew time sheet for my site foremen. The foreman enters hours for each worker against an open job number picked from a dropdown. Show the running total for each job as entries come in. If an entry has no job code, send it back to that worker to fix before the week closes and leave it out of the job totals.\", homeCareVisits: \"Build a visit log for my home care aides. On their phone, the aide taps start on arrival and finish on leaving, and the app records the visit length. The client signs on the screen before the aide leaves. Send each signed visit to our scheduler and add its hours to the aide's time sheet for the pay period.\", payPeriodClose: \"When our pay period closes on Sunday night, check who has submitted a time sheet. On Monday morning, send me a Slack message with how many sheets are approved and who is missing, plus a button that reminds the missing people. Route each late sheet to the right supervisor as soon as it is submitted.\" };</p>",
+  "howto_title": "How to Create a Time Sheet Form",
+  "howto_description": "Most time sheet errors come from typed totals and unclear break rules. These seven steps settle the rules first and leave the arithmetic to the form.",
+  "howto_step_1_title": "01 Decide the pay period first",
+  "howto_step_2_title": "02 Ask for times, not totals",
+  "howto_step_3_title": "03 Split meal and rest breaks",
+  "howto_step_4_title": "04 Give overtime its own column",
+  "howto_step_1_des": "Choose the period payroll already runs on, usually weekly or biweekly. It sets how many rows the sheet needs and when it closes. Overtime is counted per workweek, and a biweekly sheet needs a subtotal for each of its two weeks.",
+  "howto_step_2_des": "Have people enter when they started and finished each day, plus the length of any break, instead of a typed total. Totals entered by hand drift by quarter hours. Times let the form do the math and show when each shift happened.",
+  "howto_step_3_des": "Under federal rules, a bona fide meal period of 30 minutes or more is usually unpaid, while short rest breaks count as hours worked. Give each its own field so the deduction is right and the employee can see it.",
+  "howto_step_4_des": "Keep regular hours and anything over 40 in a workweek in separate columns. Nonexempt employees earn at least time and a half for those extra hours under federal law. Check your state's rules too, then show both totals to the approver.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Time Sheet Questions, Answered\", \"items\": [{\"q\": \"What is a time sheet form?\", \"a\": \"It is the record of the hours a person worked in a pay period. Each day lists when work started and stopped, minus any unpaid break, with totals per day and per week. A supervisor approves it, and payroll pays from it.\"}, {\"q\": \"How do I create my own timesheet?\", \"a\": \"Pick the pay period, then give each day a row for clock times and breaks. Add a weekly total and an approval line. For a timesheet form that does the math and routes approvals, Emergent's <a href='https://emergent.sh/ai-form-builder'>AI form builder</a> builds one from a plain description.\"}, {\"q\": \"Is there a free timesheet template?\", \"a\": \"Yes. Microsoft and many template sites publish free ones for Excel and as printable PDFs. Pick one with a row per day and a column for unpaid breaks. Printed time sheet forms suit a small crew, though someone still adds every column by hand.\"}, {\"q\": \"Is there a timesheet template in Excel?\", \"a\": \"Yes. Microsoft publishes free Excel timesheet templates for each common pay period. Check the formula behind the total before you rely on it, especially how it handles lunch breaks and shifts that cross midnight.\"}, {\"q\": \"Does Google Docs have a timesheet template?\", \"a\": \"Template sites offer time sheets formatted for Google Docs that you copy into your Drive. A document leaves the adding to you. Most people keep the grid in Google Sheets instead, where one SUM formula totals each column.\"}, {\"q\": \"Can I use Google Forms to create a TimeSheet?\", \"a\": \"Yes. Build a short form for each day's clock times and break, then send responses to a linked Google Sheets spreadsheet. Each submission becomes a row. Totals and the overtime split happen in that sheet, through formulas you write yourself.\"}, {\"q\": \"Is there a free TimeSheet app?\", \"a\": \"Yes. A shared spreadsheet or a free form covers a handful of people. Emergent is free to start: a team can build a time sheet app around its own pay period and approver, then run it for a full period before paying.\"}, {\"q\": \"What is the best timesheet software?\", \"a\": \"The best fit matches how your people work. Hourly staff need punch times with breaks deducted, and crews need job codes. Scheduling is a separate step: an <a href='https://emergent.sh/ai-form-builder/employee-availability-form'>employee availability form</a> shapes the schedule, and the time sheet records what happened.\"}, {\"q\": \"What's the difference between a timesheet and timecard?\", \"a\": \"A timecard holds the clock-in and clock-out times, originally stamped by a time clock. A timesheet turns those times into hours per day and week, sometimes split by job, for approval. Days approved through a <a href='https://emergent.sh/ai-form-builder/time-off-request-form'>time off request form</a> can sit on the same timesheet as paid hours.\"}, {\"q\": \"Does Office 365 have a timesheet app?\", \"a\": \"Microsoft 365 includes Excel, and Microsoft publishes free timesheet templates for it. Teams also offers Shifts, where frontline staff clock in and out with a time clock and confirm their time sheet after each shift.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Add job codes where hours get billed",
+  "howto_step_5_des": "When hours feed job costing or a client invoice, add a job or client code to each entry. Make it a dropdown of open jobs instead of free text. Entries with a blank code go back before the week closes.",
+  "howto_step_6_title": "06 Route every sheet to one approver",
+  "howto_step_6_des": "Send each sheet to the employee's direct supervisor when the period ends, with a reminder for anyone who has not submitted by the next morning. Lock approved sheets so later edits need a reason and leave a trail.",
+  "howto_step_7_title": "07 Keep the records",
+  "howto_step_7_des": "Store every approved sheet and every edit in one place for at least two years, the retention period federal rules set for time cards. At each close, export approved hours to payroll split into regular and overtime.",
+  "prompt_chip_1": "Overtime Hours",
+  "prompt_chip_2": "Break Deductions",
+  "prompt_chip_3": "Job Codes",
+  "prompt_chip_4": "Approvals",
+  "hero_prompt": "<p>Build a weekly time sheet form that deducts unpaid lunches, flags hours past 40 and sends each sheet to a supervisor.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/form/time-sheet-form/uc-1.svg",
+   "alt": "A warehouse associate's week sheet deducts a 30-minute unpaid lunch each day and totals 43.5 hours; the 3.5 hours past 40 go to the shift supervisor to approve as overtime."
+  },
+  "tab_image_2": {
+   "path": "images/form/time-sheet-form/uc-2.svg",
+   "alt": "A foreman's crew of five logs the week against Job 2207 and Job 2214; one 6-hour entry with no job code is held out of both job totals and sent back to the worker to fix."
+  },
+  "tab_image_3": {
+   "path": "images/form/time-sheet-form/uc-3.svg",
+   "alt": "A home care aide logs a 2.5-hour visit on her phone and the client signs on screen; the visit goes to the agency scheduler with the signature attached before the hours join her time sheet."
+  },
+  "tab_image_4": {
+   "path": "images/form/time-sheet-form/uc-4.svg",
+   "alt": "On Monday morning the office manager gets a Slack message that 10 of 12 time sheets are approved and two are missing, with a button that sends both people a reminder."
+  },
+  "cover_image": {
+   "path": "images/form/time-sheet-form/cover.svg",
+   "alt": "Time sheet form: a supervisor is asked to approve 3.5 overtime hours from a week totaling 43.5 hours"
+  },
+  "share_image": {
+   "path": "images/form/time-sheet-form/og.png",
+   "alt": "Build a time sheet form that totals hours and flags overtime, with Emergent"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-08 00:53 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-08 01:01 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "w-time-sheet-form",
+   "note": ""
+  },
+  {
+   "t": "2026-10-08 01:01 UTC",
+   "state": "images",
+   "via": null,
+   "by": null,
+   "note": ""
+  }
+ ],
+ "plan": {
+  "angle": "The live SERP is printable templates (Pinterest, Template.net, Notion, a fillable PDF, Jotform's construction form) and an AI Overview listing the fields a time sheet needs. None of them adds the hours up for you or knows who still owes a sheet. This page answers what a time sheet form should collect and how to set one up, then builds what a template cannot: entries that total themselves with unpaid lunches deducted, hours past 40 flagged, hours tied to job numbers, client sign-off on a phone, and reminders before the pay period closes.",
+  "tab_stories": [
+   "A warehouse associate clocks five days with a 30-minute unpaid lunch each day, the form totals the week at 43.5 hours and splits out the 3.5 hours past 40 for the supervisor to approve as overtime.",
+   "A site foreman logs a crew of five against two job numbers for the week, the board totals hours per job, and the one 6-hour entry with no job code goes back to the worker before the week closes.",
+   "A home care aide records a 2.5-hour visit on her phone, the client signs on the screen before she leaves, and the visit reaches the agency's scheduler with the signature attached.",
+   "The pay period closes Sunday night, 10 of 12 sheets are approved, and Monday morning the office manager sends reminders to the two people who have not submitted."
+  ],
+  "openers": [
+   "Warehouse weeks rarely end at 40",
+   "Construction payroll and job costing read the same sheet",
+   "Home care runs on visits, not shifts",
+   "Payroll can only run on sheets that exist",
+   "Turns each day's punch-in and punch-out times",
+   "Subtracts meal breaks",
+   "Choose the period payroll already runs on",
+   "Have people enter when they started"
+  ],
+  "heading_shapes": [
+   "Which of the 43.5 hours count as overtime",
+   "Every hour lands on a job number",
+   "Proof of each visit, signed by the client",
+   "Who still owes a sheet by Monday"
+  ],
+  "claims_to_source": [
+   "Under the FLSA, covered nonexempt employees must receive overtime pay of at least one and one-half times the regular rate for hours worked over 40 in a workweek",
+   "Employers must keep records of hours worked each workday and total hours worked each workweek for nonexempt employees, and keep time cards for at least two years",
+   "Bona fide meal periods, typically 30 minutes or more, generally need not be compensated as work time, while short breaks of 5 to 20 minutes are counted as hours worked",
+   "A timecard is a record of an employee's starting and quitting times, typically stamped by a time clock",
+   "Microsoft offers free timesheet templates for Excel",
+   "Google Forms responses can be saved to a linked Google Sheets spreadsheet",
+   "Microsoft Teams Shifts includes a time clock that frontline workers use to clock in and out",
+   "Template sites publish time sheet templates formatted for Google Docs"
+  ]
+ },
+ "domain_sources": [
+  {
+   "claim": "Under the FLSA, covered nonexempt employees must receive overtime pay of at least one and one-half times the regular rate for hours worked over 40 in a workweek",
+   "source_url": "https://www.dol.gov/agencies/whd/overtime",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "Employers must keep records of hours worked each workday and total hours worked each workweek for nonexempt employees, and keep time cards for at least two years",
+   "source_url": "https://www.dol.gov/agencies/whd/fact-sheets/21-flsa-recordkeeping",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "Bona fide meal periods, typically 30 minutes or more, generally need not be compensated as work time, while short breaks of 5 to 20 minutes are counted as hours worked",
+   "source_url": "https://www.dol.gov/general/topic/workhours/breaks",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "A timecard is a record of an employee's starting and quitting times, typically stamped by a time clock",
+   "source_url": "https://www.merriam-webster.com/dictionary/time%20card",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "Microsoft offers free timesheet templates for Excel",
+   "source_url": "https://excel.cloud.microsoft/create/en/timesheet-templates/",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "Google Forms responses can be saved to a linked Google Sheets spreadsheet",
+   "source_url": "https://support.google.com/docs/answer/2917686?hl=en",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "Microsoft Teams Shifts includes a time clock that frontline workers use to clock in and out",
+   "source_url": "https://support.microsoft.com/en-us/office/clock-in-and-out-with-shifts-ae7b676c-7666-46c7-9f68-85ff54acec8b",
+   "date": "2026-10-08"
+  },
+  {
+   "claim": "Template sites publish time sheet templates formatted for Google Docs",
+   "source_url": "https://www.template.net/editable/8040/time-sheet",
+   "date": "2026-10-08"
+  }
+ ],
+ "table": {
+  "vs": [
+   "Google Forms",
+   "Jotform",
+   "Typeform"
+  ],
+  "rows": [
+   "data",
+   "build",
+   "limits",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "faq_sources": [
+  {
+   "q": "What is a time sheet form?",
+   "source": "definition",
+   "ref": "time sheet form"
+  },
+  {
+   "q": "How do I create my own timesheet?",
+   "source": "paa",
+   "ref": "How do I create my own timesheet?"
+  },
+  {
+   "q": "Is there a free timesheet template?",
+   "source": "paa",
+   "ref": "Is there a free timesheet template?"
+  },
+  {
+   "q": "Is there a timesheet template in Excel?",
+   "source": "paa",
+   "ref": "Is there a timesheet template in Excel?"
+  },
+  {
+   "q": "Does Google Docs have a timesheet template?",
+   "source": "paa",
+   "ref": "Does Google Docs have a timesheet template?"
+  },
+  {
+   "q": "Can I use Google Forms to create a TimeSheet?",
+   "source": "paa",
+   "ref": "Can I use Google Forms to create a TimeSheet?"
+  },
+  {
+   "q": "Is there a free TimeSheet app?",
+   "source": "paa",
+   "ref": "Is there a free TimeSheet app?"
+  },
+  {
+   "q": "What is the best timesheet software?",
+   "source": "paa",
+   "ref": "What is the best timesheet software?"
+  },
+  {
+   "q": "What's the difference between a timesheet and timecard?",
+   "source": "paa",
+   "ref": "What's the difference between a timesheet and timecard?"
+  },
+  {
+   "q": "Does Office 365 have a timesheet app?",
+   "source": "paa",
+   "ref": "Does Office 365 have a timesheet app?"
+  }
+ ],
+ "claims_used": [
+  "prompt-build",
+  "database-owned",
+  "alerts",
+  "api-connect",
+  "code-export",
+  "no-caps",
+  "free-start",
+  "e-signature-capture"
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R8",
+    "title": "Weekly overtime split",
+    "prompt": "Total each warehouse week and split hours past 40 into overtime for approval",
+    "rule": "If the week passes 40 hours → split out overtime",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Week sheet, warehouse associate",
+       "size": 20,
+       "chip": [
+        "5 days",
+        "acc"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Day",
+        "In and out",
+        "Lunch",
+        "Hours"
+       ],
+       "widths": [
+        0.2,
+        0.38,
+        0.22,
+        0.2
+       ],
+       "row_h": 54,
+       "num_cols": [
+        3
+       ],
+       "rows": [
+        [
+         "Mon",
+         "7:00 to 4:00",
+         "30 min",
+         "8.5"
+        ],
+        [
+         "Tue",
+         "7:00 to 4:00",
+         "30 min",
+         "8.5"
+        ],
+        [
+         "Wed",
+         "7:00 to 4:00",
+         "30 min",
+         "8.5"
+        ],
+        [
+         "Thu",
+         "7:00 to 4:00",
+         "30 min",
+         "8.5"
+        ],
+        [
+         "Fri",
+         "7:00 to 5:00",
+         "30 min",
+         "9.5"
+        ]
+       ],
+       "highlight": 4
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "clock",
+     "tone": "warn",
+     "title": "Overtime for approval",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "3.5 hours past 40",
+       "size": 20,
+       "sub": "Week total: 43.5 hours"
+      },
+      {
+       "type": "meta",
+       "icon": "user-check",
+       "kind": "acc",
+       "text": "Sent to the shift supervisor"
+      }
+     ],
+     "action": {
+      "label": "Approve",
+      "icon": "check",
+      "primary": true
+     }
+    },
+    "mini": {
+     "icon": "utensils",
+     "kind": "ok",
+     "title": "Lunch deducted daily",
+     "sub": "30 min unpaid"
+    },
+    "alt": "A warehouse associate's week sheet deducts a 30-minute unpaid lunch each day and totals 43.5 hours; the 3.5 hours past 40 go to the shift supervisor to approve as overtime.",
+    "story": [
+     {
+      "copy": "rarely end at 40",
+      "image": "If the week passes 40 hours"
+     },
+     {
+      "copy": "works five days",
+      "image": "5 days"
+     },
+     {
+      "copy": "30-minute unpaid lunch",
+      "image": "30 min unpaid"
+     },
+     {
+      "copy": "totals the week at 43.5 hours",
+      "image": "Week total: 43.5 hours"
+     },
+     {
+      "copy": "separates the 3.5 past 40",
+      "image": "3.5 hours past 40"
+     }
+    ]
+   },
+   {
+    "recipe": "R11",
+    "title": "Crew hours by job number",
+    "prompt": "Log crew hours against job numbers and send back entries with no job code",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Crew hours this week",
+       "size": 20,
+       "chip": [
+        "5 workers",
+        "acc"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Worker",
+        "Job 2207",
+        "Job 2214",
+        "No code"
+       ],
+       "widths": [
+        0.31,
+        0.23,
+        0.23,
+        0.23
+       ],
+       "bad": 3,
+       "num_cols": [
+        1,
+        2,
+        3
+       ],
+       "rows": [
+        [
+         "L. Ortega",
+         "24",
+         "16",
+         "0"
+        ],
+        [
+         "K. Bauer",
+         "30",
+         "10",
+         "0"
+        ],
+        [
+         "R. Dunn",
+         "40",
+         "0",
+         "0"
+        ],
+        [
+         "A. Moreau",
+         "20",
+         "14",
+         "6"
+        ],
+        [
+         "J. Park",
+         "16",
+         "24",
+         "0"
+        ]
+       ],
+       "row_h": 42
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Job 2207",
+         "130 hours"
+        ],
+        [
+         "Job 2214",
+         "64 hours"
+        ]
+       ]
+      },
+      {
+       "type": "space",
+       "h": 2
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "action": {
+      "label": "Send back"
+     },
+     "blocks": [
+      {
+       "type": "chips",
+       "items": [
+        [
+         "Missing job code",
+         "bad"
+        ]
+       ]
+      },
+      {
+       "type": "title",
+       "title": "6 hours with no job code",
+       "sub": "Sent back to A. Moreau to fix"
+      }
+     ]
+    },
+    "alt": "A foreman's crew of five logs the week against Job 2207 and Job 2214; one 6-hour entry with no job code is held out of both job totals and sent back to the worker to fix.",
+    "story": [
+     {
+      "copy": "a crew of five",
+      "image": "5 workers"
+     },
+     {
+      "copy": "Job 2207",
+      "image": "Job 2207"
+     },
+     {
+      "copy": "Job 2214",
+      "image": "Job 2214"
+     },
+     {
+      "copy": "One six-hour entry came in with no job code",
+      "image": "6 hours with no job code"
+     },
+     {
+      "copy": "goes back to the worker to fix",
+      "image": "Sent back to A. Moreau to fix"
+     }
+    ]
+   },
+   {
+    "recipe": "R4",
+    "title": "Home care visit sign-off",
+    "prompt": "Log each home care visit on the aide's phone with the client's signature",
+    "main": {
+     "blocks": [
+      {
+       "type": "text",
+       "text": "Visit record",
+       "size": 22
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Client",
+         "M. Holt"
+        ],
+        [
+         "Started",
+         "9:00 AM"
+        ],
+        [
+         "Finished",
+         "11:30 AM"
+        ],
+        [
+         "Visit length",
+         "2.5 hours",
+         true
+        ]
+       ]
+      },
+      {
+       "type": "status",
+       "title": "Client signed",
+       "sub": "On the aide's phone"
+      },
+      {
+       "type": "button",
+       "label": "Submit visit",
+       "icon": "send",
+       "full": true
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Client signed",
+         "sub": "M. Holt, on screen"
+        },
+        {
+         "state": "live",
+         "title": "Scheduler review",
+         "sub": "Northwind Home Care"
+        },
+        {
+         "state": "next",
+         "title": "Added to time sheet",
+         "sub": "Current pay period"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "pen-line",
+     "tone": "ok",
+     "title": "Signature attached",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Visit: 2.5 hours",
+       "size": 20,
+       "sub": "Sent to the agency scheduler"
+      },
+      {
+       "type": "meta",
+       "icon": "house",
+       "kind": "acc",
+       "text": "Client home, M. Holt"
+      },
+      {
+       "type": "meta",
+       "icon": "clock",
+       "kind": "acc",
+       "text": "9:00 AM to 11:30 AM"
+      }
+     ],
+     "action": {
+      "label": "Open visit",
+      "icon": "eye",
+      "primary": true
+     }
+    },
+    "alt": "A home care aide logs a 2.5-hour visit on her phone and the client signs on screen; the visit goes to the agency scheduler with the signature attached before the hours join her time sheet.",
+    "story": [
+     {
+      "copy": "the client signs on her phone screen",
+      "image": "On the aide's phone"
+     },
+     {
+      "copy": "with the signature attached",
+      "image": "Signature attached"
+     },
+     {
+      "copy": "its 2.5 hours",
+      "image": "Visit: 2.5 hours"
+     },
+     {
+      "copy": "reaches the agency's scheduler",
+      "image": "Sent to the agency scheduler"
+     }
+    ]
+   },
+   {
+    "recipe": "R9",
+    "title": "Missing sheets at period close",
+    "prompt": "After each pay period closes, remind anyone who has not submitted a time sheet",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Pay period closed Sunday",
+       "sub": "12 time sheets due",
+       "chip": [
+        "10 of 12 approved",
+        "ok"
+       ]
+      },
+      {
+       "type": "list",
+       "cards": true,
+       "row_h": 88,
+       "items": [
+        {
+         "initials": "NP",
+         "name": "Nina Park",
+         "sub": "Front desk",
+         "chip": [
+          "Approved",
+          "ok"
+         ]
+        },
+        {
+         "initials": "OB",
+         "name": "Owen Blake",
+         "sub": "Warehouse",
+         "chip": [
+          "Approved",
+          "ok"
+         ]
+        },
+        {
+         "initials": "TS",
+         "name": "Theo Stone",
+         "sub": "Warehouse",
+         "chip": [
+          "Missing",
+          "warn"
+         ]
+        },
+        {
+         "initials": "JL",
+         "name": "Jade Lowe",
+         "sub": "Front desk",
+         "chip": [
+          "Missing",
+          "warn"
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "message",
+     "channel": "Dana Price",
+     "title": "2 time sheets missing",
+     "lines": [
+      "Theo Stone, Jade Lowe"
+     ],
+     "button": "Send reminders"
+    },
+    "mini": {
+     "icon": "lock",
+     "kind": "ok",
+     "title": "10 sheets locked",
+     "sub": "Approved by supervisors"
+    },
+    "alt": "On Monday morning the office manager gets a Slack message that 10 of 12 time sheets are approved and two are missing, with a button that sends both people a reminder.",
+    "story": [
+     {
+      "copy": "10 of 12 sheets are approved",
+      "image": "10 of 12 approved"
+     },
+     {
+      "copy": "two never came in",
+      "image": "2 time sheets missing"
+     },
+     {
+      "copy": "sends both people a reminder",
+      "image": "Send reminders"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "channel": "Shift supervisor",
+   "title": "Overtime: 3.5 hours",
+   "sub": "Week total: 43.5 hours",
+   "primary": "Approve",
+   "secondary": "Send back",
+   "icon": "clock",
+   "alt": "Time sheet form: a supervisor is asked to approve 3.5 overtime hours from a week totaling 43.5 hours"
+  },
+  "og": {
+   "headline": "Build a time sheet form",
+   "alt": "Build a time sheet form that totals hours and flags overtime, with Emergent",
+   "lines": [
+    "Build a",
+    "time sheet form"
+   ]
+  },
+  "checks": [
+   {
+    "expr": "8.5 * 4 + 9.5 == 43.5",
+    "shows": [
+     "8.5",
+     "9.5",
+     "Week total: 43.5 hours"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "43.5 - 40 == 3.5",
+    "shows": [
+     "3.5 hours past 40"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "24 + 30 + 40 + 20 + 16 == 130",
+    "shows": [
+     "130 hours"
+    ],
+    "where": 2
+   },
+   {
+    "expr": "16 + 10 + 0 + 14 + 24 == 64",
+    "shows": [
+     "64 hours"
+    ],
+    "where": 2
+   },
+   {
+    "fact": [
+     "6 hours"
+    ],
+    "where": 2
+   },
+   {
+    "expr": "11.5 - 9 == 2.5",
+    "shows": [
+     "2.5 hours",
+     "Visit: 2.5 hours"
+    ],
+    "where": 3
+   },
+   {
+    "expr": "10 + 2 == 12",
+    "shows": [
+     "10 of 12 approved",
+     "2 time sheets missing",
+     "12 time sheets due"
+    ],
+    "where": 4
+   },
+   {
+    "same": "Week total: 43.5 hours",
+    "where": [
+     1,
+     "cover"
+    ]
+   },
+   {
+    "expr": "43.5 - 40 == 3.5",
+    "shows": [
+     "Overtime: 3.5 hours"
+    ],
+    "where": "cover"
+   }
+  ]
+ },
+ "qc_passed": {
+  "rules_version": "1a87e7a55bea",
+  "date": "2026-10-08 01:01 UTC"
+ },
+ "writers": [
+  "w-time-sheet-form"
+ ]
+}
