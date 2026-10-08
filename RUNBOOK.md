@@ -3,6 +3,7 @@
 **Start here, in every new chat.** This repo is the only place state lives. A chat that ends mid-task loses nothing if it committed; a new chat reads this file, runs setup, and continues.
 
 ## 0. Read in this order (10 minutes)
+0. **`docs/HANDOVER_2026-10-08.md` first** (state, findings, pending decisions after the move to the second account).
 1. Project file `EMERGENT_BUILD_HUBS_HANDOFF.md`, sections 0 (how to work with Divit) and 2 (access, IDs, GitHub token). The token lives only there.
 2. This file.
 3. `DECISIONS.md`: every ruling Divit has made. Never re-ask these.

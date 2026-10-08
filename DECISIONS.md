@@ -2,6 +2,12 @@
 
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
+## 2026-10-08
+- **Production moves to the second (paid team) account as it is** (Divit): the first account is at about 80% of its weekly limit until Tuesday. Open decisions are taken up there. Full context: `docs/HANDOVER_2026-10-08.md`.
+- **No new pages**; priority is QC and taking existing pages live; minimal token use (code QC with summaries only).
+- **The post-75 pages of the overnight run were authorised by Divit directly in Claude Code** (not a scope breach).
+- **DataForSEO PAA is no longer trusted as an FAQ source; Divit bought AlsoAsked.** In-depth PAA rules and QC must exist before any publish (proposal PA1-PA13 in the handover, pending approval).
+
 ## 2026-10-07
 - **Final process (Divit, after the 8-page measurement run): stop the review loop.** Write in bulk, QC to zero, **one review** with a fixed severity table, **one rework**, then Divit reviews the previews.
   - Severity table `rules/SEVERITY.md`, the only severity source for the reviewer. Blocking: untrue or unsourced claims, wrong facts, structure, image contradicting copy, a sibling's keyword, missing intent. Everything else is a note that ships. Every finding names its class; `hubctl review` rejects a class whose severity disagrees with the table.
