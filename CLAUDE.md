@@ -12,6 +12,7 @@ First time on a machine: `docs/CLAUDE_CODE_SETUP.md`. On macOS, `ops/setup.sh` c
 - Semrush data stays out of git: put the workbook at `private/Emergent_Hub_Child_Pages_Final_v3.xlsx` (git-ignored).
 - **Claude Code is only the engine for scale.** Every page is human, operator grade, world class, exactly per `DECISIONS.md` and `rules/HUB_RULES.md`, and must never read as AI-written (HUB_RULES 2b; `rules/ai_tells.json` is enforced by QC).
 - Every Webflow call needs Divit's approval in the prompt; never batch-approve on his behalf.
+- **Work report after every task Divit gives** (RUNBOOK section 6): `reports/YYYY-MM-DD/HHMM-<slug>.md` with the sections Request (his prompt verbatim), Actions and results, Numbers, Decisions (each with the DECISIONS line, HUB_RULES section, URL or data file it follows), Files changed and commits (SHAs), Webflow calls (type, IDs, before/after, rollback), Not done, Open questions for Divit; plus a line in `reports/INDEX.md` (newest first: date, slug, summary, SHA). The repo is public: no keys, tokens, raw API responses, SERP or AlsoAsked question text, or anything from `private/` or `.cache/` in a report (reference paths). Commit and push with `ops/sync.sh`, then reply in chat in under 15 lines: summary, report path, SHA.
 
 ## Production at scale (target 200 pages/day): you are the orchestrator
 1. `bash ops/setup.sh --no-images` (Linux sandbox: drop the flag to install the image pipeline).

@@ -118,6 +118,19 @@ Before the context runs long (a writer chat: about 25 pages; a coordinator: when
 2. Add a line to `logs/<hub>.md`: what is done, what is in progress and its exact state, the next step.
 3. Tell Divit to open a new chat with the kickoff prompt from `KICKOFF.md`.
 
+### Work report after every task (standing rule, Divit 2026-10-08)
+After every task Divit gives, write `reports/YYYY-MM-DD/HHMM-<slug>.md` (local time, short kebab-case slug) with these sections:
+- **Request:** Divit's prompt, verbatim.
+- **Actions and results:** each command or change made, and its outcome.
+- **Numbers:** every count, total and measurement produced.
+- **Decisions:** each choice made, the option chosen, and the rule, file or source it follows (cite `DECISIONS.md`, `HUB_RULES`, a URL or a data file).
+- **Files changed and commits** (SHAs).
+- **Webflow calls:** type, item or element IDs, before and after values, rollback (or "None").
+- **Not done:** anything skipped and why.
+- **Open questions for Divit.**
+
+Add a line to `reports/INDEX.md` (newest first: date, slug, one-line summary, commit SHA of the work). The repo is **public**: never put keys, tokens, raw API responses, SERP or AlsoAsked question text, or anything from `private/` or `.cache/` in a report; reference the file paths instead. Commit and push with `bash ops/sync.sh "<message>" <paths>`, then reply in chat in under 15 lines: summary, report path, SHA.
+
 ## 7. Where things are
 | Path | What |
 |---|---|
