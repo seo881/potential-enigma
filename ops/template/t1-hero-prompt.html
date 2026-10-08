@@ -1,0 +1,28 @@
+<script>
+/* T1 (2026-10-08): hero default prompt and chips. Data: window.awbPrompt = {default, chips:[c1..c4]} from the item's prompt field.
+   Runs after the template's own chip script (DOMContentLoaded + 0) so it has the last word on the box. Scoped to #hero-prompt-form. */
+(function () {
+  function run() {
+    var p = window.awbPrompt; if (!p || !p.default) return;
+    var form = document.getElementById('hero-prompt-form'); if (!form) return;
+    var box = form.querySelector('textarea, [data-name="prompt"]'); if (!box) return;
+    var chips = form.querySelectorAll('[data-filter]'), cur = null;
+    function show(n) {
+      cur = n; box.value = (n && p.chips && p.chips[n - 1]) || p.default;
+      chips.forEach(function (c) {
+        var on = c.getAttribute('data-filter') === String(n);
+        c.classList.toggle('is-active', on); c.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+    chips.forEach(function (c) {
+      var n = parseInt(c.getAttribute('data-filter'), 10);
+      c.setAttribute('role', 'button'); c.setAttribute('tabindex', '0');
+      c.addEventListener('click', function () { show(cur === n ? null : n); });
+      c.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(cur === n ? null : n); } });
+    });
+    show(null);
+  }
+  function later() { setTimeout(run, 0); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', later); else later();
+})();
+</script>

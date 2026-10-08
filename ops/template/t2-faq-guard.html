@@ -1,0 +1,11 @@
+<script>
+/* T2 (2026-10-08): FAQ guard. If the item has no FAQ items (window.awbFAQ), hide the FAQ section so placeholder text never shows. */
+(function () {
+  function guard() {
+    var f = window.awbFAQ; if (f && f.items && f.items.length) return;
+    document.querySelectorAll('[data-faq-wrapper]').forEach(function (w) { (w.closest('section') || w).style.display = 'none'; });
+  }
+  guard();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', guard);
+})();
+</script>
