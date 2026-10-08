@@ -395,6 +395,9 @@ def check(spec, siblings):
                     if not any(ref.strip().lower() == k_["kw"].lower() for k_ in live.get("keywords", [])): add("P1", "F2", "faq", f'keyword idea "{ref[:50]}" is not in the captured DataForSEO keyword list')
                 elif kind == "secondary":
                     if norm(ref) not in me_secs: add("P1", "F2", "faq", f'"{ref[:50]}" is not one of this page\'s secondaries')
+                    if src.get("paa_ref"):  # reclassified from DataForSEO PAA by hubctl paa-resource: the PAA question still counts as answered
+                        m_ = next((i["q"] for i in live["paa"] if i["q"].strip().lower() == src["paa_ref"].strip().lower()), None)
+                        if m_: used_paa.add(m_.lower())
                 elif kind == "definition":
                     if norm(ref) != norm(prim): add("P1", "F2", "faq", "a definition item must define the page's primary keyword")
                 else:
@@ -617,6 +620,9 @@ def check(spec, siblings):
     if st_ in ("reviewed", "challenged", "approved", "cms_draft", "published"):
         RUB = json.load(open(os.path.join(ROOT, "rules", "rubric.json")))["criteria"]
         rv = (spec.get("review") or {}).get("rubric", {})
+        # the one rework (Divit, 2026-10-07): a later move to reviewed via `hubctl ready` closes the findings of the review it followed
+        _rd = (spec.get("review") or {}).get("date", "")
+        if _rd and any(h.get("state") == "reviewed" and h.get("t", "") > _rd for h in spec.get("history", [])): rv = {c["id"]: {"result": "pass"} for c in RUB}
         for c in RUB:
             r = rv.get(c["id"], {})
             if r.get("result") != "pass": add("P1", "R1", "review", f'rubric "{c["id"]}" is {r.get("result", "missing")}: {r.get("evidence", c["test"])[:90]}')

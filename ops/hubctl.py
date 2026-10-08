@@ -8,7 +8,8 @@
   state URL STATE [--note TEXT] [--by ID]   move a page to a new state; writers set qc_pass with --by so no agent reviews its own page (qc_pass runs QC: refused unless TOTAL 0)
   release URL [--note TEXT]         return a claimed/spec page to the planned queue (status entry removed, spec file kept, logged)
   paa-resource URL                  write AlsoAsked provenance into FAQ items matching the pull (no copy changes)
-  paa URL [--spec]   PAA gate PA1-PA12 (qc/paa_gate.py): AlsoAsked pull or the spec's FAQ; verdicts to private/alsoasked/verdicts/
+  paa-synonyms URL...               propose PA3 synonym candidates with safety counts -> rules/paa_synonym_candidates.json (not applied)
+  paa URL [--spec] [--cand]   PAA gate PA1-PA12 (qc/paa_gate.py): AlsoAsked pull or the spec's FAQ; verdicts to private/alsoasked/verdicts/
   verified URL                      Divit approved the page as rendered in the real Webflow template: it joins the width calibration
   review URL RUBRIC.json --by ID    record the reviewer's rubric and rule-cited findings (state images); blocking -> rework, notes -> spec.review_notes
   ready URL --by ID                 after the one rework: QC 0 and images rendered -> reviewed (ready for Divit); no second review
@@ -392,6 +393,10 @@ def cmd_paa(args):
     sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate
     return paa_gate.main(args)
 
+def cmd_paa_synonyms(args):
+    sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate
+    return paa_gate.synonym_candidates(args)
+
 def cmd_paa_resource(args):
     sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate
     return paa_gate.resource(args[0])
@@ -732,7 +737,7 @@ def cmd_log(args):
     print(f"logged to {os.path.relpath(p, ROOT)}")
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
-        "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "release": cmd_release, "paa": cmd_paa, "paa-resource": cmd_paa_resource, "publish-payload": cmd_publish_payload, "log": cmd_log,
+        "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "release": cmd_release, "paa": cmd_paa, "paa-resource": cmd_paa_resource, "paa-synonyms": cmd_paa_synonyms, "publish-payload": cmd_publish_payload, "log": cmd_log,
         "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
         "recheck": cmd_recheck, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live}

@@ -3,6 +3,7 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-08
+- **AlsoAsked Phase 2 approved** (Divit): pull every written page, ceiling 200 credits, stop if a page costs over 2; PA3 synonyms proposed by code as candidates only, applied after Divit approves the batch. PA1 applies to PAA-sourced items only (definition and how-to slots and secondaries are exempt).
 - **PAA rules PA1-PA13 approved as written** (Divit); thresholds tuned after the first full run. Gate built against a real AlsoAsked API pull (registration-form), not a UI export.
 - **Production moves to the second (paid team) account as it is** (Divit): the first account is at about 80% of its weekly limit until Tuesday. Open decisions are taken up there. Full context: `docs/HANDOVER_2026-10-08.md`.
 - **No new pages**; priority is QC and taking existing pages live; minimal token use (code QC with summaries only).

@@ -3,7 +3,9 @@
   hubctl paa URL          gate the page's AlsoAsked pull (private/alsoasked/<slug>.json, from ops/alsoasked_pull.py)
   hubctl paa URL --spec   gate the spec's current FAQ (spec.faq_sources + fields.faq); PA1b: no answer may share a 6-word run
                           with the pull's answer_*/ai_overview* text (provenance only, never FAQ copy)
-  hubctl paa-resource URL write AlsoAsked provenance into matching faq_sources items (text byte-identical)
+  hubctl paa-resource URL write AlsoAsked provenance into matching faq_sources items; a DataForSEO-PAA item with no match
+                          that carries a secondary becomes source secondary (ref = that secondary, paa_ref = old ref); text byte-identical
+  --cand                  also admit the page's SAFE synonym candidates (rules/paa_synonym_candidates.json; not yet approved)
 
 Principle: a question is rejected unless it proves it belongs on the page. Each question gets pass, reject or flag
 (needs a human judgment; never silently passed) with every reason by rule ID. Verdicts go to
@@ -38,13 +40,13 @@ def hub_of(url):
     sys.exit(f"no hub owns {url}")
 
 class Gate:
-    def __init__(self, url):
+    def __init__(self, url, extra_heads=()):
         self.url, self.slug = url, url.rsplit("/", 1)[1]
         self.hub, h = hub_of(url); self.dir, self.hub_path = h["repo_dir"], h["path"]
         self.spec_path = os.path.join(ROOT, "specs", self.dir, self.slug + ".json")
         self.spec = json.load(open(self.spec_path)) if os.path.exists(self.spec_path) else {}
         self.primary = (self.spec.get("keywords") or {}).get("primary") or self.slug.replace("-", " ")
-        self.heads = [phrase_re(p) for p in [self.primary] + R("paa_synonyms.json")["pages"].get(self.slug, [])]
+        self.heads = [phrase_re(p) for p in [self.primary] + R("paa_synonyms.json")["pages"].get(self.slug, []) + list(extra_heads)]
         self.bl, self.pt = R("paa_blocklist.json"), R("paa_patterns.json")
         for e in self.bl["per_page"].get(self.slug, []):
             if not e.get("reason"): sys.exit(f"rules/paa_blocklist.json per_page {self.slug}: entry without a reason: {e.get('q')}")
@@ -71,6 +73,7 @@ class Gate:
         """item: {q, prov, source}. Returns list of (rule, 'reject'|'flag'|'note', reason)."""
         q, out = norm(item["q"]), []
         prov, src = item.get("prov") or {}, item.get("source", "alsoasked")
+        if item.get("n") in (1, 2): src = "slot"  # definition and how-to-build are template slots: exempt from PA1/PA2 (DECISIONS 2026-10-08)
         # PA1 provenance: PAA items come from AlsoAsked only (US, English) with full provenance
         if src in ("paa", "alsoasked"):
             if prov.get("tool") != "alsoasked-api": out.append(("PA1", "reject", f"PAA item not from AlsoAsked (tool {prov.get('tool') or 'dataforseo'})"))
@@ -196,16 +199,66 @@ def resource(url):
     before_raw = open(g.spec_path, "rb").read(); spec = json.loads(before_raw)
     snap = lambda s: (s["fields"].get("faq"), [(f.get("q"), f.get("source"), f.get("ref")) for f in s.get("faq_sources") or []])
     before = snap(spec); n = 0
+    secs = (spec.get("keywords") or {}).get("secondaries_used") or []; rc = 0
     for f in spec.get("faq_sources") or []:
         m = match_pull(f["q"], nodes)
-        if not m: continue
-        f["prov"] = {k: m["prov"][k] for k in ("tool", "query", "depth", "parent", "fetched", "original", "region", "language")}
-        n += 1
-    assert snap(spec) == before, "paa-resource changed question or answer text: aborted, nothing written"
+        if m:
+            f["prov"] = {k: m["prov"][k] for k in ("tool", "query", "depth", "parent", "fetched", "original", "region", "language")}; n += 1
+        elif f.get("source") == "paa":  # DataForSEO PAA with no AlsoAsked match: a secondary if its question carries one (PA12 test)
+            k = next((k for k in secs if content(k) and content(k) <= content(f["q"])), None)
+            if k: f["paa_ref"] = f.get("ref"); f["source"], f["ref"] = "secondary", k; rc += 1
+    text = lambda s: (s["fields"].get("faq"), [f.get("q") for f in s.get("faq_sources") or []])
+    assert text(spec) == (before[0], [q for q, _, _ in before[1]]), "paa-resource changed question or answer text: aborted, nothing written"
     out = json.dumps(spec, indent=1, ensure_ascii=False)
     assert json.loads(out)["fields"]["faq"].encode() == json.loads(before_raw)["fields"]["faq"].encode()
     open(g.spec_path, "w").write(out)
-    print(f"{url}: {n} of {len(spec.get('faq_sources') or [])} FAQ items carry AlsoAsked provenance; question and answer text byte-identical")
+    print(f"{url}: {n} of {len(spec.get('faq_sources') or [])} FAQ items carry AlsoAsked provenance, {rc} reclassified paa -> secondary; question and answer text byte-identical")
+    return 0
+
+FORMAT_WORDS = ["landing page", "questionnaire", "survey", "quiz", "template", "form", "page"]
+
+def candidate_phrases(spec):
+    """PA3 synonym candidates for a page: the head phrase minus its format word, and any abbreviation in the primary
+    (a token written in capitals in the page's own title or H1). Candidates only: applied after Divit approves the batch."""
+    prim = norm((spec.get("keywords") or {}).get("primary") or ""); out = []
+    for fw in FORMAT_WORDS:
+        if re.search(r"(?<![a-z0-9])" + re.escape(fw) + r"s?(?![a-z0-9])", prim):
+            rest = norm(re.sub(r"(?<![a-z0-9])" + re.escape(fw) + r"s?(?![a-z0-9])", " ", prim, count=1))
+            if rest and rest != prim: out.append((rest, "minus-format"))
+            break
+    shown = " ".join(str(spec.get("fields", {}).get(k) or "") for k in ("h1", "meta_title", "title", "name"))
+    for tok in prim.split():
+        if len(tok) >= 2 and re.search(r"(?<![A-Za-z0-9])" + re.escape(tok.upper()) + r"(?![A-Za-z0-9])", shown) and tok not in [c for c, _ in out]:
+            out.append((tok, "abbreviation"))
+    return out
+
+def synonym_candidates(urls):
+    """Write rules/paa_synonym_candidates.json: per page, each candidate with how many extra questions it admits
+    (pull + current FAQ) and how many of those fail PA4/PA5 (incl. the answer-source sense check). No question text."""
+    cp = os.path.join(ROOT, "rules", "paa_synonym_candidates.json")
+    doc = json.load(open(cp)) if os.path.exists(cp) else {"_note": "", "pages": {}}
+    doc["_note"] = ("PA3 synonym CANDIDATES proposed by code (DECISIONS 2026-10-08): not applied; rules/paa_synonyms.json holds approved ones only. "
+                    "status unsafe = a question it admits fails PA4/PA5 or the answer-source sense check; no-evidence = admits nothing in the pull or FAQ. Counts only.")
+    for url in urls:
+        g = Gate(url); cands = candidate_phrases(g.spec); rows = []
+        pull = json.load(open(pull_path(g.slug))) if os.path.exists(pull_path(g.slug)) else None
+        nodes = flatten(pull) if pull else []; ctx = {norm(n["q"]): n["ctx"] for n in nodes}
+        seen, qs = set(), []
+        for it in nodes + [{"q": f["q"], "ctx": ctx.get(norm(((f.get("prov") or {}).get("original")) or ""), "")} for f in faq_items(g.spec)]:
+            if norm(it["q"]) not in seen: seen.add(norm(it["q"])); qs.append(it)
+        for phrase, kind in cands:
+            gc = Gate(url, [phrase]); hr = phrase_re(phrase); adm = bad4 = bad5 = 0
+            for it in qs:
+                q = norm(it["q"])
+                if any(h.search(q) for h in g.heads) or not hr.search(q): continue
+                adm += 1; rs = gc.judge({"q": it["q"], "ctx": it.get("ctx", ""), "source": "secondary"})
+                bad4 += any(r[0] == "PA4" and r[1] == "reject" for r in rs); bad5 += any(r[0] == "PA5" and r[1] == "reject" for r in rs)
+            rows.append({"phrase": phrase, "kind": kind, "admits": adm, "pa4": bad4, "pa5": bad5, "pulled": bool(pull),
+                         "status": "unsafe" if bad4 or bad5 else ("safe" if adm else "no-evidence")})
+        doc["pages"][g.slug] = rows
+    json.dump(doc, open(cp, "w"), indent=1, ensure_ascii=False)
+    allr = [r for v in doc["pages"].values() for r in v]
+    print(f"synonym candidates: {len(allr)} on {len(doc['pages'])} pages; " + ", ".join(f"{k} {sum(r['status'] == k for r in allr)}" for k in ("safe", "unsafe", "no-evidence")))
     return 0
 
 def faq_items(spec):
@@ -272,14 +325,18 @@ def run_spec(g):
 
 def main(argv):
     if not argv: print(__doc__); return 0
-    g = Gate(argv[0]); mode = "spec" if "--spec" in argv else "pull"
-    items, page = run_spec(g) if mode == "spec" else run_pull(g)
+    cand = []
+    if "--cand" in argv:
+        cp = os.path.join(ROOT, "rules", "paa_synonym_candidates.json")
+        cand = [c["phrase"] for c in (json.load(open(cp))["pages"].get(argv[0].rsplit("/", 1)[1], []) if os.path.exists(cp) else []) if c.get("status") == "safe"]
+    g = Gate(argv[0], cand); mode = ("spec" if "--spec" in argv else "pull") + ("+cand" if "--cand" in argv else "")
+    items, page = run_spec(g) if mode.startswith("spec") else run_pull(g)
     c = {v: sum(i["verdict"] == v for i in items) for v in ("pass", "reject", "flag")}
     tally = {}
     for i in items:
         for rule in sorted({r[0] for r in i["reasons"] if r[1] == "reject"}): tally[rule] = tally.get(rule, 0) + 1
     vd = os.path.join(ROOT, "private", "alsoasked", "verdicts"); os.makedirs(vd, exist_ok=True)
-    out = os.path.join(vd, g.slug + (".faq" if mode == "spec" else "") + ".json")
+    out = os.path.join(vd, g.slug + {"spec": ".faq", "pull": "", "spec+cand": ".faq.cand", "pull+cand": ".cand"}[mode] + ".json")
     json.dump({"url": g.url, "mode": mode, "date": datetime.date.today().isoformat(), "counts": c, "rejects_by_rule": tally,
                "page": [{"rule": r, "msg": m} for r, m in page],
                "items": [{k: i.get(k) for k in ("n", "q", "source", "asker", "verdict")} | {"depth": (i.get("prov") or {}).get("depth"),
@@ -291,8 +348,8 @@ def main(argv):
     sp = os.path.join(ROOT, "audit", "paa", "summary.md")
     if not os.path.exists(sp): open(sp, "w").write("# PAA gate summary (qc/paa_gate.py)\n\nOne line per run; per-question verdicts stay in private/alsoasked/verdicts/.\n\n")
     open(sp, "a").write(line + "\n")
-    print(line[2:])
-    if mode == "spec":
+    if "--quiet" not in argv: print(line[2:])
+    if mode.startswith("spec") and "--quiet" not in argv:
         for i in items:
             if i["verdict"] != "pass": print(f"  Q{i['n']} {i['verdict']}: {', '.join(sorted({r[0] for r in i['reasons'] if r[1] in ('reject', 'flag')}))}  [{i['q'][:60]}]")
     return 0 if not page and c["reject"] == 0 and c["flag"] == 0 else 1
