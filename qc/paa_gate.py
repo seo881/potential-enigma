@@ -1,7 +1,9 @@
 """paa_gate.py: the PAA gate PA1-PA12 (handover 2026-10-08 section 5; approved by Divit 2026-10-08).
 
   hubctl paa URL          gate the page's AlsoAsked pull (private/alsoasked/<slug>.json, from ops/alsoasked_pull.py)
-  hubctl paa URL --spec   gate the spec's current FAQ (spec.faq_sources + fields.faq)
+  hubctl paa URL --spec   gate the spec's current FAQ (spec.faq_sources + fields.faq); PA1b: no answer may share a 6-word run
+                          with the pull's answer_*/ai_overview* text (provenance only, never FAQ copy)
+  hubctl paa-resource URL write AlsoAsked provenance into matching faq_sources items (text byte-identical)
 
 Principle: a question is rejected unless it proves it belongs on the page. Each question gets pass, reject or flag
 (needs a human judgment; never silently passed) with every reason by rule ID. Verdicts go to
@@ -15,7 +17,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CFG = json.load(open(os.path.join(ROOT, "config", "collections.json")))
 R = lambda f: json.load(open(os.path.join(ROOT, "rules", f)))
 STOP = set("a an the of for to in on at by with and or is are do does did i we you my our your can how what which who when where why "
-           "should would will it its be there this that from as if so get any".split())
+           "should would will it its be there this that from as if so any".split())
 PROV = ("tool", "query", "depth", "parent", "fetched", "original")
 JACCARD_DUP = 0.8      # PA9/PA10 same-intent threshold on content words (tune after the first full run)
 MAX_RESPONDENT, MAX_BRANDED, MIN_ON_TOPIC, N_FAQ, MIN_SECONDARIES = 2, 1, 8, 10, 6
@@ -87,6 +89,13 @@ class Gate:
         ws = [w for w in self.bl["wrong_sense"] if has(w, q)]
         if ws: out.append(("PA4", "reject", "wrong-sense term: " + ", ".join(ws)))
         if q in self.skip: out.append(("PA4", "reject", "per-page skip: " + self.skip[q]))
+        if any(re.search(r"\b(apply|applying|application) (for|to) (the |an? )?" + h.pattern, q) for h in self.heads):
+            out.append(("PA4", "reject", "treats the page's document as something one applies for (wrong sense)"))
+        ctx = norm(item.get("ctx") or "")  # the AlsoAsked answer source: provenance used only to judge the sense, never copied
+        cw = [w for w in self.bl["wrong_sense"] + self.bl.get("wrong_sense_source", []) if has(w, ctx)]
+        if cw: out.append(("PA4", "reject", "answer source is about a different sense: " + ", ".join(cw[:3])))
+        cn = [w for w in self.bl["non_us"] if has(w, ctx)]
+        if cn: out.append(("PA5", "reject", "answer source is non-US: " + ", ".join(cn[:3])))
         # PA5 US audience
         nu = [w for w in self.bl["non_us"] if has(w, q)]
         if nu: out.append(("PA5", "reject", "non-US term: " + ", ".join(nu)))
@@ -147,10 +156,57 @@ def flatten(d):
         for n in nodes or []:
             prov = {"tool": m.get("tool"), "query": term, "depth": depth, "parent": parent, "fetched": m.get("fetched"),
                     "original": n.get("question"), "region": r.get("region"), "language": r.get("language"), "fallback": fb}
-            out.append({"q": n["question"], "source": "alsoasked", "prov": prov, "parent_q": parent})
+            ctx = " ".join(x for x in [n.get("answer_page_title"), n.get("answer_href"), n.get("answer_excerpt")] if isinstance(x, str))
+            out.append({"q": n["question"], "source": "alsoasked", "prov": prov, "parent_q": parent, "ctx": ctx})
             walk(n.get("results"), depth + 1, n["question"], term, fb)
     for q in r.get("queries") or []: walk(q.get("results"), 1, None, q.get("term"), q.get("language_fallback") or q.get("region_fallback"))
     return out
+
+def pull_path(slug): return os.path.join(ROOT, "private", "alsoasked", slug + ".json")
+
+def answer_shingles(d, n=6):
+    """PA1b: every 6-word run in the pull's answer_* and ai_overview* text (provenance only, never FAQ copy)."""
+    txt = []
+    def walk(o):
+        if isinstance(o, dict):
+            for k, v in o.items():
+                if k.startswith(("answer_", "ai_overview")):
+                    txt.extend([v] if isinstance(v, str) else [x for x in v if isinstance(x, str)] if isinstance(v, list) else [])
+                else: walk(v)
+        elif isinstance(o, list):
+            for v in o: walk(v)
+    walk(d["response"]); sh = set()
+    for t in txt:
+        w = norm(t).split(); sh |= {" ".join(w[i:i + n]) for i in range(len(w) - n + 1)}
+    return sh
+
+def match_pull(q, nodes):
+    """Best AlsoAsked node for a question under the same-intent rule (exact wording first, then Jaccard >= JACCARD_DUP, shallowest)."""
+    nq, cq = norm(q), content(q); best = None
+    for it in nodes:
+        sc = 1.0 if norm(it["q"]) == nq else jacc(cq, content(it["q"]))
+        if sc >= JACCARD_DUP and (best is None or (sc, -it["prov"]["depth"]) > (best[0], -best[1]["prov"]["depth"])): best = (sc, it)
+    return best[1] if best else None
+
+def resource(url):
+    """hubctl paa-resource: write AlsoAsked provenance into faq_sources items whose question matches the pull. No copy changes."""
+    g = Gate(url); p = pull_path(g.slug)
+    if not os.path.exists(p): sys.exit(f"no AlsoAsked pull for {g.slug}")
+    nodes = flatten(json.load(open(p)))
+    before_raw = open(g.spec_path, "rb").read(); spec = json.loads(before_raw)
+    snap = lambda s: (s["fields"].get("faq"), [(f.get("q"), f.get("source"), f.get("ref")) for f in s.get("faq_sources") or []])
+    before = snap(spec); n = 0
+    for f in spec.get("faq_sources") or []:
+        m = match_pull(f["q"], nodes)
+        if not m: continue
+        f["prov"] = {k: m["prov"][k] for k in ("tool", "query", "depth", "parent", "fetched", "original", "region", "language")}
+        n += 1
+    assert snap(spec) == before, "paa-resource changed question or answer text: aborted, nothing written"
+    out = json.dumps(spec, indent=1, ensure_ascii=False)
+    assert json.loads(out)["fields"]["faq"].encode() == json.loads(before_raw)["fields"]["faq"].encode()
+    open(g.spec_path, "w").write(out)
+    print(f"{url}: {n} of {len(spec.get('faq_sources') or [])} FAQ items carry AlsoAsked provenance; question and answer text byte-identical")
+    return 0
 
 def faq_items(spec):
     """The spec's FAQ: questions from faq_sources (with their provenance), answers from fields.faq (window.awbFAQ JSON)."""
@@ -160,7 +216,7 @@ def faq_items(spec):
     out = []
     for i, f in enumerate(faq):
         s = src.get(norm(f["q"]), {})
-        prov = s.get("prov") or ({"tool": s.get("tool")} if s.get("tool") else {})
+        prov = s.get("prov") or {}
         out.append({"n": i + 1, "q": f["q"], "a": f.get("a", ""), "source": s.get("source", "unknown"), "prov": prov})
     return out
 
@@ -183,7 +239,19 @@ def run_pull(g):
 
 def run_spec(g):
     items = faq_items(g.spec)
-    for it in items: it["reasons"] = g.judge(it); it["verdict"] = g.verdict(it["reasons"])
+    vf = os.path.join(ROOT, "private", "alsoasked", "verdicts", g.slug + ".json")
+    pv = {norm(i["q"]): i["verdict"] for i in json.load(open(vf))["items"]} if os.path.exists(vf) else {}
+    pull = json.load(open(pull_path(g.slug))) if os.path.exists(pull_path(g.slug)) else None
+    sh = answer_shingles(pull) if pull else set()
+    ctx = {norm(n["q"]): n["ctx"] for n in flatten(pull)} if pull else {}
+    for it in items:
+        it["ctx"] = ctx.get(norm((it["prov"] or {}).get("original") or ""), "")
+        if (it["prov"] or {}).get("depth") == 2: it["parent_verdict"] = pv.get(norm(it["prov"].get("parent") or ""), "flag")
+        it["reasons"] = g.judge(it)
+        w = norm(re.sub(r"<[^>]+>", " ", html.unescape(it["a"]))).split()
+        hit = next((" ".join(w[i:i + 6]) for i in range(len(w) - 5) if " ".join(w[i:i + 6]) in sh), None)
+        if hit: it["reasons"].append(("PA1b", "reject", f'answer shares a 6-word run with AlsoAsked answer text ("{hit}")'))
+        it["verdict"] = g.verdict(it["reasons"])
     items = g.finish(items)
     page = []
     if len(items) != N_FAQ: page.append(("PA12", f"{len(items)} items, not exactly {N_FAQ}"))

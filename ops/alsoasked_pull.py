@@ -5,7 +5,8 @@
 API (alsoasked.com/llms.txt, developers.alsoasked.com): base https://alsoaskedapi.com/v1, X-Api-Key header,
 POST /search, GET /account. Depth 2 costs 1 credit, depth 3 costs 4 (PA2 never needs level 3).
 The key comes from ALSOASKED_API_KEY and is never printed; neither is the response body. Prints only the HTTP status,
-credits used (account before/after) and question counts per depth.
+credits used (account before/after, also appended to private/alsoasked/credits.log) and question counts per depth.
+fresh:false first; fresh:true only if that returns no_results (or with --fresh).
 """
 import json, os, sys, urllib.request, urllib.error
 
@@ -41,17 +42,26 @@ def main(argv):
     opt = lambda k, d: argv[argv.index(k) + 1] if k in argv else d
     depth = int(opt("--depth", "2"))
     if depth > 2: sys.exit("PA2: depth 3+ is never required; refusing (costs 4 credits)")
-    s0, a0 = call("GET", "/account")
-    status, res = call("POST", "/search", {"terms": [term], "language": opt("--language", "en"), "region": opt("--region", "us"),
-                                          "depth": depth, "fresh": "--fresh" in argv, "async": False})
-    s1, a1 = call("GET", "/account")
-    print(f"HTTP {status}" + (f" ({res['_error']})" if "_error" in res else ""))
-    if s0 == 200 and s1 == 200:
-        b, a = credits(a0), credits(a1)
-        print("credits used: " + ", ".join(f"{k} {b[k] - a.get(k, b[k])}" for k in b) + " | remaining: " + ", ".join(f"{k} {v}" for k, v in a.items()))
+    body = {"terms": [term], "language": opt("--language", "en"), "region": opt("--region", "us"), "depth": depth, "async": False}
+    fresh = "--fresh" in argv
+    while True:  # fresh:false first (a cache hit may be free); fresh:true only when that returns no_results
+        s0, a0 = call("GET", "/account")
+        status, res = call("POST", "/search", {**body, "fresh": fresh})
+        s1, a1 = call("GET", "/account")
+        b, a = (credits(a0), credits(a1)) if s0 == 200 and s1 == 200 else ({}, {})
+        used = {k: b[k] - a.get(k, b[k]) for k in b}
+        print(f"HTTP {status} fresh={fresh} status={res.get('status')} cached={res.get('cached')}" + (f" ({res['_error']})" if "_error" in res else ""))
+        print("credits used: " + ", ".join(f"{k} {v}" for k, v in used.items()) + " | remaining: " + ", ".join(f"{k} {v}" for k, v in a.items()))
+        os.makedirs(os.path.join(ROOT, "private", "alsoasked"), exist_ok=True)
+        with open(os.path.join(ROOT, "private", "alsoasked", "credits.log"), "a") as f:
+            f.write(json.dumps({"t": __import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat(timespec="seconds"), "slug": slug,
+                                "term": term, "depth": depth, "fresh": fresh, "http": status, "status": res.get("status"), "cached": res.get("cached"),
+                                "before": b, "after": a, "used": used}) + "\n")
+        if status == 200 and res.get("status") == "no_results" and not fresh: fresh = True; continue
+        break
     if status != 200 or "_error" in res: return 1
     out = os.path.join(ROOT, "private", "alsoasked"); os.makedirs(out, exist_ok=True)
-    meta = {"tool": "alsoasked-api", "query": term, "depth": depth, "fresh": "--fresh" in argv, "status": res.get("status"), "region": opt("--region", "us"), "language": opt("--language", "en"),
+    meta = {"tool": "alsoasked-api", "query": term, "depth": depth, "fresh": fresh, "status": res.get("status"), "region": opt("--region", "us"), "language": opt("--language", "en"),
             "fetched": __import__("datetime").datetime.now(__import__("datetime").timezone.utc).strftime("%Y-%m-%d")}
     json.dump({"_meta": meta, "response": res}, open(os.path.join(out, slug + ".json"), "w"), indent=1, ensure_ascii=False)
     print("nodes per depth: " + ", ".join(f"d{k}={v}" for k, v in sorted(depth_counts(res).items())))

@@ -7,7 +7,8 @@
   qc URL                            run qc/qc_hub.py on that page's spec
   state URL STATE [--note TEXT] [--by ID]   move a page to a new state; writers set qc_pass with --by so no agent reviews its own page (qc_pass runs QC: refused unless TOTAL 0)
   release URL [--note TEXT]         return a claimed/spec page to the planned queue (status entry removed, spec file kept, logged)
-  paa URL [--questions FILE] [--spec]   PAA gate PA1-PA12 (qc/paa_gate.py): AlsoAsked pull or the spec's FAQ; verdicts to private/alsoasked/verdicts/
+  paa-resource URL                  write AlsoAsked provenance into FAQ items matching the pull (no copy changes)
+  paa URL [--spec]   PAA gate PA1-PA12 (qc/paa_gate.py): AlsoAsked pull or the spec's FAQ; verdicts to private/alsoasked/verdicts/
   verified URL                      Divit approved the page as rendered in the real Webflow template: it joins the width calibration
   review URL RUBRIC.json --by ID    record the reviewer's rubric and rule-cited findings (state images); blocking -> rework, notes -> spec.review_notes
   ready URL --by ID                 after the one rework: QC 0 and images rendered -> reviewed (ready for Divit); no second review
@@ -31,7 +32,7 @@
   pack URL --role writer|reviewer   one compact file for that agent: brief, the rules it needs, catalogue summary, exemplar
   sources-check URL|--all            link-check every spec.domain_sources URL (cached for QC P3)
   usage-log URL TOKENS --role R     record an agent's token usage for a page (metrics reports tokens per page)
-  metrics | sample [STATE] | links HUB | lookahead HUB [N] | serp-budget | ranks-save URL RAW | ranks-report | recheck | image-regress | verify-live URL [--html F]
+  metrics | sample [STATE] | links HUB | lookahead HUB [N] | serp-budget | ranks-save URL RAW | ranks-report | recheck [--states a,b] | image-regress | verify-live URL [--html F]
   publish-payload HUB               publish_collection_items actions (100 per call) for every verified cms_draft page (only after Divit's go)
   log HUB TEXT                      append a dated line to logs/<hub>.md
 
@@ -391,6 +392,10 @@ def cmd_paa(args):
     sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate
     return paa_gate.main(args)
 
+def cmd_paa_resource(args):
+    sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate
+    return paa_gate.resource(args[0])
+
 def _field_data(url, sha):
     hub = hub_of(url); h = CFG["hubs"][hub]; s = json.load(open(spath(url))); fd = {}
     for k, v in s["fields"].items():
@@ -642,17 +647,21 @@ def cmd_ranks_report(args):
 def cmd_recheck(args):
     """Ratchet: re-run QC on every page that passed under an older version of the rules; failures go to rework (or the fix queue if live)."""
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
-    cur = G.rules_version(); fixq = []
+    cur = G.rules_version(); fixq = []; n = ok = 0
+    only = set(args[args.index("--states") + 1].split(",")) if "--states" in args else None  # e.g. images,reviewed,...: parked pages stay parked
     for s in G.all_specs():
         if s.get("status") == "live-draft" or not s.get("qc_passed") or s["qc_passed"].get("rules_version") == cur: continue
-        rc = subprocess.call([sys.executable, os.path.join(ROOT, "qc", "qc_hub.py"), s["_path"]], stdout=subprocess.DEVNULL)
         st_ = G.all_status().get(s["url"], {}).get("state")
+        if only is not None and st_ not in only: continue
+        r = subprocess.run([sys.executable, os.path.join(ROOT, "qc", "qc_hub.py"), s["_path"]], capture_output=True, text=True); rc = r.returncode; n += 1
+        if rc: print(f"  FAIL {s['url']} ({st_}): " + ",".join(sorted({m.group(2) for m in re.finditer(r"^  (P0|P1) (\S+)", r.stdout, re.M)})))
+        else: ok += 1
         if rc == 0:
             sp = json.load(open(s["_path"])); sp["qc_passed"] = {"rules_version": cur, "date": now()}; json.dump(sp, open(s["_path"], "w"), indent=1, ensure_ascii=False)
         elif st_ in ("published", "cms_draft"): fixq.append(s["url"])
         else: set_state(s["url"], "rework", note=f"rules changed ({cur}); QC now fails", via="recheck")
     json.dump({"rules_version": cur, "date": now(), "pages": fixq}, open(os.path.join(ROOT, "status", "fix_queue.json"), "w"), indent=1)
-    print(f"recheck done at rules {cur}; live pages needing a fix: {len(fixq)}")
+    print(f"recheck done at rules {cur}: {n} pages re-checked, {ok} at TOTAL 0; live pages needing a fix: {len(fixq)}")
 
 def cmd_image_regress(args):
     """Approved and live pages must re-render byte-identically with the current engine."""
@@ -723,7 +732,7 @@ def cmd_log(args):
     print(f"logged to {os.path.relpath(p, ROOT)}")
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
-        "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "release": cmd_release, "paa": cmd_paa, "publish-payload": cmd_publish_payload, "log": cmd_log,
+        "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "release": cmd_release, "paa": cmd_paa, "paa-resource": cmd_paa_resource, "publish-payload": cmd_publish_payload, "log": cmd_log,
         "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
         "recheck": cmd_recheck, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live}
