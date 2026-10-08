@@ -3,6 +3,7 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-08
+- **PAA rules PA1-PA13 approved as written** (Divit); thresholds tuned after the first full run. Gate built against a real AlsoAsked API pull (registration-form), not a UI export.
 - **Production moves to the second (paid team) account as it is** (Divit): the first account is at about 80% of its weekly limit until Tuesday. Open decisions are taken up there. Full context: `docs/HANDOVER_2026-10-08.md`.
 - **No new pages**; priority is QC and taking existing pages live; minimal token use (code QC with summaries only).
 - **The post-75 pages of the overnight run were authorised by Divit directly in Claude Code** (not a scope breach).

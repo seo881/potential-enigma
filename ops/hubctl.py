@@ -5,7 +5,9 @@
   brief URL                         keyword brief for a page (needs plan/keyword_map.json)
   init URL --by WRITER-ID           create the spec skeleton specs/<dir>/<slug>.json, recording who writes it
   qc URL                            run qc/qc_hub.py on that page's spec
-  state URL STATE [--note TEXT] [--by ID]   move a page to a new state; writers set qc_pass with --by so no agent reviews its own page
+  state URL STATE [--note TEXT] [--by ID]   move a page to a new state; writers set qc_pass with --by so no agent reviews its own page (qc_pass runs QC: refused unless TOTAL 0)
+  release URL [--note TEXT]         return a claimed/spec page to the planned queue (status entry removed, spec file kept, logged)
+  paa URL [--questions FILE] [--spec]   PAA gate PA1-PA12 (qc/paa_gate.py): AlsoAsked pull or the spec's FAQ; verdicts to private/alsoasked/verdicts/
   verified URL                      Divit approved the page as rendered in the real Webflow template: it joins the width calibration
   review URL RUBRIC.json --by ID    record the reviewer's rubric and rule-cited findings (state images); blocking -> rework, notes -> spec.review_notes
   ready URL --by ID                 after the one rework: QC 0 and images rendered -> reviewed (ready for Divit); no second review
@@ -362,10 +364,32 @@ def cmd_state(args):
             print(f"hub exemplar written: {os.path.relpath(ex, ROOT)}")
     note = args[args.index("--note") + 1] if "--note" in args else None
     by = args[args.index("--by") + 1] if "--by" in args else None
+    if state == "qc_pass":
+        # code QC must be TOTAL 0 before a page can enter qc_pass (handover 2026-10-08 3.8: a writer set it at TOTAL 1); no bypass
+        if not os.path.exists(spath(url)): sys.exit(f"no spec for {url}: cannot set qc_pass")
+        r = subprocess.run([sys.executable, os.path.join(ROOT, "qc", "qc_hub.py"), spath(url)], capture_output=True, text=True)
+        if r.returncode != 0:
+            ids = sorted({m.group(2) for m in re.finditer(r"^  (P0|P1) (\S+)", r.stdout, re.M)})
+            sys.exit(f"refused: QC TOTAL is not 0 for {url}; failing checks: {', '.join(ids) or 'unknown (run hubctl qc)'}")
     if state == "qc_pass" and by:
         sp = spath(url); s = json.load(open(sp))
         if by not in s.setdefault("writers", []): s["writers"].append(by); json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
     set_state(url, state, note, by=by); print(f"{url} -> {state}")
+
+def cmd_release(args):
+    url = args[0]; note = args[args.index("--note") + 1] if "--note" in args else None
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    hub = hub_of(url)
+    with G.lock("status-" + hub):
+        st = load_st(hub); cur = st["pages"].get(url, {}).get("state")
+        if cur not in ("claimed", "spec"): sys.exit(f"refused: release is allowed only from claimed or spec; {url} is '{cur or 'queued'}'")
+        del st["pages"][url]; save_st(hub, st)
+    cmd_log([hub, f"released {url} (was {cur}) to the planned queue; spec file left in place" + (f": {note}" if note else "")])
+    print(f"{url}: {cur} -> queued")
+
+def cmd_paa(args):
+    sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate
+    return paa_gate.main(args)
 
 def _field_data(url, sha):
     hub = hub_of(url); h = CFG["hubs"][hub]; s = json.load(open(spath(url))); fd = {}
@@ -699,7 +723,7 @@ def cmd_log(args):
     print(f"logged to {os.path.relpath(p, ROOT)}")
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
-        "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "publish-payload": cmd_publish_payload, "log": cmd_log,
+        "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "release": cmd_release, "paa": cmd_paa, "publish-payload": cmd_publish_payload, "log": cmd_log,
         "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
         "recheck": cmd_recheck, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live}
