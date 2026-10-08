@@ -3,6 +3,11 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-08
+- **Hub link and link-to-live** (Divit): every child page links directly to its hub page exactly once (FAQ item 2, QC K4, P0); 2-3 links to related child pages are welcome but only to pages live at publish time. Links to non-live pages ship as plain text and are re-linked when the target goes live.
+- **The 4 hub pages are live** (Divit confirmed 2026-10-08).
+- **Serial (Oxford) comma everywhere**, matching the live hubs (Divit).
+- **Fixes run as ONE combined pass per page** (Divit): code applies deterministic fixes, one writer pass handles FAQ replacements and semantic flags, then one QC and one review.
+- **PA3 widened** (Divit): a question is on-topic if it contains the head phrase exactly, the head phrase reordered or inflected, or an approved secondary of the page. Every question admitted only by the widening is exported for Divit's full read before any rework; any he rejects goes on that page's PA4 skip list with his reason. PA13 (Divit reads every page's 10 questions before publish) stays mandatory.
 - Canary passed (Divit checked the registration-form draft in the Designer): repo -> CMS draft path validated.
 - **AlsoAsked Phase 2 approved** (Divit): pull every written page, ceiling 200 credits, stop if a page costs over 2; PA3 synonyms proposed by code as candidates only, applied after Divit approves the batch. PA1 applies to PAA-sourced items only (definition and how-to slots and secondaries are exempt).
 - **PAA rules PA1-PA13 approved as written** (Divit); thresholds tuned after the first full run. Gate built against a real AlsoAsked API pull (registration-form), not a UI export.
