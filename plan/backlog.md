@@ -10,3 +10,7 @@ Format: date, source (Divit, reviewer, QC, orchestrator), the item, pages it tou
 - The 7 intent-mismatch pages stay parked (merge or drop proposals in `reports/2026-10-08/2121-deterministic-pass.md`).
 
 ## Items
+- 2026-10-09, reviewer launch-r-b1-3: QC K7 said Google Forms is not in the top 10 for sign-in-form while it ranks #1; possible URL-matching bug in K7. Pages: sign-in-form. Proposed: check K7's competitor URL matching after launch.
+- 2026-10-09, writers (batch 1): QC F4 still requires DataForSEO PAA questions that the approved PAA gate (PA1-PA13) rejects; the only exit is a reasoned per-page skip in rules/paa_blocklist.json, which needs Divit (auto mode refused it as a gate bypass). Pages: ecommerce-automation, contact-form, 404-page, pricing-page, employee-engagement-survey, booking-form. Proposed: F4 honours gate rejects, or Divit approves the skips page by page.
+- 2026-10-09, writer launch-w-booking-form: QC F2 has no source type for AlsoAsked-only questions (paa requires the DataForSEO capture), so a gate-passing AlsoAsked replacement cannot be recorded validly; writers recorded them as secondary or keyword with provenance. Proposed: F2 accepts source "alsoasked" with prov.
+- 2026-10-09, writers (batch 1): no allowed replacement source left on consultation-form, checkout-form, conference-registration-form, summer-camp-registration-form (AlsoAsked pulls thin or empty, every secondary already carried). Proposed: per-page PA3 synonyms, keyword-idea sources, or second pulls (Divit).

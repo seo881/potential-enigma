@@ -140,6 +140,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-08 19:27 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "launch-r-b1-3",
+   "note": "rubric 10/10 by launch-r-b1-3; 5 notes"
   }
  ],
  "plan": {
@@ -789,5 +796,155 @@
   "Let volunteers at the door find each guest by name on a tablet and tap Check In, then show me how many people have arrived by the hour.",
   "Put the venue address next to the conference dates at the top of my page, with a link that opens directions in Google Maps, and repeat it in the confirmation email.",
   "The conference room holds 400 people. Count each registration against that limit, and put new sign-ups on a waitlist once every seat is taken."
+ ],
+ "review": {
+  "by": "launch-r-b1-3",
+  "date": "2026-10-08 19:27 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Event Landing Page That Fills the Room' and meta title 'Event Landing Page Builder With Guest Lists' state the whole job."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is galleries and example roundups; page gives a definition, four in-person formats, a how-to on venue, directions, markup, share preview and check-in, and FAQ items on examples, templates, design and conference pages."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'340 meals, 72 of them special'; 'Link the address to Google Maps with a Maps URL, which needs the api=1 parameter'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences ('On market night, Harbor Street's volunteers stand at the gate with tablets.')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One idea per sentence; no blocking craft defect."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'A conference needs the full agenda; a party needs one line about the night.' Soft quantifiers kept as notes."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Google Event doc lists location.address required and eventStatus and previousStartDate recommended, matching step 5; Maps api=1, og tags, Unbounce, OptimizePress, Dribbble and HubSpot marketplace all have domain_sources entries."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Venue, catering, gate check-in, plus-one headcount and city routing are event-specific; FAQ 8 sends single online sessions to the webinar sibling by link."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic items from secondaries and related searches; hub link in item 2; thank you page and webinar landing page links."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "268+72=340 and 41+19+12=72; 214+341+257=812 of 1,240 with 7 PM peak; 96+31=127 of 150; Austin to Dana Whitfield in HubSpot and Slack."
+   }
+  },
+  "findings": [
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "howto_step_1_des",
+    "quote": "Someone who has to scroll to find out where the event happens will usually leave before reaching the form.",
+    "issue": "Unsourced generalization with a soft quantifier about no named third party; also 'Visitors decide in seconds' (same step), 'Every extra question costs you some registrations' (step 4) and 'A conference needs more than most events' (FAQ 7).",
+    "fix": "State as advice: 'Put the city where a visitor sees it without scrolling.'",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "feature_5, feature_6, why_description",
+    "quote": "Tell Emergent the event moved across town, and the page and its directions link change with it / Template galleries give an event a look.",
+    "issue": "Same sentence shapes as the webinar sibling (feature 5 date-change, feature 6 custom-domain export, why description).",
+    "fix": "Vary the shapes on one of the two pages.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_1",
+    "quote": "an email 72 hours before doors open with the lunch count for the first day: 340 meals, 72 of them special",
+    "issue": "72 used for two different quantities in one sentence; a reader can link them.",
+    "fix": "Send the count three days before doors open.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #25",
+    "field": "image_brief tab 4",
+    "quote": "# Dana Whitfield",
+    "issue": "The hash glyph reads as a Slack channel, while the copy says direct message.",
+    "fix": "Draw a person avatar instead of the hash.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Landingi / Leadpages / Instapage | Wix",
+    "issue": "Only Unbounce ranks for this query (QC K7 flags the others).",
+    "fix": "Prefer ranking tools when the library has them.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "howto_step_1_des",
+   "issue": "Unsourced generalization with a soft quantifier about no named third party; also 'Visitors decide in seconds' (same step), 'Every extra question costs you some registrations' (step 4) and 'A conference needs more than most events' (FAQ 7).",
+   "fix": "State as advice: 'Put the city where a visitor sees it without scrolling.'",
+   "by": "launch-r-b1-3",
+   "via": "review",
+   "date": "2026-10-08 19:27 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "feature_5, feature_6, why_description",
+   "issue": "Same sentence shapes as the webinar sibling (feature 5 date-change, feature 6 custom-domain export, why description).",
+   "fix": "Vary the shapes on one of the two pages.",
+   "by": "launch-r-b1-3",
+   "via": "review",
+   "date": "2026-10-08 19:27 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_1",
+   "issue": "72 used for two different quantities in one sentence; a reader can link them.",
+   "fix": "Send the count three days before doors open.",
+   "by": "launch-r-b1-3",
+   "via": "review",
+   "date": "2026-10-08 19:27 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #25",
+   "field": "image_brief tab 4",
+   "issue": "The hash glyph reads as a Slack channel, while the copy says direct message.",
+   "fix": "Draw a person avatar instead of the hash.",
+   "by": "launch-r-b1-3",
+   "via": "review",
+   "date": "2026-10-08 19:27 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "Only Unbounce ranks for this query (QC K7 flags the others).",
+   "fix": "Prefer ranking tools when the library has them.",
+   "by": "launch-r-b1-3",
+   "via": "review",
+   "date": "2026-10-08 19:27 UTC"
+  }
  ]
 }

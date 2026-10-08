@@ -137,6 +137,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-08 19:57 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "launch-r-b1-4",
+   "note": "rubric 10/10 by launch-r-b1-4; 5 notes"
   }
  ],
  "plan": {
@@ -824,5 +831,155 @@
   "When a task in our tracker passes its due date, message the person who owns it each morning until they mark it done.",
   "Sort each file clients email to our documents inbox by client and tax form, then rename it and file it in that client's folder.",
   "On the 1st of each month, rebuild our month-end close checklist and give every task an owner and the workday it is due."
+ ],
+ "review": {
+  "by": "launch-r-b1-4",
+  "date": "2026-10-08 19:57 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Task Automation for the Work Your Team Repeats', meta title 'Task Automation Software You Build From a Prompt | Emergent' and hero 'runs each one on a trigger and writes down what happened' state the whole job; no sibling primary (notification automation, slack automation, project management automation) in a heading."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Explainer and roundup SERP: FAQ 1 definition, all four eligible PAA answered ('What does task automation mean?', 'What is the best task automation software?', 'How do you automate your task?', 'Can I use AI to automate tasks?'), tools covered by FAQ 4 and the Zapier/Make/n8n table, free-tool question in FAQ 10, four end-to-end tasks and a 7-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Concrete tasks: 'Owen Pratt's W-2 ... his checklist moves to 5 of 7 received', 'payroll five days before, the laptop three days before', 'At 3:00 PM on Friday ... compares each person's logged hours with the 40 they owe', 'Bank reconciliation is due on workday 3'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Every file a client emails to Tallis Accounting's documents inbox is read before anyone opens it.', 'Signing the offer in Kestrel Dental Group's hiring tracker creates six setup tasks...', 'Run a task at 3:00 PM every Friday...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q6/Q7 clean; FAQ answers lead with the answer ('Yes, for the steps that involve reading or sorting text...'); spelled-out durations are notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail: 'a client who sends documents from a spouse's email address', 'Messages to a shared channel are easy to ignore.', 'Each difference is either a bug in the rule or an exception nobody wrote down.' No AI-tell vocabulary."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "claims_used all approved (prompt-build, api-connect, ai-extraction, code-export, database-owned, alerts, no-caps, free-start); Zap definition, n8n self-hosting, Make scenarios and the IBM definition sourced; table generated from the library; numbers agree across copy and images (4 under 40, Theo Grant 31.5 h, 18 tasks, workday 3, 5 of 7)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own stories (tax-document filing, new hire setup, Friday timesheet check, month-end close); PDF drafting links out to 'document automation' and sign-offs to 'approval workflow' instead of answering them; QC D2 clean."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions; reworded item 2 'How do you build an app to automate your task?' stays close to PAA 'How do you automate your task?', answers first and carries the one hub link; 2 sibling links."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: W-2 matched to Owen Pratt, 'Filed to Owen Pratt's folder', 'Checklist now 5 of 7 received'; Ana Brooks 6 tasks, 4 owners, payroll 5 days before start, laptop 3 days before; 4 under 40 hours, DM to Theo Grant, 'Still short at Monday 10:00 AM'; 18 tasks, bank reconciliation workday 3 open, Slack message to controller Dana Kerr. Cover DM to Lena Ortiz. Chip prompts match chips (Scheduled Tasks, Owner Reminders, AI File Sorting, Task Checklists)."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2",
+    "field": "tab_content_2; howto_step_1_des; howto_step_6_des; howto_step_7_des",
+    "quote": "payroll five days before, the laptop three days before / for one week / For two weeks / Once two weeks pass",
+    "issue": "HUB_RULES 2 Numbers: numerals for all durations.",
+    "fix": "'payroll 5 days before, the laptop 3 days before', 'for 1 week', 'For 2 weeks', 'Once 2 weeks pass'.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq (item 10)",
+    "quote": "check what happens when a free plan's monthly run limit is reached, since some pause and others bill extra",
+    "issue": "Generalization about unnamed tools; free plans rarely bill overage (Zapier's overage applies to paid plans), so 'others bill extra' is shaky.",
+    "fix": "'...since some pause runs until the next month and paid plans may bill overage.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 3",
+    "field": "hero_description; features_subheading",
+    "quote": "Each task gets a trigger, a rule and a person to answer to.",
+    "issue": "The SERP has an AI Overview; HUB_RULES 3 item 4 puts a one-sentence definition in the hero or features subheading. Neither defines the term (FAQ 1 does).",
+    "fix": "Open the features subheading with a definition, e.g. 'Task automation hands recurring work to software that runs on a trigger and a rule.'",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "tab_image_2; cover_image",
+    "quote": "Due today, sent each morning until closed",
+    "issue": "The copy messages 'whoever has not closed a task by its date' and the mockup says 'past its date'; the image sends the message on the due date. The timeline also lists the laptop (3 days before) above payroll (5 days before).",
+    "fix": "Draw the payroll task as 1 day overdue, or reword the copy to 'on its date'; order tasks by due date.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "tab_image_1",
+    "quote": "5 of 7 received",
+    "issue": "The list shows 2 received and 2 missing under a 5 of 7 badge; the 3 other received forms are not drawn, so a reader counting rows sees 2 of 4.",
+    "fix": "Label the list 'Latest' or show all 7 rows.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2",
+   "field": "tab_content_2; howto_step_1_des; howto_step_6_des; howto_step_7_des",
+   "issue": "HUB_RULES 2 Numbers: numerals for all durations.",
+   "fix": "'payroll 5 days before, the laptop 3 days before', 'for 1 week', 'For 2 weeks', 'Once 2 weeks pass'.",
+   "by": "launch-r-b1-4",
+   "via": "review",
+   "date": "2026-10-08 19:57 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq (item 10)",
+   "issue": "Generalization about unnamed tools; free plans rarely bill overage (Zapier's overage applies to paid plans), so 'others bill extra' is shaky.",
+   "fix": "'...since some pause runs until the next month and paid plans may bill overage.'",
+   "by": "launch-r-b1-4",
+   "via": "review",
+   "date": "2026-10-08 19:57 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 3",
+   "field": "hero_description; features_subheading",
+   "issue": "The SERP has an AI Overview; HUB_RULES 3 item 4 puts a one-sentence definition in the hero or features subheading. Neither defines the term (FAQ 1 does).",
+   "fix": "Open the features subheading with a definition, e.g. 'Task automation hands recurring work to software that runs on a trigger and a rule.'",
+   "by": "launch-r-b1-4",
+   "via": "review",
+   "date": "2026-10-08 19:57 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "tab_image_2; cover_image",
+   "issue": "The copy messages 'whoever has not closed a task by its date' and the mockup says 'past its date'; the image sends the message on the due date. The timeline also lists the laptop (3 days before) above payroll (5 days before).",
+   "fix": "Draw the payroll task as 1 day overdue, or reword the copy to 'on its date'; order tasks by due date.",
+   "by": "launch-r-b1-4",
+   "via": "review",
+   "date": "2026-10-08 19:57 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "tab_image_1",
+   "issue": "The list shows 2 received and 2 missing under a 5 of 7 badge; the 3 other received forms are not drawn, so a reader counting rows sees 2 of 4.",
+   "fix": "Label the list 'Latest' or show all 7 rows.",
+   "by": "launch-r-b1-4",
+   "via": "review",
+   "date": "2026-10-08 19:57 UTC"
+  }
  ]
 }

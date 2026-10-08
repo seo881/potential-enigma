@@ -132,6 +132,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-08 19:28 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "launch-r-b1-1",
+   "note": "rubric 10/10 by launch-r-b1-1; 7 notes"
   }
  ],
  "plan": {
@@ -793,5 +800,195 @@
   "Build an interest form for a weekend photography class that asks which Saturday works, and email me as soon as any date reaches 8 people.",
   "Build an interest list for a new apartment building where renters pick a floor plan and move-in month, then email prices only to people who chose two bedrooms.",
   "Build a mentoring interest form where employees choose mentor or mentee and pick a skill. Pair people who chose the same skill and send HR the unmatched names."
+ ],
+ "review": {
+  "by": "launch-r-b1-1",
+  "date": "2026-10-08 19:28 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Interest Form That Counts Demand Before You Commit' and hero 'tells you when demand clears your bar' cover the primary, not sign up form or lead capture form."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Tool intent led by Google Forms: the page is a builder, the table compares Google Forms, Jotform and Typeform, and the FAQ covers both PAA questions (definition, expression of interest) plus template and PDF."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Demand-measuring vocabulary: 'the number that makes it worth it', '15 players to field a team', 'Two-bedroom prices reach the 41 who asked', 'Totals count people, not submissions'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Full-sentence openers: 'Show the skill-level question only to people who pick the beginner course', 'Write down what the replies decide', 'Pick your threshold before the form opens'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator details: 'a woodshop that sits empty most evenings', 'before the drywall went up', 'A stated date keeps a quiet month from looking like a dead project'."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Expression of interest before a formal application matches the Law Insider source; Emergent claims map to prompt-build, database-owned, alerts, code-export; numbers agree (14 + 6 + 3 = 23, 15 - 11 = 4, 5 - 2 = 3)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Tabs (evening class, youth lacrosse, apartment pre-leasing, mentoring) are distinct; FAQ 7 separates interest form from sign up form and links it rather than covering it."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first; hub link in item 2; links to creator application, sign up form and registration form."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 'Tuesday: 14 of 23 replies'; tab 2 'U14 has 11 players / 4 short of a team'; tab 3 'Emailed to 41 prospects'; tab 4 '5 asked, 2 mentors offered' / '3 mentees unmatched' match the copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief.tabs[0]",
+    "quote": "Fernhill College",
+    "issue": "The image shortens the copy's 'Fernhill Community College' to 'Fernhill College'.",
+    "fix": "Use the copy's name, or 'Fernhill CC'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "mockup",
+    "quote": "workplaceMentoring",
+    "issue": "Mockup keys are camelCase tab names; tab 4 is 'Staff Mentoring', so the key should be staffMentoring.",
+    "fix": "Rename the key.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_3_des, faq (item 9)",
+    "quote": "Each extra required field loses people who were only mildly curious.",
+    "issue": "General claims about respondent behaviour with no source, framed as advice (FAQ 9 'Expect fewer people to enroll than said they were interested').",
+    "fix": "Keep as advice or soften to the reader's own decision.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq (items 4, 5, 8)",
+    "quote": "Most give you fields only.",
+    "issue": "Soft quantifiers: FAQ 4 'usually for student clubs or volunteer programs' and 'Most give you fields only.', FAQ 5 'Many templates download as a PDF', FAQ 8 'often with a link'.",
+    "fix": "State it without the quantifier where it stands alone.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "features_subheading",
+    "quote": "These six pieces tell you what to schedule and when.",
+    "issue": "Same subheading formula as registration-form ('These six pieces decide...').",
+    "fix": "Vary the shape per page.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "meta_title",
+    "quote": "Free Interest Form Builder | Emergent",
+    "issue": "'Free' rests on the approved free-start claim, but claims_used does not list free-start.",
+    "fix": "Add free-start to claims_used.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq (item 6)",
+    "quote": "Brands gauge creator demand before a creator application goes public.",
+    "issue": "The creator application link is forced into a uses answer.",
+    "fix": "Keep only if a reader would follow it; otherwise drop the sentence.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief.tabs[0]",
+   "issue": "The image shortens the copy's 'Fernhill Community College' to 'Fernhill College'.",
+   "fix": "Use the copy's name, or 'Fernhill CC'.",
+   "by": "launch-r-b1-1",
+   "via": "review",
+   "date": "2026-10-08 19:28 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "mockup",
+   "issue": "Mockup keys are camelCase tab names; tab 4 is 'Staff Mentoring', so the key should be staffMentoring.",
+   "fix": "Rename the key.",
+   "by": "launch-r-b1-1",
+   "via": "review",
+   "date": "2026-10-08 19:28 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_3_des, faq (item 9)",
+   "issue": "General claims about respondent behaviour with no source, framed as advice (FAQ 9 'Expect fewer people to enroll than said they were interested').",
+   "fix": "Keep as advice or soften to the reader's own decision.",
+   "by": "launch-r-b1-1",
+   "via": "review",
+   "date": "2026-10-08 19:28 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq (items 4, 5, 8)",
+   "issue": "Soft quantifiers: FAQ 4 'usually for student clubs or volunteer programs' and 'Most give you fields only.', FAQ 5 'Many templates download as a PDF', FAQ 8 'often with a link'.",
+   "fix": "State it without the quantifier where it stands alone.",
+   "by": "launch-r-b1-1",
+   "via": "review",
+   "date": "2026-10-08 19:28 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "features_subheading",
+   "issue": "Same subheading formula as registration-form ('These six pieces decide...').",
+   "fix": "Vary the shape per page.",
+   "by": "launch-r-b1-1",
+   "via": "review",
+   "date": "2026-10-08 19:28 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 6",
+   "field": "meta_title",
+   "issue": "'Free' rests on the approved free-start claim, but claims_used does not list free-start.",
+   "fix": "Add free-start to claims_used.",
+   "by": "launch-r-b1-1",
+   "via": "review",
+   "date": "2026-10-08 19:28 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq (item 6)",
+   "issue": "The creator application link is forced into a uses answer.",
+   "fix": "Keep only if a reader would follow it; otherwise drop the sentence.",
+   "by": "launch-r-b1-1",
+   "via": "review",
+   "date": "2026-10-08 19:28 UTC"
+  }
  ]
 }
