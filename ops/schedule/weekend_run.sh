@@ -70,9 +70,9 @@ PYEOF
 
 # Keep 08:20-09:45 local free for the 09:00 live audit, and wait while any job holds a lock.
 audit_ran_today() { grep -qE "^$(date +%F) (09|1[0-9]|2[0-3]):[0-9:]+ (end rc=|SKIP)" "$AUDIT_LOG" 2>/dev/null; }   # the 09:00 run happened (or tried)
-watch_pending() {   # the publish watch saw a site publish after the last finished audit: its retry needs a free tree
-  local p e; p="$(grep 'publish-watch: site published' "$AUDIT_LOG" 2>/dev/null | tail -1 | cut -c1-19)"; e="$(grep ' end rc=' "$AUDIT_LOG" 2>/dev/null | tail -1 | cut -c1-19)"
-  [ -n "$p" ] && [[ "$p" > "$e" ]]
+watch_pending() {   # the site was published since the last audited stamp (same public-HTML read as publish_watch.sh): its audit needs a free tree
+  local now; now="$(curl -s --max-time 30 "https://emergent.sh/?pw=$(date +%s)" | grep -o 'Last Published: [^-]*' | head -1 | sed 's/ *$//')"
+  [ -n "$now" ] && [ "$now" != "$(cat "$REPO/.cache/live/last_published.txt" 2>/dev/null)" ]
 }
 wait_for_others() {
   local stashed="" hm=0 wstart=0
