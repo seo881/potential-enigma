@@ -2,6 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-10-09 · [1614-live-audit-build](2026-10-09/1614-live-audit-build.md) · Live audit built: Layer A (Playwright, drift), Layer B batches, auto-fix path with rollback, ledger and digest report, golden suite (7 open PA13 cases), daily launchd job 09:00 + Action backup; dry test waits for staging · this commit
 - 2026-10-09 · [1023-tshirt-copy-and-webp](2026-10-09/1023-tshirt-copy-and-webp.md) · T-shirt in all visible copy (QC K-checks treat variants as one keyword); share image PNG -> WebP (renderer, 187 pages, 25 CMS items thumbnail-only, verified WebP 1200x630); verify_launch og checks; pre-flight 20/20; no publish · this commit
 - 2026-10-09 · [0954-launch-20-staging](2026-10-09/0954-launch-20-staging.md) · Launch set 20 (contact-form held); PA13 fixes on 4 pages (QC 0, gate 10/10, drafts updated and verified); verify_launch: staging base, cover alt, first tab; pre-flight 20/20; isDraft false sent on the 20, read back; no site publish · this commit
 - 2026-10-09 · [0937-advisor-template-steps](2026-10-09/0937-advisor-template-steps.md) · Advisor: T6 done on 4 templates, T3/T11 verified done, T5/T10 to staging, T12 non-blocking; contact-form held (launch set 20); 4 PA13 fixes ordered · this commit
