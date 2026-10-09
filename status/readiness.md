@@ -62,8 +62,8 @@ Regenerated 2026-10-09 22:15 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-lp | /ai-landing-page-builder/ppc-landing-page | 0 | 10/10 | yes, wk-r-2 | yes | no | 0 | - | no | no | rework |
 | wk-rework-lp | /ai-landing-page-builder/product-landing-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | images |
 | wk-rework-lp | /ai-landing-page-builder/real-estate-landing-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | images |
-| wk-rework-lp | /ai-landing-page-builder/saas-landing-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
+| wk-rework-lp | /ai-landing-page-builder/saas-landing-page | 0 | 10/10 | yes, wk-r-2 | yes | no | 0 | - | no | no | payload |
 | wk-rework-lp | /ai-landing-page-builder/splash-page | 0 | 10/10 | yes, wk-r-1 | yes | no | 0 | - | no | no | payload |
 | wk-rework-lp | /ai-landing-page-builder/squeeze-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | images |
 
-Stages: check 1, done 21, images 4, payload 5, review 1, rework 2, stopped 8 (42 pages)
+Stages: check 1, done 21, images 4, payload 6, rework 2, stopped 8 (42 pages)
