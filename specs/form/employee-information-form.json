@@ -126,6 +126,41 @@
    "via": null,
    "by": "launch-w-employee-information-form",
    "note": ""
+  },
+  {
+   "t": "2026-10-08 16:35 UTC",
+   "state": "images",
+   "via": "ship",
+   "by": null,
+   "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-08 19:28 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "launch-r-b1-2",
+   "note": "[images | CONTENT_DEFECTS #29] image_brief tab 3 main table: Both employees flagged as not responding (warn 'Open', the 'Remind the 6' group) carry Asian names, while every 'Filled' row does not: the name pattern maps ethnicity onto the negative outcome. -> Spread names across outcomes, e.g. make 'T"
+  },
+  {
+   "t": "2026-10-08 22:30 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "launch-rw-employee-information-form",
+   "note": ""
+  },
+  {
+   "t": "2026-10-09 07:50 UTC",
+   "state": "images",
+   "via": "ship",
+   "by": null,
+   "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-09 07:50 UTC",
+   "state": "reviewed",
+   "via": "ready",
+   "by": "launch-rw-employee-information-form",
+   "note": "one rework applied by launch-rw-employee-information-form after launch-r-b1-2 (1 findings marked blocking then, fixed per rules/SEVERITY.md); ready for Divit"
   }
  ],
  "plan": {
@@ -516,8 +551,8 @@
          "Personal phone",
          "Sent",
          [
-          "Filled",
-          "ok"
+          "Open",
+          "warn"
          ]
         ],
         [
@@ -543,8 +578,8 @@
          "Home address",
          "Sent",
          [
-          "Open",
-          "warn"
+          "Filled",
+          "ok"
          ]
         ]
        ]
@@ -780,17 +815,158 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "c08a82114cc8",
-  "date": "2026-10-08 12:57 UTC"
+  "rules_version": "c1e69716b944",
+  "date": "2026-10-09 07:50 UTC"
  },
  "writers": [
   "w-employee-information-form",
-  "launch-w-employee-information-form"
+  "launch-w-employee-information-form",
+  "launch-rw-employee-information-form"
  ],
  "chip_prompts": [
   "Pre-fill each employee's record with the job title and start date I already have on file. They should only need to check those and add their own contact details.",
   "Every January, email each employee the record HR holds for them and ask them to confirm it or correct any field. Remind anyone who has not answered after ten days.",
   "When someone edits their legal name or tax state, message my payroll lead directly with the before and after values and the date the change applies from.",
   "Give each store manager a list of their own team's names and work phones. Social Security numbers and home addresses should stay in a view that only HR and payroll can open."
+ ],
+ "review": {
+  "by": "launch-r-b1-2",
+  "date": "2026-10-08 19:28 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Employee Information Form That Stays Current' and hero 'An employee information form holds the details HR keeps on each person' state the whole job; onboarding left to new-employee-form."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "All 3 eligible PAA answered (definition, payroll needs, ADP form); related searches for template, PDF, free, Word, basic and printable covered."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "HR and payroll vocabulary: 'legal name as printed on the Social Security card', 'Form W-4', 'Form I-9', 'tax state', 'W-2 mailed to the wrong address'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs ('Saves every answer', 'Sends each employee', 'Posts each edit', 'Scans imported records')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q-checks clean; no blocking craft class."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail ('a driver who moved in the spring fixes his address', 'By Friday 11 have filled the gap')."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Name-change rule matches IRS Pub 15 (old name until the updated card is shown); W-4 and SSN-from-card match IRS hiring page; I-9 matches USCIS; numbers agree (97+15+28=140, 11+6=17, 86-17=69)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Record-maintenance angle (annual check, name change, gaps, role views) differs from new-employee-form's onboarding packet tabs."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 questions, hub link in item 2, links 'direct deposit form', 'new employee form', 'emergency contact form'."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 3 table: the only two rows still 'Open' (warn) are 'Priya Nair' and 'Mei Chen'; all three 'Filled' rows are 'Ana Ruiz', 'Tom Becker', 'Joel Watts'."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-names",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #29",
+    "field": "image_brief tab 3 main table",
+    "quote": "[\"Priya Nair\", \"Home address\", \"Sent\", [\"Open\", \"warn\"]] ... [\"Mei Chen\", \"Home address\", \"Sent\", [\"Open\", \"warn\"]]",
+    "issue": "Both employees flagged as not responding (warn 'Open', the 'Remind the 6' group) carry Asian names, while every 'Filled' row does not: the name pattern maps ethnicity onto the negative outcome.",
+    "fix": "Spread names across outcomes, e.g. make 'Tom Becker' Open and 'Mei Chen' Filled, then re-render tab 3.",
+    "severity": "blocking"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief tab 2 hero and prompt",
+    "quote": "Until the new card arrives / Hold a legal name change in payroll until the new Social Security card arrives",
+    "issue": "Copy and the IRS rule turn on the employee showing HR the updated card, not on the card arriving; the button already says 'Mark card shown'.",
+    "fix": "'Until she shows the new card'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_6_des, tab_content_1, hero_prompt",
+    "quote": "Choose a quiet month, away from open enrollment and year-end payroll. / January is when the records get checked. / asks every employee to confirm it each January",
+    "issue": "The advice says avoid year-end payroll while the page's own example runs the check in January, during W-2 season.",
+    "fix": "Pick a month that fits the advice, or say why January works (addresses fixed before W-2s go out).",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq item 3, faq item 10, tab_content_1",
+    "quote": "many collect bank details through a direct deposit form / Most templates print on one page. / Most people confirm without changing a thing",
+    "issue": "Soft quantifiers about no named third party.",
+    "fix": "State directly.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 8",
+    "quote": "Restrict editing to the blanks before you send it",
+    "issue": "Advice about Word's Restrict Editing with no domain source on this page (the massage page sources the same feature).",
+    "fix": "Add the Microsoft support source if kept.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief tab 2 hero and prompt",
+   "issue": "Copy and the IRS rule turn on the employee showing HR the updated card, not on the card arriving; the button already says 'Mark card shown'.",
+   "fix": "'Until she shows the new card'.",
+   "by": "launch-r-b1-2",
+   "via": "review",
+   "date": "2026-10-08 19:28 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_6_des, tab_content_1, hero_prompt",
+   "issue": "The advice says avoid year-end payroll while the page's own example runs the check in January, during W-2 season.",
+   "fix": "Pick a month that fits the advice, or say why January works (addresses fixed before W-2s go out).",
+   "by": "launch-r-b1-2",
+   "via": "review",
+   "date": "2026-10-08 19:28 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq item 3, faq item 10, tab_content_1",
+   "issue": "Soft quantifiers about no named third party.",
+   "fix": "State directly.",
+   "by": "launch-r-b1-2",
+   "via": "review",
+   "date": "2026-10-08 19:28 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 8",
+   "issue": "Advice about Word's Restrict Editing with no domain source on this page (the massage page sources the same feature).",
+   "fix": "Add the Microsoft support source if kept.",
+   "by": "launch-r-b1-2",
+   "via": "review",
+   "date": "2026-10-08 19:28 UTC"
+  }
  ]
 }

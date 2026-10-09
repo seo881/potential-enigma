@@ -94,7 +94,7 @@
   },
   "tab_image_3": {
    "path": "images/form/registration-form/uc-3.svg",
-   "alt": "A vendor table for the Riverside Saturday market holds Globex Tacos because its health permit runs out before market day, while craft and art vendors go to booth assignment.",
+   "alt": "A vendor table for the Riverside Saturday market holds Globex Kitchen because its health permit runs out before market day, while craft and art vendors go to booth assignment.",
    "file_id": "6ac79cda9308a032a2f7dd21",
    "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6ac79cda9308a032a2f7dd21_uc-3.svg"
   },
@@ -202,6 +202,34 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-08 19:28 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "launch-r-b1-1",
+   "note": "[images | CONTENT_DEFECTS #29] image_brief.tabs[2] (tab_image_3) and images.tab_image_3.alt: The only ethnic-cuisine vendor on the board is the one held for a failed health permit while 'Northwind Bakery' passes: a name pattern that maps ethnicity onto a negative food-safety outcome. Every instance:"
+  },
+  {
+   "t": "2026-10-08 22:30 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "launch-rw-registration-form",
+   "note": ""
+  },
+  {
+   "t": "2026-10-09 07:50 UTC",
+   "state": "images",
+   "via": "ship",
+   "by": null,
+   "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-09 07:50 UTC",
+   "state": "reviewed",
+   "via": "ready",
+   "by": "launch-rw-registration-form",
+   "note": "one rework applied by launch-rw-registration-form after launch-r-b1-1 (1 findings marked blocking then, fixed per rules/SEVERITY.md); ready for Divit"
   }
  ],
  "plan": {
@@ -639,7 +667,7 @@
          ]
         ],
         [
-         "Globex Tacos",
+         "Globex Kitchen",
          "Food",
          "Expired",
          [
@@ -673,7 +701,7 @@
      "kind": "card",
      "icon": "circle-alert",
      "tone": "warn",
-     "title": "Globex Tacos held",
+     "title": "Globex Kitchen held",
      "blocks": [
       {
        "type": "title",
@@ -699,7 +727,7 @@
      "title": "Craft and art vendors",
      "sub": "Sent to booth assignment"
     },
-    "alt": "A vendor table for the Riverside Saturday market holds Globex Tacos because its health permit runs out before market day, while craft and art vendors go to booth assignment.",
+    "alt": "A vendor table for the Riverside Saturday market holds Globex Kitchen because its health permit runs out before market day, while craft and art vendors go to booth assignment.",
     "story": [
      {
       "copy": "A food vendor with no permit",
@@ -903,138 +931,129 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "c772be41c511",
-  "date": "2026-10-08 13:49 UTC"
+  "rules_version": "c1e69716b944",
+  "date": "2026-10-09 07:50 UTC"
  },
  "writers": [
   "w-registration-form",
   "coordinator-b-q10",
-  "launch-w-registration-form"
+  "launch-w-registration-form",
+  "launch-rw-registration-form"
  ],
  "review": {
-  "by": "reviewer-b-regf1",
-  "date": "2026-10-08 13:48 UTC",
+  "by": "launch-r-b1-1",
+  "date": "2026-10-08 19:28 UTC",
   "rubric": {
    "scope": {
     "result": "pass",
-    "evidence": "H1 'Build a Registration Form That Manages Every Registrant' and hero 'Describe who is signing up and for what' cover the whole job, no sibling topic."
+    "evidence": "H1 'Build a Registration Form With Fees, Caps, and a Waitlist' and hero 'Emergent builds the registration form, takes any fee through Stripe, and keeps each registrant as a row' cover the generic primary, not a sibling (conference, class, 5k)."
    },
    "intent": {
     "result": "pass",
-    "evidence": "Builder-fit SERP (Jotform, SurveyMonkey, Wufoo, Lumin galleries): four sample builds, a 7-step how-to, and FAQ items on template, free, online and HTML."
+    "evidence": "Builder slots in the top 10 are template galleries (Jotform, SurveyMonkey, Wufoo, Lumin); the page answers templates (FAQ 4), free (FAQ 5), HTML (FAQ 6), samples (FAQ 8) and the PAA definition; DMV variants are out of scope per the sheet note."
    },
    "specificity": {
     "result": "pass",
-    "evidence": "Concrete registrations: 'Harbor Food Bank sells 180 seats to its spring dinner at $85 each', 'Kestrel grinder', county health permit, 40 plots."
+    "evidence": "Table rows specific to registration: 'Caps and waitlists', 'Payments in the form'; copy names '180 seats ... at $85', 'Stripe Checkout', 'county health permit', '40 plots and 52 registrations'."
    },
    "openers": {
     "result": "pass",
-    "evidence": "Every paragraph opens on a full sentence, e.g. 'Show a meal question only to dinner guests', 'Elm Street Garden has 40 plots and 52 registrations this spring.'"
+    "evidence": "Feature and step bodies open on full sentences: 'Show a meal question only to dinner guests', 'Set a limit per ticket type or session.', 'An event seat and a market booth need different records.'"
    },
    "craft": {
     "result": "pass",
-    "evidence": "QC Q-checks clean; sentences short and single-idea, e.g. 'Craft and art vendors go straight to booth assignment.'"
+    "evidence": "QC Q2/Q5/Q7 clean; repeated daily-count and credits lines are notes."
    },
    "voice": {
     "result": "pass",
-    "evidence": "Plain operator voice: 'A caterer reads meal choices; nobody reads a fax number.' Repetition and one body-copy question logged as notes."
+    "evidence": "Specific and plain: 'A caterer reads meal choices; nobody reads a fax number.' Subheading formula shared with sibling pages recorded as a note."
    },
    "truth": {
-    "result": "fail",
-    "evidence": "FAQ 7 defines 'customer registration form' as a product-warranty record: 'A customer registration form records who bought a product and when.'"
+    "result": "pass",
+    "evidence": "Stripe Checkout (docs.stripe.com) and the HTML type='email' check (MDN) match domain_sources; Emergent claims map to prompt-build, api-connect, ai-extraction, alerts, no-caps, free-start, custom-domain, code-export; tab numbers agree (52 - 40 = 12, $249 + $19.92 = $268.92)."
    },
    "distinct": {
     "result": "pass",
-    "evidence": "Generic head page with four unlike lists (dinner, warranty, market vendors, garden plots); no sibling primary in any heading."
+    "evidence": "Tabs (paid dinner, product warranties, market vendors, community garden) are not any sibling's primary; conference registration form linked in FAQ 3 only."
    },
    "faq": {
     "result": "pass",
-    "evidence": "10 searcher questions from PAA, related searches and secondaries; hub link in item 2; Q10 'Can an online event registration form close itself when the event is full?' answered 'Yes.' first."
+    "evidence": "10 questions from PAA, related searches and secondaries, answer-first; hub link in item 2; links to conference registration form and creator application."
    },
    "images": {
-    "result": "pass",
-    "evidence": "Numbers agree with copy: '180 of 180 seats sold', '$85 each', 'Ends Mar 14, 2028', '52 registrations / 40 plots open / 12 on the waitlist'; one hero per tab."
+    "result": "fail",
+    "evidence": "FAIL: tab 3 holds the only cuisine-coded vendor, 'Globex Tacos', for an expired health permit (row 29)."
    }
   },
   "findings": [
    {
-    "class": "untrue",
-    "criterion": "truth",
-    "rule": "HUB_RULES 8",
-    "field": "faq item 7",
-    "quote": "A customer registration form records who bought a product and when. Warranty claims are later checked against that record. It asks for the serial number and the purchase date, often with a photo of the receipt as proof.",
-    "issue": "Misdefines the term. A customer registration form is the form a business uses to sign up a new customer (name, contact details, account or preferences); product or warranty registration is a different form. The definition has no domain source and gives the 170-MSV searcher the wrong answer.",
-    "fix": "Define it as the form that signs up a new customer (name, email, phone, address, account or consent details) and saves them as a customer record; mention product registration with serial number and receipt (tab 2) only as one kind.",
+    "class": "image-names",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #29",
+    "field": "image_brief.tabs[2] (tab_image_3) and images.tab_image_3.alt",
+    "quote": "Globex Tacos held",
+    "issue": "The only ethnic-cuisine vendor on the board is the one held for a failed health permit while 'Northwind Bakery' passes: a name pattern that maps ethnicity onto a negative food-safety outcome. Every instance: tab 3 table row 'Globex Tacos | Food | Expired | Held'; hero title 'Globex Tacos held'; alt 'holds Globex Tacos because its health permit runs out before market day'.",
+    "fix": "Hold a vendor with a neutral name (e.g. swap so 'Northwind Bakery' is held and 'Globex Tacos' is Ready, or rename the held vendor 'Globex Kitchen'), updating the table row, hero title and alt together; re-render.",
     "severity": "blocking"
    },
    {
-    "class": "repeated-idea",
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "feature_3, tab_content_1, faq item 9",
-    "quote": "The row stays pending until the payment clears / a seat is confirmed only when the payment clears / the registration is confirmed once Stripe reports the payment complete",
-    "issue": "The confirm-on-payment idea is stated three times with words swapped.",
-    "fix": "Keep it in tab 1 and FAQ 9; give feature 3 the refund-rule detail instead.",
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief.tabs[2]",
+    "quote": "Expires before market day",
+    "issue": "The table shows the permit as 'Expired' while the hero card says 'Expires before market day' and 'Health permit: expired': two states for one permit.",
+    "fix": "Pick one: 'Expires Jun 12, before market day' in both, or 'Expired' in both.",
     "severity": "note"
    },
    {
     "class": "repeated-idea",
     "criterion": "craft",
     "rule": "CONTENT_DEFECTS #21",
-    "field": "feature_2, tab_content_1, howto_step_6_des, faq item 10",
-    "quote": "offers a freed spot to the next name in line / A cancellation offers that seat to the first name on it / watch the spot go to the first name on the waitlist / offers a waitlist to anyone who arrives after that",
-    "issue": "Waitlist hand-off restated in four fields.",
-    "fix": "Vary or trim one or two of the restatements.",
+    "field": "feature_5 / howto_step_7_des; feature_6 / howto_step_7_des",
+    "quote": "post a daily count of new sign-ups to a Slack channel",
+    "issue": "Two ideas appear twice: the daily Slack count (step 7 'A daily count in Slack shows how fast spots are going') and custom domain on credits (feature 6 'built in and paid for with credits', step 7 'which runs on credits').",
+    "fix": "Keep each in one field.",
     "severity": "note"
    },
    {
-    "class": "repeated-idea",
+    "class": "soft-quantifier",
     "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "feature_5, howto_step_7_des",
-    "quote": "post a daily count of new sign-ups to a Slack channel / A daily count in Slack shows how fast spots are going",
-    "issue": "Same Slack daily-count idea in two fields.",
-    "fix": "Drop it from one of them.",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq (item 4), faq (item 7)",
+    "quote": "Plenty of form builders offer one.",
+    "issue": "Soft quantifiers about no named third party: FAQ 4 'Plenty of form builders offer one.' and 'it rarely knows your caps', FAQ 7 'often with a photo of the receipt'.",
+    "fix": "Name the galleries (Jotform, Wufoo) or state it without the quantifier.",
     "severity": "note"
    },
    {
     "class": "voice",
     "criterion": "voice",
-    "rule": "HUB_RULES 2b",
-    "field": "howto_step_2_des",
-    "quote": "Then decide what happens when a cap is reached: does the form close or switch to a waitlist?",
-    "issue": "Question in body copy.",
-    "fix": "Then decide whether the form closes or switches to a waitlist when a cap is reached.",
-    "severity": "note"
-   },
-   {
-    "class": "image-polish",
-    "criterion": "images",
-    "rule": "CONTENT_DEFECTS #20",
-    "field": "image_brief tab 3",
-    "quote": "Health permit: Expired / Expires before market day",
-    "issue": "The table and meta say the permit is already expired, the hero title says it expires before market day; both fit the copy but the image tells two slightly different states.",
-    "fix": "Use one state, e.g. table 'Ends Jun 2' and hero 'Expires before market day'.",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "features_subheading",
+    "quote": "These six pieces decide whether the list is still right on event day.",
+    "issue": "Same subheading formula as interest-form ('These six pieces tell you what to schedule and when.') and t-shirt-order-form ('Six parts that turn...').",
+    "fix": "Vary the shape per page.",
     "severity": "note"
    },
    {
     "class": "other",
-    "criterion": "images",
-    "rule": "CONTENT_DEFECTS #29",
-    "field": "image_brief tab 3",
-    "quote": "Globex Tacos ... Held",
-    "issue": "Watch item: the only held vendor is the one whose name carries a cuisine (a proxy for the owner's background); not a person's name, so logged, not blocking.",
-    "fix": "Optionally hold a neutrally named vendor (e.g. Globex Grill) on the next render.",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "domain_sources",
+    "quote": "In California, many dealers can issue a temporary registration",
+    "issue": "Orphan source: no copy on the page uses the California DMV claim (left from a removed vehicle-registration FAQ).",
+    "fix": "Drop the entry.",
     "severity": "note"
    },
    {
     "class": "other",
-    "criterion": "specificity",
+    "criterion": "faq",
     "rule": "HUB_RULES 5",
-    "field": "why_table",
-    "quote": "Jotform | Typeform | Google Forms",
-    "issue": "Typeform and Google Forms are not in this page's top 10 (QC K7 P2); Wufoo, SurveyMonkey and Lumin rank for the query.",
-    "fix": "Add Wufoo or SurveyMonkey to the form library and use it when vetted.",
+    "field": "faq (item 8)",
+    "quote": "A creator application shows the same build for screening applicants instead of registering them.",
+    "issue": "The link is forced into a sample-form answer and does not help someone looking for a registration sample.",
+    "fix": "Link a sibling a reader would want here (conference or class registration form), or drop the sentence.",
     "severity": "note"
    }
   ]
@@ -1109,6 +1128,66 @@
    "by": "reviewer-b-regf1",
    "via": "review",
    "date": "2026-10-08 13:48 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief.tabs[2]",
+   "issue": "The table shows the permit as 'Expired' while the hero card says 'Expires before market day' and 'Health permit: expired': two states for one permit.",
+   "fix": "Pick one: 'Expires Jun 12, before market day' in both, or 'Expired' in both.",
+   "by": "launch-r-b1-1",
+   "via": "review",
+   "date": "2026-10-08 19:28 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_5 / howto_step_7_des; feature_6 / howto_step_7_des",
+   "issue": "Two ideas appear twice: the daily Slack count (step 7 'A daily count in Slack shows how fast spots are going') and custom domain on credits (feature 6 'built in and paid for with credits', step 7 'which runs on credits').",
+   "fix": "Keep each in one field.",
+   "by": "launch-r-b1-1",
+   "via": "review",
+   "date": "2026-10-08 19:28 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq (item 4), faq (item 7)",
+   "issue": "Soft quantifiers about no named third party: FAQ 4 'Plenty of form builders offer one.' and 'it rarely knows your caps', FAQ 7 'often with a photo of the receipt'.",
+   "fix": "Name the galleries (Jotform, Wufoo) or state it without the quantifier.",
+   "by": "launch-r-b1-1",
+   "via": "review",
+   "date": "2026-10-08 19:28 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "features_subheading",
+   "issue": "Same subheading formula as interest-form ('These six pieces tell you what to schedule and when.') and t-shirt-order-form ('Six parts that turn...').",
+   "fix": "Vary the shape per page.",
+   "by": "launch-r-b1-1",
+   "via": "review",
+   "date": "2026-10-08 19:28 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "domain_sources",
+   "issue": "Orphan source: no copy on the page uses the California DMV claim (left from a removed vehicle-registration FAQ).",
+   "fix": "Drop the entry.",
+   "by": "launch-r-b1-1",
+   "via": "review",
+   "date": "2026-10-08 19:28 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq (item 8)",
+   "issue": "The link is forced into a sample-form answer and does not help someone looking for a registration sample.",
+   "fix": "Link a sibling a reader would want here (conference or class registration form), or drop the sentence.",
+   "by": "launch-r-b1-1",
+   "via": "review",
+   "date": "2026-10-08 19:28 UTC"
   }
  ],
  "pending_links": [
@@ -1128,5 +1207,14 @@
   "Charge $85 per guest for my food bank's dinner, paid by card through Stripe, and hold each registration as pending until the charge goes through.",
   "Kitchen volunteers for the dinner need to upload a food handler card. Read the expiry date off each card and flag any that lapse before the event.",
   "Email every guest a confirmation with their meal choice and a link to edit it, then send a reminder two days before the dinner with the address and start time."
+ ],
+ "reviews": [
+  {
+   "by": "reviewer-b-regf1",
+   "date": "2026-10-08 13:48 UTC",
+   "result": "fail",
+   "blocking": 1,
+   "notes": 7
+  }
  ]
 }
