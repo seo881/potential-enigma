@@ -18,7 +18,8 @@ Read LESSONS.md and docs/LIVE_AUDIT.md first. Then, in order, without asking any
       `hubctl live-fix verify ID RESPONSE`. If it prints VERIFY FAILED, send the rollback file it names at once, then
       `hubctl live-rollback ID --done RESPONSE`.
    Only these Webflow actions are allowed: list_collection_items, update_collection_items, publish_collection_items, and
-   unpublish_collection_items for a held page that is live (A0). Never a site publish,
+   unpublish_collection_items for a held page that is live (A0). NO SITE PUBLISH, EVER (Divit 2026-10-10): never call the
+   Webflow sites tool (data_sites_tool, publish_site) for anything, not even to read; CMS changes go live only by item publish. Never a site publish,
    never create, delete or unpublish, never a template, component, class, page or hub change.
 5. `hubctl live-audit report DATE` (add --dry for a dry run), then `.venv/bin/python3 tests/golden/run.py`.
 6. `bash ops/sync.sh "Live audit DATE" audits reports tests/golden childedits specs images status`.

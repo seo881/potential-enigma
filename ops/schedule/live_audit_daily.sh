@@ -23,7 +23,10 @@ ALLOWED=(
   "Bash(bash ops/sync.sh:*)" "Bash(git status:*)" "Bash(git log:*)" "Bash(git diff:*)"
   "mcp__webflow__data_cms_tool"
 )
-.venv/bin/python3 ops/guards.py run-locked session -- claude -p "$PROMPT" --permission-mode dontAsk --allowedTools "${ALLOWED[@]}" \
+# NO SITE PUBLISH (Divit 2026-10-10): the Webflow sites tool (publish_site) is denied under every name it can appear as,
+# on top of .claude/settings.json; CMS changes go live only through item publishes (publish_collection_items).
+DENIED=("mcp__webflow__data_sites_tool" "mcp__Webflow__data_sites_tool" "mcp__claude_ai_Webflow__data_sites_tool")
+.venv/bin/python3 ops/guards.py run-locked session -- claude -p "$PROMPT" --permission-mode dontAsk --allowedTools "${ALLOWED[@]}" --disallowedTools "${DENIED[@]}" \
   --mcp-config "$REPO/.mcp.json" --output-format text >> "$LOG" 2>&1
 RC=$?
 curl -s --max-time 30 "https://emergent.sh/?pw=$(date +%s)" | grep -o 'Last Published: [^-]*' | head -1 | sed 's/ *$//' > "$REPO/.cache/live/last_published.txt"   # seen by publish_watch.sh
