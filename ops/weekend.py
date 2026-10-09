@@ -120,9 +120,9 @@ def cmd_next(args):
             out += [f"WRITE-NEW {u}" for u in got]; break
     W = load(); W["holds"] = holds; save(W)
     if out:
-        print("\n".join(out)); sync("weekend: ship ledgers and render queue", ["status/", "plan/batches/"]); return
+        print("\n".join(out)); sync("weekend: ship ledgers, autofix, render queue", ["status/", "plan/batches/", "specs/"]); return
     if waits:
-        print("WAIT-RENDER " + " ".join(sorted(set(waits)))); sync("weekend: ship ledgers and render queue", ["status/", "plan/batches/"]); return
+        print("WAIT-RENDER " + " ".join(sorted(set(waits)))); sync("weekend: ship ledgers, autofix, render queue", ["status/", "plan/batches/", "specs/"]); return
     print("EXHAUSTED: no actionable page in any rework batch or new-page queue" + (f" (holds: {holds})" if holds else "")); sys.exit(3)
 
 def unit(hub, bf, L, waits):
