@@ -12,6 +12,9 @@ Every ruling Divit has made that a future chat must respect. Newest first. Add a
   - Fix the H3 serial-comma detector, then sweep the 20 live pages (item publish only).
 - Process: before-values are committed and pushed BEFORE any Webflow write; `live-fix prepare` refuses otherwise.
 
+## 2026-10-10
+- **NO SITE PUBLISH, EVER (Divit, 2026-10-10).** Claude (Claude Code, headless jobs, subagents and the advisor chat) never publishes the site or any domain: no publish_site call, no "publish to selected domains", not to staging, not to production, not as a fix or a rollback. CMS changes go live only as item publishes (publish_collection_items) of the specific items changed. Template, page, component or style changes are staged only; Divit alone publishes the site, deliberately, from the Designer. The Webflow sites tool is denied in .claude/settings.json; any script or prompt that would publish the site must refuse and report.
+
 ## 2026-10-09
 - **FAQ moat lines, batch 2 onward (Divit, 2026-10-09):** "In 2-3 of the general FAQ answers per page (not the definition or the item-2 how-to), add one subtle, natural line on what Emergent does better for that exact question: its question-specific moat, e.g. no response caps, a database you own, code export, no per-seat pricing, built from a prompt. One sentence at most, claims only from rules/claims.json, no hard sell, never in branded or competitor-comparison phrasing." QC F9 (P1) for pages not yet in Webflow; the 20 live pages get theirs at next rework.
 - **Two production publishes outside the plan (2026-10-09, 11:38 and 13:14 UTC)** shipped unverified content; the daily live audit now runs at once whenever the site's lastPublished has changed since its last run.

@@ -27,3 +27,5 @@ First time on a machine: `docs/CLAUDE_CODE_SETUP.md`. On macOS, `ops/setup.sh` c
 8. Log every Webflow change in `logs/<dir>.md`. Commit after every stage so any session can resume.
 
 **Read LESSONS.md at the start of every session.** It holds the failure log and the rules that prevent repeats (canary first, one pass per page, golden tests for gates, staging first, live state before planning).
+
+**NO SITE PUBLISH, EVER (Divit, 2026-10-10).** Claude (Claude Code, headless jobs, subagents and the advisor chat) never publishes the site or any domain: no publish_site call, no "publish to selected domains", not to staging, not to production, not as a fix or a rollback. CMS changes go live only as item publishes (publish_collection_items) of the specific items changed. Template, page, component or style changes are staged only; Divit alone publishes the site, deliberately, from the Designer. The Webflow sites tool is denied in .claude/settings.json; any script or prompt that would publish the site must refuse and report.

@@ -23,6 +23,7 @@ Read this at the start of every session (CLAUDE.md points here). Every incident 
 6. **Staging first, always:** webflow.io, then verify_launch, then emergent.sh. Nothing reaches the public that a script has not checked.
 7. **Never leave items non-draft without publishing soon:** any full-site publish by anyone takes them live.
 8. **API capability table:** `docs/WEBFLOW_API.md` lists what the API can and cannot do (verified). Update it whenever a call proves or disproves a capability. Do not mark a step Designer-only without checking it.
+10. **No site publish, ever, by Claude.** Item publishes only; Divit publishes the site from the Designer (DECISIONS 2026-10-10).
 9. **Live pages are audited, not trusted.** `docs/LIVE_AUDIT.md` runs after every publish and daily; Divit spot-checks, the audit checks everything.
 
 ## 3. The learning loop (runs after every batch)
