@@ -60,10 +60,10 @@ Regenerated 2026-10-09 22:02 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-lp | /ai-landing-page-builder/lead-generation-landing-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-lp | /ai-landing-page-builder/one-page-website | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-lp | /ai-landing-page-builder/ppc-landing-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | images |
-| wk-rework-lp | /ai-landing-page-builder/product-landing-page | 11 | 9/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-lp | /ai-landing-page-builder/product-landing-page | 6 | 9/10 | no | no | no | 0 | - | no | no | writer |
 | wk-rework-lp | /ai-landing-page-builder/real-estate-landing-page | 6 | 4/10 | no | no | no | 0 | - | no | no | writer |
 | wk-rework-lp | /ai-landing-page-builder/saas-landing-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | images |
 | wk-rework-lp | /ai-landing-page-builder/splash-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
-| wk-rework-lp | /ai-landing-page-builder/squeeze-page | 0 | 10/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-lp | /ai-landing-page-builder/squeeze-page | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
 
-Stages: autofix 1, check 1, done 21, images 4, review 4, stopped 8, writer 3 (42 pages)
+Stages: autofix 1, check 2, done 21, images 4, review 4, stopped 8, writer 2 (42 pages)
