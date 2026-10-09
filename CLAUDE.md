@@ -25,3 +25,5 @@ First time on a machine: `docs/CLAUDE_CODE_SETUP.md`. On macOS, `ops/setup.sh` c
 7b. Publish only on Divit's go (`hubctl publish-payload`), then fetch every published page and run `hubctl verify-live <url>` (title, meta, H1, FAQ, images, share image, links all 200).
 7c. Every day: `hubctl lookahead <HUB> 60` (library gaps for the next 3 days: research them first), `hubctl serp-budget`, `hubctl metrics`, `hubctl sample reviewed` (the pages Divit must see), `hubctl links <HUB>`. After any rule change: `hubctl recheck` (ratchet; live pages that now fail go to status/fix_queue.json) and `hubctl image-regress`. Weekly: pull rankings for published pages (dataforseo, depth 100) with `hubctl ranks-save`, then `hubctl ranks-report` (refresh queue).
 8. Log every Webflow change in `logs/<dir>.md`. Commit after every stage so any session can resume.
+
+**Read LESSONS.md at the start of every session.** It holds the failure log and the rules that prevent repeats (canary first, one pass per page, golden tests for gates, staging first, live state before planning).
