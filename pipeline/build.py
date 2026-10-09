@@ -106,13 +106,13 @@ def build_og(key, write=True):
     b += L.T(72, y0 + 44 + len(lines) * 62 + 10, "From a prompt to a working app. Free to start.", 22, 500, L.SUB)
     b += f'<image x="590" y="130" width="590" height="369" href="data:image/svg+xml;base64,{cov}"/>'
     L.W, L.H = 1200, 630; s = L.canvas(b, title="", desc=""); L.W, L.H = 1200, 800
-    v = outline.convert(s); path = os.path.join(REPO, 'images', key, 'og.png')
+    v = outline.convert(s); path = os.path.join(REPO, 'images', key, 'og.webp')
     import tempfile; tmp_svg = os.path.join(tempfile.gettempdir(), '_og.svg'); open(tmp_svg, 'w').write(v); tmp_png = os.path.join(tempfile.gettempdir(), '_og.png')
     import raster; raster.to_png(tmp_svg, tmp_png, 1200, 630)
-    buf = io.BytesIO(); Image.open(tmp_png).convert('RGB').save(buf, 'PNG', optimize=True); data = buf.getvalue()
+    data, _info = raster.og_webp(tmp_png)   # share image is WebP (Divit 2026-10-09)
     if write:
         open(path, 'wb').write(data); os.makedirs(REVIEW, exist_ok=True)
-        out = os.path.join(REVIEW, key.replace('/', '_') + '_og.png'); open(out, 'wb').write(data); print("wrote og.png (1200x630); review:", out)
+        out = os.path.join(REVIEW, key.replace('/', '_') + '_og.webp'); open(out, 'wb').write(data); print("wrote og.webp (1200x630); review:", out)
     return [(path, data)]
 
 def check():
@@ -128,7 +128,7 @@ def files_for(key, kinds):
     d = os.path.join('images', key); out = []
     if 'usecase' in kinds: out += [os.path.join(d, f'uc-{i}.svg') for i in range(1, 5)]
     if 'cover' in kinds: out.append(os.path.join(d, 'cover.svg'))
-    if 'og' in kinds: out.append(os.path.join(d, 'og.png'))
+    if 'og' in kinds: out.append(os.path.join(d, 'og.webp'))
     return out
 def verify(sha, key, kinds=('usecase', 'cover', 'og')):
     ok = 0; fs = files_for(key, kinds)
@@ -146,7 +146,7 @@ def payload(sha, key, kinds):
             if not alt: sys.exit(f"{f} has no <desc>; alt text comes from it")
             fd[UC_FIELDS[i - 1]] = {"url": RAW.format(sha=sha, path=f), "alt": alt}
     if 'cover' in kinds: fd[p['cover_field']] = {"url": RAW.format(sha=sha, path=os.path.join('images', key, 'cover.svg')), "alt": p['cover_alt']}
-    if 'og' in kinds: fd["thumbnail-image"] = {"url": RAW.format(sha=sha, path=os.path.join('images', key, 'og.png')), "alt": p['og_alt']}
+    if 'og' in kinds: fd["thumbnail-image"] = {"url": RAW.format(sha=sha, path=os.path.join('images', key, 'og.webp')), "alt": p['og_alt']}
     print(json.dumps({"label": key.replace('/', '_'), "update_collection_items": {"collection_id": p['collection_id'],
           "request": {"items": [{"id": p['item_id'], "isDraft": True, "fieldData": fd}]}}}, indent=1))
     print("\n# NOTE: isDraft true keeps the item a draft. Set false only when Divit approves going live.", file=sys.stderr)

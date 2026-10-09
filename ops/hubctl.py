@@ -168,7 +168,7 @@ def cmd_init(args):
             "fields": fields,
             "images": {"tab_image_1": {"path": f"{d}/uc-1.svg", "alt": ""}, "tab_image_2": {"path": f"{d}/uc-2.svg", "alt": ""},
                        "tab_image_3": {"path": f"{d}/uc-3.svg", "alt": ""}, "tab_image_4": {"path": f"{d}/uc-4.svg", "alt": ""},
-                       "cover_image": {"path": f"{d}/cover.svg", "alt": ""}, "share_image": {"path": f"{d}/og.png", "alt": ""}},
+                       "cover_image": {"path": f"{d}/cover.svg", "alt": ""}, "share_image": {"path": f"{d}/og.webp", "alt": ""}},
             "image_spec": None}
     os.makedirs(os.path.dirname(path), exist_ok=True); json.dump(spec, open(path, "w"), indent=1, ensure_ascii=False)
     set_state(url, "spec"); print(f"created {os.path.relpath(path, ROOT)}")

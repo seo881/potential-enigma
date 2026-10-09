@@ -2,7 +2,7 @@
 system, palettes, motion and gates as the 16 approved hand-built scenes.
 
   python3 pipeline/engine.py lint   specs/<dir>/<slug>.json       # render in memory + gates; prints issues, writes nothing
-  python3 pipeline/engine.py render specs/<dir>/<slug>.json ...   # writes images/<dir>/<slug>/{uc-1..4.svg,cover.svg,og.png}
+  python3 pipeline/engine.py render specs/<dir>/<slug>.json ...   # writes images/<dir>/<slug>/{uc-1..4.svg,cover.svg,og.webp}
                                                                   # + a contact sheet in the review folder; updates spec.images
   python3 pipeline/engine.py demo                                 # renders pipeline/briefs/*.json for visual checks
 
@@ -495,14 +495,16 @@ def render_spec(spec_path, write=True):
         if rel.endswith(".svg.tmp"):
             tmp = os.path.join(tempfile.gettempdir(), f"_og_{slug}.svg"); open(tmp, "w").write(content)
             png = os.path.join(tempfile.gettempdir(), f"_og_{slug}.png"); raster.to_png(tmp, png, 1200, 630)
-            buf = io.BytesIO(); Image.open(png).convert("RGB").save(buf, "PNG", optimize=True)
-            if write: open(os.path.join(REPO, d, "og.png"), "wb").write(buf.getvalue())
+            try: data, info = raster.og_webp(png)   # share image is WebP (Divit 2026-10-09); gates run on the WebP
+            except ValueError as e: print(f"BLOCKED {spec['url']}:\n  - share image: {e}"); return False
+            if write: open(os.path.join(REPO, d, "og.webp"), "wb").write(data)
+            og_bytes = data
             continue
         if write: open(os.path.join(REPO, rel), "w").write(content)
     # spec.images: paths and alt text
     alts = {f"tab_image_{i}": t["alt"] for i, t in enumerate(br["tabs"], 1)}
     alts["cover_image"] = br["cover"]["alt"]; alts["share_image"] = br["og"]["alt"]
-    files = {**{f"tab_image_{i}": f"{d}/uc-{i}.svg" for i in range(1, 5)}, "cover_image": f"{d}/cover.svg", "share_image": f"{d}/og.png"}
+    files = {**{f"tab_image_{i}": f"{d}/uc-{i}.svg" for i in range(1, 5)}, "cover_image": f"{d}/cover.svg", "share_image": f"{d}/og.webp"}
     spec.setdefault("images", {})
     for k in files: spec["images"][k] = {**spec["images"].get(k, {}), "path": files[k], "alt": alts[k]}
     if write: json.dump(spec, open(spec_path, "w"), indent=1, ensure_ascii=False)
@@ -513,7 +515,7 @@ def render_spec(spec_path, write=True):
     sheet = Image.new("RGB", (830 * 2 + 20, 553 * 2 + 20 + 360), "white")
     for i, p in enumerate(pngs): sheet.paste(Image.open(p).convert("RGB").resize((830, 553)), ((i % 2) * 850, (i // 2) * 573))
     card = Image.new("RGB", (392, 300), "#F7F7F9"); card.paste(Image.new("RGB", (376, 290), "white"), (8, 5)); card.paste(Image.open(cp).convert("RGB").resize((360, 225)), (16, 13))
-    sheet.paste(card, (0, 1166)); sheet.paste(Image.open(os.path.join(REPO, d, "og.png")).convert("RGB").resize((600, 315)), (420, 1166))
+    sheet.paste(card, (0, 1166)); sheet.paste(Image.open(io.BytesIO(og_bytes)).convert("RGB").resize((600, 315)), (420, 1166))
     sp = os.path.join(REVIEW, f"{d.split('/')[1]}_{slug}.png"); sheet.save(sp)
     spec["_sheet"] = sp
     print(f"RENDERED {spec['url']} -> {d}/ (6 files); contact sheet: {sp}")

@@ -3,7 +3,8 @@
 //   npm install --prefix ops jsdom@24.1.0      (once)
 //   node ops/verify_launch.mjs [manifest.json] [--base https://<site>.webflow.io]   -> ops/out/launch/verify-live[-staging].json, exit 1 on any failure
 // --base defaults to https://emergent.sh. Content links are written as https://emergent.sh/...; on staging they are checked on --base.
-// Per page: HTTP 200; H1, <title>, meta description, canonical (always the emergent.sh URL), og:image (resolves); FAQ rendered with
+// Per page: HTTP 200; H1, <title>, meta description, canonical (always the emergent.sh URL), og:image (resolves; a .webp URL serving
+// image/webp, exactly 1200x630, at most 300 KB); FAQ rendered with
 // all 10 questions and no placeholder; hero prompt prefilled and chips switching it (page scripts run in jsdom); first use-case tab
 // active on load (T10); 4 use-case images load; comparison table present; Learn section not showing "No items found"; hub link
 // present; no link to a child page that is not live; carousel cover images (section_build) have a non-empty alt (T5).
@@ -23,6 +24,26 @@ const PLACEHOLDER = /lorem ipsum|placeholder|question goes here|answer goes here
 // a link on either host -> its path on this site ("" when it points elsewhere)
 const pathOf = (href) => { try { const u = new URL(href); return [new URL(BASE).host, new URL(CANON).host].includes(u.host) ? u.pathname.replace(/\/$/, "") : ""; } catch { return ""; } };
 const altOk = (img) => norm(img.getAttribute("alt")).length > 0;
+// WebP dimensions from the RIFF header (VP8, VP8L or VP8X chunk)
+const webpSize = (b) => {
+  if (b.length < 30 || b.toString("ascii", 0, 4) !== "RIFF" || b.toString("ascii", 8, 12) !== "WEBP") return null;
+  const c = b.toString("ascii", 12, 16);
+  if (c === "VP8 ") return [b.readUInt16LE(26) & 0x3fff, b.readUInt16LE(28) & 0x3fff];
+  if (c === "VP8L") { const n = b.readUInt32LE(21); return [(n & 0x3fff) + 1, ((n >> 14) & 0x3fff) + 1]; }
+  if (c === "VP8X") return [1 + b.readUIntLE(24, 3), 1 + b.readUIntLE(27, 3)];
+  return null;
+};
+// share image (DECISIONS 2026-10-09): WebP, 200 with content-type image/webp, exactly 1200x630, at most 300 KB
+async function ogWebp(u) {
+  const o = { url: u };
+  try {
+    const r = await fetch(u, { redirect: "follow" }); const b = Buffer.from(await r.arrayBuffer());
+    Object.assign(o, { status: r.status, type: (r.headers.get("content-type") || "").split(";")[0].trim(), bytes: b.length, size: webpSize(b) });
+  } catch (e) { o.error = String(e); }
+  o.ok = /\.webp(\?|$)/i.test(new URL(u).pathname) && o.status === 200 && o.type === "image/webp"
+    && !!o.size && o.size[0] === 1200 && o.size[1] === 630 && o.bytes <= 300 * 1024;
+  return o;
+}
 const coverImgs = (root) => [...root.querySelectorAll("img")].filter((i) => /cover/.test(i.className));
 
 async function page(p) {
@@ -41,6 +62,7 @@ async function page(p) {
   c.canonical = ($('link[rel="canonical"]')?.getAttribute("href") || "").replace(/\/$/, "") === CANON + p.url;
   const og = $('meta[property="og:image"]')?.content;
   c.og_image = !!og && (await status(og)) === 200;
+  if (og) { out.og = await ogWebp(new URL(og, url).href); c.og_webp = out.og.ok; } else c.og_webp = false;
   const faqText = norm($$("[data-faq-wrapper]").map((e) => e.textContent).join(" "));
   c.faq_rendered = p.faq.every((q) => faqText.includes(norm(q))) && !PLACEHOLDER.test(faqText);
   const box = $("#hero-prompt-form textarea");
@@ -71,7 +93,7 @@ async function page(p) {
 }
 
 const results = [];
-for (const p of man.pages) { const r = await page(p); results.push(r); const bad = Object.entries(r.checks).filter(([, v]) => !v).map(([k]) => k); console.log(`${bad.length ? "FAIL" : "PASS"} ${p.url}${bad.length ? "  " + bad.join(", ") : ""}${r.cover_alt ? "  (" + r.cover_alt + ")" : ""}`); }
+for (const p of man.pages) { const r = await page(p); results.push(r); const bad = Object.entries(r.checks).filter(([, v]) => !v).map(([k]) => k); console.log(`${bad.length ? "FAIL" : "PASS"} ${p.url}${bad.length ? "  " + bad.join(", ") : ""}${r.cover_alt ? "  (" + r.cover_alt + ")" : ""}${r.og && !r.og.ok ? "  (og: " + [r.og.status, r.og.type, r.og.size && r.og.size.join("x"), r.og.bytes + " B"].join(", ") + ")" : ""}`); }
 // one line per child template (the carousel is template markup, so every page of a hub shows the same result)
 const templates = man.hubs.map((hub) => { const rs = results.filter((r) => man.pages.find((p) => p.url === r.url).hub === hub && r.checks.http200);
   return { hub, template_cover_alt: rs.length > 0 && rs.every((r) => r.checks.carousel_cover_alt), pages_checked: rs.length }; });
