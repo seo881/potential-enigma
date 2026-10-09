@@ -380,3 +380,12 @@ Phase 2 (DECISIONS 2026-10-08): one line per page, no question text. Per-questio
 - 2026-10-10 /ai-landing-page-builder/real-estate-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
 - 2026-10-10 /ai-landing-page-builder/product-landing-page [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
 - 2026-10-10 /ai-landing-page-builder/product-landing-page [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/campaign-landing-page [spec]: 10 questions; pass 2, reject 8, flag 0; rejects by rule: PA1 3, PA14 1, PA3 8; page: PA11 2 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build; PA12 1 items carrying a secondary, under 6
+- 2026-10-10 /ai-landing-page-builder/campaign-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/campaign-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/campaign-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/app-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/app-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/ppc-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/ppc-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/squeeze-page [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
