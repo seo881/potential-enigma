@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-09 23:16 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-09 23:34 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -56,6 +56,138 @@ Regenerated 2026-10-09 23:16 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-aab | /ai-automation-builder/invoice-automation | 0 | 10/10 | yes, wk-r-5 | yes | no | 0 | - | no | no | payload |
 | wk-rework-aab | /ai-automation-builder/purchase-order-automation | 0 | 10/10 | yes, wk-r-5 | yes | no | 0 | - | no | no | payload |
 | wk-rework-aab | /ai-automation-builder/social-media-automation | 0 | 10/10 | yes, wk-r-5 | yes | no | 0 | - | no | no | payload |
+| wk-rework-form | /ai-form-builder/accident-report-form | 12 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/accounting-client-intake-form | 7 | 6/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/ach-form | 10 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/address-verification-form | 11 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/advance-directive-form | 12 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/affidavit-form | 10 | 1/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/anesthesia-consent-form | 11 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/anonymous-feedback-form | 11 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/approval-form | 8 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/audition-form | 9 | 4/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/background-check-form | 7 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/botox-consent-form | 9 | 4/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/brand-questionnaire | 12 | 7/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/cake-order-form | 10 | 1/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/car-rental-form | 11 | 0/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/chemical-peel-consent-form | 12 | 1/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/church-membership-form | 13 | 1/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/class-registration-form | 10 | 4/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/cobra-election-form | 10 | 0/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/complaint-form | 11 | 5/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/conditional-logic-form | 8 | 5/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/consent-form | 9 | 4/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/contest-entry-form | 12 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/copyright-release-form | 11 | 1/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/credit-application-form | 9 | 4/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/credit-card-authorization-form | 11 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/custom-order-form | 8 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/daycare-registration-form | 7 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/dental-intake-form | 7 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/direct-deposit-form | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
+| wk-rework-form | /ai-form-builder/driver-application-form | 6 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/drug-test-consent-form | 8 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/emergency-contact-form | 9 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/employee-availability-form | 8 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/employee-evaluation-form | 12 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/employee-feedback-form | 11 | 1/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/employee-referral-form | 7 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/employment-verification-letter | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
+| wk-rework-form | /ai-form-builder/equipment-rental-agreement-form | 8 | 4/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/esthetician-intake-form | 8 | 1/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/event-planning-form | 8 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/expense-report-form | 8 | 4/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/expense-request-form | 16 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/field-trip-permission-slip | 8 | 0/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/file-upload-form | 9 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/fitness-assessment-form | 10 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/food-bank-application-form | 19 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/food-order-form | 8 | 4/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/grievance-form | 11 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/health-screening-form | 11 | 1/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/home-care-intake-form | 21 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/hotel-booking-form | 8 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/identity-verification-form | 11 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/incident-report-form | 17 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/independent-contractor-agreement | 10 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/insurance-verification-form | 10 | 6/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/intake-form | 11 | 6/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/interior-design-questionnaire | 8 | 4/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/interview-evaluation-form | 9 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/it-request-form | 9 | 5/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/lead-capture-form | 13 | 5/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/legal-intake-form | 12 | 5/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/liability-waiver-form | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
+| wk-rework-form | /ai-form-builder/life-coaching-intake-form | 7 | 7/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/maintenance-request-form | 13 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/medical-history-form | 9 | 4/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/membership-form | 11 | 1/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/mileage-reimbursement-form | 10 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/model-release-form | 8 | 6/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/multi-step-form | 13 | 4/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/nda-form | 8 | 4/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/new-employee-form | 7 | 5/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/order-form | 14 | 5/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/overtime-request-form | 13 | 1/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/parent-consent-form | 7 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/patient-intake-form | 9 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/payment-form | 15 | 5/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/payroll-change-form | 10 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/permanent-makeup-consent-form | 9 | 6/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/personal-injury-intake-form | 11 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/pet-adoption-form | 13 | 6/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/petition-form | 10 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/photo-release-form | 8 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/pre-order-form | 11 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/project-request-form | 16 | 5/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/proposal-form | 13 | 6/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/pt-intake-form | 5 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/purchase-order-form | 10 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/quote-form | 12 | 6/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/reasonable-accommodation-request-form | 10 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/reference-check-form | 7 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/referral-form | 10 | 7/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/refund-request-form | 13 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/rental-agreement-form | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
+| wk-rework-form | /ai-form-builder/rental-application-form | 9 | 4/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/rental-history-form | 11 | 1/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/requisition-form | 13 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/restaurant-reservation-form | 9 | 1/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/rfp-form | 10 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/rfq-form | 9 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/service-request-form | 12 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/shipping-address-form | 8 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/shipping-form | 8 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/sign-out-form | 14 | 4/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/sign-up-form | 9 | 6/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/silent-auction-form | 11 | 1/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/sponsorship-form | 10 | 4/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/student-registration-form | 10 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/sublease-form | 9 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/suggestion-form | 7 | 4/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/surgery-consent-form | 15 | 1/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/tattoo-consent-form | 10 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/telemedicine-consent-form | 11 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/tenant-screening-form | 9 | 1/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/testimonial-form | 8 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/therapy-intake-form | 8 | 1/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/time-off-request-form | 13 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/time-sheet-form | 8 | 1/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/tournament-registration-form | 9 | 4/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/training-feedback-form | 11 | 4/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/training-request-form | 11 | 1/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/travel-reimbursement-form | 8 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/travel-request-form | 11 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/vehicle-inspection-form | 9 | 0/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/vendor-application | 8 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/volunteer-form | 7 | 6/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/webinar-registration-form | 8 | 5/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/website-design-questionnaire | 10 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/wedding-photography-contract | 9 | 5/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/wedding-photography-questionnaire | 12 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/work-order-form | 10 | 1/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/workshop-registration-form | 9 | 3/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-lp | /ai-landing-page-builder/app-landing-page | 0 | 10/10 | yes, wk-r-2 | yes | no | 0 | - | no | no | payload |
 | wk-rework-lp | /ai-landing-page-builder/b2b-landing-page | 0 | 10/10 | yes, wk-r-3 | yes | no | 0 | - | no | no | payload |
 | wk-rework-lp | /ai-landing-page-builder/campaign-landing-page | 0 | 10/10 | yes, wk-r-4 | yes | no | 0 | - | no | no | payload |
@@ -70,13 +202,13 @@ Regenerated 2026-10-09 23:16 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-lp | /ai-landing-page-builder/splash-page | 0 | 10/10 | yes, wk-r-1 | yes | no | 0 | - | no | no | payload |
 | wk-rework-lp | /ai-landing-page-builder/squeeze-page | 0 | 10/10 | yes, wk-r-3 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/360-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
-| wk-rework-sqb | /ai-survey-and-quiz-builder/customer-effort-score | 0 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | check2 |
+| wk-rework-sqb | /ai-survey-and-quiz-builder/customer-effort-score | 0 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/customer-experience-survey | 0 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/customer-feedback-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/employee-benefits-survey | 6 | 6/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/employee-satisfaction-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/exit-survey | 0 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | payload |
-| wk-rework-sqb | /ai-survey-and-quiz-builder/onboarding-survey | 0 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | check2 |
+| wk-rework-sqb | /ai-survey-and-quiz-builder/onboarding-survey | 0 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/pulse-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
 
-Stages: check2 2, done 21, payload 23, stopped 9 (55 pages)
+Stages: autofix 128, check 4, done 21, payload 25, stopped 9 (187 pages)
