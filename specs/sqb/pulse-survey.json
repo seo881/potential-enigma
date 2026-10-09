@@ -138,6 +138,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-09 23:06 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-6",
+   "note": "rubric 10/10 by wk-r-6; 6 notes"
   }
  ],
  "plan": {
@@ -860,10 +867,180 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 22:38 UTC"
+  "date": "2026-10-09 23:01 UTC"
  },
  "writers": [
   "w-pulse-survey",
   "wk-w-pulse-survey"
+ ],
+ "review": {
+  "by": "wk-r-6",
+  "date": "2026-10-09 23:06 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Pulse Survey That Tracks the Trend Round by Round'; hero 'Build a pulse survey that runs on your schedule, charts every team's scores over time, and saves answers to a database you own.' covers the whole job; how-to description is one sentence under 140 characters."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition up top for the AI Overview, an example question (FAQ 3), template (FAQ 4), the College Pulse PAA (FAQ 5), cadence, anonymity, software, and four worked pulses against a top 10 of definitions and question lists."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Each team is charted against its own six-cycle average, not the company's'; 'a bank of 12 items, and each returns every 12 weeks'; QR code in the break room for staff without a work account."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Features open on verbs ('Locks the same core statements', 'Sends weekly', 'Hides any team'); tabs open on full sentences ('Every other Monday, 220 people in a product org answer six questions')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "'A single low round can be a bad week. Two in a row against the team's own average is a signal worth a conversation.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain and specific: 'whether a new on-call rotation is wearing a team down'; 'If a team needs two weeks to discuss results, a weekly round outruns it.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "College Pulse, the Qualtrics cadence/length point and Culture Amp group minimums match domain_sources; alerts, api-connect, no-caps, free-start and code-export are ledger claims; 4.0 - 3.4 = 0.6, Initech 8 to 5 = 3, Denver 48% under 60%."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Owns cadence and trend ('Read the line, not the dot'); engagement and customer-satisfaction siblings are linked, not used as headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions answered first ('Yes. College Pulse is an online survey and analytics company'), hub link in item 2, two sibling links, no brand or file format in a question; moat lines in items 4 and 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: Payments 3.4 vs 6-cycle avg 4.0 with a Slack message to its manager; Monday Slack question hidden until 5 answers; Denver 48% emailed to its lead; Initech 8 to 5 on M. Rossi's list. Cover matches tab 1."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq (item 1)",
+    "quote": "The US Census Bureau also runs a Household Pulse Survey, started in April 2020.",
+    "issue": "The Census page now describes the HPS in the past tense; in January 2025 it relaunched as part of the Household Trends and Outlook Pulse Survey. 'Runs' in the present tense is loose, not plainly false.",
+    "fix": "'The US Census Bureau ran a Household Pulse Survey from April 2020; it now continues inside its Household Trends and Outlook Pulse Survey.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "feature_6",
+    "quote": "including the questions, schedule logic, dashboards and response database",
+    "issue": "The approved claim is full code export; 'response database' can be read as the stored answers going to GitHub.",
+    "fix": "'including the questions, schedule logic, dashboards and the code behind the response table'.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq (item 7)",
+    "quote": "Pulse check is the name you hear most",
+    "issue": "Usage claim with a soft superlative and no named third party.",
+    "fix": "'Pulse check is a common name'.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_1; howto_step_2_des; faq (item 4); tab_content_1; feature_3; howto_step_6_des",
+    "quote": "Locks the same core statements into every cycle, word for word / Freeze their wording once the first round goes out / Changing it later breaks the trend line. -- against its own six-cycle average, not the company's / against its own average instead of the company's / Compare each team with its own past",
+    "issue": "Two ideas (frozen wording; each team against its own average) are each restated in three fields.",
+    "fix": "Keep each idea in one feature and one step.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image uc-1",
+    "quote": "Cycle 6 ... 4",
+    "issue": "One bar value is drawn as '4' while the others carry one decimal (4.2, 3.8, 3.4).",
+    "fix": "Draw it as 4.0.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "CONTENT_DEFECTS #3",
+    "field": "why_table",
+    "quote": "Culture Amp | Qualtrics EmployeeXM | SurveyMonkey",
+    "issue": "Culture Amp is outside this page's top 10 (QC K7); Lattice ranks with a pulse product page.",
+    "fix": "Coordinator: consider adding Lattice to the library.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq (item 1)",
+   "issue": "The Census page now describes the HPS in the past tense; in January 2025 it relaunched as part of the Household Trends and Outlook Pulse Survey. 'Runs' in the present tense is loose, not plainly false.",
+   "fix": "'The US Census Bureau ran a Household Pulse Survey from April 2020; it now continues inside its Household Trends and Outlook Pulse Survey.'",
+   "by": "wk-r-6",
+   "via": "review",
+   "date": "2026-10-09 23:06 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 6",
+   "field": "feature_6",
+   "issue": "The approved claim is full code export; 'response database' can be read as the stored answers going to GitHub.",
+   "fix": "'including the questions, schedule logic, dashboards and the code behind the response table'.",
+   "by": "wk-r-6",
+   "via": "review",
+   "date": "2026-10-09 23:06 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq (item 7)",
+   "issue": "Usage claim with a soft superlative and no named third party.",
+   "fix": "'Pulse check is a common name'.",
+   "by": "wk-r-6",
+   "via": "review",
+   "date": "2026-10-09 23:06 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_1; howto_step_2_des; faq (item 4); tab_content_1; feature_3; howto_step_6_des",
+   "issue": "Two ideas (frozen wording; each team against its own average) are each restated in three fields.",
+   "fix": "Keep each idea in one feature and one step.",
+   "by": "wk-r-6",
+   "via": "review",
+   "date": "2026-10-09 23:06 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image uc-1",
+   "issue": "One bar value is drawn as '4' while the others carry one decimal (4.2, 3.8, 3.4).",
+   "fix": "Draw it as 4.0.",
+   "by": "wk-r-6",
+   "via": "review",
+   "date": "2026-10-09 23:06 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "CONTENT_DEFECTS #3",
+   "field": "why_table",
+   "issue": "Culture Amp is outside this page's top 10 (QC K7); Lattice ranks with a pulse product page.",
+   "fix": "Coordinator: consider adding Lattice to the library.",
+   "by": "wk-r-6",
+   "via": "review",
+   "date": "2026-10-09 23:06 UTC"
+  }
  ]
 }
