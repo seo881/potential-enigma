@@ -138,6 +138,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-09 22:19 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-3",
+   "note": "rubric 10/10 by wk-r-3; 8 notes"
   }
  ],
  "table": {
@@ -770,10 +777,220 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 22:04 UTC"
+  "date": "2026-10-09 22:18 UTC"
  },
  "writers": [
   "w-product-landing-page",
   "wk-w-product-landing-page"
+ ],
+ "review": {
+  "by": "wk-r-3",
+  "date": "2026-10-09 22:19 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Product Landing Page That Takes Shoppers to Checkout'; hero 'Create a product landing page from one prompt, with a cart-ready Buy button and a record of the ad behind every click.' (118 chars, leads with Create, carries the primary); how-to description one sentence under 140 characters."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Gallery and example SERP with a landing-page-versus-product-page PAA: definition in FAQ 1, the difference answered in FAQ 3, four worked product pages (ad to cart, model picker, bundle builder, buyer reviews), gallery, template, design and free FAQs, seven-step how-to grounded in Google Ads, Shopify and Search docs; meta title promise 'With Examples' delivered by the tabs."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Ecommerce vocabulary: 'Shopify cart permalink with the variant and quantity already set', '/cart/variant_id:1', 'utm_campaign value', 'Product structured data', 'A $400 espresso machine needs its dimensions and warranty terms'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Full-sentence openers: 'Emergent links the Buy button to a Shopify cart permalink...', 'Halden Cookware's Facebook ad offers a 10-inch cast iron skillet...', 'Take the headline of the ad or email that will send visitors...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; varied sentence length ('Both report to one table.'). Craft notes below ship."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: 'Heel rubbed at first', 'spring-skillet-fb', 'Any question your support inbox hears twice a week deserves a line on the page.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to prompt-build, database-owned, api-connect, code-export ('on paid plans'), custom-domain ('paid for in credits'), free-start ('covers building and publishing'). Third-party facts sourced: Shopify cart permalinks, UTM parameters, Google Ads landing page experience, Product structured data, FTC 16 CFR 465.7 review suppression, Landingfolio. Numbers agree: 3 x $16 = $48, $48 - $42 = $6, 350 under 500 sq ft, 989/215 = 4.6."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Cart permalinks, room-size picker, coffee bundle and post-delivery reviews are single-product selling jobs; no app or product launch primary in a heading (app landing page appears only as an FAQ link)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, no brand or file-format asks, hub link in item 2, sibling links (app landing page, thank you page), answers lead with the answer; Emergent lines in items 5, 7 and 10."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: one hero per tab; '$68', 'Variant 10-inch', 'spring-skillet-fb'; '350', 'Up to 500 sq ft', '$229', 'Model M fits your room'; '3 bags for $42', '$48 bought one at a time, $6 saved', 'Pick any 3 of our 6 roasts'; 'Delivered 14 days ago', '2 stars', '5 stars', '4.6 from 215 reviews'. All match the tab copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "Keep the price in the first screen (howto_step_2_title); The product photo and its price belong in the first screen a phone shows (howto_step_2_des); The photo, the price, and the Buy button usually fit on the first phone screen (faq 1); the price is visible before any scrolling (faq 6); the price stays in the first screen next to the button (faq 8); gets a phone visitor to the price without scrolling (faq 9)",
+    "issue": "Price in the first screen is restated six times; headline-matches-the-ad also repeats across meta_description, tab_content_1, howto_step_1_des and faq 6.",
+    "fix": "Keep it in step 2; give FAQ 6, 8 and 9 another point each.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "tab_content_2",
+    "quote": "few shoppers can match a spec grid to their own living room (tab_content_2); usually fit on the first phone screen (faq 1); and shoppers judge it the same way (howto_step_1_des)",
+    "issue": "Generalizations about shoppers with no named third party and no source.",
+    "fix": "State the design choice directly ('Its page asks one question instead of showing a spec grid').",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_3_des",
+    "quote": "Before they commit, buyers look for dimensions and materials, then delivery time and the return window (howto_step_3_des); Reviews sit close to the Buy button, where a hesitant shopper looks last (faq 6); Photos and specs in the order buyers ask (feature_3)",
+    "issue": "Buyer-behaviour sequencing presented as fact with no source; works as advice.",
+    "fix": "Phrase as advice ('Put dimensions and materials first, then delivery and returns').",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_3",
+    "quote": "Emergent sets the photo first, then sizes and materials, then shipping, and returns.",
+    "issue": "The comma before 'and returns' splits a pair and reads as a stray list.",
+    "fix": "'...then shipping and returns.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "Think of a cast iron skillet sold from one ad, or a coffee subscription with one plan. (faq 4)",
+    "issue": "The examples answer gives two generic product types rather than examples a reader can look at; it answers, but thinly.",
+    "fix": "On a future pass, point to the four tabs or describe one example page in detail.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief",
+    "quote": "Ridgeline / Morning Field / Low Tide tiles drawn as dark video thumbnails with play buttons (tab 3); 'Campaign spring-skillet-fb' inside the 'In the Shopify cart' card (tab 1); 'Review published as written' plus 'Shown as written' (tab 4 hero)",
+    "issue": "Coffee bags render as videos; the campaign value sits in the Shopify cart card although the copy says it is logged with the click; tab 4 hero says 'as written' twice.",
+    "fix": "Use a product tile without play icons; label the campaign row as saved to the click table; drop 'Shown as written'.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "QC Q9: 'cart' 18 times, 'button' 12 times, 'price' 12 times outside the FAQ",
+    "issue": "Heavy repetition of the same nouns.",
+    "fix": "Vary where the meaning holds ('checkout', 'order').",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "<th scope=\"col\">Wix</th>",
+    "issue": "QC K7: Wix does not rank in this page's top 10 (Canva does); the rule asks for competitors that rank for the query.",
+    "fix": "Prefer a ranking tool from the library when one fits.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "Price in the first screen is restated six times; headline-matches-the-ad also repeats across meta_description, tab_content_1, howto_step_1_des and faq 6.",
+   "fix": "Keep it in step 2; give FAQ 6, 8 and 9 another point each.",
+   "by": "wk-r-3",
+   "via": "review",
+   "date": "2026-10-09 22:19 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "tab_content_2",
+   "issue": "Generalizations about shoppers with no named third party and no source.",
+   "fix": "State the design choice directly ('Its page asks one question instead of showing a spec grid').",
+   "by": "wk-r-3",
+   "via": "review",
+   "date": "2026-10-09 22:19 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_3_des",
+   "issue": "Buyer-behaviour sequencing presented as fact with no source; works as advice.",
+   "fix": "Phrase as advice ('Put dimensions and materials first, then delivery and returns').",
+   "by": "wk-r-3",
+   "via": "review",
+   "date": "2026-10-09 22:19 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_3",
+   "issue": "The comma before 'and returns' splits a pair and reads as a stray list.",
+   "fix": "'...then shipping and returns.'",
+   "by": "wk-r-3",
+   "via": "review",
+   "date": "2026-10-09 22:19 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "The examples answer gives two generic product types rather than examples a reader can look at; it answers, but thinly.",
+   "fix": "On a future pass, point to the four tabs or describe one example page in detail.",
+   "by": "wk-r-3",
+   "via": "review",
+   "date": "2026-10-09 22:19 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief",
+   "issue": "Coffee bags render as videos; the campaign value sits in the Shopify cart card although the copy says it is logged with the click; tab 4 hero says 'as written' twice.",
+   "fix": "Use a product tile without play icons; label the campaign row as saved to the click table; drop 'Shown as written'.",
+   "by": "wk-r-3",
+   "via": "review",
+   "date": "2026-10-09 22:19 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "Heavy repetition of the same nouns.",
+   "fix": "Vary where the meaning holds ('checkout', 'order').",
+   "by": "wk-r-3",
+   "via": "review",
+   "date": "2026-10-09 22:19 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: Wix does not rank in this page's top 10 (Canva does); the rule asks for competitors that rank for the query.",
+   "fix": "Prefer a ranking tool from the library when one fits.",
+   "by": "wk-r-3",
+   "via": "review",
+   "date": "2026-10-09 22:19 UTC"
+  }
  ]
 }
