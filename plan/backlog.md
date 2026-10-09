@@ -35,3 +35,10 @@ Format: date, source (Divit, reviewer, QC, orchestrator), the item, pages it tou
 - 2026-10-09, orchestrator: the reference page /ai-app-builder/vedic-astrology shows no black selected-chip state (its is-active renders like the default chip; hover is light grey). hubchip--on uses the hero submit arrow's black (#000, white text) as asked; confirm the look on staging.
 - MONDAY: Learn list fix: Form, LP and AAB child templates render "No items found" (limit 3, source Learn, no filters, same as SQB which renders); section_blog-related hidden on those 3 for launch (logs/templates.md).
 - 2026-10-09 (Divit): add FAQ moat lines to the 20 live pages at next rework (QC F9 applies from batch 2; live pages exempt until then).
+
+## Found in the first live audit (2026-10-09, orchestrator)
+- QC H3 serial-comma detector files real misses as "ambiguous" (P2): verb series, noun phrases with modifiers or relative clauses, 4-item lists. Golden cases h3-gap-* (open). Then sweep the 20 live pages; confirmed leftovers include event-landing-page faq#1, faq#7, meta_description, howto_step_3_title/des; booking-form faq#2, faq#3; client-onboarding-questionnaire faq#1, faq#2, faq#8; t-shirt-order-form howto_step_1_des, howto_step_5_des, faq; 404-page features_subheading, tab_content_4.
+- live-fix verify compares image fields by fileId only when the spec has file_id: after a re-render, write the new fileId/cdn_url to the spec in the same step (ecommerce-automation tab_image_4 was set by hand).
+- live-fix verify runs must be sequential (each rewrites findings.json); add a lock file.
+- Mockup prompts (awb---mockup-data) are not rendered: Layer B findings on them are P2 until the carousel is back (MONDAY).
+- Template (Divit's go): FAQ heading always renders "Your Questions, Answered" instead of the item's heading; JSON-LD description is HTML-escaped (&#39;); comparison tables clip at 390 px; an empty zero-width paragraph after feature 1 (A5-empty-p, 24 P2).
