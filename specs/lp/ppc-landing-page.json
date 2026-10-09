@@ -138,6 +138,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-09 22:13 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "wk-r-2",
+   "note": "[truth | HUB_RULES 8] feature_3: {keyword} inserts the account keyword that matched the query, not the search term the visitor typed (Google Ads ValueTrack reference: 'the keyword from your account that matches the search query'; the page's own domain_sources claim says 'the keyword that triggered t"
   }
  ],
  "plan": {
@@ -716,10 +723,170 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 21:56 UTC"
+  "date": "2026-10-09 22:11 UTC"
  },
  "writers": [
   "w-ppc-landing-page",
   "wk-w-ppc-landing-page"
+ ],
+ "review": {
+  "by": "wk-r-2",
+  "date": "2026-10-09 22:13 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a PPC Landing Page for Every Ad Group'; hero 'Build a PPC landing page that greets each ad group with its own headline and records which keyword sent every lead.' (115 chars); how-to description one sentence under 140 characters."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Best-practice SERP: seven-step how-to (ad group pages, message match, one exit, price match, {keyword} in the final URL, device testing, conversions), landing page experience and Quality Score explained in FAQ 3 and 9, four paid search setups as the promised examples."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Ad manager vocabulary: 'final URL suffix', 'ValueTrack parameter', 'Quality Score', 'cost per conversion', 'Shopping ad'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Full-sentence openers: 'Each visit arrives with a value in the ad's final URL...', 'Northgate Plumbing bids on four services in Denver...', 'Group keywords by what the searcher wants...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; short declaratives ('A page with cheap clicks and no conversions is the expensive one.')."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator voice with concrete detail ('Rewrite the headline before you raise the bid.'). Word repetition logged as a note."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "feature_3: 'The search term behind every click reaches the page through the {keyword} parameter in Google Ads.' Google's ValueTrack reference defines {keyword} as 'the keyword from your account that matches the search query', not the search term; the page's own source claim says the same. Repeated in hero_prompt, mockup and the tab 1 image. Other Google Ads facts (landing page experience ratings, Quality Score components, mobile and speed guidance) match their sources."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Search ad groups, call ads, Shopping ads and headline tests are paid-search specific; no sibling primary (campaign landing page, facebook ads landing page, landing page seo) appears as a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, no brand or file-format asks, hub link in item 2, sibling links (webinar landing page, thank you page), answers lead with the answer; F9 lines in items 5 and 8."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: Northgate 'service=water-heater', 'Water heater repair, same day', '4 ad groups'; Larkspur 'Office closed after 6 PM', 'Callbacks at 8 AM'; Halden Outdoor $249, 'Out of stock', 'DM to Jonas Berg'; Ledgerline 1,000 visits each, B 61 vs A 38. The 'Search term attached' label is part of the truth finding."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "feature_3",
+    "quote": "The search term behind every click reaches the page through the {keyword} parameter in Google Ads.",
+    "issue": "{keyword} inserts the account keyword that matched the query, not the search term the visitor typed (Google Ads ValueTrack reference: 'the keyword from your account that matches the search query'; the page's own domain_sources claim says 'the keyword that triggered the ad'). Every instance of the class: feature_3 H3 'The search term stored on each lead'; feature_3 body (quoted); hero_prompt 'saves every lead with the search term'; mockup searchAdGroups 'Save every lead with its ad group and the search term.'; tab 1 image mini card 'Search term attached'. Related overstatement in tab_content_1 H3 'The headline repeats what the searcher typed' (the page reads a service value set per ad group, not the typed query).",
+    "fix": "Say keyword, not search term, everywhere: feature_3 H3 'The matched keyword stored on each lead' and body 'The keyword that matched each click reaches the page through the {keyword} parameter in Google Ads...'; hero_prompt and mockup 'with the keyword'; image mini sub 'Keyword attached'; tab 1 H3 along the lines of 'The headline matches the ad group behind the click'. Then re-render.",
+    "severity": "blocking"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_4",
+    "quote": "Ask Emergent to drop the site menu and footer links (feature_4); Drop the site menu and any second offer (howto_step_3_des); with no navigation leading elsewhere (faq 1); with nothing else competing for the click (faq 4); quotes the price the ad quoted (faq 4) / the page says the same thing above the fold (howto_step_4_des)",
+    "issue": "The single-exit idea and the price-match idea are each restated across several fields.",
+    "fix": "Keep each idea in its how-to step and let the FAQ answers add something new.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "Rewriting the headline to match the keyword is the usual first fix.",
+    "issue": "Soft quantifier about no named third party.",
+    "fix": "Make it a direct instruction: 'Start by rewriting the headline to match the keyword.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Guides written for the older AdWords landing page give the same advice.",
+    "issue": "A loose claim about unnamed older guides; the AdWords source covers only the rename, not what old guides said.",
+    "fix": "Say plainly that AdWords is the former name of Google Ads, which the source supports.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "tab_content_4",
+    "quote": "Moving all traffic to the winner is a message to Emergent.",
+    "issue": "The tab 4 image draws a #growth channel post with a 'Send all visitors to B' button, a step the copy never mentions; outcome and numbers agree.",
+    "fix": "Either mention the channel post in the copy or draw the switch as a message to Emergent.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "QC Q9: 'group' 13 times, 'headline' 12 times, 'search' 10 times outside the FAQ",
+    "issue": "Heavy repetition of the same nouns.",
+    "fix": "Vary where the meaning holds.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_4",
+   "issue": "The single-exit idea and the price-match idea are each restated across several fields.",
+   "fix": "Keep each idea in its how-to step and let the FAQ answers add something new.",
+   "by": "wk-r-2",
+   "via": "review",
+   "date": "2026-10-09 22:13 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Soft quantifier about no named third party.",
+   "fix": "Make it a direct instruction: 'Start by rewriting the headline to match the keyword.'",
+   "by": "wk-r-2",
+   "via": "review",
+   "date": "2026-10-09 22:13 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "A loose claim about unnamed older guides; the AdWords source covers only the rename, not what old guides said.",
+   "fix": "Say plainly that AdWords is the former name of Google Ads, which the source supports.",
+   "by": "wk-r-2",
+   "via": "review",
+   "date": "2026-10-09 22:13 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "tab_content_4",
+   "issue": "The tab 4 image draws a #growth channel post with a 'Send all visitors to B' button, a step the copy never mentions; outcome and numbers agree.",
+   "fix": "Either mention the channel post in the copy or draw the switch as a message to Emergent.",
+   "by": "wk-r-2",
+   "via": "review",
+   "date": "2026-10-09 22:13 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "Heavy repetition of the same nouns.",
+   "fix": "Vary where the meaning holds.",
+   "by": "wk-r-2",
+   "via": "review",
+   "date": "2026-10-09 22:13 UTC"
+  }
  ]
 }
