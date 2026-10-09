@@ -269,3 +269,24 @@ def check_links(urls):
             r = link_status(u); r["checked"] = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d"); c[u] = r
         os.makedirs(os.path.dirname(LINKS), exist_ok=True); json.dump(c, open(LINKS, "w"), indent=1)
     return {u: c[u] for u in urls}
+
+# ---------- session locks for unattended jobs (live audit, ops/schedule/live_audit_daily.sh)
+def locks_held():
+    """Names of .locks/*.lock currently held by another process (non-blocking test; a lock is never taken here)."""
+    import fcntl
+    held = []
+    for p in sorted(glob.glob(os.path.join(ROOT, ".locks", "*.lock"))):
+        with open(p, "a") as fh:
+            try: fcntl.flock(fh, fcntl.LOCK_EX | fcntl.LOCK_NB); fcntl.flock(fh, fcntl.LOCK_UN)
+            except OSError: held.append(os.path.basename(p)[:-5])
+    return held
+
+if __name__ == "__main__":
+    import sys, subprocess
+    a = sys.argv[1:]
+    if a[:1] == ["held"]:                         # exit 1 and list them when any lock is held
+        h = locks_held(); print(" ".join(h) or "none"); sys.exit(1 if h else 0)
+    if a[:1] == ["run-locked"]:                   # run-locked NAME -- CMD...: hold .locks/NAME.lock while CMD runs
+        name, cmd = a[1], a[a.index("--") + 1:]
+        with lock(name): sys.exit(subprocess.call(cmd))
+    print("usage: guards.py held | run-locked NAME -- CMD ..."); sys.exit(2)

@@ -34,6 +34,8 @@
   sources-check URL|--all            link-check every spec.domain_sources URL (cached for QC P3)
   usage-log URL TOKENS --role R     record an agent's token usage for a page (metrics reports tokens per page)
   metrics | sample [STATE] | links HUB | links --relink | lookahead HUB [N] | serp-budget | ranks-save URL RAW | ranks-report | recheck [--states a,b] | image-regress | verify-live URL [--html F]
+  live-audit [--since-publish|--all|--urls U,U|--set launch] [--base URL] [--dry] | live-audit record|drift|plan|report DATE ...
+  live-fix apply|brief|prepare|verify ISSUE ... | live-rollback ISSUE [--done RESPONSE]   (docs/LIVE_AUDIT.md; ops/live_audit.py)
   publish-payload HUB               publish_collection_items actions (100 per call) for every verified cms_draft page (only after Divit's go)
   log HUB TEXT                      append a dated line to logs/<hub>.md
   ship BATCH [--payload SHA] | ship-done BATCH URL writer|review|rework --by ID [--fail TEXT] | ship-cms BATCH READBACK | ship-qc URL | ship-cost BATCH | readiness
@@ -790,7 +792,10 @@ CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cm
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "release": cmd_release, "paa": cmd_paa, "paa-resource": cmd_paa_resource, "paa-synonyms": cmd_paa_synonyms, "publish-payload": cmd_publish_payload, "log": cmd_log,
         "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
-        "recheck": cmd_recheck, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live}
+        "recheck": cmd_recheck, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live,
+        "live-audit": lambda a: _live().main(a), "live-fix": lambda a: _live().fix_main(a), "live-rollback": lambda a: _live().cmd_rollback(a)}
+def _live():
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import live_audit; return live_audit
 def _ship(name):
     def run(args):
         sys.path.insert(0, os.path.join(ROOT, "ops")); import ship

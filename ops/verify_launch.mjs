@@ -5,7 +5,8 @@
 // --base defaults to https://emergent.sh. Content links are written as https://emergent.sh/...; on staging they are checked on --base.
 // Per page: HTTP 200; H1, <title>, meta description, canonical (always the emergent.sh URL), og:image (resolves; a .webp URL serving
 // image/webp, exactly 1200x630, at most 300 KB); FAQ rendered with
-// all 10 questions and no placeholder; hero prompt prefilled and chips switching it (page scripts run in jsdom); first use-case tab
+// all 10 questions and no placeholder; hero prompt prefilled and chips switching it, still switched 1.2 s later (the older chip script
+// does not fight T1; page scripts run in jsdom); first use-case tab
 // active on load (T10); 4 use-case images load; comparison table present; Learn section not showing "No items found"; hub link
 // present; no link to a child page that is not live; carousel cover images (section_build) have a non-empty alt (T5).
 // Per hub: the carousel links to every launched page of that hub, and those cards' cover images have a non-empty alt (T5).
@@ -13,19 +14,21 @@ import fs from "node:fs";
 import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
 const { JSDOM, VirtualConsole } = require("jsdom");
-const argv = process.argv.slice(2), bi = argv.indexOf("--base");
-const BASE = (bi >= 0 ? argv.splice(bi, 2)[1] : "https://emergent.sh").replace(/\/$/, "");
-const CANON = "https://emergent.sh", STAGING = BASE !== CANON;
-const man = JSON.parse(fs.readFileSync(argv[0] || "ops/out/launch/manifest.json", "utf8"));
-const norm = (s) => (s || "").replace(/\s+/g, " ").trim();
-const status = async (u, method = "HEAD") => { try { const r = await fetch(u, { method, redirect: "follow" }); return r.status; } catch { return 0; } };
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+// Also a module: ops/live_audit.mjs imports checkPage / checkHub (Layer A reuses these checks).
+import { fileURLToPath } from "node:url";
+const MAIN = process.argv[1] && fileURLToPath(import.meta.url) === (await import("node:path")).resolve(process.argv[1]);
+let BASE = "https://emergent.sh";
+const CANON = "https://emergent.sh";
+export const setBase = (b) => { BASE = b.replace(/\/$/, ""); };
+export const norm = (s) => (s || "").replace(/\s+/g, " ").trim();
+export const status = async (u, method = "HEAD") => { try { const r = await fetch(u, { method, redirect: "follow" }); return r.status; } catch { return 0; } };
+export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const PLACEHOLDER = /lorem ipsum|placeholder|question goes here|answer goes here|add your faq/i;
 // a link on either host -> its path on this site ("" when it points elsewhere)
-const pathOf = (href) => { try { const u = new URL(href); return [new URL(BASE).host, new URL(CANON).host].includes(u.host) ? u.pathname.replace(/\/$/, "") : ""; } catch { return ""; } };
-const altOk = (img) => norm(img.getAttribute("alt")).length > 0;
+export const pathOf = (href) => { try { const u = new URL(href); return [new URL(BASE).host, new URL(CANON).host].includes(u.host) ? u.pathname.replace(/\/$/, "") : ""; } catch { return ""; } };
+export const altOk = (img) => norm(img.getAttribute("alt")).length > 0;
 // WebP dimensions from the RIFF header (VP8, VP8L or VP8X chunk)
-const webpSize = (b) => {
+export const webpSize = (b) => {
   if (b.length < 30 || b.toString("ascii", 0, 4) !== "RIFF" || b.toString("ascii", 8, 12) !== "WEBP") return null;
   const c = b.toString("ascii", 12, 16);
   if (c === "VP8 ") return [b.readUInt16LE(26) & 0x3fff, b.readUInt16LE(28) & 0x3fff];
@@ -34,7 +37,7 @@ const webpSize = (b) => {
   return null;
 };
 // share image (DECISIONS 2026-10-09): WebP, 200 with content-type image/webp, exactly 1200x630, at most 300 KB
-async function ogWebp(u) {
+export async function ogWebp(u) {
   const o = { url: u };
   try {
     const r = await fetch(u, { redirect: "follow" }); const b = Buffer.from(await r.arrayBuffer());
@@ -46,12 +49,13 @@ async function ogWebp(u) {
 }
 const coverImgs = (root) => [...root.querySelectorAll("img")].filter((i) => /cover/.test(i.className));
 
-async function page(p) {
+// One page. opts.keepDom: return the live jsdom window as out.dom (caller closes it).
+export async function checkPage(p, opts = {}) {
   const url = BASE + p.url, out = { url: p.url, checks: {} }, c = out.checks;
   const res = await fetch(url, { redirect: "follow" }).catch(() => null);
   c.http200 = !!res && res.status === 200;
   if (!c.http200) return out;
-  const html = await res.text();
+  const html = await res.text(); out.html = html;
   const vc = new VirtualConsole();   // page script errors are not our failures; checked by outcome below
   const dom = new JSDOM(html, { url, runScripts: "dangerously", resources: "usable", pretendToBeVisual: true, virtualConsole: vc });
   await new Promise((r) => dom.window.addEventListener("load", r)); await sleep(2500);
@@ -68,8 +72,11 @@ async function page(p) {
   const box = $("#hero-prompt-form textarea");
   c.hero_prefilled = !!box && norm(box.value) === norm(p.default_prompt);
   const chip = $('#hero-prompt-form [data-filter="2"]');
-  if (chip && p.chips[1]) { chip.dispatchEvent(new dom.window.MouseEvent("click", { bubbles: true })); await sleep(50); c.chip_switches = norm(box?.value) === norm(p.chips[1]); }
-  else c.chip_switches = false;
+  if (chip && p.chips[1]) {
+    chip.dispatchEvent(new dom.window.MouseEvent("click", { bubbles: true })); await sleep(50); c.chip_switches = norm(box?.value) === norm(p.chips[1]);
+    await sleep(1200); c.chip_stable = norm(box?.value) === norm(p.chips[1]);   // T1: the older chip script does not overwrite it afterwards
+    out.chip_after = norm(box?.value).slice(0, 80);
+  } else { c.chip_switches = false; c.chip_stable = false; }
   // T10: the use-case tab whose label is tab_label_1 is the current tab, and its pane is the active one
   const links = $$(".w-tab-link"), first = links.find((a) => norm(a.textContent) === norm(p.tab_labels?.[0]));
   const pane = first && $$(".w-tab-pane").find((x) => x.getAttribute("data-w-tab") === first.getAttribute("data-w-tab"));
@@ -88,21 +95,15 @@ async function page(p) {
   const build = $(".section_build"), covers = build ? coverImgs(build) : [];
   c.carousel_cover_alt = covers.length > 0 && covers.every(altOk);
   if (!c.carousel_cover_alt) out.cover_alt = build ? `${covers.filter((i) => !altOk(i)).length} of ${covers.length} cover images without alt` : "no .section_build on the page";
-  dom.window.close();
+  if (opts.keepDom) out.dom = dom; else dom.window.close();
   return out;
 }
 
-const results = [];
-for (const p of man.pages) { const r = await page(p); results.push(r); const bad = Object.entries(r.checks).filter(([, v]) => !v).map(([k]) => k); console.log(`${bad.length ? "FAIL" : "PASS"} ${p.url}${bad.length ? "  " + bad.join(", ") : ""}${r.cover_alt ? "  (" + r.cover_alt + ")" : ""}${r.og && !r.og.ok ? "  (og: " + [r.og.status, r.og.type, r.og.size && r.og.size.join("x"), r.og.bytes + " B"].join(", ") + ")" : ""}`); }
-// one line per child template (the carousel is template markup, so every page of a hub shows the same result)
-const templates = man.hubs.map((hub) => { const rs = results.filter((r) => man.pages.find((p) => p.url === r.url).hub === hub && r.checks.http200);
-  return { hub, template_cover_alt: rs.length > 0 && rs.every((r) => r.checks.carousel_cover_alt), pages_checked: rs.length }; });
-for (const t of templates) console.log(`${t.template_cover_alt ? "PASS" : "FAIL"} template cards ${t.hub}: cover alt (${t.pages_checked} pages)`);
-const hubs = [];
-for (const hub of man.hubs) {
+// One hub page: its carousel links to every given page and those cards' covers have alt text.
+export async function checkHub(hub, mine) {
   const res = await fetch(BASE + hub).catch(() => null), html = res && res.ok ? await res.text() : "";
   const d = new JSDOM(html, { url: BASE + hub }).window.document;
-  const anchors = [...d.querySelectorAll("a")], mine = man.pages.filter((p) => p.hub === hub);
+  const anchors = [...d.querySelectorAll("a")];
   const missing = mine.filter((p) => !anchors.some((a) => pathOf(a.href) === p.url)).map((p) => p.url);
   const noAlt = [];
   for (const p of mine) for (const a of anchors.filter((a) => pathOf(a.href) === p.url)) {
@@ -110,12 +111,29 @@ for (const hub of man.hubs) {
     const im = card ? [...card.querySelectorAll("img")] : [], cov = im.filter((i) => /cover/.test(i.className));
     if (!(cov.length ? cov : im).every(altOk) || !im.length) noAlt.push(p.url);
   }
-  const h = { hub, http200: !!res && res.status === 200, carousel_has_all_new_cards: missing.length === 0, missing, hub_card_cover_alt: noAlt.length === 0, cover_alt_missing: [...new Set(noAlt)] };
+  return { hub, http200: !!res && res.status === 200, carousel_has_all_new_cards: missing.length === 0, missing, hub_card_cover_alt: noAlt.length === 0, cover_alt_missing: [...new Set(noAlt)] };
+}
+
+if (MAIN) {
+const argv = process.argv.slice(2), bi = argv.indexOf("--base");
+if (bi >= 0) setBase(argv.splice(bi, 2)[1]);
+const STAGING = BASE !== CANON;
+const man = JSON.parse(fs.readFileSync(argv[0] || "ops/out/launch/manifest.json", "utf8"));
+const results = [];
+for (const p of man.pages) { const r = await checkPage(p); delete r.html; results.push(r); const bad = Object.entries(r.checks).filter(([, v]) => !v).map(([k]) => k); console.log(`${bad.length ? "FAIL" : "PASS"} ${p.url}${bad.length ? "  " + bad.join(", ") : ""}${r.cover_alt ? "  (" + r.cover_alt + ")" : ""}${r.og && !r.og.ok ? "  (og: " + [r.og.status, r.og.type, r.og.size && r.og.size.join("x"), r.og.bytes + " B"].join(", ") + ")" : ""}`); }
+// one line per child template (the carousel is template markup, so every page of a hub shows the same result)
+const templates = man.hubs.map((hub) => { const rs = results.filter((r) => man.pages.find((p) => p.url === r.url).hub === hub && r.checks.http200);
+  return { hub, template_cover_alt: rs.length > 0 && rs.every((r) => r.checks.carousel_cover_alt), pages_checked: rs.length }; });
+for (const t of templates) console.log(`${t.template_cover_alt ? "PASS" : "FAIL"} template cards ${t.hub}: cover alt (${t.pages_checked} pages)`);
+const hubs = [];
+for (const hub of man.hubs) {
+  const h = await checkHub(hub, man.pages.filter((p) => p.hub === hub));
   hubs.push(h);
   const bad = ["http200", "carousel_has_all_new_cards", "hub_card_cover_alt"].filter((k) => !h[k]);
-  console.log(`${bad.length ? "FAIL" : "PASS"} hub ${hub}${bad.length ? "  " + bad.join(", ") : ""}${missing.length ? "  missing cards: " + missing.join(", ") : ""}${h.cover_alt_missing.length ? "  no cover alt: " + h.cover_alt_missing.join(", ") : ""}`);
+  console.log(`${bad.length ? "FAIL" : "PASS"} hub ${hub}${bad.length ? "  " + bad.join(", ") : ""}${h.missing.length ? "  missing cards: " + h.missing.join(", ") : ""}${h.cover_alt_missing.length ? "  no cover alt: " + h.cover_alt_missing.join(", ") : ""}`);
 }
 fs.writeFileSync(`ops/out/launch/verify-live${STAGING ? "-staging" : ""}.json`, JSON.stringify({ date: new Date().toISOString(), base: BASE, results, templates, hubs }, null, 1));
 const fails = results.filter((r) => Object.values(r.checks).some((v) => !v)).length + templates.filter((t) => !t.template_cover_alt).length
   + hubs.filter((h) => !h.http200 || !h.carousel_has_all_new_cards || !h.hub_card_cover_alt).length;
 console.log(`${BASE}: ${results.length} pages, ${templates.length} templates, ${hubs.length} hubs, ${fails} failing`); process.exit(fails ? 1 : 0);
+}

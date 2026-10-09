@@ -47,3 +47,12 @@ Decided by Divit 2026-10-09 (DECISIONS). Divit spot-checks 2-3 URLs; this system
 ## Limits
 - At most 10 field changes per page per run; more means the page needs a rework batch, so it is proposed instead.
 - A fix that would change the primary keyword, the page's intent or a claim not in the claims ledger is proposed, not made.
+
+## Implementation (2026-10-09)
+- Layer A: `ops/live_audit.mjs` (browser half: reuses `ops/verify_launch.mjs` checks, Playwright 1.48.2 render, screenshots, link and image status) and `ops/live_audit.py` (findings, severity, drift, fix plan, ledger, report). Settings: `rules/live_audit.json`.
+- Commands: `hubctl live-audit [--since-publish | --all | --urls U,U | --set launch] [--base URL] [--dry] [--external] [--no-shots]`; `hubctl live-audit record|drift|plan|report DATE ...`; `hubctl live-fix apply|brief|prepare|verify ISSUE ...`; `hubctl live-rollback ISSUE [--done RESPONSE]`.
+- Webflow is reached only through the MCP: the orchestrating session (or the scheduled headless run) sends the payloads in `ops/out/live/` (update, item publish, read back) and feeds the responses back to `live-fix verify`.
+- Drift: a field not rendered as approved is classified with a CMS read (`live-audit drift`): CMS differs from the spec while the spec equals our last write = drift (reported only).
+- Layer B state: `audits/live/state.json` (content hash at the last full read); briefs in `.cache/live/DATE/layerB-N.md`.
+- Golden cases: `tests/golden/cases.jsonl`, runner `tests/golden/run.py` (open = known miss, guarded = must stay caught).
+- Schedule: RUNBOOK section 7. Backup Action: `ops/github/live-audit.yml`.
