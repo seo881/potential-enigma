@@ -3,6 +3,10 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-09
+- **Launch set = 20 (Divit, 2026-10-09): contact-form held.** Its FAQ has two drift questions ("What is a contact form owner?", "What does 'form of contact' mean?") and three Contact Form 7 (WordPress plugin) questions. Its CMS item 6ac8a2bff143d8ebe327735f stays a draft; rework it in a later batch.
+- **PA13 fixes before publish (Divit, 2026-10-09):** employee-information-form Q4 (ADP fill-out question) replaced; employee-engagement-survey Q5 replaced (near-duplicate of Q4); t-shirt-order-form question display text normalised to "T-shirt" (original wording kept in provenance); feedback-form Q1 reads "What is a feedback form?".
+- **Template launch steps (Divit, 2026-10-09):** T3 and T11 verified already done; T6 done (carousel visible on all 4 child templates, staged); T5 (cover alt) and T10 (default tab) are verified on staging, with a standing go to bind cover altText to the item Name field if staging shows it empty; T12 (Audits panel) is non-blocking, run after launch. Nothing for Divit in the Designer before publish.
+- **Publish order (Divit, 2026-10-09):** staging (webflow.io) first, verify_launch must pass, then emergent.sh.
 - **F4 retired: superseded by the PAA gate; conflicting rules, allowed under the freeze (Divit).** QC F4 (answer the first 10 eligible DataForSEO PAA questions) conflicted with the approved PAA gate PA1-PA13 on 6 batch-1 pages; its code stays in `qc/qc_hub.py`, disabled (`F4_RETIRED`), and it no longer counts toward the QC TOTAL.
 - **Launch today = 21 pages (Divit):** the 15 batch-1 pages already reviewed plus the 6 that F4 held (ecommerce-automation, contact-form, 404-page, pricing-page, employee-engagement-survey, booking-form). Held and untouched: consultation-form, checkout-form, conference-registration-form, summer-camp-registration-form and the 4 originals (they stay drafts); links to them ship as plain text. Batches 2 and 3 wait.
 

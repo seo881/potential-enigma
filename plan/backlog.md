@@ -14,3 +14,9 @@ Format: date, source (Divit, reviewer, QC, orchestrator), the item, pages it tou
 - 2026-10-09, writers (batch 1): QC F4 still requires DataForSEO PAA questions that the approved PAA gate (PA1-PA13) rejects; the only exit is a reasoned per-page skip in rules/paa_blocklist.json, which needs Divit (auto mode refused it as a gate bypass). Pages: ecommerce-automation, contact-form, 404-page, pricing-page, employee-engagement-survey, booking-form. Proposed: F4 honours gate rejects, or Divit approves the skips page by page.
 - 2026-10-09, writer launch-w-booking-form: QC F2 has no source type for AlsoAsked-only questions (paa requires the DataForSEO capture), so a gate-passing AlsoAsked replacement cannot be recorded validly; writers recorded them as secondary or keyword with provenance. Proposed: F2 accepts source "alsoasked" with prov.
 - 2026-10-09, writers (batch 1): no allowed replacement source left on consultation-form, checkout-form, conference-registration-form, summer-camp-registration-form (AlsoAsked pulls thin or empty, every secondary already carried). Proposed: per-page PA3 synonyms, keyword-idea sources, or second pulls (Divit).
+
+## Found in Divit's PA13 read (2026-10-09)
+- PA9 missed a near-duplicate pair on employee-engagement-survey (Q4 "good questions for an employee engagement survey" vs Q5 "best questions to ask in an employee survey"): same-intent test is too lexical.
+- PA8 did not cap Contact Form 7 (a WordPress plugin brand); add plugin and product names to the brand list.
+- Question display text: normalise keyword spellings ("tshirt", "t shirt") to the house form ("T-shirt") while keeping the original in provenance.
+- PA4/PA6: "What is a contact form owner?" and "What does 'form of contact' mean?" passed; dictionary-sense and ownership questions are drift.

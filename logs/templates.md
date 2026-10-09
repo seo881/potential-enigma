@@ -20,3 +20,9 @@ Each line: edit, template, element, before, after, rollback.
 - 2026-10-08 T9 SQB: form ba847d5e-85b3-fe51-eadf-ad4eebacf5e2 "Email Form" -> "Hero Prompt Form"; textarea ba847d5e-85b3-fe51-eadf-ad4eebacf5e3 "Field" -> "prompt" (read back). Rollback: names back.
 
 Notes: T1 needs window.awbPrompt in each item's prompt field; the payload builder adds it from spec.fields.hero_prompt and spec.chip_prompts (ops/hubctl.py export_fields). Without it the T1 script does nothing and the template's older chip script still runs (box stays empty: its awbMockup data has no default/s1..s4 keys). T1 normalises the existing is-active class (the older script toggles it per chip) and sets aria-pressed; no new class. T9: the other email-form/field IDs sit inside components (Signup Modal and others) and were not touched.
+
+- 2026-10-09 T6 (advisor chat, agent opus-5.5|claude-ai|dv9k2, Divit's go): set_visibility true on section_build, read back true.
+  Form 24cd8ebc-23b4-d766-1f9f-0d648fc0667c; LP d8a90b8f-142b-5c77-eae7-a06e09b08951; AAB cadd555f-249f-2bfd-b8af-165dc634d9f6; SQB ba847d5e-85b3-fe51-eadf-ad4eebacf7f6. Before: false on all 4. Rollback: set_visibility false on the same 4 IDs.
+- 2026-10-09 T3 verified, no change: Learn list wrappers Form 24cd8ebc-23b4-d766-1f9f-0d648fc0666a, LP d8a90b8f-142b-5c77-eae7-a06e09b0893f, SQB ba847d5e-85b3-fe51-eadf-ad4eebacf7e4 = source Learn 6a0f028d0bfe272031dbddb8, filters [], sort learn---publishing-date desc, limit 100.
+- 2026-10-09 T11 verified, no change: get_page_metadata on the 4 template pages: OG imageUrl bound to thumbnail-image, titleCopied and descriptionCopied true.
+- 2026-10-09 T5 read, no change: cover images Form 1d9a132d-a8db-49d1-e945-f554512eedc9, LP ca16aadc-bdbd-248b-7432-d38ccc8614cb, AAB 480f5f8b-9230-9135-8e64-03c51439863a, SQB a6ca094c-1ae8-29b1-c970-b0f54002b4b6: altText "inherit" (canBind true; Name field available).
