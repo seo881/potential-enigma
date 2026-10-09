@@ -139,6 +139,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-09 22:11 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-2",
+   "note": "rubric 10/10 by wk-r-2; 5 notes"
   }
  ],
  "plan": {
@@ -721,10 +728,160 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 21:55 UTC"
+  "date": "2026-10-09 22:10 UTC"
  },
  "writers": [
   "w-coming-soon-page",
   "wk-w-coming-soon-page"
+ ],
+ "review": {
+  "by": "wk-r-2",
+  "date": "2026-10-09 22:11 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Coming Soon Page That Fills Your Launch List'; hero 'Create a coming soon page that counts down to launch and keeps every email signup in a database you own.' (104 chars); how-to description one sentence under 140 characters."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Informational SERP of galleries, template stores and how-tos; the page defines the term in FAQ 1, shows 'Four Coming Soon Page Examples' (grinder, bakery, clinic rebuild, novel) and a seven-step how-to. Meta promise 'how to keep it indexable and where every signup should go' is delivered in feature_3, step 4 and feature_2."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Pre-launch vocabulary throughout: '200 status', '503 suits a short outage', '301 redirect', 'utm_source tag', 'postal address and an unsubscribe link'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Pick the launch date and time zone once...', 'Patients still need appointments while Ridgeway Physio rebuilds its site...', 'Readers who sign up on Iris Calloway's coming soon page...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; sentences carry one idea each ('Send it once, on the day itself, and skip the weekly reminders.')."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Calm, specific copy with unglamorous detail ('Signup 51 learns the loaves are claimed', 'her publisher reads that count before setting the print run'). Word repetition logged as a note."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Third-party facts match their two sources: Google's HTTP errors page (5xx slows crawling, persistent errors dropped, 2xx considered for indexing) and the FTC CAN-SPAM guide (postal address, opt-out). Emergent claims map to prompt-build, database-owned, code-export, custom-domain, api-connect, free-start, alerts. Numbers add up: 610+430+200 = 1,240; 312+488+150 = 950."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Domain holding, indexability and the launch-day switch set it apart from the waitlist and beta siblings; neither sibling primary appears as a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, no brand or file-format asks, hub link in item 2, sibling links (event landing page, thank you page), each answered up front; F9 lines in items 5 and 7."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: Fernway 'Ships in 12 days', '$189, first batch', 610/430/200 and '1,240 on the list'; Halden 'Signup 51', 'All 50 claimed', 'Opening-day news Subscribed'; Ridgeway 'New site in 6 weeks', 'Emailed to the front desk'; Calloway 312/488/150 and 950, 'Sent once the reader confirms'. One hero per tab."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_4",
+    "quote": "Email the whole list once on launch morning (feature_4); On launch morning the whole list gets one email (tab_content_1); Send it once, on the day itself (howto_step_6_des); as CAN-SPAM requires (feature_4) / Under CAN-SPAM it needs a valid postal address (howto_step_6_des)",
+    "issue": "The one-launch-email idea and the CAN-SPAM requirement are each stated in several fields.",
+    "fix": "Keep CAN-SPAM in step 6 only and let feature_4 say something the step does not.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "and many are free (faq 5); is usually one HTML file (faq 6); What it rarely has is a destination for the form (faq 6); it usually collects email addresses (faq 1)",
+    "issue": "Soft quantifiers about unnamed templates and builders.",
+    "fix": "State what to check instead of how often it happens.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_3_des",
+    "quote": "Each extra field costs signups you never get to see.",
+    "issue": "The one-field recommendation rests on a conversion claim with no source.",
+    "fix": "Frame it as advice ('Ask only for what the launch needs') or source it.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "mockup",
+    "quote": "a booking request form with name, phone and preferred day",
+    "issue": "The siteRebuild mockup asks for a phone field; tab_content_3 and the drawn form carry only the name and a preferred day.",
+    "fix": "Drop 'phone' from the mockup prompt so all three agree.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "QC Q9: 'email' 17 times, 'list' 13 times, 'signup' 11 times outside the FAQ",
+    "issue": "Heavy repetition of the same nouns.",
+    "fix": "Vary with 'subscribers', 'readers', 'names' where the meaning holds.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_4",
+   "issue": "The one-launch-email idea and the CAN-SPAM requirement are each stated in several fields.",
+   "fix": "Keep CAN-SPAM in step 6 only and let feature_4 say something the step does not.",
+   "by": "wk-r-2",
+   "via": "review",
+   "date": "2026-10-09 22:11 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Soft quantifiers about unnamed templates and builders.",
+   "fix": "State what to check instead of how often it happens.",
+   "by": "wk-r-2",
+   "via": "review",
+   "date": "2026-10-09 22:11 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_3_des",
+   "issue": "The one-field recommendation rests on a conversion claim with no source.",
+   "fix": "Frame it as advice ('Ask only for what the launch needs') or source it.",
+   "by": "wk-r-2",
+   "via": "review",
+   "date": "2026-10-09 22:11 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "mockup",
+   "issue": "The siteRebuild mockup asks for a phone field; tab_content_3 and the drawn form carry only the name and a preferred day.",
+   "fix": "Drop 'phone' from the mockup prompt so all three agree.",
+   "by": "wk-r-2",
+   "via": "review",
+   "date": "2026-10-09 22:11 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "Heavy repetition of the same nouns.",
+   "fix": "Vary with 'subscribers', 'readers', 'names' where the meaning holds.",
+   "by": "wk-r-2",
+   "via": "review",
+   "date": "2026-10-09 22:11 UTC"
+  }
  ]
 }
