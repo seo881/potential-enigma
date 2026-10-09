@@ -140,6 +140,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-09 23:14 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "wk-r-7",
+   "note": "[truth | HUB_RULES 8; CONTENT_DEFECTS #7] faq: False as stated: the page sends rounds at day 30, 60 and 90, and by day 60 or 90 a hire on a weekly, biweekly or semimonthly schedule has been paid several times. This is the only paycheck or pay-timing claim on the page (searched every field and the im"
   }
  ],
  "plan": {
@@ -842,7 +849,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 22:57 UTC"
+  "date": "2026-10-09 23:08 UTC"
  },
  "writers": [
   "w-onboarding-survey",
@@ -853,5 +860,145 @@
   "At 5 p.m. on a new hire's first day, ask five yes-or-no questions about their laptop and logins, and message my IT lead when any answer is no.",
   "Give me a dashboard that groups new hires by start month and charts how many say at day 30 that they know who to ask for help.",
   "Pull each new hire's start date, manager, and department from BambooHR, and add them to my check-in schedule without a monthly spreadsheet upload."
+ ],
+ "review": {
+  "by": "wk-r-7",
+  "date": "2026-10-09 23:14 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build an Onboarding Survey Timed to Each New Start\"; hero \"Create an onboarding survey timed to each hire's start date that flags first-day gaps and stores each answer in your own database.\" (D1 ok); how-to description one sentence (D2 ok)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is question lists and templates; page gives a definition, good questions by checkpoint, what to include, 30-60-90 timing, manager questions, questions to avoid, and a 7-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "\"counted from the hire date in your HR records\", \"a missing login or no assigned buddy\", \"35 of 60 hires\", employee table variant with competitors that rank (Culture Amp, Qualtrics, SurveyMonkey)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "\"Counted from the start date in BambooHR\", \"At 5 p.m. on the first day\", \"Each month's new hires form a cohort\", \"Right after signup\"; feature bodies open on verbs."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "\"Keep each round to eight questions or fewer.\" \"Everything else waits for the monthly review.\" QC Q2/Q5/Q7 clean; one stray comma kept as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete details (Grace Liu \"could not open Salesforce\", day-60 check-in \"this morning\", \"Salesforce says my account is not set up.\"); no AI-tell vocabulary."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "faq item 7: \"since a new hire has had one paycheck at most\" is false for the day-60 and day-90 rounds the page itself recommends. Image numbers agree: 35/60 = 58%, 20/24 = 83%, up 25 points."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Owns the first 90 days (checkpoints, first-day check, cohorts, product signups); links exit-survey and employee-engagement-survey. Template overlap with exit-survey kept as a note."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first; hub link in item 2; links to exit-survey and employee-engagement-survey; F9 lines in items 8 and 9; PAA gate 10/10."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Priya Nair day 60 sent, 8 questions from Northwind HR; phone with five yes/no, Logins No, DM to Sam Ortiz about Grace Liu; cohort 58 to 83; Globex 120 seats gets a setup call with Lena Park, HubSpot log. One hero each, readable."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8; CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "Hold questions about pay for a separate survey, since a new hire has had one paycheck at most.",
+    "issue": "False as stated: the page sends rounds at day 30, 60 and 90, and by day 60 or 90 a hire on a weekly, biweekly or semimonthly schedule has been paid several times. This is the only paycheck or pay-timing claim on the page (searched every field and the image brief).",
+    "fix": "Drop the reason clause or give a true one, e.g. \"Hold questions about pay for a separate survey; an onboarding check-in should stay on what the hire needs to do the job.\"",
+    "severity": "blocking"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "why_description",
+    "quote": "Listening platforms price onboarding surveys by headcount. Emergent builds yours as an app with its own response database.",
+    "issue": "Same formula as exit-survey: why_description, feature_5 (\"The survey never has to ask a new hire who they report to\"), feature_6 export-and-host wording, howto_step_5_title \"05 Describe the survey to Emergent\" (identical), howto_step_6_des \"Connect BambooHR or any HR system with an API.\"",
+    "fix": "Vary these fields so the two pages do not read as one template.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_2",
+    "quote": "a direct message naming the hire, and the missing item",
+    "issue": "Stray comma before \"and\" in a two-item list.",
+    "fix": "\"a direct message naming the hire and the missing item\".",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "On paid plans, a survey built with Emergent exports to GitHub, and HR can tell new hires which server holds their answers.",
+    "issue": "The moat line is strained: code export does not answer how to collect honest answers.",
+    "fix": "Tie a ledger claim to honesty directly, e.g. responses stay in a database HR owns, so HR can say exactly who can read them.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "When should you send a 30 60 90 day survey?",
+    "issue": "plan.angle promises answers to the onboarding-model PAA questions (the Cs, the 30-60-90 rule, the levels) and domain_sources carries the Bauer sources, but the FAQ answers none of them; the PAA gate passed, so this is a plan/copy mismatch only.",
+    "fix": "Either answer one of them in place of a weaker secondary item or drop the unused plan lines and sources.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "why_description",
+   "issue": "Same formula as exit-survey: why_description, feature_5 (\"The survey never has to ask a new hire who they report to\"), feature_6 export-and-host wording, howto_step_5_title \"05 Describe the survey to Emergent\" (identical), howto_step_6_des \"Connect BambooHR or any HR system with an API.\"",
+   "fix": "Vary these fields so the two pages do not read as one template.",
+   "by": "wk-r-7",
+   "via": "review",
+   "date": "2026-10-09 23:14 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_2",
+   "issue": "Stray comma before \"and\" in a two-item list.",
+   "fix": "\"a direct message naming the hire and the missing item\".",
+   "by": "wk-r-7",
+   "via": "review",
+   "date": "2026-10-09 23:14 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "The moat line is strained: code export does not answer how to collect honest answers.",
+   "fix": "Tie a ledger claim to honesty directly, e.g. responses stay in a database HR owns, so HR can say exactly who can read them.",
+   "by": "wk-r-7",
+   "via": "review",
+   "date": "2026-10-09 23:14 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "plan.angle promises answers to the onboarding-model PAA questions (the Cs, the 30-60-90 rule, the levels) and domain_sources carries the Bauer sources, but the FAQ answers none of them; the PAA gate passed, so this is a plan/copy mismatch only.",
+   "fix": "Either answer one of them in place of a weaker secondary item or drop the unused plan lines and sources.",
+   "by": "wk-r-7",
+   "via": "review",
+   "date": "2026-10-09 23:14 UTC"
+  }
  ]
 }
