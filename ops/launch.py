@@ -27,7 +27,7 @@ def preflight(rb):
         hub = H.hub_of(url); h = H.CFG["hubs"][hub]; s = json.load(open(H.spath(url))); slug = url.rsplit("/", 1)[1]
         mine = [it for it in items if (it.get("fieldData") or {}).get("slug") == slug and it.get("_collection", h["collection_id"]) == h["collection_id"]]
         it = next((x for x in mine if x["id"] == s.get("item_id")), mine[0] if mine else None)
-        r = {"draft": bool(it) and it.get("isDraft") is True and it["id"] == s.get("item_id")}
+        r = {"draft": bool(it) and it["id"] == s.get("item_id") and not it.get("isArchived")}   # draft, or staged (isDraft false) after the staging step
         diff = []
         if it:
             fd = it["fieldData"]
@@ -36,20 +36,21 @@ def preflight(rb):
                 if fd.get(h["fields"][k]) != v: diff.append(k)
             imgs = [fd.get(h["fields"][k]) or {} for k in H.CFG["image_fields"]]
             r["images"] = all(i.get("fileId") and "website-files.com/" in (i.get("url") or "") for i in imgs)
+            r["og_webp"] = (fd.get(h["fields"]["share_image"]) or {}).get("url", "").endswith(".webp")   # DECISIONS 2026-10-09
             r["awbPrompt"] = "window.awbPrompt" in (fd.get(h["fields"]["hero_prompt"]) or "")
             r["awbFAQ"] = "window.awbFAQ" in (fd.get(h["fields"]["faq"]) or "") and len(re.findall(r'"q":', fd.get(h["fields"]["faq"]) or "")) == 10
         else:
-            r.update(images=False, awbPrompt=False, awbFAQ=False)
+            r.update(images=False, og_webp=False, awbPrompt=False, awbFAQ=False)
         r["verify"] = bool(it) and not diff
         r["slug_unique"] = len(mine) == 1
         ok = all(r.values()); ok_all &= ok
         rows.append((url, it["id"] if it else "-", r, ok, diff))
-    hdr = ["#", "Page", "CMS item", "Draft exists", "Bulk-verify (0 mismatches)", "awbPrompt", "awbFAQ (10 items)", "Images resolve to Webflow files", "Slug unique", "Result"]
+    hdr = ["#", "Page", "CMS item", "Item exists (draft or staged)", "Bulk-verify (0 mismatches)", "awbPrompt", "awbFAQ (10 items)", "Images resolve to Webflow files", "Share image WebP", "Slug unique", "Result"]
     L = ["# Launch pre-flight checklist", "", f"Generated {H.now()} by `ops/launch.py preflight` from a read-only read of the child collections (`{os.path.relpath(rb, ROOT)}`, not committed). IDs and pass/fail only.", "",
          "| " + " | ".join(hdr) + " |", "|" + "---|" * len(hdr)]
     pf = lambda b: "pass" if b else "FAIL"
     for n, (url, iid, r, ok, diff) in enumerate(rows, 1):
-        L.append(f"| {n} | {url} | {iid} | {pf(r['draft'])} | {pf(r['verify'])}{' (' + ', '.join(diff) + ')' if diff else ''} | {pf(r['awbPrompt'])} | {pf(r['awbFAQ'])} | {pf(r['images'])} | {pf(r['slug_unique'])} | **{pf(ok)}** |")
+        L.append(f"| {n} | {url} | {iid} | {pf(r['draft'])} | {pf(r['verify'])}{' (' + ', '.join(diff) + ')' if diff else ''} | {pf(r['awbPrompt'])} | {pf(r['awbFAQ'])} | {pf(r['images'])} | {pf(r['og_webp'])} | {pf(r['slug_unique'])} | **{pf(ok)}** |")
     L += ["", f"**{sum(r[3] for r in rows)} of {len(rows)} pages pass every check.**"]
     open(os.path.join(ROOT, "status", "launch-checklist.md"), "w").write("\n".join(L) + "\n")
     print(f"status/launch-checklist.md: {sum(r[3] for r in rows)} of {len(rows)} pass"); return 0 if ok_all else 1

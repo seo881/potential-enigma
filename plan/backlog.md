@@ -25,3 +25,5 @@ Format: date, source (Divit, reviewer, QC, orchestrator), the item, pages it tou
 - PA9 should compare questions after display normalisation: once "tshirt"/"t shirt" read "T-shirt", t-shirt-order-form Q2 ("make a T-shirt order form online") and Q4 ("make an order form for T-shirts") were the same intent. Q4 was replaced (gate-passing AlsoAsked, Google Forms question).
 - t-shirt-order-form: answers and the FAQ heading still carry the keyword spellings "t shirt" and "tshirt" (heading "T Shirt Order Form Questions, Answered"); Divit's ruling covered question display text only. Decide whether answers and heading follow the house form.
 - PA10 flag: t-shirt-order-form Q4 (shirt order form on Google Forms) overlaps pre-order-form's Google Forms questions (not shipped); pick the owner when pre-order-form ships.
+- 2026-10-09, orchestrator: delete the 187 og.png files under images/ in one commit once the 20 launch pages are verified live (Divit 2026-10-09; WebP replaces them).
+- 2026-10-09, orchestrator: `hubctl qc` rewrites qc_passed stamps in every spec it checks, so an all-spec QC sweep dirties ~60 specs; a read-only mode would help regression diffs.
