@@ -5,7 +5,19 @@ Every headless session of the weekend run starts here (prompt: "Continue the wee
 ## Current position
 
 <!-- position:start (written by ops/weekend.py tick; do not edit by hand) -->
-Not started. Next step: run `.venv/bin/python3 ops/weekend.py next` and do what it prints.
+Updated 2026-10-09 21:47 UTC. Started 2026-10-09T21:40:27+00:00.
+
+| Phase | Hub | Pages | Stages |
+|---|---|---|---|
+| rework | LP | 13 | autofix 9, check 1, writer 3 |
+| rework | Auto | 4 | autofix 4 |
+| rework | SurveyQuiz | 9 | autofix 9 |
+| rework | Form | 132 | autofix 132 |
+
+New pages claimed this weekend: none.
+Holds: none.
+AlsoAsked credits this weekend: 0 of 300. Reports written: 0.
+Next step: run `.venv/bin/python3 ops/weekend.py next` and do what it prints.
 <!-- position:end -->
 
 ## Hard limits (Divit's prompt; never relaxed by a later session)
