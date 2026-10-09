@@ -310,3 +310,73 @@ Phase 2 (DECISIONS 2026-10-08): one line per page, no question text. Per-questio
 - 2026-10-09 /ai-landing-page-builder/event-landing-page [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
 - 2026-10-09 /ai-automation-builder/sales-automation [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
 - 2026-10-09 /ai-form-builder/job-application-form [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/landing-page-seo [spec]: 10 questions; pass 3, reject 5, flag 2; rejects by rule: PA1 1, PA14 1, PA3 5; page: PA11 5 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build
+- 2026-10-10 /ai-landing-page-builder/lead-generation-landing-page [spec]: 10 questions; pass 2, reject 8, flag 0; rejects by rule: PA1 4, PA3 7, PA9 1; page: PA11 2 on-topic items, under 8: the page parks; PA12 3 items carrying a secondary, under 6
+- 2026-10-10 /ai-landing-page-builder/one-page-website [spec]: 10 questions; pass 4, reject 6, flag 0; rejects by rule: PA1 1, PA12 1, PA14 1, PA3 5, PA7 1; page: PA11 5 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build; PA12 3 items carrying a secondary, under 6
+- 2026-10-10 /ai-landing-page-builder/splash-page [spec]: 10 questions; pass 5, reject 5, flag 0; rejects by rule: PA1 4, PA14 1, PA3 4, PA9 1; page: PA11 5 on-topic items, under 8: the page parks
+- 2026-10-10 /ai-landing-page-builder/lead-generation-landing-page [pull]: 15 questions; pass 0, reject 15, flag 0; rejects by rule: PA14 1, PA3 15, PA5 1; page: PA11 34 nodes, 15 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-landing-page-builder/lead-generation-landing-page [pull]: 15 questions; pass 0, reject 15, flag 0; rejects by rule: PA14 1, PA3 15, PA5 1; page: PA11 34 nodes, 15 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-landing-page-builder/lead-generation-landing-page [pull]: 15 questions; pass 0, reject 15, flag 0; rejects by rule: PA14 1, PA3 15, PA5 1; page: PA11 34 nodes, 15 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-landing-page-builder/splash-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/splash-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/splash-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/splash-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/splash-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/landing-page-seo [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/landing-page-seo [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/lead-generation-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/landing-page-seo [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/landing-page-seo [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/lead-generation-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/one-page-website [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/one-page-website [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/lead-generation-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/one-page-website [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/app-landing-page [spec]: 10 questions; pass 1, reject 9, flag 0; rejects by rule: PA1 5, PA14 1, PA3 9; page: PA11 1 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build; PA12 1 items carrying a secondary, under 6
+- 2026-10-10 /ai-landing-page-builder/coming-soon-page [spec]: 10 questions; pass 2, reject 8, flag 0; rejects by rule: PA1 6, PA12 1, PA14 2, PA3 8, PA8 1; page: PA11 2 on-topic items, under 8: the page parks; PA12 0 items carrying a secondary, under 6
+- 2026-10-10 /ai-landing-page-builder/ppc-landing-page [spec]: 10 questions; pass 1, reject 9, flag 0; rejects by rule: PA1 5, PA14 2, PA3 9; page: PA11 1 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build; PA12 0 items carrying a secondary, under 6
+- 2026-10-10 /ai-landing-page-builder/app-landing-page [pull]: 18 questions; pass 3, reject 15, flag 0; rejects by rule: PA14 2, PA3 15; page: PA11 42 nodes, 18 distinct; 3 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-landing-page-builder/saas-landing-page [spec]: 10 questions; pass 3, reject 6, flag 1; rejects by rule: PA1 2, PA14 2, PA3 6; page: PA11 4 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build; PA12 4 items carrying a secondary, under 6
+- 2026-10-10 /ai-landing-page-builder/app-landing-page [pull+cand]: 18 questions; pass 3, reject 15, flag 0; rejects by rule: PA14 2, PA3 15; page: PA11 42 nodes, 18 distinct; 3 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-landing-page-builder/coming-soon-page [pull]: 27 questions; pass 1, reject 26, flag 0; rejects by rule: PA14 4, PA15 1, PA3 25, PA9 1; page: PA11 52 nodes, 27 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-landing-page-builder/saas-landing-page [pull]: 15 questions; pass 3, reject 11, flag 1; rejects by rule: PA14 2, PA3 11; page: PA11 36 nodes, 15 distinct; 3 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-landing-page-builder/ppc-landing-page [pull]: 14 questions; pass 0, reject 14, flag 0; rejects by rule: PA14 2, PA3 14, PA4 1, PA5 4; page: PA11 36 nodes, 14 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-landing-page-builder/saas-landing-page [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/app-landing-page [spec]: 10 questions; pass 9, reject 1, flag 0; rejects by rule: PA1b 1
+- 2026-10-10 /ai-landing-page-builder/coming-soon-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/app-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/saas-landing-page [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/coming-soon-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/app-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/saas-landing-page [spec]: 10 questions; pass 9, reject 0, flag 1; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/coming-soon-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/app-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/ppc-landing-page [spec]: 10 questions; pass 9, reject 0, flag 1; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/ppc-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/saas-landing-page [spec]: 10 questions; pass 9, reject 0, flag 1; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/ppc-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/ppc-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/b2b-landing-page [spec]: 10 questions; pass 2, reject 8, flag 0; rejects by rule: PA1 3, PA12 1, PA14 1, PA3 8, PA8 1; page: PA11 2 on-topic items, under 8: the page parks; PA12 1 items carrying a secondary, under 6
+- 2026-10-10 /ai-landing-page-builder/product-landing-page [spec]: 10 questions; pass 2, reject 7, flag 1; rejects by rule: PA1 2, PA14 3, PA1b 1, PA3 6, PA4 1, PA8 1; page: PA11 3 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build; PA12 4 items carrying a secondary, under 6
+- 2026-10-10 /ai-landing-page-builder/real-estate-landing-page [spec]: 10 questions; pass 4, reject 6, flag 0; rejects by rule: PA1 2, PA12 1, PA1b 1, PA3 5; page: PA11 4 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build; PA12 3 items carrying a secondary, under 6
+- 2026-10-10 /ai-landing-page-builder/squeeze-page [spec]: 10 questions; pass 6, reject 3, flag 1; rejects by rule: PA1 2, PA14 1, PA3 2, PA4 1, PA8 1; page: PA11 7 on-topic items, under 8: the page parks
+- 2026-10-10 /ai-landing-page-builder/squeeze-page [spec]: 10 questions; pass 6, reject 3, flag 1; rejects by rule: PA1 2, PA14 1, PA3 2, PA4 1, PA8 1; page: PA11 7 on-topic items, under 8: the page parks
+- 2026-10-10 /ai-landing-page-builder/squeeze-page [pull]: 18 questions; pass 1, reject 16, flag 1; rejects by rule: PA10 2, PA3 16, PA4 3; page: PA11 39 nodes, 18 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-landing-page-builder/squeeze-page [pull]: 18 questions; pass 1, reject 16, flag 1; rejects by rule: PA10 2, PA3 16, PA4 3; page: PA11 39 nodes, 18 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-landing-page-builder/squeeze-page [pull+cand]: 18 questions; pass 1, reject 16, flag 1; rejects by rule: PA10 2, PA3 16, PA4 3; page: PA11 39 nodes, 18 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-landing-page-builder/b2b-landing-page [spec]: 10 questions; pass 9, reject 0, flag 1; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/b2b-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/b2b-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/squeeze-page [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/squeeze-page [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/squeeze-page [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/product-landing-page [spec]: 10 questions; pass 6, reject 1, flag 3; rejects by rule: PA1b 1
+- 2026-10-10 /ai-landing-page-builder/real-estate-landing-page [spec]: 10 questions; pass 9, reject 1, flag 0; rejects by rule: PA1b 1
+- 2026-10-10 /ai-landing-page-builder/real-estate-landing-page [spec]: 10 questions; pass 9, reject 1, flag 0; rejects by rule: PA9 1
+- 2026-10-10 /ai-landing-page-builder/product-landing-page [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/real-estate-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/real-estate-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/real-estate-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/real-estate-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/product-landing-page [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/product-landing-page [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
