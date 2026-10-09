@@ -137,6 +137,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-09 23:13 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-7",
+   "note": "rubric 10/10 by wk-r-7; 4 notes"
   }
  ],
  "plan": {
@@ -845,7 +852,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 22:56 UTC"
+  "date": "2026-10-09 23:08 UTC"
  },
  "writers": [
   "w-exit-survey",
@@ -856,5 +863,135 @@
   "When HR marks a resignation in BambooHR, email my exit survey to the leaver's personal address five days before their last day, with one reminder two days later.",
   "Give my exit survey a fixed list of 10 reasons for leaving, such as pay, manager support, and career growth, and count the main reason by team each quarter.",
   "Ask each seasonal leaver if they would work here next season, and put everyone who says yes and is eligible for rehire on a list for my recruiter."
+ ],
+ "review": {
+  "by": "wk-r-7",
+  "date": "2026-10-09 23:13 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build an Exit Survey That Shows Why People Leave\"; hero \"Create an exit survey that reaches every leaver before the last day and shows HR which teams lose the people they meant to keep.\" (D1 ok); how-to description one sentence (D2 ok)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Serves both sides the top 10 shows: leaver questions (honesty, whether to fill it out) and HR questions (good questions, how many, templates, exit interview form, software, student version), plus a 7-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "HR vocabulary: \"regretted tag HR sets at offboarding\", \"Terminated with a resignation reason in BambooHR\", \"five-response minimum\", \"eligible for rehire\"; employee table variant used."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "\"When HR changes a status to Terminated\", \"All 48 lifeguards and camp staff\", \"Over the last 12 months\", \"Seniors get the survey\"; feature bodies open on verbs (\"Opens\", \"Sends\", \"Shows\", \"Pulls\", \"Reads\", \"Exports\")."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "\"Fixed codes let HR count reasons across 200 exits, not reread 200 essays.\" \"Write the rule down, because someone will ask why one person got it and another did not.\" QC Q2/Q5/Q7 clean."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail (\"Advising slots were booked three weeks out.\", five days before the last day, one reminder two days later); no AI-tell vocabulary."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "BambooHR webhook, confidential vs anonymous, reporting minimum and regretted attrition all sourced; numbers agree: 31 of 48; Support 7 leavers, 5 regretted, 4 manager support; 289 of 412 = 70%; Biology 41 of 71 = 58%."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Owns departures (reasons, regretted exits, rehire list); links employee-engagement-survey and pulse-survey without taking their topics. Template overlap with onboarding-survey kept as a note."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first (\"Yes, with care.\", \"Usually, yes.\", \"About 10 to 15.\"); hub link in item 2; two sibling links; F9 lines in items 6 and 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 Jordan Ellis, survey 5 days before last day, HR only; tab 2 31 of 48 on the May rehire list; tab 3 Support 7/5 with DM to Dana Ruiz, Finance hidden under 5; tab 4 70% response, Biology 41 of 71. One hero each, readable."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Culture Amp | Qualtrics EmployeeXM",
+    "issue": "Two of three competitors do not rank for this query (QC K7); the Emergent \"What you get\" cell reads \"Pulse and annual surveys, confidential reporting, and manager dashboards\" on an exit survey page.",
+    "fix": "Prefer ranking tools from the library; ask the coordinator for an exit-specific line in the employee variant.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "why_description",
+    "quote": "Engagement platforms price exit survey software by headcount. Emergent builds the survey as an app with responses in your database.",
+    "issue": "Same formula as onboarding-survey: why_description (\"Listening platforms price onboarding surveys by headcount. Emergent builds yours as an app...\"), feature_5 (\"the survey never has to ask a leaver a single question about who they are\" vs \"The survey never has to ask a new hire who they report to\"), feature_6 export-and-host wording, howto_step_5_title \"05 Describe the survey to Emergent\" (identical), howto_step_6_des \"Connect BambooHR or any HRIS with an API.\"",
+    "fix": "Vary these fields so the two pages do not read as one template.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "About 10 to 15.",
+    "issue": "Question count recommendation has no source.",
+    "fix": "Optional: add a source or frame it as the page's own guidance.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_3",
+    "quote": "Because the team cleared the five-response minimum, its HR business partner got a direct message.",
+    "issue": "The copy gives the minimum as the cause of the alert; the mockup and image prompt say the alert fires when regretted exits cluster on one reason.",
+    "fix": "State the rule: four of five regretted exits named the same reason, and the team is above the minimum.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "Two of three competitors do not rank for this query (QC K7); the Emergent \"What you get\" cell reads \"Pulse and annual surveys, confidential reporting, and manager dashboards\" on an exit survey page.",
+   "fix": "Prefer ranking tools from the library; ask the coordinator for an exit-specific line in the employee variant.",
+   "by": "wk-r-7",
+   "via": "review",
+   "date": "2026-10-09 23:13 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "why_description",
+   "issue": "Same formula as onboarding-survey: why_description (\"Listening platforms price onboarding surveys by headcount. Emergent builds yours as an app...\"), feature_5 (\"the survey never has to ask a leaver a single question about who they are\" vs \"The survey never has to ask a new hire who they report to\"), feature_6 export-and-host wording, howto_step_5_title \"05 Describe the survey to Emergent\" (identical), howto_step_6_des \"Connect BambooHR or any HRIS with an API.\"",
+   "fix": "Vary these fields so the two pages do not read as one template.",
+   "by": "wk-r-7",
+   "via": "review",
+   "date": "2026-10-09 23:13 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Question count recommendation has no source.",
+   "fix": "Optional: add a source or frame it as the page's own guidance.",
+   "by": "wk-r-7",
+   "via": "review",
+   "date": "2026-10-09 23:13 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_3",
+   "issue": "The copy gives the minimum as the cause of the alert; the mockup and image prompt say the alert fires when regretted exits cluster on one reason.",
+   "fix": "State the rule: four of five regretted exits named the same reason, and the team is above the minimum.",
+   "by": "wk-r-7",
+   "via": "review",
+   "date": "2026-10-09 23:13 UTC"
+  }
  ]
 }
