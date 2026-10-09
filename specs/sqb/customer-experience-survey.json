@@ -133,6 +133,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-09 23:13 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-7",
+   "note": "rubric 10/10 by wk-r-7; 5 notes"
   }
  ],
  "plan": {
@@ -776,10 +783,160 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 22:58 UTC"
+  "date": "2026-10-09 23:08 UTC"
  },
  "writers": [
   "w-customer-experience-survey",
   "wk-w-customer-experience-survey"
+ ],
+ "review": {
+  "by": "wk-r-7",
+  "date": "2026-10-09 23:13 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Customer Experience Survey That Scores Every Touchpoint\" covers the journey-wide job; hero \"Create a customer experience survey that rates each stage a customer goes through and saves every answer to their record.\" (D1 ok); how-to description one sentence (D2 ok)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is question lists, templates and design advice; page gives a definition, good and common questions, a sample, template and free answers, a retail version, CX vs satisfaction, and a 7-step how-to on stages, scales and wording."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Stage-level vocabulary: \"the wait at the counter\", \"after the first bill\", \"Pass the customer ID into every send\"; competitor choice noted (K7) as a note only."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "\"Shoppers who order online and collect in store rate three stages\", \"A week after delivery, each buyer rates the sale\", \"New subscribers get a text through Twilio\", \"Every spring, all 140 clients\"."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "\"A 7 on one scale and a 4 on another tell you nothing side by side.\" \"Rewording one item can move its average on its own.\" QC Q2/Q5/Q7 clean."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete details (\"Promised a loaner car.\", \"Down most of Sunday evening.\", 2.9 vs 4.5); no AI-tell vocabulary."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Claims in ledger (custom-domain, free-start, no-caps); NPS 0-10, leading-question and Twilio facts sourced; numbers agree: 318 shoppers, 2.9/4.5/4.2; 96 of 140, 4.3 to 3.7; ratings 5, 3, 2."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Journey-wide view per the watch-list (\"Customer experience surveys cover several stages ... A customer satisfaction survey scores one interaction\"); no sibling primary in headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first; hub link in item 2; links to customer-feedback-survey and customer-satisfaction with exact anchors; F9 lines in items 6 and 7."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Pickup bars 4.5/4.2/2.9 from 318 shoppers; J. Park sale 4, service 2 emailed to the service manager; Northwind Fiber 5, 3, 2 opens a retention task; 96 of 140, response time 4.3 to 3.7. One hero each, readable."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Typeform | Interact (quiz specialist)",
+    "issue": "Two of three competitors do not rank for this query (QC K7); Interact is a quiz tool, while Qualtrics, SurveyMonkey, Alchemer and LimeSurvey rank.",
+    "fix": "Rebuild with ranking competitors from the library.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "feature_2",
+    "quote": "Any tool with an API can start a send.",
+    "issue": "Same sentence as customer-effort-score feature_2.",
+    "fix": "Phrase it in this page's terms (the stage event that fires each send).",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "Many survey tools offer one, usually a fixed list of questions about a single visit or purchase.",
+    "issue": "Soft quantifiers about unnamed tools.",
+    "fix": "Say what a typical template contains without counting tools.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq",
+    "quote": "Did checkout take longer than expected? Was your pickup ready at the promised time? Did your first bill match what you expected? Follow each rating",
+    "issue": "The example questions are yes/no, then the answer calls them ratings; howto_step_2 insists on one rating scale everywhere.",
+    "fix": "Write the examples as rated statements on the 1 to 5 scale the page recommends.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 5",
+    "field": "mockup",
+    "quote": "annualClientReview:",
+    "issue": "Mockup key does not match tab label \"Client Review\" (keys are camelCase tab names).",
+    "fix": "Rename the key to clientReview.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "Two of three competitors do not rank for this query (QC K7); Interact is a quiz tool, while Qualtrics, SurveyMonkey, Alchemer and LimeSurvey rank.",
+   "fix": "Rebuild with ranking competitors from the library.",
+   "by": "wk-r-7",
+   "via": "review",
+   "date": "2026-10-09 23:13 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "feature_2",
+   "issue": "Same sentence as customer-effort-score feature_2.",
+   "fix": "Phrase it in this page's terms (the stage event that fires each send).",
+   "by": "wk-r-7",
+   "via": "review",
+   "date": "2026-10-09 23:13 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Soft quantifiers about unnamed tools.",
+   "fix": "Say what a typical template contains without counting tools.",
+   "by": "wk-r-7",
+   "via": "review",
+   "date": "2026-10-09 23:13 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq",
+   "issue": "The example questions are yes/no, then the answer calls them ratings; howto_step_2 insists on one rating scale everywhere.",
+   "fix": "Write the examples as rated statements on the 1 to 5 scale the page recommends.",
+   "by": "wk-r-7",
+   "via": "review",
+   "date": "2026-10-09 23:13 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 5",
+   "field": "mockup",
+   "issue": "Mockup key does not match tab label \"Client Review\" (keys are camelCase tab names).",
+   "fix": "Rename the key to clientReview.",
+   "by": "wk-r-7",
+   "via": "review",
+   "date": "2026-10-09 23:13 UTC"
+  }
  ]
 }
