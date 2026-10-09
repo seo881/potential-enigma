@@ -43,6 +43,7 @@ A metric that worsens two batches running is a P1 item for the next batch.
 | Raster images visitors actually load (hub value cards, photos) | **AVIF** | This is where AVIF pays off: real bytes on real page loads |
 
 ## 5. Incident log (newest first; one line each: date, what, check added)
+- 2026-10-09 · All 20 launch pages 404 on staging: the 4 cloned child templates had "Publish this Collection Template page" OFF (API field shouldPublish false; Designer-only switch in Template settings > Publish settings) · pre-flight must assert shouldPublish true on the hub's template before any publish; new hubs: switch it on when the template is created
 - 2026-10-09 · 5 held CMS items (4 originals + contact-form) published by hand from the CMS because "Not Published" looked like an error · unpublished within minutes; live audit Layer A must also assert that no held/draft-state page is live (reads status/ship ledger), and reports flag held items explicitly
 - 2026-10-09 · PA13 read caught 5 gate misses (near-duplicate pair, plugin brand, two drift questions, spelling variants) · golden cases to be added (backlog)
 - 2026-10-09 · F4 vs PAA gate conflict blocked 6 pages · F4 retired; rule registry with `supersedes` (backlog)
