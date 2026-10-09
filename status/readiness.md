@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-09 22:04 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-09 22:05 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -60,10 +60,10 @@ Regenerated 2026-10-09 22:04 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-lp | /ai-landing-page-builder/lead-generation-landing-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-lp | /ai-landing-page-builder/one-page-website | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-lp | /ai-landing-page-builder/ppc-landing-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | images |
-| wk-rework-lp | /ai-landing-page-builder/product-landing-page | 0 | 10/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-lp | /ai-landing-page-builder/product-landing-page | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
 | wk-rework-lp | /ai-landing-page-builder/real-estate-landing-page | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
 | wk-rework-lp | /ai-landing-page-builder/saas-landing-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | images |
 | wk-rework-lp | /ai-landing-page-builder/splash-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-lp | /ai-landing-page-builder/squeeze-page | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
 
-Stages: autofix 1, check 3, done 21, images 4, review 4, stopped 8, writer 1 (42 pages)
+Stages: autofix 1, check 4, done 21, images 4, review 4, stopped 8 (42 pages)
