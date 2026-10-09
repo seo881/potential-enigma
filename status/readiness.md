@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-09 21:49 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-09 21:56 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -52,18 +52,18 @@ Regenerated 2026-10-09 21:49 UTC by `hubctl readiness` (also after every `hubctl
 | batch-1 | /ai-landing-page-builder/pricing-page | 0 | 10/10 | yes, launch-r-b1-6 | yes | no | 2 | 6ac8a23f9873b6bc7b4343bc | yes | yes | done |
 | batch-1 | /ai-landing-page-builder/webinar-landing-page | 0 | 10/10 | yes, launch-r-b1-3 | yes | no | 2 | 6ac89f545408b01694dc1649 | yes | yes | done |
 | batch-1 | /ai-survey-and-quiz-builder/employee-engagement-survey | 0 | 10/10 | yes, launch-r-b1-5 | yes | no | 2 | 6ac8a15a5408b01694dd5e21 | yes | yes | done |
-| wk-rework-lp | /ai-landing-page-builder/app-landing-page | 6 | 1/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-lp | /ai-landing-page-builder/app-landing-page | 0 | 10/10 | no | no | no | 0 | - | no | no | writer |
 | wk-rework-lp | /ai-landing-page-builder/b2b-landing-page | 9 | 2/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-lp | /ai-landing-page-builder/campaign-landing-page | 12 | 2/10 | no | no | no | 0 | - | no | no | autofix |
-| wk-rework-lp | /ai-landing-page-builder/coming-soon-page | 10 | 2/10 | no | no | no | 0 | - | no | no | autofix |
-| wk-rework-lp | /ai-landing-page-builder/landing-page-seo | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
-| wk-rework-lp | /ai-landing-page-builder/lead-generation-landing-page | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
-| wk-rework-lp | /ai-landing-page-builder/one-page-website | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
-| wk-rework-lp | /ai-landing-page-builder/ppc-landing-page | 10 | 1/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-lp | /ai-landing-page-builder/coming-soon-page | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
+| wk-rework-lp | /ai-landing-page-builder/landing-page-seo | 0 | 10/10 | no | yes | no | 0 | - | no | no | images |
+| wk-rework-lp | /ai-landing-page-builder/lead-generation-landing-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | images |
+| wk-rework-lp | /ai-landing-page-builder/one-page-website | 0 | 10/10 | no | yes | no | 0 | - | no | no | images |
+| wk-rework-lp | /ai-landing-page-builder/ppc-landing-page | 14 | 10/10 | no | no | no | 0 | - | no | no | writer |
 | wk-rework-lp | /ai-landing-page-builder/product-landing-page | 10 | 3/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-lp | /ai-landing-page-builder/real-estate-landing-page | 9 | 4/10 | no | no | no | 0 | - | no | no | autofix |
-| wk-rework-lp | /ai-landing-page-builder/saas-landing-page | 11 | 4/10 | no | no | no | 0 | - | no | no | autofix |
-| wk-rework-lp | /ai-landing-page-builder/splash-page | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
+| wk-rework-lp | /ai-landing-page-builder/saas-landing-page | 0 | 10/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-lp | /ai-landing-page-builder/splash-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | images |
 | wk-rework-lp | /ai-landing-page-builder/squeeze-page | 10 | 7/10 | no | no | no | 0 | - | no | no | autofix |
 
-Stages: autofix 9, check 4, done 21, stopped 8 (42 pages)
+Stages: autofix 5, check 1, done 21, images 4, stopped 8, writer 3 (42 pages)
