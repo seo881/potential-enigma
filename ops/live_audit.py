@@ -60,6 +60,16 @@ def select(args):
     import guards as G; S = G.all_status()   # --since-publish (default): published pages not audited since their publish
     return [u for u in pub if (st["pages"].get(u, {}).get("last_audit") or "") < (S[u].get("updated") or "")]
 
+def held_pages():
+    """Every page held in status/ship/*.json (stopped), with its CMS item if it has one. None of them may be live anywhere."""
+    out = []
+    for p in sorted(glob.glob(os.path.join(ROOT, "status", "ship", "*.json"))):
+        for u, P in json.load(open(p))["pages"].items():
+            if P.get("stopped"):
+                s = spec(u) if os.path.exists(H.spath(u)) else {}
+                out.append({"url": u, "item_id": s.get("item_id"), "collection": H.CFG["hubs"][H.hub_of(u)]["collection_id"], "ledger": os.path.basename(p)})
+    return out
+
 def manifest_entry(url):
     s = spec(url); F, _ = H.export_fields(url, s); hub = H.hub_of(url)
     fq = faq_obj(F)
@@ -83,9 +93,9 @@ def us_map():
 def hygiene(text):
     """[(code, message, snippet)] for one text."""
     out = []; t = text or ""
-    if re.search("(?m)^[\u200b\u200c\u200d\u2060\ufeff\s]*[\u200b\u200c\u200d\u2060\ufeff][\u200b\u200c\u200d\u2060\ufeff\s]*$", t):
+    if re.search("(?m)^[\u200b\u200c\u200d\u2060\ufeff\\s]*[\u200b\u200c\u200d\u2060\ufeff][\u200b\u200c\u200d\u2060\ufeff\\s]*$", t):
         out.append(("A5-empty-p", "empty paragraph (Webflow rich-text zero-width placeholder)", ""))
-        t = re.sub("(?m)^[\u200b\u200c\u200d\u2060\ufeff\s]+$", "", t)
+        t = re.sub("(?m)^[\u200b\u200c\u200d\u2060\ufeff\\s]+$", "", t)
     for rx, code, msg in ((ZW, "A6-zw", "zero-width character"), (CTRL, "A6-ctrl", "control character"), (ENT, "A6-entity", "broken HTML entity shown as text"),
                           (DASH, "A6-dash", "em or en dash"), (CURLY, "A6-quote", "curly quote (house style: straight quotes)")):
         m = rx.search(t)
@@ -196,6 +206,12 @@ def evaluate(raw, man, base):
             sq = [(plain(x.get("name")), plain((x.get("acceptedAnswer") or {}).get("text"))) for x in faqs]
             want = [(i["q"], i["a"]) for i in m["faq_items"]]
             if [squash(a) + squash(b) for a, b in sq] != [squash(a) + squash(b) for a, b in want]: add(url, "A10-faq-match", "P1", "FAQ schema differs from the visible FAQ", field="faq", fix="drift-check")
+    # A0: a page held in status/ship/*.json must not be live anywhere (LESSONS 2026-10-09 incident). P0, unpublish at once.
+    for hp in raw.get("held") or []:
+        live = [host for host, code in hp["status"].items() if code == 200]
+        if live:
+            add(hp["url"], "A0-held-live", "P0", f"HELD page is live on {', '.join(live)} (ledger {hp.get('ledger')})", field="item",
+                fix="unpublish" if hp.get("item_id") else "proposed", item_id=hp.get("item_id"), collection=hp.get("collection"))
     for h in raw.get("hubs") or []:
         if not h.get("http200"): add(h["hub"], "A1-http", "P0", "hub page does not return HTTP 200", field="hub", fix="proposed"); continue
         if not h.get("carousel_has_all_new_cards"): add(h["hub"], "A9-carousel", "P1", "carousel misses live pages: " + ", ".join(h["missing"]), field="hub", fix="proposed")
@@ -252,7 +268,7 @@ def cmd_run(args):
     import launch
     hubs = sorted({H.CFG["hubs"][H.hub_of(u)]["path"] for u in urls}) if ("--all" in args or "--set" in args or "--since-publish" in args or not args) else []
     if "--all" in args: hubs = sorted(h["path"] for h in H.CFG["hubs"].values())
-    man = {"pages": [manifest_entry(u) for u in urls], "hubs": hubs}
+    man = {"pages": [manifest_entry(u) for u in urls], "hubs": hubs, "held": held_pages(), "held_hosts": CONF["held_hosts"]}
     cdir = os.path.join(CACHE, date); os.makedirs(cdir, exist_ok=True)
     jsave(os.path.join(cdir, "manifest.json"), man)
     rawp = os.path.join(cdir, "raw.json")
@@ -354,6 +370,12 @@ def cmd_drift(args):
 def plan(date):
     d = json.load(open(findings_path(date))); per = {}
     for f in d["findings"]:
+        if f["code"] == "A0-held-live" and f["fix"] == "unpublish":
+            acts = [{"label": f"P0 {f['id']}: unpublish held item", "unpublish_collection_items": {"collection_id": f["collection"], "request": {"items": [{"id": f["item_id"]}]}}},
+                    {"label": "read back", "list_collection_items": {"collection_id": f["collection"], "request": {"filter": {"id": {"eq": f["item_id"]}}, "limit": 1}}}]
+            up = os.path.join(OUTD, f["id"] + ".unpublish.json"); jsave(up, acts); f["payload"] = os.path.relpath(up, ROOT)
+            if f.get("status") != "unpublished": f["action"] = "unpublish-now"
+            continue
         if f["severity"] == "P2": f["action"] = "backlog"; continue
         if f["fix"] in ("auto", "writer"):
             per.setdefault(f["url"], set()).add((f["field"] or "").split("#")[0])
@@ -372,9 +394,11 @@ def digest(d):
     fx = [f for f in F if f.get("status") == "fixed"]; rb = [f for f in F if f.get("status") == "rolled-back"]
     wf = [f for f in F if f.get("action") in ("would-fix", "fix", "fix-by-writer") and f.get("status") not in ("fixed", "rolled-back")]
     pr = [f for f in F if f.get("action") == "proposed"]; dr = [f for f in F if f.get("action") == "drift-reported"]
-    return (f"Live audit {d['date']}{' (DRY)' if d.get('dry') else ''} on {d['base']}: {len(d['pages'])} pages and {len(d['hubs'])} hubs checked; "
+    held = [f for f in F if f["code"] == "A0-held-live"]
+    top = "".join(f"P0 HELD PAGE LIVE: {f['url']} (item {f.get('item_id')}): " + ("unpublished, verified. " if f.get("status") == "unpublished" else f"UNPUBLISH NOW: send {f.get('payload')}. ") for f in held)
+    return top + (f"Live audit {d['date']}{' (DRY)' if d.get('dry') else ''} on {d['base']}: {len(d['pages'])} pages and {len(d['hubs'])} hubs checked; "
             f"issues P0 {c('P0')}, P1 {c('P1')}, P2 {c('P2')}; fixed {len(fx)}; rolled back {len(rb)}; "
-            f"{'would fix' if d.get('dry') else 'fix pending'} {len(wf)}; proposals waiting for a go {len(pr)}; drift {len(dr)}.")
+            f"{'would fix' if d.get('dry') else 'fix pending'} {len(wf)}; proposals waiting for a go {len(pr)}; drift {len(dr)}; held pages live {len(held)}.")
 
 # ---------------------------------------------------------------- fixes (steps 1-5 of the doc)
 def find_issue(iid):
@@ -497,6 +521,15 @@ def write_rollback(f, d):
             {"label": "read back", "list_collection_items": {"collection_id": b["collection"], "request": {"filter": {"id": {"eq": b["id"]}}, "limit": 1}}}]
     rp = os.path.join(OUTD, f["id"] + ".rollback.json"); jsave(rp, acts); f["rollback_file"] = os.path.relpath(rp, ROOT); return rp
 
+def cmd_held_done(args):
+    """held-done ISSUE RESPONSE: the unpublish was sent; the read-back must show isDraft true; then re-check the URLs."""
+    iid, resp = args[0], args[1]; p, d, f = find_issue(iid)
+    it = next((x for x in H._items_from_readback(resp) if x["id"] == f.get("item_id")), None)
+    ok = it is not None and it.get("isDraft") is True
+    codes = {h: subprocess.run(["curl", "-s", "-o", "/dev/null", "-w", "%{http_code}", h.rstrip("/") + f["url"]], capture_output=True, text=True).stdout for h in CONF["held_hosts"]}
+    f.update(status="unpublished" if ok else "unpublish-unverified", unpublished_at=now(), recheck=codes); jsave(p, d); ledger_sync()
+    print(("UNPUBLISHED " if ok else "UNPUBLISH NOT VERIFIED ") + iid + f" (isDraft {it.get('isDraft') if it else '?'}; now {codes}; the CDN can serve the old page for a few minutes)")
+
 def cmd_rollback(args):
     iid = args[0]; p, d, f = find_issue(iid)
     if not f.get("before_file"): sys.exit(f"{iid}: no before-value (nothing was changed)")
@@ -544,7 +577,7 @@ def cmd_report(args):
     os.makedirs(os.path.dirname(rp), exist_ok=True)
     act = lambda a: [f for f in F if f.get("action") == a]
     L = ["# Live audit " + date + (" (DRY run: nothing changed)" if d.get("dry") else ""), "", "## Digest for Divit", "", digest(d), ""]
-    for title, rows in (("Would fix (auto or by a writer)" if d.get("dry") else "Fixes", [f for f in F if f.get("action") in ("would-fix", "fix", "fix-by-writer")]),
+    for title, rows in (("P0: held pages live (unpublish at once)", [f for f in F if f["code"] == "A0-held-live"]), ("Would fix (auto or by a writer)" if d.get("dry") else "Fixes", [f for f in F if f.get("action") in ("would-fix", "fix", "fix-by-writer")]),
                         ("Proposals waiting for a go", act("proposed")), ("Drift (edited in Webflow, reported, not overwritten)", act("drift-reported")),
                         ("Needs a CMS read to classify (drift check)", act("drift-check")), ("Backlog (P2)", act("backlog"))):
         L += [f"### {title} ({len(rows)})", ""] + [f"- {f['severity']} {f['url']} `{f['field']}` {f['code']}: {f['msg']}{' [' + f['status'] + ']' if f.get('status') else ''}" for f in rows[:80]] + [""]
@@ -558,7 +591,7 @@ def cmd_report(args):
 def main(args):
     sub = args[0] if args and not args[0].startswith("--") else "run"
     rest = args[1:] if sub != "run" or (args and args[0] == "run") else args
-    {"run": cmd_run, "record": cmd_record, "drift": cmd_drift, "plan": lambda a: plan(a[0]), "report": cmd_report}[sub](rest)
+    {"run": cmd_run, "record": cmd_record, "drift": cmd_drift, "plan": lambda a: plan(a[0]), "report": cmd_report, "held-done": cmd_held_done}[sub](rest)
 
 def fix_main(args):
     {"apply": cmd_fix_apply, "brief": cmd_fix_brief, "prepare": cmd_fix_prepare, "verify": cmd_fix_verify}[args[0]](args[1:])

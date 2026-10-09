@@ -9,6 +9,7 @@ Decided by Divit 2026-10-09 (DECISIONS). Divit spot-checks 2-3 URLs; this system
 
 ## What is checked on each live URL (rendered page, after scripts run)
 **Layer A, deterministic:**
+- **Held pages first (Divit 2026-10-09):** every page held in `status/ship/*.json` is fetched on emergent.sh and on staging; HTTP 200 anywhere is a P0 (A0-held-live): unpublish the item at once (even in a dry run), verify `isDraft` true, and put it at the top of the digest.
 - HTTP 200, canonical = self, no `noindex`, in the sitemap; title and meta description present, within pixel and character limits, matching the spec exactly.
 - Every spec field rendered exactly once; nothing rendered that is not in the spec (stray template text, "Lorem", "This is some text", empty sections, "No items found").
 - Character hygiene on all visible text, alt text, meta and JSON-LD: zero-width and control characters, broken entities (`&amp;amp;`), double spaces, em dashes, curly or straight quote mixing, UK spellings, repeated words, unclosed brackets.

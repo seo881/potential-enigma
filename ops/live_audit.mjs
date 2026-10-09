@@ -1,6 +1,7 @@
 // live_audit.mjs: Layer A of the live audit (docs/LIVE_AUDIT.md), the browser half. Read-only (HTTP GET/HEAD and a headless browser).
 //   node ops/live_audit.mjs MANIFEST.json OUT.json [--base https://emergent-sh.webflow.io] [--shots DIR] [--external]
-// MANIFEST is written by `hubctl live-audit` (ops/live_audit.py) from the specs. Per page this script records:
+// MANIFEST is written by `hubctl live-audit` (ops/live_audit.py) from the specs. First, every held page (status/ship/*.json) is
+// fetched on every held host: a 200 anywhere is a P0 (A0-held-live). Per page this script records:
 //   - the verify_launch checks (ops/verify_launch.mjs checkPage: H1, title, meta, canonical, WebP og:image, FAQ, hero prompt and chips
 //     (T1), first tab (T10), use-case images, table, Learn list, hub link, links to non-live pages, carousel cover alt (T5));
 //   - from a real Chromium render (Playwright, pinned in ops/package.json): visible text, all text, robots, every link with its HTTP
@@ -79,7 +80,15 @@ async function svgRatio(u) {
     return vb ? +(vb[1] / vb[2]).toFixed(4) : null; } catch { return null; }
 }
 
-const result = { base: BASE, date: new Date().toISOString(), sitemap_ok: !!sitemap, pages: [], hubs: [] };
+const result = { base: BASE, date: new Date().toISOString(), sitemap_ok: !!sitemap, pages: [], hubs: [], held: [] };
+// A0: pages held in status/ship/*.json must not be live on any host (GET, no cache; 200 = live)
+for (const hp of man.held || []) {
+  const st = {};
+  for (const host of man.held_hosts || [BASE]) st[host] = await status(`${host.replace(/\/$/, "")}${hp.url}?la=${Date.now()}`, "GET");
+  result.held.push({ ...hp, status: st });
+  const live = Object.entries(st).filter(([, c]) => c === 200).map(([h]) => h);
+  console.log(`${live.length ? "P0 HELD PAGE LIVE" : "held ok "} ${hp.url}${live.length ? "  on " + live.join(", ") : ""}`);
+}
 for (const p of man.pages) {
   const slug = p.url.split("/").pop(), r = { url: p.url };
   const v = await checkPage(p, { keepDom: false }); delete v.html; r.checks = v.checks; r.verify = v;
