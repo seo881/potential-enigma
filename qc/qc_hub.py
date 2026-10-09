@@ -43,7 +43,15 @@ def is_setting(sent, m):
     return bool(SETTING_BEFORE.search(sent[:m.start()]) or SETTING_AFTER.search(sent[m.end():]))
 def sents_of(s): return [x.strip() for x in re.split(r"(?<=[.?!])\s+", (s or "").strip()) if x.strip()]
 def _stem(w): return w[:-1] if len(w) > 3 and w.endswith("s") and not w.endswith("ss") else w
-def kw_bag(s): return {_stem(w) for w in re.findall(r"[a-z0-9]+", (s or "").lower())}
+# keyword spelling variants ("T-shirt" / "t shirt" / "tshirt"): K-checks compare after mapping each variant to one form
+KV = json.load(open(os.path.join(ROOT, "rules", "keyword_variants.json")))["groups"]
+KV_RX = [(re.compile(r"(?<![a-z0-9])(?:" + "|".join(re.escape(v).replace(r"\ ", r"[\s-]?").replace(r"\-", r"[\s-]?") for v in g["variants"]) + r")(s?)(?![a-z0-9])"), g["canonical"]) for g in KV]
+def kwmap(low):
+    for rx, c in KV_RX: low = rx.sub(lambda m: c + m.group(1), low)
+    return low
+def kwn(s): return kwmap(norm(s))
+HOUSE = {g["house"] for g in KV if g.get("house")}
+def kw_bag(s): return {_stem(w) for w in re.findall(r"[a-z0-9]+", kwmap((s or "").lower()))}
 def title_px(s):
     try:
         from PIL import ImageFont
@@ -56,6 +64,7 @@ def title_case_errors(s):
     errs = []
     toks = s.split()
     for i, t in enumerate(toks):
+        if re.sub(r"s?[^A-Za-z]*$", "", t) in HOUSE: continue   # house spelling of a keyword ("T-shirt", rules/keyword_variants.json)
         for part in re.split(r"(-)", t):
             if part in ("-", "") or not part[0].isalpha(): continue
             first_or_last = i == 0 or i == len(toks) - 1
@@ -280,8 +289,8 @@ def check(spec, siblings):
 
     # ---------- K: keywords, links, cannibalization ----------
     if prim:
-        pr = norm(prim)
-        def has(field_text): return pr in norm(field_text) or pr.rstrip("s") in norm(field_text)
+        pr = kwn(prim)
+        def has(field_text): return pr in kwn(field_text) or pr.rstrip("s") in kwn(field_text)
         if not has(mt): add("P0", "K1", "meta_title", f'primary "{prim}" not in meta title')
         if not has(h1): add("P0", "K1", "h1", f'primary "{prim}" not in H1')
         if not has(md): add("P1", "K2", "meta_description", f'primary "{prim}" not in meta description')
@@ -323,11 +332,11 @@ def check(spec, siblings):
             if len(got) < need: add("P1", "K8", "faq", f"FAQ carries {len(got)} of {len(secs)} secondaries (all words in one sentence, any order; need {need}); missing e.g. {[x for x in secs if x not in got][:5]}")
             # two secondaries in back-to-back sentences of one answer reads as keyword stuffing
             def sec_hits(sent):                  # verbatim secondaries, longest first; one inside the primary or a longer secondary does not count
-                low = " " + sent.lower() + " "; out = set()
-                for x in sorted(set(secs) | {prim.lower()}, key=len, reverse=True):
+                low = " " + kwmap(sent.lower()) + " "; out = set()
+                for x in sorted({kwmap(y) for y in secs} | {kwmap(prim.lower())}, key=len, reverse=True):
                     rx = r"(?<![a-z0-9])" + re.escape(x) + r"(?![a-z0-9])"
                     if re.search(rx, low):
-                        if x != prim.lower(): out.add(x)
+                        if x != kwmap(prim.lower()): out.add(x)
                         low = re.sub(rx, " | ", low)
                 return out
             for idx, it_ in enumerate(fq.get("items", []), 1):
@@ -338,20 +347,20 @@ def check(spec, siblings):
     body = " ".join(strip_html(v) for k, v in F.items() if isinstance(v, str) and k not in ("why_table",))
     if KMAP and prim:
         me = KMAP.get(spec["url"], {})
-        mine = {norm(prim)} | {norm(s["kw"]) for s in me.get("secondaries", [])}
+        mine = {kwn(prim)} | {kwn(s["kw"]) for s in me.get("secondaries", [])}
         heads = [strip_html(h3p(F[k])[0]) for k in F if re.match(r"(feature|tab_content)_\d", k) and h3p(F.get(k, ""))]
         heads += [F.get(k, "") for k in ("features_heading", "usecase_heading", "why_title", "howto_title", "h1", "meta_title")]
         heads += [i["q"] for i in (fq or {}).get("items", [])]
         for url, p in KMAP.items():
             if url == spec["url"] or p.get("status") == "live-off-plan": continue
-            kp = norm(p["primary"])
+            kp = kwn(p["primary"])
             if kp in mine or any(kp in m for m in mine) or len(kp.split()) < 2: continue
             for hd in heads:
-                if re.search(r"\b" + re.escape(kp) + r"\b", norm(hd)):
+                if re.search(r"\b" + re.escape(kp) + r"\b", kwn(hd)):
                     add("P1", "K5", "headings", f'uses sibling primary "{p["primary"]}" ({url}) in a heading: "{hd[:60]}"'); break
         secs = [s["kw"] for s in me.get("secondaries", [])][:15]
         if secs:
-            hit = [s for s in secs if norm(s) in norm(body)]
+            hit = [s for s in secs if kwn(s) in kwn(body)]
             cov = len(hit) / len(secs)
             if cov < 0.4: add("P2", "K6", "body", f"covers {len(hit)}/{len(secs)} top secondaries ({cov:.0%}); missing e.g. {[s for s in secs if s not in hit][:4]}")
         try:
