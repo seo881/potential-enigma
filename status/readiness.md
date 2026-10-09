@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-09 21:47 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-09 21:48 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -56,9 +56,9 @@ Regenerated 2026-10-09 21:47 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-lp | /ai-landing-page-builder/b2b-landing-page | 9 | 2/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-lp | /ai-landing-page-builder/campaign-landing-page | 12 | 2/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-lp | /ai-landing-page-builder/coming-soon-page | 10 | 2/10 | no | no | no | 0 | - | no | no | autofix |
-| wk-rework-lp | /ai-landing-page-builder/landing-page-seo | 5 | 10/10 | no | no | no | 0 | - | no | no | writer |
-| wk-rework-lp | /ai-landing-page-builder/lead-generation-landing-page | 6 | 6/10 | no | no | no | 0 | - | no | no | writer |
-| wk-rework-lp | /ai-landing-page-builder/one-page-website | 8 | 4/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-lp | /ai-landing-page-builder/landing-page-seo | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
+| wk-rework-lp | /ai-landing-page-builder/lead-generation-landing-page | 0 | 10/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-lp | /ai-landing-page-builder/one-page-website | 1 | 10/10 | no | no | no | 0 | - | no | no | writer |
 | wk-rework-lp | /ai-landing-page-builder/ppc-landing-page | 10 | 1/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-lp | /ai-landing-page-builder/product-landing-page | 10 | 3/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-lp | /ai-landing-page-builder/real-estate-landing-page | 9 | 4/10 | no | no | no | 0 | - | no | no | autofix |
@@ -66,4 +66,4 @@ Regenerated 2026-10-09 21:47 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-lp | /ai-landing-page-builder/splash-page | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
 | wk-rework-lp | /ai-landing-page-builder/squeeze-page | 10 | 7/10 | no | no | no | 0 | - | no | no | autofix |
 
-Stages: autofix 9, check 1, done 21, stopped 8, writer 3 (42 pages)
+Stages: autofix 9, check 2, done 21, stopped 8, writer 2 (42 pages)
