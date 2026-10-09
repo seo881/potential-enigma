@@ -138,6 +138,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-09 22:04 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-1",
+   "note": "rubric 10/10 by wk-r-1; 7 notes"
   }
  ],
  "plan": {
@@ -774,7 +781,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 21:47 UTC"
+  "date": "2026-10-09 21:58 UTC"
  },
  "writers": [
   "w-splash-page",
@@ -785,5 +792,195 @@
   "My store sells in the US, Canada, and the UK. Ask each shopper for a country and a language on a splash page, then open the matching storefront.",
   "Put a coming-soon splash page on my domain with one email field, and save every signup with its time and the campaign in the link.",
   "Promote my fall sale on a splash page that new visitors see once, with a button into the sale and a skip link, and count the clicks on each."
+ ],
+ "review": {
+  "by": "wk-r-1",
+  "date": "2026-10-09 22:04 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Splash Page With a Clear Way In\", meta \"What Is a Splash Page? Examples and Uses | Emergent\" and hero \"Build a splash page that asks one question, shows a clear way past it, and saves each answer to a table you own.\" state the whole job and stay off the one page website and microsite siblings. D1/D2 pass (QC 0)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "SERP is definitions and galleries with an AI Overview (AMBER, mixed meanings): FAQ 1 defines it, FAQ 3, 4 and 10 cover the landing page and home page comparisons, FAQ 5 and 8 give examples, FAQ 6 covers the comics meaning, the tabs show four working types and step 4 delivers the meta's \"Google's mobile rule\" (\"Age checks and cookie notices that answer a legal obligation are exempt\")."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Splash-specific detail: \"Regulars who answered Yes skip the question for 30 days\", \"move the home page one step behind it, to a path such as /home\", \"point its address at the home page with a 301 redirect\". Emergent build cell is the hub default (note)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "\"Ask for a skip link and Emergent sets it beside the main button\", \"Put the splash page at your root address\", \"Copperline Brewing's site opens on one question\", \"Until launch day, Lumen's domain shows one screen\": full sentences, varied."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q6/Q7 clean; one idea per sentence (\"Cut the navigation menu and the footer too.\"). Repeats and soft generalizations are notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete: \"No leads to a short page with the brewery's address and nothing to buy\", \"A shopper in Montreal who picks Canada and French lands on the French Canadian store\". No AI-tell vocabulary."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "claims_used approved; GitHub export \"on paid plans\"; custom domain \"included and uses credits\". Definition, comics meaning, intrusive-interstitial rule with legal exemptions, US drinking age 21 and app splash screens each map to domain_sources. uc-4 adds up on every row (455 = 140 + 315 through 612 = 204 + 408) and the Slack post matches Oct 7."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Pages after an action go to the thank you page (FAQ 9) and single campaigns to the event landing page (FAQ 10); the page's ground is the screen in front of a whole site."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "Exactly 10 items, none names a brand or asks for a file (PA14/PA15); the comics item answers a meaning the SERP itself carries for this query; answer-first; hub link in item 2; thank-you-page and event-landing-page links; moat lines in items 3, 7, 9 from approved claims."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "uc-1 \"Are you 21 or older?\", Yes opens the taproom menu, \"Remembered for 30 days\", No opens an exit page; uc-2 three countries, Canada + French to the French Canadian store, next visit straight there; uc-3 one email field, row with spring-newsletter campaign and time; uc-4 daily log with views, sale clicks and skips, 8 AM Slack post to #marketing. Reserved domains only."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "CONTENT_DEFECTS #3",
+    "field": "why_table (Emergent, How you build)",
+    "quote": "Prompt for a campaign page",
+    "issue": "Hub-default build cell (table.variant is null); a splash page is a site entry screen more than a campaign page.",
+    "fix": "Coordinator: a page-type variant in rules/competitors/lp.json (e.g. \"Prompt for the page and its redirect rules\").",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 9",
+    "quote": "Website splash pages come in two kinds: gates that need an answer before entry, such as an age check, and announcements a visitor can skip.",
+    "issue": "An unsourced taxonomy, and tab 3's prelaunch waitlist (no site behind it to enter or skip to) fits neither kind.",
+    "fix": "\"Most website splash pages are either gates ... or announcements ...\", or add the launch screen as a third case.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq item 1; faq item 5; faq item 8; why_description; howto_step_7_des",
+    "quote": "faq 1 \"usually lives at the site's root address\"; faq 5 \"Design galleries tag more splash page examples by visual style\"; faq 8 \"Design galleries collect plenty that look good but fail the second test\"; why_description \"Builders hand you a splash template to arrange.\"; step 7 \"A promotion most people skip is a banner's job.\"",
+    "issue": "Generalizations about unnamed galleries, builders and visitors.",
+    "fix": "Name the source where one exists, or state it as advice.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq item 3; faq item 10",
+    "quote": "faq 3 \"A splash page sits in front of a whole site and hands visitors on\"; faq 10 \"Use a splash page when every visitor to the domain must see one thing first\"",
+    "issue": "Two items work the same splash-versus-landing comparison; item 10 adds the when-to-use rule, so it is close to a repeat but not filler.",
+    "fix": "Optional: open item 10 on the traffic test and drop the restated contrast.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_2; faq item 1; faq item 2; faq item 7",
+    "quote": "feature_2 \"Put the splash page at your root address\"; faq 1 \"usually lives at the site's root address\"; faq 2 \"Host it at your root address.\"; faq 7 \"a single static file at the root of a site\"",
+    "issue": "The root-address point is made four times.",
+    "fix": "Keep it in feature_2 and FAQ 1.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "features_subheading; hero_description",
+    "quote": "One screen up front, and the routing and storage behind it that visitors never see.",
+    "issue": "The SERP carries an AI Overview; the definition sits in the meta description and FAQ 1 but not in the visible top of the page.",
+    "fix": "Open the subheading with a one-line definition: \"A splash page is the screen a site shows before its home page.\"",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page (outside the FAQ)",
+    "quote": "\"site\" 9 times, \"home\" 9 times, \"table\" 8 times outside the FAQ (QC Q9), e.g. \"Signups saved to a table you own\", \"Keep every answer in a table\", \"That table becomes your waitlist\"",
+    "issue": "Repeated nouns give features and steps one rhythm.",
+    "fix": "Vary where the meaning holds.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "specificity",
+   "rule": "CONTENT_DEFECTS #3",
+   "field": "why_table (Emergent, How you build)",
+   "issue": "Hub-default build cell (table.variant is null); a splash page is a site entry screen more than a campaign page.",
+   "fix": "Coordinator: a page-type variant in rules/competitors/lp.json (e.g. \"Prompt for the page and its redirect rules\").",
+   "by": "wk-r-1",
+   "via": "review",
+   "date": "2026-10-09 22:04 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 9",
+   "issue": "An unsourced taxonomy, and tab 3's prelaunch waitlist (no site behind it to enter or skip to) fits neither kind.",
+   "fix": "\"Most website splash pages are either gates ... or announcements ...\", or add the launch screen as a third case.",
+   "by": "wk-r-1",
+   "via": "review",
+   "date": "2026-10-09 22:04 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq item 1; faq item 5; faq item 8; why_description; howto_step_7_des",
+   "issue": "Generalizations about unnamed galleries, builders and visitors.",
+   "fix": "Name the source where one exists, or state it as advice.",
+   "by": "wk-r-1",
+   "via": "review",
+   "date": "2026-10-09 22:04 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq item 3; faq item 10",
+   "issue": "Two items work the same splash-versus-landing comparison; item 10 adds the when-to-use rule, so it is close to a repeat but not filler.",
+   "fix": "Optional: open item 10 on the traffic test and drop the restated contrast.",
+   "by": "wk-r-1",
+   "via": "review",
+   "date": "2026-10-09 22:04 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_2; faq item 1; faq item 2; faq item 7",
+   "issue": "The root-address point is made four times.",
+   "fix": "Keep it in feature_2 and FAQ 1.",
+   "by": "wk-r-1",
+   "via": "review",
+   "date": "2026-10-09 22:04 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "features_subheading; hero_description",
+   "issue": "The SERP carries an AI Overview; the definition sits in the meta description and FAQ 1 but not in the visible top of the page.",
+   "fix": "Open the subheading with a one-line definition: \"A splash page is the screen a site shows before its home page.\"",
+   "by": "wk-r-1",
+   "via": "review",
+   "date": "2026-10-09 22:04 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page (outside the FAQ)",
+   "issue": "Repeated nouns give features and steps one rhythm.",
+   "fix": "Vary where the meaning holds.",
+   "by": "wk-r-1",
+   "via": "review",
+   "date": "2026-10-09 22:04 UTC"
+  }
  ]
 }
