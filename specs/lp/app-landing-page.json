@@ -137,6 +137,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-09 22:10 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "wk-r-2",
+   "note": "[truth | HUB_RULES 8] faq: Statement of fact about two named third-party sites with no matching spec.domain_sources entry. This is the only instance on the page; every other third-party fact has a source. -> Either drop the named galleries (e.g. 'Example galleries sort them by category...'), or sour"
   }
  ],
  "plan": {
@@ -812,7 +819,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 21:55 UTC"
+  "date": "2026-10-09 22:08 UTC"
  },
  "writers": [
   "w-app-landing-page",
@@ -823,5 +830,145 @@
   "Add four screenshots from my hiking app in phone frames, in the order a new hiker meets each screen, with a one-line caption under each one.",
   "When someone opens my page on a laptop, replace the store badges with a QR code that opens the right store on whichever phone scans it.",
   "Save every tap on a store badge as a row with the time, the device, and the utm_campaign value from the link that brought the visitor in."
+ ],
+ "review": {
+  "by": "wk-r-2",
+  "date": "2026-10-09 22:10 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an App Landing Page That Gets People Into the App' and hero 'Create an app landing page that shows each phone the right store badge and saves every tap...' cover the whole job; how-to description is one sentence under 140 characters."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is example galleries and advice posts; the page gives a definition up top, four worked examples by job (download, web app sign-up, campaign pages, laptop visitors) and a seven-step how-to grounded in Apple, Google Play and Google Search guidance."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'Download on the App Store', 'utm_campaign value', 'App Store Connect', 'Smart App Banner', 'QR code that opens the right store'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'The page reads the visitor's device...', 'Every Monday at 9 AM, Stride Run Club's click table posts...', 'Write the headline as the job the app does...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences carry one idea each; QC Q2/Q5/Q7 clean. Week-label inconsistency in tab 3 logged as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete and calm: 'Plenty of clicks and few downloads points to a weak store listing.' Repetition of 'store' (24) and 'badge' (16) logged as a note."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "faq item 4: 'Galleries such as Lapa Ninja and Landingfolio sort them by category' is a fact about named third parties with no spec.domain_sources entry. All other third-party facts check out against their sources (Apple badge rules incl. 'Never translate App Store', Google Play badge 'same size or larger', Google interstitials page naming Smart App Banners)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Store routing, QR codes for laptops and badge-tap tracking are specific to apps; nothing reads as the product or launch sibling with nouns swapped."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, no brand or file-format asks, hub link in item 2, three sibling links (pricing page, thank you page, one page website), each answered in its first sentence."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: Trailmark badge by device with trail-guide-email; Quillbook work email, welcome email sent, Invoice #0001; Stride table 410+290+260+60 = 1,020 with podcast ad 60/860 = 7%; Brightside QR code, email field, 'Referred by Pantry Notes blog'. One hero each, cursor on button edge."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Galleries such as Lapa Ninja and Landingfolio sort them by category, which makes it quick to study apps close to yours.",
+    "issue": "Statement of fact about two named third-party sites with no matching spec.domain_sources entry. This is the only instance on the page; every other third-party fact has a source.",
+    "fix": "Either drop the named galleries (e.g. 'Example galleries sort them by category...'), or source it: two domain_sources entries are no longer used in the copy (the progressive web app claim and the ChatGPT claim), so replace one with the Lapa Ninja app category page or Landingfolio's mobile-app inspiration page (both in the top 10) and add the claim to plan.claims_to_source.",
+    "severity": "blocking"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "give laptop visitors a QR code in place of the badges (faq 2); Anyone on a laptop gets a QR code to scan with their phone (faq 7); On a laptop, neither badge helps. Show a QR code there instead (howto_step_4_des); gives laptops a QR code (meta_description); There the page shows a QR code (tab_content_4)",
+    "issue": "The laptop QR idea and the badge-by-device routing (feature_1, tab_content_1, howto_step_4_des, faq 7) are restated across several fields.",
+    "fix": "Keep the idea in tab 4 and step 4; let FAQ 2 and FAQ 7 point at a different detail.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "Most of these pages also link to a pricing page (faq 6); Plenty of apps launch with the landing page alone (faq 10); often an email address and a password (faq 6)",
+    "issue": "Soft quantifiers about no named third party.",
+    "fix": "State the advice directly or drop the quantifier.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_3",
+    "quote": "Which ads sent this week's 1,020 store clicks ... Stride Run Club's click table posts last week's campaigns",
+    "issue": "The H3 calls the 1,020 clicks 'this week's' while the body says the Monday post covers last week.",
+    "fix": "Use 'last week's 1,020 store clicks' in the H3.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "QC Q9: 'store' 24 times, 'badge' 16 times, 'click' 10 times outside the FAQ",
+    "issue": "Heavy repetition of the same nouns gives the page a uniform rhythm.",
+    "fix": "Vary with 'listing', 'App Store', 'Google Play', 'tap' where the meaning holds.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "The laptop QR idea and the badge-by-device routing (feature_1, tab_content_1, howto_step_4_des, faq 7) are restated across several fields.",
+   "fix": "Keep the idea in tab 4 and step 4; let FAQ 2 and FAQ 7 point at a different detail.",
+   "by": "wk-r-2",
+   "via": "review",
+   "date": "2026-10-09 22:10 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Soft quantifiers about no named third party.",
+   "fix": "State the advice directly or drop the quantifier.",
+   "by": "wk-r-2",
+   "via": "review",
+   "date": "2026-10-09 22:10 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_3",
+   "issue": "The H3 calls the 1,020 clicks 'this week's' while the body says the Monday post covers last week.",
+   "fix": "Use 'last week's 1,020 store clicks' in the H3.",
+   "by": "wk-r-2",
+   "via": "review",
+   "date": "2026-10-09 22:10 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "Heavy repetition of the same nouns gives the page a uniform rhythm.",
+   "fix": "Vary with 'listing', 'App Store', 'Google Play', 'tap' where the meaning holds.",
+   "by": "wk-r-2",
+   "via": "review",
+   "date": "2026-10-09 22:10 UTC"
+  }
  ]
 }
