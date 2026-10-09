@@ -33,3 +33,4 @@ Format: date, source (Divit, reviewer, QC, orchestrator), the item, pages it tou
 
 - MONDAY: carousel (section_build) formatting rework on hubs + child templates, then unhide.
 - 2026-10-09, orchestrator: the reference page /ai-app-builder/vedic-astrology shows no black selected-chip state (its is-active renders like the default chip; hover is light grey). hubchip--on uses the hero submit arrow's black (#000, white text) as asked; confirm the look on staging.
+- MONDAY: Learn list fix: Form, LP and AAB child templates render "No items found" (limit 3, source Learn, no filters, same as SQB which renders); section_blog-related hidden on those 3 for launch (logs/templates.md).
