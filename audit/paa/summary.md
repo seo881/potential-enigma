@@ -292,3 +292,5 @@ Phase 2 (DECISIONS 2026-10-08): one line per page, no question text. Per-questio
 - 2026-10-09 /ai-form-builder/t-shirt-order-form [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
 - 2026-10-09 /ai-form-builder/t-shirt-order-form [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
 - 2026-10-09 /ai-landing-page-builder/law-firm-landing-page [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-09 /ai-form-builder/booking-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-09 /ai-form-builder/booking-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none

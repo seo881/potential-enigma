@@ -2,6 +2,10 @@
 
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
+## 2026-10-09
+- **F4 retired: superseded by the PAA gate; conflicting rules, allowed under the freeze (Divit).** QC F4 (answer the first 10 eligible DataForSEO PAA questions) conflicted with the approved PAA gate PA1-PA13 on 6 batch-1 pages; its code stays in `qc/qc_hub.py`, disabled (`F4_RETIRED`), and it no longer counts toward the QC TOTAL.
+- **Launch today = 21 pages (Divit):** the 15 batch-1 pages already reviewed plus the 6 that F4 held (ecommerce-automation, contact-form, 404-page, pricing-page, employee-engagement-survey, booking-form). Held and untouched: consultation-form, checkout-form, conference-registration-form, summer-camp-registration-form and the 4 originals (they stay drafts); links to them ship as plain text. Batches 2 and 3 wait.
+
 ## 2026-10-08
 - **LAUNCH RUN (Divit, 2026-10-08):**
   - **Rules freeze for launch:** no new QC rule or rule change until batches 1-3 are live. New feedback goes to `plan/backlog.md`; only factual errors on a page are fixed immediately.

@@ -19,6 +19,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CFG = json.load(open(os.path.join(ROOT, "config", "collections.json")))
 MAP_PATH = os.path.join(ROOT, "plan", "keyword_map.json")
 KMAP = json.load(open(MAP_PATH)) if os.path.exists(MAP_PATH) else None
+F4_RETIRED = True   # Divit, 2026-10-09: F4 retired, superseded by the PAA gate (qc/paa_gate.py, PA1-PA13); code kept, disabled
 FONTS = ["/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", "/System/Library/Fonts/Supplemental/Arial.ttf", "/Library/Fonts/Arial.ttf"]
 FONT = next((f for f in FONTS if os.path.exists(f)), FONTS[0])
 
@@ -459,7 +460,7 @@ def check(spec, siblings):
             _pp = json.load(open(os.path.join(ROOT, "rules", "paa_blocklist.json")))["per_page"].get(spec["url"].rsplit("/", 1)[1], [])
             _pskip = {e["q"].strip().lower() for e in _pp if e.get("reason")}
             ok_paa = [i for i in ok_paa if i["q"].strip().lower() not in _pskip]
-            for i in ok_paa[:10]:
+            for i in ([] if F4_RETIRED else ok_paa[:10]):
                 if i["q"].lower() not in used_paa: add("P1", "F4", "faq", f'People Also Ask question not answered: "{i["q"]}"')
             if not live["paa"]: add("P2", "F5", "faq", "this SERP shows no People Also Ask box; FAQ comes from related searches and secondaries")
     on_hold = CFG.get("images_on_hold")

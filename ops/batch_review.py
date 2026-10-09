@@ -58,7 +58,7 @@ def main(bf):
     body = [f"<h1>{E(name)}: {len(live)} pages for your review</h1>",
             "<p>Reply <b>approve " + E(name.replace('-', ' ')) + "</b>, or name pages and questions to fix. Highlighted questions were admitted only by the PA3 widening; "
             "reject any and it goes on that page's PA4 skip list with your reason.</p>"]
-    if stopped: body.append("<h2>Stopped (not in this review)</h2><ul>" + "".join(f"<li>{E(u)}: {E(P['stopped'])}</li>" for u, P in stopped) + "</ul>")
+    if stopped and "--with-held" in sys.argv: body.append("<h2>Held (not in this review)</h2><ul>" + "".join(f"<li>{E(u)}: {E(P['stopped'])}</li>" for u, P in stopped) + "</ul>")
     body.append("<ol class='toc'>" + "".join(f"<li><a href='#{E(u.rsplit('/', 1)[1])}'>{E(u)}</a></li>" for u in live) + "</ol>")
     body += [page_html(u, L["pages"][u]) for u in live]
     css = ("body{font:15px/1.5 -apple-system,Segoe UI,sans-serif;max-width:980px;margin:24px auto;padding:0 16px;color:#1a1a1a;background:#fff}"
@@ -66,7 +66,7 @@ def main(bf):
            "li.bad,.bad{color:#a40000}.tag{font-size:12px;color:#7a5b00;margin-left:6px}img{max-width:100%;border:1px solid #ddd}")
     out = os.path.join(ROOT, ".cache", "review", f"{name}.html"); os.makedirs(os.path.dirname(out), exist_ok=True)
     open(out, "w").write(f"<!doctype html><meta charset='utf-8'><title>{E(name)} review</title><style>{css}</style>" + "\n".join(body))
-    print(f"{os.path.relpath(out, ROOT)}: {len(live)} pages, {len(stopped)} stopped")
+    print(f"{os.path.relpath(out, ROOT)}: {len(live)} pages in publish order ({len(stopped)} held pages left out)")
 
 if __name__ == "__main__":
     main(sys.argv[1])
