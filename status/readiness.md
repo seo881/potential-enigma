@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-09 22:39 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-09 22:42 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -72,11 +72,11 @@ Regenerated 2026-10-09 22:39 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-sqb | /ai-survey-and-quiz-builder/360-survey | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/customer-effort-score | 11 | 5/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/customer-experience-survey | 11 | 5/10 | no | no | no | 0 | - | no | no | autofix |
-| wk-rework-sqb | /ai-survey-and-quiz-builder/customer-feedback-survey | 9 | 6/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-sqb | /ai-survey-and-quiz-builder/customer-feedback-survey | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/employee-benefits-survey | 8 | 6/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/employee-satisfaction-survey | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/exit-survey | 10 | 6/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/onboarding-survey | 13 | 2/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/pulse-survey | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
 
-Stages: autofix 5, check 3, done 21, images 4, payload 13, stopped 8, writer 1 (55 pages)
+Stages: autofix 5, check 4, done 21, images 4, payload 13, stopped 8 (55 pages)
