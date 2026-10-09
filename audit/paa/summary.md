@@ -389,3 +389,44 @@ Phase 2 (DECISIONS 2026-10-08): one line per page, no question text. Per-questio
 - 2026-10-10 /ai-landing-page-builder/ppc-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
 - 2026-10-10 /ai-landing-page-builder/ppc-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
 - 2026-10-10 /ai-landing-page-builder/squeeze-page [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/real-estate-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/real-estate-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/b2b-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/accounts-payable-automation [spec]: 10 questions; pass 2, reject 4, flag 4; rejects by rule: PA12 1, PA14 1, PA3 2; page: PA11 7 on-topic items, under 8: the page parks; PA12 item 1 is not the definition; PA12 item 2 is not how-to-build
+- 2026-10-10 /ai-automation-builder/invoice-automation [spec]: 10 questions; pass 2, reject 4, flag 4; rejects by rule: PA1 3, PA14 2, PA1b 1, PA3 4; page: PA11 6 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build; PA12 5 items carrying a secondary, under 6
+- 2026-10-10 /ai-automation-builder/purchase-order-automation [spec]: 10 questions; pass 2, reject 6, flag 2; rejects by rule: PA1 1, PA3 6; page: PA11 4 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build; PA12 2 items carrying a secondary, under 6
+- 2026-10-10 /ai-automation-builder/invoice-automation [pull]: 21 questions; pass 0, reject 20, flag 1; rejects by rule: PA14 8, PA15 5, PA3 20, PA8 5; page: PA11 44 nodes, 21 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-automation-builder/social-media-automation [spec]: 10 questions; pass 2, reject 8, flag 0; rejects by rule: PA1 2, PA14 3, PA3 6; page: PA11 2 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build; PA12 2 items carrying a secondary, under 6
+- 2026-10-10 /ai-automation-builder/social-media-automation [pull]: 21 questions; pass 2, reject 19, flag 0; rejects by rule: PA14 4, PA3 18, PA5 1; page: PA11 48 nodes, 21 distinct; 2 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-automation-builder/social-media-automation [pull+cand]: 21 questions; pass 2, reject 19, flag 0; rejects by rule: PA14 4, PA3 18, PA5 1; page: PA11 48 nodes, 21 distinct; 2 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-automation-builder/accounts-payable-automation [spec]: 10 questions; pass 5, reject 0, flag 5; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/invoice-automation [spec]: 10 questions; pass 5, reject 0, flag 5; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/accounts-payable-automation [spec]: 10 questions; pass 5, reject 0, flag 5; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/purchase-order-automation [spec]: 10 questions; pass 4, reject 0, flag 6; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/social-media-automation [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/social-media-automation [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/employee-satisfaction-survey [spec]: 10 questions; pass 4, reject 4, flag 2; rejects by rule: PA1 2, PA3 4; page: PA11 6 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build
+- 2026-10-10 /ai-survey-and-quiz-builder/pulse-survey [spec]: 10 questions; pass 2, reject 4, flag 4; rejects by rule: PA1 1, PA12 1, PA1b 1, PA3 2; page: PA11 7 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build
+- 2026-10-10 /ai-survey-and-quiz-builder/customer-feedback-survey [spec]: 10 questions; pass 4, reject 4, flag 2; rejects by rule: PA1 2, PA3 4; page: PA11 6 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build
+- 2026-10-10 /ai-survey-and-quiz-builder/360-survey [spec]: 10 questions; pass 0, reject 9, flag 1; rejects by rule: PA1 4, PA12 1, PA1b 1, PA3 8; page: PA11 1 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build; PA12 1 items carrying a secondary, under 6
+- 2026-10-10 /ai-survey-and-quiz-builder/customer-feedback-survey [pull]: 16 questions; pass 3, reject 13, flag 0; rejects by rule: PA3 12, PA5 2, PA9 1; page: PA11 38 nodes, 16 distinct; 3 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-survey-and-quiz-builder/customer-feedback-survey [pull]: 16 questions; pass 3, reject 13, flag 0; rejects by rule: PA3 12, PA5 2, PA9 1; page: PA11 38 nodes, 16 distinct; 3 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-survey-and-quiz-builder/customer-feedback-survey [pull]: 16 questions; pass 3, reject 13, flag 0; rejects by rule: PA3 12, PA5 2, PA9 1; page: PA11 38 nodes, 16 distinct; 3 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-survey-and-quiz-builder/pulse-survey [spec]: 10 questions; pass 4, reject 1, flag 5; rejects by rule: PA1b 1
+- 2026-10-10 /ai-survey-and-quiz-builder/employee-satisfaction-survey [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/360-survey [spec]: 10 questions; pass 7, reject 1, flag 2; rejects by rule: PA1b 1
+- 2026-10-10 /ai-survey-and-quiz-builder/employee-satisfaction-survey [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/360-survey [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/pulse-survey [spec]: 10 questions; pass 4, reject 1, flag 5; rejects by rule: PA1b 1
+- 2026-10-10 /ai-survey-and-quiz-builder/360-survey [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/pulse-survey [spec]: 10 questions; pass 5, reject 0, flag 5; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/pulse-survey [spec]: 10 questions; pass 5, reject 0, flag 5; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/pulse-survey [spec]: 10 questions; pass 5, reject 0, flag 5; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/customer-feedback-survey [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/customer-feedback-survey [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/customer-feedback-survey [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/purchase-order-automation [spec]: 10 questions; pass 4, reject 0, flag 6; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/social-media-automation [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/purchase-order-automation [spec]: 10 questions; pass 4, reject 0, flag 6; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/social-media-automation [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/purchase-order-automation [spec]: 10 questions; pass 4, reject 0, flag 6; rejects by rule: none

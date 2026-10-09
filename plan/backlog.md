@@ -46,3 +46,4 @@ Format: date, source (Divit, reviewer, QC, orchestrator), the item, pages it tou
 - 2026-10-10 (QC D3): 20 specs not yet in Webflow have an explore CTA over 34 characters (customer-satisfaction among the held pages); shorten in their batch-2 writer pass.
 - 2026-10-10: the widened H3 still leaves lists after 'such as' and lists followed by a trailing modifier (', along with ...', ', each with ...') as ambiguous P2 (t-shirt-order-form FAQ, howto_step_1_des). Next detector pass.
 - 2026-10-10: 147 form specs carry the new Google Forms build cell; re-check the Gemini availability text quarterly (source in rules/competitors/form.json).
+- 2026-10-10 (weekend run): H3 missed a 4-verb series with no serial comma in social-media-automation FAQ item 1 (verbs separated by objects and prepositional phrases); ship-qc TOTAL 0. Add a golden case and fix in the next detector pass; fix the text at that page's next pass.
