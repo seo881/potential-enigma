@@ -124,6 +124,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-09 08:07 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "launch-r-b1-5",
+   "note": "rubric 10/10 by launch-r-b1-5; 5 notes"
   }
  ],
  "table": {
@@ -773,5 +780,155 @@
   "On my contact form, ask catering visitors for the event date and head count, and ask anyone with an order problem for the order number and a photo.",
   "If a message on my contact form goes unanswered for one business day, remind the person who owns that topic, and escalate it to me the next morning.",
   "Post each new message from my contact form to Slack with the sender's name and topic, and send press requests due within 48 hours as a direct message."
+ ],
+ "review": {
+  "by": "launch-r-b1-5",
+  "date": "2026-10-09 08:07 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Contact Form That Reaches the Right Person\" and hero (\"builds the contact form, routes every message to its owner and keeps the history in a database you own\") cover the form's whole job."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is builder templates and what-is guides; the page defines the form (FAQ 1), shows four business-type examples, a 7-step how-to, free options (FAQ 3) and Contact Form 7 answers from PAA."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "\"Show an order number field only to someone asking about an order, and a guest count only for catering\"; table rows are form-builder dimensions (response caps, where responses live)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "\"Larkspur Bakery's contact page asks every visitor to pick a topic first.\" \"Three clinics share one form at Cedar Row Physical Therapy.\" Feature bodies open on verbs: \"Pick\", \"Show\", \"Keep\", \"Give\", \"Email\", \"Export\"."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q6/Q7 clean; serial-comma drift in one chip prompt and an awkward parenthetical recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete and unglamorous: \"a damaged mug\", \"the shared inbox the counter staff check each morning\", \"a press queue he reviews each Monday\"."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Contact Form 7 facts match wordpress.org and the Flamingo page in domain_sources; Emergent claims map to claims_used (custom-domain, free-start, code-export, alerts); table from the library."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Built around routing messages to owners with reply windows, not lead capture or quotes; no sibling primary (lead capture form, quote form, demo request form) in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions (7 from PAA), each answered first; hub link in item 2 (\"AI form builder\"); exact-match links \"registration form\" and \"intake form\"."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Catering, 80 guests, sent to Dana Whitfield by email; order #10482 with mug photo opens a Shopify-backed ticket; Midtown 4h 20m escalated to Lena Park in Slack while Harbor 3h 15m stays open; 36 hours < 48 triggers the DM to Jonah Reyes."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #25",
+    "field": "image_brief.tabs[3].hero (uc-4.svg)",
+    "quote": "# Jonah Reyes",
+    "issue": "The hero card's header draws a channel glyph (#) before a person's name while the copy and the step list say a direct message. The card is addressed to Jonah, so the story holds, but # reads as a channel.",
+    "fix": "Use the DM card the engine draws elsewhere (\"Slack DM\", \"To Jonah Reyes\").",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "howto_step_7_des",
+    "quote": "share the hosted link on a custom domain (built into Emergent, uses credits)",
+    "issue": "The parenthetical reads like a claims-ledger note pasted into the step.",
+    "fix": "\"or share the hosted link on your own domain, which Emergent includes and bills in credits.\"",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq items 6, 7, 9",
+    "quote": "a free plugin listed in the WordPress.org plugin directory / covers the basics for a WordPress site / adds contact forms to a WordPress site",
+    "issue": "Three Contact Form 7 answers restate that it is a WordPress form plugin; items 7 and 9 both describe forms written in markup.",
+    "fix": "Let item 9 own what it does and item 7 own the trade-offs (no stored messages without Flamingo).",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "chip_prompts[0]",
+    "quote": "send orders, catering, and press questions",
+    "issue": "Serial comma; the rest of the page drops it (\"such as orders, catering or press\").",
+    "fix": "\"send orders, catering and press questions\"",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2a",
+    "field": "faq item 8",
+    "quote": "Name the reader in the heading, such as \"Write to Maria at the front desk\"",
+    "issue": "\"The reader\" is ambiguous on a form the visitor reads; the example means the person who will read the message.",
+    "fix": "\"Name the person who reads the messages in the heading, such as ...\"",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #25",
+   "field": "image_brief.tabs[3].hero (uc-4.svg)",
+   "issue": "The hero card's header draws a channel glyph (#) before a person's name while the copy and the step list say a direct message. The card is addressed to Jonah, so the story holds, but # reads as a channel.",
+   "fix": "Use the DM card the engine draws elsewhere (\"Slack DM\", \"To Jonah Reyes\").",
+   "by": "launch-r-b1-5",
+   "via": "review",
+   "date": "2026-10-09 08:07 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "howto_step_7_des",
+   "issue": "The parenthetical reads like a claims-ledger note pasted into the step.",
+   "fix": "\"or share the hosted link on your own domain, which Emergent includes and bills in credits.\"",
+   "by": "launch-r-b1-5",
+   "via": "review",
+   "date": "2026-10-09 08:07 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq items 6, 7, 9",
+   "issue": "Three Contact Form 7 answers restate that it is a WordPress form plugin; items 7 and 9 both describe forms written in markup.",
+   "fix": "Let item 9 own what it does and item 7 own the trade-offs (no stored messages without Flamingo).",
+   "by": "launch-r-b1-5",
+   "via": "review",
+   "date": "2026-10-09 08:07 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "chip_prompts[0]",
+   "issue": "Serial comma; the rest of the page drops it (\"such as orders, catering or press\").",
+   "fix": "\"send orders, catering and press questions\"",
+   "by": "launch-r-b1-5",
+   "via": "review",
+   "date": "2026-10-09 08:07 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "faq item 8",
+   "issue": "\"The reader\" is ambiguous on a form the visitor reads; the example means the person who will read the message.",
+   "fix": "\"Name the person who reads the messages in the heading, such as ...\"",
+   "by": "launch-r-b1-5",
+   "via": "review",
+   "date": "2026-10-09 08:07 UTC"
+  }
  ]
 }

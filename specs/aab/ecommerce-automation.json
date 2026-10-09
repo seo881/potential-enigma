@@ -127,6 +127,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-09 08:07 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "launch-r-b1-5",
+   "note": "rubric 10/10 by launch-r-b1-5; 3 notes"
   }
  ],
  "plan": {
@@ -836,5 +843,115 @@
   "Each morning, email a 10% off code to any subscribed customer with no order in the last 90 days, and track who comes back.",
   "Hold any paid order over $500 that ships to a different address than it bills to, and message my ops lead in Slack to release or cancel it.",
   "Every Monday, email me margin per SKU for last week's orders after product cost and shipping, and flag any SKU below 20%."
+ ],
+ "review": {
+  "by": "launch-r-b1-5",
+  "date": "2026-10-09 08:07 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build Ecommerce Automation for the Work Behind Every Order\" and the tabs cover routing, marketing (winback), risk holds and reporting, not one sibling's topic."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is explainers and vendors; the page defines it (FAQ 1), gives four examples, tools (FAQ 3), dropshipping, marketing, email, fulfilment and process sub-topics, and a 7-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "\"order #10482 becomes a purchase order for Kilnworks and another for Northwind Textiles\"; \"COMEBACK10, a code for 10% off\"; table is automation-tool dimensions (behaviour at cap, AI steps)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "\"Fernhill Home sells through Shopify and holds no stock.\" \"Any paid order over $500 whose shipping address differs...\" Feature bodies open on verbs: \"Connects\", \"Describe\", \"Keeps\", \"Sends\", \"Runs\", \"Exports\"."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q6/Q7 clean; serial-comma drift recorded as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "\"a new supplier means one new row, not a rebuilt workflow\"; \"Cancel closes it in Shopify and saves her reason.\""
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "CAN-SPAM opt-out and 10 business days match the FTC guide; Shopify orders/paid and fulfillment tracking sourced; margins check: (3360-1260-588)/3360 = 45%, (2790-1550-899)/2790 = 12% ($341), 40%, 37%; $742 > $500."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Broader than its siblings: links shipping automation and approval workflow rather than covering them; no sibling primary (shopify automation, order processing automation) in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions answered first; hub link in item 2 (\"AI automation builder\"); exact-match links \"shipping automation\" and \"approval workflow\"."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "#10482 split into POs for Kilnworks and Northwind Textiles with tracking saved; Hana Sato skipped as unsubscribed, Priya Nair sent COMEBACK10; $742.00 order Denver vs Austin held, DM to Dana Whitfield; linen throw at 12% flagged under 20%, emailed to Sam Ortega."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "feature_5",
+    "quote": "a flash sale with four times the usual orders never pauses a workflow halfway",
+    "issue": "The approved claim is \"no task cap\"; \"never pauses\" reads as a broader reliability promise (store API rate limits sit outside Emergent). In context it means the cap, so it is wording, not a new claim.",
+    "fix": "\"There is no task cap, so a flash sale with four times the usual orders runs through the same steps.\"",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_4; faq item 3",
+    "quote": "units, revenue, product cost, and shipping / Zapier, Make, and n8n",
+    "issue": "The serial comma is used in two places and dropped everywhere else (\"Shopify, WooCommerce or BigCommerce\"; step 3).",
+    "fix": "Drop the serial comma in both.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief.tabs[1] main (uc-2.svg)",
+    "quote": "Winback check, this morning ... Diego Alvarez 95 days ago Sent",
+    "issue": "The copy sends the email the morning after a customer reaches 90 days; a 95-day customer marked Sent under \"this morning\" suggests a later send. It reads as a status, so the story holds.",
+    "fix": "Show 90 and 91 days for this morning's sends, or label the column \"Status\".",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 6",
+   "field": "feature_5",
+   "issue": "The approved claim is \"no task cap\"; \"never pauses\" reads as a broader reliability promise (store API rate limits sit outside Emergent). In context it means the cap, so it is wording, not a new claim.",
+   "fix": "\"There is no task cap, so a flash sale with four times the usual orders runs through the same steps.\"",
+   "by": "launch-r-b1-5",
+   "via": "review",
+   "date": "2026-10-09 08:07 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_4; faq item 3",
+   "issue": "The serial comma is used in two places and dropped everywhere else (\"Shopify, WooCommerce or BigCommerce\"; step 3).",
+   "fix": "Drop the serial comma in both.",
+   "by": "launch-r-b1-5",
+   "via": "review",
+   "date": "2026-10-09 08:07 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief.tabs[1] main (uc-2.svg)",
+   "issue": "The copy sends the email the morning after a customer reaches 90 days; a 95-day customer marked Sent under \"this morning\" suggests a later send. It reads as a status, so the story holds.",
+   "fix": "Show 90 and 91 days for this morning's sends, or label the column \"Status\".",
+   "by": "launch-r-b1-5",
+   "via": "review",
+   "date": "2026-10-09 08:07 UTC"
+  }
  ]
 }
