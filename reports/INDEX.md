@@ -2,6 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-10-10 · [0356-weekend-run-1](2026-10-10/0356-weekend-run-1.md) · Weekend run: 10 pages reviewed, 0 parked; 0 AlsoAsked credits so far; no Webflow calls · this commit
 - 2026-10-10 · [0315-weekend-run-setup](2026-10-10/0315-weekend-run-setup.md) · Weekend run built and started: loop (caffeinate, limit sleeps, STOP, audit window, locks), ops/weekend.py on ops/ship.py, 158 rework pages queued (LP 13, Auto 4, SQB 9, Form 132), new pages held until DataForSEO is authenticated; Webflow MCP not loaded, every Webflow tool denied · this commit
 - 2026-10-10 · [0255-no-site-publish-guard](2026-10-10/0255-no-site-publish-guard.md) · Sites tool `mcp__webflow__data_sites_tool` denied and proven blocked (gone from the session); local allow removed; watcher reads the public HTML stamp (curl), still runs, now retries skipped audits; daily headless run disallows the sites tool by all names; RUNBOOK rule for any weekend run (no Webflow calls) · this commit
 - 2026-10-10 · [0215-proposals-go-h3-sweep](2026-10-10/0215-proposals-go-h3-sweep.md) · Divit's go: Google Forms Gemini cell confirmed in Google's docs (148 tables), LP utility cell, 404 safe rewrite + 'does not exist', QC D3 CTA <= 34, H3 detector widened (11 false positives caught first), 41 serial commas on 18 live pages; 17 live items written (item publish only), 17/17 verified, 0 rolled back; before-values now must be pushed before any write (prepare guard) · 5ca21c6 + next commit
