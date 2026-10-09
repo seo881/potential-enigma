@@ -217,6 +217,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-09 23:04 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-6",
+   "note": "rubric 10/10 by wk-r-6; 7 notes"
   }
  ],
  "plan": {
@@ -962,7 +969,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 22:41 UTC"
+  "date": "2026-10-09 23:01 UTC"
  },
  "writers": [
   "writer-customer-feedback-survey",
@@ -972,112 +979,119 @@
   "wk-w-customer-feedback-survey"
  ],
  "review": {
-  "by": "reviewer-batch-m7",
-  "date": "2026-10-07 15:19 UTC",
+  "by": "wk-r-6",
+  "date": "2026-10-09 23:04 UTC",
   "rubric": {
    "scope": {
     "result": "pass",
-    "evidence": "H1 \"Build a Customer Feedback Survey and Act on Every Comment\"; hero \"Emergent builds the survey, along with the app that stores and acts on what customers say.\" Whole job, not the customer-satisfaction sibling's score focus."
+    "evidence": "H1 'Build a Customer Feedback Survey and Act on Every Comment'; hero 'Create a customer feedback survey and the app behind it, with each comment tagged by theme and every complaint sent to an owner.' covers the whole job, not the customer-satisfaction sibling's score focus."
    },
    "intent": {
     "result": "pass",
-    "evidence": "All five on-topic PAA questions answered; sample questions in FAQ 3; template question in FAQ 8; seven-step how-to; meta promises (sorts by theme, saves with customer, routes complaints) delivered in features 3-5."
+    "evidence": "Definition, how to write one (FAQ 3), sample questions (FAQ 4), customer service questions (FAQ 5), template (FAQ 6, 10), software and tools (FAQ 7, 8), free (FAQ 9) and a 7-step how-to match a top 10 of question lists and guides."
    },
    "specificity": {
     "result": "pass",
-    "evidence": "Stripe cancellation event, Twilio text two hours after a repair, receipt QR across 12 stores, 0.5-point drop to the district manager; survey-builder table rows."
+    "evidence": "Stripe cancellation, Twilio text two hours after a repair, 'job number and the comment' to the dispatcher, receipt QR across 12 stores with a 0.5-point drop rule."
    },
    "openers": {
     "result": "pass",
-    "evidence": "features_subheading \"Each part of a customer feedback survey below moves a comment one step closer to being fixed.\"; howto_description \"Settle these seven calls before the first survey goes out.\" Both full sentences."
+    "evidence": "Tabs open on events ('Once Stripe reports a canceled subscription', 'Two hours after the technician closes the job'); features open on verbs ('Tag every open answer', 'Route a low rating')."
    },
    "craft": {
     "result": "pass",
-    "evidence": "Steps no longer retell the tabs: step 1 \"whether to extend support hours or which onboarding step to rewrite\", step 4 gym members naming class times or parking, step 6 \"Ten mild notes about font size can wait\"."
+    "evidence": "Varied sentences: 'A rating says something went wrong, and the comment says what.'; 'Ten mild notes about font size can wait for the weekly read.'"
    },
    "voice": {
     "result": "pass",
-    "evidence": "Plain verbs and unglamorous detail (\"a delivered blender needs a week of use first\", \"Missed our window.\"); no AI tells."
+    "evidence": "Operator detail: 'a delivered blender needs a week of use first', 'members who leave might keep naming class times or parking'."
    },
    "truth": {
     "result": "pass",
-    "evidence": "FAQ 7 no longer defines CES (\"If you also track a customer effort score, keep it in the same app\"); McKinsey three C's, Pew wording/order and double-barreled, SurveyMonkey no fixed count, Stripe and Twilio match domain_sources; free-start and no-caps in the ledger; 41+33+21+17 = 112."
+    "evidence": "Stripe, Twilio, Pew (wording and order, double-barreled, pilot to choices) and Typeform caps match domain_sources; no-caps, free-start, code-export, api-connect and alerts are ledger claims; 41+33+21+17 = 112; Store 07 4.4 to 3.7 = -0.7."
    },
    "distinct": {
     "result": "pass",
-    "evidence": "Angle is comments and action, not the live customer-satisfaction page's score; QC Q6/D2 clean."
+    "evidence": "Owns comments and routing ('In-app comments, sorted before anyone reads them'); customer-satisfaction, customer effort score and NPS siblings are linked, not used as headings."
    },
    "faq": {
     "result": "pass",
-    "evidence": "10 items, each answered in sentence one (\"There is no fixed five.\", \"Lists vary, and there is no fixed count.\", \"Yes.\"); FAQ 7 now adds \"did the problem stay fixed?\", FAQ 8 names post-onboarding and delivery surveys."
+    "evidence": "10 on-topic questions answered first ('Yes.', 'Good questions name one moment'), hub link in item 2, three sibling links, no brands or file formats in questions, moat lines in items 7, 8, 9."
    },
    "images": {
     "result": "pass",
-    "evidence": "112 of 160, price 41; 9 bug reports to #product-feedback; job #4471 at 2 stars to the dispatcher; Store 07 down 0.7 emailed to the district manager. One hero per tab; numbers add up."
+    "evidence": "Contact sheet: 112 of 160 with price 41; bug reported 9 times to product-feedback; job #4471 at 2 stars to dispatcher S. Park; Store 07 down 0.7 to 3.7; cover matches tab 4. One hero per tab."
    }
   },
   "findings": [
    {
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "faq item 1; howto_step_2_des",
-    "quote": "faq 1 \"a short questionnaire sent after one moment, like a first delivery or a support call\"; step 2 \"Ask about one moment per survey instead of the whole relationship.\"",
-    "issue": "One-moment-per-survey is said in the definition and again as step 2's advice. The two fields have different jobs, so it is noted.",
-    "fix": "Step 2 can stay on timing (the haircut and the blender) and drop its last sentence.",
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "feature_6",
+    "quote": "A custom domain is included with Emergent and uses credits.",
+    "issue": "This is an approved claim (custom-domain), but claims_used does not list it, and a custom-domain line is off-topic in a feature about answers and code export.",
+    "fix": "Add custom-domain to claims_used, or swap the sentence for one on the answers table.",
     "severity": "note"
    },
    {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq (item 6)",
+    "quote": "Yes. A post-onboarding check-in and a delivery survey are two common first drafts. Start from either one",
+    "issue": "The answer says a template exists but never says where it comes from, so the reader cannot act on it.",
+    "fix": "'Describe a delivery survey in one prompt and Emergent drafts it; reword any question with a follow-up prompt.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #1",
+    "field": "prompt_chip_2",
+    "quote": "Exit Survey",
+    "issue": "The chip label is the exact primary of the employee exit-survey sibling. It is a chip, not a heading, and its prompt is about canceling subscribers.",
+    "fix": "Use 'Cancellation Survey' to match tab 1.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq (item 7); image uc-1 hero",
+    "quote": "because nobody wants a survey after every order / Most on the large bag plan",
+    "issue": "Soft or absolute quantifiers with no named third party.",
+    "fix": "'so no customer is surveyed after every order'; give the image a count ('29 on the large bag plan').",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
     "criterion": "images",
     "rule": "CONTENT_DEFECTS #20",
-    "field": "image_brief tab 1",
-    "quote": "image \"Most on the large bag plan\", \"A smaller bag would have kept me.\", bar \"Too much\"; tab_content_1 never says coffee",
-    "issue": "Carried over: the image's coffee subscription is not named in the tab copy.",
-    "fix": "Name the coffee subscription in tab 1, or relabel the bar \"Too much coffee\".",
+    "field": "tab_content_1 / image uc-1",
+    "quote": "Too much / Taste / A smaller bag would have kept me.",
+    "issue": "Carried over: the image tells a coffee-subscription story, but tab 1's copy never names coffee, so 'Too much' and 'Taste' read cold. Nothing contradicts the copy.",
+    "fix": "Name the coffee subscription in tab 1's first sentence.",
     "severity": "note"
    },
    {
-    "criterion": "voice",
-    "rule": "HUB_RULES 2b",
-    "field": "tab_content_1",
-    "quote": "\"Over 30 days, 112 of 160 canceling subscribers answered\"",
-    "issue": "Carried over: a 70% response rate on a post-cancellation email reads glamorous rather than real.",
-    "fix": "Use a plainer rate and rescale the bars and checks.",
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq (item 1); faq (item 2); howto_step_2_des",
+    "quote": "sent after one moment, like a first delivery or a support call / Pick the moment you want to hear about, such as a first delivery or a closed support ticket / Ask about one moment per survey",
+    "issue": "One-moment-per-survey, with the same first-delivery example, appears in three fields.",
+    "fix": "Give FAQ 2 a different example (a renewal, a return).",
     "severity": "note"
    },
    {
-    "criterion": "truth",
-    "rule": "HUB_RULES 8",
-    "field": "faq item 5",
-    "quote": "\"a complaint that doubles matters more than a large one holding steady\"",
-    "issue": "An unsourced analysis recommendation stated as a rule.",
-    "fix": "Frame as advice (\"watch a complaint that doubles before a large one holding steady\").",
-    "severity": "note"
-   },
-   {
-    "criterion": "truth",
-    "rule": "HUB_RULES 8",
-    "field": "faq item 1",
-    "quote": "\"It collects reasons in the customer's own words, where a satisfaction survey tracks a score over time.\"",
-    "issue": "Carried over: positioning framed as a definition.",
-    "fix": "\"leans on reasons\" rather than a hard split.",
-    "severity": "note"
-   },
-   {
+    "class": "other",
     "criterion": "specificity",
     "rule": "CONTENT_DEFECTS #3",
     "field": "why_table",
-    "quote": "SurveyMonkey | Typeform | Interact (quiz specialist)",
-    "issue": "A quiz specialist on a feedback page; Typeform and Interact outside the top 10 (QC K7). Pending with Divit.",
-    "fix": "Await the K7 ruling.",
-    "severity": "note"
-   },
-   {
-    "criterion": "faq",
-    "rule": "HUB_RULES 5",
-    "field": "faq items 7 and 10",
-    "quote": "customer effort score; NPS survey",
-    "issue": "Links to pages that may not be live yet. Pending with Divit.",
-    "fix": "Ship together or swap for live pages.",
+    "quote": "Interact (quiz specialist)",
+    "issue": "Carried over: a quiz specialist on a feedback page; Typeform and Interact are outside the top 10 (QC K7).",
+    "fix": "Coordinator: HubSpot or SurveyMonkey-led set if the library allows.",
     "severity": "note"
    }
   ]
@@ -1322,6 +1336,76 @@
    "by": "challenger-batch-m3",
    "via": "challenge",
    "date": "2026-10-07 15:28 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 6",
+   "field": "feature_6",
+   "issue": "This is an approved claim (custom-domain), but claims_used does not list it, and a custom-domain line is off-topic in a feature about answers and code export.",
+   "fix": "Add custom-domain to claims_used, or swap the sentence for one on the answers table.",
+   "by": "wk-r-6",
+   "via": "review",
+   "date": "2026-10-09 23:04 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq (item 6)",
+   "issue": "The answer says a template exists but never says where it comes from, so the reader cannot act on it.",
+   "fix": "'Describe a delivery survey in one prompt and Emergent drafts it; reword any question with a follow-up prompt.'",
+   "by": "wk-r-6",
+   "via": "review",
+   "date": "2026-10-09 23:04 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #1",
+   "field": "prompt_chip_2",
+   "issue": "The chip label is the exact primary of the employee exit-survey sibling. It is a chip, not a heading, and its prompt is about canceling subscribers.",
+   "fix": "Use 'Cancellation Survey' to match tab 1.",
+   "by": "wk-r-6",
+   "via": "review",
+   "date": "2026-10-09 23:04 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq (item 7); image uc-1 hero",
+   "issue": "Soft or absolute quantifiers with no named third party.",
+   "fix": "'so no customer is surveyed after every order'; give the image a count ('29 on the large bag plan').",
+   "by": "wk-r-6",
+   "via": "review",
+   "date": "2026-10-09 23:04 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "tab_content_1 / image uc-1",
+   "issue": "Carried over: the image tells a coffee-subscription story, but tab 1's copy never names coffee, so 'Too much' and 'Taste' read cold. Nothing contradicts the copy.",
+   "fix": "Name the coffee subscription in tab 1's first sentence.",
+   "by": "wk-r-6",
+   "via": "review",
+   "date": "2026-10-09 23:04 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq (item 1); faq (item 2); howto_step_2_des",
+   "issue": "One-moment-per-survey, with the same first-delivery example, appears in three fields.",
+   "fix": "Give FAQ 2 a different example (a renewal, a return).",
+   "by": "wk-r-6",
+   "via": "review",
+   "date": "2026-10-09 23:04 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "CONTENT_DEFECTS #3",
+   "field": "why_table",
+   "issue": "Carried over: a quiz specialist on a feedback page; Typeform and Interact are outside the top 10 (QC K7).",
+   "fix": "Coordinator: HubSpot or SurveyMonkey-led set if the library allows.",
+   "by": "wk-r-6",
+   "via": "review",
+   "date": "2026-10-09 23:04 UTC"
   }
  ],
  "reviews": [
@@ -1338,113 +1422,15 @@
    "result": "fail",
    "blocking": 4,
    "notes": 5
+  },
+  {
+   "by": "reviewer-batch-m7",
+   "date": "2026-10-07 15:19 UTC",
+   "result": "pass",
+   "blocking": 0,
+   "notes": 7
   }
  ],
- "challenge": {
-  "by": "challenger-batch-m3",
-  "date": "2026-10-07 15:28 UTC",
-  "result": "fail",
-  "defects": [
-   "[truth | HUB_RULES 6] feature_6: This claims that collected answers (customer response data) are exported to the GitHub repository with the code. The approved ledger covers only code export to GitHub (code-export) and data living in a database the user owns (database-owned). Pushing response rows into a repo is a capability claim with no ledger entry, and putting customers' personal data in a git repo is also bad practice. -> \"Answers live in a database you own. Export the survey and its sorting rules to your GitHub repository whenever you like.\" Then add a new, approved detail in place of the answers clause.",
-   "[craft | CONTENT_DEFECTS #21] hero_description; feature_1; howto_step_1_des; faq item 2: Four fields say the same thing with the words swapped: state who you are asking and what you need to learn, and Emergent writes the survey from it. FAQ 2's hub sentence is close to a paraphrase of the hero. -> Keep the hero. Have FAQ 2's hub sentence add something the body lacks (e.g. that it sends each question one per screen on a phone), and cut the prompt sentence from step 1 or feature 1's first clause so each says something new."
-  ],
-  "findings": [
-   {
-    "criterion": "truth",
-    "rule": "HUB_RULES 6",
-    "field": "feature_6",
-    "quote": "Export the survey and its sorting rules to your GitHub repository whenever you like, together with every answer collected so far.",
-    "issue": "This claims that collected answers (customer response data) are exported to the GitHub repository with the code. The approved ledger covers only code export to GitHub (code-export) and data living in a database the user owns (database-owned). Pushing response rows into a repo is a capability claim with no ledger entry, and putting customers' personal data in a git repo is also bad practice.",
-    "fix": "\"Answers live in a database you own. Export the survey and its sorting rules to your GitHub repository whenever you like.\" Then add a new, approved detail in place of the answers clause.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "craft",
-    "rule": "CONTENT_DEFECTS #21",
-    "field": "hero_description; feature_1; howto_step_1_des; faq item 2",
-    "quote": "\"Describe who you want to hear from and what you need to learn. Emergent builds the survey\" / \"Each question ties back to the one thing you need to learn\" / \"Put that decision at the top of your prompt.\" / \"drafts a customer survey from a plain description of who you are asking and why\"",
-    "issue": "Four fields say the same thing with the words swapped: state who you are asking and what you need to learn, and Emergent writes the survey from it. FAQ 2's hub sentence is close to a paraphrase of the hero.",
-    "fix": "Keep the hero. Have FAQ 2's hub sentence add something the body lacks (e.g. that it sends each question one per screen on a phone), and cut the prompt sentence from step 1 or feature 1's first clause so each says something new.",
-    "severity": "blocking"
-   },
-   {
-    "criterion": "truth",
-    "rule": "HUB_RULES 2a",
-    "field": "howto_step_3_des; tab_content_1; tab_content_3; tab_content_4",
-    "quote": "\"Use one rating and one open question\" / tab 1 \"three-question email\" / tab 3 rating, booked-window yes/no and open box / tab 4 \"four questions\"",
-    "issue": "The how-to recommends one rating plus one open question, but none of the four examples follows that advice.",
-    "fix": "\"Keep it to a rating, an open question and at most two more, with the open question right after the rating.\"",
-    "severity": "note"
-   },
-   {
-    "criterion": "truth",
-    "rule": "HUB_RULES 2a",
-    "field": "howto_description",
-    "quote": "Settle these seven calls before the first survey goes out.",
-    "issue": "Step 7 (reading the comments each week) happens after the surveys go out, not before.",
-    "fix": "\"Settle the first six before the first survey goes out; the seventh is the weekly habit.\"",
-    "severity": "note"
-   },
-   {
-    "criterion": "specificity",
-    "rule": "HUB_RULES 2a",
-    "field": "why_description",
-    "quote": "Change any of them with a prompt, not a support ticket.",
-    "issue": "The contrast implies that SurveyMonkey, Typeform or Interact users need a support ticket to change logic, when they edit it themselves.",
-    "fix": "Contrast with something the table supports, e.g. response caps or code ownership.",
-    "severity": "note"
-   },
-   {
-    "criterion": "voice",
-    "rule": "HUB_RULES 2b",
-    "field": "faq item 3; faq item 6",
-    "quote": "\"There is no fixed five.\" / \"Lists vary, and there is no fixed count.\"",
-    "issue": "Two FAQ answers open on the same dodge, so they read as a template.",
-    "fix": "Answer FAQ 6 directly, e.g. \"One useful split crosses two questions...\"",
-    "severity": "note"
-   },
-   {
-    "criterion": "intent",
-    "rule": "HUB_RULES 5",
-    "field": "faq item 8",
-    "quote": "Is there a customer feedback survey template? Yes. A post-onboarding check-in and a delivery survey are two common first drafts.",
-    "issue": "The answer says yes, but the page offers no template, and the ledger does not say Emergent has a template library.",
-    "fix": "Give the template's questions in the answer, or say that Emergent drafts one from a prompt.",
-    "severity": "note"
-   },
-   {
-    "criterion": "images",
-    "rule": "CONTENT_DEFECTS #20",
-    "field": "image_brief tab 1 hero",
-    "quote": "\"Price led with 41 answers\" ... \"A smaller bag would have kept me.\"",
-    "issue": "The quote under the Price reason is about bag size (the \"Too much\" reason), not price.",
-    "fix": "Use a price quote, e.g. \"$24 a bag is more than I can justify.\"",
-    "severity": "note"
-   },
-   {
-    "criterion": "distinct",
-    "rule": "HUB_RULES 2b",
-    "field": "howto_step_3_des; faq item 2",
-    "quote": "\"rating the food and the price together gives a number nobody can read\" / \"Ask 'How was your visit?' instead of 'How much did you enjoy your visit?'\"",
-    "issue": "The sibling employee-satisfaction-survey FAQ 3 makes the same two points with the same example shapes (\"can't be read\", \"How much do you love our new tools?\").",
-    "fix": "Vary the example on one of the two pages.",
-    "severity": "note"
-   }
-  ],
-  "checked": [
-   "title and meta: meta title and description promise sorting comments, saving context and routing complaints, all delivered in features 3-5 and tabs",
-   "H1 and hero: H1 scope covers the primary; hero pitch repeated in feature 1, step 1 and FAQ 2 (#21)",
-   "features: six bodies against claims_used; feature_6 claims answers export to GitHub (not in ledger)",
-   "tab 1 Cancellation Survey: 41+33+21+17 = 112 of 160 in image, copy and alt; Stripe event against domain source; quote mismatch noted",
-   "tab 2 In-App Feedback: bug, idea, question, praise tags and the 9-reports Slack post match copy and alt",
-   "tab 3 Service Visit: job #4471, 2 stars, missed window, callback to dispatcher S. Park match copy and alt; Twilio sourced; names across outcomes ok (#29)",
-   "tab 4 Retail Stores: 12 stores, 4 questions, Store 07 3.7 vs 4.4 = -0.7 (> 0.5 trigger), other changes +0.1 correct; district manager email matches; cover agrees",
-   "how-to: seven steps read for truth and repeats; step 3 advice vs tab examples; howto_description timing",
-   "comparison table: generated from library, unedited; K7 (Interact) pending with Divit, not raised",
-   "FAQ: 10 items against PAA, related and secondary sources; McKinsey three C's against source; types of feedback against SurveyMonkey source; links (hub in item 2, siblings pending live)",
-   "cover and share image: Store 07 3.7 down 0.7 from 4.4 agrees with tab 4; share text approved"
-  ]
- },
  "challenges": [
   {
    "by": "challenger-batch-m3",
