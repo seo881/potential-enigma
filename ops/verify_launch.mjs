@@ -19,6 +19,8 @@ import { fileURLToPath } from "node:url";
 const MAIN = process.argv[1] && fileURLToPath(import.meta.url) === (await import("node:path")).resolve(process.argv[1]);
 let BASE = "https://emergent.sh";
 const CANON = "https://emergent.sh";
+// a page script's rejected promise must not end the run; it is recorded with the page's console errors instead
+const strayErrors = []; process.on("unhandledRejection", (e) => strayErrors.push(String(e && (e.stack || e.message || e)).slice(0, 300)));
 export const setBase = (b) => { BASE = b.replace(/\/$/, ""); };
 export const norm = (s) => (s || "").replace(/\s+/g, " ").trim();
 export const status = async (u, method = "HEAD") => { try { const r = await fetch(u, { method, redirect: "follow" }); return r.status; } catch { return 0; } };
@@ -56,8 +58,12 @@ export async function checkPage(p, opts = {}) {
   c.http200 = !!res && res.status === 200;
   if (!c.http200) return out;
   const html = await res.text(); out.html = html;
-  const vc = new VirtualConsole();   // page script errors are not our failures; checked by outcome below
-  const dom = new JSDOM(html, { url, runScripts: "dangerously", resources: "usable", pretendToBeVisual: true, virtualConsole: vc });
+  const vc = new VirtualConsole(), errs = [];   // console errors: the site's own known noise is ignored (rules/live_audit.json console_ignore)
+  vc.on("jsdomError", (e) => errs.push(String(e && (e.message || e)))); vc.on("error", (...a) => errs.push(a.map(String).join(" ")));
+  const dom = new JSDOM(html, { url, runScripts: "dangerously", resources: "usable", pretendToBeVisual: true, virtualConsole: vc,
+    beforeParse(w) {   // jsdom has no CSS global; Webflow's interactions script calls CSS.escape (a jsdom gap, not a page error)
+      if (!w.CSS) w.CSS = { escape: (s) => String(s).replace(/[^a-zA-Z0-9_\u00A0-\uFFFF-]/g, (ch) => "\\" + ch), supports: () => false };
+    } });
   await new Promise((r) => dom.window.addEventListener("load", r)); await sleep(2500);
   const d = dom.window.document, $ = (s) => d.querySelector(s), $$ = (s) => [...d.querySelectorAll(s)];
   c.h1 = norm($("h1")?.textContent) === norm(p.h1);
@@ -71,12 +77,25 @@ export async function checkPage(p, opts = {}) {
   c.faq_rendered = p.faq.every((q) => faqText.includes(norm(q))) && !PLACEHOLDER.test(faqText);
   const box = $("#hero-prompt-form textarea");
   c.hero_prefilled = !!box && norm(box.value) === norm(p.default_prompt);
-  const chip = $('#hero-prompt-form [data-filter="2"]');
-  if (chip && p.chips[1]) {
-    chip.dispatchEvent(new dom.window.MouseEvent("click", { bubbles: true })); await sleep(50); c.chip_switches = norm(box?.value) === norm(p.chips[1]);
-    await sleep(1200); c.chip_stable = norm(box?.value) === norm(p.chips[1]);   // T1: the older chip script does not overwrite it afterwards
-    out.chip_after = norm(box?.value).slice(0, 80);
-  } else { c.chip_switches = false; c.chip_stable = false; }
+  // hero chips (Divit 2026-10-09): each chip appends its "add" clause in chip order and removes it on a second click; typed text survives;
+  // aria-pressed and hubchip--on follow the state; the older chip script does not overwrite the box afterwards
+  const adds = (p.chips || []).map((x) => (x && typeof x === "object" ? x.add : x));
+  const chipEl = (n) => $(`#hero-prompt-form [data-hubchip="${n}"]`) || $(`#hero-prompt-form [data-filter="${n}"]`);
+  const click = async (n) => { chipEl(n)?.dispatchEvent(new dom.window.MouseEvent("click", { bubbles: true, cancelable: true })); await sleep(60); };
+  if (box && adds.length === 4 && [1, 2, 3, 4].every((n) => chipEl(n))) {
+    let ok = true;
+    for (let n = 1; n <= 4; n++) { await click(n); ok = ok && norm(box.value) === norm([p.default_prompt, ...adds.slice(0, n)].join(" ")); }
+    c.chip_adds_in_order = ok;
+    c.chip_state = [1, 2, 3, 4].every((n) => chipEl(n).getAttribute("aria-pressed") === "true" && chipEl(n).classList.contains("hubchip--on"))
+      && !!$("#hero-prompt-form [data-hubchip]");
+    await sleep(1200); c.chip_stable = norm(box.value) === norm([p.default_prompt, ...adds].join(" "));
+    ok = true;
+    for (let n = 1; n <= 4; n++) { await click(n); ok = ok && norm(box.value) === norm([p.default_prompt, ...adds.slice(n)].join(" ")) && chipEl(n).getAttribute("aria-pressed") === "false" && !chipEl(n).classList.contains("hubchip--on"); }
+    c.chip_removes = ok;
+    box.value = "My own words."; await click(2); const kept = norm(box.value) === norm("My own words. " + adds[1]); await click(2);
+    c.typed_text_survives = kept && norm(box.value) === "My own words.";
+    out.chip_after = norm(box.value).slice(0, 80);
+  } else { c.chip_adds_in_order = c.chip_state = c.chip_stable = c.chip_removes = c.typed_text_survives = false; }
   // T10: the use-case tab whose label is tab_label_1 is the current tab, and its pane is the active one
   const links = $$(".w-tab-link"), first = links.find((a) => norm(a.textContent) === norm(p.tab_labels?.[0]));
   const pane = first && $$(".w-tab-pane").find((x) => x.getAttribute("data-w-tab") === first.getAttribute("data-w-tab"));
@@ -93,8 +112,14 @@ export async function checkPage(p, opts = {}) {
   c.no_link_to_non_live = dead.length === 0; if (dead.length) out.dead_links = dead;
   // T5: the carousel on the child template (section_build, made visible by T6) shows covers with alt text
   const build = $(".section_build"), covers = build ? coverImgs(build) : [];
-  c.carousel_cover_alt = covers.length > 0 && covers.every(altOk);
-  if (!c.carousel_cover_alt) out.cover_alt = build ? `${covers.filter((i) => !altOk(i)).length} of ${covers.length} cover images without alt` : "no .section_build on the page";
+  if (build) {   // only while the carousel is shown (hidden until Monday's rework, Divit 2026-10-09)
+    c.carousel_cover_alt = covers.length > 0 && covers.every(altOk);
+    if (!c.carousel_cover_alt) out.cover_alt = `${covers.filter((i) => !altOk(i)).length} of ${covers.length} cover images without alt`;
+  }
+  // carousel hidden (Divit 2026-10-09): section_build is not rendered, or not displayed
+  const sb = $(".section_build"); c.carousel_hidden = !sb || dom.window.getComputedStyle(sb).display === "none";
+  const IGN = JSON.parse(fs.readFileSync(new URL("../rules/live_audit.json", import.meta.url), "utf8")).console_ignore || [];
+  out.console_errors = errs.filter((e) => !IGN.some((s) => e.includes(s))).slice(0, 10); c.no_console_errors = out.console_errors.length === 0;
   if (opts.keepDom) out.dom = dom; else dom.window.close();
   return out;
 }
@@ -111,7 +136,8 @@ export async function checkHub(hub, mine) {
     const im = card ? [...card.querySelectorAll("img")] : [], cov = im.filter((i) => /cover/.test(i.className));
     if (!(cov.length ? cov : im).every(altOk) || !im.length) noAlt.push(p.url);
   }
-  return { hub, http200: !!res && res.status === 200, carousel_has_all_new_cards: missing.length === 0, missing, hub_card_cover_alt: noAlt.length === 0, cover_alt_missing: [...new Set(noAlt)] };
+  const sb = d.querySelector(".section_build");
+  return { hub, http200: !!res && res.status === 200, carousel_hidden: !sb, carousel_has_all_new_cards: missing.length === 0, missing, hub_card_cover_alt: noAlt.length === 0, cover_alt_missing: [...new Set(noAlt)] };
 }
 
 if (MAIN) {
@@ -123,17 +149,27 @@ const results = [];
 for (const p of man.pages) { const r = await checkPage(p); delete r.html; results.push(r); const bad = Object.entries(r.checks).filter(([, v]) => !v).map(([k]) => k); console.log(`${bad.length ? "FAIL" : "PASS"} ${p.url}${bad.length ? "  " + bad.join(", ") : ""}${r.cover_alt ? "  (" + r.cover_alt + ")" : ""}${r.og && !r.og.ok ? "  (og: " + [r.og.status, r.og.type, r.og.size && r.og.size.join("x"), r.og.bytes + " B"].join(", ") + ")" : ""}`); }
 // one line per child template (the carousel is template markup, so every page of a hub shows the same result)
 const templates = man.hubs.map((hub) => { const rs = results.filter((r) => man.pages.find((p) => p.url === r.url).hub === hub && r.checks.http200);
-  return { hub, template_cover_alt: rs.length > 0 && rs.every((r) => r.checks.carousel_cover_alt), pages_checked: rs.length }; });
+  return { hub, template_cover_alt: rs.length > 0 && rs.every((r) => r.checks.carousel_cover_alt !== false), pages_checked: rs.length }; });
 for (const t of templates) console.log(`${t.template_cover_alt ? "PASS" : "FAIL"} template cards ${t.hub}: cover alt (${t.pages_checked} pages)`);
 const hubs = [];
 for (const hub of man.hubs) {
   const h = await checkHub(hub, man.pages.filter((p) => p.hub === hub));
   hubs.push(h);
-  const bad = ["http200", "carousel_has_all_new_cards", "hub_card_cover_alt"].filter((k) => !h[k]);
+  const bad = ["http200", "carousel_hidden"].filter((k) => !h[k]);   // carousel hidden until Monday's rework (Divit 2026-10-09)
   console.log(`${bad.length ? "FAIL" : "PASS"} hub ${hub}${bad.length ? "  " + bad.join(", ") : ""}${h.missing.length ? "  missing cards: " + h.missing.join(", ") : ""}${h.cover_alt_missing.length ? "  no cover alt: " + h.cover_alt_missing.join(", ") : ""}`);
 }
-fs.writeFileSync(`ops/out/launch/verify-live${STAGING ? "-staging" : ""}.json`, JSON.stringify({ date: new Date().toISOString(), base: BASE, results, templates, hubs }, null, 1));
+// one page outside our 4 collections must be unchanged on staging (same visible text as production, none of our code on it)
+const OUT_URL = JSON.parse(fs.readFileSync(new URL("../rules/live_audit.json", import.meta.url), "utf8")).outside_check;
+const outside = { url: OUT_URL };
+if (OUT_URL && STAGING) {
+  const get = async (b) => { const r = await fetch(b + OUT_URL).catch(() => null); return r && r.ok ? await r.text() : ""; };
+  const [sh, ph] = [await get(BASE), await get(CANON)];
+  const txt = (h) => { const w = new JSDOM(h).window.document; w.querySelectorAll("script,style,noscript").forEach((e) => e.remove()); return norm(w.body?.textContent); };
+  outside.ok = !!sh && !!ph && txt(sh) === txt(ph) && !/data-hubchip|hubchip--on|Hero prompt \(Divit/.test(sh);
+  console.log(`${outside.ok ? "PASS" : "FAIL"} outside page ${OUT_URL} unchanged on staging`);
+}
+fs.writeFileSync(`ops/out/launch/verify-live${STAGING ? "-staging" : ""}.json`, JSON.stringify({ date: new Date().toISOString(), base: BASE, results, templates, hubs, outside }, null, 1));
 const fails = results.filter((r) => Object.values(r.checks).some((v) => !v)).length + templates.filter((t) => !t.template_cover_alt).length
-  + hubs.filter((h) => !h.http200 || !h.carousel_has_all_new_cards || !h.hub_card_cover_alt).length;
+  + hubs.filter((h) => !h.http200 || !h.carousel_hidden).length + (outside.ok === false ? 1 : 0);
 console.log(`${BASE}: ${results.length} pages, ${templates.length} templates, ${hubs.length} hubs, ${fails} failing`); process.exit(fails ? 1 : 0);
 }

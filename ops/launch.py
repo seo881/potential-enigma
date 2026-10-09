@@ -69,7 +69,7 @@ def prepare():
         fq = json.loads(re.search(r"window\.awbFAQ\s*=\s*(\{.*\})\s*;\s*</script>", F["faq"], re.S).group(1))
         txt = lambda v: re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", v or "")).strip()
         man.append({"url": url, "hub": H.CFG["hubs"][hub]["path"], "h1": txt(F["h1"]), "meta_title": F["meta_title"], "meta_description": F["meta_description"],
-                    "faq": [i["q"] for i in fq["items"]], "default_prompt": txt(F["hero_prompt"]), "chips": s.get("chip_prompts") or [],
+                    "faq": [i["q"] for i in fq["items"]], "default_prompt": txt(F["hero_prompt"]), "chips": s.get("chip_adds") or s.get("chip_prompts") or [],
                     "uc_images": [(s["images"].get(f"tab_image_{i}") or {}).get("cdn_url") for i in range(1, 5)],
                     "tab_labels": [txt(F.get(f"tab_label_{i}")) for i in range(1, 5)],
                     "pending_links": [p["target"] for p in s.get("pending_links") or []]})

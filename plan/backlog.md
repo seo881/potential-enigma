@@ -30,3 +30,6 @@ Format: date, source (Divit, reviewer, QC, orchestrator), the item, pages it tou
 
 ## Duplicate IDs in shared components (Webflow Audits, 2026-10-09)
 - email-form (5 elements) and field (4) on child templates come from forms inside shared site-wide components, not from our template content. Fix needs component-definition edits (Divit's go) after checking no script or form handler targets #email-form or #field. Proposed: give each component form a unique DOM id (or bind it to a component prop) one component at a time, with read-back and rollback.
+
+- MONDAY: carousel (section_build) formatting rework on hubs + child templates, then unhide.
+- 2026-10-09, orchestrator: the reference page /ai-app-builder/vedic-astrology shows no black selected-chip state (its is-active renders like the default chip; hover is light grey). hubchip--on uses the hero submit arrow's black (#000, white text) as asked; confirm the look on staging.

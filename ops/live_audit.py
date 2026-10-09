@@ -194,6 +194,8 @@ def evaluate(raw, man, base):
                                   ("carousel_cover_alt", "A9-cover-alt", "carousel cover images without alt (T5)", "template"), ("comparison_table", "A9-table", "comparison table missing", "why_table"),
                                   ("learn_not_empty", "A5-learn", 'Learn section shows "No items found"', "template")):
             if not c.get(k, True): add(url, code, "P1", msg, field=fld, fix="proposed")
+        ign = CONF.get("console_ignore", []); ce = [e for e in R.get("console_errors") or [] if not any(s in e for s in ign)]
+        if ce: add(url, "A9-console", "P1", f"{len(ce)} console error(s) in Chromium: {ce[0][:120]}", field="template", fix="proposed")
         # JSON-LD: parses; FAQPage matches the visible FAQ word for word
         faqs = []
         for j in R.get("jsonld") or []:
