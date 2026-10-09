@@ -117,6 +117,16 @@ def check(spec, siblings):
     allowed = set(h["fields"]) - set(CFG["image_fields"])
     for k in F:
         if k not in allowed: add("P0", "S0", k, "field not in the collection map (config/collections.json)")
+    # hero prompt redesign (Divit 2026-10-09): one generic default + 4 "add" clauses (spec.chip_adds), QC'd as copy like any field
+    if spec.get("chip_adds") is not None:
+        adds = spec["chip_adds"]
+        if not (isinstance(adds, list) and len(adds) == 4): add("P1", "L10", "chip_adds", "exactly 4 add clauses, in chip order")
+        for i, a in enumerate(adds if isinstance(adds, list) else [], 1):
+            if not re.fullmatch(r"Add [^.!?]{8,85}\.", a or ""): add("P1", "L10", "chip_adds", f"clause {i} must be one sentence starting with \"Add \" (under 90 chars): {a!r}")
+        d = strip_html(F.get("hero_prompt", ""))
+        if prim and kwn(prim) not in kwn(d): add("P1", "L10", "hero_prompt", "default prompt must carry the primary keyword")
+        if len(d) > 150: add("P1", "L10", "hero_prompt", f"default prompt {len(d)} chars (max 150)")
+        F = dict(F); F["chip_adds"] = "<p>" + " ".join(a for a in adds if isinstance(a, str)) + "</p>"
     # S1 required
     for k in sorted(allowed - set(CFG["optional_fields"])):
         v = F.get(k)

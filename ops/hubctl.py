@@ -426,6 +426,11 @@ def prompt_embed(s, v):
     import html as _h
     d = _h.unescape(re.sub(r"<[^>]+>", "", v)).strip()
     if not d or "window.awbPrompt" in v: return v
+    if s.get("chip_adds"):   # hero redesign (Divit 2026-10-09): generic default + one "add" clause per chip, toggled by ops/template/hero-chips.html
+        F = s.get("fields") or {}
+        js = json.dumps({"default": d, "chips": [{"label": F.get(f"prompt_chip_{i}", ""), "add": a} for i, a in enumerate(s["chip_adds"][:4], 1)]},
+                        ensure_ascii=False).replace("</", "<\\/")
+        return v + f"<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbPrompt = {js}; </script></div></div>"
     chips = [c.strip() if isinstance(c, str) and c.strip() else None for c in (s.get("chip_prompts") or [])][:4]
     js = json.dumps({"default": d, "chips": chips + [None] * (4 - len(chips))}, ensure_ascii=False).replace("</", "<\\/")
     return v + f"<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbPrompt = {js}; </script></div></div>"

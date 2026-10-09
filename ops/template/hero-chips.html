@@ -1,0 +1,63 @@
+<style>
+/* Hero chips (Divit, 2026-10-09): new names only (data-hubchip, hubchip--on); no existing class is used or edited. Black like the hero's submit arrow. */
+#hero-prompt-form [data-hubchip] { cursor: pointer; }
+#hero-prompt-form [data-hubchip].hubchip--on { background-color: #000; border-color: #000; }
+#hero-prompt-form [data-hubchip].hubchip--on, #hero-prompt-form [data-hubchip].hubchip--on * { color: #fff; }
+#hero-prompt-form [data-hubchip]:focus-visible { outline: 2px solid #000; outline-offset: 2px; }
+</style>
+<script>
+/* Hero prompt (Divit, 2026-10-09), replaces T1. Data: window.awbPrompt = {default, chips:[{label, add}]} from the item's prompt field.
+   The box loads with the default; each chip toggles its "add" clause, several at once, always in chip order; whatever the visitor
+   typed stays, and only our clauses are added or removed. The template's older chip script is blocked on these chips by a
+   capture-phase handler on document (it is not edited). Scoped to #hero-prompt-form. */
+(function () {
+  // the item's prompt field (window.awbPrompt) renders after this embed, so it is read when used, not at load
+  function data() { var P = window.awbPrompt; return P && P.default && P.chips && typeof P.chips[0] === 'object' ? P : null; }
+  var on = [false, false, false, false];
+  function form() { return document.getElementById('hero-prompt-form'); }
+  function box() { var f = form(); return f && f.querySelector('textarea, [data-name="prompt"]'); }
+  function chipEls() { var f = form(); if (!f) return []; var c = f.querySelectorAll('[data-hubchip]'); return c.length ? c : f.querySelectorAll('[data-filter]'); }
+  function idx(el) { return parseInt(el.getAttribute('data-hubchip') || el.getAttribute('data-filter'), 10) - 1; }
+  function compose() {
+    var P = data(), b = box(); if (!P || !b) return;
+    var text = b.value || '';
+    P.chips.forEach(function (c) { if (c && c.add) text = text.split(' ' + c.add).join('').split(c.add).join(''); });
+    text = text.replace(/\s+$/, '');
+    if (!text.trim()) text = P.default;
+    P.chips.forEach(function (c, i) { if (on[i] && c && c.add) text += ' ' + c.add; });
+    b.value = text;
+    try { b.dispatchEvent(new Event('input', { bubbles: true })); } catch (e) {}
+  }
+  function paint() {
+    Array.prototype.forEach.call(chipEls(), function (el) {
+      var i = idx(el), s = !!on[i];
+      el.classList.toggle('hubchip--on', s); el.setAttribute('aria-pressed', s ? 'true' : 'false');
+    });
+  }
+  function toggle(i) { var P = data(); if (!P || i < 0 || i > 3 || !P.chips[i]) return; on[i] = !on[i]; compose(); paint(); }
+  function hit(e) {
+    var f = form(); if (!f || !e.target || !e.target.closest) return null;
+    var el = e.target.closest('[data-hubchip], [data-filter]'); return el && f.contains(el) ? el : null;
+  }
+  document.addEventListener('click', function (e) {
+    var el = data() && hit(e); if (!el) return;
+    e.stopPropagation(); e.preventDefault(); toggle(idx(el));
+  }, true);
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var el = data() && hit(e); if (!el) return;
+    e.stopPropagation(); e.preventDefault(); toggle(idx(el));
+  }, true);
+  function init() {
+    try {
+      var P = data(); if (!P) return;
+      Array.prototype.forEach.call(chipEls(), function (el) { el.setAttribute('role', 'button'); el.setAttribute('tabindex', '0'); });
+      var b = box(); if (b && !b.value.trim()) b.value = P.default;
+      paint();
+    } catch (e) {}
+  }
+  function later() { setTimeout(init, 0); }   // after the template's DOMContentLoaded script, which empties the box
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', later); else later();
+  window.addEventListener('load', function () { var P = data(), b = box(); if (P && b && !b.value.trim()) { b.value = P.default; paint(); } });
+})();
+</script>

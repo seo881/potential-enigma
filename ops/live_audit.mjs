@@ -36,7 +36,7 @@ async function render(url, slug) {
   for (const [w, h] of [[1440, 900], [390, 844]]) {
     const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 1 });
     const pg = await ctx.newPage(); let resp = null;
-    try { resp = await pg.goto(url, { waitUntil: "networkidle", timeout: 60000 }); } catch (e) { out.error = String(e).slice(0, 200); }
+    try { resp = await pg.goto(url, { waitUntil: "load", timeout: 60000 }); } catch (e) { out.error = String(e).slice(0, 200); }
     await pg.waitForTimeout(1500);
     if (w === 1440) {
       out.http = resp ? resp.status() : 0;
