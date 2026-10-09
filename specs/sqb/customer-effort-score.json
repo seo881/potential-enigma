@@ -140,6 +140,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-09 23:13 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "wk-r-7",
+   "note": "[truth | HUB_RULES 8] feature_3: The page contradicts itself. howto_step_5_des says \"Report either the average or the top-box share, and keep that choice. Mixing the two on one dashboard makes a steady month look like a drop.\" Every instance on the page that puts both methods on one dashboard: featu"
   }
  ],
  "plan": {
@@ -818,10 +825,170 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 22:56 UTC"
+  "date": "2026-10-09 23:08 UTC"
  },
  "writers": [
   "w-customer-effort-score",
   "wk-w-customer-effort-score"
+ ],
+ "review": {
+  "by": "wk-r-7",
+  "date": "2026-10-09 23:13 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Customer Effort Score Survey That Finds the Hard Step\"; hero \"Create a survey that asks the customer effort score question when a task ends and saves each answer to a database you own.\" (D1 ok); how-to description one sentence, carries the primary (D2 ok)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are CES explainers; page gives the definition (FAQ 1), both formulas with worked numbers (FAQ 4: \"50 answers adding up to 280 give 5.6\", \"130 of 200 gives a score of 65\"), benchmarks, CES vs NPS and CSAT, example questions, template, and a 7-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: \"top-box share\", \"agree statement on seven points\", help articles, return labels, integration setup, claim types; comparison competitors noted (K7) as a note only."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on actions or events: \"Every help article ends with the effort statement\", \"When a shopper prints a return label\", \"Right after an admin connects a first integration\", \"Claimants who file online\"."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences short and single-idea: \"Set one trigger per task.\" \"Leave the question running after the change ships.\" QC Q2/Q5/Q7 clean."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: \"Reset two-step login\" averaging 3.1 across 46 answers, \"My printer was out of ink.\"; no AI-tell vocabulary. Minor anchor wording kept as a note."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "feature_3 \"Averages and top-box shares together ... Read each score two ways\" and chip prompt 3 contradict howto_step_5_des \"Report either the average or the top-box share ... Mixing the two on one dashboard makes a steady month look like a drop.\" All numbers otherwise agree (312/400 = 78, 38+14+12 = 64)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Owns effort on self-service, returns, setup and claims; customer-satisfaction and nps siblings only linked. One shared sentence with customer-experience-survey kept as a note."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions answered first-sentence (\"There are two common formulas.\", \"Neither replaces the other.\"); hub link in item 2; sibling links nps-survey, customer-satisfaction, customer-experience-survey; F9 lines in items 5 and 8; no brand or format in questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Each tab matches its copy: 3.1 across 46 answers to the docs lead; 64 of 240 with 38 naming the label; HubSpot task for CSM \"Admin stalled at: map fields\"; 312 of 400 = 78, water damage 59 of 100. One hero per panel, text readable."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "feature_3",
+    "quote": "Averages and top-box shares together ... Read each score two ways: the average on the seven-point scale and the share of answers at 5 or higher. Filter both",
+    "issue": "The page contradicts itself. howto_step_5_des says \"Report either the average or the top-box share, and keep that choice. Mixing the two on one dashboard makes a steady month look like a drop.\" Every instance on the page that puts both methods on one dashboard: feature_3 (title and body) and chip_prompts[2] \"a dashboard that shows my customer effort score each week, as an average and as the share answering 5 or higher\". The opposing instance: howto_step_5_des.",
+    "fix": "Make the advice and the product agree. Simplest: rewrite howto_step_5_des so the warning is about switching methods between periods, e.g. \"Pick the average or the top-box share as the headline number and keep it. Switching methods between months can make a steady month look like a drop. Label the method on every chart you share.\" Keep feature_3 and the chip prompt; check no other field says to use only one method.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Typeform | Interact (quiz specialist)",
+    "issue": "Two of the three competitors do not rank for this query (QC K7); Interact is a quiz tool on a CES page, while Qualtrics ranks first in the top 10.",
+    "fix": "Rebuild the table with competitors that rank (SurveyMonkey, Qualtrics) if the library has them.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "feature_2",
+    "quote": "Any tool with an API can start a send",
+    "issue": "The same sentence appears in customer-experience-survey feature_2.",
+    "fix": "Say it in this page's terms, e.g. name the event (a printed label, a submitted claim) that fires the send.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "It comes from a single agree statement rated on seven points. Dixon, Freeman, and Toman introduced it in a 2010 Harvard Business Review article.",
+    "issue": "Read together, the sentences imply the 2010 article introduced the seven-point agree statement; the 2010 metric used a different effort question, and the agree statement is the later revision.",
+    "fix": "Separate the two: introduced in 2010; today usually asked as a seven-point agree statement.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "Each <a href='https://emergent.sh/ai-survey-and-quiz-builder/nps-survey'>nps survey</a> asks how likely",
+    "issue": "The lowercase exact-match anchor reads oddly mid-sentence (\"Each nps survey asks\").",
+    "fix": "Recast so the anchor sits naturally, e.g. \"An <a>nps survey</a> asks ...\".",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #25",
+    "field": "tab_image_1",
+    "quote": "# Dana Ruiz, docs lead",
+    "issue": "The Slack header draws a channel hash before a person's name; the copy sends the alert to one person.",
+    "fix": "Render as a direct message (person icon, no hash).",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "Two of the three competitors do not rank for this query (QC K7); Interact is a quiz tool on a CES page, while Qualtrics ranks first in the top 10.",
+   "fix": "Rebuild the table with competitors that rank (SurveyMonkey, Qualtrics) if the library has them.",
+   "by": "wk-r-7",
+   "via": "review",
+   "date": "2026-10-09 23:13 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "feature_2",
+   "issue": "The same sentence appears in customer-experience-survey feature_2.",
+   "fix": "Say it in this page's terms, e.g. name the event (a printed label, a submitted claim) that fires the send.",
+   "by": "wk-r-7",
+   "via": "review",
+   "date": "2026-10-09 23:13 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Read together, the sentences imply the 2010 article introduced the seven-point agree statement; the 2010 metric used a different effort question, and the agree statement is the later revision.",
+   "fix": "Separate the two: introduced in 2010; today usually asked as a seven-point agree statement.",
+   "by": "wk-r-7",
+   "via": "review",
+   "date": "2026-10-09 23:13 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "The lowercase exact-match anchor reads oddly mid-sentence (\"Each nps survey asks\").",
+   "fix": "Recast so the anchor sits naturally, e.g. \"An <a>nps survey</a> asks ...\".",
+   "by": "wk-r-7",
+   "via": "review",
+   "date": "2026-10-09 23:13 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #25",
+   "field": "tab_image_1",
+   "issue": "The Slack header draws a channel hash before a person's name; the copy sends the alert to one person.",
+   "fix": "Render as a direct message (person icon, no hash).",
+   "by": "wk-r-7",
+   "via": "review",
+   "date": "2026-10-09 23:13 UTC"
+  }
  ]
 }
