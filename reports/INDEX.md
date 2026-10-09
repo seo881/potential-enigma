@@ -2,6 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-10-09 · [1347-launch-run](2026-10-09/1347-launch-run.md) · T1/T2/T4/T9 staged on 4 templates; hubctl ship + readiness + render Action (not installed: token scope); F4 retired (Divit); 21 pages reviewed, drafts created and verified, pre-flight 21/21; publish payload, verifier and rollback prepared, not sent; 8 pages held · 97a245f
 - 2026-10-08 · [2121-deterministic-pass](2026-10-08/2121-deterministic-pass.md) · Hub stats/testimonials confirmed real; C5/H3/H4/C4 autofixed (160 specs, guarded), A6 tuned, 70 parked pages analysed, rework plan rebuilt with fast lane (25) and review options · 98eee97
 - 2026-10-08 · [2042-standing-report-rule](2026-10-08/2042-standing-report-rule.md) · Standing work-report rule added to CLAUDE.md, RUNBOOK section 6 and DECISIONS; three reports backfilled · 8bbe3f2
 - 2026-10-08 · [2042-interrupted-sessions](2026-10-08/2042-interrupted-sessions.md) · Sessions after the rules pass were interrupted; nothing written (req_011CfpwmUnep1U7FjsxFjw1K) · none
