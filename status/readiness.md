@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-09 23:03 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-09 23:07 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -69,14 +69,14 @@ Regenerated 2026-10-09 23:03 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-lp | /ai-landing-page-builder/saas-landing-page | 0 | 10/10 | yes, wk-r-2 | yes | no | 0 | - | no | no | payload |
 | wk-rework-lp | /ai-landing-page-builder/splash-page | 0 | 10/10 | yes, wk-r-1 | yes | no | 0 | - | no | no | payload |
 | wk-rework-lp | /ai-landing-page-builder/squeeze-page | 0 | 10/10 | yes, wk-r-3 | yes | no | 0 | - | no | no | payload |
-| wk-rework-sqb | /ai-survey-and-quiz-builder/360-survey | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
+| wk-rework-sqb | /ai-survey-and-quiz-builder/360-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | rework |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/customer-effort-score | 0 | 10/10 | no | yes | no | 0 | - | no | no | images |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/customer-experience-survey | 0 | 10/10 | no | yes | no | 0 | - | no | no | images |
-| wk-rework-sqb | /ai-survey-and-quiz-builder/customer-feedback-survey | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
+| wk-rework-sqb | /ai-survey-and-quiz-builder/customer-feedback-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/employee-benefits-survey | 6 | 6/10 | no | no | no | 0 | - | no | no | writer |
-| wk-rework-sqb | /ai-survey-and-quiz-builder/employee-satisfaction-survey | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
+| wk-rework-sqb | /ai-survey-and-quiz-builder/employee-satisfaction-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/exit-survey | 0 | 10/10 | no | yes | no | 0 | - | no | no | images |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/onboarding-survey | 0 | 10/10 | no | yes | no | 0 | - | no | no | images |
-| wk-rework-sqb | /ai-survey-and-quiz-builder/pulse-survey | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
+| wk-rework-sqb | /ai-survey-and-quiz-builder/pulse-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
 
-Stages: done 21, images 4, payload 17, review 4, stopped 8, writer 1 (55 pages)
+Stages: done 21, images 4, payload 20, rework 1, stopped 8, writer 1 (55 pages)
