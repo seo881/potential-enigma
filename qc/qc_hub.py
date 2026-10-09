@@ -235,6 +235,10 @@ def check(spec, siblings):
         if len(sents_of(hw_)) != 1: add("P0", "D2", "howto_description", f"{len(sents_of(hw_))} sentences (exactly 1)")
         if prim and kwn(prim) not in kwn(hw_): add("P0", "D2", "howto_description", "primary keyword missing")
         if not re.search(r"(?i)\bsteps?\b", hw_): add("P0", "D2", "howto_description", "say plainly what the steps achieve (mention the steps)")
+    # ---------- F9 (Divit 2026-10-09): 2-3 FAQ moat lines in items 3-10, pages not yet in Webflow (batch 2 onward) ----------
+    if fq and fq.get("items") and not spec.get("item_id") and not spec.get("cms_draft"):
+        moat = sum(1 for it_ in fq["items"][2:] if re.search(r"\bEmergent\b", strip_html(it_.get("a", ""))))
+        if not 2 <= moat <= 3: add("P1", "F9", "faq", f"{moat} FAQ answers in items 3-10 carry an Emergent capability line (need 2-3, one subtle sentence each)")
     # ---------- H: hygiene (rulebook global rules) ----------
     for k, v in F.items():
         if not isinstance(v, str): continue

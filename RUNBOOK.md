@@ -158,3 +158,4 @@ Add a line to `reports/INDEX.md` (newest first: date, slug, one-line summary, co
 - **Run now:** `launchctl kickstart -k gui/$(id -u)/sh.emergent.live-audit`. **Dry test by hand:** `LIVE_AUDIT_ARGS="--set launch --base https://emergent-sh.webflow.io --dry" bash ops/schedule/live_audit_daily.sh`.
 - **Backup:** `ops/github/live-audit.yml` (Layer A only, GITHUB_TOKEN) once installed in `.github/workflows/`; it skips a day the Mac already audited.
 - **Rollback one fix:** `hubctl live-rollback <issue-id>` writes the payload (before-value + item publish); send it, then `--done RESPONSE`.
+- **Publish watch** (Divit 2026-10-09): launchd `sh.emergent.publish-watch` runs `ops/schedule/publish_watch.sh` every 30 minutes; when the "Last Published" stamp on emergent.sh changes it runs the live audit at once (all live pages, fixes on). Pause: `launchctl bootout gui/$(id -u)/sh.emergent.publish-watch`.

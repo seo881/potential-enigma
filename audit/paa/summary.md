@@ -294,3 +294,7 @@ Phase 2 (DECISIONS 2026-10-08): one line per page, no question text. Per-questio
 - 2026-10-09 /ai-landing-page-builder/law-firm-landing-page [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
 - 2026-10-09 /ai-form-builder/booking-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
 - 2026-10-09 /ai-form-builder/booking-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-09 /ai-form-builder/massage-intake-form [pull]: 0 questions; pass 0, reject 0, flag 0; rejects by rule: none; page: PA11 0 nodes, 0 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-09 /ai-automation-builder/sales-automation [pull]: 21 questions; pass 3, reject 18, flag 0; rejects by rule: PA14 4, PA3 18, PA4 3, PA5 2; page: PA11 48 nodes, 21 distinct; 3 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-09 /ai-form-builder/massage-intake-form [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-09 /ai-automation-builder/sales-automation [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none

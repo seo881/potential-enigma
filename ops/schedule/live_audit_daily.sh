@@ -26,6 +26,7 @@ ALLOWED=(
 .venv/bin/python3 ops/guards.py run-locked session -- claude -p "$PROMPT" --permission-mode dontAsk --allowedTools "${ALLOWED[@]}" \
   --mcp-config "$REPO/.mcp.json" --output-format text >> "$LOG" 2>&1
 RC=$?
+curl -s --max-time 30 "https://emergent.sh/?pw=$(date +%s)" | grep -o 'Last Published: [^-]*' | head -1 | sed 's/ *$//' > "$REPO/.cache/live/last_published.txt"   # seen by publish_watch.sh
 REPORT="$(ls -t reports/*/*-live-audit*.md 2>/dev/null | head -1)"
 DIGEST="$( [ -n "$REPORT" ] && awk '/^## Digest for Divit/{getline; getline; print; exit}' "$REPORT")"
 log "end rc=$RC report=$REPORT digest=$DIGEST"
