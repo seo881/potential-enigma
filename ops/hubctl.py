@@ -211,7 +211,7 @@ def cmd_payload(args):
     print(f"wrote {os.path.relpath(out, ROOT)}: pass its content as the `actions` of data_cms_tool (isDraft is always true)")
 
 def _items_from_readback(path):
-    raw = json.load(open(path)); txt = "".join(b.get("text", "") for b in raw) if isinstance(raw, list) else json.dumps(raw)
+    raw = json.load(open(path)); txt = "".join(b.get("text", "") for b in raw if b.get("text", "").lstrip().startswith("{")) if isinstance(raw, list) else json.dumps(raw)  # skip MCP session notices
     dec = json.JSONDecoder(); i = 0; items = []
     while i < len(txt):
         while i < len(txt) and txt[i] in " \n\r\t": i += 1

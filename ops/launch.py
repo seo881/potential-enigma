@@ -1,4 +1,4 @@
-"""launch.py: the launch set (Divit, 2026-10-09: 21 pages today). Pre-flight, publish payload and rollback. Nothing here calls Webflow.
+"""launch.py: the launch set (Divit, 2026-10-09: 20 pages; contact-form held). Pre-flight, publish payload and rollback. Nothing here calls Webflow.
 
   .venv/bin/python3 ops/launch.py pages                       the launch set in publish order (batch-1 ledger, held pages excluded)
   .venv/bin/python3 ops/launch.py preflight READBACK.json     read-only checks against a stored read of the child collections
