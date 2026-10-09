@@ -138,6 +138,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-09 22:04 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-1",
+   "note": "rubric 10/10 by wk-r-1; 8 notes"
   }
  ],
  "plan": {
@@ -788,7 +795,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 21:48 UTC"
+  "date": "2026-10-09 21:58 UTC"
  },
  "writers": [
   "w-lead-generation-landing-page",
@@ -799,5 +806,215 @@
   "Build a quote request page for my roofing business where homeowners describe the job and give their address, with each request saved to a table and emailed to me.",
   "Build a page for my gym that offers a free seven-day pass for a name, email, and home club, then emails the pass to the visitor.",
   "Build a signup page for my free Saturday marketing workshop that collects name and email, saves each signup to a table, and emails every person a confirmation."
+ ],
+ "review": {
+  "by": "wk-r-1",
+  "date": "2026-10-09 22:04 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Lead Generation Landing Page That Routes Every Lead\", meta \"Lead Generation Landing Page: 4 Examples | Emergent\" and hero \"Build a lead generation landing page with the form you describe, rules for who follows up, and every lead saved with its source.\" state the whole job (capture, follow-up, source) and stay off the squeeze and newsletter siblings. D1/D2 pass (QC 0)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "SERP is example galleries and explainers with an AI Overview: FAQ 1 defines the term, the four tabs are worked examples by offer (B2B demo, program inquiry, gym pass, paid ads) as the meta promises, the how-to is lead-gen specific (one offer, echo the ad, fields sales uses, proof by the form, routing, UTM tags, cost per lead), and the PAA cost questions are answered as a formula (\"If a customer brings $2,000 and one lead in 20 buys, any cost per lead under $100 pays for itself\")."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: \"utm_campaign value in the link\", \"Accounts over 200 employees go straight to sales\", \"Any campaign over $45 a lead is flagged\". The Emergent build cell is the hub default (no lead-gen variant in the library); recorded as a note."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "\"Name the fields in your prompt\", \"Every submission becomes a row\", \"Rules decide who answers each lead\", \"When a visitor arrives from an ad\", \"Tallgrass Analytics sells reporting software\", \"Each morning at 7 AM\": full sentences, varied."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q6/Q7 clean; one idea per sentence (\"Clicks are cheap to count and easy to misread.\"); numbers worked through, not listed."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail: \"account executive Maya Chen as a Slack direct message\", \"Staff at that club see the new pass on the front desk screen before the visitor walks in\", \"the patio design campaign spent $1,560 for 24 leads\". No AI-tell vocabulary."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "claims_used (prompt-build, database-owned, api-connect, alerts, code-export, custom-domain, free-start) approved; free tier stated as \"covers building and publishing a page\"; GitHub export \"on paid plans\". Quality Score and UTM statements map to domain_sources; definition sourced. Numbers agree: $1,560 / 24 = $65 over the $45 limit; uc-4 rows $1,200/40 = $30, $900/36 = $25, $840/21 = $40; 4 counselors drawn and named."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Single-field email capture is handed to the squeeze page (FAQ 5); the page's own ground is what happens after the submit (routing, lead table, cost per lead), which no sibling covers."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "Exactly 10 on-topic items, none names a brand or asks for a file (PA14/PA15); answer-first (\"Collecting leads that nobody answers.\", \"Only the ones the follow-up will use.\"); hub link in item 2; thank-you-page, squeeze-page and lead-capture-form links with exact anchors; moat lines in items 5, 8, 9 from approved claims."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "uc-1 640-employee Fernway request, \"Rule: 200 or more employees\", DM to Maya Chen, \"Under 200: booking page\"; uc-2 Priya Shah emailed for UX Design, 4 counselors; uc-3 seven-day pass emailed and on the Riverside front desk screen; uc-4 patio design $1,560 / 24 / $65 flagged over $45, Slack to Ruth Okafor at 7 AM update. Reserved example domains only."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "CONTENT_DEFECTS #3",
+    "field": "why_table (Emergent, How you build)",
+    "quote": "Prompt for a campaign page",
+    "issue": "The hub-default build cell (table.variant is null). It fits a lead gen page, but a lead-capture variant would speak to this buyer more directly.",
+    "fix": "Coordinator: add a lead-capture variant to rules/competitors/lp.json (e.g. \"Prompt for the page, its form and routing\").",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "tab_image_1 (uc-1.svg); tab_content_1",
+    "quote": "tab copy \"its demo page asks for a work email and a company size\"; image fields \"Work email\", \"Company\", \"Company size\"",
+    "issue": "The image (and the mockup) add a Company field the tab copy leaves out, on a page whose feature 1 is \"Only the fields you ask for\".",
+    "fix": "\"asks for a work email, the company and its size\" in the tab copy.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_6_des",
+    "quote": "Analytics tools read the same parameters to report which campaign sent each visit, and your lead table will agree with them.",
+    "issue": "The source supports the first half; \"will agree\" overpromises, since analytics tools count sessions under their own attribution rules and the counts often differ from a lead table.",
+    "fix": "\"...and your lead table attributes each lead by the same tags.\"",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq item 8; faq item 10; why_description",
+    "quote": "faq 8 \"most builders charge a monthly plan tiered by visitors\"; faq 10 \"Your own market is often more useful\"; why_description \"Template builders keep leads in their own dashboard.\"",
+    "issue": "Generalizations about unnamed builders; the table supports them for the three named tools only.",
+    "fix": "Tie each to the tools in the table or soften to what the reader can check.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_1_des; howto_step_4_des",
+    "quote": "step 1 \"Two offers on one page split attention and blur your numbers.\"; step 4 \"one customer and one result outweigh a page of praise\"",
+    "issue": "Conversion advice with no domain source; fine as advice, stated as fact.",
+    "fix": "Optional: source or frame as practice.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 1",
+    "quote": "Marketers also call it a lead capture landing page.",
+    "issue": "Terminology claim outside the recorded definition source.",
+    "fix": "Optional: add the synonym to the Unbounce source entry if it states it, or \"also known as a lead capture landing page\".",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #24",
+    "field": "tab_image_2 (uc-2.svg); tab_content_4",
+    "quote": "counselor \"Ben Okafor\" (Brightpath); owner \"Ruth Okafor\" (Cedar Hill)",
+    "issue": "Two unrelated businesses share a surname; the cast reads as reused.",
+    "fix": "Rename one of them.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page (outside the FAQ)",
+    "quote": "\"campaign\" 13 times and \"visitor\" 8 times outside the FAQ (QC Q9), e.g. \"Campaign tags kept on every lead\", \"the campaign behind the visit\", \"Tag every link with its campaign\", \"Judge campaigns by cost per lead\"",
+    "issue": "Heavy reuse of the same nouns gives the features and steps one rhythm.",
+    "fix": "Vary with \"ad\", \"link\", \"source\" where the meaning holds.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "specificity",
+   "rule": "CONTENT_DEFECTS #3",
+   "field": "why_table (Emergent, How you build)",
+   "issue": "The hub-default build cell (table.variant is null). It fits a lead gen page, but a lead-capture variant would speak to this buyer more directly.",
+   "fix": "Coordinator: add a lead-capture variant to rules/competitors/lp.json (e.g. \"Prompt for the page, its form and routing\").",
+   "by": "wk-r-1",
+   "via": "review",
+   "date": "2026-10-09 22:04 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "tab_image_1 (uc-1.svg); tab_content_1",
+   "issue": "The image (and the mockup) add a Company field the tab copy leaves out, on a page whose feature 1 is \"Only the fields you ask for\".",
+   "fix": "\"asks for a work email, the company and its size\" in the tab copy.",
+   "by": "wk-r-1",
+   "via": "review",
+   "date": "2026-10-09 22:04 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_6_des",
+   "issue": "The source supports the first half; \"will agree\" overpromises, since analytics tools count sessions under their own attribution rules and the counts often differ from a lead table.",
+   "fix": "\"...and your lead table attributes each lead by the same tags.\"",
+   "by": "wk-r-1",
+   "via": "review",
+   "date": "2026-10-09 22:04 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq item 8; faq item 10; why_description",
+   "issue": "Generalizations about unnamed builders; the table supports them for the three named tools only.",
+   "fix": "Tie each to the tools in the table or soften to what the reader can check.",
+   "by": "wk-r-1",
+   "via": "review",
+   "date": "2026-10-09 22:04 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_1_des; howto_step_4_des",
+   "issue": "Conversion advice with no domain source; fine as advice, stated as fact.",
+   "fix": "Optional: source or frame as practice.",
+   "by": "wk-r-1",
+   "via": "review",
+   "date": "2026-10-09 22:04 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 1",
+   "issue": "Terminology claim outside the recorded definition source.",
+   "fix": "Optional: add the synonym to the Unbounce source entry if it states it, or \"also known as a lead capture landing page\".",
+   "by": "wk-r-1",
+   "via": "review",
+   "date": "2026-10-09 22:04 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #24",
+   "field": "tab_image_2 (uc-2.svg); tab_content_4",
+   "issue": "Two unrelated businesses share a surname; the cast reads as reused.",
+   "fix": "Rename one of them.",
+   "by": "wk-r-1",
+   "via": "review",
+   "date": "2026-10-09 22:04 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page (outside the FAQ)",
+   "issue": "Heavy reuse of the same nouns gives the features and steps one rhythm.",
+   "fix": "Vary with \"ad\", \"link\", \"source\" where the meaning holds.",
+   "by": "wk-r-1",
+   "via": "review",
+   "date": "2026-10-09 22:04 UTC"
+  }
  ]
 }
