@@ -55,7 +55,7 @@ Regenerated 2026-10-09 22:14 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-lp | /ai-landing-page-builder/app-landing-page | 0 | 10/10 | yes, wk-r-2 | yes | no | 0 | - | no | no | rework |
 | wk-rework-lp | /ai-landing-page-builder/b2b-landing-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | images |
 | wk-rework-lp | /ai-landing-page-builder/campaign-landing-page | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
-| wk-rework-lp | /ai-landing-page-builder/coming-soon-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
+| wk-rework-lp | /ai-landing-page-builder/coming-soon-page | 0 | 10/10 | yes, wk-r-2 | yes | no | 0 | - | no | no | payload |
 | wk-rework-lp | /ai-landing-page-builder/landing-page-seo | 0 | 10/10 | yes, wk-r-1 | yes | no | 0 | - | no | no | payload |
 | wk-rework-lp | /ai-landing-page-builder/lead-generation-landing-page | 0 | 10/10 | yes, wk-r-1 | yes | no | 0 | - | no | no | payload |
 | wk-rework-lp | /ai-landing-page-builder/one-page-website | 0 | 10/10 | yes, wk-r-1 | yes | no | 0 | - | no | no | payload |
@@ -66,4 +66,4 @@ Regenerated 2026-10-09 22:14 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-lp | /ai-landing-page-builder/splash-page | 0 | 10/10 | yes, wk-r-1 | yes | no | 0 | - | no | no | payload |
 | wk-rework-lp | /ai-landing-page-builder/squeeze-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | images |
 
-Stages: check 1, done 21, images 4, payload 4, review 3, rework 1, stopped 8 (42 pages)
+Stages: check 1, done 21, images 4, payload 5, review 2, rework 1, stopped 8 (42 pages)
