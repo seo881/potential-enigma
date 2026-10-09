@@ -20,3 +20,8 @@ Format: date, source (Divit, reviewer, QC, orchestrator), the item, pages it tou
 - PA8 did not cap Contact Form 7 (a WordPress plugin brand); add plugin and product names to the brand list.
 - Question display text: normalise keyword spellings ("tshirt", "t shirt") to the house form ("T-shirt") while keeping the original in provenance.
 - PA4/PA6: "What is a contact form owner?" and "What does 'form of contact' mean?" passed; dictionary-sense and ownership questions are drift.
+
+## Found while applying the PA13 fixes (2026-10-09, orchestrator)
+- PA9 should compare questions after display normalisation: once "tshirt"/"t shirt" read "T-shirt", t-shirt-order-form Q2 ("make a T-shirt order form online") and Q4 ("make an order form for T-shirts") were the same intent. Q4 was replaced (gate-passing AlsoAsked, Google Forms question).
+- t-shirt-order-form: answers and the FAQ heading still carry the keyword spellings "t shirt" and "tshirt" (heading "T Shirt Order Form Questions, Answered"); Divit's ruling covered question display text only. Decide whether answers and heading follow the house form.
+- PA10 flag: t-shirt-order-form Q4 (shirt order form on Google Forms) overlaps pre-order-form's Google Forms questions (not shipped); pick the owner when pre-order-form ships.
