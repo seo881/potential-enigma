@@ -75,7 +75,7 @@ def manifest_entry(url):
     fq = faq_obj(F)
     return {"url": url, "hub": H.CFG["hubs"][hub]["path"], "h1": plain(F["h1"]), "meta_title": F["meta_title"], "meta_description": F["meta_description"],
             "faq": [i["q"] for i in fq["items"]], "faq_items": [{"q": i["q"], "a": plain(i["a"])} for i in fq["items"]],
-            "default_prompt": plain(re.sub(r"<div data-rt-embed-type.*", "", F.get("hero_prompt") or "", flags=re.S)), "chips": s.get("chip_prompts") or [],
+            "default_prompt": plain(re.sub(r"<div data-rt-embed-type.*", "", F.get("hero_prompt") or "", flags=re.S)), "chips": s.get("chip_adds") or s.get("chip_prompts") or [],
             "tab_labels": [plain(F.get(f"tab_label_{i}")) for i in range(1, 5)],
             "uc_images": [(s["images"].get(f"tab_image_{i}") or {}).get("cdn_url") for i in range(1, 5)],
             "images": {k: {"cdn_url": v.get("cdn_url"), "file_id": v.get("file_id"), "alt": v.get("alt"), "path": v.get("path")} for k, v in (s.get("images") or {}).items()},
@@ -191,7 +191,7 @@ def evaluate(raw, man, base):
         for k, code, msg, fld in (("hero_prefilled", "A9-prompt", "hero prompt not prefilled (T1)", "hero_prompt"), ("chip_switches", "A9-chips", "chip does not switch the prompt (T1)", "hero_prompt"),
                                   ("chip_stable", "A9-chip-fight", "chip prompt overwritten after the click (older chip script fights T1)", "template"),
                                   ("faq_rendered", "A9-faq", "FAQ not rendered with all 10 questions (T2)", "faq"), ("first_tab_active", "A9-tab", "first use-case tab not active on load (T10)", "template"),
-                                  ("carousel_cover_alt", "A9-cover-alt", "carousel cover images without alt (T5)", "template"), ("comparison_table", "A9-table", "comparison table missing", "why_table"),
+                                  ("carousel_cover_alt", "A9-cover-alt", "carousel cover images without alt (T5)", "template"), ("carousel_hidden", "A9-carousel-shown", "carousel shown while it should be hidden (Divit 2026-10-09)", "template"), ("comparison_table", "A9-table", "comparison table missing", "why_table"),
                                   ("learn_not_empty", "A5-learn", 'Learn section shows "No items found"', "template")):
             if not c.get(k, True): add(url, code, "P1", msg, field=fld, fix="proposed")
         ign = CONF.get("console_ignore", []); ce = [e for e in R.get("console_errors") or [] if not any(s in e for s in ign)]
@@ -216,8 +216,8 @@ def evaluate(raw, man, base):
                 fix="unpublish" if hp.get("item_id") else "proposed", item_id=hp.get("item_id"), collection=hp.get("collection"))
     for h in raw.get("hubs") or []:
         if not h.get("http200"): add(h["hub"], "A1-http", "P0", "hub page does not return HTTP 200", field="hub", fix="proposed"); continue
-        if not h.get("carousel_has_all_new_cards"): add(h["hub"], "A9-carousel", "P1", "carousel misses live pages: " + ", ".join(h["missing"]), field="hub", fix="proposed")
-        if not h.get("hub_card_cover_alt"): add(h["hub"], "A9-cover-alt", "P1", "hub card covers without alt: " + ", ".join(h["cover_alt_missing"]), field="hub", fix="proposed")
+        if not h.get("carousel_hidden") and not h.get("carousel_has_all_new_cards"): add(h["hub"], "A9-carousel", "P1", "carousel misses live pages: " + ", ".join(h["missing"]), field="hub", fix="proposed")
+        if not h.get("carousel_hidden") and not h.get("hub_card_cover_alt"): add(h["hub"], "A9-cover-alt", "P1", "hub card covers without alt: " + ", ".join(h["cover_alt_missing"]), field="hub", fix="proposed")
         for code, msg, snip in hygiene((h.get("render") or {}).get("text_visible", "")):
             add(h["hub"], code, "P2" if code == "A5-empty-p" else "P1", f"{msg} in hub text", field="hub", snippet=snip, fix="proposed")
         for href, st in (h.get("link_status") or {}).items():

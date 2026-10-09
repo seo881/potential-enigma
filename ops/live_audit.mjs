@@ -25,7 +25,10 @@ const man = JSON.parse(fs.readFileSync(MAN, "utf8"));
 const hosts = [new URL(BASE).host, "emergent.sh", "www.emergent.sh"];
 const statusCache = new Map();
 const headStatus = async (u) => {
-  if (!statusCache.has(u)) statusCache.set(u, (async () => { let s = await status(u, "HEAD"); if (s === 405 || s === 403 || s === 0) s = await status(u, "GET"); return s; })());
+  if (!statusCache.has(u)) statusCache.set(u, (async () => {   // transport errors (0) are retried with a pause: a crawl of many links trips rate limits
+    let s = await status(u, "HEAD"); if (s === 405 || s === 403 || s === 0) s = await status(u, "GET");
+    for (let i = 0; s === 0 && i < 3; i++) { await new Promise((r) => setTimeout(r, 2000 * (i + 1))); s = await status(u, "GET"); }
+    return s; })());
   return statusCache.get(u);
 };
 const sitemap = await (async () => { try { const r = await fetch(BASE + "/sitemap.xml"); return r.ok ? await r.text() : ""; } catch { return ""; } })();
@@ -37,7 +40,12 @@ async function render(url, slug) {
     const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 1 });
     const pg = await ctx.newPage(); let resp = null; const perr = [];
     pg.on("pageerror", (e) => perr.push(String(e).slice(0, 200))); pg.on("console", (m) => { if (m.type() === "error") perr.push(m.text().slice(0, 200)); });
-    try { resp = await pg.goto(url, { waitUntil: "load", timeout: 60000 }); } catch (e) { out.error = String(e).slice(0, 200); }
+    for (let a = 0; a < 3 && !resp; a++) {   // a navigation error is retried twice before it counts
+      try { resp = await pg.goto(url, { waitUntil: "load", timeout: 60000 }); } catch (e) { out.error = String(e).slice(0, 200); await pg.waitForTimeout(3000 * (a + 1)); }
+    }
+    await pg.waitForTimeout(1500);
+    // scroll through the page so lazy-loaded images load before they are checked, then back to the top
+    await pg.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 600) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 120)); } window.scrollTo(0, 0); }).catch(() => {});
     await pg.waitForTimeout(1500);
     if (w === 1440) {
       out.http = resp ? resp.status() : 0;

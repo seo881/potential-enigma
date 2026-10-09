@@ -134,7 +134,8 @@ export async function checkPage(p, opts = {}) {
 
 // One hub page: its carousel links to every given page and those cards' covers have alt text.
 export async function checkHub(hub, mine) {
-  const res = await fetch(BASE + hub).catch(() => null), html = res && res.ok ? await res.text() : "";
+  let res = null; for (let a = 0; a < 3 && !(res && res.ok); a++) { res = await fetch(BASE + hub).catch(() => null); if (!(res && res.ok)) await sleep(2000 * (a + 1)); }
+  const html = res && res.ok ? await res.text() : "";
   const d = new JSDOM(html, { url: BASE + hub }).window.document;
   const anchors = [...d.querySelectorAll("a")];
   const missing = mine.filter((p) => !anchors.some((a) => pathOf(a.href) === p.url)).map((p) => p.url);
