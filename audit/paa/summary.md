@@ -430,3 +430,26 @@ Phase 2 (DECISIONS 2026-10-08): one line per page, no question text. Per-questio
 - 2026-10-10 /ai-automation-builder/purchase-order-automation [spec]: 10 questions; pass 4, reject 0, flag 6; rejects by rule: none
 - 2026-10-10 /ai-automation-builder/social-media-automation [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
 - 2026-10-10 /ai-automation-builder/purchase-order-automation [spec]: 10 questions; pass 4, reject 0, flag 6; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/customer-effort-score [spec]: 10 questions; pass 4, reject 5, flag 1; rejects by rule: PA1 2, PA3 5, PA4 1; page: PA11 5 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build; PA12 1 items carrying a secondary, under 4
+- 2026-10-10 /ai-survey-and-quiz-builder/customer-experience-survey [spec]: 10 questions; pass 3, reject 5, flag 2; rejects by rule: PA1 2, PA1b 2, PA3 5, PA4 1; page: PA11 5 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build
+- 2026-10-10 /ai-survey-and-quiz-builder/customer-effort-score [pull]: 17 questions; pass 1, reject 15, flag 1; rejects by rule: PA3 14, PA4 2, PA9 1; page: PA11 48 nodes, 17 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-survey-and-quiz-builder/customer-effort-score [pull+cand]: 17 questions; pass 1, reject 15, flag 1; rejects by rule: PA3 14, PA4 2, PA9 1; page: PA11 48 nodes, 17 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-survey-and-quiz-builder/exit-survey [spec]: 10 questions; pass 3, reject 4, flag 3; rejects by rule: PA1 3, PA3 4; page: PA11 6 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build
+- 2026-10-10 /ai-survey-and-quiz-builder/onboarding-survey [spec]: 10 questions; pass 2, reject 8, flag 0; rejects by rule: PA1 3, PA14 1, PA15 1, PA3 8; page: PA11 2 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build; PA12 2 items carrying a secondary, under 6
+- 2026-10-10 /ai-survey-and-quiz-builder/customer-experience-survey [pull]: 22 questions; pass 1, reject 21, flag 0; rejects by rule: PA3 21, PA5 1; page: PA11 48 nodes, 22 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-survey-and-quiz-builder/exit-survey [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/exit-survey [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/customer-effort-score [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/onboarding-survey [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/onboarding-survey [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/onboarding-survey [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/customer-experience-survey [spec]: 10 questions; pass 6, reject 2, flag 2; rejects by rule: PA1b 2
+- 2026-10-10 /ai-survey-and-quiz-builder/customer-experience-survey [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/customer-experience-survey [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/customer-experience-survey [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/customer-effort-score [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/customer-experience-survey [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/exit-survey [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/onboarding-survey [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/customer-experience-survey [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/exit-survey [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
