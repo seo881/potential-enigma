@@ -136,6 +136,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-09 22:47 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "wk-r-5",
+   "note": "[truth | CONTENT_DEFECTS #8] why_description: A statement of fact about third-party systems with no domain_sources entry, and a false differentiator: the table right below names Tipalti, whose procurement product (tipalti.com/procurement/purchase-order-approval/) runs purchase requests, approvals an"
   }
  ],
  "plan": {
@@ -842,10 +849,150 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 22:32 UTC"
+  "date": "2026-10-09 22:44 UTC"
  },
  "writers": [
   "w-purchase-order-automation",
   "wk-w-purchase-order-automation"
+ ],
+ "review": {
+  "by": "wk-r-5",
+  "date": "2026-10-09 22:47 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build Purchase Order Automation From Request to Receipt\" and hero \"Build purchase order automation that routes spending by dollar limit and checks each delivery against its numbered PO.\" state the whole buy-side job; how-to description is one sentence under 140 characters."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition (FAQ 1), how it works (FAQ 3), workflow steps (FAQ 5), cost (FAQ 7), template (FAQ 9), matching (FAQ 10), a comparison table and a PO-specific 7-step how-to (numbering format, receiving, replay last month's requisitions)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Procurement vocabulary: \"A short shipment keeps the balance on order\", \"reorder point of 60\", \"blanket PO\", \"IT hardware adds the IT lead\"."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "\"Marta Ruiz in facilities asks for six standing desks\", \"Whoever unpacks a delivery records what arrived\", \"Start with your purchasing policy as it is written\"."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; one idea per sentence in the tabs, e.g. \"The receipt posts for 40, and the PO stays open for the other 20.\""
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "\"Receiving matters more than it looks, because without a receipt there is nothing to match the invoice against.\" Concrete, calm, operator detail."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "why_description: \"AP suites start at the invoice. Emergent builds the request and approval steps that come before it\" is unsourced and contradicted by Tipalti (in this page's table), whose procurement product covers purchase requests, approvals and PO creation."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Owns the buy side (requisition, reorder, receiving, blanket POs); invoice matching linked to accounts payable automation (FAQ 10), sign-off pattern to approval workflow (FAQ 4); no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic items, answer-first, hub link in item 2, sibling links in items 4 and 10, no brand or format in any question, moat lines in items 6, 7 and 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "uc-1 6 x $810 = $4,860, rule over $2,500, Leo Grant approved, Hana Ito Waiting in Slack, Next PO-2291 to Northwind Office Supply; uc-2 gloves 38 vs 60, draft PO 200 x $6.50 = $1,300 for Dana Cole; uc-3 40 of 60 cartons, 20 stay open, Dana Cole backorder; uc-4 $17,500 + $2,500 = $20,000 of $24,000, $4,000 left, 83% to Owen Price."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #8",
+    "field": "why_description",
+    "quote": "AP suites start at the invoice. Emergent builds the request and approval steps that come before it to fit your policy, as code you keep.",
+    "issue": "A statement of fact about third-party systems with no domain_sources entry, and a false differentiator: the table right below names Tipalti, whose procurement product (tipalti.com/procurement/purchase-order-approval/) runs purchase requests, approvals and PO generation. Only instance on the page.",
+    "fix": "Make the contrast true without characterising the suites, e.g. \"Emergent builds your request form, approval limits and PO numbering to fit your policy, as code you keep and change by prompting.\"",
+    "severity": "blocking"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq item 5; faq item 4; howto_step_3_des; faq item 10",
+    "quote": "A typical purchase order workflow has six steps / A typical PO approval workflow routes by amount / is enough for most teams / The check usually opens",
+    "issue": "Soft quantifiers about no named third party, unsourced.",
+    "fix": "State them as advice or as what the app does.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "faq item 6; claims_used",
+    "quote": "with no per-seat charge for adding one",
+    "issue": "The line maps to the approved no-caps claim (no per-approver seats), but no-caps is missing from claims_used.",
+    "fix": "Add no-caps to claims_used.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "faq; faq_sources",
+    "quote": "faq_sources: 0 PAA items",
+    "issue": "No FAQ item is sourced from the brief's PAA list; the four-types-of-PO question the plan promised to answer (and sourced) is not on the page, nor the best-software question. QC F4 passes (no PAA in the live SERP capture), so a note.",
+    "fix": "If a slot frees up, answer the four PO types (Oracle source already recorded).",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief.cover",
+    "quote": "PO-2291: 6 desks ... Approve",
+    "issue": "The cover asks Hana Ito to approve PO-2291, while uc-1 shows the approval is on REQ-0418 and PO-2291 is issued after it.",
+    "fix": "Label the cover REQ-0418.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq item 5; faq item 4; howto_step_3_des; faq item 10",
+   "issue": "Soft quantifiers about no named third party, unsourced.",
+   "fix": "State them as advice or as what the app does.",
+   "by": "wk-r-5",
+   "via": "review",
+   "date": "2026-10-09 22:47 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 6",
+   "field": "faq item 6; claims_used",
+   "issue": "The line maps to the approved no-caps claim (no per-approver seats), but no-caps is missing from claims_used.",
+   "fix": "Add no-caps to claims_used.",
+   "by": "wk-r-5",
+   "via": "review",
+   "date": "2026-10-09 22:47 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "faq; faq_sources",
+   "issue": "No FAQ item is sourced from the brief's PAA list; the four-types-of-PO question the plan promised to answer (and sourced) is not on the page, nor the best-software question. QC F4 passes (no PAA in the live SERP capture), so a note.",
+   "fix": "If a slot frees up, answer the four PO types (Oracle source already recorded).",
+   "by": "wk-r-5",
+   "via": "review",
+   "date": "2026-10-09 22:47 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief.cover",
+   "issue": "The cover asks Hana Ito to approve PO-2291, while uc-1 shows the approval is on REQ-0418 and PO-2291 is issued after it.",
+   "fix": "Label the cover REQ-0418.",
+   "by": "wk-r-5",
+   "via": "review",
+   "date": "2026-10-09 22:47 UTC"
+  }
  ]
 }
