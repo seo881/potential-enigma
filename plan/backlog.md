@@ -27,3 +27,6 @@ Format: date, source (Divit, reviewer, QC, orchestrator), the item, pages it tou
 - PA10 flag: t-shirt-order-form Q4 (shirt order form on Google Forms) overlaps pre-order-form's Google Forms questions (not shipped); pick the owner when pre-order-form ships.
 - 2026-10-09, orchestrator: delete the 187 og.png files under images/ in one commit once the 20 launch pages are verified live (Divit 2026-10-09; WebP replaces them).
 - 2026-10-09, orchestrator: `hubctl qc` rewrites qc_passed stamps in every spec it checks, so an all-spec QC sweep dirties ~60 specs; a read-only mode would help regression diffs.
+
+## Duplicate IDs in shared components (Webflow Audits, 2026-10-09)
+- email-form (5 elements) and field (4) on child templates come from forms inside shared site-wide components, not from our template content. Fix needs component-definition edits (Divit's go) after checking no script or form handler targets #email-form or #field. Proposed: give each component form a unique DOM id (or bind it to a component prop) one component at a time, with read-back and rollback.
