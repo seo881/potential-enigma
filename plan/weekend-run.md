@@ -9,7 +9,7 @@ Updated 2026-10-09 22:26 UTC. Started 2026-10-09T21:40:27+00:00.
 
 | Phase | Hub | Pages | Stages |
 |---|---|---|---|
-| rework | LP | 13 | check2 2, ready 10, review 1 |
+| rework | LP | 13 | check2 2, ready 11 |
 | rework | Auto | 4 | autofix 4 |
 | rework | SurveyQuiz | 9 | autofix 9 |
 | rework | Form | 132 | autofix 132 |
