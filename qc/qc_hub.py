@@ -220,6 +220,21 @@ def check(spec, siblings):
         for k in (f"prompt_chip_{i}", f"tab_label_{i}"):
             v = F.get(k, "")
             if len(v) > 26: add("P1", "L9", k, f"{len(v)} chars (max 26)")
+    # ---------- D1/D2 (Divit 2026-10-09, P0): hero and how-to descriptions ----------
+    _SR = json.load(open(os.path.join(ROOT, "rules", "style_rules.json")))
+    hd = strip_html(F.get("hero_description", "")).strip()
+    if hd:
+        if len(hd) > 130: add("P0", "D1", "hero_description", f"{len(hd)} chars (max 130, two lines on desktop)")
+        if prim and kwn(prim) not in kwn(hd): add("P0", "D1", "hero_description", "primary keyword missing")
+        if (re.findall(r"[A-Za-z]+", hd) or [""])[0].lower() not in _SR["d1_lead_verbs"]: add("P0", "D1", "hero_description", f'must lead with what the visitor gets (a verb like Build or Create), not "{hd[:30]}"')
+        _mph = [m for m in _SR["d1_metaphors"] if re.search(r"(?i)\b" + re.escape(m) + r"\b", hd)]
+        if _mph: add("P0", "D1", "hero_description", "plain words only, no metaphor: " + ", ".join(_mph))
+    hw_ = strip_html(F.get("howto_description", "")).strip()
+    if hw_:
+        if len(hw_) > 140: add("P0", "D2", "howto_description", f"{len(hw_)} chars (max 140)")
+        if len(sents_of(hw_)) != 1: add("P0", "D2", "howto_description", f"{len(sents_of(hw_))} sentences (exactly 1)")
+        if prim and kwn(prim) not in kwn(hw_): add("P0", "D2", "howto_description", "primary keyword missing")
+        if not re.search(r"(?i)\bsteps?\b", hw_): add("P0", "D2", "howto_description", "say plainly what the steps achieve (mention the steps)")
     # ---------- H: hygiene (rulebook global rules) ----------
     for k, v in F.items():
         if not isinstance(v, str): continue

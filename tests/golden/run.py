@@ -5,6 +5,8 @@ The gate must catch each one. Cases point at a commit and a spec instead of copy
 
 Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   gate-question  {url, sha, q_index, expect: [rule ids]}   the PAA gate rejects FAQ item q_index of the spec at that commit
+  gate-text      {url, q, expect}                          the gate rejects this literal question with one of the expected rules
+  qc-field       {url, field, text, expect}                QC raises one of the expected codes when the field holds this text
   qc-text        {url, field, text, check}                 QC flags `field` when it holds `text` (P0/P1 on that field)
   review         {url, field, check, text}                 judgment catch (Layer B); kept for the record, not machine-tested
 status: "open" = a known miss the gate does not catch yet (a backlog fix); "guarded" = caught; a guarded case that stops being
@@ -27,6 +29,15 @@ def caught(c):
         items, _ = PG.run_spec(g); it = items[c["q_index"] - 1]
         rej = {r[0] for r in it["reasons"] if r[1] == "reject"}
         return it["verdict"] == "reject" and (not c.get("expect") or bool(rej & set(c["expect"])))
+    if c["kind"] == "gate-text":   # a literal question (Divit's examples, our own copy): the gate's per-question rules reject it
+        import paa_gate as PG
+        rs = PG.Gate(c["url"]).judge({"q": c["q"], "source": "secondary", "n": 5})
+        return bool({r[0] for r in rs if r[1] == "reject"} & set(c.get("expect") or [r[0] for r in rs]))
+    if c["kind"] == "qc-field":    # a literal field value: QC raises the expected code on that field
+        import qc_hub as Q, hubctl as H, glob as _g
+        s = copy.deepcopy(json.load(open(H.spath(c["url"])))); s["fields"][c["field"]] = c["text"]
+        every = Q.load_specs(sorted(_g.glob(os.path.join(ROOT, "specs", "*", "*.json"))))
+        return any(i["code"] in c["expect"] and i["sev"] in ("P0", "P1") for i in Q.check(s, every))
     if c["kind"] == "qc-text":
         import qc_hub as Q, hubctl as H
         s = json.load(open(H.spath(c["url"]))); s = copy.deepcopy(s); f = c["field"]

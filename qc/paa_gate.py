@@ -1,4 +1,4 @@
-"""paa_gate.py: the PAA gate PA1-PA12 (handover 2026-10-08 section 5; approved by Divit 2026-10-08).
+"""paa_gate.py: the PAA gate PA1-PA15 (PA14 brands, PA15 file formats: Divit 2026-10-09) (handover 2026-10-08 section 5; approved by Divit 2026-10-08).
 
   hubctl paa URL          gate the page's AlsoAsked pull (private/alsoasked/<slug>.json, from ops/alsoasked_pull.py)
   hubctl paa URL --spec   gate the spec's current FAQ (spec.faq_sources + fields.faq); PA1b: no answer may share a 6-word run
@@ -22,7 +22,7 @@ STOP = set("a an the of for to in on at by with and or is are do does did i we y
            "should would will it its be there this that from as if so any".split())
 PROV = ("tool", "query", "depth", "parent", "fetched", "original")
 JACCARD_DUP = 0.8      # PA9/PA10 same-intent threshold on content words (tune after the first full run)
-MAX_RESPONDENT, MAX_BRANDED, MIN_ON_TOPIC, N_FAQ, MIN_SECONDARIES = 2, 1, 8, 10, 6
+MAX_RESPONDENT, MAX_BRANDED, MIN_ON_TOPIC, N_FAQ, MIN_SECONDARIES = 2, 0, 8, 10, 6   # PA8 brand cap 0 (Divit 2026-10-09)
 
 def norm(s): return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9'.&-]+", " ", s.lower().replace("’", "'"))).strip()
 def stem(w): return re.sub(r"(ies|es|s|ing|ed)$", "", w) if len(w) > 4 else w
@@ -138,6 +138,16 @@ class Gate:
         lib = [b for b in self.library if has(b, q)]; item["brands"] = lib
         if retail: out.append(("PA8", "reject", "retailer or gift brand: " + ", ".join(retail)))
         if tools: out.append(("PA8", "reject", "brand not in the competitor library: " + ", ".join(tools)))
+        # PA14 no brand or product names (Divit 2026-10-09): listed brands reject; an unlisted capitalised name is flagged
+        raw = item.get("q") or ""
+        br = [b for b in self.bl.get("pa14_brands", []) if has(b.lower(), q)]
+        if br: out.append(("PA14", "reject", "brand or product name: " + ", ".join(sorted(set(br))[:4])))
+        ok_caps = set(self.bl.get("pa14_proper_noun_ok", []))
+        caps = [w for i, w in enumerate(re.findall(r"[A-Za-z0-9][A-Za-z0-9.'-]*", raw)) if i > 0 and w[0].isupper() and w.rstrip("?.'s") not in ok_caps and w not in ok_caps and w.lower().rstrip("?.") not in self.bl.get("pa15_formats", [])]
+        if caps and not br: out.append(("PA14", "flag", "capitalised name, possibly a brand: " + ", ".join(caps[:3])))
+        # PA15 no file formats or download-style asks
+        fm = [f for f in self.bl.get("pa15_formats", []) if has(f, q)]
+        if fm: out.append(("PA15", "reject", "file format or download ask: " + ", ".join(fm[:3])))
         # PA10 one page per question per hub: the page whose head phrase the question carries owns it
         cq = content(q)
         for surl, sprim, sq, sc in self.siblings:

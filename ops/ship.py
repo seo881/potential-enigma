@@ -114,6 +114,7 @@ def writer_brief(url, P, role="writer"):
               "- gate-passing AlsoAsked questions not yet in the FAQ:", *([f"  - {q}" for q in pull] or ["  - none"]),
               "- approved secondaries not yet carried by a question:", *([f"  - {k}" for k in unused] or ["  - none"]),
               "Keep exactly 10 items; item 1 the definition, item 2 how-to-build with the hub link (QC K4). Answers lead with the answer (first words answer the question). "
+              "No question may name a brand or product (PA14) or ask for a file format or download (PA15) (Divit 2026-10-09). "
               "Never reuse AlsoAsked answer text (PA1b blocks any 6-word run). Record each new item in faq_sources with its source "
               "(alsoasked with prov, or secondary). Build the FAQ embed in Python so quoting is exact.", ""]
         L += ["## 2. QC issues still open (strict QC; fix the class across the page)", ""]

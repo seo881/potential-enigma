@@ -90,6 +90,12 @@ Read the page's brief first: `python3 ops/hubctl.py brief <url>`. It gives the p
 
 ## 5. Field-by-field guide
 
+**Launch-blocker rules (Divit, 2026-10-09; override the rules freeze):**
+- **FAQ questions name no brand or product** [gate PA14]: no Google, Google Forms, Docs, Sheets, Microsoft, Word, Excel, Outlook, ChatGPT, OpenAI, GPT, Claude, Gemini, Copilot, Notion, Canva, WordPress, Contact Form 7, Shopify, Wix, Squarespace, Typeform, Jotform, Calendly, HubSpot, Salesforce, Zapier, ADP or any other third-party company or product (list: `rules/paa_blocklist.json` pa14_brands; any other capitalised name is flagged for a human). The PA8 brand cap is 0. Brands may still appear in answers and the comparison table where the rules allow.
+- **FAQ questions ask for no file format or download** [gate PA15]: no pdf, doc, docx, word, excel, xls, xlsx, csv, jpg, jpeg, png, gif, svg, printable, download.
+- **Hero description** (`hero_description`, CMS `description`, the subhead under the H1) [QC D1, P0]: at most 130 characters (two lines on desktop), carries the primary keyword, leads with what the visitor gets (a verb such as Build or Create), plain words, no metaphors ("scarce", "unlock", "seamless"...; list `rules/style_rules.json` d1_metaphors). Example: "Build an online booking form that shows only open times, takes deposits, and saves every booking to a database you own."
+- **How-to description** (`howto_description`) [QC D2, P0]: one sentence, at most 140 characters, carries the primary keyword and says plainly what the steps achieve. Example: "Seven steps to create a booking form that only offers open times, then build it with Emergent."
+
 **Features (6) [QC]:** `<h3>title</h3><p>body</p>`. Titles are concrete capabilities, 2 lines max (48 chars). Bodies are 165-182 characters with a spread of 12 or less across the six, so the grid is level. Feature 6 is usually "Full code export"; vary its wording per page, and say GitHub export is on paid plans ("export to your GitHub repository on paid plans"; GitHub integration starts at the Standard plan, https://emergent.sh/pricing) [QC C5].
 
 **Use-case tabs (4):** four distinct sub-use-cases of the primary, each a real segment searchers have (industries, roles, document types). Tab labels: Title Case, 26 chars max. Tab content `<h3>` + `<p>`: the H3 names the outcome, the paragraph says what gets built, what it connects to and what lands in the database. The tab copy is the brief for that tab's image: write it concretely enough to draw.
