@@ -1,6 +1,6 @@
 # Launch pre-flight checklist
 
-Generated 2026-10-09 13:07 UTC by `ops/launch.py preflight` from a read-only read of the child collections (`.cache/readbacks/hero-after.json`, not committed). IDs and pass/fail only.
+Generated 2026-10-09 14:14 UTC by `ops/launch.py preflight` from a read-only read of the child collections (`.cache/readbacks/blockers-after.json`, not committed). IDs and pass/fail only.
 
 | # | Page | CMS item | Item exists (draft or staged) | Bulk-verify (0 mismatches) | awbPrompt | awbFAQ (10 items) | Images resolve to Webflow files | Share image WebP | Slug unique | Result |
 |---|---|---|---|---|---|---|---|---|---|---|

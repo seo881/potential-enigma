@@ -2,6 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-10-09 · [1944-launch-blockers](2026-10-09/1944-launch-blockers.md) · PA14/PA15/D1/D2 rules live; 23 FAQ questions replaced on 12 pages, 40 descriptions rewritten, review + 1 rework, CMS updated (pre-flight 20/20); Learn section hidden on 3 templates; production already live since 11:38 (old content) · this commit
 - 2026-10-09 · [1841-launch-day-fixes](2026-10-09/1841-launch-day-fixes.md) · Carousel hidden (templates; hubs already); Learn list fixed (limit 100 -> 3); hero prompt redesign (generic default + add clauses, new embed replaces T1, data-hubchip, 20 items updated, QC 0, pre-flight 20/20); verify_launch extended; staged only · this commit
 - 2026-10-09 · [1650-staging-404](2026-10-09/1650-staging-404.md) · Staging 11:16: 20 launch URLs 404, hubs 200; only difference found: the 4 child templates have shouldPublish false (every live-collection template is true); nothing published · this commit
 - 2026-10-09 · [1639-held-check](2026-10-09/1639-held-check.md) · Held 5: draft and 404 everywhere; launch 20: isDraft false, published 10:29 but 404 on both domains because the 4 child template pages have shouldPublish false; Layer A A0 held-page P0 check · this commit
