@@ -33,6 +33,7 @@ Decided by Divit 2026-10-09 (DECISIONS). Divit spot-checks 2-3 URLs; this system
 **Never automatic, propose and wait for Divit's go** (`hubctl live-fix approve ISSUE --by divit` once he says go; an approved sweep adds findings with `live-fix add`): slugs, the primary keyword in H1 or meta, deleting items, template or component edits, classes, sitewide elements, hub pages, anything another person edited (drift).
 
 ## How a fix is made (one path, no shortcuts)
+**Item publish only, never a site publish (DECISIONS 2026-10-10, NO SITE PUBLISH).**
 1. Save the field's live before-value to `childedits/YYYY-MM-DD/<slug>.<issue-id>.before.json`, then commit and push it. `live-fix prepare` refuses to write the payload until that file is in HEAD, unchanged and on origin/main (Divit 2026-10-10): no Webflow write without a pushed before-value.
 2. Edit the spec; QC TOTAL 0; PAA gate 10/10 if FAQ changed; images re-rendered if drawn text changed.
 3. Update the CMS item (changed fields only), publish that item only (item publish, never a site publish), read back.
