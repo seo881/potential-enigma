@@ -30,13 +30,17 @@ def verify(spec, html=None, check_links=True):
     want_q = [i["q"] for i in json.loads(fq_spec.group(1))["items"]] if fq_spec else []
     chk("FAQ questions", live_q == want_q, f"{len(live_q)} live vs {len(want_q)} approved")
     for k, im in spec.get("images", {}).items():
+        if k == "cover_image": continue   # the cover renders only in the carousel (section_build), hidden on hubs and templates (Divit 2026-10-09)
         fid = im.get("file_id")
         chk(f"image {k}", bool(fid) and fid in html, "file id not found on the page" if fid else "no file id recorded")
-    og = re.search(r'<meta[^>]+property="og:image"[^>]+content="([^"]+)"', html)
+    og = re.search(r'<meta[^>]+property="og:image"[^>]+content="([^"]+)"', html) or re.search(r'<meta[^>]+content="([^"]+)"[^>]+property="og:image"', html)
     sid = spec.get("images", {}).get("share_image", {}).get("file_id")
     chk("share image (og:image)", bool(og and sid and sid in og.group(1)), og.group(1)[:80] if og else "missing")
     if check_links:
-        for href in sorted(set(re.findall(r"<a href=(?:\\\\?\"|')(https://emergent\.sh[^\"'\\\\]*)", F.get("faq", "")))):
+        # links as they ship: export_fields turns links to pages that are not live into plain text (link-to-live)
+        import hubctl as _H
+        shipped = _H.export_fields(spec["url"], spec)[0].get("faq", "")
+        for href in sorted(set(re.findall(r"<a href=(?:\\\\?\"|')(https://emergent\.sh[^\"'\\\\]*)", shipped))):
             try: code, _ = _get(href, "HEAD")
             except Exception as e: code = getattr(e, "code", str(e))
             chk(f"link {href}", code == 200, f"HTTP {code}")

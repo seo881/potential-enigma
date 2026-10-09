@@ -106,6 +106,14 @@ export async function checkPage(p, opts = {}) {
     && imgs.every((u) => $$("img").some((i) => (i.getAttribute("src") || "") === u || (i.getAttribute("srcset") || "").includes(u)));
   c.comparison_table = !!$(".cmp table");
   c.learn_not_empty = !/No items found/i.test($(".section_blog-related")?.textContent || "");
+  // Learn list for launch (Divit 2026-10-09): hidden on Form, LP and Automation; 3 articles on Survey and Quiz
+  const learn = $(".section_blog-related"), nLearn = learn ? learn.querySelectorAll(".w-dyn-item").length : 0;
+  c.learn_launch_state = p.hub === "/ai-survey-and-quiz-builder" ? nLearn === 3 : !learn;
+  out.learn_items = learn ? nLearn : "hidden";
+  // D1/D2 copy live
+  const bodyText = norm(d.body.textContent);
+  if (p.hero_description) c.hero_description_live = bodyText.includes(norm(p.hero_description));
+  if (p.howto_description) c.howto_description_live = bodyText.includes(norm(p.howto_description));
   c.hub_link = $$("a").some((a) => pathOf(a.href) === p.hub);
   const kids = [...new Set($$("a").map((a) => pathOf(a.href.split("#")[0])).filter((h) => /^\/ai-[a-z-]+\/[a-z0-9-]+$/.test(h)))];
   const dead = []; for (const k of kids) if ((await status(BASE + k)) !== 200) dead.push(k);
