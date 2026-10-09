@@ -139,6 +139,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-09 23:03 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "wk-r-6",
+   "note": "[truth | HUB_RULES 8] faq (item 5): Statement of fact about third-party 360 pricing with no spec.domain_sources entry; the CustomInsight pricing source states a per-person fee and a one-time setup fee but says nothing about coaching or debrief pricing. This is the only instance of the class on the p"
   }
  ],
  "plan": {
@@ -832,7 +839,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 22:38 UTC"
+  "date": "2026-10-09 23:01 UTC"
  },
  "writers": [
   "w-360-survey",
@@ -843,5 +850,225 @@
   "On each person's report, put their self-rating beside the average of everyone else for every item, and list the widest gaps first for the coach.",
   "Fold any peer or direct-report group with fewer than three answers into an Others line, and keep the manager's rating under its own label.",
   "Six months after the first round, ask the same raters to score only the three items each manager picked, and show both rounds on one report."
+ ],
+ "review": {
+  "by": "wk-r-6",
+  "date": "2026-10-09 23:03 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a 360 Survey Your Managers Can Act On', meta title '360 Survey Builder With Rater Groups | Emergent', hero 'Create a 360 survey with manager-approved nominations, hidden small rater groups, and a report of self-ratings against others.' cover the whole job; how-to description is one sentence under 140 characters."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition up top for the AI Overview, question examples (FAQ 3), tool checklist (FAQ 4), cost (FAQ 5), a 7-step how-to and four worked tabs match a top 10 of glossaries, guides and platforms."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: rater groups, nominations, 'an Others line', self-versus-others gaps, debrief, follow-up round; table uses the employee variant."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs ('Sorts every rater', 'Lets each participant', 'Folds any rater group'); tabs open on full sentences ('Two direct reports answered Marcus Lee's survey')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Short varied sentences, e.g. 'Her nine raters averaged 3.1. That 1.4 gap is the widest on her report'; one tacked-on 'which is where' kept as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: 'Asking six peers leaves room for two who never reply'; 'Gives clear deadlines when handing off work' can be scored by a peer."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "faq item 5: 'Coaching debriefs, if you add them, cost extra per participant.' has no domain source; the cited CustomInsight pricing page covers per-person and setup fees only."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Its own mechanics (nominations, group minimums, self vs others, round two); siblings only linked: 'pulse survey', 'employee engagement survey'."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first, hub link in item 2, two sibling links, no brands or file formats; moat lines in items 4, 5, 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: Dana 4.5 vs 3.1 gap 1.4, nominations Monday to reminder Thursday to day 10, Marcus Others: 3 ratings, delegating 3.1 to 3.8; cover 3.8 +0.7 matches tab 4."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq (item 5)",
+    "quote": "Coaching debriefs, if you add them, cost extra per participant.",
+    "issue": "Statement of fact about third-party 360 pricing with no spec.domain_sources entry; the CustomInsight pricing source states a per-person fee and a one-time setup fee but says nothing about coaching or debrief pricing. This is the only instance of the class on the page.",
+    "fix": "Delete the sentence, or source it (a vendor pricing page that prices debrief coaching per participant) and add it to domain_sources.",
+    "severity": "blocking"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq (item 10)",
+    "quote": "Most are confidential, not anonymous.",
+    "issue": "Soft quantifier about 360 surveys in general, no named third party.",
+    "fix": "'A well-run 360 is confidential, not anonymous.'",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_2_des; faq (item 9)",
+    "quote": "Keep the set between 10 and 15 items on a 1-5 scale / Plan one full round a year and a short follow-up about six months after it",
+    "issue": "Recommendations with no source.",
+    "fix": "Source them or keep as advice.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "feature_4",
+    "quote": "The widest ones sit at the top of the report, which is where a coach starts the debrief.",
+    "issue": "Tacked-on 'which is where' ending.",
+    "fix": "'A coach starts the debrief with the widest ones, at the top of the report.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "feature_6; faq (item 4)",
+    "quote": "from the nomination flow to the rating database / exports the whole 360 app, ratings table and all, to your GitHub",
+    "issue": "The approved claim is full code export; 'rating database' and 'ratings table and all' can be read as the stored ratings themselves going to GitHub.",
+    "fix": "'from the nomination flow to the code behind the ratings table'.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_3; tab_content_3; howto_step_5_des",
+    "quote": "The manager's rating is the exception and keeps its own label / His manager's single rating keeps its own label / Name the one exception, the manager's rating, up front.",
+    "issue": "The same manager-label exception is restated in three fields.",
+    "fix": "Keep it in the tab and the how-to step; give feature 3 another detail.",
+    "severity": "note"
+   },
+   {
+    "class": "openers",
+    "criterion": "openers",
+    "rule": "CONTENT_DEFECTS #2",
+    "field": "faq (item 7)",
+    "quote": "Coaching and development.",
+    "issue": "Answer opens on a fragment.",
+    "fix": "'It is used for coaching and development.'",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image uc-4",
+    "quote": "Goals R2 ... 4",
+    "issue": "One bar value is drawn as '4' while the others carry one decimal (3.1, 3.8, 3.8); tab 1 writes scores as 4.0.",
+    "fix": "Draw it as 4.0.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "CONTENT_DEFECTS #3",
+    "field": "why_table",
+    "quote": "Pulse and annual surveys, confidential reporting, and manager dashboards, as code you own",
+    "issue": "The employee variant's Emergent cell does not mention 360 reviews on a 360 page.",
+    "fix": "Coordinator: consider a 360 variant in the library.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq (item 10)",
+   "issue": "Soft quantifier about 360 surveys in general, no named third party.",
+   "fix": "'A well-run 360 is confidential, not anonymous.'",
+   "by": "wk-r-6",
+   "via": "review",
+   "date": "2026-10-09 23:03 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_2_des; faq (item 9)",
+   "issue": "Recommendations with no source.",
+   "fix": "Source them or keep as advice.",
+   "by": "wk-r-6",
+   "via": "review",
+   "date": "2026-10-09 23:03 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "feature_4",
+   "issue": "Tacked-on 'which is where' ending.",
+   "fix": "'A coach starts the debrief with the widest ones, at the top of the report.'",
+   "by": "wk-r-6",
+   "via": "review",
+   "date": "2026-10-09 23:03 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 6",
+   "field": "feature_6; faq (item 4)",
+   "issue": "The approved claim is full code export; 'rating database' and 'ratings table and all' can be read as the stored ratings themselves going to GitHub.",
+   "fix": "'from the nomination flow to the code behind the ratings table'.",
+   "by": "wk-r-6",
+   "via": "review",
+   "date": "2026-10-09 23:03 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_3; tab_content_3; howto_step_5_des",
+   "issue": "The same manager-label exception is restated in three fields.",
+   "fix": "Keep it in the tab and the how-to step; give feature 3 another detail.",
+   "by": "wk-r-6",
+   "via": "review",
+   "date": "2026-10-09 23:03 UTC"
+  },
+  {
+   "criterion": "openers",
+   "rule": "CONTENT_DEFECTS #2",
+   "field": "faq (item 7)",
+   "issue": "Answer opens on a fragment.",
+   "fix": "'It is used for coaching and development.'",
+   "by": "wk-r-6",
+   "via": "review",
+   "date": "2026-10-09 23:03 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image uc-4",
+   "issue": "One bar value is drawn as '4' while the others carry one decimal (3.1, 3.8, 3.8); tab 1 writes scores as 4.0.",
+   "fix": "Draw it as 4.0.",
+   "by": "wk-r-6",
+   "via": "review",
+   "date": "2026-10-09 23:03 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "CONTENT_DEFECTS #3",
+   "field": "why_table",
+   "issue": "The employee variant's Emergent cell does not mention 360 reviews on a 360 page.",
+   "fix": "Coordinator: consider a 360 variant in the library.",
+   "by": "wk-r-6",
+   "via": "review",
+   "date": "2026-10-09 23:03 UTC"
+  }
  ]
 }
