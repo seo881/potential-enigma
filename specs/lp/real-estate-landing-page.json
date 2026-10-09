@@ -139,6 +139,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-09 22:20 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "wk-r-3",
+   "note": "[truth | HUB_RULES 8] faq: Five statements of fact about named third-party sites (Leadpages, Framer, Dribbble, Lapa Ninja, Pinterest) with no matching spec.domain_sources entry. These are the only named-third-party facts on the page without a source. -> Add domain_sources entries for the sites the a"
   }
  ],
  "plan": {
@@ -764,7 +771,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 22:04 UTC"
+  "date": "2026-10-09 22:19 UTC"
  },
  "writers": [
   "w-real-estate-landing-page",
@@ -775,5 +782,185 @@
   "Build an open house sign-in page that visitors open by scanning a QR code on the door sign. Ask for a name, an email, and whether they have an agent, then email me the list at 5 PM.",
   "Build a listing page for one of my homes with the price, the photos, and three showing times a buyer can pick, and send each showing request to my CRM with the address attached.",
   "Send every lead from my real estate pages to Follow Up Boss with the page it came from, and assign seller leads by zip code to the agent who covers that area."
+ ],
+ "review": {
+  "by": "wk-r-3",
+  "date": "2026-10-09 22:20 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Real Estate Landing Page for Every Listing and Lead'; hero 'Create a real estate landing page from one prompt, and route each buyer or seller lead to the agent who should call back.' (121 chars, leads with Create, carries the primary); how-to description one sentence under 140 characters."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Gallery and advice SERP: definition in FAQ 1, four worked pages by lead type (home valuation, open house sign-in, single listing, cash offer), templates, examples, layout, open house and free FAQs, seven-step how-to with Fair Housing, Meta Special Ad Category and IDX guidance."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Agent vocabulary: 'each neighborhood you farm', 'Follow Up Boss ... as a property inquiry', 'host agent', 'after a drive-by', 'IDX, which lets MLS participants show other brokers' listings'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Full-sentence openers: 'Emergent writes the form around the lead you want...', 'Owners who type an address into Cedar Row Realty's home value page...', 'On Sunday afternoon, visitors at 1412 Larch Lane scan the QR code...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; short declaratives ('She prices the home herself before she calls.'). Craft notes below ship."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator voice with concrete detail: 'Leave out who the home would suit, such as perfect for a young couple', 'who covers weekends', 'Every Monday, put leads beside booked appointments for each source.'"
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "Named third-party facts with no domain_sources entry: faq 4 'Leadpages and Framer both list templates for agents'; faq 5 'Dribbble and Lapa Ninja both keep galleries of real estate page designs, and Pinterest boards collect more.' Sourced and consistent: Fair Housing Act (42 USC 3604), Meta Special Ad Category, NAR IDX, Follow Up Boss events (the guide says events trigger assignment automations), NAR open house written agreements. Numbers agree: 12 of 31, $689,000, 4 bed 3 bath 2,140 sq ft, 3 call-today rows at 21/14/30 days and 2 offer emails."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Home valuation, QR open house sign-in, single listing with Follow Up Boss and a cash-buyer call list are real estate jobs; no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, no brand or file-format asks, hub link in item 2, sibling links (thank you page, lead generation landing page, one page website), answers lead with the answer; Emergent lines in items 4 and 10."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: one hero per tab; 'Direct message to Dana Ruiz', 'Within 90 days', 'Monthly market email'; '1412 Larch Lane', '12 of 31 visitors have no agent', 'Sent at 5 PM', 'Email to Marcus Bell'; 'Listed at $689,000', 'Sat 11:00 AM', 'Property inquiry'; 'Call list for Leo Grant', '3 sellers to call today', '2 sellers, after a drive-by'. All match the tab copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Leadpages and Framer both list templates for agents. (faq 4); Dribbble and Lapa Ninja both keep galleries of real estate page designs, and Pinterest boards collect more. (faq 5)",
+    "issue": "Five statements of fact about named third-party sites (Leadpages, Framer, Dribbble, Lapa Ninja, Pinterest) with no matching spec.domain_sources entry. These are the only named-third-party facts on the page without a source.",
+    "fix": "Add domain_sources entries for the sites the answers keep (the brief's top-10 URLs: leadpages.com/templates/category/real-estate, framer.com/community/marketplace/templates/categories/real-estate, dribbble.com/tags/real-estate-landing-page, lapa.ninja/category/real-estate), staying within the 8-source cap (5 used), and drop any name you do not source (for example the Pinterest clause).",
+    "severity": "blocking"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "Decide who the page is for and the one action it asks for (howto_step_1_des); asks one kind of visitor for one thing (faq 1); Pick one offer and one audience (faq 2); One for each offer and audience you advertise (faq 8); keep a visitor from an ad on one offer (faq 9); The landing page stays on its one offer (howto_step_6_des)",
+    "issue": "One-offer-one-audience is restated in six places with words swapped.",
+    "fix": "Keep it in step 1 and FAQ 1; give the other answers a new point.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "Some builders let you make and publish one on a free plan (faq 10); cover most pages (howto_step_4_des); usually from owners who want to sell as is (faq 7)",
+    "issue": "Soft quantifiers about no named third party.",
+    "fix": "State it directly or name and source one builder.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "The strongest pages ask a seller for the address before anything else. (faq 5); A page with no ad, sign, or mailer pointing at it collects few leads. (faq 8)",
+    "issue": "Recommendations phrased as observed fact with no source.",
+    "fix": "Phrase as advice ('Ask a seller for the address first').",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief",
+    "quote": "highlight row '9 Spruce Way ... Offer email' (tab 4 table); 'Bedrooms 3' in the Dana Ruiz card while the drawn form shows only address and sale timeline (tab 1)",
+    "issue": "Tab 4 highlights an offer-email row although the story is the call list; tab 1 hero shows a bedrooms answer the drawn form never asks.",
+    "fix": "Highlight a 'Call today' row (130 Lake Drive); add the bedrooms field to the form or drop it from the card.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "QC Q9: 'listing' 14 times, 'lead' 14 times, 'home' 11 times outside the FAQ",
+    "issue": "Heavy repetition of the same nouns.",
+    "fix": "Vary where the meaning holds ('property', 'inquiry', 'seller').",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "<th scope=\"col\">Unbounce</th> ... <th scope=\"col\">Wix</th>",
+    "issue": "QC K7: Unbounce and Wix do not rank in this page's top 10 (Leadpages, Instapage and Framer do).",
+    "fix": "Prefer ranking tools from the library when they fit.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "One-offer-one-audience is restated in six places with words swapped.",
+   "fix": "Keep it in step 1 and FAQ 1; give the other answers a new point.",
+   "by": "wk-r-3",
+   "via": "review",
+   "date": "2026-10-09 22:20 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Soft quantifiers about no named third party.",
+   "fix": "State it directly or name and source one builder.",
+   "by": "wk-r-3",
+   "via": "review",
+   "date": "2026-10-09 22:20 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Recommendations phrased as observed fact with no source.",
+   "fix": "Phrase as advice ('Ask a seller for the address first').",
+   "by": "wk-r-3",
+   "via": "review",
+   "date": "2026-10-09 22:20 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief",
+   "issue": "Tab 4 highlights an offer-email row although the story is the call list; tab 1 hero shows a bedrooms answer the drawn form never asks.",
+   "fix": "Highlight a 'Call today' row (130 Lake Drive); add the bedrooms field to the form or drop it from the card.",
+   "by": "wk-r-3",
+   "via": "review",
+   "date": "2026-10-09 22:20 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "Heavy repetition of the same nouns.",
+   "fix": "Vary where the meaning holds ('property', 'inquiry', 'seller').",
+   "by": "wk-r-3",
+   "via": "review",
+   "date": "2026-10-09 22:20 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: Unbounce and Wix do not rank in this page's top 10 (Leadpages, Instapage and Framer do).",
+   "fix": "Prefer ranking tools from the library when they fit.",
+   "by": "wk-r-3",
+   "via": "review",
+   "date": "2026-10-09 22:20 UTC"
+  }
  ]
 }
