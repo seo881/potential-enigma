@@ -133,6 +133,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-09 23:53 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "wk-r-8",
+   "note": "[faq | HUB_RULES 5] faq item 3; faq item 10: PA15 (Divit 2026-10-09): FAQ questions ask for no file format or download; the gate's list bans \"printable\" and \"download\", and asking to print a form off online is the same printable-download ask in other words. Both questions are print asks, and they ar"
   }
  ],
  "plan": {
@@ -843,7 +850,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 23:31 UTC"
+  "date": "2026-10-09 23:46 UTC"
  },
  "writers": [
   "w-direct-deposit-form",
@@ -854,5 +861,175 @@
   "Have new hires upload a voided check with their direct deposit form, then compare the numbers on the check with the ones they typed.",
   "Let my employees split each paycheck across up to three accounts by dollar amount or percentage, with one account set to take the remainder.",
   "When an employee asks to switch their deposit account, hold the request and email a confirmation link to the address already on file."
+ ],
+ "review": {
+  "by": "wk-r-8",
+  "date": "2026-10-09 23:53 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Direct Deposit Form That Checks Bank Details\"; hero \"Create a direct deposit form that verifies routing numbers, reads voided checks, and holds bank changes until employees confirm.\" (D1); how-to description is one sentence with the primary (D2). Whole job, no sibling topic."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Meta promises \"What a direct deposit form asks for, where to get one\": FAQ 1 and howto_step_2 list the fields, FAQ 5 and 6 say where to get one; seven specific how-to steps; AMBER angle (a form that checks what a PDF only records) carried in features_subheading."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Check-digit math on the nine-digit routing number, voided check vs typed numbers, Regulation E bank choice, Nacha two-year retention, W-9 name match for contractors."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs (\"Runs\", \"Reads\", \"Lets\", \"Keeps\", \"Shows\", \"Exports\"); tabs open on full sentences (\"New hires type the routing and account numbers\", \"Contractors get paid by ACH too\")."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; the repeated bank-form idea and the soft quantifiers are recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete and unhyped: \"A transposed digit gets caught on the form, long before it turns into a returned deposit.\" Meta title wording kept as a note."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "Quantified claims about banks' online banking sourced to one bank: FAQ 3 \"most large banks offer one through online banking\"; FAQ 6 \"Many do. Large banks let you generate one in online banking or the mobile app\"; FAQ 8 \"many banks also print a pre-filled form from online banking\"; FAQ 4 \"Template sites post free, blank versions\" and \"Your bank's pre-filled version costs nothing either\" have no source."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "QC Q6/D2 clean; tab H3s (\"The wrong digit caught before payday\", \"A fixed $150 to savings, the rest to checking\") are this page's own; payroll change form is linked, not targeted."
+   },
+   "faq": {
+    "result": "fail",
+    "evidence": "Two questions are print-a-form asks (PA15): item 3 \"Can you print off a direct deposit form online?\" and item 10 \"Can I print my own direct deposit form?\"."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "$150.00 + $1,990.00 = $2,140.00 in tab 2 matches the copy; Priya Nair, Ana Kim (Slack DM), Jordan Reed vs Reed Design LLC all match their tab copy; one hero per tab; cover matches tab 3."
+   }
+  },
+  "findings": [
+   {
+    "class": "structure",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 3; faq item 10",
+    "quote": "item 3 \"Can you print off a direct deposit form online?\"; item 10 \"Can I print my own direct deposit form?\"",
+    "issue": "PA15 (Divit 2026-10-09): FAQ questions ask for no file format or download; the gate's list bans \"printable\" and \"download\", and asking to print a form off online is the same printable-download ask in other words. Both questions are print asks, and they are also a near-duplicate pair (both answers end on checking that payroll accepts an outside form), against the PA15 spirit of a page that offers no printable file.",
+    "fix": "Reword item 3 to a get-one-online question that keeps F3 close to the PAA phrasing (for example \"Can you get a direct deposit form online?\") and replace item 10 with an unused on-topic PAA question, such as whether it is safe to give someone your direct deposit details (sourced, answered in the first sentence). Re-run QC for F3/F4.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8; CONTENT_DEFECTS #7",
+    "field": "faq item 3; faq item 4; faq item 6; faq item 8",
+    "quote": "item 3 \"most large banks offer one through online banking\"; item 6 \"Many do. Large banks let you generate one in online banking or the mobile app, pre-filled with both numbers and the account type.\"; item 8 \"many banks also print a pre-filled form from online banking\"; item 4 \"Template sites post free, blank versions of the direct deposit authorization form PDF. Your bank's pre-filled version costs nothing either.\"",
+    "issue": "Statements of fact about third-party systems. The only source is one bank's help page (wellsfargo.com), so \"most\" and \"many\" banks is the SEVERITY.md example of a quantified claim sourced for one member; the template-site claim and the claim that banks' versions cost nothing have no domain_sources entry at all.",
+    "fix": "Either name what the source shows (\"Some banks, Wells Fargo among them, let you generate one in online banking\") in items 3, 6 and 8, or add a second bank source (Chase and Bank of America rank in the top 10) and keep within 8 sources; source the template-site sentence (eForms ranks #2) or cut it, and cut or source \"costs nothing\".",
+    "severity": "blocking"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq item 3; faq item 10",
+    "quote": "item 3 \"Check with payroll before you use the bank's version, since some payroll teams only accept their own.\"; item 10 \"Ask before you send it, because an employer whose payroll system expects its own layout may want the details copied onto that version.\"",
+    "issue": "The orchestrator's question: the two print questions are a near-duplicate pair and their answers close on the same point with the words swapped. The pair itself is a repeated idea (a note); it is fixed by the PA15 finding above.",
+    "fix": "Resolved by rewording item 3 and replacing item 10.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq items 3, 4, 5, 6, 8; howto_step_3_des",
+    "quote": "item 3 \"most large banks offer one through online banking\"; item 4 \"Your bank's pre-filled version\"; item 5 \"your bank can supply a version with your numbers already printed on it\"; item 6 \"Large banks let you generate one in online banking\"; item 8 \"many banks also print a pre-filled form from online banking\"; step 3 \"a pre-filled form printed from online banking\"",
+    "issue": "The bank's pre-filled form is said six times with the words swapped.",
+    "fix": "Say it once in full (item 6) and refer to it elsewhere.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "tab_content_2; tab_content_3; faq items 1, 3, 5, 8; howto_step_3_des",
+    "quote": "tab 3 \"Payroll fraud rarely starts in payroll.\"; tab 2 \"Plenty of employees keep a savings goal\"; item 1 \"Many employers also ask for a voided check\"; item 3 \"Many employers post one\"; item 5 \"Most employers hand one out\"; item 8 \"Many employers ask for a voided check\"; step 3 \"Savings accounts rarely come with checks.\"",
+    "issue": "Soft quantifiers about employers and accounts, no named third party. \"Payroll fraud rarely starts in payroll\" is the one most worth fixing: insider payroll schemes are common, and the IC3 source is about redirected deposits only.",
+    "fix": "Tab 3: \"Deposit fraud often starts outside payroll.\" or open on the IC3 pattern itself.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "meta_title",
+    "quote": "Direct Deposit Form: What It Asks and an App | Emergent",
+    "issue": "\"What It Asks and an App\" reads clipped and machine-assembled.",
+    "fix": "For example \"Direct Deposit Form: Fields, Proof and a Builder | Emergent\" within L1.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief tab 1",
+    "quote": "panel extract \"Routing typed\" \"ending 4477\" 100",
+    "issue": "A confidence bar on the number the employee typed reads as if the typed value were extracted.",
+    "fix": "Show the typed row without a confidence bar, or as a plain kv row.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq item 3; faq item 10",
+   "issue": "The orchestrator's question: the two print questions are a near-duplicate pair and their answers close on the same point with the words swapped. The pair itself is a repeated idea (a note); it is fixed by the PA15 finding above.",
+   "fix": "Resolved by rewording item 3 and replacing item 10.",
+   "by": "wk-r-8",
+   "via": "review",
+   "date": "2026-10-09 23:53 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq items 3, 4, 5, 6, 8; howto_step_3_des",
+   "issue": "The bank's pre-filled form is said six times with the words swapped.",
+   "fix": "Say it once in full (item 6) and refer to it elsewhere.",
+   "by": "wk-r-8",
+   "via": "review",
+   "date": "2026-10-09 23:53 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "tab_content_2; tab_content_3; faq items 1, 3, 5, 8; howto_step_3_des",
+   "issue": "Soft quantifiers about employers and accounts, no named third party. \"Payroll fraud rarely starts in payroll\" is the one most worth fixing: insider payroll schemes are common, and the IC3 source is about redirected deposits only.",
+   "fix": "Tab 3: \"Deposit fraud often starts outside payroll.\" or open on the IC3 pattern itself.",
+   "by": "wk-r-8",
+   "via": "review",
+   "date": "2026-10-09 23:53 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "meta_title",
+   "issue": "\"What It Asks and an App\" reads clipped and machine-assembled.",
+   "fix": "For example \"Direct Deposit Form: Fields, Proof and a Builder | Emergent\" within L1.",
+   "by": "wk-r-8",
+   "via": "review",
+   "date": "2026-10-09 23:53 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief tab 1",
+   "issue": "A confidence bar on the number the employee typed reads as if the typed value were extracted.",
+   "fix": "Show the typed row without a confidence bar, or as a plain kv row.",
+   "by": "wk-r-8",
+   "via": "review",
+   "date": "2026-10-09 23:53 UTC"
+  }
  ]
 }
