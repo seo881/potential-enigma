@@ -61,9 +61,9 @@ Regenerated 2026-10-09 22:22 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-lp | /ai-landing-page-builder/one-page-website | 0 | 10/10 | yes, wk-r-1 | yes | no | 0 | - | no | no | payload |
 | wk-rework-lp | /ai-landing-page-builder/ppc-landing-page | 0 | 10/10 | yes, wk-r-2 | yes | no | 0 | - | no | no | check2 |
 | wk-rework-lp | /ai-landing-page-builder/product-landing-page | 0 | 10/10 | yes, wk-r-3 | yes | no | 0 | - | no | no | payload |
-| wk-rework-lp | /ai-landing-page-builder/real-estate-landing-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
+| wk-rework-lp | /ai-landing-page-builder/real-estate-landing-page | 0 | 10/10 | yes, wk-r-3 | yes | no | 0 | - | no | no | rework |
 | wk-rework-lp | /ai-landing-page-builder/saas-landing-page | 0 | 10/10 | yes, wk-r-2 | yes | no | 0 | - | no | no | payload |
 | wk-rework-lp | /ai-landing-page-builder/splash-page | 0 | 10/10 | yes, wk-r-1 | yes | no | 0 | - | no | no | payload |
 | wk-rework-lp | /ai-landing-page-builder/squeeze-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 
-Stages: check2 2, done 21, images 1, payload 7, review 2, rework 1, stopped 8 (42 pages)
+Stages: check2 2, done 21, images 1, payload 7, review 1, rework 2, stopped 8 (42 pages)
