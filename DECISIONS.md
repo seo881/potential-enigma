@@ -2,6 +2,16 @@
 
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
+## 2026-10-10
+- Live-audit proposals (reports/2026-10-10/0120-part3-live.md), all approved:
+  - Google Forms "How you build" becomes "Editor, with Gemini drafting on some Workspace plans", if Google's docs confirm it. Confirmed: support.google.com/docs/answer/16346789 and Workspace Updates 2025-06-11. All form tables regenerated.
+  - 404-page feature_1 uses the safe wording: "Your prompt asks for the designed page on every unknown URL; check its status code with your host before launch."
+  - New LP library variant `utility`, with the build cell "Prompt for the page and the rules behind it" (used on 404-page).
+  - Explore CTA: at most 34 characters (QC D3, P1). client-onboarding-questionnaire gets "Build My Onboarding Questionnaire".
+  - 404-page meta description: "does not exist" as a quick fix; the template JSON-LD escaping goes to the MONDAY backlog, along with the template P2s.
+  - Fix the H3 serial-comma detector, then sweep the 20 live pages (item publish only).
+- Process: before-values are committed and pushed BEFORE any Webflow write; `live-fix prepare` refuses otherwise.
+
 ## 2026-10-09
 - **FAQ moat lines, batch 2 onward (Divit, 2026-10-09):** "In 2-3 of the general FAQ answers per page (not the definition or the item-2 how-to), add one subtle, natural line on what Emergent does better for that exact question: its question-specific moat, e.g. no response caps, a database you own, code export, no per-seat pricing, built from a prompt. One sentence at most, claims only from rules/claims.json, no hard sell, never in branded or competitor-comparison phrasing." QC F9 (P1) for pages not yet in Webflow; the 20 live pages get theirs at next rework.
 - **Two production publishes outside the plan (2026-10-09, 11:38 and 13:14 UTC)** shipped unverified content; the daily live audit now runs at once whenever the site's lastPublished has changed since its last run.

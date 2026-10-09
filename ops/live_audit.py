@@ -11,6 +11,9 @@
   hubctl live-audit report DATE [--dry]             reports/DATE/HHMM-live-audit.md, digest first; audits/live/LEDGER.md
   hubctl live-fix prepare ISSUE --readback F.json   steps 1-3 of a fix: before-value, spec checks (QC 0, gate 10/10 if FAQ,
                                                     images current), payload ops/out/live/ISSUE.json (update + item publish + read)
+  hubctl live-fix approve ISSUE --by divit [--note N]  a proposal Divit approved becomes a writer fix
+  hubctl live-fix add DATE URL FIELD CODE SEV "MSG"  a finding from an approved sweep (action fix-by-writer)
+  (prepare writes the before-value and refuses to write the payload until that file is committed, unchanged and pushed: rerun it then)
   hubctl live-fix verify ISSUE RESPONSE.json        step 4-5: read-back equals the spec, Layer A re-run on that URL; on failure
                                                     the rollback payload is written and must be sent at once
   hubctl live-rollback ISSUE [--done RESPONSE.json] re-send the before-value and publish the item (payload); --done records it
@@ -441,9 +444,15 @@ def cmd_fix_prepare(args):
         items, page = PG.run_spec(PG.Gate(url))
         if sum(i["verdict"] != "reject" for i in items) != 10 or page: sys.exit("PAA gate is not 10/10")
     if s.get("image_brief") and not ship.images_current(dict(s, _path=H.spath(url))): sys.exit("images are not current: re-render first")
-    bdir = os.path.join(ROOT, "childedits", today()); os.makedirs(bdir, exist_ok=True)
+    # Before-value first, in git and pushed, then the payload (Divit 2026-10-10: refuse to write if the before-value is not in HEAD).
     before = {"id": it["id"], "collection": h["collection_id"], "lastUpdated": it.get("lastUpdated"), "fieldData": {h["fields"][k]: fd.get(h["fields"][k]) for k in ch}}
-    bp = os.path.join(bdir, f"{slug_of(url)}.{iid}.before.json"); jsave(bp, before)
+    bp = os.path.join(ROOT, f["before_file"]) if f.get("before_file") and f.get("status") == "before-saved" else \
+         os.path.join(ROOT, "childedits", today(), f"{slug_of(url)}.{iid}.before.json")
+    if not os.path.exists(bp) or json.load(open(bp)) != before:
+        jsave(bp, before); f.update(status="before-saved", before_file=os.path.relpath(bp, ROOT)); jsave(p, d)
+    ok, why = before_committed(bp)
+    if not ok:
+        sys.exit(f"{iid}: before-value saved to {os.path.relpath(bp, ROOT)} but {why}. Commit and push it (ops/sync.sh), then rerun prepare with a fresh read-back.")
     acts = [{"label": f"live fix {iid}: update {len(ch)} field(s)", "update_collection_items": {"collection_id": h["collection_id"], "request": {"items": [{"id": it["id"], "fieldData": {h["fields"][k]: v for k, v in ch.items()}}]}}},
             {"label": f"live fix {iid}: publish this item only", "publish_collection_items": {"collection_id": h["collection_id"], "request": {"items": [{"id": it["id"]}]}}},
             {"label": "read back", "list_collection_items": {"collection_id": h["collection_id"], "request": {"filter": {"id": {"eq": it["id"]}}, "limit": 1}}}]
@@ -453,6 +462,33 @@ def cmd_fix_prepare(args):
              before_text={k: plain(fd.get(h["fields"][k]) if not isinstance(fd.get(h["fields"][k]), dict) else fd[h["fields"][k]].get("alt")) for k in ch},
              after_text={k: plain(v if not isinstance(v, dict) else v.get("alt")) for k, v in ch.items()})
     jsave(p, d); print(f"{op}: send as data_cms_tool actions (update, item publish, read back); save the response, then `hubctl live-fix verify {iid} RESPONSE`")
+
+def before_committed(bp):
+    """The before-value file is tracked in HEAD, unchanged since, and HEAD is on origin/main."""
+    rel = os.path.relpath(bp, ROOT); run = lambda *a: subprocess.run(["git", *a], cwd=ROOT, capture_output=True).returncode
+    if run("cat-file", "-e", f"HEAD:{rel}"): return False, "it is not committed"
+    if run("diff", "--quiet", "HEAD", "--", rel): return False, "it changed since the last commit"
+    run("fetch", "-q", "origin", "main")
+    if run("merge-base", "--is-ancestor", "HEAD", "origin/main"): return False, "the commit is not pushed"
+    return True, ""
+
+def cmd_fix_approve(args):
+    """A proposal Divit approved becomes a writer fix: `live-fix approve ISSUE --by divit --note "..."`."""
+    iid = args[0]; p, d, f = find_issue(iid); by = args[args.index("--by") + 1] if "--by" in args else ""
+    if f.get("action") != "proposed": sys.exit(f"{iid}: action is {f.get('action')}, not proposed")
+    if by.lower() != "divit": sys.exit("only Divit approves a proposal (--by divit)")
+    note = args[args.index("--note") + 1] if "--note" in args else ""
+    f.update(fix="writer", action="fix-by-writer", approved=f"Divit {now()}" + (f": {note}" if note else "")); jsave(p, d); ledger_sync()
+    print(f"{iid}: approved; edit the spec, then `hubctl live-fix prepare {iid} --readback F`")
+
+def cmd_fix_add(args):
+    """A finding from an approved sweep: `live-fix add DATE URL FIELD CODE SEV "MSG" [--source S]` (action fix-by-writer)."""
+    date, url, field, code, sev, msg = args[:6]; src = args[args.index("--source") + 1] if "--source" in args else ""
+    p = findings_path(date); d = json.load(open(p)); n = sum(x["url"] == url and x["code"] == code for x in d["findings"]) + 1
+    iid = f"{date.replace('-', '')}-{slug_of(url)}-{code}-{n}"
+    d["findings"].append({"id": iid, "url": url, "field": field, "severity": sev, "code": code, "rule": code, "layer": "sweep", "msg": msg, "snippet": "",
+                          "suggested": "", "fix": "writer", "action": "fix-by-writer", "source": src, "found_at": now()})
+    jsave(p, d); ledger_sync(); print(iid)
 
 def cmd_fix_apply(args):
     """Deterministic fixes (rules/live_audit.json deterministic_codes) applied to the spec field; then QC as usual in prepare."""
@@ -605,7 +641,8 @@ def main(args):
     {"run": cmd_run, "record": cmd_record, "drift": cmd_drift, "plan": lambda a: plan(a[0]), "report": cmd_report, "held-done": cmd_held_done}[sub](rest)
 
 def fix_main(args):
-    {"apply": cmd_fix_apply, "brief": cmd_fix_brief, "prepare": cmd_fix_prepare, "verify": cmd_fix_verify}[args[0]](args[1:])
+    {"apply": cmd_fix_apply, "brief": cmd_fix_brief, "prepare": cmd_fix_prepare, "verify": cmd_fix_verify,
+     "approve": cmd_fix_approve, "add": cmd_fix_add}[args[0]](args[1:])
 
 if __name__ == "__main__":
     main(sys.argv[1:])

@@ -235,6 +235,9 @@ def check(spec, siblings):
         if len(sents_of(hw_)) != 1: add("P0", "D2", "howto_description", f"{len(sents_of(hw_))} sentences (exactly 1)")
         if prim and kwn(prim) not in kwn(hw_): add("P0", "D2", "howto_description", "primary keyword missing")
         if not re.search(r"(?i)\bsteps?\b", hw_): add("P0", "D2", "howto_description", "say plainly what the steps achieve (mention the steps)")
+    # ---------- D3 (Divit 2026-10-10): the explore CTA fits its pill at 390 px ----------
+    cta = strip_html(F.get("explore_cta", "")).strip()
+    if len(cta) > 34: add("P1", "D3", "explore_cta", f'{len(cta)} chars (max 34; it clips at 390 px): shorten the display name, e.g. "Build My Onboarding Questionnaire"')
     # ---------- F9 (Divit 2026-10-09): 2-3 FAQ moat lines in items 3-10, pages not yet in Webflow (batch 2 onward) ----------
     if fq and fq.get("items") and not spec.get("item_id") and not spec.get("cms_draft"):
         moat = sum(1 for it_ in fq["items"][2:] if re.search(r"\bEmergent\b", strip_html(it_.get("a", ""))))

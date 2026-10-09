@@ -115,6 +115,7 @@ def writer_brief(url, P, role="writer"):
               "- approved secondaries not yet carried by a question:", *([f"  - {k}" for k in unused] or ["  - none"]),
               "Keep exactly 10 items; item 1 the definition, item 2 how-to-build with the hub link (QC K4). Answers lead with the answer (first words answer the question). "
               "No question may name a brand or product (PA14) or ask for a file format or download (PA15) (Divit 2026-10-09). "
+              "The explore CTA is at most 34 characters (QC D3; shorten the display name). "
               "In 2-3 general answers (items 3-10) add one subtle sentence on the question-specific Emergent moat, approved claims only, no hard sell, no competitor names (QC F9). "
               "Never reuse AlsoAsked answer text (PA1b blocks any 6-word run). Record each new item in faq_sources with its source "
               "(alsoasked with prov, or secondary). Build the FAQ embed in Python so quoting is exact.", ""]

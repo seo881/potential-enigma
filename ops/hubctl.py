@@ -35,7 +35,7 @@
   usage-log URL TOKENS --role R     record an agent's token usage for a page (metrics reports tokens per page)
   metrics | sample [STATE] | links HUB | links --relink | lookahead HUB [N] | serp-budget | ranks-save URL RAW | ranks-report | recheck [--states a,b] | image-regress | verify-live URL [--html F]
   live-audit [--since-publish|--all|--urls U,U|--set launch] [--base URL] [--dry] | live-audit record|drift|plan|report DATE ...
-  live-fix apply|brief|prepare|verify ISSUE ... | live-rollback ISSUE [--done RESPONSE]   (docs/LIVE_AUDIT.md; ops/live_audit.py)
+  live-fix apply|brief|prepare|verify|approve|add ISSUE ... | live-rollback ISSUE [--done RESPONSE]   (docs/LIVE_AUDIT.md; ops/live_audit.py)
   publish-payload HUB               publish_collection_items actions (100 per call) for every verified cms_draft page (only after Divit's go)
   log HUB TEXT                      append a dated line to logs/<hub>.md
   ship BATCH [--payload SHA] | ship-done BATCH URL writer|review|rework --by ID [--fail TEXT] | ship-cms BATCH READBACK | ship-qc URL | ship-cost BATCH | readiness

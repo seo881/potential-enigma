@@ -86,7 +86,7 @@ Read the page's brief first: `python3 ops/hubctl.py brief <url>`. It gives the p
 | Why description | The core reason in one breath. | 25 words |
 | How-to title | "How to Build a/an {Keyword}" or "How to Create ..." (use the verb people search). | 48 chars |
 | Breadcrumb | The display name, Title Case. | |
-| Explore CTA | "Build My {Display Name}". | |
+| Explore CTA | "Build My {Display Name}"; shorten the display name if needed ("Build My Onboarding Questionnaire") [QC D3, P1, Divit 2026-10-10]. | 34 chars (clips at 390 px) |
 
 ## 5. Field-by-field guide
 
@@ -95,6 +95,7 @@ Read the page's brief first: `python3 ops/hubctl.py brief <url>`. It gives the p
 - **FAQ questions ask for no file format or download** [gate PA15]: no pdf, doc, docx, word, excel, xls, xlsx, csv, jpg, jpeg, png, gif, svg, printable, download.
 - **Hero description** (`hero_description`, CMS `description`, the subhead under the H1) [QC D1, P0]: at most 130 characters (two lines on desktop), carries the primary keyword, leads with what the visitor gets (a verb such as Build or Create), plain words, no metaphors ("scarce", "unlock", "seamless"...; list `rules/style_rules.json` d1_metaphors). Example: "Build an online booking form that shows only open times, takes deposits, and saves every booking to a database you own."
 - **FAQ moat lines (batch 2 onward)** [QC F9, P1 for pages not yet in Webflow]: in 2-3 of the general FAQ answers (items 3-10, never the definition or the item-2 how-to), add one subtle, natural sentence on what Emergent does better for that exact question (no response caps, a database you own, code export, no per-seat pricing, built from a prompt). One sentence at most per answer, claims only from `rules/claims.json`, no hard sell, never branded or competitor-comparison phrasing. F9 counts answers in items 3-10 that name Emergent.
+- **Explore CTA** (`explore_cta`) [QC D3, P1, Divit 2026-10-10]: at most 34 characters, or the button clips on a 390 px phone. Shorten the display name, never the verb: "Build My Onboarding Questionnaire", not "Build My Client Onboarding Questionnaire".
 - **How-to description** (`howto_description`) [QC D2, P0]: one sentence, at most 140 characters, carries the primary keyword and says plainly what the steps achieve. Example: "Seven steps to create a booking form that only offers open times, then build it with Emergent."
 
 **Features (6) [QC]:** `<h3>title</h3><p>body</p>`. Titles are concrete capabilities, 2 lines max (48 chars). Bodies are 165-182 characters with a spread of 12 or less across the six, so the grid is level. Feature 6 is usually "Full code export"; vary its wording per page, and say GitHub export is on paid plans ("export to your GitHub repository on paid plans"; GitHub integration starts at the Standard plan, https://emergent.sh/pricing) [QC C5].

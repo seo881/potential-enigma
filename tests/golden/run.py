@@ -8,6 +8,7 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   gate-text      {url, q, expect}                          the gate rejects this literal question with one of the expected rules
   qc-field       {url, field, text, expect}                QC raises one of the expected codes when the field holds this text
   qc-text        {url, field, text, check}                 QC flags `field` when it holds `text` (P0/P1 on that field)
+  h3-noflag      {text}                                    the serial-comma detector must NOT call this text a certain miss (a trap)
   review         {url, field, check, text}                 judgment catch (Layer B); kept for the record, not machine-tested
 status: "open" = a known miss the gate does not catch yet (a backlog fix); "guarded" = caught; a guarded case that stops being
 caught fails the suite. Open cases that start passing are reported so they can be marked guarded.
@@ -43,6 +44,9 @@ def caught(c):
         m = {"pages": [{"url": c["url"], "hub": "/" + c["url"].split("/")[1], "fields": {}, "faq_items": [], "images": {}, "meta_title": "x" * 40, "meta_description": "y" * 120}]}
         raw = {"pages": [{"url": c["url"], "checks": {"http200": True}, "verify": {}, "render": {"http": 200, "jsonld": ['{"@context": "https://schema.org", "@type": "Organization", "name": "Emergent"}'], "links": [], "images": [], "text_visible": "", "text_all": "", "h1s": ["h"]}}], "hubs": [], "held": []}
         return not any(f["code"] == c["code"] for f in LA.evaluate(raw, m, "https://emergent.sh"))
+    if c["kind"] == "h3-noflag":   # a sentence that looks like a list but is not one (intro clause, nested pair, appositive)
+        import serial_comma as SC
+        return not SC.find(c["text"])[0]
     if c["kind"] == "qc-text":
         import qc_hub as Q, hubctl as H
         s = json.load(open(H.spath(c["url"]))); s = copy.deepcopy(s); f = c["field"]

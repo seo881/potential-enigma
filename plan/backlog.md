@@ -41,4 +41,8 @@ Format: date, source (Divit, reviewer, QC, orchestrator), the item, pages it tou
 - live-fix verify compares image fields by fileId only when the spec has file_id: after a re-render, write the new fileId/cdn_url to the spec in the same step (ecommerce-automation tab_image_4 was set by hand).
 - live-fix verify runs must be sequential (each rewrites findings.json); add a lock file.
 - Mockup prompts (awb---mockup-data) are not rendered: Layer B findings on them are P2 until the carousel is back (MONDAY).
-- Template (Divit's go): FAQ heading always renders "Your Questions, Answered" instead of the item's heading; JSON-LD description is HTML-escaped (&#39;); comparison tables clip at 390 px; an empty zero-width paragraph after feature 1 (A5-empty-p, 24 P2).
+- MONDAY (Divit 2026-10-10, item 5): the LP template's JSON-LD embed HTML-escapes the bound meta description (&#39; on 404-page; the CMS text was changed to "does not exist" as the quick fix). Bind a plain-text field or escape for JSON instead.
+- MONDAY (Divit 2026-10-10, item 6) template P2s: FAQ heading always renders "Your Questions, Answered" instead of the item's heading; JSON-LD description is HTML-escaped (&#39;); comparison tables clip at 390 px; an empty zero-width paragraph after feature 1 (A5-empty-p, 24 P2).
+- 2026-10-10 (QC D3): 20 specs not yet in Webflow have an explore CTA over 34 characters (customer-satisfaction among the held pages); shorten in their batch-2 writer pass.
+- 2026-10-10: the widened H3 still leaves lists after 'such as' and lists followed by a trailing modifier (', along with ...', ', each with ...') as ambiguous P2 (t-shirt-order-form FAQ, howto_step_1_des). Next detector pass.
+- 2026-10-10: 147 form specs carry the new Google Forms build cell; re-check the Gemini availability text quarterly (source in rules/competitors/form.json).
