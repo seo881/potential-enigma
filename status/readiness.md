@@ -69,7 +69,7 @@ Regenerated 2026-10-09 23:08 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-lp | /ai-landing-page-builder/saas-landing-page | 0 | 10/10 | yes, wk-r-2 | yes | no | 0 | - | no | no | payload |
 | wk-rework-lp | /ai-landing-page-builder/splash-page | 0 | 10/10 | yes, wk-r-1 | yes | no | 0 | - | no | no | payload |
 | wk-rework-lp | /ai-landing-page-builder/squeeze-page | 0 | 10/10 | yes, wk-r-3 | yes | no | 0 | - | no | no | payload |
-| wk-rework-sqb | /ai-survey-and-quiz-builder/360-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | rework |
+| wk-rework-sqb | /ai-survey-and-quiz-builder/360-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | check2 |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/customer-effort-score | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/customer-experience-survey | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/customer-feedback-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
@@ -79,4 +79,4 @@ Regenerated 2026-10-09 23:08 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-sqb | /ai-survey-and-quiz-builder/onboarding-survey | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/pulse-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
 
-Stages: done 21, payload 20, review 4, rework 1, stopped 9 (55 pages)
+Stages: check2 1, done 21, payload 20, review 4, stopped 9 (55 pages)
