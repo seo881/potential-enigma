@@ -38,7 +38,7 @@ A metric that worsens two batches running is a P1 item for the next batch.
 | Image | Format | Why |
 |---|---|---|
 | Use-case images, card covers | **SVG** (keep) | Vector: sharp at any size; Webflow serves SVG unchanged (raster CMS images get downsized and look soft, lesson v2); about 23 KB gzipped |
-| Share image (Thumbnail / og:image) | **PNG** (keep) | AVIF previews fail on LinkedIn, Slack, iMessage, X and Discord. Visitors never download it (only link unfurlers do), so a smaller format saves nothing on page speed. Current PNGs average 82 KB, under WhatsApp's ~300 KB cap |
+| Share image (Thumbnail / og:image) | **WebP** (Divit, 2026-10-09; was PNG) | Accepted by Facebook, LinkedIn, X, Slack, Discord, iMessage, WhatsApp. Not AVIF: AVIF previews fail on LinkedIn, Slack, iMessage, X and Discord. Keep at most 300 KB (WhatsApp cap) and 1200x630 |
 | Raster images visitors actually load (hub value cards, photos) | **AVIF** | This is where AVIF pays off: real bytes on real page loads |
 
 ## 5. Incident log (newest first; one line each: date, what, check added)

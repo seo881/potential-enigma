@@ -3,7 +3,7 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-09
-- **Image formats (Divit asked for AVIF everywhere; advisor recommendation recorded, 2026-10-09):** use-case images and covers stay SVG; the share image (og:image) stays PNG because AVIF previews fail on LinkedIn, Slack, iMessage, X and Discord; AVIF is for raster images visitors load (hub value cards, photos). See LESSONS.md section 4.
+- **Image formats (Divit, 2026-10-09):** use-case images and card covers stay SVG; the share image (Thumbnail Image / og:image) moves from PNG to **WebP** (1200x630, at most 300 KB), for all pages, current and future. AVIF is not used for og:image (previews fail on LinkedIn, Slack, iMessage, X, Discord). AVIF only for raster images visitors load, after an inventory and Divit's go. See LESSONS.md section 4.
 - **LESSONS.md is the learning loop (2026-10-09):** every incident adds a log line and an automated check; read at session start.
 - **Launch set = 20 (Divit, 2026-10-09): contact-form held.** Its FAQ has two drift questions ("What is a contact form owner?", "What does 'form of contact' mean?") and three Contact Form 7 (WordPress plugin) questions. Its CMS item 6ac8a2bff143d8ebe327735f stays a draft; rework it in a later batch.
 - **PA13 fixes before publish (Divit, 2026-10-09):** employee-information-form Q4 (ADP fill-out question) replaced; employee-engagement-survey Q5 replaced (near-duplicate of Q4); t-shirt-order-form question display text normalised to "T-shirt" (original wording kept in provenance); feedback-form Q1 reads "What is a feedback form?".
