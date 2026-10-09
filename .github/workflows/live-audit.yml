@@ -1,0 +1,55 @@
+# Daily live audit, Layer A only (docs/LIVE_AUDIT.md): a backup to the 09:00 job on Divit's Mac (ops/schedule/), so the
+# deterministic checks still run when the Mac is off. Read-only on the site: no Webflow calls, no fixes, no Layer B.
+# Uses only GITHUB_TOKEN (contents: write) to commit audits/live/ and the run report; no other secrets.
+# Install: copy to .github/workflows/live-audit.yml (needs a token with the workflow scope to push).
+name: live-audit
+on:
+  schedule:
+    - cron: "17 4 * * *"        # 04:17 UTC = 09:47 IST, after the Mac job (09:00 local) has had its chance
+  workflow_dispatch:
+    inputs:
+      base:
+        description: "Site to audit (default https://emergent.sh)"
+        required: false
+        default: "https://emergent.sh"
+permissions:
+  contents: write
+concurrency:
+  group: live-audit
+  cancel-in-progress: false
+jobs:
+  layer-a:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Dependencies (pinned: ops/package.json)
+        run: |
+          pip install -q pillow
+          npm ci --prefix ops --no-audit --no-fund
+          cd ops && npx playwright install --with-deps chromium
+      - name: Skip when the Mac job already audited today
+        id: gate
+        run: |
+          if [ -f "audits/live/$(date -u +%F)/findings.json" ]; then echo "skip=1" >> "$GITHUB_OUTPUT"; echo "already audited today"; fi
+      - name: Layer A on every live page and the 4 hubs
+        if: steps.gate.outputs.skip != '1'
+        env:
+          BASE: ${{ github.event.inputs.base || 'https://emergent.sh' }}
+        run: |
+          python3 ops/hubctl.py live-audit --all --base "$BASE" --no-shots
+          python3 ops/hubctl.py live-audit report "$(date +%F)"
+      - name: Commit the findings and the report
+        if: steps.gate.outputs.skip != '1'
+        run: |
+          git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add audits/live reports tests/golden
+          git diff --cached --quiet || { git commit -qm "Live audit Layer A (Action): $(date -u +%F)"; git pull -q --rebase origin main; git push -q origin HEAD:main; }
