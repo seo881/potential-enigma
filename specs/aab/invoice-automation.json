@@ -239,6 +239,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-09 22:47 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-5",
+   "note": "rubric 10/10 by wk-r-5; 3 notes"
   }
  ],
  "plan": {
@@ -1099,7 +1106,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 22:31 UTC"
+  "date": "2026-10-09 22:43 UTC"
  },
  "writers": [
   "writer-invoice-automation",
@@ -1109,94 +1116,79 @@
   "wk-w-invoice-automation"
  ],
  "review": {
-  "by": "reviewer-batch-m6",
-  "date": "2026-10-07 15:18 UTC",
+  "by": "wk-r-5",
+  "date": "2026-10-09 22:47 UTC",
   "rubric": {
    "scope": {
     "result": "pass",
-    "evidence": "H1 'Build Invoice Automation That Reads Bills and Sends Invoices', meta title 'Invoice Automation Software, Built From a Prompt', hero covers both directions per the watch list (capture plus AR invoicing)."
+    "evidence": "H1 \"Build Invoice Automation That Reads Bills and Sends Invoices\" and hero \"Build invoice automation that codes the vendor PDFs you receive and drafts client invoices from logged hours.\" cover both directions per the watch-list (capture plus AR invoicing); matching and payment are pointed to the AP page."
    },
    "intent": {
     "result": "pass",
-    "evidence": "Software comparison (FAQ 3, table), how-to, all five eligible PAA questions, secondaries as questions (OCR vs AI, invoicing vs processing, workflow)."
+    "evidence": "Definition in FAQ 1, best-software answer in FAQ 3, how it works (FAQ 7), AI vs OCR (FAQ 8), scans (FAQ 5), small business (FAQ 6), and a 7-step how-to specific to invoices (seed the coding history, design the outgoing template)."
    },
    "specificity": {
     "result": "pass",
-    "evidence": "'INV-20817 ... $3,412.50', '6100 Supplies', '42 hours at $150', 'a scan with a stamp across the total'. AP-variant table cell is a library gap pending with Divit (note)."
+    "evidence": "Invoice vocabulary: \"A resent PDF under a new filename is held, and the first copy stays the bill of record\", \"Outgoing invoices take the next number in your sequence\", \"Shipping boxes go to 6100 Supplies and the forklift service to 6400 Repairs\". The table uses the ap variant, the only one the library has for these vendors (note below)."
    },
    "openers": {
     "result": "pass",
-    "evidence": "'Each PDF or scan is read into...', 'A resent PDF under a new filename is held', 'Outgoing invoices take the next number', 'Globex Industrial emails INV-20817'."
+    "evidence": "\"Each PDF or scan is read into vendor, invoice number...\", \"Globex Industrial emails INV-20817 to the AP inbox\", \"Pull twenty invoices you received last month and five you sent.\""
    },
    "craft": {
     "result": "pass",
-    "evidence": "Cycle-2 #21 fixed: FAQ 9 now opens 'No.' and adds where each one starts; FAQ 4 drops the QuickBooks generator (FAQ 6 owns it); features_subheading no longer restates the hero."
+    "evidence": "QC Q2/Q5/Q7 clean; sentences carry one idea each, e.g. \"The label printer, $240.00, has no history with this vendor. Sam Ortiz picks its account.\""
    },
    "voice": {
     "result": "pass",
-    "evidence": "'A customer who also bills you is one record, not two.', 'nobody outside has to change a habit.'"
+    "evidence": "\"The customer has the invoice before the van leaves\", \"a scan with a stamp across the total\", \"A customer who also bills you is one record, not two.\""
    },
    "truth": {
     "result": "pass",
-    "evidence": "why_description no longer claims what most teams do; QuickBooks recurring and free generator, Zoho free plan, BILL, Stampli/Billy, Stripe payment link, extraction fields match domain_sources; 1,237.50 + 1,452 + 723 = 3,412.50; lines sum to $1,720.00; drafts sum to $13,860.00; 180 + 68.40 = 248.40."
+    "evidence": "7 claims_used ids approved (no-caps covers the per-seat line in FAQ 6); BILL, Stampli, Stripe payment link and extraction fields sourced. Numbers: $1,237.50 + $1,452.00 + $723.00 = $3,412.50; six lines = $1,720.00; 42 x $150 = $6,300; four drafts = $13,860.00 on uc-3 and cover; 1.5 h x $120 + $68.40 = $248.40."
    },
    "distinct": {
     "result": "pass",
-    "evidence": "Capture plus outgoing invoices per the watch list; matching and payment runs sent to accounts-payable-automation (FAQ 7), late payments to accounts-receivable-automation (FAQ 9), routing to approval-workflow (FAQ 10)."
+    "evidence": "Own angle (both directions of an invoice); FAQ 7 hands matching and payment to accounts payable automation, FAQ 9 late payments to accounts receivable automation, FAQ 10 sign-off to approval workflow."
    },
    "faq": {
-    "result": "fail",
-    "evidence": "FAQ 8 does not answer in its first sentence: 'What does AI invoice automation add to OCR?' opens 'OCR turns the page into text.'; the answer starts in sentence 2. All other nine answer first."
+    "result": "pass",
+    "evidence": "10 on-topic items, answer-first, hub link in item 2, sibling links in items 7, 9, 10, no brand in any question, moat lines in items 4 and 6."
    },
    "images": {
     "result": "pass",
-    "evidence": "Smudged due date alone sent to Maria Lopez; 5 of 6 lines coded, $240.00 label printer to Sam Ortiz; four drafts for Ana Ruiz totaling $13,860.00 matching the cover; job 4471 $248.40 to dana@example.com, Dana pays from her phone."
+    "evidence": "uc-1 due date 61% to Maria Lopez, Waiting; uc-2 \"5 of 6 coded\", Label printer $240.00 to Sam Ortiz; uc-3 \"4 drafts for Ana Ruiz\", Acme 42 hours at $150 $6,300.00; uc-4 Job 4471 $248.40, Dana pays from her phone, PDF attached to the job record; Globex and Initech are on the allowed-name list (CONTENT_DEFECTS #23)."
    }
   },
   "findings": [
    {
-    "criterion": "faq",
-    "rule": "HUB_RULES 5",
-    "field": "faq",
-    "quote": "OCR turns the page into text.",
-    "issue": "FAQ 8 'What does AI invoice automation add to OCR?' opens on what OCR does, not on what AI adds; the answer arrives in sentence 2. HUB_RULES 5 requires answer-first and the rubric requires each FAQ answered in its first sentence. Only instance on the page.",
-    "fix": "Lead with the answer: 'AI invoice automation decides which text is the invoice number, which is the due date and which rows are line items, where OCR only turns the page into text.' Keep the template-free and redesign sentences after it.",
-    "severity": "blocking"
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "CONTENT_DEFECTS #3",
+    "field": "why_table",
+    "quote": "Prompt for your AP process and the app around it / Intake, matching, approvals, payment runs, and ledger, as code you own",
+    "issue": "The generated table is the AP sibling's table (same vendors, same ap variant cells). Its Emergent column describes payables (matching, payment runs) that FAQ 7 sends to the AP page, and says nothing of outgoing invoices, half of this page's angle. The library has no invoicing variant, and none of the three vendors ranks for the query (QC K7). Not untrue, so a note; flag for the coordinator as a library gap.",
+    "fix": "Coordinator: add an invoicing variant (and vendors that rank, e.g. from the top 10 listicles) to rules/competitors/aab.json, then regenerate.",
+    "severity": "note"
    },
    {
+    "class": "craft",
     "criterion": "craft",
     "rule": "HUB_RULES 2a",
     "field": "features_subheading",
     "quote": "The other three carry invoice automation past the send button.",
-    "issue": "feature_4 is 'Numbered and filed before sending' and feature_6 is code export, so two of 'the other three' are not past the send button.",
-    "fix": "'The other three number, send and chase the invoices you issue, and hand your engineer the code.' or similar.",
+    "issue": "Feature 6 (code export) is not past the send button; the grouping only fits features 4 and 5.",
+    "fix": "Group by what is true: \"The first three keep a bad bill out of your ledger. The next two get your own invoices out and paid.\"",
     "severity": "note"
    },
    {
-    "criterion": "craft",
-    "rule": "HUB_RULES 2a",
-    "field": "tab_content_1",
-    "quote": "Globex Industrial emails INV-20817 to the AP inbox at $3,412.50",
-    "issue": "'emails ... at $3,412.50' attaches the amount to the inbox.",
-    "fix": "'Globex Industrial emails INV-20817, for $3,412.50, to the AP inbox'.",
-    "severity": "note"
-   },
-   {
-    "criterion": "specificity",
-    "rule": "CONTENT_DEFECTS #26",
-    "field": "why_table",
-    "quote": "Intake, matching, approvals, payment runs, and ledger, as code you own",
-    "issue": "Carried: the AP variant cell covers what FAQ 7 sends to the AP page and nothing on outgoing invoices; invoice-side competitors and K7 pending with Divit, as are links to not-yet-live AP and AR pages.",
-    "fix": "Coordinator: invoice variant and competitors.",
-    "severity": "note"
-   },
-   {
-    "criterion": "distinct",
+    "class": "other",
+    "criterion": "intent",
     "rule": "HUB_RULES 5",
-    "field": "feature_1",
-    "quote": "A field the model is unsure of goes to a review queue, not straight to the ledger.",
-    "issue": "Carried: close to the AP sibling's feature_1; the watch list gives capture to this page, so the AP page should move.",
-    "fix": "Coordinator, on the AP page's next rework.",
+    "field": "faq",
+    "quote": "faq_sources: 1 PAA item",
+    "issue": "The non-branded PAA question about a free app for creating invoices is not answered; QuickBooks and Zoho domain_sources are now unused. QC F4 passes, so this is a note.",
+    "fix": "If a slot frees up, answer the free-app question (Emergent free-start, sourced Zoho free plan).",
     "severity": "note"
    }
   ]
@@ -1311,6 +1303,36 @@
    "by": "reviewer-batch-m6",
    "via": "review",
    "date": "2026-10-07 15:18 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "CONTENT_DEFECTS #3",
+   "field": "why_table",
+   "issue": "The generated table is the AP sibling's table (same vendors, same ap variant cells). Its Emergent column describes payables (matching, payment runs) that FAQ 7 sends to the AP page, and says nothing of outgoing invoices, half of this page's angle. The library has no invoicing variant, and none of the three vendors ranks for the query (QC K7). Not untrue, so a note; flag for the coordinator as a library gap.",
+   "fix": "Coordinator: add an invoicing variant (and vendors that rank, e.g. from the top 10 listicles) to rules/competitors/aab.json, then regenerate.",
+   "by": "wk-r-5",
+   "via": "review",
+   "date": "2026-10-09 22:47 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "features_subheading",
+   "issue": "Feature 6 (code export) is not past the send button; the grouping only fits features 4 and 5.",
+   "fix": "Group by what is true: \"The first three keep a bad bill out of your ledger. The next two get your own invoices out and paid.\"",
+   "by": "wk-r-5",
+   "via": "review",
+   "date": "2026-10-09 22:47 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "The non-branded PAA question about a free app for creating invoices is not answered; QuickBooks and Zoho domain_sources are now unused. QC F4 passes, so this is a note.",
+   "fix": "If a slot frees up, answer the free-app question (Emergent free-start, sourced Zoho free plan).",
+   "by": "wk-r-5",
+   "via": "review",
+   "date": "2026-10-09 22:47 UTC"
   }
  ],
  "reviews": [
@@ -1327,6 +1349,13 @@
    "result": "fail",
    "blocking": 3,
    "notes": 3
+  },
+  {
+   "by": "reviewer-batch-m6",
+   "date": "2026-10-07 15:18 UTC",
+   "result": "fail",
+   "blocking": 1,
+   "notes": 4
   }
  ]
 }
