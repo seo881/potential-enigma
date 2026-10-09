@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-09 22:32 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-09 22:33 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -54,8 +54,8 @@ Regenerated 2026-10-09 22:32 UTC by `hubctl readiness` (also after every `hubctl
 | batch-1 | /ai-survey-and-quiz-builder/employee-engagement-survey | 0 | 10/10 | yes, launch-r-b1-5 | yes | no | 2 | 6ac8a15a5408b01694dd5e21 | yes | yes | done |
 | wk-rework-aab | /ai-automation-builder/accounts-payable-automation | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
 | wk-rework-aab | /ai-automation-builder/invoice-automation | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
-| wk-rework-aab | /ai-automation-builder/purchase-order-automation | 0 | 10/10 | no | no | no | 0 | - | no | no | writer |
-| wk-rework-aab | /ai-automation-builder/social-media-automation | 7 | 2/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-aab | /ai-automation-builder/purchase-order-automation | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
+| wk-rework-aab | /ai-automation-builder/social-media-automation | 11 | 10/10 | no | no | no | 0 | - | no | no | writer |
 | wk-rework-lp | /ai-landing-page-builder/app-landing-page | 0 | 10/10 | yes, wk-r-2 | yes | no | 0 | - | no | no | payload |
 | wk-rework-lp | /ai-landing-page-builder/b2b-landing-page | 0 | 10/10 | yes, wk-r-3 | yes | no | 0 | - | no | no | payload |
 | wk-rework-lp | /ai-landing-page-builder/campaign-landing-page | 0 | 10/10 | yes, wk-r-4 | yes | no | 0 | - | no | no | payload |
@@ -70,4 +70,4 @@ Regenerated 2026-10-09 22:32 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-lp | /ai-landing-page-builder/splash-page | 0 | 10/10 | yes, wk-r-1 | yes | no | 0 | - | no | no | payload |
 | wk-rework-lp | /ai-landing-page-builder/squeeze-page | 0 | 10/10 | yes, wk-r-3 | yes | no | 0 | - | no | no | payload |
 
-Stages: check 2, done 21, payload 13, stopped 8, writer 2 (46 pages)
+Stages: check 3, done 21, payload 13, stopped 8, writer 1 (46 pages)
