@@ -58,7 +58,7 @@ Regenerated 2026-10-09 22:06 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-lp | /ai-landing-page-builder/coming-soon-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | images |
 | wk-rework-lp | /ai-landing-page-builder/landing-page-seo | 0 | 10/10 | yes, wk-r-1 | yes | no | 0 | - | no | no | payload |
 | wk-rework-lp | /ai-landing-page-builder/lead-generation-landing-page | 0 | 10/10 | yes, wk-r-1 | yes | no | 0 | - | no | no | payload |
-| wk-rework-lp | /ai-landing-page-builder/one-page-website | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
+| wk-rework-lp | /ai-landing-page-builder/one-page-website | 0 | 10/10 | yes, wk-r-1 | yes | no | 0 | - | no | no | payload |
 | wk-rework-lp | /ai-landing-page-builder/ppc-landing-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | images |
 | wk-rework-lp | /ai-landing-page-builder/product-landing-page | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
 | wk-rework-lp | /ai-landing-page-builder/real-estate-landing-page | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
@@ -66,4 +66,4 @@ Regenerated 2026-10-09 22:06 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-lp | /ai-landing-page-builder/splash-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-lp | /ai-landing-page-builder/squeeze-page | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
 
-Stages: autofix 1, check 4, done 21, images 4, payload 2, review 2, stopped 8 (42 pages)
+Stages: autofix 1, check 4, done 21, images 4, payload 3, review 1, stopped 8 (42 pages)
