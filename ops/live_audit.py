@@ -203,8 +203,7 @@ def evaluate(raw, man, base):
             except Exception: add(url, "A10-jsonld", "P1", "JSON-LD block does not parse", field="template"); continue
             for n in (o if isinstance(o, list) else o.get("@graph", [o])):
                 if isinstance(n, dict) and n.get("@type") == "FAQPage": faqs = n.get("mainEntity") or []
-        if not faqs: add(url, "A10-faq-schema", "P1", "no FAQPage JSON-LD on the page", field="template")
-        else:
+        if faqs:   # FAQ schema on child templates is not needed (DECISIONS 2026-10-06); only a schema that exists must match
             sq = [(plain(x.get("name")), plain((x.get("acceptedAnswer") or {}).get("text"))) for x in faqs]
             want = [(i["q"], i["a"]) for i in m["faq_items"]]
             if [squash(a) + squash(b) for a, b in sq] != [squash(a) + squash(b) for a, b in want]: add(url, "A10-faq-match", "P1", "FAQ schema differs from the visible FAQ", field="faq", fix="drift-check")
@@ -449,7 +448,8 @@ def cmd_fix_prepare(args):
             {"label": f"live fix {iid}: publish this item only", "publish_collection_items": {"collection_id": h["collection_id"], "request": {"items": [{"id": it["id"]}]}}},
             {"label": "read back", "list_collection_items": {"collection_id": h["collection_id"], "request": {"filter": {"id": {"eq": it["id"]}}, "limit": 1}}}]
     op = os.path.join(OUTD, iid + ".json"); jsave(op, acts)
-    f.update(status="prepared", before_file=os.path.relpath(bp, ROOT), payload=os.path.relpath(op, ROOT), fields_changed=sorted(ch), cms_item=it["id"],
+    covers = [x["id"] for x in d["findings"] if x["url"] == url and x["id"] != iid and x.get("action") in ("fix", "fix-by-writer") and x.get("status") not in ("fixed", "rolled-back")]
+    f.update(status="prepared", before_file=os.path.relpath(bp, ROOT), payload=os.path.relpath(op, ROOT), fields_changed=sorted(ch), cms_item=it["id"], covers=covers,
              before_text={k: plain(fd.get(h["fields"][k]) if not isinstance(fd.get(h["fields"][k]), dict) else fd[h["fields"][k]].get("alt")) for k in ch},
              after_text={k: plain(v if not isinstance(v, dict) else v.get("alt")) for k, v in ch.items()})
     jsave(p, d); print(f"{op}: send as data_cms_tool actions (update, item publish, read back); save the response, then `hubctl live-fix verify {iid} RESPONSE`")
@@ -509,9 +509,15 @@ def cmd_fix_verify(args):
         s["cms_draft"] = {"fingerprint": G.fingerprint(s), "sha": git("rev-parse", "--short", "HEAD"), "date": now(), "verified": True, "note": f"live fix {iid}"}
         json.dump(s, open(H.spath(url), "w"), indent=1, ensure_ascii=False)
         f.update(status="fixed", fixed_at=now(), commit=git("rev-parse", "--short", "HEAD"), published_at=now(), verified=True)
-        print(f"FIXED {iid}")
+        for x in d["findings"]:   # one page-level update covers every fix on that page
+            if x["id"] in (f.get("covers") or []):
+                x.update(status="fixed", fixed_at=f["fixed_at"], commit=f["commit"], published_at=f["published_at"], verified=True, cms_item=f["cms_item"],
+                         before_file=f["before_file"], fixed_by=iid)
+        print(f"FIXED {iid}" + (f" (+{len(f.get('covers') or [])} covered)" if f.get("covers") else ""))
     else:
         rp = write_rollback(f, d)
+        for x in d["findings"]:
+            if x["id"] in (f.get("covers") or []): x.update(status="rollback-pending", rolled_with=iid)
         f.update(status="rollback-pending", verify_note=("; ".join(map(str, errs)) or "read-back mismatch" if not ok else f"Layer A still fails ({len(still)}) or new issues ({len(worse)})"))
         print(f"VERIFY FAILED {iid}: SEND {rp} NOW, then `hubctl live-rollback {iid} --done RESPONSE`")
     jsave(p, d); ledger_sync()
@@ -539,7 +545,10 @@ def cmd_rollback(args):
         resp = args[args.index("--done") + 1]; b = json.load(open(os.path.join(ROOT, f["before_file"])))
         it = next((x for x in H._items_from_readback(resp) if x["id"] == b["id"]), None)
         ok = it is not None and all(it["fieldData"].get(k) == v or (isinstance(v, dict) and (it["fieldData"].get(k) or {}).get("alt") == v.get("alt")) for k, v in b["fieldData"].items())
-        f.update(status="rolled-back" if ok else "rollback-unverified", rolled_back_at=now()); jsave(p, d); ledger_sync()
+        f.update(status="rolled-back" if ok else "rollback-unverified", rolled_back_at=now())
+        for x in d["findings"]:
+            if x["id"] in (f.get("covers") or []): x.update(status=f["status"], rolled_back_at=f["rolled_back_at"])
+        jsave(p, d); ledger_sync()
         print(("ROLLED BACK " if ok else "ROLLBACK NOT VERIFIED ") + iid); return
     rp = write_rollback(f, d); jsave(p, d); print(f"{rp}: send it, then `hubctl live-rollback {iid} --done RESPONSE`")
 

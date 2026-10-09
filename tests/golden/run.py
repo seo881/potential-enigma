@@ -38,6 +38,11 @@ def caught(c):
         s = copy.deepcopy(json.load(open(H.spath(c["url"])))); s["fields"][c["field"]] = c["text"]
         every = Q.load_specs(sorted(_g.glob(os.path.join(ROOT, "specs", "*", "*.json"))))
         return any(i["code"] in c["expect"] and i["sev"] in ("P0", "P1") for i in Q.check(s, every))
+    if c["kind"] == "audit-noflag":   # the live audit must NOT raise this code on a page that lacks the thing (a settled non-issue)
+        import live_audit as LA
+        m = {"pages": [{"url": c["url"], "hub": "/" + c["url"].split("/")[1], "fields": {}, "faq_items": [], "images": {}, "meta_title": "x" * 40, "meta_description": "y" * 120}]}
+        raw = {"pages": [{"url": c["url"], "checks": {"http200": True}, "verify": {}, "render": {"http": 200, "jsonld": ['{"@context": "https://schema.org", "@type": "Organization", "name": "Emergent"}'], "links": [], "images": [], "text_visible": "", "text_all": "", "h1s": ["h"]}}], "hubs": [], "held": []}
+        return not any(f["code"] == c["code"] for f in LA.evaluate(raw, m, "https://emergent.sh"))
     if c["kind"] == "qc-text":
         import qc_hub as Q, hubctl as H
         s = json.load(open(H.spath(c["url"]))); s = copy.deepcopy(s); f = c["field"]

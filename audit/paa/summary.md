@@ -298,3 +298,15 @@ Phase 2 (DECISIONS 2026-10-08): one line per page, no question text. Per-questio
 - 2026-10-09 /ai-automation-builder/sales-automation [pull]: 21 questions; pass 3, reject 18, flag 0; rejects by rule: PA14 4, PA3 18, PA4 3, PA5 2; page: PA11 48 nodes, 21 distinct; 3 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
 - 2026-10-09 /ai-form-builder/massage-intake-form [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
 - 2026-10-09 /ai-automation-builder/sales-automation [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-09 /ai-landing-page-builder/law-firm-landing-page [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-09 /ai-landing-page-builder/pricing-page [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-09 /ai-automation-builder/ecommerce-automation [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-09 /ai-automation-builder/document-automation [spec]: 10 questions; pass 5, reject 0, flag 5; rejects by rule: none
+- 2026-10-09 /ai-form-builder/booking-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-09 /ai-form-builder/client-onboarding-questionnaire [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-09 /ai-form-builder/massage-intake-form [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-09 /ai-form-builder/registration-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-09 /ai-landing-page-builder/404-page [spec]: 10 questions; pass 5, reject 0, flag 5; rejects by rule: none
+- 2026-10-09 /ai-landing-page-builder/event-landing-page [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-09 /ai-automation-builder/sales-automation [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-09 /ai-form-builder/job-application-form [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
