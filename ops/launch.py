@@ -7,7 +7,7 @@
                                                                + ops/out/launch/rollback/<slug>.json (unpublish that one item)
 
 Run order on Divit's "publish batch 1": fresh read of the collections -> preflight (all pass) -> send publish.json ->
-Divit publishes the site -> `node ops/verify_launch.mjs` -> `hubctl verify-live` per URL -> `hubctl links --relink`.
+staging publish -> `node ops/verify_launch.mjs --base https://<site>.webflow.io` -> emergent.sh publish -> `node ops/verify_launch.mjs` -> `hubctl verify-live` per URL -> `hubctl links --relink`.
 """
 import json, os, re, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -70,6 +70,7 @@ def prepare():
         man.append({"url": url, "hub": H.CFG["hubs"][hub]["path"], "h1": txt(F["h1"]), "meta_title": F["meta_title"], "meta_description": F["meta_description"],
                     "faq": [i["q"] for i in fq["items"]], "default_prompt": txt(F["hero_prompt"]), "chips": s.get("chip_prompts") or [],
                     "uc_images": [(s["images"].get(f"tab_image_{i}") or {}).get("cdn_url") for i in range(1, 5)],
+                    "tab_labels": [txt(F.get(f"tab_label_{i}")) for i in range(1, 5)],
                     "pending_links": [p["target"] for p in s.get("pending_links") or []]})
     json.dump({"pages": man, "hubs": sorted({m["hub"] for m in man})}, open(os.path.join(OUT, "manifest.json"), "w"), indent=1, ensure_ascii=False)
     acts = [{"label": f"launch: isDraft false on {len(v)} item(s) in {c}", "update_collection_items": {"collection_id": c, "request": {"items": v}}} for c, v in by.items()]
