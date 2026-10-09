@@ -2,6 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-10-10 · [0120-part3-live](2026-10-10/0120-part3-live.md) · Production verified 20/20 + 4 hubs, held 9 = 404; first live audit: 48 findings fixed on 15 pages (incl. 1 P0), item publishes only, 0 rolled back, 20 FAQ-schema P1s closed (DECISIONS 2026-10-06); 6 proposals for Divit; og.png deleted, workflows installed (render green, live-audit first run at 04:17 UTC), retro · 5d19ff7
 - 2026-10-09 · [1944-launch-blockers](2026-10-09/1944-launch-blockers.md) · PA14/PA15/D1/D2 rules live; 23 FAQ questions replaced on 12 pages, 40 descriptions rewritten, review + 1 rework, CMS updated (pre-flight 20/20); Learn section hidden on 3 templates; production already live since 11:38 (old content) · this commit
 - 2026-10-09 · [1841-launch-day-fixes](2026-10-09/1841-launch-day-fixes.md) · Carousel hidden (templates; hubs already); Learn list fixed (limit 100 -> 3); hero prompt redesign (generic default + add clauses, new embed replaces T1, data-hubchip, 20 items updated, QC 0, pre-flight 20/20); verify_launch extended; staged only · this commit
 - 2026-10-09 · [1650-staging-404](2026-10-09/1650-staging-404.md) · Staging 11:16: 20 launch URLs 404, hubs 200; only difference found: the 4 child templates have shouldPublish false (every live-collection template is true); nothing published · this commit
