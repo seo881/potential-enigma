@@ -11,7 +11,7 @@ Updated 2026-10-09 22:38 UTC. Started 2026-10-09T21:40:27+00:00.
 |---|---|---|---|
 | rework | LP | 13 | ready 13 |
 | rework | Auto | 4 | images 4 |
-| rework | SurveyQuiz | 9 | autofix 5, check 1, writer 3 |
+| rework | SurveyQuiz | 9 | autofix 5, check 2, writer 2 |
 | rework | Form | 132 | autofix 132 |
 
 New pages claimed this weekend: none.
