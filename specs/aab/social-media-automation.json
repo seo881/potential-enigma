@@ -147,6 +147,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-09 22:47 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "wk-r-5",
+   "note": "[truth | HUB_RULES 8] faq item 3: A statement of fact about two named third-party systems with no domain_sources entry and no competitor-library fact behind it (the library covers build style, output, caps, AI and ownership only). -> Add a primary source for each (Make's social media management page"
   }
  ],
  "plan": {
@@ -865,10 +872,140 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 22:33 UTC"
+  "date": "2026-10-09 22:45 UTC"
  },
  "writers": [
   "w-social-media-automation",
   "wk-w-social-media-automation"
+ ],
+ "review": {
+  "by": "wk-r-5",
+  "date": "2026-10-09 22:47 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build Social Media Automation for Every Post Your Team Ships\" and hero \"Build social media automation that routes each draft for sign-off, then posts it to Instagram and LinkedIn on time.\" cover the whole job (draft, review, publish, report); how-to description is one sentence under 140 characters."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition (FAQ 1), best-tools answer (FAQ 3) plus a Zapier/Make/n8n table, how-to (7 steps), examples (four tabs, real estate examples in FAQ 8), safety (FAQ 9)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Social-team vocabulary: \"Instagram professional account\", \"LinkedIn company page\", \"Engagement rate is interactions divided by reach\", \"Rows tagged Evergreen return to the queue 90 days after they ran\"."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "\"The content calendar lives in Airtable, one row per post.\", \"Every Monday at 8:00 AM, the app pulls reach and interactions\", \"List every network and account you post to\"."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; short declaratives with one idea each (\"Approve moves the post into the publishing queue.\")."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "\"pause the queue when news breaks that could make a cheerful post look careless\", \"A tea shop's followers may scroll before work; a brokerage's buyers may browse on Sunday evening.\""
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "Two statements of fact about named third-party systems with no domain_sources entry: FAQ 3 \"Zapier and Make connect a calendar to the networks with prebuilt steps.\" and FAQ 5 \"A language model such as ChatGPT can turn a product note into a caption\". Everything else checks: 100 posts per 24 hours, professional accounts, LinkedIn Posts API and automation rules are sourced; engagement math in uc-4 is right."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own angle; drafting handed to content workflow (FAQ 5), sign-off to approval workflow (FAQ 8), lead hand-off to sales automation (FAQ 10); no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic items, answer-first, hub link in item 2, sibling links in items 5, 8, 10, no brand or format in any question, moat lines in items 3, 4 and 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "uc-1 Approved + image -> publish at slot, post link saved, draft row held and Maya Chen alerted in Slack; uc-2 Nina Okafor approved, Tom Becker legal direct message, 15% off; uc-3 418 Alder Lane Active, 5 photos, Elena Ruiz approved, posted to Instagram and LinkedIn; uc-4 378/4,200 = 9.0%, 168/2,400 = 7.0%, 442/6,500 = 6.8%, 27/1,800 = 1.5% under 2% flagged in #marketing."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 3",
+    "quote": "Zapier and Make connect a calendar to the networks with prebuilt steps.",
+    "issue": "A statement of fact about two named third-party systems with no domain_sources entry and no competitor-library fact behind it (the library covers build style, output, caps, AI and ownership only).",
+    "fix": "Add a primary source for each (Make's social media management page, Zapier's Instagram for Business and LinkedIn integration pages) to domain_sources, or drop the sentence.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 5",
+    "quote": "A language model such as ChatGPT can turn a product note into a caption once it has your brand voice and a few past posts that did well.",
+    "issue": "Same class, second instance: a capability statement about a named third-party product with no domain_sources entry.",
+    "fix": "Source it, or make it generic and about what the built app does (\"An AI step drafts the caption from the product note and a few past posts\"), which falls under prompt-build.",
+    "severity": "blocking"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq item 7; faq item 6",
+    "quote": "Agencies usually give each client its own reviewer / followers notice a canned reply",
+    "issue": "Soft or unsourced generalisations about no named third party.",
+    "fix": "State as advice.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "faq; plan.angle",
+    "quote": "answers every posting-ratio PAA question in plain numbers",
+    "issue": "The plan promises the posting-ratio PAA answers and sources all four, but the FAQ carries none of them. QC F4 passes, so a note.",
+    "fix": "If those questions are judged on-topic, swap one or two weaker secondaries for them; otherwise drop the unused sources.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief.cover",
+    "quote": "Revise",
+    "issue": "The cover's second button says Revise; the tab 2 copy and image call the action Request changes.",
+    "fix": "Use \"Request changes\" or a shorter matching label.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq item 7; faq item 6",
+   "issue": "Soft or unsourced generalisations about no named third party.",
+   "fix": "State as advice.",
+   "by": "wk-r-5",
+   "via": "review",
+   "date": "2026-10-09 22:47 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "faq; plan.angle",
+   "issue": "The plan promises the posting-ratio PAA answers and sources all four, but the FAQ carries none of them. QC F4 passes, so a note.",
+   "fix": "If those questions are judged on-topic, swap one or two weaker secondaries for them; otherwise drop the unused sources.",
+   "by": "wk-r-5",
+   "via": "review",
+   "date": "2026-10-09 22:47 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief.cover",
+   "issue": "The cover's second button says Revise; the tab 2 copy and image call the action Request changes.",
+   "fix": "Use \"Request changes\" or a shorter matching label.",
+   "by": "wk-r-5",
+   "via": "review",
+   "date": "2026-10-09 22:47 UTC"
+  }
  ]
 }
