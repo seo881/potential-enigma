@@ -28,3 +28,17 @@ Base: https://emergent.sh
 - field: meta_description
 - caught by: B-HUBRULES5 (Layer B): The meta promises a printable blank PDF for walk-ins, but the body's walk-in step uses a QR code and staff typing in paper copies and never shows a blank PDF.
 - live text: Print a blank PDF for walk-ins.
+
+## 20261009-job-application-form-LIB-gforms-build-1 (P1, LIB-gforms-build, fix-by-writer, fixed)
+- field: why_table
+- caught by: LIB-gforms-build (Layer sweep): Google Forms 'How you build' cell updated in the library (Gemini drafting confirmed in Google's docs, 2026-10-10); regenerated table
+- feature_1 before: Every section, field by field Emergent drafts the six standard sections with the right input for each answer: a date picker for the start date, a phone field and a block that repeats for each past employer.
+- feature_1 after: Every section, field by field Emergent drafts the six standard sections with the right input for each answer: a date picker for the start date, a phone field, and a block that repeats for each past employer.
+- tab_image_3 before: An internal job application checks tenure before submit, 18 months in role against a 12-month minimum, keeps the application confidential and messages the employee's current manager in Slack only once a final interview is booked.
+- tab_image_3 after: An internal job application checks tenure before submit, 18 months in role against a 12-month minimum, keeps the application confidential, and messages the employee's current manager in Slack only once a final interview is booked.
+- why_table before: .cmp--emg-first thead th.col-brand-head { background: #ebebeb; } .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; } .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; } Jotform Typeform Google Forms How you build Prompt for the application form and the hiring pipeline around it Templates, editor, AI generator Templates, editor, AI assist Manual, field by field Resume uploads Resumes and portfolios saved to storage you own, no sign-in Included;
+- why_table after: .cmp--emg-first thead th.col-brand-head { background: #ebebeb; } .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; } .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; } Jotform Typeform Google Forms How you build Prompt for the application form and the hiring pipeline around it Templates, editor, AI generator Templates, editor, AI assist Editor, with Gemini drafting on some Workspace plans Resume uploads Resumes and portfolios saved to storage
+
+## 20261009-job-application-form-H3-sweep-1 (P1, H3-sweep, fix-by-writer, fixed)
+- field: feature_1, tab_image_3 alt
+- caught by: H3-sweep (Layer sweep): serial comma missing (widened H3 detector, golden h3-gap-*); fixed by serial_comma.fix

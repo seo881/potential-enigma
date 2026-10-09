@@ -23,3 +23,9 @@ Base: https://emergent.sh
 - field: faq
 - caught by: B-HUBRULES5FAQ (Layer B): The creator-application link was held back because that page is not live (404), and without the link FAQ 8's last sentence points the reader to a build that cannot be seen.
 - live text: A creator application shows the same build for screening applicants instead of registering them.
+
+## 20261009-registration-form-LIB-gforms-build-1 (P1, LIB-gforms-build, fix-by-writer, fixed)
+- field: why_table
+- caught by: LIB-gforms-build (Layer sweep): Google Forms 'How you build' cell updated in the library (Gemini drafting confirmed in Google's docs, 2026-10-10); regenerated table
+- why_table before: .cmp--emg-first thead th.col-brand-head { background: #ebebeb; } .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; } .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; } Jotform Typeform Google Forms How you build Describe it in plain English Templates, editor, AI generator Templates, editor, AI assist Manual, field by field Response limits No response caps Monthly submission caps by plan; the form stops at the cap Monthly response caps by plan
+- why_table after: .cmp--emg-first thead th.col-brand-head { background: #ebebeb; } .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; } .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; } Jotform Typeform Google Forms How you build Describe it in plain English Templates, editor, AI generator Templates, editor, AI assist Editor, with Gemini drafting on some Workspace plans Response limits No response caps Monthly submission caps by plan; the form stops at the cap

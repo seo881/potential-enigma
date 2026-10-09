@@ -49,3 +49,9 @@ Base: https://emergent.sh
 - field: mockup
 - caught by: B-DECISIONS202 (Layer B): A list of actions in the inboundLeads prompt has no serial comma. (mockup prompts are not rendered since the hero redesign; fix at next rework)
 - live text: rotate the rest among the team, write the owner to HubSpot and send the rep a Slack direct message
+
+## 20261009-sales-automation-H3-sweep-1 (P1, H3-sweep, fix-by-writer, fixed)
+- field: meta_description
+- caught by: H3-sweep (Layer sweep): serial comma missing (widened H3 detector, golden h3-gap-*); fixed by serial_comma.fix
+- meta_description before: Describe your process and get sales automation that routes leads, follows up after demos, flags stalled deals and opens renewals. Free to start.
+- meta_description after: Describe your process and get sales automation that routes leads, follows up after demos, flags stalled deals, and opens renewals. Free to start.

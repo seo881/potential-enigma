@@ -43,3 +43,9 @@ Base: https://emergent.sh
 - field: faq item 1
 - caught by: B-HUBRULES8 (Layer B): The source says "also known as"; "older name" goes beyond it (noted at review, still open).
 - live text: The drafting half has an older name: document assembly.
+
+## 20261009-document-automation-H3-sweep-1 (P1, H3-sweep, fix-by-writer, fixed)
+- field: mockup
+- caught by: H3-sweep (Layer sweep): serial comma missing (widened H3 detector, golden h3-gap-*); fixed by serial_comma.fix
+- mockup before: window.awbMockup = { engagementLetters: "Build document automation for my law firm's new clients. A prospective client fills in an intake questionnaire with their name, contact details, matter type and a short description. The answers fill our engagement letter template. If the matter type is litigation, add the $5,000 retainer clause. Send the draft to the responsible attorney for review before it goes out.", salesQuotes: "Build a quote generator for my sales team. When a deal moves to the Prop
+- mockup after: window.awbMockup = { engagementLetters: "Build document automation for my law firm's new clients. A prospective client fills in an intake questionnaire with their name, contact details, matter type, and a short description. The answers fill our engagement letter template. If the matter type is litigation, add the $5,000 retainer clause. Send the draft to the responsible attorney for review before it goes out.", salesQuotes: "Build a quote generator for my sales team. When a deal moves to the Pro

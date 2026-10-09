@@ -57,3 +57,9 @@ Base: https://emergent.sh
 - field: tab_content_3
 - caught by: B-HUBRULES2apr (Layer B): The H3 says "the $500 order", but the rule holds orders over $500 and the image shows $742.00.
 - live text: Hold the $500 order that ships somewhere new
+
+## 20261009-ecommerce-automation-H3-sweep-1 (P1, H3-sweep, fix-by-writer, fixed)
+- field: mockup
+- caught by: H3-sweep (Layer sweep): serial comma missing (widened H3 detector, golden h3-gap-*); fixed by serial_comma.fix
+- mockup before: window.awbMockup = { dropshipOrders: "Build dropship order routing for my home goods store on Shopify. When an order is paid, split its lines by supplier using our SKU table and email each supplier a purchase order with only their items and the ship-to address. Give suppliers a form to enter the tracking number and write it back to the Shopify order.", winbackEmails: "Build winback emails for my store. Every morning, find customers whose last order was 90 days ago. If they are still subscribed, 
+- mockup after: window.awbMockup = { dropshipOrders: "Build dropship order routing for my home goods store on Shopify. When an order is paid, split its lines by supplier using our SKU table and email each supplier a purchase order with only their items and the ship-to address. Give suppliers a form to enter the tracking number and write it back to the Shopify order.", winbackEmails: "Build winback emails for my store. Every morning, find customers whose last order was 90 days ago. If they are still subscribed, 

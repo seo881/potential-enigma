@@ -47,3 +47,11 @@ Base: https://emergent.sh
 - field: faq
 - caught by: B-HUBRULES2a (Layer B): FAQ 3 comparison is loosely attached: 'Like any lead generation landing page' modifies 'the form', not the page.
 - live text: Like any lead generation landing page, the form asks only what the first call needs.
+
+## 20261009-law-firm-landing-page-H3-sweep-1 (P1, H3-sweep, fix-by-writer, fixed)
+- field: tab_image_2 alt, tab_image_3 alt
+- caught by: H3-sweep (Layer sweep): serial comma missing (widened H3 detector, golden h3-gap-*); fixed by serial_comma.fix
+- tab_image_2 before: Bellweather Family Law's consultation page checks the spouse's full name against the client list, finds a match and holds the booking for conflicts clerk Ruth Abara before any case details are asked.
+- tab_image_2 after: Bellweather Family Law's consultation page checks the spouse's full name against the client list, finds a match, and holds the booking for conflicts clerk Ruth Abara before any case details are asked.
+- tab_image_3 before: Juniper Estate Law's page lists a $950 will package and a $2,400 revocable living trust, recommends the trust after five answers and sends the lead to the Clio Grow lead inbox.
+- tab_image_3 after: Juniper Estate Law's page lists a $950 will package and a $2,400 revocable living trust, recommends the trust after five answers, and sends the lead to the Clio Grow lead inbox.

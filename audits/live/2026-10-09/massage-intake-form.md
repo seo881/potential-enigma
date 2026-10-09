@@ -35,3 +35,17 @@ Base: https://emergent.sh
 - field: features_subheading
 - caught by: B-HUBRULES2a (Layer B): 'Your therapist' speaks to a spa owner, but the meta title targets therapists and tab 1 is a solo practice, so the reader is often the therapist.
 - live text: Each one answers a question your therapist would otherwise ask with the client already on the table.
+
+## 20261009-massage-intake-form-LIB-gforms-build-1 (P1, LIB-gforms-build, fix-by-writer, fixed)
+- field: why_table
+- caught by: LIB-gforms-build (Layer sweep): Google Forms 'How you build' cell updated in the library (Gemini drafting confirmed in Google's docs, 2026-10-10); regenerated table
+- faq before: window.awbFAQ = {"heading": "Massage Intake Questions, Answered", "items": [{"q": "What is a massage intake form?", "a": "A massage intake form is the questionnaire a client completes before a session, covering contact details, health history, medications, pressure and the areas to work on or avoid. It closes with a signed consent. A massage client intake form tells the therapist what to adjust on the table before anyone starts."}, {"q": "How do I make a massage intake form online?", "a": "List 
+- faq after: window.awbFAQ = {"heading": "Massage Intake Questions, Answered", "items": [{"q": "What is a massage intake form?", "a": "A massage intake form is the questionnaire a client completes before a session, covering contact details, health history, medications, pressure and the areas to work on or avoid. It closes with a signed consent. A massage client intake form tells the therapist what to adjust on the table before anyone starts."}, {"q": "How do I make a massage intake form online?", "a": "List 
+- howto_step_5_des before: Paste your questions and rules into the prompt in plain English. Emergent builds the form, the client database behind it and the alerts. Change a question or a time window later by prompting again, and the live form updates.
+- howto_step_5_des after: Paste your questions and rules into the prompt in plain English. Emergent builds the form, the client database behind it, and the alerts. Change a question or a time window later by prompting again, and the live form updates.
+- why_table before: .cmp--emg-first thead th.col-brand-head { background: #ebebeb; } .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; } .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; } Jotform Google Forms Typeform How you build Describe it in plain English Templates, editor, AI generator Manual, field by field Templates, editor, AI assist Response limits No response caps Monthly submission caps by plan; the form stops at the cap No limit Monthly response cap
+- why_table after: .cmp--emg-first thead th.col-brand-head { background: #ebebeb; } .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; } .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; } Jotform Google Forms Typeform How you build Describe it in plain English Templates, editor, AI generator Editor, with Gemini drafting on some Workspace plans Templates, editor, AI assist Response limits No response caps Monthly submission caps by plan; the form stops at the cap
+
+## 20261009-massage-intake-form-H3-sweep-1 (P1, H3-sweep, fix-by-writer, fixed)
+- field: faq, howto_step_5_des
+- caught by: H3-sweep (Layer sweep): serial comma missing (widened H3 detector, golden h3-gap-*); fixed by serial_comma.fix
