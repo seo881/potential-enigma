@@ -133,6 +133,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 10:08 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "wk-r-16",
+   "note": "[truth | HUB_RULES 8] why_description: A universal claim the page's own source contradicts: domain_sources records that NSCA's fitness assessment form, ranking #2 for this query, carries a pre-test and a post-test date with scores for each. A reader who opens it sees two test days on one paper sheet"
   }
  ],
  "plan": {
@@ -796,8 +803,8 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 06:55 UTC"
+  "rules_version": "b9bdd5846b24",
+  "date": "2026-10-10 10:07 UTC"
  },
  "writers": [
   "w-fitness-assessment-form",
@@ -808,5 +815,185 @@
   "I need a fitness assessment form that records resting heart rate, blood pressure, push-ups, a plank hold, and a sit-and-reach, each with a fixed unit, saved as the client's baseline.",
   "When I retest a client every 12 weeks, load their baseline scores first, save the new scores beside them, and show the change for each test.",
   "After each retest, send my client a one-page report with every score beside their baseline and the change since their first test."
+ ],
+ "review": {
+  "by": "wk-r-16",
+  "date": "2026-10-10 10:08 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Fitness Assessment Form That Tracks Every Retest'; hero 'Create a fitness assessment form with PAR-Q+ screening, a saved baseline for each client, and every retest scored against it.' (under 130 chars, primary, leads with Create). How-to description is one sentence under 140 chars. Explore CTA 'Build My Fitness Assessment Form' is 32 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder-fit SERP of trainer PDFs and templates: FAQ 1 and 3 say what the form holds, FAQ 8 gives a filled-in example, FAQ 10 maps tests to the health-related components (sourced), step 6 covers test prep, and the how-to is specific to protocols, units and retest intervals."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Trainer vocabulary: 'yes to question 2, about chest pain', 'a 1-minute plank or a 3-minute step test', 'no hard exercise in the 24 hours before testing', 'Tara's heels lift'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Tabs open on full sentences ('Corwin Athletic Club sends the PAR-Q+', 'Twelve weeks after his first test', 'Lena Brooks coaches online', 'The rec center at Northfield State runs free assessments'); feature bodies open on verbs ('Open', 'Record', 'Store', 'Start', 'Accept', 'Export')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; five lists without the serial comma are recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete detail: 'Resting heart rate 64 bpm, blood pressure 118/76', 'Goal: run a 5K by June', 'When Thursday fills, the booking page offers Friday at 8:00 AM instead.'"
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "why_description 'Paper sheets hold one test day.' is false as stated: the page's own domain_sources record that NSCA's fitness assessment form (top 10 #2) 'records a pre-test date and a post-test date with scores for each'. Everything else agrees: PAR-Q+ seven questions and Q2 chest pain match the APTA source; 14 + 8 = 22, 45 + 35 = 80, 24 + 5 = 29; FAQ 8's example matches Marcus's week 0 scores."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Goals, packages and scheduling are left to the personal training intake sibling and stand-alone screening to the health screening form (linked in FAQ 6); no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "Exactly 10 on-topic questions, none naming a brand or asking for a file format; hub link in item 2; two exact-match sibling links (liability waiver form, health screening form); moat lines in items 4 ('a client database you own, with no cap on responses') and 7 ('sit in a database you own')."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: one hero per tab, readable; 'Step test on hold', 'Yes on question 2', 'Mia Torres, trainer', 'Slack message sent'; week 0/12 table 14/22 +8, 45 s/80 s +35 s, 24 cm/29 cm +5 cm, 'Emailed'; 'Coach note: heels lift', 'Send week one'; 'Thursday is full, 12 of 12 slots booked', 'Book Friday 8:00 AM', 'The student only'. Cover DM to Mia Torres matches tab 1."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "why_description",
+    "quote": "Paper sheets hold one test day.",
+    "issue": "A universal claim the page's own source contradicts: domain_sources records that NSCA's fitness assessment form, ranking #2 for this query, carries a pre-test and a post-test date with scores for each. A reader who opens it sees two test days on one paper sheet.",
+    "fix": "Say what paper cannot do instead, e.g. 'A paper sheet keeps a client's scores in one folder, and nobody can chart them without retyping. Emergent builds a form that saves each score to a client record you own and compares every retest.'",
+    "severity": "blocking"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "Most free fitness assessment forms in search results are one-page PDFs for a single test day, and nothing on the sheet compares a retest with the baseline.",
+    "issue": "Item 4: 'Most' about no named third party, so a note; but its lead sentence 'They leave out anywhere to keep scores per client' sits close to the NSCA counterexample. Worth aligning when the why_description is fixed.",
+    "fix": "e.g. 'They leave out anywhere to keep scores across clients.'",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "meta_description",
+    "quote": "screens with the PAR-Q+, saves baseline scores and puts every retest beside them",
+    "issue": "Three-item list without the serial comma; the hero and FAQ 3 carry it.",
+    "fix": "saves baseline scores, and puts every retest beside them",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq",
+    "quote": "List your screening questions, the tests with their units and the retest interval",
+    "issue": "Item 2: three-item list without the serial comma.",
+    "fix": "the tests with their units, and the retest interval",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_5_des",
+    "quote": "your question list, each test with its unit and how often clients come back",
+    "issue": "Three-item list without the serial comma.",
+    "fix": "each test with its unit, and how often clients come back",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_7_des",
+    "quote": "then one with a full set of scores and one back for a retest",
+    "issue": "Three-item list (member with a yes, full scores, retest) without the serial comma.",
+    "fix": "then one with a full set of scores, and one back for a retest",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "mockup",
+    "quote": "Build an assessment form with push-ups, a plank hold and a sit-and-reach",
+    "issue": "trainingRetests prompt: three-item list without the serial comma (chip prompt 2 carries it).",
+    "fix": "a plank hold, and a sit-and-reach",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Item 4: 'Most' about no named third party, so a note; but its lead sentence 'They leave out anywhere to keep scores per client' sits close to the NSCA counterexample. Worth aligning when the why_description is fixed.",
+   "fix": "e.g. 'They leave out anywhere to keep scores across clients.'",
+   "by": "wk-r-16",
+   "via": "review",
+   "date": "2026-10-10 10:08 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "meta_description",
+   "issue": "Three-item list without the serial comma; the hero and FAQ 3 carry it.",
+   "fix": "saves baseline scores, and puts every retest beside them",
+   "by": "wk-r-16",
+   "via": "review",
+   "date": "2026-10-10 10:08 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq",
+   "issue": "Item 2: three-item list without the serial comma.",
+   "fix": "the tests with their units, and the retest interval",
+   "by": "wk-r-16",
+   "via": "review",
+   "date": "2026-10-10 10:08 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_5_des",
+   "issue": "Three-item list without the serial comma.",
+   "fix": "each test with its unit, and how often clients come back",
+   "by": "wk-r-16",
+   "via": "review",
+   "date": "2026-10-10 10:08 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_7_des",
+   "issue": "Three-item list (member with a yes, full scores, retest) without the serial comma.",
+   "fix": "then one with a full set of scores, and one back for a retest",
+   "by": "wk-r-16",
+   "via": "review",
+   "date": "2026-10-10 10:08 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "mockup",
+   "issue": "trainingRetests prompt: three-item list without the serial comma (chip prompt 2 carries it).",
+   "fix": "a plank hold, and a sit-and-reach",
+   "by": "wk-r-16",
+   "via": "review",
+   "date": "2026-10-10 10:08 UTC"
+  }
  ]
 }
