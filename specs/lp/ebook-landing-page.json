@@ -746,6 +746,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 11:14 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-19",
+   "note": "rubric 10/10 by wk-r-19; 5 notes"
   }
  ],
  "table": {
@@ -765,9 +772,159 @@
  },
  "qc_passed": {
   "rules_version": "b9bdd5846b24",
-  "date": "2026-10-10 10:32 UTC"
+  "date": "2026-10-10 11:10 UTC"
  },
  "writers": [
   "wk-n-ebook-landing-page"
+ ],
+ "review": {
+  "by": "wk-r-19",
+  "date": "2026-10-10 11:14 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build an Ebook Landing Page That Delivers Every Copy\"; hero \"Create an ebook landing page that emails the book to each reader and records every request in a database you own.\" (115 chars, leads with the verb); how-to description one sentence, 113 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is example galleries and roundups; meta promises \"four examples followed past the form\" and the tabs deliver four worked ebook pages (B2B gated, sample chapter, paid, library), plus a 7-step how-to and an examples/template/design FAQ."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: \"utm_source and utm_campaign\", \"Stripe Checkout\", \"company size\", \"table of contents\"; table generated from the library with Unbounce and Landingi/Leadpages from the top 10."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Body paragraphs open on full sentences (\"The form emails a download link...\", \"Ledgerline gates its month-end close playbook...\"); three FAQ fragment openers recorded as a note."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; sentences carry one idea (\"The link expires after 7 days, and a buyer who misses it can request a fresh one from the order page.\")."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: \"a follow-up four days later\", \"1,240 readers\", \"318 requests\"; no AI tells (QC A1 clean). Shared sibling formulas recorded as a note."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "claims_used all in capabilities.json (custom-domain \"uses credits\", code-export \"on paid plans\"); Stripe, Slack, HubSpot, UTM and 7-day link facts each have a domain_sources entry; 318+264+187+152+96+71=1,088 in tab 4."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No sibling primary (lead magnet, whitepaper, case study landing page) in any heading; tab stories unique to ebooks (chapter one, paid download, guide library)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "Exactly 10 on-topic questions, no brands or formats in questions; hub link in item 2, two sibling links (thank-you-page, webinar-landing-page); all 7 secondaries placed once; F9 moat lines in items 4 and 7."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Brief matches copy: tab 1 \"To Dana Ortiz\" / \"Slack direct message\" / \"Under 200 employees: follow-up in 4 days\"; tab 2 \"1,240\" and \"9 AM, release day\"; tab 3 \"$24.00\" and \"In 7 days\"; tab 4 \"Tomatoes, 318 people\". One hero per tab; share image reads cleanly."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "why_description",
+    "quote": "A gallery shot stops at the button.",
+    "issue": "Same sentence shapes as the sibling pages in this batch. why_description: \"A gallery shot stops at the button. Emergent builds...\" (mobile: \"Galleries show... Emergent builds yours\"; video: \"Example roundups show... Emergent builds the whole page\"). faq item 3: \"Page builders publish roundups, and design galleries collect concept shots... a screenshot cannot show\" (the same shape as the mobile and video examples answers). faq item 4: \"gives you a layout, but the delivery email and the list behind the form are still yours to connect\" (mobile and video template answers: \"saves layout work... still on you\"). faq item 9: \"As long as the price asks for.\" (video: \"As long as its one job takes.\"). feature_6 H3 \"Code you can take elsewhere\" is word for word the video page's feature_6 H3.",
+    "fix": "Vary the shapes across the hub; give feature_6 a heading of its own.",
+    "severity": "note"
+   },
+   {
+    "class": "openers",
+    "criterion": "openers",
+    "rule": "CONTENT_DEFECTS #2",
+    "field": "faq",
+    "quote": "Order and contrast.",
+    "issue": "Three FAQ answers open on a fragment: item 6 \"Order and contrast.\"; item 8 \"Through the steps after the request.\"; item 9 \"As long as the price asks for.\"",
+    "fix": "Open each one on a full sentence that answers the question.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "template marketplaces sell them one at a time",
+    "issue": "An unqualified generalization that names no third party. Envato Elements, which ranks for this query, sells by subscription, so it reads as only partly true.",
+    "fix": "\"some template marketplaces sell them one at a time\", or drop the clause.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_1",
+    "quote": "Delivery by email, not by redirect",
+    "issue": "Slight tension with tab_content_3 (\"the buyer lands on a page with the download button\") and feature_5 (\"the download link appears only after Stripe confirms it\"). The reason given in feature 1 (a working address) applies to free requests only.",
+    "fix": "Scope feature 1 to free requests, e.g. \"Free copies by email, not by redirect\".",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 5",
+    "field": "mockup",
+    "quote": "freeSampleChapter",
+    "issue": "HUB_RULES 5 says mockup keys are camelCase tab names. The label is \"Sample Chapter\", but the key is freeSampleChapter. The template does not read key names (reports/2026-10-09/1347-launch-run.md), so nothing breaks on the page.",
+    "fix": "sampleChapter.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "why_description",
+   "issue": "Same sentence shapes as the sibling pages in this batch. why_description: \"A gallery shot stops at the button. Emergent builds...\" (mobile: \"Galleries show... Emergent builds yours\"; video: \"Example roundups show... Emergent builds the whole page\"). faq item 3: \"Page builders publish roundups, and design galleries collect concept shots... a screenshot cannot show\" (the same shape as the mobile and video examples answers). faq item 4: \"gives you a layout, but the delivery email and the list behind the form are still yours to connect\" (mobile and video template answers: \"saves layout work... still on you\"). faq item 9: \"As long as the price asks for.\" (video: \"As long as its one job takes.\"). feature_6 H3 \"Code you can take elsewhere\" is word for word the video page's feature_6 H3.",
+   "fix": "Vary the shapes across the hub; give feature_6 a heading of its own.",
+   "by": "wk-r-19",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  },
+  {
+   "criterion": "openers",
+   "rule": "CONTENT_DEFECTS #2",
+   "field": "faq",
+   "issue": "Three FAQ answers open on a fragment: item 6 \"Order and contrast.\"; item 8 \"Through the steps after the request.\"; item 9 \"As long as the price asks for.\"",
+   "fix": "Open each one on a full sentence that answers the question.",
+   "by": "wk-r-19",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "An unqualified generalization that names no third party. Envato Elements, which ranks for this query, sells by subscription, so it reads as only partly true.",
+   "fix": "\"some template marketplaces sell them one at a time\", or drop the clause.",
+   "by": "wk-r-19",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_1",
+   "issue": "Slight tension with tab_content_3 (\"the buyer lands on a page with the download button\") and feature_5 (\"the download link appears only after Stripe confirms it\"). The reason given in feature 1 (a working address) applies to free requests only.",
+   "fix": "Scope feature 1 to free requests, e.g. \"Free copies by email, not by redirect\".",
+   "by": "wk-r-19",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 5",
+   "field": "mockup",
+   "issue": "HUB_RULES 5 says mockup keys are camelCase tab names. The label is \"Sample Chapter\", but the key is freeSampleChapter. The template does not read key names (reports/2026-10-09/1347-launch-run.md), so nothing breaks on the page.",
+   "fix": "sampleChapter.",
+   "by": "wk-r-19",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  }
  ]
 }
