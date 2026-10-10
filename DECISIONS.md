@@ -3,6 +3,7 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-10
+- **DataForSEO is retired (Divit, 2026-10-10).** AlsoAsked replaces it for People Also Ask; no live SERP pull is required. QC F1 passes with an AlsoAsked pull (`private/alsoasked/<slug>.json`); top-10 and intent context come from the Semrush workbook and the Wave 3 SERP data in `private/`; keyword ideas come from the Semrush workbook. `mcp__dataforseo` removed from `.claude/settings.json`. Legacy DataForSEO captures stay as F2 checks on pages written before this date.
 - Live-audit proposals (reports/2026-10-10/0120-part3-live.md), all approved:
   - Google Forms "How you build" becomes "Editor, with Gemini drafting on some Workspace plans", if Google's docs confirm it. Confirmed: support.google.com/docs/answer/16346789 and Workspace Updates 2025-06-11. All form tables regenerated.
   - 404-page feature_1 uses the safe wording: "Your prompt asks for the designed page on every unknown URL; check its status code with your host before launch."

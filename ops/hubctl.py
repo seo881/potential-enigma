@@ -129,7 +129,7 @@ def cmd_brief(args):
         print("TOP 10 (Semrush US, Oct 2026): build the comparison table and the angle from these, not from memory")
         for i, u in enumerate(p["top10"], 1): print(f"   {i:>2}. {u}")
     else:
-        print("TOP 10 not pulled (Wave 3): get the live top 10 before writing and apply the cut rules (plan/ISSUES.md).")
+        print("TOP 10 not in the workbook (Wave 3): use the Wave 3 SERP data (WAVE 3 line below) and apply the cut rules (plan/ISSUES.md).")
     sys.path.insert(0, os.path.join(ROOT, "plan")); import serp as S
     live = S.load(p["url"]); prims = {q["primary"].lower(): q["url"] for q in m.values() if q["url"] != p["url"] and q.get("status") != "live-off-plan"}
     if live:
@@ -142,8 +142,8 @@ def cmd_brief(args):
         if live["related"]: print("RELATED SEARCHES (fill remaining FAQ slots and secondaries from these):\n   " + " | ".join(live["related"]))
         if not p.get("top10") and live["organic"]: print("TOP 10 (live):\n" + "\n".join(f"   {o['rank']:>2}. {o['url']}" for o in live["organic"]))
     else:
-        print("LIVE SERP  not captured yet. Pull it first (DataForSEO, Google organic live advanced, United States, English,")
-        print("           people_also_ask_click_depth 2) and save it: python3 ops/hubctl.py serp-save <url> <raw.json>")
+        print("PEOPLE ALSO ASK  from the AlsoAsked pull (private/alsoasked/<slug>.json; QC F1), gated by: python3 ops/hubctl.py paa <url>")
+        print("           (DataForSEO retired, Divit 2026-10-10: no live SERP pull. Keyword ideas = the Semrush secondaries above.)")
     if p.get("wave3_evidence"): print(f"WAVE 3     {p['wave3_evidence']}")
     try:
         sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G

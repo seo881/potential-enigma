@@ -37,8 +37,8 @@ Every stage runs in bulk and in parallel. A page moves through states in `status
 | Stage | Who | What | Exit state |
 |---|---|---|---|
 | 1. Claim | Orchestrator | `hubctl claim <HUB> 25 --by <id>` per hub in today's plan; commit and push status | claimed |
-| 1b. Live SERP | Writer (or orchestrator in bulk) | DataForSEO Google organic SERP for the primary (United States, English, PAA click depth 2), saved with `hubctl serp-save <url> <raw.json>`; `hubctl serp-status` lists pages still missing it | claimed |
-| 2. Write | **Writer** (one page per writer, fresh context) | Brief (now with PAA and related searches) → spec (all fields, FAQ sourced from PAA with `faq_sources`, table from the library with `hubctl table`, `image_brief`) → `hubctl qc` until TOTAL = 0 | qc_pass |
+| 1b. People Also Ask | Writer (or orchestrator in bulk) | AlsoAsked pull for the primary (`ops/alsoasked_pull.py`, weekend: `weekend.py aa <url>`), saved to `private/alsoasked/<slug>.json` (QC F1). DataForSEO retired (Divit, 2026-10-10): no live SERP pull; top-10 and intent context from the Semrush workbook and the Wave 3 SERP data in `private/` | claimed |
+| 2. Write | **Writer** (one page per writer, fresh context) | Brief (with the gated AlsoAsked PAA) → spec (all fields, FAQ sourced from PAA with `faq_sources`, table from the library with `hubctl table`, `image_brief`) → `hubctl qc` until TOTAL = 0 | qc_pass |
 | 3. Images | Orchestrator (any machine) | `hubctl images-batch qc_pass`: renders every QC-passed page's brief (6 images, gates, contact sheets); a brief that fails goes back to `rework` | images |
 | 4. Review (once) | **Reviewer** (a different agent from the writer) | One review per page; severity only from `rules/SEVERITY.md` (`hubctl review`). Notes ship | reviewed or rework |
 | 4b. One rework | **Writer** | Blocking findings only; QC to zero; `hubctl images <url>`; `hubctl ready <url> --by <id>` (no second review). The challenger pass is retired (Divit, 2026-10-07) | reviewed |
@@ -94,7 +94,7 @@ Repo dirs: LP `lp`, Form `form`, Auto `aab`, SurveyQuiz `sqb`. Writers in the sa
 | Rules version and ratchet | `qc_passed.rules_version`, `hubctl recheck` | New rules protecting only future pages |
 | Image regression | `hubctl image-regress` | Engine changes silently altering approved images |
 | Library look-ahead | `hubctl lookahead` | Writers reaching pages whose competitors are not in the library |
-| DataForSEO budget | `hubctl serp-budget`, counter on every save | Runaway API spend |
+| AlsoAsked credits | `private/alsoasked/credits.log`, caps in `weekend.py aa` | Runaway API spend |
 | Ranking feedback | `hubctl ranks-save`, `ranks-report` | Pages that never rank staying as they are |
 | Internal link graph | `hubctl links`, brief "LINK THESE" | Orphan pages with no inbound links |
 
@@ -147,7 +147,7 @@ Add a line to `reports/INDEX.md` (newest first: date, slug, one-line summary, co
 | `MORE_THINGS.md`, `childedits/`, `audit/`, `tables/`, `schema/` | History of earlier sessions |
 
 ## Parallel hubs (four sessions) and batch review (2026-10-07)
-- `bash ops/worktrees.sh` creates `~/emergent-hubs-lp`, `-form`, `-auto`, `-survey`: one git worktree per hub, each pinned to its hub (`.hub`; `hubctl claim` refuses other hubs there), on a branch tracking `origin/main`. Git-ignored shared state (`.venv`, `private/`, `.cache/`, `.locks/`, the keyword map) is symlinked to the main checkout, so all sessions share one SERP store, one DataForSEO budget and one set of file locks.
+- `bash ops/worktrees.sh` creates `~/emergent-hubs-lp`, `-form`, `-auto`, `-survey`: one git worktree per hub, each pinned to its hub (`.hub`; `hubctl claim` refuses other hubs there), on a branch tracking `origin/main`. Git-ignored shared state (`.venv`, `private/`, `.cache/`, `.locks/`, the keyword map) is symlinked to the main checkout, so all sessions share one AlsoAsked store and one set of file locks.
 - Start one Claude Code session per worktree. Each claims only its hub's pages, and commits with `bash ops/sync.sh "<message>" <paths>`: it pulls with rebase first, then commits and pushes to `main` (retrying on a race). Status files are per hub, so sessions rarely touch the same file.
 - Per session: writers one page each (many in parallel); one reviewer agent may take up to 4 pages, never a page it wrote (`hubctl state <url> qc_pass --by <writer>` records authorship; review refuses authors and a second review).
 - After each agent returns, log its token usage for the page: `hubctl usage-log <url> <tokens> --role writer|reviewer` (a batch agent's tokens are split across its pages). `hubctl metrics` reports first-pass yield, cycles per page, median minutes per stage, tokens per page, and the notes that recur on 3+ pages (proposed rules for Divit).

@@ -8,6 +8,7 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   gate-text      {url, q, expect}                          the gate rejects this literal question with one of the expected rules
   qc-field       {url, field, text, expect}                QC raises one of the expected codes when the field holds this text
   qc-text        {url, field, text, check}                 QC flags `field` when it holds `text` (P0/P1 on that field)
+  qc-f1          {url, aa, serp, expect_f1}               QC raises F1 exactly when the page has no AlsoAsked pull (DataForSEO capture irrelevant)
   h3-noflag      {text}                                    the serial-comma detector must NOT call this text a certain miss (a trap)
   review         {url, field, check, text}                 judgment catch (Layer B); kept for the record, not machine-tested
 status: "open" = a known miss the gate does not catch yet (a backlog fix); "guarded" = caught; a guarded case that stops being
@@ -47,6 +48,18 @@ def caught(c):
     if c["kind"] == "h3-noflag":   # a sentence that looks like a list but is not one (intro clause, nested pair, appositive)
         import serial_comma as SC
         return not SC.find(c["text"])[0]
+    if c["kind"] == "qc-f1":       # F1 depends only on the AlsoAsked pull (DataForSEO retired, Divit 2026-10-10): aa/serp say which sources exist
+        import qc_hub as Q, hubctl as H, paa_gate as PG, glob as _g
+        sys.path.insert(0, os.path.join(ROOT, "plan")); import serp as S
+        s = json.load(open(H.spath(c["url"]))); s["status"] = "qc_pass"
+        real_pp, real_load = PG.pull_path, S.load
+        stub = os.path.join(ROOT, ".cache", "golden-aa-stub.json"); os.makedirs(os.path.dirname(stub), exist_ok=True)
+        json.dump({"_meta": {"fetched": "2026-10-10"}, "response": {}}, open(stub, "w"))
+        PG.pull_path = lambda slug: stub if c["aa"] else os.path.join(ROOT, ".cache", "golden-no-such-pull.json")
+        S.load = lambda url: (real_load(url) or {"paa": [], "related": [], "organic": [], "features": [], "fetched": "2026-10-01"}) if c["serp"] else None
+        try: hit = any(i["code"] == "F1" for i in Q.check(s, Q.load_specs([H.spath(c["url"])])))
+        finally: PG.pull_path, S.load = real_pp, real_load
+        return hit == c["expect_f1"]
     if c["kind"] == "qc-text":
         import qc_hub as Q, hubctl as H
         s = json.load(open(H.spath(c["url"]))); s = copy.deepcopy(s); f = c["field"]

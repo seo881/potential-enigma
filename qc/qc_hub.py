@@ -458,19 +458,34 @@ def check(spec, siblings):
 
     # ---------- I: image brief (rendered in memory through the engine and its gates) ----------
     frozen_spec = spec.get("status") in ("live-draft", "published")
-    # ---------- F: FAQ sourced from what people actually search (live SERP via DataForSEO) ----------
+    # ---------- F: FAQ sourced from what people actually search (AlsoAsked pull; DataForSEO retired, Divit 2026-10-10) ----------
     if not frozen_spec and fq:
         sys.path.insert(0, os.path.join(ROOT, "plan")); import serp as S
-        live = S.load(spec["url"])
-        if not live:
-            add("P1", "F1", "faq", "no live SERP captured for this page: pull it with DataForSEO and run hubctl serp-save before writing the FAQ")
+        sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate as _PG
+        if not os.path.exists(_PG.pull_path(spec["url"].rsplit("/", 1)[1])):
+            add("P1", "F1", "faq", "no AlsoAsked pull for this page (private/alsoasked/<slug>.json): run ops/alsoasked_pull.py (weekend: weekend.py aa <url>) before writing the FAQ")
+        live = S.load(spec["url"])  # legacy DataForSEO capture (pages written before 2026-10-10): F2/F3/F5 still check against it
+        srcs = {x.get("q"): x for x in spec.get("faq_sources", [])}
+        me_secs = {norm(x["kw"]) for x in (KMAP or {}).get(spec["url"], {}).get("secondaries", [])}
+        if not live:  # no capture: sources are the AlsoAsked pull (PA1 checks provenance), the Semrush secondaries and the definition
+            for it in fq.get("items", []):
+                src = srcs.get(it["q"])
+                if not src: add("P1", "F2", "faq", f'no source recorded in faq_sources for: "{it["q"][:60]}"'); continue
+                kind, ref = src.get("source"), src.get("ref", "")
+                if kind in ("paa", "alsoasked"): continue
+                if kind in ("secondary", "keyword"):
+                    if norm(ref) not in me_secs: add("P1", "F2", "faq", f'"{ref[:50]}" is not one of this page\'s secondaries (Semrush workbook)')
+                elif kind == "definition":
+                    if norm(ref) != norm(prim): add("P1", "F2", "faq", "a definition item must define the page's primary keyword")
+                elif kind == "related":
+                    add("P1", "F2", "faq", f'related search "{ref[:50]}" has no capture (DataForSEO retired 2026-10-10): source it from the AlsoAsked pull or a secondary')
+                else:
+                    add("P1", "F2", "faq", f'unknown source type "{kind}" (alsoasked, paa, secondary, keyword, definition)')
         else:
-            srcs = {x.get("q"): x for x in spec.get("faq_sources", [])}
             paa_q = {S.tokens(i["q"]).__str__(): i["q"] for i in live["paa"]}
             prims = {}
             if KMAP:
                 prims = {q["primary"].lower(): u for u, q in KMAP.items() if u != spec["url"] and q.get("status") != "live-off-plan" and len(q["primary"].split()) > 1}
-            me_secs = {norm(x["kw"]) for x in (KMAP or {}).get(spec["url"], {}).get("secondaries", [])}
             used_paa = set()
             for it in fq.get("items", []):
                 src = srcs.get(it["q"])
@@ -764,12 +779,13 @@ def check(spec, siblings):
         for sec, ou, c_ in _G.similarity(spec, siblings):
             if c_ > 0.30: add("P1", "D2", sec, f"{c_:.0%} of this section's phrases also appear on {ou}: rewrite it for this page")
             elif c_ > 0.18: add("P2", "D2", sec, f"{c_:.0%} of this section's phrases also appear on {ou}")
-    # ---------- F6 / R3: SERP age, approval fingerprint ----------
+    # ---------- F6 / R3: AlsoAsked pull age (DataForSEO retired, Divit 2026-10-10), approval fingerprint ----------
     if spec.get("status") not in ("live-draft", "published"):
         try:
-            sys.path.insert(0, os.path.join(ROOT, "plan")); import serp as _S, datetime as _dt
-            lv = _S.load(spec["url"])
-            if lv and (_dt.date.today() - _dt.date.fromisoformat(lv["fetched"])).days > 30: add("P1", "F6", "serp", f"SERP data from {lv['fetched']} is over 30 days old: re-pull it and re-check the FAQ")
+            sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate as _PG, datetime as _dt
+            _ap = _PG.pull_path(spec["url"].rsplit("/", 1)[1])
+            _f = json.load(open(_ap))["_meta"]["fetched"][:10] if os.path.exists(_ap) else None
+            if _f and (_dt.date.today() - _dt.date.fromisoformat(_f)).days > 30: add("P1", "F6", "serp", f"AlsoAsked pull from {_f} is over 30 days old: re-pull it and re-check the FAQ")
         except Exception: pass
         if spec.get("approval"):
             try:
