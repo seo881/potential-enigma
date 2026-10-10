@@ -138,6 +138,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 00:04 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-9",
+   "note": "rubric 10/10 by wk-r-9; 2 notes"
   }
  ],
  "plan": {
@@ -796,7 +803,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 23:43 UTC"
+  "date": "2026-10-09 23:59 UTC"
  },
  "writers": [
   "w-credit-card-authorization-form",
@@ -807,5 +814,95 @@
   "Build an authorization form for a $1,500 monthly retainer that charges each client's saved card on the 1st and logs every charge under their signed form.",
   "Build a credit card authorization form my clients sign on screen, and keep each signature next to the exact terms they agreed to.",
   "When a client's saved card declines, message me in Slack with who owes what, and email the client a link to update the card."
+ ],
+ "review": {
+  "by": "wk-r-9",
+  "date": "2026-10-10 00:04 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Credit Card Authorization Form Customers Sign Online\"; hero \"Create a credit card authorization form that sends card numbers to Stripe and saves each signature to a database you own.\""
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition (FAQ 1), what the form must state (feature 1, how-to step 2), a sample described line by line (FAQ 8), safety and CVV questions answered (FAQ 3, 4), hotel use (FAQ 10)"
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "\"Your table keeps the card brand, the last four digits and a Stripe customer ID\", \"missing a visit without 24 hours' notice costs $50\""
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "\"Booking a room for someone else at the Harbor Inn starts with one link.\", \"Phone orders at Copper Kettle Roasters end with an email instead of digits read aloud.\""
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q5-Q8 clean; one run-on list in feature 1 kept as a note"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "\"The rep never hears the card number\", \"The rep sees only the card brand and last four digits.\""
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "CVV storage (PCI FAQ 1280), ACH authorization (Nacha via Stripe), written permission for consumer reports (15 USC 1681b), dispute evidence and test mode (Stripe docs) all match domain_sources; Emergent claims in claims_used"
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Authorization for later charges, kept apart from checkout and payment forms (FAQ 3 and 6 link those siblings)"
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, answer-first (\"No. Once a charge is approved...\"), hub link in item 2, sibling links to checkout form and payment form, moat lines in items 3 and 7"
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 \"Limit $640, incidentals to guest\"; tab 2 \"$1,500 retainer due\" sent to the account manager by name in Slack; tab 3 \"Charge $50\"; tab 4 \"$2,340.00 authorized, one time\" and \"Brand and last 4 digits only\""
+   }
+  },
+  "findings": [
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "why_description, faq (items 6 and 10)",
+    "quote": "A PDF template puts the full card number and security code in an email. / Usually not. A credit card form usually charges the card... Many businesses use one of each. / often room and tax only. Many hotels send it as a credit card authorization form PDF",
+    "issue": "Generalizations about unnamed third parties (templates, businesses, hotels); not every PDF template asks for the security code.",
+    "fix": "\"A PDF template that asks for the full card number and security code puts both in an email.\"; trim the other quantifiers where a plain statement works.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_1",
+    "quote": "the cardholder's name and billing address, the card brand and expiration date, what the charge covers and the amount, then a signature, and the signing date.",
+    "issue": "Run-on list of five pairs in one sentence; \"Emergent asks for\" also makes the builder, not the form, the subject.",
+    "fix": "Split into two sentences with the form as subject.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "why_description, faq (items 6 and 10)",
+   "issue": "Generalizations about unnamed third parties (templates, businesses, hotels); not every PDF template asks for the security code.",
+   "fix": "\"A PDF template that asks for the full card number and security code puts both in an email.\"; trim the other quantifiers where a plain statement works.",
+   "by": "wk-r-9",
+   "via": "review",
+   "date": "2026-10-10 00:04 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_1",
+   "issue": "Run-on list of five pairs in one sentence; \"Emergent asks for\" also makes the builder, not the form, the subject.",
+   "fix": "Split into two sentences with the form as subject.",
+   "by": "wk-r-9",
+   "via": "review",
+   "date": "2026-10-10 00:04 UTC"
+  }
  ]
 }
