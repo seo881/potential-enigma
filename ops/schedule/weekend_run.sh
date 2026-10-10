@@ -151,6 +151,8 @@ while :; do
     grep -q '"block_new"' "$REPO/status/weekend-run.json" 2>/dev/null || "$PY" ops/weekend.py block-new "AlsoAsked key missing" >> "$LOG" 2>&1
   elif grep -q '"block_new": "AlsoAsked key missing' "$REPO/status/weekend-run.json" 2>/dev/null; then
     "$PY" ops/weekend.py unblock-new >> "$LOG" 2>&1; log "AlsoAsked key found: new-page hold released"
+  else
+    log "AlsoAsked key found (keychain); new pages $(grep -q '"block_new"' "$REPO/status/weekend-run.json" 2>/dev/null && echo 'held for another reason' || echo 'not held')"
   fi
 
   N=$((N + 1)); OUT="$RUN/iter-$(date +%Y%m%d-%H%M%S).txt"; BEFORE="$(git rev-parse HEAD)"; START=$(date +%s)
