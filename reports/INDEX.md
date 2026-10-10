@@ -2,6 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-10-10 · [1550-alsoasked-keychain](2026-10-10/1550-alsoasked-keychain.md) · Weekend loop reads the AlsoAsked key from the keychain, DataForSEO MCP removed; one loop restarted, writers for 3 hubs pulling · 68caa97
 - 2026-10-10 · [1545-weekend-run-15](2026-10-10/1545-weekend-run-15.md) · Weekend run: 3 pages reviewed, 0 parked; 20 AlsoAsked credits so far; no Webflow calls · this commit
 - 2026-10-10 · [1541-weekend-run-14](2026-10-10/1541-weekend-run-14.md) · Weekend run: 6 pages reviewed, 5 parked; 20 AlsoAsked credits so far; no Webflow calls · this commit
 - 2026-10-10 · [1526-weekend-all-hubs](2026-10-10/1526-weekend-all-hubs.md) · Weekend run: LP/Auto/SurveyQuiz canaries in parallel, 4 units round-robin, local background renders; loop restarted (one process) · 838c12d
