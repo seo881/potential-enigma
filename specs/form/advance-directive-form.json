@@ -132,6 +132,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 00:27 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "wk-r-10",
+   "note": "[truth | HUB_RULES 8] faq: The page's own source (fhb.hhs.texas.gov/forms/advance-directives) lists more Texas advance directive forms: the Directive to Physicians and Family or Surrogates, the Medical Power of Attorney, the Out-of-Hospital Do-Not-Resuscitate Order and the Declaration for Mental Hea"
   }
  ],
  "plan": {
@@ -788,7 +795,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 23:54 UTC"
+  "date": "2026-10-10 00:22 UTC"
  },
  "writers": [
   "w-advance-directive-form",
@@ -799,5 +806,105 @@
   "On my form, ask for the health care agent first, then two alternates in order, with a phone number and a relationship for each person.",
   "Check the witness names my clients enter against their health care agent, and hold the draft for the attorney if any name matches.",
   "Remind my staff when a resident's directive has gone 12 months without review, and send the director of nursing the agent to call."
+ ],
+ "review": {
+  "by": "wk-r-10",
+  "date": "2026-10-10 00:27 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build an Advance Directive Form in Plain Language\"; hero \"Build an advance directive form that covers one treatment per screen, flags an agent listed as a witness, and saves each copy.\"; how-to description one sentence"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition (FAQ 1), where to get a blank form (FAQ 3), living will (FAQ 4), what to include (FAQ 7), examples (FAQ 8), California and Texas signing rules (FAQ 9, 10, step 5), signature page for the state (feature 3)"
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "\"CPR, breathing machines, tube feeding and dialysis as separate questions, each answered yes, no or \\\"my agent decides\\\"\", \"Federal rules make Medicare hospitals inform adult patients about advance directives at admission\""
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "\"Federal rules make Medicare hospitals...\", \"Wishes change after a new diagnosis...\", feature bodies open on verbs (Lists, Asks, Prints, Reads, Saves, Exports)"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q5-Q8 clean"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "\"A healthcare directive form on paper sits in a drawer.\", \"Nobody is pushed into a choice they never weighed.\""
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "faq item 10 \"Texas uses two forms.\" is contradicted by the cited Texas HHS forms page, which lists the Directive to Physicians, the Medical Power of Attorney, the Out-of-Hospital DNR Order and the Declaration for Mental Health Treatment"
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Advance directive and living will scope; links out to legal intake form and patient intake form rather than covering them"
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, no brand or file-format asks, hub link in item 2, links to legal intake form and patient intake form, moat lines in items 6 and 7"
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 \"Request sent to social work\", \"Answer saved to the patient's record\"; tab 2 agent \"Ellen Hale\" = \"Witness 1 Ellen Hale\", \"Held for the attorney\", \"Attorney emailed\"; tab 3 14 and 13 months \"Overdue\" vs 5 and 9 \"Current\", \"2 reviews overdue\" matches the cover; tab 4 \"My agent decides\", \"Your choices, in plain words\", \"Signature page for your state\""
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Texas uses two forms.",
+    "issue": "The page's own source (fhb.hhs.texas.gov/forms/advance-directives) lists more Texas advance directive forms: the Directive to Physicians and Family or Surrogates, the Medical Power of Attorney, the Out-of-Hospital Do-Not-Resuscitate Order and the Declaration for Mental Health Treatment. The same source allows a notary in place of witnesses \"if certain requirements are met\", which \"A notary can acknowledge either one in place of witnesses\" drops.",
+    "fix": "Rewrite the answer-first sentence, e.g. \"Texas has no single form. The two most people mean are the Directive to Physicians and Family or Surrogates, which records treatment wishes, and the Medical Power of Attorney, which names your agent. The state also publishes an out-of-hospital DNR order. A notary can acknowledge either main form in place of witnesses when the statute's conditions are met.\" Keep the patient intake link; stay within 75 words.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_5_des, faq (item 9)",
+    "quote": "In California, two adult witnesses or a notary will do / A notary's acknowledgment or the signatures of two adult witnesses.",
+    "issue": "The cited Probate Code 4674 covers who may witness and the notary exception but not the number of witnesses (that is section 4673).",
+    "fix": "Add Probate Code 4673 to domain_sources.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "tab_content_2, tab_content_4, faq (items 3 and 5)",
+    "quote": "Clients rarely know that California bars / Most people stall partway through a printed packet. / usually posts the official version / staff there can often help you fill one in / which most states call an advance directive",
+    "issue": "Generalizations about unnamed people and states.",
+    "fix": "State the fact plainly or drop the quantifier.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_5_des, faq (item 9)",
+   "issue": "The cited Probate Code 4674 covers who may witness and the notary exception but not the number of witnesses (that is section 4673).",
+   "fix": "Add Probate Code 4673 to domain_sources.",
+   "by": "wk-r-10",
+   "via": "review",
+   "date": "2026-10-10 00:27 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "tab_content_2, tab_content_4, faq (items 3 and 5)",
+   "issue": "Generalizations about unnamed people and states.",
+   "fix": "State the fact plainly or drop the quantifier.",
+   "by": "wk-r-10",
+   "via": "review",
+   "date": "2026-10-10 00:27 UTC"
+  }
  ]
 }
