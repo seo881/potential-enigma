@@ -997,3 +997,39 @@ Phase 2 (DECISIONS 2026-10-08): one line per page, no question text. Per-questio
 - 2026-10-10 /ai-form-builder/tenant-screening-form [pull]: 10 questions; pass 0, reject 10, flag 0; rejects by rule: PA3 10; page: PA11 36 nodes, 10 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
 - 2026-10-10 /ai-form-builder/permanent-makeup-consent-form [pull]: 18 questions; pass 0, reject 18, flag 0; rejects by rule: PA3 18; page: PA11 38 nodes, 18 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
 - 2026-10-10 /ai-form-builder/workshop-registration-form [pull]: 23 questions; pass 0, reject 23, flag 0; rejects by rule: PA10 1, PA14 5, PA15 1, PA3 23, PA4 4, PA5 1; page: PA11 44 nodes, 23 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/expense-request-form [spec]: 10 questions; pass 3, reject 7, flag 0; rejects by rule: PA1 1, PA14 2, PA15 3, PA3 4, PA8 1; page: PA11 3 on-topic items, under 8: the page parks
+- 2026-10-10 /ai-form-builder/file-upload-form [spec]: 10 questions; pass 3, reject 7, flag 0; rejects by rule: PA1 1, PA1b 1, PA3 6; page: PA11 3 on-topic items, under 8: the page parks
+- 2026-10-10 /ai-form-builder/permanent-makeup-consent-form [spec]: 10 questions; pass 3, reject 4, flag 3; rejects by rule: PA15 1, PA3 3; page: PA11 6 on-topic items, under 8: the page parks
+- 2026-10-10 /ai-form-builder/workshop-registration-form [spec]: 10 questions; pass 2, reject 7, flag 1; rejects by rule: PA1 3, PA14 2, PA15 1, PA3 6; page: PA11 3 on-topic items, under 8: the page parks
+- 2026-10-10 /ai-form-builder/expense-request-form [pull]: 15 questions; pass 0, reject 15, flag 0; rejects by rule: PA3 15, PA4 5; page: PA11 36 nodes, 15 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/workshop-registration-form [pull]: 23 questions; pass 0, reject 23, flag 0; rejects by rule: PA10 1, PA14 5, PA15 1, PA3 23, PA4 4, PA5 1; page: PA11 44 nodes, 23 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/permanent-makeup-consent-form [pull]: 18 questions; pass 0, reject 18, flag 0; rejects by rule: PA3 18; page: PA11 38 nodes, 18 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/expense-request-form [pull]: 15 questions; pass 0, reject 15, flag 0; rejects by rule: PA3 15, PA4 5; page: PA11 36 nodes, 15 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/file-upload-form [pull]: 17 questions; pass 0, reject 15, flag 2; rejects by rule: PA3 15, PA5 1; page: PA11 34 nodes, 17 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/permanent-makeup-consent-form [spec]: 10 questions; pass 3, reject 1, flag 6; rejects by rule: PA9 1
+- 2026-10-10 /ai-form-builder/permanent-makeup-consent-form [spec]: 10 questions; pass 4, reject 0, flag 6; rejects by rule: none
+- 2026-10-10 /ai-form-builder/permanent-makeup-consent-form [spec]: 10 questions; pass 4, reject 0, flag 6; rejects by rule: none
+- 2026-10-10 /ai-form-builder/expense-request-form [spec]: 10 questions; pass 3, reject 7, flag 0; rejects by rule: PA1 1, PA14 2, PA15 3, PA3 4, PA8 1; page: PA11 3 on-topic items, under 8: the page parks
+- 2026-10-10 /ai-form-builder/file-upload-form [spec]: 10 questions; pass 3, reject 7, flag 0; rejects by rule: PA1 1, PA1b 1, PA3 6; page: PA11 3 on-topic items, under 8: the page parks
+- 2026-10-10 /ai-form-builder/fitness-assessment-form [spec]: 10 questions; pass 2, reject 8, flag 0; rejects by rule: PA1 3, PA1b 1, PA3 8, PA5 1; page: PA11 2 on-topic items, under 8: the page parks; PA12 0 items carrying a secondary, under 3
+- 2026-10-10 /ai-form-builder/hotel-booking-form [spec]: 10 questions; pass 2, reject 8, flag 0; rejects by rule: PA1 4, PA10 2, PA12 1, PA14 1, PA15 1, PA3 7; page: PA11 2 on-topic items, under 8: the page parks; PA12 2 items carrying a secondary, under 3
+- 2026-10-10 /ai-form-builder/fitness-assessment-form [pull]: 19 questions; pass 0, reject 19, flag 0; rejects by rule: PA3 19, PA4 6, PA5 1; page: PA11 52 nodes, 19 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/hotel-booking-form [pull]: 25 questions; pass 0, reject 25, flag 0; rejects by rule: PA10 1, PA3 25, PA4 1; page: PA11 48 nodes, 25 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/address-verification-form [spec]: 10 questions; pass 2, reject 7, flag 1; rejects by rule: PA1 5, PA3 7; page: PA11 3 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build; PA12 1 items carrying a secondary, under 3
+- 2026-10-10 /ai-form-builder/fitness-assessment-form [spec]: 10 questions; pass 2, reject 8, flag 0; rejects by rule: PA1 3, PA1b 1, PA3 8, PA5 1; page: PA11 2 on-topic items, under 8: the page parks; PA12 0 items carrying a secondary, under 3
+- 2026-10-10 /ai-form-builder/home-care-intake-form [spec]: 10 questions; pass 1, reject 8, flag 1; rejects by rule: PA1 4, PA10 3, PA3 8; page: PA11 2 on-topic items, under 8: the page parks; PA12 1 items carrying a secondary, under 2
+- 2026-10-10 /ai-form-builder/hotel-booking-form [spec]: 10 questions; pass 2, reject 8, flag 0; rejects by rule: PA1 4, PA10 2, PA12 1, PA14 1, PA15 1, PA3 7; page: PA11 2 on-topic items, under 8: the page parks; PA12 2 items carrying a secondary, under 3
+- 2026-10-10 /ai-form-builder/fitness-assessment-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/fitness-assessment-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/address-verification-form [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-10 /ai-form-builder/address-verification-form [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-10 /ai-form-builder/home-care-intake-form [spec]: 10 questions; pass 5, reject 2, flag 3; rejects by rule: PA9 2
+- 2026-10-10 /ai-form-builder/home-care-intake-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-10 /ai-form-builder/hotel-booking-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/address-verification-form [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-10 /ai-form-builder/hotel-booking-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/hotel-booking-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/address-verification-form [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-10 /ai-form-builder/home-care-intake-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-10 /ai-form-builder/home-care-intake-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-10 /ai-form-builder/home-care-intake-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
