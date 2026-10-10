@@ -133,6 +133,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 10:01 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-15",
+   "note": "rubric 10/10 by wk-r-15; 6 notes"
   }
  ],
  "plan": {
@@ -773,11 +780,181 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 04:24 UTC"
+  "rules_version": "b9bdd5846b24",
+  "date": "2026-10-10 09:54 UTC"
  },
  "writers": [
   "w-background-check-form",
   "wk-w-background-check-form"
+ ],
+ "review": {
+  "by": "wk-r-15",
+  "date": "2026-10-10 10:01 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Background Check Form'; hero 'Build a background check form with the disclosure on its own screen, signatures from any phone, and a status for each candidate.' (under 130 chars). How-to description one sentence under 140 chars: 'Seven steps to create a background check form that gets consent first, asks only what it should, and plans for a bad report.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "AMBER angle carried: re-angled to the employer authorization form ('What a background check form needs under FTC guidance'), with the stand-alone disclosure, consent, retention, adverse action and e-signature questions answered."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Recruiter vocabulary: 'pre-adverse action notice', 'FCRA rights summary', 'screening provider', 'badges only cleared contractors'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs ('Shows the disclosure...', 'Captures a typed or drawn signature...'); tabs open on full sentences ('Volunteer seasons start on a deadline.')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; three missing serial commas recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete: 'nobody retypes a birth date', 'Priya Nair in HR sees the signed packet on his record at 4:12 PM'."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Every legal statement matches domain_sources: stand-alone disclosure and written permission, certification to the provider, pre- and post-adverse notices, same standard for every applicant, secure disposal (EEOC/FTC guidance); E-SIGN consumer consent (15 USC 7001); 1998 James staff opinion; 29 CFR 1602.14 one-year retention. Tab numbers 31 + 7 = 38 and 9 + 2 + 1 = 12 agree in copy and image."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Links rather than covers the job application and new employee siblings; no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "Exactly 10 questions, no brand or file format; hub link in item 2; moat lines in items 3, 6 and 8 ('each signed copy is a row in your own database')."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: 'Signed packet for Priya Nair', 'Signed at 4:12 PM', 'Order sent to provider'; '31 of 38 coaches signed', '7 still out'; '5 business days', 'Window set by HR', report and rights summary attached; '9 of 12', '2 waiting on a result', '1 technician has not signed', 'Link sent again by email'. One hero each, readable."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_4",
+    "quote": "Lists who has signed, who is waiting on a result and who has not opened the link.",
+    "issue": "Three-item list without the serial comma (DECISIONS: serial comma everywhere).",
+    "fix": "who is waiting on a result, and who has not opened the link",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_4",
+    "quote": "The vendor coordinator sees 9 of 12 cleared, 2 waiting on a result and 1 who has not signed.",
+    "issue": "Second three-item list without the serial comma.",
+    "fix": "2 waiting on a result, and 1 who has not signed",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_image_4.alt",
+    "quote": "shows 9 cleared, 2 waiting on a result and 1 not signed",
+    "issue": "Third instance, in the alt text.",
+    "fix": "2 waiting on a result, and 1 not signed",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief.tabs[2]",
+    "quote": "DRAFT",
+    "issue": "Tab 3 main card labels the pre-adverse notice DRAFT while the panel shows 'Notice sent' done and the response window live. Not a contradiction of the copy, but the state is mixed.",
+    "fix": "Label the card SENT, or show the notice step as next.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_4_des",
+    "quote": "a driving record for drivers, credit history only where someone handles money",
+    "issue": "A recommendation with no domain source; several states restrict employer credit checks further.",
+    "fix": "Keep as advice, or add 'where your state allows it'.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_7_des",
+    "quote": "Store reports away from the general personnel file",
+    "issue": "A recommendation with no domain source.",
+    "fix": "Keep as advice.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_4",
+   "issue": "Three-item list without the serial comma (DECISIONS: serial comma everywhere).",
+   "fix": "who is waiting on a result, and who has not opened the link",
+   "by": "wk-r-15",
+   "via": "review",
+   "date": "2026-10-10 10:01 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_4",
+   "issue": "Second three-item list without the serial comma.",
+   "fix": "2 waiting on a result, and 1 who has not signed",
+   "by": "wk-r-15",
+   "via": "review",
+   "date": "2026-10-10 10:01 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_image_4.alt",
+   "issue": "Third instance, in the alt text.",
+   "fix": "2 waiting on a result, and 1 not signed",
+   "by": "wk-r-15",
+   "via": "review",
+   "date": "2026-10-10 10:01 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief.tabs[2]",
+   "issue": "Tab 3 main card labels the pre-adverse notice DRAFT while the panel shows 'Notice sent' done and the response window live. Not a contradiction of the copy, but the state is mixed.",
+   "fix": "Label the card SENT, or show the notice step as next.",
+   "by": "wk-r-15",
+   "via": "review",
+   "date": "2026-10-10 10:01 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_4_des",
+   "issue": "A recommendation with no domain source; several states restrict employer credit checks further.",
+   "fix": "Keep as advice, or add 'where your state allows it'.",
+   "by": "wk-r-15",
+   "via": "review",
+   "date": "2026-10-10 10:01 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_7_des",
+   "issue": "A recommendation with no domain source.",
+   "fix": "Keep as advice.",
+   "by": "wk-r-15",
+   "via": "review",
+   "date": "2026-10-10 10:01 UTC"
+  }
  ]
 }
