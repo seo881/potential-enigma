@@ -143,6 +143,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 00:47 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-12",
+   "note": "rubric 10/10 by wk-r-12; 7 notes"
   }
  ],
  "plan": {
@@ -795,10 +802,200 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 00:27 UTC"
+  "date": "2026-10-10 00:48 UTC"
  },
  "writers": [
   "w-field-trip-permission-slip",
   "wk-w-field-trip-permission-slip"
+ ],
+ "review": {
+  "by": "wk-r-12",
+  "date": "2026-10-10 00:47 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Field Trip Permission Slip Parents Sign on Their Phone', hero 'Create a field trip permission slip that parents sign on any phone, with a count of who has signed and reminders for the rest.' covers the whole job; howto_description one sentence under 140 characters."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is district PDFs and templates; the page gives what a slip must say (features 1-5, steps 1-4), sample consent wording in FAQ 7 ('I agree that Ava may join the Grade 4 science museum visit on May 14') and a ready-to-send slip via the prompt, per the AMBER angle."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Teacher, nurse and director vocabulary throughout: 'The trip nurse gets those answers grouped by bus', 'A child without a signature shows in red'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Ms. Ortiz booked the aquarium for her Grade 3 class of 26 students.', 'Little Oaks Child Care takes the van to the public library on Thursday mornings.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Short declaratives, QC Q2/Q5/Q7 clean; 'Both versions save to the same columns.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: 'A paper slip comes back crumpled, or never.' One wording note on feature_6."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "NYC student declaration (howto_step_3_des) and district generic slips (FAQ 6) match domain_sources; Emergent claims map to claims_used; 22 + 4 = 26 and 11 + 1 agree across copy and images."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No sibling primary (parent consent form) in headings; tabs are school-trip specific: 'Nine families read it in Spanish'."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic items, answer-first, hub link in item 2, sibling links (sign in form, interest form), moat lines in items 6 and 9, no brand or format asks in questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "uc-1 '4 slips missing' / '22 signed slips' / '26 students', uc-3 '9 of 24 families chose Spanish', uc-4 'Van leaves with 11' match the tab copy; one hero each."
+   }
+  },
+  "findings": [
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "Most versions also want a contact number that works during the trip",
+    "issue": "Soft quantifier about no named third party.",
+    "fix": "State it as what the slip asks for: 'Add a contact number that works during the trip'.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "howto_step_1_des",
+    "quote": "they answer most of the questions teachers otherwise get by email",
+    "issue": "Soft quantifier about no named third party.",
+    "fix": "Drop 'most': 'and they answer the questions teachers otherwise get by email'.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Send them two to three weeks before the trip",
+    "issue": "Timing recommendation with no source; fine as advice.",
+    "fix": "Optional: tie it to a district policy in domain_sources.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "mockup",
+    "quote": "spanishSpeakingFamilies",
+    "issue": "Mockup keys are camelCase tab names; tab_label_3 is 'Bilingual Families'.",
+    "fix": "Rename the key to bilingualFamilies.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief.tabs[1]",
+    "quote": "5 students with medication",
+    "issue": "The hero says 5 students while the medication list draws 4 cards with no 'more' row; a reader counting will find one missing.",
+    "fix": "Add a fifth card or a '+1 more' row.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "feature_6",
+    "quote": "link it to the student system in use",
+    "issue": "Stiff ending; reads translated.",
+    "fix": "'connect it to the district's student information system'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "meta_title",
+    "quote": "Field Trip Permission Slip Builder and Example",
+    "issue": "The 'Example' promise is met by one consent sentence (FAQ 7) and the tab stories; a fuller sample slip would match the template-heavy top 10 better.",
+    "fix": "Optional: give a complete sample slip's wording in FAQ 7 or a how-to step.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Soft quantifier about no named third party.",
+   "fix": "State it as what the slip asks for: 'Add a contact number that works during the trip'.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:47 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "howto_step_1_des",
+   "issue": "Soft quantifier about no named third party.",
+   "fix": "Drop 'most': 'and they answer the questions teachers otherwise get by email'.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:47 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Timing recommendation with no source; fine as advice.",
+   "fix": "Optional: tie it to a district policy in domain_sources.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:47 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "mockup",
+   "issue": "Mockup keys are camelCase tab names; tab_label_3 is 'Bilingual Families'.",
+   "fix": "Rename the key to bilingualFamilies.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:47 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief.tabs[1]",
+   "issue": "The hero says 5 students while the medication list draws 4 cards with no 'more' row; a reader counting will find one missing.",
+   "fix": "Add a fifth card or a '+1 more' row.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:47 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "feature_6",
+   "issue": "Stiff ending; reads translated.",
+   "fix": "'connect it to the district's student information system'.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:47 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "meta_title",
+   "issue": "The 'Example' promise is met by one consent sentence (FAQ 7) and the tab stories; a fuller sample slip would match the template-heavy top 10 better.",
+   "fix": "Optional: give a complete sample slip's wording in FAQ 7 or a how-to step.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:47 UTC"
+  }
  ]
 }
