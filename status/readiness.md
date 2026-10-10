@@ -129,7 +129,7 @@ Regenerated 2026-10-10 07:12 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/nda-form | 0 | 10/10 | yes, wk-r-12 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/new-employee-form | 0 | 10/10 | yes, wk-r-14 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/order-form | 0 | 10/10 | yes, wk-r-9 | yes | no | 0 | - | no | no | payload |
-| wk-rework-form | /ai-form-builder/overtime-request-form | 1 | 1/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-form | /ai-form-builder/overtime-request-form | 1 | 1/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/parent-consent-form | 0 | 5/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/patient-intake-form | 0 | 10/10 | yes, wk-r-13 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/payment-form | 1 | 7/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
@@ -211,4 +211,4 @@ Regenerated 2026-10-10 07:12 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-sqb | /ai-survey-and-quiz-builder/onboarding-survey | 0 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/pulse-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
 
-Stages: autofix 9, done 21, images 18, images2 1, payload 52, review 1, stopped 82, writer 3 (187 pages)
+Stages: autofix 9, done 21, images 18, images2 1, payload 52, review 1, stopped 83, writer 2 (187 pages)

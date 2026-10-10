@@ -12,7 +12,7 @@ Updated 2026-10-10 07:12 UTC. Started 2026-10-09T21:40:27+00:00.
 | rework | LP | 13 | ready 13 |
 | rework | Auto | 4 | ready 4 |
 | rework | SurveyQuiz | 9 | ready 8, stopped 1 |
-| rework | Form | 132 | autofix 9, images 18, images2 1, ready 27, review 1, stopped 73, writer 3 |
+| rework | Form | 132 | autofix 9, images 18, images2 1, ready 27, review 1, stopped 74, writer 2 |
 
 New pages claimed this weekend: none.
 Holds: none.
