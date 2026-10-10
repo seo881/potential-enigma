@@ -136,6 +136,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 01:05 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-13",
+   "note": "rubric 10/10 by wk-r-13; 4 notes"
   }
  ],
  "plan": {
@@ -915,7 +922,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 00:41 UTC"
+  "date": "2026-10-10 01:01 UTC"
  },
  "writers": [
   "w-purchase-order-form",
@@ -926,5 +933,135 @@
   "Give every purchase order I submit the next number in a series that starts at PO-1001, and print that number at the top of the order.",
   "When I submit a purchase order, email the vendor a PDF with my logo, billing address, and payment terms, and copy whoever pays the invoices.",
   "Add a budget code dropdown to my purchase order form, filtered to the requester's department, and save the chosen code with each order."
+ ],
+ "review": {
+  "by": "wk-r-13",
+  "date": "2026-10-10 01:05 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Purchase Order Form That Arrives Complete\" and hero \"Create a purchase order form that prices every line, stamps each order with a PO number, and keeps all orders in one table.\" (under 130 chars, primary, leads with Create); how-to description one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition, how to create, free, template contents, sample layout, who sends it, PO vs invoice, supplier acceptance, tracking, paper forms (FAQ 1-10), a PO-specific how-to (prefix and starting number, vendor list, line columns) and a comparison table; matches the template top 10 and the PAA."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Purchasing vocabulary: \"PO-1045, with Net 30 terms and Dock 2 as the ship-to\", \"remit-to address\", \"carbonless PO books in multi-part sets\", \"7 cases at $12.35\"."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs (\"Multiply quantity\", \"Stamp each submitted order\", \"Pick the vendor\", \"Ask for the date\", \"Generate a PDF\", \"Export the full codebase\"); tabs open on full sentences (\"Ten minutes before close\")."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; \"They travel in opposite directions.\""
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "\"Check that total by hand once.\" Plain and practical."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Contract on acceptance, Net 30, requisition before PO, PO vs invoice, carbonless sets and work order definition all match domain_sources; Emergent lines map to claims_used (no-caps, free-start, database-owned); GitHub export on paid plans."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Approvals and receiving handed to purchase order automation (FAQ 6), customer ordering to order form (FAQ 8), job orders to work order form (FAQ 5); no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic items, no brand or format in a question, hub link in item 2, links in items 5, 6 and 8, answer-first, Emergent lines in items 3 and 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "uc-1 $154.00 + $178.50 + $80.00 = $412.50 to Harvest Row; uc-2 $1,240 lab glassware \"Stays a draft until attached\", rule over $1,000; uc-3 PO-1045 $2,360 + $1,520 = $3,880, Net 30, Dock 2, \"Confirmed from the email link\"; uc-4 PO 77812 Initech Foods $3,420 in # orders, as the copy says."
+   }
+  },
+  "findings": [
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "howto_step_4_des; howto_step_1_des",
+    "quote": "Most orders need an item name, a quantity, and a unit price / Missing ship-to addresses and unclear units are the usual gaps",
+    "issue": "Soft quantifiers about no named third party.",
+    "fix": "State as advice: \"Give each line an item name, a quantity and a unit price.\"",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 3; why_description; features_subheading",
+    "quote": "Template sites give away blank versions that you fill in by hand and total yourself / Someone still checks the math by hand / A blank template leaves the math and the numbering to whoever fills it in",
+    "issue": "Characterises downloadable templates as hand-totalled with no domain source. Checked against the top-10 Smartsheet page: most templates are blank grids, but one (blanket PO) calculates subtotals, so the line holds for most and is broader than its evidence.",
+    "fix": "Narrow to the numbering, which no template does (\"tracks which PO number comes next\"), or say \"a blank PDF template\".",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_2; howto_step_2_des; faq item 7",
+    "quote": "finds the order from the reference on a vendor invoice / make any order easy to trace from the reference on an invoice / Quoting the PO number on the invoice ties the two together",
+    "issue": "The invoice-reference idea is told three times.",
+    "fix": "Keep it in feature_2 and let the step add the collision check only.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Jotform / Typeform / Google Forms",
+    "issue": "QC K7: none ranks in this page's top 10 (DocuSign, Smartsheet, Adobe templates do).",
+    "fix": "If the library adds a ranking template tool, regenerate the table with it.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "howto_step_4_des; howto_step_1_des",
+   "issue": "Soft quantifiers about no named third party.",
+   "fix": "State as advice: \"Give each line an item name, a quantity and a unit price.\"",
+   "by": "wk-r-13",
+   "via": "review",
+   "date": "2026-10-10 01:05 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 3; why_description; features_subheading",
+   "issue": "Characterises downloadable templates as hand-totalled with no domain source. Checked against the top-10 Smartsheet page: most templates are blank grids, but one (blanket PO) calculates subtotals, so the line holds for most and is broader than its evidence.",
+   "fix": "Narrow to the numbering, which no template does (\"tracks which PO number comes next\"), or say \"a blank PDF template\".",
+   "by": "wk-r-13",
+   "via": "review",
+   "date": "2026-10-10 01:05 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_2; howto_step_2_des; faq item 7",
+   "issue": "The invoice-reference idea is told three times.",
+   "fix": "Keep it in feature_2 and let the step add the collision check only.",
+   "by": "wk-r-13",
+   "via": "review",
+   "date": "2026-10-10 01:05 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: none ranks in this page's top 10 (DocuSign, Smartsheet, Adobe templates do).",
+   "fix": "If the library adds a ranking template tool, regenerate the table with it.",
+   "by": "wk-r-13",
+   "via": "review",
+   "date": "2026-10-10 01:05 UTC"
+  }
  ]
 }
