@@ -47,7 +47,7 @@ def main(argv):
                     return
                 slug, term = queue.pop(0); state["inflight"] += 1
             t0 = time.strftime("%Y-%m-%dT%H:%M:%S", time.gmtime())
-            r = subprocess.run([sys.executable, os.path.join(ROOT, "ops", "alsoasked_pull.py"), slug, term, "--depth", "2"], capture_output=True, text=True)
+            r = subprocess.run([sys.executable, os.path.join(ROOT, "ops", "alsoasked_pull.py"), slug, term, "--depth", "2"], capture_output=True, text=True, env={**os.environ, "ALSOASKED_VIA_AA": "1"})
             with lock:
                 state["inflight"] -= 1; state["done"] += 1
                 rows = [x for x in log_rows() if x["slug"] == slug and x["t"][:19] >= t0]

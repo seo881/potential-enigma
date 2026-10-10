@@ -5,7 +5,7 @@
 #   stop:   touch ~/emergent-hubs/STOP      (clean stop after the current page; rm STOP before the next start)
 # Loops headless Claude Code (CLAUDE_CONFIG_DIR=~/.claude-b, no fast mode) with "Continue the weekend run per plan/weekend-run.md".
 # NO Webflow tools: no MCP server is loaded at all (--strict-mcp-config, empty config; DataForSEO retired 2026-10-10) and every
-# Webflow tool is denied by name. The AlsoAsked key comes from the macOS keychain (service "alsoasked", account $USER) before each
+# Webflow tool is denied by name. AlsoAsked only through weekend.py aa (the per-page cap); ops/alsoasked_pull.py is not allowed. The AlsoAsked key comes from the macOS keychain (service "alsoasked", account $USER) before each
 # session, never from a file or the repo, and is never printed; missing key: new pages stay held ("AlsoAsked key missing").
 # Session limit: sleep to the reset time the message gives, else 20 minutes; limited for 7 continuous hours, a weekly-limit
 # message or any mention of paid/extra usage: stop for good. Waits while another job holds a lock (ops/guards.py held) and
@@ -29,7 +29,7 @@ ALLOWED=(
   "Read" "Glob" "Grep" "Agent" "Skill" "ToolSearch" "TodoWrite" "WebSearch" "WebFetch"
   "Edit(specs/**)" "Edit(.cache/**)" "Edit(//tmp/**)" "Edit(//private/tmp/**)" "Edit(plan/backlog.md)"
   "Bash(.venv/bin/python3 ops/hubctl.py:*)" "Bash(python3 ops/hubctl.py:*)" "Bash(.venv/bin/python3 ops/weekend.py:*)"
-  "Bash(.venv/bin/python3 ops/alsoasked_pull.py:*)" "Bash(.venv/bin/python3 qc/qc_hub.py:*)" "Bash(python3 qc/qc_hub.py:*)"
+  "Bash(.venv/bin/python3 qc/qc_hub.py:*)" "Bash(python3 qc/qc_hub.py:*)"
   "Bash(.venv/bin/python3 qc/paa_gate.py:*)" "Bash(.venv/bin/python3 ops/autofix.py:*)" "Bash(.venv/bin/python3 ops/table.py:*)"
   "Bash(.venv/bin/python3 ops/typeset.py:*)" "Bash(.venv/bin/python3 ops/review.py:*)" "Bash(.venv/bin/python3 ops/preview.py:*)"
   "Bash(.venv/bin/python3 tests/golden/run.py:*)" "Bash(.venv/bin/python3 -c:*)" "Bash(.venv/bin/python3 .cache/:*)"

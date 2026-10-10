@@ -4,7 +4,7 @@ agent work. Plan, rules and position: plan/weekend-run.md. Loop: ops/schedule/we
   weekend.py init                 build plan/batches/wk-rework-<dir>.txt once (written pages that are not live, held, parked or in Webflow)
   weekend.py next                 the next work unit (claims new pages itself, canary per hub); exit 0 work, 3 exhausted, 4 STOP file
   weekend.py add-new URL --by ID [--fail TEXT]   a new page's writer returned: into plan/batches/wk-new-<dir>.txt (ledger at check)
-  weekend.py aa URL [--fresh]     AlsoAsked pull for one page within the weekend cap (300 credits, 2 per page) via ops/alsoasked_pull.py
+  weekend.py aa URL               the only AlsoAsked path: reuses a saved pull; 2 credits per page in total, a fresh retry only after no_results
   weekend.py render [SLUG..]      render queued pages locally now and commit them (default: the render queue); wait-render is an alias
   weekend.py commit URL MESSAGE   commit and push one page (spec, status, batch files) through ops/sync.sh, under a git lock
   weekend.py tick [--final]       park pages stopped twice, readiness board, position in plan/weekend-run.md, a report every 10 pages
@@ -178,19 +178,40 @@ def credits_rows(since):
         except ValueError: continue
         if r.get("t", "") >= since: rows.append(r)
     return rows
-def spent(r): return sum(v for v in (r.get("used") or {}).values() if isinstance(v, (int, float)) and v > 0) or (1 if r.get("post") and not (r.get("used") or {}) else 0)
+def spent(r):
+    """Credits one credits.log row cost. The account reports `credits` (total) and its parts (`web_credits`, `api_credits`):
+    count `credits` only (summing every field double-counted each pull until 2026-10-10)."""
+    u = r.get("used") or {}
+    if isinstance(u.get("credits"), (int, float)): return max(u["credits"], 0)
+    return sum(v for v in u.values() if isinstance(v, (int, float)) and v > 0) or (1 if r.get("post") and not u else 0)
 def cmd_credits(args):
     W = load(); rows = credits_rows(W["started"]); per = Counter()
     for r in rows: per[r.get("slug")] += spent(r)
     print(f"weekend credits used {sum(per.values())} of {CREDIT_CAP} on {len(per)} page(s); max per page {max(per.values()) if per else 0}")
     return sum(per.values()), per
 def cmd_aa(args):
-    url = args[0]; s = slug(url); total, per = cmd_credits([])
-    if per[s] >= PER_PAGE: sys.exit(f"{s}: already {per[s]} credits this weekend (cap {PER_PAGE} per page); write from the sources you have or fail the page")
-    if total + PER_PAGE > CREDIT_CAP: sys.exit(f"weekend AlsoAsked cap reached ({total}/{CREDIT_CAP}); no more pulls")
+    """The only AlsoAsked path for sessions (Divit 2026-10-10): a saved pull is reused; at most 2 credits per page in total, counted
+    from credits.log before every call; a second pull only when the first returned no_results; pulls run one at a time (lock), so
+    the account before/after delta belongs to this page alone."""
+    url = args[0]; s = slug(url); pull = os.path.join(ROOT, "private", "alsoasked", s + ".json")
+    def saved():
+        try: return json.load(open(pull))["_meta"].get("status") or "success"
+        except (OSError, ValueError, KeyError): return None
+    if saved() not in (None, "no_results"): print(f"{s}: saved pull reused (private/alsoasked/{s}.json); no new pull"); return
     primary = (H.kmap().get(url) or {}).get("primary") or sys.exit("not in the keyword map")
-    cmd = [sys.executable, os.path.join(ROOT, "ops", "alsoasked_pull.py"), s, primary, "--depth", "2"] + (["--fresh"] if "--fresh" in args else [])
-    sys.exit(subprocess.call(cmd, cwd=ROOT))
+    env = {**os.environ, "ALSOASKED_VIA_AA": "1"}
+    with G.lock("alsoasked"):
+        for attempt in (1, 2):
+            rows = [r for r in credits_rows("") if r.get("slug") == s]
+            used = sum(spent(r) for r in rows); total, _ = cmd_credits([])
+            if rows and not all(r.get("status") == "no_results" for r in rows):
+                sys.exit(f"{s}: already pulled ({used} credits) and the result was not no_results; reuse it, never re-pull")
+            if used + 1 > PER_PAGE: sys.exit(f"{s}: {used} credits used; another pull could take it past {PER_PAGE}; write from the secondaries or fail the page")
+            if total + 1 > CREDIT_CAP: sys.exit(f"weekend AlsoAsked cap reached ({total}/{CREDIT_CAP}); no more pulls")
+            cmd = [sys.executable, os.path.join(ROOT, "ops", "alsoasked_pull.py"), s, primary, "--depth", "2", "--no-retry"] + (["--fresh"] if rows else [])
+            rc = subprocess.call(cmd, cwd=ROOT, env=env)
+            if rc or saved() != "no_results": sys.exit(rc)
+            print(f"{s}: no_results; " + ("one fresh pull within the cap" if attempt == 1 else "no second retry"))
 
 def cmd_render(args):
     """Render queued pages on this Mac now (no wait on the Action; Divit 2026-10-10), then commit only those pages' images and specs."""

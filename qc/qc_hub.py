@@ -463,7 +463,7 @@ def check(spec, siblings):
         sys.path.insert(0, os.path.join(ROOT, "plan")); import serp as S
         sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate as _PG
         if not os.path.exists(_PG.pull_path(spec["url"].rsplit("/", 1)[1])):
-            add("P1", "F1", "faq", "no AlsoAsked pull for this page (private/alsoasked/<slug>.json): run ops/alsoasked_pull.py (weekend: weekend.py aa <url>) before writing the FAQ")
+            add("P1", "F1", "faq", "no AlsoAsked pull for this page (private/alsoasked/<slug>.json): pull it through ops/weekend.py aa <url> before writing the FAQ")
         live = S.load(spec["url"])  # legacy DataForSEO capture (pages written before 2026-10-10): F2/F3/F5 still check against it
         srcs = {x.get("q"): x for x in spec.get("faq_sources", [])}
         me_secs = {norm(x["kw"]) for x in (KMAP or {}).get(spec["url"], {}).get("secondaries", [])}

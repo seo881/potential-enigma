@@ -307,7 +307,7 @@ def faq_items(spec):
 
 def run_pull(g):
     p = os.path.join(ROOT, "private", "alsoasked", g.slug + ".json")
-    if not os.path.exists(p): sys.exit(f"no AlsoAsked pull for {g.slug}: run ops/alsoasked_pull.py {g.slug} \"{g.primary}\"")
+    if not os.path.exists(p): sys.exit(f"no AlsoAsked pull for {g.slug}: pull it through ops/weekend.py aa <url>")
     raw = flatten(json.load(open(p))); items, seen = [], {}
     for it in sorted(raw, key=lambda x: x["prov"]["depth"]):  # AlsoAsked repeats wordings across branches: gate each wording once (shallowest)
         k = norm(it["q"])

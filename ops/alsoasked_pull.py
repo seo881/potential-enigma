@@ -6,7 +6,9 @@ API (alsoasked.com/llms.txt, developers.alsoasked.com): base https://alsoaskedap
 POST /search, GET /account. Depth 2 costs 1 credit, depth 3 costs 4 (PA2 never needs level 3).
 The key comes from ALSOASKED_API_KEY and is never printed; neither is the response body. Prints only the HTTP status,
 credits used (account before/after, also appended to private/alsoasked/credits.log) and question counts per depth.
-fresh:false first; fresh:true only if that returns no_results (or with --fresh).
+fresh:false first; fresh:true only if that returns no_results (or with --fresh); --no-retry: one call only (the caller decides).
+Callers: only `ops/weekend.py aa` (2 credits per page in total) and `ops/alsoasked_batch.py` (balance ceiling), which set
+ALSOASKED_VIA_AA=1; a direct run refuses, so no tool can bypass the caps (Divit 2026-10-10). By hand: ALSOASKED_VIA_AA=1 ... .
 """
 import json, os, sys, urllib.request, urllib.error
 
@@ -70,6 +72,7 @@ def depth_counts(o, d=0, out=None):
     return out
 
 def main(argv):
+    if os.environ.get("ALSOASKED_VIA_AA") != "1": sys.exit("refused: pull through ops/weekend.py aa <url> (it enforces the per-page credit cap)")
     if "ALSOASKED_API_KEY" not in os.environ: sys.exit("ALSOASKED_API_KEY is not set")
     slug, term = argv[0], argv[1]
     opt = lambda k, d: argv[argv.index(k) + 1] if k in argv else d
@@ -95,7 +98,7 @@ def main(argv):
             f.write(json.dumps({"t": __import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat(timespec="seconds"), "slug": slug,
                                 "term": term, "depth": depth, "fresh": fresh, "recovered": recovered, "post": recovered != "history", "http": status, "status": res.get("status"), "cached": res.get("cached"),
                                 "before": b, "after": a, "used": used}) + "\n")
-        if status == 200 and res.get("status") == "no_results" and not fresh: fresh = True; continue
+        if status == 200 and res.get("status") == "no_results" and not fresh and "--no-retry" not in argv: fresh = True; continue
         break
     if status != 200 or "_error" in res: return 1
     out = os.path.join(ROOT, "private", "alsoasked"); os.makedirs(out, exist_ok=True)
