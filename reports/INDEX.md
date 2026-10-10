@@ -2,6 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-10-10 · [1514-dataforseo-retired](2026-10-10/1514-dataforseo-retired.md) · DataForSEO retired: QC F1 needs only the AlsoAsked pull; F1 changed on 0 of 192 specs; new-page phase released, LP canary claimed · 150eec0
 - 2026-10-10 · [1256-weekend-run-13](2026-10-10/1256-weekend-run-13.md) · Weekend run: 0 pages reviewed, 11 parked; 20 AlsoAsked credits so far; no Webflow calls · this commit
 - 2026-10-10 · [1212-weekend-run-12](2026-10-10/1212-weekend-run-12.md) · Weekend run: 0 pages reviewed, 10 parked; 14 AlsoAsked credits so far; no Webflow calls · this commit
 - 2026-10-10 · [1201-weekend-run-11](2026-10-10/1201-weekend-run-11.md) · Weekend run: 0 pages reviewed, 10 parked; 14 AlsoAsked credits so far; no Webflow calls · this commit
