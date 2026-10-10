@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-10 04:27 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-10 04:28 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -121,7 +121,7 @@ Regenerated 2026-10-10 04:27 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/liability-waiver-form | 0 | 10/10 | yes, wk-r-8 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/life-coaching-intake-form | 7 | 7/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/maintenance-request-form | 13 | 2/10 | no | no | no | 0 | - | no | no | autofix |
-| wk-rework-form | /ai-form-builder/medical-history-form | 0 | 5/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-form | /ai-form-builder/medical-history-form | 0 | 5/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/membership-form | 11 | 1/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/mileage-reimbursement-form | 10 | 2/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/model-release-form | 0 | 10/10 | yes, wk-r-13 | no | no | 0 | - | no | no | images2 |
@@ -211,4 +211,4 @@ Regenerated 2026-10-10 04:27 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-sqb | /ai-survey-and-quiz-builder/onboarding-survey | 0 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/pulse-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
 
-Stages: autofix 94, check 3, check2 1, done 21, images 3, images2 1, payload 51, review 1, stopped 11, writer 1 (187 pages)
+Stages: autofix 94, check 3, check2 1, done 21, images 3, images2 1, payload 51, review 1, stopped 12 (187 pages)
