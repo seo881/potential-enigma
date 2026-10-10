@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-10 12:18 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-10 12:23 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -56,6 +56,7 @@ Regenerated 2026-10-10 12:18 UTC by `hubctl readiness` (also after every `hubctl
 | wk-new-aab | /ai-automation-builder/incident-response-automation | 0 | 10/10 | yes, wk-r-20 | yes | no | 0 | - | no | no | payload |
 | wk-new-aab | /ai-automation-builder/procurement-automation | 0 | 10/10 | yes, wk-r-20 | yes | no | 0 | - | no | no | payload |
 | wk-new-aab | /ai-automation-builder/report-automation | 0 | 10/10 | no | yes | no | 0 | - | no | no | check |
+| wk-new-lp | /ai-landing-page-builder/affiliate-landing-page | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
 | wk-new-lp | /ai-landing-page-builder/ebook-landing-page | 0 | 10/10 | yes, wk-r-19 | yes | no | 0 | - | no | no | payload |
 | wk-new-lp | /ai-landing-page-builder/mobile-landing-page | 0 | 10/10 | yes, wk-r-19 | yes | no | 0 | - | no | no | payload |
 | wk-new-lp | /ai-landing-page-builder/sales-funnel-landing-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | check |
@@ -63,7 +64,7 @@ Regenerated 2026-10-10 12:18 UTC by `hubctl readiness` (also after every `hubctl
 | wk-new-sqb | /ai-survey-and-quiz-builder/brand-awareness-survey | 0 | 10/10 | yes, wk-r-21 | yes | no | 0 | - | no | no | payload |
 | wk-new-sqb | /ai-survey-and-quiz-builder/brand-perception-survey | 0 | 10/10 | yes, wk-r-21 | yes | no | 0 | - | no | no | payload |
 | wk-new-sqb | /ai-survey-and-quiz-builder/church-survey | 0 | 10/10 | yes, wk-r-21 | yes | no | 0 | - | no | no | payload |
-| wk-new-sqb | /ai-survey-and-quiz-builder/wellness-survey | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
+| wk-new-sqb | /ai-survey-and-quiz-builder/wellness-survey | 0 | 10/10 | no | yes | no | 0 | - | no | no | check |
 | wk-rework-aab | /ai-automation-builder/accounts-payable-automation | 0 | 10/10 | yes, wk-r-5 | yes | no | 0 | - | no | no | payload |
 | wk-rework-aab | /ai-automation-builder/invoice-automation | 0 | 10/10 | yes, wk-r-5 | yes | no | 0 | - | no | no | payload |
 | wk-rework-aab | /ai-automation-builder/purchase-order-automation | 0 | 10/10 | yes, wk-r-5 | yes | no | 0 | - | no | no | payload |
@@ -223,4 +224,4 @@ Regenerated 2026-10-10 12:18 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-sqb | /ai-survey-and-quiz-builder/onboarding-survey | 0 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/pulse-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
 
-Stages: check 3, done 21, images2 1, payload 80, stopped 94 (199 pages)
+Stages: check 4, done 21, images2 1, payload 80, stopped 94 (200 pages)
