@@ -1100,3 +1100,86 @@ Phase 2 (DECISIONS 2026-10-08): one line per page, no question text. Per-questio
 - 2026-10-10 /ai-form-builder/rental-history-form [pull]: 18 questions; pass 0, reject 18, flag 0; rejects by rule: PA10 2, PA15 1, PA3 18, PA5 1; page: PA11 38 nodes, 18 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
 - 2026-10-10 /ai-form-builder/anesthesia-consent-form [pull]: 19 questions; pass 1, reject 18, flag 0; rejects by rule: PA3 18, PA5 1; page: PA11 40 nodes, 19 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
 - 2026-10-10 /ai-form-builder/rental-history-form [spec]: 10 questions; pass 1, reject 9, flag 0; rejects by rule: PA1 5, PA3 9; page: PA11 1 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build; PA12 0 items carrying a secondary, under 2
+- 2026-10-10 /ai-survey-and-quiz-builder/brand-perception-survey [spec]: 6 questions; pass 5, reject 0, flag 1; rejects by rule: none; page: PA12 6 items, not exactly 10; PA11 6 on-topic items, under 8: the page parks
+- 2026-10-10 /ai-form-builder/expense-report-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/ebook-landing-page [pull]: 0 questions; pass 0, reject 0, flag 0; rejects by rule: none; page: PA11 0 nodes, 0 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-automation-builder/procurement-automation [pull]: 23 questions; pass 0, reject 23, flag 0; rejects by rule: PA14 1, PA3 23, PA5 4, PA8 1; page: PA11 52 nodes, 23 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-survey-and-quiz-builder/brand-perception-survey [pull]: 23 questions; pass 0, reject 23, flag 0; rejects by rule: PA3 23, PA4 1, PA5 2; page: PA11 44 nodes, 23 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-survey-and-quiz-builder/brand-perception-survey [spec]: 6 questions; pass 5, reject 0, flag 1; rejects by rule: none; page: PA12 6 items, not exactly 10; PA11 6 on-topic items, under 8: the page parks
+- 2026-10-10 /ai-survey-and-quiz-builder/brand-perception-survey [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/brand-perception-survey [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/procurement-automation [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/procurement-automation [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/procurement-automation [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/ebook-landing-page [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/ebook-landing-page [spec]: 10 questions; pass 9, reject 1, flag 0; rejects by rule: PA9 1
+- 2026-10-10 /ai-landing-page-builder/ebook-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/ebook-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/mobile-landing-page [pull]: 0 questions; pass 0, reject 0, flag 0; rejects by rule: none; page: PA11 0 nodes, 0 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-automation-builder/incident-response-automation [pull]: 13 questions; pass 0, reject 13, flag 0; rejects by rule: PA3 13, PA4 1; page: PA11 36 nodes, 13 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/fitness-assessment-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/brand-awareness-survey [pull]: 19 questions; pass 1, reject 18, flag 0; rejects by rule: PA3 18; page: PA11 40 nodes, 19 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-survey-and-quiz-builder/brand-awareness-survey [pull+cand]: 19 questions; pass 1, reject 18, flag 0; rejects by rule: PA3 18; page: PA11 40 nodes, 19 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-survey-and-quiz-builder/brand-awareness-survey [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/incident-response-automation [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/mobile-landing-page [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/mobile-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/brand-awareness-survey [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/mobile-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/incident-response-automation [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/proposal-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/data-entry-automation [pull]: 22 questions; pass 1, reject 21, flag 0; rejects by rule: PA14 7, PA15 6, PA3 20, PA4 2, PA8 6; page: PA11 52 nodes, 22 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/proposal-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/data-entry-automation [pull+cand]: 22 questions; pass 1, reject 21, flag 0; rejects by rule: PA14 7, PA15 6, PA3 20, PA4 2, PA8 6; page: PA11 52 nodes, 22 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-landing-page-builder/video-landing-page [pull]: 26 questions; pass 0, reject 26, flag 0; rejects by rule: PA14 7, PA3 26, PA4 2, PA5 2; page: PA11 48 nodes, 26 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-landing-page-builder/video-landing-page [pull]: 26 questions; pass 0, reject 26, flag 0; rejects by rule: PA14 7, PA3 26, PA4 2, PA5 2; page: PA11 48 nodes, 26 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-survey-and-quiz-builder/church-survey [pull]: 22 questions; pass 1, reject 21, flag 0; rejects by rule: PA14 1, PA15 1, PA3 21, PA4 1, PA5 1; page: PA11 40 nodes, 22 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-survey-and-quiz-builder/church-survey [pull+cand]: 22 questions; pass 1, reject 21, flag 0; rejects by rule: PA14 1, PA15 1, PA3 21, PA4 1, PA5 1; page: PA11 40 nodes, 22 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-landing-page-builder/video-landing-page [pull]: 26 questions; pass 0, reject 26, flag 0; rejects by rule: PA14 7, PA3 26, PA4 2, PA5 2; page: PA11 48 nodes, 26 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-survey-and-quiz-builder/church-survey [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/church-survey [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/data-entry-automation [spec]: 10 questions; pass 5, reject 1, flag 4; rejects by rule: PA1 1; page: PA12 item 2 is not how-to-build
+- 2026-10-10 /ai-survey-and-quiz-builder/church-survey [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/data-entry-automation [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/data-entry-automation [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/data-entry-automation [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/video-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/video-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/data-entry-automation [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/video-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/video-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/data-entry-automation [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/brand-perception-survey [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/sales-funnel-landing-page [pull]: 0 questions; pass 0, reject 0, flag 0; rejects by rule: none; page: PA11 0 nodes, 0 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-automation-builder/report-automation [pull]: 15 questions; pass 1, reject 13, flag 1; rejects by rule: PA14 2, PA3 13, PA4 1, PA5 1; page: PA11 44 nodes, 15 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-automation-builder/report-automation [pull+cand]: 15 questions; pass 1, reject 13, flag 1; rejects by rule: PA14 2, PA3 13, PA4 1, PA5 1; page: PA11 44 nodes, 15 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-survey-and-quiz-builder/wellness-survey [pull]: 24 questions; pass 1, reject 23, flag 0; rejects by rule: PA3 23, PA4 2, PA7 1; page: PA11 44 nodes, 24 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-survey-and-quiz-builder/wellness-survey [pull]: 24 questions; pass 1, reject 23, flag 0; rejects by rule: PA3 23, PA4 2, PA7 1; page: PA11 44 nodes, 24 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-survey-and-quiz-builder/wellness-survey [pull+cand]: 24 questions; pass 1, reject 23, flag 0; rejects by rule: PA3 23, PA4 2, PA7 1; page: PA11 44 nodes, 24 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-landing-page-builder/affiliate-landing-page [pull]: 16 questions; pass 1, reject 15, flag 0; rejects by rule: PA14 4, PA3 15, PA4 2; page: PA11 32 nodes, 16 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-landing-page-builder/affiliate-landing-page [pull+cand]: 16 questions; pass 1, reject 15, flag 0; rejects by rule: PA14 4, PA3 15, PA4 2; page: PA11 32 nodes, 16 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-automation-builder/report-automation [pull]: 15 questions; pass 1, reject 13, flag 1; rejects by rule: PA14 2, PA3 13, PA4 1, PA5 1; page: PA11 44 nodes, 15 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-survey-and-quiz-builder/wellness-survey [pull]: 24 questions; pass 1, reject 23, flag 0; rejects by rule: PA3 23, PA4 2, PA7 1; page: PA11 44 nodes, 24 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-automation-builder/report-automation [pull]: 15 questions; pass 1, reject 13, flag 1; rejects by rule: PA14 2, PA3 13, PA4 1, PA5 1; page: PA11 44 nodes, 15 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-landing-page-builder/affiliate-landing-page [pull]: 16 questions; pass 1, reject 15, flag 0; rejects by rule: PA14 4, PA3 15, PA4 2; page: PA11 32 nodes, 16 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-survey-and-quiz-builder/wellness-survey [pull]: 24 questions; pass 1, reject 23, flag 0; rejects by rule: PA3 23, PA4 2, PA7 1; page: PA11 44 nodes, 24 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-landing-page-builder/affiliate-landing-page [pull]: 16 questions; pass 1, reject 15, flag 0; rejects by rule: PA14 4, PA3 15, PA4 2; page: PA11 32 nodes, 16 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-landing-page-builder/affiliate-landing-page [pull]: 16 questions; pass 1, reject 15, flag 0; rejects by rule: PA14 4, PA3 15, PA4 2; page: PA11 32 nodes, 16 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-survey-and-quiz-builder/wellness-survey [pull+cand]: 24 questions; pass 1, reject 23, flag 0; rejects by rule: PA3 23, PA4 2, PA7 1; page: PA11 44 nodes, 24 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-automation-builder/report-automation [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/sales-funnel-landing-page [pull]: 0 questions; pass 0, reject 0, flag 0; rejects by rule: none; page: PA11 0 nodes, 0 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-landing-page-builder/sales-funnel-landing-page [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/sales-funnel-landing-page [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/sales-funnel-landing-page [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/sales-funnel-landing-page [spec]: 10 questions; pass 7, reject 0, flag 3; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/report-automation [spec]: 10 questions; pass 9, reject 1, flag 0; rejects by rule: PA1 1
+- 2026-10-10 /ai-automation-builder/report-automation [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-automation-builder/report-automation [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/affiliate-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/wellness-survey [spec]: 10 questions; pass 7, reject 1, flag 2; rejects by rule: PA1 1
+- 2026-10-10 /ai-survey-and-quiz-builder/wellness-survey [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/wellness-survey [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/wellness-survey [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-survey-and-quiz-builder/wellness-survey [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/affiliate-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-landing-page-builder/affiliate-landing-page [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
