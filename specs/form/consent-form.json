@@ -139,6 +139,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 00:04 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "wk-r-9",
+   "note": "[truth | CONTENT_DEFECTS #10] howto_description: The how-to has seven steps (howto_step_1_title \"01 Decide who signs\" through howto_step_7_title \"07 Test it as a signer\"), so the count in the description disagrees with the section it introduces. No other field states a step count. -> Write \"Follow t"
   }
  ],
  "plan": {
@@ -814,7 +821,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 23:40 UTC"
+  "date": "2026-10-09 23:59 UTC"
  },
  "writers": [
   "w-consent-form",
@@ -825,5 +832,125 @@
   "Number each version of my study's consent text. When the IRB approves a new one, send everyone who signed the old wording a link to sign again.",
   "My study enrolls children ages 8 to 12. Have a parent sign the permission form first, then show the child a short assent page with a yes and a no button.",
   "Offer my consent form in English and Spanish, using the text my IRB approved for each, and record which language every participant signed in."
+ ],
+ "review": {
+  "by": "wk-r-9",
+  "date": "2026-10-10 00:04 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Consent Form That Records Exactly What Was Signed\"; hero \"Create a consent form that collects each signature on a phone or laptop and keeps every record in a database you own.\" (118 chars, primary, leads with the verb)"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition in FAQ 1, a worked consent form example (dental extraction) in FAQ 3, the required elements in how-to steps 2-4, and a builder for the template-gallery SERP"
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: \"Once the IRB approves it, the 12 participants who signed version 3 each get a link\", \"initials beside each before the signature\", \"assent page\""
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: \"Version 4 of the sleep study text adds a new risk.\", \"Two days before an extraction, the patient gets an email\", \"Adults sign for themselves.\""
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Short declaratives, one idea each: \"The record stays in the table, marked withdrawn with the date\"; QC Q5-Q8 clean"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: \"Risks such as dry socket are written in plain words\", \"This month the coordinator counts 41 Spanish consents\""
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "howto_description \"Follow these six steps\" while the how-to has seven steps (01 to 07)"
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Research versioning, re-consent and assent angle; sibling consent and waiver pages are linked in FAQ, not headlined"
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, answer-first (\"Express and implied.\", \"Yes. Federal research rules allow...\"), hub link in item 2, three sibling links, moat lines in items 4 and 7, no brand or format in any question"
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 \"12 participants / Signed on version 3\"; tab 2 \"12 of 14 signed\" with the two unsigned patients listed; tab 3 parent signed then \"Age 11, shorter page\"; tab 4 \"41 signed in Spanish\": each matches its tab copy"
+   }
+  },
+  "findings": [
+   {
+    "class": "wrong-fact",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "howto_description",
+    "quote": "Follow these six steps to write a consent form people understand, then build it with Emergent.",
+    "issue": "The how-to has seven steps (howto_step_1_title \"01 Decide who signs\" through howto_step_7_title \"07 Test it as a signer\"), so the count in the description disagrees with the section it introduces. No other field states a step count.",
+    "fix": "Write \"Follow these seven steps to write a consent form people understand, then build it with Emergent.\" (96 characters, still within D2).",
+    "severity": "blocking"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "howto_step_3_des",
+    "quote": "Your institution's template usually sets the exact headings for research.",
+    "issue": "Soft quantifier about no named third party.",
+    "fix": "\"Use your institution's template for the exact headings.\"",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Jotform | Google Forms | Typeform",
+    "issue": "Google Forms and Typeform do not rank in this page's top 10 (QC K7), while SurveyMonkey and Formplus do; the comparison table should use competitors that rank for the query.",
+    "fix": "Regenerate with hubctl table using ranking competitors from the library where available.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "tab_content_1, tab_content_3, tab_label_3",
+    "quote": "Version 4 of the sleep study text / the full permission form for the youth sleep study / Youth Programs",
+    "issue": "Two of four tabs use a sleep study, and the tab labelled \"Youth Programs\" tells a research-study story, not a youth program.",
+    "fix": "Label tab 3 \"Studies With Minors\" or set it in a different study.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "howto_step_3_des",
+   "issue": "Soft quantifier about no named third party.",
+   "fix": "\"Use your institution's template for the exact headings.\"",
+   "by": "wk-r-9",
+   "via": "review",
+   "date": "2026-10-10 00:04 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "Google Forms and Typeform do not rank in this page's top 10 (QC K7), while SurveyMonkey and Formplus do; the comparison table should use competitors that rank for the query.",
+   "fix": "Regenerate with hubctl table using ranking competitors from the library where available.",
+   "by": "wk-r-9",
+   "via": "review",
+   "date": "2026-10-10 00:04 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "tab_content_1, tab_content_3, tab_label_3",
+   "issue": "Two of four tabs use a sleep study, and the tab labelled \"Youth Programs\" tells a research-study story, not a youth program.",
+   "fix": "Label tab 3 \"Studies With Minors\" or set it in a different study.",
+   "by": "wk-r-9",
+   "via": "review",
+   "date": "2026-10-10 00:04 UTC"
+  }
  ]
 }
