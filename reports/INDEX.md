@@ -2,6 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-10-10 · [1102-weekend-run-7](2026-10-10/1102-weekend-run-7.md) · Weekend run: 0 pages reviewed, 11 parked; 12 AlsoAsked credits so far; no Webflow calls · this commit
 - 2026-10-10 · [1020-weekend-run-6](2026-10-10/1020-weekend-run-6.md) · Weekend run: 4 pages reviewed, 6 parked; 12 AlsoAsked credits so far; no Webflow calls · this commit
 - 2026-10-10 · [0637-weekend-run-5](2026-10-10/0637-weekend-run-5.md) · Weekend run: 8 pages reviewed, 2 parked; 10 AlsoAsked credits so far; no Webflow calls · this commit
 - 2026-10-10 · [0615-weekend-run-4](2026-10-10/0615-weekend-run-4.md) · Weekend run: 11 pages reviewed, 0 parked; 8 AlsoAsked credits so far; no Webflow calls · this commit
