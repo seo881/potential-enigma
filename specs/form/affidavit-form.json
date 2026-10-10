@@ -134,6 +134,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 00:40 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-11",
+   "note": "rubric 10/10 by wk-r-11; 5 notes"
   }
  ],
  "plan": {
@@ -786,10 +793,160 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 00:19 UTC"
+  "date": "2026-10-10 00:35 UTC"
  },
  "writers": [
   "w-affidavit-form",
   "wk-w-affidavit-form"
+ ],
+ "review": {
+  "by": "wk-r-11",
+  "date": "2026-10-10 00:40 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Affidavit Form Signers Fill Before the Notary', title 'Free Affidavit Form Builder | Emergent' and hero 'Build an affidavit form that turns each answer into a numbered paragraph and fills a PDF the affiant signs before a notary.' cover the whole job; hero under 130 chars; how-to description is one sentence that says what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "AMBER angle carried: the top 10 is blank court and legal-aid PDFs, and the page delivers the generated output ('fills a PDF ready for the notary'), the parts of an affidavit (FAQ 5), where free blank forms live (FAQ 3), the declaration alternative (FAQ 7) and a seven-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: venue, affiant, jurat, exhibits lettered, 'Harlow Legal', 'item 7 shows the member as abstaining', 'Three of this week's 41 files are on hold'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Emergent asks one question per fact...', 'State and county lines head the document...', 'Signers book a mobile notary...', 'In Texas, a council member...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences carry one idea each; no tacked-on endings (QC Q5 clean). Repeated 'notary watching' idea logged as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain, product-led copy ('Each file gets a letter in the order the statement mentions it'); one summary sentence in the features subheading logged as a note."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Legal facts match domain_sources: 28 U.S.C. 1746 declaration (FAQ 7), Texas LGC 171 affidavit before the vote (tab 4), bank and library notaries (FAQ 10), jurat (FAQ 7, step 5). Emergent claims are in the ledger; claims_used bookkeeping gap logged as a note."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Sibling primaries (affidavit of identity form, jurat form) are only linked from FAQ 4 and FAQ 7, never headlined; tabs (law firm witness, mobile notary, school residency, Texas conflict of interest) are specific to this page."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, each answered in the first sentence; no brand or file format in a question; hub link in item 2; two sibling links; moat lines in items 3 and 8."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: '8 of 8 answered' and 'Paragraph 6 flagged' (tab 1), '2:30 pm' and 'Reminder: bring photo ID' (tab 2), '3 on hold / Of this week's 41 files' with three held rows (tab 3), 'Item 7, street repaving' and 'Abstaining' (tab 4); one hero per image."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "<th scope=\"col\">Jotform</th> ... Google Forms ... Typeform",
+    "issue": "HUB_RULES 5 asks for the 3 competitors that rank for this query; none of Jotform, Google Forms or Typeform is in the top 10 (QC K7), while Fillout is the one builder that ranks.",
+    "fix": "If Fillout is added to the competitor library with sources, regenerate the table with it in one column.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_3, tab_content_2, faq, image_brief",
+    "quote": "feature_3 'signs only with the notary watching'; tab_content_2 'signs with the notary present'; faq item 6 'after you swear to the statement with the notary watching'; faq item 10 'leave the form unsigned until the notary is watching'; tab 2 mini 'Signs with the notary present'",
+    "issue": "The same sign-in-front-of-the-notary point is restated in four fields with the words swapped.",
+    "fix": "Keep it in feature_3 and FAQ 6; let the other fields say something new.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "faq",
+    "quote": "A version built with Emergent can show one question per screen and has no response caps.",
+    "issue": "The claims are approved ('conversational', 'no-caps') but missing from claims_used, which lists every ledger id the page relies on.",
+    "fix": "Add 'conversational' and 'no-caps' to claims_used.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "features_subheading",
+    "quote": "These six features put every part in place.",
+    "issue": "Summary sentence that restates the line before it and announces the grid.",
+    "fix": "Cut it, or replace it with a concrete detail about one part.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Six parts, in this order: the venue, the affiant's name and address, numbered facts, the oath, the signature line, and the notary's certificate.",
+    "issue": "The template structure is a recommendation with no domain_sources entry; it reads as a standard.",
+    "fix": "Source the order to a court self-help page, or frame it as the usual layout.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "HUB_RULES 5 asks for the 3 competitors that rank for this query; none of Jotform, Google Forms or Typeform is in the top 10 (QC K7), while Fillout is the one builder that ranks.",
+   "fix": "If Fillout is added to the competitor library with sources, regenerate the table with it in one column.",
+   "by": "wk-r-11",
+   "via": "review",
+   "date": "2026-10-10 00:40 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_3, tab_content_2, faq, image_brief",
+   "issue": "The same sign-in-front-of-the-notary point is restated in four fields with the words swapped.",
+   "fix": "Keep it in feature_3 and FAQ 6; let the other fields say something new.",
+   "by": "wk-r-11",
+   "via": "review",
+   "date": "2026-10-10 00:40 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 6",
+   "field": "faq",
+   "issue": "The claims are approved ('conversational', 'no-caps') but missing from claims_used, which lists every ledger id the page relies on.",
+   "fix": "Add 'conversational' and 'no-caps' to claims_used.",
+   "by": "wk-r-11",
+   "via": "review",
+   "date": "2026-10-10 00:40 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "features_subheading",
+   "issue": "Summary sentence that restates the line before it and announces the grid.",
+   "fix": "Cut it, or replace it with a concrete detail about one part.",
+   "by": "wk-r-11",
+   "via": "review",
+   "date": "2026-10-10 00:40 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "The template structure is a recommendation with no domain_sources entry; it reads as a standard.",
+   "fix": "Source the order to a court self-help page, or frame it as the usual layout.",
+   "by": "wk-r-11",
+   "via": "review",
+   "date": "2026-10-10 00:40 UTC"
+  }
  ]
 }
