@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-10 00:38 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-10 00:40 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -131,7 +131,7 @@ Regenerated 2026-10-10 00:38 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/order-form | 0 | 10/10 | yes, wk-r-9 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/overtime-request-form | 13 | 1/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/parent-consent-form | 7 | 3/10 | no | no | no | 0 | - | no | no | autofix |
-| wk-rework-form | /ai-form-builder/patient-intake-form | 7 | 2/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-form | /ai-form-builder/patient-intake-form | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
 | wk-rework-form | /ai-form-builder/payment-form | 15 | 5/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/payroll-change-form | 10 | 2/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/permanent-makeup-consent-form | 9 | 6/10 | no | no | no | 0 | - | no | no | autofix |
@@ -143,7 +143,7 @@ Regenerated 2026-10-10 00:38 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/project-request-form | 16 | 5/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/proposal-form | 13 | 6/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/pt-intake-form | 5 | 2/10 | no | no | no | 0 | - | no | no | autofix |
-| wk-rework-form | /ai-form-builder/purchase-order-form | 5 | 3/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-form | /ai-form-builder/purchase-order-form | 8 | 9/10 | no | no | no | 0 | - | no | no | writer |
 | wk-rework-form | /ai-form-builder/quote-form | 12 | 6/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/reasonable-accommodation-request-form | 10 | 3/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/reference-check-form | 7 | 3/10 | no | no | no | 0 | - | no | no | autofix |
@@ -211,4 +211,4 @@ Regenerated 2026-10-10 00:38 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-sqb | /ai-survey-and-quiz-builder/onboarding-survey | 0 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/pulse-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
 
-Stages: autofix 110, check2 2, done 21, images 4, payload 35, review 4, stopped 9, writer 2 (187 pages)
+Stages: autofix 110, check 1, check2 2, done 21, images 4, payload 35, review 4, stopped 9, writer 1 (187 pages)
