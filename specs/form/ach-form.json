@@ -133,6 +133,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 00:26 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "wk-r-10",
+   "note": "[truth | HUB_RULES 8] faq: The domain_sources entry for this claim (nacha.org/rules/meaningful-modernization) does not mention the E-Sign Act or reading the terms on screen; the other Nacha source (importance-compliant-ach-authorizations) does not either. A statement of what Nacha accepts needs a so"
   }
  ],
  "plan": {
@@ -829,10 +836,170 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 00:04 UTC"
+  "date": "2026-10-10 00:21 UTC"
  },
  "writers": [
   "w-ach-form",
   "wk-w-ach-form"
+ ],
+ "review": {
+  "by": "wk-r-10",
+  "date": "2026-10-10 00:26 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build an ACH Form That Records Every Authorization\"; hero \"Build an ACH form that puts the debit terms above the signature, sends each payer a copy, and keeps every authorization on file.\" (128 chars); how-to description one sentence, 131 chars"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is blank bank and agency PDFs; page defines the form (FAQ 1), lists the fields (FAQ 3, step 2), who fills it in (FAQ 5), template (FAQ 4), cancel (FAQ 9), receive-payment version (FAQ 10), then the online build"
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "\"rent of $1,850, debited on the 1st of each month\", \"a vendor enrollment form that asks for a taxpayer ID with the bank details\", \"originator, meaning the business that will debit or credit the account\""
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "\"Tenants at Maple Court sign once...\", \"Accounts payable at Northwind Foods sends suppliers one enrollment link.\", \"Debit or credit decides the wording.\"; feature bodies open on verbs (Places, Emails, Passes, Builds, Keeps, Exports)"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q5-Q8 clean; repeated payer-copy idea kept as a note"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "\"A blank PDF collects two numbers and a signature.\", \"Nobody has to dig up the signed record months later and send it over by hand.\""
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "Nacha facts not supported by the cited sources: faq item 6 \"Nacha accepts a consumer debit authorization signed electronically when the signature meets the E-Sign Act and the payer can read the full terms on screen before agreeing.\"; feature_5 \"Nacha has originators keep each one for two years after it ends or is revoked.\" (and its H3 \"Two years of records, kept for you\"); faq item 8 \"Two years past the date it is revoked or otherwise ends, under Nacha rules.\""
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Debit and credit authorization; card forms sent to the credit card authorization sibling (FAQ 7), payroll to direct deposit (FAQ 5)"
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, no brand or file-format asks, hub link in item 2, links to direct deposit form, credit card authorization form, creator application; moat lines in items 4 and 8"
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 \"$1,850.00 monthly\", \"1st of each month\", \"Signed copy sent\"; tab 2 $1,620 + $1,340 + $1,250 = \"$4,210.00\", \"3 invoices paid\"; tab 3 \"8 debits of $1,200.00\" = \"$9,600.00\", 2 paid and \"6 debits left\"; tab 4 \"Direct message to Sam Lee\", \"Dana Ortiz canceled\", \"$59.00 monthly dues\""
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Nacha accepts a consumer debit authorization signed electronically when the signature meets the E-Sign Act and the payer can read the full terms on screen before agreeing.",
+    "issue": "The domain_sources entry for this claim (nacha.org/rules/meaningful-modernization) does not mention the E-Sign Act or reading the terms on screen; the other Nacha source (importance-compliant-ach-authorizations) does not either. A statement of what Nacha accepts needs a source that says it.",
+    "fix": "Replace the source with a Nacha page that states the electronic-authorization requirements (E-Sign compliance and the on-screen display of terms), with the date checked; if none can be found, cut to what the sources support: \"Yes. Nacha requires a consumer debit authorization to be in writing and signed or similarly authenticated, so an online signature step works when the terms sit beside it.\"",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "feature_5",
+    "quote": "Nacha has originators keep each one for two years after it ends or is revoked.",
+    "issue": "The cited source (nacha.org/rules/meaningful-modernization) states the two-year-from-termination retention only for oral authorizations (audio recordings of standing and recurring oral authorizations); the page applies it to every signed authorization. The H3 \"Two years of records, kept for you\" rests on the same claim.",
+    "fix": "Add a Nacha source that states the two-year retention for written and electronic authorizations (and update the domain_sources entry and date); if none is found, drop the Nacha sentence and retitle the feature, e.g. \"Every authorization and cancellation on file\".",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Two years past the date it is revoked or otherwise ends, under Nacha rules.",
+    "issue": "Same unsupported retention claim as feature_5, here as the answer-first sentence of FAQ item 8; the cited source covers oral authorizations only.",
+    "fix": "Fix with the same new Nacha source as feature_5 so the answer can stand; otherwise answer without the Nacha attribution.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_6",
+    "quote": "An engineer can add NACHA file exports for your bank's portal later",
+    "issue": "Feature 4 and tab 2 say approved bills already go into a bank file; feature 6 then implies the bank-portal file is a later add-on, which a finance reader will take as a contradiction.",
+    "fix": "Point feature 6 at a different extension (for example an ERP sync) or say the bank file's format can be changed by prompting.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "howto_step_1_des, faq (items 7 and 10)",
+    "quote": "Most businesses keep the two as separate forms. / Usually. Many businesses title their ACH form a bank authorization form / Brands paying creators often collect one",
+    "issue": "Generalizations about unnamed businesses.",
+    "fix": "State the practice directly (\"Keep the two as separate forms.\").",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "meta_description, hero_description, why_description, feature_2, tab_content_1, howto_step_6_des",
+    "quote": "emails each payer a signed copy / sends each payer a copy / emails the payer a copy / Emails each payer the terms they signed / A signed copy reaches the tenant's inbox / Send it the moment they sign",
+    "issue": "The payer-copy idea is restated in six fields; terms-above-the-signature likewise in hero, feature_1, tab_content_1 and FAQ 6.",
+    "fix": "Keep it in the hero, feature 2 and step 6; let the other fields carry a different detail.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_7_des",
+    "quote": "a disputed debit has to match the version in force on the day it ran",
+    "issue": "Dispute handling stated as a rule without a source; it supports advice, so it ships as a note.",
+    "fix": "Phrase as the reason for the advice (\"so you can show the terms in force on the day of any debit\").",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_6",
+   "issue": "Feature 4 and tab 2 say approved bills already go into a bank file; feature 6 then implies the bank-portal file is a later add-on, which a finance reader will take as a contradiction.",
+   "fix": "Point feature 6 at a different extension (for example an ERP sync) or say the bank file's format can be changed by prompting.",
+   "by": "wk-r-10",
+   "via": "review",
+   "date": "2026-10-10 00:26 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "howto_step_1_des, faq (items 7 and 10)",
+   "issue": "Generalizations about unnamed businesses.",
+   "fix": "State the practice directly (\"Keep the two as separate forms.\").",
+   "by": "wk-r-10",
+   "via": "review",
+   "date": "2026-10-10 00:26 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "meta_description, hero_description, why_description, feature_2, tab_content_1, howto_step_6_des",
+   "issue": "The payer-copy idea is restated in six fields; terms-above-the-signature likewise in hero, feature_1, tab_content_1 and FAQ 6.",
+   "fix": "Keep it in the hero, feature 2 and step 6; let the other fields carry a different detail.",
+   "by": "wk-r-10",
+   "via": "review",
+   "date": "2026-10-10 00:26 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_7_des",
+   "issue": "Dispute handling stated as a rule without a source; it supports advice, so it ships as a note.",
+   "fix": "Phrase as the reason for the advice (\"so you can show the terms in force on the day of any debit\").",
+   "by": "wk-r-10",
+   "via": "review",
+   "date": "2026-10-10 00:26 UTC"
+  }
  ]
 }
