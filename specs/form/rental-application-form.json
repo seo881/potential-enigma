@@ -136,6 +136,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 00:40 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-11",
+   "note": "rubric 10/10 by wk-r-11; 5 notes"
   }
  ],
  "plan": {
@@ -798,7 +805,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 00:07 UTC"
+  "date": "2026-10-10 00:35 UTC"
  },
  "writers": [
   "w-rental-application-form",
@@ -809,5 +816,155 @@
   "Ask every applicant for their two most recent pay stubs as uploads, read the employer and gross pay from each, and show monthly income beside the rent.",
   "When an applicant names a guarantor, email the guarantor a separate link to enter their own income and sign. Keep the application incomplete until they finish.",
   "My rule is monthly income of at least three times the $1,600 rent. Send anyone below it to me for review instead of declining them, in the order they applied."
+ ],
+ "review": {
+  "by": "wk-r-11",
+  "date": "2026-10-10 00:40 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Rental Application Form That Arrives Complete', title 'Rental Application Form: Build It Online Free | Emergent' and hero 'Build a rental application form that takes the screening fee, reads pay stubs, and lists every applicant in a table you own.' cover the whole job; hero under 130 chars; how-to description is one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Serves the PDF/template SERP: what the form includes (FAQ 4), what to leave out (FAQ 5, step 2), state-specific forms and rules for CA and TX (FAQ 3, FAQ 8), templates and PDFs (FAQ 9), fee caps (step 3, FAQ 6), adverse action notice (step 7), plus the builder."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Landlord vocabulary and numbers: '$40 fee goes through Stripe', 'Anyone under three times the rent', 'A household of three earning $60,000 sits under the $72,000 limit', guarantor links at Elm Hall."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Tab, how-to and FAQ paragraphs open on full sentences ('Dana rents out one side of her duplex...', 'The Fair Housing Act bars...'); subjectless feature-body openers logged as a note."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One idea per sentence; QC Q5 clean. Repeated ideas logged as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Precise and calm: 'A downloaded PDF comes back handwritten. Here every application arrives typed, fee paid and pay stubs read.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Legal facts match domain_sources: FHA protected classes (step 2), NY RPL 238-a $20 cap (step 3, FAQ 6), CA Civil Code 1950.6 CPI cap and itemized receipt (step 3, FAQ 3), CA voucher rule (FAQ 3), TX Property Code 92.3515 notice and refund (FAQ 8), FCRA adverse action and 60-day free copy (step 7), HUD income limits by household size (tab 3). Image math checks: 1600 x 3 = 4800, 38,400 + 21,600 = 60,000."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Sibling primaries (tenant screening form, rental agreement form) appear only as FAQ links; rental history and screening are covered as steps of this form, not headlined."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions answered first; no brand or format in a question; hub link in item 2; two sibling links; moat lines in items 3, 7 and 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: '2 pay stubs attached' and '$40 fee paid' (tab 1), 'Rent $1,600', '$4,100' against '$4,800' and 'Never declined' (tab 2), '$60,000 household income' and 'Limit for this size: $72,000' (tab 3), 'Separate link sent by email' and 'File incomplete' (tab 4)."
+   }
+  },
+  "findings": [
+   {
+    "class": "openers",
+    "criterion": "openers",
+    "rule": "CONTENT_DEFECTS #16",
+    "field": "feature_1, feature_2, feature_3, feature_4, feature_5, feature_6",
+    "quote": "feature_1 'Asks for current and past addresses...'; feature_2 'Collects the screening fee at the last step...'; feature_3 'Reads each uploaded pay stub...'; feature_4 'Sends every adult on the application...'; feature_5 'Saves each application as a row...'; feature_6 'Exports the full source to GitHub on paid plans.'",
+    "issue": "All six feature bodies open on a subjectless verb phrase, a fragment rather than a full sentence.",
+    "fix": "Give each a subject ('The form asks...', 'Emergent saves...') or use the imperative.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "faq item 7 'Landlords read them in the order they arrive and hold each one against criteria written down before the listing went up.'; faq item 9 'Most templates open with applicant details and rental history'",
+    "issue": "Generalizations about landlords and templates in general, unsourced; item 7 describes a good practice as what all landlords do.",
+    "fix": "Frame item 7 as advice ('Read them in the order they arrive...') and drop 'Most' in item 9.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_1_des, tab_content_2, faq",
+    "quote": "howto_step_1_des 'put them in writing before the listing goes up. Review applications first come, first served.'; tab_content_2 'applies it to every applicant in the order they arrive'; faq item 7 'read them in the order they arrive and hold each one against criteria written down before the listing went up'",
+    "issue": "Written criteria plus first-come order restated in three fields.",
+    "fix": "Keep it in step 1; give FAQ 7 a different point (verification).",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_3_des, faq",
+    "quote": "howto_step_3_des 'New York caps the screening fee at $20 or the actual cost, whichever is less.'; faq item 6 'In New York it is $20, or the real cost of the report when that comes to less.'",
+    "issue": "The New York fee cap is stated twice.",
+    "fix": "Use a different state's rule in one of them, or cut one.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Jotform ... Google Forms ... Typeform",
+    "issue": "Google Forms and Typeform are not in this page's top 10 (QC K7).",
+    "fix": "Swap in ranking tools once they are in the competitor library.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "openers",
+   "rule": "CONTENT_DEFECTS #16",
+   "field": "feature_1, feature_2, feature_3, feature_4, feature_5, feature_6",
+   "issue": "All six feature bodies open on a subjectless verb phrase, a fragment rather than a full sentence.",
+   "fix": "Give each a subject ('The form asks...', 'Emergent saves...') or use the imperative.",
+   "by": "wk-r-11",
+   "via": "review",
+   "date": "2026-10-10 00:40 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Generalizations about landlords and templates in general, unsourced; item 7 describes a good practice as what all landlords do.",
+   "fix": "Frame item 7 as advice ('Read them in the order they arrive...') and drop 'Most' in item 9.",
+   "by": "wk-r-11",
+   "via": "review",
+   "date": "2026-10-10 00:40 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_1_des, tab_content_2, faq",
+   "issue": "Written criteria plus first-come order restated in three fields.",
+   "fix": "Keep it in step 1; give FAQ 7 a different point (verification).",
+   "by": "wk-r-11",
+   "via": "review",
+   "date": "2026-10-10 00:40 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_3_des, faq",
+   "issue": "The New York fee cap is stated twice.",
+   "fix": "Use a different state's rule in one of them, or cut one.",
+   "by": "wk-r-11",
+   "via": "review",
+   "date": "2026-10-10 00:40 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "Google Forms and Typeform are not in this page's top 10 (QC K7).",
+   "fix": "Swap in ranking tools once they are in the competitor library.",
+   "by": "wk-r-11",
+   "via": "review",
+   "date": "2026-10-10 00:40 UTC"
+  }
  ]
 }
