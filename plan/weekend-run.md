@@ -35,11 +35,11 @@ Next step: run `.venv/bin/python3 ops/weekend.py next` and do what it prints.
 1. **Rework** the written, non-live, non-parked pages to the 2026-10-09/10 rules (batches `plan/batches/wk-rework-<dir>.txt`), hub order LP, Automation, SurveyQuiz, then Form: code autofixes the serial commas (punctuation only); one writer pass replaces PA14/PA15 FAQ items, rewrites the hero and how-to descriptions (D1/D2), adds 2-3 FAQ moat lines (F9), shortens explore CTAs over 34 characters, fixes the remaining A5/A6/C4 flags and writes the 4 chip prompts; then QC 0, gate 10/10, images re-rendered when the brief changed, batch review, one rework.
 2. **New pages** from the planned queues, same hub order (`plan/batches/wk-new-<dir>.txt`). **Canary per hub:** the first 3 new pages of a hub complete the full pipeline, review included, before more of that hub are claimed (`weekend.py next` enforces it; if 2 of the 3 park, the hub is held). **The staging canary happens Monday before anything publishes** (every report says so).
 
-## One session = up to 3 units, then exit
+## One session = up to 3 rounds of `next`, then exit
 
 1. `git status`: if a previous session left uncommitted spec edits, read them; finish that page's step if the edit is complete, otherwise `git checkout -- <spec>` and let `next` hand the page out again.
 2. Check the stop rules: if `~/emergent-hubs/STOP` exists, or the local time (`date`) is between 08:20 and 09:45 (the 09:00 live audit needs a clean tree and no lock), finish the page in hand, commit, tick, and exit.
-3. `.venv/bin/python3 ops/weekend.py next` and do every line it prints (below). Then run `next` again, up to 3 units per session; then `weekend.py tick` and exit with a 3-line summary. Exit codes: 3 = both queues exhausted, 4 = STOP file: tick with `--final` and exit.
+3. `.venv/bin/python3 ops/weekend.py next` and do every line it prints (below), **all in parallel** (up to 4 units across hubs per call: LP, Automation and SurveyQuiz canaries run side by side; Divit 2026-10-10). Then run `next` again, up to 3 rounds per session; then `weekend.py tick` and exit with a 3-line summary. Exit codes: 3 = both queues exhausted, 4 = STOP file: tick with `--final` and exit.
 
 ### What each line means
 
@@ -50,7 +50,7 @@ Next step: run `.venv/bin/python3 ops/weekend.py next` and do what it prints.
   - After each writer returns: rework phase `hubctl ship-done <batch> <url> writer --by <id>` (or `--fail "<rule codes>"`); new page `weekend.py add-new <url> --by <id>` (or `--fail "<rule codes>"`). Then `hubctl usage-log <url> <tokens> --role writer --agent <id>`, `weekend.py commit <url> "writer pass"`, `weekend.py tick`.
 - `REWORK <batch> <url> brief <path>`: the one rework, by a **different** page-writer (id `wk-rw-<slug>`), blocking findings only (the brief lists them); notes never trigger edits. Done at QC 0 and gate 10/10. Then `hubctl ship-done <batch> <url> rework --by <id>`, usage-log, commit, tick. `next` then re-checks, waits for the re-render and runs `hubctl ready`.
 - `REVIEW <batch> <url> ...` (up to 4): one **page-reviewer** subagent for the group, id `wk-r-<n>` (n increasing; never an author of these pages). It reads each page cold (spec, `hubctl pack <url> --role reviewer`, the rendered SVGs in `images/<dir>/<slug>/`), severity from `rules/SEVERITY.md` only, and records each page with `hubctl review <url> <rubric.json> --by <id>` (add `--legacy` on a rework-phase page that already carries an earlier review: DECISIONS 2026-10-08, the batch review replaces it). Then per page `hubctl ship-done <batch> <url> review --by <id>`, `hubctl usage-log <url> <tokens/pages> --role reviewer --agent <id>`, commit, tick.
-- `WAIT-RENDER <slugs>`: pages wait on the render Action (`.github/workflows/render.yml` renders on push and commits the images). Run `.venv/bin/python3 ops/weekend.py wait-render` (pulls every minute, up to 20 minutes; use a 10-minute Bash timeout and run it twice if needed), then `next` again. If still waiting, tick and exit.
+- `WAIT-RENDER <slugs>`: run `.venv/bin/python3 ops/weekend.py render` (renders those pages on this Mac in seconds and commits them; the loop also renders in the background whenever the render queue has pages), then `next` again. Never wait on the render Action.
 - `EXHAUSTED` (exit 3): `weekend.py tick --final`, exit. `STOP` (exit 4): same.
 
 ### Commits and logs

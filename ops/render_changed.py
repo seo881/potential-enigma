@@ -62,7 +62,8 @@ def main(argv):
         s = load(p)
         if not s.get("image_brief"): skipped.append(s["url"]); continue
         if current(s) and "--force" not in argv: skipped.append(s["url"]); print(f"CURRENT {s['url']}"); continue
-        ok = engine.render_spec(p)
+        try: ok = engine.render_spec(p)
+        except Exception as e: print(f"BLOCKED {s['url']}: {type(e).__name__}: {e}"); ok = False   # one bad brief never stops the queue
         if not ok: bad.append(s["url"]); continue
         s = load(p)   # render_spec rewrites the spec's image paths and alt text
         json.dump({"brief_sha256": brief_hash(s), "commit": git("rev-parse", "HEAD").stdout.strip(),

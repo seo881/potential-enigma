@@ -7,7 +7,7 @@
 # NO Webflow tools: the Webflow MCP is not loaded (--strict-mcp-config, DataForSEO only) and every Webflow tool is denied by name.
 # Session limit: sleep to the reset time the message gives, else 20 minutes; limited for 7 continuous hours, a weekly-limit
 # message or any mention of paid/extra usage: stop for good. Waits while another job holds a lock (ops/guards.py held) and
-# keeps 08:20-09:45 local free for the 09:00 live audit (clean tree, no lock).
+# keeps 08:20-09:45 local free for the 09:00 live audit (clean tree, no lock). Renders run locally in the background (render_bg).
 set -u
 REPO="$(cd "$(dirname "$0")/../.." && pwd)"; cd "$REPO" || exit 1
 LOG="$HOME/Library/Logs/emergent-weekend-run.log"; AUDIT_LOG="$HOME/Library/Logs/emergent-live-audit.log"
@@ -88,7 +88,8 @@ wait_for_others() {
     if watch_pending && { [ $wstart -eq 0 ] && wstart=$(date +%s); [ $(( $(date +%s) - wstart )) -lt 2700 ]; }; then
       log "publish watch: a site publish is waiting for its live audit; pausing (up to 45 min)"; sleep 300; continue
     fi
-    if HELD="$("$PY" ops/guards.py held)"; then break; fi
+    HELD="$("$PY" ops/guards.py held)" && break
+    [ "$HELD" = "render" ] && break                      # our own background render: never wait on it
     log "lock held by another job ($HELD): waiting"; sleep 120
   done
   [ "$hm" -ge 945 ] && [ "$hm" -lt 1000 ] && ! audit_ran_today && { log "WARNING: no live audit ran this morning (skipped or late)"; notify "No live audit ran this morning; see ~/Library/Logs/emergent-live-audit.log"; }
@@ -98,13 +99,23 @@ wait_for_others() {
   fi
 }
 
+# Local renders (Divit 2026-10-10): images render on this Mac as soon as a page reaches the images stage, in the background,
+# while writer and review units keep running. Never an idle wait on the render Action.
+RPID=0
+render_bg() {
+  [ $RPID -ne 0 ] && kill -0 $RPID 2>/dev/null && return
+  [ -s "$REPO/status/render-queue.txt" ] || return
+  "$PY" ops/weekend.py render >> "$LOG" 2>&1 & RPID=$!
+  log "local render started in the background (pid $RPID)"
+}
+
 finish() { log "$1"; "$PY" ops/weekend.py tick --final >> "$LOG" 2>&1; notify "$1"; log "weekend run ended"; exit 0; }
 
 echo $$ > "$RUN/pid"
 caffeinate -dimsu -w $$ &
 log "weekend run started (pid $$, caffeinate $!)"
 trap 'log "terminated by signal"; exit 0' TERM INT
-LIMITED_SINCE=0; ERRS=0; IDLE=0; RENDER_WAITS=0; N=0
+LIMITED_SINCE=0; ERRS=0; IDLE=0; RENDER_WAITS=0; N=0; W_LAST=""
 "$PY" ops/weekend.py init >> "$LOG" 2>&1
 
 while :; do
@@ -114,14 +125,20 @@ while :; do
   git pull -q --rebase --autostash origin main >> "$LOG" 2>&1 || log "git pull failed (continuing)"
 
   # Code first: exhausted, stop, or only render waits need no Claude session (no tokens).
+  render_bg
   NEXT="$("$PY" ops/weekend.py next 2>&1)"; NRC=$?
   [ $NRC -eq 3 ] && finish "both queues exhausted: $(echo "$NEXT" | tail -1)"
   [ $NRC -eq 4 ] && finish "STOP file found: stopped cleanly"
   if [ $NRC -ne 0 ]; then log "weekend.py next failed (rc $NRC): $(echo "$NEXT" | tail -3 | tr '\n' ' ')"; ERRS=$((ERRS + 1)); [ $ERRS -ge 6 ] && finish "stopped: weekend.py next failed 6 times running"; sleep 600; continue; fi
   if echo "$NEXT" | head -1 | grep -q '^WAIT-RENDER'; then
-    RENDER_WAITS=$((RENDER_WAITS + 1)); log "only render waits ($(echo "$NEXT" | head -1 | cut -c1-200)); waiting (round $RENDER_WAITS)"
-    [ $RENDER_WAITS -gt 9 ] && finish "stopped: the render Action made no progress for about 3 hours"
-    "$PY" ops/weekend.py wait-render >> "$LOG" 2>&1; continue
+    # Nothing but renders left: render now in the foreground (seconds per page), then ask again. Same list unchanged 30 times: stop.
+    [ $RPID -ne 0 ] && wait $RPID 2>/dev/null; RPID=0
+    "$PY" ops/weekend.py render >> "$LOG" 2>&1
+    W_NOW="$(echo "$NEXT" | head -1)"
+    if [ "$W_NOW" = "${W_LAST:-}" ]; then RENDER_WAITS=$((RENDER_WAITS + 1)); sleep 60; else RENDER_WAITS=0; fi; W_LAST="$W_NOW"
+    log "only render waits ($(echo "$W_NOW" | cut -c1-200)); rendered locally (unchanged round $RENDER_WAITS)"
+    [ $RENDER_WAITS -ge 30 ] && finish "stopped: the same pages stayed unrendered for 30 rounds (blocked briefs?)"
+    continue
   fi
   RENDER_WAITS=0
 
@@ -133,7 +150,7 @@ while :; do
       --output-format text > "$OUT" 2>&1 &
   CPID=$!
   while kill -0 $CPID 2>/dev/null; do
-    sleep 30
+    sleep 30; render_bg
     if [ $(( $(date +%s) - START )) -gt $MAX_ITER_SECS ]; then log "iteration $N over 4 hours: stopping it"; pkill -TERM -P $CPID; kill $CPID 2>/dev/null; fi
   done
   wait $CPID; RC=$?

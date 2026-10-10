@@ -5,7 +5,7 @@ agent work. Plan, rules and position: plan/weekend-run.md. Loop: ops/schedule/we
   weekend.py next                 the next work unit (claims new pages itself, canary per hub); exit 0 work, 3 exhausted, 4 STOP file
   weekend.py add-new URL --by ID [--fail TEXT]   a new page's writer returned: into plan/batches/wk-new-<dir>.txt (ledger at check)
   weekend.py aa URL [--fresh]     AlsoAsked pull for one page within the weekend cap (300 credits, 2 per page) via ops/alsoasked_pull.py
-  weekend.py wait-render [SLUG..] pull until the render Action has made those pages' images current (default: the render queue; max 20 min)
+  weekend.py render [SLUG..]      render queued pages locally now and commit them (default: the render queue); wait-render is an alias
   weekend.py commit URL MESSAGE   commit and push one page (spec, status, batch files) through ops/sync.sh, under a git lock
   weekend.py tick [--final]       park pages stopped twice, readiness board, position in plan/weekend-run.md, a report every 10 pages
   weekend.py credits              AlsoAsked credits used this weekend
@@ -85,39 +85,56 @@ def planned_left(hub):
     st = H.load_st(hub)["pages"]
     return [p for p in H.kmap().values() if p["hub"] == hub and p["status"] == "planned" and p["url"] not in st]
 
+PARALLEL_NEW = ["LP", "Auto", "SurveyQuiz"]   # Divit 2026-10-10: canaries for these 3 hubs at once (9 pages); Form new pages only when they are idle
+MAX_UNITS = 4                                 # writer/review units handed out per next, across hubs
+
+def new_units(hub, waits, holds):
+    """New-page units for one hub, claiming its canary (or the next step) when allowed. Canary rule per hub: no 4th page until
+    the first 3 are through review (TERMINAL stage)."""
+    W = load(); mine = W["new"].setdefault(hub, []); bf = bfile("new", hub)
+    L = ship_quiet(bf) if os.path.exists(bf) and S.batch_urls(bf) else {"pages": {}}
+    unwritten = [u for u in mine if u not in L["pages"] and H.load_st(hub)["pages"].get(u, {}).get("state") in ("claimed", "spec", None)]
+    out = [f"WRITE-NEW {u}" for u in unwritten[:4]] + (unit(hub, bf, L, waits) if L["pages"] else [])
+    if out: return out
+    stage = lambda u: (L["pages"].get(u) or {}).get("stage", "writer")
+    inflight = [u for u in mine if stage(u) not in TERMINAL]
+    if len(mine) < CANARY: n = CANARY - len(mine)
+    elif any(stage(u) not in TERMINAL for u in mine[:CANARY]): holds[hub] = "canary: first 3 new pages not through review yet"; return []
+    elif sum(stage(u) == "stopped" for u in mine[:CANARY]) >= 2: holds[hub] = "canary failed: 2 of the first 3 new pages parked; no more claims for this hub"; return []
+    elif len(inflight) >= INFLIGHT_MAX: return []
+    else: n = CLAIM_STEP
+    if not planned_left(hub): return []
+    r = subprocess.run([sys.executable, os.path.join(ROOT, "ops", "hubctl.py"), "claim", hub, str(n), "--by", "weekend"], cwd=ROOT, capture_output=True, text=True)
+    got = re.findall(r"^claimed #\S+\s+(\S+)", r.stdout, re.M)
+    if not got: holds[hub] = f"claim failed: {(r.stdout + r.stderr).strip()[-200:]}"; return []
+    W = load(); W["new"].setdefault(hub, []).extend(got); save(W)
+    sync(f"weekend: claim {len(got)} new {hub} page(s)", ["status/"])
+    return [f"WRITE-NEW {u}" for u in got]
+
 def cmd_next(args):
     if os.path.exists(STOP): print("STOP: ~/emergent-hubs/STOP exists; finish nothing new, exit"); sys.exit(4)
-    W = load(); out = []; waits = []; holds = {}
-    # 1. rework phase, hub order; a hub whose pages only wait on renders lets the next hub go
+    W = load(); waits = []; holds = {}; lanes = []   # one lane per hub and phase; units are dealt round-robin so every hub stays busy
+    # 1. rework phase, every hub
     for hub in ORDER:
         bf = bfile("rework", hub)
         if not os.path.exists(bf) or not S.batch_urls(bf): continue
-        L = ship_quiet(bf); out += unit(hub, bf, L, waits)
-        if out: break
-    # 2. new pages once no rework page is actionable (rework pages may still wait on a render), canary per hub
-    if not out and W.get("block_new"): holds["new pages"] = W["block_new"]
-    elif not out:
-        for hub in ORDER:
-            W = load(); mine = W["new"].setdefault(hub, []); bf = bfile("new", hub)
-            L = ship_quiet(bf) if os.path.exists(bf) and S.batch_urls(bf) else {"pages": {}}
-            unwritten = [u for u in mine if u not in L["pages"] and H.load_st(hub)["pages"].get(u, {}).get("state") in ("claimed", "spec", None)]
-            out += [f"WRITE-NEW {u}" for u in unwritten[:4]]
-            out += unit(hub, bf, L, waits) if L["pages"] else []
-            if out: break
-            stage = lambda u: (L["pages"].get(u) or {}).get("stage", "writer")
-            inflight = [u for u in mine if stage(u) not in TERMINAL]
-            if len(mine) < CANARY: n = CANARY - len(mine)
-            elif any(stage(u) not in TERMINAL for u in mine[:CANARY]): holds[hub] = "canary: first 3 new pages not through review yet"; continue
-            elif sum(stage(u) == "stopped" for u in mine[:CANARY]) >= 2: holds[hub] = "canary failed: 2 of the first 3 new pages parked; no more claims for this hub"; continue
-            elif len(inflight) >= INFLIGHT_MAX: continue
-            else: n = CLAIM_STEP
-            if not planned_left(hub): continue
-            r = subprocess.run([sys.executable, os.path.join(ROOT, "ops", "hubctl.py"), "claim", hub, str(n), "--by", "weekend"], cwd=ROOT, capture_output=True, text=True)
-            got = re.findall(r"^claimed #\S+\s+(\S+)", r.stdout, re.M)
-            if not got: holds[hub] = f"claim failed: {(r.stdout + r.stderr).strip()[-200:]}"; continue
-            W = load(); W["new"].setdefault(hub, []).extend(got); save(W)
-            sync(f"weekend: claim {len(got)} new {hub} page(s)", ["status/"])
-            out += [f"WRITE-NEW {u}" for u in got]; break
+        u_ = unit(hub, bf, ship_quiet(bf), waits)
+        if u_: lanes.append(u_)
+    # 2. new pages, canary per hub; LP, Automation and SurveyQuiz in parallel, Form only when those three have nothing to do
+    if W.get("block_new"): holds["new pages"] = W["block_new"]
+    else:
+        par = [u_ for u_ in (new_units(h, waits, holds) for h in PARALLEL_NEW) if u_]
+        lanes += par
+        if not par:
+            for h in [h for h in ORDER if h not in PARALLEL_NEW]:
+                u_ = new_units(h, waits, holds)
+                if u_: lanes.append(u_)
+    out = []
+    while lanes and len(out) < MAX_UNITS:
+        for l in list(lanes):
+            if len(out) >= MAX_UNITS: break
+            out.append(l.pop(0))
+            if not l: lanes.remove(l)
     W = load(); W["holds"] = holds; save(W)
     if out:
         print("\n".join(out)); sync("weekend: ship ledgers, autofix, render queue", ["status/", "plan/batches/", "specs/"]); return
@@ -175,18 +192,22 @@ def cmd_aa(args):
     cmd = [sys.executable, os.path.join(ROOT, "ops", "alsoasked_pull.py"), s, primary, "--depth", "2"] + (["--fresh"] if "--fresh" in args else [])
     sys.exit(subprocess.call(cmd, cwd=ROOT))
 
-def cmd_wait_render(args):
+def cmd_render(args):
+    """Render queued pages on this Mac now (no wait on the Action; Divit 2026-10-10), then commit only those pages' images and specs."""
     import render_changed as RC
-    q = os.path.join(ROOT, "status", "render-queue.txt")
-    if args: slugs = list(args)
-    else: slugs = [l.strip() for l in open(q) if l.strip()] if os.path.exists(q) else []
-    urls = {slug(u): u for u in G.all_status()}
-    end = time.time() + 20 * 60; left = list(slugs)
-    while left and time.time() < end:
-        with G.lock("git"): subprocess.run(["git", "pull", "-q", "--rebase", "--autostash", "origin", "main"], cwd=ROOT, capture_output=True)
-        left = [s for s in left if s in urls and not RC.current(dict(json.load(open(H.spath(urls[s]))), _path=H.spath(urls[s])))]
-        if left: time.sleep(60)
-    print(f"rendered {len(slugs) - len(left)} of {len(slugs)}" + (f"; still waiting: {' '.join(left)}" if left else ""))
+    with G.lock("render"):
+        q = os.path.join(ROOT, "status", "render-queue.txt")
+        slugs = list(args) or ([l.strip() for l in open(q) if l.strip() and not l.startswith("#")] if os.path.exists(q) else [])
+        urls = {slug(u): u for u in G.all_status()}
+        todo = [s_ for s_ in slugs if s_ in urls and not RC.current(dict(json.load(open(H.spath(urls[s_]))), _path=H.spath(urls[s_])))]
+        if not todo: print(f"rendered 0 of {len(slugs)}; all current"); return
+        r = subprocess.run([sys.executable, os.path.join(ROOT, "ops", "render_changed.py"), "--pages", ",".join(todo), "--no-commit"], cwd=ROOT, capture_output=True, text=True)
+        print((r.stdout + r.stderr).strip()[-1500:])
+        paths = ["status/render-queue.txt"]
+        for s_ in todo:
+            sp = H.spath(urls[s_]); paths += [os.path.relpath(sp, ROOT), os.path.relpath(RC.render_dir(dict(json.load(open(sp)), _path=sp)), ROOT)]
+        sync(f"weekend: render {len(todo)} page(s) locally", [p for p in paths if os.path.exists(os.path.join(ROOT, p))])
+cmd_wait_render = cmd_render   # old name kept for sessions that still call it: it renders now instead of waiting
 
 def cmd_commit(args):
     url, msg = args[0], args[1]
@@ -282,7 +303,7 @@ def cmd_unblock_new(args):
     W = load(); W.pop("block_new", None); save(W); print("new-page phase released")
     sync("weekend: new-page phase released", ["status/weekend-run.json"])
 
-CMDS = {"block-new": cmd_block_new, "unblock-new": cmd_unblock_new, "init": cmd_init, "next": cmd_next, "add-new": cmd_add_new, "aa": cmd_aa, "wait-render": cmd_wait_render,
+CMDS = {"block-new": cmd_block_new, "unblock-new": cmd_unblock_new, "init": cmd_init, "next": cmd_next, "add-new": cmd_add_new, "aa": cmd_aa, "wait-render": cmd_wait_render, "render": cmd_render,
         "commit": cmd_commit, "tick": cmd_tick, "credits": cmd_credits}
 if __name__ == "__main__":
     os.chdir(ROOT)
