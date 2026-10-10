@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-10 12:23 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-10 12:25 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -56,7 +56,7 @@ Regenerated 2026-10-10 12:23 UTC by `hubctl readiness` (also after every `hubctl
 | wk-new-aab | /ai-automation-builder/incident-response-automation | 0 | 10/10 | yes, wk-r-20 | yes | no | 0 | - | no | no | payload |
 | wk-new-aab | /ai-automation-builder/procurement-automation | 0 | 10/10 | yes, wk-r-20 | yes | no | 0 | - | no | no | payload |
 | wk-new-aab | /ai-automation-builder/report-automation | 0 | 10/10 | no | yes | no | 0 | - | no | no | check |
-| wk-new-lp | /ai-landing-page-builder/affiliate-landing-page | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
+| wk-new-lp | /ai-landing-page-builder/affiliate-landing-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | check |
 | wk-new-lp | /ai-landing-page-builder/ebook-landing-page | 0 | 10/10 | yes, wk-r-19 | yes | no | 0 | - | no | no | payload |
 | wk-new-lp | /ai-landing-page-builder/mobile-landing-page | 0 | 10/10 | yes, wk-r-19 | yes | no | 0 | - | no | no | payload |
 | wk-new-lp | /ai-landing-page-builder/sales-funnel-landing-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | check |
