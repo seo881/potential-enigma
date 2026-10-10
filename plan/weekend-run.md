@@ -5,7 +5,7 @@ Every headless session of the weekend run starts here (prompt: "Continue the wee
 ## Current position
 
 <!-- position:start (written by ops/weekend.py tick; do not edit by hand) -->
-Updated 2026-10-10 04:32 UTC. Started 2026-10-09T21:40:27+00:00.
+Updated 2026-10-10 04:33 UTC. Started 2026-10-09T21:40:27+00:00.
 
 | Phase | Hub | Pages | Stages |
 |---|---|---|---|
@@ -16,7 +16,7 @@ Updated 2026-10-10 04:32 UTC. Started 2026-10-09T21:40:27+00:00.
 
 New pages claimed this weekend: none.
 Holds: none.
-AlsoAsked credits this weekend: 10 of 300. Reports written: 5.
+AlsoAsked credits this weekend: 12 of 300. Reports written: 5.
 Next step: run `.venv/bin/python3 ops/weekend.py next` and do what it prints.
 <!-- position:end -->
 
