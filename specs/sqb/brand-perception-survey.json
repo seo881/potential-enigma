@@ -120,6 +120,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 11:15 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "wk-r-21",
+   "note": "[truth | HUB_RULES 8] meta_description: The search snippet says all four studies rate the brand against rivals every quarter and flag drops. Only tab 1 (Northwind Bank) does. Tab 2 is a one-off pack test comparing the current bag with the redesign, with no rivals (\"Before the new bag ships, 300 dog "
   }
  ],
  "plan": {
@@ -864,9 +871,189 @@
  },
  "qc_passed": {
   "rules_version": "b9bdd5846b24",
-  "date": "2026-10-10 10:23 UTC"
+  "date": "2026-10-10 11:10 UTC"
  },
  "writers": [
   "wk-n-brand-perception-survey"
+ ],
+ "review": {
+  "by": "wk-r-21",
+  "date": "2026-10-10 11:15 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Brand Perception Survey You Can Track Over Time\", meta title \"Brand Perception Survey Questions and Template | Emergent\" and hero \"Build a brand perception survey that rates you against rivals each quarter and keeps every answer in a database you own.\" cover the whole job; how-to description one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Question-bank intent met in FAQ 4 (\"the first word that comes to mind, agreement with attribute statements, and a comparison with named rivals\"), template in FAQ 7, examples in FAQ 8, and a 7-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary and real numbers: \"\\\"Fees are fair\\\" fell to 3.2 from 3.9 while both rivals held steady\"; \"A score of 3.8 means little alone. Next to a rival's 4.3, it tells you where you lose ground\"."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on full sentences (\"Rate the brand on four to six statements\", \"Ask the same statements\", \"Set the drop that matters\"); tabs open on what happens (\"Each quarter, 400 adults...\")."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One idea per sentence: \"Each statement you add costs three more ratings. Keep only those a decision depends on.\" Craft items recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Reads operator-written: \"Old bag or new bag, never both\"; \"the recruiting lead rewrote the rejection email first\"."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "meta_description: \"four studies that rate your brand against rivals each quarter and flag any drop\" is true of tab 1 only; tabs 2-4 contradict it."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Owns how people rate a brand they know (attribute statements, rival scores, word themes); awareness topics stay on the sibling. Cross-page formula reuse is a note."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, no brand or file-format asks, hub link in item 2, sibling links in items 4 and 8; FAQ 6 answers first: \"Yes. Pick the two or three that buyers weigh against you\"."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Each tab matches its copy: \"Fees are fair 3.9 3.2 -0.7\", \"Premium 61/95, Natural 87/66\", \"Pricey theme: 148 of 520\" (212+148+96+64=520), \"Hired 4.6 / Turned down 3.1, 118 answers\"; one hero each, text readable."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "meta_description",
+    "quote": "four studies that rate your brand against rivals each quarter and flag any drop",
+    "issue": "The search snippet says all four studies rate the brand against rivals every quarter and flag drops. Only tab 1 (Northwind Bank) does. Tab 2 is a one-off pack test comparing the current bag with the redesign, with no rivals (\"Before the new bag ships, 300 dog owners each see one design only\"). Tab 3 counts first-word themes monthly for Ledgerline, with no rivals (\"This month, 148 of 520 answers landed in that theme\"). Tab 4 compares hires with turned-down candidates, with no rivals and no alert (\"the 118 people turned down averaged 3.1 against 4.6 for the 62 hires\"). No other field repeats the claim (hero, hero_prompt and H1 describe the survey you build, which is accurate).",
+    "fix": "Describe what the page actually shows, 110-160 chars, e.g. \"Brand perception survey questions, a template, and four studies: a quarterly rival tracker, a pack redesign test, word themes, and candidate ratings.\"",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "faq, howto_step_6_des, feature_4",
+    "quote": "A wave of 400 split across four regions leaves about 100 per region, thin for a score you mean to act on.",
+    "issue": "Two thresholds for a thin segment: FAQ 10 calls 100 answers thin, while howto_step_6_des says \"Treat any segment with fewer than 50 answers as directional\" and feature_4 says \"segments under 50 answers are marked thin\". A reader is left unsure whether 50 to 100 answers is enough to act on.",
+    "fix": "Align the advice: either keep 50 as the line everywhere or explain that 50 is the floor for showing a segment and 100 the floor for acting on it.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "Sales figures show what people buy.",
+    "issue": "Answers that do not lead with the answer: FAQ 3 opens on sales figures and answers the purpose question in sentence 2; FAQ 5 (\"Count the attribute statements first, since each one repeats for every rival.\") gives a method but no number until the worked example.",
+    "fix": "Lead FAQ 3 with what the survey is for; lead FAQ 5 with a count, e.g. \"About 15 to 20 ratings, plus a screener and the open question.\"",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "faq",
+    "quote": "which leaves sample size a fieldwork call, never a plan limit",
+    "issue": "FAQ 10's moat line ends on a tacked-on \", which leaves...\" clause with a slogan-like \"X, never Y\" turn.",
+    "fix": "\"Emergent puts no cap on responses, so the plan never limits the sample.\"",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_6_des, faq",
+    "quote": "Treat any segment with fewer than 50 answers as directional",
+    "issue": "Recommendations with no domain source: howto_step_6_des threshold of 50; FAQ 9 \"Quarterly works for a brand that changes prices or campaigns often, and twice a year is enough in a slower category.\"",
+    "fix": "Optional: add a source for the segment floor.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "feature_6, why_description, features_subheading",
+    "quote": "Export the whole survey app to your GitHub repository on paid plans, then keep changing it with a prompt.",
+    "issue": "Templated shapes shared with brand-awareness-survey: feature_6 near-identical to its \"Export the whole survey app to your GitHub repository on paid plans, then change it with a prompt.\"; why_description \"Theme rules and alert thresholds are code you can read. Change them with a prompt...\" follows its \"Question order and alert margins are code you can read and change with a prompt\"; features_subheading \"Each piece keeps...\" matches the \"Each one/Each piece\" opener on both siblings.",
+    "fix": "Vary feature 6 and the why line per page (HUB_RULES 5).",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Interact (quiz specialist)",
+    "issue": "QC K7: Interact does not rank for this query; the SurveyQuiz library has only three general survey tools (Qualtrics, Attest, QuestionPro, Delighted rank here).",
+    "fix": "Coordinator: add a ranking survey tool to the library, then rebuild the table.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "faq, howto_step_6_des, feature_4",
+   "issue": "Two thresholds for a thin segment: FAQ 10 calls 100 answers thin, while howto_step_6_des says \"Treat any segment with fewer than 50 answers as directional\" and feature_4 says \"segments under 50 answers are marked thin\". A reader is left unsure whether 50 to 100 answers is enough to act on.",
+   "fix": "Align the advice: either keep 50 as the line everywhere or explain that 50 is the floor for showing a segment and 100 the floor for acting on it.",
+   "by": "wk-r-21",
+   "via": "review",
+   "date": "2026-10-10 11:15 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "Answers that do not lead with the answer: FAQ 3 opens on sales figures and answers the purpose question in sentence 2; FAQ 5 (\"Count the attribute statements first, since each one repeats for every rival.\") gives a method but no number until the worked example.",
+   "fix": "Lead FAQ 3 with what the survey is for; lead FAQ 5 with a count, e.g. \"About 15 to 20 ratings, plus a screener and the open question.\"",
+   "by": "wk-r-21",
+   "via": "review",
+   "date": "2026-10-10 11:15 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "faq",
+   "issue": "FAQ 10's moat line ends on a tacked-on \", which leaves...\" clause with a slogan-like \"X, never Y\" turn.",
+   "fix": "\"Emergent puts no cap on responses, so the plan never limits the sample.\"",
+   "by": "wk-r-21",
+   "via": "review",
+   "date": "2026-10-10 11:15 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_6_des, faq",
+   "issue": "Recommendations with no domain source: howto_step_6_des threshold of 50; FAQ 9 \"Quarterly works for a brand that changes prices or campaigns often, and twice a year is enough in a slower category.\"",
+   "fix": "Optional: add a source for the segment floor.",
+   "by": "wk-r-21",
+   "via": "review",
+   "date": "2026-10-10 11:15 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "feature_6, why_description, features_subheading",
+   "issue": "Templated shapes shared with brand-awareness-survey: feature_6 near-identical to its \"Export the whole survey app to your GitHub repository on paid plans, then change it with a prompt.\"; why_description \"Theme rules and alert thresholds are code you can read. Change them with a prompt...\" follows its \"Question order and alert margins are code you can read and change with a prompt\"; features_subheading \"Each piece keeps...\" matches the \"Each one/Each piece\" opener on both siblings.",
+   "fix": "Vary feature 6 and the why line per page (HUB_RULES 5).",
+   "by": "wk-r-21",
+   "via": "review",
+   "date": "2026-10-10 11:15 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: Interact does not rank for this query; the SurveyQuiz library has only three general survey tools (Qualtrics, Attest, QuestionPro, Delighted rank here).",
+   "fix": "Coordinator: add a ranking survey tool to the library, then rebuild the table.",
+   "by": "wk-r-21",
+   "via": "review",
+   "date": "2026-10-10 11:15 UTC"
+  }
  ]
 }
