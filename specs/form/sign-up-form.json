@@ -140,6 +140,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 00:40 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-11",
+   "note": "rubric 10/10 by wk-r-11; 5 notes"
   }
  ],
  "plan": {
@@ -752,10 +759,160 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 00:18 UTC"
+  "date": "2026-10-10 00:35 UTC"
  },
  "writers": [
   "w-sign-up-form",
   "wk-w-sign-up-form"
+ ],
+ "review": {
+  "by": "wk-r-11",
+  "date": "2026-10-10 00:40 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Sign up Form for Any List You Run', title 'Free Sign Up Form Builder With Slot Limits | Emergent' and hero 'Build a sign up form that closes each slot once it fills and keeps every sign-up in a database you own.' cover the whole job; hero under 130 chars; how-to description is one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Transactional builder SERP (SignUpGenius, Jotform, Typeform, Google Forms): the page builds slot caps, double opt-in, rosters and syncs, answers the hyphen question (FAQ 3), free-plan limits (FAQ 7) and templates (FAQ 6), with a seven-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Concrete detail: 'six people for each Saturday shift', 'reminder email at 6:00 PM the evening before', 'Desserts stop at four', 'A team of 50 or more is also posted to the sales channel in Slack'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Eastside Pantry needs six people...', 'Set a limit for each choice on the form.', 'A volunteer shift and a newsletter need different records.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One idea per sentence; QC Q5 clean."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator voice: 'A clipboard sheet reaches only whoever walks past it, and nobody on it gets a reminder.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Hyphen usage (FAQ 3) and free-plan monthly caps (FAQ 7) match domain_sources and the vetted table; Emergent claims (prompt-build, api-connect, alerts, no-caps, free-start, custom-domain, code-export) are in claims_used."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Sibling primaries (sign in form, registration form) appear only as FAQ links; the sign in vs sign up item answers this page's secondary; tabs are four different list types."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions answered first; no brand or format in a question; hub link in item 2; two sibling links; moat lines in items 5, 6 and 7."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy on names and numbers: '6 of 6 spots taken' and '6:00 PM the evening before' (tab 1), 'Unconfirmed after 7 days: deleted' and 'Tagged on her HubSpot contact' (tab 2), 'Desserts 4 of 4 Full' (tab 3), 'Team of 120' and 'Teams of 50 or more ... sales in Slack' (tab 4). Fictional names follow CONTENT_DEFECTS #23's allowed list."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief tab 1, tab 3; tab_content_1; tab_content_3; feature_1",
+    "quote": "tab 1 form still lists 'Morning shift / Full' beside the hero 'Removed from the form' (copy: 'that shift drops off the form'); tab 3 copy 'The next parent sees desserts marked full' while the image says 'Desserts hidden' and feature_1 says 'the form shows only the options with room left'",
+    "issue": "The page uses 'hidden' and 'shown as full' for the same state; the tab 1 form draws the full shift that the hero says was removed. The outcome (no one can take it) agrees.",
+    "fix": "Drop the morning-shift row from the tab 1 form (or retitle the hero 'Morning shift closed'), and say 'desserts no longer offered' in tab 3.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2",
+    "field": "h1, features_heading, why_title, usecase_heading, howto_title, faq heading",
+    "quote": "h1 'Build a Sign up Form for Any List You Run'; features_heading 'Where Sign up Forms Usually Break'; why_title 'Why Build Sign up Forms With Emergent?'; usecase_heading 'Sign up Forms for Four Different Crowds'; howto_title 'How to Create a Sign up Form'; faq heading 'Sign up Form Questions, Answered'",
+    "issue": "HUB_RULES 2 lowercases only articles, coordinating conjunctions and short prepositions; 'up' here is a verb particle, and meta title, product name, breadcrumb and CTA write 'Sign Up', so the casing is inconsistent across the page.",
+    "fix": "Write 'Sign Up' in every Title Case field (QC's small-word list treats 'up' as a preposition; worth a rule check).",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "features_subheading",
+    "quote": "Most sign-up trouble starts after the link goes out. Each piece below closes one gap, like nine people on a six-person shift.",
+    "issue": "Soft 'Most' opener and an announcing sentence about the grid.",
+    "fix": "Lead with the nine-on-a-six-person-shift example itself.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "faq item 1 'Most sign up forms ask for a name and an email'; faq item 3 'many sites write signup form as one word'",
+    "issue": "Generalizations about no named third party.",
+    "fix": "Drop the quantifiers or state them as advice.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "feature_6, howto_step_7_des, faq",
+    "quote": "feature_6 'or place the form inside a site you run'; howto_step_7_des 'or embed the form on a page your group visits'; faq item 5 'Paste its embed code'",
+    "issue": "Embedding is buildable but has no explicit ledger entry; worth confirming with Divit before it recurs across pages.",
+    "fix": "Keep if Divit approves an embed claim; otherwise say 'link to it from a page your group visits'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief tab 1, tab 3; tab_content_1; tab_content_3; feature_1",
+   "issue": "The page uses 'hidden' and 'shown as full' for the same state; the tab 1 form draws the full shift that the hero says was removed. The outcome (no one can take it) agrees.",
+   "fix": "Drop the morning-shift row from the tab 1 form (or retitle the hero 'Morning shift closed'), and say 'desserts no longer offered' in tab 3.",
+   "by": "wk-r-11",
+   "via": "review",
+   "date": "2026-10-10 00:40 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2",
+   "field": "h1, features_heading, why_title, usecase_heading, howto_title, faq heading",
+   "issue": "HUB_RULES 2 lowercases only articles, coordinating conjunctions and short prepositions; 'up' here is a verb particle, and meta title, product name, breadcrumb and CTA write 'Sign Up', so the casing is inconsistent across the page.",
+   "fix": "Write 'Sign Up' in every Title Case field (QC's small-word list treats 'up' as a preposition; worth a rule check).",
+   "by": "wk-r-11",
+   "via": "review",
+   "date": "2026-10-10 00:40 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "features_subheading",
+   "issue": "Soft 'Most' opener and an announcing sentence about the grid.",
+   "fix": "Lead with the nine-on-a-six-person-shift example itself.",
+   "by": "wk-r-11",
+   "via": "review",
+   "date": "2026-10-10 00:40 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Generalizations about no named third party.",
+   "fix": "Drop the quantifiers or state them as advice.",
+   "by": "wk-r-11",
+   "via": "review",
+   "date": "2026-10-10 00:40 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 6",
+   "field": "feature_6, howto_step_7_des, faq",
+   "issue": "Embedding is buildable but has no explicit ledger entry; worth confirming with Divit before it recurs across pages.",
+   "fix": "Keep if Divit approves an embed claim; otherwise say 'link to it from a page your group visits'.",
+   "by": "wk-r-11",
+   "via": "review",
+   "date": "2026-10-10 00:40 UTC"
+  }
  ]
 }
