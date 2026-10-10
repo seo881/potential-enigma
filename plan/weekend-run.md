@@ -5,7 +5,7 @@ Every headless session of the weekend run starts here (prompt: "Continue the wee
 ## Current position
 
 <!-- position:start (written by ops/weekend.py tick; do not edit by hand) -->
-Updated 2026-10-10 10:13 UTC. Started 2026-10-09T21:40:27+00:00.
+Updated 2026-10-10 10:15 UTC. Started 2026-10-09T21:40:27+00:00.
 
 | Phase | Hub | Pages | Stages |
 |---|---|---|---|
@@ -16,7 +16,7 @@ Updated 2026-10-10 10:13 UTC. Started 2026-10-09T21:40:27+00:00.
 
 New pages claimed this weekend: Auto 3, LP 3, SurveyQuiz 3.
 Holds: new pages: AlsoAsked key not available to the headless loop (ALSOASKED_API_KEY unset in weekend_run.sh env); needs Divit to export it from the keychain (2026-10-10 09:55 UTC).
-AlsoAsked credits this weekend: 20 of 300. Reports written: 14.
+AlsoAsked credits this weekend: 20 of 300. Reports written: 15.
 Next step: run `.venv/bin/python3 ops/weekend.py next` and do what it prints.
 <!-- position:end -->
 
