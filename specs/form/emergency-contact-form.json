@@ -132,6 +132,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 01:05 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-13",
+   "note": "rubric 10/10 by wk-r-13; 4 notes"
   }
  ],
  "plan": {
@@ -805,7 +812,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 00:49 UTC"
+  "date": "2026-10-10 01:01 UTC"
  },
  "writers": [
   "w-emergency-contact-form",
@@ -816,5 +823,135 @@
   "Add an optional section to my emergency contact form for allergies and medications, and let only HR open it.",
   "Email each person a link once a year to confirm their emergency contacts, and give me a list of anyone who has not replied after 7 days.",
   "Give my shift supervisors a phone lookup: search a name and see both emergency contacts with numbers they can tap to call."
+ ],
+ "review": {
+  "by": "wk-r-13",
+  "date": "2026-10-10 01:05 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build an Emergency Contact Form That Stays Current\" and hero \"Create an emergency contact form that holds a second number for every person and asks once a year whether it still works.\" (under 130 chars, primary, leads with Create); how-to description is one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition (FAQ 1), what to include (FAQ 10), who to list and relationship (FAQ 4), free template (FAQ 3), a 7-step how-to specific to the form (backup with a different number, medical notes apart, yearly confirm date), plus a comparison table, which covers what the template and PDF top 10 offer."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Operator detail throughout: \"The form will not submit until the backup has a different phone number\", \"Cabin 4 has three campers with no backup listed\", \"The front desk calls anyone with no reply in 7 days\"."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs (\"Require a second person\", \"Offer spouse, partner\", \"Collect allergies\", \"Email each person\", \"Search a name\", \"Export the full codebase\"); tabs open on full sentences (\"Granite Freight hires forklift drivers\", \"Six days before arrival\")."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; short sentences carrying one idea, e.g. \"This one holds someone else's.\""
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "\"A spouse and a sibling across town cover more of the day than two people in one house.\" Calm and specific; repeated nouns noted below."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "ADA separate-medical-file line in FAQ 6 matches the EEOC source in domain_sources; Emergent lines map to prompt-build, database-owned, alerts, api-connect, code-export, free-start; GitHub export stated as paid plans."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No sibling primary in a heading; FAQ 5 separates it from the employee information form (\"This one holds someone else's\"); four non-HR tabs (daycare, senior living, camp) keep it apart from HR siblings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic items, no brand or file format in a question, hub link in item 2, sibling links in items 5 and 10, answer-first, Emergent lines in items 3, 8 and 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "uc-1 backup \"Same as primary\", \"Needs a different phone number\", \"Separate file, HR only\"; uc-2 Ellen Brooks grandmother plus peanut allergy on the Toddler Room card; uc-3 Room 214 \"14 months ago\", \"No reply in 7 days\"; uc-4 Cabin 4 12 campers, 9 backups, 3 missing, \"Arrival in 6 days\"."
+   }
+  },
+  "findings": [
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq item 10; faq item 4; faq item 1",
+    "quote": "HR teams often collect it during onboarding / A spouse or parent is the usual pick / usually with a backup",
+    "issue": "Soft quantifiers about no named third party, unsourced.",
+    "fix": "State as advice or drop the quantifier, e.g. \"Collect it during onboarding alongside the direct deposit form.\"",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 3",
+    "quote": "Yes, though a template only helps if it asks for the right things",
+    "issue": "The answer says yes to a free template but offers a field list and the builder instead of a template.",
+    "fix": "Open on what the reader gets: \"A usable template has five fields: ...\" then the Emergent line.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page (outside FAQ)",
+    "quote": "backup (10x), call (10x), phone (10x)",
+    "issue": "QC Q9: the same three nouns carry most sentences outside the FAQ.",
+    "fix": "Vary where it does not change meaning (second contact, number, reach).",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Jotform / Google Forms / Typeform",
+    "issue": "QC K7: none of the three ranks in this page's top 10 (SurveyMonkey, Fillout, Omella do).",
+    "fix": "If the library adds SurveyMonkey or Fillout, regenerate the table with them.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq item 10; faq item 4; faq item 1",
+   "issue": "Soft quantifiers about no named third party, unsourced.",
+   "fix": "State as advice or drop the quantifier, e.g. \"Collect it during onboarding alongside the direct deposit form.\"",
+   "by": "wk-r-13",
+   "via": "review",
+   "date": "2026-10-10 01:05 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 3",
+   "issue": "The answer says yes to a free template but offers a field list and the builder instead of a template.",
+   "fix": "Open on what the reader gets: \"A usable template has five fields: ...\" then the Emergent line.",
+   "by": "wk-r-13",
+   "via": "review",
+   "date": "2026-10-10 01:05 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page (outside FAQ)",
+   "issue": "QC Q9: the same three nouns carry most sentences outside the FAQ.",
+   "fix": "Vary where it does not change meaning (second contact, number, reach).",
+   "by": "wk-r-13",
+   "via": "review",
+   "date": "2026-10-10 01:05 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: none of the three ranks in this page's top 10 (SurveyMonkey, Fillout, Omella do).",
+   "fix": "If the library adds SurveyMonkey or Fillout, regenerate the table with them.",
+   "by": "wk-r-13",
+   "via": "review",
+   "date": "2026-10-10 01:05 UTC"
+  }
  ]
 }
