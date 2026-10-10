@@ -135,6 +135,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 10:07 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "wk-r-16",
+   "note": "[truth | HUB_RULES 8] why_description: A statement of fact about a named third-party product with no domain_sources entry; the Microsoft gallery source says only that expense report templates exist, and current Excel can place pictures in cells, so the claim is contestable as written. -> Drop the cl"
   }
  ],
  "table": {
@@ -911,11 +918,201 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 04:23 UTC"
+  "rules_version": "b9bdd5846b24",
+  "date": "2026-10-10 10:05 UTC"
  },
  "writers": [
   "w-expense-report-form",
   "wk-w-expense-report-form"
+ ],
+ "review": {
+  "by": "wk-r-16",
+  "date": "2026-10-10 10:07 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Expense Report Form That Checks Its Own Math'; hero 'Create an expense report form that fills each line from a receipt photo and routes the report to an approver.' (under 130 chars, primary, leads with Create). How-to description is one sentence under 140 chars: 'Seven steps to turn your expense policy into an expense report form that checks caps and receipts, then build it with Emergent.' Explore CTA 28 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "AMBER template SERP: FAQ 1 and 4 say what the form holds, FAQ 6 and 7 answer where to find samples and free templates (sourced to Smartsheet and 1800accountant), and the how-to starts from the written policy, chart of accounts and receipt threshold."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Finance vocabulary: 'Copy the expense accounts from your chart of accounts', 'a grant code on each line', 'subtracts the advance and shows $117.25 to return to the office', 'one crumpled receipt and one line over a cap'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Tabs open on full sentences ('After a day of client visits, a Northwind Supply rep photographs three receipts', 'Lakeview Youth Arts runs its programs on two grants', 'Brightline Agency caps client meals at $75 a person', 'Foremen at Acme Builders draw a $500 cash advance'); feature bodies open on verbs."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; five lists without the serial comma are recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete detail: 'The parking stub is faded, and the app asks her to confirm it', 'She types the pitch it was for', '$312.00 of mural paint to the Arts Grant'."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "Unsourced statements about a named third-party product (Excel) with no matching domain_sources entry: why_description 'An Excel template holds the numbers but not the receipts.'; faq item 7 'An expense report form in Excel has no approval step of its own, and the receipts live in another folder.' The only Excel source (Microsoft's template gallery) supports only that the gallery includes expense report templates."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Travel and mileage claims are left to their siblings; purchases needing pre-approval are handed to the requisition form sibling in FAQ 4; no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "Exactly 10 on-topic questions, none naming a brand or asking for a file format; hub link in item 2; three exact-match links (direct deposit form, requisition form, accounts payable automation); moat lines in items 7 ('free to start ... a database you own'), 9 ('no cap on how many claims') and 10 ('no per-seat pricing')."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: one hero per tab, readable; $86.40 + $24.00 + $139.60 = $250.00 with 'Faded stub: confirm amount' and 'Sent to her manager'; 'Maya: $456.50' = $312.00 + $144.50 with Theo's uncoded line blocking submit; '$340.00' dinner for 4 = '$85 a person, over the cap', total $1,128.90 in #expense-approvals; $500.00 - $382.75 = '$117.25 to return', 'Synced to QuickBooks'."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "why_description",
+    "quote": "An Excel template holds the numbers but not the receipts.",
+    "issue": "A statement of fact about a named third-party product with no domain_sources entry; the Microsoft gallery source says only that expense report templates exist, and current Excel can place pictures in cells, so the claim is contestable as written.",
+    "fix": "Drop the claim about what Excel can hold and say what this form does instead (e.g. 'Each line carries its receipt photo, and the total is checked before the report reaches an approver.'), or add a primary source that states it.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "An expense report form in Excel has no approval step of its own, and the receipts live in another folder.",
+    "issue": "Item 7 states a fact about Excel's capabilities with no matching domain_sources entry (same class as the why_description finding; fix both together).",
+    "fix": "Rewrite around what the reader gets, e.g. 'A spreadsheet template suits a few reports a year.', then keep the Emergent sentence; or source the Excel statement.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "features_subheading",
+    "quote": "A template still needs someone to type every receipt and re-add the column.",
+    "issue": "Unnamed templates, so not blocking, but the sourced Excel and Smartsheet templates total their columns with formulas; 're-add the column' overstates. Worth checking during the rework of the Excel lines.",
+    "fix": "e.g. 'A template still needs someone to type every receipt and attach the photos separately.'",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_1",
+    "quote": "an $86.40 client lunch, $24.00 for parking and $139.60 in sample kits",
+    "issue": "Three-item list without the serial comma; other lists on the page carry it ('the form, a table of every report, and the approval step').",
+    "fix": "$24.00 for parking, and $139.60 in sample kits",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq",
+    "quote": "Each line gives a date, category, description and amount, backed by a receipt.",
+    "issue": "Four-item list (item 1) without the serial comma.",
+    "fix": "description, and amount",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_1_des",
+    "quote": "Note the categories, the cap on each and who signs off.",
+    "issue": "Three-item list without the serial comma.",
+    "fix": "the cap on each, and who signs off",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "mockup",
+    "quote": "snap a receipt and fill the date, merchant and amount into a new line",
+    "issue": "fieldSalesReps prompt: three-item list without the serial comma (chip prompt 1 has it: 'the date, merchant, and amount').",
+    "fix": "the date, merchant, and amount",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "mockup",
+    "quote": "categories for client meals, stock assets and shoot props",
+    "issue": "creativeAgencies prompt: three-item list without the serial comma.",
+    "fix": "stock assets, and shoot props",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "features_subheading",
+   "issue": "Unnamed templates, so not blocking, but the sourced Excel and Smartsheet templates total their columns with formulas; 're-add the column' overstates. Worth checking during the rework of the Excel lines.",
+   "fix": "e.g. 'A template still needs someone to type every receipt and attach the photos separately.'",
+   "by": "wk-r-16",
+   "via": "review",
+   "date": "2026-10-10 10:07 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_1",
+   "issue": "Three-item list without the serial comma; other lists on the page carry it ('the form, a table of every report, and the approval step').",
+   "fix": "$24.00 for parking, and $139.60 in sample kits",
+   "by": "wk-r-16",
+   "via": "review",
+   "date": "2026-10-10 10:07 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq",
+   "issue": "Four-item list (item 1) without the serial comma.",
+   "fix": "description, and amount",
+   "by": "wk-r-16",
+   "via": "review",
+   "date": "2026-10-10 10:07 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_1_des",
+   "issue": "Three-item list without the serial comma.",
+   "fix": "the cap on each, and who signs off",
+   "by": "wk-r-16",
+   "via": "review",
+   "date": "2026-10-10 10:07 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "mockup",
+   "issue": "fieldSalesReps prompt: three-item list without the serial comma (chip prompt 1 has it: 'the date, merchant, and amount').",
+   "fix": "the date, merchant, and amount",
+   "by": "wk-r-16",
+   "via": "review",
+   "date": "2026-10-10 10:07 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "mockup",
+   "issue": "creativeAgencies prompt: three-item list without the serial comma.",
+   "fix": "stock assets, and shoot props",
+   "by": "wk-r-16",
+   "via": "review",
+   "date": "2026-10-10 10:07 UTC"
+  }
  ]
 }
