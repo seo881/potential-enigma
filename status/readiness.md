@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-10 00:31 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-10 00:32 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -90,7 +90,7 @@ Regenerated 2026-10-10 00:31 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/drug-test-consent-form | 8 | 2/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/emergency-contact-form | 9 | 2/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/employee-availability-form | 8 | 3/10 | no | no | no | 0 | - | no | no | autofix |
-| wk-rework-form | /ai-form-builder/employee-evaluation-form | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
+| wk-rework-form | /ai-form-builder/employee-evaluation-form | 0 | 10/10 | yes, wk-r-10 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/employee-feedback-form | 11 | 1/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/employee-referral-form | 7 | 2/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/employment-verification-letter | 0 | 10/10 | yes, wk-r-8 | yes | no | 0 | - | no | no | payload |
@@ -211,4 +211,4 @@ Regenerated 2026-10-10 00:31 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-sqb | /ai-survey-and-quiz-builder/onboarding-survey | 0 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/pulse-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
 
-Stages: autofix 112, check 4, done 21, images 2, payload 33, review 4, rework 2, stopped 9 (187 pages)
+Stages: autofix 112, check 4, done 21, images 2, payload 34, review 3, rework 2, stopped 9 (187 pages)
