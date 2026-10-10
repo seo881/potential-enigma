@@ -117,6 +117,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 11:14 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-20",
+   "note": "rubric 10/10 by wk-r-20; 5 notes"
   }
  ],
  "plan": {
@@ -891,9 +898,159 @@
  },
  "qc_passed": {
   "rules_version": "b9bdd5846b24",
-  "date": "2026-10-10 10:26 UTC"
+  "date": "2026-10-10 11:10 UTC"
  },
  "writers": [
   "wk-n-procurement-automation"
+ ],
+ "review": {
+  "by": "wk-r-20",
+  "date": "2026-10-10 11:14 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Procurement Automation Around How Your Team Buys', meta title 'Procurement Automation Built Around Your Policy | Emergent', hero 'Build procurement automation that routes each purchase request by category and flags spend that skips your contracts.' (117 chars); how-to description one 119-char sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Explainer SERP served: definition (FAQ 1), AI role (FAQ 3), digital procurement (FAQ 4), system vs automation (FAQ 5), how to choose software (FAQ 7), procure-to-pay stages (FAQ 8), direct vs indirect (FAQ 9), 7-step how-to and four worked processes."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary: 'Facilities requires three quotes on anything over $10,000', 'four boxes of pipette tips at $38.50 a box', 'Brightwell Office holds the furniture contract at $455'. Table column is the hub default (noted)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Full-sentence openers: 'Priya Nair in marketing writes that her team needs 12 more seats...', 'Each Monday the app checks last week's company card spend...'; feature bodies open on full clauses ('Staff describe what they need in a sentence.')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One idea per sentence, varied length: 'Nothing sits in a shared procurement inbox.' 'Catalog orders under $500 need no approval, and PO-3107 goes to Cedar Lab Supply as soon as he submits.' QC Q5 clean."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail: 'a supplier that missed two delivery dates still needs a person', 'renewals nobody tracks', 'the vague ones written in a hurry'."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "P2P stages, three-way match, digital procurement, procurement system and direct vs indirect all match domain_sources; numbers agree: 12 x $180 = $2,160, 4 x $38.50 = $154, $640 - $455 = $185, $12,850 lowest of three."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Request intake, three-quote rule, catalog buying and off-contract card spend; PO lifecycle and three-way matching handed to purchase order automation and accounts payable automation by link; no sibling primary in headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic items answered first-sentence ('No. Digital procurement is the wider shift...'); hub link in item 2; links purchase order automation, approval workflow, accounts payable automation; F9 lines in items 6 and 7; no brand in questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Briefs match copy: tab 1 'Design tool, 12 seats', '$2,160', 'To Tom Becker'; tab 2 three quotes $14,200 / $12,850 / $13,400, 'Globex Climate', 'For Marcus Lee'; tab 3 'PO-3107 sent', '$154.00'; tab 4 '$640 chair, off contract', 'Contract price: $455', '$185', Rosa Mendez. Northwind/Globex/Initech are allowed per CONTENT_DEFECTS #23. One hero each; I1/I4 pass."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page (13 lists, QC Q8)",
+    "quote": "meta_description 'purchase requests, vendor quotes, and spend checks'; feature_1 'a category, an amount, and a cost center'; hero_prompt 'purchase requests, supplier quotes, and catalog orders'; faq 2 'thresholds, approvers, and contracted suppliers'; faq 4 'sourcing, purchasing, contracts, and invoice handling'; faq 5 'suppliers, requisitions, purchase orders, and contract terms'; faq 7 'intake, approval routing, and a weekly spend check'; faq 10 'negotiating with suppliers, planning each category, and settling cases'",
+    "issue": "Thirteen 'A, B, and C' lists on one page (QC Q8 flags over 8); the triplet rhythm repeats enough to read templated. Tab 2's three suppliers and three prices are natural and can stay.",
+    "fix": "Turn four or five of these into pairs or one specific (e.g. meta 'for purchase requests and contract spend checks').",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2a",
+    "field": "meta_description, features_subheading, tab_content_4, mockup requestIntake, faq item 6",
+    "quote": "'vendor quotes' / 'the order a vendor fills' / 'the contracted vendor list' / 'every vendor is checked' / 'vendor records' vs 'supplier quotes', 'contracted suppliers', 'approved list'",
+    "issue": "Vendor and supplier alternate for the same party (HUB_RULES 2a: same term for the same thing).",
+    "fix": "Pick 'supplier' (the body's term) and use it everywhere.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "faq item 7 / claims_used",
+    "quote": "approvers are never billed as seats",
+    "issue": "The sentence rests on the approved 'no-caps' claim (no per-approver seats), but claims_used does not list no-caps.",
+    "fix": "Add 'no-caps' to claims_used.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #1",
+    "field": "faq item 4",
+    "quote": "Turning an approved request into a supplier order is the job of purchase order automation.",
+    "issue": "The page itself issues orders (faq 2 'issues each purchase order', feature_4 'can go out as a PO at once', tab 3 'PO-3107 goes to Cedar Lab Supply'), so handing that job wholly to the sibling reads slightly at odds with the page.",
+    "fix": "'The full purchase order lifecycle, from issue to change orders and receipt, is covered under purchase order automation.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Zapier ... Make (Integromat) ... n8n ... Workflow + trigger form + database + dashboard, as code you own",
+    "issue": "None of the three competitors ranks in this page's top 10 (procurement suites such as Procurify, Precoro, Ivalua; QC K7), and the Emergent 'What you get' cell is the hub default (CONTENT_DEFECTS #3 shape).",
+    "fix": "Coordinator: add a procurement-software category to rules/competitors with sources and regenerate with a procurement variant.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page (13 lists, QC Q8)",
+   "issue": "Thirteen 'A, B, and C' lists on one page (QC Q8 flags over 8); the triplet rhythm repeats enough to read templated. Tab 2's three suppliers and three prices are natural and can stay.",
+   "fix": "Turn four or five of these into pairs or one specific (e.g. meta 'for purchase requests and contract spend checks').",
+   "by": "wk-r-20",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "meta_description, features_subheading, tab_content_4, mockup requestIntake, faq item 6",
+   "issue": "Vendor and supplier alternate for the same party (HUB_RULES 2a: same term for the same thing).",
+   "fix": "Pick 'supplier' (the body's term) and use it everywhere.",
+   "by": "wk-r-20",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 6",
+   "field": "faq item 7 / claims_used",
+   "issue": "The sentence rests on the approved 'no-caps' claim (no per-approver seats), but claims_used does not list no-caps.",
+   "fix": "Add 'no-caps' to claims_used.",
+   "by": "wk-r-20",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #1",
+   "field": "faq item 4",
+   "issue": "The page itself issues orders (faq 2 'issues each purchase order', feature_4 'can go out as a PO at once', tab 3 'PO-3107 goes to Cedar Lab Supply'), so handing that job wholly to the sibling reads slightly at odds with the page.",
+   "fix": "'The full purchase order lifecycle, from issue to change orders and receipt, is covered under purchase order automation.'",
+   "by": "wk-r-20",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "None of the three competitors ranks in this page's top 10 (procurement suites such as Procurify, Precoro, Ivalua; QC K7), and the Emergent 'What you get' cell is the hub default (CONTENT_DEFECTS #3 shape).",
+   "fix": "Coordinator: add a procurement-software category to rules/competitors with sources and regenerate with a procurement variant.",
+   "by": "wk-r-20",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  }
  ]
 }
