@@ -1,0 +1,803 @@
+{
+ "url": "/ai-automation-builder/incident-response-automation",
+ "hub": "Auto",
+ "item_id": null,
+ "status": "spec",
+ "written_by": "wk-n-incident-response-automation",
+ "keywords": {
+  "primary": "incident response automation",
+  "secondaries_used": [
+   "automated incident response",
+   "incident response workflow"
+  ]
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Incident Response Automation for Security and IT | Emergent",
+  "meta_description": "Describe your playbooks and Emergent builds incident response automation for phishing reports and on-call paging. Free to start.",
+  "h1": "Build Incident Response Automation Around Your Playbooks",
+  "slug": "incident-response-automation",
+  "product_name": "Incident Response Automation Builder",
+  "hero_description": "Build incident response automation that groups alerts, pages on-call, and waits for approval before any containment step.",
+  "breadcrumb": "Incident Response Automation",
+  "category": "a33cd4fb124ec86a130809893b2b3896",
+  "explore_cta": "Build My Incident Response App",
+  "features_heading": "What Runs the Moment an Alert Fires",
+  "features_subheading": "Routine checks and paging run on their own, and every step that changes a system waits for a person to approve it.",
+  "feature_1": "<h3>Related alerts grouped into one incident</h3><p>Groups alerts from your monitoring and security tools by host, user, or service. The on-call engineer opens one incident with every related alert attached, not forty pages.</p>",
+  "feature_2": "<h3>Severity set by rules you write</h3><p>Assigns severity from rules your team writes, such as Sev 1 for a customer-facing outage and Sev 3 for one failed backup. Each level carries its own paging path and response target.</p>",
+  "feature_3": "<h3>Pages that escalate on a timer</h3><p>Pages the primary on-call engineer in Slack and by email, then starts a timer. If nobody acknowledges inside your window, the page moves to the secondary, then the team lead.</p>",
+  "feature_4": "<h3>Indicators checked before anyone looks</h3><p>Looks up each indicator as the alert arrives, including the sender domain's age and the link's reputation in your threat feed. The analyst opens the case with answers ready.</p>",
+  "feature_5": "<h3>Containment held for a person's yes</h3><p>Prepares the containment step, such as revoking sessions or purging an email, and sends it to the analyst with an approve button. Nothing on a live system changes before then.</p>",
+  "feature_6": "<h3>Playbooks you keep as code</h3><p>Exports your rules and integrations as readable code to your GitHub repository on paid plans. Every incident, with its timeline and approvals, sits in a database your team owns.</p>",
+  "why_title": "Why Build Incident Playbooks With Emergent?",
+  "why_description": "Emergent turns your playbooks into an app with its own database, runs through alert floods with no task cap, and exports the code.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Zapier</th>\n        <th scope=\"col\">Make (Integromat)</th>\n        <th scope=\"col\">n8n</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you set it up</th>\n        <td class=\"col-brand\">Prompt for the workflow and the app around it</td>\n        <td class=\"col-other\">Templates and editor, AI copilot</td>\n        <td class=\"col-other\">Visual canvas</td>\n        <td class=\"col-other\">Visual canvas, self-hosted or cloud</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">What you get</th>\n        <td class=\"col-brand\">Workflow + trigger form + database + dashboard, as code you own</td>\n        <td class=\"col-other\">Zaps, plus Tables and Interfaces inside Zapier</td>\n        <td class=\"col-other\">Scenarios inside Make</td>\n        <td class=\"col-other\">Workflows inside n8n</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Behavior at cap</th>\n        <td class=\"col-brand\">Keeps running, no task cap</td>\n        <td class=\"col-other\">Overage billed at up to 1.25× the base rate</td>\n        <td class=\"col-other\">Runs pause</td>\n        <td class=\"col-other\">Cloud workflows stop until the reset or an upgrade</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">AI and agent steps</th>\n        <td class=\"col-brand\">Native, share the same credit pool</td>\n        <td class=\"col-other\">Priced by model tier, drawn from the task pool</td>\n        <td class=\"col-other\">AI modules cost variable credits</td>\n        <td class=\"col-other\">Bring your own model API key, billed by the provider</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">Yes on Community Edition</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "Playbooks Security and IT Teams Run First",
+  "tab_label_1": "Phishing Triage",
+  "tab_label_2": "Suspicious Sign-In",
+  "tab_label_3": "Outage Escalation",
+  "tab_label_4": "Incident Review",
+  "tab_content_1": "<h3>Fourteen phishing reports collapse into one incident</h3><p>Employees forward suspicious mail to a report address. When 14 reports of the same fake invoice land within 20 minutes, the app files them under INC-2291 and checks the sender domain against your threat feed. Dana Okafor on the security desk gets one request: purge the message from every inbox.</p>",
+  "tab_content_2": "<h3>Sessions stay open until an analyst approves</h3><p>Your identity provider flags a sign-in for Ben Carter from Lisbon, 38 minutes after his last one from Denver. The app pulls his 10 most recent sign-ins. Leah Novak, the analyst on call, gets a direct message with one button: revoke his sessions and require a new password. Nothing changes until she clicks.</p>",
+  "tab_content_3": "<h3>No acknowledgment in 5 minutes pages the backup</h3><p>Failed checkouts climb past 40 a minute and stay there for 3 minutes. The app opens INC-0412 as Sev 1, starts a Slack channel for it, and pages Chris Doyle, the primary on-call engineer. Five minutes pass without an acknowledgment, and the page moves to Aisha Grant, the secondary, with the error graph attached.</p>",
+  "tab_content_4": "<h3>The review opens with its timeline already built</h3><p>INC-0412 closes at 3:20 PM, and the app builds the review from alert events and channel messages. The timeline shows detection at 2:02 PM, acknowledgment at 2:09 PM, and mitigation at 2:41 PM, 39 minutes after the first alert. Three action items go to named owners, each open on the review board until it is done.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { phishingTriage: \"Build a phishing triage app for my security team. Employees forward suspicious emails to a report address. Group reports of the same message into one incident, check the sender domain against our threat feed, and ask the analyst on duty in Slack to approve purging it from every inbox. Log each report, check, and decision on the incident.\", suspiciousSignIn: \"When our identity provider flags a sign-in from a new country soon after one from somewhere else, pull the user's 10 most recent sign-ins and registered devices. Send the on-call analyst a direct message with a button to revoke the user's sessions and require a new password. Change nothing until the analyst approves, and record who clicked.\", outageEscalation: \"Build on-call paging for my IT team. When failed checkouts stay above 40 a minute for 3 minutes, open a Sev 1 incident with its own Slack channel and page the primary on-call engineer. If nobody acknowledges within 5 minutes, page the secondary with the error graph attached. Show every open incident and who holds it.\", incidentReview: \"After an incident closes, build the review for my team from the alert events and the incident channel. Show a timeline with detection, acknowledgment, mitigation, and close times, and the minutes from detection to mitigation. Let us add action items with an owner and a due date, and keep each one open on a review board until it is done.\" };</p>",
+  "howto_title": "How to Automate Incident Response",
+  "howto_description": "Seven steps to set up incident response automation that pages the right person and holds risky actions for an analyst's approval.",
+  "howto_step_1_title": "01 Pick the incident you handle most",
+  "howto_step_2_title": "02 Write the playbook in plain steps",
+  "howto_step_3_title": "03 Set severity and paging rules",
+  "howto_step_4_title": "04 Connect the tools that raise alerts",
+  "howto_step_1_des": "Pull the last 90 days of alerts and tickets and sort them by type. Choose the type that comes up most often and follows the same steps every time. That becomes the first playbook, and the others wait until it works.",
+  "howto_step_2_des": "Brief the playbook the way you would brief a new analyst. Say what sets it off and who decides at each step. Emergent builds the automation from those sentences. Spell out every point where a person has to choose before anything changes.",
+  "howto_step_3_des": "Define what separates a Sev 1 from a Sev 2, and who gets paged at each level. Set how long a page can go unacknowledged before it escalates, and name a secondary for every rotation to cover nights and holidays.",
+  "howto_step_4_des": "Connect your monitoring service and identity provider through their APIs, along with the email security tool. Each alert should carry the fields the playbook reads, such as the host and the user. Add your chat tool so incident channels and approvals sit where responders work.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Incident Response Questions, Answered\", \"items\": [{\"q\": \"What is incident response automation?\", \"a\": \"Incident response automation is software that carries out the repeatable parts of handling a security or IT incident. It groups alerts, gathers context, pages the on-call engineer, and runs containment steps once a person approves them. Every action gets a timestamp, which gives the post-incident review a complete record.\"}, {\"q\": \"How do you build automated incident response for a small team?\", \"a\": \"Start with one playbook your team already runs by hand, written as plain steps that name the trigger and who approves what. Describe it to Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>, connect your alert sources and chat tool, and replay a month of past alerts before it handles live ones.\"}, {\"q\": \"What are the benefits of automated incident response?\", \"a\": \"The first gain is time: lookups and the page start the moment an alert arrives, not when someone happens to notice it. The second is consistency, since every phishing report gets the same checks in the same order. The third is a record, with each step logged against its owner and time.\"}, {\"q\": \"What are the steps in an incident response workflow?\", \"a\": \"NIST's 2012 guide, SP 800-61 Revision 2, named four phases: preparation; detection and analysis; containment, eradication, and recovery; and post-incident activity. Revision 3 replaced it in April 2025 and ties response to the Cybersecurity Framework 2.0. The four phases still map an incident response workflow well, and the closing write-up suits <a href='https://emergent.sh/ai-automation-builder/document-automation'>document automation</a>.\"}, {\"q\": \"Which parts of an incident response workflow are safe to automate?\", \"a\": \"Steps that only read data are the safest, such as looking up indicators or grouping duplicate alerts. Paging people and opening tickets are low risk too. Steps that change a system, like disabling an account or blocking a domain, are better held for a person's approval. Treat that hold like any <a href='https://emergent.sh/ai-automation-builder/approval-workflow'>approval workflow</a>, with a named approver and a backup.\"}, {\"q\": \"What are the risks of automated incident response?\", \"a\": \"The biggest is a containment step firing on a false positive, such as locking out an executive who is traveling. Playbooks also go stale as tools and teams change. On platforms that bill per task, a flood of alerts can run up the bill. Apps built on Emergent have no task cap, and a burst of 500 alerts runs through the same playbook.\"}, {\"q\": \"What is the difference between automated incident response and security orchestration?\", \"a\": \"Security orchestration connects tools and passes data between them. Automation then runs the repeatable steps a person used to do by hand. SOAR platforms combine both for security teams. Automated incident response is the result either way: alerts handled by a playbook, whether that playbook runs on SOAR software or in an app your team builds.\"}, {\"q\": \"What are examples of automated incident response playbooks?\", \"a\": \"Malware containment isolates a laptop through the endpoint tool once an analyst approves. Leaked credential response forces a password reset for every account on the list. Certificate expiry checks open a ticket 30 days before a certificate lapses. Each one starts from a trigger and ends in an action someone can audit later.\"}, {\"q\": \"What metrics should you track in an incident response workflow?\", \"a\": \"Track mean time to acknowledge and mean time to resolve for each severity level, plus the share of alerts that turned out to be real incidents. Take the numbers from the incident record, not from memory. When the playbooks run on Emergent, every timestamp sits in a database you own, and the dashboard lives in the same app.\"}, {\"q\": \"What tools are used for automated incident response?\", \"a\": \"The tools fall into four layers. Monitoring services and SIEM tools raise alerts, a paging tool such as PagerDuty reaches people, and a chat tool hosts the incident channel. The fourth layer runs the steps: SOAR software or an app built for your team. Chores outside incidents, like on-call schedule swaps, are ordinary <a href='https://emergent.sh/ai-automation-builder/task-automation'>task automation</a>.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Decide what waits for a person",
+  "howto_step_5_des": "Mark which steps run unattended and which wait for approval. Lookups and grouping can run on their own. Disabling an account or isolating a laptop should wait for an analyst's click, with the evidence shown beside the button.",
+  "howto_step_6_title": "06 Replay last quarter's alerts",
+  "howto_step_6_des": "Feed last quarter's alerts through the automation before it touches live systems. Check that every one grouped correctly, reached the right person, and stopped at the approval step. Adjust the playbook by prompting wherever one went wrong, and replay until the set comes back clean.",
+  "howto_step_7_title": "07 Turn on one playbook first",
+  "howto_step_7_des": "Go live with the playbook you tested most and watch a month of real incidents. Compare time to acknowledge and time to mitigate with the numbers from your replay, then switch on the next one.",
+  "prompt_chip_1": "Alert Triage",
+  "prompt_chip_2": "Approval Gates",
+  "prompt_chip_3": "On-Call Paging",
+  "prompt_chip_4": "Incident Timelines",
+  "hero_prompt": "<p>Build incident response automation for my security team's phishing reports, suspicious sign-ins, and on-call paging.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/aab/incident-response-automation/uc-1.svg",
+   "alt": "Fourteen employee reports of the same fake invoice email are filed under one incident, and the security analyst is asked to approve purging it from every inbox."
+  },
+  "tab_image_2": {
+   "path": "images/aab/incident-response-automation/uc-2.svg",
+   "alt": "A sign-in from Lisbon 38 minutes after one from Denver is flagged among an employee's last 10 sign-ins, and the on-call analyst gets a direct message to revoke his sessions."
+  },
+  "tab_image_3": {
+   "path": "images/aab/incident-response-automation/uc-3.svg",
+   "alt": "A Sev 1 checkout incident pages the primary engineer, and after 5 minutes without an acknowledgment the page moves to the secondary with the error graph attached."
+  },
+  "tab_image_4": {
+   "path": "images/aab/incident-response-automation/uc-4.svg",
+   "alt": "An incident review shows a timeline from detection at 2:02 PM to mitigation at 2:41 PM, 39 minutes, and three action items assigned to named owners."
+  },
+  "cover_image": {
+   "path": "images/aab/incident-response-automation/cover.svg",
+   "alt": "Incident response automation: a direct message asking a security analyst to approve purging a fake invoice email reported 14 times"
+  },
+  "share_image": {
+   "path": "images/aab/incident-response-automation/og.webp",
+   "alt": "Build incident response automation around your playbooks, with Emergent"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-10 10:36 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-10 10:46 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "wk-n-incident-response-automation",
+   "note": ""
+  }
+ ],
+ "plan": {
+  "angle": "All ten results are SOAR and detection vendors explaining the concept in general terms. This page shows four playbooks a lean security or IT team actually runs, drawn as working screens: a phishing burst grouped into one incident and purged on an analyst approval, a suspicious sign-in held for one click before sessions are revoked, an outage page that escalates when nobody acknowledges, and a review timeline built from the incident record. The lifecycle (NIST), SOAR versus automation, and metrics are answered in the FAQ.",
+  "tab_stories": [
+   "Fourteen employees report the same fake invoice email within 20 minutes; the app folds the reports into INC-2291, checks the sender domain against the team threat feed, and asks the analyst on the security desk to approve purging it from every inbox.",
+   "A sign-in for one employee arrives from Lisbon 38 minutes after one from Denver; the app gathers his last 10 sign-ins and his devices, then direct-messages the on-call analyst a button to revoke his sessions, and nothing changes until she clicks.",
+   "Checkout errors stay above 5% for 3 minutes, the app opens a Sev 1 with its own channel and pages the primary engineer, and with no acknowledgment after 5 minutes the page moves to the secondary.",
+   "When the checkout incident closes, the app assembles the review timeline from alert events and channel messages, showing 39 minutes from detection to mitigation, and assigns three action items to named owners."
+  ],
+  "openers": [
+   "Employees forward anything suspicious to a report address",
+   "Your identity provider flags a sign-in for Ben Carter",
+   "Checkout errors climb past 5%",
+   "INC-0412 closes at 15:20",
+   "Pull the last 90 days of alerts and tickets",
+   "Brief the playbook the way you would brief a new analyst",
+   "Feed last quarter alerts through each playbook"
+  ],
+  "heading_shapes": [
+   "Fourteen phishing reports collapse into one incident",
+   "Sessions stay open until an analyst approves",
+   "No acknowledgment in 5 minutes pages the backup",
+   "The review opens with its timeline already built"
+  ],
+  "claims_to_source": [
+   "NIST SP 800-61 Revision 2 described four incident response phases: preparation; detection and analysis; containment, eradication, and recovery; and post-incident activity",
+   "NIST SP 800-61 Revision 3, published April 2025, superseded Revision 2 and ties incident response to the Cybersecurity Framework 2.0",
+   "Security orchestration connects tools and passes data between them, while security automation runs repeatable steps that replace manual work; SOAR platforms combine them",
+   "An escalation policy notifies one level at a time and moves to the next level when no one acknowledges before the escalation timeout",
+   "Mean time to acknowledge measures how long a team takes to acknowledge an incident; mean time to resolve measures how long it takes to fully resolve it",
+   "A blameless postmortem records the impact, timeline, contributing causes, and follow-up action items without blaming a person",
+   "Identity providers flag atypical travel: sign-ins from distant locations in a time frame that makes real travel unlikely"
+  ]
+ },
+ "table": {
+  "vs": [
+   "Zapier",
+   "Make (Integromat)",
+   "n8n"
+  ],
+  "rows": [
+   "build=How you set it up",
+   "output",
+   "cap",
+   "ai",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "domain_sources": [
+  {
+   "claim": "NIST SP 800-61 Revision 2 described four incident response phases: preparation; detection and analysis; containment, eradication, and recovery; and post-incident activity",
+   "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r2.pdf",
+   "date": "2026-10-10"
+  },
+  {
+   "claim": "NIST SP 800-61 Revision 3, published April 2025, superseded Revision 2 and ties incident response to the Cybersecurity Framework 2.0",
+   "source_url": "https://csrc.nist.gov/pubs/sp/800/61/r3/final",
+   "date": "2026-10-10"
+  },
+  {
+   "claim": "Security orchestration connects tools and passes data between them, while security automation runs repeatable steps that replace manual work; SOAR platforms combine them",
+   "source_url": "https://www.techtarget.com/searchsecurity/definition/SOAR",
+   "date": "2026-10-10"
+  },
+  {
+   "claim": "An escalation policy notifies one level at a time and moves to the next level when no one acknowledges before the escalation timeout",
+   "source_url": "https://support.pagerduty.com/docs/escalation-policies",
+   "date": "2026-10-10"
+  },
+  {
+   "claim": "Mean time to acknowledge measures how long a team takes to acknowledge an incident; mean time to resolve measures how long it takes to fully resolve it",
+   "source_url": "https://www.atlassian.com/incident-management/kpis/common-metrics",
+   "date": "2026-10-10"
+  },
+  {
+   "claim": "A blameless postmortem records the impact, timeline, contributing causes, and follow-up action items without blaming a person",
+   "source_url": "https://sre.google/sre-book/postmortem-culture/",
+   "date": "2026-10-10"
+  },
+  {
+   "claim": "Identity providers flag atypical travel: sign-ins from distant locations in a time frame that makes real travel unlikely",
+   "source_url": "https://learn.microsoft.com/en-us/entra/id-protection/concept-identity-protection-risks",
+   "date": "2026-10-10"
+  }
+ ],
+ "faq_sources": [
+  {
+   "q": "What is incident response automation?",
+   "source": "definition",
+   "ref": "incident response automation"
+  },
+  {
+   "q": "How do you build automated incident response for a small team?",
+   "source": "secondary",
+   "ref": "automated incident response"
+  },
+  {
+   "q": "What are the benefits of automated incident response?",
+   "source": "secondary",
+   "ref": "automated incident response"
+  },
+  {
+   "q": "What are the steps in an incident response workflow?",
+   "source": "secondary",
+   "ref": "incident response workflow"
+  },
+  {
+   "q": "Which parts of an incident response workflow are safe to automate?",
+   "source": "secondary",
+   "ref": "incident response workflow"
+  },
+  {
+   "q": "What are the risks of automated incident response?",
+   "source": "secondary",
+   "ref": "automated incident response"
+  },
+  {
+   "q": "What is the difference between automated incident response and security orchestration?",
+   "source": "secondary",
+   "ref": "automated incident response"
+  },
+  {
+   "q": "What are examples of automated incident response playbooks?",
+   "source": "secondary",
+   "ref": "automated incident response"
+  },
+  {
+   "q": "What metrics should you track in an incident response workflow?",
+   "source": "secondary",
+   "ref": "incident response workflow"
+  },
+  {
+   "q": "What tools are used for automated incident response?",
+   "source": "secondary",
+   "ref": "automated incident response"
+  }
+ ],
+ "chip_prompts": [
+  "Group the alerts my monitoring and security tools send into incidents by host, user, or service, and give my on-call engineer one record per incident with every alert attached.",
+  "Hold every containment step my playbooks prepare, like disabling an account or purging an email, until an analyst on my team approves it in Slack, and log who approved it.",
+  "Page my primary on-call engineer for each Sev 1 and Sev 2 incident, and if nobody acknowledges within 5 minutes, page the secondary and then my team lead.",
+  "When an incident closes, build a timeline for my team from alert events and channel messages, with time to acknowledge and time to mitigate, plus action items with owners."
+ ],
+ "claims_used": [
+  "prompt-build",
+  "api-connect",
+  "alerts",
+  "code-export",
+  "database-owned",
+  "no-caps"
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R1",
+    "title": "Phishing triage",
+    "prompt": "Group phishing reports of one email into an incident and ask before purging it",
+    "main": {
+     "chrome": "Security desk",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "INCIDENT · INC-2291",
+       "title": "Fake invoice email",
+       "size": 26,
+       "sub": "Forwarded by employees",
+       "right": "14",
+       "right_sub": "reports in 20 min"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Reports grouped",
+         "sub": "14 reports, same sender",
+         "right": "9:41 AM"
+        },
+        {
+         "state": "done",
+         "title": "Sender checked",
+         "sub": "Domain listed on threat feed"
+        },
+        {
+         "state": "live",
+         "title": "Purge approval",
+         "sub": "Dana Okafor",
+         "right": "Waiting"
+        },
+        {
+         "state": "next",
+         "title": "Purge from every inbox",
+         "sub": "All mailboxes"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Dana Okafor",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Purge INC-2291?",
+       "size": 20,
+       "sub": "14 reports, fake invoice"
+      },
+      {
+       "type": "meta",
+       "icon": "shield-alert",
+       "kind": "acc",
+       "text": "Domain listed on threat feed"
+      }
+     ],
+     "action": {
+      "label": "Approve purge",
+      "icon": "trash-2"
+     }
+    },
+    "mini": {
+     "icon": "layers",
+     "kind": "ok",
+     "title": "Filed as one incident",
+     "sub": "Same sender, same email"
+    },
+    "alt": "Fourteen employee reports of the same fake invoice email are filed under one incident, and the security analyst is asked to approve purging it from every inbox.",
+    "story": [
+     {
+      "copy": "collapse into one incident",
+      "image": "Filed as one incident"
+     },
+     {
+      "copy": "14 reports",
+      "image": "14 reports, same sender"
+     },
+     {
+      "copy": "within 20 minutes",
+      "image": "reports in 20 min"
+     },
+     {
+      "copy": "the same fake invoice",
+      "image": "Fake invoice email"
+     },
+     {
+      "copy": "files them under INC-2291",
+      "image": "Purge INC-2291?"
+     },
+     {
+      "copy": "checks the sender domain against your threat feed",
+      "image": "Domain listed on threat feed"
+     },
+     {
+      "copy": "Dana Okafor",
+      "image": "To Dana Okafor"
+     },
+     {
+      "copy": "purge the message from every inbox",
+      "image": "Purge from every inbox"
+     }
+    ]
+   },
+   {
+    "recipe": "R11",
+    "title": "Suspicious sign-in",
+    "prompt": "When a sign-in comes from far away too soon, ask the analyst before revoking sessions",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Ben Carter, last 10 sign-ins",
+       "size": 20,
+       "chip": [
+        "1 flagged",
+        "bad"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Time",
+        "City",
+        "Device",
+        "Result"
+       ],
+       "widths": [
+        0.22,
+        0.22,
+        0.32,
+        0.24
+       ],
+       "bad": 0,
+       "rows": [
+        [
+         "10:52 AM",
+         "Lisbon",
+         "Unknown PC",
+         [
+          "Flagged",
+          "bad"
+         ]
+        ],
+        [
+         "10:14 AM",
+         "Denver",
+         "Work laptop",
+         [
+          "Normal",
+          "ok"
+         ]
+        ],
+        [
+         "8:03 AM",
+         "Denver",
+         "Work phone",
+         [
+          "Normal",
+          "ok"
+         ]
+        ],
+        [
+         "Yesterday",
+         "Denver",
+         "Work laptop",
+         [
+          "Normal",
+          "ok"
+         ]
+        ]
+       ]
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "metric",
+       "label": "Denver, then Lisbon",
+       "value": "38 min"
+      },
+      {
+       "type": "text",
+       "text": "2 registered devices",
+       "size": 16,
+       "color": "sub"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "Direct message to Leah Novak",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Revoke sessions?",
+       "sub": "Lisbon, 38 min after Denver"
+      },
+      {
+       "type": "meta",
+       "icon": "key-round",
+       "kind": "acc",
+       "text": "Requires a new password"
+      }
+     ],
+     "action": {
+      "label": "Revoke sessions",
+      "icon": "log-out"
+     }
+    },
+    "alt": "A sign-in from Lisbon 38 minutes after one from Denver is flagged among an employee's last 10 sign-ins, and the on-call analyst gets a direct message to revoke his sessions.",
+    "story": [
+     {
+      "copy": "from Lisbon, 38 minutes after his last one from Denver",
+      "image": "Lisbon, 38 min after Denver"
+     },
+     {
+      "copy": "his 10 most recent sign-ins",
+      "image": "Ben Carter, last 10 sign-ins"
+     },
+     {
+      "copy": "Leah Novak, the analyst on call",
+      "image": "Direct message to Leah Novak"
+     },
+     {
+      "copy": "revoke his sessions",
+      "image": "Revoke sessions"
+     },
+     {
+      "copy": "require a new password",
+      "image": "Requires a new password"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Outage escalation",
+    "prompt": "Page the backup engineer when a Sev 1 page goes 5 minutes without an acknowledgment",
+    "main": {
+     "chrome": "Incidents",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "SEV 1 · INC-0412",
+       "title": "Failed checkouts over 40/min",
+       "size": 24,
+       "sub": "Sustained for 3 min",
+       "right": "52",
+       "right_sub": "per minute now"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Alert fired",
+         "sub": "Checkout service",
+         "right": "2:02 PM"
+        },
+        {
+         "state": "done",
+         "title": "Channel opened",
+         "sub": "Slack channel for responders"
+        },
+        {
+         "state": "skip",
+         "title": "Paged Chris Doyle",
+         "sub": "Primary, no ack in 5 min",
+         "right": "2:07 PM"
+        },
+        {
+         "state": "live",
+         "title": "Paging Aisha Grant",
+         "sub": "Secondary on-call",
+         "right": "Now"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Aisha Grant",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Sev 1: checkout errors",
+       "size": 20,
+       "sub": "Escalated after 5 min without an ack"
+      },
+      {
+       "type": "meta",
+       "icon": "activity",
+       "kind": "acc",
+       "text": "Error graph attached"
+      }
+     ],
+     "action": {
+      "label": "Acknowledge",
+      "icon": "bell"
+     }
+    },
+    "mini": {
+     "icon": "hash",
+     "kind": "acc",
+     "title": "Responder channel open",
+     "sub": "Started with the incident"
+    },
+    "alt": "A Sev 1 checkout incident pages the primary engineer, and after 5 minutes without an acknowledgment the page moves to the secondary with the error graph attached.",
+    "story": [
+     {
+      "copy": "Failed checkouts climb past 40 a minute",
+      "image": "Failed checkouts over 40/min"
+     },
+     {
+      "copy": "for 3 minutes",
+      "image": "Sustained for 3 min"
+     },
+     {
+      "copy": "opens INC-0412 as Sev 1",
+      "image": "SEV 1 · INC-0412"
+     },
+     {
+      "copy": "starts a Slack channel for it",
+      "image": "Slack channel for responders"
+     },
+     {
+      "copy": "pages Chris Doyle, the primary on-call engineer",
+      "image": "Paged Chris Doyle"
+     },
+     {
+      "copy": "Five minutes pass without an acknowledgment",
+      "image": "Escalated after 5 min without an ack"
+     },
+     {
+      "copy": "Aisha Grant, the secondary",
+      "image": "To Aisha Grant"
+     },
+     {
+      "copy": "the error graph attached",
+      "image": "Error graph attached"
+     }
+    ]
+   },
+   {
+    "recipe": "R10",
+    "title": "Post-incident review",
+    "prompt": "Build each incident review from the alert events and the channel messages",
+    "kpi": {
+     "icon": "timer",
+     "label": "Time to mitigate",
+     "value": "39 min",
+     "sub": "INC-0412, Sev 1"
+    },
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "INC-0412 review",
+       "size": 20,
+       "sub": "Checkout errors"
+      },
+      {
+       "type": "timeline",
+       "items": [
+        {
+         "label": "Detected 2:02 PM",
+         "chip": "Alert",
+         "kind": "ok"
+        },
+        {
+         "label": "Acknowledged 2:09 PM",
+         "chip": "Aisha Grant",
+         "kind": "ok"
+        },
+        {
+         "label": "Mitigated 2:41 PM",
+         "chip": "Rollback",
+         "kind": "ok"
+        },
+        {
+         "label": "Closed 3:20 PM",
+         "chip": "Resolved",
+         "kind": "ok"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To the INC-0412 owners",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "3 action items assigned",
+       "sub": "Each has an owner and a due date"
+      },
+      {
+       "type": "meta",
+       "icon": "users",
+       "kind": "acc",
+       "text": "Aisha Grant, Chris Doyle, Mei Lin"
+      },
+      {
+       "type": "chips",
+       "items": [
+        [
+         "Canary stage",
+         "acc"
+        ],
+        [
+         "Paging test",
+         "acc"
+        ],
+        [
+         "Earlier alert",
+         "acc"
+        ]
+       ]
+      }
+     ],
+     "action": {
+      "label": "Open review board",
+      "icon": "kanban"
+     }
+    },
+    "alt": "An incident review shows a timeline from detection at 2:02 PM to mitigation at 2:41 PM, 39 minutes, and three action items assigned to named owners.",
+    "story": [
+     {
+      "copy": "INC-0412 closes at 3:20 PM",
+      "image": "Closed 3:20 PM"
+     },
+     {
+      "copy": "detection at 2:02 PM",
+      "image": "Detected 2:02 PM"
+     },
+     {
+      "copy": "acknowledgment at 2:09 PM",
+      "image": "Acknowledged 2:09 PM"
+     },
+     {
+      "copy": "mitigation at 2:41 PM",
+      "image": "Mitigated 2:41 PM"
+     },
+     {
+      "copy": "39 minutes after the first alert",
+      "image": "39 min"
+     },
+     {
+      "copy": "Three action items go to named owners",
+      "image": "3 action items assigned"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "dm": true,
+   "channel": "Dana Okafor",
+   "title": "Purge INC-2291?",
+   "sub": "14 reports of a fake invoice",
+   "primary": "Purge",
+   "secondary": "Open",
+   "icon": "shield-alert",
+   "alt": "Incident response automation: a direct message asking a security analyst to approve purging a fake invoice email reported 14 times"
+  },
+  "og": {
+   "headline": "Build incident playbooks that page on-call",
+   "lines": [
+    "Build incident",
+    "playbooks that",
+    "page on-call"
+   ],
+   "alt": "Build incident response automation around your playbooks, with Emergent"
+  },
+  "checks": [
+   {
+    "fact": [
+     "14"
+    ],
+    "where": 1
+   },
+   {
+    "same": "14",
+    "where": [
+     1,
+     "cover"
+    ]
+   },
+   {
+    "expr": "52 - 14 == 38",
+    "shows": [
+     "10:52 AM",
+     "10:14 AM",
+     "38 min"
+    ],
+    "where": 2
+   },
+   {
+    "expr": "52 > 40",
+    "shows": [
+     "52"
+    ],
+    "where": 3
+   },
+   {
+    "expr": "41 - 2 == 39",
+    "shows": [
+     "2:41 PM",
+     "2:02 PM",
+     "39 min"
+    ],
+    "where": 4
+   }
+  ]
+ },
+ "qc_passed": {
+  "rules_version": "b9bdd5846b24",
+  "date": "2026-10-10 10:46 UTC"
+ },
+ "writers": [
+  "wk-n-incident-response-automation"
+ ]
+}
