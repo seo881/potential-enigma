@@ -289,6 +289,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 11:14 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "wk-r-19",
+   "note": "[truth | HUB_RULES 8] feature_1: Two fields describe the same built page in opposite ways. (1) feature_1: \"Until a visitor presses play, the player shows a still you pick\" and \"the video file waits for the click\". Against it: feature_2 \"The video starts muted when it scrolls into view\", hero_descrip"
   }
  ],
  "table": {
@@ -762,9 +769,149 @@
  },
  "qc_passed": {
   "rules_version": "b9bdd5846b24",
-  "date": "2026-10-10 11:05 UTC"
+  "date": "2026-10-10 11:10 UTC"
  },
  "writers": [
   "wk-n-video-landing-page"
+ ],
+ "review": {
+  "by": "wk-r-19",
+  "date": "2026-10-10 11:14 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Video Landing Page That Turns Viewers Into Leads\"; hero \"Build a video landing page that plays muted with captions and saves how much of the video each lead watched.\" (108 chars); how-to description one sentence, 112 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is example roundups and an AI Overview. Item 1 defines the term, the tabs give four working examples by format (VSL, demo, customer stories, personal video), and the how-to covers autoplay, captions, poster, lazy loading and play events."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Video vocabulary: \"WebVTT file\", \"poster attribute\", \"playsinline\", \"preload=\\\"none\\\"\", \"14:20, the moment the price comes up\"."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Body paragraphs open on full sentences (\"Until a visitor presses play...\", \"Homeowners pick from three customer videos...\"); one FAQ fragment opener recorded as a note."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; one idea per sentence (\"Of those, 612 reached the offer and 87 enrolled.\")."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete detail: \"a $297 course on pricing freelance work\", \"131 came from people who got past 60 seconds\", \"the crew now books those inspections before anything else\". Shared sibling formulas recorded as a note."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "feature_1 \"The headline and the button load first, and the video file waits for the click.\" contradicts feature_2 \"The video starts muted when it scrolls into view\" (and hero, meta, tab 2) and feature_3 \"Before that second, the page shows only the video and headline\"."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No sibling primary (mobile, QR code, animated, modern landing page) in any heading or answer; the tabs are sorted by the video's job."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "Exactly 10 on-topic questions, no brands or formats in questions; hub link in item 2; two sibling links (webinar-landing-page, thank-you-page); all 10 secondaries placed; F9 lines in items 7, 8 and 10; autoplay facts sourced to Chrome and WebKit."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Brief matches copy: tab 1 \"Enroll for $297\" / \"Button shown at 14:20\" / 1,840, 612, 87; tab 2 38+45+131=214, \"Over 60s\"; tab 3 58+24+15=97, \"Played first\"; tab 4 DM to \"Owen Castillo\" only, \"Passed the halfway mark\". One hero per tab."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "feature_1",
+    "quote": "The headline and the button load first, and the video file waits for the click.",
+    "issue": "Two fields describe the same built page in opposite ways. (1) feature_1: \"Until a visitor presses play, the player shows a still you pick\" and \"the video file waits for the click\". Against it: feature_2 \"The video starts muted when it scrolls into view\", hero_description \"plays muted with captions\", meta_description \"starts muted with captions\", and tab_content_2 \"a 90-second demo ... plays muted\". A muted autoplay never waits for a click. (2) feature_1 \"the button load[s] first\" against feature_3 \"Before that second, the page shows only the video and headline\" and tab_content_1 \"The Enroll button stays off the page until 14:20\".",
+    "fix": "Rewrite feature_1 (165-182 chars) so it holds with muted autoplay and the timed button. For example: \"Until the video starts, the player shows a still you pick, such as the speaker mid-sentence. The headline loads first, and the video file waits until the player scrolls into view.\" Then search the page again for any other click-to-load wording.",
+    "severity": "blocking"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "feature_6",
+    "quote": "Code you can take elsewhere",
+    "issue": "The feature_6 H3 is word for word the ebook page's feature_6 H3. The page also shares sentence shapes with the sibling pages in this batch. why_description: \"Example roundups show where the video goes. Emergent builds...\" (ebook and mobile use the same opener). faq item 5: \"Roundups from landing page builders... A screenshot hides the part that matters.\" faq item 7: \"save layout work... is still on you\" (mobile item 6). faq item 9: \"As long as its one job takes.\" (ebook item 9: \"As long as the price asks for.\").",
+    "fix": "Give feature_6 a heading of its own and vary the shared shapes.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_2_des",
+    "quote": "A visitor who never presses play still needs the offer.",
+    "issue": "Some advice pulls against the timed-button example. howto_step_2_des and faq item 2 (\"place the button where it works without playback\") say the button must work without playback, while tab_content_1 and feature_3 hide the button until a timestamp. FAQ item 3 explains the VSL exception, but the how-to does not.",
+    "fix": "Add the VSL exception in a clause of step 2.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief.tabs[3]",
+    "quote": "Watched 1:24 of 2:00 so far",
+    "issue": "The copy says the DM fires once Dana passes the one-minute mark, but the drawn DM reports 1:24. The mockup also asks for \"a button to book a call with her\", while the drawn DM button reads \"Open her page\".",
+    "fix": "Show about 1:02 in the DM and step, and label the button \"Book a call\".",
+    "severity": "note"
+   },
+   {
+    "class": "openers",
+    "criterion": "openers",
+    "rule": "CONTENT_DEFECTS #2",
+    "field": "faq",
+    "quote": "As long as its one job takes.",
+    "issue": "faq item 9 opens on a fragment.",
+    "fix": "Open on a full sentence that answers the question.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "feature_6",
+   "issue": "The feature_6 H3 is word for word the ebook page's feature_6 H3. The page also shares sentence shapes with the sibling pages in this batch. why_description: \"Example roundups show where the video goes. Emergent builds...\" (ebook and mobile use the same opener). faq item 5: \"Roundups from landing page builders... A screenshot hides the part that matters.\" faq item 7: \"save layout work... is still on you\" (mobile item 6). faq item 9: \"As long as its one job takes.\" (ebook item 9: \"As long as the price asks for.\").",
+   "fix": "Give feature_6 a heading of its own and vary the shared shapes.",
+   "by": "wk-r-19",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_2_des",
+   "issue": "Some advice pulls against the timed-button example. howto_step_2_des and faq item 2 (\"place the button where it works without playback\") say the button must work without playback, while tab_content_1 and feature_3 hide the button until a timestamp. FAQ item 3 explains the VSL exception, but the how-to does not.",
+   "fix": "Add the VSL exception in a clause of step 2.",
+   "by": "wk-r-19",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief.tabs[3]",
+   "issue": "The copy says the DM fires once Dana passes the one-minute mark, but the drawn DM reports 1:24. The mockup also asks for \"a button to book a call with her\", while the drawn DM button reads \"Open her page\".",
+   "fix": "Show about 1:02 in the DM and step, and label the button \"Book a call\".",
+   "by": "wk-r-19",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  },
+  {
+   "criterion": "openers",
+   "rule": "CONTENT_DEFECTS #2",
+   "field": "faq",
+   "issue": "faq item 9 opens on a fragment.",
+   "fix": "Open on a full sentence that answers the question.",
+   "by": "wk-r-19",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  }
  ]
 }
