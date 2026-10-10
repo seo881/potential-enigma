@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-10 04:46 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-10 04:47 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -96,7 +96,7 @@ Regenerated 2026-10-10 04:46 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/employment-verification-letter | 0 | 10/10 | yes, wk-r-8 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/equipment-rental-agreement-form | 8 | 4/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/esthetician-intake-form | 8 | 1/10 | no | no | no | 0 | - | no | no | autofix |
-| wk-rework-form | /ai-form-builder/event-planning-form | 6 | 2/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-form | /ai-form-builder/event-planning-form | 4 | 10/10 | no | no | no | 0 | - | no | no | writer |
 | wk-rework-form | /ai-form-builder/expense-report-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
 | wk-rework-form | /ai-form-builder/expense-request-form | 16 | 3/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/field-trip-permission-slip | 0 | 10/10 | yes, wk-r-12 | yes | no | 0 | - | no | no | payload |
@@ -181,7 +181,7 @@ Regenerated 2026-10-10 04:46 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/travel-request-form | 11 | 2/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/vehicle-inspection-form | 0 | 0/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/vendor-application | 7 | 3/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
-| wk-rework-form | /ai-form-builder/volunteer-form | 1 | 10/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-form | /ai-form-builder/volunteer-form | 0 | 10/10 | no | no | no | 0 | - | no | no | writer |
 | wk-rework-form | /ai-form-builder/webinar-registration-form | 8 | 5/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/website-design-questionnaire | 10 | 2/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/wedding-photography-contract | 9 | 5/10 | no | no | no | 0 | - | no | no | autofix |
