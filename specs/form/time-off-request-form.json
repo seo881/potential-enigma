@@ -139,6 +139,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 00:04 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "wk-r-9",
+   "note": "[intent | HUB_RULES 5] meta_description: The meta description promises guidance on how to word a time-off request, and the brief's PAA list is dominated by wording and asking questions, but no field on the page delivers it: the FAQ covers definition, building, example, template, FMLA, naming, routin"
   }
  ],
  "plan": {
@@ -791,7 +798,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 23:40 UTC"
+  "date": "2026-10-09 23:59 UTC"
  },
  "writers": [
   "w-time-off-request-form",
@@ -802,5 +809,125 @@
   "Before a request reaches the manager, I want the form to count who is already off that shift and flag the request if the day would drop below our minimum headcount.",
   "I want each request sent to the employee's manager as a Slack message with approve and decline buttons, plus a reminder if it sits unanswered for two business days.",
   "When someone picks family or medical leave, I want the request to skip the manager and go straight to HR, with the manager seeing only the dates."
+ ],
+ "review": {
+  "by": "wk-r-9",
+  "date": "2026-10-10 00:04 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Time Off Request Form That Checks PTO Balances\"; hero \"Create a time off request form that shows PTO balances before submit and sends each request to Slack for approval.\""
+   },
+   "intent": {
+    "result": "fail",
+    "evidence": "meta_description promises \"how to word the ask\"; no FAQ item, how-to step or tab covers wording a time-off request, though most of the brief's PAA questions ask exactly that"
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "\"Two of the five cashiers are out, and the store needs three on the floor.\", \"the employee's balance drops to 56 hours, down 24 from 80\""
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Tab and how-to paragraphs open on full sentences (\"Start with the policy\", \"Display the remaining balance\"); subjectless feature bodies kept as a note"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q5-Q8 clean; \"Allow a start date of today for sick requests; nobody books a fever two weeks out.\""
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail: \"Anything left unanswered for two business days gets a reminder, then escalates.\"; repeated tab-opener shape kept as a note"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "FMLA 12 workweeks (DOL), five-business-day eligibility notice (29 CFR 825.300), 30-day notice when foreseeable (DOL fact sheet 28E), separate confidential medical files (29 CFR 825.500) all match domain_sources; arithmetic 80-24=56 and 16-4=12 holds"
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Balances, coverage minimums and FMLA routing; time sheet, employee information and availability siblings linked in FAQ, not headlined"
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, answer-first, hub link in item 2, three sibling links, moat lines in items 4 and 7, no brand or format in any question"
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 \"Would leave 2 on the floor / 2 of 5 cashiers already off\"; tab 2 \"Uses 24 of 80 hours\" and \"Balance now 56 hours\"; tab 3 \"Within 5 business days\" and \"No reason attached\"; tab 4 \"Paid from PTO: 4 hours / Unpaid: 12 hours\""
+   }
+  },
+  "findings": [
+   {
+    "class": "missing-intent",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "meta_description",
+    "quote": "What to put on a time off request form, how to word the ask, and an app that checks PTO balances and shift cover before a manager approves.",
+    "issue": "The meta description promises guidance on how to word a time-off request, and the brief's PAA list is dominated by wording and asking questions, but no field on the page delivers it: the FAQ covers definition, building, example, template, FMLA, naming, routing, sick leave, blackout dates and FMLA notice; the how-to builds the form; the tabs show the app. The page breaks its own promise and leaves that intent unanswered.",
+    "fix": "Replace FAQ item 9 (holiday blackout dates) with the PAA question from the brief on how to word a time-off request, sourced as paa in faq_sources, answered in its first sentence with concrete wording (dates and hours, leave type, how work is covered, a one-line sample request). Keep FAQ items 4 and 7 (the two moat lines); FAQ links stay at 2 (time sheet form, employee information form) and secondaries stay at 6 or more. If the FAQ is not changed, cut \"how to word the ask\" from meta_description instead.",
+    "severity": "blocking"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "tab_content_2, howto_step_2_des, faq (items 6 and 10)",
+    "quote": "Most office requests are routine / are rarely the same number of hours / Mostly the name. / a lot of leave cannot be planned",
+    "issue": "Soft quantifiers about no named third party.",
+    "fix": "State the case plainly where a quantifier adds nothing.",
+    "severity": "note"
+   },
+   {
+    "class": "openers",
+    "criterion": "openers",
+    "rule": "CONTENT_DEFECTS #2",
+    "field": "feature_1 to feature_6",
+    "quote": "Shows the employee's remaining PTO hours / Counts who is already off / Sends each request / Routes vacation and personal days / Adds hours to each balance / Pushes the full codebase",
+    "issue": "All six feature bodies open on a verb with no subject, so none starts with a full sentence.",
+    "fix": "Give each body a subject: \"The form shows...\", \"The app counts...\".",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "tab_content_1 to tab_content_4",
+    "quote": "Retail schedules break on Saturdays. / Most office requests are routine: / Medical leave is different. / Balances run out before the year does.",
+    "issue": "Every tab opens with the same short aphorism before the story, a templated shape across all four tabs.",
+    "fix": "Open at least two tabs directly on the story (the cashier's request, the employee's balance).",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "tab_content_2, howto_step_2_des, faq (items 6 and 10)",
+   "issue": "Soft quantifiers about no named third party.",
+   "fix": "State the case plainly where a quantifier adds nothing.",
+   "by": "wk-r-9",
+   "via": "review",
+   "date": "2026-10-10 00:04 UTC"
+  },
+  {
+   "criterion": "openers",
+   "rule": "CONTENT_DEFECTS #2",
+   "field": "feature_1 to feature_6",
+   "issue": "All six feature bodies open on a verb with no subject, so none starts with a full sentence.",
+   "fix": "Give each body a subject: \"The form shows...\", \"The app counts...\".",
+   "by": "wk-r-9",
+   "via": "review",
+   "date": "2026-10-10 00:04 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "tab_content_1 to tab_content_4",
+   "issue": "Every tab opens with the same short aphorism before the story, a templated shape across all four tabs.",
+   "fix": "Open at least two tabs directly on the story (the cashier's request, the employee's balance).",
+   "by": "wk-r-9",
+   "via": "review",
+   "date": "2026-10-10 00:04 UTC"
+  }
  ]
 }
