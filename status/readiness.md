@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-10 11:33 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-10 11:34 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -59,7 +59,7 @@ Regenerated 2026-10-10 11:33 UTC by `hubctl readiness` (also after every `hubctl
 | wk-new-lp | /ai-landing-page-builder/mobile-landing-page | 0 | 10/10 | yes, wk-r-19 | yes | no | 0 | - | no | no | payload |
 | wk-new-lp | /ai-landing-page-builder/video-landing-page | 0 | 10/10 | yes, wk-r-19 | yes | no | 0 | - | no | no | rework |
 | wk-new-sqb | /ai-survey-and-quiz-builder/brand-awareness-survey | 0 | 10/10 | yes, wk-r-21 | yes | no | 0 | - | no | no | payload |
-| wk-new-sqb | /ai-survey-and-quiz-builder/brand-perception-survey | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
+| wk-new-sqb | /ai-survey-and-quiz-builder/brand-perception-survey | 0 | 10/10 | yes, wk-r-21 | yes | no | 0 | - | no | no | rework |
 | wk-new-sqb | /ai-survey-and-quiz-builder/church-survey | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-aab | /ai-automation-builder/accounts-payable-automation | 0 | 10/10 | yes, wk-r-5 | yes | no | 0 | - | no | no | payload |
 | wk-rework-aab | /ai-automation-builder/invoice-automation | 0 | 10/10 | yes, wk-r-5 | yes | no | 0 | - | no | no | payload |
@@ -220,4 +220,4 @@ Regenerated 2026-10-10 11:33 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-sqb | /ai-survey-and-quiz-builder/onboarding-survey | 0 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/pulse-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
 
-Stages: done 21, images2 1, payload 73, review 5, rework 2, stopped 94 (196 pages)
+Stages: done 21, images2 1, payload 73, review 4, rework 3, stopped 94 (196 pages)
