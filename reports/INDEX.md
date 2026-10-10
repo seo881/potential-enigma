@@ -2,6 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-10-10 · [0540-weekend-run-3](2026-10-10/0540-weekend-run-3.md) · Weekend run: 9 pages reviewed, 1 parked; 8 AlsoAsked credits so far; no Webflow calls · this commit
 - 2026-10-10 · [0437-weekend-run-2](2026-10-10/0437-weekend-run-2.md) · Weekend run: 10 pages reviewed, 0 parked; 0 AlsoAsked credits so far; no Webflow calls · this commit
 - 2026-10-10 · [0356-weekend-run-1](2026-10-10/0356-weekend-run-1.md) · Weekend run: 10 pages reviewed, 0 parked; 0 AlsoAsked credits so far; no Webflow calls · this commit
 - 2026-10-10 · [0315-weekend-run-setup](2026-10-10/0315-weekend-run-setup.md) · Weekend run built and started: loop (caffeinate, limit sleeps, STOP, audit window, locks), ops/weekend.py on ops/ship.py, 158 rework pages queued (LP 13, Auto 4, SQB 9, Form 132), new pages held until DataForSEO is authenticated; Webflow MCP not loaded, every Webflow tool denied · this commit
