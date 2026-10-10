@@ -5,18 +5,18 @@ Every headless session of the weekend run starts here (prompt: "Continue the wee
 ## Current position
 
 <!-- position:start (written by ops/weekend.py tick; do not edit by hand) -->
-Updated 2026-10-10 10:03 UTC. Started 2026-10-09T21:40:27+00:00.
+Updated 2026-10-10 10:11 UTC. Started 2026-10-09T21:40:27+00:00.
 
 | Phase | Hub | Pages | Stages |
 |---|---|---|---|
 | rework | LP | 13 | ready 13 |
 | rework | Auto | 4 | ready 4 |
 | rework | SurveyQuiz | 9 | ready 8, stopped 1 |
-| rework | Form | 132 | images2 1, ready 31, review 15, stopped 85 |
+| rework | Form | 132 | images2 1, ready 33, review 11, rework 2, stopped 85 |
 
 New pages claimed this weekend: Auto 3, LP 3, SurveyQuiz 3.
-Holds: none.
-AlsoAsked credits this weekend: 20 of 300. Reports written: 13.
+Holds: new pages: AlsoAsked key not available to the headless loop (ALSOASKED_API_KEY unset in weekend_run.sh env); needs Divit to export it from the keychain (2026-10-10 09:55 UTC).
+AlsoAsked credits this weekend: 20 of 300. Reports written: 14.
 Next step: run `.venv/bin/python3 ops/weekend.py next` and do what it prints.
 <!-- position:end -->
 
