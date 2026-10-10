@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-10 11:24 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-10 11:26 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -54,7 +54,7 @@ Regenerated 2026-10-10 11:24 UTC by `hubctl readiness` (also after every `hubctl
 | batch-1 | /ai-survey-and-quiz-builder/employee-engagement-survey | 0 | 10/10 | yes, launch-r-b1-5 | yes | no | 2 | 6ac8a15a5408b01694dd5e21 | yes | yes | done |
 | wk-new-aab | /ai-automation-builder/data-entry-automation | 0 | 10/10 | yes, wk-r-20 | yes | no | 0 | - | no | no | rework |
 | wk-new-aab | /ai-automation-builder/incident-response-automation | 0 | 10/10 | yes, wk-r-20 | yes | no | 0 | - | no | no | payload |
-| wk-new-aab | /ai-automation-builder/procurement-automation | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
+| wk-new-aab | /ai-automation-builder/procurement-automation | 0 | 10/10 | yes, wk-r-20 | yes | no | 0 | - | no | no | payload |
 | wk-new-lp | /ai-landing-page-builder/ebook-landing-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-new-lp | /ai-landing-page-builder/mobile-landing-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-new-lp | /ai-landing-page-builder/video-landing-page | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
@@ -220,4 +220,4 @@ Regenerated 2026-10-10 11:24 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-sqb | /ai-survey-and-quiz-builder/onboarding-survey | 0 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/pulse-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
 
-Stages: done 21, images2 1, payload 69, review 10, rework 1, stopped 94 (196 pages)
+Stages: done 21, images2 1, payload 70, review 9, rework 1, stopped 94 (196 pages)
