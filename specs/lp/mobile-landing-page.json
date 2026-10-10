@@ -134,6 +134,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 11:14 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-19",
+   "note": "rubric 10/10 by wk-r-19; 5 notes"
   }
  ],
  "plan": {
@@ -823,9 +830,159 @@
  },
  "qc_passed": {
   "rules_version": "b9bdd5846b24",
-  "date": "2026-10-10 10:46 UTC"
+  "date": "2026-10-10 11:10 UTC"
  },
  "writers": [
   "wk-n-mobile-landing-page"
+ ],
+ "review": {
+  "by": "wk-r-19",
+  "date": "2026-10-10 11:14 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Mobile Landing Page That Works Under a Thumb\"; hero \"Build a mobile landing page with buttons in thumb reach, short forms, and every tap saved to a database you own.\" (112 chars); how-to description one sentence, 115 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is example galleries plus a Google advice article. Meta title promises \"4 Examples\" and usecase_heading \"Mobile Landing Page Examples by Action\" delivers four; the how-to is grounded in viewport, tap targets, input types, LCP and interstitial guidance."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Phone-specific detail: \"tel: link\", \"type=tel\", \"width=device-width\", \"48 by 48 pixels\", \"Send a text and Call\"; table vs Unbounce, Wix and Landingi, all three in the top 10."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every body paragraph opens on a full sentence (\"Emergent pins the main action...\", \"Every Thursday at noon, Fern and Field Florist texts...\")."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; one idea per sentence (\"Each window holds 25 orders and drops off the page once full.\"). One overstatement recorded as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail: \"grooms dogs in a van parked in the customer's driveway\", \"212 visitors chose the text and 64 tapped Call\"; no AI tells. Shared sibling formulas recorded as a note."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Viewport, tel/sms links, type=tel keypad, 48px tap targets, LCP 2.5 s, interstitials, mobile-first indexing and device mode each have a domain_sources entry; claims_used all approved; 25+25+17+9=76 and 94+62+6=162 (58%)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No sibling primary (video, QR code, animated landing page) in any heading or answer; the tabs are sorted by phone action (call/text, tap qualifier, SMS offer, restack)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "Exactly 10 on-topic questions, no brands or formats in questions; hub link in item 2; three sibling links (thank-you-page, event-landing-page, pricing-page); all 11 secondaries placed; F9 lines in items 6 and 10."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Brief matches copy: tab 1 \"212 taps\" / \"64 taps\" / \"Booking request started\"; tab 2 \"Lead saved\" / \"Sales call by 9 AM tomorrow\"; tab 3 \"10 AM window closed\" / \"Prep list: 76 bouquets\"; tab 4 \"94 of 162\" / \"Plans stack as cards\". One hero per tab."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "why_description",
+    "quote": "Galleries show what a good mobile page looks like.",
+    "issue": "Same sentence shapes as the sibling pages in this batch. why_description: \"Galleries show... Emergent builds yours from a prompt\" (ebook: \"A gallery shot stops at the button. Emergent builds...\"; video: \"Example roundups show... Emergent builds...\"). faq item 4: \"Galleries from landing page builders and design sites collect mobile landing page examples... instead of reading a desktop screenshot\" (the same shape as the ebook and video examples answers). faq item 6: \"It saves layout work... Writing the offer and connecting the tracking are still on you.\" (video item 7: \"save layout work... is still on you\").",
+    "fix": "Vary the shapes across the hub.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_2",
+    "quote": "each answered by tapping a large button. Only the ZIP code step opens the number pad.",
+    "issue": "\"each answered by tapping\" overstates. The ZIP code is typed, as the next sentence says.",
+    "fix": "\"three answered by tapping a large button; only the ZIP code step opens the number pad.\"",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "feature_2",
+    "quote": "Phone number and ZIP code fields bring up the number pad, and email fields show the @ key.",
+    "issue": "This describes how the built page behaves, and it is true. The browser behaviour behind it is only sourced for type=tel: the email keyboard and the ZIP code (inputmode) number pad have no domain_sources entry.",
+    "fix": "Add the MDN input type=email and inputmode pages to domain_sources at the next touch.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "cover_image",
+    "quote": "Callback requested",
+    "issue": "The cover confirms \"Callback requested\" but still shows a \"Call me back\" button, which repeats the action already taken. It is also drawn in desktop browser chrome on a page about phones.",
+    "fix": "Use a follow-on action, such as \"Add to contacts\", or a phone frame.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "the largest element is often the hero image",
+    "issue": "Soft quantifiers in advice, naming no third party: faq item 10 \"the largest element is often the hero image\"; howto_step_4_des \"often a name and a phone number\".",
+    "fix": "Acceptable as advice; no change needed.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "why_description",
+   "issue": "Same sentence shapes as the sibling pages in this batch. why_description: \"Galleries show... Emergent builds yours from a prompt\" (ebook: \"A gallery shot stops at the button. Emergent builds...\"; video: \"Example roundups show... Emergent builds...\"). faq item 4: \"Galleries from landing page builders and design sites collect mobile landing page examples... instead of reading a desktop screenshot\" (the same shape as the ebook and video examples answers). faq item 6: \"It saves layout work... Writing the offer and connecting the tracking are still on you.\" (video item 7: \"save layout work... is still on you\").",
+   "fix": "Vary the shapes across the hub.",
+   "by": "wk-r-19",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_2",
+   "issue": "\"each answered by tapping\" overstates. The ZIP code is typed, as the next sentence says.",
+   "fix": "\"three answered by tapping a large button; only the ZIP code step opens the number pad.\"",
+   "by": "wk-r-19",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "feature_2",
+   "issue": "This describes how the built page behaves, and it is true. The browser behaviour behind it is only sourced for type=tel: the email keyboard and the ZIP code (inputmode) number pad have no domain_sources entry.",
+   "fix": "Add the MDN input type=email and inputmode pages to domain_sources at the next touch.",
+   "by": "wk-r-19",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "cover_image",
+   "issue": "The cover confirms \"Callback requested\" but still shows a \"Call me back\" button, which repeats the action already taken. It is also drawn in desktop browser chrome on a page about phones.",
+   "fix": "Use a follow-on action, such as \"Add to contacts\", or a phone frame.",
+   "by": "wk-r-19",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Soft quantifiers in advice, naming no third party: faq item 10 \"the largest element is often the hero image\"; howto_step_4_des \"often a name and a phone number\".",
+   "fix": "Acceptable as advice; no change needed.",
+   "by": "wk-r-19",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  }
  ]
 }
