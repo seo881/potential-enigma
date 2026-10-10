@@ -135,6 +135,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 01:22 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "wk-r-14",
+   "note": "[truth | HUB_RULES 8] faq item 6: Wrong on the law and contradicted by the page itself. Undue hardship is the limit on providing any effective accommodation. It is not the only ground for refusing the specific change asked for: the EEOC enforcement guidance (domain_sources) lets the employer choose "
   }
  ],
  "plan": {
@@ -745,7 +752,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 01:05 UTC"
+  "date": "2026-10-10 01:17 UTC"
  },
  "writers": [
   "w-reasonable-accommodation-request-form",
@@ -756,5 +763,145 @@
   "Give each accommodation request a case page where I record every meeting with the employee, what we considered, and the final decision with its start date.",
   "When I need medical documentation, let me send a short form to the employee's provider and file the reply where managers can never open it.",
   "Add an accommodation request link to our careers page so applicants can ask for an interpreter or another change before the interview, and give the recruiter a task to arrange it."
+ ],
+ "review": {
+  "by": "wk-r-14",
+  "date": "2026-10-10 01:22 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Reasonable Accommodation Request Form\"; hero \"Create a reasonable accommodation request form that reaches HR before the manager and keeps every case on one record.\" (under 130 chars, primary, leads with Create); how-to description one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "AMBER angle carried as an employer-side workflow: the FAQ covers definition, fields, templates (JAN), oral requests, examples, documentation, online filing, tracking and federal agencies; the how-to follows the interactive process."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "\"10-hour shifts at a fixed desk hurt her back, and asks for a sit-stand desk\"; \"a lift-assist cart, or handing his loading to a teammate\"; \"Her manager sees one line: start time 10:00, approved.\""
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs (\"Asks\", \"Sends\", \"Records\", \"Sends\", \"Pings\", \"Exports\"); tabs open on full sentences (\"Most requests arrive in plain words.\")."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; \"Equipment breaks and duties shift.\""
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "\"The interactive process is a conversation, and the app keeps its minutes.\" No hype vocabulary."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "faq item 6: \"An employer can turn down a specific change only when it would cause undue hardship.\" The EEOC guidance in domain_sources lets an employer choose among effective accommodations, which howto_step_4_des itself states (\"Where two options both work, the employer may choose between them\"). Every other legal line checks out against the EEOC enforcement guidance, the Title I page, the EO 13164 guidance and JAN."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Request, interactive process, medical documentation and applicant tabs; no sibling primary in a heading; leave goes to the time off request form page (FAQ 6) and onboarding to the new employee form page (FAQ 4)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic items, no brand or file format in a question, hub link in item 2, sibling links in items 4 and 6, answer-first; Emergent lines in items 8 and 9; all five secondaries placed."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "uc-1 dispatcher, \"10-hour shifts at a fixed desk\", \"Sit-stand desk\", \"No diagnosis asked\", \"Received 9:40 AM\", \"Manager not copied\"; uc-2 \"Lifting limited to 20 pounds\", 2 meetings, \"Lift-assist cart approved\", \"Stays in his role\"; uc-3 \"Start at 10:00, not 8:00\", \"Separate medical record\", manager view \"Start time 10:00, approved\"; uc-4 ASL interpreter, \"Thursday, 2:00 PM\", recruiter task, \"Interviewer sees no reason\"."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 6",
+    "quote": "An employer can turn down a specific change only when it would cause undue hardship.",
+    "issue": "Wrong on the law and contradicted by the page itself. Undue hardship is the limit on providing any effective accommodation. It is not the only ground for refusing the specific change asked for: the EEOC enforcement guidance (domain_sources) lets the employer choose among effective accommodations, and howto_step_4_des says \"Where two options both work, the employer may choose between them\". No other field states this limit; FAQ 10's written-denial line and step 6 are correct.",
+    "fix": "\"An employer may offer a different change that works just as well, and can refuse to provide any effective accommodation only when every option would cause undue hardship.\" Keep it within 75 words and answer-first.",
+    "severity": "blocking"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq item 4; faq item 8; faq item 10; tab_content_1; faq item 3",
+    "quote": "many state agencies and universities publish the version they give their own staff / many agencies still post their ADA accommodation request form as a PDF / Usually, yes ... and many attach a request form of their own / Most requests arrive in plain words / Five cover most cases",
+    "issue": "Soft quantifiers about no named third party, unsourced (the top 10 does show agency and university PDFs).",
+    "fix": "Name one (the California Civil Rights Department's package) or drop the quantifier.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_1; tab_content_1; howto_step_2_des; faq item 2; faq item 3; faq item 7",
+    "quote": "There is no diagnosis field / no diagnosis asked / Leave diagnosis fields off the form / with no diagnosis field / Leave out diagnosis and medical history / Keep medical questions off the request itself",
+    "issue": "The no-diagnosis advice appears in six fields; the manager-sees-the-change-not-the-reason idea repeats in feature_2, tab_content_3, tab_content_4 and howto_step_5_des.",
+    "fix": "Keep each idea in one body field and one FAQ answer.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #5",
+    "field": "image_brief.tabs[2].main (uc-3)",
+    "quote": "filler",
+    "issue": "The provider request card ends in grey placeholder bars under \"Separate medical record\"; it passes the balance gate but reads as unfinished.",
+    "fix": "Replace the filler with a real row (\"Reply due: 10 business days\").",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Jotform / Google Forms / Typeform",
+    "issue": "QC K7: Google Forms and Typeform do not rank in this page's top 10 (agency PDFs, JAN and SHRM do).",
+    "fix": "None needed unless the library adds a ranking tool.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq item 4; faq item 8; faq item 10; tab_content_1; faq item 3",
+   "issue": "Soft quantifiers about no named third party, unsourced (the top 10 does show agency and university PDFs).",
+   "fix": "Name one (the California Civil Rights Department's package) or drop the quantifier.",
+   "by": "wk-r-14",
+   "via": "review",
+   "date": "2026-10-10 01:22 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_1; tab_content_1; howto_step_2_des; faq item 2; faq item 3; faq item 7",
+   "issue": "The no-diagnosis advice appears in six fields; the manager-sees-the-change-not-the-reason idea repeats in feature_2, tab_content_3, tab_content_4 and howto_step_5_des.",
+   "fix": "Keep each idea in one body field and one FAQ answer.",
+   "by": "wk-r-14",
+   "via": "review",
+   "date": "2026-10-10 01:22 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #5",
+   "field": "image_brief.tabs[2].main (uc-3)",
+   "issue": "The provider request card ends in grey placeholder bars under \"Separate medical record\"; it passes the balance gate but reads as unfinished.",
+   "fix": "Replace the filler with a real row (\"Reply due: 10 business days\").",
+   "by": "wk-r-14",
+   "via": "review",
+   "date": "2026-10-10 01:22 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: Google Forms and Typeform do not rank in this page's top 10 (agency PDFs, JAN and SHRM do).",
+   "fix": "None needed unless the library adds a ranking tool.",
+   "by": "wk-r-14",
+   "via": "review",
+   "date": "2026-10-10 01:22 UTC"
+  }
  ]
 }
