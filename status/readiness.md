@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-10 06:40 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-10 06:42 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -134,8 +134,8 @@ Regenerated 2026-10-10 06:40 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/patient-intake-form | 0 | 10/10 | yes, wk-r-13 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/payment-form | 1 | 7/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/payroll-change-form | 8 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
-| wk-rework-form | /ai-form-builder/permanent-makeup-consent-form | 9 | 6/10 | no | no | no | 0 | - | no | no | autofix |
-| wk-rework-form | /ai-form-builder/personal-injury-intake-form | 7 | 2/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-form | /ai-form-builder/permanent-makeup-consent-form | 6 | 6/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-form | /ai-form-builder/personal-injury-intake-form | 7 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/pet-adoption-form | 11 | 6/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/petition-form | 0 | 3/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/photo-release-form | 0 | 10/10 | yes, wk-r-11 | yes | no | 0 | - | no | no | payload |
@@ -169,7 +169,7 @@ Regenerated 2026-10-10 06:40 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/surgery-consent-form | 9 | 1/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/tattoo-consent-form | 0 | 3/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/telemedicine-consent-form | 11 | 2/10 | no | no | no | 0 | - | no | no | autofix |
-| wk-rework-form | /ai-form-builder/tenant-screening-form | 8 | 1/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-form | /ai-form-builder/tenant-screening-form | 8 | 1/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/testimonial-form | 8 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/therapy-intake-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
 | wk-rework-form | /ai-form-builder/time-off-request-form | 0 | 10/10 | yes, wk-r-9 | yes | no | 0 | - | no | no | payload |
@@ -187,7 +187,7 @@ Regenerated 2026-10-10 06:40 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/wedding-photography-contract | 9 | 5/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/wedding-photography-questionnaire | 9 | 3/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/work-order-form | 0 | 10/10 | yes, wk-r-12 | yes | no | 0 | - | no | no | payload |
-| wk-rework-form | /ai-form-builder/workshop-registration-form | 9 | 3/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/workshop-registration-form | 7 | 3/10 | no | no | no | 0 | - | no | no | writer |
 | wk-rework-lp | /ai-landing-page-builder/app-landing-page | 0 | 10/10 | yes, wk-r-2 | yes | no | 0 | - | no | no | payload |
 | wk-rework-lp | /ai-landing-page-builder/b2b-landing-page | 0 | 10/10 | yes, wk-r-3 | yes | no | 0 | - | no | no | payload |
 | wk-rework-lp | /ai-landing-page-builder/campaign-landing-page | 0 | 10/10 | yes, wk-r-4 | yes | no | 0 | - | no | no | payload |
@@ -211,4 +211,4 @@ Regenerated 2026-10-10 06:40 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-sqb | /ai-survey-and-quiz-builder/onboarding-survey | 0 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/pulse-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
 
-Stages: autofix 23, done 21, images 11, images2 1, payload 52, review 1, stopped 76, writer 2 (187 pages)
+Stages: autofix 21, done 21, images 11, images2 1, payload 52, review 1, stopped 78, writer 2 (187 pages)
