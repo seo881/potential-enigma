@@ -17,6 +17,7 @@ RUN="$REPO/.cache/weekend"; mkdir -p "$RUN"
 PY="$REPO/.venv/bin/python3"
 export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 export CLAUDE_CONFIG_DIR="$HOME/.claude-b"
+export CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0   # headless sessions wait for their subagents (writers were stopped mid-page); MAX_ITER_SECS still caps a session
 unset CLAUDECODE CLAUDE_CODE_ENTRYPOINT CLAUDE_CODE_MESSAGING_SOCKET CLAUDE_CODE_MESSAGING_TOKEN CLAUDE_CODE_EXECPATH \
       CLAUDE_CODE_SESSION_ID CLAUDE_CODE_CHILD_SESSION CLAUDE_CODE_SESSION_ATTENDED CLAUDE_PID CLAUDE_EFFORT
 PROMPT="Continue the weekend run per plan/weekend-run.md"
