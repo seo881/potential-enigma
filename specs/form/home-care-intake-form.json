@@ -132,6 +132,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 10:09 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-16",
+   "note": "rubric 10/10 by wk-r-16; 6 notes"
   }
  ],
  "plan": {
@@ -814,11 +821,181 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 06:58 UTC"
+  "rules_version": "b9bdd5846b24",
+  "date": "2026-10-10 10:08 UTC"
  },
  "writers": [
   "w-home-care-intake-form",
   "wk-w-home-care-intake-form"
+ ],
+ "review": {
+  "by": "wk-r-16",
+  "date": "2026-10-10 10:09 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Home Care Intake Form From First Call to First Shift'; hero 'Create a home care intake form that scores daily activities, checks the home for hazards, and saves one client record you own.' (under 130 chars, primary, leads with Create). How-to description is one sentence under 140 chars: 'Seven steps to plan a home care intake form around the phone inquiry and the home visit, then build it with Emergent.' Explore CTA 30 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "SERP of app templates and fill-and-sign PDFs: FAQ 1 defines the form, FAQ 3 gives the two-part structure, FAQ 4 lists the companion forms, FAQ 6, 8 and 10 separate non-medical home care from home health (sourced to Medicare), and the how-to follows the call-then-visit intake."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Agency vocabulary: 'Mark who can approve a change to care and who only wants updates after visits', 'private pay, long-term care insurance or a VA benefit', 'the ordering doctor and the nursing or therapy visits on the order'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Tabs open on full sentences ('Most first calls at Larkspur Home Care come from adult children', 'Care managers at Juniper Home Care score each daily activity', 'Fernhill Senior Care's assessors walk each house', 'Cobalt Bay Home Care asks new clients'); feature bodies open on verbs ('List', 'Score', 'Give', 'Ask', 'Ask', 'Export')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; lists without the serial comma are recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: 'By the tub, no grab bar; in the hall, a loose rug', 'a Spanish-speaking caregiver who is fine with her cat', 'her son Daniel gets the list by email that evening'."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to claims_used (e-signature-capture for the signed care plan, alerts, api-connect, code-export 'on the paid plans', free-start with the approved free-tier wording) and the approved no-caps claim; ADL/IADL, home health versus personal care and the CDC hazard checklist are in domain_sources; tab numbers agree (3 needs-help answers, 4 hours a day; 2 of 9 caregivers)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "The clinical side is handed to the patient intake form sibling (FAQ 10) and generic intake to the intake form sibling (FAQ 3); the skipped PAA item belongs to patient-intake-form; no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "Exactly 10 on-topic questions, none naming a brand or asking for a file format; hub link in item 2; three exact-match links (intake form, emergency contact form, patient intake form); moat lines in items 3 ('both parts on one client record'), 7 ('both stages write to the same client table') and 9 ('free to start ... Responses have no cap')."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: one hero per tab, readable; 'Sent to Rosa Delgado', 'Luis Ruiz, Tucson', 'Inquiry from his daughter in Denver', '2 assessment times to offer'; bathing, dressing, getting out of a chair 'Needs help', '4 hours a day', '3 activities need help'; 'Loose rug', 'Tub with no grab bar', 'Email to Daniel Park'; '9 caregivers on staff, best match first', '2 of 9 caregivers match'. All match the tab copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_2",
+    "quote": "Walter Hayes needs help with bathing, dressing and getting out of a chair.",
+    "issue": "Three-item list without the serial comma; the page's other lists carry it ('rugs, grab bars, stair rails, and lighting').",
+    "fix": "bathing, dressing, and getting out of a chair",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_5",
+    "quote": "Ask whether care is private pay, long-term care insurance or a VA benefit.",
+    "issue": "Three-item list without the serial comma.",
+    "fix": "long-term care insurance, or a VA benefit",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_2_des",
+    "quote": "with a phone number, the order to call them and whether they can approve changes",
+    "issue": "Three-item list without the serial comma.",
+    "fix": "the order to call them, and whether they can approve changes",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "mockup",
+    "quote": "Score each daily activity as independent, needs help or full help.",
+    "issue": "adlAssessment prompt: list without the serial comma (chip prompt 2 carries it). Same class in homeSafetyCheck ('needs a photo and a note, goes into the client's care plan and is emailed') and scheduleAndMatch ('the days, start times and hours they want').",
+    "fix": "needs help, or full help; care plan, and is emailed; start times, and hours",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "images.tab_image_2.alt",
+    "quote": "needing help with bathing, dressing and getting out of a chair",
+    "issue": "Alt text list without the serial comma; same in tab_image_4 alt ('a Spanish-speaking caregiver and a cat at home').",
+    "fix": "bathing, dressing, and getting out of a chair; a Spanish-speaking caregiver, and a cat at home",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "Yes. Emergent is free to start, and the free tier covers building and publishing a form with a live URL.",
+    "issue": "Item 9 answers a general question entirely with Emergent's plan terms, which reads closer to a sell than the subtle moat line F9 asks for.",
+    "fix": "Open on what a free form needs to do for an agency, then keep one Emergent sentence.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_2",
+   "issue": "Three-item list without the serial comma; the page's other lists carry it ('rugs, grab bars, stair rails, and lighting').",
+   "fix": "bathing, dressing, and getting out of a chair",
+   "by": "wk-r-16",
+   "via": "review",
+   "date": "2026-10-10 10:09 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_5",
+   "issue": "Three-item list without the serial comma.",
+   "fix": "long-term care insurance, or a VA benefit",
+   "by": "wk-r-16",
+   "via": "review",
+   "date": "2026-10-10 10:09 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_2_des",
+   "issue": "Three-item list without the serial comma.",
+   "fix": "the order to call them, and whether they can approve changes",
+   "by": "wk-r-16",
+   "via": "review",
+   "date": "2026-10-10 10:09 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "mockup",
+   "issue": "adlAssessment prompt: list without the serial comma (chip prompt 2 carries it). Same class in homeSafetyCheck ('needs a photo and a note, goes into the client's care plan and is emailed') and scheduleAndMatch ('the days, start times and hours they want').",
+   "fix": "needs help, or full help; care plan, and is emailed; start times, and hours",
+   "by": "wk-r-16",
+   "via": "review",
+   "date": "2026-10-10 10:09 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "images.tab_image_2.alt",
+   "issue": "Alt text list without the serial comma; same in tab_image_4 alt ('a Spanish-speaking caregiver and a cat at home').",
+   "fix": "bathing, dressing, and getting out of a chair; a Spanish-speaking caregiver, and a cat at home",
+   "by": "wk-r-16",
+   "via": "review",
+   "date": "2026-10-10 10:09 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "Item 9 answers a general question entirely with Emergent's plan terms, which reads closer to a sell than the subtle moat line F9 asks for.",
+   "fix": "Open on what a free form needs to do for an agency, then keep one Emergent sentence.",
+   "by": "wk-r-16",
+   "via": "review",
+   "date": "2026-10-10 10:09 UTC"
+  }
  ]
 }
