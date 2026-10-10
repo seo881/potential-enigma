@@ -137,6 +137,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 00:27 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-10",
+   "note": "rubric 10/10 by wk-r-10; 3 notes"
   }
  ],
  "plan": {
@@ -733,10 +740,120 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 23:54 UTC"
+  "date": "2026-10-10 00:23 UTC"
  },
  "writers": [
   "w-employee-evaluation-form",
   "wk-w-employee-evaluation-form"
+ ],
+ "review": {
+  "by": "wk-r-10",
+  "date": "2026-10-10 00:27 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build an Employee Evaluation Form for Every Review Cycle\"; hero \"Build an employee evaluation form that asks for an example behind every low score and keeps each signed review on file.\"; how-to description one sentence"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition (FAQ 1), how to fill it in (FAQ 4), sample wording (FAQ 3), constructive criticism (FAQ 5), what to leave out (FAQ 6), template outline (FAQ 9); examples promised in the title are delivered (\"Closing 41 support tickets a week against a target of 35\", \"three of five client reports this quarter went out late\")"
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "\"any score of 2 or lower opens a required comment box\", \"marks any competency where they differ by 2 points or more as the first topic\", \"On day 80 of a 90-day probation\""
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "\"A low score with no example leaves the employee nothing to fix.\", \"New hires get their first review while there is still time to act on it.\"; feature bodies open on verbs"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q5-Q8 clean"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "\"On a staff evaluation form, criticism without a next step reads as a verdict.\", \"A personnel evaluation form should describe the work, not the person.\""
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Protected traits (EEOC), one-year retention of personnel records (29 CFR 1602.14), signature as acknowledgment (Wichita State HR) all match domain_sources; \"no per-seat pricing\" is in claims.json; Emergent claims in claims_used"
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Performance reviews of employees; anonymous upward feedback routed to the anonymous feedback form sibling (FAQ 7); no sibling primary in a heading"
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, no brand or file-format asks, hub link in item 2, links to anonymous feedback form and training feedback form, moat lines in items 7 and 9"
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 \"Quality of work: 2 of 5\", \"Review stays unsent until then\"; tab 2 Communication 5 vs 3, gap 2, \"1 gap\", other gaps 0-1; tab 3 three of four peers answered, \"Direct message to Rosa Diaz\", \"Comments in shuffled order\"; tab 4 \"day 80 of 90\", \"Direct message to Ben Carter\", matching the cover"
+   }
+  },
+  "findings": [
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq (items 1 and 10)",
+    "quote": "Most versions list the role's competencies / HR teams use the two names for the same document",
+    "issue": "Generalizations about unnamed forms and HR teams.",
+    "fix": "State what the form holds directly (\"An evaluation form lists...\").",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "tab_content_3",
+    "quote": "they write more candidly when a comment cannot be traced back",
+    "issue": "A claim about how people behave, with no source; it frames the tab rather than stating a law or standard, so it ships as a note.",
+    "fix": "Lead with what the form does: \"The team lead never learns who wrote what.\"",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_7_des",
+    "quote": "Federal rules require employers to keep personnel records tied to promotion, demotion or termination for at least one year.",
+    "issue": "True per 29 CFR 1602.14, which applies to employers covered by Title VII (15 or more employees); the sentence reads as if it binds every employer.",
+    "fix": "\"Employers covered by Title VII must keep...\"",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq (items 1 and 10)",
+   "issue": "Generalizations about unnamed forms and HR teams.",
+   "fix": "State what the form holds directly (\"An evaluation form lists...\").",
+   "by": "wk-r-10",
+   "via": "review",
+   "date": "2026-10-10 00:27 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "tab_content_3",
+   "issue": "A claim about how people behave, with no source; it frames the tab rather than stating a law or standard, so it ships as a note.",
+   "fix": "Lead with what the form does: \"The team lead never learns who wrote what.\"",
+   "by": "wk-r-10",
+   "via": "review",
+   "date": "2026-10-10 00:27 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_7_des",
+   "issue": "True per 29 CFR 1602.14, which applies to employers covered by Title VII (15 or more employees); the sentence reads as if it binds every employer.",
+   "fix": "\"Employers covered by Title VII must keep...\"",
+   "by": "wk-r-10",
+   "via": "review",
+   "date": "2026-10-10 00:27 UTC"
+  }
  ]
 }
