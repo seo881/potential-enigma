@@ -5,7 +5,7 @@ Every headless session of the weekend run starts here (prompt: "Continue the wee
 ## Current position
 
 <!-- position:start (written by ops/weekend.py tick; do not edit by hand) -->
-Updated 2026-10-10 11:06 UTC. Started 2026-10-09T21:40:27+00:00.
+Updated 2026-10-10 11:08 UTC. Started 2026-10-09T21:40:27+00:00.
 
 | Phase | Hub | Pages | Stages |
 |---|---|---|---|
@@ -13,7 +13,7 @@ Updated 2026-10-10 11:06 UTC. Started 2026-10-09T21:40:27+00:00.
 | rework | Auto | 4 | ready 4 |
 | rework | SurveyQuiz | 9 | ready 8, stopped 1 |
 | rework | Form | 132 | check2 1, images2 1, ready 38, review 7, stopped 85 |
-| new | LP | 2 | review 2 |
+| new | LP | 3 | check 1, review 2 |
 | new | Auto | 3 | check 1, review 2 |
 | new | SurveyQuiz | 3 | check 1, review 2 |
 
