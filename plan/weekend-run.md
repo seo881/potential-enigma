@@ -5,7 +5,7 @@ Every headless session of the weekend run starts here (prompt: "Continue the wee
 ## Current position
 
 <!-- position:start (written by ops/weekend.py tick; do not edit by hand) -->
-Updated 2026-10-10 07:34 UTC. Started 2026-10-09T21:40:27+00:00.
+Updated 2026-10-10 07:55 UTC. Started 2026-10-09T21:40:27+00:00.
 
 | Phase | Hub | Pages | Stages |
 |---|---|---|---|
@@ -15,7 +15,7 @@ Updated 2026-10-10 07:34 UTC. Started 2026-10-09T21:40:27+00:00.
 | rework | Form | 132 | images 18, images2 1, ready 27, review 1, stopped 85 |
 
 New pages claimed this weekend: none.
-Holds: none.
+Holds: new pages: DataForSEO MCP not authenticated in ~/.claude-b (needs /mcp login by Divit) (2026-10-09 21:41 UTC).
 AlsoAsked credits this weekend: 20 of 300. Reports written: 13.
 Next step: run `.venv/bin/python3 ops/weekend.py next` and do what it prints.
 <!-- position:end -->
