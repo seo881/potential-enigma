@@ -1033,3 +1033,20 @@ Phase 2 (DECISIONS 2026-10-08): one line per page, no question text. Per-questio
 - 2026-10-10 /ai-form-builder/home-care-intake-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
 - 2026-10-10 /ai-form-builder/home-care-intake-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
 - 2026-10-10 /ai-form-builder/home-care-intake-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-10 /ai-form-builder/driver-application-form [spec]: 10 questions; pass 2, reject 8, flag 0; rejects by rule: PA15 5, PA3 5, PA4 2; page: PA11 2 on-topic items, under 8: the page parks
+- 2026-10-10 /ai-form-builder/overtime-request-form [spec]: 10 questions; pass 1, reject 9, flag 0; rejects by rule: PA1 2, PA15 1, PA3 8; page: PA11 1 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build
+- 2026-10-10 /ai-form-builder/restaurant-reservation-form [spec]: 10 questions; pass 1, reject 9, flag 0; rejects by rule: PA1 5, PA3 9; page: PA11 1 on-topic items, under 8: the page parks; PA12 0 items carrying a secondary, under 3
+- 2026-10-10 /ai-form-builder/sign-out-form [spec]: 10 questions; pass 4, reject 6, flag 0; rejects by rule: PA14 1, PA15 2, PA3 5, PA8 1; page: PA11 4 on-topic items, under 8: the page parks
+- 2026-10-10 /ai-form-builder/restaurant-reservation-form [pull]: 15 questions; pass 0, reject 15, flag 0; rejects by rule: PA3 15, PA5 1; page: PA11 42 nodes, 15 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/driver-application-form [pull]: 27 questions; pass 0, reject 27, flag 0; rejects by rule: PA3 27, PA4 20, PA5 2; page: PA11 50 nodes, 27 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/overtime-request-form [pull]: 17 questions; pass 0, reject 17, flag 0; rejects by rule: PA3 17; page: PA11 44 nodes, 17 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/overtime-request-form [pull]: 23 questions; pass 0, reject 23, flag 0; rejects by rule: PA10 1, PA14 5, PA3 23, PA4 2; page: PA11 44 nodes, 23 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/sign-out-form [pull]: 19 questions; pass 0, reject 19, flag 0; rejects by rule: PA10 1, PA14 4, PA15 3, PA3 19; page: PA11 42 nodes, 19 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/restaurant-reservation-form [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-form-builder/driver-application-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/driver-application-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/restaurant-reservation-form [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-form-builder/driver-application-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/restaurant-reservation-form [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-form-builder/restaurant-reservation-form [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-form-builder/sign-out-form [spec]: 10 questions; pass 5, reject 5, flag 0; rejects by rule: PA14 1, PA15 2, PA3 4, PA8 1; page: PA11 5 on-topic items, under 8: the page parks
