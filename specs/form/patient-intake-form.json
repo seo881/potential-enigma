@@ -139,6 +139,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 01:05 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-13",
+   "note": "rubric 10/10 by wk-r-13; 4 notes"
   }
  ],
  "plan": {
@@ -725,7 +732,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 00:39 UTC"
+  "date": "2026-10-10 01:01 UTC"
  },
  "writers": [
   "w-patient-intake-form",
@@ -736,5 +743,135 @@
   "Add a medication section where patients list prescriptions, over-the-counter medicines, and supplements, giving a dose and schedule for each one.",
   "If a patient checks chest pain or shortness of breath, email the nurse on duty as soon as the form is submitted and mark the patient urgent.",
   "Put my practice's financial policy and consent to treat after the last question, and have the patient sign each one before the form can be submitted."
+ ],
+ "review": {
+  "by": "wk-r-13",
+  "date": "2026-10-10 01:05 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Patient Intake Form Patients Finish Before They Arrive\" and hero \"Create a patient intake form that opens on any phone, takes insurance card photos, and flags answers staff should see early.\" (under 130 chars, primary, leads with Create); how-to description one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition, what to ask, an example, timing, registration vs intake, free template, fillable template, specialty adaptation (FAQ 1-10), a how-to built on the clinic's existing packet, and a comparison table; meets the clinic-PDF and builder top 10. HIPAA secondaries are left out, as the claims ledger requires."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Front-desk vocabulary: \"member ID and group number\", \"switch to self-pay\", \"releases a slot once they arrive\", \"top of the triage queue\"."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs (\"Ask for a picture\", \"Split the medication question\", \"Turn the medical history page\", \"Alert the staff member\", \"Place the financial policy\", \"Export the form\"); tabs open on full sentences."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; \"Patients who have never had surgery skip every question about past operations.\""
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "\"Strike any question whose answer nobody on staff has looked at in a year.\" Operator voice, no hype."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Medication categories (UC Davis), Word content controls and Restrict Editing (Microsoft) and intake sections (Cortico) match domain_sources; no HIPAA claim; Emergent lines map to claims_used; GitHub export on paid plans."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Strictly medical per the watch-list; FAQ 7 sends client work outside healthcare to the intake form page and FAQ 10 to the massage intake form; no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic items, no brand or format in a question, hub link in item 2, sibling links in items 5, 7 and 10, answer-first, Emergent lines in items 6, 8 and 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "uc-1 \"Sent to Dana Price\", \"Plan not on the accepted list\", \"Due 2 days before the visit\"; uc-2 Paul Kessler labs Missing, \"Held for Grace Obi\", \"Booking calendar closed\"; uc-3 \"2 patient records created\", Lucia Moreno guardian, insurance entered once; uc-4 Jon Tate chest pain moved to top, message to Kim Alvarez."
+   }
+  },
+  "findings": [
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq item 8; faq item 7; howto_step_3_des; faq item 1",
+    "quote": "Many hospitals and clinics post their own packets online / Many practices combine both in one packet / Patients leave out what they do not think of as medicine / A new patient intake form runs longer than the yearly update returning patients fill in",
+    "issue": "Soft quantifiers and generalizations about no named third party, unsourced.",
+    "fix": "State as advice or drop the quantifier.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq item 3; faq item 4; howto_step_2_des",
+    "quote": "Start with identity and contact details, then the insurance plan / It opens with contact details and insurance / Open with who the patient is and how to reach them. Insurance comes next",
+    "issue": "The section order is given three times.",
+    "fix": "Let the example (FAQ 4) carry only what is specific to dermatology.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #25",
+    "field": "image_brief.tabs[3].hero (uc-4)",
+    "quote": "# Kim Alvarez",
+    "issue": "The message is addressed to the nurse by name, as the copy says, but the engine's hash glyph makes the header read like a channel.",
+    "fix": "Render direct messages without the hash (engine change).",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Jotform / Google Forms / Typeform",
+    "issue": "QC K7: none ranks in this page's top 10 (IntakeQ, Zentake, Freed, eSign do).",
+    "fix": "If the library adds IntakeQ or Zentake, regenerate the table with them.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq item 8; faq item 7; howto_step_3_des; faq item 1",
+   "issue": "Soft quantifiers and generalizations about no named third party, unsourced.",
+   "fix": "State as advice or drop the quantifier.",
+   "by": "wk-r-13",
+   "via": "review",
+   "date": "2026-10-10 01:05 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq item 3; faq item 4; howto_step_2_des",
+   "issue": "The section order is given three times.",
+   "fix": "Let the example (FAQ 4) carry only what is specific to dermatology.",
+   "by": "wk-r-13",
+   "via": "review",
+   "date": "2026-10-10 01:05 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #25",
+   "field": "image_brief.tabs[3].hero (uc-4)",
+   "issue": "The message is addressed to the nurse by name, as the copy says, but the engine's hash glyph makes the header read like a channel.",
+   "fix": "Render direct messages without the hash (engine change).",
+   "by": "wk-r-13",
+   "via": "review",
+   "date": "2026-10-10 01:05 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: none ranks in this page's top 10 (IntakeQ, Zentake, Freed, eSign do).",
+   "fix": "If the library adds IntakeQ or Zentake, regenerate the table with them.",
+   "by": "wk-r-13",
+   "via": "review",
+   "date": "2026-10-10 01:05 UTC"
+  }
  ]
 }
