@@ -136,6 +136,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 10:09 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-17",
+   "note": "rubric 10/10 by wk-r-17; 4 notes"
   }
  ],
  "plan": {
@@ -830,11 +837,141 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 05:06 UTC"
+  "rules_version": "b9bdd5846b24",
+  "date": "2026-10-10 10:08 UTC"
  },
  "writers": [
   "w-quote-form",
   "wk-w-quote-form"
+ ],
+ "review": {
+  "by": "wk-r-17",
+  "date": "2026-10-10 10:09 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Quote Form That Collects What You Need to Price the Job' and meta title 'Quote Form Builder for Service Businesses | Emergent' state the whole job. Hero 'Create a quote form that works out the price of standard jobs and saves every request to a database you own.' is under 130 chars, carries the primary, leads with a verb (D1). How-to description is one sentence under 140 chars (D2). CTA 'Build My Quote Form' (D3)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "SERP of quote templates and request-a-quote guides: the page builds the inbound form, covers what a quote document carries (FAQ 3, sourced), the estimate vs quote question (FAQ 5), free and PDF versions (FAQ 6, 7), and a seven-step how-to from a price sheet."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Trade vocabulary: 'each flight without an elevator adds $120', 'a PDF drawing of a bracket', 'prices at 500 and 1,000 pieces', 'A four-bedroom house with a piano is not'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Tidewater Moving asks for the move date', 'Purchasing at Kestrel Pumps uploads a PDF drawing', 'Pull up the rates you already quote by phone'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; six lists without the serial comma are recorded as one note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete detail: 'Quote Q-3318', '1,800 square feet of lawn sits on a slope', 'On day 14 the quote is marked expired and leaves the open list'."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Third-party facts match domain_sources: estimate vs quote (Moon Invoice), what a quote carries (Zigaflow), 30-day validity (Zigaflow). Emergent claims map to claims_used (custom-domain 'included and runs on credits', code-export 'on paid plans', no-caps, free-start, alerts). Numbers agree: $900 + 2 x $120 = $1,140; 500 x $11.80 = $5,900; 1,000 x $9.60 = $9,600; 12 x $130 = $1,560."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Purchases at a known price handed to the order form (FAQ 8) and call-back requests to the lead capture form sibling (FAQ 10); no sibling primary in any heading; no other page in the plan owns an estimate or quote keyword."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "Exactly 10 on-topic questions, none naming a brand (PA14) or a file format or download (PA15); hub link in item 2; links to order form and lead capture form; moat lines in items 4, 6 and 7 (F9). Each answer opens on its answer."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: one hero per tab, readable. Tab 1 '$900.00 + $240.00 = $1,140.00', Ruth Adler '4 bedrooms' walkthrough; tab 2 #estimates, '1,800 sq ft', 'Back lawn on a slope', '4 photos attached', 'Up to 5 per request'; tab 3 '$11.80 each', '$9.60 each', 'Totals of $5,900 and $9,600', 'Valid for 30 days'; tab 4 '12 visits at $130', '$1,560.00', 'Reminder sent on day 10', 'Day 14 Marked expired'. Cover repeats 1,800 sq ft."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "meta_description",
+    "quote": "asks what sets the price, prices standard jobs on screen and emails the quote back",
+    "issue": "Three-item list without the serial comma (DECISIONS: serial comma everywhere). Same class in tab_content_2 'like a patio or sod, enter the yard size and upload up to 5 photos'; tab_content_3 'uploads a PDF drawing of a bracket, picks the material and asks for prices'; mockup landscapingCrews 'pick the job type, enter the yard size in square feet and upload up to 5 photos'; mockup machineShops 'upload a PDF part drawing, pick a material and list the quantities'; faq item 1 'such as size, quantity, location and timing'.",
+    "fix": "Add the serial comma in all six lists.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_2_des",
+    "quote": "For office cleaning, it means square feet and visits per week.",
+    "issue": "The office cleaning tab and its mockup price by visits per month ('12 visits at $130, or $1,560 a month'); the step uses a different unit for the same trade.",
+    "fix": "'For office cleaning, it means square feet and visits per month.'",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "For most service businesses, yes.",
+    "issue": "Soft quantifier about no named third party (FAQ 7).",
+    "fix": "Answer on the mechanism: 'Yes, because nobody retypes the answers.'",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "The best quote forms ask fewer questions than you expect.",
+    "issue": "A generic maxim where a specific detail belongs (FAQ 10).",
+    "fix": "Name the cut: 'A two-bedroom move prices from four answers: date, ZIP codes, bedrooms, and stairs.'",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "meta_description",
+   "issue": "Three-item list without the serial comma (DECISIONS: serial comma everywhere). Same class in tab_content_2 'like a patio or sod, enter the yard size and upload up to 5 photos'; tab_content_3 'uploads a PDF drawing of a bracket, picks the material and asks for prices'; mockup landscapingCrews 'pick the job type, enter the yard size in square feet and upload up to 5 photos'; mockup machineShops 'upload a PDF part drawing, pick a material and list the quantities'; faq item 1 'such as size, quantity, location and timing'.",
+   "fix": "Add the serial comma in all six lists.",
+   "by": "wk-r-17",
+   "via": "review",
+   "date": "2026-10-10 10:09 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_2_des",
+   "issue": "The office cleaning tab and its mockup price by visits per month ('12 visits at $130, or $1,560 a month'); the step uses a different unit for the same trade.",
+   "fix": "'For office cleaning, it means square feet and visits per month.'",
+   "by": "wk-r-17",
+   "via": "review",
+   "date": "2026-10-10 10:09 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Soft quantifier about no named third party (FAQ 7).",
+   "fix": "Answer on the mechanism: 'Yes, because nobody retypes the answers.'",
+   "by": "wk-r-17",
+   "via": "review",
+   "date": "2026-10-10 10:09 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "A generic maxim where a specific detail belongs (FAQ 10).",
+   "fix": "Name the cut: 'A two-bedroom move prices from four answers: date, ZIP codes, bedrooms, and stairs.'",
+   "by": "wk-r-17",
+   "via": "review",
+   "date": "2026-10-10 10:09 UTC"
+  }
  ]
 }
