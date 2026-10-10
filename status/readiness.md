@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-10 06:58 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-10 06:59 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -106,7 +106,7 @@ Regenerated 2026-10-10 06:58 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/food-order-form | 6 | 4/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/grievance-form | 0 | 4/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/health-screening-form | 7 | 1/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
-| wk-rework-form | /ai-form-builder/home-care-intake-form | 1 | 10/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-form | /ai-form-builder/home-care-intake-form | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
 | wk-rework-form | /ai-form-builder/hotel-booking-form | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
 | wk-rework-form | /ai-form-builder/identity-verification-form | 0 | 5/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/incident-report-form | 0 | 10/10 | yes, wk-r-14 | yes | no | 0 | - | no | no | payload |
@@ -211,4 +211,4 @@ Regenerated 2026-10-10 06:58 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-sqb | /ai-survey-and-quiz-builder/onboarding-survey | 0 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/pulse-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
 
-Stages: autofix 15, check 3, done 21, images 12, images2 1, payload 52, review 1, stopped 81, writer 1 (187 pages)
+Stages: autofix 15, check 4, done 21, images 12, images2 1, payload 52, review 1, stopped 81 (187 pages)
