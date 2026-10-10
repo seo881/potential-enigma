@@ -5,18 +5,18 @@ Every headless session of the weekend run starts here (prompt: "Continue the wee
 ## Current position
 
 <!-- position:start (written by ops/weekend.py tick; do not edit by hand) -->
-Updated 2026-10-10 01:03 UTC. Started 2026-10-09T21:40:27+00:00.
+Updated 2026-10-10 01:07 UTC. Started 2026-10-09T21:40:27+00:00.
 
 | Phase | Hub | Pages | Stages |
 |---|---|---|---|
 | rework | LP | 13 | ready 13 |
 | rework | Auto | 4 | ready 4 |
 | rework | SurveyQuiz | 9 | ready 8, stopped 1 |
-| rework | Form | 132 | autofix 101, images 2, ready 20, review 4, stopped 2, writer 3 |
+| rework | Form | 132 | autofix 101, check 2, images 2, ready 23, rework 1, stopped 2, writer 1 |
 
 New pages claimed this weekend: none.
 Holds: none.
-AlsoAsked credits this weekend: 10 of 300. Reports written: 4.
+AlsoAsked credits this weekend: 10 of 300. Reports written: 5.
 Next step: run `.venv/bin/python3 ops/weekend.py next` and do what it prints.
 <!-- position:end -->
 
