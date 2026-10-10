@@ -2,6 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-10-10 · [1731-weekend-run-17](2026-10-10/1731-weekend-run-17.md) · Weekend run: 9 pages reviewed, 0 parked; 25 AlsoAsked credits so far; no Webflow calls · this commit
 - 2026-10-10 · [1657-weekend-run-16](2026-10-10/1657-weekend-run-16.md) · Weekend run: 10 pages reviewed, 0 parked; 22 AlsoAsked credits so far; no Webflow calls · this commit
 - 2026-10-10 · [1643-alsoasked-cap](2026-10-10/1643-alsoasked-cap.md) · AlsoAsked cap closed: 2 credits per page via weekend.py aa only, direct pulls refused; over-cap pages were double counting (true total 22 of 300) · 89ad1c9
 - 2026-10-10 · [1550-alsoasked-keychain](2026-10-10/1550-alsoasked-keychain.md) · Weekend loop reads the AlsoAsked key from the keychain, DataForSEO MCP removed; one loop restarted, writers for 3 hubs pulling · 68caa97
