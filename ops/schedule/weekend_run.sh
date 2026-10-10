@@ -4,7 +4,9 @@
 #   watch:  tail -f ~/Library/Logs/emergent-weekend-run.log
 #   stop:   touch ~/emergent-hubs/STOP      (clean stop after the current page; rm STOP before the next start)
 # Loops headless Claude Code (CLAUDE_CONFIG_DIR=~/.claude-b, no fast mode) with "Continue the weekend run per plan/weekend-run.md".
-# NO Webflow tools: the Webflow MCP is not loaded (--strict-mcp-config, DataForSEO only) and every Webflow tool is denied by name.
+# NO Webflow tools: no MCP server is loaded at all (--strict-mcp-config, empty config; DataForSEO retired 2026-10-10) and every
+# Webflow tool is denied by name. The AlsoAsked key comes from the macOS keychain (service "alsoasked", account $USER) before each
+# session, never from a file or the repo, and is never printed; missing key: new pages stay held ("AlsoAsked key missing").
 # Session limit: sleep to the reset time the message gives, else 20 minutes; limited for 7 continuous hours, a weekly-limit
 # message or any mention of paid/extra usage: stop for good. Waits while another job holds a lock (ops/guards.py held) and
 # keeps 08:20-09:45 local free for the 09:00 live audit (clean tree, no lock). Renders run locally in the background (render_bg).
@@ -24,7 +26,7 @@ log() { echo "$(date '+%Y-%m-%d %H:%M:%S') $*" >> "$LOG"; }
 notify() { osascript -e "display notification \"${1//\"/\'}\" with title \"Emergent weekend run\"" >/dev/null 2>&1; }
 
 ALLOWED=(
-  "Read" "Glob" "Grep" "Agent" "Skill" "ToolSearch" "TodoWrite" "WebSearch" "WebFetch" "mcp__dataforseo"
+  "Read" "Glob" "Grep" "Agent" "Skill" "ToolSearch" "TodoWrite" "WebSearch" "WebFetch"
   "Edit(specs/**)" "Edit(.cache/**)" "Edit(//tmp/**)" "Edit(//private/tmp/**)" "Edit(plan/backlog.md)"
   "Bash(.venv/bin/python3 ops/hubctl.py:*)" "Bash(python3 ops/hubctl.py:*)" "Bash(.venv/bin/python3 ops/weekend.py:*)"
   "Bash(.venv/bin/python3 ops/alsoasked_pull.py:*)" "Bash(.venv/bin/python3 qc/qc_hub.py:*)" "Bash(python3 qc/qc_hub.py:*)"
@@ -142,11 +144,20 @@ while :; do
   fi
   RENDER_WAITS=0
 
+  # AlsoAsked key from the keychain for this session only (never printed or written); missing: keep new pages held
+  export ALSOASKED_API_KEY="$(security find-generic-password -a "$USER" -s alsoasked -w 2>/dev/null)"
+  if [ -z "$ALSOASKED_API_KEY" ]; then
+    log "AlsoAsked key missing (keychain service alsoasked, account $USER): new pages held"
+    grep -q '"block_new"' "$REPO/status/weekend-run.json" 2>/dev/null || "$PY" ops/weekend.py block-new "AlsoAsked key missing" >> "$LOG" 2>&1
+  elif grep -q '"block_new": "AlsoAsked key missing' "$REPO/status/weekend-run.json" 2>/dev/null; then
+    "$PY" ops/weekend.py unblock-new >> "$LOG" 2>&1; log "AlsoAsked key found: new-page hold released"
+  fi
+
   N=$((N + 1)); OUT="$RUN/iter-$(date +%Y%m%d-%H%M%S).txt"; BEFORE="$(git rev-parse HEAD)"; START=$(date +%s)
   log "iteration $N start: $(echo "$NEXT" | head -4 | cut -c1-160 | tr '\n' ';')"
   "$PY" ops/guards.py run-locked weekend -- claude -p "$PROMPT" --permission-mode dontAsk \
       --allowedTools "${ALLOWED[@]}" --disallowedTools "${DENIED[@]}" \
-      --strict-mcp-config --mcp-config "$REPO/ops/schedule/weekend.mcp.json" --settings '{"fastMode": false}' \
+      --strict-mcp-config --mcp-config '{"mcpServers":{}}' --settings '{"fastMode": false}' \
       --output-format text > "$OUT" 2>&1 &
   CPID=$!
   while kill -0 $CPID 2>/dev/null; do
