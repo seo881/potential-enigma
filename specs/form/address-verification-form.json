@@ -140,6 +140,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 10:01 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-15",
+   "note": "rubric 10/10 by wk-r-15; 6 notes"
   }
  ],
  "plan": {
@@ -781,8 +788,8 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 06:56 UTC"
+  "rules_version": "b9bdd5846b24",
+  "date": "2026-10-10 09:54 UTC"
  },
  "writers": [
   "w-address-verification-form",
@@ -793,5 +800,175 @@
   "When an applicant has no bill in their own name, send the person they live with a statement to sign and ask for that person's own lease or bill.",
   "Show my reviewer each upload beside the typed address, and let them approve or return the case with a reason saved under their name.",
   "Email anyone whose case is still missing a document every three days, and send my office a Slack alert when a case has waited a week."
+ ],
+ "review": {
+  "by": "wk-r-15",
+  "date": "2026-10-10 10:01 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Address Verification Form'; hero 'Create an address verification form that takes leases and utility bills as uploads and records who approved each case.' (under 130 chars, primary, leads with Create). How-to description is one sentence under 140 chars: 'Seven steps to an address verification form your reviewers can sign off on, starting with the rule for which documents count.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Covers the issuer forms that rank (FL-334 in FAQ 7, HSMV 71120 in FAQ 9, the USPS request formats in FAQ 10), what a template includes (FAQ 4 with the Syosset policy) and a seven-step build starting from the acceptance rule."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Registrar, caseworker, host statement, returned statements, parcel number: 'Staff match parcel 104-220-17 to the city's address list'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs ('Lists the documents your office accepts', 'Reads the name...', 'Puts each case in a review queue'); tabs open on full sentences ('Some applicants have no bill in their own name.')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; two missing serial commas recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Specific and calm: 'Nobody can send four bills and no lease.' 'Run three cases through before you share the link: one clean, one with an old bill, one with a host statement.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Third-party facts match domain_sources: Syosset Column A/B, FL-334 use with a proof of service by mail, HSMV 71120 notary or issuance staff, USPS address information requests and ZIP Code lookup. Tab 3 numbers 29 + 8 = 37 agree in copy and image. Emergent claims map to claims_used."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Shipping addresses are sent to the shipping address sibling and proof of identity to the identity verification sibling (FAQ 6, 8); no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "Exactly 10 questions, none naming a listed brand (USPS is on the PA14 proper-noun allow list) or a file format; hub link in item 2; moat lines in items 4 ('with no cap on responses') and 5 ('in a database you own')."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: 'Signed off by Ana Flores', 'Both proofs show 18 Birch Lane', 'Cedar Elementary zone', 'Seat held'; 'Host statement signed / By Elena Diaz', 'Approve residency' for Tom Reyes; '29 of 37 updated', '8 still paused'; '240 Mill Road verified', 'Parcel 104-220-17 matches'. One hero each, readable, story matches the copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_2",
+    "quote": "Reads the name, address and statement date off each bill or lease into fields.",
+    "issue": "Three-item list without the serial comma (DECISIONS: serial comma everywhere).",
+    "fix": "the name, address, and statement date",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_1_des",
+    "quote": "which documents count, how many from each group and how recent a bill must be",
+    "issue": "Second three-item list on the page without the serial comma.",
+    "fix": "how many from each group, and how recent a bill must be",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "features_subheading",
+    "quote": "Most address verification forms are PDFs returned by email.",
+    "issue": "Soft quantifier about no named third party (the top 10 does bear it out).",
+    "fix": "Many offices still publish the form as a PDF and take it back by email.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "tab_content_3",
+    "quote": "Returned mail is often the first sign of a move.",
+    "issue": "Second soft quantifier on the page, about no named third party.",
+    "fix": "A returned statement can be the first sign that a member has moved.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief.tabs[3]",
+    "quote": "Emailed to Globex Construction",
+    "issue": "Tab 4 hero says the letter was already emailed while its button still reads 'Send letter' and the panel step 'Letter signed' is live. It does not contradict the copy but the state is mixed.",
+    "fix": "Make the hero meta 'Ready to email Globex Construction', or change the button to 'View letter'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "Where can I get a proof of address form?",
+    "issue": "The live SERP's question on which documents verify an address is answered only indirectly (the Syosset example in FAQ 4); the plan's angle promised it.",
+    "fix": "On a refresh, give the documents question its own item.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_2",
+   "issue": "Three-item list without the serial comma (DECISIONS: serial comma everywhere).",
+   "fix": "the name, address, and statement date",
+   "by": "wk-r-15",
+   "via": "review",
+   "date": "2026-10-10 10:01 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_1_des",
+   "issue": "Second three-item list on the page without the serial comma.",
+   "fix": "how many from each group, and how recent a bill must be",
+   "by": "wk-r-15",
+   "via": "review",
+   "date": "2026-10-10 10:01 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "features_subheading",
+   "issue": "Soft quantifier about no named third party (the top 10 does bear it out).",
+   "fix": "Many offices still publish the form as a PDF and take it back by email.",
+   "by": "wk-r-15",
+   "via": "review",
+   "date": "2026-10-10 10:01 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "tab_content_3",
+   "issue": "Second soft quantifier on the page, about no named third party.",
+   "fix": "A returned statement can be the first sign that a member has moved.",
+   "by": "wk-r-15",
+   "via": "review",
+   "date": "2026-10-10 10:01 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief.tabs[3]",
+   "issue": "Tab 4 hero says the letter was already emailed while its button still reads 'Send letter' and the panel step 'Letter signed' is live. It does not contradict the copy but the state is mixed.",
+   "fix": "Make the hero meta 'Ready to email Globex Construction', or change the button to 'View letter'.",
+   "by": "wk-r-15",
+   "via": "review",
+   "date": "2026-10-10 10:01 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "The live SERP's question on which documents verify an address is answered only indirectly (the Syosset example in FAQ 4); the plan's angle promised it.",
+   "fix": "On a refresh, give the documents question its own item.",
+   "by": "wk-r-15",
+   "via": "review",
+   "date": "2026-10-10 10:01 UTC"
+  }
  ]
 }
