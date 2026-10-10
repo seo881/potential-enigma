@@ -142,6 +142,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 00:48 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-12",
+   "note": "rubric 10/10 by wk-r-12; 5 notes"
   }
  ],
  "plan": {
@@ -868,10 +875,160 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 00:27 UTC"
+  "date": "2026-10-10 00:48 UTC"
  },
  "writers": [
   "w-work-order-form",
   "wk-w-work-order-form"
+ ],
+ "review": {
+  "by": "wk-r-12",
+  "date": "2026-10-10 00:48 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Work Order Form That Carries Each Job to Sign-Off'; hero 'Get a work order form that sends each repair to the right technician and closes it on site with the parts used and a signature.' covers request to close-out; howto_description one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is templates and CMMS guides; the page gives the request and close-out fields (FAQ 3, FAQ 7), a worked example (FAQ 6 'a leaking kitchen faucet in Unit 2A'), the request-vs-order distinction and a 7-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Facilities vocabulary: 'trade queue', 'not-to-exceed amount', 'capacitor at $48', 'on call'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs ('Tag categories', 'Log labor hours'); tabs open on full sentences ('Ridgeview College runs one link for every building on campus.')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; 'Supervisors work only their own queue.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Product-led and specific: 'The tech arrives knowing which part to bring and which door to knock on first.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Request-to-order, maintenance work order and close-out definitions match domain_sources; 2.5 x 110 + 48 + 36 = 359 and 14,200 + 16,500 + 8,200 + 4,800 = 43,700 > 42,000 agree in copy and images; QuickBooks under api-connect; 'no per-seat pricing' is the HUB_RULES 5 F9 moat line."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Purchase order form (sibling) only linked in FAQ 10, never headlined; tabs are work-order moments distinct from order-form siblings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic items, answer-first, hub link in item 2, links (invoice automation, purchase order form), moat lines in items 4 and 9, no brands or formats in questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "uc-1 'Sent to Marcus, on call', uc-2 'Next email when marked done', uc-3 '$359.00', uc-4 '$43,700' / 'Held for the PM' match the tab copy; one hero each."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "meta_title",
+    "quote": "Free Work Order Form Builder",
+    "issue": "The title promises free, but no field on the page says Emergent is free to start (free-start is in claims_used and unused).",
+    "fix": "Add 'Free to start.' to meta_description or one FAQ answer.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "For most crews, yes.",
+    "issue": "Soft quantifier about no named third party.",
+    "fix": "'Yes, once more than one person handles requests.'",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "howto_step_3_des",
+    "quote": "Water leaks and failed heating in winter are common choices.",
+    "issue": "Soft quantifier in advice.",
+    "fix": "'Start with water leaks and failed heating in winter.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "The main types are maintenance, field service, construction, and IT or facilities requests.",
+    "issue": "Unsourced taxonomy stated as fact; CMMS guides usually type work orders by work (preventive, corrective, emergency, inspection), not by industry.",
+    "fix": "Frame it as 'Work order forms differ by the work they cover:' or add the work-type split with a source.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief.tabs[0]",
+    "quote": "Sent to Marcus, on call",
+    "issue": "The copy says the alert reaches Marcus as a Slack message with the photo; uc-1 does not show the Slack channel.",
+    "fix": "Optional: 'Slack to Marcus, on call'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "meta_title",
+   "issue": "The title promises free, but no field on the page says Emergent is free to start (free-start is in claims_used and unused).",
+   "fix": "Add 'Free to start.' to meta_description or one FAQ answer.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:48 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Soft quantifier about no named third party.",
+   "fix": "'Yes, once more than one person handles requests.'",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:48 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "howto_step_3_des",
+   "issue": "Soft quantifier in advice.",
+   "fix": "'Start with water leaks and failed heating in winter.'",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:48 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Unsourced taxonomy stated as fact; CMMS guides usually type work orders by work (preventive, corrective, emergency, inspection), not by industry.",
+   "fix": "Frame it as 'Work order forms differ by the work they cover:' or add the work-type split with a source.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:48 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief.tabs[0]",
+   "issue": "The copy says the alert reaches Marcus as a Slack message with the photo; uc-1 does not show the Slack channel.",
+   "fix": "Optional: 'Slack to Marcus, on call'.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:48 UTC"
+  }
  ]
 }
