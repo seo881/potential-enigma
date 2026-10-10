@@ -135,6 +135,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 10:05 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-16",
+   "note": "rubric 10/10 by wk-r-16; 4 notes"
   }
  ],
  "plan": {
@@ -813,8 +820,8 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 04:47 UTC"
+  "rules_version": "b9bdd5846b24",
+  "date": "2026-10-10 10:04 UTC"
  },
  "writers": [
   "w-event-planning-form",
@@ -825,5 +832,135 @@
   "Have my event planning form multiply per-head costs by the guest count, total each budget line as it is typed, and flag any line over 50% of the budget.",
   "I need an event intake form that asks for the date, a backup date, expected headcount, and budget lines, and shows catering questions only when food is served.",
   "When I approve an event, turn its date into a task list where each task has an owner and is due a set number of days before the event."
+ ],
+ "review": {
+  "by": "wk-r-16",
+  "date": "2026-10-10 10:05 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Event Planning Form That Turns Answers Into a Plan'; hero 'Build an event planning form that picks the right approvers and counts every task deadline back from the event date.' (under 130 chars, primary, leads with Build). How-to description is one sentence under 140 chars: 'Seven steps to an event planning form that asks only what each approval or quote needs and checks its estimates after the event.' Explore CTA 'Build My Event Planning Form' is 28 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Template and worksheet SERP (builder-fit): FAQ 10 lists what the form should include, FAQ 5 answers the free-template ask with Smartsheet and university forms (sourced), FAQ 8 handles the PDF-versus-online question, and the seven-step how-to is specific to dates, headcount, budget lines and approval thresholds."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Planner and campus-office vocabulary: 'a catering review and a room booking behind the advisor's approval', 'the caterer quotes $95 a head', 'Alcohol opens a license and bartender section, and an outdoor venue asks for a rain plan'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Tabs open on full sentences ('Campus offices want to know about food and crowds early', 'Planners price a dinner by the plate', 'An offsite starts as a line in a department budget', 'Every planning timeline counts backward from the event'); feature bodies open on verbs ('Shows', 'Routes', 'Multiplies', 'Checks', 'Turns', 'Exports')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; three lists without the serial comma are recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: 'A board lunch gets a short form; a 300-person gala gets every section', 'a facilities manager who signs off twice a year costs nothing extra', 'Venue booking was due at 60 days out and is 15 days late.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to claims_used (alerts, api-connect, code-export 'on paid plans', no-caps, free-start) and the approved no-per-approver-seats claim; Smartsheet and university templates sourced in domain_sources; numbers agree: 95 x 120 = 11,400 (63% of 18,000), 9,600 - 7,200 = 2,400, 60 - 45 = 15, 60 + 14 = 74."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Four tabs (club approvals, planner budget, offsite budget, gala timeline) are this page's own; no sibling primary in a heading; guest sign-ups are handed to the registration form sibling in FAQ 7."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "Exactly 10 on-topic questions, none naming a brand or asking for a file format; hub link in item 2; three exact-match sibling links (feedback form, registration form, event landing page); moat lines in items 4 ('no cap on survey responses'), 5 ('free to start') and 6 ('no per-approver seats')."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: one hero per tab, readable; 'Catering review and room booking', '3 sign-offs in all'; '$11,400 of $18,000', 'A 63% share of the budget' with lines summing to $18,000; 'Slack message to Priya Shah', 'Over budget by $2,400'; 'Venue booking, 60 days out, 15 days late', '45 days to go'. Cover DM to Priya Shah with Approve and Send back matches the tab 3 mockup."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_4_des",
+    "quote": "then the main lines such as venue, food and AV",
+    "issue": "Three-item list without the serial comma; the page's other lists carry it ('the date, expected headcount, budget, and venue needs').",
+    "fix": "venue, food, and AV",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq",
+    "quote": "The date and times, expected headcount, a budget broken into lines and one contact person, plus food and AV needs.",
+    "issue": "Four-item list (item 10) without the serial comma.",
+    "fix": "a budget broken into lines, and one contact person",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "mockup",
+    "quote": "Ask for the event type, date, guest count and total budget",
+    "issue": "Four-item list in the plannerIntake prompt without the serial comma.",
+    "fix": "guest count, and total budget",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_1",
+    "quote": "Food and headcount answers pick every sign-off",
+    "issue": "Imprecise: the advisor's approval is required on every request (mockup: 'Every request needs the club advisor's approval'); the answers add the other two.",
+    "fix": "e.g. 'Food and headcount answers add two sign-offs'",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_4_des",
+   "issue": "Three-item list without the serial comma; the page's other lists carry it ('the date, expected headcount, budget, and venue needs').",
+   "fix": "venue, food, and AV",
+   "by": "wk-r-16",
+   "via": "review",
+   "date": "2026-10-10 10:05 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq",
+   "issue": "Four-item list (item 10) without the serial comma.",
+   "fix": "a budget broken into lines, and one contact person",
+   "by": "wk-r-16",
+   "via": "review",
+   "date": "2026-10-10 10:05 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "mockup",
+   "issue": "Four-item list in the plannerIntake prompt without the serial comma.",
+   "fix": "guest count, and total budget",
+   "by": "wk-r-16",
+   "via": "review",
+   "date": "2026-10-10 10:05 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_1",
+   "issue": "Imprecise: the advisor's approval is required on every request (mockup: 'Every request needs the club advisor's approval'); the answers add the other two.",
+   "fix": "e.g. 'Food and headcount answers add two sign-offs'",
+   "by": "wk-r-16",
+   "via": "review",
+   "date": "2026-10-10 10:05 UTC"
+  }
  ]
 }
