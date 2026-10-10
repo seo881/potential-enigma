@@ -133,6 +133,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 01:05 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "wk-r-13",
+   "note": "[images | CONTENT_DEFECTS #25] image_brief.tabs[2].hero (uc-3): The copy, mockup (\"post a Slack message to me\") and howto_step_6_des (\"Have the producer's Slack get a count\") all send the count to one person, the producer; the image posts it to a shared channel. Only instance on the page (the cover'"
   }
  ],
  "plan": {
@@ -830,7 +837,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 00:48 UTC"
+  "date": "2026-10-10 01:01 UTC"
  },
  "writers": [
   "w-model-release-form",
@@ -841,5 +848,175 @@
   "Ask for the model's date of birth first, and send anyone under 18 to a page where a parent or guardian signs and names their relationship.",
   "Give every release a shoot number so I can tag frames with it, and warn me before export when a frame has a person but no signed release.",
   "Make a talent release my cast signs on my tablet at check-in, and message me in Slack before call time with anyone who still has not signed."
+ ],
+ "review": {
+  "by": "wk-r-13",
+  "date": "2026-10-10 01:05 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Model Release Form Tied to the Frames It Covers\" and hero \"Create a model release form that models sign on their phone, with each release filed beside its frames in a database you own.\" (under 130 chars, primary, leads with Create); how-to description one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition, purpose, format, how to write, do I need one, template, talent and location releases, video (FAQ 1-10), a 7-step how-to on uses, parties, fee and minors, and a comparison table; matches the template/sample top 10."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Photographer vocabulary: \"shoot number S-0412\", \"Trade shoots carry narrow releases\", \"portfolio use only\", \"call time\"."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs (\"List each use\", \"Record what the model receives\", \"Ask for the model's date of birth\", \"Give every release\", \"Send a model\", \"Export the full source\"); tabs open on full sentences."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; \"Taking the photo needs no release; publishing it commercially is what calls for one.\""
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "\"A release earns its keep a year later, when a client asks whether one frame can run in a new campaign.\" Specific and calm."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "tab_content_2 \"Stock agencies turn away images of a recognizable person without a signed release.\"; faq item 1 \"Stock agencies ask for one before they sell an image of a recognizable person.\"; faq item 3 \"A stock site checks for that record before a frame goes on sale.\" Generalised to all stock agencies from an Adobe Stock-only source, and FAQ 6 itself says Adobe Stock accepts editorial images without releases."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No sibling primary in a heading; FAQ 10 hands school and volunteer use to the photo release form page; tabs (stock check, cast call, portfolio lock) are specific to model releases."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic items, no brand or format in a question, hub link in item 2, sibling links in items 8 and 10, answer-first, Emergent lines in items 7 and 8."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "uc-3 posts the cast count to the shared channel \"# globex-shoot\" while tab_content_3 says \"At 6:30 AM the producer gets a Slack message: 8 of 9 signed\" and the mockup asks to \"post a Slack message to me\"."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #25",
+    "field": "image_brief.tabs[2].hero (uc-3)",
+    "quote": "channel: globex-shoot / tab_content_3: \"At 6:30 AM the producer gets a Slack message: 8 of 9 signed.\"",
+    "issue": "The copy, mockup (\"post a Slack message to me\") and howto_step_6_des (\"Have the producer's Slack get a count\") all send the count to one person, the producer; the image posts it to a shared channel. Only instance on the page (the cover's # releases post is not tied to a tab's copy).",
+    "fix": "Draw a direct message to the producer (name the producer in the copy and use that name as the message header), or change the copy to say the count posts to the shoot's channel.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "tab_content_2; faq item 1; faq item 3",
+    "quote": "Stock agencies turn away images of a recognizable person without a signed release. / Stock agencies ask for one before they sell an image of a recognizable person. / A stock site checks for that record before a frame goes on sale.",
+    "issue": "Statements of fact about third-party stock agencies in general, while domain_sources covers Adobe Stock only (SEVERITY: a fact sourced for one platform and stated for the class). FAQ 6 on the same page says Adobe Stock accepts some editorial images without releases, so the unqualified rule is not true as written.",
+    "fix": "Name the source and the scope: \"Adobe Stock turns away commercial images of a recognizable person without a signed release\" (and the same in FAQ 1 and 3), or add a source for each other agency named.",
+    "severity": "blocking"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "howto_step_1_des; howto_step_3_des; faq item 8; faq item 10",
+    "quote": "Client work usually needs advertising and packaging rights / A cash fee is the common case / Brands casting creators for paid content often send one / is the usual choice",
+    "issue": "Soft quantifiers about no named third party.",
+    "fix": "State as advice or drop the quantifier.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 7",
+    "quote": "Photography societies and legal template sites publish free versions with the standard clauses.",
+    "issue": "No domain_sources entry; the brief's top 10 (rps.org, lawdepot.com) shows it is true.",
+    "fix": "Add the RPS model release page to domain_sources.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq item 4; faq item 5; howto_step_1_des to howto_step_3_des",
+    "quote": "The parties and the shoot details come first, then the grant of rights / Say who is shooting and for whom, then put each permitted use on its own line",
+    "issue": "The parties-uses-fee-signature order is told three times.",
+    "fix": "Let FAQ 5 add something the format answer does not (plain wording, one use per line) and drop the order.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "tab_content_3 heading",
+    "quote": "8 of 9 cast signed by call time",
+    "issue": "The copy and image give the count at 6:30 AM, half an hour before call time.",
+    "fix": "\"8 of 9 cast signed half an hour before call\".",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Typeform / Jotform / Google Forms",
+    "issue": "QC K7: none ranks in this page's top 10 (Fillout and eSign do).",
+    "fix": "If the library adds Fillout, regenerate the table with it.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "howto_step_1_des; howto_step_3_des; faq item 8; faq item 10",
+   "issue": "Soft quantifiers about no named third party.",
+   "fix": "State as advice or drop the quantifier.",
+   "by": "wk-r-13",
+   "via": "review",
+   "date": "2026-10-10 01:05 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 7",
+   "issue": "No domain_sources entry; the brief's top 10 (rps.org, lawdepot.com) shows it is true.",
+   "fix": "Add the RPS model release page to domain_sources.",
+   "by": "wk-r-13",
+   "via": "review",
+   "date": "2026-10-10 01:05 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq item 4; faq item 5; howto_step_1_des to howto_step_3_des",
+   "issue": "The parties-uses-fee-signature order is told three times.",
+   "fix": "Let FAQ 5 add something the format answer does not (plain wording, one use per line) and drop the order.",
+   "by": "wk-r-13",
+   "via": "review",
+   "date": "2026-10-10 01:05 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "tab_content_3 heading",
+   "issue": "The copy and image give the count at 6:30 AM, half an hour before call time.",
+   "fix": "\"8 of 9 cast signed half an hour before call\".",
+   "by": "wk-r-13",
+   "via": "review",
+   "date": "2026-10-10 01:05 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: none ranks in this page's top 10 (Fillout and eSign do).",
+   "fix": "If the library adds Fillout, regenerate the table with it.",
+   "by": "wk-r-13",
+   "via": "review",
+   "date": "2026-10-10 01:05 UTC"
+  }
  ]
 }
