@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-10 07:11 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-10 07:12 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
