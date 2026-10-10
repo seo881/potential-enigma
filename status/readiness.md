@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-10 05:13 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-10 05:20 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -80,7 +80,7 @@ Regenerated 2026-10-10 05:13 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/consent-form | 0 | 10/10 | yes, wk-r-9 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/contest-entry-form | 12 | 3/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/copyright-release-form | 11 | 1/10 | no | no | no | 0 | - | no | no | autofix |
-| wk-rework-form | /ai-form-builder/credit-application-form | 0 | 4/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-form | /ai-form-builder/credit-application-form | 0 | 4/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/credit-card-authorization-form | 0 | 10/10 | yes, wk-r-9 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/custom-order-form | 8 | 2/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/daycare-registration-form | 7 | 3/10 | no | no | no | 0 | - | no | no | autofix |
@@ -122,7 +122,7 @@ Regenerated 2026-10-10 05:13 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/life-coaching-intake-form | 7 | 7/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/maintenance-request-form | 13 | 2/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/medical-history-form | 0 | 5/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
-| wk-rework-form | /ai-form-builder/membership-form | 11 | 1/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/membership-form | 0 | 4/10 | no | no | no | 0 | - | no | no | writer |
 | wk-rework-form | /ai-form-builder/mileage-reimbursement-form | 0 | 6/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/model-release-form | 0 | 10/10 | yes, wk-r-13 | no | no | 0 | - | no | no | images2 |
 | wk-rework-form | /ai-form-builder/multi-step-form | 13 | 4/10 | no | no | no | 0 | - | no | no | autofix |
@@ -154,7 +154,7 @@ Regenerated 2026-10-10 05:13 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/rental-history-form | 12 | 1/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/requisition-form | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-form | /ai-form-builder/restaurant-reservation-form | 9 | 1/10 | no | no | no | 0 | - | no | no | autofix |
-| wk-rework-form | /ai-form-builder/rfp-form | 0 | 4/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-form | /ai-form-builder/rfp-form | 0 | 4/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/rfq-form | 9 | 2/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/service-request-form | 12 | 3/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/shipping-address-form | 8 | 2/10 | no | no | no | 0 | - | no | no | autofix |
@@ -173,7 +173,7 @@ Regenerated 2026-10-10 05:13 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/testimonial-form | 8 | 2/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/therapy-intake-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
 | wk-rework-form | /ai-form-builder/time-off-request-form | 0 | 10/10 | yes, wk-r-9 | yes | no | 0 | - | no | no | payload |
-| wk-rework-form | /ai-form-builder/time-sheet-form | 0 | 2/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-form | /ai-form-builder/time-sheet-form | 0 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/tournament-registration-form | 9 | 4/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/training-feedback-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
 | wk-rework-form | /ai-form-builder/training-request-form | 11 | 1/10 | no | no | no | 0 | - | no | no | autofix |
@@ -211,4 +211,4 @@ Regenerated 2026-10-10 05:13 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-sqb | /ai-survey-and-quiz-builder/onboarding-survey | 0 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/pulse-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
 
-Stages: autofix 77, done 21, images 10, images2 1, payload 52, review 1, stopped 22, writer 3 (187 pages)
+Stages: autofix 76, done 21, images 10, images2 1, payload 52, review 1, stopped 25, writer 1 (187 pages)
