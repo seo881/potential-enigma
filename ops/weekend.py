@@ -202,6 +202,8 @@ def cmd_render(args):
         bp = os.path.join(ROOT, ".cache", "weekend", "render_blocked.json"); blocked = json.load(open(bp)) if os.path.exists(bp) else {}
         spec_of = lambda s_: dict(json.load(open(H.spath(urls[s_]))), _path=H.spath(urls[s_]))
         todo = [s_ for s_ in slugs if s_ in urls and not RC.current(spec_of(s_)) and blocked.get(s_) != RC.brief_hash(spec_of(s_))]   # a brief that already failed waits for its fix
+        if not args and os.path.exists(q):   # blocked, unchanged briefs leave the queue (ship re-queues them once the brief changes)
+            open(q, "w").write("".join(x + "\n" for x in slugs if not (x in urls and blocked.get(x) == RC.brief_hash(spec_of(x)))))
         if not todo: print(f"rendered 0 of {len(slugs)}; all current or blocked"); return
         r = subprocess.run([sys.executable, os.path.join(ROOT, "ops", "render_changed.py"), "--pages", ",".join(todo), "--no-commit"], cwd=ROOT, capture_output=True, text=True)
         print((r.stdout + r.stderr).strip()[-1500:])
