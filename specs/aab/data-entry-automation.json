@@ -164,6 +164,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 11:14 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "wk-r-20",
+   "note": "[truth | HUB_RULES 8] faq item 3: The page contradicts itself on its own core story. FAQ 3 says handwriting needs a person and goes to a review queue, but the rest of the page shows handwriting read automatically with only low-confidence values going to a person: tab_content_1 'Ten fields save on th"
   }
  ],
  "table": {
@@ -945,9 +952,149 @@
  },
  "qc_passed": {
   "rules_version": "b9bdd5846b24",
-  "date": "2026-10-10 11:04 UTC"
+  "date": "2026-10-10 11:10 UTC"
  },
  "writers": [
   "wk-n-data-entry-automation"
+ ],
+ "review": {
+  "by": "wk-r-20",
+  "date": "2026-10-10 11:14 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Data Entry Automation That Ends the Retyping', meta title 'Data Entry Automation That Checks Every Field | Emergent' and hero 'Build data entry automation that turns incoming forms and scans into checked records in a database you own.' (107 chars) state the whole job; how-to description is one 113-char sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Informational SERP of explainers and extraction vendors: page gives the definition (FAQ 1), OCR vs extraction (FAQ 4), RPA (FAQ 9), tool groups (FAQ 6), accuracy (FAQ 7), a 7-step how-to ('Gather 20 real samples', 'Go live with a review queue') and four worked jobs."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'suction pressure is smudged', '1,240 SKUs in a spreadsheet attachment', 'an EIN has 9'. Table uses the hub default column (no variant exists for these competitors; noted)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Ben Walsh photographs his inspection sheet...', 'Halden Tools emails a new price list each month...', features open on verbs ('Reads', 'Tests', 'Sends', 'Searches', 'Pushes', 'Exports')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Short varied sentences, one idea each: 'Ten fields save on their own.' 'Three SKUs rose more than 8%.' No tacked-on endings found (QC Q5 clean)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail reads operator-written: 'met at booth 14, asked about cold storage'; 'Leave the hardest cases, like faxed forms, for a second round.'"
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "FAQ 3 'Handwriting and judgment calls ... still need a person' contradicts tab 1, feature 3, the paperFieldForms mockup and tab_image_1 alt, which show a handwritten sheet read automatically with only the one smudged value sent to a person."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Four jobs (field sheets, supplier price lists, booth cards, account setup) are specific to retyping; no sibling primary (excel, invoice, document automation) in any heading; document and task automation only linked in FAQ."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic items, each answered in the first sentence ('Optical character recognition (OCR) turns an image of text into characters...'); hub link in item 2; sibling links document automation and task automation; F9 lines in items 6 and 7."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Briefs match copy on names and numbers: tab 1 '11 fields read' / '10 saved' / Hannah Cole; tab 2 '3 SKUs held' / '1,237 costs updated' / Tessa Lindgren; tab 3 'Met at booth 14'; tab 4 'Held: tax ID has 8 digits' / 'To Rosa Klein'. One hero each; engine gates I1/I4 pass."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 3",
+    "quote": "Handwriting and judgment calls, like which of two addresses is current, still need a person. A good setup automates the first group and sends the second to a review queue.",
+    "issue": "The page contradicts itself on its own core story. FAQ 3 says handwriting needs a person and goes to a review queue, but the rest of the page shows handwriting read automatically with only low-confidence values going to a person: tab_content_1 'Ten fields save on their own. The suction pressure is smudged, and it goes to Hannah Cole'; feature_3 'such as a smudged digit on a photographed form ... Clear values save without waiting'; mockup paperFieldForms 'reads photos of our handwritten inspection sheets ... send any value read with low confidence to our office coordinator'; tab_image_1 alt 'A photographed handwritten inspection sheet is read into 11 fields'. FAQ 7 ('faint phone photos of handwriting' read less reliably) is consistent; FAQ 3 is the only field that breaks.",
+    "fix": "Rewrite only FAQ 3 so it agrees with tab 1, e.g. 'Typed forms and clean PDFs automate well because each field sits in a predictable place. Handwriting reads less reliably, so its unclear values go to a person, and judgment calls, like which of two addresses is current, still need one.' Keep the review-queue sentence about the unclear group only.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "faq item 7",
+    "quote": "On Emergent, each correction is saved next to the original file, in a database you own.",
+    "issue": "Reads as built-in platform behaviour (CONTENT_DEFECTS #14 pattern); the ledger covers prompt-build and database-owned, so this is something the built app does when asked, not something Emergent does by itself.",
+    "fix": "'An app built on Emergent can save each correction next to the original file, in a database you own.'",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief tab 4 mini",
+    "quote": "One record, three systems / Written from the setup form",
+    "issue": "The mini card says the record was written to three systems while the same image shows 'QuickBooks customer: Held: tax ID has 8 digits, Waiting' and the copy says 'The QuickBooks customer waits'.",
+    "fix": "'One form, three systems' or '2 of 3 systems written'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Make (Integromat) ... n8n ... Workflow + trigger form + database + dashboard, as code you own",
+    "issue": "Two of the three competitors (Make, n8n) do not rank in this page's top 10 (QC K7), and the Emergent 'What you get' cell is the hub default (CONTENT_DEFECTS #3 shape). The library has no extraction-vendor category to pick from.",
+    "fix": "Coordinator: add a document-extraction category (e.g. Parseur, DocuWare) to rules/competitors with sources, then regenerate the table with a data-entry variant.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_3, faq item 5, howto_step_7_des, tab_content_1",
+    "quote": "Sends any value the AI reads with low confidence ... to a reviewer / only the low ones wait for a person to confirm / with low-confidence fields still going to a reviewer",
+    "issue": "The low-confidence-to-reviewer rule is restated in four fields with words swapped.",
+    "fix": "Keep it in feature_3 and tab 1; let FAQ 5 and step 7 add something new (e.g. the threshold you set, how the queue narrows).",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 6",
+   "field": "faq item 7",
+   "issue": "Reads as built-in platform behaviour (CONTENT_DEFECTS #14 pattern); the ledger covers prompt-build and database-owned, so this is something the built app does when asked, not something Emergent does by itself.",
+   "fix": "'An app built on Emergent can save each correction next to the original file, in a database you own.'",
+   "by": "wk-r-20",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief tab 4 mini",
+   "issue": "The mini card says the record was written to three systems while the same image shows 'QuickBooks customer: Held: tax ID has 8 digits, Waiting' and the copy says 'The QuickBooks customer waits'.",
+   "fix": "'One form, three systems' or '2 of 3 systems written'.",
+   "by": "wk-r-20",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "Two of the three competitors (Make, n8n) do not rank in this page's top 10 (QC K7), and the Emergent 'What you get' cell is the hub default (CONTENT_DEFECTS #3 shape). The library has no extraction-vendor category to pick from.",
+   "fix": "Coordinator: add a document-extraction category (e.g. Parseur, DocuWare) to rules/competitors with sources, then regenerate the table with a data-entry variant.",
+   "by": "wk-r-20",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_3, faq item 5, howto_step_7_des, tab_content_1",
+   "issue": "The low-confidence-to-reviewer rule is restated in four fields with words swapped.",
+   "fix": "Keep it in feature_3 and tab 1; let FAQ 5 and step 7 add something new (e.g. the threshold you set, how the queue narrows).",
+   "by": "wk-r-20",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  }
  ]
 }
