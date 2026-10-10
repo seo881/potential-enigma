@@ -140,6 +140,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 11:12 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-18",
+   "note": "rubric 10/10 by wk-r-18; 2 notes"
   }
  ],
  "plan": {
@@ -892,11 +899,101 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 00:58 UTC"
+  "rules_version": "b9bdd5846b24",
+  "date": "2026-10-10 11:11 UTC"
  },
  "writers": [
   "w-requisition-form",
   "wk-w-requisition-form"
+ ],
+ "review": {
+  "by": "wk-r-18",
+  "date": "2026-10-10 11:12 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Requisition Form for Any Internal Request', title 'Requisition Form Builder for Any Request | Emergent', hero 'Build a requisition form that numbers every request, checks it on submit, and saves it to a database you own.' cover the whole job; how-to description is one sentence under 140 characters."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "AMBER angle delivered: definition in FAQ 1, medical requisition in FAQ 3, GSA Form 49 example in FAQ 4, templates in FAQ 5, purchase requisition vs PO in FAQ 6, plus four requisition types (purchase, parts crib, job, lab) and a seven-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary: 'REQ-0418', 'cost center', 'asset EX-03', 'level 3 band tops out at $120,000', 'diagnosis code and a collection time'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs ('Assign the next number', 'Pick the department', 'Require a vendor quote'); tabs open on full sentences ('A drive belt on Extruder 3 snapped mid-shift at Globex Plastics.')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One idea per sentence, e.g. 'The level 3 band tops out at $120,000.' No blocking craft defect."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator voice with unglamorous detail: 'the $110.40 is charged to asset EX-03 instead of a general supplies account'."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Definitions match sources (Nutrient, softwareconnect, GSA 49, SHRM, Nationwide Children's); 6 x $18.40 = $110.40, 3 + 2 = 5 monitors, $128,000 above $120,000; 'no per-approver seats' is covered by the approved no-caps claim in claims_used."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Four requisition types not shared with siblings; approval routing and the PO are handed to the purchase order form and purchase order automation links; no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first, no brand or file-format ask in a question, hub link in item 2, exact-match links (purchase order form, purchase order automation), moat lines in items 5 and 10, all four secondaries read naturally."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: 'REQ-0418 now 5 monitors', '6 drive belts / $18.40 each / Charged to EX-03', 'Level 3 tops out at $120,000 / Reason: competing offer', 'Requisition L-20417 / 4 West / Tube labels print the same number'."
+   }
+  },
+  "findings": [
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "Most teams treat a purchase request form and a purchase requisition as the same thing.",
+    "issue": "Unsourced soft quantifier about no named third party. Other instances: FAQ 3 'it usually travels from the ward to the hospital's own lab'; FAQ 5 'many university procurement offices post them as fillable files'.",
+    "fix": "State the definition directly ('A purchase request form and a purchase requisition are the same document') or source it.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief.tabs[0]",
+    "quote": "Desks for new hires",
+    "issue": "The Reason field on a monitor request reads as a request for desks; the copy says the monitors are 'for new hires'.",
+    "fix": "Reason: 'Monitors for 3 new hires'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Unsourced soft quantifier about no named third party. Other instances: FAQ 3 'it usually travels from the ward to the hospital's own lab'; FAQ 5 'many university procurement offices post them as fillable files'.",
+   "fix": "State the definition directly ('A purchase request form and a purchase requisition are the same document') or source it.",
+   "by": "wk-r-18",
+   "via": "review",
+   "date": "2026-10-10 11:12 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief.tabs[0]",
+   "issue": "The Reason field on a monitor request reads as a request for desks; the copy says the monitors are 'for new hires'.",
+   "fix": "Reason: 'Monitors for 3 new hires'.",
+   "by": "wk-r-18",
+   "via": "review",
+   "date": "2026-10-10 11:12 UTC"
+  }
  ]
 }
