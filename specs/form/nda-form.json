@@ -142,6 +142,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 00:48 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-12",
+   "note": "rubric 10/10 by wk-r-12; 7 notes"
   }
  ],
  "plan": {
@@ -803,10 +810,200 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 00:26 UTC"
+  "date": "2026-10-10 00:48 UTC"
  },
  "writers": [
   "w-nda-form",
   "wk-w-nda-form"
+ ],
+ "review": {
+  "by": "wk-r-12",
+  "date": "2026-10-10 00:48 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an NDA Form Generator and Signing App'; hero 'Build an NDA form that matches the version to who is sharing and files every signed copy with its end date.'; howto_description one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is blank NDA documents and explainers; the how-to covers each clause (mutual or one-way, parties, definition, exclusions, term, use and return, signing) and the FAQ answers the definition, free, where-to-get and signing questions."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Legal-ops vocabulary: 'four standard carve-outs', 'countersignature', 'whistleblower immunity notice', 'counterparty'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs ('Asks who is sharing', 'Pulls each party's legal name'); tab paragraphs open on full sentences ('Lumen Labs keeps prototypes on open benches')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; 'Both sign a mutual NDA first.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Specific and calm: 'Put these in the first draft instead of waiting for the other side's lawyer to ask.' One self-referential FAQ line noted."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "DTSA notice and lost exemplary damages or fees (18 USC 1833), Georgia Tech five years, the four exclusions and E-SIGN match domain_sources; 41 <= 60 and the term table agree; claims map to claims_used."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No legal-documents sibling primary in headings; tabs are NDA moments (visitor badge, mutual pricing, new-hire notice, term table). Templated shapes shared with independent-contractor-agreement noted."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic items, answer-first, hub link in item 2, sibling links (sign in form, employee information form), moat lines in items 7 and 8, no brands or formats in questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "uc-1 'Row saved to visitor log' / 'Badge unlocked', uc-2 'Opened after the second signature', uc-3 'Immunity notice included', uc-4 '41 days left, under 60' / '120 signed agreements' match the tab copy; one hero each."
+   }
+  },
+  "findings": [
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "Most NDA forms ask for each party's full legal name",
+    "issue": "Soft quantifier about no named third party.",
+    "fix": "'An NDA form asks for each party's full legal name'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "University research offices and startup law firms each post an NDA form template to download",
+    "issue": "Cooley GO is in domain_sources; the university research office (Cornell, top 10 #2 and #10) is not.",
+    "fix": "Add the Cornell research services URL to domain_sources.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "The how-to on this page covers each part in the order a reader meets it.",
+    "issue": "Self-referential filler sentence; reads machine-written.",
+    "fix": "Cut it, or replace with one concrete detail about a part.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "which suits a lobby that pairs it with a visitor",
+    "issue": "The sign in form link is attached by a strained clause to the fillable-form answer.",
+    "fix": "Link it from a sentence about visitor NDAs at the front desk.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief.tabs[1]",
+    "quote": "Emailing now",
+    "issue": "uc-2 step says 'Emailing now' while the hero says 'Pricing folder sent'.",
+    "fix": "Mark the step done with 'Sent to Halden'.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief.tabs[0]",
+    "quote": "Print badge",
+    "issue": "uc-1 draws two Print badge buttons (form and hero).",
+    "fix": "Drop the form's button or relabel it 'Submit signature'.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "feature_6",
+    "quote": "or you can keep prompting Emergent for each change you need",
+    "issue": "Same shape as the independent-contractor-agreement sibling in feature_6, features_subheading ('A template gives you clauses.'), why_description and meta_description ('clause by clause, plus an app that').",
+    "fix": "Vary the shapes on one of the two pages.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Soft quantifier about no named third party.",
+   "fix": "'An NDA form asks for each party's full legal name'.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:48 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Cooley GO is in domain_sources; the university research office (Cornell, top 10 #2 and #10) is not.",
+   "fix": "Add the Cornell research services URL to domain_sources.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:48 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "Self-referential filler sentence; reads machine-written.",
+   "fix": "Cut it, or replace with one concrete detail about a part.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:48 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "The sign in form link is attached by a strained clause to the fillable-form answer.",
+   "fix": "Link it from a sentence about visitor NDAs at the front desk.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:48 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief.tabs[1]",
+   "issue": "uc-2 step says 'Emailing now' while the hero says 'Pricing folder sent'.",
+   "fix": "Mark the step done with 'Sent to Halden'.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:48 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief.tabs[0]",
+   "issue": "uc-1 draws two Print badge buttons (form and hero).",
+   "fix": "Drop the form's button or relabel it 'Submit signature'.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:48 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "feature_6",
+   "issue": "Same shape as the independent-contractor-agreement sibling in feature_6, features_subheading ('A template gives you clauses.'), why_description and meta_description ('clause by clause, plus an app that').",
+   "fix": "Vary the shapes on one of the two pages.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:48 UTC"
+  }
  ]
 }
