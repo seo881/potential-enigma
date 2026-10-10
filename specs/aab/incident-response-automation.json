@@ -118,6 +118,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 11:14 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-20",
+   "note": "rubric 10/10 by wk-r-20; 4 notes"
   }
  ],
  "plan": {
@@ -802,9 +809,139 @@
  },
  "qc_passed": {
   "rules_version": "b9bdd5846b24",
-  "date": "2026-10-10 10:46 UTC"
+  "date": "2026-10-10 11:10 UTC"
  },
  "writers": [
   "wk-n-incident-response-automation"
+ ],
+ "review": {
+  "by": "wk-r-20",
+  "date": "2026-10-10 11:14 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Incident Response Automation Around Your Playbooks', meta title 'Incident Response Automation for Security and IT | Emergent', hero 'Build incident response automation that groups alerts, pages on-call, and waits for approval before any containment step.' (121 chars); how-to description one 131-char sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "AMBER angle carried: security and IT framing in meta title, tabs (Phishing Triage, Suspicious Sign-In, Outage Escalation, Incident Review), NIST phases (FAQ 4), SOAR vs automation (FAQ 7), metrics (FAQ 9), tool layers (FAQ 10), 7-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Responder vocabulary: 'revoke his sessions and require a new password', 'Sev 1 for a customer-facing outage and Sev 3 for one failed backup', 'detection at 2:02 PM, acknowledgment at 2:09 PM'. Table column is the hub default (no SOAR category in the library; noted)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Employees forward suspicious mail to a report address.' 'Your identity provider flags a sign-in for Ben Carter...'; features open on verbs ('Groups', 'Assigns', 'Pages', 'Looks up', 'Prepares', 'Exports')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Varied, one-idea sentences: 'Nothing changes until she clicks.' 'Five minutes pass without an acknowledgment, and the page moves to Aisha Grant'. QC Q5 clean."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Calm and specific: 'The on-call engineer opens one incident with every related alert attached, not forty pages.' 'such as locking out an executive who is traveling'."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "NIST SP 800-61r2 (2012) four phases and r3 (April 2025, CSF 2.0) match sources; SOAR, escalation policy, MTTA/MTTR and atypical travel sourced; Emergent claims within prompt-build, api-connect, alerts, code-export, database-owned, no-caps; 2:41 - 2:02 = 39 min."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Reads as security/IT incident handling, not IT or notification automation: no sibling primary in headings; approval workflow, document automation and task automation only linked in FAQ."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic items answered first-sentence ('Incident response automation is software that carries out the repeatable parts...'); hub link in item 2; three sibling links; F9 lines in items 6 and 9; no brand in any question."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Briefs match copy: tab 1 '14 reports in 20 min', 'Purge INC-2291?' to Dana Okafor; tab 2 '38 min', 'Direct message to Leah Novak'; tab 3 'SEV 1 · INC-0412', 'To Aisha Grant'; tab 4 'Detected 2:02 PM' ... 'Mitigated 2:41 PM', '39 min', '3 action items assigned'. One hero each; I1/I4 pass."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "image_brief tab 3 steps",
+    "quote": "Paged Chris Doyle / Primary, no ack in 5 min / 2:07 PM",
+    "issue": "Next to 'Alert fired 2:02 PM', the time 2:07 PM reads as when Chris was paged; on that reading the escalation would land at 2:12 PM, after tab 4's 'Acknowledged 2:09 PM' by Aisha Grant. The intended reading (page lapsed at 2:07) is only implied.",
+    "fix": "Label the moment explicitly, e.g. title 'Chris Doyle, no ack' with sub 'Escalated after 5 min' at 2:07 PM, or show 'Paged 2:02 PM'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Zapier ... Make (Integromat) ... n8n ... Workflow + trigger form + database + dashboard, as code you own",
+    "issue": "None of the three competitors ranks in this AMBER page's top 10 (all SOAR and detection vendors; QC K7), and the Emergent 'What you get' cell is the hub default (CONTENT_DEFECTS #3 shape).",
+    "fix": "Coordinator: add a SOAR / incident-management category (e.g. PagerDuty, Swimlane) to rules/competitors with sources, then regenerate with an incident-response variant.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 3",
+    "quote": "The first gain is time ... The second is consistency ... The third is a record",
+    "issue": "Numbered first/second/third triplet is a tidy-structure tell.",
+    "fix": "Lead with the time gain in concrete terms and fold consistency and the record into two plain sentences without ordinals.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "faq item 4",
+    "quote": "The four phases still map an incident response workflow well, and the closing write-up suits document automation.",
+    "issue": "The sibling link rides on a tacked-on clause that adds little to the answer.",
+    "fix": "Give the link its own sentence with a reason, e.g. 'Producing the post-incident report as a file is a job for document automation.'",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #10",
+   "field": "image_brief tab 3 steps",
+   "issue": "Next to 'Alert fired 2:02 PM', the time 2:07 PM reads as when Chris was paged; on that reading the escalation would land at 2:12 PM, after tab 4's 'Acknowledged 2:09 PM' by Aisha Grant. The intended reading (page lapsed at 2:07) is only implied.",
+   "fix": "Label the moment explicitly, e.g. title 'Chris Doyle, no ack' with sub 'Escalated after 5 min' at 2:07 PM, or show 'Paged 2:02 PM'.",
+   "by": "wk-r-20",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "None of the three competitors ranks in this AMBER page's top 10 (all SOAR and detection vendors; QC K7), and the Emergent 'What you get' cell is the hub default (CONTENT_DEFECTS #3 shape).",
+   "fix": "Coordinator: add a SOAR / incident-management category (e.g. PagerDuty, Swimlane) to rules/competitors with sources, then regenerate with an incident-response variant.",
+   "by": "wk-r-20",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 3",
+   "issue": "Numbered first/second/third triplet is a tidy-structure tell.",
+   "fix": "Lead with the time gain in concrete terms and fold consistency and the record into two plain sentences without ordinals.",
+   "by": "wk-r-20",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "faq item 4",
+   "issue": "The sibling link rides on a tacked-on clause that adds little to the answer.",
+   "fix": "Give the link its own sentence with a reason, e.g. 'Producing the post-incident report as a file is a job for document automation.'",
+   "by": "wk-r-20",
+   "via": "review",
+   "date": "2026-10-10 11:14 UTC"
+  }
  ]
 }
