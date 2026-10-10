@@ -133,6 +133,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 10:05 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-17",
+   "note": "rubric 10/10 by wk-r-17; 3 notes"
   }
  ],
  "plan": {
@@ -785,8 +792,8 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 06:56 UTC"
+  "rules_version": "b9bdd5846b24",
+  "date": "2026-10-10 10:04 UTC"
  },
  "writers": [
   "w-hotel-booking-form",
@@ -797,5 +804,115 @@
   "Require two nights on weekends at my bed and breakfast. When a guest asks for Saturday alone, offer Friday and Saturday or Saturday and Sunday instead.",
   "Hold all six rooms of my bed and breakfast for a June wedding at a group rate, with its own link for guests and a cutoff 30 days out that releases unbooked rooms.",
   "Take the first night as a deposit through Stripe before a room is held, then email the guest a confirmation with my cancellation terms."
+ ],
+ "review": {
+  "by": "wk-r-17",
+  "date": "2026-10-10 10:05 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Hotel Booking Form for Inns and Group Room Blocks', meta title 'Hotel Booking Form for Inns and Room Blocks | Emergent'. Hero 'Get a hotel booking form that offers only rooms open for the whole stay and saves each request to a table you own.' is under 130 chars, carries the primary and leads with a verb (D1). How-to description is one sentence under 140 chars that says what the steps achieve (D2). CTA 'Build My Hotel Form' is under 34 chars (D3)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder-fit SERP of template galleries and conference PDFs: the page gives four worked templates (tabs, offered as templates in FAQ 3), a template field list (FAQ 4), a PDF-vs-online answer for the pdf secondary (FAQ 6), and a seven-step how-to specific to room counts, stay rules, deposits and group blocks."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Innkeeper vocabulary: 'two-night minimum on weekends', 'a crib or any accessibility need', 'the 6 nobody claimed go back', 'a list of tomorrow's arrivals each evening', 'photo ID in the booking name'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Larkspur House has six rooms and sells Saturday night only as part of a two-night stay', 'Three of the 20 rooms at the Pinecrest Inn take dogs', 'Check every night of a requested stay against the rooms left of that type'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect. Three-item lists carry the serial comma ('the dates, the room type, the number of guests, and a way to pay', 'the rooms held, the nightly rate, the dates, and the cutoff')."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: 'Room 12, the one dog room open all three nights, at $517 including the $40 pet fee', 'request 81 is placed in the Ferrow Inn block', 'Request a stay under a made-up name with a Stripe test card'."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to claims_used: custom-domain ('included with Emergent and billed in credits'), code-export ('Paid plans can export the full code to GitHub'), free-start ('the free tier covers building and publishing'), api-connect, alerts. The cutoff rule in tab 3 is sourced (Oracle cut-off dates). Table generated from the library. Numbers agree: 3 x $159 = $477 + $40 = $517; 8+8+4 = 20 held, 6+5+3 = 14 booked, 2+3+1 = 6 returned."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Generic hourly bookings are handed to the booking form sibling (FAQ 5, linked); tabs (weekend minimum, dog rooms, wedding block, conference overflow) are hotel-specific; no sibling primary in any heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "Exactly 10 on-topic questions, none naming a brand (PA14) or asking for a file format or download (PA15); hub link in item 2; links to booking form and conference registration form; Emergent moat lines in items 3 ('Emergent is free to start') and 7 ('With Emergent, you describe the change in plain English') (F9). Each answer opens on its answer."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: one hero per tab, readable. Tab 1 'Friday and Saturday 2 rooms left', 'Saturday and Sunday 4 rooms left'; tab 2 Room 12 'Open all 3 nights', '$477.00 + $40.00 = $517.00'; tab 3 'Held 20, Booked 14, Returned 6', '$189 a night'; tab 4 '80 of 80', 'Request 81 placed at the Ferrow Inn', #summit-housing, '$164 a night'. All match the tab copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "For most properties, yes.",
+    "issue": "Soft quantifier about no named third party (FAQ 6).",
+    "fix": "Answer on the mechanism: 'Yes, once requests arrive faster than the desk can type them in.'",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "Small properties often add an arrival time and a box for special requests.",
+    "issue": "Soft quantifier about no named third party (FAQ 4).",
+    "fix": "'Small properties add an arrival time ...' or drop 'often'.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "the room list should show only rooms open for every night chosen",
+    "issue": "FAQ 8 restates the hero ('offers only rooms open for the whole stay') and tab 2's 'free on every night of the stay' with words swapped.",
+    "fix": "Let FAQ 8 close on a layout point the page does not already make.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Soft quantifier about no named third party (FAQ 6).",
+   "fix": "Answer on the mechanism: 'Yes, once requests arrive faster than the desk can type them in.'",
+   "by": "wk-r-17",
+   "via": "review",
+   "date": "2026-10-10 10:05 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Soft quantifier about no named third party (FAQ 4).",
+   "fix": "'Small properties add an arrival time ...' or drop 'often'.",
+   "by": "wk-r-17",
+   "via": "review",
+   "date": "2026-10-10 10:05 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "FAQ 8 restates the hero ('offers only rooms open for the whole stay') and tab 2's 'free on every night of the stay' with words swapped.",
+   "fix": "Let FAQ 8 close on a layout point the page does not already make.",
+   "by": "wk-r-17",
+   "via": "review",
+   "date": "2026-10-10 10:05 UTC"
+  }
  ]
 }
