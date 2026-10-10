@@ -631,3 +631,81 @@ Phase 2 (DECISIONS 2026-10-08): one line per page, no question text. Per-questio
 - 2026-10-10 /ai-form-builder/new-employee-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
 - 2026-10-10 /ai-form-builder/requisition-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
 - 2026-10-10 /ai-form-builder/requisition-form [spec]: 10 questions; pass 6, reject 0, flag 4; rejects by rule: none
+- 2026-10-10 /ai-form-builder/complaint-form [spec]: 10 questions; pass 3, reject 5, flag 2; rejects by rule: PA1 2, PA12 1, PA15 1, PA3 4; page: PA11 5 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build
+- 2026-10-10 /ai-form-builder/incident-report-form [spec]: 10 questions; pass 3, reject 7, flag 0; rejects by rule: PA1 3, PA3 7; page: PA11 3 on-topic items, under 8: the page parks; PA12 3 items carrying a secondary, under 5
+- 2026-10-10 /ai-form-builder/complaint-form [pull]: 19 questions; pass 1, reject 16, flag 2; rejects by rule: PA3 16, PA4 1; page: PA11 48 nodes, 19 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/parent-consent-form [spec]: 10 questions; pass 3, reject 5, flag 2; rejects by rule: PA1 2, PA3 5, PA4 1; page: PA11 5 on-topic items, under 8: the page parks
+- 2026-10-10 /ai-form-builder/reasonable-accommodation-request-form [spec]: 10 questions; pass 2, reject 7, flag 1; rejects by rule: PA15 1, PA3 6; page: PA11 3 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build; PA12 2 items carrying a secondary, under 5
+- 2026-10-10 /ai-form-builder/incident-report-form [pull]: 14 questions; pass 4, reject 9, flag 1; rejects by rule: PA14 1, PA15 1, PA3 8, PA4 1, PA9 1; page: PA11 38 nodes, 14 distinct; 4 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/incident-report-form [pull]: 14 questions; pass 4, reject 9, flag 1; rejects by rule: PA14 1, PA15 1, PA3 8, PA4 1, PA9 1; page: PA11 38 nodes, 14 distinct; 4 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/reasonable-accommodation-request-form [pull]: 17 questions; pass 0, reject 17, flag 0; rejects by rule: PA3 17, PA4 3; page: PA11 40 nodes, 17 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/parent-consent-form [pull]: 19 questions; pass 1, reject 16, flag 2; rejects by rule: PA3 16, PA4 2, PA5 1; page: PA11 52 nodes, 19 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/complaint-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/complaint-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/reasonable-accommodation-request-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/reasonable-accommodation-request-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/incident-report-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/incident-report-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/accident-report-form [spec]: 10 questions; pass 1, reject 8, flag 1; rejects by rule: PA1 4, PA15 1, PA3 4, PA4 3; page: PA11 2 on-topic items, under 8: the page parks; PA12 2 items carrying a secondary, under 6
+- 2026-10-10 /ai-form-builder/sponsorship-form [spec]: 10 questions; pass 4, reject 6, flag 0; rejects by rule: PA1 2, PA1b 1, PA3 6; page: PA11 4 on-topic items, under 8: the page parks; PA12 4 items carrying a secondary, under 6
+- 2026-10-10 /ai-form-builder/therapy-intake-form [spec]: 10 questions; pass 1, reject 9, flag 0; rejects by rule: PA1 5, PA1b 1, PA3 8; page: PA11 1 on-topic items, under 8: the page parks; PA12 2 items carrying a secondary, under 6
+- 2026-10-10 /ai-form-builder/accident-report-form [pull]: 25 questions; pass 1, reject 24, flag 0; rejects by rule: PA14 1, PA15 1, PA3 23, PA4 16, PA5 1; page: PA11 52 nodes, 25 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/sponsorship-form [pull]: 17 questions; pass 3, reject 14, flag 0; rejects by rule: PA3 14, PA4 2; page: PA11 44 nodes, 17 distinct; 3 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/sponsorship-form [pull+cand]: 17 questions; pass 3, reject 14, flag 0; rejects by rule: PA3 14, PA4 2; page: PA11 44 nodes, 17 distinct; 3 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/model-release-form [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-form-builder/therapy-intake-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/sponsorship-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/therapy-intake-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/therapy-intake-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/accident-report-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/accident-report-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/background-check-form [spec]: 10 questions; pass 1, reject 8, flag 1; rejects by rule: PA1 2, PA3 7, PA4 2; page: PA11 2 on-topic items, under 8: the page parks; PA12 item 2 is not how-to-build; PA12 1 items carrying a secondary, under 3
+- 2026-10-10 /ai-form-builder/expense-report-form [spec]: 10 questions; pass 4, reject 6, flag 0; rejects by rule: PA14 1, PA15 2, PA3 5, PA8 1; page: PA11 4 on-topic items, under 8: the page parks; PA12 3 items carrying a secondary, under 5
+- 2026-10-10 /ai-form-builder/medical-history-form [spec]: 10 questions; pass 2, reject 6, flag 2; rejects by rule: PA1 3, PA12 1, PA15 1, PA3 6; page: PA11 4 on-topic items, under 8: the page parks
+- 2026-10-10 /ai-form-builder/referral-form [spec]: 10 questions; pass 5, reject 3, flag 2; rejects by rule: PA1 2, PA3 3, PA5 1; page: PA11 7 on-topic items, under 8: the page parks
+- 2026-10-10 /ai-form-builder/background-check-form [pull]: 25 questions; pass 1, reject 24, flag 0; rejects by rule: PA3 24, PA4 3; page: PA11 48 nodes, 25 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/referral-form [pull]: 8 questions; pass 3, reject 3, flag 2; rejects by rule: PA3 3; page: PA11 42 nodes, 8 distinct; 3 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/expense-report-form [pull]: 17 questions; pass 0, reject 17, flag 0; rejects by rule: PA14 2, PA15 2, PA3 17, PA4 5, PA8 2; page: PA11 46 nodes, 17 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/medical-history-form [pull]: 12 questions; pass 1, reject 7, flag 4; rejects by rule: PA15 1, PA3 6, PA9 1; page: PA11 24 nodes, 12 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/medical-history-form [pull]: 12 questions; pass 1, reject 7, flag 4; rejects by rule: PA15 1, PA3 6, PA9 1; page: PA11 24 nodes, 12 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/medical-history-form [spec]: 10 questions; pass 3, reject 5, flag 2; rejects by rule: PA1 3, PA12 1, PA3 5; page: PA11 5 on-topic items, under 8: the page parks
+- 2026-10-10 /ai-form-builder/expense-report-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/referral-form [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-form-builder/background-check-form [spec]: 10 questions; pass 5, reject 0, flag 5; rejects by rule: none
+- 2026-10-10 /ai-form-builder/background-check-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/background-check-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/expense-report-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/medical-history-form [spec]: 10 questions; pass 3, reject 5, flag 2; rejects by rule: PA1 3, PA12 1, PA3 5; page: PA11 5 on-topic items, under 8: the page parks
+- 2026-10-10 /ai-form-builder/referral-form [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-form-builder/medical-history-form [pull]: 12 questions; pass 1, reject 7, flag 4; rejects by rule: PA15 1, PA3 6, PA9 1; page: PA11 24 nodes, 12 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/expense-report-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/expense-report-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/medical-history-form [pull]: 12 questions; pass 1, reject 7, flag 4; rejects by rule: PA15 1, PA3 6, PA9 1; page: PA11 24 nodes, 12 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/referral-form [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-form-builder/background-check-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/background-check-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/referral-form [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-form-builder/background-check-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/referral-form [spec]: 10 questions; pass 8, reject 0, flag 2; rejects by rule: none
+- 2026-10-10 /ai-form-builder/reasonable-accommodation-request-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/reasonable-accommodation-request-form [spec]: 10 questions; pass 10, reject 0, flag 0; rejects by rule: none
+- 2026-10-10 /ai-form-builder/anonymous-feedback-form [spec]: 10 questions; pass 2, reject 8, flag 0; rejects by rule: PA1 5, PA14 3, PA3 8, PA8 1; page: PA11 2 on-topic items, under 8: the page parks; PA12 0 items carrying a secondary, under 3
+- 2026-10-10 /ai-form-builder/employee-availability-form [spec]: 10 questions; pass 3, reject 7, flag 0; rejects by rule: PA1 2, PA14 1, PA15 2, PA3 5, PA8 1; page: PA11 3 on-topic items, under 8: the page parks; PA12 5 items carrying a secondary, under 6
+- 2026-10-10 /ai-form-builder/payment-form [spec]: 10 questions; pass 5, reject 5, flag 0; rejects by rule: PA1 3, PA1b 1, PA3 4; page: PA11 5 on-topic items, under 8: the page parks
+- 2026-10-10 /ai-form-builder/vendor-application [spec]: 10 questions; pass 3, reject 7, flag 0; rejects by rule: PA1 3, PA12 1, PA1b 1, PA3 7; page: PA11 3 on-topic items, under 8: the page parks; PA12 1 items carrying a secondary, under 2
+- 2026-10-10 /ai-form-builder/anonymous-feedback-form [pull]: 14 questions; pass 1, reject 13, flag 0; rejects by rule: PA14 3, PA3 13, PA8 1; page: PA11 46 nodes, 14 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/employee-availability-form [pull]: 22 questions; pass 0, reject 22, flag 0; rejects by rule: PA14 2, PA3 21, PA4 1; page: PA11 42 nodes, 22 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/employee-availability-form [pull]: 22 questions; pass 0, reject 22, flag 0; rejects by rule: PA14 2, PA3 21, PA4 1; page: PA11 42 nodes, 22 distinct; 0 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/payment-form [pull]: 21 questions; pass 6, reject 15, flag 0; rejects by rule: PA14 3, PA3 13, PA4 2, PA5 1; page: PA11 44 nodes, 21 distinct; 6 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/vendor-application [pull]: 19 questions; pass 1, reject 17, flag 1; rejects by rule: PA14 1, PA15 1, PA3 17, PA4 3; page: PA11 52 nodes, 19 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/employee-availability-form [spec]: 10 questions; pass 3, reject 7, flag 0; rejects by rule: PA1 2, PA14 1, PA15 2, PA3 5, PA8 1; page: PA11 3 on-topic items, under 8: the page parks; PA12 5 items carrying a secondary, under 6
+- 2026-10-10 /ai-form-builder/vendor-application [pull]: 16 questions; pass 1, reject 14, flag 1; rejects by rule: PA3 14, PA4 6, PA7 1; page: PA11 48 nodes, 16 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/payment-form [spec]: 10 questions; pass 7, reject 3, flag 0; rejects by rule: PA1 3, PA3 3; page: PA11 7 on-topic items, under 8: the page parks
+- 2026-10-10 /ai-form-builder/anonymous-feedback-form [spec]: 10 questions; pass 2, reject 8, flag 0; rejects by rule: PA1 5, PA14 3, PA3 8, PA8 1; page: PA11 2 on-topic items, under 8: the page parks; PA12 0 items carrying a secondary, under 3
+- 2026-10-10 /ai-form-builder/anonymous-feedback-form [pull]: 14 questions; pass 1, reject 13, flag 0; rejects by rule: PA14 3, PA3 13, PA8 1; page: PA11 46 nodes, 14 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/employee-availability-form [spec]: 10 questions; pass 3, reject 7, flag 0; rejects by rule: PA1 2, PA14 1, PA15 2, PA3 5, PA8 1; page: PA11 3 on-topic items, under 8: the page parks; PA12 5 items carrying a secondary, under 6
+- 2026-10-10 /ai-form-builder/payment-form [spec]: 10 questions; pass 7, reject 3, flag 0; rejects by rule: PA1 3, PA3 3; page: PA11 7 on-topic items, under 8: the page parks
+- 2026-10-10 /ai-form-builder/vendor-application [spec]: 10 questions; pass 3, reject 7, flag 0; rejects by rule: PA1 3, PA12 1, PA1b 1, PA3 7, PA4 1; page: PA11 3 on-topic items, under 8: the page parks; PA12 1 items carrying a secondary, under 2
+- 2026-10-10 /ai-form-builder/vendor-application [pull]: 16 questions; pass 1, reject 14, flag 1; rejects by rule: PA3 14, PA4 6, PA7 1; page: PA11 48 nodes, 16 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/vendor-application [pull+cand]: 16 questions; pass 1, reject 14, flag 1; rejects by rule: PA3 14, PA4 6, PA7 1; page: PA11 48 nodes, 16 distinct; 1 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
+- 2026-10-10 /ai-form-builder/payment-form [pull+cand]: 21 questions; pass 6, reject 15, flag 0; rejects by rule: PA14 3, PA3 13, PA4 2, PA5 1; page: PA11 44 nodes, 21 distinct; 6 passing AlsoAsked candidates (fill from secondaries; under 8 on-topic in the final FAQ parks the page)
