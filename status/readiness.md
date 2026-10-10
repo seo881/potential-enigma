@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-10 07:55 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-10 10:03 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -23,10 +23,10 @@ Regenerated 2026-10-10 07:55 UTC by `hubctl readiness` (also after every `hubctl
 
 | Batch | Page | QC TOTAL | PAA gate | Review (launch) | Images current | PA13 approved | Pending links | CMS item | Draft synced | Published | Ship stage |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| batch-0 | /ai-automation-builder/approval-workflow | 7 | 10/10 | no | no | no | 0 | 6aba7ac40efe4e6ac8693159 | no | no | stopped (stopped) |
-| batch-0 | /ai-form-builder/creator-application | 41 | 4/12 | no | no | no | 0 | 6ab505a8d621dc692561a85a | no | no | stopped (stopped) |
-| batch-0 | /ai-landing-page-builder/thank-you-page | 5 | 9/10 | no | no | no | 0 | 6ab5158e23395050bc86ca79 | no | no | stopped (stopped) |
-| batch-0 | /ai-survey-and-quiz-builder/customer-satisfaction | 9 | 10/10 | no | no | no | 0 | 6aba7afb6271de33629b812c | no | no | stopped (stopped) |
+| batch-0 | /ai-automation-builder/approval-workflow | 6 | 10/10 | no | no | no | 0 | 6aba7ac40efe4e6ac8693159 | no | no | stopped (stopped) |
+| batch-0 | /ai-form-builder/creator-application | 52 | 4/12 | no | no | no | 0 | 6ab505a8d621dc692561a85a | no | no | stopped (stopped) |
+| batch-0 | /ai-landing-page-builder/thank-you-page | 4 | 9/10 | no | no | no | 0 | 6ab5158e23395050bc86ca79 | no | no | stopped (stopped) |
+| batch-0 | /ai-survey-and-quiz-builder/customer-satisfaction | 8 | 10/10 | no | no | no | 0 | 6aba7afb6271de33629b812c | no | no | stopped (stopped) |
 | batch-1 | /ai-automation-builder/document-automation | 0 | 10/10 | yes, launch-r-b1-4 | yes | no | 3 | 6ac89f5186706b45a79b39b4 | yes | yes | done |
 | batch-1 | /ai-automation-builder/ecommerce-automation | 0 | 10/10 | yes, launch-r-b1-5 | yes | no | 2 | 6ac8a1af7019f6d354746f12 | yes | yes | done |
 | batch-1 | /ai-automation-builder/sales-automation | 0 | 10/10 | yes, launch-r-b1-4 | yes | no | 3 | 6ac89f5186706b45a79b39b2 | yes | yes | done |
@@ -56,17 +56,17 @@ Regenerated 2026-10-10 07:55 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-aab | /ai-automation-builder/invoice-automation | 0 | 10/10 | yes, wk-r-5 | yes | no | 0 | - | no | no | payload |
 | wk-rework-aab | /ai-automation-builder/purchase-order-automation | 0 | 10/10 | yes, wk-r-5 | yes | no | 0 | - | no | no | payload |
 | wk-rework-aab | /ai-automation-builder/social-media-automation | 0 | 10/10 | yes, wk-r-5 | yes | no | 0 | - | no | no | payload |
-| wk-rework-form | /ai-form-builder/accident-report-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
+| wk-rework-form | /ai-form-builder/accident-report-form | 0 | 10/10 | yes, wk-r-15 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/accounting-client-intake-form | 6 | 6/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/ach-form | 0 | 10/10 | yes, wk-r-10 | yes | no | 0 | - | no | no | payload |
-| wk-rework-form | /ai-form-builder/address-verification-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
+| wk-rework-form | /ai-form-builder/address-verification-form | 0 | 10/10 | yes, wk-r-15 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/advance-directive-form | 0 | 10/10 | yes, wk-r-10 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/affidavit-form | 0 | 10/10 | yes, wk-r-11 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/anesthesia-consent-form | 9 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/anonymous-feedback-form | 9 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/approval-form | 5 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/audition-form | 9 | 4/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
-| wk-rework-form | /ai-form-builder/background-check-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
+| wk-rework-form | /ai-form-builder/background-check-form | 0 | 10/10 | yes, wk-r-15 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/botox-consent-form | 5 | 4/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/brand-questionnaire | 7 | 7/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/cake-order-form | 7 | 1/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
@@ -86,7 +86,7 @@ Regenerated 2026-10-10 07:55 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/daycare-registration-form | 5 | 3/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/dental-intake-form | 6 | 3/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/direct-deposit-form | 0 | 10/10 | yes, wk-r-8 | yes | no | 0 | - | no | no | payload |
-| wk-rework-form | /ai-form-builder/driver-application-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
+| wk-rework-form | /ai-form-builder/driver-application-form | 0 | 10/10 | yes, wk-r-15 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/drug-test-consent-form | 7 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/emergency-contact-form | 0 | 10/10 | yes, wk-r-13 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/employee-availability-form | 0 | 3/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
@@ -96,18 +96,18 @@ Regenerated 2026-10-10 07:55 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/employment-verification-letter | 0 | 10/10 | yes, wk-r-8 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/equipment-rental-agreement-form | 8 | 4/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/esthetician-intake-form | 5 | 1/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
-| wk-rework-form | /ai-form-builder/event-planning-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
-| wk-rework-form | /ai-form-builder/expense-report-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
+| wk-rework-form | /ai-form-builder/event-planning-form | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
+| wk-rework-form | /ai-form-builder/expense-report-form | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-form | /ai-form-builder/expense-request-form | 7 | 3/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/field-trip-permission-slip | 0 | 10/10 | yes, wk-r-12 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/file-upload-form | 8 | 3/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
-| wk-rework-form | /ai-form-builder/fitness-assessment-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
+| wk-rework-form | /ai-form-builder/fitness-assessment-form | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-form | /ai-form-builder/food-bank-application-form | 9 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/food-order-form | 6 | 4/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/grievance-form | 0 | 4/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/health-screening-form | 7 | 1/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
-| wk-rework-form | /ai-form-builder/home-care-intake-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
-| wk-rework-form | /ai-form-builder/hotel-booking-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
+| wk-rework-form | /ai-form-builder/home-care-intake-form | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
+| wk-rework-form | /ai-form-builder/hotel-booking-form | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-form | /ai-form-builder/identity-verification-form | 0 | 5/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/incident-report-form | 0 | 10/10 | yes, wk-r-14 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/independent-contractor-agreement | 0 | 10/10 | yes, wk-r-12 | yes | no | 0 | - | no | no | payload |
@@ -134,26 +134,26 @@ Regenerated 2026-10-10 07:55 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/patient-intake-form | 0 | 10/10 | yes, wk-r-13 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/payment-form | 1 | 7/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/payroll-change-form | 8 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
-| wk-rework-form | /ai-form-builder/permanent-makeup-consent-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
+| wk-rework-form | /ai-form-builder/permanent-makeup-consent-form | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-form | /ai-form-builder/personal-injury-intake-form | 7 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/pet-adoption-form | 11 | 6/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/petition-form | 0 | 3/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/photo-release-form | 0 | 10/10 | yes, wk-r-11 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/pre-order-form | 8 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/project-request-form | 14 | 5/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
-| wk-rework-form | /ai-form-builder/proposal-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
+| wk-rework-form | /ai-form-builder/proposal-form | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-form | /ai-form-builder/pt-intake-form | 5 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/purchase-order-form | 0 | 10/10 | yes, wk-r-13 | yes | no | 0 | - | no | no | payload |
-| wk-rework-form | /ai-form-builder/quote-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
+| wk-rework-form | /ai-form-builder/quote-form | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-form | /ai-form-builder/reasonable-accommodation-request-form | 0 | 10/10 | yes, wk-r-14 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/reference-check-form | 6 | 3/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
-| wk-rework-form | /ai-form-builder/referral-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
+| wk-rework-form | /ai-form-builder/referral-form | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-form | /ai-form-builder/refund-request-form | 8 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/rental-agreement-form | 0 | 10/10 | yes, wk-r-8 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/rental-application-form | 0 | 10/10 | yes, wk-r-11 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/rental-history-form | 8 | 1/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/requisition-form | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
-| wk-rework-form | /ai-form-builder/restaurant-reservation-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
+| wk-rework-form | /ai-form-builder/restaurant-reservation-form | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-form | /ai-form-builder/rfp-form | 0 | 4/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/rfq-form | 6 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/service-request-form | 8 | 3/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
@@ -162,7 +162,7 @@ Regenerated 2026-10-10 07:55 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/sign-out-form | 0 | 5/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/sign-up-form | 0 | 10/10 | yes, wk-r-11 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/silent-auction-form | 6 | 1/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
-| wk-rework-form | /ai-form-builder/sponsorship-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
+| wk-rework-form | /ai-form-builder/sponsorship-form | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-form | /ai-form-builder/student-registration-form | 7 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/sublease-form | 5 | 3/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/suggestion-form | 7 | 4/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
@@ -171,17 +171,17 @@ Regenerated 2026-10-10 07:55 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/telemedicine-consent-form | 7 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/tenant-screening-form | 8 | 1/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/testimonial-form | 8 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
-| wk-rework-form | /ai-form-builder/therapy-intake-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
+| wk-rework-form | /ai-form-builder/therapy-intake-form | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-form | /ai-form-builder/time-off-request-form | 0 | 10/10 | yes, wk-r-9 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/time-sheet-form | 0 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/tournament-registration-form | 8 | 4/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
-| wk-rework-form | /ai-form-builder/training-feedback-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
+| wk-rework-form | /ai-form-builder/training-feedback-form | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-form | /ai-form-builder/training-request-form | 7 | 1/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/travel-reimbursement-form | 6 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/travel-request-form | 7 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/vehicle-inspection-form | 0 | 0/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/vendor-application | 7 | 3/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
-| wk-rework-form | /ai-form-builder/volunteer-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
+| wk-rework-form | /ai-form-builder/volunteer-form | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-form | /ai-form-builder/webinar-registration-form | 6 | 5/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/website-design-questionnaire | 7 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/wedding-photography-contract | 9 | 5/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
@@ -211,4 +211,4 @@ Regenerated 2026-10-10 07:55 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-sqb | /ai-survey-and-quiz-builder/onboarding-survey | 0 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/pulse-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
 
-Stages: done 21, images 18, images2 1, payload 52, review 1, stopped 94 (187 pages)
+Stages: done 21, images2 1, payload 56, review 15, stopped 94 (187 pages)
