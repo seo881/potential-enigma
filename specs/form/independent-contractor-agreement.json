@@ -131,6 +131,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 00:48 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-12",
+   "note": "rubric 10/10 by wk-r-12; 8 notes"
   }
  ],
  "table": {
@@ -837,7 +844,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 00:26 UTC"
+  "date": "2026-10-10 00:48 UTC"
  },
  "writers": [
   "w-independent-contractor-agreement",
@@ -848,5 +855,215 @@
   "Ask each contractor for a completed W-9 during onboarding, and mark them ready to pay only after a taxpayer ID is on file.",
   "Collect the contractor's signature and then mine on screen, save the signed agreement with their intake answers, and send a reminder after three days unsigned.",
   "Keep a running 2026 total of what my agency pays each contractor, and flag anyone who reaches $2,000 for a 1099-NEC in January."
+ ],
+ "review": {
+  "by": "wk-r-12",
+  "date": "2026-10-10 00:48 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Independent Contractor Agreement Generator'; hero 'Build an app that drafts an independent contractor agreement for each hire, collects the W-9, and files the signed copy.' covers drafting, tax paperwork and signing; howto_description one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is fill-in templates; the how-to walks the clauses (parties, deliverables, fee, IP, relationship, termination, signing), FAQ covers the template, free, 1099 and form questions, and the generator ships a drafted agreement per the sheet note."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Contractor-specific terms throughout: 'work made for hire', 'certificate of insurance', '1099-NEC', 'taxpayer ID'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs ('Drafts each agreement', 'Adds a copyright assignment'); tab paragraphs open on full sentences ('Northwind Agency signs on 40 contractors a quarter through a single intake.')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; 'Treat this clause as a description, not a shield'."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail: 'Signing with the person when the bank account belongs to the company makes the W-9 and every payment harder to match later.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Nine work-for-hire categories (circ30), $2,000 1099-NEC line for 2026 payments (i1099mec), IRS control tests (tc762) and ESIGN (15 USC 7001) match domain_sources; 2,400 + 2,400 = 4,800 and $2,350 over $2,000 agree in copy and images; claims map to claims_used incl. tax-records."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No HR sibling primary in headings; tabs are contractor-only stories (IP, W-9 ledger, COI lock, classification). Templated shapes shared with nda-form noted."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic items, answer-first, hub link in item 2, sibling links (ACH form, creator application, employee information form), moat lines in items 5 and 8, no brands or formats in questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "uc-1 'Not in the 9 categories' / 'Portfolio rights kept', uc-2 'If 2026 payments reach $2,000', uc-3 'Reminder 30 days before expiry', uc-4 '2 of 6 answers show control' match the tab copy; one hero each."
+   }
+  },
+  "findings": [
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "Brands paying UGC creators often add usage rights for posted content",
+    "issue": "Soft quantifier about no named third party.",
+    "fix": "Make it advice: 'If you pay UGC creators, add usage rights for posted content'.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "howto_step_4_des",
+    "quote": "usually on final payment",
+    "issue": "Soft quantifier in advice.",
+    "fix": "'such as on final payment'.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Two to four pages is enough for a single project",
+    "issue": "Length recommendation with no source; fine as advice.",
+    "fix": "None required.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "and screen candidates first with a",
+    "issue": "The UGC aside in the template-contents answer exists mainly to carry the creator application link; links should help this reader.",
+    "fix": "Move the link to an answer where screening fits, or pick a closer sibling.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Universities and legal publishers post free sample agreements",
+    "issue": "Universities are sourced (Berkeley); legal publishers are not in domain_sources, though LawDepot and Rocket Lawyer sit in the brief's top 10.",
+    "fix": "Add one legal-publisher source entry.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "mockup",
+    "quote": "tradeSubcontractors",
+    "issue": "Mockup keys are camelCase tab names; tab labels are 'Subcontractors' and 'Classification' (keys tradeSubcontractors, classificationChecks).",
+    "fix": "Rename to subcontractors and classification.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief.tabs[0]",
+    "quote": "DRAFT",
+    "issue": "uc-1 labels the agreement DRAFT while the hero shows 'Final payment received' and 'Copyright assigned'; two moments in one frame.",
+    "fix": "Label the document SIGNED.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "feature_6",
+    "quote": "or you can keep prompting Emergent for the changes",
+    "issue": "Same shape as the nda-form sibling in feature_6, features_subheading ('A template supplies the clauses.'), why_description and meta_description ('clause by clause, plus an app that').",
+    "fix": "Vary the shapes on one of the two pages.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Soft quantifier about no named third party.",
+   "fix": "Make it advice: 'If you pay UGC creators, add usage rights for posted content'.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:48 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "howto_step_4_des",
+   "issue": "Soft quantifier in advice.",
+   "fix": "'such as on final payment'.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:48 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Length recommendation with no source; fine as advice.",
+   "fix": "None required.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:48 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "The UGC aside in the template-contents answer exists mainly to carry the creator application link; links should help this reader.",
+   "fix": "Move the link to an answer where screening fits, or pick a closer sibling.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:48 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Universities are sourced (Berkeley); legal publishers are not in domain_sources, though LawDepot and Rocket Lawyer sit in the brief's top 10.",
+   "fix": "Add one legal-publisher source entry.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:48 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "mockup",
+   "issue": "Mockup keys are camelCase tab names; tab labels are 'Subcontractors' and 'Classification' (keys tradeSubcontractors, classificationChecks).",
+   "fix": "Rename to subcontractors and classification.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:48 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief.tabs[0]",
+   "issue": "uc-1 labels the agreement DRAFT while the hero shows 'Final payment received' and 'Copyright assigned'; two moments in one frame.",
+   "fix": "Label the document SIGNED.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:48 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "feature_6",
+   "issue": "Same shape as the nda-form sibling in feature_6, features_subheading ('A template supplies the clauses.'), why_description and meta_description ('clause by clause, plus an app that').",
+   "fix": "Vary the shapes on one of the two pages.",
+   "by": "wk-r-12",
+   "via": "review",
+   "date": "2026-10-10 00:48 UTC"
+  }
  ]
 }
