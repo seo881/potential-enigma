@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-10 05:25 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-10 05:30 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -141,7 +141,7 @@ Regenerated 2026-10-10 05:25 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/photo-release-form | 0 | 10/10 | yes, wk-r-11 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/pre-order-form | 11 | 2/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/project-request-form | 14 | 5/10 | no | no | no | 0 | - | no | no | writer |
-| wk-rework-form | /ai-form-builder/proposal-form | 6 | 6/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-form | /ai-form-builder/proposal-form | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
 | wk-rework-form | /ai-form-builder/pt-intake-form | 5 | 2/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/purchase-order-form | 0 | 10/10 | yes, wk-r-13 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/quote-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
@@ -211,4 +211,4 @@ Regenerated 2026-10-10 05:25 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-sqb | /ai-survey-and-quiz-builder/onboarding-survey | 0 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/pulse-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
 
-Stages: autofix 73, done 21, images 10, images2 1, payload 52, review 1, stopped 26, writer 3 (187 pages)
+Stages: autofix 73, check 1, done 21, images 10, images2 1, payload 52, review 1, stopped 26, writer 2 (187 pages)
