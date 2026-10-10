@@ -133,6 +133,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 11:11 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-18",
+   "note": "rubric 10/10 by wk-r-18; 4 notes"
   }
  ],
  "plan": {
@@ -845,11 +852,141 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 04:24 UTC"
+  "rules_version": "b9bdd5846b24",
+  "date": "2026-10-10 11:09 UTC"
  },
  "writers": [
   "w-referral-form",
   "wk-w-referral-form"
+ ],
+ "review": {
+  "by": "wk-r-18",
+  "date": "2026-10-10 11:11 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Referral Form That Routes and Tracks Every Referral', title 'Free Referral Form Builder | Emergent' and hero 'Build a referral form that puts urgent cases first, requires the right files, and tells each sender what happened next.' state the whole job; how-to description is one sentence under 140 characters."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Split SERP (patient referral PDFs and builders) is covered: specialist and teacher referrals in tabs and FAQ, an example in FAQ 5, a template checklist in FAQ 9, a paper-to-online answer in FAQ 8, and a seven-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'visit notes and an ECG', 'CDL class', 'supports tried so far, like a front-row seat or a daily check-in', 'booked within 2 business days'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence or verb: 'Ask the sender to mark each referral', 'Harbor Heart Cardiology takes referrals', 'Kestrel Freight hires most drivers'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; sentences carry one idea, e.g. 'Nobody calls back for a missing page.' Notes recorded below."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Calm, concrete operator voice: 'A faxed referral PDF waits in a tray until someone finds it.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "HMO claim in FAQ 3 matches the healthcare.gov source; teacher referral contents match the student support team source; tab 4 sums hold (21 x $100 = $2,100; $200/$150/$100 per referrer); claims_used all approved."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Four referral desks (cardiology, middle school, trucking, home cleaning) unique to this page; tab H3s use no sibling primary."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first, no brand or file-format ask in any question, hub link in item 2, exact-match links to patient intake form and job application form, two moat lines (items 8 and 10)."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: '14 referring practices', 'Book within 2 business days', 'Sent back to Ms. Park', 'Luis Ortega's bonus: $1,000', 'Flagged: Jo Rivera, Applied 4 months ago', '38 / 21 booked / $2,100'."
+   }
+  },
+  "findings": [
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "Most fit on one page.",
+    "issue": "Soft quantifier about referral forms in general with no source (second instance in FAQ 3: 'Most of the patient details come from the clinic's own patient intake form').",
+    "fix": "State it as a description ('A typical referral form fits on one page') or drop the quantifier.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #1",
+    "field": "tab_content_3",
+    "quote": "Kestrel pays its $1,000 bonus at day 90",
+    "issue": "The Employee Referrals tab (and feature_3 'before two employees claim one bonus', meta 'patients or new hires') covers the bonus-tracking topic the sibling /ai-form-builder/employee-referral-form owns; it stays a sub-use-case and no heading uses the sibling primary, so it is not blocking.",
+    "fix": "Add an exact-match FAQ link to the employee referral form page so the topic hands off to its owner.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_4",
+    "quote": "when a referred friend's first clean is done, both get $50 off their next visit. This quarter the owner's dashboard shows 38 referrals, 21 booked and $2,100 in credits issued.",
+    "issue": "Credits trigger on a completed first clean but the count is of bookings, and feature_5 gives a third trigger ('When a friend books and pays'); the sums hold only if every booked clean is done.",
+    "fix": "Use one trigger across feature_5 and tab 4 (for example '21 completed a first clean').",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "hero_description",
+    "quote": "puts urgent cases first",
+    "issue": "The same phrase recurs in hero_prompt ('puts urgent cases first') and FAQ 10 ('put an urgent case first').",
+    "fix": "Vary one of them.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Soft quantifier about referral forms in general with no source (second instance in FAQ 3: 'Most of the patient details come from the clinic's own patient intake form').",
+   "fix": "State it as a description ('A typical referral form fits on one page') or drop the quantifier.",
+   "by": "wk-r-18",
+   "via": "review",
+   "date": "2026-10-10 11:11 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #1",
+   "field": "tab_content_3",
+   "issue": "The Employee Referrals tab (and feature_3 'before two employees claim one bonus', meta 'patients or new hires') covers the bonus-tracking topic the sibling /ai-form-builder/employee-referral-form owns; it stays a sub-use-case and no heading uses the sibling primary, so it is not blocking.",
+   "fix": "Add an exact-match FAQ link to the employee referral form page so the topic hands off to its owner.",
+   "by": "wk-r-18",
+   "via": "review",
+   "date": "2026-10-10 11:11 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_4",
+   "issue": "Credits trigger on a completed first clean but the count is of bookings, and feature_5 gives a third trigger ('When a friend books and pays'); the sums hold only if every booked clean is done.",
+   "fix": "Use one trigger across feature_5 and tab 4 (for example '21 completed a first clean').",
+   "by": "wk-r-18",
+   "via": "review",
+   "date": "2026-10-10 11:11 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "hero_description",
+   "issue": "The same phrase recurs in hero_prompt ('puts urgent cases first') and FAQ 10 ('put an urgent case first').",
+   "fix": "Vary one of them.",
+   "by": "wk-r-18",
+   "via": "review",
+   "date": "2026-10-10 11:11 UTC"
+  }
  ]
 }
