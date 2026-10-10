@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-10 00:07 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-10 00:08 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -150,7 +150,7 @@ Regenerated 2026-10-10 00:07 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/referral-form | 10 | 7/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/refund-request-form | 13 | 2/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/rental-agreement-form | 0 | 10/10 | yes, wk-r-8 | yes | no | 0 | - | no | no | payload |
-| wk-rework-form | /ai-form-builder/rental-application-form | 0 | 10/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-form | /ai-form-builder/rental-application-form | 0 | 10/10 | no | no | no | 0 | - | no | no | check |
 | wk-rework-form | /ai-form-builder/rental-history-form | 12 | 1/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/requisition-form | 13 | 3/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/restaurant-reservation-form | 9 | 1/10 | no | no | no | 0 | - | no | no | autofix |
@@ -211,4 +211,4 @@ Regenerated 2026-10-10 00:07 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-sqb | /ai-survey-and-quiz-builder/onboarding-survey | 0 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/pulse-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
 
-Stages: autofix 118, check 2, check2 1, done 21, images 3, payload 28, review 4, stopped 9, writer 1 (187 pages)
+Stages: autofix 118, check 3, check2 1, done 21, images 3, payload 28, review 4, stopped 9 (187 pages)
