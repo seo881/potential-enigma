@@ -136,6 +136,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 00:40 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "wk-r-11",
+   "note": "[truth | HUB_RULES 6] feature_6: The ledger claim 'code-export' is full code export to GitHub; it does not say signed records (database rows, personal data) go to the repository. This states a capability beyond rules/capabilities.json (CONTENT_DEFECTS #14). -> Export only the code: 'On paid plans, e"
   }
  ],
  "plan": {
@@ -786,7 +793,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 00:03 UTC"
+  "date": "2026-10-10 00:35 UTC"
  },
  "writers": [
   "w-photo-release-form",
@@ -797,5 +804,175 @@
   "Ask for each student's date of birth, and send anyone under 18 to a page where a parent or guardian signs and gives their relationship.",
   "On picture day, show our photographer a roster for each classroom with the students whose parents declined photos marked in red.",
   "When a parent withdraws a photo release, email our web editor the student's name and the date so the photos come off the school website."
+ ],
+ "review": {
+  "by": "wk-r-11",
+  "date": "2026-10-10 00:40 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Photo Release Form That Records Each Person's Choices', title 'Photo Release Form Builder and Sample Wording | Emergent' and hero 'Create a photo release form with a yes or no for every use, parent signatures for minors, and one database of answers.' cover the whole job; hero under 130 chars; how-to description is one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder-fit SERP served: sample wording (FAQ 5), what a release must include (FAQ 4), why it is needed with NY and CA law (FAQ 3), a seven-step how-to and the builder; the title's 'Sample Wording' promise is delivered in FAQ 5."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer detail: 'Room 12 roster ... 3 of its 24 students marked in red', '18 of 420 attendees said no', 'printed bulletin, the church website and the Sunday livestream', '6 website photos tagged with her name'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Parents sign the release at enrollment...', 'Registration for the Harbor Ops Summit asks...', 'List every place a photo could run...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Short declaratives, one idea each; QC Q5 clean. Repeated ideas logged as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Reads like an operator wrote it: 'Months after the shoot, someone will ask who agreed to which use.'"
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "Two fields stretch the code-export claim into exporting signed records: feature_6 'On paid plans, export the release form and every signed record to your GitHub.' and FAQ 7 'Emergent's code export on paid plans lets you hold those records in your own GitHub repository.' Legal facts (NY Civil Rights Law 50, CA Civil Code 3344 and its news exemption) match domain_sources."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Sibling primaries (liability waiver form, consent form) appear only as FAQ links; model release form is not targeted; tabs are distinct segments (school, conference, church, nonprofit)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answered first; no brand or format in a question; hub link in item 2; two sibling links; moat lines in items 7 and 9 (item 7 carries the truth defect above)."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: '3 of 24 students' and 'Yearbook sees the same 3' (tab 1), '18 of 420' and 'Red dot on the badge' (tab 2), 'Bulletin, yes. Website and livestream, no.' (tab 3), '6 website photos' and 'Emailed to the communications lead' (tab 4)."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "feature_6",
+    "quote": "On paid plans, export the release form and every signed record to your GitHub.",
+    "issue": "The ledger claim 'code-export' is full code export to GitHub; it does not say signed records (database rows, personal data) go to the repository. This states a capability beyond rules/capabilities.json (CONTENT_DEFECTS #14).",
+    "fix": "Export only the code: 'On paid plans, export the full source of the release form to your GitHub.' Keep records in the database you own.",
+    "severity": "blocking"
+   },
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "faq",
+    "quote": "Emergent's code export on paid plans lets you hold those records in your own GitHub repository.",
+    "issue": "Same class in FAQ item 7: code export is presented as a way to keep the signed release records, which the code-export claim does not cover.",
+    "fix": "Use an approved moat that fits record keeping, e.g. 'An Emergent form keeps every signed release in a database you own.'",
+    "severity": "blocking"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq, howto_step_3_des",
+    "quote": "faq item 7 'Schools often collect a new photo release consent form each year at enrollment'; faq item 9 'Many schools collect a photo consent form at enrollment for the whole year'; howto_step_3_des 'A dense legal paragraph tends to get signed without being read.'",
+    "issue": "Generalizations about no named third party, unsourced.",
+    "fix": "State them as advice ('Collect a new release each year at enrollment') or drop the quantifier.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_7_des, faq",
+    "quote": "howto_step_7_des 'Have a lawyer read the wording before the first real family signs it.'; faq item 8 'Because state laws differ, have a lawyer read the final version.'",
+    "issue": "The same lawyer-review advice appears twice with words swapped.",
+    "fix": "Keep one.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "features_subheading, feature_5",
+    "quote": "features_subheading 'someone will ask who agreed to which use'; feature_5 'for the day someone asks what they agreed to'",
+    "issue": "The someone-asks-later idea is restated.",
+    "fix": "Let feature_5 end on the stored PDF itself.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "feature_3, faq",
+    "quote": "feature_3 'The list changes the moment a new release is signed or an old one is withdrawn.'; faq item 9 'With no response cap, an Emergent form can take a release for every child in a district.'",
+    "issue": "Approved claims 'realtime' and 'no-caps' are used but missing from claims_used.",
+    "fix": "Add 'realtime' and 'no-caps' to claims_used.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Jotform ... Google Forms ... Typeform",
+    "issue": "None of the three ranks in this page's top 10 (QC K7); HUB_RULES 5 asks for competitors that rank for the query.",
+    "fix": "Pick ranking builders (e.g. AidaForm, Lightfolio) once they are in the competitor library.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq, howto_step_3_des",
+   "issue": "Generalizations about no named third party, unsourced.",
+   "fix": "State them as advice ('Collect a new release each year at enrollment') or drop the quantifier.",
+   "by": "wk-r-11",
+   "via": "review",
+   "date": "2026-10-10 00:40 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_7_des, faq",
+   "issue": "The same lawyer-review advice appears twice with words swapped.",
+   "fix": "Keep one.",
+   "by": "wk-r-11",
+   "via": "review",
+   "date": "2026-10-10 00:40 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "features_subheading, feature_5",
+   "issue": "The someone-asks-later idea is restated.",
+   "fix": "Let feature_5 end on the stored PDF itself.",
+   "by": "wk-r-11",
+   "via": "review",
+   "date": "2026-10-10 00:40 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 6",
+   "field": "feature_3, faq",
+   "issue": "Approved claims 'realtime' and 'no-caps' are used but missing from claims_used.",
+   "fix": "Add 'realtime' and 'no-caps' to claims_used.",
+   "by": "wk-r-11",
+   "via": "review",
+   "date": "2026-10-10 00:40 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "None of the three ranks in this page's top 10 (QC K7); HUB_RULES 5 asks for competitors that rank for the query.",
+   "fix": "Pick ranking builders (e.g. AidaForm, Lightfolio) once they are in the competitor library.",
+   "by": "wk-r-11",
+   "via": "review",
+   "date": "2026-10-10 00:40 UTC"
+  }
  ]
 }
