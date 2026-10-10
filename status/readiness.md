@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-10 07:19 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-10 07:22 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -73,7 +73,7 @@ Regenerated 2026-10-10 07:19 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/car-rental-form | 11 | 0/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/chemical-peel-consent-form | 12 | 1/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/church-membership-form | 12 | 1/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
-| wk-rework-form | /ai-form-builder/class-registration-form | 10 | 4/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/class-registration-form | 6 | 4/10 | no | no | no | 0 | - | no | no | writer |
 | wk-rework-form | /ai-form-builder/cobra-election-form | 6 | 0/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/complaint-form | 0 | 10/10 | yes, wk-r-14 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/conditional-logic-form | 6 | 5/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
@@ -102,7 +102,7 @@ Regenerated 2026-10-10 07:19 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/field-trip-permission-slip | 0 | 10/10 | yes, wk-r-12 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/file-upload-form | 8 | 3/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/fitness-assessment-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
-| wk-rework-form | /ai-form-builder/food-bank-application-form | 19 | 2/10 | no | no | no | 0 | - | no | no | autofix |
+| wk-rework-form | /ai-form-builder/food-bank-application-form | 9 | 2/10 | no | no | no | 0 | - | no | no | writer |
 | wk-rework-form | /ai-form-builder/food-order-form | 6 | 4/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/grievance-form | 0 | 4/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/health-screening-form | 7 | 1/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
@@ -211,4 +211,4 @@ Regenerated 2026-10-10 07:19 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-sqb | /ai-survey-and-quiz-builder/onboarding-survey | 0 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/pulse-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
 
-Stages: autofix 7, done 21, images 18, images2 1, payload 52, review 1, stopped 85, writer 2 (187 pages)
+Stages: autofix 5, done 21, images 18, images2 1, payload 52, review 1, stopped 85, writer 4 (187 pages)
