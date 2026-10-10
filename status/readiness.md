@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-10 00:53 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-10 00:58 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -127,10 +127,10 @@ Regenerated 2026-10-10 00:53 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/model-release-form | 0 | 10/10 | no | yes | no | 0 | - | no | no | images |
 | wk-rework-form | /ai-form-builder/multi-step-form | 13 | 4/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/nda-form | 0 | 10/10 | yes, wk-r-12 | yes | no | 0 | - | no | no | payload |
-| wk-rework-form | /ai-form-builder/new-employee-form | 6 | 5/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-form | /ai-form-builder/new-employee-form | 0 | 10/10 | no | no | no | 0 | - | no | no | writer |
 | wk-rework-form | /ai-form-builder/order-form | 0 | 10/10 | yes, wk-r-9 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/overtime-request-form | 13 | 1/10 | no | no | no | 0 | - | no | no | autofix |
-| wk-rework-form | /ai-form-builder/parent-consent-form | 7 | 3/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-form | /ai-form-builder/parent-consent-form | 0 | 5/10 | no | no | no | 0 | - | no | no | writer |
 | wk-rework-form | /ai-form-builder/patient-intake-form | 0 | 10/10 | no | yes | no | 0 | - | no | no | review |
 | wk-rework-form | /ai-form-builder/payment-form | 15 | 5/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/payroll-change-form | 10 | 2/10 | no | no | no | 0 | - | no | no | autofix |
@@ -152,7 +152,7 @@ Regenerated 2026-10-10 00:53 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/rental-agreement-form | 0 | 10/10 | yes, wk-r-8 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/rental-application-form | 0 | 10/10 | yes, wk-r-11 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/rental-history-form | 12 | 1/10 | no | no | no | 0 | - | no | no | autofix |
-| wk-rework-form | /ai-form-builder/requisition-form | 6 | 3/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-form | /ai-form-builder/requisition-form | 0 | 10/10 | no | no | no | 0 | - | no | no | writer |
 | wk-rework-form | /ai-form-builder/restaurant-reservation-form | 9 | 1/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/rfp-form | 10 | 3/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/rfq-form | 9 | 2/10 | no | no | no | 0 | - | no | no | autofix |
