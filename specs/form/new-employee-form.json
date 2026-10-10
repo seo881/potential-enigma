@@ -134,6 +134,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 01:22 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-14",
+   "note": "rubric 10/10 by wk-r-14; 4 notes"
   }
  ],
  "plan": {
@@ -793,7 +800,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 00:57 UTC"
+  "date": "2026-10-10 01:17 UTC"
  },
  "writers": [
   "w-new-employee-form",
@@ -804,5 +811,135 @@
   "I hire in more than one state. Ask each new hire where they will work, then add the matching state form, such as the NC-4 or the MI-W4, beside the W-4.",
   "Track each new hire's I-9 for me: Section 1 by their first day and Section 2 within 3 business days of it. Turn the record red when a date gets close.",
   "When a new hire signs the last form in the packet, open a laptop and accounts ticket for my IT team and send the hiring manager the start date in Slack."
+ ],
+ "review": {
+  "by": "wk-r-14",
+  "date": "2026-10-10 01:22 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a New Employee Form That Tracks Every Deadline\"; hero \"Create a new employee form that sends each hire one link, adds the right state tax form, and tracks each due date.\" (under 130 chars, primary, leads with Create); how-to description one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "AMBER angle carried: the top 10 is DOL, IRS and payroll checklists, and the page names the forms (W-4, I-9, state certificates for NC, MI, AZ, CA), answers W-2 versus W-4, gives the I-9 and new hire report deadlines, then builds the packet the checklists cannot."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "\"NC-4 for a Charlotte hire, DE 4 for San Diego\"; \"Jamie Cole sits at day 17 of 20\"; \"Job title, department, manager and start date are fields HR completes\"."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs (\"Sends\", \"Asks\", \"Adds\", \"Puts\", \"Captures\", \"Exports\"); tabs open on full sentences (\"Bluebird Kitchen texts every line cook one link\")."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; \"HR never picks state paperwork by hand.\""
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "\"Treat the last signature as the signal for everything that follows.\" Operator voice, no hype."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "I-9 Section 1 by day one and Section 2 within 3 business days (USCIS); W-4 at start and W-2 after year end (IRS); 20-day new hire report, sooner in some states (ACF); A-4 within 5 days (AZDOR), MI-W4 by the first day and no-exemption default (Michigan), NC-4 single default (NCDOR), DE 4 single zero allowances (EDD); uc-4 20-17=3 matches \"Due in 3 days\"; Emergent lines map to claims_used incl. no-caps and free-start."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Built around federal and state paperwork and deadlines, not the employee information form's record; no sibling primary in a heading; FAQ 8-10 link the job application, direct deposit and emergency contact form pages."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic items, no brand or file format in a question, hub link in item 2, sibling links in items 8, 9 and 10, answer-first; Emergent lines in items 5, 8 and 10; all four secondaries read naturally."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "uc-1 Rosa Diaz \"3 of 4 done\", handbook open, \"Due within 3 business days\"; uc-2 rule \"If the work state is Arizona\", A-4 \"Within 5 days\", MI-W4 \"By day one\", \"Never by hand\"; uc-3 Marcus Bell, IT ticket for laptop and logins, \"Direct message to Grace Liu\"; uc-4 Kestrel Home Care, Jamie Cole \"17 of 20\", \"File first, then mark it done\"."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "tab_content_1; feature_4; faq item 6; howto_step_5_des; tab_content_4",
+    "quote": "Her I-9 document check is due within 3 business days after she starts / the I-9 document review HR owes after day one, and the report to the state directory / Section 2 of the I-9 falls due 3 business days after the first day of work / HR has 3 business days to examine identity and work documents / Federal law gives employers 20 days to report a hire to the state",
+    "issue": "The two deadlines (I-9 Section 2 in 3 business days, state report in 20 days) are stated in five fields.",
+    "fix": "Keep the full statement in FAQ 6 and step 5; let the tabs show the clock without restating the rule.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq item 5; faq item 9; faq item 8",
+    "quote": "A new hire form usually means the personal details sheet HR keeps on file / Bank details for pay usually come through a separate direct deposit form / Plenty exist as PDFs",
+    "issue": "Soft quantifiers about no named third party, unsourced.",
+    "fix": "State as advice or drop the quantifier.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "tab_content_2; faq item 4",
+    "quote": "A Detroit hire gets Michigan's MI-W4 / a Grand Rapids hire signs the MI-W4 on or before the first day",
+    "issue": "True as written, but Detroit and Grand Rapids levy city income tax with their own withholding certificates, so a reader in those cities may take the MI-W4 as the only form. Not unsourced: the page never says it is the only one.",
+    "fix": "Pick Michigan cities without a city income tax (Ann Arbor, Traverse City) on a future edit.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Jotform / Google Forms / Typeform",
+    "issue": "QC K7: none ranks in this page's top 10 (payroll vendors and agencies do).",
+    "fix": "None needed unless the library adds a ranking HR tool.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "tab_content_1; feature_4; faq item 6; howto_step_5_des; tab_content_4",
+   "issue": "The two deadlines (I-9 Section 2 in 3 business days, state report in 20 days) are stated in five fields.",
+   "fix": "Keep the full statement in FAQ 6 and step 5; let the tabs show the clock without restating the rule.",
+   "by": "wk-r-14",
+   "via": "review",
+   "date": "2026-10-10 01:22 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq item 5; faq item 9; faq item 8",
+   "issue": "Soft quantifiers about no named third party, unsourced.",
+   "fix": "State as advice or drop the quantifier.",
+   "by": "wk-r-14",
+   "via": "review",
+   "date": "2026-10-10 01:22 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "tab_content_2; faq item 4",
+   "issue": "True as written, but Detroit and Grand Rapids levy city income tax with their own withholding certificates, so a reader in those cities may take the MI-W4 as the only form. Not unsourced: the page never says it is the only one.",
+   "fix": "Pick Michigan cities without a city income tax (Ann Arbor, Traverse City) on a future edit.",
+   "by": "wk-r-14",
+   "via": "review",
+   "date": "2026-10-10 01:22 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: none ranks in this page's top 10 (payroll vendors and agencies do).",
+   "fix": "None needed unless the library adds a ranking HR tool.",
+   "by": "wk-r-14",
+   "via": "review",
+   "date": "2026-10-10 01:22 UTC"
+  }
  ]
 }
