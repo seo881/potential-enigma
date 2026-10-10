@@ -133,6 +133,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 01:22 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-14",
+   "note": "rubric 10/10 by wk-r-14; 4 notes"
   }
  ],
  "plan": {
@@ -808,7 +815,7 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 01:05 UTC"
+  "date": "2026-10-10 01:17 UTC"
  },
  "writers": [
   "w-complaint-form",
@@ -819,5 +826,135 @@
   "Send each complaint to the person who owns its category, and send any refund request over $150 to my care lead in Slack.",
   "Set a reply target of two business days on every complaint, and remind the owner the day before a reply is due.",
   "Let customers attach photos of the damaged item or the receipt before they submit, and keep each file on the case record."
+ ],
+ "review": {
+  "by": "wk-r-14",
+  "date": "2026-10-10 01:22 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Complaint Form That Sends Every Case to Its Owner\"; hero \"Create a complaint form that gives each case a number, routes it by category or amount, and tracks every reply.\" (under 130 chars, primary, leads with Create); how-to description one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is issuer-owned filing forms plus 123FormBuilder templates; the FAQ covers the definition, types, civil and summons-and-complaint forms, what an online form asks, where an employee complaint goes and free templates, and the body serves the receiving side the top 10 skips."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "\"A billing complaint asks for the invoice and the amount charged, while a delivery one asks for the tracking number\"; \"Pull the last 50 from your inbox to check the split\"; \"A double charge needs an answer by the next business day\"."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on full sentences with verbs (\"Pick billing or delivery\", \"Email each complainant\", \"Write the rules\", \"Give each category\", \"Let people attach\", \"Export the full codebase\"); tabs open on scene sentences."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; \"The manager sees nothing until HR decides what to share.\""
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "\"An emailed complaint sits in a shared inbox until someone claims it. A complaint with an owner and a due date gets an answer.\" Plain operator voice, no hype vocabulary."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "FRCP 3, 4 and 8 (Cornell), usa.gov complaint path, Cornell complainant and the PLD-PI-001 page back FAQ 3-5; Emergent lines map to prompt-build, database-owned, alerts, code-export (paid plans), free-start; tab 4 numbers 3+3+14+4=24, 14/24=58%."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Store refunds, city departments, HR routing and dental clinics; no sibling primary in a heading; FAQ 9 hands injuries and hazards to the incident report form page."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic items, no brand or file format in a question, hub link in item 2, sibling links in items 9 and 10, answer-first; Emergent lines in items 6 and 10; all three secondaries read naturally."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "uc-1 \"Slack message to Owen\", \"$186 refund request\", \"Case 4471\", \"Over the $150 line\"; uc-2 case 2841 \"Pothole on Alder Ave\" to Public Works, animal control row, \"Reply due in 3 business days\"; uc-3 shift manager skipped, Monique reviewing, \"Hidden from manager\"; uc-4 Elmwood 14 of 24 across 4 clinics, \"Review with the front desk\"."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #25",
+    "field": "image_brief.tabs[2].hero (uc-3)",
+    "quote": "# Monique",
+    "issue": "The message is addressed to Monique as the copy says (\"messages Monique, the HR director, directly\"), but the engine's hash glyph makes the header read like a channel.",
+    "fix": "Render direct messages without the hash (engine change), or use a card hero titled \"Direct message to Monique\".",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq item 3; faq item 10; why_description",
+    "quote": "Most complaint forms fall into four groups / A template has no routing or reply tracking / An emailed complaint sits in a shared inbox until someone claims it",
+    "issue": "Generalizations about no named third party, unsourced. The template line is broad: builder templates (123FormBuilder ranks here) can carry notification rules once copied.",
+    "fix": "Say what a blank template leaves to you (\"a template gives you the fields; routing and reply tracking are yours to add\").",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "tab_content_3; howto_step_3_des; faq item 8",
+    "quote": "the app skips the manager and messages Monique / when it names the person who would normally read it / a routing rule can skip any manager the complaint names before that manager sees it",
+    "issue": "The skip-the-named-manager rule is explained three times.",
+    "fix": "Let FAQ 8 give the policy advice only and leave the routing rule to tab 3.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Jotform / Google Forms / Typeform",
+    "issue": "QC K7: none ranks in this page's top 10 (123FormBuilder does).",
+    "fix": "If the library adds 123FormBuilder, regenerate the table with it.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #25",
+   "field": "image_brief.tabs[2].hero (uc-3)",
+   "issue": "The message is addressed to Monique as the copy says (\"messages Monique, the HR director, directly\"), but the engine's hash glyph makes the header read like a channel.",
+   "fix": "Render direct messages without the hash (engine change), or use a card hero titled \"Direct message to Monique\".",
+   "by": "wk-r-14",
+   "via": "review",
+   "date": "2026-10-10 01:22 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq item 3; faq item 10; why_description",
+   "issue": "Generalizations about no named third party, unsourced. The template line is broad: builder templates (123FormBuilder ranks here) can carry notification rules once copied.",
+   "fix": "Say what a blank template leaves to you (\"a template gives you the fields; routing and reply tracking are yours to add\").",
+   "by": "wk-r-14",
+   "via": "review",
+   "date": "2026-10-10 01:22 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "tab_content_3; howto_step_3_des; faq item 8",
+   "issue": "The skip-the-named-manager rule is explained three times.",
+   "fix": "Let FAQ 8 give the policy advice only and leave the routing rule to tab 3.",
+   "by": "wk-r-14",
+   "via": "review",
+   "date": "2026-10-10 01:22 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: none ranks in this page's top 10 (123FormBuilder does).",
+   "fix": "If the library adds 123FormBuilder, regenerate the table with it.",
+   "by": "wk-r-14",
+   "via": "review",
+   "date": "2026-10-10 01:22 UTC"
+  }
  ]
 }
