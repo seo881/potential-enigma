@@ -135,6 +135,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 01:22 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-14",
+   "note": "rubric 10/10 by wk-r-14; 4 notes"
   }
  ],
  "plan": {
@@ -885,10 +892,140 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 01:07 UTC"
+  "date": "2026-10-10 01:17 UTC"
  },
  "writers": [
   "w-incident-report-form",
   "wk-w-incident-report-form"
+ ],
+ "review": {
+  "by": "wk-r-14",
+  "date": "2026-10-10 01:22 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build an Incident Report Form That Reaches the Right Manager\"; hero \"Create an incident report form that sends each report to the right person by severity and tracks every fix to done.\" (under 130 chars, primary, leads with Create); how-to description one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is OSHA, agency and university PDFs plus template sites; the FAQ gives a definition, where to find free forms, a worked example, what a blank form includes, OSHA 301 timing, tracking and customizing, and the how-to stays on facts versus fault."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "\"An injury asks for the body part and the first aid given, while a theft asks for the estimated loss\"; \"a convex mirror at the aisle end, due Friday\"; \"Date and time: Tuesday, 7:40 a.m. Location: front counter, by the drinks fridge.\""
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs (\"Pick injury\", \"Attach photos\", \"Set the rules\", \"Assign each fix\", \"Collect a signature\", \"Export the code\"); tabs open on scene sentences."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; \"Reviewers see the spilled pallet instead of a description of it.\""
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "\"A report filed in a binder explains last month. A report that reaches a supervisor during the shift changes what happens on the next one.\" No hype vocabulary."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "OSHA 301 within 7 calendar days matches 29 CFR 1904.29 (Cornell); the blame and root-cause line matches osha.gov/incident-investigation; Emergent lines map to claims_used; tab 4 3+9+2+4=18, 9/18=50% matches \"half of all burns\"; $240 over $200, smaller losses to the monthly count."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Warehouse near miss, childcare bite, retail theft, kitchen burns; no sibling primary in a heading; FAQ 8 links the emergency contact form and FAQ 9 the work order form rather than covering them."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic items, no brand or file format in a question, hub link in item 2, sibling links in items 8 and 9, answer-first; Emergent lines in items 3, 7 and 10; all five secondaries placed."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "uc-1 \"Slack message to Luis\", \"2 photos attached\", \"Fix: convex mirror at aisle end\", \"Due Friday\"; uc-2 \"Bite, playground\", initials only, \"Read and signed before pickup\", unsigned row for the director; uc-3 Store 4 $240 \"Sent to Priya\", \"Camera timestamp attached\", rest to monthly count; uc-4 Eastside 9 of 18, 50%, fryer review with the head chef."
+   }
+  },
+  "findings": [
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq item 3; faq item 7; features_subheading; faq item 6",
+    "quote": "Universities and template sites post blank versions, and most offer an incident report form PDF you can print. Each one was written for a single employer / Paper copies wait in a tray and get retyped before anyone can count them / A paper report sits in a tray until a manager reads it / because a worker's injury becomes part of the employer's safety records",
+    "issue": "Generalizations about no named third party, unsourced. \"Each one was written for a single employer\" does not hold for the template sites in the same sentence (Smartsheet and eForms publish generic templates).",
+    "fix": "Limit it to the university forms (\"a university's form was written for its own campus\") or drop the sentence.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "features_subheading; why_description; faq item 7",
+    "quote": "A paper report sits in a tray until a manager reads it / A report filed in a binder explains last month / Paper copies wait in a tray",
+    "issue": "The paper-sits-in-a-tray idea appears three times with words swapped.",
+    "fix": "Keep it in one field.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "faq item 7; claims_used",
+    "quote": "On Emergent, each report lands as a row in a database you own, with no response caps.",
+    "issue": "The no-caps claim is approved in rules/capabilities.json but its id is missing from spec.claims_used.",
+    "fix": "Add \"no-caps\" to claims_used (bookkeeping, no copy change).",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Jotform / Google Forms / Typeform",
+    "issue": "QC K7: Google Forms and Typeform do not rank in this page's top 10 (Smartsheet, eForms and Microsoft Forms do).",
+    "fix": "If the library adds a ranking tool, regenerate the table with it.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq item 3; faq item 7; features_subheading; faq item 6",
+   "issue": "Generalizations about no named third party, unsourced. \"Each one was written for a single employer\" does not hold for the template sites in the same sentence (Smartsheet and eForms publish generic templates).",
+   "fix": "Limit it to the university forms (\"a university's form was written for its own campus\") or drop the sentence.",
+   "by": "wk-r-14",
+   "via": "review",
+   "date": "2026-10-10 01:22 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "features_subheading; why_description; faq item 7",
+   "issue": "The paper-sits-in-a-tray idea appears three times with words swapped.",
+   "fix": "Keep it in one field.",
+   "by": "wk-r-14",
+   "via": "review",
+   "date": "2026-10-10 01:22 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 6",
+   "field": "faq item 7; claims_used",
+   "issue": "The no-caps claim is approved in rules/capabilities.json but its id is missing from spec.claims_used.",
+   "fix": "Add \"no-caps\" to claims_used (bookkeeping, no copy change).",
+   "by": "wk-r-14",
+   "via": "review",
+   "date": "2026-10-10 01:22 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: Google Forms and Typeform do not rank in this page's top 10 (Smartsheet, eForms and Microsoft Forms do).",
+   "fix": "If the library adds a ranking tool, regenerate the table with it.",
+   "by": "wk-r-14",
+   "via": "review",
+   "date": "2026-10-10 01:22 UTC"
+  }
  ]
 }
