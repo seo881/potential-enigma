@@ -140,6 +140,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 11:12 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-18",
+   "note": "rubric 10/10 by wk-r-18; 2 notes"
   }
  ],
  "plan": {
@@ -752,11 +759,101 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 07:05 UTC"
+  "rules_version": "b9bdd5846b24",
+  "date": "2026-10-10 11:12 UTC"
  },
  "writers": [
   "w-restaurant-reservation-form",
   "wk-w-restaurant-reservation-form"
+ ],
+ "review": {
+  "by": "wk-r-18",
+  "date": "2026-10-10 11:12 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Restaurant Reservation Form That Counts Every Cover', title 'Restaurant Reservation Form With Cover Limits | Emergent', hero 'Create a restaurant reservation form that offers only seatings with room for the whole party and keeps every booking on record.' carry the whole job; how-to description is one sentence under 140 characters."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Template and PDF-heavy top 10 answered: template fields (FAQ 3), PDF vs online (FAQ 5), free option (FAQ 7), completed example (FAQ 8), plus a seven-step how-to and four booking rules."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Restaurant vocabulary throughout: 'covers', '15-minute seating', 'four-top', '$1,500 food-and-beverage minimum', 'reservation sheet beside its table number and seat time'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs ('Set how many guests', 'Choose how many guests', 'Take a flat or per-guest deposit'); tabs open on full sentences ('Larder Bistro seats 52')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Short declaratives with one idea each: 'A dining room sells seats in waves.' No blocking craft defect."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Host-stand operator voice: 'Guests book at 11 pm when nobody answers the phone, and their details arrive typed instead of scrawled.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Cover definition (Toast) and nine major allergens (FARE) sourced; 16 - 9 = 7 and 16 - 10 = 6 covers left, 14 booked leaves 2 for a party of 4; hosting wording matches the custom-domain claim; free tier and no caps are approved claims."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Seatings, covers, private dining minimums and allergy lists are restaurant-only; generic slots handed to the booking form link; no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first, no brand or file-format ask in a question, hub link in item 2, exact-match links to feedback form and booking form, moat lines in items 5, 7 and 10, three secondaries read naturally."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: '7:30 / 14 / 2', 'Offer 7:15, 7 covers left', 'Offer 7:45, 6 covers left', '$300 through Stripe / Room minimum: $1,500', 'Table 6 at 6:00: sesame', 'Hold ends in 20 minutes', '4 covers back at 8:00'."
+   }
+  },
+  "findings": [
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "Most add a phone number plus a line for allergies or the occasion.",
+    "issue": "Unsourced soft quantifier about no named third party; second instance in FAQ 5: 'For most dining rooms, yes.'",
+    "fix": "Describe the form directly ('It usually carries a phone number...') or drop the quantifier.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief.tabs[2]",
+    "quote": "Table 9, 8:15 ... None",
+    "issue": "The allergy panel lists a table with no allergy while the copy and the mini card say only flagged tables go to the kitchen ('Flagged tables only').",
+    "fix": "Drop the unflagged row or retitle the panel as tonight's bookings.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Unsourced soft quantifier about no named third party; second instance in FAQ 5: 'For most dining rooms, yes.'",
+   "fix": "Describe the form directly ('It usually carries a phone number...') or drop the quantifier.",
+   "by": "wk-r-18",
+   "via": "review",
+   "date": "2026-10-10 11:12 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief.tabs[2]",
+   "issue": "The allergy panel lists a table with no allergy while the copy and the mini card say only flagged tables go to the kitchen ('Flagged tables only').",
+   "fix": "Drop the unflagged row or retitle the panel as tonight's bookings.",
+   "by": "wk-r-18",
+   "via": "review",
+   "date": "2026-10-10 11:12 UTC"
+  }
  ]
 }
