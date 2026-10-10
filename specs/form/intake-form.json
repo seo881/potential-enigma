@@ -139,6 +139,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 00:27 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-10",
+   "note": "rubric 10/10 by wk-r-10; 5 notes"
   }
  ],
  "plan": {
@@ -762,10 +769,160 @@
  },
  "qc_passed": {
   "rules_version": "ff65c607d1da",
-  "date": "2026-10-09 23:51 UTC"
+  "date": "2026-10-10 00:24 UTC"
  },
  "writers": [
   "w-intake-form",
   "wk-w-intake-form"
+ ],
+ "review": {
+  "by": "wk-r-10",
+  "date": "2026-10-10 00:27 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build an Intake Form That Sorts Every New Client\"; hero \"Build an intake form that hides the questions a client does not need and saves each answer and file to a database you own.\"; how-to description one sentence"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition and meaning (FAQ 1), how to create (FAQ 2), examples (FAQ 3), free forms (FAQ 4), other names (FAQ 6), when to send (FAQ 7), template contents (FAQ 10); client and service intake per the watch-list, patient intake left to its sibling"
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "\"Single filers never see the dependents page\", \"Anything due in under 10 business days is marked as a rush\", \"Jobs budgeted over $25,000 go to Sam Delgado\""
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "\"Halvorsen Tax Studio sends one link to every new client.\", \"Homeowners start on a phone\"; feature bodies open on verbs (Hide, Ask, Save, Send, Put, Export)"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q5-Q8 clean"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "\"Each one removes a follow-up email you would otherwise send before the first meeting.\", \"Cut every question whose answer nobody reads before that first meeting.\""
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Booking-time timing (Acuity) and client questionnaire as another name (Millo) match domain_sources; conflict check grounded in ABA Model Rule 1.7 comment 3; Emergent claims in claims_used"
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Generic client intake across four segments; no sibling primary in a heading; links to massage, therapy and registration siblings"
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, no brand or file-format asks, hub link in item 2, links to massage intake form, registration form, therapy intake form; moat lines in items 4, 5 and 8"
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 \"Dependents page skipped\", \"Assigned to Marta Lind\"; tab 2 \"Held for Ruth Okafor\", \"Booking closed\"; tab 3 \"6 days\" under the 10-business-day rule, \"Rush: Priya Shah\"; tab 4 \"$38,000\" over \"$25,000\", \"Sent to Sam Delgado\", \"Up to 6 photos\""
+   }
+  },
+  "findings": [
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #25",
+    "field": "image_brief tab 3 hero",
+    "quote": "Rush request from Owen Hart",
+    "issue": "The message hero draws a channel glyph before \"Priya Shah\", so it reads as a channel named after a person; the copy says the rush goes to Priya Shah in Slack. The recipient matches, so it ships, but a card hero (\"Slack message to Priya Shah\") would read cleanly.",
+    "fix": "Use a card hero titled \"Slack message to Priya Shah\" on the next re-render.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief tab 2",
+    "quote": "Thomas Marsh",
+    "issue": "\"Thomas Marsh\" is labelled \"Former name\" for Tom Marsh; it is the long form of the same name, not a former name.",
+    "fix": "Label it \"Full name\" or use a real former name.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #1",
+    "field": "hero_prompt, chip_prompts",
+    "quote": "Build a client intake form for my accounting firm.",
+    "issue": "The hero prompt and three of four chip prompts (tax return uploads, bookkeeping lead routing, engagement letter) lean on the accounting client intake sibling's topic; headings stay clear, so it is a note.",
+    "fix": "Make the hero prompt segment-neutral (\"Build a new client intake form for my studio\") and spread the chips across the four tabs.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq (items 1 and 5)",
+    "quote": "In plain terms, the intake form meaning is the first record of a client relationship / a busy month never closes the form",
+    "issue": "The first sentence forces the secondary; the second leans on competitor-cap phrasing that F9 asks to avoid.",
+    "fix": "\"Put simply, it is the first record of a client relationship.\"; \"Emergent puts no cap on responses.\"",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq (items 3, 4 and 6)",
+    "quote": "is a common one / often as PDFs to print / Some businesses call it a new client form",
+    "issue": "Soft quantifiers about unnamed businesses and publishers.",
+    "fix": "State the example directly.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #25",
+   "field": "image_brief tab 3 hero",
+   "issue": "The message hero draws a channel glyph before \"Priya Shah\", so it reads as a channel named after a person; the copy says the rush goes to Priya Shah in Slack. The recipient matches, so it ships, but a card hero (\"Slack message to Priya Shah\") would read cleanly.",
+   "fix": "Use a card hero titled \"Slack message to Priya Shah\" on the next re-render.",
+   "by": "wk-r-10",
+   "via": "review",
+   "date": "2026-10-10 00:27 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief tab 2",
+   "issue": "\"Thomas Marsh\" is labelled \"Former name\" for Tom Marsh; it is the long form of the same name, not a former name.",
+   "fix": "Label it \"Full name\" or use a real former name.",
+   "by": "wk-r-10",
+   "via": "review",
+   "date": "2026-10-10 00:27 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #1",
+   "field": "hero_prompt, chip_prompts",
+   "issue": "The hero prompt and three of four chip prompts (tax return uploads, bookkeeping lead routing, engagement letter) lean on the accounting client intake sibling's topic; headings stay clear, so it is a note.",
+   "fix": "Make the hero prompt segment-neutral (\"Build a new client intake form for my studio\") and spread the chips across the four tabs.",
+   "by": "wk-r-10",
+   "via": "review",
+   "date": "2026-10-10 00:27 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq (items 1 and 5)",
+   "issue": "The first sentence forces the secondary; the second leans on competitor-cap phrasing that F9 asks to avoid.",
+   "fix": "\"Put simply, it is the first record of a client relationship.\"; \"Emergent puts no cap on responses.\"",
+   "by": "wk-r-10",
+   "via": "review",
+   "date": "2026-10-10 00:27 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq (items 3, 4 and 6)",
+   "issue": "Soft quantifiers about unnamed businesses and publishers.",
+   "fix": "State the example directly.",
+   "by": "wk-r-10",
+   "via": "review",
+   "date": "2026-10-10 00:27 UTC"
+  }
  ]
 }
