@@ -137,6 +137,13 @@
    "via": "ship",
    "by": null,
    "note": "launch: QC 0, PAA 10/10, images current"
+  },
+  {
+   "t": "2026-10-10 10:00 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "wk-r-15",
+   "note": "rubric 10/10 by wk-r-15; 5 notes"
   }
  ],
  "plan": {
@@ -742,11 +749,161 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 01:15 UTC"
+  "rules_version": "b9bdd5846b24",
+  "date": "2026-10-10 09:54 UTC"
  },
  "writers": [
   "w-accident-report-form",
   "wk-w-accident-report-form"
+ ],
+ "review": {
+  "by": "wk-r-15",
+  "date": "2026-10-10 10:00 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Accident Report Form Filed From the Scene' and hero 'Build an accident report form that sends each report, with scene photos and witness statements, to the person who handles it.' (under 130 chars, primary, leads with Build). How-to description is one sentence under 140 chars: 'Seven steps to create an accident report form that records the facts at the scene and puts each report in front of its owner.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "AMBER SERP of blank PDFs and templates: the page gives a worked example (FAQ 3), template guidance (FAQ 6, 7), field lists for auto and injury reports (FAQ 4, 8) and a seven-step how-to specific to accident types, photos, routing and claims."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'police report number', 'the other driver's insurance card', 'treated beyond first aid', 'an open claim returns to the risk manager'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Van 9 was stopped at a red light on Oak Avenue', 'Garden hoses cross the shrub aisle', 'Choose a vehicle crash and the form asks for both plates'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; one missing serial comma and one step that names the wrong date field are recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: 'room 412', 'Van 9', 'open 41 days', 'File a test crash from a phone in the parking lot using a made-up insurance card.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to claims_used (alerts, ai-extraction, e-signature-capture, code-export with 'On paid plans'); comparison table generated from the library; tab 4 numbers 41 - 30 = 11 agree between copy and image."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Near misses are handed to the incident report sibling ('Log near misses on an incident report form instead'); tabs (fleet crash, hotel injury, customer fall, claim follow-up) are this page's own."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "Exactly 10 on-topic questions, none naming a brand or a file format; hub link in item 2; Emergent moat lines in items 6 ('with no response caps') and 10 ('keeps every report in a database you own')."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: one hero per tab, readable; 'Email to Renee, fleet manager' with '4 photos attached'; 'Clinic visit, beyond first aid' to #hr-injuries; 'Sent to Tom, owner' with '2 photos of the aisle' and 'Customer declined an ambulance'; 'Claim open 41 days', '11 days past the limit'. All match the tab copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_2_des",
+    "quote": "Collect when and where it happened, who was hurt and which vehicles were involved.",
+    "issue": "Three-item list without the serial comma (DECISIONS: serial comma everywhere). The only such list on the page; the others ('the date, the time, and the intersection', 'the police report number, photos of the damage, and witness contacts') carry it.",
+    "fix": "who was hurt, and which vehicles were involved",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_6_des",
+    "quote": "Add fields for the insurance claim number and the date the claim closed. The risk team then sees which reports turned into claims and how long each one has been open.",
+    "issue": "The step adds a close date, then promises days open, which needs the date the claim opened (the tab 4 mockup asks for 'the date the claim opened').",
+    "fix": "Add fields for the insurance claim number and the date the claim opened.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "features_subheading",
+    "quote": "These six pieces collect the facts at the roadside.",
+    "issue": "'Six pieces' is filler, and 'at the roadside' does not fit features that cover hotel injuries and code export.",
+    "fix": "Name what is collected, e.g. 'Each report carries the photos, the other driver's details and the witness before anyone leaves the scene.'",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_2_des",
+    "quote": "Keep fault and blame off the form, because the insurer and the investigation decide those.",
+    "issue": "A recommendation whose reason is not in spec.domain_sources.",
+    "fix": "Keep the advice; add the TDI page's wording on fault to domain_sources if it says so.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "Can you fill out an auto accident report form online?",
+    "issue": "The live SERP's questions on who fills out the form and how soon to notify the insurer are not answered anywhere on the page, although the plan's angle promises them and domain_sources already holds the TDI notice source.",
+    "fix": "Consider replacing a secondary-sourced item with the who-files question on a later refresh.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_2_des",
+   "issue": "Three-item list without the serial comma (DECISIONS: serial comma everywhere). The only such list on the page; the others ('the date, the time, and the intersection', 'the police report number, photos of the damage, and witness contacts') carry it.",
+   "fix": "who was hurt, and which vehicles were involved",
+   "by": "wk-r-15",
+   "via": "review",
+   "date": "2026-10-10 10:00 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_6_des",
+   "issue": "The step adds a close date, then promises days open, which needs the date the claim opened (the tab 4 mockup asks for 'the date the claim opened').",
+   "fix": "Add fields for the insurance claim number and the date the claim opened.",
+   "by": "wk-r-15",
+   "via": "review",
+   "date": "2026-10-10 10:00 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "features_subheading",
+   "issue": "'Six pieces' is filler, and 'at the roadside' does not fit features that cover hotel injuries and code export.",
+   "fix": "Name what is collected, e.g. 'Each report carries the photos, the other driver's details and the witness before anyone leaves the scene.'",
+   "by": "wk-r-15",
+   "via": "review",
+   "date": "2026-10-10 10:00 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_2_des",
+   "issue": "A recommendation whose reason is not in spec.domain_sources.",
+   "fix": "Keep the advice; add the TDI page's wording on fault to domain_sources if it says so.",
+   "by": "wk-r-15",
+   "via": "review",
+   "date": "2026-10-10 10:00 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "The live SERP's questions on who fills out the form and how soon to notify the insurer are not answered anywhere on the page, although the plan's angle promises them and domain_sources already holds the TDI notice source.",
+   "fix": "Consider replacing a secondary-sourced item with the who-files question on a later refresh.",
+   "by": "wk-r-15",
+   "via": "review",
+   "date": "2026-10-10 10:00 UTC"
+  }
  ]
 }
