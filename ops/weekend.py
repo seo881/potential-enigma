@@ -199,10 +199,15 @@ def cmd_render(args):
         q = os.path.join(ROOT, "status", "render-queue.txt")
         slugs = list(args) or ([l.strip() for l in open(q) if l.strip() and not l.startswith("#")] if os.path.exists(q) else [])
         urls = {slug(u): u for u in G.all_status()}
-        todo = [s_ for s_ in slugs if s_ in urls and not RC.current(dict(json.load(open(H.spath(urls[s_]))), _path=H.spath(urls[s_])))]
-        if not todo: print(f"rendered 0 of {len(slugs)}; all current"); return
+        bp = os.path.join(ROOT, ".cache", "weekend", "render_blocked.json"); blocked = json.load(open(bp)) if os.path.exists(bp) else {}
+        spec_of = lambda s_: dict(json.load(open(H.spath(urls[s_]))), _path=H.spath(urls[s_]))
+        todo = [s_ for s_ in slugs if s_ in urls and not RC.current(spec_of(s_)) and blocked.get(s_) != RC.brief_hash(spec_of(s_))]   # a brief that already failed waits for its fix
+        if not todo: print(f"rendered 0 of {len(slugs)}; all current or blocked"); return
         r = subprocess.run([sys.executable, os.path.join(ROOT, "ops", "render_changed.py"), "--pages", ",".join(todo), "--no-commit"], cwd=ROOT, capture_output=True, text=True)
         print((r.stdout + r.stderr).strip()[-1500:])
+        for s_ in todo:
+            if not RC.current(spec_of(s_)): blocked[s_] = RC.brief_hash(spec_of(s_))
+        os.makedirs(os.path.dirname(bp), exist_ok=True); json.dump(blocked, open(bp, "w"), indent=1)
         paths = ["status/render-queue.txt"]
         for s_ in todo:
             sp = H.spath(urls[s_]); paths += [os.path.relpath(sp, ROOT), os.path.relpath(RC.render_dir(dict(json.load(open(sp)), _path=sp)), ROOT)]
