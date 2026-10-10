@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-10 07:15 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-10 07:16 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -84,7 +84,7 @@ Regenerated 2026-10-10 07:15 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/credit-card-authorization-form | 0 | 10/10 | yes, wk-r-9 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/custom-order-form | 7 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/daycare-registration-form | 5 | 3/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
-| wk-rework-form | /ai-form-builder/dental-intake-form | 6 | 3/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-form | /ai-form-builder/dental-intake-form | 6 | 3/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/direct-deposit-form | 0 | 10/10 | yes, wk-r-8 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/driver-application-form | 0 | 10/10 | no | no | no | 0 | - | no | no | images |
 | wk-rework-form | /ai-form-builder/drug-test-consent-form | 7 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
@@ -211,4 +211,4 @@ Regenerated 2026-10-10 07:15 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-sqb | /ai-survey-and-quiz-builder/onboarding-survey | 0 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/pulse-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 0 | - | no | no | payload |
 
-Stages: autofix 7, done 21, images 18, images2 1, payload 52, review 1, stopped 84, writer 3 (187 pages)
+Stages: autofix 7, done 21, images 18, images2 1, payload 52, review 1, stopped 85, writer 2 (187 pages)
