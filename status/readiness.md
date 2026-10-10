@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-10 00:45 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-10 00:47 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -179,7 +179,7 @@ Regenerated 2026-10-10 00:45 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/training-request-form | 11 | 1/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/travel-reimbursement-form | 8 | 2/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/travel-request-form | 11 | 2/10 | no | no | no | 0 | - | no | no | autofix |
-| wk-rework-form | /ai-form-builder/vehicle-inspection-form | 7 | 0/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-form | /ai-form-builder/vehicle-inspection-form | 0 | 0/10 | no | no | no | 0 | - | no | no | writer |
 | wk-rework-form | /ai-form-builder/vendor-application | 8 | 3/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/volunteer-form | 7 | 6/10 | no | no | no | 0 | - | no | no | autofix |
 | wk-rework-form | /ai-form-builder/webinar-registration-form | 8 | 5/10 | no | no | no | 0 | - | no | no | autofix |
