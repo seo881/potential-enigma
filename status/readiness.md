@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-10 06:45 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-10 06:46 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -134,7 +134,7 @@ Regenerated 2026-10-10 06:45 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/patient-intake-form | 0 | 10/10 | yes, wk-r-13 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/payment-form | 1 | 7/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/payroll-change-form | 8 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
-| wk-rework-form | /ai-form-builder/permanent-makeup-consent-form | 6 | 6/10 | no | no | no | 0 | - | no | no | writer |
+| wk-rework-form | /ai-form-builder/permanent-makeup-consent-form | 2 | 9/10 | no | no | no | 0 | - | no | no | writer |
 | wk-rework-form | /ai-form-builder/personal-injury-intake-form | 7 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/pet-adoption-form | 11 | 6/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/petition-form | 0 | 3/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
