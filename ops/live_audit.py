@@ -170,7 +170,7 @@ def evaluate(raw, man, base):
         hub_in_faq = sum(1 for l in R.get("links") or [] if l["in_faq"] and urlpath(l["href"]) == m["hub"])
         if hub_in_faq != 1: add(url, "A7-hub-link", "P1", f"hub link in the FAQ {hub_in_faq} times (exactly 1)", field="faq", fix="writer")
         for href, st in (r.get("link_status") or {}).items():
-            if st["status"] != 200:
+            if not link_ok(href, st["status"]):
                 fld = "faq" if any(l["href"] == href and l["in_faq"] for l in R.get("links") or []) else "template"
                 add(url, "A7-link", "P0" if st["internal"] else "P1", f"{'internal' if st['internal'] else 'external'} link returns {st['status']}: {urlpath(href) or href}",
                     field=fld, fix="auto" if fld == "faq" and st["internal"] else "proposed")
@@ -223,11 +223,21 @@ def evaluate(raw, man, base):
         for code, msg, snip in hygiene((h.get("render") or {}).get("text_visible", "")):
             add(h["hub"], code, "P2" if code == "A5-empty-p" else "P1", f"{msg} in hub text", field="hub", snippet=snip, fix="proposed")
         for href, st in (h.get("link_status") or {}).items():
-            if st["status"] != 200: add(h["hub"], "A7-link", "P0" if st["internal"] else "P1", f"link returns {st['status']}: {urlpath(href) or href}", field="hub", fix="proposed")
+            if not link_ok(href, st["status"]): add(h["hub"], "A7-link", "P0" if st["internal"] else "P1", f"link returns {st['status']}: {urlpath(href) or href}", field="hub", fix="proposed")
     # the primary keyword, the page intent and hub pages are never changed automatically
     for f in F:
         if f["field"] in ("h1", "meta_title") and f["fix"] in ("auto", "writer"): f["fix"] = "writer-keep-primary"
     return F
+
+def link_ok(href, status):
+    """A7-link: 200 is OK; so is a bot/rate-limit code (429, LinkedIn's 999) from a social domain or its subdomains, which block
+    crawlers but serve people (Divit 2026-10-12, rules/live_audit.json social_ok). Any other status from them, and a 429 from any
+    other domain, is still a finding."""
+    if status == 200: return True
+    from urllib.parse import urlparse
+    host = (urlparse(href).hostname or "").lower()
+    so = CONF.get("social_ok") or {}
+    return status in so.get("statuses", []) and any(host == d or host.endswith("." + d) for d in so.get("domains", []))
 
 def urlpath(href):
     try:
