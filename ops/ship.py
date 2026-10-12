@@ -322,6 +322,43 @@ def cmd_update(args):
         json.dump([{"label": f"update {name}: {len(its)} item(s), changed fields only, status kept", "update_collection_items": {"collection_id": cid, "request": {"items": its}}}], open(p, "w"), indent=1, ensure_ascii=False)
         print(f"  wrote {os.path.relpath(p, ROOT)}: {len(its)} item(s)")
 
+def cmd_relink(args):
+    """hubctl relink-payload READBACK [--before-only]: for live pages whose pending links now point at live pages (hubctl links
+    --relink), send only the fields whose CMS value differs from the export by exactly the restored <a> tags (anything else in the
+    field is drift and is refused). Before-values go to childedits/<date>/<slug>.relink.before.json and must be committed and pushed
+    first; the payload is update_collection_items (status kept) plus publish_collection_items for exactly those items."""
+    import live_audit as LA, guards as G
+    rb = args[0]; items = {it["id"]: it for it in H._items_from_readback(rb)}; live = H.live_urls(); day = datetime.date.today().isoformat()
+    upd = {}; pub = {}; befores = []; refused = []
+    for s in G.all_specs():
+        url = s["url"]; ready = sorted({p["target"] for p in s.get("pending_links") or [] if p["target"] in live})
+        if not ready or url not in live: continue
+        it = items.get(s.get("item_id"))
+        if not it: refused.append(f"{url}: item {s.get('item_id')} not in the read-back"); continue
+        h = H.CFG["hubs"][H.hub_of(url)]; fd = it["fieldData"]; ex = H.export_fields(url, json.load(open(H.spath(url))))[0]; ch = {}
+        for k, v in ex.items():
+            cur = fd.get(h["fields"][k])
+            if k == "slug" or cur == v or not isinstance(v, str) or not isinstance(cur, str): continue
+            strip = lambda t: re.sub(r"<a href=(\\?[\"'])https://emergent\.sh(" + "|".join(map(re.escape, ready)) + r")/?\1[^>]*>(.*?)</a>", r"\3", t)
+            if strip(v) == strip(cur): ch[h["fields"][k]] = v
+            else: refused.append(f"{url}: {h['fields'][k]} differs by more than the restored links (drift; not sent)")
+        if not ch: continue
+        bp = os.path.join(ROOT, "childedits", day, f"{url.rsplit('/', 1)[1]}.relink.before.json")
+        before = {"id": it["id"], "collection": h["collection_id"], "isDraft": it.get("isDraft"), "lastPublished": it.get("lastPublished"), "fieldData": {k: fd.get(k) for k in ch}}
+        if not os.path.exists(bp) or json.load(open(bp)) != before:
+            os.makedirs(os.path.dirname(bp), exist_ok=True); json.dump(before, open(bp, "w"), indent=1, ensure_ascii=False)
+        befores.append(bp); upd.setdefault(h["collection_id"], []).append({"id": it["id"], "fieldData": ch}); pub.setdefault(h["collection_id"], []).append({"id": it["id"]})
+        print(f"  {url}: {', '.join(sorted(ch))} (links to {', '.join(ready)})")
+    for r in refused: print("  REFUSED " + r)
+    if "--before-only" in args: print(f"{len(befores)} before-value file(s); commit and push them, then rerun without --before-only"); return
+    bad = [os.path.relpath(b, ROOT) + ": " + LA.before_committed(b)[1] for b in befores if not LA.before_committed(b)[0]]
+    if bad: sys.exit("before-values not committed and pushed:\n  " + "\n  ".join(bad))
+    p = os.path.join(ROOT, "ops", "out", "ship", f"relink-{day}.json")
+    acts = [{"label": f"relink: {len(v)} item(s), changed fields only, status kept", "update_collection_items": {"collection_id": c, "request": {"items": v}}} for c, v in upd.items()]
+    acts += [{"label": f"relink: item publish {len(v)} item(s)", "publish_collection_items": {"collection_id": c, "request": {"items": v}}} for c, v in pub.items()]
+    os.makedirs(os.path.dirname(p), exist_ok=True); json.dump(acts, open(p, "w"), indent=1, ensure_ascii=False)
+    print(f"wrote {os.path.relpath(p, ROOT)}: {sum(len(v) for v in upd.values())} item(s)")
+
 def update_verify(bf, name, items, day):
     """ship-update ... --verify: after the update, every text field and alt matches the read-back, and every image field sent
     (from the payloads in ops/out/ship) now holds a different CDN file than its committed before-value. On a pass, cms_draft.sha
@@ -404,4 +441,4 @@ def write_readiness():
     open(os.path.join(ROOT, "status", "readiness.md"), "w").write("\n".join(out) + "\n")
 def cmd_readiness(args): write_readiness(); print("wrote status/readiness.md")
 
-CMDS = {"ship-update": cmd_update, "ship": cmd_ship, "ship-done": cmd_done, "ship-cms": cmd_cms, "ship-qc": cmd_qc, "ship-cost": cmd_cost, "readiness": cmd_readiness}
+CMDS = {"ship-update": cmd_update, "relink-payload": cmd_relink, "ship": cmd_ship, "ship-done": cmd_done, "ship-cms": cmd_cms, "ship-qc": cmd_qc, "ship-cost": cmd_cost, "readiness": cmd_readiness}
