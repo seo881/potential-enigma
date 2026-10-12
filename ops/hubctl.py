@@ -806,7 +806,7 @@ def _ship(name):
         sys.path.insert(0, os.path.join(ROOT, "ops")); import ship
         return ship.CMDS[name](args)
     return run
-for _n in ("ship", "ship-done", "ship-cms", "ship-qc", "ship-cost", "readiness"): CMDS[_n] = _ship(_n)
+for _n in ("ship-update", "ship", "ship-done", "ship-cms", "ship-qc", "ship-cost", "readiness"): CMDS[_n] = _ship(_n)
 if __name__ == "__main__":
     if len(sys.argv) < 2 or sys.argv[1] not in CMDS: print(__doc__); sys.exit(0)
     try:

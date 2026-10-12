@@ -4,6 +4,7 @@
   hubctl ship-done BATCH_FILE URL STAGE --by ID [--fail TEXT]   an agent finished a stage (writer | review | rework)
   hubctl ship-cms BATCH_FILE READBACK.json   after the orchestrator's create/update call: verify the read-back, record the drafts
   hubctl ship-qc URL                      QC as a normal page (the 4 originals are frozen in plain QC; launch brings them to standard)
+  hubctl ship-update BATCH READBACK [--before-only]   changed fields only for pages already in the CMS (before-values committed first; status kept)
   hubctl ship-cost BATCH_FILE             tokens per page and per role logged for the batch (hubctl usage-log)
   hubctl readiness                        write status/readiness.md (one row per page, template blockers in the header)
 
@@ -279,6 +280,47 @@ def cmd_cms(args):
         P["stage"] = "done"; P["item_id"] = it["id"]; note(P, "cms", True, f"draft {it['id']} verified"); ok += 1
     save_ledger(bf, L); write_readiness(); print(f"drafts verified {ok}; mismatched {bad}")
 
+def cmd_update(args):
+    """hubctl ship-update BATCH READBACK [--before-only]: changed fields only, for batch pages already in the CMS (staged or draft).
+    Diffs each page's export against a fresh read-back; saves the CMS before-values to childedits/<date>/<slug>.<batch>.before.json
+    and refuses to write the payload until those files are committed and pushed (Divit 2026-10-10). Image fields go only when the
+    file changed since the create commit (spec.cms_draft.sha) or the alt changed. isDraft is omitted, so the item's status is kept."""
+    import live_audit as LA
+    bf, rb = args[0], args[1]; L = load_ledger(bf); name = L["batch"]; items = {it["id"]: it for it in H._items_from_readback(rb)}
+    sha = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    day = datetime.date.today().isoformat(); out = {}; befores = []; changed_pages = []
+    for url in batch_urls(bf):
+        s = spec(url); h = H.CFG["hubs"][H.hub_of(url)]; it = items.get(s.get("item_id"))
+        if not it: sys.exit(f"{url}: item {s.get('item_id')} not in {rb}")
+        fd = it["fieldData"]; ex = H.export_fields(url, s)[0]; ch = {}
+        for k, v in ex.items():
+            if k == "slug" or (v in (None, "") and k in H.CFG["optional_fields"]): continue
+            if fd.get(h["fields"][k]) != v: ch[h["fields"][k]] = v
+        base = (s.get("cms_draft") or {}).get("sha")
+        for k, im in s["images"].items():
+            cur = fd.get(h["fields"][k]) or {}
+            moved = base and subprocess.run(["git", "diff", "--quiet", base, "HEAD", "--", im["path"]], cwd=ROOT).returncode != 0
+            if moved: ch[h["fields"][k]] = {"url": f"{H.REPO_RAW}/{sha}/{im['path']}", "alt": im["alt"]}
+            elif (im.get("alt") or "") != (cur.get("alt") or ""): ch[h["fields"][k]] = {"fileId": cur.get("fileId"), "url": cur.get("url"), "alt": im["alt"]}
+        if not ch: continue
+        if "slug" in ch: sys.exit(f"{url}: slug would change")
+        bp = os.path.join(ROOT, "childedits", day, f"{url.rsplit('/', 1)[1]}.{name}.before.json")
+        before = {"id": it["id"], "collection": h["collection_id"], "isDraft": it.get("isDraft"), "lastUpdated": it.get("lastUpdated"), "fieldData": {k: fd.get(k) for k in ch}}
+        if not os.path.exists(bp) or json.load(open(bp)) != before:
+            os.makedirs(os.path.dirname(bp), exist_ok=True); json.dump(before, open(bp, "w"), indent=1, ensure_ascii=False)
+        befores.append(bp); changed_pages.append((url, sorted(ch)))
+        out.setdefault(h["collection_id"], []).append({"id": it["id"], "fieldData": ch})
+    for url, keys in changed_pages: print(f"  {url}: {len(keys)} field(s): {', '.join(keys)}")
+    if "--before-only" in args: print(f"{len(befores)} before-value file(s) written; commit and push them, then rerun without --before-only"); return
+    bad = [os.path.relpath(b, ROOT) + ": " + LA.before_committed(b)[1] for b in befores if not LA.before_committed(b)[0]]
+    if bad: sys.exit("before-values not committed and pushed:\n  " + "\n  ".join(bad))
+    if subprocess.run(["git", "status", "-sb"], cwd=ROOT, capture_output=True, text=True).stdout.splitlines()[0].find("ahead") >= 0: sys.exit("push first: image URLs are pinned to a pushed commit")
+    os.makedirs(os.path.join(ROOT, "ops", "out", "ship"), exist_ok=True)
+    for cid, its in out.items():
+        p = os.path.join(ROOT, "ops", "out", "ship", f"{name}-update-{cid}.json")
+        json.dump([{"label": f"update {name}: {len(its)} item(s), changed fields only, status kept", "update_collection_items": {"collection_id": cid, "request": {"items": its}}}], open(p, "w"), indent=1, ensure_ascii=False)
+        print(f"  wrote {os.path.relpath(p, ROOT)}: {len(its)} item(s)")
+
 def cmd_qc(args):
     url = args[0]; iss = qc_issues(url)
     for i in iss: print(f"  {i['sev']} {i['code']} {i['field']}: {i['msg'][:200]}")
@@ -324,4 +366,4 @@ def write_readiness():
     open(os.path.join(ROOT, "status", "readiness.md"), "w").write("\n".join(out) + "\n")
 def cmd_readiness(args): write_readiness(); print("wrote status/readiness.md")
 
-CMDS = {"ship": cmd_ship, "ship-done": cmd_done, "ship-cms": cmd_cms, "ship-qc": cmd_qc, "ship-cost": cmd_cost, "readiness": cmd_readiness}
+CMDS = {"ship-update": cmd_update, "ship": cmd_ship, "ship-done": cmd_done, "ship-cms": cmd_cms, "ship-qc": cmd_qc, "ship-cost": cmd_cost, "readiness": cmd_readiness}
