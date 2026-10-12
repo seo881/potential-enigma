@@ -5,8 +5,12 @@ The gate must catch each one. Cases point at a commit and a spec instead of copy
 
 Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   gate-question  {url, sha, q_index, expect: [rule ids]}   the PAA gate rejects FAQ item q_index of the spec at that commit
-  gate-text      {url, q, expect}                          the gate rejects this literal question with one of the expected rules
-  qc-field       {url, field, text, expect, drop_key?}     QC raises one of the expected codes when the field holds this text (or the spec key drop_key is missing)
+  gate-question  {url, sha, q_index, absent: [rule ids]}   (absent instead of expect) item q_index carries none of these rules, at any level
+  gate-text      {url, q, expect, levels?}                 the gate rejects this literal question with one of the expected rules
+                                                          (levels ["reject","flag"]: a flag counts too; default reject only)
+  qc-field       {url, field, text, expect, drop_key?, path?}  QC raises one of the expected codes when the field holds this text (or the spec
+                                                          key drop_key is missing; or path, a list of keys into the spec, e.g. ["image_brief","tabs",0,"alt"], holds it)
+  k7-header      {url, header, expect_k7}                 QC K7 fires on a why_table column header exactly when expect_k7 (top-10 URLs: keyword map + saved SERP)
   qc-text        {url, field, text, check}                 QC flags `field` when it holds `text` (P0/P1 on that field)
   qc-f1          {url, aa, serp, expect_f1}               QC raises F1 exactly when the page has no AlsoAsked pull (DataForSEO capture irrelevant)
   audit-noflag   {url, code}                              the live audit does NOT raise `code` on a bare page (a settled non-issue)
@@ -33,19 +37,30 @@ def caught(c):
         import paa_gate as PG
         g = PG.Gate(c["url"]); g.spec = spec_at(c["sha"], c["url"])
         items, _ = PG.run_spec(g); it = items[c["q_index"] - 1]
+        if c.get("absent"): return not any(r[0] in c["absent"] for r in it["reasons"])   # an exemption: the rule must stay silent
         rej = {r[0] for r in it["reasons"] if r[1] == "reject"}
         return it["verdict"] == "reject" and (not c.get("expect") or bool(rej & set(c["expect"])))
     if c["kind"] == "gate-text":   # a literal question (Divit's examples, our own copy): the gate's per-question rules reject it
         import paa_gate as PG
-        rs = PG.Gate(c["url"]).judge({"q": c["q"], "source": "secondary", "n": 5})
-        return bool({r[0] for r in rs if r[1] == "reject"} & set(c.get("expect") or [r[0] for r in rs]))
+        rs = PG.Gate(c["url"]).judge({"q": c["q"], "source": "secondary", "n": 5}); lv = c.get("levels") or ["reject"]
+        return bool({r[0] for r in rs if r[1] in lv} & set(c.get("expect") or [r[0] for r in rs]))
     if c["kind"] == "qc-field":    # a literal field value: QC raises the expected code on that field
         import qc_hub as Q, hubctl as H, glob as _g
         s = copy.deepcopy(json.load(open(H.spath(c["url"]))))
         if c.get("drop_key"): s.pop(c["drop_key"], None)   # a spec-level key that is missing (e.g. chip_adds)
+        elif c.get("path"):                                  # a nested spec value (image alt text, image brief)
+            o = s
+            for k in c["path"][:-1]: o = o[k]
+            o[c["path"][-1]] = c["text"]
         else: s["fields"][c["field"]] = c["text"]
         every = Q.load_specs(sorted(_g.glob(os.path.join(ROOT, "specs", "*", "*.json"))))
         return any(i["code"] in c["expect"] and i["sev"] in ("P0", "P1") for i in Q.check(s, every))
+    if c["kind"] == "k7-header":   # K7 on one comparison-table column header (multi-word brands: Divit 2026-10-12)
+        import qc_hub as Q, hubctl as H, re as _re
+        s = copy.deepcopy(json.load(open(H.spath(c["url"]))))
+        s["fields"]["why_table"] = _re.sub(r'<th scope="col">[^<]+</th>', '<th scope="col">' + c["header"] + '</th>', s["fields"].get("why_table", ""), count=1)
+        hit = any(i["code"] == "K7" and ('"' + c["header"] + '"') in i["msg"] for i in Q.check(s, Q.load_specs([H.spath(c["url"])])))
+        return hit == c["expect_k7"]
     if c["kind"] == "audit-noflag":   # the live audit must NOT raise this code on a page that lacks the thing (a settled non-issue)
         import live_audit as LA
         m = {"pages": [{"url": c["url"], "hub": "/" + c["url"].split("/")[1], "fields": {}, "faq_items": [], "images": {}, "meta_title": "x" * 40, "meta_description": "y" * 120}]}

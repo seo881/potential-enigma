@@ -107,6 +107,31 @@ CLAIMS = json.load(open(os.path.join(ROOT, "rules", "claims.json")))
 TELLS = json.load(open(os.path.join(ROOT, "rules", "ai_tells.json")))
 US = json.load(open(os.path.join(ROOT, "rules", "us_spelling.json")))
 
+def k7_ranks(header, urls):
+    """K7: does a comparison-table column header name a tool that ranks in these top-10 URLs?
+    A brand segment (header split on / , ( ); "... builder" segments ignored) ranks when its joined name appears in the joined URLs
+    (single words: "jotform"), or, for multi-word brands (Divit 2026-10-12), when ONE url has the brand's first token as a host label
+    and every other distinctive token as a host label or path token: "Adobe Acrobat" = adobe.com/acrobat/..., "Google Forms" =
+    docs.google.com/forms/... A header whose second token is absent from that URL ("Adobe Express" on adobe.com/acrobat) does not rank."""
+    from urllib.parse import urlparse
+    brands = [b.strip().lower() for b in re.split(r"[/,()]", header) if b.strip() and "builder" not in b.lower()]
+    if not brands: return True
+    urls = [u.lower() for u in urls if u]
+    flat = " ".join(urls).replace("-", "").replace(" ", "")
+    generic = {"the", "and", "by", "for", "of", "ai", "app", "apps", "online", "free", "pro", "plus", "inc", "co", "hq"}
+    for b in brands:
+        if b.replace(" ", "").replace("-", "") in flat: return True
+        toks = [x for x in re.split(r"[^a-z0-9]+", b) if x]
+        if len(toks) < 2: continue
+        first, rest = toks[0], [x for x in toks[1:] if x not in generic]
+        if not rest: continue
+        for u in urls:
+            p = urlparse(u if "://" in u else "https://" + u)
+            labels = set((p.hostname or "").split("."))
+            words = labels | {x for x in re.split(r"[^a-z0-9]+", p.path) if x}
+            if first in labels and all(x in words or x + "s" in words or x.rstrip("s") in words for x in rest): return True
+    return False
+
 # ---------------- checks ----------------
 def check(spec, siblings):
     I = []
@@ -407,12 +432,10 @@ def check(spec, siblings):
             sys.path.insert(0, os.path.join(ROOT, "plan")); import serp as _S
             _live = _S.load(spec["url"]) or {}
         except Exception: _live = {}
-        top = " ".join(me.get("top10", []) + [o.get("url", "") for o in _live.get("organic", [])]).lower()
-        if top and t:
+        top_urls = me.get("top10", []) + [o.get("url", "") for o in _live.get("organic", [])]
+        if top_urls and t:
             for hd in re.findall(r'<th scope="col">([^<]+)</th>', t):
-                brands = [b.strip().lower().replace(" ", "") for b in re.split(r"[/,()]", hd) if b.strip() and "builder" not in b.lower()]
-                flat = top.replace("-", "").replace(" ", "")
-                if brands and not any(b in flat for b in brands):
+                if not k7_ranks(hd, top_urls):
                     add("P2", "K7", "why_table", f'competitor "{hd}" is not in this page\'s top 10; prefer tools that rank for the query')
     # ---------- V/C: vendor numbers, claims ----------
     table_ok = False
@@ -454,6 +477,25 @@ def check(spec, siblings):
         for pat in TELLS["patterns"]:
             hit = any(re.search(pat["rx"], x, re.I) for x in sentences)
             if hit: add("P1" if pat["level"] == "block" else "P2", "A3", k, pat["why"])
+    # stock placeholder company names (Divit 2026-10-12): block level (A1) on copy fields, chip_adds, image alt text and the image brief
+    _sn = TELLS.get("stock_names") or {}
+    if _sn.get("names"):
+        _srcs = [(k, v) for k, v in F.items() if isinstance(v, str)]
+        _srcs += [(f"chip_adds[{i}]", a) for i, a in enumerate(spec.get("chip_adds") or [], 1) if isinstance(a, str)]
+        _srcs += [(f"images.{ik}.alt", (iv or {}).get("alt")) for ik, iv in (spec.get("images") or {}).items() if isinstance(iv, dict) and isinstance(iv.get("alt"), str)]
+        def _strs(o, p):
+            if isinstance(o, str): yield p, o
+            elif isinstance(o, dict):
+                for kk, vv in o.items(): yield from _strs(vv, f"{p}.{kk}")
+            elif isinstance(o, list):
+                for ii, vv in enumerate(o): yield from _strs(vv, f"{p}[{ii}]")
+        _srcs += list(_strs(spec.get("image_brief") or {}, "image_brief"))
+        _sev = "P1" if _sn.get("level", "block") == "block" else "P2"
+        for k, v in _srcs:
+            low = strip_html(v).lower()
+            for nm in _sn["names"]:
+                if re.search(r"(?<![a-z0-9\-])" + re.escape(nm.lower()).replace(r"\ ", r"\s+") + r"(?![a-z0-9\-])", low):
+                    add(_sev, "A1", k, f'stock placeholder name "{nm}": {_sn.get("why", "use a specific, plausible business")}')
     # repeated sentence openers across the page (templated rhythm)
     openers = {}
     for k, v in F.items():

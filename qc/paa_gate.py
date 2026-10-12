@@ -55,6 +55,13 @@ class Gate:
         if os.path.exists(kmp):
             secs |= {x["kw"] for x in (json.load(open(kmp)).get(url, {}) or {}).get("secondaries", []) if x.get("kw")}
         self.secondaries = sorted(secs)
+        # PA14 exemption (Divit 2026-10-12): the page's own keyword words and their initials (AP = accounts payable) are not brands
+        self.page_terms = set()
+        for k in [self.primary] + self.secondaries:
+            ws = [w for w in re.split(r"[\s-]+", norm(k)) if w]
+            self.page_terms |= set(ws)
+            for n in (2, 3):
+                self.page_terms |= {"".join(x[0] for x in ws[i:i + n]) for i in range(len(ws) - n + 1)}
         self.bl, self.pt = R("paa_blocklist.json"), R("paa_patterns.json")
         for e in self.bl["per_page"].get(self.slug, []):
             if not e.get("reason"): sys.exit(f"rules/paa_blocklist.json per_page {self.slug}: entry without a reason: {e.get('q')}")
@@ -143,8 +150,11 @@ class Gate:
         raw = item.get("q") or ""
         br = [b for b in self.bl.get("pa14_brands", []) if has(b.lower(), q)]
         if br: out.append(("PA14", "reject", "brand or product name: " + ", ".join(sorted(set(br))[:4])))
-        ok_caps = set(self.bl.get("pa14_proper_noun_ok", []))
-        caps = [w for i, w in enumerate(re.findall(r"[A-Za-z0-9][A-Za-z0-9.'-]*", raw)) if i > 0 and w[0].isupper() and w.rstrip("?.'s") not in ok_caps and w not in ok_caps and w.lower().rstrip("?.") not in self.bl.get("pa15_formats", [])]
+        ok_caps = set(self.bl.get("pa14_proper_noun_ok", [])) | set(self.bl.get("pa14_domain_ok", []))
+        for st in sorted(self.bl.get("pa14_us_states", []), key=len, reverse=True):   # US state names are places, not brands (backlog line 92)
+            raw = re.sub(r"(?<![A-Za-z])" + re.escape(st) + r"(?![A-Za-z])", lambda m: m.group(0).lower(), raw)
+        caps = [w for i, w in enumerate(re.findall(r"[A-Za-z0-9][A-Za-z0-9.'-]*", raw)) if i > 0
+                and w.lower().rstrip("?.") not in self.page_terms and re.sub(r"'?s$", "", w.lower().rstrip("?.")) not in self.page_terms and w[0].isupper() and w.rstrip("?.'s") not in ok_caps and w not in ok_caps and w.lower().rstrip("?.") not in self.bl.get("pa15_formats", [])]
         if caps and not br: out.append(("PA14", "flag", "capitalised name, possibly a brand: " + ", ".join(caps[:3])))
         # PA15 no file formats or download-style asks
         fm = [f for f in self.bl.get("pa15_formats", []) if has(f, q)]
