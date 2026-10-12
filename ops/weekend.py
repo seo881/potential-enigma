@@ -223,7 +223,7 @@ def cmd_aa(args):
     from credits.log before every call; a second pull only when the first returned no_results; pulls run one at a time (lock), so
     the account before/after delta belongs to this page alone.
     --kw secondary (A6, Divit 2026-10-12): one pull on the page's top secondary (top_secondary), saved beside the primary pull as
-    private/alsoasked/<slug>--sec.json and read by the gate with it; never repeated. Before any pull: page credits (primary and
+    private/alsoasked/<slug>--sec.json and read by the gate with it; never repeated (like the primary, one fresh retry only after no_results). Before any pull: page credits (primary and
     secondary) + expected cost <= 2. --run ID --run-cap N: credits.log rows carry the run ID; no pull once the run's credits + the
     expected cost would pass N. A pull that costs more than expected exits 5, so a run loop stops."""
     url = args[0]; s = slug(url); opt = lambda k: args[args.index(k) + 1] if k in args else None
@@ -236,13 +236,12 @@ def cmd_aa(args):
         try: return json.load(open(pull))["_meta"].get("status") or "success"
         except (OSError, ValueError, KeyError): return None
     if saved() not in (None, "no_results"): print(f"{name}: saved pull reused (private/alsoasked/{name}.json); no new pull"); return
-    if sec and saved() == "no_results": print(f"{name}: the secondary pull returned no_results; no second secondary pull"); return
     term = top_secondary(url) if sec else (H.kmap().get(url) or {}).get("primary")
     if not term: sys.exit(f"{s}: " + ("no secondary that PA15 allows and that differs from the primary" if sec else "not in the keyword map"))
     depth = 2; cost = PULL_COST[depth]
     env = {**os.environ, "ALSOASKED_VIA_AA": "1", "ALSOASKED_RUN": run or ""}
     with G.lock("alsoasked"):
-        for attempt in ((1,) if sec else (1, 2)):
+        for attempt in (1, 2):
             rows = [r for r in credits_rows("") if r.get("slug") == name]
             used = page_spent(s); total, _ = cmd_credits([])
             if rows and not all(r.get("status") == "no_results" for r in rows):
@@ -257,7 +256,7 @@ def cmd_aa(args):
             print(f"{name}: this pull cost {got} credit(s); page total {page_spent(s)} of {PER_PAGE}" + (f"; run {run} total {run_spent(run)}" + (f" of {cap}" if cap else "") if run else ""))
             if got > cost: sys.exit(5)
             if rc or saved() != "no_results": sys.exit(rc)
-            print(f"{name}: no_results; " + ("one fresh pull within the cap" if attempt == 1 and not sec else "no second retry"))
+            print(f"{name}: no_results; " + ("one fresh pull within the cap" if attempt == 1 else "no second retry"))
 
 def cmd_render(args):
     """Render queued pages on this Mac now (no wait on the Action; Divit 2026-10-10), then commit only those pages' images and specs."""
