@@ -456,8 +456,12 @@ def cmd_fix_prepare(args):
         if fd.get(h["fields"][k]) != v: ch[k] = v
     sha = git("rev-parse", "HEAD")
     if git("status", "-sb").splitlines()[0].find("ahead") >= 0: sys.exit("push first: image URLs are pinned to a pushed commit")
+    base = (s.get("cms_draft") or {}).get("sha")
     for k, im in s["images"].items():
         cur = fd.get(h["fields"][k]) or {}
+        # a re-rendered file keeps the old file_id in the spec: send it whenever the file changed since the last CMS sync commit (2026-10-12)
+        if base and subprocess.run(["git", "diff", "--quiet", base, "HEAD", "--", im["path"]], cwd=ROOT).returncode != 0:
+            ch[k] = {"url": f"{H.REPO_RAW}/{sha}/{im['path']}", "alt": im["alt"]}; continue
         if im.get("file_id") != cur.get("fileId") or (im.get("alt") or "") != (cur.get("alt") or ""):
             ch[k] = {"url": f"{H.REPO_RAW}/{sha}/{im['path']}", "alt": im["alt"]} if im.get("file_id") != cur.get("fileId") else {"fileId": cur.get("fileId"), "url": cur.get("url"), "alt": im["alt"]}
     if not ch: sys.exit(f"{iid}: the spec equals the CMS; edit the spec first (writer) or nothing to fix")
@@ -573,6 +577,9 @@ def cmd_fix_verify(args):
     worse = [x for x in after if x["severity"] in ("P0", "P1") and x["code"] not in {y["code"] for y in d["findings"] if y["url"] == url}]
     if ok and not still and not worse:
         import guards as G
+        for k, im in s["images"].items():   # record the CDN file the CMS now holds, so the next diff starts from it
+            got = it["fieldData"].get(h["fields"][k]) or {}
+            if got.get("fileId"): im["file_id"] = got["fileId"]; im["cdn_url"] = got.get("url")
         s["cms_draft"] = {"fingerprint": G.fingerprint(s), "sha": git("rev-parse", "--short", "HEAD"), "date": now(), "verified": True, "note": f"live fix {iid}"}
         json.dump(s, open(H.spath(url), "w"), indent=1, ensure_ascii=False)
         f.update(status="fixed", fixed_at=now(), commit=git("rev-parse", "--short", "HEAD"), published_at=now(), verified=True)
