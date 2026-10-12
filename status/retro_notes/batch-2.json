@@ -1,0 +1,8 @@
+{"rows": {"Pre-staging catches (Divit and the B4 risk box)": "stock company names on 10 of 20 pages, reused personas on 15 of 20, 2 real public figures -> QC A1 stock names + golden cases; hero chip_adds missing on 20 of 20 -> QC L11",
+          "Live-day incidents": "unplanned site publish at 10:05 UTC put Learn 'No items found' and the '#' carousel on 20 live pages and 4 hubs for 3.5 h -> publish smoke check + template regressions P0; 2 canaries rolled back",
+          "Live audit fixes on launch day": "74 writer fixes on 30 live pages (P0 grouped-vendor comparison column on event and webinar LP; stock and reused names; claims; serial commas), all item-published and verified"},
+ "change": ["Writers pick names that appear in no other spec (grep before use) and never stock names; QC A1 now blocks stock names, add a reused-persona check next.",
+            "Retire grouped library entries such as 'Landingi / Leadpages / Instapage' in rules/competitors (one vendor per column), with a golden case.",
+            "After any image edit, re-render through ops/render_changed.py so render.json stays current; ops/sync.sh now refuses conflict markers.",
+            "Pick each batch only from pages that already pass today's rules (A1, L11) so the launch day carries no rework."],
+ "lesson": "stock/reused names on 15/20 and missing chip_adds on 20/20 caught before staging; unplanned 10:05 UTC site publish broke Learn/carousel live for 3.5 h · A1, L11, publish smoke, template P0"}
