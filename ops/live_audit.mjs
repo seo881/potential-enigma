@@ -33,7 +33,11 @@ const headStatus = async (u) => {
   if (s === 0) statusCache.delete(u);   // a transport error is not cached: the next page probes again (one bad probe made 40 P0s, 2026-10-12)
   return s;
 };
-const sitemap = await (async () => { try { const r = await fetch(BASE + "/sitemap.xml"); return r.ok ? await r.text() : ""; } catch { return ""; } })();
+// /sitemap.xml may be a sitemap index (2026-10-12: post-, page-, news- and archive-news-sitemap.xml): read every child sitemap it lists
+const sitemap = await (async () => { const get = async (u) => { try { const r = await fetch(u); return r.ok ? await r.text() : ""; } catch { return ""; } };
+  const top = await get(BASE + "/sitemap.xml"); if (!/<sitemapindex/i.test(top)) return top;
+  const kids = [...top.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].replace(/^https?:\/\/[^/]+/, BASE));
+  return (await Promise.all(kids.map(get))).join("\n"); })();
 
 const browser = await chromium.launch();
 async function render(url, slug) {

@@ -89,7 +89,7 @@ def manifest_entry(url):
 # ---------------------------------------------------------------- Layer A evaluation (deterministic)
 ZW = re.compile("[​‌‍⁠﻿­]"); CTRL = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
 ENT = re.compile(r"&(?:amp;)+(?:amp|lt|gt|quot|#\d+|nbsp);|&(?:amp|lt|gt|quot|nbsp|#\d{2,5});")
-DASH = re.compile("[–—]"); CURLY = re.compile("[‘’“”]"); REPEAT = re.compile(r"(?i)\b([a-z]{2,}) +\1\b")   # spaces only: table cells (tabs) and lines are separate
+DASH = re.compile("[–—]"); CURLY = re.compile("[‘’“”]"); REPEAT = re.compile(r"(?i)\b([a-z]{2,}) +\1\b(?!-\d)")   # spaces only: table cells (tabs) and lines are separate
 def us_map():
     return json.load(open(os.path.join(ROOT, "rules", "us_spelling.json")))["map"]
 
@@ -280,6 +280,16 @@ def golden_from(F, date):
     return len(new)
 
 # ---------------------------------------------------------------- run
+def sitemap_text(base):
+    """/sitemap.xml, following a sitemap index to every child sitemap (same rule as live_audit.mjs)."""
+    import urllib.request
+    def get(u):
+        try: return urllib.request.urlopen(urllib.request.Request(u, headers={"User-Agent": "Mozilla/5.0"}), timeout=60).read().decode("utf-8", "ignore")
+        except Exception: return ""
+    top = get(base + "/sitemap.xml")
+    if "<sitemapindex" not in top: return top
+    return "\n".join(get(re.sub(r"^https?://[^/]+", base, u)) for u in re.findall(r"<loc>([^<]+)</loc>", top))
+
 def cmd_run(args):
     date = today(); base = (args[args.index("--base") + 1] if "--base" in args else CANON).rstrip("/"); dry = "--dry" in args
     urls = select(args)
@@ -294,9 +304,14 @@ def cmd_run(args):
     if "--no-shots" not in args: cmd += ["--shots", cdir]
     if "--external" in args or datetime.date.today().weekday() == 0: cmd += ["--external"]   # external links weekly (Mondays)
     print(f"Layer A on {len(urls)} pages and {len(hubs)} hubs at {base}" + (" (DRY)" if dry else ""))
-    rc = subprocess.run(cmd, cwd=ROOT).returncode
-    if rc: sys.exit(f"live_audit.mjs failed ({rc})")
-    raw = json.load(open(rawp))
+    if "--from-raw" in args:   # re-score the last capture (raw.json) with the current rules; sitemap membership is re-read (index aware)
+        raw = json.load(open(rawp)); sm = sitemap_text(base); raw["sitemap_ok"] = bool(sm)
+        for r in raw["pages"]: r["in_sitemap"] = bool(sm) and (f"emergent.sh{r['url']}<" in sm or f"{base.split('//')[1]}{r['url']}<" in sm)
+        man = jload(os.path.join(cdir, "manifest.json"), man)
+    else:
+        rc = subprocess.run(cmd, cwd=ROOT).returncode
+        if rc: sys.exit(f"live_audit.mjs failed ({rc})")
+        raw = json.load(open(rawp))
     F = number(evaluate(raw, man, base), date)
     # Layer B: full read on the first audit after publish or after any change; otherwise only where Layer A found something
     st = jload(STATE, {"pages": {}}); hashes = {}
