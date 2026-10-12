@@ -28,7 +28,7 @@
 - 37 library vendors added (LP 4, Auto 11, SQB 6, Form 11), all facts dated 2026-10-12.
 - K7 remaining: 3 pages (EVL and liability-waiver: Adobe Acrobat matcher false positive; video-landing-page: Landingi fill). direct-deposit also shows a K7 P2 for Eddy, chosen from the top secondary.
 - Gate flags highlighted: PA7 on 3 definition questions (rental-agreement, liability-waiver, credit-card); PA14 on 4 questions whose "names" are acronyms, AP (3 on accounts-payable-automation) and OCR (1 on invoice-automation). I judge neither a brand.
-- Highlighted risks: stock company names on 9 pages (Northwind, Globex, Initech, Acme); reused personas (Dana Reyes on video LP and EVL; Dana Whitfield on invoice and 4 live pages; Priya Shah, Ana Ruiz, Sam Ortiz, Marcus Lee, Jonah Reyes).
+- Highlighted risks: stock company names on 7 pages (Northwind, Globex, Initech, Acme); reused personas (Dana Reyes on video LP and EVL; Dana Whitfield on invoice and 4 live pages; Priya Shah, Ana Ruiz, Sam Ortiz, Marcus Lee, Jonah Reyes).
 - Webflow: 20 creates, 20 isDraft updates, 3 bulk reads. Time from first create to pre-flight about 40 minutes.
 - Ratchet after L11/J1: 70 unpublished pages to rework (61 reviewed pages lacked chip_adds).
 
@@ -54,7 +54,7 @@
 
 ## Open questions for Divit (recommended default first)
 1. **Publish to staging only now** (webflow.io; not emergent.sh). The 20 items are non-draft and the 3 Learn sections, 8 carousels and 4 embeds are staged.
-2. Stock names (Northwind, Globex, Initech, Acme) on 9 pages: ship as is and add them to QC's AI-tell list for future pages (default), or fix these 9 first.
+2. Stock names (Northwind, Globex, Initech, Acme) on 7 pages: ship as is and add them to QC's AI-tell list for future pages (default), or fix these 7 first.
 3. video-landing-page: keep Landingi as the third table column with its K7 P2 (default), or drop to 2 columns (`hubctl table` needs 3).
 4. Procurement and incident-response tables use the hub-default Emergent column: approve a procurement variant (default yes) and an incident variant, then regenerate.
 5. Batch-2 PA14 "names" AP and OCR: acronyms, not brands (default: add a head-phrase and acronym exemption to PA14 with golden cases).
