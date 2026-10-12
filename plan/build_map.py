@@ -113,9 +113,10 @@ for o in ov["off_plan_live"]:  # live pages the sheet cut; kept per Divit, exclu
 for u in ov["live_urls"]: pages[u]["status"] = "live-draft"
 
 # --- Wave 3 decisions: cuts and merges ---
-for u in ov.get("wave3_cuts", {}).get("urls", []):
-    if u in pages: pages[u]["status"] = "cut"; pages[u].setdefault("overrides", []).append("cut: " + ov["wave3_cuts"]["_why"])
-for src, dst in ov.get("wave3_merges", {}).get("pairs", []):
+for ck in ("wave3_cuts", "intent_drops"):  # intent_drops: A6 intent-mismatch drops (2026-10-12), same mechanism
+    for u in ov.get(ck, {}).get("urls", []):
+        if u in pages: pages[u]["status"] = "cut"; pages[u].setdefault("overrides", []).append("cut: " + ov[ck]["_why"])
+for src, dst in ov.get("wave3_merges", {}).get("pairs", []) + ov.get("intent_merges", {}).get("pairs", []):
     if src in pages and dst in pages:
         s_, d_ = pages[src], pages[dst]; have = {d_["primary"].lower()} | {x["kw"].lower() for x in d_["secondaries"]}
         for kw in [{"kw": s_["primary"], "msv": s_["primary_msv"]}] + s_["secondaries"]:
