@@ -76,9 +76,9 @@ def crm():
         b+=rect(x,40,180,320,18,"#fff",L.LINE,1,None,0.55)+T(x+20,84,t,28,700,SUB)
     b+=card(392,108,156,86,14)+rect(412,132,70,14,7,L.HAIR)+rect(412,160,110,12,6,L.HAIR)
     b+=card(792,108,156,86,14)+'<circle cx="826" cy="150" r="16" fill="#DCFCE7"/>'+icon("check",817,141,18,OK,3)+rect(852,142,76,14,7,L.HAIR)
-    b+=hero(540,150,300,196,22)+'<circle cx="590" cy="204" r="32" fill="url(#gAcc)"/>'+T(590,214,"AC",28,700,"#fff","middle")+T(634,214,"Acme Corp",30,700,INK)
+    b+=hero(540,150,300,196,22)+'<circle cx="590" cy="204" r="32" fill="url(#gAcc)"/>'+T(590,214,"HC",28,700,"#fff","middle")+T(634,214,"Halberd Co",30,700,INK)
     b+=T(572,284,"$24,000",46,800,INK,ls=-1,tnum=True)+pill(572,300,"Proposal",L.ACC_D,L.ACC_S)
-    return cv(b,"AI CRM Builder cover","A CRM pipeline with the Acme Corp deal for 24,000 dollars moving through the proposal stage.")
+    return cv(b,"AI CRM Builder cover","A CRM pipeline with the Halberd Co deal for 24,000 dollars moving through the proposal stage.")
 def agent():
     H.set_hub("indigo"); b=hero(380,36,580,328,22)
     b+=rect(412,68,56,56,16,"url(#gAcc)")+icon("sparkles",424,80,32,"#fff")+T(488,108,"Lead research agent",30,700,INK)
@@ -92,7 +92,7 @@ def agent():
     return cv(b,"AI Agent Builder cover","An AI lead research agent run: 3 sources searched, 42 leads enriched, outreach being drafted.")
 def schedule():
     H.set_hub("sqb"); b=card(380,36,580,328,22)
-    b+=T(412,92,"Thursday, Oct 16",30,700,INK)
+    b+=T(412,92,"Thursday, Oct 15",30,700,INK)
     for i,(tm,ev,hl) in enumerate([("9:30","Team standup",False),("1:30","Demo call",True)]):
         y=124+i*110
         if hl: b+=L.spot(400,y-10,540,110)
@@ -100,7 +100,7 @@ def schedule():
         c="#fff" if hl else INK; c2="#fff" if hl else MUTED
         b+=T(440,y+56,tm,30,800,c,tnum=True)+T(530,y+56,ev,30,700,c)
         if hl: b+=pill(768,y+23,"Booked",L.ACC_D,"#fff")
-    return cv(b,"AI Schedule Builder cover","A booking calendar for Thursday, October 16 with a team standup at 9:30 and a demo call booked at 1:30.")
+    return cv(b,"AI Schedule Builder cover","A booking calendar for Thursday, October 15 with a team standup at 9:30 and a demo call booked at 1:30.")
 def chatbot():
     H.set_hub("teal"); b=card(380,36,580,328,22)
     b+=rect(380,36,580,70,22,L.ACC_S)+rect(380,84,580,22,0,L.ACC_S)+'<circle cx="420" cy="71" r="8" fill="#16A34A"/>'+T(440,82,"Support",28,700,INK)

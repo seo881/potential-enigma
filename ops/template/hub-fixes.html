@@ -21,3 +21,27 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setHeading);
 })();
 </script>
+<script>
+/* FAQ open-height refit (2026-10-12): the FAQ component sets the open answer's max-height to its scrollHeight once, on Webflow ready,
+   often before Inter has loaded; when the web font swaps in, the answer wraps to one more line and the last line is clipped.
+   Re-fit the open answer whenever its text box changes size (font swap, heading change, width change). */
+(function () {
+  var seen = typeof WeakSet === 'function' ? new WeakSet() : null, ro;
+  function refit() {
+    document.querySelectorAll('.faq_accordion.faq-open .faq_answer').forEach(function (a) {
+      var px = a.scrollHeight + 'px'; if (a.style.maxHeight !== px) a.style.maxHeight = px;
+    });
+  }
+  function attach() {
+    if (!ro && window.ResizeObserver) ro = new ResizeObserver(refit);
+    if (ro && seen) document.querySelectorAll('.faq_answer > p').forEach(function (p) { if (!seen.has(p)) { seen.add(p); ro.observe(p); } });
+    refit();
+  }
+  window.Webflow = window.Webflow || [];
+  window.Webflow.push(function () { setTimeout(attach, 0); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(attach);
+  if (document.fonts && document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', refit);
+  window.addEventListener('load', attach);
+})();
+
+</script>
