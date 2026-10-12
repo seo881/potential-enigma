@@ -465,7 +465,9 @@ def cmd_fix_prepare(args):
         if im.get("file_id") != cur.get("fileId") or (im.get("alt") or "") != (cur.get("alt") or ""):
             ch[k] = {"url": f"{H.REPO_RAW}/{sha}/{im['path']}", "alt": im["alt"]} if im.get("file_id") != cur.get("fileId") else {"fileId": cur.get("fileId"), "url": cur.get("url"), "alt": im["alt"]}
     if not ch: sys.exit(f"{iid}: the spec equals the CMS; edit the spec first (writer) or nothing to fix")
-    if len(ch) > MAX_FIELDS: sys.exit(f"{iid}: {len(ch)} fields change (max {MAX_FIELDS}): propose a rework instead")
+    cap = int(args[args.index("--max-fields") + 1]) if "--max-fields" in args else MAX_FIELDS   # override for a ruled sweep (e.g. name swaps that touch every image), recorded on the finding
+    if len(ch) > cap: sys.exit(f"{iid}: {len(ch)} fields change (max {cap}): propose a rework instead")
+    if cap != MAX_FIELDS: f["max_fields_override"] = cap
     if "slug" in ch: sys.exit("never automatic: slug")
     import qc_hub as Q
     prim = (s.get("keywords") or {}).get("primary", "")
