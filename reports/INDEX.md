@@ -2,6 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-10-12 · [1840-canary-stopped](2026-10-12/1840-canary-stopped.md) · Item-publish canary (2) failed Learn/carousel on emergent.sh and was unpublished; production was site-published 10:05 UTC with Learn and carousel visible, so 20 live pages and 4 hubs show them; the staged hide needs Divit's site publish · this commit
 - 2026-10-12 · [1827-b5-staging-hide](2026-10-12/1827-b5-staging-hide.md) · Learn (3 templates) and carousel (4 templates, 4 hubs) hidden and read back; B5 staging: 22/26 checks pass on 40 pages, only the hidden sections fail; dry audit nothing blocking (link-cache and outside-check false positives fixed); publish to emergent.sh · this commit
 - 2026-10-12 · [1714-batch2-names-and-rules](2026-10-12/1714-batch2-names-and-rules.md) · Batch-2 names neutral and unique (116 replaced, CMS updated changed-fields-only, verify 20/20, pre-flight 20/20); stock-name/K7/PA14 rules + golden; A6 defaults; staging was published 10:50 UTC with the old names · this commit
 - 2026-10-12 · [1631-monday-part-b-staged](2026-10-12/1631-monday-part-b-staged.md) · Batch-2: 20 pages created and staged (isDraft false, not published), QC 0 and gate 10/10, K7 tables, chip_adds catch (L11); waiting for staging publish · d28ab7f8

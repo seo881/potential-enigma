@@ -40,3 +40,4 @@
 - 2026-10-12 11:18 UTC: released /ai-form-builder/meeting-request-form (was parked) to the planned queue; spec file left in place: A6 default (Divit 2026-10-12): parked only for retired F4
 - 2026-10-12 11:18 UTC: released /ai-form-builder/training-acknowledgment-form (was parked) to the planned queue; spec file left in place: A6 default (Divit 2026-10-12): parked only for retired F4
 - 2026-10-12 11:18 UTC: released /ai-form-builder/yoga-waiver-form (was parked) to the planned queue; spec file left in place: A6 default (Divit 2026-10-12): parked only for retired F4
+- 2026-10-12 13:34 UTC: 2026-10-12 ~13:20 UTC canary: publish_collection_items employment-verification-letter 6accb96b8570d8ef2122bde8 (Divit's go); verify_launch on emergent.sh FAILED learn_not_empty/carousel_hidden (template state from the 10:05 UTC production site publish); per Divit's stop rule unpublish_collection_items on the same ID; prod and staging 404, item now isDraft true.
