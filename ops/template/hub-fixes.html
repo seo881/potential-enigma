@@ -1,0 +1,23 @@
+<style>
+/* MONDAY A3 (2026-10-12): comparison table at phone width. The table already scrolls inside .cmp (overflow-x auto, min-width 720px);
+   this keeps the feature labels in view and tightens the cells so rows are not five lines tall. Scoped to the child-page table section. */
+@media (max-width: 479px) {
+  .section_table .cmp table { min-width: 600px; }
+  .section_table .cmp th, .section_table .cmp td { padding: 14px 16px; }
+  .section_table .cmp thead th { padding-top: 16px; padding-bottom: 16px; font-size: 17px; line-height: 24px; }
+  .section_table .cmp th[scope='row'], .section_table .cmp td.col-brand, .section_table .cmp td.col-other { font-size: 15px; line-height: 21px; }
+  .section_table .cmp th[scope='row'], .section_table .cmp thead th.col-feature { position: sticky; left: 0; z-index: 1; background: #fff; min-width: 120px; max-width: 132px; box-shadow: 1px 0 0 #ececec; }
+}
+</style>
+<script>
+/* MONDAY A3 (2026-10-12): the FAQ heading comes from the item (window.awbFAQ.heading), not the fixed component text. */
+(function () {
+  function setHeading() {
+    var f = window.awbFAQ; if (!f || !f.heading) return;
+    var h = document.querySelector('.section_build-faq .faq_component h2');
+    if (h && h.textContent !== f.heading) h.textContent = f.heading;
+  }
+  setHeading();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setHeading);
+})();
+</script>
