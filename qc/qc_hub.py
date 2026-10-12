@@ -238,6 +238,11 @@ def check(spec, siblings):
     # ---------- D3 (Divit 2026-10-10): the explore CTA fits its pill at 390 px ----------
     cta = strip_html(F.get("explore_cta", "")).strip()
     if len(cta) > 34: add("P1", "D3", "explore_cta", f'{len(cta)} chars (max 34; it clips at 390 px): shorten the display name, e.g. "Build My Onboarding Questionnaire"')
+    # ---------- J1 (MONDAY A3, 2026-10-12): fields bound into the template JSON-LD must survive Webflow's HTML-escaping ----------
+    for k_ in ("meta_title", "meta_description", "breadcrumb"):
+        v_ = strip_html(F.get(k_, "") or "")
+        bad_ = sorted(set(re.findall(r"[\"'&<>]", v_)))
+        if bad_: add("P1", "J1", k_, f"contains {' '.join(bad_)}: Webflow HTML-escapes these in the JSON-LD (&#39;, &quot;, &amp;); reword without them")
     # ---------- F9 (Divit 2026-10-09): 2-3 FAQ moat lines in items 3-10; live pages too from 2026-10-12 (MONDAY A5), originals excepted ----------
     if fq and fq.get("items") and spec.get("status") != "live-draft":
         moat = sum(1 for it_ in fq["items"][2:] if re.search(r"\bEmergent\b", strip_html(it_.get("a", ""))))
