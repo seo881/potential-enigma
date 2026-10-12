@@ -6,7 +6,8 @@
   init URL --by WRITER-ID           create the spec skeleton specs/<dir>/<slug>.json, recording who writes it
   qc URL                            run qc/qc_hub.py on that page's spec
   state URL STATE [--note TEXT] [--by ID]   move a page to a new state; writers set qc_pass with --by so no agent reviews its own page (qc_pass runs QC: refused unless TOTAL 0)
-  release URL [--note TEXT]         return a claimed/spec page to the planned queue (status entry removed, spec file kept, logged)
+  release URL [--note TEXT]         return a claimed/spec page to the planned queue (status entry removed, spec file kept, logged);
+                                    a parked page only with --note giving Divit's ruling (A6 default, 2026-10-12)
   paa-resource URL                  write AlsoAsked provenance into FAQ items matching the pull (no copy changes)
   paa-synonyms URL...               propose PA3 synonym candidates with safety counts -> rules/paa_synonym_candidates.json (not applied)
   paa URL [--spec] [--cand]   PAA gate PA1-PA12 (qc/paa_gate.py): AlsoAsked pull or the spec's FAQ; verdicts to private/alsoasked/verdicts/
@@ -395,7 +396,8 @@ def cmd_release(args):
     hub = hub_of(url)
     with G.lock("status-" + hub):
         st = load_st(hub); cur = st["pages"].get(url, {}).get("state")
-        if cur not in ("claimed", "spec"): sys.exit(f"refused: release is allowed only from claimed or spec; {url} is '{cur or 'queued'}'")
+        ok = ("claimed", "spec") + (("parked",) if note else ())   # parked -> queue only with a written reason (Divit 2026-10-12, A6 default)
+        if cur not in ok: sys.exit(f"refused: release is allowed only from claimed or spec (or parked with --note); {url} is '{cur or 'queued'}'")
         del st["pages"][url]; save_st(hub, st)
     cmd_log([hub, f"released {url} (was {cur}) to the planned queue; spec file left in place" + (f": {note}" if note else "")])
     print(f"{url}: {cur} -> queued")
