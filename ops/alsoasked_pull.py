@@ -10,7 +10,7 @@ fresh:false first; fresh:true only if that returns no_results (or with --fresh);
 Callers: only `ops/weekend.py aa` (2 credits per page in total; ALSOASKED_RUN tags the log row with a run ID for run caps) and `ops/alsoasked_batch.py` (balance ceiling), which set
 ALSOASKED_VIA_AA=1; a direct run refuses, so no tool can bypass the caps (Divit 2026-10-10). By hand: ALSOASKED_VIA_AA=1 ... .
 """
-import json, os, sys, urllib.request, urllib.error
+import http.client, json, os, sys, urllib.request, urllib.error
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE = "https://alsoaskedapi.com/v1"
@@ -24,8 +24,8 @@ def call(method, path, body=None):
         try: msg = json.load(e).get("message", "")
         except Exception: msg = ""
         return e.code, {"_error": str(msg)[:200]}
-    except (TimeoutError, urllib.error.URLError):
-        return 0, {"_error": "timeout", "status": "timeout"}
+    except (OSError, http.client.HTTPException):   # timeouts, URLError and dropped connections (ConnectionResetError, A6 2026-10-12):
+        return 0, {"_error": "timeout", "status": "timeout"}   # a dropped search may still be billed: recover() fetches it from the history
 
 PENDING = ("pending", "processing", "queued", "running")
 
