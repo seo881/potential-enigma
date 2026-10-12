@@ -173,7 +173,10 @@ const outside = { url: OUT_URL };
 if (OUT_URL && STAGING) {
   const get = async (b) => { const r = await fetch(b + OUT_URL).catch(() => null); return r && r.ok ? await r.text() : ""; };
   const [sh, ph] = [await get(BASE), await get(CANON)];
-  const txt = (h) => { const w = new JSDOM(h).window.document; w.querySelectorAll("script,style,noscript").forEach((e) => e.remove()); return norm(w.body?.textContent); };
+  // production sits behind Cloudflare email obfuscation ("[email protected]"); staging shows the address: both read as EMAIL (per text node)
+  const txt = (h) => { const w = new JSDOM(h).window; const d = w.document; d.querySelectorAll("script,style,noscript").forEach((e) => e.remove());
+    const it = d.createTreeWalker(d.body || d, w.NodeFilter.SHOW_TEXT); for (let n = it.nextNode(); n; n = it.nextNode()) n.nodeValue = n.nodeValue.replace(/\[email\s*protected\]|[\w.+-]+@[\w-]+(\.[\w-]+)+/g, "EMAIL");
+    return norm(d.body?.textContent); };
   outside.ok = !!sh && !!ph && txt(sh) === txt(ph) && !/data-hubchip|hubchip--on|Hero prompt \(Divit/.test(sh);
   console.log(`${outside.ok ? "PASS" : "FAIL"} outside page ${OUT_URL} unchanged on staging`);
 }
