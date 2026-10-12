@@ -238,8 +238,8 @@ def check(spec, siblings):
     # ---------- D3 (Divit 2026-10-10): the explore CTA fits its pill at 390 px ----------
     cta = strip_html(F.get("explore_cta", "")).strip()
     if len(cta) > 34: add("P1", "D3", "explore_cta", f'{len(cta)} chars (max 34; it clips at 390 px): shorten the display name, e.g. "Build My Onboarding Questionnaire"')
-    # ---------- F9 (Divit 2026-10-09): 2-3 FAQ moat lines in items 3-10, pages not yet in Webflow (batch 2 onward) ----------
-    if fq and fq.get("items") and not spec.get("item_id") and not spec.get("cms_draft"):
+    # ---------- F9 (Divit 2026-10-09): 2-3 FAQ moat lines in items 3-10; live pages too from 2026-10-12 (MONDAY A5), originals excepted ----------
+    if fq and fq.get("items") and spec.get("status") != "live-draft":
         moat = sum(1 for it_ in fq["items"][2:] if re.search(r"\bEmergent\b", strip_html(it_.get("a", ""))))
         if not 2 <= moat <= 3: add("P1", "F9", "faq", f"{moat} FAQ answers in items 3-10 carry an Emergent capability line (need 2-3, one subtle sentence each)")
     # ---------- H: hygiene (rulebook global rules) ----------
