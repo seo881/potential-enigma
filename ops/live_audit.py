@@ -124,6 +124,8 @@ def field_of(m, snippet):
         if s in squash(it["q"] + it["a"]): return f"faq#{i}"
     return None
 
+TEMPLATE_P0 = {"A9-carousel-shown", "A5-learn"}   # sections Divit hid (carousel everywhere, Learn on Form/LP/AAB); shown = template regression
+
 def evaluate(raw, man, base):
     """Findings for every page and hub: dicts with id, url, field, severity, code, rule, msg, snippet, fix kind."""
     by = {p["url"]: p for p in man["pages"]}; F = []; staging = base.rstrip("/") != CANON
@@ -196,7 +198,8 @@ def evaluate(raw, man, base):
                                   ("faq_rendered", "A9-faq", "FAQ not rendered with all 10 questions (T2)", "faq"), ("first_tab_active", "A9-tab", "first use-case tab not active on load (T10)", "template"),
                                   ("carousel_cover_alt", "A9-cover-alt", "carousel cover images without alt (T5)", "template"), ("carousel_hidden", "A9-carousel-shown", "carousel shown while it should be hidden (Divit 2026-10-09)", "template"), ("comparison_table", "A9-table", "comparison table missing", "why_table"),
                                   ("learn_not_empty", "A5-learn", 'Learn section shows "No items found"', "template")):
-            if not c.get(k, True): add(url, code, "P1", msg, field=fld, fix="proposed")
+            # a template section in the wrong state shows on every page of the hub: P0 (Divit 2026-10-12, 10:05 UTC publish went unnoticed as P1)
+            if not c.get(k, True): add(url, code, "P0" if code in TEMPLATE_P0 else "P1", msg, field=fld, fix="proposed")
         ign = CONF.get("console_ignore", []); ce = [e for e in R.get("console_errors") or [] if not any(s in e for s in ign)]
         if ce: add(url, "A9-console", "P1", f"{len(ce)} console error(s) in Chromium: {ce[0][:120]}", field="template", fix="proposed")
         # JSON-LD: parses; FAQPage matches the visible FAQ word for word
@@ -218,6 +221,7 @@ def evaluate(raw, man, base):
                 fix="unpublish" if hp.get("item_id") else "proposed", item_id=hp.get("item_id"), collection=hp.get("collection"))
     for h in raw.get("hubs") or []:
         if not h.get("http200"): add(h["hub"], "A1-http", "P0", "hub page does not return HTTP 200", field="hub", fix="proposed"); continue
+        if not h.get("carousel_hidden"): add(h["hub"], "A9-carousel-shown", "P0", "carousel shown on the hub while it should be hidden (Divit 2026-10-12)", field="hub", fix="proposed")
         if not h.get("carousel_hidden") and not h.get("carousel_has_all_new_cards"): add(h["hub"], "A9-carousel", "P1", "carousel misses live pages: " + ", ".join(h["missing"]), field="hub", fix="proposed")
         if not h.get("carousel_hidden") and not h.get("hub_card_cover_alt"): add(h["hub"], "A9-cover-alt", "P1", "hub card covers without alt: " + ", ".join(h["cover_alt_missing"]), field="hub", fix="proposed")
         for code, msg, snip in hygiene((h.get("render") or {}).get("text_visible", "")):
@@ -410,6 +414,8 @@ def digest(d):
     pr = [f for f in F if f.get("action") == "proposed"]; dr = [f for f in F if f.get("action") == "drift-reported"]
     held = [f for f in F if f["code"] == "A0-held-live"]
     top = "".join(f"P0 HELD PAGE LIVE: {f['url']} (item {f.get('item_id')}): " + ("unpublished, verified. " if f.get("status") == "unpublished" else f"UNPUBLISH NOW: send {f.get('payload')}. ") for f in held)
+    tr = sorted({f["code"] for f in F if f["code"] in TEMPLATE_P0})
+    if tr: top += f"P0 TEMPLATE REGRESSION on {len({f['url'] for f in F if f['code'] in TEMPLATE_P0})} pages/hubs ({', '.join(tr)}): a site publish changed a template; tell Divit now. "
     return top + (f"Live audit {d['date']}{' (DRY)' if d.get('dry') else ''} on {d['base']}: {len(d['pages'])} pages and {len(d['hubs'])} hubs checked; "
             f"issues P0 {c('P0')}, P1 {c('P1')}, P2 {c('P2')}; fixed {len(fx)}; rolled back {len(rb)}; "
             f"{'would fix' if d.get('dry') else 'fix pending'} {len(wf)}; proposals waiting for a go {len(pr)}; drift {len(dr)}; held pages live {len(held)}.")

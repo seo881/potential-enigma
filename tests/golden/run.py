@@ -77,6 +77,15 @@ def caught(c):
             raw = {"pages": [{"url": c["url"], "checks": {"http200": True}, "verify": {}, "link_status": ls, "render": {"http": 200, "jsonld": [], "links": [], "images": [], "text_visible": "", "text_all": "", "h1s": ["h"]}}], "hubs": [], "held": []}
         hit = any(f["code"] == "A7-link" for f in LA.evaluate(raw, m, "https://emergent.sh"))
         return hit == c["expect_finding"]
+    if c["kind"] == "audit-sev":      # one failed verify check (page) or a shown carousel (hub) raises code at severity
+        import live_audit as LA
+        if c.get("hub"):
+            raw = {"pages": [], "held": [], "hubs": [{"hub": c["url"], "http200": True, "carousel_hidden": False, "carousel_has_all_new_cards": True, "hub_card_cover_alt": True, "missing": [], "cover_alt_missing": [], "render": {"text_visible": ""}, "link_status": {}}]}
+            m = {"pages": []}
+        else:
+            m = {"pages": [{"url": c["url"], "hub": "/" + c["url"].split("/")[1], "fields": {}, "faq_items": [], "images": {}, "meta_title": "x" * 40, "meta_description": "y" * 120}]}
+            raw = {"pages": [{"url": c["url"], "checks": {"http200": True, c["check"]: False}, "verify": {}, "link_status": {}, "render": {"http": 200, "jsonld": [], "links": [], "images": [], "text_visible": "", "text_all": "", "h1s": ["h"]}}], "hubs": [], "held": []}
+        return any(f["code"] == c["code"] and f["severity"] == c["severity"] for f in LA.evaluate(raw, m, "https://emergent.sh"))
     if c["kind"] == "engine-brief":   # the image engine on a spec's brief with one value set: renders, or a BriefError issue; never a crash
         sys.path.insert(0, os.path.join(ROOT, "pipeline")); import engine as E, hubctl as H
         s = copy.deepcopy(json.load(open(H.spath(c["url"])))); o = s["image_brief"]
