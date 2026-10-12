@@ -61,7 +61,7 @@ The title is bound and present in the HTML. It renders **outside the card**. In 
 ### API plan (not applied; each write needs Divit's go, with before-values committed first)
 
 1. **Link target.** data_element_settings_tool > set_settings on each `build_link`, setting `{key: "link", static_link: {mode: "collectionPage", to: "<template page slug>"}}`. The schema says collectionPage takes a page slug.
-   - Template slugs: Form `detail_ai-form-builder` (read). LP `detail_ai-landing-page-builder`, Automation `detail_ai-automation-builder` and Survey `detail_ai-survey-and-quiz-builder` follow the pattern; confirm each with get_page_metadata before writing.
+   - Template slugs, all four confirmed with get_page_metadata (2026-10-12): Form `detail_ai-form-builder`, LP `detail_ai-landing-page-builder`, Automation `detail_ai-automation-builder`, Survey `detail_ai-survey-and-quiz-builder`.
    - Uncertain: whether the API accepts this for a Link inside a Collection List. If it is refused or still renders `#` on staging, use the Designer clicks below.
 
    | Page | Link element | Target slug |
@@ -72,10 +72,10 @@ The title is bound and present in the HTML. It renders **outside the card**. In 
    | Survey template 6ab24754757025d10940d06a | ba847d5e-85b3-fe51-eadf-ad4eebacf801 | detail_ai-survey-and-quiz-builder |
    | Form hub 6aabb4c5789871e91d60f6f9 | a0031ab3-d167-ad84-c89c-90a14c07a6bb | detail_ai-form-builder |
    | LP hub 6aaa658ea6d39733443fe69b | 993a2e98-59bb-16c2-a552-a805b88a33ae | detail_ai-landing-page-builder |
-   | Automation hub 6ab2464303ee70548366671e | 7c8469e8-95dd-19f9-811e-e6276d9b2da7 (derived, see note) | detail_ai-automation-builder |
-   | Survey hub 6ab246c3897d1c09d9d320ec | 07f67163-1778-b5f9-55e1-26f8141b8c57 (derived, see note) | detail_ai-survey-and-quiz-builder |
+   | Automation hub 6ab2464303ee70548366671e | 7c8469e8-95dd-19f9-811e-e6276d9b2da7 (confirmed) | detail_ai-automation-builder |
+   | Survey hub 6ab246c3897d1c09d9d320ec | 07f67163-1778-b5f9-55e1-26f8141b8c57 (confirmed) | detail_ai-survey-and-quiz-builder |
 
-   Note: the Automation and Survey hub IDs are derived from the pattern on the other two hubs (link = section + 11, wrapper = section + 13; reads were rate-limited). Confirm with query_elements `{style: "build_link"}` first.
+   Note: the Automation and Survey hub IDs were confirmed with query_elements `{style: "build_link"}` (content wrappers 7c8469e8-...-2d9a9 and 07f67163-...-8c59).
 2. **Title placement.** Use a new class only; no edit to `.build_content_wrapper` or any existing class.
    - Create one new style `build_content_wrapper-under-cover` (data_style_tool) with `height: auto`.
    - Add it as a second class to each card's content wrapper with set_style `["build_content_wrapper", "build_content_wrapper-under-cover"]`. set_style replaces the class list, so pass both.
@@ -95,4 +95,4 @@ On each of the 4 templates and 4 hubs:
 ## Uncertain
 - A is confirmed by elimination; the Designer's Source dropdown will show the field name directly when opened.
 - Whether set_settings `link` collectionPage + `to: <slug>` works through the API for a link inside a Collection List.
-- The LP, Automation and Survey template slugs (pattern-derived) and the Automation and Survey hub element IDs (derived).
+- (Resolved 2026-10-12: template slugs and the Automation and Survey hub element IDs confirmed by reads.)
