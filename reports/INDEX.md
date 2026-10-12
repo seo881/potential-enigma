@@ -2,6 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-10-12 · [1714-batch2-names-and-rules](2026-10-12/1714-batch2-names-and-rules.md) · Batch-2 names neutral and unique (116 replaced, CMS updated changed-fields-only, verify 20/20, pre-flight 20/20); stock-name/K7/PA14 rules + golden; A6 defaults; staging was published 10:50 UTC with the old names · this commit
 - 2026-10-12 · [1631-monday-part-b-staged](2026-10-12/1631-monday-part-b-staged.md) · Batch-2: 20 pages created and staged (isDraft false, not published), QC 0 and gate 10/10, K7 tables, chip_adds catch (L11); waiting for staging publish · d28ab7f8
 - 2026-10-12 · [1630-monday-part-a](2026-10-12/1630-monday-part-a.md) · Part A: social 429 OK, Learn/FAQ heading/table/carousel staged, 15 live FAQs with moat lines (item publish), Form parked rescue (9 to rework), engine fix, duplicate-ID findings · d7918f14
 - 2026-10-10 · [1731-weekend-run-17](2026-10-10/1731-weekend-run-17.md) · Weekend run: 9 pages reviewed, 0 parked; 25 AlsoAsked credits so far; no Webflow calls · this commit

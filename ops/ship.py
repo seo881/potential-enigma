@@ -289,6 +289,7 @@ def cmd_update(args):
     bf, rb = args[0], args[1]; L = load_ledger(bf); name = L["batch"]; items = {it["id"]: it for it in H._items_from_readback(rb)}
     sha = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
     day = datetime.date.today().isoformat(); out = {}; befores = []; changed_pages = []
+    if "--verify" in args: return update_verify(bf, name, items, day)
     for url in batch_urls(bf):
         s = spec(url); h = H.CFG["hubs"][H.hub_of(url)]; it = items.get(s.get("item_id"))
         if not it: sys.exit(f"{url}: item {s.get('item_id')} not in {rb}")
@@ -320,6 +321,43 @@ def cmd_update(args):
         p = os.path.join(ROOT, "ops", "out", "ship", f"{name}-update-{cid}.json")
         json.dump([{"label": f"update {name}: {len(its)} item(s), changed fields only, status kept", "update_collection_items": {"collection_id": cid, "request": {"items": its}}}], open(p, "w"), indent=1, ensure_ascii=False)
         print(f"  wrote {os.path.relpath(p, ROOT)}: {len(its)} item(s)")
+
+def update_verify(bf, name, items, day):
+    """ship-update ... --verify: after the update, every text field and alt matches the read-back, and every image field sent
+    (from the payloads in ops/out/ship) now holds a different CDN file than its committed before-value. On a pass, cms_draft.sha
+    moves to the payload commit so the next ship-update compares images from there."""
+    sent = {}
+    for p in glob.glob(os.path.join(ROOT, "ops", "out", "ship", f"{name}-update-*.json")):
+        for it in json.load(open(p))[0]["update_collection_items"]["request"]["items"]: sent[it["id"]] = it["fieldData"]
+    bad = []; ok = 0; psha = None
+    for url in batch_urls(bf):
+        s = spec(url); h = H.CFG["hubs"][H.hub_of(url)]; it = items.get(s.get("item_id"))
+        if not it: bad.append(f"{url}: item not in read-back"); continue
+        fd = it["fieldData"]; ex = H.export_fields(url, s)[0]
+        for k, v in ex.items():
+            if k == "slug" or (v in (None, "") and k in H.CFG["optional_fields"]): continue
+            if fd.get(h["fields"][k]) != v: bad.append(f"{url}: {h['fields'][k]} differs")
+        for k, im in s["images"].items():
+            if (im.get("alt") or "") != ((fd.get(h["fields"][k]) or {}).get("alt") or ""): bad.append(f"{url}: {h['fields'][k]} alt differs")
+        bp = os.path.join(ROOT, "childedits", day, f"{url.rsplit('/', 1)[1]}.{name}.before.json")
+        for f, v in (sent.get(it["id"]) or {}).items():
+            if not (isinstance(v, dict) and "/potential-enigma/" in (v.get("url") or "")): continue
+            psha = v["url"].split("/potential-enigma/")[1].split("/")[0]
+            old = ((json.load(open(bp))["fieldData"].get(f) if os.path.exists(bp) else None) or {}).get("fileId")
+            if not (fd.get(f) or {}).get("fileId") or fd[f]["fileId"] == old: bad.append(f"{url}: {f} still the old file")
+        ok += 1
+    for b in bad: print("  MISMATCH " + b)
+    print(f"{ok - len({b.split(':')[0] for b in bad})}/{ok} pages match the read-back")
+    if bad: sys.exit(1)
+    for url in batch_urls(bf):
+        s = json.load(open(H.spath(url))); it = items[s["item_id"]]; h = H.CFG["hubs"][H.hub_of(url)]
+        for k, im in s["images"].items():
+            got = it["fieldData"].get(h["fields"][k]) or {}
+            if got.get("fileId"): im["file_id"] = got["fileId"]; im["cdn_url"] = got.get("url")
+        cd = s.get("cms_draft") or {}
+        s["cms_draft"] = {**cd, "fingerprint": G.fingerprint(s), "sha": psha if it["id"] in sent and psha else cd.get("sha"), "date": now(), "verified": True}
+        json.dump(s, open(H.spath(url), "w"), indent=1, ensure_ascii=False)
+    print(f"cms_draft refreshed on {ok} page(s); image base sha {psha[:8] if psha else 'unchanged'} on {len(sent)}")
 
 def cmd_qc(args):
     url = args[0]; iss = qc_issues(url)

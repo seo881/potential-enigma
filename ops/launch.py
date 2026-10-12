@@ -53,7 +53,7 @@ def preflight(rb):
         L.append(f"| {n} | {url} | {iid} | {pf(r['draft'])} | {pf(r['verify'])}{' (' + ', '.join(diff) + ')' if diff else ''} | {pf(r['awbPrompt'])} | {pf(r['awbFAQ'])} | {pf(r['images'])} | {pf(r['og_webp'])} | {pf(r['slug_unique'])} | **{pf(ok)}** |")
     L += ["", f"**{sum(r[3] for r in rows)} of {len(rows)} pages pass every check.**"]
     open(os.path.join(ROOT, "status", "launch-checklist.md" if os.environ.get("LAUNCH_BATCH", "batch-1") == "batch-1" else f"launch-checklist-{os.environ['LAUNCH_BATCH']}.md"), "w").write("\n".join(L) + "\n")
-    print(f"status/launch-checklist.md: {sum(r[3] for r in rows)} of {len(rows)} pass"); return 0 if ok_all else 1
+    print(f"status/launch-checklist{'' if os.environ.get('LAUNCH_BATCH', 'batch-1') == 'batch-1' else '-' + os.environ['LAUNCH_BATCH']}.md: {sum(r[3] for r in rows)} of {len(rows)} pass"); return 0 if ok_all else 1
 
 def prepare():
     os.makedirs(os.path.join(OUT, "rollback"), exist_ok=True); by = {}; ids = []
