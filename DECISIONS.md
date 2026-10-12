@@ -5,6 +5,11 @@ Every ruling Divit has made that a future chat must respect. Newest first. Add a
 ## 2026-10-12
 - **A6, Form parked pages (Divit, 2026-10-12):** the 7 intent-mismatch pages leave the queue as proposed in reports/2026-10-08/2121-deterministic-pass.md (plan/overrides.json `intent_merges`, `intent_drops`): expense-request-form, mileage-reimbursement-form, travel-reimbursement-form and travel-request-form merge into expense-report-form; car-rental-form into rental-agreement-form; health-screening-form into medical-history-form (where the report said "merge or drop", the merge was taken); vehicle-inspection-form is dropped. The 12 SAFE PA3 synonyms of the 2026-10-08 rescue analysis are approved (rules/paa_synonyms.json). The other parked pages get one AlsoAsked pull on their top secondary (`weekend.py aa <url> --kw secondary`, at most 2 credits per page in total, 250 for the run); pages with 8 or more on-topic sources go back to rework.
 
+## 2026-10-12
+- **Carousel back on (Divit, MONDAY A4):** section_build visible again on the 4 child templates and the 4 hubs (staged 2026-10-12, logs/templates.md); it goes live with Divit's next site publish, after the staging check (covers, alt, live pages only, 390 px). Supersedes the 2026-10-09 "carousel hidden" line.
+- **429 from a social domain is OK (Divit, MONDAY A1):** instagram, x/twitter, linkedin, facebook, youtube, tiktok (rules/live_audit.json social_ok; golden audit-link-*).
+- **Template fixes (MONDAY A3):** FAQ heading from the item (window.awbFAQ.heading) via a new embed; JSON-LD fields kept free of characters Webflow HTML-escapes (QC J1, P1); comparison table at 390 px gets a sticky label column (it already scrolled).
+
 ## 2026-10-10
 - **DataForSEO is retired (Divit, 2026-10-10).** AlsoAsked replaces it for People Also Ask; no live SERP pull is required. QC F1 passes with an AlsoAsked pull (`private/alsoasked/<slug>.json`); top-10 and intent context come from the Semrush workbook and the Wave 3 SERP data in `private/`; keyword ideas come from the Semrush workbook. `mcp__dataforseo` removed from `.claude/settings.json`. Legacy DataForSEO captures stay as F2 checks on pages written before this date.
 - Live-audit proposals (reports/2026-10-10/0120-part3-live.md), all approved:
