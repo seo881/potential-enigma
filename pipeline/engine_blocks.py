@@ -28,6 +28,11 @@ def hair(x1, y, x2): return H.hair(x1, y, x2)
 def esc(s): return L.esc(s)
 
 KINDS = {"ok", "warn", "bad", "acc", "n"}
+def pick(table, key, where, what="kind"):
+    """A brief value from a fixed palette (kind, tone, color). Unknown values are a BriefError naming the allowed ones (the render
+    queue reports it per page), never a bare KeyError (model-release-form, 2026-10-12: meta kind "warn" crashed the render)."""
+    if key not in table: raise BriefError(f'{CTX["where"]}{where}: {what} "{key}" must be one of {sorted(table)}')
+    return table[key]
 def chipw(label, size=16, dot=True): return int(tw(label, size, 600) + (56 if dot else 40))
 def chip(x, y, label, kind="acc", w=None, h=36, size=16, dot=True, where="chip"):
     if kind not in KINDS: raise BriefError(f'{CTX["where"]}{where}: chip kind "{kind}" must be one of {sorted(KINDS)}')
@@ -337,7 +342,7 @@ def b_confirm(d, x, y, w):
     return s, h
 
 def b_status(d, x, y, w):
-    k = d.get("kind", "ok"); bg, fg = {"ok": (L.OK_S, L.OK), "acc": (AS(), AD()), "warn": (L.WARN_S, L.WARN), "bad": (L.BAD_S, L.BAD)}[k]
+    k = d.get("kind", "ok"); bg, fg = pick({"ok": (L.OK_S, L.OK), "acc": (AS(), AD()), "warn": (L.WARN_S, L.WARN), "bad": (L.BAD_S, L.BAD)}, k, "status")
     ic = icon_ok(d.get("icon", "check"))
     s = f'<circle cx="{x+22}" cy="{y+24}" r="22" fill="{bg}"/>' + L.icon(ic, x + 11, y + 13, 22, fg, 2.6)
     s += T(x + 60, y + 20, fit(d["title"], 26, 700, w - 60, "status.title", -0.3), 26, 700, L.INK, ls=-0.3, tnum=True)
@@ -435,12 +440,12 @@ def b_bullets(d, x, y, w):
     return "".join(T(x, y + 18 + i * 30, fit("\u2022 " + t, 16, 500, w, f"bullets[{i}]"), 16, 500, L.SUB) for i, t in enumerate(d["items"])), len(d["items"]) * 30 - 6
 
 def b_meta(d, x, y, w):
-    ic = icon_ok(d.get("icon", "database")); col = {"ok": L.OK, "acc": AD(), "muted": L.MUTED}[d.get("kind", "ok")]
+    ic = icon_ok(d.get("icon", "database")); col = pick({"ok": L.OK, "acc": AD(), "muted": L.MUTED, "warn": L.WARN, "bad": L.BAD}, d.get("kind", "ok"), "meta")
     return L.icon(ic, x, y, 20, col, 2) + T(x + 28, y + 16, fit(d["text"], 16, 600, w - 28, "meta"), 16, 600, L.SUB), 22
 
 def b_text(d, x, y, w):
     size = int(d.get("size", 18)); wt = int(d.get("weight", 700 if size >= 20 else 500))
-    col = {"ink": L.INK, "sub": L.SUB, "muted": L.MUTED, "acc": AD(), "ok": L.OK, "bad": L.BAD}[d.get("color", "ink" if wt >= 600 else "sub")]
+    col = pick({"ink": L.INK, "sub": L.SUB, "muted": L.MUTED, "acc": AD(), "ok": L.OK, "warn": L.WARN, "bad": L.BAD}, d.get("color", "ink" if wt >= 600 else "sub"), "text", "color")
     anchor = "middle" if d.get("align") == "center" else "start"; tx = x + w / 2 if anchor == "middle" else x
     ls = -0.3 if size >= 22 else 0
     return T(tx, y + size, fit(d["text"], size, wt, w, "text", ls), size, wt, col, anchor, ls, True), size + 6
@@ -452,7 +457,7 @@ def b_title(d, x, y, w):
     return s, size + 6
 
 def b_pill(d, x, y, w):
-    k = d.get("kind", "ok"); bg, fg = {"ok": (L.OK_S, L.OK), "acc": (AS(), AD()), "warn": (L.WARN_S, L.WARN), "bad": (L.BAD_S, L.BAD)}[k]
+    k = d.get("kind", "ok"); bg, fg = pick({"ok": (L.OK_S, L.OK), "acc": (AS(), AD()), "warn": (L.WARN_S, L.WARN), "bad": (L.BAD_S, L.BAD)}, k, "pill")
     ic = icon_ok(d.get("icon", "check")); pw = tw(d["label"], 17, 700) + 74
     s = L.rect(x, y, pw, 48, 12, bg) + L.icon(ic, x + 18, y + 14, 20, fg, 2.6) + T(x + 46, y + 30, d["label"], 17, 700, fg)
     if d.get("then"):

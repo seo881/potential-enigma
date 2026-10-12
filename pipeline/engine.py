@@ -125,7 +125,7 @@ def hero(d, x, y, w, h):
         top = y + 70
     if d.get("title"):
         ic = d.get("icon"); kind_c = d.get("tone", "acc")
-        bg, fg = {"acc": (L.ACC_S, L.ACC_D), "ok": (L.OK_S, L.OK), "warn": (L.WARN_S, L.WARN), "bad": (L.BAD_S, L.BAD)}[kind_c]
+        bg, fg = B.pick({"acc": (L.ACC_S, L.ACC_D), "ok": (L.OK_S, L.OK), "warn": (L.WARN_S, L.WARN), "bad": (L.BAD_S, L.BAD)}, kind_c, "hero", "tone")
         tx = x + 24; cw = B.chipw(d["chip"][0]) if d.get("chip") else 0
         if ic:
             B.icon_ok(ic); s += L.rect(x + 24, top + 2, 44, 44, 12, bg)

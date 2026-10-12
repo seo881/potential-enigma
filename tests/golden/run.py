@@ -11,6 +11,8 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   qc-f1          {url, aa, serp, expect_f1}               QC raises F1 exactly when the page has no AlsoAsked pull (DataForSEO capture irrelevant)
   audit-noflag   {url, code}                              the live audit does NOT raise `code` on a bare page (a settled non-issue)
   audit-link     {url, href, status_code, internal?, hub?, expect_finding}  A7-link raises a finding for this link status exactly when expected
+  engine-brief   {url, path, value, expect: renders|brief-error, match?}  the image engine on the spec's brief with image_brief[path] = value
+                                                          renders cleanly, or reports a BriefError issue (containing `match`); never crashes
   h3-noflag      {text}                                    the serial-comma detector must NOT call this text a certain miss (a trap)
   review         {url, field, check, text}                 judgment catch (Layer B); kept for the record, not machine-tested
 status: "open" = a known miss the gate does not catch yet (a backlog fix); "guarded" = caught; a guarded case that stops being
@@ -58,6 +60,14 @@ def caught(c):
             raw = {"pages": [{"url": c["url"], "checks": {"http200": True}, "verify": {}, "link_status": ls, "render": {"http": 200, "jsonld": [], "links": [], "images": [], "text_visible": "", "text_all": "", "h1s": ["h"]}}], "hubs": [], "held": []}
         hit = any(f["code"] == "A7-link" for f in LA.evaluate(raw, m, "https://emergent.sh"))
         return hit == c["expect_finding"]
+    if c["kind"] == "engine-brief":   # the image engine on a spec's brief with one value set: renders, or a BriefError issue; never a crash
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); import engine as E, hubctl as H
+        s = copy.deepcopy(json.load(open(H.spath(c["url"])))); o = s["image_brief"]
+        for k in c["path"][:-1]: o = o[k]
+        o[c["path"][-1]] = c["value"]
+        try: _, issues, _ = E.build_all(s)
+        except Exception: return False
+        return (not issues) if c["expect"] == "renders" else any(c.get("match", "") in i for i in issues)
     if c["kind"] == "h3-noflag":   # a sentence that looks like a list but is not one (intro clause, nested pair, appositive)
         import serial_comma as SC
         return not SC.find(c["text"])[0]
