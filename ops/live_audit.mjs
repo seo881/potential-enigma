@@ -29,7 +29,9 @@ const headStatus = async (u) => {
     let s = await status(u, "HEAD"); if (s === 405 || s === 403 || s === 0) s = await status(u, "GET");
     for (let i = 0; s === 0 && i < 3; i++) { await new Promise((r) => setTimeout(r, 2000 * (i + 1))); s = await status(u, "GET"); }
     return s; })());
-  return statusCache.get(u);
+  const s = await statusCache.get(u);
+  if (s === 0) statusCache.delete(u);   // a transport error is not cached: the next page probes again (one bad probe made 40 P0s, 2026-10-12)
+  return s;
 };
 const sitemap = await (async () => { try { const r = await fetch(BASE + "/sitemap.xml"); return r.ok ? await r.text() : ""; } catch { return ""; } })();
 
