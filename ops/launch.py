@@ -14,8 +14,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "ops"))
 import hubctl as H, ship as S
 
-BATCH = os.path.join(ROOT, "plan", "batches", "batch-1.txt")
-OUT = os.path.join(ROOT, "ops", "out", "launch")
+BATCH = os.path.join(ROOT, "plan", "batches", os.environ.get("LAUNCH_BATCH", "batch-1") + ".txt")   # LAUNCH_BATCH=batch-2 for later batches
+OUT = os.path.join(ROOT, "ops", "out", "launch" if os.environ.get("LAUNCH_BATCH", "batch-1") == "batch-1" else "launch-" + os.environ["LAUNCH_BATCH"])
 
 def pages():
     L = S.load_ledger(BATCH)
@@ -52,7 +52,7 @@ def preflight(rb):
     for n, (url, iid, r, ok, diff) in enumerate(rows, 1):
         L.append(f"| {n} | {url} | {iid} | {pf(r['draft'])} | {pf(r['verify'])}{' (' + ', '.join(diff) + ')' if diff else ''} | {pf(r['awbPrompt'])} | {pf(r['awbFAQ'])} | {pf(r['images'])} | {pf(r['og_webp'])} | {pf(r['slug_unique'])} | **{pf(ok)}** |")
     L += ["", f"**{sum(r[3] for r in rows)} of {len(rows)} pages pass every check.**"]
-    open(os.path.join(ROOT, "status", "launch-checklist.md"), "w").write("\n".join(L) + "\n")
+    open(os.path.join(ROOT, "status", "launch-checklist.md" if os.environ.get("LAUNCH_BATCH", "batch-1") == "batch-1" else f"launch-checklist-{os.environ['LAUNCH_BATCH']}.md"), "w").write("\n".join(L) + "\n")
     print(f"status/launch-checklist.md: {sum(r[3] for r in rows)} of {len(rows)} pass"); return 0 if ok_all else 1
 
 def prepare():
