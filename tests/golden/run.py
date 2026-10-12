@@ -6,7 +6,7 @@ The gate must catch each one. Cases point at a commit and a spec instead of copy
 Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   gate-question  {url, sha, q_index, expect: [rule ids]}   the PAA gate rejects FAQ item q_index of the spec at that commit
   gate-text      {url, q, expect}                          the gate rejects this literal question with one of the expected rules
-  qc-field       {url, field, text, expect}                QC raises one of the expected codes when the field holds this text
+  qc-field       {url, field, text, expect, drop_key?}     QC raises one of the expected codes when the field holds this text (or the spec key drop_key is missing)
   qc-text        {url, field, text, check}                 QC flags `field` when it holds `text` (P0/P1 on that field)
   qc-f1          {url, aa, serp, expect_f1}               QC raises F1 exactly when the page has no AlsoAsked pull (DataForSEO capture irrelevant)
   audit-noflag   {url, code}                              the live audit does NOT raise `code` on a bare page (a settled non-issue)
@@ -41,7 +41,9 @@ def caught(c):
         return bool({r[0] for r in rs if r[1] == "reject"} & set(c.get("expect") or [r[0] for r in rs]))
     if c["kind"] == "qc-field":    # a literal field value: QC raises the expected code on that field
         import qc_hub as Q, hubctl as H, glob as _g
-        s = copy.deepcopy(json.load(open(H.spath(c["url"])))); s["fields"][c["field"]] = c["text"]
+        s = copy.deepcopy(json.load(open(H.spath(c["url"]))))
+        if c.get("drop_key"): s.pop(c["drop_key"], None)   # a spec-level key that is missing (e.g. chip_adds)
+        else: s["fields"][c["field"]] = c["text"]
         every = Q.load_specs(sorted(_g.glob(os.path.join(ROOT, "specs", "*", "*.json"))))
         return any(i["code"] in c["expect"] and i["sev"] in ("P0", "P1") for i in Q.check(s, every))
     if c["kind"] == "audit-noflag":   # the live audit must NOT raise this code on a page that lacks the thing (a settled non-issue)

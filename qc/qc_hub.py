@@ -117,6 +117,9 @@ def check(spec, siblings):
     allowed = set(h["fields"]) - set(CFG["image_fields"])
     for k in F:
         if k not in allowed: add("P0", "S0", k, "field not in the collection map (config/collections.json)")
+    # L11 (2026-10-12): without chip_adds the template's hero-chips script gets no {label, add} chips: empty prompt box, dead chips
+    if spec.get("chip_adds") is None and spec.get("status") != "live-draft" and any(F.get(f"prompt_chip_{i}") for i in range(1, 5)):
+        add("P1", "L11", "chip_adds", "missing: write 4 \"Add ...\" clauses, one per chip label, and a generic default with the primary keyword (DECISIONS 2026-10-09)")
     # hero prompt redesign (Divit 2026-10-09): one generic default + 4 "add" clauses (spec.chip_adds), QC'd as copy like any field
     if spec.get("chip_adds") is not None:
         adds = spec["chip_adds"]
