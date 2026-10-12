@@ -7,7 +7,7 @@ POST /search, GET /account. Depth 2 costs 1 credit, depth 3 costs 4 (PA2 never n
 The key comes from ALSOASKED_API_KEY and is never printed; neither is the response body. Prints only the HTTP status,
 credits used (account before/after, also appended to private/alsoasked/credits.log) and question counts per depth.
 fresh:false first; fresh:true only if that returns no_results (or with --fresh); --no-retry: one call only (the caller decides).
-Callers: only `ops/weekend.py aa` (2 credits per page in total) and `ops/alsoasked_batch.py` (balance ceiling), which set
+Callers: only `ops/weekend.py aa` (2 credits per page in total; ALSOASKED_RUN tags the log row with a run ID for run caps) and `ops/alsoasked_batch.py` (balance ceiling), which set
 ALSOASKED_VIA_AA=1; a direct run refuses, so no tool can bypass the caps (Divit 2026-10-10). By hand: ALSOASKED_VIA_AA=1 ... .
 """
 import json, os, sys, urllib.request, urllib.error
@@ -97,7 +97,7 @@ def main(argv):
         with open(os.path.join(ROOT, "private", "alsoasked", "credits.log"), "a") as f:
             f.write(json.dumps({"t": __import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat(timespec="seconds"), "slug": slug,
                                 "term": term, "depth": depth, "fresh": fresh, "recovered": recovered, "post": recovered != "history", "http": status, "status": res.get("status"), "cached": res.get("cached"),
-                                "before": b, "after": a, "used": used}) + "\n")
+                                "before": b, "after": a, "used": used, **({"run": os.environ["ALSOASKED_RUN"]} if os.environ.get("ALSOASKED_RUN") else {})}) + "\n")
         if status == 200 and res.get("status") == "no_results" and not fresh and "--no-retry" not in argv: fresh = True; continue
         break
     if status != 200 or "_error" in res: return 1

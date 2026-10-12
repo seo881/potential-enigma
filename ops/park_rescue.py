@@ -2,6 +2,7 @@
 outside .cache/review/. Counts only: no question or keyword text is printed (private/ data stays private).
 
     .venv/bin/python3 ops/park_rescue.py [URL ...]      default: the park group of plan/rework-2026-10-08.md
+    .venv/bin/python3 ops/park_rescue.py --a6 URL ...   A6 count (2026-10-12): approved synonyms only, both pulls; see a6_count
 
 Per page, the sources a writer may use today (PA11), each counted once (same intent = paa_gate.JACCARD_DUP):
   faq   current FAQ items that pass the gate (strict: head phrase, PA3 widened)
@@ -52,6 +53,32 @@ def sources(url, extra=()):
         items, _ = P.run_pull(g); pull = [i["q"] for i in items if i["verdict"] == "pass" and not dup(i["q"], fq)]
         n = len(items); ws = sum(any(r[0] in ("PA4", "PA5") and r[1] == "reject" for r in i["reasons"]) for i in items)
     return g, fq, on, pull, (ws / n if n else 0.0), n
+
+KW_RULES = ("PA4", "PA5", "PA8", "PA14", "PA15")   # rules that reject a question for words the keyword itself carries
+
+def a6_count(url):
+    """A6 (Divit 2026-10-12): on-topic FAQ sources for a page, counting APPROVED synonyms only (rules/paa_synonyms.json; never the
+    --cand candidates), each counted once (same intent = PA9):
+      faq   current FAQ items the gate does not reject (PA11's own count)
+      pull  gate-passing AlsoAsked questions from the primary and top-secondary pulls, not same-intent as a counted FAQ item
+      sec   keyword-map secondaries no counted question carries yet, one per content-word set, and not rejected for their own
+            words (PA4, PA5, PA8, PA14, PA15: e.g. a file-format ask)
+    Returns a dict of counts only."""
+    g = P.Gate(url)
+    faq, _ = P.run_spec(g) if (g.spec.get("fields") or {}).get("faq") else ([], None)   # a parked page may have no FAQ yet
+    on = [i["q"] for i in faq if i["verdict"] != "reject"]
+    pull = []
+    if P.pulls(g.slug):
+        items, _ = P.run_pull(g); pull = [i["q"] for i in items if i["verdict"] == "pass" and not dup(i["q"], on)]
+    km = json.load(open(os.path.join(ROOT, "plan", "keyword_map.json"))).get(url) or {}
+    carried = [P.content(q) for q in on + pull]; seen, sec = [], 0
+    for x in sorted(km.get("secondaries") or [], key=lambda x: -(x.get("msv") or 0)):
+        c = P.content(x.get("kw") or "")
+        if not c or c in seen or any(c <= q for q in carried): continue
+        seen.append(c)
+        if any(r[0] in KW_RULES and r[1] == "reject" for r in g.judge({"q": x["kw"], "source": "secondary"})): continue
+        sec += 1
+    return {"faq": len(on), "pull": len(pull), "sec": sec, "total": len(on) + len(pull) + sec, "pulls": len(P.pulls(g.slug)), "spec_faq": bool(faq)}
 
 def main(urls):
     km = json.load(open(os.path.join(ROOT, "plan", "keyword_map.json")))
@@ -111,4 +138,6 @@ def main(urls):
     return rows
 
 if __name__ == "__main__":
-    main(sys.argv[1:] or parked_from_plan())
+    if sys.argv[1:2] == ["--a6"]:   # A6 count per page (counts only): faq + pull + sec = total
+        for u in sys.argv[2:]: print(u, json.dumps(a6_count(u)), flush=True)
+    else: main(sys.argv[1:] or parked_from_plan())

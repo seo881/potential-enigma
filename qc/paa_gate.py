@@ -1,6 +1,7 @@
 """paa_gate.py: the PAA gate PA1-PA15 (PA14 brands, PA15 file formats: Divit 2026-10-09) (handover 2026-10-08 section 5; approved by Divit 2026-10-08).
 
-  hubctl paa URL          gate the page's AlsoAsked pull (private/alsoasked/<slug>.json, from ops/alsoasked_pull.py)
+  hubctl paa URL          gate the page's AlsoAsked pull (private/alsoasked/<slug>.json, from ops/alsoasked_pull.py), plus the
+                          top-secondary pull private/alsoasked/<slug>--sec.json when one was made (weekend.py aa URL --kw secondary)
   hubctl paa URL --spec   gate the spec's current FAQ (spec.faq_sources + fields.faq); PA1b: no answer may share a 6-word run
                           with the pull's answer_*/ai_overview* text (provenance only, never FAQ copy)
   hubctl paa-resource URL write AlsoAsked provenance into matching faq_sources items; a DataForSEO-PAA item with no match
@@ -198,6 +199,11 @@ def flatten(d):
     return out
 
 def pull_path(slug): return os.path.join(ROOT, "private", "alsoasked", slug + ".json")
+def sec_pull_path(slug): return os.path.join(ROOT, "private", "alsoasked", slug + "--sec.json")   # A6 (2026-10-12): one pull on the top secondary
+def pulls(slug):
+    """Every saved AlsoAsked pull for a page: the primary pull and, if made, the top-secondary pull (weekend.py aa --kw secondary)."""
+    return [json.load(open(p)) for p in (pull_path(slug), sec_pull_path(slug)) if os.path.exists(p)]
+def pull_nodes(slug): return [n for d in pulls(slug) for n in flatten(d)]
 
 def answer_shingles(d, n=6):
     """PA1b: every 6-word run in the pull's answer_* and ai_overview* text (provenance only, never FAQ copy)."""
@@ -225,9 +231,9 @@ def match_pull(q, nodes):
 
 def resource(url):
     """hubctl paa-resource: write AlsoAsked provenance into faq_sources items whose question matches the pull. No copy changes."""
-    g = Gate(url); p = pull_path(g.slug)
-    if not os.path.exists(p): sys.exit(f"no AlsoAsked pull for {g.slug}")
-    nodes = flatten(json.load(open(p)))
+    g = Gate(url)
+    if not pulls(g.slug): sys.exit(f"no AlsoAsked pull for {g.slug}")
+    nodes = pull_nodes(g.slug)
     before_raw = open(g.spec_path, "rb").read(); spec = json.loads(before_raw)
     snap = lambda s: (s["fields"].get("faq"), [(f.get("q"), f.get("source"), f.get("ref")) for f in s.get("faq_sources") or []])
     before = snap(spec); n = 0
@@ -306,9 +312,8 @@ def faq_items(spec):
     return out
 
 def run_pull(g):
-    p = os.path.join(ROOT, "private", "alsoasked", g.slug + ".json")
-    if not os.path.exists(p): sys.exit(f"no AlsoAsked pull for {g.slug}: pull it through ops/weekend.py aa <url>")
-    raw = flatten(json.load(open(p))); items, seen = [], {}
+    if not pulls(g.slug): sys.exit(f"no AlsoAsked pull for {g.slug}: pull it through ops/weekend.py aa <url>")
+    raw = pull_nodes(g.slug); items, seen = [], {}   # primary pull plus the top-secondary pull, if any
     for it in sorted(raw, key=lambda x: x["prov"]["depth"]):  # AlsoAsked repeats wordings across branches: gate each wording once (shallowest)
         k = norm(it["q"])
         if k in seen: seen[k]["repeats"] = seen[k].get("repeats", 0) + 1; continue
@@ -326,9 +331,8 @@ def run_spec(g):
     items = faq_items(g.spec)
     vf = os.path.join(ROOT, "private", "alsoasked", "verdicts", g.slug + ".json")
     pv = {norm(i["q"]): i["verdict"] for i in json.load(open(vf))["items"]} if os.path.exists(vf) else {}
-    pull = json.load(open(pull_path(g.slug))) if os.path.exists(pull_path(g.slug)) else None
-    sh = answer_shingles(pull) if pull else set()
-    ctx = {norm(n["q"]): n["ctx"] for n in flatten(pull)} if pull else {}
+    ps = pulls(g.slug); sh = set().union(*(answer_shingles(d) for d in ps)) if ps else set()
+    ctx = {norm(n["q"]): n["ctx"] for n in pull_nodes(g.slug)}
     for it in items:
         it["ctx"] = ctx.get(norm((it["prov"] or {}).get("original") or ""), "")
         if (it["prov"] or {}).get("depth") == 2: it["parent_verdict"] = pv.get(norm(it["prov"].get("parent") or ""), "flag")

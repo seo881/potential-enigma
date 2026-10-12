@@ -4,7 +4,10 @@ agent work. Plan, rules and position: plan/weekend-run.md. Loop: ops/schedule/we
   weekend.py init                 build plan/batches/wk-rework-<dir>.txt once (written pages that are not live, held, parked or in Webflow)
   weekend.py next                 the next work unit (claims new pages itself, canary per hub); exit 0 work, 3 exhausted, 4 STOP file
   weekend.py add-new URL --by ID [--fail TEXT]   a new page's writer returned: into plan/batches/wk-new-<dir>.txt (ledger at check)
-  weekend.py aa URL               the only AlsoAsked path: reuses a saved pull; 2 credits per page in total, a fresh retry only after no_results
+  weekend.py aa URL [--kw secondary] [--run ID --run-cap N]   the only AlsoAsked path: reuses a saved pull; 2 credits per page in total
+                                  (primary + secondary pull, expected cost checked first), a fresh retry only after no_results;
+                                  --kw secondary: one pull on the top secondary -> private/alsoasked/<slug>--sec.json (gate reads both)
+  weekend.py aa-balance           preflight: key set and account balance readable (free GET /account)
   weekend.py render [SLUG..]      render queued pages locally now and commit them (default: the render queue); wait-render is an alias
   weekend.py commit URL MESSAGE   commit and push one page (spec, status, batch files) through ops/sync.sh, under a git lock
   weekend.py tick [--final]       park pages stopped twice, readiness board, position in plan/weekend-run.md, a report every 10 pages
@@ -184,34 +187,77 @@ def spent(r):
     u = r.get("used") or {}
     if isinstance(u.get("credits"), (int, float)): return max(u["credits"], 0)
     return sum(v for v in u.values() if isinstance(v, (int, float)) and v > 0) or (1 if r.get("post") and not u else 0)
+SEC = "--sec"                                                    # A6 (2026-10-12): the top-secondary pull is saved as <slug>--sec.json
+PULL_COST = {1: 1, 2: 1}   # credits per pull by depth (alsoasked_pull.py; credits.log since the 2026-10-10 lock: every serial depth-2 pull cost 1)
+def page_of(row_slug): return (row_slug or "").removesuffix(SEC)
+def page_spent(s):
+    """Credits a page has cost in total (primary and top-secondary pulls), from credits.log, `credits` field only."""
+    return sum(spent(r) for r in credits_rows("") if page_of(r.get("slug")) == s)
+def run_spent(run):
+    return sum(spent(r) for r in credits_rows("") if run and r.get("run") == run)
 def cmd_credits(args):
     W = load(); rows = credits_rows(W["started"]); per = Counter()
-    for r in rows: per[r.get("slug")] += spent(r)
+    for r in rows: per[page_of(r.get("slug"))] += spent(r)
     print(f"weekend credits used {sum(per.values())} of {CREDIT_CAP} on {len(per)} page(s); max per page {max(per.values()) if per else 0}")
     return sum(per.values()), per
+def top_secondary(url):
+    """The page's highest-MSV secondary (keyword map) that PA15 does not block (file formats, download asks) and that is not
+    the primary in another inflection (same content words: the same AlsoAsked tree)."""
+    import paa_gate as P
+    m = H.kmap().get(url) or {}; prim = P.content(m.get("primary") or "")
+    fm = json.load(open(os.path.join(ROOT, "rules", "paa_blocklist.json"))).get("pa15_formats", [])
+    for x in sorted(m.get("secondaries") or [], key=lambda x: -(x.get("msv") or 0)):
+        k = P.norm(x.get("kw") or "")
+        if not k or any(P.has(f, k) for f in fm) or P.content(k) == prim: continue
+        return x["kw"]
+    return None
+def cmd_aa_balance(args):
+    """Preflight for a pull run: the key is set and the account balance is readable (free GET /account). Prints credit fields only."""
+    if not os.environ.get("ALSOASKED_API_KEY"): sys.exit("ALSOASKED_API_KEY is not set")
+    import alsoasked_pull as A
+    st, acc = A.call("GET", "/account")
+    if st != 200: sys.exit(f"account not readable (HTTP {st})")
+    print(f"{ts()} AlsoAsked balance: " + ", ".join(f"{k} {v}" for k, v in A.credits(acc).items()))
 def cmd_aa(args):
     """The only AlsoAsked path for sessions (Divit 2026-10-10): a saved pull is reused; at most 2 credits per page in total, counted
     from credits.log before every call; a second pull only when the first returned no_results; pulls run one at a time (lock), so
-    the account before/after delta belongs to this page alone."""
-    url = args[0]; s = slug(url); pull = os.path.join(ROOT, "private", "alsoasked", s + ".json")
+    the account before/after delta belongs to this page alone.
+    --kw secondary (A6, Divit 2026-10-12): one pull on the page's top secondary (top_secondary), saved beside the primary pull as
+    private/alsoasked/<slug>--sec.json and read by the gate with it; never repeated. Before any pull: page credits (primary and
+    secondary) + expected cost <= 2. --run ID --run-cap N: credits.log rows carry the run ID; no pull once the run's credits + the
+    expected cost would pass N. A pull that costs more than expected exits 5, so a run loop stops."""
+    url = args[0]; s = slug(url); opt = lambda k: args[args.index(k) + 1] if k in args else None
+    sec = opt("--kw") == "secondary"
+    if opt("--kw") not in (None, "primary", "secondary"): sys.exit("--kw is primary or secondary")
+    run, cap = opt("--run"), opt("--run-cap"); cap = int(cap) if cap else None
+    if cap is not None and not run: sys.exit("--run-cap needs --run ID")
+    name = s + (SEC if sec else ""); pull = os.path.join(ROOT, "private", "alsoasked", name + ".json")
     def saved():
         try: return json.load(open(pull))["_meta"].get("status") or "success"
         except (OSError, ValueError, KeyError): return None
-    if saved() not in (None, "no_results"): print(f"{s}: saved pull reused (private/alsoasked/{s}.json); no new pull"); return
-    primary = (H.kmap().get(url) or {}).get("primary") or sys.exit("not in the keyword map")
-    env = {**os.environ, "ALSOASKED_VIA_AA": "1"}
+    if saved() not in (None, "no_results"): print(f"{name}: saved pull reused (private/alsoasked/{name}.json); no new pull"); return
+    if sec and saved() == "no_results": print(f"{name}: the secondary pull returned no_results; no second secondary pull"); return
+    term = top_secondary(url) if sec else (H.kmap().get(url) or {}).get("primary")
+    if not term: sys.exit(f"{s}: " + ("no secondary that PA15 allows and that differs from the primary" if sec else "not in the keyword map"))
+    depth = 2; cost = PULL_COST[depth]
+    env = {**os.environ, "ALSOASKED_VIA_AA": "1", "ALSOASKED_RUN": run or ""}
     with G.lock("alsoasked"):
-        for attempt in (1, 2):
-            rows = [r for r in credits_rows("") if r.get("slug") == s]
-            used = sum(spent(r) for r in rows); total, _ = cmd_credits([])
+        for attempt in ((1,) if sec else (1, 2)):
+            rows = [r for r in credits_rows("") if r.get("slug") == name]
+            used = page_spent(s); total, _ = cmd_credits([])
             if rows and not all(r.get("status") == "no_results" for r in rows):
-                sys.exit(f"{s}: already pulled ({used} credits) and the result was not no_results; reuse it, never re-pull")
-            if used + 1 > PER_PAGE: sys.exit(f"{s}: {used} credits used; another pull could take it past {PER_PAGE}; write from the secondaries or fail the page")
-            if total + 1 > CREDIT_CAP: sys.exit(f"weekend AlsoAsked cap reached ({total}/{CREDIT_CAP}); no more pulls")
-            cmd = [sys.executable, os.path.join(ROOT, "ops", "alsoasked_pull.py"), s, primary, "--depth", "2", "--no-retry"] + (["--fresh"] if rows else [])
+                sys.exit(f"{name}: already pulled ({used} credits on the page) and the result was not no_results; reuse it, never re-pull")
+            if used + cost > PER_PAGE: sys.exit(f"{s}: {used} credits used; a pull costing {cost} would take it past {PER_PAGE}; write from the secondaries or fail the page")
+            if total + cost > CREDIT_CAP: sys.exit(f"weekend AlsoAsked cap reached ({total}/{CREDIT_CAP}); no more pulls")
+            if cap is not None and run_spent(run) + cost > cap: sys.exit(f"run {run} cap reached ({run_spent(run)}/{cap}); no more pulls")
+            before = len(credits_rows(""))
+            cmd = [sys.executable, os.path.join(ROOT, "ops", "alsoasked_pull.py"), name, term, "--depth", str(depth), "--no-retry"] + (["--fresh"] if rows else [])
             rc = subprocess.call(cmd, cwd=ROOT, env=env)
+            got = sum(spent(r) for r in credits_rows("")[before:] if r.get("slug") == name)
+            print(f"{name}: this pull cost {got} credit(s); page total {page_spent(s)} of {PER_PAGE}" + (f"; run {run} total {run_spent(run)}" + (f" of {cap}" if cap else "") if run else ""))
+            if got > cost: sys.exit(5)
             if rc or saved() != "no_results": sys.exit(rc)
-            print(f"{s}: no_results; " + ("one fresh pull within the cap" if attempt == 1 else "no second retry"))
+            print(f"{name}: no_results; " + ("one fresh pull within the cap" if attempt == 1 and not sec else "no second retry"))
 
 def cmd_render(args):
     """Render queued pages on this Mac now (no wait on the Action; Divit 2026-10-10), then commit only those pages' images and specs."""
@@ -331,7 +377,7 @@ def cmd_unblock_new(args):
     W = load(); W.pop("block_new", None); save(W); print("new-page phase released")
     sync("weekend: new-page phase released", ["status/weekend-run.json"])
 
-CMDS = {"block-new": cmd_block_new, "unblock-new": cmd_unblock_new, "init": cmd_init, "next": cmd_next, "add-new": cmd_add_new, "aa": cmd_aa, "wait-render": cmd_wait_render, "render": cmd_render,
+CMDS = {"block-new": cmd_block_new, "unblock-new": cmd_unblock_new, "init": cmd_init, "next": cmd_next, "add-new": cmd_add_new, "aa": cmd_aa, "aa-balance": cmd_aa_balance, "wait-render": cmd_wait_render, "render": cmd_render,
         "commit": cmd_commit, "tick": cmd_tick, "credits": cmd_credits}
 if __name__ == "__main__":
     os.chdir(ROOT)
