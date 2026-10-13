@@ -8,7 +8,7 @@ def ts(s): return datetime.datetime.strptime(s, "%Y-%m-%d %H:%M UTC")
 
 def main(args):
     name = args[0]; L = json.load(open(os.path.join(ROOT, "status", "ship", name + ".json")))
-    import ship as S, paa_gate as PG
+    import ship as S, paa_gate as PG, guards as G
     P = L["pages"]; urls = list(P); shipped = [u for u in urls if P[u]["stage"] == "done" and not P[u].get("stopped")]; held = [u for u in urls if P[u].get("stopped")]
     first_qc = [u for u in urls if next((h["ok"] for h in P[u]["history"] if h["stage"] == "check"), None) is True]
     reviewed = [u for u in urls if any(h["stage"] == "review" and h["ok"] for h in P[u]["history"])]
@@ -18,8 +18,7 @@ def main(args):
         its, page = PG.run_spec(PG.Gate(u)); gate10 += sum(i["verdict"] != "reject" for i in its) == 10 and not page
         qc0 += S.qc_total(u) == 0
     tok = {}
-    for l in open(os.path.join(ROOT, "status", "usage.jsonl")):
-        r = json.loads(l)
+    for r in G.usage_rows():
         if r["url"] in P and r.get("agent", "").startswith("launch"): tok.setdefault(r["role"], {}).setdefault(r["url"], 0); tok[r["role"]][r["url"]] += r["tokens"]
     wall = [(ts(P[u]["history"][-1]["t"]) - ts(P[u]["history"][0]["t"])).total_seconds() / 3600 for u in shipped if len(P[u]["history"]) > 1]
     pct = lambda a, b: f"{a}/{b} ({100 * a // max(b, 1)}%)"

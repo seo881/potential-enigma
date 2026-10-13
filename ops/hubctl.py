@@ -1,7 +1,7 @@
 """hubctl.py: the one tool every build-hub chat uses. Run from the repo root.
 
   status [HUB]                      queue and state counts (all hubs, or one)
-  claim HUB N --by CHAT             claim the next N unclaimed pages of HUB in queue order
+  claim HUB N --by CHAT             claim the next N unclaimed pages of HUB from the top of plan/queue-ranked.txt (ready, then syn-pending = split write)
   brief URL                         keyword brief for a page (needs plan/keyword_map.json)
   init URL --by WRITER-ID           create the spec skeleton specs/<dir>/<slug>.json, recording who writes it
   qc URL                            run qc/qc_hub.py on that page's spec
@@ -151,8 +151,10 @@ def cmd_verbatim(args):
         for k, f in enumerate(s.get("faq_sources") or [], 1):
             pv = f.get("prov") or {}
             if not str(pv.get("tool", "")).startswith("alsoasked"): continue
-            ok = f.get("q") == pv.get("original") and f.get("q") in pq; bad += not ok
-            res.append(f"Q{k} " + ("ok" if ok else "MISMATCH (" + ("differs from prov.original" if f.get("q") != pv.get("original") else "not in the saved pull") + ")"))
+            import spelling as _SP   # ruling 14: US-spelling / house-form display of the original is not a reword
+            same = _SP.verbatim_ok(f.get("q"), pv.get("original")); inpull = pv.get("original") in pq
+            ok = same and inpull; bad += not ok
+            res.append(f"Q{k} " + ("ok" + (" (US spelling display)" if f.get("q") != pv.get("original") else "") if ok else "MISMATCH (" + ("differs from prov.original beyond spelling" if not same else "original not in the saved pull") + ")"))
         print(f"{u}: " + ("; ".join(res) or "no AlsoAsked items"))
     sys.exit(1 if bad else 0)
 
@@ -494,6 +496,8 @@ def cmd_state(args):
     url, state = args[0], args[1]; need_by(args, "state")
     if state not in STATES: sys.exit(f"state must be one of {STATES}")
     if state in ("reviewed", "challenged"): sys.exit(f"'{state}' is set only by hubctl review or hubctl ready, never by hand")
+    if state == "claimed" and url not in load_st(hub_of(url))["pages"]:
+        sys.exit("refused: queued pages are claimed with `hubctl claim HUB N --by ID` from plan/queue-ranked.txt (ready, then syn-pending split writes; Divit 2026-10-13), never with hubctl state")
     if state == "approved":
         cur = load_st(hub_of(url))["pages"].get(url, {}).get("state")
         if cur not in ("reviewed", "challenged"): sys.exit(f"only a reviewed page can be approved (this one is '{cur}')")

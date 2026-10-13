@@ -25,14 +25,16 @@ PROV = ("tool", "query", "depth", "parent", "fetched", "original")
 JACCARD_DUP = 0.8      # PA9/PA10 same-intent threshold on content words (tune after the first full run)
 MAX_RESPONDENT, MAX_BRANDED, MIN_ON_TOPIC, N_FAQ, MIN_SECONDARIES = 2, 0, 8, 10, 6   # PA8 brand cap 0 (Divit 2026-10-09)
 
-def norm(s): return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9'.&-]+", " ", s.lower().replace("’", "'"))).strip()
+def norm0(s): return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9'.&-]+", " ", s.lower().replace("’", "'"))).strip()
+import spelling as _SP
+def norm(s): return _SP.to_us(norm0(s))   # ruling 14: UK spellings read as US (rules/us_spelling.json), so PA3 and H2 agree
 def stem(w): return re.sub(r"(ies|es|s|ing|ed)$", "", w) if len(w) > 4 else w
 SAME = {"make": "create", "build": "create", "design": "create", "setup": "create", "generate": "create"}  # same intent for PA9/PA10
 def content(s): return {SAME.get(stem(w), stem(w)) for w in re.split(r"[\s-]+", norm(s).replace("set up", "setup")) if w and w not in STOP}
 def jacc(a, b): return len(a & b) / len(a | b) if a | b else 0.0
 def has(term, q): return re.search(r"(?<![a-z0-9])" + re.escape(term) + r"(?![a-z0-9])", q) is not None
 def qhash(q):  # stable id of a question (normalised text), for strike lists and sheets: never the text itself in git
-    import hashlib; return hashlib.sha1(norm(q).encode()).hexdigest()[:10]
+    import hashlib; return hashlib.sha1(norm0(q).encode()).hexdigest()[:10]   # norm0: hashes stay stable when the spelling list grows
 def phrase_re(p):  # head phrase, each word optionally plural, space or hyphen between words
     ws = norm(p).split()
     return re.compile(r"(?<![a-z0-9])" + r"[\s-]+".join(re.escape(w) + r"(?:s|es)?" for w in ws) + r"(?![a-z0-9])")

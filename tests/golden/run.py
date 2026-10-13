@@ -6,6 +6,9 @@ The gate must catch each one. Cases point at a commit and a spec instead of copy
 Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   gate-question  {url, sha, q_index, expect: [rule ids]}   the PAA gate rejects FAQ item q_index of the spec at that commit
   gate-question  {url, sha, q_index, absent: [rule ids]}   (absent instead of expect) item q_index carries none of these rules, at any level
+  gate-text      {url, q, expect | absent, levels?}         (absent: none of these rules may fire, e.g. PA3 on a spelling variant)
+  spelling-verbatim {q, orig, expect_ok}                  ruling 14: q is the original or its US-spelling/house-form display, nothing else
+  kw-variant     {a, b, expect_same}                      ruling 14: the K keyword checks treat a and b as the same keyword
   gate-text      {url, q, expect, levels?}                 the gate rejects this literal question with one of the expected rules
                                                           (levels ["reject","flag"]: a flag counts too; default reject only)
   qc-field       {url, field, text, expect, drop_key?, path?}  QC raises one of the expected codes when the field holds this text (or the spec
@@ -50,6 +53,7 @@ def caught(c):
     if c["kind"] == "gate-text":   # a literal question (Divit's examples, our own copy): the gate's per-question rules reject it
         import paa_gate as PG
         rs = PG.Gate(c["url"]).judge({"q": c["q"], "source": "secondary", "n": 5}); lv = c.get("levels") or ["reject"]
+        if c.get("absent"): return not any(r[0] in c["absent"] for r in rs)   # ruling 14: the rule must stay silent (a spelling variant)
         return bool({r[0] for r in rs if r[1] in lv} & set(c.get("expect") or [r[0] for r in rs]))
     if c["kind"] == "gate-pull-skip":   # ruling 12: a question Divit struck (stored as its hash) stays rejected PA4 on that page's pull
         import paa_gate as PG, io as _io, contextlib as _cl
@@ -153,6 +157,12 @@ def caught(c):
         import paa_gate as PG, io, contextlib
         with contextlib.redirect_stdout(io.StringIO()): _items, page = PG.run_spec(PG.Gate(c["url"]))
         return any(r == "PA12" and "secondar" in m for r, m in page) == c["expect_pa12"]
+    if c["kind"] == "spelling-verbatim":   # ruling 14: US-spelling/house-form display of a verbatim question is ok; any other change is not
+        import spelling as SP
+        return SP.verbatim_ok(c["q"], c["orig"]) == c["expect_ok"]
+    if c["kind"] == "kw-variant":          # ruling 14: the K checks read a UK spelling as the keyword's US spelling
+        import qc_hub as Q
+        return (Q.kw_bag(c["a"]) == Q.kw_bag(c["b"])) == c["expect_same"]
     if c["kind"] == "qc-text":
         import qc_hub as Q, hubctl as H
         s = json.load(open(H.spath(c["url"]))); s = copy.deepcopy(s); f = c["field"]

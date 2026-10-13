@@ -46,7 +46,9 @@ def _stem(w): return w[:-1] if len(w) > 3 and w.endswith("s") and not w.endswith
 # keyword spelling variants ("T-shirt" / "t shirt" / "tshirt"): K-checks compare after mapping each variant to one form
 KV = json.load(open(os.path.join(ROOT, "rules", "keyword_variants.json")))["groups"]
 KV_RX = [(re.compile(r"(?<![a-z0-9])(?:" + "|".join(re.escape(v).replace(r"\ ", r"[\s-]?").replace(r"\-", r"[\s-]?") for v in g["variants"]) + r")(s?)(?![a-z0-9])"), g["canonical"]) for g in KV]
+import spelling as _SP
 def kwmap(low):
+    low = _SP.to_us(low)   # ruling 14: a UK spelling counts as the keyword's US spelling (H2 still blocks it in visible copy)
     for rx, c in KV_RX: low = rx.sub(lambda m: c + m.group(1), low)
     return low
 def kwn(s): return kwmap(norm(s))

@@ -84,7 +84,8 @@ Who holds a page:
 - **Claim from the top only.** `plan/queue-ranked.txt` ranks every queued page: `ready` (10 or more now), `syn-pending` (10 with its tranche's top 2 phrases, awaiting Divit), `no-pull`, `short`. `hubctl claim` takes the first unclaimed ready or syn-pending rows of the hub, in order. A regenerates it after every pull wave and every synonym approval.
 - **Split write.** A syn-pending claim carries `faq_pending`. B writes everything but the FAQ (plan, copy, table, image brief) and stops in state `spec`. hubctl refuses qc_pass, images and reviewed until Divit decides. On approval, A clears `faq_pending` and B writes the FAQ from `hubctl brief` (the approved phrases now pass the gate), then QC, gate, images and review as usual. If he rejects every phrase, the page goes back to the queue end with its draft kept.
 - **Synonyms.** Approved phrases are in `rules/paa_synonyms.json`; questions Divit struck are on the page's PA4 skip list (by hash). Use admitted questions verbatim, like every AlsoAsked question; a question that drifts from the page's intent is a blocking review finding.
-- **Verbatim check.** Every reviewer runs `hubctl verbatim <url>`: each AlsoAsked-sourced FAQ item must equal its prov.original and the saved pull.
+- **Verbatim check.** Every reviewer runs `hubctl verbatim <url>`: each AlsoAsked-sourced FAQ item must equal its prov.original (or, ruling 14, its US-spelling display: `qc/spelling.py display`), and the original must be in the saved pull.
+- **Claims go through `hubctl claim` only** (ruling 12 addendum): it takes ready rows, then syn-pending split writes; `hubctl state … claimed` refuses a queued page.
 - **Released parked pages.** Parked Form/Auto/SurveyQuiz pages whose feasibility reaches 10 are released to B by A, and then rank like any other queued page.
 
 ## 4. Commit protocol

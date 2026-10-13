@@ -325,8 +325,7 @@ def usage_by_page(urls):
     per = {}
     p = G.usage_path()
     if os.path.exists(p):
-        for l in open(p):
-            r = json.loads(l)
+        for r in G.usage_rows():
             if r["url"] in urls and str(r.get("agent", "")).startswith("wk-"): per.setdefault(r["url"], Counter())[r["role"]] += int(r["tokens"])
     return per
 

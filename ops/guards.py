@@ -164,12 +164,25 @@ def usage_path(): return os.path.join(ROOT, "status", "usage.jsonl")
 def usage_log(url, tokens, role, agent=""):
     with lock("usage"):
         with open(usage_path(), "a") as fh: fh.write(json.dumps({"t": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC"), "url": url, "tokens": int(tokens), "role": role, "agent": agent}) + "\n")
+def usage_rows():
+    """status/usage.jsonl as counted (Divit 2026-10-13: a run is counted once): 0-token rows are dropped, and a row whose note says it
+    corrects another is dropped when an earlier row already carries the same url, role, agent and tokens (the same run logged twice)."""
+    if not os.path.exists(usage_path()): return []
+    rows, seen = [], set()
+    for l in open(usage_path()):
+        if not l.strip(): continue
+        try: r = json.loads(l)
+        except ValueError: continue
+        if not int(r.get("tokens") or 0): continue
+        k = (r.get("url"), r.get("role"), r.get("agent"), int(r["tokens"]))
+        if k in seen and "corrects" in (r.get("note") or ""): continue
+        seen.add(k); rows.append(r)
+    return rows
 def token_usage():
     if not os.path.exists(usage_path()): return {"note": "no usage logged (hubctl usage-log URL TOKENS --role ROLE)"}
     per = {}
-    for l in open(usage_path()):
-        if l.strip():
-            r = json.loads(l); d = per.setdefault(r["url"], {"total": 0}); d["total"] += r["tokens"]; d[r["role"]] = d.get(r["role"], 0) + r["tokens"]
+    for r in usage_rows():
+            d = per.setdefault(r["url"], {"total": 0}); d["total"] += r["tokens"]; d[r["role"]] = d.get(r["role"], 0) + r["tokens"]
     tot = [v["total"] for v in per.values()]
     return {"by_page": per, "avg_per_page": round(sum(tot) / len(tot)) if tot else None}
 def sample(urls, seed=None, pct=0.10):

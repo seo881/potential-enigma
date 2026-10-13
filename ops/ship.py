@@ -408,8 +408,7 @@ def cmd_qc(args):
 
 def cmd_cost(args):
     bf = args[0]; urls = set(batch_urls(bf)); per = {}
-    for l in open(G.usage_path()):
-        r = json.loads(l)
+    for r in G.usage_rows():
         if r["url"] in urls and r.get("agent", "").startswith("launch"): per.setdefault(r["url"], Counter())[r["role"]] += r["tokens"]
     for u in sorted(per): print(f"  {u}: " + ", ".join(f"{k} {v}" for k, v in per[u].items()))
     for role in ("writer", "reviewer"):
