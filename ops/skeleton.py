@@ -40,6 +40,25 @@ SECTIONS = {
 DEF_RX = re.compile(r"^(what is|what's|what are|what does)\b")
 HOW_RX = re.compile(r"^(how (do|to|can|would) (i|you|we)?\s*(make|create|build|set up|design|write))|^how to (make|create|build|set up)")
 
+SMALL = {"a", "an", "the", "and", "or", "for", "of", "to", "in", "on", "with", "by", "at", "vs"}
+def _title(t):
+    """HUB_RULES 4 title case (canary 2026-10-13: the skeleton set 'Customer service automation Builder')."""
+    ws = t.split()
+    return " ".join(w if any(ch.isupper() for ch in w[1:]) else (w.capitalize() if i == 0 or w.lower() not in SMALL else w.lower()) for i, w in enumerate(ws))
+def _fits(text, field):
+    """The text renders within the widest approved rendering of that field (ops/typeset.py ceilings, T1)."""
+    try:
+        import typeset as TS
+        cfg = json.load(open(os.path.join(ROOT, "config", "typography.json"))); md = TS.mode(); F = cfg["ceilings"][md]["fields"]
+        return field not in F or TS.width(text, TS.FIELDS[field], md) <= F[field]["px"] + 0.5
+    except Exception: return True
+def _shorter(disp):
+    """Display-name variants, shortest last: drop a trailing hub noun, then leading words."""
+    ws = disp.split(); out = [disp]
+    if len(ws) > 2 and ws[-1].lower() in ("automation", "workflow", "survey", "quiz", "form", "page"): out.append(" ".join(ws[:-1]))
+    for k in range(1, len(ws) - 1): out.append(" ".join(ws[k:]))
+    return out
+
 def _a(primary):   # article for a definition question
     return "an" if primary[:1].lower() in "aeiou" else "a"
 
@@ -144,10 +163,12 @@ def cmd_build(a):
     for t, sl in zip(rel, free[1::3] or free):
         sl["link"] = {"url": "https://emergent.sh" + t["url"], "anchor": t["anchor"]}
     s["pipeline"] = "r15"; s["faq_plan"] = slots
-    s["faq_heading"] = s.get("faq_heading") or f"{km.get('display_name') or prim.title()} Questions, Answered"
-    F = s["fields"]; disp = km.get("display_name") or prim.title()
+    F = s["fields"]; disp = _title(km.get("display_name") or prim)
+    if not s.get("faq_heading"):
+        s["faq_heading"] = next((h_ for h_ in (f"{d} Questions, Answered" for d in _shorter(disp)) if _fits(h_, "faq_heading")), f"{disp} Questions, Answered")
     F["breadcrumb"] = F.get("breadcrumb") or disp; F["product_name"] = F.get("product_name") or f"{disp} Builder"
-    cta = f"Build My {disp}"; F["explore_cta"] = F.get("explore_cta") or (cta if len(cta) <= 34 else "Build Mine Now")
+    if not F.get("explore_cta"):
+        F["explore_cta"] = next((c_ for c_ in (f"Build My {d}" for d in _shorter(disp)) if len(c_) <= 34), "Build Mine Now")
     F["hero_prompt"] = F.get("hero_prompt") or "<p>" + HERO[hub].format(p=prim) + "</p>"
     s.setdefault("keywords", {})["primary"] = prim
     save(url, s)
@@ -181,7 +202,7 @@ def cmd_pack(a):
     out += ["", "## Third-party facts", "Every fact about another product, a law or a professional standard needs spec.domain_sources {claim, source_url, date, quote}: `quote` is the exact span from the source that states it. No span, no claim."]
     pm = os.path.join(ROOT, "docs", "PREVENTION.md")
     if os.path.exists(pm):
-        txt = open(pm).read(); m = re.search(r"## Page-pack instructions.*?(?=\n## |\Z)", txt, re.S)
+        txt = open(pm).read(); m = re.search(r"## (?:\d+\.\s*)?Page-pack instructions.*?(?=\n## |\Z)", txt, re.S)
         if m: out += ["", m.group(0).strip()]
     p = os.path.join(ROOT, ".cache", "packs", url.rsplit("/", 1)[1] + ".r15.md"); os.makedirs(os.path.dirname(p), exist_ok=True)
     open(p, "w").write("\n".join(out)); print(p)
@@ -242,7 +263,13 @@ def cmd_check(a):
                           for f in os.listdir(os.path.join(ROOT, "specs", d)) if f.endswith(".json")])
     iss = Q.check(s, every)
     keep = SECTIONS.get(sec)
-    sel = [i for i in iss if i["sev"] in ("P0", "P1") and (sec == "all" or any((i["field"] or "").startswith(k) for k in keep))]
+    # a field label may name several fields ("feature_4, tab_content_4") or a family ("howto_step_title"): match any part against the
+    # section's fields by prefix in either direction (canary 2026-10-13: the old prefix test hid cross-field Q6 and T1 issues)
+    def hits(label):
+        parts = [x for x in re.split(r"[,\s]+", label or "") if x]
+        strip = lambda x: re.sub(r"_\d+", "", x)
+        return any(p_.startswith(k) or k.startswith(p_) or strip(k) == strip(p_) for p_ in parts for k in keep)
+    sel = [i for i in iss if i["sev"] in ("P0", "P1") and (sec == "all" or hits(i["field"]))]
     for i in sel: print(f"  {i['sev']} {i['code']} {i['field']}: {i['msg'][:220]}")
     print(f"{sec}: {len(sel)} P0/P1" + ("  -> fix and re-run" if sel else "  -> clean"))
     sys.exit(1 if sel else 0)
