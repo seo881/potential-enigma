@@ -59,8 +59,8 @@ def _fits(text, field):
 def _shorter(disp):
     """Display-name variants, shortest last: drop a trailing hub noun, then leading words."""
     ws = disp.split(); out = [disp]
+    for k in range(1, len(ws) - 1): out.append(" ".join(ws[k:]))   # keep the hub noun ("Service Automation"), A-r-5 note 2026-10-13
     if len(ws) > 2 and ws[-1].lower() in ("automation", "workflow", "survey", "quiz", "form", "page"): out.append(" ".join(ws[:-1]))
-    for k in range(1, len(ws) - 1): out.append(" ".join(ws[k:]))
     return out
 
 def _a(primary):   # article for a definition question

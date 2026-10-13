@@ -115,6 +115,13 @@
    "via": null,
    "by": "A-coord",
    "note": ""
+  },
+  {
+   "t": "2026-10-13 18:22 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-5",
+   "note": "rubric 10/10 by A-r-5; 7 notes"
   }
  ],
  "pipeline": "r15",
@@ -922,5 +929,325 @@
  },
  "writers": [
   "A-w-48"
- ]
+ ],
+ "review": {
+  "by": "A-r-5",
+  "date": "2026-10-13 18:22 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build Customer Service Automation Around Your Support Queue\", meta title \"Customer Service Automation for Support Teams | Emergent\" and hero \"Build customer service automation that routes each ticket, answers order questions, and alerts a lead when a reply runs late.\" cover the whole job; how-to description is one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Informational SERP (IBM, Salesforce, Zendesk explainers) wants definition, examples, how-to and tool criteria: FAQ 1 defines it, four tabs are worked examples, \"How to Automate Customer Service\" gives 7 specific steps, FAQ 9 covers what to look for in software, FAQ 3-6 separate the adjacent terms."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Support-team vocabulary throughout: \"Priority tickets carry a 4-hour first-reply target\", \"the lead on shift\", \"Refunds up to $150 clear without review\", ticket T-20817; table uses library facts (no help-desk variant exists in the Auto library)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences that say what happens: \"Delphine Mbeki picks Billing...\", \"Status questions are answered from the order record itself.\", \"Export the last 30 days of tickets...\"; feature 6 opens on the verb \"Exports\"."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No tacked-on endings or over-40-word sentences (QC 0); 11 \"A, B, and C\" lists recorded as a note, not blocking per SEVERITY.md."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail reads human: \"Delphine gets her ticket number by email before an agent reads a word.\", \"Start with the order lookup, since it changes no money and no account.\" Two summary sentences and the CTA wording recorded as notes."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Every third-party fact matches its quoted span: FAQ 1 vs IBM \"limited or no human agent involvement\"; FAQ 3 channels vs Salesforce \"phone, email, social media, chat, SMS and messaging\"; FAQ 6 IVR vs IBM \"greets callers and directs them to the appropriate department\"; FAQ 4 vs IBM CXA \"entire customer journey\". Emergent claims map to claims_used (prompt-build, api-connect incl. Stripe, alerts, realtime, database-owned, code-export with \"on paid plans\", no-caps, free-start). $150/$240/4-hour/$64.00 agree across tabs, features, mockups, how-to and images."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Tabs (Ticket Triage, Order Status, Late Replies, Refund Requests) differ from order-processing-automation's B2B PO status page and from ecommerce/incident siblings; no sibling primary used as a heading; siblings only linked in FAQ 4, 7, 10."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, none naming a brand or file format, each answered in its first sentence (\"No. A chatbot is one front end for it...\"); hub link in item 2; sibling links task automation, incident response automation, social media automation; moat lines in items 6 and 9 only."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy on names, numbers and outcomes: T-20817 to Odette Lam with 2 x $64.00 from Stripe; #51077 out for delivery today, no ticket opened; T-20944 4 hours no reply, DM to Rafael Ndiaye with Assign; $240.00 over $150 to Ilse Barros, Approve. One hero per tab, text readable. Two polish points recorded as notes."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "hero_description, faq item 1, faq item 5, faq item 7, why_description",
+    "quote": "hero: \"routes each ticket, answers order questions, and alerts a lead when a reply runs late\"; faq 1: \"sorting new tickets into queues, answering order-status questions from the order record, and chasing replies that run late\"; faq 5: \"sorting tickets into queues, timing first replies, and holding refunds for approval\"; faq 7: \"rules that route each ticket, timers on first replies, and lookups that answer status questions\"; why: \"builds the routing, lookups, and approvals\"",
+    "issue": "The same route / status lookup / late-reply triplet is restated in five fields with words swapped (FAQ 2's restatement of the hero is a template slot and is excluded).",
+    "fix": "Keep the triplet in the hero and FAQ 1; give FAQ 5 and FAQ 7 one concrete example each instead of the list.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2b",
+    "field": "hero_description, why_description, feature_5, tab_content_3, howto_step_2_des, howto_step_3_des, howto_step_5_des (x2), faq items 3, 4, 5",
+    "quote": "\"routes each ticket, answers order questions, and alerts\"; \"the routing, lookups, and approvals\"; \"Open tickets, first-reply times, and pending refunds\"; \"T-20944, is tagged Priority, and Priority\"; \"the app, its database, and the logic\"; \"the help desk, the store, and the payment processor\"; \"Refunds over your limit, account closures, and anything\"; \"a named approver, with the order and the conversation\"; \"phone, email, chat, social media, and text messages\"; \"entire customer journey, before and after\"; \"sorting tickets into queues, timing first replies, and holding\"",
+    "issue": "11 \"A, B, and C\" lists on one page (QC Q8 flag): tidy triplets everywhere read templated.",
+    "fix": "Turn three or four of these into pairs or a single specific item.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "howto_step_4_des, faq item 5",
+    "quote": "step 4: \"A late ticket needs an owner, and a busy channel gives it none.\"; faq 5: \"You can automate those back-office steps without any chat window.\"",
+    "issue": "Summary sentences that restate the sentence before them (2b: no summary sentence restating the paragraph).",
+    "fix": "Cut both, or replace with a new concrete detail (who gets the alert, which step runs without chat).",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 4",
+    "field": "explore_cta",
+    "quote": "Build My Customer Service",
+    "issue": "The shortened display name drops the noun that carries the meaning; the button reads as building customer service itself.",
+    "fix": "\"Build My Support Automation\" (27 chars) keeps the hub noun within 34 chars.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "<th scope=\"col\">Zapier</th> ... Make (Integromat) ... n8n",
+    "issue": "The table compares Zapier, Make and n8n, none of which rank in the top 10 (Salesforce, Talkdesk, Zendesk, NICE, Nextiva, OTRS); the Auto library has no help-desk category to pick from, so the writer could not do otherwise.",
+    "fix": "Coordinator: add a help-desk category (e.g. Zendesk, Talkdesk, Salesforce Service Cloud) with sourced facts to rules/competitors, then regenerate with hubctl table.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief tab 4, cover",
+    "quote": "tab 4 steps: \"Decision logged\" (next) with \"Support manager ... Waiting\" while the mini card says \"Decision logged / Approver's name saved\"; cover: DM header \"Ilse Barros\" vs tab copy \"She approves it in the app\"",
+    "issue": "Tab 4 shows the decision both pending and logged in one frame; the cover draws the approval as a direct message while the copy says it happens in the app. Names, numbers and outcome agree, so this is polish, not contradiction.",
+    "fix": "Make the mini card \"Logged when approved\" or mark the last step done; set the cover header to the Refunds app rather than a DM.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 7b",
+    "field": "breadcrumb",
+    "quote": "Customer Service Automation",
+    "issue": "After the coordinator's Title Case fix the breadcrumb renders 229px, beyond the widest approved 227px (QC T1 P2, cannot be shorter than the keyword).",
+    "fix": "Confirm in the template render before the CMS draft.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "hero_description, faq item 1, faq item 5, faq item 7, why_description",
+   "issue": "The same route / status lookup / late-reply triplet is restated in five fields with words swapped (FAQ 2's restatement of the hero is a template slot and is excluded).",
+   "fix": "Keep the triplet in the hero and FAQ 1; give FAQ 5 and FAQ 7 one concrete example each instead of the list.",
+   "by": "A-r-5",
+   "via": "review",
+   "date": "2026-10-13 18:22 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2b",
+   "field": "hero_description, why_description, feature_5, tab_content_3, howto_step_2_des, howto_step_3_des, howto_step_5_des (x2), faq items 3, 4, 5",
+   "issue": "11 \"A, B, and C\" lists on one page (QC Q8 flag): tidy triplets everywhere read templated.",
+   "fix": "Turn three or four of these into pairs or a single specific item.",
+   "by": "A-r-5",
+   "via": "review",
+   "date": "2026-10-13 18:22 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "howto_step_4_des, faq item 5",
+   "issue": "Summary sentences that restate the sentence before them (2b: no summary sentence restating the paragraph).",
+   "fix": "Cut both, or replace with a new concrete detail (who gets the alert, which step runs without chat).",
+   "by": "A-r-5",
+   "via": "review",
+   "date": "2026-10-13 18:22 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 4",
+   "field": "explore_cta",
+   "issue": "The shortened display name drops the noun that carries the meaning; the button reads as building customer service itself.",
+   "fix": "\"Build My Support Automation\" (27 chars) keeps the hub noun within 34 chars.",
+   "by": "A-r-5",
+   "via": "review",
+   "date": "2026-10-13 18:22 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "The table compares Zapier, Make and n8n, none of which rank in the top 10 (Salesforce, Talkdesk, Zendesk, NICE, Nextiva, OTRS); the Auto library has no help-desk category to pick from, so the writer could not do otherwise.",
+   "fix": "Coordinator: add a help-desk category (e.g. Zendesk, Talkdesk, Salesforce Service Cloud) with sourced facts to rules/competitors, then regenerate with hubctl table.",
+   "by": "A-r-5",
+   "via": "review",
+   "date": "2026-10-13 18:22 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief tab 4, cover",
+   "issue": "Tab 4 shows the decision both pending and logged in one frame; the cover draws the approval as a direct message while the copy says it happens in the app. Names, numbers and outcome agree, so this is polish, not contradiction.",
+   "fix": "Make the mini card \"Logged when approved\" or mark the last step done; set the cover header to the Refunds app rather than a DM.",
+   "by": "A-r-5",
+   "via": "review",
+   "date": "2026-10-13 18:22 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 7b",
+   "field": "breadcrumb",
+   "issue": "After the coordinator's Title Case fix the breadcrumb renders 229px, beyond the widest approved 227px (QC T1 P2, cannot be shorter than the keyword).",
+   "fix": "Confirm in the template render before the CMS draft.",
+   "by": "A-r-5",
+   "via": "review",
+   "date": "2026-10-13 18:22 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "d87111da691d6cc4",
+   "alt:share_image": "53e4f62e902efd5f",
+   "alt:tab_image_1": "e5b5a2754222a8b8",
+   "alt:tab_image_2": "0d47017cd4326f7a",
+   "alt:tab_image_3": "ca86cd06d49805a4",
+   "alt:tab_image_4": "ff53212c82bc0b83",
+   "breadcrumb": "fd5cbc38cc9c96cc",
+   "chip_adds": "4ca3b01c98ce87f3",
+   "explore_cta": "d5d2c71ac744f96a",
+   "faq": "22c3516289562d53",
+   "feature_1": "55254c11a8ca6dd7",
+   "feature_2": "4bdd2e3c6e83b92c",
+   "feature_3": "1ce2ada561072aea",
+   "feature_4": "7d0958ab84f7c8a1",
+   "feature_5": "3e929ce96657f324",
+   "feature_6": "aeda42f12bf0c955",
+   "features_heading": "a4f782919c1eb6d3",
+   "features_subheading": "ef8df09b0c5f6eb9",
+   "h1": "99d38723439efea2",
+   "hero_description": "b6580f83a7f1ec2f",
+   "hero_prompt": "bca8c75d1c65045d",
+   "howto_description": "d90632ee1272b2a9",
+   "howto_step_1_des": "2d32d7d4b7a7a003",
+   "howto_step_1_title": "6609bbbd82253e60",
+   "howto_step_2_des": "4f4935205d91d017",
+   "howto_step_2_title": "8f73f2a52a6fec16",
+   "howto_step_3_des": "08384fc601562d7a",
+   "howto_step_3_title": "c77a82e02c211a77",
+   "howto_step_4_des": "adf9d77e97d18d60",
+   "howto_step_4_title": "9e683065cedc1f36",
+   "howto_step_5_des": "dba2fd68799f1377",
+   "howto_step_5_title": "a1cb6f15b5e6955b",
+   "howto_step_6_des": "c1e66025250ea4a1",
+   "howto_step_6_title": "ce6c6d807d93d524",
+   "howto_step_7_des": "825779e8589d8e38",
+   "howto_step_7_title": "ef19f65dcefd6f41",
+   "howto_title": "c121fc82d800ed29",
+   "meta_description": "e709445fc21ce3cf",
+   "meta_title": "7fc7680adaed9bc2",
+   "mockup": "a0a836ce54cae8e5",
+   "product_name": "af4cb7f2c5cccc8d",
+   "prompt_chip_1": "43c9975e14105d28",
+   "prompt_chip_2": "1ed3403eb4f7738f",
+   "prompt_chip_3": "9e257c8ff6d25e5c",
+   "prompt_chip_4": "9f1938b27a6ae817",
+   "slug": "0451889544c4f12f",
+   "tab_content_1": "60d2dc81cda42183",
+   "tab_content_2": "0aa8f2e4f560ab09",
+   "tab_content_3": "e829146dfd9988dc",
+   "tab_content_4": "c9eff903ac65d220",
+   "tab_label_1": "408eb2a7d028982d",
+   "tab_label_2": "fce5e815b910519f",
+   "tab_label_3": "18876ac40ed3512c",
+   "tab_label_4": "630a18817db63c39",
+   "usecase_heading": "2ab1e52269593ff6",
+   "why_description": "f046b714af964aef",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "cbb5c28397366fbb"
+  },
+  "all": "0884710288a34aba",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "d87111da691d6cc4",
+   "alt:share_image": "53e4f62e902efd5f",
+   "alt:tab_image_1": "e5b5a2754222a8b8",
+   "alt:tab_image_2": "0d47017cd4326f7a",
+   "alt:tab_image_3": "ca86cd06d49805a4",
+   "alt:tab_image_4": "ff53212c82bc0b83",
+   "breadcrumb": "fd5cbc38cc9c96cc",
+   "chip_adds": "4ca3b01c98ce87f3",
+   "explore_cta": "d5d2c71ac744f96a",
+   "faq": "22c3516289562d53",
+   "feature_1": "55254c11a8ca6dd7",
+   "feature_2": "4bdd2e3c6e83b92c",
+   "feature_3": "1ce2ada561072aea",
+   "feature_4": "7d0958ab84f7c8a1",
+   "feature_5": "3e929ce96657f324",
+   "feature_6": "aeda42f12bf0c955",
+   "features_heading": "a4f782919c1eb6d3",
+   "features_subheading": "ef8df09b0c5f6eb9",
+   "h1": "99d38723439efea2",
+   "hero_description": "b6580f83a7f1ec2f",
+   "hero_prompt": "bca8c75d1c65045d",
+   "howto_description": "d90632ee1272b2a9",
+   "howto_step_1_des": "2d32d7d4b7a7a003",
+   "howto_step_1_title": "6609bbbd82253e60",
+   "howto_step_2_des": "4f4935205d91d017",
+   "howto_step_2_title": "8f73f2a52a6fec16",
+   "howto_step_3_des": "08384fc601562d7a",
+   "howto_step_3_title": "c77a82e02c211a77",
+   "howto_step_4_des": "adf9d77e97d18d60",
+   "howto_step_4_title": "9e683065cedc1f36",
+   "howto_step_5_des": "dba2fd68799f1377",
+   "howto_step_5_title": "a1cb6f15b5e6955b",
+   "howto_step_6_des": "c1e66025250ea4a1",
+   "howto_step_6_title": "ce6c6d807d93d524",
+   "howto_step_7_des": "825779e8589d8e38",
+   "howto_step_7_title": "ef19f65dcefd6f41",
+   "howto_title": "c121fc82d800ed29",
+   "meta_description": "e709445fc21ce3cf",
+   "meta_title": "7fc7680adaed9bc2",
+   "mockup": "a0a836ce54cae8e5",
+   "product_name": "af4cb7f2c5cccc8d",
+   "prompt_chip_1": "43c9975e14105d28",
+   "prompt_chip_2": "1ed3403eb4f7738f",
+   "prompt_chip_3": "9e257c8ff6d25e5c",
+   "prompt_chip_4": "9f1938b27a6ae817",
+   "slug": "0451889544c4f12f",
+   "tab_content_1": "60d2dc81cda42183",
+   "tab_content_2": "0aa8f2e4f560ab09",
+   "tab_content_3": "e829146dfd9988dc",
+   "tab_content_4": "c9eff903ac65d220",
+   "tab_label_1": "408eb2a7d028982d",
+   "tab_label_2": "fce5e815b910519f",
+   "tab_label_3": "18876ac40ed3512c",
+   "tab_label_4": "630a18817db63c39",
+   "usecase_heading": "2ab1e52269593ff6",
+   "why_description": "f046b714af964aef",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "cbb5c28397366fbb"
+  },
+  "all": "0884710288a34aba",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
