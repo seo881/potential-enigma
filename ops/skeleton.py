@@ -49,15 +49,18 @@ def candidates(url):
     if P.pulls(s):
         items, _ = quiet(P.run_pull, g)
         for i in items:
-            if i["verdict"] != "pass": continue
+            if i["verdict"] not in ("pass", "flag"): continue
             orig = (i.get("prov") or {}).get("original") or i["q"]
-            out.append({"kind": "alsoasked", "q": SP.display(orig), "ref": orig, "prov": i.get("prov"), "locked": True})
+            fl = sorted({P.flag_subtype(r[0], r[2]) for r in i["reasons"] if r[1] == "flag"})
+            out.append({"kind": "alsoasked", "q": SP.display(orig), "ref": orig, "prov": i.get("prov"), "locked": True, "flagged": fl})
     for x in SQ.usable(s):
         rs = g.judge({"q": x["q"], "source": "keyword", "n": 5})
-        if any(r[1] in ("reject", "flag") for r in rs): continue
+        if any(r[1] == "reject" for r in rs): continue
+        fl = sorted({P.flag_subtype(r[0], r[2]) for r in rs if r[1] == "flag"})
         q = x["q"].strip(); q = q[:1].upper() + q[1:] + ("" if q.endswith("?") else "?")
-        out.append({"kind": "semrush", "q": q, "ref": x["q"], "prov": x["prov"], "locked": True})
-    return out
+        out.append({"kind": "semrush", "q": q, "ref": x["q"], "prov": x["prov"], "locked": True, "flagged": fl})
+    # Divit 2026-10-13: flagged questions may fill slots, after passing questions and secondaries; marked in spec and pack
+    return [c for c in out if not c["flagged"]] + [c for c in out if c["flagged"]]
 
 def related_targets(url, n=3):
     """Live child pages to link from items 3-10, anchored with their exact primary: same cluster first, then keyword overlap."""
@@ -105,8 +108,8 @@ def cmd_build(a):
     if not by: sys.exit("build URL --by A-w-<n>")
     km = H.kmap().get(url) or sys.exit("not in the keyword map")
     sp = H.spath(url)
-    if os.path.exists(sp) and json.load(open(sp)).get("pipeline") != "r15":
-        if "--fresh" not in a: sys.exit(f"{sp} is an old draft: rerun with --fresh to archive it and start the ruling-15 pipeline")
+    if os.path.exists(sp) and json.load(open(sp)).get("pipeline") != "r15" and "--adopt" not in a:
+        if "--fresh" not in a: sys.exit(f"{sp} is an old draft: rerun with --fresh (archive it, start clean) or --adopt (keep its prose, finish on the pipeline)")
         arch = os.path.join(os.path.dirname(sp), "_archive"); os.makedirs(arch, exist_ok=True)
         os.replace(sp, os.path.join(arch, os.path.basename(sp).replace(".json", f".{H.now()[:10]}.json")))
         print(f"archived the old draft to {os.path.relpath(arch, ROOT)}/")
@@ -119,7 +122,7 @@ def cmd_build(a):
     slots.append(d or {"kind": "definition", "q": f"What is {_a(prim)} {prim}?", "ref": prim, "locked": True})
     h = pick(HOW_RX); have += [h] if h else []
     slots.append(h or {"kind": "definition", "q": f"How do I create {_a(prim)} {prim}?", "ref": prim, "locked": True})
-    for c in cands:
+    for c in [c for c in cands if not c.get("flagged")]:
         if len(slots) == 10: break
         if c in have or R.dup(c["q"], [x["q"] for x in slots]): continue
         slots.append(c)
@@ -129,6 +132,10 @@ def cmd_build(a):
         c = P.content(x["kw"])
         if not c or any(c <= q for q in carried) or any(r[0] in R.KW_RULES and r[1] == "reject" for r in P.Gate(url).judge({"q": x["kw"], "source": "secondary"})): continue
         carried.append(c); slots.append({"kind": "secondary", "q": None, "ref": x["kw"], "locked": False})
+    for c in [c for c in cands if c.get("flagged")]:
+        if len(slots) == 10: break
+        if c in have or R.dup(c["q"], [x["q"] for x in slots if x.get("q")]): continue
+        slots.append(c)
     if len(slots) < 10: sys.exit(f"refused: only {len(slots)} FAQ slots from passing sources (ruling 15: the skeleton needs 10); not writable yet")
     hubpath = H.CFG["hubs"][hub]["path"]; hubtext = H.CFG["hubs"][hub]["hub_link_text"]
     for i, sl in enumerate(slots, 1): sl.update({"n": i, "a": sl.get("a") or "", "link": None})
@@ -147,10 +154,12 @@ def cmd_build(a):
     vs, rows = default_table(url)
     if len(vs) == 3:
         subprocess.run([sys.executable, os.path.join(ROOT, "ops", "hubctl.py"), "table", url, "--vs", ",".join(vs), "--rows", ",".join(rows)], capture_output=True)
-    s = load(url); s.setdefault("skeleton", {}).update({"built_by": by, "built": H.now(), "slots": len(slots),
+    s = load(url); s.setdefault("skeleton", {}).update({"built_by": by, "built": H.now(), "slots": len(slots), "flagged": sum(1 for x in slots if x.get("flagged")),
+                                                        "flag_subtypes": sorted({f for x in slots for f in (x.get("flagged") or [])}),
                                                         "locked": sum(1 for x in slots if x["locked"]), "table": bool(s.get("table"))})
     save(url, s)
     print(f"{url}: skeleton built ({sum(1 for x in slots if x['locked'])} locked FAQ questions, {sum(1 for x in slots if not x['locked'])} secondary slots, "
+          f"{sum(1 for x in slots if x.get('flagged'))} FLAGGED (cannot ship until Divit ticks the subtype), "
           f"{sum(1 for x in slots if x['link'])} links, table {'yes' if s.get('table') else 'NO'}); next: skeleton.py pack {url}")
 
 def cmd_pack(a):
@@ -165,6 +174,7 @@ def cmd_pack(a):
            "## FAQ slots (locked questions are fixed; write the answer only)"]
     for sl in s.get("faq_plan") or []:
         q = sl["q"] if sl["locked"] else f"[you write a question carrying every word of: {sl['ref']}]"
+        if sl.get("flagged"): q += f"  [FLAGGED: {', '.join(sl['flagged'])}; write it like any other; it waits for Divit's packet tick]"
         ln = f" | LINK: write the words \"{sl['link'].get('write_as') or sl['link']['anchor']}\" in the answer (code makes them the link)" if sl.get("link") else ""
         out.append(f"{sl['n']:2d}. ({sl['kind']}{', locked' if sl['locked'] else ''}) {q}{ln}")
     out += ["", "## Claims menu (cite the id in spec.claims_used; say nothing about Emergent outside these)"] + [f"- {c['id']}: {c['claim']}" for c in caps]

@@ -22,7 +22,8 @@ You are the orchestrator for one iteration. Read CLAUDE.md, LESSONS.md (top), DE
 7. Never: any Webflow tool, a site or item publish, a page with a B hold (hubctl refuses), a rule or QC change, an AlsoAsked pull outside `weekend.py aa`, a Semrush call (results land from the separate fetch; `ops/semrush_questions.py derive` only).
 8. End the iteration after about 3 hours of work or when `overnight.py next` is empty. Write one line to plan/backlog.md if anything blocked you.
 
-Skipped on purpose: the tranche-1 pages that reach 10 (attendance-form, culture-survey, automated-loan-processing-system, content-approval-workflow, shipping-automation) are held by B as split writes. Ruling 17 says never touch B-held pages, so they wait for B or for Divit to release them.
+B's 5 split writes, released to A tonight (Divit 2026-10-13): holds transferred to A-coord ("ruling 17: A overnight"). shipping-automation and automated-loan-processing-system have adopt-mode skeletons (`skeleton.py build --adopt` keeps B's prose; the writer adds the FAQ answers and quoted spans for existing sources; the loan page's 2 flagged slots wait for Divit's tick). attendance-form and culture-survey reach only 9 sources once the definition/how-to double count is fixed, so they wait for a source. content-approval-workflow is already in images: review it.
+Order (Divit 2026-10-13): pages whose skeleton is all passing questions first; pages with flagged slots after (`skeleton.json flagged` > 0).
 
 ## Commands (Divit)
 - start: `cd ~/emergent-hubs && rm -f STOP && nohup bash ops/schedule/overnight_run.sh >/dev/null 2>&1 &`

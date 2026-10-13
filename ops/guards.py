@@ -10,7 +10,7 @@
   lookahead()            competitor-library gaps for the next pages in the queue
   serp budget, ranks     DataForSEO call budget per day; position history and refresh queue
 """
-import os, json, glob, hashlib, re, random, datetime, contextlib
+import os, sys, json, glob, hashlib, re, random, datetime, contextlib
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CFG = json.load(open(os.path.join(ROOT, "config", "collections.json")))
 PRIVATE = os.path.join(ROOT, "private")
@@ -334,8 +334,26 @@ def review_changed(spec):
     if not rh: return None
     now_ = review_hash(spec)["fields"]
     return sorted(k for k in set(now_) | set(rh["fields"]) if now_.get(k) != rh["fields"].get(k))
+def flags_pending(spec):
+    """Divit 2026-10-13: a flagged FAQ slot ships only once his packet approves its subtype (or that question). -> [(n, subtypes)]."""
+    p_ = os.path.join(ROOT, "rules", "flag_decisions.json")
+    d = json.load(open(p_)) if os.path.exists(p_) else {}
+    sub, qs = d.get("subtypes", {}), d.get("questions", {})
+    slug = (spec.get("url") or "").rsplit("/", 1)[-1]; out = []
+    sys.path.insert(0, os.path.join(ROOT, "qc"))
+    for sl in spec.get("faq_plan") or []:
+        fl = sl.get("flagged") or []
+        if not fl or not sl.get("q"): continue
+        import paa_gate as _PG
+        if (qs.get(slug + ":" + _PG.qhash(sl["q"])) or {}).get("decision") == "approve": continue
+        left = [f for f in fl if (sub.get(f) or {}).get("decision") != "approve"]
+        if left: out.append((sl["n"], left))
+    return out
+
 def review_ok(spec):
-    """(ok, why): ok only when a review hash exists and the current text matches it."""
+    """(ok, why): ok only when a review hash exists, the current text matches it, and no flagged FAQ item waits for Divit's tick."""
+    fp = flags_pending(spec)
+    if fp: return False, "flagged FAQ item(s) wait for Divit's packet tick: " + "; ".join(f"item {n} ({', '.join(f)})" for n, f in fp)
     ch = review_changed(spec)
     if ch is None: return False, "no review hash: the text was reviewed before 2026-10-13; run a slim review (hubctl review-diff, slim-review)"
     if ch: return False, "text changed after review in: " + ", ".join(ch) + " (slim review needed)"

@@ -538,6 +538,18 @@ def cmd_hold(args):
         if h and hold_account(h) != clone_account(): sys.exit(f"refused: already held by account {hold_account(h)} ({h.get('by')}) since {h.get('t')}")
         e["hold"] = {"by": by, "account": clone_account(), "t": now(), "note": note}; save_st(hub_of(url), st)
     print(f"{url}: held by {by}. Commit and push status now (ops/sync.sh); the hold counts only once it is on origin.")
+def cmd_transfer_hold(args):
+    """Coordinator only, on Divit's written ruling: move another account's hold to this account (e.g. ruling 17: B's split writes
+    released to A overnight). Keeps the old hold in the page's hold_history; the page's state is unchanged."""
+    url = args[0]; by = need_by(args, "transfer-hold"); note = args[args.index("--note") + 1] if "--note" in args else ""
+    if not by.startswith("A-") or "ruling" not in note.lower(): sys.exit("refused: transfer-hold URL --by A-coord --note 'ruling N: ...' (coordinator, on Divit's ruling)")
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    with G.lock("status-" + hub_of(url)):
+        st = load_st(hub_of(url)); e = st["pages"].get(url)
+        if e is None: sys.exit(f"{url} is not in status")
+        if e.get("hold"): e.setdefault("hold_history", []).append(e["hold"])
+        e["hold"] = {"by": by, "account": clone_account(), "t": now(), "note": note}; save_st(hub_of(url), st)
+    print(f"{url}: hold transferred to {by} ({note}); state {e.get('state')}. Commit and push status now.")
 def cmd_unhold(args):
     url = args[0]; by = need_by(args, "unhold")
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
@@ -1064,7 +1076,7 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "release": cmd_release, "paa": cmd_paa, "paa-resource": cmd_paa_resource, "paa-synonyms": cmd_paa_synonyms, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "feasibility": cmd_feasibility, "daily-batch": cmd_daily_batch, "unlock": cmd_unlock, "verbatim": cmd_verbatim, "defer": cmd_defer, "batch-check": cmd_batch_check, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "transfer-hold": cmd_transfer_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "feasibility": cmd_feasibility, "daily-batch": cmd_daily_batch, "unlock": cmd_unlock, "verbatim": cmd_verbatim, "defer": cmd_defer, "batch-check": cmd_batch_check, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
         "recheck": cmd_recheck, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live,
         "live-audit": lambda a: _live().main(a), "live-fix": lambda a: _live().fix_main(a), "live-rollback": lambda a: _live().cmd_rollback(a), "retro": lambda a: __import__("retro").main(a)}

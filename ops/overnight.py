@@ -23,7 +23,8 @@ def work():
               and (json.load(open(H.spath(u))) if os.path.exists(H.spath(u)) else {}).get("pipeline") == "r15"]
     import queue_rank as Q
     ranked = [(u, c) for _r, h, u, c, _f in (Q.ranked() or []) if c in ("ready", "syn-pending") and u not in st]
-    inflight = [u for u, e in st.items() if e.get("state") in ("claimed", "spec") and (e.get("by") or "").startswith("A-w") and not b_held(e)]
+    a_held = lambda e: bool(e.get("hold")) and H.hold_account(e["hold"]) == "A"
+    inflight = [u for u, e in st.items() if e.get("state") in ("claimed", "spec") and ((e.get("by") or "").startswith("A-w") or a_held(e)) and not b_held(e)]
     return {"lp_rework": lp_rework, "inflight": inflight, "render": render, "review": review, "r15_rework": rework, "claimable": ranked}
 
 def cmd_next(a):

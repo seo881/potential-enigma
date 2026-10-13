@@ -85,7 +85,7 @@ def a6_count(url, extra=()):
     for x in SQ.usable(g.slug):
         if dup(x["q"], counted): continue
         counted.append(x["q"]); sq += 1
-    return {"faq": len(on), "pull": len(pull), "sec": sec, "sq": sq, "total": len(on) + len(pull) + sec + sq, "pulls": len(P.pulls(g.slug)), "spec_faq": bool(faq)}
+    return {"faq": len(on), "pull": len(pull), "sec": sec, "sq": sq, "total": len(on) + len(pull) + sec + sq, "pulls": len(P.pulls(g.slug)), "spec_faq": bool(faq), "_qs": counted}
 
 def main(urls):
     km = json.load(open(os.path.join(ROOT, "plan", "keyword_map.json")))
@@ -165,6 +165,13 @@ def feasibility(url, extra=()):
             src = srcs.get(i["q"]) or {}
             if rules == {"PA3"} and src.get("source") in ("keyword", "secondary") and any(h.search(P.norm(src.get("ref") or "")) for h in g.heads):
                 rec += 1
-    slots = 0 if c["spec_faq"] else 2
+    # template slots (definition, how-to-build) only where no counted question already is one (skeleton.py fills them the same way;
+    # 2026-10-13: the old +2 double-counted pages whose pull already holds the definition or the how-to question)
+    slots = 0
+    if not c["spec_faq"]:
+        import re as _re
+        qs = [P.norm(q) for q in c.get("_qs", [])]
+        slots += 0 if any(_re.match(r"^(what is|what's|what are|what does)\b", q) for q in qs) else 1
+        slots += 0 if any(_re.search(r"^(how (do|to|can|would) (i|you|we)?\s*(make|create|build|set up|design|write))|^how to (make|create|build|set up)", q) for q in qs) else 1
     total = c["total"] + rec + slots
     return dict(c, recoverable=rec, slots=slots, total=total, feasible=total >= P.N_FAQ)
