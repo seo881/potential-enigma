@@ -97,7 +97,8 @@ def cmd_status(args):
 def cmd_claim(args):
     hub, n = args[0], int(args[1]); by = args[args.index("--by") + 1] if "--by" in args else "unknown"
     pin = os.path.join(ROOT, ".hub")
-    if os.path.exists(pin) and open(pin).read().strip() != hub: sys.exit(f"this worktree works only hub {open(pin).read().strip()} (ops/worktrees.sh); claim {hub} from its own worktree")
+    # .hub pins a checkout to its hubs: one key (ops/worktrees.sh) or a comma list (docs/TWO_ACCOUNTS.md: A "Form,Auto", B "LP,SurveyQuiz")
+    if os.path.exists(pin) and hub not in [h.strip() for h in open(pin).read().split(",")]: sys.exit(f"this checkout claims only {open(pin).read().strip()} (.hub; docs/TWO_ACCOUNTS.md); claim {hub} from the account that owns it")
     if n > 50: sys.exit("claim at most 50 pages at a time")
     m = kmap(); st = load_st(hub)
     queue = sorted([p for p in m.values() if p["hub"] == hub and p["status"] == "planned"], key=lambda p: p["queue_rank"])

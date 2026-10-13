@@ -15,12 +15,15 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CFG = json.load(open(os.path.join(ROOT, "config", "collections.json")))
 PRIVATE = os.path.join(ROOT, "private")
 
+SHARED_LOCKS = {"alsoasked"}
 @contextlib.contextmanager
 def lock(name="status"):
     """Exclusive lock (fcntl) for read-modify-write of shared files. Works across processes on one machine."""
     import fcntl
-    os.makedirs(os.path.join(ROOT, ".locks"), exist_ok=True)
-    with open(os.path.join(ROOT, ".locks", name + ".lock"), "w") as fh:
+    # machine-wide locks (docs/TWO_ACCOUNTS.md): both accounts' clones share these, so the AlsoAsked credit cap holds across checkouts
+    d = os.path.expanduser("~/.emergent-hubs/locks") if name in SHARED_LOCKS else os.path.join(ROOT, ".locks")
+    os.makedirs(d, exist_ok=True)
+    with open(os.path.join(d, name + ".lock"), "w") as fh:
         fcntl.flock(fh, fcntl.LOCK_EX)
         try: yield
         finally: fcntl.flock(fh, fcntl.LOCK_UN)
