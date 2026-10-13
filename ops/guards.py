@@ -256,6 +256,8 @@ def rank_from_serp(raw_items, domain="emergent.sh"):
 # ---------------------------------------------------------------- source liveness (the automated link check; agents never re-read pages for it)
 LINKS = os.path.join(ROOT, ".cache", "linkcheck.json")
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"
+# Hosts that answer scripted requests with 404 while the page loads in a browser (verified by hand): a 404 there is "blocked", not dead.
+BOT_404_HOSTS = {"ftc.gov"}   # 2026-10-13: the CAN-SPAM compliance guide loads in a browser, 404 to urllib/curl
 def link_status(url, timeout=15):
     """ok | dead | moved (redirects away from the cited page) | blocked (403/429: the site refuses bots; unverified, not dead)."""
     import urllib.request, urllib.error, urllib.parse
@@ -267,6 +269,8 @@ def link_status(url, timeout=15):
             moved = not same or (a.path.rstrip("/") != b.path.rstrip("/") and b.path.count("/") < a.path.count("/"))
             return {"status": "moved" if moved else "ok", "code": r.status, "final": final}
     except urllib.error.HTTPError as e:
+        host = urllib.parse.urlparse(url).netloc.split(":")[0].removeprefix("www.")
+        if e.code == 404 and host in BOT_404_HOSTS: return {"status": "blocked", "code": e.code, "final": url}
         return {"status": "blocked" if e.code in (401, 403, 429) or 300 <= e.code < 400 else "dead", "code": e.code, "final": url}   # a redirect that needs cookies is unverified, not dead
     except Exception as e:
         # a network blip is not a dead page: retry once, then only a name that does not resolve counts as dead

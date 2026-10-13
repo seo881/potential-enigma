@@ -9,6 +9,11 @@ Format: date, source (Divit, reviewer, QC, orchestrator), the item, pages it tou
 - The 51 parked pages that need a second AlsoAsked pull (1 credit each): `.cache/review/park-rescue.csv`.
 - The 7 intent-mismatch pages stay parked (merge or drop proposals in `reports/2026-10-08/2121-deterministic-pass.md`).
 
+## Tomorrow (2026-10-14), Divit 2026-10-13
+- **NO SITE PUBLISH (staging or production) until the 12 card links are fixed in the Designer and read back**, because the staged card links 404 (`docs/WEBFLOW_API.md`, logs/templates.md). Batch 3 went live by item publish only.
+- The 12 Designer clicks (for Divit's packet): on each of the 4 CMS templates (Form, LP, Automation, Survey) and each of the 4 hub pages, select the carousel card Link Block `build_link` inside section_build's Collection List, open Element Settings (D) > Link Settings, choose the collection page of the current item (the hub's child template), save. On the 4 templates, do the same on the Learn card Link Block `blog_link` inside section_blog-related, choosing the Learn template (current Learn item). Then A reads back all 12 and checks one card per page on the next staging publish (every href 200).
+- Before the Designer route: A first reads the raw link settings of a working card (the /learn listing card and the /ai-app-builder carousel card) and tries that exact structure on the 12 links (staged, read back), per Divit's decision 2 of 2026-10-13; tested on batch 4's staging publish.
+
 ## Items
 - 2026-10-09, reviewer launch-r-b1-3: QC K7 said Google Forms is not in the top 10 for sign-in-form while it ranks #1; possible URL-matching bug in K7. Pages: sign-in-form. Proposed: check K7's competitor URL matching after launch.
 - 2026-10-09, writers (batch 1): QC F4 still requires DataForSEO PAA questions that the approved PAA gate (PA1-PA13) rejects; the only exit is a reasoned per-page skip in rules/paa_blocklist.json, which needs Divit (auto mode refused it as a gate bypass). Pages: ecommerce-automation, contact-form, 404-page, pricing-page, employee-engagement-survey, booking-form. Proposed: F4 honours gate rejects, or Divit approves the skips page by page.
