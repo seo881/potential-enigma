@@ -2,6 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-10-13 · [1256-account-b-rework-surveyquiz-feasibility](2026-10-13/1256-account-b-rework-surveyquiz-feasibility.md) · Account B: 13 reworks reviewed (ach, photo-release + 7 Form + 2 Survey), 3 to images (wellness, sales-workflow, assessment); queued feasibility 1/40, B AlsoAsked key 403 · e3104694
 - 2026-10-13 · [1058-b-side-fixes-for-account-a](2026-10-13/1058-b-side-fixes-for-account-a.md) · --by required, hold markers, F2 alsoasked on legacy pages, PA12 workbook-only bar, AlsoAsked candidates in brief, L12 Learn refs at creation, 3 Auto pages released, DECISIONS 2026-10-13; needs Divit's 7 rulings + addendum pasted to B · f0a338f6
 - 2026-10-13 · [1625-account-a-form-auto-rework](2026-10-13/1625-account-a-form-auto-rework.md) · Account A: 58 Form/Auto pages worked; 36 reviewed, 11 in images for B review, 3 parked (PA12), 8 batch-3 ceded to B; verbatim AlsoAsked restored on 6; capacity and rescue ranking; 0 Webflow calls · this commit
 - 2026-10-13 · [1043-learn-batch3-two-accounts](2026-10-13/1043-learn-batch3-two-accounts.md) · Learn refs on 39 live items, Survey Learn link, batch 3 QC-clean (20), TWO_ACCOUNTS pushed, unhide then re-hide (read back); batch 3 CMS waits on a review-state ruling · 5c9d400d
