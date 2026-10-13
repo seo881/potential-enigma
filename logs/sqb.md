@@ -23,3 +23,8 @@
 - 2026-10-13 13:15 UTC: released /ai-survey-and-quiz-builder/nps-survey (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 14/10
 - 2026-10-13 13:15 UTC: released /ai-survey-and-quiz-builder/patient-satisfaction-survey (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 12/10
 - 2026-10-13 13:15 UTC: released /ai-survey-and-quiz-builder/post-event-survey (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 16/10
+- 2026-10-13 19:56 UTC: released /ai-survey-and-quiz-builder/body-type-quiz (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 18/10
+- 2026-10-13 19:56 UTC: released /ai-survey-and-quiz-builder/fun-quiz (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 17/10
+- 2026-10-13 19:56 UTC: released /ai-survey-and-quiz-builder/product-survey (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 13/10
+- 2026-10-13 19:56 UTC: released /ai-survey-and-quiz-builder/survey-questionnaire (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 11/10
+- 2026-10-13 19:56 UTC: released /ai-survey-and-quiz-builder/user-experience-survey (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 15/10

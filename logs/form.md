@@ -51,3 +51,23 @@
 - 2026-10-13 batch 3: ach-form 6ace2910043dab3a244256d8 and photo-release-form 6ace2910043dab3a244256d6 created (verified), isDraft false (read back, Learn refs). Batch 3 now 20/20 staged.
 - 2026-10-13 13:15 UTC: released /ai-form-builder/employee-handbook-acknowledgment-form (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 10/10
 - 2026-10-13 13:15 UTC: released /ai-form-builder/hipaa-release-form (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 17/10
+- 2026-10-13 19:55 UTC: released /ai-form-builder/change-request-form (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 12/10
+- 2026-10-13 19:55 UTC: released /ai-form-builder/donation-form (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 13/10
+- 2026-10-13 19:55 UTC: released /ai-form-builder/grant-application-form (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 12/10
+- 2026-10-13 19:55 UTC: released /ai-form-builder/grievance-form (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 16/10
+- 2026-10-13 19:55 UTC: released /ai-form-builder/hipaa-release-form (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 28/10
+- 2026-10-13 19:55 UTC: released /ai-form-builder/identity-verification-form (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 10/10
+- 2026-10-13 19:55 UTC: released /ai-form-builder/jurat-form (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 11/10
+- 2026-10-13 19:55 UTC: released /ai-form-builder/last-will-and-testament-form (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 12/10
+- 2026-10-13 19:55 UTC: released /ai-form-builder/lead-capture-form (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 15/10
+- 2026-10-13 19:55 UTC: released /ai-form-builder/living-trust-form (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 14/10
+- 2026-10-13 19:56 UTC: released /ai-form-builder/loan-application-form (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 15/10
+- 2026-10-13 19:56 UTC: released /ai-form-builder/medical-history-form (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 19/10
+- 2026-10-13 19:56 UTC: released /ai-form-builder/membership-form (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 16/10
+- 2026-10-13 19:56 UTC: released /ai-form-builder/non-compete-form (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 12/10
+- 2026-10-13 19:56 UTC: released /ai-form-builder/petition-form (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 10/10
+- 2026-10-13 19:56 UTC: released /ai-form-builder/pledge-form (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 13/10
+- 2026-10-13 19:56 UTC: released /ai-form-builder/service-request-form (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 18/10
+- 2026-10-13 19:56 UTC: released /ai-form-builder/vendor-application (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 11/10
+- 2026-10-13 19:56 UTC: released /ai-form-builder/wedding-photography-contract (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 19/10
+- 2026-10-13 19:56 UTC: released /ai-form-builder/wedding-rsvp (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 11/10

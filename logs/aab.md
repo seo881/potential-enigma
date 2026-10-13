@@ -28,3 +28,11 @@
 - 2026-10-13 13:15 UTC: released /ai-automation-builder/it-automation (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 11/10
 - 2026-10-13 13:15 UTC: released /ai-automation-builder/payroll-automation (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 11/10
 - 2026-10-13 19:11 UTC: released /ai-automation-builder/lead-nurturing-workflow (was spec) to the planned queue; spec file left in place
+- 2026-10-13 19:56 UTC: released /ai-automation-builder/accounting-automation (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 11/10
+- 2026-10-13 19:56 UTC: released /ai-automation-builder/automated-inventory-management (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 10/10
+- 2026-10-13 19:56 UTC: released /ai-automation-builder/compliance-automation (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 25/10
+- 2026-10-13 19:56 UTC: released /ai-automation-builder/crm-automation (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 10/10
+- 2026-10-13 19:56 UTC: released /ai-automation-builder/drip-campaign (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 21/10
+- 2026-10-13 19:56 UTC: released /ai-automation-builder/healthcare-automation (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 11/10
+- 2026-10-13 19:56 UTC: released /ai-automation-builder/marketing-automation-workflow (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 10/10
+- 2026-10-13 19:56 UTC: released /ai-automation-builder/proposal-automation (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 11/10
