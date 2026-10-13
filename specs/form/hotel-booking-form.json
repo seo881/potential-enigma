@@ -42,7 +42,7 @@
   "tab_content_1": "<h3>No Saturday without Friday or Sunday</h3><p>Larkspur House has six rooms and sells Saturday night only as part of a two-night stay. A guest who asks for Saturday alone is offered Friday and Saturday, with 2 rooms left, or Saturday and Sunday, with 4. The guest picks one, and the request lands in the innkeeper's table with both nights attached.</p>",
   "tab_content_2": "<h3>A dog room shows only when it is open every night</h3><p>Three of the 20 rooms at the Pinecrest Inn take dogs. The dog option appears on a request only when one of those three is free on every night of the stay. A guest asking for three nights with a dog is offered Room 12, the one dog room open all three nights, at $517 including the $40 pet fee.</p>",
   "tab_content_3": "<h3>Any wedding room unclaimed by day 30 returns</h3><p>Dana and Theo set aside 20 rooms at the Saltgrass Hotel at $189 a night. Guests book from the couple's link with the wedding dates filled in. At 30 days before the wedding, the block closes with 14 rooms booked and the 6 nobody claimed go back. Late guests see the front desk number.</p>",
-  "tab_content_4": "<h3>Request 81 keeps its rate at the overflow hotel</h3><p>The Northwind Water Summit booked 80 rooms at the Riverside Hotel and 40 at the Ferrow Inn across the street, both at $164 a night. Once all 80 Riverside rooms are taken, request 81 is placed in the Ferrow Inn block with its dates and rate unchanged, and #summit-housing in Slack gets a note.</p>",
+  "tab_content_4": "<h3>Request 81 keeps its rate at the overflow hotel</h3><p>The Bitterroot Water Summit booked 80 rooms at the Riverside Hotel and 40 at the Ferrow Inn across the street, both at $164 a night. Once all 80 Riverside rooms are taken, request 81 is placed in the Ferrow Inn block with its dates and rate unchanged, and #summit-housing in Slack gets a note.</p>",
   "mockup": "<p id=\"\">window.awbMockup = { weekendMinimumStays: \"I run a six-room bed and breakfast. Saturday nights only sell as part of a two-night stay. If a guest asks for Saturday alone, show them Friday and Saturday or Saturday and Sunday instead, with how many rooms are left for each. Save the request with both nights so I can confirm it from one list.\", petFriendlyRooms: \"My inn has 20 rooms and three of them take dogs. Only show the dog option when one of those three rooms is free for every night of the stay. Add a $40 pet fee to the quote, once per stay, and tell the guest which room they would get.\", weddingRoomBlocks: \"We reserved 20 rooms at a hotel for our wedding guests at $189 a night. Give guests a link with the wedding dates already filled in so they only pick a room type. 30 days before the wedding, close the block and send the unclaimed rooms back. After that, show the hotel's front desk number.\", conferenceOverflow: \"Our summit has 80 rooms at the main hotel and 40 at an overflow hotel across the street, both at $164 a night. Attendees request rooms on one form. When the main hotel's 80 are gone, put new requests in the overflow block with the same dates and rate, and post a note in our summit housing Slack channel.\" };</p>",
   "howto_title": "How to Make a Hotel Booking Form",
   "howto_description": "Follow these seven steps to turn your room list and stay rules into a tested hotel booking form on the property's site.",
@@ -69,7 +69,7 @@
   "prompt_chip_2": "Minimum Stays",
   "prompt_chip_3": "Room Blocks",
   "prompt_chip_4": "Deposits",
-  "hero_prompt": "<p>Build a booking form for my six-room bed and breakfast.</p>"
+  "hero_prompt": "<p>Build a hotel booking form for my six-room bed and breakfast.</p>"
  },
  "images": {
   "tab_image_1": {
@@ -86,7 +86,7 @@
   },
   "tab_image_4": {
    "path": "images/form/hotel-booking-form/uc-4.svg",
-   "alt": "The Northwind Water Summit's Riverside Hotel block fills at 80 rooms, so request 81 is placed in the 40-room Ferrow Inn overflow block at the same $164 rate and #summit-housing gets a Slack note."
+   "alt": "The Bitterroot Water Summit's Riverside Hotel block fills at 80 rooms, so request 81 is placed in the 40-room Ferrow Inn overflow block at the same $164 rate and #summit-housing gets a Slack note."
   },
   "cover_image": {
    "path": "images/form/hotel-booking-form/cover.svg",
@@ -147,6 +147,20 @@
    "via": "recheck",
    "by": null,
    "note": "rules changed (8bc91b49d85c); QC now fails"
+  },
+  {
+   "t": "2026-10-13 10:48 UTC",
+   "state": "images",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-13 10:48 UTC",
+   "state": "reviewed",
+   "via": "ready",
+   "by": "A-w-26",
+   "note": "one rework applied by A-w-26 after wk-r-17 (0 findings marked blocking then, fixed per rules/SEVERITY.md); ready for Divit"
   }
  ],
  "plan": {
@@ -161,7 +175,7 @@
    "Larkspur House has six rooms",
    "Three of the 20 rooms at the Pinecrest Inn",
    "Dana and Theo set aside",
-   "The Northwind Water Summit booked",
+   "The Bitterroot Water Summit booked",
    "Start with the room count",
    "A request names the nights",
    "Print-and-fax booking sheets"
@@ -698,7 +712,7 @@
      "title": "Overflow: 40 rooms",
      "sub": "Ferrow Inn, $164 a night"
     },
-    "alt": "The Northwind Water Summit's Riverside Hotel block fills at 80 rooms, so request 81 is placed in the 40-room Ferrow Inn overflow block at the same $164 rate and #summit-housing gets a Slack note.",
+    "alt": "The Bitterroot Water Summit's Riverside Hotel block fills at 80 rooms, so request 81 is placed in the 40-room Ferrow Inn overflow block at the same $164 rate and #summit-housing gets a Slack note.",
     "story": [
      {
       "copy": "80 rooms at the Riverside Hotel",
@@ -799,8 +813,8 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "b9bdd5846b24",
-  "date": "2026-10-10 10:04 UTC"
+  "rules_version": "bae2ab9babe0",
+  "date": "2026-10-13 10:48 UTC"
  },
  "writers": [
   "w-hotel-booking-form",
@@ -921,5 +935,11 @@
    "via": "review",
    "date": "2026-10-10 10:05 UTC"
   }
+ ],
+ "chip_adds": [
+  "Add the rooms left of each type, checked against every night of the stay.",
+  "Add a two-night weekend minimum that offers the nearest valid stay.",
+  "Add wedding blocks with their own link, a group rate, and a 30-day cutoff.",
+  "Add the first night as a Stripe deposit before any room is held."
  ]
 }
