@@ -73,7 +73,7 @@
   "prompt_chip_2": "Scene Photos",
   "prompt_chip_3": "Injury Alerts",
   "prompt_chip_4": "Claim Tracking",
-  "hero_prompt": "<p>Build an accident report form my drivers can fill out at the scene, with photos and the other driver's insurance details.</p>"
+  "hero_prompt": "<p>Build an accident report form employees can fill out on a phone, right where it happened.</p>"
  },
  "images": {
   "tab_image_1": {
@@ -158,6 +158,20 @@
    "via": "recheck",
    "by": null,
    "note": "rules changed (8bc91b49d85c); QC now fails"
+  },
+  {
+   "t": "2026-10-13 10:33 UTC",
+   "state": "images",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-13 10:34 UTC",
+   "state": "reviewed",
+   "via": "ready",
+   "by": "A-w-10",
+   "note": "one rework applied by A-w-10 after wk-r-15 (0 findings marked blocking then, fixed per rules/SEVERITY.md); ready for Divit"
   }
  ],
  "plan": {
@@ -378,7 +392,7 @@
         ],
         [
          "Insurer",
-         "Globex Insurance"
+         "Lantern Mutual"
         ],
         [
          "Vehicle",
@@ -763,8 +777,8 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "b9bdd5846b24",
-  "date": "2026-10-10 09:54 UTC"
+  "rules_version": "bae2ab9babe0",
+  "date": "2026-10-13 10:34 UTC"
  },
  "writers": [
   "w-accident-report-form",
@@ -919,5 +933,11 @@
    "via": "review",
    "date": "2026-10-10 10:00 UTC"
   }
+ ],
+ "chip_adds": [
+  "Add both plates, both insurers, and the police report number to vehicle reports.",
+  "Add a required picture step that records when each shot was taken.",
+  "Add a Slack alert to HR whenever a report says someone was hurt.",
+  "Add the insurer's reference number and a count of days each one stays open."
  ]
 }
