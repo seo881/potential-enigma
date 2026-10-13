@@ -61,11 +61,15 @@ def cmd_fetch(a):
     import urllib.request, urllib.parse
     lim = int(a[a.index("--limit") + 1]) if "--limit" in a else 30; cap = int(a[a.index("--cap") + 1]) if "--cap" in a else None
     urls = [x for x in a if x.startswith("/")]; made = 0
+    if "--urls-file" in a: urls += [l.strip() for l in open(a[a.index("--urls-file") + 1]) if l.strip().startswith("/")]
+    pct = float(a[a.index("--budget-pct") + 1]) if "--budget-pct" in a else 25.0   # Divit 2026-10-13: stop at 25% of the balance read
+    start = json.load(open(os.path.join(BASE, "balance-start.json")))["balance_read"]; limit = start * pct / 100
     for u in urls:
         for p in phrases(u):
             if os.path.exists(raw_path(p)): continue
             if cap is not None and made >= cap: print(f"call cap {cap} reached"); return
             b0 = balance()
+            if start - b0 >= limit: print(f"budget line reached: {start - b0} of {int(limit)} units ({pct}% of {start}); stop and ask Divit"); return
             q = urllib.parse.urlencode({"type": "phrase_questions", "key": _key(), "phrase": p, "database": DB, "display_limit": lim, "export_columns": "Ph,Nq"})
             txt = urllib.request.urlopen("https://api.semrush.com/?" + q, timeout=60).read().decode("utf-8", "replace")
             b1 = balance(); made += 1
@@ -79,6 +83,59 @@ def cmd_fetch(a):
             with open(LEDGER, "a") as fh:
                 fh.write(json.dumps({"t": now(), "url": u, "phrase": p, "database": DB, "display_limit": lim, "rows": len(rows), "units": b0 - b1, "balance_after": b1}) + "\n")
             print(f"{u.rsplit('/', 1)[1]}: {len(rows)} rows, {b0 - b1} units" + (" (" + txt[:40].strip() + ")" if txt.startswith("ERROR") else ""), flush=True)
+
+HUB_PATH = {"LP": "/ai-landing-page-builder", "Form": "/ai-form-builder", "Auto": "/ai-automation-builder", "Automation": "/ai-automation-builder",
+            "SurveyQuiz": "/ai-survey-and-quiz-builder", "Survey": "/ai-survey-and-quiz-builder"}
+def _fetch_one(phrase, lim, label):
+    import urllib.request, urllib.parse
+    if os.path.exists(raw_path(phrase)): return 0
+    start = json.load(open(os.path.join(BASE, "balance-start.json")))["balance_read"]; b0 = balance()
+    if start - b0 >= start * 0.25: sys.exit(f"budget line reached ({start - b0} units); stop and ask Divit")
+    q = urllib.parse.urlencode({"type": "phrase_questions", "key": _key(), "phrase": phrase, "database": DB, "display_limit": lim, "export_columns": "Ph,Nq"})
+    txt = urllib.request.urlopen("https://api.semrush.com/?" + q, timeout=60).read().decode("utf-8", "replace"); b1 = balance()
+    rows = [] if txt.startswith("ERROR") else [{"keyword": l.split(";")[0], "volume": int(l.split(";")[1] or 0)} for l in txt.strip().splitlines()[1:] if ";" in l]
+    os.makedirs(RAW, exist_ok=True)
+    json.dump({"phrase": phrase, "database": DB, "display_limit": lim, "fetched": now(), "rows": rows}, open(raw_path(phrase), "w"), indent=1)
+    with open(LEDGER, "a") as fh:
+        fh.write(json.dumps({"t": now(), "url": label, "phrase": phrase, "database": DB, "display_limit": lim, "rows": len(rows), "units": b0 - b1, "balance_after": b1}) + "\n")
+    return b0 - b1
+
+def cmd_screen(a):
+    """New-keyword screening (Divit 2026-10-13, ruling 13): FAQ supply first. For each candidate row (replacement sheets), Semrush
+    questions for the primary and its top 2 secondaries (cached, budgeted), the same filter, plus distinct secondaries and the 2
+    template slots. Only candidates projecting to 10 with 0 rejects (flags allowed) go to Divit's sheet."""
+    import csv, synonyms as SY, park_rescue as R
+    rows = []
+    for r in csv.DictReader(open(os.path.join(ROOT, ".cache", "review", "replacements-2026-10-13.csv"))):
+        rows.append((r["hub"], r["proposed_url"], r["primary"], r["top secondaries"], "passed screen", r))
+    for r in csv.DictReader(open(os.path.join(ROOT, ".cache", "review", "replacements-2026-10-13-dropped.csv"))):
+        if r["verdict"] == "unconfirmed":
+            u = HUB_PATH.get(r["hub"], "/ai-form-builder") + "/" + re.sub(r"[^a-z0-9]+", "-", r["primary"].lower()).strip("-")
+            rows.append((r["hub"], u, r["primary"], "", "unconfirmed (intent)", r))
+    out = []; units = 0
+    for hub, u, prim, secs_txt, status, raw in rows:
+        secs = [x.strip().rsplit("(", 1)[0].strip() for x in (secs_txt or "").split(";") if x.strip()]
+        phr = [prim] + secs[:2]
+        for p_ in phr: units += _fetch_one(p_, 30, u)
+        g = P.Gate(u); heads = [P.phrase_re(prim)]; have = []; usable_ = []; flags = 0
+        for p_ in phr:
+            for q in sorted(json.load(open(raw_path(p_)))["rows"], key=lambda x: -x["volume"]):
+                nq = P.norm(q["keyword"])
+                if not any(h.search(nq) for h in heads) or SY.drop_class(q["keyword"]): continue
+                if any(re.search(r"(?<![a-z0-9])" + re.escape(b) + r"(?![a-z0-9])", nq) for b in _brands(u)): continue
+                rs = g.judge({"q": q["keyword"], "source": "keyword", "n": 5})
+                if any(x[1] == "reject" for x in rs) or R.dup(q["keyword"], have): continue
+                have.append(q["keyword"]); flags += any(x[1] == "flag" for x in rs)
+        sec_n = len({frozenset(P.content(x)) for x in secs if x and not R.dup(x, have)})
+        proj = len(have) + sec_n + 2
+        out.append({"hub": hub, "url": u, "primary": prim, "status": status, "semrush_usable": len(have), "flags": flags, "secondaries": sec_n,
+                    "projected": proj, "reaches_10": proj >= 10, "msv": raw.get("msv", "")})
+    p = os.path.join(ROOT, ".cache", "review", "replacements-screened-2026-10-13.csv")
+    with open(p, "w", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=list(out[0].keys()) + ["divit"]); w.writeheader()
+        for o in sorted(out, key=lambda o: (not o["reaches_10"], -(int(o["msv"] or 0)))): w.writerow(dict(o, divit=""))
+    for o in out: print(f"{o['status']:22s} usable {o['semrush_usable']:2d} (flags {o['flags']}) secs {o['secondaries']} -> projected {o['projected']:2d}" + (" REACHES 10" if o["reaches_10"] else ""))
+    print(f"units this screen: {units}; sheet {os.path.relpath(p, ROOT)} (only rows that reach 10 go to Divit)")
 
 def cmd_plan(urls):
     todo = 0
@@ -171,4 +228,4 @@ def cmd_report(urls):
 if __name__ == "__main__":
     a = sys.argv[1:]
     if not a: sys.exit(__doc__)
-    {"plan": cmd_plan, "save": cmd_save, "derive": cmd_derive, "report": cmd_report, "balance": cmd_balance, "fetch": cmd_fetch}[a[0]](a[1:])
+    {"plan": cmd_plan, "save": cmd_save, "derive": cmd_derive, "report": cmd_report, "balance": cmd_balance, "fetch": cmd_fetch, "screen": cmd_screen}[a[0]](a[1:])

@@ -212,6 +212,14 @@ def cmd_apply(a):
             for c in cases: f.write(json.dumps(c) + "\n")
     save_status(st)
     leaks = _leak_strike(rows, n)
+    # Divit 2026-10-13: approved multi-word variants re-filter the cached Semrush questions (no new calls)
+    import semrush_questions as SQ
+    rederived = 0
+    for page in sorted({r["page"] for r in rows}):
+        u = (st["pages"].get(page) or {}).get("url")
+        if u and syn["pages"].get(page) and any(os.path.exists(SQ.raw_path(p_)) for p_ in SQ.phrases(u)):
+            quiet(SQ.derive, u); rederived += 1
+    if rederived: print(f"re-filtered cached Semrush questions on {rederived} page(s) with approved variants (no new calls)")
     print(f"tranche {n} applied: {out['approved']} phrases approved, {out['rejected']} rejected, {out['struck']} questions struck ({len(cases)} golden cases); "
           f"{len(back)} split-write page(s) back to the queue end: {', '.join(back) or 'none'}. Next: ops/queue_rank.py, golden suite, commit.")
 

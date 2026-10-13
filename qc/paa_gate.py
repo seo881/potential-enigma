@@ -35,6 +35,20 @@ def jacc(a, b): return len(a & b) / len(a | b) if a | b else 0.0
 def has(term, q): return re.search(r"(?<![a-z0-9])" + re.escape(term) + r"(?![a-z0-9])", q) is not None
 def qhash(q):  # stable id of a question (normalised text), for strike lists and sheets: never the text itself in git
     import hashlib; return hashlib.sha1(norm0(q).encode()).hexdigest()[:10]   # norm0: hashes stay stable when the spelling list grows
+def flag_subtype(code, msg):
+    """The packet groups flags by subtype (Divit 2026-10-13); PA10 and PA14 are per-question by nature (mixed)."""
+    if code == "PA2": return "PA2 under a flagged parent"
+    if code == "PA6": return "PA6 asker unclear"
+    if code == "PA7" and msg.startswith("advice-shaped"): return "PA7 advice-shaped"
+    if code == "PA7" and msg.startswith("definitional"): return "PA7 " + msg.split()[1] + " definition"
+    if code == "PA14": return "PA14 capitalised name"
+    if code == "PA10": return "PA10 shared with a sibling page"
+    return code + " " + msg[:30]
+MIXED_SUBTYPES = ("PA14 capitalised name", "PA10 shared with a sibling page")
+def _flag_decisions():
+    p_ = os.path.join(ROOT, "rules", "flag_decisions.json")
+    d = json.load(open(p_)) if os.path.exists(p_) else {}
+    return {"subtypes": d.get("subtypes", {}), "questions": d.get("questions", {})}
 def phrase_re(p):  # head phrase, each word optionally plural, space or hyphen between words
     ws = norm(p).split()
     return re.compile(r"(?<![a-z0-9])" + r"[\s-]+".join(re.escape(w) + r"(?:s|es)?" for w in ws) + r"(?![a-z0-9])")
@@ -105,6 +119,21 @@ class Gate:
     def domain(self, q): return [d for d, ws in self.pt["domains"].items() if any(has(w, q) for w in ws)]
 
     def judge(self, item):
+        """The per-question rules, then Divit's flag decisions (rules/flag_decisions.json, Divit 2026-10-13): an approved flag subtype
+        becomes a note, a rejected one a reject; a per-question decision (mixed subtypes such as PA10 and PA14) settles that question."""
+        out = self._judge(item)
+        if not any(r[1] == "flag" for r in out): return out
+        fd = _flag_decisions(); qh = qhash(item.get("q") or "")
+        res = []
+        for r in out:
+            if r[1] != "flag": res.append(r); continue
+            st = flag_subtype(r[0], r[2]); d = (fd["questions"].get(self.slug + ":" + qh) or {}).get("decision") or (fd["subtypes"].get(st) or {}).get("decision")
+            if d == "approve": res.append((r[0], "note", "approved by Divit (" + st + "): " + r[2]))
+            elif d == "reject": res.append((r[0], "reject", "rejected by Divit (" + st + "): " + r[2]))
+            else: res.append(r)
+        return res
+
+    def _judge(self, item):
         """item: {q, prov, source}. Returns list of (rule, 'reject'|'flag'|'note', reason)."""
         q, out = norm(item["q"]), []
         prov, src = item.get("prov") or {}, item.get("source", "alsoasked")

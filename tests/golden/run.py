@@ -8,6 +8,7 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   gate-question  {url, sha, q_index, absent: [rule ids]}   (absent instead of expect) item q_index carries none of these rules, at any level
   gate-text      {url, q, expect | absent, levels?}         (absent: none of these rules may fire, e.g. PA3 on a spelling variant)
   spelling-verbatim {q, orig, expect_ok}                  ruling 14: q is the original or its US-spelling/house-form display, nothing else
+  gate-flag-decision {url, qh, from, subtype, expect}     Divit's flag packet: the question is rejected (expect reject) or no longer flagged for that subtype
   sq-filter      {url, q, expect_drop}                    Semrush question filter: drop reason (no_head|drop_class|brand|gate_reject|duplicate) or null = kept
   kw-variant     {a, b, expect_same}                      ruling 14: the K keyword checks treat a and b as the same keyword
   gate-text      {url, q, expect, levels?}                 the gate rejects this literal question with one of the expected rules
@@ -164,6 +165,17 @@ def caught(c):
     if c["kind"] == "kw-variant":          # ruling 14: the K checks read a UK spelling as the keyword's US spelling
         import qc_hub as Q
         return (Q.kw_bag(c["a"]) == Q.kw_bag(c["b"])) == c["expect_same"]
+    if c["kind"] == "gate-flag-decision":  # Divit's packet: a decided flag subtype/question is a reject (rejected) or no longer that flag (approved)
+        import paa_gate as PG, semrush_questions as SQ, io as _io, contextlib as _cl
+        g = PG.Gate(c["url"]); qs = []
+        if c.get("from") == "semrush": qs = [x["q"] for x in SQ.usable(g.slug)]
+        elif PG.pulls(g.slug):
+            with _cl.redirect_stdout(_io.StringIO()): qs = [i["q"] for i in PG.run_pull(g)[0]]
+        q = next((x for x in qs if PG.qhash(x) == c["qh"]), None)
+        if q is None: return False
+        rs = g.judge({"q": q, "source": "keyword" if c.get("from") == "semrush" else "alsoasked", "n": 5})
+        if c["expect"] == "reject": return any(r[1] == "reject" for r in rs)
+        return not any(r[1] == "flag" and PG.flag_subtype(r[0], r[2]) == c["subtype"] for r in rs)
     if c["kind"] == "sq-filter":           # Semrush phrase_questions filter (Divit 2026-10-13): dropped for the expected reason, or kept (None)
         import semrush_questions as SQ
         return SQ.keep_reason(c["url"], c["q"]) == c.get("expect_drop")
