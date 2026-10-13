@@ -37,6 +37,10 @@ SECTIONS = {
     "howto": ["howto_title", "howto_description"] + [f"howto_step_{i}_{k}" for i in range(1, 8) for k in ("title", "des")],
     "faq": ["faq", "faq_sources"],
 }
+# T1 (ops/typeset.py) files width findings under its own field names (canary 2026-10-13: they never reached a section check)
+for _sec, _extra in {"hero": ["prompt_chip"], "features": ["feature_title", "feature_body"], "usecases": ["tab_label", "tab_title", "tab_body"],
+                     "howto": ["howto_step_des", "howto_step_title"], "faq": ["faq_heading", "faq_q", "faq_a"]}.items():
+    SECTIONS[_sec] = SECTIONS[_sec] + _extra
 DEF_RX = re.compile(r"^(what is|what's|what are|what does)\b")
 HOW_RX = re.compile(r"^(how (do|to|can|would) (i|you|we)?\s*(make|create|build|set up|design|write))|^how to (make|create|build|set up)")
 
@@ -103,7 +107,13 @@ def default_table(url):
     top = (H.kmap().get(url) or {}).get("top10") or []
     rows = list(rowsets.most_common(1)[0][0]) if rowsets else ["build", "limits", "data", "ownership"]
     keys = [r.split("=")[0] for r in rows]
-    has_all = lambda c: all(k in (L["competitors"][c].get("facts") or {}) for k in keys)   # a competitor without a fact for a row cannot be tabled
+    pn = P.norm((H.kmap().get(url) or {}).get("primary") or "")
+    def fits_page(c):   # canary 2026-10-13: no employee-listening tool on an event survey, no quiz specialist on a survey
+        cats = set(L["competitors"][c].get("categories") or [])
+        if "employee" in cats and not re.search(r"employee|staff|engagement|360|pulse|exit|onboarding|culture|hr\b|workplace", pn): return False
+        if cats == {"quiz-tool"} and "quiz" not in pn: return False
+        return True
+    has_all = lambda c: fits_page(c) and all(k in (L["competitors"][c].get("facts") or {}) for k in keys)   # a competitor without a fact for a row cannot be tabled
     ranking = [c for c in L["competitors"] if has_all(c) and any(c.lower().split()[0] in (u or "").lower() for u in top)]
     pool = [c for c in (trios.most_common(1)[0][0] if trios else []) if c not in ranking and has_all(c)]
     pool += [c for c in L["competitors"] if c not in ranking and c not in pool and has_all(c)]
@@ -255,7 +265,7 @@ def cmd_assemble(a):
 
 def cmd_check(a):
     url, sec = a[0], a[1]
-    for fx in ("s10", "h3", "h4", "c4", "c5"):
+    for fx in ("s10", "h4", "c4", "c5"):   # h3 (serial comma) left to the writer: it inserted wrong commas in the canary
         subprocess.run([sys.executable, os.path.join(ROOT, "ops", "autofix.py"), fx, "--apply", "--url", url], capture_output=True)
     import qc_hub as Q
     s = load(url); s["_path"] = H.spath(url)

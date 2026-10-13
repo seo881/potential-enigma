@@ -56,7 +56,7 @@ def _SQ_HEAD(url, q):
     sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate as _PG
     g = _PG.Gate(url); return any(h.search(_PG.norm(q)) for h in g.heads)
 def kwmap(low):
-    low = _SP.to_us(low)   # ruling 14: a UK spelling counts as the keyword's US spelling (H2 still blocks it in visible copy)
+    low = _SP.to_us(low).replace("-", " ")   # ruling 14: UK spelling counts as US; a hyphen reads as a space ("post-event survey" carries "post event survey")
     for rx, c in KV_RX: low = rx.sub(lambda m: c + m.group(1), low)
     return low
 def kwn(s): return kwmap(norm(s))
