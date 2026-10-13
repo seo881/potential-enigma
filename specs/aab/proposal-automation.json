@@ -129,6 +129,13 @@
    "via": null,
    "by": "A-coord",
    "note": ""
+  },
+  {
+   "t": "2026-10-13 23:51 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-17",
+   "note": "rubric 10/10 by A-r-17; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -1148,5 +1155,285 @@
  "writers": [
   "A-w-54",
   "A-w-92"
- ]
+ ],
+ "review": {
+  "by": "A-r-17",
+  "date": "2026-10-13 23:51 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Proposal Automation That Takes Deals to Signature', meta title 'Proposal Automation: Draft, Approve, Sign | Emergent', hero 'Build proposal automation that fills the first draft from a CRM deal and follows it through approval and signature.' (D1 ok); howto_description one sentence with the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are proposal-software vendors and explainers; page defines the term (FAQ 3, sourced to Responsive; FAQ 1 government variant, sourced to FAR 15.203/15.204-1), shows the four stages a proposal tool covers, and gives a how-to from 'Pull your last 10 proposals' to a 30-day pilot."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Sales-ops vocabulary: 'the largest discount each role may give', 'Section L ... Section M', 'technical volume's page limit', 'marked won at the signed amount'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'When a deal reaches the stage you choose, the app pulls...', 'Set the largest discount each role can give on its own.', 'Bellwyn Systems has 21 days to answer a 46-page RFP...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC 0; one idea per sentence: 'A smaller library means fewer wrong sections in a draft.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail: 'A rule you cannot state in one sentence needs a decision from sales leadership first.' FAQ 7's link sentence recorded as a note."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Claims map to prompt-build, api-connect, ai-extraction, alerts, e-signature-capture, database-owned, code-export, no-caps. FAR and Responsive lines match their quoted spans. Numbers: 8,400 + 16,200 = 24,600; 48,000 x 0.8 = 38,400; 20% > 15%; $38,400 and 20% match between tab 2 and the cover. Table generated from the library."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No sibling primary (contract automation, pdf automation) in a heading; document automation and sales automation appear only as FAQ links."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, no brand or format ask in a question, hub link in item 2, sibling links in 4, 7, 10; secondaries 'sales proposal automation' (FAQ 4) and 'automate sales proposals' (FAQ 5); F9 lines in FAQ 5 and 8; no AlsoAsked items to verify (hubctl verbatim)."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: '$8,400 / $16,200 / Total $24,600', 'Ottoline's review'; '$38,400 / List $48,000', 'discount over 15% -> Sales director', 'Deshawn cannot send it'; '46 pages', '38 requirements', 'Low confidence: Technical volume page limit', 'To Joaquin Thorvaldsen'; '$31,500 Signed', 'Deal marked won HubSpot', 'To Caius', 'Signed proposal attached'."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "Attach your W-9 and payment details to the proposal as well, ready for the buyer's accounts payable automation.",
+    "issue": "FAQ 7 (win rates) ends on a sentence that exists to carry the accounts payable automation link; it does not bear on win rates and reads as forced (the writer's own flag). Not a false or unsourced fact, so it ships.",
+    "fix": "Move the link to an answer where the buyer's payables matter, or link a closer sibling such as sales automation or document automation.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "How does proposal automation shorten the B2B sales cycle? / How does proposal automation software speed up the sales cycle?",
+    "issue": "Three sales-cycle questions (FAQ 6 'How to shorten sales cycles with RFP and proposal automation?', 9, 10). Each answer takes a different angle (internal deadlines, one signature, stage timestamps), so this ships.",
+    "fix": "None required.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Zapier | Make (Integromat) | n8n",
+    "issue": "K7: none of the three columns ranks for proposal automation; the top 10 are proposal-software vendors (Proposify, GetAccept, DealHub, Responsive). The library has no proposal-software entries to pick from.",
+    "fix": "Coordinator: add proposal-software vendors to rules/competitors/aab.json with sources, then regenerate the table on a future pass.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "What is proposal automation in government contracting?",
+    "issue": "Item 1 defines a variant (government contracting); the general definition sits in item 3 ('What is proposal automation?').",
+    "fix": "Swap items 1 and 3 on a future pass.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief.tabs[3]",
+    "quote": "Courtyard redesign / Courtyard proposal",
+    "issue": "The heading's subline repeats its title.",
+    "fix": "Use the subline for something new, e.g. 'Signed by Solveig Imbert'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "FAQ 7 (win rates) ends on a sentence that exists to carry the accounts payable automation link; it does not bear on win rates and reads as forced (the writer's own flag). Not a false or unsourced fact, so it ships.",
+   "fix": "Move the link to an answer where the buyer's payables matter, or link a closer sibling such as sales automation or document automation.",
+   "by": "A-r-17",
+   "via": "review",
+   "date": "2026-10-13 23:51 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "Three sales-cycle questions (FAQ 6 'How to shorten sales cycles with RFP and proposal automation?', 9, 10). Each answer takes a different angle (internal deadlines, one signature, stage timestamps), so this ships.",
+   "fix": "None required.",
+   "by": "A-r-17",
+   "via": "review",
+   "date": "2026-10-13 23:51 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "K7: none of the three columns ranks for proposal automation; the top 10 are proposal-software vendors (Proposify, GetAccept, DealHub, Responsive). The library has no proposal-software entries to pick from.",
+   "fix": "Coordinator: add proposal-software vendors to rules/competitors/aab.json with sources, then regenerate the table on a future pass.",
+   "by": "A-r-17",
+   "via": "review",
+   "date": "2026-10-13 23:51 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "Item 1 defines a variant (government contracting); the general definition sits in item 3 ('What is proposal automation?').",
+   "fix": "Swap items 1 and 3 on a future pass.",
+   "by": "A-r-17",
+   "via": "review",
+   "date": "2026-10-13 23:51 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief.tabs[3]",
+   "issue": "The heading's subline repeats its title.",
+   "fix": "Use the subline for something new, e.g. 'Signed by Solveig Imbert'.",
+   "by": "A-r-17",
+   "via": "review",
+   "date": "2026-10-13 23:51 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "be99a5514e345773",
+   "alt:share_image": "69fe1d3b0b6836ab",
+   "alt:tab_image_1": "5c295d2f4e45a113",
+   "alt:tab_image_2": "b479cf63913abdb3",
+   "alt:tab_image_3": "d4cfd40571ee985c",
+   "alt:tab_image_4": "c8fd375b3d551496",
+   "breadcrumb": "0d45fad9a8853c9e",
+   "chip_adds": "1ef93ebfc2f89094",
+   "explore_cta": "3733f7b9c79d9b60",
+   "faq": "fd0d310d1665a3c8",
+   "feature_1": "abb376239abe1a0f",
+   "feature_2": "9662c5183cd23bf5",
+   "feature_3": "928cf122612f3d5e",
+   "feature_4": "6ed4265c37ff20ca",
+   "feature_5": "8a3bb03231672794",
+   "feature_6": "12f91b6bbe2b1763",
+   "features_heading": "b90555f65e6c0c5f",
+   "features_subheading": "2507ff74b0b8028a",
+   "h1": "7bb24060888bca0c",
+   "hero_description": "0cc093edd8265196",
+   "hero_prompt": "b214d0d9e24d3c0e",
+   "howto_description": "9971100d617e714f",
+   "howto_step_1_des": "e27436ea6e861e0c",
+   "howto_step_1_title": "104e36ee6605f071",
+   "howto_step_2_des": "8b30da8f782e18e7",
+   "howto_step_2_title": "0284de16959c2a05",
+   "howto_step_3_des": "6e27255e5541cc6c",
+   "howto_step_3_title": "1b495efb75c15edc",
+   "howto_step_4_des": "b2cd4b8eedf14dc3",
+   "howto_step_4_title": "c04b9d1102151266",
+   "howto_step_5_des": "a3db7aa1f5c53173",
+   "howto_step_5_title": "1aa48435493853bd",
+   "howto_step_6_des": "fdb66de8a849bc06",
+   "howto_step_6_title": "f11b1d39e9808d63",
+   "howto_step_7_des": "07b9c672ce631968",
+   "howto_step_7_title": "a4afe325f6a0b1c9",
+   "howto_title": "8939e70ffadcb886",
+   "meta_description": "ba4ad63d8f22d9d5",
+   "meta_title": "368744d8547614f8",
+   "mockup": "3493ac7a71d92c3f",
+   "product_name": "201c572e45c080cd",
+   "prompt_chip_1": "bc503cfa7996c21b",
+   "prompt_chip_2": "b9abd8b2df288ceb",
+   "prompt_chip_3": "37bbd6d553a1bb9f",
+   "prompt_chip_4": "99fd12713a0e96b0",
+   "slug": "13db4276caf5bfe4",
+   "tab_content_1": "1eeaa03ac0001088",
+   "tab_content_2": "ca4b5a8e233902ad",
+   "tab_content_3": "842992f29e35907e",
+   "tab_content_4": "f9384549da72c60d",
+   "tab_label_1": "89a1769bcf437702",
+   "tab_label_2": "30435216b7e2c484",
+   "tab_label_3": "1a5bc1e667621957",
+   "tab_label_4": "453795cc0bc18f8c",
+   "usecase_heading": "d1fdcebc78f75c1a",
+   "why_description": "22890301aedc1a76",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "7d24c1df4bb7227f"
+  },
+  "all": "d1a17ab81d6f74e5",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "be99a5514e345773",
+   "alt:share_image": "69fe1d3b0b6836ab",
+   "alt:tab_image_1": "5c295d2f4e45a113",
+   "alt:tab_image_2": "b479cf63913abdb3",
+   "alt:tab_image_3": "d4cfd40571ee985c",
+   "alt:tab_image_4": "c8fd375b3d551496",
+   "breadcrumb": "0d45fad9a8853c9e",
+   "chip_adds": "1ef93ebfc2f89094",
+   "explore_cta": "3733f7b9c79d9b60",
+   "faq": "fd0d310d1665a3c8",
+   "feature_1": "abb376239abe1a0f",
+   "feature_2": "9662c5183cd23bf5",
+   "feature_3": "928cf122612f3d5e",
+   "feature_4": "6ed4265c37ff20ca",
+   "feature_5": "8a3bb03231672794",
+   "feature_6": "12f91b6bbe2b1763",
+   "features_heading": "b90555f65e6c0c5f",
+   "features_subheading": "2507ff74b0b8028a",
+   "h1": "7bb24060888bca0c",
+   "hero_description": "0cc093edd8265196",
+   "hero_prompt": "b214d0d9e24d3c0e",
+   "howto_description": "9971100d617e714f",
+   "howto_step_1_des": "e27436ea6e861e0c",
+   "howto_step_1_title": "104e36ee6605f071",
+   "howto_step_2_des": "8b30da8f782e18e7",
+   "howto_step_2_title": "0284de16959c2a05",
+   "howto_step_3_des": "6e27255e5541cc6c",
+   "howto_step_3_title": "1b495efb75c15edc",
+   "howto_step_4_des": "b2cd4b8eedf14dc3",
+   "howto_step_4_title": "c04b9d1102151266",
+   "howto_step_5_des": "a3db7aa1f5c53173",
+   "howto_step_5_title": "1aa48435493853bd",
+   "howto_step_6_des": "fdb66de8a849bc06",
+   "howto_step_6_title": "f11b1d39e9808d63",
+   "howto_step_7_des": "07b9c672ce631968",
+   "howto_step_7_title": "a4afe325f6a0b1c9",
+   "howto_title": "8939e70ffadcb886",
+   "meta_description": "ba4ad63d8f22d9d5",
+   "meta_title": "368744d8547614f8",
+   "mockup": "3493ac7a71d92c3f",
+   "product_name": "201c572e45c080cd",
+   "prompt_chip_1": "bc503cfa7996c21b",
+   "prompt_chip_2": "b9abd8b2df288ceb",
+   "prompt_chip_3": "37bbd6d553a1bb9f",
+   "prompt_chip_4": "99fd12713a0e96b0",
+   "slug": "13db4276caf5bfe4",
+   "tab_content_1": "1eeaa03ac0001088",
+   "tab_content_2": "ca4b5a8e233902ad",
+   "tab_content_3": "842992f29e35907e",
+   "tab_content_4": "f9384549da72c60d",
+   "tab_label_1": "89a1769bcf437702",
+   "tab_label_2": "30435216b7e2c484",
+   "tab_label_3": "1a5bc1e667621957",
+   "tab_label_4": "453795cc0bc18f8c",
+   "usecase_heading": "d1fdcebc78f75c1a",
+   "why_description": "22890301aedc1a76",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "7d24c1df4bb7227f"
+  },
+  "all": "d1a17ab81d6f74e5",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

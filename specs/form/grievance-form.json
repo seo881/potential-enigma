@@ -119,6 +119,13 @@
    "via": null,
    "by": "A-coord",
    "note": ""
+  },
+  {
+   "t": "2026-10-13 23:51 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-17",
+   "note": "rubric 10/10 by A-r-17; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -1081,5 +1088,285 @@
  },
  "writers": [
   "A-w-94"
- ]
+ ],
+ "review": {
+  "by": "A-r-17",
+  "date": "2026-10-13 23:51 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Grievance Form That Tracks Every Step and Deadline', meta title 'Grievance Form With Step Deadlines | Emergent', hero 'Build a grievance form that records the facts, counts the filing deadline in working days, and tracks each step's answer.' (121 chars, primary, leads with Build); howto_description one sentence with the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "AMBER (issuer PDFs): page gives the fields a grievance needs (feature_1, FAQ 5 'grievance form template should include...'), a filled example (FAQ 3 'Grievant: Leah Moreno ... Remedy: 6 hours of back pay'), a how-to built on the reader's own procedure, and the deadline tracking the issuer PDFs lack."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Steward, contract article, Step 1/Level 2, working days, hearing panel: 'Transit Local 418's contract allows 10 working days from the incident to file'; 'Harlow County's policy gives a supervisor 5 working days to answer a Level 1 grievance in writing'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Asks for the grievant, the steward...', 'Open the union contract or the employee handbook at its grievance article.', 'Brightwater Foods runs three plants...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC 0 (Q2/Q5/Q6/Q7 clear); sentences carry one idea: 'Re-enter a grievance from last year that has already closed, with its real dates.' Notes below on repeated how-to questions and the features heading."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, operator detail: 'If one differs by a day, check whether the count starts on the incident date or the day after.' Forced FAQ link sentences recorded as notes."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Claims map to prompt-build, database-owned, alerts, no-caps, code-export, e-signature-capture, free-start. EEOC line matches eeoc.gov quote ('generally will not be extended ... union grievance'); PLRA and Woodford v. Ngo lines match the Cornell quotes. Dates check: Mar 3 + 10 working days = Mar 17, filed day 6 leaves 4; Apr 6 + 5 working days = Apr 13 (2026); packet 1 + 1 + 2 = 4."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No sibling primary (complaint form, incident report form) in a heading; tab H3s are grievance-specific ('Escalated to Level 2 when 5 working days pass unanswered')."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, no brand or format ask in a question, hub link in item 2, sibling links in 4, 7, 10, secondaries 'grievance forms', 'grievance form template', 'grievance form pdf' carried; F9 lines in FAQ 5 and 9; locked questions verbatim (hubctl verbatim: Q3 ok, Q6 ok)."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: 'Day 6', 'Mar 17', '4 working days to spare', 'Emailed to the garage superintendent'; 'Level 2: Omar Haddad / Slack direct message'; '4 documents, one packet', '3 of 3 sent', 'Hale Hall 214'; '6 open', 'G-301 Dayton Step 2 2 days late'. One hero per tab, cursor on button edge."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #9",
+    "field": "faq",
+    "quote": "Does an emergency grievance form exhaust administrative remedies?",
+    "issue": "FAQ 10 drifts to prison grievances under the PLRA; the page, its tabs and the top 10 are workplace grievance forms. Sourced and answered, so it ships, but it is the one question a workplace searcher would skip.",
+    "fix": "On a future pass, swap for a workplace question from the passing set.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "An employee evaluation form dispute falls outside the Act.",
+    "issue": "Link sentences written to carry an anchor rather than help the reader. All instances: FAQ 10 'An employee evaluation form dispute falls outside the Act.'; FAQ 7 'Copy your name and employee ID exactly as they appear on your employee information form.'; FAQ 4 'If the online form sits behind a sign in form, use your own account'.",
+    "fix": "Place each sibling link where the reader would want that page, or drop it for a more natural target.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "How to fill a grievance form? / How to complete a grievance form? / How to fill out a grievance form?",
+    "issue": "Five near-identical how-to questions (FAQ 4 'How to correctly fill out a grievance form online?', 6, 7, 8, 9 'How to write a grievance form?'). Each answer takes a different angle (facts, signing, remedy, labels), so this ships.",
+    "fix": "None required; a future pass could replace one with a PAA question such as how long the process takes.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "features_heading",
+    "quote": "What Happens After a Grievance Is Filed",
+    "issue": "Feature 1 (the fields) and feature 2 ('The grievant sees the last day to file before they submit') work before filing, and feature 6 is code export, so the heading is imprecise.",
+    "fix": "A heading that covers the form and the record, e.g. 'The Form, the Deadlines and the Record'.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief.tabs[1]",
+    "quote": "Level 1 answer due / No written answer recorded",
+    "issue": "The missed due date is drawn with a green 'done' check, which reads as completed although no answer came.",
+    "fix": "Draw the missed step in a warn or bad state.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #9",
+   "field": "faq",
+   "issue": "FAQ 10 drifts to prison grievances under the PLRA; the page, its tabs and the top 10 are workplace grievance forms. Sourced and answered, so it ships, but it is the one question a workplace searcher would skip.",
+   "fix": "On a future pass, swap for a workplace question from the passing set.",
+   "by": "A-r-17",
+   "via": "review",
+   "date": "2026-10-13 23:51 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "Link sentences written to carry an anchor rather than help the reader. All instances: FAQ 10 'An employee evaluation form dispute falls outside the Act.'; FAQ 7 'Copy your name and employee ID exactly as they appear on your employee information form.'; FAQ 4 'If the online form sits behind a sign in form, use your own account'.",
+   "fix": "Place each sibling link where the reader would want that page, or drop it for a more natural target.",
+   "by": "A-r-17",
+   "via": "review",
+   "date": "2026-10-13 23:51 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "Five near-identical how-to questions (FAQ 4 'How to correctly fill out a grievance form online?', 6, 7, 8, 9 'How to write a grievance form?'). Each answer takes a different angle (facts, signing, remedy, labels), so this ships.",
+   "fix": "None required; a future pass could replace one with a PAA question such as how long the process takes.",
+   "by": "A-r-17",
+   "via": "review",
+   "date": "2026-10-13 23:51 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "features_heading",
+   "issue": "Feature 1 (the fields) and feature 2 ('The grievant sees the last day to file before they submit') work before filing, and feature 6 is code export, so the heading is imprecise.",
+   "fix": "A heading that covers the form and the record, e.g. 'The Form, the Deadlines and the Record'.",
+   "by": "A-r-17",
+   "via": "review",
+   "date": "2026-10-13 23:51 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief.tabs[1]",
+   "issue": "The missed due date is drawn with a green 'done' check, which reads as completed although no answer came.",
+   "fix": "Draw the missed step in a warn or bad state.",
+   "by": "A-r-17",
+   "via": "review",
+   "date": "2026-10-13 23:51 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "ac354da5b0477f17",
+   "alt:share_image": "40db2e55506438f4",
+   "alt:tab_image_1": "a15a24bb0b416dcc",
+   "alt:tab_image_2": "663402b262cd5b64",
+   "alt:tab_image_3": "497c6f6805d3e0fd",
+   "alt:tab_image_4": "bbd0b4d7febd4118",
+   "breadcrumb": "43ddd1732815083f",
+   "chip_adds": "1d3b87b19ead0816",
+   "explore_cta": "53af5a5ff3a87826",
+   "faq": "1627ac5da3abacc4",
+   "feature_1": "e66ee3f6ded3f5a2",
+   "feature_2": "3784b63cf0ec358d",
+   "feature_3": "038ff42a3a0982bf",
+   "feature_4": "1ec5a96bd7064e02",
+   "feature_5": "837eee3ea249c238",
+   "feature_6": "7db13a2c2741affe",
+   "features_heading": "1b93ad220f79c892",
+   "features_subheading": "807847ccdeeed957",
+   "h1": "9e88065d233317ac",
+   "hero_description": "27f89934191698a5",
+   "hero_prompt": "2d1854ed31ee89ea",
+   "howto_description": "a26b0e414e4ab75c",
+   "howto_step_1_des": "d6b05f0dda38a87c",
+   "howto_step_1_title": "95c6871764968e8d",
+   "howto_step_2_des": "eed0438c94946d8f",
+   "howto_step_2_title": "5acd5c2f1657d57b",
+   "howto_step_3_des": "5c0471a4fff4d85a",
+   "howto_step_3_title": "1ea954d857a17f6e",
+   "howto_step_4_des": "160671c68c594a44",
+   "howto_step_4_title": "234aa72f27915d97",
+   "howto_step_5_des": "1ebf3aa8ef762663",
+   "howto_step_5_title": "f03f5c918f6bab0b",
+   "howto_step_6_des": "82a6d318adbef1fd",
+   "howto_step_6_title": "bf7ed5df3d1e554c",
+   "howto_step_7_des": "da9d64c3d36939e7",
+   "howto_step_7_title": "476c7f80db12fd2b",
+   "howto_title": "5d629e4b11209a93",
+   "meta_description": "4601bde533e676f9",
+   "meta_title": "b1a7a84b833ed964",
+   "mockup": "53940c3646f6286e",
+   "product_name": "67e9575bf6512bbd",
+   "prompt_chip_1": "dc4daf5dec092c71",
+   "prompt_chip_2": "9e750736461e0428",
+   "prompt_chip_3": "6c53581853c3fb0f",
+   "prompt_chip_4": "5a2db0e9255eee77",
+   "slug": "b43cfbbda14d6148",
+   "tab_content_1": "be19196f7ff7e439",
+   "tab_content_2": "11fbff896313ec26",
+   "tab_content_3": "7bf9eebae3f404c4",
+   "tab_content_4": "8c69cc39abd932b3",
+   "tab_label_1": "1afa347f51dbc007",
+   "tab_label_2": "6801ac375bd28654",
+   "tab_label_3": "222362a6a86ea5b7",
+   "tab_label_4": "992c3e07561bdf4d",
+   "usecase_heading": "d4d50e56e2ec2088",
+   "why_description": "9f041765f9c4ac2a",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "ee7c6d4efca4143d"
+  },
+  "all": "ebce56edba93f23c",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "ac354da5b0477f17",
+   "alt:share_image": "40db2e55506438f4",
+   "alt:tab_image_1": "a15a24bb0b416dcc",
+   "alt:tab_image_2": "663402b262cd5b64",
+   "alt:tab_image_3": "497c6f6805d3e0fd",
+   "alt:tab_image_4": "bbd0b4d7febd4118",
+   "breadcrumb": "43ddd1732815083f",
+   "chip_adds": "1d3b87b19ead0816",
+   "explore_cta": "53af5a5ff3a87826",
+   "faq": "1627ac5da3abacc4",
+   "feature_1": "e66ee3f6ded3f5a2",
+   "feature_2": "3784b63cf0ec358d",
+   "feature_3": "038ff42a3a0982bf",
+   "feature_4": "1ec5a96bd7064e02",
+   "feature_5": "837eee3ea249c238",
+   "feature_6": "7db13a2c2741affe",
+   "features_heading": "1b93ad220f79c892",
+   "features_subheading": "807847ccdeeed957",
+   "h1": "9e88065d233317ac",
+   "hero_description": "27f89934191698a5",
+   "hero_prompt": "2d1854ed31ee89ea",
+   "howto_description": "a26b0e414e4ab75c",
+   "howto_step_1_des": "d6b05f0dda38a87c",
+   "howto_step_1_title": "95c6871764968e8d",
+   "howto_step_2_des": "eed0438c94946d8f",
+   "howto_step_2_title": "5acd5c2f1657d57b",
+   "howto_step_3_des": "5c0471a4fff4d85a",
+   "howto_step_3_title": "1ea954d857a17f6e",
+   "howto_step_4_des": "160671c68c594a44",
+   "howto_step_4_title": "234aa72f27915d97",
+   "howto_step_5_des": "1ebf3aa8ef762663",
+   "howto_step_5_title": "f03f5c918f6bab0b",
+   "howto_step_6_des": "82a6d318adbef1fd",
+   "howto_step_6_title": "bf7ed5df3d1e554c",
+   "howto_step_7_des": "da9d64c3d36939e7",
+   "howto_step_7_title": "476c7f80db12fd2b",
+   "howto_title": "5d629e4b11209a93",
+   "meta_description": "4601bde533e676f9",
+   "meta_title": "b1a7a84b833ed964",
+   "mockup": "53940c3646f6286e",
+   "product_name": "67e9575bf6512bbd",
+   "prompt_chip_1": "dc4daf5dec092c71",
+   "prompt_chip_2": "9e750736461e0428",
+   "prompt_chip_3": "6c53581853c3fb0f",
+   "prompt_chip_4": "5a2db0e9255eee77",
+   "slug": "b43cfbbda14d6148",
+   "tab_content_1": "be19196f7ff7e439",
+   "tab_content_2": "11fbff896313ec26",
+   "tab_content_3": "7bf9eebae3f404c4",
+   "tab_content_4": "8c69cc39abd932b3",
+   "tab_label_1": "1afa347f51dbc007",
+   "tab_label_2": "6801ac375bd28654",
+   "tab_label_3": "222362a6a86ea5b7",
+   "tab_label_4": "992c3e07561bdf4d",
+   "usecase_heading": "d4d50e56e2ec2088",
+   "why_description": "9f041765f9c4ac2a",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "ee7c6d4efca4143d"
+  },
+  "all": "ebce56edba93f23c",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
