@@ -1,0 +1,758 @@
+{
+ "url": "/ai-automation-builder/shipping-automation",
+ "hub": "Auto",
+ "item_id": null,
+ "status": "spec",
+ "written_by": "B-w-5",
+ "keywords": {
+  "primary": "shipping automation",
+  "secondaries_used": [
+   "automated shipping",
+   "shipping automation solutions",
+   "shipping automation software",
+   "automated shipping system",
+   "automated shipping solutions",
+   "automated shipping software"
+  ]
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Shipping Automation for Labels and Tracking | Emergent",
+  "meta_description": "Describe your shipping rules and Emergent builds the shipping automation: rate checks, label batches, and stalled-package alerts. Free to start.",
+  "h1": "Build Shipping Automation for Labels and Late Packages",
+  "slug": "shipping-automation",
+  "product_name": "Shipping Automation Builder",
+  "hero_description": "Build shipping automation that buys the right label for each order and tells your team when a package stops moving.",
+  "breadcrumb": "Shipping Automation",
+  "category": "a33cd4fb124ec86a130809893b2b3896",
+  "explore_cta": "Build My Shipping Automation",
+  "features_heading": "What Your Shipping Workflow Runs Each Day",
+  "features_subheading": "Shipping automation does the label and tracking work on every order. Carrier contracts and packaging stay your call.",
+  "feature_1": "<h3>Quotes from every carrier you connect</h3><p>Connects to EasyPost, Shippo, or a carrier's own API. Each paid order gets quotes from your accounts at your negotiated rates, and the rate picked is saved with the reason.</p>",
+  "feature_2": "<h3>Shipping rules written as plain sentences</h3><p>Describe a rule the way you would tell a new hire, such as ship anything over 5 lb by ground. Emergent turns it into code you can read, and each new rule is one more prompt.</p>",
+  "feature_3": "<h3>Shipments and products in your database</h3><p>Stores every label, tracking event, and HS code in a database you own. Support sees where a parcel is without opening a carrier site, and finance can total label spend by month.</p>",
+  "feature_4": "<h3>Exceptions go to a named person</h3><p>Sends a Slack message or an email when an address fails or a parcel stalls. The alert names the order and its last scan, and it escalates to a second person if nobody answers it.</p>",
+  "feature_5": "<h3>Peak season with no task cap</h3><p>Runs every order through the same rules in the week before a holiday cutoff. When volume triples, there is no task cap for the extra label runs to hit, and nothing waits for a reset.</p>",
+  "feature_6": "<h3>Your shipping code in GitHub</h3><p>Exports the full codebase to your GitHub repository on paid plans. A developer can add a regional carrier or edit a rule in code, and the app runs wherever your stack is hosted.</p>",
+  "why_title": "Why Build Shipping Workflows With Emergent?",
+  "why_description": "Emergent builds the shipping workflow and the app your team works in, on a database you own, with no task cap on your busiest day.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Zapier</th>\n        <th scope=\"col\">Make (Integromat)</th>\n        <th scope=\"col\">n8n</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt for the workflow and the app around it</td>\n        <td class=\"col-other\">Templates and editor, AI copilot</td>\n        <td class=\"col-other\">Visual canvas</td>\n        <td class=\"col-other\">Visual canvas, self-hosted or cloud</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">What you get</th>\n        <td class=\"col-brand\">Workflow + trigger form + database + dashboard, as code you own</td>\n        <td class=\"col-other\">Zaps, plus Tables and Interfaces inside Zapier</td>\n        <td class=\"col-other\">Scenarios inside Make</td>\n        <td class=\"col-other\">Workflows inside n8n</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Behavior at cap</th>\n        <td class=\"col-brand\">Keeps running, no task cap</td>\n        <td class=\"col-other\">Overage billed at up to 1.25× the base rate</td>\n        <td class=\"col-other\">Runs pause</td>\n        <td class=\"col-other\">Cloud workflows stop until the reset or an upgrade</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">AI and agent steps</th>\n        <td class=\"col-brand\">Native, share the same credit pool</td>\n        <td class=\"col-other\">Priced by model tier, drawn from the task pool</td>\n        <td class=\"col-other\">AI modules cost variable credits</td>\n        <td class=\"col-other\">Bring your own model API key, billed by the provider</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">Yes on Community Edition</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "Four Shipping Jobs Worth Automating First",
+  "tab_label_1": "Rate Shopping",
+  "tab_label_2": "Batch Labels",
+  "tab_label_3": "Stalled Packages",
+  "tab_label_4": "Customs Forms",
+  "tab_content_1": "<h3>The cheapest label that still keeps the 4-day promise</h3><p>Hollow Pine Roasters ships coffee from Ohio and promises delivery within 4 business days. When an order is paid, the app pulls quotes from its USPS, UPS, and FedEx accounts. A cheaper rate that would arrive late is skipped. The lowest on-time rate is bought, with the carrier and tracking number saved on the order.</p>",
+  "tab_content_2": "<h3>135 labels bought before the afternoon pickup</h3><p>At 2:00 PM on weekdays, the app buys labels for every order paid since the last run. Today that is 138 orders. Three addresses fail the shipping API's check and stay out of the batch while those customers confirm them by email. Teo Marsh, the warehouse lead, gets 135 labels with a packing list sorted by bin.</p>",
+  "tab_content_3": "<h3>A package stalled for 72 hours goes to one person</h3><p>Tracking updates arrive by webhook and are saved against each order. If a package shows no new carrier scan for 72 hours, Ines Calder, the support lead, gets a Slack direct message with the order number and last scan location. The customer gets a short delay email in the same hour.</p>",
+  "tab_content_4": "<h3>A customs declaration for each order leaving the US</h3><p>Orders bound for Canada or the UK need a customs declaration before the label prints. The app fills each line from the product record: description, HS code, origin, and value in US dollars. An order with a product missing its HS code waits for Teo Marsh, and the code he adds is reused on every later order.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { rateShopping: \"Build rate shopping for my coffee store. We ship from Ohio and promise delivery within 4 business days. When an order is paid, get quotes from our USPS, UPS, and FedEx accounts through EasyPost, skip any rate that would arrive late, and buy the cheapest one left. Save the carrier and tracking number on the order.\", batchLabels: \"Build a daily label batch for my store. At 2:00 PM on weekdays, buy labels for every order paid since the last run. Verify each address first; hold any that fail and email that customer to confirm the street and unit. Send the labels with a packing list sorted by bin to Teo Marsh, our warehouse lead.\", stalledPackages: \"Build stalled package alerts for my store. Save every tracking update from EasyPost against its order. If a package has no new carrier scan for 72 hours, send our support lead Ines Calder a Slack direct message with the order number and last scan location. Email the customer a short delay notice in the same hour.\", customsForms: \"Build customs declarations for my store's orders to Canada and the UK. Before the label prints, fill a line per item from our product table with the description, HS code, origin, and value in US dollars. If a product has no HS code, hold the order for Teo Marsh, and save the code he adds so later orders reuse it.\" };</p>",
+  "howto_title": "How to Build Shipping Automation",
+  "howto_description": "Seven steps to set up shipping automation on your own carrier accounts, tested on past orders before it buys a live label.",
+  "howto_step_1_title": "01 Time the manual shipping work",
+  "howto_step_2_title": "02 Connect your carrier accounts",
+  "howto_step_3_title": "03 Give every product a weight and a box",
+  "howto_step_4_title": "04 Describe the rules to Emergent",
+  "howto_step_1_des": "Count the minutes your team spends each day comparing carrier quotes, retyping addresses, printing labels, and answering where-is-my-order emails. Write down which carrier accounts you pay for and the delivery promise shown on your checkout page.",
+  "howto_step_2_des": "Link the carrier accounts you already have through a shipping API such as EasyPost. Your negotiated rates then come back with every quote. Add the warehouse address and each box size you stock, with its inside dimensions.",
+  "howto_step_3_des": "Record each product's packed weight and the box it usually ships in. Carriers such as UPS bill the greater of actual weight and dimensional weight, which comes from the box size. A light bag of beans in an oversized box can cost more than it weighs.",
+  "howto_step_4_des": "Write each rule as you would explain it to a new packer: the delivery promise, the batch time, how long a parcel may sit without a scan, and who hears about it. Emergent builds the workflow, its tables, and a dashboard your team can open.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Shipping Questions, Answered\", \"items\": [{\"q\": \"What is shipping automation?\", \"a\": \"Shipping automation is software that runs the steps between a paid order and a moving parcel without someone doing each one by hand. It compares carrier rates, buys labels, checks addresses, and watches tracking. People step in only for the orders a rule cannot settle, such as a failed address or a parcel with no recent scan.\"}, {\"q\": \"How do you build shipping automation software?\", \"a\": \"Describe your carrier accounts, your delivery promise, and who handles exceptions in Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>. It writes shipping automation software around those rules, connected to EasyPost or another shipping API, with tables for orders and shipments. Change a rule later by describing the change.\"}, {\"q\": \"What kinds of shipping automation solutions are there?\", \"a\": \"Multi-carrier shipping software gives a team one screen for labels and tracking. Shipping APIs put the same steps inside a store's own systems. Warehouse automation is the physical side, with conveyors and label printers. Shipping sits inside wider <a href='https://emergent.sh/ai-automation-builder/ecommerce-automation'>ecommerce automation</a>, which also covers supplier routing and customer emails.\"}, {\"q\": \"How does an automated shipping system choose a carrier?\", \"a\": \"It requests a quote from each connected carrier for the parcel's weight, box size, and destination, then applies your rule. The usual rule is the lowest rate that still meets the promised delivery window. A good automated shipping system also records why it picked each carrier, where support can read it later.\"}, {\"q\": \"What should automated shipping software do for a small store?\", \"a\": \"Start with the work that eats the afternoon: buying the day's labels and checking addresses before they print. Automated shipping software that covers those two jobs frees the most time for a team of one or two. Tracking alerts and customs forms can follow later. In Emergent, each is one more prompt to the same app, with no task cap as volume grows.\"}, {\"q\": \"When are automated shipping solutions worth setting up?\", \"a\": \"Automated shipping solutions earn their keep once someone spends part of every day retyping addresses into carrier sites and pasting tracking numbers back. A rule that reads the order directly removes the step where a wrong unit number gets in. The same idea applies to other copying jobs through <a href='https://emergent.sh/ai-automation-builder/data-entry-automation'>data entry automation</a>.\"}, {\"q\": \"Does automated shipping work for international orders?\", \"a\": \"Yes, once each product record holds what customs asks for. The USPS International Mail Manual requires at least a 6-digit HS code per item unless a country's listing says otherwise, along with a specific description, origin, and value. Automated shipping then drafts the declaration for every parcel leaving the US. Emergent keeps those product fields in a database you own.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Replay last week's orders",
+  "howto_step_5_des": "Run last week's orders through the rules without buying any labels. Compare the carrier and cost the app picks for each order with what your team bought by hand, and adjust any rule that chose differently before it touches a live order.",
+  "howto_step_6_title": "06 Start with domestic orders",
+  "howto_step_6_des": "Switch on domestic orders first and keep international ones manual for a week. Check the afternoon batch against the packing station's count each day, and read every held address to see why it failed the check.",
+  "howto_step_7_title": "07 Add tracking alerts and customs",
+  "howto_step_7_des": "Turn on the stalled-parcel alerts once labels run cleanly, then the customs step for orders leaving the US. Each new rule reads the same order and product tables, and an HS code your team adds once is there for the next order.",
+  "prompt_chip_1": "Rate Shopping",
+  "prompt_chip_2": "Label Batches",
+  "prompt_chip_3": "Delay Alerts",
+  "prompt_chip_4": "Customs Forms",
+  "hero_prompt": "<p>Create shipping automation that buys the cheapest on-time label for each order and alerts my team when a package stalls.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/aab/shipping-automation/uc-1.svg",
+   "alt": ""
+  },
+  "tab_image_2": {
+   "path": "images/aab/shipping-automation/uc-2.svg",
+   "alt": ""
+  },
+  "tab_image_3": {
+   "path": "images/aab/shipping-automation/uc-3.svg",
+   "alt": ""
+  },
+  "tab_image_4": {
+   "path": "images/aab/shipping-automation/uc-4.svg",
+   "alt": ""
+  },
+  "cover_image": {
+   "path": "images/aab/shipping-automation/cover.svg",
+   "alt": ""
+  },
+  "share_image": {
+   "path": "images/aab/shipping-automation/og.webp",
+   "alt": ""
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-13 11:10 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  }
+ ],
+ "plan": {
+  "angle": "The top 10 are shipping-software vendors (ShipStation, Easyship, EasyPost), warehouse hardware (Dematic, Streamtech) and glossary explainers that list benefits without one rule a store could copy. This page shows four shipping rules an ops lead would recognize, each with its trigger, its numbers and the person it reaches: rate shopping against a delivery promise, a 2:00 PM label batch that holds unverified addresses, a stalled-package alert after 72 hours without a scan, and customs data filled from the product record.",
+  "tab_stories": [
+   "When an order is paid, the app compares the rates from the store's USPS, UPS and FedEx accounts and buys the cheapest label that still arrives inside the 4-day delivery promise.",
+   "At 2:00 PM each weekday the app buys labels for the day's paid orders in one batch, and orders whose address the shipping API cannot verify are held out and the customer is emailed to confirm it.",
+   "A tracking webhook updates each shipment, and a package with no carrier scan for 72 hours sends the support lead a Slack direct message and the customer a delay email.",
+   "For orders leaving the US, the app fills the customs declaration from each product's HS code, country of origin and value, and holds any order with a product missing its HS code."
+  ],
+  "openers": [
+   "Hollow Pine Roasters ships coffee from one warehouse",
+   "At 2:00 PM on weekdays",
+   "Tracking updates arrive from the shipping API",
+   "Orders bound for Canada or the UK",
+   "Count the minutes your team spends",
+   "Connect the carrier accounts you already pay for",
+   "Replay a week of orders against the new rules",
+   "Zapier, Make and n8n pass data between apps"
+  ],
+  "heading_shapes": [
+   "The cheapest label that still keeps the 4-day promise",
+   "135 labels bought before the afternoon pickup",
+   "A package stalled for 72 hours goes to one person",
+   "A customs declaration for each order leaving the US"
+  ],
+  "claims_to_source": [
+   "A multi-carrier shipping API (for example EasyPost) returns rates from several carriers for one shipment and buys the label for the chosen rate",
+   "Shipping APIs verify a delivery address before a label is bought",
+   "Shipping APIs send tracking status updates to your app by webhook",
+   "Carriers bill the greater of actual weight and dimensional weight",
+   "International shipments need a customs declaration listing each item's description, value, country of origin and HS code"
+  ]
+ },
+ "domain_sources": [
+  {
+   "claim": "A multi-carrier shipping API (for example EasyPost) returns rates from several carriers for one shipment and buys the label for the chosen rate",
+   "source_url": "https://docs.easypost.com/guides/getting-started",
+   "date": "2026-10-13"
+  },
+  {
+   "claim": "Shipping APIs verify a delivery address before a label is bought",
+   "source_url": "https://docs.easypost.com/guides/address-verification-guide",
+   "date": "2026-10-13"
+  },
+  {
+   "claim": "Shipping APIs send tracking status updates to your app by webhook",
+   "source_url": "https://docs.easypost.com/guides/tracking-guide",
+   "date": "2026-10-13"
+  },
+  {
+   "claim": "Carriers bill the greater of actual weight and dimensional weight",
+   "source_url": "https://www.ups.com/us/en/support/shipping-support/shipping-dimensions-weight",
+   "date": "2026-10-13"
+  },
+  {
+   "claim": "International shipments need a customs declaration listing each item's description, value, country of origin and HS code",
+   "source_url": "https://pe.usps.com/text/imm/immc5_020.htm",
+   "date": "2026-10-13"
+  }
+ ],
+ "table": {
+  "vs": [
+   "Zapier",
+   "Make (Integromat)",
+   "n8n"
+  ],
+  "rows": [
+   "build",
+   "output",
+   "cap",
+   "ai",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "chip_prompts": [
+  "When an order is paid, compare our USPS, UPS and FedEx rates and buy the cheapest label that still arrives within our 4-day promise.",
+  "At 2:00 PM every weekday, buy labels for all paid orders in one batch and hold any order whose address fails verification.",
+  "If a package has no carrier scan for 72 hours, message our support lead in Slack and email the customer a delay notice.",
+  "Fill the customs declaration for orders leaving the US from each product's HS code, origin and value, and hold any order missing a code."
+ ],
+ "chip_adds": [
+  "Add rate shopping that buys the cheapest label arriving within the delivery promise.",
+  "Add a daily label batch that holds orders with unverified addresses.",
+  "Add a Slack alert to the support lead when a package has no scan for 72 hours.",
+  "Add customs declarations filled from each product's HS code and origin."
+ ],
+ "claims_used": [
+  "prompt-build",
+  "api-connect",
+  "database-owned",
+  "alerts",
+  "no-caps",
+  "code-export"
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R8",
+    "title": "Rate shopping",
+    "prompt": "Buy the cheapest label that still arrives within our 4-day promise",
+    "rule": "If it arrives within 4 days → buy the cheapest rate",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Order #20417, 2 lb to Tucson, AZ",
+       "size": 20,
+       "chip": [
+        "Promise: 4 days",
+        "acc"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Carrier",
+        "Service",
+        "Arrives",
+        "Rate",
+        "Result"
+       ],
+       "widths": [
+        0.14,
+        0.3,
+        0.16,
+        0.16,
+        0.24
+       ],
+       "highlight": 0,
+       "row_h": 62,
+       "num_cols": [
+        3
+       ],
+       "rows": [
+        [
+         "USPS",
+         "Ground Advantage",
+         "3 days",
+         "$9.10",
+         [
+          "Bought",
+          "ok"
+         ]
+        ],
+        [
+         "UPS",
+         "Ground",
+         "5 days",
+         "$8.40",
+         [
+          "Too late",
+          "warn"
+         ]
+        ],
+        [
+         "FedEx",
+         "Home Delivery",
+         "3 days",
+         "$11.85",
+         "Higher rate"
+        ],
+        [
+         "USPS",
+         "Priority Mail",
+         "2 days",
+         "$12.60",
+         "Higher rate"
+        ],
+        [
+         "UPS",
+         "2nd Day Air",
+         "2 days",
+         "$21.30",
+         "Higher rate"
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "tag",
+     "tone": "ok",
+     "title": "Label bought: USPS",
+     "action": {
+      "label": "View order",
+      "icon": "arrow-right"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Order #20417, $9.10",
+       "size": 20,
+       "sub": "Arrives in 3 days"
+      },
+      {
+       "type": "meta",
+       "icon": "database",
+       "kind": "acc",
+       "text": "Tracking saved on the order"
+      }
+     ]
+    },
+    "mini": {
+     "icon": "clock",
+     "kind": "warn",
+     "title": "UPS $8.40 skipped",
+     "sub": "Misses the promise"
+    },
+    "alt": "Hollow Pine Roasters order #20417 gets four carrier quotes; the $8.40 UPS rate is skipped because it arrives in 5 days, and the $9.10 USPS label that arrives in 3 days is bought, with tracking saved on the order.",
+    "story": [
+     {
+      "copy": "promises delivery within 4 business days",
+      "image": "If it arrives within 4 days → buy the cheapest rate"
+     },
+     {
+      "copy": "A cheaper rate that would arrive late is skipped",
+      "image": "Misses the promise"
+     },
+     {
+      "copy": "tracking number saved on the order",
+      "image": "Tracking saved on the order"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Batch labels",
+    "prompt": "Buy every label at 2:00 PM and hold orders with a bad address",
+    "main": {
+     "chrome": "Label batch",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "HOLLOW PINE ROASTERS",
+       "title": "138 paid orders since the last run",
+       "size": 24,
+       "sub": "Weekdays at 2:00 PM"
+      },
+      {
+       "type": "rule",
+       "text": "Rule: address fails the check → hold and email"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Orders collected",
+         "sub": "Paid since the last run",
+         "right": "138"
+        },
+        {
+         "state": "done",
+         "title": "Addresses checked",
+         "sub": "3 failed verification",
+         "right": "3 held"
+        },
+        {
+         "state": "done",
+         "title": "Labels bought",
+         "sub": "One batch",
+         "right": "135"
+        },
+        {
+         "state": "live",
+         "title": "Packing list to Teo Marsh",
+         "sub": "Sorted by bin",
+         "right": "Sending"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "printer",
+     "tone": "ok",
+     "title": "135 labels ready",
+     "action": {
+      "label": "Open batch",
+      "icon": "arrow-right"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Teo Marsh, warehouse lead",
+       "size": 20,
+       "sub": "Packing list sorted by bin"
+      },
+      {
+       "type": "meta",
+       "icon": "mail",
+       "kind": "acc",
+       "text": "3 customers asked to confirm"
+      }
+     ]
+    },
+    "mini": {
+     "icon": "map-pin",
+     "kind": "warn",
+     "title": "3 orders held",
+     "sub": "Out of the batch"
+    },
+    "alt": "The 2:00 PM label batch collects 138 paid orders, holds 3 whose addresses failed verification and emails those customers, then sends 135 labels and a packing list sorted by bin to warehouse lead Teo Marsh.",
+    "story": [
+     {
+      "copy": "At 2:00 PM on weekdays",
+      "image": "Weekdays at 2:00 PM"
+     },
+     {
+      "copy": "Today that is 138 orders",
+      "image": "138 paid orders since the last run"
+     },
+     {
+      "copy": "Three addresses fail the shipping API's check",
+      "image": "3 failed verification"
+     },
+     {
+      "copy": "stay out of the batch while those customers confirm them by email",
+      "image": "Rule: address fails the check → hold and email"
+     },
+     {
+      "copy": "gets 135 labels",
+      "image": "135 labels ready"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Stalled packages",
+    "prompt": "Alert our support lead when a package has no scan for 72 hours",
+    "main": {
+     "chrome": "Shipment tracker",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "ORDER #20388 · UPS",
+       "title": "No new scan for 72 hours",
+       "size": 24,
+       "sub": "Ships to Raleigh, NC"
+      },
+      {
+       "type": "rule",
+       "text": "Rule: no carrier scan for 72 hours → alert support"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Label created",
+         "sub": "Columbus, OH warehouse",
+         "right": "Mon 9:40 AM"
+        },
+        {
+         "state": "done",
+         "title": "Picked up",
+         "sub": "Columbus, OH",
+         "right": "Mon 4:15 PM"
+        },
+        {
+         "state": "done",
+         "title": "Arrived at facility",
+         "sub": "Louisville, KY",
+         "right": "Tue 2:05 AM"
+        },
+        {
+         "state": "live",
+         "title": "Alert to Ines Calder",
+         "sub": "Slack direct message",
+         "right": "Now"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "message-square",
+     "title": "Message to Ines Calder",
+     "action": {
+      "label": "Open order",
+      "icon": "arrow-right"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Order #20388 has stalled",
+       "sub": "Last scan: Louisville, KY"
+      },
+      {
+       "type": "text",
+       "text": "Delay email sent to the customer",
+       "color": "muted"
+      }
+     ]
+    },
+    "mini": {
+     "icon": "database",
+     "kind": "ok",
+     "title": "Every update saved",
+     "sub": "Webhook events per order"
+    },
+    "alt": "UPS order #20388 has had no new scan for 72 hours since it reached Louisville, KY; support lead Ines Calder gets a Slack direct message with the last scan location, and the customer gets a delay email.",
+    "story": [
+     {
+      "copy": "no new carrier scan for 72 hours",
+      "image": "Rule: no carrier scan for 72 hours → alert support"
+     },
+     {
+      "copy": "Slack direct message",
+      "image": "Slack direct message"
+     },
+     {
+      "copy": "last scan location",
+      "image": "Last scan: Louisville, KY"
+     },
+     {
+      "copy": "short delay email",
+      "image": "Delay email sent to the customer"
+     }
+    ]
+   },
+   {
+    "recipe": "R2",
+    "title": "Customs forms",
+    "prompt": "Fill customs declarations from our product table and hold missing HS codes",
+    "main": {
+     "blocks": [
+      {
+       "type": "doc_header",
+       "icon": "file-text",
+       "title": "Customs declaration",
+       "sub": "Order #20431 to Toronto",
+       "label": "DRAFT"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Ships to",
+         "Toronto, ON, Canada"
+        ],
+        [
+         "Values in",
+         "US dollars",
+         true
+        ],
+        [
+         "Carrier",
+         "USPS"
+        ]
+       ]
+      },
+      {
+       "type": "lineitems",
+       "items": [
+        [
+         "Guji beans, 2 bags",
+         "$36.00"
+        ],
+        [
+         "Ceramic dripper",
+         "$24.00"
+        ]
+       ],
+       "total": [
+        "Declared value",
+        "$60.00"
+       ]
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "From the product record",
+       "size": 19,
+       "chip": [
+        "1 missing",
+        "bad"
+       ]
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Beans HS code",
+         "0901.21"
+        ],
+        [
+         "Dripper HS code",
+         "Missing",
+         true
+        ],
+        [
+         "Dripper origin",
+         "Japan"
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "triangle-alert",
+     "tone": "warn",
+     "title": "Order held for Teo Marsh",
+     "action": {
+      "label": "Add HS code",
+      "icon": "plus"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Dripper has no HS code",
+       "sub": "Saved code is reused next time"
+      },
+      {
+       "type": "meta",
+       "icon": "package",
+       "kind": "acc",
+       "text": "Label prints once the code is in"
+      }
+     ]
+    },
+    "alt": "A customs declaration for order #20431 to Toronto is filled from the product record; the coffee line carries HS code 0901.21, and the order is held for Teo Marsh because the ceramic dripper has no HS code yet.",
+    "story": [
+     {
+      "copy": "a customs declaration before the label prints",
+      "image": "Customs declaration"
+     },
+     {
+      "copy": "value in US dollars",
+      "image": "US dollars"
+     },
+     {
+      "copy": "missing its HS code waits for Teo Marsh",
+      "image": "Order held for Teo Marsh"
+     },
+     {
+      "copy": "the code he adds is reused on every later order",
+      "image": "Saved code is reused next time"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "dm": true,
+   "channel": "Ines Calder",
+   "title": "Order #20388 stalled",
+   "sub": "No scan for 72 hours",
+   "primary": "Open",
+   "secondary": "Resolve",
+   "alt": "Shipping automation: support lead Ines Calder gets a direct message that order #20388 has had no carrier scan for 72 hours"
+  },
+  "og": {
+   "headline": "Build shipping automation for every order",
+   "lines": null,
+   "alt": "Build shipping automation for labels and late packages, with Emergent"
+  },
+  "checks": [
+   {
+    "fact": [
+     "$9.10",
+     "$8.40",
+     "$11.85",
+     "$12.60",
+     "$21.30"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "8.40 < 9.10",
+    "shows": [
+     "$8.40",
+     "$9.10"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "138 - 3 == 135",
+    "shows": [
+     "138",
+     "135"
+    ],
+    "where": 2
+   },
+   {
+    "expr": "36 + 24 == 60",
+    "shows": [
+     "$36.00",
+     "$24.00",
+     "$60.00"
+    ],
+    "where": 4
+   },
+   {
+    "fact": [
+     "0901.21"
+    ],
+    "where": 4
+   }
+  ]
+ },
+ "faq_sources": [
+  {
+   "q": "What is shipping automation?",
+   "source": "definition",
+   "ref": "shipping automation"
+  },
+  {
+   "q": "How do you build shipping automation software?",
+   "source": "secondary",
+   "ref": "shipping automation software"
+  },
+  {
+   "q": "What kinds of shipping automation solutions are there?",
+   "source": "secondary",
+   "ref": "shipping automation solutions"
+  },
+  {
+   "q": "How does an automated shipping system choose a carrier?",
+   "source": "secondary",
+   "ref": "automated shipping system"
+  },
+  {
+   "q": "What should automated shipping software do for a small store?",
+   "source": "secondary",
+   "ref": "automated shipping software"
+  },
+  {
+   "q": "When are automated shipping solutions worth setting up?",
+   "source": "secondary",
+   "ref": "automated shipping solutions"
+  },
+  {
+   "q": "Does automated shipping work for international orders?",
+   "source": "secondary",
+   "ref": "automated shipping"
+  }
+ ]
+}
