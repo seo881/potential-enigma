@@ -115,6 +115,13 @@
    "via": null,
    "by": "A-coord",
    "note": ""
+  },
+  {
+   "t": "2026-10-13 18:49 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-7",
+   "note": "rubric 10/10 by A-r-7; 7 notes"
   }
  ],
  "pipeline": "r15",
@@ -908,5 +915,325 @@
  },
  "writers": [
   "A-w-50"
- ]
+ ],
+ "review": {
+  "by": "A-r-7",
+  "date": "2026-10-13 18:49 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Nonprofit Landing Page for Every Gift and Signup'; meta title 'Nonprofit Landing Page Builder for Donations | Emergent'; hero opens 'Build a nonprofit landing page from a prompt that takes gifts, fills volunteer shifts...' (under 130); how-to description one sentence under 140. No church or political sibling topic."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Commercial builder intent served by the builder pitch and comparison table; examples by four worked tabs plus FAQ 5 ('A monthly giving page sets the monthly option as the default...'); how-to in seven steps; Giving Tuesday secondary (highest MSV) carried in tab 1, FAQ 3 and FAQ 8."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: appeal code MAIL-DEC, board match from a $10,000 pool, waiver, roster, peer-to-peer runner page with a $300 goal, year-end letter QR code; Emergent column 'Prompt for a campaign page'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "'Tallow Creek Food Bank set one Giving Tuesday goal', 'Hollis Bend River Trust needs two shifts', 'Describe the cause and the ask in plain English.', 'Pick one action: a gift, a volunteer shift, or a race registration.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q/A checks clean; short declaratives ('The latest was $650.'); craft items are notes only (FAQ 1 second sentence)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail reads human: 'Say which time zone that midnight is in.', 'Give $5 on your own phone and follow it all the way through', 'instead of a national statistic you cannot trace'."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to prompt-build, api-connect (Stripe, HubSpot), database-owned, realtime (goal bar), alerts (Slack, email), custom-domain ('included and runs on credits'), code-export ('On paid plans... GitHub'), free-start. FAQ 8 'December 1 in 2026' matches the Wikipedia infobox ('2026 date: December 1') and calendar math (Thanksgiving Nov 26, 2026, a Thursday). FAQ 9 name and cash amount are items 1-2 of the IRS list under the quoted sentence. Tab numbers agree: 100 x 2 = 200; 20 of 20 full, 6 left; 315 >= 300 from 9 gifts; 650 >= 500. Table generated from the library."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No other LP spec covers Giving Tuesday, appeal codes or runner pages; tab H3 shapes differ ('Each gift counts twice until...', 'When a shift hits 20 volunteers, it closes', 'Every runner gets a page...', 'Letter gifts of $500 or more reach the director')."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, no brand or format ask; each answered in its first sentence ('Yes, where you can.', 'No.', 'Publish them at least a week before the day.'); hub link in item 2; sibling links video-, webinar-, mobile-landing-page; F9 Emergent lines in items 6 and 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 '$100' / 'Counts toward the goal $200' / 'Match still left $3,900'; tab 2 '9 AM, full', '1 PM, 6 spots left', Teodora Ibarra 'email Friday 5 PM'; tab 3 '$315 of a $300 goal', 'Goal met', '9' gifts; tab 4 'Gift of $650 saved', 'MAIL-DEC', Slack to Ondine Bancroft. One hero each, text readable, cover matches the matched-gift story."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "The IRS says the written acknowledgment for a contribution of $250 or more must contain the name of the organization and the amount of the cash contribution. Put both on every receipt, whatever the amount.",
+    "issue": "The fact is true (items 1-2 of the IRS list), but the advice that follows names only those two. The same IRS list also requires a statement that no goods or services were provided, or a good-faith estimate of their value. A nonprofit that copies the advice would send $250+ receipts that are missing a required line.",
+    "fix": "Add the third element, e.g. 'Put both on every receipt, with a line saying whether the donor received anything in return.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "domain_sources",
+    "quote": "GivingTuesday is the Tuesday after Thanksgiving in the United States",
+    "issue": "Both quoted spans are narrower than the copy. FAQ 8's 'December 1 in 2026' is in the Wikipedia infobox ('2026 date: December 1'), not in the quoted sentence. FAQ 9's 'name of the organization' and 'amount of cash contribution' sit in the list under the IRS quote ('...must contain'), not in it. I checked both on the source pages (2026-10-14) and both hold. Wikipedia is also not a primary source.",
+    "fix": "Widen the quotes to the spans that state the copy (the infobox date; the IRS list items), and prefer givingtuesday.org for the date.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_6_des",
+    "quote": "Give $5 on your own phone and follow it all the way through: the row in the gifts table, the receipt email, the Slack alert, and the CRM record.",
+    "issue": "On this page, Slack alerts fire only for chosen moments ('such as a large gift', feature_5; '$500 or more', tab_content_4). A $5 test gift would not trigger the Slack alert the step tells the reader to check.",
+    "fix": "'...the receipt email, the CRM record, and the Slack alert if you lower its threshold for the test.' Or drop the Slack alert from the list.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #25",
+    "field": "image_brief.tabs[3].hero",
+    "quote": "# Ondine Bancroft",
+    "issue": "The tab 4 Slack hero draws the recipient with a channel hash ('# Ondine Bancroft'). The copy says director Ondine Bancroft gets a Slack message, so it should read as a direct message, not a channel.",
+    "fix": "Render a person recipient as a DM (avatar or initials, no '#'), or make the engine drop the hash when the channel field is a person's name.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "mockup",
+    "quote": "When a shift reaches 20, take it off the page and show the spots left on the other one.",
+    "issue": "The mockup prompt (and plan) say the full shift leaves the page, but the tab 2 image keeps a '9 AM, full' slot visible. The tab copy ('the page offers only 1 PM') agrees with the image, so the drift is between the prompt and the drawing, not the copy.",
+    "fix": "Change the prompt to 'mark it full so no one can pick it'.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq",
+    "quote": "Leave out the main site's menu and keep the form in view; the page then records who acted and which campaign brought them.",
+    "issue": "The definition answer switches to an instruction mid-answer, and 'then' makes recording sound like a result of hiding the menu. That is two ideas joined by a semicolon.",
+    "fix": "'It leaves out the main site's menu and keeps the form in view. The page records who acted and which campaign brought them.'",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "hero_description",
+    "quote": "saves each one to a database you own",
+    "issue": "The database-you-own idea appears in four fields: hero_description 'saves each one to a database you own'; feature_4 'Every donor and volunteer becomes a row in a database you own'; why_description 'Gifts and volunteer signups land in a database you own'; FAQ 9 'keep each receipt in a database you own'.",
+    "fix": "Keep it in the hero and feature_4. Elsewhere, name a concrete consequence instead (e.g. why_description on editing the page by prompt only).",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "The fact is true (items 1-2 of the IRS list), but the advice that follows names only those two. The same IRS list also requires a statement that no goods or services were provided, or a good-faith estimate of their value. A nonprofit that copies the advice would send $250+ receipts that are missing a required line.",
+   "fix": "Add the third element, e.g. 'Put both on every receipt, with a line saying whether the donor received anything in return.'",
+   "by": "A-r-7",
+   "via": "review",
+   "date": "2026-10-13 18:49 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "domain_sources",
+   "issue": "Both quoted spans are narrower than the copy. FAQ 8's 'December 1 in 2026' is in the Wikipedia infobox ('2026 date: December 1'), not in the quoted sentence. FAQ 9's 'name of the organization' and 'amount of cash contribution' sit in the list under the IRS quote ('...must contain'), not in it. I checked both on the source pages (2026-10-14) and both hold. Wikipedia is also not a primary source.",
+   "fix": "Widen the quotes to the spans that state the copy (the infobox date; the IRS list items), and prefer givingtuesday.org for the date.",
+   "by": "A-r-7",
+   "via": "review",
+   "date": "2026-10-13 18:49 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_6_des",
+   "issue": "On this page, Slack alerts fire only for chosen moments ('such as a large gift', feature_5; '$500 or more', tab_content_4). A $5 test gift would not trigger the Slack alert the step tells the reader to check.",
+   "fix": "'...the receipt email, the CRM record, and the Slack alert if you lower its threshold for the test.' Or drop the Slack alert from the list.",
+   "by": "A-r-7",
+   "via": "review",
+   "date": "2026-10-13 18:49 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #25",
+   "field": "image_brief.tabs[3].hero",
+   "issue": "The tab 4 Slack hero draws the recipient with a channel hash ('# Ondine Bancroft'). The copy says director Ondine Bancroft gets a Slack message, so it should read as a direct message, not a channel.",
+   "fix": "Render a person recipient as a DM (avatar or initials, no '#'), or make the engine drop the hash when the channel field is a person's name.",
+   "by": "A-r-7",
+   "via": "review",
+   "date": "2026-10-13 18:49 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "mockup",
+   "issue": "The mockup prompt (and plan) say the full shift leaves the page, but the tab 2 image keeps a '9 AM, full' slot visible. The tab copy ('the page offers only 1 PM') agrees with the image, so the drift is between the prompt and the drawing, not the copy.",
+   "fix": "Change the prompt to 'mark it full so no one can pick it'.",
+   "by": "A-r-7",
+   "via": "review",
+   "date": "2026-10-13 18:49 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq",
+   "issue": "The definition answer switches to an instruction mid-answer, and 'then' makes recording sound like a result of hiding the menu. That is two ideas joined by a semicolon.",
+   "fix": "'It leaves out the main site's menu and keeps the form in view. The page records who acted and which campaign brought them.'",
+   "by": "A-r-7",
+   "via": "review",
+   "date": "2026-10-13 18:49 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "hero_description",
+   "issue": "The database-you-own idea appears in four fields: hero_description 'saves each one to a database you own'; feature_4 'Every donor and volunteer becomes a row in a database you own'; why_description 'Gifts and volunteer signups land in a database you own'; FAQ 9 'keep each receipt in a database you own'.",
+   "fix": "Keep it in the hero and feature_4. Elsewhere, name a concrete consequence instead (e.g. why_description on editing the page by prompt only).",
+   "by": "A-r-7",
+   "via": "review",
+   "date": "2026-10-13 18:49 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "5664d4bafd332861",
+   "alt:share_image": "81998ff34797bd0f",
+   "alt:tab_image_1": "099c3a86224ab247",
+   "alt:tab_image_2": "93ec807d7fde94f1",
+   "alt:tab_image_3": "a812786aa18d27bd",
+   "alt:tab_image_4": "2febd1edd07d76a2",
+   "breadcrumb": "6d87903cdcbcd315",
+   "chip_adds": "97c7ef279aa6cb17",
+   "explore_cta": "61f0c014a6149c08",
+   "faq": "d844055ef02e27bf",
+   "feature_1": "237908ca56055a58",
+   "feature_2": "9508bb972e0c4f0e",
+   "feature_3": "d91f77f29ad22b1e",
+   "feature_4": "90efb3a1c326b8d7",
+   "feature_5": "aec6509e75977e99",
+   "feature_6": "a916bf48620f1079",
+   "features_heading": "776c330af939a563",
+   "features_subheading": "192a787c9359cedc",
+   "h1": "a313c1ee96c1612b",
+   "hero_description": "6818d6f8207419d7",
+   "hero_prompt": "42b312ea7034409e",
+   "howto_description": "e5851adb5c2e3c28",
+   "howto_step_1_des": "a34d6d388121de20",
+   "howto_step_1_title": "ad9d88dff49c7942",
+   "howto_step_2_des": "5f0cf5a26bd8b1a7",
+   "howto_step_2_title": "161a973db86ea2cd",
+   "howto_step_3_des": "5c52ff9677274c4f",
+   "howto_step_3_title": "a08f68f1b774e0f4",
+   "howto_step_4_des": "2246092f2f836f85",
+   "howto_step_4_title": "62bec24469cd75d6",
+   "howto_step_5_des": "083a87597b08dff7",
+   "howto_step_5_title": "c1f569221489e157",
+   "howto_step_6_des": "a0159cf71ad879b8",
+   "howto_step_6_title": "ce8c5f9c88e6f811",
+   "howto_step_7_des": "adc4575851352d63",
+   "howto_step_7_title": "dffc6f494dc4a1fa",
+   "howto_title": "832e24c5c2492bb7",
+   "meta_description": "8cfe2a489b891088",
+   "meta_title": "8d07b5b888d355ee",
+   "mockup": "2a3306b24f7007b6",
+   "product_name": "2e569c119fcd1397",
+   "prompt_chip_1": "aed54c8b118545b0",
+   "prompt_chip_2": "fa87b534b14e34a7",
+   "prompt_chip_3": "8fa7d216ce891c54",
+   "prompt_chip_4": "144f40929b2ededd",
+   "slug": "84c6b673b2f7bdda",
+   "tab_content_1": "4c6588f65b210562",
+   "tab_content_2": "53a546387e245dd5",
+   "tab_content_3": "d3e8bd1d4cd27fa8",
+   "tab_content_4": "4b249936c3c6cce8",
+   "tab_label_1": "aed54c8b118545b0",
+   "tab_label_2": "8fa7d216ce891c54",
+   "tab_label_3": "ca0e746622e9f144",
+   "tab_label_4": "ab1fbb0ca8f2e2f5",
+   "usecase_heading": "53b60475881e5911",
+   "why_description": "ef0ee921a0cf74f1",
+   "why_table": "ca19c6b1f1a9f0c3",
+   "why_title": "e37b9002859e59b0"
+  },
+  "all": "0a3cb9e111987c16",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "5664d4bafd332861",
+   "alt:share_image": "81998ff34797bd0f",
+   "alt:tab_image_1": "099c3a86224ab247",
+   "alt:tab_image_2": "93ec807d7fde94f1",
+   "alt:tab_image_3": "a812786aa18d27bd",
+   "alt:tab_image_4": "2febd1edd07d76a2",
+   "breadcrumb": "6d87903cdcbcd315",
+   "chip_adds": "97c7ef279aa6cb17",
+   "explore_cta": "61f0c014a6149c08",
+   "faq": "d844055ef02e27bf",
+   "feature_1": "237908ca56055a58",
+   "feature_2": "9508bb972e0c4f0e",
+   "feature_3": "d91f77f29ad22b1e",
+   "feature_4": "90efb3a1c326b8d7",
+   "feature_5": "aec6509e75977e99",
+   "feature_6": "a916bf48620f1079",
+   "features_heading": "776c330af939a563",
+   "features_subheading": "192a787c9359cedc",
+   "h1": "a313c1ee96c1612b",
+   "hero_description": "6818d6f8207419d7",
+   "hero_prompt": "42b312ea7034409e",
+   "howto_description": "e5851adb5c2e3c28",
+   "howto_step_1_des": "a34d6d388121de20",
+   "howto_step_1_title": "ad9d88dff49c7942",
+   "howto_step_2_des": "5f0cf5a26bd8b1a7",
+   "howto_step_2_title": "161a973db86ea2cd",
+   "howto_step_3_des": "5c52ff9677274c4f",
+   "howto_step_3_title": "a08f68f1b774e0f4",
+   "howto_step_4_des": "2246092f2f836f85",
+   "howto_step_4_title": "62bec24469cd75d6",
+   "howto_step_5_des": "083a87597b08dff7",
+   "howto_step_5_title": "c1f569221489e157",
+   "howto_step_6_des": "a0159cf71ad879b8",
+   "howto_step_6_title": "ce8c5f9c88e6f811",
+   "howto_step_7_des": "adc4575851352d63",
+   "howto_step_7_title": "dffc6f494dc4a1fa",
+   "howto_title": "832e24c5c2492bb7",
+   "meta_description": "8cfe2a489b891088",
+   "meta_title": "8d07b5b888d355ee",
+   "mockup": "2a3306b24f7007b6",
+   "product_name": "2e569c119fcd1397",
+   "prompt_chip_1": "aed54c8b118545b0",
+   "prompt_chip_2": "fa87b534b14e34a7",
+   "prompt_chip_3": "8fa7d216ce891c54",
+   "prompt_chip_4": "144f40929b2ededd",
+   "slug": "84c6b673b2f7bdda",
+   "tab_content_1": "4c6588f65b210562",
+   "tab_content_2": "53a546387e245dd5",
+   "tab_content_3": "d3e8bd1d4cd27fa8",
+   "tab_content_4": "4b249936c3c6cce8",
+   "tab_label_1": "aed54c8b118545b0",
+   "tab_label_2": "8fa7d216ce891c54",
+   "tab_label_3": "ca0e746622e9f144",
+   "tab_label_4": "ab1fbb0ca8f2e2f5",
+   "usecase_heading": "53b60475881e5911",
+   "why_description": "ef0ee921a0cf74f1",
+   "why_table": "ca19c6b1f1a9f0c3",
+   "why_title": "e37b9002859e59b0"
+  },
+  "all": "0a3cb9e111987c16",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
