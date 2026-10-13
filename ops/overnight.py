@@ -27,12 +27,30 @@ def work():
     inflight = [u for u, e in st.items() if e.get("state") in ("claimed", "spec") and ((e.get("by") or "").startswith("A-w") or a_held(e)) and not b_held(e)]
     return {"lp_rework": lp_rework, "inflight": inflight, "render": render, "review": review, "r15_rework": rework, "claimable": ranked}
 
-def cmd_next(a):
-    if os.path.exists(os.path.join(ROOT, "STOP")): print("STOP"); sys.exit(4)
+RECHECK_SECS, IDLE_UNTIL = 1800, (8, 0)   # Divit 2026-10-14: before going idle, re-check the ranked queue every 30 min until 08:00 IST
+LOG = os.path.expanduser("~/Library/Logs/emergent-overnight-run.log")
+
+def _order():
     w = work()
-    order = [("1 LP reworks (blocking findings only)", w["lp_rework"]), ("2 in-flight A pages to finish", w["inflight"]),
-             ("3 render images", w["render"]), ("4 review (A-r, not the writer)", w["review"]), ("5 one rework (r15)", w["r15_rework"]),
-             ("6 claim from the top of plan/queue-ranked.txt", [u for u, _ in w["claimable"]])]
+    claim = [u for u, _ in w["claimable"] if "quiz" not in u.rsplit("/", 1)[1]]   # quiz pages stay last: not claimed without a ruling
+    return [("1 LP reworks (blocking findings only)", w["lp_rework"]), ("2 in-flight A pages to finish", w["inflight"]),
+            ("3 render images", w["render"]), ("4 review (A-r, not the writer)", w["review"]), ("5 one rework (r15)", w["r15_rework"]),
+            ("6 claim from the top of plan/queue-ranked.txt (non-quiz)", claim)]
+
+def cmd_next(a):
+    import datetime, time
+    from zoneinfo import ZoneInfo
+    stop = lambda: os.path.exists(os.path.join(ROOT, "STOP"))
+    while True:
+        if stop(): print("STOP"); sys.exit(4)
+        order = _order()
+        if sum(len(us) for _, us in order): break
+        now = datetime.datetime.now(ZoneInfo("Asia/Kolkata"))
+        if (now.hour, now.minute) >= IDLE_UNTIL: break
+        with open(LOG, "a") as fh: fh.write(f"{now:%Y-%m-%d %H:%M:%S} nothing to do: re-checking the ranked queue in 30 min (until 08:00 IST)\n")
+        for _ in range(RECHECK_SECS // 60):
+            if stop(): print("STOP"); sys.exit(4)
+            time.sleep(60)
     left = 0
     for name, us in order:
         print(f"{name}: {len(us)}" + (": " + ", ".join(u.rsplit('/', 1)[1] for u in us[:10]) if us else "")); left += len(us)

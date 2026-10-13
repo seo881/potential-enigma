@@ -18,6 +18,10 @@ import hubctl as H, paa_gate as P, park_rescue as R, pull_wave as W
 
 OUT = os.path.join(ROOT, "plan", "queue-ranked.txt")
 ORDER = {"ready": 0, "syn-pending": 1, "no-pull": 2, "short": 3}
+# 2026-10-14 05:10 IST (A-coord): --release-parked released these although they were parked for intent mismatch, a rule conflict or a
+# library gap, not FAQ supply. Kept out of the claim order until Divit rules (10:00 report); their park notes are in git (status/*.json at 621731fc).
+NOT_RELEASED = {"grant-application-form", "loan-application-form", "jurat-form", "non-compete-form", "pledge-form", "change-request-form",
+                "body-type-quiz", "fun-quiz", "product-survey", "survey-questionnaire", "user-experience-survey"}
 
 def quiet(f, *a):
     with contextlib.redirect_stdout(io.StringIO()): return f(*a)
@@ -35,6 +39,7 @@ def rows():
     syn = (json.load(open(os.path.join(ROOT, "status", "synonyms.json"))) if os.path.exists(os.path.join(ROOT, "status", "synonyms.json")) else {"pages": {}})["pages"]
     out = []
     for p in W.queued():
+        if p["url"].rsplit("/", 1)[1] in NOT_RELEASED: continue
         c, f = classify(p["url"], syn)
         quiz = int("quiz" in p["url"].rsplit("/", 1)[1])   # quiz pages stay last (DECISIONS 2026-10-14): non-quiz rows first inside each class
         out.append((ORDER[c], quiz, -(f or 0) if c == "short" else 0, -(p.get("total_msv") or 0), p["hub"], p["url"], c, f))
