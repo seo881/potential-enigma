@@ -53,9 +53,19 @@ def _key():
     k = subprocess.run(["security", "find-generic-password", "-a", os.environ.get("USER", ""), "-s", "semrush", "-w"], capture_output=True, text=True).stdout.strip()
     if not k: sys.exit("no Semrush key in the keychain (service semrush)")
     return k
+def _get(u, timeout=60):
+    """GET with backoff on HTTP 429/5xx (shared API key: the discovery agent runs too)."""
+    import urllib.request, urllib.error, time
+    for k in range(6):
+        try: return urllib.request.urlopen(u, timeout=timeout).read().decode("utf-8", "replace")
+        except urllib.error.HTTPError as e:
+            if e.code in (429, 500, 502, 503, 504) and k < 5: time.sleep(15 * (k + 1)); continue
+            raise
+        except (urllib.error.URLError, TimeoutError):
+            if k < 5: time.sleep(15 * (k + 1)); continue
+            raise
 def balance():
-    import urllib.request
-    return int(urllib.request.urlopen("https://www.semrush.com/users/countapiunits.html?key=" + _key(), timeout=30).read().decode().strip())
+    return int(_get("https://www.semrush.com/users/countapiunits.html?key=" + _key(), timeout=30).strip())
 def cmd_balance(a): print(f"{now()} Semrush API units: {balance()}")
 def cmd_fetch(a):
     import urllib.request, urllib.parse
@@ -71,7 +81,7 @@ def cmd_fetch(a):
             b0 = balance()
             if start - b0 >= limit: print(f"budget line reached: {start - b0} of {int(limit)} units ({pct}% of {start}); stop and ask Divit"); return
             q = urllib.parse.urlencode({"type": "phrase_questions", "key": _key(), "phrase": p, "database": DB, "display_limit": lim, "export_columns": "Ph,Nq"})
-            txt = urllib.request.urlopen("https://api.semrush.com/?" + q, timeout=60).read().decode("utf-8", "replace")
+            txt = _get("https://api.semrush.com/?" + q)
             b1 = balance(); made += 1
             rows = []
             if not txt.startswith("ERROR"):
@@ -92,7 +102,7 @@ def _fetch_one(phrase, lim, label):
     start = json.load(open(os.path.join(BASE, "balance-start.json")))["balance_read"]; b0 = balance()
     if start - b0 >= start * 0.25: sys.exit(f"budget line reached ({start - b0} units); stop and ask Divit")
     q = urllib.parse.urlencode({"type": "phrase_questions", "key": _key(), "phrase": phrase, "database": DB, "display_limit": lim, "export_columns": "Ph,Nq"})
-    txt = urllib.request.urlopen("https://api.semrush.com/?" + q, timeout=60).read().decode("utf-8", "replace"); b1 = balance()
+    txt = _get("https://api.semrush.com/?" + q); b1 = balance()
     rows = [] if txt.startswith("ERROR") else [{"keyword": l.split(";")[0], "volume": int(l.split(";")[1] or 0)} for l in txt.strip().splitlines()[1:] if ";" in l]
     os.makedirs(RAW, exist_ok=True)
     json.dump({"phrase": phrase, "database": DB, "display_limit": lim, "fetched": now(), "rows": rows}, open(raw_path(phrase), "w"), indent=1)

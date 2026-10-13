@@ -1,0 +1,243 @@
+"""skeleton.py: ruling 15 (Divit 2026-10-13), constrained writing. Code builds everything that can be decided before prose; the writer
+writes prose only, section by section, and each section is QC'd (and autofixed) as it is written.
+
+    python3 ops/skeleton.py build URL --by A-w-<n>     the skeleton: 10 FAQ slots (passing questions locked verbatim, US display;
+                                                       Semrush questions in filtered form; secondaries in slots), hub + related links,
+                                                       comparison table, hero default prompt, names; spec.pipeline = "r15"
+    python3 ops/skeleton.py pack URL                   the compact page pack: locked FAQ, link plan, sections, claims menu, prevention
+    python3 ops/skeleton.py set URL FIELD TEXT         write one field (plain text or HTML, exactly as given)
+    python3 ops/skeleton.py answer URL N TEXT [--q QUESTION]   FAQ answer for slot N (the question only for a secondary slot)
+    python3 ops/skeleton.py check URL SECTION          autofix (code) then QC filtered to that section: hero|features|why|usecases|howto|faq|all
+    python3 ops/skeleton.py assemble URL               build fields.faq (awbFAQ embed) and faq_sources from the slots; links wrapped by code
+
+Locked slots: the question text is fixed by code (an AlsoAsked question in its US-spelling display, ruling 14; a Semrush question as filtered).
+The writer never edits it. Secondary slots: the writer writes a natural question that carries every word of the secondary (K8).
+"""
+import collections, contextlib, io, json, os, re, subprocess, sys
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+for d in ("ops", "qc"): sys.path.insert(0, os.path.join(ROOT, d))
+import hubctl as H, paa_gate as P, park_rescue as R, semrush_questions as SQ, spelling as SP
+
+def quiet(f, *a):
+    with contextlib.redirect_stdout(io.StringIO()): return f(*a)
+def load(url): return json.load(open(H.spath(url)))
+def save(url, s): json.dump(s, open(H.spath(url), "w"), indent=1, ensure_ascii=False)
+
+HERO = {"Form": "Build a {p} that saves every response to a database I own.",
+        "SurveyQuiz": "Build a {p} that collects every answer in a database I own.",
+        "LP": "Build a {p} that saves every signup to a database I own.",
+        "Auto": "Build {p} that runs on its own and logs every step."}
+SECTIONS = {
+    "hero": ["meta_title", "meta_description", "h1", "hero_description", "product_name", "breadcrumb", "explore_cta", "hero_prompt",
+             "prompt_chip_1", "prompt_chip_2", "prompt_chip_3", "prompt_chip_4", "chip_adds", "chip_prompts"],
+    "features": ["features_heading", "features_subheading", "feature_1", "feature_2", "feature_3", "feature_4", "feature_5", "feature_6"],
+    "why": ["why_title", "why_description", "why_table"],
+    "usecases": ["usecase_heading", "tab_label_1", "tab_label_2", "tab_label_3", "tab_label_4", "tab_content_1", "tab_content_2",
+                 "tab_content_3", "tab_content_4", "mockup", "image_brief", "alt:", "images"],
+    "howto": ["howto_title", "howto_description"] + [f"howto_step_{i}_{k}" for i in range(1, 8) for k in ("title", "des")],
+    "faq": ["faq", "faq_sources"],
+}
+DEF_RX = re.compile(r"^(what is|what's|what are|what does)\b")
+HOW_RX = re.compile(r"^(how (do|to|can|would) (i|you|we)?\s*(make|create|build|set up|design|write))|^how to (make|create|build|set up)")
+
+def _a(primary):   # article for a definition question
+    return "an" if primary[:1].lower() in "aeiou" else "a"
+
+def candidates(url):
+    """Passing FAQ candidates: AlsoAsked pull (pass only; a flag only once Divit's packet approves its subtype), Semrush questions (pass)."""
+    s = url.rsplit("/", 1)[1]; g = P.Gate(url); out = []
+    if P.pulls(s):
+        items, _ = quiet(P.run_pull, g)
+        for i in items:
+            if i["verdict"] != "pass": continue
+            orig = (i.get("prov") or {}).get("original") or i["q"]
+            out.append({"kind": "alsoasked", "q": SP.display(orig), "ref": orig, "prov": i.get("prov"), "locked": True})
+    for x in SQ.usable(s):
+        rs = g.judge({"q": x["q"], "source": "keyword", "n": 5})
+        if any(r[1] in ("reject", "flag") for r in rs): continue
+        q = x["q"].strip(); q = q[:1].upper() + q[1:] + ("" if q.endswith("?") else "?")
+        out.append({"kind": "semrush", "q": q, "ref": x["q"], "prov": x["prov"], "locked": True})
+    return out
+
+def related_targets(url, n=3):
+    """Live child pages to link from items 3-10, anchored with their exact primary: same cluster first, then keyword overlap."""
+    km = H.kmap(); me = km.get(url) or {}; live = [u for u in H.live_urls() if u in km and u != url and u.count("/") == 2]
+    mine = P.content(" ".join([me.get("primary", "")] + [x["kw"] for x in me.get("secondaries") or []]))
+    def score(u):
+        p_ = km[u]; same_cluster = bool(me.get("cluster")) and p_.get("cluster") == me.get("cluster")
+        return (same_cluster, H.hub_of(u) == H.hub_of(url), len(mine & P.content(p_["primary"])))
+    ranked = sorted(live, key=score, reverse=True)
+    return [{"url": u, "anchor": km[u]["primary"]} for u in ranked if score(u)[2] > 0 or score(u)[0]][:n]
+
+def default_table(url):
+    import table as TB
+    d = H.CFG["hubs"][H.hub_of(url)]["repo_dir"]; L = TB.lib(d)
+    trios = collections.Counter(); rowsets = collections.Counter()
+    for f in os.listdir(os.path.join(ROOT, "specs", d)):
+        try: t = json.load(open(os.path.join(ROOT, "specs", d, f))).get("table") or {}
+        except Exception: continue
+        if t.get("vs") and len(t["vs"]) == 3 and all(c in L["competitors"] for c in t["vs"]): trios[tuple(t["vs"])] += 1
+        if t.get("rows"): rowsets[tuple(t["rows"])] += 1
+    top = (H.kmap().get(url) or {}).get("top10") or []
+    rows = list(rowsets.most_common(1)[0][0]) if rowsets else ["build", "limits", "data", "ownership"]
+    keys = [r.split("=")[0] for r in rows]
+    has_all = lambda c: all(k in (L["competitors"][c].get("facts") or {}) for k in keys)   # a competitor without a fact for a row cannot be tabled
+    ranking = [c for c in L["competitors"] if has_all(c) and any(c.lower().split()[0] in (u or "").lower() for u in top)]
+    pool = [c for c in (trios.most_common(1)[0][0] if trios else []) if c not in ranking and has_all(c)]
+    pool += [c for c in L["competitors"] if c not in ranking and c not in pool and has_all(c)]
+    vs = (ranking + pool)[:3]
+    return vs, rows
+
+def slots_possible(url):
+    """How many FAQ slots the skeleton can fill from passing sources (no writes)."""
+    km = H.kmap().get(url) or {}; cands = candidates(url); qs = []
+    for c in cands:
+        if not R.dup(c["q"], qs): qs.append(c["q"])
+    n = len(qs) + 2 - sum(1 for q in qs[:0])   # the definition and how-to slots are always fillable
+    carried = [P.content(q) for q in qs]
+    for x in km.get("secondaries") or []:
+        c = P.content(x["kw"])
+        if c and not any(c <= q for q in carried): carried.append(c); n += 1
+    return n
+
+def cmd_build(a):
+    url = a[0]; by = a[a.index("--by") + 1] if "--by" in a else None
+    if not by: sys.exit("build URL --by A-w-<n>")
+    km = H.kmap().get(url) or sys.exit("not in the keyword map")
+    sp = H.spath(url)
+    if os.path.exists(sp) and json.load(open(sp)).get("pipeline") != "r15":
+        if "--fresh" not in a: sys.exit(f"{sp} is an old draft: rerun with --fresh to archive it and start the ruling-15 pipeline")
+        arch = os.path.join(os.path.dirname(sp), "_archive"); os.makedirs(arch, exist_ok=True)
+        os.replace(sp, os.path.join(arch, os.path.basename(sp).replace(".json", f".{H.now()[:10]}.json")))
+        print(f"archived the old draft to {os.path.relpath(arch, ROOT)}/")
+    if not os.path.exists(H.spath(url)):
+        subprocess.run([sys.executable, os.path.join(ROOT, "ops", "hubctl.py"), "init", url, "--by", by], check=True)
+    s = load(url); prim = km["primary"]; hub = H.hub_of(url)
+    cands = candidates(url); have = []; slots = []
+    pick = lambda rx: next((c for c in cands if rx.search(P.norm(c["q"])) and c not in have), None)
+    d = pick(DEF_RX); have += [d] if d else []
+    slots.append(d or {"kind": "definition", "q": f"What is {_a(prim)} {prim}?", "ref": prim, "locked": True})
+    h = pick(HOW_RX); have += [h] if h else []
+    slots.append(h or {"kind": "definition", "q": f"How do I create {_a(prim)} {prim}?", "ref": prim, "locked": True})
+    for c in cands:
+        if len(slots) == 10: break
+        if c in have or R.dup(c["q"], [x["q"] for x in slots]): continue
+        slots.append(c)
+    carried = [P.content(x["q"]) for x in slots]
+    for x in sorted(km.get("secondaries") or [], key=lambda x: -(x.get("msv") or 0)):
+        if len(slots) == 10: break
+        c = P.content(x["kw"])
+        if not c or any(c <= q for q in carried) or any(r[0] in R.KW_RULES and r[1] == "reject" for r in P.Gate(url).judge({"q": x["kw"], "source": "secondary"})): continue
+        carried.append(c); slots.append({"kind": "secondary", "q": None, "ref": x["kw"], "locked": False})
+    if len(slots) < 10: sys.exit(f"refused: only {len(slots)} FAQ slots from passing sources (ruling 15: the skeleton needs 10); not writable yet")
+    hubpath = H.CFG["hubs"][hub]["path"]; hubtext = H.CFG["hubs"][hub]["hub_link_text"]
+    for i, sl in enumerate(slots, 1): sl.update({"n": i, "a": sl.get("a") or "", "link": None})
+    slots[1]["link"] = {"url": "https://emergent.sh" + hubpath, "anchor": hubtext, "write_as": f"Emergent's {hubtext}"}
+    rel = related_targets(url); free = [sl for sl in slots[2:] if not sl["link"]]
+    for t, sl in zip(rel, free[1::3] or free):
+        sl["link"] = {"url": "https://emergent.sh" + t["url"], "anchor": t["anchor"]}
+    s["pipeline"] = "r15"; s["faq_plan"] = slots
+    s["faq_heading"] = s.get("faq_heading") or f"{km.get('display_name') or prim.title()} Questions, Answered"
+    F = s["fields"]; disp = km.get("display_name") or prim.title()
+    F["breadcrumb"] = F.get("breadcrumb") or disp; F["product_name"] = F.get("product_name") or f"{disp} Builder"
+    cta = f"Build My {disp}"; F["explore_cta"] = F.get("explore_cta") or (cta if len(cta) <= 34 else "Build Mine Now")
+    F["hero_prompt"] = F.get("hero_prompt") or "<p>" + HERO[hub].format(p=prim) + "</p>"
+    s.setdefault("keywords", {})["primary"] = prim
+    save(url, s)
+    vs, rows = default_table(url)
+    if len(vs) == 3:
+        subprocess.run([sys.executable, os.path.join(ROOT, "ops", "hubctl.py"), "table", url, "--vs", ",".join(vs), "--rows", ",".join(rows)], capture_output=True)
+    s = load(url); s.setdefault("skeleton", {}).update({"built_by": by, "built": H.now(), "slots": len(slots),
+                                                        "locked": sum(1 for x in slots if x["locked"]), "table": bool(s.get("table"))})
+    save(url, s)
+    print(f"{url}: skeleton built ({sum(1 for x in slots if x['locked'])} locked FAQ questions, {sum(1 for x in slots if not x['locked'])} secondary slots, "
+          f"{sum(1 for x in slots if x['link'])} links, table {'yes' if s.get('table') else 'NO'}); next: skeleton.py pack {url}")
+
+def cmd_pack(a):
+    url = a[0]; s = load(url); km = H.kmap().get(url) or {}
+    caps = json.load(open(os.path.join(ROOT, "rules", "capabilities.json")))["approved"]
+    out = [f"# Page pack (ruling 15): {url}", "", f"Primary: {km.get('primary')} | intent: {km.get('intent')} | angle note: {(km.get('angle') or '')[:300]}", "",
+           "## Sections, in order (write one, run `skeleton.py check URL <section>`, fix to 0, then the next)",
+           "1 hero: meta_title, meta_description, h1, hero_description, prompt_chip_1-4 + chip_adds (hero_prompt, product_name, breadcrumb, explore_cta are set by code)",
+           "2 features: features_heading, features_subheading, feature_1-6", "3 why: why_title, why_description (the table is built by code)",
+           "4 usecases: usecase_heading, tab_label_1-4, tab_content_1-4, mockup, image_brief", "5 howto: howto_title, howto_description, 7 steps",
+           "6 faq: one answer per slot with `skeleton.py answer URL N TEXT`; then `skeleton.py assemble URL`; then `skeleton.py check URL faq`", "",
+           "## FAQ slots (locked questions are fixed; write the answer only)"]
+    for sl in s.get("faq_plan") or []:
+        q = sl["q"] if sl["locked"] else f"[you write a question carrying every word of: {sl['ref']}]"
+        ln = f" | LINK: write the words \"{sl['link'].get('write_as') or sl['link']['anchor']}\" in the answer (code makes them the link)" if sl.get("link") else ""
+        out.append(f"{sl['n']:2d}. ({sl['kind']}{', locked' if sl['locked'] else ''}) {q}{ln}")
+    out += ["", "## Claims menu (cite the id in spec.claims_used; say nothing about Emergent outside these)"] + [f"- {c['id']}: {c['claim']}" for c in caps]
+    out += ["", "## Third-party facts", "Every fact about another product, a law or a professional standard needs spec.domain_sources {claim, source_url, date, quote}: `quote` is the exact span from the source that states it. No span, no claim."]
+    pm = os.path.join(ROOT, "docs", "PREVENTION.md")
+    if os.path.exists(pm):
+        txt = open(pm).read(); m = re.search(r"## Page-pack instructions.*?(?=\n## |\Z)", txt, re.S)
+        if m: out += ["", m.group(0).strip()]
+    p = os.path.join(ROOT, ".cache", "packs", url.rsplit("/", 1)[1] + ".r15.md"); os.makedirs(os.path.dirname(p), exist_ok=True)
+    open(p, "w").write("\n".join(out)); print(p)
+
+def cmd_set(a):
+    url, field, text = a[0], a[1], a[2]; s = load(url)
+    if field in ("hero_prompt", "why_table", "faq", "slug", "category"): sys.exit(f"refused: {field} is built by code (ruling 15)")
+    if field == "chip_adds": s["chip_adds"] = json.loads(text)
+    elif field == "image_brief": s["image_brief"] = json.loads(text)
+    elif field in ("plan", "domain_sources", "claims_used"): s[field] = json.loads(text)
+    else: s["fields"][field] = text
+    save(url, s); print(f"set {field}")
+
+def cmd_answer(a):
+    url, n, text = a[0], int(a[1]), a[2]; s = load(url); sl = s["faq_plan"][n - 1]
+    if "--q" in a:
+        if sl["locked"]: sys.exit(f"refused: slot {n}'s question is locked (ruling 15)")
+        q = a[a.index("--q") + 1]
+        if not all(w in P.norm(q) for w in P.norm(sl["ref"]).split()): sys.exit(f"refused: the question must carry every word of the secondary '{sl['ref']}' (K8)")
+        sl["q"] = q
+    sl["a"] = text; save(url, s); print(f"slot {n} answered")
+
+def _wrap(ans, link):
+    """Code places the link: the first occurrence of the anchor words becomes <a href='...'>anchor</a> (single quotes, K4)."""
+    words = link.get("write_as") or link["anchor"]
+    m = re.search(re.escape(words), ans, re.I)
+    if not m: return ans, False
+    inner = m.group(0)
+    if link.get("write_as"): pre, anc = inner[:len(inner) - len(link["anchor"])], inner[len(inner) - len(link["anchor"]):]
+    else: pre, anc = "", inner
+    return ans[:m.start()] + pre + f"<a href='{link['url']}'>{anc}</a>" + ans[m.end():], True
+
+def cmd_assemble(a):
+    url = a[0]; s = load(url); items, srcs, miss = [], [], []
+    for sl in s["faq_plan"]:
+        if not sl.get("q") or not sl.get("a"): sys.exit(f"slot {sl['n']} has no {'question' if not sl.get('q') else 'answer'} yet")
+        ans = sl["a"]
+        if sl.get("link"):
+            ans, ok = _wrap(ans, sl["link"])
+            if not ok: miss.append(sl["n"])
+        items.append({"q": sl["q"], "a": ans})
+        src = {"alsoasked": "alsoasked", "semrush": "keyword", "secondary": "secondary", "definition": "definition"}[sl["kind"]]
+        e = {"q": sl["q"], "source": src, "ref": sl["ref"]}
+        if sl.get("prov"): e["prov"] = sl["prov"]
+        srcs.append(e)
+    s["fields"]["faq"] = ("<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = "
+                          + json.dumps({"heading": s.get("faq_heading"), "items": items}, ensure_ascii=False) + "; </script></div></div>")
+    s["faq_sources"] = srcs; save(url, s)
+    print(f"faq assembled ({len(items)} items)" + (f"; LINK WORDS MISSING in slot(s) {miss}: write the words given in the pack" if miss else ""))
+
+def cmd_check(a):
+    url, sec = a[0], a[1]
+    for fx in ("s10", "h3", "h4", "c4", "c5"):
+        subprocess.run([sys.executable, os.path.join(ROOT, "ops", "autofix.py"), fx, "--apply", "--url", url], capture_output=True)
+    import qc_hub as Q
+    s = load(url); s["_path"] = H.spath(url)
+    every = Q.load_specs([os.path.join(ROOT, "specs", d, f) for d in os.listdir(os.path.join(ROOT, "specs")) if os.path.isdir(os.path.join(ROOT, "specs", d))
+                          for f in os.listdir(os.path.join(ROOT, "specs", d)) if f.endswith(".json")])
+    iss = Q.check(s, every)
+    keep = SECTIONS.get(sec)
+    sel = [i for i in iss if i["sev"] in ("P0", "P1") and (sec == "all" or any((i["field"] or "").startswith(k) for k in keep))]
+    for i in sel: print(f"  {i['sev']} {i['code']} {i['field']}: {i['msg'][:220]}")
+    print(f"{sec}: {len(sel)} P0/P1" + ("  -> fix and re-run" if sel else "  -> clean"))
+    sys.exit(1 if sel else 0)
+
+if __name__ == "__main__":
+    a = sys.argv[1:]
+    if not a: sys.exit(__doc__)
+    {"build": cmd_build, "pack": cmd_pack, "set": cmd_set, "answer": cmd_answer, "assemble": cmd_assemble, "check": cmd_check}[a[0]](a[1:])

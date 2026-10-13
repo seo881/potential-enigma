@@ -1,6 +1,6 @@
 """autofix.py: deterministic fixes for the 2026-10-08 QC checks, one check per run so each commit is revertible.
 
-    python3 ops/autofix.py <c5|h3|s10|h4|c4> [--apply] [--json out.json]
+    python3 ops/autofix.py <c5|h3|s10|h4|c4> [--apply] [--json out.json] [--url URL]   (--url: that page only, any state)
 
 Scope: written pages (states qc_pass, images, rework, reviewed, challenged). The 4 frozen original children, parked and
 published pages are never touched. Every edit is guarded: QC runs on the page before and after, and an edit is kept only
@@ -68,11 +68,11 @@ def blocking(issues): return collections.Counter((i["code"], i["field"]) for i i
 def worse(before, after): return [k for k in after if after[k] > before.get(k, 0)]
 def plain(s): return re.sub(r"\s+", " ", Q.strip_html(s)).strip()
 
-def run(name, apply=False):
+def run(name, apply=False, url=None):
     gen, code = GEN[name]
     st = {u: e.get("state") for u, e in guards.all_status().items()}
     every = Q.load_specs(sorted(glob.glob(os.path.join(ROOT, "specs", "*", "*.json"))))
-    scope = [s for s in every if st.get(s["url"]) in WRITTEN]
+    scope = [s for s in every if (s["url"] == url if url else st.get(s["url"]) in WRITTEN)]   # --url: one page in any state (ruling 15 section loop)
     rep = {"check": code, "pages_changed": 0, "instances_changed": 0, "refused": 0, "examples": [], "changed": {}, "refused_at": []}
     for s in scope:
         F = s["fields"]; base = blocking(Q.check(s, every)); raw = open(s["_path"]).read(); changed = 0
@@ -103,7 +103,7 @@ def run(name, apply=False):
 if __name__ == "__main__":
     a = sys.argv[1:]
     if not a or a[0] not in GEN: print(__doc__); sys.exit(1)
-    r = run(a[0], "--apply" in a)
+    r = run(a[0], "--apply" in a, a[a.index("--url") + 1] if "--url" in a else None)
     if "--json" in a: json.dump(r, open(a[a.index("--json") + 1], "w"), indent=1, ensure_ascii=False)
     print(f'{r["check"]}: pages changed {r["pages_changed"]}, instances changed {r["instances_changed"]}, refused by the guard {r["refused"]}, '
           f'instances left {r["instances_left"]} on {len(r["pages_left"])} pages {r["left_by_field"]}{"" if "--apply" in a else " (dry run)"}')

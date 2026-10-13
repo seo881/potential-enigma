@@ -777,6 +777,16 @@ def check(spec, siblings):
                 have = {norm(d_.get("claim", "")) for d_ in ds}
                 for c_ in plan["claims_to_source"]:
                     if norm(c_) not in have: add("P1", "P2", "domain_sources", f'claim not verified: "{c_[:80]}". Check it with a web search and record {{claim, source_url, date}} in spec.domain_sources')
+    # ---------- R15: constrained writing (ruling 15, Divit 2026-10-13); new pipeline pages only, never a recheck of reviewed pages ----------
+    if spec.get("pipeline") == "r15":
+        for d_ in spec.get("domain_sources") or []:
+            if len((d_.get("quote") or "").split()) < 6: add("P1", "R15", "domain_sources", f'source needs the exact quoted span that states the claim (quote, 6+ words): {str(d_.get("claim", ""))[:60]}')
+        plan_ = spec.get("faq_plan") or []
+        got = [i["q"] for i in (fq or {}).get("items", [])]
+        for sl in plan_:
+            if sl.get("locked") and sl.get("q") and (len(got) < sl["n"] or got[sl["n"] - 1] != sl["q"]):
+                add("P0", "R15", "faq", f'FAQ item {sl["n"]} must be the locked question "{sl["q"][:60]}" (code-set; never reword)')
+        if not spec.get("claims_used"): add("P1", "R15", "claims_used", "list the claim ids (rules/capabilities.json) the copy relies on")
     # ---------- P3/P4: sources are live (automated link check) and few (max 8) ----------
     if spec.get("status") not in ("live-draft", "published") and spec.get("domain_sources"):
         sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as _G3
