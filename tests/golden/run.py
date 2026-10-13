@@ -8,6 +8,7 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   gate-question  {url, sha, q_index, absent: [rule ids]}   (absent instead of expect) item q_index carries none of these rules, at any level
   gate-text      {url, q, expect | absent, levels?}         (absent: none of these rules may fire, e.g. PA3 on a spelling variant)
   spelling-verbatim {q, orig, expect_ok}                  ruling 14: q is the original or its US-spelling/house-form display, nothing else
+  sq-filter      {url, q, expect_drop}                    Semrush question filter: drop reason (no_head|drop_class|brand|gate_reject|duplicate) or null = kept
   kw-variant     {a, b, expect_same}                      ruling 14: the K keyword checks treat a and b as the same keyword
   gate-text      {url, q, expect, levels?}                 the gate rejects this literal question with one of the expected rules
                                                           (levels ["reject","flag"]: a flag counts too; default reject only)
@@ -163,6 +164,9 @@ def caught(c):
     if c["kind"] == "kw-variant":          # ruling 14: the K checks read a UK spelling as the keyword's US spelling
         import qc_hub as Q
         return (Q.kw_bag(c["a"]) == Q.kw_bag(c["b"])) == c["expect_same"]
+    if c["kind"] == "sq-filter":           # Semrush phrase_questions filter (Divit 2026-10-13): dropped for the expected reason, or kept (None)
+        import semrush_questions as SQ
+        return SQ.keep_reason(c["url"], c["q"]) == c.get("expect_drop")
     if c["kind"] == "qc-text":
         import qc_hub as Q, hubctl as H
         s = json.load(open(H.spath(c["url"]))); s = copy.deepcopy(s); f = c["field"]

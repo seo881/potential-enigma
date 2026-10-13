@@ -3,6 +3,15 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-13
+- **Semrush phrase_questions as a keyword-sourced FAQ source (Divit, 2026-10-13; pilot first, under ruling 13's Semrush budget).** Filter in code (`ops/semrush_questions.py`): keep only questions that contain the page's full head phrase or an approved multi-word variant, contiguous and in order; drop political, personal-finance advice, salary, best/top-N listicle and competitor-brand questions; 0 gate rejects; dedupe against existing candidates. Keyword-sourced, so a natural-question reword is allowed only if the head phrase stays (backlog line 91). Provenance records the source keyword and its volume. Feasibility counts them, and QC F2 accepts them only from the page's derived list. Pilot: the 10 short pages, head phrase + top 2 secondaries, display_limit 30, at most 35 calls. If 6 or more of 10 reach 10, propose running it on every short queued and parked page, with the unit cost.
+- **Semrush budget (Divit, 2026-10-13):** spend what the work needs, carefully.
+  - Read the API unit balance before the first call (free endpoint; the key is in the macOS keychain, service semrush, never in the repo).
+  - Cache every response in private/ and never repeat a call for the same phrase and database.
+  - Use the smallest display_limit that works (30 first).
+  - Pilot cap: 35 calls.
+  - After the pilot, scale to all short queued and parked pages without asking while total spend stays under 25% of the balance read; past that, stop and ask.
+  - Report units per page and the running total in the 10:00 report.
+  - Balance read 2026-10-13 17:32 UTC: 7,293,510 units.
 - **Ruling 14 (Divit, 2026-10-13): spelling variants.** "acknowledgement" is a spelling variant of "acknowledgment" for PA3 matching. The display text of any verbatim AlsoAsked question is normalised to US spelling, with the original kept in provenance (same as the 2026-10-09 T-shirt ruling). This is a spelling normalisation, not a reword; ruling 4 still forbids rewording a verbatim question.
   - One general variant list, `rules/us_spelling.json` (`map`), feeds everything through `qc/spelling.py`: H2 blocks the UK form in copy, PA3 (`paa_gate.norm`) and the K keyword checks (`qc_hub.kwmap`) read it as the US form, and `hubctl verbatim` accepts exactly the original or its US-spelling/house-form display.
   - Golden cases r14-*.

@@ -47,6 +47,14 @@ def _stem(w): return w[:-1] if len(w) > 3 and w.endswith("s") and not w.endswith
 KV = json.load(open(os.path.join(ROOT, "rules", "keyword_variants.json")))["groups"]
 KV_RX = [(re.compile(r"(?<![a-z0-9])(?:" + "|".join(re.escape(v).replace(r"\ ", r"[\s-]?").replace(r"\-", r"[\s-]?") for v in g["variants"]) + r")(s?)(?![a-z0-9])"), g["canonical"]) for g in KV]
 import spelling as _SP
+def _semrush_ok(url, ref):
+    """Divit 2026-10-13: a keyword-sourced FAQ item from Semrush phrase_questions must cite a question this page's derive step kept."""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import semrush_questions as _SQ
+    return any(norm(x["q"]) == norm(ref) for x in _SQ.usable(url.rsplit("/", 1)[1]))
+def _SQ_HEAD(url, q):
+    """The (possibly reworded) question still carries the head phrase or an approved multi-word variant (backlog line 91)."""
+    sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate as _PG
+    g = _PG.Gate(url); return any(h.search(_PG.norm(q)) for h in g.heads)
 def kwmap(low):
     low = _SP.to_us(low)   # ruling 14: a UK spelling counts as the keyword's US spelling (H2 still blocks it in visible copy)
     for rx, c in KV_RX: low = rx.sub(lambda m: c + m.group(1), low)
@@ -525,7 +533,10 @@ def check(spec, siblings):
                 if not src: add("P1", "F2", "faq", f'no source recorded in faq_sources for: "{it["q"][:60]}"'); continue
                 kind, ref = src.get("source"), src.get("ref", "")
                 if kind in ("paa", "alsoasked"): continue
-                if kind in ("secondary", "keyword"):
+                if kind in ("secondary", "keyword") and (src.get("prov") or {}).get("tool") == "semrush-phrase_questions":
+                    if not _semrush_ok(spec["url"], ref): add("P1", "F2", "faq", f'Semrush question "{ref[:50]}" is not in this page\'s usable Semrush questions (ops/semrush_questions.py derive)')
+                    elif not _SQ_HEAD(spec["url"], it["q"]): add("P1", "F2", "faq", f'reworded Semrush question must keep the head phrase: "{it["q"][:50]}" (backlog line 91)')
+                elif kind in ("secondary", "keyword"):
                     if norm(ref) not in me_secs: add("P1", "F2", "faq", f'"{ref[:50]}" is not one of this page\'s secondaries (Semrush workbook)')
                 elif kind == "definition":
                     if norm(ref) != norm(prim): add("P1", "F2", "faq", "a definition item must define the page's primary keyword")
@@ -551,6 +562,9 @@ def check(spec, siblings):
                         if S.similar(it["q"], match) < 0.5: add("P1", "F3", "faq", f'"{it["q"][:50]}" drifts too far from the PAA question "{match[:50]}"; keep the searcher\'s phrasing')
                 elif kind == "related":
                     if not any(ref.strip().lower() == r.lower() for r in live["related"]): add("P1", "F2", "faq", f'related search "{ref[:50]}" is not in the captured list')
+                elif kind == "keyword" and (src.get("prov") or {}).get("tool") == "semrush-phrase_questions":
+                    if not _semrush_ok(spec["url"], ref): add("P1", "F2", "faq", f'Semrush question "{ref[:50]}" is not in this page\'s usable Semrush questions (ops/semrush_questions.py derive)')
+                    elif not _SQ_HEAD(spec["url"], it["q"]): add("P1", "F2", "faq", f'reworded Semrush question must keep the head phrase: "{it["q"][:50]}" (backlog line 91)')
                 elif kind == "keyword":
                     if not any(ref.strip().lower() == k_["kw"].lower() for k_ in live.get("keywords", [])): add("P1", "F2", "faq", f'keyword idea "{ref[:50]}" is not in the captured DataForSEO keyword list')
                 elif kind == "secondary":

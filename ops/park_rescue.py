@@ -79,7 +79,13 @@ def a6_count(url, extra=()):
         seen.append(c)
         if any(r[0] in KW_RULES and r[1] == "reject" for r in g.judge({"q": x["kw"], "source": "secondary"})): continue
         sec += 1
-    return {"faq": len(on), "pull": len(pull), "sec": sec, "total": len(on) + len(pull) + sec, "pulls": len(P.pulls(g.slug)), "spec_faq": bool(faq)}
+    # Semrush phrase_questions (Divit 2026-10-13): usable questions from ops/semrush_questions.py derive, deduped against what is counted
+    import semrush_questions as SQ
+    sq = 0; counted = on + pull
+    for x in SQ.usable(g.slug):
+        if dup(x["q"], counted): continue
+        counted.append(x["q"]); sq += 1
+    return {"faq": len(on), "pull": len(pull), "sec": sec, "sq": sq, "total": len(on) + len(pull) + sec + sq, "pulls": len(P.pulls(g.slug)), "spec_faq": bool(faq)}
 
 def main(urls):
     km = json.load(open(os.path.join(ROOT, "plan", "keyword_map.json")))
