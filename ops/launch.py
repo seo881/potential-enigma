@@ -39,18 +39,19 @@ def preflight(rb):
             r["og_webp"] = (fd.get(h["fields"]["share_image"]) or {}).get("url", "").endswith(".webp")   # DECISIONS 2026-10-09
             r["awbPrompt"] = "window.awbPrompt" in (fd.get(h["fields"]["hero_prompt"]) or "")
             r["awbFAQ"] = "window.awbFAQ" in (fd.get(h["fields"]["faq"]) or "") and len(re.findall(r'"q":', fd.get(h["fields"]["faq"]) or "")) == 10
+            r["learn"] = (fd.get(h["fields"]["learn"]) or []) == H.learn_refs()   # L12 (Divit 2026-10-13): the 3 newest published Learn refs
         else:
-            r.update(images=False, og_webp=False, awbPrompt=False, awbFAQ=False)
+            r.update(images=False, og_webp=False, awbPrompt=False, awbFAQ=False, learn=False)
         r["verify"] = bool(it) and not diff
         r["slug_unique"] = len(mine) == 1
         ok = all(r.values()); ok_all &= ok
         rows.append((url, it["id"] if it else "-", r, ok, diff))
-    hdr = ["#", "Page", "CMS item", "Item exists (draft or staged)", "Bulk-verify (0 mismatches)", "awbPrompt", "awbFAQ (10 items)", "Images resolve to Webflow files", "Share image WebP", "Slug unique", "Result"]
+    hdr = ["#", "Page", "CMS item", "Item exists (draft or staged)", "Bulk-verify (0 mismatches)", "awbPrompt", "awbFAQ (10 items)", "Images resolve to Webflow files", "Share image WebP", "Learn refs (L12)", "Slug unique", "Result"]
     L = ["# Launch pre-flight checklist", "", f"Generated {H.now()} by `ops/launch.py preflight` from a read-only read of the child collections (`{os.path.relpath(rb, ROOT)}`, not committed). IDs and pass/fail only.", "",
          "| " + " | ".join(hdr) + " |", "|" + "---|" * len(hdr)]
     pf = lambda b: "pass" if b else "FAIL"
     for n, (url, iid, r, ok, diff) in enumerate(rows, 1):
-        L.append(f"| {n} | {url} | {iid} | {pf(r['draft'])} | {pf(r['verify'])}{' (' + ', '.join(diff) + ')' if diff else ''} | {pf(r['awbPrompt'])} | {pf(r['awbFAQ'])} | {pf(r['images'])} | {pf(r['og_webp'])} | {pf(r['slug_unique'])} | **{pf(ok)}** |")
+        L.append(f"| {n} | {url} | {iid} | {pf(r['draft'])} | {pf(r['verify'])}{' (' + ', '.join(diff) + ')' if diff else ''} | {pf(r['awbPrompt'])} | {pf(r['awbFAQ'])} | {pf(r['images'])} | {pf(r['og_webp'])} | {pf(r['learn'])} | {pf(r['slug_unique'])} | **{pf(ok)}** |")
     L += ["", f"**{sum(r[3] for r in rows)} of {len(rows)} pages pass every check.**"]
     open(os.path.join(ROOT, "status", "launch-checklist.md" if os.environ.get("LAUNCH_BATCH", "batch-1") == "batch-1" else f"launch-checklist-{os.environ['LAUNCH_BATCH']}.md"), "w").write("\n".join(L) + "\n")
     print(f"status/launch-checklist{'' if os.environ.get('LAUNCH_BATCH', 'batch-1') == 'batch-1' else '-' + os.environ['LAUNCH_BATCH']}.md: {sum(r[3] for r in rows)} of {len(rows)} pass"); return 0 if ok_all else 1

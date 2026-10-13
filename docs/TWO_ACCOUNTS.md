@@ -17,7 +17,7 @@ Target: 500 pages live by 2026-10-27. Two accounts work in parallel, each in its
 A page is held by one account at a time, by state:
 - **A holds** a Form/Auto page in `claimed` and `rework`.
 - **B holds** it from `images` onward (`images` → review → `reviewed`/`rework` → `approved` → CMS → `published`).
-- **B's batches win:** any page listed in a ship batch file (`plan/batches/batch-*.txt`) is B's from the moment the file is pushed, whatever its state. A never edits or claims it (2026-10-13: A and B both fixed 4 batch-3 pages; B kept A's commit and added the name sweep).
+- **Hold markers decide** (Divit 2026-10-13, replacing "B's batches win"): before working any page it did not just claim (rework, rescue, a ship batch), an account runs `hubctl hold <url> --by <ID> --note "<why>"` and pushes the status file. Only then does it start. hubctl refuses state changes, `images` and `release` by the other account while the hold stands. `hubctl unhold <url> --by <ID>` when the page leaves your hands. B puts its holds (B-coord) on every page of a ship batch when the batch file is pushed, and never batches a page A holds.
 - `rework` goes back to A, which fixes the blocking findings only, re-renders, then runs `hubctl ready <url> --by A-<id>` → `reviewed`. One review per page and one rework (CLAUDE.md step 5). The writer and the reviewer are always different agents; hubctl refuses otherwise.
 
 ## 2. One-time setup of A's clone (Divit or A, before A starts)
@@ -41,6 +41,13 @@ A page is held by one account at a time, by state:
    - A uses the prefix `A-` (writers `A-w-<n>`);
    - B uses `B-` (writers `B-w-<n>`, reviewers `B-r-<n>`).
 
+## 3b. IDs, gate and sources (Divit 2026-10-13)
+- **`--by` on every claim and state change** (claim, state, images, ready, review, release, hold, unhold): hubctl refuses without it. A uses `A-w-<n>`; B uses `B-w-<n>`, `B-r-<n>` or `B-coord`.
+- **Gate:** a page ships with **0 rejects**. Flags are allowed: each one goes to Divit's daily packet. **Never reword a verbatim AlsoAsked question to clear a flag**; leave the flag and note it in the commit message.
+- **AlsoAsked for writers:** `hubctl brief <url>` prints the page's AlsoAsked candidates with gate marks (+ use verbatim, ? flag, x reject), gated in memory. Writers never read `private/`.
+- **F2:** pages with a legacy DataForSEO capture accept the source `alsoasked` when the page has an AlsoAsked pull. Use the true label; no relabelling as keyword or secondary.
+- **PA12:** only the page's own Semrush workbook secondaries count, and the bar is min(6, how many the workbook has). A page with none passes that test. Never pad `secondaries_used` with keyword ideas, and remove any padding when reworking.
+
 ## 4. Commit protocol
 - Always use `bash ops/sync.sh "<message>" <explicit paths>`. It pulls with rebase and autostash, refuses conflict markers, then commits and pushes. Never `git add -A`, never force-push, never `git reset --hard`.
 - **One page = one commit**, as soon as it reaches its stage: `specs/<hub>/<slug>.json`, `images/<hub>/<slug>/` and `status/<hub>.json`.
@@ -63,5 +70,5 @@ A page is held by one account at a time, by state:
    - `hubctl images <url>` (state `images`), committed through sync.sh.
 2. Every page in state `images` in Form/Auto is in B's review queue automatically; there is no hand-off message. B reviews them in batches of up to 4 per page-reviewer (`hubctl review`, severity from rules/SEVERITY.md only).
 3. **No blocking finding:** `reviewed`, and B builds ship batches from `reviewed` pages across all 4 hubs. **Blocking:** `rework`, back to A (section 1).
-4. Ship (B only): Divit's daily approval packet, then create the CMS items with the 3 newest published Learn refs (L12), pre-flight, staging, Divit's publish, then verify, relink and live audit.
+4. Ship (B only): Divit's daily approval packet, then create the CMS items with the 3 newest published Learn refs (L12, config/learn_refs.json), pre-flight, staging, Divit's publish, then verify, relink and live audit.
 5. A logs its token use per page: `hubctl usage-log <url> <tokens> --role writer --agent A-w-<n>`, committed with the page (`status/usage.jsonl`, append only). B does the same for review and ship.

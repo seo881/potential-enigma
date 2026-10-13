@@ -12,6 +12,8 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
                                                           key drop_key is missing; or path, a list of keys into the spec, e.g. ["image_brief","tabs",0,"alt"], holds it)
   k7-header      {url, header, expect_k7}                 QC K7 fires on a why_table column header exactly when expect_k7 (top-10 URLs: keyword map + saved SERP)
   qc-text        {url, field, text, check}                 QC flags `field` when it holds `text` (P0/P1 on that field)
+  gate-pa12-secs {url, expect_pa12}                        PA12's secondary count fails exactly when expected (bar = min(6, workbook secondaries))
+  qc-f2-aa       {url, aa, expect_f2}                     legacy-capture page with an item labelled alsoasked: F2 exactly when there is no AlsoAsked pull
   qc-f1          {url, aa, serp, expect_f1}               QC raises F1 exactly when the page has no AlsoAsked pull (DataForSEO capture irrelevant)
   audit-noflag   {url, code}                              the live audit does NOT raise `code` on a bare page (a settled non-issue)
   audit-link     {url, href, status_code, internal?, hub?, expect_finding}  A7-link raises a finding for this link status exactly when expected
@@ -109,6 +111,23 @@ def caught(c):
         try: hit = any(i["code"] == "F1" for i in Q.check(s, Q.load_specs([H.spath(c["url"])])))
         finally: PG.pull_path, S.load = real_pp, real_load
         return hit == c["expect_f1"]
+    if c["kind"] == "qc-f2-aa":    # legacy-capture page, FAQ item 3 labelled alsoasked (Divit 2026-10-13): F2 only when there is no pull
+        import qc_hub as Q, hubctl as H, paa_gate as PG
+        sys.path.insert(0, os.path.join(ROOT, "plan")); import serp as S
+        s = json.load(open(H.spath(c["url"]))); s["status"] = "qc_pass"
+        x = next(x for x in s.get("faq_sources", []) if x.get("source") != "definition"); x["source"], x["ref"] = "alsoasked", x.get("q")
+        real_pp, real_load = PG.pull_path, S.load
+        stub = os.path.join(ROOT, ".cache", "golden-aa-stub.json"); os.makedirs(os.path.dirname(stub), exist_ok=True)
+        json.dump({"_meta": {"fetched": "2026-10-10"}, "response": {}}, open(stub, "w"))
+        PG.pull_path = lambda slug: stub if c["aa"] else os.path.join(ROOT, ".cache", "golden-no-such-pull.json")
+        S.load = lambda url: real_load(url) or {"paa": [], "related": [], "keywords": [], "organic": [], "features": [], "fetched": "2026-10-01"}
+        try: hit = any(i["code"] == "F2" and "alsoasked" in i.get("msg", i.get("message", "")) for i in Q.check(s, Q.load_specs([H.spath(c["url"])])))
+        finally: PG.pull_path, S.load = real_pp, real_load
+        return hit == c["expect_f2"]
+    if c["kind"] == "gate-pa12-secs":   # PA12 secondaries bar = min(6, the page's Semrush workbook secondaries) (Divit 2026-10-13)
+        import paa_gate as PG, io, contextlib
+        with contextlib.redirect_stdout(io.StringIO()): _items, page = PG.run_spec(PG.Gate(c["url"]))
+        return any(r == "PA12" and "secondary" in m for r, m in page) == c["expect_pa12"]
     if c["kind"] == "qc-text":
         import qc_hub as Q, hubctl as H
         s = json.load(open(H.spath(c["url"]))); s = copy.deepcopy(s); f = c["field"]

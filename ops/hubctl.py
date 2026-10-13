@@ -34,6 +34,9 @@
   pack URL --role writer|reviewer   one compact file for that agent: brief, the rules it needs, catalogue summary, exemplar
   sources-check URL|--all            link-check every spec.domain_sources URL (cached for QC P3)
   usage-log URL TOKENS --role R     record an agent's token usage for a page (metrics reports tokens per page)
+  learn-refs READBACK                 the 3 newest published Learn articles -> config/learn_refs.json (L12; new items get them at creation)
+  hold URL --by ID [--note T] | unhold URL --by ID   the account's hold marker on a page it is working (docs/TWO_ACCOUNTS.md)
+  (claim, state, images, ready, review, release, hold and unhold refuse without --by: Divit 2026-10-13)
   metrics | sample [STATE] | links HUB | links --relink | lookahead HUB [N] | serp-budget | ranks-save URL RAW | ranks-report | recheck [--states a,b] | image-regress | verify-live URL [--html F]
   live-audit [--since-publish|--all|--urls U,U|--set launch] [--base URL] [--dry] | live-audit record|drift|plan|report DATE ...
   live-fix apply|brief|prepare|verify|approve|add ISSUE ... | live-rollback ISSUE [--done RESPONSE]   (docs/LIVE_AUDIT.md; ops/live_audit.py)
@@ -70,11 +73,24 @@ def load_st(hub):
     p = st_path(hub)
     return json.load(open(p)) if os.path.exists(p) else {"hub": hub, "pages": {}}
 def save_st(hub, st): json.dump(st, open(st_path(hub), "w"), indent=1, sort_keys=True)
+def need_by(args, cmd):
+    """Every claim and state change names its agent (Divit 2026-10-13, docs/TWO_ACCOUNTS.md): A-w-<n> for Account A, B-<role>-<n> for B."""
+    by = args[args.index("--by") + 1] if "--by" in args and args.index("--by") + 1 < len(args) else None
+    if not by or by.startswith("-"): sys.exit(f"refused: hubctl {cmd} needs --by <ID> (A-w-<n> on Account A, B-<role>-<n> on B; docs/TWO_ACCOUNTS.md)")
+    return by
+def account(by): return "A" if (by or "").upper().startswith("A-") else "B"
+def hold_conflict(url, by):
+    """The page's hold marker belongs to the other account: that account is working it (docs/TWO_ACCOUNTS.md section 3)."""
+    h = load_st(hub_of(url))["pages"].get(url, {}).get("hold")
+    return h if (h and by and account(h.get("by")) != account(by)) else None
+
 def set_state(url, state, note=None, via=None, by=None, **extra):
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
     hub = hub_of(url)
     with G.lock("status-" + hub):
         st = load_st(hub); e = st["pages"].setdefault(url, {})
+        h = e.get("hold")
+        if h and by and account(h.get("by")) != account(by): sys.exit(f"refused: {url} is held by {h.get('by')} since {h.get('t')} ({h.get('note','')}); only that account changes it until it runs hubctl unhold")
         e.update({"state": state, "updated": now(), **extra})
         if note: e["note"] = note
         save_st(hub, st)
@@ -95,7 +111,7 @@ def cmd_status(args):
             if e.get("state") not in ("queued", "published"): print(f"    {e['state']:9s} {url}  ({e.get('by','')}, {e.get('updated','')}) {e.get('note','')}")
 
 def cmd_claim(args):
-    hub, n = args[0], int(args[1]); by = args[args.index("--by") + 1] if "--by" in args else "unknown"
+    hub, n = args[0], int(args[1]); by = need_by(args, "claim")
     pin = os.path.join(ROOT, ".hub")
     # .hub pins a checkout to its hubs: one key (ops/worktrees.sh) or a comma list (docs/TWO_ACCOUNTS.md: A "Form,Auto", B "LP,SurveyQuiz")
     if os.path.exists(pin) and hub not in [h.strip() for h in open(pin).read().split(",")]: sys.exit(f"this checkout claims only {open(pin).read().strip()} (.hub; docs/TWO_ACCOUNTS.md); claim {hub} from the account that owns it")
@@ -111,6 +127,18 @@ def cmd_claim(args):
     save_st(hub, st)
     for p in got: print(f"claimed #{p['queue_rank']:<4} {p['url']}  ({p['primary']}, {p['total_msv']} total MSV, wave {p['wave']})")
     print("Commit and push status now so other chats see the claim.")
+
+def _print_aa(url):
+    """The page's AlsoAsked candidates (primary and top-secondary pulls) with gate verdicts, gated in memory: writers on either
+    account never read private/ (Divit 2026-10-13, Account A read access). Nothing is written."""
+    sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate as PG, io, contextlib
+    if not PG.pulls(url.rsplit("/", 1)[1]): print("ALSOASKED   no pull yet: ops/weekend.py aa <url> (QC F1)"); return
+    with contextlib.redirect_stdout(io.StringIO()): items, _x = PG.run_pull(PG.Gate(url))
+    print("ALSOASKED CANDIDATES (gated in memory; + use verbatim, ? flag: usable and listed in Divit's packet, never reword it to clear the flag, x reject):")
+    for v, mark in (("pass", "+"), ("flag", "?"), ("reject", "x")):
+        for it in (i for i in items if i["verdict"] == v):
+            why = ",".join(sorted({r[0] for r in it["reasons"] if r[1] != "pass"}))
+            print(f"   {mark} {it['q']}" + (f"   [{why}]" if why else ""))
 
 def cmd_brief(args):
     m = kmap(); p = m.get(args[0]) or sys.exit("not in keyword map")
@@ -144,8 +172,8 @@ def cmd_brief(args):
         if live["related"]: print("RELATED SEARCHES (fill remaining FAQ slots and secondaries from these):\n   " + " | ".join(live["related"]))
         if not p.get("top10") and live["organic"]: print("TOP 10 (live):\n" + "\n".join(f"   {o['rank']:>2}. {o['url']}" for o in live["organic"]))
     else:
-        print("PEOPLE ALSO ASK  from the AlsoAsked pull (private/alsoasked/<slug>.json; QC F1), gated by: python3 ops/hubctl.py paa <url>")
         print("           (DataForSEO retired, Divit 2026-10-10: no live SERP pull. Keyword ideas = the Semrush secondaries above.)")
+    _print_aa(p["url"])
     if p.get("wave3_evidence"): print(f"WAVE 3     {p['wave3_evidence']}")
     try:
         sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
@@ -267,7 +295,7 @@ def cmd_review(args):
     """RUBRIC.json: {"rubric": {criterion: {result, evidence}}, "findings": [{criterion, rule, field, quote, issue, fix, severity}]}.
     Every finding cites the HUB_RULES section or CONTENT_DEFECTS row it breaks and is blocking or a note. Only blocking findings
     send the page to rework; notes are kept in spec.review_notes (hubctl metrics proposes a rule when one recurs on 3+ pages)."""
-    url, rf = args[0], args[1]; by = args[args.index("--by") + 1] if "--by" in args else "reviewer"
+    url, rf = args[0], args[1]; by = need_by(args, "review")
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
     raw = json.load(open(rf)); rub = raw.get("rubric", raw); findings = raw.get("findings", [])
     RUB = json.load(open(os.path.join(ROOT, "rules", "rubric.json")))["criteria"]; ids = {c["id"] for c in RUB}
@@ -305,7 +333,7 @@ def cmd_verified(args):
 
 def cmd_ready(args):
     """After the one rework: QC TOTAL 0 and images rendered (state images), the page has its one review -> reviewed, ready for Divit."""
-    url = args[0]; by = args[args.index("--by") + 1] if "--by" in args else "orchestrator"
+    url = args[0]; by = need_by(args, "ready")
     s = json.load(open(spath(url))); st_now = load_st(hub_of(url))["pages"].get(url, {}).get("state")
     if st_now != "images": sys.exit(f"ready needs the page in state 'images' (reworked, QC passed, images re-rendered); it is '{st_now}'")
     if not s.get("review"): sys.exit("this page has not had its review yet: spawn a page-reviewer (hubctl review)")
@@ -362,7 +390,7 @@ def _cmd_challenge_retired(args):
     else: set_state(url, "challenged", note=f"no blocking defects found by {by}; {notes} notes", via="challenge", by=by); print(f"CHALLENGED: no blocking defects, {notes} notes")
 
 def cmd_state(args):
-    url, state = args[0], args[1]
+    url, state = args[0], args[1]; need_by(args, "state")
     if state not in STATES: sys.exit(f"state must be one of {STATES}")
     if state in ("reviewed", "challenged"): sys.exit(f"'{state}' is set only by hubctl review or hubctl ready, never by hand")
     if state == "approved":
@@ -391,10 +419,32 @@ def cmd_state(args):
         if by not in s.setdefault("writers", []): s["writers"].append(by); json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
     set_state(url, state, note, by=by); print(f"{url} -> {state}")
 
+def cmd_hold(args):
+    """Hold marker (docs/TWO_ACCOUNTS.md section 3): put on origin BEFORE working a page that is not freshly claimed (rework, rescue)."""
+    url = args[0]; by = need_by(args, "hold"); note = args[args.index("--note") + 1] if "--note" in args else ""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    with G.lock("status-" + hub_of(url)):
+        st = load_st(hub_of(url)); e = st["pages"].get(url)
+        if e is None: sys.exit(f"{url} is not in status (queued pages are claimed, not held)")
+        h = e.get("hold")
+        if h and account(h.get("by")) != account(by): sys.exit(f"refused: already held by {h.get('by')} since {h.get('t')}")
+        e["hold"] = {"by": by, "t": now(), "note": note}; save_st(hub_of(url), st)
+    print(f"{url}: held by {by}. Commit and push status now (ops/sync.sh); the hold counts only once it is on origin.")
+def cmd_unhold(args):
+    url = args[0]; by = need_by(args, "unhold")
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    with G.lock("status-" + hub_of(url)):
+        st = load_st(hub_of(url)); e = st["pages"].get(url) or {}; h = e.get("hold")
+        if not h: sys.exit(f"{url} has no hold")
+        if account(h.get("by")) != account(by): sys.exit(f"refused: held by {h.get('by')}; only that account removes it")
+        e.pop("hold"); save_st(hub_of(url), st)
+    print(f"{url}: hold removed by {by}")
+
 def cmd_release(args):
-    url = args[0]; note = args[args.index("--note") + 1] if "--note" in args else None
+    url = args[0]; note = args[args.index("--note") + 1] if "--note" in args else None; by = need_by(args, "release")
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
     hub = hub_of(url)
+    if hold_conflict(url, by): sys.exit(f"refused: {url} is held by {hold_conflict(url, by).get('by')}")
     with G.lock("status-" + hub):
         st = load_st(hub); cur = st["pages"].get(url, {}).get("state")
         ok = ("claimed", "spec") + (("parked",) if note else ())   # parked -> queue only with a written reason (Divit 2026-10-12, A6 default)
@@ -464,8 +514,24 @@ def _field_data(url, sha):
         if im.get("path"):
             if not os.path.exists(os.path.join(ROOT, im["path"])): sys.exit(f"image missing on disk: {im['path']}")
             fd[h["fields"][k]] = {"url": f"{REPO_RAW}/{sha}/{im['path']}", "alt": im["alt"]}
+    if not fd.get(h["fields"]["learn"]): fd[h["fields"]["learn"]] = learn_refs()   # L12 (Divit 2026-10-13): Learn refs at creation
     assert fd.get("name") and fd.get("slug"), f"{url}: name (h1) and slug are required"
     return s, fd
+
+def learn_refs():
+    return json.load(open(os.path.join(ROOT, "config", "learn_refs.json")))["ids"]
+
+def cmd_learn_refs(args):
+    """READBACK = a read of the Learn collection (6a0f028d0bfe272031dbddb8) sorted by learn---publishing-date desc. Picks the 3 newest
+    PUBLISHED articles (isDraft false, not archived, lastPublished set; ties broken by createdOn, newest first) into config/learn_refs.json."""
+    items = _items_from_readback(args[0])
+    pub = [i for i in items if not i.get("isDraft") and not i.get("isArchived") and i.get("lastPublished")]
+    pub.sort(key=lambda i: ((i.get("fieldData") or {}).get("learn---publishing-date") or "", i.get("createdOn") or ""), reverse=True)
+    if len(pub) < 3: sys.exit("fewer than 3 published Learn articles in the read: nothing written")
+    p = os.path.join(ROOT, "config", "learn_refs.json"); cur = json.load(open(p)); new = [i["id"] for i in pub[:3]]
+    if new == cur["ids"]: print("learn refs unchanged: " + ", ".join(new)); return
+    old = cur["ids"]; cur.update(ids=new, source=f"hubctl learn-refs from {os.path.basename(args[0])}", updated=now()); json.dump(cur, open(p, "w"), indent=1)
+    print("learn refs CHANGED (was " + ", ".join(old) + "): " + ", ".join(new) + "\nNew items get these; live items keep theirs until a refresh is approved.")
 
 def cmd_bulk_payload(args):
     hub = args[0]; sha = args[args.index("--sha") + 1]; h = CFG["hubs"][hub]; st = load_st(hub); items = []
@@ -755,8 +821,10 @@ def _hold():
     if h: sys.exit(f"images are on hold since {h['since']}: {h['why']}")
 
 def cmd_images(args):
-    _hold(); url = args[0]; ok = _engine().render_spec(spath(url))
-    if ok: set_state(url, "images")
+    _hold(); url = args[0]; by = need_by(args, "images")
+    if hold_conflict(url, by): sys.exit(f"refused: {url} is held by {hold_conflict(url, by).get('by')}")
+    ok = _engine().render_spec(spath(url))
+    if ok: set_state(url, "images", by=by)
     sys.exit(0 if ok else 1)
 
 def cmd_images_batch(args):
@@ -798,7 +866,7 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "release": cmd_release, "paa": cmd_paa, "paa-resource": cmd_paa_resource, "paa-synonyms": cmd_paa_synonyms, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "unhold": cmd_unhold, "learn-refs": cmd_learn_refs, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
         "recheck": cmd_recheck, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live,
         "live-audit": lambda a: _live().main(a), "live-fix": lambda a: _live().fix_main(a), "live-rollback": lambda a: _live().cmd_rollback(a), "retro": lambda a: __import__("retro").main(a)}

@@ -52,8 +52,10 @@ class Gate:
         self.head_words = [stem(w) for w in norm(self.primary).split()]
         secs = set((self.spec.get("keywords") or {}).get("secondaries_used") or [])
         kmp = os.path.join(ROOT, "plan", "keyword_map.json")
+        self.workbook_secs = []   # the page's Semrush secondaries (plan/keyword_map.json): PA12 counts only these (Divit 2026-10-13)
         if os.path.exists(kmp):
-            secs |= {x["kw"] for x in (json.load(open(kmp)).get(url, {}) or {}).get("secondaries", []) if x.get("kw")}
+            self.workbook_secs = [x["kw"] for x in (json.load(open(kmp)).get(url, {}) or {}).get("secondaries", []) if x.get("kw")]
+            secs |= set(self.workbook_secs)
         self.secondaries = sorted(secs)
         # PA14 exemption (Divit 2026-10-12): the page's own keyword words and their initials (AP = accounts payable) are not brands
         self.page_terms = set()
@@ -360,9 +362,12 @@ def run_spec(g):
     if len(items) > 1:
         if not re.match(r"^how (do|can|to|should) (i |you |we )?(create|make|build|set up|design)", norm(items[1]["q"])): page.append(("PA12", "item 2 is not how-to-build"))
         if not re.search(r'href=["\'][^"\']*' + re.escape(g.hub_path) + r'/?["\']', items[1]["a"]): page.append(("PA12", "item 2 has no hub link"))
-    secs = [content(k) for k in (g.spec.get("keywords") or {}).get("secondaries_used") or []]
-    sec = sum(i["source"] == "secondary" or any(k and k <= content(i["q"]) for k in secs) for i in items); need = min(MIN_SECONDARIES, len((g.spec.get("keywords") or {}).get("secondaries_used") or []) or MIN_SECONDARIES)
-    if sec < need: page.append(("PA12", f"{sec} items carrying a secondary, under {need}"))
+    # PA12 secondaries (Divit 2026-10-13, proposal PA12): only the page's own Semrush workbook secondaries count, and the bar is
+    # min(6, how many the workbook has). A page with none passes on that test; keyword ideas never stand in for secondaries.
+    wb = [content(k) for k in g.workbook_secs]
+    sec = sum(i["source"] == "secondary" or any(k and k <= content(i["q"]) for k in wb) for i in items)   # a "secondary" label is checked against the workbook by QC F2
+    need = min(MIN_SECONDARIES, len(wb))
+    if sec < need: page.append(("PA12", f"{sec} items carrying a workbook secondary, under {need}"))
     for it in items:
         first = norm(re.sub(r"<[^>]+>", " ", html.unescape(it["a"])))[:60]
         bad = [b for b in g.pt["answer_first_banned"] if first.startswith(b)]

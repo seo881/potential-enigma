@@ -558,8 +558,10 @@ def check(spec, siblings):
                         if m_: used_paa.add(m_.lower())
                 elif kind == "definition":
                     if norm(ref) != norm(prim): add("P1", "F2", "faq", "a definition item must define the page's primary keyword")
+                elif kind == "alsoasked":   # rescue rewrites of legacy pages (Divit 2026-10-13, proposal F2): a true AlsoAsked label; PA1 checks it against the pull
+                    if not os.path.exists(_PG.pull_path(spec["url"].rsplit("/", 1)[1])): add("P1", "F2", "faq", f'source says alsoasked but this page has no AlsoAsked pull')
                 else:
-                    add("P1", "F2", "faq", f'unknown source type "{kind}" (paa, related, secondary, keyword, definition)')
+                    add("P1", "F2", "faq", f'unknown source type "{kind}" (alsoasked, paa, related, secondary, keyword, definition)')
             me_page = (KMAP or {}).get(spec["url"], {"primary": prim, "secondaries": []})
             ok_paa, _skip = S.eligible(live, me_page, prims)
             # PA4 per-page skip list (Divit approved PA1-PA13, 2026-10-08): a logged, reasoned skip is not required by F4

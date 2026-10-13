@@ -1,5 +1,11 @@
 # Learn list and carousel: causes and fix plan (read-only investigation, 2026-10-12)
 
+> **Correction (Divit, 2026-10-13; DECISIONS 2026-10-13), which supersedes section A's Designer clicks below.** The source stays on each item's own "... - Learn" multi-reference field (Divit verified the Form source shows "AFB - Learn"). Never switch it to the Learn collection. The fix is data, not design:
+> - Each child item's `acrm---learn` holds the 3 newest published Learn articles. The 39 live items were filled on 2026-10-13 and booking-form already had them. New items get them at creation (L12, config/learn_refs.json).
+> - The card link `blog_link` is a collection-page link to `detail_learn` on all 4 templates. The advisor set Form, LP and Automation; B set Survey on 2026-10-13 (read back, logs/templates.md).
+> - The cause stands: the lists read an empty field. The remedy changed from "switch the source" to "fill the field".
+> - Section B (carousel) was applied by API on 2026-10-13 (logs/templates.md).
+
 Both sections are hidden on production-bound templates (logs/templates.md, 2026-10-12 pre-production hide). Nothing below has been applied, and nothing is unhidden without Divit's go. All element IDs are `{component: <page id>, element: <id>}`.
 
 ## A. Learn list "No items found" (Form, LP, Automation templates)
