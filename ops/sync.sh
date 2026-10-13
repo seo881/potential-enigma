@@ -13,7 +13,8 @@ if git diff --cached --name-only -z | xargs -0 -r grep -lE '^(<<<<<<< |>>>>>>> |
 fi
 # review lock (ruling 10 B2): after review only fields named in a blocking finding may change
 PY="$(dirname "$0")/../.venv/bin/python3"; [ -x "$PY" ] || PY=python3
-if ! git diff --cached --name-only | grep '^specs/' | xargs "$PY" "$(dirname "$0")/review_lock.py"; then
+SPECS="$(git diff --cached --name-only | grep '^specs/' || true)"
+if [ -n "$SPECS" ] && ! echo "$SPECS" | xargs "$PY" "$(dirname "$0")/review_lock.py"; then
   echo "refusing to commit: review lock (see above)" >&2; git reset -q; exit 1
 fi
 git diff --cached --quiet || git commit -q -m "$msg"

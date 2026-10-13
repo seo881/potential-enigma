@@ -70,6 +70,15 @@ Who holds a page:
   - `hubctl ship` refuses a page whose hash does not match.
 - **Rule re-run (ruling 8):** `hubctl recheck` runs only on pages not held by B. It runs on B's pages at the end of B's wave, coordinated through holds. It never changes a held page's state.
 
+## 3c. Ruling 10 (Divit 2026-10-13): speed without lowering the bar
+- **Feasibility before writing.** After the page's one pull, run `hubctl feasibility <url>`. Under 10, do not write: `hubctl defer <url> --by B-w-<n>` sends it back to the queue (not parked). `hubctl claim` skips infeasible pages that already have a pull.
+- **Review lock.** After review, change only the fields named in a blocking finding. `hubctl ready` and `ops/sync.sh` refuse anything else. Mechanical H3/J1 fixes are exempt; a same-day factual fix needs the coordinator's `hubctl unlock`.
+- **Weekly rule window.** New rule ideas go to `proposals/account-b.md` or `plan/backlog.md`. Rules land once a week, on Mondays, in one combined pass plus a recheck. Factual errors are still fixed the same day.
+- **Daily ship.** A ships every `reviewed`, unheld, hash-matching page each day (`hubctl daily-batch`).
+- **Headless loop.** B may run a writer loop in its own clone with 6–8 writer subagents. Divit starts it, and it refuses to start unless `weekend.py preflight` passes.
+- **Read-only checks.** `hubctl qc` and `hubctl paa` no longer write anything. Stamp `qc_passed` with `hubctl qc <url> --stamp` (or `state qc_pass`); `--log` writes the PAA summary.
+- **Pilot hold.** No new Auto pages for B until the AlsoAsked yield pilot lands.
+
 ## 4. Commit protocol
 - Always use `bash ops/sync.sh "<message>" <explicit paths>`. It pulls with rebase and autostash, refuses conflict markers, then commits and pushes. Never `git add -A`, never force-push, never `git reset --hard`.
 - **One page = one commit**, as soon as it reaches its stage: `specs/<hub>/<slug>.json`, `images/<hub>/<slug>/` and `status/<hub>.json`.
