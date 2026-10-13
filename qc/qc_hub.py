@@ -791,6 +791,13 @@ def check(spec, siblings):
             if sl.get("locked") and sl.get("q") and (len(got) < sl["n"] or got[sl["n"] - 1] != sl["q"]):
                 add("P0", "R15", "faq", f'FAQ item {sl["n"]} must be the locked question "{sl["q"][:60]}" (code-set; never reword)')
         if not spec.get("claims_used"): add("P1", "R15", "claims_used", "list the claim ids (rules/capabilities.json) the copy relies on")
+        # canary 2026-10-14 (A-r-10): an absolute efficacy claim against a risk ("confirmation stops throwaway accounts") is untrue unless sourced
+        EFF = re.compile(r"\b(stops?|prevents?|eliminates?|blocks? (?:all|every)|rules? out|ends?)\b(?:\W+\w+){0,6}?\W+(fraud|fake|spam|abuse|gaming|cheat\w*|errors?|mistakes?|duplicates?|bots?|throwaway|misuse|theft|leaks?|breach\w*|no-shows?|chargebacks?|disputes?)\b|\bguarantee[sd]?\b", re.I)
+        prose = {k: v for k, v in F.items() if isinstance(v, str) and k not in ("why_table", "mockup", "faq", "hero_prompt")}
+        for idx, it in enumerate((fq or {}).get("items", []), 1): prose[f"faq item {idx}"] = it.get("a", "")
+        for k, v in prose.items():
+            m = EFF.search(strip_html(v or ""))
+            if m: add("P1", "R15", "faq" if k.startswith("faq") else k, f'{k}: absolute efficacy claim "{m.group(0)[:60]}": say what it does ("raises the effort", "catches typed fakes"), or source the claim')
         # canary 2026-10-14 (A-r-9, CONTENT_DEFECTS #8): an Emergent line in an answer that names another brand reads as a comparison
         import urllib.parse as _up
         brands = set()

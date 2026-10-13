@@ -74,8 +74,11 @@ def _shorter_raw(disp):
     elif len(ws) > 2 and ws[-1].lower() in ("automation", "workflow", "survey", "quiz", "form"): out.append(" ".join(ws[:-1]))
     return out
 
-def _a(primary):   # article for a definition question
+COUNTABLE = re.compile(r"\b(form|survey|quiz|page|website|site|workflow|system|process|pipeline|app|bot|tool|tracker|dashboard|portal|engine|questionnaire|application|sheet|checklist|template|report|letter|agreement|contract|waiver|release|log|list|plan|policy)s?$")
+def _a(primary):   # article for a definition question ("an audit workflow"; none for a mass noun: "returns automation")
     return "an" if primary[:1].lower() in "aeiou" else "a"
+def _art(primary):
+    return (_a(primary) + " ") if COUNTABLE.search(P.norm(primary)) else ""
 
 ACRO = {"ai": "AI", "crm": "CRM", "hr": "HR", "erp": "ERP", "api": "API", "sms": "SMS", "nps": "NPS", "csat": "CSAT", "faq": "FAQ", "seo": "SEO",
         "pdf": "PDF", "it": None, "us": None, "dei": "DEI", "kpi": "KPI", "rfp": "RFP", "sop": "SOP", "ppc": "PPC", "saas": "SaaS", "b2b": "B2B", "hipaa": "HIPAA", "dam": "DAM", "aec": "AEC", "rfq": "RFQ", "rfi": "RFI", "cpq": "CPQ", "pdfs": "PDFs"}
@@ -101,6 +104,8 @@ def candidates(url):
         if any(r[1] == "reject" for r in rs): continue
         fl = sorted({P.flag_subtype(r[0], r[2]) for r in rs if r[1] == "flag"})
         out.append({"kind": "semrush", "q": clean_question(x["q"]), "ref": x["q"], "prov": x["prov"], "locked": False, "flagged": fl})
+    # a capitalised-name flag (PA14) is usually another company ("Does automation Direct accept returns?"): never a skeleton slot
+    out = [c for c in out if "PA14 capitalised name" not in (c.get("flagged") or [])]
     # Divit 2026-10-13: flagged questions may fill slots, after passing questions and secondaries; marked in spec and pack
     return [c for c in out if not c["flagged"]] + [c for c in out if c["flagged"]]
 
@@ -167,12 +172,14 @@ def cmd_build(a):
     cands = candidates(url); have = []; slots = []
     pick = lambda rx: next((c for c in cands if rx.search(P.norm(c["q"])) and c not in have), None)
     d = pick(DEF_RX); have += [d] if d else []
-    slots.append(d or {"kind": "definition", "q": f"What is {_a(prim)} {prim}?", "ref": prim, "locked": True})
+    slots.append(d or {"kind": "definition", "q": f"What is {_art(prim)}{prim}?", "ref": prim, "locked": True})
     h = pick(HOW_RX); have += [h] if h else []
-    slots.append(h or {"kind": "definition", "q": f"How do I create {_a(prim)} {prim}?", "ref": prim, "locked": True})
+    slots.append(h or {"kind": "definition", "q": (f"How do I create {_art(prim)}{prim}?" if _art(prim) else f"How do I set up {prim}?"), "ref": prim, "locked": True})
+    FILL = re.compile(r"\b(best practices?|for e commerce|for ecommerce|in marketing automation tools?|your business|long-term|tips)\b", re.I)
+    near = lambda q, qs: R.dup(FILL.sub(" ", q), [FILL.sub(" ", x) for x in qs])   # "...workflows best practices?" = "...workflows?"
     for c in [c for c in cands if not c.get("flagged")]:
         if len(slots) == 10: break
-        if c in have or R.dup(c["q"], [x["q"] for x in slots]): continue
+        if c in have or near(c["q"], [x["q"] for x in slots if x.get("q")]): continue
         slots.append(c)
     carried = [P.content(x["q"]) for x in slots]
     for x in sorted(km.get("secondaries") or [], key=lambda x: -(x.get("msv") or 0)):
@@ -182,7 +189,7 @@ def cmd_build(a):
         carried.append(c); slots.append({"kind": "secondary", "q": None, "ref": x["kw"], "locked": False})
     for c in [c for c in cands if c.get("flagged")]:
         if len(slots) == 10: break
-        if c in have or R.dup(c["q"], [x["q"] for x in slots if x.get("q")]): continue
+        if c in have or near(c["q"], [x["q"] for x in slots if x.get("q")]): continue
         slots.append(c)
     if len(slots) < 10: sys.exit(f"refused: only {len(slots)} FAQ slots from passing sources (ruling 15: the skeleton needs 10); not writable yet")
     hubpath = H.CFG["hubs"][hub]["path"]; hubtext = H.CFG["hubs"][hub]["hub_link_text"]
@@ -239,6 +246,7 @@ def cmd_pack(a):
     out += ["", "## Claims menu (cite the id in spec.claims_used; say nothing about Emergent outside these)"] + [f"- {c['id']}: {c['claim']}" for c in caps]
     out += ["", "## Third-party facts", "Every fact about another product, a law or a professional standard needs spec.domain_sources {claim, source_url, date, quote}: `quote` is the exact span from the source that states it. No span, no claim.",
             "Stay inside the span: a detail the quote does not state (how a file is sent, 'by API', a date, a number) needs its own source or comes out. GOOD: 'the buyer sends the approved invoice file to the bank' (the span). BAD: 'Emergent sends that file through the bank's API' (the span says nothing about an API).",
+            "Never claim a step stops, prevents or eliminates a risk (fraud, fakes, spam, errors, duplicates) unless a source says so: say what it does. GOOD: 'confirmation keeps typed-in fake addresses from counting'. BAD: 'confirmation stops throwaway accounts' (a disposable inbox confirms too). QC R15 flags it.",
             "Never put an Emergent line in an answer that names another brand: next to a cited competitor fact it reads as a comparison (QC R15, CONTENT_DEFECTS #8). Put the Emergent line in an answer that names no other company."]
     pm = os.path.join(ROOT, "docs", "PREVENTION.md")
     if os.path.exists(pm):

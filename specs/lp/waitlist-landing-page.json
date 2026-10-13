@@ -115,6 +115,13 @@
    "via": null,
    "by": "A-coord",
    "note": ""
+  },
+  {
+   "t": "2026-10-13 19:08 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-10",
+   "note": "[truth | HUB_RULES 8] faq: States as fact that email confirmation stops referral gaming with throwaway accounts. It does not: a disposable or plus-addressed inbox receives the confirmation link and the person clicks it, so confirmation only raises the effort. The claim is also a best-practice effica"
   }
  ],
  "pipeline": "r15",
@@ -950,5 +957,315 @@
  },
  "writers": [
   "A-w-53"
- ]
+ ],
+ "review": {
+  "by": "A-r-10",
+  "date": "2026-10-13 19:08 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Waitlist Landing Page for Your Next Launch'; hero 'Build a waitlist landing page that shows each signup a place in line and saves every email to a database you own.' (D1 pass); how-to description one sentence, D2 pass; meta promise 'With Referrals' delivered in tab 1 and feature 2."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is example galleries plus a Reddit how-to thread; page gives 'Four Waitlist Landing Page Examples' with working rules and numbers, a 7-step how-to, and FAQ 'What should I copy from waitlist landing page examples?' / 'What are some MVP landing page examples?'."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Waitlist vocabulary throughout: 'moves the link's owner up 10 spots', 'sends 200 invites every Monday at 9 AM', 'a claim link that holds a mug for 24 hours', 'saves each signup with its price'. Table generated from the library, QC V2/V3/Q4 clean."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Describe the product, who it is for, and when it opens.', 'Quillfern, an invoicing app for freelancers, gives...', 'Choose referrals or priority.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; notes on tab 4's tacked-on ending, the ambiguous 'founder' in tab 2 and the forced SEO link sentence in FAQ 7."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain verbs and concrete detail: 'Odessa Fennick joined at #1,482. Three friends used her link, and she now sits at #1,452.' One voice note on feature 4."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "faq item 5: 'count a friend only once their address is confirmed, which stops one person climbing with throwaway accounts' states an efficacy fact that is false (disposable inboxes receive and confirm the link) and has no domain_sources entry. Everything else checks: claims_used ids all approved (prompt-build, database-owned, api-connect, alerts, realtime, custom-domain, code-export, free-start, no-caps); FAQ 6 stays inside the FTC span 'Your message must include your valid physical postal address.'; no Emergent line in an answer that names another company; tab numbers agree (1482-30=1452; 500+500=1000; 61/47)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Tab stories (referral queue, clinic early access, mug drop, MVP price test) share nothing with coming-soon-page's tabs; no sibling primary in a heading; 'coming soon page' used only as a link anchor in FAQ 4."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions from the definition and Semrush secondaries, each answered in its first sentence; hub link in item 2; links to coming-soon-page, landing-page-seo and law-firm-landing-page (all published); moat lines in items 5 and 7 only, no brand in any question."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: one hero per tab; names and numbers match copy word for word ('You're #1,452 in line' / 'Joined at #1,482'; 'Slack message to Lennart Sefton', 'Monday batch of 200'; '#38, oat glaze', 'Unclaimed goes to #151'; '$8 a month 61 signups', '$12 a month 47 signups', bars proportional); cover and share image consistent."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "On a referral list, count a friend only once their address is confirmed, which stops one person climbing with throwaway accounts.",
+    "issue": "States as fact that email confirmation stops referral gaming with throwaway accounts. It does not: a disposable or plus-addressed inbox receives the confirmation link and the person clicks it, so confirmation only raises the effort. The claim is also a best-practice efficacy statement with no spec.domain_sources entry. Only instance of this class on the page (checked every field, FAQ and image brief).",
+    "fix": "Say what confirmation actually does, e.g. 'On a referral list, count a friend only once their address is confirmed, so typed-in fake addresses never move anyone up.' If disposable inboxes are to be addressed, add a separate, accurate step (e.g. flag referrals from disposable email domains for review) without claiming it stops all gaming.",
+    "severity": "blocking"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_2",
+    "quote": "Tamberlane Physio signed up with 14 therapists, and founder Lennart Sefton got a Slack message.",
+    "issue": "'founder' is ambiguous: it reads as Tamberlane's founder, while the mockup prompt makes him Cobaltine's founder ('sends me, Lennart Sefton'). The image alt repeats 'founder Lennart Sefton'.",
+    "fix": "'...and Cobaltine's founder, Lennart Sefton, got a Slack message.'",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "tab_content_4",
+    "quote": "The $12 page had 47, both counted live on her dashboard.",
+    "issue": "Tacked-on participial ending carries a second idea after the result.",
+    "fix": "'The $12 page had 47. Her dashboard counted both live.' or move the live dashboard into the earlier sentence.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "If search will bring the visitors, plan the <a href='https://emergent.sh/ai-landing-page-builder/landing-page-seo'>landing page SEO</a> before launch.",
+    "issue": "In the answer to 'What are some MVP landing page examples?' the SEO sentence sits off the question and reads as a link placed for K4.",
+    "fix": "Move the landing page SEO link to an answer where traffic source is the subject, or tie it to the examples (e.g. a fake-door page needs visitors before its clicks mean anything).",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_4",
+    "quote": "Choose the signups that deserve a person's attention, such as a team of 50 or more.",
+    "issue": "A signup is not 'a team of 50'; the qualifier is loose where a precise field belongs.",
+    "fix": "'...such as any company that enters 50 or more seats.'",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "feature_3",
+    "quote": "<h3>Signups in a database you own</h3>",
+    "issue": "Identical feature heading to the sibling coming-soon-page feature_2 ('Signups in a database you own').",
+    "fix": "'Every signup is a row you own' or name the waitlist detail, e.g. 'Each signup saved with the link that sent it'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "AI site builders (Wix, Framer) | ConvertFlow | Unbounce",
+    "issue": "HUB_RULES 5 says pick the competitors that rank for this query; Unbounce and AI site builders are not in the top 10 (QC K7 P2), while waitlist tools (waitlister.me, ScoreApp, Embeddable) are.",
+    "fix": "Coordinator: add a waitlist-tool entry to rules/competitors/lp.json with sources, then regenerate with hubctl table.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_2",
+   "issue": "'founder' is ambiguous: it reads as Tamberlane's founder, while the mockup prompt makes him Cobaltine's founder ('sends me, Lennart Sefton'). The image alt repeats 'founder Lennart Sefton'.",
+   "fix": "'...and Cobaltine's founder, Lennart Sefton, got a Slack message.'",
+   "by": "A-r-10",
+   "via": "review",
+   "date": "2026-10-13 19:08 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "tab_content_4",
+   "issue": "Tacked-on participial ending carries a second idea after the result.",
+   "fix": "'The $12 page had 47. Her dashboard counted both live.' or move the live dashboard into the earlier sentence.",
+   "by": "A-r-10",
+   "via": "review",
+   "date": "2026-10-13 19:08 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "In the answer to 'What are some MVP landing page examples?' the SEO sentence sits off the question and reads as a link placed for K4.",
+   "fix": "Move the landing page SEO link to an answer where traffic source is the subject, or tie it to the examples (e.g. a fake-door page needs visitors before its clicks mean anything).",
+   "by": "A-r-10",
+   "via": "review",
+   "date": "2026-10-13 19:08 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_4",
+   "issue": "A signup is not 'a team of 50'; the qualifier is loose where a precise field belongs.",
+   "fix": "'...such as any company that enters 50 or more seats.'",
+   "by": "A-r-10",
+   "via": "review",
+   "date": "2026-10-13 19:08 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "feature_3",
+   "issue": "Identical feature heading to the sibling coming-soon-page feature_2 ('Signups in a database you own').",
+   "fix": "'Every signup is a row you own' or name the waitlist detail, e.g. 'Each signup saved with the link that sent it'.",
+   "by": "A-r-10",
+   "via": "review",
+   "date": "2026-10-13 19:08 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "HUB_RULES 5 says pick the competitors that rank for this query; Unbounce and AI site builders are not in the top 10 (QC K7 P2), while waitlist tools (waitlister.me, ScoreApp, Embeddable) are.",
+   "fix": "Coordinator: add a waitlist-tool entry to rules/competitors/lp.json with sources, then regenerate with hubctl table.",
+   "by": "A-r-10",
+   "via": "review",
+   "date": "2026-10-13 19:08 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "b5af8570b1ef9dc7",
+   "alt:share_image": "80ab2a397a64959c",
+   "alt:tab_image_1": "a934463e6320cf6a",
+   "alt:tab_image_2": "4a8f31844bbdbb80",
+   "alt:tab_image_3": "dbf5a0670e58feae",
+   "alt:tab_image_4": "52d300943347c3f6",
+   "breadcrumb": "44e29903be13b159",
+   "chip_adds": "73dabe79f5064ecc",
+   "explore_cta": "bf24f456aae54d9f",
+   "faq": "563e1e03e5181a7b",
+   "feature_1": "5adf34891d9ec743",
+   "feature_2": "04ef272b5fd9171a",
+   "feature_3": "4d624b15a7e66015",
+   "feature_4": "444dd1d9eb2fb06e",
+   "feature_5": "4f081fad549fb611",
+   "feature_6": "ed21450716ee114b",
+   "features_heading": "ac252855dccdc4a1",
+   "features_subheading": "75201ff798e4711c",
+   "h1": "2a42cf1274d9068b",
+   "hero_description": "38b4cda0e8aba4d0",
+   "hero_prompt": "41188f3618103f4e",
+   "howto_description": "f50eb3c1a0dd765e",
+   "howto_step_1_des": "2e9354cf124f23e2",
+   "howto_step_1_title": "2cc019d7f4526145",
+   "howto_step_2_des": "712c4a6103a169ae",
+   "howto_step_2_title": "cea7fc688c95d88f",
+   "howto_step_3_des": "15b4c197077cd131",
+   "howto_step_3_title": "8a3d9a113a505ec4",
+   "howto_step_4_des": "d3b878a31bf57d86",
+   "howto_step_4_title": "62bec24469cd75d6",
+   "howto_step_5_des": "e86821a34a914699",
+   "howto_step_5_title": "046f9aebc42b13f4",
+   "howto_step_6_des": "e1751599a8c9aa23",
+   "howto_step_6_title": "5cc2b931541843da",
+   "howto_step_7_des": "0dfde851fbc2ae3e",
+   "howto_step_7_title": "98d0de56af99913c",
+   "howto_title": "8c4316b690ace577",
+   "meta_description": "132b83d06ad19d39",
+   "meta_title": "b7b6b115e345fc1e",
+   "mockup": "a6092ae194668e7f",
+   "product_name": "461333144fe567e0",
+   "prompt_chip_1": "4348d2ad2207571c",
+   "prompt_chip_2": "4e9908cbfb740829",
+   "prompt_chip_3": "7fe88c263fdfbf3d",
+   "prompt_chip_4": "2a52a8b2655ea898",
+   "slug": "7eb024a942d73a33",
+   "tab_content_1": "89cb85544afb6edc",
+   "tab_content_2": "91d67beec815009d",
+   "tab_content_3": "6a7cf37ff16cca00",
+   "tab_content_4": "56c730b2c288ffc9",
+   "tab_label_1": "1f4585cf973a5067",
+   "tab_label_2": "775972ce21957a9b",
+   "tab_label_3": "d0f2427651a94108",
+   "tab_label_4": "2a52a8b2655ea898",
+   "usecase_heading": "76c7601a21627184",
+   "why_description": "5b7ec23fa948e71a",
+   "why_table": "5043fc6df3e45beb",
+   "why_title": "47cceccea992f2ff"
+  },
+  "all": "95f9022d393dc2da",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "b5af8570b1ef9dc7",
+   "alt:share_image": "80ab2a397a64959c",
+   "alt:tab_image_1": "a934463e6320cf6a",
+   "alt:tab_image_2": "4a8f31844bbdbb80",
+   "alt:tab_image_3": "dbf5a0670e58feae",
+   "alt:tab_image_4": "52d300943347c3f6",
+   "breadcrumb": "44e29903be13b159",
+   "chip_adds": "73dabe79f5064ecc",
+   "explore_cta": "bf24f456aae54d9f",
+   "faq": "563e1e03e5181a7b",
+   "feature_1": "5adf34891d9ec743",
+   "feature_2": "04ef272b5fd9171a",
+   "feature_3": "4d624b15a7e66015",
+   "feature_4": "444dd1d9eb2fb06e",
+   "feature_5": "4f081fad549fb611",
+   "feature_6": "ed21450716ee114b",
+   "features_heading": "ac252855dccdc4a1",
+   "features_subheading": "75201ff798e4711c",
+   "h1": "2a42cf1274d9068b",
+   "hero_description": "38b4cda0e8aba4d0",
+   "hero_prompt": "41188f3618103f4e",
+   "howto_description": "f50eb3c1a0dd765e",
+   "howto_step_1_des": "2e9354cf124f23e2",
+   "howto_step_1_title": "2cc019d7f4526145",
+   "howto_step_2_des": "712c4a6103a169ae",
+   "howto_step_2_title": "cea7fc688c95d88f",
+   "howto_step_3_des": "15b4c197077cd131",
+   "howto_step_3_title": "8a3d9a113a505ec4",
+   "howto_step_4_des": "d3b878a31bf57d86",
+   "howto_step_4_title": "62bec24469cd75d6",
+   "howto_step_5_des": "e86821a34a914699",
+   "howto_step_5_title": "046f9aebc42b13f4",
+   "howto_step_6_des": "e1751599a8c9aa23",
+   "howto_step_6_title": "5cc2b931541843da",
+   "howto_step_7_des": "0dfde851fbc2ae3e",
+   "howto_step_7_title": "98d0de56af99913c",
+   "howto_title": "8c4316b690ace577",
+   "meta_description": "132b83d06ad19d39",
+   "meta_title": "b7b6b115e345fc1e",
+   "mockup": "a6092ae194668e7f",
+   "product_name": "461333144fe567e0",
+   "prompt_chip_1": "4348d2ad2207571c",
+   "prompt_chip_2": "4e9908cbfb740829",
+   "prompt_chip_3": "7fe88c263fdfbf3d",
+   "prompt_chip_4": "2a52a8b2655ea898",
+   "slug": "7eb024a942d73a33",
+   "tab_content_1": "89cb85544afb6edc",
+   "tab_content_2": "91d67beec815009d",
+   "tab_content_3": "6a7cf37ff16cca00",
+   "tab_content_4": "56c730b2c288ffc9",
+   "tab_label_1": "1f4585cf973a5067",
+   "tab_label_2": "775972ce21957a9b",
+   "tab_label_3": "d0f2427651a94108",
+   "tab_label_4": "2a52a8b2655ea898",
+   "usecase_heading": "76c7601a21627184",
+   "why_description": "5b7ec23fa948e71a",
+   "why_table": "5043fc6df3e45beb",
+   "why_title": "47cceccea992f2ff"
+  },
+  "all": "95f9022d393dc2da",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
