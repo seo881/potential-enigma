@@ -87,12 +87,16 @@ def title_case_errors(s):
 VOWEL_SOUND_ACRONYM = re.compile(r"^(F|H|L|M|N|R|S|X)[A-Z0-9]*$")   # an FAQ, an HR, an NPS, an SLA, an MBA
 CONSONANT_VOWEL_WORDS = ("one", "once", "uni", "use", "usu", "uti", "euro", "eu", "ubiq", "ura", "ure", "ufo")
 SILENT_H = ("hour", "honest", "honor", "honour", "heir")
+WORD_ACRONYMS = {"HIPAA", "NASA", "FEMA", "OSHA", "FERPA", "COBRA", "GDPR", "NATO", "PIN", "SWOT", "OKR", "ASAP", "NAICS", "ERISA", "AWOL", "UNESCO", "UNICEF"}
+WORD_ACRONYMS_VOWEL = {"OSHA", "OKR", "ASAP", "ERISA", "AWOL", "UNESCO", "UNICEF"}   # 2026-10-13 canary: "a HIPAA" is correct (said hip-uh)
 def article_errors(text):
     errs = []
     for m in re.finditer(r"\b(a|an|A|An)\s+([A-Za-z0-9][\w\-]*)", text):
         art, w = m.group(1).lower(), m.group(2)
         low = w.lower()
-        if w.isupper() and len(w) > 1:            # acronym: by letter sound
+        if w.upper() in WORD_ACRONYMS:            # acronyms said as words ("a HIPAA form", "a NASA grant"): by the spoken first sound
+            vowel = w.upper() in WORD_ACRONYMS_VOWEL
+        elif w.isupper() and len(w) > 1:            # acronym: by letter sound
             vowel = bool(re.match(r"[AEIO]", w)) or bool(VOWEL_SOUND_ACRONYM.match(w))
             if w.startswith("U"): vowel = False
         elif w[0].isdigit():
