@@ -131,6 +131,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-13 11:16 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-1",
+   "note": "[faq | HUB_RULES 5] faq item 2 (faq_sources[1]): The item records AlsoAsked provenance whose original is \"How do I create a registration form for an event?\" (gate reject PA10/PA3, owned by /ai-form-builder/registration-form). It was reworded to clear the gate, which ruling 4 (Divit 2026-10-13) forbi"
   }
  ],
  "plan": {
@@ -817,8 +824,8 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "bae2ab9babe0",
-  "date": "2026-10-13 10:45 UTC"
+  "rules_version": "cac16e203a5f",
+  "date": "2026-10-13 11:10 UTC"
  },
  "writers": [
   "w-conference-registration-form"
@@ -834,5 +841,200 @@
   "Add an early-bird price that switches to the standard rate after its deadline.",
   "Add a group discount for companies that register four or more people.",
   "Add a Stripe checkout that holds each registration until the fee clears."
- ]
+ ],
+ "review": {
+  "by": "A-r-1",
+  "date": "2026-10-13 11:16 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Conference Registration Form Around Your Agenda\"; meta \"prices passes by date, closes full breakouts and saves every attendee to a database you own\"."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is template galleries; page covers what to include (FAQ 8 verbatim AlsoAsked), templates (FAQ 3, 10), free (FAQ 4), PDF/paper (FAQ 6, 9), international (FAQ 7) and a 7-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "\"Room 204 seats 60\"; \"$450 early bird, $600 standard and $175 for students\"; \"Groups of five or more pay $380 a pass instead of $450.\""
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs (\"Ask\", \"Collect\", \"Connect\", \"Send\", \"Keep\", \"Put\"); tabs open on full sentences."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; sentences vary: \"It collects answers and little else.\""
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "\"When the 60th attendee chooses the pricing teardown, that session drops off the form and the program team gets a Slack message.\""
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "faq item 5: \"It collects answers and little else. Each returned file has to be copied into a spreadsheet by hand\" is false for the online templates in the top 10 and contradicts faq item 3 (\"a pass type with a payment field\")."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No sibling primary in a heading; registration form and event planning form only linked."
+   },
+   "faq": {
+    "result": "fail",
+    "evidence": "faq item 2 \"How do I make an event conference registration form?\" carries AlsoAsked prov.original \"How do I create a registration form for an event?\" (rejected PA10, PA3): reworded to clear the gate (ruling 4)."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: Room 204 60 of 60, 3 sessions open; $450/$600/$175, ID expires May 31, meeting June 14; 6 x $380 = $2,280.00 via Stripe; Ines Varga approves the letter."
+   }
+  },
+  "findings": [
+   {
+    "class": "structure",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 2 (faq_sources[1])",
+    "quote": "How do I make an event conference registration form?",
+    "issue": "The item records AlsoAsked provenance whose original is \"How do I create a registration form for an event?\" (gate reject PA10/PA3, owned by /ai-form-builder/registration-form). It was reworded to clear the gate, which ruling 4 (Divit 2026-10-13) forbids; HUB_RULES 5 allows light grammar edits only.",
+    "fix": "Replace item 2 with a question sourced from the primary, a keyword idea or a related search (e.g. \"How do I make a conference registration form?\", source keyword/related, no AlsoAsked prov), keeping the hub link in item 2.",
+    "severity": "blocking"
+   },
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #8",
+    "field": "faq item 5",
+    "quote": "It collects answers and little else. Each returned file has to be copied into a spreadsheet by hand, and nothing in the document stops two people from picking a session that is already full.",
+    "issue": "Stated of conference registration form templates in general, but the top-10 templates (Jotform, SurveyMonkey, Fillout, AidaForm) are online forms that store submissions and take payments; faq item 3 itself says templates carry \"a pass type with a payment field\". False differentiator against competitors.",
+    "fix": "Limit the claim to document templates: \"A Word or PDF conference registration form template collects answers and little else...\", or rewrite the answer around what online templates lack (per-slot seat limits, ID checks, group invoices).",
+    "severity": "blocking"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "why_description",
+    "quote": "Template galleries stop at the fields.",
+    "issue": "Broad generalization next to the faq item 5 problem; online galleries include payment fields.",
+    "fix": "Name what they lack: room limits and date-based pass prices.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "Most conference registration form templates cover (item 3); Conferences often issue a letter of invitation (item 7); The form usually sits on an event landing page (item 10)",
+    "issue": "Soft quantifiers about no named third party.",
+    "fix": "Optional.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Google Forms | Typeform",
+    "issue": "QC K7: two of three columns do not rank in the top 10 (SurveyMonkey, AidaForm, LimeSurvey, Fillout do).",
+    "fix": "Prefer ranking competitors if the library has them.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "why_description",
+   "issue": "Broad generalization next to the faq item 5 problem; online galleries include payment fields.",
+   "fix": "Name what they lack: room limits and date-based pass prices.",
+   "by": "A-r-1",
+   "via": "review",
+   "date": "2026-10-13 11:16 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Soft quantifiers about no named third party.",
+   "fix": "Optional.",
+   "by": "A-r-1",
+   "via": "review",
+   "date": "2026-10-13 11:16 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: two of three columns do not rank in the top 10 (SurveyMonkey, AidaForm, LimeSurvey, Fillout do).",
+   "fix": "Prefer ranking competitors if the library has them.",
+   "by": "A-r-1",
+   "via": "review",
+   "date": "2026-10-13 11:16 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "8e04a5ec3eb8964e",
+   "alt:share_image": "3cf69396870494f1",
+   "alt:tab_image_1": "1788b94164133525",
+   "alt:tab_image_2": "94c96c35894ee6d5",
+   "alt:tab_image_3": "ca86049d36ed4188",
+   "alt:tab_image_4": "3b46d702dc316eb0",
+   "breadcrumb": "c083ae7ed42f1ea1",
+   "chip_adds": "706a559e687afb5f",
+   "explore_cta": "21b2ee53fe50b17a",
+   "faq": "41ea6d03f870c9f0",
+   "feature_1": "fd0c14d43fb6488d",
+   "feature_2": "ec039dfe33f4279f",
+   "feature_3": "f4791f0460eb3974",
+   "feature_4": "a469c573c5f14839",
+   "feature_5": "504b4ac2f6e75e82",
+   "feature_6": "1ca7d8df11bcc542",
+   "features_heading": "c720c3a8342ba03b",
+   "features_subheading": "2fec68b32015705b",
+   "h1": "ede8a70ad8612f64",
+   "hero_description": "094f7fb90a5e29e7",
+   "hero_prompt": "ff3dc73da85f5ae5",
+   "howto_description": "eee2ca09ef5a9cfd",
+   "howto_step_1_des": "f4c6102c7617031e",
+   "howto_step_1_title": "8b1cf4bb87fdb8f1",
+   "howto_step_2_des": "95780867386d9e5e",
+   "howto_step_2_title": "be25cff57c21df3c",
+   "howto_step_3_des": "224424830a2b3314",
+   "howto_step_3_title": "2bd5271545d85e00",
+   "howto_step_4_des": "a3be07bb1776e51e",
+   "howto_step_4_title": "0500a4d93129bfc0",
+   "howto_step_5_des": "8a122957285659ae",
+   "howto_step_5_title": "6e9d942ae195de04",
+   "howto_step_6_des": "b0bd55f02ea069fc",
+   "howto_step_6_title": "667413b677f82196",
+   "howto_step_7_des": "7826fe5b22b44536",
+   "howto_step_7_title": "4089ab193a3f05ec",
+   "howto_title": "60c6789409b5eaf3",
+   "meta_description": "6fcaffc9d42f45d3",
+   "meta_title": "a8c248fc4fa1323f",
+   "mockup": "5f242c3e90d41b31",
+   "product_name": "3a05e8c77c1a52af",
+   "prompt_chip_1": "675a842ab6f4d789",
+   "prompt_chip_2": "98ebaa04b0b3c5f0",
+   "prompt_chip_3": "aeae29a573cae02c",
+   "prompt_chip_4": "831525c78084eafe",
+   "slug": "5c64743515255e2b",
+   "tab_content_1": "c17dd575896b1ba4",
+   "tab_content_2": "bbbff6a2b3b8a194",
+   "tab_content_3": "6b052a74c2eb01f6",
+   "tab_content_4": "fd03bef9160b2435",
+   "tab_label_1": "e48f1e1d5025300b",
+   "tab_label_2": "0a95d8adea7a2f44",
+   "tab_label_3": "a272d0f6b99a1db8",
+   "tab_label_4": "fc88d37057dee064",
+   "usecase_heading": "1b5f7e4979502414",
+   "why_description": "b6942153c877d0c0",
+   "why_table": "e7b7e0beecb30873",
+   "why_title": "a5a5a97bc6b36fee"
+  },
+  "all": "a0cf8b6fbf5fdaa3",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

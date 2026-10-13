@@ -132,6 +132,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-13 11:16 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-1",
+   "note": "rubric 10/10 by A-r-1; 6 notes"
   }
  ],
  "table": {
@@ -712,8 +719,8 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "bae2ab9babe0",
-  "date": "2026-10-13 10:45 UTC"
+  "rules_version": "cac16e203a5f",
+  "date": "2026-10-13 11:10 UTC"
  },
  "writers": [
   "w-checkout-form"
@@ -729,5 +736,240 @@
   "Add a reminder email to each borrower two days before the due date.",
   "Add a signature on the lending terms before anything leaves the desk.",
   "Add a photo and a condition note at checkout and again at return."
- ]
+ ],
+ "review": {
+  "by": "A-r-1",
+  "date": "2026-10-13 11:16 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Checkout Form That Shows Who Has Every Item\"; hero \"Build a checkout form that holds each laptop or key until the borrower signs, then tracks every loan in a live table.\" (under 130 chars, primary, verb first)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Lending reading backed by the plan's live SERP and the keyword ideas (equipment, key, library, tool, Chromebook, vehicle checkout form); the store reading is defined in FAQ 1 and routed to the payment form in FAQ 10. See note."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "\"Truck 14 left at 48,210 miles and came back at 48,342. The record logs 132 miles against the parks budget.\"; \"Any key still out at 6 pm sends the property manager a Slack message\"."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs (\"Scan or type\", \"Set a loan period\", \"Ask for a photo\", \"Require a signature\", \"Export\"); feature_5 opens on a full sentence \"Each loan becomes its own row\"."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; one stray comma noted in tab_content_4."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "\"A cracked screen gets caught at the return desk instead of three borrowers later.\" One awkward FAQ 10 sentence noted."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "48,342 - 48,210 = 132; key control log fields match the TAMU log (key number, date issued, signature, date returned, signature); district device agreements sourced twice; claims_used all approved (e-signature-capture, alerts, free-start)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No sibling primary in a heading; payment form and equipment rental agreement form only linked, not targeted."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions; AlsoAsked item 1 verbatim (\"What is a checkout form?\"); hub link in item 2; no brand or file format in questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: CB-0412 held for a parent, 14 students waiting; K-27 out at 6 pm with Slack DM; truck 14 48,210/48,342/132 parks; Monday 9 am overdue list, 21-day loans, reminder 2 days ahead."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_4",
+    "quote": "the borrower gets an email with the title, and the due date.",
+    "issue": "Stray comma in a two-item list.",
+    "fix": "\"an email with the title and the due date.\"",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief tab 4",
+    "quote": "Books out past their date ... Quiet Harbor ... Due today",
+    "issue": "A book due today is listed under books past their date.",
+    "fix": "Drop the due-today row or retitle the list.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "plan.angle, why_table",
+    "quote": "The live SERP reads 'checkout form' as lending, not buying",
+    "issue": "The brief's Semrush top 10 is mostly store checkout (Jotform, Typeform, Fillout, Squarespace, w3schools, Bootstrap); the lending angle rests on the 2026-10-08 live SERP and keyword ideas. K7: Google Forms column not in top 10.",
+    "fix": "Divit to confirm the lending reading when he reads the page.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq, howto_step_3_des",
+    "quote": "Several form builders publish a free checkout form template (faq 4); Borrowers often take several books at once (faq 9); A student device usually needs a parent's signature (howto_step_3_des)",
+    "issue": "Soft quantifiers about no named third party.",
+    "fix": "Optional.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "features_subheading, why_description, feature_3, howto_step_4_des, faq",
+    "quote": "A paper log shows who signed last. / A clipboard shows who signed last, if anyone did.; at both ends (feature_3, howto_step_4_des, faq 8)",
+    "issue": "Same idea and phrase repeated across fields.",
+    "fix": "Vary one of each.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "It shares a name with a lending checkout form, not the job.",
+    "issue": "Compressed, odd phrasing.",
+    "fix": "\"It shares only a name with a lending checkout form.\"",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_4",
+   "issue": "Stray comma in a two-item list.",
+   "fix": "\"an email with the title and the due date.\"",
+   "by": "A-r-1",
+   "via": "review",
+   "date": "2026-10-13 11:16 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief tab 4",
+   "issue": "A book due today is listed under books past their date.",
+   "fix": "Drop the due-today row or retitle the list.",
+   "by": "A-r-1",
+   "via": "review",
+   "date": "2026-10-13 11:16 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "plan.angle, why_table",
+   "issue": "The brief's Semrush top 10 is mostly store checkout (Jotform, Typeform, Fillout, Squarespace, w3schools, Bootstrap); the lending angle rests on the 2026-10-08 live SERP and keyword ideas. K7: Google Forms column not in top 10.",
+   "fix": "Divit to confirm the lending reading when he reads the page.",
+   "by": "A-r-1",
+   "via": "review",
+   "date": "2026-10-13 11:16 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq, howto_step_3_des",
+   "issue": "Soft quantifiers about no named third party.",
+   "fix": "Optional.",
+   "by": "A-r-1",
+   "via": "review",
+   "date": "2026-10-13 11:16 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "features_subheading, why_description, feature_3, howto_step_4_des, faq",
+   "issue": "Same idea and phrase repeated across fields.",
+   "fix": "Vary one of each.",
+   "by": "A-r-1",
+   "via": "review",
+   "date": "2026-10-13 11:16 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "Compressed, odd phrasing.",
+   "fix": "\"It shares only a name with a lending checkout form.\"",
+   "by": "A-r-1",
+   "via": "review",
+   "date": "2026-10-13 11:16 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "461d2e8bcf701e3e",
+   "alt:share_image": "3e6be9409c4b0f29",
+   "alt:tab_image_1": "a1ba647af65a5948",
+   "alt:tab_image_2": "8a4112c21f225939",
+   "alt:tab_image_3": "31278a40b3eafa7d",
+   "alt:tab_image_4": "0e07a5779999c5cd",
+   "breadcrumb": "66febe6d93d0bd64",
+   "chip_adds": "a969bdb805d26260",
+   "explore_cta": "b048bf903d5dec45",
+   "faq": "738f738e63a9b887",
+   "feature_1": "19f5f12ab70c301f",
+   "feature_2": "047d6bd453438f4d",
+   "feature_3": "a82223540fce9646",
+   "feature_4": "cd279b954afaa714",
+   "feature_5": "40850c22987a146d",
+   "feature_6": "52b6b714a1cb2487",
+   "features_heading": "e067b46ed92b8395",
+   "features_subheading": "5506ffdb690fec57",
+   "h1": "c063217c13f13f54",
+   "hero_description": "e6f6ebe54e512b5d",
+   "hero_prompt": "6bf3e9a4e9853d05",
+   "howto_description": "20d7a96427f0d65c",
+   "howto_step_1_des": "e201c51405f2c1a0",
+   "howto_step_1_title": "fd71e2f2e88641a1",
+   "howto_step_2_des": "75730448500c91a5",
+   "howto_step_2_title": "6cf5b5c7b75f267f",
+   "howto_step_3_des": "3420067fe61267cc",
+   "howto_step_3_title": "6dc849e4cc20cbdd",
+   "howto_step_4_des": "a454f759e255ab38",
+   "howto_step_4_title": "7c5c3162656be4a9",
+   "howto_step_5_des": "94f44a5932740cfc",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "7c896ae9a69f49b3",
+   "howto_step_6_title": "e484912697a007f3",
+   "howto_step_7_des": "ddff2f102bcab040",
+   "howto_step_7_title": "ffeed392a8eb22d5",
+   "howto_title": "7ce204fdb5af7ea2",
+   "meta_description": "78a7fbb9e5c9eec0",
+   "meta_title": "b024deaf7591606e",
+   "mockup": "83eec9920bb8fb66",
+   "product_name": "5341452050b6e7de",
+   "prompt_chip_1": "c929cf7030cb3fee",
+   "prompt_chip_2": "e7cd2a1525b4adbd",
+   "prompt_chip_3": "21cb5ab540249c1f",
+   "prompt_chip_4": "21f7ea39c8d0e782",
+   "slug": "5e7f0465b6ecaf9f",
+   "tab_content_1": "7e99c6a985451e15",
+   "tab_content_2": "9f2239ce11d9532f",
+   "tab_content_3": "45508fbeec941b72",
+   "tab_content_4": "8b42ae65e7aa45a5",
+   "tab_label_1": "20a8b95760aa71f9",
+   "tab_label_2": "45e0666c36e9bd5b",
+   "tab_label_3": "44a5e5238d519039",
+   "tab_label_4": "6b6556ecb2f496f5",
+   "usecase_heading": "ae6416ef989b6e9f",
+   "why_description": "c08e100e220b7b7e",
+   "why_table": "db0d4824a2ecb250",
+   "why_title": "c4c30041cf880e5b"
+  },
+  "all": "2b4a8600d5b815eb",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

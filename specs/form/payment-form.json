@@ -161,6 +161,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-13 11:15 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-2",
+   "note": "rubric 10/10 by A-r-2; 4 notes"
   }
  ],
  "plan": {
@@ -869,8 +876,8 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "bae2ab9babe0",
-  "date": "2026-10-13 10:35 UTC"
+  "rules_version": "cac16e203a5f",
+  "date": "2026-10-13 11:10 UTC"
  },
  "writers": [
   "w-payment-form",
@@ -881,5 +888,200 @@
   "Add a pay link per invoice that opens with the reference and amount filled in.",
   "Add a three-payment plan that saves the card for the later charges.",
   "Add an email receipt with a receipt number and the bill it paid."
- ]
+ ],
+ "review": {
+  "by": "A-r-2",
+  "date": "2026-10-13 11:15 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Payment Form That Matches Each Payment to Its Bill'; hero 118 chars with the primary, opens 'Build a payment form'; how-to description one sentence, under 140."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is templates, a state PDF and web.dev/Stripe guides; page defines the form, answers the AlsoAsked payment-method questions verbatim, covers template, free, HTML and credit-card variants and a 7-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "INV-2047 for $3,850.00, $4,200.00 deposit on $14,000, three $400 tuition payments on dated schedule, $180 + $45 permit with receipt MB-0318."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "'Larkspur Studio sends every invoice with a pay link.', 'Payers type card details into Stripe's own fields', 'Write down every bill a payer settles'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC clean; one idea per sentence ('The invoice row switches to paid.')."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Product-led ('Nobody types $385 for a $3,850 invoice and leaves you chasing the rest'); notes only."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Stripe Elements, save-and-reuse, test mode, web.dev card-brand and the Fed 2025 Diary (credit first, cash third) all have domain_sources; table from library; numbers agree (30% of 14,000 = 4,200; 3 x 400 = 1,200; balance 800; 180+45=225)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Payment-to-bill matching angle distinct from order-form, checkout-form and credit-card-authorization-form, which it links rather than targets."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items; items 1, 2, 3 and 5 equal prov.original verbatim (ruling 4 satisfied); hub link in item 2; links to order-form, credit-card-authorization-form, ach-form; no brands or formats in questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Each tab matches its copy: INV-2047 $3,850.00 and Dana in Slack, $4,200.00 deposit then scheduler email, $400 x3 with Jun/Jul/Aug 15 and $800 balance, MB-0318 for $225.00."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced-advice",
+    "criterion": "craft",
+    "rule": "HUB_RULES 8",
+    "field": "faq 5",
+    "quote": "Put the card field first on a form that takes payments.",
+    "issue": "Advice with no source that also reads against the page's own field order (FAQ 4 'adds the items and a total ahead of the card field'; how-to step 3 asks name, email and reference first).",
+    "fix": "'List card first among the payment options.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq 3",
+    "quote": "Credit cards, debit cards, cash, and checks.",
+    "issue": "The 'four forms' list is the conventional answer but has no domain_sources entry of its own.",
+    "fix": "Anchor it to the Fed Diary already cited: 'The Federal Reserve tracks four main ones: ...'.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq 1, faq 10, howto_step_4",
+    "quote": "the card fields usually belong to a processor / Most form builders publish a payment form template / Cards cover most payers.",
+    "issue": "Soft quantifiers about no named third party.",
+    "fix": "Drop 'usually' and 'most' where the sentence stands without them.",
+    "severity": "note"
+   },
+   {
+    "class": "openers",
+    "criterion": "openers",
+    "rule": "CONTENT_DEFECTS #2",
+    "field": "image_brief.cover.alt",
+    "quote": "Payment form: the confirmation a payer sees",
+    "issue": "Alt opens on a keyword label.",
+    "fix": "'The confirmation a payer sees after paying an invoice by card through Stripe.'",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 8",
+   "field": "faq 5",
+   "issue": "Advice with no source that also reads against the page's own field order (FAQ 4 'adds the items and a total ahead of the card field'; how-to step 3 asks name, email and reference first).",
+   "fix": "'List card first among the payment options.'",
+   "by": "A-r-2",
+   "via": "review",
+   "date": "2026-10-13 11:15 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq 3",
+   "issue": "The 'four forms' list is the conventional answer but has no domain_sources entry of its own.",
+   "fix": "Anchor it to the Fed Diary already cited: 'The Federal Reserve tracks four main ones: ...'.",
+   "by": "A-r-2",
+   "via": "review",
+   "date": "2026-10-13 11:15 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq 1, faq 10, howto_step_4",
+   "issue": "Soft quantifiers about no named third party.",
+   "fix": "Drop 'usually' and 'most' where the sentence stands without them.",
+   "by": "A-r-2",
+   "via": "review",
+   "date": "2026-10-13 11:15 UTC"
+  },
+  {
+   "criterion": "openers",
+   "rule": "CONTENT_DEFECTS #2",
+   "field": "image_brief.cover.alt",
+   "issue": "Alt opens on a keyword label.",
+   "fix": "'The confirmation a payer sees after paying an invoice by card through Stripe.'",
+   "by": "A-r-2",
+   "via": "review",
+   "date": "2026-10-13 11:15 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "7d7156c160bd69d3",
+   "alt:share_image": "f3e8d251c1dfa788",
+   "alt:tab_image_1": "4b5aa04440763d61",
+   "alt:tab_image_2": "40bf4be6e2c5b22d",
+   "alt:tab_image_3": "f10638eb7f6c8964",
+   "alt:tab_image_4": "e2c6b6a73d45343a",
+   "breadcrumb": "1ed66890772556cc",
+   "chip_adds": "ce09ed922b5fb724",
+   "explore_cta": "df1029060061b4f3",
+   "faq": "8f352b519b507566",
+   "feature_1": "e13ab23ba7d5e9cc",
+   "feature_2": "ecf480e4874e5b80",
+   "feature_3": "93c447bcaa6af55e",
+   "feature_4": "adbe7930e6a1d59b",
+   "feature_5": "916223aac561c9d0",
+   "feature_6": "5347c9a1d2a6f4a5",
+   "features_heading": "6bc4ffb4b6ec1c47",
+   "features_subheading": "a5572d537cc78c58",
+   "h1": "690c71c06cc8e330",
+   "hero_description": "cc5187e1c528aba3",
+   "hero_prompt": "22a3ad925b04b84c",
+   "howto_description": "c7972a6a2060e5a7",
+   "howto_step_1_des": "13b64ae7950857b2",
+   "howto_step_1_title": "fc29f664bde7794d",
+   "howto_step_2_des": "7de6c76c0dc4c162",
+   "howto_step_2_title": "f0e542f90e3b080b",
+   "howto_step_3_des": "953a3164b2abdce7",
+   "howto_step_3_title": "1b2f6650896b5f44",
+   "howto_step_4_des": "1d5cd7d8a38458d6",
+   "howto_step_4_title": "3bd2ba9499f47c72",
+   "howto_step_5_des": "7271e744f9c9e1bc",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "950f3b9a80201df6",
+   "howto_step_6_title": "c2d3b91b92e856a7",
+   "howto_step_7_des": "2ceb5730a9546afb",
+   "howto_step_7_title": "1c7d3ef1fbad4394",
+   "howto_title": "a28e169c0bebf1ca",
+   "meta_description": "9fe9879f9f02ea6c",
+   "meta_title": "1735f7901ca974e7",
+   "mockup": "700fe11e418296b8",
+   "product_name": "ea4053b50ba7c519",
+   "prompt_chip_1": "e6591c89396ccc48",
+   "prompt_chip_2": "1fb8679da3104173",
+   "prompt_chip_3": "74394a3034090b4f",
+   "prompt_chip_4": "c44fb9c925e673db",
+   "slug": "99234ff939e0b322",
+   "tab_content_1": "bfe7aa07bc5e4335",
+   "tab_content_2": "08233972a6de078b",
+   "tab_content_3": "6340d6d5f8680824",
+   "tab_content_4": "467e07ea67d88d50",
+   "tab_label_1": "b69ef9fe299e344e",
+   "tab_label_2": "902fd65df575abf2",
+   "tab_label_3": "83131a18a1108f3d",
+   "tab_label_4": "db30cb7ee153a137",
+   "usecase_heading": "c9f2890c8e88bd67",
+   "why_description": "de219fa600bf1423",
+   "why_table": "5278949bbb7f8b2b",
+   "why_title": "eda7415fdb576e05"
+  },
+  "all": "c2ddf185ea19211f",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

@@ -12,7 +12,8 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
                                                           key drop_key is missing; or path, a list of keys into the spec, e.g. ["image_brief","tabs",0,"alt"], holds it)
   k7-header      {url, header, expect_k7}                 QC K7 fires on a why_table column header exactly when expect_k7 (top-10 URLs: keyword map + saved SERP)
   qc-text        {url, field, text, check}                 QC flags `field` when it holds `text` (P0/P1 on that field)
-  gate-pa12-secs {url, expect_pa12}                        PA12's secondary count fails exactly when expected (bar = min(6, workbook secondaries))
+  gate-pa12-secs {url, expect_pa12}                        PA12's secondary test fails exactly when expected (ruling 5: Semrush secondaries, bar min(6, n); none = 4 on-topic workbook ideas)
+  gate-asker     {url, q, expect_asker}                   PA6 classifies the question as builder | respondent (None = flag)
   qc-f2-aa       {url, aa, expect_f2}                     legacy-capture page with an item labelled alsoasked: F2 exactly when there is no AlsoAsked pull
   qc-f1          {url, aa, serp, expect_f1}               QC raises F1 exactly when the page has no AlsoAsked pull (DataForSEO capture irrelevant)
   audit-noflag   {url, code}                              the live audit does NOT raise `code` on a bare page (a settled non-issue)
@@ -46,6 +47,9 @@ def caught(c):
         import paa_gate as PG
         rs = PG.Gate(c["url"]).judge({"q": c["q"], "source": "secondary", "n": 5}); lv = c.get("levels") or ["reject"]
         return bool({r[0] for r in rs if r[1] in lv} & set(c.get("expect") or [r[0] for r in rs]))
+    if c["kind"] == "gate-asker":   # PA6 asker class of a literal question (ruling 4: fix the patterns, never reword the question)
+        import paa_gate as PG
+        return PG.Gate(c["url"]).asker(PG.norm(c["q"])) == c["expect_asker"]
     if c["kind"] == "qc-field":    # a literal field value: QC raises the expected code on that field
         import qc_hub as Q, hubctl as H, glob as _g
         s = copy.deepcopy(json.load(open(H.spath(c["url"]))))
@@ -127,7 +131,7 @@ def caught(c):
     if c["kind"] == "gate-pa12-secs":   # PA12 secondaries bar = min(6, the page's Semrush workbook secondaries) (Divit 2026-10-13)
         import paa_gate as PG, io, contextlib
         with contextlib.redirect_stdout(io.StringIO()): _items, page = PG.run_spec(PG.Gate(c["url"]))
-        return any(r == "PA12" and "secondary" in m for r, m in page) == c["expect_pa12"]
+        return any(r == "PA12" and "secondar" in m for r, m in page) == c["expect_pa12"]
     if c["kind"] == "qc-text":
         import qc_hub as Q, hubctl as H
         s = json.load(open(H.spath(c["url"]))); s = copy.deepcopy(s); f = c["field"]

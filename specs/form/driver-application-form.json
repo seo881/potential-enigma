@@ -160,6 +160,13 @@
    "via": "ready",
    "by": "A-w-18",
    "note": "one rework applied by A-w-18 after wk-r-15 (0 findings marked blocking then, fixed per rules/SEVERITY.md); ready for Divit"
+  },
+  {
+   "t": "2026-10-13 11:14 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "A-s-5",
+   "note": "slim review: [slim | ] hero_prompt: The default hero prompt names an industry (trucking). DECISIONS 2026-10-09 requires one generic default with the primary keyword and no industries, names or scenarios; it also clashes with the Insurance Uploads chip, which is about couriers driving their own cars."
   }
  ],
  "plan": {
@@ -823,8 +830,8 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "bae2ab9babe0",
-  "date": "2026-10-13 10:45 UTC"
+  "rules_version": "cac16e203a5f",
+  "date": "2026-10-13 11:11 UTC"
  },
  "writers": [
   "w-driver-application-form",
@@ -1018,6 +1025,26 @@
    "by": "wk-r-15",
    "via": "review",
    "date": "2026-10-10 10:01 UTC"
+  },
+  {
+   "criterion": "slim",
+   "rule": "HUB_RULES 2b | SEVERITY voice",
+   "field": "chip_adds",
+   "issue": "The relative clause attaches to 'cards', so it reads as the cards holding a policy; the intent is to put the applicant on hold.",
+   "fix": "Add phone uploads of license and insurance cards, and hold anyone whose policy ends within 30 days.",
+   "by": "A-s-5",
+   "via": "slim-review",
+   "date": "2026-10-13 11:14 UTC"
+  },
+  {
+   "criterion": "slim",
+   "rule": "HUB_RULES 2b | SEVERITY voice",
+   "field": "chip_adds",
+   "issue": "'for safety' is clipped; the chip prompt routes these to the safety manager.",
+   "fix": "Add a 3-year moving violation list that sends files with three or more to the safety manager.",
+   "by": "A-s-5",
+   "via": "slim-review",
+   "date": "2026-10-13 11:14 UTC"
   }
  ],
  "chip_adds": [
@@ -1025,5 +1052,47 @@
   "Add a 3-year moving violation list that flags files with three or more for safety.",
   "Add previous-employer inquiries on day 1 with a 30-day countdown and reminders.",
   "Add phone uploads of license and insurance cards that hold any policy ending in 30 days."
+ ],
+ "slim_reviews": [
+  {
+   "by": "A-s-5",
+   "date": "2026-10-13 11:14 UTC",
+   "fields": [
+    "chip_adds",
+    "hero_prompt"
+   ],
+   "baseline": "git 9cb14760 (spec at the review date)",
+   "blocking": 1,
+   "notes": 2,
+   "findings": [
+    {
+     "criterion": "slim",
+     "field": "hero_prompt",
+     "quote": "Build a driver application form for my trucking company.",
+     "fix": "Build a driver application form that collects each applicant's license, driving history and past employers.",
+     "rule": "DECISIONS 2026-10-09 (hero prompt) | SEVERITY structure",
+     "issue": "The default hero prompt names an industry (trucking). DECISIONS 2026-10-09 requires one generic default with the primary keyword and no industries, names or scenarios; it also clashes with the Insurance Uploads chip, which is about couriers driving their own cars.",
+     "severity": "blocking"
+    },
+    {
+     "criterion": "slim",
+     "field": "chip_adds",
+     "quote": "insurance cards that hold any policy ending in 30 days",
+     "fix": "Add phone uploads of license and insurance cards, and hold anyone whose policy ends within 30 days.",
+     "rule": "HUB_RULES 2b | SEVERITY voice",
+     "issue": "The relative clause attaches to 'cards', so it reads as the cards holding a policy; the intent is to put the applicant on hold.",
+     "severity": "note"
+    },
+    {
+     "criterion": "slim",
+     "field": "chip_adds",
+     "quote": "flags files with three or more for safety",
+     "fix": "Add a 3-year moving violation list that sends files with three or more to the safety manager.",
+     "rule": "HUB_RULES 2b | SEVERITY voice",
+     "issue": "'for safety' is clipped; the chip prompt routes these to the safety manager.",
+     "severity": "note"
+    }
+   ]
+  }
  ]
 }

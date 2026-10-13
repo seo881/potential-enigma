@@ -139,6 +139,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-13 11:14 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-3",
+   "note": "rubric 10/10 by A-r-3; 5 notes"
   }
  ],
  "plan": {
@@ -746,10 +753,225 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "bae2ab9babe0",
-  "date": "2026-10-13 10:36 UTC"
+  "rules_version": "cac16e203a5f",
+  "date": "2026-10-13 11:10 UTC"
  },
  "writers": [
   "w-sign-out-form"
- ]
+ ],
+ "review": {
+  "by": "A-r-3",
+  "date": "2026-10-13 11:14 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Sign Out Form That Shows Who Is Away'; hero 'Build a sign out form that releases each child only to a listed adult and flags staff who run late getting back.' covers school and staff exits; how-to description one sentence with the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Live top 10 is off-topic; keyword ideas (sign out sheets, bathroom sign out sheet, templates) are answered in FAQ 3, 4, 6, 10 and a 7-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Set a limit for each destination, such as 10 minutes for the restroom'; 'Test it once outdoors, in daylight, before the crew depends on it.'"
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs ('Asks who is leaving', 'Checks the adult's name', 'Starts a timer'); tabs open on full sentences ('Front office staff at Maple Grove Elementary sign students out on a desk tablet.')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Varied sentences, no tacked-on endings; one stray comma noted in FAQ 10."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Tape it by the door with a pen on a string.' 'A printed sheet stops at the handwriting.' Reads operator-written."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to approved ids (alerts, database-owned, code-export with 'on paid plans', free tier, no caps, no per-seat); tab numbers agree with images (10:02 AM / 14 min, 3:00 PM due / 3:30 PM alert, 23 of 25)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Exit-with-a-check angle (pickup list, hall pass timer, field return, weekend leave) is its own; sign in form and checkout form are linked, not covered."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first; hub link in item 2; 3 sibling links (checkout form, sign in form, time off request form); AlsoAsked 'How do I create a sign out sheet?' used verbatim (prov.original matches); moat lines in items 3, 7, 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Each tab matches its copy: Ray Dunn 'Not listed', Slack DM to Joan Whitaker, Held at 11:40 AM; Theo Grant 14 min red; Sam Ito due 3:00 PM, sent at 3:30 PM; 23 of 25 back, two away with hosts J. Blake, R. Shaw."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "faq",
+    "quote": "Emergent's free tier covers building and publishing that form at a live URL.",
+    "issue": "FAQ 3 (free-start), FAQ 7 'either one takes unlimited entries' (no-caps) and FAQ 9 'no per-seat pricing' (no-caps) use approved claims whose ids are missing from spec.claims_used.",
+    "fix": "Add free-start and no-caps to claims_used.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "tab_image_3",
+    "quote": "# Carla Reyes",
+    "issue": "The Slack card header draws a channel glyph before Carla Reyes, while the copy and feature 4 describe a direct message to her.",
+    "fix": "Render the header as a DM to Carla Reyes (person icon, no '#').",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq",
+    "quote": "with columns for the name and destination, then the times out, and back.",
+    "issue": "FAQ 10: stray comma splits 'the times out and back'.",
+    "fix": "'then the times out and back.'",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2a",
+    "field": "features_heading",
+    "quote": "What a Paper Sign-Out Sheet Leaves Out",
+    "issue": "Hyphenated 'Sign-Out Sheet' here; FAQ 4, 6, 8, 10 write 'sign out sheet'. Same term, two spellings.",
+    "fix": "'What a Paper Sign Out Sheet Leaves Out'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_3_des",
+    "quote": "A restroom pass might allow 10 minutes and a library visit 20",
+    "issue": "Tab 2 turns a library pass red at 14 minutes under one 10-minute limit; the how-to example gives the library 20. Not false (an example), but a reader may notice.",
+    "fix": "Use a destination the tab does not show, e.g. 'a counselor visit 20'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 6",
+   "field": "faq",
+   "issue": "FAQ 3 (free-start), FAQ 7 'either one takes unlimited entries' (no-caps) and FAQ 9 'no per-seat pricing' (no-caps) use approved claims whose ids are missing from spec.claims_used.",
+   "fix": "Add free-start and no-caps to claims_used.",
+   "by": "A-r-3",
+   "via": "review",
+   "date": "2026-10-13 11:14 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "tab_image_3",
+   "issue": "The Slack card header draws a channel glyph before Carla Reyes, while the copy and feature 4 describe a direct message to her.",
+   "fix": "Render the header as a DM to Carla Reyes (person icon, no '#').",
+   "by": "A-r-3",
+   "via": "review",
+   "date": "2026-10-13 11:14 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq",
+   "issue": "FAQ 10: stray comma splits 'the times out and back'.",
+   "fix": "'then the times out and back.'",
+   "by": "A-r-3",
+   "via": "review",
+   "date": "2026-10-13 11:14 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "features_heading",
+   "issue": "Hyphenated 'Sign-Out Sheet' here; FAQ 4, 6, 8, 10 write 'sign out sheet'. Same term, two spellings.",
+   "fix": "'What a Paper Sign Out Sheet Leaves Out'.",
+   "by": "A-r-3",
+   "via": "review",
+   "date": "2026-10-13 11:14 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_3_des",
+   "issue": "Tab 2 turns a library pass red at 14 minutes under one 10-minute limit; the how-to example gives the library 20. Not false (an example), but a reader may notice.",
+   "fix": "Use a destination the tab does not show, e.g. 'a counselor visit 20'.",
+   "by": "A-r-3",
+   "via": "review",
+   "date": "2026-10-13 11:14 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "770d99aeb5b7f28a",
+   "alt:share_image": "b5b67d294906a775",
+   "alt:tab_image_1": "9ce64a8d1db888f4",
+   "alt:tab_image_2": "4bd0de1ae80ba49b",
+   "alt:tab_image_3": "28e3662d63aee83a",
+   "alt:tab_image_4": "5261c4ff6e233778",
+   "breadcrumb": "17b52966c13b1494",
+   "chip_adds": "9f4562dd7900c1f5",
+   "explore_cta": "9a67e5a90db7806e",
+   "faq": "6c48965f1893cecb",
+   "feature_1": "17464415aea6f2d0",
+   "feature_2": "6bd10874f3e8d723",
+   "feature_3": "fb0920644a8ad6ab",
+   "feature_4": "96ea88d89dde2bdd",
+   "feature_5": "1b533a6e3d797eee",
+   "feature_6": "2b7671c2cf8ed645",
+   "features_heading": "9904a233947c1224",
+   "features_subheading": "1c0d2c2987bed3ae",
+   "h1": "deb4c1dd55e40c6f",
+   "hero_description": "8f61a52a3a6793f5",
+   "hero_prompt": "bdd91f0d18bdb0af",
+   "howto_description": "ccc7c1423240d9d8",
+   "howto_step_1_des": "e3fb1f574bf99a1f",
+   "howto_step_1_title": "d86724d28b720b74",
+   "howto_step_2_des": "9d04889294a855f7",
+   "howto_step_2_title": "1966c4da605d3be9",
+   "howto_step_3_des": "2bf1c00a5bcd2b87",
+   "howto_step_3_title": "04026c9b43f3a1f3",
+   "howto_step_4_des": "7791002a59f878c0",
+   "howto_step_4_title": "7fdfa979a2bafec2",
+   "howto_step_5_des": "7d89c977d3bc1cb6",
+   "howto_step_5_title": "74fdc790255ba4fd",
+   "howto_step_6_des": "2d2727b634a4f4fd",
+   "howto_step_6_title": "ef92f7cb8e0e84fd",
+   "howto_step_7_des": "d977079425e2d58c",
+   "howto_step_7_title": "919ba289f3587a53",
+   "howto_title": "2858606d0d202763",
+   "meta_description": "87fbc469f6b2cf09",
+   "meta_title": "40be133576d69e72",
+   "mockup": "fa24b301f1bfd3b6",
+   "product_name": "71c88bb27be1bbbd",
+   "prompt_chip_1": "e6869db278d778d1",
+   "prompt_chip_2": "a9a62a239a588514",
+   "prompt_chip_3": "fefe072bf4b714a9",
+   "prompt_chip_4": "692cd3e18cd2f592",
+   "slug": "ea20bc726b72efce",
+   "tab_content_1": "cab0e5c912100e7d",
+   "tab_content_2": "c3562385e1be7be1",
+   "tab_content_3": "561fb0496eff365b",
+   "tab_content_4": "1130e8bb9095b4e2",
+   "tab_label_1": "cba7c03037383251",
+   "tab_label_2": "e1421f0fb4967011",
+   "tab_label_3": "43e069b8ee110f7e",
+   "tab_label_4": "e614566926bb527e",
+   "usecase_heading": "820e9234c68c230a",
+   "why_description": "65fdd43e15d159db",
+   "why_table": "9a873c4ae655076e",
+   "why_title": "a8eff6a1e48b9070"
+  },
+  "all": "62bd2796c0fd3457",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

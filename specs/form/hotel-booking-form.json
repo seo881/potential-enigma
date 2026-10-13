@@ -161,6 +161,13 @@
    "via": "ready",
    "by": "A-w-26",
    "note": "one rework applied by A-w-26 after wk-r-17 (0 findings marked blocking then, fixed per rules/SEVERITY.md); ready for Divit"
+  },
+  {
+   "t": "2026-10-13 11:13 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "A-s-6",
+   "note": "slim review: [slim | ] hero_prompt: The hero default must be generic with no industries, names or scenarios; this one names a lodging segment (bed and breakfast) and a scenario detail (six rooms) lifted from tab 1, while tabs 3 and 4 are 20- and 80-room hotels. -> Build a hotel booking form that sho"
   }
  ],
  "plan": {
@@ -813,8 +820,8 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "bae2ab9babe0",
-  "date": "2026-10-13 10:48 UTC"
+  "rules_version": "cac16e203a5f",
+  "date": "2026-10-13 11:11 UTC"
  },
  "writers": [
   "w-hotel-booking-form",
@@ -941,5 +948,32 @@
   "Add a two-night weekend minimum that offers the nearest valid stay.",
   "Add wedding blocks with their own link, a group rate, and a 30-day cutoff.",
   "Add the first night as a Stripe deposit before any room is held."
+ ],
+ "slim_reviews": [
+  {
+   "by": "A-s-6",
+   "date": "2026-10-13 11:13 UTC",
+   "fields": [
+    "alt:tab_image_4",
+    "chip_adds",
+    "hero_prompt",
+    "tab_content_4"
+   ],
+   "baseline": "git 9cb14760 (spec at the review date)",
+   "blocking": 1,
+   "notes": 0,
+   "findings": [
+    {
+     "criterion": "slim",
+     "field": "hero_prompt",
+     "quote": "for my six-room bed and breakfast",
+     "fix": "Build a hotel booking form that shows only rooms open for every night of the stay.",
+     "class": "structure",
+     "rule": "DECISIONS 2026-10-09 (hero prompt)",
+     "issue": "The hero default must be generic with no industries, names or scenarios; this one names a lodging segment (bed and breakfast) and a scenario detail (six rooms) lifted from tab 1, while tabs 3 and 4 are 20- and 80-room hotels.",
+     "severity": "blocking"
+    }
+   ]
+  }
  ]
 }

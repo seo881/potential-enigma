@@ -150,6 +150,13 @@
    "via": "recheck",
    "by": null,
    "note": "rules changed (8bc91b49d85c); QC now fails"
+  },
+  {
+   "t": "2026-10-13 11:15 UTC",
+   "state": "reviewed",
+   "via": "slim-review",
+   "by": "A-s-2",
+   "note": "slim review by A-s-2 of 9 changed field(s); 2 notes"
   }
  ],
  "plan": {
@@ -811,8 +818,8 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "bae2ab9babe0",
-  "date": "2026-10-13 10:20 UTC"
+  "rules_version": "cac16e203a5f",
+  "date": "2026-10-13 11:12 UTC"
  },
  "writers": [
   "w-rental-application-form",
@@ -972,6 +979,26 @@
    "by": "wk-r-11",
    "via": "review",
    "date": "2026-10-10 00:40 UTC"
+  },
+  {
+   "criterion": "slim",
+   "rule": "DECISIONS 2026-10-09 (hero prompt)",
+   "field": "hero_prompt",
+   "issue": "A scenario, not an industry or a person, so not blocking, but it narrows the generic default to tab 1's small landlord while tabs 2-4 are a property manager, income-restricted housing and student housing.",
+   "fix": "Build a rental application form that collects income, pay stubs and a screening fee.",
+   "by": "A-s-2",
+   "via": "slim-review",
+   "date": "2026-10-13 11:15 UTC"
+  },
+  {
+   "criterion": "slim",
+   "rule": "CONTENT_DEFECTS #29",
+   "field": "alt:tab_image_2",
+   "issue": "The rename puts the only Hispanic first name in the tab 2 table on the one applicant under the income criteria (the old name was Daniel Brooks). Kwame Isherwood meets criteria, so this is not a clean ethnicity-to-outcome pattern, but on a rental screening page (fair housing context) it is worth avoiding.",
+   "fix": "Give the under-income applicant a name from the same mix as the others, or swap it with one who meets criteria.",
+   "by": "A-s-2",
+   "via": "slim-review",
+   "date": "2026-10-13 11:15 UTC"
   }
  ],
  "chip_adds": [
@@ -979,5 +1006,112 @@
   "Add uploads for two recent pay stubs, with the gross pay read from each.",
   "Add a separate link where a guarantor enters their own income and signs.",
   "Add an income rule of three times the rent that flags anyone below it."
- ]
+ ],
+ "slim_reviews": [
+  {
+   "by": "A-s-2",
+   "date": "2026-10-13 11:15 UTC",
+   "fields": [
+    "alt:tab_image_1",
+    "alt:tab_image_2",
+    "alt:tab_image_4",
+    "chip_adds",
+    "hero_prompt",
+    "mockup",
+    "tab_content_1",
+    "tab_content_2",
+    "tab_content_3"
+   ],
+   "baseline": "git d8f88d70 (spec at the review date)",
+   "blocking": 0,
+   "notes": 2,
+   "findings": [
+    {
+     "criterion": "slim",
+     "field": "hero_prompt",
+     "quote": "for my duplex",
+     "fix": "Build a rental application form that collects income, pay stubs and a screening fee.",
+     "class": "other",
+     "rule": "DECISIONS 2026-10-09 (hero prompt)",
+     "issue": "A scenario, not an industry or a person, so not blocking, but it narrows the generic default to tab 1's small landlord while tabs 2-4 are a property manager, income-restricted housing and student housing.",
+     "severity": "note"
+    },
+    {
+     "criterion": "slim",
+     "field": "alt:tab_image_2",
+     "quote": "sends Javier Gilmour, at $4,100 a month against a $4,800 minimum, to a leasing agent",
+     "fix": "Give the under-income applicant a name from the same mix as the others, or swap it with one who meets criteria.",
+     "class": "other",
+     "rule": "CONTENT_DEFECTS #29",
+     "issue": "The rename puts the only Hispanic first name in the tab 2 table on the one applicant under the income criteria (the old name was Daniel Brooks). Kwame Isherwood meets criteria, so this is not a clean ethnicity-to-outcome pattern, but on a rental screening page (fair housing context) it is worth avoiding.",
+     "severity": "note"
+    }
+   ]
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "c583a357af61d776",
+   "alt:share_image": "3c8d1a03fc81fd77",
+   "alt:tab_image_1": "d31a113f49a6a497",
+   "alt:tab_image_2": "5bfe86885defbfc4",
+   "alt:tab_image_3": "2ef1c0b5692dc69e",
+   "alt:tab_image_4": "8f6af80dc081ad99",
+   "breadcrumb": "ae9d0ac986a17f56",
+   "chip_adds": "bcc0361f44fb7dd3",
+   "explore_cta": "7ee2ccace6987dcc",
+   "faq": "6bd100ca9cdc1eaf",
+   "feature_1": "0e3d0c271f674622",
+   "feature_2": "4c56128d88bf9472",
+   "feature_3": "c166972df847f51a",
+   "feature_4": "8e729d32413af741",
+   "feature_5": "cc8639b2edde99fa",
+   "feature_6": "21cd03d5736b8ffc",
+   "features_heading": "57319ae3b3299bd1",
+   "features_subheading": "4e0cfff5bc9f3e9b",
+   "h1": "707044d08822bda3",
+   "hero_description": "9b0fe11e60cf008a",
+   "hero_prompt": "3336797b2ba723f5",
+   "howto_description": "91e8df066be9cc39",
+   "howto_step_1_des": "13787e1071613490",
+   "howto_step_1_title": "fd5b54eaedcc5d74",
+   "howto_step_2_des": "00e1c3f314b47b94",
+   "howto_step_2_title": "eb200259116abc98",
+   "howto_step_3_des": "d73028fbfec1dcaa",
+   "howto_step_3_title": "c2afe7e3497c541f",
+   "howto_step_4_des": "6f210d65f755072d",
+   "howto_step_4_title": "7fdfa979a2bafec2",
+   "howto_step_5_des": "0e9ca678c9b136a6",
+   "howto_step_5_title": "376990a44f7bec85",
+   "howto_step_6_des": "4e07828edf90b97c",
+   "howto_step_6_title": "9208f80271ddb396",
+   "howto_step_7_des": "1f68747a70e12ec5",
+   "howto_step_7_title": "8a9d163986ee7129",
+   "howto_title": "21985be30db4e97c",
+   "meta_description": "de3248e540c16569",
+   "meta_title": "732739ace3507874",
+   "mockup": "6d493599356c6911",
+   "product_name": "8a9437c90184ae66",
+   "prompt_chip_1": "81226d30ccf7d987",
+   "prompt_chip_2": "1e40de8bf74d8397",
+   "prompt_chip_3": "93ccc7164e031ef3",
+   "prompt_chip_4": "56816f4b352d713a",
+   "slug": "1494dad8b4c08d7c",
+   "tab_content_1": "5d616438a608bd22",
+   "tab_content_2": "696261b5c7239333",
+   "tab_content_3": "ffbfd694d622aaa0",
+   "tab_content_4": "c0d03dcfb9a8cb35",
+   "tab_label_1": "eb0c8775820a2d32",
+   "tab_label_2": "7c3ce1ece6e0e446",
+   "tab_label_3": "55c6671ecdca2aee",
+   "tab_label_4": "ecfeaf55623dfa89",
+   "usecase_heading": "e5ddaf2f603f36e4",
+   "why_description": "2366737f388c64d8",
+   "why_table": "bb48c5b04813474f",
+   "why_title": "0c9b9c3f6470094d"
+  },
+  "all": "c8e37fd4250e9634",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

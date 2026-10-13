@@ -175,6 +175,13 @@
    "via": "ready",
    "by": "A-w-29",
    "note": "one rework applied by A-w-29 after wk-r-13 (2 findings marked blocking then, fixed per rules/SEVERITY.md); ready for Divit"
+  },
+  {
+   "t": "2026-10-13 11:13 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "A-s-7",
+   "note": "slim review: [truth | ] chip_adds: The chip is 'Talent Releases', but the clause never mentions a release: it asks for a cast list that 'signs in' (checks in), so the prompt the chip sends builds a sign-in sheet, not talent releases. A list also does not sign. -> Add talent releases each cast member"
   }
  ],
  "plan": {
@@ -894,8 +901,8 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "bae2ab9babe0",
-  "date": "2026-10-13 10:48 UTC"
+  "rules_version": "cac16e203a5f",
+  "date": "2026-10-13 11:12 UTC"
  },
  "writers": [
   "w-model-release-form",
@@ -1083,5 +1090,35 @@
   "Add a page for a guardian to sign when the model is under 18.",
   "Add a shoot number that ties each release to its frames.",
   "Add a cast list that signs in at check-in on one tablet."
+ ],
+ "slim_reviews": [
+  {
+   "by": "A-s-7",
+   "date": "2026-10-13 11:13 UTC",
+   "fields": [
+    "alt:tab_image_3",
+    "alt:tab_image_4",
+    "chip_adds",
+    "faq",
+    "hero_prompt",
+    "tab_content_2",
+    "tab_content_3",
+    "tab_content_4"
+   ],
+   "baseline": "git e560a841 (spec at the review date)",
+   "blocking": 1,
+   "notes": 0,
+   "findings": [
+    {
+     "rule": "DECISIONS 2026-10-09 (hero prompt: one 'Add ...' clause per chip); SEVERITY untrue",
+     "field": "chip_adds",
+     "quote": "Add a cast list that signs in at check-in on one tablet.",
+     "issue": "The chip is 'Talent Releases', but the clause never mentions a release: it asks for a cast list that 'signs in' (checks in), so the prompt the chip sends builds a sign-in sheet, not talent releases. A list also does not sign.",
+     "fix": "Add talent releases each cast member signs on one tablet at check-in.",
+     "severity": "blocking",
+     "criterion": "truth"
+    }
+   ]
+  }
  ]
 }

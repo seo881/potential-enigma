@@ -235,6 +235,9 @@ def build_payloads(bf, L, sha):
         P = L["pages"][url]
         if P["stage"] != "payload": continue
         hub = H.hub_of(url); h = H.CFG["hubs"][hub]; s, fd = H._field_data(url, sha)
+        e0 = H.load_st(H.hub_of(url))["pages"].get(url, {})   # ruling 6: only reviewed pages, never over the other account's hold
+        if not s.get("item_id") and e0.get("state") not in ("reviewed", "approved"): print(f"  REFUSED {url}: state {e0.get('state')}, not reviewed"); continue
+        if e0.get("hold") and H.hold_account(e0["hold"]) != H.clone_account(): print(f"  REFUSED {url}: held by account {H.hold_account(e0['hold'])}"); continue
         ok_r, why_r = G.review_ok(s)   # ruling 1 (Divit 2026-10-13): only reviewed text ships
         if not ok_r: print(f"  REFUSED {url}: {why_r}"); continue
         e = H.load_st(hub)["pages"].get(url, {})

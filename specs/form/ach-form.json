@@ -189,6 +189,13 @@
    "via": "ready",
    "by": "writer-a-ach",
    "note": "one rework applied by writer-a-ach after wk-r-10 (3 findings marked blocking then, fixed per rules/SEVERITY.md); ready for Divit"
+  },
+  {
+   "t": "2026-10-13 11:14 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "A-s-1",
+   "note": "slim review: [slim | ] faq: FAQ item 5 is sourced from the verbatim AlsoAsked question 'Who fills out an ACH form?' (faq_sources prov.original), a PA6 flag, not a PA3 reject. It was reworded after the review, which ruling 4 forbids. -> Restore the question verbatim as 'Who fills out an ACH form?' an"
   }
  ],
  "plan": {
@@ -878,8 +885,8 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "bae2ab9babe0",
-  "date": "2026-10-13 10:25 UTC"
+  "rules_version": "cac16e203a5f",
+  "date": "2026-10-13 11:12 UTC"
  },
  "writers": [
   "w-ach-form",
@@ -1044,6 +1051,26 @@
    "by": "wk-r-10",
    "via": "review",
    "date": "2026-10-10 00:26 UTC"
+  },
+  {
+   "criterion": "slim",
+   "rule": "SEVERITY voice (HUB_RULES 2b)",
+   "field": "faq",
+   "issue": "Items 8 and 9 were reworded from 'How long do you keep...' and 'How do you cancel...' into stiff noun phrasing that searchers do not type. Both are secondary-sourced, so ruling 4 does not apply.",
+   "fix": "Next time the page is touched, go back to the plain 'How long do you keep...' and 'How do you cancel...' forms.",
+   "by": "A-s-1",
+   "via": "slim-review",
+   "date": "2026-10-13 11:14 UTC"
+  },
+  {
+   "criterion": "slim",
+   "rule": "SEVERITY craft (HUB_RULES 5)",
+   "field": "faq",
+   "issue": "Item 7's new question asks about fields, but the answer ('Usually. Many businesses title their ACH form...') is still written for the old naming question. It answers only through its first word.",
+   "fix": "Either restore 'Is a bank authorization form the same as an ACH form?' or open the answer on the shared fields (routing number, account number, debit terms).",
+   "by": "A-s-1",
+   "via": "slim-review",
+   "date": "2026-10-13 11:14 UTC"
   }
  ],
  "chip_adds": [
@@ -1051,5 +1078,55 @@
   "Add a supplier version that asks for a taxpayer ID with the bank details.",
   "Add an emailed copy of the agreed terms for everyone who submits.",
   "Add a cancel link that takes the next payment off the schedule."
+ ],
+ "slim_reviews": [
+  {
+   "by": "A-s-1",
+   "date": "2026-10-13 11:14 UTC",
+   "fields": [
+    "alt:tab_image_2",
+    "alt:tab_image_3",
+    "alt:tab_image_4",
+    "chip_adds",
+    "faq",
+    "hero_prompt",
+    "mockup",
+    "tab_content_2",
+    "tab_content_3",
+    "tab_content_4"
+   ],
+   "baseline": "git 0a5a7274 (spec at the review date)",
+   "blocking": 1,
+   "notes": 2,
+   "findings": [
+    {
+     "criterion": "slim",
+     "field": "faq",
+     "quote": "Who fills in the fields on an ACH form?",
+     "fix": "Restore the question verbatim as 'Who fills out an ACH form?' and let it go to Divit's packet as a flag. The answer stays as it is.",
+     "rule": "DECISIONS 2026-10-13 ruling 4",
+     "issue": "FAQ item 5 is sourced from the verbatim AlsoAsked question 'Who fills out an ACH form?' (faq_sources prov.original), a PA6 flag, not a PA3 reject. It was reworded after the review, which ruling 4 forbids.",
+     "severity": "blocking"
+    },
+    {
+     "criterion": "slim",
+     "field": "faq",
+     "quote": "What is the retention period for an ACH authorization form? / What is the cancellation process for an ACH authorization form?",
+     "fix": "Next time the page is touched, go back to the plain 'How long do you keep...' and 'How do you cancel...' forms.",
+     "rule": "SEVERITY voice (HUB_RULES 2b)",
+     "issue": "Items 8 and 9 were reworded from 'How long do you keep...' and 'How do you cancel...' into stiff noun phrasing that searchers do not type. Both are secondary-sourced, so ruling 4 does not apply.",
+     "severity": "note"
+    },
+    {
+     "criterion": "slim",
+     "field": "faq",
+     "quote": "Do a bank authorization form and an ACH form collect the same fields?",
+     "fix": "Either restore 'Is a bank authorization form the same as an ACH form?' or open the answer on the shared fields (routing number, account number, debit terms).",
+     "rule": "SEVERITY craft (HUB_RULES 5)",
+     "issue": "Item 7's new question asks about fields, but the answer ('Usually. Many businesses title their ACH form...') is still written for the old naming question. It answers only through its first word.",
+     "severity": "note"
+    }
+   ]
+  }
  ]
 }

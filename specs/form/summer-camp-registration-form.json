@@ -139,6 +139,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-13 11:14 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-3",
+   "note": "rubric 10/10 by A-r-3; 3 notes"
   }
  ],
  "plan": {
@@ -784,8 +791,8 @@
   "variant": null
  },
  "qc_passed": {
-  "rules_version": "bae2ab9babe0",
-  "date": "2026-10-13 10:54 UTC"
+  "rules_version": "cac16e203a5f",
+  "date": "2026-10-13 11:10 UTC"
  },
  "writers": [
   "w-summer-camp-registration-form",
@@ -802,5 +809,180 @@
   "Add a lower rate for each extra child from the same family.",
   "Add a deposit paid through Stripe, with the balance due later.",
   "Add an activity waiver that each parent signs inside the form."
- ]
+ ],
+ "review": {
+  "by": "A-r-3",
+  "date": "2026-10-13 11:14 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Summer Camp Registration Form for the Whole Season'; hero 'Build a summer camp registration form that totals each family's weeks at checkout and keeps every camper on file.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is camp forms, Jotform templates and a RegFox how-to; page gives what to include (FAQ 7, 10), template answers (FAQ 3, 9) and a 7-step how-to ending in a test registration."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Register two made-up children as a parent would, paying with a test card.' Bunk requests, sibling rate, deposit with balance due, early-bird cutoff."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Tabs open on full sentences ('Pinecrest Day Camp charges $240 a week'); features open on verbs ('List every week', 'Connect Stripe', 'Ask about allergies')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No tacked-on endings; sentence lengths vary; FAQ 9 directness noted."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'One-way requests sit below them for the director to weigh.' 'Families who paid in full hear nothing.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Math checks: 3 x $240 = $720, Leo $648 at 10% off, $1,368 total; $450 - $100 = $350; 31 + 9 = 40. Claims map to approved ids; custom domain 'included and uses credits'; GitHub 'on paid plans'."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Season pricing angle (weeks, siblings, bunks, deposits, early-bird) separates it from registration-form and daycare/student siblings; registration form linked once."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions; hub link in item 2; links to emergency contact form, liability waiver form, registration form; no AlsoAsked candidates for this page; moat lines in items 3, 5, 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Hale family $720 / $648 / $1,368; Ava Brooks and Nora Kim mutual at top, June Patel one-way; Theo Marsh $100 deposit, $350 due June 1, reminder May 25; Grace Owens April 28 at $185, 31 early and 9 regular."
+   }
+  },
+  "findings": [
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "Many camps take payment and signed waivers on the same form.",
+    "issue": "FAQ 1: soft quantifier about no named third party.",
+    "fix": "'A camp can take payment and signed waivers on the same form.'",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "A church camp asks the same core questions as any other camp, plus a few of its own",
+    "issue": "FAQ 9 'Is there a church camp registration form template?' never says yes or no; the answer is implied by describing the contents.",
+    "fix": "Open with the direct answer, e.g. 'Most camp templates work for a church camp once you add a few questions of its own, such as ...'",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "tab_image_1",
+    "quote": "6 weeks booked / Both children on each roster",
+    "issue": "Can read as six calendar weeks with both children each week; the copy has 3 weeks per child (6 camper-weeks).",
+    "fix": "'6 camper-weeks booked' or 'Each child on the roster for their weeks'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "FAQ 1: soft quantifier about no named third party.",
+   "fix": "'A camp can take payment and signed waivers on the same form.'",
+   "by": "A-r-3",
+   "via": "review",
+   "date": "2026-10-13 11:14 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "FAQ 9 'Is there a church camp registration form template?' never says yes or no; the answer is implied by describing the contents.",
+   "fix": "Open with the direct answer, e.g. 'Most camp templates work for a church camp once you add a few questions of its own, such as ...'",
+   "by": "A-r-3",
+   "via": "review",
+   "date": "2026-10-13 11:14 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "tab_image_1",
+   "issue": "Can read as six calendar weeks with both children each week; the copy has 3 weeks per child (6 camper-weeks).",
+   "fix": "'6 camper-weeks booked' or 'Each child on the roster for their weeks'.",
+   "by": "A-r-3",
+   "via": "review",
+   "date": "2026-10-13 11:14 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "ea69605d7dd85ce1",
+   "alt:share_image": "2b3bc4d3c0360828",
+   "alt:tab_image_1": "7f7a9d754befa304",
+   "alt:tab_image_2": "319bfd8eba3581a3",
+   "alt:tab_image_3": "1702b8b1d53d2197",
+   "alt:tab_image_4": "261fb2ed0660f359",
+   "breadcrumb": "8b57764d00e2af95",
+   "chip_adds": "612a8820b1a41fa5",
+   "explore_cta": "74080bcb97527eb6",
+   "faq": "5804e77f5eaacea0",
+   "feature_1": "fc236b22bf2bdef7",
+   "feature_2": "264000bb2e538ecc",
+   "feature_3": "ee0a2fbc8d2f1f50",
+   "feature_4": "6b16098c73829b14",
+   "feature_5": "007316a8759b7b8e",
+   "feature_6": "ae8c47ba33b5a56f",
+   "features_heading": "0d5d6b5a9953f647",
+   "features_subheading": "d9ce453ebbf971bc",
+   "h1": "4da637085464b33a",
+   "hero_description": "36f803a6d0b06578",
+   "hero_prompt": "957990a22ff101ad",
+   "howto_description": "878970aae0bc13d6",
+   "howto_step_1_des": "c6cdcb17a3c8251c",
+   "howto_step_1_title": "12e182b76800f634",
+   "howto_step_2_des": "4e0b5feaae883c11",
+   "howto_step_2_title": "af58cf65c9819ada",
+   "howto_step_3_des": "c5754a1838dd4daa",
+   "howto_step_3_title": "27b377a264d3d4d9",
+   "howto_step_4_des": "db058a8668423f26",
+   "howto_step_4_title": "dc3f18ab033f3b1f",
+   "howto_step_5_des": "96ca8d2d49993e54",
+   "howto_step_5_title": "caad47254ee65c7b",
+   "howto_step_6_des": "ca1dca5844cc92ec",
+   "howto_step_6_title": "0037749e828d4c7b",
+   "howto_step_7_des": "869e9a55ea436d7f",
+   "howto_step_7_title": "e2a4f252edb7abd3",
+   "howto_title": "dbeddd8ac68632fc",
+   "meta_description": "36dfe490e4af0e7d",
+   "meta_title": "5f47591f9f554094",
+   "mockup": "bc73c0acc103ce0e",
+   "product_name": "0759aac7b2cceac3",
+   "prompt_chip_1": "29a4fce7a68ed5ca",
+   "prompt_chip_2": "d50ffd4e932632b7",
+   "prompt_chip_3": "6c5efb5dad77ac03",
+   "prompt_chip_4": "e4bf8e7102fbab9a",
+   "slug": "fe90556d7b328601",
+   "tab_content_1": "b0f697386049865b",
+   "tab_content_2": "31c7c69fc181a241",
+   "tab_content_3": "41e72d3bedabc19c",
+   "tab_content_4": "bb4450d1424f09d3",
+   "tab_label_1": "b1d48391b1d0f03e",
+   "tab_label_2": "b327ae3b20fcc1cc",
+   "tab_label_3": "b50da90fc0f6f2cd",
+   "tab_label_4": "1d1006c0fca650e8",
+   "usecase_heading": "f8ca733633787274",
+   "why_description": "5526c80153d996da",
+   "why_table": "700246abe6ffda6f",
+   "why_title": "2a3d3072bb6252b7"
+  },
+  "all": "ad973a87b9dc32b4",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

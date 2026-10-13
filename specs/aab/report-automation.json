@@ -160,6 +160,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-13 11:16 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-1",
+   "note": "rubric 10/10 by A-r-1; 5 notes"
   }
  ],
  "table": {
@@ -931,8 +938,8 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "bae2ab9babe0",
-  "date": "2026-10-13 10:45 UTC"
+  "rules_version": "cac16e203a5f",
+  "date": "2026-10-13 11:10 UTC"
  },
  "writers": [
   "wk-n-report-automation"
@@ -942,5 +949,220 @@
   "Add a hold on any report where a figure crosses my threshold.",
   "Add email delivery on a fixed schedule, with each version logged.",
   "Add a KPI dashboard for leadership that updates before the workday starts."
- ]
+ ],
+ "review": {
+  "by": "A-r-1",
+  "date": "2026-10-13 11:16 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build Report Automation That Checks the Numbers First\"; hero \"Build report automation that pulls figures from your tools, tests them against your rules, and sends each report on time.\" covers pull, check and send; how-to description one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is explainers and tool lists; page defines it (FAQ 1), answers \"What are the best report automation tools?\" verbatim, gives examples (FAQ 7), a 7-step how-to and four worked reports."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "\"$18,400 for 230 leads, or $80.00 a lead against $64.00 last month\"; \"software at $22,500 against $18,000\"; \"nine packed after the 4:00 PM carrier cutoff\"."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every feature body opens on a verb (\"Connects\", \"Compares\", \"Holds\", \"Emails\", \"Refreshes\", \"Exports\"); tab paragraphs open on a time or a subject (\"When the month closes\", \"Three business days after close\")."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; one 34-word FAQ 10 sentence (P2) reads cleanly: \"Each run should compare at least one total with a second system...\"."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Product-led, concrete: \"Any rise in cost per lead over 20% holds the report until Corinne Vance, the account manager, notes the cause.\" One summary sentence noted (feature_5)."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "18,400/230 = 80.00; 80 vs 64 = +25%; 22,500 vs 18,000 = +25%, 10,350 vs 9,000 = +15%; 1,182 + 14 = 1,196; 9 + 5 = 14. Power BI subscriptions, HubSpot OAuth reauthorization and the three statements are in domain_sources; claims_used all approved."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No sibling primary in a heading; tabs (client ad report, budget vs actual, order recap, KPI dashboard) do not overlap expense-report or accounting siblings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first; hub link in item 2; AlsoAsked item 9 verbatim (\"What are the best report automation tools?\" = prov.original); no brand or file format in questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy on Larch Dental $18,400/230/$80.00/$64.00/+25%, Ravi Sethi and Joanna Pike, 1,196 shipped/14 late/9 cutoff, $286,400/$612,000/$940,000 stale, Iris Navarro; one hero each."
+   }
+  },
+  "findings": [
+   {
+    "class": "soft-quantifier",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "Many teams run both on the same data (item 5); Most fall into two groups (item 9); A sudden drop in rows usually means a broken connection (item 10)",
+    "issue": "Soft quantifiers about no named third party.",
+    "fix": "State the case directly where it reads better; no change required.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_1, faq",
+    "quote": "not from last week's export (feature_1); not from a copy of last month's spreadsheet (faq item 6)",
+    "issue": "Same contrast made twice with words swapped.",
+    "fix": "Keep one.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "feature_5",
+    "quote": "Nobody mistakes an old figure for today's number.",
+    "issue": "Summary sentence restating the body.",
+    "fix": "Cut, or replace with a concrete detail of the stale label.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Zapier | Make (Integromat) | n8n",
+    "issue": "QC K7: none of the three columns ranks in this page's top 10 (Domo, Blue Prism, Jaspersoft are BI/RPA vendors); accepted because the Auto library has no BI vendors.",
+    "fix": "Coordinator: consider adding a BI vendor to the Auto library for reporting pages.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief tab 3",
+    "quote": "Late orders by cause ... Shipped on time 1,182",
+    "issue": "The on-time count sits inside a list headed late orders by cause.",
+    "fix": "Move the on-time count to a footer or KPI line.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Soft quantifiers about no named third party.",
+   "fix": "State the case directly where it reads better; no change required.",
+   "by": "A-r-1",
+   "via": "review",
+   "date": "2026-10-13 11:16 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_1, faq",
+   "issue": "Same contrast made twice with words swapped.",
+   "fix": "Keep one.",
+   "by": "A-r-1",
+   "via": "review",
+   "date": "2026-10-13 11:16 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "feature_5",
+   "issue": "Summary sentence restating the body.",
+   "fix": "Cut, or replace with a concrete detail of the stale label.",
+   "by": "A-r-1",
+   "via": "review",
+   "date": "2026-10-13 11:16 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: none of the three columns ranks in this page's top 10 (Domo, Blue Prism, Jaspersoft are BI/RPA vendors); accepted because the Auto library has no BI vendors.",
+   "fix": "Coordinator: consider adding a BI vendor to the Auto library for reporting pages.",
+   "by": "A-r-1",
+   "via": "review",
+   "date": "2026-10-13 11:16 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief tab 3",
+   "issue": "The on-time count sits inside a list headed late orders by cause.",
+   "fix": "Move the on-time count to a footer or KPI line.",
+   "by": "A-r-1",
+   "via": "review",
+   "date": "2026-10-13 11:16 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6c539d9f703e996f",
+   "alt:share_image": "43f3bd5f176596f2",
+   "alt:tab_image_1": "35b3d0f02f4d8da2",
+   "alt:tab_image_2": "2f9fa06f3d4d21e6",
+   "alt:tab_image_3": "82f033e536744d2b",
+   "alt:tab_image_4": "67814de85a2bebec",
+   "breadcrumb": "70f31aedfcc5cc95",
+   "chip_adds": "9e7a9ec4d39ae3bf",
+   "explore_cta": "83123803e0f9d570",
+   "faq": "5757518b77958c45",
+   "feature_1": "9123a4abe6517c49",
+   "feature_2": "94b33a5b20c4abb9",
+   "feature_3": "0cd5dc65076354d3",
+   "feature_4": "ddc060304834e8a8",
+   "feature_5": "7b1ead34a9c1f2bb",
+   "feature_6": "b6d933718281ecaf",
+   "features_heading": "96bdef0df6debdf2",
+   "features_subheading": "fdec880c66c2f73c",
+   "h1": "7111751435a4c035",
+   "hero_description": "414d136f5459496b",
+   "hero_prompt": "1d7385ddfe31fbcd",
+   "howto_description": "5c929232b3ed7c3f",
+   "howto_step_1_des": "62ea8172f5bd330d",
+   "howto_step_1_title": "605e39141d3f1430",
+   "howto_step_2_des": "228b4b8b35fbc169",
+   "howto_step_2_title": "b26c631341f88448",
+   "howto_step_3_des": "f32d5238c86a39bf",
+   "howto_step_3_title": "43911eaf816acef0",
+   "howto_step_4_des": "8a9c3044decd1465",
+   "howto_step_4_title": "5004118925bfcb36",
+   "howto_step_5_des": "42e8bfe001551d66",
+   "howto_step_5_title": "17c92a4024ae0b2a",
+   "howto_step_6_des": "d26a0e8e9e6255f1",
+   "howto_step_6_title": "8114f7b95cef8f20",
+   "howto_step_7_des": "68fb3f78baddaefa",
+   "howto_step_7_title": "42beea411959fd59",
+   "howto_title": "fe939e7dbe731155",
+   "meta_description": "de9204d41b880ffe",
+   "meta_title": "68eb756d3d933531",
+   "mockup": "318b5281ad27cd91",
+   "product_name": "fb2f6bae28462a6b",
+   "prompt_chip_1": "8ea2c1e539c6e3eb",
+   "prompt_chip_2": "d3573e43a01afa76",
+   "prompt_chip_3": "b4d62730486fcfad",
+   "prompt_chip_4": "885d02e28b6d5ab6",
+   "slug": "10b00cfcd00758d6",
+   "tab_content_1": "f2d05f06db1b0167",
+   "tab_content_2": "ca518d7041765d95",
+   "tab_content_3": "e001e28d104708ae",
+   "tab_content_4": "c7913691f6f1b7dc",
+   "tab_label_1": "9dd10b15cdea657c",
+   "tab_label_2": "6dae17df870e4ac7",
+   "tab_label_3": "005281649a745344",
+   "tab_label_4": "a05c87307d0775b3",
+   "usecase_heading": "de6889784df805be",
+   "why_description": "56728c5e2aef6720",
+   "why_table": "263ff4823a4e44c4",
+   "why_title": "dc513c1e0d1787aa"
+  },
+  "all": "2c500712cf9a5a0d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

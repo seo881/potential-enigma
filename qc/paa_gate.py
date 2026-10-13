@@ -210,6 +210,22 @@ def flatten(d):
     for q in r.get("queries") or []: walk(q.get("results"), 1, None, q.get("term"), q.get("language_fallback") or q.get("region_fallback"))
     return out
 
+MIN_IDEAS = 4   # PA12 for pages without Semrush secondaries (Divit 2026-10-13, ruling 5)
+_WB_IDEAS = None
+def workbook_ideas(url):
+    """The Semrush workbook's keyword ideas for a page: its non-primary rows in 'Keyword report (pass 3)' (private/, git-ignored)."""
+    global _WB_IDEAS
+    if _WB_IDEAS is None:
+        _WB_IDEAS = {}; wbp = os.path.join(ROOT, "private", "Emergent_Hub_Child_Pages_Final_v3.xlsx")
+        if os.path.exists(wbp):
+            import pandas as pd
+            kr = pd.read_excel(wbp, "Keyword report (pass 3)", header=3)
+            for _, r in kr.iterrows():
+                if str(r["Role"]).startswith("Primary"): continue
+                u = str(r["Page URL"]).replace("/ai-survey-quiz-builder/", "/ai-survey-and-quiz-builder/")
+                _WB_IDEAS.setdefault(u, []).append(str(r["Keyword"]))
+    return _WB_IDEAS.get(url, [])
+
 def pull_path(slug): return os.path.join(ROOT, "private", "alsoasked", slug + ".json")
 def sec_pull_path(slug): return os.path.join(ROOT, "private", "alsoasked", slug + "--sec.json")   # A6 (2026-10-12): one pull on the top secondary
 def pulls(slug):
@@ -362,12 +378,20 @@ def run_spec(g):
     if len(items) > 1:
         if not re.match(r"^how (do|can|to|should) (i |you |we )?(create|make|build|set up|design)", norm(items[1]["q"])): page.append(("PA12", "item 2 is not how-to-build"))
         if not re.search(r'href=["\'][^"\']*' + re.escape(g.hub_path) + r'/?["\']', items[1]["a"]): page.append(("PA12", "item 2 has no hub link"))
-    # PA12 secondaries (Divit 2026-10-13, proposal PA12): only the page's own Semrush workbook secondaries count, and the bar is
-    # min(6, how many the workbook has). A page with none passes on that test; keyword ideas never stand in for secondaries.
-    wb = [content(k) for k in g.workbook_secs]
-    sec = sum(i["source"] == "secondary" or any(k and k <= content(i["q"]) for k in wb) for i in items)   # a "secondary" label is checked against the workbook by QC F2
-    need = min(MIN_SECONDARIES, len(wb))
-    if sec < need: page.append(("PA12", f"{sec} items carrying a workbook secondary, under {need}"))
+    # PA12 secondaries (Divit 2026-10-13, ruling 5): the page's Semrush workbook secondaries count, bar min(6, how many it has).
+    # A page with NO Semrush secondaries uses the workbook's keyword ideas for the page as its secondaries (min 4, on-topic);
+    # DataForSEO ideas and padding never count. Fewer than 4 on-topic workbook ideas = PA12 fails (the page stays parked).
+    if g.workbook_secs:
+        wb = [content(k) for k in g.workbook_secs]
+        sec = sum(i["source"] == "secondary" or any(k and k <= content(i["q"]) for k in wb) for i in items)   # "secondary" labels: QC F2 checks them
+        need = min(MIN_SECONDARIES, len(wb))
+        if sec < need: page.append(("PA12", f"{sec} items carrying a workbook secondary, under {need}"))
+    else:
+        ideas = [k for k in workbook_ideas(g.url) if any(h.search(norm(k)) for h in g.heads) or g.pa3_widened(norm(k))]
+        wb = [content(k) for k in ideas]
+        sec = sum(any(k and k <= content(i["q"]) for k in wb) for i in items)
+        if len(ideas) < MIN_IDEAS: page.append(("PA12", f"no Semrush secondaries and {len(ideas)} on-topic workbook keyword ideas, under {MIN_IDEAS}"))
+        elif sec < MIN_IDEAS: page.append(("PA12", f"{sec} items carrying a workbook keyword idea, under {MIN_IDEAS}"))
     for it in items:
         first = norm(re.sub(r"<[^>]+>", " ", html.unescape(it["a"])))[:60]
         bad = [b for b in g.pt["answer_first_banned"] if first.startswith(b)]

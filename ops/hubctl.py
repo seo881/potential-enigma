@@ -38,7 +38,8 @@
   review-diff URL | slim-review URL FILE --by A-s-<n>   ruling 1: fields changed since review; record a slim review of them
   hold URL --by ID [--note T] | unhold URL --by ID   the account's hold marker on a page it is working (docs/TWO_ACCOUNTS.md)
   (claim, state, images, ready, review, release, hold and unhold refuse without --by: Divit 2026-10-13)
-  metrics | sample [STATE] | links HUB | links --relink | lookahead HUB [N] | serp-budget | ranks-save URL RAW | ranks-report | recheck [--states a,b] | image-regress | verify-live URL [--html F]
+  metrics | sample [STATE] | links HUB | links --relink | lookahead HUB [N] | serp-budget | ranks-save URL RAW | ranks-report | recheck [--states a,b] [--include-b] | image-regress | verify-live URL [--html F]
+  batch-check BATCH_FILE            ruling 6: every page in state reviewed (or further along) and not held by the other account
   live-audit [--since-publish|--all|--urls U,U|--set launch] [--base URL] [--dry] | live-audit record|drift|plan|report DATE ...
   live-fix apply|brief|prepare|verify|approve|add ISSUE ... | live-rollback ISSUE [--done RESPONSE]   (docs/LIVE_AUDIT.md; ops/live_audit.py)
   publish-payload HUB               publish_collection_items actions (100 per call) for every verified cms_draft page (only after Divit's go)
@@ -497,16 +498,28 @@ def cmd_slim_review(args):
     if hold_conflict(url): sys.exit(f"refused: {url} is held by the other account")
     ch, base = review_changed_fields(url); missing = sorted(set(ch) - set(raw.get("fields") or []))
     if missing: sys.exit(f"slim review must cover every changed field ({base}); missing: {', '.join(missing)}")
-    findings = raw.get("findings") or []
+    findings = [dict({"criterion": "slim", "field": "", "quote": "", "fix": ""}, **f) for f in (raw.get("findings") or [])]
     bad = [f for f in findings if f.get("severity") not in ("blocking", "note") or not f.get("rule") or not f.get("issue")]
     if bad: sys.exit("each finding needs rule, issue and severity blocking|note")
     blocking = [f for f in findings if f["severity"] == "blocking"]
+    note_txt = " | ".join(G.fmt_finding(f) for f in blocking)   # format before anything is saved (a crash must not leave a half-recorded review)
     s.setdefault("slim_reviews", []).append({"by": by, "date": now(), "fields": ch, "baseline": base, "blocking": len(blocking), "notes": len(findings) - len(blocking), "findings": findings})
-    _keep_notes(s, [f | {"criterion": f.get("criterion", "slim")} for f in findings], by, "slim-review")
+    _keep_notes(s, findings, by, "slim-review")
     if not blocking: s["review_hash"] = G.review_hash(s)
     json.dump(s, open(spath(url), "w"), indent=1, ensure_ascii=False)
-    if blocking: set_state(url, "rework", note="slim review: " + " | ".join(G.fmt_finding(f) for f in blocking), via="slim-review", by=by); print(f"REWORK: {len(blocking)} blocking")
+    if blocking: set_state(url, "rework", note="slim review: " + note_txt, via="slim-review", by=by); print(f"REWORK: {len(blocking)} blocking")
     else: set_state(url, "reviewed", note=f"slim review by {by} of {len(ch)} changed field(s); {len(findings)} notes", via="slim-review", by=by); print(f"REVIEWED (slim): {len(ch)} field(s), {len(findings)} notes; review hash renewed")
+
+def cmd_batch_check(args):
+    """Ruling 6 (Divit 2026-10-13): a ship batch takes only pages in state reviewed (or already further: approved, cms_draft, published),
+    never a page held by the other account. Exit 1 lists the offenders."""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import ship as S
+    bad = []
+    for u in S.batch_urls(args[0]):
+        e = load_st(hub_of(u))["pages"].get(u, {})
+        if e.get("state") not in ("reviewed", "approved", "cms_draft", "published"): bad.append(f"{u}: state {e.get('state') or 'queued'}")
+        if e.get("hold") and hold_account(e["hold"]) != clone_account(): bad.append(f"{u}: held by account {hold_account(e['hold'])}")
+    print("\n".join(bad) if bad else f"{args[0]}: every page admissible"); sys.exit(1 if bad else 0)
 
 def cmd_release(args):
     url = args[0]; note = args[args.index("--note") + 1] if "--note" in args else None; by = need_by(args, "release")
@@ -852,8 +865,11 @@ def cmd_recheck(args):
     only = set(args[args.index("--states") + 1].split(",")) if "--states" in args else None  # e.g. images,reviewed,...: parked pages stay parked
     for s in G.all_specs():
         if s.get("status") == "live-draft" or not s.get("qc_passed") or s["qc_passed"].get("rules_version") == cur: continue
-        st_ = G.all_status().get(s["url"], {}).get("state")
+        e_ = G.all_status().get(s["url"], {}); st_ = e_.get("state")
         if only is not None and st_ not in only: continue
+        # ruling 8 (Divit 2026-10-13): never touch a page the other account holds; B's claimed/rework pages wait for the end of B's wave
+        if e_.get("hold") and hold_account(e_["hold"]) != clone_account(): print(f"  SKIP (held by {hold_account(e_['hold'])}) {s['url']}"); continue
+        if "--include-b" not in args and clone_account() == "A" and hub_of(s["url"]) in ("Form", "Auto") and st_ in ("claimed", "rework"): continue
         r = subprocess.run([sys.executable, os.path.join(ROOT, "qc", "qc_hub.py"), s["_path"]], capture_output=True, text=True); rc = r.returncode; n += 1
         if rc: print(f"  FAIL {s['url']} ({st_}): " + ",".join(sorted({m.group(2) for m in re.finditer(r"^  (P0|P1) (\S+)", r.stdout, re.M)})))
         else: ok += 1
@@ -936,7 +952,7 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "release": cmd_release, "paa": cmd_paa, "paa-resource": cmd_paa_resource, "paa-synonyms": cmd_paa_synonyms, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "batch-check": cmd_batch_check, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
         "recheck": cmd_recheck, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live,
         "live-audit": lambda a: _live().main(a), "live-fix": lambda a: _live().fix_main(a), "live-rollback": lambda a: _live().cmd_rollback(a), "retro": lambda a: __import__("retro").main(a)}

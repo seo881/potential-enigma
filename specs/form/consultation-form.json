@@ -135,6 +135,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-13 11:15 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-2",
+   "note": "[truth | CONTENT_DEFECTS #10] image_brief.tabs[3].alt (tab 4 image alt): The tab 4 image draws three companies in the 'Routed by revenue' panel (chip '3 this week': Harlow Freight $6.8M, Greystone Bakery $1.4M, Brightway Landscaping $3.1M). The alt text says four, so the shipped alt contradicts the "
   }
  ],
  "plan": {
@@ -751,8 +758,8 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "bae2ab9babe0",
-  "date": "2026-10-13 10:45 UTC"
+  "rules_version": "cac16e203a5f",
+  "date": "2026-10-13 11:10 UTC"
  },
  "writers": [
   "w-consultation-form"
@@ -768,5 +775,210 @@
   "Add photo uploads that land on the client's record.",
   "Add routing by budget to a video call or an in-person visit.",
   "Add an email brief to whoever takes the meeting an hour before."
- ]
+ ],
+ "review": {
+  "by": "A-r-2",
+  "date": "2026-10-13 11:15 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Consultation Form That Prepares Every First Meeting'; hero 111 chars, carries the primary, opens 'Build a consultation form that routes each client'; how-to description one sentence, 109 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is template galleries plus a definition; page defines the form (FAQ 1), gives an example (FAQ 4), template and free answers (FAQ 5-6), a 7-step how-to and four service examples."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Salon strand test after box dye, $20,000 video-call/home-visit split, 6-inch tattoo review, $2 million revenue routing; table rows chosen for uploads and response limits."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'New color clients at Saltmarsh Hair Co. fill in...', 'Ivywood Interiors designs kitchens...', 'Pick the one answer that changes the meeting'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q5/Q6/Q7 clean; sentences short and single-idea, e.g. 'Plain wording gets honest answers.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail throughout ('Delete both test rows before you share the link'); one forced secondary sentence logged as a note."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "image_brief.tabs[3].alt says 'four companies are routed' while the tab 4 image draws three ('3 this week': Harlow Freight, Greystone Bakery, Brightway Landscaping)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Service-business routing angle distinct from contact, quote, meeting-request and demo-request siblings; no sibling primary in any heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, PAA-led ('What is a consultation form?', 'How to make a client consultation form?'), hub link in item 2, sibling links to esthetician-intake-form and massage-intake-form, no brand or file-format asks."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Each tab matches its copy on names and numbers: strand test 15 min, $14,000 under $20,000, 7 in over 6 inches, $1.4M associate vs $6.8M/$3.1M partner."
+   }
+  },
+  "findings": [
+   {
+    "class": "wrong-fact",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "image_brief.tabs[3].alt (tab 4 image alt)",
+    "quote": "four companies are routed to a partner or the associate by revenue",
+    "issue": "The tab 4 image draws three companies in the 'Routed by revenue' panel (chip '3 this week': Harlow Freight $6.8M, Greystone Bakery $1.4M, Brightway Landscaping $3.1M). The alt text says four, so the shipped alt contradicts the image. Searched every other alt: tab 1 'two clients' (Ana Ruiz, Mia Chen) is correct; tabs 2-3, cover and og carry no count error.",
+    "fix": "Write 'three companies are routed to a partner or the associate by revenue'.",
+    "severity": "blocking"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "features_subheading, feature_3, faq 1, faq 8",
+    "quote": "already holding the client's goal and budget / They walk in knowing the goal and the budget / what the client wants and what they can spend / ask for their goal and their budget",
+    "issue": "Goal-and-budget-before-the-meeting is restated in four fields with the words swapped.",
+    "fix": "Keep it in the subheading and feature 3; give FAQ 1 and FAQ 8 a different detail.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq 5, faq 7",
+    "quote": "Form builder galleries carry consultation forms for most service types. / Online suits most businesses.",
+    "issue": "Soft quantifiers about no named third party.",
+    "fix": "Name the galleries or drop 'most'.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq 5",
+    "quote": "Compared with a consultation form template, you skip deleting the questions that do not fit.",
+    "issue": "Reads as a sentence built to place the secondary.",
+    "fix": "'A template comes with questions to delete; a described form starts with only yours.'",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief.tabs[2] (tab 3 image)",
+    "quote": "Flash books directly / Up to 6 inches wide",
+    "issue": "The mini card puts a 6-inch limit on flash pieces, while the copy applies it to custom designs; Decline is drawn as a filled button with the same weight as Accept.",
+    "fix": "Mini: 'Custom up to 6 in books directly'; draw Decline as a secondary button.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "features_subheading, feature_3, faq 1, faq 8",
+   "issue": "Goal-and-budget-before-the-meeting is restated in four fields with the words swapped.",
+   "fix": "Keep it in the subheading and feature 3; give FAQ 1 and FAQ 8 a different detail.",
+   "by": "A-r-2",
+   "via": "review",
+   "date": "2026-10-13 11:15 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq 5, faq 7",
+   "issue": "Soft quantifiers about no named third party.",
+   "fix": "Name the galleries or drop 'most'.",
+   "by": "A-r-2",
+   "via": "review",
+   "date": "2026-10-13 11:15 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq 5",
+   "issue": "Reads as a sentence built to place the secondary.",
+   "fix": "'A template comes with questions to delete; a described form starts with only yours.'",
+   "by": "A-r-2",
+   "via": "review",
+   "date": "2026-10-13 11:15 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief.tabs[2] (tab 3 image)",
+   "issue": "The mini card puts a 6-inch limit on flash pieces, while the copy applies it to custom designs; Decline is drawn as a filled button with the same weight as Accept.",
+   "fix": "Mini: 'Custom up to 6 in books directly'; draw Decline as a secondary button.",
+   "by": "A-r-2",
+   "via": "review",
+   "date": "2026-10-13 11:15 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "0dbd03487502e1f3",
+   "alt:share_image": "7f661d2810eb69ea",
+   "alt:tab_image_1": "4c6bf13ac893c2c7",
+   "alt:tab_image_2": "c715ec4761ababbc",
+   "alt:tab_image_3": "505b796e066069de",
+   "alt:tab_image_4": "26442a1fd410a663",
+   "breadcrumb": "85da817602a22e71",
+   "chip_adds": "eca0a3372c12afa9",
+   "explore_cta": "dc7aff9f0fcee43b",
+   "faq": "3b381fa4f06db3a2",
+   "feature_1": "fc136e7b0ada7172",
+   "feature_2": "9302ba301848a426",
+   "feature_3": "231110a24fa59d07",
+   "feature_4": "20d2b2c1df39e49a",
+   "feature_5": "897050bc31a4ab8b",
+   "feature_6": "76d1bf5508bbdfbb",
+   "features_heading": "d82adabb699b8f2c",
+   "features_subheading": "f844ee12c2a36a8c",
+   "h1": "1b0f77f0e1aeb3c8",
+   "hero_description": "17fb050d1d46435f",
+   "hero_prompt": "bd70aeb51208fede",
+   "howto_description": "b71d62b3d0ba394f",
+   "howto_step_1_des": "c5a4484d58934564",
+   "howto_step_1_title": "739244e88b8a60ae",
+   "howto_step_2_des": "cdbb816fa4701883",
+   "howto_step_2_title": "407b66013931b13c",
+   "howto_step_3_des": "be234a33d6196316",
+   "howto_step_3_title": "57daa377b203682c",
+   "howto_step_4_des": "61d8cc8b5dde4d46",
+   "howto_step_4_title": "fff88986dbbe5018",
+   "howto_step_5_des": "0e2ca29c6e5fd23b",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "a4eb33ea1f1a4fc0",
+   "howto_step_6_title": "c98efe7176d5673d",
+   "howto_step_7_des": "cb5c09da5c796ddd",
+   "howto_step_7_title": "e85085a42eca8c6c",
+   "howto_title": "6ef1e120ee18010a",
+   "meta_description": "4ced0a01e889c690",
+   "meta_title": "59d548943c79d05a",
+   "mockup": "f0b047bc1ea805c6",
+   "product_name": "61f248dce5f4e570",
+   "prompt_chip_1": "5b9c01d65b97f407",
+   "prompt_chip_2": "31b8227865b6ba77",
+   "prompt_chip_3": "ccc499fe59193c05",
+   "prompt_chip_4": "2703ba7bd9c53153",
+   "slug": "63b9be2a06e9ace6",
+   "tab_content_1": "a9dab576c21e9280",
+   "tab_content_2": "be8975aa25f14450",
+   "tab_content_3": "1d61c3915faed977",
+   "tab_content_4": "a29ed93b9a39f0d9",
+   "tab_label_1": "0b0bb1440fd6ee10",
+   "tab_label_2": "fb443c964d77c5fa",
+   "tab_label_3": "cf8e9219b906a079",
+   "tab_label_4": "b8570a076b64cecb",
+   "usecase_heading": "86b20a31d262409c",
+   "why_description": "776045a802b1a84e",
+   "why_table": "61d2a9c84c71b59c",
+   "why_title": "dac9d5982e0f87ac"
+  },
+  "all": "cf67f65be89a456b",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

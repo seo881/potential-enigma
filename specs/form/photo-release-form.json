@@ -185,6 +185,13 @@
    "via": "ready",
    "by": "writer-a-photorel",
    "note": "one rework applied by writer-a-photorel after wk-r-11 (2 findings marked blocking then, fixed per rules/SEVERITY.md); ready for Divit"
+  },
+  {
+   "t": "2026-10-13 11:15 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "A-s-2",
+   "note": "slim review: [slim | ] faq: FAQ 3 comes from AlsoAsked (prov.original \"Do I need a photo release form?\", which the gate passes as use-verbatim) and was reworded again after the review; a verbatim AlsoAsked question must not be reworded. -> Restore the question verbatim: \"Do I need a photo release fo"
   }
  ],
  "plan": {
@@ -834,8 +841,8 @@
   "checks": []
  },
  "qc_passed": {
-  "rules_version": "bae2ab9babe0",
-  "date": "2026-10-13 10:25 UTC"
+  "rules_version": "cac16e203a5f",
+  "date": "2026-10-13 11:12 UTC"
  },
  "writers": [
   "w-photo-release-form",
@@ -1016,6 +1023,26 @@
    "by": "wk-r-11",
    "via": "review",
    "date": "2026-10-10 00:40 UTC"
+  },
+  {
+   "criterion": "slim",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "FAQ 7 and FAQ 9 were reworded after the review into stilted shapes nobody types; the earlier \"How long does a photo release consent form last?\" and \"Who signs a photo consent form for a minor?\" read as a searcher asks (both are secondary-sourced, so ruling 4 does not apply).",
+   "fix": "How long does a photo release consent form last? / Who signs a photo consent form for a minor?",
+   "by": "A-s-2",
+   "via": "slim-review",
+   "date": "2026-10-13 11:15 UTC"
+  },
+  {
+   "criterion": "slim",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "chip_adds",
+   "issue": "Chip 1's clause repeats the new default prompt (\"records a yes or no for every use\"), so selecting Per-Use Consent adds nothing new.",
+   "fix": "Make the default \"Build a photo release form people sign online.\" or give chip 1 a new detail (e.g. the list of places: yearbook, website, social media).",
+   "by": "A-s-2",
+   "via": "slim-review",
+   "date": "2026-10-13 11:15 UTC"
   }
  ],
  "chip_adds": [
@@ -1023,5 +1050,57 @@
   "Add a guardian signature for anyone under 18.",
   "Add a roster for photographers that flags everyone who declined.",
   "Add an email alert when someone withdraws their release."
+ ],
+ "slim_reviews": [
+  {
+   "by": "A-s-2",
+   "date": "2026-10-13 11:15 UTC",
+   "fields": [
+    "alt:tab_image_2",
+    "alt:tab_image_4",
+    "chip_adds",
+    "faq",
+    "feature_6",
+    "hero_prompt",
+    "tab_content_2",
+    "tab_content_3",
+    "tab_content_4"
+   ],
+   "baseline": "git 0ee1fcd4 (spec at the review date)",
+   "blocking": 1,
+   "notes": 2,
+   "findings": [
+    {
+     "criterion": "slim",
+     "field": "faq",
+     "quote": "Why do you need a photo release form to use someone's picture?",
+     "fix": "Restore the question verbatim: \"Do I need a photo release form?\" Keep the answer, opening it with a direct yes for advertising or trade use.",
+     "class": "structure",
+     "rule": "DECISIONS 2026-10-13 ruling 4",
+     "issue": "FAQ 3 comes from AlsoAsked (prov.original \"Do I need a photo release form?\", which the gate passes as use-verbatim) and was reworded again after the review; a verbatim AlsoAsked question must not be reworded.",
+     "severity": "blocking"
+    },
+    {
+     "criterion": "slim",
+     "field": "faq",
+     "quote": "What is the time limit on a photo release consent form? / What is the rule for signing a photo consent form for a minor?",
+     "fix": "How long does a photo release consent form last? / Who signs a photo consent form for a minor?",
+     "class": "voice",
+     "rule": "HUB_RULES 2b",
+     "issue": "FAQ 7 and FAQ 9 were reworded after the review into stilted shapes nobody types; the earlier \"How long does a photo release consent form last?\" and \"Who signs a photo consent form for a minor?\" read as a searcher asks (both are secondary-sourced, so ruling 4 does not apply).",
+     "severity": "note"
+    },
+    {
+     "criterion": "slim",
+     "field": "chip_adds",
+     "quote": "Add a separate yes or no for each place a photo could appear.",
+     "fix": "Make the default \"Build a photo release form people sign online.\" or give chip 1 a new detail (e.g. the list of places: yearbook, website, social media).",
+     "class": "repeated-idea",
+     "rule": "CONTENT_DEFECTS #21",
+     "issue": "Chip 1's clause repeats the new default prompt (\"records a yes or no for every use\"), so selecting Per-Use Consent adds nothing new.",
+     "severity": "note"
+    }
+   ]
+  }
  ]
 }

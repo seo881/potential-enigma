@@ -140,6 +140,13 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-13 11:14 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-3",
+   "note": "[truth | HUB_RULES 8] faq: FAQ 4 (verbatim PAA 'Who pays for tenant screening?') states as fact that the landlord pays the screening company. No spec.domain_sources entry supports it, and a top-10 result contradicts it: Zillow's tenant screening has the renter pay the fee and the landlord pay nothin"
   }
  ],
  "plan": {
@@ -792,8 +799,8 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "bae2ab9babe0",
-  "date": "2026-10-13 10:54 UTC"
+  "rules_version": "cac16e203a5f",
+  "date": "2026-10-13 11:10 UTC"
  },
  "writers": [
   "w-tenant-screening-form"
@@ -803,5 +810,240 @@
   "Add a consent page each applicant signs on a phone before any report is ordered.",
   "Add a checklist of my written criteria, with the reason saved for each decision.",
   "Add a drafted adverse action notice that names the screening company."
- ]
+ ],
+ "review": {
+  "by": "A-r-3",
+  "date": "2026-10-13 11:14 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Tenant Screening Form That Records Every Decision'; hero 'Create a tenant screening form that sends pre-screen questions before showings and keeps each renter's consent on file.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is screening checklists, Zillow screening and PDF templates; page covers the checklist steps (how-to 1-7), the form fields (FAQ 8, 10) and all eligible PAA questions."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Any denial, co-signer request, or higher deposit that rests even partly on a report needs an adverse action notice.' Fields named: move-in date, occupancy, pets, income."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Features open on verbs ('Sends each inquiry', 'Shows the screening disclosure', 'Drafts the notice'); tabs open on full sentences."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No tacked-on endings; varied lengths ('Families who...' style short closers: 'A leasing agent reviews the draft and sends it.')."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Read the others yourself before replying, since a short answer can hide a good tenant.' Reads operator-written."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "FAQ 4 'The landlord pays the screening company for each report' and FAQ 1 'a screening company the landlord pays' state as universal fact a billing model that is unsourced and contradicted by a top-10 result (Zillow: renters pay the screening fee, landlords do not). FCRA, FHA, 1681c and Civil Code 1950.6 statements match their sources."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Landlord-owned steps around the report (pre-screen, consent, decision record, adverse action); rental application form and background check form linked and distinguished in FAQ 8-9."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions; all five AlsoAsked items verbatim (prov.original equals q for 'How to conduct tenant screening?', 'Who pays for tenant screening?', 'How far back does a tenant screening go?', 'Can I run a tenant screening report on myself?', 'Can I get a free tenant screening report?'); hub link in item 2; links to background check form and rental application form."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "88 Birch Lane, 5 pre-screen questions, Ana Ruiz gets the booking link; Harbor Lane 40 units, Priya Shah signs, copy sent to Haverly Tenant Data; Leo Marsh 3 of 4, missed landlord reference to manager; Jordan Lee co-signer, notice names Haverly Tenant Data, free copy within 60 days, agent sends."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "The landlord pays the screening company for each report, and many pass that cost on as an application fee.",
+    "issue": "FAQ 4 (verbatim PAA 'Who pays for tenant screening?') states as fact that the landlord pays the screening company. No spec.domain_sources entry supports it, and a top-10 result contradicts it: Zillow's tenant screening has the renter pay the fee and the landlord pay nothing; other services let either side pay. The answer to the searcher's exact question is wrong.",
+    "fix": "Answer that it depends on the service: some bill the landlord, who often passes the cost on as an application fee; others, such as Zillow's, charge the applicant directly. Add a domain source for the billing statement (e.g. the vendor's own screening page) or drop the vendor example. Keep the California sentence.",
+    "severity": "blocking"
+   },
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "The report itself comes from a screening company the landlord pays.",
+    "issue": "FAQ 1 repeats the same universal billing claim (same class as FAQ 4); unsourced and not true where the applicant pays. Related wording to recheck in the same pass: feature_3 'Connects to the screening service you already pay' and plan angle 'the screening service the landlord already pays'.",
+    "fix": "'The report itself comes from a screening company the landlord chooses.' In feature_3, 'the screening service you already use'.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "domain_sources",
+    "quote": "When Harbor Lane asks Jordan Lee for a co-signer after his report",
+    "issue": "Co-signer and higher-deposit examples of adverse action (tab_content_4, howto_step_7_des 'Any denial, co-signer request, or higher deposit', FAQ 7 'denies you or asks for a co-signer') are true but the cited source (15 USC 1681m) does not name them; the FTC's landlord guidance does.",
+    "fix": "Swap or add the FTC 'Using Consumer Reports: What Landlords Need to Know' page as the source for that claim (within the 8-source cap).",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "feature_3",
+    "quote": "Connects to the screening service you already pay through its API",
+    "issue": "Presupposes every screening service has an API; the api-connect claim covers tools with an API. Same in howto_step_5_des 'Link the form to the service you already use through its API'.",
+    "fix": "'Connects to your screening service, if it offers an API, and sends ...'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "faq",
+    "quote": "The free tier covers building and publishing it",
+    "issue": "FAQ 2 and the meta title 'Build Yours Free' use the free-start claim, which is missing from spec.claims_used.",
+    "fix": "Add free-start to claims_used.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "Some states cap it.",
+    "issue": "FAQ 4: plural states, sourced only for California.",
+    "fix": "'California, for one, caps it.'",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "tab_image_1",
+    "quote": "Each inquiry gets five pre-screen questions, starting with the move-in date.",
+    "issue": "The drawn form shows people moving in, pets and income; the move-in date the copy leads with is not drawn.",
+    "fix": "Draw the move-in date as the first field.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "domain_sources",
+   "issue": "Co-signer and higher-deposit examples of adverse action (tab_content_4, howto_step_7_des 'Any denial, co-signer request, or higher deposit', FAQ 7 'denies you or asks for a co-signer') are true but the cited source (15 USC 1681m) does not name them; the FTC's landlord guidance does.",
+   "fix": "Swap or add the FTC 'Using Consumer Reports: What Landlords Need to Know' page as the source for that claim (within the 8-source cap).",
+   "by": "A-r-3",
+   "via": "review",
+   "date": "2026-10-13 11:14 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 6",
+   "field": "feature_3",
+   "issue": "Presupposes every screening service has an API; the api-connect claim covers tools with an API. Same in howto_step_5_des 'Link the form to the service you already use through its API'.",
+   "fix": "'Connects to your screening service, if it offers an API, and sends ...'",
+   "by": "A-r-3",
+   "via": "review",
+   "date": "2026-10-13 11:14 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 6",
+   "field": "faq",
+   "issue": "FAQ 2 and the meta title 'Build Yours Free' use the free-start claim, which is missing from spec.claims_used.",
+   "fix": "Add free-start to claims_used.",
+   "by": "A-r-3",
+   "via": "review",
+   "date": "2026-10-13 11:14 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "FAQ 4: plural states, sourced only for California.",
+   "fix": "'California, for one, caps it.'",
+   "by": "A-r-3",
+   "via": "review",
+   "date": "2026-10-13 11:14 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "tab_image_1",
+   "issue": "The drawn form shows people moving in, pets and income; the move-in date the copy leads with is not drawn.",
+   "fix": "Draw the move-in date as the first field.",
+   "by": "A-r-3",
+   "via": "review",
+   "date": "2026-10-13 11:14 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "25b51e944380043c",
+   "alt:share_image": "3a4a456257a9e62f",
+   "alt:tab_image_1": "c751cb61f3a4399c",
+   "alt:tab_image_2": "510d618a69969bf6",
+   "alt:tab_image_3": "a6b1542707af252c",
+   "alt:tab_image_4": "c580c6f04b88bcc4",
+   "breadcrumb": "4e4b8d13e670e4e6",
+   "chip_adds": "f1acc22fb78d9ce1",
+   "explore_cta": "687dad2dadeed0e5",
+   "faq": "b9109edd6b9a6b27",
+   "feature_1": "198569cefd9b5359",
+   "feature_2": "19cc52f331b7491a",
+   "feature_3": "015760f117b58d41",
+   "feature_4": "554f46eaf9af5d04",
+   "feature_5": "46877f5fd15dfadc",
+   "feature_6": "b86504fb0bab98d6",
+   "features_heading": "8be86ed275217f0a",
+   "features_subheading": "8337baa2e9764800",
+   "h1": "d9fbaaa0860efb47",
+   "hero_description": "c39a138c8bbec525",
+   "hero_prompt": "db7f70f63e3b384a",
+   "howto_description": "200807983607a001",
+   "howto_step_1_des": "24c360b2602bee18",
+   "howto_step_1_title": "34c9da3ea3ab3c79",
+   "howto_step_2_des": "7bf412a27974b6eb",
+   "howto_step_2_title": "df649d109f767ac0",
+   "howto_step_3_des": "c18a923fc37d43d3",
+   "howto_step_3_title": "a224109843b3ae45",
+   "howto_step_4_des": "719d834bc79cef41",
+   "howto_step_4_title": "cd64d78724a22f21",
+   "howto_step_5_des": "487e32c792467c52",
+   "howto_step_5_title": "a062c1114b42f160",
+   "howto_step_6_des": "206c4cd801f0a6e6",
+   "howto_step_6_title": "4bd39dc5c982fc5d",
+   "howto_step_7_des": "4ab3af07aa26329a",
+   "howto_step_7_title": "98235beae36c0a0c",
+   "howto_title": "2bd5b25483442529",
+   "meta_description": "a57553c8e81cb46f",
+   "meta_title": "96ed0f112b84d70c",
+   "mockup": "a8fae52781c97577",
+   "product_name": "d96a624db1f15e90",
+   "prompt_chip_1": "48e2cae7e7f21e77",
+   "prompt_chip_2": "a9bb161bffdecd15",
+   "prompt_chip_3": "952406ae84abe8bf",
+   "prompt_chip_4": "1cf528c4b0aa00b2",
+   "slug": "4e23b87200d59596",
+   "tab_content_1": "bf96e48ed1e33229",
+   "tab_content_2": "bd0ce0a28ea29273",
+   "tab_content_3": "b7490f5ab0aae32c",
+   "tab_content_4": "bb24f009e9f25062",
+   "tab_label_1": "48e2cae7e7f21e77",
+   "tab_label_2": "a9bb161bffdecd15",
+   "tab_label_3": "d5ada807890ef5bd",
+   "tab_label_4": "1cf528c4b0aa00b2",
+   "usecase_heading": "542d13bd42c9c6ee",
+   "why_description": "90f69168cbb5da0d",
+   "why_table": "5caba7eb7619eb1b",
+   "why_title": "54f4843986c1d24c"
+  },
+  "all": "85e601a9d6bb9542",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

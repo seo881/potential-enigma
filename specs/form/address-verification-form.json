@@ -168,6 +168,13 @@
    "via": "ready",
    "by": "A-w-11",
    "note": "one rework applied by A-w-11 after wk-r-15 (0 findings marked blocking then, fixed per rules/SEVERITY.md); ready for Divit"
+  },
+  {
+   "t": "2026-10-13 11:14 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "A-s-5",
+   "note": "slim review: [slim | HUB_RULES 8] faq: New clause added after review states a universal fact about USPS. The domain source (faq.usps.com address information requests) only says those request forms are for process servers and agencies and are not proof of residency; no source says USPS has no residen"
   }
  ],
  "plan": {
@@ -809,8 +816,8 @@
   ]
  },
  "qc_passed": {
-  "rules_version": "bae2ab9babe0",
-  "date": "2026-10-13 10:54 UTC"
+  "rules_version": "cac16e203a5f",
+  "date": "2026-10-13 11:10 UTC"
  },
  "writers": [
   "w-address-verification-form",
@@ -990,6 +997,16 @@
    "by": "wk-r-15",
    "via": "review",
    "date": "2026-10-10 10:01 UTC"
+  },
+  {
+   "criterion": "slim",
+   "rule": "HUB_RULES 5 | SEVERITY craft",
+   "field": "faq",
+   "issue": "Keyword-sourced question (not AlsoAsked, so ruling 4 does not apply) reworded after review into a stiffer form; the earlier 'Does an address verification form need to be notarized?' is how people ask. The answer still answers it.",
+   "fix": "Optional: restore 'Does an address verification form need to be notarized?' if the gate allows.",
+   "by": "A-s-5",
+   "via": "slim-review",
+   "date": "2026-10-13 11:14 UTC"
   }
  ],
  "chip_adds": [
@@ -997,5 +1014,40 @@
   "Add a signed statement from the person an applicant lives with.",
   "Add a review screen where staff approve or return each case with a reason.",
   "Add email reminders for any case still missing a document."
+ ],
+ "slim_reviews": [
+  {
+   "by": "A-s-5",
+   "date": "2026-10-13 11:14 UTC",
+   "fields": [
+    "alt:tab_image_4",
+    "chip_adds",
+    "faq",
+    "tab_content_4"
+   ],
+   "baseline": "git 59eb2134 (spec at the review date)",
+   "blocking": 1,
+   "notes": 1,
+   "findings": [
+    {
+     "criterion": "slim",
+     "field": "faq",
+     "quote": "USPS has no form for proving where you live:",
+     "fix": "Drop the new clause and open on the sourced fact, e.g. 'The USPS forms people find are address information requests, which are for process servers and government agencies...', or add a source that states it.",
+     "rule": "HUB_RULES 8 | SEVERITY unsourced",
+     "issue": "New clause added after review states a universal fact about USPS. The domain source (faq.usps.com address information requests) only says those request forms are for process servers and agencies and are not proof of residency; no source says USPS has no residency form at all.",
+     "severity": "blocking"
+    },
+    {
+     "criterion": "slim",
+     "field": "faq",
+     "quote": "Should an address verification form include a notary signature?",
+     "fix": "Optional: restore 'Does an address verification form need to be notarized?' if the gate allows.",
+     "rule": "HUB_RULES 5 | SEVERITY craft",
+     "issue": "Keyword-sourced question (not AlsoAsked, so ruling 4 does not apply) reworded after review into a stiffer form; the earlier 'Does an address verification form need to be notarized?' is how people ask. The answer still answers it.",
+     "severity": "note"
+    }
+   ]
+  }
  ]
 }
