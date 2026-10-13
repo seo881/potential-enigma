@@ -122,6 +122,13 @@
    "via": null,
    "by": "A-coord",
    "note": ""
+  },
+  {
+   "t": "2026-10-13 19:55 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-15",
+   "note": "[images | CONTENT_DEFECTS #10] images.tab_image_1.alt: The alt counts four carrier quotes, but the rendered tab 1 image draws five quote rows: USPS Ground Advantage $9.10, UPS Ground $8.40, FedEx Home Delivery $11.85, USPS Priority Mail $12.60, UPS 2nd Day Air $21.30 (image_brief.checks lists the sa"
   }
  ],
  "plan": {
@@ -987,5 +994,315 @@
  },
  "writers": [
   "A-w-69"
- ]
+ ],
+ "review": {
+  "by": "A-r-15",
+  "date": "2026-10-13 19:55 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Shipping Automation for Labels and Late Packages', meta title 'Shipping Automation for Labels and Tracking | Emergent', hero 'Build shipping automation that buys the right label for each order and tells your team when a package stops moving.' (verb first, primary carried, under 130 chars); how-to description is one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is shipping software (ShipStation, Easyship, EasyPost), warehouse hardware (Dematic, Streamtech) and glossaries. The page shows four rules a store can copy (rate shopping against a 4-day promise, a 2:00 PM batch, a 72-hour stall alert, customs from the product record), a seven-step how-to with a replay of last week's orders, and answers the three AlsoAsked questions (best software, best free app, warehouse shipping process)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Shipping-ops vocabulary: 'negotiated rates', 'dimensional weight', 'packing list sorted by bin', 'last scan location', 'HS code, origin, and value in US dollars', 'Ground Advantage', 'afternoon pickup'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Hollow Pine Roasters ships coffee from Ohio...', 'At 2:00 PM on weekdays, the app buys labels...', 'Tracking updates arrive by webhook...', 'Count the minutes your team spends each day...'. Feature bodies open on verbs ('Connects', 'Stores', 'Sends', 'Runs', 'Exports'). QC Q1 clean."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q1-Q8 clean; sentences carry one idea ('A cheaper rate that would arrive late is skipped.', 'A light bag of beans in an oversized box can cost more than it weighs.')."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator voice with concrete detail: 'the carrier for a 2 lb box to Arizona', 'a glass carafe and loose beans', 'Count the shelf once a month and correct the number, because a damaged box never passes through a label run.' No AI tells (QC A1 clean)."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "claims_used all approved (prompt-build, api-connect, database-owned, alerts, no-caps, code-export 'on paid plans'); no compliance claim. Third-party facts match their spans: EasyPost rates all active carrier accounts and gives negotiated rates (docs.easypost.com/carriers); 'Tracking updates are delivered through webhook Events.' (tracking guide, verbatim); 'Checks full address deliverability...' plus verify_strict 'returns an error if the address cannot be verified' (address verification guide); UPS billable weight is the greater of actual and dimensional (UPS page, confirmed via search snippet, the page refuses bots); USPS IMM 123.11 'a fully completed electronically generated customs form is required for international mail'. Copy numbers agree: 138-3=135, 36+24=60, $8.40 skipped as 5 days vs 4-day promise. HS 0901.21 is roasted coffee, not decaffeinated."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Distinct from ecommerce-automation (dropship, winback, risk holds, margin) and order-processing siblings; no sibling primary in a heading; links ecommerce, procurement and purchase order automation rather than covering them; QC D2 clean."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, none branded or file-format; three AlsoAsked questions verbatim; all 6 secondaries carried; hub link in item 2; links in items 4, 7, 10; moat lines in items 3 and 6; faq_heading 'Shipping Questions, Answered' is correct and plain."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 1 alt says 'gets four carrier quotes' but the image draws five quote rows (USPS Ground Advantage, UPS Ground, FedEx Home Delivery, USPS Priority Mail, UPS 2nd Day Air) (see blocking finding). Tabs 2-4 and cover match copy and alts: '138 paid orders', '3 held', '135 labels ready', 'Teo Marsh, warehouse lead'; 'No new scan for 72 hours', 'Last scan: Louisville, KY', 'Message to Ines Calder'; 'Order #20431 to Toronto', '0901.21', 'Dripper HS code Missing', 'Order held for Teo Marsh'."
+   }
+  },
+  "findings": [
+   {
+    "class": "wrong-fact",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "images.tab_image_1.alt",
+    "quote": "Hollow Pine Roasters order #20417 gets four carrier quotes; the $8.40 UPS rate is skipped because it arrives in 5 days, and the $9.10 USPS label that arrives in 3 days is bought, with tracking saved on the order.",
+    "issue": "The alt counts four carrier quotes, but the rendered tab 1 image draws five quote rows: USPS Ground Advantage $9.10, UPS Ground $8.40, FedEx Home Delivery $11.85, USPS Priority Mail $12.60, UPS 2nd Day Air $21.30 (image_brief.checks lists the same five). Every instance: images.tab_image_1.alt and the identical image_brief.tabs[0].alt. No other alt carries a count that disagrees with its image (tab 2 '138 ... holds 3 ... 135', tab 3, tab 4 and cover checked).",
+    "fix": "In both fields: 'Hollow Pine Roasters order #20417 gets five carrier quotes; ...' (rest unchanged).",
+    "severity": "blocking"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_6",
+    "quote": "A developer can add a regional carrier or edit a rule in code, and the app runs wherever your stack is hosted.",
+    "issue": "Near-copy of the live sibling ecommerce-automation feature_6 ('Anyone with access can read every rule or add a carrier, and the app runs wherever the rest of your stack is hosted.'). Also, 'runs wherever your stack is hosted' goes past the code-export ledger text (export to GitHub on paid plans); it already ships on the sibling, so flagged for Divit, not blocked.",
+    "fix": "Vary it, e.g. 'A developer can add a regional carrier in code, and every rule sits in a file your team can read.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "The best shipping software for your store is the one that quotes with the rates you negotiated with your carriers",
+    "issue": "FAQ 1 and FAQ 3 ('The best free shipping app is one whose free plan handles your monthly order count...') answer 'best' questions with selection criteria and name no tool. They do answer in the first sentence, so not a missing-intent block, but a searcher expects names; brands are allowed in answers (PA14 covers questions only).",
+    "fix": "Optionally name the categories' usual options in one clause, sourced.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "feature_1",
+    "quote": "Connects to EasyPost, Shippo, or a carrier's own API. Each paid order gets quotes from your accounts at your negotiated rates",
+    "issue": "Negotiated rates through your own carrier accounts are sourced for EasyPost only; Shippo is named without a span. True in practice and the sentence is about the built app, so a note.",
+    "fix": "Add a Shippo carrier-account span to domain_sources (6 of 8 used) or name EasyPost alone.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Shipping automation solutions come in four kinds: multi-carrier shipping software, shipping APIs, warehouse hardware such as conveyors, and apps built on a shipping API.",
+    "issue": "FAQ 6 states a taxonomy as fact with no source. It is the writer's grouping, not law, a standard or a statistic, and it matches the top 10's mix, so a note.",
+    "fix": "Soften to 'You will meet four kinds:' or similar.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "images.tab_image_1.alt",
+    "quote": "Hollow Pine Roasters order #20417",
+    "issue": "The tab 1 image does not draw the store name (it appears only on tab 2). Extra detail in the alt, not a contradiction.",
+    "fix": "Drop the name from the tab 1 alt in the same edit as the count fix, if convenient.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Zapier | Make (Integromat) | n8n",
+    "issue": "QC K7 P2: none of the three ranks in this page's top 10 (ShipStation, EasyPost, Easyship). Accepted: the AAB library has no shipping-software entries; adding them is a coordinator task.",
+    "fix": "Coordinator: consider ShipStation and EasyPost library entries for the shipping and ecommerce pages.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_6",
+   "issue": "Near-copy of the live sibling ecommerce-automation feature_6 ('Anyone with access can read every rule or add a carrier, and the app runs wherever the rest of your stack is hosted.'). Also, 'runs wherever your stack is hosted' goes past the code-export ledger text (export to GitHub on paid plans); it already ships on the sibling, so flagged for Divit, not blocked.",
+   "fix": "Vary it, e.g. 'A developer can add a regional carrier in code, and every rule sits in a file your team can read.'",
+   "by": "A-r-15",
+   "via": "review",
+   "date": "2026-10-13 19:55 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "FAQ 1 and FAQ 3 ('The best free shipping app is one whose free plan handles your monthly order count...') answer 'best' questions with selection criteria and name no tool. They do answer in the first sentence, so not a missing-intent block, but a searcher expects names; brands are allowed in answers (PA14 covers questions only).",
+   "fix": "Optionally name the categories' usual options in one clause, sourced.",
+   "by": "A-r-15",
+   "via": "review",
+   "date": "2026-10-13 19:55 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "feature_1",
+   "issue": "Negotiated rates through your own carrier accounts are sourced for EasyPost only; Shippo is named without a span. True in practice and the sentence is about the built app, so a note.",
+   "fix": "Add a Shippo carrier-account span to domain_sources (6 of 8 used) or name EasyPost alone.",
+   "by": "A-r-15",
+   "via": "review",
+   "date": "2026-10-13 19:55 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "FAQ 6 states a taxonomy as fact with no source. It is the writer's grouping, not law, a standard or a statistic, and it matches the top 10's mix, so a note.",
+   "fix": "Soften to 'You will meet four kinds:' or similar.",
+   "by": "A-r-15",
+   "via": "review",
+   "date": "2026-10-13 19:55 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "images.tab_image_1.alt",
+   "issue": "The tab 1 image does not draw the store name (it appears only on tab 2). Extra detail in the alt, not a contradiction.",
+   "fix": "Drop the name from the tab 1 alt in the same edit as the count fix, if convenient.",
+   "by": "A-r-15",
+   "via": "review",
+   "date": "2026-10-13 19:55 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7 P2: none of the three ranks in this page's top 10 (ShipStation, EasyPost, Easyship). Accepted: the AAB library has no shipping-software entries; adding them is a coordinator task.",
+   "fix": "Coordinator: consider ShipStation and EasyPost library entries for the shipping and ecommerce pages.",
+   "by": "A-r-15",
+   "via": "review",
+   "date": "2026-10-13 19:55 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "5d8e7af5027d71fb",
+   "alt:share_image": "4e50db762996717c",
+   "alt:tab_image_1": "d66d055f5966527d",
+   "alt:tab_image_2": "81ad81963a22236c",
+   "alt:tab_image_3": "c61677342c4204de",
+   "alt:tab_image_4": "b3c0ec0c3f19f79d",
+   "breadcrumb": "530b097d78aee871",
+   "chip_adds": "4419df1d3fbb7460",
+   "explore_cta": "415e6c3fe7ffdf41",
+   "faq": "86bd8cfbc01f366c",
+   "feature_1": "35d390a73abc6416",
+   "feature_2": "e9387f2e43b3a163",
+   "feature_3": "0c742f922f0105ed",
+   "feature_4": "1988f4c31a6fc47b",
+   "feature_5": "abea2fde9a566ce1",
+   "feature_6": "9a960724b4473568",
+   "features_heading": "a0b1eca1887f4d79",
+   "features_subheading": "7227a8066ae84ec7",
+   "h1": "bc46c9ad124f0963",
+   "hero_description": "34a1e79119b88e7d",
+   "hero_prompt": "a8779372e33c90fe",
+   "howto_description": "5beb6689a831d162",
+   "howto_step_1_des": "270355361ed081d7",
+   "howto_step_1_title": "61113fed55fb2eaf",
+   "howto_step_2_des": "6251e51b34999c93",
+   "howto_step_2_title": "e4a37187c07b6384",
+   "howto_step_3_des": "4f5e9b9394fe9bf0",
+   "howto_step_3_title": "f571b3e71ca13067",
+   "howto_step_4_des": "6efe2c2ad4a2b86e",
+   "howto_step_4_title": "f275811a6534429e",
+   "howto_step_5_des": "1d5ad6a995c1c488",
+   "howto_step_5_title": "b223fce42fc0ec7b",
+   "howto_step_6_des": "733ee36eae644038",
+   "howto_step_6_title": "540ee1569fa806c3",
+   "howto_step_7_des": "b87effebd8408fd4",
+   "howto_step_7_title": "e95e6479088a82ea",
+   "howto_title": "00c9cc4a28a6cb16",
+   "meta_description": "318c427b797a028d",
+   "meta_title": "527060ea3721bb2e",
+   "mockup": "e0065cf7a1148593",
+   "product_name": "c0f6994fc7efdadc",
+   "prompt_chip_1": "608e8f4de3013acc",
+   "prompt_chip_2": "27189464941eb83e",
+   "prompt_chip_3": "e9e85081be1c87a3",
+   "prompt_chip_4": "033fff3770f1b2bb",
+   "slug": "e91f163994c3ed04",
+   "tab_content_1": "2b0f429a72a47950",
+   "tab_content_2": "b544dc5a54848076",
+   "tab_content_3": "c51d31c8d5e02082",
+   "tab_content_4": "69d28507cd80d288",
+   "tab_label_1": "608e8f4de3013acc",
+   "tab_label_2": "eb183ce12671b59e",
+   "tab_label_3": "cbdbbfabe20e9976",
+   "tab_label_4": "033fff3770f1b2bb",
+   "usecase_heading": "4246c3b8040df4b9",
+   "why_description": "e5d39e6d98fa1b59",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "a8189728ab0e5067"
+  },
+  "all": "efb7f4584b5e13a2",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "5d8e7af5027d71fb",
+   "alt:share_image": "4e50db762996717c",
+   "alt:tab_image_1": "d66d055f5966527d",
+   "alt:tab_image_2": "81ad81963a22236c",
+   "alt:tab_image_3": "c61677342c4204de",
+   "alt:tab_image_4": "b3c0ec0c3f19f79d",
+   "breadcrumb": "530b097d78aee871",
+   "chip_adds": "4419df1d3fbb7460",
+   "explore_cta": "415e6c3fe7ffdf41",
+   "faq": "86bd8cfbc01f366c",
+   "feature_1": "35d390a73abc6416",
+   "feature_2": "e9387f2e43b3a163",
+   "feature_3": "0c742f922f0105ed",
+   "feature_4": "1988f4c31a6fc47b",
+   "feature_5": "abea2fde9a566ce1",
+   "feature_6": "9a960724b4473568",
+   "features_heading": "a0b1eca1887f4d79",
+   "features_subheading": "7227a8066ae84ec7",
+   "h1": "bc46c9ad124f0963",
+   "hero_description": "34a1e79119b88e7d",
+   "hero_prompt": "a8779372e33c90fe",
+   "howto_description": "5beb6689a831d162",
+   "howto_step_1_des": "270355361ed081d7",
+   "howto_step_1_title": "61113fed55fb2eaf",
+   "howto_step_2_des": "6251e51b34999c93",
+   "howto_step_2_title": "e4a37187c07b6384",
+   "howto_step_3_des": "4f5e9b9394fe9bf0",
+   "howto_step_3_title": "f571b3e71ca13067",
+   "howto_step_4_des": "6efe2c2ad4a2b86e",
+   "howto_step_4_title": "f275811a6534429e",
+   "howto_step_5_des": "1d5ad6a995c1c488",
+   "howto_step_5_title": "b223fce42fc0ec7b",
+   "howto_step_6_des": "733ee36eae644038",
+   "howto_step_6_title": "540ee1569fa806c3",
+   "howto_step_7_des": "b87effebd8408fd4",
+   "howto_step_7_title": "e95e6479088a82ea",
+   "howto_title": "00c9cc4a28a6cb16",
+   "meta_description": "318c427b797a028d",
+   "meta_title": "527060ea3721bb2e",
+   "mockup": "e0065cf7a1148593",
+   "product_name": "c0f6994fc7efdadc",
+   "prompt_chip_1": "608e8f4de3013acc",
+   "prompt_chip_2": "27189464941eb83e",
+   "prompt_chip_3": "e9e85081be1c87a3",
+   "prompt_chip_4": "033fff3770f1b2bb",
+   "slug": "e91f163994c3ed04",
+   "tab_content_1": "2b0f429a72a47950",
+   "tab_content_2": "b544dc5a54848076",
+   "tab_content_3": "c51d31c8d5e02082",
+   "tab_content_4": "69d28507cd80d288",
+   "tab_label_1": "608e8f4de3013acc",
+   "tab_label_2": "eb183ce12671b59e",
+   "tab_label_3": "cbdbbfabe20e9976",
+   "tab_label_4": "033fff3770f1b2bb",
+   "usecase_heading": "4246c3b8040df4b9",
+   "why_description": "e5d39e6d98fa1b59",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "a8189728ab0e5067"
+  },
+  "all": "efb7f4584b5e13a2",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
