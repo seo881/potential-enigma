@@ -48,3 +48,4 @@
 ## 2026-10-13 batch 3 (Divit rulings 2026-10-13; A = coordinator)
 - create_collection_items (isDraft true, L12 Learn refs) and read back: 10 batch-3 page(s) in this hub, verified by hubctl ship-cms (0 mismatches); item IDs in status/ship/batch-3.json.
 - update_collection_items isDraft false, fieldData empty (staged, not published); read back isDraft false, lastPublished empty, Learn refs present. Rollback: isDraft true on the same IDs (or delete the drafts: never published).
+- 2026-10-13 batch 3: ach-form 6ace2910043dab3a244256d8 and photo-release-form 6ace2910043dab3a244256d6 created (verified), isDraft false (read back, Learn refs). Batch 3 now 20/20 staged.

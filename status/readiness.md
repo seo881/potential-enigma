@@ -1,6 +1,6 @@
 # Readiness board
 
-Regenerated 2026-10-13 12:29 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
+Regenerated 2026-10-13 12:51 UTC by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.
 
 ## Template blockers (plan/template-edits-2026-10-08.md)
 
@@ -64,14 +64,14 @@ Regenerated 2026-10-13 12:29 UTC by `hubctl readiness` (also after every `hubctl
 | wk-new-sqb | /ai-survey-and-quiz-builder/brand-awareness-survey | 0 | 10/10 | yes, wk-r-21 | yes | no | 1 | 6accb39f13e0be4f1e5be581 | yes | yes | payload |
 | wk-new-sqb | /ai-survey-and-quiz-builder/brand-perception-survey | 0 | 10/10 | yes, wk-r-21 | yes | no | 1 | 6accb39f13e0be4f1e5be583 | yes | yes | payload |
 | wk-new-sqb | /ai-survey-and-quiz-builder/church-survey | 0 | 10/10 | yes, wk-r-21 | yes | no | 0 | 6accb44a40d5b6e947b71558 | yes | yes | payload |
-| wk-new-sqb | /ai-survey-and-quiz-builder/wellness-survey | 1 | 10/10 | no | yes | no | 0 | - | no | no | check |
+| wk-new-sqb | /ai-survey-and-quiz-builder/wellness-survey | 0 | 10/10 | no | yes | no | 0 | - | no | no | check |
 | wk-rework-aab | /ai-automation-builder/accounts-payable-automation | 0 | 10/10 | yes, wk-r-5 | yes | no | 2 | 6accb32573d2b6b752fb8d50 | yes | yes | payload |
 | wk-rework-aab | /ai-automation-builder/invoice-automation | 0 | 10/10 | yes, wk-r-5 | yes | no | 2 | 6accb32573d2b6b752fb8d52 | yes | yes | payload |
 | wk-rework-aab | /ai-automation-builder/purchase-order-automation | 0 | 10/10 | yes, wk-r-5 | yes | no | 1 | 6ace176d24c16292a76543f6 | yes | no | payload |
 | wk-rework-aab | /ai-automation-builder/social-media-automation | 0 | 10/10 | yes, wk-r-5 | yes | no | 2 | 6ace176d24c16292a76543f4 | yes | no | payload |
 | wk-rework-form | /ai-form-builder/accident-report-form | 0 | 10/10 | yes, wk-r-15 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/accounting-client-intake-form | 7 | 6/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
-| wk-rework-form | /ai-form-builder/ach-form | 0 | 10/10 | yes, wk-r-10 | yes | no | 0 | - | no | no | payload |
+| wk-rework-form | /ai-form-builder/ach-form | 0 | 10/10 | yes, wk-r-10 | yes | no | 1 | 6ace2910043dab3a244256d8 | yes | no | payload |
 | wk-rework-form | /ai-form-builder/address-verification-form | 0 | 10/10 | yes, wk-r-15 | yes | no | 0 | - | no | no | payload |
 | wk-rework-form | /ai-form-builder/advance-directive-form | 0 | 10/10 | yes, wk-r-10 | yes | no | 2 | 6ace2268bcc4e6ecf4da7bfd | yes | no | payload |
 | wk-rework-form | /ai-form-builder/affidavit-form | 0 | 10/10 | yes, wk-r-11 | yes | no | 2 | 6ace232b7a831958cbad855e | yes | no | payload |
@@ -151,7 +151,7 @@ Regenerated 2026-10-13 12:29 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-form | /ai-form-builder/personal-injury-intake-form | 9 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/pet-adoption-form | 12 | 6/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/petition-form | 1 | 3/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
-| wk-rework-form | /ai-form-builder/photo-release-form | 0 | 10/10 | yes, wk-r-11 | yes | no | 0 | - | no | no | payload |
+| wk-rework-form | /ai-form-builder/photo-release-form | 0 | 10/10 | yes, wk-r-11 | yes | no | 1 | 6ace2910043dab3a244256d6 | yes | no | payload |
 | wk-rework-form | /ai-form-builder/pre-order-form | 9 | 2/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/project-request-form | 22 | 5/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-form | /ai-form-builder/proposal-form | 0 | 10/10 | yes, wk-r-17 | yes | no | 0 | - | no | no | payload |
@@ -216,12 +216,12 @@ Regenerated 2026-10-13 12:29 UTC by `hubctl readiness` (also after every `hubctl
 | wk-rework-lp | /ai-landing-page-builder/squeeze-page | 1 | 10/10 | yes, wk-r-3 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/360-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 1 | 6ace1dd9b328edb4af06e8b1 | yes | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/customer-effort-score | 0 | 10/10 | yes, wk-r-7 | yes | no | 3 | 6ace1eaf7d70b298f46197d4 | yes | no | payload |
-| wk-rework-sqb | /ai-survey-and-quiz-builder/customer-experience-survey | 2 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | payload |
+| wk-rework-sqb | /ai-survey-and-quiz-builder/customer-experience-survey | 0 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/customer-feedback-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 3 | 6accb44a40d5b6e947b7155a | yes | yes | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/employee-benefits-survey | 7 | 6/10 | no | no | no | 0 | - | no | no | stopped (stopped) |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/employee-satisfaction-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 1 | 6accb44a40d5b6e947b7155c | yes | yes | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/exit-survey | 0 | 10/10 | yes, wk-r-7 | yes | no | 1 | 6ace1eaf7d70b298f46197d2 | yes | no | payload |
-| wk-rework-sqb | /ai-survey-and-quiz-builder/onboarding-survey | 10 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | payload |
+| wk-rework-sqb | /ai-survey-and-quiz-builder/onboarding-survey | 0 | 10/10 | yes, wk-r-7 | yes | no | 0 | - | no | no | payload |
 | wk-rework-sqb | /ai-survey-and-quiz-builder/pulse-survey | 0 | 10/10 | yes, wk-r-6 | yes | no | 1 | 6ace1dd9b328edb4af06e8af | yes | no | payload |
 
 Stages: check 4, done 21, images2 1, payload 80, stopped 94 (200 pages)
