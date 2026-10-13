@@ -2,6 +2,8 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-10-13 · [1400-yield-pilot-throughput](2026-10-13/1400-yield-pilot-throughput.md) · AlsoAsked yield pilot (23 pages, 18 credits): 18/475 questions pass, 4/23 feasible, 20/23 with top-2 PA3 synonyms (not applied); projected ~200 pages on current rules, ~390 with synonyms; weekly caps UNVERIFIED · this commit
+- 2026-10-13 · [1230-rulings-batch3-throughput](2026-10-13/1230-rulings-batch3-throughput.md) · Rulings 0-10 tooling, 62 slim/full reviews, batch 3 20/20 staged (isDraft false, unpublished), AlsoAsked 403 blocker fixed, ruling 9 handover, sync.sh fix · dc485620
 - 2026-10-13 · [1256-account-b-rework-surveyquiz-feasibility](2026-10-13/1256-account-b-rework-surveyquiz-feasibility.md) · Account B: 13 reworks reviewed (ach, photo-release + 7 Form + 2 Survey), 3 to images (wellness, sales-workflow, assessment); queued feasibility 1/40, B AlsoAsked key 403 · e3104694
 - 2026-10-13 · [1058-b-side-fixes-for-account-a](2026-10-13/1058-b-side-fixes-for-account-a.md) · --by required, hold markers, F2 alsoasked on legacy pages, PA12 workbook-only bar, AlsoAsked candidates in brief, L12 Learn refs at creation, 3 Auto pages released, DECISIONS 2026-10-13; needs Divit's 7 rulings + addendum pasted to B · f0a338f6
 - 2026-10-13 · [1625-account-a-form-auto-rework](2026-10-13/1625-account-a-form-auto-rework.md) · Account A: 58 Form/Auto pages worked; 36 reviewed, 11 in images for B review, 3 parked (PA12), 8 batch-3 ceded to B; verbatim AlsoAsked restored on 6; capacity and rescue ranking; 0 Webflow calls · this commit
