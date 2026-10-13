@@ -2,73 +2,96 @@
 
 Target: 500 pages live by 2026-10-27. Two accounts work in parallel, each in its own clone of this repo. CLAUDE.md, DECISIONS.md, RUNBOOK.md, HUB_RULES and LESSONS.md apply to both; this file only splits the work.
 
+> **Naming (Divit, 2026-10-13, ruling 0):** **Account A = the coordinator** (`~/emergent-hubs`). **Account B = the writer** (`~/emergent-hubs-a`). Agent-id prefixes follow the account: coordinator agents use `A-`, writer agents use `B-`.
+> Before this ruling the letters were the other way round, from about 08:00 to 11:30 UTC on 2026-10-13. Those ids stay in history as written:
+> - `A-w-<n>`, `writer-a-*` and `proposals/account-a.md` were the **writer**;
+> - `B-w-b3-*` and `B-coord` were the **coordinator**.
+>
+> Holds and ownership are checked by clone (the `.hub` file), not by the letter in an id.
+
 ## 1. Who owns what
 
-| | Account B (coordinator) | Account A (writer) |
+| | Account A (coordinator) | Account B (writer) |
 |---|---|---|
-| Clone | `~/emergent-hubs` | `~/emergent-hubs-a` |
+| Clone, `.hub` | `~/emergent-hubs`, `.hub` = `A:LP,SurveyQuiz` | `~/emergent-hubs-a`, `.hub` = `B:Form,Auto` |
 | Hubs it writes | LP, SurveyQuiz | Form, Auto |
-| Stages | write and rework (LP, SurveyQuiz); **review of every page** (A's included); images check; create, stage, item publish, verify, relink, live audit, retro; rules and tooling; rescue marking; the daily approval packet | write, rework, re-render images (Form, Auto), in this order: rework pages first, then queued pages, then parked pages B has released for rescue |
+| Stages | write and rework (LP, SurveyQuiz); **every review** (B's pages included), full and slim; images check; create, stage, item publish, verify, relink, live audit, retro; rules and tooling; rescue marking; the daily approval packet | write, rework and re-render images (Form, Auto), in this order: rework pages first, then queued pages, then parked pages A has released for rescue |
 | Webflow | the **only** Webflow writer (every call per CLAUDE.md) | **none**: no Webflow MCP, every Webflow tool denied |
-| Schedulers (launchd, publish watcher, live audit, weekend loop) | B only | none |
-| May edit | everything, per CLAUDE.md | only `specs/form/`, `specs/aab/`, `images/form/`, `images/aab/`, `status/form.json`, `status/aab.json`, `status/usage.jsonl` (append only), `proposals/account-a.md` |
-| Never edits | A's pages while A holds them (states `claimed`, `rework`) | `rules/`, `qc/`, `ops/`, `pipeline/`, `tests/`, `config/`, templates, `DECISIONS.md`, `LESSONS.md`, `RUNBOOK.md`, `CLAUDE.md`, `status/ship/`, `plan/`, other hubs' files |
+| Schedulers (launchd, publish watcher, live audit, weekend loop) | A only | none |
+| May edit | everything, per CLAUDE.md | only `specs/form/`, `specs/aab/`, `images/form/`, `images/aab/`, `status/form.json`, `status/aab.json`, `status/usage.jsonl` (append only), `proposals/account-b.md` |
+| Never edits | a page B holds | `rules/`, `qc/`, `ops/`, `pipeline/`, `tests/`, `config/`, templates, `DECISIONS.md`, `LESSONS.md`, `RUNBOOK.md`, `CLAUDE.md`, `status/ship/`, `plan/`, other hubs' files |
 
-A page is held by one account at a time, by state:
-- **A holds** a Form/Auto page in `claimed` and `rework`.
-- **B holds** it from `images` onward (`images` → review → `reviewed`/`rework` → `approved` → CMS → `published`).
-- **Hold markers decide** (Divit 2026-10-13, replacing "B's batches win"): before working any page it did not just claim (rework, rescue, a ship batch), an account runs `hubctl hold <url> --by <ID> --note "<why>"` and pushes the status file. Only then does it start. hubctl refuses state changes, `images` and `release` by the other account while the hold stands. `hubctl unhold <url> --by <ID>` when the page leaves your hands. B puts its holds (B-coord) on every page of a ship batch when the batch file is pushed, and never batches a page A holds.
-- `rework` goes back to A, which fixes the blocking findings only, re-renders, then runs `hubctl ready <url> --by A-<id>` → `reviewed`. One review per page and one rework (CLAUDE.md step 5). The writer and the reviewer are always different agents; hubctl refuses otherwise.
+Who holds a page:
+- **B holds** a Form/Auto page in `claimed` and `rework`. **A holds** it from `images` onward (`images` → review → `reviewed`/`rework` → `approved` → CMS → `published`).
+- **Hold markers decide.** Before working any page it did not just claim (a rework, a rescue, a ship batch, a rule re-run fix), an account runs `hubctl hold <url> --by <ID> --note "<why>"` and pushes the status file; only then does it start.
+  - The hold records the clone's account.
+  - hubctl refuses state changes, `images`, `release` and `claim` from the other clone while the hold stands.
+  - Run `hubctl unhold <url> --by <ID>` when the page leaves your hands.
+- **Collisions (ruling 6):** a ship batch file takes only pages in state `reviewed`, and nothing is claimed or batched over a hold. A puts its holds (`A-coord`) on every page of a batch when the batch file is pushed.
+- `rework` goes back to B, which fixes the blocking findings only, re-renders, then runs `hubctl ready <url> --by B-w-<n>` → `reviewed`. Each page gets one review and one rework (CLAUDE.md step 5). The writer and the reviewer are always different agents; hubctl refuses otherwise.
 
-## 2. One-time setup of A's clone (Divit or A, before A starts)
-1. Start from a clean tree: `cd ~/emergent-hubs-a && git status` must show nothing modified (discard local changes, then `git pull --rebase`).
-2. `echo "Form,Auto" > ~/emergent-hubs-a/.hub`. `hubctl claim` then refuses LP and SurveyQuiz in that clone. B's clone gets `LP,SurveyQuiz`. `.hub` is git-ignored.
+## 2. One-time setup of B's clone (Divit or B)
+1. Start from a clean tree: `git status` in `~/emergent-hubs-a` must show nothing modified.
+2. `.hub` = `B:Form,Auto` (git-ignored). A's clone has `A:LP,SurveyQuiz`. `hubctl claim` refuses other hubs; holds and `--by` prefixes are checked against the clone's letter.
 3. No Webflow:
    - in `~/emergent-hubs-a/.claude/settings.local.json`, add `"deny": ["mcp__webflow", "mcp__claude_ai_Webflow"]`;
    - do not connect the Webflow MCP in that account.
-4. AlsoAsked shared with B, so the credit caps hold across both clones:
-   - `rm -rf ~/emergent-hubs-a/private/alsoasked && ln -s ~/emergent-hubs/private/alsoasked ~/emergent-hubs-a/private/alsoasked`. Do this only while A has no pulls of its own.
-   - The `alsoasked` lock is machine-wide (`~/.emergent-hubs/locks/`, ops/guards.py).
-   - Pull only through `weekend.py aa` (key from the keychain). Never run ops/alsoasked_pull.py directly.
-5. `bash ops/setup.sh` in A's clone (A renders images locally).
+4. AlsoAsked is shared with A, so the credit caps hold across both clones:
+   - `private/alsoasked` in B's clone is a symlink to A's;
+   - the `alsoasked` lock is machine-wide (`~/.emergent-hubs/locks/`);
+   - pull only through `weekend.py aa`.
+   - Writers never read `private/`: `hubctl brief <url>` prints the gated AlsoAsked candidates.
+5. `bash ops/setup.sh` in B's clone (B renders images locally).
 
-## 3. Claim protocol
+## 3. Claim protocol and ids
 1. `git pull --rebase` **immediately before** every claim.
-2. Claim only in your own hubs: A uses `.venv/bin/python3 ops/hubctl.py claim Form|Auto N --by A-<id>`, B uses `claim LP|SurveyQuiz N --by B-<id>`. At most 25 per claim.
-3. Commit and push the status file at once: `bash ops/sync.sh "claim: <hub> N (A)" status/form.json`. A claim is not valid until it is on origin.
-4. Rework pages are not claimed; they are already A's (state `rework`). Parked pages are claimable only after B releases them (`hubctl release <url> --note "<reason>"`, then the state is queued). A never releases a parked page itself.
-5. Agent IDs:
-   - A uses the prefix `A-` (writers `A-w-<n>`);
-   - B uses `B-` (writers `B-w-<n>`, reviewers `B-r-<n>`).
+2. Claim only in your own hubs:
+   - B: `hubctl claim Form|Auto N --by B-w-<n>`;
+   - A: `hubctl claim LP|SurveyQuiz N --by A-w-<n>`.
+   - At most 25 per claim.
+3. Commit and push the status file at once (`bash ops/sync.sh "claim: <hub> N (B)" status/form.json`). A claim is not valid until it is on origin.
+4. Rework pages are not claimed; B puts a hold on each before working it. Parked pages are claimable only after A releases them. B never releases a parked page itself.
+5. **`--by` on every claim and state change** (claim, state, images, ready, review, release, hold, unhold); hubctl refuses without it.
+   - A, the coordinator, uses `A-w-<n>` (LP/SurveyQuiz writers), `A-r-<n>` (reviewers), `A-s-<n>` (slim reviewers) and `A-coord`.
+   - B, the writer, uses `B-w-<n>`.
+   - An id whose letter does not match the clone is refused.
 
-## 3b. IDs, gate and sources (Divit 2026-10-13)
-- **`--by` on every claim and state change** (claim, state, images, ready, review, release, hold, unhold): hubctl refuses without it. A uses `A-w-<n>`; B uses `B-w-<n>`, `B-r-<n>` or `B-coord`.
-- **Gate:** a page ships with **0 rejects**. Flags are allowed: each one goes to Divit's daily packet. **Never reword a verbatim AlsoAsked question to clear a flag**; leave the flag and note it in the commit message.
-- **AlsoAsked for writers:** `hubctl brief <url>` prints the page's AlsoAsked candidates with gate marks (+ use verbatim, ? flag, x reject), gated in memory. Writers never read `private/`.
-- **F2:** pages with a legacy DataForSEO capture accept the source `alsoasked` when the page has an AlsoAsked pull. Use the true label; no relabelling as keyword or secondary.
-- **PA12:** only the page's own Semrush workbook secondaries count, and the bar is min(6, how many the workbook has). A page with none passes that test. Never pad `secondaries_used` with keyword ideas, and remove any padding when reworking.
+## 3b. Gate, sources and the review rule (Divit 2026-10-13)
+- **Gate (ruling 4):** a page passes with **0 rejects**.
+  - Flags are allowed only when every flagged question is in Divit's daily packet.
+  - **Never reword a verbatim AlsoAsked question to clear a flag.** A fixes the PA6 patterns instead.
+- **F2:** pages with a legacy DataForSEO capture accept the source `alsoasked` when the page has an AlsoAsked pull. Use true labels.
+- **PA12 (ruling 5):** a page's secondaries are its Semrush workbook secondaries. A page with **none** uses the workbook's keyword ideas for the page as its secondaries: at least 4, on-topic. Never DataForSEO keyword ideas, and never padding.
+- **Review rule (ruling 1):** a page ships only if its current text was reviewed.
+  - The review stores a hash of the reviewable text fields.
+  - If text changed after review, beyond mechanical autofixes (H3 commas, J1), the changed fields need a **slim review** by an A reviewer who did not write them.
+  - `hubctl ship` refuses a page whose hash does not match.
+- **Rule re-run (ruling 8):** `hubctl recheck` runs only on pages not held by B. It runs on B's pages at the end of B's wave, coordinated through holds. It never changes a held page's state.
 
 ## 4. Commit protocol
 - Always use `bash ops/sync.sh "<message>" <explicit paths>`. It pulls with rebase and autostash, refuses conflict markers, then commits and pushes. Never `git add -A`, never force-push, never `git reset --hard`.
 - **One page = one commit**, as soon as it reaches its stage: `specs/<hub>/<slug>.json`, `images/<hub>/<slug>/` and `status/<hub>.json`.
-- Before any hubctl command that changes state (claim, images, ready, review), pull. Push right after it. Both accounts write `status/form.json` and `status/aab.json`, A for claims and rework, B for review and ship. Keep that window short.
-- If sync.sh refuses (conflict markers): for a file you do not own, take upstream (`git checkout --theirs <file>`). For your own page, keep yours. Then rerun sync.sh. Log anything unusual in your proposals file (A) or LESSONS (B).
-- Render images locally before pushing (`ops/render_changed.py HEAD HEAD --pages <slug> --no-commit`). render.json is then current, and the render Action skips the page instead of racing your next push (LESSONS 2026-10-12).
+- Before any hubctl command that changes state, pull; push right after it. Both accounts write `status/form.json` and `status/aab.json`: B for claims, holds and rework; A for review and ship.
+- If sync.sh refuses (conflict markers): for a file you do not own, take upstream. For your own page, keep yours. Then rerun sync.sh.
+- Render images locally before pushing (`ops/render_changed.py HEAD HEAD --pages <slug> --no-commit`), and render last, after the final brief change.
 
-## 5. Rule proposals from A
-- A never changes a rule, a checker or the library. If a rule blocks a page wrongly, or a library cell is missing or wrong, A appends one line to **`proposals/account-a.md`**: `YYYY-MM-DD | rule or file | proposal | example page(s) | why`.
-- The page stays in its state, or A parks it with the proposal line as the note (`hubctl state <url> parked --note "proposal YYYY-MM-DD #n" --by A-<id>`). A moves on to the next page.
-- B reads the file at the start of each day. B applies accepted proposals that need no ruling, with golden cases. Anything needing a ruling goes into Divit's daily approval packet. B marks each line `accepted <SHA>`, `rejected: <why>` or `asked Divit`.
+## 5. Rule proposals from B
+- B never changes a rule, a checker or the library. It appends one line to **`proposals/account-b.md`**: `YYYY-MM-DD | rule or file | proposal | example page(s) | why`. B either leaves the page in its state or parks it with the proposal as the note (`hubctl state <url> parked --note "proposal YYYY-MM-DD #n" --by B-w-<n>`).
+- A reads the file at the start of each day and marks each line `accepted <SHA>`, `rejected: <why>` or `asked Divit`. Anything needing a ruling goes into Divit's daily approval packet.
 
-## 6. How A's finished pages reach B's review and ship queue
-1. A's definition of done, per page:
-   - QC TOTAL 0 (`ship.qc_total`);
-   - PAA gate 10/10 with no page-level problems;
-   - chip_adds present (L11);
+## 6. How B's finished pages reach A's review and ship queue
+1. B's definition of done, per page:
+   - QC TOTAL 0;
+   - PAA gate with 0 rejects and no page-level problems, and every flag noted in the commit;
+   - chip_adds (L11);
    - no stock or reused names (A1);
-   - images rendered with every gate passing, and A has read the contact sheet;
-   - `hubctl images <url>` (state `images`), committed through sync.sh.
-2. Every page in state `images` in Form/Auto is in B's review queue automatically; there is no hand-off message. B reviews them in batches of up to 4 per page-reviewer (`hubctl review`, severity from rules/SEVERITY.md only).
-3. **No blocking finding:** `reviewed`, and B builds ship batches from `reviewed` pages across all 4 hubs. **Blocking:** `rework`, back to A (section 1).
-4. Ship (B only): Divit's daily approval packet, then create the CMS items with the 3 newest published Learn refs (L12, config/learn_refs.json), pre-flight, staging, Divit's publish, then verify, relink and live audit.
-5. A logs its token use per page: `hubctl usage-log <url> <tokens> --role writer --agent A-w-<n>`, committed with the page (`status/usage.jsonl`, append only). B does the same for review and ship.
+   - images rendered with every gate passing, and the contact sheet read;
+   - `hubctl images <url> --by B-w-<n>` (state `images`), committed, and the hold removed.
+2. Pages in state `images` are A's full-review queue. Reworked pages that come back through `hubctl ready` get A's slim review when their text changed after review (section 3b).
+3. **No blocking finding:** `reviewed`, and A builds ship batches only from `reviewed` pages. **Blocking:** `rework`, back to B.
+4. Ship (A only):
+   - Divit's daily approval packet;
+   - CMS items with the 3 Learn refs (L12, `config/learn_refs.json`), then pre-flight;
+   - staging (unhide for staging only, re-hide right after the checks, no production publish while anything is unhidden);
+   - Divit's production go, then verify, relink and live audit.
+5. Token log per page: `hubctl usage-log <url> <tokens> --role writer --agent B-w-<n>` (B). A does the same for review and ship.

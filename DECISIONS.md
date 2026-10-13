@@ -3,13 +3,39 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-13
-- **Learn section design (Divit, 2026-10-13):** the Learn list's source stays on the item's own "... - Learn" multi-reference field (AFB/ALPB/AATB/ASQB - Learn); never change it, and no Designer step switches it to the Learn collection. The card link (blog_link) is a collection-page link to the Learn template (detail_learn) on all 4 templates. Each child item's acrm---learn holds the 3 newest PUBLISHED Learn articles (isDraft false, not archived), newest first by learn---publishing-date. Every new CMS item gets them at creation; pre-flight L12 checks it (config/learn_refs.json, `hubctl learn-refs`). The 39 live items were filled field-only on 2026-10-13, with no item publish; the refs ship with the next site publish.
+- **Naming (Divit, 2026-10-13, ruling 0):**
+  - **Account A = the coordinator** (`~/emergent-hubs`): LP and SurveyQuiz writing, every review, the only Webflow writer, rules and tooling, shipping.
+  - **Account B = the writer** (`~/emergent-hubs-a`): Form and Automation.
+  - Agent ids: coordinator `A-`, writer `B-`. `.hub` = `A:LP,SurveyQuiz` / `B:Form,Auto`. Holds and ownership map by clone.
+  - Mapping note: between about 08:00 and 11:30 UTC on 2026-10-13 the letters were reversed. In history, `A-w-*`, `writer-a-*` and `proposals/account-a.md` were the writer; `B-w-b3-*` and `B-coord` were the coordinator. Those ids stay as written.
+- **500 pages live by 2026-10-27 with two Claude Code accounts (Divit, 2026-10-13):**
+  - The writer (B) does rework first, then queued pages, then parked pages A releases for rescue.
+  - B never edits rules/, qc/, ops/, templates or DECISIONS.md; it proposes in proposals/account-b.md.
+  - Protocol: docs/TWO_ACCOUNTS.md.
+- **Review rule (Divit, 2026-10-13, ruling 1):** a page ships only if its current text was reviewed.
+  - A hash of the reviewable text fields is stored at review time.
+  - Text changed after review, beyond mechanical autofixes (H3 commas, J1), needs a slim review of the changed fields by an A reviewer who did not write them.
+  - `hubctl ship` refuses a page whose hash does not match.
+- **Reviews on 2026-10-13 (ruling 2):**
+  - slim review of batch 3 (all 20) and of the writer's 36 reviewed pages;
+  - full first review of the writer's 11 pages at `images`.
+  - Blocking findings get one rework; Form/Auto pages go back to B.
+- **Batch 3 (ruling 3):** after review, CMS items with the L12 Learn refs, verify 20/20, isDraft false. Then the staging flow, then ask Divit for the production go.
+- **Gate (ruling 4):** pass = 0 rejects.
+  - Flags are allowed only when every flagged question is in Divit's daily packet.
+  - A verbatim AlsoAsked question is never reworded to clear a flag; fix the PA6 patterns instead (golden cases from photo-release-form, ach-form).
+- **PA12 (ruling 5):** a page with no Semrush secondaries uses the workbook's keyword ideas for the page as its secondaries (at least 4, on-topic), not min(6, 0). Golden cases: brand-questionnaire, shipping-address-form.
+- **Collisions (ruling 6):** batch files take only pages in state `reviewed`, and nothing is claimed or batched over a hold. `--by` on every claim and state change, and a hold marker on origin before anyone works a page it did not just claim.
+- **Learn refs (ruling 7):** keep the current 3. Tie-break for the 3 newest published: newest learn---publishing-date, then newest createdOn (L12).
+- **Rule re-run (ruling 8):** run it now only on pages B does not hold; run it on B's pages at the end of B's wave, coordinated through holds. Never change a held page's state.
+- **Learn section design (Divit, 2026-10-13):**
+  - The Learn list's source stays on the item's own "... - Learn" multi-reference field; never change it.
+  - blog_link is a collection-page link to detail_learn on all 4 templates.
+  - Each child item's acrm---learn holds the 3 newest published Learn articles, set at creation (L12, config/learn_refs.json).
+  - The 39 live items were filled field-only on 2026-10-13; the refs ship with the next site publish.
 - **Unhide for staging, one condition (Divit, 2026-10-13):** unhide, publish STAGING ONLY, run the checks, then re-hide immediately whether or not they pass, and read back the hide before anything else happens. No production publish while anything is unhidden.
-- **500 pages live by 2026-10-27, two Claude Code accounts (Divit, 2026-10-13):** Account B (~/emergent-hubs) coordinates and is the only Webflow writer: all shipping, review of A's pages, LP and SurveyQuiz writing and rework. Account A (~/emergent-hubs-a, no Webflow) writes Form and Automation: rework first, then queued, then the parked pages B releases for rescue. A never edits rules/, qc/, ops/, templates or DECISIONS.md; it proposes in proposals/account-a.md. Protocol: docs/TWO_ACCOUNTS.md.
-- **IDs, holds and the gate (Divit, 2026-10-13):** every claim and state change carries `--by` (hubctl refuses without it). A hold marker is on origin before anyone works a page it did not just claim. The gate requires 0 rejects; flags go to Divit's daily packet, and a verbatim AlsoAsked question is never reworded to clear a flag.
-- **Account A proposals F2, PA12 and read access, fixed by B (Divit, 2026-10-13):**
+- **Writer proposals F2 and read access, fixed by A (Divit, 2026-10-13):**
   - F2: legacy-capture pages accept the source "alsoasked" when the page has a pull.
-  - PA12: counts only the page's Semrush workbook secondaries, with a bar of min(6, the number it has); keyword ideas never stand in.
   - `hubctl brief` prints the gated AlsoAsked candidates, so writers never read private/.
 
 ## 2026-10-12

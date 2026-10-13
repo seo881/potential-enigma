@@ -1,6 +1,8 @@
-# Rule and library proposals from Account A (docs/TWO_ACCOUNTS.md section 5)
+# Rule and library proposals from Account B, the writer (docs/TWO_ACCOUNTS.md section 5)
 
-Append one line per proposal; B marks each `accepted <SHA>`, `rejected: <why>` or `asked Divit`.
+Renamed from proposals/account-a.md on 2026-10-13 (ruling 0: the writer is now Account B). In the lines below written before the rename, "A" means the writer and "B" the coordinator.
+
+Append one line per proposal; A (coordinator) marks each `accepted <SHA>`, `rejected: <why>` or `asked Divit`.
 Format: `YYYY-MM-DD | rule or file | proposal | example page(s) | why`
 
 2026-10-13 | docs/TWO_ACCOUNTS.md | Fold in Divit's advisor addendum (2026-10-13, 8 items: cross-clone claims/locks, path ownership, rules_version stamp + auto-rework, capacity truth, supply ~70, flagged-only packet, readiness T3 Learn source, Learn/carousel production go). A did not edit docs/ (B-owned; addendum item 2: no co-edited files); text is in reports/2026-10-13 (A's report) | n/a | Divit asked for it in TWO_ACCOUNTS; B owns the file | B: asked Divit: the addendum never reached B's session; paste it to B and B folds it in

@@ -73,16 +73,29 @@ def load_st(hub):
     p = st_path(hub)
     return json.load(open(p)) if os.path.exists(p) else {"hub": hub, "pages": {}}
 def save_st(hub, st): json.dump(st, open(st_path(hub), "w"), indent=1, sort_keys=True)
+def clone_pin():
+    """(account, hubs) of this clone from .hub: "A:LP,SurveyQuiz" (coordinator) or "B:Form,Auto" (writer); docs/TWO_ACCOUNTS.md.
+    Ownership maps by clone, not by the letter in an agent id (Divit 2026-10-13, ruling 0). Without a letter: ~/emergent-hubs-a is B."""
+    pin = os.path.join(ROOT, ".hub"); raw = open(pin).read().strip() if os.path.exists(pin) else ""
+    acct, _, hubs = raw.partition(":") if ":" in raw else ("", "", raw)
+    acct = acct.strip().upper() or ("B" if os.path.basename(ROOT.rstrip("/")) == "emergent-hubs-a" else "A")
+    return acct, [h.strip() for h in hubs.split(",") if h.strip()]
+def clone_account(): return clone_pin()[0]
 def need_by(args, cmd):
-    """Every claim and state change names its agent (Divit 2026-10-13, docs/TWO_ACCOUNTS.md): A-w-<n> for Account A, B-<role>-<n> for B."""
+    """Every claim and state change names its agent (Divit 2026-10-13): coordinator agents A-<role>-<n>, writer agents B-w-<n>.
+    An id carrying the other clone's letter is refused (A- only in A's clone, B- only in B's)."""
     by = args[args.index("--by") + 1] if "--by" in args and args.index("--by") + 1 < len(args) else None
-    if not by or by.startswith("-"): sys.exit(f"refused: hubctl {cmd} needs --by <ID> (A-w-<n> on Account A, B-<role>-<n> on B; docs/TWO_ACCOUNTS.md)")
+    if not by or by.startswith("-"): sys.exit(f"refused: hubctl {cmd} needs --by <ID> (A-<role>-<n> in the coordinator clone, B-w-<n> in the writer clone; docs/TWO_ACCOUNTS.md)")
+    m = re.match(r"^([AB])-", by)
+    if m and m.group(1) != clone_account(): sys.exit(f"refused: --by {by} carries account {m.group(1)}, but this clone is account {clone_account()} (.hub; docs/TWO_ACCOUNTS.md)")
     return by
-def account(by): return "A" if (by or "").upper().startswith("A-") else "B"
-def hold_conflict(url, by):
-    """The page's hold marker belongs to the other account: that account is working it (docs/TWO_ACCOUNTS.md section 3)."""
+def hold_account(h):
+    """The account that holds: recorded since ruling 0; holds written before it carried the old letters (B-coord = coordinator = A)."""
+    return h.get("account") or ("A" if (h.get("by") or "").startswith("B-") else "B")
+def hold_conflict(url, by=None):
+    """The page is held by the other clone's account (docs/TWO_ACCOUNTS.md section 1)."""
     h = load_st(hub_of(url))["pages"].get(url, {}).get("hold")
-    return h if (h and by and account(h.get("by")) != account(by)) else None
+    return h if (h and hold_account(h) != clone_account()) else None
 
 def set_state(url, state, note=None, via=None, by=None, **extra):
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
@@ -90,7 +103,7 @@ def set_state(url, state, note=None, via=None, by=None, **extra):
     with G.lock("status-" + hub):
         st = load_st(hub); e = st["pages"].setdefault(url, {})
         h = e.get("hold")
-        if h and by and account(h.get("by")) != account(by): sys.exit(f"refused: {url} is held by {h.get('by')} since {h.get('t')} ({h.get('note','')}); only that account changes it until it runs hubctl unhold")
+        if h and hold_account(h) != clone_account(): sys.exit(f"refused: {url} is held by account {hold_account(h)} ({h.get('by')}, since {h.get('t')}: {h.get('note','')}); only that account changes it until it runs hubctl unhold")
         e.update({"state": state, "updated": now(), **extra})
         if note: e["note"] = note
         save_st(hub, st)
@@ -113,8 +126,9 @@ def cmd_status(args):
 def cmd_claim(args):
     hub, n = args[0], int(args[1]); by = need_by(args, "claim")
     pin = os.path.join(ROOT, ".hub")
-    # .hub pins a checkout to its hubs: one key (ops/worktrees.sh) or a comma list (docs/TWO_ACCOUNTS.md: A "Form,Auto", B "LP,SurveyQuiz")
-    if os.path.exists(pin) and hub not in [h.strip() for h in open(pin).read().split(",")]: sys.exit(f"this checkout claims only {open(pin).read().strip()} (.hub; docs/TWO_ACCOUNTS.md); claim {hub} from the account that owns it")
+    # .hub pins a checkout to its hubs: "A:LP,SurveyQuiz" / "B:Form,Auto" (docs/TWO_ACCOUNTS.md) or one key (ops/worktrees.sh)
+    _acct, _hubs = clone_pin()
+    if _hubs and hub not in _hubs: sys.exit(f"this clone (account {_acct}) claims only {','.join(_hubs)} (.hub; docs/TWO_ACCOUNTS.md); claim {hub} from the account that owns it")
     if n > 50: sys.exit("claim at most 50 pages at a time")
     m = kmap(); st = load_st(hub)
     queue = sorted([p for p in m.values() if p["hub"] == hub and p["status"] == "planned"], key=lambda p: p["queue_rank"])
@@ -427,8 +441,8 @@ def cmd_hold(args):
         st = load_st(hub_of(url)); e = st["pages"].get(url)
         if e is None: sys.exit(f"{url} is not in status (queued pages are claimed, not held)")
         h = e.get("hold")
-        if h and account(h.get("by")) != account(by): sys.exit(f"refused: already held by {h.get('by')} since {h.get('t')}")
-        e["hold"] = {"by": by, "t": now(), "note": note}; save_st(hub_of(url), st)
+        if h and hold_account(h) != clone_account(): sys.exit(f"refused: already held by account {hold_account(h)} ({h.get('by')}) since {h.get('t')}")
+        e["hold"] = {"by": by, "account": clone_account(), "t": now(), "note": note}; save_st(hub_of(url), st)
     print(f"{url}: held by {by}. Commit and push status now (ops/sync.sh); the hold counts only once it is on origin.")
 def cmd_unhold(args):
     url = args[0]; by = need_by(args, "unhold")
@@ -436,7 +450,7 @@ def cmd_unhold(args):
     with G.lock("status-" + hub_of(url)):
         st = load_st(hub_of(url)); e = st["pages"].get(url) or {}; h = e.get("hold")
         if not h: sys.exit(f"{url} has no hold")
-        if account(h.get("by")) != account(by): sys.exit(f"refused: held by {h.get('by')}; only that account removes it")
+        if hold_account(h) != clone_account(): sys.exit(f"refused: held by account {hold_account(h)} ({h.get('by')}); only that clone removes it")
         e.pop("hold"); save_st(hub_of(url), st)
     print(f"{url}: hold removed by {by}")
 
