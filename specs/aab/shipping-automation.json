@@ -45,7 +45,7 @@
   "tab_content_1": "<h3>The cheapest label that still keeps the 4-day promise</h3><p>Hollow Pine Roasters ships coffee from Ohio and promises delivery within 4 business days. When an order is paid, the app pulls quotes from its USPS, UPS, and FedEx accounts. A cheaper rate that would arrive late is skipped. The lowest on-time rate is bought, with the carrier and tracking number saved on the order.</p>",
   "tab_content_2": "<h3>135 labels bought before the afternoon pickup</h3><p>At 2:00 PM on weekdays, the app buys labels for every order paid since the last run. Today that is 138 orders. Three addresses fail the shipping API's check and stay out of the batch while those customers confirm them by email. Teo Marsh, the warehouse lead, gets 135 labels with a packing list sorted by bin.</p>",
   "tab_content_3": "<h3>A package stalled for 72 hours goes to one person</h3><p>Tracking updates arrive by webhook and are saved against each order. If a package shows no new carrier scan for 72 hours, Ines Calder, the support lead, gets a Slack direct message with the order number and last scan location. The customer gets a short delay email in the same hour.</p>",
-  "tab_content_4": "<h3>A customs declaration for each order leaving the US</h3><p>Orders bound for Canada or the UK need a customs declaration before the label prints. The app fills each line from the product record: description, HS code, origin, and value in US dollars. An order with a product missing its HS code waits for Teo Marsh, and the code he adds is reused on every later order.</p>",
+  "tab_content_4": "<h3>A customs declaration for each order leaving the US</h3><p>Every order to Canada or the UK gets a customs declaration before the label prints. The app fills each line from the product record: description, HS code, origin, and value in US dollars. An order with a product missing its HS code waits for Teo Marsh, and the code he adds is reused on every later order.</p>",
   "mockup": "<p id=\"\">window.awbMockup = { rateShopping: \"Build rate shopping for my coffee store. We ship from Ohio and promise delivery within 4 business days. When an order is paid, get quotes from our USPS, UPS, and FedEx accounts through EasyPost, skip any rate that would arrive late, and buy the cheapest one left. Save the carrier and tracking number on the order.\", batchLabels: \"Build a daily label batch for my store. At 2:00 PM on weekdays, buy labels for every order paid since the last run. Verify each address first; hold any that fail and email that customer to confirm the street and unit. Send the labels with a packing list sorted by bin to Teo Marsh, our warehouse lead.\", stalledPackages: \"Build stalled package alerts for my store. Save every tracking update from EasyPost against its order. If a package has no new carrier scan for 72 hours, send our support lead Ines Calder a Slack direct message with the order number and last scan location. Email the customer a short delay notice in the same hour.\", customsForms: \"Build customs declarations for my store's orders to Canada and the UK. Before the label prints, fill a line per item from our product table with the description, HS code, origin, and value in US dollars. If a product has no HS code, hold the order for Teo Marsh, and save the code he adds so later orders reuse it.\" };</p>",
   "howto_title": "How to Build Shipping Automation",
   "howto_description": "Seven steps to set up shipping automation on your own carrier accounts, tested on past orders before it buys a live label.",
@@ -54,10 +54,10 @@
   "howto_step_3_title": "03 Give every product a weight and a box",
   "howto_step_4_title": "04 Describe the rules to Emergent",
   "howto_step_1_des": "Count the minutes your team spends each day comparing carrier quotes, retyping addresses, printing labels, and answering where-is-my-order emails. Write down which carrier accounts you pay for and the delivery promise shown on your checkout page.",
-  "howto_step_2_des": "Link the carrier accounts you already have through a shipping API such as EasyPost. Your negotiated rates then come back with every quote. Add the warehouse address and each box size you stock, with its inside dimensions.",
-  "howto_step_3_des": "Record each product's packed weight and the box it usually ships in. Carriers such as UPS bill the greater of actual weight and dimensional weight, which comes from the box size. A light bag of beans in an oversized box can cost more than it weighs.",
+  "howto_step_2_des": "Link the carrier accounts you already have through a shipping API such as EasyPost, where adding an account gives access to the rates you negotiated with that carrier. Add the warehouse address and each box size you stock, with its inside dimensions.",
+  "howto_step_3_des": "Record each product's packed weight and the box it ships in. UPS bills a package at the greater of its actual weight and its dimensional weight, which comes from the box size. A light bag of beans in an oversized box can cost more than it weighs.",
   "howto_step_4_des": "Write each rule as you would explain it to a new packer: the delivery promise, the batch time, how long a parcel may sit without a scan, and who hears about it. Emergent builds the workflow, its tables, and a dashboard your team can open.",
-  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Shipping Questions, Answered\", \"items\": [{\"q\": \"What is shipping automation?\", \"a\": \"Shipping automation is software that runs the steps between a paid order and a moving parcel without someone doing each one by hand. It compares carrier rates, buys labels, checks addresses, and watches tracking. People step in only for the orders a rule cannot settle, such as a failed address or a parcel with no recent scan.\"}, {\"q\": \"How do you build shipping automation software?\", \"a\": \"Describe your carrier accounts, your delivery promise, and who handles exceptions in Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>. It writes shipping automation software around those rules, connected to EasyPost or another shipping API, with tables for orders and shipments. Change a rule later by describing the change.\"}, {\"q\": \"What kinds of shipping automation solutions are there?\", \"a\": \"Multi-carrier shipping software gives a team one screen for labels and tracking. Shipping APIs put the same steps inside a store's own systems. Warehouse automation is the physical side, with conveyors and label printers. Shipping sits inside wider <a href='https://emergent.sh/ai-automation-builder/ecommerce-automation'>ecommerce automation</a>, which also covers supplier routing and customer emails.\"}, {\"q\": \"How does an automated shipping system choose a carrier?\", \"a\": \"It requests a quote from each connected carrier for the parcel's weight, box size, and destination, then applies your rule. The usual rule is the lowest rate that still meets the promised delivery window. A good automated shipping system also records why it picked each carrier, where support can read it later.\"}, {\"q\": \"What should automated shipping software do for a small store?\", \"a\": \"Start with the work that eats the afternoon: buying the day's labels and checking addresses before they print. Automated shipping software that covers those two jobs frees the most time for a team of one or two. Tracking alerts and customs forms can follow later. In Emergent, each is one more prompt to the same app, with no task cap as volume grows.\"}, {\"q\": \"When are automated shipping solutions worth setting up?\", \"a\": \"Automated shipping solutions earn their keep once someone spends part of every day retyping addresses into carrier sites and pasting tracking numbers back. A rule that reads the order directly removes the step where a wrong unit number gets in. The same idea applies to other copying jobs through <a href='https://emergent.sh/ai-automation-builder/data-entry-automation'>data entry automation</a>.\"}, {\"q\": \"Does automated shipping work for international orders?\", \"a\": \"Yes, once each product record holds what customs asks for. The USPS International Mail Manual requires at least a 6-digit HS code per item unless a country's listing says otherwise, along with a specific description, origin, and value. Automated shipping then drafts the declaration for every parcel leaving the US. Emergent keeps those product fields in a database you own.\"}]}; </script></div></div>",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Shipping Questions, Answered\", \"items\": [{\"q\": \"What is the best shipping software?\", \"a\": \"The best shipping software for your store is the one that quotes with the rates you negotiated with your carriers and handles the countries you ship to. Test each option on a real order before you switch, and check that you can export your shipment history if you leave. Shipping automation you build on Emergent keeps that history in a database you own.\"}, {\"q\": \"How do I create a shipping automation?\", \"a\": \"Describe the rule in plain English in Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>, including who hears when it cannot decide. Emergent builds the workflow and the database behind it, and you connect your shipping API so quotes come from your own accounts. Start with one rule you can check by eye, such as the carrier for a 2 lb box to Arizona.\"}, {\"q\": \"What is the best free shipping app?\", \"a\": \"The best free shipping app is one whose free plan handles your monthly order count and connects to the carriers you already use. Read the plan's limits before you move a store onto it: a free plan that caps labels can force an upgrade in your busiest month. Emergent is free to start, and its free tier covers building and publishing a shipping app of your own.\"}, {\"q\": \"What is the shipping process in a warehouse?\", \"a\": \"In a warehouse, an order is picked from the shelves and packed in a box. The box is weighed and labeled, then staged for the carrier's pickup. Software can take over the label step and everything after it, while picking and packing stay physical work. Shipping is one part of <a href='https://emergent.sh/ai-automation-builder/ecommerce-automation'>ecommerce automation</a>, which also covers order routing and the emails a customer gets after checkout.\"}, {\"q\": \"Does automated shipping work for international orders?\", \"a\": \"Yes, once each product record holds its customs data. USPS requires a fully completed, electronically generated customs form for international mail, and an app that stores each product's HS code and origin can draft that form for every parcel. Run international orders on their own rule, and one missing code then holds a single parcel instead of the whole afternoon batch.\"}, {\"q\": \"What kinds of shipping automation solutions are there?\", \"a\": \"Shipping automation solutions come in four kinds: multi-carrier shipping software, shipping APIs, warehouse hardware such as conveyors, and apps built on a shipping API. Software gives a team one screen for labels and tracking, while an API puts those steps inside the store's own systems. On Emergent, a store can export its app's full code to GitHub on paid plans.\"}, {\"q\": \"Can shipping automation software track inbound shipments from suppliers?\", \"a\": \"Yes, when the supplier sends a tracking number: the software can watch an inbound box the way it watches an outgoing parcel and alert the receiving team the day it is delivered. Matching what arrived against what was ordered belongs to <a href='https://emergent.sh/ai-automation-builder/procurement-automation'>procurement automation</a>, which can read the same supplier and product tables.\"}, {\"q\": \"Can an automated shipping system split one order into several boxes?\", \"a\": \"Yes, once you give it a rule for when to split. A rule such as \\\"anything over 20 lb ships in two boxes\\\" gives each box its own label and tracking number, and the delivery email lists both. Products that cannot share a box, such as a glass carafe and loose beans, go on a list the rule reads first.\"}, {\"q\": \"Do automated shipping solutions work with an existing order system?\", \"a\": \"Yes, when the order system has an API: the automation reads paid orders from it and writes the tracking number back to the same order. The customer then sees tracking in the order history they already use, and nobody pastes numbers between screens. Check that the API exposes both orders and fulfillment updates before you build.\"}, {\"q\": \"Can automated shipping software reorder boxes when they run low?\", \"a\": \"Yes: each label batch can subtract the boxes it used from a count per box size, and when a size drops below the level you set, the app drafts a reorder. Sending that reorder to the supplier and tracking it to delivery is the job of <a href='https://emergent.sh/ai-automation-builder/purchase-order-automation'>purchase order automation</a>. Count the shelf once a month and correct the number, because a damaged box never passes through a label run.\"}]}; </script></div></div>",
   "learn": null,
   "tutorials": null,
   "case_study": null,
@@ -108,6 +108,20 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-13 19:49 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "A-w-69",
+   "note": ""
+  },
+  {
+   "t": "2026-10-13 19:50 UTC",
+   "state": "images",
+   "via": null,
+   "by": "A-coord",
+   "note": ""
   }
  ],
  "plan": {
@@ -135,38 +149,50 @@
    "A customs declaration for each order leaving the US"
   ],
   "claims_to_source": [
-   "A multi-carrier shipping API (for example EasyPost) returns rates from several carriers for one shipment and buys the label for the chosen rate",
-   "Shipping APIs verify a delivery address before a label is bought",
-   "Shipping APIs send tracking status updates to your app by webhook",
-   "Carriers bill the greater of actual weight and dimensional weight",
-   "International shipments need a customs declaration listing each item's description, value, country of origin and HS code"
+   "A multi-carrier shipping API (EasyPost) rates one shipment with every active carrier account connected to it",
+   "Adding your own carrier account to EasyPost gives access to the rates negotiated with that carrier",
+   "A shipping API's address check tests whether a delivery address is deliverable, and strict verification returns an error when it cannot be verified",
+   "A shipping API sends tracking status updates to your app by webhook",
+   "UPS bills a package at the greater of its actual weight and its dimensional weight",
+   "USPS requires a fully completed customs form for international mail"
   ]
  },
  "domain_sources": [
   {
-   "claim": "A multi-carrier shipping API (for example EasyPost) returns rates from several carriers for one shipment and buys the label for the chosen rate",
-   "source_url": "https://docs.easypost.com/guides/getting-started",
-   "date": "2026-10-13"
+   "claim": "A multi-carrier shipping API (EasyPost) rates one shipment with every active carrier account connected to it",
+   "source_url": "https://docs.easypost.com/carriers",
+   "date": "2026-10-14",
+   "quote": "If no carrier accounts are specified, EasyPost will use all active carrier accounts to rate the shipment."
   },
   {
-   "claim": "Shipping APIs verify a delivery address before a label is bought",
+   "claim": "Adding your own carrier account to EasyPost gives access to the rates negotiated with that carrier",
+   "source_url": "https://docs.easypost.com/carriers",
+   "date": "2026-10-14",
+   "quote": "Adding an account allows access to negotiated rates from the carrier account."
+  },
+  {
+   "claim": "A shipping API's address check tests whether a delivery address is deliverable, and strict verification returns an error when it cannot be verified",
    "source_url": "https://docs.easypost.com/guides/address-verification-guide",
-   "date": "2026-10-13"
+   "date": "2026-10-14",
+   "quote": "Checks full address deliverability and may apply minor corrections to spelling or formatting."
   },
   {
-   "claim": "Shipping APIs send tracking status updates to your app by webhook",
+   "claim": "A shipping API sends tracking status updates to your app by webhook",
    "source_url": "https://docs.easypost.com/guides/tracking-guide",
-   "date": "2026-10-13"
+   "date": "2026-10-14",
+   "quote": "Tracking updates are delivered through webhook Events."
   },
   {
-   "claim": "Carriers bill the greater of actual weight and dimensional weight",
+   "claim": "UPS bills a package at the greater of its actual weight and its dimensional weight",
    "source_url": "https://www.ups.com/us/en/support/shipping-support/shipping-dimensions-weight",
-   "date": "2026-10-13"
+   "date": "2026-10-14",
+   "quote": "The greater of the two is the billable weight and should be used to calculate the rate."
   },
   {
-   "claim": "International shipments need a customs declaration listing each item's description, value, country of origin and HS code",
-   "source_url": "https://pe.usps.com/text/imm/immc5_020.htm",
-   "date": "2026-10-13"
+   "claim": "USPS requires a fully completed customs form for international mail",
+   "source_url": "https://pe.usps.com/text/imm/immc1_009.htm",
+   "date": "2026-10-14",
+   "quote": "a fully completed electronically generated customs form is required for international mail."
   }
  ],
  "table": {
@@ -720,14 +746,62 @@
  },
  "faq_sources": [
   {
-   "q": "What is shipping automation?",
+   "q": "What is the best shipping software?",
+   "source": "alsoasked",
+   "ref": "What is the best shipping software?",
+   "prov": {
+    "tool": "alsoasked-api",
+    "query": "shipping automation",
+    "depth": 1,
+    "parent": null,
+    "fetched": "2026-10-13",
+    "original": "What is the best shipping software?",
+    "region": "us",
+    "language": "en",
+    "fallback": false
+   }
+  },
+  {
+   "q": "How do I create a shipping automation?",
    "source": "definition",
    "ref": "shipping automation"
   },
   {
-   "q": "How do you build shipping automation software?",
+   "q": "What is the best free shipping app?",
+   "source": "alsoasked",
+   "ref": "What is the best free shipping app?",
+   "prov": {
+    "tool": "alsoasked-api",
+    "query": "shipping automation",
+    "depth": 1,
+    "parent": null,
+    "fetched": "2026-10-13",
+    "original": "What is the best free shipping app?",
+    "region": "us",
+    "language": "en",
+    "fallback": false
+   }
+  },
+  {
+   "q": "What is the shipping process in a warehouse?",
+   "source": "alsoasked",
+   "ref": "What is the shipping process in a warehouse?",
+   "prov": {
+    "tool": "alsoasked-api",
+    "query": "automated shipping",
+    "depth": 1,
+    "parent": null,
+    "fetched": "2026-10-13",
+    "original": "What is the shipping process in a warehouse?",
+    "region": "us",
+    "language": "en",
+    "fallback": false
+   }
+  },
+  {
+   "q": "Does automated shipping work for international orders?",
    "source": "secondary",
-   "ref": "shipping automation software"
+   "ref": "automated shipping"
   },
   {
    "q": "What kinds of shipping automation solutions are there?",
@@ -735,24 +809,24 @@
    "ref": "shipping automation solutions"
   },
   {
-   "q": "How does an automated shipping system choose a carrier?",
+   "q": "Can shipping automation software track inbound shipments from suppliers?",
+   "source": "secondary",
+   "ref": "shipping automation software"
+  },
+  {
+   "q": "Can an automated shipping system split one order into several boxes?",
    "source": "secondary",
    "ref": "automated shipping system"
   },
   {
-   "q": "What should automated shipping software do for a small store?",
-   "source": "secondary",
-   "ref": "automated shipping software"
-  },
-  {
-   "q": "When are automated shipping solutions worth setting up?",
+   "q": "Do automated shipping solutions work with an existing order system?",
    "source": "secondary",
    "ref": "automated shipping solutions"
   },
   {
-   "q": "Does automated shipping work for international orders?",
+   "q": "Can automated shipping software reorder boxes when they run low?",
    "source": "secondary",
-   "ref": "automated shipping"
+   "ref": "automated shipping software"
   }
  ],
  "pipeline": "r15",
@@ -775,7 +849,7 @@
    "locked": true,
    "flagged": [],
    "n": 1,
-   "a": "",
+   "a": "The best shipping software for your store is the one that quotes with the rates you negotiated with your carriers and handles the countries you ship to. Test each option on a real order before you switch, and check that you can export your shipment history if you leave. Shipping automation you build on Emergent keeps that history in a database you own.",
    "link": null
   },
   {
@@ -784,7 +858,7 @@
    "ref": "shipping automation",
    "locked": true,
    "n": 2,
-   "a": "",
+   "a": "Describe the rule in plain English in Emergent's AI automation builder, including who hears when it cannot decide. Emergent builds the workflow and the database behind it, and you connect your shipping API so quotes come from your own accounts. Start with one rule you can check by eye, such as the carrier for a 2 lb box to Arizona.",
    "link": {
     "url": "https://emergent.sh/ai-automation-builder",
     "anchor": "AI automation builder",
@@ -809,7 +883,7 @@
    "locked": true,
    "flagged": [],
    "n": 3,
-   "a": "",
+   "a": "The best free shipping app is one whose free plan handles your monthly order count and connects to the carriers you already use. Read the plan's limits before you move a store onto it: a free plan that caps labels can force an upgrade in your busiest month. Emergent is free to start, and its free tier covers building and publishing a shipping app of your own.",
    "link": null
   },
   {
@@ -830,7 +904,7 @@
    "locked": true,
    "flagged": [],
    "n": 4,
-   "a": "",
+   "a": "In a warehouse, an order is picked from the shelves and packed in a box. The box is weighed and labeled, then staged for the carrier's pickup. Software can take over the label step and everything after it, while picking and packing stay physical work. Shipping is one part of ecommerce automation, which also covers order routing and the emails a customer gets after checkout.",
    "link": {
     "url": "https://emergent.sh/ai-automation-builder/ecommerce-automation",
     "anchor": "ecommerce automation"
@@ -838,29 +912,29 @@
   },
   {
    "kind": "secondary",
-   "q": null,
+   "q": "Does automated shipping work for international orders?",
    "ref": "automated shipping",
    "locked": false,
    "n": 5,
-   "a": "",
+   "a": "Yes, once each product record holds its customs data. USPS requires a fully completed, electronically generated customs form for international mail, and an app that stores each product's HS code and origin can draft that form for every parcel. Run international orders on their own rule, and one missing code then holds a single parcel instead of the whole afternoon batch.",
    "link": null
   },
   {
    "kind": "secondary",
-   "q": null,
+   "q": "What kinds of shipping automation solutions are there?",
    "ref": "shipping automation solutions",
    "locked": false,
    "n": 6,
-   "a": "",
+   "a": "Shipping automation solutions come in four kinds: multi-carrier shipping software, shipping APIs, warehouse hardware such as conveyors, and apps built on a shipping API. Software gives a team one screen for labels and tracking, while an API puts those steps inside the store's own systems. On Emergent, a store can export its app's full code to GitHub on paid plans.",
    "link": null
   },
   {
    "kind": "secondary",
-   "q": null,
+   "q": "Can shipping automation software track inbound shipments from suppliers?",
    "ref": "shipping automation software",
    "locked": false,
    "n": 7,
-   "a": "",
+   "a": "Yes, when the supplier sends a tracking number: the software can watch an inbound box the way it watches an outgoing parcel and alert the receiving team the day it is delivered. Matching what arrived against what was ordered belongs to procurement automation, which can read the same supplier and product tables.",
    "link": {
     "url": "https://emergent.sh/ai-automation-builder/procurement-automation",
     "anchor": "procurement automation"
@@ -868,36 +942,36 @@
   },
   {
    "kind": "secondary",
-   "q": null,
+   "q": "Can an automated shipping system split one order into several boxes?",
    "ref": "automated shipping system",
    "locked": false,
    "n": 8,
-   "a": "",
+   "a": "Yes, once you give it a rule for when to split. A rule such as \"anything over 20 lb ships in two boxes\" gives each box its own label and tracking number, and the delivery email lists both. Products that cannot share a box, such as a glass carafe and loose beans, go on a list the rule reads first.",
    "link": null
   },
   {
    "kind": "secondary",
-   "q": null,
+   "q": "Do automated shipping solutions work with an existing order system?",
    "ref": "automated shipping solutions",
    "locked": false,
    "n": 9,
-   "a": "",
+   "a": "Yes, when the order system has an API: the automation reads paid orders from it and writes the tracking number back to the same order. The customer then sees tracking in the order history they already use, and nobody pastes numbers between screens. Check that the API exposes both orders and fulfillment updates before you build.",
    "link": null
   },
   {
    "kind": "secondary",
-   "q": null,
+   "q": "Can automated shipping software reorder boxes when they run low?",
    "ref": "automated shipping software",
    "locked": false,
    "n": 10,
-   "a": "",
+   "a": "Yes: each label batch can subtract the boxes it used from a count per box size, and when a size drops below the level you set, the app drafts a reorder. Sending that reorder to the supplier and tracking it to delivery is the job of purchase order automation. Count the shelf once a month and correct the number, because a damaged box never passes through a label run.",
    "link": {
     "url": "https://emergent.sh/ai-automation-builder/purchase-order-automation",
     "anchor": "purchase order automation"
    }
   }
  ],
- "faq_heading": "Shipping automation Questions, Answered",
+ "faq_heading": "Shipping Questions, Answered",
  "skeleton": {
   "built_by": "A-coord",
   "built": "2026-10-13 18:07 UTC",
@@ -906,5 +980,12 @@
   "flag_subtypes": [],
   "locked": 4,
   "table": true
- }
+ },
+ "qc_passed": {
+  "rules_version": "d16c1f4fcafb",
+  "date": "2026-10-13 19:49 UTC"
+ },
+ "writers": [
+  "A-w-69"
+ ]
 }

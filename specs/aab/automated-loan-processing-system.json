@@ -53,7 +53,7 @@
   "howto_step_2_des": "Tell Emergent what a finished loan file holds: borrower details, documents, conditions, and the numbers underwriting reads first. Name the fields a processor must confirm by hand, such as any income figure read from a phone photo of a pay stub.",
   "howto_step_3_des": "Ask for a page where borrowers see only the documents their file still needs. Set the reminder schedule, for example an email every three days, and decide which loan officer is copied when a borrower stops replying for a week.",
   "howto_step_4_des": "Connect the loan origination system, CRM, or core banking platform your team already works in through its API. Emergent builds the sync: a new application opens a record in the app, and the underwriter's decision is written back to your system of record.",
-  "faq": "",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Loan Processing Questions, Answered\", \"items\": [{\"q\": \"What does it mean when my loan is processing?\", \"a\": \"It means a loan processor is assembling your file for the underwriter. The processor requests credit reports and gathers documents from you, such as pay stubs and bank statements, then checks them against what you wrote on the application. Answer any request for a missing page quickly, because the file goes to the underwriter only once it is complete.\"}, {\"q\": \"How do I create an automated loan processing system?\", \"a\": \"Describe the checklist your processors follow for one loan product to Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>, in plain English. Emergent builds the app from that prompt, with its database, the borrower upload page, and the queue that feeds underwriting. When credit policy changes, you change the app by prompting again. Building and publishing are free to start.\"}, {\"q\": \"What software do loan processors use?\", \"a\": \"Processors work in a loan origination system, or LOS: a platform used to manage loan applications, which underwriters and closers open too. If your LOS has an API, an app Emergent builds can read each borrower upload into fields and write the figures straight into the matching loan record.\"}, {\"q\": \"What does loan processing automation take off a processor's desk?\", \"a\": \"It takes the typing and the chasing. Pay stub figures land in the file without anyone keying them, and borrowers get reminders without a processor writing each email. The reading step is the one <a href='https://emergent.sh/ai-automation-builder/accounts-payable-automation'>accounts payable automation</a> runs on vendor invoices. A lender that has built either one can reuse the approach for the other.\"}, {\"q\": \"Can mortgage workflow automation track underwriting conditions?\", \"a\": \"Yes. A conditional approval means the lender is likely to approve the loan, but some conditions still need to be met. The app turns each condition into a line with an owner and a due date. Once all of them are met, underwriting reviews what was submitted. Copy the underwriter's own wording into each line, and the borrower's request will match what was asked.\"}, {\"q\": \"Where does borrower data live in a loan automation processing system?\", \"a\": \"It lives in a database you own. Each upload, the figures read from it, and the conditions on the file are stored as records there, not scattered across inboxes. On security, Emergent has SOC 2 Type I and ISO 27001. Have your compliance team review the app before it handles live borrower files.\"}, {\"q\": \"Which borrower documents can an automated loan process read?\", \"a\": \"It can read the documents your processors now key in by hand, including pay stubs, W-2s, tax returns, and bank statements. Each one is read into named fields, such as gross pay on a stub or the closing balance on a statement. Start with the two documents your team types up most, since that is where <a href='https://emergent.sh/ai-automation-builder/data-entry-automation'>data entry automation</a> pays back first.\"}, {\"q\": \"Does loan process automation replace loan processors?\", \"a\": \"No. Processors stop keying figures and writing reminder emails, and spend that time calling borrowers about missing pages and writing the note that explains an unusual deposit to the underwriter. The credit decision stays with the underwriter either way. Measure the change in hours per file on one product, not in headcount.\"}, {\"q\": \"What should an automated loan application processing form ask first?\", \"a\": \"Ask first for the answers that set the path of the file: loan product, amount, and purpose. Those answers decide which document list the borrower sees next. A $15,000 personal loan never asks for business bank statements. Emergent can build the application as a conversational flow, one question per screen, which shows a borrower on a phone a single field at a time.\"}, {\"q\": \"What is the final stage of loan processing?\", \"a\": \"For the processor, it is sending the completed application and every document to the underwriter. The loan itself ends later: origination runs up to disbursal of funds, and on a mortgage, clear to close is the last step ahead of closing day. Before funds go out, match the signed figures against the approval, as you would match a bill in <a href='https://emergent.sh/ai-automation-builder/invoice-automation'>invoice automation</a>.\"}]}; </script></div></div>",
   "learn": null,
   "tutorials": null,
   "case_study": null,
@@ -104,14 +104,28 @@
    "via": null,
    "by": null,
    "note": ""
+  },
+  {
+   "t": "2026-10-13 19:49 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "A-w-70",
+   "note": ""
+  },
+  {
+   "t": "2026-10-13 19:49 UTC",
+   "state": "images",
+   "via": null,
+   "by": "A-coord",
+   "note": ""
   }
  ],
  "plan": {
   "angle": "The top 10 is RPA and lending-software vendors (Blue Prism, Automation Anywhere, defi, CSI, ScienceSoft) explaining loan automation in general terms. This page wins by showing the processing work itself, file by file: underwriting conditions chased to closing, pay stubs read into a debt-to-income figure, business bank statements averaged, and dealer contracts checked against the approval, in an app Emergent builds around the lender's own checklist while credit decisions stay with the underwriter.",
   "tab_stories": [
-   "On the Whitford purchase file, five of six underwriting conditions are cleared and the gift letter alone is open, so the borrower gets an upload reminder every 2 days.",
+   "On the Whitford purchase file, four of five underwriting conditions are cleared and the gift letter alone is open, so the borrower gets an upload reminder every 2 days.",
    "Jonah Albright's two pay stubs are read into $5,500 of gross monthly income, which puts his $1,320 of listed debts at 24% and lands the file in Keisha Ortiz's underwriting queue.",
-   "Harbor Lane Bakery's six bank statements average $37,000 a month in deposits, and August's $12,000 falls under half that, so the month goes to underwriter Theo Marsh.",
+   "Harbor Lane Bakery's four months of bank statements average $34,000 in deposits, and August's $12,000 falls under half that, so the month goes to underwriter Theo Marsh.",
    "Brightwater Auto's signed contract for deal 7714 comes in $250 over the $24,600 approval, so funding holds and the dealer is asked for a corrected contract."
   ],
   "openers": [
@@ -142,7 +156,17 @@
   "claims_to_source": [
    "Underwriters issue a conditional approval listing conditions the borrower must satisfy before closing",
    "Mortgage lenders keep a signed gift letter in the loan file when gift funds are used",
-   "Debt-to-income ratio is monthly debt payments divided by gross monthly income"
+   "Debt-to-income ratio is monthly debt payments divided by gross monthly income",
+   "Once conditions are met, the lender's underwriting department reviews what was submitted",
+   "Clear to close is the last step ahead of closing day",
+   "Underwriting verifies the application and issues a lending decision",
+   "A loan processor requests credit reports and gathers documents from the applicant",
+   "A loan processor verifies information provided by the applicant",
+   "Documents a loan processor gathers include pay stubs, tax returns and bank statements",
+   "The processor's final step is submitting the completed application and documents to the underwriter",
+   "A loan origination system is a platform used to manage loan applications",
+   "Loan officers, processors, underwriters and closers use the loan origination system",
+   "Loan origination runs from taking a loan application up to disbursal of funds"
   ]
  },
  "table": {
@@ -164,17 +188,80 @@
   {
    "claim": "Underwriters issue a conditional approval listing conditions the borrower must satisfy before closing",
    "source_url": "https://www.bankrate.com/mortgages/conditional-approval/",
-   "date": "2026-10-13"
+   "date": "2026-10-14",
+   "quote": "it means the lender is likely to approve the loan, but some conditions still need to be met."
   },
   {
    "claim": "Mortgage lenders keep a signed gift letter in the loan file when gift funds are used",
    "source_url": "https://selling-guide.fanniemae.com/sel/b3-4.3-05/gifts-equity",
-   "date": "2026-10-13"
+   "date": "2026-10-14",
+   "quote": "a signed gift letter (see B3-4.3-04, Personal Gifts)"
   },
   {
    "claim": "Debt-to-income ratio is monthly debt payments divided by gross monthly income",
    "source_url": "https://www.consumerfinance.gov/ask-cfpb/what-is-a-debt-to-income-ratio-why-is-the-43-debt-to-income-ratio-important-en-1791/",
-   "date": "2026-10-13"
+   "date": "2026-10-14",
+   "quote": "Your debt-to-income ratio (DTI) is all your monthly debt payments divided by your gross monthly income."
+  },
+  {
+   "claim": "Once conditions are met, the lender's underwriting department reviews what was submitted",
+   "source_url": "https://www.bankrate.com/mortgages/conditional-approval/",
+   "date": "2026-10-14",
+   "quote": "Once the conditions have been met, the lender's underwriting department will review what was submitted."
+  },
+  {
+   "claim": "Clear to close is the last step ahead of closing day",
+   "source_url": "https://www.bankrate.com/mortgages/conditional-approval/",
+   "date": "2026-10-14",
+   "quote": "This is the last step ahead of closing day."
+  },
+  {
+   "claim": "Underwriting verifies the application and issues a lending decision",
+   "source_url": "https://www.bankrate.com/mortgages/conditional-approval/",
+   "date": "2026-10-14",
+   "quote": "the process by which lenders verify the information provided in your application and issue a lending decision."
+  },
+  {
+   "claim": "A loan processor requests credit reports and gathers documents from the applicant",
+   "source_url": "https://smartasset.com/mortgage/what-does-a-loan-processor-do",
+   "date": "2026-10-14",
+   "quote": "The loan processor requests credit reports and gathers documents from the applicant"
+  },
+  {
+   "claim": "A loan processor verifies information provided by the applicant",
+   "source_url": "https://smartasset.com/mortgage/what-does-a-loan-processor-do",
+   "date": "2026-10-14",
+   "quote": "job also includes verifying information provided by the applicant."
+  },
+  {
+   "claim": "Documents a loan processor gathers include pay stubs, tax returns and bank statements",
+   "source_url": "https://smartasset.com/mortgage/what-does-a-loan-processor-do",
+   "date": "2026-10-14",
+   "quote": "These documents often include paycheck stubs, tax returns, bank statements and documents proving insurance coverage."
+  },
+  {
+   "claim": "The processor's final step is submitting the completed application and documents to the underwriter",
+   "source_url": "https://smartasset.com/mortgage/what-does-a-loan-processor-do",
+   "date": "2026-10-14",
+   "quote": "Finally, the processor will submit the completed application and all relevant documents to the underwriter."
+  },
+  {
+   "claim": "A loan origination system is a platform used to manage loan applications",
+   "source_url": "https://www.mortgageautomator.com/glossary/loan-origination-system",
+   "date": "2026-10-14",
+   "quote": "A loan origination system, or LOS, is a platform used to manage loan applications"
+  },
+  {
+   "claim": "Loan officers, processors, underwriters and closers use the loan origination system",
+   "source_url": "https://www.mortgageautomator.com/glossary/loan-origination-system",
+   "date": "2026-10-14",
+   "quote": "Loan officers, processors, underwriters, closers, compliance teams, brokers, and operations teams"
+  },
+  {
+   "claim": "Loan origination runs from taking a loan application up to disbursal of funds",
+   "source_url": "https://en.wikipedia.org/wiki/Loan_origination",
+   "date": "2026-10-14",
+   "quote": "Origination generally includes all the steps from taking a loan application up to disbursal of funds"
   }
  ],
  "claims_used": [
@@ -184,7 +271,10 @@
   "alerts",
   "code-export",
   "database-owned",
-  "no-caps"
+  "no-caps",
+  "free-start",
+  "soc2-iso",
+  "conversational"
  ],
  "chip_prompts": [
   "Read every pay stub, W-2 and bank statement borrowers upload into fields, and send any field read with low confidence to a processor to confirm.",
@@ -198,7 +288,91 @@
   "Add upload reminders that stop when the file is complete.",
   "Add a debt-to-income ratio with every input shown."
  ],
- "faq_sources": [],
+ "faq_sources": [
+  {
+   "q": "What does it mean when my loan is processing?",
+   "source": "alsoasked",
+   "ref": "What does it mean when my loan is processing?",
+   "prov": {
+    "tool": "alsoasked-api",
+    "query": "automated loan processing",
+    "depth": 1,
+    "parent": null,
+    "fetched": "2026-10-13",
+    "original": "What does it mean when my loan is processing?",
+    "region": "us",
+    "language": "en",
+    "fallback": false
+   }
+  },
+  {
+   "q": "How do I create an automated loan processing system?",
+   "source": "definition",
+   "ref": "automated loan processing system"
+  },
+  {
+   "q": "What software do loan processors use?",
+   "source": "alsoasked",
+   "ref": "What software do loan processors use?",
+   "prov": {
+    "tool": "alsoasked-api",
+    "query": "automated loan processing system",
+    "depth": 1,
+    "parent": null,
+    "fetched": "2026-10-13",
+    "original": "What software do loan processors use?",
+    "region": "us",
+    "language": "en",
+    "fallback": false
+   }
+  },
+  {
+   "q": "What does loan processing automation take off a processor's desk?",
+   "source": "secondary",
+   "ref": "loan processing automation"
+  },
+  {
+   "q": "Can mortgage workflow automation track underwriting conditions?",
+   "source": "secondary",
+   "ref": "mortgage workflow automation"
+  },
+  {
+   "q": "Where does borrower data live in a loan automation processing system?",
+   "source": "secondary",
+   "ref": "loan automation processing system"
+  },
+  {
+   "q": "Which borrower documents can an automated loan process read?",
+   "source": "secondary",
+   "ref": "automated loan process"
+  },
+  {
+   "q": "Does loan process automation replace loan processors?",
+   "source": "secondary",
+   "ref": "loan process automation"
+  },
+  {
+   "q": "What should an automated loan application processing form ask first?",
+   "source": "secondary",
+   "ref": "automated loan application processing"
+  },
+  {
+   "q": "What is the final stage of loan processing?",
+   "source": "alsoasked",
+   "ref": "What is the final stage of loan processing?",
+   "prov": {
+    "tool": "alsoasked-api",
+    "query": "automated loan processing",
+    "depth": 1,
+    "parent": null,
+    "fetched": "2026-10-13",
+    "original": "What is the final stage of loan processing?",
+    "region": "us",
+    "language": "en",
+    "fallback": false
+   }
+  }
+ ],
  "image_brief": {
   "tabs": [
    {
@@ -832,7 +1006,7 @@
     "PA6 asker unclear"
    ],
    "n": 1,
-   "a": "",
+   "a": "It means a loan processor is assembling your file for the underwriter. The processor requests credit reports and gathers documents from you, such as pay stubs and bank statements, then checks them against what you wrote on the application. Answer any request for a missing page quickly, because the file goes to the underwriter only once it is complete.",
    "link": null
   },
   {
@@ -841,7 +1015,7 @@
    "ref": "automated loan processing system",
    "locked": true,
    "n": 2,
-   "a": "",
+   "a": "Describe the checklist your processors follow for one loan product to Emergent's AI automation builder, in plain English. Emergent builds the app from that prompt, with its database, the borrower upload page, and the queue that feeds underwriting. When credit policy changes, you change the app by prompting again. Building and publishing are free to start.",
    "link": {
     "url": "https://emergent.sh/ai-automation-builder",
     "anchor": "AI automation builder",
@@ -866,16 +1040,16 @@
    "locked": true,
    "flagged": [],
    "n": 3,
-   "a": "",
+   "a": "Processors work in a loan origination system, or LOS: a platform used to manage loan applications, which underwriters and closers open too. If your LOS has an API, an app Emergent builds can read each borrower upload into fields and write the figures straight into the matching loan record.",
    "link": null
   },
   {
    "kind": "secondary",
-   "q": null,
+   "q": "What does loan processing automation take off a processor's desk?",
    "ref": "loan processing automation",
    "locked": false,
    "n": 4,
-   "a": "",
+   "a": "It takes the typing and the chasing. Pay stub figures land in the file without anyone keying them, and borrowers get reminders without a processor writing each email. The reading step is the one accounts payable automation runs on vendor invoices. A lender that has built either one can reuse the approach for the other.",
    "link": {
     "url": "https://emergent.sh/ai-automation-builder/accounts-payable-automation",
     "anchor": "accounts payable automation"
@@ -883,29 +1057,29 @@
   },
   {
    "kind": "secondary",
-   "q": null,
+   "q": "Can mortgage workflow automation track underwriting conditions?",
    "ref": "mortgage workflow automation",
    "locked": false,
    "n": 5,
-   "a": "",
+   "a": "Yes. A conditional approval means the lender is likely to approve the loan, but some conditions still need to be met. The app turns each condition into a line with an owner and a due date. Once all of them are met, underwriting reviews what was submitted. Copy the underwriter's own wording into each line, and the borrower's request will match what was asked.",
    "link": null
   },
   {
    "kind": "secondary",
-   "q": null,
+   "q": "Where does borrower data live in a loan automation processing system?",
    "ref": "loan automation processing system",
    "locked": false,
    "n": 6,
-   "a": "",
+   "a": "It lives in a database you own. Each upload, the figures read from it, and the conditions on the file are stored as records there, not scattered across inboxes. On security, Emergent has SOC 2 Type I and ISO 27001. Have your compliance team review the app before it handles live borrower files.",
    "link": null
   },
   {
    "kind": "secondary",
-   "q": null,
+   "q": "Which borrower documents can an automated loan process read?",
    "ref": "automated loan process",
    "locked": false,
    "n": 7,
-   "a": "",
+   "a": "It can read the documents your processors now key in by hand, including pay stubs, W-2s, tax returns, and bank statements. Each one is read into named fields, such as gross pay on a stub or the closing balance on a statement. Start with the two documents your team types up most, since that is where data entry automation pays back first.",
    "link": {
     "url": "https://emergent.sh/ai-automation-builder/data-entry-automation",
     "anchor": "data entry automation"
@@ -913,20 +1087,20 @@
   },
   {
    "kind": "secondary",
-   "q": null,
+   "q": "Does loan process automation replace loan processors?",
    "ref": "loan process automation",
    "locked": false,
    "n": 8,
-   "a": "",
+   "a": "No. Processors stop keying figures and writing reminder emails, and spend that time calling borrowers about missing pages and writing the note that explains an unusual deposit to the underwriter. The credit decision stays with the underwriter either way. Measure the change in hours per file on one product, not in headcount.",
    "link": null
   },
   {
    "kind": "secondary",
-   "q": null,
+   "q": "What should an automated loan application processing form ask first?",
    "ref": "automated loan application processing",
    "locked": false,
    "n": 9,
-   "a": "",
+   "a": "Ask first for the answers that set the path of the file: loan product, amount, and purpose. Those answers decide which document list the borrower sees next. A $15,000 personal loan never asks for business bank statements. Emergent can build the application as a conversational flow, one question per screen, which shows a borrower on a phone a single field at a time.",
    "link": null
   },
   {
@@ -949,14 +1123,14 @@
     "PA7 financial definition"
    ],
    "n": 10,
-   "a": "",
+   "a": "For the processor, it is sending the completed application and every document to the underwriter. The loan itself ends later: origination runs up to disbursal of funds, and on a mortgage, clear to close is the last step ahead of closing day. Before funds go out, match the signed figures against the approval, as you would match a bill in invoice automation.",
    "link": {
     "url": "https://emergent.sh/ai-automation-builder/invoice-automation",
     "anchor": "invoice automation"
    }
   }
  ],
- "faq_heading": "Automated loan processing system Questions, Answered",
+ "faq_heading": "Loan Processing Questions, Answered",
  "skeleton": {
   "built_by": "A-coord",
   "built": "2026-10-13 18:07 UTC",
@@ -968,5 +1142,12 @@
   ],
   "locked": 4,
   "table": true
- }
+ },
+ "qc_passed": {
+  "rules_version": "d16c1f4fcafb",
+  "date": "2026-10-13 19:49 UTC"
+ },
+ "writers": [
+  "A-w-70"
+ ]
 }
