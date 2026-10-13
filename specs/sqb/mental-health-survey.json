@@ -115,6 +115,13 @@
    "via": null,
    "by": "A-coord",
    "note": ""
+  },
+  {
+   "t": "2026-10-13 23:59 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-19",
+   "note": "[truth | HUB_RULES 8] hero_description: The page contradicts itself: feature_5 ('A yes saves a first name and phone number to a separate list') and tab_content_2 ('Her first name and phone number went to the call list') show the same survey storing first names. -> Scope it to the ratings: 'Build a m"
   }
  ],
  "pipeline": "r15",
@@ -1042,5 +1049,265 @@
  },
  "writers": [
   "A-w-89"
- ]
+ ],
+ "review": {
+  "by": "A-r-19",
+  "date": "2026-10-13 23:59 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Mental Health Survey With Anonymous Answers'; hero 127 chars with the primary and 'Build'; how-to description one sentence of 124 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Follows the brief's YMYL angle (an organization wellbeing check-in, not a clinical screen): no sentence presents the survey as a screen or diagnosis ('Leave diagnosis questions to clinicians.'), the low answer routes to the EAP and 988, and the FAQ answers the research searches from primary sources."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Team minimum of 8, Staff Support call list, QR code in the break room, week 1 vs week 8 for a funder, Not coping well on question 2."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Full-sentence openers: 'Each answer is saved with the team and the date...', 'Write down the one decision the answers will feed...', 'The morning after a bus collision at its North depot...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One ', so' ending (Q5 under limit); no run-on lists over 40 words."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Calm and specific ('call the number yourself to check it'); the counting subheading and loose link analogies are notes."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "hero_description 'stores no names', feature_1 'No names, emails, or logins stored', prompt_chip_1 'No Names Stored' and howto_step_6_des 'confirm that no row holds a name' are contradicted by feature_5 'A yes saves a first name and phone number to a separate list' and tab_content_2 'Her first name and phone number went to the call list'. Third-party facts are inside their spans (APA 'the majority' and 'more than half' match 77% and 55%; WHO-5, Lancet Psychiatry 1.49 days, 3 hours a day, WMH 150,000 adults / 29 countries, 988)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Distinct from the wellness survey sibling: anonymity rules, support screen and call list; no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 questions, each answered first; hub link in item 2; links to pulse survey, brand awareness survey, church survey; no brand or file format in a question; secondaries carried."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: 'Support dropped 4 points, Fell from 15 to 11, Sent to Margit Osterholt', Legal hidden under 8; Ilse on the call list with '3 ratings saved without a name'; 'Average rose from 9 to 14', 22 of 26; Not coping well opens the EAP and 'Call or text 988' screen. All match the tab copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "hero_description",
+    "quote": "Build a mental health survey that stores no names, shows team scores above a minimum, and keeps every answer in your database.",
+    "issue": "The page contradicts itself: feature_5 ('A yes saves a first name and phone number to a separate list') and tab_content_2 ('Her first name and phone number went to the call list') show the same survey storing first names.",
+    "fix": "Scope it to the ratings: 'Build a mental health survey that stores no names with the ratings, ...' (keep 130 chars).",
+    "severity": "blocking"
+   },
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "feature_1",
+    "quote": "No names, emails, or logins stored",
+    "issue": "A heading that a tab contradicts: tab_content_2 and feature_5 store a first name and phone number for call requests.",
+    "fix": "Scope the heading to the answers, e.g. 'No names stored with any rating', and keep the body's 'response table has no field that names anyone'.",
+    "severity": "blocking"
+   },
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "prompt_chip_1",
+    "quote": "No Names Stored",
+    "issue": "Same absolute claim as the hero; the page's own call list stores first names.",
+    "fix": "A scoped label within 26 chars, e.g. 'No Names on Ratings', matching chip_adds 'no names are stored with any answer'.",
+    "severity": "blocking"
+   },
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_6_des",
+    "quote": "Then open the database and confirm that no row holds a name and that the support screen appeared.",
+    "issue": "The database holds the call list with first names (feature_5, tab_content_2), so this check fails on the page's own design.",
+    "fix": "'confirm that no rating row holds a name' (or 'that the ratings table holds no name').",
+    "severity": "blocking"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "Repeat your questions yearly, as with a brand awareness survey, to see a trend. | A church survey or a staff check-in can follow the same order.",
+    "issue": "FAQ 7 and FAQ 10 carry their link through an analogy that does not fit a mental health check-in (the writer flagged both as loose).",
+    "fix": "Link a sibling the answer needs (pulse survey, wellness survey) or keep the sentence literal.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "features_subheading",
+    "quote": "Three parts govern what is stored and shown. Two put support within reach of the person answering, and one is the code.",
+    "issue": "A counting scaffold that reads machine-written, and feature_3 (identical statements, drop alert) is not about what is stored and shown.",
+    "fix": "One plain sentence on what the six features do for the person answering and the person reading.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "FAQ 7 and FAQ 10 carry their link through an analogy that does not fit a mental health check-in (the writer flagged both as loose).",
+   "fix": "Link a sibling the answer needs (pulse survey, wellness survey) or keep the sentence literal.",
+   "by": "A-r-19",
+   "via": "review",
+   "date": "2026-10-13 23:59 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "features_subheading",
+   "issue": "A counting scaffold that reads machine-written, and feature_3 (identical statements, drop alert) is not about what is stored and shown.",
+   "fix": "One plain sentence on what the six features do for the person answering and the person reading.",
+   "by": "A-r-19",
+   "via": "review",
+   "date": "2026-10-13 23:59 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "0167408a4da05bb3",
+   "alt:share_image": "7e6f68a662b2a395",
+   "alt:tab_image_1": "b1286a06e7430fa5",
+   "alt:tab_image_2": "9cbe29ef259ccde5",
+   "alt:tab_image_3": "dae2db887cd2164b",
+   "alt:tab_image_4": "f068288a4961148b",
+   "breadcrumb": "56b81889e89e826a",
+   "chip_adds": "fb0c583b21624c1e",
+   "explore_cta": "d370b062d42cc8fc",
+   "faq": "3b2d1cb1a39c42fe",
+   "feature_1": "1d45bf7dbfe28609",
+   "feature_2": "ff98a1b117188122",
+   "feature_3": "10e022032867348a",
+   "feature_4": "53e9ba3ae8f02734",
+   "feature_5": "f04b670991431ee8",
+   "feature_6": "1f71180907cd25cc",
+   "features_heading": "531d8e4a86d3188a",
+   "features_subheading": "cb09cc27f56faa37",
+   "h1": "3335e30ce92882a4",
+   "hero_description": "057985ea7cbe9e1a",
+   "hero_prompt": "cf8bce023b412521",
+   "howto_description": "f70c7d7330ecee3d",
+   "howto_step_1_des": "1b3858715eccae4e",
+   "howto_step_1_title": "ca2d11bfb7b01a25",
+   "howto_step_2_des": "b455cc4c2d6a5cb9",
+   "howto_step_2_title": "1f49884b43b74660",
+   "howto_step_3_des": "6447ca8d036f18f4",
+   "howto_step_3_title": "8095fa99435c322c",
+   "howto_step_4_des": "6836ed0d74762efd",
+   "howto_step_4_title": "bdeda89ee58f390e",
+   "howto_step_5_des": "e35a2bf5e3f100b4",
+   "howto_step_5_title": "7d29cfdbf38d3ca8",
+   "howto_step_6_des": "613eb5f79af9ff1d",
+   "howto_step_6_title": "38f08c8da3fb085b",
+   "howto_step_7_des": "04d1489e43df44c6",
+   "howto_step_7_title": "1b4682b9471c0f8d",
+   "howto_title": "063b7844181ac5ec",
+   "meta_description": "fb6ac8839cf0ad3b",
+   "meta_title": "0f7bb278a0fd2f21",
+   "mockup": "1d83d3002f98b4a8",
+   "product_name": "6c71fef3d16126e9",
+   "prompt_chip_1": "4aaeb79a31248402",
+   "prompt_chip_2": "8642a08054a3e3d6",
+   "prompt_chip_3": "eab382c451d1ce8f",
+   "prompt_chip_4": "e07e85da9c4ccf22",
+   "slug": "8ed856f7d3cee73b",
+   "tab_content_1": "3becdd3bd4d08719",
+   "tab_content_2": "e5cb13e09a4ede0f",
+   "tab_content_3": "3a9bdcc39b5b60e8",
+   "tab_content_4": "cbb239e7b0271f7f",
+   "tab_label_1": "0c8b3163941e97e2",
+   "tab_label_2": "efd7afa4fa72a9d0",
+   "tab_label_3": "fa6c6f7c02047c33",
+   "tab_label_4": "00d1de3654271150",
+   "usecase_heading": "3b565dbebb331d0c",
+   "why_description": "79f8f8b5f33a6d71",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "4060e5673e9259a5"
+  },
+  "all": "d8c805c6735d59b7",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "0167408a4da05bb3",
+   "alt:share_image": "7e6f68a662b2a395",
+   "alt:tab_image_1": "b1286a06e7430fa5",
+   "alt:tab_image_2": "9cbe29ef259ccde5",
+   "alt:tab_image_3": "dae2db887cd2164b",
+   "alt:tab_image_4": "f068288a4961148b",
+   "breadcrumb": "56b81889e89e826a",
+   "chip_adds": "fb0c583b21624c1e",
+   "explore_cta": "d370b062d42cc8fc",
+   "faq": "3b2d1cb1a39c42fe",
+   "feature_1": "1d45bf7dbfe28609",
+   "feature_2": "ff98a1b117188122",
+   "feature_3": "10e022032867348a",
+   "feature_4": "53e9ba3ae8f02734",
+   "feature_5": "f04b670991431ee8",
+   "feature_6": "1f71180907cd25cc",
+   "features_heading": "531d8e4a86d3188a",
+   "features_subheading": "cb09cc27f56faa37",
+   "h1": "3335e30ce92882a4",
+   "hero_description": "057985ea7cbe9e1a",
+   "hero_prompt": "cf8bce023b412521",
+   "howto_description": "f70c7d7330ecee3d",
+   "howto_step_1_des": "1b3858715eccae4e",
+   "howto_step_1_title": "ca2d11bfb7b01a25",
+   "howto_step_2_des": "b455cc4c2d6a5cb9",
+   "howto_step_2_title": "1f49884b43b74660",
+   "howto_step_3_des": "6447ca8d036f18f4",
+   "howto_step_3_title": "8095fa99435c322c",
+   "howto_step_4_des": "6836ed0d74762efd",
+   "howto_step_4_title": "bdeda89ee58f390e",
+   "howto_step_5_des": "e35a2bf5e3f100b4",
+   "howto_step_5_title": "7d29cfdbf38d3ca8",
+   "howto_step_6_des": "613eb5f79af9ff1d",
+   "howto_step_6_title": "38f08c8da3fb085b",
+   "howto_step_7_des": "04d1489e43df44c6",
+   "howto_step_7_title": "1b4682b9471c0f8d",
+   "howto_title": "063b7844181ac5ec",
+   "meta_description": "fb6ac8839cf0ad3b",
+   "meta_title": "0f7bb278a0fd2f21",
+   "mockup": "1d83d3002f98b4a8",
+   "product_name": "6c71fef3d16126e9",
+   "prompt_chip_1": "4aaeb79a31248402",
+   "prompt_chip_2": "8642a08054a3e3d6",
+   "prompt_chip_3": "eab382c451d1ce8f",
+   "prompt_chip_4": "e07e85da9c4ccf22",
+   "slug": "8ed856f7d3cee73b",
+   "tab_content_1": "3becdd3bd4d08719",
+   "tab_content_2": "e5cb13e09a4ede0f",
+   "tab_content_3": "3a9bdcc39b5b60e8",
+   "tab_content_4": "cbb239e7b0271f7f",
+   "tab_label_1": "0c8b3163941e97e2",
+   "tab_label_2": "efd7afa4fa72a9d0",
+   "tab_label_3": "fa6c6f7c02047c33",
+   "tab_label_4": "00d1de3654271150",
+   "usecase_heading": "3b565dbebb331d0c",
+   "why_description": "79f8f8b5f33a6d71",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "4060e5673e9259a5"
+  },
+  "all": "d8c805c6735d59b7",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
