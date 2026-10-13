@@ -38,10 +38,15 @@ def qhash(q):  # stable id of a question (normalised text), for strike lists and
 PA6_SHAPES = [("definition", r"^(what is|what's|what are|what does .* mean|define)\b"), ("how-to", r"^how (to|do|can|should|would) "),
               ("cost", r"\b(cost|price|pricing|how much|cheap|free)\b"), ("which tool", r"^(which|what) [a-z ]{0,30}(tools?|software|apps?|platforms?|systems?)\b"),
               ("comparison", r"\b(vs|versus|difference|compared?|better than)\b"), ("yes/no", r"^(can|does|do|is|are|should|will) "),
-              ("why/benefit", r"^(why|what are the benefits|what are the advantages)\b")]
+              ("why/benefit", r"^(why|what are the benefits|what are the advantages)\b"),
+              # 'other' split further (2026-10-14: 303 of 866 flags were 'other', too broad for one tick)
+              ("self-quiz (am I)", r"\bam i\b"), ("where/when", r"^(where|when)\b"),
+              ("how long/often/well", r"^how (long|often|many|much|well|good|strong|healthy|smart|accurate|old|big|fast)\b"),
+              ("headline (how X does Y)", r"^how (?!does|do|did|is|are|was|were|can|could|should|would|will|to)[a-z]+ [a-z]+"),
+              ("open what/how/who", r"^(what|how|who|whom|whose) ")]
 def pa6_shape(q):
     nq = norm(q or "")
-    return next((name for name, rx in PA6_SHAPES if re.search(rx, nq)), "other")
+    return next((name for name, rx in PA6_SHAPES if re.search(rx, nq)), "fragment or name (no question word)")
 def flag_subtype(code, msg, q=None):
     """The packet groups flags by subtype (Divit 2026-10-13); PA6 splits by question shape (2026-10-14: 830 PA6 flags were too broad
     for one tick); PA10 and PA14 are per-question by nature (mixed)."""
