@@ -2,7 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
-- 2026-10-13 · 1043-learn-batch3-two-accounts · Learn refs on 39 live items, Survey Learn link, batch 3 QC-clean (20), TWO_ACCOUNTS pushed, unhide then re-hide (read back); batch 3 CMS waits on a review-state ruling · (this commit)
+- 2026-10-13 · [1043-learn-batch3-two-accounts](2026-10-13/1043-learn-batch3-two-accounts.md) · Learn refs on 39 live items, Survey Learn link, batch 3 QC-clean (20), TWO_ACCOUNTS pushed, unhide then re-hide (read back); batch 3 CMS waits on a review-state ruling · 5c9d400d
 - 2026-10-13 · [1424-decisions-carousel-cards-faq-wix](2026-10-13/1424-decisions-carousel-cards-faq-wix.md) · Carousel links + title class via API (8+8, staged), hub-card covers Halberd Co / Thursday Oct 15 (component, staged), FAQ refit in our embed (4 templates), Wix cell from Wix docs (19 tables, 4 live item publishes); Designer checklist for Learn · this commit
 - 2026-10-12 · [2156-batch2-live-audit-retro](2026-10-12/2156-batch2-live-audit-retro.md) · 40 pages live and verified (0 failing), canaries published, relink 10, live audit 74 fixes on 30 live pages (P0 grouped-vendor tables fixed), publish smoke + P0 template regressions, retro batch-2, A/B read-only plans · this commit
 - 2026-10-12 · [1840-canary-stopped](2026-10-12/1840-canary-stopped.md) · Item-publish canary (2) failed Learn/carousel on emergent.sh and was unpublished; production was site-published 10:05 UTC with Learn and carousel visible, so 20 live pages and 4 hubs show them; the staged hide needs Divit's site publish · this commit
