@@ -16,7 +16,7 @@ admitted question, decision blank = keep, `x` = strike. Applying:
   - a page whose phrases are all rejected and that B has started (split write) goes back to the queue end, its draft kept;
   - status/synonyms.json records the decision; plan/queue-ranked.txt must be regenerated (ops/queue_rank.py).
 """
-import collections, contextlib, csv, datetime, io, json, os, sys
+import collections, contextlib, csv, datetime, io, json, os, re, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 for d in ("ops", "qc"): sys.path.insert(0, os.path.join(ROOT, d))
 import hubctl as H, paa_gate as P, park_rescue as R, guards as G
@@ -30,28 +30,78 @@ def save_status(d): json.dump(d, open(STATUS, "w"), indent=1, sort_keys=True)
 def quiet(f, *a, **k):
     with contextlib.redirect_stdout(io.StringIO()): return f(*a, **k)
 
+GENERIC = {"request", "order", "application", "management", "process", "processing", "feedback", "customer", "employee", "online",
+           "digital", "service", "services", "business", "free", "simple", "new", "general", "basic", "check", "sign", "up", "in", "out",
+           "approval", "onboarding", "process", "data", "team", "staff", "client", "home"}
+EDGE_STOP = {"mean", "means", "meaning", "need", "needs", "use", "used", "make", "made", "do", "does", "get", "work", "works", "include",
+             "includes", "look", "like", "write", "fill", "create", "set"}
+def _distinctive(phrase, core):
+    """A head word plus at least one word that is neither generic, a format noun nor a stopword: 'payment request', 'inspection report',
+    'loan processing' pass; 'request form' does not (Divit 2026-10-13: no generic candidates)."""
+    ws = phrase.split(); fmt = set(ALT_NOUNS) | {"form", "survey", "quiz", "page", "automation", "workflow", "system", "template", "builder"}
+    has_core = any(P.stem(w) == P.stem(c) for w in ws for c in core)
+    return has_core and any(w not in GENERIC and w not in fmt and w not in STOP for w in ws)
+ALT_NOUNS = ["form", "template", "sheet", "report", "checklist", "app", "software", "system", "process", "workflow", "survey",
+             "questionnaire", "page", "website", "tool", "application", "request", "list", "log"]
+def _drop_classes():
+    return json.load(open(os.path.join(ROOT, "rules", "paa_patterns.json"))).get("sheet_drop", {})
+def drop_class(q):
+    """Divit 2026-10-13: political, YMYL-advice (credit, loans for individuals), salary and competitor-listicle questions never
+    reach his sheet; they are pre-struck (decision x) so an approved phrase cannot admit them unread."""
+    nq = P.norm(q)
+    for cls, pats in _drop_classes().items():
+        if cls.startswith("_"): continue
+        if any(re.search(p_, nq) for p_ in pats): return cls
+    return None
+
+_SIB = {}
+def _sibling_heads(url):
+    """Every other planned page's primary, normalised, plus the same primary without its trailing format noun."""
+    if url in _SIB: return _SIB[url]
+    out = set()
+    for u, p_ in H.kmap().items():
+        if u == url or not p_.get("primary"): continue
+        n_ = P.norm(p_["primary"]); out.add(n_)
+        ws = n_.split()
+        if len(ws) > 2 and ws[-1] in set(ALT_NOUNS) | {"automation", "builder"}: out.add(" ".join(ws[:-1]))
+    _SIB[url] = out; return out
+
 def candidates(url):
-    """[(phrase, kind, [admitted questions])] best first, re-gated with every other rule on; [] when nothing admits a question."""
+    """[(phrase, kind, [admitted questions])] best first, re-gated with every other rule on; [] when nothing admits a question.
+    Divit 2026-10-13 (before tranche 2): multi-word variants of the page's own head phrase only, never a single generic word:
+    contiguous sub-phrases of the head (\"loan processing\"), the head's tail with another format noun (\"inspection report\"),
+    and 2-3 word pull n-grams that contain a head word (\"payment request\", \"check-in\")."""
     g = P.Gate(url)
     if not P.pulls(g.slug): return []
     items, _ = quiet(P.run_pull, g)
     rej = [i for i in items if i["verdict"] == "reject" and {x[0] for x in i["reasons"] if x[1] == "reject"} == {"PA3"}]
-    head = [w for w in P.norm(g.primary).split() if w not in STOP]
-    fmt = set(getattr(P, "FORMAT_WORDS", ()))
+    head = [w for w in P.norm(g.primary).replace("-", " ").split() if w not in STOP]
+    fmt = set(getattr(P, "FORMAT_WORDS", ())) | {"form", "survey", "quiz", "page", "automation", "workflow", "system", "template", "builder"}
     core = [w for w in head if w not in fmt] or head
+    cands = []
+    for n in range(2, len(head) + 1):                     # sub-phrases of the head itself, two words or more
+        for k in range(len(head) - n + 1):
+            cands.append((" ".join(head[k:k + n]), "head sub-phrase"))
+    for k in range(len(core)):                             # the head's tail with another format noun
+        for alt in ALT_NOUNS:
+            cands.append((" ".join(core[k:] + [alt]), "format variant"))
     grams = collections.Counter()
     for i in rej:
-        ws = P.norm(i["q"]).split()
-        for n in (1, 2, 3):
+        ws = P.norm(i["q"]).replace("-", " ").split()
+        for n in (2, 3):
             for k in range(len(ws) - n + 1):
                 t = ws[k:k + n]
-                if t[0] in STOP or t[-1] in STOP: continue
-                if not any(P.stem(a) == P.stem(c) for a in t for c in core): continue
+                if any(w in STOP for w in t) or t[0] in EDGE_STOP or t[-1] in EDGE_STOP: continue   # no fragments ("insert a check")
+                if any(ch.isdigit() for w in t for ch in w): continue
+                kept = sum(any(P.stem(a) == P.stem(c) for a in t) for c in set(core))
+                if kept < max(1, len(set(core)) - 1): continue      # a variant keeps all but one of the head's words ("payment request")
                 grams[" ".join(t)] += 1
-    cands = [(p, "pull n-gram") for p, c in grams.most_common(8) if c >= 2] + [(p, k) for p, k in P.candidate_phrases(g.spec or {"keywords": {"primary": g.primary}})]
+    cands += [(p_, "pull n-gram") for p_, c in grams.most_common(12) if c >= 2]
+    sib = _sibling_heads(url)
     seen, rows = set(), []
     for phrase, kind in cands:
-        if phrase in seen or phrase == P.norm(g.primary): continue
+        if len(phrase.split()) < 2 or phrase in seen or phrase == P.norm(g.primary) or not _distinctive(phrase, core): continue
+        if phrase in sib: continue   # another page's primary (or that primary without its format noun): cannibalisation (K-sibling)
         seen.add(phrase); gc = P.Gate(url, [phrase]); hr = P.phrase_re(phrase); adm = []
         for i in rej:
             if not hr.search(P.norm(i["q"])): continue
@@ -62,9 +112,10 @@ def candidates(url):
 
 def top2(rows):
     if not rows: return []
-    first = max(rows, key=lambda r: len(r[2])); rest = [r for r in rows if r is not first]
-    second = max(rest, key=lambda r: len(set(r[2]) - set(first[2])), default=None)
-    return [first] + ([second] if second and set(second[2]) - set(first[2]) else [])
+    ok = lambda qs: {q for q in qs if not drop_class(q)}
+    first = max(rows, key=lambda r: len(ok(r[2]))); rest = [r for r in rows if r is not first]
+    second = max(rest, key=lambda r: len(ok(r[2]) - ok(first[2])), default=None)
+    return [first] + ([second] if second and ok(second[2]) - ok(first[2]) else [])
 
 def queued_under_10():
     import pull_wave as W
@@ -80,7 +131,8 @@ def cmd_sheet(a):
     urls = a[a.index("--pages") + 1].split(",") if "--pages" in a else [u for u in queued_under_10() if u.rsplit("/", 1)[1] not in st["pages"]][:50]
     md = [f"# PA3 synonym candidates, tranche {n} ({today()}; Divit ruling 12)", "",
           "For Divit's read. NOT applied until you fill the decision sheet: `.cache/review/pa3-tranche-%d.csv` (phrase rows: yes or no; question rows: x strikes that question). Git-ignored: contains AlsoAsked question text." % n,
-          "Every listed question passes every other gate rule with the phrase on. Questions marked (also P1) are admitted by both phrases.", ""]
+          "Every listed question passes every other gate rule with the phrase on. Questions marked (also P1) are admitted by both phrases.",
+          "Candidates are multi-word variants of the page's head phrase only. Political, YMYL-advice, salary and competitor-listicle questions are pre-struck (counted, not shown).", ""]
     rows_csv = []
     for u in urls:
         s = u.rsplit("/", 1)[1]; hub = H.hub_of(u)
@@ -94,17 +146,21 @@ def cmd_sheet(a):
         for k, (phrase, kind, adm) in enumerate(t2, 1):
             md.append(f"- **P{k} \"{phrase}\"** ({kind}): admits {len(adm)}")
             rows_csv.append({"tranche": n, "hub": hub, "page": s, "kind": "phrase", "id": f"P{k}", "text": phrase, "also": "", "decision": ""})
+            dropped = collections.Counter()
             for q in adm:
-                qh = P.qhash(q); also = " (also P1)" if k == 2 and q in first else ""
-                md.append(f"  - `{qh}` {q}{also}")
-                rows_csv.append({"tranche": n, "hub": hub, "page": s, "kind": "question", "id": qh, "text": q, "also": "P1" if also else "", "decision": ""})
+                qh = P.qhash(q); also = " (also P1)" if k == 2 and q in first else ""; dc = drop_class(q)
+                if dc: dropped[dc] += 1
+                else: md.append(f"  - `{qh}` {q}{also}")
+                rows_csv.append({"tranche": n, "hub": hub, "page": s, "kind": "question", "id": qh, "text": q, "also": "P1" if also else "",
+                                 "decision": "x" if dc else "", "auto": dc or ""})
+            if dropped: md.append("  - pre-struck, not shown (" + ", ".join(f"{c} {v}" for c, v in dropped.items()) + ")")
         md.append("")
         st["pages"][s] = {"url": u, "tranche": n, "phrases": len(t2), "admits": len({q for _, _, a_ in t2 for q in a_}), "feasibility": now_f["total"],
                           "feasibility_with": with_f["total"], "pending": bool(t2), "sheet": today()}
     os.makedirs(CACHE, exist_ok=True)
     open(os.path.join(CACHE, f"pa3-tranche-{n}.md"), "w").write("\n".join(md))
     with open(os.path.join(CACHE, f"pa3-tranche-{n}.csv"), "w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=["tranche", "hub", "page", "kind", "id", "text", "also", "decision"]); w.writeheader(); w.writerows(rows_csv)
+        w = csv.DictWriter(f, fieldnames=["tranche", "hub", "page", "kind", "id", "text", "also", "decision", "auto"]); w.writeheader(); w.writerows(rows_csv)
     save_status(st)
     pend = [s for s, e in st["pages"].items() if e["tranche"] == n]
     print(f"tranche {n}: {len(urls)} pages, {sum(st['pages'][s]['pending'] for s in pend)} with phrases; reaching 10 with both phrases: "
@@ -155,8 +211,36 @@ def cmd_apply(a):
         with open(os.path.join(ROOT, "tests", "golden", "cases.jsonl"), "a") as f:
             for c in cases: f.write(json.dumps(c) + "\n")
     save_status(st)
+    leaks = _leak_strike(rows, n)
     print(f"tranche {n} applied: {out['approved']} phrases approved, {out['rejected']} rejected, {out['struck']} questions struck ({len(cases)} golden cases); "
           f"{len(back)} split-write page(s) back to the queue end: {', '.join(back) or 'none'}. Next: ops/queue_rank.py, golden suite, commit.")
+
+def _leak_strike(rows, n):
+    """Divit 2026-10-13: keep only the question ids he left unstruck; anything else an approved phrase now admits (a question that
+    reached the pull after the sheet was drawn, or one listed only under a rejected phrase) is struck too, never admitted unread."""
+    keep = collections.defaultdict(set)
+    for r in rows:
+        if r["kind"] == "question" and r["decision"].strip() == "": keep[r["page"]].add(r["id"])
+    syn = json.load(open(os.path.join(ROOT, "rules", "paa_synonyms.json")))["pages"]
+    blp = os.path.join(ROOT, "rules", "paa_blocklist.json"); bl = json.load(open(blp)); st = load_status()["pages"]; added = []
+    for page in sorted({r["page"] for r in rows}):
+        approved = syn.get(page) or []; u = (st.get(page) or {}).get("url")
+        if not approved or not u or not P.pulls(page): continue
+        g = P.Gate(u); items, _ = quiet(P.run_pull, g); prim = P.phrase_re(g.primary)
+        for i in items:
+            q = P.norm(i["q"]); qh = P.qhash(i["q"])
+            if i["verdict"] == "reject" or prim.search(q) or not any(P.phrase_re(a_).search(q) for a_ in approved) or qh in keep[page]: continue
+            if any(e.get("qh") == qh for e in bl["per_page"].get(page, [])): continue
+            bl["per_page"].setdefault(page, []).append({"qh": qh, "reason": f"admitted by an approved synonym but not kept on Divit's tranche {n} sheet (keep-only rule)", "date": today()})
+            added.append((page, u, qh))
+    if added:
+        json.dump(bl, open(blp, "w"), indent=1, ensure_ascii=False)
+        with open(os.path.join(ROOT, "tests", "golden", "cases.jsonl"), "a") as f:
+            for page, u, qh in added:
+                f.write(json.dumps({"id": f"r12-t{n}-{page}-{qh}", "source": "Divit keep-only rule (ruling 12)", "date": today(), "kind": "gate-pull-skip",
+                                    "url": u, "qh": qh, "expect": ["PA4"], "note": "admitted by an approved synonym, not on the kept list", "status": "guarded"}) + "\n")
+        print(f"keep-only rule: {len(added)} more question(s) struck: " + ", ".join(f"{p_} {q_}" for p_, _, q_ in added))
+    return added
 
 def cmd_status(a):
     st = load_status()["pages"]; by = collections.defaultdict(list)
