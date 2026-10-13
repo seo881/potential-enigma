@@ -27,3 +27,4 @@
 - 2026-10-13 13:15 UTC: released /ai-automation-builder/customer-service-automation (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 16/10
 - 2026-10-13 13:15 UTC: released /ai-automation-builder/it-automation (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 11/10
 - 2026-10-13 13:15 UTC: released /ai-automation-builder/payroll-automation (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 11/10
+- 2026-10-13 19:11 UTC: released /ai-automation-builder/lead-nurturing-workflow (was spec) to the planned queue; spec file left in place
