@@ -36,7 +36,8 @@ def rows():
     out = []
     for p in W.queued():
         c, f = classify(p["url"], syn)
-        out.append((ORDER[c], -(f or 0) if c == "short" else 0, -(p.get("total_msv") or 0), p["hub"], p["url"], c, f))
+        quiz = int("quiz" in p["url"].rsplit("/", 1)[1])   # quiz pages stay last (DECISIONS 2026-10-14): non-quiz rows first inside each class
+        out.append((ORDER[c], quiz, -(f or 0) if c == "short" else 0, -(p.get("total_msv") or 0), p["hub"], p["url"], c, f))
     return sorted(out)
 
 def ranked():
@@ -68,11 +69,11 @@ def main(a):
     if "--release-parked" in a: release_parked()
     rs = rows()
     with open(OUT, "w") as f:
-        f.write("# queue ranked (Divit ruling 12, 2026-10-13): class ready > syn-pending > no-pull > short, then MSV. ops/queue_rank.py; claim from the top only.\n")
+        f.write("# queue ranked (Divit ruling 12, 2026-10-13): class ready > syn-pending > no-pull > short, quizzes last in each class, then MSV. ops/queue_rank.py; claim from the top only.\n")
         f.write("# rank\thub\turl\tclass\tfeasibility\n")
-        for i, r in enumerate(rs, 1): f.write(f"{i}\t{r[3]}\t{r[4]}\t{r[5]}\t{'-' if r[6] is None else r[6]}\n")
+        for i, r in enumerate(rs, 1): f.write(f"{i}\t{r[4]}\t{r[5]}\t{r[6]}\t{'-' if r[7] is None else r[7]}\n")
     from collections import Counter
-    c = Counter((r[3], r[5]) for r in rs)
+    c = Counter((r[4], r[6]) for r in rs)
     for hub in H.CFG["hubs"]: print(f"{hub:10s} " + " ".join(f"{k}={c[(hub, k)]}" for k in ORDER))
     print(f"wrote plan/queue-ranked.txt ({len(rs)} queued pages)")
 
