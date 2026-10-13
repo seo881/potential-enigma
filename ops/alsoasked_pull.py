@@ -80,6 +80,8 @@ def main(argv):
     if depth > 2: sys.exit("PA2: depth 3+ is never required; refusing (costs 4 credits)")
     body = {"terms": [term], "language": opt("--language", "en"), "region": opt("--region", "us"), "depth": depth, "async": False}
     fresh = "--fresh" in argv
+    k0, _acc = call("GET", "/account")   # 2026-10-13: a rejected key (401/403) must never reach the POST nor write a credits row
+    if k0 != 200: print(f"AlsoAsked key rejected or account unreadable (HTTP {k0}): no search was sent, nothing charged, nothing logged"); return 3
     while True:  # fresh:false first (a cache hit may be free); fresh:true only when that returns no_results
         s0, a0 = call("GET", "/account")
         recovered = False
@@ -94,17 +96,19 @@ def main(argv):
         print(f"HTTP {status} fresh={fresh} recovered={recovered} status={res.get('status')} cached={res.get('cached')}" + (f" ({res['_error']})" if "_error" in res else ""))
         print("credits used: " + ", ".join(f"{k} {v}" for k, v in used.items()) + " | remaining: " + ", ".join(f"{k} {v}" for k, v in a.items()))
         os.makedirs(os.path.join(ROOT, "private", "alsoasked"), exist_ok=True)
+        saved = False   # 2026-10-13: save the response BEFORE the credits row is written, and record whether it was saved
+        if status == 200 and "_error" not in res and not (res.get("status") == "no_results" and not fresh and "--no-retry" not in argv):
+            meta = {"tool": "alsoasked-api", "query": term, "depth": depth, "fresh": fresh, "status": res.get("status"), "region": opt("--region", "us"), "language": opt("--language", "en"),
+                    "fetched": __import__("datetime").datetime.now(__import__("datetime").timezone.utc).strftime("%Y-%m-%d")}
+            tmp = os.path.join(ROOT, "private", "alsoasked", slug + ".json.tmp")
+            json.dump({"_meta": meta, "response": res}, open(tmp, "w"), indent=1, ensure_ascii=False); os.replace(tmp, os.path.join(ROOT, "private", "alsoasked", slug + ".json")); saved = True
         with open(os.path.join(ROOT, "private", "alsoasked", "credits.log"), "a") as f:
             f.write(json.dumps({"t": __import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat(timespec="seconds"), "slug": slug,
                                 "term": term, "depth": depth, "fresh": fresh, "recovered": recovered, "post": recovered != "history", "http": status, "status": res.get("status"), "cached": res.get("cached"),
-                                "before": b, "after": a, "used": used, **({"run": os.environ["ALSOASKED_RUN"]} if os.environ.get("ALSOASKED_RUN") else {})}) + "\n")
+                                "before": b, "after": a, "used": used, "saved": saved, **({"run": os.environ["ALSOASKED_RUN"]} if os.environ.get("ALSOASKED_RUN") else {})}) + "\n")
         if status == 200 and res.get("status") == "no_results" and not fresh and "--no-retry" not in argv: fresh = True; continue
         break
-    if status != 200 or "_error" in res: return 1
-    out = os.path.join(ROOT, "private", "alsoasked"); os.makedirs(out, exist_ok=True)
-    meta = {"tool": "alsoasked-api", "query": term, "depth": depth, "fresh": fresh, "status": res.get("status"), "region": opt("--region", "us"), "language": opt("--language", "en"),
-            "fetched": __import__("datetime").datetime.now(__import__("datetime").timezone.utc).strftime("%Y-%m-%d")}
-    json.dump({"_meta": meta, "response": res}, open(os.path.join(out, slug + ".json"), "w"), indent=1, ensure_ascii=False)
+    if status != 200 or "_error" in res or not saved: return 1
     print("nodes per depth: " + ", ".join(f"d{k}={v}" for k, v in sorted(depth_counts(res).items())))
     return 0
 

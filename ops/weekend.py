@@ -186,7 +186,21 @@ def spent(r):
     count `credits` only (summing every field double-counted each pull until 2026-10-10)."""
     u = r.get("used") or {}
     if isinstance(u.get("credits"), (int, float)): return max(u["credits"], 0)
+    if r.get("http") in (401, 403) and not u: return 0   # a rejected key never reaches the search: no charge (2026-10-13, balance unchanged at 743)
     return sum(v for v in u.values() if isinstance(v, (int, float)) and v > 0) or (1 if r.get("post") and not u else 0)
+def rejected(r): return r.get("http") in (401, 403) and not (r.get("used") or {})
+
+def aa_decision(rows, saved_status, now_iso):
+    """The no-double-charge rule (Divit 2026-10-13), pure so golden cases test it. rows = this pull name's credits.log rows.
+    -> ("reuse" | "refuse" | "pull" | "pull-fresh", reason)."""
+    import datetime as _d
+    if saved_status not in (None, "no_results"): return "reuse", "a saved pull exists"
+    real = [r for r in rows if not rejected(r) and r.get("status") != "reconciliation"]
+    nowt = _d.datetime.fromisoformat(now_iso)
+    recent = [r for r in real if spent(r) > 0 and (nowt - _d.datetime.fromisoformat(r["t"])).total_seconds() < 86400]
+    if recent and saved_status is None: return "refuse", f"charged {sum(spent(r) for r in recent)} credit(s) in the last 24 h but no pull was saved: reconcile credits.log first, never re-pull blind"
+    if real and not all(r.get("status") == "no_results" for r in real): return "refuse", "already pulled and the result was not no_results; reuse it, never re-pull"
+    return ("pull-fresh" if real else "pull"), ("one fresh retry after no_results" if real else "no earlier pull")
 SEC = "--sec"                                                    # A6 (2026-10-12): the top-secondary pull is saved as <slug>--sec.json
 PULL_COST = {1: 1, 2: 1}   # credits per pull by depth (alsoasked_pull.py; credits.log since the 2026-10-10 lock: every serial depth-2 pull cost 1)
 def page_of(row_slug): return (row_slug or "").removesuffix(SEC)
@@ -235,6 +249,10 @@ def cmd_aa(args):
     def saved():
         try: return json.load(open(pull))["_meta"].get("status") or "success"
         except (OSError, ValueError, KeyError): return None
+    # B's clone must use the shared store (docs/TWO_ACCOUNTS.md setup 4): one credits.log, one set of pulls, one lock
+    shared = os.path.realpath(os.path.expanduser("~/emergent-hubs/private/alsoasked"))
+    if os.path.realpath(os.path.join(ROOT, "private", "alsoasked")) != shared:
+        sys.exit(f"refused: private/alsoasked here resolves to {os.path.realpath(os.path.join(ROOT, 'private', 'alsoasked'))}, not the shared {shared} (TWO_ACCOUNTS setup 4)")
     if saved() not in (None, "no_results"): print(f"{name}: saved pull reused (private/alsoasked/{name}.json); no new pull"); return
     term = top_secondary(url) if sec else (H.kmap().get(url) or {}).get("primary")
     if not term: sys.exit(f"{s}: " + ("no secondary that PA15 allows and that differs from the primary" if sec else "not in the keyword map"))
@@ -244,8 +262,10 @@ def cmd_aa(args):
         for attempt in (1, 2):
             rows = [r for r in credits_rows("") if r.get("slug") == name]
             used = page_spent(s); total, _ = cmd_credits([])
-            if rows and not all(r.get("status") == "no_results" for r in rows):
-                sys.exit(f"{name}: already pulled ({used} credits on the page) and the result was not no_results; reuse it, never re-pull")
+            verdict, why = aa_decision(rows, saved(), datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"))
+            if verdict == "reuse": print(f"{name}: {why}; no new pull"); return
+            if verdict == "refuse": sys.exit(f"{name}: {why} ({used} credits on the page)")
+            rows = [r for r in rows if not rejected(r) and r.get("status") != "reconciliation"]
             if used + cost > PER_PAGE: sys.exit(f"{s}: {used} credits used; a pull costing {cost} would take it past {PER_PAGE}; write from the secondaries or fail the page")
             if total + cost > CREDIT_CAP: sys.exit(f"weekend AlsoAsked cap reached ({total}/{CREDIT_CAP}); no more pulls")
             if cap is not None and run_spent(run) + cost > cap: sys.exit(f"run {run} cap reached ({run_spent(run)}/{cap}); no more pulls")

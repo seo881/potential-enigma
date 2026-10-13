@@ -13,6 +13,7 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   k7-header      {url, header, expect_k7}                 QC K7 fires on a why_table column header exactly when expect_k7 (top-10 URLs: keyword map + saved SERP)
   qc-text        {url, field, text, check}                 QC flags `field` when it holds `text` (P0/P1 on that field)
   gate-pa12-secs {url, expect_pa12}                        PA12's secondary test fails exactly when expected (ruling 5: Semrush secondaries, bar min(6, n); none = 4 on-topic workbook ideas)
+  aa-decision    {rows, saved, now, expect}               weekend.py aa: reuse a saved pull, refuse a recent charge with no save, ignore 401/403 rejections
   gate-asker     {url, q, expect_asker}                   PA6 classifies the question as builder | respondent (None = flag)
   qc-f2-aa       {url, aa, expect_f2}                     legacy-capture page with an item labelled alsoasked: F2 exactly when there is no AlsoAsked pull
   qc-f1          {url, aa, serp, expect_f1}               QC raises F1 exactly when the page has no AlsoAsked pull (DataForSEO capture irrelevant)
@@ -47,6 +48,9 @@ def caught(c):
         import paa_gate as PG
         rs = PG.Gate(c["url"]).judge({"q": c["q"], "source": "secondary", "n": 5}); lv = c.get("levels") or ["reject"]
         return bool({r[0] for r in rs if r[1] in lv} & set(c.get("expect") or [r[0] for r in rs]))
+    if c["kind"] == "aa-decision":  # weekend.py aa no-double-charge rule (Divit 2026-10-13): rows + saved status -> reuse/refuse/pull
+        import weekend as W
+        return W.aa_decision(c["rows"], c.get("saved"), c["now"])[0] == c["expect"]
     if c["kind"] == "gate-asker":   # PA6 asker class of a literal question (ruling 4: fix the patterns, never reword the question)
         import paa_gate as PG
         return PG.Gate(c["url"]).asker(PG.norm(c["q"])) == c["expect_asker"]
