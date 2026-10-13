@@ -346,6 +346,7 @@ def flags_pending(spec):
         if not fl or not sl.get("q"): continue
         import paa_gate as _PG
         if (qs.get(slug + ":" + _PG.qhash(sl["q"])) or {}).get("decision") == "approve": continue
+        fl = [(f + ": " + _PG.pa6_shape(sl.get("ref") or sl["q"])) if f == "PA6 asker unclear" else f for f in fl]   # skeletons built before the 10-14 split
         left = [f for f in fl if (sub.get(f) or {}).get("decision") != "approve"]
         if left: out.append((sl["n"], left))
     return out

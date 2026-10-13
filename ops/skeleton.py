@@ -97,12 +97,12 @@ def candidates(url):
         for i in items:
             if i["verdict"] not in ("pass", "flag"): continue
             orig = (i.get("prov") or {}).get("original") or i["q"]
-            fl = sorted({P.flag_subtype(r[0], r[2]) for r in i["reasons"] if r[1] == "flag"})
+            fl = sorted({P.flag_subtype(r[0], r[2], i["q"]) for r in i["reasons"] if r[1] == "flag"})
             out.append({"kind": "alsoasked", "q": SP.display(orig), "ref": orig, "prov": i.get("prov"), "locked": True, "flagged": fl})
     for x in SQ.usable(s):
         rs = g.judge({"q": x["q"], "source": "keyword", "n": 5})
         if any(r[1] == "reject" for r in rs): continue
-        fl = sorted({P.flag_subtype(r[0], r[2]) for r in rs if r[1] == "flag"})
+        fl = sorted({P.flag_subtype(r[0], r[2], x["q"]) for r in rs if r[1] == "flag"})
         out.append({"kind": "semrush", "q": clean_question(x["q"]), "ref": x["q"], "prov": x["prov"], "locked": False, "flagged": fl})
     # a capitalised-name flag (PA14) is usually another company ("Does automation Direct accept returns?"): never a skeleton slot
     out = [c for c in out if "PA14 capitalised name" not in (c.get("flagged") or [])]

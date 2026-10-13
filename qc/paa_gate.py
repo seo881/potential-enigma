@@ -35,10 +35,18 @@ def jacc(a, b): return len(a & b) / len(a | b) if a | b else 0.0
 def has(term, q): return re.search(r"(?<![a-z0-9])" + re.escape(term) + r"(?![a-z0-9])", q) is not None
 def qhash(q):  # stable id of a question (normalised text), for strike lists and sheets: never the text itself in git
     import hashlib; return hashlib.sha1(norm0(q).encode()).hexdigest()[:10]   # norm0: hashes stay stable when the spelling list grows
-def flag_subtype(code, msg):
-    """The packet groups flags by subtype (Divit 2026-10-13); PA10 and PA14 are per-question by nature (mixed)."""
+PA6_SHAPES = [("definition", r"^(what is|what's|what are|what does .* mean|define)\b"), ("how-to", r"^how (to|do|can|should|would) "),
+              ("cost", r"\b(cost|price|pricing|how much|cheap|free)\b"), ("which tool", r"^(which|what) [a-z ]{0,30}(tools?|software|apps?|platforms?|systems?)\b"),
+              ("comparison", r"\b(vs|versus|difference|compared?|better than)\b"), ("yes/no", r"^(can|does|do|is|are|should|will) "),
+              ("why/benefit", r"^(why|what are the benefits|what are the advantages)\b")]
+def pa6_shape(q):
+    nq = norm(q or "")
+    return next((name for name, rx in PA6_SHAPES if re.search(rx, nq)), "other")
+def flag_subtype(code, msg, q=None):
+    """The packet groups flags by subtype (Divit 2026-10-13); PA6 splits by question shape (2026-10-14: 830 PA6 flags were too broad
+    for one tick); PA10 and PA14 are per-question by nature (mixed)."""
     if code == "PA2": return "PA2 under a flagged parent"
-    if code == "PA6": return "PA6 asker unclear"
+    if code == "PA6": return "PA6 asker unclear: " + pa6_shape(q) if q else "PA6 asker unclear"
     if code == "PA7" and msg.startswith("advice-shaped"): return "PA7 advice-shaped"
     if code == "PA7" and msg.startswith("definitional"): return "PA7 " + msg.split()[1] + " definition"
     if code == "PA14": return "PA14 capitalised name"
@@ -127,7 +135,7 @@ class Gate:
         res = []
         for r in out:
             if r[1] != "flag": res.append(r); continue
-            st = flag_subtype(r[0], r[2]); d = (fd["questions"].get(self.slug + ":" + qh) or {}).get("decision") or (fd["subtypes"].get(st) or {}).get("decision")
+            st = flag_subtype(r[0], r[2], item.get("q")); d = (fd["questions"].get(self.slug + ":" + qh) or {}).get("decision") or (fd["subtypes"].get(st) or {}).get("decision")
             if d == "approve": res.append((r[0], "note", "approved by Divit (" + st + "): " + r[2]))
             elif d == "reject": res.append((r[0], "reject", "rejected by Divit (" + st + "): " + r[2]))
             else: res.append(r)

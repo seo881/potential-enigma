@@ -177,7 +177,7 @@ def caught(c):
         if q is None: return False
         rs = g.judge({"q": q, "source": "keyword" if c.get("from") == "semrush" else "alsoasked", "n": 5})
         if c["expect"] == "reject": return any(r[1] == "reject" for r in rs)
-        return not any(r[1] == "flag" and PG.flag_subtype(r[0], r[2]) == c["subtype"] for r in rs)
+        return not any(r[1] == "flag" and PG.flag_subtype(r[0], r[2], q) == c["subtype"] for r in rs)
     if c["kind"] == "sq-filter":           # Semrush phrase_questions filter (Divit 2026-10-13): dropped for the expected reason, or kept (None)
         import semrush_questions as SQ
         return SQ.keep_reason(c["url"], c["q"]) == c.get("expect_drop")

@@ -39,12 +39,12 @@ def collect():
                 if i["verdict"] != "flag" or P.qhash(i["q"]) in seen: continue
                 seen.add(P.qhash(i["q"]))
                 for r in i["reasons"]:
-                    if r[1] == "flag": flags.append((P.flag_subtype(r[0], r[2]), u, "alsoasked", i["q"], P.qhash(i["q"])))
+                    if r[1] == "flag": flags.append((P.flag_subtype(r[0], r[2], i["q"]), u, "alsoasked", i["q"], P.qhash(i["q"])))
         for x in SQ.usable(s):
             if P.qhash(x["q"]) in seen: continue
             rs = g.judge({"q": x["q"], "source": "keyword", "n": 5})
             for r in rs:
-                if r[1] == "flag": seen.add(P.qhash(x["q"])); flags.append((P.flag_subtype(r[0], r[2]), u, "semrush", x["q"], P.qhash(x["q"])))
+                if r[1] == "flag": seen.add(P.qhash(x["q"])); flags.append((P.flag_subtype(r[0], r[2], x["q"]), u, "semrush", x["q"], P.qhash(x["q"])))
     return flags, base
 
 def impact(flags, base):
