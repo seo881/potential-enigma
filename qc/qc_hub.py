@@ -791,6 +791,23 @@ def check(spec, siblings):
             if sl.get("locked") and sl.get("q") and (len(got) < sl["n"] or got[sl["n"] - 1] != sl["q"]):
                 add("P0", "R15", "faq", f'FAQ item {sl["n"]} must be the locked question "{sl["q"][:60]}" (code-set; never reword)')
         if not spec.get("claims_used"): add("P1", "R15", "claims_used", "list the claim ids (rules/capabilities.json) the copy relies on")
+        # canary 2026-10-14 (A-r-9, CONTENT_DEFECTS #8): an Emergent line in an answer that names another brand reads as a comparison
+        import urllib.parse as _up
+        brands = set()
+        for d_ in spec.get("domain_sources") or []:
+            host = _up.urlparse(d_.get("source_url") or "").netloc.lower().removeprefix("www.").split(".")
+            if len(host) >= 2 and host[-2] not in ("wikipedia", "gov", "ecfr", "irs", "hhs", "europa", "nist", "census", "bls"): brands.add(host[-2].capitalize())
+        try:
+            _lib = json.load(open(os.path.join(ROOT, "rules", "competitors", h["repo_dir"] + ".json"))).get("competitors", {})
+            brands |= {re.sub(r"\s*\(.*\)", "", n).strip() for n in _lib}
+        except Exception: pass
+        brands = {b for b in brands if len(b) > 2 and b.lower() != "emergent"}
+        for idx, it in enumerate((fq or {}).get("items", []), 1):
+            a_ = strip_html(it.get("a", ""))
+            # brand as written (capitalised), never the first word of a sentence ("Make sure", "Bill pay ...")
+            named = sorted(b for b in brands if re.search(r"(?<![.!?]\s)(?<!^)(?<![A-Za-z])" + r"\s+".join(re.escape(w) for w in b.split()) + r"(?![A-Za-z])", a_))
+            if named and "Emergent" in a_:
+                add("P1", "R15", "faq", f'FAQ item {idx} names {", ".join(named[:3])} and also carries an Emergent line: move the Emergent line to an answer that names no other brand (CONTENT_DEFECTS #8)')
     # ---------- P3/P4: sources are live (automated link check) and few (max 8) ----------
     if spec.get("status") not in ("live-draft", "published") and spec.get("domain_sources"):
         sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as _G3

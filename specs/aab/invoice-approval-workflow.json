@@ -119,6 +119,13 @@
    "via": null,
    "by": "A-coord",
    "note": ""
+  },
+  {
+   "t": "2026-10-13 18:58 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-9",
+   "note": "[truth | CONTENT_DEFECTS #8] faq item 6: The moat line sits directly after the two named platforms, so it reads as the edge over Ramp and Brex. That edge is false on their entry plans: Ramp's Free plan is '$0/mo/user' and lists 'Configurable approval workflows' under Accounts Payable (ramp.com/prici"
   }
  ],
  "pipeline": "r15",
@@ -1109,5 +1116,385 @@
  },
  "writers": [
   "A-w-52"
- ]
+ ],
+ "review": {
+  "by": "A-r-9",
+  "date": "2026-10-13 18:58 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Invoice Approval Workflow Around Who Approves What', meta title 'Invoice Approval Workflow Built on Your Rules | Emergent' and hero 'Build an invoice approval workflow that sends each invoice to the right approver, chases late sign-offs, and logs every decision.' cover the whole routing job; howto_description is one sentence saying what the steps achieve. Capture and payables stay on sibling pages, per the watch-list."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is definitions, best practices, a QuickBooks set-up article and software roundups. The page gives the definition (FAQ 1), a 7-step how-to specific to invoices ('04 Count back from the payment run', '06 Test with last month's invoices'), what software should do (FAQ 7), named platforms (FAQ 6) and a comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "AP vocabulary throughout: 'compared with the PO and the goods receipt', 'a 2% discount if paid within 10 days, worth $252', 'names a payment account ending 4410, and the vendor record has one ending 0318', 'coded to the cost center she owns'. Table rows come from the library with no hub-default fallback (K7 note below)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on full sentences with verbs ('Each approver gets a dollar limit', 'Choose how many days before the due date', 'Export the app's full code'); tabs open on the vendor or person ('Kittredge Events bills $8,400', 'Zainab Albrecht ordered a $1,480 sales course')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences carry one idea and end on the key word ('or it misses the run that pays it on time'); no tacked-on endings (QC Q5 clean). 14 A-B-and-C lists recorded as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Reads like an operator wrote it: 'An invoice with two possible owners stalls while each waits for the other, and one with no backup stalls for the length of a vacation.' 'Automate the handoffs between the people on your finance team, not their judgment.' No AI tells (QC A1 clean)."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "FAQ 6: 'With Emergent, every budget owner can approve invoices without a per-approver seat.' right after naming Ramp and Brex, whose free plans ($0/user) include bill approval workflows (CONTENT_DEFECTS #8). FAQ 5: 'Emergent can build the step that sends that file through the bank's API.' The Wells Fargo source says only that the buyer 'sends an approved invoice file to Wells Fargo', not how. All other claims check: FAQ 1 matches the Zone & Co spans; FAQ 6 Ramp and Brex routing facts match their spans; FAQ 5 approval and early-payment facts match the Wells Fargo spans; Emergent claims map to prompt-build, alerts, database-owned, api-connect (names QuickBooks, Xero, NetSuite), code-export, no-caps, ai-extraction (covers low-confidence fields sent to a person). Numbers agree: 60/40 of $8,400 = $5,040 + $3,360; 2% of $12,600 = $252; day 10 minus 3 = day 7."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Its own page: four invoice-specific routing rules (split coding, early-payment discount, bank detail change, self-approval) that no approval sibling carries; tab H3s use no sibling primary. Hero shape shared with siblings recorded as a note."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, each answered in its first sentence ('Ramp and Brex both do, in their bill pay products.', 'No. Invoice approval confirms that an invoice is owed and coded correctly.'); hub link in item 2; 4 exact-match sibling links (purchase order automation, document automation, invoice automation, plus the hub); all 3 secondaries read naturally; no brand or file format in a question; F9 moat lines in items 3, 5 and 6. Raw Semrush strings and the near-duplicate pair recorded as notes."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: each tab shows one moment matching its copy word for word: '1 of 2 approved' with Henrike Mbatha Approved, Joaquim Ferrante Waiting, $5,040/$3,360/$8,400; 'Approval due Day 7', 'Discount ends Day 10', '$252 discount at stake' DM to Rosalind Ikeda; 'Ending 4410' vs 'Ending 0318', controller Dariusz Achterberg, 'Call Corvay at the number on file', 'Mark verified'; 'Skipped: she placed the order', DM to Benedikt Amadi. Cover repeats the tab 2 DM; panels full, one hero each, cursor on the button."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #8",
+    "field": "faq item 6",
+    "quote": "Ramp and Brex both do, in their bill pay products. Ramp routes bill approvals on conditions such as amount, vendor name, and accounting category, and Brex can route bills for approval by amount and vendor. With Emergent, every budget owner can approve invoices without a per-approver seat.",
+    "issue": "The moat line sits directly after the two named platforms, so it reads as the edge over Ramp and Brex. That edge is false on their entry plans: Ramp's Free plan is '$0/mo/user' and lists 'Configurable approval workflows' under Accounts Payable (ramp.com/pricing); Brex Essentials is '$0 user/month' with 'Multi-level approval flows' in bill pay (brex.com/pricing). It is the exact row #8 pattern ('No per-approver seats' as the edge over a vendor that also charges no per-user fee), uses brands outside the competitor library as a comparison, and breaks the F9 rule 'never branded or competitor-comparison phrasing'. Only instance of this class on the page: why_description says 'no per-approver seats' but names no competitor and the table has no seats row.",
+    "fix": "Keep the two cited facts and replace the last sentence with an approved moat that implies nothing about Ramp or Brex, e.g. 'An approval app built with Emergent keeps every decision in a database you own.' (database-owned), or drop the moat here and keep F9 at items 3 and 5.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 5",
+    "quote": "Emergent can build the step that sends that file through the bank's API.",
+    "issue": "The quoted Wells Fargo span says only 'buyer approves invoices for payment and sends an approved invoice file to Wells Fargo' (the page adds 'Using existing buyer process'); it names no API, and no domain_sources entry says the bank takes the file through an API. Supplier finance programs commonly take this file by portal upload or host-to-host transfer. The sentence states a third-party system fact its source does not say. No other instance: the other Wells Fargo, Ramp and Brex sentences stay inside their spans.",
+    "fix": "Stay inside the span and the payments-out claim: 'Emergent can build the step that generates that approved invoice file from the decisions in your log.'",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq_heading",
+    "quote": "Approval Workflow Questions, Answered",
+    "issue": "The {Topic} slot is the bare primary of the sibling /ai-automation-builder/approval-workflow. The skeleton predates the 13ebaef8 shortening fix (never a sibling primary); the coordinator corrected hero_prompt but not this field. QC K5 exempts it because it is a substring of this page's primary.",
+    "fix": "'Invoice Approval Questions, Answered' (what the current skeleton would build).",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq items 3, 5, 10",
+    "quote": "How to automate invoice approval workflow finance team 2025 2026? / What to use for invoice approval workflows in scf? / How can cfos streamline invoice approval workflows?",
+    "issue": "Locked keyword-sourced questions shown as raw Semrush strings: a bare year pair, missing words, lowercase 'scf' and 'cfos'. Pre-fix skeleton (clean_question now strips years and cases acronyms).",
+    "fix": "Re-derive with clean_question and reword naturally, head phrase kept: 'How does a finance team automate an invoice approval workflow?', 'What to use for invoice approval workflows in SCF?', 'How can CFOs speed up invoice approval workflows?'",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq items 3 and 4",
+    "quote": "How to automate invoice approval workflow finance team 2025 2026? / How to automate invoice approval workflow?",
+    "issue": "Two items are the same question with a suffix; the answers differ, but a reader sees one question twice.",
+    "fix": "Upstream: derive should dedupe suffix variants (3ac6d574 now dedupes year-suffixed variants) and free the slot for another searcher question.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2b",
+    "field": "meta_description, hero_description, feature_3, feature_5, feature_6, howto_step_2_des, howto_step_5_des, faq items 1, 2, 4, 6, 10",
+    "quote": "split invoices, discount deadlines, changed bank details, and self-approval blocks / sends each invoice to the right approver, chases late sign-offs, and logs every decision / the invoice, its coding, and the PO",
+    "issue": "14 'A, B, and C' lists on the page (QC Q8 flags above 8); feature_3 alone has three. Tidy triplets read templated.",
+    "fix": "Turn three or four into pairs or one specific, e.g. feature_3 'Approvers see the invoice and its PO in one message'.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_2",
+    "quote": "The $252 discount gets a reminder on day 7",
+    "issue": "The discount does not get the reminder; Rosalind Ikeda does. The H3 names the wrong subject.",
+    "fix": "'A day-7 reminder protects the $252 discount' or the plan's 'A nudge on day 7 saves the $252 discount'.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "hero_description",
+    "quote": "Build an invoice approval workflow that sends each invoice to the right approver, chases late sign-offs, and logs every decision.",
+    "issue": "Same hero shape as content-approval-workflow ('sends each draft to the right reviewer') and document-approval-workflow ('sends each draft to the right approvers'); A-r-8 noted it from the other side.",
+    "fix": "Lead with this page's own rule, e.g. 'Build an invoice approval workflow that routes each invoice by amount and cost center and holds any with changed bank details.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Zapier | Make (Integromat) | n8n",
+    "issue": "None of the three ranks in the top 10 (QC K7 P2); searchers see AP tools (Stampli, AvidXchange, ApprovalMax, Rillion), which are not in the Auto library, so the skeleton fell back to automation platforms.",
+    "fix": "Upstream: coordinator adds AP approval vendors to rules/competitors/aab.json with sources for the approval cluster.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_5_des",
+    "quote": "Read vendor records from the same system. The bank details the app compares against are then the ones finance keeps up to date.",
+    "issue": "Advice that assumes QuickBooks, Xero and NetSuite all expose vendor bank details through their APIs; true for Xero contacts, less clear for QuickBooks Online US and NetSuite (bank details sit in payment add-ons). No source.",
+    "fix": "Keep as advice but hedge to the reader's system: 'If your accounting system keeps vendor bank details, read them from there.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 8",
+    "quote": "Invoice approval confirms that an invoice is owed and coded correctly. A payment approval workflow then decides which approved invoices go out in a payment run, and on what date.",
+    "issue": "A definition of an industry term beyond FAQ 1 with no domain_sources entry; it matches common AP usage, so it stays a note, but plan.claims_to_source should list definitional claims too.",
+    "fix": "Upstream: writer lists term definitions in claims_to_source and sources them.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq_heading",
+   "issue": "The {Topic} slot is the bare primary of the sibling /ai-automation-builder/approval-workflow. The skeleton predates the 13ebaef8 shortening fix (never a sibling primary); the coordinator corrected hero_prompt but not this field. QC K5 exempts it because it is a substring of this page's primary.",
+   "fix": "'Invoice Approval Questions, Answered' (what the current skeleton would build).",
+   "by": "A-r-9",
+   "via": "review",
+   "date": "2026-10-13 18:58 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq items 3, 5, 10",
+   "issue": "Locked keyword-sourced questions shown as raw Semrush strings: a bare year pair, missing words, lowercase 'scf' and 'cfos'. Pre-fix skeleton (clean_question now strips years and cases acronyms).",
+   "fix": "Re-derive with clean_question and reword naturally, head phrase kept: 'How does a finance team automate an invoice approval workflow?', 'What to use for invoice approval workflows in SCF?', 'How can CFOs speed up invoice approval workflows?'",
+   "by": "A-r-9",
+   "via": "review",
+   "date": "2026-10-13 18:58 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq items 3 and 4",
+   "issue": "Two items are the same question with a suffix; the answers differ, but a reader sees one question twice.",
+   "fix": "Upstream: derive should dedupe suffix variants (3ac6d574 now dedupes year-suffixed variants) and free the slot for another searcher question.",
+   "by": "A-r-9",
+   "via": "review",
+   "date": "2026-10-13 18:58 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2b",
+   "field": "meta_description, hero_description, feature_3, feature_5, feature_6, howto_step_2_des, howto_step_5_des, faq items 1, 2, 4, 6, 10",
+   "issue": "14 'A, B, and C' lists on the page (QC Q8 flags above 8); feature_3 alone has three. Tidy triplets read templated.",
+   "fix": "Turn three or four into pairs or one specific, e.g. feature_3 'Approvers see the invoice and its PO in one message'.",
+   "by": "A-r-9",
+   "via": "review",
+   "date": "2026-10-13 18:58 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_2",
+   "issue": "The discount does not get the reminder; Rosalind Ikeda does. The H3 names the wrong subject.",
+   "fix": "'A day-7 reminder protects the $252 discount' or the plan's 'A nudge on day 7 saves the $252 discount'.",
+   "by": "A-r-9",
+   "via": "review",
+   "date": "2026-10-13 18:58 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "hero_description",
+   "issue": "Same hero shape as content-approval-workflow ('sends each draft to the right reviewer') and document-approval-workflow ('sends each draft to the right approvers'); A-r-8 noted it from the other side.",
+   "fix": "Lead with this page's own rule, e.g. 'Build an invoice approval workflow that routes each invoice by amount and cost center and holds any with changed bank details.'",
+   "by": "A-r-9",
+   "via": "review",
+   "date": "2026-10-13 18:58 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "None of the three ranks in the top 10 (QC K7 P2); searchers see AP tools (Stampli, AvidXchange, ApprovalMax, Rillion), which are not in the Auto library, so the skeleton fell back to automation platforms.",
+   "fix": "Upstream: coordinator adds AP approval vendors to rules/competitors/aab.json with sources for the approval cluster.",
+   "by": "A-r-9",
+   "via": "review",
+   "date": "2026-10-13 18:58 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_5_des",
+   "issue": "Advice that assumes QuickBooks, Xero and NetSuite all expose vendor bank details through their APIs; true for Xero contacts, less clear for QuickBooks Online US and NetSuite (bank details sit in payment add-ons). No source.",
+   "fix": "Keep as advice but hedge to the reader's system: 'If your accounting system keeps vendor bank details, read them from there.'",
+   "by": "A-r-9",
+   "via": "review",
+   "date": "2026-10-13 18:58 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 8",
+   "issue": "A definition of an industry term beyond FAQ 1 with no domain_sources entry; it matches common AP usage, so it stays a note, but plan.claims_to_source should list definitional claims too.",
+   "fix": "Upstream: writer lists term definitions in claims_to_source and sources them.",
+   "by": "A-r-9",
+   "via": "review",
+   "date": "2026-10-13 18:58 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "97a100b4475f6a44",
+   "alt:share_image": "8d19d201a0e12548",
+   "alt:tab_image_1": "77816f88d7897e36",
+   "alt:tab_image_2": "3ac58f476ed8fee2",
+   "alt:tab_image_3": "a0160bd3395d4290",
+   "alt:tab_image_4": "890c0d9165f20347",
+   "breadcrumb": "8a06482ed4847a89",
+   "chip_adds": "7a4b0688d89e573b",
+   "explore_cta": "40987e16e6976ae3",
+   "faq": "26105b3a483f23fd",
+   "feature_1": "44c985779ac2e3df",
+   "feature_2": "3fe0871cec9953c0",
+   "feature_3": "08ccc27567d3eb76",
+   "feature_4": "8a975c7a412a3a4b",
+   "feature_5": "70fa161528abb19e",
+   "feature_6": "473afe3acabed838",
+   "features_heading": "b0fee0f806b674d2",
+   "features_subheading": "2649ee4e6b59fba7",
+   "h1": "b132e0921de8cf37",
+   "hero_description": "e85c401da24d2871",
+   "hero_prompt": "4ebe852b663adc86",
+   "howto_description": "3773ecf9f50d944b",
+   "howto_step_1_des": "f3dcb2fdc49bcdcb",
+   "howto_step_1_title": "4543dde7359e374b",
+   "howto_step_2_des": "d8feb56dd4c0ab20",
+   "howto_step_2_title": "caa8baf6c8866ddb",
+   "howto_step_3_des": "2fb6632e73c31997",
+   "howto_step_3_title": "5f307658353ba638",
+   "howto_step_4_des": "af05ee66d1996a23",
+   "howto_step_4_title": "d92a2b4c20cb6994",
+   "howto_step_5_des": "023f539215519825",
+   "howto_step_5_title": "77cf0acf7a97ce93",
+   "howto_step_6_des": "b501643bd5464fe7",
+   "howto_step_6_title": "4600663d08e6903f",
+   "howto_step_7_des": "0e51df73c5cf1e29",
+   "howto_step_7_title": "1d48fae9e533750e",
+   "howto_title": "d4813f3246082720",
+   "meta_description": "92ebc6a31acdfb8a",
+   "meta_title": "8aa6386c9ffb3eb2",
+   "mockup": "9bebbbedca87a384",
+   "product_name": "358b3cbdf1d0d39b",
+   "prompt_chip_1": "1f69bf95d5d1d73f",
+   "prompt_chip_2": "b0bb86dcdf1977ce",
+   "prompt_chip_3": "e7cd2a1525b4adbd",
+   "prompt_chip_4": "d708f681ae4b5368",
+   "slug": "d8387fc9745f256a",
+   "tab_content_1": "52b46aabd5676b1b",
+   "tab_content_2": "b716dd3d529875b9",
+   "tab_content_3": "fbb00daecd701046",
+   "tab_content_4": "4df49572a4d6111b",
+   "tab_label_1": "5358b8bbd55276f5",
+   "tab_label_2": "d6c17f05b7d47eda",
+   "tab_label_3": "96067e155145bddc",
+   "tab_label_4": "86fd3b74d1bb03e4",
+   "usecase_heading": "5f00a5b59ff367dc",
+   "why_description": "5bf1564ed47c200b",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "ac76decfb902c9c7"
+  },
+  "all": "4e6b6a67492d6656",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "97a100b4475f6a44",
+   "alt:share_image": "8d19d201a0e12548",
+   "alt:tab_image_1": "77816f88d7897e36",
+   "alt:tab_image_2": "3ac58f476ed8fee2",
+   "alt:tab_image_3": "a0160bd3395d4290",
+   "alt:tab_image_4": "890c0d9165f20347",
+   "breadcrumb": "8a06482ed4847a89",
+   "chip_adds": "7a4b0688d89e573b",
+   "explore_cta": "40987e16e6976ae3",
+   "faq": "26105b3a483f23fd",
+   "feature_1": "44c985779ac2e3df",
+   "feature_2": "3fe0871cec9953c0",
+   "feature_3": "08ccc27567d3eb76",
+   "feature_4": "8a975c7a412a3a4b",
+   "feature_5": "70fa161528abb19e",
+   "feature_6": "473afe3acabed838",
+   "features_heading": "b0fee0f806b674d2",
+   "features_subheading": "2649ee4e6b59fba7",
+   "h1": "b132e0921de8cf37",
+   "hero_description": "e85c401da24d2871",
+   "hero_prompt": "4ebe852b663adc86",
+   "howto_description": "3773ecf9f50d944b",
+   "howto_step_1_des": "f3dcb2fdc49bcdcb",
+   "howto_step_1_title": "4543dde7359e374b",
+   "howto_step_2_des": "d8feb56dd4c0ab20",
+   "howto_step_2_title": "caa8baf6c8866ddb",
+   "howto_step_3_des": "2fb6632e73c31997",
+   "howto_step_3_title": "5f307658353ba638",
+   "howto_step_4_des": "af05ee66d1996a23",
+   "howto_step_4_title": "d92a2b4c20cb6994",
+   "howto_step_5_des": "023f539215519825",
+   "howto_step_5_title": "77cf0acf7a97ce93",
+   "howto_step_6_des": "b501643bd5464fe7",
+   "howto_step_6_title": "4600663d08e6903f",
+   "howto_step_7_des": "0e51df73c5cf1e29",
+   "howto_step_7_title": "1d48fae9e533750e",
+   "howto_title": "d4813f3246082720",
+   "meta_description": "92ebc6a31acdfb8a",
+   "meta_title": "8aa6386c9ffb3eb2",
+   "mockup": "9bebbbedca87a384",
+   "product_name": "358b3cbdf1d0d39b",
+   "prompt_chip_1": "1f69bf95d5d1d73f",
+   "prompt_chip_2": "b0bb86dcdf1977ce",
+   "prompt_chip_3": "e7cd2a1525b4adbd",
+   "prompt_chip_4": "d708f681ae4b5368",
+   "slug": "d8387fc9745f256a",
+   "tab_content_1": "52b46aabd5676b1b",
+   "tab_content_2": "b716dd3d529875b9",
+   "tab_content_3": "fbb00daecd701046",
+   "tab_content_4": "4df49572a4d6111b",
+   "tab_label_1": "5358b8bbd55276f5",
+   "tab_label_2": "d6c17f05b7d47eda",
+   "tab_label_3": "96067e155145bddc",
+   "tab_label_4": "86fd3b74d1bb03e4",
+   "usecase_heading": "5f00a5b59ff367dc",
+   "why_description": "5bf1564ed47c200b",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "ac76decfb902c9c7"
+  },
+  "all": "4e6b6a67492d6656",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

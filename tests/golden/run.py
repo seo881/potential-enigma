@@ -16,6 +16,7 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   qc-field       {url, field, text, expect, drop_key?, path?}  QC raises one of the expected codes when the field holds this text (or the spec
                                                           key drop_key is missing; or path, a list of keys into the spec, e.g. ["image_brief","tabs",0,"alt"], holds it)
   k7-header      {url, header, expect_k7}                 QC K7 fires on a why_table column header exactly when expect_k7 (top-10 URLs: keyword map + saved SERP)
+  qc-code-text   {url, field, text, code, match?}         QC raises exactly `code` (message containing `match`) on that field for this text
   qc-text-clean  {url, field, text, check}                 QC must NOT raise `check` on that field for this text
   qc-text        {url, field, text, check}                 QC flags `field` when it holds `text` (P0/P1 on that field)
   gate-pa12-secs {url, expect_pa12}                        PA12's secondary test fails exactly when expected (ruling 5: Semrush secondaries, bar min(6, n); none = 4 on-topic workbook ideas)
@@ -180,6 +181,10 @@ def caught(c):
     if c["kind"] == "sq-filter":           # Semrush phrase_questions filter (Divit 2026-10-13): dropped for the expected reason, or kept (None)
         import semrush_questions as SQ
         return SQ.keep_reason(c["url"], c["q"]) == c.get("expect_drop")
+    if c["kind"] == "qc-code-text":        # QC raises exactly `code` on `field` when it holds `text` (canary 2026-10-14: R15 brand + moat)
+        import qc_hub as Q, hubctl as H
+        s = copy.deepcopy(json.load(open(H.spath(c["url"])))); s["fields"][c["field"]] = c["text"]
+        return any(i["code"] == c["code"] and i["sev"] in ("P0", "P1") and c.get("match", "") in i["msg"] for i in Q.check(s, Q.load_specs([H.spath(c["url"])])))
     if c["kind"] == "qc-text-clean":       # the check must NOT flag this text (Divit 2026-10-14: C2 flags compliance claims, not a bare acronym)
         import qc_hub as Q, hubctl as H
         s = copy.deepcopy(json.load(open(H.spath(c["url"])))); s["fields"][c["field"]] = c["text"]

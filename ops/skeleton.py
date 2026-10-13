@@ -237,7 +237,9 @@ def cmd_pack(a):
         ln = f" | LINK: write the words \"{sl['link'].get('write_as') or sl['link']['anchor']}\" in the answer (code makes them the link)" if sl.get("link") else ""
         out.append(f"{sl['n']:2d}. ({sl['kind']}{', locked' if sl['locked'] else ''}) {q}{ln}")
     out += ["", "## Claims menu (cite the id in spec.claims_used; say nothing about Emergent outside these)"] + [f"- {c['id']}: {c['claim']}" for c in caps]
-    out += ["", "## Third-party facts", "Every fact about another product, a law or a professional standard needs spec.domain_sources {claim, source_url, date, quote}: `quote` is the exact span from the source that states it. No span, no claim."]
+    out += ["", "## Third-party facts", "Every fact about another product, a law or a professional standard needs spec.domain_sources {claim, source_url, date, quote}: `quote` is the exact span from the source that states it. No span, no claim.",
+            "Stay inside the span: a detail the quote does not state (how a file is sent, 'by API', a date, a number) needs its own source or comes out. GOOD: 'the buyer sends the approved invoice file to the bank' (the span). BAD: 'Emergent sends that file through the bank's API' (the span says nothing about an API).",
+            "Never put an Emergent line in an answer that names another brand: next to a cited competitor fact it reads as a comparison (QC R15, CONTENT_DEFECTS #8). Put the Emergent line in an answer that names no other company."]
     pm = os.path.join(ROOT, "docs", "PREVENTION.md")
     if os.path.exists(pm):
         txt = open(pm).read(); m = re.search(r"## (?:\d+\.\s*)?Page-pack instructions.*?(?=\n## |\Z)", txt, re.S)
