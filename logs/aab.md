@@ -18,3 +18,7 @@
 - 2026-10-13 10:49 UTC: released /ai-automation-builder/automated-loan-processing-system (was claimed) to the planned queue; spec file left in place
 - 2026-10-13 10:49 UTC: released /ai-automation-builder/sales-workflow (was claimed) to the planned queue; spec file left in place
 - 2026-10-13 10:49 UTC: released /ai-automation-builder/shipping-automation (was claimed) to the planned queue; spec file left in place
+
+## 2026-10-13 batch 3 (Divit rulings 2026-10-13; A = coordinator)
+- create_collection_items (isDraft true, L12 Learn refs) and read back: 2 batch-3 page(s) in this hub, verified by hubctl ship-cms (0 mismatches); item IDs in status/ship/batch-3.json.
+- update_collection_items isDraft false, fieldData empty (staged, not published); read back isDraft false, lastPublished empty, Learn refs present. Rollback: isDraft true on the same IDs (or delete the drafts: never published).

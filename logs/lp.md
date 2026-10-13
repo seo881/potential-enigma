@@ -16,3 +16,7 @@
 - 2026-10-12 14:04 UTC: 2026-10-12 ~14:00 UTC canary re-published on Divit's go: ebook-landing-page 6accb1512c9cca4363e93f7c update isDraft false (fields unchanged) + publish_collection_items; verify_launch + verify-live PASS.
 - 2026-10-12 16:18 UTC: 2026-10-12 ~15:20-15:45 UTC live audit 2026-10-12 fix pass (Divit: fixes on, item publishes only): update_collection_items (changed fields only) + publish_collection_items + read back on this hub's fixed items, 5 batches; before-values childedits/2026-10-12/<slug>.<issue>.before.json (fbcd8370); every page verified FIXED by hubctl live-fix verify (read-back equal + fresh Layer A). Rollback per page: ops/out/live/<issue>.rollback (live-fix verify writes it on failure; none needed).
 - 2026-10-13 08:37 UTC: 2026-10-13 ~08:30 UTC Wix 'Where submissions go' cell (Divit decision 4, Wix docs, checked 2026-10-12) on event, law-firm, mobile, pricing: update_collection_items why_table + publish_collection_items; before-values childedits/2026-10-13/*-V3-1.before.json (507f1480); live-fix verify FIXED x4.
+
+## 2026-10-13 batch 3 (Divit rulings 2026-10-13; A = coordinator)
+- create_collection_items (isDraft true, L12 Learn refs) and read back: 4 batch-3 page(s) in this hub, verified by hubctl ship-cms (0 mismatches); item IDs in status/ship/batch-3.json.
+- update_collection_items isDraft false, fieldData empty (staged, not published); read back isDraft false, lastPublished empty, Learn refs present. Rollback: isDraft true on the same IDs (or delete the drafts: never published).

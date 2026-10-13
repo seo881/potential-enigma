@@ -76,13 +76,14 @@ def load_st(hub):
     return json.load(open(p)) if os.path.exists(p) else {"hub": hub, "pages": {}}
 def save_st(hub, st): json.dump(st, open(st_path(hub), "w"), indent=1, sort_keys=True)
 def clone_pin():
-    """(account, hubs) of this clone from .hub: "A:LP,SurveyQuiz" (coordinator) or "B:Form,Auto" (writer); docs/TWO_ACCOUNTS.md.
+    """(account, hubs) of this clone from .hub: "A:LP" (coordinator) or "B:Form,Auto,SurveyQuiz" (writer); docs/TWO_ACCOUNTS.md.
     Ownership maps by clone, not by the letter in an agent id (Divit 2026-10-13, ruling 0). Without a letter: ~/emergent-hubs-a is B."""
     pin = os.path.join(ROOT, ".hub"); raw = open(pin).read().strip() if os.path.exists(pin) else ""
     acct, _, hubs = raw.partition(":") if ":" in raw else ("", "", raw)
     acct = acct.strip().upper() or ("B" if os.path.basename(ROOT.rstrip("/")) == "emergent-hubs-a" else "A")
     return acct, [h.strip() for h in hubs.split(",") if h.strip()]
 def clone_account(): return clone_pin()[0]
+WRITER_HUBS = ("Form", "Auto", "SurveyQuiz")   # Account B, the writer (ruling 9, Divit 2026-10-13); A writes LP
 def need_by(args, cmd):
     """Every claim and state change names its agent (Divit 2026-10-13): coordinator agents A-<role>-<n>, writer agents B-w-<n>.
     An id carrying the other clone's letter is refused (A- only in A's clone, B- only in B's)."""
@@ -869,7 +870,7 @@ def cmd_recheck(args):
         if only is not None and st_ not in only: continue
         # ruling 8 (Divit 2026-10-13): never touch a page the other account holds; B's claimed/rework pages wait for the end of B's wave
         if e_.get("hold") and hold_account(e_["hold"]) != clone_account(): print(f"  SKIP (held by {hold_account(e_['hold'])}) {s['url']}"); continue
-        if "--include-b" not in args and clone_account() == "A" and hub_of(s["url"]) in ("Form", "Auto") and st_ in ("claimed", "rework"): continue
+        if "--include-b" not in args and clone_account() == "A" and hub_of(s["url"]) in WRITER_HUBS and st_ in ("claimed", "rework"): continue
         r = subprocess.run([sys.executable, os.path.join(ROOT, "qc", "qc_hub.py"), s["_path"]], capture_output=True, text=True); rc = r.returncode; n += 1
         if rc: print(f"  FAIL {s['url']} ({st_}): " + ",".join(sorted({m.group(2) for m in re.finditer(r"^  (P0|P1) (\S+)", r.stdout, re.M)})))
         else: ok += 1

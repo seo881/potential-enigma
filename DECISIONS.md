@@ -3,6 +3,7 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-13
+- **Ruling 9 (Divit, 2026-10-13): SurveyQuiz writing moves to B.** A keeps LP writing, every review (full and slim, B's SurveyQuiz pages included), all Webflow, rules and tooling, and shipping. B writes Form, Auto and SurveyQuiz. `.hub`: `A:LP` and `B:Form,Auto,SurveyQuiz`. The 4 batch-3 SurveyQuiz pages stay A-coord held and ship with A.
 - **Naming (Divit, 2026-10-13, ruling 0):**
   - **Account A = the coordinator** (`~/emergent-hubs`): LP and SurveyQuiz writing, every review, the only Webflow writer, rules and tooling, shipping.
   - **Account B = the writer** (`~/emergent-hubs-a`): Form and Automation.
