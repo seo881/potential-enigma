@@ -115,6 +115,13 @@
    "via": null,
    "by": "A-coord",
    "note": ""
+  },
+  {
+   "t": "2026-10-13 23:42 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-16",
+   "note": "rubric 10/10 by A-r-16; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -957,5 +964,285 @@
  },
  "writers": [
   "A-w-79"
- ]
+ ],
+ "review": {
+  "by": "A-r-16",
+  "date": "2026-10-13 23:42 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Medical History Form That Stays Current', meta 'Medical History Form Builder for Clinics | Emergent'; hero 'Build a medical history form patients finish on a phone and confirm each year, with every answer kept in a database you own.' (124 chars, primary, leads with Build)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "AMBER angle (practice-facing builder) carried: section order (step 2), contents (FAQ 1), format (FAQ 10), who completes it (FAQ 3), where to get one and HIPAA access (FAQ 8); health screening merge covered in tab 4 and FAQ 5-6."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Clinical vocabulary: 'lisinopril 10 mg daily', 'warfarin before his hernia repair', 'epinephrine auto-injector', 'age at disease diagnosis'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs ('Asks about each condition', 'Reads a scanned paper history', 'Builds the page a clinician opens'); tabs open on the practice doing something."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5 clean; one idea per sentence, e.g. 'A question with no reader comes out.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail: 'Dr. Ruth Calloway opens his chart to those 2 changes first.'; 'She gets an email and calls him that afternoon.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "HIPAA right of access and written-request facts match 45 CFR 164.524 quotes; CDC family history items match the CDC quote; capabilities map to prompt-build, ai-extraction, alerts, conversational, no-caps, free-start."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Annual updates, family history by relative, pre-op alerts and camp screening are distinct from intake siblings; no sibling primary in a heading (FAQ 4 links intake form in prose)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "Exactly 10 questions, none with a brand or file format; hub link in item 2; links to intake form, massage intake form, booking form; F9 lines in items 6 and 7."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab copy and images agree: '2 changes for Dr. Calloway', mother 52 / brother 38 'Listed first', 'Walter Brandt lists warfarin' to Hana Okafor, 'List for Joel Ferreira: 9 campers'. The AGE column is age at diagnosis per copy and alt (uncle, asthma, 9 is a plausible diagnosis age); header wording logged as a note."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "tab_image_2",
+    "quote": "columns Relative / Condition / Age / Summary; row 'Uncle, Asthma, 9'",
+    "issue": "Tab copy ('the age at diagnosis') and alt ('condition and age at diagnosis') define the number, but the drawn header 'Age' reads as current age to someone looking at the image alone, so 'Uncle ... 9' looks odd.",
+    "fix": "Head the column 'Age at diagnosis' (or 'Diagnosed at').",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "howto_step_4_des",
+    "quote": "names major medical conditions, causes of death, and age at disease diagnosis as the details to include. Give each of the three its own column.",
+    "issue": "The how-to asks for three columns, and the tab 2 family history table shows only condition and age (no cause of death).",
+    "fix": "Not a contradiction of the tab story; consider aligning the drawn table with the advice.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq items 1, 9, 10",
+    "quote": "What does the medical history form include? / What are medical history forms? / What is the format for a medical history form?",
+    "issue": "Three answers walk through the same sections (conditions, medications, family history, signature and date) with words swapped.",
+    "fix": "Let each answer add one thing the others do not (item 9: when it is asked for; item 10: layout only).",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "page",
+    "quote": "AMBER: Winnable with a practice-facing builder angle and a ready template.",
+    "issue": "The template content is present but split across howto_step_2_des, FAQ 1 and FAQ 10; no single place reads as the ready template the AMBER note asks for.",
+    "fix": "In a later pass, gather the section list into one answer or step a reader could copy.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 4",
+    "quote": "When should a medical history form template stand on its own?",
+    "issue": "A question shaped to carry the secondary rather than one a searcher types.",
+    "fix": "e.g. 'What should a medical history form template include?' if not duplicating item 1, or another secondary question.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "tab_image_2",
+   "issue": "Tab copy ('the age at diagnosis') and alt ('condition and age at diagnosis') define the number, but the drawn header 'Age' reads as current age to someone looking at the image alone, so 'Uncle ... 9' looks odd.",
+   "fix": "Head the column 'Age at diagnosis' (or 'Diagnosed at').",
+   "by": "A-r-16",
+   "via": "review",
+   "date": "2026-10-13 23:42 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "howto_step_4_des",
+   "issue": "The how-to asks for three columns, and the tab 2 family history table shows only condition and age (no cause of death).",
+   "fix": "Not a contradiction of the tab story; consider aligning the drawn table with the advice.",
+   "by": "A-r-16",
+   "via": "review",
+   "date": "2026-10-13 23:42 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq items 1, 9, 10",
+   "issue": "Three answers walk through the same sections (conditions, medications, family history, signature and date) with words swapped.",
+   "fix": "Let each answer add one thing the others do not (item 9: when it is asked for; item 10: layout only).",
+   "by": "A-r-16",
+   "via": "review",
+   "date": "2026-10-13 23:42 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "page",
+   "issue": "The template content is present but split across howto_step_2_des, FAQ 1 and FAQ 10; no single place reads as the ready template the AMBER note asks for.",
+   "fix": "In a later pass, gather the section list into one answer or step a reader could copy.",
+   "by": "A-r-16",
+   "via": "review",
+   "date": "2026-10-13 23:42 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 4",
+   "issue": "A question shaped to carry the secondary rather than one a searcher types.",
+   "fix": "e.g. 'What should a medical history form template include?' if not duplicating item 1, or another secondary question.",
+   "by": "A-r-16",
+   "via": "review",
+   "date": "2026-10-13 23:42 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "0f3e0088c67827af",
+   "alt:share_image": "eef8cee71239e664",
+   "alt:tab_image_1": "d372d65cf9f43234",
+   "alt:tab_image_2": "aba579daf8bd9be3",
+   "alt:tab_image_3": "0526e0185945b57d",
+   "alt:tab_image_4": "0147fc22f9416f1c",
+   "breadcrumb": "8bce73a81cd9a7ea",
+   "chip_adds": "eae5975986697532",
+   "explore_cta": "9cbf294c740cc2af",
+   "faq": "1d83960e8fee372c",
+   "feature_1": "a3fb63b33a93306a",
+   "feature_2": "716e9f3519a0e024",
+   "feature_3": "ad5e7e6c137d8d49",
+   "feature_4": "a816dcdfb5924b55",
+   "feature_5": "bf2f19bd29103fa1",
+   "feature_6": "7225ea221f3752f0",
+   "features_heading": "648aabb8225cf0f0",
+   "features_subheading": "cb9bd853ffdec088",
+   "h1": "8801ad0999cdd6f5",
+   "hero_description": "7f8136848ebfb712",
+   "hero_prompt": "4fb7354b0351a177",
+   "howto_description": "7ba07d0ddb141627",
+   "howto_step_1_des": "700f91f5f99e23c2",
+   "howto_step_1_title": "fe63047efb60e76f",
+   "howto_step_2_des": "084765b22435b261",
+   "howto_step_2_title": "f02b3d897e784c6e",
+   "howto_step_3_des": "5f3ff0abec8b5af9",
+   "howto_step_3_title": "cd3dca910e12f18f",
+   "howto_step_4_des": "bf56a6a0a84f4206",
+   "howto_step_4_title": "d2bbbca99e5be1d9",
+   "howto_step_5_des": "1733cece8e19cb4f",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "236e40a5e1a84b0b",
+   "howto_step_6_title": "4c9864dd1f9df0c2",
+   "howto_step_7_des": "7b71e0709c598bdd",
+   "howto_step_7_title": "bd211c6848c4e521",
+   "howto_title": "c6af50fc6b75aaa0",
+   "meta_description": "f483e726fc759fa1",
+   "meta_title": "fc0eac12158ea07b",
+   "mockup": "5eac4c2fd173459f",
+   "product_name": "f8a522afeba0ef86",
+   "prompt_chip_1": "9312860088a2df75",
+   "prompt_chip_2": "026f45f01d4d29f2",
+   "prompt_chip_3": "b612a6f619b11fbf",
+   "prompt_chip_4": "5c74d1700ac9d55d",
+   "slug": "17241030dded7fe1",
+   "tab_content_1": "b9d52415cf1284ff",
+   "tab_content_2": "edefbcab643ef9df",
+   "tab_content_3": "dc98611ec90a5133",
+   "tab_content_4": "80f40d1d178f3775",
+   "tab_label_1": "1a7a9c0395b8364e",
+   "tab_label_2": "47b182a9c0568bb8",
+   "tab_label_3": "3f576e4b72dfed44",
+   "tab_label_4": "1223b5601406520d",
+   "usecase_heading": "1337a6fc9f92b8b6",
+   "why_description": "de23ec1131b39b13",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "99577b40a4e8025c"
+  },
+  "all": "6e7deda3393ffbd2",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "0f3e0088c67827af",
+   "alt:share_image": "eef8cee71239e664",
+   "alt:tab_image_1": "d372d65cf9f43234",
+   "alt:tab_image_2": "aba579daf8bd9be3",
+   "alt:tab_image_3": "0526e0185945b57d",
+   "alt:tab_image_4": "0147fc22f9416f1c",
+   "breadcrumb": "8bce73a81cd9a7ea",
+   "chip_adds": "eae5975986697532",
+   "explore_cta": "9cbf294c740cc2af",
+   "faq": "1d83960e8fee372c",
+   "feature_1": "a3fb63b33a93306a",
+   "feature_2": "716e9f3519a0e024",
+   "feature_3": "ad5e7e6c137d8d49",
+   "feature_4": "a816dcdfb5924b55",
+   "feature_5": "bf2f19bd29103fa1",
+   "feature_6": "7225ea221f3752f0",
+   "features_heading": "648aabb8225cf0f0",
+   "features_subheading": "cb9bd853ffdec088",
+   "h1": "8801ad0999cdd6f5",
+   "hero_description": "7f8136848ebfb712",
+   "hero_prompt": "4fb7354b0351a177",
+   "howto_description": "7ba07d0ddb141627",
+   "howto_step_1_des": "700f91f5f99e23c2",
+   "howto_step_1_title": "fe63047efb60e76f",
+   "howto_step_2_des": "084765b22435b261",
+   "howto_step_2_title": "f02b3d897e784c6e",
+   "howto_step_3_des": "5f3ff0abec8b5af9",
+   "howto_step_3_title": "cd3dca910e12f18f",
+   "howto_step_4_des": "bf56a6a0a84f4206",
+   "howto_step_4_title": "d2bbbca99e5be1d9",
+   "howto_step_5_des": "1733cece8e19cb4f",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "236e40a5e1a84b0b",
+   "howto_step_6_title": "4c9864dd1f9df0c2",
+   "howto_step_7_des": "7b71e0709c598bdd",
+   "howto_step_7_title": "bd211c6848c4e521",
+   "howto_title": "c6af50fc6b75aaa0",
+   "meta_description": "f483e726fc759fa1",
+   "meta_title": "fc0eac12158ea07b",
+   "mockup": "5eac4c2fd173459f",
+   "product_name": "f8a522afeba0ef86",
+   "prompt_chip_1": "9312860088a2df75",
+   "prompt_chip_2": "026f45f01d4d29f2",
+   "prompt_chip_3": "b612a6f619b11fbf",
+   "prompt_chip_4": "5c74d1700ac9d55d",
+   "slug": "17241030dded7fe1",
+   "tab_content_1": "b9d52415cf1284ff",
+   "tab_content_2": "edefbcab643ef9df",
+   "tab_content_3": "dc98611ec90a5133",
+   "tab_content_4": "80f40d1d178f3775",
+   "tab_label_1": "1a7a9c0395b8364e",
+   "tab_label_2": "47b182a9c0568bb8",
+   "tab_label_3": "3f576e4b72dfed44",
+   "tab_label_4": "1223b5601406520d",
+   "usecase_heading": "1337a6fc9f92b8b6",
+   "why_description": "de23ec1131b39b13",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "99577b40a4e8025c"
+  },
+  "all": "6e7deda3393ffbd2",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

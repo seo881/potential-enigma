@@ -121,6 +121,13 @@
    "via": null,
    "by": "A-coord",
    "note": ""
+  },
+  {
+   "t": "2026-10-13 23:42 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-16",
+   "note": "[truth | HUB_RULES 8; CONTENT_DEFECTS #14] feature_2: The heading says every lead goes to one named person, and the body's own example is a branch, not a person. Tab 1 contradicts it ('Tune-ups wait in the queue of the branch that serves that ZIP'), as do tab 2 ('Leads under 60 get the monthly newsl"
   }
  ],
  "pipeline": "r15",
@@ -1096,5 +1103,285 @@
  },
  "writers": [
   "A-w-82"
- ]
+ ],
+ "review": {
+  "by": "A-r-16",
+  "date": "2026-10-13 23:42 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "Meta title 'Lead Capture Form Builder That Routes Leads | Emergent' and hero 'Build a lead capture form that sorts each lead as it arrives, alerts the right rep, and saves it to a database you own.' (119 chars, primary, leads with Build) cover the whole job; how-to description is one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is templates, form products and field-count guides; the page answers the definition (FAQ 1), an example (FAQ 3), field counts (FAQ 5), placement on a site, social profile and landing page (FAQ 8-10) and a 7-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'the branch that covers a ZIP code', 'the rep who owns accounts over 100 employees', 'campaign tag', 'map every form field to a CRM property'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Furrowfield Heating and Air runs a North and a South branch.', 'Asks what a rep needs before the first call', 'Decide what the visitor gets for their details'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5 clean; sentences carry one idea, e.g. 'Name and email are fixed.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: 'A request marked No heat goes to Dale Wexford, the on-call dispatcher, in a Slack direct message with the address and phone.'"
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "The page says every lead reaches a person while its own tabs send most leads to a queue, newsletter or list: h1 'Build a Lead Capture Form That Gets Each Lead to a Rep'; features_subheading 'These six parts get each lead to the person who should call it.'; feature_2 '<h3>Each lead routed to one named person</h3>' / 'Sends each lead to one person by rule, such as the branch that covers a ZIP code'; share_image alt 'Build a lead capture form that gets each lead to a rep, with Emergent'. Contradicted by tab 1 'Tune-ups wait in the queue of the branch that serves that ZIP', tab 2 'Leads under 60 get the monthly newsletter', tab 4 'the rest went to the marketing list'."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Four distinct stories (no-heat dispatch, 60-point scoring, second-guide warm flag, booth tally); no sibling primary (contact, quote, demo request form) in any heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "Exactly 10 questions, no brand or file format in a question; hub link in item 2; links to interest form, sign up form, lead generation landing page; F9 lines in items 6, 8, 10."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: Dale Wexford / 'No heat at the Pellham home', 'Corbin Thayer scored 72' / '120 employees on payroll', 'Joel Arceneaux is warm' to Priya Halvorsen, '64 total' with 11 + 29 + 24."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8; CONTENT_DEFECTS #14",
+    "field": "feature_2",
+    "quote": "<h3>Each lead routed to one named person</h3><p>Sends each lead to one person by rule, such as the branch that covers a ZIP code",
+    "issue": "The heading says every lead goes to one named person, and the body's own example is a branch, not a person. Tab 1 contradicts it ('Tune-ups wait in the queue of the branch that serves that ZIP'), as do tab 2 ('Leads under 60 get the monthly newsletter') and tab 4 ('the rest went to the marketing list').",
+    "fix": "Say the rule decides where each lead goes and a named person gets the alert, e.g. title 'Each lead routed by a rule you write', body naming a branch queue or a rep as destinations; keep 165-182 chars.",
+    "severity": "blocking"
+   },
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "h1",
+    "quote": "Build a Lead Capture Form That Gets Each Lead to a Rep",
+    "issue": "Same class as feature_2: the H1 promises every lead reaches a rep, but tab 2 sends leads under 60 to the monthly newsletter and tab 4 sends 53 of 64 booth leads to the marketing list.",
+    "fix": "An H1 the tabs bear out, e.g. 'Build a Lead Capture Form That Routes Every Lead' (matches the og headline); differ from the meta title, 70 chars max.",
+    "severity": "blocking"
+   },
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "features_subheading",
+    "quote": "These six parts get each lead to the person who should call it.",
+    "issue": "Same class: not every lead on the page goes to a person who calls it (newsletter, marketing list, branch queue).",
+    "fix": "e.g. 'These six parts decide where each lead goes and who hears about it.'",
+    "severity": "blocking"
+   },
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "images.share_image.alt",
+    "quote": "Build a lead capture form that gets each lead to a rep, with Emergent",
+    "issue": "Same class, in the share image alt; it restates the H1 claim the tabs contradict.",
+    "fix": "Match the corrected H1, e.g. 'Build a lead capture form that routes every lead, with Emergent'.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 10",
+    "quote": "How do you add a lead capture form to a landing page?",
+    "issue": "The recorded source is 'how do you add a lead capture form to instagra', so the question is not the searcher's phrasing; item 5 'How many fields should lead capture forms have?' likewise records 'how to create lead capture forms'.",
+    "fix": "Record a source that is the question (a keyword idea or related search), or choose a question the recorded source supports.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq items 8 and 9",
+    "quote": "Add a hidden field for the page address, and every lead records where it came in. / Add a hidden source field set to the channel name",
+    "issue": "The hidden source-field advice appears in two answers back to back, after feature_3 already says each lead is saved 'with the page it came from'.",
+    "fix": "Keep it once; give the other answer a different practical detail.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "tab_image_2",
+    "quote": "scores each lead from its payroll software pricing page on company size, start date, and job title",
+    "issue": "The table draws Staff and Starts but no job title column, so one of the three scoring inputs the copy names is missing from the image.",
+    "fix": "Add a short Role column or drop job title from the copy.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 10",
+   "issue": "The recorded source is 'how do you add a lead capture form to instagra', so the question is not the searcher's phrasing; item 5 'How many fields should lead capture forms have?' likewise records 'how to create lead capture forms'.",
+   "fix": "Record a source that is the question (a keyword idea or related search), or choose a question the recorded source supports.",
+   "by": "A-r-16",
+   "via": "review",
+   "date": "2026-10-13 23:42 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq items 8 and 9",
+   "issue": "The hidden source-field advice appears in two answers back to back, after feature_3 already says each lead is saved 'with the page it came from'.",
+   "fix": "Keep it once; give the other answer a different practical detail.",
+   "by": "A-r-16",
+   "via": "review",
+   "date": "2026-10-13 23:42 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "tab_image_2",
+   "issue": "The table draws Staff and Starts but no job title column, so one of the three scoring inputs the copy names is missing from the image.",
+   "fix": "Add a short Role column or drop job title from the copy.",
+   "by": "A-r-16",
+   "via": "review",
+   "date": "2026-10-13 23:42 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "7192f771e678ed2d",
+   "alt:share_image": "a9d4b02216c4c97e",
+   "alt:tab_image_1": "973a7e405013341a",
+   "alt:tab_image_2": "6a457c0c2fbe59e4",
+   "alt:tab_image_3": "3c69dd05a81bde31",
+   "alt:tab_image_4": "08a4089b56c72743",
+   "breadcrumb": "a601a0b5688103ba",
+   "chip_adds": "2817e0fbcbc16acf",
+   "explore_cta": "1b6f8c063ca75d6b",
+   "faq": "b45f1e7e45eeb1b8",
+   "feature_1": "e92de8e60d5a88dc",
+   "feature_2": "b713d60f2b77fdf4",
+   "feature_3": "4d6f4c7ee346da09",
+   "feature_4": "d44adfc67c51b5de",
+   "feature_5": "78e5e66fc98a4f6d",
+   "feature_6": "f4bb0b93f7cf509c",
+   "features_heading": "3a36a11c2d6410b8",
+   "features_subheading": "dfac2f0308946ae8",
+   "h1": "8d10fcfb87040ac3",
+   "hero_description": "814f500885cc2bf5",
+   "hero_prompt": "9e9a8d008f702a25",
+   "howto_description": "71d81eaafa57cf2b",
+   "howto_step_1_des": "9ef063baf3dd9a6a",
+   "howto_step_1_title": "fa747e7f91436b3d",
+   "howto_step_2_des": "a0448cd82c1d33f2",
+   "howto_step_2_title": "9cf27f07bb37c226",
+   "howto_step_3_des": "93e5c48d69e70907",
+   "howto_step_3_title": "0474efa026f070db",
+   "howto_step_4_des": "c68fdaa45bf57a3c",
+   "howto_step_4_title": "5039cbba946d5010",
+   "howto_step_5_des": "c8f3115238821fa6",
+   "howto_step_5_title": "4ada471fc6031bfa",
+   "howto_step_6_des": "30e9e1e5c4c7ec4c",
+   "howto_step_6_title": "b9d8c43675f7aff9",
+   "howto_step_7_des": "285b6d876d6917ca",
+   "howto_step_7_title": "5765f942a84b490f",
+   "howto_title": "031763fc628b00f6",
+   "meta_description": "337af70a341f9805",
+   "meta_title": "cf7ec5e8128f7fd9",
+   "mockup": "fa37225bfb5067a5",
+   "product_name": "8867ca5577f0c601",
+   "prompt_chip_1": "ad80f1e964d7a240",
+   "prompt_chip_2": "d5bbf9062185ba0b",
+   "prompt_chip_3": "0e4dfb4eb7461fef",
+   "prompt_chip_4": "c17767afde5d8c55",
+   "slug": "557c1c4c4ec63a45",
+   "tab_content_1": "1eb36588aa0211dc",
+   "tab_content_2": "87924b47b9568b21",
+   "tab_content_3": "df6a8175068e09a7",
+   "tab_content_4": "d5b66c00e240515b",
+   "tab_label_1": "e2e112e5cdb50a4f",
+   "tab_label_2": "6c26897c00e92397",
+   "tab_label_3": "f044c4079781885b",
+   "tab_label_4": "a0e9c7f4ea3a0779",
+   "usecase_heading": "0ac137c459321b50",
+   "why_description": "d6b89df13c72d7b7",
+   "why_table": "71124087b327497b",
+   "why_title": "489b1e0b8afbe035"
+  },
+  "all": "22e0c5d856e773a4",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "7192f771e678ed2d",
+   "alt:share_image": "a9d4b02216c4c97e",
+   "alt:tab_image_1": "973a7e405013341a",
+   "alt:tab_image_2": "6a457c0c2fbe59e4",
+   "alt:tab_image_3": "3c69dd05a81bde31",
+   "alt:tab_image_4": "08a4089b56c72743",
+   "breadcrumb": "a601a0b5688103ba",
+   "chip_adds": "2817e0fbcbc16acf",
+   "explore_cta": "1b6f8c063ca75d6b",
+   "faq": "b45f1e7e45eeb1b8",
+   "feature_1": "e92de8e60d5a88dc",
+   "feature_2": "b713d60f2b77fdf4",
+   "feature_3": "4d6f4c7ee346da09",
+   "feature_4": "d44adfc67c51b5de",
+   "feature_5": "78e5e66fc98a4f6d",
+   "feature_6": "f4bb0b93f7cf509c",
+   "features_heading": "3a36a11c2d6410b8",
+   "features_subheading": "dfac2f0308946ae8",
+   "h1": "8d10fcfb87040ac3",
+   "hero_description": "814f500885cc2bf5",
+   "hero_prompt": "9e9a8d008f702a25",
+   "howto_description": "71d81eaafa57cf2b",
+   "howto_step_1_des": "9ef063baf3dd9a6a",
+   "howto_step_1_title": "fa747e7f91436b3d",
+   "howto_step_2_des": "a0448cd82c1d33f2",
+   "howto_step_2_title": "9cf27f07bb37c226",
+   "howto_step_3_des": "93e5c48d69e70907",
+   "howto_step_3_title": "0474efa026f070db",
+   "howto_step_4_des": "c68fdaa45bf57a3c",
+   "howto_step_4_title": "5039cbba946d5010",
+   "howto_step_5_des": "c8f3115238821fa6",
+   "howto_step_5_title": "4ada471fc6031bfa",
+   "howto_step_6_des": "30e9e1e5c4c7ec4c",
+   "howto_step_6_title": "b9d8c43675f7aff9",
+   "howto_step_7_des": "285b6d876d6917ca",
+   "howto_step_7_title": "5765f942a84b490f",
+   "howto_title": "031763fc628b00f6",
+   "meta_description": "337af70a341f9805",
+   "meta_title": "cf7ec5e8128f7fd9",
+   "mockup": "fa37225bfb5067a5",
+   "product_name": "8867ca5577f0c601",
+   "prompt_chip_1": "ad80f1e964d7a240",
+   "prompt_chip_2": "d5bbf9062185ba0b",
+   "prompt_chip_3": "0e4dfb4eb7461fef",
+   "prompt_chip_4": "c17767afde5d8c55",
+   "slug": "557c1c4c4ec63a45",
+   "tab_content_1": "1eb36588aa0211dc",
+   "tab_content_2": "87924b47b9568b21",
+   "tab_content_3": "df6a8175068e09a7",
+   "tab_content_4": "d5b66c00e240515b",
+   "tab_label_1": "e2e112e5cdb50a4f",
+   "tab_label_2": "6c26897c00e92397",
+   "tab_label_3": "f044c4079781885b",
+   "tab_label_4": "a0e9c7f4ea3a0779",
+   "usecase_heading": "0ac137c459321b50",
+   "why_description": "d6b89df13c72d7b7",
+   "why_table": "71124087b327497b",
+   "why_title": "489b1e0b8afbe035"
+  },
+  "all": "22e0c5d856e773a4",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

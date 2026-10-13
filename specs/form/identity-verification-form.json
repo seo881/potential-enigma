@@ -115,6 +115,13 @@
    "via": null,
    "by": "A-coord",
    "note": ""
+  },
+  {
+   "t": "2026-10-13 23:42 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-16",
+   "note": "[faq | HUB_RULES 5] faq item 9: The question names a third-party company (ME Bank), which the PA14 launch-blocker rule bars from FAQ questions (brands only in answers); the gate missed it because 'Me' sits at the start of the sentence. It is also a fragment with no question word. No other FAQ questi"
   }
  ],
  "pipeline": "r15",
@@ -1016,5 +1023,255 @@
  },
  "writers": [
   "A-w-84"
- ]
+ ],
+ "review": {
+  "by": "A-r-16",
+  "date": "2026-10-13 23:42 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Identity Verification Form With ID Review'; hero 'Build an identity verification form that reads uploaded IDs into fields and sends each case to a reviewer you choose.' (117 chars, primary, Build); no claim that the form itself verifies identity."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "AMBER 'keep only as a KYC-style builder page' carried: four identity fields, ID read into fields, reviewer decision; KYC minimum under 31 CFR 1020.220 (FAQ 5); where to get one (FAQ 3); notarized (FAQ 10)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Approve, reject, or ask for a new photo', 'a reminder for any case still open after 2 days, and an escalation to the team lead at 4 days', 'marks each as seen in person'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Full-sentence openers: 'Odette Varga applies for a loan with Tallgrass Lending', 'The form asks for legal name, date of birth...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC clean; two ', so' endings (FAQ 6, 7), at the limit, not over."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Will Hargrove's driver's license expired in August, and his request goes back to him with a note asking for a current ID.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "31 CFR 1020.220, Cal. Civil Code 1185, Australia Post and ME Bank statements each match a domain_sources quote; capabilities map to ai-extraction, e-signature-capture (no legal-validity claim), alerts, custom-domain."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Lending, title closing, account recovery and transcript tabs; address verification form (sibling) is not headlined."
+   },
+   "faq": {
+    "result": "fail",
+    "evidence": "FAQ item 9 question 'Me bank identity verification form?' names a third-party company (ME Bank), which PA14 bars from FAQ questions, and is a fragment rather than a question."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "'4 fields read' with address at 61% to Kwame Ellison, '2 of 2 IDs seen' marked by Hana Lindqvist, 'License expired in August' / 'Aug 2026' sent back, Slack 'class of 2014' / 'Enrolled as Marisol Pike'."
+   }
+  },
+  "findings": [
+   {
+    "class": "structure",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 9",
+    "quote": "Me bank identity verification form?",
+    "issue": "The question names a third-party company (ME Bank), which the PA14 launch-blocker rule bars from FAQ questions (brands only in answers); the gate missed it because 'Me' sits at the start of the sentence. It is also a fragment with no question word. No other FAQ question names a brand (items 4 and 8 'land title' are generic).",
+    "fix": "Replace item 9 with an unbranded searcher question from the keyword ideas or related searches (e.g. an online identity verification form question), record its source, keep 10 items; move any ME Bank detail into an answer only if it still serves.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq items 4 and 8",
+    "quote": "What is a land title identity verification form? / How to fill out land title identity verification form?",
+    "issue": "Two of ten items (three with item 9) serve Australian land-title and Australia Post searches recorded at volume 0 in the US database, on a US-targeted page.",
+    "fix": "Keep one land-title item at most; prefer US-relevant questions when the PAA gate allows.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq items 4 and 10",
+    "quote": "If you are setting up a US closing instead, keep bank details off the identity form and collect them on a separate ACH form. / Card details for the same request go on a separate credit card authorization form.",
+    "issue": "Link sentences that do not follow from the answer (a notarized identity form has no card details).",
+    "fix": "Anchor the sibling link in a sentence that belongs to the answer.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #15",
+    "field": "tab_image_3",
+    "quote": "Joel Amankwah, Feb 2028, To agent",
+    "issue": "True today, but from March 2028 the image shows an expired ID routed to an agent under a rule that sends expired IDs back.",
+    "fix": "Use a later expiry (2030 or beyond) for the IDs marked current.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq items 4 and 8",
+   "issue": "Two of ten items (three with item 9) serve Australian land-title and Australia Post searches recorded at volume 0 in the US database, on a US-targeted page.",
+   "fix": "Keep one land-title item at most; prefer US-relevant questions when the PAA gate allows.",
+   "by": "A-r-16",
+   "via": "review",
+   "date": "2026-10-13 23:42 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq items 4 and 10",
+   "issue": "Link sentences that do not follow from the answer (a notarized identity form has no card details).",
+   "fix": "Anchor the sibling link in a sentence that belongs to the answer.",
+   "by": "A-r-16",
+   "via": "review",
+   "date": "2026-10-13 23:42 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #15",
+   "field": "tab_image_3",
+   "issue": "True today, but from March 2028 the image shows an expired ID routed to an agent under a rule that sends expired IDs back.",
+   "fix": "Use a later expiry (2030 or beyond) for the IDs marked current.",
+   "by": "A-r-16",
+   "via": "review",
+   "date": "2026-10-13 23:42 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "1a5ced92b3d896c2",
+   "alt:share_image": "6df7925e28783f17",
+   "alt:tab_image_1": "e80e343c5b0f1f0e",
+   "alt:tab_image_2": "7bf4ee9bc5b02428",
+   "alt:tab_image_3": "8f371eb80eee0fc8",
+   "alt:tab_image_4": "3c0aa64ddd528fb5",
+   "breadcrumb": "e471a02c0efa911e",
+   "chip_adds": "6540debd18e60b19",
+   "explore_cta": "aa87ba4177b7842e",
+   "faq": "4e56c7d1275aefcb",
+   "feature_1": "4d6b6eca4b885f65",
+   "feature_2": "3d6315d0820c5fee",
+   "feature_3": "8e201e83652a256c",
+   "feature_4": "6ed8e5ea76043fce",
+   "feature_5": "6d74c6a0cbc7567a",
+   "feature_6": "0bf5ff7053daad3b",
+   "features_heading": "3b4554e497cea841",
+   "features_subheading": "0a6844fd63d4ca91",
+   "h1": "54c704d2e76739e2",
+   "hero_description": "a5fc41d86344ebd2",
+   "hero_prompt": "f44dcde03ee9f97f",
+   "howto_description": "ad242b9fa3a23f6d",
+   "howto_step_1_des": "d9c63597c6ea9b39",
+   "howto_step_1_title": "39d0a8a401c2b160",
+   "howto_step_2_des": "36ff2c0f33118f4a",
+   "howto_step_2_title": "6d7ea1e3b02df4cc",
+   "howto_step_3_des": "eafa0d167c7fde81",
+   "howto_step_3_title": "cf836fa4daa10805",
+   "howto_step_4_des": "262524def760701a",
+   "howto_step_4_title": "e35d94545fde8408",
+   "howto_step_5_des": "a52d6f5ffc3d5784",
+   "howto_step_5_title": "10c846a1dff53c80",
+   "howto_step_6_des": "8d50ca87f550e8d8",
+   "howto_step_6_title": "c53cb24331ff732e",
+   "howto_step_7_des": "ebe7418fda1e7659",
+   "howto_step_7_title": "47f07b3b3fd6e151",
+   "howto_title": "d5b3e927f2931183",
+   "meta_description": "1f8fba7a76a3546d",
+   "meta_title": "27d92851841be56d",
+   "mockup": "c9d6b4505c95b951",
+   "product_name": "431df6c86160fb71",
+   "prompt_chip_1": "f4d67358bb80dc3d",
+   "prompt_chip_2": "f7a415188f7a531f",
+   "prompt_chip_3": "fadbad65c194d0e7",
+   "prompt_chip_4": "ef8cb7749553a44d",
+   "slug": "2e45284c5cbbfa92",
+   "tab_content_1": "192836879ffb6ebd",
+   "tab_content_2": "7d607e5f048db4e7",
+   "tab_content_3": "871a1491f42ac751",
+   "tab_content_4": "049664032af8e91f",
+   "tab_label_1": "bc562c1f24ce4b36",
+   "tab_label_2": "9c9858bee9535733",
+   "tab_label_3": "29c797499ab819b2",
+   "tab_label_4": "2874569ba7122559",
+   "usecase_heading": "d15b95e9fd227664",
+   "why_description": "92365956c9311fd7",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "5744cda186301db2"
+  },
+  "all": "199b48d6370f9452",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "1a5ced92b3d896c2",
+   "alt:share_image": "6df7925e28783f17",
+   "alt:tab_image_1": "e80e343c5b0f1f0e",
+   "alt:tab_image_2": "7bf4ee9bc5b02428",
+   "alt:tab_image_3": "8f371eb80eee0fc8",
+   "alt:tab_image_4": "3c0aa64ddd528fb5",
+   "breadcrumb": "e471a02c0efa911e",
+   "chip_adds": "6540debd18e60b19",
+   "explore_cta": "aa87ba4177b7842e",
+   "faq": "4e56c7d1275aefcb",
+   "feature_1": "4d6b6eca4b885f65",
+   "feature_2": "3d6315d0820c5fee",
+   "feature_3": "8e201e83652a256c",
+   "feature_4": "6ed8e5ea76043fce",
+   "feature_5": "6d74c6a0cbc7567a",
+   "feature_6": "0bf5ff7053daad3b",
+   "features_heading": "3b4554e497cea841",
+   "features_subheading": "0a6844fd63d4ca91",
+   "h1": "54c704d2e76739e2",
+   "hero_description": "a5fc41d86344ebd2",
+   "hero_prompt": "f44dcde03ee9f97f",
+   "howto_description": "ad242b9fa3a23f6d",
+   "howto_step_1_des": "d9c63597c6ea9b39",
+   "howto_step_1_title": "39d0a8a401c2b160",
+   "howto_step_2_des": "36ff2c0f33118f4a",
+   "howto_step_2_title": "6d7ea1e3b02df4cc",
+   "howto_step_3_des": "eafa0d167c7fde81",
+   "howto_step_3_title": "cf836fa4daa10805",
+   "howto_step_4_des": "262524def760701a",
+   "howto_step_4_title": "e35d94545fde8408",
+   "howto_step_5_des": "a52d6f5ffc3d5784",
+   "howto_step_5_title": "10c846a1dff53c80",
+   "howto_step_6_des": "8d50ca87f550e8d8",
+   "howto_step_6_title": "c53cb24331ff732e",
+   "howto_step_7_des": "ebe7418fda1e7659",
+   "howto_step_7_title": "47f07b3b3fd6e151",
+   "howto_title": "d5b3e927f2931183",
+   "meta_description": "1f8fba7a76a3546d",
+   "meta_title": "27d92851841be56d",
+   "mockup": "c9d6b4505c95b951",
+   "product_name": "431df6c86160fb71",
+   "prompt_chip_1": "f4d67358bb80dc3d",
+   "prompt_chip_2": "f7a415188f7a531f",
+   "prompt_chip_3": "fadbad65c194d0e7",
+   "prompt_chip_4": "ef8cb7749553a44d",
+   "slug": "2e45284c5cbbfa92",
+   "tab_content_1": "192836879ffb6ebd",
+   "tab_content_2": "7d607e5f048db4e7",
+   "tab_content_3": "871a1491f42ac751",
+   "tab_content_4": "049664032af8e91f",
+   "tab_label_1": "bc562c1f24ce4b36",
+   "tab_label_2": "9c9858bee9535733",
+   "tab_label_3": "29c797499ab819b2",
+   "tab_label_4": "2874569ba7122559",
+   "usecase_heading": "d15b95e9fd227664",
+   "why_description": "92365956c9311fd7",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "5744cda186301db2"
+  },
+  "all": "199b48d6370f9452",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
