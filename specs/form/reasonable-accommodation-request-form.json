@@ -41,7 +41,7 @@
   "tab_label_2": "Interactive Process",
   "tab_label_3": "Medical Notes",
   "tab_label_4": "Job Applicants",
-  "tab_content_1": "<h3>A request in her words, no diagnosis asked</h3><p>Most requests arrive in plain words. A Northwind Freight dispatcher writes that 10-hour shifts at a fixed desk hurt her back, and asks for a sit-stand desk. The form records the task and the change. Dana Brooks, the accommodation coordinator, has it by 9:40 that morning, and her manager has not been copied.</p>",
+  "tab_content_1": "<h3>A request in her words, no diagnosis asked</h3><p>Most requests arrive in plain words. A Tillman Freight dispatcher writes that 10-hour shifts at a fixed desk hurt her back, and asks for a sit-stand desk. The form records the task and the change. Dana Brooks, the accommodation coordinator, has it by 9:40 that morning, and her manager has not been copied.</p>",
   "tab_content_2": "<h3>Both meetings logged before the lift decision</h3><p>The interactive process is a conversation, and the app keeps its minutes. A warehouse lead can no longer lift more than 20 pounds. Dana meets him twice and logs two options: a lift-assist cart, or handing his loading to a teammate. The cart keeps him in his role, and the written decision goes out with a start date.</p>",
   "tab_content_3": "<h3>The doctor's note stays out of the personnel file</h3><p>Some needs are not obvious. An analyst asks to start at 10:00 instead of 8:00, and Dana sends a short provider form to her doctor. The reply is filed in a separate medical record, never in her personnel file. Her manager sees one line: start time 10:00, approved.</p>",
   "tab_content_4": "<h3>Interpreter on Thursday, and the reason stays with HR</h3><p>Applicants ask before the interview. A deaf candidate for a warehouse associate job uses the request link on the careers page to ask for an ASL interpreter. The recruiter gets a task to book one for Thursday at 2:00 PM. The interviewer's calendar invite says an interpreter will attend, with nothing about why.</p>",
@@ -71,12 +71,12 @@
   "prompt_chip_2": "Meeting Log",
   "prompt_chip_3": "Medical Files",
   "prompt_chip_4": "Job Applicants",
-  "hero_prompt": "<p>Build a reasonable accommodation request form that sends each request to HR and logs every meeting that follows.</p>"
+  "hero_prompt": "<p>Build a reasonable accommodation request form for my company.</p>"
  },
  "images": {
   "tab_image_1": {
    "path": "images/form/reasonable-accommodation-request-form/uc-1.svg",
-   "alt": "A Northwind Freight dispatcher asks for a sit-stand desk because 10-hour shifts at a fixed desk are hard, with no diagnosis field; the request reaches coordinator Dana Brooks at 9:40 AM and her manager is not copied."
+   "alt": "A Tillman Freight dispatcher asks for a sit-stand desk because 10-hour shifts at a fixed desk are hard, with no diagnosis field; the request reaches coordinator Dana Brooks at 9:40 AM and her manager is not copied."
   },
   "tab_image_2": {
    "path": "images/form/reasonable-accommodation-request-form/uc-2.svg",
@@ -170,12 +170,26 @@
    "via": "recheck",
    "by": null,
    "note": "rules changed (8bc91b49d85c); QC now fails"
+  },
+  {
+   "t": "2026-10-13 10:51 UTC",
+   "state": "images",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-13 10:52 UTC",
+   "state": "reviewed",
+   "via": "ready",
+   "by": "A-w-37",
+   "note": "one rework applied by A-w-37 after wk-r-14 (1 findings marked blocking then, fixed per rules/SEVERITY.md); ready for Divit"
   }
  ],
  "plan": {
   "angle": "The top results are agency and university PDFs plus a few template pages: each one captures the request and stops there. This page explains what the form should ask and what it should leave out, citing EEOC guidance, then builds what a PDF cannot: requests that reach the accommodation coordinator instead of the manager, a dated log of the interactive process, provider documentation filed apart from the personnel record, and a version job applicants can use before an interview.",
   "tab_stories": [
-   "A dispatcher at Northwind Freight writes in her own words that 10-hour shifts at a fixed desk aggravate her back and asks for a sit-stand desk; the form records the task and the change, never a diagnosis, and the coordinator gets it the same morning.",
+   "A dispatcher at Tillman Freight writes in her own words that 10-hour shifts at a fixed desk aggravate her back and asks for a sit-stand desk; the form records the task and the change, never a diagnosis, and the coordinator gets it the same morning.",
    "A warehouse lead who can no longer lift more than 20 pounds meets the coordinator twice; the app logs both meetings and the two options discussed, and the coordinator picks the lift-assist cart and sends the written decision.",
    "An analyst asks to start at 10:00 instead of 8:00; because the need is not obvious, the app sends a provider form, files the reply in a separate medical record, and her manager sees only the new start time.",
    "A driver applicant who is deaf asks through the careers page for an ASL interpreter at Thursday's interview; the recruiter is told what to book and the interviewer gets the change without the reason."
@@ -315,7 +329,7 @@
       {
        "type": "heading",
        "title": "Request an accommodation",
-       "sub": "Northwind Freight"
+       "sub": "Tillman Freight"
       },
       {
        "type": "fields",
@@ -385,7 +399,7 @@
      "title": "Case opened",
      "sub": "Same morning"
     },
-    "alt": "A Northwind Freight dispatcher asks for a sit-stand desk because 10-hour shifts at a fixed desk are hard, with no diagnosis field; the request reaches coordinator Dana Brooks at 9:40 AM and her manager is not copied.",
+    "alt": "A Tillman Freight dispatcher asks for a sit-stand desk because 10-hour shifts at a fixed desk are hard, with no diagnosis field; the request reaches coordinator Dana Brooks at 9:40 AM and her manager is not copied.",
     "story": [
      {
       "copy": "asks for a sit-stand desk",
@@ -507,7 +521,7 @@
        "type": "doc_header",
        "icon": "file-text",
        "title": "Provider request",
-       "sub": "Northwind Freight HR",
+       "sub": "Tillman Freight HR",
        "label": "SENT"
       },
       {
@@ -779,8 +793,8 @@
   "variant": null
  },
  "qc_passed": {
-  "rules_version": "ff65c607d1da",
-  "date": "2026-10-10 04:28 UTC"
+  "rules_version": "bae2ab9babe0",
+  "date": "2026-10-13 10:53 UTC"
  },
  "writers": [
   "w-reasonable-accommodation-request-form",
@@ -932,5 +946,11 @@
    "via": "review",
    "date": "2026-10-10 01:22 UTC"
   }
+ ],
+ "chip_adds": [
+  "Add routing that sends each request to HR and leaves the manager off.",
+  "Add a case page that logs each meeting, the options weighed, and the final decision.",
+  "Add a provider form whose replies are filed where managers cannot open them.",
+  "Add a careers page link so applicants can ask for an interpreter before an interview."
  ]
 }
