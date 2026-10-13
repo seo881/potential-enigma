@@ -117,6 +117,13 @@
    "via": null,
    "by": "B-w-7",
    "note": ""
+  },
+  {
+   "t": "2026-10-13 13:13 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-4",
+   "note": "[truth | HUB_RULES 6] faq item 8: A claim about Emergent's own platform (a change history kept in the code) that no approved entry in rules/capabilities.json covers; code-export is GitHub export on paid plans only, and the sentence implies the history on every plan. Only instance of this class on th"
   }
  ],
  "plan": {
@@ -865,5 +872,275 @@
  "qc_passed": {
   "rules_version": "220c746804ec",
   "date": "2026-10-13 12:39 UTC"
+ },
+ "review": {
+  "by": "A-r-4",
+  "date": "2026-10-13 13:13 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Sales Workflow From First Meeting to Kickoff', meta title 'Sales Workflow Builder for Every Deal Stage | Emergent', hero 'Build a sales workflow that keeps a deal out of the next stage until its fields are filled and hands each win to onboarding.' (123 chars); how-to description one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is glossaries, explainers and template galleries; FAQ 1 defines the term, FAQ 7 and 10 give examples and stages, the 7-step how-to and four worked tabs show the workflow built."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary: 'Reps approve their own discounts up to the limit you set. Larger ones go to the sales director in Slack, a second band adds the CFO'; 'Replay last quarter's deals'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Teodor Halbrook drags the $38,400 Linden Ridge Hotels deal...', 'Name the fields a deal needs before it can advance...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No tacked-on endings, no run-on lists; sentences vary: 'Both fields are blank.' / 'A handoff with no owner is where a deal goes quiet.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Reads as an operator wrote it: 'Set a time limit for each handoff so nothing sits unclaimed over a weekend.' No AI-tell vocabulary."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "faq item 8: 'In an app built with Emergent, each of those is one prompt, and the change history stays in your code.' states a platform behaviour (a retained change history) that is not in rules/capabilities.json; code-export covers GitHub export on paid plans only. All numbers agree: $52,000 less 22% = $40,560; $27,600 over $25,000; 22% between the 15% and 25% bands."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Stage exit rules, SDR-to-AE handoff, discount bands and closed-won handoff are distinct from sales-automation's lead routing, follow-up, stalled deals and renewals; QC D2 clean."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic items from the secondaries, answer-first, hub link in item 2, sibling links in items 4 and 7 (sales-automation, task-automation, both live), no brand or format in any question; PAA gate 6 pass, 0 reject, 4 flags (Divit's packet)."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches the copy: Linden Ridge Hotels $38,400 held with budget and buyer missing and a DM to Teodor; Corriveau Freight 240, Tobias Ardent, 24 hours; Brambleton $52,000, 22%, $40,560 net to Henrik Adair in Slack; Thistledown $27,600, over $25,000, Yusra Thibault, five business days."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "faq item 8",
+    "quote": "In an app built with Emergent, each of those is one prompt, and the change history stays in your code.",
+    "issue": "A claim about Emergent's own platform (a change history kept in the code) that no approved entry in rules/capabilities.json covers; code-export is GitHub export on paid plans only, and the sentence implies the history on every plan. Only instance of this class on the page (why_description and faq item 3 'code you keep / your team owns' stay within code-export).",
+    "fix": "In an app built with Emergent, each of those changes is one prompt.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 1",
+    "quote": "What is a sales workflow?",
+    "issue": "Item 1 is sourced as a definition although the brief lists one gate-passing AlsoAsked candidate on the same definition; HUB_RULES 5 puts AlsoAsked questions first and allows a definition item only when PAA has none.",
+    "fix": "Next time, use the gate-passing AlsoAsked definition question verbatim as item 1.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq item 9",
+    "quote": "Pricing follows each vendor's model, often per seat or by task volume.",
+    "issue": "Soft quantifier about unnamed vendors, and the cost answer gives no figure; the table it points to compares cap behaviour, not prices.",
+    "fix": "Name what the table actually shows (what happens at the cap) or give one sourced price point from the library.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "tab_content_3, feature_3",
+    "quote": "Larger ones go to the sales director in Slack, a second band adds the CFO",
+    "issue": "Discount approvals in Slack are also feature 5 of the live sales-automation sibling ('Discount approvals in Slack'); the bands make this version distinct, but the idea repeats across siblings.",
+    "fix": "None needed now; keep discount bands as this page's angle and leave single-threshold approvals to sales-automation.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief tab 3",
+    "quote": "Approval logged on the deal",
+    "issue": "The order form card shows the approval as logged (checked) while the approval card shows Henrik Adair as Waiting.",
+    "fix": "Change the order form line to 'Waiting on the sales director'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 1",
+   "issue": "Item 1 is sourced as a definition although the brief lists one gate-passing AlsoAsked candidate on the same definition; HUB_RULES 5 puts AlsoAsked questions first and allows a definition item only when PAA has none.",
+   "fix": "Next time, use the gate-passing AlsoAsked definition question verbatim as item 1.",
+   "by": "A-r-4",
+   "via": "review",
+   "date": "2026-10-13 13:13 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq item 9",
+   "issue": "Soft quantifier about unnamed vendors, and the cost answer gives no figure; the table it points to compares cap behaviour, not prices.",
+   "fix": "Name what the table actually shows (what happens at the cap) or give one sourced price point from the library.",
+   "by": "A-r-4",
+   "via": "review",
+   "date": "2026-10-13 13:13 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "tab_content_3, feature_3",
+   "issue": "Discount approvals in Slack are also feature 5 of the live sales-automation sibling ('Discount approvals in Slack'); the bands make this version distinct, but the idea repeats across siblings.",
+   "fix": "None needed now; keep discount bands as this page's angle and leave single-threshold approvals to sales-automation.",
+   "by": "A-r-4",
+   "via": "review",
+   "date": "2026-10-13 13:13 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief tab 3",
+   "issue": "The order form card shows the approval as logged (checked) while the approval card shows Henrik Adair as Waiting.",
+   "fix": "Change the order form line to 'Waiting on the sales director'.",
+   "by": "A-r-4",
+   "via": "review",
+   "date": "2026-10-13 13:13 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "7c17d68d4c019fd9",
+   "alt:share_image": "24516562094771ea",
+   "alt:tab_image_1": "dc38acf8311b62c4",
+   "alt:tab_image_2": "d40dc0497a32ca44",
+   "alt:tab_image_3": "052152d3c6582310",
+   "alt:tab_image_4": "17089971660ac990",
+   "breadcrumb": "e251e28114f6783b",
+   "chip_adds": "a456dbde43975809",
+   "explore_cta": "f006955617ec4f11",
+   "faq": "c3899405e0704394",
+   "feature_1": "53f2c157f42a9ac0",
+   "feature_2": "dd3fbdcace70d783",
+   "feature_3": "48735ffe39a45700",
+   "feature_4": "1f7f8ca99f9dcf47",
+   "feature_5": "fd439fafe421b796",
+   "feature_6": "8566c83743d53347",
+   "features_heading": "d83280e2255cb3e9",
+   "features_subheading": "45568420ad133708",
+   "h1": "3405c6bac74ad2a4",
+   "hero_description": "586cf85c2cbe43cb",
+   "hero_prompt": "7558794bf671baf6",
+   "howto_description": "0ea707d5c5ec2d5a",
+   "howto_step_1_des": "d247148da3ad68e6",
+   "howto_step_1_title": "44747dc91ee95275",
+   "howto_step_2_des": "fa741c979b78b3f7",
+   "howto_step_2_title": "faebd78fba70f5d1",
+   "howto_step_3_des": "dcc5b5537cbdf311",
+   "howto_step_3_title": "465dce1223648312",
+   "howto_step_4_des": "085870a3463566e5",
+   "howto_step_4_title": "5039cbba946d5010",
+   "howto_step_5_des": "22c8022e55fa8c12",
+   "howto_step_5_title": "17b77456768e6841",
+   "howto_step_6_des": "e0e6addaa7e41a3d",
+   "howto_step_6_title": "af542f579cbba474",
+   "howto_step_7_des": "6790ade4a2b0f4c7",
+   "howto_step_7_title": "567d8327b8b44d85",
+   "howto_title": "1d1cdd06e1f8e812",
+   "meta_description": "8eb297669fa10b26",
+   "meta_title": "b1771e4be3c37598",
+   "mockup": "8ad1a922f039f1fd",
+   "product_name": "8341fc4a06b2237e",
+   "prompt_chip_1": "e0f82c3ff8abd391",
+   "prompt_chip_2": "4d116062f2a03c07",
+   "prompt_chip_3": "b9abd8b2df288ceb",
+   "prompt_chip_4": "eb9a5352ecefbf0e",
+   "slug": "7b853ed8050b4f54",
+   "tab_content_1": "a57a2d2a6a34ed85",
+   "tab_content_2": "ac7cdf549ec305d7",
+   "tab_content_3": "0d23e6577528497d",
+   "tab_content_4": "7a8be1d73eab6cbb",
+   "tab_label_1": "f856e57b5d284624",
+   "tab_label_2": "42df2fc1d403547a",
+   "tab_label_3": "ccbc68c86555925a",
+   "tab_label_4": "b29db5ff582bab94",
+   "usecase_heading": "1c14038d9e111562",
+   "why_description": "93e9c470f54da65d",
+   "why_table": "0078c318986b3738",
+   "why_title": "aa15662395b2051a"
+  },
+  "all": "74614bfa14e319f2",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "7c17d68d4c019fd9",
+   "alt:share_image": "24516562094771ea",
+   "alt:tab_image_1": "dc38acf8311b62c4",
+   "alt:tab_image_2": "d40dc0497a32ca44",
+   "alt:tab_image_3": "052152d3c6582310",
+   "alt:tab_image_4": "17089971660ac990",
+   "breadcrumb": "e251e28114f6783b",
+   "chip_adds": "a456dbde43975809",
+   "explore_cta": "f006955617ec4f11",
+   "faq": "c3899405e0704394",
+   "feature_1": "53f2c157f42a9ac0",
+   "feature_2": "dd3fbdcace70d783",
+   "feature_3": "48735ffe39a45700",
+   "feature_4": "1f7f8ca99f9dcf47",
+   "feature_5": "fd439fafe421b796",
+   "feature_6": "8566c83743d53347",
+   "features_heading": "d83280e2255cb3e9",
+   "features_subheading": "45568420ad133708",
+   "h1": "3405c6bac74ad2a4",
+   "hero_description": "586cf85c2cbe43cb",
+   "hero_prompt": "7558794bf671baf6",
+   "howto_description": "0ea707d5c5ec2d5a",
+   "howto_step_1_des": "d247148da3ad68e6",
+   "howto_step_1_title": "44747dc91ee95275",
+   "howto_step_2_des": "fa741c979b78b3f7",
+   "howto_step_2_title": "faebd78fba70f5d1",
+   "howto_step_3_des": "dcc5b5537cbdf311",
+   "howto_step_3_title": "465dce1223648312",
+   "howto_step_4_des": "085870a3463566e5",
+   "howto_step_4_title": "5039cbba946d5010",
+   "howto_step_5_des": "22c8022e55fa8c12",
+   "howto_step_5_title": "17b77456768e6841",
+   "howto_step_6_des": "e0e6addaa7e41a3d",
+   "howto_step_6_title": "af542f579cbba474",
+   "howto_step_7_des": "6790ade4a2b0f4c7",
+   "howto_step_7_title": "567d8327b8b44d85",
+   "howto_title": "1d1cdd06e1f8e812",
+   "meta_description": "8eb297669fa10b26",
+   "meta_title": "b1771e4be3c37598",
+   "mockup": "8ad1a922f039f1fd",
+   "product_name": "8341fc4a06b2237e",
+   "prompt_chip_1": "e0f82c3ff8abd391",
+   "prompt_chip_2": "4d116062f2a03c07",
+   "prompt_chip_3": "b9abd8b2df288ceb",
+   "prompt_chip_4": "eb9a5352ecefbf0e",
+   "slug": "7b853ed8050b4f54",
+   "tab_content_1": "a57a2d2a6a34ed85",
+   "tab_content_2": "ac7cdf549ec305d7",
+   "tab_content_3": "0d23e6577528497d",
+   "tab_content_4": "7a8be1d73eab6cbb",
+   "tab_label_1": "f856e57b5d284624",
+   "tab_label_2": "42df2fc1d403547a",
+   "tab_label_3": "ccbc68c86555925a",
+   "tab_label_4": "b29db5ff582bab94",
+   "usecase_heading": "1c14038d9e111562",
+   "why_description": "93e9c470f54da65d",
+   "why_table": "0078c318986b3738",
+   "why_title": "aa15662395b2051a"
+  },
+  "all": "74614bfa14e319f2",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  }
 }

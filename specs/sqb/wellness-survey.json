@@ -138,6 +138,13 @@
    "via": null,
    "by": "B-w-19",
    "note": ""
+  },
+  {
+   "t": "2026-10-13 13:14 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-4",
+   "note": "[truth | CONTENT_DEFECTS #8] why_description: The table directly below names SurveyMonkey, whose library pricing fact is 'Per-user team plans with a seat minimum, billed annually' (seats for the people who build surveys, not organisation headcount). Headcount pricing holds only for Culture Amp and Q"
   }
  ],
  "plan": {
@@ -876,5 +883,265 @@
   "Add scores by location, with any location under five answers hidden.",
   "Add an optional reach-out question that feeds a private support list.",
   "Add a poll where staff pick two of six offerings, counted by team."
- ]
+ ],
+ "review": {
+  "by": "A-r-4",
+  "date": "2026-10-13 13:14 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Wellness Survey That Shows Which Group Needs What', meta title 'Wellness Survey Builder With Results by Group | Emergent', hero 'Build a wellness survey that scores each area of wellbeing by team or site and saves every answer to a database you own.'; how-to description one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "AMBER angle carried: the definition opens the features section ('A wellness survey measures how people are faring at work and outside it...'), FAQ 3 gives example questions, FAQ 7 names real examples (EBRI, Syracuse, ACHA), and four working surveys show the decision each feeds."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Employee table variant used; buyer detail throughout: 'Drivers and floor staff with no work inbox scan a printed QR code'; 'whether you could cover a $1,000 emergency expense without borrowing'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Once a year, 520 people at a freight company rate 16 statements...', 'Sorts every question under one area...', 'Withholds results for any group below the answer count you choose...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No tacked-on endings or run-on sentences; varied rhythm: 'This year 412 replied. Financial health came in lowest at every site.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Reads as a practitioner: 'A survey with no decision behind it collects answers nobody reads, and people notice when nothing happens.' No AI-tell vocabulary."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "why_description 'Survey platforms charge by headcount' contradicts the library fact for SurveyMonkey in the table below it ('Per-user team plans with a seat minimum'); feature_2 'no view connects a rating to a name' is contradicted by feature_3 ('A yes adds them to a private list for the team you name, answers attached'), tab_content_3 and tab_content_4 (named call list with the progress rating). Numbers otherwise agree: picks 58+33+27+22+18+10 = 168 = 84 x 2; financial lowest at all four sites, Reno 2.3."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Annual baseline by site, budget poll, campus opt-in follow-up and gym day-30 check-in differ from the engagement, pulse and satisfaction siblings; QC D2 clean. Shared minimum-group and QR-delivery ideas are a note."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic items, answer-first; FAQ 3 verbatim AlsoAsked (verbatim check ok, PAA gate 10 pass, 0 reject); hub link in item 2; sibling links in items 7 and 10; no brand or format in any question."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches the copy: 412 of 520, financial lowest at every site, Reno 2.3; 84 of 96, flexible start times 58, gym stipend 33; 1,240 first-years, 38 tapped yes, advising list; progress 2 of 5 puts Callum Hartley on Kofi's call list."
+   }
+  },
+  "findings": [
+   {
+    "class": "wrong-fact",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #8",
+    "field": "why_description",
+    "quote": "Survey platforms charge by headcount and keep your results.",
+    "issue": "The table directly below names SurveyMonkey, whose library pricing fact is 'Per-user team plans with a seat minimum, billed annually' (seats for the people who build surveys, not organisation headcount). Headcount pricing holds only for Culture Amp and Qualtrics, so the differentiator is false for one of the three named competitors. Only instance on the page.",
+    "fix": "Survey platforms charge per employee or per seat and keep your results on their servers. Emergent builds the survey as an app, with responses in your database.",
+    "severity": "blocking"
+   },
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "feature_2",
+    "quote": "Those answers still feed the overall score, and no view connects a rating to a name.",
+    "issue": "Absolute privacy statement contradicted by the page's own content: feature_3 'A yes adds them to a private list for the team you name, answers attached'; tab_content_3 'The 38 who tapped yes go on a private list for the advising team, with their replies attached' (image: 'Replies attached to each name'); tab_content_4 'A progress rating of 2 or lower out of 5 puts the member on their coach's call list' (image: 'Callum Hartley, progress 2 of 5'). Fix feature_2 only; the tabs are fine.",
+    "fix": "Those answers still feed the overall score, and no group report connects a rating to a name.",
+    "severity": "blocking"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq items 1, 4, 5, 10; howto_step_2_des",
+    "quote": "Employers run them most often (faq 1); Most cover four or five areas ... few employers measure all of them (faq 4); which most people finish in around five minutes (faq 5); Many teams add a short check-in each quarter (faq 10); cover most workplaces ... A campus survey often adds a section on sleep (step 2)",
+    "issue": "Unsourced soft quantifiers about no named third party.",
+    "fix": "State them as advice or drop the quantifier.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "feature_1, feature_2, feature_5",
+    "quote": "Questions grouped by area; Small groups stay out of view; Drivers and floor staff with no work inbox scan a printed QR code",
+    "issue": "Same feature shapes as siblings: employee-engagement-survey 'Questions grouped by engagement driver' and 'Anonymity thresholds you set', pulse-survey 'Group minimums for confidentiality' and 'Staff without a work...' delivery.",
+    "fix": "None required; vary the shape on the next page in the cluster.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief tab 3",
+    "quote": "Yes, please / No, thanks",
+    "issue": "Both answer buttons on the phone are drawn as filled primary buttons, so the optional choice reads as two equal calls to action.",
+    "fix": "Draw 'No, thanks' as a secondary button.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq items 1, 4, 5, 10; howto_step_2_des",
+   "issue": "Unsourced soft quantifiers about no named third party.",
+   "fix": "State them as advice or drop the quantifier.",
+   "by": "A-r-4",
+   "via": "review",
+   "date": "2026-10-13 13:14 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "feature_1, feature_2, feature_5",
+   "issue": "Same feature shapes as siblings: employee-engagement-survey 'Questions grouped by engagement driver' and 'Anonymity thresholds you set', pulse-survey 'Group minimums for confidentiality' and 'Staff without a work...' delivery.",
+   "fix": "None required; vary the shape on the next page in the cluster.",
+   "by": "A-r-4",
+   "via": "review",
+   "date": "2026-10-13 13:14 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief tab 3",
+   "issue": "Both answer buttons on the phone are drawn as filled primary buttons, so the optional choice reads as two equal calls to action.",
+   "fix": "Draw 'No, thanks' as a secondary button.",
+   "by": "A-r-4",
+   "via": "review",
+   "date": "2026-10-13 13:14 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "b4557637a1793cc2",
+   "alt:share_image": "cac26466268e89ad",
+   "alt:tab_image_1": "18b374051426b84f",
+   "alt:tab_image_2": "f29946d3a3c3da9a",
+   "alt:tab_image_3": "bfef8f2f97603256",
+   "alt:tab_image_4": "818b20c227491eee",
+   "breadcrumb": "4397d15c12079ccf",
+   "chip_adds": "87a110b9b4f856d1",
+   "explore_cta": "697ef169fd0d770a",
+   "faq": "c46d72eaa8fd2229",
+   "feature_1": "3196cec26e71100b",
+   "feature_2": "ce3c38fc96501dc3",
+   "feature_3": "698fdf89f974d714",
+   "feature_4": "fa39018fbb954c26",
+   "feature_5": "dba6fa9d47089c56",
+   "feature_6": "a38f30a673fe817f",
+   "features_heading": "0de87a148ae12528",
+   "features_subheading": "d1ea7e9ce72d52e1",
+   "h1": "9c2fb29f094261fd",
+   "hero_description": "56010124a2f0782e",
+   "hero_prompt": "cad9849c92cb0059",
+   "howto_description": "a9c460ead6988726",
+   "howto_step_1_des": "c2c773b334d89347",
+   "howto_step_1_title": "dc913aeb931e2ec9",
+   "howto_step_2_des": "1d3f2ea9bc70f7fc",
+   "howto_step_2_title": "0b6a40afc9df2231",
+   "howto_step_3_des": "1022e6f996c35323",
+   "howto_step_3_title": "2be4b5eda755c276",
+   "howto_step_4_des": "069632d1cfe07148",
+   "howto_step_4_title": "73fc96c3e278838d",
+   "howto_step_5_des": "af0b6ac6f17c7fdf",
+   "howto_step_5_title": "8618781a90f4582b",
+   "howto_step_6_des": "a7631323dc132a5f",
+   "howto_step_6_title": "f58dd25fbef645af",
+   "howto_step_7_des": "ced486032109564f",
+   "howto_step_7_title": "0d3302ecff52512c",
+   "howto_title": "c3d1aaf3bdcb491b",
+   "meta_description": "d86e1c0386c5ed92",
+   "meta_title": "ed7b5f2fba1ab438",
+   "mockup": "8b64fdb5c4552ada",
+   "product_name": "d3fe5d006d849cbf",
+   "prompt_chip_1": "39678fe01da4c08c",
+   "prompt_chip_2": "7a0918e6051774a6",
+   "prompt_chip_3": "324edce40cf3d262",
+   "prompt_chip_4": "807e4b2d8c555115",
+   "slug": "5e31c8410330f28f",
+   "tab_content_1": "7c95392c285af866",
+   "tab_content_2": "51aee777ddf368fd",
+   "tab_content_3": "f0a51fa0d62528f9",
+   "tab_content_4": "20b3e3b0ee17d749",
+   "tab_label_1": "4b8e66953bfcd3e9",
+   "tab_label_2": "127f05923aae1cda",
+   "tab_label_3": "1e59c6d39c1cadd5",
+   "tab_label_4": "459800580571a90d",
+   "usecase_heading": "da05bb4a84cc2d46",
+   "why_description": "56b779b9bb6502b2",
+   "why_table": "0abce4328092b3c1",
+   "why_title": "d51c5c39c40654bf"
+  },
+  "all": "5f8e1668512bd08d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "b4557637a1793cc2",
+   "alt:share_image": "cac26466268e89ad",
+   "alt:tab_image_1": "18b374051426b84f",
+   "alt:tab_image_2": "f29946d3a3c3da9a",
+   "alt:tab_image_3": "bfef8f2f97603256",
+   "alt:tab_image_4": "818b20c227491eee",
+   "breadcrumb": "4397d15c12079ccf",
+   "chip_adds": "87a110b9b4f856d1",
+   "explore_cta": "697ef169fd0d770a",
+   "faq": "c46d72eaa8fd2229",
+   "feature_1": "3196cec26e71100b",
+   "feature_2": "ce3c38fc96501dc3",
+   "feature_3": "698fdf89f974d714",
+   "feature_4": "fa39018fbb954c26",
+   "feature_5": "dba6fa9d47089c56",
+   "feature_6": "a38f30a673fe817f",
+   "features_heading": "0de87a148ae12528",
+   "features_subheading": "d1ea7e9ce72d52e1",
+   "h1": "9c2fb29f094261fd",
+   "hero_description": "56010124a2f0782e",
+   "hero_prompt": "cad9849c92cb0059",
+   "howto_description": "a9c460ead6988726",
+   "howto_step_1_des": "c2c773b334d89347",
+   "howto_step_1_title": "dc913aeb931e2ec9",
+   "howto_step_2_des": "1d3f2ea9bc70f7fc",
+   "howto_step_2_title": "0b6a40afc9df2231",
+   "howto_step_3_des": "1022e6f996c35323",
+   "howto_step_3_title": "2be4b5eda755c276",
+   "howto_step_4_des": "069632d1cfe07148",
+   "howto_step_4_title": "73fc96c3e278838d",
+   "howto_step_5_des": "af0b6ac6f17c7fdf",
+   "howto_step_5_title": "8618781a90f4582b",
+   "howto_step_6_des": "a7631323dc132a5f",
+   "howto_step_6_title": "f58dd25fbef645af",
+   "howto_step_7_des": "ced486032109564f",
+   "howto_step_7_title": "0d3302ecff52512c",
+   "howto_title": "c3d1aaf3bdcb491b",
+   "meta_description": "d86e1c0386c5ed92",
+   "meta_title": "ed7b5f2fba1ab438",
+   "mockup": "8b64fdb5c4552ada",
+   "product_name": "d3fe5d006d849cbf",
+   "prompt_chip_1": "39678fe01da4c08c",
+   "prompt_chip_2": "7a0918e6051774a6",
+   "prompt_chip_3": "324edce40cf3d262",
+   "prompt_chip_4": "807e4b2d8c555115",
+   "slug": "5e31c8410330f28f",
+   "tab_content_1": "7c95392c285af866",
+   "tab_content_2": "51aee777ddf368fd",
+   "tab_content_3": "f0a51fa0d62528f9",
+   "tab_content_4": "20b3e3b0ee17d749",
+   "tab_label_1": "4b8e66953bfcd3e9",
+   "tab_label_2": "127f05923aae1cda",
+   "tab_label_3": "1e59c6d39c1cadd5",
+   "tab_label_4": "459800580571a90d",
+   "usecase_heading": "da05bb4a84cc2d46",
+   "why_description": "56b779b9bb6502b2",
+   "why_table": "0abce4328092b3c1",
+   "why_title": "d51c5c39c40654bf"
+  },
+  "all": "5f8e1668512bd08d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

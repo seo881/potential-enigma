@@ -182,6 +182,13 @@
    "via": "ready",
    "by": "B-w-14",
    "note": "one rework applied by B-w-14 after wk-r-17 (0 findings marked blocking then, fixed per rules/SEVERITY.md); ready for Divit"
+  },
+  {
+   "t": "2026-10-13 13:12 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "A-s-13",
+   "note": "slim review: [slim | ] faq: FAQ 2 carries AlsoAsked provenance (faq_sources[1].prov, alsoasked-api) but its question differs from prov.original and from the saved pull: hubctl verbatim reports Q2 MISMATCH (differs from prov.original). faq is not a changed field since review; ruling 4/12 makes this b"
   }
  ],
  "plan": {
@@ -988,6 +995,31 @@
      "severity": "blocking"
     }
    ]
+  },
+  {
+   "by": "A-s-13",
+   "date": "2026-10-13 13:12 UTC",
+   "fields": [
+    "alt:tab_image_4",
+    "chip_adds",
+    "hero_prompt",
+    "tab_content_4"
+   ],
+   "baseline": "git 9cb14760 (spec at the review date)",
+   "blocking": 1,
+   "notes": 0,
+   "findings": [
+    {
+     "criterion": "slim",
+     "field": "faq",
+     "quote": "FAQ 2: How do I make a hotel booking form?",
+     "fix": "Restore FAQ 2 to prov.original verbatim and adjust the answer to fit, keeping the hub link in item 2. If the restored question fails paa --spec (it is a gate reject on this pull), the item cannot keep AlsoAsked provenance: re-source item 2 from the primary as a keyword question (source keyword, ref 'hotel booking form', no prov), as was done for conference-registration-form item 2, and keep the hub link there. Never keep a reworded question under AlsoAsked provenance.",
+     "class": "structure",
+     "rule": "DECISIONS 2026-10-13 ruling 4: never reword a verbatim AlsoAsked question",
+     "issue": "FAQ 2 carries AlsoAsked provenance (faq_sources[1].prov, alsoasked-api) but its question differs from prov.original and from the saved pull: hubctl verbatim reports Q2 MISMATCH (differs from prov.original). faq is not a changed field since review; ruling 4/12 makes this blocking anyway. Note for the fixer: hubctl paa on this page's pull rejects all 25 questions (PA3), the original included, so the verbatim item will not clear paa --spec.",
+     "severity": "blocking"
+    }
+   ]
   }
  ],
  "lock_hash": {
@@ -1013,7 +1045,7 @@
    "features_subheading": "092abe93f43fc873",
    "h1": "b8162938d2f37c8d",
    "hero_description": "d9cce9eafbe35b6d",
-   "hero_prompt": "d38d6a389885d54e",
+   "hero_prompt": "996d53b85cecd102",
    "howto_description": "f0b9bb02702878f2",
    "howto_step_1_des": "304e58220d485862",
    "howto_step_1_title": "13b78f1032fce0ee",
@@ -1052,7 +1084,7 @@
    "why_table": "e7b7e0beecb30873",
    "why_title": "b553a48bd7206640"
   },
-  "all": "131bc5d18293dd62",
+  "all": "ef0521f10da009b1",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  }
 }

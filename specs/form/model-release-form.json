@@ -196,6 +196,13 @@
    "via": "ready",
    "by": "B-w-15",
    "note": "one rework applied by B-w-15 after wk-r-13 (2 findings marked blocking then, fixed per rules/SEVERITY.md); ready for Divit"
+  },
+  {
+   "t": "2026-10-13 13:11 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "A-s-14",
+   "note": "slim review: [slim | ] faq: FAQ 7 carries AlsoAsked provenance but its question is a reworded version of prov.original and the saved pull, so the page does not answer the verbatim question it was sourced from. -> Restore FAQ 7's question to faq_sources[6].prov.original exactly (same words and casing"
   }
  ],
  "plan": {
@@ -1133,6 +1140,34 @@
      "criterion": "truth"
     }
    ]
+  },
+  {
+   "by": "A-s-14",
+   "date": "2026-10-13 13:11 UTC",
+   "fields": [
+    "alt:tab_image_3",
+    "alt:tab_image_4",
+    "chip_adds",
+    "faq",
+    "hero_prompt",
+    "tab_content_2",
+    "tab_content_3",
+    "tab_content_4"
+   ],
+   "baseline": "git e560a841 (spec at the review date)",
+   "blocking": 1,
+   "notes": 0,
+   "findings": [
+    {
+     "criterion": "slim",
+     "field": "faq",
+     "quote": "FAQ 7 question (hubctl verbatim: Q7 MISMATCH, differs from faq_sources[6].prov.original)",
+     "fix": "Restore FAQ 7's question to faq_sources[6].prov.original exactly (same words and casing), keep faq_sources[6].q in step, and adjust the answer to fit the restored question; rerun hubctl verbatim (Q7 ok), qc (TOTAL 0) and paa --spec (0 rejects).",
+     "rule": "DECISIONS 2026-10-13 ruling 4: never reword a verbatim AlsoAsked question",
+     "issue": "FAQ 7 carries AlsoAsked provenance but its question is a reworded version of prov.original and the saved pull, so the page does not answer the verbatim question it was sourced from.",
+     "severity": "blocking"
+    }
+   ]
   }
  ],
  "lock_hash": {
@@ -1145,7 +1180,7 @@
    "alt:tab_image_3": "50d391bc8da61233",
    "alt:tab_image_4": "11c0b1aff93645bb",
    "breadcrumb": "971b347df7dbf797",
-   "chip_adds": "bbf2ef0786d952c7",
+   "chip_adds": "294ca2e92c9aef3b",
    "explore_cta": "d727a8c7d0d8591d",
    "faq": "fa6bf1921e121b8e",
    "feature_1": "838da34a0a49ac08",
@@ -1197,7 +1232,7 @@
    "why_table": "de152b1a86f939be",
    "why_title": "bd3a1a9d579e9a54"
   },
-  "all": "4c55fd06ff25129d",
+  "all": "abb0c9a23b2c305f",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  }
 }
