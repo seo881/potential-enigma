@@ -87,7 +87,7 @@
   },
   "tab_image_3": {
    "path": "images/aab/content-approval-workflow/uc-3.svg",
-   "alt": "Six spring campaign ad sizes are approved after round 2, and a request for a third round on one size goes to the creative director."
+   "alt": "Five of six spring campaign ad sizes are approved after round 2, and a request for a third round on the medium rectangle goes to the creative director."
   },
   "tab_image_4": {
    "path": "images/aab/content-approval-workflow/uc-4.svg",
@@ -137,6 +137,20 @@
    "state": "images",
    "via": null,
    "by": "B-w-42",
+   "note": ""
+  },
+  {
+   "t": "2026-10-13 19:44 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-13",
+   "note": "[images | CONTENT_DEFECTS #10] images.tab_image_3.alt: The alt states six sizes are approved, but the rendered tab 3 image shows five Approved at round 2 (Feed square, Story, Leaderboard, Skyscraper, Billboard) and the sixth, Medium rectangle, at 'Round 3' with status 'Round 3'. The number in the al"
+  },
+  {
+   "t": "2026-10-13 19:44 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "A-w-71",
    "note": ""
   }
  ],
@@ -604,7 +618,7 @@
      "title": "Round count kept",
      "sub": "On every asset"
     },
-    "alt": "Six spring campaign ad sizes are approved after round 2, and a request for a third round on one size goes to the creative director.",
+    "alt": "Five of six spring campaign ad sizes are approved after round 2, and a request for a third round on the medium rectangle goes to the creative director.",
     "story": [
      {
       "copy": "When the marketing manager asks for round 3, the app sends that request to the creative director",
@@ -754,10 +768,341 @@
   "checks": []
  },
  "qc_passed": {
-  "rules_version": "220c746804ec",
-  "date": "2026-10-13 13:14 UTC"
+  "rules_version": "d16c1f4fcafb",
+  "date": "2026-10-13 19:44 UTC"
  },
  "writers": [
-  "B-w-42"
- ]
+  "B-w-42",
+  "A-w-71"
+ ],
+ "review": {
+  "by": "A-r-13",
+  "date": "2026-10-13 19:44 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Content Approval Workflow That Routes Every Draft', meta title 'Content Approval Workflow Builder | Emergent', hero 'Build a content approval workflow that sends each draft to the right reviewer and records who approved it and when.' cover the whole job; how-to description is one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is explainers (Kontent.ai, Adobe, Jotform, Planable, Tallyfy, SharePoint) with an AI Overview; the page leads the FAQ with the definition ('the set of review steps a draft passes through before it is published'), shows four worked examples and a seven-step how-to, and answers the stage, reviewer-count, social, campaign, creative, software and design variants."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Content-team vocabulary: 'moves the post to Ready in the content calendar', 'managing editor', 'revision rounds ... set in its brief', 'account manager', 'registered principal', 'publish date in the calendar moves only when a person moves it'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'A writer moves the post to Ready...', 'On Friday the agency sends Brightside Dental...', 'Six ad sizes for the spring campaign come back...', 'Routes every piece to its editor first...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q1-Q8 clean; one idea per sentence ('Comments on any post go back to the writer.'). No blocking craft defect."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Specific and calm: 'Thursday at 10:00 AM', 'within two working days, and alerts the content lead on day three', 'A reply to a customer on social cannot wait two days for legal, while a pricing page should.' No AI tells."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to approved ids (prompt-build, api-connect, alerts, database-owned, code-export 'on paid plans', no-caps 'Every approver is included, and runs carry no task cap'). Third-party facts sourced: FINRA Rule 2210 principal approval (finra.org), WordPress scheduling via REST API (developer.wordpress.org), Slack interactive buttons (docs.slack.dev). Table from the AAB library. Copy numbers agree across tabs (9 = 7 + 2, two days, 2 rounds included, round 3)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Reads as a content-team page (blog expert review, client social batch, ad creative rounds, broker-dealer email); defers the generic topic to the sibling 'approval workflow' via a link in FAQ 10; QC D2 clean."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions; AlsoAsked 'What is a content approval workflow?' verbatim; all 8 secondaries carried; no brand or file-format question; hub link in item 2; links to document-automation and approval-workflow; Emergent moat lines in items 4 and 8 only."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 3 alt 'Six spring campaign ad sizes are approved after round 2' while the drawn table shows five sizes Approved at round 2 and 'Medium rectangle | 3 | Round 3' (see blocking finding). Tabs 1, 2 and 4 match their copy: 'Rule matched: cites a benchmark -> Product expert', 'Thursday · 10:00 AM'; '9 posts', '7 approved · 2 unanswered', 'Reminder sent to the account manager'; 'FINRA Rule 2210', 'Registered principal', 'Edits after approval reopen review'."
+   }
+  },
+  "findings": [
+   {
+    "class": "wrong-fact",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "images.tab_image_3.alt",
+    "quote": "Five of six spring campaign ad sizes are approved after round 2, and a request for a third round on the medium rectangle goes to the creative director.",
+    "issue": "The alt states six sizes are approved, but the rendered tab 3 image shows five Approved at round 2 (Feed square, Story, Leaderboard, Skyscraper, Billboard) and the sixth, Medium rectangle, at 'Round 3' with status 'Round 3'. The number in the alt disagrees with the image. Every instance: images.tab_image_3.alt and the identical image_brief.tabs[2].alt. No other alt on the page carries a count that disagrees with its image (tab 1, 2, 4 and cover alts checked).",
+    "fix": "In both fields: 'Five of six spring campaign ad sizes are approved after round 2, and a request for a third round on the medium rectangle goes to the creative director.'",
+    "severity": "blocking"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief.tabs[0].mini",
+    "quote": "Both approvals saved",
+    "issue": "Tab 1 draws the product expert still 'In review' and WordPress scheduling as next, while the mini card already says 'Both approvals saved / On the calendar row'. The copy puts that after both approve ('Once both approve, ... with both approvals saved on its row'), so the image mixes two moments.",
+    "fix": "Optional: mini 'Approvals saved / On the calendar row' or 'Editor approval saved'.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief.tabs[1].hero",
+    "quote": "Reminder sent to the account manager",
+    "issue": "Tab 2 is the only tab with no cursor on a button: the hero card has no action, and the phone's 'Approve all remaining' button carries no click. The hub-qc contact-sheet check expects the cursor on a button edge.",
+    "fix": "Optional: give the hero an action such as 'Open Brightside Dental' with the cursor on it.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "Run a week of real drafts through it before the whole team switches.",
+    "issue": "Same idea restated with words swapped, every instance: faq item 2 'Run a week of real drafts through it before the whole team switches' vs howto_step_6_des 'Run one week of real drafts through the app before the whole team moves over'; faq item 4 'Two fixed reviewers cover most routine pieces: an editor and the brand owner' and 'each fixed stage is a queue that every draft waits in' vs howto_step_2_des 'an editor and a brand owner cover most routine pieces. Each extra fixed stage is one more queue every draft has to wait in'; faq item 5 'comments return to the writer' vs tab_content_2 'Comments on any post go back to the writer'; faq item 7 round limit and senior reviewer vs feature_4 and howto_step_5_des.",
+    "fix": "Optional: let the FAQ answers add a new angle rather than restate the how-to.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "Most start with an editor checking the copy.",
+    "issue": "Soft quantifiers about no named third party: faq item 3 'Most start with an editor checking the copy'; howto_step_7_des 'Most content teams already approve work'; faq item 4 and howto_step_2_des 'cover most routine pieces'.",
+    "fix": "Optional: state it as advice ('Start with an editor checking the copy').",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "tab_content_4",
+    "quote": "FINRA Rule 2210 requires that approval for retail communications.",
+    "issue": "True as the general rule and sourced, but 2210(b)(1)(D) excepts some retail communications from principal pre-approval (for example ones that make no recommendation and do not promote a product or service), and the rule binds FINRA member broker-dealers, not every 'wealth firm'. A compliance reader may notice.",
+    "fix": "Optional: 'FINRA Rule 2210 generally requires that approval for retail communications' and 'at the broker-dealer'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "<th scope=\"col\">Zapier</th>",
+    "issue": "HUB_RULES 5 asks for the 3 competitors that rank for the query; Zapier, Make and n8n are not in the top 10 (QC K7 P2), where Planable, Tallyfy and Kontent.ai rank.",
+    "fix": "If an approval tool such as Planable or Tallyfy enters the AAB library, swap it in on a later pass.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "image_brief.checks",
+    "quote": "\"checks\": []",
+    "issue": "The brief declares no checks although the images draw quantities (9 posts, 7 approved, 2 unanswered, 6 ad sizes, 2 rounds included, round 3). The drawn numbers agree with the copy, so nothing is wrong on the page; the declaration is missing.",
+    "fix": "Declare e.g. {\"expr\": \"7 + 2 == 9\", \"where\": 2} and facts for 6 and 2 in tab 3.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief.tabs[0].mini",
+   "issue": "Tab 1 draws the product expert still 'In review' and WordPress scheduling as next, while the mini card already says 'Both approvals saved / On the calendar row'. The copy puts that after both approve ('Once both approve, ... with both approvals saved on its row'), so the image mixes two moments.",
+   "fix": "Optional: mini 'Approvals saved / On the calendar row' or 'Editor approval saved'.",
+   "by": "A-r-13",
+   "via": "review",
+   "date": "2026-10-13 19:44 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief.tabs[1].hero",
+   "issue": "Tab 2 is the only tab with no cursor on a button: the hero card has no action, and the phone's 'Approve all remaining' button carries no click. The hub-qc contact-sheet check expects the cursor on a button edge.",
+   "fix": "Optional: give the hero an action such as 'Open Brightside Dental' with the cursor on it.",
+   "by": "A-r-13",
+   "via": "review",
+   "date": "2026-10-13 19:44 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "Same idea restated with words swapped, every instance: faq item 2 'Run a week of real drafts through it before the whole team switches' vs howto_step_6_des 'Run one week of real drafts through the app before the whole team moves over'; faq item 4 'Two fixed reviewers cover most routine pieces: an editor and the brand owner' and 'each fixed stage is a queue that every draft waits in' vs howto_step_2_des 'an editor and a brand owner cover most routine pieces. Each extra fixed stage is one more queue every draft has to wait in'; faq item 5 'comments return to the writer' vs tab_content_2 'Comments on any post go back to the writer'; faq item 7 round limit and senior reviewer vs feature_4 and howto_step_5_des.",
+   "fix": "Optional: let the FAQ answers add a new angle rather than restate the how-to.",
+   "by": "A-r-13",
+   "via": "review",
+   "date": "2026-10-13 19:44 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Soft quantifiers about no named third party: faq item 3 'Most start with an editor checking the copy'; howto_step_7_des 'Most content teams already approve work'; faq item 4 and howto_step_2_des 'cover most routine pieces'.",
+   "fix": "Optional: state it as advice ('Start with an editor checking the copy').",
+   "by": "A-r-13",
+   "via": "review",
+   "date": "2026-10-13 19:44 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "tab_content_4",
+   "issue": "True as the general rule and sourced, but 2210(b)(1)(D) excepts some retail communications from principal pre-approval (for example ones that make no recommendation and do not promote a product or service), and the rule binds FINRA member broker-dealers, not every 'wealth firm'. A compliance reader may notice.",
+   "fix": "Optional: 'FINRA Rule 2210 generally requires that approval for retail communications' and 'at the broker-dealer'.",
+   "by": "A-r-13",
+   "via": "review",
+   "date": "2026-10-13 19:44 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "HUB_RULES 5 asks for the 3 competitors that rank for the query; Zapier, Make and n8n are not in the top 10 (QC K7 P2), where Planable, Tallyfy and Kontent.ai rank.",
+   "fix": "If an approval tool such as Planable or Tallyfy enters the AAB library, swap it in on a later pass.",
+   "by": "A-r-13",
+   "via": "review",
+   "date": "2026-10-13 19:44 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #10",
+   "field": "image_brief.checks",
+   "issue": "The brief declares no checks although the images draw quantities (9 posts, 7 approved, 2 unanswered, 6 ad sizes, 2 rounds included, round 3). The drawn numbers agree with the copy, so nothing is wrong on the page; the declaration is missing.",
+   "fix": "Declare e.g. {\"expr\": \"7 + 2 == 9\", \"where\": 2} and facts for 6 and 2 in tab 3.",
+   "by": "A-r-13",
+   "via": "review",
+   "date": "2026-10-13 19:44 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "c3bba82f65863dde",
+   "alt:share_image": "ae85eab56e123f9a",
+   "alt:tab_image_1": "c98dcaa7b7cd8954",
+   "alt:tab_image_2": "079e76596a717317",
+   "alt:tab_image_3": "3d7551e62c5f419f",
+   "alt:tab_image_4": "2b82bf4b235849cb",
+   "breadcrumb": "e85a3602a4a93b2f",
+   "chip_adds": "b2f220fdbe162d46",
+   "explore_cta": "667a04cd76687c94",
+   "faq": "0d47b84495362df0",
+   "feature_1": "30793e4dc0bbf9b6",
+   "feature_2": "c9a97fc9c8c49637",
+   "feature_3": "c9da74da03af6014",
+   "feature_4": "3c5cc71e140e7a31",
+   "feature_5": "b103903ab9e3925a",
+   "feature_6": "6fdf5b89183a6e88",
+   "features_heading": "6ec4d8f66a15cfff",
+   "features_subheading": "2ba9dbc136469081",
+   "h1": "016f6eb1e7af5628",
+   "hero_description": "2e70fa286b9c4a8a",
+   "hero_prompt": "124ddeba8529ad0a",
+   "howto_description": "829ec1d951a8ec8e",
+   "howto_step_1_des": "e80a37aa68b49b19",
+   "howto_step_1_title": "0c8141b5d99610dd",
+   "howto_step_2_des": "1c88a5f9eba99832",
+   "howto_step_2_title": "321ee3a51f989f33",
+   "howto_step_3_des": "d5a810c68f187515",
+   "howto_step_3_title": "8075b3996fd77f39",
+   "howto_step_4_des": "5c97f327e2e337dc",
+   "howto_step_4_title": "0a3c01e3d33fd260",
+   "howto_step_5_des": "a5f21447feea5560",
+   "howto_step_5_title": "b6d441ba95c4cac6",
+   "howto_step_6_des": "5048294ec39c1136",
+   "howto_step_6_title": "7c057f2e0433e4f4",
+   "howto_step_7_des": "e505cc68abe1842e",
+   "howto_step_7_title": "1d48fae9e533750e",
+   "howto_title": "ab257fc3b9ec3c33",
+   "meta_description": "4539ed98638be623",
+   "meta_title": "4eaeaba6995a7d4c",
+   "mockup": "f56515d5caec07d2",
+   "product_name": "0f7ce1297b83efb8",
+   "prompt_chip_1": "1e52c4798130fb1f",
+   "prompt_chip_2": "ad80097cb8d86a58",
+   "prompt_chip_3": "d61aa627440f5d3d",
+   "prompt_chip_4": "dcd5389aed4dfb09",
+   "slug": "865772f74e769e24",
+   "tab_content_1": "12799d8b7d0760b9",
+   "tab_content_2": "fa0d2cbac8b98d0f",
+   "tab_content_3": "1dc91355692045bf",
+   "tab_content_4": "7c96ab4f73b60d50",
+   "tab_label_1": "6ca41c929e3150a8",
+   "tab_label_2": "db0a5f70b3145470",
+   "tab_label_3": "cc6a677993afd8ad",
+   "tab_label_4": "c17e882a685498f2",
+   "usecase_heading": "27206ffeeeb5e304",
+   "why_description": "e47c3eb2404ac327",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "8dcf7c4119965f90"
+  },
+  "all": "51a4d96c71600dbb",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "c3bba82f65863dde",
+   "alt:share_image": "ae85eab56e123f9a",
+   "alt:tab_image_1": "c98dcaa7b7cd8954",
+   "alt:tab_image_2": "079e76596a717317",
+   "alt:tab_image_3": "3d7551e62c5f419f",
+   "alt:tab_image_4": "2b82bf4b235849cb",
+   "breadcrumb": "e85a3602a4a93b2f",
+   "chip_adds": "b2f220fdbe162d46",
+   "explore_cta": "667a04cd76687c94",
+   "faq": "0d47b84495362df0",
+   "feature_1": "30793e4dc0bbf9b6",
+   "feature_2": "c9a97fc9c8c49637",
+   "feature_3": "c9da74da03af6014",
+   "feature_4": "3c5cc71e140e7a31",
+   "feature_5": "b103903ab9e3925a",
+   "feature_6": "6fdf5b89183a6e88",
+   "features_heading": "6ec4d8f66a15cfff",
+   "features_subheading": "2ba9dbc136469081",
+   "h1": "016f6eb1e7af5628",
+   "hero_description": "2e70fa286b9c4a8a",
+   "hero_prompt": "124ddeba8529ad0a",
+   "howto_description": "829ec1d951a8ec8e",
+   "howto_step_1_des": "e80a37aa68b49b19",
+   "howto_step_1_title": "0c8141b5d99610dd",
+   "howto_step_2_des": "1c88a5f9eba99832",
+   "howto_step_2_title": "321ee3a51f989f33",
+   "howto_step_3_des": "d5a810c68f187515",
+   "howto_step_3_title": "8075b3996fd77f39",
+   "howto_step_4_des": "5c97f327e2e337dc",
+   "howto_step_4_title": "0a3c01e3d33fd260",
+   "howto_step_5_des": "a5f21447feea5560",
+   "howto_step_5_title": "b6d441ba95c4cac6",
+   "howto_step_6_des": "5048294ec39c1136",
+   "howto_step_6_title": "7c057f2e0433e4f4",
+   "howto_step_7_des": "e505cc68abe1842e",
+   "howto_step_7_title": "1d48fae9e533750e",
+   "howto_title": "ab257fc3b9ec3c33",
+   "meta_description": "4539ed98638be623",
+   "meta_title": "4eaeaba6995a7d4c",
+   "mockup": "f56515d5caec07d2",
+   "product_name": "0f7ce1297b83efb8",
+   "prompt_chip_1": "1e52c4798130fb1f",
+   "prompt_chip_2": "ad80097cb8d86a58",
+   "prompt_chip_3": "d61aa627440f5d3d",
+   "prompt_chip_4": "dcd5389aed4dfb09",
+   "slug": "865772f74e769e24",
+   "tab_content_1": "12799d8b7d0760b9",
+   "tab_content_2": "fa0d2cbac8b98d0f",
+   "tab_content_3": "1dc91355692045bf",
+   "tab_content_4": "7c96ab4f73b60d50",
+   "tab_label_1": "6ca41c929e3150a8",
+   "tab_label_2": "db0a5f70b3145470",
+   "tab_label_3": "cc6a677993afd8ad",
+   "tab_label_4": "c17e882a685498f2",
+   "usecase_heading": "27206ffeeeb5e304",
+   "why_description": "e47c3eb2404ac327",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "8dcf7c4119965f90"
+  },
+  "all": "51a4d96c71600dbb",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
