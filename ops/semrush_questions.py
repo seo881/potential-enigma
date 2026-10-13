@@ -190,9 +190,7 @@ def derive(url):
     heads = [P.phrase_re(g.primary)] + [P.phrase_re(x) for x in (json.load(open(os.path.join(ROOT, "rules", "paa_synonyms.json")))["pages"].get(s) or []) if len(x.split()) >= 2]
     brands = _brands(url)
     # existing candidates: FAQ items the gate does not reject, passing pull questions, the page's secondaries
-    have = []
-    if (g.spec.get("fields") or {}).get("faq"):
-        faq, _ = quiet(P.run_spec, g); have += [i["q"] for i in faq if i["verdict"] != "reject"]
+    have = []   # never the page's own FAQ: a re-derive after assembly would drop its locked questions as duplicates (canary 2026-10-14)
     if P.pulls(s):
         items, _ = quiet(P.run_pull, g); have += [i["q"] for i in items if i["verdict"] != "reject"]
     have += [x["kw"] for x in (H.kmap().get(url) or {}).get("secondaries") or []]

@@ -56,11 +56,22 @@ def _fits(text, field):
         cfg = json.load(open(os.path.join(ROOT, "config", "typography.json"))); md = TS.mode(); F = cfg["ceilings"][md]["fields"]
         return field not in F or TS.width(text, TS.FIELDS[field], md) <= F[field]["px"] + 0.5
     except Exception: return True
-def _shorter(disp):
-    """Display-name variants, shortest last: drop a trailing hub noun, then leading words."""
+GENERIC_SHORT = {"landing page", "page", "form", "survey", "quiz", "automation", "workflow", "workflow automation", "questionnaire", "application"}
+def _shorter(disp, url=None):
+    """Display-name variants, shortest last: drop leading words (keeping the hub noun), then a trailing hub noun. Never a bare hub
+    phrase ('Landing Page') or another page's primary ('Approval Workflow' on document-approval-workflow), canary 2026-10-14."""
+    out = [v for v in _shorter_raw(disp) if v == disp or (v.lower() not in GENERIC_SHORT and v.lower() not in _sib_prims(url))]
+    # last resort: the last distinctive word ("Approval" for Document Approval Workflow), never a bare hub noun
+    distinct = [w for w in disp.split() if w.lower() not in {"landing", "page", "form", "survey", "quiz", "automation", "workflow", "questionnaire"}]
+    if distinct and distinct[-1] not in out: out.append(distinct[-1])
+    return out
+def _sib_prims(url):
+    return {P.norm(p_["primary"]) for u, p_ in H.kmap().items() if u != url and p_.get("primary")}
+def _shorter_raw(disp):
     ws = disp.split(); out = [disp]
     for k in range(1, len(ws) - 1): out.append(" ".join(ws[k:]))   # keep the hub noun ("Service Automation"), A-r-5 note 2026-10-13
-    if len(ws) > 2 and ws[-1].lower() in ("automation", "workflow", "survey", "quiz", "form", "page"): out.append(" ".join(ws[:-1]))
+    if len(ws) > 2 and " ".join(ws[-2:]).lower() == "landing page": out.append(" ".join(ws[:-2]))
+    elif len(ws) > 2 and ws[-1].lower() in ("automation", "workflow", "survey", "quiz", "form"): out.append(" ".join(ws[:-1]))
     return out
 
 def _a(primary):   # article for a definition question
@@ -175,11 +186,15 @@ def cmd_build(a):
     s["pipeline"] = "r15"; s["faq_plan"] = slots
     F = s["fields"]; disp = _title(km.get("display_name") or prim)
     if not s.get("faq_heading"):
-        s["faq_heading"] = next((h_ for h_ in (f"{d} Questions, Answered" for d in _shorter(disp)) if _fits(h_, "faq_heading")), f"{disp} Questions, Answered")
+        s["faq_heading"] = next((h_ for h_ in (f"{d} Questions, Answered" for d in _shorter(disp, url)) if _fits(h_, "faq_heading")), f"{disp} Questions, Answered")
     F["breadcrumb"] = F.get("breadcrumb") or disp; F["product_name"] = F.get("product_name") or f"{disp} Builder"
     if not F.get("explore_cta"):
-        F["explore_cta"] = next((c_ for c_ in (f"Build My {d}" for d in _shorter(disp)) if len(c_) <= 34), "Build Mine Now")
-    F["hero_prompt"] = F.get("hero_prompt") or "<p>" + HERO[hub].format(p=prim) + "</p>"
+        F["explore_cta"] = next((c_ for c_ in (f"Build My {d}" for d in _shorter(disp, url)) if len(c_) <= 34), "Build Mine Now")
+    if not F.get("hero_prompt"):
+        tmpl = HERO[hub]
+        if hub == "Auto" and re.search(r"\b(workflow|system|process|pipeline|app|bot|tool|tracker|dashboard|portal|engine)$", P.norm(prim)):
+            tmpl = "Build {a} {p} that runs on its own and logs every step."   # countable primary takes an article (canary 2026-10-14)
+        F["hero_prompt"] = "<p>" + tmpl.format(p=prim, a=_a(prim)) + "</p>"
     s.setdefault("keywords", {})["primary"] = prim
     save(url, s)
     vs, rows = default_table(url)
