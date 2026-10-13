@@ -172,6 +172,7 @@ def _brands(url):
     if os.path.exists(lib): names |= set(json.load(open(lib)).get("competitors", {}))
     return {P.norm(n) for n in names if n and len(n) > 2}
 
+SENSE_SHIFT = ["content", "seo", "website", "site", "web", "social media", "social", "marketing", "ux", "accessibility", "brand", "link", "energy", "tax", "code", "security", "data"]
 def keep_reason(url, q, have=()):
     """Why a Semrush question is dropped (or None when it is usable): no_head | drop_class | brand | gate_reject | duplicate."""
     import synonyms as SY, park_rescue as R
@@ -202,6 +203,11 @@ def derive(url):
         q = r["keyword"]; nq = P.norm(q)
         if not any(h.search(nq) for h in heads): why["no_head"] += 1; continue
         if SY.drop_class(q): why["drop_class"] += 1; continue
+        # another sense of the head phrase: a modifier right before it that makes a different thing ("content audit workflow" on an
+        # audit-workflow page, canary 2026-10-14)
+        _pw = [w for w in P.norm(g.primary).split() if w]
+        if re.search(r"(?<![a-z])(" + "|".join(re.escape(x) for x in SENSE_SHIFT if x not in _pw) + r")[\s-]+" + r"[\s-]+".join(re.escape(w) + r"(?:s|es)?" for w in _pw[:2]) + r"(?![a-z])", nq):
+            why["other_sense"] = why.get("other_sense", 0) + 1; continue
         if any(re.search(r"(?<![a-z0-9])" + re.escape(b) + r"(?![a-z0-9])", nq) for b in brands): why["brand"] += 1; continue
         rs = g.judge({"q": q, "source": "keyword", "n": 5})
         if any(x[1] == "reject" for x in rs): why["gate_reject"] += 1; continue
