@@ -2,6 +2,14 @@
 
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
+## 2026-10-14
+- **Divit, night of 10-13/14 (final for the night):**
+  - **Canary bar:** 3 non-quiz pages written fully on the new pipeline, any hubs (different hubs not required). The third round-2 page is the next writable LP or Automation page, with no wait for Form.
+  - **Quiz pages stay last** (they need a playable quiz).
+  - **C2 approved:** flag compliance claims only, i.e. HIPAA/SOC 2/GDPR (and PCI, CCPA, FERPA, SOX) followed by compliant, compliance, certified, certification or ready; never the bare word. In rules/capabilities.json pending `compliance`, with golden cases c2-*.
+  - **hipaa-release-form stays parked.**
+  - **Next steps:** when 3 of 3 pass, A removes STOP, starts the overnight loop, confirms the first iteration ran cleanly, and this session then runs only fetch, discovery, packet and audit. A failed round means: fix the cause and re-canary until 06:00 IST. Never wait on Divit tonight; anything needing his call goes in the 10:00 report.
+
 ## 2026-10-13
 - **Ruling 17 (Divit, 2026-10-13): overnight, A alone (B stopped).**
   - After the canary passes, scaling runs headless so it survives session limits: `ops/schedule/overnight_run.sh`, copied from weekend_run.sh.
