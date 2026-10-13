@@ -78,7 +78,7 @@ def _a(primary):   # article for a definition question
     return "an" if primary[:1].lower() in "aeiou" else "a"
 
 ACRO = {"ai": "AI", "crm": "CRM", "hr": "HR", "erp": "ERP", "api": "API", "sms": "SMS", "nps": "NPS", "csat": "CSAT", "faq": "FAQ", "seo": "SEO",
-        "pdf": "PDF", "it": None, "us": None, "dei": "DEI", "kpi": "KPI", "rfp": "RFP", "sop": "SOP", "ppc": "PPC", "saas": "SaaS", "b2b": "B2B", "hipaa": "HIPAA"}
+        "pdf": "PDF", "it": None, "us": None, "dei": "DEI", "kpi": "KPI", "rfp": "RFP", "sop": "SOP", "ppc": "PPC", "saas": "SaaS", "b2b": "B2B", "hipaa": "HIPAA", "dam": "DAM", "aec": "AEC", "rfq": "RFQ", "rfi": "RFI", "cpq": "CPQ", "pdfs": "PDFs"}
 def clean_question(raw):
     """A Semrush question as a starting point only (keyword-sourced: the writer may reword it naturally, head phrase kept, backlog line 91):
     years stripped, acronyms cased, first letter capitalised, a question mark."""
