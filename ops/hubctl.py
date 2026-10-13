@@ -109,7 +109,10 @@ def set_state(url, state, note=None, via=None, by=None, **extra):
     with G.lock("status-" + hub):
         st = load_st(hub); e = st["pages"].setdefault(url, {})
         h = e.get("hold")
-        if e.get("faq_pending") and state in ("qc_pass", "images", "reviewed", "approved"):
+        _sp = os.path.join(ROOT, "status", "synonyms.json")
+        _sy = (json.load(open(_sp))["pages"].get(url.rsplit("/", 1)[1]) or {}) if os.path.exists(_sp) else {}
+        _waiting = _sy.get("pending") and _sy.get("feasibility", 0) < 10   # under 10 without the undecided phrases
+        if (e.get("faq_pending") or _waiting) and state in ("qc_pass", "images", "reviewed", "approved"):
             sys.exit(f"refused: {url} is a split write waiting for Divit's synonym decision (ruling 12 part 5): QC, gate and review run on the whole page only after the FAQ lands")
         if h and hold_account(h) != clone_account(): sys.exit(f"refused: {url} is held by account {hold_account(h)} ({h.get('by')}, since {h.get('t')}: {h.get('note','')}); only that account changes it until it runs hubctl unhold")
         e.update({"state": state, "updated": now(), **extra})
