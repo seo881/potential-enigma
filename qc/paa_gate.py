@@ -31,6 +31,8 @@ SAME = {"make": "create", "build": "create", "design": "create", "setup": "creat
 def content(s): return {SAME.get(stem(w), stem(w)) for w in re.split(r"[\s-]+", norm(s).replace("set up", "setup")) if w and w not in STOP}
 def jacc(a, b): return len(a & b) / len(a | b) if a | b else 0.0
 def has(term, q): return re.search(r"(?<![a-z0-9])" + re.escape(term) + r"(?![a-z0-9])", q) is not None
+def qhash(q):  # stable id of a question (normalised text), for strike lists and sheets: never the text itself in git
+    import hashlib; return hashlib.sha1(norm(q).encode()).hexdigest()[:10]
 def phrase_re(p):  # head phrase, each word optionally plural, space or hyphen between words
     ws = norm(p).split()
     return re.compile(r"(?<![a-z0-9])" + r"[\s-]+".join(re.escape(w) + r"(?:s|es)?" for w in ws) + r"(?![a-z0-9])")
@@ -66,8 +68,10 @@ class Gate:
                 self.page_terms |= {"".join(x[0] for x in ws[i:i + n]) for i in range(len(ws) - n + 1)}
         self.bl, self.pt = R("paa_blocklist.json"), R("paa_patterns.json")
         for e in self.bl["per_page"].get(self.slug, []):
-            if not e.get("reason"): sys.exit(f"rules/paa_blocklist.json per_page {self.slug}: entry without a reason: {e.get('q')}")
-        self.skip = {norm(e["q"]): e["reason"] for e in self.bl["per_page"].get(self.slug, [])}
+            if not e.get("reason"): sys.exit(f"rules/paa_blocklist.json per_page {self.slug}: entry without a reason: {e.get('q') or e.get('qh')}")
+        self.skip = {norm(e["q"]): e["reason"] for e in self.bl["per_page"].get(self.slug, []) if e.get("q")}
+        # ruling 12 strikes are stored by hash (qhash), so no AlsoAsked text enters git
+        self.skip_h = {e["qh"]: e["reason"] for e in self.bl["per_page"].get(self.slug, []) if e.get("qh")}
         lib = os.path.join(ROOT, "rules", "competitors", self.dir + ".json")
         self.library = [c.lower() for c in json.load(open(lib)).get("competitors", {})] if os.path.exists(lib) else []
         self.siblings = []  # PA10: every other spec in the hub, with its head phrase
@@ -124,6 +128,7 @@ class Gate:
         ws = [w for w in self.bl["wrong_sense"] if has(w, q)]
         if ws: out.append(("PA4", "reject", "wrong-sense term: " + ", ".join(ws)))
         if q in self.skip: out.append(("PA4", "reject", "per-page skip: " + self.skip[q]))
+        elif qhash(q) in self.skip_h: out.append(("PA4", "reject", "per-page skip: " + self.skip_h[qhash(q)]))
         if any(re.search(r"\b(apply|applying|application) (for|to) (the |an? )?" + h.pattern, q) for h in self.heads):
             out.append(("PA4", "reject", "treats the page's document as something one applies for (wrong sense)"))
         ctx = norm(item.get("ctx") or "")  # the AlsoAsked answer source: provenance used only to judge the sense, never copied

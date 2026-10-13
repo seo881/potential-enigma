@@ -13,7 +13,8 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   k7-header      {url, header, expect_k7}                 QC K7 fires on a why_table column header exactly when expect_k7 (top-10 URLs: keyword map + saved SERP)
   qc-text        {url, field, text, check}                 QC flags `field` when it holds `text` (P0/P1 on that field)
   gate-pa12-secs {url, expect_pa12}                        PA12's secondary test fails exactly when expected (ruling 5: Semrush secondaries, bar min(6, n); none = 4 on-topic workbook ideas)
-  review-lock    {url, field, expect_refused}             ruling 10 B2: post-review change to a field is refused unless a blocking finding names it
+  gate-pull-skip {url, qh, expect}                       ruling 12: the pull question with hash qh (Divit struck it) is rejected with an expected rule (PA4)
+  review-lock    {url, field, expect_refused, sha?}       (sha: the spec at that commit, so a later review event cannot age the case)             ruling 10 B2: post-review change to a field is refused unless a blocking finding names it
   feasibility    {url, expect_feasible}                   ruling 10 B1: feasibility (pull + sources + recoverable keyword items) reaches 10 when expected
   aa-decision    {rows, saved, now, expect}               weekend.py aa: reuse a saved pull, refuse a recent charge with no save, ignore 401/403 rejections
   gate-asker     {url, q, expect_asker}                   PA6 classifies the question as builder | respondent (None = flag)
@@ -50,9 +51,16 @@ def caught(c):
         import paa_gate as PG
         rs = PG.Gate(c["url"]).judge({"q": c["q"], "source": "secondary", "n": 5}); lv = c.get("levels") or ["reject"]
         return bool({r[0] for r in rs if r[1] in lv} & set(c.get("expect") or [r[0] for r in rs]))
+    if c["kind"] == "gate-pull-skip":   # ruling 12: a question Divit struck (stored as its hash) stays rejected PA4 on that page's pull
+        import paa_gate as PG, io as _io, contextlib as _cl
+        g = PG.Gate(c["url"])
+        if not PG.pulls(g.slug): return False
+        with _cl.redirect_stdout(_io.StringIO()): items, _ = PG.run_pull(g)
+        it = next((i for i in items if PG.qhash(i["q"]) == c["qh"]), None)
+        return bool(it) and it["verdict"] == "reject" and any(r[0] in c["expect"] and r[1] == "reject" for r in it["reasons"])
     if c["kind"] == "review-lock":   # ruling 10 B2: after review, a change to field F is refused unless a blocking finding names F
         import review_lock as RL, hubctl as H
-        s = copy.deepcopy(json.load(open(H.spath(c["url"])))); s["fields"][c["field"]] = (s["fields"].get(c["field"]) or "") + " Changed after review."
+        s = copy.deepcopy(spec_at(c["sha"], c["url"]) if c.get("sha") else json.load(open(H.spath(c["url"])))); s["fields"][c["field"]] = (s["fields"].get(c["field"]) or "") + " Changed after review."
         return bool(RL.violations(s)) == c["expect_refused"]
     if c["kind"] == "feasibility":   # ruling 10 B1: the pre-writing feasibility count reaches 10 exactly when expected
         import park_rescue as R

@@ -3,6 +3,17 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-13
+- **Ruling 12 (Divit, 2026-10-13): PA3 synonyms per page and replacement keywords approved, with zero quality change.**
+  1. **AlsoAsked:** A runs every pull; B never pulls and uses saved pulls only (0 credits). `weekend.py aa` refuses outside Account A. Tonight: every queued page with no pull (cap 2 per page, stop at 400 credits in total: run `wave-r12`, `ops/pull_wave.py`), then a --kw pull on the top secondary of each LP page whose pull returned no_results and that is under 10.
+  2. **PA3 synonyms, per page, Divit's read:** candidate sheets in tranches of 50 pages in queue-rank order (`ops/synonyms.py sheet N`, `.cache/review/pa3-tranche-N.md` and `.csv`; AlsoAsked text never in git). Per page the top 2 phrases, and under each EVERY question it admits, so Divit can strike single questions as well as whole phrases. Tranche 1 = the pilot pages; the next tranches follow as pulls land, with every queued page covered by 10-16.
+     - Approved phrases go into `rules/paa_synonyms.json` at once (per-page data, outside the Monday window).
+     - Struck questions go on that page's PA4 skip list (`rules/paa_blocklist.json`, stored as a question hash) with a golden case (`gate-pull-skip`).
+     - Every admitted question still passes every other gate rule; a reviewer treats a drifting admitted question as blocking.
+  3. **Replacement keywords:** the workbook's AMBER (116) and new-idea (29) rows, each screened for intent and for cannibalisation against existing and queued pages (K-sibling). Rows that fail or cannot be confirmed are dropped, not sent. The rest go to Divit as one sheet ranked by MSV for a yes/no per row by 10-15; approved rows enter the plan with the same pull and feasibility steps.
+  4. **Queue:** `plan/queue-ranked.txt` (feasibility, then MSV; `ops/queue_rank.py`), regenerated after every pull wave and every synonym approval. B claims from the top only (`hubctl claim` reads it). Any parked Form/Auto/SurveyQuiz page whose feasibility reaches 10 is released to B (`queue_rank.py --release-parked`). The ruling 10 pilot hold on Auto is lifted: the pilot has landed, and Auto pages are claimed from the ranked queue like the others.
+  5. **Split write (B):** a page pending synonym approval (class syn-pending) gets everything but the FAQ written first (`faq_pending` on its status entry). QC, the gate and the one review run on the whole page only after the FAQ lands; hubctl refuses qc_pass, images and reviewed until then. A page whose synonyms Divit rejects goes back to the queue end, its draft kept.
+  6. **Capacity:** B measured about 7% of its weekly cap on about 5.6M tokens; plan for 50 pages a day.
+  7. **Today:** full review of wellness-survey, sales-workflow and assessment-form; slim review of B's reworked pages (hash check, and a verbatim check on every restored AlsoAsked question: `hubctl verbatim`). Batch 3 staging flow as soon as Divit says "staging published".
 - **Ruling 10 (Divit, 2026-10-13): AlsoAsked yield pilot plus 5 speed changes; the quality bar is unchanged (same gates, one review, one rework, same packet).**
   - **A. Yield pilot:** at most 45 credits, all through weekend.py aa, cap 2 per page.
     - The next 5 queued pages per hub in plan order, one pull each, plus the --kw secondary pull for sales-workflow, shipping-automation and automated-loan-processing-system.

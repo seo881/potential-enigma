@@ -56,15 +56,16 @@ def sources(url, extra=()):
 
 KW_RULES = ("PA4", "PA5", "PA8", "PA14", "PA15")   # rules that reject a question for words the keyword itself carries
 
-def a6_count(url):
+def a6_count(url, extra=()):
     """A6 (Divit 2026-10-12): on-topic FAQ sources for a page, counting APPROVED synonyms only (rules/paa_synonyms.json; never the
     --cand candidates), each counted once (same intent = PA9):
       faq   current FAQ items the gate does not reject (PA11's own count)
       pull  gate-passing AlsoAsked questions from the primary and top-secondary pulls, not same-intent as a counted FAQ item
       sec   keyword-map secondaries no counted question carries yet, one per content-word set, and not rejected for their own
             words (PA4, PA5, PA8, PA14, PA15: e.g. a file-format ask)
+    extra: unapproved candidate phrases, only for ruling 12's 'feasibility with the top 2 candidates' column (never for claim).
     Returns a dict of counts only."""
-    g = P.Gate(url)
+    g = P.Gate(url, extra)
     faq, _ = P.run_spec(g) if (g.spec.get("fields") or {}).get("faq") else ([], None)   # a parked page may have no FAQ yet
     on = [i["q"] for i in faq if i["verdict"] != "reject"]
     pull = []
@@ -142,13 +143,13 @@ if __name__ == "__main__":
         for u in sys.argv[2:]: print(u, json.dumps(a6_count(u)), flush=True)
     else: main(sys.argv[1:] or parked_from_plan())
 
-def feasibility(url):
+def feasibility(url, extra=()):
     """Ruling 10 B1 (Divit 2026-10-13): can this page reach 10 FAQ items with 0 rejects after its one pull? Counts a6_count
     (gate-passing FAQ items, pull items, uncarried secondaries) plus RECOVERABLE items: FAQ items the gate rejects only for
     PA3 whose source is a keyword or secondary that itself contains the head phrase (backlog line 91: the writer can put the
     head term back). A page with no FAQ yet also gets its 2 template slots (definition, how-to-build). Pass and flag both
     count (flags are allowed when listed in Divit's packet, ruling 4). Under 10: no writer; the page waits at the end of the queue."""
-    c = a6_count(url); g = P.Gate(url); rec = 0
+    c = a6_count(url, extra); g = P.Gate(url, extra); rec = 0
     if c["spec_faq"]:
         srcs = {x.get("q"): x for x in g.spec.get("faq_sources") or []}
         faq, _ = P.run_spec(g)

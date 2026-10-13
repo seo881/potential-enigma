@@ -77,7 +77,15 @@ Who holds a page:
 - **Daily ship.** A ships every `reviewed`, unheld, hash-matching page each day (`hubctl daily-batch`).
 - **Headless loop.** B may run a writer loop in its own clone with 6–8 writer subagents. Divit starts it, and it refuses to start unless `weekend.py preflight` passes.
 - **Read-only checks.** `hubctl qc` and `hubctl paa` no longer write anything. Stamp `qc_passed` with `hubctl qc <url> --stamp` (or `state qc_pass`); `--log` writes the PAA summary.
-- **Pilot hold.** No new Auto pages for B until the AlsoAsked yield pilot lands.
+- **Pilot hold.** No new Auto pages for B until the AlsoAsked yield pilot lands. (Lifted by ruling 12: Auto pages are claimed from the ranked queue.)
+
+## 3d. Ruling 12 (Divit 2026-10-13): synonyms, pulls, ranked queue, split write
+- **AlsoAsked: A only.** A runs every pull (`ops/pull_wave.py`, `weekend.py aa`); B never pulls (aa refuses outside A) and reads saved pulls through `hubctl brief`. B asks A for a pull in `proposals/account-b.md`.
+- **Claim from the top only.** `plan/queue-ranked.txt` ranks every queued page: `ready` (10 or more now), `syn-pending` (10 with its tranche's top 2 phrases, awaiting Divit), `no-pull`, `short`. `hubctl claim` takes the first unclaimed ready or syn-pending rows of the hub, in order. A regenerates it after every pull wave and every synonym approval.
+- **Split write.** A syn-pending claim carries `faq_pending`. B writes everything but the FAQ (plan, copy, table, image brief) and stops in state `spec`. hubctl refuses qc_pass, images and reviewed until Divit decides. On approval, A clears `faq_pending` and B writes the FAQ from `hubctl brief` (the approved phrases now pass the gate), then QC, gate, images and review as usual. If he rejects every phrase, the page goes back to the queue end with its draft kept.
+- **Synonyms.** Approved phrases are in `rules/paa_synonyms.json`; questions Divit struck are on the page's PA4 skip list (by hash). Use admitted questions verbatim, like every AlsoAsked question; a question that drifts from the page's intent is a blocking review finding.
+- **Verbatim check.** Every reviewer runs `hubctl verbatim <url>`: each AlsoAsked-sourced FAQ item must equal its prov.original and the saved pull.
+- **Released parked pages.** Parked Form/Auto/SurveyQuiz pages whose feasibility reaches 10 are released to B by A, and then rank like any other queued page.
 
 ## 4. Commit protocol
 - Always use `bash ops/sync.sh "<message>" <explicit paths>`. It pulls with rebase and autostash, refuses conflict markers, then commits and pushes. Never `git add -A`, never force-push, never `git reset --hard`.

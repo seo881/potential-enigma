@@ -35,6 +35,7 @@
   sources-check URL|--all            link-check every spec.domain_sources URL (cached for QC P3)
   usage-log URL TOKENS --role R     record an agent's token usage for a page (metrics reports tokens per page)
   learn-refs READBACK                 the 3 newest published Learn articles -> config/learn_refs.json (L12; new items get them at creation)
+  verbatim URL...                   ruling 4/12: AlsoAsked-sourced FAQ items equal prov.original and the saved pull (exit 1 on a mismatch)
   feasibility URL | defer URL --by ID   ruling 10 B1: under 10 FAQ sources after the pull = no writer; the page waits in the queue
   review-diff URL | slim-review URL FILE --by A-s-<n>   ruling 1: fields changed since review; record a slim review of them
   hold URL --by ID [--note T] | unhold URL --by ID   the account's hold marker on a page it is working (docs/TWO_ACCOUNTS.md)
@@ -108,6 +109,8 @@ def set_state(url, state, note=None, via=None, by=None, **extra):
     with G.lock("status-" + hub):
         st = load_st(hub); e = st["pages"].setdefault(url, {})
         h = e.get("hold")
+        if e.get("faq_pending") and state in ("qc_pass", "images", "reviewed", "approved"):
+            sys.exit(f"refused: {url} is a split write waiting for Divit's synonym decision (ruling 12 part 5): QC, gate and review run on the whole page only after the FAQ lands")
         if h and hold_account(h) != clone_account(): sys.exit(f"refused: {url} is held by account {hold_account(h)} ({h.get('by')}, since {h.get('t')}: {h.get('note','')}); only that account changes it until it runs hubctl unhold")
         e.update({"state": state, "updated": now(), **extra})
         if note: e["note"] = note
@@ -132,6 +135,23 @@ def _record_feasibility(url, f):
     p = os.path.join(ROOT, "status", "feasibility.json"); d = json.load(open(p)) if os.path.exists(p) else {}
     d[url] = {"total": f["total"], "faq": f["faq"], "pull": f["pull"], "sec": f["sec"], "recoverable": f["recoverable"], "slots": f["slots"], "date": now()}
     json.dump(d, open(p, "w"), indent=1, sort_keys=True)
+
+def cmd_verbatim(args):
+    """Ruling 4/12: every FAQ item carrying AlsoAsked provenance must equal prov.original and a question in the saved pull, character
+    for character. Prints Qn ok|MISMATCH per page (no question text); exit 1 on any mismatch. Reviewers run it on every page."""
+    sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate as PG, io, contextlib
+    bad = 0
+    for u in args:
+        s = json.load(open(spath(u)))
+        with contextlib.redirect_stdout(io.StringIO()): items, _x = PG.run_pull(PG.Gate(u)) if PG.pulls(u.rsplit("/", 1)[1]) else ([], None)
+        pq = {i["q"] for i in items}; res = []
+        for k, f in enumerate(s.get("faq_sources") or [], 1):
+            pv = f.get("prov") or {}
+            if not str(pv.get("tool", "")).startswith("alsoasked"): continue
+            ok = f.get("q") == pv.get("original") and f.get("q") in pq; bad += not ok
+            res.append(f"Q{k} " + ("ok" if ok else "MISMATCH (" + ("differs from prov.original" if f.get("q") != pv.get("original") else "not in the saved pull") + ")"))
+        print(f"{u}: " + ("; ".join(res) or "no AlsoAsked items"))
+    sys.exit(1 if bad else 0)
 
 def cmd_unlock(args):
     """Ruling 10 B2 exception (coordinator only): a same-day factual fix to a locked field. Recorded on the spec; ruling 1's slim review still applies."""
@@ -172,6 +192,20 @@ def cmd_claim(args):
     got = []
     sys.path.insert(0, os.path.join(ROOT, "qc")); sys.path.insert(0, os.path.join(ROOT, "ops")); import paa_gate as _PG
     skipped = []
+    # ruling 12 part 4 (Divit 2026-10-13): claim from the top of plan/queue-ranked.txt only (ready, then syn-pending for the split write)
+    import queue_rank as _QR
+    rk = _QR.ranked()
+    if rk is not None:
+        cls = {u: c for _r, h, u, c, _f in rk if h == hub}
+        queue = [m[u] for _r, h, u, c, _f in rk if h == hub and c in ("ready", "syn-pending") and u in m and u not in st["pages"]]
+        for p in queue[:n]:
+            pend = cls[p["url"]] == "syn-pending"
+            st["pages"][p["url"]] = {"state": "claimed", "by": by, "updated": now(), "queue_rank": p["queue_rank"], **({"faq_pending": True} if pend else {})}
+            got.append(p)
+        save_st(hub, st)
+        for p in got: print(f"claimed {p['url']}" + ("  SPLIT WRITE: everything but the FAQ until Divit decides its synonyms (ruling 12 part 5)" if st["pages"][p["url"]].get("faq_pending") else ""))
+        if len(got) < n: print(f"only {len(got)} claimable (ready or syn-pending) in plan/queue-ranked.txt for {hub}")
+        print("Commit and push status now so other chats see the claim."); return
     for p in queue:
         if p["url"] in st["pages"]: continue
         # ruling 10 B1 (Divit 2026-10-13): a page whose one pull cannot reach 10 FAQ items is not written; it waits at the end of the queue
@@ -1023,7 +1057,7 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "release": cmd_release, "paa": cmd_paa, "paa-resource": cmd_paa_resource, "paa-synonyms": cmd_paa_synonyms, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "feasibility": cmd_feasibility, "daily-batch": cmd_daily_batch, "unlock": cmd_unlock, "defer": cmd_defer, "batch-check": cmd_batch_check, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "feasibility": cmd_feasibility, "daily-batch": cmd_daily_batch, "unlock": cmd_unlock, "verbatim": cmd_verbatim, "defer": cmd_defer, "batch-check": cmd_batch_check, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
         "recheck": cmd_recheck, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live,
         "live-audit": lambda a: _live().main(a), "live-fix": lambda a: _live().fix_main(a), "live-rollback": lambda a: _live().cmd_rollback(a), "retro": lambda a: __import__("retro").main(a)}

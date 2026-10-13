@@ -26,6 +26,9 @@ ORDER = ["LP", "Auto", "SurveyQuiz", "Form"]                       # Divit: LP, 
 HELD = {"consultation-form", "checkout-form", "conference-registration-form", "summer-camp-registration-form", "contact-form",
         "thank-you-page", "creator-application", "approval-workflow", "customer-satisfaction"}   # DECISIONS 2026-10-09 and the 4 originals
 CREDIT_CAP, PER_PAGE = 300, 2
+# Runs Divit authorised with their own credit cap: inside such a run the run cap replaces the weekend CREDIT_CAP (never above it)
+AUTH_RUNS = {"pilot-r10": 45,     # ruling 10A, 2026-10-13: the yield pilot
+             "wave-r12": 400}     # ruling 12, 2026-10-13: every queued page with no pull + LP --kw secondaries, stop at 400 credits
 STATE = os.path.join(ROOT, "status", "weekend-run.json")
 PLAN = os.path.join(ROOT, "plan", "weekend-run.md")
 STOP = os.path.join(ROOT, "STOP")
@@ -245,6 +248,9 @@ def cmd_aa(args):
     if opt("--kw") not in (None, "primary", "secondary"): sys.exit("--kw is primary or secondary")
     run, cap = opt("--run"), opt("--run-cap"); cap = int(cap) if cap else None
     if cap is not None and not run: sys.exit("--run-cap needs --run ID")
+    if run in AUTH_RUNS: cap = min(cap if cap is not None else AUTH_RUNS[run], AUTH_RUNS[run])
+    # Ruling 12 (Divit 2026-10-13): A runs every AlsoAsked pull; B never pulls and uses saved pulls only (0 credits)
+    if H.clone_account() != "A": sys.exit("refused: AlsoAsked pulls run in Account A only (ruling 12); B uses saved pulls (hubctl brief). Ask A in proposals/account-b.md")
     name = s + (SEC if sec else ""); pull = os.path.join(ROOT, "private", "alsoasked", name + ".json")
     def saved():
         try: return json.load(open(pull))["_meta"].get("status") or "success"
@@ -267,7 +273,7 @@ def cmd_aa(args):
             if verdict == "refuse": sys.exit(f"{name}: {why} ({used} credits on the page)")
             rows = [r for r in rows if not rejected(r) and r.get("status") != "reconciliation"]
             if used + cost > PER_PAGE: sys.exit(f"{s}: {used} credits used; a pull costing {cost} would take it past {PER_PAGE}; write from the secondaries or fail the page")
-            if total + cost > CREDIT_CAP: sys.exit(f"weekend AlsoAsked cap reached ({total}/{CREDIT_CAP}); no more pulls")
+            if run not in AUTH_RUNS and total + cost > CREDIT_CAP: sys.exit(f"weekend AlsoAsked cap reached ({total}/{CREDIT_CAP}); no more pulls")
             if cap is not None and run_spent(run) + cost > cap: sys.exit(f"run {run} cap reached ({run_spent(run)}/{cap}); no more pulls")
             before = len(credits_rows(""))
             cmd = [sys.executable, os.path.join(ROOT, "ops", "alsoasked_pull.py"), name, term, "--depth", str(depth), "--no-retry"] + (["--fresh"] if rows else [])
