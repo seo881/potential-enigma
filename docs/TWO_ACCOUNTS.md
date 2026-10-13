@@ -17,6 +17,7 @@ Target: 500 pages live by 2026-10-27. Two accounts work in parallel, each in its
 A page is held by one account at a time, by state:
 - **A holds** a Form/Auto page in `claimed` and `rework`.
 - **B holds** it from `images` onward (`images` → review → `reviewed`/`rework` → `approved` → CMS → `published`).
+- **B's batches win:** any page listed in a ship batch file (`plan/batches/batch-*.txt`) is B's from the moment the file is pushed, whatever its state. A never edits or claims it (2026-10-13: A and B both fixed 4 batch-3 pages; B kept A's commit and added the name sweep).
 - `rework` goes back to A, which fixes the blocking findings only, re-renders, then runs `hubctl ready <url> --by A-<id>` → `reviewed`. One review per page and one rework (CLAUDE.md step 5). The writer and the reviewer are always different agents; hubctl refuses otherwise.
 
 ## 2. One-time setup of A's clone (Divit or A, before A starts)
