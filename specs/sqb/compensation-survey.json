@@ -120,6 +120,13 @@
    "via": null,
    "by": "A-coord",
    "note": ""
+  },
+  {
+   "t": "2026-10-13 23:54 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-18",
+   "note": "rubric 10/10 by A-r-18; 8 notes"
   }
  ],
  "pipeline": "r15",
@@ -1155,5 +1162,345 @@
  },
  "writers": [
   "A-w-87"
- ]
+ ],
+ "review": {
+  "by": "A-r-18",
+  "date": "2026-10-13 23:54 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Compensation Survey and Own the Pay Data', title 'Compensation Survey Builder for Pay Data | Emergent' and hero 'Build a compensation survey that matches jobs by description, checks each salary entered, and saves it to a database you own.' state the whole job; howto_description is one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "The SERP is vendors and agencies selling salary data. The page answers what one is (FAQ 1), who offers them (FAQ 10: Mercer, Pearl Meyer, BLS), how to conduct and use one (FAQ 9, FAQ 5, the 7-step how-to), and shows four surveys built from a prompt. The AMBER pay-feedback angle is carried by tab 4 and FAQ 6 (note)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Comp-practitioner vocabulary: benchmark jobs matched by description, publishing threshold of 5 firms, top-step pay, peer median, 25th and 75th percentile, effective date."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Body paragraphs open on full sentences: 'Ridgeline Logistics Council runs one salary survey a year.', 'Corlew Freight typed $6,250...', 'Choose jobs that most participants employ...'. The fragment subheading is a note."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Mostly one idea per sentence ('Fleet safety manager drew 3 and stays held.'); tacked-on clauses in FAQ 4 and step 7 are notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator voice: 'Skip anything a participant would have to work out by hand, like total cash for the year.' No AI tells."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Third-party lines match their quotes: ERC definition and 'match positions by job description rather than title'; Mercer 'annual increase budgets, structure adjustments and incentive usage' and 'receive the results for free when they publish'; Pearl Meyer 'more than 80 executive positions' (its page also offers 'Purchase Report', so 'sell them' holds); BLS NCS. Emergent lines map to prompt-build, database-owned, alerts, no-caps, custom-domain, code-export. Numbers: 6,250 x 12 = 75,000; 57,000 - 52,900 = 4,100 (7%); 64+18+46+58 = 186; 24/58 = 41%, 50/64 = 78%."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Owns pay data; no sibling primary (employee satisfaction, employee benefits, engagement survey) headlined; engagement, exit and 360 survey only linked."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions answered first-sentence; hub link in item 2; locked items 1, 9, 10 match the skeleton; all four secondaries carried; no brand in a question (brands only in the FAQ 10 answer)."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches the tabs: warehouse supervisor 11 firms $68,400 Published, fleet safety manager 3 Held with '5 needed to publish'; $6,250 sent back under the $30,000 floor, $75,000 a year; deputy clerk $52,900 vs $57,000, gap $4,100, -7%; Support 24 of 58 (41%) vs Engineering 50 of 64, 186 answered."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "usecase_heading",
+    "quote": "How Four Teams Run Their Pay Surveys",
+    "issue": "The brief's AMBER angle is a pay-satisfaction or compensation-feedback survey; three of four tabs are market salary surveys and only tab 4 ('Staff Pay Clarity') carries the angle. Defensible against a salary-benchmark SERP, but the angle is thin.",
+    "fix": "None required; flag for Divit if the AMBER angle should lead.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "A compensation survey is a report of what a defined group of employers pay for a defined set of jobs over a defined period.",
+    "issue": "FAQ 1's first sentence is the ERC source sentence word for word, unattributed; answers are to be in the writer's own words. The narrow employer-report definition also sits awkwardly beside tab 4 and FAQ 8 ('An internal survey asks staff how they see their own pay'), which FAQ 6 bridges.",
+    "fix": "Define it in your own words, wide enough to cover the internal survey the page also shows.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "faq",
+    "quote": "which is the first place to look when a role stays open for months",
+    "issue": "Tacked-on relative clause in FAQ 4; howto_step_7_des ends the same way (', so a participant can choose where it wants to pay').",
+    "fix": "Split into two sentences.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "Feedback on a person belongs in a 360 survey.",
+    "issue": "FAQ 10 ('What companies offer compensation surveys?') ends on a link sentence unrelated to the question; the link serves the plan, not the reader.",
+    "fix": "Move the 360 survey link to an answer where it follows from the question, or drop it.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "Three compensation survey examples cover the ground.",
+    "issue": "Filler opener announcing the list.",
+    "fix": "Open on the first example.",
+    "severity": "note"
+   },
+   {
+    "class": "openers",
+    "criterion": "openers",
+    "rule": "CONTENT_DEFECTS #2",
+    "field": "features_subheading",
+    "quote": "What Emergent builds behind a compensation survey, and what stays yours once the survey closes.",
+    "issue": "The subheading is a fragment, not a sentence that says what happens.",
+    "fix": "A full sentence: Emergent builds the matching, checks and reminders, and the pay data stays in your database after the survey closes.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_3",
+    "quote": "Filter by region or firm size before any figure leaves the table.",
+    "issue": "The row just listed ('firm, job, headcount, base pay, bonus, and effective date') holds neither region nor firm size.",
+    "fix": "Add region and firm size to the listed columns, or filter by a field the row holds.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief",
+    "quote": "Corrected entry saved",
+    "issue": "Tab 2 draws the 'Corrected entry' step as live (in progress) while the mini card says it is saved.",
+    "fix": "Mark the corrected-entry step done.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "usecase_heading",
+   "issue": "The brief's AMBER angle is a pay-satisfaction or compensation-feedback survey; three of four tabs are market salary surveys and only tab 4 ('Staff Pay Clarity') carries the angle. Defensible against a salary-benchmark SERP, but the angle is thin.",
+   "fix": "None required; flag for Divit if the AMBER angle should lead.",
+   "by": "A-r-18",
+   "via": "review",
+   "date": "2026-10-13 23:54 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "FAQ 1's first sentence is the ERC source sentence word for word, unattributed; answers are to be in the writer's own words. The narrow employer-report definition also sits awkwardly beside tab 4 and FAQ 8 ('An internal survey asks staff how they see their own pay'), which FAQ 6 bridges.",
+   "fix": "Define it in your own words, wide enough to cover the internal survey the page also shows.",
+   "by": "A-r-18",
+   "via": "review",
+   "date": "2026-10-13 23:54 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "faq",
+   "issue": "Tacked-on relative clause in FAQ 4; howto_step_7_des ends the same way (', so a participant can choose where it wants to pay').",
+   "fix": "Split into two sentences.",
+   "by": "A-r-18",
+   "via": "review",
+   "date": "2026-10-13 23:54 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "FAQ 10 ('What companies offer compensation surveys?') ends on a link sentence unrelated to the question; the link serves the plan, not the reader.",
+   "fix": "Move the 360 survey link to an answer where it follows from the question, or drop it.",
+   "by": "A-r-18",
+   "via": "review",
+   "date": "2026-10-13 23:54 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "Filler opener announcing the list.",
+   "fix": "Open on the first example.",
+   "by": "A-r-18",
+   "via": "review",
+   "date": "2026-10-13 23:54 UTC"
+  },
+  {
+   "criterion": "openers",
+   "rule": "CONTENT_DEFECTS #2",
+   "field": "features_subheading",
+   "issue": "The subheading is a fragment, not a sentence that says what happens.",
+   "fix": "A full sentence: Emergent builds the matching, checks and reminders, and the pay data stays in your database after the survey closes.",
+   "by": "A-r-18",
+   "via": "review",
+   "date": "2026-10-13 23:54 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_3",
+   "issue": "The row just listed ('firm, job, headcount, base pay, bonus, and effective date') holds neither region nor firm size.",
+   "fix": "Add region and firm size to the listed columns, or filter by a field the row holds.",
+   "by": "A-r-18",
+   "via": "review",
+   "date": "2026-10-13 23:54 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief",
+   "issue": "Tab 2 draws the 'Corrected entry' step as live (in progress) while the mini card says it is saved.",
+   "fix": "Mark the corrected-entry step done.",
+   "by": "A-r-18",
+   "via": "review",
+   "date": "2026-10-13 23:54 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "cc207dc68fe252ea",
+   "alt:share_image": "781aba22604ecfcc",
+   "alt:tab_image_1": "54267a8131a6324c",
+   "alt:tab_image_2": "8b2ccc956d92d735",
+   "alt:tab_image_3": "1549bbe66c0ccdc1",
+   "alt:tab_image_4": "560e39668aa53638",
+   "breadcrumb": "5df4a2afa34d0f34",
+   "chip_adds": "159a56efc725ba08",
+   "explore_cta": "463d1fef1d33a555",
+   "faq": "11a9a02e8655fc93",
+   "feature_1": "021e827716f67f2d",
+   "feature_2": "ad6b43fd759c8d22",
+   "feature_3": "0a25b7710981f90b",
+   "feature_4": "b06b7ee9af281ffc",
+   "feature_5": "a860c93a77c2777c",
+   "feature_6": "bd893e7b7440bc70",
+   "features_heading": "db833998daab8823",
+   "features_subheading": "198f40c8f5c1cbb1",
+   "h1": "24d1aafa4fac4683",
+   "hero_description": "1b5f4e9dec3e99e2",
+   "hero_prompt": "f5bc5260ff4d9bdc",
+   "howto_description": "2c5165d42b041ea1",
+   "howto_step_1_des": "e599de4b637c5fe9",
+   "howto_step_1_title": "719b1123989d52c4",
+   "howto_step_2_des": "8f89b6bf52ee7c45",
+   "howto_step_2_title": "ff7efb61b6d0e006",
+   "howto_step_3_des": "5d2f187402939046",
+   "howto_step_3_title": "cba27e667739a746",
+   "howto_step_4_des": "b790579e65927b94",
+   "howto_step_4_title": "4171105cc533332b",
+   "howto_step_5_des": "f85fb1da33055d69",
+   "howto_step_5_title": "f94c253bb26b6b48",
+   "howto_step_6_des": "1ce5015c66d10c1e",
+   "howto_step_6_title": "ba3e3698a75929af",
+   "howto_step_7_des": "7883210bf87d6531",
+   "howto_step_7_title": "d2a4f84ae1323ae6",
+   "howto_title": "993f5bbc1d5b4eab",
+   "meta_description": "ffd046de879350cb",
+   "meta_title": "d14c94d43cd2e2cc",
+   "mockup": "ff9dcd1d2c6fc229",
+   "product_name": "a87e35c9ae25d2d6",
+   "prompt_chip_1": "eee081cb181317a9",
+   "prompt_chip_2": "bb72e26521da917c",
+   "prompt_chip_3": "e9e65a25fad37f85",
+   "prompt_chip_4": "65cc2145d4c83e68",
+   "slug": "54b603bb3d8ba8ca",
+   "tab_content_1": "3fa1e4172f2e8ab5",
+   "tab_content_2": "7bd8dc917668f0a7",
+   "tab_content_3": "5082726cdb074fd5",
+   "tab_content_4": "48798f0483e8d908",
+   "tab_label_1": "aed8ddacb20e04ed",
+   "tab_label_2": "679d832c2fa608c5",
+   "tab_label_3": "d085dc493a555368",
+   "tab_label_4": "a0e9e6506f793e89",
+   "usecase_heading": "a62e1f5af8e1e774",
+   "why_description": "369040e6a9d60605",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "d2d2af8042255435"
+  },
+  "all": "092b6823718fccbb",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "cc207dc68fe252ea",
+   "alt:share_image": "781aba22604ecfcc",
+   "alt:tab_image_1": "54267a8131a6324c",
+   "alt:tab_image_2": "8b2ccc956d92d735",
+   "alt:tab_image_3": "1549bbe66c0ccdc1",
+   "alt:tab_image_4": "560e39668aa53638",
+   "breadcrumb": "5df4a2afa34d0f34",
+   "chip_adds": "159a56efc725ba08",
+   "explore_cta": "463d1fef1d33a555",
+   "faq": "11a9a02e8655fc93",
+   "feature_1": "021e827716f67f2d",
+   "feature_2": "ad6b43fd759c8d22",
+   "feature_3": "0a25b7710981f90b",
+   "feature_4": "b06b7ee9af281ffc",
+   "feature_5": "a860c93a77c2777c",
+   "feature_6": "bd893e7b7440bc70",
+   "features_heading": "db833998daab8823",
+   "features_subheading": "198f40c8f5c1cbb1",
+   "h1": "24d1aafa4fac4683",
+   "hero_description": "1b5f4e9dec3e99e2",
+   "hero_prompt": "f5bc5260ff4d9bdc",
+   "howto_description": "2c5165d42b041ea1",
+   "howto_step_1_des": "e599de4b637c5fe9",
+   "howto_step_1_title": "719b1123989d52c4",
+   "howto_step_2_des": "8f89b6bf52ee7c45",
+   "howto_step_2_title": "ff7efb61b6d0e006",
+   "howto_step_3_des": "5d2f187402939046",
+   "howto_step_3_title": "cba27e667739a746",
+   "howto_step_4_des": "b790579e65927b94",
+   "howto_step_4_title": "4171105cc533332b",
+   "howto_step_5_des": "f85fb1da33055d69",
+   "howto_step_5_title": "f94c253bb26b6b48",
+   "howto_step_6_des": "1ce5015c66d10c1e",
+   "howto_step_6_title": "ba3e3698a75929af",
+   "howto_step_7_des": "7883210bf87d6531",
+   "howto_step_7_title": "d2a4f84ae1323ae6",
+   "howto_title": "993f5bbc1d5b4eab",
+   "meta_description": "ffd046de879350cb",
+   "meta_title": "d14c94d43cd2e2cc",
+   "mockup": "ff9dcd1d2c6fc229",
+   "product_name": "a87e35c9ae25d2d6",
+   "prompt_chip_1": "eee081cb181317a9",
+   "prompt_chip_2": "bb72e26521da917c",
+   "prompt_chip_3": "e9e65a25fad37f85",
+   "prompt_chip_4": "65cc2145d4c83e68",
+   "slug": "54b603bb3d8ba8ca",
+   "tab_content_1": "3fa1e4172f2e8ab5",
+   "tab_content_2": "7bd8dc917668f0a7",
+   "tab_content_3": "5082726cdb074fd5",
+   "tab_content_4": "48798f0483e8d908",
+   "tab_label_1": "aed8ddacb20e04ed",
+   "tab_label_2": "679d832c2fa608c5",
+   "tab_label_3": "d085dc493a555368",
+   "tab_label_4": "a0e9e6506f793e89",
+   "usecase_heading": "a62e1f5af8e1e774",
+   "why_description": "369040e6a9d60605",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "d2d2af8042255435"
+  },
+  "all": "092b6823718fccbb",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
