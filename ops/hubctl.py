@@ -35,6 +35,7 @@
   sources-check URL|--all            link-check every spec.domain_sources URL (cached for QC P3)
   usage-log URL TOKENS --role R     record an agent's token usage for a page (metrics reports tokens per page)
   learn-refs READBACK                 the 3 newest published Learn articles -> config/learn_refs.json (L12; new items get them at creation)
+  review-diff URL | slim-review URL FILE --by A-s-<n>   ruling 1: fields changed since review; record a slim review of them
   hold URL --by ID [--note T] | unhold URL --by ID   the account's hold marker on a page it is working (docs/TWO_ACCOUNTS.md)
   (claim, state, images, ready, review, release, hold and unhold refuse without --by: Divit 2026-10-13)
   metrics | sample [STATE] | links HUB | links --relink | lookahead HUB [N] | serp-budget | ranks-save URL RAW | ranks-report | recheck [--states a,b] | image-regress | verify-live URL [--html F]
@@ -335,6 +336,7 @@ def cmd_review(args):
     if ch_ and not any(c.get("by") == ch_.get("by") and c.get("date") == ch_.get("date") for c in s.get("challenges", [])):
         s.setdefault("challenges", []).append({"by": ch_.get("by"), "date": ch_.get("date"), "result": ch_.get("result"), "defects": len(ch_.get("defects", []))})
     s["review"] = {"by": by, "date": now(), "rubric": rub, "findings": findings}; _keep_notes(s, findings, by, "review")
+    s["review_hash"] = G.review_hash(s)   # ruling 1 (Divit 2026-10-13): what was reviewed; ship refuses any later text change without a slim review
     json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
     notes = len(findings) - len(blocking)
     if blocking: set_state(url, "rework", note=" | ".join(G.fmt_finding(f) for f in blocking), via="review", by=by); print(f"REWORK: {len(blocking)} blocking, {notes} notes\n  " + "\n  ".join(G.fmt_finding(f) for f in blocking))
@@ -454,6 +456,58 @@ def cmd_unhold(args):
         e.pop("hold"); save_st(hub_of(url), st)
     print(f"{url}: hold removed by {by}")
 
+def _review_baseline(s, path):
+    """The spec as it was when its review was recorded (git), for pages reviewed before review hashes existed."""
+    import datetime as _dt
+    d = ((s.get("review") or {}).get("date") or "").replace(" UTC", "")
+    if not d: return None, None
+    iso = _dt.datetime.strptime(d, "%Y-%m-%d %H:%M").strftime("%Y-%m-%dT%H:%M:59Z")
+    rel = os.path.relpath(path, ROOT)
+    sha = subprocess.run(["git", "log", "-1", "--format=%H", f"--before={iso}", "--", rel], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    if not sha: return None, None
+    old = subprocess.run(["git", "show", f"{sha}:{rel}"], cwd=ROOT, capture_output=True, text=True).stdout
+    try: return sha, json.loads(old)
+    except ValueError: return sha, None
+
+def review_changed_fields(url):
+    """(fields changed since the review, baseline): from the stored hash, else from git at the review date."""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    s = json.load(open(spath(url))); ch = G.review_changed(s)
+    if ch is not None: return ch, "review_hash"
+    sha, old = _review_baseline(s, spath(url))
+    if old is None: return sorted(G.review_texts(s)), "no baseline: every field"
+    a, b = G.review_hash(old)["fields"], G.review_hash(s)["fields"]
+    return sorted(k for k in set(a) | set(b) if a.get(k) != b.get(k)), f"git {sha[:8]} (spec at the review date)"
+
+def cmd_review_diff(args):
+    """Fields whose text changed after the page's review (ruling 1); the slim reviewer reads exactly these."""
+    ch, base = review_changed_fields(args[0]); print(f"{args[0]}: {len(ch)} changed field(s) since review [{base}]: {', '.join(ch) or '-'}")
+
+def cmd_slim_review(args):
+    """hubctl slim-review URL FILE.json --by A-s-<n>. FILE: {"fields": [reviewed field names], "findings": [{rule, field, quote, issue, fix,
+    severity: blocking|note}]}. Covers every field changed since the review (review-diff). The reviewer is a coordinator agent (A-)
+    that wrote none of it. Pass: the review hash is renewed and the page is `reviewed`. Blocking: `rework` (Form/Auto back to B)."""
+    url, rf = args[0], args[1]; by = need_by(args, "slim-review")
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    if not by.startswith("A-"): sys.exit("refused: slim reviews are done by coordinator (A-) reviewers (ruling 1)")
+    s = json.load(open(spath(url))); raw = json.load(open(rf))
+    writers = _authors(s) | {h.get("by") for h in s.get("history", []) if h.get("via") == "ready" or h.get("state") in ("qc_pass", "images")}
+    if by in writers: sys.exit("refused: the slim reviewer wrote part of this page")
+    if not s.get("review"): sys.exit("this page has never had its full review: use hubctl review")
+    if hold_conflict(url): sys.exit(f"refused: {url} is held by the other account")
+    ch, base = review_changed_fields(url); missing = sorted(set(ch) - set(raw.get("fields") or []))
+    if missing: sys.exit(f"slim review must cover every changed field ({base}); missing: {', '.join(missing)}")
+    findings = raw.get("findings") or []
+    bad = [f for f in findings if f.get("severity") not in ("blocking", "note") or not f.get("rule") or not f.get("issue")]
+    if bad: sys.exit("each finding needs rule, issue and severity blocking|note")
+    blocking = [f for f in findings if f["severity"] == "blocking"]
+    s.setdefault("slim_reviews", []).append({"by": by, "date": now(), "fields": ch, "baseline": base, "blocking": len(blocking), "notes": len(findings) - len(blocking), "findings": findings})
+    _keep_notes(s, [f | {"criterion": f.get("criterion", "slim")} for f in findings], by, "slim-review")
+    if not blocking: s["review_hash"] = G.review_hash(s)
+    json.dump(s, open(spath(url), "w"), indent=1, ensure_ascii=False)
+    if blocking: set_state(url, "rework", note="slim review: " + " | ".join(G.fmt_finding(f) for f in blocking), via="slim-review", by=by); print(f"REWORK: {len(blocking)} blocking")
+    else: set_state(url, "reviewed", note=f"slim review by {by} of {len(ch)} changed field(s); {len(findings)} notes", via="slim-review", by=by); print(f"REVIEWED (slim): {len(ch)} field(s), {len(findings)} notes; review hash renewed")
+
 def cmd_release(args):
     url = args[0]; note = args[args.index("--note") + 1] if "--note" in args else None; by = need_by(args, "release")
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
@@ -554,6 +608,8 @@ def cmd_bulk_payload(args):
         if e.get("state") != "approved": continue
         s, fd = _field_data(url, sha)
         if s.get("item_id"): continue
+        ok_r, why_r = G.review_ok(s)
+        if not ok_r: sys.exit(f"{url}: refused, {why_r} (ruling 1: a page ships only if its current text was reviewed)")
         if not s.get("approval") or G.fingerprint(s) != s["approval"]["fingerprint"]:
             sys.exit(f"{url}: content or images changed after Divit approved it. Re-run review and approval.")
         chk = e.get("cms_checked")
@@ -880,7 +936,7 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "release": cmd_release, "paa": cmd_paa, "paa-resource": cmd_paa_resource, "paa-synonyms": cmd_paa_synonyms, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "unhold": cmd_unhold, "learn-refs": cmd_learn_refs, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
         "recheck": cmd_recheck, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live,
         "live-audit": lambda a: _live().main(a), "live-fix": lambda a: _live().fix_main(a), "live-rollback": lambda a: _live().cmd_rollback(a), "retro": lambda a: __import__("retro").main(a)}

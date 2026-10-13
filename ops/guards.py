@@ -293,3 +293,33 @@ if __name__ == "__main__":
         name, cmd = a[1], a[a.index("--") + 1:]
         with lock(name): sys.exit(subprocess.call(cmd))
     print("usage: guards.py held | run-locked NAME -- CMD ..."); sys.exit(2)
+
+# ---------- review hash (Divit 2026-10-13, ruling 1): a page ships only if its current text was reviewed
+REVIEW_SKIP = {"learn", "tutorials", "case_study", "integration", "category"}   # CMS references, not reviewable text
+def _review_norm(t):
+    """Mechanical autofixes do not count as a text change: serial commas (H3), quotes and apostrophes, ampersands (J1), whitespace."""
+    import html as _h
+    t = _h.unescape(t or "").replace("’", "'").replace("“", '"').replace("”", '"')
+    t = re.sub(r"[,'\"&]", "", t)
+    return re.sub(r"\s+", " ", t).strip()
+def review_texts(spec):
+    out = {k: v for k, v in (spec.get("fields") or {}).items() if isinstance(v, str) and k not in REVIEW_SKIP}
+    out["chip_adds"] = "\n".join(spec.get("chip_adds") or [])
+    for k, im in sorted((spec.get("images") or {}).items()): out[f"alt:{k}"] = (im or {}).get("alt") or ""
+    return out
+def review_hash(spec):
+    f = {k: hashlib.sha256(_review_norm(v).encode()).hexdigest()[:16] for k, v in sorted(review_texts(spec).items())}
+    return {"v": 1, "fields": f, "all": hashlib.sha256(json.dumps(f, sort_keys=True).encode()).hexdigest()[:16],
+            "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"}
+def review_changed(spec):
+    """Fields whose text changed since the stored review hash; None when the page has no hash (reviewed before 2026-10-13)."""
+    rh = spec.get("review_hash")
+    if not rh: return None
+    now_ = review_hash(spec)["fields"]
+    return sorted(k for k in set(now_) | set(rh["fields"]) if now_.get(k) != rh["fields"].get(k))
+def review_ok(spec):
+    """(ok, why): ok only when a review hash exists and the current text matches it."""
+    ch = review_changed(spec)
+    if ch is None: return False, "no review hash: the text was reviewed before 2026-10-13; run a slim review (hubctl review-diff, slim-review)"
+    if ch: return False, "text changed after review in: " + ", ".join(ch) + " (slim review needed)"
+    return True, ""

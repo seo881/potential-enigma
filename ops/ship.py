@@ -235,6 +235,8 @@ def build_payloads(bf, L, sha):
         P = L["pages"][url]
         if P["stage"] != "payload": continue
         hub = H.hub_of(url); h = H.CFG["hubs"][hub]; s, fd = H._field_data(url, sha)
+        ok_r, why_r = G.review_ok(s)   # ruling 1 (Divit 2026-10-13): only reviewed text ships
+        if not ok_r: print(f"  REFUSED {url}: {why_r}"); continue
         e = H.load_st(hub)["pages"].get(url, {})
         if not s.get("item_id"):
             if e.get("cms_exists"): fail(P, "payload", f"slug already in Webflow ({e.get('cms_item_id')}); record it first", "payload"); continue
