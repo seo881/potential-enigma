@@ -88,6 +88,13 @@ Who holds a page:
 - **Claims go through `hubctl claim` only** (ruling 12 addendum): it takes ready rows, then syn-pending split writes; `hubctl state … claimed` refuses a queued page.
 - **Released parked pages.** Parked Form/Auto/SurveyQuiz pages whose feasibility reaches 10 are released to B by A, and then rank like any other queued page.
 
+## 3e. Rulings 16 and 17 (Divit 2026-10-13): daily cadence; A alone overnight
+- **B is stopped** (from 2026-10-13 evening). A runs alone overnight on the ruling-15 pipeline, in all 4 hubs, through a temporary `.hub` override recorded in plan/overnight-run.md. A never touches a page B holds. Writers are A-w-<n>; reviewers are A-r-<n> who wrote none of the page.
+- **Headless overnight loop:** `ops/schedule/overnight_run.sh` with `CLAUDE_CONFIG_DIR=~/.claude-b` (account A's config dir; ~/.claude is B's). No Webflow tools, and nothing ships overnight.
+- **Daily from 10-14:**
+  - 10:00 report + packet; 12:00 Divit's answers; 14:00 create items; 16:00 item publish, verify-live, audit, relink; 18:00 daily line.
+  - Item publishes have a standing go for pages that are reviewed, hash-matching, at 0 rejects and pre-flight passing (never a site publish). Flagged pages wait for the packet tick. A page failing verify-live is unpublished at once.
+
 ## 4. Commit protocol
 - Always use `bash ops/sync.sh "<message>" <explicit paths>`. It pulls with rebase and autostash, refuses conflict markers, then commits and pushes. Never `git add -A`, never force-push, never `git reset --hard`.
 - **One page = one commit**, as soon as it reaches its stage: `specs/<hub>/<slug>.json`, `images/<hub>/<slug>/` and `status/<hub>.json`.

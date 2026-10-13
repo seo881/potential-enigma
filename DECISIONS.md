@@ -3,6 +3,36 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-13
+- **Ruling 17 (Divit, 2026-10-13): overnight, A alone (B stopped).**
+  - After the canary passes, scaling runs headless so it survives session limits: `ops/schedule/overnight_run.sh`, copied from weekend_run.sh.
+  - The script runs with this session's own config dir. That is `~/.claude-b`: account A's sessions in ~/emergent-hubs run there, while ~/.claude holds the ~/emergent-hubs-a (B) sessions.
+  - Prompt "Continue the overnight run per plan/overnight-run.md". Same reset-wait, 7-hour give-up and weekly-stop logic; caffeinate, STOP file, no Webflow tools.
+  - `plan/overnight-run.md`:
+    - up to 10 A-w writers on the new pipeline (ruling 15), all 4 hubs tonight (a temporary .hub override, recorded);
+    - claims only through hubctl claim, from the top of the ranked queue; never touch B-held pages;
+    - order: A's 10 LP reworks first, then the tranche-1 pages that reach 10, then any page that becomes writable as Semrush results and the packet land;
+    - every page is reviewed by an A-r agent that did not write it.
+  - Nothing ships overnight.
+- **Ruling 16 (Divit, 2026-10-13): daily cadence from 10-14.**
+  - Standing go for item publishes (never a site publish) of every page that is reviewed, hash-matching, at 0 rejects, with pre-flight passing. Flagged pages wait for Divit's packet tick.
+  - verify-live after each batch; a failing page is unpublished at once.
+  - Day: 10:00 report + packet; Divit's answers by 12:00; 14:00 create items; 16:00 publish, verify, audit, relink; 18:00 daily line.
+- **Ruling 15 (Divit, 2026-10-13): constrained writing.** New writing only; no recheck or ratchet of pages already reviewed.
+  1. Prevention map (time-box 45 min): mine every review finding and rework note to date (status notes, reports, CONTENT_DEFECTS.md, SEVERITY, live audits). Each class gets a code check or autofix in the writer loop, or a precise page-pack instruction with a good and a bad example. `docs/PREVENTION.md`.
+  2. Code builds the skeleton before a writer starts:
+     - the 10 FAQ questions from the passing set (verbatim, US-normalised, locked; keyword-sourced ones in their filtered form);
+     - secondaries in FAQ slots, hub and related links;
+     - the hero default prompt from the primary keyword;
+     - the comparison table;
+     - a claims menu with IDs from claims.json and capabilities.json.
+  3. Writers write prose only, section by section, with QC on each section as it is written. Claim IDs and quoted source spans are required, and deterministic rules are autofixed by code. One compact page pack per page. page-writer and page-reviewer are updated (the reviewer judges truth, intent and quality), with golden cases.
+  4. Canary: 3 writable pages from different hubs, written by A-w agents and fully reviewed by A-r agents that did not write them. Pass = QC 0 on the first run and 0 blocking. Fix the causes and re-canary until 3 of 3 pass; no scaling before that.
+- **Ruling 13 (Divit, 2026-10-13): new keywords to close the gap to 500.**
+  - Semrush discovery with seeds per hub from head terms and from live and queued page patterns. Target about 250 candidates not already planned, cut, merged or live.
+  - Screen each: clear build intent for the hub (SERP check), no cannibalisation (K-sibling), on-brand, and FAQ supply that projects to 10 with 0 rejects (flags allowed).
+  - Spend under the 25% line, cached, never repeated. Semrush data stays in private/ and .cache.
+  - One sheet to Divit by 10-14 18:00 IST, ranked by MSV; his yes/no per row by 10-15.
+  - Approved rows enter the plan, ranked into plan/queue-ranked.txt. Parked pages are interleaved with queued pages by feasibility and MSV.
 - **Semrush phrase_questions as a keyword-sourced FAQ source (Divit, 2026-10-13; pilot first, under ruling 13's Semrush budget).** Filter in code (`ops/semrush_questions.py`): keep only questions that contain the page's full head phrase or an approved multi-word variant, contiguous and in order; drop political, personal-finance advice, salary, best/top-N listicle and competitor-brand questions; 0 gate rejects; dedupe against existing candidates. Keyword-sourced, so a natural-question reword is allowed only if the head phrase stays (backlog line 91). Provenance records the source keyword and its volume. Feasibility counts them, and QC F2 accepts them only from the page's derived list. Pilot: the 10 short pages, head phrase + top 2 secondaries, display_limit 30, at most 35 calls. If 6 or more of 10 reach 10, propose running it on every short queued and parked page, with the unit cost.
 - **Semrush budget (Divit, 2026-10-13):** spend what the work needs, carefully.
   - Read the API unit balance before the first call (free endpoint; the key is in the macOS keychain, service semrush, never in the repo).
