@@ -840,6 +840,13 @@
    "via": null,
    "by": "A-coord",
    "note": ""
+  },
+  {
+   "t": "2026-10-13 19:48 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-14",
+   "note": "[truth | HUB_RULES 8] meta_description: The meta promises four funnels followed past checkout. Only tab 1 goes past checkout (the refill offer after payment). Tab 2's application funnel has no checkout at all (\"goes straight to Odile Varga's booking calendar ... Everyone else is offered the $149 sel"
   }
  ],
  "qc_passed": {
@@ -849,5 +856,285 @@
  "writers": [
   "wk-n-sales-funnel-landing-page",
   "A-w-65"
- ]
+ ],
+ "review": {
+  "by": "A-r-14",
+  "date": "2026-10-13 19:48 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Sales Funnel Landing Page and Every Step After It\"; hero \"Build a sales funnel landing page plus the checkout and upsell pages behind it, with one record per buyer in a database you own.\" (under 130 chars, primary, verb first); how-to description one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is funnel software, design galleries, a glossary and guides. The page defines the term (FAQ 1), settles landing page vs funnel (FAQ 3), gives four funnel examples (upsell, application, quiz, tripwire), a seven-step how-to, template and examples answers (FAQ 6-8). Title promise \"4 Examples and Steps\" delivered."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Funnel vocabulary throughout: order bump, one-click upsell, tripwire, application funnel, conversion per step (\"divides each count by the one before\"). Table uses the hub default with no category variant (QC Q4 clean); competitor choice kept as a note."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Full-sentence openers: \"Describe the pages in the order a buyer sees them\", \"Connect your Stripe account\", \"Wildroot Skincare sends its ad clicks\", \"Every Monday at 8 AM\"."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; sentences short and varied; repeated one-job idea kept as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous details (\"$12 travel cleanser\", \"634 opt-ins left before the kit\", \"a discount email after a full-price order costs trust\"); no AI-tell vocabulary."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "meta_description \"Follow four funnels past checkout\" is untrue of the page: tab 2 has no checkout and tab 3 stops at the offer. faq item 8 \"Funnel software vendors and design sites such as Dribbble publish galleries of them.\" is an unsourced fact about a named third party. Order bump, one-click upsell, landing page, sales funnel, tripwire and Stripe saved-card claims match their domain_sources; Emergent claims map to approved ids (prompt-build, api-connect, database-owned, alerts, code-export, custom-domain)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No sibling primary (sales page) in headings; QC D2 clean; funnel-specific stories that do not reappear in sibling pages."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first (\"No. A landing page and a sales funnel differ in scope\", \"As few as the offer allows.\"), no brand or file-format asks, no AlsoAsked items for this page (hubctl verbatim), hub link in item 2, sibling links thank-you-page, webinar-landing-page, pricing-page."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "uc-1 $34 + $12 = $46.00, \"3-month refill for $79\", \"No card form to fill in\"; uc-2 rule \"If monthly revenue ≥ $20,000 → show Odile's calendar\", $38,000 and $21,500 to Calendar, $12,000 and $7,500 to $149 course; uc-3 Question 3 of 3, four boxes, first bag half price; uc-4 720/86/14, 12%, 634, Monday 8 AM. Alt counts match the drawings."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "meta_description",
+    "quote": "Follow four funnels past checkout",
+    "issue": "The meta promises four funnels followed past checkout. Only tab 1 goes past checkout (the refill offer after payment). Tab 2's application funnel has no checkout at all (\"goes straight to Odile Varga's booking calendar ... Everyone else is offered the $149 self-paced course\"), and tab 3 ends at the offer screen (\"the next screen offers that box\"). The snippet states something about the page that its own tabs contradict.",
+    "fix": "Promise what the tabs deliver, e.g. \"Follow four funnels past the first page and build yours from one prompt.\" (keep 110-160 chars).",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Funnel software vendors and design sites such as Dribbble publish galleries of them.",
+    "issue": "A statement of fact about a named third party (Dribbble publishes galleries of sales funnel landing page templates) with no spec.domain_sources entry. Dribbble's results are design shots, not usable templates, so the sentence also stretches what the site offers.",
+    "fix": "Add a source (the page's own top-10 result dribbble.com/search/funnel-landing-page, or a vendor template gallery such as ClickFunnels') to domain_sources and say what each offers: vendors publish templates, design sites such as Dribbble show page designs. Or drop the named site.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Landingi / Leadpages / Instapage",
+    "issue": "QC K7: none of the three table competitors (Unbounce, Landingi / Leadpages / Instapage, Wix) ranks in this page's top 10, while ConvertFlow ranks #2 and is in the LP library. ClickFunnels (#1) is not in the library. The \"Where submissions go\" row speaks of submissions on a page about orders.",
+    "fix": "Coordinator: use ConvertFlow, add ClickFunnels to the LP library, and consider a funnel variant for the data row.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 5",
+    "field": "mockup",
+    "quote": "sales funnel.The landing page",
+    "issue": "Missing space after the full stop in the upsellFunnels mockup prompt. (Reviewer may not write to specs in this session; certain fix for the rework writer.)",
+    "fix": "\"sales funnel. The landing page\"",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "Strong funnel landing page examples also make one request per page and nothing else.",
+    "issue": "The one-job-per-page idea appears with words swapped in FAQ 1 (\"asks for one action\"), FAQ 5 (\"one offer\"), FAQ 7 and how-to step 2 (\"02 Give every page a single job\").",
+    "fix": "Keep it in how-to step 2; give FAQ 7 a second trait of its own.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "tab_image_2",
+    "quote": "Odile Varga's booking calendar",
+    "issue": "uc-2 hero reads \"Call booked with Odile\", one step past the copy, which stops at the calendar being shown. Not a contradiction.",
+    "fix": "Hero title \"Calendar shown: Mara Quinlan\" or say in the copy that the call is booked.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: none of the three table competitors (Unbounce, Landingi / Leadpages / Instapage, Wix) ranks in this page's top 10, while ConvertFlow ranks #2 and is in the LP library. ClickFunnels (#1) is not in the library. The \"Where submissions go\" row speaks of submissions on a page about orders.",
+   "fix": "Coordinator: use ConvertFlow, add ClickFunnels to the LP library, and consider a funnel variant for the data row.",
+   "by": "A-r-14",
+   "via": "review",
+   "date": "2026-10-13 19:48 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 5",
+   "field": "mockup",
+   "issue": "Missing space after the full stop in the upsellFunnels mockup prompt. (Reviewer may not write to specs in this session; certain fix for the rework writer.)",
+   "fix": "\"sales funnel. The landing page\"",
+   "by": "A-r-14",
+   "via": "review",
+   "date": "2026-10-13 19:48 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "The one-job-per-page idea appears with words swapped in FAQ 1 (\"asks for one action\"), FAQ 5 (\"one offer\"), FAQ 7 and how-to step 2 (\"02 Give every page a single job\").",
+   "fix": "Keep it in how-to step 2; give FAQ 7 a second trait of its own.",
+   "by": "A-r-14",
+   "via": "review",
+   "date": "2026-10-13 19:48 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "tab_image_2",
+   "issue": "uc-2 hero reads \"Call booked with Odile\", one step past the copy, which stops at the calendar being shown. Not a contradiction.",
+   "fix": "Hero title \"Calendar shown: Mara Quinlan\" or say in the copy that the call is booked.",
+   "by": "A-r-14",
+   "via": "review",
+   "date": "2026-10-13 19:48 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "c509df97bf2c4e60",
+   "alt:share_image": "e780f2f2c060e94a",
+   "alt:tab_image_1": "218eddbe5b8aadcc",
+   "alt:tab_image_2": "997c50152e9d8c17",
+   "alt:tab_image_3": "02c5b1040f2139a5",
+   "alt:tab_image_4": "600e1bc7910d26d5",
+   "breadcrumb": "126bf485d2ce0ebf",
+   "chip_adds": "ca49823fed29bb4c",
+   "explore_cta": "959fda03934e9c32",
+   "faq": "fab4bbfa51be7e3e",
+   "feature_1": "313c966569a3a7b1",
+   "feature_2": "a062584df75bcf77",
+   "feature_3": "01d6cb3f6a836973",
+   "feature_4": "d5ebbf00a66ade8e",
+   "feature_5": "5fa9cb1852e5d876",
+   "feature_6": "a9c4b31f08f1148b",
+   "features_heading": "415052ebb9e86695",
+   "features_subheading": "5c3f5d35617263f0",
+   "h1": "2b85db26f066c5d6",
+   "hero_description": "fb84c93e1c75cbd7",
+   "hero_prompt": "bdbf5589bcb8aa13",
+   "howto_description": "fcf4ac8aea3cd9ef",
+   "howto_step_1_des": "6cbd183ce77c312c",
+   "howto_step_1_title": "9a932219a3def3c3",
+   "howto_step_2_des": "a079ac1fe44fe8ad",
+   "howto_step_2_title": "57bcb59fb6c2fe9e",
+   "howto_step_3_des": "976e6a5ff1c24cf0",
+   "howto_step_3_title": "9875394a7a7e6e78",
+   "howto_step_4_des": "c7e3da56617ab239",
+   "howto_step_4_title": "1512b3c643978ec8",
+   "howto_step_5_des": "a132b30eb650b017",
+   "howto_step_5_title": "5d40bdf96fe2d65d",
+   "howto_step_6_des": "2ec7dea7a6e7a018",
+   "howto_step_6_title": "67dec9ba7b471c52",
+   "howto_step_7_des": "b6a53c9e2176e92c",
+   "howto_step_7_title": "471cc113581a525d",
+   "howto_title": "f438bb3f7dfc773b",
+   "meta_description": "58a78a5a75e014d1",
+   "meta_title": "e6a5e942452df210",
+   "mockup": "8dadc2402af1d596",
+   "product_name": "0af19ae933721d38",
+   "prompt_chip_1": "958d81e8642814c2",
+   "prompt_chip_2": "ef1227282187b6f7",
+   "prompt_chip_3": "12b7b1fc1ea80b13",
+   "prompt_chip_4": "0829c0e647c93255",
+   "slug": "cad339835b95ef69",
+   "tab_content_1": "ba4da6a23ee02fd5",
+   "tab_content_2": "f6a64252b739dc70",
+   "tab_content_3": "62ad975c8fea46fd",
+   "tab_content_4": "808e7a6fab000724",
+   "tab_label_1": "3760ecabd60b5aba",
+   "tab_label_2": "a962954e2c405e52",
+   "tab_label_3": "af9c5a6de956e26b",
+   "tab_label_4": "26d1b9eca83bcee6",
+   "usecase_heading": "cc0e121a6136752e",
+   "why_description": "f2aabcf1561b861a",
+   "why_table": "ca19c6b1f1a9f0c3",
+   "why_title": "0f97097d99978a56"
+  },
+  "all": "df80a90e7604917d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "c509df97bf2c4e60",
+   "alt:share_image": "e780f2f2c060e94a",
+   "alt:tab_image_1": "218eddbe5b8aadcc",
+   "alt:tab_image_2": "997c50152e9d8c17",
+   "alt:tab_image_3": "02c5b1040f2139a5",
+   "alt:tab_image_4": "600e1bc7910d26d5",
+   "breadcrumb": "126bf485d2ce0ebf",
+   "chip_adds": "ca49823fed29bb4c",
+   "explore_cta": "959fda03934e9c32",
+   "faq": "fab4bbfa51be7e3e",
+   "feature_1": "313c966569a3a7b1",
+   "feature_2": "a062584df75bcf77",
+   "feature_3": "01d6cb3f6a836973",
+   "feature_4": "d5ebbf00a66ade8e",
+   "feature_5": "5fa9cb1852e5d876",
+   "feature_6": "a9c4b31f08f1148b",
+   "features_heading": "415052ebb9e86695",
+   "features_subheading": "5c3f5d35617263f0",
+   "h1": "2b85db26f066c5d6",
+   "hero_description": "fb84c93e1c75cbd7",
+   "hero_prompt": "bdbf5589bcb8aa13",
+   "howto_description": "fcf4ac8aea3cd9ef",
+   "howto_step_1_des": "6cbd183ce77c312c",
+   "howto_step_1_title": "9a932219a3def3c3",
+   "howto_step_2_des": "a079ac1fe44fe8ad",
+   "howto_step_2_title": "57bcb59fb6c2fe9e",
+   "howto_step_3_des": "976e6a5ff1c24cf0",
+   "howto_step_3_title": "9875394a7a7e6e78",
+   "howto_step_4_des": "c7e3da56617ab239",
+   "howto_step_4_title": "1512b3c643978ec8",
+   "howto_step_5_des": "a132b30eb650b017",
+   "howto_step_5_title": "5d40bdf96fe2d65d",
+   "howto_step_6_des": "2ec7dea7a6e7a018",
+   "howto_step_6_title": "67dec9ba7b471c52",
+   "howto_step_7_des": "b6a53c9e2176e92c",
+   "howto_step_7_title": "471cc113581a525d",
+   "howto_title": "f438bb3f7dfc773b",
+   "meta_description": "58a78a5a75e014d1",
+   "meta_title": "e6a5e942452df210",
+   "mockup": "8dadc2402af1d596",
+   "product_name": "0af19ae933721d38",
+   "prompt_chip_1": "958d81e8642814c2",
+   "prompt_chip_2": "ef1227282187b6f7",
+   "prompt_chip_3": "12b7b1fc1ea80b13",
+   "prompt_chip_4": "0829c0e647c93255",
+   "slug": "cad339835b95ef69",
+   "tab_content_1": "ba4da6a23ee02fd5",
+   "tab_content_2": "f6a64252b739dc70",
+   "tab_content_3": "62ad975c8fea46fd",
+   "tab_content_4": "808e7a6fab000724",
+   "tab_label_1": "3760ecabd60b5aba",
+   "tab_label_2": "a962954e2c405e52",
+   "tab_label_3": "af9c5a6de956e26b",
+   "tab_label_4": "26d1b9eca83bcee6",
+   "usecase_heading": "cc0e121a6136752e",
+   "why_description": "f2aabcf1561b861a",
+   "why_table": "ca19c6b1f1a9f0c3",
+   "why_title": "0f97097d99978a56"
+  },
+  "all": "df80a90e7604917d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

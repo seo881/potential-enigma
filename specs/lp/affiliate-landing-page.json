@@ -137,6 +137,13 @@
    "via": null,
    "by": "A-coord",
    "note": ""
+  },
+  {
+   "t": "2026-10-13 19:48 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-14",
+   "note": "[truth | HUB_RULES 8] feature_1: States as fact that the affiliate network's report breaks sales down by the sub ID on each button. That is a statement about third-party systems with no spec.domain_sources entry (the five sources cover ClickBank's bridge page, impact.com's program page, FTC 255.0, r"
   }
  ],
  "plan": {
@@ -790,5 +797,355 @@
  "writers": [
   "wk-n-affiliate-landing-page",
   "A-w-57"
- ]
+ ],
+ "review": {
+  "by": "A-r-14",
+  "date": "2026-10-13 19:48 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build an Affiliate Landing Page, Then Count Every Click\"; hero \"Build an affiliate landing page with a disclosure up top, a tracked link on every button, and a click log you own.\" (under 130 chars, primary, verb first); how-to description one sentence: \"Seven steps to an affiliate landing page that readers can trust and networks can credit, then build it with Emergent.\""
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is network how-tos and example galleries; the page defines the term (FAQ 1, bridge page), shows four formats under \"Affiliate Landing Page Examples by Format\" (review, comparison table, coupon, merchant program), gives a seven-step how-to, and answers the one usable PAA verbatim (\"What is the best free landing page builder for affiliate marketing?\"). Meta promise \"See four examples\" is delivered by the four tabs."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Affiliate vocabulary throughout: sub ID, credit window, rel=sponsored, thin affiliation, Show code reveal, \"a quarter of every referred subscription for 12 months, credited for 60 days after the click\"."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: \"Give Emergent your affiliate links...\", \"Paste test notes...\", \"Switchback Trail Notes reviews...\", \"Before anyone applies...\"."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; two long sentences flagged P2 (feature_5 33 words, howto_step_4_des 35 words) are under the block line."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain, product-led sentences with concrete detail (\"Stove price is now $89.\", \"SPRING15 came off the list this week\"); no AI-tell vocabulary. Minor term drift between \"tracking ID\" and \"sub ID\" kept as a note."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "Unsourced statement about how affiliate networks report, in three fields: feature_1 \"the network report shows which spot sent the buyer\"; faq item 8 \"The network then reports sales by sub ID.\"; howto_step_7_des \"Set the click table against the network's sales report, sub ID by sub ID.\" No spec.domain_sources entry covers network sub ID reporting. FTC, Google spam policy, rel=sponsored, ClickBank bridge page and impact.com program page claims all match their sources; Emergent claims map to approved ids."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own angle (disclosure, per-button sub IDs, click log vs network report, merchant program page); QC D2 clean; no sibling primary in headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first, no brand or file-format asks; PAA item verbatim (hubctl verbatim: ok); hub link in item 2; sibling links thank-you-page and 404-page; moat lines in items 3, 6, 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "uc-1 disclosure above Check price, \"stove-top\", \"3 of 3 buttons\"; uc-2 bars 406/270/136 sum to 812, 50%; uc-3 CRATE40 revealed, SPRING15 Removed under \"No reveals in 30 days\"; uc-4 three Approved, Brightmark Media to Odalys Reyes, 25% for 12 months, 60 days. Alt counts match the drawings (three approved applicants, three grinder values)."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "feature_1",
+    "quote": "the network report shows which spot sent the buyer",
+    "issue": "States as fact that the affiliate network's report breaks sales down by the sub ID on each button. That is a statement about third-party systems with no spec.domain_sources entry (the five sources cover ClickBank's bridge page, impact.com's program page, FTC 255.0, rel=sponsored and Google's spam policy), and it is not true of every program (some only accept a small set of tracking IDs, not free-form sub IDs per button).",
+    "fix": "Add a primary source for sub ID reporting (a network's own docs, e.g. ClickBank TID or impact.com SubId) to domain_sources and plan.claims_to_source, and scope the sentence to networks that support it (\"networks that accept sub IDs, such as ...\"), or cut the network half of the sentence.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "The network then reports sales by sub ID.",
+    "issue": "Same unsourced claim about affiliate network reporting, in FAQ item 8 (\"How do you track clicks on affiliate marketing landing pages?\").",
+    "fix": "Fix with the same source and the same scoping as feature_1; keep the wording consistent across both fields.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_7_des",
+    "quote": "Set the click table against the network's sales report, sub ID by sub ID.",
+    "issue": "The step presupposes the same unsourced fact (a network sales report broken down by sub ID).",
+    "fix": "Once the claim is sourced and scoped, align this step to it (\"if your network reports by sub ID, ...\"); otherwise compare at the level the network does report.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_6_des",
+    "quote": "confirm the merchant page loads with your tracking ID in the address bar",
+    "issue": "Advice resting on an unsourced assumption: many networks redirect through their own domain and the merchant URL carries the network's click ID, not the affiliate's sub ID.",
+    "fix": "Say \"confirm the link resolves through your tracking link to the merchant page\" or name a network whose parameter does persist, with a source.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Unbounce",
+    "issue": "QC K7: Unbounce and Wix do not rank in this page's top 10. Leadpages (#7) ranks and is in the library on its own; Swipe Pages and GetResponse rank but are not in the library.",
+    "fix": "Coordinator: consider Leadpages as its own column and add Swipe Pages to the LP library for affiliate queries.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "tab_content_2",
+    "quote": "Last week the table sent 812 readers to the store.",
+    "issue": "Copy counts readers; the image and click table count outbound clicks (\"Outbound clicks 812\"). A reader can click twice, so the unit drifts.",
+    "fix": "\"Last week the table sent 812 clicks to the store.\"",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_1",
+    "quote": "A tracking ID on every button",
+    "issue": "Same thing named two ways: heading and tab 1 say \"tracking ID\", the feature body and FAQ 8 say \"sub ID\" (2a: same term for the same thing).",
+    "fix": "Pick one term (sub ID, with tracking ID glossed once).",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "Galleries of affiliate marketing landing page examples mostly show layout",
+    "issue": "Soft quantifier about no named third party.",
+    "fix": "Name the galleries or drop \"mostly\".",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "tab_content_1",
+    "quote": "Disclosed up top, tagged on every button",
+    "issue": "Tab 1 H3 restates the hero with words swapped (hero: \"a disclosure up top, a tracked link on every button\").",
+    "fix": "Give tab 1 an outcome-led H3 of its own (e.g. the stove-top click).",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "tab_image_3",
+    "quote": "CRATE40",
+    "issue": "uc-3: the counts 118 and 64 beside CRATE40 and SHIPTWO carry no label (reveals?), and the phone's Free dessert offer has no code in the list.",
+    "fix": "Label the column \"reveals this week\"; match the phone offers to the listed codes.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_6_des",
+   "issue": "Advice resting on an unsourced assumption: many networks redirect through their own domain and the merchant URL carries the network's click ID, not the affiliate's sub ID.",
+   "fix": "Say \"confirm the link resolves through your tracking link to the merchant page\" or name a network whose parameter does persist, with a source.",
+   "by": "A-r-14",
+   "via": "review",
+   "date": "2026-10-13 19:48 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: Unbounce and Wix do not rank in this page's top 10. Leadpages (#7) ranks and is in the library on its own; Swipe Pages and GetResponse rank but are not in the library.",
+   "fix": "Coordinator: consider Leadpages as its own column and add Swipe Pages to the LP library for affiliate queries.",
+   "by": "A-r-14",
+   "via": "review",
+   "date": "2026-10-13 19:48 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "tab_content_2",
+   "issue": "Copy counts readers; the image and click table count outbound clicks (\"Outbound clicks 812\"). A reader can click twice, so the unit drifts.",
+   "fix": "\"Last week the table sent 812 clicks to the store.\"",
+   "by": "A-r-14",
+   "via": "review",
+   "date": "2026-10-13 19:48 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_1",
+   "issue": "Same thing named two ways: heading and tab 1 say \"tracking ID\", the feature body and FAQ 8 say \"sub ID\" (2a: same term for the same thing).",
+   "fix": "Pick one term (sub ID, with tracking ID glossed once).",
+   "by": "A-r-14",
+   "via": "review",
+   "date": "2026-10-13 19:48 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Soft quantifier about no named third party.",
+   "fix": "Name the galleries or drop \"mostly\".",
+   "by": "A-r-14",
+   "via": "review",
+   "date": "2026-10-13 19:48 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "tab_content_1",
+   "issue": "Tab 1 H3 restates the hero with words swapped (hero: \"a disclosure up top, a tracked link on every button\").",
+   "fix": "Give tab 1 an outcome-led H3 of its own (e.g. the stove-top click).",
+   "by": "A-r-14",
+   "via": "review",
+   "date": "2026-10-13 19:48 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "tab_image_3",
+   "issue": "uc-3: the counts 118 and 64 beside CRATE40 and SHIPTWO carry no label (reveals?), and the phone's Free dessert offer has no code in the list.",
+   "fix": "Label the column \"reveals this week\"; match the phone offers to the listed codes.",
+   "by": "A-r-14",
+   "via": "review",
+   "date": "2026-10-13 19:48 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "bd32c88af9a0e970",
+   "alt:share_image": "dcd1c7ef06a0a2e4",
+   "alt:tab_image_1": "9b7a739df96cfd2c",
+   "alt:tab_image_2": "892e002fcf8abd76",
+   "alt:tab_image_3": "d2ee42c370c59c29",
+   "alt:tab_image_4": "2bf6e8973942a264",
+   "breadcrumb": "3b65ba410e432708",
+   "chip_adds": "7fb8ae95e106199b",
+   "explore_cta": "afce5d67757d9e39",
+   "faq": "eac5e3e1f0b07356",
+   "feature_1": "a5581336e759d880",
+   "feature_2": "bbaa5b122d7371aa",
+   "feature_3": "15c9392ff0a6ae53",
+   "feature_4": "9f2107a5fdf28883",
+   "feature_5": "3cc58c793e711617",
+   "feature_6": "4078401098963862",
+   "features_heading": "58c3c4bc1a438d9c",
+   "features_subheading": "76d1f8c7b2c5b298",
+   "h1": "5d4ef1a6a239c9e0",
+   "hero_description": "5468e5cca1528f26",
+   "hero_prompt": "478d4581a69d5e78",
+   "howto_description": "686130e8f20c72cd",
+   "howto_step_1_des": "9879bcb182508c99",
+   "howto_step_1_title": "81fa6f83b8d8b1f2",
+   "howto_step_2_des": "37a0a60126bee040",
+   "howto_step_2_title": "32982639099e9407",
+   "howto_step_3_des": "d1e71f75e1272bd4",
+   "howto_step_3_title": "238261e471216cfe",
+   "howto_step_4_des": "d31440a5261a4cea",
+   "howto_step_4_title": "2eb4596fa7921f72",
+   "howto_step_5_des": "2d21a28ca5962a08",
+   "howto_step_5_title": "5d774a261fba0eda",
+   "howto_step_6_des": "1328d1cddb440140",
+   "howto_step_6_title": "54ef8b2671f24df7",
+   "howto_step_7_des": "941721fdef2de621",
+   "howto_step_7_title": "22d371f5babbe77d",
+   "howto_title": "dcb348422b2117a4",
+   "meta_description": "2191374e3d474fb8",
+   "meta_title": "e8c0017897baa469",
+   "mockup": "19cdddde3a4ee40f",
+   "product_name": "a1f3ba736efbc9a2",
+   "prompt_chip_1": "a4ed92f45c189c99",
+   "prompt_chip_2": "a5d24a45073c5c1e",
+   "prompt_chip_3": "6f06caa66a9b8546",
+   "prompt_chip_4": "ed38c8e2aea8c9dc",
+   "slug": "d3565aaeec1eed1d",
+   "tab_content_1": "209cadb8f8e3f77d",
+   "tab_content_2": "e6fac06f4ad2d108",
+   "tab_content_3": "8bc4a3e7abe1accc",
+   "tab_content_4": "3f6c644d30eeedd7",
+   "tab_label_1": "e95606411c4d5174",
+   "tab_label_2": "6f06caa66a9b8546",
+   "tab_label_3": "36d8769ed8ccb2b2",
+   "tab_label_4": "6913382a846e36b2",
+   "usecase_heading": "970d232afe930079",
+   "why_description": "e079d1a585fdcf00",
+   "why_table": "fc9331764815d324",
+   "why_title": "8afa8bcf68c738b8"
+  },
+  "all": "7c7081b164f27746",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "bd32c88af9a0e970",
+   "alt:share_image": "dcd1c7ef06a0a2e4",
+   "alt:tab_image_1": "9b7a739df96cfd2c",
+   "alt:tab_image_2": "892e002fcf8abd76",
+   "alt:tab_image_3": "d2ee42c370c59c29",
+   "alt:tab_image_4": "2bf6e8973942a264",
+   "breadcrumb": "3b65ba410e432708",
+   "chip_adds": "7fb8ae95e106199b",
+   "explore_cta": "afce5d67757d9e39",
+   "faq": "eac5e3e1f0b07356",
+   "feature_1": "a5581336e759d880",
+   "feature_2": "bbaa5b122d7371aa",
+   "feature_3": "15c9392ff0a6ae53",
+   "feature_4": "9f2107a5fdf28883",
+   "feature_5": "3cc58c793e711617",
+   "feature_6": "4078401098963862",
+   "features_heading": "58c3c4bc1a438d9c",
+   "features_subheading": "76d1f8c7b2c5b298",
+   "h1": "5d4ef1a6a239c9e0",
+   "hero_description": "5468e5cca1528f26",
+   "hero_prompt": "478d4581a69d5e78",
+   "howto_description": "686130e8f20c72cd",
+   "howto_step_1_des": "9879bcb182508c99",
+   "howto_step_1_title": "81fa6f83b8d8b1f2",
+   "howto_step_2_des": "37a0a60126bee040",
+   "howto_step_2_title": "32982639099e9407",
+   "howto_step_3_des": "d1e71f75e1272bd4",
+   "howto_step_3_title": "238261e471216cfe",
+   "howto_step_4_des": "d31440a5261a4cea",
+   "howto_step_4_title": "2eb4596fa7921f72",
+   "howto_step_5_des": "2d21a28ca5962a08",
+   "howto_step_5_title": "5d774a261fba0eda",
+   "howto_step_6_des": "1328d1cddb440140",
+   "howto_step_6_title": "54ef8b2671f24df7",
+   "howto_step_7_des": "941721fdef2de621",
+   "howto_step_7_title": "22d371f5babbe77d",
+   "howto_title": "dcb348422b2117a4",
+   "meta_description": "2191374e3d474fb8",
+   "meta_title": "e8c0017897baa469",
+   "mockup": "19cdddde3a4ee40f",
+   "product_name": "a1f3ba736efbc9a2",
+   "prompt_chip_1": "a4ed92f45c189c99",
+   "prompt_chip_2": "a5d24a45073c5c1e",
+   "prompt_chip_3": "6f06caa66a9b8546",
+   "prompt_chip_4": "ed38c8e2aea8c9dc",
+   "slug": "d3565aaeec1eed1d",
+   "tab_content_1": "209cadb8f8e3f77d",
+   "tab_content_2": "e6fac06f4ad2d108",
+   "tab_content_3": "8bc4a3e7abe1accc",
+   "tab_content_4": "3f6c644d30eeedd7",
+   "tab_label_1": "e95606411c4d5174",
+   "tab_label_2": "6f06caa66a9b8546",
+   "tab_label_3": "36d8769ed8ccb2b2",
+   "tab_label_4": "6913382a846e36b2",
+   "usecase_heading": "970d232afe930079",
+   "why_description": "e079d1a585fdcf00",
+   "why_table": "fc9331764815d324",
+   "why_title": "8afa8bcf68c738b8"
+  },
+  "all": "7c7081b164f27746",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
