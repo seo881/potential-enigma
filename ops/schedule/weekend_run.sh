@@ -120,6 +120,9 @@ log "weekend run started (pid $$, caffeinate $!)"
 trap 'log "terminated by signal"; exit 0' TERM INT
 LIMITED_SINCE=0; ERRS=0; IDLE=0; RENDER_WAITS=0; N=0; W_LAST=""
 "$PY" ops/weekend.py init >> "$LOG" 2>&1
+# ruling 10 B5 (Divit 2026-10-13): refuse to run unless the key, subagent hubctl access, render status and the shared store check out
+export ALSOASKED_API_KEY="$(security find-generic-password -a "$USER" -s alsoasked -w 2>/dev/null)"
+"$PY" ops/weekend.py preflight >> "$LOG" 2>&1 || finish "preflight failed at start (see the log): the loop does not run"
 
 while :; do
   [ -f "$REPO/STOP" ] && finish "STOP file found: stopped cleanly"

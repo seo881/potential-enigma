@@ -141,3 +141,23 @@ if __name__ == "__main__":
     if sys.argv[1:2] == ["--a6"]:   # A6 count per page (counts only): faq + pull + sec = total
         for u in sys.argv[2:]: print(u, json.dumps(a6_count(u)), flush=True)
     else: main(sys.argv[1:] or parked_from_plan())
+
+def feasibility(url):
+    """Ruling 10 B1 (Divit 2026-10-13): can this page reach 10 FAQ items with 0 rejects after its one pull? Counts a6_count
+    (gate-passing FAQ items, pull items, uncarried secondaries) plus RECOVERABLE items: FAQ items the gate rejects only for
+    PA3 whose source is a keyword or secondary that itself contains the head phrase (backlog line 91: the writer can put the
+    head term back). A page with no FAQ yet also gets its 2 template slots (definition, how-to-build). Pass and flag both
+    count (flags are allowed when listed in Divit's packet, ruling 4). Under 10: no writer; the page waits at the end of the queue."""
+    c = a6_count(url); g = P.Gate(url); rec = 0
+    if c["spec_faq"]:
+        srcs = {x.get("q"): x for x in g.spec.get("faq_sources") or []}
+        faq, _ = P.run_spec(g)
+        for i in faq:
+            if i["verdict"] != "reject": continue
+            rules = {r[0] for r in i["reasons"] if r[1] == "reject"}
+            src = srcs.get(i["q"]) or {}
+            if rules == {"PA3"} and src.get("source") in ("keyword", "secondary") and any(h.search(P.norm(src.get("ref") or "")) for h in g.heads):
+                rec += 1
+    slots = 0 if c["spec_faq"] else 2
+    total = c["total"] + rec + slots
+    return dict(c, recoverable=rec, slots=slots, total=total, feasible=total >= P.N_FAQ)

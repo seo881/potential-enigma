@@ -421,8 +421,9 @@ def main(argv):
     line = f"- {datetime.date.today().isoformat()} {g.url} [{mode}]: {len(items)} questions; pass {c['pass']}, reject {c['reject']}, flag {c['flag']}; rejects by rule: {ts}" + \
            (f"; page: {'; '.join(f'{r} {m}' for r, m in page)}" if page else "")
     sp = os.path.join(ROOT, "audit", "paa", "summary.md")
-    if not os.path.exists(sp): open(sp, "w").write("# PAA gate summary (qc/paa_gate.py)\n\nOne line per run; per-question verdicts stay in private/alsoasked/verdicts/.\n\n")
-    open(sp, "a").write(line + "\n")
+    if "--log" not in argv: sp = None   # read-only by default (ruling 10, Divit 2026-10-13): two clones co-editing this file conflicted
+    if sp and not os.path.exists(sp): open(sp, "w").write("# PAA gate summary (qc/paa_gate.py)\n\nOne line per run; per-question verdicts stay in private/alsoasked/verdicts/.\n\n")
+    if sp: open(sp, "a").write(line + "\n")
     if "--quiet" not in argv: print(line[2:])
     if mode.startswith("spec") and "--quiet" not in argv:
         for i in items:

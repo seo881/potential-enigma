@@ -389,6 +389,35 @@ def write_report(W, fin, Ls, final=False):
     lines.insert(at, f"- {day} · [{name}]({day}/{name}.md) · Weekend run: {len(ready)} pages reviewed, {len(stopped)} parked; {total} AlsoAsked credits so far; no Webflow calls · this commit")
     open(idx, "w").write("\n".join(lines)); return rel
 
+def cmd_preflight(args):
+    """Ruling 10 B5 (Divit 2026-10-13): the headless writer loop refuses to start unless (1) the AlsoAsked key is exported and the
+    account is readable (free GET /account), (2) Bash and hubctl are reachable from subagents (loop allowedTools grant hubctl;
+    page-writer agents are not denied Bash), (3) render status is readable (render queue, engine import, images writable),
+    and (4) private/alsoasked is the shared store. Exit 1 with every failure listed."""
+    bad = []
+    if not os.environ.get("ALSOASKED_API_KEY"): bad.append("ALSOASKED_API_KEY not exported")
+    else:
+        try:
+            import alsoasked_pull as A
+            st, _ = A.call("GET", "/account")
+            if st != 200: bad.append(f"AlsoAsked key rejected (HTTP {st})")
+        except Exception as e: bad.append(f"AlsoAsked check failed: {type(e).__name__}")
+    loop = open(os.path.join(ROOT, "ops", "schedule", "weekend_run.sh")).read()
+    if "Bash(.venv/bin/python3 ops/hubctl.py:*)" not in loop: bad.append("loop allowedTools lack Bash(.venv/bin/python3 ops/hubctl.py:*) (backlog line 84)")
+    for ag in ("page-writer", "page-reviewer"):
+        f = os.path.join(ROOT, ".claude", "agents", ag + ".md"); fm = open(f).read().split("---")[1] if os.path.exists(f) else ""
+        tools = next((l.split(":", 1)[1] for l in fm.splitlines() if l.startswith("tools:")), None)
+        if tools is not None and "Bash" not in tools: bad.append(f"{ag} agent has no Bash in its tools grant")
+    try:
+        sys.path.insert(0, os.path.join(ROOT, "pipeline")); import engine  # noqa: F401
+        q = os.path.join(ROOT, "status", "render-queue.txt"); open(q).read() if os.path.exists(q) else None
+        t = os.path.join(ROOT, "images", ".preflight"); open(t, "w").write("ok"); os.remove(t)
+    except Exception as e: bad.append(f"render status not readable: {type(e).__name__}: {e}")
+    shared = os.path.realpath(os.path.expanduser("~/emergent-hubs/private/alsoasked"))
+    if os.path.realpath(os.path.join(ROOT, "private", "alsoasked")) != shared: bad.append("private/alsoasked is not the shared store")
+    print("preflight: " + ("OK" if not bad else "FAIL\n  " + "\n  ".join(bad)))
+    sys.exit(1 if bad else 0)
+
 def cmd_block_new(args):
     W = load(); W["block_new"] = (" ".join(args) or "blocked") + f" ({ts()})"; save(W); print("new-page phase held:", W["block_new"])
     sync("weekend: new-page phase held", ["status/weekend-run.json"])
@@ -396,7 +425,7 @@ def cmd_unblock_new(args):
     W = load(); W.pop("block_new", None); save(W); print("new-page phase released")
     sync("weekend: new-page phase released", ["status/weekend-run.json"])
 
-CMDS = {"block-new": cmd_block_new, "unblock-new": cmd_unblock_new, "init": cmd_init, "next": cmd_next, "add-new": cmd_add_new, "aa": cmd_aa, "aa-balance": cmd_aa_balance, "wait-render": cmd_wait_render, "render": cmd_render,
+CMDS = {"preflight": cmd_preflight, "block-new": cmd_block_new, "unblock-new": cmd_unblock_new, "init": cmd_init, "next": cmd_next, "add-new": cmd_add_new, "aa": cmd_aa, "aa-balance": cmd_aa_balance, "wait-render": cmd_wait_render, "render": cmd_render,
         "commit": cmd_commit, "tick": cmd_tick, "credits": cmd_credits}
 if __name__ == "__main__":
     os.chdir(ROOT)

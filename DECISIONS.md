@@ -3,6 +3,18 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-13
+- **Ruling 10 (Divit, 2026-10-13): AlsoAsked yield pilot plus 5 speed changes; the quality bar is unchanged (same gates, one review, one rework, same packet).**
+  - **A. Yield pilot:** at most 45 credits, all through weekend.py aa, cap 2 per page.
+    - The next 5 queued pages per hub in plan order, one pull each, plus the --kw secondary pull for sales-workflow, shipping-automation and automated-loan-processing-system.
+    - Per page: the yield and the feasibility count. Per hub: the yield rate and projected supply.
+    - PA3 synonym candidates are proposed only, never applied without Divit's go (DECISIONS 2026-10-08).
+    - No more Auto pages go to B until the pilot lands.
+  - **B1. Feasibility before writing:** code counts gate-passing pull items plus brief sources after the page's one pull. Keyword-sourced rejects count as recoverable when the source keyword contains the head phrase (backlog line 91). Under 10: no writer is spawned, and the page goes to the end of the queue (not parked). Refused at claim and in weekend.py next.
+  - **B2. Review lock:** after review, hubctl refuses changes to any field not named in a blocking finding (mechanical H3/J1 autofixes exempt), at ready and in sync.sh's pre-commit check.
+  - **B3. Weekly rule window:** new rules go to plan/backlog.md and land once a week, on Mondays, in one combined pass plus recheck. Factual errors are still fixed on the page the same day, and blocking review findings still block.
+  - **B4. Daily ship:** each day's batch is every page that is reviewed, not held and text-hash matching. Same staging flow, one daily packet, one production go from Divit per day. Batch 4 starts on 2026-10-14 from the reviewed Form pool, plus ach-form and photo-release-form.
+  - **B5. Around the clock:** B may run a headless writer loop in its own clone (no Webflow, only its paths; Divit starts it), with 6–8 writer subagents per account. The loop preflights at start (AlsoAsked key exported, Bash and hubctl reachable from subagents, render status readable) and refuses to run otherwise.
+  - **Read-only checks:** read-only qc and paa never write qc_passed stamps or audit/paa/summary.md.
 - **Ruling 9 (Divit, 2026-10-13): SurveyQuiz writing moves to B.** A keeps LP writing, every review (full and slim, B's SurveyQuiz pages included), all Webflow, rules and tooling, and shipping. B writes Form, Auto and SurveyQuiz. `.hub`: `A:LP` and `B:Form,Auto,SurveyQuiz`. The 4 batch-3 SurveyQuiz pages stay A-coord held and ship with A.
 - **Naming (Divit, 2026-10-13, ruling 0):**
   - **Account A = the coordinator** (`~/emergent-hubs`): LP and SurveyQuiz writing, every review, the only Webflow writer, rules and tooling, shipping.

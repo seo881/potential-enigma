@@ -13,6 +13,8 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   k7-header      {url, header, expect_k7}                 QC K7 fires on a why_table column header exactly when expect_k7 (top-10 URLs: keyword map + saved SERP)
   qc-text        {url, field, text, check}                 QC flags `field` when it holds `text` (P0/P1 on that field)
   gate-pa12-secs {url, expect_pa12}                        PA12's secondary test fails exactly when expected (ruling 5: Semrush secondaries, bar min(6, n); none = 4 on-topic workbook ideas)
+  review-lock    {url, field, expect_refused}             ruling 10 B2: post-review change to a field is refused unless a blocking finding names it
+  feasibility    {url, expect_feasible}                   ruling 10 B1: feasibility (pull + sources + recoverable keyword items) reaches 10 when expected
   aa-decision    {rows, saved, now, expect}               weekend.py aa: reuse a saved pull, refuse a recent charge with no save, ignore 401/403 rejections
   gate-asker     {url, q, expect_asker}                   PA6 classifies the question as builder | respondent (None = flag)
   qc-f2-aa       {url, aa, expect_f2}                     legacy-capture page with an item labelled alsoasked: F2 exactly when there is no AlsoAsked pull
@@ -48,6 +50,13 @@ def caught(c):
         import paa_gate as PG
         rs = PG.Gate(c["url"]).judge({"q": c["q"], "source": "secondary", "n": 5}); lv = c.get("levels") or ["reject"]
         return bool({r[0] for r in rs if r[1] in lv} & set(c.get("expect") or [r[0] for r in rs]))
+    if c["kind"] == "review-lock":   # ruling 10 B2: after review, a change to field F is refused unless a blocking finding names F
+        import review_lock as RL, hubctl as H
+        s = copy.deepcopy(json.load(open(H.spath(c["url"])))); s["fields"][c["field"]] = (s["fields"].get(c["field"]) or "") + " Changed after review."
+        return bool(RL.violations(s)) == c["expect_refused"]
+    if c["kind"] == "feasibility":   # ruling 10 B1: the pre-writing feasibility count reaches 10 exactly when expected
+        import park_rescue as R
+        return R.feasibility(c["url"])["feasible"] == c["expect_feasible"]
     if c["kind"] == "aa-decision":  # weekend.py aa no-double-charge rule (Divit 2026-10-13): rows + saved status -> reuse/refuse/pull
         import weekend as W
         return W.aa_decision(c["rows"], c.get("saved"), c["now"])[0] == c["expect"]

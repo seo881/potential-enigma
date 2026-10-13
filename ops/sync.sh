@@ -11,6 +11,11 @@ if git diff --cached --name-only -z | xargs -0 -r grep -lE '^(<<<<<<< |>>>>>>> |
   echo "refusing to commit: conflict markers in staged files (resolve them, then rerun):" >&2
   git diff --cached --name-only -z | xargs -0 -r grep -lE '^(<<<<<<< |>>>>>>> |=======$)' -- >&2; git reset -q; exit 1
 fi
+# review lock (ruling 10 B2): after review only fields named in a blocking finding may change
+PY="$(dirname "$0")/../.venv/bin/python3"; [ -x "$PY" ] || PY=python3
+if ! git diff --cached --name-only | grep '^specs/' | xargs "$PY" "$(dirname "$0")/review_lock.py"; then
+  echo "refusing to commit: review lock (see above)" >&2; git reset -q; exit 1
+fi
 git diff --cached --quiet || git commit -q -m "$msg"
 for i in 1 2 3 4 5; do
   if git push -q origin HEAD:main; then git log --oneline -1; exit 0; fi

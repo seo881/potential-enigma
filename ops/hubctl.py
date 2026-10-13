@@ -10,7 +10,7 @@
                                     a parked page only with --note giving Divit's ruling (A6 default, 2026-10-12)
   paa-resource URL                  write AlsoAsked provenance into FAQ items matching the pull (no copy changes)
   paa-synonyms URL...               propose PA3 synonym candidates with safety counts -> rules/paa_synonym_candidates.json (not applied)
-  paa URL [--spec] [--cand]   PAA gate PA1-PA12 (qc/paa_gate.py): AlsoAsked pull or the spec's FAQ; verdicts to private/alsoasked/verdicts/
+  paa URL [--spec] [--cand] [--log]   PAA gate (qc/paa_gate.py): verdicts to private/alsoasked/verdicts/; --log appends audit/paa/summary.md (read-only otherwise, ruling 10)
   verified URL                      Divit approved the page as rendered in the real Webflow template: it joins the width calibration
   review URL RUBRIC.json --by ID    record the reviewer's rubric and rule-cited findings (state images); blocking -> rework, notes -> spec.review_notes
   ready URL --by ID                 after the one rework: QC 0 and images rendered -> reviewed (ready for Divit); no second review
@@ -35,10 +35,12 @@
   sources-check URL|--all            link-check every spec.domain_sources URL (cached for QC P3)
   usage-log URL TOKENS --role R     record an agent's token usage for a page (metrics reports tokens per page)
   learn-refs READBACK                 the 3 newest published Learn articles -> config/learn_refs.json (L12; new items get them at creation)
+  feasibility URL | defer URL --by ID   ruling 10 B1: under 10 FAQ sources after the pull = no writer; the page waits in the queue
   review-diff URL | slim-review URL FILE --by A-s-<n>   ruling 1: fields changed since review; record a slim review of them
   hold URL --by ID [--note T] | unhold URL --by ID   the account's hold marker on a page it is working (docs/TWO_ACCOUNTS.md)
   (claim, state, images, ready, review, release, hold and unhold refuse without --by: Divit 2026-10-13)
   metrics | sample [STATE] | links HUB | links --relink | lookahead HUB [N] | serp-budget | ranks-save URL RAW | ranks-report | recheck [--states a,b] [--include-b] | image-regress | verify-live URL [--html F]
+  daily-batch [--date D]             ruling 10 B4: plan/batches/batch-<date>.txt = every reviewed, unheld, hash-matching page not in the CMS
   batch-check BATCH_FILE            ruling 6: every page in state reviewed (or further along) and not held by the other account
   live-audit [--since-publish|--all|--urls U,U|--set launch] [--base URL] [--dry] | live-audit record|drift|plan|report DATE ...
   live-fix apply|brief|prepare|verify|approve|add ISSUE ... | live-rollback ISSUE [--done RESPONSE]   (docs/LIVE_AUDIT.md; ops/live_audit.py)
@@ -126,6 +128,38 @@ def cmd_status(args):
         for url, e in sorted(st.items(), key=lambda x: x[1].get("updated", "")):
             if e.get("state") not in ("queued", "published"): print(f"    {e['state']:9s} {url}  ({e.get('by','')}, {e.get('updated','')}) {e.get('note','')}")
 
+def _record_feasibility(url, f):
+    p = os.path.join(ROOT, "status", "feasibility.json"); d = json.load(open(p)) if os.path.exists(p) else {}
+    d[url] = {"total": f["total"], "faq": f["faq"], "pull": f["pull"], "sec": f["sec"], "recoverable": f["recoverable"], "slots": f["slots"], "date": now()}
+    json.dump(d, open(p, "w"), indent=1, sort_keys=True)
+
+def cmd_unlock(args):
+    """Ruling 10 B2 exception (coordinator only): a same-day factual fix to a locked field. Recorded on the spec; ruling 1's slim review still applies."""
+    url, field = args[0], args[1]; by = need_by(args, "unlock"); reason = args[args.index("--reason") + 1] if "--reason" in args else None
+    if not by.startswith("A-") or not reason: sys.exit("refused: hubctl unlock URL FIELD --by A-<id> --reason TEXT (coordinator only)")
+    sp = spath(url); s = json.load(open(sp)); s.setdefault("lock_exceptions", []).append({"field": field, "by": by, "reason": reason, "date": now()})
+    json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False); print(f"{url}: {field} unlocked by {by} ({reason}); a slim review of it is still required")
+
+def cmd_feasibility(args):
+    """Ruling 10 B1: the page's feasibility count after its pull (status/feasibility.json). Exit 1 when under 10."""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import park_rescue as R
+    f = R.feasibility(args[0]); _record_feasibility(args[0], f)
+    print(f"{args[0]}: {f['total']}/10 (faq {f['faq']}, pull {f['pull']}, secondaries {f['sec']}, recoverable {f['recoverable']}, slots {f['slots']}): " + ("write it" if f["feasible"] else "do NOT write; hubctl defer it"))
+    sys.exit(0 if f["feasible"] else 1)
+
+def cmd_defer(args):
+    """A claimed page that fails feasibility goes back to the queue (not parked) with its count recorded; claim skips it while it fails."""
+    url = args[0]; by = need_by(args, "defer")
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import park_rescue as R, guards as G
+    f = R.feasibility(url); _record_feasibility(url, f)
+    if f["feasible"]: sys.exit(f"{url} is feasible ({f['total']}/10): write it")
+    with G.lock("status-" + hub_of(url)):
+        st = load_st(hub_of(url)); e = st["pages"].get(url, {})
+        if hold_conflict(url): sys.exit(f"refused: held by the other account")
+        if e.get("state") not in ("claimed", None): sys.exit(f"defer is for claimed pages; {url} is {e.get('state')}")
+        st["pages"].pop(url, None); save_st(hub_of(url), st)
+    print(f"{url}: deferred at {f['total']}/10 (back to the queue, not parked; claim skips it until its sources change)")
+
 def cmd_claim(args):
     hub, n = args[0], int(args[1]); by = need_by(args, "claim")
     pin = os.path.join(ROOT, ".hub")
@@ -136,13 +170,21 @@ def cmd_claim(args):
     m = kmap(); st = load_st(hub)
     queue = sorted([p for p in m.values() if p["hub"] == hub and p["status"] == "planned"], key=lambda p: p["queue_rank"])
     got = []
+    sys.path.insert(0, os.path.join(ROOT, "qc")); sys.path.insert(0, os.path.join(ROOT, "ops")); import paa_gate as _PG
+    skipped = []
     for p in queue:
         if p["url"] in st["pages"]: continue
+        # ruling 10 B1 (Divit 2026-10-13): a page whose one pull cannot reach 10 FAQ items is not written; it waits at the end of the queue
+        if _PG.pulls(p["url"].rsplit("/", 1)[1]):
+            import park_rescue as _R
+            f = _R.feasibility(p["url"])
+            if not f["feasible"]: skipped.append((p["url"], f["total"])); _record_feasibility(p["url"], f); continue
         st["pages"][p["url"]] = {"state": "claimed", "by": by, "updated": now(), "queue_rank": p["queue_rank"]}
         got.append(p)
         if len(got) == n: break
     save_st(hub, st)
     for p in got: print(f"claimed #{p['queue_rank']:<4} {p['url']}  ({p['primary']}, {p['total_msv']} total MSV, wave {p['wave']})")
+    for u, t in skipped: print(f"skipped (feasibility {t}/10 after its pull; waits at the end of the queue, not parked): {u}")
     print("Commit and push status now so other chats see the claim.")
 
 def _print_aa(url):
@@ -224,7 +266,7 @@ def cmd_init(args):
 
 def cmd_qc(args):
     rc = subprocess.call([sys.executable, os.path.join(ROOT, "qc", "qc_hub.py"), spath(args[0])])
-    if rc == 0:
+    if rc == 0 and "--stamp" in args:   # read-only by default (ruling 10): only a writer finishing a page stamps qc_passed
         sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
         sp = spath(args[0]); s = json.load(open(sp)); s["qc_passed"] = {"rules_version": G.rules_version(), "date": now()}
         json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
@@ -339,6 +381,7 @@ def cmd_review(args):
         s.setdefault("challenges", []).append({"by": ch_.get("by"), "date": ch_.get("date"), "result": ch_.get("result"), "defects": len(ch_.get("defects", []))})
     s["review"] = {"by": by, "date": now(), "rubric": rub, "findings": findings}; _keep_notes(s, findings, by, "review")
     s["review_hash"] = G.review_hash(s)   # ruling 1 (Divit 2026-10-13): what was reviewed; ship refuses any later text change without a slim review
+    s["lock_hash"] = s["review_hash"]      # ruling 10 B2: the review lock compares against the text at the latest review event
     json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
     notes = len(findings) - len(blocking)
     if blocking: set_state(url, "rework", note=" | ".join(G.fmt_finding(f) for f in blocking), via="review", by=by); print(f"REWORK: {len(blocking)} blocking, {notes} notes\n  " + "\n  ".join(G.fmt_finding(f) for f in blocking))
@@ -355,6 +398,9 @@ def cmd_ready(args):
     s = json.load(open(spath(url))); st_now = load_st(hub_of(url))["pages"].get(url, {}).get("state")
     if st_now != "images": sys.exit(f"ready needs the page in state 'images' (reworked, QC passed, images re-rendered); it is '{st_now}'")
     if not s.get("review"): sys.exit("this page has not had its review yet: spawn a page-reviewer (hubctl review)")
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import review_lock as RL
+    v = RL.violations(s)
+    if v: sys.exit(f"review lock (ruling 10 B2): {', '.join(v)} changed after review but no blocking finding names them; revert, or ask the coordinator for hubctl unlock")
     q = subprocess.run([sys.executable, os.path.join(ROOT, "ops", "hubctl.py"), "qc", url], capture_output=True, text=True).stdout
     if "TOTAL (P0+P1) = 0" not in q: sys.exit("QC is not at zero:\n" + q[-1500:])
     src = s.get("challenge") or s["review"]   # legacy pages: the challenger's findings counted as their one review (Divit, 2026-10-07)
@@ -432,6 +478,9 @@ def cmd_state(args):
         if r.returncode != 0:
             ids = sorted({m.group(2) for m in re.finditer(r"^  (P0|P1) (\S+)", r.stdout, re.M)})
             sys.exit(f"refused: QC TOTAL is not 0 for {url}; failing checks: {', '.join(ids) or 'unknown (run hubctl qc)'}")
+    if state == "qc_pass":   # the writer's finish line stamps the rules version it passed under (recheck reads it)
+        sp = spath(url); s = json.load(open(sp)); sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+        s["qc_passed"] = {"rules_version": G.rules_version(), "date": now()}; json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
     if state == "qc_pass" and by:
         sp = spath(url); s = json.load(open(sp))
         if by not in s.setdefault("writers", []): s["writers"].append(by); json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
@@ -507,9 +556,30 @@ def cmd_slim_review(args):
     s.setdefault("slim_reviews", []).append({"by": by, "date": now(), "fields": ch, "baseline": base, "blocking": len(blocking), "notes": len(findings) - len(blocking), "findings": findings})
     _keep_notes(s, findings, by, "slim-review")
     if not blocking: s["review_hash"] = G.review_hash(s)
+    s["lock_hash"] = G.review_hash(s)   # ruling 10 B2: lock against the text as reviewed, whether the slim review passed or blocked
     json.dump(s, open(spath(url), "w"), indent=1, ensure_ascii=False)
     if blocking: set_state(url, "rework", note="slim review: " + note_txt, via="slim-review", by=by); print(f"REWORK: {len(blocking)} blocking")
     else: set_state(url, "reviewed", note=f"slim review by {by} of {len(ch)} changed field(s); {len(findings)} notes", via="slim-review", by=by); print(f"REVIEWED (slim): {len(ch)} field(s), {len(findings)} notes; review hash renewed")
+
+def cmd_daily_batch(args):
+    """Ruling 10 B4 (Divit 2026-10-13): the day's ship batch = every page in state reviewed, not held by the other account,
+    current text = reviewed text (review hash), not yet in the CMS. Writes plan/batches/batch-<date>.txt and prints the count."""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G, datetime as _dt
+    day = args[args.index("--date") + 1] if "--date" in args else _dt.date.today().isoformat()
+    rows, skip = [], []
+    for hub in CFG["hubs"]:
+        for u, e in sorted(load_st(hub)["pages"].items(), key=lambda x: x[1].get("queue_rank", 0)):
+            if e.get("state") != "reviewed": continue
+            s = json.load(open(spath(u))) if os.path.exists(spath(u)) else {}
+            if s.get("item_id"): continue
+            if e.get("hold") and hold_account(e["hold"]) != clone_account(): skip.append((u, "held")); continue
+            ok, why = G.review_ok(s)
+            if not ok: skip.append((u, why[:60])); continue
+            rows.append(u)
+    p = os.path.join(ROOT, "plan", "batches", f"batch-{day}.txt")
+    open(p, "w").write(f"# Daily ship batch {day} (ruling 10 B4): every reviewed, unheld page whose text matches its review hash\n" + "".join(u + "\n" for u in rows))
+    print(f"{os.path.relpath(p, ROOT)}: {len(rows)} page(s); skipped {len(skip)}")
+    for u, w in skip[:40]: print(f"  skip {u}: {w}")
 
 def cmd_batch_check(args):
     """Ruling 6 (Divit 2026-10-13): a ship batch takes only pages in state reviewed (or already further: approved, cms_draft, published),
@@ -953,7 +1023,7 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "release": cmd_release, "paa": cmd_paa, "paa-resource": cmd_paa_resource, "paa-synonyms": cmd_paa_synonyms, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "batch-check": cmd_batch_check, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "feasibility": cmd_feasibility, "daily-batch": cmd_daily_batch, "unlock": cmd_unlock, "defer": cmd_defer, "batch-check": cmd_batch_check, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
         "recheck": cmd_recheck, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live,
         "live-audit": lambda a: _live().main(a), "live-fix": lambda a: _live().fix_main(a), "live-rollback": lambda a: _live().cmd_rollback(a), "retro": lambda a: __import__("retro").main(a)}
