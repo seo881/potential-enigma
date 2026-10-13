@@ -119,6 +119,13 @@
    "via": null,
    "by": "A-coord",
    "note": ""
+  },
+  {
+   "t": "2026-10-13 18:50 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-8",
+   "note": "rubric 10/10 by A-r-8; 9 notes"
   }
  ],
  "pipeline": "r15",
@@ -1050,5 +1057,365 @@
  },
  "writers": [
   "A-w-51"
- ]
+ ],
+ "review": {
+  "by": "A-r-8",
+  "date": "2026-10-13 18:50 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Document Approval Workflow That Tracks Every Version', meta title 'Document Approval Workflow, Built From a Prompt | Emergent' and hero 'Build a document approval workflow that sends each draft to the right approvers and ties every approval to one version.' cover the whole job (routing plus version-bound approval), not one sibling's document type. howto_description is one sentence that says what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is explainers (Microsoft approvals docs, DealHub glossary, Atlassian) and software roundups (Avokaado, PandaDoc, DocuWare). The page gives the definition with serial/parallel/conditional routing (FAQ 1), a 7-step how-to specific to documents ('Test on documents already approved', 'Decide what a rejection does'), a software comparison table and a software question (FAQ 9 'Do I need dedicated document approval workflow software?')."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'Rev 4 of SOP-114, the allergen changeover procedure', 'drawing QM-2207, a motor bracket ... the shop keeps building to Rev B', 'Rev 3 stays the effective version until she approves'. Table compares DocuWare (document-management category, from the top 10) with automation platforms; no hub default fallback."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence that says what happens: 'Halima Josten uploads Rev 4 of SOP-114', 'An approval applies to the exact version the approver opened.', 'An AI step turns each uploaded document into fields', 'List every document type that waits on someone'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; QC Q2/Q5/Q6/Q7 clean. Notes: 11 'A, B, and C' lists (QC Q8) and the double 48-hour statement in tab_content_3."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Calm, product-led and concrete: 'A live board of what waits on whom', 'An approval applies to the exact version the approver opened. If anyone edits the document afterward, that approval is cleared'. Notes on the locked keyword-sourced FAQ question wording and the hero shape shared with siblings."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Every Emergent claim maps to claims_used: prompt-build ('Emergent builds the app and its routing logic from those sentences'), alerts ('a reminder arrives in Slack or by email'), ai-extraction ('Any field it cannot read with confidence goes to a person'), realtime ('updated as decisions land'), database-owned, code-export ('to your GitHub repository on paid plans'), no-caps ('no per-approver seats'), api-connect ('through its API'). Third-party facts match their quoted spans: FAQ 1 'sequence of reviews, checks, and sign-offs' and 'serial, parallel, or conditional' (DocuWare), FAQ 10 'a system or process used to capture, track, and store electronic documents' (IBM). Table from the vetted library (V2/V3 clean). Numbers agree across copy and images ($9,800 to $12,400; 2 of 3; 48 hours; 24 and 48 hours in step 3)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own cases (SOP revision, drawing release, client report delegate, edit after approval) and an own angle (approval bound to a version) versus invoice-approval-workflow (split invoices, bank detail changes), content-approval-workflow (blog posts, ad creative) and approval-workflow (PO, invoice, contract, expense). D2 hero overlap 19% (P2). No sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "Exactly 10 questions, each answered in its first sentence; hub link in item 2 ('Emergent's AI automation builder'); exact-match links 'document automation' (4) and 'purchase order automation' (7); all three secondaries carried in items 8-10; moat lines in items 3, 6 and 9 from approved claims. Notes on the wording of locked items 3-5."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Each tab shows its copy's moment with the same names and numbers: tab 1 'Approved by Ezio Abaya', 'To Wenona Kashyap', 'Rev 3 until then'; tab 2 '2 of 3 approvals', 'Waiting on Teodoro Malvar', 'Shop keeps building to Rev B'; tab 3 'Rule matched: no decision in 48 hours -> Delegate', 'To Rashid Iturbe', 'Direct message, report attached'; tab 4 '$9,800' struck to '$12,400', 'Approved Monday, now cleared', 'v4 to Agathe Delacroix'. Cover is the tab 1 DM to Wenona Kashyap. One hero per tab, text readable."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "item 3 'How ai agents make decisions in document approval workflows?'; item 4 'How organizations automate document approvals workflows?'; item 5 'How organizations automate document approvals workflow 2025 2026?'",
+    "issue": "Three locked keyword-sourced questions are raw Semrush strings: missing auxiliaries ('How do ...'), lowercase 'ai', plural 'approvals workflows', and a bare year pair. A reader sees broken English in an FAQ heading.",
+    "fix": "Upstream: let the skeleton apply the natural-question reword the 2026-10-13 phrase_questions ruling allows (head phrase kept), e.g. 'How do AI agents make decisions in document approval workflows?', 'How do organizations automate document approval workflows?'.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "item 4 'How organizations automate document approvals workflows?' and item 5 'How organizations automate document approvals workflow 2025 2026?' ... 'a 2025 or 2026 setup can send the request to Slack or email'",
+    "issue": "Items 4 and 5 are the same question with a year suffix; answer 5 forces the years into its first sentence to match.",
+    "fix": "Upstream: the phrase_questions filter should dedupe year-suffixed variants of a question already in the set, freeing a slot for a different searcher question.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "hero_description, features_subheading, feature_2, feature_5, howto_step_4_des, faq",
+    "quote": "hero 'ties every approval to one version'; features_subheading 'which version their approval covers'; feature_2 'An approval applies to the exact version the approver opened'; feature_5 'saved to a database you own, with its version'; howto_step_4_des 'records each decision against that version'; FAQ 4 'each decision is stored against the version it covers'; FAQ 5 'record the click against the document's version'; FAQ 7 'which version an approval covers'; FAQ 8 'which version they saw'",
+    "issue": "The version-bound approval idea is restated in nine places with words swapped (QC Q9: 'version' 14 times outside the FAQ). It is the page's angle, but plan.owns gives it to feature_2.",
+    "fix": "Keep it in hero, feature_2 and FAQ 8; elsewhere say something the reader has not read yet.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2b",
+    "field": "meta_description, why_description, feature_5, feature_6, tab_content_2, faq",
+    "quote": "meta 'in order or in parallel, chases late approvers, and resets approval'; why 'the routing, the reminders, and the version record'; feature_5 'every open review, who holds it, and how long it has waited'; feature_6 'with every route and reminder'; tab_content_2 'design, manufacturing, and quality'; FAQ 1 'reviews, checks, and sign-offs', 'serial, parallel, or conditional', 'one approver after another, several at once, or a route'; FAQ 7 'what starts it, who approves and in what order, how long'; FAQ 9 'reminders, delegates, or a record per version'; FAQ 10 'capture, track, and store'",
+    "issue": "11 'A, B, and C' lists on the page (QC Q8 flags above 8); FAQ 1 alone carries three. Tidy triplets read templated.",
+    "fix": "Turn two or three into pairs or one specific (e.g. why_description 'builds the routing and the version record as one app').",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_3",
+    "quote": "A report with no decision after 48 hours goes to a delegate. The partner, Ottilie Vasquez, has not opened it in 48 hours.",
+    "issue": "The rule and the event are stated back to back with the same 48 hours; the second sentence restates the first.",
+    "fix": "'Ottilie Vasquez, the partner, has not opened it in 48 hours, so the rule hands it to her delegate, Rashid Iturbe, in a direct message with the report attached.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "tab_label_4",
+    "quote": "Edits After Approval",
+    "issue": "usecase_heading 'Four Documents That Wait on Approval' and tabs 1-3 ('SOP Revisions', 'Drawing Releases', 'Client Reports') name document types; tab 4 names an event, not the grant proposal it shows.",
+    "fix": "'Grant Proposals' (the tab H3 already carries the edit story).",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "hero_description",
+    "quote": "Build a document approval workflow that sends each draft to the right approvers and ties every approval to one version.",
+    "issue": "Same hero shape as siblings: content-approval-workflow 'sends each draft to the right reviewer and records who approved it', invoice-approval-workflow 'sends each invoice to the right approver, chases late sign-offs'.",
+    "fix": "Lead with this page's own outcome, e.g. 'Build a document approval workflow where an edit clears the approval and only the approved version is released.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "<th scope=\"col\">Zapier</th> ... <th scope=\"col\">Make (Integromat)</th>",
+    "issue": "Only DocuWare ranks in the top 10 (QC K7 P2); the tools searchers see (Power Automate, DocuSign, PandaDoc) are not in the Auto library, so the skeleton fell back to generic automation platforms.",
+    "fix": "Upstream: coordinator adds Microsoft Power Automate and PandaDoc to rules/competitors (with sources) for approval-cluster pages.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "faq_heading",
+    "quote": "Approval Questions, Answered",
+    "issue": "The {Topic} slot is the generic word every approval sibling shares, not this page's topic.",
+    "fix": "'Document Approval Questions, Answered' if T1 width allows.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "Three locked keyword-sourced questions are raw Semrush strings: missing auxiliaries ('How do ...'), lowercase 'ai', plural 'approvals workflows', and a bare year pair. A reader sees broken English in an FAQ heading.",
+   "fix": "Upstream: let the skeleton apply the natural-question reword the 2026-10-13 phrase_questions ruling allows (head phrase kept), e.g. 'How do AI agents make decisions in document approval workflows?', 'How do organizations automate document approval workflows?'.",
+   "by": "A-r-8",
+   "via": "review",
+   "date": "2026-10-13 18:50 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "Items 4 and 5 are the same question with a year suffix; answer 5 forces the years into its first sentence to match.",
+   "fix": "Upstream: the phrase_questions filter should dedupe year-suffixed variants of a question already in the set, freeing a slot for a different searcher question.",
+   "by": "A-r-8",
+   "via": "review",
+   "date": "2026-10-13 18:50 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "hero_description, features_subheading, feature_2, feature_5, howto_step_4_des, faq",
+   "issue": "The version-bound approval idea is restated in nine places with words swapped (QC Q9: 'version' 14 times outside the FAQ). It is the page's angle, but plan.owns gives it to feature_2.",
+   "fix": "Keep it in hero, feature_2 and FAQ 8; elsewhere say something the reader has not read yet.",
+   "by": "A-r-8",
+   "via": "review",
+   "date": "2026-10-13 18:50 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2b",
+   "field": "meta_description, why_description, feature_5, feature_6, tab_content_2, faq",
+   "issue": "11 'A, B, and C' lists on the page (QC Q8 flags above 8); FAQ 1 alone carries three. Tidy triplets read templated.",
+   "fix": "Turn two or three into pairs or one specific (e.g. why_description 'builds the routing and the version record as one app').",
+   "by": "A-r-8",
+   "via": "review",
+   "date": "2026-10-13 18:50 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_3",
+   "issue": "The rule and the event are stated back to back with the same 48 hours; the second sentence restates the first.",
+   "fix": "'Ottilie Vasquez, the partner, has not opened it in 48 hours, so the rule hands it to her delegate, Rashid Iturbe, in a direct message with the report attached.'",
+   "by": "A-r-8",
+   "via": "review",
+   "date": "2026-10-13 18:50 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "tab_label_4",
+   "issue": "usecase_heading 'Four Documents That Wait on Approval' and tabs 1-3 ('SOP Revisions', 'Drawing Releases', 'Client Reports') name document types; tab 4 names an event, not the grant proposal it shows.",
+   "fix": "'Grant Proposals' (the tab H3 already carries the edit story).",
+   "by": "A-r-8",
+   "via": "review",
+   "date": "2026-10-13 18:50 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "hero_description",
+   "issue": "Same hero shape as siblings: content-approval-workflow 'sends each draft to the right reviewer and records who approved it', invoice-approval-workflow 'sends each invoice to the right approver, chases late sign-offs'.",
+   "fix": "Lead with this page's own outcome, e.g. 'Build a document approval workflow where an edit clears the approval and only the approved version is released.'",
+   "by": "A-r-8",
+   "via": "review",
+   "date": "2026-10-13 18:50 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "Only DocuWare ranks in the top 10 (QC K7 P2); the tools searchers see (Power Automate, DocuSign, PandaDoc) are not in the Auto library, so the skeleton fell back to generic automation platforms.",
+   "fix": "Upstream: coordinator adds Microsoft Power Automate and PandaDoc to rules/competitors (with sources) for approval-cluster pages.",
+   "by": "A-r-8",
+   "via": "review",
+   "date": "2026-10-13 18:50 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "faq_heading",
+   "issue": "The {Topic} slot is the generic word every approval sibling shares, not this page's topic.",
+   "fix": "'Document Approval Questions, Answered' if T1 width allows.",
+   "by": "A-r-8",
+   "via": "review",
+   "date": "2026-10-13 18:50 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "0ed960be6fb913d7",
+   "alt:share_image": "eb0fccd8a29ac170",
+   "alt:tab_image_1": "6e23e23deef6cdaa",
+   "alt:tab_image_2": "f510840410999f7c",
+   "alt:tab_image_3": "dc5525c193799e2d",
+   "alt:tab_image_4": "2f4f99dbbd5ed8ff",
+   "breadcrumb": "819d55b98f33b2e8",
+   "chip_adds": "bdf436b12176393c",
+   "explore_cta": "1ed72f28a7f15f19",
+   "faq": "876986f9d1f335db",
+   "feature_1": "ca6a7955ee1d9b5c",
+   "feature_2": "2e6ec1b54d3e03d5",
+   "feature_3": "c3fe3258386dbf25",
+   "feature_4": "315aed3d9a740d7f",
+   "feature_5": "3a48b46a15eb057a",
+   "feature_6": "cd863e6aae82cc4d",
+   "features_heading": "fc7bd3736334f96f",
+   "features_subheading": "2ef7b2f183ff2da9",
+   "h1": "24674e8dbe3d187f",
+   "hero_description": "4fd9bf1998e89333",
+   "hero_prompt": "15ca82b5292ef81f",
+   "howto_description": "a1711f6c0e1edfb3",
+   "howto_step_1_des": "56b6a18d668222ac",
+   "howto_step_1_title": "62c8e10eeb886ea8",
+   "howto_step_2_des": "ff4dd433a4acfb83",
+   "howto_step_2_title": "71f4d69bb6cf7067",
+   "howto_step_3_des": "0409c4244006f6da",
+   "howto_step_3_title": "a23336d1b1a321ad",
+   "howto_step_4_des": "3909cbdd218f2cce",
+   "howto_step_4_title": "be9e597b5fcf9718",
+   "howto_step_5_des": "07dce8b7a01c58af",
+   "howto_step_5_title": "4c192470a71e945a",
+   "howto_step_6_des": "808dace8f36c87c6",
+   "howto_step_6_title": "f2292ab93dee0bdc",
+   "howto_step_7_des": "4beb1952645cc818",
+   "howto_step_7_title": "950e2700fe43f05a",
+   "howto_title": "247f4e245d056a0d",
+   "meta_description": "02670f5282eecf15",
+   "meta_title": "fd4cbfa8506a150f",
+   "mockup": "ff55a5cf09f663ac",
+   "product_name": "b7836324a60f2782",
+   "prompt_chip_1": "1754547921a7e552",
+   "prompt_chip_2": "d649e1ef43903ab8",
+   "prompt_chip_3": "79417ab39813f466",
+   "prompt_chip_4": "20c86f6763a941c2",
+   "slug": "1ea822e60cdc5bd2",
+   "tab_content_1": "3c8e0e4f9c5aa89e",
+   "tab_content_2": "58cb599e473d8504",
+   "tab_content_3": "37c1de469f78800b",
+   "tab_content_4": "dc9e83043e61b6bd",
+   "tab_label_1": "004a6bb10a52bb17",
+   "tab_label_2": "25a0d339774bbadb",
+   "tab_label_3": "aae40358d4896476",
+   "tab_label_4": "5c1b6435deecd29a",
+   "usecase_heading": "b29427395b68af02",
+   "why_description": "7df6615b80893445",
+   "why_table": "bcf215db45c9b012",
+   "why_title": "dcc5493f97774a2c"
+  },
+  "all": "d22f17a188e91292",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "0ed960be6fb913d7",
+   "alt:share_image": "eb0fccd8a29ac170",
+   "alt:tab_image_1": "6e23e23deef6cdaa",
+   "alt:tab_image_2": "f510840410999f7c",
+   "alt:tab_image_3": "dc5525c193799e2d",
+   "alt:tab_image_4": "2f4f99dbbd5ed8ff",
+   "breadcrumb": "819d55b98f33b2e8",
+   "chip_adds": "bdf436b12176393c",
+   "explore_cta": "1ed72f28a7f15f19",
+   "faq": "876986f9d1f335db",
+   "feature_1": "ca6a7955ee1d9b5c",
+   "feature_2": "2e6ec1b54d3e03d5",
+   "feature_3": "c3fe3258386dbf25",
+   "feature_4": "315aed3d9a740d7f",
+   "feature_5": "3a48b46a15eb057a",
+   "feature_6": "cd863e6aae82cc4d",
+   "features_heading": "fc7bd3736334f96f",
+   "features_subheading": "2ef7b2f183ff2da9",
+   "h1": "24674e8dbe3d187f",
+   "hero_description": "4fd9bf1998e89333",
+   "hero_prompt": "15ca82b5292ef81f",
+   "howto_description": "a1711f6c0e1edfb3",
+   "howto_step_1_des": "56b6a18d668222ac",
+   "howto_step_1_title": "62c8e10eeb886ea8",
+   "howto_step_2_des": "ff4dd433a4acfb83",
+   "howto_step_2_title": "71f4d69bb6cf7067",
+   "howto_step_3_des": "0409c4244006f6da",
+   "howto_step_3_title": "a23336d1b1a321ad",
+   "howto_step_4_des": "3909cbdd218f2cce",
+   "howto_step_4_title": "be9e597b5fcf9718",
+   "howto_step_5_des": "07dce8b7a01c58af",
+   "howto_step_5_title": "4c192470a71e945a",
+   "howto_step_6_des": "808dace8f36c87c6",
+   "howto_step_6_title": "f2292ab93dee0bdc",
+   "howto_step_7_des": "4beb1952645cc818",
+   "howto_step_7_title": "950e2700fe43f05a",
+   "howto_title": "247f4e245d056a0d",
+   "meta_description": "02670f5282eecf15",
+   "meta_title": "fd4cbfa8506a150f",
+   "mockup": "ff55a5cf09f663ac",
+   "product_name": "b7836324a60f2782",
+   "prompt_chip_1": "1754547921a7e552",
+   "prompt_chip_2": "d649e1ef43903ab8",
+   "prompt_chip_3": "79417ab39813f466",
+   "prompt_chip_4": "20c86f6763a941c2",
+   "slug": "1ea822e60cdc5bd2",
+   "tab_content_1": "3c8e0e4f9c5aa89e",
+   "tab_content_2": "58cb599e473d8504",
+   "tab_content_3": "37c1de469f78800b",
+   "tab_content_4": "dc9e83043e61b6bd",
+   "tab_label_1": "004a6bb10a52bb17",
+   "tab_label_2": "25a0d339774bbadb",
+   "tab_label_3": "aae40358d4896476",
+   "tab_label_4": "5c1b6435deecd29a",
+   "usecase_heading": "b29427395b68af02",
+   "why_description": "7df6615b80893445",
+   "why_table": "bcf215db45c9b012",
+   "why_title": "dcc5493f97774a2c"
+  },
+  "all": "d22f17a188e91292",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

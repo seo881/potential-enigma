@@ -77,6 +77,15 @@ def _shorter_raw(disp):
 def _a(primary):   # article for a definition question
     return "an" if primary[:1].lower() in "aeiou" else "a"
 
+ACRO = {"ai": "AI", "crm": "CRM", "hr": "HR", "erp": "ERP", "api": "API", "sms": "SMS", "nps": "NPS", "csat": "CSAT", "faq": "FAQ", "seo": "SEO",
+        "pdf": "PDF", "it": None, "us": None, "dei": "DEI", "kpi": "KPI", "rfp": "RFP", "sop": "SOP", "ppc": "PPC", "saas": "SaaS", "b2b": "B2B", "hipaa": "HIPAA"}
+def clean_question(raw):
+    """A Semrush question as a starting point only (keyword-sourced: the writer may reword it naturally, head phrase kept, backlog line 91):
+    years stripped, acronyms cased, first letter capitalised, a question mark."""
+    q = re.sub(r"\s+", " ", re.sub(r"\b(19|20)\d\d\b", " ", raw)).strip(" ?")
+    q = " ".join(ACRO.get(w.lower()) or w if ACRO.get(w.lower()) else w for w in q.split())
+    return q[:1].upper() + q[1:] + "?"
+
 def candidates(url):
     """Passing FAQ candidates: AlsoAsked pull (pass only; a flag only once Divit's packet approves its subtype), Semrush questions (pass)."""
     s = url.rsplit("/", 1)[1]; g = P.Gate(url); out = []
@@ -91,8 +100,7 @@ def candidates(url):
         rs = g.judge({"q": x["q"], "source": "keyword", "n": 5})
         if any(r[1] == "reject" for r in rs): continue
         fl = sorted({P.flag_subtype(r[0], r[2]) for r in rs if r[1] == "flag"})
-        q = x["q"].strip(); q = q[:1].upper() + q[1:] + ("" if q.endswith("?") else "?")
-        out.append({"kind": "semrush", "q": q, "ref": x["q"], "prov": x["prov"], "locked": True, "flagged": fl})
+        out.append({"kind": "semrush", "q": clean_question(x["q"]), "ref": x["q"], "prov": x["prov"], "locked": False, "flagged": fl})
     # Divit 2026-10-13: flagged questions may fill slots, after passing questions and secondaries; marked in spec and pack
     return [c for c in out if not c["flagged"]] + [c for c in out if c["flagged"]]
 
@@ -223,7 +231,8 @@ def cmd_pack(a):
            "6 faq: one answer per slot with `skeleton.py answer URL N TEXT`; then `skeleton.py assemble URL`; then `skeleton.py check URL faq`", "",
            "## FAQ slots (locked questions are fixed; write the answer only)"]
     for sl in s.get("faq_plan") or []:
-        q = sl["q"] if sl["locked"] else f"[you write a question carrying every word of: {sl['ref']}]"
+        q = sl["q"] if sl["locked"] else (f"[Semrush: keep or reword naturally (head phrase stays; --q): {sl['q']}]" if sl["kind"] == "semrush"
+                                          else f"[you write a question carrying every word of: {sl['ref']}]")
         if sl.get("flagged"): q += f"  [FLAGGED: {', '.join(sl['flagged'])}; write it like any other; it waits for Divit's packet tick]"
         ln = f" | LINK: write the words \"{sl['link'].get('write_as') or sl['link']['anchor']}\" in the answer (code makes them the link)" if sl.get("link") else ""
         out.append(f"{sl['n']:2d}. ({sl['kind']}{', locked' if sl['locked'] else ''}) {q}{ln}")
@@ -250,7 +259,9 @@ def cmd_answer(a):
     if "--q" in a:
         if sl["locked"]: sys.exit(f"refused: slot {n}'s question is locked (ruling 15)")
         q = a[a.index("--q") + 1]
-        if not all(w in P.norm(q) for w in P.norm(sl["ref"]).split()): sys.exit(f"refused: the question must carry every word of the secondary '{sl['ref']}' (K8)")
+        if sl["kind"] == "semrush":
+            if not any(h.search(P.norm(q)) for h in P.Gate(url).heads): sys.exit("refused: a reworded Semrush question must keep the head phrase (backlog line 91)")
+        elif not all(w in P.norm(q) for w in P.norm(sl["ref"]).split()): sys.exit(f"refused: the question must carry every word of the secondary '{sl['ref']}' (K8)")
         sl["q"] = q
     sl["a"] = text; save(url, s); print(f"slot {n} answered")
 

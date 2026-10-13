@@ -205,7 +205,8 @@ def derive(url):
         if any(re.search(r"(?<![a-z0-9])" + re.escape(b) + r"(?![a-z0-9])", nq) for b in brands): why["brand"] += 1; continue
         rs = g.judge({"q": q, "source": "keyword", "n": 5})
         if any(x[1] == "reject" for x in rs): why["gate_reject"] += 1; continue
-        if R.dup(q, have + [o["q"] for o in out]): why["duplicate"] += 1; continue
+        noyear = lambda t: re.sub(r"\b(19|20)\d\d\b", " ", t)   # "...workflow 2025 2026" is the same question (A-r-8, 2026-10-14)
+        if R.dup(noyear(q), [noyear(x) for x in have + [o["q"] for o in out]]): why["duplicate"] += 1; continue
         out.append({"q": q, "verdict": "flag" if any(x[1] == "flag" for x in rs) else "pass",
                     "prov": {"tool": "semrush-phrase_questions", "query": r["phrase"], "database": DB, "volume": r["volume"], "fetched": now()[:10]}})
     os.makedirs(DER, exist_ok=True)
