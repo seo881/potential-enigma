@@ -198,8 +198,12 @@ def cmd_build(a):
     s.setdefault("keywords", {})["primary"] = prim
     save(url, s)
     vs, rows = default_table(url)
-    if len(vs) == 3:
-        subprocess.run([sys.executable, os.path.join(ROOT, "ops", "hubctl.py"), "table", url, "--vs", ",".join(vs), "--rows", ",".join(rows)], capture_output=True)
+    if len(vs) == 3:   # in-process: a library name may hold commas ("AI site builders (Wix, Framer)") that the CLI would split
+        import table as TB
+        try:
+            html = TB.render(H.CFG["hubs"][hub]["repo_dir"], vs, rows)
+            s2 = load(url); s2["fields"]["why_table"] = html; s2["table"] = {"vs": vs, "rows": rows, "variant": None}; save(url, s2)
+        except Exception as e: print(f"table not built: {e}")
     s = load(url); s.setdefault("skeleton", {}).update({"built_by": by, "built": H.now(), "slots": len(slots), "flagged": sum(1 for x in slots if x.get("flagged")),
                                                         "flag_subtypes": sorted({f for x in slots for f in (x.get("flagged") or [])}),
                                                         "locked": sum(1 for x in slots if x["locked"]), "table": bool(s.get("table"))})
