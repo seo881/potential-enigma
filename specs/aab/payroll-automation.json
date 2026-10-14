@@ -122,6 +122,13 @@
    "via": null,
    "by": "B-w-62",
    "note": ""
+  },
+  {
+   "t": "2026-10-14 12:35 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-3",
+   "note": "[truth | HUB_RULES 8] faq: FAQ 7 ('Can I use automated payroll software for contractor invoices?') gives a flat 'No' about what payroll software can do, with no domain source. Many payroll providers pay contractors and file their 1099s, and this page's own FAQ 8 says 'some go further by generating W"
   }
  ],
  "pipeline": "r15",
@@ -1003,5 +1010,315 @@
  },
  "writers": [
   "B-w-62"
- ]
+ ],
+ "review": {
+  "by": "B-r-3",
+  "date": "2026-10-14 12:35 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Payroll Automation Around Your Payroll Provider'; hero 'checks every timesheet and holds unusual hours before the payroll cutoff'; the page is honest that the provider runs pay."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition (FAQ 1, sourced to Oyster), 'Is there a way to automate payroll?' answered, software features (FAQ 4), process (FAQ 10), four worked automations and a 7-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Payroll vocabulary: cutoff, pay period, overtime past 40, shift premiums, back pay, final paycheck, year-to-date totals."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "'Ines Valdovinos submits a 46-hour week', 'Before the pay run, the app lines up each person's approved hours', 'List every manual step between the time clock and payday'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; sentences short and varied."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'A mistake there costs a reminder, not a paycheck.' 'Count the corrections payroll had to make after the cutoff, then add the next location once that count reaches zero.'"
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "faq item 7: 'No, not when contractors bill you.' states what payroll software cannot do, with no source, and the page itself (faq item 8) says some providers generate 1099s, the contractor form."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own angle (the work before the run, around the provider); siblings only as links (invoice automation, report automation, automated loan processing system)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, PAA and secondaries, hub link in item 2, no brand in any question."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "40 + 6 = 46 hours to Teodor Sandberg; 48 to 72 = +50% held for Mireille Okafor against the 25% rule (64->66 +3%, 40->42 +5%); $18.00 to $19.50 'up more than 8%' to Saoirse Kettering; 3 unapproved Riverside timesheets, cutoff Thursday 5 p.m., sent Tuesday, DM to Odalys Brennan."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "No, not when contractors bill you. A contractor's invoice is a bill, and it belongs with your other bills.",
+    "issue": "FAQ 7 ('Can I use automated payroll software for contractor invoices?') gives a flat 'No' about what payroll software can do, with no domain source. Many payroll providers pay contractors and file their 1099s, and this page's own FAQ 8 says 'some go further by generating W-2s or 1099s', so the page contradicts itself. This is the only instance of the class; the other third-party facts (Oyster definition and post-payroll records, Workday tax withholding) match their quoted spans.",
+    "fix": "Answer what is true: many payroll providers can pay contractors and prepare 1099s (source it), but an invoice a contractor sends still needs checking against the agreed rate and an approval, which is where invoice automation fits. Keep the link; drop the flat 'No'.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_3_des",
+    "quote": "hours come from the clock, and pay rates come from the provider",
+    "issue": "Inconsistent system of record for pay rates: step 3 says the payroll provider, faq item 4 says 'the HR system that holds pay rates'. Not a hard contradiction (they are often one system), but the page should pick one.",
+    "fix": "Use one owner for pay rates in both places.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "tab_content_2",
+    "quote": "Hours up by half on last period wait for review",
+    "issue": "The tab H3 does not parse cleanly ('up by half on last period wait').",
+    "fix": "Hours up by half since last period wait for review.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "The same pattern, with inputs checked before a named approver signs off, runs an automated loan processing system, where applications take the place of timesheets.",
+    "issue": "FAQ 4 closes on a sentence placed for the link; it does not serve the payroll reader.",
+    "fix": "Link a closer sibling (accounting automation, hr-adjacent page) from a sentence that answers the question.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "scope",
+    "rule": "CONTENT_DEFECTS #1",
+    "field": "meta_title",
+    "quote": "Payroll Automation for Hourly Teams | Emergent",
+    "issue": "Meta title narrows the primary to hourly teams; the H1 and hero are broader. Every tab is hourly-timesheet work, so the promise is kept, but salaried-team searchers are cut from the snippet.",
+    "fix": "Optional: 'Payroll Automation Before the Pay Run | Emergent'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "Can I use automated payroll software for contractor invoices?",
+    "issue": "PAA questions with clear intent were left out (most popular payroll software, do-it-yourself payroll software); FAQ 7 and FAQ 5 are invented from secondaries instead.",
+    "fix": "On a future pass, prefer the unbranded PAA questions.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Make (Integromat)",
+    "issue": "Zapier, Make and n8n do not rank for 'payroll automation' (top 10 are payroll and HR vendors); the library has no payroll variant.",
+    "fix": "Coordinator: consider a finance-ops variant in the library.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_3_des",
+   "issue": "Inconsistent system of record for pay rates: step 3 says the payroll provider, faq item 4 says 'the HR system that holds pay rates'. Not a hard contradiction (they are often one system), but the page should pick one.",
+   "fix": "Use one owner for pay rates in both places.",
+   "by": "B-r-3",
+   "via": "review",
+   "date": "2026-10-14 12:35 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "tab_content_2",
+   "issue": "The tab H3 does not parse cleanly ('up by half on last period wait').",
+   "fix": "Hours up by half since last period wait for review.",
+   "by": "B-r-3",
+   "via": "review",
+   "date": "2026-10-14 12:35 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "FAQ 4 closes on a sentence placed for the link; it does not serve the payroll reader.",
+   "fix": "Link a closer sibling (accounting automation, hr-adjacent page) from a sentence that answers the question.",
+   "by": "B-r-3",
+   "via": "review",
+   "date": "2026-10-14 12:35 UTC"
+  },
+  {
+   "criterion": "scope",
+   "rule": "CONTENT_DEFECTS #1",
+   "field": "meta_title",
+   "issue": "Meta title narrows the primary to hourly teams; the H1 and hero are broader. Every tab is hourly-timesheet work, so the promise is kept, but salaried-team searchers are cut from the snippet.",
+   "fix": "Optional: 'Payroll Automation Before the Pay Run | Emergent'.",
+   "by": "B-r-3",
+   "via": "review",
+   "date": "2026-10-14 12:35 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "PAA questions with clear intent were left out (most popular payroll software, do-it-yourself payroll software); FAQ 7 and FAQ 5 are invented from secondaries instead.",
+   "fix": "On a future pass, prefer the unbranded PAA questions.",
+   "by": "B-r-3",
+   "via": "review",
+   "date": "2026-10-14 12:35 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "Zapier, Make and n8n do not rank for 'payroll automation' (top 10 are payroll and HR vendors); the library has no payroll variant.",
+   "fix": "Coordinator: consider a finance-ops variant in the library.",
+   "by": "B-r-3",
+   "via": "review",
+   "date": "2026-10-14 12:35 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "5a0f54005f774996",
+   "alt:share_image": "8fd23807fa7df1c1",
+   "alt:tab_image_1": "0ce216980b23ad62",
+   "alt:tab_image_2": "098b96f672eee80e",
+   "alt:tab_image_3": "2007219df66b9851",
+   "alt:tab_image_4": "91725ed0bd4a242b",
+   "breadcrumb": "88504e5e8d59852c",
+   "chip_adds": "18d67aa3cf1f49b6",
+   "explore_cta": "422e61bb0a251684",
+   "faq": "19ef8fe5b1545149",
+   "feature_1": "caab3db9cae22680",
+   "feature_2": "3c9246453c6e2e5d",
+   "feature_3": "78e506fd318df419",
+   "feature_4": "cc436a10e36ea091",
+   "feature_5": "8c9e3738c5614d4a",
+   "feature_6": "ede44f6fa1082dff",
+   "features_heading": "870a5f4e3759fec5",
+   "features_subheading": "16d2ae36d69fc2a1",
+   "h1": "6f5bf676c8cb6f01",
+   "hero_description": "97be4c1335d732d4",
+   "hero_prompt": "301765745b45b23d",
+   "howto_description": "8caa27b4d8886900",
+   "howto_step_1_des": "d2ceb4a7b9aa8472",
+   "howto_step_1_title": "00b7ec14146f1ddd",
+   "howto_step_2_des": "ab6fe416f6739695",
+   "howto_step_2_title": "8f73f2a52a6fec16",
+   "howto_step_3_des": "a807c3321bd40436",
+   "howto_step_3_title": "ba2620288a7f94a0",
+   "howto_step_4_des": "7e645c88199520ca",
+   "howto_step_4_title": "e9ae26b876c350f0",
+   "howto_step_5_des": "77c61b8de4d8fcbd",
+   "howto_step_5_title": "51d2e33adac92000",
+   "howto_step_6_des": "542144790cba3330",
+   "howto_step_6_title": "67fc9e95845fb175",
+   "howto_step_7_des": "b02a92fd9a23133e",
+   "howto_step_7_title": "aad64e481be042f3",
+   "howto_title": "7d84874a0c9137de",
+   "meta_description": "615c641604bcd27b",
+   "meta_title": "02d7f15d5e4e99e7",
+   "mockup": "5b3e1a9a3cbe8658",
+   "product_name": "779317b1e73a0f19",
+   "prompt_chip_1": "9684fc65b265bfd2",
+   "prompt_chip_2": "86c0d505d4cafd59",
+   "prompt_chip_3": "71dd08a92241ff8a",
+   "prompt_chip_4": "68bd44333f8df4e7",
+   "slug": "a9e1cb0966b2d0d6",
+   "tab_content_1": "3d1fffd50cc76e1b",
+   "tab_content_2": "786142a7b3fcfe7a",
+   "tab_content_3": "ea840232da95cff3",
+   "tab_content_4": "066d24b637849416",
+   "tab_label_1": "9684fc65b265bfd2",
+   "tab_label_2": "86c0d505d4cafd59",
+   "tab_label_3": "71dd08a92241ff8a",
+   "tab_label_4": "68bd44333f8df4e7",
+   "usecase_heading": "fccfb96e4103e322",
+   "why_description": "a1d41760256a1136",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "0b849610cfa15f2d"
+  },
+  "all": "ae72ca9a1c9e3ac5",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "5a0f54005f774996",
+   "alt:share_image": "8fd23807fa7df1c1",
+   "alt:tab_image_1": "0ce216980b23ad62",
+   "alt:tab_image_2": "098b96f672eee80e",
+   "alt:tab_image_3": "2007219df66b9851",
+   "alt:tab_image_4": "91725ed0bd4a242b",
+   "breadcrumb": "88504e5e8d59852c",
+   "chip_adds": "18d67aa3cf1f49b6",
+   "explore_cta": "422e61bb0a251684",
+   "faq": "19ef8fe5b1545149",
+   "feature_1": "caab3db9cae22680",
+   "feature_2": "3c9246453c6e2e5d",
+   "feature_3": "78e506fd318df419",
+   "feature_4": "cc436a10e36ea091",
+   "feature_5": "8c9e3738c5614d4a",
+   "feature_6": "ede44f6fa1082dff",
+   "features_heading": "870a5f4e3759fec5",
+   "features_subheading": "16d2ae36d69fc2a1",
+   "h1": "6f5bf676c8cb6f01",
+   "hero_description": "97be4c1335d732d4",
+   "hero_prompt": "301765745b45b23d",
+   "howto_description": "8caa27b4d8886900",
+   "howto_step_1_des": "d2ceb4a7b9aa8472",
+   "howto_step_1_title": "00b7ec14146f1ddd",
+   "howto_step_2_des": "ab6fe416f6739695",
+   "howto_step_2_title": "8f73f2a52a6fec16",
+   "howto_step_3_des": "a807c3321bd40436",
+   "howto_step_3_title": "ba2620288a7f94a0",
+   "howto_step_4_des": "7e645c88199520ca",
+   "howto_step_4_title": "e9ae26b876c350f0",
+   "howto_step_5_des": "77c61b8de4d8fcbd",
+   "howto_step_5_title": "51d2e33adac92000",
+   "howto_step_6_des": "542144790cba3330",
+   "howto_step_6_title": "67fc9e95845fb175",
+   "howto_step_7_des": "b02a92fd9a23133e",
+   "howto_step_7_title": "aad64e481be042f3",
+   "howto_title": "7d84874a0c9137de",
+   "meta_description": "615c641604bcd27b",
+   "meta_title": "02d7f15d5e4e99e7",
+   "mockup": "5b3e1a9a3cbe8658",
+   "product_name": "779317b1e73a0f19",
+   "prompt_chip_1": "9684fc65b265bfd2",
+   "prompt_chip_2": "86c0d505d4cafd59",
+   "prompt_chip_3": "71dd08a92241ff8a",
+   "prompt_chip_4": "68bd44333f8df4e7",
+   "slug": "a9e1cb0966b2d0d6",
+   "tab_content_1": "3d1fffd50cc76e1b",
+   "tab_content_2": "786142a7b3fcfe7a",
+   "tab_content_3": "ea840232da95cff3",
+   "tab_content_4": "066d24b637849416",
+   "tab_label_1": "9684fc65b265bfd2",
+   "tab_label_2": "86c0d505d4cafd59",
+   "tab_label_3": "71dd08a92241ff8a",
+   "tab_label_4": "68bd44333f8df4e7",
+   "usecase_heading": "fccfb96e4103e322",
+   "why_description": "a1d41760256a1136",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "0b849610cfa15f2d"
+  },
+  "all": "ae72ca9a1c9e3ac5",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

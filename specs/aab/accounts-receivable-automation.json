@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-61",
    "note": ""
+  },
+  {
+   "t": "2026-10-14 12:35 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-3",
+   "note": "[truth | HUB_RULES 8] faq: FAQ 4 ('Does accounts receivable automation software also handle accounts payable?') answers a flat 'No' about third-party software with no domain source. It is false as a general statement: several products run payables and receivables in one platform (BILL, which this pa"
   }
  ],
  "pipeline": "r15",
@@ -1067,5 +1074,315 @@
  },
  "writers": [
   "B-w-61"
- ]
+ ],
+ "review": {
+  "by": "B-r-3",
+  "date": "2026-10-14 12:35 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Accounts Receivable Automation for Every Open Invoice'; hero 'chases overdue invoices, matches payments, and holds orders from late accounts' covers collections, cash application and credit."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are AR vendors and explainers (HighRadius, BILL, Stripe, NetSuite); page gives the definition (FAQ 1, sourced to Stripe), benefits (FAQ 7), best-software answer naming HighRadius and BILL (FAQ 3), four worked jobs and a 7-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "AR vocabulary: aging report, DSO, remittance, cash application, short payments, credit hold, 'unmatched deposits go to whoever applies cash today'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "'Larkspur Supply bills Calloway Bistro $4,860.00 on invoice INV-3318', 'Run your aging report and sort customers', 'The app reads the remittance attached to a payment'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; Q8 flags 10 A-B-C lists (note)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail: 'Pinecrest Catering pays $2,700.00 against INV-3312 ... 2 cases returned damaged', 'Switch on the reminder schedule before the matching rules, since an email changes no balance'."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "faq item 4: 'No. Accounts receivable automation software deals with money customers owe you, while accounts payable automation deals with the bills you owe vendors.' is an unsourced statement about third-party software, contradicted by suites that run both (BILL, cited on this page in FAQ 3, and NetSuite in the top 10)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own story set (one seller, Larkspur Supply, invoice series INV-32xx/33xx); sibling primaries only as links (invoice automation, automated loan processing system)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, sourced (AlsoAsked + secondaries), hub link in item 2, no brand in any question; every answer opens on its answer."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "5,120+4,410+3,410 = $12,940.00 deposit, 3 of 3 paid, posted to QuickBooks; $3,000 - $2,700 = $300.00 Disputed to Imogen Hale; Brightwater Grill $1,980.00, 64 days, On hold, SO-7741 $2,350.00; Calloway Bistro $4,860.00 at 7 days agrees with tab 1."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "No. Accounts receivable automation software deals with money customers owe you, while accounts payable automation deals with the bills you owe vendors.",
+    "issue": "FAQ 4 ('Does accounts receivable automation software also handle accounts payable?') answers a flat 'No' about third-party software with no domain source. It is false as a general statement: several products run payables and receivables in one platform (BILL, which this page cites for AR in FAQ 3; NetSuite in the top 10). This is the only instance of the class on the page; the other third-party facts (Stripe definition, DSO, BILL reminders, HighRadius) match their quoted spans.",
+    "fix": "Answer 'It depends on the product': some platforms cover both, others (name one, sourced) focus on receivables; then keep the AR-vs-AP distinction and the shared-parts sentence. Add a domain_sources entry with the quoted span for any product named.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_4",
+    "quote": "Credit limits checked at the order",
+    "issue": "The heading says credit limits, but the body (and tab 4) checks the age of the oldest open invoice, not a dollar limit: 'the app checks the age of the customer's oldest open invoice'. Imprecise label.",
+    "fix": "Credit holds checked at the order (or 'Late accounts held at the order').",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq_heading",
+    "quote": "Receivable Questions, Answered",
+    "issue": "'Receivable' alone reads clipped; the topic is AR automation.",
+    "fix": "AR Automation Questions, Answered.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "The same build order holds for other finance workflows, such as an automated loan processing system",
+    "issue": "FAQ 10 closes on a link sentence the question does not need; it reads placed for the link.",
+    "fix": "Link from a sentence that serves the AR reader, or choose a closer sibling (accounts payable automation, billing automation).",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "The queue shows the deposit next to any remittance that came with it",
+    "issue": "The unmatched-payment queue is described twice (howto_step_4_des 'land in a queue with the deposit and the remittance side by side'; faq item 5), and the ledger write-back three times (feature_6 'each payment the app applies is written back', howto_step_3_des 'have the app write every applied payment back to it', faq item 6 'writes each applied payment back').",
+    "fix": "Say each once.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #6",
+    "field": "howto_step_4_des",
+    "quote": "the invoice number on the remittance, the exact amount, or both",
+    "issue": "QC Q8: 10 'A, B, and C' lists on the page (also faq item 3 'collections, cash application, deductions, and payment forecasting', faq item 6 'reads open invoices from the ledger, does the chasing and matching, and writes').",
+    "fix": "Turn two or three lists into pairs or one specific.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #5",
+    "field": "image_brief",
+    "quote": "Release SO-7741 / 64 days past due",
+    "issue": "The hero card reads as if the order is 64 days past due; it is invoice INV-3204 that is late.",
+    "fix": "Subline 'INV-3204, 64 days past due'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_4",
+   "issue": "The heading says credit limits, but the body (and tab 4) checks the age of the oldest open invoice, not a dollar limit: 'the app checks the age of the customer's oldest open invoice'. Imprecise label.",
+   "fix": "Credit holds checked at the order (or 'Late accounts held at the order').",
+   "by": "B-r-3",
+   "via": "review",
+   "date": "2026-10-14 12:35 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq_heading",
+   "issue": "'Receivable' alone reads clipped; the topic is AR automation.",
+   "fix": "AR Automation Questions, Answered.",
+   "by": "B-r-3",
+   "via": "review",
+   "date": "2026-10-14 12:35 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "FAQ 10 closes on a link sentence the question does not need; it reads placed for the link.",
+   "fix": "Link from a sentence that serves the AR reader, or choose a closer sibling (accounts payable automation, billing automation).",
+   "by": "B-r-3",
+   "via": "review",
+   "date": "2026-10-14 12:35 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "The unmatched-payment queue is described twice (howto_step_4_des 'land in a queue with the deposit and the remittance side by side'; faq item 5), and the ledger write-back three times (feature_6 'each payment the app applies is written back', howto_step_3_des 'have the app write every applied payment back to it', faq item 6 'writes each applied payment back').",
+   "fix": "Say each once.",
+   "by": "B-r-3",
+   "via": "review",
+   "date": "2026-10-14 12:35 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #6",
+   "field": "howto_step_4_des",
+   "issue": "QC Q8: 10 'A, B, and C' lists on the page (also faq item 3 'collections, cash application, deductions, and payment forecasting', faq item 6 'reads open invoices from the ledger, does the chasing and matching, and writes').",
+   "fix": "Turn two or three lists into pairs or one specific.",
+   "by": "B-r-3",
+   "via": "review",
+   "date": "2026-10-14 12:35 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #5",
+   "field": "image_brief",
+   "issue": "The hero card reads as if the order is 64 days past due; it is invoice INV-3204 that is late.",
+   "fix": "Subline 'INV-3204, 64 days past due'.",
+   "by": "B-r-3",
+   "via": "review",
+   "date": "2026-10-14 12:35 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "805c7ce618d94a96",
+   "alt:share_image": "08f587792a9d3c90",
+   "alt:tab_image_1": "024a03f6b549e8e5",
+   "alt:tab_image_2": "a607498eca456609",
+   "alt:tab_image_3": "cad07e38c33312ce",
+   "alt:tab_image_4": "12e3affd17ca0c1b",
+   "breadcrumb": "881c1d434dc96d50",
+   "chip_adds": "e01013c941f4f5e6",
+   "explore_cta": "bb7e1e7313c61a7f",
+   "faq": "e723e433d372d30b",
+   "feature_1": "e513092ac41e581f",
+   "feature_2": "ddd34b4bb961fd78",
+   "feature_3": "796e6ac41e401c01",
+   "feature_4": "716fec3b0c9d0261",
+   "feature_5": "5b8e7baae49735d4",
+   "feature_6": "59ed35ad2477041e",
+   "features_heading": "2ada6a5ee3cfb237",
+   "features_subheading": "d6899a3870b2a5ed",
+   "h1": "60247c6722bd8f7c",
+   "hero_description": "3ab8e5823f3e5113",
+   "hero_prompt": "4e930805a1e5a31d",
+   "howto_description": "7b10f42f4214896a",
+   "howto_step_1_des": "c1dcf43641ed8f32",
+   "howto_step_1_title": "03df742f208a0892",
+   "howto_step_2_des": "ece9b92a188801ba",
+   "howto_step_2_title": "af57c92330d93b59",
+   "howto_step_3_des": "8d550fa379b23970",
+   "howto_step_3_title": "208b860b838e1909",
+   "howto_step_4_des": "b020ea8ce6a81312",
+   "howto_step_4_title": "1f86f16c57575bdc",
+   "howto_step_5_des": "2fc280d39bab7d17",
+   "howto_step_5_title": "8755e80cb7e467cc",
+   "howto_step_6_des": "33b21aa7023bc12b",
+   "howto_step_6_title": "995dc306b6d69254",
+   "howto_step_7_des": "440888211f829ed4",
+   "howto_step_7_title": "a4fea4d6213bc264",
+   "howto_title": "f409f70a4d67250b",
+   "meta_description": "89cc7fd5fb1156ad",
+   "meta_title": "9730edf1b0d3a2a7",
+   "mockup": "aac936ad4c10ffb0",
+   "product_name": "167ae089efd6b233",
+   "prompt_chip_1": "1f730a3ec249b5cd",
+   "prompt_chip_2": "28b86b151c07e051",
+   "prompt_chip_3": "3de6b226ca230ba0",
+   "prompt_chip_4": "d22f6a428f09fe3a",
+   "slug": "c8a5d70149e0afa8",
+   "tab_content_1": "3e9607700d606047",
+   "tab_content_2": "9157b983dd58d370",
+   "tab_content_3": "e841faa203704f02",
+   "tab_content_4": "a81b991a35e5bec4",
+   "tab_label_1": "1f730a3ec249b5cd",
+   "tab_label_2": "5cc455266e4a8a21",
+   "tab_label_3": "3de6b226ca230ba0",
+   "tab_label_4": "d22f6a428f09fe3a",
+   "usecase_heading": "3d859dfb85e7144c",
+   "why_description": "f763f80e9932bd93",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "1956c3e6ec725de7"
+  },
+  "all": "1711221fee9b1bf2",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "805c7ce618d94a96",
+   "alt:share_image": "08f587792a9d3c90",
+   "alt:tab_image_1": "024a03f6b549e8e5",
+   "alt:tab_image_2": "a607498eca456609",
+   "alt:tab_image_3": "cad07e38c33312ce",
+   "alt:tab_image_4": "12e3affd17ca0c1b",
+   "breadcrumb": "881c1d434dc96d50",
+   "chip_adds": "e01013c941f4f5e6",
+   "explore_cta": "bb7e1e7313c61a7f",
+   "faq": "e723e433d372d30b",
+   "feature_1": "e513092ac41e581f",
+   "feature_2": "ddd34b4bb961fd78",
+   "feature_3": "796e6ac41e401c01",
+   "feature_4": "716fec3b0c9d0261",
+   "feature_5": "5b8e7baae49735d4",
+   "feature_6": "59ed35ad2477041e",
+   "features_heading": "2ada6a5ee3cfb237",
+   "features_subheading": "d6899a3870b2a5ed",
+   "h1": "60247c6722bd8f7c",
+   "hero_description": "3ab8e5823f3e5113",
+   "hero_prompt": "4e930805a1e5a31d",
+   "howto_description": "7b10f42f4214896a",
+   "howto_step_1_des": "c1dcf43641ed8f32",
+   "howto_step_1_title": "03df742f208a0892",
+   "howto_step_2_des": "ece9b92a188801ba",
+   "howto_step_2_title": "af57c92330d93b59",
+   "howto_step_3_des": "8d550fa379b23970",
+   "howto_step_3_title": "208b860b838e1909",
+   "howto_step_4_des": "b020ea8ce6a81312",
+   "howto_step_4_title": "1f86f16c57575bdc",
+   "howto_step_5_des": "2fc280d39bab7d17",
+   "howto_step_5_title": "8755e80cb7e467cc",
+   "howto_step_6_des": "33b21aa7023bc12b",
+   "howto_step_6_title": "995dc306b6d69254",
+   "howto_step_7_des": "440888211f829ed4",
+   "howto_step_7_title": "a4fea4d6213bc264",
+   "howto_title": "f409f70a4d67250b",
+   "meta_description": "89cc7fd5fb1156ad",
+   "meta_title": "9730edf1b0d3a2a7",
+   "mockup": "aac936ad4c10ffb0",
+   "product_name": "167ae089efd6b233",
+   "prompt_chip_1": "1f730a3ec249b5cd",
+   "prompt_chip_2": "28b86b151c07e051",
+   "prompt_chip_3": "3de6b226ca230ba0",
+   "prompt_chip_4": "d22f6a428f09fe3a",
+   "slug": "c8a5d70149e0afa8",
+   "tab_content_1": "3e9607700d606047",
+   "tab_content_2": "9157b983dd58d370",
+   "tab_content_3": "e841faa203704f02",
+   "tab_content_4": "a81b991a35e5bec4",
+   "tab_label_1": "1f730a3ec249b5cd",
+   "tab_label_2": "5cc455266e4a8a21",
+   "tab_label_3": "3de6b226ca230ba0",
+   "tab_label_4": "d22f6a428f09fe3a",
+   "usecase_heading": "3d859dfb85e7144c",
+   "why_description": "f763f80e9932bd93",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "1956c3e6ec725de7"
+  },
+  "all": "1711221fee9b1bf2",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
