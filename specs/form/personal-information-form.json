@@ -129,6 +129,13 @@
    "via": null,
    "by": "B-w-86",
    "note": ""
+  },
+  {
+   "t": "2026-10-14 14:57 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-14",
+   "note": "rubric 10/10 by B-r-14; 8 notes"
   }
  ],
  "pipeline": "r15",
@@ -1020,5 +1027,345 @@
  },
  "writers": [
   "B-w-86"
- ]
+ ],
+ "review": {
+  "by": "B-r-14",
+  "date": "2026-10-14 14:57 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Personal Information Form That Stays Current'; hero 'Build a personal information form that keeps every record in a database you own and current as details change.'; how-to description one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Template SERP: definition with the standard fields (FAQ 1), format and sections (FAQ 6, step 02), sample, template, teacher, employee and change-of-information versions, plus a 7-step build."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Give each part of an address its own box: street, city, state, and ZIP code', 'Pick one date format, such as MM/DD/YYYY', 'so a scheduler sees availability but never a home address'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "'Linden Hollow Academy asks its 42 teachers', 'Femi Okonjo, a driver at Calder Ridge Freight, moved in March', 'Thistle Lane Senior Center had 120 paper forms'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft class; link-carrier endings and list count recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'His record now shows Birch Lane, and Alder Court stays in its history.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "claims_used (prompt-build, database-owned, alerts, free-start, ai-extraction, conversational, api-connect, no-caps) all approved; scanned-form tab matches ai-extraction (unclear fields to a person). PII statements match the NIST glossary spans. Numbers: 42-39=3, 114+6=120, question 9 of 9. Table generated."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Tabs (school staff reminders, address change approval, scanned paper forms, event staff to a scheduling app) differ from employee-information-form's (annual check, name changes, missing fields, manager directory)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items: AlsoAsked 'What is a personal information form?' and 'What is the short form for personal information?' verbatim, hub link in item 2, secondaries teacher, format, sample, template, change of, employee, forms; moat lines in items 7, 8, 10."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 '42 teachers', '39 filed', 'Details due August 15', '3 reminders sent On August 12', Kasimir Dalby; tab 2 Old 14 Alder Court / New 902 Birch Lane, 'Email to Dorrit Haverly', 'Alder Court kept'; tab 3 '120 forms scanned', '114 read', '6 forms need a date of birth', To Esperanza Imrie; tab 4 'QUESTION 9 OF 9', Juno Akintola 'Booked', 'Booked by Petra Lunde'."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "faq item 4",
+    "quote": "A rental application form goes out the same way: one link in the email and one record per applicant.",
+    "issue": "Closing sentence exists to carry the related link (recurring link-carrier note).",
+    "fix": "End on the record-not-reply line; place the link where it is the topic.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "faq item 7",
+    "quote": "For a driver application form, keep those basics and add a license number and driving history.",
+    "issue": "Link-carrier sentence in the middle of the sample answer; 'those basics' points back to extras (preferred name, second contact, medical notes), not the basic fields, so the answer reads muddled.",
+    "fix": "Say what a sample holds (the core fields plus those extras) and drop or move the driver link.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "faq item 10",
+    "quote": "A volunteer form asks for much of the same contact information, without the job title or start date.",
+    "issue": "Third link-carrier sentence on the page.",
+    "fix": "Cut or tie it to an employee-specific point.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_4, howto_step_5_des, tab_content_1",
+    "quote": "to each person who has not filed by your due date / Say who gets a reminder after the due date / with a due date of August 15. On August 12 ... got an email reminder",
+    "issue": "Feature 4 and step 05 describe reminders after the due date; tab 1 and its image send them three days before. Both are buildable, so nothing is false, but the page describes the reminder two ways.",
+    "fix": "Make feature 4 'before or after your due date', or move tab 1's reminder to after August 15.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "h1, meta_title",
+    "quote": "Build a Personal Information Form That Stays Current",
+    "issue": "Same heading shape as siblings 'Build an Employee Information Form That Stays Current' and 'Build an Emergency Contact Form That Stays Current'.",
+    "fix": "Pick a distinct outcome for the H1 on a future pass.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #6",
+    "field": "page (QC Q8)",
+    "quote": "a new address, phone number, or legal name",
+    "issue": "11 'A, B, and C' lists on the page (QC Q8 P2), e.g. FAQ 1, FAQ 6, FAQ 9, FAQ 10, feature 1.",
+    "fix": "Turn some into pairs or one specific.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "domain_sources[1]",
+    "quote": "can be used to distinguish or trace an individual",
+    "issue": "The FAQ 3 claim 'by itself or when combined with other linked data' goes beyond the quoted span; the NIST/OMB definition does say it, but the quote should cover it.",
+    "fix": "Extend the quote to 'either alone or when combined with other information that is linked or linkable to a specific individual'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq_heading",
+    "quote": "Information Form Questions, Answered",
+    "issue": "Code-built heading drops the head word 'Personal' (known skeleton-builder defect, proposals/account-b.md).",
+    "fix": "Tooling fix by A: 'Personal Information Form Questions, Answered'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "faq item 4",
+   "issue": "Closing sentence exists to carry the related link (recurring link-carrier note).",
+   "fix": "End on the record-not-reply line; place the link where it is the topic.",
+   "by": "B-r-14",
+   "via": "review",
+   "date": "2026-10-14 14:57 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "faq item 7",
+   "issue": "Link-carrier sentence in the middle of the sample answer; 'those basics' points back to extras (preferred name, second contact, medical notes), not the basic fields, so the answer reads muddled.",
+   "fix": "Say what a sample holds (the core fields plus those extras) and drop or move the driver link.",
+   "by": "B-r-14",
+   "via": "review",
+   "date": "2026-10-14 14:57 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "faq item 10",
+   "issue": "Third link-carrier sentence on the page.",
+   "fix": "Cut or tie it to an employee-specific point.",
+   "by": "B-r-14",
+   "via": "review",
+   "date": "2026-10-14 14:57 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_4, howto_step_5_des, tab_content_1",
+   "issue": "Feature 4 and step 05 describe reminders after the due date; tab 1 and its image send them three days before. Both are buildable, so nothing is false, but the page describes the reminder two ways.",
+   "fix": "Make feature 4 'before or after your due date', or move tab 1's reminder to after August 15.",
+   "by": "B-r-14",
+   "via": "review",
+   "date": "2026-10-14 14:57 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "h1, meta_title",
+   "issue": "Same heading shape as siblings 'Build an Employee Information Form That Stays Current' and 'Build an Emergency Contact Form That Stays Current'.",
+   "fix": "Pick a distinct outcome for the H1 on a future pass.",
+   "by": "B-r-14",
+   "via": "review",
+   "date": "2026-10-14 14:57 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #6",
+   "field": "page (QC Q8)",
+   "issue": "11 'A, B, and C' lists on the page (QC Q8 P2), e.g. FAQ 1, FAQ 6, FAQ 9, FAQ 10, feature 1.",
+   "fix": "Turn some into pairs or one specific.",
+   "by": "B-r-14",
+   "via": "review",
+   "date": "2026-10-14 14:57 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "domain_sources[1]",
+   "issue": "The FAQ 3 claim 'by itself or when combined with other linked data' goes beyond the quoted span; the NIST/OMB definition does say it, but the quote should cover it.",
+   "fix": "Extend the quote to 'either alone or when combined with other information that is linked or linkable to a specific individual'.",
+   "by": "B-r-14",
+   "via": "review",
+   "date": "2026-10-14 14:57 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq_heading",
+   "issue": "Code-built heading drops the head word 'Personal' (known skeleton-builder defect, proposals/account-b.md).",
+   "fix": "Tooling fix by A: 'Personal Information Form Questions, Answered'.",
+   "by": "B-r-14",
+   "via": "review",
+   "date": "2026-10-14 14:57 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6a985ae340540daf",
+   "alt:share_image": "710866b7235257d0",
+   "alt:tab_image_1": "55dc8d99f47da779",
+   "alt:tab_image_2": "d4068218c92069b4",
+   "alt:tab_image_3": "3d047e63765ee8bd",
+   "alt:tab_image_4": "7ba7e8172ffeb34b",
+   "breadcrumb": "31f16026d5721a32",
+   "chip_adds": "620798673c670d85",
+   "explore_cta": "56f1f113e3dd060a",
+   "faq": "56f993748d35b3a2",
+   "feature_1": "13c8c826357c79f6",
+   "feature_2": "3bb41cf6b2c7545b",
+   "feature_3": "ca77bec991f8fc85",
+   "feature_4": "efd50af21bf116c2",
+   "feature_5": "75e8b60b755d214a",
+   "feature_6": "f36cf8436dff1ca3",
+   "features_heading": "8cfd0cb77acd240c",
+   "features_subheading": "16507cbc17f85ec2",
+   "h1": "231bb214445084d1",
+   "hero_description": "13c092ce58ad05eb",
+   "hero_prompt": "e6c6a744207b4776",
+   "howto_description": "77b8b58602318966",
+   "howto_step_1_des": "64f0db3f1ced7358",
+   "howto_step_1_title": "cb5b194f5a641de4",
+   "howto_step_2_des": "d56f08cd8c6a9fb2",
+   "howto_step_2_title": "dd9fb0b67c259ef0",
+   "howto_step_3_des": "f3585c137a3ac7ba",
+   "howto_step_3_title": "1ea954d857a17f6e",
+   "howto_step_4_des": "0616bb8c8e9e2401",
+   "howto_step_4_title": "dc20431ead917bb9",
+   "howto_step_5_des": "dbca9027817e7b9b",
+   "howto_step_5_title": "51024b43e241c319",
+   "howto_step_6_des": "90fa7d17bb42a7c3",
+   "howto_step_6_title": "b85d2d6cd04ae800",
+   "howto_step_7_des": "428320ce18124481",
+   "howto_step_7_title": "b61540fcc7f83698",
+   "howto_title": "cc7c6857261bde48",
+   "meta_description": "21c433b6417ab201",
+   "meta_title": "c9ee1a9cdf930a0a",
+   "mockup": "543fcbf184129048",
+   "product_name": "9bbfd9ead4d93b2a",
+   "prompt_chip_1": "8c3ffc9401c2f843",
+   "prompt_chip_2": "eec4f7346561d0fb",
+   "prompt_chip_3": "c2069553ad043062",
+   "prompt_chip_4": "23b8898a1970a56a",
+   "slug": "ca5b783fa2b4ac6b",
+   "tab_content_1": "9bc5f763e3240a38",
+   "tab_content_2": "b207611901179b53",
+   "tab_content_3": "21aad23acb21ee25",
+   "tab_content_4": "1f3945530fbef471",
+   "tab_label_1": "e1fc0b49ddd7c920",
+   "tab_label_2": "4fa42e3b05abbda2",
+   "tab_label_3": "ffef028e5e55225e",
+   "tab_label_4": "b1ac3db0991ca723",
+   "usecase_heading": "de287b52675d31b2",
+   "why_description": "728b06a93c5dd677",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "72e3954ed0277416"
+  },
+  "all": "32528fdf3e04816d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6a985ae340540daf",
+   "alt:share_image": "710866b7235257d0",
+   "alt:tab_image_1": "55dc8d99f47da779",
+   "alt:tab_image_2": "d4068218c92069b4",
+   "alt:tab_image_3": "3d047e63765ee8bd",
+   "alt:tab_image_4": "7ba7e8172ffeb34b",
+   "breadcrumb": "31f16026d5721a32",
+   "chip_adds": "620798673c670d85",
+   "explore_cta": "56f1f113e3dd060a",
+   "faq": "56f993748d35b3a2",
+   "feature_1": "13c8c826357c79f6",
+   "feature_2": "3bb41cf6b2c7545b",
+   "feature_3": "ca77bec991f8fc85",
+   "feature_4": "efd50af21bf116c2",
+   "feature_5": "75e8b60b755d214a",
+   "feature_6": "f36cf8436dff1ca3",
+   "features_heading": "8cfd0cb77acd240c",
+   "features_subheading": "16507cbc17f85ec2",
+   "h1": "231bb214445084d1",
+   "hero_description": "13c092ce58ad05eb",
+   "hero_prompt": "e6c6a744207b4776",
+   "howto_description": "77b8b58602318966",
+   "howto_step_1_des": "64f0db3f1ced7358",
+   "howto_step_1_title": "cb5b194f5a641de4",
+   "howto_step_2_des": "d56f08cd8c6a9fb2",
+   "howto_step_2_title": "dd9fb0b67c259ef0",
+   "howto_step_3_des": "f3585c137a3ac7ba",
+   "howto_step_3_title": "1ea954d857a17f6e",
+   "howto_step_4_des": "0616bb8c8e9e2401",
+   "howto_step_4_title": "dc20431ead917bb9",
+   "howto_step_5_des": "dbca9027817e7b9b",
+   "howto_step_5_title": "51024b43e241c319",
+   "howto_step_6_des": "90fa7d17bb42a7c3",
+   "howto_step_6_title": "b85d2d6cd04ae800",
+   "howto_step_7_des": "428320ce18124481",
+   "howto_step_7_title": "b61540fcc7f83698",
+   "howto_title": "cc7c6857261bde48",
+   "meta_description": "21c433b6417ab201",
+   "meta_title": "c9ee1a9cdf930a0a",
+   "mockup": "543fcbf184129048",
+   "product_name": "9bbfd9ead4d93b2a",
+   "prompt_chip_1": "8c3ffc9401c2f843",
+   "prompt_chip_2": "eec4f7346561d0fb",
+   "prompt_chip_3": "c2069553ad043062",
+   "prompt_chip_4": "23b8898a1970a56a",
+   "slug": "ca5b783fa2b4ac6b",
+   "tab_content_1": "9bc5f763e3240a38",
+   "tab_content_2": "b207611901179b53",
+   "tab_content_3": "21aad23acb21ee25",
+   "tab_content_4": "1f3945530fbef471",
+   "tab_label_1": "e1fc0b49ddd7c920",
+   "tab_label_2": "4fa42e3b05abbda2",
+   "tab_label_3": "ffef028e5e55225e",
+   "tab_label_4": "b1ac3db0991ca723",
+   "usecase_heading": "de287b52675d31b2",
+   "why_description": "728b06a93c5dd677",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "72e3954ed0277416"
+  },
+  "all": "32528fdf3e04816d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
