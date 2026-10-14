@@ -62,6 +62,7 @@ Commit 621731fc set `status/canary-r15.json` to `pass`. invoice-approval-workflo
    2026-10-14 05:53:42 iteration 4 end rc=0 after 3 min
    ```
    From 05:51 the loop idles on the 30-minute re-check. At 08:00 IST it ends ('nothing left to do') unless a page becomes writable.
+   **End:** the re-checks at 06:23, 06:53, 07:23 and 07:53 found nothing writable. The loop logged `08:23:47 nothing left to do ... (non-quiz): 0` and `08:23:47 overnight run ended`. The last re-check started at 07:53 and slept its full 30 minutes, so the loop ended 23 minutes after 08:00.
 2. **What the loop did:**
    - LP reworks.
    - Finished and reviewed B's 5 transferred split writes: shipping-automation, automated-loan-processing-system, content-approval-workflow (reviewed); attendance-form and culture-survey (short, 9/10).
