@@ -84,6 +84,13 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
                                                           table.pick on the library's category_sets (first term match, else general)
   table-args     {url, args, expect_vs, expect_rows, expect_variant}  hubctl table_defaults: explicit --vs/--rows/--variant win
   table-stored   {}                                        every stored spec table re-renders byte-identically from the library
+  truth          {primary, fields?, faq?: [[q, a]], quotes?: [[url, quote]], claims_used?, expect: C6|C7, match? | clean: true}
+                                                          Divit 2026-10-14 spot-check (qc/truth.py, synthetic text): the claim/span binding
+                                                          rules raise `expect` (message containing `match`), or nothing at all when clean
+  truth-sha      {url, sha, field, match?, expect}         the spec at sha (a reviewed page's pre-rework text, by commit) judged as new writing:
+                                                          a C6/C7 finding on `field` ("*" = any) exactly when expect
+  truth-gate     {url, sha, mode: as-is|new|old-build, expect}  ruling 15: QC raises C6/C7 on the spec at sha only as new writing
+                                                          (no review, skeleton built at or after rules/truth.json since); never on a reviewed page
   review         {url, field, check, text}                 judgment catch (Layer B); kept for the record, not machine-tested
 status: "open" = a known miss the gate does not catch yet (a backlog fix); "guarded" = caught; a guarded case that stops being
 caught fails the suite. Open cases that start passing are reported so they can be marked guarded.
@@ -98,7 +105,31 @@ def spec_at(sha, url):
     rel = os.path.relpath(H.spath(url), ROOT)
     return json.loads(subprocess.run(["git", "show", f"{sha}:{rel}"], cwd=ROOT, capture_output=True, text=True, check=True).stdout)
 
+def _truth_spec(c):
+    """A synthetic page for the claim/span binding cases (no real page text)."""
+    import truth as TR
+    items = [{"q": q, "a": a} for q, a in c.get("faq") or []]
+    f = dict(c.get("fields") or {})
+    if items: f["faq"] = "<div><script> window.awbFAQ = " + json.dumps({"heading": "x", "items": items}) + "; </script></div>"
+    return {"keywords": {"primary": c.get("primary", "")}, "fields": f, "claims_used": c.get("claims_used", [x["id"] for x in TR.CAPS["approved"]]),
+            "domain_sources": [{"claim": q, "source_url": u, "date": "2026-10-14", "quote": q} for u, q in c.get("quotes") or []]}
+
 def caught(c):
+    if c["kind"] == "truth":                # Divit 2026-10-14 spot-check under ruling 20: C6/C7 on synthetic text
+        import truth as TR
+        fs = [f for f in TR.findings(_truth_spec(c)) if f[0] in ("C6", "C7")]
+        if c.get("clean"): return not fs
+        return any(f[0] == c["expect"] and c.get("match", "") in f[2] for f in fs)
+    if c["kind"] == "truth-sha":            # a reviewed page's text at a commit, judged as new writing (findings() has no gating)
+        import truth as TR
+        fs = [f for f in TR.findings(spec_at(c["sha"], c["url"])) if c["field"] == "*" or f[1] == c["field"]]
+        return bool([f for f in fs if c.get("match", "") in f[2]]) == c["expect"]
+    if c["kind"] == "truth-gate":           # ruling 15: QC C6/C7 only on new writing; a reviewed page never gets them (recheck safe)
+        import qc_hub as Q, truth as TR
+        s = copy.deepcopy(spec_at(c["sha"], c["url"]))
+        if c["mode"] != "as-is":
+            s.pop("review", None); s.setdefault("skeleton", {})["built"] = TR.R["since"] if c["mode"] == "new" else "2026-10-13 00:00 UTC"
+        return any(i["code"] in ("C6", "C7") for i in Q.check(s, [s])) == c["expect"]
     if c["kind"] == "gate-question":
         import paa_gate as PG
         g = PG.Gate(c["url"]); g.spec = spec_at(c["sha"], c["url"])

@@ -832,6 +832,10 @@ def check(spec, siblings):
             named = sorted(b for b in brands if re.search(r"(?<![.!?]\s)(?<!^)(?<![A-Za-z])" + r"\s+".join(re.escape(w) for w in b.split()) + r"(?![A-Za-z])", a_))
             if named and "Emergent" in a_:
                 add("P1", "R15", "faq", f'FAQ item {idx} names {", ".join(named[:3])} and also carries an Emergent line: move the Emergent line to an answer that names no other brand (CONTENT_DEFECTS #8)')
+    # ---------- C6/C7: claim and span binding per sentence (Divit 2026-10-14 spot-check under ruling 20; qc/truth.py, rules/truth.json) ----------
+    # ruling 15: new writing only (r15 pages built at or after rules/truth.json `since`, no review yet); recheck never reaches reviewed or live pages
+    sys.path.insert(0, os.path.join(ROOT, "qc")); import truth as _TR
+    _TR.check_spec(spec, add)
     # ---------- P3/P4: sources are live (automated link check) and few (max 8) ----------
     if spec.get("status") not in ("live-draft", "published") and spec.get("domain_sources"):
         sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as _G3
