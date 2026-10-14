@@ -1,0 +1,306 @@
+{
+ "label": "ix",
+ "action": "get_interaction",
+ "result": [
+  {
+   "id": "i-4fd60c05",
+   "name": "Build hubs / Carousel card hover",
+   "pageId": "6ab2470540448c8f7d1ccc1c",
+   "scope": {
+    "type": "pages",
+    "value": [
+     "6aaa658ea6d39733443fe69b",
+     "6aabb4c5789871e91d60f6f9",
+     "6ab2464303ee70548366671e",
+     "6ab246c3897d1c09d9d320ec",
+     "6ab2470540448c8f7d1ccc1c",
+     "6ab24754757025d10940d06a",
+     "6aaaa937fe1a8d180b7c9f90",
+     "6aaaaa03995bb2f9f4d6a3c2"
+    ]
+   },
+   "triggers": [
+    {
+     "extensionKey": "wf:hover",
+     "config": {
+      "control": "play",
+      "pluginConfig": {
+       "eventMode": "enter",
+       "multiTimeline": false
+      },
+      "assignedGroupId": "g-in"
+     },
+     "target": {
+      "extensionKey": "wf:class",
+      "value": [
+       "0ba6ab63-6c94-0ff9-007e-e7dcce8d4f0b",
+       "e837214e-2003-2ea5-863c-f12f76197151"
+      ],
+      "filterContext": {
+       "relationship": "none",
+       "filterBy": [
+        "wf:class",
+        []
+       ],
+       "firstMatchOnly": false
+      }
+     }
+    },
+    {
+     "extensionKey": "wf:hover",
+     "config": {
+      "control": "play",
+      "pluginConfig": {
+       "eventMode": "leave",
+       "multiTimeline": false
+      },
+      "assignedGroupId": "g-out"
+     },
+     "target": {
+      "extensionKey": "wf:class",
+      "value": [
+       "0ba6ab63-6c94-0ff9-007e-e7dcce8d4f0b",
+       "e837214e-2003-2ea5-863c-f12f76197151"
+      ],
+      "filterContext": {
+       "relationship": "none",
+       "filterBy": [
+        "wf:class",
+        []
+       ],
+       "firstMatchOnly": false
+      }
+     }
+    }
+   ],
+   "timelines": [
+    {
+     "id": "t-0cada841",
+     "name": "Hover in",
+     "pageId": "6ab2470540448c8f7d1ccc1c",
+     "actions": [
+      {
+       "id": "lift",
+       "name": "Card lifts",
+       "targets": [
+        {
+         "extensionKey": "wf:trigger-only",
+         "value": "",
+         "filterContext": {
+          "relationship": "none",
+          "filterBy": [
+           "wf:class",
+           []
+          ],
+          "firstMatchOnly": false
+         }
+        }
+       ],
+       "timing": {
+        "duration": 0.35,
+        "ease": 8
+       },
+       "properties": {
+        "wf:transform": {
+         "y": [
+          null,
+          -4
+         ]
+        }
+       }
+      },
+      {
+       "id": "zoom",
+       "name": "Cover zooms",
+       "targets": [
+        {
+         "extensionKey": "wf:class",
+         "value": [
+          "40f4cb8f-74aa-83d6-a9b4-10fe25fba9f2"
+         ],
+         "filterContext": {
+          "relationship": "within",
+          "filterBy": [
+           "wf:class",
+           [
+            "0ba6ab63-6c94-0ff9-007e-e7dcce8d4f0b",
+            "e837214e-2003-2ea5-863c-f12f76197151"
+           ]
+          ],
+          "firstMatchOnly": false
+         }
+        }
+       ],
+       "timing": {
+        "duration": 0.5,
+        "ease": 8
+       },
+       "properties": {
+        "wf:transform": {
+         "scale": [
+          null,
+          1.03
+         ]
+        }
+       }
+      },
+      {
+       "id": "arrow",
+       "name": "Arrow nudges",
+       "targets": [
+        {
+         "extensionKey": "wf:class",
+         "value": [
+          "540dc6c7-bb92-5ba7-c6d7-160374daf225"
+         ],
+         "filterContext": {
+          "relationship": "within",
+          "filterBy": [
+           "wf:class",
+           [
+            "0ba6ab63-6c94-0ff9-007e-e7dcce8d4f0b",
+            "e837214e-2003-2ea5-863c-f12f76197151"
+           ]
+          ],
+          "firstMatchOnly": false
+         }
+        }
+       ],
+       "timing": {
+        "duration": 0.35,
+        "ease": 8
+       },
+       "properties": {
+        "wf:transform": {
+         "x": [
+          null,
+          4
+         ]
+        }
+       }
+      }
+     ],
+     "groupId": "g-in",
+     "version": 1
+    },
+    {
+     "id": "t-5373beb0",
+     "name": "Hover out",
+     "pageId": "6ab2470540448c8f7d1ccc1c",
+     "actions": [
+      {
+       "id": "lift-out",
+       "name": "Card settles",
+       "targets": [
+        {
+         "extensionKey": "wf:trigger-only",
+         "value": "",
+         "filterContext": {
+          "relationship": "none",
+          "filterBy": [
+           "wf:class",
+           []
+          ],
+          "firstMatchOnly": false
+         }
+        }
+       ],
+       "timing": {
+        "duration": 0.35,
+        "ease": 8
+       },
+       "properties": {
+        "wf:transform": {
+         "y": [
+          null,
+          0
+         ]
+        }
+       }
+      },
+      {
+       "id": "zoom-out",
+       "name": "Cover settles",
+       "targets": [
+        {
+         "extensionKey": "wf:class",
+         "value": [
+          "40f4cb8f-74aa-83d6-a9b4-10fe25fba9f2"
+         ],
+         "filterContext": {
+          "relationship": "within",
+          "filterBy": [
+           "wf:class",
+           [
+            "0ba6ab63-6c94-0ff9-007e-e7dcce8d4f0b",
+            "e837214e-2003-2ea5-863c-f12f76197151"
+           ]
+          ],
+          "firstMatchOnly": false
+         }
+        }
+       ],
+       "timing": {
+        "duration": 0.5,
+        "ease": 8
+       },
+       "properties": {
+        "wf:transform": {
+         "scale": [
+          null,
+          1
+         ]
+        }
+       }
+      },
+      {
+       "id": "arrow-out",
+       "name": "Arrow settles",
+       "targets": [
+        {
+         "extensionKey": "wf:class",
+         "value": [
+          "540dc6c7-bb92-5ba7-c6d7-160374daf225"
+         ],
+         "filterContext": {
+          "relationship": "within",
+          "filterBy": [
+           "wf:class",
+           [
+            "0ba6ab63-6c94-0ff9-007e-e7dcce8d4f0b",
+            "e837214e-2003-2ea5-863c-f12f76197151"
+           ]
+          ],
+          "firstMatchOnly": false
+         }
+        }
+       ],
+       "timing": {
+        "duration": 0.35,
+        "ease": 8
+       },
+       "properties": {
+        "wf:transform": {
+         "x": [
+          null,
+          0
+         ]
+        }
+       }
+      }
+     ],
+     "groupId": "g-out",
+     "version": 1
+    }
+   ],
+   "conditionalPlayback": [
+    {
+     "type": "prefers-reduced-motion",
+     "behavior": "dont-animate",
+     "breakpoints": []
+    }
+   ],
+   "version": 1
+  }
+ ]
+}
