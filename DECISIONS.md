@@ -3,6 +3,12 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-14
+- **Ruling 21 (Divit, 2026-10-14): one consolidated template run, then one production publish.**
+  - Every Designer or template fix in plan/backlog.md is done in this run, plus the carousel, Learn, console errors, hub FAQ clip, empty paragraphs, quiz embed (only if zero-footprint), OG image and JSON-LD.
+  - Prepare everything first, then apply in one tight sequence: before-values committed, each write read back. Then ONE staging publish. Then the staging check, with screenshots to Divit. Then ONE production publish, then the live audit and verify-live.
+  - Nothing half-done may sit staged.
+  - Out of scope: shared-component duplicate IDs and the Adwire tag.
+  - Plan: plan/template-run-2026-10-14.md.
 - **Standing rule (Divit, 2026-10-14, after a teammate's site publish shipped everything staged): on this shared site, never leave anything staged that is not production-safe at that moment; a teammate publish can ship it any time.**
   - Every staged template change must be safe to go live as it stands; anything unverified stays out of the staged state entirely.
   - On 2026-10-14 the site was published at 08:11, 10:01 and 11:18 UTC; none of these was ours. The staged card links (404) and the Learn and carousel sections went live, giving 10 P0 and 8 new P1 console errors.
