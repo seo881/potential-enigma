@@ -3,6 +3,11 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-14
+- **KS header work (Divit, 5:59 PM):**
+  - No publish requests (staging or production) until Divit says KS's header is done.
+  - Never touch the header, navbar or shared components; their changes are KS, not drift, and are never reverted.
+  - The pixel-diff baseline is taken after KS is done, or with the header masked; the check still confirms the header renders with 0 console errors.
+  - A reports "ready for staging" with the check plan; Divit coordinates the single publish with KS.
 - **Ruling 21 (Divit, 2026-10-14): one consolidated template run, then one production publish.**
   - Every Designer or template fix in plan/backlog.md is done in this run, plus the carousel, Learn, console errors, hub FAQ clip, empty paragraphs, quiz embed (only if zero-footprint), OG image and JSON-LD.
   - Prepare everything first, then apply in one tight sequence: before-values committed, each write read back. Then ONE staging publish. Then the staging check, with screenshots to Divit. Then ONE production publish, then the live audit and verify-live.

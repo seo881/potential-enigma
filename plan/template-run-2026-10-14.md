@@ -68,3 +68,10 @@ Rules: one agent on the Designer at a time, one page at a time, with no parallel
 9. **Final both-way read-back** of every touched element; a check that each section that is visible has passed its checks; then the staging-publish request to Divit.
 
 Any step that cannot finish clean is rolled back to its snapshot before moving on, so the staged state stays production-safe at every point.
+
+## KS header work (Divit 2026-10-14, 5:59 PM)
+
+- KS (Webflow developer) is changing the header; nothing is published until he is done.
+- A asks Divit for no publish (staging or production) until Divit says KS's header is done. When the staged run is complete and read back, A tells Divit "ready for staging" with the check plan, and Divit coordinates the single publish with KS.
+- Never touch the header, navbar or any shared component. Header or navbar changes in snapshots or read-backs are KS, not drift: never revert them.
+- Pixel-diff baseline: taken only after KS is done, or with the header region masked. The staging check still confirms the header renders on our pages with 0 console errors.
