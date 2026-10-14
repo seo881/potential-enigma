@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-63",
    "note": ""
+  },
+  {
+   "t": "2026-10-14 12:34 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-4",
+   "note": "[images | CONTENT_DEFECTS #15] tab_content_2 (copy, image_brief tab 2, alt): Absolute purchase dates paired with ages computed from October 2026 go stale on Nov 1, 2026: the copy ('It turns 48 months old this month'), the image card ('Bought October 2022', 'Turns 48 months old this month'), the asse"
   }
  ],
  "pipeline": "r15",
@@ -926,5 +933,275 @@
  },
  "writers": [
   "B-w-63"
- ]
+ ],
+ "review": {
+  "by": "B-r-4",
+  "date": "2026-10-14 12:34 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build IT Automation for the Requests Your IT Team Repeats'; hero 'Build IT automation that approves software requests, flags aging laptops, and chases overdue updates for your IT team.' (under 130, carries the primary, leads with Build); how-to description is one sentence under 140."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Informational SERP of explainers: definition in the features subheading (sourced to Red Hat), FAQ covers process, infrastructure, operations, tools, services and Python; four worked examples in the tabs and a 7-step build."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'device management console', 'asset list', 'L-0417', 'replacement request R-1182', '150 paid seats, and only 112 people signed in'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Linnea Vrabel asks for a seat...', 'Export last quarter's help desk tickets...', 'Swap judgment words for limits the app can test.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Varied sentence length; QC Q5/Q7 clear. Craft notes recorded (tacked-on clause in features subheading)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Give every alert a person, not a shared inbox.' 'A rule with a number can run without anyone reading it.' Voice notes recorded for near-verbatim source lifts in FAQ 1 and 8."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to claims_used (prompt-build, api-connect, alerts, database-owned, realtime, no-caps, code-export, free-start); definitions match Red Hat and IBM quotes in domain_sources; 150 - 112 = 38 and 15 days vs 14-day limit agree across copy and image. The stale-date defect is filed under images."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Internal-IT request and asset angle (seats, laptops, patches, renewals) does not overlap incident response, task or notification automation; those siblings are linked, not targeted."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions from secondaries and keyword ideas; hub link in item 2; sibling links to incident-response-automation, task-automation, purchase-order-automation; moat lines in items 3, 6, 9."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 2 is pinned to the current month: copy 'was bought in October 2022. It turns 48 months old this month.'; image 'Bought Oct 2022' / '48 months', 'Bought October 2022', 'Turns 48 months old this month', asset rows 'Mar 2023' 43 months, 'Jan 2024' 33 months, 'Aug 2025' 14 months; alt 'bought in October 2022, at 48 months'. All false from November 2026."
+   }
+  },
+  "findings": [
+   {
+    "class": "wrong-fact",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #15",
+    "field": "tab_content_2 (copy, image_brief tab 2, alt)",
+    "quote": "Teodor Beaumont's laptop, L-0417, was bought in October 2022. It turns 48 months old this month.",
+    "issue": "Absolute purchase dates paired with ages computed from October 2026 go stale on Nov 1, 2026: the copy ('It turns 48 months old this month'), the image card ('Bought October 2022', 'Turns 48 months old this month'), the asset list rows ('Oct 2022' 48 months, 'Mar 2023' 43 months, 'Jan 2024' 33 months, 'Aug 2025' 14 months) and the alt ('bought in October 2022, at 48 months') all become false the month after launch.",
+    "fix": "Drop absolute purchase months everywhere in tab 2 (copy, card, asset list, alt, story links). State age only, e.g. 'L-0417 reaches 48 months in service this week' and an asset list with an Age column (48, 43, 33, 14 months) and no Bought dates; declare the ages in checks.",
+    "severity": "blocking"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 1; faq item 8",
+    "quote": "At its core, IT automation involves running scripts that define and execute a sequence of specific actions. Those actions can be triggered manually, on a set schedule, or by specific events.",
+    "issue": "Answers must be in the page's own words; these lift IBM's sentences almost verbatim. Second instance, FAQ 8: 'Infrastructure as code automates it with a high-level descriptive coding language.' (IBM: 'It uses a high-level descriptive coding language to automate IT infrastructure provisioning').",
+    "fix": "Keep the sourced facts, restate them plainly: 'The scripts run a fixed sequence of steps, started by hand, on a schedule, or by an event such as a new hire.'",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "features_subheading",
+    "quote": "IT automation is the use of software to perform repetitive IT tasks with reduced human assistance, built around the tools you pay for.",
+    "issue": "Tacked-on clause bolted onto a sourced definition; it is not part of the definition and blurs it. The same phrase repeats in feature_2's title 'Connected to the admin tools you pay for' (CONTENT_DEFECTS #21).",
+    "fix": "End the definition at 'reduced human assistance.' and keep 'tools you pay for' in feature 2 only.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 7",
+    "quote": "A single scheduled step with no request behind it, such as a weekly report email, is task automation, not IT work.",
+    "issue": "Link sentence drifts off the question (does automation replace the help desk) and its framing sits awkwardly beside FAQ 9 and tabs 2-3, where scheduled checks with no request behind them are IT work.",
+    "fix": "Place the task-automation link where it answers the question, e.g. 'Single repeat steps outside IT, such as a weekly report email, fit task automation instead.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq item 2 question; hero prompt",
+    "quote": "How do I set up it automation?",
+    "issue": "Lowercase 'it' reads as the pronoun; the page writes 'IT' everywhere else. Second instance, hero prompt: 'Build it automation that runs on its own and logs every step.' Both are template slots, so a template or slot-casing fix, not a page edit.",
+    "fix": "Render the primary as 'IT automation' in templated slots (acronym-aware casing).",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 1; faq item 8",
+   "issue": "Answers must be in the page's own words; these lift IBM's sentences almost verbatim. Second instance, FAQ 8: 'Infrastructure as code automates it with a high-level descriptive coding language.' (IBM: 'It uses a high-level descriptive coding language to automate IT infrastructure provisioning').",
+   "fix": "Keep the sourced facts, restate them plainly: 'The scripts run a fixed sequence of steps, started by hand, on a schedule, or by an event such as a new hire.'",
+   "by": "B-r-4",
+   "via": "review",
+   "date": "2026-10-14 12:34 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "features_subheading",
+   "issue": "Tacked-on clause bolted onto a sourced definition; it is not part of the definition and blurs it. The same phrase repeats in feature_2's title 'Connected to the admin tools you pay for' (CONTENT_DEFECTS #21).",
+   "fix": "End the definition at 'reduced human assistance.' and keep 'tools you pay for' in feature 2 only.",
+   "by": "B-r-4",
+   "via": "review",
+   "date": "2026-10-14 12:34 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 7",
+   "issue": "Link sentence drifts off the question (does automation replace the help desk) and its framing sits awkwardly beside FAQ 9 and tabs 2-3, where scheduled checks with no request behind them are IT work.",
+   "fix": "Place the task-automation link where it answers the question, e.g. 'Single repeat steps outside IT, such as a weekly report email, fit task automation instead.'",
+   "by": "B-r-4",
+   "via": "review",
+   "date": "2026-10-14 12:34 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq item 2 question; hero prompt",
+   "issue": "Lowercase 'it' reads as the pronoun; the page writes 'IT' everywhere else. Second instance, hero prompt: 'Build it automation that runs on its own and logs every step.' Both are template slots, so a template or slot-casing fix, not a page edit.",
+   "fix": "Render the primary as 'IT automation' in templated slots (acronym-aware casing).",
+   "by": "B-r-4",
+   "via": "review",
+   "date": "2026-10-14 12:34 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "2b3957534ed7184d",
+   "alt:share_image": "a6f0d106dea97025",
+   "alt:tab_image_1": "5a739221e6679def",
+   "alt:tab_image_2": "3b17a1663caea788",
+   "alt:tab_image_3": "f4f014486345f08d",
+   "alt:tab_image_4": "f1f864753e06bd56",
+   "breadcrumb": "0119a477952b0695",
+   "chip_adds": "04af497902556545",
+   "explore_cta": "7b4331b3e7f5f6e4",
+   "faq": "552a55a906104ec2",
+   "feature_1": "0496372a4cd9bc0e",
+   "feature_2": "fad71f9594ebe805",
+   "feature_3": "f45ae7dc86a566ac",
+   "feature_4": "fe1e69f50f48d8fa",
+   "feature_5": "64f6f8a0afd1a507",
+   "feature_6": "996127c4e7bd9043",
+   "features_heading": "502a35ded5aed8ab",
+   "features_subheading": "17db0681dd234474",
+   "h1": "15440bda64ea6eab",
+   "hero_description": "ae876e95ddb56139",
+   "hero_prompt": "5f6121f5be4c7ac6",
+   "howto_description": "bd3803601c03afb7",
+   "howto_step_1_des": "d7c25945666d17aa",
+   "howto_step_1_title": "2fff052e093f601e",
+   "howto_step_2_des": "58216175d4244add",
+   "howto_step_2_title": "ac55e26f8d7d5671",
+   "howto_step_3_des": "f578ec45f2ca8a97",
+   "howto_step_3_title": "d5e1b1e6ed09b971",
+   "howto_step_4_des": "ec62b54444f18b55",
+   "howto_step_4_title": "1c204fabcdcede75",
+   "howto_step_5_des": "3ce3c63392e1e72a",
+   "howto_step_5_title": "d36731668af02136",
+   "howto_step_6_des": "fd9bb21661471a71",
+   "howto_step_6_title": "063523b1f3701b38",
+   "howto_step_7_des": "324f7dc1e61f415a",
+   "howto_step_7_title": "146c3bec5975de18",
+   "howto_title": "bcd6a44141999ef3",
+   "meta_description": "d001ce89f5bb9126",
+   "meta_title": "97e520f7f8a24f0f",
+   "mockup": "bba173548b56b3a7",
+   "product_name": "17d2c49e421f7823",
+   "prompt_chip_1": "8f5fbe06f5d77e4b",
+   "prompt_chip_2": "7ea1e5ae72f37cf4",
+   "prompt_chip_3": "a45646f1c29bff76",
+   "prompt_chip_4": "bf2bdb875c30a73a",
+   "slug": "5325d4fdcf9b90e5",
+   "tab_content_1": "7cf18d3270539b43",
+   "tab_content_2": "a1b0fd67b142201c",
+   "tab_content_3": "712859012afb0109",
+   "tab_content_4": "720df49ebad8081c",
+   "tab_label_1": "2f9aff00e20c2847",
+   "tab_label_2": "6159730fa18a6634",
+   "tab_label_3": "d266261dc6bc9c8b",
+   "tab_label_4": "8f923d76f87506ee",
+   "usecase_heading": "d3cf129384fb043e",
+   "why_description": "fb7527afb6a49695",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "df117d0c18b9596b"
+  },
+  "all": "08c24d750d1178f2",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "2b3957534ed7184d",
+   "alt:share_image": "a6f0d106dea97025",
+   "alt:tab_image_1": "5a739221e6679def",
+   "alt:tab_image_2": "3b17a1663caea788",
+   "alt:tab_image_3": "f4f014486345f08d",
+   "alt:tab_image_4": "f1f864753e06bd56",
+   "breadcrumb": "0119a477952b0695",
+   "chip_adds": "04af497902556545",
+   "explore_cta": "7b4331b3e7f5f6e4",
+   "faq": "552a55a906104ec2",
+   "feature_1": "0496372a4cd9bc0e",
+   "feature_2": "fad71f9594ebe805",
+   "feature_3": "f45ae7dc86a566ac",
+   "feature_4": "fe1e69f50f48d8fa",
+   "feature_5": "64f6f8a0afd1a507",
+   "feature_6": "996127c4e7bd9043",
+   "features_heading": "502a35ded5aed8ab",
+   "features_subheading": "17db0681dd234474",
+   "h1": "15440bda64ea6eab",
+   "hero_description": "ae876e95ddb56139",
+   "hero_prompt": "5f6121f5be4c7ac6",
+   "howto_description": "bd3803601c03afb7",
+   "howto_step_1_des": "d7c25945666d17aa",
+   "howto_step_1_title": "2fff052e093f601e",
+   "howto_step_2_des": "58216175d4244add",
+   "howto_step_2_title": "ac55e26f8d7d5671",
+   "howto_step_3_des": "f578ec45f2ca8a97",
+   "howto_step_3_title": "d5e1b1e6ed09b971",
+   "howto_step_4_des": "ec62b54444f18b55",
+   "howto_step_4_title": "1c204fabcdcede75",
+   "howto_step_5_des": "3ce3c63392e1e72a",
+   "howto_step_5_title": "d36731668af02136",
+   "howto_step_6_des": "fd9bb21661471a71",
+   "howto_step_6_title": "063523b1f3701b38",
+   "howto_step_7_des": "324f7dc1e61f415a",
+   "howto_step_7_title": "146c3bec5975de18",
+   "howto_title": "bcd6a44141999ef3",
+   "meta_description": "d001ce89f5bb9126",
+   "meta_title": "97e520f7f8a24f0f",
+   "mockup": "bba173548b56b3a7",
+   "product_name": "17d2c49e421f7823",
+   "prompt_chip_1": "8f5fbe06f5d77e4b",
+   "prompt_chip_2": "7ea1e5ae72f37cf4",
+   "prompt_chip_3": "a45646f1c29bff76",
+   "prompt_chip_4": "bf2bdb875c30a73a",
+   "slug": "5325d4fdcf9b90e5",
+   "tab_content_1": "7cf18d3270539b43",
+   "tab_content_2": "a1b0fd67b142201c",
+   "tab_content_3": "712859012afb0109",
+   "tab_content_4": "720df49ebad8081c",
+   "tab_label_1": "2f9aff00e20c2847",
+   "tab_label_2": "6159730fa18a6634",
+   "tab_label_3": "d266261dc6bc9c8b",
+   "tab_label_4": "8f923d76f87506ee",
+   "usecase_heading": "d3cf129384fb043e",
+   "why_description": "fb7527afb6a49695",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "df117d0c18b9596b"
+  },
+  "all": "08c24d750d1178f2",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
