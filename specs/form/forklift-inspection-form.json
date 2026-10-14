@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-87",
    "note": ""
+  },
+  {
+   "t": "2026-10-14 14:57 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-14",
+   "note": "rubric 10/10 by B-r-14; 6 notes"
   }
  ],
  "pipeline": "r15",
@@ -980,5 +987,305 @@
  },
  "writers": [
   "B-w-87"
- ]
+ ],
+ "review": {
+  "by": "B-r-14",
+  "date": "2026-10-14 14:57 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Forklift Inspection Form That Routes Every Defect'; hero 'Build a forklift inspection form that logs each pre-shift check and sends any failed item to maintenance.' (104 chars); how-to description one sentence on what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Checklist SERP: page gives pass/fail items (service brake, mast chain, battery charge and electrolyte, hour meter), points to OSHA's sample daily checklists (step 02), covers daily, pre-use, pre-trip, electric and annual forms in the FAQ, plus a 7-step build."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'a brake pedal that sinks almost to the floor', 'battery checks for electric trucks', 'a clamp attachment', 'the hour meter reading'; table uses the form variant."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "'Odell Rasmussen starts his shift at Quarrytown Logistics', 'Yarrowby Cold Storage runs its 12 trucks around the clock', 'A truck that fails a check at Brixham Lumber stays out of service'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft class; link-carrier FAQ endings and the repeated no-cap line recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Mechanic Rurik Vasko replaced the chain on Tuesday and signed the repair on a tablet, and only then did Truck 2 show as back in service.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "claims_used (prompt-build, alerts, realtime, database-owned, no-caps, free-start, conversational, e-signature-capture, api-connect) all approved. OSHA statements ('shall be made at least daily', 'examined after each shift', 'immediately reported and corrected', 'not in safe operating condition', 'Have a qualified mechanic correct all problems', battery water/electrolyte and charge) each match a quoted 1910.178 or OSHA checklist span. Numbers: 12-1=11, 22 < 30. Table generated."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Equipment-check angle (truck status, battery rule, signed repair) is its own page; sibling primaries appear only as FAQ link anchors."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, definition + hub link in item 2, secondaries daily, daily free, electric, annual, checklist, pre trip, pre use, safety; moat lines in items 4 and 9; no brand or format in questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 Truck 4 'Fail', 'Pedal sinks', 6:10 am, 'To Colette Dumont', 'Out of service'; tab 2 '11 of 12 checked', Truck 9 'No check', 'Second shift, 2:30 pm', 'To Pavel Brannagh'; tab 3 E-6 22%, 'Rule: under 30%', 'Email to Junie Pascoe', 'To charging'; tab 4 Monday fail, 'Chain replaced' Tuesday by Rurik Vasko, 'Signed on a tablet', 'Back in service'."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "faq item 7",
+    "quote": "If the same fault keeps turning up, cover it in the next operator training and ask about it on a training feedback form afterward.",
+    "issue": "Answer ends on a sentence whose job is to carry the related link; it drifts from who-fixed-the-problem (recurring note).",
+    "fix": "End on the mechanic line; place the link where training is the topic.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "faq item 10",
+    "quote": "Name a backup for days the maintenance lead is away, such as a day off approved on a time off request form.",
+    "issue": "Second link-carrier closing sentence; the time-off example is forced into a defect answer (item 4's employee evaluation form line stays on topic and is not counted).",
+    "fix": "End on the out-of-service record; drop or relocate the link.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_5, why_description, faq item 9",
+    "quote": "Emergent sets no cap on responses / with no response cap / Emergent puts no cap on how many checks you collect",
+    "issue": "The no-cap claim is stated three times with words swapped.",
+    "fix": "Keep it in feature 5 and the why line; give FAQ 9 a different moat (code export or prompt changes).",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 3",
+    "quote": "How often do operators use a daily forklift inspection form?",
+    "issue": "The question answers itself (a daily form is used daily); a searcher would ask how often a forklift must be inspected.",
+    "fix": "'How often is a daily forklift inspection form required?' or similar, keeping the secondary.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "page",
+    "quote": "Copy the items for your truck type, then add what your own trucks carry",
+    "issue": "The top 10 are checklists, but the page never lists the standard items (horn, lights, forks, tires, leaks, steering) in one place; it points to OSHA's sample instead. Deliverable as is, but thinner than the SERP on the checklist itself.",
+    "fix": "Optional: name 5-6 OSHA sample items in step 02 or FAQ 1.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq_heading",
+    "quote": "Inspection Form Questions, Answered",
+    "issue": "Code-built heading drops the head word 'Forklift' (known skeleton-builder defect, proposals/account-b.md); writers may not edit it.",
+    "fix": "Tooling fix by A: 'Forklift Inspection Form Questions, Answered'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "faq item 7",
+   "issue": "Answer ends on a sentence whose job is to carry the related link; it drifts from who-fixed-the-problem (recurring note).",
+   "fix": "End on the mechanic line; place the link where training is the topic.",
+   "by": "B-r-14",
+   "via": "review",
+   "date": "2026-10-14 14:57 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "faq item 10",
+   "issue": "Second link-carrier closing sentence; the time-off example is forced into a defect answer (item 4's employee evaluation form line stays on topic and is not counted).",
+   "fix": "End on the out-of-service record; drop or relocate the link.",
+   "by": "B-r-14",
+   "via": "review",
+   "date": "2026-10-14 14:57 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_5, why_description, faq item 9",
+   "issue": "The no-cap claim is stated three times with words swapped.",
+   "fix": "Keep it in feature 5 and the why line; give FAQ 9 a different moat (code export or prompt changes).",
+   "by": "B-r-14",
+   "via": "review",
+   "date": "2026-10-14 14:57 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 3",
+   "issue": "The question answers itself (a daily form is used daily); a searcher would ask how often a forklift must be inspected.",
+   "fix": "'How often is a daily forklift inspection form required?' or similar, keeping the secondary.",
+   "by": "B-r-14",
+   "via": "review",
+   "date": "2026-10-14 14:57 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "page",
+   "issue": "The top 10 are checklists, but the page never lists the standard items (horn, lights, forks, tires, leaks, steering) in one place; it points to OSHA's sample instead. Deliverable as is, but thinner than the SERP on the checklist itself.",
+   "fix": "Optional: name 5-6 OSHA sample items in step 02 or FAQ 1.",
+   "by": "B-r-14",
+   "via": "review",
+   "date": "2026-10-14 14:57 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq_heading",
+   "issue": "Code-built heading drops the head word 'Forklift' (known skeleton-builder defect, proposals/account-b.md); writers may not edit it.",
+   "fix": "Tooling fix by A: 'Forklift Inspection Form Questions, Answered'.",
+   "by": "B-r-14",
+   "via": "review",
+   "date": "2026-10-14 14:57 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "d771ab5eaa8f8d50",
+   "alt:share_image": "d5d769bfa093ec8b",
+   "alt:tab_image_1": "4aca8f1f14151fbd",
+   "alt:tab_image_2": "5d9951456aeca52c",
+   "alt:tab_image_3": "b38e87d82e31d596",
+   "alt:tab_image_4": "16db9f63640a2b8f",
+   "breadcrumb": "f3fc874928af5dfc",
+   "chip_adds": "59baf856658fce73",
+   "explore_cta": "52ceec7641e27855",
+   "faq": "f14d8aa056e8332f",
+   "feature_1": "5492fc8be0b3548b",
+   "feature_2": "8a26d104a4c0f282",
+   "feature_3": "587f93935910cabe",
+   "feature_4": "4eed96d204ac6837",
+   "feature_5": "54303c4c02a27e14",
+   "feature_6": "e3a01af0c1cca98f",
+   "features_heading": "7372c0629ef948b0",
+   "features_subheading": "fae99e4bcc197cf1",
+   "h1": "e9241b8e8abbad41",
+   "hero_description": "a8033e9f7d8e68cd",
+   "hero_prompt": "f8111e1768629ede",
+   "howto_description": "72e051398c7dcdf2",
+   "howto_step_1_des": "f93491bfc381f547",
+   "howto_step_1_title": "0bbfa9ac59142e37",
+   "howto_step_2_des": "b238851ef0e87a5a",
+   "howto_step_2_title": "3fcad4f622bbd353",
+   "howto_step_3_des": "754eff5810ce67fa",
+   "howto_step_3_title": "e7bac95a680e8dd2",
+   "howto_step_4_des": "07d9d720f36c10fd",
+   "howto_step_4_title": "4e8fa4ffd3ba725b",
+   "howto_step_5_des": "d54f767d11d88fd5",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "ac73542f997fb13b",
+   "howto_step_6_title": "5fcf9c4a85e2a9a5",
+   "howto_step_7_des": "b725433fcbc9d256",
+   "howto_step_7_title": "83f7e3298916abfe",
+   "howto_title": "a1d188bff7e98879",
+   "meta_description": "4d440a2b227cbd4d",
+   "meta_title": "5abed797c6333d01",
+   "mockup": "3d7d0f83721b8049",
+   "product_name": "91bcf242586c8b9b",
+   "prompt_chip_1": "673fca344038e5ab",
+   "prompt_chip_2": "199b1c738b699dc9",
+   "prompt_chip_3": "4c802efbadf1fd85",
+   "prompt_chip_4": "4d57e168524eadc4",
+   "slug": "4191bebf49df7df6",
+   "tab_content_1": "8207c875e86b514a",
+   "tab_content_2": "e5aa7edc0f5aeeaa",
+   "tab_content_3": "eede26996e670740",
+   "tab_content_4": "0b41668c07dc2cba",
+   "tab_label_1": "53f9726ce31cc9f7",
+   "tab_label_2": "af9539d875947ad4",
+   "tab_label_3": "8d278fc1c8fbdd89",
+   "tab_label_4": "1c007c29d3af4fc5",
+   "usecase_heading": "6a950735a8ba009c",
+   "why_description": "2ca1b912656c9ae3",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "ffbf2827b4506056"
+  },
+  "all": "0e4cbe20ed2d0d58",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "d771ab5eaa8f8d50",
+   "alt:share_image": "d5d769bfa093ec8b",
+   "alt:tab_image_1": "4aca8f1f14151fbd",
+   "alt:tab_image_2": "5d9951456aeca52c",
+   "alt:tab_image_3": "b38e87d82e31d596",
+   "alt:tab_image_4": "16db9f63640a2b8f",
+   "breadcrumb": "f3fc874928af5dfc",
+   "chip_adds": "59baf856658fce73",
+   "explore_cta": "52ceec7641e27855",
+   "faq": "f14d8aa056e8332f",
+   "feature_1": "5492fc8be0b3548b",
+   "feature_2": "8a26d104a4c0f282",
+   "feature_3": "587f93935910cabe",
+   "feature_4": "4eed96d204ac6837",
+   "feature_5": "54303c4c02a27e14",
+   "feature_6": "e3a01af0c1cca98f",
+   "features_heading": "7372c0629ef948b0",
+   "features_subheading": "fae99e4bcc197cf1",
+   "h1": "e9241b8e8abbad41",
+   "hero_description": "a8033e9f7d8e68cd",
+   "hero_prompt": "f8111e1768629ede",
+   "howto_description": "72e051398c7dcdf2",
+   "howto_step_1_des": "f93491bfc381f547",
+   "howto_step_1_title": "0bbfa9ac59142e37",
+   "howto_step_2_des": "b238851ef0e87a5a",
+   "howto_step_2_title": "3fcad4f622bbd353",
+   "howto_step_3_des": "754eff5810ce67fa",
+   "howto_step_3_title": "e7bac95a680e8dd2",
+   "howto_step_4_des": "07d9d720f36c10fd",
+   "howto_step_4_title": "4e8fa4ffd3ba725b",
+   "howto_step_5_des": "d54f767d11d88fd5",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "ac73542f997fb13b",
+   "howto_step_6_title": "5fcf9c4a85e2a9a5",
+   "howto_step_7_des": "b725433fcbc9d256",
+   "howto_step_7_title": "83f7e3298916abfe",
+   "howto_title": "a1d188bff7e98879",
+   "meta_description": "4d440a2b227cbd4d",
+   "meta_title": "5abed797c6333d01",
+   "mockup": "3d7d0f83721b8049",
+   "product_name": "91bcf242586c8b9b",
+   "prompt_chip_1": "673fca344038e5ab",
+   "prompt_chip_2": "199b1c738b699dc9",
+   "prompt_chip_3": "4c802efbadf1fd85",
+   "prompt_chip_4": "4d57e168524eadc4",
+   "slug": "4191bebf49df7df6",
+   "tab_content_1": "8207c875e86b514a",
+   "tab_content_2": "e5aa7edc0f5aeeaa",
+   "tab_content_3": "eede26996e670740",
+   "tab_content_4": "0b41668c07dc2cba",
+   "tab_label_1": "53f9726ce31cc9f7",
+   "tab_label_2": "af9539d875947ad4",
+   "tab_label_3": "8d278fc1c8fbdd89",
+   "tab_label_4": "1c007c29d3af4fc5",
+   "usecase_heading": "6a950735a8ba009c",
+   "why_description": "2ca1b912656c9ae3",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "ffbf2827b4506056"
+  },
+  "all": "0e4cbe20ed2d0d58",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
