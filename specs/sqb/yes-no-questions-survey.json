@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-74",
    "note": ""
+  },
+  {
+   "t": "2026-10-14 14:32 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-8",
+   "note": "rubric 10/10 by B-r-8; 10 notes"
   }
  ],
  "pipeline": "r15",
@@ -1053,5 +1060,385 @@
  },
  "writers": [
   "B-w-74"
- ]
+ ],
+ "review": {
+  "by": "B-r-8",
+  "date": "2026-10-14 14:32 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Yes No Questions Survey That Asks Why'; hero 'Build a yes no questions survey that asks one follow-up after each No and saves every answer in a database you own.' (under 130, carries primary, leads with Build); how-to description 'Seven steps to a yes no questions survey where every answer is easy to read and leads to an action.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is question lists and templates; the page gives example questions by audience (FAQ 1, 6, 7, 8: 'Was your issue resolved?', 'Did you finish the reading?'), a seven-step how-to on writing them, Maybe/Somewhat guidance, analysis (FAQ 9), and four built surveys showing what each answer triggers."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Every section is about yes or no answers: 'Choose which answer opens a follow-up', 'Offer Maybe only for the future', 'Split any question with \"and\" in it'; table Emergent column 'Survey, logic, and response database, as code you own'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences that say what happens: 'Quillfeather Home Goods closes a support ticket and asks the customer one question', 'Describe the decision the survey feeds, and Emergent drafts each question', 'Split any question with \"and\" in it.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defects; QC Q5 2 of 2 ', so' endings, Q8 13 lists flagged as P2. Notes recorded on the meta list and step 6 phrasing."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail throughout: 'the support lead got a Slack alert with the ticket number', '22 of the 31 named step 4', 'With Yes past the farm's threshold of 40, the Saturday slot opened.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to claims_used (prompt-build, database-owned, alerts incl. reminders, conversational, no-caps, custom-domain, code-export 'On paid plans'); Pew acquiescence and closed-ended quotes and the dichotomous definition match their domain_sources spans; image numbers add up (1+2+3+22+3=31; 44+21+31=96, 46/22/32%; 26+64=90, 104+18=122, 90+122=212; 29/71/85/15%)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Angle is what a single Yes or No sets off (follow-up on No, threshold rule, group split); no sibling primary (poll questions, likert questionnaire, survey questionnaire) used as a heading or headline."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first ('They are closed-ended questions', 'Keep it under 10'), no brands or file formats in questions, hub link in item 2 ('Emergent's AI survey builder'), 3 sibling links (customer experience survey, customer feedback survey, onboarding survey), moat lines in FAQ 6 and 10."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Each tab matches its copy on names and numbers: '51 of 340 said No' and Slack alert with ticket number; '22 of 31 named step 4' from 84 asked/78 answered/31 No; '44 Yes, threshold 40' with 96 answered of 150; 'Early risers: 64 of 90 said No, Everyone else: 18 of 122', 212 of 600 asked, 'keep the 5 a.m. opening'. One hero, readable text."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "scope",
+    "rule": "HUB_RULES 5",
+    "field": "explore_cta",
+    "quote": "Build My or No Questions Survey",
+    "issue": "Code-built explore_cta and faq_heading ('Questions Survey Questions, Answered') are garbled by the skeleton shortener; known tooling defect already reported to A (proposals/account-b.md, 6b69a3b8). The writer may not edit code-built fields.",
+    "fix": "A rewrites both in code, e.g. 'Build My Yes or No Survey' and 'Yes or No Survey Questions, Answered'.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_3_des, howto_step_4_des, faq item 1, faq item 5",
+    "quote": "step 3 'Did your order arrive on the promised date?'; step 4 'people know whether their order arrived'; FAQ 1 'Did your order arrive on time?'; FAQ 5 'because an order either arrived or it did not'",
+    "issue": "The order-arrival example carries the same point (ask about facts) in four fields.",
+    "fix": "Swap two of them for other factual examples (a class attended, a refund received).",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_6_des, howto_step_7_des, faq item 9",
+    "quote": "step 6 'A split by group shows who said No, which one total for the whole survey hides.'; FAQ 9 'one overall share can hide a group that said No far more'; step 7 'read the No count beside the number of people asked'; FAQ 9 'Check the number who answered against the number asked'",
+    "issue": "Group split hiding a No and answered-vs-asked are each stated twice with words swapped.",
+    "fix": "Keep each idea in one field.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_5, faq item 10",
+    "quote": "feature_5 'There is no cap on the number of responses, so it can go to every customer you have.'; FAQ 10 'With no cap on responses in Emergent, the same survey can go to every new hire each month.'",
+    "issue": "The no-caps claim is restated in the same shape.",
+    "fix": "Use a different approved moat line in FAQ 10 (database you own, code export).",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "howto_step_6_des",
+    "quote": "A split by group shows who said No, which one total for the whole survey hides.",
+    "issue": "Inverted relative clause reads stiff, like a translated sentence.",
+    "fix": "One total for the whole survey hides who said No; a split by group shows it.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "meta_description",
+    "quote": "a follow-up after each No, Slack alerts, Yes, No, or Maybe votes, and counts by group",
+    "issue": "A three-option list nested inside a four-item list reads as one run-on list.",
+    "fix": "Build a yes no questions survey from a prompt: a follow-up after each No, Slack alerts, a Maybe option, and counts by group.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_4",
+    "quote": "Reminders go to anyone who has not answered by the deadline, and they stop once they do.",
+    "issue": "Reads as if reminders are sent after the deadline passes; 'they' is ambiguous between reminders and people.",
+    "fix": "Anyone who has not answered gets a reminder before the deadline, and the reminders stop once they answer.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 6",
+    "quote": "What are some examples of yes or no survey questions for work? ... Ask event guests \"Would you attend again next year?\"",
+    "issue": "Question narrows to 'for work' (not in the secondary 'yes or no survey questions examples'), and the answer then drifts to event guests.",
+    "fix": "Drop 'for work' from the question, or keep the examples to employees.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "CONTENT_DEFECTS #3",
+    "field": "why_table",
+    "quote": "Survey builder with templates, including employee engagement; Survey builder with templates, including employee satisfaction",
+    "issue": "Library category variant names employee surveys on a yes or no page; Microsoft Forms and SurveyHero are not in the top 10 (QC K7) while Typeform and SurveyMonkey rank.",
+    "fix": "Coordinator: add a general survey variant and Typeform to the library for pages like this.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image uc-1",
+    "quote": "Follow-up answer included",
+    "issue": "The Slack alert card adds a detail the tab copy does not state (copy says only 'a Slack alert with the ticket number'); not a contradiction.",
+    "fix": "Either add 'and the follow-up answer' to tab 1 copy or drop the line from the card.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "scope",
+   "rule": "HUB_RULES 5",
+   "field": "explore_cta",
+   "issue": "Code-built explore_cta and faq_heading ('Questions Survey Questions, Answered') are garbled by the skeleton shortener; known tooling defect already reported to A (proposals/account-b.md, 6b69a3b8). The writer may not edit code-built fields.",
+   "fix": "A rewrites both in code, e.g. 'Build My Yes or No Survey' and 'Yes or No Survey Questions, Answered'.",
+   "by": "B-r-8",
+   "via": "review",
+   "date": "2026-10-14 14:32 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_3_des, howto_step_4_des, faq item 1, faq item 5",
+   "issue": "The order-arrival example carries the same point (ask about facts) in four fields.",
+   "fix": "Swap two of them for other factual examples (a class attended, a refund received).",
+   "by": "B-r-8",
+   "via": "review",
+   "date": "2026-10-14 14:32 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_6_des, howto_step_7_des, faq item 9",
+   "issue": "Group split hiding a No and answered-vs-asked are each stated twice with words swapped.",
+   "fix": "Keep each idea in one field.",
+   "by": "B-r-8",
+   "via": "review",
+   "date": "2026-10-14 14:32 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_5, faq item 10",
+   "issue": "The no-caps claim is restated in the same shape.",
+   "fix": "Use a different approved moat line in FAQ 10 (database you own, code export).",
+   "by": "B-r-8",
+   "via": "review",
+   "date": "2026-10-14 14:32 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "howto_step_6_des",
+   "issue": "Inverted relative clause reads stiff, like a translated sentence.",
+   "fix": "One total for the whole survey hides who said No; a split by group shows it.",
+   "by": "B-r-8",
+   "via": "review",
+   "date": "2026-10-14 14:32 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "meta_description",
+   "issue": "A three-option list nested inside a four-item list reads as one run-on list.",
+   "fix": "Build a yes no questions survey from a prompt: a follow-up after each No, Slack alerts, a Maybe option, and counts by group.",
+   "by": "B-r-8",
+   "via": "review",
+   "date": "2026-10-14 14:32 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_4",
+   "issue": "Reads as if reminders are sent after the deadline passes; 'they' is ambiguous between reminders and people.",
+   "fix": "Anyone who has not answered gets a reminder before the deadline, and the reminders stop once they answer.",
+   "by": "B-r-8",
+   "via": "review",
+   "date": "2026-10-14 14:32 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 6",
+   "issue": "Question narrows to 'for work' (not in the secondary 'yes or no survey questions examples'), and the answer then drifts to event guests.",
+   "fix": "Drop 'for work' from the question, or keep the examples to employees.",
+   "by": "B-r-8",
+   "via": "review",
+   "date": "2026-10-14 14:32 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "CONTENT_DEFECTS #3",
+   "field": "why_table",
+   "issue": "Library category variant names employee surveys on a yes or no page; Microsoft Forms and SurveyHero are not in the top 10 (QC K7) while Typeform and SurveyMonkey rank.",
+   "fix": "Coordinator: add a general survey variant and Typeform to the library for pages like this.",
+   "by": "B-r-8",
+   "via": "review",
+   "date": "2026-10-14 14:32 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image uc-1",
+   "issue": "The Slack alert card adds a detail the tab copy does not state (copy says only 'a Slack alert with the ticket number'); not a contradiction.",
+   "fix": "Either add 'and the follow-up answer' to tab 1 copy or drop the line from the card.",
+   "by": "B-r-8",
+   "via": "review",
+   "date": "2026-10-14 14:32 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "c1c3d16777a1ab5a",
+   "alt:share_image": "b68a968771085049",
+   "alt:tab_image_1": "fe14abac9be7f8c1",
+   "alt:tab_image_2": "6b944ed984605f71",
+   "alt:tab_image_3": "021c8b90ed928562",
+   "alt:tab_image_4": "cdace44ccaedf79f",
+   "breadcrumb": "bfcea03d4552567c",
+   "chip_adds": "8f7abf8545dced94",
+   "explore_cta": "e3906d1ebff2ef5e",
+   "faq": "a767181fca3e0dc6",
+   "feature_1": "dcacd65af82bf49a",
+   "feature_2": "62682a4822c240a3",
+   "feature_3": "55cb9a5567e20d32",
+   "feature_4": "ded41cb2ce744594",
+   "feature_5": "d36fd5a248f9270c",
+   "feature_6": "6a5218fd36a6bee7",
+   "features_heading": "02098c3f6984f882",
+   "features_subheading": "9368dceb5278e717",
+   "h1": "fa1a2532cadf6dbb",
+   "hero_description": "fa3fe59e5cd75fe5",
+   "hero_prompt": "d9f56dc1440e2900",
+   "howto_description": "bc10c9c7569b458d",
+   "howto_step_1_des": "6418c41ad5f1d48b",
+   "howto_step_1_title": "298f1d1638789513",
+   "howto_step_2_des": "7aa50428013b70a4",
+   "howto_step_2_title": "aaa9ad3e5c996f05",
+   "howto_step_3_des": "fd417bd32971408f",
+   "howto_step_3_title": "41b7b7886e1bc96d",
+   "howto_step_4_des": "dfac7dd2f624abc3",
+   "howto_step_4_title": "1c5450710dbc4dcf",
+   "howto_step_5_des": "ab043cb30a9e81dd",
+   "howto_step_5_title": "dfeed05c1143fce3",
+   "howto_step_6_des": "154a709d420e4ba7",
+   "howto_step_6_title": "05d910aa2f6925b7",
+   "howto_step_7_des": "08cc0cc937447b98",
+   "howto_step_7_title": "466b4f3177d180f3",
+   "howto_title": "25c0a2c883c1471c",
+   "meta_description": "27d228c8151f07e3",
+   "meta_title": "b6c13654524b65bd",
+   "mockup": "b7f43b2206309b50",
+   "product_name": "82b209bdd2b09673",
+   "prompt_chip_1": "cde8e6e5707f005f",
+   "prompt_chip_2": "99e08f66d0a58569",
+   "prompt_chip_3": "a7941c69ffeeb15b",
+   "prompt_chip_4": "3c176392d91fce64",
+   "slug": "800231789fd3fdec",
+   "tab_content_1": "7c0191d7449a5ddc",
+   "tab_content_2": "8279266b159fb45a",
+   "tab_content_3": "527d54ba9f7ed956",
+   "tab_content_4": "a9abbfb94f48de52",
+   "tab_label_1": "cde8e6e5707f005f",
+   "tab_label_2": "99e08f66d0a58569",
+   "tab_label_3": "3f871ff3fcfb9425",
+   "tab_label_4": "81299aa700e32f7d",
+   "usecase_heading": "f625abe6004302b9",
+   "why_description": "ab36bfa7f7ae4131",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "79d38c50512fc57f"
+  },
+  "all": "0aab2c168049dd2d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "c1c3d16777a1ab5a",
+   "alt:share_image": "b68a968771085049",
+   "alt:tab_image_1": "fe14abac9be7f8c1",
+   "alt:tab_image_2": "6b944ed984605f71",
+   "alt:tab_image_3": "021c8b90ed928562",
+   "alt:tab_image_4": "cdace44ccaedf79f",
+   "breadcrumb": "bfcea03d4552567c",
+   "chip_adds": "8f7abf8545dced94",
+   "explore_cta": "e3906d1ebff2ef5e",
+   "faq": "a767181fca3e0dc6",
+   "feature_1": "dcacd65af82bf49a",
+   "feature_2": "62682a4822c240a3",
+   "feature_3": "55cb9a5567e20d32",
+   "feature_4": "ded41cb2ce744594",
+   "feature_5": "d36fd5a248f9270c",
+   "feature_6": "6a5218fd36a6bee7",
+   "features_heading": "02098c3f6984f882",
+   "features_subheading": "9368dceb5278e717",
+   "h1": "fa1a2532cadf6dbb",
+   "hero_description": "fa3fe59e5cd75fe5",
+   "hero_prompt": "d9f56dc1440e2900",
+   "howto_description": "bc10c9c7569b458d",
+   "howto_step_1_des": "6418c41ad5f1d48b",
+   "howto_step_1_title": "298f1d1638789513",
+   "howto_step_2_des": "7aa50428013b70a4",
+   "howto_step_2_title": "aaa9ad3e5c996f05",
+   "howto_step_3_des": "fd417bd32971408f",
+   "howto_step_3_title": "41b7b7886e1bc96d",
+   "howto_step_4_des": "dfac7dd2f624abc3",
+   "howto_step_4_title": "1c5450710dbc4dcf",
+   "howto_step_5_des": "ab043cb30a9e81dd",
+   "howto_step_5_title": "dfeed05c1143fce3",
+   "howto_step_6_des": "154a709d420e4ba7",
+   "howto_step_6_title": "05d910aa2f6925b7",
+   "howto_step_7_des": "08cc0cc937447b98",
+   "howto_step_7_title": "466b4f3177d180f3",
+   "howto_title": "25c0a2c883c1471c",
+   "meta_description": "27d228c8151f07e3",
+   "meta_title": "b6c13654524b65bd",
+   "mockup": "b7f43b2206309b50",
+   "product_name": "82b209bdd2b09673",
+   "prompt_chip_1": "cde8e6e5707f005f",
+   "prompt_chip_2": "99e08f66d0a58569",
+   "prompt_chip_3": "a7941c69ffeeb15b",
+   "prompt_chip_4": "3c176392d91fce64",
+   "slug": "800231789fd3fdec",
+   "tab_content_1": "7c0191d7449a5ddc",
+   "tab_content_2": "8279266b159fb45a",
+   "tab_content_3": "527d54ba9f7ed956",
+   "tab_content_4": "a9abbfb94f48de52",
+   "tab_label_1": "cde8e6e5707f005f",
+   "tab_label_2": "99e08f66d0a58569",
+   "tab_label_3": "3f871ff3fcfb9425",
+   "tab_label_4": "81299aa700e32f7d",
+   "usecase_heading": "f625abe6004302b9",
+   "why_description": "ab36bfa7f7ae4131",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "79d38c50512fc57f"
+  },
+  "all": "0aab2c168049dd2d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
