@@ -3,6 +3,45 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-14
+- **Ruling 18 (Divit, 2026-10-14): flags are judged per page on the questions actually in the FAQ, not by subtype.** The subtype packet is retired; no subtype is approved or rejected as a whole (`ops/flag_packet.py` stays only as a counter).
+  1. **Ship now** (with the 36 clean pages of the day's step 1): these flagged pages are approved as written, and every listed page ships with 0 gate rejects:
+     - LP: nonprofit-landing-page, product-landing-page, saas-landing-page, sales-funnel-landing-page, squeeze-page, waitlist-landing-page.
+     - Form: home-care-intake-form, independent-contractor-agreement, medical-history-form, model-release-form, nda-form, new-employee-form, permanent-makeup-consent-form, quote-form, referral-form, restaurant-reservation-form, tenant-screening-form, volunteer-form, wedding-photography-contract.
+     - Automation: audit-workflow, automated-loan-processing-system, content-approval-workflow, document-approval-workflow, shipping-automation.
+     - SurveyQuiz: customer-experience-survey, needs-assessment-survey, post-event-survey, volunteer-survey.
+     - That is 28 names; volunteer-form and volunteer-survey are separate pages.
+  2. **invoice-approval-workflow:** FAQ 10 "cfos" becomes "CFOs" (casing only), then a slim review, then it ships.
+  3. **Question swaps:** one rework per page, with the replacement taken from the page's passing set. A page that cannot reach 10 is re-parked with its draft kept. Each swapped page ships the same day after its slim review.
+     - address-verification-form Q10 (USPS, navigational)
+     - church-membership-form Q8 (a letter, not the form)
+     - contact-form Q5 ("form of contact", wrong sense)
+     - grievance-form Q6 and Q7 (duplicates of Q8); Q10 (legal remedy)
+     - identity-verification-form Q7 (gate reject); Q8 (land title, off-intent)
+     - multi-step-form Q3 (spelling trivia)
+     - petition-form Q10 (duplicate of Q9)
+     - proposal-form Q5, Q6, Q7 (insurance sense; the page is business proposals)
+     - requisition-form Q3 (medical lab sense)
+     - vendor-application Q9 (state-specific, navigational); Q10 (gate reject)
+     - customer-service-automation Q7 (gate reject)
+     - proposal-automation Q9 and Q10 (duplicates of Q6)
+     - returns-automation Q7 (duplicate of Q6)
+     - community-survey Q1, Q3, Q5, Q6 (American Community Survey, a named program)
+     - compensation-survey Q10 (invites vendor names)
+     - mental-health-survey Q5 (gate reject); Q6 (named program); Q7 and Q8 (research findings, off-intent)
+     - parent-survey Q7 (self-judgement); Q9 (translation trivia)
+     - safety-survey Q10 (firefighter procedure, off-intent)
+     - school-climate-survey Q10 (citation trivia)
+  4. **Prevention** (code with golden cases; applies to new writing only):
+     - Near-duplicates: same-intent variants count as one question (fill / complete / fill out / write / draw up; shorten / speed up).
+     - Sense check against the page's H1 and primary keyword (insurance vs business proposal; medical vs purchase requisition).
+     - Named program, agency or state check (American Community Survey, USPS, WHO surveys, state abbreviations).
+     - Trivia filter: the spelling of the term, a translation, a citation.
+     - Acronym casing in keyword-sourced rewrites (CFOs, KYC).
+  5. **Skeletons may include flagged questions,** except the shapes code now drops: fragment or name, self-quiz, navigational ("where is", "where to find"), and platform- or state-specific questions.
+     - Every day, the 10:00 report lists every flagged question in each newly reviewed page's FAQ (page, Q number, text), for the advisor's per-page check and Divit's confirm. That list stays in .cache, linked from the report: the repo is public and the question text is AlsoAsked or Semrush data.
+     - Re-rank the queue under this rule now, and report how many non-quiz pages become writable.
+  6. **`.hub`:** restore `A:LP` (from .cache/hub.before) and push before B claims. B restarts now on Form, Automation and SurveyQuiz.
+  - **Report:** the live count after the first publish, then the 18:00 daily line.
 - **Divit, night of 10-13/14 (final for the night):**
   - **Canary bar:** 3 non-quiz pages written fully on the new pipeline, any hubs (different hubs not required). The third round-2 page is the next writable LP or Automation page, with no wait for Form.
   - **Quiz pages stay last** (they need a playable quiz).

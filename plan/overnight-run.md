@@ -3,7 +3,7 @@
 Account A alone; B is stopped. Nothing ships overnight: no Webflow calls at all. The headless loop is `ops/schedule/overnight_run.sh` (CLAUDE_CONFIG_DIR=~/.claude-b, account A's config dir).
 
 ## Override (recorded)
-- `.hub` = `A:LP,Form,Auto,SurveyQuiz` from 2026-10-13 ~18:20 UTC (was `A:LP`). Temporary, for the canary and tonight's run only. Restore `A:LP` before B restarts (the previous value is in `.cache/hub.before`).
+- `.hub` restored to `A:LP` on 2026-10-14 (ruling 18 step 6); B restarts on Form, Automation and SurveyQuiz. Overnight override was `A:LP,Form,Auto,SurveyQuiz` from 2026-10-13 ~18:20 UTC (was `A:LP`). Temporary, for the canary and tonight's run only. Restore `A:LP` before B restarts (the previous value is in `.cache/hub.before`).
 - B-held pages are never touched: hubctl refuses them, and the loop skips any page whose status entry carries a B hold.
 
 ## Gate: the canary first (ruling 15)
