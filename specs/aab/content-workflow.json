@@ -1,0 +1,946 @@
+{
+ "url": "/ai-automation-builder/content-workflow",
+ "hub": "Auto",
+ "item_id": null,
+ "status": "spec",
+ "written_by": "B-w-64",
+ "keywords": {
+  "primary": "content workflow",
+  "secondaries_used": [
+   "content creation workflow",
+   "content marketing workflow",
+   "content workflow software",
+   "content production workflow",
+   "content workflow management",
+   "editorial workflow",
+   "content management workflow",
+   "content repurposing workflow",
+   "digital content workflow"
+  ]
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Content Workflow: What It Is and How to Build One | Emergent",
+  "meta_description": "A content workflow is the set of steps and owners that carry each piece to publish. Follow one article through it, then build yours.",
+  "h1": "Build a Content Workflow That Carries Each Article to Publish",
+  "slug": "content-workflow",
+  "product_name": "Content Workflow Builder",
+  "hero_description": "Build a content workflow that assigns each brief, flags late drafts, and sends finished articles to your CMS.",
+  "breadcrumb": "Content Workflow",
+  "category": "a33cd4fb124ec86a130809893b2b3896",
+  "explore_cta": "Build My Content Workflow",
+  "features_heading": "What the App Takes Off an Editor's Plate",
+  "features_subheading": "Every stage of the content workflow gets an owner and a date, on one board the whole marketing team reads.",
+  "feature_1": "<h3>Briefs that arrive complete</h3><p>The request form needs a topic, an audience, and a publish date before it accepts a brief. A routing rule written as a plain sentence picks the writer from the topic.</p>",
+  "feature_2": "<h3>Stage dates worked back from launch</h3><p>Tell the app how many days drafting and editing take, and it counts back from the publish date to set each one. Push the launch out a week and both dates move with it.</p>",
+  "feature_3": "<h3>A nudge when a piece stalls</h3><p>Each stage has an owner you name. If an item sits past its stage date, that owner gets a Slack message or an email linking to it, and a reminder follows a day later.</p>",
+  "feature_4": "<h3>Your CMS fed through its API</h3><p>Emergent connects the app to any CMS with an API. Approved copy goes over with its SEO fields, and the post ID the CMS returns is stored next to the brief it came from.</p>",
+  "feature_5": "<h3>One board for the whole pipeline</h3><p>Columns show each piece by stage and update the moment someone moves a card. Filter by writer before Monday planning to see which writers already have three pieces due.</p>",
+  "feature_6": "<h3>Records and code that stay yours</h3><p>Every brief and its publish history live in a database you own. On paid plans, the full code of the app exports to your GitHub repository to read or change in any code editor.</p>",
+  "why_title": "Why Build Your Content Workflow With Emergent?",
+  "why_description": "Emergent builds the brief form and the CMS handoff as one app on a database you own, and no task cap applies as output grows.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Zapier</th>\n        <th scope=\"col\">Make (Integromat)</th>\n        <th scope=\"col\">n8n</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt for the workflow and the app around it</td>\n        <td class=\"col-other\">Templates and editor, AI copilot</td>\n        <td class=\"col-other\">Visual canvas</td>\n        <td class=\"col-other\">Visual canvas, self-hosted or cloud</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">What you get</th>\n        <td class=\"col-brand\">Workflow + trigger form + database + dashboard, as code you own</td>\n        <td class=\"col-other\">Zaps, plus Tables and Interfaces inside Zapier</td>\n        <td class=\"col-other\">Scenarios inside Make</td>\n        <td class=\"col-other\">Workflows inside n8n</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Behavior at cap</th>\n        <td class=\"col-brand\">Keeps running, no task cap</td>\n        <td class=\"col-other\">Overage billed at up to 1.25× the base rate</td>\n        <td class=\"col-other\">Runs pause</td>\n        <td class=\"col-other\">Cloud workflows stop until the reset or an upgrade</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">AI and agent steps</th>\n        <td class=\"col-brand\">Native, share the same credit pool</td>\n        <td class=\"col-other\">Priced by model tier, drawn from the task pool</td>\n        <td class=\"col-other\">AI modules cost variable credits</td>\n        <td class=\"col-other\">Bring your own model API key, billed by the provider</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">Yes on Community Edition</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "One Article Through a Content Workflow",
+  "tab_label_1": "Brief Intake",
+  "tab_label_2": "Late Drafts",
+  "tab_label_3": "CMS Publishing",
+  "tab_label_4": "Repurposing",
+  "tab_content_1": "<h3>Each brief leaves the form with a writer and due dates</h3><p>Ines Valdivieso, a product marketer at Tallowpine, fills in a brief for How to forecast churn, written for finance leads, with a Nov 12 publish date. The app creates item C-114 on the content board and assigns it to Joaquin Ferreyra, who covers Forecasting. His draft is due Oct 29, counted back from the publish date.</p>",
+  "tab_content_2": "<h3>When a draft misses its date, the managing editor knows</h3><p>Joaquin Ferreyra's draft was due Oct 29. On Oct 31, C-114 is still in Drafting, 2 days late. It is marked Late on the board. The managing editor, Halvard Brekke, gets a direct message with the brief plus an Open item button. From there he can set a new date or hand the piece to another writer.</p>",
+  "tab_content_3": "<h3>Finished articles reach the CMS with every field filled</h3><p>Halvard Brekke reads the final edit of C-114 and marks it Ready. The app sends the article to the Tallowpine CMS through its API as a post scheduled for Nov 12 at 9:00 AM, with the title, slug, meta description, and author filled in. The CMS answers with a post ID, and the app saves it on C-114.</p>",
+  "tab_content_4": "<h3>Every live post opens repurposing tasks for the social lead</h3><p>The churn article goes live on Nov 12. Mireille Kantor, who runs social and email, gets 3 repurposing tasks from the app: a newsletter summary due Nov 13 and 2 social posts due Nov 14. Each task links to the live post and stays on the board until Mireille marks it done.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { briefIntake: \"Build a content brief form for my marketing team that asks for a title, a topic, an audience, and a publish date. Create an item on the content board for each brief, assign it to the writer who covers that topic, and set the draft due date by counting back from the publish date.\", lateDrafts: \"When a draft is still in Drafting after its due date, mark the item Late on the board and send the managing editor a direct message with the brief and an Open item button. Let him set a new date or assign the piece to another writer from that message.\", cmsPublishing: \"When the managing editor marks an article Ready, send it to my CMS through its API as a scheduled post on its publish date, with the title, slug, meta description, and author filled in. Save the post ID the CMS sends back on the board item.\", repurposing: \"When an article goes live, open 3 repurposing tasks for my social and email lead: a newsletter summary due the next day and 2 social posts due the day after. Link each task to the live post and keep it on the board until it is marked done.\" };</p>",
+  "howto_title": "How to Build a Content Workflow",
+  "howto_description": "Seven steps to map your content workflow, build it with Emergent, and test it on last month's articles before it runs live.",
+  "howto_step_1_title": "01 List the stages and their owners",
+  "howto_step_2_title": "02 Decide what a brief must hold",
+  "howto_step_3_title": "03 Give each stage a length in days",
+  "howto_step_4_title": "04 Name who hears about a late piece",
+  "howto_step_1_des": "List every stage a piece passes through on its way to readers, and the one person who owns each. Keep the names your team already uses, such as Drafting or Ready. The board should read the way people talk.",
+  "howto_step_2_des": "Pick the fields a request needs before writing starts, with the audience and the publish date at the top. A brief sent back for a missing audience costs a day; a draft written for the wrong reader costs a week.",
+  "howto_step_3_des": "Write down how long drafting and editing take for a standard post. Emergent builds the board and its date logic from a prompt that states those numbers in plain sentences.",
+  "howto_step_4_des": "Give each stage one person who gets the message when an item passes its date. Pick an editor by name, not a team channel, because an alert that reaches everyone has no owner.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Content Workflow Questions, Answered\", \"items\": [{\"q\": \"What is a content workflow?\", \"a\": \"A content workflow is the series of tasks your team performs to take a piece of content through ideation and on to delivery, as HubSpot defines it. Each task has an owner and a due date. You can tell a working one by a simple test: anyone on the team can open the board and say who holds each piece and when it is due.\"}, {\"q\": \"How do I create a content workflow?\", \"a\": \"Start by listing the stages your pieces pass through, then give each one an owner and a length in days. Begin with the stage that slips most often, since that is where a tracker pays back first. With Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>, you describe that setup in a prompt and get the brief form and the late-piece alerts as one app. You change it later by prompting again.\"}, {\"q\": \"What is a good workflow for content creators?\", \"a\": \"A good workflow for content creators is one short enough to repeat every week. Batch the writing or filming into fixed blocks, and edit on another day. Publish on a set schedule, then run a content repurposing workflow that cuts each piece into smaller posts. A solo creator can build a tracker for that loop with Emergent and start free.\"}, {\"q\": \"How do you integrate a digital content workflow into marketing processes?\", \"a\": \"Tie every piece to the campaign it serves, and let the campaign calendar set the publish dates. Record the campaign on each brief, and your reports can show which articles fed which launch. Where a piece captures leads, such as a gated guide, pass those contacts into your <a href='https://emergent.sh/ai-automation-builder/sales-automation'>sales automation</a> with the article attached. Reps then see what each lead read first.\"}, {\"q\": \"What is the definition of a content workflow for a marketing team?\", \"a\": \"Salsify's definition fits a marketing team well: a content workflow is a series of steps and responsibilities a brand needs to follow to produce and publish content. The second half of that definition matters most in practice. A stage with no named person is where a piece stalls. Put a name next to every step of your editorial workflow before you add any tooling.\"}, {\"q\": \"How do companies automate content workflows with AI agents?\", \"a\": \"Start by giving AI agents the routing in a content workflow, and leave the writing with people. An agent reads each new brief and picks the writer by topic, then chases anything past its date. Writers and editors keep the drafting and the final edit. Emergent builds that kind of app from a plain-English prompt, and you adjust a rule by describing the new one.\"}, {\"q\": \"What does a content creation workflow look like for a small team?\", \"a\": \"A small team's content creation workflow runs on 5 stages: brief, draft, edit, publish, and promote. Name one owner per stage, even if one person owns two stages. The promote stage is the easiest one to skip when deadlines pile up. Hand it to <a href='https://emergent.sh/ai-automation-builder/social-media-automation'>social media automation</a> that posts the approved captions on a schedule.\"}, {\"q\": \"What should content workflow software do?\", \"a\": \"Content workflow software should keep every piece's brief and due date in one place, with a named owner. It should also alert the owner when a date passes and send finished work to your CMS without copy and paste. Emergent builds that software as your own app, with no task cap and every record in a database you own.\"}, {\"q\": \"What goes into a content production workflow?\", \"a\": \"A content production workflow covers the making of each piece up to the final checks before publishing, design work included. Strategy decides what to make and for whom. Production decides who makes it and by which date, and it is the part a board and due dates can measure.\"}, {\"q\": \"What does content workflow management involve day to day?\", \"a\": \"Day to day, content workflow management means checking the board for pieces past their date and moving work off overloaded writers. It also means keeping sign-off from turning into the bottleneck. When a draft needs several reviewers in order, such as legal after the editor, set up a separate <a href='https://emergent.sh/ai-automation-builder/content-approval-workflow'>content approval workflow</a> for those pieces.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Connect the CMS and the alerts",
+  "howto_step_5_des": "Connect your CMS through its API so finished articles arrive as scheduled posts, and connect Slack or email for alerts. Map each board field to the CMS field it fills before the first send.",
+  "howto_step_6_title": "06 Run last month's pieces through it",
+  "howto_step_6_des": "Send last month's pieces through the app before a live brief touches it. Check that every brief reached the right writer and that each date matches what happened last month. Fix a rule by prompting, then run the month again.",
+  "howto_step_7_title": "07 Switch on one stage at a time",
+  "howto_step_7_des": "Start with brief intake, since it publishes nothing. After 2 weeks, compare missed dates with the 2 weeks before, then turn on the CMS handoff and, last, the repurposing tasks.",
+  "prompt_chip_1": "Brief Intake",
+  "prompt_chip_2": "Late Draft Alerts",
+  "prompt_chip_3": "CMS Publishing",
+  "prompt_chip_4": "Repurposing Tasks",
+  "hero_prompt": "<p>Build a content workflow that runs on its own and logs every step.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/aab/content-workflow/uc-1.svg",
+   "alt": "A Tallowpine content brief for How to forecast churn becomes item C-114, assigned to the writer Joaquin Ferreyra with a draft due Oct 29 and a Nov 12 publish date."
+  },
+  "tab_image_2": {
+   "path": "images/aab/content-workflow/uc-2.svg",
+   "alt": "Item C-114 is still in Drafting 2 days after its Oct 29 due date, is marked Late, and reaches the managing editor as a direct message with an Open item button."
+  },
+  "tab_image_3": {
+   "path": "images/aab/content-workflow/uc-3.svg",
+   "alt": "Article C-114 is marked Ready and sent to the CMS through its API as a post scheduled for Nov 12 at 9:00 AM, with title, slug, meta description, and author filled in."
+  },
+  "tab_image_4": {
+   "path": "images/aab/content-workflow/uc-4.svg",
+   "alt": "When How to forecast churn goes live on Nov 12, 3 repurposing tasks open for Mireille Kantor: a newsletter summary due Nov 13 and 2 social posts due Nov 14."
+  },
+  "cover_image": {
+   "path": "images/aab/content-workflow/cover.svg",
+   "alt": "Content workflow: a direct message telling the managing editor that a draft is 2 days late, with an Open item button"
+  },
+  "share_image": {
+   "path": "images/aab/content-workflow/og.webp",
+   "alt": "Build a content workflow that carries each article to publish, with Emergent"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-14 11:25 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-14 11:39 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "B-w-64",
+   "note": ""
+  },
+  {
+   "t": "2026-10-14 11:39 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-64",
+   "note": ""
+  }
+ ],
+ "pipeline": "r15",
+ "faq_plan": [
+  {
+   "kind": "alsoasked",
+   "q": "What is a content workflow?",
+   "ref": "What is a content workflow?",
+   "prov": {
+    "tool": "alsoasked-api",
+    "query": "content workflow",
+    "depth": 1,
+    "parent": null,
+    "fetched": "2026-10-14",
+    "original": "What is a content workflow?",
+    "region": "us",
+    "language": "en",
+    "fallback": false
+   },
+   "locked": true,
+   "flagged": [],
+   "n": 1,
+   "a": "A content workflow is the series of tasks your team performs to take a piece of content through ideation and on to delivery, as HubSpot defines it. Each task has an owner and a due date. You can tell a working one by a simple test: anyone on the team can open the board and say who holds each piece and when it is due.",
+   "link": null
+  },
+  {
+   "kind": "definition",
+   "q": "How do I create a content workflow?",
+   "ref": "content workflow",
+   "locked": true,
+   "n": 2,
+   "a": "Start by listing the stages your pieces pass through, then give each one an owner and a length in days. Begin with the stage that slips most often, since that is where a tracker pays back first. With Emergent's AI automation builder, you describe that setup in a prompt and get the brief form and the late-piece alerts as one app. You change it later by prompting again.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder",
+    "anchor": "AI automation builder",
+    "write_as": "Emergent's AI automation builder"
+   }
+  },
+  {
+   "kind": "alsoasked",
+   "q": "What is a good workflow for content creators?",
+   "ref": "What is a good workflow for content creators?",
+   "prov": {
+    "tool": "alsoasked-api",
+    "query": "content workflow",
+    "depth": 1,
+    "parent": null,
+    "fetched": "2026-10-14",
+    "original": "What is a good workflow for content creators?",
+    "region": "us",
+    "language": "en",
+    "fallback": false
+   },
+   "locked": true,
+   "flagged": [],
+   "n": 3,
+   "a": "A good workflow for content creators is one short enough to repeat every week. Batch the writing or filming into fixed blocks, and edit on another day. Publish on a set schedule, then run a content repurposing workflow that cuts each piece into smaller posts. A solo creator can build a tracker for that loop with Emergent and start free.",
+   "link": null
+  },
+  {
+   "kind": "semrush",
+   "q": "How do you integrate a digital content workflow into marketing processes?",
+   "ref": "how do we integrate digital content workflows into marketing processes",
+   "prov": {
+    "tool": "semrush-phrase_questions",
+    "query": "content workflow",
+    "database": "us",
+    "volume": 20,
+    "fetched": "2026-10-14"
+   },
+   "locked": false,
+   "flagged": [],
+   "n": 4,
+   "a": "Tie every piece to the campaign it serves, and let the campaign calendar set the publish dates. Record the campaign on each brief, and your reports can show which articles fed which launch. Where a piece captures leads, such as a gated guide, pass those contacts into your sales automation with the article attached. Reps then see what each lead read first.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/sales-automation",
+    "anchor": "sales automation"
+   }
+  },
+  {
+   "kind": "semrush",
+   "q": "What is the definition of a content workflow for a marketing team?",
+   "ref": "what is a content workflow definition",
+   "prov": {
+    "tool": "semrush-phrase_questions",
+    "query": "content workflow",
+    "database": "us",
+    "volume": 20,
+    "fetched": "2026-10-14"
+   },
+   "locked": false,
+   "flagged": [],
+   "n": 5,
+   "a": "Salsify's definition fits a marketing team well: a content workflow is a series of steps and responsibilities a brand needs to follow to produce and publish content. The second half of that definition matters most in practice. A stage with no named person is where a piece stalls. Put a name next to every step of your editorial workflow before you add any tooling.",
+   "link": null
+  },
+  {
+   "kind": "semrush",
+   "q": "How do companies automate content workflows with AI agents?",
+   "ref": "how companies automate content workflows with ai agents",
+   "prov": {
+    "tool": "semrush-phrase_questions",
+    "query": "content workflow",
+    "database": "us",
+    "volume": 10,
+    "fetched": "2026-10-14"
+   },
+   "locked": false,
+   "flagged": [],
+   "n": 6,
+   "a": "Start by giving AI agents the routing in a content workflow, and leave the writing with people. An agent reads each new brief and picks the writer by topic, then chases anything past its date. Writers and editors keep the drafting and the final edit. Emergent builds that kind of app from a plain-English prompt, and you adjust a rule by describing the new one.",
+   "link": null
+  },
+  {
+   "kind": "secondary",
+   "q": "What does a content creation workflow look like for a small team?",
+   "ref": "content creation workflow",
+   "locked": false,
+   "n": 7,
+   "a": "A small team's content creation workflow runs on 5 stages: brief, draft, edit, publish, and promote. Name one owner per stage, even if one person owns two stages. The promote stage is the easiest one to skip when deadlines pile up. Hand it to social media automation that posts the approved captions on a schedule.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/social-media-automation",
+    "anchor": "social media automation"
+   }
+  },
+  {
+   "kind": "secondary",
+   "q": "What should content workflow software do?",
+   "ref": "content workflow software",
+   "locked": false,
+   "n": 8,
+   "a": "Content workflow software should keep every piece's brief and due date in one place, with a named owner. It should also alert the owner when a date passes and send finished work to your CMS without copy and paste. Emergent builds that software as your own app, with no task cap and every record in a database you own.",
+   "link": null
+  },
+  {
+   "kind": "secondary",
+   "q": "What goes into a content production workflow?",
+   "ref": "content production workflow",
+   "locked": false,
+   "n": 9,
+   "a": "A content production workflow covers the making of each piece up to the final checks before publishing, design work included. Strategy decides what to make and for whom. Production decides who makes it and by which date, and it is the part a board and due dates can measure.",
+   "link": null
+  },
+  {
+   "kind": "secondary",
+   "q": "What does content workflow management involve day to day?",
+   "ref": "content workflow management",
+   "locked": false,
+   "n": 10,
+   "a": "Day to day, content workflow management means checking the board for pieces past their date and moving work off overloaded writers. It also means keeping sign-off from turning into the bottleneck. When a draft needs several reviewers in order, such as legal after the editor, set up a separate content approval workflow for those pieces.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/content-approval-workflow",
+    "anchor": "content approval workflow"
+   }
+  }
+ ],
+ "faq_heading": "Content Workflow Questions, Answered",
+ "table": {
+  "vs": [
+   "Zapier",
+   "Make (Integromat)",
+   "n8n"
+  ],
+  "rows": [
+   "build",
+   "output",
+   "cap",
+   "ai",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "skeleton": {
+  "built_by": "B-w-64",
+  "built": "2026-10-14 11:25 UTC",
+  "slots": 10,
+  "flagged": 0,
+  "flag_subtypes": [],
+  "locked": 3,
+  "table": true
+ },
+ "plan": {
+  "angle": "The top 10 are DAM and CMS vendors and explainers that define the stages of a content workflow in the abstract. This page draws one article's path through a working app at a B2B software company: a brief that becomes a board item with a writer and dates, a draft 2 days late that reaches the managing editor, a finished article sent to the CMS with every field filled, and a published post that opens 3 repurposing tasks. The FAQ answers the definitions and the how-to questions searchers compare.",
+  "tab_stories": [
+   "Ines Valdivieso, a product marketer at Tallowpine, submits a brief for How to forecast churn with Finance leads as the audience and a Nov 12 publish date; the app creates item C-114 on the content board, assigns it to the writer Joaquin Ferreyra because the topic is Forecasting, and sets the draft due Oct 29.",
+   "On Oct 31 the C-114 draft is 2 days past its Oct 29 due date and still in Drafting; the app marks the item late and sends the managing editor, Halvard Brekke, a direct message with an Open item button.",
+   "Halvard marks the edited C-114 article Ready; the app sends it to the company's CMS through its API as a post scheduled for Nov 12 at 9:00 AM, with the title, slug, meta description and author filled in, and saves the CMS post ID on the item.",
+   "When the article goes live on Nov 12, the app opens 3 repurposing tasks for the social and email lead, Mireille Kantor: a newsletter summary due Nov 13 and 2 social posts due Nov 14, each linked to the live post."
+  ],
+  "openers": [
+   "Ines Valdivieso, a product marketer at Tallowpine, fills in",
+   "Joaquin Ferreyra's draft was due Oct 29",
+   "Halvard Brekke reads the final edit",
+   "The churn article goes live",
+   "List every stage a piece passes through",
+   "Describe the board the way you would",
+   "Send last month's pieces through the app"
+  ],
+  "heading_shapes": [
+   "Each brief leaves the form with a writer and due dates",
+   "When a draft misses its date, the managing editor knows",
+   "Finished articles reach the CMS with every field filled",
+   "Every live post opens repurposing tasks for the social lead"
+  ],
+  "claims_to_source": [
+   "A content workflow is a series of tasks your team performs to take your content from ideation to delivery",
+   "A content workflow is a series of steps and responsibilities a brand needs to follow to produce and publish content"
+  ]
+ },
+ "chip_adds": [
+  "Add brief intake that assigns each new brief to a writer with draft and publish dates.",
+  "Add late draft alerts that message the managing editor when a draft passes its due date.",
+  "Add CMS publishing that sends each finished article to the CMS as a scheduled post.",
+  "Add repurposing tasks that open a newsletter summary and 2 social posts per article."
+ ],
+ "claims_used": [
+  "prompt-build",
+  "api-connect",
+  "alerts",
+  "realtime",
+  "database-owned",
+  "code-export",
+  "no-caps",
+  "free-start"
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R6",
+    "title": "Brief intake",
+    "prompt": "Assign each content brief to a writer and set its draft due date",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Tallowpine content brief"
+      },
+      {
+       "type": "fields",
+       "items": [
+        [
+         "Name",
+         "Ines Valdivieso"
+        ],
+        [
+         "Title",
+         "How to forecast churn"
+        ],
+        [
+         "Topic",
+         "Forecasting"
+        ],
+        [
+         "Publish date",
+         "Nov 12"
+        ]
+       ]
+      },
+      {
+       "type": "button",
+       "label": "Submit brief",
+       "icon": "send",
+       "full": true
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "file-text",
+     "tone": "ok",
+     "title": "C-114 to Joaquin Ferreyra",
+     "chip": [
+      "Forecasting",
+      "ok"
+     ],
+     "blocks": [
+      {
+       "type": "text",
+       "text": "How to forecast churn",
+       "size": 17,
+       "color": "sub"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "live",
+         "title": "Draft due",
+         "right": "Oct 29"
+        },
+        {
+         "state": "next",
+         "title": "Publish",
+         "right": "Nov 12"
+        }
+       ]
+      },
+      {
+       "type": "meta",
+       "icon": "users",
+       "kind": "acc",
+       "text": "For finance leads"
+      }
+     ]
+    },
+    "mini": {
+     "icon": "layout-grid",
+     "kind": "ok",
+     "title": "Added to the board",
+     "sub": "Item C-114"
+    },
+    "alt": "A Tallowpine content brief for How to forecast churn becomes item C-114, assigned to the writer Joaquin Ferreyra with a draft due Oct 29 and a Nov 12 publish date.",
+    "story": [
+     {
+      "copy": "Ines Valdivieso",
+      "image": "Ines Valdivieso"
+     },
+     {
+      "copy": "How to forecast churn",
+      "image": "How to forecast churn"
+     },
+     {
+      "copy": "written for finance leads",
+      "image": "For finance leads"
+     },
+     {
+      "copy": "a Nov 12 publish date",
+      "image": "Nov 12"
+     },
+     {
+      "copy": "creates item C-114 on the content board",
+      "image": "Added to the board"
+     },
+     {
+      "copy": "assigns it to Joaquin Ferreyra",
+      "image": "C-114 to Joaquin Ferreyra"
+     },
+     {
+      "copy": "who covers Forecasting",
+      "image": "Forecasting"
+     },
+     {
+      "copy": "His draft is due Oct 29",
+      "image": "Oct 29"
+     }
+    ]
+   },
+   {
+    "recipe": "R10",
+    "title": "Late drafts",
+    "prompt": "Message the managing editor when a draft is still in Drafting past its due date",
+    "kpi": {
+     "icon": "calendar-x",
+     "label": "Draft due",
+     "value": "Oct 29",
+     "sub": "Item C-114"
+    },
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "C-114, How to forecast churn",
+       "size": 20,
+       "sub": "Joaquin Ferreyra"
+      },
+      {
+       "type": "timeline",
+       "items": [
+        {
+         "label": "Draft due Oct 29",
+         "chip": "Drafting",
+         "kind": "ok"
+        },
+        {
+         "label": "Oct 31",
+         "chip": "2 days late",
+         "kind": "bad"
+        },
+        {
+         "label": "Marked Late",
+         "chip": "Board",
+         "kind": "ok"
+        },
+        {
+         "label": "Halvard Brekke",
+         "chip": "Direct message",
+         "kind": "next",
+         "live": true
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "Direct message to Halvard Brekke",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "C-114 draft is 2 days late",
+       "size": 20,
+       "sub": "Joaquin Ferreyra, How to forecast churn"
+      },
+      {
+       "type": "chips",
+       "items": [
+        [
+         "Drafting",
+         "warn"
+        ],
+        [
+         "Late",
+         "bad"
+        ]
+       ]
+      },
+      {
+       "type": "meta",
+       "icon": "calendar",
+       "kind": "acc",
+       "text": "Due Oct 29, now Oct 31"
+      }
+     ],
+     "action": {
+      "label": "Open item",
+      "icon": "external-link"
+     }
+    },
+    "alt": "Item C-114 is still in Drafting 2 days after its Oct 29 due date, is marked Late, and reaches the managing editor as a direct message with an Open item button.",
+    "story": [
+     {
+      "copy": "due Oct 29",
+      "image": "Oct 29"
+     },
+     {
+      "copy": "On Oct 31",
+      "image": "Oct 31"
+     },
+     {
+      "copy": "2 days late",
+      "image": "C-114 draft is 2 days late"
+     },
+     {
+      "copy": "still in Drafting",
+      "image": "Drafting"
+     },
+     {
+      "copy": "marked Late on the board",
+      "image": "Marked Late"
+     },
+     {
+      "copy": "Halvard Brekke",
+      "image": "Direct message to Halvard Brekke"
+     },
+     {
+      "copy": "Joaquin Ferreyra",
+      "image": "Joaquin Ferreyra"
+     },
+     {
+      "copy": "an Open item button",
+      "image": "Open item"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "CMS publishing",
+    "prompt": "Send each article marked Ready to my CMS as a scheduled post",
+    "main": {
+     "chrome": "Content board",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "ITEM C-114",
+       "title": "How to forecast churn",
+       "size": 24,
+       "sub": "Edited by Halvard Brekke",
+       "right": "Nov 12",
+       "right_sub": "9:00 AM"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Marked Ready",
+         "sub": "Halvard Brekke"
+        },
+        {
+         "state": "done",
+         "title": "Fields filled",
+         "sub": "Title, slug, meta, author"
+        },
+        {
+         "state": "live",
+         "title": "Sent to the CMS",
+         "sub": "Through its API"
+        },
+        {
+         "state": "next",
+         "title": "Post ID saved",
+         "sub": "On C-114"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "calendar-check",
+     "tone": "ok",
+     "title": "Scheduled for Nov 12, 9:00 AM",
+     "blocks": [
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Slug",
+         "forecast-churn"
+        ],
+        [
+         "Author",
+         "Joaquin Ferreyra"
+        ],
+        [
+         "Status",
+         "Scheduled"
+        ]
+       ]
+      }
+     ]
+    },
+    "mini": {
+     "icon": "database",
+     "kind": "ok",
+     "title": "Post ID saved",
+     "sub": "On item C-114"
+    },
+    "alt": "Article C-114 is marked Ready and sent to the CMS through its API as a post scheduled for Nov 12 at 9:00 AM, with title, slug, meta description, and author filled in.",
+    "story": [
+     {
+      "copy": "marks it Ready",
+      "image": "Marked Ready"
+     },
+     {
+      "copy": "through its API",
+      "image": "Through its API"
+     },
+     {
+      "copy": "scheduled for Nov 12 at 9:00 AM",
+      "image": "Scheduled for Nov 12, 9:00 AM"
+     },
+     {
+      "copy": "the title, slug, meta description, and author filled in",
+      "image": "Title, slug, meta, author"
+     },
+     {
+      "copy": "the app saves it on C-114",
+      "image": "Post ID saved"
+     },
+     {
+      "copy": "Halvard Brekke",
+      "image": "Halvard Brekke"
+     },
+     {
+      "copy": "Tallowpine CMS",
+      "image": "Sent to the CMS"
+     }
+    ]
+   },
+   {
+    "recipe": "R9",
+    "title": "Repurposing",
+    "prompt": "Open repurposing tasks for my social and email lead when an article goes live",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Repurposing, How to forecast churn",
+       "sub": "Live Nov 12"
+      },
+      {
+       "type": "list",
+       "cards": true,
+       "row_h": 96,
+       "items": [
+        {
+         "initials": "MK",
+         "name": "Newsletter summary",
+         "sub": "Mireille Kantor",
+         "right": "Nov 13"
+        },
+        {
+         "initials": "MK",
+         "name": "Social post 1",
+         "sub": "Mireille Kantor",
+         "right": "Nov 14"
+        },
+        {
+         "initials": "MK",
+         "name": "Social post 2",
+         "sub": "Mireille Kantor",
+         "right": "Nov 14"
+        }
+       ]
+      },
+      {
+       "type": "text",
+       "text": "Due dates set from the live date",
+       "size": 16,
+       "color": "muted",
+       "align": "center"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Mireille",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "3 repurposing tasks opened",
+       "size": 20,
+       "sub": "How to forecast churn is live"
+      },
+      {
+       "type": "meta",
+       "icon": "link",
+       "kind": "acc",
+       "text": "Each linked to the live post"
+      }
+     ],
+     "action": {
+      "label": "Open tasks",
+      "icon": "list-checks"
+     }
+    },
+    "mini": {
+     "icon": "layout-grid",
+     "kind": "acc",
+     "title": "On the board",
+     "sub": "Until marked done"
+    },
+    "alt": "When How to forecast churn goes live on Nov 12, 3 repurposing tasks open for Mireille Kantor: a newsletter summary due Nov 13 and 2 social posts due Nov 14.",
+    "story": [
+     {
+      "copy": "goes live on Nov 12",
+      "image": "Live Nov 12"
+     },
+     {
+      "copy": "3 repurposing tasks",
+      "image": "3 repurposing tasks opened"
+     },
+     {
+      "copy": "Mireille Kantor",
+      "image": "Mireille Kantor"
+     },
+     {
+      "copy": "newsletter summary",
+      "image": "Newsletter summary"
+     },
+     {
+      "copy": "due Nov 13",
+      "image": "Nov 13"
+     },
+     {
+      "copy": "2 social posts",
+      "image": "Social post 2"
+     },
+     {
+      "copy": "due Nov 14",
+      "image": "Nov 14"
+     },
+     {
+      "copy": "links to the live post",
+      "image": "Each linked to the live post"
+     },
+     {
+      "copy": "stays on the board until Mireille marks it done",
+      "image": "Until marked done"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "dm": true,
+   "channel": "Halvard Brekke",
+   "title": "Draft 2 days late",
+   "sub": "How to forecast churn",
+   "primary": "Open item",
+   "secondary": "Later",
+   "icon": "file-text",
+   "alt": "Content workflow: a direct message telling the managing editor that a draft is 2 days late, with an Open item button"
+  },
+  "og": {
+   "headline": "Build a content workflow that carries each article",
+   "alt": "Build a content workflow that carries each article to publish, with Emergent"
+  }
+ },
+ "domain_sources": [
+  {
+   "claim": "A content workflow is a series of tasks your team performs to take your content from ideation to delivery",
+   "source_url": "https://blog.hubspot.com/marketing/content-workflow",
+   "date": "2026-10-14",
+   "quote": "A content workflow is a series of tasks your team performs to take your content from ideation to delivery"
+  },
+  {
+   "claim": "A content workflow is a series of steps and responsibilities a brand needs to follow to produce and publish content",
+   "source_url": "https://www.salsify.com/glossary/content-workflow-meaning",
+   "date": "2026-10-14",
+   "quote": "A content workflow is a series of steps and responsibilities a brand needs to follow to produce and publish content"
+  }
+ ],
+ "faq_sources": [
+  {
+   "q": "What is a content workflow?",
+   "source": "alsoasked",
+   "ref": "What is a content workflow?",
+   "prov": {
+    "tool": "alsoasked-api",
+    "query": "content workflow",
+    "depth": 1,
+    "parent": null,
+    "fetched": "2026-10-14",
+    "original": "What is a content workflow?",
+    "region": "us",
+    "language": "en",
+    "fallback": false
+   }
+  },
+  {
+   "q": "How do I create a content workflow?",
+   "source": "definition",
+   "ref": "content workflow"
+  },
+  {
+   "q": "What is a good workflow for content creators?",
+   "source": "alsoasked",
+   "ref": "What is a good workflow for content creators?",
+   "prov": {
+    "tool": "alsoasked-api",
+    "query": "content workflow",
+    "depth": 1,
+    "parent": null,
+    "fetched": "2026-10-14",
+    "original": "What is a good workflow for content creators?",
+    "region": "us",
+    "language": "en",
+    "fallback": false
+   }
+  },
+  {
+   "q": "How do you integrate a digital content workflow into marketing processes?",
+   "source": "keyword",
+   "ref": "how do we integrate digital content workflows into marketing processes",
+   "prov": {
+    "tool": "semrush-phrase_questions",
+    "query": "content workflow",
+    "database": "us",
+    "volume": 20,
+    "fetched": "2026-10-14"
+   }
+  },
+  {
+   "q": "What is the definition of a content workflow for a marketing team?",
+   "source": "keyword",
+   "ref": "what is a content workflow definition",
+   "prov": {
+    "tool": "semrush-phrase_questions",
+    "query": "content workflow",
+    "database": "us",
+    "volume": 20,
+    "fetched": "2026-10-14"
+   }
+  },
+  {
+   "q": "How do companies automate content workflows with AI agents?",
+   "source": "keyword",
+   "ref": "how companies automate content workflows with ai agents",
+   "prov": {
+    "tool": "semrush-phrase_questions",
+    "query": "content workflow",
+    "database": "us",
+    "volume": 10,
+    "fetched": "2026-10-14"
+   }
+  },
+  {
+   "q": "What does a content creation workflow look like for a small team?",
+   "source": "secondary",
+   "ref": "content creation workflow"
+  },
+  {
+   "q": "What should content workflow software do?",
+   "source": "secondary",
+   "ref": "content workflow software"
+  },
+  {
+   "q": "What goes into a content production workflow?",
+   "source": "secondary",
+   "ref": "content production workflow"
+  },
+  {
+   "q": "What does content workflow management involve day to day?",
+   "source": "secondary",
+   "ref": "content workflow management"
+  }
+ ],
+ "qc_passed": {
+  "rules_version": "f998a545c5c5",
+  "date": "2026-10-14 11:39 UTC"
+ },
+ "writers": [
+  "B-w-64"
+ ]
+}
