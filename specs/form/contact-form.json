@@ -192,6 +192,13 @@
    "via": "ready",
    "by": "B-w-50",
    "note": "one rework applied by B-w-50 after launch-r-b1-5 (0 findings marked blocking then, fixed per rules/SEVERITY.md); ready for Divit"
+  },
+  {
+   "t": "2026-10-14 11:34 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "A-s-19",
+   "note": "slim review: [structure | HUB_RULES 5] faq: The swapped-out Q5 carried the FAQ's link to registration-form; the FAQ now holds the hub link plus only 1 related link (intake-form in Q10), below the 2-3 K4 requires (before the swap: 2 related, after: 1). -> Add one link to a live sibling page in an exi"
   }
  ],
  "table": {
@@ -1019,6 +1026,16 @@
    "by": "A-s-5",
    "via": "slim-review",
    "date": "2026-10-13 11:14 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "faq",
+   "issue": "Q5 capitalises \"Contact Us\" while Q4 and Q6 write \"Contact us\" (verbatim AlsoAsked, so the question stays; the casing reads inconsistent across items).",
+   "fix": "Accept; or match the answer's casing to Q4/Q6 if the verbatim check allows.",
+   "by": "A-s-19",
+   "via": "slim-review",
+   "date": "2026-10-14 11:34 UTC"
   }
  ],
  "pending_links": [
@@ -1119,6 +1136,38 @@
      "severity": "blocking"
     }
    ]
+  },
+  {
+   "by": "A-s-19",
+   "date": "2026-10-14 11:34 UTC",
+   "fields": [
+    "faq"
+   ],
+   "baseline": "review_hash",
+   "blocking": 1,
+   "notes": 1,
+   "findings": [
+    {
+     "criterion": "structure",
+     "field": "faq",
+     "quote": "Can you provide an example of a \"Contact Us\" form?",
+     "fix": "Add one link to a live sibling page in an existing answer, anchored with the target's exact keyword. Suggested: quote-form in Q5 (e.g. a sentence that a visitor who wants a price first belongs on a <a href='https://emergent.sh/ai-form-builder/quote-form'>quote form</a>), or lead-capture-form in Q9 (the small-business answer). Both are published in status/form.json.",
+     "class": "structure",
+     "rule": "HUB_RULES 5 (FAQ links, QC K4: 2-3 related links); DECISIONS ruling 18 step 3 (slim review, lost link check)",
+     "issue": "The swapped-out Q5 carried the FAQ's link to registration-form; the FAQ now holds the hub link plus only 1 related link (intake-form in Q10), below the 2-3 K4 requires (before the swap: 2 related, after: 1).",
+     "severity": "blocking"
+    },
+    {
+     "criterion": "voice",
+     "field": "faq",
+     "quote": "Can you provide an example of a \"Contact Us\" form?",
+     "fix": "Accept; or match the answer's casing to Q4/Q6 if the verbatim check allows.",
+     "class": "craft",
+     "rule": "HUB_RULES 2a",
+     "issue": "Q5 capitalises \"Contact Us\" while Q4 and Q6 write \"Contact us\" (verbatim AlsoAsked, so the question stays; the casing reads inconsistent across items).",
+     "severity": "note"
+    }
+   ]
   }
  ],
  "review_hash": {
@@ -1198,7 +1247,7 @@
    "breadcrumb": "5641d7b645e1e02d",
    "chip_adds": "1c4963e363aee3ed",
    "explore_cta": "2f5db15ae2535c88",
-   "faq": "be38942978afe44f",
+   "faq": "927ab0264bbcc07e",
    "feature_1": "a5cebb345c5cebf9",
    "feature_2": "71b925176eb85448",
    "feature_3": "79d919826833fd54",
@@ -1248,7 +1297,7 @@
    "why_table": "c8cdbb0e9d5de7a3",
    "why_title": "5153c96a8d54e9de"
   },
-  "all": "6ab81d1af970c009",
+  "all": "eba97104a87dcb6b",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  }
 }

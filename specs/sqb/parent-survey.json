@@ -143,6 +143,13 @@
    "via": "ready",
    "by": "B-w-57",
    "note": "one rework applied by B-w-57 after A-r-19 (0 findings marked blocking then, fixed per rules/SEVERITY.md); ready for Divit"
+  },
+  {
+   "t": "2026-10-14 11:34 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "A-s-19",
+   "note": "slim review: [truth | HUB_RULES 8] domain_sources: Orphaned by the swap: old Q9 (translation trivia) was the only field citing pylusd.org; no field mentions the district, Encuesta or Tutores now. -> Remove the domain_sources entry https://pylusd.org/apps/news/article/1717906 and its plan.claims_to_s"
   }
  ],
  "pipeline": "r15",
@@ -1319,7 +1326,7 @@
    "breadcrumb": "f300a04fa45d79cd",
    "chip_adds": "175757f61e2baef0",
    "explore_cta": "80a7f61f9bf61f86",
-   "faq": "c1bb02823de44808",
+   "faq": "05a7327835b18870",
    "feature_1": "e2eecd55f44ad3c7",
    "feature_2": "5a48618f32928a94",
    "feature_3": "d9651ab0d01780f1",
@@ -1369,7 +1376,7 @@
    "why_table": "e4e52b0eef073f20",
    "why_title": "1cfb2cd811660b0f"
   },
-  "all": "9f42bb6c0dd6eea3",
+  "all": "6ceb137d199100b2",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  },
  "slim_reviews": [
@@ -1397,6 +1404,48 @@
      "fix": "swap for a question from the page's passing set (paa_gate pass, new ruling-18 checks), answer-first; if the page cannot reach 10, re-park with the draft kept",
      "rule": "DECISIONS ruling 18 (Divit 2026-10-14) step 3",
      "issue": "Q9: translation trivia",
+     "severity": "blocking"
+    }
+   ]
+  },
+  {
+   "by": "A-s-19",
+   "date": "2026-10-14 11:34 UTC",
+   "fields": [
+    "faq"
+   ],
+   "baseline": "review_hash",
+   "blocking": 3,
+   "notes": 0,
+   "findings": [
+    {
+     "criterion": "truth",
+     "field": "domain_sources",
+     "quote": "A California school district titled the Spanish version of its 2023 parent survey Encuesta para Padres y Tutores",
+     "fix": "Remove the domain_sources entry https://pylusd.org/apps/news/article/1717906 and its plan.claims_to_source line.",
+     "class": "structure",
+     "rule": "HUB_RULES 8 (domain sources); DECISIONS ruling 18 step 3 (slim review, orphaned sources)",
+     "issue": "Orphaned by the swap: old Q9 (translation trivia) was the only field citing pylusd.org; no field mentions the district, Encuesta or Tutores now.",
+     "severity": "blocking"
+    },
+    {
+     "criterion": "structure",
+     "field": "faq",
+     "quote": "How do you write a parent survey question about how often you talk to your parents?",
+     "fix": "Add one link to a live sibling page in an existing answer, anchored with its exact keyword: post-event-survey in Q6 (the conference follow-up sent the evening after parent-teacher conferences is a post-event survey), or volunteer-survey / needs-assessment-survey in Q5. All published in status/sqb.json.",
+     "class": "structure",
+     "rule": "HUB_RULES 5 (FAQ links, QC K4); DECISIONS ruling 18 step 3 (slim review, lost link check)",
+     "issue": "Old Q7 carried the link to brand-perception-survey; related links fell from 3 to 2 (church-survey in Q4, customer-feedback-survey in Q10).",
+     "severity": "blocking"
+    },
+    {
+     "criterion": "intent",
+     "field": "faq",
+     "quote": "How do you write a parent survey question about how often you talk to your parents?",
+     "fix": "Swap Q7 from the next code-built skeleton slot (verbatim, gate-passing, on the families-surveyed sense); if none passes, re-park per ruling 18 step 3.",
+     "class": "missing-intent",
+     "rule": "DECISIONS ruling 18 (flags judged per page; off-sense removed); HUB_RULES 5 (FAQ: a question a searcher of this keyword asks, never drifting or forced keywords)",
+     "issue": "New Q7 (flagged PA6) is off-sense: the source keyword 'how often do you talk to your parents survey question' is a question put to students about their parents, not a survey of parents; B's reword forces 'parent survey' into it, and the asker ('you talk to your parents' inside a parent survey) is unclear. Same class as the off-sense questions Divit swapped under ruling 18.",
      "severity": "blocking"
     }
    ]

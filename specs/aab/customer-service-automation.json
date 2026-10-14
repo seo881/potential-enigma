@@ -143,6 +143,13 @@
    "via": "ready",
    "by": "B-w-55",
    "note": "one rework applied by B-w-55 after A-r-5 (0 findings marked blocking then, fixed per rules/SEVERITY.md); ready for Divit"
+  },
+  {
+   "t": "2026-10-14 11:34 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "A-s-19",
+   "note": "slim review: [structure | HUB_RULES 5] faq: Old Q7 carried the link to incident-response-automation; related links fell from 3 to 2 (task-automation in Q4, social-media-automation in Q10). -> Add one link to a live sibling page in an existing answer, anchored with its exact keyword: ecommerce-automa"
   }
  ],
  "pipeline": "r15",
@@ -1237,7 +1244,7 @@
    "breadcrumb": "fd5cbc38cc9c96cc",
    "chip_adds": "4ca3b01c98ce87f3",
    "explore_cta": "d5d2c71ac744f96a",
-   "faq": "22c3516289562d53",
+   "faq": "5c16c463bd39a5aa",
    "feature_1": "55254c11a8ca6dd7",
    "feature_2": "4bdd2e3c6e83b92c",
    "feature_3": "1ce2ada561072aea",
@@ -1287,7 +1294,7 @@
    "why_table": "f3261a7513a4d087",
    "why_title": "cbb5c28397366fbb"
   },
-  "all": "0884710288a34aba",
+  "all": "a20790e44632127c",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  },
  "slim_reviews": [
@@ -1306,6 +1313,38 @@
      "fix": "swap for a question from the page's passing set (paa_gate pass, new ruling-18 checks), answer-first; if the page cannot reach 10, re-park with the draft kept",
      "rule": "DECISIONS ruling 18 (Divit 2026-10-14) step 3",
      "issue": "Q7: gate reject",
+     "severity": "blocking"
+    }
+   ]
+  },
+  {
+   "by": "A-s-19",
+   "date": "2026-10-14 11:34 UTC",
+   "fields": [
+    "faq"
+   ],
+   "baseline": "review_hash",
+   "blocking": 2,
+   "notes": 0,
+   "findings": [
+    {
+     "criterion": "structure",
+     "field": "faq",
+     "quote": "Which platforms have customer service automation templates?",
+     "fix": "Add one link to a live sibling page in an existing answer, anchored with its exact keyword: ecommerce-automation in Q5 (refunds held for approval, the store side) or Q8 (third message about one order); alternative incident-response-automation in Q9 (what happens when ticket volume doubles vs an outage). Both are published in status/aab.json.",
+     "class": "structure",
+     "rule": "HUB_RULES 5 (FAQ links, QC K4); DECISIONS ruling 18 step 3 (slim review, lost link check)",
+     "issue": "Old Q7 carried the link to incident-response-automation; related links fell from 3 to 2 (task-automation in Q4, social-media-automation in Q10).",
+     "severity": "blocking"
+    },
+    {
+     "criterion": "intent",
+     "field": "faq",
+     "quote": "Which platforms have customer service automation templates?",
+     "fix": "Swap Q7 from the next code-built skeleton slot that does not ask for platforms or vendors; drop the Zendesk and Zapier domain_sources entries with it.",
+     "class": "missing-intent",
+     "rule": "DECISIONS ruling 18 step 3 (compensation-survey Q10 removed: invites vendor names); HUB_RULES 5 (FAQ)",
+     "issue": "The replacement Q7 is the class Divit removed from compensation-survey Q10: a question that asks for vendors and is answered with them (\"Zendesk and Zapier both offer them\"). Zapier is also a column of this page's own why_table, so the FAQ points the reader to a competitor's templates.",
      "severity": "blocking"
     }
    ]

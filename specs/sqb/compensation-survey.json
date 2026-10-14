@@ -148,6 +148,13 @@
    "via": "ready",
    "by": "B-w-56",
    "note": "one rework applied by B-w-56 after A-r-18 (0 findings marked blocking then, fixed per rules/SEVERITY.md); ready for Divit"
+  },
+  {
+   "t": "2026-10-14 11:34 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "A-s-19",
+   "note": "slim review: [truth | HUB_RULES 8] domain_sources: Three domain_sources entries are cited by no field after old Q10 (vendor names) was swapped out: the BLS NCS entry, the Pearl Meyer 80-positions entry, and the Mercer 'annual increase budgets, structure adjustments and incentive usage' entry. (The o"
   }
  ],
  "pipeline": "r15",
@@ -1381,6 +1388,16 @@
    "by": "A-r-18",
    "via": "review",
    "date": "2026-10-13 23:54 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "New Q10 states method as fact (peer group first, one effective date, each firm counted once per median); it reads as a recommendation and has no source.",
+   "fix": "Accept as advice.",
+   "by": "A-s-19",
+   "via": "slim-review",
+   "date": "2026-10-14 11:34 UTC"
   }
  ],
  "review_hash": {
@@ -1460,7 +1477,7 @@
    "breadcrumb": "5df4a2afa34d0f34",
    "chip_adds": "159a56efc725ba08",
    "explore_cta": "463d1fef1d33a555",
-   "faq": "11a9a02e8655fc93",
+   "faq": "2ec2d478421b8a87",
    "feature_1": "021e827716f67f2d",
    "feature_2": "ad6b43fd759c8d22",
    "feature_3": "0a25b7710981f90b",
@@ -1510,7 +1527,7 @@
    "why_table": "e4e52b0eef073f20",
    "why_title": "d2d2af8042255435"
   },
-  "all": "092b6823718fccbb",
+  "all": "71eff30a505e9bb2",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  },
  "slim_reviews": [
@@ -1530,6 +1547,48 @@
      "rule": "DECISIONS ruling 18 (Divit 2026-10-14) step 3",
      "issue": "Q10: invites vendor names",
      "severity": "blocking"
+    }
+   ]
+  },
+  {
+   "by": "A-s-19",
+   "date": "2026-10-14 11:34 UTC",
+   "fields": [
+    "faq"
+   ],
+   "baseline": "review_hash",
+   "blocking": 2,
+   "notes": 1,
+   "findings": [
+    {
+     "criterion": "truth",
+     "field": "domain_sources",
+     "quote": "The National Compensation Survey is conducted by the Bureau of Labor Statistics to collect data on wages and benefits",
+     "fix": "Remove these three entries (and their plan.claims_to_source lines): https://www.bls.gov/respondents/ncs/ ; https://pearlmeyer.com/salary-surveys/salary-survey-portfolio/multi-industry/executive-compensation-survey ; the imercer.com/us-compensation-planning-survey entry whose claim is 'covers annual increase budgets, structure adjustments and incentive usage'.",
+     "class": "structure",
+     "rule": "HUB_RULES 8 (domain sources); DECISIONS ruling 18 step 3 (slim review, orphaned sources)",
+     "issue": "Three domain_sources entries are cited by no field after old Q10 (vendor names) was swapped out: the BLS NCS entry, the Pearl Meyer 80-positions entry, and the Mercer 'annual increase budgets, structure adjustments and incentive usage' entry. (The other Mercer entry, results free to participants, is still cited in howto_step_6_des and stays.)",
+     "severity": "blocking"
+    },
+    {
+     "criterion": "structure",
+     "field": "faq",
+     "quote": "How are compensation surveys formulated?",
+     "fix": "Add one link to a live sibling page in an existing answer, anchored with its exact keyword: employee-satisfaction-survey in Q6 (after 'ask staff whether they understand how pay is set and whether they find it fair') or in Q8 (the internal-survey example); alternative pulse-survey in Q9. Both are published in status/sqb.json.",
+     "class": "structure",
+     "rule": "HUB_RULES 5 (FAQ links, QC K4); DECISIONS ruling 18 step 3 (slim review, lost link check)",
+     "issue": "Old Q10 carried the link to 360-survey; related links fell from 3 to 2 (employee-engagement-survey in Q4, exit-survey in Q7).",
+     "severity": "blocking"
+    },
+    {
+     "criterion": "truth",
+     "field": "faq",
+     "quote": "Compensation surveys are formulated by fixing the peer group first and the questions second.",
+     "fix": "Accept as advice.",
+     "class": "unsourced-advice",
+     "rule": "HUB_RULES 8",
+     "issue": "New Q10 states method as fact (peer group first, one effective date, each firm counted once per median); it reads as a recommendation and has no source.",
+     "severity": "note"
     }
    ]
   }
