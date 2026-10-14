@@ -2,6 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-10-14 · [1656-account-b-ruling18-swaps](2026-10-14/1656-account-b-ruling18-swaps.md) · B: ruling-18 swaps: 7 reviewed, 13 left for A to re-park (no code-built slot, off-sense candidate or source reject) · 076541ef
 - 2026-10-14 · [0600-overnight-r15-canary-loop](2026-10-14/0600-overnight-r15-canary-loop.md) · canary PASS 3/3; overnight loop 01:07; 27 reviewed (36% blocking at first review, all reworked once); writable non-quiz supply 0; 144 now, ≈300 reachable by 10-27, 500 not on this plan; audit 60/60 no P0; Semrush 888,480 (12.2%) · 772da223
 - 2026-10-13 · [1321-account-b-ruling12-split-writes](2026-10-13/1321-account-b-ruling12-split-writes.md) · Account B: 13 pilot pages split-written (all but FAQ, waiting on synonyms), content-approval-workflow to images, hotel-booking + model-release reworks reviewed, employee-handbook blocked by H2/K8 spelling · e00703d6
 - 2026-10-13 · [1445-batch3-live-relink](2026-10-13/1445-batch3-live-relink.md) · Batch 3 live by item publish (60 live), verify-live 20/20, relink 16 (16/16), live audit tail hit a network drop (URLs 200 now, re-run pending), FTC 404 is bot-blocking; no site publish · c6c4a871
