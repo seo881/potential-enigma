@@ -21,17 +21,20 @@ def is_quiz(u): return "quiz" in u.rsplit("/", 1)[1]
 def quiz_ok():
     try: return json.load(open(QUIZ_CANARY)).get("result") == "pass"
     except (OSError, ValueError): return False
+def quiz_canary_pages():
+    try: return set(json.load(open(QUIZ_CANARY)).get("canary_pages") or [])
+    except (OSError, ValueError): return set()
 
 def work():
     st = {u: e for h in H.CFG["hubs"] for u, e in H.load_st(h)["pages"].items()}
-    ok = lambda u, e: not held_by_a(e) and (quiz_ok() or not is_quiz(u))
+    ok = lambda u, e: not held_by_a(e) and (quiz_ok() or not is_quiz(u) or u in quiz_canary_pages())
     rework = [u for u, e in st.items() if e.get("state") == "rework" and ok(u, e)]
     inflight = [u for u, e in st.items() if e.get("state") in ("claimed", "spec") and ok(u, e)
                 and ((e.get("by") or "").startswith("B-") or (e.get("hold") and H.hold_account(e["hold"]) == "B"))]
     render = [u for u, e in st.items() if e.get("state") == "qc_pass" and ok(u, e)]
     review = [u for u, e in st.items() if e.get("state") == "images" and ok(u, e)]
     import queue_rank as Q
-    claim = [u for _r, _h, u, c, _f in (Q.ranked() or []) if c in ("ready", "syn-pending") and u not in st and (quiz_ok() or not is_quiz(u))]
+    claim = [u for _r, _h, u, c, _f in (Q.ranked() or []) if c in ("ready", "syn-pending") and u not in st and (quiz_ok() or not is_quiz(u) or u in quiz_canary_pages())]
     return [("1 reworks first (blocking findings only; one rework per page)", rework), ("2 in-flight B pages to finish", inflight),
             ("3 render images", render), ("4 full review by an independent B-r agent (never a page it wrote)", review),
             ("5 claim from the top of plan/queue-ranked.txt (all 4 hubs)", claim)]
