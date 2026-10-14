@@ -3,6 +3,15 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-14
+- **Standing rule (Divit, 2026-10-14, after a teammate's site publish shipped everything staged): on this shared site, never leave anything staged that is not production-safe at that moment; a teammate publish can ship it any time.**
+  - Every staged template change must be safe to go live as it stands; anything unverified stays out of the staged state entirely.
+  - On 2026-10-14 the site was published at 08:11, 10:01 and 11:18 UTC; none of these was ours. The staged card links (404) and the Learn and carousel sections went live, giving 10 P0 and 8 new P1 console errors.
+  - P0 order:
+    1. Card links by `data_element_tool set_link` (linkType page, template page IDs), read back, with designer_tool confirmation; then a staging publish and a check of every carousel and Learn card href.
+    2. If they are all right: production publish (Divit). If not: hide the SurveyQuiz Learn section (before-value committed) and publish to production.
+    3. The quiz embed and the console-error fix ship only once each is verified safe on staging; until then they stay out of the staged state.
+    4. Hourly publish watch: any publish that is not ours runs the live audit at once and alerts Divit.
+    5. Then the full live audit (125 pages and 4 hubs), and a verify-live upgrade that checks every internal href, template links included.
 - **Ruling 20 (Divit, 2026-10-14): rebalance to B.** At the time of the ruling, A had used 65% of its weekly budget and B 12%.
   1. **B writes all 4 hubs, LP included.**
      - `.hub` is `B:LP,Form,Auto,SurveyQuiz` in B's clone and `A:none` in A's.

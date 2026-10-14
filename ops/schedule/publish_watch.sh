@@ -16,6 +16,7 @@ NOW="$(curl -s --max-time 30 "https://emergent.sh/?pw=$(date +%s)" | grep -o 'La
 LAST="$(cat "$STAMP" 2>/dev/null)"
 if [ "$NOW" != "$LAST" ]; then
   echo "$(date '+%F %T') publish-watch: site published ($LAST -> $NOW); smoke check now" >> "$LOG"
+  osascript -e "display notification \"Site published (${NOW#Last Published: }); not by Claude. Smoke check and live audit running now.\" with title \"emergent.sh site publish\"" >/dev/null 2>&1   # Divit 2026-10-14: tell him on every publish
   if [ "$(cat "$ALERTED" 2>/dev/null)" != "$NOW" ]; then
     SMOKE="$("$REPO/.venv/bin/python3" "$REPO/ops/publish_smoke.py" 2>&1)"; RC=$?
     if [ $RC -ne 0 ]; then
