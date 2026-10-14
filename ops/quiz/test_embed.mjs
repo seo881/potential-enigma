@@ -16,10 +16,13 @@ const OUT = path.join(ROOT, ".cache", "quiz");
 const fx = (n) => JSON.parse(fs.readFileSync(path.join(ROOT, "ops", "quiz", "fixtures", `${n}.json`), "utf8"));
 const FX = { knowledge: fx("knowledge"), matching: fx("matching") };
 let fails = 0, passes = 0;
-const ok = (cond, msg) => { if (cond) passes++; else { fails++; console.log("FAIL " + msg); } };
+// failures are also kept in failLog so ops/staging_check.mjs (the live playthrough on staging) can import these checks
+export const failLog = [];
+const ok = (cond, msg) => { if (cond) passes++; else { fails++; failLog.push(msg); console.log("FAIL " + msg); } };
+export const tally = () => ({ passes, fails });
 
 // independent expectation (not the embed's code): knowledge = band of the correct count; matching = most picks, first listed on a tie
-function expected(q, ans) {
+export function expected(q, ans) {
   if (q.type === "knowledge") {
     const pts = ans.filter((a, i) => q.questions[i].options[a].correct === true).length;
     return { key: q.results.find((r) => pts >= r.min && pts <= r.max).key, pts };
@@ -29,7 +32,7 @@ function expected(q, ans) {
   return { key: best, pts: t[best] || 0 };
 }
 // answer paths: one per result (the band minimum, or every pick on that result where offered) plus option sweeps (option j everywhere)
-function paths(q) {
+export function paths(q) {
   const out = [];
   for (const r of q.results) {
     if (q.type === "knowledge") {
@@ -57,8 +60,8 @@ async function open(browser, name, width, opts = {}) {
 }
 const active = (page) => page.evaluate(() => { const a = document.activeElement; return a ? (a.className || a.tagName) + "|" + (a.textContent || "").slice(0, 80) : ""; });
 
-async function startQuiz(page) { await page.click(".emgq .emgq-primary"); }
-async function answer(page, idx, q, i, label) {
+export async function startQuiz(page) { await page.click(".emgq .emgq-primary"); }
+export async function answer(page, idx, q, i, label) {
   const N = q.questions.length;
   ok(await page.textContent(".emgq-count") === `Question ${i + 1} of ${N}`, `${label}: count text q${i + 1}`);
   const bar = await page.$eval(".emgq-bar", (b) => [b.getAttribute("role"), b.getAttribute("aria-valuenow"), b.getAttribute("aria-valuemax"), b.getAttribute("aria-valuemin")]);
@@ -68,7 +71,7 @@ async function answer(page, idx, q, i, label) {
   await page.click(`.emgq-opt:nth-child(${idx + 1})`);
   await page.click(".emgq-primary");
 }
-async function checkResult(page, q, ans, label) {
+export async function checkResult(page, q, ans, label) {
   const exp = expected(q, ans), R = q.results.find((r) => r.key === exp.key);
   ok(await page.textContent(".emgq-title") === R.title, `${label}: result ${exp.key} (got "${await page.textContent(".emgq-title")}")`);
   ok(await page.textContent(".emgq-card .emgq-text") === R.description, `${label}: result description`);
@@ -80,7 +83,7 @@ async function checkResult(page, q, ans, label) {
   return exp.key;
 }
 
-async function layout(page, width, label) {
+export async function layout(page, width, label) {
   const m = await page.evaluate(() => {
     const opts = [...document.querySelectorAll(".emgq-opt, .emgq-btn")].map((e) => e.getBoundingClientRect());
     return { sw: document.documentElement.scrollWidth, minH: Math.min(...opts.map((r) => r.height)), maxR: Math.max(...opts.map((r) => r.right)), minL: Math.min(...opts.map((r) => r.left)) };
@@ -90,7 +93,7 @@ async function layout(page, width, label) {
   ok(m.maxR <= width && m.minL >= 0, `${label}: controls inside the viewport`);
 }
 
-async function a11y(page, label) {
+export async function a11y(page, label) {
   const r = await page.evaluate(() => {
     const radios = [...document.querySelectorAll(".emgq-radio")];
     const labelled = radios.every((x) => x.labels && x.labels.length === 1 && x.labels[0].textContent.trim());
@@ -251,4 +254,5 @@ async function run() {
   console.log(`quiz embed: ${passes} checks passed, ${fails} failed; screenshots: ${shotList.map((p) => path.relative(ROOT, p)).join(", ")}`);
   process.exit(fails ? 1 : 0);
 }
-run().catch((e) => { console.error(e); process.exit(2); });
+import { fileURLToPath } from "node:url";
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) run().catch((e) => { console.error(e); process.exit(2); });

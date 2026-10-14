@@ -168,6 +168,26 @@
   "IntersectionObserver is not defined"
  ],
  "_note_console": "console_ignore: console messages from the site's own scripts and jsdom gaps that are not ours (verify_launch 'no console errors' ignores them); anything else is a failure.",
+ "console_ignore_sources": [
+  {
+   "name": "clarity.js",
+   "src": "^https?://([a-z0-9-]+\\.)*clarity\\.ms/([^?#]*/)?clarity(\\.min)?\\.js([?#]|$)"
+  },
+  {
+   "name": "gtm-clarity-loader",
+   "src": "^https?://www\\.clarity\\.ms/tag/"
+  },
+  {
+   "name": "gtm-clarity-loader",
+   "src": "^https?://www\\.googletagmanager\\.com/gtm\\.js",
+   "stack_any": "^https?://([a-z0-9-]+\\.)*clarity\\.ms/"
+  },
+  {
+   "name": "adwire",
+   "src": "^https://client\\.adwire\\.io/clarity/molecule\\.js([?#]|$)"
+  }
+ ],
+ "_note_console_ignore_sources": "console_ignore_sources (Divit 2026-10-14, narrow exception): a console error or page error is ignored only when its SOURCE (the reporting script URL or the top stack frame, captured through CDP by ops/console_capture.mjs) matches `src`, and, where given, some stack frame matches `stack_any`: Microsoft Clarity's clarity.js (any version), the Clarity loader GTM injects (its www.clarity.ms/tag/ script, or GTM's inline code with a clarity.ms frame in the stack) and Adwire's molecule.js. Never matched on message text. Every ignored error is listed on every run (ops/console_filter.py). ops/staging_check.py applies only this exception; any other console error fails.",
  "social_ok": {
   "domains": ["instagram.com", "x.com", "twitter.com", "linkedin.com", "facebook.com", "fb.com", "youtube.com", "youtu.be", "tiktok.com"],
   "statuses": [429, 999]

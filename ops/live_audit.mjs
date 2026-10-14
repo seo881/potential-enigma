@@ -12,6 +12,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { createRequire } from "node:module";
 import { checkPage, checkHub, setBase, status, ogWebp } from "./verify_launch.mjs";
+import { captureErrors } from "./console_capture.mjs";
 const require = createRequire(import.meta.url);
 const { chromium } = require("playwright");
 
@@ -45,7 +46,8 @@ async function render(url, slug) {
   for (const [w, h] of [[1440, 900], [390, 844]]) {
     const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 1 });
     const pg = await ctx.newPage(); let resp = null; const perr = [];
-    pg.on("pageerror", (e) => perr.push(String(e).slice(0, 200))); pg.on("console", (m) => { if (m.type() === "error") perr.push(m.text().slice(0, 200)); });
+    // errors with their source (script URL, stack) through CDP: Divit's 2026-10-14 console exception is source-based (ops/console_filter.py)
+    await captureErrors(ctx, pg, perr);
     for (let a = 0; a < 3 && !resp; a++) {   // a navigation error is retried twice before it counts
       try { resp = await pg.goto(url, { waitUntil: "load", timeout: 60000 }); } catch (e) { out.error = String(e).slice(0, 200); await pg.waitForTimeout(3000 * (a + 1)); }
     }

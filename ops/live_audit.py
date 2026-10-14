@@ -126,9 +126,11 @@ def field_of(m, snippet):
 
 TEMPLATE_P0 = {"A9-carousel-shown", "A5-learn"}   # sections Divit hid (carousel everywhere, Learn on Form/LP/AAB); shown = template regression
 
+CONSOLE_EXCEPTIONS = []   # filled by evaluate(); printed on every run (Divit 2026-10-14)
 def evaluate(raw, man, base):
     """Findings for every page and hub: dicts with id, url, field, severity, code, rule, msg, snippet, fix kind."""
     by = {p["url"]: p for p in man["pages"]}; F = []; staging = base.rstrip("/") != CANON
+    console_exceptions = CONSOLE_EXCEPTIONS; console_exceptions.clear()   # (url, name, error) ignored by Divit's 2026-10-14 exception
     def add(url, code, sev, msg, field=None, snippet="", fix="proposed", **kw):
         F.append({"url": url, "field": field, "severity": sev, "code": code, "msg": msg, "snippet": (snippet or "")[:160], "fix": fix, "layer": "A", **kw})
     for r in raw["pages"]:
@@ -200,7 +202,12 @@ def evaluate(raw, man, base):
                                   ("learn_not_empty", "A5-learn", 'Learn section shows "No items found"', "template")):
             # a template section in the wrong state shows on every page of the hub: P0 (Divit 2026-10-12, 10:05 UTC publish went unnoticed as P1)
             if not c.get(k, True): add(url, code, "P0" if code in TEMPLATE_P0 else "P1", msg, field=fld, fix="proposed")
-        ign = CONF.get("console_ignore", []); ce = [e for e in R.get("console_errors") or [] if not any(s in e for s in ign)]
+        # Divit's 2026-10-14 exception first (source-based: clarity.js, the GTM Clarity loader, Adwire molecule.js; ops/console_filter.py),
+        # then the older text list of site noise; errors are {t, src, stack} from ops/console_capture.mjs (plain strings from older runs)
+        import console_filter as CF
+        ce, cign = CF.split(R.get("console_errors") or [])
+        ign = CONF.get("console_ignore", []); ce = [CF.text(e) for e in ce if not any(s in CF.text(e) for s in ign)]
+        if cign: console_exceptions.extend((url, n, e) for n, e in cign)
         if ce: add(url, "A9-console", "P1", f"{len(ce)} console error(s) in Chromium: {ce[0][:120]}", field="template", fix="proposed")
         # JSON-LD: parses; FAQPage matches the visible FAQ word for word
         faqs = []
@@ -321,7 +328,8 @@ def cmd_run(args):
     needB = [u for u in urls if st["pages"].get(u, {}).get("layer_b_hash") != hashes.get(u) or any(f["url"] == u and f["severity"] in ("P0", "P1") for f in F)]
     briefs = write_layer_b(date, needB, base)
     doc = {"date": date, "base": base, "dry": dry, "pages": urls, "hubs": hubs, "findings": F, "layer_b_needed": needB, "layer_b_briefs": briefs,
-           "hashes": hashes, "raw": os.path.relpath(rawp, ROOT), "started": now()}
+           "hashes": hashes, "raw": os.path.relpath(rawp, ROOT), "started": now(),
+           "console_exceptions": [{"url": u, "name": n, "t": e.get("t", ""), "src": e.get("src", "")} for u, n, e in CONSOLE_EXCEPTIONS]}
     jsave(findings_path(date), doc)
     plan(date)
     if not dry:
@@ -329,6 +337,10 @@ def cmd_run(args):
         jsave(STATE, st); golden_from(F, date)
     d = json.load(open(findings_path(date)))
     print(digest(d))
+    import console_filter as CF   # Divit 2026-10-14: the console exception is printed on every run, with each ignored error
+    n_ce = sum(1 for f in F if f["code"] == "A9-console")
+    print(f"\nconsole: {n_ce} page(s) with counted console errors (A9-console)" + CF.exception_tail([(n, e) for _u, n, e in CONSOLE_EXCEPTIONS]))
+    for l in CF.ignored_lines(CONSOLE_EXCEPTIONS[:50]): print("  " + l)
     print(f"\nfindings: {os.path.relpath(findings_path(date), ROOT)}; Layer B batches: {len(briefs)} ({', '.join(os.path.relpath(b, ROOT) for b in briefs)})")
     print("Next: spawn one reviewer per Layer B batch, then `hubctl live-audit record DATE FILE` for each; `hubctl live-audit drift DATE READBACK` "
           "for drift-check findings; then the fixes (`live-fix prepare/verify`) unless --dry; then `hubctl live-audit report DATE`.")
@@ -647,6 +659,15 @@ def ledger_sync():
         rows.append("| " + " | ".join(str(r[k]).replace("|", "/") for k in ("id", "date", "url", "field", "severity", "rule", "desc", "commit", "item", "published", "verified", "rollback", "status")) + " |")
     open(LEDGER_MD, "w").write("\n".join(rows) + "\n")
 
+def console_line(d):
+    """Divit 2026-10-14: every report states the console exception and what it ignored."""
+    import console_filter as CF
+    ex = d.get("console_exceptions") or []
+    return f"console: {sum(1 for f in d['findings'] if f['code'] == 'A9-console')} page(s) with counted console errors (A9-console)" + CF.exception_tail([(x["name"], x) for x in ex])
+def console_ignored(d):
+    import console_filter as CF
+    return ["  " + l for l in CF.ignored_lines([(x["url"], x["name"], x) for x in (d.get("console_exceptions") or [])[:50]])]
+
 def cmd_report(args):
     date = args[0]; d = json.load(open(findings_path(date))); F = d["findings"]
     for u in sorted({f["url"] for f in F}):
@@ -670,7 +691,8 @@ def cmd_report(args):
         L += [f"### {title} ({len(rows)})", ""] + [f"- {f['severity']} {f['url']} `{f['field']}` {f['code']}: {f['msg']}{' [' + f['status'] + ']' if f.get('status') else ''}" for f in rows[:80]] + [""]
     L += ["## Request", "", "Scheduled or requested live audit per docs/LIVE_AUDIT.md (DECISIONS 2026-10-09).", "",
           "## Actions and results", "", f"- Layer A on {len(d['pages'])} pages and {len(d['hubs'])} hubs at {d['base']}; Layer B batches: {len(d.get('layer_b_briefs') or [])}; recorded: {len(d.get('layer_b_recorded') or [])}.",
-          f"- Findings: `audits/live/{date}/findings.json`; per-page files `audits/live/{date}/<slug>.md`; ledger `audits/live/LEDGER.md`.", "",
+          f"- Findings: `audits/live/{date}/findings.json`; per-page files `audits/live/{date}/<slug>.md`; ledger `audits/live/LEDGER.md`.",
+          "- " + console_line(d), ""] + console_ignored(d) + ["",
           "## Webflow calls", "", "- " + ("none (dry run)" if d.get("dry") else "see the ledger rows for this date (update and item publish per fix, read back)"), "",
           "## Not done", "", "- Proposals and drift wait for Divit.", "", "## Open questions for Divit", "", "- Each proposal above has a recommended fix in its per-page file."]
     open(rp, "w").write("\n".join(L) + "\n"); print(rp); print(digest(d))
