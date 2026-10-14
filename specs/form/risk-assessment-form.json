@@ -129,6 +129,13 @@
    "via": null,
    "by": "B-w-79",
    "note": ""
+  },
+  {
+   "t": "2026-10-14 14:52 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-12",
+   "note": "rubric 10/10 by B-r-12; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -1133,5 +1140,265 @@
  },
  "writers": [
   "B-w-79"
- ]
+ ],
+ "review": {
+  "by": "B-r-12",
+  "date": "2026-10-14 14:52 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Risk Assessment Form That Scores Every Hazard'; hero 'Get a risk assessment form anyone can fill in on a phone, with each record saved to a database you own.' (101 chars); how-to description one sentence on scoring hazards and routing high scores."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is HSE/Smartsheet templates and examples; page gives the HSE template route (FAQ 3), a worked example row 'pallets stacked above the aisle ... a score of 12' (FAQ 5), a sample's contents (FAQ 8) and a 7-step how-to grounded in HSE's minimum."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Likelihood x severity 1-25 scoring, 'blocked fire exit by dock 3 at likelihood 4 and severity 5, a score of 20', home-visit risk checks, scanned lab assessments."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs: 'Rates each hazard', 'Walks the assessor', 'Captures the assessor's e-signature', 'Sends a Slack, email, or in-app alert'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft class exists; link-carrier FAQ endings recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain, specific prose: 'Three have a value read at low confidence, and lab technician Saul Mendel checks those 3 by hand.' Voice items are notes."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "claims_used ids all approved (prompt-build, database-owned, conversational, alerts, ai-extraction, e-signature-capture, no-caps, api-connect). HSE MHSWR 1999 minimum verified against hse.gov.uk ('Under the Management of Health and Safety at Work Regulations 1999, the minimum you must do is'); HSE template fields, formats and worked examples, CDC TB baseline/serial/annual education, 42 CFR 410.15 20 minutes and topics, ADA 0-6 / over 6 forms each match a quoted span. Table generated from library."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Hazard-scoring angle with four distinct tabs (warehouse shift, 5K race actions, home care visit, school lab scans); no sibling primary in headings; 'how a person performs belongs on an employee evaluation form' separates it from that sibling."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, 3 AlsoAsked verbatim, secondaries tb/tuberculosis/sample/health/dental caries carried; hub link in item 2; moat lines in items 4 and 8; no brand or format in questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 '4 x 5 = 20' Slack to Mirela Stanton; tab 2 '6 actions', '4 actions done, 2 still open', email to Odile Brandt 2 days before due; tab 3 '2 of 8 yes', visit sheet for Joaquin Reyes; tab 4 '37 of 40 clear', '3 to check by hand' sent to Saul Mendel. All match the copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "faq item 7",
+    "quote": "CDC does call for annual TB education; a training feedback form shows what staff took in.",
+    "issue": "Answer ends on a sentence whose only job is to carry the related link, and the link idea is a stretch for a TB screening question (recurring note).",
+    "fix": "End on the CDC point; place the link where it serves the question or in another answer.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "faq item 10",
+    "quote": "At a school dental day, a sign out form records each child returning to class.",
+    "issue": "Tacked-on link-carrier sentence unrelated to what a caries risk form asks (recurring note).",
+    "fix": "End on the ADA versions sentence; move the link to an answer where a sign out form is relevant.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 1",
+    "quote": "What is a health and safety risk assessment form?",
+    "issue": "Reworded from the keyword 'what is a risk assessment form' by adding 'health and safety'; head phrase kept and on-sense. Carries the PA7 flag for Divit's packet.",
+    "fix": "None needed if Divit accepts the PA7 flag; otherwise 'What is a risk assessment form?'.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq item 8; howto_step_4_des; faq item 1",
+    "quote": "the controls in place, and the further action, who owns it, and when it is due",
+    "issue": "The HSE row contents (who, controls, further action, owner, due date) are restated in step 4, FAQ 1 and FAQ 8 with words swapped.",
+    "fix": "Let FAQ 8 add something step 4 does not (sign-off, review date) instead of restating the row.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "faq item 7",
+   "issue": "Answer ends on a sentence whose only job is to carry the related link, and the link idea is a stretch for a TB screening question (recurring note).",
+   "fix": "End on the CDC point; place the link where it serves the question or in another answer.",
+   "by": "B-r-12",
+   "via": "review",
+   "date": "2026-10-14 14:52 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "faq item 10",
+   "issue": "Tacked-on link-carrier sentence unrelated to what a caries risk form asks (recurring note).",
+   "fix": "End on the ADA versions sentence; move the link to an answer where a sign out form is relevant.",
+   "by": "B-r-12",
+   "via": "review",
+   "date": "2026-10-14 14:52 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 1",
+   "issue": "Reworded from the keyword 'what is a risk assessment form' by adding 'health and safety'; head phrase kept and on-sense. Carries the PA7 flag for Divit's packet.",
+   "fix": "None needed if Divit accepts the PA7 flag; otherwise 'What is a risk assessment form?'.",
+   "by": "B-r-12",
+   "via": "review",
+   "date": "2026-10-14 14:52 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq item 8; howto_step_4_des; faq item 1",
+   "issue": "The HSE row contents (who, controls, further action, owner, due date) are restated in step 4, FAQ 1 and FAQ 8 with words swapped.",
+   "fix": "Let FAQ 8 add something step 4 does not (sign-off, review date) instead of restating the row.",
+   "by": "B-r-12",
+   "via": "review",
+   "date": "2026-10-14 14:52 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "978dbde7a22cab14",
+   "alt:share_image": "1fa7f417ee6aaa5a",
+   "alt:tab_image_1": "c206f3a1ae516536",
+   "alt:tab_image_2": "73a7db4c1a3475ff",
+   "alt:tab_image_3": "04320f4ea1a7960b",
+   "alt:tab_image_4": "bb3cac4a93b3bb52",
+   "breadcrumb": "d89284cbbac7ad89",
+   "chip_adds": "5d119042cf1fc331",
+   "explore_cta": "5380ca1342244370",
+   "faq": "fb4a20b275048f15",
+   "feature_1": "1ac3f2e0775b59cb",
+   "feature_2": "e437edb04fc56803",
+   "feature_3": "00e70dfbee3900a8",
+   "feature_4": "79348820aefc0e40",
+   "feature_5": "78547a001c6d5193",
+   "feature_6": "ce93f7f772d34668",
+   "features_heading": "59e3283716a3f57d",
+   "features_subheading": "2ce10bbbd59ed48c",
+   "h1": "2955185c742134a1",
+   "hero_description": "804f5f4a8e54d989",
+   "hero_prompt": "0a072e182a76c5f3",
+   "howto_description": "a7d79ef2e71cd241",
+   "howto_step_1_des": "d2680bef8ee40ddc",
+   "howto_step_1_title": "64d1f984404951e0",
+   "howto_step_2_des": "1188f36489c57b4e",
+   "howto_step_2_title": "8d1ad2cac3f99413",
+   "howto_step_3_des": "4898dea3382749e3",
+   "howto_step_3_title": "a3060509cbc05384",
+   "howto_step_4_des": "52059510d1062373",
+   "howto_step_4_title": "e4332e42668ac166",
+   "howto_step_5_des": "e5a3f2540e232464",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "f89c076208669d31",
+   "howto_step_6_title": "a35e78f092ff31ff",
+   "howto_step_7_des": "89578e73a6220e7f",
+   "howto_step_7_title": "73eed8dc8fbd7941",
+   "howto_title": "debcff441263e911",
+   "meta_description": "f74a8dee027a30e7",
+   "meta_title": "e323685a3564156e",
+   "mockup": "c9ea8b1845ff81ae",
+   "product_name": "2cadabe46f9ecdf0",
+   "prompt_chip_1": "4379e70de3a41ecf",
+   "prompt_chip_2": "e6eee95bedd50e58",
+   "prompt_chip_3": "85f3eac3b3adb565",
+   "prompt_chip_4": "a35bf3a6e3e1b1dc",
+   "slug": "8295246558cb7cae",
+   "tab_content_1": "8bd38fcc9f83142c",
+   "tab_content_2": "24812dd20dfa648b",
+   "tab_content_3": "1d0ecc17569a2e63",
+   "tab_content_4": "5001f454e07b1da7",
+   "tab_label_1": "3ca3e6febad84661",
+   "tab_label_2": "33de2722e1fe2473",
+   "tab_label_3": "007ef73c1f3b0e1c",
+   "tab_label_4": "a35bf3a6e3e1b1dc",
+   "usecase_heading": "988b89f1c6da9665",
+   "why_description": "aeec989450f63398",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "d3fa404db17e154a"
+  },
+  "all": "7604b1a540bac8c2",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "978dbde7a22cab14",
+   "alt:share_image": "1fa7f417ee6aaa5a",
+   "alt:tab_image_1": "c206f3a1ae516536",
+   "alt:tab_image_2": "73a7db4c1a3475ff",
+   "alt:tab_image_3": "04320f4ea1a7960b",
+   "alt:tab_image_4": "bb3cac4a93b3bb52",
+   "breadcrumb": "d89284cbbac7ad89",
+   "chip_adds": "5d119042cf1fc331",
+   "explore_cta": "5380ca1342244370",
+   "faq": "fb4a20b275048f15",
+   "feature_1": "1ac3f2e0775b59cb",
+   "feature_2": "e437edb04fc56803",
+   "feature_3": "00e70dfbee3900a8",
+   "feature_4": "79348820aefc0e40",
+   "feature_5": "78547a001c6d5193",
+   "feature_6": "ce93f7f772d34668",
+   "features_heading": "59e3283716a3f57d",
+   "features_subheading": "2ce10bbbd59ed48c",
+   "h1": "2955185c742134a1",
+   "hero_description": "804f5f4a8e54d989",
+   "hero_prompt": "0a072e182a76c5f3",
+   "howto_description": "a7d79ef2e71cd241",
+   "howto_step_1_des": "d2680bef8ee40ddc",
+   "howto_step_1_title": "64d1f984404951e0",
+   "howto_step_2_des": "1188f36489c57b4e",
+   "howto_step_2_title": "8d1ad2cac3f99413",
+   "howto_step_3_des": "4898dea3382749e3",
+   "howto_step_3_title": "a3060509cbc05384",
+   "howto_step_4_des": "52059510d1062373",
+   "howto_step_4_title": "e4332e42668ac166",
+   "howto_step_5_des": "e5a3f2540e232464",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "f89c076208669d31",
+   "howto_step_6_title": "a35e78f092ff31ff",
+   "howto_step_7_des": "89578e73a6220e7f",
+   "howto_step_7_title": "73eed8dc8fbd7941",
+   "howto_title": "debcff441263e911",
+   "meta_description": "f74a8dee027a30e7",
+   "meta_title": "e323685a3564156e",
+   "mockup": "c9ea8b1845ff81ae",
+   "product_name": "2cadabe46f9ecdf0",
+   "prompt_chip_1": "4379e70de3a41ecf",
+   "prompt_chip_2": "e6eee95bedd50e58",
+   "prompt_chip_3": "85f3eac3b3adb565",
+   "prompt_chip_4": "a35bf3a6e3e1b1dc",
+   "slug": "8295246558cb7cae",
+   "tab_content_1": "8bd38fcc9f83142c",
+   "tab_content_2": "24812dd20dfa648b",
+   "tab_content_3": "1d0ecc17569a2e63",
+   "tab_content_4": "5001f454e07b1da7",
+   "tab_label_1": "3ca3e6febad84661",
+   "tab_label_2": "33de2722e1fe2473",
+   "tab_label_3": "007ef73c1f3b0e1c",
+   "tab_label_4": "a35bf3a6e3e1b1dc",
+   "usecase_heading": "988b89f1c6da9665",
+   "why_description": "aeec989450f63398",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "d3fa404db17e154a"
+  },
+  "all": "7604b1a540bac8c2",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
