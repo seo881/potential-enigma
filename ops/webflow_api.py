@@ -117,6 +117,8 @@ def request(method, path, body=None, query=None, dry=True, timeout=None, max_tri
     n = len(body.get("items") or body.get("itemIds") or []) if isinstance(body, dict) else 0
     plan = {"dry": dry, "op": op, "method": method.upper(), "path": path, "query": query or {}, "count": n}
     if dry: return plan
+    if method.upper() != "GET" and os.environ.get("EMG_HEADLESS"):   # ruling 19: CMS writes never run headless (Divit 2026-10-14)
+        _refuse("CMS writes are not allowed in a headless run (EMG_HEADLESS is set)")
     tok = TOKEN(); url = BASE + path + ("?" + urllib.parse.urlencode(query) if query else "")
     headers = {"Authorization": "Bearer " + tok, "Accept": "application/json", "User-Agent": "emergent-hubs-ship/1"}
     data = None

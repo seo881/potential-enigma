@@ -16,6 +16,7 @@ REPO="$(cd "$(dirname "$0")/../.." && pwd)"; cd "$REPO" || exit 1
 LOG="$HOME/Library/Logs/emergent-overnight-run.log"; AUDIT_LOG="$HOME/Library/Logs/emergent-live-audit.log"
 RUN="$REPO/.cache/overnight"; mkdir -p "$RUN"
 PY="$REPO/.venv/bin/python3"
+export EMG_HEADLESS=1   # ruling 19: ops/webflow_api.py refuses CMS writes when set
 export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 export CLAUDE_CONFIG_DIR="$HOME/.claude-b"
 export CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0   # headless sessions wait for their subagents (writers were stopped mid-page); MAX_ITER_SECS still caps a session
@@ -48,6 +49,9 @@ WF_TOOLS=(ask_webflow_ai asset_tool data_agent_instructions_tool data_analyze_to
   data_interactions_tool data_localization_tool data_pages_tool data_scripts_tool data_sitemap_tool data_sites_tool data_style_tool
   data_variable_tool data_webhook_tool data_whtml_builder designer_tool element_snapshot_tool get_asset_preview get_more_tools webflow_guide_tool)
 DENIED=("mcp__webflow" "mcp__Webflow" "mcp__claude_ai_Webflow" "mcp__webflow__*" "mcp__Webflow__*" "mcp__claude_ai_Webflow__*")
+# Ruling 19 (Divit 2026-10-14): the direct-API CMS write commands never run headless (interactive sessions ask; see .claude/settings.json)
+for c in api-create api-update api-publish; do DENIED+=("Bash(.venv/bin/python3 ops/hubctl.py $c:*)" "Bash(python3 ops/hubctl.py $c:*)"); done
+DENIED+=("Bash(.venv/bin/python3 ops/ship.py:*)" "Bash(python3 ops/ship.py:*)" "Bash(.venv/bin/python3 ops/webflow_api.py:*)" "Bash(python3 ops/webflow_api.py:*)")
 for t in "${WF_TOOLS[@]}"; do DENIED+=("mcp__webflow__$t" "mcp__Webflow__$t" "mcp__claude_ai_Webflow__$t"); done
 
 # Seconds to sleep for a session-limit message: the reset time it names (+2 min), or 20 minutes; "WEEKLY" when it is not a 5-hour reset.

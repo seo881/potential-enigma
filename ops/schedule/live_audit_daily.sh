@@ -6,6 +6,7 @@
 set -u
 REPO="$(cd "$(dirname "$0")/../.." && pwd)"; cd "$REPO" || exit 1
 LOG="$HOME/Library/Logs/emergent-live-audit.log"; ARGS="${LIVE_AUDIT_ARGS:---all}"
+export EMG_HEADLESS=1   # ruling 19: ops/webflow_api.py refuses CMS writes when set
 export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 export CLAUDE_CONFIG_DIR="$HOME/.claude-b"
 log() { echo "$(date '+%Y-%m-%d %H:%M:%S') $*" >> "$LOG"; }
@@ -26,6 +27,9 @@ ALLOWED=(
 # NO SITE PUBLISH (Divit 2026-10-10): the Webflow sites tool (publish_site) is denied under every name it can appear as,
 # on top of .claude/settings.json; CMS changes go live only through item publishes (publish_collection_items).
 DENIED=("mcp__webflow__data_sites_tool" "mcp__Webflow__data_sites_tool" "mcp__claude_ai_Webflow__data_sites_tool")
+# Ruling 19 (Divit 2026-10-14): the direct-API CMS write commands never run headless (interactive sessions ask; see .claude/settings.json)
+for c in api-create api-update api-publish; do DENIED+=("Bash(.venv/bin/python3 ops/hubctl.py $c:*)" "Bash(python3 ops/hubctl.py $c:*)"); done
+DENIED+=("Bash(.venv/bin/python3 ops/ship.py:*)" "Bash(python3 ops/ship.py:*)" "Bash(.venv/bin/python3 ops/webflow_api.py:*)" "Bash(python3 ops/webflow_api.py:*)")
 .venv/bin/python3 ops/guards.py run-locked session -- claude -p "$PROMPT" --permission-mode dontAsk --allowedTools "${ALLOWED[@]}" --disallowedTools "${DENIED[@]}" \
   --mcp-config "$REPO/.mcp.json" --output-format text >> "$LOG" 2>&1
 RC=$?

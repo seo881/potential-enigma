@@ -213,6 +213,11 @@ def caught(c):
         g = PG.Gate(c["url"])
         if c["from"] == "semrush":
             q = next((x["q"] for x in SQ.usable(g.slug) if PG.qhash(x["q"]) == c["qh"]), None)
+            if q is None:   # a later re-derive may drop the question from the usable list (e.g. by the very rule under test): judge the raw cached row
+                import os as _os
+                for p_ in SQ.phrases(c["url"]):
+                    if _os.path.exists(SQ.raw_path(p_)):
+                        q = next((r["keyword"] for r in json.load(open(SQ.raw_path(p_)))["rows"] if PG.qhash(r["keyword"]) == c["qh"]), None) or q
             rs = g.judge({"q": q, "source": "keyword", "n": 5}) if q else None
         else:
             with _cl.redirect_stdout(_io.StringIO()): items = PG.run_pull(g)[0] if PG.pulls(g.slug) else []
