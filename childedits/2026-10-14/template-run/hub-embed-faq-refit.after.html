@@ -1,0 +1,33 @@
+<style>
+/* Build hubs (this page only): tighten section gaps. Hero: desktop only (tablet/mobile already auto-height). Stats: halve the gap below the testimonials. */
+@media (min-width:992px){.section_product-hero{height:auto;padding-bottom:2.5rem}}
+.section_stats{padding-bottom:1.5rem}
+/* Value cards: image above the text, text pinned to the top so titles align across cards (this page only; the shared cards component is untouched). */
+.product-integrations_item{display:flex!important;flex-direction:column!important;justify-content:flex-start!important}
+.product-integrations_item>.product-integrations_image{order:0!important;margin-top:0!important;margin-bottom:1.5rem!important;flex:0 0 auto!important}
+.product-integrations_item>.product-integrations_item-content{order:1!important;margin-top:0!important;justify-content:flex-start!important;align-content:flex-start!important}
+</style>
+<script>
+/* FAQ open-height refit (2026-10-12): the FAQ component sets the open answer's max-height to its scrollHeight once, on Webflow ready,
+   often before Inter has loaded; when the web font swaps in, the answer wraps to one more line and the last line is clipped.
+   Re-fit the open answer whenever its text box changes size (font swap, heading change, width change). */
+(function () {
+  var seen = typeof WeakSet === 'function' ? new WeakSet() : null, ro;
+  function refit() {
+    document.querySelectorAll('.faq_accordion.faq-open .faq_answer').forEach(function (a) {
+      var px = a.scrollHeight + 'px'; if (a.style.maxHeight !== px) a.style.maxHeight = px;
+    });
+  }
+  function attach() {
+    if (!ro && window.ResizeObserver) ro = new ResizeObserver(refit);
+    if (ro && seen) document.querySelectorAll('.faq_answer > p').forEach(function (p) { if (!seen.has(p)) { seen.add(p); ro.observe(p); } });
+    refit();
+  }
+  window.Webflow = window.Webflow || [];
+  window.Webflow.push(function () { setTimeout(attach, 0); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(attach);
+  if (document.fonts && document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', refit);
+  window.addEventListener('load', attach);
+})();
+
+</script>
