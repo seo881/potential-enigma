@@ -228,6 +228,7 @@ def cmd_derive(urls):
     for u in urls:
         n, out, why = derive(u)
         print(f"{u}: rows {n}, usable {len(out)} (flags {sum(o['verdict'] == 'flag' for o in out)}); dropped " + ", ".join(f"{k} {v}" for k, v in why.items() if v))
+    import swap_recheck; swap_recheck.hook("derive")   # Divit 2026-10-14 step 3: new Semrush data re-checks the r18-swap-short pages
 
 def cmd_report(urls):
     import park_rescue as R

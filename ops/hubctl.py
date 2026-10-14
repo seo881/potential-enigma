@@ -40,7 +40,7 @@
   review-diff URL | slim-review URL FILE --by A-s-<n>   ruling 1: fields changed since review; record a slim review of them
   hold URL --by ID [--note T] | unhold URL --by ID   the account's hold marker on a page it is working (docs/TWO_ACCOUNTS.md)
   (claim, state, images, ready, review, release, hold and unhold refuse without --by: Divit 2026-10-13)
-  metrics | sample [STATE] | links HUB | links --relink | lookahead HUB [N] | serp-budget | ranks-save URL RAW | ranks-report | recheck [--states a,b] [--include-b] | image-regress | verify-live URL [--html F]
+  metrics | sample [STATE] | links HUB | links --relink | lookahead HUB [N] | serp-budget | ranks-save URL RAW | ranks-report | recheck [--states a,b] [--include-b] | swap-recheck [--dry] [--quiet] [--force] | image-regress | verify-live URL [--html F]
   daily-batch [--date D]             ruling 10 B4: plan/batches/batch-<date>.txt = every reviewed, unheld, hash-matching page not in the CMS
   batch-check BATCH_FILE            ruling 6: every page in state reviewed (or further along) and not held by the other account
   live-audit [--since-publish|--all|--urls U,U|--set launch] [--base URL] [--dry] | live-audit record|drift|plan|report DATE ...
@@ -1110,6 +1110,7 @@ CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cm
         "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "transfer-hold": cmd_transfer_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "feasibility": cmd_feasibility, "daily-batch": cmd_daily_batch, "unlock": cmd_unlock, "verbatim": cmd_verbatim, "defer": cmd_defer, "batch-check": cmd_batch_check, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
         "recheck": cmd_recheck, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live,
+        "swap-recheck": lambda a: __import__("swap_recheck").main(a),   # Divit 2026-10-14 step 3: r18-swap-short pages back to rework once replacements exist
         "live-audit": lambda a: _live().main(a), "live-fix": lambda a: _live().fix_main(a), "live-rollback": lambda a: _live().cmd_rollback(a), "retro": lambda a: __import__("retro").main(a)}
 def _live():
     sys.path.insert(0, os.path.join(ROOT, "ops")); import live_audit; return live_audit

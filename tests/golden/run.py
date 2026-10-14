@@ -38,6 +38,10 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   gate-pool      {url, from: pull|semrush, qh, expect | absent}  ruling 18: a pool candidate (by hash) rejects with an expected rule, or not
   feas-skeleton  {url, expect_feasible}                   ruling 18 part 5: feasibility total == skeleton.slots_possible, feasible as expected
   acronym-case   {raw, expect}                            ruling 18 part 4e: skeleton.clean_question cases acronyms (plurals too)
+  skel-admit     {url, qh, expect_admitted}               Divit 2026-10-14 step 4: skeleton.candidates admits the question (hash of its text or
+                                                          source wording) exactly when expected (the gate's spec checks, answer source included)
+  swap-recheck   {url, sha, note, expect_need, inject?, expect_filled?}  step 3: positions to swap for the spec at sha (note lead clause +
+                                                          gate rejects); inject dropped|synthetic: replacements counted from those slots
   qc-r18         {url, sha, match, expect, keep_review?}  ruling 18 in QC R15: the spec at sha as new writing raises R15 `match` exactly when expected
   webflow-api    {test, ...}                              Divit 2026-10-14, ops/webflow_api.py + hubctl api-*: test refuse {method, path, body?,
                                                           query?, expect_refused} ({child} = a child collection id), dry-no-network, batching
@@ -229,6 +233,22 @@ def caught(c):
         import park_rescue as R, skeleton as SK, io as _io, contextlib as _cl
         with _cl.redirect_stdout(_io.StringIO()): f = R.feasibility(c["url"], draft=False); n = SK.slots_possible(c["url"])   # draft=False: stable once claimed
         return f["total"] == n and f["feasible"] == c["expect_feasible"]
+    if c["kind"] == "skel-admit":          # Divit 2026-10-14 step 4: the skeleton admits a candidate (by hash) exactly when the gate's
+        import skeleton as SK, paa_gate as PG   # spec checks (answer source PA4/PA5 included) will pass it in the FAQ
+        cs = SK.quiet(SK.candidates, c["url"])
+        return any(c["qh"] in (PG.qhash(x["q"]), PG.qhash(x["ref"])) for x in cs) == c["expect_admitted"]
+    if c["kind"] == "swap-recheck":        # Divit 2026-10-14 step 3: the r18-swap-short re-check on the spec at sha (dry, no writes)
+        import swap_recheck as W, paa_gate as PG, hubctl as H
+        s = spec_at(c["sha"], c["url"]); need, items = W.gate_needs(c["url"], s); need |= W.listed(c["note"])
+        if sorted(need) != c["expect_need"]: return False
+        if "inject" not in c: return True
+        prim = H.kmap()[c["url"]]["primary"]; d = [{"kind": "definition", "q": f"What is {prim}?"}, {"kind": "definition", "q": f"How do I set up {prim}?"}]
+        if c["inject"] == "dropped":       # the page's own dropped questions offered as replacements: never counted
+            sl = d + [{"kind": "alsoasked", "q": i["q"], "ref": i["q"]} for i in items if i["n"] in need]
+        else:                              # code-made questions on the page's head phrase, unlike any on the page: counted
+            sl = d + [{"kind": "semrush", "q": x, "ref": x} for x in (f"Which approvals should a {prim} route to a second reviewer?",
+                                                                       f"How many fields can a {prim} hold before people abandon it?")]
+        return W.available(c["url"], need, items, sl, spec=s)[0] == c["expect_filled"]
     if c["kind"] == "acronym-case":        # ruling 18 part 4e: keyword-sourced questions case known acronyms, plurals too
         import skeleton as SK
         return SK.clean_question(c["raw"]) == c["expect"]

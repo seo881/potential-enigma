@@ -51,6 +51,7 @@ def cmd_next(a):
     import datetime, time
     from zoneinfo import ZoneInfo
     stop = lambda: os.path.exists(os.path.join(ROOT, "STOP"))
+    import swap_recheck; swap_recheck.hook("overnight next")   # Divit 2026-10-14 step 3: parked r18-swap-short pages only; skipped when their data is unchanged
     while True:
         if stop(): print("STOP"); sys.exit(4)
         order = _order()

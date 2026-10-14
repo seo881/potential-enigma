@@ -96,12 +96,39 @@ def clean_question(raw):
     q = case_acronyms(q)
     return q[:1].upper() + q[1:] + "?"
 
+def spec_view(g):
+    """What paa_gate.run_spec reads when it gates a spec's FAQ (Divit 2026-10-14 step 4): every answer source the saved pulls hold per
+    wording (run_spec looks one up by the item's provenance wording, last node wins; run_pull gates each wording once, on its first
+    shallowest node, which may carry no answer source: invoice-approval-workflow Q2 PA5, petition-form Q3 PA4), and the parent
+    verdicts of the saved pull verdicts file (PA2; 'flag' when the file or the parent is missing)."""
+    ctx = collections.defaultdict(list)
+    for n in (P.pull_nodes(g.slug) if P.pulls(g.slug) else []):
+        if n["ctx"] not in ctx[P.norm(n["q"])]: ctx[P.norm(n["q"])].append(n["ctx"])
+    vf = os.path.join(ROOT, "private", "alsoasked", "verdicts", g.slug + ".json")
+    try: pv = {P.norm(i["q"]): i["verdict"] for i in json.load(open(vf))["items"]}
+    except Exception: pv = {}
+    return ctx, pv
+_WORSE = {None: 0, "pass": 0, "flag": 1, "reject": 2}
+def spec_reasons(g, c, view, live=None):
+    """The gate's reasons for candidate c as run_spec gives them once c is in the FAQ: the text the spec carries (US display, cleaned
+    Semrush form: PA14/PA16 read the raw text), its faq_sources label, EVERY answer source the pull holds for its wording (PA4/PA5;
+    a superset of the one run_spec picks), and the worse of the saved and the live parent verdict (PA2). The within-page caps of
+    Gate.finish (PA6 respondents, PA8 brands, PA9) are applied by plan_slots."""
+    ctx, pv = view; prov = c.get("prov") or {}
+    it = {"q": c["q"], "source": "alsoasked" if c["kind"] == "alsoasked" else "keyword", "prov": prov}
+    if prov.get("depth") == 2:
+        pn = P.norm(prov.get("parent") or ""); it["parent_verdict"] = max(pv.get(pn, "flag"), (live or {}).get(pn), key=_WORSE.get)
+    out = []
+    for cx in ctx.get(P.norm(prov.get("original") or ""), []) or [""]:
+        out += [r for r in g.judge(dict(it, ctx=cx)) if r not in out]
+    return out
+
 def candidates(url, extra=()):
     """FAQ candidates: AlsoAsked pull and Semrush questions, passing first, then flagged (ruling 18 part 5: flags may fill slots; the
     shapes code drops are gate rejects). extra: unapproved synonym phrases, only for ruling 12's 'feasibility with' column."""
-    s = url.rsplit("/", 1)[1]; g = P.Gate(url, extra); out = []
+    s = url.rsplit("/", 1)[1]; g = P.Gate(url, extra); out = []; live = {}
     if P.pulls(s):
-        items, _ = quiet(P.run_pull, g)
+        items, _ = quiet(P.run_pull, g); live = {P.norm(i["q"]): i["verdict"] for i in items}
         for i in items:
             if i["verdict"] not in ("pass", "flag"): continue
             orig = (i.get("prov") or {}).get("original") or i["q"]
@@ -112,6 +139,13 @@ def candidates(url, extra=()):
         if any(r[1] == "reject" for r in rs): continue
         fl = sorted({P.flag_subtype(r[0], r[2], x["q"]) for r in rs if r[1] == "flag"})
         out.append({"kind": "semrush", "q": clean_question(x["q"]), "ref": x["q"], "prov": x["prov"], "locked": False, "flagged": fl})
+    # Divit 2026-10-14 step 4: judged again as the gate's `paa --spec` will judge it once it sits in the FAQ (spec_reasons)
+    view = spec_view(g); judged = []
+    for c in out:
+        rs = spec_reasons(g, c, view, live)
+        if any(r[1] == "reject" for r in rs): continue
+        c["flagged"] = sorted(set(c["flagged"]) | {P.flag_subtype(r[0], r[2], c["q"]) for r in rs if r[1] == "flag"}); judged.append(c)
+    out = judged
     # a capitalised-name flag (PA14) is usually another company ("Does automation Direct accept returns?"): never a skeleton slot
     out = [c for c in out if "PA14 capitalised name" not in (c.get("flagged") or [])]
     # Divit 2026-10-13: flagged questions may fill slots, after passing questions and secondaries; marked in spec and pack
@@ -159,7 +193,10 @@ def plan_slots(url, cap=10, extra=()):
     km = H.kmap().get(url) or {}; prim = km.get("primary") or url.rsplit("/", 1)[1].replace("-", " ")
     g = P.Gate(url, extra); cands = candidates(url, extra); have = []; slots = []
     full = lambda: cap is not None and len(slots) >= cap
-    pick = lambda rx: next((c for c in cands if rx.search(P.norm(c["q"])) and c not in have), None)
+    # Gate.finish's within-page caps, as run_spec applies them to the FAQ (Divit 2026-10-14 step 4): PA6 respondents, PA8 brands
+    resp = lambda q: g.asker(P.norm(q or "")) == "respondent"; brand = lambda q: any(P.has(b, P.norm(q or "")) for b in g.library)
+    capped = lambda c: (resp(c["q"]) and sum(resp(x.get("q")) for x in slots) >= P.MAX_RESPONDENT) or (brand(c["q"]) and sum(brand(x.get("q")) for x in slots) >= P.MAX_BRANDED)
+    pick = lambda rx: next((c for c in cands if rx.search(P.norm(c["q"])) and c not in have and not capped(c)), None)
     d = pick(DEF_RX); have += [d] if d else []
     slots.append(d or {"kind": "definition", "q": f"What is {_art(prim)}{prim}?", "ref": prim, "locked": True})
     h = pick(HOW_RX); have += [h] if h else []
@@ -167,7 +204,7 @@ def plan_slots(url, cap=10, extra=()):
     near = lambda q: any(P.near_dup(q, x["q"], prim) or P.jacc(P.content(q), P.content(x["q"])) >= P.JACCARD_DUP for x in slots if x.get("q"))
     for c in [c for c in cands if not c.get("flagged")]:
         if full(): break
-        if c in have or near(c["q"]): continue
+        if c in have or near(c["q"]) or capped(c): continue
         slots.append(c)
     carried = [P.content(x["q"]) for x in slots]
     for x in sorted(km.get("secondaries") or [], key=lambda x: -(x.get("msv") or 0)):
@@ -177,7 +214,7 @@ def plan_slots(url, cap=10, extra=()):
         carried.append(c); slots.append({"kind": "secondary", "q": None, "ref": x["kw"], "locked": False})
     for c in [c for c in cands if c.get("flagged")]:
         if full(): break
-        if c in have or near(c["q"]): continue
+        if c in have or near(c["q"]) or capped(c): continue
         slots.append(c)
     return slots
 

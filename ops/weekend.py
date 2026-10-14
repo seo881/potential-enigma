@@ -283,6 +283,7 @@ def cmd_aa(args):
             got = sum(spent(r) for r in credits_rows("")[before:] if r.get("slug") == name)
             print(f"{name}: this pull cost {got} credit(s); page total {page_spent(s)} of {PER_PAGE}" + (f"; run {run} total {run_spent(run)}" + (f" of {cap}" if cap else "") if run else ""))
             if got > cost: sys.exit(5)
+            if not rc and saved() not in (None, "no_results"): import swap_recheck; swap_recheck.hook("aa")   # Divit 2026-10-14 step 3
             if rc or saved() != "no_results": sys.exit(rc)
             print(f"{name}: no_results; " + ("one fresh pull within the cap" if attempt == 1 else "no second retry"))
 
