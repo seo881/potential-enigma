@@ -5,6 +5,9 @@
                                                 examples, pages each decision brings to 10) and .csv (decisions)
     python3 ops/flag_packet.py apply FILE.csv --by A-coord    apply Divit's marks -> rules/flag_decisions.json + golden cases
     python3 ops/flag_packet.py impact           counts only: per subtype, questions, pages and pages reaching 10 if approved
+    python3 ops/flag_packet.py list URL... [--batch NAME]   Divit 2026-10-14: with each review batch, the advisor-check list
+                                                (page, Q number, flagged question, subtype) of the pages' current FAQ ->
+                                                .cache/review/flags-<date>-<batch>.md; prints the path and counts only
 
 Decision sheet: one `subtype` row per subtype (approve | reject | blank = undecided). Mixed subtypes (PA10, PA14) also get one
 `question` row per question (approve | reject | blank). Approved subtypes become notes and rejected ones rejects on every page
@@ -124,6 +127,26 @@ def cmd_apply(a):
                                  "url": url, "qh": c["id"], "from": c["source"], "subtype": c["subtype"], "expect": c["expect"], "status": "guarded"}) + "\n")
     print("applied: " + ", ".join(f"{k} {v}" for k, v in n.items()) + f"; golden cases {len(cases)}")
 
+def cmd_list(a):
+    """Advisor-check list for a review batch: every flagged question in each page's current FAQ (page, Q number, text, subtype).
+    The list holds AlsoAsked/Semrush text, so it stays in .cache (the repo is public); reports link the path and give counts."""
+    urls = [x for x in a if x.startswith("/")]; batch = a[a.index("--batch") + 1] if "--batch" in a else datetime.datetime.now().strftime("%H%M")
+    L = [f"# Flagged FAQ questions for the advisor's per-page check ({today()}, batch {batch})", "",
+         "Ruling 18: flags are judged per page on the questions actually in the FAQ. Confirm or swap each line.", ""]
+    n = pages = 0
+    for u in urls:
+        g = P.Gate(u); items, _page = quiet(P.run_spec, g)
+        fl = [i for i in items if i["verdict"] == "flag"]
+        if not fl: continue
+        pages += 1; L.append(f"## {u}")
+        for i in fl:
+            subs = sorted({P.flag_subtype(r[0], r[2], i["q"]) for r in i["reasons"] if r[1] == "flag"})
+            L.append(f"- Q{i['n']}: {i['q']}  ({'; '.join(subs)})"); n += 1
+        L.append("")
+    os.makedirs(CACHE, exist_ok=True); out = os.path.join(CACHE, f"flags-{today()}-{batch}.md")
+    open(out, "w").write("\n".join(L) + ("\n" if n else "No flagged questions in this batch.\n"))
+    print(f"advisor-check list: {n} flagged question(s) on {pages} of {len(urls)} page(s) -> {os.path.relpath(out, ROOT)}")
+
 if __name__ == "__main__":
     a = sys.argv[1:]
-    {"build": cmd_build, "apply": cmd_apply, "impact": cmd_impact}.get(a[0] if a else "", lambda _: sys.exit(__doc__))(a[1:])
+    {"build": cmd_build, "apply": cmd_apply, "impact": cmd_impact, "list": cmd_list}.get(a[0] if a else "", lambda _: sys.exit(__doc__))(a[1:])
