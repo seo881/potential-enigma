@@ -28,6 +28,7 @@ HELD = {"consultation-form", "checkout-form", "conference-registration-form", "s
 CREDIT_CAP, PER_PAGE = 300, 2
 # Runs Divit authorised with their own credit cap: inside such a run the run cap replaces the weekend CREDIT_CAP (never above it)
 AUTH_RUNS = {"auto-r1014": 22,    # Divit 2026-10-14 step 3: the 11 Automation no-pull pages, cap 2 each
+             "kw-r1014": 74,      # Divit 2026-10-14 step 4: the 37 approved ruling-13 new-keyword pages, primary pull only, cap 2 each
              "pilot-r10": 45,     # ruling 10A, 2026-10-13: the yield pilot
              "wave-r12": 400}     # ruling 12, 2026-10-13: every queued page with no pull + LP --kw secondaries, stop at 400 credits
 STATE = os.path.join(ROOT, "status", "weekend-run.json")

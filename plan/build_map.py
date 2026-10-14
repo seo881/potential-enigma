@@ -6,10 +6,52 @@ both git-ignored. Run from the repo root:
     python3 plan/build_map.py /mnt/project/Emergent_Hub_Child_Pages_Final_v3.xlsx
 Overrides (plan/overrides.json) reconcile the sheet with what is live, per Divit's decisions
 of 2026-10-06: the 4 existing child pages keep their primaries, slugs and content.
+Additions (pages Divit approved outside the workbook, e.g. ruling 13's new keywords of 2026-10-14) live in
+private/semrush/plan-additions-*.json (git-ignored: Semrush data) in keyword-map shape; overrides.json "additions" lists
+their URLs and the ones held out of the queue (counts and reasons only). Without the workbook, patch the existing map:
+    python3 plan/build_map.py --additions-only     add the approved additions to plan/keyword_map.json, re-rank, rewrite queue.csv
 """
-import json, re, sys, csv
-import pandas as pd
+import glob, json, os, re, sys, csv
 
+def apply_additions(pages, ov):
+    """Add every approved addition not already in the plan (never overwrites a page); additions held out of the queue
+    (overrides.json additions.held: e.g. a dagger row under 10 FAQ sources without pdf/printable variants) get status 'parked-short'."""
+    add = {}
+    for f in sorted(glob.glob(os.path.join("private", "semrush", "plan-additions-*.json"))): add.update(json.load(open(f)))
+    a = ov.get("additions", {}); ok = set(a.get("urls", [])); held = {h["url"]: h for h in a.get("held", [])}
+    n = 0
+    for u, p in add.items():
+        if u not in ok: continue
+        if u not in pages: pages[u] = dict(p); n += 1
+        if u in held and pages[u].get("status") == "planned":
+            pages[u]["status"] = "parked-short"; pages[u]["park_reason"] = held[u]["reason"]
+    return n
+
+def write_plan(pages):
+    """Queue: descending volume; Wave 4 (needs a playable quiz) last. Writes plan/keyword_map.json and plan/queue.csv."""
+    q = [p for p in pages.values() if p["status"] == "planned"]
+    q.sort(key=lambda p: (p["wave"] == 4, -p["total_msv"], -p["primary_msv"]))
+    for p in pages.values():
+        if p["status"] != "planned": p.pop("queue_rank", None)
+    for i, p in enumerate(q, 1): p["queue_rank"] = i
+    json.dump(pages, open("plan/keyword_map.json", "w"), indent=1, ensure_ascii=False)
+    with open("plan/queue.csv", "w", newline="") as f:
+        w = csv.writer(f); w.writerow(["rank", "hub", "url", "primary", "primary_msv", "kd", "total_msv", "wave", "verdict", "capability_gap"])
+        for p in q:
+            mix = p["top10_mix"] if isinstance(p["top10_mix"], str) else ""; m = re.search(r"(\d+) document-template", mix); docs = int(m.group(1)) if m else 0
+            txt = ((p["angle"] if isinstance(p["angle"], str) else "") + " " + (p["pass3_action"] if isinstance(p["pass3_action"], str) else "")).lower()
+            gap = ("playable quiz" if p["wave"] == 4 else
+                   "generated document (template SERP)" if docs >= 2 or "doc-template" in txt or "generated output" in txt or "letter" in p["primary"] else "")
+            w.writerow([p["queue_rank"], p["hub"], p["url"], p["primary"], p["primary_msv"], p["kd"], p["total_msv"], p["wave"], p["verdict"], gap])
+    return q
+
+if "--additions-only" in sys.argv:
+    pages = json.load(open("plan/keyword_map.json")); n = apply_additions(pages, json.load(open("plan/overrides.json")))
+    q = write_plan(pages)
+    print(f"additions: {n} new page(s) | pages: {len(pages)} | planned queue: {len(q)} | parked-short: {sum(p['status'] == 'parked-short' for p in pages.values())}")
+    sys.exit(0)
+
+import pandas as pd
 SRC = sys.argv[1] if len(sys.argv) > 1 else "/mnt/project/Emergent_Hub_Child_Pages_Final_v3.xlsx"
 HUB_PATH = {"LP": "/ai-landing-page-builder", "Form": "/ai-form-builder",
             "Auto": "/ai-automation-builder", "SurveyQuiz": "/ai-survey-and-quiz-builder"}  # live paths
@@ -125,17 +167,9 @@ for src, dst in ov.get("wave3_merges", {}).get("pairs", []) + ov.get("intent_mer
         d_.setdefault("overrides", []).append(f"absorbed {src} (cannibalization merge)")
         s_["status"] = "merged"; s_["merged_into"] = dst
 
+# --- approved additions outside the workbook (ruling 13 new keywords, Divit 2026-10-14) ---
+apply_additions(pages, ov)
+
 # --- queue: descending volume; Wave 4 (needs a playable quiz) last ---
-q = [p for p in pages.values() if p["status"] == "planned"]
-q.sort(key=lambda p: (p["wave"] == 4, -p["total_msv"], -p["primary_msv"]))
-for i, p in enumerate(q, 1): p["queue_rank"] = i
-json.dump(pages, open("plan/keyword_map.json", "w"), indent=1, ensure_ascii=False)
-with open("plan/queue.csv", "w", newline="") as f:
-    w = csv.writer(f); w.writerow(["rank", "hub", "url", "primary", "primary_msv", "kd", "total_msv", "wave", "verdict", "capability_gap"])
-    for p in q:
-        mix = p["top10_mix"] if isinstance(p["top10_mix"], str) else ""; m = re.search(r"(\d+) document-template", mix); docs = int(m.group(1)) if m else 0
-        txt = ((p["angle"] if isinstance(p["angle"], str) else "") + " " + (p["pass3_action"] if isinstance(p["pass3_action"], str) else "")).lower()
-        gap = ("playable quiz" if p["wave"] == 4 else
-               "generated document (template SERP)" if docs >= 2 or "doc-template" in txt or "generated output" in txt or "letter" in p["primary"] else "")
-        w.writerow([p["queue_rank"], p["hub"], p["url"], p["primary"], p["primary_msv"], p["kd"], p["total_msv"], p["wave"], p["verdict"], gap])
+q = write_plan(pages)
 print(f"pages: {len(pages)} | planned queue: {len(q)} | live-draft: {sum(p['status']=='live-draft' for p in pages.values())} | live-off-plan: {sum(p['status']=='live-off-plan' for p in pages.values())} | needs-decision: {sum(p['status']=='needs-decision' for p in pages.values())} | cut: {sum(p['status']=='cut' for p in pages.values())} | merged: {sum(p['status']=='merged' for p in pages.values())} | need a live SERP pull: {sum(1 for p in pages.values() if p.get('serp_needed'))}" + ("" if W3 else " | (Wave 3 report not found)"))
