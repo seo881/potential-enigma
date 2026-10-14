@@ -2,6 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-10-14 · [2015-coordinator-evening-ship-spot-library](2026-10-14/2015-coordinator-evening-ship-spot-library.md) · A: all 12 sections hidden; spot check (AR held); truth gap closed (C6/C7); competitor categories; drip, content-workflow, payroll live (128); crm/healthcare re-parked; B slim-review queue · 221836ec
 - 2026-10-14 · [2000-account-b-routed-swaps](2026-10-14/2000-account-b-routed-swaps.md) · B: compliance Q7 swapped + slim-reviewed; crm Q10, healthcare Q9/Q10 no slot (A re-park); product-launch LP reviewed 0 blocking; 19 new pages claimed; skeleton shortener defect to A · 180a5e28
 - 2026-10-14 · [1809-account-b-ruling20-auto-reviews](2026-10-14/1809-account-b-ruling20-auto-reviews.md) · B: 9 Automation pages fully reviewed (B-r-3..6), 7 blocking -> 1 rework each, 8 reviewed, it-automation waits on A's unlock · c247f4ed
 - 2026-10-14 · [1800-account-b-daily](2026-10-14/1800-account-b-daily.md) · B daily: 9 reviewed (7 swaps, 2 quiz canary), 9 Automation pages at images, new-keyword pages not claimable yet (no status) · ff3cf7d3
