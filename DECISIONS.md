@@ -3,6 +3,10 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-14
+- **Console-error exception (Divit, 2026-10-14):** the staging check and the live audit ignore only console errors whose source is clarity.js, the GTM Clarity loader, or adwire molecule.js.
+  - Any other console error still fails.
+  - The exception is printed in the check output on every run.
+  - Cause: Clarity is installed twice (GTM tag yk73i3s9n9 and Bing UET automatic Clarity xim0csew0m), and the Adwire GTM tag 259 serves invalid JS. Both belong to the owner of GTM-NCCB99P9, not to Webflow; diagnosis in commit 2dd34b51's report.
 - **KS header work (Divit, 5:59 PM):**
   - No publish requests (staging or production) until Divit says KS's header is done.
   - Never touch the header, navbar or shared components; their changes are KS, not drift, and are never reverted.
