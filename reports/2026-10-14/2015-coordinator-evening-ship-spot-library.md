@@ -95,7 +95,7 @@ Additions (Divit, verbatim):
 
 - **Template run:** the hub FAQ refit and the quiz embed are blocked until the Designer reconnects. After that come the unhide batch, the staging publish request, the staging check and screenshots.
 - **Shipping:** accounting-automation is waiting on its Q8 ruling and a B-s slim review. accounts-receivable-automation is waiting on B's FAQ 6 fix and a slim review.
-- **B's private/semrush:** check denied (see above).
+- **B's private/semrush:** confirmed later by Divit: matches A's, 3,030 files.
 - **HubSpot fact on the live sales-automation table:** not edited. It waits for Divit's wording.
 
 ## Open questions for Divit
