@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-78",
    "note": ""
+  },
+  {
+   "t": "2026-10-14 14:34 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-9",
+   "note": "[truth | HUB_RULES 8] faq: The page contradicts itself: howto_step_5_title 'Put the funny question first' and howto_step_5_des 'Open with the funny question as a warm-up' (also faq item 10 'at the start of a longer survey as a warm-up') tell the reader to put it first, while FAQ 7 says it fits best "
   }
  ],
  "pipeline": "r15",
@@ -852,5 +859,275 @@
  },
  "writers": [
   "B-w-78"
- ]
+ ],
+ "review": {
+  "by": "B-r-9",
+  "date": "2026-10-14 14:34 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Funny Survey Questions Whose Answers Get Used'; hero 'Get funny survey questions in a survey built from a prompt, with every answer saved to a database you own.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Title promises examples and delivers them: FAQ 3 six questions, FAQ 5 two with answer choices, FAQ 6 family, FAQ 8 coworkers, FAQ 9 multiple choice; how-to on writing them."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'An inside joke lands with a team of 12 and confuses a company of 900'; awards voted by name; mixed-department offsite teams."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Bodies open on full sentences, e.g. 'Before the offsite, all 40 people answer silly multiple choice questions'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; two long FAQ sentences noted (QC Q2 P2)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Human: 'Then show the result to the whole group, since the reveal is the part people remember.'"
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "The page contradicts itself on where the funny question goes: howto_step_5_title 'Put the funny question first' vs faq item 7 'Funny random survey questions fit best at the end of a post event survey, after the ratings are in.' Emergent claims map to claims_used; the two survey-method facts in steps 4 and 5 match their Pew quoted spans."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Stories (offsite team sort, reunion awards, class mascot, weekly Slack question) are distinct from poll-questions; no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, each answered in its first sentence, secondaries read naturally; hub link in item 2."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Images match copy: 5 teams of 8, max 2 per department, Team Toaster 4 departments, 40 of 40; Dana 9 of 23; capybara 11, goose 9, sloth 7 of 27; offline 17 of 31 (17+8+4+2)."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Funny random survey questions fit best at the end of a post event survey, after the ratings are in.",
+    "issue": "The page contradicts itself: howto_step_5_title 'Put the funny question first' and howto_step_5_des 'Open with the funny question as a warm-up' (also faq item 10 'at the start of a longer survey as a warm-up') tell the reader to put it first, while FAQ 7 says it fits best at the end. Only instance on the page.",
+    "fix": "Make the page say one thing. Either reword FAQ 7 to open the post event survey with the funny question as a warm-up, kept apart from the ratings, or reword step 5 to 'Keep the funny question apart from serious ones' (first as a warm-up or last after the ratings) and keep FAQ 7 and FAQ 10 consistent with it.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq_heading",
+    "quote": "Survey Questions Questions, Answered",
+    "issue": "Code-built heading drops 'Funny' and doubles 'Questions'. Known tooling defect in proposals/account-b.md; writers may not edit it.",
+    "fix": "Fix in the skeleton builder (proposals/account-b.md).",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "hero_prompt",
+    "quote": "Build a funny survey questions that collects every answer in a database I own.",
+    "issue": "Code-built: 'a' before a plural keyword. Known tooling defect in proposals/account-b.md.",
+    "fix": "Fix in the skeleton builder (proposals/account-b.md).",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #24",
+    "field": "tab_content_1",
+    "quote": "all 40 people answer silly multiple choice questions",
+    "issue": "The tab heading 'Six silly answers sort the offsite into teams' and the image prompt ('six silly multiple choice answers') count six, but the tab copy never says six. Not a contradiction, but the number in the heading is not in the body.",
+    "fix": "'all 40 people answer six silly multiple choice questions'.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #6",
+    "field": "faq",
+    "quote": "Good funny family survey questions let relatives vote on each other in a friendly way: who takes longest to get ready, who tells the same story every holiday, and who is most likely to bring three desserts.",
+    "issue": "37-word sentence in FAQ 6; FAQ 4 also has a 33-word first sentence ('Interesting survey questions ask about something people have an opinion on but are rarely asked, ...') (QC Q2).",
+    "fix": "Split each into two sentences.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq_heading",
+   "issue": "Code-built heading drops 'Funny' and doubles 'Questions'. Known tooling defect in proposals/account-b.md; writers may not edit it.",
+   "fix": "Fix in the skeleton builder (proposals/account-b.md).",
+   "by": "B-r-9",
+   "via": "review",
+   "date": "2026-10-14 14:34 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "hero_prompt",
+   "issue": "Code-built: 'a' before a plural keyword. Known tooling defect in proposals/account-b.md.",
+   "fix": "Fix in the skeleton builder (proposals/account-b.md).",
+   "by": "B-r-9",
+   "via": "review",
+   "date": "2026-10-14 14:34 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #24",
+   "field": "tab_content_1",
+   "issue": "The tab heading 'Six silly answers sort the offsite into teams' and the image prompt ('six silly multiple choice answers') count six, but the tab copy never says six. Not a contradiction, but the number in the heading is not in the body.",
+   "fix": "'all 40 people answer six silly multiple choice questions'.",
+   "by": "B-r-9",
+   "via": "review",
+   "date": "2026-10-14 14:34 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #6",
+   "field": "faq",
+   "issue": "37-word sentence in FAQ 6; FAQ 4 also has a 33-word first sentence ('Interesting survey questions ask about something people have an opinion on but are rarely asked, ...') (QC Q2).",
+   "fix": "Split each into two sentences.",
+   "by": "B-r-9",
+   "via": "review",
+   "date": "2026-10-14 14:34 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "5acbb3db7c87f3fc",
+   "alt:share_image": "860da766c329fa86",
+   "alt:tab_image_1": "5477f4505ddad85c",
+   "alt:tab_image_2": "a84be3bb6b149a57",
+   "alt:tab_image_3": "8800b8c392002b5d",
+   "alt:tab_image_4": "49729cc0167f9c35",
+   "breadcrumb": "52c9210aecfcbab6",
+   "chip_adds": "85945713b7b59a73",
+   "explore_cta": "a7098f355cafa9c7",
+   "faq": "9e5829026ab73b85",
+   "feature_1": "13d584b83521722a",
+   "feature_2": "ef7314ab180e015d",
+   "feature_3": "9a1f4428a98d04fd",
+   "feature_4": "f6de27cb0f0fc1d3",
+   "feature_5": "c2bf3afdcd1b7739",
+   "feature_6": "77a87eda12f1d8f2",
+   "features_heading": "2c16f8f163cb3895",
+   "features_subheading": "848953018b75c255",
+   "h1": "51c89ed4c0825bbf",
+   "hero_description": "410baebc219f4ee1",
+   "hero_prompt": "65927e76e3269006",
+   "howto_description": "423b66231affc023",
+   "howto_step_1_des": "aac38e5d667a4844",
+   "howto_step_1_title": "2b09c1c3bfafd9a8",
+   "howto_step_2_des": "5bcc2876d66c1bd4",
+   "howto_step_2_title": "f4f028b7ce3d854b",
+   "howto_step_3_des": "101cb2bd91249e61",
+   "howto_step_3_title": "c872b0661eb7adac",
+   "howto_step_4_des": "804ebd271fbc85f8",
+   "howto_step_4_title": "09c0dda09d102172",
+   "howto_step_5_des": "45948aa0ef9a5991",
+   "howto_step_5_title": "84a716ac26fe6a65",
+   "howto_step_6_des": "a01287a014f098ae",
+   "howto_step_6_title": "6d928932e8800429",
+   "howto_step_7_des": "b24803e26e7e137d",
+   "howto_step_7_title": "4a8ac6498e95dc24",
+   "howto_title": "15472457791a460b",
+   "meta_description": "78e7510858fee73e",
+   "meta_title": "02b740570fabfe3a",
+   "mockup": "bfc375301f424154",
+   "product_name": "45d10db60c487ec2",
+   "prompt_chip_1": "6fab9e649d3ff43a",
+   "prompt_chip_2": "da47fd01f1a783b9",
+   "prompt_chip_3": "415e80d49c2512b5",
+   "prompt_chip_4": "bab8619473022840",
+   "slug": "bbb61c59befc3b55",
+   "tab_content_1": "54420045c1a8ec65",
+   "tab_content_2": "6f50b5d1451f7d5c",
+   "tab_content_3": "2c241b3e3ee00b6e",
+   "tab_content_4": "0345a57cbcf5f9f7",
+   "tab_label_1": "b273756466cdf1b7",
+   "tab_label_2": "ea1881a829b76cc4",
+   "tab_label_3": "5b547053395f2007",
+   "tab_label_4": "bab8619473022840",
+   "usecase_heading": "b8b557d2a75ec56c",
+   "why_description": "1ddd150cca795acf",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "b6e938abe7c30c44"
+  },
+  "all": "489e7b2f0a0c6232",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "5acbb3db7c87f3fc",
+   "alt:share_image": "860da766c329fa86",
+   "alt:tab_image_1": "5477f4505ddad85c",
+   "alt:tab_image_2": "a84be3bb6b149a57",
+   "alt:tab_image_3": "8800b8c392002b5d",
+   "alt:tab_image_4": "49729cc0167f9c35",
+   "breadcrumb": "52c9210aecfcbab6",
+   "chip_adds": "85945713b7b59a73",
+   "explore_cta": "a7098f355cafa9c7",
+   "faq": "9e5829026ab73b85",
+   "feature_1": "13d584b83521722a",
+   "feature_2": "ef7314ab180e015d",
+   "feature_3": "9a1f4428a98d04fd",
+   "feature_4": "f6de27cb0f0fc1d3",
+   "feature_5": "c2bf3afdcd1b7739",
+   "feature_6": "77a87eda12f1d8f2",
+   "features_heading": "2c16f8f163cb3895",
+   "features_subheading": "848953018b75c255",
+   "h1": "51c89ed4c0825bbf",
+   "hero_description": "410baebc219f4ee1",
+   "hero_prompt": "65927e76e3269006",
+   "howto_description": "423b66231affc023",
+   "howto_step_1_des": "aac38e5d667a4844",
+   "howto_step_1_title": "2b09c1c3bfafd9a8",
+   "howto_step_2_des": "5bcc2876d66c1bd4",
+   "howto_step_2_title": "f4f028b7ce3d854b",
+   "howto_step_3_des": "101cb2bd91249e61",
+   "howto_step_3_title": "c872b0661eb7adac",
+   "howto_step_4_des": "804ebd271fbc85f8",
+   "howto_step_4_title": "09c0dda09d102172",
+   "howto_step_5_des": "45948aa0ef9a5991",
+   "howto_step_5_title": "84a716ac26fe6a65",
+   "howto_step_6_des": "a01287a014f098ae",
+   "howto_step_6_title": "6d928932e8800429",
+   "howto_step_7_des": "b24803e26e7e137d",
+   "howto_step_7_title": "4a8ac6498e95dc24",
+   "howto_title": "15472457791a460b",
+   "meta_description": "78e7510858fee73e",
+   "meta_title": "02b740570fabfe3a",
+   "mockup": "bfc375301f424154",
+   "product_name": "45d10db60c487ec2",
+   "prompt_chip_1": "6fab9e649d3ff43a",
+   "prompt_chip_2": "da47fd01f1a783b9",
+   "prompt_chip_3": "415e80d49c2512b5",
+   "prompt_chip_4": "bab8619473022840",
+   "slug": "bbb61c59befc3b55",
+   "tab_content_1": "54420045c1a8ec65",
+   "tab_content_2": "6f50b5d1451f7d5c",
+   "tab_content_3": "2c241b3e3ee00b6e",
+   "tab_content_4": "0345a57cbcf5f9f7",
+   "tab_label_1": "b273756466cdf1b7",
+   "tab_label_2": "ea1881a829b76cc4",
+   "tab_label_3": "5b547053395f2007",
+   "tab_label_4": "bab8619473022840",
+   "usecase_heading": "b8b557d2a75ec56c",
+   "why_description": "1ddd150cca795acf",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "b6e938abe7c30c44"
+  },
+  "all": "489e7b2f0a0c6232",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
