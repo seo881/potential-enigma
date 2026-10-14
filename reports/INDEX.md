@@ -2,6 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-10-14 · [1809-account-b-ruling20-auto-reviews](2026-10-14/1809-account-b-ruling20-auto-reviews.md) · B: 9 Automation pages fully reviewed (B-r-3..6), 7 blocking -> 1 rework each, 8 reviewed, it-automation waits on A's unlock · c247f4ed
 - 2026-10-14 · [1800-account-b-daily](2026-10-14/1800-account-b-daily.md) · B daily: 9 reviewed (7 swaps, 2 quiz canary), 9 Automation pages at images, new-keyword pages not claimable yet (no status) · ff3cf7d3
 - 2026-10-14 · [1656-account-b-ruling18-swaps](2026-10-14/1656-account-b-ruling18-swaps.md) · B: ruling-18 swaps: 7 reviewed, 13 left for A to re-park (no code-built slot, off-sense candidate or source reject) · 076541ef
 - 2026-10-14 · [0600-overnight-r15-canary-loop](2026-10-14/0600-overnight-r15-canary-loop.md) · canary PASS 3/3; overnight loop 01:07; 27 reviewed (36% blocking at first review, all reworked once); writable non-quiz supply 0; 144 now, ≈300 reachable by 10-27, 500 not on this plan; audit 60/60 no P0; Semrush 888,480 (12.2%) · 772da223
