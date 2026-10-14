@@ -129,6 +129,13 @@
    "via": null,
    "by": "B-w-88",
    "note": ""
+  },
+  {
+   "t": "2026-10-14 14:52 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-13",
+   "note": "rubric 10/10 by B-r-13; 6 notes"
   }
  ],
  "pipeline": "r15",
@@ -1019,5 +1026,305 @@
  },
  "writers": [
   "B-w-88"
- ]
+ ],
+ "review": {
+  "by": "B-r-13",
+  "date": "2026-10-14 14:52 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Cookie Order Form That Fits Your Baking Schedule'; hero 'Get a cookie order form that prices each order by the dozen and saves it to a database you own.' (D1 ok); how-to 'Seven steps to create a cookie order form that books only what you can bake and tells each customer when to pick up.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is cookie order templates; page gives the fields (FAQ 1 'name and phone number, the pickup date, the flavors, and the number of dozens'), Christmas, cookie dough, custom, decorated and digital variants, free start, and a 7-step build specific to lead time, daily caps and pricing."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Baker vocabulary throughout: 'a second batch of sugar cookie dough', '3 days for a plain dozen and 7 for a decorated set', 'individually bagged', 'one shopping trip for butter and flour'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on full sentences with verbs: 'Emergent builds the form from a plain-English list...', 'Customers answer one question at a time...', 'A dashboard updates as orders come in...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; Q5/Q6/Q7 clean in QC. Notes: FAQ 4 ends on a link-only sentence; date-before-design idea repeated in 3 fields."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: 'Ines Pardo's email said 11:00 to 11:30 am for her 2 dozen snickerdoodles.' Notes on meta 'for your yes' and FAQ 3 framing."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Every Emergent sentence maps to claims_used (prompt-build, conversational, database-owned, realtime, api-connect incl. QuickBooks, no-caps, alerts incl. Slack DM, free-start, code-export), all approved in rules/capabilities.json. No third-party fact in prose (domain_sources empty, nothing needs one); table generated from library (V2/V3 pass). Numbers agree: 80-52=28, 6x$32=$192, 3x$36=$108, 14 orders/14 emails."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own stories (rush custom set, 80-box Christmas cap, logo-cookie dozen break, Friday pickup-window email); no sibling primary in headings; sibling links to t shirt order form, work order form, order form used as links only."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, no brand or file-format asks, answer-first; hub link in item 2; 3 sibling links; F9 moat lines in items 3, 6, 8 from approved claims."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: tab 1 'Slack DM to Tess Halloran', 'Delia Marchetti, 3 dozen', 'Status: pending', 'Noor Abbasi confirmed 12 days' notice'; tab 2 Thornapple, Dec 23 80/0 Closed, Dec 22 52/28 Offered; tab 3 $36/$32, $192, '3 dozen: $108', Lena Quist; tab 4 14 orders, 14 emails sent Friday 10 am, Ines Pardo 11:00 to 11:30, 2 dozen snickerdoodles. One hero each, cursor on buttons."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_2; howto_step_4_des; faq item 1",
+    "quote": "feature_2: 'Ask for the pickup date early, since it decides what you can still offer.' / howto_step_4: 'Put the pickup date and quantity ahead of any design questions.' / faq 1: 'Ask for the date first, which lets the form hide pickup days that are booked up.'",
+    "issue": "The same ask-for-the-date-first advice appears in three fields with words swapped.",
+    "fix": "Keep it in the how-to step; give feature 2 and FAQ 1 a different point.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 4",
+    "quote": "If your holiday sale also sells shirts, keep those on a separate t shirt order form.",
+    "issue": "The answer ends on a sentence that exists only to carry the sibling link, and the scenario (a Christmas cookie sale selling shirts) is contrived; the link does not help this reader. Only instance on the page: items 7 and 10 carry their links inside working sentences.",
+    "fix": "End on the cookie answer and move the t shirt order form link, or drop it in favor of a sibling the reader would want (cake order form, food order form).",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "meta_description",
+    "quote": "holds rush orders for your yes",
+    "issue": "Reads oddly aloud; a reader would not say it.",
+    "fix": "holds rush orders until you accept them",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 3",
+    "quote": "Yes: a written description of your menu works as the template, and the form is built to match it.",
+    "issue": "Answers a template question by redefining 'template'; reads as a dodge to someone wanting a starting form.",
+    "fix": "Yes: describe your flavors, box sizes and pickup days and Emergent builds the form from that, ready to edit.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief tab 2 hero",
+    "quote": "Next open day: December 22",
+    "issue": "December 22 is the day before the full December 23, so 'Next' reads backwards; the copy says only 'The next customer saw December 22 instead'.",
+    "fix": "Open instead: December 22",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 5",
+    "field": "plan.tab_stories",
+    "quote": "Ashgrove Bake House ... Ines Varga ... owner Tess Halloran gets an email",
+    "issue": "The plan's stories differ from the shipped page (Thornapple Bake House, Ines Pardo, Slack DM). Page and images agree with each other; the plan is stale.",
+    "fix": "No page change; keep plans in step with copy.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_2; howto_step_4_des; faq item 1",
+   "issue": "The same ask-for-the-date-first advice appears in three fields with words swapped.",
+   "fix": "Keep it in the how-to step; give feature 2 and FAQ 1 a different point.",
+   "by": "B-r-13",
+   "via": "review",
+   "date": "2026-10-14 14:52 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 4",
+   "issue": "The answer ends on a sentence that exists only to carry the sibling link, and the scenario (a Christmas cookie sale selling shirts) is contrived; the link does not help this reader. Only instance on the page: items 7 and 10 carry their links inside working sentences.",
+   "fix": "End on the cookie answer and move the t shirt order form link, or drop it in favor of a sibling the reader would want (cake order form, food order form).",
+   "by": "B-r-13",
+   "via": "review",
+   "date": "2026-10-14 14:52 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "meta_description",
+   "issue": "Reads oddly aloud; a reader would not say it.",
+   "fix": "holds rush orders until you accept them",
+   "by": "B-r-13",
+   "via": "review",
+   "date": "2026-10-14 14:52 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 3",
+   "issue": "Answers a template question by redefining 'template'; reads as a dodge to someone wanting a starting form.",
+   "fix": "Yes: describe your flavors, box sizes and pickup days and Emergent builds the form from that, ready to edit.",
+   "by": "B-r-13",
+   "via": "review",
+   "date": "2026-10-14 14:52 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief tab 2 hero",
+   "issue": "December 22 is the day before the full December 23, so 'Next' reads backwards; the copy says only 'The next customer saw December 22 instead'.",
+   "fix": "Open instead: December 22",
+   "by": "B-r-13",
+   "via": "review",
+   "date": "2026-10-14 14:52 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 5",
+   "field": "plan.tab_stories",
+   "issue": "The plan's stories differ from the shipped page (Thornapple Bake House, Ines Pardo, Slack DM). Page and images agree with each other; the plan is stale.",
+   "fix": "No page change; keep plans in step with copy.",
+   "by": "B-r-13",
+   "via": "review",
+   "date": "2026-10-14 14:52 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "0d7e17117dae04c8",
+   "alt:share_image": "3b05456f299f8765",
+   "alt:tab_image_1": "7fe18c371c32fd19",
+   "alt:tab_image_2": "99bdef25c488e81d",
+   "alt:tab_image_3": "52130feb1a6bf3bc",
+   "alt:tab_image_4": "ee3fa5b90ebfc07d",
+   "breadcrumb": "4adc5943ed0b8445",
+   "chip_adds": "c1398d084ef21e7a",
+   "explore_cta": "6df74374b978f380",
+   "faq": "4ae1656ae134fecb",
+   "feature_1": "dfce2f422a7590fe",
+   "feature_2": "778d8e6dd215d634",
+   "feature_3": "2966227ccada95c3",
+   "feature_4": "bbc92b88387d6c9b",
+   "feature_5": "efe77cca4bea019a",
+   "feature_6": "9ed872a1f5eca2f8",
+   "features_heading": "d9ad2eeab3d4266b",
+   "features_subheading": "8255030dd5475770",
+   "h1": "82d5154fc1f5a2cc",
+   "hero_description": "12de010c0d69515a",
+   "hero_prompt": "31765526879c1a4f",
+   "howto_description": "c3456e5aa145c946",
+   "howto_step_1_des": "bc9fccb7bf3491ea",
+   "howto_step_1_title": "15f40b94e639b3f2",
+   "howto_step_2_des": "3655ecd1be915097",
+   "howto_step_2_title": "430d0a7a151c5c76",
+   "howto_step_3_des": "fa4ae880aea1ab3b",
+   "howto_step_3_title": "d950816cf37f4698",
+   "howto_step_4_des": "7dfbc86c10aa4160",
+   "howto_step_4_title": "020249fe71a6e05b",
+   "howto_step_5_des": "eb565807ae837cfd",
+   "howto_step_5_title": "47e21227c893f179",
+   "howto_step_6_des": "7525cee5f23d840d",
+   "howto_step_6_title": "4edee3f764dd7576",
+   "howto_step_7_des": "8a688f9d74a1878a",
+   "howto_step_7_title": "03c02241ef1e413f",
+   "howto_title": "16461b2d77f7e398",
+   "meta_description": "7d0544bfa09d2364",
+   "meta_title": "7ba0eae7d702d558",
+   "mockup": "0a4f8cc7376d6cc4",
+   "product_name": "cac89fbc7d41bb9c",
+   "prompt_chip_1": "1d3195defa724990",
+   "prompt_chip_2": "75fe9f59ebebaa7d",
+   "prompt_chip_3": "85b21f3c92c0d7c7",
+   "prompt_chip_4": "cf9c48ac85355cc6",
+   "slug": "481f93d6af99c954",
+   "tab_content_1": "7c03ed2aa0d4f30f",
+   "tab_content_2": "7257617a453a468e",
+   "tab_content_3": "49bab8a9bfe38c2f",
+   "tab_content_4": "11a95140c5d7692f",
+   "tab_label_1": "ff82cdd2e5a19379",
+   "tab_label_2": "498e729e3105e600",
+   "tab_label_3": "049e193355a82658",
+   "tab_label_4": "88f264476fe1621b",
+   "usecase_heading": "6916435d83a00ce2",
+   "why_description": "59750440bf4371b6",
+   "why_table": "9a873c4ae655076e",
+   "why_title": "346d0618725b8480"
+  },
+  "all": "82242226f7ed1840",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "0d7e17117dae04c8",
+   "alt:share_image": "3b05456f299f8765",
+   "alt:tab_image_1": "7fe18c371c32fd19",
+   "alt:tab_image_2": "99bdef25c488e81d",
+   "alt:tab_image_3": "52130feb1a6bf3bc",
+   "alt:tab_image_4": "ee3fa5b90ebfc07d",
+   "breadcrumb": "4adc5943ed0b8445",
+   "chip_adds": "c1398d084ef21e7a",
+   "explore_cta": "6df74374b978f380",
+   "faq": "4ae1656ae134fecb",
+   "feature_1": "dfce2f422a7590fe",
+   "feature_2": "778d8e6dd215d634",
+   "feature_3": "2966227ccada95c3",
+   "feature_4": "bbc92b88387d6c9b",
+   "feature_5": "efe77cca4bea019a",
+   "feature_6": "9ed872a1f5eca2f8",
+   "features_heading": "d9ad2eeab3d4266b",
+   "features_subheading": "8255030dd5475770",
+   "h1": "82d5154fc1f5a2cc",
+   "hero_description": "12de010c0d69515a",
+   "hero_prompt": "31765526879c1a4f",
+   "howto_description": "c3456e5aa145c946",
+   "howto_step_1_des": "bc9fccb7bf3491ea",
+   "howto_step_1_title": "15f40b94e639b3f2",
+   "howto_step_2_des": "3655ecd1be915097",
+   "howto_step_2_title": "430d0a7a151c5c76",
+   "howto_step_3_des": "fa4ae880aea1ab3b",
+   "howto_step_3_title": "d950816cf37f4698",
+   "howto_step_4_des": "7dfbc86c10aa4160",
+   "howto_step_4_title": "020249fe71a6e05b",
+   "howto_step_5_des": "eb565807ae837cfd",
+   "howto_step_5_title": "47e21227c893f179",
+   "howto_step_6_des": "7525cee5f23d840d",
+   "howto_step_6_title": "4edee3f764dd7576",
+   "howto_step_7_des": "8a688f9d74a1878a",
+   "howto_step_7_title": "03c02241ef1e413f",
+   "howto_title": "16461b2d77f7e398",
+   "meta_description": "7d0544bfa09d2364",
+   "meta_title": "7ba0eae7d702d558",
+   "mockup": "0a4f8cc7376d6cc4",
+   "product_name": "cac89fbc7d41bb9c",
+   "prompt_chip_1": "1d3195defa724990",
+   "prompt_chip_2": "75fe9f59ebebaa7d",
+   "prompt_chip_3": "85b21f3c92c0d7c7",
+   "prompt_chip_4": "cf9c48ac85355cc6",
+   "slug": "481f93d6af99c954",
+   "tab_content_1": "7c03ed2aa0d4f30f",
+   "tab_content_2": "7257617a453a468e",
+   "tab_content_3": "49bab8a9bfe38c2f",
+   "tab_content_4": "11a95140c5d7692f",
+   "tab_label_1": "ff82cdd2e5a19379",
+   "tab_label_2": "498e729e3105e600",
+   "tab_label_3": "049e193355a82658",
+   "tab_label_4": "88f264476fe1621b",
+   "usecase_heading": "6916435d83a00ce2",
+   "why_description": "59750440bf4371b6",
+   "why_table": "9a873c4ae655076e",
+   "why_title": "346d0618725b8480"
+  },
+  "all": "82242226f7ed1840",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
