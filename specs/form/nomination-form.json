@@ -132,6 +132,13 @@
    "via": null,
    "by": "B-w-84",
    "note": ""
+  },
+  {
+   "t": "2026-10-14 14:57 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-14",
+   "note": "[faq | HUB_RULES 5] faq item 4: Recorded source is the Semrush question 'is nomination form required for passport' (a passport-nominee sense); the reword is not that question in other words but a new one nobody searches, and it restates item 3 ('What should a nomination form include?'). HUB_RULES 5:"
   }
  ],
  "pipeline": "r15",
@@ -1144,5 +1151,265 @@
  },
  "writers": [
   "B-w-84"
- ]
+ ],
+ "review": {
+  "by": "B-r-14",
+  "date": "2026-10-14 14:57 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Nomination Form Your Judges Can Score'; hero 'Build a nomination form that counts nominations by nominee and saves each one to a database you own.'; how-to description one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Template SERP: fields to include (feature 1, FAQ 3, FAQ 7), what to write for a coworker (FAQ 9), judges and criteria, a 7-step build, four program types."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Three judges score each nomination out of 5, and an average of 4.0 or higher makes the shortlist', 'Each of the 8 nominees gets an email asking them to accept or decline', 'nominate up to 2 students each for Student of the Quarter'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "'Anyone at Brackwell Freight's warehouse can nominate a coworker', 'The Halvern Builders Association takes award nominations in 4 categories', 'Linden Court Homeowners Association has 3 board seats open'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft class; link-carrier ending recorded as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Judges can weigh two stories against each other. Two lists of praise read the same.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "claims_used (prompt-build, database-owned, alerts, conversational, code-export, free-start, no-caps) all approved; no third-party facts needing sources. Numbers: (4+5+4)/3=4.3, 5+3=8, 24+7=31, tally 7+5+4+3+4=23. Table generated."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Judging, tally and nominee-acceptance angle; sibling primaries only as FAQ link anchors."
+   },
+   "faq": {
+    "result": "fail",
+    "evidence": "Item 4 'What nominee fields does a nomination form need?' (ref 'is nomination form required for passport') and item 6 'How many nominations can a nomination form collect?' (ref 'what is a pension nomination form') are questions with no searcher behind them; items 3, 5 and 9 are fair on-sense rewords."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 '23 total', Imani Castellow 7, 'To Corinne Slate', 'Every written reason included'; tab 2 Northgate Clinic '4, 5, 4' '4.3' Shortlist, 'Email to the builder'; tab 3 '3 open seats', 5 accepted 3 declined, '5 names for 3 seats'; tab 4 '31 teachers', 24 nominated, '7 reminders sent Monday', 'Closes Thursday'."
+   }
+  },
+  "findings": [
+   {
+    "class": "structure",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 4",
+    "quote": "What nominee fields does a nomination form need?",
+    "issue": "Recorded source is the Semrush question 'is nomination form required for passport' (a passport-nominee sense); the reword is not that question in other words but a new one nobody searches, and it restates item 3 ('What should a nomination form include?'). HUB_RULES 5: every FAQ item is a question a searcher actually asks, never invented or padded; QC F3 would block this distance from the source phrasing.",
+    "fix": "Replace with a real on-sense nomination form question from the page's Semrush keyword ideas (head phrase kept, source recorded), e.g. a self-nomination, award nomination letter or board nomination query that exists in the data.",
+    "severity": "blocking"
+   },
+   {
+    "class": "structure",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 6",
+    "quote": "How many nominations can a nomination form collect?",
+    "issue": "Recorded source is 'what is a pension nomination form'; the question shares only the head phrase with it and has no searcher behind it. It exists to carry the no-response-cap moat line.",
+    "fix": "Replace with a real on-sense nomination form question from the Semrush data; move the no-cap moat into another answer if needed.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq_sources items 3, 5, 9",
+    "quote": "What should a nomination form include? / Can someone send a nomination form for themselves? / What should I write on a nomination form for a coworker?",
+    "issue": "Fair, real award-sense questions, but their recorded refs are passport and beneficiary questions ('what is nomination form in passport application', 'what is a beneficiary nomination form', 'how to fill beneficiary nomination form'), so provenance does not describe them. Root cause: the Semrush phrase_questions filter kept off-sense senses (passport, beneficiary, pension) for this head phrase.",
+    "fix": "Tooling: filter off-sense Semrush senses before slotting; record the real basis of each reworded question.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 5",
+    "quote": "Can someone send a nomination form for themselves?",
+    "issue": "Searchers say 'nominate yourself'; 'send a nomination form for themselves' reads stiff.",
+    "fix": "'Can you fill out a nomination form for yourself?'",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "faq item 10",
+    "quote": "Stick to facts the judges can check, the way an accident report form sticks to what happened and when.",
+    "issue": "The simile exists to carry the accident report form link (recurring link-carrier note). Items 4 ('Collect those in an employee information form instead') and 7 ('those belong in an employee evaluation form') stay on topic and are not counted.",
+    "fix": "Drop the simile; end on 'Submit before the close date.'",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq_sources items 3, 5, 9",
+   "issue": "Fair, real award-sense questions, but their recorded refs are passport and beneficiary questions ('what is nomination form in passport application', 'what is a beneficiary nomination form', 'how to fill beneficiary nomination form'), so provenance does not describe them. Root cause: the Semrush phrase_questions filter kept off-sense senses (passport, beneficiary, pension) for this head phrase.",
+   "fix": "Tooling: filter off-sense Semrush senses before slotting; record the real basis of each reworded question.",
+   "by": "B-r-14",
+   "via": "review",
+   "date": "2026-10-14 14:57 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 5",
+   "issue": "Searchers say 'nominate yourself'; 'send a nomination form for themselves' reads stiff.",
+   "fix": "'Can you fill out a nomination form for yourself?'",
+   "by": "B-r-14",
+   "via": "review",
+   "date": "2026-10-14 14:57 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "faq item 10",
+   "issue": "The simile exists to carry the accident report form link (recurring link-carrier note). Items 4 ('Collect those in an employee information form instead') and 7 ('those belong in an employee evaluation form') stay on topic and are not counted.",
+   "fix": "Drop the simile; end on 'Submit before the close date.'",
+   "by": "B-r-14",
+   "via": "review",
+   "date": "2026-10-14 14:57 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "0a6503f86be5b4b7",
+   "alt:share_image": "778071aab1ddfd58",
+   "alt:tab_image_1": "735bbad8f10c40bc",
+   "alt:tab_image_2": "0b06574cd8946b01",
+   "alt:tab_image_3": "c5c789f7e68313fe",
+   "alt:tab_image_4": "d293675b4c19c3eb",
+   "breadcrumb": "c574b81e59997f23",
+   "chip_adds": "a741a536e7293cc0",
+   "explore_cta": "b4068fcf3be7149d",
+   "faq": "de17b54fbcee8cbb",
+   "feature_1": "63dfb95db294ff70",
+   "feature_2": "8ede4ea427b67a49",
+   "feature_3": "d341cf6617ef0faf",
+   "feature_4": "d2cd893d02839c0e",
+   "feature_5": "19ffe998ba46ff05",
+   "feature_6": "9ed47d31887e8d2a",
+   "features_heading": "e5edcaf5a92ef0fd",
+   "features_subheading": "792ac5f1d473124f",
+   "h1": "0d6b001e0e8efc5a",
+   "hero_description": "61db242a1ab053bf",
+   "hero_prompt": "c41e27113a50e62a",
+   "howto_description": "b5f0adc387e5f720",
+   "howto_step_1_des": "7648ecfe266aa534",
+   "howto_step_1_title": "e380609f96d33beb",
+   "howto_step_2_des": "0d963c43249417ee",
+   "howto_step_2_title": "e22ad965b55af584",
+   "howto_step_3_des": "ce9874256fd7a453",
+   "howto_step_3_title": "63d67c58f244075d",
+   "howto_step_4_des": "99590281ec2f5fa1",
+   "howto_step_4_title": "5039cbba946d5010",
+   "howto_step_5_des": "c2dcdb78c3c9bfab",
+   "howto_step_5_title": "8b16f993580dd3b4",
+   "howto_step_6_des": "503bf8c785d3eee4",
+   "howto_step_6_title": "afe86ba1cf803cad",
+   "howto_step_7_des": "b516e027f6d6085a",
+   "howto_step_7_title": "2875ca8896d6d2b6",
+   "howto_title": "5005a295eb6a5045",
+   "meta_description": "90b4677cac8fe039",
+   "meta_title": "777623a3f9acd2d9",
+   "mockup": "3b2bdfe0ef05e929",
+   "product_name": "83c3679a8c83bee2",
+   "prompt_chip_1": "c6ea2468bda98bc0",
+   "prompt_chip_2": "307841084213af6c",
+   "prompt_chip_3": "7971dd7526694c6a",
+   "prompt_chip_4": "c5bd08a0870225aa",
+   "slug": "2d81310daac36821",
+   "tab_content_1": "cd4e773df77b2640",
+   "tab_content_2": "d7a34f4a22835bb2",
+   "tab_content_3": "78d0c1389f7952ae",
+   "tab_content_4": "31314f93e77b9137",
+   "tab_label_1": "dbdcb8e4d7f56093",
+   "tab_label_2": "dc774bfa2d84eb37",
+   "tab_label_3": "6e20294ad73308c6",
+   "tab_label_4": "48041765dca3fe6d",
+   "usecase_heading": "4be8d9b1c53d5549",
+   "why_description": "35942d79013a8409",
+   "why_table": "c199d4f8dcd66845",
+   "why_title": "4f540c1f95d87d7e"
+  },
+  "all": "c59de307abe88e8c",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "0a6503f86be5b4b7",
+   "alt:share_image": "778071aab1ddfd58",
+   "alt:tab_image_1": "735bbad8f10c40bc",
+   "alt:tab_image_2": "0b06574cd8946b01",
+   "alt:tab_image_3": "c5c789f7e68313fe",
+   "alt:tab_image_4": "d293675b4c19c3eb",
+   "breadcrumb": "c574b81e59997f23",
+   "chip_adds": "a741a536e7293cc0",
+   "explore_cta": "b4068fcf3be7149d",
+   "faq": "de17b54fbcee8cbb",
+   "feature_1": "63dfb95db294ff70",
+   "feature_2": "8ede4ea427b67a49",
+   "feature_3": "d341cf6617ef0faf",
+   "feature_4": "d2cd893d02839c0e",
+   "feature_5": "19ffe998ba46ff05",
+   "feature_6": "9ed47d31887e8d2a",
+   "features_heading": "e5edcaf5a92ef0fd",
+   "features_subheading": "792ac5f1d473124f",
+   "h1": "0d6b001e0e8efc5a",
+   "hero_description": "61db242a1ab053bf",
+   "hero_prompt": "c41e27113a50e62a",
+   "howto_description": "b5f0adc387e5f720",
+   "howto_step_1_des": "7648ecfe266aa534",
+   "howto_step_1_title": "e380609f96d33beb",
+   "howto_step_2_des": "0d963c43249417ee",
+   "howto_step_2_title": "e22ad965b55af584",
+   "howto_step_3_des": "ce9874256fd7a453",
+   "howto_step_3_title": "63d67c58f244075d",
+   "howto_step_4_des": "99590281ec2f5fa1",
+   "howto_step_4_title": "5039cbba946d5010",
+   "howto_step_5_des": "c2dcdb78c3c9bfab",
+   "howto_step_5_title": "8b16f993580dd3b4",
+   "howto_step_6_des": "503bf8c785d3eee4",
+   "howto_step_6_title": "afe86ba1cf803cad",
+   "howto_step_7_des": "b516e027f6d6085a",
+   "howto_step_7_title": "2875ca8896d6d2b6",
+   "howto_title": "5005a295eb6a5045",
+   "meta_description": "90b4677cac8fe039",
+   "meta_title": "777623a3f9acd2d9",
+   "mockup": "3b2bdfe0ef05e929",
+   "product_name": "83c3679a8c83bee2",
+   "prompt_chip_1": "c6ea2468bda98bc0",
+   "prompt_chip_2": "307841084213af6c",
+   "prompt_chip_3": "7971dd7526694c6a",
+   "prompt_chip_4": "c5bd08a0870225aa",
+   "slug": "2d81310daac36821",
+   "tab_content_1": "cd4e773df77b2640",
+   "tab_content_2": "d7a34f4a22835bb2",
+   "tab_content_3": "78d0c1389f7952ae",
+   "tab_content_4": "31314f93e77b9137",
+   "tab_label_1": "dbdcb8e4d7f56093",
+   "tab_label_2": "dc774bfa2d84eb37",
+   "tab_label_3": "6e20294ad73308c6",
+   "tab_label_4": "48041765dca3fe6d",
+   "usecase_heading": "4be8d9b1c53d5549",
+   "why_description": "35942d79013a8409",
+   "why_table": "c199d4f8dcd66845",
+   "why_title": "4f540c1f95d87d7e"
+  },
+  "all": "c59de307abe88e8c",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
