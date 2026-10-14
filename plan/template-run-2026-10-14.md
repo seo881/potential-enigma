@@ -43,3 +43,28 @@ Pages: child templates Form 6aaaaa03995bb2f9f4d6a3c2, LP 6aaaa937fe1a8d180b7c9f9
 - Quiz playthrough on the 2 canary quiz pages.
 - Screenshots for Divit at true size, 1440 and 390 px: one hub carousel, plus one template's carousel and Learn section.
 - Any failure: fix it, then ask for one more staging publish. When everything passes, ask for the production publish. After it: the live audit on everything, and verify-live on all live pages.
+
+## Order of writes (addendum, Divit 2026-10-14)
+
+Rules: one agent on the Designer at a time, one page at a time, with no parallel Designer writes and one reused session (ses_3KdRZfKThMwzr1r57LsQEq1dI5W). Navigate to each page with switch_page and confirm get_current_page; never assume the open page. Read back after every write through both the Data API and designer_tool, and stop on any mismatch. KS (a teammate) is in the Designer too: if a page shows changes that are not ours, or another user is on it, stop and report.
+
+0. **Snapshot:** get_all_elements on the 4 templates and 4 hubs, plus the raw settings of every element to be touched, into childedits/2026-10-14/template-run/<page>.tree.json. Commit and push before any write. This is the rollback.
+1. **Card links**, 12 (A-wf-3): set_link page mode to the template page ID, then confirmation in the Designer (Page link to the Template), with both-way read-back.
+2. **Carousel**, page by page (template, then its hub):
+   - the build_link wraps the card;
+   - build_cover bound to Cover Image (16:10, object-fit cover);
+   - build_title bound to the name;
+   - category label fixed or removed;
+   - classes, including new equal-height classes;
+   - the list: published only, 15 per page, Finsweet Load more intact;
+   - the IX3 i-4fd60c05 "within" filter, and visible focus.
+   Both-way read-back per page.
+3. **Delete the hidden duplicate carousel** 86e5ccd1-891e-bb61-1762-8591adc90744 on the AAB and SQB hubs, after confirming it is unused.
+4. **Learn list** (source, newest 3, no "No items found") on Form, LP and AAB; SQB checked.
+5. **Console-error fix**, per A-dev-4's diagnosis, with no component or existing-class edits.
+6. **Hub FAQ refit embed** on the 4 hubs; remove the empty paragraphs on the hubs and the template-level one after feature 1.
+7. **OG image binding** checked or fixed on the 4 templates; JSON-LD description escaped; FAQPage JSON-LD matches; FAQ heading taken from the item; table 390 px fix.
+8. **Quiz embed** on the SurveyQuiz template, last and only after its zero-footprint check passes.
+9. **Final both-way read-back** of every touched element; a check that each section that is visible has passed its checks; then the staging-publish request to Divit.
+
+Any step that cannot finish clean is rolled back to its snapshot before moving on, so the staged state stays production-safe at every point.
