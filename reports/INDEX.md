@@ -2,6 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-10-14 · [0600-overnight-r15-canary-loop](2026-10-14/0600-overnight-r15-canary-loop.md) · canary PASS 3/3; overnight loop 01:07; 27 reviewed (36% blocking at first review, all reworked once); writable non-quiz supply 0; 144 now, ≈300 reachable by 10-27, 500 not on this plan; audit 60/60 no P0; Semrush 888,480 (12.2%) · 772da223
 - 2026-10-13 · [1321-account-b-ruling12-split-writes](2026-10-13/1321-account-b-ruling12-split-writes.md) · Account B: 13 pilot pages split-written (all but FAQ, waiting on synonyms), content-approval-workflow to images, hotel-booking + model-release reworks reviewed, employee-handbook blocked by H2/K8 spelling · e00703d6
 - 2026-10-13 · [1445-batch3-live-relink](2026-10-13/1445-batch3-live-relink.md) · Batch 3 live by item publish (60 live), verify-live 20/20, relink 16 (16/16), live audit tail hit a network drop (URLs 200 now, re-run pending), FTC 404 is bot-blocking; no site publish · c6c4a871
 - 2026-10-13 · [1400-staging-b3-ruling14](2026-10-13/1400-staging-b3-ruling14.md) · Batch 3 staging: card links 404 (literal detail_* hrefs) -> 11 sections re-hidden, read back; 60/60 pages pass every page check; ruling 14 spelling variants; claim syn-pending; metrics count once · 116b243e
