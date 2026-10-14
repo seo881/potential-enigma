@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-76",
    "note": ""
+  },
+  {
+   "t": "2026-10-14 14:34 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-9",
+   "note": "rubric 10/10 by B-r-9; 7 notes"
   }
  ],
  "pipeline": "r15",
@@ -1038,5 +1045,325 @@
  },
  "writers": [
   "B-w-76"
- ]
+ ],
+ "review": {
+  "by": "B-r-9",
+  "date": "2026-10-14 14:34 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Poll Questions People Answer and Act On'; hero 'Build poll questions for work, events, or friends, and save every vote to a database you own.' covers the whole job; how-to description is one sentence on what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are example lists; FAQ carries about 25 example questions by setting (funny, group, friends, work, would you rather, types) and the how-to teaches writing good poll questions; tabs show four polls run to a result."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Poll-specific detail throughout: 'Hide the totals until the poll closes if early votes would sway others'; step 2 'Add hot or iced to the same question, and the room splits four ways'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every body opens on a full sentence, e.g. 'At 9:00 each morning, Pellworth Freight's operations team gets one this-or-that question in Slack.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; 11 'A, B, and C' lists noted (QC Q8 P2)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Reads human: 'Read each funny question aloud, picture the quietest person on the team hearing it, and cut any that would sting.' Two stilted reworded FAQ questions noted."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Every Emergent sentence maps to claims_used (prompt-build, database-owned, conversational, no-caps, realtime, alerts, api-connect, custom-domain, code-export, free-start); no third-party facts in prose, only advice; tab numbers add up (22+14=36 of 48; 11+7+4+2=24 of 27; 97+45=142 of 180; 7+5=12)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Poll-specific stories (poll of the day, live audience slide) distinct from funny-survey-questions; no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions answered in the first sentence; Semrush slots 7-10 keep their head phrases ('would you rather poll questions', 'opinion poll questions', 'poll questions allowed', 'poll questions profitable') and read as real questions; hub link in item 2."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Each tab image matches copy: coffee 22 / tea 14, 36 of 48; bowling 11, escape room 7, cooking 4, karaoke 2, 24 of 27; reply-all 97 / 7 a.m. 45, 142 of 180; cabin 7 / beach 5, 2 email reminders."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "hero_prompt",
+    "quote": "Build a poll questions that collects every answer in a database I own.",
+    "issue": "Code-built skeleton field: 'a' before a plural keyword. Known tooling defect already reported in proposals/account-b.md; writers may not edit it.",
+    "fix": "Fix in the skeleton builder (proposals/account-b.md).",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq_heading",
+    "quote": "Poll Questions Questions, Answered",
+    "issue": "Code-built heading doubles 'Questions'. Known tooling defect in proposals/account-b.md.",
+    "fix": "Fix in the skeleton builder (proposals/account-b.md).",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "Which poll questions are allowed in a work chat?",
+    "issue": "Reworded Semrush slot 9 keeps the head phrase and makes sense, but 'allowed' reads stilted; nobody permits poll questions.",
+    "fix": "e.g. 'Which poll questions are safe to post in a work chat?' if the locked head phrase allows.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "How can a business make poll questions profitable?",
+    "issue": "Reworded Semrush slot 10 is on sense but awkward: questions are not profitable; the answer reframes it as tying a poll to a money decision.",
+    "fix": "Accept; or frame as 'Can poll questions be profitable for a business?'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "When you need details, such as where a repair is needed, use a work order form.",
+    "issue": "The internal link sentence in FAQ 4 ('What are some good poll questions?') is off the question's topic and reads forced.",
+    "fix": "Link a survey sibling that fits, or drop the sentence.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #6",
+    "field": "tab_content_3",
+    "quote": "People vote on their phones, each question on its own screen",
+    "issue": "The talk poll has one question, so 'each question on its own screen' is filler from the feature list.",
+    "fix": "'People vote on their phones' and stop.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #6",
+    "field": "meta_description, hero_description, feature_3, feature_6, tab_content_3, howto_step_4_des, faq",
+    "quote": "questions for work, events, or friends; with the poll, the answer, and the time; lunch spots, weekend plans, and this-or-that choices; politics, religion, health, and pay",
+    "issue": "11 'A, B, and C' lists on the page (QC Q8): the triplet rhythm repeats.",
+    "fix": "Use pairs or one specific in a few of them.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "hero_prompt",
+   "issue": "Code-built skeleton field: 'a' before a plural keyword. Known tooling defect already reported in proposals/account-b.md; writers may not edit it.",
+   "fix": "Fix in the skeleton builder (proposals/account-b.md).",
+   "by": "B-r-9",
+   "via": "review",
+   "date": "2026-10-14 14:34 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq_heading",
+   "issue": "Code-built heading doubles 'Questions'. Known tooling defect in proposals/account-b.md.",
+   "fix": "Fix in the skeleton builder (proposals/account-b.md).",
+   "by": "B-r-9",
+   "via": "review",
+   "date": "2026-10-14 14:34 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "Reworded Semrush slot 9 keeps the head phrase and makes sense, but 'allowed' reads stilted; nobody permits poll questions.",
+   "fix": "e.g. 'Which poll questions are safe to post in a work chat?' if the locked head phrase allows.",
+   "by": "B-r-9",
+   "via": "review",
+   "date": "2026-10-14 14:34 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "Reworded Semrush slot 10 is on sense but awkward: questions are not profitable; the answer reframes it as tying a poll to a money decision.",
+   "fix": "Accept; or frame as 'Can poll questions be profitable for a business?'",
+   "by": "B-r-9",
+   "via": "review",
+   "date": "2026-10-14 14:34 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "The internal link sentence in FAQ 4 ('What are some good poll questions?') is off the question's topic and reads forced.",
+   "fix": "Link a survey sibling that fits, or drop the sentence.",
+   "by": "B-r-9",
+   "via": "review",
+   "date": "2026-10-14 14:34 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #6",
+   "field": "tab_content_3",
+   "issue": "The talk poll has one question, so 'each question on its own screen' is filler from the feature list.",
+   "fix": "'People vote on their phones' and stop.",
+   "by": "B-r-9",
+   "via": "review",
+   "date": "2026-10-14 14:34 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #6",
+   "field": "meta_description, hero_description, feature_3, feature_6, tab_content_3, howto_step_4_des, faq",
+   "issue": "11 'A, B, and C' lists on the page (QC Q8): the triplet rhythm repeats.",
+   "fix": "Use pairs or one specific in a few of them.",
+   "by": "B-r-9",
+   "via": "review",
+   "date": "2026-10-14 14:34 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "242334ec4c1a1d46",
+   "alt:share_image": "f5c2144d60fd2aec",
+   "alt:tab_image_1": "3995898a89f3d3ef",
+   "alt:tab_image_2": "6d38e6e026eac273",
+   "alt:tab_image_3": "4d689c547fbe73a7",
+   "alt:tab_image_4": "f0cc7a4e7edf5261",
+   "breadcrumb": "b9d51b1af605e077",
+   "chip_adds": "48f0a3256692c6f9",
+   "explore_cta": "c089bd51e8cd90c1",
+   "faq": "a4ef1dfd7d4b63ba",
+   "feature_1": "9ab8d7fd65734926",
+   "feature_2": "8f81f2054cb0a280",
+   "feature_3": "5e27c602a8802a5a",
+   "feature_4": "926ceacd3a8bbcfb",
+   "feature_5": "da6ef5d9def89073",
+   "feature_6": "ae058e7b37a215f6",
+   "features_heading": "25802c095b45f027",
+   "features_subheading": "be6bd19645309f49",
+   "h1": "777f6374a3163384",
+   "hero_description": "f1ab30893efcbe54",
+   "hero_prompt": "ab17eafa60120e23",
+   "howto_description": "b9b9283a7b6e893b",
+   "howto_step_1_des": "1bcd138552bdf135",
+   "howto_step_1_title": "eaf19a4f9dce525d",
+   "howto_step_2_des": "959ee50bb139cf1d",
+   "howto_step_2_title": "aaa9ad3e5c996f05",
+   "howto_step_3_des": "08d1a2d9f673d932",
+   "howto_step_3_title": "d154b618d41e3f8a",
+   "howto_step_4_des": "44d9c6f2be54a9e9",
+   "howto_step_4_title": "aa7449f839a409fb",
+   "howto_step_5_des": "f8fabf7da5845923",
+   "howto_step_5_title": "2e83e935ae829cd2",
+   "howto_step_6_des": "7a541be2d9823077",
+   "howto_step_6_title": "08a693bc1632374f",
+   "howto_step_7_des": "477f9b87026d5836",
+   "howto_step_7_title": "23c4e42f04ec773e",
+   "howto_title": "b1732b02b8fc0e14",
+   "meta_description": "8436e35c1055a2f4",
+   "meta_title": "59364b6eb5f8c364",
+   "mockup": "e70482b68663eab9",
+   "product_name": "69efca578d726029",
+   "prompt_chip_1": "a76e402fef9f7b04",
+   "prompt_chip_2": "987caef59af796c7",
+   "prompt_chip_3": "9f40cf5b7aaff7b4",
+   "prompt_chip_4": "d4336af4ac6190d1",
+   "slug": "da07093cdd6e661a",
+   "tab_content_1": "905dde2daa5bbf31",
+   "tab_content_2": "c09538268c309585",
+   "tab_content_3": "8c75a3044893b4b3",
+   "tab_content_4": "62985c54cd1bf443",
+   "tab_label_1": "a76e402fef9f7b04",
+   "tab_label_2": "987caef59af796c7",
+   "tab_label_3": "8e47c3a11e892cd8",
+   "tab_label_4": "d4336af4ac6190d1",
+   "usecase_heading": "62799ee3898dd380",
+   "why_description": "d64184ff51954a0a",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "cbf51a2a0eb70ecf"
+  },
+  "all": "23e01042bc0eefc2",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "242334ec4c1a1d46",
+   "alt:share_image": "f5c2144d60fd2aec",
+   "alt:tab_image_1": "3995898a89f3d3ef",
+   "alt:tab_image_2": "6d38e6e026eac273",
+   "alt:tab_image_3": "4d689c547fbe73a7",
+   "alt:tab_image_4": "f0cc7a4e7edf5261",
+   "breadcrumb": "b9d51b1af605e077",
+   "chip_adds": "48f0a3256692c6f9",
+   "explore_cta": "c089bd51e8cd90c1",
+   "faq": "a4ef1dfd7d4b63ba",
+   "feature_1": "9ab8d7fd65734926",
+   "feature_2": "8f81f2054cb0a280",
+   "feature_3": "5e27c602a8802a5a",
+   "feature_4": "926ceacd3a8bbcfb",
+   "feature_5": "da6ef5d9def89073",
+   "feature_6": "ae058e7b37a215f6",
+   "features_heading": "25802c095b45f027",
+   "features_subheading": "be6bd19645309f49",
+   "h1": "777f6374a3163384",
+   "hero_description": "f1ab30893efcbe54",
+   "hero_prompt": "ab17eafa60120e23",
+   "howto_description": "b9b9283a7b6e893b",
+   "howto_step_1_des": "1bcd138552bdf135",
+   "howto_step_1_title": "eaf19a4f9dce525d",
+   "howto_step_2_des": "959ee50bb139cf1d",
+   "howto_step_2_title": "aaa9ad3e5c996f05",
+   "howto_step_3_des": "08d1a2d9f673d932",
+   "howto_step_3_title": "d154b618d41e3f8a",
+   "howto_step_4_des": "44d9c6f2be54a9e9",
+   "howto_step_4_title": "aa7449f839a409fb",
+   "howto_step_5_des": "f8fabf7da5845923",
+   "howto_step_5_title": "2e83e935ae829cd2",
+   "howto_step_6_des": "7a541be2d9823077",
+   "howto_step_6_title": "08a693bc1632374f",
+   "howto_step_7_des": "477f9b87026d5836",
+   "howto_step_7_title": "23c4e42f04ec773e",
+   "howto_title": "b1732b02b8fc0e14",
+   "meta_description": "8436e35c1055a2f4",
+   "meta_title": "59364b6eb5f8c364",
+   "mockup": "e70482b68663eab9",
+   "product_name": "69efca578d726029",
+   "prompt_chip_1": "a76e402fef9f7b04",
+   "prompt_chip_2": "987caef59af796c7",
+   "prompt_chip_3": "9f40cf5b7aaff7b4",
+   "prompt_chip_4": "d4336af4ac6190d1",
+   "slug": "da07093cdd6e661a",
+   "tab_content_1": "905dde2daa5bbf31",
+   "tab_content_2": "c09538268c309585",
+   "tab_content_3": "8c75a3044893b4b3",
+   "tab_content_4": "62985c54cd1bf443",
+   "tab_label_1": "a76e402fef9f7b04",
+   "tab_label_2": "987caef59af796c7",
+   "tab_label_3": "8e47c3a11e892cd8",
+   "tab_label_4": "d4336af4ac6190d1",
+   "usecase_heading": "62799ee3898dd380",
+   "why_description": "d64184ff51954a0a",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "cbf51a2a0eb70ecf"
+  },
+  "all": "23e01042bc0eefc2",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
