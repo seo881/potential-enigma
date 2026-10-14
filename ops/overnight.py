@@ -30,8 +30,18 @@ def work():
 RECHECK_SECS, IDLE_UNTIL = 1800, (8, 0)   # Divit 2026-10-14: before going idle, re-check the ranked queue every 30 min until 08:00 IST
 LOG = os.path.expanduser("~/Library/Logs/emergent-overnight-run.log")
 
+# 2026-10-14 05:55 IST (A-coord): blocked on tooling or a ruling the loop may not make (plan/backlog.md lines of 10-14); listing them made
+# 2-minute claim/release iterations. Out of `next` until the 10:00 report's decisions land.
+BLOCKED = {"attendance-form", "culture-survey",                                   # 9/10 FAQ sources (feasibility recount)
+           "donation-form", "wedding-rsvp", "living-trust-form",                  # QC F1/F2 read only the primary pull, not the --sec pull
+           "last-will-and-testament-form",                                        # A1 'testament' vs the primary keyword
+           "membership-form",                                                     # K5: locked AlsoAsked FAQ 3 names a sibling primary
+           "service-request-form",                                                # skeleton vs Q6: two locked near-duplicates (slots 3, 4)
+           "lead-nurturing-workflow",                                             # skeleton 7/10 passing slots vs feasibility 10
+           "membership-survey"}                                                   # rework needs a new Semrush pull (FAQ 8)
+
 def _order():
-    w = work()
+    w = {k: [x for x in v if (x[0] if isinstance(x, tuple) else x).rsplit("/", 1)[1] not in BLOCKED] for k, v in work().items()}
     claim = [u for u, _ in w["claimable"] if "quiz" not in u.rsplit("/", 1)[1]]   # quiz pages stay last: not claimed without a ruling
     return [("1 LP reworks (blocking findings only)", w["lp_rework"]), ("2 in-flight A pages to finish", w["inflight"]),
             ("3 render images", w["render"]), ("4 review (A-r, not the writer)", w["review"]), ("5 one rework (r15)", w["r15_rework"]),
