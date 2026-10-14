@@ -120,6 +120,13 @@
    "via": null,
    "by": "A-coord",
    "note": ""
+  },
+  {
+   "t": "2026-10-14 00:10 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-20",
+   "note": "[truth | HUB_RULES 8] faq: FAQ 8 contradicts itself and the page. Its rule of at least 3 weeks between any two surveys clashes with the next sentence (a check after every shift, so weekly for a weekly volunteer). It also clashes with every other place that times the survey: why_description 'so the w"
   }
  ],
  "pipeline": "r15",
@@ -1008,5 +1015,255 @@
  },
  "writers": [
   "A-w-102"
- ]
+ ],
+ "review": {
+  "by": "A-r-20",
+  "date": "2026-10-14 00:10 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Volunteer Survey for Your Nonprofit'; hero 'Build a volunteer survey that compares satisfaction across roles and keeps every answer in a database you own.' (111 chars, primary, leads with Build); how-to description one sentence: 'Seven steps to plan a volunteer survey, build it with Emergent, and act on what your volunteers tell you.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Searchers want questions, templates and examples: FAQ 1 'Good ones ask about things you can change...', FAQ 5 satisfaction measures, FAQ 6 template, FAQ 7 examples, four worked surveys in the tabs, a 7-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Coordinator vocabulary throughout: 'A dog walker rates the walk schedule on a 1-5 scale', 'Tuesday ESL roster', 'the check-in line', 'posting front desk schedules a week earlier'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Full-sentence openers: 'Harbor Hill Animal Shelter sends its yearly satisfaction survey...', 'Decide when volunteers hear from you...', 'Send each volunteer a personal link...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Two ', so' endings (Q5 under limit), no sentence over 40 words; the 'answer to' ambiguity in FAQ 2 is a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Calm and concrete: 'Coordinator Marisol Brandt reads those answers first.', 'anyone who already answered hears nothing more.'"
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "FAQ 8 'Leave at least 3 weeks between any two surveys' contradicts the same answer's 'a 4-question check can go to every volunteer after every shift', why_description 'the whole roster can answer after every shift, all year', howto_step_1_des 'right after a shift' and FAQ 9 'Send it within a day of the shift'. Claims otherwise inside the menu (alerts, no-caps, database-owned, api-connect, code-export, free-start); volunteer bias and Clary VFI facts match their quoted spans."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No sibling primary in a heading; the cleanup tab is a volunteer feedback survey ('Cleanup Events'), not a post event survey page; the intake tab routes to a roster, not a volunteer sign up form."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 questions, each answered first; hub link in item 2; links to church survey, employee satisfaction survey, employee engagement survey; no brand or file format in any question; all 4 secondaries carried; locked items 1-2 verbatim."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: '132 of 176 answered', Dog walking 4.6, Front desk 18 / 2.9 (48+37+29+18=132), Marisol Brandt; Tomas Reyes 'Tuesday, Spanish', 'Tuesday ESL roster', Grace Whitfield; 17/13/11 of 41, 'Emailed to 64 volunteers'; Q1 3.6, Q2 3.9, Q3 4.3, 52 docents, Owen Pettigrew."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Leave at least 3 weeks between any two surveys. Emergent sets no cap on responses, and a 4-question check can go to every volunteer after every shift.",
+    "issue": "FAQ 8 contradicts itself and the page. Its rule of at least 3 weeks between any two surveys clashes with the next sentence (a check after every shift, so weekly for a weekly volunteer). It also clashes with every other place that times the survey: why_description 'so the whole roster can answer after every shift, all year', howto_step_1_des 'Decide when volunteers hear from you: right after a shift, once a year, or on the day they sign up', faq item 9 'Send it within a day of the shift', and tab_content_3 (a survey after each Saturday cleanup).",
+    "fix": "Drop the 3-week rule, or limit it to long surveys so the post-shift check is clearly separate, e.g. 'Leave at least 3 weeks between two long surveys; the 4-question check after a shift does not count.' Keep the Emergent sentence.",
+    "severity": "blocking"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq",
+    "quote": "Describe the program and the people who will answer to Emergent's AI survey builder",
+    "issue": "FAQ 2 can be parsed as 'the people who will answer to (report to) the builder'.",
+    "fix": "Lead with the builder: 'Tell Emergent's AI survey builder about the program and who will answer, and it builds...'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #9",
+    "field": "faq",
+    "quote": "How do I sign up for volunteer surveys?",
+    "issue": "FAQ 3 is asked by a would-be respondent (Semrush volume 0), not the coordinator the page serves; the answer is accurate but the item drifts off the page's buyer.",
+    "fix": "No action; for later pages, prefer a coordinator question when a slot can be swapped.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_4, howto_step_6_des, faq",
+    "quote": "On the day you pick, it emails a reminder to the rest",
+    "issue": "Reminders that reach only non-responders appear three times with the words swapped: feature_4 'it emails a reminder to the rest', howto_step_6_des 'it goes only to the volunteers whose answers are still missing', faq item 9 'send one reminder to the people who have not answered'.",
+    "fix": "Keep it in feature_4 and give step 6 or FAQ 9 a different job.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq",
+   "issue": "FAQ 2 can be parsed as 'the people who will answer to (report to) the builder'.",
+   "fix": "Lead with the builder: 'Tell Emergent's AI survey builder about the program and who will answer, and it builds...'.",
+   "by": "A-r-20",
+   "via": "review",
+   "date": "2026-10-14 00:10 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #9",
+   "field": "faq",
+   "issue": "FAQ 3 is asked by a would-be respondent (Semrush volume 0), not the coordinator the page serves; the answer is accurate but the item drifts off the page's buyer.",
+   "fix": "No action; for later pages, prefer a coordinator question when a slot can be swapped.",
+   "by": "A-r-20",
+   "via": "review",
+   "date": "2026-10-14 00:10 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_4, howto_step_6_des, faq",
+   "issue": "Reminders that reach only non-responders appear three times with the words swapped: feature_4 'it emails a reminder to the rest', howto_step_6_des 'it goes only to the volunteers whose answers are still missing', faq item 9 'send one reminder to the people who have not answered'.",
+   "fix": "Keep it in feature_4 and give step 6 or FAQ 9 a different job.",
+   "by": "A-r-20",
+   "via": "review",
+   "date": "2026-10-14 00:10 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "c646093c2d7d5381",
+   "alt:share_image": "3785a852a098d991",
+   "alt:tab_image_1": "e26084b139b16edb",
+   "alt:tab_image_2": "997720c5b7ed8ca3",
+   "alt:tab_image_3": "2855c1943f4b0a1c",
+   "alt:tab_image_4": "6cbd8381d3879d62",
+   "breadcrumb": "47be794f71995658",
+   "chip_adds": "9c9376c1978f947c",
+   "explore_cta": "dbf94a7cda08756e",
+   "faq": "fb5bb0aa0ba06ace",
+   "feature_1": "5ec89f23f9b1e471",
+   "feature_2": "ad154dc55a96bf1e",
+   "feature_3": "7270db8a12787a83",
+   "feature_4": "91b1d933dcd22002",
+   "feature_5": "8070412414ee28cb",
+   "feature_6": "08e8616ff34375fa",
+   "features_heading": "7de92269409e489b",
+   "features_subheading": "6cabf7b74d0c0173",
+   "h1": "9b680ca2fd6de756",
+   "hero_description": "5779f286815f1fbb",
+   "hero_prompt": "064f1f5ed3f0a3fc",
+   "howto_description": "7a649a9f6d8463c6",
+   "howto_step_1_des": "bef54fad9d540bb3",
+   "howto_step_1_title": "a9431d6ca4e07b3a",
+   "howto_step_2_des": "e2299baf5a7cc3c0",
+   "howto_step_2_title": "2b73493d1b048e16",
+   "howto_step_3_des": "bc1b6e55db0e60de",
+   "howto_step_3_title": "5130bef11a90cb23",
+   "howto_step_4_des": "82adbff1fc20e553",
+   "howto_step_4_title": "d78516481c60636f",
+   "howto_step_5_des": "32a02e777768ad16",
+   "howto_step_5_title": "7a91db0108afa8e7",
+   "howto_step_6_des": "f75a440ba716b032",
+   "howto_step_6_title": "9e7f8baacb7f2ce9",
+   "howto_step_7_des": "2a5d6ac3dd0f55cf",
+   "howto_step_7_title": "0588f479eec2d4e5",
+   "howto_title": "45444a9cf0781ddf",
+   "meta_description": "52edce0411d29cad",
+   "meta_title": "3e85589a8d5d2142",
+   "mockup": "fd1aff96e4001b0b",
+   "product_name": "2168c41fac16c128",
+   "prompt_chip_1": "4376d5bb4ee71428",
+   "prompt_chip_2": "57351ef67573f1ff",
+   "prompt_chip_3": "9197006a2504f6eb",
+   "prompt_chip_4": "13bbd4d984945c23",
+   "slug": "9ac2aaed80e668e8",
+   "tab_content_1": "d94f334019deac3b",
+   "tab_content_2": "d16a5f9720fc7842",
+   "tab_content_3": "f9859350f092d2ed",
+   "tab_content_4": "2387293355b7c02a",
+   "tab_label_1": "bc3975b84f8b5011",
+   "tab_label_2": "f6176735b373e920",
+   "tab_label_3": "bb5f6a3df62d4ba4",
+   "tab_label_4": "0600f55854101b54",
+   "usecase_heading": "cbfe9012fd89af66",
+   "why_description": "f2f1f15f158f6276",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "236fbf44c862420d"
+  },
+  "all": "006188ea26421b18",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "c646093c2d7d5381",
+   "alt:share_image": "3785a852a098d991",
+   "alt:tab_image_1": "e26084b139b16edb",
+   "alt:tab_image_2": "997720c5b7ed8ca3",
+   "alt:tab_image_3": "2855c1943f4b0a1c",
+   "alt:tab_image_4": "6cbd8381d3879d62",
+   "breadcrumb": "47be794f71995658",
+   "chip_adds": "9c9376c1978f947c",
+   "explore_cta": "dbf94a7cda08756e",
+   "faq": "fb5bb0aa0ba06ace",
+   "feature_1": "5ec89f23f9b1e471",
+   "feature_2": "ad154dc55a96bf1e",
+   "feature_3": "7270db8a12787a83",
+   "feature_4": "91b1d933dcd22002",
+   "feature_5": "8070412414ee28cb",
+   "feature_6": "08e8616ff34375fa",
+   "features_heading": "7de92269409e489b",
+   "features_subheading": "6cabf7b74d0c0173",
+   "h1": "9b680ca2fd6de756",
+   "hero_description": "5779f286815f1fbb",
+   "hero_prompt": "064f1f5ed3f0a3fc",
+   "howto_description": "7a649a9f6d8463c6",
+   "howto_step_1_des": "bef54fad9d540bb3",
+   "howto_step_1_title": "a9431d6ca4e07b3a",
+   "howto_step_2_des": "e2299baf5a7cc3c0",
+   "howto_step_2_title": "2b73493d1b048e16",
+   "howto_step_3_des": "bc1b6e55db0e60de",
+   "howto_step_3_title": "5130bef11a90cb23",
+   "howto_step_4_des": "82adbff1fc20e553",
+   "howto_step_4_title": "d78516481c60636f",
+   "howto_step_5_des": "32a02e777768ad16",
+   "howto_step_5_title": "7a91db0108afa8e7",
+   "howto_step_6_des": "f75a440ba716b032",
+   "howto_step_6_title": "9e7f8baacb7f2ce9",
+   "howto_step_7_des": "2a5d6ac3dd0f55cf",
+   "howto_step_7_title": "0588f479eec2d4e5",
+   "howto_title": "45444a9cf0781ddf",
+   "meta_description": "52edce0411d29cad",
+   "meta_title": "3e85589a8d5d2142",
+   "mockup": "fd1aff96e4001b0b",
+   "product_name": "2168c41fac16c128",
+   "prompt_chip_1": "4376d5bb4ee71428",
+   "prompt_chip_2": "57351ef67573f1ff",
+   "prompt_chip_3": "9197006a2504f6eb",
+   "prompt_chip_4": "13bbd4d984945c23",
+   "slug": "9ac2aaed80e668e8",
+   "tab_content_1": "d94f334019deac3b",
+   "tab_content_2": "d16a5f9720fc7842",
+   "tab_content_3": "f9859350f092d2ed",
+   "tab_content_4": "2387293355b7c02a",
+   "tab_label_1": "bc3975b84f8b5011",
+   "tab_label_2": "f6176735b373e920",
+   "tab_label_3": "bb5f6a3df62d4ba4",
+   "tab_label_4": "0600f55854101b54",
+   "usecase_heading": "cbfe9012fd89af66",
+   "why_description": "f2f1f15f158f6276",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "236fbf44c862420d"
+  },
+  "all": "006188ea26421b18",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
