@@ -33,10 +33,16 @@ def work():
                 and ((e.get("by") or "").startswith("B-") or (e.get("hold") and H.hold_account(e["hold"]) == "B"))]
     render = [u for u, e in st.items() if e.get("state") == "qc_pass" and ok(u, e)]
     review = [u for u, e in st.items() if e.get("state") == "images" and ok(u, e)]
+    import guards as G   # A-coord 2026-10-14: a rework's changed fields need a B-s slim review before the page can ship (review_ok)
+    def slim_due(u, e):
+        if e.get("state") != "reviewed" or not ok(u, e) or not os.path.exists(H.spath(u)): return False
+        sp = json.load(open(H.spath(u)))
+        return not sp.get("item_id") and bool(G.review_changed(sp))
+    slim = [u for u, e in st.items() if slim_due(u, e)]
     import queue_rank as Q
     claim = [u for _r, _h, u, c, _f in (Q.ranked() or []) if c in ("ready", "syn-pending") and u not in st and (quiz_ok() or not is_quiz(u) or u in quiz_canary_pages())]
     return [("1 reworks first (blocking findings only; one rework per page)", rework), ("2 in-flight B pages to finish", inflight),
-            ("3 render images", render), ("4 full review by an independent B-r agent (never a page it wrote)", review),
+            ("2b slim review (hubctl slim-review, an independent B-s agent) of fields changed after review", slim), ("3 render images", render), ("4 full review by an independent B-r agent (never a page it wrote)", review),
             ("5 claim from the top of plan/queue-ranked.txt (all 4 hubs)", claim)]
 
 def cmd_next(a):
