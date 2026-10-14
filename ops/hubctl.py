@@ -93,7 +93,7 @@ def clone_pin():
     acct = acct.strip().upper() or ("B" if os.path.basename(ROOT.rstrip("/")) == "emergent-hubs-a" else "A")
     return acct, [h.strip() for h in hubs.split(",") if h.strip()]
 def clone_account(): return clone_pin()[0]
-WRITER_HUBS = ("Form", "Auto", "SurveyQuiz")   # Account B, the writer (ruling 9, Divit 2026-10-13); A writes LP
+WRITER_HUBS = ("LP", "Form", "Auto", "SurveyQuiz")   # Account B writes all 4 hubs (ruling 20, Divit 2026-10-14; was ruling 9: A wrote LP)
 def need_by(args, cmd):
     """Every claim and state change names its agent (Divit 2026-10-13): coordinator agents A-<role>-<n>, writer agents B-w-<n>.
     An id carrying the other clone's letter is refused (A- only in A's clone, B- only in B's)."""
@@ -600,7 +600,7 @@ def cmd_slim_review(args):
     that wrote none of it. Pass: the review hash is renewed and the page is `reviewed`. Blocking: `rework` (Form/Auto back to B)."""
     url, rf = args[0], args[1]; by = need_by(args, "slim-review")
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
-    if not by.startswith("A-"): sys.exit("refused: slim reviews are done by coordinator (A-) reviewers (ruling 1)")
+    if not re.match(r"^[AB]-", by): sys.exit("refused: slim reviews are done by A- or B-s reviewers (ruling 1; ruling 20: B does every review)")
     s = json.load(open(spath(url))); raw = json.load(open(rf))
     writers = _authors(s) | {h.get("by") for h in s.get("history", []) if h.get("via") == "ready" or h.get("state") in ("qc_pass", "images")}
     if by in writers: sys.exit("refused: the slim reviewer wrote part of this page")

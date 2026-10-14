@@ -1,5 +1,17 @@
 # Two Claude Code accounts on one Mac (Divit, 2026-10-13)
 
+> **Ruling 20 (Divit, 2026-10-14): rebalance to B.** This overrides ruling 9 and the review split in section 1 below.
+> - **B (`~/emergent-hubs-a`) writes all 4 hubs, LP included:** `.hub` = `B:LP,Form,Auto,SurveyQuiz`.
+> - **B does every full and slim review** with B-r and B-s agents. A reviewer never reviews a page any part of which it wrote; hubctl refuses a match against the recorded writers.
+> - **A (`~/emergent-hubs`, `.hub` = `A:none`) keeps:**
+>   - Webflow and all shipping (`hubctl api-*`, ruling 19);
+>   - tooling, rules and QC;
+>   - the quiz template;
+>   - all AlsoAsked and Semrush pulls, and re-ranks;
+>   - the advisor flag list and the daily report.
+>   - A spot-checks reviews only when B's blocking rate goes over 20% on a day.
+> - **Overnight:** B runs ops/schedule/overnight_run_b.sh, following plan/overnight-run-b.md.
+
 Target: 500 pages live by 2026-10-27. Two accounts work in parallel, each in its own clone of this repo. CLAUDE.md, DECISIONS.md, RUNBOOK.md, HUB_RULES and LESSONS.md apply to both; this file only splits the work.
 
 > **Ruling 9 (Divit, 2026-10-13):** SurveyQuiz writing moved from A to B. A writes LP only; every review stays with A.

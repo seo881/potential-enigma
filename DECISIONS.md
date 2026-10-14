@@ -3,6 +3,28 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-14
+- **Ruling 20 (Divit, 2026-10-14): rebalance to B.** At the time of the ruling, A had used 65% of its weekly budget and B 12%.
+  1. **B writes all 4 hubs, LP included.**
+     - `.hub` is `B:LP,Form,Auto,SurveyQuiz` in B's clone and `A:none` in A's.
+     - A's LP claims and reworks are released to B with a handover line.
+  2. **B does every full and slim review** with B-r and B-s agents.
+     - A reviewer never reviews a page any part of which it wrote. The writers and reviewers of each page are recorded, and hubctl refuses a match.
+     - A spot-checks only if B's blocking rate goes over 20% on a day.
+  3. **A keeps:**
+     - Webflow and all shipping, through the API script;
+     - tooling, rules and QC;
+     - the quiz template;
+     - all AlsoAsked and Semrush pulls, and re-ranks;
+     - the advisor flag list and the daily report.
+  4. **The overnight loop runs on B's account tonight.**
+     - Script: ops/schedule/overnight_run_b.sh, for ~/emergent-hubs-a, with CLAUDE_CONFIG_DIR=~/.claude (preflight refuses any other config dir). Same reset-wait and caffeinate; STOP file ~/emergent-hubs-a/STOP; no Webflow tools.
+     - plan/overnight-run-b.md: write all hubs from the top of the ranked queue, review every page with independent B-r agents, reworks first.
+  5. A reports its weekly reset date and time, and what its remaining 35% must cover until then.
+- **Quiz data carrier approved: `alpb---prompt` (Divit).**
+  - The quiz data goes in its own script block with a unique id (window.awbQuiz), separate from the prompt and chip data; the hero prompt text renders unchanged.
+  - Only quiz pages carry the block; non-quiz SurveyQuiz pages are untouched.
+  - verify-live and QC parse the prompt field with the quiz block present and still check the hero prompt exactly.
+  - A canary of 2 quiz pages runs on staging before any quiz page ships.
 - **Ruling 19 (Divit, 2026-10-14 afternoon): every CMS item write goes through the direct API script in ops/ship.py.** This covers create, update, relink, swap fix and publish (`hubctl api-create | api-update | api-publish`, ops/webflow_api.py).
   - The Webflow connector is never used for CMS item writes again. It stays only for Designer-level reads and anything the API script must not do, such as collection schema fields and template embeds, staging only.
   - The token is in the macOS keychain (service `webflow`); never in the repo, reports or chat.
