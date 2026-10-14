@@ -39,6 +39,11 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   feas-skeleton  {url, expect_feasible}                   ruling 18 part 5: feasibility total == skeleton.slots_possible, feasible as expected
   acronym-case   {raw, expect}                            ruling 18 part 4e: skeleton.clean_question cases acronyms (plurals too)
   qc-r18         {url, sha, match, expect, keep_review?}  ruling 18 in QC R15: the spec at sha as new writing raises R15 `match` exactly when expected
+  webflow-api    {test, ...}                              Divit 2026-10-14, ops/webflow_api.py + hubctl api-*: test refuse {method, path, body?,
+                                                          query?, expect_refused} ({child} = a child collection id), dry-no-network, batching
+                                                          {op, n, expect: sizes}, slug-skip {cands, live, limit?, expect_create, expect_skip},
+                                                          create-cmd-skip, live-before-gate, before-gate {path, expect_ok}, backoff
+                                                          {statuses, retry_after, expect_ok, expect_sleeps}, no-token
   review         {url, field, check, text}                 judgment catch (Layer B); kept for the record, not machine-tested
 status: "open" = a known miss the gate does not catch yet (a backlog fix); "guarded" = caught; a guarded case that stops being
 caught fails the suite. Open cases that start passing are reported so they can be marked guarded.
@@ -228,6 +233,9 @@ def caught(c):
         if not c.get("keep_review"): s.pop("review", None)
         hit = any(i["code"] == "R15" and i["sev"] in ("P0", "P1") and c["match"] in i["msg"] for i in Q.check(s, Q.load_specs([H.spath(c["url"])])))
         return hit == c["expect"]
+    if c["kind"] == "webflow-api":         # Divit 2026-10-14: the direct Data API path (allowlist, slug skip, batching, before gate,
+        import ship                        # 429 backoff, no token in any output); dry run and stubs only, never the network
+        return ship.api_golden(c)
     if c["kind"] == "qc-text":
         import qc_hub as Q, hubctl as H
         s = json.load(open(H.spath(c["url"]))); s = copy.deepcopy(s); f = c["field"]

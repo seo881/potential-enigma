@@ -49,6 +49,13 @@
   log HUB TEXT                      append a dated line to logs/<hub>.md
   ship BATCH [--payload SHA] | ship-done BATCH URL writer|review|rework --by ID [--fail TEXT] | ship-cms BATCH READBACK | ship-qc URL | ship-cost BATCH | readiness
                                     launch pipeline per page (ops/ship.py) and the readiness board status/readiness.md
+  Direct Webflow Data API v2 (ops/webflow_api.py; Divit 2026-10-14: CMS writes from the next batch on). Dry run is the default;
+  --live is required for every network write; --before-only writes the before-value to commit and push first:
+  api-read HUB [--out FILE]                         full paginated read of the collection -> .cache/readback/<dir>-api-<time>.json (count printed)
+  api-create HUB --sha SHA [--limit N] [--readback F] [--dry-run|--before-only|--live]   the bulk-payload list as drafts, 100 per call,
+                                    existing slugs skipped, read back + bulk-verify -> cms_draft, rollback file in childedits/<date>/
+  api-update PAYLOAD.json [--dry-run|--live]        run a ship-update / relink-payload payload (before-values committed and pushed), read back, diff
+  api-publish HUB [--ids-from-state cms_draft] [--limit N] [--dry-run|--before-only|--live] [--verify-live]   item publish by IDs only
 
 HUB is one of LP, Form, Auto, SurveyQuiz. Status lives in status/<hub>.json; each hub chat writes only its own.
 """
@@ -738,8 +745,10 @@ def cmd_learn_refs(args):
     old = cur["ids"]; cur.update(ids=new, source=f"hubctl learn-refs from {os.path.basename(args[0])}", updated=now()); json.dump(cur, open(p, "w"), indent=1)
     print("learn refs CHANGED (was " + ", ".join(old) + "): " + ", ".join(new) + "\nNew items get these; live items keep theirs until a refresh is approved.")
 
-def cmd_bulk_payload(args):
-    hub = args[0]; sha = args[args.index("--sha") + 1]; h = CFG["hubs"][hub]; st = load_st(hub); items = []
+def _create_candidates(hub, sha):
+    """The create list shared by bulk-payload (connector) and api-create (Data API): approved pages without an item ID, review hash
+    current, Divit's approval fingerprint unchanged, slug checked within the hour, SERP data under 60 days. Any refusal stops the run."""
+    st = load_st(hub); items = []
     sys.path.insert(0, os.path.join(ROOT, "ops")); sys.path.insert(0, os.path.join(ROOT, "plan")); import guards as G, serp as S, datetime as _dt
     for url, e in sorted(st["pages"].items(), key=lambda x: x[1].get("queue_rank", 0)):
         if e.get("state") != "approved": continue
@@ -755,7 +764,12 @@ def cmd_bulk_payload(args):
         if e.get("cms_exists"): sys.exit(f"{url}: an item with this slug already exists in Webflow ({e.get('cms_item_id')}); it would be duplicated. Record it with hubctl record, or delete the stray item first.")
         live = S.load(url)
         if live and (_dt.date.today() - _dt.date.fromisoformat(live["fetched"])).days > 60: sys.exit(f"{url}: SERP data is older than 60 days; re-pull it and re-run QC before creating")
-        items.append({"isDraft": True, "fieldData": fd})
+        items.append((url, {"isDraft": True, "fieldData": fd}))
+    return items
+
+def cmd_bulk_payload(args):
+    hub = args[0]; sha = args[args.index("--sha") + 1]; h = CFG["hubs"][hub]
+    items = [it for _, it in _create_candidates(hub, sha)]
     if not items: sys.exit("no approved pages without an item ID")
     os.makedirs(os.path.join(ROOT, "ops", "out"), exist_ok=True)
     for i in range(0, len(items), 100):
@@ -763,11 +777,14 @@ def cmd_bulk_payload(args):
         json.dump([{"label": f"create {hub} {i+1}-{i+len(items[i:i+100])}", "create_collection_items": {"collection_id": h["collection_id"], "request": {"items": items[i:i+100]}}}], open(out, "w"), indent=1, ensure_ascii=False)
         print(f"wrote {os.path.relpath(out, ROOT)} ({len(items[i:i+100])} drafts)")
 
-def cmd_bulk_verify(args):
-    hub, rb = args[0], args[1]; h = CFG["hubs"][hub]; st = load_st(hub); by_slug = {it["fieldData"].get("slug"): it for it in _items_from_readback(rb)}
-    ok = bad = 0
+def _bulk_verify(hub, items, only=None, need_draft=False):
+    """Diff every approved/cms_draft page of HUB found in a read-back against its export; a match records the item and file IDs
+    and moves the page to cms_draft. only: restrict to these URLs; need_draft: the item must also be isDraft true.
+    Returns (ok, bad, lines)."""
+    h = CFG["hubs"][hub]; st = load_st(hub); by_slug = {(it.get("fieldData") or {}).get("slug"): it for it in items}
+    ok = bad = 0; lines = []
     for url, e in st["pages"].items():
-        if e.get("state") not in ("approved", "cms_draft"): continue
+        if e.get("state") not in ("approved", "cms_draft") or (only is not None and url not in only): continue
         it = by_slug.get(url.rsplit("/", 1)[1])
         if not it: continue
         s = json.load(open(spath(url))); fd = it["fieldData"]; diff = []
@@ -778,9 +795,16 @@ def cmd_bulk_verify(args):
             got = fd.get(h["fields"][k]) or {}
             if not got.get("fileId"): diff.append(f"{k} (no fileId)")
             else: im["file_id"] = got["fileId"]; im["cdn_url"] = got.get("url")
-        if diff: bad += 1; print(f"MISMATCH {url}: {diff}"); continue
+        if need_draft and it.get("isDraft") is not True: diff.append("isDraft is not true")
+        if diff: bad += 1; lines.append(f"MISMATCH {url}: {diff}"); continue
         s["item_id"] = it["id"]; json.dump(s, open(spath(url), "w"), indent=1, ensure_ascii=False)
         set_state(url, "cms_draft", item_id=it["id"]); ok += 1
+    return ok, bad, lines
+
+def cmd_bulk_verify(args):
+    hub, rb = args[0], args[1]
+    ok, bad, lines = _bulk_verify(hub, _items_from_readback(rb))
+    for l in lines: print(l)
     print(f"verified and recorded {ok}; mismatched {bad}"); sys.exit(1 if bad else 0)
 
 def cmd_next(args):
@@ -1046,13 +1070,13 @@ def cmd_images_batch(args):
             else: set_state(url, "rework", note="image brief blocked: see engine output"); bad += 1
     print(f"rendered {done}; sent back to rework {bad}")
 
-def cmd_publish_payload(args):
-    hub = args[0]; h = CFG["hubs"][hub]; st = load_st(hub); ids = []
+def _publish_ids(hub):
+    """[(url, item_id)] of every verified cms_draft page of HUB, plus warnings for FAQ links to pages that are not live (or in this batch)."""
+    st = load_st(hub); pairs = []; warn = []
     for url, e in st["pages"].items():
         if e.get("state") == "cms_draft":          # created as drafts after Divit's approval, verified
             s = json.load(open(spath(url)))
-            if s.get("item_id"): ids.append(s["item_id"])
-    if not ids: sys.exit("no verified cms_draft pages to publish")
+            if s.get("item_id"): pairs.append((url, s["item_id"]))
     # FAQ links must never point at a page that is not live (or publishing in this batch)
     batch = {url for url, e in st["pages"].items() if e.get("state") == "cms_draft"}
     live = set()
@@ -1065,7 +1089,14 @@ def cmd_publish_payload(args):
             u = u.rstrip("/")
             if u in {v["path"] for v in CFG["hubs"].values()}: continue
             if u not in live and u not in batch: bad.append(u)
-        if bad: print(f"WARNING {url} links to pages not live yet: {bad}. Hold it, or publish those first.", file=sys.stderr)
+        if bad: warn.append(f"WARNING {url} links to pages not live yet: {bad}. Hold it, or publish those first.")
+    return pairs, warn
+
+def cmd_publish_payload(args):
+    hub = args[0]; h = CFG["hubs"][hub]
+    pairs, warn = _publish_ids(hub); ids = [i for _, i in pairs]
+    if not ids: sys.exit("no verified cms_draft pages to publish")
+    for w in warn: print(w, file=sys.stderr)
     for i in range(0, len(ids), 100):
         print(json.dumps([{"label": f"publish {hub} batch {i//100+1}", "publish_collection_items": {"collection_id": h["collection_id"], "request": {"items": [{"id": x} for x in ids[i:i+100]]}}}], indent=1))
 
@@ -1087,7 +1118,8 @@ def _ship(name):
         sys.path.insert(0, os.path.join(ROOT, "ops")); import ship
         return ship.CMDS[name](args)
     return run
-for _n in ("ship-update", "relink-payload", "ship", "ship-done", "ship-cms", "ship-qc", "ship-cost", "readiness"): CMDS[_n] = _ship(_n)
+for _n in ("ship-update", "relink-payload", "ship", "ship-done", "ship-cms", "ship-qc", "ship-cost", "readiness",
+           "api-read", "api-create", "api-update", "api-publish"): CMDS[_n] = _ship(_n)
 if __name__ == "__main__":
     if len(sys.argv) < 2 or sys.argv[1] not in CMDS: print(__doc__); sys.exit(0)
     try:

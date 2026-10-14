@@ -43,8 +43,8 @@ Every stage runs in bulk and in parallel. A page moves through states in `status
 | 4. Review (once) | **Reviewer** (a different agent from the writer) | One review per page; severity only from `rules/SEVERITY.md` (`hubctl review`). Notes ship | reviewed or rework |
 | 4b. One rework | **Writer** | Blocking findings only; QC to zero; `hubctl images <url>`; `hubctl ready <url> --by <id>` (no second review). The challenger pass is retired (Divit, 2026-10-07) | reviewed |
 | 5. Divit's review | Divit (page preview per page: `python3 ops/preview.py <url>`, live SVGs, tabs, FAQ, table; reading copy: `ops/review.py`) | Daily review page. First batch per hub (calibration): every page in full. Then: a random 10% of the day plus everything flagged. Rejections become rule fixes, re-run on all pending pages | approved |
-| 6. Create drafts | Orchestrator | Commit + push, `hubctl bulk-payload <HUB> --sha <sha>` → `data_cms_tool` (100 drafts per call), read back to disk, `hubctl bulk-verify` | cms_draft |
-| 7. Publish | Orchestrator, on Divit's go | `hubctl publish-payload <HUB>` (100 per call) | published |
+| 6. Create drafts | Orchestrator | From the next batch (Divit 2026-10-14): Data API, not the connector (`docs/WEBFLOW_API.md`). Commit + push; `hubctl api-read <HUB>` + `hubctl cms-check`; `hubctl api-create <HUB> --sha <sha> --before-only`, commit + push the before-value; `hubctl api-create ... --live` (100 drafts per call, existing slugs skipped, read back + bulk-verify, rollback file). First run `--limit 2` (canary). Fallback: `bulk-payload` → `data_cms_tool` | cms_draft |
+| 7. Publish | Orchestrator, on Divit's go | `hubctl api-publish <HUB> --before-only`, commit + push; `hubctl api-publish <HUB> --live --verify-live` (item publish by IDs, 100 per call; never a site publish). Updates and relinks: `hubctl ship-update` / `relink-payload` `--before-only`, commit + push, then `hubctl api-update <payload> --live`. Fallback: `publish-payload` | published |
 
 Quality is layered so volume never lowers it: code QC (zero tolerance), an independent reviewer per page, pre-approved image recipes with code gates, and Divit's calibration plus sampling. A defect Divit finds becomes a QC rule or a `HUB_RULES.md` line (ratchet), then QC re-runs on every page not yet published.
 
@@ -84,7 +84,8 @@ Repo dirs: LP `lp`, Form `form`, Auto `aab`, SurveyQuiz `sqb`. Writers in the sa
 | Capability ledger (`rules/capabilities.json`) | QC C2, writer `claims_used`, reviewer | Claims Emergent cannot back; high-risk categories block until Divit approves |
 | Facts ledger (`rules/facts.json`) | QC C3 | Unsourced third-party facts and statistics in prose |
 | Approval fingerprint | `hubctl state approved`, `bulk-payload`, QC R3 | Anything changed after Divit's approval reaching Webflow |
-| Slug check before create | `hubctl cms-check`, `bulk-payload` | Duplicate CMS items after a rerun |
+| Slug check before create | `hubctl cms-check`, `bulk-payload`, `api-create` (fresh read, existing slugs skipped) | Duplicate CMS items after a rerun |
+| Data API allowlist | `ops/webflow_api.check` (golden `api-*`) | Any API call other than item read, create, update and item publish on the 4 child collections; site publish |
 | File locks and per-page history | `guards.lock`, every state change | Parallel agents overwriting each other; a full audit trail per page |
 | Near-duplicate detection | QC D2 (5-word phrases vs every page in the hub) | Pages that read like siblings with the nouns swapped |
 | SERP freshness | QC F6 (30 days), `bulk-payload` (60 days) | Writing or shipping from stale search data |

@@ -445,4 +445,356 @@ def write_readiness():
     open(os.path.join(ROOT, "status", "readiness.md"), "w").write("\n".join(out) + "\n")
 def cmd_readiness(args): write_readiness(); print("wrote status/readiness.md")
 
-CMDS = {"ship-update": cmd_update, "relink-payload": cmd_relink, "ship": cmd_ship, "ship-done": cmd_done, "ship-cms": cmd_cms, "ship-qc": cmd_qc, "ship-cost": cmd_cost, "readiness": cmd_readiness}
+# ---------- direct Webflow Data API v2 (Divit 2026-10-14): CMS item writes from the next batch on go through ops/webflow_api.py,
+# not the connector. Dry run is the default; --live is required for every network write. Before-values are committed and pushed
+# before every write; every write is read back and diffed against the spec; rollback files go to childedits/<date>/; one JSON line
+# per request goes to logs/api/<date>.jsonl and one line per write to logs/<dir>.md. The token never reaches any output.
+RB_DIR = os.path.join(ROOT, ".cache", "readback")
+def _W():
+    import webflow_api as W; return W
+def _arg(args, k, d=None): return args[args.index(k) + 1] if k in args and args.index(k) + 1 < len(args) else d
+def _mode(args):
+    live, dry, bo = "--live" in args, "--dry-run" in args, "--before-only" in args
+    if live + dry + bo > 1: sys.exit("choose one of --dry-run (the default), --before-only, --live")
+    return "live" if live else "before" if bo else "dry"
+def _stamp(): return datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+def _day(): return datetime.date.today().isoformat()
+def _hub(args):
+    if not args or args[0] not in H.CFG["hubs"]: sys.exit(f"HUB must be one of {', '.join(H.CFG['hubs'])}")
+    return args[0], H.CFG["hubs"][args[0]]
+def _apilog(rec):
+    p = os.path.join(ROOT, "logs", "api", f"{_day()}.jsonl"); os.makedirs(os.path.dirname(p), exist_ok=True)
+    with open(p, "a") as f: f.write(json.dumps({"t": now(), **rec}, ensure_ascii=False) + "\n")
+def _hublog(hub, text):
+    with open(os.path.join(ROOT, "logs", f"{H.CFG['hubs'][hub]['repo_dir']}.md"), "a") as f: f.write(f"- {now()}: {text}\n")
+def _rel(p): return os.path.relpath(p, ROOT)
+def _pushed(sha):
+    """sha is on origin/main (image URLs are pinned to it; Webflow fetches them from GitHub)."""
+    subprocess.run(["git", "fetch", "-q", "origin", "main"], cwd=ROOT, capture_output=True)
+    return subprocess.run(["git", "merge-base", "--is-ancestor", sha, "origin/main"], cwd=ROOT, capture_output=True).returncode == 0
+def require_before(paths):
+    """The before-value gate shared by every API write: each file exists, is committed, unchanged since, and pushed. Returns failures."""
+    import live_audit as LA
+    out = []
+    for b in paths:
+        if not os.path.exists(b): out.append(f"{_rel(b)}: missing"); continue
+        ok, why = LA.before_committed(b)
+        if not ok: out.append(f"{_rel(b)}: {why}")
+    return out
+
+def api_read(hub, out=None):
+    """Full paginated read of a child collection (staged, drafts included) to .cache/readback/ in the read-back shape every
+    hubctl command parses (cms-check, bulk-verify, ship-update, relink-payload)."""
+    W = _W(); h = H.CFG["hubs"][hub]; items, _ = W.list_items(h["collection_id"], dry=False)
+    p = out or os.path.join(RB_DIR, f"{h['repo_dir']}-api-{_stamp()}.json")
+    os.makedirs(os.path.dirname(os.path.abspath(p)), exist_ok=True)
+    json.dump({"_meta": {"hub": hub, "collection": h["collection_id"], "read_at": now(), "count": len(items), "via": "hubctl api-read (Data API v2, staged)"},
+               "result": {"items": items}}, open(p, "w"), ensure_ascii=False)
+    _apilog({"op": "list", "hub": hub, "collection": h["collection_id"], "count": len(items), "file": _rel(p) if p.startswith(ROOT) else os.path.basename(p)})
+    return items, p
+def latest_readback(hub):
+    fs = sorted(glob.glob(os.path.join(RB_DIR, f"{H.CFG['hubs'][hub]['repo_dir']}-api-*.json")))
+    return fs[-1] if fs else None
+def cmd_api_read(args):
+    """hubctl api-read HUB [--out FILE]: read the whole collection to disk; prints the item count and the file only."""
+    hub, _h = _hub(args); items, p = api_read(hub, _arg(args, "--out"))
+    print(f"{hub}: {len(items)} item(s) read (staged, drafts included) -> {_rel(p) if os.path.abspath(p).startswith(ROOT) else p}")
+
+def plan_create(cands, live_items, limit=None):
+    """(to_create, skipped): never a slug that already exists in the collection (idempotent re-runs); duplicate slugs refused."""
+    live = {(it.get("fieldData") or {}).get("slug"): it.get("id") for it in live_items}; seen = set(); go, skip = [], []
+    for url, it in cands:
+        sl = it["fieldData"]["slug"]
+        if sl in seen: sys.exit(f"refused: slug {sl} twice in the create list")
+        seen.add(sl)
+        (skip.append((url, live[sl])) if sl in live else go.append((url, it)))
+    return (go[:limit] if limit is not None else go), skip
+
+def cmd_api_create(args):
+    """hubctl api-create HUB --sha SHA [--limit N] [--readback FILE] [--dry-run | --before-only | --live]
+    The bulk-payload list (approved, no item ID, review hash current, approval fingerprint, slug check within the hour). --before-only
+    reads the live collection and writes the before-value (the slugs to create, absent in that read) to childedits/<date>/; commit and
+    push it. --live re-reads the collection, skips every slug that exists, POSTs drafts in batches of 100 (429: Retry-After/backoff),
+    writes the rollback file (IDs created) after each batch, reads the collection back and runs bulk-verify on the batch (state cms_draft)."""
+    W = _W(); hub, h = _hub(args); mode = _mode(args); sha = _arg(args, "--sha"); cid = h["collection_id"]
+    if not sha: sys.exit("--sha SHA required (the pushed commit the image URLs are pinned to)")
+    lim = int(_arg(args, "--limit")) if "--limit" in args else None
+    cands = H._create_candidates(hub, sha); held = []
+    for url, _it in list(cands):
+        e = H.load_st(hub)["pages"].get(url, {})
+        if e.get("hold") and H.hold_account(e["hold"]) != H.clone_account(): held.append(url)
+    cands = [c for c in cands if c[0] not in held]
+    for u in held: print(f"  REFUSED {u}: held by the other account")
+    if not cands: sys.exit("no approved pages without an item ID")
+    if mode == "dry":
+        rb = _arg(args, "--readback") or latest_readback(hub)
+        live_items = H._items_from_readback(rb) if rb else []
+        src = f"stored read-back {os.path.basename(rb)} ({len(live_items)} items)" if rb else "no stored read-back (the live run re-reads the collection)"
+    else:
+        live_items, rb = api_read(hub); src = f"live read {os.path.basename(rb)} ({len(live_items)} items)"
+    go, skip = plan_create(cands, live_items, lim)
+    slug_url = {it["fieldData"]["slug"]: u for u, it in go}
+    bp = os.path.join(ROOT, "childedits", _day(), f"{h['repo_dir']}.api-create.{sha[:7]}.before.json")
+    for u, iid in skip: print(f"  SKIP {u}: slug already in Webflow as {iid} (never created twice)")
+    if mode == "dry":
+        print(f"DRY RUN api-create {hub}: {len(go)} draft(s) to create, {len(skip)} skipped; slug check against {src}")
+        for r, ch in zip(W.create_items(cid, [it for _, it in go], dry=True), W.chunks(go)):
+            print(f"  {r['method']} {r['path']}  {r['count']} item(s), isDraft true: {', '.join(it['fieldData']['slug'] for _, it in ch)}")
+        print(f"  then GET /collections/{cid}/items (full read-back, {max(1, -(-(len(live_items) + len(go)) // 100))} call(s)), bulk-verify, state cms_draft")
+        print(f"  before-value {_rel(bp)}: " + ("present" if os.path.exists(bp) else "not written yet (--before-only)") + ". Nothing was sent.")
+        return
+    if not go: print("nothing to create: every slug already exists (run hubctl bulk-verify on a read-back to record them)"); return
+    before = {"op": "create", "hub": hub, "collection": cid, "sha": sha, "read": {"file": os.path.basename(rb), "items": len(live_items)},
+              "slugs_absent": sorted(slug_url), "note": "these slugs were absent from the collection when read; the write creates them as drafts"}
+    if mode == "before":
+        cur = json.load(open(bp)) if os.path.exists(bp) else None
+        if not cur or cur.get("slugs_absent") != before["slugs_absent"] or cur.get("collection") != cid:
+            os.makedirs(os.path.dirname(bp), exist_ok=True); json.dump(before, open(bp, "w"), indent=1)
+        print(f"before-value {_rel(bp)}: {len(go)} slug(s) absent in {src}. Commit and push it (ops/sync.sh), then rerun with --live.")
+        return
+    if not os.path.exists(bp): sys.exit(f"refused: no before-value {_rel(bp)}; run --before-only, commit and push it first")
+    B = json.load(open(bp)); extra = sorted(set(slug_url) - set(B.get("slugs_absent") or []))
+    if B.get("collection") != cid or extra: sys.exit(f"refused: before-value {_rel(bp)} does not cover {extra or 'this collection'}; rerun --before-only, commit and push")
+    bad = require_before([bp])
+    if bad: sys.exit("refused: before-values not committed and pushed:\n  " + "\n  ".join(bad))
+    if not _pushed(sha): sys.exit(f"refused: {sha[:7]} is not on origin/main (image URLs are pinned to it); push first")
+    rp = os.path.join(ROOT, "childedits", _day(), f"{h['repo_dir']}.api-create.{sha[:7]}.{_stamp()}.rollback.json"); created = []
+    def on_batch(ch, resp):
+        got = {(x.get("fieldData") or {}).get("slug"): x.get("id") for x in W.created_of(resp)}
+        for it in ch: sl = it["fieldData"]["slug"]; created.append({"url": slug_url[sl], "slug": sl, "id": got.get(sl)})
+        json.dump({"op": "create", "hub": hub, "collection": cid, "sha": sha, "before": _rel(bp), "created": created,
+                   "rollback": "drafts created by hubctl api-create; to roll back, delete these items in the Webflow CMS on Divit's go (the API script never deletes)"},
+                  open(rp, "w"), indent=1)
+        _apilog({"op": "create", "hub": hub, "collection": cid, "count": len(ch), "slugs": [it["fieldData"]["slug"] for it in ch], "ids": [got.get(it["fieldData"]["slug"]) for it in ch]})
+    os.makedirs(os.path.dirname(rp), exist_ok=True); err = None; t0 = datetime.datetime.now()
+    try: W.create_items(cid, [it for _, it in go], dry=False, on_batch=on_batch)
+    except (W.ApiError, W.Refused) as e: err = str(e); print(f"STOPPED: {err}")
+    items2, rb2 = api_read(hub)
+    ok, nbad, lines = H._bulk_verify(hub, items2, only={u for u, _ in go} | {u for u, _ in skip}, need_draft=True)
+    for l in lines: print(l)
+    _hublog(hub, f"api-create: {len(created)} draft(s) created via Data API at {sha[:7]} ({', '.join(c['slug'] for c in created)}); read back {len(items2)} items; verified {ok}, mismatched {nbad}; before {_rel(bp)}; rollback {_rel(rp)}" + (f"; stopped: {err[:200]}" if err else ""))
+    print(f"created {len(created)} in {(datetime.datetime.now() - t0).total_seconds():.0f}s; read back {len(items2)}; verified and recorded {ok}; mismatched {nbad}; rollback {_rel(rp)}")
+    if err or nbad: sys.exit(1)
+
+def _before_index():
+    idx = {}
+    for p in sorted(glob.glob(os.path.join(ROOT, "childedits", "*", "*.before.json"))):
+        try: d = json.load(open(p))
+        except ValueError: continue
+        if isinstance(d, dict) and d.get("id") and isinstance(d.get("fieldData"), dict): idx.setdefault(d["id"], []).append((p, d))
+    return idx
+def _same_image(sent, got, before):
+    g = got or {}
+    if (sent.get("alt") or "") != (g.get("alt") or ""): return False
+    if sent.get("fileId"): return g.get("fileId") == sent["fileId"]
+    return bool(g.get("fileId")) and g.get("fileId") != ((before or {}).get("fileId"))
+
+def cmd_api_update(args):
+    """hubctl api-update PAYLOAD.json [--dry-run | --live]: run the item updates (and the item publishes of exactly those items) in a
+    payload written by ship-update or relink-payload (ops/out/ship/*.json). Every item needs a committed and pushed before-value in
+    childedits/ covering its fields; the rollback payload (the before-values) is written before the write; the collection is read
+    back and every sent field diffed; a mismatch stops before any publish."""
+    W = _W(); pf = args[0]; mode = _mode(args)
+    if mode == "before": sys.exit("api-update takes its before-values from hubctl ship-update / relink-payload --before-only")
+    upd, pub = {}, {}
+    for a in json.load(open(pf)):
+        if "update_collection_items" in a: x = a["update_collection_items"]; upd.setdefault(x["collection_id"], []).extend(x["request"]["items"])
+        elif "publish_collection_items" in a: x = a["publish_collection_items"]; pub.setdefault(x["collection_id"], []).extend(i["id"] for i in x["request"]["items"])
+        else: sys.exit(f"refused: action {a.get('label')!r} is neither an item update nor an item publish")
+    if not upd: sys.exit("refused: the payload has no item updates")
+    for c in set(upd) | set(pub):
+        if c not in W.CHILD: sys.exit(f"refused: collection {c} is not a child collection")
+    for c, ids in pub.items():
+        extra = set(ids) - {it["id"] for it in upd.get(c, [])}
+        if extra: sys.exit(f"refused: publish of {len(extra)} item(s) not updated by this payload")
+    idx = _before_index(); bfile = {}; missing = []
+    for c, its in upd.items():
+        for it in its:
+            if "isDraft" in it and it["isDraft"] is not True: sys.exit(f"refused: {it['id']} sets isDraft {it['isDraft']}")
+            cov = [(p, d) for p, d in idx.get(it["id"], []) if set(it["fieldData"]) <= set(d["fieldData"]) and d.get("collection", c) == c]
+            if cov: bfile[it["id"]] = cov[-1]
+            else: missing.append(it["id"])
+    if missing: sys.exit(f"refused: no before-value in childedits/ covers {len(missing)} item(s): {', '.join(missing[:5])} (run ship-update / relink-payload --before-only, commit, push)")
+    n = sum(len(v) for v in upd.values()); name = os.path.splitext(os.path.basename(pf))[0]
+    if mode == "dry":
+        print(f"DRY RUN api-update {os.path.basename(pf)}: {n} item(s)")
+        for c, its in upd.items():
+            for r in W.update_items(c, its, dry=True): print(f"  {r['method']} {r['path']}  {r['count']} item(s), fields: {', '.join(sorted({k for it in its for k in it['fieldData']}))}")
+            print(f"  then GET /collections/{c}/items (read-back) and a diff of every sent field")
+        for c, ids in pub.items():
+            for r in W.publish_items(c, ids, dry=True): print(f"  {r['method']} {r['path']}  {r['count']} item(s) (only if the diff is clean)")
+        bad = require_before(sorted({p for p, _ in bfile.values()}))
+        print(f"  before-values: {len(set(p for p, _ in bfile.values()))} file(s), " + (f"{len(bad)} not committed and pushed" if bad else "all committed and pushed") + ". Nothing was sent.")
+        return
+    bad = require_before(sorted({p for p, _ in bfile.values()}))
+    if bad: sys.exit("refused: before-values not committed and pushed:\n  " + "\n  ".join(bad))
+    rp = os.path.join(ROOT, "childedits", _day(), f"{name}.{_stamp()}.rollback.json"); os.makedirs(os.path.dirname(rp), exist_ok=True)
+    json.dump([{"label": f"rollback of {os.path.basename(pf)}: before-values, changed fields only", "update_collection_items": {"collection_id": c, "request": {"items": [
+        {"id": it["id"], "fieldData": {k: bfile[it["id"]][1]["fieldData"].get(k) for k in it["fieldData"]}} for it in its]}}} for c, its in upd.items()], open(rp, "w"), indent=1, ensure_ascii=False)
+    diffs = []; err = None
+    for c, its in upd.items():
+        try: W.update_items(c, its, dry=False, on_batch=lambda ch, r, c=c: _apilog({"op": "update", "collection": c, "count": len(ch), "ids": [i["id"] for i in ch], "payload": os.path.basename(pf)}))
+        except (W.ApiError, W.Refused) as e: err = str(e); print(f"STOPPED: {err}")
+        got = {it["id"]: it for it in W.list_items(c, dry=False)[0]}
+        for it in its:
+            g = (got.get(it["id"]) or {}).get("fieldData") or {}; bfd = bfile[it["id"]][1]["fieldData"]
+            for k, v in it["fieldData"].items():
+                same = _same_image(v, g.get(k), bfd.get(k)) if isinstance(v, dict) else g.get(k) == v
+                if not same: diffs.append(f"{it['id']}: {k}")
+    hub = W.CHILD[next(iter(upd))]
+    _hublog(hub, f"api-update {os.path.basename(pf)}: {n} item(s) updated via Data API; read back; {len(diffs)} field mismatch(es); rollback {_rel(rp)}" + (f"; stopped: {err[:200]}" if err else ""))
+    for d in diffs: print(f"  MISMATCH {d}")
+    if err or diffs: sys.exit("not published: fix the mismatches first" if pub else 1)
+    for c, ids in pub.items():
+        res = W.publish_items(c, ids, dry=False, on_batch=lambda ch, r, c=c: _apilog({"op": "publish", "collection": c, "count": len(ch), "ids": ch, "published": len(r.get("publishedItemIds") or []), "errors": len(r.get("errors") or [])}))
+        done = {i for r in res for i in (r.get("publishedItemIds") or [])}
+        if set(ids) - done: print(f"  NOT PUBLISHED {len(set(ids) - done)} item(s): {', '.join(sorted(set(ids) - done)[:5])}")
+    print(f"updated {n} item(s); read back clean" + (f"; item-published {sum(len(v) for v in pub.values())}" if pub else "") + f"; rollback {_rel(rp)}")
+
+def cmd_api_publish(args):
+    """hubctl api-publish HUB [--ids-from-state cms_draft] [--limit N] [--dry-run | --before-only | --live] [--verify-live]
+    Item publish (never a site publish) of exactly the verified cms_draft pages' item IDs, 100 per call. --before-only writes their
+    before-state from a fresh read (isDraft, lastPublished, lastUpdated) to childedits/<date>/; --live refuses unless it is committed,
+    pushed and still current. --verify-live then runs verify-live per URL (state published on a pass)."""
+    import guards as G
+    W = _W(); hub, h = _hub(args); mode = _mode(args); cid = h["collection_id"]
+    if _arg(args, "--ids-from-state", "cms_draft") != "cms_draft": sys.exit("refused: only verified cms_draft pages are item-published")
+    pairs, warn = H._publish_ids(hub)
+    if "--limit" in args: pairs = pairs[:int(_arg(args, "--limit"))]
+    if not pairs: sys.exit("no verified cms_draft pages to publish")
+    for url, _ in pairs:
+        s = spec(url); fp = G.fingerprint(s)
+        if fp not in {(s.get("approval") or {}).get("fingerprint"), (s.get("cms_draft") or {}).get("fingerprint")}:
+            sys.exit(f"refused: {url} changed after approval / draft verification (fingerprint); re-verify before publishing")
+    for w in warn: print(w, file=sys.stderr)
+    ids = [i for _, i in pairs]; key = hashlib.sha1(",".join(sorted(ids)).encode()).hexdigest()[:8]
+    bp = os.path.join(ROOT, "childedits", _day(), f"{h['repo_dir']}.api-publish.{key}.before.json")
+    if mode == "dry":
+        print(f"DRY RUN api-publish {hub}: {len(ids)} item(s) (item publish only; no site publish)")
+        for r, ch in zip(W.publish_items(cid, ids, dry=True), W.chunks(pairs)):
+            print(f"  {r['method']} {r['path']}  {r['count']} item(s): {', '.join(u.rsplit('/', 1)[1] for u, _ in ch)}")
+        print(f"  then verify-live per URL ({len(ids)} page fetch(es) plus their FAQ link checks)" if "--verify-live" in args else "  (add --verify-live to check every live URL after)")
+        print(f"  before-value {_rel(bp)}: " + ("present" if os.path.exists(bp) else "not written yet (--before-only)") + ". Nothing was sent.")
+        return
+    items, rb = api_read(hub); by = {it["id"]: it for it in items}
+    lost = [u for u, i in pairs if i not in by or (by[i].get("fieldData") or {}).get("slug") != u.rsplit("/", 1)[1]]
+    if lost: sys.exit(f"refused: not in the collection under their slug: {', '.join(lost[:5])}")
+    before = [{"id": i, "slug": u.rsplit("/", 1)[1], **{k: by[i].get(k) for k in ("isDraft", "isArchived", "lastPublished", "lastUpdated")}} for u, i in pairs]
+    if mode == "before":
+        if not os.path.exists(bp) or json.load(open(bp)) != before:
+            os.makedirs(os.path.dirname(bp), exist_ok=True); json.dump(before, open(bp, "w"), indent=1)
+        print(f"before-value {_rel(bp)}: {len(ids)} item(s). Commit and push it (ops/sync.sh), then rerun with --live."); return
+    if not os.path.exists(bp): sys.exit(f"refused: no before-value {_rel(bp)}; run --before-only, commit and push it first")
+    if json.load(open(bp)) != before: sys.exit(f"refused: the items changed since {_rel(bp)} was written; rerun --before-only, commit and push")
+    bad = require_before([bp])
+    if bad: sys.exit("refused: before-values not committed and pushed:\n  " + "\n  ".join(bad))
+    rp = os.path.join(ROOT, "childedits", _day(), f"{h['repo_dir']}.api-publish.{key}.{_stamp()}.rollback.json"); os.makedirs(os.path.dirname(rp), exist_ok=True)
+    json.dump({"op": "publish", "hub": hub, "collection": cid, "items": before, "before": _rel(bp),
+               "rollback": "unpublish is not on the API allowlist: unpublish these items in the Webflow CMS on Divit's go; their before-state is in the before file"}, open(rp, "w"), indent=1)
+    t0 = datetime.datetime.now(); err = None; done = set(); errs = 0
+    try:
+        for r in W.publish_items(cid, ids, dry=False, on_batch=lambda ch, r: _apilog({"op": "publish", "hub": hub, "collection": cid, "count": len(ch), "ids": ch, "published": len(r.get("publishedItemIds") or []), "errors": len(r.get("errors") or [])})):
+            done |= set(r.get("publishedItemIds") or []); errs += len(r.get("errors") or [])
+    except (W.ApiError, W.Refused) as e: err = str(e); print(f"STOPPED: {err}")
+    miss = [u for u, i in pairs if i not in done]
+    _hublog(hub, f"api-publish: {len(done)} item(s) item-published via Data API (no site publish); errors {errs}; not published {len(miss)}; before {_rel(bp)}; rollback {_rel(rp)}" + (f"; stopped: {err[:200]}" if err else ""))
+    print(f"item-published {len(done)}/{len(ids)} in {(datetime.datetime.now() - t0).total_seconds():.0f}s; errors {errs}")
+    for u in miss: print(f"  NOT PUBLISHED {u}")
+    if "--verify-live" in args and done:
+        import verify_live as V, time as _t
+        _t.sleep(int(_arg(args, "--wait", "15"))); fails = []
+        for u, i in pairs:
+            if i not in done: continue
+            t1 = _t.time(); ok, rep = V.verify(spec(u))
+            if not ok: _t.sleep(30); ok, rep = V.verify(spec(u))   # one retry: the CDN can lag an item publish
+            if ok: H.set_state(u, "published", note="live page verified", via="api-publish")
+            else: fails.append(u)
+            print(f"  {'PASS' if ok else 'FAIL'} {u} ({_t.time() - t1:.1f}s)" + ("" if ok else ": " + "; ".join(l for l in rep if l.startswith("FAIL"))[:300]))
+        print(f"verify-live: {len(done) - len(fails)}/{len(done)} pass")
+        if fails: sys.exit(1)
+    if err or miss: sys.exit(1)
+
+# ---------- golden cases for the API path (tests/golden/run.py kind "webflow-api"); dry run and stubs only, never the network
+def api_golden(c):
+    import io, contextlib, copy as _cp
+    W = _W(); t = c["test"]; cid = next(iter(W.CHILD))
+    def synth(n, draft=True): return [{"isDraft": draft, "fieldData": {"name": f"Golden {i}", "slug": f"golden-{i}"}} for i in range(n)]
+    def body_of(b):
+        if not isinstance(b, dict) or "synth" not in b: return b
+        s = b["synth"]
+        if s["op"] == "create": return {"items": synth(s["n"], s.get("isDraft", True))}
+        if s["op"] == "update": return {"items": [{"id": f"{i:024x}", "fieldData": dict(s.get("fieldData") or {"name": "x"}), **({"isDraft": s["isDraft"]} if "isDraft" in s else {})} for i in range(s["n"])]}
+        return {"itemIds": [f"{i:024x}" for i in range(s["n"])]}
+    real = (W.TRANSPORT, W.TOKEN, W.SLEEP); calls = []
+    def no_net(*a, **k): calls.append(a[:2]); raise AssertionError("network call in a dry run")
+    try:
+        if t == "refuse":
+            path = c["path"].replace("{child}", cid)
+            try: W.check(c["method"], path, body_of(c.get("body")), c.get("query")); refused = False
+            except W.Refused: refused = True
+            return refused == c["expect_refused"]
+        if t == "dry-no-network":
+            W.TRANSPORT = no_net; W.TOKEN = lambda: (_ for _ in ()).throw(AssertionError("token read in a dry run"))
+            W.create_items(cid, synth(250)); W.update_items(cid, body_of({"synth": {"op": "update", "n": 3}})["items"]); W.publish_items(cid, [f"{i:024x}" for i in range(3)])
+            return not calls
+        if t == "batching":
+            fn = {"create": lambda n: W.create_items(cid, synth(n)), "update": lambda n: W.update_items(cid, body_of({"synth": {"op": "update", "n": n}})["items"]),
+                  "publish": lambda n: W.publish_items(cid, [f"{i:024x}" for i in range(n)])}[c["op"]]
+            return [r["count"] for r in fn(c["n"])] == c["expect"]
+        if t == "slug-skip":
+            cands = [(f"/x/{s}", {"isDraft": True, "fieldData": {"name": s, "slug": s}}) for s in c["cands"]]
+            live = [{"id": f"{i:024x}", "fieldData": {"slug": s}} for i, s in enumerate(c["live"])]
+            go, skip = plan_create(cands, live, c.get("limit"))
+            return [it["fieldData"]["slug"] for _, it in go] == c["expect_create"] and [u.rsplit("/", 1)[1] for u, _ in skip] == c["expect_skip"]
+        if t == "create-cmd-skip":   # the command in dry run: a stored read-back holding one slug -> SKIP, no network, plan printed
+            rb = os.path.join(ROOT, ".cache", "golden-api-readback.json"); os.makedirs(os.path.dirname(rb), exist_ok=True)
+            json.dump({"result": {"items": [{"id": "0" * 24, "fieldData": {"slug": c["live"][0]}}]}}, open(rb, "w"))
+            real_c = H._create_candidates; W.TRANSPORT = no_net; W.TOKEN = lambda: (_ for _ in ()).throw(AssertionError("token read"))
+            H._create_candidates = lambda hub, sha: [(f"{H.CFG['hubs'][hub]['path']}/{s}", {"isDraft": True, "fieldData": {"name": s, "slug": s}}) for s in c["cands"]]
+            out = io.StringIO()
+            try:
+                with contextlib.redirect_stdout(out): cmd_api_create([W.CHILD[cid], "--sha", "0" * 40, "--readback", rb])
+            finally: H._create_candidates = real_c
+            o = out.getvalue()
+            return not calls and "DRY RUN" in o and f"SKIP" in o and c["live"][0] in o.split("DRY RUN")[0] and "Nothing was sent" in o
+        if t == "live-before-gate":  # --live with no committed before-value: refused, and no write request ever leaves
+            sent = []
+            def stub(method, url, headers, data, timeout):
+                sent.append(method)
+                return 200, {}, json.dumps({"items": [], "pagination": {"total": 0}}).encode()
+            real_c, real_rb = H._create_candidates, globals()["RB_DIR"]
+            W.TRANSPORT = stub; W.TOKEN = lambda: "golden-token"; globals()["RB_DIR"] = os.path.join(ROOT, ".cache", "golden-readback")
+            H._create_candidates = lambda hub, sha: [(f"{H.CFG['hubs'][hub]['path']}/golden-gate-{i}", {"isDraft": True, "fieldData": {"name": "g", "slug": f"golden-gate-{i}"}}) for i in range(2)]
+            real_log, real_api = globals()["_apilog"], None; globals()["_apilog"] = lambda rec: None
+            try:
+                with contextlib.redirect_stdout(io.StringIO()): cmd_api_create([W.CHILD[cid], "--sha", "f" * 40, "--live"]); return False
+            except SystemExit as e: return "before-value" in str(e) and all(m == "GET" for m in sent)
+            finally: H._create_candidates = real_c; globals()["RB_DIR"] = real_rb; globals()["_apilog"] = real_log
+        if t == "before-gate":
+            return (not require_before([os.path.join(ROOT, c["path"])])) == c["expect_ok"]
+        if t == "backoff":
+            seq = list(c["statuses"]); slept = []
+            def stub(method, url, headers, data, timeout):
+                st = seq.pop(0); return st, ({"Retry-After": str(c.get("retry_after", 3))} if st == 429 else {}), b'{"items": [], "pagination": {"total": 0}}'
+            W.TRANSPORT = stub; W.TOKEN = lambda: "golden-token"; W.SLEEP = slept.append
+            try: W.request("GET", f"/collections/{cid}/items", query={"offset": 0, "limit": 100}, dry=False); ok = True
+            except W.ApiError: ok = False
+            return ok == c["expect_ok"] and slept == c["expect_sleeps"]
+        if t == "no-token":   # a sentinel token never reaches stdout, stderr (debug on) or an exception, even if the server echoes it
+            SENT = "wfGOLDENsentinel0123456789abcdef"; out, errb = io.StringIO(), io.StringIO(); msgs = []
+            def stub(method, url, headers, data, timeout): return 401, {}, ("bad token " + headers.get("Authorization", "")).encode()
+            W.TRANSPORT = stub; W.TOKEN = lambda: SENT; os.environ["WEBFLOW_API_DEBUG"] = "1"
+            try:
+                with contextlib.redirect_stdout(out), contextlib.redirect_stderr(errb):
+                    for m, p, b in (("GET", f"/collections/{cid}/items", None), ("POST", f"/collections/{cid}/items/publish", {"itemIds": ["a" * 24]})):
+                        try: W.request(m, p, b, query={"offset": 0, "limit": 100} if b is None else None, dry=False)
+                        except Exception as e: msgs.append(str(e)); msgs.append(repr(e))
+                    print(W.request("GET", f"/collections/{cid}/items", dry=True))
+            finally: os.environ.pop("WEBFLOW_API_DEBUG", None)
+            allout = out.getvalue() + errb.getvalue() + " ".join(msgs)
+            return SENT not in allout and "Bearer [redacted]" in errb.getvalue() and len(msgs) == 4
+    finally: W.TRANSPORT, W.TOKEN, W.SLEEP = real
+    return None
+
+CMDS = {"api-read": cmd_api_read, "api-create": cmd_api_create, "api-update": cmd_api_update, "api-publish": cmd_api_publish,
+        "ship-update": cmd_update, "relink-payload": cmd_relink, "ship": cmd_ship, "ship-done": cmd_done, "ship-cms": cmd_cms, "ship-qc": cmd_qc, "ship-cost": cmd_cost, "readiness": cmd_readiness}
