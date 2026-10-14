@@ -8,7 +8,8 @@ REPO="$(cd "$(dirname "$0")/../.." && pwd)"; cd "$REPO" || exit 1
 LOG="$HOME/Library/Logs/emergent-live-audit.log"; ARGS="${LIVE_AUDIT_ARGS:---all}"
 export EMG_HEADLESS=1   # ruling 19: ops/webflow_api.py refuses CMS writes when set
 export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-export CLAUDE_CONFIG_DIR="$HOME/.claude-b"
+export CLAUDE_CONFIG_DIR="$HOME/.claude"   # ruling 22 (Divit 2026-10-14): B is coordinator; the live audit runs in B's clone on account B
+[ "$(basename "$REPO")" = "emergent-hubs-a" ] || { echo "$(date '+%Y-%m-%d %H:%M:%S') SKIP: ruling 22: the live audit runs only in B's clone ~/emergent-hubs-a (this is $REPO)" >> "$HOME/Library/Logs/emergent-live-audit.log"; exit 0; }
 log() { echo "$(date '+%Y-%m-%d %H:%M:%S') $*" >> "$LOG"; }
 notify() { osascript -e "display notification \"${1//\"/\'}\" with title \"Emergent live audit\"" >/dev/null 2>&1; }
 log "start (args: $ARGS)"

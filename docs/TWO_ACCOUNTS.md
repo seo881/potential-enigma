@@ -1,5 +1,7 @@
 # Two Claude Code accounts on one Mac (Divit, 2026-10-13)
 
+> **Ruling 22 (Divit, 2026-10-14 night): B is the coordinator and the only Webflow writer.** It overrides the A-side list in ruling 20 below. A makes no Webflow calls until a new ruling. The live audit and the publish watch run in `~/emergent-hubs-a` on `~/.claude`. Handover state: `docs/COORDINATOR_HANDOFF.md`.
+
 > **Ruling 20 (Divit, 2026-10-14): rebalance to B.** This overrides ruling 9 and the review split in section 1 below.
 > - **B (`~/emergent-hubs-a`) writes all 4 hubs, LP included:** `.hub` = `B:LP,Form,Auto,SurveyQuiz`.
 > - **B does every full and slim review** with B-r and B-s agents. A reviewer never reviews a page any part of which it wrote; hubctl refuses a match against the recorded writers.
