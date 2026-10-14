@@ -59,6 +59,12 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
                                                           (hero <p> and awbPrompt unchanged, one separate quiz block, Z9 clean), z9-wrong-quiz,
                                                           z9-no-carrier, verify-live {mutate: none|quiz|prompt|no-embed|no-quiz, expect_fail: [checks]},
                                                           ship-block {url, quiz, expect_blocked}, css-scope {inject?, expect_bad}, plan-type {primary, expect}
+  verify-links   {fixture, page, fetch?, default?, mutate?, expect_fail, expect_bad?}  Divit 2026-10-14: verify-live checks every
+                                                          internal href (template links too) on the saved page HTML in
+                                                          tests/golden/fixtures/verify_live/<fixture>.html.gz (mutate: [[old, new]],
+                                                          each must occur); offline: fetch {path: status | [status, location]}
+                                                          answers each request, default (200) the rest; the page fails exactly
+                                                          when expect_fail, and every href in expect_bad is among the failing ones
   review         {url, field, check, text}                 judgment catch (Layer B); kept for the record, not machine-tested
 status: "open" = a known miss the gate does not catch yet (a backlog fix); "guarded" = caught; a guarded case that stops being
 caught fails the suite. Open cases that start passing are reported so they can be marked guarded.
@@ -274,6 +280,19 @@ def caught(c):
         return ship.api_golden(c)
     if c["kind"] in ("quiz-qc", "quiz-js", "quiz-agree", "quiz-carrier"):
         return quiz_case(c)
+    if c["kind"] == "verify-links":        # Divit 2026-10-14: every internal href on the page; the HTTP layer is stubbed (offline)
+        import verify_live as V, gzip
+        html = gzip.open(os.path.join(ROOT, "tests", "golden", "fixtures", "verify_live", c["fixture"] + ".html.gz")).read().decode("utf-8")
+        for old, new in c.get("mutate") or []:
+            if old not in html: return False
+            html = html.replace(old, new, 1)
+        table, seen = c.get("fetch") or {}, []
+        def fetch(url, method):
+            from urllib.parse import urlsplit
+            seen.append(url); r = table.get(urlsplit(url).path, c.get("default", 200))
+            return (r[0], r[1]) if isinstance(r, list) else (r, None)
+        ok, rep, bad = V.check_internal_links(html, "https://emergent.sh" + c["page"], fetch=fetch)
+        return (not ok) == c["expect_fail"] and set(c.get("expect_bad") or []) <= set(bad) and len(seen) > 0
     if c["kind"] == "qc-text":
         import qc_hub as Q, hubctl as H
         s = json.load(open(H.spath(c["url"]))); s = copy.deepcopy(s); f = c["field"]
