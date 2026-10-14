@@ -124,6 +124,13 @@
    "via": null,
    "by": "B-w-77",
    "note": ""
+  },
+  {
+   "t": "2026-10-14 14:37 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-10",
+   "note": "rubric 10/10 by B-r-10; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -1093,5 +1100,265 @@
  },
  "writers": [
   "B-w-77"
- ]
+ ],
+ "review": {
+  "by": "B-r-10",
+  "date": "2026-10-14 14:37 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Likert Questionnaire That Totals Its Own Scores'; hero 'Get a Likert questionnaire that scores every answer, flips negative statements, and saves the data in a database you own.' covers the whole job; how-to description 'Seven steps to a Likert questionnaire with clear statements and totals that add up the way you planned.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are definitions (Wikipedia, Simply Psychology), example sets and templates: the page defines the questionnaire and the Likert item, gives sample statements for customers, employees and students, response-option sets, template contents, an analysis method and a 7-step writing guide, plus 4 worked examples as promised in the meta."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Likert-specific mechanics: 'scores those as 6 minus the answer, then adds all 4 into a total out of 20'; 'counts students who answer 4 or 5'; 'A single Likert item is ordinal, and a mean of 3.0 can hide a room split between 1s and 5s.'"
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Bodies open on full sentences, e.g. 'Corbel Logistics asks 240 warehouse staff to rate 4 workload statements on a 5-point agree scale.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; one ', so' ending (feature_3) within the limit; a tacked-on link sentence in FAQ 4 and a dangling modifier in FAQ 5 noted."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Reads like a survey practitioner: 'Send the draft to 5 people from the group and ask what each statement means to them.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent sentences map to claims_used (prompt-build, database-owned, conversational, alerts, no-caps, code-export). Third-party facts match quoted domain_sources spans: Rensis Likert as inventor, Likert item definition, sum or average scoring, single item ordinal, balanced keying vs acquiescence, Pew on less educated respondents agreeing, pretesting, double-barreled. Numbers add up: 4+2+5+4=15 of 20; 51/96=53% < 60%; 46/120=38%, 77/120=64%, +26 points."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Scoring-led angle (reverse scoring, top-2 share, before/after) is its own; no sibling primary in a heading; siblings are only linked from FAQ answers."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions; items 1 and 3 are verbatim AlsoAsked ('What is a Likert type questionnaire?', 'What is a Likert scale questionnaire?'); reworded Semrush items keep their head phrases ('sample of likert questionnaire', 'likert survey template', 'likert questionnaire analysis'); each answered in the first sentence; hub link in item 2; no brand in any question."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: Lena Ruiz 15 of 20 with 2 statements flipped incl. 'I skip breaks to keep up', 186 of 240; MAT 140 51 of 96, 53%, math chair; Ana Petrov Disagree on 'Class began on time', '15 minutes late', email to Marcus Hale; useful feedback 46 then 77 of 120, +26 pts to #people-team."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq_heading",
+    "quote": "Likert Questions, Answered",
+    "issue": "Code-built heading drops the head word 'Questionnaire' ({Topic} should be 'Likert Questionnaire'). Known tooling defect already reported in proposals/account-b.md; writers may not edit it.",
+    "fix": "Fix in the skeleton builder (proposals/account-b.md).",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "faq item 4",
+    "quote": "The same layout fits a brand awareness survey.",
+    "issue": "Cross-link carried by a tacked-on closing sentence that adds nothing to the sample.",
+    "fix": "Fold the link into the example or move it to an answer where it helps.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq item 5",
+    "quote": "Built on Emergent, each response is stored in a database you own.",
+    "issue": "Dangling modifier: the response is not what is built on Emergent.",
+    "fix": "'Build it on Emergent and each response is stored in a database you own.'",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief tab 3",
+    "quote": "Strongly agree / Agree / Disagree / Strongly disagree",
+    "issue": "The phone draws a 4-point scale with no midpoint, while feature_2 says 'Choose 5 or 7 points'; the tab copy names no point count, so it is not a contradiction, but it reads inconsistent.",
+    "fix": "Draw the 5-point set with a Neutral option on the next render.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq_heading",
+   "issue": "Code-built heading drops the head word 'Questionnaire' ({Topic} should be 'Likert Questionnaire'). Known tooling defect already reported in proposals/account-b.md; writers may not edit it.",
+   "fix": "Fix in the skeleton builder (proposals/account-b.md).",
+   "by": "B-r-10",
+   "via": "review",
+   "date": "2026-10-14 14:37 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "faq item 4",
+   "issue": "Cross-link carried by a tacked-on closing sentence that adds nothing to the sample.",
+   "fix": "Fold the link into the example or move it to an answer where it helps.",
+   "by": "B-r-10",
+   "via": "review",
+   "date": "2026-10-14 14:37 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq item 5",
+   "issue": "Dangling modifier: the response is not what is built on Emergent.",
+   "fix": "'Build it on Emergent and each response is stored in a database you own.'",
+   "by": "B-r-10",
+   "via": "review",
+   "date": "2026-10-14 14:37 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief tab 3",
+   "issue": "The phone draws a 4-point scale with no midpoint, while feature_2 says 'Choose 5 or 7 points'; the tab copy names no point count, so it is not a contradiction, but it reads inconsistent.",
+   "fix": "Draw the 5-point set with a Neutral option on the next render.",
+   "by": "B-r-10",
+   "via": "review",
+   "date": "2026-10-14 14:37 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "fa757c32226af4cd",
+   "alt:share_image": "824c3e5fa54af16c",
+   "alt:tab_image_1": "da809eac719729a8",
+   "alt:tab_image_2": "eb00f0dcb9e4474b",
+   "alt:tab_image_3": "b2335f0381fdf7d3",
+   "alt:tab_image_4": "129d3ad01dbd0b9c",
+   "breadcrumb": "681db531c55a12f8",
+   "chip_adds": "219069f149a35d9e",
+   "explore_cta": "cc96e3f6d300b2e0",
+   "faq": "31c12bc5b93cde2d",
+   "feature_1": "d4d3aabf50b1af37",
+   "feature_2": "0e40eaff1095c8bf",
+   "feature_3": "43b58a9890b96c90",
+   "feature_4": "66a196c77b340ad0",
+   "feature_5": "401b5b991a37e9cd",
+   "feature_6": "ff03dad250ceeb07",
+   "features_heading": "fc29fdf8d854e6cf",
+   "features_subheading": "76be0677ac9d00a3",
+   "h1": "195e99a269f5c8af",
+   "hero_description": "89636dc75c0cb662",
+   "hero_prompt": "609390f0b859fccc",
+   "howto_description": "84daddf19bfa0848",
+   "howto_step_1_des": "72920f2fb2a3dda3",
+   "howto_step_1_title": "3eee8066f5b6ca6d",
+   "howto_step_2_des": "ba3a535002b0fd56",
+   "howto_step_2_title": "53f08b1eec9ee9f3",
+   "howto_step_3_des": "95e1202ebd028c3f",
+   "howto_step_3_title": "753eb8c7785bc16a",
+   "howto_step_4_des": "1cdbfb8d3e17411a",
+   "howto_step_4_title": "a036f26aaaa60d30",
+   "howto_step_5_des": "094c6e81045573fa",
+   "howto_step_5_title": "b1f8def2e82dc3cd",
+   "howto_step_6_des": "1798bf80810a3a53",
+   "howto_step_6_title": "5cd9c7a05431ceb5",
+   "howto_step_7_des": "c7701a6c0501249c",
+   "howto_step_7_title": "b2f785813843eb55",
+   "howto_title": "319aca799816e01c",
+   "meta_description": "e1219a1cf6f36160",
+   "meta_title": "d79e2f8b636aa2d5",
+   "mockup": "6b24ae7452c21bae",
+   "product_name": "74ab52fe914495a5",
+   "prompt_chip_1": "7a51ce212f844886",
+   "prompt_chip_2": "beb17f546656c995",
+   "prompt_chip_3": "ac7c9ade243fa6c4",
+   "prompt_chip_4": "e0e7da126c6b22f2",
+   "slug": "9bbc1476e93c50d0",
+   "tab_content_1": "7ce1155cd4b50d5d",
+   "tab_content_2": "ead05a186c9f0174",
+   "tab_content_3": "05c180643f605498",
+   "tab_content_4": "65b5e829c0394d5d",
+   "tab_label_1": "7a51ce212f844886",
+   "tab_label_2": "beb17f546656c995",
+   "tab_label_3": "9621754ba447aa31",
+   "tab_label_4": "e0e7da126c6b22f2",
+   "usecase_heading": "0350d6cf0af13869",
+   "why_description": "dfd5df2218ed5818",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "b56f173e3cc9cc69"
+  },
+  "all": "3153e245de9f4ee6",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "fa757c32226af4cd",
+   "alt:share_image": "824c3e5fa54af16c",
+   "alt:tab_image_1": "da809eac719729a8",
+   "alt:tab_image_2": "eb00f0dcb9e4474b",
+   "alt:tab_image_3": "b2335f0381fdf7d3",
+   "alt:tab_image_4": "129d3ad01dbd0b9c",
+   "breadcrumb": "681db531c55a12f8",
+   "chip_adds": "219069f149a35d9e",
+   "explore_cta": "cc96e3f6d300b2e0",
+   "faq": "31c12bc5b93cde2d",
+   "feature_1": "d4d3aabf50b1af37",
+   "feature_2": "0e40eaff1095c8bf",
+   "feature_3": "43b58a9890b96c90",
+   "feature_4": "66a196c77b340ad0",
+   "feature_5": "401b5b991a37e9cd",
+   "feature_6": "ff03dad250ceeb07",
+   "features_heading": "fc29fdf8d854e6cf",
+   "features_subheading": "76be0677ac9d00a3",
+   "h1": "195e99a269f5c8af",
+   "hero_description": "89636dc75c0cb662",
+   "hero_prompt": "609390f0b859fccc",
+   "howto_description": "84daddf19bfa0848",
+   "howto_step_1_des": "72920f2fb2a3dda3",
+   "howto_step_1_title": "3eee8066f5b6ca6d",
+   "howto_step_2_des": "ba3a535002b0fd56",
+   "howto_step_2_title": "53f08b1eec9ee9f3",
+   "howto_step_3_des": "95e1202ebd028c3f",
+   "howto_step_3_title": "753eb8c7785bc16a",
+   "howto_step_4_des": "1cdbfb8d3e17411a",
+   "howto_step_4_title": "a036f26aaaa60d30",
+   "howto_step_5_des": "094c6e81045573fa",
+   "howto_step_5_title": "b1f8def2e82dc3cd",
+   "howto_step_6_des": "1798bf80810a3a53",
+   "howto_step_6_title": "5cd9c7a05431ceb5",
+   "howto_step_7_des": "c7701a6c0501249c",
+   "howto_step_7_title": "b2f785813843eb55",
+   "howto_title": "319aca799816e01c",
+   "meta_description": "e1219a1cf6f36160",
+   "meta_title": "d79e2f8b636aa2d5",
+   "mockup": "6b24ae7452c21bae",
+   "product_name": "74ab52fe914495a5",
+   "prompt_chip_1": "7a51ce212f844886",
+   "prompt_chip_2": "beb17f546656c995",
+   "prompt_chip_3": "ac7c9ade243fa6c4",
+   "prompt_chip_4": "e0e7da126c6b22f2",
+   "slug": "9bbc1476e93c50d0",
+   "tab_content_1": "7ce1155cd4b50d5d",
+   "tab_content_2": "ead05a186c9f0174",
+   "tab_content_3": "05c180643f605498",
+   "tab_content_4": "65b5e829c0394d5d",
+   "tab_label_1": "7a51ce212f844886",
+   "tab_label_2": "beb17f546656c995",
+   "tab_label_3": "9621754ba447aa31",
+   "tab_label_4": "e0e7da126c6b22f2",
+   "usecase_heading": "0350d6cf0af13869",
+   "why_description": "dfd5df2218ed5818",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "b56f173e3cc9cc69"
+  },
+  "all": "3153e245de9f4ee6",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
