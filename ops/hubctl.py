@@ -331,6 +331,7 @@ def _record_pending(url, pend):
 def cmd_payload(args):
     url = args[0]; sha = args[args.index("--sha") + 1]; hub = hub_of(url); h = CFG["hubs"][hub]
     s = json.load(open(spath(url))); fd = {}
+    if quiz_ship_block(url, s): sys.exit(f"{url}: refused, {quiz_ship_block(url, s)}")
     ex, pend = export_fields(url, s); _record_pending(url, pend)
     for k, v in ex.items():
         if v is None or v == "" and k in CFG["optional_fields"]: continue
@@ -467,6 +468,7 @@ def cmd_export_csv(args):
     imgs = [k for k in h["fields"] if k.startswith(("tab_image_", "cover_image", "share_image"))]
     cols = ["url", "state"]
     for k, slug in h["fields"].items(): cols += [slug, slug + " (alt)"] if k in imgs else [slug]
+    if hub == "SurveyQuiz": cols.append("quiz (spec.quiz, docs/QUIZ.md)")
     rows = []
     for url, e in sorted(st["pages"].items(), key=lambda x: x[1].get("queue_rank", 0)):
         if keep and e.get("state") not in keep or not os.path.exists(spath(url)): continue
@@ -474,6 +476,7 @@ def cmd_export_csv(args):
         for k, slug in h["fields"].items():
             if k in imgs: im = s.get("images", {}).get(k, {}); r[slug] = im.get("path", ""); r[slug + " (alt)"] = im.get("alt", "")
             else: v = s["fields"].get(k); r[slug] = "" if v is None else v
+        if hub == "SurveyQuiz": r["quiz (spec.quiz, docs/QUIZ.md)"] = json.dumps(s["quiz"], ensure_ascii=False) if s.get("quiz") is not None else ""
         rows.append(r)
     out = os.path.join(ROOT, ".cache", "review", f"{h['repo_dir']}.csv"); os.makedirs(os.path.dirname(out), exist_ok=True)
     with open(out, "w", newline="", encoding="utf-8") as fh:
@@ -718,10 +721,34 @@ def export_fields(url, s, live=None):
             if path in hubs or path in live or not path.startswith(hubs): return m.group(0)
             pending.append({"field": k, "target": path, "anchor": re.sub(r"<[^>]+>", "", m.group(3))}); return m.group(3)
         out[k] = a_re.sub(_sub, v)
+    # playable quiz (docs/QUIZ.md, Divit 2026-10-14): spec.quiz rides in the carrier field (alpb---prompt) as its own embed block
+    # <script id='awb-quiz-data'> window.awbQuiz = ...; </script>, after the <p> and the awbPrompt block. No spec.quiz: nothing changes.
+    car = quiz_carrier(url, s)
+    if s.get("quiz") is not None and car and isinstance(out.get(car), str) and out[car]:
+        out[car] = out[car] + _quiz().embed_block(s["quiz"])
     return out, pending
+def quiz_carrier(url, s=None):
+    """The logical field carrying the quiz (config quiz_carrier holds the CMS slug or the logical name), or None."""
+    h = CFG["hubs"].get((s or {}).get("hub") or hub_of(url), {}); c = h.get("quiz_carrier")
+    if not c: return None
+    return c if c in h["fields"] else next((k for k, v in h["fields"].items() if v == c), None)
+def _quiz():
+    sys.path.insert(0, os.path.join(ROOT, "qc")); import quiz as _QZ
+    return _QZ
+def quiz_ship_block(url, s):
+    """Why a quiz page cannot be created or updated yet (None when it can): Divit 2026-10-14 step 5, quiz pages are written and
+    reviewed but not shipped until the quiz template is live; and the quiz needs a confirmed carrier field."""
+    if not (_quiz().is_quiz_page(url) or (s or {}).get("quiz") is not None): return None
+    h = CFG["hubs"].get(hub_of(url), {})
+    if not h.get("quiz_template_live"): return "quiz page: the quiz template is not live yet (DECISIONS 2026-10-14 step 5; config quiz_template_live)"
+    if not quiz_carrier(url, s): return "quiz page: no quiz carrier field confirmed (config quiz_carrier, docs/QUIZ.md)"
+    if (s or {}).get("quiz") is None: return "quiz page without spec.quiz"
+    return None
 
 def _field_data(url, sha):
     hub = hub_of(url); h = CFG["hubs"][hub]; s = json.load(open(spath(url))); fd = {}
+    qb = quiz_ship_block(url, s)
+    if qb: sys.exit(f"{url}: refused, {qb}")
     ex, pend = export_fields(url, s); _record_pending(url, pend)
     for k, v in ex.items():
         if v is None or (v == "" and k in CFG["optional_fields"]): continue
@@ -756,6 +783,8 @@ def _create_candidates(hub, sha):
     sys.path.insert(0, os.path.join(ROOT, "ops")); sys.path.insert(0, os.path.join(ROOT, "plan")); import guards as G, serp as S, datetime as _dt
     for url, e in sorted(st["pages"].items(), key=lambda x: x[1].get("queue_rank", 0)):
         if e.get("state") != "approved": continue
+        qb = quiz_ship_block(url, json.load(open(spath(url))))
+        if qb: print(f"  HOLD {url}: {qb}"); continue
         s, fd = _field_data(url, sha)
         if s.get("item_id"): continue
         ok_r, why_r = G.review_ok(s)
@@ -919,7 +948,7 @@ def cmd_sources_check(args):
     specs = [json.load(open(spath(args[0])))] if args and args[0] != "--all" else [s for s in G.all_specs() if s.get("status") not in ("live-draft", "published")]
     bad = 0
     for s in specs:
-        urls = sorted({d["source_url"] for d in s.get("domain_sources", []) if d.get("source_url")})
+        urls = sorted({d["source_url"] for d in s.get("domain_sources", []) if d.get("source_url")} | set(_quiz().source_urls(s)))   # quiz sources too (QC Z4)
         for u, r in G.check_links(urls).items():
             if r["status"] != "ok": print(f"{r['status'].upper():8s} {r.get('code')} {u}" + (f" -> {r['final']}" if r["status"] == "moved" else "")); bad += r["status"] in ("dead", "moved")
         print(f"{s['url']}: {len(urls)} sources checked")

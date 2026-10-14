@@ -234,6 +234,8 @@ def build_payloads(bf, L, sha):
     for url in batch_urls(bf):
         P = L["pages"][url]
         if P["stage"] != "payload": continue
+        qb = H.quiz_ship_block(url, json.load(open(H.spath(url))))
+        if qb: print(f"  HOLD {url}: {qb}"); continue
         hub = H.hub_of(url); h = H.CFG["hubs"][hub]; s, fd = H._field_data(url, sha)
         e0 = H.load_st(H.hub_of(url))["pages"].get(url, {})   # ruling 6: only reviewed pages, never over the other account's hold
         if not s.get("item_id") and e0.get("state") not in ("reviewed", "approved"): print(f"  REFUSED {url}: state {e0.get('state')}, not reviewed"); continue

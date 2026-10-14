@@ -13,6 +13,23 @@ def table_md(html):
     for lab, cells in re.findall(r'<th scope="row">(.*?)</th>(.*?)</tr>', html, re.S):
         out.append("| **" + unescape(lab) + "** | " + " | ".join(unescape(c) for c in re.findall(r"<td[^>]*>(.*?)</td>", cells, re.S)) + " |")
     return "\n".join(out)
+def quiz_md(q):
+    """The playable quiz (docs/QUIZ.md) as a reviewer reads it: every question, the correct option or each option's result, sources."""
+    if not isinstance(q, dict): return ["## Playable quiz", "(spec.quiz is not an object)", ""]
+    o = [f"## Playable quiz: {q.get('title', '')}", f"_{q.get('type', '')} quiz_  ·  {q.get('intro', '')}", ""]
+    for i, x in enumerate(q.get("questions") or [], 1):
+        o.append(f"**Q{i}. {x.get('text', '')}**" + ("  (derivable)" if x.get("derivable") else ""))
+        for opt in x.get("options") or []:
+            mark = " **(correct)**" if opt.get("correct") is True else (f" -> {opt['result']}" if opt.get("result") else "")
+            o.append(f"- {opt.get('text', '')}{mark}")
+        if x.get("explanation"): o.append(f"  {x['explanation']}")
+        if isinstance(x.get("source"), dict): o.append(f"  <sub>Source: {x['source'].get('url', '')}: \u201c{x['source'].get('quote', '')}\u201d</sub>")
+        o.append("")
+    o.append("**Results**")
+    for r in q.get("results") or []:
+        band = f" (score {r.get('min')}-{r.get('max')})" if "min" in r else ""
+        o.append(f"- `{r.get('key')}`{band} **{r.get('title', '')}**: {r.get('description', '')}")
+    return o + [""]
 def page(url):
     s = json.load(open(HC.spath(url))); F = s["fields"]; o = []
     qc = subprocess.run([sys.executable, os.path.join(ROOT, "qc", "qc_hub.py"), HC.spath(url)], capture_output=True, text=True).stdout
@@ -34,6 +51,7 @@ def page(url):
     for it in fq["items"]:
         sx = src.get(it["q"], {}); tag = {"paa": "People Also Ask", "related": "Related search", "secondary": "Secondary keyword", "definition": "Definition"}.get(sx.get("source"), "?")
         o += [f"**{it['q']}**  ", txt(it["a"].replace('\\"', '"')), f"<sub>Source: {tag}: \u201c{sx.get('ref', '')}\u201d</sub>", ""]
+    if s.get("quiz") is not None: o += quiz_md(s["quiz"])
     o += ["## QC", "```", qc.strip(), "```", ""]
     return "\n".join(o)
 if __name__ == "__main__":

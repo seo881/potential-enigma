@@ -1,0 +1,172 @@
+{
+ "_note": "Playable quiz rules (Divit 2026-10-14, day step 5; docs/QUIZ.md). Read by qc/quiz.py (QC Z codes) and the page pack. Quiz pages = SurveyQuiz hub, slug contains 'quiz'.",
+ "version": 1,
+ "types": [
+  "knowledge",
+  "matching"
+ ],
+ "counts": {
+  "questions": [
+   6,
+   10
+  ],
+  "options": [
+   2,
+   6
+  ],
+  "results": [
+   2,
+   6
+  ]
+ },
+ "lengths": {
+  "_note": "characters, measured for one-question-per-screen at 390 px (question <= 3 lines at 19 px, option <= 2 lines at 16 px)",
+  "title": 70,
+  "intro": 200,
+  "question": 140,
+  "option": 80,
+  "explanation": 240,
+  "result_title": 60,
+  "result_description": 320,
+  "quote_min_words": 6
+ },
+ "keys": {
+  "quiz": [
+   "version",
+   "type",
+   "title",
+   "intro",
+   "questions",
+   "results"
+  ],
+  "question": [
+   "text",
+   "options",
+   "explanation",
+   "source",
+   "derivable"
+  ],
+  "option_knowledge": [
+   "text",
+   "correct"
+  ],
+  "option_matching": [
+   "text",
+   "result"
+  ],
+  "result_knowledge": [
+   "key",
+   "title",
+   "description",
+   "min",
+   "max"
+  ],
+  "result_matching": [
+   "key",
+   "title",
+   "description"
+  ],
+  "source": [
+   "url",
+   "quote"
+  ]
+ },
+ "result_key_rx": "^[a-z0-9][a-z0-9-]{0,23}$",
+ "diagnosis": {
+  "_note": "P0 (Z5): a quiz never diagnoses. Results are preferences or knowledge bands, never a medical, psychological or clinical condition. A disclaimer ('this is not a diagnosis') is allowed.",
+  "conditions": "adhd|add|autism|autistic|asperger'?s?|depression|depressed|anxiety disorder|anxiety|ocd|obsessive[- ]compulsive|bipolar|ptsd|trauma|dyslexia|dyslexic|dementia|alzheimer'?s?|eating disorder|anorexi[ac]|bulimi[ac]|insomnia|schizophreni[ac]|psychosis|psychotic|narcissis(?:m|tic)|a narcissist|psychopath(?:ic)?|a psychopath|sociopath(?:ic)?|a sociopath|borderline|personality disorder|disorder|syndrome|codependen(?:t|cy)|neurodivergent|on the spectrum|mentally ill|mental illness|suicidal|addict(?:ed|ion)?|diabetes|diabetic|cancer|disease|illness|allergy|allergic|deficiency|intolerance|infertil(?:e|ity)",
+  "patterns": [
+   "\\byou(?:'re| are)\\s+(?:(?:probably|likely|clearly|definitely|very|highly|a bit|somewhat|mildly|severely|an?)\\s+){0,2}(?:{C})\\b",
+   "\\byou\\s+(?:(?:probably|likely|may|might|could|clearly|definitely)\\s+)?(?:have|suffer from|show (?:signs|symptoms) of|have (?:signs|symptoms) of|are suffering from|live with|struggle with)\\s+(?:(?:an?|the|some|mild|severe|high-functioning)\\s+)?(?:{C})\\b",
+   "\\b(?:signs|symptoms|indicators|markers)\\s+of\\s+(?:an?\\s+)?(?:{C})\\b",
+   "\\b(?:test|quiz|screening|screener|assessment|check)\\s+(?:for|that (?:detects|diagnoses|identifies|reveals))\\s+(?:{C})\\b",
+   "\\b(?:do|does) (?:you|your (?:child|partner|kid|teen)) have (?:{C})\\b",
+   "\\byour (?:iq|mental age|brain age|life expectancy) is\\b",
+   "(?<!not )(?<!not a )(?<!never a )(?<!isn't a )(?<!is not a )(?<!n't )(?<!no )(?<!never )\\b(?:diagnos(?:e|es|ed|is|ing)|clinically|clinical (?:test|assessment|screening))\\b"
+  ]
+ },
+ "franchises": {
+  "_note": "Z8 (P1): no trademarked characters or franchises as results unless the page's primary keyword names the franchise (fair use is the reviewer's call).",
+  "names": [
+   "harry potter",
+   "hogwarts",
+   "gryffindor",
+   "slytherin",
+   "hufflepuff",
+   "ravenclaw",
+   "disney",
+   "pixar",
+   "marvel",
+   "avengers",
+   "dc comics",
+   "batman",
+   "superman",
+   "star wars",
+   "jedi",
+   "pokemon",
+   "pokémon",
+   "game of thrones",
+   "hunger games",
+   "friends character",
+   "the office character",
+   "barbie",
+   "lego",
+   "minecraft",
+   "fortnite",
+   "taylor swift",
+   "bts",
+   "myers-briggs",
+   "mbti",
+   "enneagram",
+   "disc profile",
+   "strengthsfinder",
+   "cliftonstrengths"
+  ]
+ },
+ "fact_rx": "\\b\\d|\\b(?:percent|according to|research|studies|study|scientists?|experts?|proven|found that|data shows?|on average|the (?:largest|smallest|oldest|newest|first|only|highest|lowest|longest|shortest|most|least|deepest|tallest|fastest)|capital of|was (?:founded|invented|discovered|written|signed|built|born)|is (?:called|known as|defined as|named)|means)\\b",
+ "type_hints": {
+  "_note": "skeleton.py build suggests the quiz type from the primary keyword; the writer may choose the other type when the page's promise needs it",
+  "knowledge": [
+   "vocabulary",
+   "math",
+   "trivia",
+   "history",
+   "science",
+   "geography",
+   "spelling",
+   "language",
+   "bible",
+   "sports",
+   "movie",
+   "marketing",
+   "safety",
+   "grammar",
+   "music",
+   "word",
+   "capital",
+   "flag",
+   "general knowledge"
+  ],
+  "matching": [
+   "style",
+   "travel",
+   "career",
+   "personality",
+   "food",
+   "fragrance",
+   "makeup",
+   "mattress",
+   "dog breed",
+   "spirit animal",
+   "gift",
+   "color",
+   "learning",
+   "product",
+   "hair",
+   "skin",
+   "diet",
+   "love",
+   "relationship"
+  ]
+ }
+}

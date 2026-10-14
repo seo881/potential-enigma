@@ -843,6 +843,12 @@ def check(spec, siblings):
         n_src = len({d_.get("source_url") for d_ in spec["domain_sources"]})
         started = (spec.get("history") or [{}])[0].get("t", "")
         if n_src > 8: add("P1" if started >= "2026-10-07 14:30 UTC" else "P2", "P4", "domain_sources", f"{n_src} sources (max 8 per page): keep the ones the copy needs, primary first")
+    # ---------- Z: the playable quiz (Divit 2026-10-14 step 5; qc/quiz.py, rules/quiz.json, docs/QUIZ.md) ----------
+    sys.path.insert(0, os.path.join(ROOT, "qc")); import quiz as _QZ
+    try:
+        sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as _GZ; _lcz = _GZ.link_cache()
+    except Exception: _lcz = None
+    _QZ.check_spec(spec, add, _lcz if spec.get("status") not in ("live-draft", "published") else None)
     # ---------- R: the reviewer's scored rubric must pass before a page moves past review ----------
     try:
         st_ = json.load(open(os.path.join(ROOT, "status", f"{h['repo_dir']}.json")))["pages"].get(spec["url"], {}).get("state")

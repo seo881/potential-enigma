@@ -36,6 +36,15 @@ def verify(spec, html=None, check_links=True):
     og = re.search(r'<meta[^>]+property="og:image"[^>]+content="([^"]+)"', html) or re.search(r'<meta[^>]+content="([^"]+)"[^>]+property="og:image"', html)
     sid = spec.get("images", {}).get("share_image", {}).get("file_id")
     chk("share image (og:image)", bool(og and sid and sid in og.group(1)), og.group(1)[:80] if og else "missing")
+    if spec.get("quiz") is not None:   # playable quiz (docs/QUIZ.md): the hero prompt field (alpb---prompt) also carries window.awbQuiz
+        import sys as _sys, os as _os; _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))), "qc")); import quiz as _QZ
+        import hubctl as _H
+        want = _QZ.split_prompt(_H.export_fields(spec["url"], spec)[0].get("hero_prompt", ""))
+        chk("hero prompt data (awbPrompt) with the quiz block", want["prompt"] is not None and _QZ.js_object(html, "awbPrompt") == want["prompt"], "window.awbPrompt missing or different from the approved default and chips")
+        _t = lambda x: re.sub(r"\s+", " ", unescape(re.sub(r"<[^>]+>", " ", x))).strip()
+        chk("hero prompt text", bool(_t(want["p"])) and _t(want["p"]) in _t(html), "the hero prompt <p> text is not on the page")
+        chk("quiz data", _QZ.from_block(html) == spec["quiz"], "window.awbQuiz missing or different from the approved quiz")
+        chk("quiz embed", 'class="emgq-mount"' in html, "the template's quiz embed (emgq-mount) is not on the page")
     if check_links:
         # links as they ship: export_fields turns links to pages that are not live into plain text (link-to-live)
         import hubctl as _H

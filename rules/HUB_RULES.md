@@ -116,6 +116,8 @@ Read the page's brief first: `python3 ops/hubctl.py brief <url>`. It gives the p
 
 **References:** `learn` (up to 3 relevant Learn articles), `integration` (only integrations that have a live page). Leave empty rather than link something loosely related.
 
+**Playable quiz (quiz pages only, Divit 2026-10-14):** the quiz JSON in `spec.quiz` follows `docs/QUIZ.md`: 6-10 questions, 2-6 options, 2-6 results, every result reachable; every stated fact sourced with its quoted span (math may be `derivable` with the working shown); results that deliver the H1's promise; never a medical, psychological or clinical diagnosis (QC Z5, P0); no trademarked franchises as results; plain text within the 390 px limits [QC Z0-Z9].
+
 ## 6. Claims
 
 Only claims in `rules/claims.json` (approved) may be stated as fact. Anything else about Emergent's capabilities, compliance, pricing or limits goes to Divit first. The agent can build what is explicitly asked, so "you can build X" is fine; "Emergent includes Y out of the box" needs a source.

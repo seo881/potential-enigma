@@ -48,6 +48,17 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
                                                           {op, n, expect: sizes}, slug-skip {cands, live, limit?, expect_create, expect_skip},
                                                           create-cmd-skip, live-before-gate, before-gate {path, expect_ok}, backoff
                                                           {statuses, retry_after, expect_ok, expect_sleeps}, no-token
+  quiz-qc        {fixture, set?, primary?, expect | clean, sev?}  playable quiz (Divit 2026-10-14 step 5, qc/quiz.py): the fixture in
+                                                          ops/quiz/fixtures with `set` applied ([[path, value]], value "__delete__" removes)
+                                                          raises a P0/P1 with one of `expect` (sev: that severity), or none of `clean`
+  quiz-js        {fixture, set?, answers?, expect_valid, expect_key?, expect_points?}  the shipped embed's own JS (ops/quiz/logic.mjs on
+                                                          embed.min.html): validates (or refuses) the quiz and maps the answers to the result
+  quiz-agree     {fixture, set}                           the embed's runtime validation and QC agree: JS refuses exactly when QC has a P0 in Z1-Z3
+  quiz-carrier   {test, ...}                              the carrier (alpb---prompt, Divit's conditions): noquiz-identical (every SurveyQuiz
+                                                          spec without a quiz exports byte for byte as with no carrier), with-quiz {url, fixture}
+                                                          (hero <p> and awbPrompt unchanged, one separate quiz block, Z9 clean), z9-wrong-quiz,
+                                                          z9-no-carrier, verify-live {mutate: none|quiz|prompt|no-embed|no-quiz, expect_fail: [checks]},
+                                                          ship-block {url, quiz, expect_blocked}, css-scope {inject?, expect_bad}, plan-type {primary, expect}
   review         {url, field, check, text}                 judgment catch (Layer B); kept for the record, not machine-tested
 status: "open" = a known miss the gate does not catch yet (a backlog fix); "guarded" = caught; a guarded case that stops being
 caught fails the suite. Open cases that start passing are reported so they can be marked guarded.
@@ -261,12 +272,115 @@ def caught(c):
     if c["kind"] == "webflow-api":         # Divit 2026-10-14: the direct Data API path (allowlist, slug skip, batching, before gate,
         import ship                        # 429 backoff, no token in any output); dry run and stubs only, never the network
         return ship.api_golden(c)
+    if c["kind"] in ("quiz-qc", "quiz-js", "quiz-agree", "quiz-carrier"):
+        return quiz_case(c)
     if c["kind"] == "qc-text":
         import qc_hub as Q, hubctl as H
         s = json.load(open(H.spath(c["url"]))); s = copy.deepcopy(s); f = c["field"]
         if f in s["fields"]: s["fields"][f] = c["text"]
         every = [x for x in Q.load_specs([H.spath(c["url"])])]
         return any(i["sev"] in ("P0", "P1") and (i["field"] or "").startswith(f) for i in Q.check(s, every))
+    return None
+
+def _quiz_fixture(c):
+    q = json.load(open(os.path.join(ROOT, "ops", "quiz", "fixtures", c["fixture"] + ".json")))
+    for path, val in c.get("set") or []:
+        o = q
+        for k in path[:-1]: o = o[k]
+        if val == "__delete__": del o[path[-1]]
+        else: o[path[-1]] = val
+    return q
+
+def _quiz_js(q, answers=None, cid="x"):
+    p = os.path.join(ROOT, ".cache", "quiz", f"golden-{cid}.json"); os.makedirs(os.path.dirname(p), exist_ok=True)
+    json.dump({"quiz": q, "answers": answers}, open(p, "w"))
+    r = subprocess.run(["node", os.path.join(ROOT, "ops", "quiz", "logic.mjs"), p], capture_output=True, text=True, cwd=ROOT)
+    return json.loads(r.stdout)
+
+QUIZ_HERO = "/ai-survey-and-quiz-builder/employee-engagement-survey"   # a real SurveyQuiz spec with chip_adds, used as a quiz page's body
+def _quiz_spec(fixture="knowledge", url="/ai-survey-and-quiz-builder/vocabulary-quiz"):
+    import hubctl as H
+    s = copy.deepcopy(json.load(open(H.spath(QUIZ_HERO)))); s["url"] = url; s["status"] = "spec"
+    s["quiz"] = json.load(open(os.path.join(ROOT, "ops", "quiz", "fixtures", fixture + ".json"))); return s
+
+def _live_html(spec):
+    """A page as Webflow renders the item: the hero prompt rich text (embed blocks become w-embed divs), the template's hero-chips
+    script (its comment mentions window.awbPrompt) and the quiz embed (its comment mentions window.awbQuiz)."""
+    import hubctl as H
+    v = H.export_fields(spec["url"], spec, live=set())[0]["hero_prompt"].replace("<div data-rt-embed-type='true'>", '<div class="w-embed w-script">')
+    tpl = open(os.path.join(ROOT, "ops", "template", "hero-chips.html")).read()
+    emb = open(os.path.join(ROOT, "ops", "quiz", "embed.html")).read()
+    return f"<html><body><form id='hero-prompt-form'><textarea></textarea></form>{tpl}<div class=\"w-embed\">{emb}</div><div class=\"w-richtext\">{v}</div></body></html>"
+
+def quiz_case(c):
+    import quiz as Z
+    if c["kind"] == "quiz-qc":
+        iss = Z.check(_quiz_fixture(c), c.get("primary", ""))
+        hit = lambda codes: [i for i in iss if i["code"] in codes and i["sev"] in ((c["sev"],) if c.get("sev") else ("P0", "P1"))]
+        return bool(hit(c["expect"])) if c.get("expect") else not hit(c["clean"])
+    if c["kind"] == "quiz-js":
+        r = _quiz_js(_quiz_fixture(c), c.get("answers"), c["id"])
+        if (r["error"] == "") != c["expect_valid"]: return False
+        if c.get("expect_key") and (r["result"] or {}).get("key") != c["expect_key"]: return False
+        if c.get("expect_points") is not None and (r["result"] or {}).get("points") != c["expect_points"]: return False
+        if c.get("answers") and c["expect_valid"]:   # the Python mirror (QC reachability) scores the same
+            k, pts = Z.score(_quiz_fixture(c), c["answers"])
+            if (k, pts) != (r["result"]["key"], r["result"]["points"]): return False
+        return True
+    if c["kind"] == "quiz-agree":
+        q = _quiz_fixture(c); js_ok = _quiz_js(q, None, c["id"])["error"] == ""
+        py_ok = not any(i["sev"] == "P0" and i["code"] in ("Z1", "Z2", "Z3") for i in Z.check(q, ""))
+        return js_ok == py_ok
+    import hubctl as H, glob as _g
+    t = c["test"]
+    if t == "noquiz-identical":   # Divit's condition 2: pages without spec.quiz export exactly as before the carrier existed
+        hub = H.CFG["hubs"]["SurveyQuiz"]; saved = hub.get("quiz_carrier"); n = 0
+        try:
+            for p in sorted(_g.glob(os.path.join(ROOT, "specs", "sqb", "*.json"))):
+                s = json.load(open(p))
+                if s.get("quiz") is not None: continue
+                hub["quiz_carrier"] = saved; a = H.export_fields(s["url"], s, live=set())[0]
+                hub["quiz_carrier"] = None; b = H.export_fields(s["url"], s, live=set())[0]
+                if json.dumps(a, sort_keys=True) != json.dumps(b, sort_keys=True): return False
+                n += 1
+        finally: hub["quiz_carrier"] = saved
+        return n >= c.get("min_pages", 1) and saved is not None
+    if t == "with-quiz":
+        s = _quiz_spec(c.get("fixture", "knowledge")); bare = copy.deepcopy(s); bare.pop("quiz")
+        a = Z.split_prompt(H.export_fields(s["url"], s, live=set())[0]["hero_prompt"]); b = Z.split_prompt(H.export_fields(s["url"], bare, live=set())[0]["hero_prompt"])
+        return a["p"] == b["p"] and a["prompt"] == b["prompt"] and a["prompt"] is not None and a["quiz"] == s["quiz"] and a["blocks"] == b["blocks"] + 1 and not Z.carrier_problems(s)
+    if t == "z9-wrong-quiz":
+        s = _quiz_spec(); real = Z.embed_block
+        Z.embed_block = lambda q: real(dict(q, title="Another quiz"))
+        try: return any("does not decode" in m for _, m in Z.carrier_problems(s))
+        finally: Z.embed_block = real
+    if t == "z9-no-carrier":
+        hub = H.CFG["hubs"]["SurveyQuiz"]; saved = hub.get("quiz_carrier"); hub["quiz_carrier"] = None
+        try: return any("no quiz carrier" in m for _, m in Z.carrier_problems(_quiz_spec()))
+        finally: hub["quiz_carrier"] = saved
+    if t == "verify-live":
+        import verify_live as V
+        s = _quiz_spec(c.get("fixture", "knowledge")); html = _live_html(s); m = c.get("mutate", "none")
+        if m == "quiz": html = html.replace('"title":"How Well', '"title":"How Badly', 1)
+        if m == "prompt": html = html.replace("window.awbPrompt = {\"default\": \"Build", "window.awbPrompt = {\"default\": \"Make", 1)
+        if m == "no-embed": html = html.replace('class="emgq-mount"', 'class="other"')
+        if m == "no-quiz": html = re.sub(r"<div class=\"w-embed w-script\"><script id='awb-quiz-data'>.*?</script></div>", "", html, flags=re.S)
+        _ok, rep = V.verify(s, html=html, check_links=False)
+        names = ("hero prompt data (awbPrompt) with the quiz block", "hero prompt text", "quiz data", "quiz embed")
+        failed = {n for n in names if any(l.startswith("FAIL " + n) for l in rep)}
+        passed = {n for n in names if any(l.startswith("PASS " + n) for l in rep)}
+        return failed == set(c.get("expect_fail") or []) and passed | failed == set(names)
+    if t == "ship-block":
+        s = json.load(open(H.spath(QUIZ_HERO))) if not c.get("quiz") else _quiz_spec()
+        return bool(H.quiz_ship_block(c["url"], s)) == c["expect_blocked"]
+    if t == "css-scope":
+        sys.path.insert(0, os.path.join(ROOT, "ops", "quiz")); import build as QB
+        html = open(os.path.join(ROOT, "ops", "quiz", "embed.html")).read()
+        if c.get("inject"): html = html.replace("</style>", c["inject"] + "\n</style>", 1)
+        return bool(QB.bad_selectors(html)) == c["expect_bad"]
+    if t == "plan-type":
+        import skeleton as SK
+        return SK.quiz_plan("/ai-survey-and-quiz-builder/x-quiz", c["primary"])["type"] == c["expect"]
     return None
 
 def main():

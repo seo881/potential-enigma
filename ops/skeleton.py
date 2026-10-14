@@ -9,6 +9,7 @@ writes prose only, section by section, and each section is QC'd (and autofixed) 
     python3 ops/skeleton.py answer URL N TEXT [--q QUESTION]   FAQ answer for slot N (the question only for a secondary slot)
     python3 ops/skeleton.py check URL SECTION          autofix (code) then QC filtered to that section: hero|features|why|usecases|howto|faq|all
     python3 ops/skeleton.py assemble URL               build fields.faq (awbFAQ embed) and faq_sources from the slots; links wrapped by code
+    python3 ops/skeleton.py set URL quiz @FILE.json    quiz pages: the playable quiz JSON (docs/QUIZ.md) into spec.quiz; check URL quiz
 
 Locked slots: the question text is fixed by code (an AlsoAsked question in its US-spelling display, ruling 14; a Semrush question as filtered).
 The writer never edits it. Secondary slots: the writer writes a natural question that carries every word of the secondary (K8).
@@ -16,7 +17,7 @@ The writer never edits it. Secondary slots: the writer writes a natural question
 import collections, contextlib, io, json, os, re, subprocess, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 for d in ("ops", "qc"): sys.path.insert(0, os.path.join(ROOT, d))
-import hubctl as H, paa_gate as P, park_rescue as R, semrush_questions as SQ, spelling as SP
+import hubctl as H, paa_gate as P, park_rescue as R, semrush_questions as SQ, spelling as SP, quiz as QZ
 
 def quiet(f, *a):
     with contextlib.redirect_stdout(io.StringIO()): return f(*a)
@@ -36,6 +37,7 @@ SECTIONS = {
                  "tab_content_3", "tab_content_4", "mockup", "image_brief", "alt:", "images"],
     "howto": ["howto_title", "howto_description"] + [f"howto_step_{i}_{k}" for i in range(1, 8) for k in ("title", "des")],
     "faq": ["faq", "faq_sources"],
+    "quiz": ["quiz"],   # playable quiz pages only (SurveyQuiz slug containing 'quiz'; docs/QUIZ.md, QC Z codes)
 }
 # T1 (ops/typeset.py) files width findings under its own field names (canary 2026-10-13: they never reached a section check)
 for _sec, _extra in {"hero": ["prompt_chip"], "features": ["feature_title", "feature_body"], "usecases": ["tab_label", "tab_title", "tab_body"],
@@ -218,6 +220,14 @@ def plan_slots(url, cap=10, extra=()):
         slots.append(c)
     return slots
 
+def quiz_plan(url, prim):
+    """The quiz section of the skeleton: suggested type from the primary keyword (rules/quiz.json type_hints), counts, limits."""
+    pn = P.norm(prim); th = QZ.R["type_hints"]
+    typ = next((t for t in ("knowledge", "matching") if any(re.search(r"\b" + re.escape(w) + r"\b", pn) for w in th[t])), "matching")
+    return {"type": typ, "questions": "6-10", "options": "2-6 per question", "results": "2-6",
+            "promise": f"the quiz plays the page's promise: a {prim} a visitor can take, whose results answer what the H1 says it builds",
+            "lengths": {k: v for k, v in QZ.R["lengths"].items() if not k.startswith("_")}}
+
 def slots_possible(url, extra=()):
     """How many FAQ slots the skeleton can fill (no writes); park_rescue.feasibility returns the same number."""
     return len(plan_slots(url, None, extra))
@@ -264,7 +274,10 @@ def cmd_build(a):
             html = TB.render(H.CFG["hubs"][hub]["repo_dir"], vs, rows)
             s2 = load(url); s2["fields"]["why_table"] = html; s2["table"] = {"vs": vs, "rows": rows, "variant": None}; save(url, s2)
         except Exception as e: print(f"table not built: {e}")
-    s = load(url); s.setdefault("skeleton", {}).update({"built_by": by, "built": H.now(), "slots": len(slots), "flagged": sum(1 for x in slots if x.get("flagged")),
+    s = load(url)
+    if QZ.is_quiz_page(url):   # Divit 2026-10-14 step 5: the writer fills spec.quiz (6-10 questions), QC Z codes check it
+        s.setdefault("quiz", None); s["quiz_plan"] = quiz_plan(url, prim); save(url, s); s = load(url)
+    s.setdefault("skeleton", {}).update({"built_by": by, "built": H.now(), "slots": len(slots), "flagged": sum(1 for x in slots if x.get("flagged")),
                                                         "flag_subtypes": sorted({f for x in slots for f in (x.get("flagged") or [])}),
                                                         "locked": sum(1 for x in slots if x["locked"]), "table": bool(s.get("table"))})
     save(url, s)
@@ -280,7 +293,8 @@ def cmd_pack(a):
            "1 hero: meta_title, meta_description, h1, hero_description, prompt_chip_1-4 + chip_adds (hero_prompt, product_name, breadcrumb, explore_cta are set by code)",
            "2 features: features_heading, features_subheading, feature_1-6", "3 why: why_title, why_description (the table is built by code)",
            "4 usecases: usecase_heading, tab_label_1-4, tab_content_1-4, mockup, image_brief", "5 howto: howto_title, howto_description, 7 steps",
-           "6 faq: one answer per slot with `skeleton.py answer URL N TEXT`; then `skeleton.py assemble URL`; then `skeleton.py check URL faq`", "",
+           "6 faq: one answer per slot with `skeleton.py answer URL N TEXT`; then `skeleton.py assemble URL`; then `skeleton.py check URL faq`",
+           *(["7 quiz (quiz pages): spec.quiz, the playable quiz JSON, with `skeleton.py set URL quiz @FILE.json`; then `skeleton.py check URL quiz` (see the Quiz section below)"] if QZ.is_quiz_page(url) else []), "",
            "## FAQ slots (locked questions are fixed; write the answer only)"]
     for sl in s.get("faq_plan") or []:
         q = sl["q"] if sl["locked"] else (f"[Semrush: keep or reword naturally (head phrase stays; --q): {sl['q']}]" if sl["kind"] == "semrush"
@@ -288,6 +302,8 @@ def cmd_pack(a):
         if sl.get("flagged"): q += f"  [FLAGGED: {', '.join(sl['flagged'])}; write it like any other; it waits for Divit's packet tick]"
         ln = f" | LINK: write the words \"{sl['link'].get('write_as') or sl['link']['anchor']}\" in the answer (code makes them the link)" if sl.get("link") else ""
         out.append(f"{sl['n']:2d}. ({sl['kind']}{', locked' if sl['locked'] else ''}) {q}{ln}")
+    if QZ.is_quiz_page(url):
+        out += quiz_pack(s)
     out += ["", "## Claims menu (cite the id in spec.claims_used; say nothing about Emergent outside these)"] + [f"- {c['id']}: {c['claim']}" for c in caps]
     out += ["", "## Third-party facts", "Every fact about another product, a law or a professional standard needs spec.domain_sources {claim, source_url, date, quote}: `quote` is the exact span from the source that states it. No span, no claim.",
             "Stay inside the span: a detail the quote does not state (how a file is sent, 'by API', a date, a number) needs its own source or comes out. GOOD: 'the buyer sends the approved invoice file to the bank' (the span). BAD: 'Emergent sends that file through the bank's API' (the span says nothing about an API).",
@@ -300,12 +316,28 @@ def cmd_pack(a):
     p = os.path.join(ROOT, ".cache", "packs", url.rsplit("/", 1)[1] + ".r15.md"); os.makedirs(os.path.dirname(p), exist_ok=True)
     open(p, "w").write("\n".join(out)); print(p)
 
+def quiz_pack(s):
+    qp = s.get("quiz_plan") or {}; L = QZ.R["lengths"]
+    return ["", "## Quiz (this is a playable quiz page; docs/QUIZ.md has the schema and two worked examples in ops/quiz/fixtures/)",
+        f"Suggested type: {qp.get('type', 'matching')} (knowledge = one correct option per question and score bands; matching = each option maps to a result key). Choose the other type only if the page's promise needs it.",
+        "Shape: {\"version\": 1, \"type\", \"title\", \"intro\", \"questions\": [{\"text\", \"options\": [{\"text\", \"correct\": true | \"result\": key}], \"explanation\", \"source\": {\"url\", \"quote\"}, \"derivable\"}], \"results\": [{\"key\", \"title\", \"description\", \"min\", \"max\"}]}.",
+        "Counts: 6-10 questions, 2-6 options each, 2-6 results. Knowledge: bands (min-max) cover every score 0..N once, no gaps, no overlap. Matching: every result is mapped by options in at least 2 questions, and some set of answers must lead to it (ties go to the result listed first).",
+        "Promise: the title and results deliver what the H1 and the primary keyword promise (a vocabulary quiz tests vocabulary; a style quiz names a style). The results read as the page's own example of what Emergent builds, written for the person taking the quiz.",
+        "Sources: every knowledge question states a fact (its answer), so it carries source {url, quote}: the quote is the exact span (6+ words) from the page that states the answer. A question whose answer follows by calculation or logic (math) may instead be \"derivable\": true with the working in its explanation. In any quiz, an explanation that states a fact (a number, a study, 'the largest', 'means') carries a source. No span, no fact: cut it. `hubctl sources-check URL` link-checks the quiz sources too.",
+        "Never diagnose (QC Z5, P0): no medical, psychological or clinical claims. Never 'you have X', 'you are depressed/ADHD/anxious/a narcissist', 'signs of', 'a test for'. Personality-style results are preferences ('your answers lean toward ...'), never conditions or fixed traits. GOOD: 'Your answers lean toward quiet evenings and small groups.' BAD: 'You are an introvert with social anxiety.'",
+        "No trademarked characters, franchises or branded tests as results (Hogwarts houses, Marvel heroes, Myers-Briggs types) unless the page is about them (QC Z8). Keep every question and result suitable for a school-age reader.",
+        f"Mobile at 390 px (QC Z6): title <= {L['title']}, intro <= {L['intro']}, question <= {L['question']}, option <= {L['option']}, explanation <= {L['explanation']}, result title <= {L['result_title']}, result description <= {L['result_description']} characters. Plain text only: no HTML, no angle brackets; house style applies (straight quotes, no dashes or exclamation marks, serial comma, US spelling, no we/our).",
+        "GOOD option set: four plausible answers of the same kind and length. BAD: one obviously silly option, or 'All of the above'."]
+
 def cmd_set(a):
     url, field, text = a[0], a[1], a[2]; s = load(url)
     if field in ("hero_prompt", "why_table", "faq", "slug", "category"): sys.exit(f"refused: {field} is built by code (ruling 15)")
     if field == "chip_adds": s["chip_adds"] = json.loads(text)
     elif field == "image_brief": s["image_brief"] = json.loads(text)
     elif field in ("plan", "domain_sources", "claims_used"): s[field] = json.loads(text)
+    elif field == "quiz":
+        if not QZ.is_quiz_page(url): sys.exit("refused: only quiz pages (SurveyQuiz slug containing 'quiz') carry a quiz")
+        s["quiz"] = json.load(open(text[1:])) if text.startswith("@") else json.loads(text)
     else: s["fields"][field] = text
     save(url, s); print(f"set {field}")
 

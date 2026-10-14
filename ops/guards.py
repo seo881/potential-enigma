@@ -31,7 +31,9 @@ def lock(name="status"):
 def _canon(obj): return json.dumps(obj, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
 def fingerprint(spec):
     """Hash of everything that will reach Webflow: all fields, image files on disk, alt texts, table and FAQ sources."""
-    h = hashlib.sha256(_canon({"fields": spec.get("fields"), "table": spec.get("table"), "faq_sources": spec.get("faq_sources")}).encode())
+    base = {"fields": spec.get("fields"), "table": spec.get("table"), "faq_sources": spec.get("faq_sources")}
+    if spec.get("quiz") is not None: base["quiz"] = spec["quiz"]   # playable quiz (docs/QUIZ.md); absent = the pre-quiz hash, unchanged
+    h = hashlib.sha256(_canon(base).encode())
     for k in sorted(spec.get("images", {})):
         im = spec["images"][k]; h.update(k.encode()); h.update((im.get("alt") or "").encode())
         p = os.path.join(ROOT, im.get("path", "") or "")
@@ -39,7 +41,7 @@ def fingerprint(spec):
     return h.hexdigest()
 
 def rules_version():
-    files = sorted(glob.glob(os.path.join(ROOT, "rules", "**", "*"), recursive=True)) + [os.path.join(ROOT, "qc", "qc_hub.py"), os.path.join(ROOT, "config", "typography.json"),
+    files = sorted(glob.glob(os.path.join(ROOT, "rules", "**", "*"), recursive=True)) + [os.path.join(ROOT, "qc", "qc_hub.py"), os.path.join(ROOT, "qc", "quiz.py"), os.path.join(ROOT, "config", "typography.json"),
              os.path.join(ROOT, "pipeline", "engine.py"), os.path.join(ROOT, "pipeline", "engine_blocks.py")]
     h = hashlib.sha256()
     for f in files:
@@ -323,6 +325,7 @@ def review_texts(spec):
     out = {k: v for k, v in (spec.get("fields") or {}).items() if isinstance(v, str) and k not in REVIEW_SKIP}
     out["chip_adds"] = "\n".join(spec.get("chip_adds") or [])
     for k, im in sorted((spec.get("images") or {}).items()): out[f"alt:{k}"] = (im or {}).get("alt") or ""
+    if spec.get("quiz") is not None: out["quiz"] = json.dumps(spec["quiz"], sort_keys=True, ensure_ascii=False)   # reviewed like copy (docs/QUIZ.md)
     return out
 def review_hash(spec):
     f = {k: hashlib.sha256(_review_norm(v).encode()).hexdigest()[:16] for k, v in sorted(review_texts(spec).items())}
