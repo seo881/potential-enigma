@@ -122,6 +122,13 @@
    "via": null,
    "by": "B-w-75",
    "note": ""
+  },
+  {
+   "t": "2026-10-14 14:37 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-10",
+   "note": "rubric 10/10 by B-r-10; 3 notes"
   }
  ],
  "pipeline": "r15",
@@ -903,5 +910,245 @@
  },
  "writers": [
   "B-w-75"
- ]
+ ],
+ "review": {
+  "by": "B-r-10",
+  "date": "2026-10-14 14:37 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build SEO Automation for Ranking Drops and Broken Links'; hero 'Build SEO automation that flags ranking drops, lists broken links, and holds drafts until their titles fit.' leads with what the visitor gets; how-to description is one sentence on what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are 'what is SEO automation', tool roundups and Reddit 'what can be automated' threads: the page defines the term (sourced), shows four automatable checks as worked examples, gives a 7-step how-to, a tool comparison table and FAQ on tools, software, platforms and Python."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "SEO-team vocabulary throughout: 'average position 4 ... today it sits at 12', '/blog/2023-pricing, a post that now returns a 404', 'title tag runs 71 characters against your 60-character limit'; table uses the automation variant."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every body opens on a full sentence, e.g. 'Export a month of your team's SEO tasks and group them by kind'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; tacked-on cross-link sentences in FAQ 4, 7, 10 and a forced 'local SEO automation' line in FAQ 5 noted."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Reads like an operator: 'A check with a number runs without anyone reading the report.'; 'One named person per URL keeps a drop out of a shared inbox, and a second name covers vacations.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent sentences map to claims_used (prompt-build, api-connect, alerts, database-owned, realtime, no-caps, code-export, free-start); definition, Search Console API, query method, Performance report metrics and Python quickstart each match a quoted domain_sources span; tab numbers add up (12-4=8 > 5; 3+2+1+1=7 links in 4 articles; 1,200-780=420 > 300; 71 > 60)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "SEO-specific checks (rankings, 404 links, click decay, title length); no sibling primary in a heading; sibling topics (sales automation, social media automation) are only linked out."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions each keeping its head phrase ('seo automation tools', 'seo workflow', 'seo automation platform', 'seo content automation', 'seo automation python'), answered first sentence; hub link in item 2; no brand in any question."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy word for word: Ottilie Ekström, position 4 -> 12, 8 places, limit 5, SEO-214; 7 links to /blog/2023-pricing, Joaquim Carvalho, 4 articles; 1,200 / 780 / 420, limit 300, Bastien Leclercq; 71 characters vs 60, no meta description, 2 fixes to Funmi Adebayo."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "hero_prompt",
+    "quote": "Build seo automation that runs on its own and logs every step.",
+    "issue": "Code-built skeleton field keeps lowercase 'seo' (acronym not recased). Known tooling defect already reported in proposals/account-b.md; writers may not edit it.",
+    "fix": "Fix acronym casing in the skeleton builder (proposals/account-b.md).",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "faq items 4, 7, 10",
+    "quote": "FAQ 4: 'Keep SEO and marketing automation apart where the owners differ: when a page exists to bring in leads, the handoff to sales belongs in a sales automation.' FAQ 7: 'If the same team schedules posts, build that as its own social media automation with its own owners.' FAQ 10: 'When drafts start to need an editor's sign-off, give that step its own content approval workflow.'",
+    "issue": "Each cross-link is a tacked-on closing sentence that drifts off the question to carry an anchor; 'a sales automation' also reads oddly.",
+    "fix": "Fold each link into a sentence that answers the question, or drop it to the 2-link minimum.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 5",
+    "quote": "For local SEO automation, use the same approach per location, with one page list and one owner for each.",
+    "issue": "Secondary inserted as a closing line; reads keyword-placed rather than answered.",
+    "fix": "Drop it or give local SEO its own concrete example (one location page whose position drops).",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "hero_prompt",
+   "issue": "Code-built skeleton field keeps lowercase 'seo' (acronym not recased). Known tooling defect already reported in proposals/account-b.md; writers may not edit it.",
+   "fix": "Fix acronym casing in the skeleton builder (proposals/account-b.md).",
+   "by": "B-r-10",
+   "via": "review",
+   "date": "2026-10-14 14:37 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "faq items 4, 7, 10",
+   "issue": "Each cross-link is a tacked-on closing sentence that drifts off the question to carry an anchor; 'a sales automation' also reads oddly.",
+   "fix": "Fold each link into a sentence that answers the question, or drop it to the 2-link minimum.",
+   "by": "B-r-10",
+   "via": "review",
+   "date": "2026-10-14 14:37 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 5",
+   "issue": "Secondary inserted as a closing line; reads keyword-placed rather than answered.",
+   "fix": "Drop it or give local SEO its own concrete example (one location page whose position drops).",
+   "by": "B-r-10",
+   "via": "review",
+   "date": "2026-10-14 14:37 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "4d389e66038aca86",
+   "alt:share_image": "5d25dcd9983d4c6e",
+   "alt:tab_image_1": "aaa8bc67ef06f9d9",
+   "alt:tab_image_2": "34c2e0d759284c58",
+   "alt:tab_image_3": "9cda88f171eeb4be",
+   "alt:tab_image_4": "8d7c19241adcb207",
+   "breadcrumb": "72dbf390711f0b38",
+   "chip_adds": "48babfebbb572963",
+   "explore_cta": "a70cc7b5b5799a93",
+   "faq": "4f81d7a2de459e18",
+   "feature_1": "ec145da580f270fc",
+   "feature_2": "4dd4c3b29c6117ea",
+   "feature_3": "98dfe50f8b1b1b1d",
+   "feature_4": "43e13ab9aea0962a",
+   "feature_5": "52ddce982d13c078",
+   "feature_6": "0ece53a4a232f05b",
+   "features_heading": "bed040c6f15ad0f6",
+   "features_subheading": "4f1097a2da63f646",
+   "h1": "db84e581183307a9",
+   "hero_description": "62e087f699988b90",
+   "hero_prompt": "a9dea30a782aca21",
+   "howto_description": "f89cffec6f7c3ec8",
+   "howto_step_1_des": "8f33f722803aca2e",
+   "howto_step_1_title": "6cd120caf27dfa06",
+   "howto_step_2_des": "819e5b6b791705f6",
+   "howto_step_2_title": "c5b14fd4e6dd71c1",
+   "howto_step_3_des": "f31134d1316887ee",
+   "howto_step_3_title": "849f4a1f664d81b8",
+   "howto_step_4_des": "75a6a70dc32e40b1",
+   "howto_step_4_title": "1c204fabcdcede75",
+   "howto_step_5_des": "c144807a2dc9ec9f",
+   "howto_step_5_title": "5c5bf62b0b434d52",
+   "howto_step_6_des": "40ef52beaba06618",
+   "howto_step_6_title": "771f2d2374ee37ba",
+   "howto_step_7_des": "8c9c6a70f46023d6",
+   "howto_step_7_title": "cc5218fb9839f2de",
+   "howto_title": "00337c3bb124e074",
+   "meta_description": "8fb5dd59b4182136",
+   "meta_title": "dafb2e42caa734bb",
+   "mockup": "f3a971d0d24e1abf",
+   "product_name": "d87f1d3d6104baae",
+   "prompt_chip_1": "f19171b1434f5282",
+   "prompt_chip_2": "a07239ab547b1c9d",
+   "prompt_chip_3": "c57b6c360fd24d61",
+   "prompt_chip_4": "998c8a8a2b43a9f1",
+   "slug": "fc7e9ed34fa71589",
+   "tab_content_1": "c6fc3e68e4327e16",
+   "tab_content_2": "97313e22b5846822",
+   "tab_content_3": "bd9c1718ef1c20b1",
+   "tab_content_4": "6dbe867743ba6629",
+   "tab_label_1": "80b5fa22f4188667",
+   "tab_label_2": "a07239ab547b1c9d",
+   "tab_label_3": "c57b6c360fd24d61",
+   "tab_label_4": "998c8a8a2b43a9f1",
+   "usecase_heading": "95a86525d2381576",
+   "why_description": "697531966eed983f",
+   "why_table": "02f89332e3fe6fe0",
+   "why_title": "2715c5629a1337d1"
+  },
+  "all": "67e999e7a3170df9",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "4d389e66038aca86",
+   "alt:share_image": "5d25dcd9983d4c6e",
+   "alt:tab_image_1": "aaa8bc67ef06f9d9",
+   "alt:tab_image_2": "34c2e0d759284c58",
+   "alt:tab_image_3": "9cda88f171eeb4be",
+   "alt:tab_image_4": "8d7c19241adcb207",
+   "breadcrumb": "72dbf390711f0b38",
+   "chip_adds": "48babfebbb572963",
+   "explore_cta": "a70cc7b5b5799a93",
+   "faq": "4f81d7a2de459e18",
+   "feature_1": "ec145da580f270fc",
+   "feature_2": "4dd4c3b29c6117ea",
+   "feature_3": "98dfe50f8b1b1b1d",
+   "feature_4": "43e13ab9aea0962a",
+   "feature_5": "52ddce982d13c078",
+   "feature_6": "0ece53a4a232f05b",
+   "features_heading": "bed040c6f15ad0f6",
+   "features_subheading": "4f1097a2da63f646",
+   "h1": "db84e581183307a9",
+   "hero_description": "62e087f699988b90",
+   "hero_prompt": "a9dea30a782aca21",
+   "howto_description": "f89cffec6f7c3ec8",
+   "howto_step_1_des": "8f33f722803aca2e",
+   "howto_step_1_title": "6cd120caf27dfa06",
+   "howto_step_2_des": "819e5b6b791705f6",
+   "howto_step_2_title": "c5b14fd4e6dd71c1",
+   "howto_step_3_des": "f31134d1316887ee",
+   "howto_step_3_title": "849f4a1f664d81b8",
+   "howto_step_4_des": "75a6a70dc32e40b1",
+   "howto_step_4_title": "1c204fabcdcede75",
+   "howto_step_5_des": "c144807a2dc9ec9f",
+   "howto_step_5_title": "5c5bf62b0b434d52",
+   "howto_step_6_des": "40ef52beaba06618",
+   "howto_step_6_title": "771f2d2374ee37ba",
+   "howto_step_7_des": "8c9c6a70f46023d6",
+   "howto_step_7_title": "cc5218fb9839f2de",
+   "howto_title": "00337c3bb124e074",
+   "meta_description": "8fb5dd59b4182136",
+   "meta_title": "dafb2e42caa734bb",
+   "mockup": "f3a971d0d24e1abf",
+   "product_name": "d87f1d3d6104baae",
+   "prompt_chip_1": "f19171b1434f5282",
+   "prompt_chip_2": "a07239ab547b1c9d",
+   "prompt_chip_3": "c57b6c360fd24d61",
+   "prompt_chip_4": "998c8a8a2b43a9f1",
+   "slug": "fc7e9ed34fa71589",
+   "tab_content_1": "c6fc3e68e4327e16",
+   "tab_content_2": "97313e22b5846822",
+   "tab_content_3": "bd9c1718ef1c20b1",
+   "tab_content_4": "6dbe867743ba6629",
+   "tab_label_1": "80b5fa22f4188667",
+   "tab_label_2": "a07239ab547b1c9d",
+   "tab_label_3": "c57b6c360fd24d61",
+   "tab_label_4": "998c8a8a2b43a9f1",
+   "usecase_heading": "95a86525d2381576",
+   "why_description": "697531966eed983f",
+   "why_table": "02f89332e3fe6fe0",
+   "why_title": "2715c5629a1337d1"
+  },
+  "all": "67e999e7a3170df9",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
