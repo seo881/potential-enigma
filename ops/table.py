@@ -45,3 +45,23 @@ def stale(d, vs, rows, today=None):
             age = (today - datetime.date.fromisoformat(fct["checked"])).days; limit = 90 if re.search(r"\d", fct["text"]) else 180
             if age > limit: old.append(f"{c} / {rid}: checked {fct['checked']} ({age} days, limit {limit})")
     return old
+# ---- category sets (Divit 2026-10-14, competitor library extension): the page's primary keyword picks the default vendors ----
+def category_for(d, primary):
+    """The library's category set for a primary keyword: the first set (file order) with a whole-word term match, else "general"."""
+    sets = {k: v for k, v in lib(d).get("category_sets", {}).items() if not k.startswith("_")}
+    p = " ".join(re.findall(r"[a-z0-9]+", (primary or "").lower()))
+    for key, cs in sets.items():
+        if any(re.search(r"\b" + r"\s+".join(map(re.escape, t.lower().split())) + r"(s|es)?\b", p) for t in cs.get("terms", [])): return key
+    return "general" if "general" in sets else None
+def _host(u): return re.sub(r"^www\.", "", re.sub(r"^https?://", "", u or "").split("/")[0].lower())
+def pick(d, primary, rows=None, top_urls=()):
+    """Default table for a page: (category, vs, rows, variant). Vendors need a fact for every row; vendors ranking in the
+    page's top 10 come first, then the set's order. Raises when the library has no category sets or fewer than 3 usable vendors."""
+    L = lib(d); key = category_for(d, primary)
+    if not key: raise ValueError(f"the {d} library has no category_sets: pass --vs A,B,C")
+    cs = L["category_sets"][key]; rows = list(rows or cs["rows"]); rids = [r.split("=", 1)[0] for r in rows]
+    ok = [v for v in cs["vendors"] if all(r in L["competitors"][v]["facts"] for r in rids)]
+    tops = {_host(u) for u in top_urls}
+    ranked = [v for v in ok if _host(L["competitors"][v].get("site", "")) in tops] + [v for v in ok if _host(L["competitors"][v].get("site", "")) not in tops]
+    if len(ranked) < 3: raise ValueError(f'category "{key}" has {len(ranked)} vendor(s) with facts for rows {", ".join(rids)}: add facts or pass --vs')
+    return key, ranked[:3], rows, cs.get("variant")

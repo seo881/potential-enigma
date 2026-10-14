@@ -235,6 +235,12 @@ def lookahead(hub, n, kmap):
     for p in queue:
         doms = [re.sub(r"^www\.", "", re.sub(r"https?://([^/]+).*", r"\1", u)) for u in p.get("top10", [])]
         have = [sites[d] for d in doms if d in sites]
+        # Divit 2026-10-14: a primary that maps to a library category set (not the general fallback) is covered by that set's vendors
+        try:
+            sys.path.insert(0, os.path.join(ROOT, "ops")); import table as _TB
+            cat = _TB.category_for(CFG["hubs"][hub]["repo_dir"], p.get("primary", ""))
+            if cat and cat != "general": have += [f"{v} [{cat}]" for v in lib["category_sets"][cat]["vendors"] if v not in have]
+        except Exception: pass
         out.append((p["url"], have, [d for d in doms if d not in sites][:6]))
     return out
 def budget_path(): return os.path.join(PRIVATE, "serp", "_usage.json")

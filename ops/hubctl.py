@@ -22,7 +22,8 @@
   bulk-payload HUB --sha SHA        create_collection_items actions (100 items per action) for every approved page without an item ID
   bulk-verify HUB READBACK.json     verify every page of HUB found in a stored read-back; records item IDs and file IDs
   next STATE [HUB]                  list pages waiting in a state (for orchestrators and reviewers)
-  table URL --vs A,B,C --rows id[=Label],... [--variant CAT]   build the comparison table from the vetted library (rules/competitors/)
+  table URL [--vs A,B,C] [--rows id[=Label],...] [--variant CAT]   build the comparison table from the vetted library (rules/competitors/);
+                                    with no --vs the primary keyword picks the library's category set (explicit flags win)
   library HUB                       list the library: competitors, categories, dimensions, fact ages
   serp-save URL RAW.json [KEYWORD]  normalise a DataForSEO SERP result into private/serp/ (PAA, related, top 10, features)
   serp-keywords URL RAW.json       add DataForSEO keyword ideas (related keywords) to the page's SERP capture
@@ -887,15 +888,30 @@ def cmd_serp_status(args):
             if e.get("state") in ("claimed", "spec", "rework") and not S.load(url): print(f"needs SERP  {url}"); n += 1
     print(f"{n} page(s) need a live SERP")
 
-def cmd_table(args):
-    url = args[0]; vs = [x.strip() for x in args[args.index("--vs") + 1].split(",")]; rows = [x.strip() for x in args[args.index("--rows") + 1].split(",")]
+def table_defaults(url, args):
+    """Divit 2026-10-14: with no --vs the page's primary keyword picks the library's category set (rules/competitors/<dir>.json
+    category_sets); explicit --vs, --rows and --variant always win. Returns (category or None, vs, rows, variant)."""
     sys.path.insert(0, os.path.join(ROOT, "ops")); import table as TB
-    variant = args[args.index("--variant") + 1] if "--variant" in args else None
+    d = CFG["hubs"][hub_of(url)]["repo_dir"]; opt = lambda k: [x.strip() for x in args[args.index(k) + 1].split(",")] if k in args else None
+    vs, rows = opt("--vs"), opt("--rows"); variant = args[args.index("--variant") + 1] if "--variant" in args else None; cat = None
+    if not vs or not rows:
+        p = kmap().get(url, {}); top = list(p.get("top10", []))
+        try: sys.path.insert(0, os.path.join(ROOT, "plan")); import serp as S; top += [o.get("url", "") for o in (S.load(url) or {}).get("organic", [])]
+        except Exception: pass
+        cat, pvs, prow, pvar = TB.pick(d, p.get("primary") or json.load(open(spath(url))).get("primary", ""), rows, top)
+        if not vs: vs = pvs; variant = variant if "--variant" in args else pvar
+        rows = rows or prow
+    return cat, vs, rows, variant
+
+def cmd_table(args):
+    url = args[0]; sys.path.insert(0, os.path.join(ROOT, "ops")); import table as TB
+    cat, vs, rows, variant = table_defaults(url, args)
     d = CFG["hubs"][hub_of(url)]["repo_dir"]; html = TB.render(d, vs, rows, variant)
     sp = spath(url); s = json.load(open(sp)); s["fields"]["why_table"] = html; s["table"] = {"vs": vs, "rows": rows, "variant": variant}
+    if cat and "--vs" not in args: s["table"]["category"] = cat
     json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
     old = TB.stale(d, vs, rows)
-    print(f"table written to {os.path.relpath(sp, ROOT)}: Emergent vs {', '.join(vs)}; rows {', '.join(rows)}")
+    print(f"table written to {os.path.relpath(sp, ROOT)}: Emergent vs {', '.join(vs)}; rows {', '.join(rows)}" + (f"; variant {variant}" if variant else "") + (f" (category {cat})" if cat and "--vs" not in args else ""))
     for o in old: print("  STALE (re-check before use):", o)
 
 def cmd_library(args):
@@ -905,6 +921,12 @@ def cmd_library(args):
     for name, c in L["competitors"].items():
         ages = [(datetime.date.today() - datetime.date.fromisoformat(f["checked"])).days for f in c["facts"].values()]
         print(f"  {name:36s} {','.join(c['categories']):28s} facts: {', '.join(c['facts'])}  (oldest check {max(ages)} days)")
+    cs = {k: v for k, v in L.get("category_sets", {}).items() if not k.startswith("_")}
+    if cs: print("Category sets (hubctl table with no --vs picks one by the primary keyword; first match wins, else general):")
+    for k, v in cs.items():
+        ages = [(datetime.date.today() - datetime.date.fromisoformat(f["checked"])).days for n in v["vendors"] for f in L["competitors"][n]["facts"].values()]
+        print(f"  {k:16s} {len(v['vendors'])} vendors: {', '.join(v['vendors'])}; rows {', '.join(v['rows'])}; variant {v.get('variant') or 'hub default'}; fact ages {min(ages)}-{max(ages)} days")
+        print(f"  {'':16s} terms: {', '.join(v['terms']) or '(fallback)'}")
 
 def cmd_cms_check(args):
     """Record, from a stored read-back of the whole collection, whether each queued page's slug already exists in Webflow."""

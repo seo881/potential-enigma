@@ -80,6 +80,10 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   console-source {err: {t, src, stack}, expect_ignored, via?: audit}  Divit 2026-10-14 console exception: the error is ignored
                                                           exactly when expected (ops/console_filter.py, source-based, never on text); via
                                                           audit: the live audit raises A9-console exactly when the error is not ignored
+  table-pick     {primary, expect_category, expect_vs?, expect_variant?, expect_rows?, rows?, top_urls?, dir?}  Divit 2026-10-14:
+                                                          table.pick on the library's category_sets (first term match, else general)
+  table-args     {url, args, expect_vs, expect_rows, expect_variant}  hubctl table_defaults: explicit --vs/--rows/--variant win
+  table-stored   {}                                        every stored spec table re-renders byte-identically from the library
   review         {url, field, check, text}                 judgment catch (Layer B); kept for the record, not machine-tested
 status: "open" = a known miss the gate does not catch yet (a backlog fix); "guarded" = caught; a guarded case that stops being
 caught fails the suite. Open cases that start passing are reported so they can be marked guarded.
@@ -121,6 +125,21 @@ def caught(c):
     if c["kind"] == "feasibility":   # ruling 10 B1: the pre-writing feasibility count reaches 10 exactly when expected
         import park_rescue as R
         return R.feasibility(c["url"])["feasible"] == c["expect_feasible"]
+    if c["kind"] == "table-pick":   # Divit 2026-10-14 library extension: the primary keyword picks the category set (no top-10 reordering)
+        import table as TB
+        cat, vs, rows, var = TB.pick(c.get("dir", "aab"), c["primary"], c.get("rows"), c.get("top_urls", ()))
+        return cat == c["expect_category"] and ("expect_vs" not in c or vs == c["expect_vs"]) and ("expect_variant" not in c or var == c["expect_variant"]) \
+            and ("expect_rows" not in c or rows == c["expect_rows"])
+    if c["kind"] == "table-args":   # hubctl table: explicit --vs / --rows / --variant win over the category pick
+        import hubctl as H
+        cat, vs, rows, var = H.table_defaults(c["url"], c["args"])
+        return vs == c["expect_vs"] and rows == c["expect_rows"] and var == c.get("expect_variant")
+    if c["kind"] == "table-stored":   # new library rows never change a stored table: every spec's table re-renders byte-identically
+        import table as TB, glob as _g
+        for f in _g.glob(os.path.join(ROOT, "specs", "*", "*.json")):
+            s_ = json.load(open(f)); t_ = s_.get("table")
+            if t_ and TB.render(os.path.basename(os.path.dirname(f)), t_["vs"], t_["rows"], t_.get("variant")) != s_["fields"].get("why_table"): return False
+        return True
     if c["kind"] == "aa-decision":  # weekend.py aa no-double-charge rule (Divit 2026-10-13): rows + saved status -> reuse/refuse/pull
         import weekend as W
         return W.aa_decision(c["rows"], c.get("saved"), c["now"])[0] == c["expect"]
