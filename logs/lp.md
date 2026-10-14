@@ -20,3 +20,5 @@
 ## 2026-10-13 batch 3 (Divit rulings 2026-10-13; A = coordinator)
 - create_collection_items (isDraft true, L12 Learn refs) and read back: 4 batch-3 page(s) in this hub, verified by hubctl ship-cms (0 mismatches); item IDs in status/ship/batch-3.json.
 - update_collection_items isDraft false, fieldData empty (staged, not published); read back isDraft false, lastPublished empty, Learn refs present. Rollback: isDraft true on the same IDs (or delete the drafts: never published).
+- 2026-10-14 11:41 UTC: released /ai-landing-page-builder/book-landing-page (was claimed) to the planned queue; spec file left in place: ruling 20 (Divit 2026-10-14): handover to B, which now writes LP; A's weekend claim released, draft (if any) kept for B to adopt or rebuild
+- 2026-10-14 11:41 UTC: released /ai-landing-page-builder/qr-code-landing-page (was claimed) to the planned queue; spec file left in place: ruling 20 (Divit 2026-10-14): handover to B, which now writes LP; A's weekend claim released, draft (if any) kept for B to adopt or rebuild
