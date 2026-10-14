@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-82",
    "note": ""
+  },
+  {
+   "t": "2026-10-14 14:37 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-11",
+   "note": "rubric 10/10 by B-r-11; 6 notes"
   }
  ],
  "pipeline": "r15",
@@ -938,5 +945,305 @@
  },
  "writers": [
   "B-w-82"
- ]
+ ],
+ "review": {
+  "by": "B-r-11",
+  "date": "2026-10-14 14:37 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Fundraiser Order Form That Credits Every Seller'; hero 'Build a fundraiser order form that totals each order, credits the seller, and saves it to a database you own.' covers the whole job (orders, seller credit, totals) without a sibling's topic; howto description is one sentence within 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is template galleries and printable sheets; the page answers what a template should include (FAQ 4), free and blank templates (FAQ 5-9), how to build one (7 steps), tools (FAQ 3), plus the group-sale parts the galleries skip: seller credit, supplier order 'Troop 214 ... 107 wreaths in all', pickup day."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'homeroom', 'prize list', 'pickup day', 'treasurer', 'wreath farm', 'A typed name spelled two ways splits one seller's total into two.'; table uses the form category column."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'A paper sheet rides home in a backpack...', 'Each order names the student or player who sold it.', 'Start with the product sheet from your supplier.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; 18 'A, B, and C' lists and one 37-word FAQ sentence recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: 'Kara Linden orders 3 bags at $15, and her total reads $45.00 before she submits', 'By noon, 41 orders were picked up and 3 were held'. One forced comparison in FAQ 10 recorded as a note."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to claims_used (prompt-build, database-owned, alerts incl. Slack DM, free-start 'free tier covers building and publishing a form', no-caps 'Emergent puts no cap on responses', code-export 'On paid plans'). FAQ 3 third-party facts match quoted spans: Jotform 'Customize this free Fundraiser Order Form and embed it', SurveyMonkey 'specify order quantities and provide essential contact details', AidaForm 'free editable fundraising template'. Numbers agree: 3 x $15 = $45.00; 64+31+12 = 107; held $36+$24+$36 = $96.00."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Group-sale angle (student sellers, supplier order, pickup table) is its own; no sibling primary in headings; order form, purchase order form and t shirt order form appear only as FAQ link anchors."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions keeping the head phrase ('What is a fundraiser order form?', 'What does a brick fundraiser order form need to collect?'), each answered in its first sentence; hub link in item 2; no brand or file format in any question."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches tab copy: 'Email to Nadia Pruitt / Owen Castillo: 20 candles / Add to the prize list'; '3 bags at $15 $45.00 / Jonah Pike will deliver them'; '107 wreaths in all / 64 small, 31 medium, 12 large / To Hector Vance'; '3 orders held at pickup / Email to Gil Moreno / 41 picked up'. One hero per panel, text readable."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2b",
+    "field": "hero_description, features_subheading, why_description, feature_1, feature_2 (x2), feature_3, tab_content_2, tab_content_3, howto_step_1_des, howto_step_2_des, howto_step_4_des, faq 1 (x3), faq 3, faq 4, faq 9",
+    "quote": "'totals each order, credits the seller, and saves'; 'parts keep orders, sellers, and payments'; 'seller totals, the supplier order, and a pickup list'; 'by seller, class, or team'; 'Items, sizes, and prices'; 'such as scent, grind, or size'; 'paid by cash, by check, or will pay at pickup'; 'picks a roast, a grind, and the number of bags'; '64 small, 31 medium, and 12 large'; 'such as scent or wreath size'; 'a homeroom, a team, or a den'; 'such as cash, check, or pay at pickup'; 'such as candles or wreaths'; 'the buyer, the items and quantities, the total, the payment, and the seller'; 'Jotform, SurveyMonkey, and AidaForm'; 'the line total, the seller's name, and a paid or unpaid box'; 'with the prices and the seller field'",
+    "issue": "18 'A, B, and C' lists (QC Q8): tidy triplets everywhere read templated.",
+    "fix": "Cut several lists to one specific or a pair (e.g. hero 'that credits each seller and saves every order to a database you own').",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #6",
+    "field": "faq item 2",
+    "quote": "In Emergent's AI form builder, describe the sale in one prompt, such as \"candles at $18, credit each student, email the chair at 20 sold,\" and Emergent builds the form and the order database behind it.",
+    "issue": "37-word sentence (QC Q2 flag).",
+    "fix": "Split after the quoted prompt: 'Emergent builds the form and the order database behind it.'",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_1, why_description, faq item 3",
+    "quote": "feature_1 'Seller totals come from the saved orders'; why_description 'seller totals, the supplier order, and a pickup list'; faq 3 'what your sale needs after an order arrives, such as seller totals'",
+    "issue": "Seller totals restated in three fields with words swapped.",
+    "fix": "Keep it in feature 1; give the why description and FAQ 3 a different specific (the supplier order, the held-order list).",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 10",
+    "quote": "Treat it like a t shirt order form with custom printing: the buyer confirms the spelling before submitting.",
+    "issue": "The comparison exists to carry the link anchor; a brick buyer does not think of a t-shirt order, so it reads forced.",
+    "fix": "'Show the inscription back to the buyer to confirm the spelling before submitting', and place the link where it reads naturally or drop it.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief tab 2 hero",
+    "quote": "Roast and grind as ordered",
+    "issue": "Meta line says nothing a reader can check; the copy names the roast and grind choice.",
+    "fix": "'Breakfast blend, whole bean'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq_heading",
+    "quote": "Fundraiser Order Questions, Answered",
+    "issue": "Code-built heading drops the head word 'Form' (skeleton shortener bug, already reported in proposals/account-b.md 2026-10-14); writers may not edit code-built fields.",
+    "fix": "A fixes the shortener: 'Fundraiser Order Form Questions, Answered'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2b",
+   "field": "hero_description, features_subheading, why_description, feature_1, feature_2 (x2), feature_3, tab_content_2, tab_content_3, howto_step_1_des, howto_step_2_des, howto_step_4_des, faq 1 (x3), faq 3, faq 4, faq 9",
+   "issue": "18 'A, B, and C' lists (QC Q8): tidy triplets everywhere read templated.",
+   "fix": "Cut several lists to one specific or a pair (e.g. hero 'that credits each seller and saves every order to a database you own').",
+   "by": "B-r-11",
+   "via": "review",
+   "date": "2026-10-14 14:37 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #6",
+   "field": "faq item 2",
+   "issue": "37-word sentence (QC Q2 flag).",
+   "fix": "Split after the quoted prompt: 'Emergent builds the form and the order database behind it.'",
+   "by": "B-r-11",
+   "via": "review",
+   "date": "2026-10-14 14:37 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_1, why_description, faq item 3",
+   "issue": "Seller totals restated in three fields with words swapped.",
+   "fix": "Keep it in feature 1; give the why description and FAQ 3 a different specific (the supplier order, the held-order list).",
+   "by": "B-r-11",
+   "via": "review",
+   "date": "2026-10-14 14:37 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 10",
+   "issue": "The comparison exists to carry the link anchor; a brick buyer does not think of a t-shirt order, so it reads forced.",
+   "fix": "'Show the inscription back to the buyer to confirm the spelling before submitting', and place the link where it reads naturally or drop it.",
+   "by": "B-r-11",
+   "via": "review",
+   "date": "2026-10-14 14:37 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief tab 2 hero",
+   "issue": "Meta line says nothing a reader can check; the copy names the roast and grind choice.",
+   "fix": "'Breakfast blend, whole bean'.",
+   "by": "B-r-11",
+   "via": "review",
+   "date": "2026-10-14 14:37 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq_heading",
+   "issue": "Code-built heading drops the head word 'Form' (skeleton shortener bug, already reported in proposals/account-b.md 2026-10-14); writers may not edit code-built fields.",
+   "fix": "A fixes the shortener: 'Fundraiser Order Form Questions, Answered'.",
+   "by": "B-r-11",
+   "via": "review",
+   "date": "2026-10-14 14:37 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "a22332265b9a2a33",
+   "alt:share_image": "3c40736b5b4eb00e",
+   "alt:tab_image_1": "fc81831e32b7f5e5",
+   "alt:tab_image_2": "05bfc758a8c3ef88",
+   "alt:tab_image_3": "25d00dd94e656929",
+   "alt:tab_image_4": "ffc7acf1a7ec2d97",
+   "breadcrumb": "0b894d1aebfb4b32",
+   "chip_adds": "1602b2183eede396",
+   "explore_cta": "9dc993a014af77cc",
+   "faq": "f13ed204f05d16ed",
+   "feature_1": "4ac3929f8fdefbbf",
+   "feature_2": "fff5ffba04b9464b",
+   "feature_3": "3bb762ddb8359205",
+   "feature_4": "b7ee12e1f70a0da0",
+   "feature_5": "8c5c46c04883c310",
+   "feature_6": "611228441d70aacc",
+   "features_heading": "0e2109cc5109b95a",
+   "features_subheading": "e580d0c22ab84680",
+   "h1": "925f786b51215d9f",
+   "hero_description": "a4b0bbe3a202b5d0",
+   "hero_prompt": "b4ceca087defd103",
+   "howto_description": "aec1edc3380b9878",
+   "howto_step_1_des": "a3b81fe89e693a92",
+   "howto_step_1_title": "400f9b6eeb975bc8",
+   "howto_step_2_des": "e8e7f0a7c3a8c6c5",
+   "howto_step_2_title": "4a6e57811fef95ba",
+   "howto_step_3_des": "f7e771c2381b9f8b",
+   "howto_step_3_title": "d6b1c7979f4e1f82",
+   "howto_step_4_des": "732d542a510be093",
+   "howto_step_4_title": "1c06475437bfd1d5",
+   "howto_step_5_des": "a9c7cd59775f81f4",
+   "howto_step_5_title": "cf3be618acdff2a9",
+   "howto_step_6_des": "98982c804d5bb741",
+   "howto_step_6_title": "a9a4a3b1a8bdc5d7",
+   "howto_step_7_des": "8ccad72ce373160d",
+   "howto_step_7_title": "8b1c633eabe6cab7",
+   "howto_title": "62cb67dc4e1e1d21",
+   "meta_description": "c68a47845be91854",
+   "meta_title": "8f70f94dbdb0a14c",
+   "mockup": "79bd4bf16786608c",
+   "product_name": "6e2c90f62d49be9e",
+   "prompt_chip_1": "f2d0420d82de54df",
+   "prompt_chip_2": "337db5c869861354",
+   "prompt_chip_3": "2b0bfb213905b7de",
+   "prompt_chip_4": "88f264476fe1621b",
+   "slug": "d47da45e0a1a2b5e",
+   "tab_content_1": "b4d49daf58c4eae8",
+   "tab_content_2": "630ed1c9de48cd8a",
+   "tab_content_3": "572530127115c162",
+   "tab_content_4": "3d57b376b9da8493",
+   "tab_label_1": "c6aed3d09dc9e267",
+   "tab_label_2": "5455afefcfe70f23",
+   "tab_label_3": "a270deabadee4327",
+   "tab_label_4": "4a05bfca76c1aee1",
+   "usecase_heading": "289a135b4621759c",
+   "why_description": "fcdb076ad04891e4",
+   "why_table": "1c3bc7f5918e2f91",
+   "why_title": "98eb6dce6c07a166"
+  },
+  "all": "555c3cbc49cc6cb9",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "a22332265b9a2a33",
+   "alt:share_image": "3c40736b5b4eb00e",
+   "alt:tab_image_1": "fc81831e32b7f5e5",
+   "alt:tab_image_2": "05bfc758a8c3ef88",
+   "alt:tab_image_3": "25d00dd94e656929",
+   "alt:tab_image_4": "ffc7acf1a7ec2d97",
+   "breadcrumb": "0b894d1aebfb4b32",
+   "chip_adds": "1602b2183eede396",
+   "explore_cta": "9dc993a014af77cc",
+   "faq": "f13ed204f05d16ed",
+   "feature_1": "4ac3929f8fdefbbf",
+   "feature_2": "fff5ffba04b9464b",
+   "feature_3": "3bb762ddb8359205",
+   "feature_4": "b7ee12e1f70a0da0",
+   "feature_5": "8c5c46c04883c310",
+   "feature_6": "611228441d70aacc",
+   "features_heading": "0e2109cc5109b95a",
+   "features_subheading": "e580d0c22ab84680",
+   "h1": "925f786b51215d9f",
+   "hero_description": "a4b0bbe3a202b5d0",
+   "hero_prompt": "b4ceca087defd103",
+   "howto_description": "aec1edc3380b9878",
+   "howto_step_1_des": "a3b81fe89e693a92",
+   "howto_step_1_title": "400f9b6eeb975bc8",
+   "howto_step_2_des": "e8e7f0a7c3a8c6c5",
+   "howto_step_2_title": "4a6e57811fef95ba",
+   "howto_step_3_des": "f7e771c2381b9f8b",
+   "howto_step_3_title": "d6b1c7979f4e1f82",
+   "howto_step_4_des": "732d542a510be093",
+   "howto_step_4_title": "1c06475437bfd1d5",
+   "howto_step_5_des": "a9c7cd59775f81f4",
+   "howto_step_5_title": "cf3be618acdff2a9",
+   "howto_step_6_des": "98982c804d5bb741",
+   "howto_step_6_title": "a9a4a3b1a8bdc5d7",
+   "howto_step_7_des": "8ccad72ce373160d",
+   "howto_step_7_title": "8b1c633eabe6cab7",
+   "howto_title": "62cb67dc4e1e1d21",
+   "meta_description": "c68a47845be91854",
+   "meta_title": "8f70f94dbdb0a14c",
+   "mockup": "79bd4bf16786608c",
+   "product_name": "6e2c90f62d49be9e",
+   "prompt_chip_1": "f2d0420d82de54df",
+   "prompt_chip_2": "337db5c869861354",
+   "prompt_chip_3": "2b0bfb213905b7de",
+   "prompt_chip_4": "88f264476fe1621b",
+   "slug": "d47da45e0a1a2b5e",
+   "tab_content_1": "b4d49daf58c4eae8",
+   "tab_content_2": "630ed1c9de48cd8a",
+   "tab_content_3": "572530127115c162",
+   "tab_content_4": "3d57b376b9da8493",
+   "tab_label_1": "c6aed3d09dc9e267",
+   "tab_label_2": "5455afefcfe70f23",
+   "tab_label_3": "a270deabadee4327",
+   "tab_label_4": "4a05bfca76c1aee1",
+   "usecase_heading": "289a135b4621759c",
+   "why_description": "fcdb076ad04891e4",
+   "why_table": "1c3bc7f5918e2f91",
+   "why_title": "98eb6dce6c07a166"
+  },
+  "all": "555c3cbc49cc6cb9",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
