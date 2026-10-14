@@ -210,6 +210,10 @@ def cmd_claim(args):
     if rk is not None:
         cls = {u: c for _r, h, u, c, _f in rk if h == hub}
         queue = [m[u] for _r, h, u, c, _f in rk if h == hub and c in ("ready", "syn-pending") and u in m and u not in st["pages"]]
+        # quiz pages are claimable only after the quiz canary passed (DECISIONS 2026-10-14; status/quiz-canary.json result "pass")
+        try: _qok = json.load(open(os.path.join(ROOT, "status", "quiz-canary.json"))).get("result") == "pass"
+        except (OSError, ValueError): _qok = False
+        if not _qok: queue = [p for p in queue if "quiz" not in p["url"].rsplit("/", 1)[1]]
         for p in queue[:n]:
             pend = cls[p["url"]] == "syn-pending"
             st["pages"][p["url"]] = {"state": "claimed", "by": by, "updated": now(), "queue_rank": p["queue_rank"], **({"faq_pending": True} if pend else {})}
