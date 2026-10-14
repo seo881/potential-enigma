@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-85",
    "note": ""
+  },
+  {
+   "t": "2026-10-14 14:52 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-12",
+   "note": "rubric 10/10 by B-r-12; 6 notes"
   }
  ],
  "pipeline": "r15",
@@ -981,5 +988,305 @@
  },
  "writers": [
   "B-w-85"
- ]
+ ],
+ "review": {
+  "by": "B-r-12",
+  "date": "2026-10-14 14:52 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Safety Sign in Sheet Your Crew Signs on a Phone'; hero 'Get a safety sign in sheet that saves each attendee's name and e-signature to a database you own.'; how-to description says what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is safety meeting sign-in templates; page covers what the sheet must include (FAQ 3, FAQ 9, steps 1-3), the daily and construction cases, OSHA training records, and how to build it."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Toolbox talk on trench safety, 25 forklift operators and a Thursday makeup session, fire drill count by floor, employer column on multi-contractor sites."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "'Each attendee opens the sheet on a phone', 'The sheet captures an e-signature', 'Whoever runs the meeting fills in the header once'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft class; link-carrier endings and repeated header list recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Last March's toolbox talk sits next to this week's, not in a binder in the site trailer.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "claims_used all approved (incl. realtime, free-start, ai-extraction). OSHA 1926.21(b)(2), 1910.157(g)(1)-(2) and 1910.178(l)(6) statements each match their quoted spans; no claim that OSHA requires a sign-in sheet. Table generated from library."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Meeting/training attendance angle; visitor front-desk use handed to the sign in form sibling (FAQ 7); no sibling primary in headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items from definition and secondaries (meeting, construction, daily, fire, free, OSHA meeting, OSHA training, committee); hub link in item 2; no format or download in questions (printable secondaries left out per PA15)."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 '14 of 14 crew', 'Monday, led by Teodor Lusk'; tab 2 '22 of 25 signed', 'Email to 3 operators', 'Thursday'; tab 3 '58 of 61', '1 on floor 2', '2 on floor 3', warden Anouk Brevik; tab 4 '32 of 36 clear', '4 to check by hand', sent to Gideon Marsh, safety coordinator."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief tab 4",
+    "quote": "Led by: Gideon Marsh",
+    "issue": "The scanned sheet shows Gideon Marsh leading the March committee meeting; the tab copy names him only as the safety coordinator who checks low-confidence names. Not a contradiction (a safety coordinator plausibly leads the committee), but the image adds a role the copy does not state.",
+    "fix": "Give the 'Led by' row a different name, or add to the copy that he chairs the committee.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "faq item 4",
+    "quote": "To hear what the crew took from the talk, follow it with a training feedback form a few days later.",
+    "issue": "Answer ends on a sentence that only carries the related link (recurring note).",
+    "fix": "End on the employer column point; fold the link into a sentence that answers the question.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "faq item 7",
+    "quote": "For visitors signing in at a front desk rather than a meeting, a sign in form fits better.",
+    "issue": "Link-carrier closing sentence (recurring note).",
+    "fix": "Optional; keep only if it reads as part of the answer.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "faq item 10",
+    "quote": "If contractor guests must be logged as they leave the site, pair the sheet with a sign out form.",
+    "issue": "Link-carrier closing sentence (recurring note).",
+    "fix": "End on the roster point.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_3; howto_step_1_des; faq items 1, 3, 9",
+    "quote": "topic, date, location, and who led it",
+    "issue": "The header list (topic, date, location, trainer) is restated in five fields; QC Q8 also counts 9 'A, B, and C' lists.",
+    "fix": "Keep the list in step 1 and FAQ 3; elsewhere refer to 'the header'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq_heading; explore_cta",
+    "quote": "Sign in Sheet Questions, Answered",
+    "issue": "Code-built heading drops the head word 'Safety' and lowercases 'in' (skeleton shortener; already reported in proposals/account-b.md, writers may not edit).",
+    "fix": "A fixes the shortener: 'Safety Sign In Sheet Questions, Answered'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief tab 4",
+   "issue": "The scanned sheet shows Gideon Marsh leading the March committee meeting; the tab copy names him only as the safety coordinator who checks low-confidence names. Not a contradiction (a safety coordinator plausibly leads the committee), but the image adds a role the copy does not state.",
+   "fix": "Give the 'Led by' row a different name, or add to the copy that he chairs the committee.",
+   "by": "B-r-12",
+   "via": "review",
+   "date": "2026-10-14 14:52 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "faq item 4",
+   "issue": "Answer ends on a sentence that only carries the related link (recurring note).",
+   "fix": "End on the employer column point; fold the link into a sentence that answers the question.",
+   "by": "B-r-12",
+   "via": "review",
+   "date": "2026-10-14 14:52 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "faq item 7",
+   "issue": "Link-carrier closing sentence (recurring note).",
+   "fix": "Optional; keep only if it reads as part of the answer.",
+   "by": "B-r-12",
+   "via": "review",
+   "date": "2026-10-14 14:52 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "faq item 10",
+   "issue": "Link-carrier closing sentence (recurring note).",
+   "fix": "End on the roster point.",
+   "by": "B-r-12",
+   "via": "review",
+   "date": "2026-10-14 14:52 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_3; howto_step_1_des; faq items 1, 3, 9",
+   "issue": "The header list (topic, date, location, trainer) is restated in five fields; QC Q8 also counts 9 'A, B, and C' lists.",
+   "fix": "Keep the list in step 1 and FAQ 3; elsewhere refer to 'the header'.",
+   "by": "B-r-12",
+   "via": "review",
+   "date": "2026-10-14 14:52 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq_heading; explore_cta",
+   "issue": "Code-built heading drops the head word 'Safety' and lowercases 'in' (skeleton shortener; already reported in proposals/account-b.md, writers may not edit).",
+   "fix": "A fixes the shortener: 'Safety Sign In Sheet Questions, Answered'.",
+   "by": "B-r-12",
+   "via": "review",
+   "date": "2026-10-14 14:52 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "487a003ad7dbb9ff",
+   "alt:share_image": "f43e1d38e1549fda",
+   "alt:tab_image_1": "b9c3f5656c597094",
+   "alt:tab_image_2": "075a2f348c250970",
+   "alt:tab_image_3": "d0b2e292a41a666c",
+   "alt:tab_image_4": "e801e70d26f79ded",
+   "breadcrumb": "677cd0c05fd3b0b6",
+   "chip_adds": "5794f6f40cf45d19",
+   "explore_cta": "80c5c21362cf9507",
+   "faq": "7e92fea638726dfd",
+   "feature_1": "edfb169d049a25fa",
+   "feature_2": "2026b7351cf332ab",
+   "feature_3": "d01887bc59fc0656",
+   "feature_4": "cb52efb37fb63f8f",
+   "feature_5": "20dd92d55aa2e86b",
+   "feature_6": "330b20de8edb46bf",
+   "features_heading": "fb04cbb1e4ad1c0e",
+   "features_subheading": "227723b7dbd55645",
+   "h1": "ef652d5226ef3549",
+   "hero_description": "234892369bdbf512",
+   "hero_prompt": "47e7dea5c0890f2d",
+   "howto_description": "895316afb5c4ac30",
+   "howto_step_1_des": "a2f87021041c2530",
+   "howto_step_1_title": "da3b7a527fd8032d",
+   "howto_step_2_des": "d065d80f836a4f09",
+   "howto_step_2_title": "1b44058b7cf2442c",
+   "howto_step_3_des": "6668fd5d1bde54fc",
+   "howto_step_3_title": "06d3eab768b18f7c",
+   "howto_step_4_des": "b149e319df49fe6c",
+   "howto_step_4_title": "46dfa4770a74c726",
+   "howto_step_5_des": "2b8b1b2ce819d164",
+   "howto_step_5_title": "6e0f51274d076664",
+   "howto_step_6_des": "396036c399d567b9",
+   "howto_step_6_title": "9da14201d7a7e97b",
+   "howto_step_7_des": "2ac5578a12bd3db1",
+   "howto_step_7_title": "fcee465fcb3bc52f",
+   "howto_title": "317bc6afeaf88990",
+   "meta_description": "12fcb33c5e10915e",
+   "meta_title": "acee830139d852c7",
+   "mockup": "b7bed35f606ba4cc",
+   "product_name": "2dc0ada771a0095f",
+   "prompt_chip_1": "910c27f7d08b1308",
+   "prompt_chip_2": "719e80833d5e24c0",
+   "prompt_chip_3": "ccc0d23852be54ed",
+   "prompt_chip_4": "e99dd987349b00a0",
+   "slug": "5123123fc1d69288",
+   "tab_content_1": "8ae6e1669e9a4317",
+   "tab_content_2": "a7691f51cfd06153",
+   "tab_content_3": "b9a5e3f8618c712b",
+   "tab_content_4": "22f9e97e3053efc9",
+   "tab_label_1": "910c27f7d08b1308",
+   "tab_label_2": "719e80833d5e24c0",
+   "tab_label_3": "ccc0d23852be54ed",
+   "tab_label_4": "e99dd987349b00a0",
+   "usecase_heading": "c79fccce672e2e54",
+   "why_description": "48565ba68ec4b899",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "f72ac2df16ee735e"
+  },
+  "all": "54379df107f6d762",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "487a003ad7dbb9ff",
+   "alt:share_image": "f43e1d38e1549fda",
+   "alt:tab_image_1": "b9c3f5656c597094",
+   "alt:tab_image_2": "075a2f348c250970",
+   "alt:tab_image_3": "d0b2e292a41a666c",
+   "alt:tab_image_4": "e801e70d26f79ded",
+   "breadcrumb": "677cd0c05fd3b0b6",
+   "chip_adds": "5794f6f40cf45d19",
+   "explore_cta": "80c5c21362cf9507",
+   "faq": "7e92fea638726dfd",
+   "feature_1": "edfb169d049a25fa",
+   "feature_2": "2026b7351cf332ab",
+   "feature_3": "d01887bc59fc0656",
+   "feature_4": "cb52efb37fb63f8f",
+   "feature_5": "20dd92d55aa2e86b",
+   "feature_6": "330b20de8edb46bf",
+   "features_heading": "fb04cbb1e4ad1c0e",
+   "features_subheading": "227723b7dbd55645",
+   "h1": "ef652d5226ef3549",
+   "hero_description": "234892369bdbf512",
+   "hero_prompt": "47e7dea5c0890f2d",
+   "howto_description": "895316afb5c4ac30",
+   "howto_step_1_des": "a2f87021041c2530",
+   "howto_step_1_title": "da3b7a527fd8032d",
+   "howto_step_2_des": "d065d80f836a4f09",
+   "howto_step_2_title": "1b44058b7cf2442c",
+   "howto_step_3_des": "6668fd5d1bde54fc",
+   "howto_step_3_title": "06d3eab768b18f7c",
+   "howto_step_4_des": "b149e319df49fe6c",
+   "howto_step_4_title": "46dfa4770a74c726",
+   "howto_step_5_des": "2b8b1b2ce819d164",
+   "howto_step_5_title": "6e0f51274d076664",
+   "howto_step_6_des": "396036c399d567b9",
+   "howto_step_6_title": "9da14201d7a7e97b",
+   "howto_step_7_des": "2ac5578a12bd3db1",
+   "howto_step_7_title": "fcee465fcb3bc52f",
+   "howto_title": "317bc6afeaf88990",
+   "meta_description": "12fcb33c5e10915e",
+   "meta_title": "acee830139d852c7",
+   "mockup": "b7bed35f606ba4cc",
+   "product_name": "2dc0ada771a0095f",
+   "prompt_chip_1": "910c27f7d08b1308",
+   "prompt_chip_2": "719e80833d5e24c0",
+   "prompt_chip_3": "ccc0d23852be54ed",
+   "prompt_chip_4": "e99dd987349b00a0",
+   "slug": "5123123fc1d69288",
+   "tab_content_1": "8ae6e1669e9a4317",
+   "tab_content_2": "a7691f51cfd06153",
+   "tab_content_3": "b9a5e3f8618c712b",
+   "tab_content_4": "22f9e97e3053efc9",
+   "tab_label_1": "910c27f7d08b1308",
+   "tab_label_2": "719e80833d5e24c0",
+   "tab_label_3": "ccc0d23852be54ed",
+   "tab_label_4": "e99dd987349b00a0",
+   "usecase_heading": "c79fccce672e2e54",
+   "why_description": "48565ba68ec4b899",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "f72ac2df16ee735e"
+  },
+  "all": "54379df107f6d762",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
