@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-65",
    "note": ""
+  },
+  {
+   "t": "2026-10-14 12:34 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-5",
+   "note": "[truth | HUB_RULES 6; CONTENT_DEFECTS #14] feature_5: 'no overage line on the bill' is a pricing and billing guarantee about Emergent that is not in rules/capabilities.json (no-caps approves 'No task cap' only). Emergent bills in credits and the page's own table says AI steps 'share the same credit "
   }
  ],
  "pipeline": "r15",
@@ -927,5 +934,315 @@
  },
  "writers": [
   "B-w-65"
- ]
+ ],
+ "review": {
+  "by": "B-r-5",
+  "date": "2026-10-14 12:34 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build CRM Automation Around the CRM You Already Run'; hero 'Build CRM automation that assigns new leads, chases quiet deals, and starts onboarding when a deal closes.' covers assignment, follow-up and handoff, not one feature; how-to description one sentence with the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 (IBM, Salesforce, monday, Creatio) define the term and list example automations; the page defines it in the section intro and FAQ 1 ('CRM automation is the use of technology and automation tools...'), shows four worked examples (lead assignment, stalled deals, deal handoffs, duplicates) that deliver the meta title's 'Examples', a seven-step how-to and tool/workflow FAQs."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'territory', 'Proposal', 'Closed Won', 'sales ops', 'deal owner'; step 2 'A rule that reads an empty state field assigns nobody.'"
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Your demo form asks for a state and a company size...', 'Marisol Achterberg fills in the demo form...', 'Export your contacts and deals and check the fields...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft class exists; QC Q2/Q5/Q7 clean. Notes recorded for repeated ideas."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: 'the $18,400 Brightwater Clinics deal has sat in Proposal for 7 days', 'Track the hours from form fill to first call for 14 days'. Voice notes recorded (forced link sentences)."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "feature_5 'with no task cap and no overage line on the bill' states a billing guarantee beyond the ledger (capabilities no-caps approves 'No task cap' only). Every other Emergent claim maps to claims_used; FAQ 1 and FAQ 3 definitions match the IBM quoted spans; table generated from the library."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Reads as its own page: CRM-specific stories (territory assignment, stalled Proposal deal, Closed Won handoff, duplicate merge); sibling sales-automation linked, not headlined."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, item 1 defines, hub link in item 2, 3 sibling links, each answer first-sentence. Notes on FAQ 10's premise and the forced link sentences."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy on names and numbers: 'Assigned to Desmond Okafor' / 'Ohio is in his Midwest territory'; 'Brightwater Clinics, $18,400', '7 days', 'Due today'; '$32,000', 'Account manager: Ruth Castellanos', 'Emailed to Wendell Osei'; 'Possible duplicate: Renata Santos', 'To Hollis Brandvold, sales ops'. One hero per tab, cursor on button edge."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6; CONTENT_DEFECTS #14",
+    "field": "feature_5",
+    "quote": "Each new lead is assigned and logged, with no task cap and no overage line on the bill.",
+    "issue": "'no overage line on the bill' is a pricing and billing guarantee about Emergent that is not in rules/capabilities.json (no-caps approves 'No task cap' only). Emergent bills in credits and the page's own table says AI steps 'share the same credit pool', so a busy campaign can cost more; the claim is unapproved and may be false. Only instance on the page: FAQ 8 says 'Emergent builds the workflow as an app with no task cap', which is within the ledger and can stay.",
+    "fix": "End at the approved claim, e.g. 'Each new lead is assigned and logged, and the app keeps running with no task cap.' (keep 165-182 chars), and do not add any billing or overage promise elsewhere.",
+    "severity": "blocking"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_3_des; faq",
+    "quote": "a deal moved to Negotiation alerts the sales manager / A deal moving to Negotiation can trigger a message to the sales manager when its value is over $10,000",
+    "issue": "The same Negotiation-alert example appears in step 3 and FAQ 5; the 'write rules as sentences' idea also repeats across feature_1 ('Assignment rules written as sentences'), howto_step_3_title ('Write each rule as a sentence') and FAQ 2 ('one per sentence'); 'Nobody retypes the deal' (tab_content_3) and 'no copy and paste' (FAQ 5).",
+    "fix": "Use a different trigger example in FAQ 5 (for example a deal value change).",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "Comments and direct messages on your posts fall under social media automation, and the leads they produce can land in the same CRM.",
+    "issue": "Link sentences read bolted on to place an anchor, unrelated to the question asked. Instances: FAQ 7 (social media automation, in an answer about AI in a CRM); FAQ 10 'The same is true outside sales, where a demo of procurement automation shows the approval steps, and someone still writes them down.'",
+    "fix": "Place sibling links where the question invites them (data entry automation fits FAQ 6 or step 1).",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5; CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "They do not learn from the video itself: a rule-based tool runs the rules someone writes for it.",
+    "issue": "FAQ 10 is a volume-0 Semrush phrase question with an odd premise, and its answer makes an absolute statement about all CRM automation tools without a source. Related unsourced generalizations about tool categories: FAQ 4 'CRM automation tools come in two kinds' / 'Native rules handle steps inside one system'; FAQ 8 'A CRM with workflow automation native to it covers steps inside the CRM, while outside software can also reach your inbox and forms.' None names a third party, so they are notes.",
+    "fix": "Prefer a question with real volume (e.g. 'crm automation examples'); qualify category statements.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_3",
+    "quote": "Wendell Osei gets a kickoff form by email asking for his team's contacts and a start date.",
+    "issue": "The copy never says who Wendell Osei is (the Larchmont Freight customer contact, per the plan), so a reader meets an unexplained name.",
+    "fix": "'Wendell Osei, Larchmont's operations lead, gets a kickoff form...'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Zapier | Make (Integromat) | n8n",
+    "issue": "QC K7: none of the three table competitors ranks in this page's top 10 (CRM vendors Salesforce, Zendesk, monday rank). Acceptable while the library has no CRM-native automation entries; flag for the coordinator.",
+    "fix": "Coordinator: consider adding CRM-native automation (Salesforce Flow, HubSpot workflows) to the library.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "hero_prompt",
+    "quote": "Build crm automation that runs on its own and logs every step.",
+    "issue": "Template slot lowercases the acronym 'crm' in the prompt box.",
+    "fix": "Coordinator: write 'CRM' in the hero prompt slot.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_3_des; faq",
+   "issue": "The same Negotiation-alert example appears in step 3 and FAQ 5; the 'write rules as sentences' idea also repeats across feature_1 ('Assignment rules written as sentences'), howto_step_3_title ('Write each rule as a sentence') and FAQ 2 ('one per sentence'); 'Nobody retypes the deal' (tab_content_3) and 'no copy and paste' (FAQ 5).",
+   "fix": "Use a different trigger example in FAQ 5 (for example a deal value change).",
+   "by": "B-r-5",
+   "via": "review",
+   "date": "2026-10-14 12:34 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "Link sentences read bolted on to place an anchor, unrelated to the question asked. Instances: FAQ 7 (social media automation, in an answer about AI in a CRM); FAQ 10 'The same is true outside sales, where a demo of procurement automation shows the approval steps, and someone still writes them down.'",
+   "fix": "Place sibling links where the question invites them (data entry automation fits FAQ 6 or step 1).",
+   "by": "B-r-5",
+   "via": "review",
+   "date": "2026-10-14 12:34 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5; CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "FAQ 10 is a volume-0 Semrush phrase question with an odd premise, and its answer makes an absolute statement about all CRM automation tools without a source. Related unsourced generalizations about tool categories: FAQ 4 'CRM automation tools come in two kinds' / 'Native rules handle steps inside one system'; FAQ 8 'A CRM with workflow automation native to it covers steps inside the CRM, while outside software can also reach your inbox and forms.' None names a third party, so they are notes.",
+   "fix": "Prefer a question with real volume (e.g. 'crm automation examples'); qualify category statements.",
+   "by": "B-r-5",
+   "via": "review",
+   "date": "2026-10-14 12:34 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_3",
+   "issue": "The copy never says who Wendell Osei is (the Larchmont Freight customer contact, per the plan), so a reader meets an unexplained name.",
+   "fix": "'Wendell Osei, Larchmont's operations lead, gets a kickoff form...'",
+   "by": "B-r-5",
+   "via": "review",
+   "date": "2026-10-14 12:34 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: none of the three table competitors ranks in this page's top 10 (CRM vendors Salesforce, Zendesk, monday rank). Acceptable while the library has no CRM-native automation entries; flag for the coordinator.",
+   "fix": "Coordinator: consider adding CRM-native automation (Salesforce Flow, HubSpot workflows) to the library.",
+   "by": "B-r-5",
+   "via": "review",
+   "date": "2026-10-14 12:34 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "hero_prompt",
+   "issue": "Template slot lowercases the acronym 'crm' in the prompt box.",
+   "fix": "Coordinator: write 'CRM' in the hero prompt slot.",
+   "by": "B-r-5",
+   "via": "review",
+   "date": "2026-10-14 12:34 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "415398e2140b808e",
+   "alt:share_image": "d93ee5a31b8b78f5",
+   "alt:tab_image_1": "bd1be6ed997be4c3",
+   "alt:tab_image_2": "df539e719b090a09",
+   "alt:tab_image_3": "770a5d2b3b66f59e",
+   "alt:tab_image_4": "c8ddad1bfa06143a",
+   "breadcrumb": "60aebf2fb19362f8",
+   "chip_adds": "01c7e670108502b1",
+   "explore_cta": "fce588b84cc7d0a0",
+   "faq": "aa486812c49ea350",
+   "feature_1": "1022bb147bac9fa0",
+   "feature_2": "172a3ea1c1995fae",
+   "feature_3": "060b5a2fe315d79b",
+   "feature_4": "f5c2e589967385d9",
+   "feature_5": "5f4bf08a114e7d30",
+   "feature_6": "fbe533cba55b838e",
+   "features_heading": "2972518897a2fa5a",
+   "features_subheading": "54221f921ac31316",
+   "h1": "cf4f57090c222b1b",
+   "hero_description": "4db65665142d62d9",
+   "hero_prompt": "e1a59488e146c9ca",
+   "howto_description": "c6f98b3939292946",
+   "howto_step_1_des": "b3fb3174ab82166c",
+   "howto_step_1_title": "9de9bfd530a5b794",
+   "howto_step_2_des": "8792fab3c7126a34",
+   "howto_step_2_title": "29aec746edade1b1",
+   "howto_step_3_des": "a59bad16b15aa36c",
+   "howto_step_3_title": "137836f4b4f03718",
+   "howto_step_4_des": "797b3a69149c969c",
+   "howto_step_4_title": "929061b195a41a0d",
+   "howto_step_5_des": "8b0fe71f94c5419b",
+   "howto_step_5_title": "cf53137fee12c21e",
+   "howto_step_6_des": "6ebbe6466d59fe3a",
+   "howto_step_6_title": "5a6821cb122fcce4",
+   "howto_step_7_des": "8de268e33dbc50ec",
+   "howto_step_7_title": "f738d4d08e6ee0ed",
+   "howto_title": "556aa9d26f14de70",
+   "meta_description": "64426fc58a1df95f",
+   "meta_title": "b97fc759d017b4ee",
+   "mockup": "11a27f4bba0aa912",
+   "product_name": "3addc1ed814e6c2b",
+   "prompt_chip_1": "360494599761af42",
+   "prompt_chip_2": "39434e5e909757bc",
+   "prompt_chip_3": "34c3c349b71d7ffb",
+   "prompt_chip_4": "9158c5c9f77dae02",
+   "slug": "d3c54dd5ee938be3",
+   "tab_content_1": "8f78a4ba9e376d0f",
+   "tab_content_2": "7e6405a6f22d7bfa",
+   "tab_content_3": "b3bac44e16b26260",
+   "tab_content_4": "6909adff8f4e11f1",
+   "tab_label_1": "360494599761af42",
+   "tab_label_2": "b72302e6cfd66560",
+   "tab_label_3": "34c3c349b71d7ffb",
+   "tab_label_4": "aca094ef2b3aab5e",
+   "usecase_heading": "e823db4c9e74d48f",
+   "why_description": "01c56c0859da6677",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "dd13f3fe682e48e8"
+  },
+  "all": "e451c81fa62e9d53",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "415398e2140b808e",
+   "alt:share_image": "d93ee5a31b8b78f5",
+   "alt:tab_image_1": "bd1be6ed997be4c3",
+   "alt:tab_image_2": "df539e719b090a09",
+   "alt:tab_image_3": "770a5d2b3b66f59e",
+   "alt:tab_image_4": "c8ddad1bfa06143a",
+   "breadcrumb": "60aebf2fb19362f8",
+   "chip_adds": "01c7e670108502b1",
+   "explore_cta": "fce588b84cc7d0a0",
+   "faq": "aa486812c49ea350",
+   "feature_1": "1022bb147bac9fa0",
+   "feature_2": "172a3ea1c1995fae",
+   "feature_3": "060b5a2fe315d79b",
+   "feature_4": "f5c2e589967385d9",
+   "feature_5": "5f4bf08a114e7d30",
+   "feature_6": "fbe533cba55b838e",
+   "features_heading": "2972518897a2fa5a",
+   "features_subheading": "54221f921ac31316",
+   "h1": "cf4f57090c222b1b",
+   "hero_description": "4db65665142d62d9",
+   "hero_prompt": "e1a59488e146c9ca",
+   "howto_description": "c6f98b3939292946",
+   "howto_step_1_des": "b3fb3174ab82166c",
+   "howto_step_1_title": "9de9bfd530a5b794",
+   "howto_step_2_des": "8792fab3c7126a34",
+   "howto_step_2_title": "29aec746edade1b1",
+   "howto_step_3_des": "a59bad16b15aa36c",
+   "howto_step_3_title": "137836f4b4f03718",
+   "howto_step_4_des": "797b3a69149c969c",
+   "howto_step_4_title": "929061b195a41a0d",
+   "howto_step_5_des": "8b0fe71f94c5419b",
+   "howto_step_5_title": "cf53137fee12c21e",
+   "howto_step_6_des": "6ebbe6466d59fe3a",
+   "howto_step_6_title": "5a6821cb122fcce4",
+   "howto_step_7_des": "8de268e33dbc50ec",
+   "howto_step_7_title": "f738d4d08e6ee0ed",
+   "howto_title": "556aa9d26f14de70",
+   "meta_description": "64426fc58a1df95f",
+   "meta_title": "b97fc759d017b4ee",
+   "mockup": "11a27f4bba0aa912",
+   "product_name": "3addc1ed814e6c2b",
+   "prompt_chip_1": "360494599761af42",
+   "prompt_chip_2": "39434e5e909757bc",
+   "prompt_chip_3": "34c3c349b71d7ffb",
+   "prompt_chip_4": "9158c5c9f77dae02",
+   "slug": "d3c54dd5ee938be3",
+   "tab_content_1": "8f78a4ba9e376d0f",
+   "tab_content_2": "7e6405a6f22d7bfa",
+   "tab_content_3": "b3bac44e16b26260",
+   "tab_content_4": "6909adff8f4e11f1",
+   "tab_label_1": "360494599761af42",
+   "tab_label_2": "b72302e6cfd66560",
+   "tab_label_3": "34c3c349b71d7ffb",
+   "tab_label_4": "aca094ef2b3aab5e",
+   "usecase_heading": "e823db4c9e74d48f",
+   "why_description": "01c56c0859da6677",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "dd13f3fe682e48e8"
+  },
+  "all": "e451c81fa62e9d53",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

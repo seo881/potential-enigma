@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-66",
    "note": ""
+  },
+  {
+   "t": "2026-10-14 12:35 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-5",
+   "note": "[truth | CONTENT_DEFECTS #14; HUB_RULES 6] faq: FAQ 2 states a platform behaviour as automatic: Emergent itself reading the chart of accounts before any rule runs is not in rules/capabilities.json (api-connect approves built apps that connect and sync, which the user prompts for). Same class as the "
   }
  ],
  "pipeline": "r15",
@@ -1120,5 +1127,315 @@
  },
  "writers": [
   "B-w-66"
- ]
+ ],
+ "review": {
+  "by": "B-r-5",
+  "date": "2026-10-14 12:35 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Accounting Automation for Your Month-End Close'; hero 'Get accounting automation that matches bank lines overnight and holds recurring entries for the controller.' frames the whole close, not one feature or a sibling (AP, invoice, bookkeeping)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 (IBM, Zuora, BlackLine, Karbon, Numeric) define the term, list examples and compare software; the page defines it (section intro, FAQ 1 sourced to IBM), shows four worked close automations, answers the PAA examples/best-tool/best-software questions and cost, plus a seven-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Finance-team vocabulary: 'prepaid insurance to insurance expense', 'freight accrual', '5-day close', 'staff accountant', 'more than 10% from the prior month needs a note'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Every night the app pulls the bank lines...', 'Quillmont runs a 5-day close.', 'List every task in last month's close...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; notes recorded for repeated ideas and the step 4 33-word sentence."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail: 'Last night 405 of 412 lines matched', 'allow a 2-day gap for card deposits', 'Ask for the setup fee and the price at twice your current volume'."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "FAQ 2 states platform behaviour as automatic: 'Emergent builds the app with its database and dashboard, and reads your chart of accounts from the ledger before the first rule runs.' Numbers agree everywhere: 405 + 7 = 412; 31 + 6 + 1 = 38; $18,000 / 12 = $1,500; $49,100 - $42,300 = $6,800 (+16%, over the 10% rule); prepaid-to-expense direction correct; definition matches the IBM quote."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Close-centred stories (bank matching, close board, recurring prepaid entry, variance note) distinct from AP, invoice and bookkeeping siblings, which are linked rather than headlined."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, definition first, hub link in item 2, sibling links (accounts payable automation, report automation, invoice automation). Notes on the duplicated 'best tool' / 'best software' answers."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: '405 of 412 lines matched', 'To Corinne Vasquez', 'Closest ledger entry shown'; '31 of 38', 'Due on day 2 of the September close', 'Owner: Teodor Lindqvist'; 'Debit Insurance expense / Credit Prepaid insurance', '$1,500.00', 'Policy paid: $18,000.00', 'Posts to QuickBooks on approval'; '$42,300', '$49,100', '+16%', 'To Saoirse Kalani'. One hero per tab; table percentages round correctly (+4%, -5%)."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #14; HUB_RULES 6",
+    "field": "faq",
+    "quote": "Emergent builds the app with its database and dashboard, and reads your chart of accounts from the ledger before the first rule runs.",
+    "issue": "FAQ 2 states a platform behaviour as automatic: Emergent itself reading the chart of accounts before any rule runs is not in rules/capabilities.json (api-connect approves built apps that connect and sync, which the user prompts for). Same class as the CONTENT_DEFECTS #14 example 'Each page gets a canonical tag'. Searched the whole page: feature_2 ('The app reads accounts and balances ... through their APIs') and howto_step_3_des ('Connect your ledger through its API so the app can read accounts') describe the built app after the user connects it and are fine; FAQ 2 is the only instance.",
+    "fix": "Make it the user's instruction or the built app's behaviour once connected, e.g. 'Connect your ledger, and the app reads your chart of accounts before the first rule runs.'",
+    "severity": "blocking"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "The best accounting automation tool is the one that works with the ledger you already run / No one product is the best accounting automation software for every team: the right one fits your ledger",
+    "issue": "FAQ 3 and FAQ 5 ask nearly the same question and give the same 'fits your ledger' answer; FAQ 8 ('top rated ... with integration') and FAQ 10 ('medium-sized companies') repeat the buy-on-ledger-fit idea, so four of ten items are tool-selection answers. FAQ 8 also redefines 'top rated' rather than answering it.",
+    "fix": "Differentiate FAQ 5 (e.g. what features to compare) or swap one for 'month-end close automation' / 'accounting automation examples'.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_1; howto_step_4_des",
+    "quote": "Describe each rule the way you would brief a new hire: match on amount and date. / Prompt the rules the way you would explain them to a new staff accountant: match on amount and date",
+    "issue": "Same sentence shape and example in feature_1 and step 4; 'amount and date' also recurs in tab_content_1 and howto_step_2_des.",
+    "fix": "Give feature_1 a different rule example (e.g. the 10% variance rule).",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "Monthly packs for management are a separate job, handled by report automation.",
+    "issue": "Link sentences tacked on to place an anchor: FAQ 7 (report automation) and FAQ 4 'Paying vendor bills is its own flow, covered under accounts payable automation.' FAQ 7 also has 'A reconciliation that a preparer signs and a reviewer signs off is one case.', which reads awkwardly.",
+    "fix": "Fold links into the answer's own point.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "because quarter-end runs heavier",
+    "issue": "Unsourced generalizations about no named third party: FAQ 9 'because quarter-end runs heavier'; FAQ 10 'since a medium-sized company splits the close across several people'.",
+    "fix": "Tie to the reader ('if your quarter-end runs heavier').",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "Accounting Questions, Answered",
+    "issue": "FAQ heading drops the topic word: HUB_RULES 5 says '{Topic} Questions, Answered' (the sibling CRM page uses 'CRM Automation Questions, Answered'). Likely width-driven; QC passes.",
+    "fix": "'Accounting Automation Questions, Answered' if it fits T1.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Zapier | Make (Integromat) | n8n",
+    "issue": "QC K7: none of the three table competitors ranks in this page's top 10 (BlackLine, Numeric, Trullion, Brex, UiPath rank). Acceptable while the library lacks accounting-automation vendors; flag for the coordinator.",
+    "fix": "Coordinator: consider library entries for close-automation vendors.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "FAQ 3 and FAQ 5 ask nearly the same question and give the same 'fits your ledger' answer; FAQ 8 ('top rated ... with integration') and FAQ 10 ('medium-sized companies') repeat the buy-on-ledger-fit idea, so four of ten items are tool-selection answers. FAQ 8 also redefines 'top rated' rather than answering it.",
+   "fix": "Differentiate FAQ 5 (e.g. what features to compare) or swap one for 'month-end close automation' / 'accounting automation examples'.",
+   "by": "B-r-5",
+   "via": "review",
+   "date": "2026-10-14 12:35 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_1; howto_step_4_des",
+   "issue": "Same sentence shape and example in feature_1 and step 4; 'amount and date' also recurs in tab_content_1 and howto_step_2_des.",
+   "fix": "Give feature_1 a different rule example (e.g. the 10% variance rule).",
+   "by": "B-r-5",
+   "via": "review",
+   "date": "2026-10-14 12:35 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "Link sentences tacked on to place an anchor: FAQ 7 (report automation) and FAQ 4 'Paying vendor bills is its own flow, covered under accounts payable automation.' FAQ 7 also has 'A reconciliation that a preparer signs and a reviewer signs off is one case.', which reads awkwardly.",
+   "fix": "Fold links into the answer's own point.",
+   "by": "B-r-5",
+   "via": "review",
+   "date": "2026-10-14 12:35 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Unsourced generalizations about no named third party: FAQ 9 'because quarter-end runs heavier'; FAQ 10 'since a medium-sized company splits the close across several people'.",
+   "fix": "Tie to the reader ('if your quarter-end runs heavier').",
+   "by": "B-r-5",
+   "via": "review",
+   "date": "2026-10-14 12:35 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "FAQ heading drops the topic word: HUB_RULES 5 says '{Topic} Questions, Answered' (the sibling CRM page uses 'CRM Automation Questions, Answered'). Likely width-driven; QC passes.",
+   "fix": "'Accounting Automation Questions, Answered' if it fits T1.",
+   "by": "B-r-5",
+   "via": "review",
+   "date": "2026-10-14 12:35 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: none of the three table competitors ranks in this page's top 10 (BlackLine, Numeric, Trullion, Brex, UiPath rank). Acceptable while the library lacks accounting-automation vendors; flag for the coordinator.",
+   "fix": "Coordinator: consider library entries for close-automation vendors.",
+   "by": "B-r-5",
+   "via": "review",
+   "date": "2026-10-14 12:35 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "8a51716394c341b7",
+   "alt:share_image": "5666da90b40a76d8",
+   "alt:tab_image_1": "86903df230e1f8d4",
+   "alt:tab_image_2": "02767f57d2458429",
+   "alt:tab_image_3": "2ab784688c2d0133",
+   "alt:tab_image_4": "2118e7f771a9698c",
+   "breadcrumb": "f10c3bc0cc4ac403",
+   "chip_adds": "eb7352c30f7e7488",
+   "explore_cta": "fd9eaedbec065b2a",
+   "faq": "56c22e372f0d5233",
+   "feature_1": "4a65ee4f6b644b9d",
+   "feature_2": "2448efed479db4b3",
+   "feature_3": "18769784cfe57c59",
+   "feature_4": "c6302b844050913d",
+   "feature_5": "c97a722f00017f1e",
+   "feature_6": "b0f7e4fe82651b4d",
+   "features_heading": "9eaaf652b198ea9a",
+   "features_subheading": "4802d12064c0f6bf",
+   "h1": "6b9d19913e899fde",
+   "hero_description": "ffb21648d853ea06",
+   "hero_prompt": "3203cb52dee54dcb",
+   "howto_description": "8c221dea7fb87dab",
+   "howto_step_1_des": "afa8a8d9fdcb9bde",
+   "howto_step_1_title": "017f26fe77f5e20d",
+   "howto_step_2_des": "5ffa665a805084ff",
+   "howto_step_2_title": "ac5b6e80b4f1bbab",
+   "howto_step_3_des": "1c82e21af839a02d",
+   "howto_step_3_title": "5654a71d7cfcda56",
+   "howto_step_4_des": "a0b8911a47224d46",
+   "howto_step_4_title": "ce9f276a775263ad",
+   "howto_step_5_des": "c5e52d0373afc2b7",
+   "howto_step_5_title": "4301f8297fd1b33c",
+   "howto_step_6_des": "37e447dadbd87f47",
+   "howto_step_6_title": "c7da377e7df76bd2",
+   "howto_step_7_des": "db20d34359acdf03",
+   "howto_step_7_title": "5098ae9f06295ac3",
+   "howto_title": "9711899edf2f5ec1",
+   "meta_description": "f6a46e49ded99a2d",
+   "meta_title": "680c9a75100194eb",
+   "mockup": "79c9d54f4b3f270d",
+   "product_name": "53ff4770e91a6bb9",
+   "prompt_chip_1": "15c695d00fea8cf9",
+   "prompt_chip_2": "1ced5173596bec61",
+   "prompt_chip_3": "d996e57a399aedac",
+   "prompt_chip_4": "87fcbdea553ef6ad",
+   "slug": "aec122b28125ea4e",
+   "tab_content_1": "8549c521c05593fa",
+   "tab_content_2": "328f58f024cd9860",
+   "tab_content_3": "d45c3ee428a0f6e1",
+   "tab_content_4": "e5c584830eb262e0",
+   "tab_label_1": "15c695d00fea8cf9",
+   "tab_label_2": "1ced5173596bec61",
+   "tab_label_3": "d996e57a399aedac",
+   "tab_label_4": "87fcbdea553ef6ad",
+   "usecase_heading": "eaea8493b6779244",
+   "why_description": "7a068c12c4cd1403",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "c79edd8491d55cf9"
+  },
+  "all": "9a145db3843d8664",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "8a51716394c341b7",
+   "alt:share_image": "5666da90b40a76d8",
+   "alt:tab_image_1": "86903df230e1f8d4",
+   "alt:tab_image_2": "02767f57d2458429",
+   "alt:tab_image_3": "2ab784688c2d0133",
+   "alt:tab_image_4": "2118e7f771a9698c",
+   "breadcrumb": "f10c3bc0cc4ac403",
+   "chip_adds": "eb7352c30f7e7488",
+   "explore_cta": "fd9eaedbec065b2a",
+   "faq": "56c22e372f0d5233",
+   "feature_1": "4a65ee4f6b644b9d",
+   "feature_2": "2448efed479db4b3",
+   "feature_3": "18769784cfe57c59",
+   "feature_4": "c6302b844050913d",
+   "feature_5": "c97a722f00017f1e",
+   "feature_6": "b0f7e4fe82651b4d",
+   "features_heading": "9eaaf652b198ea9a",
+   "features_subheading": "4802d12064c0f6bf",
+   "h1": "6b9d19913e899fde",
+   "hero_description": "ffb21648d853ea06",
+   "hero_prompt": "3203cb52dee54dcb",
+   "howto_description": "8c221dea7fb87dab",
+   "howto_step_1_des": "afa8a8d9fdcb9bde",
+   "howto_step_1_title": "017f26fe77f5e20d",
+   "howto_step_2_des": "5ffa665a805084ff",
+   "howto_step_2_title": "ac5b6e80b4f1bbab",
+   "howto_step_3_des": "1c82e21af839a02d",
+   "howto_step_3_title": "5654a71d7cfcda56",
+   "howto_step_4_des": "a0b8911a47224d46",
+   "howto_step_4_title": "ce9f276a775263ad",
+   "howto_step_5_des": "c5e52d0373afc2b7",
+   "howto_step_5_title": "4301f8297fd1b33c",
+   "howto_step_6_des": "37e447dadbd87f47",
+   "howto_step_6_title": "c7da377e7df76bd2",
+   "howto_step_7_des": "db20d34359acdf03",
+   "howto_step_7_title": "5098ae9f06295ac3",
+   "howto_title": "9711899edf2f5ec1",
+   "meta_description": "f6a46e49ded99a2d",
+   "meta_title": "680c9a75100194eb",
+   "mockup": "79c9d54f4b3f270d",
+   "product_name": "53ff4770e91a6bb9",
+   "prompt_chip_1": "15c695d00fea8cf9",
+   "prompt_chip_2": "1ced5173596bec61",
+   "prompt_chip_3": "d996e57a399aedac",
+   "prompt_chip_4": "87fcbdea553ef6ad",
+   "slug": "aec122b28125ea4e",
+   "tab_content_1": "8549c521c05593fa",
+   "tab_content_2": "328f58f024cd9860",
+   "tab_content_3": "d45c3ee428a0f6e1",
+   "tab_content_4": "e5c584830eb262e0",
+   "tab_label_1": "15c695d00fea8cf9",
+   "tab_label_2": "1ced5173596bec61",
+   "tab_label_3": "d996e57a399aedac",
+   "tab_label_4": "87fcbdea553ef6ad",
+   "usecase_heading": "eaea8493b6779244",
+   "why_description": "7a068c12c4cd1403",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "c79edd8491d55cf9"
+  },
+  "all": "9a145db3843d8664",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
