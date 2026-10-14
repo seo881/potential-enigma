@@ -3,6 +3,12 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-14
+- **Staging publishes (Divit, evening, from KS):** the team may publish to staging any time; KS publishes the domain only after Divit clears him. Claude still never publishes anything (CLAUDE.md "NO SITE PUBLISH"): when the run is complete and read back, A asks Divit for the staging publish straight away.
+- **Correction to ruling 21 (Divit, evening):** every carousel and Learn section stays hidden while the template run works. The 3 carousels unhidden earlier (Form template, Form hub, LP template) are re-hidden and read back now. All carousels and Learn sections are unhidden in one quick batch only immediately before Divit's staging publish; if any staging check fails, they are re-hidden at once and read back.
+- **Spot-check under ruling 20 (Divit, evening):** B's review blocking rate was 7 of 9 with 6 truth findings, over the 20% line. An A-r agent spot-reviews 3 of B's reviewed Automation pages; A then finds which claims got through the pipeline without a claim ID or a quoted span and closes that in code with golden test cases.
+- **Competitor library extension approved (Divit, evening):** category rows for finance and AP, CRM, compliance and GRC, healthcare, and RPA, with sourced, dated vendor facts; the table builder picks the category set by the page's primary. New writing only; no recheck of reviewed or live pages.
+- **Flags approved for shipping (Divit, evening, advisor-checked):** accounting-automation Q9-Q10, accounts-receivable-automation Q4-Q6, Q8, Q10, content-workflow Q7-Q10, payroll-automation Q1. Ship drip-campaign, accounting-automation, accounts-receivable-automation, content-workflow and payroll-automation through the API script, then item publish, verify-live (every internal href) and relink.
+- **Swaps to B (Divit, evening):** compliance-automation Q7 (tax sense, vendor naming); crm-automation Q10 (off-intent); healthcare-automation Q9 and Q10 (vendor comparison). it-automation `alt:tab_image_2` unlocked for B's rework (proposals 84e8cf59).
 - **Console-error exception (Divit, 2026-10-14):** the staging check and the live audit ignore only console errors whose source is clarity.js, the GTM Clarity loader, or adwire molecule.js.
   - Any other console error still fails.
   - The exception is printed in the check output on every run.
