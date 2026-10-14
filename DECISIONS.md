@@ -3,6 +3,50 @@
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
 ## 2026-10-14
+- **Ruling 19 (Divit, 2026-10-14 afternoon): every CMS item write goes through the direct API script in ops/ship.py.** This covers create, update, relink, swap fix and publish (`hubctl api-create | api-update | api-publish`, ops/webflow_api.py).
+  - The Webflow connector is never used for CMS item writes again. It stays only for Designer-level reads and anything the API script must not do, such as collection schema fields and template embeds, staging only.
+  - The token is in the macOS keychain (service `webflow`); never in the repo, reports or chat.
+  - The 2-item canary runs on the next write and is measured end to end; after it, the script is used for everything.
+  - Lesson: tooling that types payloads through a connector is a throughput bug; script it.
+- **Settings (Divit):**
+  - Divit applies the settings change himself: an "ask" rule for the three `--live` write commands in interactive sessions, and deny in the headless loop.
+  - After 2 clean daytime script runs, A proposes letting the overnight loop ship, with automatic verify-live and automatic unpublish on any failure.
+- **board-survey:** routed to B as a swap of the "form board survey" construction questions and the American Community Survey question.
+- **New keywords (ruling 13 sheet, 44 non-thin rows):**
+  - Approved: all except rows 5, 9, 12, 16, 32, 35 and 39.
+  - † rows (under 10 without format variants) count only if they reach 10 without pdf or printable variants; template variants are fine.
+  - Row 1 (friendship quiz) waits for the quiz template.
+  - Pull, derive, re-rank and push. B writes the Form, Automation and SurveyQuiz rows; A writes the LP rows.
+- **Next 2 hubs:** supply is the limit for 500.
+  - Today A proposes 2 to 4 candidate hubs from Emergent's product, each with a Semrush-sized keyword pool (count of build-intent child keywords and total MSV) and what the template clone takes.
+  - Divit picks 2. The clone runs in parallel with everything else, staging first, new classes only.
+- **Flag checks:** with each review batch, the advisor-check list (page, Q number, flagged question) goes out straight away, not once in the morning.
+  - A-coord note, not part of the ruling: the question text stays in .cache, linked from the report, because the repo is public.
+- **Divit, day 10-14 standing instruction:** push supply and throughput by every lever that does not lower quality, without asking. Ask only for:
+  - a change to the quality bar;
+  - spend past the 25% line;
+  - a production site publish;
+  - anything that touches live pages beyond item publishes.
+- **The day's steps:**
+  1. Ship the 64 approved pages by item publish, verify-live and relink.
+  2. Route the ruling-18 swap pages in Form, Automation and SurveyQuiz to B as rework with the exact Q numbers; restore `.hub` to `A:LP`; B starts.
+  3. Pull the 11 Automation no-pull pages through AlsoAsked (cap 2 each), derive and re-rank.
+  4. Show the new-keyword rows; approved rows get pulls and enter the queue at once.
+  5. Build the playable-quiz template today, staging first:
+     - JSON quiz CMS field(s) and a self-contained accessible embed, new classes only;
+     - skeleton, pack and QC for the quiz JSON, with golden cases;
+     - a canary of 2 quiz pages;
+     - then one staging-publish request covering the quiz template, the hub FAQ fix and the 12 card links (after Divit's Designer clicks), with the checks.
+     - Production only on Divit's go. Until the template is live, quiz pages can be written and reviewed but not shipped.
+  6. Loop logic: whenever pages become writable, A writes LP and B writes Form, Automation and SurveyQuiz (including quizzes after the canary); re-rank after every change.
+- **Ship speed (Divit):** finish the 64 with the connector, with remaining creates in parallel agents. From the next batch, CMS writes go through a direct Data API v2 script with:
+  - an allowlist: the 4 child collections; create, update, read and publish of items only; site publish refused in code;
+  - before-values committed and pushed before every write;
+  - read-back and a diff against the spec after;
+  - batches of up to 100, backoff, and idempotent re-runs;
+  - golden tests with a dry run;
+  - a 2-item canary first.
+  - Built as `hubctl api-*`, commit bb51f037.
 - **Ruling 18 (Divit, 2026-10-14): flags are judged per page on the questions actually in the FAQ, not by subtype.** The subtype packet is retired; no subtype is approved or rejected as a whole (`ops/flag_packet.py` stays only as a counter).
   1. **Ship now** (with the 36 clean pages of the day's step 1): these flagged pages are approved as written, and every listed page ships with 0 gate rejects:
      - LP: nonprofit-landing-page, product-landing-page, saas-landing-page, sales-funnel-landing-page, squeeze-page, waitlist-landing-page.
