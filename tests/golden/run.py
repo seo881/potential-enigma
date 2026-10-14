@@ -69,6 +69,17 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
                                                           2026-10-14: with HUB_KMAP_SIM (default no-additions,no-private: B's clone without
                                                           the rsync) kmap() returns the tracked addition and claim_queue hands it out (dry)
   kmap-additions-clean {min_pages}                        plan/additions.json carries only url, hub, primary, status, wave, queue_rank
+  staging-card   {fixture, width, hub, live, expect_fail: [checks], expect_ok?: [checks], match?: {check: text}}  Divit 2026-10-14,
+                                                          ops/staging_check: the carousel fixture in tests/golden/fixtures/staging_check is
+                                                          measured in headless Chromium (offline) and judged; exactly the expect_fail checks
+                                                          fail (16:10 cover, object-fit, alt, title clip, one link per card, "#" and detail_
+                                                          hrefs, live items), and each match text is in that check's detail
+  staging-hrefs  {fixture, page, expect_placeholders, expect_slugs: [paths], expect_targets: [staging urls]}  the staging link
+                                                          check (verify_live.internal_links with the staging host internal) finds every "#"
+                                                          card href (not the JS buttons) and every detail_ slug, staging-host links included
+  console-source {err: {t, src, stack}, expect_ignored, via?: audit}  Divit 2026-10-14 console exception: the error is ignored
+                                                          exactly when expected (ops/console_filter.py, source-based, never on text); via
+                                                          audit: the live audit raises A9-console exactly when the error is not ignored
   review         {url, field, check, text}                 judgment catch (Layer B); kept for the record, not machine-tested
 status: "open" = a known miss the gate does not catch yet (a backlog fix); "guarded" = caught; a guarded case that stops being
 caught fails the suite. Open cases that start passing are reported so they can be marked guarded.
@@ -322,6 +333,28 @@ def caught(c):
         sys.path.insert(0, os.path.join(ROOT, "plan")); import kmap_load as KL
         tr = KL.tracked(ROOT)
         return len(tr) >= c.get("min_pages", 1) and all(set(e) <= set(KL.FIELDS) for e in tr.values())
+    if c["kind"] == "console-source":     # Divit 2026-10-14: clarity.js, the GTM Clarity loader and Adwire molecule.js only, by source
+        import console_filter as CF
+        if c.get("via") != "audit": return bool(CF.ignored_by(c["err"])) == c["expect_ignored"]
+        import live_audit as LA
+        u = "/ai-form-builder/ach-form"
+        m = {"pages": [{"url": u, "hub": "/ai-form-builder", "fields": {}, "faq_items": [], "images": {}, "meta_title": "x" * 40, "meta_description": "y" * 120}]}
+        raw = {"pages": [{"url": u, "checks": {"http200": True}, "verify": {}, "render": {"http": 200, "console_errors": [c["err"]], "jsonld": [], "links": [], "images": [], "text_visible": "", "text_all": "", "h1s": ["h"]}}], "hubs": [], "held": []}
+        flagged = any(f["code"] == "A9-console" for f in LA.evaluate(raw, m, "https://emergent.sh"))
+        return flagged == (not c["expect_ignored"]) and (not c["expect_ignored"] or len(LA.CONSOLE_EXCEPTIONS) == 1)
+    if c["kind"] == "staging-card":       # Divit 2026-10-14: the staging carousel check on an offline fixture (real browser layout)
+        import staging_check as SC
+        fx = os.path.join(ROOT, "tests", "golden", "fixtures", "staging_check", c["fixture"])
+        r = subprocess.run(["node", os.path.join(ROOT, "ops", "staging_check.mjs"), "--fixture", fx, "--width", str(c.get("width", 1440))], cwd=ROOT, capture_output=True, text=True)
+        if r.returncode: return False
+        res = SC.judge_carousel(json.loads(r.stdout), c["hub"], set(c["live"]), len(c["live"]))
+        failed = {k for k, (ok, _d) in res.items() if ok is False}
+        return failed == set(c["expect_fail"]) and all(res[k][0] for k in c.get("expect_ok") or []) and all(t in res[k][1] for k, t in (c.get("match") or {}).items())
+    if c["kind"] == "staging-hrefs":      # Divit 2026-10-14: "#" and detail_ hrefs on staging (offline, no request)
+        import staging_check as SC
+        html = open(os.path.join(ROOT, "tests", "golden", "fixtures", "staging_check", c["fixture"])).read()
+        targets, ph, slugs = SC.href_findings(html, c["page"])
+        return len(ph) == c["expect_placeholders"] and sorted(a["url"] for a in slugs) == sorted(c["expect_slugs"]) and set(c["expect_targets"]) <= set(targets)
     if c["kind"] == "qc-text":
         import qc_hub as Q, hubctl as H
         s = json.load(open(H.spath(c["url"]))); s = copy.deepcopy(s); f = c["field"]
