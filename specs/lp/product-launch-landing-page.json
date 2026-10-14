@@ -129,6 +129,13 @@
    "via": null,
    "by": "B-w-71",
    "note": ""
+  },
+  {
+   "t": "2026-10-14 14:17 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-7",
+   "note": "rubric 10/10 by B-r-7; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -1067,5 +1074,265 @@
  },
  "writers": [
   "B-w-71"
- ]
+ ],
+ "review": {
+  "by": "B-r-7",
+  "date": "2026-10-14 14:17 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Product Launch Landing Page Before Launch Day\" and title \"Product Launch Landing Page Builder | Emergent\" state the whole job; hero \"Get a product launch landing page that counts down to your launch hour and saves every signup to a database you own.\" is under 130 chars with the primary; how-to description \"Follow these seven steps to publish a product launch landing page that collects signups early and switches over at your launch hour.\" says what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is example galleries plus a pre-launch listicle; the page gives \"Four Product Launch Landing Page Examples\" (countdown, crowdfunding pre-launch, founding price, feature launch), a seven-step how-to, a comparison with Unbounce and Instapage (both in the top 10), and the AlsoAsked launch questions. Secondary \"kickstarter landing page examples\" answered in FAQ 6."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Launch-specific detail throughout: \"Set the launch hour to 10 minutes from now on a copy of the page\", \"Anyone who signs up within 72 hours of launch keeps $19 a month; after that, the page shows $29\". Table is library-generated (QC V2/V3 clean)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every feature body and tab opens on a full sentence: \"Tell Emergent what the product does...\", \"Before launch, visitors see a countdown...\", \"Pellucid, a screen recorder for Mac, launches on Tuesday at 10 AM ET.\""
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Short declaratives, one idea each; one \", so\" ending on the page (feature_3, under the cap). No blocking craft class exists."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator-grade, unglamorous detail: \"Marisol Quintavalle signed up at hour 70, and her row saved $19.\" One awkward phrase noted (feature_3)."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Every Emergent sentence maps to claims_used (prompt-build, database-owned, api-connect, alerts, realtime, custom-domain \"which is included and uses credits\", code-export \"On paid plans\", no-caps \"Forms built with Emergent have no response cap\"). FAQ 6 Kickstarter line matches its quoted span \"send a launch notification email to your followers when your project goes live\"; FAQ 9 matches the FTC span \"Your message must include your valid physical postal address.\" Numbers agree: 1,122 + 752 = 1,874 < 2,500; 70 < 72; 5 >= 3."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Launch-hour switch, founding-price window and rehearsal step are specific to this page; sibling primaries (product landing page, app landing page, mobile landing page) appear only as FAQ link anchors, not headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, 7 AlsoAsked + 3 secondaries, each answered first sentence (\"A product launch has three phases: pre-launch, launch day, and follow-up.\"); hub link in item 2; three sibling exact-match links; no brand in any question."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: tab 1 \"Asked to be reminded 3,214 / Sent at 10 AM ET / Live since Tuesday at 10 AM ET\"; tab 2 bars 1,122 and 752, KPI 1,874, \"Until 2,500 people subscribe\"; tab 3 \"Marisol Quintavalle / Hour 70 / $19 a month\", \"New signups see $29\"; tab 4 \"Tidewater Grooming / 5 / 3 or more groomers / Direct message to Oriel Banfield\", \"HubSpot contact updated / Tag: reminders\". One hero per panel, text readable."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #13",
+    "field": "tab_content_4",
+    "quote": "Each signup adds a reminders tag to the customer's HubSpot contact.",
+    "issue": "HubSpot contacts have no native tag field (the image repeats it: \"Tag: reminders\"); a built app would set a contact property. Loose wording about a real brand rather than a clear falsehood.",
+    "fix": "\"Each signup sets a reminders property on the customer's HubSpot contact\" and \"Property: reminders\" in the image.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "feature_3",
+    "quote": "so a new row can update a contact in HubSpot instead of a spreadsheet",
+    "issue": "\"update a contact ... instead of a spreadsheet\" reads oddly: a contact is not updated in a spreadsheet; the comparison does not parse on first read.",
+    "fix": "\"so a new row can update the contact in HubSpot, with no spreadsheet in between.\"",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Every extra field costs signups on a page whose job is to build a list.",
+    "issue": "Stated as a universal fact with no source; it supports a recommendation (one question at most), so it is advice-grade.",
+    "fix": "Soften to advice: \"Each extra field is one more reason to leave before signing up.\"",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "The seven steps are to name the buyer, test demand, set a price, pick a date, recruit people to share it, launch, and follow up.",
+    "issue": "Presented as the canonical seven steps; it is the page's own framework (same for FAQ 4 \"A product launch has three phases\"). Recommendation, not a sourced fact.",
+    "fix": "\"One workable set of seven steps: ...\"",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #13",
+   "field": "tab_content_4",
+   "issue": "HubSpot contacts have no native tag field (the image repeats it: \"Tag: reminders\"); a built app would set a contact property. Loose wording about a real brand rather than a clear falsehood.",
+   "fix": "\"Each signup sets a reminders property on the customer's HubSpot contact\" and \"Property: reminders\" in the image.",
+   "by": "B-r-7",
+   "via": "review",
+   "date": "2026-10-14 14:17 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "feature_3",
+   "issue": "\"update a contact ... instead of a spreadsheet\" reads oddly: a contact is not updated in a spreadsheet; the comparison does not parse on first read.",
+   "fix": "\"so a new row can update the contact in HubSpot, with no spreadsheet in between.\"",
+   "by": "B-r-7",
+   "via": "review",
+   "date": "2026-10-14 14:17 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Stated as a universal fact with no source; it supports a recommendation (one question at most), so it is advice-grade.",
+   "fix": "Soften to advice: \"Each extra field is one more reason to leave before signing up.\"",
+   "by": "B-r-7",
+   "via": "review",
+   "date": "2026-10-14 14:17 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Presented as the canonical seven steps; it is the page's own framework (same for FAQ 4 \"A product launch has three phases\"). Recommendation, not a sourced fact.",
+   "fix": "\"One workable set of seven steps: ...\"",
+   "by": "B-r-7",
+   "via": "review",
+   "date": "2026-10-14 14:17 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "2239b6e8e2a8c1ac",
+   "alt:share_image": "892b866b12c76fd5",
+   "alt:tab_image_1": "a65ef363ad89f852",
+   "alt:tab_image_2": "0a480b8b030c85de",
+   "alt:tab_image_3": "e615a188c19324dc",
+   "alt:tab_image_4": "f2f2ecbaf63066fc",
+   "breadcrumb": "a6099473bb4b38c0",
+   "chip_adds": "41e0f572851ac04e",
+   "explore_cta": "58251b50e8cfb290",
+   "faq": "e8c356d397ddfcfa",
+   "feature_1": "72e83f4729a0b05a",
+   "feature_2": "cc6291d0588683c6",
+   "feature_3": "d382422e86bc4af6",
+   "feature_4": "c47e08442ff9d0ad",
+   "feature_5": "ec8b91646476ad86",
+   "feature_6": "f35702a93f278169",
+   "features_heading": "9812d21eadbc61ea",
+   "features_subheading": "127888ca33da91e4",
+   "h1": "a484712944900df3",
+   "hero_description": "3c9ac0eacbbfda98",
+   "hero_prompt": "7d0efa96caf8536f",
+   "howto_description": "b6bd86608020a43a",
+   "howto_step_1_des": "dd0bbd2088227e2b",
+   "howto_step_1_title": "d58bdf7a83050844",
+   "howto_step_2_des": "78b1cd99c8801973",
+   "howto_step_2_title": "a952392aece4b464",
+   "howto_step_3_des": "6473d030f1d969cb",
+   "howto_step_3_title": "09c9fa4e533aed9e",
+   "howto_step_4_des": "0adb61910c50933b",
+   "howto_step_4_title": "62bec24469cd75d6",
+   "howto_step_5_des": "526c71bf3c9e9eb9",
+   "howto_step_5_title": "a140b85f2070e589",
+   "howto_step_6_des": "49628f374857112e",
+   "howto_step_6_title": "5077f9fec58961cc",
+   "howto_step_7_des": "1e563b57d6a83f1f",
+   "howto_step_7_title": "66e2d5f853bc8c57",
+   "howto_title": "befce6186dbcc606",
+   "meta_description": "7779483d0434bb9c",
+   "meta_title": "673f0cbc54404b2a",
+   "mockup": "6e2467fe173db092",
+   "product_name": "263a7bcce39bc60b",
+   "prompt_chip_1": "cbcfae7dc4d2b4dd",
+   "prompt_chip_2": "08af0f4d7cbfbd67",
+   "prompt_chip_3": "e57f846a3dafabda",
+   "prompt_chip_4": "6b67207b343f00cc",
+   "slug": "dc275a76fefddcc1",
+   "tab_content_1": "f6a65526ae9b995a",
+   "tab_content_2": "b4752b0523527a83",
+   "tab_content_3": "d79f6e924e99368c",
+   "tab_content_4": "bc19a5846eaf4511",
+   "tab_label_1": "cbcfae7dc4d2b4dd",
+   "tab_label_2": "08af0f4d7cbfbd67",
+   "tab_label_3": "e57f846a3dafabda",
+   "tab_label_4": "6b67207b343f00cc",
+   "usecase_heading": "60c4c3352284df45",
+   "why_description": "0b7e17a081415084",
+   "why_table": "f31a4a10c2e9eebe",
+   "why_title": "6d1439afabdfffc3"
+  },
+  "all": "1b08697268acd648",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "2239b6e8e2a8c1ac",
+   "alt:share_image": "892b866b12c76fd5",
+   "alt:tab_image_1": "a65ef363ad89f852",
+   "alt:tab_image_2": "0a480b8b030c85de",
+   "alt:tab_image_3": "e615a188c19324dc",
+   "alt:tab_image_4": "f2f2ecbaf63066fc",
+   "breadcrumb": "a6099473bb4b38c0",
+   "chip_adds": "41e0f572851ac04e",
+   "explore_cta": "58251b50e8cfb290",
+   "faq": "e8c356d397ddfcfa",
+   "feature_1": "72e83f4729a0b05a",
+   "feature_2": "cc6291d0588683c6",
+   "feature_3": "d382422e86bc4af6",
+   "feature_4": "c47e08442ff9d0ad",
+   "feature_5": "ec8b91646476ad86",
+   "feature_6": "f35702a93f278169",
+   "features_heading": "9812d21eadbc61ea",
+   "features_subheading": "127888ca33da91e4",
+   "h1": "a484712944900df3",
+   "hero_description": "3c9ac0eacbbfda98",
+   "hero_prompt": "7d0efa96caf8536f",
+   "howto_description": "b6bd86608020a43a",
+   "howto_step_1_des": "dd0bbd2088227e2b",
+   "howto_step_1_title": "d58bdf7a83050844",
+   "howto_step_2_des": "78b1cd99c8801973",
+   "howto_step_2_title": "a952392aece4b464",
+   "howto_step_3_des": "6473d030f1d969cb",
+   "howto_step_3_title": "09c9fa4e533aed9e",
+   "howto_step_4_des": "0adb61910c50933b",
+   "howto_step_4_title": "62bec24469cd75d6",
+   "howto_step_5_des": "526c71bf3c9e9eb9",
+   "howto_step_5_title": "a140b85f2070e589",
+   "howto_step_6_des": "49628f374857112e",
+   "howto_step_6_title": "5077f9fec58961cc",
+   "howto_step_7_des": "1e563b57d6a83f1f",
+   "howto_step_7_title": "66e2d5f853bc8c57",
+   "howto_title": "befce6186dbcc606",
+   "meta_description": "7779483d0434bb9c",
+   "meta_title": "673f0cbc54404b2a",
+   "mockup": "6e2467fe173db092",
+   "product_name": "263a7bcce39bc60b",
+   "prompt_chip_1": "cbcfae7dc4d2b4dd",
+   "prompt_chip_2": "08af0f4d7cbfbd67",
+   "prompt_chip_3": "e57f846a3dafabda",
+   "prompt_chip_4": "6b67207b343f00cc",
+   "slug": "dc275a76fefddcc1",
+   "tab_content_1": "f6a65526ae9b995a",
+   "tab_content_2": "b4752b0523527a83",
+   "tab_content_3": "d79f6e924e99368c",
+   "tab_content_4": "bc19a5846eaf4511",
+   "tab_label_1": "cbcfae7dc4d2b4dd",
+   "tab_label_2": "08af0f4d7cbfbd67",
+   "tab_label_3": "e57f846a3dafabda",
+   "tab_label_4": "6b67207b343f00cc",
+   "usecase_heading": "60c4c3352284df45",
+   "why_description": "0b7e17a081415084",
+   "why_table": "f31a4a10c2e9eebe",
+   "why_title": "6d1439afabdfffc3"
+  },
+  "all": "1b08697268acd648",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
