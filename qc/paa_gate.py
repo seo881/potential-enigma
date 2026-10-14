@@ -1,4 +1,7 @@
 """paa_gate.py: the PAA gate PA1-PA15 (PA14 brands, PA15 file formats: Divit 2026-10-09) (handover 2026-10-08 section 5; approved by Divit 2026-10-08).
+Ruling 18 (Divit 2026-10-14), NEW writing only (pools, skeletons, feasibility, never-reviewed FAQs; ruling 15): PA4 other sense
+(sense_shift), PA16 named program/agency/state, PA17 spelling/translation/citation trivia, PA6 dropped shapes (navigational,
+self-quiz, fragment; only where PA6 would flag), PA9/PA10 same-intent variants (near_dup). Lists: rules/paa_patterns.json.
 
   hubctl paa URL          gate the page's AlsoAsked pull (private/alsoasked/<slug>.json, from ops/alsoasked_pull.py), plus the
                           top-secondary pull private/alsoasked/<slug>--sec.json when one was made (weekend.py aa URL --kw secondary)
@@ -66,6 +69,53 @@ def phrase_re(p):  # head phrase, each word optionally plural, space or hyphen b
     ws = norm(p).split()
     return re.compile(r"(?<![a-z0-9])" + r"[\s-]+".join(re.escape(w) + r"(?:s|es)?" for w in ws) + r"(?![a-z0-9])")
 
+# ---------- ruling 18 parts 4 and 5 (Divit 2026-10-14): prevention for NEW writing only (ruling 15: no recheck of reviewed pages) ----------
+_R18 = None
+def r18():
+    global _R18
+    if _R18 is None: _R18 = R("paa_patterns.json")
+    return _R18
+def reviewed_already(spec):
+    """A spec that has been through review (spec.review is set by hubctl review and kept through rework, approval and publish):
+    its own FAQ is judged as reviewed (ruling 15) and the r18 checks never re-gate it. Pools, skeletons and feasibility always use them."""
+    return bool((spec or {}).get("review"))
+_NEAR = {}
+def content_near(s):
+    """content() after the same-intent rewrite: verb classes (fill/complete/fill out/write/draw up = one; shorten/speed up = one),
+    filler phrases and years removed (ruling 18 part 4a)."""
+    if s in _NEAR: return _NEAR[s]
+    nd = r18()["near_dup"]; t = " " + re.sub(r"\b(19|20)\d\d\b", " ", norm(s)) + " "
+    for f in nd["fillers"]: t = re.sub(r"(?<![a-z0-9])" + f + r"(?![a-z0-9])", " ", t)
+    for cls, vs in nd["verb_classes"].items():
+        for v in vs: t = re.sub(r"(?<![a-z0-9])" + v + r"(?![a-z0-9])", cls, t)
+    _NEAR[s] = {w[:-1] if len(w) > 4 and w.endswith("e") else w for w in content(t)}   # cycle/cycles, create/creates: one stem
+    return _NEAR[s]
+def near_dup(a, b, head=None):
+    """Same intent after the ruling 18 rewrite. head: the page's primary; when given, both questions must say something beyond the
+    head phrase (a best-practices question and the definition of the same head are different questions: nothing but filler is left
+    once the head is set aside, so only the plain PA9 test applies)."""
+    ca, cb = content_near(a), content_near(b)
+    if head:
+        h = content_near(head)
+        if not (ca - h) or not (cb - h): return False
+    return jacc(ca, cb) >= JACCARD_DUP
+def drop_shape(q, source="alsoasked"):
+    """Ruling 18 part 5: the question shapes code drops (navigational, self-quiz, fragment); None when the shape is allowed.
+    A fragment (no question word) is judged on AlsoAsked and Semrush items only: a secondary is a keyword the writer turns into a question."""
+    ds = r18()["drop_shapes"]; nq = norm(q or "")
+    if re.search(ds["navigational"], nq): return "navigational (where is / where to find)"
+    if re.search(ds["self-quiz (am I)"], nq): return "self-quiz (am I)"
+    if source not in ("secondary", "slot", "definition") and not re.search(ds["question_word"], nq): return "fragment or name (no question word)"
+    return None
+def trivia(q, page_sense=""):
+    """Ruling 18 part 4d: the spelling of the term, a translation, a citation (not on a page about spelling, language or citing)."""
+    nq = norm(q or "")
+    if any(has(w, page_sense) for w in r18()["trivia_page_exempt"]): return None
+    if any(re.search(p, nq) for p in r18()["trivia"]): return "spelling, translation or citation trivia"
+    m = re.match(r"^(is it|should it be|is the correct (spelling|term)|which is correct,?) (.+?) or (.+?)\??$", nq)
+    if m and re.sub(r"[\s-]", "", m.group(3)) == re.sub(r"[\s-]", "", m.group(4)): return "spelling variant trivia (X or X)"
+    return None
+
 def hub_of(url):
     for k, h in CFG["hubs"].items():
         if url.startswith(h["path"] + "/"): return k, h
@@ -103,6 +153,9 @@ class Gate:
         self.skip_h = {e["qh"]: e["reason"] for e in self.bl["per_page"].get(self.slug, []) if e.get("qh")}
         lib = os.path.join(ROOT, "rules", "competitors", self.dir + ".json")
         self.library = [c.lower() for c in json.load(open(lib)).get("competitors", {})] if os.path.exists(lib) else []
+        self.new_writing = not reviewed_already(self.spec)   # ruling 18 / ruling 15: r18 checks on this page's own FAQ only when never reviewed
+        # ruling 18 part 4b: the page's own sense (primary, H1, slug): a sense_shift or named qualifier the page itself carries never fires
+        self.page_sense = " " + norm(" ".join([self.primary, str((self.spec.get("fields") or {}).get("h1") or ""), self.slug.replace("-", " ")])) + " "
         self.siblings = []  # PA10: every other spec in the hub, with its head phrase
         for p in glob.glob(os.path.join(ROOT, "specs", self.dir, "*.json")):
             if os.path.basename(p).startswith("_") or p == self.spec_path: continue
@@ -130,6 +183,33 @@ class Gate:
         return None
 
     def domain(self, q): return [d for d, ws in self.pt["domains"].items() if any(has(w, q) for w in ws)]
+
+    def sense_shift(self, q):
+        """Ruling 18 part 4b: the question puts the page's head noun in another sense (insurance proposal on a business proposal-form
+        page; medical lab requisition on a purchase requisition-form page). Fires only when the page itself is not in that sense."""
+        for head, quals in r18()["sense_shift"].items():
+            if not has(head, self.page_sense.strip()) or not phrase_re(head).search(q): continue
+            off = [x for x in quals if has(x, q) and not has(x, self.page_sense)]
+            if off: return f'"{head}" in another sense ({", ".join(off[:3])}); the page is not about that sense'
+        return None
+
+    def named(self, q, raw):
+        """Ruling 18 part 4c: a named program or agency (American Community Survey, USPS, WHO surveys, IRS ...) or a US state used as a
+        scope (state-specific and navigational). Two-letter state codes count only in capitals (never the ambiguous ones: IN, OR, ME,
+        OK, HI ...) or lowercase right before the head phrase (keyword-sourced). The page's own primary, H1 or slug is exempt."""
+        P18, bl = r18(), self.bl; hits = []
+        hits += [n for n in P18["named"] if phrase_re(n).search(q) and not phrase_re(n).search(self.page_sense)]
+        hits += [n for n in P18["named_upper"] if re.search(r"(?<![A-Za-z0-9])" + n + r"(?![A-Za-z0-9])", raw) and not has(n.lower(), self.page_sense)]
+        hits += [s for s in bl.get("pa14_us_states", []) if has(s.lower(), q) and not has(s.lower(), self.page_sense)]
+        skip = set(P18["state_abbr_skip"])
+        hw = norm(self.primary).split()
+        # a capitalised code used as a place: after in/for/from/of/to/a/an/the, or right before the head phrase or "state"
+        # ("in DE", "a DE <head phrase>"), never a code used as an abbreviation of something else (CA, certificate authority)
+        nxt = r"(?:state|" + re.escape(hw[0]) + r")" if hw else r"state"
+        hits += [a for a in P18["state_abbr"] if a not in skip and re.search(r"(?:\b(?:in|for|from|of|to|a|an|the)\s+" + a + r"(?![A-Za-z0-9])|(?<![A-Za-z0-9.])" + a + r"\s+(?i:" + nxt + r"))", raw)]
+        if raw == raw.lower() and hw:   # keyword-sourced (all lowercase): a state code directly before the head phrase
+            hits += [a for a in P18["state_abbr"] if a not in skip and re.search(r"(?<![a-z0-9])" + a.lower() + r"\s+" + re.escape(hw[0]), q)]
+        return sorted(set(hits))
 
     def judge(self, item):
         """The per-question rules, then Divit's flag decisions (rules/flag_decisions.json, Divit 2026-10-13): an approved flag subtype
@@ -210,10 +290,21 @@ class Gate:
         # PA15 no file formats or download-style asks
         fm = [f for f in self.bl.get("pa15_formats", []) if has(f, q)]
         if fm: out.append(("PA15", "reject", "file format or download ask: " + ", ".join(fm[:3])))
+        # ruling 18 parts 4 and 5 (Divit 2026-10-14): new writing only; a reviewed page's own FAQ (run_spec marks it legacy) is never re-gated
+        r18on = not item.get("legacy")
+        if r18on:
+            ss = self.sense_shift(q)
+            if ss: out.append(("PA4", "reject", "other sense: " + ss))
+            nm = self.named(q, item.get("q") or "")
+            if nm: out.append(("PA16", "reject", "names a program, agency or state (state-specific or navigational): " + ", ".join(nm[:3])))
+            tv = trivia(q, self.page_sense)
+            if tv: out.append(("PA17", "reject", tv))
+            sh = drop_shape(item.get("q") or "", src) if a is None else None   # part 5: only shapes that were PA6 flags (asker unclear)
+            if sh: out.append(("PA6", "reject", "dropped shape: " + sh))
         # PA10 one page per question per hub: the page whose head phrase the question carries owns it
         cq = content(q)
         for surl, sprim, sq, sc in self.siblings:
-            if jacc(cq, sc) < JACCARD_DUP: continue
+            if jacc(cq, sc) < JACCARD_DUP and not (r18on and near_dup(q, sq, self.primary)): continue
             mine = any(h.search(q) for h in self.heads); theirs = bool(sprim) and phrase_re(sprim).search(q)
             # the longer head phrase is the more specific owner when both match (tournament registration form > registration form)
             if mine and theirs: mine = len(norm(self.primary)) >= len(norm(sprim))
@@ -236,6 +327,9 @@ class Gate:
             c = content(it["q"])
             dup = next((k for k in kept if jacc(c, content(k["q"])) >= JACCARD_DUP), None)
             if dup: it["reasons"].append(("PA9", "reject", f'same intent as "{dup["q"][:50]}"'))
+            elif not it.get("legacy"):   # ruling 18 part 4a (new writing only): same-intent variants (fill/complete/write; shorten/speed up)
+                dup = next((k for k in kept if near_dup(it["q"], k["q"], self.primary)), None)
+                if dup: it["reasons"].append(("PA9", "reject", f'same intent as "{dup["q"][:50]}" (same-intent variant)'))
             if it.get("asker") == "respondent":
                 resp += 1
                 if resp > MAX_RESPONDENT: it["reasons"].append(("PA6", "reject", f"more than {MAX_RESPONDENT} respondent questions"))
@@ -411,6 +505,7 @@ def run_spec(g):
     ps = pulls(g.slug); sh = set().union(*(answer_shingles(d) for d in ps)) if ps else set()
     ctx = {norm(n["q"]): n["ctx"] for n in pull_nodes(g.slug)}
     for it in items:
+        it["legacy"] = not g.new_writing   # ruling 15/18: a reviewed page's own FAQ is judged without the r18 checks
         it["ctx"] = ctx.get(norm((it["prov"] or {}).get("original") or ""), "")
         if (it["prov"] or {}).get("depth") == 2: it["parent_verdict"] = pv.get(norm(it["prov"].get("parent") or ""), "flag")
         it["reasons"] = g.judge(it)

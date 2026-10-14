@@ -32,6 +32,13 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   engine-brief   {url, path, value, expect: renders|brief-error, match?}  the image engine on the spec's brief with image_brief[path] = value
                                                           renders cleanly, or reports a BriefError issue (containing `match`); never crashes
   h3-noflag      {text}                                    the serial-comma detector must NOT call this text a certain miss (a trap)
+  gate-r18       {url, sha, q_index, expect | absent, new_writing?}  ruling 18: FAQ item q_index of the spec at sha judged as NEW writing
+                                                          rejects with an expected rule (absent: none of these rejects); new_writing false =
+                                                          the reviewed page as it is (ruling 15: the r18 checks never re-gate it)
+  gate-pool      {url, from: pull|semrush, qh, expect | absent}  ruling 18: a pool candidate (by hash) rejects with an expected rule, or not
+  feas-skeleton  {url, expect_feasible}                   ruling 18 part 5: feasibility total == skeleton.slots_possible, feasible as expected
+  acronym-case   {raw, expect}                            ruling 18 part 4e: skeleton.clean_question cases acronyms (plurals too)
+  qc-r18         {url, sha, match, expect, keep_review?}  ruling 18 in QC R15: the spec at sha as new writing raises R15 `match` exactly when expected
   review         {url, field, check, text}                 judgment catch (Layer B); kept for the record, not machine-tested
 status: "open" = a known miss the gate does not catch yet (a backlog fix); "guarded" = caught; a guarded case that stops being
 caught fails the suite. Open cases that start passing are reported so they can be marked guarded.
@@ -189,6 +196,38 @@ def caught(c):
         import qc_hub as Q, hubctl as H
         s = copy.deepcopy(json.load(open(H.spath(c["url"])))); s["fields"][c["field"]] = c["text"]
         return not any(i["code"] == c["check"] and i["sev"] in ("P0", "P1") and (i["field"] or "").startswith(c["field"]) for i in Q.check(s, Q.load_specs([H.spath(c["url"])])))
+    if c["kind"] == "gate-r18":            # ruling 18 parts 4-5: FAQ item q_index of the spec at sha, judged as NEW writing (or as the
+        import paa_gate as PG, io as _io, contextlib as _cl   # reviewed page it is, new_writing false: ruling 15, never re-gated)
+        g = PG.Gate(c["url"]); g.spec = spec_at(c["sha"], c["url"]); g.new_writing = c.get("new_writing", True)
+        with _cl.redirect_stdout(_io.StringIO()): items, _ = PG.run_spec(g)
+        it = items[c["q_index"] - 1]
+        if c.get("absent"): return not any(r[0] in c["absent"] for r in it["reasons"] if r[1] == "reject")
+        return any(r[0] in c["expect"] and r[1] == "reject" for r in it["reasons"])
+    if c["kind"] == "gate-pool":           # ruling 18: a candidate in the page's pool (AlsoAsked pull or Semrush usable, by qh) is rejected or not
+        import paa_gate as PG, semrush_questions as SQ, io as _io, contextlib as _cl
+        g = PG.Gate(c["url"])
+        if c["from"] == "semrush":
+            q = next((x["q"] for x in SQ.usable(g.slug) if PG.qhash(x["q"]) == c["qh"]), None)
+            rs = g.judge({"q": q, "source": "keyword", "n": 5}) if q else None
+        else:
+            with _cl.redirect_stdout(_io.StringIO()): items = PG.run_pull(g)[0] if PG.pulls(g.slug) else []
+            rs = next((i["reasons"] for i in items if PG.qhash(i["q"]) == c["qh"]), None)
+        if rs is None: return False
+        if c.get("absent"): return not any(r[0] in c["absent"] and r[1] == "reject" for r in rs)
+        return any(r[0] in c["expect"] and r[1] == "reject" for r in rs)
+    if c["kind"] == "feas-skeleton":       # ruling 18 part 5: feasibility is the skeleton's own slot count (overnight 2026-10-14: 10 vs 7)
+        import park_rescue as R, skeleton as SK, io as _io, contextlib as _cl
+        with _cl.redirect_stdout(_io.StringIO()): f = R.feasibility(c["url"], draft=False); n = SK.slots_possible(c["url"])   # draft=False: stable once claimed
+        return f["total"] == n and f["feasible"] == c["expect_feasible"]
+    if c["kind"] == "acronym-case":        # ruling 18 part 4e: keyword-sourced questions case known acronyms, plurals too
+        import skeleton as SK
+        return SK.clean_question(c["raw"]) == c["expect"]
+    if c["kind"] == "qc-r18":              # ruling 18 part 4 in QC R15: the spec at sha as NEW writing (review set aside) raises R15
+        import qc_hub as Q, hubctl as H    # with `match` exactly when expected; keep_review: the reviewed page is never re-checked
+        s = copy.deepcopy(spec_at(c["sha"], c["url"])); s["_path"] = H.spath(c["url"])
+        if not c.get("keep_review"): s.pop("review", None)
+        hit = any(i["code"] == "R15" and i["sev"] in ("P0", "P1") and c["match"] in i["msg"] for i in Q.check(s, Q.load_specs([H.spath(c["url"])])))
+        return hit == c["expect"]
     if c["kind"] == "qc-text":
         import qc_hub as Q, hubctl as H
         s = json.load(open(H.spath(c["url"]))); s = copy.deepcopy(s); f = c["field"]

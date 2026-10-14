@@ -80,18 +80,26 @@ def _a(primary):   # article for a definition question ("an audit workflow"; non
 def _art(primary):
     return (_a(primary) + " ") if COUNTABLE.search(P.norm(primary)) else ""
 
-ACRO = {"ai": "AI", "crm": "CRM", "hr": "HR", "erp": "ERP", "api": "API", "sms": "SMS", "nps": "NPS", "csat": "CSAT", "faq": "FAQ", "seo": "SEO",
-        "pdf": "PDF", "it": None, "us": None, "dei": "DEI", "kpi": "KPI", "rfp": "RFP", "sop": "SOP", "ppc": "PPC", "saas": "SaaS", "b2b": "B2B", "hipaa": "HIPAA", "dam": "DAM", "aec": "AEC", "rfq": "RFQ", "rfi": "RFI", "cpq": "CPQ", "pdfs": "PDFs"}
+ACRO = P.r18()["acronyms"]   # rules/paa_patterns.json (ruling 18 part 4e: CFOs, KYC ...); None = never cased (it, us)
+def case_acronyms(text):
+    """Known acronyms in their house casing, plurals too ("cfos" -> "CFOs", "kpis" -> "KPIs"); words already cased are kept."""
+    def one(m):
+        w = m.group(0); lw = w.lower()
+        if lw in ACRO: return ACRO[lw] or w
+        if lw.endswith("s") and ACRO.get(lw[:-1]): return ACRO[lw[:-1]] + "s"
+        return w
+    return re.sub(r"(?<![A-Za-z0-9'-])[A-Za-z0-9][A-Za-z0-9'-]*(?![A-Za-z0-9'-])", one, text)
 def clean_question(raw):
     """A Semrush question as a starting point only (keyword-sourced: the writer may reword it naturally, head phrase kept, backlog line 91):
-    years stripped, acronyms cased, first letter capitalised, a question mark."""
+    years stripped, acronyms cased (plurals too, ruling 18), first letter capitalised, a question mark."""
     q = re.sub(r"\s+", " ", re.sub(r"\b(19|20)\d\d\b", " ", raw)).strip(" ?")
-    q = " ".join(ACRO.get(w.lower()) or w if ACRO.get(w.lower()) else w for w in q.split())
+    q = case_acronyms(q)
     return q[:1].upper() + q[1:] + "?"
 
-def candidates(url):
-    """Passing FAQ candidates: AlsoAsked pull (pass only; a flag only once Divit's packet approves its subtype), Semrush questions (pass)."""
-    s = url.rsplit("/", 1)[1]; g = P.Gate(url); out = []
+def candidates(url, extra=()):
+    """FAQ candidates: AlsoAsked pull and Semrush questions, passing first, then flagged (ruling 18 part 5: flags may fill slots; the
+    shapes code drops are gate rejects). extra: unapproved synonym phrases, only for ruling 12's 'feasibility with' column."""
+    s = url.rsplit("/", 1)[1]; g = P.Gate(url, extra); out = []
     if P.pulls(s):
         items, _ = quiet(P.run_pull, g)
         for i in items:
@@ -144,17 +152,38 @@ def default_table(url):
     vs = (ranking + pool)[:3]
     return vs, rows
 
-def slots_possible(url):
-    """How many FAQ slots the skeleton can fill from passing sources (no writes)."""
-    km = H.kmap().get(url) or {}; cands = candidates(url); qs = []
-    for c in cands:
-        if not R.dup(c["q"], qs): qs.append(c["q"])
-    n = len(qs) + 2 - sum(1 for q in qs[:0])   # the definition and how-to slots are always fillable
-    carried = [P.content(q) for q in qs]
-    for x in km.get("secondaries") or []:
+def plan_slots(url, cap=10, extra=()):
+    """The skeleton's FAQ slots in fill order (no writes): definition, how-to-build, passing candidates, secondaries, flagged
+    candidates; each skipped when same-intent (paa_gate.near_dup) as a slot already taken. cap None = every fillable slot, which is
+    the feasibility count (ruling 18 part 5: feasibility and the skeleton agree by construction)."""
+    km = H.kmap().get(url) or {}; prim = km.get("primary") or url.rsplit("/", 1)[1].replace("-", " ")
+    g = P.Gate(url, extra); cands = candidates(url, extra); have = []; slots = []
+    full = lambda: cap is not None and len(slots) >= cap
+    pick = lambda rx: next((c for c in cands if rx.search(P.norm(c["q"])) and c not in have), None)
+    d = pick(DEF_RX); have += [d] if d else []
+    slots.append(d or {"kind": "definition", "q": f"What is {_art(prim)}{prim}?", "ref": prim, "locked": True})
+    h = pick(HOW_RX); have += [h] if h else []
+    slots.append(h or {"kind": "definition", "q": (f"How do I create {_art(prim)}{prim}?" if _art(prim) else f"How do I set up {prim}?"), "ref": prim, "locked": True})
+    near = lambda q: any(P.near_dup(q, x["q"], prim) or P.jacc(P.content(q), P.content(x["q"])) >= P.JACCARD_DUP for x in slots if x.get("q"))
+    for c in [c for c in cands if not c.get("flagged")]:
+        if full(): break
+        if c in have or near(c["q"]): continue
+        slots.append(c)
+    carried = [P.content(x["q"]) for x in slots]
+    for x in sorted(km.get("secondaries") or [], key=lambda x: -(x.get("msv") or 0)):
+        if full(): break
         c = P.content(x["kw"])
-        if c and not any(c <= q for q in carried): carried.append(c); n += 1
-    return n
+        if not c or any(c <= q for q in carried) or any(r[0] in R.KW_RULES and r[1] == "reject" for r in g.judge({"q": x["kw"], "source": "secondary"})): continue
+        carried.append(c); slots.append({"kind": "secondary", "q": None, "ref": x["kw"], "locked": False})
+    for c in [c for c in cands if c.get("flagged")]:
+        if full(): break
+        if c in have or near(c["q"]): continue
+        slots.append(c)
+    return slots
+
+def slots_possible(url, extra=()):
+    """How many FAQ slots the skeleton can fill (no writes); park_rescue.feasibility returns the same number."""
+    return len(plan_slots(url, None, extra))
 
 def cmd_build(a):
     url = a[0]; by = a[a.index("--by") + 1] if "--by" in a else None
@@ -169,28 +198,7 @@ def cmd_build(a):
     if not os.path.exists(H.spath(url)):
         subprocess.run([sys.executable, os.path.join(ROOT, "ops", "hubctl.py"), "init", url, "--by", by], check=True)
     s = load(url); prim = km["primary"]; hub = H.hub_of(url)
-    cands = candidates(url); have = []; slots = []
-    pick = lambda rx: next((c for c in cands if rx.search(P.norm(c["q"])) and c not in have), None)
-    d = pick(DEF_RX); have += [d] if d else []
-    slots.append(d or {"kind": "definition", "q": f"What is {_art(prim)}{prim}?", "ref": prim, "locked": True})
-    h = pick(HOW_RX); have += [h] if h else []
-    slots.append(h or {"kind": "definition", "q": (f"How do I create {_art(prim)}{prim}?" if _art(prim) else f"How do I set up {prim}?"), "ref": prim, "locked": True})
-    FILL = re.compile(r"\b(best practices?|for e commerce|for ecommerce|in marketing automation tools?|your business|long-term|tips)\b", re.I)
-    near = lambda q, qs: R.dup(FILL.sub(" ", q), [FILL.sub(" ", x) for x in qs])   # "...workflows best practices?" = "...workflows?"
-    for c in [c for c in cands if not c.get("flagged")]:
-        if len(slots) == 10: break
-        if c in have or near(c["q"], [x["q"] for x in slots if x.get("q")]): continue
-        slots.append(c)
-    carried = [P.content(x["q"]) for x in slots]
-    for x in sorted(km.get("secondaries") or [], key=lambda x: -(x.get("msv") or 0)):
-        if len(slots) == 10: break
-        c = P.content(x["kw"])
-        if not c or any(c <= q for q in carried) or any(r[0] in R.KW_RULES and r[1] == "reject" for r in P.Gate(url).judge({"q": x["kw"], "source": "secondary"})): continue
-        carried.append(c); slots.append({"kind": "secondary", "q": None, "ref": x["kw"], "locked": False})
-    for c in [c for c in cands if c.get("flagged")]:
-        if len(slots) == 10: break
-        if c in have or near(c["q"], [x["q"] for x in slots if x.get("q")]): continue
-        slots.append(c)
+    slots = plan_slots(url, 10)
     if len(slots) < 10: sys.exit(f"refused: only {len(slots)} FAQ slots from passing sources (ruling 15: the skeleton needs 10); not writable yet")
     hubpath = H.CFG["hubs"][hub]["path"]; hubtext = H.CFG["hubs"][hub]["hub_link_text"]
     for i, sl in enumerate(slots, 1): sl.update({"n": i, "a": sl.get("a") or "", "link": None})

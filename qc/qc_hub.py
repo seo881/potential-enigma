@@ -791,6 +791,22 @@ def check(spec, siblings):
             if sl.get("locked") and sl.get("q") and (len(got) < sl["n"] or got[sl["n"] - 1] != sl["q"]):
                 add("P0", "R15", "faq", f'FAQ item {sl["n"]} must be the locked question "{sl["q"][:60]}" (code-set; never reword)')
         if not spec.get("claims_used"): add("P1", "R15", "claims_used", "list the claim ids (rules/capabilities.json) the copy relies on")
+        # ruling 18 part 4 (Divit 2026-10-14), new writing only: never on a page already reviewed (ruling 15, no recheck or ratchet)
+        sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate as _PG18
+        if not _PG18.reviewed_already(spec):
+            _qs = [i.get("q", "") for i in (fq or {}).get("items", [])]
+            _skip = set(_PG18.r18().get("acronyms_qc_skip", []))
+            _acro = {k: v for k, v in _PG18.r18()["acronyms"].items() if v and k not in _skip}
+            for idx, q_ in enumerate(_qs, 1):
+                # 4e: a known acronym written in lowercase ("cfos" shipped on invoice-approval-workflow), plurals too
+                for w_ in re.findall(r"(?<![A-Za-z0-9'-])[A-Za-z0-9][A-Za-z0-9'-]*(?![A-Za-z0-9'-])", q_):
+                    base = w_[:-1] if w_.endswith("s") and w_ not in _acro and w_[:-1] in _acro else w_
+                    if base in _acro and w_ == w_.lower():
+                        add("P1", "R15", "faq", f'FAQ item {idx}: "{w_}" is an acronym: write "{_acro[base] + w_[len(base):]}" (ruling 18)'); break
+                # 4a: two FAQ questions that differ only by a same-intent variant (fill/complete/fill out/write/draw up; shorten/speed up)
+                for j_, q2 in enumerate(_qs[:idx - 1], 1):
+                    if _PG18.near_dup(q_, q2, prim):
+                        add("P1", "R15", "faq", f"FAQ items {j_} and {idx} ask the same question (same-intent variant, ruling 18): swap item {idx} for another passing question"); break
         # canary 2026-10-14 (A-r-10): an absolute efficacy claim against a risk ("confirmation stops throwaway accounts") is untrue unless sourced
         EFF = re.compile(r"\b(stops?|prevents?|eliminates?|blocks? (?:all|every)|rules? out|ends?)\b(?:\W+\w+){0,6}?\W+(fraud|fake|spam|abuse|gaming|cheat\w*|errors?|mistakes?|duplicates?|bots?|throwaway|misuse|theft|leaks?|breach\w*|no-shows?|chargebacks?|disputes?)\b|\bguarantee[sd]?\b", re.I)
         prose = {k: v for k, v in F.items() if isinstance(v, str) and k not in ("why_table", "mockup", "faq", "hero_prompt")}

@@ -41,7 +41,9 @@ def workbook_questions():
             out.setdefault(u, []).append(k)
     return out
 
-def dup(q, pool): return any(P.jacc(P.content(q), P.content(x)) >= P.JACCARD_DUP for x in pool)
+def dup(q, pool, head=None):
+    """Same intent (PA9): plain Jaccard on content words, or a same-intent variant (ruling 18 part 4a, paa_gate.near_dup)."""
+    return any(P.jacc(P.content(q), P.content(x)) >= P.JACCARD_DUP or P.near_dup(q, x, head) for x in pool)
 
 def sources(url, extra=()):
     g = P.Gate(url, extra)
@@ -54,7 +56,7 @@ def sources(url, extra=()):
         n = len(items); ws = sum(any(r[0] in ("PA4", "PA5") and r[1] == "reject" for r in i["reasons"]) for i in items)
     return g, fq, on, pull, (ws / n if n else 0.0), n
 
-KW_RULES = ("PA4", "PA5", "PA8", "PA14", "PA15")   # rules that reject a question for words the keyword itself carries
+KW_RULES = ("PA4", "PA5", "PA8", "PA14", "PA15", "PA16", "PA17")   # rules that reject a question for words the keyword itself carries (PA16/PA17: ruling 18)
 
 def a6_count(url, extra=()):
     """A6 (Divit 2026-10-12): on-topic FAQ sources for a page, counting APPROVED synonyms only (rules/paa_synonyms.json; never the
@@ -149,8 +151,26 @@ if __name__ == "__main__":
         for u in sys.argv[2:]: print(u, json.dumps(a6_count(u)), flush=True)
     else: main(sys.argv[1:] or parked_from_plan())
 
-def feasibility(url, extra=()):
-    """Ruling 10 B1 (Divit 2026-10-13): can this page reach 10 FAQ items with 0 rejects after its one pull? Counts a6_count
+def feasibility(url, extra=(), draft=True):
+    """Ruling 10 B1 (Divit 2026-10-13), ruling 18 part 5 (2026-10-14): can this page reach 10 FAQ items with 0 rejects? Since ruling 18
+    it is the skeleton's own count (ops/skeleton.py plan_slots, no cap): every slot the skeleton would fill from the AlsoAsked pull,
+    the Semrush questions, the uncarried secondaries and the 2 template slots, flagged questions included except the shapes the gate
+    now drops (fragment, self-quiz, navigational, state- or platform-specific) and PA14 capitalised names, each same-intent
+    question once (near_dup). The overnight run of 2026-10-14 found lead-nurturing-workflow at feasibility 10 but skeleton 7/10:
+    the old count skipped the skeleton's filler-aware duplicate test. Under 10: no writer; the page waits at the end of the queue.
+    A page that already has a FAQ draft keeps the ruling 10 count (_feasibility_draft). Returns counts only: pull (AlsoAsked slots), sq (Semrush), sec (secondary slots), slots (template), flagged, total."""
+    spp = os.path.join(ROOT, "specs", P.hub_of(url)[1]["repo_dir"], url.rsplit("/", 1)[1] + ".json")
+    sp = json.load(open(spp)) if os.path.exists(spp) else {}
+    if draft and (sp.get("fields") or {}).get("faq"): return _feasibility_draft(url, extra)   # an existing draft keeps its own FAQ count
+    import skeleton as SK
+    plan = SK.plan_slots(url, None, extra)
+    k = Counter(sl.get("kind") for sl in plan); total = len(plan)
+    return {"faq": 0, "pull": k["alsoasked"], "sec": k["secondary"], "sq": k["semrush"], "recoverable": 0, "slots": k["definition"],
+            "flagged": sum(1 for sl in plan if sl.get("flagged")), "total": total, "feasible": total >= P.N_FAQ,
+            "pulls": len(P.pulls(url.rsplit("/", 1)[1])), "spec_faq": False}
+
+def _feasibility_draft(url, extra=()):
+    """A page that already has a FAQ draft (rework, --adopt): its count before ruling 18 (ruling 10 B1). Ruling 10 B1 (Divit 2026-10-13): can this page reach 10 FAQ items with 0 rejects after its one pull? Counts a6_count
     (gate-passing FAQ items, pull items, uncarried secondaries) plus RECOVERABLE items: FAQ items the gate rejects only for
     PA3 whose source is a keyword or secondary that itself contains the head phrase (backlog line 91: the writer can put the
     head term back). A page with no FAQ yet also gets its 2 template slots (definition, how-to-build). Pass and flag both

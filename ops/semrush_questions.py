@@ -172,7 +172,7 @@ def _brands(url):
     if os.path.exists(lib): names |= set(json.load(open(lib)).get("competitors", {}))
     return {P.norm(n) for n in names if n and len(n) > 2}
 
-SENSE_SHIFT = ["content", "seo", "website", "site", "web", "social media", "social", "marketing", "ux", "accessibility", "brand", "link", "energy", "tax", "code", "security", "data"]
+SENSE_SHIFT = P.r18()["sense_shift_modifiers"]   # rules/paa_patterns.json (ruling 18 part 4b); the keyed sense_shift block runs in the gate (PA4)
 def keep_reason(url, q, have=()):
     """Why a Semrush question is dropped (or None when it is usable): no_head | drop_class | brand | gate_reject | duplicate."""
     import synonyms as SY, park_rescue as R
@@ -182,7 +182,7 @@ def keep_reason(url, q, have=()):
     if SY.drop_class(q): return "drop_class"
     if any(re.search(r"(?<![a-z0-9])" + re.escape(b) + r"(?![a-z0-9])", nq) for b in _brands(url)): return "brand"
     if any(x[1] == "reject" for x in g.judge({"q": q, "source": "keyword", "n": 5})): return "gate_reject"
-    if R.dup(q, list(have)): return "duplicate"
+    if R.dup(q, list(have), g.primary): return "duplicate"
     return None
 
 def derive(url):
@@ -212,7 +212,7 @@ def derive(url):
         rs = g.judge({"q": q, "source": "keyword", "n": 5})
         if any(x[1] == "reject" for x in rs): why["gate_reject"] += 1; continue
         noyear = lambda t: re.sub(r"\b(19|20)\d\d\b", " ", t)   # "...workflow 2025 2026" is the same question (A-r-8, 2026-10-14)
-        if R.dup(noyear(q), [noyear(x) for x in have + [o["q"] for o in out]]): why["duplicate"] += 1; continue
+        if R.dup(noyear(q), [noyear(x) for x in have + [o["q"] for o in out]], g.primary): why["duplicate"] += 1; continue   # near_dup: ruling 18 part 4a
         out.append({"q": q, "verdict": "flag" if any(x[1] == "flag" for x in rs) else "pass",
                     "prov": {"tool": "semrush-phrase_questions", "query": r["phrase"], "database": DB, "volume": r["volume"], "fetched": now()[:10]}})
     os.makedirs(DER, exist_ok=True)
