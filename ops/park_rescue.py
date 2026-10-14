@@ -21,6 +21,9 @@ from collections import Counter
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "qc")); sys.path.insert(0, os.path.join(ROOT, "ops"))
 import paa_gate as P, guards as G
+def H_kmap():   # the merged map (local keyword_map.json + tracked plan/additions.json; plan/kmap_load.py)
+    _pp = os.path.join(ROOT, "plan"); _pp in sys.path or sys.path.append(_pp); import kmap_load as KL
+    return KL.load(ROOT) or {}
 
 QWORD = re.compile(r"^(how|what|why|when|where|who|which|can|do|does|is|are|should|will|could|would)\b", re.I)
 WB = os.path.join(ROOT, "private", "Emergent_Hub_Child_Pages_Final_v3.xlsx")
@@ -73,7 +76,7 @@ def a6_count(url, extra=()):
     pull = []
     if P.pulls(g.slug):
         items, _ = P.run_pull(g); pull = [i["q"] for i in items if i["verdict"] == "pass" and not dup(i["q"], on)]
-    km = json.load(open(os.path.join(ROOT, "plan", "keyword_map.json"))).get(url) or {}
+    km = H_kmap().get(url) or {}
     carried = [P.content(q) for q in on + pull]; seen, sec = [], 0
     for x in sorted(km.get("secondaries") or [], key=lambda x: -(x.get("msv") or 0)):
         c = P.content(x.get("kw") or "")
@@ -90,7 +93,7 @@ def a6_count(url, extra=()):
     return {"faq": len(on), "pull": len(pull), "sec": sec, "sq": sq, "total": len(on) + len(pull) + sec + sq, "pulls": len(P.pulls(g.slug)), "spec_faq": bool(faq), "_qs": counted}
 
 def main(urls):
-    km = json.load(open(os.path.join(ROOT, "plan", "keyword_map.json")))
+    km = H_kmap()
     cand = json.load(open(os.path.join(ROOT, "rules", "paa_synonym_candidates.json")))["pages"]
     wq = workbook_questions()
     paa = {r["url"]: r for r in csv.DictReader(open(os.path.join(ROOT, ".cache", "review", "paa.csv")))}

@@ -18,7 +18,8 @@ from html import unescape
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CFG = json.load(open(os.path.join(ROOT, "config", "collections.json")))
 MAP_PATH = os.path.join(ROOT, "plan", "keyword_map.json")
-KMAP = json.load(open(MAP_PATH)) if os.path.exists(MAP_PATH) else None
+_pp = os.path.join(ROOT, "plan"); _pp in sys.path or sys.path.append(_pp); import kmap_load as _KL
+KMAP = _KL.load(ROOT)   # local keyword_map.json + the tracked approved additions it lacks (plan/additions.json)
 F4_RETIRED = True   # Divit, 2026-10-09: F4 retired, superseded by the PAA gate (qc/paa_gate.py, PA1-PA13); code kept, disabled
 FONTS = ["/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", "/System/Library/Fonts/Supplemental/Arial.ttf", "/Library/Fonts/Arial.ttf"]
 FONT = next((f for f in FONTS if os.path.exists(f)), FONTS[0])

@@ -71,9 +71,12 @@ REPO_RAW = "https://raw.githubusercontent.com/seo881/potential-enigma"
 
 def now(): return datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 def kmap():
-    p = os.path.join(ROOT, "plan", "keyword_map.json")
-    if not os.path.exists(p): sys.exit("plan/keyword_map.json missing. Run: python3 plan/build_map.py /mnt/project/Emergent_Hub_Child_Pages_Final_v3.xlsx")
-    return json.load(open(p))
+    """The clone's plan/keyword_map.json plus the tracked approved additions it lacks (plan/additions.json; plan/kmap_load.py)."""
+    if os.path.join(ROOT, "plan") not in sys.path: sys.path.insert(0, os.path.join(ROOT, "plan"))
+    import kmap_load as KL
+    m = KL.load(ROOT)
+    if m is None: sys.exit("plan/keyword_map.json missing. Run: python3 plan/build_map.py /mnt/project/Emergent_Hub_Child_Pages_Final_v3.xlsx")
+    return m
 def hub_of(url):
     for k, h in CFG["hubs"].items():
         if url.startswith(h["path"] + "/"): return k
@@ -192,6 +195,22 @@ def cmd_defer(args):
         st["pages"].pop(url, None); save_st(hub_of(url), st)
     print(f"{url}: deferred at {f['total']}/10 (back to the queue, not parked; claim skips it until its sources change)")
 
+def claim_queue(hub, m, st):
+    """(pages claimable now in claim order, {url: class}) from plan/queue-ranked.txt, or None without it. No writes.
+    m is kmap() (local map + tracked plan/additions.json), st the hub's status: only URLs absent from st are claimable."""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import queue_rank as _QR
+    rk = _QR.ranked()
+    if rk is None: return None
+    cls = {u: c for _r, h, u, c, _f in rk if h == hub}
+    queue = [m[u] for _r, h, u, c, _f in rk if h == hub and c in ("ready", "syn-pending") and u in m and u not in st["pages"]]
+    # quiz pages are claimable only after the quiz canary passed (DECISIONS 2026-10-14; status/quiz-canary.json result "pass")
+    try: _qok = json.load(open(os.path.join(ROOT, "status", "quiz-canary.json"))).get("result") == "pass"
+    except (OSError, ValueError): _qok = False
+    try: _qcan = set(json.load(open(os.path.join(ROOT, "status", "quiz-canary.json"))).get("canary_pages") or [])
+    except (OSError, ValueError): _qcan = set()
+    if not _qok: queue = [p for p in queue if "quiz" not in p["url"].rsplit("/", 1)[1] or p["url"] in _qcan]   # the named canary pages stay claimable
+    return queue, cls
+
 def cmd_claim(args):
     hub, n = args[0], int(args[1]); by = need_by(args, "claim")
     pin = os.path.join(ROOT, ".hub")
@@ -205,20 +224,12 @@ def cmd_claim(args):
     sys.path.insert(0, os.path.join(ROOT, "qc")); sys.path.insert(0, os.path.join(ROOT, "ops")); import paa_gate as _PG
     skipped = []
     # ruling 12 part 4 (Divit 2026-10-13): claim from the top of plan/queue-ranked.txt only (ready, then syn-pending for the split write)
-    import queue_rank as _QR
-    rk = _QR.ranked()
-    if rk is not None:
-        cls = {u: c for _r, h, u, c, _f in rk if h == hub}
-        queue = [m[u] for _r, h, u, c, _f in rk if h == hub and c in ("ready", "syn-pending") and u in m and u not in st["pages"]]
-        # quiz pages are claimable only after the quiz canary passed (DECISIONS 2026-10-14; status/quiz-canary.json result "pass")
-        try: _qok = json.load(open(os.path.join(ROOT, "status", "quiz-canary.json"))).get("result") == "pass"
-        except (OSError, ValueError): _qok = False
-        try: _qcan = set(json.load(open(os.path.join(ROOT, "status", "quiz-canary.json"))).get("canary_pages") or [])
-        except (OSError, ValueError): _qcan = set()
-        if not _qok: queue = [p for p in queue if "quiz" not in p["url"].rsplit("/", 1)[1] or p["url"] in _qcan]   # the named canary pages stay claimable
+    cq = claim_queue(hub, m, st)
+    if cq is not None:
+        queue, cls = cq
         for p in queue[:n]:
             pend = cls[p["url"]] == "syn-pending"
-            st["pages"][p["url"]] = {"state": "claimed", "by": by, "updated": now(), "queue_rank": p["queue_rank"], **({"faq_pending": True} if pend else {})}
+            st["pages"][p["url"]] = {"state": "claimed", "by": by, "updated": now(), "queue_rank": p.get("queue_rank"), **({"faq_pending": True} if pend else {})}
             got.append(p)
         save_st(hub, st)
         for p in got: print(f"claimed {p['url']}" + ("  SPLIT WRITE: everything but the FAQ until Divit decides its synonyms (ruling 12 part 5)" if st["pages"][p["url"]].get("faq_pending") else ""))
@@ -256,6 +267,7 @@ def cmd_brief(args):
     print(f"URL        {p['url']}   (queue #{p.get('queue_rank')}, wave {p.get('wave')}, {p.get('tier')})")
     print(f"PRIMARY    {p['primary']}  | MSV {p['primary_msv']} | KD {p['kd']} | intent {p['intent']} | cluster {p['cluster']}")
     print(f"TOTAL MSV  {p['total_msv']}")
+    if p.get("plan_source") == "additions": print("PLAN DATA  plan/additions.json only: no Semrush secondaries or MSV in this clone (private/semrush/plan-additions-*.json missing: ask Divit for the rsync)")
     print(f"VERDICT    {p.get('verdict')}  | top-10 mix: {p.get('top10_mix')}")
     if p.get("angle"): print(f"ANGLE      {p['angle']}")
     if p.get("amber_evidence"): print(f"AMBER      {p['amber_evidence']}")
@@ -291,7 +303,7 @@ def cmd_brief(args):
         nl = [(u, n) for u, n in G.needs_links(p["hub"], 10) if u != p["url"]]
         if nl: print("LINK THESE (live or approved siblings with the fewest inbound links; exact-match anchors in FAQ answers):\n" + "\n".join(f"   {n} inbound  {u}" for u, n in nl[:6]))
     except Exception: pass
-    sib = [q for q in m.values() if q["hub"] == p["hub"] and q["url"] != p["url"] and q["cluster"] == p["cluster"]]
+    sib = [q for q in m.values() if p.get("cluster") and q["hub"] == p["hub"] and q["url"] != p["url"] and q.get("cluster") == p["cluster"]]
     if sib:
         print("SIBLINGS IN THE SAME CLUSTER (do not use their primaries as headings; link to them where natural):")
         for q in sorted(sib, key=lambda q: -q["total_msv"])[:12]: print(f"   {q['primary']:40s} {q['url']}")

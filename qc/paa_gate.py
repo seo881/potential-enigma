@@ -132,10 +132,11 @@ class Gate:
         # PA3 widened (Divit, 2026-10-08): head phrase reordered/inflected, or an approved secondary of the page (K8 test)
         self.head_words = [stem(w) for w in norm(self.primary).split()]
         secs = set((self.spec.get("keywords") or {}).get("secondaries_used") or [])
-        kmp = os.path.join(ROOT, "plan", "keyword_map.json")
         self.workbook_secs = []   # the page's Semrush secondaries (plan/keyword_map.json): PA12 counts only these (Divit 2026-10-13)
-        if os.path.exists(kmp):
-            self.workbook_secs = [x["kw"] for x in (json.load(open(kmp)).get(url, {}) or {}).get("secondaries", []) if x.get("kw")]
+        _pp = os.path.join(ROOT, "plan"); _pp in sys.path or sys.path.append(_pp); import kmap_load as _KL   # + tracked additions (plan/additions.json)
+        _km = _KL.load(ROOT)
+        if _km is not None:
+            self.workbook_secs = [x["kw"] for x in (_km.get(url, {}) or {}).get("secondaries", []) if x.get("kw")]
             secs |= set(self.workbook_secs)
         self.secondaries = sorted(secs)
         # PA14 exemption (Divit 2026-10-12): the page's own keyword words and their initials (AP = accounts payable) are not brands

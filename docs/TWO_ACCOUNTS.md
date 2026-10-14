@@ -56,6 +56,8 @@ Who holds a page:
    - pull only through `weekend.py aa`.
    - Writers never read `private/`: `hubctl brief <url>` prints the gated AlsoAsked candidates.
 5. `bash ops/setup.sh` in B's clone (B renders images locally).
+6. Pages added outside the workbook (ruling 13 new keywords, 2026-10-14) reach B's clone through the tracked `plan/additions.json` (url, hub, primary, status, wave, queue_rank; no Semrush data): `hubctl` merges it into B's own `plan/keyword_map.json` (`plan/kmap_load.py`), so `hubctl claim` hands them out after a plain `git pull`.
+   - Their secondaries come from `private/semrush/plan-additions-*.json` and their Semrush questions from `private/semrush/questions/derived/`: Divit's local rsync. Without it `hubctl brief` prints a PLAN DATA line and `skeleton.py build` refuses most of them (under 10 FAQ slots).
 
 ## 3. Claim protocol and ids
 1. `git pull --rebase` **immediately before** every claim.

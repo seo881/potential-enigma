@@ -8,7 +8,8 @@ Overrides (plan/overrides.json) reconcile the sheet with what is live, per Divit
 of 2026-10-06: the 4 existing child pages keep their primaries, slugs and content.
 Additions (pages Divit approved outside the workbook, e.g. ruling 13's new keywords of 2026-10-14) live in
 private/semrush/plan-additions-*.json (git-ignored: Semrush data) in keyword-map shape; overrides.json "additions" lists
-their URLs and the ones held out of the queue (counts and reasons only). Without the workbook, patch the existing map:
+their URLs and the ones held out of the queue (counts and reasons only); plan/additions.json (tracked, written here) gives every
+clone url, hub, primary, status, wave and queue_rank of each addition (plan/kmap_load.py). Without the workbook, patch the existing map:
     python3 plan/build_map.py --additions-only     add the approved additions to plan/keyword_map.json, re-rank, rewrite queue.csv
 """
 import glob, json, os, re, sys, csv
@@ -27,8 +28,9 @@ def apply_additions(pages, ov):
             pages[u]["status"] = "parked-short"; pages[u]["park_reason"] = held[u]["reason"]
     return n
 
-def write_plan(pages):
-    """Queue: descending volume; Wave 4 (needs a playable quiz) last. Writes plan/keyword_map.json and plan/queue.csv."""
+def write_plan(pages, ov):
+    """Queue: descending volume; Wave 4 (needs a playable quiz) last. Writes plan/keyword_map.json, plan/queue.csv and the tracked
+    plan/additions.json (url, hub, primary, status, wave, queue_rank of each approved addition; plan/kmap_load.py merges it in every clone)."""
     q = [p for p in pages.values() if p["status"] == "planned"]
     q.sort(key=lambda p: (p["wave"] == 4, -p["total_msv"], -p["primary_msv"]))
     for p in pages.values():
@@ -43,11 +45,13 @@ def write_plan(pages):
             gap = ("playable quiz" if p["wave"] == 4 else
                    "generated document (template SERP)" if docs >= 2 or "doc-template" in txt or "generated output" in txt or "letter" in p["primary"] else "")
             w.writerow([p["queue_rank"], p["hub"], p["url"], p["primary"], p["primary_msv"], p["kd"], p["total_msv"], p["wave"], p["verdict"], gap])
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import kmap_load as KL
+    KL.write_tracked(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), pages, ov)
     return q
 
 if "--additions-only" in sys.argv:
-    pages = json.load(open("plan/keyword_map.json")); n = apply_additions(pages, json.load(open("plan/overrides.json")))
-    q = write_plan(pages)
+    ov = json.load(open("plan/overrides.json")); pages = json.load(open("plan/keyword_map.json")); n = apply_additions(pages, ov)
+    q = write_plan(pages, ov)
     print(f"additions: {n} new page(s) | pages: {len(pages)} | planned queue: {len(q)} | parked-short: {sum(p['status'] == 'parked-short' for p in pages.values())}")
     sys.exit(0)
 
@@ -171,5 +175,5 @@ for src, dst in ov.get("wave3_merges", {}).get("pairs", []) + ov.get("intent_mer
 apply_additions(pages, ov)
 
 # --- queue: descending volume; Wave 4 (needs a playable quiz) last ---
-q = write_plan(pages)
+q = write_plan(pages, ov)
 print(f"pages: {len(pages)} | planned queue: {len(q)} | live-draft: {sum(p['status']=='live-draft' for p in pages.values())} | live-off-plan: {sum(p['status']=='live-off-plan' for p in pages.values())} | needs-decision: {sum(p['status']=='needs-decision' for p in pages.values())} | cut: {sum(p['status']=='cut' for p in pages.values())} | merged: {sum(p['status']=='merged' for p in pages.values())} | need a live SERP pull: {sum(1 for p in pages.values() if p.get('serp_needed'))}" + ("" if W3 else " | (Wave 3 report not found)"))

@@ -65,6 +65,10 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
                                                           each must occur); offline: fetch {path: status | [status, location]}
                                                           answers each request, default (200) the rest; the page fails exactly
                                                           when expect_fail, and every href in expect_bad is among the failing ones
+  kmap-claim     {url, sim?, expect_in_kmap?, expect_source?, expect_status?, expect_no_secondaries?, expect_claimable?}  A-k-4
+                                                          2026-10-14: with HUB_KMAP_SIM (default no-additions,no-private: B's clone without
+                                                          the rsync) kmap() returns the tracked addition and claim_queue hands it out (dry)
+  kmap-additions-clean {min_pages}                        plan/additions.json carries only url, hub, primary, status, wave, queue_rank
   review         {url, field, check, text}                 judgment catch (Layer B); kept for the record, not machine-tested
 status: "open" = a known miss the gate does not catch yet (a backlog fix); "guarded" = caught; a guarded case that stops being
 caught fails the suite. Open cases that start passing are reported so they can be marked guarded.
@@ -293,6 +297,31 @@ def caught(c):
             return (r[0], r[1]) if isinstance(r, list) else (r, None)
         ok, rep, bad = V.check_internal_links(html, "https://emergent.sh" + c["page"], fetch=fetch)
         return (not ok) == c["expect_fail"] and set(c.get("expect_bad") or []) <= set(bad) and len(seen) > 0
+    if c["kind"] == "kmap-claim":          # A-k-4 2026-10-14: a page only in the tracked plan/additions.json (B's clone, whose own map
+        import hubctl as H, queue_rank as QR   # predates it) is in kmap() and claimable; dry: claim_queue, ranked row stubbed, no status write
+        sys.path.insert(0, os.path.join(ROOT, "plan")); import kmap_load as KL
+        if c.get("needs_private") and not KL.private_additions(ROOT): return None   # a clone without the rsync: not machine-tested here
+        old, real = os.environ.get("HUB_KMAP_SIM"), QR.ranked
+        os.environ["HUB_KMAP_SIM"] = c.get("sim", "no-additions,no-private")
+        try:
+            m = H.kmap(); p = m.get(c["url"])
+            if c.get("expect_in_kmap", True) != bool(p): return False
+            if p and (p.get("plan_source") != c.get("expect_source", "additions") or p["status"] != c.get("expect_status", "planned")): return False
+            if p and p["status"] == "planned" and not isinstance(p.get("queue_rank"), int): return False
+            if p and c.get("expect_no_secondaries") and p.get("secondaries"): return False
+            if "expect_claimable" not in c: return True
+            hub = H.hub_of(c["url"]); st = {"hub": hub, "pages": {u: e for u, e in H.load_st(hub)["pages"].items() if u != c["url"]}}
+            QR.ranked = lambda: [(1, hub, c["url"], "ready", 10)]
+            q = H.claim_queue(hub, m, st)
+            return q is not None and (c["url"] in {x["url"] for x in q[0]}) == c["expect_claimable"]
+        finally:
+            QR.ranked = real
+            if old is None: os.environ.pop("HUB_KMAP_SIM", None)
+            else: os.environ["HUB_KMAP_SIM"] = old
+    if c["kind"] == "kmap-additions-clean":   # the public repo: plan/additions.json holds url, hub, primary, status, wave, queue_rank only
+        sys.path.insert(0, os.path.join(ROOT, "plan")); import kmap_load as KL
+        tr = KL.tracked(ROOT)
+        return len(tr) >= c.get("min_pages", 1) and all(set(e) <= set(KL.FIELDS) for e in tr.values())
     if c["kind"] == "qc-text":
         import qc_hub as Q, hubctl as H
         s = json.load(open(H.spath(c["url"]))); s = copy.deepcopy(s); f = c["field"]
