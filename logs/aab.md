@@ -37,3 +37,4 @@
 - 2026-10-13 19:56 UTC: released /ai-automation-builder/marketing-automation-workflow (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 10/10
 - 2026-10-13 19:56 UTC: released /ai-automation-builder/proposal-automation (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 11/10
 - 2026-10-13 23:50 UTC: released /ai-automation-builder/lead-nurturing-workflow (was spec) to the planned queue; spec file left in place: skeleton short: 7 of 10 FAQ slots from passing sources (iteration 2)
+- 2026-10-14 00:19 UTC: released /ai-automation-builder/lead-nurturing-workflow (was spec) to the planned queue; spec file left in place: skeleton short (7/10 FAQ slots), iteration 3
