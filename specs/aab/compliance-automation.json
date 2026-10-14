@@ -120,6 +120,13 @@
    "via": null,
    "by": "B-w-68",
    "note": ""
+  },
+  {
+   "t": "2026-10-14 12:34 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-6",
+   "note": "[truth | HUB_RULES 6] faq item 2: The approved claim (free-start) is only 'Free to start; the free tier covers building and publishing'. The added 'which lets you run one control for a full cycle' promises that a free app runs for a whole review cycle (a quarter, per the page), a claim about Emergen"
   }
  ],
  "pipeline": "r15",
@@ -1093,5 +1100,285 @@
  },
  "writers": [
   "B-w-68"
- ]
+ ],
+ "review": {
+  "by": "B-r-6",
+  "date": "2026-10-14 12:34 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Compliance Automation for the Work Between Audits'; hero 'Build compliance automation that chases policy sign-offs and collects evidence from each control owner on schedule.'; how-to description one sentence with the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition with sourced Fortinet wording in FAQ 1, tool questions in FAQ 3-4 (Vanta, Drata, sourced), four worked recurring controls in the tabs, a seven-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Compliance vocabulary: 'acceptable use policy, version 3', 'control owners', '20-question security questionnaire', 'multi-factor sign-in'; table uses Swimlane, which ranks for the query."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'You write who acts, by when, and what counts as done', 'Tessaline Labs publishes version 3 of its acceptable use policy', 'Assign every task to one named person with a due date.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One ', so' ending (step 4), under the Q5 limit; sentences short and varied."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'A shared inbox cannot be reminded.' 'An auditor's request becomes a filtered list, not a search of old inboxes.' Forced link sentences noted."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "FAQ 2 'The free tier covers building and publishing, which lets you run one control for a full cycle before you add the next' goes beyond the free-start claim; FAQ 7 'The central tool is the EU's One Stop Shop' is not what the EC source says. Other facts match their quoted spans (Fortinet, Vanta, Drata, IBM, OSS quarterly return); tab numbers add up (41 + 7 = 48; 10 + 2 = 12; 15 + 3 = 18)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Recurring-controls angle (policy sign-offs, access reviews, vendor reviews) distinct from siblings; no sibling primary in headings. Evidence-requests overlap with audit-workflow noted."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, no brand in any question, hub link in item 2, three sibling links, answers answer first."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: Emailed to 48, 41 acknowledged day 5, 7 reminded in Slack; Dov Halpern kept 10 of 12, 2 revoked held by a contractor who left; Quillmate 2 of 20 answers No to Anneliese Kamau; 15 of 18 uploaded, 3 late, 3 days past due copied to Joaquin Ferrer."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "faq item 2",
+    "quote": "The free tier covers building and publishing, which lets you run one control for a full cycle before you add the next.",
+    "issue": "The approved claim (free-start) is only 'Free to start; the free tier covers building and publishing'. The added 'which lets you run one control for a full cycle' promises that a free app runs for a whole review cycle (a quarter, per the page), a claim about Emergent's free tier limits that is not in rules/capabilities.json. Only instance; FAQ 10 'Emergent is free to start' stays within the claim.",
+    "fix": "End at the ledger wording: 'The free tier covers building and publishing.' If a sentence is wanted, make it about the workflow, not the plan: 'Run one control for a full cycle before you add the next.'",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 7",
+    "quote": "The central tool is the EU's One Stop Shop.",
+    "issue": "The EC source supports only that the OSS schemes let a seller declare and pay VAT due in Member States where it is not established, through a portal in its Member State of identification. It does not call OSS the central tool of EU VAT compliance; OSS covers only those cross-border supplies, and domestic VAT returns are filed nationally. The first sentence of the answer overstates a third-party system.",
+    "fix": "Scope it to what the source says: 'For sellers charging VAT in EU countries where they are not established, the EU's One Stop Shop lets them declare and pay it through one web portal in the Member State where they are identified.' Keep the sourced quarterly line.",
+    "severity": "blocking"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq items 4, 7, 10",
+    "quote": "Give each filing the draft-then-approve pattern of a content approval workflow before it goes in.",
+    "issue": "Sibling links bolted on as closing sentences that drift off the question. Every instance: FAQ 4 'Draft the policies themselves with document automation, from a template your team has approved.'; FAQ 7 'Give each filing the draft-then-approve pattern of a content approval workflow before it goes in.'; FAQ 10 'The same setup carries over to spending, where purchase order automation sends each request to an approver.'",
+    "fix": "Link siblings a compliance reader would follow (audit-workflow, document-approval-workflow, incident-response-automation) inside a sentence the answer needs.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "tab_content_4, prompt chips",
+    "quote": "Evidence 3 days late copies in the compliance lead",
+    "issue": "Tab 4 and the 'Evidence Requests' chip follow the hub exemplar /audit-workflow almost beat for beat (its chip 'Evidence Requests', its tab 'Bank reconciliations 3 days late go to the controller'). Also the 'brief a new hire/analyst' formula in step 3 ('the way you would brief a new analyst') repeats healthcare-automation feature 1 ('the way you would brief a new hire').",
+    "fix": "Give tab 4 a compliance-specific evidence story (a control test result, a policy exception) and vary the brief formula.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "features body 3, howto_step_5_des, tab_content_4",
+    "quote": "after the number of days you choose, the request moves to their manager",
+    "issue": "Reminder-then-escalation is stated three times: feature 3 'after the number of days you choose, the request moves to their manager'; step 5 'how many more before their manager hears about it'; tab 4 'once an item is 3 days past due, the compliance lead ... is copied in'.",
+    "fix": "Keep it in the tab and the step; give the feature a different detail.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Zapier | Make (Integromat)",
+    "issue": "Two of three competitors are not in this page's top 10 (QC K7 P2); Vanta, Drata and Hyperproof rank but are not in the AAB library.",
+    "fix": "Coordinator: consider adding a GRC vendor to rules/competitors.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq items 4, 7, 10",
+   "issue": "Sibling links bolted on as closing sentences that drift off the question. Every instance: FAQ 4 'Draft the policies themselves with document automation, from a template your team has approved.'; FAQ 7 'Give each filing the draft-then-approve pattern of a content approval workflow before it goes in.'; FAQ 10 'The same setup carries over to spending, where purchase order automation sends each request to an approver.'",
+   "fix": "Link siblings a compliance reader would follow (audit-workflow, document-approval-workflow, incident-response-automation) inside a sentence the answer needs.",
+   "by": "B-r-6",
+   "via": "review",
+   "date": "2026-10-14 12:34 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "tab_content_4, prompt chips",
+   "issue": "Tab 4 and the 'Evidence Requests' chip follow the hub exemplar /audit-workflow almost beat for beat (its chip 'Evidence Requests', its tab 'Bank reconciliations 3 days late go to the controller'). Also the 'brief a new hire/analyst' formula in step 3 ('the way you would brief a new analyst') repeats healthcare-automation feature 1 ('the way you would brief a new hire').",
+   "fix": "Give tab 4 a compliance-specific evidence story (a control test result, a policy exception) and vary the brief formula.",
+   "by": "B-r-6",
+   "via": "review",
+   "date": "2026-10-14 12:34 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "features body 3, howto_step_5_des, tab_content_4",
+   "issue": "Reminder-then-escalation is stated three times: feature 3 'after the number of days you choose, the request moves to their manager'; step 5 'how many more before their manager hears about it'; tab 4 'once an item is 3 days past due, the compliance lead ... is copied in'.",
+   "fix": "Keep it in the tab and the step; give the feature a different detail.",
+   "by": "B-r-6",
+   "via": "review",
+   "date": "2026-10-14 12:34 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "Two of three competitors are not in this page's top 10 (QC K7 P2); Vanta, Drata and Hyperproof rank but are not in the AAB library.",
+   "fix": "Coordinator: consider adding a GRC vendor to rules/competitors.",
+   "by": "B-r-6",
+   "via": "review",
+   "date": "2026-10-14 12:34 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "61ecd2d15bb57569",
+   "alt:share_image": "a1d977540cf05848",
+   "alt:tab_image_1": "d2421e51b5f329fb",
+   "alt:tab_image_2": "603762eb525ee3f8",
+   "alt:tab_image_3": "063bc22d73498e38",
+   "alt:tab_image_4": "cd8874d1d5adaaa5",
+   "breadcrumb": "bed3d7ba5c4fa012",
+   "chip_adds": "57b0495719483b23",
+   "explore_cta": "7430524d8bb92b49",
+   "faq": "cc9b4e75f27cfa53",
+   "feature_1": "d2c20aaf6c3ca51b",
+   "feature_2": "6bc6c2bfd0ba39c2",
+   "feature_3": "a4e2d20cbf537bff",
+   "feature_4": "a7f2c698d9ebf8f9",
+   "feature_5": "8054fcec5d54dbca",
+   "feature_6": "808bce772279948e",
+   "features_heading": "26dd22008a11aea7",
+   "features_subheading": "48b1042429360b4d",
+   "h1": "51c2a131d1c1db7a",
+   "hero_description": "e7166d7cb113bbb2",
+   "hero_prompt": "548fa1c879d1334e",
+   "howto_description": "8a924210efe68609",
+   "howto_step_1_des": "cca9d5839e1e53d6",
+   "howto_step_1_title": "5586b5a68fc2412e",
+   "howto_step_2_des": "8c43ad6cca229caf",
+   "howto_step_2_title": "52cd5b8e8b2af971",
+   "howto_step_3_des": "3bf533b7ec25be23",
+   "howto_step_3_title": "1aed3b05fe036c99",
+   "howto_step_4_des": "70971964c68c94e8",
+   "howto_step_4_title": "ec4f3b5236c14fae",
+   "howto_step_5_des": "3a92fcf633f4e8b7",
+   "howto_step_5_title": "df58944bdeb3866e",
+   "howto_step_6_des": "75edd55bc96c525c",
+   "howto_step_6_title": "865c499ee625d95f",
+   "howto_step_7_des": "7cf975e793579341",
+   "howto_step_7_title": "a2e47a930f4c3d84",
+   "howto_title": "adad0d1c82f4b53e",
+   "meta_description": "c487ad7e0fb5b561",
+   "meta_title": "ebf4dc988c4ef5fb",
+   "mockup": "9f1bccc12f39f308",
+   "product_name": "74a178480a4a74e4",
+   "prompt_chip_1": "9571057c66b1347b",
+   "prompt_chip_2": "1d82265234595cf2",
+   "prompt_chip_3": "dc2b15de44a311dc",
+   "prompt_chip_4": "577e808a0b585372",
+   "slug": "1e7dbbabb6029271",
+   "tab_content_1": "2b257be18371cc92",
+   "tab_content_2": "35592ee3d6a9336d",
+   "tab_content_3": "6c45738382a448e5",
+   "tab_content_4": "8f521d894aee213f",
+   "tab_label_1": "9571057c66b1347b",
+   "tab_label_2": "1d82265234595cf2",
+   "tab_label_3": "dc2b15de44a311dc",
+   "tab_label_4": "577e808a0b585372",
+   "usecase_heading": "12fb35e601f762b7",
+   "why_description": "4b2c09378c0bace2",
+   "why_table": "8ad841fab7d75b75",
+   "why_title": "4ea06b2fe7cff9ab"
+  },
+  "all": "7c8b94c347e653fe",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "61ecd2d15bb57569",
+   "alt:share_image": "a1d977540cf05848",
+   "alt:tab_image_1": "d2421e51b5f329fb",
+   "alt:tab_image_2": "603762eb525ee3f8",
+   "alt:tab_image_3": "063bc22d73498e38",
+   "alt:tab_image_4": "cd8874d1d5adaaa5",
+   "breadcrumb": "bed3d7ba5c4fa012",
+   "chip_adds": "57b0495719483b23",
+   "explore_cta": "7430524d8bb92b49",
+   "faq": "cc9b4e75f27cfa53",
+   "feature_1": "d2c20aaf6c3ca51b",
+   "feature_2": "6bc6c2bfd0ba39c2",
+   "feature_3": "a4e2d20cbf537bff",
+   "feature_4": "a7f2c698d9ebf8f9",
+   "feature_5": "8054fcec5d54dbca",
+   "feature_6": "808bce772279948e",
+   "features_heading": "26dd22008a11aea7",
+   "features_subheading": "48b1042429360b4d",
+   "h1": "51c2a131d1c1db7a",
+   "hero_description": "e7166d7cb113bbb2",
+   "hero_prompt": "548fa1c879d1334e",
+   "howto_description": "8a924210efe68609",
+   "howto_step_1_des": "cca9d5839e1e53d6",
+   "howto_step_1_title": "5586b5a68fc2412e",
+   "howto_step_2_des": "8c43ad6cca229caf",
+   "howto_step_2_title": "52cd5b8e8b2af971",
+   "howto_step_3_des": "3bf533b7ec25be23",
+   "howto_step_3_title": "1aed3b05fe036c99",
+   "howto_step_4_des": "70971964c68c94e8",
+   "howto_step_4_title": "ec4f3b5236c14fae",
+   "howto_step_5_des": "3a92fcf633f4e8b7",
+   "howto_step_5_title": "df58944bdeb3866e",
+   "howto_step_6_des": "75edd55bc96c525c",
+   "howto_step_6_title": "865c499ee625d95f",
+   "howto_step_7_des": "7cf975e793579341",
+   "howto_step_7_title": "a2e47a930f4c3d84",
+   "howto_title": "adad0d1c82f4b53e",
+   "meta_description": "c487ad7e0fb5b561",
+   "meta_title": "ebf4dc988c4ef5fb",
+   "mockup": "9f1bccc12f39f308",
+   "product_name": "74a178480a4a74e4",
+   "prompt_chip_1": "9571057c66b1347b",
+   "prompt_chip_2": "1d82265234595cf2",
+   "prompt_chip_3": "dc2b15de44a311dc",
+   "prompt_chip_4": "577e808a0b585372",
+   "slug": "1e7dbbabb6029271",
+   "tab_content_1": "2b257be18371cc92",
+   "tab_content_2": "35592ee3d6a9336d",
+   "tab_content_3": "6c45738382a448e5",
+   "tab_content_4": "8f521d894aee213f",
+   "tab_label_1": "9571057c66b1347b",
+   "tab_label_2": "1d82265234595cf2",
+   "tab_label_3": "dc2b15de44a311dc",
+   "tab_label_4": "577e808a0b585372",
+   "usecase_heading": "12fb35e601f762b7",
+   "why_description": "4b2c09378c0bace2",
+   "why_table": "8ad841fab7d75b75",
+   "why_title": "4ea06b2fe7cff9ab"
+  },
+  "all": "7c8b94c347e653fe",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
