@@ -71,3 +71,4 @@
 - 2026-10-13 19:56 UTC: released /ai-form-builder/vendor-application (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 11/10
 - 2026-10-13 19:56 UTC: released /ai-form-builder/wedding-photography-contract (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 19/10
 - 2026-10-13 19:56 UTC: released /ai-form-builder/wedding-rsvp (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 11/10
+- 2026-10-14 11:35 UTC: api-create: 2 draft(s) created via Data API at f46ff01 (requisition-form, multi-step-form); read back 70 items; verified 2, mismatched 0; before childedits/2026-10-14/form.api-create.f46ff01.before.json; rollback childedits/2026-10-14/form.api-create.f46ff01.20261014T113545Z.rollback.json
