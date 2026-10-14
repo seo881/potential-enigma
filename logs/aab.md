@@ -38,3 +38,4 @@
 - 2026-10-13 19:56 UTC: released /ai-automation-builder/proposal-automation (was parked) to the planned queue; spec file left in place: ruling 12 (Divit 2026-10-13): parked page released to B, feasibility 11/10
 - 2026-10-13 23:50 UTC: released /ai-automation-builder/lead-nurturing-workflow (was spec) to the planned queue; spec file left in place: skeleton short: 7 of 10 FAQ slots from passing sources (iteration 2)
 - 2026-10-14 00:19 UTC: released /ai-automation-builder/lead-nurturing-workflow (was spec) to the planned queue; spec file left in place: skeleton short (7/10 FAQ slots), iteration 3
+- 2026-10-14 14:25 UTC: api-create: 2 draft(s) created via Data API at 01a7501 (drip-campaign, content-workflow); read back 20 items; verified 2, mismatched 0; before childedits/2026-10-14/aab.api-create.01a7501.before.json; rollback childedits/2026-10-14/aab.api-create.01a7501.20261014T142523Z.rollback.json
