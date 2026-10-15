@@ -69,7 +69,7 @@ def held_pages():
     out = []
     for p in sorted(glob.glob(os.path.join(ROOT, "status", "ship", "*.json"))):
         for u, P in json.load(open(p))["pages"].items():
-            if P.get("stopped"):
+            if P.get("stopped") and H.load_st(H.hub_of(u))["pages"].get(u, {}).get("state") != "published":   # B-c-1 2026-10-16: a ledger stop is stale once the page was later approved, shipped and verified
                 s = spec(u) if os.path.exists(H.spath(u)) else {}
                 out.append({"url": u, "item_id": s.get("item_id"), "collection": H.CFG["hubs"][H.hub_of(u)]["collection_id"], "ledger": os.path.basename(p)})
     return out
