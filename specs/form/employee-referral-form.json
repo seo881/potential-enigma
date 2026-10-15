@@ -153,6 +153,13 @@
    "via": null,
    "by": "B-w-2",
    "note": ""
+  },
+  {
+   "t": "2026-10-15 09:45 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-17",
+   "note": "rubric 10/10 by B-r-17; 6 notes"
   }
  ],
  "plan": {
@@ -766,5 +773,305 @@
   "Add a check that keeps credit with the first person to refer a candidate.",
   "Add bonus rules that mark referrals from the hiring manager as not eligible.",
   "Add payout dates worked out from each new hire's start date."
- ]
+ ],
+ "review": {
+  "by": "B-r-17",
+  "date": "2026-10-15 09:45 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Employee Referral Form That Tracks Every Bonus'; hero 'Create an employee referral form that confirms each candidate, flags duplicate referrals and dates every bonus payout.' (D1 ok); how-to 'Seven steps to create an employee referral form that applies your bonus policy and pays each referrer on time.' (D2 ok)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is referral form templates (SHRM, municipal PDFs, template sites); page gives the fields (FAQ 2 'referrer, candidate contact details, the open role, and the relationship'), policy steps grounded in SHRM's sample, the template/pdf/program/bonus/examples searches and the PAA example and letter questions."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "HR vocabulary: 'requisition ID', 'managers with hiring authority over the candidate', '$1,500 after 6 months and $1,500 after 12', 'worked together, studied together, friend or family, met professionally'. Note on the table's hiring variant."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs ('Lets the referrer pick...', 'Emails the person being referred...', 'Matches the email and phone number...'); tabs open on full sentences ('Engineers refer the people they shipped with.')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q5/Q6/Q7 clean. Notes: one link-only FAQ ending (item 10); payout-cancel and earliest-credit ideas repeated across feature, step and tab."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete detail: 'the first at 9:14 AM and the second the next morning', 'Four of those hires were referred by their own hiring manager, which the policy excludes', 'a scanned page carries no reliable timestamp, and credit turns into an argument'."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "SHRM sample policy exclusions (step 1) and referral-after-posting rule (step 2) match domain_sources; Emergent claims map to prompt-build, alerts, database-owned, api-connect, code-export ('on paid plans'). Numbers: tab 2 $1,500 + $1,500 = $3,000; tab 4 18 - 4 = 14 x $1,500 = $21,000."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Bonus-policy angle (consent, duplicates, eligibility, payout dates) is its own page; it links the referral form and job application form siblings rather than answering them."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, gate pass 10/0/0, verbatim ok; hub link in item 2; sibling links in items 6 and 10; no brand or file format in questions; moat lines in items 7 and 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 'Worked together, 3 years', 'Omar confirmed, Resume uploaded'; tab 2 '$3,000', 'Sep 2', 'Second $1,500 canceled if she leaves'; tab 3 '9:14 AM', 'Next morning', 'Credit kept'; tab 4 64 / 18 / 4, '14 bonuses at $1,500', '$21,000 this quarter'. All match the copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_4",
+    "quote": "Oxbow Freight' talent lead sees 64 referrals and 18 hires on one screen.",
+    "issue": "Typo: broken possessive. Only instance on the page. Not edited here because this review run may not edit specs; it is a certain, meaning-neutral fix.",
+    "fix": "Oxbow Freight's talent lead",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq items 4, 5, 7, 8",
+    "quote": "faq 4: 'Many companies take the form for tracking'; faq 5: 'For a small team, often yes.'; faq 7: 'Referrers rarely hear what happened.'; faq 8: 'Most policies pay only after the new hire stays a set period, often 90 days ... and often pay more for hard-to-fill roles.'",
+    "issue": "Generalizations about no named third party, unsourced. FAQ 7 answers 'the most common problem' with one; FAQ 8 is only partly backed by the SHRM retention-payment source.",
+    "fix": "Source them (FAQ 8 can cite SHRM's 90 or 120 days directly) or state them as the page's advice.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "faq item 10",
+    "quote": "Once a referral is accepted, the candidate applies through your regular job application form.",
+    "issue": "The answer ends on a sentence whose only job is to carry the sibling link (proposals/account-b.md, link-only FAQ sentences). Item 6 carries its link inside a working sentence.",
+    "fix": "End on the template answer; place the link where the reader needs it or drop to the 2-link minimum.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_2, feature_3, feature_5; howto_step_4_des, howto_step_5_des, howto_step_6_des",
+    "quote": "feature_2 'the resume comes from its owner' / step 4 'the resume arrives from the person it describes'; feature_3 'Credit stays with the earliest submission' / step 5 'Keep credit with the earliest submission'; feature_5 'a payment drops if the hire leaves early' / step 6 'payments stop if the hire leaves first'",
+    "issue": "Three ideas restated between features and how-to with words swapped.",
+    "fix": "Let the how-to carry the procedure and the features the product behavior, without restating the same sentence.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "CONTENT_DEFECTS #3",
+    "field": "why_table",
+    "quote": "Prompt for the application form and the hiring pipeline around it",
+    "issue": "The hiring category variant speaks of an application form on a referral form page.",
+    "fix": "Library: a referral-appropriate wording for the hiring variant, or the general 'Describe it in plain English'.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "tab_content_1",
+    "quote": "notes she worked with the candidate for 3 years. He gets an email to confirm interest",
+    "issue": "'He' has no named antecedent; the reader has to infer it is the candidate.",
+    "fix": "'The candidate gets an email to confirm interest...'",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_4",
+   "issue": "Typo: broken possessive. Only instance on the page. Not edited here because this review run may not edit specs; it is a certain, meaning-neutral fix.",
+   "fix": "Oxbow Freight's talent lead",
+   "by": "B-r-17",
+   "via": "review",
+   "date": "2026-10-15 09:45 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq items 4, 5, 7, 8",
+   "issue": "Generalizations about no named third party, unsourced. FAQ 7 answers 'the most common problem' with one; FAQ 8 is only partly backed by the SHRM retention-payment source.",
+   "fix": "Source them (FAQ 8 can cite SHRM's 90 or 120 days directly) or state them as the page's advice.",
+   "by": "B-r-17",
+   "via": "review",
+   "date": "2026-10-15 09:45 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "faq item 10",
+   "issue": "The answer ends on a sentence whose only job is to carry the sibling link (proposals/account-b.md, link-only FAQ sentences). Item 6 carries its link inside a working sentence.",
+   "fix": "End on the template answer; place the link where the reader needs it or drop to the 2-link minimum.",
+   "by": "B-r-17",
+   "via": "review",
+   "date": "2026-10-15 09:45 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_2, feature_3, feature_5; howto_step_4_des, howto_step_5_des, howto_step_6_des",
+   "issue": "Three ideas restated between features and how-to with words swapped.",
+   "fix": "Let the how-to carry the procedure and the features the product behavior, without restating the same sentence.",
+   "by": "B-r-17",
+   "via": "review",
+   "date": "2026-10-15 09:45 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "CONTENT_DEFECTS #3",
+   "field": "why_table",
+   "issue": "The hiring category variant speaks of an application form on a referral form page.",
+   "fix": "Library: a referral-appropriate wording for the hiring variant, or the general 'Describe it in plain English'.",
+   "by": "B-r-17",
+   "via": "review",
+   "date": "2026-10-15 09:45 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "tab_content_1",
+   "issue": "'He' has no named antecedent; the reader has to infer it is the candidate.",
+   "fix": "'The candidate gets an email to confirm interest...'",
+   "by": "B-r-17",
+   "via": "review",
+   "date": "2026-10-15 09:45 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "51665ed8ee4efe1a",
+   "alt:share_image": "f53315e2de604411",
+   "alt:tab_image_1": "0a986b6534737f5d",
+   "alt:tab_image_2": "b4a1fc9f64ff8e6c",
+   "alt:tab_image_3": "2ce45d0bd301cddb",
+   "alt:tab_image_4": "d9114f7f13062c23",
+   "breadcrumb": "027eaaa1d5aa69f3",
+   "chip_adds": "4144f4414f2689fa",
+   "explore_cta": "d822989f3daf96d3",
+   "faq": "71cfaae58ba1b037",
+   "feature_1": "0eda6f8e2f4d1885",
+   "feature_2": "62533e5b4830c311",
+   "feature_3": "bdc4f21c745e33e2",
+   "feature_4": "9f58e531c66885f6",
+   "feature_5": "9986fb7610f1076d",
+   "feature_6": "abb5d604f9d7fbc2",
+   "features_heading": "8eab3c09c98becb9",
+   "features_subheading": "2ef7e21fb30c8cdb",
+   "h1": "59b368277fff7761",
+   "hero_description": "745ae6a48e5113ca",
+   "hero_prompt": "abc5d7968685c0d4",
+   "howto_description": "ada279c16f3ecb2f",
+   "howto_step_1_des": "08ec7dcb1b08748b",
+   "howto_step_1_title": "c771a799a4c84e3f",
+   "howto_step_2_des": "5ee75a663ead600c",
+   "howto_step_2_title": "4f693da847f384a0",
+   "howto_step_3_des": "397a9dc03947c373",
+   "howto_step_3_title": "af5ce0095c6a1847",
+   "howto_step_4_des": "82ac41d60584400c",
+   "howto_step_4_title": "c0946fd010c9d294",
+   "howto_step_5_des": "4d9a24c3502a39ce",
+   "howto_step_5_title": "7fc92afd5d9f5e20",
+   "howto_step_6_des": "38039390fcfab854",
+   "howto_step_6_title": "855b701e127b026f",
+   "howto_step_7_des": "9b62c5037c936001",
+   "howto_step_7_title": "506afa752a52285d",
+   "howto_title": "314836916f189e53",
+   "meta_description": "7b32015affd287e2",
+   "meta_title": "638855656e37d9ad",
+   "mockup": "bb40e9f0c5f1f087",
+   "product_name": "6599f14d89433167",
+   "prompt_chip_1": "661b77a2d544eb83",
+   "prompt_chip_2": "521288199a56bfcb",
+   "prompt_chip_3": "650ab08660f5243c",
+   "prompt_chip_4": "9301b972fb55e207",
+   "slug": "e2de9a9f6d501b9b",
+   "tab_content_1": "7268b58eebf61687",
+   "tab_content_2": "9f9819f8563ac923",
+   "tab_content_3": "69ea929acd0b3b7b",
+   "tab_content_4": "341471a83de0e239",
+   "tab_label_1": "8f622f3bdd638e04",
+   "tab_label_2": "9c0b4e27ec8bedcd",
+   "tab_label_3": "48f8a91db5b86964",
+   "tab_label_4": "e5b7cdc71c9d1ba7",
+   "usecase_heading": "ada5515f9a284ee1",
+   "why_description": "08331ef11ab2a1b5",
+   "why_table": "146c10d58990f5f4",
+   "why_title": "040ffa466b9f4780"
+  },
+  "all": "155bad38539f99ef",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "51665ed8ee4efe1a",
+   "alt:share_image": "f53315e2de604411",
+   "alt:tab_image_1": "0a986b6534737f5d",
+   "alt:tab_image_2": "b4a1fc9f64ff8e6c",
+   "alt:tab_image_3": "2ce45d0bd301cddb",
+   "alt:tab_image_4": "d9114f7f13062c23",
+   "breadcrumb": "027eaaa1d5aa69f3",
+   "chip_adds": "4144f4414f2689fa",
+   "explore_cta": "d822989f3daf96d3",
+   "faq": "71cfaae58ba1b037",
+   "feature_1": "0eda6f8e2f4d1885",
+   "feature_2": "62533e5b4830c311",
+   "feature_3": "bdc4f21c745e33e2",
+   "feature_4": "9f58e531c66885f6",
+   "feature_5": "9986fb7610f1076d",
+   "feature_6": "abb5d604f9d7fbc2",
+   "features_heading": "8eab3c09c98becb9",
+   "features_subheading": "2ef7e21fb30c8cdb",
+   "h1": "59b368277fff7761",
+   "hero_description": "745ae6a48e5113ca",
+   "hero_prompt": "abc5d7968685c0d4",
+   "howto_description": "ada279c16f3ecb2f",
+   "howto_step_1_des": "08ec7dcb1b08748b",
+   "howto_step_1_title": "c771a799a4c84e3f",
+   "howto_step_2_des": "5ee75a663ead600c",
+   "howto_step_2_title": "4f693da847f384a0",
+   "howto_step_3_des": "397a9dc03947c373",
+   "howto_step_3_title": "af5ce0095c6a1847",
+   "howto_step_4_des": "82ac41d60584400c",
+   "howto_step_4_title": "c0946fd010c9d294",
+   "howto_step_5_des": "4d9a24c3502a39ce",
+   "howto_step_5_title": "7fc92afd5d9f5e20",
+   "howto_step_6_des": "38039390fcfab854",
+   "howto_step_6_title": "855b701e127b026f",
+   "howto_step_7_des": "9b62c5037c936001",
+   "howto_step_7_title": "506afa752a52285d",
+   "howto_title": "314836916f189e53",
+   "meta_description": "7b32015affd287e2",
+   "meta_title": "638855656e37d9ad",
+   "mockup": "bb40e9f0c5f1f087",
+   "product_name": "6599f14d89433167",
+   "prompt_chip_1": "661b77a2d544eb83",
+   "prompt_chip_2": "521288199a56bfcb",
+   "prompt_chip_3": "650ab08660f5243c",
+   "prompt_chip_4": "9301b972fb55e207",
+   "slug": "e2de9a9f6d501b9b",
+   "tab_content_1": "7268b58eebf61687",
+   "tab_content_2": "9f9819f8563ac923",
+   "tab_content_3": "69ea929acd0b3b7b",
+   "tab_content_4": "341471a83de0e239",
+   "tab_label_1": "8f622f3bdd638e04",
+   "tab_label_2": "9c0b4e27ec8bedcd",
+   "tab_label_3": "48f8a91db5b86964",
+   "tab_label_4": "e5b7cdc71c9d1ba7",
+   "usecase_heading": "ada5515f9a284ee1",
+   "why_description": "08331ef11ab2a1b5",
+   "why_table": "146c10d58990f5f4",
+   "why_title": "040ffa466b9f4780"
+  },
+  "all": "155bad38539f99ef",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
