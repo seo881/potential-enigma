@@ -169,10 +169,15 @@ def cmd_verbatim(args):
         print(f"{u}: " + ("; ".join(res) or "no AlsoAsked items"))
     sys.exit(1 if bad else 0)
 
+COORDINATOR = "B"   # ruling 22 (Divit 2026-10-14 night): the coordinator moved from A to B
+def is_coordinator(by):
+    """Coordinator-only commands (unlock, transfer-hold): --by <COORDINATOR>-c-<n>, from the coordinator's own clone (ruling 22)."""
+    return bool(re.match(rf"^{COORDINATOR}-c-\w+$", by or "")) and clone_account() == COORDINATOR
+
 def cmd_unlock(args):
     """Ruling 10 B2 exception (coordinator only): a same-day factual fix to a locked field. Recorded on the spec; ruling 1's slim review still applies."""
     url, field = args[0], args[1]; by = need_by(args, "unlock"); reason = args[args.index("--reason") + 1] if "--reason" in args else None
-    if not by.startswith("A-") or not reason: sys.exit("refused: hubctl unlock URL FIELD --by A-<id> --reason TEXT (coordinator only)")
+    if not is_coordinator(by) or not reason: sys.exit(f"refused: hubctl unlock URL FIELD --by {COORDINATOR}-c-<n> --reason TEXT (coordinator only, ruling 22)")
     sp = spath(url); s = json.load(open(sp)); s.setdefault("lock_exceptions", []).append({"field": field, "by": by, "reason": reason, "date": now()})
     json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False); print(f"{url}: {field} unlocked by {by} ({reason}); a slim review of it is still required")
 
@@ -571,7 +576,7 @@ def cmd_transfer_hold(args):
     """Coordinator only, on Divit's written ruling: move another account's hold to this account (e.g. ruling 17: B's split writes
     released to A overnight). Keeps the old hold in the page's hold_history; the page's state is unchanged."""
     url = args[0]; by = need_by(args, "transfer-hold"); note = args[args.index("--note") + 1] if "--note" in args else ""
-    if not by.startswith("A-") or "ruling" not in note.lower(): sys.exit("refused: transfer-hold URL --by A-coord --note 'ruling N: ...' (coordinator, on Divit's ruling)")
+    if not is_coordinator(by) or "ruling" not in note.lower(): sys.exit(f"refused: transfer-hold URL --by {COORDINATOR}-c-<n> --note 'ruling N: ...' (coordinator, on Divit's ruling; ruling 22)")
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
     with G.lock("status-" + hub_of(url)):
         st = load_st(hub_of(url)); e = st["pages"].get(url)

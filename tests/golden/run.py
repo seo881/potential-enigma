@@ -341,6 +341,14 @@ def caught(c):
             sl = d + [{"kind": "semrush", "q": x, "ref": x} for x in (f"Which approvals should a {prim} route to a second reviewer?",
                                                                        f"How many fields can a {prim} hold before people abandon it?")]
         return W.available(c["url"], need, items, sl, spec=s)[0] == c["expect_filled"]
+    if c["kind"] == "coord-id":   # ruling 22: unlock / transfer-hold accept only the coordinator's id from the coordinator's clone
+        import hubctl as H
+        real = H.clone_account
+        try:
+            H.clone_account = lambda: c["clone"]
+            return H.is_coordinator(c["by"]) == c["expect"]
+        finally:
+            H.clone_account = real
     if c["kind"] in ("skel-field", "skel-fn", "skel-invariants"):   # decision 8 (2026-10-15): the deterministic field builders
         import skeleton as SK
         if c["kind"] == "skel-field":
