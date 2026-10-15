@@ -47,10 +47,17 @@ DEF_RX = re.compile(r"^(what is|what's|what are|what does)\b")
 HOW_RX = re.compile(r"^(how (do|to|can|would) (i|you|we)?\s*(make|create|build|set up|design|write))|^how to (make|create|build|set up)")
 
 SMALL = {"a", "an", "the", "and", "or", "for", "of", "to", "in", "on", "with", "by", "at", "vs"}
+PHRASAL = {"sign", "log", "check", "opt", "clock", "drop", "pick", "walk", "plug", "follow", "set", "roll", "move", "sign-"}
 def _title(t):
-    """HUB_RULES 4 title case (canary 2026-10-13: the skeleton set 'Customer service automation Builder')."""
-    ws = t.split()
-    return " ".join(w if any(ch.isupper() for ch in w[1:]) else (w.capitalize() if i == 0 or w.lower() not in SMALL else w.lower()) for i, w in enumerate(ws))
+    """HUB_RULES 4 title case (canary 2026-10-13: the skeleton set 'Customer service automation Builder'). A particle after a phrasal
+    verb is capitalised ("Sign In Sheet", "Sign Up Sheet", decision 8 2026-10-15), so is the last word and each part of a hyphenated
+    compound; known acronyms take their house casing."""
+    ws = t.split(); out = []
+    for i, w in enumerate(ws):
+        if any(ch.isupper() for ch in w[1:]): out.append(w); continue
+        lw = w.lower(); particle = i > 0 and lw in ("in", "up", "on", "out", "off") and ws[i - 1].lower() in PHRASAL
+        out.append("-".join(x[:1].upper() + x[1:].lower() for x in w.split("-")) if i == 0 or i == len(ws) - 1 or particle or lw not in SMALL else lw)
+    return case_acronyms(" ".join(out))
 def _fits(text, field):
     """The text renders within the widest approved rendering of that field (ops/typeset.py ceilings, T1)."""
     try:
@@ -59,28 +66,90 @@ def _fits(text, field):
         return field not in F or TS.width(text, TS.FIELDS[field], md) <= F[field]["px"] + 0.5
     except Exception: return True
 GENERIC_SHORT = {"landing page", "page", "form", "survey", "quiz", "automation", "workflow", "workflow automation", "questionnaire", "application"}
+TRAIL_GENERIC = {"form", "survey", "quiz", "questionnaire", "automation", "workflow", "landing page"}
+TRAIL_HUB = {"landing page", "automation", "workflow"}   # a cut of these leaves the topic ("Podcast", "Invoice"): fine in a heading
 def _shorter(disp, url=None):
-    """Display-name variants, shortest last: drop leading words (keeping the hub noun), then a trailing hub noun. Never a bare hub
-    phrase ('Landing Page') or another page's primary ('Approval Workflow' on document-approval-workflow), canary 2026-10-14."""
-    out = [v for v in _shorter_raw(disp) if v == disp or (v.lower() not in GENERIC_SHORT and v.lower() not in _sib_prims(url))]
-    # last resort: the last distinctive word ("Approval" for Document Approval Workflow), never a bare hub noun
-    distinct = [w for w in disp.split() if w.lower() not in {"landing", "page", "form", "survey", "quiz", "automation", "workflow", "questionnaire"}]
-    if distinct and distinct[-1] not in out: out.append(distinct[-1])
+    """Display-name variants, longest first (decision 8, 2026-10-15): the display name, then whole trailing generic words dropped one
+    at a time ("Yes or No Questions Survey" -> "Yes or No Questions"). The first (head/modifier) word is never dropped (it was:
+    "Build My or No Questions Survey", "Sign Up Sheet Questions"); never a bare hub phrase or another page's primary
+    ('Approval Workflow' on document-approval-workflow, canary 2026-10-14)."""
+    return [v for v, _ in _cuts(disp, url)]
+def _cuts(disp, url=None):
+    """(variant, the words cut so far) pairs behind _shorter."""
+    ws = disp.split(); out = [(disp, ())]; sib = _sib_prims(url) if url else set(); cut = ()
+    while len(ws) > 1:
+        k = 2 if len(ws) > 2 and " ".join(ws[-2:]).lower() == "landing page" else 1
+        tail = " ".join(ws[-k:]).lower()
+        if tail not in TRAIL_GENERIC: break
+        ws = ws[:-k]; cut += (tail,); v = " ".join(ws)
+        if v.lower() not in GENERIC_SHORT and P.norm(v) not in sib and ws[-1].lower() not in SMALL: out.append((v, cut))
     return out
 def _sib_prims(url):
     return {P.norm(p_["primary"]) for u, p_ in H.kmap().items() if u != url and p_.get("primary")}
-def _shorter_raw(disp):
-    ws = disp.split(); out = [disp]
-    for k in range(1, len(ws) - 1): out.append(" ".join(ws[k:]))   # keep the hub noun ("Service Automation"), A-r-5 note 2026-10-13
-    if len(ws) > 2 and " ".join(ws[-2:]).lower() == "landing page": out.append(" ".join(ws[:-2]))
-    elif len(ws) > 2 and ws[-1].lower() in ("automation", "workflow", "survey", "quiz", "form"): out.append(" ".join(ws[:-1]))
-    return out
+def faq_heading_for(disp, url=None):
+    """'{Topic} Questions, Answered' (HUB_RULES 5) at the faq_heading width, never a doubled word: a name ending in 'Questions' takes
+    '<name>, Answered', a name holding 'Questions' elsewhere '<name> FAQ'. When the full name does not fit: a hub-noun cut keeps the
+    topic ("Podcast Questions, Answered" on podcast-landing-page), then '<name> FAQ' before any other trailing cut ("Likert
+    Questionnaire FAQ", not "Likert Questions, Answered"; "Fundraiser Order Form FAQ", decision 8)."""
+    def forms(d):
+        if re.search(r"\bquestions$", d, re.I): return [f"{d}, Answered", f"{d} FAQ"]
+        if re.search(r"\bquestions?\b", d, re.I): return [f"{d} FAQ"]
+        return [f"{d} Questions, Answered", f"{d} FAQ"]
+    cs = _cuts(disp, url); hubcut = [v for v, cut in cs[1:] if set(cut) <= TRAIL_HUB]
+    cands = forms(disp)[:1] + [f for v in hubcut for f in forms(v)[:1]] + forms(disp)[1:] + [f for v, _ in cs[1:] for f in forms(v)[::-1]]
+    return next((h_ for h_ in cands if _fits(h_, "faq_heading")), min(cands, key=len))   # nothing fits: the shortest (T1 flags it)
+def explore_cta_for(disp, url=None):
+    """'Build My <name>' within 34 characters (QC D3), the name cut only by whole trailing generic words (decision 8); a cut
+    'Landing Page' leaves 'Page' first ("Build My Lead Generation Page", not "Build My Generation Landing Page")."""
+    vs = [x for v, cut in _cuts(disp, url) for x in ([v + " Page", v] if cut[:1] == ("landing page",) else [v])]
+    return next((c_ for c_ in (f"Build My {d}" for d in vs) if len(c_) <= 34), "Build Mine Now")
 
 COUNTABLE = re.compile(r"\b(form|survey|quiz|page|website|site|workflow|system|process|pipeline|app|bot|tool|tracker|dashboard|portal|engine|questionnaire|application|sheet|checklist|template|report|letter|agreement|contract|waiver|release|log|list|plan|policy)s?$")
-def _a(primary):   # article for a definition question ("an audit workflow"; none for a mass noun: "returns automation")
-    return "an" if primary[:1].lower() in "aeiou" else "a"
+PLURAL = re.compile(r"\b(questions|pages|forms|surveys|quizzes|templates|ideas|examples|workflows|sheets|checklists)$")
+AN_LETTER = set("aefhilmnorsx")            # letters whose name starts with a vowel sound: "an SEO", "an HR", "an FAQ"; "a UX", "a KPI"
+WORD_ACRO = {"saas", "hipaa", "osha", "nasa", "scorm"}   # acronyms read as a word: "a HIPAA release form", "a SaaS", "an OSHA"
+CONS_SOUND = re.compile(r"^(uni(form|que|on|t|vers|corn|f|lateral|sex)|use|usu|usa|uti|ura|uri|uro|euro|eu\b|ewe|one\b|one-|once|ouija|ufo)")
+VOWEL_H = re.compile(r"^(hour|honest|honou?r|heir)")
+def _a(primary):
+    """Article by sound, not letter (decision 8: "an uniform order form"): a uniform, a user, a one-page, a European, an hour,
+    an honest; initialisms by their first letter's name (an SEO, an HR, a UX, a W-9), acronyms read as words by sound (a HIPAA)."""
+    w = (primary.split() or [""])[0]; lw = w.lower(); cased = case_primary(w)
+    if lw[:1].isdigit(): return "an" if re.match(r"^(8|11|18)(\D|$)|^8\d", lw) else "a"
+    if lw not in WORD_ACRO and (cased.isupper() or (lw in ACRO and ACRO[lw])) and len(lw.replace("-", "")) <= 5 and lw not in ("it", "us"):
+        return "an" if lw[0] in AN_LETTER else "a"
+    if lw == "it" and cased == "IT": return "an"
+    if VOWEL_H.match(lw): return "an"
+    if CONS_SOUND.match(lw): return "a"
+    return "an" if lw[:1] in "aeiou" else "a"
 def _art(primary):
-    return (_a(primary) + " ") if COUNTABLE.search(P.norm(primary)) else ""
+    return (_a(primary) + " ") if COUNTABLE.search(P.norm(primary)) and not PLURAL.search(P.norm(primary)) else ""
+def case_primary(p):
+    """A primary keyword in running text: acronyms in house casing (QC R15), and a leading 'it' is the department (IT automation,
+    IT request form; case_acronyms never cases 'it' in a sentence)."""
+    return re.sub(r"^it\b(?=\s+\w)", "IT", case_acronyms(p))
+def def_questions(prim):
+    """The two default definition slots when no candidate fills them (plan_slots), acronyms cased (decision 8, QC R15)."""
+    pc = case_primary(prim); art = _art(prim); plural = bool(PLURAL.search(P.norm(prim)))
+    d = f"What {'are' if plural else 'is'} {art}{pc}?"
+    h = f"How do I create {art}{pc}?" if art or plural else f"How do I set up {pc}?"
+    return d[:1].upper() + d[1:], h
+def hero_prompt_for(prim, hub):
+    """The hero default prompt (ruling 15, HUB_RULES 5): 'Build' + the primary with the right article: by sound ("a uniform"), none on a
+    mass noun ("Build SEO automation"), "a set of" before a plural ("Build a set of poll questions"), acronyms cased (decision 8)."""
+    tmpl = HERO[hub]; pc = case_primary(prim); plural = bool(PLURAL.search(P.norm(prim)))
+    if hub == "Auto":
+        if plural: tmpl = "Build {p} that run on their own and log every step."
+        elif re.search(r"\b(workflow|system|process|pipeline|app|bot|tool|tracker|dashboard|portal|engine)$", P.norm(prim)):
+            tmpl = "Build {a} {p} that runs on its own and logs every step."   # countable primary takes an article (canary 2026-10-14)
+    else:
+        tmpl = tmpl.replace("Build a {p}", "Build a set of {p}" if plural else "Build {a} {p}")
+    return "<p>" + tmpl.format(p=pc, a=_a(prim)) + "</p>"
+def built_fields(url):
+    """Every code-built hero/FAQ field for a page, read-only (decision 8 golden cases and old/new reports): what cmd_build sets
+    when the field is empty."""
+    km = H.kmap()[url]; prim = km["primary"]; hub = H.hub_of(url); disp = _title(km.get("display_name") or prim); d, h = def_questions(prim)
+    return {"faq_heading": faq_heading_for(disp, url), "explore_cta": explore_cta_for(disp, url), "hero_prompt": hero_prompt_for(prim, hub),
+            "breadcrumb": disp, "product_name": f"{disp} Builder", "def_q": d, "how_q": h}
 
 ACRO = P.r18()["acronyms"]   # rules/paa_patterns.json (ruling 18 part 4e: CFOs, KYC ...); None = never cased (it, us)
 def case_acronyms(text):
@@ -200,9 +269,10 @@ def plan_slots(url, cap=10, extra=()):
     capped = lambda c: (resp(c["q"]) and sum(resp(x.get("q")) for x in slots) >= P.MAX_RESPONDENT) or (brand(c["q"]) and sum(brand(x.get("q")) for x in slots) >= P.MAX_BRANDED)
     pick = lambda rx: next((c for c in cands if rx.search(P.norm(c["q"])) and c not in have and not capped(c)), None)
     d = pick(DEF_RX); have += [d] if d else []
-    slots.append(d or {"kind": "definition", "q": f"What is {_art(prim)}{prim}?", "ref": prim, "locked": True})
+    dq, hq = def_questions(prim)
+    slots.append(d or {"kind": "definition", "q": dq, "ref": prim, "locked": True})
     h = pick(HOW_RX); have += [h] if h else []
-    slots.append(h or {"kind": "definition", "q": (f"How do I create {_art(prim)}{prim}?" if _art(prim) else f"How do I set up {prim}?"), "ref": prim, "locked": True})
+    slots.append(h or {"kind": "definition", "q": hq, "ref": prim, "locked": True})
     near = lambda q: any(P.near_dup(q, x["q"], prim) or P.jacc(P.content(q), P.content(x["q"])) >= P.JACCARD_DUP for x in slots if x.get("q"))
     for c in [c for c in cands if not c.get("flagged")]:
         if full(): break
@@ -254,17 +324,11 @@ def cmd_build(a):
     for t, sl in zip(rel, free[1::3] or free):
         sl["link"] = {"url": "https://emergent.sh" + t["url"], "anchor": t["anchor"]}
     s["pipeline"] = "r15"; s["faq_plan"] = slots
-    F = s["fields"]; disp = _title(km.get("display_name") or prim)
-    if not s.get("faq_heading"):
-        s["faq_heading"] = next((h_ for h_ in (f"{d} Questions, Answered" for d in _shorter(disp, url)) if _fits(h_, "faq_heading")), f"{disp} Questions, Answered")
-    F["breadcrumb"] = F.get("breadcrumb") or disp; F["product_name"] = F.get("product_name") or f"{disp} Builder"
-    if not F.get("explore_cta"):
-        F["explore_cta"] = next((c_ for c_ in (f"Build My {d}" for d in _shorter(disp, url)) if len(c_) <= 34), "Build Mine Now")
-    if not F.get("hero_prompt"):
-        tmpl = HERO[hub]
-        if hub == "Auto" and re.search(r"\b(workflow|system|process|pipeline|app|bot|tool|tracker|dashboard|portal|engine)$", P.norm(prim)):
-            tmpl = "Build {a} {p} that runs on its own and logs every step."   # countable primary takes an article (canary 2026-10-14)
-        F["hero_prompt"] = "<p>" + tmpl.format(p=prim, a=_a(prim)) + "</p>"
+    F = s["fields"]; B = built_fields(url)   # decision 8 (2026-10-15): deterministic builders, golden kind skel-field
+    if not s.get("faq_heading"): s["faq_heading"] = B["faq_heading"]
+    F["breadcrumb"] = F.get("breadcrumb") or B["breadcrumb"]; F["product_name"] = F.get("product_name") or B["product_name"]
+    if not F.get("explore_cta"): F["explore_cta"] = B["explore_cta"]
+    if not F.get("hero_prompt"): F["hero_prompt"] = B["hero_prompt"]
     s.setdefault("keywords", {})["primary"] = prim
     save(url, s)
     vs, rows = default_table(url)
