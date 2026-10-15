@@ -4,7 +4,7 @@ agent work. Plan, rules and position: plan/weekend-run.md. Loop: ops/schedule/we
   weekend.py init                 build plan/batches/wk-rework-<dir>.txt once (written pages that are not live, held, parked or in Webflow)
   weekend.py next                 the next work unit (claims new pages itself, canary per hub); exit 0 work, 3 exhausted, 4 STOP file
   weekend.py add-new URL --by ID [--fail TEXT]   a new page's writer returned: into plan/batches/wk-new-<dir>.txt (ledger at check)
-  weekend.py aa URL [--kw secondary] [--run ID --run-cap N]   the only AlsoAsked path: reuses a saved pull; 2 credits per page in total
+  weekend.py aa URL [--kw secondary [--term TEXT]] [--run ID --run-cap N]   the only AlsoAsked path: reuses a saved pull; 2 credits per page in total
                                   (primary + secondary pull, expected cost checked first), a fresh retry only after no_results;
                                   --kw secondary: one pull on the top secondary -> private/alsoasked/<slug>--sec.json (gate reads both)
   weekend.py aa-balance           preflight: key set and account balance readable (free GET /account)
@@ -32,7 +32,8 @@ AUTH_RUNS = {"auto-r1014": 22,    # Divit 2026-10-14 step 3: the 11 Automation n
              "pilot-r10": 45,     # ruling 10A, 2026-10-13: the yield pilot
              "wave-r12": 400,     # ruling 12, 2026-10-13: every queued page with no pull + LP --kw secondaries, stop at 400 credits
              "bp1-r1015": 6,      # Divit 2026-10-15 ("pulls for the other 8 now", ruling 22): the 6 needs-pull pages of the spec triage, the final pull each
-             "bp2-r1015": 24}     # Divit 2026-10-15 ("queue writers on relevance-checked queued pages across all 4 hubs", ruling 22): top 12 clean queued pages, cap 2 pulls each
+             "bp2-r1015": 24,     # Divit 2026-10-15 ("queue writers on relevance-checked queued pages across all 4 hubs", ruling 22): top 12 clean queued pages, cap 2 pulls each
+             "ca-r1015": 1}       # Divit 2026-10-15: creator-application, one pull on "creator application form" (--kw secondary --term)
 STATE = os.path.join(ROOT, "status", "weekend-run.json")
 PLAN = os.path.join(ROOT, "plan", "weekend-run.md")
 STOP = os.path.join(ROOT, "STOP")
@@ -275,7 +276,8 @@ def cmd_aa(args):
     if os.path.realpath(os.path.join(ROOT, "private", "alsoasked")) != shared:
         sys.exit(f"refused: private/alsoasked here resolves to {os.path.realpath(os.path.join(ROOT, 'private', 'alsoasked'))}, not the shared {shared} (TWO_ACCOUNTS setup 4)")
     if saved() not in (None, "no_results"): print(f"{name}: saved pull reused (private/alsoasked/{name}.json); no new pull"); return
-    term = top_secondary(url) if sec else (H.kmap().get(url) or {}).get("primary")
+    if opt("--term") and not (sec and run in AUTH_RUNS): sys.exit("--term needs --kw secondary and an authorised --run")
+    term = opt("--term") or (top_secondary(url) if sec else (H.kmap().get(url) or {}).get("primary"))   # --term: Divit-named seed (2026-10-15)
     if not term: sys.exit(f"{s}: " + ("no secondary that PA15 allows and that differs from the primary" if sec else "not in the keyword map"))
     depth = 2; cost = PULL_COST[depth]
     env = {**os.environ, "ALSOASKED_VIA_AA": "1", "ALSOASKED_RUN": run or ""}
