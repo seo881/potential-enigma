@@ -227,7 +227,7 @@ def cmd_aa_keychain(a):
 def cmd_preflight(a):
     bad, notes = [], []
     if os.path.realpath(ROOT) != os.path.realpath(os.path.expanduser("~/emergent-hubs-a")): bad.append(f"this is {ROOT}, not B's clone ~/emergent-hubs-a")
-    if os.environ.get("CLAUDE_CONFIG_DIR", os.path.expanduser("~/.claude")) != os.path.expanduser("~/.claude"):   # unset = default ~/.claude (an explicit value breaks the headless login) bad.append("CLAUDE_CONFIG_DIR is not ~/.claude (account B); refusing any other config dir")
+    if os.environ.get("CLAUDE_CONFIG_DIR", os.path.expanduser("~/.claude")) != os.path.expanduser("~/.claude"): bad.append("CLAUDE_CONFIG_DIR is not ~/.claude (account B); refusing any other config dir")
     acct, hubs = H.clone_pin()
     if acct != "B" or set(hubs) != ALL_HUBS: bad.append(f".hub is {acct}:{','.join(hubs)}; ruling 20 needs B:LP,Form,Auto,SurveyQuiz")
     if not G.ruling19_lifted(): bad.append("no ruling-19 lift file (.cache/overnight-b/ruling19-lift-2026-10-15, under 18 hours old): the coordinator creates it at start")
