@@ -120,6 +120,13 @@
    "via": null,
    "by": "B-w-115",
    "note": ""
+  },
+  {
+   "t": "2026-10-15 13:42 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-20",
+   "note": "[faq | CONTENT_DEFECTS #1] faq item 4: The question asks about purchase order automation, the primary of the live sibling /ai-automation-builder/purchase-order-automation (HUB_RULES 5: questions that name another page's primary belong to that page's FAQ). The answer itself concedes the topic ('draft"
   }
  ],
  "plan": {
@@ -903,5 +910,285 @@
  },
  "writers": [
   "B-w-115"
- ]
+ ],
+ "review": {
+  "by": "B-r-20",
+  "date": "2026-10-15 13:42 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Order Processing Automation That Checks Every Line'; hero 'Build order processing automation that turns emailed POs into checked sales orders and holds only what needs a person.' (119 chars); how-to description one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are order-to-cash vendors and explainers; the page shows capture, price check, credit hold, backorder and status page, plus a 7-step how-to ('How to Automate Order Processing')."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Distributor vocabulary throughout: 'PO 7731 into sales order SO-50388', 'open balance plus the new order is checked against the customer's credit limit', 'backorders the rest'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Bodies open on full sentences: 'Customer POs sent as PDF attachments...', 'Each line is matched to your catalog by part number...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Notes only (see findings)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: 'Drawer slides come in at $12.75 against a contract price of $14.20'."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to prompt-build, api-connect, ai-extraction, alerts, code-export, database-owned, no-caps; credit-hold, sales-order, backorder and PDF-PO facts in domain_sources; 18,900+8,400=27,300 over 25,000; 120-90=30."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Body and tabs read as their own page (sell-side order desk: PO capture, credit hold, backorder, status page); the sibling overlap is confined to FAQ 4-5 and scored under faq."
+   },
+   "faq": {
+    "result": "fail",
+    "evidence": "FAQ 4 'How can I automate the purchase order process?' and FAQ 5 'How can I automate purchase orders?' belong to the purchase-order-automation sibling (see blocking findings)."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 lines total $3,610 and drawer slides 120 x $12.75 = $1,530; tab 2 shows $27,300 and '$2,300 over the credit limit' to Odile Varga; tab 3 120/90/30; tab 4 SO-50441 packed, 'Waiting on a label'."
+   }
+  },
+  "findings": [
+   {
+    "class": "sibling-keyword",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #1",
+    "field": "faq item 4",
+    "quote": "How can I automate the purchase order process?",
+    "issue": "The question asks about purchase order automation, the primary of the live sibling /ai-automation-builder/purchase-order-automation (HUB_RULES 5: questions that name another page's primary belong to that page's FAQ). The answer itself concedes the topic ('drafting purchase orders from approved requests and sending them to suppliers is the work of purchase order automation') and ends on a sentence that only carries the sibling link. It is also one of the 5 PA6-flagged items.",
+    "fix": "Replace with an order-processing question from the passing set or the Semrush keyword ideas (e.g. sales order entry, order desk holds); keep the sibling link elsewhere if natural.",
+    "severity": "blocking"
+   },
+   {
+    "class": "sibling-keyword",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #1",
+    "field": "faq item 5",
+    "quote": "How can I automate purchase orders?",
+    "issue": "Same class: the searcher asking this wants buy-side purchase order automation, which the live sibling /ai-automation-builder/purchase-order-automation owns. The answer has to bend it to the supplier side ('As a supplier, stop retyping them'), and it near-duplicates FAQ 4.",
+    "fix": "Replace with a distinct order-processing question (not a purchase-order one); if the 10-item supply runs out, park per the A6 default.",
+    "severity": "blocking"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq item 6",
+    "quote": "Order entry is one of the most common uses of data entry automation.",
+    "issue": "Unsourced ranking claim about no named third party; the sentence exists mainly to carry the data entry automation link.",
+    "fix": "Say what order entry and data entry automation share, without the ranking.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 10",
+    "quote": "Label buying and carrier choice fall under shipping automation.",
+    "issue": "FAQ answer ends on a sentence whose only job is to carry the sibling link (proposals/account-b.md, link-only FAQ sentences). Same pattern in FAQ 4: 'is the work of purchase order automation.'",
+    "fix": "Fold the link into a sentence that answers the question.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq item 5",
+    "quote": "Keep the PO number on the sales order it creates.",
+    "issue": "FAQ 4 and FAQ 5 restate the same seller-side idea (turn the customer PO into a sales order); feature 1 and tab 1 already carry it.",
+    "fix": "Resolved by the FAQ 4/5 swap.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 5",
+    "field": "explore_cta",
+    "quote": "Build My Order Automation",
+    "issue": "The code-built CTA drops the middle head word 'Processing' instead of a trailing generic word (HUB_RULES 5, decision 8). Known skeleton-builder defect, already reported in proposals/account-b.md; writers may not edit code-built fields.",
+    "fix": "Fix in skeleton.explore_cta_for, not by hand.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq item 6",
+   "issue": "Unsourced ranking claim about no named third party; the sentence exists mainly to carry the data entry automation link.",
+   "fix": "Say what order entry and data entry automation share, without the ranking.",
+   "by": "B-r-20",
+   "via": "review",
+   "date": "2026-10-15 13:42 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 10",
+   "issue": "FAQ answer ends on a sentence whose only job is to carry the sibling link (proposals/account-b.md, link-only FAQ sentences). Same pattern in FAQ 4: 'is the work of purchase order automation.'",
+   "fix": "Fold the link into a sentence that answers the question.",
+   "by": "B-r-20",
+   "via": "review",
+   "date": "2026-10-15 13:42 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq item 5",
+   "issue": "FAQ 4 and FAQ 5 restate the same seller-side idea (turn the customer PO into a sales order); feature 1 and tab 1 already carry it.",
+   "fix": "Resolved by the FAQ 4/5 swap.",
+   "by": "B-r-20",
+   "via": "review",
+   "date": "2026-10-15 13:42 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 5",
+   "field": "explore_cta",
+   "issue": "The code-built CTA drops the middle head word 'Processing' instead of a trailing generic word (HUB_RULES 5, decision 8). Known skeleton-builder defect, already reported in proposals/account-b.md; writers may not edit code-built fields.",
+   "fix": "Fix in skeleton.explore_cta_for, not by hand.",
+   "by": "B-r-20",
+   "via": "review",
+   "date": "2026-10-15 13:42 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "3689a4656adc34b0",
+   "alt:share_image": "76f4735d2ee26e54",
+   "alt:tab_image_1": "8f0dc9beec8eccfb",
+   "alt:tab_image_2": "f6549478d89673da",
+   "alt:tab_image_3": "5495079838b31584",
+   "alt:tab_image_4": "a7146f95b1024ede",
+   "breadcrumb": "ae4dff614f00cc06",
+   "chip_adds": "40835caaa3cea2bf",
+   "explore_cta": "80ad2cac3bd94229",
+   "faq": "d2d6b4abe261ace2",
+   "feature_1": "55b0d1f415928d08",
+   "feature_2": "1957e954b3763a1b",
+   "feature_3": "102a919d5e3d23ec",
+   "feature_4": "47ce9c6e70e34759",
+   "feature_5": "648ff8f33b5514e5",
+   "feature_6": "ace78e4857d233c8",
+   "features_heading": "8f3a5faf5ddbc7c2",
+   "features_subheading": "0419ed162f0089dc",
+   "h1": "448a49747d2d4cb5",
+   "hero_description": "8e6d084941672ff3",
+   "hero_prompt": "f764b807fc55919e",
+   "howto_description": "7b863763b770bffc",
+   "howto_step_1_des": "157095f5bc68cd9f",
+   "howto_step_1_title": "1d2fea3728a69d5a",
+   "howto_step_2_des": "1cee314319626d6a",
+   "howto_step_2_title": "25aac464bce2eadf",
+   "howto_step_3_des": "0d4aaa3a76ffeed6",
+   "howto_step_3_title": "8e0aebd69f5b0839",
+   "howto_step_4_des": "60ec349d302886a8",
+   "howto_step_4_title": "eacb4b165d8b9e29",
+   "howto_step_5_des": "0de94f0a1c34f51f",
+   "howto_step_5_title": "015dde9c4a405a1e",
+   "howto_step_6_des": "5e1444ca363da614",
+   "howto_step_6_title": "d87fea32acc763ec",
+   "howto_step_7_des": "399fe253a8fc27ea",
+   "howto_step_7_title": "82a86ad8ed0abce1",
+   "howto_title": "590de6688d402b3b",
+   "meta_description": "698962bd46ffc472",
+   "meta_title": "826677f14fb58f7b",
+   "mockup": "b87ee495092e68c8",
+   "product_name": "687b43691d685d5c",
+   "prompt_chip_1": "04be8cd24105a231",
+   "prompt_chip_2": "6a3ee5a298775fac",
+   "prompt_chip_3": "1b293f5efaa59e85",
+   "prompt_chip_4": "3d40ed64097334fe",
+   "slug": "06c439d7a7829b27",
+   "tab_content_1": "98dbb12bbd6a0635",
+   "tab_content_2": "4a8447423cf6ac5e",
+   "tab_content_3": "db2cb3cd8b35cd36",
+   "tab_content_4": "1039bd3e42293e13",
+   "tab_label_1": "60e727a42409cd54",
+   "tab_label_2": "d22f6a428f09fe3a",
+   "tab_label_3": "80509afa0bbb3e6c",
+   "tab_label_4": "3d40ed64097334fe",
+   "usecase_heading": "f8f41f21ed4326bd",
+   "why_description": "e68a64f31610df23",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "57aac5d4fb6bb3f8"
+  },
+  "all": "ef4da877b11caabc",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "3689a4656adc34b0",
+   "alt:share_image": "76f4735d2ee26e54",
+   "alt:tab_image_1": "8f0dc9beec8eccfb",
+   "alt:tab_image_2": "f6549478d89673da",
+   "alt:tab_image_3": "5495079838b31584",
+   "alt:tab_image_4": "a7146f95b1024ede",
+   "breadcrumb": "ae4dff614f00cc06",
+   "chip_adds": "40835caaa3cea2bf",
+   "explore_cta": "80ad2cac3bd94229",
+   "faq": "d2d6b4abe261ace2",
+   "feature_1": "55b0d1f415928d08",
+   "feature_2": "1957e954b3763a1b",
+   "feature_3": "102a919d5e3d23ec",
+   "feature_4": "47ce9c6e70e34759",
+   "feature_5": "648ff8f33b5514e5",
+   "feature_6": "ace78e4857d233c8",
+   "features_heading": "8f3a5faf5ddbc7c2",
+   "features_subheading": "0419ed162f0089dc",
+   "h1": "448a49747d2d4cb5",
+   "hero_description": "8e6d084941672ff3",
+   "hero_prompt": "f764b807fc55919e",
+   "howto_description": "7b863763b770bffc",
+   "howto_step_1_des": "157095f5bc68cd9f",
+   "howto_step_1_title": "1d2fea3728a69d5a",
+   "howto_step_2_des": "1cee314319626d6a",
+   "howto_step_2_title": "25aac464bce2eadf",
+   "howto_step_3_des": "0d4aaa3a76ffeed6",
+   "howto_step_3_title": "8e0aebd69f5b0839",
+   "howto_step_4_des": "60ec349d302886a8",
+   "howto_step_4_title": "eacb4b165d8b9e29",
+   "howto_step_5_des": "0de94f0a1c34f51f",
+   "howto_step_5_title": "015dde9c4a405a1e",
+   "howto_step_6_des": "5e1444ca363da614",
+   "howto_step_6_title": "d87fea32acc763ec",
+   "howto_step_7_des": "399fe253a8fc27ea",
+   "howto_step_7_title": "82a86ad8ed0abce1",
+   "howto_title": "590de6688d402b3b",
+   "meta_description": "698962bd46ffc472",
+   "meta_title": "826677f14fb58f7b",
+   "mockup": "b87ee495092e68c8",
+   "product_name": "687b43691d685d5c",
+   "prompt_chip_1": "04be8cd24105a231",
+   "prompt_chip_2": "6a3ee5a298775fac",
+   "prompt_chip_3": "1b293f5efaa59e85",
+   "prompt_chip_4": "3d40ed64097334fe",
+   "slug": "06c439d7a7829b27",
+   "tab_content_1": "98dbb12bbd6a0635",
+   "tab_content_2": "4a8447423cf6ac5e",
+   "tab_content_3": "db2cb3cd8b35cd36",
+   "tab_content_4": "1039bd3e42293e13",
+   "tab_label_1": "60e727a42409cd54",
+   "tab_label_2": "d22f6a428f09fe3a",
+   "tab_label_3": "80509afa0bbb3e6c",
+   "tab_label_4": "3d40ed64097334fe",
+   "usecase_heading": "f8f41f21ed4326bd",
+   "why_description": "e68a64f31610df23",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "57aac5d4fb6bb3f8"
+  },
+  "all": "ef4da877b11caabc",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
