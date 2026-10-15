@@ -353,7 +353,9 @@ def caught(c):
             b = SK.built_fields(u); first = b["breadcrumb"].split()[0]
             for f, t in (("faq_heading", b["faq_heading"]), ("explore_cta", b["explore_cta"])):
                 if t == "Build Mine Now": continue
-                if not (t[len("Build My "):] if f == "explore_cta" else t).startswith(first): return False
+                if not (t[len("Build My "):] if f == "explore_cta" else t).startswith(first):
+                    # width fallback (decision 8 follow-up): a leading generic word goes only when no first-word heading fits
+                    if f == "explore_cta" or SK._fits(min(SK._shorter(b["breadcrumb"], u), key=len) + " FAQ", "faq_heading"): return False
                 ws = re.findall(r"\w+", t.lower())
                 if ws.count("questions") > 1 or any(ws[i] == ws[i + 1] for i in range(len(ws) - 1)): return False
             if len(b["explore_cta"]) > 34: return False

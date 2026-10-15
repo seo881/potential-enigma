@@ -50,13 +50,16 @@ SMALL = {"a", "an", "the", "and", "or", "for", "of", "to", "in", "on", "with", "
 PHRASAL = {"sign", "log", "check", "opt", "clock", "drop", "pick", "walk", "plug", "follow", "set", "roll", "move", "sign-"}
 def _title(t):
     """HUB_RULES 4 title case (canary 2026-10-13: the skeleton set 'Customer service automation Builder'). A particle after a phrasal
-    verb is capitalised ("Sign In Sheet", "Sign Up Sheet", decision 8 2026-10-15), so is the last word and each part of a hyphenated
-    compound; known acronyms take their house casing."""
+    verb is capitalised, so is the last word and each part of a hyphenated compound; known acronyms take their house casing. A phrasal
+    verb used as a noun modifier is hyphenated ("Safety Sign-In Sheet", "Potluck Sign-Up Sheet", "Check-In Form", decision 8
+    follow-up 2026-10-15); as a verb (particle last, or followed by a small word) it stays open ("Sign Up for a Class")."""
     ws = t.split(); out = []
     for i, w in enumerate(ws):
         if any(ch.isupper() for ch in w[1:]): out.append(w); continue
         lw = w.lower(); particle = i > 0 and lw in ("in", "up", "on", "out", "off") and ws[i - 1].lower() in PHRASAL
-        out.append("-".join(x[:1].upper() + x[1:].lower() for x in w.split("-")) if i == 0 or i == len(ws) - 1 or particle or lw not in SMALL else lw)
+        tw = "-".join(x[:1].upper() + x[1:].lower() for x in w.split("-")) if i == 0 or i == len(ws) - 1 or particle or lw not in SMALL else lw
+        if particle and i + 1 < len(ws) and ws[i + 1].lower() not in SMALL and out and "-" not in out[-1]: out[-1] += "-" + tw
+        else: out.append(tw)
     return case_acronyms(" ".join(out))
 def _fits(text, field):
     """The text renders within the widest approved rendering of that field (ops/typeset.py ceilings, T1)."""
@@ -97,7 +100,20 @@ def faq_heading_for(disp, url=None):
         return [f"{d} Questions, Answered", f"{d} FAQ"]
     cs = _cuts(disp, url); hubcut = [v for v, cut in cs[1:] if set(cut) <= TRAIL_HUB]
     cands = forms(disp)[:1] + [f for v in hubcut for f in forms(v)[:1]] + forms(disp)[1:] + [f for v, _ in cs[1:] for f in forms(v)[::-1]]
-    return next((h_ for h_ in cands if _fits(h_, "faq_heading")), min(cands, key=len))   # nothing fits: the shortest (T1 flags it)
+    fb = [f for v in _fallback(cs[-1][0], url) for f in forms(v)[::-1]]
+    return next((h_ for h_ in cands + fb if _fits(h_, "faq_heading")), min(cands + fb, key=len))   # nothing fits: the shortest (T1 flags it)
+FALLBACK_TRAIL = TRAIL_GENERIC | {"sheet"}
+LEAD_GENERIC = {"reasonable", "employee", "employees", "staff", "customer", "client", "general", "simple", "basic", "online",
+                "standard", "official", "new", "free", "custom", "digital", "automated", "personal"}
+def _fallback(disp, url=None):
+    """Width fallback when no heading fits (decision 8 follow-up, 2026-10-15): a trailing generic noun ("Form", "Sheet")
+    dropped first, then leading generic qualifiers ("Reasonable", "Employee"), the head modifier always kept and at least two words
+    left: "Accommodation Request FAQ", "Handbook Acknowledgment FAQ". Never a bare hub phrase or another page's primary."""
+    ws = disp.split(); sib = _sib_prims(url) if url else set(); out = []
+    def ok(v): return len(v) >= 2 and " ".join(v).lower() not in GENERIC_SHORT and P.norm(" ".join(v)) not in sib and v[0].lower() not in SMALL and v[-1].lower() not in SMALL
+    if len(ws) > 2 and ws[-1].lower() in FALLBACK_TRAIL and ok(ws[:-1]): ws = ws[:-1]; out.append(" ".join(ws))
+    while len(ws) > 2 and ws[0].lower() in LEAD_GENERIC and ok(ws[1:]): ws = ws[1:]; out.append(" ".join(ws))
+    return out
 def explore_cta_for(disp, url=None):
     """'Build My <name>' within 34 characters (QC D3), the name cut only by whole trailing generic words (decision 8); a cut
     'Landing Page' leaves 'Page' first ("Build My Lead Generation Page", not "Build My Generation Landing Page")."""
