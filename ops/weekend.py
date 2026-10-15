@@ -31,7 +31,8 @@ AUTH_RUNS = {"auto-r1014": 22,    # Divit 2026-10-14 step 3: the 11 Automation n
              "kw-r1014": 74,      # Divit 2026-10-14 step 4: the 37 approved ruling-13 new-keyword pages, primary pull only, cap 2 each
              "pilot-r10": 45,     # ruling 10A, 2026-10-13: the yield pilot
              "wave-r12": 400,     # ruling 12, 2026-10-13: every queued page with no pull + LP --kw secondaries, stop at 400 credits
-             "bp1-r1015": 6}      # Divit 2026-10-15 ("pulls for the other 8 now", ruling 22): the 6 needs-pull pages of the spec triage, the final pull each
+             "bp1-r1015": 6,      # Divit 2026-10-15 ("pulls for the other 8 now", ruling 22): the 6 needs-pull pages of the spec triage, the final pull each
+             "bp2-r1015": 24}     # Divit 2026-10-15 ("queue writers on relevance-checked queued pages across all 4 hubs", ruling 22): top 12 clean queued pages, cap 2 pulls each
 STATE = os.path.join(ROOT, "status", "weekend-run.json")
 PLAN = os.path.join(ROOT, "plan", "weekend-run.md")
 STOP = os.path.join(ROOT, "STOP")
