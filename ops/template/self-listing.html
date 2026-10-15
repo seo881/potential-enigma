@@ -1,0 +1,18 @@
+<script>
+/* Build hubs: hide the current page's own card in its carousel (Divit 2026-10-15). Runs on load and after each Finsweet "Load more". */
+(function () {
+  function here(u) { try { return new URL(u, location.href).pathname.replace(/\/$/, ''); } catch (e) { return ''; } }
+  function hideSelf() {
+    var p = here(location.href);
+    document.querySelectorAll('.section_build a.build_link').forEach(function (a) {
+      if (here(a.href) === p) { var item = a.closest('.w-dyn-item') || a; item.remove(); }
+    });
+  }
+  function start() {
+    hideSelf();
+    var list = document.querySelector('.section_build .w-dyn-items');
+    if (list && window.MutationObserver) new MutationObserver(hideSelf).observe(list, { childList: true });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
