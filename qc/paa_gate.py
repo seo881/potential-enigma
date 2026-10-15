@@ -26,6 +26,11 @@ STOP = set("a an the of for to in on at by with and or is are do does did i we y
            "should would will it its be there this that from as if so any".split())
 PROV = ("tool", "query", "depth", "parent", "fetched", "original")
 JACCARD_DUP = 0.8      # PA9/PA10 same-intent threshold on content words (tune after the first full run)
+PARTICLES = {"up", "in", "out", "off", "on"}   # phrasal-verb particles: function words in PA9 when the head phrase carries them (sign up, check in)
+def pa9_content(q, head):
+    """PA9 overlap words: content(q) minus the phrasal-verb particles of the page's head phrase (B-dev-11, Divit's go 2026-10-15:
+    "up" in "potluck sign up sheet" made the definition and the how-to-build question one intent)."""
+    return content(q) - (PARTICLES & content(head or ""))
 MAX_RESPONDENT, MAX_BRANDED, MIN_ON_TOPIC, N_FAQ, MIN_SECONDARIES = 2, 0, 8, 10, 6   # PA8 brand cap 0 (Divit 2026-10-09)
 
 def norm0(s): return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9'.&-]+", " ", s.lower().replace("’", "'"))).strip()
@@ -325,8 +330,8 @@ class Gate:
         kept, resp, brand = [], 0, 0
         for it in items:
             if it["verdict"] == "reject": continue
-            c = content(it["q"])
-            dup = next((k for k in kept if jacc(c, content(k["q"])) >= JACCARD_DUP), None)
+            c = pa9_content(it["q"], self.primary)
+            dup = next((k for k in kept if jacc(c, pa9_content(k["q"], self.primary)) >= JACCARD_DUP), None)
             if dup: it["reasons"].append(("PA9", "reject", f'same intent as "{dup["q"][:50]}"'))
             elif not it.get("legacy"):   # ruling 18 part 4a (new writing only): same-intent variants (fill/complete/write; shorten/speed up)
                 dup = next((k for k in kept if near_dup(it["q"], k["q"], self.primary)), None)

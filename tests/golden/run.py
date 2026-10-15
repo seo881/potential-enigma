@@ -6,6 +6,7 @@ The gate must catch each one. Cases point at a commit and a spec instead of copy
 Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   gate-question  {url, sha, q_index, expect: [rule ids]}   the PAA gate rejects FAQ item q_index of the spec at that commit
   gate-question  {url, sha, q_index, absent: [rule ids]}   (absent instead of expect) item q_index carries none of these rules, at any level
+  gate-pa9-pair  {url, a, b, expect_dup, new_writing?}    PA9 (same intent in page order) rejects b after a exactly when expect_dup
   gate-text      {url, q, expect | absent, levels?}         (absent: none of these rules may fire, e.g. PA3 on a spelling variant)
   spelling-verbatim {q, orig, expect_ok}                  ruling 14: q is the original or its US-spelling/house-form display, nothing else
   gate-flag-decision {url, qh, from, subtype, expect}     Divit's flag packet: the question is rejected (expect reject) or no longer flagged for that subtype
@@ -158,6 +159,10 @@ def caught(c):
         if c.get("absent"): return not any(r[0] in c["absent"] for r in it["reasons"])   # an exemption: the rule must stay silent
         rej = {r[0] for r in it["reasons"] if r[1] == "reject"}
         return it["verdict"] == "reject" and (not c.get("expect") or bool(rej & set(c["expect"])))
+    if c["kind"] == "gate-pa9-pair":   # B-dev-11 (Divit's go 2026-10-15): PA9 on two questions in page order (b after a); head-phrase particles
+        import paa_gate as PG          # (sign up, check in) are function words, any other word counts
+        g = PG.Gate(c["url"]); its = [{"q": q, "verdict": "pass", "reasons": [], "legacy": not c.get("new_writing")} for q in (c["a"], c["b"])]
+        g.finish(its); return any(r[0] == "PA9" for r in its[1]["reasons"]) == c["expect_dup"]
     if c["kind"] == "gate-text":   # a literal question (Divit's examples, our own copy): the gate's per-question rules reject it
         import paa_gate as PG
         rs = PG.Gate(c["url"]).judge({"q": c["q"], "source": "secondary", "n": 5}); lv = c.get("levels") or ["reject"]
