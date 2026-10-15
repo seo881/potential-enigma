@@ -424,7 +424,7 @@ def write_readiness():
     for p in sorted(glob.glob(os.path.join(LEDGER_DIR, "*.json"))):
         L = json.load(open(p))
         for u, P in L["pages"].items(): ledgers[u] = (L["batch"], P)
-    st = G.all_status(); rows = []
+    st = G.all_status(); live = G.live_child_urls(); rows = []
     for u in sorted(ledgers, key=lambda x: (ledgers[x][0], list(json.load(open(os.path.join(LEDGER_DIR, ledgers[x][0] + ".json")))["pages"]).index(x))):
         b, P = ledgers[u]
         try: s = spec(u)
@@ -436,7 +436,7 @@ def write_readiness():
         rows.append([b, u, str(qc_total(u)), f"{ok}/{n}", ("yes, " + rv.get("by", "")) if launch_rev else "no",
                      "yes" if images_current(s) else "no", "yes" if (s.get("pa13") or {}).get("approved") else "no",
                      str(len(s.get("pending_links") or [])), s.get("item_id") or "-", "yes" if synced else "no",
-                     "yes" if st.get(u, {}).get("state") == "published" else "no", P["stage"] + (" (stopped)" if P.get("stopped") else "")])
+                     "yes" if u in live else "no", P["stage"] + (" (stopped)" if P.get("stopped") else "")])
     out = ["# Readiness board", "", f"Regenerated {now()} by `hubctl readiness` (also after every `hubctl ship` step). Public: counts and IDs only.", "",
            "## Template blockers (plan/template-edits-2026-10-08.md)", "", "| # | Edit | Blocks first publish | Status |", "|---|---|---|---|"]
     out += [f"| {k} | {v['edit']} | {v['blocks']} | {v['status']} |" for k, v in T.items() if not k.startswith("_")]
@@ -493,6 +493,7 @@ def api_read(hub, out=None):
     json.dump({"_meta": {"hub": hub, "collection": h["collection_id"], "read_at": now(), "count": len(items), "via": "hubctl api-read (Data API v2, staged)"},
                "result": {"items": items}}, open(p, "w"), ensure_ascii=False)
     _apilog({"op": "list", "hub": hub, "collection": h["collection_id"], "count": len(items), "file": _rel(p) if p.startswith(ROOT) else os.path.basename(p)})
+    G.live_record(hub, items, json.load(open(p))["_meta"]["read_at"], os.path.basename(p))   # Webflow publish state -> status/live.json (Divit 2026-10-15)
     return items, p
 def latest_readback(hub):
     fs = sorted(glob.glob(os.path.join(RB_DIR, f"{H.CFG['hubs'][hub]['repo_dir']}-api-*.json")))
@@ -699,6 +700,8 @@ def cmd_api_publish(args):
             done |= set(r.get("publishedItemIds") or []); errs += len(r.get("errors") or [])
     except (W.ApiError, W.Refused) as e: err = str(e); print(f"STOPPED: {err}")
     miss = [u for u, i in pairs if i not in done]
+    for u, i in pairs:
+        if i in done: G.live_mark(u, i, now(), "api-publish")   # item-published: live in Webflow (status/live.json), whatever its workflow state
     _hublog(hub, f"api-publish: {len(done)} item(s) item-published via Data API (no site publish); errors {errs}; not published {len(miss)}; before {_rel(bp)}; rollback {_rel(rp)}" + (f"; stopped: {err[:200]}" if err else ""))
     print(f"item-published {len(done)}/{len(ids)} in {(datetime.datetime.now() - t0).total_seconds():.0f}s; errors {errs}")
     for u in miss: print(f"  NOT PUBLISHED {u}")
