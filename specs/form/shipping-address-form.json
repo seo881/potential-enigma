@@ -157,6 +157,13 @@
    "via": null,
    "by": "B-w-4",
    "note": ""
+  },
+  {
+   "t": "2026-10-15 09:45 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-17",
+   "note": "[faq | HUB_RULES 5] faq items 2, 5, 10; faq_sources: The FAQ fails the PAA gate (ruling 4: pass = 0 rejects; `hubctl paa --spec`: pass 8, reject 2) and the ruling 4/12 verbatim check. Item 2's question is the template slot, but its source record claims an AlsoAsked question it does not reproduce. ->"
   }
  ],
  "plan": {
@@ -856,5 +863,285 @@
   "Add an email reminder 3 days after a link goes unanswered.",
   "Add region and postal code fields that change with the country picked.",
   "Add a lock date after which address changes need approval."
- ]
+ ],
+ "review": {
+  "by": "B-r-17",
+  "date": "2026-10-15 09:45 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Shipping Address Form That Fills Every Label'; hero 'Create a shipping address form with fields in label order, reply reminders, and a lock date, all saved to a table you own.' (D1 ok); how-to 'Seven steps to plan a shipping address form that returns a correct address for every package, then build it with Emergent.' (D2 ok)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder-fit with an address-format explainer: label-order fields, unit line, country-specific fields, plus FAQ answers on correct format, needed parts, a full example and package placement, as the USPS/UPS results in the top 10 show searchers want."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Sender vocabulary: 'unit line', 'B3H 4R2', 'lock day, 9 days before the export to the fulfillment warehouse', 'The gift courier only delivers to street addresses'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs ('Ask for the name first...', 'Show US fields by default...', 'Email each recipient a personal link...'); tabs open on full sentences ('Fernway's people team ships a hoodie...')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q5/Q6/Q7 clean. Notes: two link-only FAQ endings (items 9, 10); label-order idea restated across five fields."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete detail: 'By Thursday, 128 of 140 have replied', 'A winner in Halifax enters B3H 4R2, and the label prints CANADA on the last line', 'a fourth-floor suite or a Canadian postal code'."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "FAQ 7 'No single format covers every country, since each one orders its lines and postal codes differently. Follow the destination country's order for everything above the last line.' is not in the cited USPS IMM 122 page (it covers capitals, post code with city, the country-only last line, five lines max) or any other domain_sources entry. USPS label order, unit placement, country line and package placement claims are sourced."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Recipient-collection angle (swag, giveaways, backers, gift lists) is distinct from the shipping form and order form siblings it links."
+   },
+   "faq": {
+    "result": "fail",
+    "evidence": "PAA gate on the spec (ruling 4, pass = 0 rejects): 'Q5 reject: PA16 What is the correct format for a USPS shipping address?' (also marked x [PA16] in the brief's AlsoAsked list) and 'Q10 reject: PA9 How do you format a shipping address on a package?'; hubctl verbatim: 'Q2 MISMATCH (differs from prov.original beyond spelling)'."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 3: copy 'until lock day, 9 days before the export' drawn as 'Lock day: In 9 days' / 'Warehouse export: After the lock', while the hero card shows an edit 'after lock' arriving 'now'; the hero card is posted to '# support' though the copy routes the change to Priya. Tabs 1, 2 and 4 match (128 of 140, 12 reminders; B3H 4R2, CANADA, 7 days; 60 boxes, PO Box sent back)."
+   }
+  },
+  "findings": [
+   {
+    "class": "structure",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq items 2, 5, 10; faq_sources",
+    "quote": "item 5: 'What is the correct format for a USPS shipping address?' (gate: PA16 reject, names an agency) / item 10: 'How do you format a shipping address on a package?' (gate: PA9 reject, same intent as item 3 'What is the correct way to write a shipping address?') / item 2: faq_sources ref 'How to create a shipping address?' with prov.original 'How do I create a shipping address?' (hubctl verbatim: Q2 MISMATCH)",
+    "issue": "The FAQ fails the PAA gate (ruling 4: pass = 0 rejects; `hubctl paa --spec`: pass 8, reject 2) and the ruling 4/12 verbatim check. Item 2's question is the template slot, but its source record claims an AlsoAsked question it does not reproduce.",
+    "fix": "Replace items 5 and 10 with gate-passing sources (keyword ideas or related searches, e.g. 'full address form', 'home address form', 'shipping address format generator'), moving their sourced USPS content into the remaining answers where it fits; record item 2 as sourced from the primary keyword (no AlsoAsked prov) or use the AlsoAsked question verbatim. Re-run `hubctl paa --spec` and `hubctl verbatim` to 0.",
+    "severity": "blocking"
+   },
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "tab_content_3; image_brief tab 3 (timeline, hero, story, alt)",
+    "quote": "copy: 'Backers confirm or fix their own address until lock day, 9 days before the export to the fulfillment warehouse. ... A change after the lock goes to Priya on the support team.' / image: 'Lock day | In 9 days', 'Warehouse export | After the lock', hero 'Edit after lock goes to Priya ... now'; alt 'with lock day in 9 days, and an address change requested after the lock waits for Priya'",
+    "issue": "The copy's 9 days is the gap between lock and export; the image makes it the time until the lock, and then shows a post-lock edit arriving now, before the lock has happened. The story link pairs 'until lock day, 9 days before the export' with 'In 9 days', which mean different things. Only tab with this defect.",
+    "fix": "Draw the timeline as lock day then export '9 days later' (or set today after the lock, e.g. 'Locked 2 days ago', 'Export in 7 days'), so a post-lock edit can exist; update the story pair and alt to match.",
+    "severity": "blocking"
+   },
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #25",
+    "field": "image_brief tab 3 hero",
+    "quote": "image: hero card channel 'support' ('# support') titled 'Edit after lock goes to Priya' / copy: 'A change after the lock goes to Priya on the support team.'",
+    "issue": "The copy routes the change to one named person; the image posts it to a shared channel. Only instance: tabs 1, 2 and 4 draw no channel.",
+    "fix": "Draw the hero as a card or email to Priya (e.g. 'To Priya, support'), not a channel post.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 7",
+    "quote": "No single format covers every country, since each one orders its lines and postal codes differently. Follow the destination country's order for everything above the last line.",
+    "issue": "A statement of fact about international postal formats with no supporting spec.domain_sources entry; the cited USPS IMM 122 page says the city and post code go in capitals, the last line shows only the country name, and at most five lines, but not that each country orders its lines differently or that the destination's order applies. Only instance of this class on the page.",
+    "fix": "Add a source that states it (UPU or USPS guidance on writing the address in the destination country's format), or cut to the sourced points: city and post code in capitals, country name alone on the last line.",
+    "severity": "blocking"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "faq items 9, 10",
+    "quote": "item 9: 'When recipients also pick what they want, an order form collects the choice and the address together.' / item 10: 'For parcels a business sends out on staff request, a shipping form captures the request before anyone prints a label.'",
+    "issue": "Each answer ends on a sentence that exists only to carry a sibling link (proposals/account-b.md, link-only FAQ sentences).",
+    "fix": "End on the answer; fold the link into a working sentence or drop to the 2-link minimum.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_1; howto_step_2_des; faq items 2, 3, 5",
+    "quote": "feature_1 'the order USPS reads a delivery address' / step 2 'Order the fields the way the label prints them, top to bottom' / faq 2 'with the fields ordered the way a label prints' / faq 3 'Write it in the order a carrier reads it, top to bottom' / faq 5 'Picture four lines.'",
+    "issue": "The label-order idea is restated in five fields.",
+    "fix": "Keep it in feature 1 and FAQ 5; give step 2 and FAQ 2 their own point.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief tab 3 timeline",
+    "quote": "Survey opens | Sent to 1,200",
+    "issue": "The copy never calls the address request a survey.",
+    "fix": "'Links sent | 1,200 backers'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "faq items 9, 10",
+   "issue": "Each answer ends on a sentence that exists only to carry a sibling link (proposals/account-b.md, link-only FAQ sentences).",
+   "fix": "End on the answer; fold the link into a working sentence or drop to the 2-link minimum.",
+   "by": "B-r-17",
+   "via": "review",
+   "date": "2026-10-15 09:45 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_1; howto_step_2_des; faq items 2, 3, 5",
+   "issue": "The label-order idea is restated in five fields.",
+   "fix": "Keep it in feature 1 and FAQ 5; give step 2 and FAQ 2 their own point.",
+   "by": "B-r-17",
+   "via": "review",
+   "date": "2026-10-15 09:45 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief tab 3 timeline",
+   "issue": "The copy never calls the address request a survey.",
+   "fix": "'Links sent | 1,200 backers'.",
+   "by": "B-r-17",
+   "via": "review",
+   "date": "2026-10-15 09:45 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "45bb82038579154f",
+   "alt:share_image": "1a0c4d5e523583ec",
+   "alt:tab_image_1": "09136f0810518ae7",
+   "alt:tab_image_2": "f73ff9237973ea80",
+   "alt:tab_image_3": "e35352562e6938fa",
+   "alt:tab_image_4": "30da474eb334da6a",
+   "breadcrumb": "e257d1f85e745506",
+   "chip_adds": "89f44204fc15c17e",
+   "explore_cta": "8294bffc0659702d",
+   "faq": "38e1f0814a1e5c85",
+   "feature_1": "cfb6fc6fd46b8192",
+   "feature_2": "d63186c7a3416972",
+   "feature_3": "55ebbc5c704fc7b9",
+   "feature_4": "cb9741af3eb288a9",
+   "feature_5": "d91cfcf3129d8830",
+   "feature_6": "22f0e93404a6eb27",
+   "features_heading": "e2b67e6725312904",
+   "features_subheading": "ed049b3a8378da1c",
+   "h1": "6853f472d86c4902",
+   "hero_description": "374767fc689e0c65",
+   "hero_prompt": "f8515fae8cf755eb",
+   "howto_description": "e7059949909b2eb7",
+   "howto_step_1_des": "aed10fe125bac223",
+   "howto_step_1_title": "15c8c7edc5b42137",
+   "howto_step_2_des": "b795f9f4960eebbe",
+   "howto_step_2_title": "11dde971783757f3",
+   "howto_step_3_des": "72d461c871e2e72a",
+   "howto_step_3_title": "cb28e5380beef043",
+   "howto_step_4_des": "33b929f7dcbf1f5e",
+   "howto_step_4_title": "73da52680b5994d1",
+   "howto_step_5_des": "4546bcec77a55c82",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "baff0c992ee66fc4",
+   "howto_step_6_title": "2cae722c89f1943a",
+   "howto_step_7_des": "efdce7361e4ccfaa",
+   "howto_step_7_title": "51849901e66c05c1",
+   "howto_title": "356e09e3c347774d",
+   "meta_description": "b8216de964c62ad2",
+   "meta_title": "754cf95b0ba21693",
+   "mockup": "a391e22fb5922902",
+   "product_name": "4ca5c90e584bd631",
+   "prompt_chip_1": "88906a1387c114b8",
+   "prompt_chip_2": "ab9b076745fafa0f",
+   "prompt_chip_3": "362e07b69c35b218",
+   "prompt_chip_4": "209c4841784d3eaf",
+   "slug": "6a32c53cbf0ab361",
+   "tab_content_1": "1354a07bec445abe",
+   "tab_content_2": "63c590beec19d0d7",
+   "tab_content_3": "5df50a95ad47998b",
+   "tab_content_4": "27939f8fb01d341c",
+   "tab_label_1": "673b00e4f7cd765e",
+   "tab_label_2": "5f45eb2543f2dd7a",
+   "tab_label_3": "41d53305ec45dce5",
+   "tab_label_4": "73e9822ce382fdf7",
+   "usecase_heading": "db406791cbbdaba9",
+   "why_description": "0dd6404c4574e1b9",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "759cea1d6f2b3a26"
+  },
+  "all": "b09133df94bfe0b2",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "45bb82038579154f",
+   "alt:share_image": "1a0c4d5e523583ec",
+   "alt:tab_image_1": "09136f0810518ae7",
+   "alt:tab_image_2": "f73ff9237973ea80",
+   "alt:tab_image_3": "e35352562e6938fa",
+   "alt:tab_image_4": "30da474eb334da6a",
+   "breadcrumb": "e257d1f85e745506",
+   "chip_adds": "89f44204fc15c17e",
+   "explore_cta": "8294bffc0659702d",
+   "faq": "38e1f0814a1e5c85",
+   "feature_1": "cfb6fc6fd46b8192",
+   "feature_2": "d63186c7a3416972",
+   "feature_3": "55ebbc5c704fc7b9",
+   "feature_4": "cb9741af3eb288a9",
+   "feature_5": "d91cfcf3129d8830",
+   "feature_6": "22f0e93404a6eb27",
+   "features_heading": "e2b67e6725312904",
+   "features_subheading": "ed049b3a8378da1c",
+   "h1": "6853f472d86c4902",
+   "hero_description": "374767fc689e0c65",
+   "hero_prompt": "f8515fae8cf755eb",
+   "howto_description": "e7059949909b2eb7",
+   "howto_step_1_des": "aed10fe125bac223",
+   "howto_step_1_title": "15c8c7edc5b42137",
+   "howto_step_2_des": "b795f9f4960eebbe",
+   "howto_step_2_title": "11dde971783757f3",
+   "howto_step_3_des": "72d461c871e2e72a",
+   "howto_step_3_title": "cb28e5380beef043",
+   "howto_step_4_des": "33b929f7dcbf1f5e",
+   "howto_step_4_title": "73da52680b5994d1",
+   "howto_step_5_des": "4546bcec77a55c82",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "baff0c992ee66fc4",
+   "howto_step_6_title": "2cae722c89f1943a",
+   "howto_step_7_des": "efdce7361e4ccfaa",
+   "howto_step_7_title": "51849901e66c05c1",
+   "howto_title": "356e09e3c347774d",
+   "meta_description": "b8216de964c62ad2",
+   "meta_title": "754cf95b0ba21693",
+   "mockup": "a391e22fb5922902",
+   "product_name": "4ca5c90e584bd631",
+   "prompt_chip_1": "88906a1387c114b8",
+   "prompt_chip_2": "ab9b076745fafa0f",
+   "prompt_chip_3": "362e07b69c35b218",
+   "prompt_chip_4": "209c4841784d3eaf",
+   "slug": "6a32c53cbf0ab361",
+   "tab_content_1": "1354a07bec445abe",
+   "tab_content_2": "63c590beec19d0d7",
+   "tab_content_3": "5df50a95ad47998b",
+   "tab_content_4": "27939f8fb01d341c",
+   "tab_label_1": "673b00e4f7cd765e",
+   "tab_label_2": "5f45eb2543f2dd7a",
+   "tab_label_3": "41d53305ec45dce5",
+   "tab_label_4": "73e9822ce382fdf7",
+   "usecase_heading": "db406791cbbdaba9",
+   "why_description": "0dd6404c4574e1b9",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "759cea1d6f2b3a26"
+  },
+  "all": "b09133df94bfe0b2",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
