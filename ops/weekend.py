@@ -33,7 +33,8 @@ AUTH_RUNS = {"auto-r1014": 22,    # Divit 2026-10-14 step 3: the 11 Automation n
              "wave-r12": 400,     # ruling 12, 2026-10-13: every queued page with no pull + LP --kw secondaries, stop at 400 credits
              "bp1-r1015": 6,      # Divit 2026-10-15 ("pulls for the other 8 now", ruling 22): the 6 needs-pull pages of the spec triage, the final pull each
              "bp2-r1015": 24,     # Divit 2026-10-15 ("queue writers on relevance-checked queued pages across all 4 hubs", ruling 22): top 12 clean queued pages, cap 2 pulls each
-             "ca-r1015": 1}       # Divit 2026-10-15: creator-application, one pull on "creator application form" (--kw secondary --term)
+             "ca-r1015": 1,       # Divit 2026-10-15: creator-application, one pull on "creator application form" (--kw secondary --term)
+             "night-r1015": 60}   # Divit 2026-10-15 night: the overnight loop's pulls, at most 60 credits (key from the keychain, B-dev-17)
 STATE = os.path.join(ROOT, "status", "weekend-run.json")
 PLAN = os.path.join(ROOT, "plan", "weekend-run.md")
 STOP = os.path.join(ROOT, "STOP")
@@ -246,8 +247,10 @@ def top_secondary(url):
     return None
 def cmd_aa_balance(args):
     """Preflight for a pull run: the key is set and the account balance is readable (free GET /account). Prints credit fields only."""
-    if not os.environ.get("ALSOASKED_API_KEY"): sys.exit("ALSOASKED_API_KEY is not set")
     import alsoasked_pull as A
+    run = args[args.index("--run") + 1] if "--run" in args and args.index("--run") + 1 < len(args) else ""
+    if run: os.environ["ALSOASKED_RUN"] = run   # an authorised run reads the keychain when the env key is unset (B-dev-17)
+    if not A.api_key(): sys.exit("no AlsoAsked key: ALSOASKED_API_KEY is unset" + ("" if A.authorised_run() else " and this is not an authorised --run"))
     st, acc = A.call("GET", "/account")
     if st != 200: sys.exit(f"account not readable (HTTP {st})")
     print(f"{ts()} AlsoAsked balance: " + ", ".join(f"{k} {v}" for k, v in A.credits(acc).items()))

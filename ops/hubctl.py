@@ -39,6 +39,12 @@
                                     unpublished / missing in the Learn read (no Learn read: count only). Exit 1 on any failure
   api-read-learn [--out FILE]       read the Learn collection (GET list only, read only) -> .cache/readback/learn-api-<time>.json
   learn-refs READBACK                 the 3 newest published Learn articles -> config/learn_refs.json (L12; new items get them at creation)
+  learn-check URL [URL ...]          spec mode (B-dev-17): spec.learn_refs = 3 distinct published Learn articles from .cache/learn/inventory.json,
+                                    none of the old default trio (a create refuses otherwise; Divit 2026-10-15/16)
+  ship-check URL [URL ...]          ship-time checks (DECISIONS 2026-10-15 night): QC 0, gate 10/10, review current, no pending flag, images
+                                    current, Learn refs (new pages), hero prompt (QC L10 + generic); exit 1 on any failure
+  state URL approved --by standing-go   tonight's standing go: only while .cache/overnight-b/ruling19-lift-2026-10-15 exists and
+                                    ship-check passes; logged as "standing-go (Divit 2026-10-15 night)"; refused otherwise
   verbatim URL...                   ruling 4/12: AlsoAsked-sourced FAQ items equal prov.original and the saved pull (exit 1 on a mismatch)
   feasibility URL | defer URL --by ID   ruling 10 B1: under 10 FAQ sources after the pull = no writer; the page waits in the queue
   review-diff URL | slim-review URL FILE --by A-s-<n>   ruling 1: fields changed since review; record a slim review of them
@@ -539,11 +545,19 @@ def cmd_state(args):
     if state in ("reviewed", "challenged"): sys.exit(f"'{state}' is set only by hubctl review or hubctl ready, never by hand")
     if state == "claimed" and url not in load_st(hub_of(url))["pages"]:
         sys.exit("refused: queued pages are claimed with `hubctl claim HUB N --by ID` from plan/queue-ranked.txt (ready, then syn-pending split writes; Divit 2026-10-13), never with hubctl state")
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    by0 = args[args.index("--by") + 1] if "--by" in args else None
+    if (by0 or "").lower().startswith("standing"):   # DECISIONS 2026-10-15 night: the standing go, tonight's lift only
+        if by0 != G.STANDING_GO: sys.exit(f"refused: the standing-go id is exactly '{G.STANDING_GO}'")
+        if state != "approved": sys.exit("refused: --by standing-go only approves (hubctl state URL approved --by standing-go)")
+        if not G.ruling19_lifted(): sys.exit("refused: --by standing-go is accepted only while .cache/overnight-b/ruling19-lift-2026-10-15 exists (tonight's loop); approval is Divit's otherwise")
+        probs = ship_check(url)
+        if probs: sys.exit("refused: standing go needs every ship-time check to pass: " + "; ".join(probs))
     if state == "approved":
         cur = load_st(hub_of(url))["pages"].get(url, {}).get("state")
         if cur not in ("reviewed", "challenged"): sys.exit(f"only a reviewed page can be approved (this one is '{cur}')")
-        sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
         sp = spath(url); s = json.load(open(sp)); s["approval"] = {"fingerprint": G.fingerprint(s), "date": now(), "rules_version": G.rules_version()}
+        if by0 == G.STANDING_GO: s["approval"]["by"] = G.STANDING_GO_LOG
         json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
         ex = os.path.join(os.path.dirname(sp), "_exemplar.md")
         if not os.path.exists(ex):
@@ -566,6 +580,7 @@ def cmd_state(args):
     if state == "qc_pass" and by:
         sp = spath(url); s = json.load(open(sp))
         if by not in s.setdefault("writers", []): s["writers"].append(by); json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
+    if by == G.STANDING_GO: by = G.STANDING_GO_LOG
     set_state(url, state, note, by=by); print(f"{url} -> {state}")
 
 def cmd_hold(args):
@@ -819,7 +834,8 @@ def quiz_ship_block(url, s):
     if (s or {}).get("quiz") is None: return "quiz page without spec.quiz"
     return None
 
-def _field_data(url, sha):
+def _field_data(url, sha, create=False):
+    """create=True (a new item): Learn refs come from spec.learn_refs only (learn_fill refuses missing refs and the old trio)."""
     hub = hub_of(url); h = CFG["hubs"][hub]; s = json.load(open(spath(url))); fd = {}
     qb = quiz_ship_block(url, s)
     if qb: sys.exit(f"{url}: refused, {qb}")
@@ -831,7 +847,7 @@ def _field_data(url, sha):
         if im.get("path"):
             if not os.path.exists(os.path.join(ROOT, im["path"])): sys.exit(f"image missing on disk: {im['path']}")
             fd[h["fields"][k]] = {"url": f"{REPO_RAW}/{sha}/{im['path']}", "alt": im["alt"]}
-    learn_fill(hub, fd)   # L12 (Divit 2026-10-13) + Divit 2026-10-16: 3 Learn refs at creation, else refused
+    learn_fill(hub, fd, s, create)   # L12 (Divit 2026-10-13) + Divit 2026-10-16: 3 Learn refs at creation, else refused
     assert fd.get("name") and fd.get("slug"), f"{url}: name (h1) and slug are required"
     return s, fd
 
@@ -844,10 +860,44 @@ def learn_refs():
 LEARN_N = 3
 def learn_from_item(hub): return bool(CFG["hubs"][hub].get("learn_from_item"))
 
-def learn_fill(hub, fd):
-    """Create/update payload: fill acrm---learn from config/learn_refs.json when the payload lacks refs; refuse (exit) unless the
-    result is exactly 3 distinct IDs."""
+# B-dev-17 (Divit 2026-10-15/16): the old default trio may never be given to a new item at ship time. Until topic-matching
+# exists (plan/backlog-2026-10-17.md) each writer picks 3 topic-relevant published Learn articles into spec.learn_refs from the
+# inventory .cache/learn/inventory.json. The trio = the 3 most common acrm---learn IDs in the 2026-10-15 19:xx UTC child reads
+# (144 items each), which is also config/learn_refs.json as of 2026-10-13; frozen here so a later refresh cannot re-allow it.
+OLD_LEARN_TRIO = {"6accb850129314c7c749f349", "6accb8444371ac13b53b0c12", "6ac8fd16a1e22e1121c2a3f1"}
+LEARN_INVENTORY = os.path.join(ROOT, ".cache", "learn", "inventory.json")
+def learn_inventory(path=None):
+    """{id: item} of the Learn inventory (published = isDraft false, not archived, lastPublished set), or None when absent."""
+    try: d = json.load(open(path or LEARN_INVENTORY))
+    except (OSError, ValueError): return None
+    its = d if isinstance(d, list) else d.get("items") or (d.get("result") or {}).get("items") or []   # inventory or a Learn read-back
+    return {i["id"]: i for i in its}
+def learn_spec_problems(s, inv="default"):
+    """[] when spec.learn_refs holds exactly 3 distinct published Learn IDs, none of the old trio; the inventory (when present)
+    decides published. inv: {id: item}, None (count and trio only) or "default" (.cache/learn/inventory.json if present)."""
+    refs = s.get("learn_refs")
+    if not isinstance(refs, list) or not refs: return ["spec.learn_refs is missing: pick 3 topic-relevant published Learn articles from .cache/learn/inventory.json"]
+    out = []
+    if len(refs) != LEARN_N or len(set(refs)) != len(refs): out.append(f"spec.learn_refs has {len(set(refs))} distinct ref(s), need exactly {LEARN_N}")
+    old = [r for r in refs if r in OLD_LEARN_TRIO]
+    if old: out.append(f"spec.learn_refs includes the old default trio ({', '.join(old)}): forbidden at ship time (Divit 2026-10-15/16)")
+    inv = learn_inventory() if inv == "default" else inv
+    if inv is not None:
+        for r in refs:
+            L = inv.get(r)
+            if L is None: out.append(f"Learn ref {r} is not in the Learn inventory")
+            elif L.get("isDraft") or L.get("isArchived") or not L.get("lastPublished"): out.append(f"Learn ref {r} is not published")
+    return out
+
+def learn_fill(hub, fd, spec=None, create=False):
+    """Create/update payload: acrm---learn from spec.learn_refs when the spec has them. create=True: refuse (exit) unless
+    spec.learn_refs passes learn_spec_problems (no fallback to the default trio). Otherwise (update payloads) fill from
+    config/learn_refs.json when the payload lacks refs. Refuse (exit) unless the result is exactly 3 distinct IDs."""
     k = CFG["hubs"][hub]["fields"]["learn"]
+    if spec is not None and spec.get("learn_refs"): fd[k] = list(spec["learn_refs"])
+    if create and learn_from_item(hub):
+        pr = learn_spec_problems(spec or {})
+        if pr: sys.exit(f"refused: {fd.get('slug')}: " + "; ".join(pr))
     if not fd.get(k): fd[k] = learn_refs()
     ids = fd.get(k) or []
     if learn_from_item(hub) and (len(ids) != LEARN_N or len(set(ids)) != len(ids)):
@@ -881,7 +931,16 @@ def learn_note(learn):
 
 def cmd_learn_check(args):
     """learn-check HUB READBACK [LEARN_READBACK]: every non-draft item of HUB in the read with not exactly 3 acrm---learn refs, or a
-    ref that is unpublished or missing from the Learn read. Exit 1 on any failing item."""
+    ref that is unpublished or missing from the Learn read. Exit 1 on any failing item.
+    learn-check URL [URL ...] (spec mode, B-dev-17): spec.learn_refs per learn_spec_problems (the create gate)."""
+    if args and args[0].startswith("/"):
+        bad = 0; inv = learn_inventory()
+        for u in args:
+            pr = learn_spec_problems(json.load(open(spath(u))), inv)
+            print(("FAIL " if pr else "PASS ") + u + (": " + "; ".join(pr) if pr else ""))
+            bad += bool(pr)
+        print(f"{len(args)} page(s), {bad} failing; " + ("inventory .cache/learn/inventory.json" if inv is not None else "NO inventory on disk: count and trio only"))
+        return 1 if bad else 0
     hub, rb = args[0], args[1]; lp = args[2] if len(args) > 2 else None
     if hub not in CFG["hubs"]: sys.exit(f"HUB must be one of {', '.join(CFG['hubs'])}")
     if not learn_from_item(hub): print(f"{hub}: learn_from_item is off in config; nothing to check"); return 0
@@ -917,6 +976,69 @@ def learn_golden(c):
     return bool(pr) == c["expect_fail"] and all(any(m in p for p in pr) for m in c.get("match") or [])
 def h_k(hub): return CFG["hubs"][hub]["fields"]["learn"]
 
+def overnight_golden(c):
+    """B-dev-17 golden kinds (DECISIONS 2026-10-15 night): flag-hold, standing-go, learn-create. Stubs and temp files only: no
+    status, spec or packet file of the repo is touched, no network."""
+    import tempfile, io, contextlib, shutil
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    tmp = tempfile.mkdtemp(prefix="golden-b17-", dir=os.path.join(ROOT, ".cache") if os.path.isdir(os.path.join(ROOT, ".cache")) else None)
+    try:
+        if c["kind"] == "learn-create":
+            real = globals()["LEARN_INVENTORY"]
+            globals()["LEARN_INVENTORY"] = os.path.join(ROOT, c["inventory"]) if c.get("inventory") else os.path.join(tmp, "none.json")
+            try:
+                fd = {"slug": "golden-learn-create"}
+                try: learn_fill(c.get("hub", "Form"), fd, {"learn_refs": c["refs"]} if c["refs"] is not None else {}, create=True); refused = False
+                except SystemExit as e: refused = True; msg = str(e)
+                return refused == c["expect_refused"] and (not refused or c.get("match", "") in msg)
+            finally: globals()["LEARN_INVENTORY"] = real
+        fx = os.path.join(ROOT, "tests", "golden", "fixtures", "overnight")
+        if c["kind"] == "flag-hold":
+            hub = "Form"; base = CFG["hubs"][hub]["path"]; pages = {}
+            for i, sl in enumerate(c["pages"]):
+                u = f"{base}/{sl}"; sp = json.load(open(os.path.join(fx, c["specs"][i])))
+                sp["url"] = u; p = os.path.join(tmp, sl + ".json"); json.dump(sp, open(p, "w")); pages[u] = p
+            st = {"pages": {u: {"state": "approved", "queue_rank": i, "cms_checked": now()} for i, u in enumerate(pages)}}
+            changed = set(c.get("changed") or [])
+            saved = (globals()["load_st"], globals()["spath"], globals()["_field_data"], G.review_changed, G.fingerprint)
+            globals()["load_st"] = lambda h: st; globals()["spath"] = lambda u: pages[u]
+            globals()["_field_data"] = lambda u, sha, create=False: (json.load(open(pages[u])), {"name": u, "slug": u.rsplit("/", 1)[1]})
+            G.review_changed = lambda s: ["h1"] if s["url"].rsplit("/", 1)[1] in changed else []
+            G.fingerprint = lambda s: "golden-fp"
+            packet = os.path.join(tmp, "morning-packet.md"); out = io.StringIO()
+            try:
+                with contextlib.redirect_stdout(out): got = [u.rsplit("/", 1)[1] for u, _ in _create_candidates(hub, "0" * 40, packet)]; stopped = False
+            except SystemExit: got, stopped = None, True
+            finally: (globals()["load_st"], globals()["spath"], globals()["_field_data"], G.review_changed, G.fingerprint) = saved
+            if c.get("expect_stop"): return stopped
+            pk = open(packet).read() if os.path.exists(packet) else ""
+            held = [f"{base}/{sl}" for sl in c["expect_held"]]
+            return (got == c["expect_yield"] and all(f"HOLD {u}: flags pending (morning packet)" in out.getvalue() for u in held)
+                    and all(f"| {u} | Q{n} | {sub} |" in pk for u in held for n, sub in c["expect_rows"]))
+        if c["kind"] == "standing-go":
+            u = CFG["hubs"]["Form"]["path"] + "/golden-standing-go"; sp = os.path.join(tmp, "spec.json")
+            json.dump(dict(json.load(open(os.path.join(fx, "clean.json"))), url=u), open(sp, "w")); open(os.path.join(tmp, "_exemplar.md"), "w").write("golden")
+            lift = os.path.join(tmp, "lift")
+            if c["lift"] in ("fresh", "old"):
+                open(lift, "w").write("")
+                if c["lift"] == "old": os.utime(lift, (time_now() - 20 * 3600,) * 2)
+            calls = []; saved = (G.LIFT_FILE, globals()["load_st"], globals()["spath"], globals()["set_state"], globals()["ship_check"])
+            G.LIFT_FILE = lift; globals()["spath"] = lambda x: sp
+            globals()["load_st"] = lambda h: {"pages": {u: {"state": c.get("cur", "reviewed")}}}
+            globals()["set_state"] = lambda *a, **k: calls.append((a, k))
+            globals()["ship_check"] = lambda x: list(c.get("ship_problems") or [])
+            try:
+                with contextlib.redirect_stdout(io.StringIO()): cmd_state([u, c.get("state", "approved"), "--by", c.get("by", "standing-go")]); refused = False
+            except SystemExit: refused = True
+            finally: (G.LIFT_FILE, globals()["load_st"], globals()["spath"], globals()["set_state"], globals()["ship_check"]) = saved
+            if refused or c["expect_refused"]: return refused == c["expect_refused"] and not calls
+            return (len(calls) == 1 and calls[0][1].get("by") == G.STANDING_GO_LOG
+                    and (json.load(open(sp)).get("approval") or {}).get("by") == G.STANDING_GO_LOG)
+    finally: shutil.rmtree(tmp, ignore_errors=True)
+    return None
+def time_now():
+    import time as _t; return _t.time()
+
 def cmd_learn_refs(args):
     """READBACK = a read of the Learn collection (6a0f028d0bfe272031dbddb8) sorted by learn---publishing-date desc. Picks the 3 newest
     PUBLISHED articles (isDraft false, not archived, lastPublished set; ties broken by createdOn, newest first) into config/learn_refs.json."""
@@ -929,19 +1051,88 @@ def cmd_learn_refs(args):
     old = cur["ids"]; cur.update(ids=new, source=f"hubctl learn-refs from {os.path.basename(args[0])}", updated=now()); json.dump(cur, open(p, "w"), indent=1)
     print("learn refs CHANGED (was " + ", ".join(old) + "): " + ", ".join(new) + "\nNew items get these; live items keep theirs until a refresh is approved.")
 
-def _create_candidates(hub, sha):
+# ---------- flagged pages never block a batch (DECISIONS 2026-10-15 night): skipped into one morning packet
+PACKET_DIR = os.path.join(ROOT, ".cache", "review")
+def morning_packet_path(day=None): return os.path.join(PACKET_DIR, f"morning-packet-{day or datetime.date.today().isoformat()}.md")
+def flag_hold(url, s, fp, path=None):
+    """Print the HOLD line and append (page, Q number, flag subtype, question) rows to the morning packet, once each. The packet
+    is in .cache (git-ignored): the question text never reaches git."""
+    print(f"HOLD {url}: flags pending (morning packet)")
+    p = path or morning_packet_path(); os.makedirs(os.path.dirname(p), exist_ok=True)
+    cur = open(p).read() if os.path.exists(p) else ("# Morning packet: flagged FAQ items held from shipping\n\nTick a row (rules/flag_decisions.json) and the page ships "
+                                                  "with the next batch. Git-ignored (.cache): question text stays out of git.\n\n| Page | Q | Flag subtype | Question |\n|---|---|---|---|\n")
+    qs = {sl.get("n"): sl.get("q") for sl in s.get("faq_plan") or []}; add = ""
+    for n, subs in fp:
+        for sub in subs:
+            key = f"| {url} | Q{n} | {sub} |"
+            if key not in cur and key not in add: add += f"{key} {(qs.get(n) or '').replace('|', '/')} |\n"
+    if add or not os.path.exists(p): open(p, "w").write(cur + add)
+    return p
+def ship_review_gate(url, s, packet=None):
+    """(verdict, why): 'ok', 'hold' (refused only for pending flags: printed and added to the morning packet) or 'refuse'."""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    fp = G.flags_pending(s)
+    if fp:
+        ch = G.review_changed(s)
+        if ch == []: flag_hold(url, s, fp, packet); return "hold", "flags pending (morning packet)"
+        return "refuse", ("no review hash: run a slim review" if ch is None else "text changed after review in: " + ", ".join(ch) + " (slim review needed)") + "; flags also pending"
+    ok, why = G.review_ok(s)
+    return ("ok", "") if ok else ("refuse", why)
+
+def record_file_ids(hub, s, item):
+    """B-dev-17 (a): each image field's fileId and url from a read-back item into the spec (images[k].file_id, cdn_url), as
+    ship-cms and ship-update --verify do. First ships of old drafts left the draft's old IDs, so verify-live failed. Returns the keys changed."""
+    h = CFG["hubs"][hub]; fd = (item or {}).get("fieldData") or {}; ch = []
+    for k, im in (s.get("images") or {}).items():
+        got = fd.get(h["fields"].get(k, k)) or {}
+        if isinstance(got, dict) and got.get("fileId"):
+            if im.get("file_id") != got["fileId"] or im.get("cdn_url") != got.get("url"): ch.append(k)
+            im["file_id"] = got["fileId"]; im["cdn_url"] = got.get("url")
+    return ch
+
+def ship_check(url):
+    """Ship-time checks (DECISIONS 2026-10-15 night): [] when the page may ship. QC TOTAL 0, PAA gate 10/10, review current and
+    no pending flag, images current, Learn refs (new items: spec.learn_refs), hero prompt (QC L10 runs in QC; generic default)."""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G, ship as SH
+    if not os.path.exists(spath(url)): return [f"no spec for {url}"]
+    s = SH.spec(url); out = []
+    r = subprocess.run([sys.executable, os.path.join(ROOT, "qc", "qc_hub.py"), spath(url)], capture_output=True, text=True)
+    if r.returncode: out.append("QC TOTAL is not 0: " + (", ".join(sorted({m.group(2) for m in re.finditer(r"^  (P0|P1) (\S+)", r.stdout, re.M)})) or "run hubctl qc"))
+    ok, n, page, _fl = SH.paa(url)
+    if not (ok == 10 and n == 10 and not page): out.append(f"PAA gate {ok}/{n}" + (f" ({', '.join(page)})" if page else ""))
+    if G.flags_pending(s): out.append("flags pending (morning packet)")
+    else:
+        rk, why = G.review_ok(s)
+        if not rk: out.append(why)
+    if not SH.images_current(s): out.append("images not current (hubctl images)")
+    if not s.get("item_id") and learn_from_item(hub_of(url)): out += learn_spec_problems(s)
+    hp = re.sub(r"<[^>]+>", "", re.sub(r"<script.*?</script>", "", (s.get("fields") or {}).get("hero_prompt") or "", flags=re.S))
+    if re.search(r"\b(my|our)\s+\d", hp, re.I): out.append("hero prompt names a scenario (DECISIONS 2026-10-09: generic default)")
+    return out
+
+def cmd_ship_check(args):
+    urls = [a for a in args if a.startswith("/")]; bad = 0
+    for u in urls:
+        pr = ship_check(u); bad += bool(pr)
+        print(("FAIL " if pr else "PASS ") + u + (": " + "; ".join(pr) if pr else ": QC 0, gate 10/10, review current, no flags, images current, Learn refs, hero prompt"))
+    print(f"ship-check: {len(urls) - bad}/{len(urls)} pass"); return 1 if bad else 0
+
+def _create_candidates(hub, sha, packet=None):
     """The create list shared by bulk-payload (connector) and api-create (Data API): approved pages without an item ID, review hash
-    current, Divit's approval fingerprint unchanged, slug checked within the hour, SERP data under 60 days. Any refusal stops the run."""
+    current, Divit's approval fingerprint unchanged, slug checked within the hour, SERP data under 60 days. A page refused only for
+    pending flags is skipped (HOLD line, morning packet; DECISIONS 2026-10-15 night); any other refusal stops the run."""
     st = load_st(hub); items = []
     sys.path.insert(0, os.path.join(ROOT, "ops")); sys.path.insert(0, os.path.join(ROOT, "plan")); import guards as G, serp as S, datetime as _dt
     for url, e in sorted(st["pages"].items(), key=lambda x: x[1].get("queue_rank", 0)):
         if e.get("state") != "approved": continue
-        qb = quiz_ship_block(url, json.load(open(spath(url))))
+        s0 = json.load(open(spath(url)))
+        qb = quiz_ship_block(url, s0)
         if qb: print(f"  HOLD {url}: {qb}"); continue
-        s, fd = _field_data(url, sha)
-        if s.get("item_id"): continue
-        ok_r, why_r = G.review_ok(s)
-        if not ok_r: sys.exit(f"{url}: refused, {why_r} (ruling 1: a page ships only if its current text was reviewed)")
+        if s0.get("item_id"): continue
+        verdict, why_r = ship_review_gate(url, s0, packet)
+        if verdict == "hold": continue
+        if verdict != "ok": sys.exit(f"{url}: refused, {why_r} (ruling 1: a page ships only if its current text was reviewed)")
+        s, fd = _field_data(url, sha, create=True)
         if not s.get("approval") or G.fingerprint(s) != s["approval"]["fingerprint"]:
             sys.exit(f"{url}: content or images changed after Divit approved it. Re-run review and approval.")
         chk = e.get("cms_checked")
@@ -980,7 +1171,7 @@ def _bulk_verify(hub, items, only=None, need_draft=False, learn=None):
         for k, im in s["images"].items():
             got = fd.get(h["fields"][k]) or {}
             if not got.get("fileId"): diff.append(f"{k} (no fileId)")
-            else: im["file_id"] = got["fileId"]; im["cdn_url"] = got.get("url")
+        record_file_ids(hub, s, it)   # B-dev-17 (a): the read-back's file IDs into the spec (saved below on a clean match)
         if need_draft and it.get("isDraft") is not True: diff.append("isDraft is not true")
         diff += learn_problems(hub, it, learn)   # Divit 2026-10-16: 3 published Learn refs
         if diff: bad += 1; lines.append(f"MISMATCH {url}: {diff}"); continue
@@ -1293,6 +1484,9 @@ def _publish_ids(hub):
     for url, e in st["pages"].items():
         if e.get("state") == "cms_draft":          # created as drafts after Divit's approval, verified
             s = json.load(open(spath(url)))
+            sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+            fp = G.flags_pending(s)
+            if fp: flag_hold(url, s, fp); continue   # DECISIONS 2026-10-15 night: a flagged page never blocks its batch
             if s.get("item_id"): pairs.append((url, s["item_id"]))
     # FAQ links must never point at a page that is not live (Webflow publish state, live registry) or publishing in this batch
     batch = {url for url, e in st["pages"].items() if e.get("state") == "cms_draft"}
@@ -1317,7 +1511,7 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "release": cmd_release, "paa": cmd_paa, "paa-resource": cmd_paa_resource, "paa-synonyms": cmd_paa_synonyms, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "transfer-hold": cmd_transfer_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "feasibility": cmd_feasibility, "daily-batch": cmd_daily_batch, "unlock": cmd_unlock, "verbatim": cmd_verbatim, "defer": cmd_defer, "batch-check": cmd_batch_check, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "learn-check": cmd_learn_check, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "transfer-hold": cmd_transfer_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "feasibility": cmd_feasibility, "daily-batch": cmd_daily_batch, "unlock": cmd_unlock, "verbatim": cmd_verbatim, "defer": cmd_defer, "batch-check": cmd_batch_check, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "learn-check": cmd_learn_check, "ship-check": cmd_ship_check, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
         "recheck": cmd_recheck, "live-sync": cmd_live_sync, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live,
         "swap-recheck": lambda a: __import__("swap_recheck").main(a),   # Divit 2026-10-14 step 3: r18-swap-short pages back to rework once replacements exist

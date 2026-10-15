@@ -1,13 +1,18 @@
 #!/bin/bash
 # B's overnight run loop (ruling 20, Divit 2026-10-14), copied from overnight_run.sh. Runs in B's clone ~/emergent-hubs-a on account B.
 # Plan: plan/overnight-run-b.md; next work: ops/overnight_b.py next.
-#   start:  cd ~/emergent-hubs-a && git pull -q --rebase origin main && rm -f STOP && nohup bash ops/schedule/overnight_run_b.sh >/dev/null 2>&1 &
+#   start:  cd ~/emergent-hubs-a && git pull -q --rebase origin main && rm -f STOP && mkdir -p .cache/overnight-b && touch .cache/overnight-b/ruling19-lift-2026-10-15 && nohup bash ops/schedule/overnight_run_b.sh >/dev/null 2>&1 &
 #   watch:  tail -f ~/Library/Logs/emergent-overnight-run-b.log
 #   stop:   touch ~/emergent-hubs-a/STOP    (clean stop after the current page; rm STOP before the next start)
 # Loops headless Claude Code (CLAUDE_CONFIG_DIR=~/.claude = account B; no fast mode) with
 # "Continue the overnight run per plan/overnight-run-b.md". Refuses to start unless ops/overnight_b.py preflight passes (B's clone, ~/.claude, .hub B:LP,Form,Auto,SurveyQuiz, no STOP).
 # NO Webflow tools: no MCP server is loaded at all (--strict-mcp-config, empty config; DataForSEO retired 2026-10-10) and every
-# Webflow tool is denied by name. No AlsoAsked or Semrush calls: all pulls stay with A (ruling 20); the AlsoAsked key is never loaded here.
+# Webflow tool is denied by name. AlsoAsked (ruling 22, B-dev-17): the key is never exported here; `weekend.py aa URL --run night-r1015`
+# reads it from the macOS keychain inside that authorised run only (cap 60 credits, credits.log as usual).
+# TONIGHT (DECISIONS 2026-10-15 night): ruling 19 is lifted only while .cache/overnight-b/ruling19-lift-2026-10-15 exists (the
+# coordinator creates it; the EXIT trap below deletes it, restoring ruling 19): then hubctl api-create | api-update | api-publish are
+# allowed and webflow_api lets exactly those write under EMG_HEADLESS. ops/ship.py, ops/webflow_api.py direct calls and every Webflow
+# MCP tool stay denied. Stops: 24M tokens (tokens.jsonl), the second 5-hour session limit, 200 live child pages, STOP.
 # Session limit: sleep to the reset time the message gives, else 20 minutes; limited for 7 continuous hours, a weekly-limit
 # message or any mention of paid/extra usage: stop for good. Waits while another job holds a lock (ops/guards.py held) and
 # keeps 08:20-09:45 local free for the 09:00 live audit (clean tree, no lock). Renders run locally in the background (render_bg).
@@ -30,18 +35,20 @@ notify() { osascript -e "display notification \"${1//\"/\'}\" with title \"Emerg
 
 ALLOWED=(
   "Read" "Glob" "Grep" "Agent" "Skill" "ToolSearch" "TodoWrite" "WebSearch" "WebFetch"
-  "Edit(specs/**)" "Edit(.cache/**)" "Edit(//tmp/**)" "Edit(//private/tmp/**)" "Edit(plan/backlog.md)"
+  "Edit(specs/**)" "Edit(.cache/**)" "Edit(//tmp/**)" "Edit(//private/tmp/**)" "Edit(plan/backlog.md)" "Edit(proposals/**)" "Edit(reports/**)"
   "Bash(.venv/bin/python3 ops/hubctl.py:*)" "Bash(python3 ops/hubctl.py:*)" "Bash(.venv/bin/python3 ops/weekend.py:*)"
   "Bash(.venv/bin/python3 qc/qc_hub.py:*)" "Bash(python3 qc/qc_hub.py:*)"
   "Bash(.venv/bin/python3 ops/skeleton.py:*)" "Bash(.venv/bin/python3 ops/overnight_b.py:*)" "Bash(.venv/bin/python3 ops/queue_rank.py:*)"
   
-  "Bash(.venv/bin/python3 qc/paa_gate.py:*)" "Bash(.venv/bin/python3 ops/autofix.py:*)" "Bash(.venv/bin/python3 ops/table.py:*)"
+  "Bash(.venv/bin/python3 ops/flag_packet.py:*)" "Bash(.venv/bin/python3 qc/paa_gate.py:*)" "Bash(.venv/bin/python3 ops/autofix.py:*)" "Bash(.venv/bin/python3 ops/table.py:*)"
   "Bash(.venv/bin/python3 ops/typeset.py:*)" "Bash(.venv/bin/python3 ops/review.py:*)" "Bash(.venv/bin/python3 ops/preview.py:*)"
   "Bash(.venv/bin/python3 tests/golden/run.py:*)" "Bash(.venv/bin/python3 -c:*)" "Bash(.venv/bin/python3 .cache/:*)"
   "Bash(.venv/bin/python3 /tmp/:*)" "Bash(.venv/bin/python3 /private/tmp/:*)"
   "Bash(bash ops/sync.sh:*)" "Bash(git status:*)" "Bash(git log:*)" "Bash(git diff:*)" "Bash(git show:*)" "Bash(git checkout -- specs/:*)"
   "Bash(date:*)" "Bash(ls:*)" "Bash(test -f:*)" "Bash(mkdir -p .cache/:*)" "Bash(wc:*)"
 )
+LIFT="$RUN/ruling19-lift-2026-10-15"
+lifted() { [ -n "$(find "$LIFT" -mmin -1080 2>/dev/null)" ]; }   # present and under 18 hours old (same rule as guards.ruling19_lifted)
 # Every Webflow tool, by name and by server, under the three names the server can appear as (no Webflow calls this weekend).
 WF_TOOLS=(ask_webflow_ai asset_tool data_agent_instructions_tool data_analyze_tool data_apps_tool data_assets_tool data_campaigns_tool
   data_cms_tool data_comments_tool data_component_builder data_component_props_tool data_component_tool data_component_variants_tool
@@ -49,10 +56,18 @@ WF_TOOLS=(ask_webflow_ai asset_tool data_agent_instructions_tool data_analyze_to
   data_interactions_tool data_localization_tool data_pages_tool data_scripts_tool data_sitemap_tool data_sites_tool data_style_tool
   data_variable_tool data_webhook_tool data_whtml_builder designer_tool element_snapshot_tool get_asset_preview get_more_tools webflow_guide_tool)
 DENIED=("mcp__webflow" "mcp__Webflow" "mcp__claude_ai_Webflow" "mcp__webflow__*" "mcp__Webflow__*" "mcp__claude_ai_Webflow__*")
-# Ruling 19 (Divit 2026-10-14): the direct-API CMS write commands never run headless (interactive sessions ask; see .claude/settings.json)
-for c in api-create api-update api-publish; do DENIED+=("Bash(.venv/bin/python3 ops/hubctl.py $c:*)" "Bash(python3 ops/hubctl.py $c:*)"); done
 DENIED+=("Bash(.venv/bin/python3 ops/ship.py:*)" "Bash(python3 ops/ship.py:*)" "Bash(.venv/bin/python3 ops/webflow_api.py:*)" "Bash(python3 ops/webflow_api.py:*)")
 for t in "${WF_TOOLS[@]}"; do DENIED+=("mcp__webflow__$t" "mcp__Webflow__$t" "mcp__claude_ai_Webflow__$t"); done
+BASE_ALLOWED=("${ALLOWED[@]}"); BASE_DENIED=("${DENIED[@]}")
+# Ruling 19 (Divit 2026-10-14): the direct-API CMS write commands never run headless, except tonight while the lift file exists.
+# Rebuilt before every session, so deleting the lift file mid-run denies them from the next session on.
+perms() {
+  ALLOWED=("${BASE_ALLOWED[@]}"); DENIED=("${BASE_DENIED[@]}")
+  for c in api-create api-update api-publish; do
+    if lifted; then ALLOWED+=("Bash(.venv/bin/python3 ops/hubctl.py $c:*)")
+    else DENIED+=("Bash(.venv/bin/python3 ops/hubctl.py $c:*)" "Bash(python3 ops/hubctl.py $c:*)"); fi
+  done
+}
 
 # Seconds to sleep for a session-limit message: the reset time it names (+2 min), or 20 minutes; "WEEKLY" when it is not a 5-hour reset.
 reset_wait() {
@@ -119,16 +134,28 @@ render_bg() {
   log "local render started in the background (pid $RPID)"
 }
 
-finish() { log "$1"; notify "$1"; log "overnight run ended"; exit 0; }
+finish() {   # restore ruling 19 first, then the code-built morning report (no tokens; committed with ops/sync.sh)
+  log "$1"; notify "$1"; restore19
+  [ -n "${STARTED:-}" ] && "$PY" ops/overnight_b.py report "$1" >> "$LOG" 2>&1
+  log "overnight run ended"; exit 0
+}
+halt() { touch "$REPO/STOP"; finish "$1"; }   # a budget or cap stop: STOP stays so nothing restarts the loop tonight
+restore19() {   # EXIT trap: ruling 19 is restored whenever the loop ends, however it ends
+  if [ -e "$LIFT" ]; then rm -f "$LIFT"; log "ruling 19 restored: lift file deleted on exit"; else log "ruling 19 in force (no lift file at exit)"; fi
+  date -u '+%Y-%m-%d %H:%M UTC' > "$RUN/ruling19-restored"
+}
 
 echo $$ > "$RUN/pid"
 caffeinate -dimsu -w $$ &
 log "B overnight run started (pid $$, caffeinate $!, CLAUDE_CONFIG_DIR=$CLAUDE_CONFIG_DIR)"
+trap restore19 EXIT
 trap 'log "terminated by signal"; exit 0' TERM INT
-LIMITED_SINCE=0; ERRS=0; IDLE=0; RENDER_WAITS=0; N=0; W_LAST=""
+LIMITED_SINCE=0; ERRS=0; IDLE=0; RENDER_WAITS=0; N=0; W_LAST=""; RESETS=0
 # ruling 10 B5 (Divit 2026-10-13): refuse to run unless the key, subagent hubctl access, render status and the shared store check out
-unset ALSOASKED_API_KEY   # ruling 20: all AlsoAsked/Semrush pulls stay with A
+unset ALSOASKED_API_KEY   # never exported: an authorised --run reads the keychain itself (B-dev-17)
 "$PY" ops/overnight_b.py preflight >> "$LOG" 2>&1 || finish "preflight failed at start (see the log): the loop does not run"
+[ -f "$RUN/start.json" ] && [ -n "$(find "$RUN/start.json" -mmin -1080)" ] || "$PY" ops/overnight_b.py snapshot >> "$LOG" 2>&1   # a restart keeps the night's start
+STARTED=1
 
 while :; do
   [ -f "$REPO/STOP" ] && finish "STOP file found: stopped cleanly"
@@ -141,6 +168,7 @@ while :; do
   NEXT="$("$PY" ops/overnight_b.py next 2>&1)"; NRC=$?
   [ $NRC -eq 3 ] && finish "nothing left to do: $(echo "$NEXT" | tail -1)"
   [ $NRC -eq 4 ] && finish "STOP file found: stopped cleanly"
+  [ $NRC -eq 6 ] && halt "live cap reached: $(echo "$NEXT" | tail -1) (STOP touched)"
   if [ $NRC -ne 0 ]; then log "overnight_b.py next failed (rc $NRC): $(echo "$NEXT" | tail -3 | tr '\n' ' ')"; ERRS=$((ERRS + 1)); [ $ERRS -ge 6 ] && finish "stopped: overnight_b.py next failed 6 times running"; sleep 600; continue; fi
   if echo "$NEXT" | head -1 | grep -q '^WAIT-RENDER'; then
     # Nothing but renders left: render now in the foreground (seconds per page), then ask again. Same list unchanged 30 times: stop.
@@ -154,20 +182,23 @@ while :; do
   fi
   RENDER_WAITS=0
 
-  unset ALSOASKED_API_KEY   # ruling 20: all AlsoAsked/Semrush pulls stay with A   # saved pulls only overnight; never printed
+  unset ALSOASKED_API_KEY   # never exported (keychain inside the authorised run only); never printed
+  perms; lifted && log "ruling 19 lifted for this session (api-create, api-update, api-publish allowed)"
 
   N=$((N + 1)); OUT="$RUN/iter-$(date +%Y%m%d-%H%M%S).txt"; BEFORE="$(git rev-parse HEAD)"; START=$(date +%s)
   log "iteration $N start: $(echo "$NEXT" | head -4 | cut -c1-160 | tr '\n' ';')"
   "$PY" ops/guards.py run-locked overnight -- claude -p "$PROMPT" --permission-mode dontAsk \
       --allowedTools "${ALLOWED[@]}" --disallowedTools "${DENIED[@]}" \
       --strict-mcp-config --mcp-config '{"mcpServers":{}}' --settings '{"fastMode": false}' \
-      --output-format text > "$OUT" 2>&1 &
+      --output-format json > "$OUT.json" 2> "$OUT.json.err" &
   CPID=$!
   while kill -0 $CPID 2>/dev/null; do
     sleep 30; render_bg
     if [ $(( $(date +%s) - START )) -gt $MAX_ITER_SECS ]; then log "iteration $N over 4 hours: stopping it"; pkill -TERM -P $CPID; kill $CPID 2>/dev/null; fi
   done
   wait $CPID; RC=$?
+  TOK="$("$PY" ops/overnight_b.py tokens "$OUT.json" "$OUT" 2>&1)"; TRC=$?; log "$TOK"   # usage -> tokens.jsonl; result text -> $OUT
+  [ $TRC -eq 5 ] && halt "token budget reached: $TOK (STOP touched)"
   git pull -q --rebase --autostash origin main >> "$LOG" 2>&1
   TAIL="$(tail -c 600 "$OUT" | tr '\n' ' ')"; MINS=$(( ($(date +%s) - START) / 60 ))
   log "iteration $N end rc=$RC after ${MINS} min: $(echo "$TAIL" | tail -c 300)"
@@ -178,6 +209,8 @@ while :; do
     if echo "$TAIL" | grep -qiE 'limit reached|hit your( [a-z-]+)? limit|usage limit|session limit|rate limit|resets? (at )?[0-9]'; then
       W="$(reset_wait "$OUT")"
       [ "$W" = "WEEKLY" ] && finish "stopped for good: weekly limit reached ($TAIL)"
+      RESETS=$((RESETS + 1)); echo "$RESETS" > "$RUN/session-limits"
+      [ $RESETS -ge 2 ] && halt "second 5-hour session limit reached: at most two windows tonight (STOP touched; $TAIL)"
       [ $LIMITED_SINCE -eq 0 ] && LIMITED_SINCE=$(date +%s)
       [ $(( $(date +%s) - LIMITED_SINCE + W )) -gt $LIMIT_GIVEUP_SECS ] && finish "stopped for good: still limited after 7 hours ($TAIL)"
       log "session limit: sleeping $((W / 60)) min (until $(date -v+${W}S '+%a %H:%M'))"; sleep "$W"; continue

@@ -122,6 +122,16 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   truth-gate     {url, sha, mode: as-is|new|old-build, expect}  ruling 15: QC raises C6/C7 on the spec at sha only as new writing
                                                           (no review, skeleton built at or after rules/truth.json since); never on a reviewed page
   review         {url, field, check, text}                 judgment catch (Layer B); kept for the record, not machine-tested
+  B-dev-17 (DECISIONS 2026-10-15 night; stubs and temp files only):
+  ship-fileids   {clean?}                                 fixtures/fileids: a read-back with new image fileIds updates the spec (file_id,
+                                                          cdn_url) after a clean api-update read-back; verify-live's image check then passes
+  flag-hold      {pages, specs, changed?, expect_yield, expect_held, expect_rows | expect_stop}  _create_candidates: a page refused only
+                                                          for pending flags is skipped (HOLD line, morning packet row); other refusals stop
+  standing-go    {lift: fresh|old|none, state?, by?, cur?, ship_problems?, expect_refused}  hubctl state --by standing-go
+  learn-create   {refs, inventory?, expect_refused, match?}  the create payload takes spec.learn_refs only (no default trio)
+  overnight      {test: tokens {sessions, cap, expect_rcs, expect_total} | aa-run-key {env, keychain, run, expect}}
+  webflow-api    test headless-lift {lift, ship_stop?, argv, op, via_request?, expect_refused}; lift-cap {n, live, ship_kind?, pending?, headless?,
+                                                          lift?, ship_stop?, expect_n | expect_refused}
 status: "open" = a known miss the gate does not catch yet (a backlog fix); "guarded" = caught; a guarded case that stops being
 caught fails the suite. Open cases that start passing are reported so they can be marked guarded.
 """
@@ -436,6 +446,14 @@ def caught(c):
     if c["kind"] in ("learn-check", "learn-fill", "learn-render"):   # Divit 2026-10-16: 3 published Learn refs (hubctl.learn_golden)
         import hubctl as H
         return H.learn_golden(c)
+    if c["kind"] in ("flag-hold", "standing-go", "learn-create"):   # B-dev-17 (DECISIONS 2026-10-15 night)
+        import hubctl as H
+        return H.overnight_golden(c)
+    if c["kind"] == "ship-fileids":        # B-dev-17 (a): read-back file IDs into the spec; verify-live uses them
+        import ship
+        return ship.fileids_golden(c)
+    if c["kind"] == "overnight":           # B-dev-17: ops/overnight_b.py token budget and AlsoAsked keychain key source
+        return overnight_case(c)
     if c["kind"] == "webflow-api":         # Divit 2026-10-14: the direct Data API path (allowlist, slug skip, batching, before gate,
         import ship                        # 429 backoff, no token in any output); dry run and stubs only, never the network
         return ship.api_golden(c)
@@ -617,6 +635,22 @@ def quiz_case(c):
     if t == "plan-type":
         import skeleton as SK
         return SK.quiz_plan("/ai-survey-and-quiz-builder/x-quiz", c["primary"])["type"] == c["expect"]
+    return None
+
+def overnight_case(c):
+    import tempfile, overnight_b as O, alsoasked_pull as AP
+    if c["test"] == "tokens":   # claude JSON outputs -> tokens.jsonl; exit 5 once the night's counted total reaches the cap
+        d = tempfile.mkdtemp(); tok = os.path.join(d, "tokens.jsonl"); rcs = []
+        real = O.TOKEN_CAP; O.TOKEN_CAP = c["cap"]
+        try:
+            for i, mu in enumerate(c["sessions"]):
+                src = os.path.join(d, f"s{i}.json"); json.dump({"type": "result", "result": "done", "session_id": f"s{i}", "modelUsage": mu}, open(src, "w"))
+                try: O.cmd_tokens([src, src + ".txt"], path=tok); rcs.append(0)
+                except SystemExit as e: rcs.append(e.code or 0)
+            return rcs == c["expect_rcs"] and O.night_total(tok) == c["expect_total"]
+        finally: O.TOKEN_CAP = real
+    if c["test"] == "aa-run-key":   # B-dev-17: no env key -> the keychain only inside an authorised run (weekend.AUTH_RUNS)
+        return list(AP.resolve_key(c["env"], c["keychain"], AP.authorised_run(c["run"]))) == c["expect"]
     return None
 
 def main():

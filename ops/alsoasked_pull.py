@@ -4,7 +4,7 @@
 
 API (alsoasked.com/llms.txt, developers.alsoasked.com): base https://alsoaskedapi.com/v1, X-Api-Key header,
 POST /search, GET /account. Depth 2 costs 1 credit, depth 3 costs 4 (PA2 never needs level 3).
-The key comes from ALSOASKED_API_KEY and is never printed; neither is the response body. Prints only the HTTP status,
+The key comes from ALSOASKED_API_KEY (inside an authorised run, weekend.AUTH_RUNS, from the macOS keychain when that is unset) and is never printed; neither is the response body. Prints only the HTTP status,
 credits used (account before/after, also appended to private/alsoasked/credits.log) and question counts per depth.
 fresh:false first; fresh:true only if that returns no_results (or with --fresh); --no-retry: one call only (the caller decides).
 Callers: only `ops/weekend.py aa` (2 credits per page in total; ALSOASKED_RUN tags the log row with a run ID for run caps) and `ops/alsoasked_batch.py` (balance ceiling), which set
@@ -15,12 +15,24 @@ import http.client, json, os, sys, urllib.request, urllib.error
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE = "https://alsoaskedapi.com/v1"
 
-def resolve_key(env, keychain):
+def authorised_run(run=None):
+    """B-dev-17 (Divit 2026-10-15 night): the run ID (ALSOASKED_RUN, set by ops/weekend.py aa --run ID) is in weekend.AUTH_RUNS."""
+    run = os.environ.get("ALSOASKED_RUN", "") if run is None else run
+    if not run: return False
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import weekend
+        return run in weekend.AUTH_RUNS
+    except Exception: return False
+
+def resolve_key(env, keychain, authorised=False):
     """B-dev-12 (Divit 2026-10-15): the macOS keychain (service "alsoasked", account $USER) is the key's source of truth
     (ops/schedule/*_run.sh export it from there). An exported ALSOASKED_API_KEY still gates every pull (unset = no pulls), but
     when it differs from the keychain the keychain wins: a stale or placeholder value left in an interactive shell (16-char
-    '...-key', 2026-10-15) was sent as X-Api-Key and AlsoAsked answered 403. Returns (key, source); never the key in a message."""
-    if not env: return None, "unset"
+    '...-key', 2026-10-15) was sent as X-Api-Key and AlsoAsked answered 403. Returns (key, source); never the key in a message.
+    B-dev-17 (Divit 2026-10-15 night): with no env key, an authorised run (--run ID in weekend.AUTH_RUNS) reads the keychain
+    (the overnight loop never exports the key); outside one, unset still means no pulls."""
+    if not env:
+        return (keychain, "keychain (authorised run)") if (authorised and keychain) else (None, "unset")
     if keychain and keychain != env: return keychain, "keychain (env differs)"
     return env, "env"
 
@@ -34,8 +46,8 @@ def api_key():
             kc = subprocess.run(["security", "find-generic-password", "-a", os.environ.get("USER", ""), "-s", "alsoasked", "-w"],
                                 capture_output=True, text=True, timeout=10).stdout.strip()
         except Exception: pass   # no keychain (Linux sandbox): the env value is used as is
-        key, src = resolve_key(os.environ.get("ALSOASKED_API_KEY", "").strip(), kc)
-        if src.startswith("keychain"): print(f"note: ALSOASKED_API_KEY in this shell (...{os.environ['ALSOASKED_API_KEY'][-4:]}) differs from the keychain; using the keychain key (...{kc[-4:]})", file=sys.stderr)
+        key, src = resolve_key(os.environ.get("ALSOASKED_API_KEY", "").strip(), kc, authorised_run())
+        if src == "keychain (env differs)": print(f"note: ALSOASKED_API_KEY in this shell (...{os.environ['ALSOASKED_API_KEY'][-4:]}) differs from the keychain; using the keychain key (...{kc[-4:]})", file=sys.stderr)
         _KEY = key or ""
     return _KEY
 
@@ -97,7 +109,8 @@ def depth_counts(o, d=0, out=None):
 
 def main(argv):
     if os.environ.get("ALSOASKED_VIA_AA") != "1": sys.exit("refused: pull through ops/weekend.py aa <url> (it enforces the per-page credit cap)")
-    if "ALSOASKED_API_KEY" not in os.environ: sys.exit("ALSOASKED_API_KEY is not set")
+    if "ALSOASKED_API_KEY" not in os.environ and not authorised_run(): sys.exit("ALSOASKED_API_KEY is not set (and this is not an authorised --run: no keychain read)")
+    if not api_key(): sys.exit("no AlsoAsked key: ALSOASKED_API_KEY is unset and the keychain (service alsoasked, account $USER) has none")
     slug, term = argv[0], argv[1]
     opt = lambda k, d: argv[argv.index(k) + 1] if k in argv else d
     depth = int(opt("--depth", "2"))

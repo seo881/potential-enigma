@@ -15,6 +15,9 @@ Token: the macOS keychain, service "webflow", read at call time (`security find-
 printed, logged, written, cached on disk or put in an exception message; Authorization is redacted in debug output
 (WEBFLOW_API_DEBUG=1). Redirects are refused (a redirect would carry the Authorization header to another host).
 Every function takes dry=True by default: the planned request is returned and nothing is sent.
+Headless (EMG_HEADLESS): writes are refused, except tonight (DECISIONS 2026-10-15 night) while .cache/overnight-b/ruling19-lift-2026-10-15
+exists (under 18 hours old) and no ship-stop file exists, for item create, update and publish sent by hubctl api-create | api-update |
+api-publish only (headless_block).
 """
 import json, os, re, subprocess, time, urllib.request, urllib.error, urllib.parse
 
@@ -112,6 +115,28 @@ def redact(text, tok=None):
     if tok: t = t.replace(tok, "[redacted]")
     return re.sub(r"(?i)(bearer\s+)[^\s\"',}]+", r"\1[redacted]", t)
 
+# Ruling 19 lift for the 2026-10-15 overnight loop only (DECISIONS 2026-10-15 night): with EMG_HEADLESS set, a CMS write passes
+# only while the lift file exists (and is under 18 hours old), the operation is an item create, update or publish, the process is
+# hubctl api-create | api-update | api-publish, and no verify-live failure has stopped shipping. Everything else stays refused.
+LIFT_FILE = os.path.join(ROOT, ".cache", "overnight-b", "ruling19-lift-2026-10-15")
+SHIP_STOP = os.path.join(ROOT, ".cache", "overnight-b", "ship-stop")
+LIFT_CMDS = {"api-create": {"create"}, "api-update": {"update", "publish"}, "api-publish": {"publish", "update"}}   # api-publish: its automatic relink updates and item-publishes
+ARGV = None   # replaceable by the golden tests (None = sys.argv)
+def headless_block(op, argv=None):
+    """None when this headless write may go, else the refusal text."""
+    import sys as _s
+    a = argv if argv is not None else (ARGV if ARGV is not None else _s.argv)
+    base = "CMS writes are not allowed in a headless run (EMG_HEADLESS is set)"
+    try: fresh = (time.time() - os.path.getmtime(LIFT_FILE)) < 18 * 3600
+    except OSError: return base + "; ruling 19 is not lifted (no lift file)"
+    if not fresh: return base + "; the ruling-19 lift file is older than 18 hours (ignored)"
+    if os.path.exists(SHIP_STOP): return base + "; shipping is stopped for the night (verify-live failure: .cache/overnight-b/ship-stop)"
+    via = os.path.basename(a[0]) if a else ""
+    cmd = a[1] if len(a) > 1 else ""
+    if via != "hubctl.py" or cmd not in LIFT_CMDS: return base + f"; under the lift only hubctl api-create | api-update | api-publish may write (this is {via} {cmd})"
+    if op not in LIFT_CMDS[cmd]: return base + f"; {cmd} may not send a {op}"
+    return None
+
 def _debug(*parts):
     if os.environ.get("WEBFLOW_API_DEBUG"): print("[webflow-api]", *parts, file=__import__("sys").stderr)
 
@@ -124,7 +149,8 @@ def request(method, path, body=None, query=None, dry=True, timeout=None, max_tri
     plan = {"dry": dry, "op": op, "method": method.upper(), "path": path, "query": query or {}, "count": n}
     if dry: return plan
     if method.upper() != "GET" and os.environ.get("EMG_HEADLESS"):   # ruling 19: CMS writes never run headless (Divit 2026-10-14)
-        _refuse("CMS writes are not allowed in a headless run (EMG_HEADLESS is set)")
+        why = headless_block(op)
+        if why: _refuse(why)
     tok = TOKEN(); url = BASE + path + ("?" + urllib.parse.urlencode(query) if query else "")
     headers = {"Authorization": "Bearer " + tok, "Accept": "application/json", "User-Agent": "emergent-hubs-ship/1"}
     data = None

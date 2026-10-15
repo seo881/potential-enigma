@@ -28,6 +28,25 @@ def lock(name="status"):
         try: yield
         finally: fcntl.flock(fh, fcntl.LOCK_UN)
 
+# ---------------------------------------------------------------- overnight 2026-10-15 (DECISIONS 2026-10-15 night)
+# Ruling 19 is lifted for tonight's loop only while this file exists (the coordinator creates it at start; the loop's exit trap
+# deletes it). A lift file older than LIFT_MAX_AGE is ignored, so a forgotten file never re-opens headless CMS writes.
+OVERNIGHT_DIR = os.path.join(ROOT, ".cache", "overnight-b")
+LIFT_FILE = os.path.join(OVERNIGHT_DIR, "ruling19-lift-2026-10-15")
+SHIP_STOP = os.path.join(OVERNIGHT_DIR, "ship-stop")      # a verify-live failure: every API write refuses for the rest of the night
+LIFT_MAX_AGE = 18 * 3600
+LIVE_CAP = 200                                            # Divit 2026-10-15 night: stop at 200 live child pages
+STANDING_GO = "standing-go"                               # hubctl state URL approved --by standing-go (lift only)
+STANDING_GO_LOG = "standing-go (Divit 2026-10-15 night)"
+def ruling19_lifted(path=None):
+    p = path or LIFT_FILE
+    try: return (datetime.datetime.now().timestamp() - os.path.getmtime(p)) < LIFT_MAX_AGE
+    except OSError: return False
+def ship_stopped(): return os.path.exists(SHIP_STOP)
+def ship_stop(reason):
+    os.makedirs(OVERNIGHT_DIR, exist_ok=True)
+    with open(SHIP_STOP, "a") as f: f.write(datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC") + " " + reason + "\n")
+
 def _canon(obj): return json.dumps(obj, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
 def fingerprint(spec):
     """Hash of everything that will reach Webflow: all fields, image files on disk, alt texts, table and FAQ sources."""

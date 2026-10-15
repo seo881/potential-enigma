@@ -240,8 +240,9 @@ def build_payloads(bf, L, sha):
         e0 = H.load_st(H.hub_of(url))["pages"].get(url, {})   # ruling 6: only reviewed pages, never over the other account's hold
         if not s.get("item_id") and e0.get("state") not in ("reviewed", "approved"): print(f"  REFUSED {url}: state {e0.get('state')}, not reviewed"); continue
         if e0.get("hold") and H.hold_account(e0["hold"]) != H.clone_account(): print(f"  REFUSED {url}: held by account {H.hold_account(e0['hold'])}"); continue
-        ok_r, why_r = G.review_ok(s)   # ruling 1 (Divit 2026-10-13): only reviewed text ships
-        if not ok_r: print(f"  REFUSED {url}: {why_r}"); continue
+        verdict, why_r = H.ship_review_gate(url, s)   # ruling 1 (Divit 2026-10-13): only reviewed text ships; flags -> morning packet
+        if verdict == "hold": continue
+        if verdict != "ok": print(f"  REFUSED {url}: {why_r}"); continue
         e = H.load_st(hub)["pages"].get(url, {})
         if not s.get("item_id"):
             if e.get("cms_exists"): fail(P, "payload", f"slug already in Webflow ({e.get('cms_item_id')}); record it first", "payload"); continue
@@ -280,7 +281,7 @@ def cmd_cms(args):
         for k, im in s["images"].items():
             got = fd.get(h["fields"][k]) or {}
             if not got.get("fileId"): diff.append(f"{k} (no fileId)")
-            else: im["file_id"] = got["fileId"]; im["cdn_url"] = got.get("url")
+        H.record_file_ids(hub, s, it)   # B-dev-17 (a): saved below on a clean match
         if not it.get("isDraft"): diff.append("isDraft is not true")
         diff += H.learn_problems(hub, it, learn)   # Divit 2026-10-16: 3 published Learn refs
         if diff: bad += 1; fail(P, "cms", "read-back mismatch: " + ", ".join(diff), "payload"); print(f"MISMATCH {url}: {diff}"); continue
@@ -301,6 +302,8 @@ def cmd_update(args):
     if "--verify" in args: return update_verify(bf, name, items, day, H.learn_index(_arg(args, "--learn")) if "--learn" in args else None)
     for url in batch_urls(bf):
         s = spec(url); h = H.CFG["hubs"][H.hub_of(url)]; it = items.get(s.get("item_id"))
+        fp = G.flags_pending(s)
+        if fp: H.flag_hold(url, s, fp); continue   # DECISIONS 2026-10-15 night: a flagged page never blocks its batch
         if not it: sys.exit(f"{url}: item {s.get('item_id')} not in {rb}")
         fd = it["fieldData"]; ex = H.export_fields(url, s)[0]; ch = {}
         for k, v in ex.items():
@@ -389,9 +392,11 @@ def update_verify(bf, name, items, day, learn=None):
     sent = {}
     for p in glob.glob(os.path.join(ROOT, "ops", "out", "ship", f"{name}-update-*.json")):
         for it in json.load(open(p))[0]["update_collection_items"]["request"]["items"]: sent[it["id"]] = it["fieldData"]
-    bad = []; ok = 0; psha = None
+    bad = []; ok = 0; psha = None; held = set()
     for url in batch_urls(bf):
         s = spec(url); h = H.CFG["hubs"][H.hub_of(url)]; it = items.get(s.get("item_id"))
+        fp = G.flags_pending(s)
+        if fp: H.flag_hold(url, s, fp); held.add(url); continue   # held from this batch's payload (cmd_update): not compared
         if not it: bad.append(f"{url}: item not in read-back"); continue
         fd = it["fieldData"]; ex = H.export_fields(url, s)[0]
         for k, v in ex.items():
@@ -411,14 +416,15 @@ def update_verify(bf, name, items, day, learn=None):
     print(f"{ok - len({b.split(':')[0] for b in bad})}/{ok} pages match the read-back. {H.learn_note(learn)}")
     if bad: sys.exit(1)
     for url in batch_urls(bf):
-        s = json.load(open(H.spath(url))); it = items[s["item_id"]]; h = H.CFG["hubs"][H.hub_of(url)]
-        for k, im in s["images"].items():
-            got = it["fieldData"].get(h["fields"][k]) or {}
-            if got.get("fileId"): im["file_id"] = got["fileId"]; im["cdn_url"] = got.get("url")
+        if url in held: continue
+        s = json.load(open(H.spath(url))); it = items[s["item_id"]]
+        H.record_file_ids(H.hub_of(url), s, it)   # B-dev-17 (a): the read-back's image file IDs, so verify-live checks the new files
         cd = s.get("cms_draft") or {}
         s["cms_draft"] = {**cd, "fingerprint": G.fingerprint(s), "sha": psha if it["id"] in sent and psha else cd.get("sha"), "date": now(), "verified": True}
         json.dump(s, open(H.spath(url), "w"), indent=1, ensure_ascii=False)
-    print(f"cms_draft refreshed on {ok} page(s); image base sha {psha[:8] if psha else 'unchanged'} on {len(sent)}")
+        if H.load_st(H.hub_of(url))["pages"].get(url, {}).get("state") == "approved":   # B-dev-17: an approved old draft, now verified -> cms_draft (api-publish takes it)
+            H.set_state(url, "cms_draft", note="ship-update --verify: draft matches the read-back", via="ship-update", item_id=it["id"])
+    print(f"cms_draft refreshed on {ok} page(s); image base sha {psha[:8] if psha else 'unchanged'} on {len(sent)}" + (f"; {len(held)} held (flags pending, morning packet)" if held else ""))
 
 def cmd_qc(args):
     url = args[0]; iss = qc_issues(url)
@@ -539,6 +545,22 @@ def cmd_api_read(args):
     hub, _h = _hub(args); items, p = api_read(hub, _arg(args, "--out"))
     print(f"{hub}: {len(items)} item(s) read (staged, drafts included) -> {_rel(p) if os.path.abspath(p).startswith(ROOT) else p}")
 
+def lift_cap(pairs, kind, live=None, pending=None, headless=None):
+    """Tonight's caps (DECISIONS 2026-10-15 night), only while the ruling-19 lift file exists: shipping refuses once stopped
+    (verify-live failure) or at 200 live child pages; the list is cut so the night lands on exactly 200 (creates also count the
+    verified drafts not yet live); a headless run ships at most 10 per call."""
+    import guards as G
+    if not G.ruling19_lifted(): return pairs
+    if G.ship_stopped(): sys.exit("refused: shipping is stopped for the night (.cache/overnight-b/ship-stop: a verify-live failure)")
+    live = len(G.live_child_urls()) if live is None else live
+    if pending is None:
+        pending = 0 if kind == "publish" else sum(1 for u, e in G.all_status().items() if e.get("state") == "cms_draft" and u not in G.live_child_urls())
+    room = G.LIVE_CAP - live - pending
+    if room <= 0: sys.exit(f"refused: {live} live child pages (+{pending} verified drafts) reach the cap of {G.LIVE_CAP}; no more shipping tonight")
+    n = min(room, 10) if (os.environ.get("EMG_HEADLESS") if headless is None else headless) else room
+    if len(pairs) > n: print(f"  cap: {len(pairs)} -> {n} ({live} live, {pending} drafts pending, cap {G.LIVE_CAP}" + (", 10 per headless batch" if n == 10 else "") + ")")
+    return list(pairs)[:n]
+
 def plan_create(cands, live_items, limit=None):
     """(to_create, skipped): never a slug that already exists in the collection (idempotent re-runs); duplicate slugs refused."""
     live = {(it.get("fieldData") or {}).get("slug"): it.get("id") for it in live_items}; seen = set(); go, skip = [], []
@@ -564,6 +586,7 @@ def cmd_api_create(args):
         if e.get("hold") and H.hold_account(e["hold"]) != H.clone_account(): held.append(url)
     cands = [c for c in cands if c[0] not in held]
     for u in held: print(f"  REFUSED {u}: held by the other account")
+    cands = lift_cap(cands, "create")
     if not cands: sys.exit("no approved pages without an item ID")
     if mode == "dry":
         rb = _arg(args, "--readback") or latest_readback(hub)
@@ -630,6 +653,21 @@ def _same_image(sent, got, before):
     if sent.get("fileId"): return g.get("fileId") == sent["fileId"]
     return bool(g.get("fileId")) and g.get("fileId") != ((before or {}).get("fileId"))
 
+def apply_readback_file_ids(read, item_ids, specs=None, save=True):
+    """B-dev-17 (a): after a clean read-back, each image field's new fileId and url go into the spec of every item in item_ids
+    (images[k].file_id, cdn_url), so verify-live checks the files the CMS now serves. read {item id: read-back item}; specs: the
+    spec dicts with _path (default all specs). Returns [(url, changed keys)] for the specs that changed (written when save)."""
+    import guards as G
+    out = []
+    for s in (G.all_specs() if specs is None else specs):
+        iid = s.get("item_id")
+        if not iid or iid not in item_ids or iid not in read: continue
+        ks = H.record_file_ids(H.hub_of(s["url"]), s, read[iid])
+        if ks:
+            out.append((s["url"], ks))
+            if save: json.dump({k: v for k, v in s.items() if k != "_path"}, open(s["_path"], "w"), indent=1, ensure_ascii=False)
+    return out
+
 def cmd_api_update(args):
     """hubctl api-update PAYLOAD.json [--dry-run | --live]: run the item updates (and the item publishes of exactly those items) in a
     payload written by ship-update or relink-payload (ops/out/ship/*.json). Every item needs a committed and pushed before-value in
@@ -672,11 +710,11 @@ def cmd_api_update(args):
     rp = os.path.join(ROOT, "childedits", _day(), f"{name}.{_stamp()}.rollback.json"); os.makedirs(os.path.dirname(rp), exist_ok=True)
     json.dump([{"label": f"rollback of {os.path.basename(pf)}: before-values, changed fields only", "update_collection_items": {"collection_id": c, "request": {"items": [
         {"id": it["id"], "fieldData": {k: bfile[it["id"]][1]["fieldData"].get(k) for k in it["fieldData"]}} for it in its]}}} for c, its in upd.items()], open(rp, "w"), indent=1, ensure_ascii=False)
-    diffs = []; err = None; learn = False
+    diffs = []; err = None; learn = False; read = {}
     for c, its in upd.items():
         try: W.update_items(c, its, dry=False, on_batch=lambda ch, r, c=c: _apilog({"op": "update", "collection": c, "count": len(ch), "ids": [i["id"] for i in ch], "payload": os.path.basename(pf)}))
         except (W.ApiError, W.Refused) as e: err = str(e); print(f"STOPPED: {err}")
-        got = {it["id"]: it for it in W.list_items(c, dry=False)[0]}
+        got = {it["id"]: it for it in W.list_items(c, dry=False)[0]}; read.update(got)
         for it in its:
             g = (got.get(it["id"]) or {}).get("fieldData") or {}; bfd = bfile[it["id"]][1]["fieldData"]
             for k, v in it["fieldData"].items():
@@ -687,6 +725,8 @@ def cmd_api_update(args):
                 if learn is False: learn = _learn_live(); print(f"  {H.learn_note(learn)}")
                 diffs += [f"{it['id']}: {p}" for p in H.learn_problems(hb, got.get(it["id"]) or {"fieldData": {}}, learn)]
     hub = W.CHILD[next(iter(upd))]
+    clean = {it["id"] for its in upd.values() for it in its} - {d.split(":")[0] for d in diffs}
+    for u, ks in apply_readback_file_ids(read, clean): print(f"  file IDs recorded from the read-back: {u} ({len(ks)} image field(s))")
     _hublog(hub, f"api-update {os.path.basename(pf)}: {n} item(s) updated via Data API; read back; {len(diffs)} field mismatch(es); rollback {_rel(rp)}" + (f"; stopped: {err[:200]}" if err else ""))
     for d in diffs: print(f"  MISMATCH {d}")
     if err or diffs: sys.exit("not published: fix the mismatches first" if pub else 1)
@@ -707,6 +747,9 @@ def cmd_api_publish(args):
     if _arg(args, "--ids-from-state", "cms_draft") != "cms_draft": sys.exit("refused: only verified cms_draft pages are item-published")
     pairs, warn = H._publish_ids(hub)
     if "--limit" in args: pairs = pairs[:int(_arg(args, "--limit"))]
+    pairs = lift_cap(pairs, "publish")
+    if mode == "live" and os.environ.get("EMG_HEADLESS") and G.ruling19_lifted() and "--verify-live" not in args:
+        sys.exit("refused: a headless item publish needs --verify-live (DECISIONS 2026-10-15 night: verify-live on every page)")
     if not pairs: sys.exit("no verified cms_draft pages to publish")
     for url, _ in pairs:
         s = spec(url); fp = G.fingerprint(s)
@@ -758,7 +801,12 @@ def cmd_api_publish(args):
             t1 = _t.time(); ok, rep = V.verify(spec(u))
             if not ok: _t.sleep(30); ok, rep = V.verify(spec(u))   # one retry: the CDN can lag an item publish
             if ok: H.set_state(u, "published", note="live page verified", via="api-publish")
-            else: fails.append(u)
+            else:
+                fails.append(u)
+                if G.ruling19_lifted():   # DECISIONS 2026-10-15 night: unpublish is not on the API allowlist -> hold the page, stop all shipping
+                    G.ship_stop(f"verify-live FAIL {u}")
+                    H.set_state(u, "cms_draft", note="HOLD: verify-live failed after item publish (overnight); shipping stopped; unpublish needs Divit", via="api-publish")
+                    print(f"HOLD {u}: verify-live failed; all shipping stopped for the night (.cache/overnight-b/ship-stop); unpublish is not on the API allowlist")
             print(f"  {'PASS' if ok else 'FAIL'} {u} ({_t.time() - t1:.1f}s)" + ("" if ok else ": " + "; ".join(l for l in rep if l.startswith("FAIL"))[:300]))
         print(f"verify-live: {len(done) - len(fails)}/{len(done)} pass")
         rok = True
@@ -907,6 +955,33 @@ def api_golden(c):
                 return (ok and [s[0] for s in steps] == ["read", "commit", "update", "verify", "record"] and len(bps) == 1
                         and u.get("fieldData") == {h["fields"]["faq"]: f"<p>See the {a} page.</p>"} and len(pubs) == 1 and not calls)
             finally: H._record_pending = real_rec
+        if t == "headless-lift":   # B-dev-17 (DECISIONS 2026-10-15 night): EMG_HEADLESS writes only under a fresh lift file, via hubctl api-*
+            import tempfile, shutil
+            d = tempfile.mkdtemp(); real_l, real_s = W.LIFT_FILE, W.SHIP_STOP; W.LIFT_FILE, W.SHIP_STOP = os.path.join(d, "lift"), os.path.join(d, "ship-stop")
+            try:
+                if c["lift"] in ("fresh", "old"):
+                    open(W.LIFT_FILE, "w").close()
+                    if c["lift"] == "old": import time as _t; os.utime(W.LIFT_FILE, (_t.time() - 20 * 3600,) * 2)
+                if c.get("ship_stop"): open(W.SHIP_STOP, "w").close()
+                why = W.headless_block(c["op"], c["argv"])
+                if c.get("via_request"):   # the gate inside request(): refused before any token read or network call
+                    W.TRANSPORT = no_net; W.TOKEN = lambda: (_ for _ in ()).throw(AssertionError("token read")); os.environ["EMG_HEADLESS"] = "1"; W.ARGV = c["argv"]
+                    try: W.request("POST", f"/collections/{cid}/items/publish", {"itemIds": ["a" * 24]}, dry=False); return False
+                    except W.Refused: return c["expect_refused"] and not calls
+                    finally: os.environ.pop("EMG_HEADLESS", None); W.ARGV = None
+                return (why is not None) == c["expect_refused"]
+            finally: W.LIFT_FILE, W.SHIP_STOP = real_l, real_s; shutil.rmtree(d, ignore_errors=True)
+        if t == "lift-cap":   # tonight's caps: 200 live, last batch sized to land on it, 10 per headless call, ship-stop refuses
+            import tempfile, shutil
+            d = tempfile.mkdtemp(); real_g = (G.LIFT_FILE, G.SHIP_STOP); G.LIFT_FILE, G.SHIP_STOP = os.path.join(d, "lift"), os.path.join(d, "stop")
+            try:
+                if c.get("lift", True): open(G.LIFT_FILE, "w").close()
+                if c.get("ship_stop"): open(G.SHIP_STOP, "w").close()
+                pairs = [(f"/x/p{i}", str(i)) for i in range(c["n"])]
+                try: got = len(lift_cap(pairs, c.get("ship_kind", "publish"), live=c["live"], pending=c.get("pending", 0), headless=c.get("headless", True))); refused = False
+                except SystemExit: got, refused = None, True
+                return refused if c.get("expect_refused") else got == c["expect_n"]
+            finally: G.LIFT_FILE, G.SHIP_STOP = real_g; shutil.rmtree(d, ignore_errors=True)
         if t == "before-gate":
             return (not require_before([os.path.join(ROOT, c["path"])])) == c["expect_ok"]
         if t == "backoff":
@@ -932,6 +1007,26 @@ def api_golden(c):
             return SENT not in allout and "Bearer [redacted]" in errb.getvalue() and len(msgs) == 4
     finally: W.TRANSPORT, W.TOKEN, W.SLEEP = real
     return None
+
+def fileids_golden(c):
+    """B-dev-17 (a): a fixture read-back with new image fileIds updates the spec (api-update's apply_readback_file_ids), and
+    verify-live's image check then uses them (PASS on the fixture page holding the new files; the old IDs FAIL)."""
+    import tempfile, shutil, verify_live as V
+    fx = os.path.join(ROOT, "tests", "golden", "fixtures", "fileids"); d = tempfile.mkdtemp()
+    try:
+        sp = os.path.join(d, "spec.json"); shutil.copy(os.path.join(fx, "spec.json"), sp)
+        old = dict(json.load(open(sp)), _path=sp)
+        read = {it["id"]: it for it in H._items_from_readback(os.path.join(fx, "readback.json"))}
+        html = open(os.path.join(fx, "page.html")).read()
+        def img_lines(s): return [l for l in V.verify(s, html=html, check_links=False)[1] if l.split(" ", 1)[1].startswith(("image ", "share image"))]
+        before = img_lines(json.load(open(sp)))
+        ch = apply_readback_file_ids(read, {old["item_id"]} if c.get("clean", True) else set(), specs=[old])
+        new = json.load(open(sp)); after = img_lines(new)
+        want = {k: (read[old["item_id"]]["fieldData"][H.CFG["hubs"]["Auto"]["fields"][k]]) for k in new["images"]}
+        if not c.get("clean", True): return not ch and all(l.startswith("FAIL") for l in after)
+        return (len(ch) == 1 and all(new["images"][k]["file_id"] == want[k]["fileId"] and new["images"][k]["cdn_url"] == want[k]["url"] for k in want)
+                and all(l.startswith("FAIL") for l in before) and after and all(l.startswith("PASS") for l in after))
+    finally: shutil.rmtree(d, ignore_errors=True)
 
 CMDS = {"api-read": cmd_api_read, "api-read-learn": cmd_api_read_learn, "api-create": cmd_api_create, "api-update": cmd_api_update, "api-publish": cmd_api_publish,
         "ship-update": cmd_update, "relink-payload": cmd_relink, "ship": cmd_ship, "ship-done": cmd_done, "ship-cms": cmd_cms, "ship-qc": cmd_qc, "ship-cost": cmd_cost, "readiness": cmd_readiness}
