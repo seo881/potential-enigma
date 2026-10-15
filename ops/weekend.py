@@ -30,7 +30,8 @@ CREDIT_CAP, PER_PAGE = 300, 2
 AUTH_RUNS = {"auto-r1014": 22,    # Divit 2026-10-14 step 3: the 11 Automation no-pull pages, cap 2 each
              "kw-r1014": 74,      # Divit 2026-10-14 step 4: the 37 approved ruling-13 new-keyword pages, primary pull only, cap 2 each
              "pilot-r10": 45,     # ruling 10A, 2026-10-13: the yield pilot
-             "wave-r12": 400}     # ruling 12, 2026-10-13: every queued page with no pull + LP --kw secondaries, stop at 400 credits
+             "wave-r12": 400,     # ruling 12, 2026-10-13: every queued page with no pull + LP --kw secondaries, stop at 400 credits
+             "bp1-r1015": 6}      # Divit 2026-10-15 ("pulls for the other 8 now", ruling 22): the 6 needs-pull pages of the spec triage, the final pull each
 STATE = os.path.join(ROOT, "status", "weekend-run.json")
 PLAN = os.path.join(ROOT, "plan", "weekend-run.md")
 STOP = os.path.join(ROOT, "STOP")
@@ -262,8 +263,8 @@ def cmd_aa(args):
     run, cap = opt("--run"), opt("--run-cap"); cap = int(cap) if cap else None
     if cap is not None and not run: sys.exit("--run-cap needs --run ID")
     if run in AUTH_RUNS: cap = min(cap if cap is not None else AUTH_RUNS[run], AUTH_RUNS[run])
-    # Ruling 12 (Divit 2026-10-13): A runs every AlsoAsked pull; B never pulls and uses saved pulls only (0 credits)
-    if H.clone_account() != "A": sys.exit("refused: AlsoAsked pulls run in Account A only (ruling 12); B uses saved pulls (hubctl brief). Ask A in proposals/account-b.md")
+    # Ruling 22 (Divit 2026-10-14 night): the coordinator account (hubctl.COORDINATOR, now B) runs every AlsoAsked pull; the other uses saved pulls only
+    if H.clone_account() != H.COORDINATOR: sys.exit(f"refused: AlsoAsked pulls run in the coordinator account {H.COORDINATOR} only (ruling 22); this clone uses saved pulls (hubctl brief)")
     name = s + (SEC if sec else ""); pull = os.path.join(ROOT, "private", "alsoasked", name + ".json")
     def saved():
         try: return json.load(open(pull))["_meta"].get("status") or "success"
