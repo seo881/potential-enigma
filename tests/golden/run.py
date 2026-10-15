@@ -28,6 +28,7 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   review-lock    {url, field, expect_refused, sha?}       (sha: the spec at that commit, so a later review event cannot age the case)             ruling 10 B2: post-review change to a field is refused unless a blocking finding names it
   feasibility    {url, expect_feasible}                   ruling 10 B1: feasibility (pull + sources + recoverable keyword items) reaches 10 when expected
   aa-key-source  {env, keychain, expect: [key, source]}   alsoasked_pull.resolve_key: the keychain wins when the env key differs
+  qc-prompt-lines {url, hero_prompt?, chip_adds?, key, lines_1440, lines_390?, expect_l13}   L13 (Divit 2026-10-15): the rendered line count of prompt `key` (default | chip N) and whether QC raises L13 for it
   aa-decision    {rows, saved, now, expect}               weekend.py aa: reuse a saved pull, refuse a recent charge with no save, ignore 401/403 rejections
   gate-asker     {url, q, expect_asker}                   PA6 classifies the question as builder | respondent (None = flag)
   qc-f2-aa       {url, aa, sec?, expect_f2}               legacy-capture page with an item labelled alsoasked: F2 exactly when there is no AlsoAsked pull
@@ -202,6 +203,16 @@ def caught(c):
             s_ = json.load(open(f)); t_ = s_.get("table")
             if t_ and TB.render(os.path.basename(os.path.dirname(f)), t_["vs"], t_["rows"], t_.get("variant")) != s_["fields"].get("why_table"): return False
         return True
+    if c["kind"] == "qc-prompt-lines":     # L13 (Divit 2026-10-15): rendered lines in the 1440 px hero prompt box (default <= 2, chip <= 3)
+        import qc_hub as Q, hubctl as H, prompt_lines as PL
+        s = copy.deepcopy(json.load(open(H.spath(c["url"]))))
+        if "hero_prompt" in c: s["fields"]["hero_prompt"] = c["hero_prompt"]
+        if "chip_adds" in c: s["chip_adds"] = c["chip_adds"]
+        row = {r["key"]: r for r in PL.spec_lines(s)}[c["key"]]
+        if row["1440"] != c["lines_1440"] or ("lines_390" in c and row["390"] != c["lines_390"]): return False
+        fld = "hero_prompt" if c["key"] == "default" else "chip_adds"
+        hit = any(i["code"] == "L13" and i["field"] == fld and (c["key"] == "default" or i["msg"].startswith(c["key"] + " ")) for i in Q.check(s, Q.load_specs([H.spath(c["url"])])))
+        return hit == c["expect_l13"]
     if c["kind"] == "aa-decision":  # weekend.py aa no-double-charge rule (Divit 2026-10-13): rows + saved status -> reuse/refuse/pull
         import weekend as W
         return W.aa_decision(c["rows"], c.get("saved"), c["now"])[0] == c["expect"]

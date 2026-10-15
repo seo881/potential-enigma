@@ -48,6 +48,9 @@ def _stem(w): return w[:-1] if len(w) > 3 and w.endswith("s") and not w.endswith
 KV = json.load(open(os.path.join(ROOT, "rules", "keyword_variants.json")))["groups"]
 KV_RX = [(re.compile(r"(?<![a-z0-9])(?:" + "|".join(re.escape(v).replace(r"\ ", r"[\s-]?").replace(r"\-", r"[\s-]?") for v in g["variants"]) + r")(s?)(?![a-z0-9])"), g["canonical"]) for g in KV]
 import spelling as _SP
+sys.path.insert(0, os.path.join(ROOT, "ops")) if os.path.join(ROOT, "ops") not in sys.path else None
+import prompt_lines as _PL   # L13 rendered prompt lines (Divit 2026-10-15)
+_PL_PRE = {"m": None}         # main() measures every page of a run in one Chromium launch
 def _semrush_ok(url, ref):
     """Divit 2026-10-13: a keyword-sourced FAQ item from Semrush phrase_questions must cite a question this page's derive step kept."""
     sys.path.insert(0, os.path.join(ROOT, "ops")); import semrush_questions as _SQ
@@ -181,6 +184,11 @@ def check(spec, siblings):
         d = strip_html(F.get("hero_prompt", ""))
         if prim and kwn(prim) not in kwn(d): add("P1", "L10", "hero_prompt", "default prompt must carry the primary keyword")
         if len(d) > 150: add("P1", "L10", "hero_prompt", f"default prompt {len(d)} chars (max 150)")
+    # L13 (Divit 2026-10-15): rendered lines in the 1440 px prompt box, default <= 2, each chip prompt (default + its add) <= 3;
+    # measured in headless Chromium with the live box style cached in rules/prompt_box.json (ops/prompt_lines.py), not by characters
+    if F.get("hero_prompt"):
+        for sev, code, fld, msg in _PL.qc_issues(spec, _PL_PRE.get("m")): add(sev, code, fld, msg)
+    if spec.get("chip_adds") is not None:
         F = dict(F); F["chip_adds"] = "<p>" + " ".join(a for a in adds if isinstance(a, str)) + "</p>"
     # S1 required
     for k in sorted(allowed - set(CFG["optional_fields"])):
@@ -959,7 +967,10 @@ def main(argv):
     else: paths = argv
     every = load_specs(sorted(glob.glob(os.path.join(ROOT, "specs", "*", "*.json"))))
     total = 0
-    for s in load_specs(paths):
+    todo = load_specs(paths)
+    try: _PL_PRE["m"] = _PL.measure([(s.get("hub"), t) for s in todo for _, t in _PL.compose(s)])   # L13: one Chromium launch for the run
+    except Exception: _PL_PRE["m"] = None                                                          # check() reports the failure per page
+    for s in todo:
         issues = check(s, every)
         blocking = [i for i in issues if i["sev"] in ("P0", "P1")]
         frozen = s.get("status") in ("live-draft", "published") and s.get("frozen", True)
