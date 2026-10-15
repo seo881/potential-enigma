@@ -38,6 +38,14 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   gate-pool      {url, from: pull|semrush, qh, expect | absent}  ruling 18: a pool candidate (by hash) rejects with an expected rule, or not
   feas-skeleton  {url, expect_feasible}                   ruling 18 part 5: feasibility total == skeleton.slots_possible, feasible as expected
   acronym-case   {raw, expect}                            ruling 18 part 4e: skeleton.clean_question cases acronyms (plurals too)
+  skel-field     {url, field, expect | expect_fields}     decision 8 (2026-10-15): skeleton.built_fields(url)[field] (faq_heading, explore_cta,
+                                                          hero_prompt, breadcrumb, product_name, def_q, how_q) is exactly `expect`
+                                                          (expect_fields: {field: value}, every one exact)
+  skel-fn        {fn, args, expect}                       decision 8: skeleton.<fn>(*args) == expect (_a article by sound, _title, case_primary)
+  skel-invariants {}                                      decision 8: on every keyword-map page the built faq_heading and explore_cta keep the
+                                                          display name's first word (or are "Build Mine Now"), never repeat a word back to back
+                                                          or "Questions" twice, the CTA is <= 34 chars, and the hero/definition text has no
+                                                          lowercase house acronym and no "an" before a consonant-sound u/one
   skel-admit     {url, qh, expect_admitted}               Divit 2026-10-14 step 4: skeleton.candidates admits the question (hash of its text or
                                                           source wording) exactly when expected (the gate's spec checks, answer source included)
   swap-recheck   {url, sha, note, expect_need, inject?, expect_filled?}  step 3: positions to swap for the spec at sha (note lead clause +
@@ -80,6 +88,8 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   console-source {err: {t, src, stack}, expect_ignored, via?: audit}  Divit 2026-10-14 console exception: the error is ignored
                                                           exactly when expected (ops/console_filter.py, source-based, never on text); via
                                                           audit: the live audit raises A9-console exactly when the error is not ignored
+                                                          (2026-10-15: also element entries, err {kind, doc, element}; expect_name: the
+                                                          entry that must cover it; tail_has: names the run summary must print)
   table-pick     {primary, expect_category, expect_vs?, expect_variant?, expect_rows?, rows?, top_urls?, dir?}  Divit 2026-10-14:
                                                           table.pick on the library's category_sets (first term match, else general)
   table-args     {url, args, expect_vs, expect_rows, expect_variant}  hubctl table_defaults: explicit --vs/--rows/--variant win
@@ -331,6 +341,25 @@ def caught(c):
             sl = d + [{"kind": "semrush", "q": x, "ref": x} for x in (f"Which approvals should a {prim} route to a second reviewer?",
                                                                        f"How many fields can a {prim} hold before people abandon it?")]
         return W.available(c["url"], need, items, sl, spec=s)[0] == c["expect_filled"]
+    if c["kind"] in ("skel-field", "skel-fn", "skel-invariants"):   # decision 8 (2026-10-15): the deterministic field builders
+        import skeleton as SK
+        if c["kind"] == "skel-field":
+            b = SK.built_fields(c["url"]); exp = c.get("expect_fields") or {c["field"]: c["expect"]}
+            return all(b[f] == v for f, v in exp.items())
+        if c["kind"] == "skel-fn": return json.loads(json.dumps(getattr(SK, c["fn"])(*c["args"]))) == c["expect"]
+        import hubctl as H
+        for u, k in H.kmap().items():
+            if not k.get("primary") or not any(u.startswith(h["path"] + "/") for h in H.CFG["hubs"].values()): continue
+            b = SK.built_fields(u); first = b["breadcrumb"].split()[0]
+            for f, t in (("faq_heading", b["faq_heading"]), ("explore_cta", b["explore_cta"])):
+                if t == "Build Mine Now": continue
+                if not (t[len("Build My "):] if f == "explore_cta" else t).startswith(first): return False
+                ws = re.findall(r"\w+", t.lower())
+                if ws.count("questions") > 1 or any(ws[i] == ws[i + 1] for i in range(len(ws) - 1)): return False
+            if len(b["explore_cta"]) > 34: return False
+            txt = b["hero_prompt"] + " " + b["def_q"] + " " + b["how_q"]
+            if re.search(r"\b(seo|crm|gdpr|hr|pdf|sms|nps|rsvp|hipaa|saas|ppc|api)\b", txt) or re.search(r"\ban (uni(form|que|on|t)|user|one\b)", txt, re.I): return False
+        return True
     if c["kind"] == "acronym-case":        # ruling 18 part 4e: keyword-sourced questions case known acronyms, plurals too
         import skeleton as SK
         return SK.clean_question(c["raw"]) == c["expect"]
@@ -385,6 +414,8 @@ def caught(c):
         return len(tr) >= c.get("min_pages", 1) and all(set(e) <= set(KL.FIELDS) for e in tr.values())
     if c["kind"] == "console-source":     # Divit 2026-10-14: clarity.js, the GTM Clarity loader and Adwire molecule.js only, by source
         import console_filter as CF
+        if c.get("tail_has") and not all(x in CF.summary_line(0, []) for x in c["tail_has"]): return False   # exceptions printed every run
+        if c.get("expect_name") and CF.ignored_by(c["err"]) != c["expect_name"]: return False
         if c.get("via") != "audit": return bool(CF.ignored_by(c["err"])) == c["expect_ignored"]
         import live_audit as LA
         u = "/ai-form-builder/ach-form"

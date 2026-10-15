@@ -149,7 +149,7 @@
   "https://emergent-sh.webflow.io"
  ],
  "_note_held": "held_hosts: every page held in status/ship/*.json is checked on each of these on every run; HTTP 200 anywhere = P0 A0-held-live, unpublish at once (Divit 2026-10-09).",
- "console_ignore": [
+ "verify_launch_console_ignore": [
   "<svg> attribute",
   "%c%d",
   "turnstile",
@@ -167,11 +167,15 @@
   "Failed to create ScrollTrigger",
   "IntersectionObserver is not defined"
  ],
- "_note_console": "console_ignore: console messages from the site's own scripts and jsdom gaps that are not ours (verify_launch 'no console errors' ignores them); anything else is a failure.",
+ "_note_verify_launch_console_ignore": "verify_launch_console_ignore: used only by ops/verify_launch.mjs, which runs page scripts in jsdom (no real browser, no error source): jsdom gaps and the site's own known noise. Not used by the live audit or the staging check: Divit 2026-10-15 dropped the text list there; they apply only console_ignore_sources (source or element based).",
  "console_ignore_sources": [
   {
    "name": "clarity.js",
    "src": "^https?://([a-z0-9-]+\\.)*clarity\\.ms/([^?#]*/)?clarity(\\.min)?\\.js([?#]|$)"
+  },
+  {
+   "name": "bing-uet-clarity-loader",
+   "src": "^https?://www\\.clarity\\.ms/tag/uet/"
   },
   {
    "name": "gtm-clarity-loader",
@@ -185,9 +189,21 @@
   {
    "name": "adwire",
    "src": "^https://client\\.adwire\\.io/clarity/molecule\\.js([?#]|$)"
+  },
+  {
+   "name": "navbar-ai-contests-svg-width",
+   "kind": "log",
+   "element": {
+    "tag": "^svg$",
+    "attr": "^width$",
+    "value": "^2o$",
+    "nav": true,
+    "href": "^(https?://[^/]+)?/ai-contests/?([?#].*)?$",
+    "link_class": "(^|\\s)nav_dropdown-item(\\s|$)"
+   }
   }
  ],
- "_note_console_ignore_sources": "console_ignore_sources (Divit 2026-10-14, narrow exception): a console error or page error is ignored only when its SOURCE (the reporting script URL or the top stack frame, captured through CDP by ops/console_capture.mjs) matches `src`, and, where given, some stack frame matches `stack_any`: Microsoft Clarity's clarity.js (any version), the Clarity loader GTM injects (its www.clarity.ms/tag/ script, or GTM's inline code with a clarity.ms frame in the stack) and Adwire's molecule.js. Never matched on message text. Every ignored error is listed on every run (ops/console_filter.py). ops/staging_check.py applies only this exception; any other console error fails.",
+ "_note_console_ignore_sources": "console_ignore_sources (Divit 2026-10-14, widened 2026-10-15; narrow, named exceptions): a console error or page error is ignored only when (a) its SOURCE (the reporting script URL or the top stack frame, captured through CDP by ops/console_capture.mjs) matches `src`, and, where given, some stack frame matches `stack_any`: Microsoft Clarity's clarity.js (any version), the Bing UET automatic Clarity loader (www.clarity.ms/tag/uet/..., source of the \"reading 'unshift'\" page error; counts as the Clarity exception, 2026-10-15), the Clarity loader GTM injects (its www.clarity.ms/tag/ script, or GTM's inline code with a clarity.ms frame in the stack) and Adwire's molecule.js; or (b) for an `element` entry, the page document itself reported it (kind log, no script in the stack) and the capture tied it to the element matching every `element` field: the navbar <svg width=\"2o\"> on the /ai-contests dropdown icon in KS's shared navbar component (2026-10-15, until KS fixes it; an svg width error from any other element, or the same text from a script, still fails). Never matched on message text. The exceptions in force and every ignored error are printed on every run (ops/console_filter.py). ops/staging_check.py and ops/live_audit.py apply only this list; any other console error fails.",
  "social_ok": {
   "domains": ["instagram.com", "x.com", "twitter.com", "linkedin.com", "facebook.com", "fb.com", "youtube.com", "youtu.be", "tiktok.com"],
   "statuses": [429, 999]

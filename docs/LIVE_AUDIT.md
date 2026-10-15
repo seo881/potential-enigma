@@ -17,6 +17,7 @@ Decided by Divit 2026-10-09 (DECISIONS). Divit spot-checks 2-3 URLs; this system
 - Images: load 200; correct format (SVG for use-case and covers, WebP og:image); og:image 1200x630 at most 300 KB; non-empty alt; use-case images exactly 3:2.
 - Scripts: hero prompt prefilled, chips switch it, FAQ rendered with 10 items, first tab active, carousel covers present.
 - JSON-LD parses; FAQ items in schema match the visible FAQ word for word.
+- Console (A9-console, P1): 0 error-level console messages and page errors in Chromium. Only Divit's named exception is ignored (rules/live_audit.json `console_ignore_sources`, applied by `ops/console_filter.py`, shared with `ops/staging_check.py`); every run prints the exceptions in force and each error they ignored. See "Console-error exception" below.
 - Screenshots at 1440 and 390 px saved to `.cache/live/` for Layer B.
 - **Drift:** live text differs from the spec and the change is not in our logs = a human edited it in Webflow. Report it; never overwrite it automatically.
 
@@ -58,3 +59,10 @@ Decided by Divit 2026-10-09 (DECISIONS). Divit spot-checks 2-3 URLs; this system
 - Layer B state: `audits/live/state.json` (content hash at the last full read); briefs in `.cache/live/DATE/layerB-N.md`.
 - Golden cases: `tests/golden/cases.jsonl`, runner `tests/golden/run.py` (open = known miss, guarded = must stay caught).
 - Schedule: RUNBOOK section 7. Backup Action: `ops/github/live-audit.yml`.
+
+## Console-error exception (Divit 2026-10-14, widened 2026-10-15)
+Applies identically in the live audit and the staging check. An error is ignored only when one named entry covers it; any other console error fails, and the exception is never matched on message text.
+- **By source** (the reporting script URL or the top stack frame, captured through CDP by `ops/console_capture.mjs`): `clarity.js` (Microsoft Clarity, any version); `bing-uet-clarity-loader` (`www.clarity.ms/tag/uet/...`, the Bing UET automatic Clarity loader and the source of the "reading 'unshift'" page error; counts as the Clarity exception, 2026-10-15); `gtm-clarity-loader` (`www.clarity.ms/tag/...`, or GTM's inline code with a clarity.ms frame in the stack); `adwire` (`client.adwire.io/clarity/molecule.js`). The same message from any other source still fails.
+- **By element** (2026-10-15): `navbar-ai-contests-svg-width`, the `<svg width="2o">` dropdown icon on the /ai-contests link (`a.nav_dropdown-item`) in KS's shared navbar component, until KS fixes it. After load, `tieElements` in `ops/console_capture.mjs` marks errors the page document itself reported (`doc`, kind `log`, no script in the stack) and ties a markup error to its element (tag, attribute, value, inside the navbar, link href and class). The entry matches only when every one of those fields matches; an svg width error from any other element, another attribute or value, or the same text logged by a script still fails.
+- **Removed (2026-10-15):** the live audit's old text-based `console_ignore` list. The jsdom-only launch check (`ops/verify_launch.mjs`, no error sources in jsdom) keeps its own list under `verify_launch_console_ignore`; neither the live audit nor the staging check reads it.
+- Golden cases: `console-*` in `tests/golden/cases.jsonl` (kind `console-source`): each exception matched by source or element, the same text from a different source failing, an svg width error from another element failing, and errors the old text list hid now failing.

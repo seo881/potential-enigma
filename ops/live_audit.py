@@ -130,7 +130,7 @@ CONSOLE_EXCEPTIONS = []   # filled by evaluate(); printed on every run (Divit 20
 def evaluate(raw, man, base):
     """Findings for every page and hub: dicts with id, url, field, severity, code, rule, msg, snippet, fix kind."""
     by = {p["url"]: p for p in man["pages"]}; F = []; staging = base.rstrip("/") != CANON
-    console_exceptions = CONSOLE_EXCEPTIONS; console_exceptions.clear()   # (url, name, error) ignored by Divit's 2026-10-14 exception
+    console_exceptions = CONSOLE_EXCEPTIONS; console_exceptions.clear()   # (url, name, error) ignored by Divit's named console exception (2026-10-14/15)
     def add(url, code, sev, msg, field=None, snippet="", fix="proposed", **kw):
         F.append({"url": url, "field": field, "severity": sev, "code": code, "msg": msg, "snippet": (snippet or "")[:160], "fix": fix, "layer": "A", **kw})
     for r in raw["pages"]:
@@ -202,11 +202,12 @@ def evaluate(raw, man, base):
                                   ("learn_not_empty", "A5-learn", 'Learn section shows "No items found"', "template")):
             # a template section in the wrong state shows on every page of the hub: P0 (Divit 2026-10-12, 10:05 UTC publish went unnoticed as P1)
             if not c.get(k, True): add(url, code, "P0" if code in TEMPLATE_P0 else "P1", msg, field=fld, fix="proposed")
-        # Divit's 2026-10-14 exception first (source-based: clarity.js, the GTM Clarity loader, Adwire molecule.js; ops/console_filter.py),
-        # then the older text list of site noise; errors are {t, src, stack} from ops/console_capture.mjs (plain strings from older runs)
+        # only Divit's named exception (2026-10-14/15; ops/console_filter.py): by source (clarity.js, the Bing UET and GTM Clarity
+        # loaders, Adwire molecule.js) or by element (the navbar <svg width="2o"> on /ai-contests). The old text list (console_ignore)
+        # is gone (Divit 2026-10-15): any other error counts. Errors are {t, src, stack, kind, doc?, element?} from ops/console_capture.mjs
         import console_filter as CF
         ce, cign = CF.split(R.get("console_errors") or [])
-        ign = CONF.get("console_ignore", []); ce = [CF.text(e) for e in ce if not any(s in CF.text(e) for s in ign)]
+        ce = [CF.text(e) for e in ce]
         if cign: console_exceptions.extend((url, n, e) for n, e in cign)
         if ce: add(url, "A9-console", "P1", f"{len(ce)} console error(s) in Chromium: {ce[0][:120]}", field="template", fix="proposed")
         # JSON-LD: parses; FAQPage matches the visible FAQ word for word

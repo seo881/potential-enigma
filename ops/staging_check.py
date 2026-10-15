@@ -14,9 +14,10 @@ Writes .cache/staging/<UTC timestamp>/report.md (+ summary.json, per-page JSON, 
 and a short summary on stdout. Exit 1 when any check fails.
 
 Checks (sections): links (every internal href 200 on the staging host, no "#" placeholder and no detail_ template slug; the
-verify-live function of ops/verify_live.py), console (0 error-level messages and page errors; only Divit's 2026-10-14 source
-exception is ignored: rules/live_audit.json console_ignore_sources, matched on the error's source captured through CDP, never
-on its text; every ignored error is listed), header (the header or navbar exists and is visible; its content is not judged: KS's work), faq (no
+verify-live function of ops/verify_live.py), console (0 error-level messages and page errors; only Divit's named exception
+(2026-10-14/15) is ignored: rules/live_audit.json console_ignore_sources, matched on the error's source captured through CDP
+(clarity.js, the Bing UET and GTM Clarity loaders, Adwire molecule.js) or on the element it was tied to (the navbar
+<svg width="2o"> on /ai-contests), never on its text; the exceptions in force and every ignored error are printed), header (the header or navbar exists and is visible; its content is not judged: KS's work), faq (no
 answer cut by overflow or an inner scroll at 1440 and 390; every item on hubs, the first on child pages), emptyp (no empty or
 zero-width <p>), meta (og:image present and 200; every JSON-LD block parses; a FAQPage's questions equal the visible FAQ),
 carousel (section_build on one child page per hub and the 4 hubs at 1440, 1024, 768 and 390: cover loads, 16:10 +-2%,
@@ -387,13 +388,14 @@ def main(args):
         if not C["http200"][0]: rows.append((p, C, r)); continue
         css = [w for w in W if "stylesheet" in ((W[w] or {}).get("error") or "")]
         C["styles_loaded"] = (not css, "a stylesheet did not load at " + ", ".join(css) + " px (after 2 reloads)" if css else "")
-        if "console" in sections:   # only Divit's 2026-10-14 source exception applies (ops/console_filter.py); any other error fails
+        if "console" in sections:   # only Divit's named exception (2026-10-14/15, ops/console_filter.py) applies; any other error fails
             errs = r.get("console") or []
             counted, ign = CF.split(errs, csources)
             uniq = sorted({f"{e['t']} [source {e.get('src') or '?'}]" for e in counted})
             C["console"] = (not counted, f"{len(uniq)} unique: " + " | ".join(u[:160] for u in uniq[:4]) if counted else "")
             pagesrc = lambda x: "this page (inline markup or script)" if x and urlsplit(x).path.rstrip("/") == p["url"] and urlsplit(x).hostname == urlsplit(base).hostname else x
             r["_console_raw"] = sorted({(e["t"], pagesrc(e.get("src") or "")) for e in errs})
+            r["_console_ign"] = sorted({(e["t"], pagesrc(e.get("src") or "")) for _n, e in ign})
             ign_rows += [(p["url"], n, e) for n, e in ign]; n_counted += len(counted)
         if "header" in sections:
             hd = [w for w in ("1440", "390") if not (W.get(w) or {}).get("header")]
@@ -484,9 +486,11 @@ def main(args):
     for p, C, r in rows:
         for t, src in r.get("_console_raw") or []: raw.setdefault((t, src), []).append(p["url"])
     cline = CF.summary_line(n_counted, [(n, e) for _u, n, e in ign_rows]) if "console" in sections else ""
-    L += ["", "## Console errors", "", cline, "", "Every error captured (error level, with its source), counted unless Divit's 2026-10-14 exception covers its source:", ""]
-    ign_keys = {(e["t"], e.get("src") or "") for _u, _n, e in ign_rows}
-    L += [f"- {len(set(v))} page(s){' (ignored by the exception)' if (t, src) in ign_keys else ''}: `{t[:160]}` (source {src[:100] or '?'})" for (t, src), v in sorted(raw.items(), key=lambda x: -len(set(x[1])))[:30]] or ["None."]
+    L += ["", "## Console errors", "", cline, "", "Every error captured (error level, with its source), counted unless Divit's named exception (2026-10-14/15) covers its source or element:", ""]
+    ign_keys = {}   # (text, source) -> pages where the exception covered it (element-based entries can differ by page)
+    for p, C, r in rows:
+        for k in r.get("_console_ign") or []: ign_keys.setdefault(tuple(k), set()).add(p["url"])
+    L += [f"- {len(set(v))} page(s){(' (ignored by the exception)' if ign_keys[(t, src)] >= set(v) else ' (ignored on ' + str(len(ign_keys[(t, src)])) + ' of them)') if (t, src) in ign_keys else ''}: `{t[:160]}` (source {src[:100] or '?'})" for (t, src), v in sorted(raw.items(), key=lambda x: -len(set(x[1])))[:30]] or ["None."]
     L += ["", "Ignored by the exception (page, message, source):", ""] + (CF.ignored_lines(ign_rows[:200]) or ["None."])
     L += ["", "## Pixel diff (per section; header rows and footer masked)", ""]
     anyd = False

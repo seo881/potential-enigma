@@ -15,7 +15,7 @@ import { createRequire } from "node:module";
 import { fileURLToPath, pathToFileURL } from "node:url";
 const require = createRequire(import.meta.url);
 const { chromium } = require("playwright");
-import { captureErrors } from "./console_capture.mjs";
+import { captureErrors, tieElements } from "./console_capture.mjs";
 
 const argv = process.argv.slice(2);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -305,7 +305,7 @@ async function checkPage(browser, job, p) {
       if (p.learn && want("learn") && general) W.learn = await pg.evaluate(measureLearn);
       if (p.kind === "quiz" && want("quiz") && (w === 390 || w === 1280)) W.quiz = await quizRun(pg, w, `${p.url.split("/").pop()}-${w}`);
     } catch (e) { W.error = (W.error ? W.error + "; " : "") + String(e).slice(0, 300); }
-    finally { res.console.push(...errs); await ctx.close(); }
+    finally { await tieElements(pg, errs).catch(() => {}); res.console.push(...errs); await ctx.close(); }   // element-tied errors: the navbar svg exception (Divit 2026-10-15)
   }
   return res;
 }

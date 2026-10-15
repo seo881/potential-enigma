@@ -12,7 +12,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { createRequire } from "node:module";
 import { checkPage, checkHub, setBase, status, ogWebp } from "./verify_launch.mjs";
-import { captureErrors } from "./console_capture.mjs";
+import { captureErrors, tieElements } from "./console_capture.mjs";
 const require = createRequire(import.meta.url);
 const { chromium } = require("playwright");
 
@@ -73,6 +73,7 @@ async function render(url, slug) {
         };
       }));
     }
+    await tieElements(pg, perr).catch(() => {});   // ties markup errors to their element (the navbar svg exception, Divit 2026-10-15)
     if (w === 1440) out.console_errors = perr;
     if (SHOTS) { fs.mkdirSync(SHOTS, { recursive: true }); await pg.screenshot({ path: path.join(SHOTS, `${slug}-${w}.png`), fullPage: true }).catch(() => {}); }
     await ctx.close();

@@ -58,7 +58,7 @@ export async function checkPage(p, opts = {}) {
   c.http200 = !!res && res.status === 200;
   if (!c.http200) return out;
   const html = await res.text(); out.html = html;
-  const vc = new VirtualConsole(), errs = [];   // console errors: the site's own known noise is ignored (rules/live_audit.json console_ignore)
+  const vc = new VirtualConsole(), errs = [];   // console errors: the site's own known noise is ignored (rules/live_audit.json verify_launch_console_ignore: jsdom only, no error sources)
   vc.on("jsdomError", (e) => errs.push(String(e && (e.message || e)))); vc.on("error", (...a) => errs.push(a.map(String).join(" ")));
   const dom = new JSDOM(html, { url, runScripts: "dangerously", resources: "usable", pretendToBeVisual: true, virtualConsole: vc,
     beforeParse(w) {   // jsdom has no CSS global; Webflow's interactions script calls CSS.escape (a jsdom gap, not a page error)
@@ -126,7 +126,7 @@ export async function checkPage(p, opts = {}) {
   }
   // carousel hidden (Divit 2026-10-09): section_build is not rendered, or not displayed
   const sb = $(".section_build"); c.carousel_hidden = !sb || dom.window.getComputedStyle(sb).display === "none";
-  const IGN = JSON.parse(fs.readFileSync(new URL("../rules/live_audit.json", import.meta.url), "utf8")).console_ignore || [];
+  const IGN = JSON.parse(fs.readFileSync(new URL("../rules/live_audit.json", import.meta.url), "utf8")).verify_launch_console_ignore || [];
   out.console_errors = errs.filter((e) => !IGN.some((s) => e.includes(s))).slice(0, 10); c.no_console_errors = out.console_errors.length === 0;
   if (opts.keepDom) out.dom = dom; else dom.window.close();
   return out;
