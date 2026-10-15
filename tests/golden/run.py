@@ -27,6 +27,7 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   gate-pull-skip {url, qh, expect}                       ruling 12: the pull question with hash qh (Divit struck it) is rejected with an expected rule (PA4)
   review-lock    {url, field, expect_refused, sha?}       (sha: the spec at that commit, so a later review event cannot age the case)             ruling 10 B2: post-review change to a field is refused unless a blocking finding names it
   feasibility    {url, expect_feasible}                   ruling 10 B1: feasibility (pull + sources + recoverable keyword items) reaches 10 when expected
+  aa-key-source  {env, keychain, expect: [key, source]}   alsoasked_pull.resolve_key: the keychain wins when the env key differs
   aa-decision    {rows, saved, now, expect}               weekend.py aa: reuse a saved pull, refuse a recent charge with no save, ignore 401/403 rejections
   gate-asker     {url, q, expect_asker}                   PA6 classifies the question as builder | respondent (None = flag)
   qc-f2-aa       {url, aa, sec?, expect_f2}               legacy-capture page with an item labelled alsoasked: F2 exactly when there is no AlsoAsked pull
@@ -204,6 +205,9 @@ def caught(c):
     if c["kind"] == "aa-decision":  # weekend.py aa no-double-charge rule (Divit 2026-10-13): rows + saved status -> reuse/refuse/pull
         import weekend as W
         return W.aa_decision(c["rows"], c.get("saved"), c["now"])[0] == c["expect"]
+    if c["kind"] == "aa-key-source":  # B-dev-12 (Divit 2026-10-15): keychain wins over a differing env key; unset env = no pulls
+        import alsoasked_pull as AP
+        return list(AP.resolve_key(c["env"], c["keychain"])) == c["expect"]
     if c["kind"] == "gate-asker":   # PA6 asker class of a literal question (ruling 4: fix the patterns, never reword the question)
         import paa_gate as PG
         return PG.Gate(c["url"]).asker(PG.norm(c["q"])) == c["expect_asker"]

@@ -15,9 +15,33 @@ import http.client, json, os, sys, urllib.request, urllib.error
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE = "https://alsoaskedapi.com/v1"
 
+def resolve_key(env, keychain):
+    """B-dev-12 (Divit 2026-10-15): the macOS keychain (service "alsoasked", account $USER) is the key's source of truth
+    (ops/schedule/*_run.sh export it from there). An exported ALSOASKED_API_KEY still gates every pull (unset = no pulls), but
+    when it differs from the keychain the keychain wins: a stale or placeholder value left in an interactive shell (16-char
+    '...-key', 2026-10-15) was sent as X-Api-Key and AlsoAsked answered 403. Returns (key, source); never the key in a message."""
+    if not env: return None, "unset"
+    if keychain and keychain != env: return keychain, "keychain (env differs)"
+    return env, "env"
+
+_KEY = None
+def api_key():
+    global _KEY
+    if _KEY is None:
+        kc = ""
+        try:
+            import subprocess
+            kc = subprocess.run(["security", "find-generic-password", "-a", os.environ.get("USER", ""), "-s", "alsoasked", "-w"],
+                                capture_output=True, text=True, timeout=10).stdout.strip()
+        except Exception: pass   # no keychain (Linux sandbox): the env value is used as is
+        key, src = resolve_key(os.environ.get("ALSOASKED_API_KEY", "").strip(), kc)
+        if src.startswith("keychain"): print(f"note: ALSOASKED_API_KEY in this shell (...{os.environ['ALSOASKED_API_KEY'][-4:]}) differs from the keychain; using the keychain key (...{kc[-4:]})", file=sys.stderr)
+        _KEY = key or ""
+    return _KEY
+
 def call(method, path, body=None):
     req = urllib.request.Request(BASE + path, method=method, data=json.dumps(body).encode() if body is not None else None,
-                                 headers={"X-Api-Key": os.environ["ALSOASKED_API_KEY"], "Accept": "application/json", "Content-Type": "application/json"})
+                                 headers={"X-Api-Key": api_key(), "Accept": "application/json", "Content-Type": "application/json"})
     try:
         with urllib.request.urlopen(req, timeout=300) as f: return f.status, json.load(f)
     except urllib.error.HTTPError as e:
