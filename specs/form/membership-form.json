@@ -120,6 +120,13 @@
    "via": null,
    "by": "B-w-114",
    "note": ""
+  },
+  {
+   "t": "2026-10-15 13:41 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-20",
+   "note": "[faq | HUB_RULES 5] faq item 5: Divit's relevance rule (2026-10-15): every FAQ question serves someone building or running the form; a question for the person who filled it in is a finding. This one is for the member ('Check the agreement section of the form you signed... Send your notice in writing"
   }
  ],
  "pipeline": "r15",
@@ -993,5 +1000,275 @@
  },
  "writers": [
   "B-w-114"
- ]
+ ],
+ "review": {
+  "by": "B-r-20",
+  "date": "2026-10-15 13:41 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Membership Form With Tiers and Renewal Reminders'; hero 'Build a membership form that sets dues by tier, takes a signature, and saves every member to a database you own.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Tiers, household rows, signed agreement, renewals, four org types and a 7-step how-to; FAQ 3 gives the form's format."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Membership-desk vocabulary: 'Family tier covers 4 players with its $420 dues', 'membership secretary', 'call list at 14'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Bodies open on full sentences: 'Each membership level shows its yearly dues beside it...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Notes only (QC Q8: 17 'A, B, and C' lists)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete: 'Lorna Whitcombe has not renewed 14 days later, and her name moves to the membership desk's call list'."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to prompt-build, ai-extraction, e-signature-capture, alerts, database-owned, no-caps, code-export, free-start, custom-domain; numbers agree ($30 vs $140, 4 players $420, 5 expiring, 4 renew)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own page: four org types (association, tennis club, coworking, museum)."
+   },
+   "faq": {
+    "result": "fail",
+    "evidence": "FAQ 4, FAQ 5 and FAQ 9 serve the member filling in a form, not the person building it (see blocking findings)."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 June 2027 card, $30 vs $140; tab 2 Dario, Ines, Luca, Sofia, $420; tab 3 Slack new-members post, approved by Jonah Price; tab 4 five November renewals, Lorna on the call list after 14 days."
+   }
+  },
+  "findings": [
+   {
+    "class": "missing-intent",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 5",
+    "quote": "How do I cancel a membership I joined with a membership form?",
+    "issue": "Divit's relevance rule (2026-10-15): every FAQ question serves someone building or running the form; a question for the person who filled it in is a finding. This one is for the member ('Check the agreement section of the form you signed... Send your notice in writing'), as the writer's own note says. FAQ 6 already serves the builder side of the same source keyword.",
+    "fix": "Swap for a builder-side question (e.g. how to set renewal reminders, which fields a membership form needs); if none passes, park per the A6 default.",
+    "severity": "blocking"
+   },
+   {
+    "class": "missing-intent",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 4",
+    "quote": "What is the address label on a membership form?",
+    "issue": "Same class: answered to the member ('the tag that says what kind of address you entered'), from the keyword 'what is address label in pmi membership form', which is about filling in one association's form. The answer is also an unsourced guess about what that label means, and it ends on an unrelated link sentence ('A rental application form asks for past addresses instead...').",
+    "fix": "Swap for a builder-side question.",
+    "severity": "blocking"
+   },
+   {
+    "class": "missing-intent",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 9",
+    "quote": "How much does a membership form cost?",
+    "issue": "Same class: from 'how much is apc membership form', the asker wants the fee to join an organization; the answer serves that member first ('Ask that organization for its current fee before you pay anyone for a copy') and only pivots to the builder in its last sentence.",
+    "fix": "Swap for a builder-side question, or reword to the issuer's cost question with the answer led by it.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 10",
+    "quote": "What should a gym membership form include?",
+    "issue": "Source keyword is 'how to cancel la fitness membership form'; the reword changes the sense (cancel to contents). On-topic for the builder, but a stretch of its source.",
+    "fix": "Source it from a keyword about gym membership form contents if one exists.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 7",
+    "quote": "A job application form follows the same pattern, with every applicant waiting on a decision.",
+    "issue": "FAQ answer ends on a sentence that only carries a sibling link (proposals/account-b.md, link-only FAQ sentences). Also FAQ 4 'A rental application form asks for past addresses instead, each with the dates you lived there.'",
+    "fix": "Fold the link into a sentence that answers the question.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "domain_sources",
+    "quote": "[]",
+    "issue": "No domain_sources at all; FAQ 3's 'runs in five parts, in this order' is a recommended structure stated as fact. Read as advice, so a note.",
+    "fix": "Phrase as a recommendation or source it.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 10",
+   "issue": "Source keyword is 'how to cancel la fitness membership form'; the reword changes the sense (cancel to contents). On-topic for the builder, but a stretch of its source.",
+   "fix": "Source it from a keyword about gym membership form contents if one exists.",
+   "by": "B-r-20",
+   "via": "review",
+   "date": "2026-10-15 13:41 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 7",
+   "issue": "FAQ answer ends on a sentence that only carries a sibling link (proposals/account-b.md, link-only FAQ sentences). Also FAQ 4 'A rental application form asks for past addresses instead, each with the dates you lived there.'",
+   "fix": "Fold the link into a sentence that answers the question.",
+   "by": "B-r-20",
+   "via": "review",
+   "date": "2026-10-15 13:41 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "domain_sources",
+   "issue": "No domain_sources at all; FAQ 3's 'runs in five parts, in this order' is a recommended structure stated as fact. Read as advice, so a note.",
+   "fix": "Phrase as a recommendation or source it.",
+   "by": "B-r-20",
+   "via": "review",
+   "date": "2026-10-15 13:41 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "1b932ee764924c56",
+   "alt:share_image": "d0bd759335d85c06",
+   "alt:tab_image_1": "c00722c1027bed58",
+   "alt:tab_image_2": "9e7d1be196e5c2b4",
+   "alt:tab_image_3": "6cfd67f394bc99ff",
+   "alt:tab_image_4": "9d4f6a6dba53aa91",
+   "breadcrumb": "2d2e972d2877c942",
+   "chip_adds": "5f6cef663149d78c",
+   "explore_cta": "1aacc60004607971",
+   "faq": "14894f2c4b5f39b5",
+   "feature_1": "6bffe4e49d5e58f9",
+   "feature_2": "5ca0bbed31afc347",
+   "feature_3": "79017d72cd183d55",
+   "feature_4": "24a77952978bc80d",
+   "feature_5": "aa8c34e43f55affa",
+   "feature_6": "ed7db840147bb6e5",
+   "features_heading": "68b1d77818347d2f",
+   "features_subheading": "f75e682f2f72f389",
+   "h1": "6cb40394f56762b2",
+   "hero_description": "c84bda784f04ee4c",
+   "hero_prompt": "3a84f1f5ea6947a7",
+   "howto_description": "1d87b94cafef17f1",
+   "howto_step_1_des": "c07754de42b02971",
+   "howto_step_1_title": "fdfe96d61f8b494f",
+   "howto_step_2_des": "9fc4d7cc859f2833",
+   "howto_step_2_title": "3fffcc19c1ac4e09",
+   "howto_step_3_des": "000ee02a97b40280",
+   "howto_step_3_title": "6de890069f3553e5",
+   "howto_step_4_des": "4572f4a5f0d97ee3",
+   "howto_step_4_title": "fcd2c574ca7ae146",
+   "howto_step_5_des": "ed0e4c8b4ad48087",
+   "howto_step_5_title": "fc796229f57ac864",
+   "howto_step_6_des": "e7cf6191470a2c37",
+   "howto_step_6_title": "deab2f5793ac0a1a",
+   "howto_step_7_des": "9bb2414d48b37010",
+   "howto_step_7_title": "441b04057eeadfb1",
+   "howto_title": "972871c9d9d36836",
+   "meta_description": "32672978238db5e2",
+   "meta_title": "e8c0b971267c149a",
+   "mockup": "3b76601ce5a1554a",
+   "product_name": "e35ea8b7b3b08ef9",
+   "prompt_chip_1": "3e35d27e0e0c2981",
+   "prompt_chip_2": "ae59bb70f3965ec8",
+   "prompt_chip_3": "712d5eef3e5ec221",
+   "prompt_chip_4": "026c118469f9d9be",
+   "slug": "abfe088c78d0f638",
+   "tab_content_1": "f85736fe85349f66",
+   "tab_content_2": "10c2c96d8dd3db97",
+   "tab_content_3": "19d3662f55e8696e",
+   "tab_content_4": "b5b48522ed653445",
+   "tab_label_1": "75ad9ad511757be9",
+   "tab_label_2": "d830a5b10917cd90",
+   "tab_label_3": "ca8fcea179bf1aee",
+   "tab_label_4": "ec5b1cfcd12a5b6a",
+   "usecase_heading": "48818b82ba507f35",
+   "why_description": "38034c8bf69234bf",
+   "why_table": "c199d4f8dcd66845",
+   "why_title": "0812f8e00dd321b0"
+  },
+  "all": "749ea8a9e1a61462",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "1b932ee764924c56",
+   "alt:share_image": "d0bd759335d85c06",
+   "alt:tab_image_1": "c00722c1027bed58",
+   "alt:tab_image_2": "9e7d1be196e5c2b4",
+   "alt:tab_image_3": "6cfd67f394bc99ff",
+   "alt:tab_image_4": "9d4f6a6dba53aa91",
+   "breadcrumb": "2d2e972d2877c942",
+   "chip_adds": "5f6cef663149d78c",
+   "explore_cta": "1aacc60004607971",
+   "faq": "14894f2c4b5f39b5",
+   "feature_1": "6bffe4e49d5e58f9",
+   "feature_2": "5ca0bbed31afc347",
+   "feature_3": "79017d72cd183d55",
+   "feature_4": "24a77952978bc80d",
+   "feature_5": "aa8c34e43f55affa",
+   "feature_6": "ed7db840147bb6e5",
+   "features_heading": "68b1d77818347d2f",
+   "features_subheading": "f75e682f2f72f389",
+   "h1": "6cb40394f56762b2",
+   "hero_description": "c84bda784f04ee4c",
+   "hero_prompt": "3a84f1f5ea6947a7",
+   "howto_description": "1d87b94cafef17f1",
+   "howto_step_1_des": "c07754de42b02971",
+   "howto_step_1_title": "fdfe96d61f8b494f",
+   "howto_step_2_des": "9fc4d7cc859f2833",
+   "howto_step_2_title": "3fffcc19c1ac4e09",
+   "howto_step_3_des": "000ee02a97b40280",
+   "howto_step_3_title": "6de890069f3553e5",
+   "howto_step_4_des": "4572f4a5f0d97ee3",
+   "howto_step_4_title": "fcd2c574ca7ae146",
+   "howto_step_5_des": "ed0e4c8b4ad48087",
+   "howto_step_5_title": "fc796229f57ac864",
+   "howto_step_6_des": "e7cf6191470a2c37",
+   "howto_step_6_title": "deab2f5793ac0a1a",
+   "howto_step_7_des": "9bb2414d48b37010",
+   "howto_step_7_title": "441b04057eeadfb1",
+   "howto_title": "972871c9d9d36836",
+   "meta_description": "32672978238db5e2",
+   "meta_title": "e8c0b971267c149a",
+   "mockup": "3b76601ce5a1554a",
+   "product_name": "e35ea8b7b3b08ef9",
+   "prompt_chip_1": "3e35d27e0e0c2981",
+   "prompt_chip_2": "ae59bb70f3965ec8",
+   "prompt_chip_3": "712d5eef3e5ec221",
+   "prompt_chip_4": "026c118469f9d9be",
+   "slug": "abfe088c78d0f638",
+   "tab_content_1": "f85736fe85349f66",
+   "tab_content_2": "10c2c96d8dd3db97",
+   "tab_content_3": "19d3662f55e8696e",
+   "tab_content_4": "b5b48522ed653445",
+   "tab_label_1": "75ad9ad511757be9",
+   "tab_label_2": "d830a5b10917cd90",
+   "tab_label_3": "ca8fcea179bf1aee",
+   "tab_label_4": "ec5b1cfcd12a5b6a",
+   "usecase_heading": "48818b82ba507f35",
+   "why_description": "38034c8bf69234bf",
+   "why_table": "c199d4f8dcd66845",
+   "why_title": "0812f8e00dd321b0"
+  },
+  "all": "749ea8a9e1a61462",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
