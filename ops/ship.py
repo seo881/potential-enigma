@@ -329,20 +329,19 @@ def cmd_update(args):
         json.dump([{"label": f"update {name}: {len(its)} item(s), changed fields only, status kept", "update_collection_items": {"collection_id": cid, "request": {"items": its}}}], open(p, "w"), indent=1, ensure_ascii=False)
         print(f"  wrote {os.path.relpath(p, ROOT)}: {len(its)} item(s)")
 
-def cmd_relink(args):
-    """hubctl relink-payload READBACK [--before-only]: for live pages whose pending links now point at live pages (hubctl links
-    --relink), send only the fields whose CMS value differs from the export by exactly the restored <a> tags (anything else in the
-    field is drift and is refused). Before-values go to childedits/<date>/<slug>.relink.before.json and must be committed and pushed
-    first; the payload is update_collection_items (status kept) plus publish_collection_items for exactly those items."""
-    import live_audit as LA, guards as G
-    rb = args[0]; items = {it["id"]: it for it in H._items_from_readback(rb)}; live = H.live_urls(); day = datetime.date.today().isoformat()
-    upd = {}; pub = {}; befores = []; refused = []
-    for s in G.all_specs():
-        url = s["url"]; ready = sorted({p["target"] for p in s.get("pending_links") or [] if p["target"] in live})
+def relink_plan(items, live, specs=None, targets=None, day=None, write=True):
+    """The relink plan behind relink-payload and the automatic relink after api-publish: for live pages whose pending links now
+    point at live pages (only `targets` when given), the fields whose CMS value differs from the export by exactly the restored
+    <a> tags (anything else in the field is drift and is refused). Returns (upd, pub, befores, refused, rows); before-values go to
+    childedits/<date>/<slug>.relink.before.json (write=False: nothing written)."""
+    import guards as G
+    day = day or datetime.date.today().isoformat(); upd = {}; pub = {}; befores = []; refused = []; rows = []
+    for s in (G.all_specs() if specs is None else specs):
+        url = s["url"]; ready = sorted({p["target"] for p in s.get("pending_links") or [] if p["target"] in live and (targets is None or p["target"] in targets)})
         if not ready or url not in live: continue
         it = items.get(s.get("item_id"))
         if not it: refused.append(f"{url}: item {s.get('item_id')} not in the read-back"); continue
-        h = H.CFG["hubs"][H.hub_of(url)]; fd = it["fieldData"]; ex = H.export_fields(url, json.load(open(H.spath(url))))[0]; ch = {}
+        h = H.CFG["hubs"][H.hub_of(url)]; fd = it["fieldData"]; ex = H.export_fields(url, {k: v for k, v in s.items() if k != "_path"}, live)[0]; ch = {}
         for k, v in ex.items():
             cur = fd.get(h["fields"][k])
             if k == "slug" or cur == v or not isinstance(v, str) or not isinstance(cur, str): continue
@@ -352,18 +351,33 @@ def cmd_relink(args):
         if not ch: continue
         bp = os.path.join(ROOT, "childedits", day, f"{url.rsplit('/', 1)[1]}.relink.before.json")
         before = {"id": it["id"], "collection": h["collection_id"], "isDraft": it.get("isDraft"), "lastPublished": it.get("lastPublished"), "fieldData": {k: fd.get(k) for k in ch}}
-        if not os.path.exists(bp) or json.load(open(bp)) != before:
+        if write and (not os.path.exists(bp) or json.load(open(bp)) != before):
             os.makedirs(os.path.dirname(bp), exist_ok=True); json.dump(before, open(bp, "w"), indent=1, ensure_ascii=False)
         befores.append(bp); upd.setdefault(h["collection_id"], []).append({"id": it["id"], "fieldData": ch}); pub.setdefault(h["collection_id"], []).append({"id": it["id"]})
-        print(f"  {url}: {', '.join(sorted(ch))} (links to {', '.join(ready)})")
+        rows.append((url, sorted(ch), ready))
+    return upd, pub, befores, refused, rows
+
+def relink_actions(upd, pub):
+    acts = [{"label": f"relink: {len(v)} item(s), changed fields only, status kept", "update_collection_items": {"collection_id": c, "request": {"items": v}}} for c, v in upd.items()]
+    return acts + [{"label": f"relink: item publish {len(v)} item(s)", "publish_collection_items": {"collection_id": c, "request": {"items": v}}} for c, v in pub.items()]
+
+def cmd_relink(args):
+    """hubctl relink-payload READBACK [--before-only] [--targets URL,URL]: for live pages whose pending links now point at live pages
+    (hubctl links --relink), send only the fields whose CMS value differs from the export by exactly the restored <a> tags (anything
+    else in the field is drift and is refused). Before-values go to childedits/<date>/<slug>.relink.before.json and must be committed
+    and pushed first; the payload is update_collection_items (status kept) plus publish_collection_items for exactly those items.
+    api-publish --live --verify-live runs this itself for the pages it just published (auto relink)."""
+    import live_audit as LA
+    rb = args[0]; items = {it["id"]: it for it in H._items_from_readback(rb)}; day = datetime.date.today().isoformat()
+    tg = set(_arg(args, "--targets").split(",")) if _arg(args, "--targets") else None
+    upd, pub, befores, refused, rows = relink_plan(items, H.live_urls(), targets=tg, day=day)
+    for url, ch, ready in rows: print(f"  {url}: {', '.join(ch)} (links to {', '.join(ready)})")
     for r in refused: print("  REFUSED " + r)
     if "--before-only" in args: print(f"{len(befores)} before-value file(s); commit and push them, then rerun without --before-only"); return
     bad = [os.path.relpath(b, ROOT) + ": " + LA.before_committed(b)[1] for b in befores if not LA.before_committed(b)[0]]
     if bad: sys.exit("before-values not committed and pushed:\n  " + "\n  ".join(bad))
     p = os.path.join(ROOT, "ops", "out", "ship", f"relink-{day}.json")
-    acts = [{"label": f"relink: {len(v)} item(s), changed fields only, status kept", "update_collection_items": {"collection_id": c, "request": {"items": v}}} for c, v in upd.items()]
-    acts += [{"label": f"relink: item publish {len(v)} item(s)", "publish_collection_items": {"collection_id": c, "request": {"items": v}}} for c, v in pub.items()]
-    os.makedirs(os.path.dirname(p), exist_ok=True); json.dump(acts, open(p, "w"), indent=1, ensure_ascii=False)
+    os.makedirs(os.path.dirname(p), exist_ok=True); json.dump(relink_actions(upd, pub), open(p, "w"), indent=1, ensure_ascii=False)
     print(f"wrote {os.path.relpath(p, ROOT)}: {sum(len(v) for v in upd.values())} item(s)")
 
 def update_verify(bf, name, items, day):
@@ -655,10 +669,11 @@ def cmd_api_update(args):
     print(f"updated {n} item(s); read back clean" + (f"; item-published {sum(len(v) for v in pub.values())}" if pub else "") + f"; rollback {_rel(rp)}")
 
 def cmd_api_publish(args):
-    """hubctl api-publish HUB [--ids-from-state cms_draft] [--limit N] [--dry-run | --before-only | --live] [--verify-live]
+    """hubctl api-publish HUB [--ids-from-state cms_draft] [--limit N] [--dry-run | --before-only | --live] [--verify-live] [--no-relink]
     Item publish (never a site publish) of exactly the verified cms_draft pages' item IDs, 100 per call. --before-only writes their
     before-state from a fresh read (isDraft, lastPublished, lastUpdated) to childedits/<date>/; --live refuses unless it is committed,
-    pushed and still current. --verify-live then runs verify-live per URL (state published on a pass)."""
+    pushed and still current. --verify-live then runs verify-live per URL (state published on a pass), then the automatic relink
+    (auto_relink) for the pages that passed; --no-relink skips it (then run relink-payload by hand)."""
     import guards as G
     W = _W(); hub, h = _hub(args); mode = _mode(args); cid = h["collection_id"]
     if _arg(args, "--ids-from-state", "cms_draft") != "cms_draft": sys.exit("refused: only verified cms_draft pages are item-published")
@@ -677,6 +692,8 @@ def cmd_api_publish(args):
         for r, ch in zip(W.publish_items(cid, ids, dry=True), W.chunks(pairs)):
             print(f"  {r['method']} {r['path']}  {r['count']} item(s): {', '.join(u.rsplit('/', 1)[1] for u, _ in ch)}")
         print(f"  then verify-live per URL ({len(ids)} page fetch(es) plus their FAQ link checks)" if "--verify-live" in args else "  (add --verify-live to check every live URL after)")
+        if "--verify-live" in args and "--no-relink" not in args:
+            for l in auto_relink({u: True for u, _ in pairs}, "dry")[1]: print(l)
         print(f"  before-value {_rel(bp)}: " + ("present" if os.path.exists(bp) else "not written yet (--before-only)") + ". Nothing was sent.")
         return
     items, rb = api_read(hub); by = {it["id"]: it for it in items}
@@ -716,8 +733,68 @@ def cmd_api_publish(args):
             else: fails.append(u)
             print(f"  {'PASS' if ok else 'FAIL'} {u} ({_t.time() - t1:.1f}s)" + ("" if ok else ": " + "; ".join(l for l in rep if l.startswith("FAIL"))[:300]))
         print(f"verify-live: {len(done) - len(fails)}/{len(done)} pass")
-        if fails: sys.exit(1)
+        rok = True
+        if "--no-relink" not in args:
+            rok, rl = auto_relink({u: u not in fails for u, i in pairs if i in done}, "live")
+            for l in rl: print(l)
+        if fails or not rok: sys.exit(1)
     if err or miss: sys.exit(1)
+
+# ---------- automatic relink (Divit 2026-10-15): when api-publish ships a page and verify-live passes, every pending link that
+# targets it is restored: relink plan from a fresh read -> before-values committed and pushed (ops/sync.sh, those files only) ->
+# api-update --live (update, read-back diff, item publish of exactly the relinked items) -> verify-live on every relinked page.
+# A target that failed verify-live (or was not published) triggers nothing. Dry run prints the plan only, no network.
+def relink_holders(targets, specs=None, live=None):
+    """[(holder url, [targets])]: live pages holding pending links to any of `targets` (the dry-run plan; no network)."""
+    import guards as G
+    live = H.live_urls() if live is None else live; tg = set(targets); out = []
+    for s in (G.all_specs() if specs is None else specs):
+        hit = sorted({p["target"] for p in s.get("pending_links") or [] if p["target"] in tg})
+        if hit: out.append((s["url"], hit, s["url"] in live))
+    return out
+
+def _commit_befores(paths, msg):
+    r = subprocess.run(["bash", os.path.join(ROOT, "ops", "sync.sh"), msg + "\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"] + [_rel(p) for p in paths],
+                       cwd=ROOT, capture_output=True, text=True)
+    return r.returncode == 0, (r.stdout + r.stderr).strip()[-300:]
+
+def auto_relink(results, mode, specs=None, read=None, commit=None, update=None, verify=None, live=None):
+    """results {target url: verify-live passed}. Returns (ok, lines). The steps are injectable for the golden cases."""
+    import guards as G
+    passed = sorted(u for u, ok in results.items() if ok); failed = sorted(u for u, ok in results.items() if not ok); L = []
+    specs = G.all_specs() if specs is None else specs
+    if mode == "dry":
+        hs = relink_holders(list(results), specs, live)
+        L.append(f"  relink plan (after verify-live passes; a target that fails triggers none): {len(hs)} page(s)")
+        for u, tg, lv in hs: L.append(f"    {u} -> restores link(s) to {', '.join(tg)}" + ("" if lv else " (holder not live: skipped)"))
+        return True, L
+    for u in failed: L.append(f"  relink: none for {u} (verify-live failed)")
+    if not passed: return True, L
+    live = H.live_urls() if live is None else live
+    hs = [h for h in relink_holders(passed, specs, live) if h[2]]
+    if not hs: L.append(f"  relink: no pending links target {len(passed)} published page(s)"); return True, L
+    read = read or (lambda hub: api_read(hub)[0]); commit = commit or _commit_befores
+    update = update or (lambda pf: cmd_api_update([pf, "--live"])); verify = verify or (lambda u: __import__("verify_live").verify(spec(u)))
+    items = {}
+    for hub in sorted({H.hub_of(u) for u, _, _ in hs}): items.update({it["id"]: it for it in read(hub)})
+    upd, pub, befores, refused, rows = relink_plan(items, live, specs=specs, targets=set(passed))
+    for r in refused: L.append("  relink REFUSED " + r)
+    if not upd: L.append("  relink: nothing to send (fields already linked or refused)"); return not refused, L
+    for u, ch, ready in rows: L.append(f"  relink {u}: {', '.join(ch)} (links to {', '.join(ready)})")
+    ok, out = commit(befores, f"relink before-values (auto, after api-publish): {', '.join(u.rsplit('/', 1)[1] for u, _, _ in rows)}")
+    if not ok: L.append("  relink STOPPED: before-values not committed and pushed: " + out); return False, L
+    pf = os.path.join(ROOT, "ops", "out", "ship", f"relink-auto-{_stamp()}.json"); os.makedirs(os.path.dirname(pf), exist_ok=True)
+    json.dump(relink_actions(upd, pub), open(pf, "w"), indent=1, ensure_ascii=False)
+    try: update(pf)
+    except SystemExit as e: L.append(f"  relink STOPPED in api-update ({_rel(pf)}): {e}"); return False, L
+    good = True
+    for u, _, _ in rows:
+        v, rep = verify(u)
+        if v:
+            s = next(x for x in specs if x["url"] == u); H._record_pending(u, H.export_fields(u, {k: x for k, x in s.items() if k != "_path"}, live)[1])
+        good = good and v
+        L.append(f"  relink verify-live {'PASS' if v else 'FAIL'} {u}" + ("" if v else ": " + "; ".join(l for l in rep if l.startswith("FAIL"))[:300]))
+    return good and not refused, L
 
 # ---------- golden cases for the API path (tests/golden/run.py kind "webflow-api"); dry run and stubs only, never the network
 def api_golden(c):
@@ -775,6 +852,33 @@ def api_golden(c):
                 with contextlib.redirect_stdout(io.StringIO()): cmd_api_create([W.CHILD[cid], "--sha", "f" * 40, "--live"]); return False
             except SystemExit as e: return "before-value" in str(e) and all(m == "GET" for m in sent)
             finally: H._create_candidates = real_c; globals()["RB_DIR"] = real_rb; globals()["_apilog"] = real_log
+        if t in ("relink-dry-plan", "relink-target-fails", "relink-chain"):   # Divit 2026-10-15: automatic relink after api-publish
+            hub = c.get("hub", "Form"); h = H.CFG["hubs"][hub]; base = h["path"]; T = f"{base}/golden-target"; HU = f"{base}/golden-holder"
+            a = f'<a href="https://emergent.sh{T}">golden target</a>'
+            sp = [{"url": HU, "hub": hub, "item_id": "a" * 24, "fields": {"faq": f"<p>See the {a} page.</p>"},
+                   "pending_links": [{"field": "faq", "target": T, "anchor": "golden target"}]}]
+            item = {"id": "a" * 24, "isDraft": False, "lastPublished": "2026-10-15T00:00:00Z", "fieldData": {h["fields"]["faq"]: "<p>See the golden target page.</p>"}}
+            steps = []; W.TRANSPORT = no_net; W.TOKEN = lambda: (_ for _ in ()).throw(AssertionError("token read"))
+            real_rec = H._record_pending; H._record_pending = lambda u, pend: steps.append(("record", u, len(pend)))
+            sent = {}
+            def upd(pf): steps.append(("update", os.path.basename(pf))); sent["acts"] = json.load(open(pf)); os.remove(pf)
+            kw = dict(specs=sp, read=lambda hb: (steps.append(("read", hb)), [item])[1], commit=lambda b, m: (steps.append(("commit", len(b))), (True, ""))[1],
+                      update=upd, verify=lambda u: (steps.append(("verify", u)), (True, []))[1])
+            try:
+                if t == "relink-dry-plan":
+                    ok, L = auto_relink({T: True}, "dry", live={HU}, **kw)
+                    return ok and not steps and not calls and any(HU in l and T in l for l in L)
+                if t == "relink-target-fails":
+                    ok, L = auto_relink({T: False}, "live", live={HU}, **kw)
+                    return not steps and not calls and any("verify-live failed" in l for l in L)
+                ok, L = auto_relink({T: True}, "live", live={HU, T}, **kw)
+                bps = glob.glob(os.path.join(ROOT, "childedits", _day(), "golden-holder.relink.before.json"))
+                for b in bps: os.remove(b)
+                u = (sent.get("acts") or [{}])[0].get("update_collection_items", {}).get("request", {}).get("items", [{}])[0]
+                pubs = [x for x in sent.get("acts") or [] if "publish_collection_items" in x]
+                return (ok and [s[0] for s in steps] == ["read", "commit", "update", "verify", "record"] and len(bps) == 1
+                        and u.get("fieldData") == {h["fields"]["faq"]: f"<p>See the {a} page.</p>"} and len(pubs) == 1 and not calls)
+            finally: H._record_pending = real_rec
         if t == "before-gate":
             return (not require_before([os.path.join(ROOT, c["path"])])) == c["expect_ok"]
         if t == "backoff":
