@@ -40,7 +40,7 @@ def risk(s):
     tags = []
     if slug in LEGAL_MEDICAL or any(re.search(r"\b" + w + r"\b", prim) for w in LM_WORDS): tags.append("legal/medical")
     if slug in ROLLING or re.search(r"\b(FY ?20\d\d|202[6-9] (rate|limit|wage|rule|per diem))\b", text, re.I): tags.append("rolling-figures")
-    live = {x["url"] for x in G.all_specs() if x.get("status") in ("live-draft", "published")}
+    live = G.live_child_urls()   # Webflow publish state (status/live.json), Divit 2026-10-15
     hubs = tuple(h["path"] + "/" for h in json.load(open(os.path.join(ROOT, "config", "collections.json")))["hubs"].values())
     links = {m for m in re.findall(r"href=\\?[\"'](?:https?://(?:www\.)?emergent\.sh)?(/[a-z0-9/-]+)", text) if m.startswith(hubs) and m != s["url"]}
     unpub = sorted(l for l in links if l not in live)

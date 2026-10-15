@@ -45,11 +45,9 @@ WIDTHS_CAROUSEL = [1440, 1024, 768, 390]
 
 # ---------------------------------------------------------------- page set
 def published_urls():
-    out = []
-    for h in CFG["hubs"].values():
-        p = os.path.join(ROOT, "status", f"{h['repo_dir']}.json")
-        if os.path.exists(p): out += [u for u, e in json.load(open(p))["pages"].items() if e.get("state") == "published"]
-    return sorted(out)
+    """Live child pages: the Webflow publish state in status/live.json (Divit 2026-10-15), not the workflow state."""
+    p = os.path.join(ROOT, "status", "live.json")
+    return sorted(u for u, e in (json.load(open(p))["pages"] if os.path.exists(p) else {}).items() if e.get("live"))
 
 def quiz_pages():
     p = os.path.join(ROOT, "status", "quiz-canary.json")

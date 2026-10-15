@@ -50,8 +50,9 @@ def git(*a): return subprocess.run(["git", *a], cwd=ROOT, capture_output=True, t
 
 # ---------------------------------------------------------------- page selection
 def published_urls():
+    """Live child pages: the Webflow publish state (status/live.json, Divit 2026-10-15), not the workflow state."""
     import guards as G
-    return sorted(u for u, e in G.all_status().items() if e.get("state") == "published")
+    return sorted(G.live_child_urls())
 
 def select(args):
     st = jload(STATE, {"pages": {}})

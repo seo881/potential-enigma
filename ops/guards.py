@@ -81,6 +81,54 @@ def all_status():
         p = os.path.join(ROOT, "status", f"{h['repo_dir']}.json")
         if os.path.exists(p): out.update(json.load(open(p))["pages"])
     return out
+# ---------------------------------------------------------------- live registry (Divit 2026-10-15)
+# "Is this page live?" comes from the item's real publish state in Webflow, never from the workflow state: a live page sent
+# back to reviewed for a slim review of a fix stays live and keeps its inbound links. status/live.json is refreshed from every
+# full collection read (hubctl api-read, cms-check, live-sync) and marked at item publish / verify-live. Public: IDs and times only.
+LIVE_PATH = os.path.join(ROOT, "status", "live.json")
+def item_is_live(it):
+    """Published in Webflow: not a draft, not archived, and published at least once (a never-published draft is not live)."""
+    return bool(it) and not it.get("isDraft") and not it.get("isArchived") and bool(it.get("lastPublished"))
+def live_entries(hub, items):
+    """{url: entry} for every item of a full read of HUB's collection."""
+    path = CFG["hubs"][hub]["path"]; out = {}
+    for it in items:
+        sl = (it.get("fieldData") or {}).get("slug")
+        if not sl: continue
+        out[f"{path}/{sl}"] = {"item_id": it.get("id"), "isDraft": bool(it.get("isDraft")), "isArchived": bool(it.get("isArchived")),
+                               "lastPublished": it.get("lastPublished"), "live": item_is_live(it)}
+    return out
+def live_registry(path=None):
+    p = path or LIVE_PATH
+    return json.load(open(p)) if os.path.exists(p) else {"hubs": {}, "pages": {}}
+def live_record(hub, items, read_at, source, path=None):
+    """Replace HUB's entries with a full collection read. Refuses an empty read (never wipes a hub) and a read older than the
+    one already recorded. Returns (live_count, changed_urls) or None when skipped."""
+    if not items: return None
+    p = path or LIVE_PATH
+    with lock("live-registry"):
+        R = live_registry(p); prev = R["hubs"].get(hub, {})
+        if prev.get("read_at") and read_at and read_at < prev["read_at"]: return None
+        hp = CFG["hubs"][hub]["path"] + "/"; new = live_entries(hub, items)
+        old = {u: e for u, e in R["pages"].items() if u.startswith(hp)}
+        changed = sorted(u for u in set(old) | set(new) if (old.get(u) or {}).get("live") != (new.get(u) or {}).get("live"))
+        R["pages"] = {**{u: e for u, e in R["pages"].items() if not u.startswith(hp)}, **new}
+        R["hubs"][hub] = {"read_at": read_at, "source": source, "items": len(items), "live": sum(e["live"] for e in new.values())}
+        R["_note"] = "Webflow publish state per child page (guards.live_registry). live = isDraft false, not archived, lastPublished set. Workflow state is separate (status/<hub>.json)."
+        os.makedirs(os.path.dirname(p), exist_ok=True); json.dump(R, open(p, "w"), indent=1, sort_keys=True)
+    return R["hubs"][hub]["live"], changed
+def live_mark(url, item_id, published_at, source, path=None):
+    """A successful item publish (or a verified live fetch): the page is live now."""
+    p = path or LIVE_PATH
+    with lock("live-registry"):
+        R = live_registry(p); e = R["pages"].get(url) or {}
+        e.update({"item_id": item_id or e.get("item_id"), "isDraft": False, "isArchived": False,
+                  "lastPublished": published_at or e.get("lastPublished"), "live": True, "marked": source})
+        R["pages"][url] = e; os.makedirs(os.path.dirname(p), exist_ok=True); json.dump(R, open(p, "w"), indent=1, sort_keys=True)
+def live_child_urls(registry=None):
+    R = live_registry() if registry is None else registry
+    return {u for u, e in R.get("pages", {}).items() if e.get("live")}
+
 def metrics():
     st = all_status(); specs = {s["url"]: s for s in all_specs()}
     counts = {}
@@ -220,8 +268,8 @@ def link_graph():
     return inbound
 def needs_links(hub, k=8):
     """Live or approved sibling pages with the fewest inbound links: suggestions for the writer."""
-    st = all_status(); g = link_graph(); live = {u for u, e in st.items() if e.get("state") in ("approved", "cms_draft", "published")}
-    live |= {s["url"] for s in all_specs() if s.get("status") == "live-draft"}
+    st = all_status(); g = link_graph(); live = {u for u, e in st.items() if e.get("state") in ("approved", "cms_draft")}
+    live |= live_child_urls()   # live = Webflow publish state (live registry), not the workflow state
     path = CFG["hubs"][hub]["path"]
     cands = sorted((len(g.get(u, ())), u) for u in live if u.startswith(path + "/"))
     return [(u, n) for n, u in cands[:k]]

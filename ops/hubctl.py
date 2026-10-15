@@ -42,6 +42,8 @@
   hold URL --by ID [--note T] | unhold URL --by ID   the account's hold marker on a page it is working (docs/TWO_ACCOUNTS.md)
   (claim, state, images, ready, review, release, hold and unhold refuse without --by: Divit 2026-10-13)
   metrics | sample [STATE] | links HUB | links --relink | lookahead HUB [N] | serp-budget | ranks-save URL RAW | ranks-report | recheck [--states a,b] [--include-b] | swap-recheck [--dry] [--quiet] [--force] | image-regress | verify-live URL [--html F]
+  live-sync [HUB ...] [--readback F]  refresh status/live.json (Webflow publish state per page) from the newest api-read on disk;
+                                    "live" for links, payloads and publish checks comes only from it, never the workflow state (Divit 2026-10-15)
   daily-batch [--date D]             ruling 10 B4: plan/batches/batch-<date>.txt = every reviewed, unheld, hash-matching page not in the CMS
   batch-check BATCH_FILE            ruling 6: every page in state reviewed (or further along) and not held by the other account
   live-audit [--since-publish|--all|--urls U,U|--set launch] [--base URL] [--dry] | live-audit record|drift|plan|report DATE ...
@@ -706,12 +708,59 @@ def cmd_paa_resource(args):
 
 ZW = re.compile("[\u200b\u200c\u200d\u2060\ufeff]|&zwj;|&#8205;|&zwnj;")
 EMPTY_P = re.compile(r"<p[^>]*>\s*(?:&nbsp;|\s)*</p>")
-def live_urls():
-    """Hub pages are live (Divit, 2026-10-08); a child page is live once published."""
+def live_urls(registry=None):
+    """Hub pages are live (Divit, 2026-10-08); a child page is live while its Webflow item is published (Divit 2026-10-15: from the
+    real publish state in status/live.json, never the workflow state; a live page back in reviewed keeps its inbound links, a
+    never-published draft or a parked page is not live). registry: a live-registry dict instead of the file (golden cases)."""
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
     live = {h["path"] for h in CFG["hubs"].values()} | set(CFG.get("live_child_urls", []))
-    live |= {u for u, e in G.all_status().items() if e.get("state") == "published"}
-    return live
+    return live | G.live_child_urls(registry)
+def faq_links_not_live(s, live, batch=()):
+    """Child-page links in the spec's FAQ that point at a page neither live nor in `batch` (the publish link check)."""
+    hubs = {v["path"] for v in CFG["hubs"].values()}; bad = []
+    for u in re.findall(r"<a href=(?:\\?\"|')https://emergent\.sh([^\"'\\]+)", s["fields"].get("faq", "")):
+        u = u.rstrip("/")
+        if u not in hubs and u not in live and u not in batch: bad.append(u)
+    return bad
+def live_golden(c):
+    """Golden kind live-flag (Divit 2026-10-15): "live" is the Webflow publish state only. The status file is stubbed with c.state
+    for the target (so a state-based check would fail), the registry is built from c.item (null = not in the collection).
+      export         {url, target, state, item, expect_linked}   export_fields keeps (or strips to pending) the url's link to target
+      publish-check  {target, state, item, expect_flagged}       the publish link check flags a FAQ link to target
+      record         {test_record: empty|older}                  live_record never wipes a hub on an empty read, never goes back in time"""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G, tempfile
+    if c["test"] == "record":
+        p = os.path.join(tempfile.mkdtemp(), "live.json"); hub = "Auto"; it = [{"id": "a" * 24, "isDraft": False, "lastPublished": "2026-10-13T10:23:49Z", "fieldData": {"slug": "golden"}}]
+        G.live_record(hub, it, "2026-10-15 11:00 UTC", "golden", p)
+        r = G.live_record(hub, [] if c["test_record"] == "empty" else [dict(it[0], isDraft=True, lastPublished=None)], "2026-10-15 10:00 UTC" if c["test_record"] == "older" else "2026-10-15 12:00 UTC", "golden", p)
+        return r is None and "/ai-automation-builder/golden" in G.live_child_urls(G.live_registry(p))
+    hub = hub_of(c["target"]); items = [{"id": "b" * 24, **c["item"], "fieldData": {"slug": c["target"].rsplit("/", 1)[1]}}] if c.get("item") else []
+    reg = {"hubs": {}, "pages": G.live_entries(hub, items)}; real = G.all_status
+    G.all_status = lambda: {c["target"]: {"state": c["state"]}}
+    try:
+        live = live_urls(reg)
+        if c["test"] == "export":
+            s = json.load(open(spath(c["url"])))
+            if c["target"] not in s["fields"].get("faq", ""): return False
+            ex, pend = export_fields(c["url"], s, live)
+            linked = bool(re.search(r"<a\s+href=\\?['\"]https://emergent\.sh" + re.escape(c["target"]) + r"/?\\?['\"]", ex["faq"]))
+            return linked == c["expect_linked"] and (c["target"] in {p["target"] for p in pend}) == (not c["expect_linked"])
+        if c["test"] == "publish-check":
+            s = {"fields": {"faq": f"<p>See <a href='https://emergent.sh{c['target']}'>this</a>.</p>"}}
+            return bool(faq_links_not_live(s, live)) == c["expect_flagged"]
+    finally: G.all_status = real
+    return None
+def cmd_live_sync(args):
+    """hubctl live-sync [HUB ...] [--readback FILE]: refresh status/live.json from the newest full read on disk (hubctl api-read)."""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    hubs = [a for a in args if a in CFG["hubs"]] or list(CFG["hubs"])
+    for hub in hubs:
+        rb = args[args.index("--readback") + 1] if "--readback" in args else \
+            (sorted(glob.glob(os.path.join(ROOT, ".cache", "readback", f"{CFG['hubs'][hub]['repo_dir']}-api-*.json"))) or [None])[-1]
+        if not rb: print(f"{hub}: no api-read on disk; run hubctl api-read {hub}"); continue
+        meta = (json.load(open(rb)).get("_meta") or {}) if rb.endswith(".json") else {}
+        r = G.live_record(hub, _items_from_readback(rb), meta.get("read_at") or now(), os.path.basename(rb))
+        print(f"{hub}: " + (f"{r[0]} live; {len(r[1])} changed" + (f": {r[1][:10]}" if r[1] else "") if r else "skipped (empty or older than the recorded read)") + f" <- {os.path.basename(rb)}")
 def prompt_embed(s, v):
     """Template edit T1 (2026-10-08): the hero prompt field carries window.awbPrompt = {default, chips} after its <p>,
     in the same embed shape the FAQ field round-trips through Webflow. Chip prompts come from spec.chip_prompts (4, in chip order)."""
@@ -945,6 +994,8 @@ def cmd_cms_check(args):
             it = by_slug.get(url.rsplit("/", 1)[1])
             e["cms_checked"] = now(); e["cms_exists"] = bool(it); e["cms_item_id"] = it["id"] if it else None; n += 1
         save_st(hub, st)
+    meta = (json.load(open(rb)).get("_meta") or {}) if rb.endswith(".json") and isinstance(json.load(open(rb)), dict) else {}
+    if meta.get("hub") == hub: G.live_record(hub, items, meta.get("read_at"), os.path.basename(rb))   # full api-read: refresh the live registry
     print(f"slug check recorded for {n} pages against {len(items)} Webflow items; existing: {[u for u, e in st['pages'].items() if e.get('cms_exists')]}")
 
 def cmd_usage_log(args):
@@ -1115,10 +1166,12 @@ def cmd_image_regress(args):
     print(f"image regression: {n} approved page(s) checked, {bad} file(s) would change"); sys.exit(1 if bad else 0)
 
 def cmd_verify_live(args):
-    sys.path.insert(0, os.path.join(ROOT, "ops")); import verify_live as V
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import verify_live as V, guards as G
     url = args[0]; html = open(args[args.index("--html") + 1]).read() if "--html" in args else None
     ok, report = V.verify(json.load(open(spath(url))), html, check_links=("--html" not in args)); print("\n".join(report))
-    if ok: set_state(url, "published", note="live page verified", via="verify-live")
+    if ok:
+        set_state(url, "published", note="live page verified", via="verify-live")
+        if "--html" not in args: G.live_mark(url, json.load(open(spath(url))).get("item_id"), None, "verify-live")
     sys.exit(0 if ok else 1)
 
 def _engine():
@@ -1151,18 +1204,11 @@ def _publish_ids(hub):
         if e.get("state") == "cms_draft":          # created as drafts after Divit's approval, verified
             s = json.load(open(spath(url)))
             if s.get("item_id"): pairs.append((url, s["item_id"]))
-    # FAQ links must never point at a page that is not live (or publishing in this batch)
+    # FAQ links must never point at a page that is not live (Webflow publish state, live registry) or publishing in this batch
     batch = {url for url, e in st["pages"].items() if e.get("state") == "cms_draft"}
-    live = set()
-    for hk in CFG["hubs"]:
-        live |= {u for u, e in load_st(hk)["pages"].items() if e.get("state") == "published"}
-    live |= {json.load(open(f)).get("url") for f in glob.glob(os.path.join(ROOT, "specs", "*", "*.json")) if json.load(open(f)).get("status") == "live-draft"}
+    live = live_urls()
     for url in sorted(batch):
-        s_ = json.load(open(spath(url))); bad = []
-        for u in re.findall(r"<a href=(?:\\?\"|')https://emergent\.sh([^\"'\\]+)", s_["fields"].get("faq", "")):
-            u = u.rstrip("/")
-            if u in {v["path"] for v in CFG["hubs"].values()}: continue
-            if u not in live and u not in batch: bad.append(u)
+        bad = faq_links_not_live(json.load(open(spath(url))), live, batch)
         if bad: warn.append(f"WARNING {url} links to pages not live yet: {bad}. Hold it, or publish those first.")
     return pairs, warn
 
@@ -1183,7 +1229,7 @@ CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cm
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "release": cmd_release, "paa": cmd_paa, "paa-resource": cmd_paa_resource, "paa-synonyms": cmd_paa_synonyms, "publish-payload": cmd_publish_payload, "log": cmd_log,
         "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "transfer-hold": cmd_transfer_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "feasibility": cmd_feasibility, "daily-batch": cmd_daily_batch, "unlock": cmd_unlock, "verbatim": cmd_verbatim, "defer": cmd_defer, "batch-check": cmd_batch_check, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
-        "recheck": cmd_recheck, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live,
+        "recheck": cmd_recheck, "live-sync": cmd_live_sync, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live,
         "swap-recheck": lambda a: __import__("swap_recheck").main(a),   # Divit 2026-10-14 step 3: r18-swap-short pages back to rework once replacements exist
         "live-audit": lambda a: _live().main(a), "live-fix": lambda a: _live().fix_main(a), "live-rollback": lambda a: _live().cmd_rollback(a), "retro": lambda a: __import__("retro").main(a)}
 def _live():
