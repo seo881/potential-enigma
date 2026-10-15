@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-91",
    "note": ""
+  },
+  {
+   "t": "2026-10-15 09:32 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-16",
+   "note": "rubric 10/10 by B-r-16; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -949,5 +956,285 @@
  },
  "writers": [
   "B-w-91"
- ]
+ ],
+ "review": {
+  "by": "B-r-16",
+  "date": "2026-10-15 09:32 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Uniform Order Form That Totals Every Size'; hero 'Get a uniform order form that collects sizes and jersey numbers, then totals every size for your supplier.' (under 130 chars, carries the primary, leads with what you get); how-to description one sentence: 'Seven steps to set up a uniform order form that gets every size right and hands your supplier one count to order from.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is template galleries and shared forms; the page builds the form and covers what the galleries stop short of (open jersey numbers, size totals, allowance approvals, new-hire chasing), a 7-step how-to, a template FAQ ('Where can I find a uniform order form template?') and team, baseball, basketball, company and employee variants."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'Use their size labels, such as YM or AL', '12U', 'a character limit that fits the print area', 'yearly allowance', 'payroll list'; table compares Google Forms, Jotform, SurveyMonkey, which rank in the top 10."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'List each item with its price and its sizes', 'Players choose from the numbers still open.', 'Cedar Hollow Mudcats play 12U baseball', 'Ask your supplier for the size chart'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; notes on link-carrying FAQ sentences (FAQ 4 last sentence, FAQ 7) and 9 'A, B, and C' lists (QC Q8 flag)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete and calm: 'Wes Arland orders 4 shirts at $24 and a jacket at $90, a total of $186 that runs $36 over the $150 allowance.' One note on the meta description 'for a team or a staff'."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to claims_used prompt-build, database-owned ('saves as a row in a database you own'), no-caps ('responses have no cap', 'no per-approver seats'), alerts (email, Slack). Third-party facts in FAQ 4 match the quoted spans: SurveyMonkey 'size, color, customization details, quantity, delivery preferences'; Jotform 'customize ... to meet their specific requirements'. Table from the library. Numbers add up: 4+7+6+5=22; 4x$24+$90=$186, $36 over $150; 13 of 13; 4 ordered."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Jersey-number uniqueness, size runs, name-on-back print list and staff allowances are uniform-specific; no sibling primary in a heading (tab labels 'Baseball Teams', 'Basketball Clubs', 'Company Uniforms', 'New Hire Uniforms')."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions from definition, Semrush question and the 8 secondaries, each answered in its first sentence; hub link in item 2; sibling links order form, work order form, purchase order form; moat lines in items 6 and 9; no brand or format in any question."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Each tab matches its copy: 'All 13 players ordered' / 'To Dale Whitcomb'; '22 jerseys in all' with 4 YM, 7 YL, 6 AS, 5 AM, 'Closed September 20', 'To Imani Beckett'; '$186.00', '$36 over the $150 allowance', 'Email to Corinne Tash'; 'Email to Tamsin Royce', 'First shift on Monday', '4 ordered', 'Seen by Joel Brannigan'. One hero per panel."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 4",
+    "quote": "If every item comes in one size, a plain order form is the simpler place to start.",
+    "issue": "The answer ends on a sentence that exists only to carry the related link, and it drifts from the question (where to find a template) to an edge case where the reader would not need this page.",
+    "fix": "Close on the template advice ('Pick the one that gives every item its own size field.') and place the order form link inside a sentence that serves the answer.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 7",
+    "quote": "When the jerseys already exist and only need names pressed on, that job goes to the print shop on a work order form instead.",
+    "issue": "A sentence inserted mid-answer to carry the work order form link; it leaves the question (which fields go on the form) and breaks the flow between the field list and the reversible-set advice.",
+    "fix": "Drop the aside or move the link to an answer where a work order is the natural next step.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "meta_description",
+    "quote": "Take orders on a uniform order form for a team or a staff",
+    "issue": "'a staff' is unidiomatic and reads machine-written in the search snippet.",
+    "fix": "'for a team or staff' (or 'for a team or a workplace').",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_1_des; faq item 10; feature_3; howto_step_3_des; feature_5; tab_content_3; faq item 9",
+    "quote": "'Use their size labels, such as YM or AL.' / 'Use the supplier's size labels'; 'show it to the buyer on a review screen' / 'show the name on the review screen'; 'An order past it waits for a manager's approval' / 'one past it waits for a manager'",
+    "issue": "Three ideas restated across fields with words swapped (supplier size labels, the review screen for names, the allowance hold).",
+    "fix": "Give the FAQ answers a detail the body does not already carry.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief tab 4",
+    "quote": "\"highlight\": 3 (Lena Varga, Ordered)",
+    "issue": "The highlighted row is Lena Varga, who ordered, while the story is Tamsin Royce, who did not; the eye lands on the wrong person. Tab 2 hero also does not say Slack while the copy says 'a Slack direct message'.",
+    "fix": "Highlight Tamsin Royce's row (index 4); label the tab 2 hero 'Slack DM to Imani Beckett'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 4",
+   "issue": "The answer ends on a sentence that exists only to carry the related link, and it drifts from the question (where to find a template) to an edge case where the reader would not need this page.",
+   "fix": "Close on the template advice ('Pick the one that gives every item its own size field.') and place the order form link inside a sentence that serves the answer.",
+   "by": "B-r-16",
+   "via": "review",
+   "date": "2026-10-15 09:32 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 7",
+   "issue": "A sentence inserted mid-answer to carry the work order form link; it leaves the question (which fields go on the form) and breaks the flow between the field list and the reversible-set advice.",
+   "fix": "Drop the aside or move the link to an answer where a work order is the natural next step.",
+   "by": "B-r-16",
+   "via": "review",
+   "date": "2026-10-15 09:32 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "meta_description",
+   "issue": "'a staff' is unidiomatic and reads machine-written in the search snippet.",
+   "fix": "'for a team or staff' (or 'for a team or a workplace').",
+   "by": "B-r-16",
+   "via": "review",
+   "date": "2026-10-15 09:32 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_1_des; faq item 10; feature_3; howto_step_3_des; feature_5; tab_content_3; faq item 9",
+   "issue": "Three ideas restated across fields with words swapped (supplier size labels, the review screen for names, the allowance hold).",
+   "fix": "Give the FAQ answers a detail the body does not already carry.",
+   "by": "B-r-16",
+   "via": "review",
+   "date": "2026-10-15 09:32 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief tab 4",
+   "issue": "The highlighted row is Lena Varga, who ordered, while the story is Tamsin Royce, who did not; the eye lands on the wrong person. Tab 2 hero also does not say Slack while the copy says 'a Slack direct message'.",
+   "fix": "Highlight Tamsin Royce's row (index 4); label the tab 2 hero 'Slack DM to Imani Beckett'.",
+   "by": "B-r-16",
+   "via": "review",
+   "date": "2026-10-15 09:32 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "69e83080ef3dbaae",
+   "alt:share_image": "f90a2d8f9e5df07f",
+   "alt:tab_image_1": "459236725d79c848",
+   "alt:tab_image_2": "b21b78d1416be02e",
+   "alt:tab_image_3": "d7b56d1a80693ed1",
+   "alt:tab_image_4": "0b604eeb10017e7b",
+   "breadcrumb": "f1c44fc628d58aa1",
+   "chip_adds": "8c150cc949886f99",
+   "explore_cta": "9c7ba63b67c8e655",
+   "faq": "795da3845ce3c812",
+   "feature_1": "3f5d6ff4049d0967",
+   "feature_2": "e811aadcb420cba9",
+   "feature_3": "996c3e400a977e12",
+   "feature_4": "87d99d6d5e45124b",
+   "feature_5": "877415c114968c7c",
+   "feature_6": "68d2fe94b83b28f3",
+   "features_heading": "00073785a5d2793f",
+   "features_subheading": "2294817897cb1a72",
+   "h1": "de98de3ab8eab7bc",
+   "hero_description": "80c0bad8e40eb7d2",
+   "hero_prompt": "a14c274bf225ba88",
+   "howto_description": "3bd3c3e90055da3f",
+   "howto_step_1_des": "dfdeb669b12b6f2b",
+   "howto_step_1_title": "e0a936a883119082",
+   "howto_step_2_des": "e6c868af14d5376d",
+   "howto_step_2_title": "c828d94a684753f9",
+   "howto_step_3_des": "253c31f818ccf514",
+   "howto_step_3_title": "61aae7bd18f1a9e8",
+   "howto_step_4_des": "62538db347052e00",
+   "howto_step_4_title": "f6f70817abc0d6ea",
+   "howto_step_5_des": "da4a0c27a84faab3",
+   "howto_step_5_title": "cf79e2f6e14ebf82",
+   "howto_step_6_des": "df78526cc14f4ebd",
+   "howto_step_6_title": "9ec8130714d30b9c",
+   "howto_step_7_des": "6a36acfdf3a5aa63",
+   "howto_step_7_title": "29187a8bf17900f7",
+   "howto_title": "9aad436b1e602c1a",
+   "meta_description": "fc63792e19d19766",
+   "meta_title": "b6a690de5c48d20e",
+   "mockup": "f039cdce17d04272",
+   "product_name": "bbeed0f14d3e9d76",
+   "prompt_chip_1": "54819f58da6da33b",
+   "prompt_chip_2": "a4b27f91eabbf258",
+   "prompt_chip_3": "e6e0b177056c8c28",
+   "prompt_chip_4": "051d64ae1cae2020",
+   "slug": "030b9420b0911f06",
+   "tab_content_1": "aa97abbf17ac3b5b",
+   "tab_content_2": "8485d210fa529d62",
+   "tab_content_3": "a73a02e8992c73dd",
+   "tab_content_4": "38627039679829fc",
+   "tab_label_1": "4386e0d2032af1d3",
+   "tab_label_2": "38e15bf130e74af2",
+   "tab_label_3": "6a4d0e4de3d9b9c4",
+   "tab_label_4": "907b828666d483ef",
+   "usecase_heading": "67166bd327b9b5d4",
+   "why_description": "3efb3e451057b430",
+   "why_table": "e59f861d3e9ffdaa",
+   "why_title": "e5d39aab3c152128"
+  },
+  "all": "161eb7725459f002",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "69e83080ef3dbaae",
+   "alt:share_image": "f90a2d8f9e5df07f",
+   "alt:tab_image_1": "459236725d79c848",
+   "alt:tab_image_2": "b21b78d1416be02e",
+   "alt:tab_image_3": "d7b56d1a80693ed1",
+   "alt:tab_image_4": "0b604eeb10017e7b",
+   "breadcrumb": "f1c44fc628d58aa1",
+   "chip_adds": "8c150cc949886f99",
+   "explore_cta": "9c7ba63b67c8e655",
+   "faq": "795da3845ce3c812",
+   "feature_1": "3f5d6ff4049d0967",
+   "feature_2": "e811aadcb420cba9",
+   "feature_3": "996c3e400a977e12",
+   "feature_4": "87d99d6d5e45124b",
+   "feature_5": "877415c114968c7c",
+   "feature_6": "68d2fe94b83b28f3",
+   "features_heading": "00073785a5d2793f",
+   "features_subheading": "2294817897cb1a72",
+   "h1": "de98de3ab8eab7bc",
+   "hero_description": "80c0bad8e40eb7d2",
+   "hero_prompt": "a14c274bf225ba88",
+   "howto_description": "3bd3c3e90055da3f",
+   "howto_step_1_des": "dfdeb669b12b6f2b",
+   "howto_step_1_title": "e0a936a883119082",
+   "howto_step_2_des": "e6c868af14d5376d",
+   "howto_step_2_title": "c828d94a684753f9",
+   "howto_step_3_des": "253c31f818ccf514",
+   "howto_step_3_title": "61aae7bd18f1a9e8",
+   "howto_step_4_des": "62538db347052e00",
+   "howto_step_4_title": "f6f70817abc0d6ea",
+   "howto_step_5_des": "da4a0c27a84faab3",
+   "howto_step_5_title": "cf79e2f6e14ebf82",
+   "howto_step_6_des": "df78526cc14f4ebd",
+   "howto_step_6_title": "9ec8130714d30b9c",
+   "howto_step_7_des": "6a36acfdf3a5aa63",
+   "howto_step_7_title": "29187a8bf17900f7",
+   "howto_title": "9aad436b1e602c1a",
+   "meta_description": "fc63792e19d19766",
+   "meta_title": "b6a690de5c48d20e",
+   "mockup": "f039cdce17d04272",
+   "product_name": "bbeed0f14d3e9d76",
+   "prompt_chip_1": "54819f58da6da33b",
+   "prompt_chip_2": "a4b27f91eabbf258",
+   "prompt_chip_3": "e6e0b177056c8c28",
+   "prompt_chip_4": "051d64ae1cae2020",
+   "slug": "030b9420b0911f06",
+   "tab_content_1": "aa97abbf17ac3b5b",
+   "tab_content_2": "8485d210fa529d62",
+   "tab_content_3": "a73a02e8992c73dd",
+   "tab_content_4": "38627039679829fc",
+   "tab_label_1": "4386e0d2032af1d3",
+   "tab_label_2": "38e15bf130e74af2",
+   "tab_label_3": "6a4d0e4de3d9b9c4",
+   "tab_label_4": "907b828666d483ef",
+   "usecase_heading": "67166bd327b9b5d4",
+   "why_description": "3efb3e451057b430",
+   "why_table": "e59f861d3e9ffdaa",
+   "why_title": "e5d39aab3c152128"
+  },
+  "all": "161eb7725459f002",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
