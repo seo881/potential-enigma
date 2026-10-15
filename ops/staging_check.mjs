@@ -332,6 +332,14 @@ async function main() {
     const c = await pg.evaluate(measureCarousel, { hub: hi > 0 ? argv[hi + 1] : "", classes: CAROUSEL_CLASSES });
     console.log(JSON.stringify(c)); await browser.close(); return;
   }
+  if (argv[0] === "--console-fixture") {   // golden (B-dev-9): first load, then a second document (?x_page=2, like load more), errors tied as in a run
+    const file = pathToFileURL(path.resolve(argv[1])).href, browser = await chromium.launch(), errs = [];
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } }), pg = await ctx.newPage();
+    await pg.route(/^https?:/, (r) => r.abort()); await captureErrors(ctx, pg, errs, { w: 1440 });
+    await pg.goto(file, { waitUntil: "load" }); await pg.waitForTimeout(600);
+    await pg.goto(file + "?e3324f32_page=2", { waitUntil: "load" }); await pg.waitForTimeout(100);
+    await tieElements(pg, errs); console.log(JSON.stringify(errs.filter((e) => /^file:/.test(e.src)))); await browser.close(); return;
+  }
   if (argv[0] === "--quiz-fixture") {   // self-test of the live playthrough on a local quiz page (.cache/quiz/page-*.html)
     const w = +argv[argv.indexOf("--width") + 1] || 390, browser = await chromium.launch();
     const ctx = await browser.newContext({ viewport: { width: w, height: 900 } }), pg = await ctx.newPage();

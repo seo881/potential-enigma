@@ -93,6 +93,10 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
                                                           audit: the live audit raises A9-console exactly when the error is not ignored
                                                           (2026-10-15: also element entries, err {kind, doc, element}; expect_name: the
                                                           entry that must cover it; tail_has: names the run summary must print)
+  console-capture {fixture, expect_counted, expect_ignored_names}  B-dev-9 (2026-10-15): ops/staging_check.mjs --console-fixture runs the
+                                                          real CDP capture on tests/golden/fixtures/console/<fixture> (first load, then the
+                                                          ?xxxx_page=2 document load more opens); the errors console_filter leaves counted
+                                                          and the names that ignored the rest are exactly as expected
   table-pick     {primary, expect_category, expect_vs?, expect_variant?, expect_rows?, rows?, top_urls?, dir?}  Divit 2026-10-14:
                                                           table.pick on the library's category_sets (first term match, else general)
   table-args     {url, args, expect_vs, expect_rows, expect_variant}  hubctl table_defaults: explicit --vs/--rows/--variant win
@@ -443,6 +447,13 @@ def caught(c):
         raw = {"pages": [{"url": u, "checks": {"http200": True}, "verify": {}, "render": {"http": 200, "console_errors": [c["err"]], "jsonld": [], "links": [], "images": [], "text_visible": "", "text_all": "", "h1s": ["h"]}}], "hubs": [], "held": []}
         flagged = any(f["code"] == "A9-console" for f in LA.evaluate(raw, m, "https://emergent.sh"))
         return flagged == (not c["expect_ignored"]) and (not c["expect_ignored"] or len(LA.CONSOLE_EXCEPTIONS) == 1)
+    if c["kind"] == "console-capture":    # B-dev-9: the navbar svg exception must match on the first load too (tied per document)
+        import console_filter as CF
+        fx = os.path.join(ROOT, "tests", "golden", "fixtures", "console", c["fixture"])
+        r = subprocess.run(["node", os.path.join(ROOT, "ops", "staging_check.mjs"), "--console-fixture", fx], cwd=ROOT, capture_output=True, text=True)
+        if r.returncode: return False
+        errs = json.loads(r.stdout); counted, ignored = CF.split(errs)
+        return len(errs) == 2 and len(counted) == c["expect_counted"] and sorted(n for n, _e in ignored) == sorted(c["expect_ignored_names"])
     if c["kind"] == "staging-card":       # Divit 2026-10-14: the staging carousel check on an offline fixture (real browser layout)
         import staging_check as SC
         fx = os.path.join(ROOT, "tests", "golden", "fixtures", "staging_check", c["fixture"])

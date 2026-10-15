@@ -4,7 +4,8 @@ and ops/live_audit.py.
 An error (a dict from ops/console_capture.mjs: {t, src, stack, kind, doc?, element?}) is ignored only when it matches an entry of
 rules/live_audit.json console_ignore_sources, in one of two forms:
 - source entry: `src` (regex) on the error's source (the reporting script URL or the top stack frame) and, where given,
-  `stack_any` (regex) on at least one stack frame (clarity.js, the GTM and Bing UET Clarity loaders, Adwire molecule.js);
+  `stack_any` (regex) on at least one stack frame, and `kind` where given (clarity.js, the GTM and Bing UET Clarity loaders,
+  Clarity's c.clarity.ms/c.gif collect beacon as a failed request, kind `log`, Adwire molecule.js);
 - element entry (2026-10-15, the navbar <svg width="2o"> on the /ai-contests dropdown icon): the error was reported by the page
   document itself (`doc` true, kind `log`, never a script) and ops/console_capture.mjs tied it to the offending element, whose
   tag, attribute, value, navbar membership and link href all match `element`.
@@ -25,7 +26,8 @@ def ignored_by(err, sources=None):
     for s in load_sources() if sources is None else sources:
         if "element" in s:
             if element_match(err, s): return s["name"]
-        elif src and re.search(s["src"], src) and (not s.get("stack_any") or any(re.search(s["stack_any"], f) for f in stack)):
+        elif src and re.search(s["src"], src) and (not s.get("kind") or err.get("kind") == s["kind"]) \
+                and (not s.get("stack_any") or any(re.search(s["stack_any"], f) for f in stack)):
             return s["name"]
     return None
 
