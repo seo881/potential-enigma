@@ -129,6 +129,13 @@
    "via": null,
    "by": "B-w-117",
    "note": ""
+  },
+  {
+   "t": "2026-10-15 15:07 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-15",
+   "note": "[truth | HUB_RULES 8] faq: FAQ 8 states a fact about the world (completion time per question: 12 questions take about 5 minutes on a phone) with no claims id and no spec.domain_sources entry (domain_sources is empty, plan.claims_to_source is []). Only instance of the class on the page; every other n"
   }
  ],
  "pipeline": "r15",
@@ -959,5 +966,315 @@
  },
  "writers": [
   "B-w-117"
- ]
+ ],
+ "review": {
+  "by": "B-r-15",
+  "date": "2026-10-15 15:07 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Market Research Survey for the Market You Want to Reach'; hero 'Get a market research survey with screener questions, segment quotas, and every response saved to a database you own.' covers the whole job; howto_description one sentence that says what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are guides (definition, questions, examples, how to conduct). Page has the definition (FAQ 1), question order and wording (FAQ 5, 10), examples (FAQ 7), a 7-step how-to, and a builder angle (screener, quotas, segment split)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: screener, quota per segment, 'a QR code on a booth sign', 'Read each question by segment before you look at the totals'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies and tabs open on full sentences: 'Emergent builds the screener...', 'Tallgrass Coffee wants to know...', 'At its trade show booth, Marlow Kitchenware hangs a QR code...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences carry one idea; QC Q5 1 ', so' ending (step 4), Q2 flags only (notes)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail ('224 buy it less than once a month', 'Solo firms fill their 100 on day 3'); no AI tells."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "FAQ 8 states an unsourced rate ('under 5 minutes on a phone, which means about 12 questions at most'); spec.domain_sources is empty."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own angle (screener, quotas, segment split); no sibling primary in headings; sibling needs assessment survey only linked."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions from AlsoAsked, Semrush questions and secondaries, each answered first; hub link in FAQ 2; heading 'Market Research Survey FAQ'."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "All four tabs match copy: 612/224/388 (37%), 212 of 517 and 66 of 298 (940 = 517+298+125), solo 100 of 100 on day 3 to Odalys Brennan, 87 of 214 with warranty 71 (87+71+40+16=214)."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Short enough that a person finishes in under 5 minutes on a phone, which means about 12 questions at most.",
+    "issue": "FAQ 8 states a fact about the world (completion time per question: 12 questions take about 5 minutes on a phone) with no claims id and no spec.domain_sources entry (domain_sources is empty, plan.claims_to_source is []). Only instance of the class on the page; every other number is the page's own example data.",
+    "fix": "Either add a domain_sources entry with a quoted span that states a completion-time figure and match the copy to it, or drop the conversion and keep the advice: 'Short enough that a person finishes in under 5 minutes on a phone. Time yourself during the pilot and cut questions until you get there.'",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "After launch, a customer feedback survey to the people who buy tests whether the research held up.",
+    "issue": "FAQ has 1 sibling link (needs assessment survey; QC K4 P2 asks 2-3). This FAQ 3 sentence reads as a link slot with the link missing and drifts from the question (conducting and tracking).",
+    "fix": "Link the anchor once the page is live, or cut the sentence.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "CONTENT_DEFECTS #3",
+    "field": "why_table",
+    "quote": "Survey builder with templates, including employee engagement",
+    "issue": "Library cells for SurveyMonkey ('including employee engagement') and SurveyHero ('including employee satisfaction') name employee templates on a market research page; Microsoft Forms and SurveyHero do not rank in this page's top 10 (QC K7), while SurveyMonkey, Qualtrics, SmartSurvey and LimeSurvey do.",
+    "fix": "Coordinator: add a market-research output fact or variant to the library; prefer ranking vendors.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "It reaches past your current customers, and a screener at the start keeps the answers to the people the decision is about.",
+    "issue": "Mild tension: FAQ 4 sends current buyers to a customer research survey and keeps the market research survey for people who have never bought, yet tab_content_2 surveys '940 loyalty members' and howto_step_6_des sends it to 'a customer email list'. 'Reaches past' is not exclusive, so not a contradiction.",
+    "fix": "Soften FAQ 4's 'instead' or name a non-customer audience in tab 2.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Put the screener first, then questions about what people do now, then the questions the decision rests on, with demographics last.",
+    "issue": "Recommendations with no source: FAQ 5 question order; howto_step_3_des 'ask what people did in the past month instead of what they intend'; howto_step_5_des 'Send the link to 10 people in your market'.",
+    "fix": "None needed (advice ships).",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief",
+    "quote": "Two-hour delivery window",
+    "issue": "Tab 2 image adds a 'Pilot plan' panel ('Two-hour delivery window', 'Loyalty members only') and a 'Both' row (125, 49, 39%) that the tab copy never mentions; consistent, not contradictory.",
+    "fix": "None needed.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #6",
+    "field": "faq",
+    "quote": "'The last time you reordered, what made you pick this store?' tells you more than 'Do you like the service?'",
+    "issue": "Long sentences flagged by QC Q2: FAQ 10 (40 words, includes the leading clause), FAQ 1 'A market research survey is a set of questions sent to people...' (38 words). Also Q9: 'segment' 20 times outside the FAQ.",
+    "fix": "Split the long sentences next time the page is edited.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "FAQ has 1 sibling link (needs assessment survey; QC K4 P2 asks 2-3). This FAQ 3 sentence reads as a link slot with the link missing and drifts from the question (conducting and tracking).",
+   "fix": "Link the anchor once the page is live, or cut the sentence.",
+   "by": "B-r-15",
+   "via": "review",
+   "date": "2026-10-15 15:07 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "CONTENT_DEFECTS #3",
+   "field": "why_table",
+   "issue": "Library cells for SurveyMonkey ('including employee engagement') and SurveyHero ('including employee satisfaction') name employee templates on a market research page; Microsoft Forms and SurveyHero do not rank in this page's top 10 (QC K7), while SurveyMonkey, Qualtrics, SmartSurvey and LimeSurvey do.",
+   "fix": "Coordinator: add a market-research output fact or variant to the library; prefer ranking vendors.",
+   "by": "B-r-15",
+   "via": "review",
+   "date": "2026-10-15 15:07 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Mild tension: FAQ 4 sends current buyers to a customer research survey and keeps the market research survey for people who have never bought, yet tab_content_2 surveys '940 loyalty members' and howto_step_6_des sends it to 'a customer email list'. 'Reaches past' is not exclusive, so not a contradiction.",
+   "fix": "Soften FAQ 4's 'instead' or name a non-customer audience in tab 2.",
+   "by": "B-r-15",
+   "via": "review",
+   "date": "2026-10-15 15:07 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Recommendations with no source: FAQ 5 question order; howto_step_3_des 'ask what people did in the past month instead of what they intend'; howto_step_5_des 'Send the link to 10 people in your market'.",
+   "fix": "None needed (advice ships).",
+   "by": "B-r-15",
+   "via": "review",
+   "date": "2026-10-15 15:07 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief",
+   "issue": "Tab 2 image adds a 'Pilot plan' panel ('Two-hour delivery window', 'Loyalty members only') and a 'Both' row (125, 49, 39%) that the tab copy never mentions; consistent, not contradictory.",
+   "fix": "None needed.",
+   "by": "B-r-15",
+   "via": "review",
+   "date": "2026-10-15 15:07 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #6",
+   "field": "faq",
+   "issue": "Long sentences flagged by QC Q2: FAQ 10 (40 words, includes the leading clause), FAQ 1 'A market research survey is a set of questions sent to people...' (38 words). Also Q9: 'segment' 20 times outside the FAQ.",
+   "fix": "Split the long sentences next time the page is edited.",
+   "by": "B-r-15",
+   "via": "review",
+   "date": "2026-10-15 15:07 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "e139eefa48cf63dd",
+   "alt:share_image": "8c9f07f364f2127c",
+   "alt:tab_image_1": "11e0a8c8e922f230",
+   "alt:tab_image_2": "2308b5342d903067",
+   "alt:tab_image_3": "001f1a20586be1bf",
+   "alt:tab_image_4": "d6ab5c5df2dfe1a2",
+   "breadcrumb": "bc81112f5b6328bf",
+   "chip_adds": "c1c619781d535bbe",
+   "explore_cta": "f5d0deb65879c4fd",
+   "faq": "dfbbf7c0d3f06546",
+   "feature_1": "a2ff51df86c9adec",
+   "feature_2": "f99fc6e174a5f8b4",
+   "feature_3": "7b53e0bcc7ed34ad",
+   "feature_4": "d29885f121b23203",
+   "feature_5": "6cfde6a9ba8c0eac",
+   "feature_6": "a243d2154ba70566",
+   "features_heading": "45a4eb4e70dd2aec",
+   "features_subheading": "be15787bfa2afd8f",
+   "h1": "17de69dee39a4074",
+   "hero_description": "f1732c55056c4639",
+   "hero_prompt": "023dda7a167560b2",
+   "howto_description": "530064f831da79e7",
+   "howto_step_1_des": "e57a9662849c0432",
+   "howto_step_1_title": "dc913aeb931e2ec9",
+   "howto_step_2_des": "8693b2b108238e30",
+   "howto_step_2_title": "84c577c83b550342",
+   "howto_step_3_des": "ddd70cb15dcae24e",
+   "howto_step_3_title": "30f2a2b72b287b73",
+   "howto_step_4_des": "ec55e1b330a852d5",
+   "howto_step_4_title": "b0c3602584960d78",
+   "howto_step_5_des": "5339dd14f9daa5f7",
+   "howto_step_5_title": "895441d315a99d48",
+   "howto_step_6_des": "6182c1a1c914c0fb",
+   "howto_step_6_title": "445762332d0813d3",
+   "howto_step_7_des": "088dcc21caade61d",
+   "howto_step_7_title": "441f59ed436045a9",
+   "howto_title": "9d7c7cd4d826959f",
+   "meta_description": "3cac4fa150a1c694",
+   "meta_title": "bac9487867787ac5",
+   "mockup": "80c44fe77000113b",
+   "product_name": "3cdbdc9296ea9b2c",
+   "prompt_chip_1": "67f0b72169146436",
+   "prompt_chip_2": "830fd44f5e00adca",
+   "prompt_chip_3": "38fa5de01300e6fc",
+   "prompt_chip_4": "f367e33c1a583bff",
+   "slug": "8ba9676bc071ff30",
+   "tab_content_1": "1efab6ee8172ff53",
+   "tab_content_2": "049ba61251bb0466",
+   "tab_content_3": "2b3c25b59558142a",
+   "tab_content_4": "82c02546b13a46b6",
+   "tab_label_1": "076e0331e1fa1b79",
+   "tab_label_2": "4145ade206c43e1e",
+   "tab_label_3": "6c26897c00e92397",
+   "tab_label_4": "0c1e1979f9607350",
+   "usecase_heading": "267fcd2efbb1503c",
+   "why_description": "a7797a738f9dc1c8",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "8a5f44417661f78c"
+  },
+  "all": "6d8635a03cd01443",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "e139eefa48cf63dd",
+   "alt:share_image": "8c9f07f364f2127c",
+   "alt:tab_image_1": "11e0a8c8e922f230",
+   "alt:tab_image_2": "2308b5342d903067",
+   "alt:tab_image_3": "001f1a20586be1bf",
+   "alt:tab_image_4": "d6ab5c5df2dfe1a2",
+   "breadcrumb": "bc81112f5b6328bf",
+   "chip_adds": "c1c619781d535bbe",
+   "explore_cta": "f5d0deb65879c4fd",
+   "faq": "dfbbf7c0d3f06546",
+   "feature_1": "a2ff51df86c9adec",
+   "feature_2": "f99fc6e174a5f8b4",
+   "feature_3": "7b53e0bcc7ed34ad",
+   "feature_4": "d29885f121b23203",
+   "feature_5": "6cfde6a9ba8c0eac",
+   "feature_6": "a243d2154ba70566",
+   "features_heading": "45a4eb4e70dd2aec",
+   "features_subheading": "be15787bfa2afd8f",
+   "h1": "17de69dee39a4074",
+   "hero_description": "f1732c55056c4639",
+   "hero_prompt": "023dda7a167560b2",
+   "howto_description": "530064f831da79e7",
+   "howto_step_1_des": "e57a9662849c0432",
+   "howto_step_1_title": "dc913aeb931e2ec9",
+   "howto_step_2_des": "8693b2b108238e30",
+   "howto_step_2_title": "84c577c83b550342",
+   "howto_step_3_des": "ddd70cb15dcae24e",
+   "howto_step_3_title": "30f2a2b72b287b73",
+   "howto_step_4_des": "ec55e1b330a852d5",
+   "howto_step_4_title": "b0c3602584960d78",
+   "howto_step_5_des": "5339dd14f9daa5f7",
+   "howto_step_5_title": "895441d315a99d48",
+   "howto_step_6_des": "6182c1a1c914c0fb",
+   "howto_step_6_title": "445762332d0813d3",
+   "howto_step_7_des": "088dcc21caade61d",
+   "howto_step_7_title": "441f59ed436045a9",
+   "howto_title": "9d7c7cd4d826959f",
+   "meta_description": "3cac4fa150a1c694",
+   "meta_title": "bac9487867787ac5",
+   "mockup": "80c44fe77000113b",
+   "product_name": "3cdbdc9296ea9b2c",
+   "prompt_chip_1": "67f0b72169146436",
+   "prompt_chip_2": "830fd44f5e00adca",
+   "prompt_chip_3": "38fa5de01300e6fc",
+   "prompt_chip_4": "f367e33c1a583bff",
+   "slug": "8ba9676bc071ff30",
+   "tab_content_1": "1efab6ee8172ff53",
+   "tab_content_2": "049ba61251bb0466",
+   "tab_content_3": "2b3c25b59558142a",
+   "tab_content_4": "82c02546b13a46b6",
+   "tab_label_1": "076e0331e1fa1b79",
+   "tab_label_2": "4145ade206c43e1e",
+   "tab_label_3": "6c26897c00e92397",
+   "tab_label_4": "0c1e1979f9607350",
+   "usecase_heading": "267fcd2efbb1503c",
+   "why_description": "a7797a738f9dc1c8",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "8a5f44417661f78c"
+  },
+  "all": "6d8635a03cd01443",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

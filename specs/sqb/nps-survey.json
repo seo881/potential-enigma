@@ -122,6 +122,13 @@
    "via": null,
    "by": "B-w-118",
    "note": ""
+  },
+  {
+   "t": "2026-10-15 15:07 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-15",
+   "note": "[truth | HUB_RULES 8] faq: The page contradicts itself (CONTENT_DEFECTS #14 class of self-contradiction). FAQ 4 sets an absolute 90-day limit per customer, but the page's own home-services case sends the NPS question after every visit: mockup (homeServices) 'Build an NPS survey for my home cleaning "
   }
  ],
  "pipeline": "r15",
@@ -1148,5 +1155,315 @@
  },
  "writers": [
   "B-w-118"
- ]
+ ],
+ "review": {
+  "by": "B-r-15",
+  "date": "2026-10-15 15:07 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an NPS Survey That Works Out Your Score'; hero 'Get an NPS survey that asks the 0-10 question, calculates your score, and saves every answer to a database you own.'; howto_description one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 cover definition, calculation, good score, best practices, questions; page has the formula (FAQ 6), good-score bands (FAQ 1), standard question (step 3), timing and cadence (FAQ 3, 4, 8), plus a builder angle."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "NPS vocabulary throughout: promoters, passives, detractors, relationship NPS, score by plan, 'a 9, a 7, and a 3 each land in the right group'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Kestrel Yoga sends the survey...', 'Ledgerly sells three plans...', 'Pick who hears about low scores...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One idea per sentence; QC Q5 2 ', so' endings (step 5, FAQ 7) under the limit; notes only."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete detail ('the upstairs bathroom was missed', 'bank import is the top complaint'); no AI tells."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "FAQ 4's rule 'never send the NPS question to the same customer more than once in 90 days' contradicts tab 3 and its mockup and image, where the survey goes out after each cleaning visit."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own angle (score math, split by plan, low-score email, quarterly trend); no sibling primary in headings; customer feedback survey, customer effort score and customer experience survey appear only as FAQ link anchors; live CSAT page keeps CSAT."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions (AlsoAsked + Semrush questions + secondaries), each answered first; hub link in FAQ 2; 3 sibling links; F9 moat lines in FAQ 7 and 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "All numbers check: 200+120+80=400, 50%-20%=30; Starter 48/150-30/150=12, Pro 38, Team 55; Teodor Vance 4 to Odalys Ferreira, Friday; Q1 12, Q2 19, Q3 27 on 318 (140-54)."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Whatever the rhythm, never send the NPS question to the same customer more than once in 90 days.",
+    "issue": "The page contradicts itself (CONTENT_DEFECTS #14 class of self-contradiction). FAQ 4 sets an absolute 90-day limit per customer, but the page's own home-services case sends the NPS question after every visit: mockup (homeServices) 'Build an NPS survey for my home cleaning company that goes out after each visit'; tab_content_3 'Saltmarsh Home Cleaning customer Teodor Vance scores his visit a 4'; image_brief tab 3 'Survey sent / After the visit'. A recurring cleaning customer gets the question more often than once in 90 days. FAQ 8 adds to it: 'Right after a single support ticket, ask about that one interaction instead', while tab 3 asks the recommend question about a single visit.",
+    "fix": "Make one rule hold across the page: either qualify FAQ 4 to relationship surveys (e.g. 'never send the relationship survey to the same customer more than once in 90 days') or change tab 3, its mockup and image so Saltmarsh sends the survey after a customer's first visit, or at most once a quarter per customer. Keep FAQ 8 consistent with the choice.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "What is a good NPS survey score?",
+    "issue": "Item 1 is not the definition (HUB_RULES 5: 'Item 1 defines the primary'); the definition sits in FAQ 6 ('What is an NPS survey used for?'), and the PAA 'What is NPS in a survey?' / 'What does NPS stand for?' are answered only there, without spelling out Net Promoter Score in the answer.",
+    "fix": "Next edit: make FAQ 6 the first item or open it with 'Net Promoter Score (NPS)'.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "When in the customer lifecycle should you send out an NPS survey?",
+    "issue": "Timing is answered three times: FAQ 3 'When should you send an NPS survey after a purchase?', FAQ 8 (this one), and howto_step_1_des 'Decide which moment sends the survey before you write a word'.",
+    "fix": "None needed.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_3_des",
+    "quote": "add the reason box as the second and last question",
+    "issue": "Mild tension with FAQ 5 'Add a third only when a decision depends on its answer'.",
+    "fix": "Drop 'and last' in step 3.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "For software, wait about 30 days after signup, when the first real use is behind them.",
+    "issue": "Recommendations with no source: FAQ 3 (this), FAQ 4 'Send a relationship NPS survey once a quarter', howto_step_7_des 'Reply to each detractor within 2 days'.",
+    "fix": "None needed (advice ships).",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "CONTENT_DEFECTS #3",
+    "field": "why_table",
+    "quote": "Survey builder with templates, including employee engagement",
+    "issue": "Library cells name employee templates (SurveyMonkey, SurveyHero) on an NPS page; Microsoft Forms and SurveyHero do not rank in the top 10, while Qualtrics, CustomerGauge, Zonka, Medallia and InMoment do.",
+    "fix": "Coordinator: add an NPS-tool category or output fact to the library.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "howto_step_5_des",
+    "quote": "Name a person rather than a shared inbox, so each reply has an owner and nobody waits on a message that everyone assumed someone else had read.",
+    "issue": "', so' endings flagged by QC Q5: howto_step_5_des (this) and FAQ 7 'A survey built on Emergent has no response cap, so every customer can get one.' FAQ 7 also drifts to a customer effort score trigger.",
+    "fix": "None needed.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "Item 1 is not the definition (HUB_RULES 5: 'Item 1 defines the primary'); the definition sits in FAQ 6 ('What is an NPS survey used for?'), and the PAA 'What is NPS in a survey?' / 'What does NPS stand for?' are answered only there, without spelling out Net Promoter Score in the answer.",
+   "fix": "Next edit: make FAQ 6 the first item or open it with 'Net Promoter Score (NPS)'.",
+   "by": "B-r-15",
+   "via": "review",
+   "date": "2026-10-15 15:07 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "Timing is answered three times: FAQ 3 'When should you send an NPS survey after a purchase?', FAQ 8 (this one), and howto_step_1_des 'Decide which moment sends the survey before you write a word'.",
+   "fix": "None needed.",
+   "by": "B-r-15",
+   "via": "review",
+   "date": "2026-10-15 15:07 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_3_des",
+   "issue": "Mild tension with FAQ 5 'Add a third only when a decision depends on its answer'.",
+   "fix": "Drop 'and last' in step 3.",
+   "by": "B-r-15",
+   "via": "review",
+   "date": "2026-10-15 15:07 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Recommendations with no source: FAQ 3 (this), FAQ 4 'Send a relationship NPS survey once a quarter', howto_step_7_des 'Reply to each detractor within 2 days'.",
+   "fix": "None needed (advice ships).",
+   "by": "B-r-15",
+   "via": "review",
+   "date": "2026-10-15 15:07 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "CONTENT_DEFECTS #3",
+   "field": "why_table",
+   "issue": "Library cells name employee templates (SurveyMonkey, SurveyHero) on an NPS page; Microsoft Forms and SurveyHero do not rank in the top 10, while Qualtrics, CustomerGauge, Zonka, Medallia and InMoment do.",
+   "fix": "Coordinator: add an NPS-tool category or output fact to the library.",
+   "by": "B-r-15",
+   "via": "review",
+   "date": "2026-10-15 15:07 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "howto_step_5_des",
+   "issue": "', so' endings flagged by QC Q5: howto_step_5_des (this) and FAQ 7 'A survey built on Emergent has no response cap, so every customer can get one.' FAQ 7 also drifts to a customer effort score trigger.",
+   "fix": "None needed.",
+   "by": "B-r-15",
+   "via": "review",
+   "date": "2026-10-15 15:07 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "8e6b4983fa9f2181",
+   "alt:share_image": "09544c3cc1a78c40",
+   "alt:tab_image_1": "26d9d9df250be423",
+   "alt:tab_image_2": "a7de935d862e61df",
+   "alt:tab_image_3": "8e2f10591a6d0069",
+   "alt:tab_image_4": "6b3105e27f0880a2",
+   "breadcrumb": "b873a5af740dbe82",
+   "chip_adds": "d2a406e696e79d98",
+   "explore_cta": "2489b10a128300aa",
+   "faq": "40c2257f24f3238e",
+   "feature_1": "fb3fc794a8ede68b",
+   "feature_2": "fa0aa74992f25acb",
+   "feature_3": "4a27e665682a0018",
+   "feature_4": "d8362d884cef0dfc",
+   "feature_5": "a74d80758e239157",
+   "feature_6": "ae2b2f10a8c3122e",
+   "features_heading": "61fa04999df0b13d",
+   "features_subheading": "0356faab44dce621",
+   "h1": "14692073bc01c617",
+   "hero_description": "9fdd3acf034a4f90",
+   "hero_prompt": "f379745ac768d7dd",
+   "howto_description": "be3f52cccd136864",
+   "howto_step_1_des": "844fc81074653a51",
+   "howto_step_1_title": "b5e0a673ee6a9d53",
+   "howto_step_2_des": "fa2eb067799ff731",
+   "howto_step_2_title": "84c577c83b550342",
+   "howto_step_3_des": "793893623d7105a3",
+   "howto_step_3_title": "93554e899916b373",
+   "howto_step_4_des": "8533d999ad6cb6ad",
+   "howto_step_4_title": "d6a03ecc2a015ac3",
+   "howto_step_5_des": "502f2558e1915b21",
+   "howto_step_5_title": "c48a92cfb27896e0",
+   "howto_step_6_des": "2c50a6beb39e01e2",
+   "howto_step_6_title": "e5480e91028a5a87",
+   "howto_step_7_des": "8be422def777e184",
+   "howto_step_7_title": "41d644ab7facd6e8",
+   "howto_title": "3f92f0e99fe0ccdb",
+   "meta_description": "b026e28fec5b1196",
+   "meta_title": "d4e6737d0520d266",
+   "mockup": "9b9be06359508a5a",
+   "product_name": "917adbb3037be8c0",
+   "prompt_chip_1": "0b5b135fb299c11d",
+   "prompt_chip_2": "6ad3089f591f5a0c",
+   "prompt_chip_3": "bc160d052988bbc7",
+   "prompt_chip_4": "2e21d627bd8026e2",
+   "slug": "e47d5651d13ec457",
+   "tab_content_1": "f00e5cabd20ab4fd",
+   "tab_content_2": "c986d4383ac0232f",
+   "tab_content_3": "25c0da43fc119b24",
+   "tab_content_4": "ede573eae906a9aa",
+   "tab_label_1": "6e22a4602c03ee98",
+   "tab_label_2": "c096e2d5721ff83b",
+   "tab_label_3": "e2e112e5cdb50a4f",
+   "tab_label_4": "7c3ce1ece6e0e446",
+   "usecase_heading": "4ef6cb9b96efe67b",
+   "why_description": "75e78aa6d86aa79e",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "49070d6f80af25ef"
+  },
+  "all": "6099f6243bfef7a5",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "8e6b4983fa9f2181",
+   "alt:share_image": "09544c3cc1a78c40",
+   "alt:tab_image_1": "26d9d9df250be423",
+   "alt:tab_image_2": "a7de935d862e61df",
+   "alt:tab_image_3": "8e2f10591a6d0069",
+   "alt:tab_image_4": "6b3105e27f0880a2",
+   "breadcrumb": "b873a5af740dbe82",
+   "chip_adds": "d2a406e696e79d98",
+   "explore_cta": "2489b10a128300aa",
+   "faq": "40c2257f24f3238e",
+   "feature_1": "fb3fc794a8ede68b",
+   "feature_2": "fa0aa74992f25acb",
+   "feature_3": "4a27e665682a0018",
+   "feature_4": "d8362d884cef0dfc",
+   "feature_5": "a74d80758e239157",
+   "feature_6": "ae2b2f10a8c3122e",
+   "features_heading": "61fa04999df0b13d",
+   "features_subheading": "0356faab44dce621",
+   "h1": "14692073bc01c617",
+   "hero_description": "9fdd3acf034a4f90",
+   "hero_prompt": "f379745ac768d7dd",
+   "howto_description": "be3f52cccd136864",
+   "howto_step_1_des": "844fc81074653a51",
+   "howto_step_1_title": "b5e0a673ee6a9d53",
+   "howto_step_2_des": "fa2eb067799ff731",
+   "howto_step_2_title": "84c577c83b550342",
+   "howto_step_3_des": "793893623d7105a3",
+   "howto_step_3_title": "93554e899916b373",
+   "howto_step_4_des": "8533d999ad6cb6ad",
+   "howto_step_4_title": "d6a03ecc2a015ac3",
+   "howto_step_5_des": "502f2558e1915b21",
+   "howto_step_5_title": "c48a92cfb27896e0",
+   "howto_step_6_des": "2c50a6beb39e01e2",
+   "howto_step_6_title": "e5480e91028a5a87",
+   "howto_step_7_des": "8be422def777e184",
+   "howto_step_7_title": "41d644ab7facd6e8",
+   "howto_title": "3f92f0e99fe0ccdb",
+   "meta_description": "b026e28fec5b1196",
+   "meta_title": "d4e6737d0520d266",
+   "mockup": "9b9be06359508a5a",
+   "product_name": "917adbb3037be8c0",
+   "prompt_chip_1": "0b5b135fb299c11d",
+   "prompt_chip_2": "6ad3089f591f5a0c",
+   "prompt_chip_3": "bc160d052988bbc7",
+   "prompt_chip_4": "2e21d627bd8026e2",
+   "slug": "e47d5651d13ec457",
+   "tab_content_1": "f00e5cabd20ab4fd",
+   "tab_content_2": "c986d4383ac0232f",
+   "tab_content_3": "25c0da43fc119b24",
+   "tab_content_4": "ede573eae906a9aa",
+   "tab_label_1": "6e22a4602c03ee98",
+   "tab_label_2": "c096e2d5721ff83b",
+   "tab_label_3": "e2e112e5cdb50a4f",
+   "tab_label_4": "7c3ce1ece6e0e446",
+   "usecase_heading": "4ef6cb9b96efe67b",
+   "why_description": "75e78aa6d86aa79e",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "49070d6f80af25ef"
+  },
+  "all": "6099f6243bfef7a5",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
