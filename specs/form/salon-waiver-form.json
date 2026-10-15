@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-90",
    "note": ""
+  },
+  {
+   "t": "2026-10-14 15:00 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-15",
+   "note": "rubric 10/10 by B-r-15; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -847,5 +854,265 @@
  },
  "writers": [
   "B-w-90"
- ]
+ ],
+ "review": {
+  "by": "B-r-15",
+  "date": "2026-10-14 15:00 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Salon Waiver Form Clients Sign Before Their Appointment'; hero 'Build a salon waiver form with allergy questions and an e-signature, saved to a database you own.' (under 130, leads with Build); how-to description one sentence carrying the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is salon waiver guides and templates; page gives what to include per service (FAQ 3-5, 10), a 7-step how-to, a template route (FAQ 8 WaiverForever free generator) and a comparison table vs Jotform, WaiverSign, Google Forms."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Salon vocabulary throughout: 'patch test', 'relaxer', 'gel and acrylic sets', 'front desk tablet', 'booth'; table generated from the library."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Check-in at Cobalt Comb Studio starts on a tablet at the front desk.', 'Start with your service menu.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q6/Q7 clean; two FAQ answers end on a sentence that only carries a related link (notes)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: 'Callum Brandt's waiver was 14 months old, past the 12-month limit.'; 'Dana Whitlock called Ferro House Salon about an itchy scalp after a relaxer.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent sentences map to claims_used (prompt-build, database-owned, e-signature-capture, alerts, api-connect, no-caps, free-start, conversational). FDA quote 'Do a patch test on your skin every time before dyeing your hair' matches the FDA consumer wording; WaiverForever facts match their quoted spans. No enforceability or legal-effect claims; legal wording is sent to 'a lawyer licensed in your state'."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Salon-only stories (dye reaction to patch test, 12-month re-sign, 24-hour nail reminder, relaxer lookup); no sibling primary used as a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions from definition and secondaries, each answered first; hub link in item 2; sibling links liability waiver form, consent form, model release form; no brand or format in questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: Noor Haddad yes -> 'Email to Rhea Tamsin' / 'Book a patch test before color'; Callum 'Your waiver is 14 months old' / 'The limit is 12 months'; Priya 'Not signed', 'Gel set tomorrow at 2:30 PM'; Dana Whitlock 'Relaxer, Oct 2, 2026', 'Opened by Imani Corr'. One hero each."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "If a client only needs to agree to one treatment, such as a lightening service, a consent form may be the simpler document.",
+    "issue": "FAQ 7 (free) ends on a sentence that drifts off the question to carry the consent form link; same pattern in FAQ 10: 'If you post photos of a client's nail art, ask them to sign a model release form as well.' (recurring link-carrier ending).",
+    "fix": "Put sibling links where they answer the question asked, or fold them into a sentence the answer needs.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "a consent form may be the simpler document",
+    "issue": "FAQ 7 recommends a consent form over a waiver for a single treatment with no source on the distinction; a recommendation, so a note.",
+    "fix": "Source the waiver vs consent distinction or drop the sentence on the next edit.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "domain_sources",
+    "quote": "https://cacmap.fda.gov/cosmetics/cosmetic-products/hair-dyes",
+    "issue": "The FDA quote is correct in content, but the source is a non-canonical FDA host that returns 403 to checks (QC P3 P2).",
+    "fix": "Cite the www.fda.gov hair dyes page carrying the same sentence.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Google Forms",
+    "issue": "Comparison picks Google Forms, which does not rank in this page's top 10 (QC K7); esign.com or WaiverForever do.",
+    "fix": "Prefer a ranking vendor from the library when the table is next generated.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "FAQ 7 (free) ends on a sentence that drifts off the question to carry the consent form link; same pattern in FAQ 10: 'If you post photos of a client's nail art, ask them to sign a model release form as well.' (recurring link-carrier ending).",
+   "fix": "Put sibling links where they answer the question asked, or fold them into a sentence the answer needs.",
+   "by": "B-r-15",
+   "via": "review",
+   "date": "2026-10-14 15:00 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "FAQ 7 recommends a consent form over a waiver for a single treatment with no source on the distinction; a recommendation, so a note.",
+   "fix": "Source the waiver vs consent distinction or drop the sentence on the next edit.",
+   "by": "B-r-15",
+   "via": "review",
+   "date": "2026-10-14 15:00 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "domain_sources",
+   "issue": "The FDA quote is correct in content, but the source is a non-canonical FDA host that returns 403 to checks (QC P3 P2).",
+   "fix": "Cite the www.fda.gov hair dyes page carrying the same sentence.",
+   "by": "B-r-15",
+   "via": "review",
+   "date": "2026-10-14 15:00 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "Comparison picks Google Forms, which does not rank in this page's top 10 (QC K7); esign.com or WaiverForever do.",
+   "fix": "Prefer a ranking vendor from the library when the table is next generated.",
+   "by": "B-r-15",
+   "via": "review",
+   "date": "2026-10-14 15:00 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "2b4c316161fb54bb",
+   "alt:share_image": "85e76ca606d6f794",
+   "alt:tab_image_1": "a2635526d7f3cc6d",
+   "alt:tab_image_2": "959a779e1931fb0d",
+   "alt:tab_image_3": "ac396cc796344d67",
+   "alt:tab_image_4": "b0eba552c3bfb722",
+   "breadcrumb": "36f302bb40dc8bd8",
+   "chip_adds": "8464599b7c70f252",
+   "explore_cta": "6e1fc6739ad55adf",
+   "faq": "23b5c9fd52a85a2f",
+   "feature_1": "b2bce2dcb7fc9519",
+   "feature_2": "68edf839da99e213",
+   "feature_3": "3af85374e4212da2",
+   "feature_4": "0bbd170ed625f108",
+   "feature_5": "a8a361c2e0a65b28",
+   "feature_6": "a4f2f45477206915",
+   "features_heading": "3db7a4d3f4ceb712",
+   "features_subheading": "8eb451aed76c3334",
+   "h1": "39f7c3ab681f5c39",
+   "hero_description": "093a8124107bdd2e",
+   "hero_prompt": "e2b1cec7de4f4451",
+   "howto_description": "422bd425eb810886",
+   "howto_step_1_des": "187a5f8b0bef4fba",
+   "howto_step_1_title": "4727b0fc09da95f7",
+   "howto_step_2_des": "37906ced65a75c00",
+   "howto_step_2_title": "0fcb886e6e2fa333",
+   "howto_step_3_des": "9dd8bdb143f371de",
+   "howto_step_3_title": "25051e48f7c4dc9c",
+   "howto_step_4_des": "c53aa5ecd6bd227e",
+   "howto_step_4_title": "840d3b35bb036f7c",
+   "howto_step_5_des": "93c19645a768e08f",
+   "howto_step_5_title": "91635fcd0e1e76df",
+   "howto_step_6_des": "f1485e8096293664",
+   "howto_step_6_title": "d4ab49d810fc8096",
+   "howto_step_7_des": "628a4e35a9a1677d",
+   "howto_step_7_title": "c63a56566289b566",
+   "howto_title": "5a37cdb07590ffe0",
+   "meta_description": "f166b34e41a0b8df",
+   "meta_title": "1df9255b565722b1",
+   "mockup": "7beefee7949d2f44",
+   "product_name": "c19084267ac69fa4",
+   "prompt_chip_1": "df2322534f40edae",
+   "prompt_chip_2": "b822ee1872b5a30d",
+   "prompt_chip_3": "0811c364f66a7046",
+   "prompt_chip_4": "fe119897a42f00ce",
+   "slug": "9afee275dc7d819a",
+   "tab_content_1": "79201998bdcf5de5",
+   "tab_content_2": "944c49f019626384",
+   "tab_content_3": "5e84234a69410555",
+   "tab_content_4": "fa0a588c7053bbd1",
+   "tab_label_1": "ecb7cf1a434f0755",
+   "tab_label_2": "526b0e0e065bec87",
+   "tab_label_3": "b32d601e2c117fa9",
+   "tab_label_4": "cae18f573317b503",
+   "usecase_heading": "a53861b1a7715c02",
+   "why_description": "cfba84222be65616",
+   "why_table": "764ca13432fce33a",
+   "why_title": "fee17c059ec60846"
+  },
+  "all": "61c863b518e81075",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "2b4c316161fb54bb",
+   "alt:share_image": "85e76ca606d6f794",
+   "alt:tab_image_1": "a2635526d7f3cc6d",
+   "alt:tab_image_2": "959a779e1931fb0d",
+   "alt:tab_image_3": "ac396cc796344d67",
+   "alt:tab_image_4": "b0eba552c3bfb722",
+   "breadcrumb": "36f302bb40dc8bd8",
+   "chip_adds": "8464599b7c70f252",
+   "explore_cta": "6e1fc6739ad55adf",
+   "faq": "23b5c9fd52a85a2f",
+   "feature_1": "b2bce2dcb7fc9519",
+   "feature_2": "68edf839da99e213",
+   "feature_3": "3af85374e4212da2",
+   "feature_4": "0bbd170ed625f108",
+   "feature_5": "a8a361c2e0a65b28",
+   "feature_6": "a4f2f45477206915",
+   "features_heading": "3db7a4d3f4ceb712",
+   "features_subheading": "8eb451aed76c3334",
+   "h1": "39f7c3ab681f5c39",
+   "hero_description": "093a8124107bdd2e",
+   "hero_prompt": "e2b1cec7de4f4451",
+   "howto_description": "422bd425eb810886",
+   "howto_step_1_des": "187a5f8b0bef4fba",
+   "howto_step_1_title": "4727b0fc09da95f7",
+   "howto_step_2_des": "37906ced65a75c00",
+   "howto_step_2_title": "0fcb886e6e2fa333",
+   "howto_step_3_des": "9dd8bdb143f371de",
+   "howto_step_3_title": "25051e48f7c4dc9c",
+   "howto_step_4_des": "c53aa5ecd6bd227e",
+   "howto_step_4_title": "840d3b35bb036f7c",
+   "howto_step_5_des": "93c19645a768e08f",
+   "howto_step_5_title": "91635fcd0e1e76df",
+   "howto_step_6_des": "f1485e8096293664",
+   "howto_step_6_title": "d4ab49d810fc8096",
+   "howto_step_7_des": "628a4e35a9a1677d",
+   "howto_step_7_title": "c63a56566289b566",
+   "howto_title": "5a37cdb07590ffe0",
+   "meta_description": "f166b34e41a0b8df",
+   "meta_title": "1df9255b565722b1",
+   "mockup": "7beefee7949d2f44",
+   "product_name": "c19084267ac69fa4",
+   "prompt_chip_1": "df2322534f40edae",
+   "prompt_chip_2": "b822ee1872b5a30d",
+   "prompt_chip_3": "0811c364f66a7046",
+   "prompt_chip_4": "fe119897a42f00ce",
+   "slug": "9afee275dc7d819a",
+   "tab_content_1": "79201998bdcf5de5",
+   "tab_content_2": "944c49f019626384",
+   "tab_content_3": "5e84234a69410555",
+   "tab_content_4": "fa0a588c7053bbd1",
+   "tab_label_1": "ecb7cf1a434f0755",
+   "tab_label_2": "526b0e0e065bec87",
+   "tab_label_3": "b32d601e2c117fa9",
+   "tab_label_4": "cae18f573317b503",
+   "usecase_heading": "a53861b1a7715c02",
+   "why_description": "cfba84222be65616",
+   "why_table": "764ca13432fce33a",
+   "why_title": "fee17c059ec60846"
+  },
+  "all": "61c863b518e81075",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
