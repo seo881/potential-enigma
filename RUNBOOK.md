@@ -130,7 +130,7 @@ After every task Divit gives, write `reports/YYYY-MM-DD/HHMM-<slug>.md` (local t
 - **Not done:** anything skipped and why.
 - **Open questions for Divit.**
 
-Add a line to `reports/INDEX.md` (newest first: date, slug, one-line summary, commit SHA of the work). The repo is **public**: never put keys, tokens, raw API responses, SERP or AlsoAsked question text, or anything from `private/` or `.cache/` in a report; reference the file paths instead. Commit and push with `bash ops/sync.sh "<message>" <paths>`, then reply in chat in under 15 lines: summary, report path, SHA.
+Add a line to `reports/INDEX.md` (newest first: date, slug, one-line summary, commit SHA of the work). The repo is **public**: never put keys, tokens, raw API responses, SERP or AlsoAsked question text, or anything from `private/` or `.cache/` in a report; reference the file paths instead. Commit and push with `bash ops/sync.sh "<message>" <paths>` (the files you changed, nothing else: see section 4 of docs/TWO_ACCOUNTS.md), then reply in chat in under 15 lines: summary, report path, SHA.
 
 ## 7. Where things are
 | Path | What |
@@ -149,7 +149,7 @@ Add a line to `reports/INDEX.md` (newest first: date, slug, one-line summary, co
 
 ## Parallel hubs (four sessions) and batch review (2026-10-07)
 - `bash ops/worktrees.sh` creates `~/emergent-hubs-lp`, `-form`, `-auto`, `-survey`: one git worktree per hub, each pinned to its hub (`.hub`; `hubctl claim` refuses other hubs there), on a branch tracking `origin/main`. Git-ignored shared state (`.venv`, `private/`, `.cache/`, `.locks/`, the keyword map) is symlinked to the main checkout, so all sessions share one AlsoAsked store and one set of file locks.
-- Start one Claude Code session per worktree. Each claims only its hub's pages, and commits with `bash ops/sync.sh "<message>" <paths>`: it pulls with rebase first, then commits and pushes to `main` (retrying on a race). Status files are per hub, so sessions rarely touch the same file.
+- Start one Claude Code session per worktree. Each claims only its hub's pages, and commits with `bash ops/sync.sh "<message>" <paths>`: it commits exactly those paths (`git commit --only`; other staged or modified files in the clone stay out), then fetches, rebases only if origin moved, and pushes to `main` (retrying on a race). Paths are required; directories are refused except `images/<hub>/<slug>` and `audits/live/<date>`. Status files are per hub, so sessions rarely touch the same file.
 - Per session: writers one page each (many in parallel); one reviewer agent may take up to 4 pages, never a page it wrote (`hubctl state <url> qc_pass --by <writer>` records authorship; review refuses authors and a second review).
 - After each agent returns, log its token usage for the page: `hubctl usage-log <url> <tokens> --role writer|reviewer` (a batch agent's tokens are split across its pages). `hubctl metrics` reports first-pass yield, cycles per page, median minutes per stage, tokens per page, and the notes that recur on 3+ pages (proposed rules for Divit).
 

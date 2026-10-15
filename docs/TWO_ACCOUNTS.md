@@ -112,9 +112,11 @@ Who holds a page:
   - Item publishes have a standing go for pages that are reviewed, hash-matching, at 0 rejects and pre-flight passing (never a site publish). Flagged pages wait for the packet tick. A page failing verify-live is unpublished at once.
 
 ## 4. Commit protocol
-- Always use `bash ops/sync.sh "<message>" <explicit paths>`. It pulls with rebase and autostash, refuses conflict markers, then commits and pushes. Never `git add -A`, never force-push, never `git reset --hard`.
+- Always use `bash ops/sync.sh "<message>" <explicit paths>`, naming only the files you changed. It commits exactly those paths (`git add -- <paths>`, `git commit --only -- <paths>`, diffstat printed first), refuses conflict markers and review-lock violations in them, then fetches, rebases (autostash) only if origin moved, and pushes. Many agents share one clone and one index: anything else staged or modified stays out of your commit (Divit 2026-10-15, after d5109889 swept another agent's half-done tests/golden/run.py). Never `git add -A`, never `git commit -a`, never force-push, never `git reset --hard`.
+- sync.sh refuses: no paths, `.`, globs, absolute paths, `..`, `private/`, `.cache/`, and any directory except `images/<hub>/<slug>` and `audits/live/<date>`. Shared files (`status/<hub>.json`, `status/usage.jsonl`, `reports/INDEX.md`, `tests/golden/cases.jsonl`) are committable, but the whole file goes in: pass only the shared files you changed, right after you change them. Test: `bash tests/test_sync.sh` (temp repos with a local bare origin).
 - **One page = one commit**, as soon as it reaches its stage: `specs/<hub>/<slug>.json`, `images/<hub>/<slug>/` and `status/<hub>.json`.
 - Before any hubctl command that changes state, pull; push right after it. Both accounts write `status/form.json`, `status/aab.json` and `status/sqb.json`: B for claims, holds and rework; A for review and ship.
+- If sync.sh warns that the autostash pop conflicted, your commit is already pushed and clean; the conflicted files belong to other sessions (their changes stay in `git stash list`).
 - If sync.sh refuses (conflict markers): for a file you do not own, take upstream. For your own page, keep yours. Then rerun sync.sh.
 - Render images locally before pushing (`ops/render_changed.py HEAD HEAD --pages <slug> --no-commit`), and render last, after the final brief change.
 

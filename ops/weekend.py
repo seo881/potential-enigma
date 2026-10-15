@@ -48,7 +48,18 @@ def save(W): json.dump(W, open(STATE, "w"), indent=1, sort_keys=True)
 def hdir(hub): return H.CFG["hubs"][hub]["repo_dir"]
 def bfile(kind, hub): return os.path.join(ROOT, "plan", "batches", f"wk-{kind}-{hdir(hub)}.txt")
 def slug(u): return u.rsplit("/", 1)[1]
+def _expand(paths):
+    """ops/sync.sh takes files, not directories (Divit 2026-10-15). The weekend loop is the clone's only writer by design
+    (plan/weekend-run.md), so a directory it passes expands to its changed and new files."""
+    out = []
+    for p in paths:
+        if not os.path.isdir(os.path.join(ROOT, p)) or re.match(r"^(images/[^/]+/[^/]+|audits/live/\d{4}-\d{2}-\d{2})/?$", p): out.append(p); continue
+        r = subprocess.run(["git", "ls-files", "-m", "-o", "--exclude-standard", "-z", "--", p], cwd=ROOT, capture_output=True, text=True)
+        out += sorted({e for e in r.stdout.split("\0") if e})
+    return out
 def sync(msg, paths):
+    paths = _expand(paths)
+    if not paths: print("nothing to commit"); return 0
     with G.lock("git"):
         r = subprocess.run(["bash", os.path.join(ROOT, "ops", "sync.sh"), msg, *paths], cwd=ROOT, capture_output=True, text=True)
     print((r.stdout + r.stderr).strip()[-400:]); return r.returncode

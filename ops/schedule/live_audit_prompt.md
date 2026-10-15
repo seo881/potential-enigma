@@ -12,7 +12,7 @@ Read LESSONS.md and docs/LIVE_AUDIT.md first. Then, in order, without asking any
    .cache/live/DATE/drift-readback.json and run `hubctl live-audit drift DATE .cache/live/DATE/drift-readback.json`.
 4. If this is NOT a dry run, for each finding with action fix or fix-by-writer (P0 first):
    a. fix-by-writer: `hubctl live-fix brief ID`, spawn one page-writer agent with that brief; fix: `hubctl live-fix apply ID`.
-   b. commit and push via `bash ops/sync.sh "<msg>" specs images`.
+   b. commit and push via `bash ops/sync.sh "<msg>" specs/<hub>/<slug>.json images/<hub>/<slug>` (only the pages fixed; sync.sh refuses whole directories).
    c. read the item with the Webflow MCP into .cache/live/DATE/ID.readback.json; `hubctl live-fix prepare ID --readback that file`.
    d. send ops/out/live/ID.json with data_cms_tool exactly as written (update, publish that item only, read back); save the response;
       `hubctl live-fix verify ID RESPONSE`. If it prints VERIFY FAILED, send the rollback file it names at once, then
@@ -22,5 +22,5 @@ Read LESSONS.md and docs/LIVE_AUDIT.md first. Then, in order, without asking any
    Webflow sites tool (data_sites_tool, publish_site) for anything, not even to read; CMS changes go live only by item publish. Never a site publish,
    never create, delete or unpublish, never a template, component, class, page or hub change.
 5. `hubctl live-audit report DATE` (add --dry for a dry run), then `.venv/bin/python3 tests/golden/run.py`.
-6. `bash ops/sync.sh "Live audit DATE" audits reports tests/golden childedits specs images status`.
+6. `bash ops/sync.sh "Live audit DATE" <the files this run changed>`: audits/live/DATE, audits/live/ledger.json, LEDGER.md and state.json, the report file and reports/INDEX.md, tests/golden/cases.jsonl if cases were added, each fixed page's spec and images/<hub>/<slug>, and only the status files this run changed (`git status --short` lists them; never a whole directory, never a file another session is editing).
 7. Reply with the digest line only.
