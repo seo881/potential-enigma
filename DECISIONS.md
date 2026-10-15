@@ -2,6 +2,19 @@
 
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
+## 2026-10-15 (night)
+- **Overnight run, standing go (Divit, 2026-10-15 night):** tonight a page reviewed by an independent reviewer with 0 blocking findings, 0 flags and QC 0 may be approved automatically. It is logged as `by: standing-go (Divit 2026-10-15 night)`, never as divit. Flagged pages never block a batch: they are skipped into one morning packet.
+- **Ruling 19 lifted for tonight's overnight loop only (Divit, 2026-10-15 night):** api-create, api-update and api-publish (item publishes) may run headless, under all of these:
+  - QC at ship time: QC 0, gate 10/10, the Learn check, the hero-prompt rule;
+  - verify-live on every page;
+  - no site publish, no Designer, no Webflow MCP;
+  - a cap of 200 live child pages, with the last batch sized to land on it;
+  - on any verify-live failure, unpublish the item if the script supports it; otherwise hold it and stop all shipping for the night.
+  Ruling 19 is restored automatically when the run ends (record the restore here). Budget: weekly usage at most 70% (about 24M tokens), at most two 5-hour windows, at most 60 AlsoAsked credits.
+- **Flag decision (Divit, 2026-10-15 night):** thank-you-page Q10 (PA6) approved (keep). Recorded in rules/flag_decisions.json.
+- **Live-page cap (Divit, 2026-10-15 night):** stop everything once emergent.sh reaches 200 live child pages, with the last batch sized to land exactly on 200. After that there is no more shipping, writing or reviewing that night.
+- **Learn references (Divit, 2026-10-15/16):** keep the Form template's per-item Learn source (`acrm---learn`). Every page needs 3 published Learn references wherever its template sources them (blocking check, f0c62f4c). Topic-matching the 155 pages that carry the old default trio is backlog (plan/backlog-2026-10-17.md).
+
 ## 2026-10-14
 - **Ruling 22 (Divit, 2026-10-14 night): the coordinator moves to Account B.** A was at about 80% of its session and weekly budget. B (`~/emergent-hubs-a`, `CLAUDE_CONFIG_DIR=~/.claude`) is now the coordinator and the **only Webflow writer**: Designer runs, API ships (`hubctl api-*`), item publishes, staging check, and the staging and production publish requests to Divit. B also takes A's remaining roles: AlsoAsked and Semrush pulls, re-ranks, the advisor flag list, the daily report, tooling and rules. **A makes no Webflow calls until a new ruling.** The live audit and the publish watch run from B's clone on account B (ops/schedule plists; live_audit_daily.sh skips in any other clone). The state at handover is in docs/COORDINATOR_HANDOFF.md.
 - **Divit, night (decisions on the 2015 report):** (1) accounting-automation Q8 ("top rated ... software") is swapped; if no passing replacement exists, the page is parked like the others (swap_recheck found 1 of 1: routed to B). (2) Approved as written: compliance-automation Q10, product-launch-landing-page Q9 and Q10 (rules/flag_decisions.json, by hash). (3) The live sales-automation HubSpot cell becomes "Self-serve CRM; limited workflows on Starter, sequences from Professional", through the API script, with its catalog source in the library, a slim review, item publish and verify-live. (4) Emergent-column wording for the compliance, healthcare and RPA tables and the payroll "ap" variant: drafted from approved claims in rules/claims.json and capabilities.json only (no new claims), shown as one short list for a one-line approval. (5) "Tools come in N kinds" stays P1 on new writing (QC C7): an unsourced taxonomy is a truth problem. (6) payroll-automation's slim review through A's spot review is accepted as a one-off; the reviewer was independent and stricter.
