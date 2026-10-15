@@ -23,7 +23,7 @@ RUN="$REPO/.cache/overnight-b"; mkdir -p "$RUN"
 PY="$REPO/.venv/bin/python3"
 export EMG_HEADLESS=1   # ruling 19: ops/webflow_api.py refuses CMS writes when set
 export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-export CLAUDE_CONFIG_DIR="$HOME/.claude"   # account B (ruling 20); preflight refuses any other config dir
+unset CLAUDE_CONFIG_DIR   # account B = the default ~/.claude. Setting it explicitly makes headless sessions "Not logged in" (2026-10-16 night, B-c-1); preflight refuses any other config dir
 export CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0   # headless sessions wait for their subagents (writers were stopped mid-page); MAX_ITER_SECS still caps a session
 unset CLAUDECODE CLAUDE_CODE_ENTRYPOINT CLAUDE_CODE_MESSAGING_SOCKET CLAUDE_CODE_MESSAGING_TOKEN CLAUDE_CODE_EXECPATH \
       CLAUDE_CODE_SESSION_ID CLAUDE_CODE_CHILD_SESSION CLAUDE_CODE_SESSION_ATTENDED CLAUDE_PID CLAUDE_EFFORT
@@ -147,7 +147,7 @@ restore19() {   # EXIT trap: ruling 19 is restored whenever the loop ends, howev
 
 echo $$ > "$RUN/pid"
 caffeinate -dimsu -w $$ &
-log "B overnight run started (pid $$, caffeinate $!, CLAUDE_CONFIG_DIR=$CLAUDE_CONFIG_DIR)"
+log "B overnight run started (pid $$, caffeinate $!, CLAUDE_CONFIG_DIR=${CLAUDE_CONFIG_DIR:-default ~/.claude})"
 trap restore19 EXIT
 trap 'log "terminated by signal"; exit 0' TERM INT
 LIMITED_SINCE=0; ERRS=0; IDLE=0; RENDER_WAITS=0; N=0; W_LAST=""; RESETS=0
