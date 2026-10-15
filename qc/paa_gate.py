@@ -372,6 +372,9 @@ def workbook_ideas(url):
 
 def pull_path(slug): return os.path.join(ROOT, "private", "alsoasked", slug + ".json")
 def sec_pull_path(slug): return os.path.join(ROOT, "private", "alsoasked", slug + "--sec.json")   # A6 (2026-10-12): one pull on the top secondary
+def has_pull(slug):
+    """Any saved AlsoAsked pull for the page (primary or top-secondary --sec): QC F1/F2 count the same pulls as the gate (B-dev-11, 2026-10-15)."""
+    return any(os.path.exists(p) for p in (pull_path(slug), sec_pull_path(slug)))
 def pulls(slug):
     """Every saved AlsoAsked pull for a page: the primary pull and, if made, the top-secondary pull (weekend.py aa --kw secondary)."""
     return [json.load(open(p)) for p in (pull_path(slug), sec_pull_path(slug)) if os.path.exists(p)]

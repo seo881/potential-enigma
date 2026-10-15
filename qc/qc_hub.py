@@ -539,8 +539,8 @@ def check(spec, siblings):
     if not frozen_spec and fq:
         sys.path.insert(0, os.path.join(ROOT, "plan")); import serp as S
         sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate as _PG
-        if not os.path.exists(_PG.pull_path(spec["url"].rsplit("/", 1)[1])):
-            add("P1", "F1", "faq", "no AlsoAsked pull for this page (private/alsoasked/<slug>.json): pull it through ops/weekend.py aa <url> before writing the FAQ")
+        if not _PG.has_pull(spec["url"].rsplit("/", 1)[1]):   # primary or --sec pull: the gate reads both (paa_gate.pulls)
+            add("P1", "F1", "faq", "no AlsoAsked pull for this page (private/alsoasked/<slug>.json or <slug>--sec.json): pull it through ops/weekend.py aa <url> before writing the FAQ")
         live = S.load(spec["url"])  # legacy DataForSEO capture (pages written before 2026-10-10): F2/F3/F5 still check against it
         srcs = {x.get("q"): x for x in spec.get("faq_sources", [])}
         me_secs = {norm(x["kw"]) for x in (KMAP or {}).get(spec["url"], {}).get("secondaries", [])}
@@ -592,7 +592,7 @@ def check(spec, siblings):
                 elif kind == "definition":
                     if norm(ref) != norm(prim): add("P1", "F2", "faq", "a definition item must define the page's primary keyword")
                 elif kind == "alsoasked":   # rescue rewrites of legacy pages (Divit 2026-10-13, proposal F2): a true AlsoAsked label; PA1 checks it against the pull
-                    if not os.path.exists(_PG.pull_path(spec["url"].rsplit("/", 1)[1])): add("P1", "F2", "faq", f'source says alsoasked but this page has no AlsoAsked pull')
+                    if not _PG.has_pull(spec["url"].rsplit("/", 1)[1]): add("P1", "F2", "faq", f'source says alsoasked but this page has no AlsoAsked pull')
                 else:
                     add("P1", "F2", "faq", f'unknown source type "{kind}" (alsoasked, paa, related, secondary, keyword, definition)')
             me_page = (KMAP or {}).get(spec["url"], {"primary": prim, "secondaries": []})
