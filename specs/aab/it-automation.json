@@ -36,7 +36,7 @@
   "tab_label_3": "Overdue Updates",
   "tab_label_4": "Contract Renewals",
   "tab_content_1": "<h3>Seats under $25 a month need no sign-off</h3><p>Linnea Vrabel asks for a seat in the team whiteboard app, which costs $12 a month. Requests under $25 a month are approved without review. The app adds her seat through the whiteboard app's admin API and messages Linnea that it is ready. A pricier request would wait for the IT manager instead.</p>",
-  "tab_content_2": "<h3>A replacement request for every laptop at 48 months</h3><p>Teodor Beaumont's laptop, L-0417, was bought in October 2022. It turns 48 months old this month. The app reads the purchase date from the asset list, opens replacement request R-1182, and adds L-0417 to the Q4 purchase list. Younger laptops in the list stay as they are.</p>",
+  "tab_content_2": "<h3>A replacement request for every laptop at 48 months</h3><p>Teodor Beaumont's laptop, L-0417, has reached 48 months in service. The app reads its age from the asset list, opens replacement request R-1182, and adds L-0417 to the Q4 purchase list. Younger laptops in the list stay as they are.</p>",
   "tab_content_3": "<h3>Fifteen days late, the update reaches its owner</h3><p>The device management tool reports that Saoirse Kettunen's laptop, L-0388, has gone 15 days without a security update. Your limit is 14 days. The app sends Saoirse a direct message asking her to install the update and restart, and marks L-0388 overdue on the IT dashboard.</p>",
   "tab_content_4": "<h3>38 of 150 seats sat unused before the renewal</h3><p>The project tracker contract renews in 30 days with 150 paid seats, and only 112 people signed in during the last 60 days. The app sends Dag Holmqvist, the IT manager, a renewal summary of the 38 unused seats with a Review seats button, before anyone signs.</p>",
   "mockup": "<p id=\"\">window.awbMockup = { seatRequests: \"Build a request form where employees ask for a seat in a paid app and say what it costs per month. Approve anything under $25 a month right away, add the seat through the app's admin API, and message the employee when it is ready. Send anything at $25 or more to the IT manager to approve.\", laptopAging: \"Keep a list of every company laptop with its owner and purchase date. When a laptop turns 48 months old, open a replacement request with its own number and add the laptop to this quarter's purchase list. Show me every laptop that will reach 48 months in the next 90 days.\", overdueUpdates: \"Connect to our device management tool and check each laptop's security updates every day. If a laptop goes more than 14 days without one, send its owner a direct message asking them to install it and restart, and mark the laptop overdue on the IT dashboard.\", contractRenewals: \"For each software contract, store the renewal date and the number of paid seats. Thirty days before a renewal, count the people who signed in during the last 60 days, and send the IT manager a summary of the unused seats with a button to review them.\" };</p>",
@@ -74,7 +74,7 @@
   },
   "tab_image_2": {
    "path": "images/aab/it-automation/uc-2.svg",
-   "alt": "An asset list flags laptop L-0417, bought in October 2022, at 48 months, opens replacement request R-1182, and adds it to the Q4 purchase list."
+   "alt": "An asset list flags laptop L-0417 at 48 months in service, opens replacement request R-1182, and adds it to the Q4 purchase list."
   },
   "tab_image_3": {
    "path": "images/aab/it-automation/uc-3.svg",
@@ -122,6 +122,20 @@
    "via": "review",
    "by": "B-r-4",
    "note": "[images | CONTENT_DEFECTS #15] tab_content_2 (copy, image_brief tab 2, alt): Absolute purchase dates paired with ages computed from October 2026 go stale on Nov 1, 2026: the copy ('It turns 48 months old this month'), the image card ('Bought October 2022', 'Turns 48 months old this month'), the asse"
+  },
+  {
+   "t": "2026-10-14 12:36 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-63",
+   "note": ""
+  },
+  {
+   "t": "2026-10-15 08:42 UTC",
+   "state": "reviewed",
+   "via": "ready",
+   "by": "B-w-63",
+   "note": "one rework applied by B-w-63 after B-r-4 (1 findings marked blocking then, fixed per rules/SEVERITY.md); ready for Divit"
   }
  ],
  "pipeline": "r15",
@@ -275,13 +289,13 @@
   "angle": "The top 10 are vendor and course explainers that define IT automation in the abstract and stop at server scripts and infrastructure as code. This page shows the request-and-tracking side an internal IT team actually runs every week, drawn as working screens: a $12 software seat approved under a $25 limit, a laptop flagged at 48 months, an overdue security update chased with the laptop's owner, and a contract renewal that shows 38 unused seats before anyone signs. The FAQ covers the definitions searchers compare: Python scripts, process, infrastructure, operations, tools and services.",
   "tab_stories": [
    "Linnea Vrabel asks for a seat in the team whiteboard app at $12 a month; requests under $25 a month are approved without review, so the app adds her seat through the whiteboard app's admin API and sends her a message that it is ready.",
-   "Laptop L-0417, assigned to Teodor Beaumont, was bought in October 2022 and reaches 48 months this month; the app reads the purchase date from the asset list, opens replacement request R-1182 and adds the laptop to the Q4 purchase list.",
+   "Laptop L-0417, assigned to Teodor Beaumont, has reached 48 months in service; the app reads its age from the asset list, opens replacement request R-1182 and adds the laptop to the Q4 purchase list.",
    "The device management tool reports that Saoirse Kettunen's laptop L-0388 has gone 15 days without a security update, past the 14-day limit; the app sends Saoirse a direct message asking her to install it and restart, and marks the laptop overdue on the IT dashboard.",
    "The project tracker contract renews in 30 days with 150 paid seats and 112 people active in the last 60 days; the app sends Dag Holmqvist, the IT manager, a renewal summary listing the 38 unused seats with a Review seats button."
   ],
   "openers": [
    "Linnea Vrabel asks for a seat in the whiteboard app",
-   "Laptop L-0417 was bought in October 2022",
+   "Teodor Beaumont's laptop has reached 48 months in service",
    "Saoirse Kettunen's laptop has gone 15 days without a security update",
    "The project tracker contract renews in 30 days",
    "Pull last quarter's IT tickets",
@@ -468,14 +482,12 @@
        "columns": [
         "Laptop",
         "Owner",
-        "Bought",
         "Age"
        ],
        "widths": [
-        0.2,
-        0.36,
         0.24,
-        0.2
+        0.46,
+        0.3
        ],
        "row_h": 64,
        "highlight": 0,
@@ -483,7 +495,6 @@
         [
          "L-0417",
          "Teodor Beaumont",
-         "Oct 2022",
          [
           "48 months",
           "warn"
@@ -492,7 +503,6 @@
         [
          "L-0452",
          "Priit Lindqvist",
-         "Mar 2023",
          [
           "43 months",
           "n"
@@ -501,7 +511,6 @@
         [
          "L-0503",
          "Wendell Osei",
-         "Jan 2024",
          [
           "33 months",
           "n"
@@ -510,7 +519,6 @@
         [
          "L-0561",
          "Corinne Abara",
-         "Aug 2025",
          [
           "14 months",
           "n"
@@ -533,16 +541,16 @@
        "color": "sub"
       },
       {
-       "type": "meta",
-       "icon": "calendar",
-       "kind": "acc",
-       "text": "Bought October 2022"
-      },
-      {
        "type": "text",
-       "text": "Turns 48 months old this month",
+       "text": "48 months in service",
        "size": 16,
        "color": "muted"
+      },
+      {
+       "type": "meta",
+       "icon": "database",
+       "kind": "acc",
+       "text": "Age read from the asset list"
       },
       {
        "type": "chips",
@@ -561,19 +569,15 @@
      "title": "Q4 purchase list",
      "sub": "L-0417 added"
     },
-    "alt": "An asset list flags laptop L-0417, bought in October 2022, at 48 months, opens replacement request R-1182, and adds it to the Q4 purchase list.",
+    "alt": "An asset list flags laptop L-0417 at 48 months in service, opens replacement request R-1182, and adds it to the Q4 purchase list.",
     "story": [
      {
-      "copy": "turns 48 months old",
+      "copy": "every laptop at 48 months",
       "image": "If a laptop turns 48 months old"
      },
      {
       "copy": "Teodor Beaumont",
       "image": "Teodor Beaumont"
-     },
-     {
-      "copy": "bought in October 2022",
-      "image": "Bought October 2022"
      },
      {
       "copy": "opens replacement request R-1182",
@@ -586,6 +590,14 @@
      {
       "copy": "adds L-0417",
       "image": "L-0417 added"
+     },
+     {
+      "copy": "48 months in service",
+      "image": "48 months in service"
+     },
+     {
+      "copy": "reads its age from the asset list",
+      "image": "Age read from the asset list"
      }
     ]
    },
@@ -928,8 +940,8 @@
   }
  ],
  "qc_passed": {
-  "rules_version": "f998a545c5c5",
-  "date": "2026-10-14 11:36 UTC"
+  "rules_version": "49c750997e71",
+  "date": "2026-10-14 12:35 UTC"
  },
  "writers": [
   "B-w-63"
