@@ -803,6 +803,13 @@
    "via": null,
    "by": "B-w-120",
    "note": ""
+  },
+  {
+   "t": "2026-10-15 15:13 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-16",
+   "note": "[truth | CONTENT_DEFECTS #10] faq item 10; tab_content_2; howto_step_2_des; chip_adds[3]; mockup postPurchase: The send rule disagrees across fields. FAQ 10 says \"within a day of the experience\"; tab_content_2 says \"A week after delivery\"; howto_step_2_des recommends \"seven days after delivery, at d"
   }
  ],
  "chip_adds": [
@@ -813,5 +820,325 @@
  ],
  "writers": [
   "B-w-120"
- ]
+ ],
+ "review": {
+  "by": "B-r-16",
+  "date": "2026-10-15 15:13 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Customer Satisfaction Survey That Acts on Every Low Score\", hero \"Build a customer satisfaction survey that asks for a rating after each order or ticket and sends every low score to an owner.\" carry the transactional CSAT job; how-to description is one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Searchers want the definition, questions, examples and a template: FAQ 1 defines it, FAQ 4 gives the questions (\"How satisfied were you with your delivery?\"), FAQ 5 an example, FAQ 6 the template, how-to 01-07 the build."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary: \"day 7, day 30, and day 90\", \"Per-account scores in HubSpot before every QBR\", \"saved with the agent and with how long the ticket stayed open\". Interact (quiz specialist) as a table column is a note."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs or full sentences (\"Ask for a 1-5 rating\", \"Pass the customer ID\", \"Send a Slack message\"); tabs open on full sentences (\"New accounts rate their experience\", \"When a ticket closes\")."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5 clean; short declaratives (\"Pick one headline score per survey and leave the others for a separate send.\"). Word repetition is a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail: \"A low CSAT score becomes an account your team can call today.\" Meta description phrasing is a note."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "Send timing and question counts disagree between fields (FAQ 10 \"within a day\" vs tab 2 \"A week after delivery\"; FAQ 4 \"four or five questions\" vs FAQ 10 \"under five questions\"; mockup b2bQuarterly \"five-bullet summary\" vs 3 drawn bullets; mockup supportTicket follow-up at \"3 or below\" vs tab 4 \"a single question\"); NPS-as-loyalty stated without a quoted source (FAQ 1, how-to 01). Claims prompt-build, api-connect, alerts, database-owned, no-caps, free-start, code-export, custom-domain, realtime are approved; CSAT 1-5 and 4-or-5 share, NPS 0-10 and 9-10 promoters, CES ease are quoted."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Owns transactional CSAT; FAQ 8 links customer effort score and FAQ 10 links customer feedback survey (both live) instead of covering them; how-to 01 scopes NPS and CES out."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, no brand, tool-choice or form-filler questions, hub link in item 2, sibling links mid-answer (none ends on a link), each answered first (\"A CSAT survey asks customers how satisfied they were...\")."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 1 alert drawn to #cs-alerts while the copy says \"the CSM gets the comment in Slack\"; tab 2 prompt \"flag the rest\" and heading \"exchanges for the rest\" vs copy \"A rating of 2 or lower flags the order\". Tabs 3 and 4 match (Sundial Bakeries -1.2 to H. Szabo; ticket #8790 rated 2 to #support-leads)."
+   }
+  },
+  "findings": [
+   {
+    "class": "wrong-fact",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "faq item 10; tab_content_2; howto_step_2_des; chip_adds[3]; mockup postPurchase",
+    "quote": "Send the survey within a day of the experience and keep it under five questions.",
+    "issue": "The send rule disagrees across fields. FAQ 10 says \"within a day of the experience\"; tab_content_2 says \"A week after delivery\"; howto_step_2_des recommends \"seven days after delivery, at day 30 of onboarding, or at quarter end\"; chip_adds[3] \"Add a post-purchase send 7 days after each order is delivered.\"; mockup postPurchase \"sent seven days after delivery\". FAQ 3 adds \"soon after it happens\".",
+    "fix": "Pick one timing rule and state it everywhere, e.g. FAQ 10: send it as soon as the customer can judge the experience (on ticket close, about a week after delivery), matching step 2 and tab 2.",
+    "severity": "blocking"
+   },
+   {
+    "class": "wrong-fact",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "faq item 4; faq item 10",
+    "quote": "Keep a short customer satisfaction survey to four or five questions.",
+    "issue": "FAQ 4 allows four or five questions; FAQ 10 says \"keep it under five questions\" (four at most). The two answers give different numbers for the same rule.",
+    "fix": "Use one number in both answers (e.g. five questions or fewer in both).",
+    "severity": "blocking"
+   },
+   {
+    "class": "wrong-fact",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "mockup b2bQuarterly; mockup supportTicket",
+    "quote": "write a five-bullet summary per account to the HubSpot record",
+    "issue": "The tab 3 prompt asks for a five-bullet summary; the tab 3 image draws three bullets under \"QBR summary in HubSpot\". The supportTicket prompt adds \"an open follow-up for any score of 3 or below\", while tab_content_4 says the customer gets \"a single question\" and the low-score threshold everywhere else on the tab is 2 (\"A score of 2 or lower\").",
+    "fix": "Make the b2bQuarterly prompt say three bullets (or a short summary); make the supportTicket follow-up threshold match tab 4 (a single question, alert at 2 or lower), or add the follow-up to the tab copy at the same threshold.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 1; howto_step_1_des",
+    "quote": "Related scores measure loyalty and effort instead of satisfaction with a single moment.",
+    "issue": "That NPS measures loyalty is a statement about a professional standard with no quoted span: the NPS source quote covers only the recommend question and the 0-10 scale. Same claim in howto_step_1_des: \"Loyalty over time is a job for NPS, and effort for CES.\" (effort is sourced; loyalty is not).",
+    "fix": "Add a domain_sources entry whose quote says NPS measures loyalty (e.g. netpromotersystem.com), or reword both sentences to what is sourced: NPS asks how likely a customer is to recommend you.",
+    "severity": "blocking"
+   },
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #25",
+    "field": "tab_image_1 (image_brief.tabs[0].hero.channel)",
+    "quote": "When a score drops to 2, the CSM gets the comment in Slack next to the earlier scores.",
+    "issue": "The copy and the mockup prompt send the alert to one person, the CSM; the image posts it to the shared #cs-alerts channel.",
+    "fix": "Draw the alert as a Slack direct message to Imani Okafor (no channel), or change the copy to a named channel.",
+    "severity": "blocking"
+   },
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "tab_image_2 (image_brief.tabs[1].prompt); tab_heading_2",
+    "quote": "A week after delivery, ask for ratings, request reviews from 5-star buyers, flag the rest",
+    "issue": "The drawn prompt flags every buyer below 5 and the tab heading \"Reviews from happy buyers, exchanges for the rest\" promises exchanges to everyone else, but the tab copy flags only \"A rating of 2 or lower\" (mockup: \"flag anything under 3\"). Buyers who rate 3 or 4 get nothing in the copy.",
+    "fix": "Image prompt: \"...request reviews from 5-star buyers, flag 2 stars or lower\"; heading along the lines of \"Reviews from 5-star buyers, exchanges for low ratings\".",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq item 3; feature_1; faq item 1; faq item 6",
+    "quote": "save the open follow-up for customers who pick a low number",
+    "issue": "Advice on the open question is inconsistent: FAQ 3 keeps it for low scores only, while feature_1 (\"then one open question about the reason\"), FAQ 1 (\"and then asks why\") and FAQ 6 (\"then asks for the reason in an open box\") ask everyone.",
+    "fix": "One rule for the follow-up across the page.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Interact (quiz specialist)",
+    "issue": "A quiz-maker column on a CSAT page, and the Emergent build row is hub-generic (\"Prompt for the survey, quiz, or poll\"); HUB_RULES 5 asks for the 3 competitors that rank for this query.",
+    "fix": "Next table rebuild: a vendor that ranks for customer satisfaction survey.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "meta_description; page",
+    "quote": "asks the right question at the right moment",
+    "issue": "Generic phrase where a specific belongs; QC Q9 also counts \"score\" 17, \"account\" 15, \"ticket\" 11 times outside the FAQ.",
+    "fix": "Name the moment (after each order or ticket).",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #25",
+    "field": "tab_image_4 (image_brief.tabs[3].prompt)",
+    "quote": "alert the lead on any score of 1 or 2",
+    "issue": "The prompt names one lead; the copy and the image use the #support-leads channel (copy and image agree, the prompt wording drifts).",
+    "fix": "\"alert the support leads' channel\".",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq item 3; feature_1; faq item 1; faq item 6",
+   "issue": "Advice on the open question is inconsistent: FAQ 3 keeps it for low scores only, while feature_1 (\"then one open question about the reason\"), FAQ 1 (\"and then asks why\") and FAQ 6 (\"then asks for the reason in an open box\") ask everyone.",
+   "fix": "One rule for the follow-up across the page.",
+   "by": "B-r-16",
+   "via": "review",
+   "date": "2026-10-15 15:13 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "A quiz-maker column on a CSAT page, and the Emergent build row is hub-generic (\"Prompt for the survey, quiz, or poll\"); HUB_RULES 5 asks for the 3 competitors that rank for this query.",
+   "fix": "Next table rebuild: a vendor that ranks for customer satisfaction survey.",
+   "by": "B-r-16",
+   "via": "review",
+   "date": "2026-10-15 15:13 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "meta_description; page",
+   "issue": "Generic phrase where a specific belongs; QC Q9 also counts \"score\" 17, \"account\" 15, \"ticket\" 11 times outside the FAQ.",
+   "fix": "Name the moment (after each order or ticket).",
+   "by": "B-r-16",
+   "via": "review",
+   "date": "2026-10-15 15:13 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #25",
+   "field": "tab_image_4 (image_brief.tabs[3].prompt)",
+   "issue": "The prompt names one lead; the copy and the image use the #support-leads channel (copy and image agree, the prompt wording drifts).",
+   "fix": "\"alert the support leads' channel\".",
+   "by": "B-r-16",
+   "via": "review",
+   "date": "2026-10-15 15:13 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "e241145ad29cbd92",
+   "alt:share_image": "12fc498c68bd961b",
+   "alt:tab_image_1": "8ba27439a8956e54",
+   "alt:tab_image_2": "c1788739de206dc4",
+   "alt:tab_image_3": "8ea872f3b4afd84f",
+   "alt:tab_image_4": "58f25200d37e223c",
+   "breadcrumb": "f1e712b3006852ce",
+   "chip_adds": "99ac7138e2da0de1",
+   "explore_cta": "4e3b789ed376157b",
+   "faq": "3f232a3e7c1b94aa",
+   "feature_1": "19cd41b31d75534b",
+   "feature_2": "ecd79a61cd6107e4",
+   "feature_3": "d7be1da83801b970",
+   "feature_4": "acb16cd1da7c9932",
+   "feature_5": "1c3cf32f1db4ae86",
+   "feature_6": "2b16bbaba9f9b10f",
+   "features_heading": "5e2a8e43ec7cd875",
+   "features_subheading": "6907153c80854679",
+   "h1": "13616a515632d2c5",
+   "hero_description": "cdc0180813a85082",
+   "hero_prompt": "c69d2a5d6d1827d1",
+   "howto_description": "611ca1a5854d0c01",
+   "howto_step_1_des": "28878aee1ac9c05e",
+   "howto_step_1_title": "ca28bde7c131e5c9",
+   "howto_step_2_des": "7bd2a3e4a6b4bee6",
+   "howto_step_2_title": "f8b62f954b6efe4c",
+   "howto_step_3_des": "173284da510ba65d",
+   "howto_step_3_title": "b6b710d37b9726c4",
+   "howto_step_4_des": "f458baa9cfc5715e",
+   "howto_step_4_title": "ed3c285b6191de3d",
+   "howto_step_5_des": "3818602171f833e7",
+   "howto_step_5_title": "347ab8dbbb9fda03",
+   "howto_step_6_des": "31ea07f3b6254723",
+   "howto_step_6_title": "e4dd56f867787142",
+   "howto_step_7_des": "9095bc2571a3725b",
+   "howto_step_7_title": "6eff79cb1bda056b",
+   "howto_title": "cea08aa8207e6f9d",
+   "meta_description": "569766a8229172fd",
+   "meta_title": "d3e34d893abd2c5b",
+   "mockup": "e42f5d65954a3548",
+   "product_name": "3edb966a5b8abdd4",
+   "prompt_chip_1": "0705ef6af2da75b3",
+   "prompt_chip_2": "92cdca33e92a4d28",
+   "prompt_chip_3": "62e5f9c71050bee7",
+   "prompt_chip_4": "e0fe7325ef38b6e6",
+   "slug": "b97b761698cd87ff",
+   "tab_content_1": "b03b6287d5557be1",
+   "tab_content_2": "8f64ddc5bc0ba92a",
+   "tab_content_3": "a820e6e72cc7ad55",
+   "tab_content_4": "897903c9ad34cf07",
+   "tab_label_1": "faa75dad5c5ec73f",
+   "tab_label_2": "e0fe7325ef38b6e6",
+   "tab_label_3": "e0986a965cb09022",
+   "tab_label_4": "75bd1f578e12272c",
+   "usecase_heading": "71b2b1b13694fd57",
+   "why_description": "97a0194a93c71a2d",
+   "why_table": "22ae91ca1b73cd07",
+   "why_title": "f1bb089f99325019"
+  },
+  "all": "79586fa3c41939ea",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "e241145ad29cbd92",
+   "alt:share_image": "12fc498c68bd961b",
+   "alt:tab_image_1": "8ba27439a8956e54",
+   "alt:tab_image_2": "c1788739de206dc4",
+   "alt:tab_image_3": "8ea872f3b4afd84f",
+   "alt:tab_image_4": "58f25200d37e223c",
+   "breadcrumb": "f1e712b3006852ce",
+   "chip_adds": "99ac7138e2da0de1",
+   "explore_cta": "4e3b789ed376157b",
+   "faq": "3f232a3e7c1b94aa",
+   "feature_1": "19cd41b31d75534b",
+   "feature_2": "ecd79a61cd6107e4",
+   "feature_3": "d7be1da83801b970",
+   "feature_4": "acb16cd1da7c9932",
+   "feature_5": "1c3cf32f1db4ae86",
+   "feature_6": "2b16bbaba9f9b10f",
+   "features_heading": "5e2a8e43ec7cd875",
+   "features_subheading": "6907153c80854679",
+   "h1": "13616a515632d2c5",
+   "hero_description": "cdc0180813a85082",
+   "hero_prompt": "c69d2a5d6d1827d1",
+   "howto_description": "611ca1a5854d0c01",
+   "howto_step_1_des": "28878aee1ac9c05e",
+   "howto_step_1_title": "ca28bde7c131e5c9",
+   "howto_step_2_des": "7bd2a3e4a6b4bee6",
+   "howto_step_2_title": "f8b62f954b6efe4c",
+   "howto_step_3_des": "173284da510ba65d",
+   "howto_step_3_title": "b6b710d37b9726c4",
+   "howto_step_4_des": "f458baa9cfc5715e",
+   "howto_step_4_title": "ed3c285b6191de3d",
+   "howto_step_5_des": "3818602171f833e7",
+   "howto_step_5_title": "347ab8dbbb9fda03",
+   "howto_step_6_des": "31ea07f3b6254723",
+   "howto_step_6_title": "e4dd56f867787142",
+   "howto_step_7_des": "9095bc2571a3725b",
+   "howto_step_7_title": "6eff79cb1bda056b",
+   "howto_title": "cea08aa8207e6f9d",
+   "meta_description": "569766a8229172fd",
+   "meta_title": "d3e34d893abd2c5b",
+   "mockup": "e42f5d65954a3548",
+   "product_name": "3edb966a5b8abdd4",
+   "prompt_chip_1": "0705ef6af2da75b3",
+   "prompt_chip_2": "92cdca33e92a4d28",
+   "prompt_chip_3": "62e5f9c71050bee7",
+   "prompt_chip_4": "e0fe7325ef38b6e6",
+   "slug": "b97b761698cd87ff",
+   "tab_content_1": "b03b6287d5557be1",
+   "tab_content_2": "8f64ddc5bc0ba92a",
+   "tab_content_3": "a820e6e72cc7ad55",
+   "tab_content_4": "897903c9ad34cf07",
+   "tab_label_1": "faa75dad5c5ec73f",
+   "tab_label_2": "e0fe7325ef38b6e6",
+   "tab_label_3": "e0986a965cb09022",
+   "tab_label_4": "75bd1f578e12272c",
+   "usecase_heading": "71b2b1b13694fd57",
+   "why_description": "97a0194a93c71a2d",
+   "why_table": "22ae91ca1b73cd07",
+   "why_title": "f1bb089f99325019"
+  },
+  "all": "79586fa3c41939ea",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

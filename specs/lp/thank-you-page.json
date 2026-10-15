@@ -757,6 +757,13 @@
    "via": null,
    "by": "B-w-122",
    "note": ""
+  },
+  {
+   "t": "2026-10-15 15:17 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-16",
+   "note": "[truth | HUB_RULES 6] h1; usecase_heading; meta_description; og (share image headline): A build-time claim about Emergent with no id in rules/capabilities.json or rules/claims.json (Divit 2026-10-14: every claim sentence needs a claim id or a quoted source). Every instance: h1 \"Build a Custom Thank "
   }
  ],
  "chip_adds": [
@@ -767,5 +774,335 @@
  ],
  "writers": [
   "B-w-122"
- ]
+ ],
+ "review": {
+  "by": "B-r-16",
+  "date": "2026-10-15 15:17 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "Hero \"Build a thank you page that confirms the action and offers one clear follow-up, with each visitor saved to a database you own.\" states the whole job (under 130 chars); how-to description is one sentence. The speed claim in the H1 is filed under truth."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are template galleries, example roundups and CRO guides: four use-case examples (lead magnet, order, webinar, contact), template anatomy (FAQ 7: \"the confirmation, what happens next and when, the promised item, and one next step\"), a seven-step build and a builder table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary: \"fire the GA4 event and Meta Pixel on load\", \"set the page to noindex\", \"order #10482 shipping Tuesday\"; table uses landing-page builders (Unbounce, Landingi/Leadpages/Instapage, Wix)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Steps open on imperatives (\"Start with what the visitor just did\"); tab 1 ends on a fragment (\"Tracked as a conversion goal from the first render.\"), a note."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5 clean; FAQ answers lead with the answer (\"Yes, when the template matches the action the page follows.\")."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Mostly operator-written (\"Put that code on the page and in the receipt email, where the buyer can find it later.\"); tab 4 \"starts on the right foot every time\" is a note."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "Claims prompt-build, database-owned, code-export, api-connect, free-start, custom-domain approved; Shopify scripts sunset, noindex, GA4 key event and Meta Pixel on load are quoted. Blocking: \"in Minutes\" speed claim (H1, usecase_heading, meta description, share image); Shopify thank you page offered as a build target while step 6 says Shopify's own page no longer runs scripts; unsourced outcome facts in step 2, step 4 and the tab 3 heading."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Owns the post-conversion page; links ebook, lead generation and webinar landing pages (all live) as the pages that feed it rather than covering them."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 questions, no brand, best/which-tool or form-filler questions, hub link in item 2, sibling links inside content sentences (no link-only ending). FAQ 9's reworded question is a note."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tabs match their copy: \"You're in. Your playbook is ready.\" + \"Book a 15-minute walkthrough\"; \"Order #10482 confirmed\" + Travel case upsell + THANKS10; \"Nov 12, Thursday\" (a Thursday in 2026) + Add to Google + Invite a colleague; \"Expect a reply within 24 hours\" + #sales + \"Deal created in HubSpot\"."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "h1; usecase_heading; meta_description; og (share image headline)",
+    "quote": "Build a Custom Thank You Page in Minutes",
+    "issue": "A build-time claim about Emergent with no id in rules/capabilities.json or rules/claims.json (Divit 2026-10-14: every claim sentence needs a claim id or a quoted source). Every instance: h1 \"Build a Custom Thank You Page in Minutes\"; usecase_heading \"Thank You Pages You Can Build in Minutes\"; meta_description \"templates to build in minutes\"; og headline drawn on the share image \"Build a custom thank you page in minutes\".",
+    "fix": "Replace the speed claim with an approved one (prompt-build, database-owned), e.g. H1 \"Build a Thank You Page That Leads to the Next Step\"; re-render the share image.",
+    "severity": "blocking"
+   },
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "feature_5; tab_content_2; mockup ecommerceOrder; meta_description; howto_step_6_des",
+    "quote": "A custom thank you page for WooCommerce, a Shopify post-purchase page, a WordPress form, or any standalone URL.",
+    "issue": "The page offers a Shopify thank you or post-purchase page as a build target (feature_5; tab_content_2 \"A custom thank you page for a WooCommerce, Shopify, or BigCommerce store that confirms the order\"; mockup ecommerceOrder \"Build a custom thank you page for a Shopify store that confirms the order\"; meta_description \"for WooCommerce, Shopify, or any form\"), while howto_step_6_des, quoting its source, says Shopify no longer runs additional scripts on its own thank you page and the custom page can only be linked from the confirmation email. The page contradicts itself, and the WooCommerce and BigCommerce redirect behaviour has no domain_sources entry.",
+    "fix": "Describe the store case as what step 6 supports: a page linked from the order confirmation email (Shopify) or a redirect where the platform allows it, with a source for each platform named; otherwise drop the platform names.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_4_des; howto_step_2_des; tab_heading_3",
+    "quote": "One clear next step converts better than a page crowded with options.",
+    "issue": "Statements of fact about visitor behaviour with no domain_sources entry: howto_step_4_des \"One clear next step converts better than a page crowded with options.\"; howto_step_2_des \"A specific confirmation stops the refresh and resubmit that creates duplicate leads and orders.\"; tab_heading_3 \"Fewer empty seats when the webinar starts\" (an attendance outcome the tab copy never shows).",
+    "fix": "Source each, or state them as recommendations (\"Offer one next step so the visitor has one place to go\") and give tab 3 a heading the copy delivers (e.g. \"A calendar entry and a reminder plan for every seat\").",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 9",
+    "quote": "How do I compare thank you landing page examples on my own site?",
+    "issue": "The secondary \"thank you landing page examples\" is bent into an A/B-testing question nobody phrases this way; the answer gives no examples.",
+    "fix": "\"What are some thank you landing page examples?\" with examples, or move the secondary into another answer.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_4; faq item 8",
+    "quote": "Meta Pixel, a GA4 conversion event, and any custom script fire when the page loads",
+    "issue": "Feature 4 says \"GA4 conversion event\"; FAQ 8 and the source use GA4's current term \"key event\". Same thing, two names.",
+    "fix": "\"a GA4 key event\" in feature 4.",
+    "severity": "note"
+   },
+   {
+    "class": "openers",
+    "criterion": "openers",
+    "rule": "CONTENT_DEFECTS #16",
+    "field": "tab_content_1",
+    "quote": "Tracked as a conversion goal from the first render.",
+    "issue": "Tab 1 ends on a verbless fragment.",
+    "fix": "\"The page counts as a conversion goal from the first visit.\"",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "tab_content_4; feature_5",
+    "quote": "Set the expectation on the page and the follow-up starts on the right foot every time.",
+    "issue": "Idiom and summary sentence where a concrete detail belongs; feature_5 \"One build, every surface\" is the same slogan register.",
+    "fix": "Name what happens: the inquiry lands in #sales and as a HubSpot deal with the 24-hour window.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #5",
+    "field": "tab_image_2",
+    "quote": "Ordered Monday · Shipped Tuesday · Arrives Thursday",
+    "issue": "The page loads right after checkout, but the timeline draws Shipped as already done (green); step 2 has the order \"shipping Tuesday\".",
+    "fix": "Draw Shipped as upcoming.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "feature_1",
+    "quote": "An inline form message can't be tracked or retargeted that way.",
+    "issue": "True only with \"that way\" (by URL); the page's own Meta Pixel source says events also fire \"when a visitor completes an action\". Reads as a broader claim than it is.",
+    "fix": "\"An inline message has no URL to count as a goal.\"",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 9",
+   "issue": "The secondary \"thank you landing page examples\" is bent into an A/B-testing question nobody phrases this way; the answer gives no examples.",
+   "fix": "\"What are some thank you landing page examples?\" with examples, or move the secondary into another answer.",
+   "by": "B-r-16",
+   "via": "review",
+   "date": "2026-10-15 15:17 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_4; faq item 8",
+   "issue": "Feature 4 says \"GA4 conversion event\"; FAQ 8 and the source use GA4's current term \"key event\". Same thing, two names.",
+   "fix": "\"a GA4 key event\" in feature 4.",
+   "by": "B-r-16",
+   "via": "review",
+   "date": "2026-10-15 15:17 UTC"
+  },
+  {
+   "criterion": "openers",
+   "rule": "CONTENT_DEFECTS #16",
+   "field": "tab_content_1",
+   "issue": "Tab 1 ends on a verbless fragment.",
+   "fix": "\"The page counts as a conversion goal from the first visit.\"",
+   "by": "B-r-16",
+   "via": "review",
+   "date": "2026-10-15 15:17 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "tab_content_4; feature_5",
+   "issue": "Idiom and summary sentence where a concrete detail belongs; feature_5 \"One build, every surface\" is the same slogan register.",
+   "fix": "Name what happens: the inquiry lands in #sales and as a HubSpot deal with the 24-hour window.",
+   "by": "B-r-16",
+   "via": "review",
+   "date": "2026-10-15 15:17 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #5",
+   "field": "tab_image_2",
+   "issue": "The page loads right after checkout, but the timeline draws Shipped as already done (green); step 2 has the order \"shipping Tuesday\".",
+   "fix": "Draw Shipped as upcoming.",
+   "by": "B-r-16",
+   "via": "review",
+   "date": "2026-10-15 15:17 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "feature_1",
+   "issue": "True only with \"that way\" (by URL); the page's own Meta Pixel source says events also fire \"when a visitor completes an action\". Reads as a broader claim than it is.",
+   "fix": "\"An inline message has no URL to count as a goal.\"",
+   "by": "B-r-16",
+   "via": "review",
+   "date": "2026-10-15 15:17 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "d5f09270ff164703",
+   "alt:share_image": "6a1a32066e89ec02",
+   "alt:tab_image_1": "d2433925743970ee",
+   "alt:tab_image_2": "1654b8f88efdcf27",
+   "alt:tab_image_3": "34f8707c20a3245a",
+   "alt:tab_image_4": "438245ebbbb4102e",
+   "breadcrumb": "968e9d8adc131818",
+   "chip_adds": "fba6c1962b953917",
+   "explore_cta": "ef49cb72003e2415",
+   "faq": "9498db31cd107534",
+   "feature_1": "f20c9ec87abbe9dc",
+   "feature_2": "46ee8b71f20aaef5",
+   "feature_3": "27bd7f1cb9dcd710",
+   "feature_4": "df88578be4e91356",
+   "feature_5": "4632c3dd940e9dd1",
+   "feature_6": "2685f5ef956cd25d",
+   "features_heading": "c375d845511ae708",
+   "features_subheading": "d52ec3067be8c047",
+   "h1": "2bdafa9a5cb59acb",
+   "hero_description": "930ccd1af190b25b",
+   "hero_prompt": "fc95de4ab474071b",
+   "howto_description": "baf75addf4d76f9e",
+   "howto_step_1_des": "06f204de23b98a84",
+   "howto_step_1_title": "d602a3dbdecc5321",
+   "howto_step_2_des": "2ed09278c9faeb20",
+   "howto_step_2_title": "3b160b2fb992e861",
+   "howto_step_3_des": "f10d90193421e475",
+   "howto_step_3_title": "08d87cbbea20b816",
+   "howto_step_4_des": "e217c7e8aa9029e5",
+   "howto_step_4_title": "7cfcb5b38f738818",
+   "howto_step_5_des": "0ba715830d87773d",
+   "howto_step_5_title": "1ff1abecf87e2ae0",
+   "howto_step_6_des": "3efae6d26f338390",
+   "howto_step_6_title": "67e9eea1195e0470",
+   "howto_step_7_des": "9643c60f3c7c43b6",
+   "howto_step_7_title": "73c95ca9fa20b20f",
+   "howto_title": "0206c21e69dbc905",
+   "meta_description": "a3650cbb058fdfdb",
+   "meta_title": "44e16759ab0a5fc2",
+   "mockup": "1d25ba1dcf5a4c3f",
+   "product_name": "c9e15a3c08323f91",
+   "prompt_chip_1": "7d292b4f3fba32a5",
+   "prompt_chip_2": "f689130874626f38",
+   "prompt_chip_3": "8f16fc2c54ecd7b8",
+   "prompt_chip_4": "90e9632dda212a9a",
+   "slug": "d6f4145927f995d1",
+   "tab_content_1": "aa2a73b712e76f65",
+   "tab_content_2": "def69c1cdff5c271",
+   "tab_content_3": "506465b85a5b6be4",
+   "tab_content_4": "352f30eab696e89b",
+   "tab_label_1": "4ac088399faf5fcf",
+   "tab_label_2": "399dbaae0d6fe85c",
+   "tab_label_3": "49d82d017759d612",
+   "tab_label_4": "50c25c34b2950e93",
+   "usecase_heading": "8f178454df9ce005",
+   "why_description": "51184911dddd80e0",
+   "why_table": "69fe460cd4b719da",
+   "why_title": "962e80ae9d4d8d39"
+  },
+  "all": "35efcb88d4661122",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "d5f09270ff164703",
+   "alt:share_image": "6a1a32066e89ec02",
+   "alt:tab_image_1": "d2433925743970ee",
+   "alt:tab_image_2": "1654b8f88efdcf27",
+   "alt:tab_image_3": "34f8707c20a3245a",
+   "alt:tab_image_4": "438245ebbbb4102e",
+   "breadcrumb": "968e9d8adc131818",
+   "chip_adds": "fba6c1962b953917",
+   "explore_cta": "ef49cb72003e2415",
+   "faq": "9498db31cd107534",
+   "feature_1": "f20c9ec87abbe9dc",
+   "feature_2": "46ee8b71f20aaef5",
+   "feature_3": "27bd7f1cb9dcd710",
+   "feature_4": "df88578be4e91356",
+   "feature_5": "4632c3dd940e9dd1",
+   "feature_6": "2685f5ef956cd25d",
+   "features_heading": "c375d845511ae708",
+   "features_subheading": "d52ec3067be8c047",
+   "h1": "2bdafa9a5cb59acb",
+   "hero_description": "930ccd1af190b25b",
+   "hero_prompt": "fc95de4ab474071b",
+   "howto_description": "baf75addf4d76f9e",
+   "howto_step_1_des": "06f204de23b98a84",
+   "howto_step_1_title": "d602a3dbdecc5321",
+   "howto_step_2_des": "2ed09278c9faeb20",
+   "howto_step_2_title": "3b160b2fb992e861",
+   "howto_step_3_des": "f10d90193421e475",
+   "howto_step_3_title": "08d87cbbea20b816",
+   "howto_step_4_des": "e217c7e8aa9029e5",
+   "howto_step_4_title": "7cfcb5b38f738818",
+   "howto_step_5_des": "0ba715830d87773d",
+   "howto_step_5_title": "1ff1abecf87e2ae0",
+   "howto_step_6_des": "3efae6d26f338390",
+   "howto_step_6_title": "67e9eea1195e0470",
+   "howto_step_7_des": "9643c60f3c7c43b6",
+   "howto_step_7_title": "73c95ca9fa20b20f",
+   "howto_title": "0206c21e69dbc905",
+   "meta_description": "a3650cbb058fdfdb",
+   "meta_title": "44e16759ab0a5fc2",
+   "mockup": "1d25ba1dcf5a4c3f",
+   "product_name": "c9e15a3c08323f91",
+   "prompt_chip_1": "7d292b4f3fba32a5",
+   "prompt_chip_2": "f689130874626f38",
+   "prompt_chip_3": "8f16fc2c54ecd7b8",
+   "prompt_chip_4": "90e9632dda212a9a",
+   "slug": "d6f4145927f995d1",
+   "tab_content_1": "aa2a73b712e76f65",
+   "tab_content_2": "def69c1cdff5c271",
+   "tab_content_3": "506465b85a5b6be4",
+   "tab_content_4": "352f30eab696e89b",
+   "tab_label_1": "4ac088399faf5fcf",
+   "tab_label_2": "399dbaae0d6fe85c",
+   "tab_label_3": "49d82d017759d612",
+   "tab_label_4": "50c25c34b2950e93",
+   "usecase_heading": "8f178454df9ce005",
+   "why_description": "51184911dddd80e0",
+   "why_table": "69fe460cd4b719da",
+   "why_title": "962e80ae9d4d8d39"
+  },
+  "all": "35efcb88d4661122",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

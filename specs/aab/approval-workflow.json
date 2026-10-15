@@ -831,6 +831,13 @@
    "via": null,
    "by": "B-w-121",
    "note": ""
+  },
+  {
+   "t": "2026-10-15 15:16 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-16",
+   "note": "[truth | HUB_RULES 6] usecase_heading: A build-time claim about Emergent with no id in rules/capabilities.json or rules/claims.json (Divit 2026-10-14: every claim sentence needs a claim id or a quoted source). No other field states a build time. -> Drop the speed claim, e.g. \"Approval Workflows Buil"
   }
  ],
  "chip_adds": [
@@ -841,5 +848,325 @@
  ],
  "writers": [
   "B-w-121"
- ]
+ ],
+ "review": {
+  "by": "B-r-16",
+  "date": "2026-10-15 15:16 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build an Approval Workflow Your Team Actually Uses\" and hero \"Build an approval workflow that sends every request to the right approver and keeps each decision in a log you own.\" cover the whole job across purchase, invoice, contract and expense requests; how-to description is one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are tool roundups and vendors: the page gives the software anatomy (features: routing, Slack/Teams/email approvals, escalation, audit log), a comparison table, four worked examples and a seven-step build."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Operator detail: \"Nina Park's $4,800 order for 12 design licenses\", \"INV-7731 for $2,340.00. It matches PO-2231\", \"under the $250 meal limit and inside the $4,000 October budget\". Table vendors (Zapier, Make, n8n) versus approval-tool top 10 is a note."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies and tabs open on full sentences (\"One approver at a time, several in parallel\" is the one fragment-style opener, a note-level item); steps open on imperatives."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5 clean; short declaratives (\"Signing opens once all three approve.\")."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Reads operator-written: \"Marcus Lee approves it in 12 minutes and it joins the accounting export queue.\" H1 \"Actually\" is a note."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "Claims prompt-build, api-connect, ai-extraction, code-export, database-owned, no-caps, free-start, alerts, e-signature-capture approved; Slack buttons and Teams Adaptive Cards quoted. Two blocking: usecase_heading \"You Can Build in Minutes\" (speed claim with no claim id) and howto_step_1_des \"Email and spreadsheets leave no audit trail\" (unsourced, contestable fact). Image sums agree: 1,420+640+280=2,340; 3,200+180=3,380, 4,000-3,380=620."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Parent page: links content approval workflow (FAQ 3) and document approval workflow (FAQ 9), both live, instead of covering them; tab H3s use no sibling primary."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, no best/which-tool/vendor or form-filler questions, hub link in item 2, sibling links to live pages with content after or around them (FAQ 10 ends on a full sentence that carries the link, not a link-only sentence)."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Each tab shows its copy's moment: \"Rule matched: $500 to $5,000 -> Department head\" / Priya Shah in #approvals; \"INV-7731 matches PO-2231\", \"Over $1,000 -> Finance\"; \"2 of 3 approved\", David Kim \"Thursday, 9:00 AM\"; \"$180.00\", \"Under the $250 meal limit\", Marcus Lee \"Approved in 12 minutes\"."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "usecase_heading",
+    "quote": "Approval Workflows You Can Build in Minutes",
+    "issue": "A build-time claim about Emergent with no id in rules/capabilities.json or rules/claims.json (Divit 2026-10-14: every claim sentence needs a claim id or a quoted source). No other field states a build time.",
+    "fix": "Drop the speed claim, e.g. \"Approval Workflows Built From One Prompt\" (prompt-build) or \"Four Approval Workflows, Built and Running\".",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_1_des",
+    "quote": "Email and spreadsheets leave no audit trail, and per-seat tools charge for every occasional approver.",
+    "issue": "Two statements of fact about third-party systems with no domain_sources entry, and the first is contestable (email threads and spreadsheet version history are kept as records). \"per-seat tools charge for every occasional approver\" is likewise unsourced.",
+    "fix": "State the operational gap instead of a universal fact, e.g. \"In email and spreadsheets, the decision and the request live in different places, and nothing chases a quiet approver\", and drop or source the per-seat line.",
+    "severity": "blocking"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "why_description; howto_step_1_des",
+    "quote": "Most approval tools charge per user and keep the audit trail in their app.",
+    "issue": "Soft quantifiers about no named third party: why_description \"Most approval tools charge per user\"; howto_step_1_des \"Approvals usually live in email chains, spreadsheets, per-seat approval tools, or workflow suites.\" The table beside the first names Zapier, Make and n8n, which are not priced per user.",
+    "fix": "State the condition, not the frequency.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_4_des",
+    "quote": "These timings decide your cycle time more than any other rule.",
+    "issue": "A ranking stated as fact with no source; reads as advice.",
+    "fix": "Cut, or make it a recommendation.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_1; howto_step_3_des; faq item 4; mockup purchaseOrder",
+    "quote": "and larger ones add the CFO",
+    "issue": "The same $500/$5,000 matrix is stated as replace in step 3 and the mockup (\"above that to the CFO\", \"over $5,000 to the CFO\") and as add in tab 1 (\"larger ones add the CFO\"); FAQ 4 accumulates tiers (\"a larger one adds the department head\") while tab 1 \"skips the manager\".",
+    "fix": "One wording for whether tiers stack or replace.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Zapier | Make (Integromat) | n8n",
+    "issue": "The top 10 are approval tools (Approveit, Wrike, PandaDoc, Planable); the table compares general automation platforms. HUB_RULES 5 asks for competitors that rank for this query.",
+    "fix": "Next table rebuild: approval-software vendors from the library, if vetted.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2a",
+    "field": "h1; meta_title; og",
+    "quote": "Build an Approval Workflow Your Team Actually Uses",
+    "issue": "\"Actually\" is on the 2a cut list (filler intensifier); it is also drawn on the share image.",
+    "fix": "\"Build an Approval Workflow That Routes Every Request\" or similar.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #12",
+    "field": "tab_image_3",
+    "quote": "Sent Tuesday · 9:04 AM",
+    "issue": "Sent Tuesday 9:04 and a reminder Thursday 9:00 labelled \"Two days without a reply triggers it\" is four minutes short of two days.",
+    "fix": "Send at 8:58 AM or remind at 9:05 AM.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "why_description; howto_step_1_des",
+   "issue": "Soft quantifiers about no named third party: why_description \"Most approval tools charge per user\"; howto_step_1_des \"Approvals usually live in email chains, spreadsheets, per-seat approval tools, or workflow suites.\" The table beside the first names Zapier, Make and n8n, which are not priced per user.",
+   "fix": "State the condition, not the frequency.",
+   "by": "B-r-16",
+   "via": "review",
+   "date": "2026-10-15 15:16 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_4_des",
+   "issue": "A ranking stated as fact with no source; reads as advice.",
+   "fix": "Cut, or make it a recommendation.",
+   "by": "B-r-16",
+   "via": "review",
+   "date": "2026-10-15 15:16 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_1; howto_step_3_des; faq item 4; mockup purchaseOrder",
+   "issue": "The same $500/$5,000 matrix is stated as replace in step 3 and the mockup (\"above that to the CFO\", \"over $5,000 to the CFO\") and as add in tab 1 (\"larger ones add the CFO\"); FAQ 4 accumulates tiers (\"a larger one adds the department head\") while tab 1 \"skips the manager\".",
+   "fix": "One wording for whether tiers stack or replace.",
+   "by": "B-r-16",
+   "via": "review",
+   "date": "2026-10-15 15:16 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "The top 10 are approval tools (Approveit, Wrike, PandaDoc, Planable); the table compares general automation platforms. HUB_RULES 5 asks for competitors that rank for this query.",
+   "fix": "Next table rebuild: approval-software vendors from the library, if vetted.",
+   "by": "B-r-16",
+   "via": "review",
+   "date": "2026-10-15 15:16 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "h1; meta_title; og",
+   "issue": "\"Actually\" is on the 2a cut list (filler intensifier); it is also drawn on the share image.",
+   "fix": "\"Build an Approval Workflow That Routes Every Request\" or similar.",
+   "by": "B-r-16",
+   "via": "review",
+   "date": "2026-10-15 15:16 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #12",
+   "field": "tab_image_3",
+   "issue": "Sent Tuesday 9:04 and a reminder Thursday 9:00 labelled \"Two days without a reply triggers it\" is four minutes short of two days.",
+   "fix": "Send at 8:58 AM or remind at 9:05 AM.",
+   "by": "B-r-16",
+   "via": "review",
+   "date": "2026-10-15 15:16 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "217e04cbccb1da32",
+   "alt:share_image": "0887063ad8409575",
+   "alt:tab_image_1": "432dcfe71804e840",
+   "alt:tab_image_2": "8d642c9240bd0037",
+   "alt:tab_image_3": "2e17ca6cd624f5cf",
+   "alt:tab_image_4": "433aad66d7144821",
+   "breadcrumb": "a6ee643e4e728afe",
+   "chip_adds": "c421b0f9025bfc83",
+   "explore_cta": "3e52424e397f36dc",
+   "faq": "b993ab0d6d4e3c24",
+   "feature_1": "18e64292155ed0d9",
+   "feature_2": "b43c88fb9c9b22e7",
+   "feature_3": "67250f55e7e56475",
+   "feature_4": "36240caf5c5e2acf",
+   "feature_5": "2ceedb0ef594f5bc",
+   "feature_6": "d25ec4923b57db8b",
+   "features_heading": "53514dc5fa6ceaa9",
+   "features_subheading": "6c349782003bc71e",
+   "h1": "caf42ef9108da285",
+   "hero_description": "3c05f64b485cc2ec",
+   "hero_prompt": "d3f02ad922d0c260",
+   "howto_description": "72e0a69dda35be55",
+   "howto_step_1_des": "765e0333c4724b10",
+   "howto_step_1_title": "96c2d832ea1a5910",
+   "howto_step_2_des": "c0b823ac2e958520",
+   "howto_step_2_title": "ceb7b4ec8cd53565",
+   "howto_step_3_des": "c13e6b7c37b39ac1",
+   "howto_step_3_title": "d3f326f77011f754",
+   "howto_step_4_des": "948297cc0c32c481",
+   "howto_step_4_title": "5eaa5db15b6a45d7",
+   "howto_step_5_des": "f3af6096f5f8f99e",
+   "howto_step_5_title": "530ab9b96df3135f",
+   "howto_step_6_des": "cf2e37328f1ea0d4",
+   "howto_step_6_title": "388df246f1484e87",
+   "howto_step_7_des": "78a467f59c353eea",
+   "howto_step_7_title": "fb3ff2546a8b1141",
+   "howto_title": "836503436002eab8",
+   "meta_description": "a967612b15473714",
+   "meta_title": "cf23920ff16dd368",
+   "mockup": "3a47d3f930903308",
+   "product_name": "a4dcf2b8bf96c2bf",
+   "prompt_chip_1": "9a5ee04e7cfe9f70",
+   "prompt_chip_2": "ad80097cb8d86a58",
+   "prompt_chip_3": "2be5f07c8eb8d898",
+   "prompt_chip_4": "d52b403962aa9a8a",
+   "slug": "6e92fde96101581c",
+   "tab_content_1": "28ef3e259b7d9882",
+   "tab_content_2": "06ebf00c2f3f799b",
+   "tab_content_3": "607ad181b04118fe",
+   "tab_content_4": "9fc6fd6233d5f2cb",
+   "tab_label_1": "fde8baa4a8e290d7",
+   "tab_label_2": "b832002da297545f",
+   "tab_label_3": "a6f5b0e592fa68e4",
+   "tab_label_4": "a0417ba8010e8728",
+   "usecase_heading": "10b9c915318c56b4",
+   "why_description": "6a20143e57c8c7d5",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "67cbf75b72dd9808"
+  },
+  "all": "2063ed680f4dea8f",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "217e04cbccb1da32",
+   "alt:share_image": "0887063ad8409575",
+   "alt:tab_image_1": "432dcfe71804e840",
+   "alt:tab_image_2": "8d642c9240bd0037",
+   "alt:tab_image_3": "2e17ca6cd624f5cf",
+   "alt:tab_image_4": "433aad66d7144821",
+   "breadcrumb": "a6ee643e4e728afe",
+   "chip_adds": "c421b0f9025bfc83",
+   "explore_cta": "3e52424e397f36dc",
+   "faq": "b993ab0d6d4e3c24",
+   "feature_1": "18e64292155ed0d9",
+   "feature_2": "b43c88fb9c9b22e7",
+   "feature_3": "67250f55e7e56475",
+   "feature_4": "36240caf5c5e2acf",
+   "feature_5": "2ceedb0ef594f5bc",
+   "feature_6": "d25ec4923b57db8b",
+   "features_heading": "53514dc5fa6ceaa9",
+   "features_subheading": "6c349782003bc71e",
+   "h1": "caf42ef9108da285",
+   "hero_description": "3c05f64b485cc2ec",
+   "hero_prompt": "d3f02ad922d0c260",
+   "howto_description": "72e0a69dda35be55",
+   "howto_step_1_des": "765e0333c4724b10",
+   "howto_step_1_title": "96c2d832ea1a5910",
+   "howto_step_2_des": "c0b823ac2e958520",
+   "howto_step_2_title": "ceb7b4ec8cd53565",
+   "howto_step_3_des": "c13e6b7c37b39ac1",
+   "howto_step_3_title": "d3f326f77011f754",
+   "howto_step_4_des": "948297cc0c32c481",
+   "howto_step_4_title": "5eaa5db15b6a45d7",
+   "howto_step_5_des": "f3af6096f5f8f99e",
+   "howto_step_5_title": "530ab9b96df3135f",
+   "howto_step_6_des": "cf2e37328f1ea0d4",
+   "howto_step_6_title": "388df246f1484e87",
+   "howto_step_7_des": "78a467f59c353eea",
+   "howto_step_7_title": "fb3ff2546a8b1141",
+   "howto_title": "836503436002eab8",
+   "meta_description": "a967612b15473714",
+   "meta_title": "cf23920ff16dd368",
+   "mockup": "3a47d3f930903308",
+   "product_name": "a4dcf2b8bf96c2bf",
+   "prompt_chip_1": "9a5ee04e7cfe9f70",
+   "prompt_chip_2": "ad80097cb8d86a58",
+   "prompt_chip_3": "2be5f07c8eb8d898",
+   "prompt_chip_4": "d52b403962aa9a8a",
+   "slug": "6e92fde96101581c",
+   "tab_content_1": "28ef3e259b7d9882",
+   "tab_content_2": "06ebf00c2f3f799b",
+   "tab_content_3": "607ad181b04118fe",
+   "tab_content_4": "9fc6fd6233d5f2cb",
+   "tab_label_1": "fde8baa4a8e290d7",
+   "tab_label_2": "b832002da297545f",
+   "tab_label_3": "a6f5b0e592fa68e4",
+   "tab_label_4": "a0417ba8010e8728",
+   "usecase_heading": "10b9c915318c56b4",
+   "why_description": "6a20143e57c8c7d5",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "67cbf75b72dd9808"
+  },
+  "all": "2063ed680f4dea8f",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
