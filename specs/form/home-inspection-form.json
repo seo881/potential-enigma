@@ -119,6 +119,13 @@
    "via": null,
    "by": "B-w-107",
    "note": ""
+  },
+  {
+   "t": "2026-10-15 11:22 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-19",
+   "note": "rubric 10/10 by B-r-19; 9 notes"
   }
  ],
  "plan": {
@@ -1167,5 +1174,365 @@
  },
  "writers": [
   "B-w-107"
- ]
+ ],
+ "review": {
+  "by": "B-r-19",
+  "date": "2026-10-15 11:22 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Home Inspection Form That Becomes the Report'; hero 'Build a home inspection form that rates each item, puts a photo on every defect, and saves inspections to a database you own.' (under 130 chars, leads with Build); how-to description one sentence: 'Seven steps to create a home inspection form that rates every item and documents each defect, then build it with Emergent.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is checklists and the TREC promulgated form; page gives the item list by system, the four TREC ratings (howto 3, sourced 22 TAC 535.223), a 7-step how-to and a template answer (FAQ 3, 6, 9). Divit's relevance rule (2026-10-15): every section is about building or running the form; FAQ 1 is answered as a form field ('Add a hazard checkbox beside the Deficient rating'), FAQ 10 as a buyer's checklist Emergent builds; nothing advises hiring an inspector or how to inspect a house yourself."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Inspector vocabulary throughout: 'double-tapped breaker', 'Inspected, Not Inspected, Not Present, or Deficient', 'north slope of the roof or the main electrical panel', 'sump pump or a private well'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Marcus Reid inspects a 1987 ranch house...', 'Write down who reads the finished report...', feature bodies open on verbs ('List the roof...', 'Give each item...', 'Mark an item Deficient...')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; QC Q5 ', so' endings at 2 (limit), Q8 lists at 10 recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous details: 'a stained subfloor under the kitchen sink', 'an attic hatch blocked by storage boxes', 'a furnace behind a locked panel'; no AI-tell vocabulary (QC A1 clean)."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Every Texas fact matches a quoted span re-fetched today from law.cornell.edu: 535.223 'whether each item was inspected, not inspected, not present, or deficient', 'shall be reported on Form REI 7-6', 'explain the findings in the corresponding section in the body of the report form'; 535.227 'limited visual survey and basic performance evaluation', 'hazard to life, limb, or property', 'anything buried, hidden, latent, or concealed'. Emergent claims map to claims_used (prompt-build, database-owned, alerts, code-export, e-signature-capture, free-start). Numbers agree: 52 items/3 deficient, 4 houses/5 red flags, 9 rooms/2 photos, 5 inspectors/4 sent."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own angle (form that becomes the report, TREC ratings, hazard hold queue); no sibling primary in a heading; FAQ links to rental-agreement-form and tenant-screening-form only as anchors."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, all on home inspection forms or reports, answer-first; hub link in item 2 only; 2 sibling links (items 4, 7); Emergent moat lines in items 3, 9, 10; no brand or file-format question; no answer ends on a bare link."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 '3 deficient items / Each with a photo / To the buyer and her agent / Submit 52 items'; tab 2 '4 houses', '14 Birch Court 5 red flags', 'Furnace from 1998', 'Bottom of the shortlist'; tab 3 'Unit 4B', 'Cracked tile by the tub 2 photos', '9 rooms rated', 'Signed by tenant'; tab 4 '5 inspectors', '9 Larch Street Held', 'Held for Ana Ruiz', '4 reports sent'. One hero per image, all match the tab copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 7",
+    "quote": "For a rental, file the move-in report on the tenant's record next to their tenant screening form.",
+    "issue": "Link-carrier closing sentence: the question is how to write an inspection report, and filing next to a tenant screening form does not help answer it; it exists to host the sibling link. Same pattern, milder, in faq item 4: 'Landlords who inspect at move-in can file the condition report on the same record as the rental agreement form the tenant signed.' (the question asks where to find templates).",
+    "fix": "Place sibling links where they serve the question, or tie the sentence to the answer (e.g. a move-in condition report written the same way).",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq item 4, faq item 7, tab_content_3",
+    "quote": "file the condition report on the same record as the rental agreement form / file the move-in report on the tenant's record next to their tenant screening form / the report is saved to the lease record for move-out",
+    "issue": "Filing the move-in report on the tenant or lease record is said three times. Also 'run the result on your own house before a paid job' (faq item 3) restates howto step 7 'Walk your own house with the form before a paid job.'",
+    "fix": "Keep one instance of each idea.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 9",
+    "quote": "Texas sets one out in its rules: a row per item with check boxes for the rating",
+    "issue": "The quoted span (22 TAC 535.223) says the inspector checks boxes for each item and explains findings in the corresponding section; 'a row per item' is a layout detail of Form REI 7-6 the span does not state (true of the form, so not blocking).",
+    "fix": "Stay with the span: 'check boxes for each item's rating'.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 4",
+    "quote": "Start with the form your state publishes",
+    "issue": "Presupposes every state publishes an inspection form; only Texas is sourced. Advice, so a note.",
+    "fix": "'If your state publishes a form, start with it: in Texas...'",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "howto_step_6_des",
+    "quote": "Buyers and their agents usually get it by email.",
+    "issue": "Soft quantifier about no named third party.",
+    "fix": "State it as the setup: 'Send buyers and their agents the link by email.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "tab_content_2, faq item 10",
+    "quote": "Priya Nair fills the same 20-question checklist at four houses she might buy / Are there do it yourself home inspection forms for buyers?",
+    "issue": "For Divit's relevance rule (2026-10-15): the homebuyer tab and FAQ 10 are the closest the page comes to a DIY-inspection reader. Both are framed as running a form (the form counts red flags; Emergent builds the checklist), so they pass; flagged for Divit's eye only.",
+    "fix": "None required.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Google Forms | Typeform",
+    "issue": "QC K7: two of three competitors are not in this page's top 10 (only Jotform ranks).",
+    "fix": "Prefer tools that rank for the query when the library has them.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #6",
+    "field": "page",
+    "quote": "\"plumbing, heating, and cooling\" ... \"the property address, the inspection date, and your\"",
+    "issue": "QC Q8: 10 'A, B, and C' lists (feature_1, feature_2, feature_5, howto 2, 3, 5 x2, 7, faq 1, faq 9); 'report' 22 times outside the FAQ (Q9).",
+    "fix": "Use pairs or one specific in a few places.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #5",
+    "field": "image_brief tab 1",
+    "quote": "Submit 52 items",
+    "issue": "Left form panel has a blank band below the submit button (passes the balance gate).",
+    "fix": "One more kv row would fill it.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 7",
+   "issue": "Link-carrier closing sentence: the question is how to write an inspection report, and filing next to a tenant screening form does not help answer it; it exists to host the sibling link. Same pattern, milder, in faq item 4: 'Landlords who inspect at move-in can file the condition report on the same record as the rental agreement form the tenant signed.' (the question asks where to find templates).",
+   "fix": "Place sibling links where they serve the question, or tie the sentence to the answer (e.g. a move-in condition report written the same way).",
+   "by": "B-r-19",
+   "via": "review",
+   "date": "2026-10-15 11:22 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq item 4, faq item 7, tab_content_3",
+   "issue": "Filing the move-in report on the tenant or lease record is said three times. Also 'run the result on your own house before a paid job' (faq item 3) restates howto step 7 'Walk your own house with the form before a paid job.'",
+   "fix": "Keep one instance of each idea.",
+   "by": "B-r-19",
+   "via": "review",
+   "date": "2026-10-15 11:22 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 9",
+   "issue": "The quoted span (22 TAC 535.223) says the inspector checks boxes for each item and explains findings in the corresponding section; 'a row per item' is a layout detail of Form REI 7-6 the span does not state (true of the form, so not blocking).",
+   "fix": "Stay with the span: 'check boxes for each item's rating'.",
+   "by": "B-r-19",
+   "via": "review",
+   "date": "2026-10-15 11:22 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 4",
+   "issue": "Presupposes every state publishes an inspection form; only Texas is sourced. Advice, so a note.",
+   "fix": "'If your state publishes a form, start with it: in Texas...'",
+   "by": "B-r-19",
+   "via": "review",
+   "date": "2026-10-15 11:22 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "howto_step_6_des",
+   "issue": "Soft quantifier about no named third party.",
+   "fix": "State it as the setup: 'Send buyers and their agents the link by email.'",
+   "by": "B-r-19",
+   "via": "review",
+   "date": "2026-10-15 11:22 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "tab_content_2, faq item 10",
+   "issue": "For Divit's relevance rule (2026-10-15): the homebuyer tab and FAQ 10 are the closest the page comes to a DIY-inspection reader. Both are framed as running a form (the form counts red flags; Emergent builds the checklist), so they pass; flagged for Divit's eye only.",
+   "fix": "None required.",
+   "by": "B-r-19",
+   "via": "review",
+   "date": "2026-10-15 11:22 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: two of three competitors are not in this page's top 10 (only Jotform ranks).",
+   "fix": "Prefer tools that rank for the query when the library has them.",
+   "by": "B-r-19",
+   "via": "review",
+   "date": "2026-10-15 11:22 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #6",
+   "field": "page",
+   "issue": "QC Q8: 10 'A, B, and C' lists (feature_1, feature_2, feature_5, howto 2, 3, 5 x2, 7, faq 1, faq 9); 'report' 22 times outside the FAQ (Q9).",
+   "fix": "Use pairs or one specific in a few places.",
+   "by": "B-r-19",
+   "via": "review",
+   "date": "2026-10-15 11:22 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #5",
+   "field": "image_brief tab 1",
+   "issue": "Left form panel has a blank band below the submit button (passes the balance gate).",
+   "fix": "One more kv row would fill it.",
+   "by": "B-r-19",
+   "via": "review",
+   "date": "2026-10-15 11:22 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "9883fee1e0d0a112",
+   "alt:share_image": "56666cb757b37364",
+   "alt:tab_image_1": "ae1146edebea70e0",
+   "alt:tab_image_2": "afd49ac49fc81237",
+   "alt:tab_image_3": "9f7b29e710a12239",
+   "alt:tab_image_4": "ef8f7d07a0277739",
+   "breadcrumb": "58c87f6588e89a44",
+   "chip_adds": "f63a2918e8275985",
+   "explore_cta": "430c308dbf25052a",
+   "faq": "26d6b7bb11b0ebb4",
+   "feature_1": "b274c5c2670e9b3c",
+   "feature_2": "51991e665a9bb139",
+   "feature_3": "c90a97355f613341",
+   "feature_4": "b3a55d96d891210c",
+   "feature_5": "884752a7849eaad3",
+   "feature_6": "e4d8b05e975b9aa0",
+   "features_heading": "083cde8d51ece9c0",
+   "features_subheading": "470cc3fefe9e3f8c",
+   "h1": "f322f626dcee91fd",
+   "hero_description": "f028b835f7925d2a",
+   "hero_prompt": "259797fbd1f3a1b0",
+   "howto_description": "8a2cf927d7e17773",
+   "howto_step_1_des": "eb96427f2e17d3a1",
+   "howto_step_1_title": "119dbd14700b0148",
+   "howto_step_2_des": "7e3fd2f5678d4424",
+   "howto_step_2_title": "6910fdfa6ec1e24c",
+   "howto_step_3_des": "e5c7ddba064e2cba",
+   "howto_step_3_title": "46287ba436dc2f83",
+   "howto_step_4_des": "ecc8f3b873649238",
+   "howto_step_4_title": "17eaf269dc2c1541",
+   "howto_step_5_des": "577c0d9eda7a3f74",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "35b9f9d32575e049",
+   "howto_step_6_title": "34c86b6d298d99ba",
+   "howto_step_7_des": "bc9651c93da90bac",
+   "howto_step_7_title": "cedb477984dc89d7",
+   "howto_title": "17a2a620be86e431",
+   "meta_description": "2283f1e1a771d5f2",
+   "meta_title": "7dfe9ef1d0266eed",
+   "mockup": "dae1f19afb0c3789",
+   "product_name": "e4f65613fe93e474",
+   "prompt_chip_1": "454ef9458c6e083b",
+   "prompt_chip_2": "7eaad63a994e2f91",
+   "prompt_chip_3": "8881d71be0d5fc90",
+   "prompt_chip_4": "591465973f57416d",
+   "slug": "2b9542f7962664bd",
+   "tab_content_1": "6fbb8ee612930ca1",
+   "tab_content_2": "c3f09879557a3b74",
+   "tab_content_3": "1dc4fd00854b336f",
+   "tab_content_4": "aeeebf0f3171627f",
+   "tab_label_1": "d58f6b7b12c96f75",
+   "tab_label_2": "20cb65d5a22737ee",
+   "tab_label_3": "a3e8e633f9eb768e",
+   "tab_label_4": "ba229cbc1fef8829",
+   "usecase_heading": "95fbcbb642ee9bbc",
+   "why_description": "13aa675b4623c66a",
+   "why_table": "5bdff290f59abffb",
+   "why_title": "71e9dca3a90af6ee"
+  },
+  "all": "e539611813637a29",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "9883fee1e0d0a112",
+   "alt:share_image": "56666cb757b37364",
+   "alt:tab_image_1": "ae1146edebea70e0",
+   "alt:tab_image_2": "afd49ac49fc81237",
+   "alt:tab_image_3": "9f7b29e710a12239",
+   "alt:tab_image_4": "ef8f7d07a0277739",
+   "breadcrumb": "58c87f6588e89a44",
+   "chip_adds": "f63a2918e8275985",
+   "explore_cta": "430c308dbf25052a",
+   "faq": "26d6b7bb11b0ebb4",
+   "feature_1": "b274c5c2670e9b3c",
+   "feature_2": "51991e665a9bb139",
+   "feature_3": "c90a97355f613341",
+   "feature_4": "b3a55d96d891210c",
+   "feature_5": "884752a7849eaad3",
+   "feature_6": "e4d8b05e975b9aa0",
+   "features_heading": "083cde8d51ece9c0",
+   "features_subheading": "470cc3fefe9e3f8c",
+   "h1": "f322f626dcee91fd",
+   "hero_description": "f028b835f7925d2a",
+   "hero_prompt": "259797fbd1f3a1b0",
+   "howto_description": "8a2cf927d7e17773",
+   "howto_step_1_des": "eb96427f2e17d3a1",
+   "howto_step_1_title": "119dbd14700b0148",
+   "howto_step_2_des": "7e3fd2f5678d4424",
+   "howto_step_2_title": "6910fdfa6ec1e24c",
+   "howto_step_3_des": "e5c7ddba064e2cba",
+   "howto_step_3_title": "46287ba436dc2f83",
+   "howto_step_4_des": "ecc8f3b873649238",
+   "howto_step_4_title": "17eaf269dc2c1541",
+   "howto_step_5_des": "577c0d9eda7a3f74",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "35b9f9d32575e049",
+   "howto_step_6_title": "34c86b6d298d99ba",
+   "howto_step_7_des": "bc9651c93da90bac",
+   "howto_step_7_title": "cedb477984dc89d7",
+   "howto_title": "17a2a620be86e431",
+   "meta_description": "2283f1e1a771d5f2",
+   "meta_title": "7dfe9ef1d0266eed",
+   "mockup": "dae1f19afb0c3789",
+   "product_name": "e4f65613fe93e474",
+   "prompt_chip_1": "454ef9458c6e083b",
+   "prompt_chip_2": "7eaad63a994e2f91",
+   "prompt_chip_3": "8881d71be0d5fc90",
+   "prompt_chip_4": "591465973f57416d",
+   "slug": "2b9542f7962664bd",
+   "tab_content_1": "6fbb8ee612930ca1",
+   "tab_content_2": "c3f09879557a3b74",
+   "tab_content_3": "1dc4fd00854b336f",
+   "tab_content_4": "aeeebf0f3171627f",
+   "tab_label_1": "d58f6b7b12c96f75",
+   "tab_label_2": "20cb65d5a22737ee",
+   "tab_label_3": "a3e8e633f9eb768e",
+   "tab_label_4": "ba229cbc1fef8829",
+   "usecase_heading": "95fbcbb642ee9bbc",
+   "why_description": "13aa675b4623c66a",
+   "why_table": "5bdff290f59abffb",
+   "why_title": "71e9dca3a90af6ee"
+  },
+  "all": "e539611813637a29",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
