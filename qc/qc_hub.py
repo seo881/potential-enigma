@@ -442,7 +442,10 @@ def check(spec, siblings):
         mine = {kwn(prim)} | {kwn(s["kw"]) for s in me.get("secondaries", [])}
         heads = [strip_html(h3p(F[k])[0]) for k in F if re.match(r"(feature|tab_content)_\d", k) and h3p(F.get(k, ""))]
         heads += [F.get(k, "") for k in ("features_heading", "usecase_heading", "why_title", "howto_title", "h1", "meta_title")]
-        heads += [i["q"] for i in (fq or {}).get("items", [])]
+        # a locked skeleton question (ruling 15: code-built from the gate's passing set, verbatim, never reworded) is not the writer's
+        # heading: the gate's PA10 already judged which page owns it, and the writer cannot change it (B-dev-11, Divit's go 2026-10-15)
+        _lock = {(sl.get("n"), sl.get("q")) for sl in spec.get("faq_plan") or [] if sl.get("locked") and sl.get("q")}
+        heads += [i["q"] for n_, i in enumerate((fq or {}).get("items", []), 1) if (n_, i.get("q")) not in _lock]
         for url, p in KMAP.items():
             if url == spec["url"] or p.get("status") == "live-off-plan": continue
             kp = kwn(p["primary"])

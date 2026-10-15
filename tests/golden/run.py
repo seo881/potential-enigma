@@ -17,6 +17,9 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
                                                           key drop_key is missing; or path, a list of keys into the spec, e.g. ["image_brief","tabs",0,"alt"], holds it)
   k7-header      {url, header, expect_k7}                 QC K7 fires on a why_table column header exactly when expect_k7 (top-10 URLs: keyword map + saved SERP)
   qc-code-text   {url, field, text, code, match?}         QC raises exactly `code` (message containing `match`) on that field for this text
+  qc-k5-locked   {url, sha, q_index, locked, set_q?, match, expect_k5}  K5 (sibling primary in a heading) fires on FAQ item q_index of
+                                                          the spec at sha exactly when expected: never on a locked skeleton question as built
+                                                          (faq_plan slot locked and the item equals it); set_q rewords the item
   qc-text-clean  {url, field, text, check}                 QC must NOT raise `check` on that field for this text
   qc-text        {url, field, text, check}                 QC flags `field` when it holds `text` (P0/P1 on that field)
   gate-pa12-secs {url, expect_pa12}                        PA12's secondary test fails exactly when expected (ruling 5: Semrush secondaries, bar min(6, n); none = 4 on-topic workbook ideas)
@@ -307,6 +310,14 @@ def caught(c):
         import qc_hub as Q, hubctl as H
         s = copy.deepcopy(json.load(open(H.spath(c["url"])))); s["fields"][c["field"]] = c["text"]
         return any(i["code"] == c["code"] and i["sev"] in ("P0", "P1") and c.get("match", "") in i["msg"] for i in Q.check(s, Q.load_specs([H.spath(c["url"])])))
+    if c["kind"] == "qc-k5-locked":        # B-dev-11 (Divit's go 2026-10-15): K5 skips a locked skeleton FAQ question (code-built, verbatim,
+        import qc_hub as Q, hubctl as H, io, contextlib    # PA10 owns the sibling call); an unlocked or reworded question still raises K5
+        s = spec_at(c["sha"], c["url"]); n = c["q_index"]
+        sl = next(x for x in s["faq_plan"] if x["n"] == n); sl["locked"] = c["locked"]
+        if c.get("set_q"):   # the FAQ item no longer equals the locked slot (a writer reworded it)
+            fq = s["fields"]["faq"]; s["fields"]["faq"] = fq.replace(json.dumps(sl["q"])[1:-1], c["set_q"], 1)
+        with contextlib.redirect_stdout(io.StringIO()): iss = Q.check(s, Q.load_specs([H.spath(c["url"])]))
+        return any(i["code"] == "K5" and c["match"] in i["msg"] for i in iss) == c["expect_k5"]
     if c["kind"] == "qc-text-clean":       # the check must NOT flag this text (Divit 2026-10-14: C2 flags compliance claims, not a bare acronym)
         import qc_hub as Q, hubctl as H
         s = copy.deepcopy(json.load(open(H.spath(c["url"])))); s["fields"][c["field"]] = c["text"]
