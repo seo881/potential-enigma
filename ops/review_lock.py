@@ -25,7 +25,21 @@ def allowed_fields(spec):
     last = max(events, key=lambda e: e.get("date") or "")   # only the latest review event's blocking findings unlock fields
     named = [f.get("field") for f in last.get("findings", []) if f.get("severity") == "blocking"]
     named += [x.get("field") for x in spec.get("lock_exceptions") or [] if (x.get("date") or "") >= (last.get("date") or "")]
-    return [n for n in named if n]
+    return [x for n in named if n for x in _split(n)]
+
+def _split(named):
+    """A finding may name several fields: "h1; usecase_heading; og (share image headline)" (B-r-16, 2026-10-15). Split on ; and ,
+    drop parentheticals, and map the names reviewers use to the fields they live in (tab_heading_N -> tab_content_N, og -> alt:share_image)."""
+    import re
+    out = []
+    for part in re.split(r"[;,]", re.sub(r"\([^)]*\)", "", named)):
+        p = part.strip()
+        if not p: continue
+        out.append(p.split()[0] if p.split()[0] in ("faq", "mockup") else p)
+        m = re.match(r"tab_heading_(\d)", p)
+        if m: out.append(f"tab_content_{m.group(1)}")
+        if p == "og" or p.startswith("og "): out += ["alt:share_image", "image_brief.og"]
+    return out
 
 def violations(spec):
     """Changed fields (since the stored review hash) that no blocking finding or exception names. [] when unlocked."""
