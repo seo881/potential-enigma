@@ -56,6 +56,18 @@ def _SQ_HEAD(url, q):
     """The (possibly reworded) question still carries the head phrase or an approved multi-word variant (backlog line 91)."""
     sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate as _PG
     g = _PG.Gate(url); return any(h.search(_PG.norm(q)) for h in g.heads)
+def pp_skipped(entries, q):
+    """PA4 per-page skip (rules/paa_blocklist.json per_page): an entry with a reason skips q when its text matches ("q") or,
+    for a ruling 12 strike stored by hash only ("qh"), when paa_gate.qhash(q) matches. An entry may carry either or both."""
+    sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate as _PG
+    ql, qh = q.strip().lower(), None
+    for e in entries:
+        if not e.get("reason"): continue
+        if e.get("q") and e["q"].strip().lower() == ql: return True
+        if e.get("qh"):
+            qh = qh or _PG.qhash(q)
+            if e["qh"] == qh: return True
+    return False
 def kwmap(low):
     low = _SP.to_us(low).replace("-", " ")   # ruling 14: UK spelling counts as US; a hyphen reads as a space ("post-event survey" carries "post event survey")
     for rx, c in KV_RX: low = rx.sub(lambda m: c + m.group(1), low)
@@ -587,8 +599,7 @@ def check(spec, siblings):
             ok_paa, _skip = S.eligible(live, me_page, prims)
             # PA4 per-page skip list (Divit approved PA1-PA13, 2026-10-08): a logged, reasoned skip is not required by F4
             _pp = json.load(open(os.path.join(ROOT, "rules", "paa_blocklist.json")))["per_page"].get(spec["url"].rsplit("/", 1)[1], [])
-            _pskip = {e["q"].strip().lower() for e in _pp if e.get("reason")}
-            ok_paa = [i for i in ok_paa if i["q"].strip().lower() not in _pskip]
+            ok_paa = [i for i in ok_paa if not pp_skipped(_pp, i["q"])]
             for i in ([] if F4_RETIRED else ok_paa[:10]):
                 if i["q"].lower() not in used_paa: add("P1", "F4", "faq", f'People Also Ask question not answered: "{i["q"]}"')
             if not live["paa"]: add("P2", "F5", "faq", "this SERP shows no People Also Ask box; FAQ comes from related searches and secondaries")

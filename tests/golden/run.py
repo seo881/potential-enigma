@@ -77,6 +77,9 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
                                                           2026-10-14: with HUB_KMAP_SIM (default no-additions,no-private: B's clone without
                                                           the rsync) kmap() returns the tracked addition and claim_queue hands it out (dry)
   kmap-additions-clean {min_pages}                        plan/additions.json carries only url, hub, primary, status, wave, queue_rank
+  live-flag      {test, ...}                              Divit 2026-10-15: live = the item's Webflow publish state (hubctl.live_golden):
+                                                          export {url, target, state, item, expect_linked}, publish-check {target, state,
+                                                          item, expect_flagged}, record {test_record: empty|older}
   staging-card   {fixture, width, hub, live, expect_fail: [checks], expect_ok?: [checks], match?: {check: text}}  Divit 2026-10-14,
                                                           ops/staging_check: the carousel fixture in tests/golden/fixtures/staging_check is
                                                           measured in headless Chromium (offline) and judged; exactly the expect_fail checks
@@ -159,6 +162,10 @@ def caught(c):
         with _cl.redirect_stdout(_io.StringIO()): items, _ = PG.run_pull(g)
         it = next((i for i in items if PG.qhash(i["q"]) == c["qh"]), None)
         return bool(it) and it["verdict"] == "reject" and any(r[0] in c["expect"] and r[1] == "reject" for r in it["reasons"])
+    if c["kind"] == "qc-pp-skip":   # QC F4 per-page skip reads both blocklist shapes: "q" (text) and "qh" (ruling 12 hash only)
+        import qc_hub as Q, paa_gate as PG
+        es = [{("qh" if k == "qh_of" else k): (PG.qhash(v) if k == "qh_of" else v) for k, v in e.items()} for e in c["entries"]]   # qh_of: synthetic text, hashed here
+        return Q.pp_skipped(es, c["q"]) == c["expect_skip"]
     if c["kind"] == "review-lock":   # ruling 10 B2: after review, a change to field F is refused unless a blocking finding names F
         import review_lock as RL, hubctl as H
         s = copy.deepcopy(spec_at(c["sha"], c["url"]) if c.get("sha") else json.load(open(H.spath(c["url"])))); s["fields"][c["field"]] = (s["fields"].get(c["field"]) or "") + " Changed after review."
@@ -379,6 +386,9 @@ def caught(c):
         if not c.get("keep_review"): s.pop("review", None)
         hit = any(i["code"] == "R15" and i["sev"] in ("P0", "P1") and c["match"] in i["msg"] for i in Q.check(s, Q.load_specs([H.spath(c["url"])])))
         return hit == c["expect"]
+    if c["kind"] == "live-flag":           # Divit 2026-10-15: "live" = Webflow publish state (status/live.json), never the workflow state
+        import hubctl as H
+        return H.live_golden(c)
     if c["kind"] == "webflow-api":         # Divit 2026-10-14: the direct Data API path (allowlist, slug skip, batching, before gate,
         import ship                        # 429 backoff, no token in any output); dry run and stubs only, never the network
         return ship.api_golden(c)
