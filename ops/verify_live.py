@@ -2,7 +2,8 @@
 Checks the <title>, meta description, H1, the FAQ data, every image (by Webflow file ID), the share image, that every
 emergent.sh link in the FAQ answers returns HTTP 200, and (Divit 2026-10-14) every internal href on the whole page, template
 links included (carousel and Learn cards, nav, footer, breadcrumbs, CTAs, hub links): each must end in HTTP 200 after its
-redirects, and no card may carry a placeholder href ("#") or a template-page slug (/<hub>/detail_<collection>).
+redirects, and no card may carry a placeholder href ("#") or a template-page slug (/<hub>/detail_<collection>). Divit 2026-10-16: the Learn
+section (section_blog-related) shows exactly 3 cards linking to /learn/<slug>, with no "No items found".
 Fetches https://emergent.sh<url> unless an HTML file is given.
 
     .venv/bin/python3 ops/verify_live.py --links URL_OR_PATH ...     internal-link check only, any emergent.sh page (hubs too)"""
@@ -132,6 +133,27 @@ def check_internal_links(html, page_url, fetch=None):
             f"redirect), {failed} do not; {len(placeholders)} placeholder href(s); {len(slugs)} template-slug link(s)")
     return ok, [("PASS " if ok else "FAIL ") + head] + rep, bad
 
+LEARN_CARD = re.compile(r"^(?:https?://(?:www\.)?emergent\.sh)?/learn/[a-z0-9][a-z0-9-]*/?$")
+def learn_section(html):
+    """Divit 2026-10-16: the template's Learn list (section_blog-related) sources the item's own acrm---learn refs, limit 3. It must show
+    exactly 3 cards (role=listitem), each linking to /learn/<slug>, and no Webflow empty state ("No items found"). Returns (ok, line)."""
+    m = re.search(r'<section[^>]*class="section_blog-related[^"]*"[^>]*>(.*?)</section>', html, re.S)
+    if not m: return False, "FAIL Learn section: section_blog-related not on the page"
+    sec = m.group(1); why = []
+    cards = re.findall(r'<div[^>]*role="listitem"[^>]*>(.*?)(?=<div[^>]*role="listitem"|</section>|$)', sec, re.S)
+    hrefs = [(re.search(r'<a[^>]*href="([^"]*)"', c) or [None, None])[1] for c in cards]
+    if "No items found" in sec or "w-dyn-empty" in sec and re.search(r'class="[^"]*w-dyn-empty[^"]*"[^>]*>\s*<div', sec): why.append('"No items found" shown')
+    if len(cards) != 3: why.append(f"{len(cards)} card(s), need 3")
+    off = [h for h in hrefs if not (h and LEARN_CARD.match(h))]
+    if off: why.append(f"{len(off)} card link(s) not /learn/<slug>: {', '.join(str(h) for h in off[:3])}")
+    if why: return False, "FAIL Learn section (3 published acrm---learn refs): " + "; ".join(why)
+    return True, "PASS Learn section: 3 cards to /learn/<slug>"
+
+def _learn_hub(spec):
+    import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import hubctl as _H
+    hub = next((k for k, h in _H.CFG["hubs"].items() if (spec.get("url") or "").startswith(h["path"] + "/")), None)
+    return hub and _H.learn_from_item(hub)
+
 def verify(spec, html=None, check_links=True, fetch=None):
     F = spec["fields"]; url = "https://emergent.sh" + spec["url"]; rep = []; ok = True
     if html is None:
@@ -160,6 +182,8 @@ def verify(spec, html=None, check_links=True, fetch=None):
     og = re.search(r'<meta[^>]+property="og:image"[^>]+content="([^"]+)"', html) or re.search(r'<meta[^>]+content="([^"]+)"[^>]+property="og:image"', html)
     sid = spec.get("images", {}).get("share_image", {}).get("file_id")
     chk("share image (og:image)", bool(og and sid and sid in og.group(1)), og.group(1)[:80] if og else "missing")
+    if _learn_hub(spec):   # Divit 2026-10-16: rendered Learn list = 3 cards to /learn/<slug>, never "No items found"
+        lok, lline = learn_section(html); rep.append(lline); ok = ok and lok
     if spec.get("quiz") is not None:   # playable quiz (docs/QUIZ.md): the hero prompt field (alpb---prompt) also carries window.awbQuiz
         import sys as _sys, os as _os; _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))), "qc")); import quiz as _QZ
         import hubctl as _H

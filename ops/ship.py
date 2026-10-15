@@ -2,7 +2,7 @@
 
   hubctl ship BATCH_FILE                  advance every page of the batch as far as code can take it; print what waits on whom
   hubctl ship-done BATCH_FILE URL STAGE --by ID [--fail TEXT]   an agent finished a stage (writer | review | rework)
-  hubctl ship-cms BATCH_FILE READBACK.json   after the orchestrator's create/update call: verify the read-back, record the drafts
+  hubctl ship-cms BATCH_FILE READBACK.json [--learn LEARN.json]   after the orchestrator's create/update call: verify the read-back, record the drafts
   hubctl ship-qc URL                      QC as a normal page (the 4 originals are frozen in plain QC; launch brings them to standard)
   hubctl ship-update BATCH READBACK [--before-only]   changed fields only for pages already in the CMS (before-values committed first; status kept)
   hubctl ship-cost BATCH_FILE             tokens per page and per role logged for the batch (hubctl usage-log)
@@ -266,6 +266,7 @@ def build_payloads(bf, L, sha):
 def cmd_cms(args):
     """Verify a stored read-back against the specs for every page waiting in stage cms; record item and file IDs and the draft fingerprint."""
     bf, rb = args[0], args[1]; L = load_ledger(bf); items = H._items_from_readback(rb); ok = bad = 0
+    learn = H.learn_index(_arg(args, "--learn")) if "--learn" in args else None
     by = {(it.get("fieldData") or {}).get("slug"): it for it in items}
     for url in batch_urls(bf):
         P = L["pages"][url]
@@ -281,11 +282,12 @@ def cmd_cms(args):
             if not got.get("fileId"): diff.append(f"{k} (no fileId)")
             else: im["file_id"] = got["fileId"]; im["cdn_url"] = got.get("url")
         if not it.get("isDraft"): diff.append("isDraft is not true")
+        diff += H.learn_problems(hub, it, learn)   # Divit 2026-10-16: 3 published Learn refs
         if diff: bad += 1; fail(P, "cms", "read-back mismatch: " + ", ".join(diff), "payload"); print(f"MISMATCH {url}: {diff}"); continue
         s["item_id"] = it["id"]; s["cms_draft"] = {"fingerprint": G.fingerprint(s), "sha": P.get("payload_sha"), "date": now(), "verified": True}
         json.dump(s, open(H.spath(url), "w"), indent=1, ensure_ascii=False)
         P["stage"] = "done"; P["item_id"] = it["id"]; note(P, "cms", True, f"draft {it['id']} verified"); ok += 1
-    save_ledger(bf, L); write_readiness(); print(f"drafts verified {ok}; mismatched {bad}")
+    save_ledger(bf, L); write_readiness(); print(f"drafts verified {ok}; mismatched {bad}. {H.learn_note(learn)}")
 
 def cmd_update(args):
     """hubctl ship-update BATCH READBACK [--before-only]: changed fields only, for batch pages already in the CMS (staged or draft).
@@ -296,7 +298,7 @@ def cmd_update(args):
     bf, rb = args[0], args[1]; L = load_ledger(bf); name = L["batch"]; items = {it["id"]: it for it in H._items_from_readback(rb)}
     sha = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
     day = datetime.date.today().isoformat(); out = {}; befores = []; changed_pages = []
-    if "--verify" in args: return update_verify(bf, name, items, day)
+    if "--verify" in args: return update_verify(bf, name, items, day, H.learn_index(_arg(args, "--learn")) if "--learn" in args else None)
     for url in batch_urls(bf):
         s = spec(url); h = H.CFG["hubs"][H.hub_of(url)]; it = items.get(s.get("item_id"))
         if not it: sys.exit(f"{url}: item {s.get('item_id')} not in {rb}")
@@ -380,7 +382,7 @@ def cmd_relink(args):
     os.makedirs(os.path.dirname(p), exist_ok=True); json.dump(relink_actions(upd, pub), open(p, "w"), indent=1, ensure_ascii=False)
     print(f"wrote {os.path.relpath(p, ROOT)}: {sum(len(v) for v in upd.values())} item(s)")
 
-def update_verify(bf, name, items, day):
+def update_verify(bf, name, items, day, learn=None):
     """ship-update ... --verify: after the update, every text field and alt matches the read-back, and every image field sent
     (from the payloads in ops/out/ship) now holds a different CDN file than its committed before-value. On a pass, cms_draft.sha
     moves to the payload commit so the next ship-update compares images from there."""
@@ -397,6 +399,7 @@ def update_verify(bf, name, items, day):
             if fd.get(h["fields"][k]) != v: bad.append(f"{url}: {h['fields'][k]} differs")
         for k, im in s["images"].items():
             if (im.get("alt") or "") != ((fd.get(h["fields"][k]) or {}).get("alt") or ""): bad.append(f"{url}: {h['fields'][k]} alt differs")
+        bad += [f"{url}: {p}" for p in H.learn_problems(H.hub_of(url), it, learn)]   # Divit 2026-10-16
         bp = os.path.join(ROOT, "childedits", day, f"{url.rsplit('/', 1)[1]}.{name}.before.json")
         for f, v in (sent.get(it["id"]) or {}).items():
             if not (isinstance(v, dict) and "/potential-enigma/" in (v.get("url") or "")): continue
@@ -405,7 +408,7 @@ def update_verify(bf, name, items, day):
             if not (fd.get(f) or {}).get("fileId") or fd[f]["fileId"] == old: bad.append(f"{url}: {f} still the old file")
         ok += 1
     for b in bad: print("  MISMATCH " + b)
-    print(f"{ok - len({b.split(':')[0] for b in bad})}/{ok} pages match the read-back")
+    print(f"{ok - len({b.split(':')[0] for b in bad})}/{ok} pages match the read-back. {H.learn_note(learn)}")
     if bad: sys.exit(1)
     for url in batch_urls(bf):
         s = json.load(open(H.spath(url))); it = items[s["item_id"]]; h = H.CFG["hubs"][H.hub_of(url)]
@@ -509,6 +512,25 @@ def api_read(hub, out=None):
     _apilog({"op": "list", "hub": hub, "collection": h["collection_id"], "count": len(items), "file": _rel(p) if p.startswith(ROOT) else os.path.basename(p)})
     G.live_record(hub, items, json.load(open(p))["_meta"]["read_at"], os.path.basename(p))   # Webflow publish state -> status/live.json (Divit 2026-10-15)
     return items, p
+def api_read_learn(out=None):
+    """Read the Learn collection (GET list only; the client refuses every other request on it) to .cache/readback/learn-api-<time>.json,
+    in the read-back shape learn-check, bulk-verify --learn and ship-cms --learn read (Divit 2026-10-16)."""
+    W = _W(); items, _ = W.list_learn(dry=False)
+    p = out or os.path.join(RB_DIR, f"learn-api-{_stamp()}.json"); os.makedirs(os.path.dirname(os.path.abspath(p)), exist_ok=True)
+    json.dump({"_meta": {"collection": W.LEARN, "read_at": now(), "count": len(items), "via": "hubctl api-read-learn (Data API v2, staged, read only)"},
+               "result": {"items": items}}, open(p, "w"), ensure_ascii=False)
+    _apilog({"op": "list", "hub": "Learn", "collection": W.LEARN, "count": len(items), "file": _rel(p) if p.startswith(ROOT) else os.path.basename(p)})
+    return items, p
+def _learn_live():
+    """{id: item} from a fresh Learn read for the read-back checks of a live write, or None (count only) if the read fails."""
+    W = _W()
+    try: items, p = api_read_learn(); return {i["id"]: i for i in items}
+    except (W.ApiError, W.Refused) as e: print(f"  Learn read failed ({str(e)[:120]}): Learn refs checked by count only"); return None
+def cmd_api_read_learn(args):
+    """hubctl api-read-learn [--out FILE]: the Learn collection to disk (read only); prints the count and the file."""
+    items, p = api_read_learn(_arg(args, "--out"))
+    print(f"Learn: {len(items)} item(s) read (staged, drafts included) -> {_rel(p) if os.path.abspath(p).startswith(ROOT) else p}")
+
 def latest_readback(hub):
     fs = sorted(glob.glob(os.path.join(RB_DIR, f"{H.CFG['hubs'][hub]['repo_dir']}-api-*.json")))
     return fs[-1] if fs else None
@@ -558,6 +580,7 @@ def cmd_api_create(args):
         for r, ch in zip(W.create_items(cid, [it for _, it in go], dry=True), W.chunks(go)):
             print(f"  {r['method']} {r['path']}  {r['count']} item(s), isDraft true: {', '.join(it['fieldData']['slug'] for _, it in ch)}")
         print(f"  then GET /collections/{cid}/items (full read-back, {max(1, -(-(len(live_items) + len(go)) // 100))} call(s)), bulk-verify, state cms_draft")
+        if H.learn_from_item(hub): print(f"  and GET /collections/{W.LEARN}/items (Learn, read only): every draft needs exactly 3 published acrm---learn refs (Divit 2026-10-16)")
         print(f"  before-value {_rel(bp)}: " + ("present" if os.path.exists(bp) else "not written yet (--before-only)") + ". Nothing was sent.")
         return
     if not go: print("nothing to create: every slug already exists (run hubctl bulk-verify on a read-back to record them)"); return
@@ -586,8 +609,9 @@ def cmd_api_create(args):
     os.makedirs(os.path.dirname(rp), exist_ok=True); err = None; t0 = datetime.datetime.now()
     try: W.create_items(cid, [it for _, it in go], dry=False, on_batch=on_batch)
     except (W.ApiError, W.Refused) as e: err = str(e); print(f"STOPPED: {err}")
-    items2, rb2 = api_read(hub)
-    ok, nbad, lines = H._bulk_verify(hub, items2, only={u for u, _ in go} | {u for u, _ in skip}, need_draft=True)
+    items2, rb2 = api_read(hub); learn = _learn_live() if H.learn_from_item(hub) else None
+    ok, nbad, lines = H._bulk_verify(hub, items2, only={u for u, _ in go} | {u for u, _ in skip}, need_draft=True, learn=learn)
+    if H.learn_from_item(hub): print(f"  {H.learn_note(learn)}")
     for l in lines: print(l)
     _hublog(hub, f"api-create: {len(created)} draft(s) created via Data API at {sha[:7]} ({', '.join(c['slug'] for c in created)}); read back {len(items2)} items; verified {ok}, mismatched {nbad}; before {_rel(bp)}; rollback {_rel(rp)}" + (f"; stopped: {err[:200]}" if err else ""))
     print(f"created {len(created)} in {(datetime.datetime.now() - t0).total_seconds():.0f}s; read back {len(items2)}; verified and recorded {ok}; mismatched {nbad}; rollback {_rel(rp)}")
@@ -637,7 +661,7 @@ def cmd_api_update(args):
         print(f"DRY RUN api-update {os.path.basename(pf)}: {n} item(s)")
         for c, its in upd.items():
             for r in W.update_items(c, its, dry=True): print(f"  {r['method']} {r['path']}  {r['count']} item(s), fields: {', '.join(sorted({k for it in its for k in it['fieldData']}))}")
-            print(f"  then GET /collections/{c}/items (read-back) and a diff of every sent field")
+            print(f"  then GET /collections/{c}/items (read-back) and a diff of every sent field" + (f"; GET /collections/{W.LEARN}/items (Learn, read only) and 3 published acrm---learn refs per item" if H.learn_from_item(W.CHILD[c]) else ""))
         for c, ids in pub.items():
             for r in W.publish_items(c, ids, dry=True): print(f"  {r['method']} {r['path']}  {r['count']} item(s) (only if the diff is clean)")
         bad = require_before(sorted({p for p, _ in bfile.values()}))
@@ -648,7 +672,7 @@ def cmd_api_update(args):
     rp = os.path.join(ROOT, "childedits", _day(), f"{name}.{_stamp()}.rollback.json"); os.makedirs(os.path.dirname(rp), exist_ok=True)
     json.dump([{"label": f"rollback of {os.path.basename(pf)}: before-values, changed fields only", "update_collection_items": {"collection_id": c, "request": {"items": [
         {"id": it["id"], "fieldData": {k: bfile[it["id"]][1]["fieldData"].get(k) for k in it["fieldData"]}} for it in its]}}} for c, its in upd.items()], open(rp, "w"), indent=1, ensure_ascii=False)
-    diffs = []; err = None
+    diffs = []; err = None; learn = False
     for c, its in upd.items():
         try: W.update_items(c, its, dry=False, on_batch=lambda ch, r, c=c: _apilog({"op": "update", "collection": c, "count": len(ch), "ids": [i["id"] for i in ch], "payload": os.path.basename(pf)}))
         except (W.ApiError, W.Refused) as e: err = str(e); print(f"STOPPED: {err}")
@@ -658,6 +682,10 @@ def cmd_api_update(args):
             for k, v in it["fieldData"].items():
                 same = _same_image(v, g.get(k), bfd.get(k)) if isinstance(v, dict) else g.get(k) == v
                 if not same: diffs.append(f"{it['id']}: {k}")
+            hb = W.CHILD[c]
+            if H.learn_from_item(hb):   # Divit 2026-10-16: every updated item keeps exactly 3 published Learn refs
+                if learn is False: learn = _learn_live(); print(f"  {H.learn_note(learn)}")
+                diffs += [f"{it['id']}: {p}" for p in H.learn_problems(hb, got.get(it["id"]) or {"fieldData": {}}, learn)]
     hub = W.CHILD[next(iter(upd))]
     _hublog(hub, f"api-update {os.path.basename(pf)}: {n} item(s) updated via Data API; read back; {len(diffs)} field mismatch(es); rollback {_rel(rp)}" + (f"; stopped: {err[:200]}" if err else ""))
     for d in diffs: print(f"  MISMATCH {d}")
@@ -905,5 +933,5 @@ def api_golden(c):
     finally: W.TRANSPORT, W.TOKEN, W.SLEEP = real
     return None
 
-CMDS = {"api-read": cmd_api_read, "api-create": cmd_api_create, "api-update": cmd_api_update, "api-publish": cmd_api_publish,
+CMDS = {"api-read": cmd_api_read, "api-read-learn": cmd_api_read_learn, "api-create": cmd_api_create, "api-update": cmd_api_update, "api-publish": cmd_api_publish,
         "ship-update": cmd_update, "relink-payload": cmd_relink, "ship": cmd_ship, "ship-done": cmd_done, "ship-cms": cmd_cms, "ship-qc": cmd_qc, "ship-cost": cmd_cost, "readiness": cmd_readiness}

@@ -20,7 +20,7 @@
   verify URL READBACK.json          diff a stored CMS read-back against the spec (exit 1 on mismatch)
   record URL --item-id ID [--file-id FIELD=ID ...]   store Webflow IDs after a create/import
   bulk-payload HUB --sha SHA        create_collection_items actions (100 items per action) for every approved page without an item ID
-  bulk-verify HUB READBACK.json     verify every page of HUB found in a stored read-back; records item IDs and file IDs
+  bulk-verify HUB READBACK.json [--learn LEARN.json]   verify every page of HUB found in a stored read-back; records item IDs and file IDs
   next STATE [HUB]                  list pages waiting in a state (for orchestrators and reviewers)
   table URL [--vs A,B,C] [--rows id[=Label],...] [--variant CAT]   build the comparison table from the vetted library (rules/competitors/);
                                     with no --vs the primary keyword picks the library's category set (explicit flags win)
@@ -35,13 +35,16 @@
   pack URL --role writer|reviewer   one compact file for that agent: brief, the rules it needs, catalogue summary, exemplar
   sources-check URL|--all            link-check every spec.domain_sources URL (cached for QC P3)
   usage-log URL TOKENS --role R     record an agent's token usage for a page (metrics reports tokens per page)
+  learn-check HUB READBACK [LEARN_READBACK]   Divit 2026-10-16: every non-draft item without exactly 3 acrm---learn refs, or with a ref
+                                    unpublished / missing in the Learn read (no Learn read: count only). Exit 1 on any failure
+  api-read-learn [--out FILE]       read the Learn collection (GET list only, read only) -> .cache/readback/learn-api-<time>.json
   learn-refs READBACK                 the 3 newest published Learn articles -> config/learn_refs.json (L12; new items get them at creation)
   verbatim URL...                   ruling 4/12: AlsoAsked-sourced FAQ items equal prov.original and the saved pull (exit 1 on a mismatch)
   feasibility URL | defer URL --by ID   ruling 10 B1: under 10 FAQ sources after the pull = no writer; the page waits in the queue
   review-diff URL | slim-review URL FILE --by A-s-<n>   ruling 1: fields changed since review; record a slim review of them
   hold URL --by ID [--note T] | unhold URL --by ID   the account's hold marker on a page it is working (docs/TWO_ACCOUNTS.md)
   (claim, state, images, ready, review, release, hold and unhold refuse without --by: Divit 2026-10-13)
-  metrics | sample [STATE] | links HUB | links --relink | lookahead HUB [N] | serp-budget | ranks-save URL RAW | ranks-report | recheck [--states a,b] [--include-b] | swap-recheck [--dry] [--quiet] [--force] | image-regress | verify-live URL [--html F]
+  metrics | sample [STATE] | links HUB | links --relink | lookahead HUB [N] | serp-budget | ranks-save URL RAW | ranks-report | recheck [--states a,b] [--include-b] | swap-recheck [--dry] [--quiet] [--force] | image-regress | verify-live URL [--html F] [--readback F [--learn F]]
   live-sync [HUB ...] [--readback F]  refresh status/live.json (Webflow publish state per page) from the newest api-read on disk;
                                     "live" for links, payloads and publish checks comes only from it, never the workflow state (Divit 2026-10-15)
   daily-batch [--date D]             ruling 10 B4: plan/batches/batch-<date>.txt = every reviewed, unheld, hash-matching page not in the CMS
@@ -398,7 +401,9 @@ def cmd_verify(args):
         got = fd.get(h["fields"][k]) or {}
         if not got.get("fileId"): bad.append(f"{k} (no fileId)")
         elif got.get("alt") != im.get("alt"): bad.append(f"{k} (alt differs)")
-    print(f"item {it['id']} isDraft={it.get('isDraft')} | mismatched: {bad or 'none'}")
+    learn = learn_index(args[args.index("--learn") + 1]) if "--learn" in args else None
+    bad += learn_problems(hub, it, learn)   # Divit 2026-10-16
+    print(f"item {it['id']} isDraft={it.get('isDraft')} | mismatched: {bad or 'none'} | {learn_note(learn)}")
     sys.exit(1 if bad else 0)
 
 def cmd_record(args):
@@ -826,12 +831,91 @@ def _field_data(url, sha):
         if im.get("path"):
             if not os.path.exists(os.path.join(ROOT, im["path"])): sys.exit(f"image missing on disk: {im['path']}")
             fd[h["fields"][k]] = {"url": f"{REPO_RAW}/{sha}/{im['path']}", "alt": im["alt"]}
-    if not fd.get(h["fields"]["learn"]): fd[h["fields"]["learn"]] = learn_refs()   # L12 (Divit 2026-10-13): Learn refs at creation
+    learn_fill(hub, fd)   # L12 (Divit 2026-10-13) + Divit 2026-10-16: 3 Learn refs at creation, else refused
     assert fd.get("name") and fd.get("slug"), f"{url}: name (h1) and slug are required"
     return s, fd
 
 def learn_refs():
     return json.load(open(os.path.join(ROOT, "config", "learn_refs.json")))["ids"]
+
+# ---------- Learn references (Divit 2026-10-16): every page must have 3 published Learn references wherever its template sources
+# them. The child templates' Learn list (section_blog-related, limit 3) sources the item's own acrm---learn field: config hub flag
+# learn_from_item. Fewer refs = fewer cards or "No items found"; a draft/archived ref renders nothing.
+LEARN_N = 3
+def learn_from_item(hub): return bool(CFG["hubs"][hub].get("learn_from_item"))
+
+def learn_fill(hub, fd):
+    """Create/update payload: fill acrm---learn from config/learn_refs.json when the payload lacks refs; refuse (exit) unless the
+    result is exactly 3 distinct IDs."""
+    k = CFG["hubs"][hub]["fields"]["learn"]
+    if not fd.get(k): fd[k] = learn_refs()
+    ids = fd.get(k) or []
+    if learn_from_item(hub) and (len(ids) != LEARN_N or len(set(ids)) != len(ids)):
+        sys.exit(f"refused: {fd.get('slug')}: {len(set(ids))} distinct Learn reference(s) in the payload, need exactly {LEARN_N} "
+                 "(Divit 2026-10-16; refresh config/learn_refs.json with hubctl learn-refs <Learn read>)")
+    return fd
+
+def learn_index(path):
+    """{id: item} from a Learn collection read (same shape _items_from_readback reads; hubctl api-read-learn writes one), or None."""
+    return {i["id"]: i for i in _items_from_readback(path)} if path else None
+
+def learn_problems(hub, item, learn=None):
+    """[] when the CMS item satisfies the rule (or its hub does not source Learn from the item). learn = learn_index(...) or None
+    (None: count only, the published status is not checked)."""
+    if not learn_from_item(hub): return []
+    ids = (item.get("fieldData") or {}).get(CFG["hubs"][hub]["fields"]["learn"]) or []
+    out = []
+    if len(ids) != LEARN_N: out.append(f"acrm---learn has {len(ids)} reference(s), need exactly {LEARN_N}")
+    if len(set(ids)) != len(ids): out.append("acrm---learn repeats a reference")
+    if learn is not None:
+        for i in ids:
+            L = learn.get(i)
+            if L is None: out.append(f"Learn ref {i} missing from the Learn read (deleted or wrong collection)")
+            elif L.get("isDraft") or L.get("isArchived") or not L.get("lastPublished"):
+                out.append(f"Learn ref {i} not published (isDraft {L.get('isDraft')}, isArchived {L.get('isArchived')}, lastPublished {L.get('lastPublished') or 'none'})")
+    return out
+
+def learn_note(learn):
+    return "Learn refs: count and published status checked" if learn is not None else \
+        "Learn refs: COUNT ONLY (no Learn read given: published status not checked; hubctl api-read-learn, then pass --learn FILE)"
+
+def cmd_learn_check(args):
+    """learn-check HUB READBACK [LEARN_READBACK]: every non-draft item of HUB in the read with not exactly 3 acrm---learn refs, or a
+    ref that is unpublished or missing from the Learn read. Exit 1 on any failing item."""
+    hub, rb = args[0], args[1]; lp = args[2] if len(args) > 2 else None
+    if hub not in CFG["hubs"]: sys.exit(f"HUB must be one of {', '.join(CFG['hubs'])}")
+    if not learn_from_item(hub): print(f"{hub}: learn_from_item is off in config; nothing to check"); return 0
+    learn = learn_index(lp); items = _items_from_readback(rb); bad = 0; drafts = 0
+    for it in sorted(items, key=lambda i: (i.get("fieldData") or {}).get("slug") or ""):
+        if it.get("isDraft"): drafts += 1; continue
+        pr = learn_problems(hub, it, learn)
+        if pr: bad += 1; print(f"FAIL {CFG['hubs'][hub]['path']}/{(it.get('fieldData') or {}).get('slug')} ({it.get('id')}): " + "; ".join(pr))
+    print(f"{hub}: {len(items) - drafts} non-draft item(s) checked in {os.path.basename(rb)}, {bad} failing; {drafts} draft(s) skipped. {learn_note(learn)}")
+    return 1 if bad else 0
+
+def learn_golden(c):
+    """Golden kinds learn-check / learn-fill / learn-render (Divit 2026-10-16). None when a referenced read is not on this machine."""
+    if c["kind"] == "learn-fill":
+        fd = {"slug": "golden-learn", h_k(c["hub"]): list(c["refs"])}
+        try: learn_fill(c["hub"], fd); refused = False
+        except SystemExit: refused = True
+        return refused == c["expect_refused"]
+    if c["kind"] == "learn-render":
+        import gzip; sys.path.insert(0, os.path.join(ROOT, "ops")); import verify_live as V
+        html = gzip.open(os.path.join(ROOT, "tests", "golden", "fixtures", "verify_live", c["fixture"] + ".html.gz")).read().decode("utf-8")
+        for old, new in c.get("mutate") or []:
+            if old not in html: return False
+            html = html.replace(old, new, 1)
+        ok, line = V.learn_section(html)
+        return (not ok) == c["expect_fail"] and (c.get("match", "") in line)
+    rb = os.path.join(ROOT, c["readback"])
+    if not os.path.exists(rb): return None
+    learn = learn_index(os.path.join(ROOT, c["learn"])) if c.get("learn") else None
+    it = next((i for i in _items_from_readback(rb) if (i.get("fieldData") or {}).get("slug") == c["slug"]), None)
+    if it is None: return False
+    pr = learn_problems(c["hub"], it, learn)
+    return bool(pr) == c["expect_fail"] and all(any(m in p for p in pr) for m in c.get("match") or [])
+def h_k(hub): return CFG["hubs"][hub]["fields"]["learn"]
 
 def cmd_learn_refs(args):
     """READBACK = a read of the Learn collection (6a0f028d0bfe272031dbddb8) sorted by learn---publishing-date desc. Picks the 3 newest
@@ -879,7 +963,7 @@ def cmd_bulk_payload(args):
         json.dump([{"label": f"create {hub} {i+1}-{i+len(items[i:i+100])}", "create_collection_items": {"collection_id": h["collection_id"], "request": {"items": items[i:i+100]}}}], open(out, "w"), indent=1, ensure_ascii=False)
         print(f"wrote {os.path.relpath(out, ROOT)} ({len(items[i:i+100])} drafts)")
 
-def _bulk_verify(hub, items, only=None, need_draft=False):
+def _bulk_verify(hub, items, only=None, need_draft=False, learn=None):
     """Diff every approved/cms_draft page of HUB found in a read-back against its export; a match records the item and file IDs
     and moves the page to cms_draft. only: restrict to these URLs; need_draft: the item must also be isDraft true.
     Returns (ok, bad, lines)."""
@@ -898,16 +982,17 @@ def _bulk_verify(hub, items, only=None, need_draft=False):
             if not got.get("fileId"): diff.append(f"{k} (no fileId)")
             else: im["file_id"] = got["fileId"]; im["cdn_url"] = got.get("url")
         if need_draft and it.get("isDraft") is not True: diff.append("isDraft is not true")
+        diff += learn_problems(hub, it, learn)   # Divit 2026-10-16: 3 published Learn refs
         if diff: bad += 1; lines.append(f"MISMATCH {url}: {diff}"); continue
         s["item_id"] = it["id"]; json.dump(s, open(spath(url), "w"), indent=1, ensure_ascii=False)
         set_state(url, "cms_draft", item_id=it["id"]); ok += 1
     return ok, bad, lines
 
 def cmd_bulk_verify(args):
-    hub, rb = args[0], args[1]
-    ok, bad, lines = _bulk_verify(hub, _items_from_readback(rb))
+    hub, rb = args[0], args[1]; learn = learn_index(args[args.index("--learn") + 1]) if "--learn" in args else None
+    ok, bad, lines = _bulk_verify(hub, _items_from_readback(rb), learn=learn)
     for l in lines: print(l)
-    print(f"verified and recorded {ok}; mismatched {bad}"); sys.exit(1 if bad else 0)
+    print(f"verified and recorded {ok}; mismatched {bad}. {learn_note(learn)}"); sys.exit(1 if bad else 0)
 
 def cmd_next(args):
     state = args[0]; hubs = [args[1]] if len(args) > 1 else list(CFG["hubs"])
@@ -1169,6 +1254,11 @@ def cmd_verify_live(args):
     sys.path.insert(0, os.path.join(ROOT, "ops")); import verify_live as V, guards as G
     url = args[0]; html = open(args[args.index("--html") + 1]).read() if "--html" in args else None
     ok, report = V.verify(json.load(open(spath(url))), html, check_links=("--html" not in args)); print("\n".join(report))
+    if "--readback" in args:   # Divit 2026-10-16: the CMS item's own acrm---learn (count, and published status with --learn)
+        hub = hub_of(url); slug = url.rsplit("/", 1)[1]; learn = learn_index(args[args.index("--learn") + 1]) if "--learn" in args else None
+        it = next((i for i in _items_from_readback(args[args.index("--readback") + 1]) if (i.get("fieldData") or {}).get("slug") == slug), None)
+        pr = ["item not in the read-back"] if it is None else learn_problems(hub, it, learn)
+        print(("FAIL" if pr else "PASS") + f" Learn refs in the CMS item: {'; '.join(pr) or 'exactly 3'} ({learn_note(learn)})"); ok = ok and not pr
     if ok:
         set_state(url, "published", note="live page verified", via="verify-live")
         if "--html" not in args: G.live_mark(url, json.load(open(spath(url))).get("item_id"), None, "verify-live")
@@ -1227,7 +1317,7 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "release": cmd_release, "paa": cmd_paa, "paa-resource": cmd_paa_resource, "paa-synonyms": cmd_paa_synonyms, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "transfer-hold": cmd_transfer_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "feasibility": cmd_feasibility, "daily-batch": cmd_daily_batch, "unlock": cmd_unlock, "verbatim": cmd_verbatim, "defer": cmd_defer, "batch-check": cmd_batch_check, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "transfer-hold": cmd_transfer_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "feasibility": cmd_feasibility, "daily-batch": cmd_daily_batch, "unlock": cmd_unlock, "verbatim": cmd_verbatim, "defer": cmd_defer, "batch-check": cmd_batch_check, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "learn-check": cmd_learn_check, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
         "recheck": cmd_recheck, "live-sync": cmd_live_sync, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live,
         "swap-recheck": lambda a: __import__("swap_recheck").main(a),   # Divit 2026-10-14 step 3: r18-swap-short pages back to rework once replacements exist
@@ -1240,7 +1330,7 @@ def _ship(name):
         return ship.CMDS[name](args)
     return run
 for _n in ("ship-update", "relink-payload", "ship", "ship-done", "ship-cms", "ship-qc", "ship-cost", "readiness",
-           "api-read", "api-create", "api-update", "api-publish"): CMDS[_n] = _ship(_n)
+           "api-read", "api-read-learn", "api-create", "api-update", "api-publish"): CMDS[_n] = _ship(_n)
 if __name__ == "__main__":
     if len(sys.argv) < 2 or sys.argv[1] not in CMDS: print(__doc__); sys.exit(0)
     try:

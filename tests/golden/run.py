@@ -74,6 +74,12 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
                                                           (hero <p> and awbPrompt unchanged, one separate quiz block, Z9 clean), z9-wrong-quiz,
                                                           z9-no-carrier, verify-live {mutate: none|quiz|prompt|no-embed|no-quiz, expect_fail: [checks]},
                                                           ship-block {url, quiz, expect_blocked}, css-scope {inject?, expect_bad}, plan-type {primary, expect}
+  learn-check    {hub, readback, slug, learn?, expect_fail, match?}  Divit 2026-10-16: hubctl.learn_problems on the item `slug` in the
+                                                          read-back (repo-relative; a missing .cache read = not machine-tested), with the Learn
+                                                          read `learn` (published status) or count only; match: substrings every one in a problem
+  learn-fill     {hub, refs, expect_refused}            the create payload's Learn refs (hubctl.learn_fill): refused unless exactly 3 distinct
+  learn-render   {fixture, mutate?, expect_fail, match?}  verify_live.learn_section on tests/golden/fixtures/verify_live/<fixture>.html.gz
+                                                          (mutate [[old, new]] once each, each must occur): 3 cards to /learn/<slug>, no "No items found"
   verify-links   {fixture, page, fetch?, default?, mutate?, expect_fail, expect_bad?}  Divit 2026-10-14: verify-live checks every
                                                           internal href (template links too) on the saved page HTML in
                                                           tests/golden/fixtures/verify_live/<fixture>.html.gz (mutate: [[old, new]],
@@ -427,6 +433,9 @@ def caught(c):
     if c["kind"] == "live-flag":           # Divit 2026-10-15: "live" = Webflow publish state (status/live.json), never the workflow state
         import hubctl as H
         return H.live_golden(c)
+    if c["kind"] in ("learn-check", "learn-fill", "learn-render"):   # Divit 2026-10-16: 3 published Learn refs (hubctl.learn_golden)
+        import hubctl as H
+        return H.learn_golden(c)
     if c["kind"] == "webflow-api":         # Divit 2026-10-14: the direct Data API path (allowlist, slug skip, batching, before gate,
         import ship                        # 429 backoff, no token in any output); dry run and stubs only, never the network
         return ship.api_golden(c)

@@ -6,7 +6,9 @@ Allowed requests, and nothing else (check() refuses before any network call, tok
   POST  /collections/{cid}/items             create: 1-100 items, every item isDraft true with a name and a slug
   PATCH /collections/{cid}/items             update: 1-100 items, each with an id; never a slug, isArchived or isDraft false
   POST  /collections/{cid}/items/publish     item publish by IDs: 1-100 itemIds
-{cid} must be one of the 4 child collection IDs in config/collections.json. Site publish, delete, unpublish, live-item
+{cid} must be one of the 4 child collection IDs in config/collections.json. One exception, read only (Divit 2026-10-16): the Learn
+collection (config learn_collection) allows GET list, so the published status of acrm---learn references can be checked; every
+other request on it (one item, create, update, publish, anything else) is refused. Site publish, delete, unpublish, live-item
 endpoints, collection schema, pages, components, assets, webhooks and every other path are refused in code.
 
 Token: the macOS keychain, service "webflow", read at call time (`security find-generic-password -s webflow -w`). It is never
@@ -19,7 +21,9 @@ import json, os, re, subprocess, time, urllib.request, urllib.error, urllib.pars
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CFG = json.load(open(os.path.join(ROOT, "config", "collections.json")))
 BASE = "https://api.webflow.com/v2"
-CHILD = {h["collection_id"]: hub for hub, h in CFG["hubs"].items()}   # the only collections this client may touch
+CHILD = {h["collection_id"]: hub for hub, h in CFG["hubs"].items()}   # the only collections this client may write
+LEARN = CFG["learn_collection"]["collection_id"]                         # Learn: GET list only, never a write (Divit 2026-10-16)
+READ_ONLY_LIST = {LEARN: "Learn"}
 MAX_ITEMS = 100
 ID = r"[0-9a-f]{24}"
 RULES = [   # (method, path pattern, operation)
@@ -47,7 +51,9 @@ def check(method, path, body=None, query=None):
     hit = next(((op, rx.match(path)) for meth, rx, op in RULES if meth == m and rx.match(path)), None)
     if not hit: _refuse(f"{m} {path}: not on the allowlist (item read, create, update and item publish on the 4 child collections only)")
     op, mt = hit; cid = mt.group("cid")
-    if cid not in CHILD: _refuse(f"{m} {path}: collection {cid} is not one of the 4 child collections in config/collections.json")
+    if cid in READ_ONLY_LIST and op != "list":
+        _refuse(f"{m} {path}: the {READ_ONLY_LIST[cid]} collection is read only (GET list); {op} is never allowed on it (Divit 2026-10-16)")
+    if cid not in CHILD and cid not in READ_ONLY_LIST: _refuse(f"{m} {path}: collection {cid} is not one of the 4 child collections in config/collections.json")
     q = dict(query or {})
     if op == "list":
         if set(q) - {"offset", "limit"}: _refuse(f"list query may carry offset and limit only, got {sorted(q)}")
@@ -158,6 +164,9 @@ def list_items(cid, dry=False):
         total = (r.get("pagination") or {}).get("total")
         off += len(got)
         if not got or (total is not None and off >= total) or (total is None and len(got) < MAX_ITEMS): return out, []
+def list_learn(dry=False):
+    """Every item of the Learn collection (read only: GET list, staged, drafts included) for the acrm---learn published check."""
+    return list_items(LEARN, dry=dry)
 def get_item(cid, iid, dry=False): return request("GET", f"/collections/{cid}/items/{iid}", dry=dry)
 def create_items(cid, items, dry=True, on_batch=None):
     """POST in batches of up to 100; on_batch(chunk, response) runs after each batch so the caller logs and writes rollback at once."""
