@@ -52,3 +52,6 @@ Every command is one plain `.venv/bin/python3 ops/hubctl.py ...` call (or `bash 
 ## The morning (08:00 IST)
 
 When the loop ends (cap, budget, second session limit, STOP or nothing left at 08:00 IST), the last session writes `reports/<date>/0800-overnight.md`, under 15 lines: pages written, reviewed, approved by standing go, created, published and verified (live count against 200), holds (flags, verify-live), tokens used (tokens.jsonl), session limits hit, AlsoAsked credits (run night-r1015), the morning packet path, and that ruling 19 was restored (time). Add a line to `reports/INDEX.md` (newest first) and commit both with `bash ops/sync.sh`. The coordinator records the restore in DECISIONS.md.
+
+## Ruling 12 lifted for tonight (Divit, 2026-10-15 night; DECISIONS)
+B may regenerate the ranked queue (`.venv/bin/python3 ops/queue_rank.py`) and pull AlsoAsked for the top no-pull and short candidates (`.venv/bin/python3 ops/weekend.py aa URL --run night-r1015`; 60 credits max for the night), then regenerate the queue, so writers have pages that can reach 10 honest questions. Relevance and cannibalisation rules apply exactly as before: anything doubtful parks with a reason. The lift ends with the run, when the exit trap removes the ruling-19 lift file.
