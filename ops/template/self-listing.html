@@ -5,6 +5,8 @@
   function hideSelf() {
     var p = here(location.href);
     document.querySelectorAll('.section_build a.build_link').forEach(function (a) {
+      var h = (a.getAttribute('href') || '').trim();
+      if (!h || h === '#' || h.charAt(0) === '#') return;   /* unbound or anchor links: never treat as the current page */
       if (here(a.href) === p) { var item = a.closest('.w-dyn-item') || a; item.remove(); }
     });
   }
