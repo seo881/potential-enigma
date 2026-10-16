@@ -177,6 +177,13 @@
    "via": null,
    "by": "B-c-1",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 12:58 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "B-s-44",
+   "note": "slim review: [slim | HUB_RULES 8; CONTENT_DEFECTS #7] faq item 9: \"this is a rule\" makes the writer's recommendation (say why and who will see it, in one sentence above the upload field) read as a legal requirement. The quoted (a)(5) spans require only adequate notice that the bank is requesting inf"
   }
  ],
  "pipeline": "r15",
@@ -1096,6 +1103,26 @@
    "by": "A-r-16",
    "via": "review",
    "date": "2026-10-13 23:42 UTC"
+  },
+  {
+   "criterion": "slim",
+   "rule": "DECISIONS 2026-10-16 written FAQ (no legal or financial advice); HUB_RULES 8",
+   "field": "faq item 3",
+   "issue": "Facts match the quoted (a)(2)(i) and (a)(2)(ii)(A)(1) spans and the counsel line keeps it from reading as advice, so it ships. The regulation opens \"Except as permitted by paragraphs (a)(2)(i)(B) and (C)\" (TIN applicants, credit card accounts), which the answer does not mention; acceptable at FAQ length.",
+   "fix": "None required. If touched later: \"For most accounts, at least four details...\"",
+   "by": "B-s-44",
+   "via": "slim-review",
+   "date": "2026-10-16 12:58 UTC"
+  },
+  {
+   "criterion": "slim",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 7",
+   "issue": "A recommendation with no source (fine as advice). The sponsorship-form link sentence reads as placed for the link rather than for the reader.",
+   "fix": "None required.",
+   "by": "B-s-44",
+   "via": "slim-review",
+   "date": "2026-10-16 12:58 UTC"
   }
  ],
  "review_hash": {
@@ -1175,7 +1202,7 @@
    "breadcrumb": "e471a02c0efa911e",
    "chip_adds": "6540debd18e60b19",
    "explore_cta": "aa87ba4177b7842e",
-   "faq": "6c805fef682e19a2",
+   "faq": "8176881b4b8e9262",
    "feature_1": "4d6b6eca4b885f65",
    "feature_2": "3d6315d0820c5fee",
    "feature_3": "8e201e83652a256c",
@@ -1225,7 +1252,7 @@
    "why_table": "a1ff8dc7ca25ca34",
    "why_title": "5744cda186301db2"
   },
-  "all": "3b17c21e62281803",
+  "all": "15ff5ccb4a2009a6",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  },
  "slim_reviews": [
@@ -1256,6 +1283,48 @@
      "rule": "DECISIONS ruling 18 (Divit 2026-10-14) step 3",
      "issue": "Q8: land-title sense, off-intent",
      "severity": "blocking"
+    }
+   ]
+  },
+  {
+   "by": "B-s-44",
+   "date": "2026-10-16 12:58 UTC",
+   "fields": [
+    "faq"
+   ],
+   "baseline": "review_hash",
+   "blocking": 1,
+   "notes": 2,
+   "findings": [
+    {
+     "criterion": "slim",
+     "field": "faq item 9",
+     "quote": "Tell them why you need it and who will see it, in one sentence directly above the upload field. For US banks this is a rule: 31 CFR 1020.220 requires adequate notice",
+     "fix": "Replace the second sentence's opening so the rule is stated on its own: \"US banks have a rule here: 31 CFR 1020.220 requires adequate notice that the bank is requesting information to verify their identities, given before the account opens.\" (keep the first and third sentences as they are). Re-run qc and paa --spec.",
+     "class": "unsourced",
+     "rule": "HUB_RULES 8; SEVERITY unsourced (a source that does not say it); CONTENT_DEFECTS #7",
+     "issue": "\"this is a rule\" makes the writer's recommendation (say why and who will see it, in one sentence above the upload field) read as a legal requirement. The quoted (a)(5) spans require only adequate notice that the bank is requesting information to verify identity, given before the account opens; they say nothing about who sees the ID or where on the form the notice sits. Misstating what a federal rule requires on a legal topic.",
+     "severity": "blocking"
+    },
+    {
+     "criterion": "slim",
+     "field": "faq item 3",
+     "quote": "At least four details before the account opens: name, date of birth, address, and an identification number.",
+     "fix": "None required. If touched later: \"For most accounts, at least four details...\"",
+     "class": "other",
+     "rule": "DECISIONS 2026-10-16 written FAQ (no legal or financial advice); HUB_RULES 8",
+     "issue": "Facts match the quoted (a)(2)(i) and (a)(2)(ii)(A)(1) spans and the counsel line keeps it from reading as advice, so it ships. The regulation opens \"Except as permitted by paragraphs (a)(2)(i)(B) and (C)\" (TIN applicants, credit card accounts), which the answer does not mention; acceptable at FAQ length.",
+     "severity": "note"
+    },
+    {
+     "criterion": "slim",
+     "field": "faq item 7",
+     "quote": "Keep payment out of it. Put the charge on a separate step that opens only after a reviewer approves the ID.",
+     "fix": "None required.",
+     "class": "unsourced-advice",
+     "rule": "HUB_RULES 8",
+     "issue": "A recommendation with no source (fine as advice). The sponsorship-form link sentence reads as placed for the link rather than for the reader.",
+     "severity": "note"
     }
    ]
   }
