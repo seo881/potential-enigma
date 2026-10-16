@@ -122,6 +122,13 @@
    "via": null,
    "by": "B-w-202",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 13:21 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-71",
+   "note": "rubric 10/10 by B-r-71; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -928,5 +935,265 @@
  },
  "writers": [
   "B-w-202"
- ]
+ ],
+ "review": {
+  "by": "B-r-71",
+  "date": "2026-10-16 13:21 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Dentist Landing Page That Books the Visit'; hero 'Build a dentist landing page with a call button, a short booking request form, and every request saved to a database you own.' states the whole job; no sibling topic (chiropractic, telehealth, mental health) in any heading."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are example galleries and builder template lists; the page gives four worked examples by visit type (New Patient Exam, Emergency Visit, Insurance Choice, Kids' First Visit), a seven-step how-to and a Landingi/ConvertFlow/Wix comparison."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Practice vocabulary throughout: 'Leave medical history to intake', 'membership plan at $29 a month', 'Pain now or This week', 'the Dentist type listed on schema.org'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every feature body opens on a verb or full sentence: 'Ask for a name and a phone number', 'Each request lands as a row', 'Name the requests that need a fast call back', 'Publish the page on a domain'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Only notes: two ', so' endings (howto step 3, FAQ 8) and a 33-word FAQ 1 sentence; no blocking craft class exists."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail ('an $89 exam with a cleaning', 'ages 4 and 7, under one phone number', 'a line on parking'); voice notes recorded for the hero prompt's 'signup' and the bolt-on link sentences."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Claims map to prompt-build, database-owned, alerts, custom-domain ('Custom domains are included in Emergent and use credits' verbatim), code-export ('on paid plans'). Google 'most specific LocalBusiness sub-type possible' and 'country code and area code' match their quotes; schema.org Dentist under LocalBusiness matches 'Thing > Place > LocalBusiness > MedicalBusiness > Dentist'; web.dev 2.5 s LCP matches its quote. Table cells match the single-vendor library entries Landingi, ConvertFlow and Wix (no grouped 'Landingi / Leadpages / Instapage' entry). 41+16=57, 72+48=120. No medical or dental advice."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Built around dental-only stories (Pain now emergency alert, insurance-or-membership branch, siblings booked back to back) and steps ('Leave medical history to intake', 'Name the insurance you take') that would not transfer to a sibling with nouns swapped."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, no brand or file format; hub link in item 2 ('Emergent's AI landing page builder'); each answer leads with the answer ('Yes, when the page sells a visit at one set price'); moat lines in items 4, 5, 7."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: Quillmont 57/41/16 and $89; Fernreach 'Email to Rosalind', 'Jonah Pratt needs a call back', 'Marked Pain now'; Selby Row 120/72/48 and '$29 plan'; Little Molars Priya Lindqvist, Elin age 4, Oskar age 7, 'One phone number for both'. One hero, reserved domain quillmont.example."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2a",
+    "field": "hero_prompt",
+    "quote": "Build a dentist landing page that saves every signup to a database I own.",
+    "issue": "'signup' breaks the page's consistent term 'request' (hero, features, tabs, FAQ all say request); HUB_RULES 2a 'Consistent: same term for the same thing'.",
+    "fix": "Build a dentist landing page that saves every booking request to a database I own.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "A b2b landing page works on the same idea: one offer and one form. / The same testing habit applies to any lead generation landing page. / The layout rules for any mobile landing page apply here too",
+    "issue": "The three internal-link anchors arrive as bolt-on sentences of one shape in items 4, 7 and 10; 'b2b' sits oddly on a dental practice page and reads as placed for the link.",
+    "fix": "Work each anchor into the answer's own point, or pick a sibling that fits a practice (for example a healthcare sibling) for item 4.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "howto_step_3_des; faq item 8",
+    "quote": "so write it the same way on the page. / so a search listing never disagrees with the page itself.",
+    "issue": "Two ', so' tacked-on endings (QC Q5 flag, under the block threshold); 'never disagrees' also overpromises what matching markup can guarantee.",
+    "fix": "Split into a second sentence: 'Write it the same way on the page.' / 'A listing then matches the page.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Wix",
+    "issue": "Wix does not rank in this page's top 10 (QC K7 flag); OptimizePress is in the top 10 but not in the library.",
+    "fix": "Coordinator: consider adding OptimizePress to rules/competitors/lp.json with sources for future dental and healthcare pages.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "hero_prompt",
+   "issue": "'signup' breaks the page's consistent term 'request' (hero, features, tabs, FAQ all say request); HUB_RULES 2a 'Consistent: same term for the same thing'.",
+   "fix": "Build a dentist landing page that saves every booking request to a database I own.",
+   "by": "B-r-71",
+   "via": "review",
+   "date": "2026-10-16 13:21 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "The three internal-link anchors arrive as bolt-on sentences of one shape in items 4, 7 and 10; 'b2b' sits oddly on a dental practice page and reads as placed for the link.",
+   "fix": "Work each anchor into the answer's own point, or pick a sibling that fits a practice (for example a healthcare sibling) for item 4.",
+   "by": "B-r-71",
+   "via": "review",
+   "date": "2026-10-16 13:21 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "howto_step_3_des; faq item 8",
+   "issue": "Two ', so' tacked-on endings (QC Q5 flag, under the block threshold); 'never disagrees' also overpromises what matching markup can guarantee.",
+   "fix": "Split into a second sentence: 'Write it the same way on the page.' / 'A listing then matches the page.'",
+   "by": "B-r-71",
+   "via": "review",
+   "date": "2026-10-16 13:21 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "Wix does not rank in this page's top 10 (QC K7 flag); OptimizePress is in the top 10 but not in the library.",
+   "fix": "Coordinator: consider adding OptimizePress to rules/competitors/lp.json with sources for future dental and healthcare pages.",
+   "by": "B-r-71",
+   "via": "review",
+   "date": "2026-10-16 13:21 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "fa05781f0368e0ff",
+   "alt:share_image": "49289a4c417aadd6",
+   "alt:tab_image_1": "5de506d4dd7fd27f",
+   "alt:tab_image_2": "1f3abc867d5fe6a8",
+   "alt:tab_image_3": "a13b4b092d02bc7b",
+   "alt:tab_image_4": "c2c4f0686d45d55b",
+   "breadcrumb": "ab48ad3649c75625",
+   "chip_adds": "a16891c2a03c6728",
+   "explore_cta": "e8cac0ac9c961b8e",
+   "faq": "353a6d412f40ba58",
+   "feature_1": "06f07103ba040b57",
+   "feature_2": "4f31581f58cbbd8d",
+   "feature_3": "308421eb97ab483a",
+   "feature_4": "daa00aaa5e259121",
+   "feature_5": "2c7f305b33dd0df5",
+   "feature_6": "afd4d80794cc02c6",
+   "features_heading": "8d51b0637a944e56",
+   "features_subheading": "7e3eabf6b22dca9e",
+   "h1": "db87cb6d5802f958",
+   "hero_description": "3718b2fabf74030e",
+   "hero_prompt": "fa0d46d5d8150d69",
+   "howto_description": "c27a05cf1e284ad1",
+   "howto_step_1_des": "4891c9699b09ab33",
+   "howto_step_1_title": "6373ae24ed54c589",
+   "howto_step_2_des": "329d3f43f57dde4a",
+   "howto_step_2_title": "ee08d9ea0785f67b",
+   "howto_step_3_des": "79e258ef3540915e",
+   "howto_step_3_title": "c27f2b5414905c49",
+   "howto_step_4_des": "b8a62ff7fb0e6d61",
+   "howto_step_4_title": "3bdef88657459831",
+   "howto_step_5_des": "dbb87a8356c3416a",
+   "howto_step_5_title": "9c0bcabaaec19b06",
+   "howto_step_6_des": "af6ffad67cfe1990",
+   "howto_step_6_title": "388b8299b8b9e574",
+   "howto_step_7_des": "61c95bbfce520bf6",
+   "howto_step_7_title": "277d97774daf828f",
+   "howto_title": "bac55c9fe8bca913",
+   "meta_description": "b0f72bc93c9a40a2",
+   "meta_title": "78313f4cb97f9374",
+   "mockup": "c294b134000247d7",
+   "product_name": "de1e8c1a6b6f406c",
+   "prompt_chip_1": "2ee521f664b8107c",
+   "prompt_chip_2": "0eaa3a349cb99704",
+   "prompt_chip_3": "e5f4a117f8511d21",
+   "prompt_chip_4": "c5d0f9423f83b7d0",
+   "slug": "bb22d732a5d6bcb2",
+   "tab_content_1": "da2381f16915f326",
+   "tab_content_2": "f9413ef2dfbb938a",
+   "tab_content_3": "9b6dac51b94b12a2",
+   "tab_content_4": "b478bb3c89edebab",
+   "tab_label_1": "2bf35adf4768ea24",
+   "tab_label_2": "73c862809ec6ed02",
+   "tab_label_3": "da19bd0c3f88b3ad",
+   "tab_label_4": "c5d0f9423f83b7d0",
+   "usecase_heading": "a4d41d8183c2339c",
+   "why_description": "95f4aaef38d9df74",
+   "why_table": "e47b057a9e16d4fa",
+   "why_title": "ca26a965fe601d71"
+  },
+  "all": "86b027c1e0eba842",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "fa05781f0368e0ff",
+   "alt:share_image": "49289a4c417aadd6",
+   "alt:tab_image_1": "5de506d4dd7fd27f",
+   "alt:tab_image_2": "1f3abc867d5fe6a8",
+   "alt:tab_image_3": "a13b4b092d02bc7b",
+   "alt:tab_image_4": "c2c4f0686d45d55b",
+   "breadcrumb": "ab48ad3649c75625",
+   "chip_adds": "a16891c2a03c6728",
+   "explore_cta": "e8cac0ac9c961b8e",
+   "faq": "353a6d412f40ba58",
+   "feature_1": "06f07103ba040b57",
+   "feature_2": "4f31581f58cbbd8d",
+   "feature_3": "308421eb97ab483a",
+   "feature_4": "daa00aaa5e259121",
+   "feature_5": "2c7f305b33dd0df5",
+   "feature_6": "afd4d80794cc02c6",
+   "features_heading": "8d51b0637a944e56",
+   "features_subheading": "7e3eabf6b22dca9e",
+   "h1": "db87cb6d5802f958",
+   "hero_description": "3718b2fabf74030e",
+   "hero_prompt": "fa0d46d5d8150d69",
+   "howto_description": "c27a05cf1e284ad1",
+   "howto_step_1_des": "4891c9699b09ab33",
+   "howto_step_1_title": "6373ae24ed54c589",
+   "howto_step_2_des": "329d3f43f57dde4a",
+   "howto_step_2_title": "ee08d9ea0785f67b",
+   "howto_step_3_des": "79e258ef3540915e",
+   "howto_step_3_title": "c27f2b5414905c49",
+   "howto_step_4_des": "b8a62ff7fb0e6d61",
+   "howto_step_4_title": "3bdef88657459831",
+   "howto_step_5_des": "dbb87a8356c3416a",
+   "howto_step_5_title": "9c0bcabaaec19b06",
+   "howto_step_6_des": "af6ffad67cfe1990",
+   "howto_step_6_title": "388b8299b8b9e574",
+   "howto_step_7_des": "61c95bbfce520bf6",
+   "howto_step_7_title": "277d97774daf828f",
+   "howto_title": "bac55c9fe8bca913",
+   "meta_description": "b0f72bc93c9a40a2",
+   "meta_title": "78313f4cb97f9374",
+   "mockup": "c294b134000247d7",
+   "product_name": "de1e8c1a6b6f406c",
+   "prompt_chip_1": "2ee521f664b8107c",
+   "prompt_chip_2": "0eaa3a349cb99704",
+   "prompt_chip_3": "e5f4a117f8511d21",
+   "prompt_chip_4": "c5d0f9423f83b7d0",
+   "slug": "bb22d732a5d6bcb2",
+   "tab_content_1": "da2381f16915f326",
+   "tab_content_2": "f9413ef2dfbb938a",
+   "tab_content_3": "9b6dac51b94b12a2",
+   "tab_content_4": "b478bb3c89edebab",
+   "tab_label_1": "2bf35adf4768ea24",
+   "tab_label_2": "73c862809ec6ed02",
+   "tab_label_3": "da19bd0c3f88b3ad",
+   "tab_label_4": "c5d0f9423f83b7d0",
+   "usecase_heading": "a4d41d8183c2339c",
+   "why_description": "95f4aaef38d9df74",
+   "why_table": "e47b057a9e16d4fa",
+   "why_title": "ca26a965fe601d71"
+  },
+  "all": "86b027c1e0eba842",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
