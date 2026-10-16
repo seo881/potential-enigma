@@ -79,22 +79,30 @@ def work():
             if not os.path.exists(H.spath(u)): continue
             sp = json.load(open(H.spath(u)))
             if G.flags_pending(sp) or (e.get("state") == "reviewed" and G.review_changed(sp) != []): continue   # flags: morning packet; slim first
+            if is_quiz(u) and not quiz_ok(): continue   # quiz template not live: HOLD (B-c-1 2026-10-16)
             ship.append(u)
     import queue_rank as Q
     rows = Q.ranked() or []
     claim = [u for _r, _h, u, c, _f in rows if c in ("ready", "syn-pending") and u not in st and (quiz_ok() or not is_quiz(u) or u in quiz_canary_pages())]
     if aa_status() != "ok": claim.sort(key=lambda u: not has_pull(u))   # no keychain: pages with a saved pull first (stable)
-    pull = []
+    pull = []; pull_sec = []
     if aa_status() == "ok":
         try:
             import weekend as WK; left = AA_CAP - WK.run_spent(AA_RUN)
         except Exception: left = 0
         if left >= 2: pull = [u for _r, _h, u, c, _f in rows if c == "no-pull" and u not in st][:min(5, left // 2)]
+        # Divit 2026-10-15 night (ruling 12 lifted): short pages with feasibility >= 7 get one pull on their top secondary (weekend.py aa --kw secondary)
+        if left >= 1 and len(pull) < 5:
+            sec_dir = os.path.join(H.ROOT, "private", "alsoasked")
+            short = [u for _r, _h, u, c, f in rows if c == "short" and int(f or 0) >= 7 and u not in st and (quiz_ok() or not is_quiz(u))
+                     and not os.path.exists(os.path.join(sec_dir, u.rsplit("/", 1)[1] + "--sec.json"))]
+            pull_sec = short[:min(8, left - 2 * len(pull))]
     return [("0 ship (standing go, batches of 10, verify-live; flagged pages -> morning packet)", ship),
             ("1 reworks first (blocking findings only; one rework per page)", rework), ("2 in-flight B pages to finish", inflight),
             ("2b slim review (hubctl slim-review, an independent B-s agent) of fields changed after review", slim), ("3 render images", render), ("4 full review by an independent B-r agent (never a page it wrote)", review),
             ("5 claim from the top of plan/queue-ranked.txt (all 4 hubs; relevance-checked)", claim),
-            (f"6 AlsoAsked pulls (weekend.py aa URL --run {AA_RUN}; {AA_CAP} credits max) for the top no-pull rows, then queue_rank.py", pull)]
+            (f"6 AlsoAsked pulls (weekend.py aa URL --run {AA_RUN}; {AA_CAP} credits max) for the top no-pull rows, then queue_rank.py", pull),
+            (f"6b secondary pulls (weekend.py aa URL --kw secondary --run {AA_RUN}) for the top short rows (feasibility >= 7, relevance-checked), then queue_rank.py; claim what reaches ready", pull_sec)]
 
 def cmd_cap(a):
     n = live_count(); room = G.LIVE_CAP - n
