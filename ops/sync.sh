@@ -9,7 +9,7 @@
 #   - `git add -- <paths>` then `git commit --only -- <paths>`: whatever else is staged or modified in the clone stays out
 #   - the diffstat of exactly what will be committed is printed first
 #   - conflict markers and the review lock (ruling 10 B2) are checked on these paths only
-#   - pull/rebase happens AFTER the commit and only when origin moved (fetch first), so an autostash pop can never put other
+#   - the merge of origin happens AFTER the commit and only when origin moved (fetch first); no rebase, no autostash (2026-10-16), so other
 #     agents' files into the commit; a pop conflict is reported (their changes stay in `git stash list`), never committed
 # Shared files (status/<hub>.json, status/usage.jsonl, reports/INDEX.md, tests/golden/cases.jsonl) stay committable: pass only the
 # shared files YOU changed, and remember the whole file is committed (another agent's pending edit to that same file goes with it).
@@ -72,14 +72,12 @@ fi
 for i in 1 2 3 4 5; do
   git fetch -q origin main
   if ! git merge-base --is-ancestor FETCH_HEAD HEAD; then
-    # origin moved: replay our commit(s) on it. The commit is already made, so the autostash only parks and restores the tree.
-    if ! git pull -q --rebase --autostash origin main; then
-      git rebase --abort 2>/dev/null || true
-      die "rebase onto origin/main failed (your commit conflicts with upstream); your commit is local and unpushed: resolve, then rerun"
-    fi
-    if [ -n "$(git ls-files -u)" ]; then
-      echo "WARNING: the autostash pop conflicted in files outside this commit (owners: take upstream or keep yours, then git stash drop):" >&2
-      git ls-files -u | cut -f2 | sort -u >&2
+    # origin moved: MERGE it (B-c-1 2026-10-16). Never rebase with --autostash in this shared tree: a conflicted autostash pop left
+    # every other agent's uncommitted files in `git stash` and reset their specs mid-write (many writers hit it on 2026-10-16).
+    # A merge never touches uncommitted files: if upstream changes a file someone has uncommitted, git refuses and nothing is lost.
+    if ! git merge -q --no-edit FETCH_HEAD; then
+      if [ -n "$(git ls-files -u)" ]; then git merge --abort 2>/dev/null || true; fi
+      die "merge of origin/main refused (upstream touches files that are uncommitted here, or your commit conflicts); your commit is local and unpushed: rerun once those files are committed"
     fi
   fi
   if git push -q origin HEAD:main; then git log --oneline -1; exit 0; fi
