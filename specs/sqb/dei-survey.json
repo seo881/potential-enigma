@@ -134,6 +134,13 @@
    "via": null,
    "by": "B-w-189",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 13:00 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-57",
+   "note": "[truth | HUB_RULES 8] faq item 8: Defines two professional survey terms as fact (and the meta title's 'Confidential Results' promise rests on them) with no spec.domain_sources entry for the anonymous vs confidential distinction. -> Add the claim to plan.claims_to_source with a primary source that st"
   }
  ],
  "plan": {
@@ -993,5 +1000,295 @@
  },
  "writers": [
   "B-w-189"
- ]
+ ],
+ "review": {
+  "by": "B-r-57",
+  "date": "2026-10-16 13:00 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a DEI Survey People Trust Enough to Answer', meta 'DEI Survey Builder With Confidential Results | Emergent' and hero 'Build a DEI survey with skippable self-ID questions, small groups hidden in reports, and answers in a database you own.' cover the whole job, not one feature."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition up top (FAQ 1, features subheading), seven-step how-to 'How to Run a DEI Survey', themes and example statements ('I can disagree with my manager without worrying about it.', 'Promotions here go to the people who earn them'), and a builder angle the consultancy-heavy AMBER top 10 lacks."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: self-ID, Prefer not to say, group minimum, 'Reno night shift had 7 answers', anonymous vs confidential; table uses the library survey column."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Once a year, all 640 people at a logistics company rate 18 statements', 'Cut the results by location and shift', 'Pick a minimum answer count'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; list density (11 'A, B, and C' lists) and one ', so' ending recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail ('after its managers began posting open shifts to everyone at once', 'Field Ops scored 3.2 on belonging against 3.9 overall'); no AI tells."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "Unsourced statements of fact: FAQ 8 'An anonymous survey never records who answered, while a confidential one links each response to an ID and limits who can see that link.'; FAQ 10 'An employee engagement survey asks how committed and motivated people are overall'; FAQ 9 'a short note naming one action per theme earns more answers than any reminder'. None has a spec.domain_sources entry."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own story (self-ID table, small-group suppression, 90-day fairness rerun); no sibling primary in a heading; engagement, pulse and exit surveys only linked in FAQ answers."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, gate pass 10/0/0, hub link in item 2, sibling links exit survey, pulse survey, employee engagement survey; moat lines in items 5, 9, 10."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches tab copy: 640 people / 18 statements / Field Ops 3.2 vs 3.9 / 3 lowest items; Prefer not to say + Self-describe + separate table by random ID; Reno night 7 answers hidden under 10; Field Ops 3.1 to 3.6, biggest gain, March vs June."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 8",
+    "quote": "An anonymous survey never records who answered, while a confidential one links each response to an ID and limits who can see that link. Confidential answers can be joined to department or tenure without asking people for them.",
+    "issue": "Defines two professional survey terms as fact (and the meta title's 'Confidential Results' promise rests on them) with no spec.domain_sources entry for the anonymous vs confidential distinction.",
+    "fix": "Add the claim to plan.claims_to_source with a primary source that states the distinction (for example a survey-platform help article on anonymous vs confidential surveys) and quote it in domain_sources; keep the copy within what the source says, or cut the definition.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 10",
+    "quote": "An employee engagement survey asks how committed and motivated people are overall",
+    "issue": "States what an engagement survey measures, a professional definition, with no domain source.",
+    "fix": "Source the engagement-survey definition (commitment/motivation) in domain_sources with a quote, or rephrase the answer around what the DEI survey does without defining the other survey type as fact.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq item 9",
+    "quote": "a short note naming one action per theme earns more answers than any reminder",
+    "issue": "An absolute comparative effect claim about response rates (more than any reminder) with no source; it is stated as fact, not as advice.",
+    "fix": "Recast as advice without the comparative effect ('Before you ask again, send a short note naming one action per theme.') or source it.",
+    "severity": "blocking"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #6",
+    "field": "page",
+    "quote": "fairness, voice, and growth / its question logic, reports, and response database / the self-ID questions, the group minimum, and who sees which report",
+    "issue": "11 'A, B, and C' lists on the page (QC Q8 P2); the page leans on triplets.",
+    "fix": "Turn two or three of them into pairs or one specific item at next touch.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_2, tab_content_2, howto_step_3_des",
+    "quote": "Makes every demographic question optional, with Prefer not to say and a box to self-describe / Every demographic question in the self-ID section is optional and offers Prefer not to say, plus a box to self-describe / mark each one optional, and offer Prefer not to say",
+    "issue": "The optional self-ID idea is restated in three fields with words swapped; the group minimum likewise recurs in feature_4, tab_content_3, howto_step_4_des, FAQ 3 and FAQ 5.",
+    "fix": "Let each field add a new detail rather than restate.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "SurveyMonkey | Microsoft Forms | SurveyHero",
+    "issue": "None of the three compared tools ranks in this page's top 10 (QC K7 P2); the only builder in the top 10 is SurveyLegend.",
+    "fix": "If SurveyLegend enters the competitor library, consider it for the table.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "howto_step_1_des, faq item 8",
+    "quote": "People notice when a survey leads nowhere, and they answer the next one with less care. / a survey called anonymous that later shows department scores loses trust fast",
+    "issue": "General behavioural claims about no named third party, framed as rationale for advice.",
+    "fix": "Optional: soften or tie to the reader's own survey.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #6",
+   "field": "page",
+   "issue": "11 'A, B, and C' lists on the page (QC Q8 P2); the page leans on triplets.",
+   "fix": "Turn two or three of them into pairs or one specific item at next touch.",
+   "by": "B-r-57",
+   "via": "review",
+   "date": "2026-10-16 13:00 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_2, tab_content_2, howto_step_3_des",
+   "issue": "The optional self-ID idea is restated in three fields with words swapped; the group minimum likewise recurs in feature_4, tab_content_3, howto_step_4_des, FAQ 3 and FAQ 5.",
+   "fix": "Let each field add a new detail rather than restate.",
+   "by": "B-r-57",
+   "via": "review",
+   "date": "2026-10-16 13:00 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "None of the three compared tools ranks in this page's top 10 (QC K7 P2); the only builder in the top 10 is SurveyLegend.",
+   "fix": "If SurveyLegend enters the competitor library, consider it for the table.",
+   "by": "B-r-57",
+   "via": "review",
+   "date": "2026-10-16 13:00 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "howto_step_1_des, faq item 8",
+   "issue": "General behavioural claims about no named third party, framed as rationale for advice.",
+   "fix": "Optional: soften or tie to the reader's own survey.",
+   "by": "B-r-57",
+   "via": "review",
+   "date": "2026-10-16 13:00 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6214ce2002d10e04",
+   "alt:share_image": "11a5e0a1511e77ed",
+   "alt:tab_image_1": "dadc402353acabf4",
+   "alt:tab_image_2": "48a2028c561e05cb",
+   "alt:tab_image_3": "c4eb2743720317a8",
+   "alt:tab_image_4": "1e9cfd5b6398f739",
+   "breadcrumb": "5a06e67fbc70c269",
+   "chip_adds": "0c1822aa28b23f74",
+   "explore_cta": "7b996655fc9dceff",
+   "faq": "05fca5e527f83e55",
+   "feature_1": "a5666ed078a22941",
+   "feature_2": "bce4ac2b9f89e941",
+   "feature_3": "ec3dd7d591fafb8a",
+   "feature_4": "4d8f2e3f7b6d5796",
+   "feature_5": "4a9506623d4f6866",
+   "feature_6": "e18935b98b61d0c8",
+   "features_heading": "104cb5dae9bf2487",
+   "features_subheading": "420e8ac62a2db1c6",
+   "h1": "c3beb71269eaf952",
+   "hero_description": "53b41c5480f873f4",
+   "hero_prompt": "2fb55ddfc614613c",
+   "howto_description": "180d51c4eaa928f2",
+   "howto_step_1_des": "992e2129fd90862e",
+   "howto_step_1_title": "ca2d11bfb7b01a25",
+   "howto_step_2_des": "76a18f3199afa3d7",
+   "howto_step_2_title": "c4ca2703d2adf927",
+   "howto_step_3_des": "44914cf8df5b0d97",
+   "howto_step_3_title": "8cc1ce5e5c8f1a72",
+   "howto_step_4_des": "579d5e5d8806562b",
+   "howto_step_4_title": "2eaa5085a90e76af",
+   "howto_step_5_des": "17cb9de911d0d283",
+   "howto_step_5_title": "8618781a90f4582b",
+   "howto_step_6_des": "a8ff8d06f0fde3e6",
+   "howto_step_6_title": "6333bc974cd59ef5",
+   "howto_step_7_des": "40642e60fc1bc8fb",
+   "howto_step_7_title": "da74ef0b81fb7dda",
+   "howto_title": "9e2675c9a29ff9bb",
+   "meta_description": "d12717d7f8bdf4bb",
+   "meta_title": "205cbc28db4ac878",
+   "mockup": "747afb0ce4a6888c",
+   "product_name": "62583a298c0b6ee1",
+   "prompt_chip_1": "c06b7227f484c236",
+   "prompt_chip_2": "4216d9712316bb29",
+   "prompt_chip_3": "2124cfdd59710e0f",
+   "prompt_chip_4": "0a3e18aa131a3106",
+   "slug": "85075e087b4942ff",
+   "tab_content_1": "d0dbe49970c01ca4",
+   "tab_content_2": "164e22c04ac78c0e",
+   "tab_content_3": "4e34849429f13c5a",
+   "tab_content_4": "60c51b3e1a378d0a",
+   "tab_label_1": "2736aca4d0f3c79a",
+   "tab_label_2": "8181925493ea362f",
+   "tab_label_3": "5f755e80d4ae12fa",
+   "tab_label_4": "cb1daab4266e0777",
+   "usecase_heading": "0a71ed77b6c7c923",
+   "why_description": "55b17033bf48e307",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "20587deb0219a827"
+  },
+  "all": "fa626ae3b6b38ae5",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6214ce2002d10e04",
+   "alt:share_image": "11a5e0a1511e77ed",
+   "alt:tab_image_1": "dadc402353acabf4",
+   "alt:tab_image_2": "48a2028c561e05cb",
+   "alt:tab_image_3": "c4eb2743720317a8",
+   "alt:tab_image_4": "1e9cfd5b6398f739",
+   "breadcrumb": "5a06e67fbc70c269",
+   "chip_adds": "0c1822aa28b23f74",
+   "explore_cta": "7b996655fc9dceff",
+   "faq": "05fca5e527f83e55",
+   "feature_1": "a5666ed078a22941",
+   "feature_2": "bce4ac2b9f89e941",
+   "feature_3": "ec3dd7d591fafb8a",
+   "feature_4": "4d8f2e3f7b6d5796",
+   "feature_5": "4a9506623d4f6866",
+   "feature_6": "e18935b98b61d0c8",
+   "features_heading": "104cb5dae9bf2487",
+   "features_subheading": "420e8ac62a2db1c6",
+   "h1": "c3beb71269eaf952",
+   "hero_description": "53b41c5480f873f4",
+   "hero_prompt": "2fb55ddfc614613c",
+   "howto_description": "180d51c4eaa928f2",
+   "howto_step_1_des": "992e2129fd90862e",
+   "howto_step_1_title": "ca2d11bfb7b01a25",
+   "howto_step_2_des": "76a18f3199afa3d7",
+   "howto_step_2_title": "c4ca2703d2adf927",
+   "howto_step_3_des": "44914cf8df5b0d97",
+   "howto_step_3_title": "8cc1ce5e5c8f1a72",
+   "howto_step_4_des": "579d5e5d8806562b",
+   "howto_step_4_title": "2eaa5085a90e76af",
+   "howto_step_5_des": "17cb9de911d0d283",
+   "howto_step_5_title": "8618781a90f4582b",
+   "howto_step_6_des": "a8ff8d06f0fde3e6",
+   "howto_step_6_title": "6333bc974cd59ef5",
+   "howto_step_7_des": "40642e60fc1bc8fb",
+   "howto_step_7_title": "da74ef0b81fb7dda",
+   "howto_title": "9e2675c9a29ff9bb",
+   "meta_description": "d12717d7f8bdf4bb",
+   "meta_title": "205cbc28db4ac878",
+   "mockup": "747afb0ce4a6888c",
+   "product_name": "62583a298c0b6ee1",
+   "prompt_chip_1": "c06b7227f484c236",
+   "prompt_chip_2": "4216d9712316bb29",
+   "prompt_chip_3": "2124cfdd59710e0f",
+   "prompt_chip_4": "0a3e18aa131a3106",
+   "slug": "85075e087b4942ff",
+   "tab_content_1": "d0dbe49970c01ca4",
+   "tab_content_2": "164e22c04ac78c0e",
+   "tab_content_3": "4e34849429f13c5a",
+   "tab_content_4": "60c51b3e1a378d0a",
+   "tab_label_1": "2736aca4d0f3c79a",
+   "tab_label_2": "8181925493ea362f",
+   "tab_label_3": "5f755e80d4ae12fa",
+   "tab_label_4": "cb1daab4266e0777",
+   "usecase_heading": "0a71ed77b6c7c923",
+   "why_description": "55b17033bf48e307",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "20587deb0219a827"
+  },
+  "all": "fa626ae3b6b38ae5",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
