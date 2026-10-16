@@ -121,6 +121,20 @@
    "via": null,
    "by": "B-w-192",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 13:14 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-68",
+   "note": "rubric 10/10 by B-r-68; 8 notes"
+  },
+  {
+   "t": "2026-10-16 13:15 UTC",
+   "state": "rework",
+   "via": null,
+   "by": "B-c-1",
+   "note": "wrong-fact CONTENT_DEFECTS #8 why_table (confirmed by B-r-68 after recording): grouped Landingi/Leadpages/Instapage visitors cell contradicts the Leadpages library entry; regenerate with single-vendor columns"
   }
  ],
  "pipeline": "r15",
@@ -980,5 +994,345 @@
  },
  "writers": [
   "B-w-192"
- ]
+ ],
+ "review": {
+  "by": "B-r-68",
+  "date": "2026-10-16 13:14 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Automotive Landing Page for Dealers and Repair Shops'; hero 'Get an automotive landing page that books test drives and service visits, with every lead saved to a database you own.' (118 chars, carries primary); how-to description is one sentence of 133 chars that says what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition up top for the AI Overview ('a single web page built around one vehicle or one offer'), four worked examples by lead type (test drive, trade-in, brake inspection, EV ride-and-drive), a 7-step how-to grounded in the FTC Used Car Rule and Regulation Z, and a comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Dealer and shop vocabulary throughout: 'used car manager Ines Varga', 'enter the VIN and the mileage', 'pick a bay time', 'The service writer starts each morning with one table of bookings'; table is the library LP set."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Describe the car or the offer...', 'Name who follows up...', 'Tell Emergent to drop the price by $1,500...', 'Owners asking Kestrel Valley Motors for a trade-in number enter the VIN...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences vary and carry one idea: 'Nadia Pruitt picked 10:30 AM.' 'Agree on how soon a lead hears back.' Craft notes recorded (FAQ 7 tacked-on 'which is' ending; 'lead' repeated 14 times), none blocking."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Calm, concrete operator voice: 'A driver who clicked a $49 brake inspection and lands on a full service menu has to hunt for the deal before booking anything.' One voice note on the FAQ 4 link sentence."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Step 3 matches 16 CFR 455.2 quotes ('Before you offer a used vehicle for sale to a consumer, you must ... display ... Buyers Guide'; 'You may remove the form temporarily ... during any test drive'). Step 4 matches 12 CFR 1026.24(d)(1)(iii) trigger 'The amount of any payment' and (d)(2) down payment, terms of repayment, APR. Emergent claims map to claims_used (alerts, realtime, custom-domain 'included and uses credits', code-export on paid plans, free-start). Image numbers agree: 12+12+10+7=41 of 48, seats left 7; trade-in list 3 Same day + 2 Photos requested = 5. No legal or financial advice beyond restating the sourced rules."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No other automotive, car or dealer page in the LP plan; tab H3s ('Each trade-in under 60,000 miles is seen that day', 'When a ride-and-drive slot fills, the page closes it') use no sibling primary; FAQ links go to live nonprofit, high-converting and sales-funnel pages."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, no brands or file formats, each answered first ('No. An auto landing page drops the site menu...', 'Yes, when the listing has its own ad.'); hub link in item 2; secondaries automotive landing pages, auto landing page, auto repair landing page, car landing page, landing page car carried; no FAQ claim refers to 'the examples above'. Repeated-idea notes recorded."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 shows $24,900, 41,200 miles, 3 Saturday slots, Nadia Pruitt 10:30 AM 'Sent to Wes Talbot on Slack' (copy: Slack direct message); tab 2 rule 'If mileage is under 60,000 -> Same day', Ines Varga's list, 4 photos per car; tab 3 $49 brake inspection, Bookings 14; tab 4 4 slots of 12, two Full, 41 of 48 by Thursday. One hero, text readable."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "FAQ 3 'add the mileage and a real photo of that car'; FAQ 6 'carries its price and mileage above the photos'; FAQ 9 'put the mileage right next to the price'",
+    "issue": "Price-plus-mileage placement is restated in three FAQ answers.",
+    "fix": "Keep it in FAQ 3; give FAQ 6 and FAQ 9 a different detail.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "FAQ 1 'leaves out the full inventory and the site menu'; FAQ 4 'drops the site menu and the inventory links'",
+    "issue": "Same idea in the definition and FAQ 4.",
+    "fix": "Drop the menu clause from FAQ 1 or let FAQ 4 own it.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_2_des / faq",
+    "quote": "Step 2 'in the same words and at the same price'; FAQ 9 'Show the same price as the ad'; FAQ 7 'repeat exactly what its ad said'; feature_4 'mark the car sold' / FAQ 6 'mark it sold'",
+    "issue": "Match-the-ad and mark-sold ideas repeat across fields.",
+    "fix": "Let step 2 own the match-the-ad rule and feature 4 the mark-sold change.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "which is one habit every high converting landing page shares",
+    "issue": "Universal generalization about no named third party; also a tacked-on 'which is' ending (CONTENT_DEFECTS #4).",
+    "fix": "State it plainly: 'Each page can then repeat exactly what its ad said, a habit of any high converting landing page.' or cut the clause.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "The idea is not specific to car sales: a nonprofit landing page cuts its menu so a donor sees one ask.",
+    "issue": "Reads as a sentence written to place a link.",
+    "fix": "Move the nonprofit link to an answer where it fits, or drop the aside.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq",
+    "quote": "the only way forward is the action the page asks for. Keep the dealership's name and phone number in view",
+    "issue": "'Only way forward' sits next to advice to show a phone number, a second way forward.",
+    "fix": "'the main action is the one the page asks for'.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Aim for the same business day at the latest, and within the hour during opening hours.",
+    "issue": "Response-time target is a recommendation with no source.",
+    "fix": "Acceptable as advice; a source would strengthen it.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "page",
+    "quote": "\"lead\" appears 14 times outside the FAQ",
+    "issue": "QC Q9 P2: 'lead', 'drive', 'test' heavily repeated.",
+    "fix": "Vary with booking, request, shopper where the meaning holds.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "Price-plus-mileage placement is restated in three FAQ answers.",
+   "fix": "Keep it in FAQ 3; give FAQ 6 and FAQ 9 a different detail.",
+   "by": "B-r-68",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "Same idea in the definition and FAQ 4.",
+   "fix": "Drop the menu clause from FAQ 1 or let FAQ 4 own it.",
+   "by": "B-r-68",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_2_des / faq",
+   "issue": "Match-the-ad and mark-sold ideas repeat across fields.",
+   "fix": "Let step 2 own the match-the-ad rule and feature 4 the mark-sold change.",
+   "by": "B-r-68",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Universal generalization about no named third party; also a tacked-on 'which is' ending (CONTENT_DEFECTS #4).",
+   "fix": "State it plainly: 'Each page can then repeat exactly what its ad said, a habit of any high converting landing page.' or cut the clause.",
+   "by": "B-r-68",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "Reads as a sentence written to place a link.",
+   "fix": "Move the nonprofit link to an answer where it fits, or drop the aside.",
+   "by": "B-r-68",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq",
+   "issue": "'Only way forward' sits next to advice to show a phone number, a second way forward.",
+   "fix": "'the main action is the one the page asks for'.",
+   "by": "B-r-68",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Response-time target is a recommendation with no source.",
+   "fix": "Acceptable as advice; a source would strengthen it.",
+   "by": "B-r-68",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "page",
+   "issue": "QC Q9 P2: 'lead', 'drive', 'test' heavily repeated.",
+   "fix": "Vary with booking, request, shopper where the meaning holds.",
+   "by": "B-r-68",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "012530d162d838e0",
+   "alt:share_image": "292f71759dd4fdb9",
+   "alt:tab_image_1": "d58a7561a4f7bec1",
+   "alt:tab_image_2": "52ad7f43fcb650fc",
+   "alt:tab_image_3": "c067374d229e6574",
+   "alt:tab_image_4": "7f7ce76f31f4eb76",
+   "breadcrumb": "77c4a514ff5d5d1c",
+   "chip_adds": "d36b3e5f5137c1bf",
+   "explore_cta": "02e432d26f4f6fce",
+   "faq": "ace8c941a2f3d7a9",
+   "feature_1": "a8b1ae9faf9cb20f",
+   "feature_2": "7e202486a80d4d8d",
+   "feature_3": "fad801886adb12e3",
+   "feature_4": "38b01a2a9750c7ec",
+   "feature_5": "3fec6f87fd136d46",
+   "feature_6": "c931644bef5b4b1c",
+   "features_heading": "834ca763c543db4c",
+   "features_subheading": "c427490173184516",
+   "h1": "315988180ba88713",
+   "hero_description": "1ed4ba86d36d6cb3",
+   "hero_prompt": "89e1af64454ff651",
+   "howto_description": "023ea1444a971160",
+   "howto_step_1_des": "a148edc9a2b14d4a",
+   "howto_step_1_title": "b14d098c60c47242",
+   "howto_step_2_des": "17ef9ffe8ab9877c",
+   "howto_step_2_title": "890973892a1fd08a",
+   "howto_step_3_des": "44cd3e89c282b0d1",
+   "howto_step_3_title": "5f40d2c6f88acf0e",
+   "howto_step_4_des": "e014f051ee481176",
+   "howto_step_4_title": "47144afdb1a9a49c",
+   "howto_step_5_des": "d4ca6363d0df0b27",
+   "howto_step_5_title": "4b01735ec20b4176",
+   "howto_step_6_des": "c882c1f447f6c23a",
+   "howto_step_6_title": "60e05c219eca360e",
+   "howto_step_7_des": "6feb2253ed49dc26",
+   "howto_step_7_title": "6fbfbe3f29d7be85",
+   "howto_title": "a35bd8b116a04446",
+   "meta_description": "37a59b844d8f0ff1",
+   "meta_title": "a6d3077450476020",
+   "mockup": "36b7692ce491a4fb",
+   "product_name": "efd00bf284f03d53",
+   "prompt_chip_1": "a8d2cb5ff590b078",
+   "prompt_chip_2": "c2458bb8e7e48f35",
+   "prompt_chip_3": "9d8580b97bd3c908",
+   "prompt_chip_4": "f9d5e50989eec0cc",
+   "slug": "f2b63208e5dffb21",
+   "tab_content_1": "dce8beb109e5d7c1",
+   "tab_content_2": "d60b8a466c393436",
+   "tab_content_3": "578b08c44a62976a",
+   "tab_content_4": "5d18de3a48654242",
+   "tab_label_1": "3da6837d7caf330d",
+   "tab_label_2": "c2458bb8e7e48f35",
+   "tab_label_3": "2729be077bfd3101",
+   "tab_label_4": "87bcde20f58a11e5",
+   "usecase_heading": "2e77ec5eb5688a73",
+   "why_description": "3529461d2ae698ad",
+   "why_table": "ca19c6b1f1a9f0c3",
+   "why_title": "53ff63efa197b382"
+  },
+  "all": "5bab62539f681b7e",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "012530d162d838e0",
+   "alt:share_image": "292f71759dd4fdb9",
+   "alt:tab_image_1": "d58a7561a4f7bec1",
+   "alt:tab_image_2": "52ad7f43fcb650fc",
+   "alt:tab_image_3": "c067374d229e6574",
+   "alt:tab_image_4": "7f7ce76f31f4eb76",
+   "breadcrumb": "77c4a514ff5d5d1c",
+   "chip_adds": "d36b3e5f5137c1bf",
+   "explore_cta": "02e432d26f4f6fce",
+   "faq": "ace8c941a2f3d7a9",
+   "feature_1": "a8b1ae9faf9cb20f",
+   "feature_2": "7e202486a80d4d8d",
+   "feature_3": "fad801886adb12e3",
+   "feature_4": "38b01a2a9750c7ec",
+   "feature_5": "3fec6f87fd136d46",
+   "feature_6": "c931644bef5b4b1c",
+   "features_heading": "834ca763c543db4c",
+   "features_subheading": "c427490173184516",
+   "h1": "315988180ba88713",
+   "hero_description": "1ed4ba86d36d6cb3",
+   "hero_prompt": "89e1af64454ff651",
+   "howto_description": "023ea1444a971160",
+   "howto_step_1_des": "a148edc9a2b14d4a",
+   "howto_step_1_title": "b14d098c60c47242",
+   "howto_step_2_des": "17ef9ffe8ab9877c",
+   "howto_step_2_title": "890973892a1fd08a",
+   "howto_step_3_des": "44cd3e89c282b0d1",
+   "howto_step_3_title": "5f40d2c6f88acf0e",
+   "howto_step_4_des": "e014f051ee481176",
+   "howto_step_4_title": "47144afdb1a9a49c",
+   "howto_step_5_des": "d4ca6363d0df0b27",
+   "howto_step_5_title": "4b01735ec20b4176",
+   "howto_step_6_des": "c882c1f447f6c23a",
+   "howto_step_6_title": "60e05c219eca360e",
+   "howto_step_7_des": "6feb2253ed49dc26",
+   "howto_step_7_title": "6fbfbe3f29d7be85",
+   "howto_title": "a35bd8b116a04446",
+   "meta_description": "37a59b844d8f0ff1",
+   "meta_title": "a6d3077450476020",
+   "mockup": "36b7692ce491a4fb",
+   "product_name": "efd00bf284f03d53",
+   "prompt_chip_1": "a8d2cb5ff590b078",
+   "prompt_chip_2": "c2458bb8e7e48f35",
+   "prompt_chip_3": "9d8580b97bd3c908",
+   "prompt_chip_4": "f9d5e50989eec0cc",
+   "slug": "f2b63208e5dffb21",
+   "tab_content_1": "dce8beb109e5d7c1",
+   "tab_content_2": "d60b8a466c393436",
+   "tab_content_3": "578b08c44a62976a",
+   "tab_content_4": "5d18de3a48654242",
+   "tab_label_1": "3da6837d7caf330d",
+   "tab_label_2": "c2458bb8e7e48f35",
+   "tab_label_3": "2729be077bfd3101",
+   "tab_label_4": "87bcde20f58a11e5",
+   "usecase_heading": "2e77ec5eb5688a73",
+   "why_description": "3529461d2ae698ad",
+   "why_table": "ca19c6b1f1a9f0c3",
+   "why_title": "53ff63efa197b382"
+  },
+  "all": "5bab62539f681b7e",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
