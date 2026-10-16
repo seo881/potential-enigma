@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-142",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 08:49 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-20",
+   "note": "rubric 10/10 by B-r-20; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -974,5 +981,285 @@
  },
  "writers": [
   "B-w-142"
- ]
+ ],
+ "review": {
+  "by": "B-r-20",
+  "date": "2026-10-16 08:49 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Hotel Automation Around Your Front Desk and Back Office'; hero names check-in and charge matching; tabs cover front desk, housekeeping, night audit, post-stay."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are hotel-automation explainers (Cloudbeds, SiteMinder, Mews): definition in FAQ 1, four concrete flows, seven-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Hotel vocabulary: folio, card settlement, night desk, rooming list, PMS, direct billing."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Features and steps open on full sentences: 'Upload a linen or food supplier's invoice...', 'Pick one booking from last week...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; ', so' endings at 2 (flag only)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Specific: 'reservation R-40917', 'One $186.40 charge on room 118'. Notes only."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Claims map to prompt-build, api-connect, ai-extraction, alerts, database-owned, no-caps, code-export, free-start, conversational, e-signature-capture; third-party facts sourced (Cloudbeds definition and PMS, PCI SSC scope); 14,382.50-14,196.10=186.40."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own industry page; AP, AR and accounting automation appear only as FAQ link anchors."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 hotel-specific questions, one secondary each at most, no brands, no pricing; PCI answer defers to the processor; each answered first sentence."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches: Zuleika Varga-Mensah 11:20 p.m., R-40917, card signed, Caspian Mwangi-Roux; room 312 10:40/11:55/1:00 p.m., Perpetua Okonjo-Brandt; $14,382.50/$14,196.10/$186.40, Henrike Vantongeren Slack DM, QuickBooks; Agnieszka 2 of 5, $40 offer left off, Kwabena Asante-Holm."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "voice",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "Hotel automation is the use of machines and computers to conduct tasks typically performed manually by employees.",
+    "issue": "FAQ 1 copies Cloudbeds' (a top-10 result) definition word for word; HUB_RULES 5 asks for answers in your own words. Same class: faq 'since the PMS facilitates reservations, check-in, and room assignments at the front desk' is lifted from the same Cloudbeds page.",
+    "fix": "Define it in the page's own words and keep the source for the fact.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "Which back-office tasks should hotel automation take on after check-in?",
+    "issue": "faq_sources secondaries are shifted by one: this item records 'marketing automation for hotels', the item 'What should marketing automation for hotels send after a stay?' records 'hotel automation technology', and 'Can hotel automation technology run the same rules at several properties?' records none.",
+    "fix": "Re-run assemble so each written item names the secondary it carries.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "No. Let the card processor hold card numbers, and have the app store only the processor's reference, the amount, and the room.",
+    "issue": "Payment-security recommendation; the PCI scope fact is sourced, the advice is not. Close to compliance advice, though it defers to the processor.",
+    "fix": "None required.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "Keep the judgment calls, such as a complaint at the desk, with staff.",
+    "issue": "FAQ 1 restates what the 'leave to people' item answers: 'Leave the conversations a guest remembers to people: ... or a complaint at the desk.'",
+    "fix": "None required.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "tab_content_1",
+    "quote": "Zuleika Varga-Mensah",
+    "issue": "Every person on the page carries a double-barrelled surname (Varga-Mensah, Mwangi-Roux, Abernathy-Kalu, Okonjo-Brandt, Ferrante-Obi, Asante-Holm): a generated pattern.",
+    "fix": "Mix single surnames in.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "FAQ 1 copies Cloudbeds' (a top-10 result) definition word for word; HUB_RULES 5 asks for answers in your own words. Same class: faq 'since the PMS facilitates reservations, check-in, and room assignments at the front desk' is lifted from the same Cloudbeds page.",
+   "fix": "Define it in the page's own words and keep the source for the fact.",
+   "by": "B-r-20",
+   "via": "review",
+   "date": "2026-10-16 08:49 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "faq_sources secondaries are shifted by one: this item records 'marketing automation for hotels', the item 'What should marketing automation for hotels send after a stay?' records 'hotel automation technology', and 'Can hotel automation technology run the same rules at several properties?' records none.",
+   "fix": "Re-run assemble so each written item names the secondary it carries.",
+   "by": "B-r-20",
+   "via": "review",
+   "date": "2026-10-16 08:49 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Payment-security recommendation; the PCI scope fact is sourced, the advice is not. Close to compliance advice, though it defers to the processor.",
+   "fix": "None required.",
+   "by": "B-r-20",
+   "via": "review",
+   "date": "2026-10-16 08:49 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "FAQ 1 restates what the 'leave to people' item answers: 'Leave the conversations a guest remembers to people: ... or a complaint at the desk.'",
+   "fix": "None required.",
+   "by": "B-r-20",
+   "via": "review",
+   "date": "2026-10-16 08:49 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "tab_content_1",
+   "issue": "Every person on the page carries a double-barrelled surname (Varga-Mensah, Mwangi-Roux, Abernathy-Kalu, Okonjo-Brandt, Ferrante-Obi, Asante-Holm): a generated pattern.",
+   "fix": "Mix single surnames in.",
+   "by": "B-r-20",
+   "via": "review",
+   "date": "2026-10-16 08:49 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "9567315dd1be98f8",
+   "alt:share_image": "6263a6f7e1152033",
+   "alt:tab_image_1": "496228be104d5dab",
+   "alt:tab_image_2": "e16e712e4d2be00c",
+   "alt:tab_image_3": "5bae26ad5999f11f",
+   "alt:tab_image_4": "42f3f2d3c88a5e5b",
+   "breadcrumb": "a17a4a4681498ee6",
+   "chip_adds": "65bc2b53d3235603",
+   "explore_cta": "dde41b0f4f4764a3",
+   "faq": "57811c23a2668b0c",
+   "feature_1": "6f93d13c106e868b",
+   "feature_2": "fdcfe38612d2118a",
+   "feature_3": "dd8490b563b20f31",
+   "feature_4": "76d9bc9935dd9cfc",
+   "feature_5": "1cbba3b5ef26b46a",
+   "feature_6": "d90da68c388f29bf",
+   "features_heading": "0a573612715aa7b2",
+   "features_subheading": "c32dac0450babf3e",
+   "h1": "ae584a5b465452f3",
+   "hero_description": "7bfc358d29675c9c",
+   "hero_prompt": "72fd59d961be540c",
+   "howto_description": "ed1f8921af581ae0",
+   "howto_step_1_des": "d85e83755572803a",
+   "howto_step_1_title": "acb33703ef5e3ade",
+   "howto_step_2_des": "667e8e992ed1b033",
+   "howto_step_2_title": "da17507dcffb2e84",
+   "howto_step_3_des": "89e480d9eb096e9f",
+   "howto_step_3_title": "137836f4b4f03718",
+   "howto_step_4_des": "08c666c4ebc50ffc",
+   "howto_step_4_title": "1389a86a9ce0b48e",
+   "howto_step_5_des": "004375255ef2046a",
+   "howto_step_5_title": "77fc7b5e49487611",
+   "howto_step_6_des": "57ddb7c37f7e64ee",
+   "howto_step_6_title": "80dfa18bcacf865e",
+   "howto_step_7_des": "dc8715b36415ba29",
+   "howto_step_7_title": "44a6a525eab449cb",
+   "howto_title": "3dc375e50ba044f9",
+   "meta_description": "531e19fbeaf9cb30",
+   "meta_title": "fb7bd23f25a4d67d",
+   "mockup": "c53c73dcca063443",
+   "product_name": "b63540efccfc436f",
+   "prompt_chip_1": "b3ef314150227464",
+   "prompt_chip_2": "c2d208f68cbcced8",
+   "prompt_chip_3": "c0bda159569f6d11",
+   "prompt_chip_4": "18b16dc754ba715c",
+   "slug": "4b76b1ebd4edbc87",
+   "tab_content_1": "b0207125e04320f6",
+   "tab_content_2": "7b8790662219c212",
+   "tab_content_3": "8784bc0edafdd843",
+   "tab_content_4": "0d6b01c8989d8b4a",
+   "tab_label_1": "b3ef314150227464",
+   "tab_label_2": "c2d208f68cbcced8",
+   "tab_label_3": "c0bda159569f6d11",
+   "tab_label_4": "18b16dc754ba715c",
+   "usecase_heading": "d390877d8342c3d0",
+   "why_description": "41ae00706273f3bf",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "24787fa4fd102a0f"
+  },
+  "all": "05fc23342bed43bc",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "9567315dd1be98f8",
+   "alt:share_image": "6263a6f7e1152033",
+   "alt:tab_image_1": "496228be104d5dab",
+   "alt:tab_image_2": "e16e712e4d2be00c",
+   "alt:tab_image_3": "5bae26ad5999f11f",
+   "alt:tab_image_4": "42f3f2d3c88a5e5b",
+   "breadcrumb": "a17a4a4681498ee6",
+   "chip_adds": "65bc2b53d3235603",
+   "explore_cta": "dde41b0f4f4764a3",
+   "faq": "57811c23a2668b0c",
+   "feature_1": "6f93d13c106e868b",
+   "feature_2": "fdcfe38612d2118a",
+   "feature_3": "dd8490b563b20f31",
+   "feature_4": "76d9bc9935dd9cfc",
+   "feature_5": "1cbba3b5ef26b46a",
+   "feature_6": "d90da68c388f29bf",
+   "features_heading": "0a573612715aa7b2",
+   "features_subheading": "c32dac0450babf3e",
+   "h1": "ae584a5b465452f3",
+   "hero_description": "7bfc358d29675c9c",
+   "hero_prompt": "72fd59d961be540c",
+   "howto_description": "ed1f8921af581ae0",
+   "howto_step_1_des": "d85e83755572803a",
+   "howto_step_1_title": "acb33703ef5e3ade",
+   "howto_step_2_des": "667e8e992ed1b033",
+   "howto_step_2_title": "da17507dcffb2e84",
+   "howto_step_3_des": "89e480d9eb096e9f",
+   "howto_step_3_title": "137836f4b4f03718",
+   "howto_step_4_des": "08c666c4ebc50ffc",
+   "howto_step_4_title": "1389a86a9ce0b48e",
+   "howto_step_5_des": "004375255ef2046a",
+   "howto_step_5_title": "77fc7b5e49487611",
+   "howto_step_6_des": "57ddb7c37f7e64ee",
+   "howto_step_6_title": "80dfa18bcacf865e",
+   "howto_step_7_des": "dc8715b36415ba29",
+   "howto_step_7_title": "44a6a525eab449cb",
+   "howto_title": "3dc375e50ba044f9",
+   "meta_description": "531e19fbeaf9cb30",
+   "meta_title": "fb7bd23f25a4d67d",
+   "mockup": "c53c73dcca063443",
+   "product_name": "b63540efccfc436f",
+   "prompt_chip_1": "b3ef314150227464",
+   "prompt_chip_2": "c2d208f68cbcced8",
+   "prompt_chip_3": "c0bda159569f6d11",
+   "prompt_chip_4": "18b16dc754ba715c",
+   "slug": "4b76b1ebd4edbc87",
+   "tab_content_1": "b0207125e04320f6",
+   "tab_content_2": "7b8790662219c212",
+   "tab_content_3": "8784bc0edafdd843",
+   "tab_content_4": "0d6b01c8989d8b4a",
+   "tab_label_1": "b3ef314150227464",
+   "tab_label_2": "c2d208f68cbcced8",
+   "tab_label_3": "c0bda159569f6d11",
+   "tab_label_4": "18b16dc754ba715c",
+   "usecase_heading": "d390877d8342c3d0",
+   "why_description": "41ae00706273f3bf",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "24787fa4fd102a0f"
+  },
+  "all": "05fc23342bed43bc",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

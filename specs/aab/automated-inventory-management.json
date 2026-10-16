@@ -129,6 +129,13 @@
    "via": null,
    "by": "B-w-141",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 08:49 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-20",
+   "note": "rubric 10/10 by B-r-20; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -1124,5 +1131,285 @@
  },
  "writers": [
   "B-w-141"
- ]
+ ],
+ "review": {
+  "by": "B-r-20",
+  "date": "2026-10-16 08:49 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Automated Inventory Management That Reorders on Time'; hero 'drafts reorders at your reorder points and keeps stock in a database you own' covers the whole job (reorders, shared count, counts, expiry)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are definition/benefit explainers: FAQ 1 defines the system, seven-step how-to, four worked jobs (reorders, channel sync, cycle counts, expiring lots)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Operator vocabulary throughout: reorder point, cycle count, bin C-14, lot and expiry, pick list, 'Replay last month's sales'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every feature and step opens on a full sentence: 'Set a reorder point and a reorder quantity for each product.' 'Receiving staff enter the lot and expiry date as cases arrive.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; Q5/Q7 clean in QC. Notes only."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete unglamorous detail: 'Amber Cedar 8 oz candle', '31 dog leashes against a record of 36'. One phrasing note."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Claims map to prompt-build, api-connect, alerts, database-owned, no-caps; numbers check: 200-26-41=133, 16+3+1=20, 36-31=5, 96+80+72+64=312, 30x5=150; table from library. No third-party facts stated."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own topic; sibling primaries (ecommerce, shipping, procurement automation) appear only as FAQ link anchors, never in headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions; written ones carry one secondary each ('automated inventory tracking', 'automate inventory management'), searcher phrasing, no brands, no pricing, no duplicate intent; each answered first sentence."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches tabs word for word: 114 on hand / 120 point / 600 from Brackenridge, Odile Fairweather; 200-26-41=133; 16 matched, 3 fixed, C-14 31 of 36 to Ines Okonjo; 96/80/72/64 = 312, DM to Marisol Achterberg."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "feature_2",
+    "quote": "A sale on either channel comes off one shared count before the next customer checks out.",
+    "issue": "Timing claim rests on the 'realtime' ledger id, which is not listed in claims_used (approved, so not untrue).",
+    "fix": "Add 'realtime' to claims_used.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Set each reorder point at the units you sell during the supplier's lead time, plus a buffer.",
+    "issue": "Best-practice method and cadence advice with no domain_sources entry; same in faq 'Count your fastest-moving and most valuable items every week or two, and everything else once a month or once a quarter.' and howto_step_2_des 'Start from what you sell while the supplier's order is on its way, add a buffer'.",
+    "fix": "Optional: source the lead-time-demand-plus-safety-stock method.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "feature_3",
+    "quote": "Counters may fix a small variance you set on the spot",
+    "issue": "Reads ambiguously (the variance is set, not fixed, on the spot).",
+    "fix": "Counters fix any gap within a limit you set, on the spot.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_1",
+    "quote": "the app drafts the reorder and holds it for the buyer to approve",
+    "issue": "Same idea restated in tab_content_1 'The draft waits for Odile Fairweather, the buyer, to approve it', faq 'drafts a reorder when a product falls below its reorder point' and faq 'the app drafts a purchase order for the reorder quantity ... The buyer gets a Slack or email alert to approve it'.",
+    "fix": "None required.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "Pair it with shipping automation, and the label prints at the warehouse that holds the units.",
+    "issue": "The two-warehouse answer ends on the sentence that exists to carry the sibling link; it carries content, so not link-only.",
+    "fix": "None required.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 6",
+   "field": "feature_2",
+   "issue": "Timing claim rests on the 'realtime' ledger id, which is not listed in claims_used (approved, so not untrue).",
+   "fix": "Add 'realtime' to claims_used.",
+   "by": "B-r-20",
+   "via": "review",
+   "date": "2026-10-16 08:49 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Best-practice method and cadence advice with no domain_sources entry; same in faq 'Count your fastest-moving and most valuable items every week or two, and everything else once a month or once a quarter.' and howto_step_2_des 'Start from what you sell while the supplier's order is on its way, add a buffer'.",
+   "fix": "Optional: source the lead-time-demand-plus-safety-stock method.",
+   "by": "B-r-20",
+   "via": "review",
+   "date": "2026-10-16 08:49 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "feature_3",
+   "issue": "Reads ambiguously (the variance is set, not fixed, on the spot).",
+   "fix": "Counters fix any gap within a limit you set, on the spot.",
+   "by": "B-r-20",
+   "via": "review",
+   "date": "2026-10-16 08:49 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_1",
+   "issue": "Same idea restated in tab_content_1 'The draft waits for Odile Fairweather, the buyer, to approve it', faq 'drafts a reorder when a product falls below its reorder point' and faq 'the app drafts a purchase order for the reorder quantity ... The buyer gets a Slack or email alert to approve it'.",
+   "fix": "None required.",
+   "by": "B-r-20",
+   "via": "review",
+   "date": "2026-10-16 08:49 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "The two-warehouse answer ends on the sentence that exists to carry the sibling link; it carries content, so not link-only.",
+   "fix": "None required.",
+   "by": "B-r-20",
+   "via": "review",
+   "date": "2026-10-16 08:49 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "d15fb2f82eaf1249",
+   "alt:share_image": "0565f797a36586d7",
+   "alt:tab_image_1": "1ce5b28efa019095",
+   "alt:tab_image_2": "b7cef70fabfdff11",
+   "alt:tab_image_3": "db2c3b8cc6545112",
+   "alt:tab_image_4": "49af46c29301cba3",
+   "breadcrumb": "a37c92a86ad889f0",
+   "chip_adds": "cf83ff0cfba891ec",
+   "explore_cta": "77407cac05e6aaeb",
+   "faq": "1639776b5a7a4a01",
+   "feature_1": "76adb32090bb4e64",
+   "feature_2": "40f0d273598682fe",
+   "feature_3": "e3c32eefa804e6ee",
+   "feature_4": "7d087fa1d15b6cdb",
+   "feature_5": "4fe92f93d95b600d",
+   "feature_6": "b3c57c44247a85d4",
+   "features_heading": "90d3fd92737e1099",
+   "features_subheading": "a919ace3ba393455",
+   "h1": "1819d8c978db691d",
+   "hero_description": "069d667eb0a59719",
+   "hero_prompt": "a8230d8dc477333d",
+   "howto_description": "99c8009dbbf65f57",
+   "howto_step_1_des": "0f039f169d7bfacb",
+   "howto_step_1_title": "cea587640ed4105f",
+   "howto_step_2_des": "564bbb4394082046",
+   "howto_step_2_title": "e9eb46e2725585f7",
+   "howto_step_3_des": "6de8ca209dbc168d",
+   "howto_step_3_title": "a15d2cb1b5bb5cc5",
+   "howto_step_4_des": "7e564a771a6308f2",
+   "howto_step_4_title": "6f7756a8fa8774b0",
+   "howto_step_5_des": "096e79af1cc9e198",
+   "howto_step_5_title": "b4781ae4e7ee7bdb",
+   "howto_step_6_des": "080f053d2095bada",
+   "howto_step_6_title": "2981b6953f89ad5f",
+   "howto_step_7_des": "269cb5d0958d1049",
+   "howto_step_7_title": "f3359b459da26997",
+   "howto_title": "3b1b5fc449b36e7c",
+   "meta_description": "02bbeeee0938fe84",
+   "meta_title": "814e1e302518fd71",
+   "mockup": "4eeaae0d2d99f177",
+   "product_name": "5f9e01e968f5cdd1",
+   "prompt_chip_1": "3baa9e262470aeb5",
+   "prompt_chip_2": "23cf9ae745fcab39",
+   "prompt_chip_3": "87fcca7626a16e85",
+   "prompt_chip_4": "280a7ff2acbfd2c0",
+   "slug": "0651846e05d8f1cd",
+   "tab_content_1": "d54039151a537038",
+   "tab_content_2": "8446ed632c9f519a",
+   "tab_content_3": "168b5db2c8872674",
+   "tab_content_4": "e04c097767a6d4d4",
+   "tab_label_1": "94d2c5f6ab59fa0f",
+   "tab_label_2": "b8780f132d4ca314",
+   "tab_label_3": "f7c74ecf65925dae",
+   "tab_label_4": "e1e99151140168df",
+   "usecase_heading": "10b252f71f96264e",
+   "why_description": "ea3fa6f437a3437d",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "1d03a8a8d1277127"
+  },
+  "all": "acc8b484095deb4b",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "d15fb2f82eaf1249",
+   "alt:share_image": "0565f797a36586d7",
+   "alt:tab_image_1": "1ce5b28efa019095",
+   "alt:tab_image_2": "b7cef70fabfdff11",
+   "alt:tab_image_3": "db2c3b8cc6545112",
+   "alt:tab_image_4": "49af46c29301cba3",
+   "breadcrumb": "a37c92a86ad889f0",
+   "chip_adds": "cf83ff0cfba891ec",
+   "explore_cta": "77407cac05e6aaeb",
+   "faq": "1639776b5a7a4a01",
+   "feature_1": "76adb32090bb4e64",
+   "feature_2": "40f0d273598682fe",
+   "feature_3": "e3c32eefa804e6ee",
+   "feature_4": "7d087fa1d15b6cdb",
+   "feature_5": "4fe92f93d95b600d",
+   "feature_6": "b3c57c44247a85d4",
+   "features_heading": "90d3fd92737e1099",
+   "features_subheading": "a919ace3ba393455",
+   "h1": "1819d8c978db691d",
+   "hero_description": "069d667eb0a59719",
+   "hero_prompt": "a8230d8dc477333d",
+   "howto_description": "99c8009dbbf65f57",
+   "howto_step_1_des": "0f039f169d7bfacb",
+   "howto_step_1_title": "cea587640ed4105f",
+   "howto_step_2_des": "564bbb4394082046",
+   "howto_step_2_title": "e9eb46e2725585f7",
+   "howto_step_3_des": "6de8ca209dbc168d",
+   "howto_step_3_title": "a15d2cb1b5bb5cc5",
+   "howto_step_4_des": "7e564a771a6308f2",
+   "howto_step_4_title": "6f7756a8fa8774b0",
+   "howto_step_5_des": "096e79af1cc9e198",
+   "howto_step_5_title": "b4781ae4e7ee7bdb",
+   "howto_step_6_des": "080f053d2095bada",
+   "howto_step_6_title": "2981b6953f89ad5f",
+   "howto_step_7_des": "269cb5d0958d1049",
+   "howto_step_7_title": "f3359b459da26997",
+   "howto_title": "3b1b5fc449b36e7c",
+   "meta_description": "02bbeeee0938fe84",
+   "meta_title": "814e1e302518fd71",
+   "mockup": "4eeaae0d2d99f177",
+   "product_name": "5f9e01e968f5cdd1",
+   "prompt_chip_1": "3baa9e262470aeb5",
+   "prompt_chip_2": "23cf9ae745fcab39",
+   "prompt_chip_3": "87fcca7626a16e85",
+   "prompt_chip_4": "280a7ff2acbfd2c0",
+   "slug": "0651846e05d8f1cd",
+   "tab_content_1": "d54039151a537038",
+   "tab_content_2": "8446ed632c9f519a",
+   "tab_content_3": "168b5db2c8872674",
+   "tab_content_4": "e04c097767a6d4d4",
+   "tab_label_1": "94d2c5f6ab59fa0f",
+   "tab_label_2": "b8780f132d4ca314",
+   "tab_label_3": "f7c74ecf65925dae",
+   "tab_label_4": "e1e99151140168df",
+   "usecase_heading": "10b252f71f96264e",
+   "why_description": "ea3fa6f437a3437d",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "1d03a8a8d1277127"
+  },
+  "all": "acc8b484095deb4b",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
