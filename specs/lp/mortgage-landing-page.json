@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-c-1",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 13:53 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-77",
+   "note": "[truth | HUB_RULES 8] image_brief: The page contradicts itself on its own sourced legal point. howto_step_3_des (12 CFR 1026.24(c), quoted in domain_sources) says that for credit secured by a dwelling 'a simple annual rate may appear only alongside the APR, and not more conspicuously.' The tab 4 rat"
   }
  ],
  "pipeline": "r15",
@@ -912,5 +919,275 @@
  ],
  "writers": [
   "B-w-175"
- ]
+ ],
+ "review": {
+  "by": "B-r-77",
+  "date": "2026-10-16 13:53 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Mortgage Landing Page That Books the First Call'; meta 'Mortgage Landing Page Builder for Loan Officers | Emergent'; hero carries the primary and leads with Build; howto_description 'Seven steps take a mortgage landing page from one loan type to a published page that routes each lead to a loan officer.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Four example tabs under 'Mortgage Landing Page Examples' (purchase, refinance, loan officer pages, rate watch), a seven-step how-to with Regulation Z and NMLS steps, a templates FAQ and a vendor comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Mortgage vocabulary throughout: 'loan-to-value', 'NMLS ID', 'licensed states', 'credit range', 'loan origination system'; table cells match rules/competitors/lp.json for Unbounce, Landingi and Wix."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Larkspur Lending's purchase page asks four questions', 'A homeowner types two numbers', 'Pick one loan type and one borrower'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Short declaratives with concrete numbers ('a home value of $410,000 and a balance of $287,000'); QC Q2/Q5/Q7 clean."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Leave Social Security numbers and income documents for the full application, after that call.' reads as an operator who has run mortgage lead flow."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "Tab 4 image (image_brief.tabs[3]) draws the rate more conspicuously than the APR: hero kv row ['Rate', '6.125%', true] is the highlighted row with ['APR', '6.271%'] plain beneath it, and main steps item 'Rate posted' puts '6.125%' as the right-column value with 'APR 6.271%' as small grey sub text. howto_step_3_des, sourced from 12 CFR 1026.24, says 'a simple annual rate may appear only alongside the APR, and not more conspicuously.' Copy claims otherwise all match their quotes (Reg Z (b), (c), (d)(1); NMLS Consumer Access) and the claims ledger."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Refinance LTV check, per-officer NMLS pages and a rate watch list are specific to mortgage; no sibling primary in a heading (insurance landing page kept out)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, each answered in its first sentence ('No. Ask for a self-reported credit range instead'); hub link in item 2; sibling links to landing page seo, waitlist landing page, ppc landing page; no brand, no state-specific or financial advice."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: one hero per tab, names and numbers match the copy (Noor Haddadin, $385,000, $38,500, Within 60 days; $410,000, $287,000, 70%, up to 80% -> #refi-team; Imogen Szabo, Ohio, Indiana, 14, 6 loan officer pages; 38 of 212 subscribers). The tab 4 rate-vs-APR emphasis is scored under truth."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "image_brief",
+    "quote": "tabs[3].hero kv: [\"Rate\", \"6.125%\", true], [\"APR\", \"6.271%\"]; tabs[3].main steps: {\"title\": \"Rate posted\", \"sub\": \"APR 6.271%\", \"right\": \"6.125%\"}",
+    "issue": "The page contradicts itself on its own sourced legal point. howto_step_3_des (12 CFR 1026.24(c), quoted in domain_sources) says that for credit secured by a dwelling 'a simple annual rate may appear only alongside the APR, and not more conspicuously.' The tab 4 rate-watch email, a lender's message stating a 30-year fixed rate, shows 6.125% as the highlighted row with the APR plain below it, and the main panel puts the rate in the value column and the APR in small grey sub text. A mortgage compliance reader sees the page drawing the example its step 03 warns against. Both instances are in tab 4; tabs 1-3 and the cover state no rate.",
+    "fix": "Make the APR at least as prominent as the rate in both places: in the hero kv flag the APR row (or neither row), e.g. [[\"APR\", \"6.271%\", true], [\"Rate\", \"6.125%\"], [\"Loan\", \"30-year fixed\"]]; in the main steps show 'Rate posted' with right '6.125% / 6.271% APR' or equal-weight values, never the APR as sub text. Re-render with hubctl images and confirm on the contact sheet.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "domain_sources",
+    "quote": "https://banking.alabama.gov/verify-service-providers/",
+    "issue": "The NMLS Consumer Access claim in howto_step_6_des is sourced to the Alabama State Banking Department. The quote supports the sentence word for word and the page does not present any Alabama rule as US-wide, but HUB_RULES 8 asks for the primary source first, and NMLS Consumer Access is run nationally by NMLS.",
+    "fix": "On a later touch, swap the source to nmlsconsumeraccess.org or the NMLS resource center page that states the same thing.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #5",
+    "field": "image_brief",
+    "quote": "tabs[0].main: \"Question 4 of 4\" with fields Home price $385,000, Down payment $38,500, Close Within 60 days",
+    "issue": "feature_1 says the form is 'one question per screen', but the tab 1 screen labelled 'Question 4 of 4' shows three filled fields. It reads as a recap screen; it does not contradict the copy, but it blurs the one-question-per-screen point.",
+    "fix": "Optionally show only the close-date question on that screen, with the earlier answers as a small recap line.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "tab_content_1",
+    "quote": "Buyers with 60 days to close book a call today",
+    "issue": "The sibling real-estate-landing-page tab 4 H3 is 'Same-day calls for sellers closing within 30 days': the same close-window-to-same-day-call shape across two pages in the hub.",
+    "fix": "No change needed for ship; plan-check could flag the shape for later pages.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "CONTENT_DEFECTS #26",
+    "field": "why_table",
+    "quote": "Vendor lead storage and integrations",
+    "issue": "The Landingi cell is the library text, carried over from the old grouped Landingi / Leadpages / Instapage column; next to 'Unbounce lead storage and integrations' the word 'Vendor' now reads generic in a single-vendor column.",
+    "fix": "Coordinator: reword the library's Landingi data fact to 'Landingi lead storage and integrations' (with its source) and regenerate; never edit the cell by hand.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "domain_sources",
+   "issue": "The NMLS Consumer Access claim in howto_step_6_des is sourced to the Alabama State Banking Department. The quote supports the sentence word for word and the page does not present any Alabama rule as US-wide, but HUB_RULES 8 asks for the primary source first, and NMLS Consumer Access is run nationally by NMLS.",
+   "fix": "On a later touch, swap the source to nmlsconsumeraccess.org or the NMLS resource center page that states the same thing.",
+   "by": "B-r-77",
+   "via": "review",
+   "date": "2026-10-16 13:53 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #5",
+   "field": "image_brief",
+   "issue": "feature_1 says the form is 'one question per screen', but the tab 1 screen labelled 'Question 4 of 4' shows three filled fields. It reads as a recap screen; it does not contradict the copy, but it blurs the one-question-per-screen point.",
+   "fix": "Optionally show only the close-date question on that screen, with the earlier answers as a small recap line.",
+   "by": "B-r-77",
+   "via": "review",
+   "date": "2026-10-16 13:53 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "tab_content_1",
+   "issue": "The sibling real-estate-landing-page tab 4 H3 is 'Same-day calls for sellers closing within 30 days': the same close-window-to-same-day-call shape across two pages in the hub.",
+   "fix": "No change needed for ship; plan-check could flag the shape for later pages.",
+   "by": "B-r-77",
+   "via": "review",
+   "date": "2026-10-16 13:53 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "CONTENT_DEFECTS #26",
+   "field": "why_table",
+   "issue": "The Landingi cell is the library text, carried over from the old grouped Landingi / Leadpages / Instapage column; next to 'Unbounce lead storage and integrations' the word 'Vendor' now reads generic in a single-vendor column.",
+   "fix": "Coordinator: reword the library's Landingi data fact to 'Landingi lead storage and integrations' (with its source) and regenerate; never edit the cell by hand.",
+   "by": "B-r-77",
+   "via": "review",
+   "date": "2026-10-16 13:53 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "ba00e98ef0f23272",
+   "alt:share_image": "ce05e610e1e25355",
+   "alt:tab_image_1": "b83806ccc90d9745",
+   "alt:tab_image_2": "41cc45479961d820",
+   "alt:tab_image_3": "5bc89a3dde4ab2ce",
+   "alt:tab_image_4": "ef0d8f437d8f1340",
+   "breadcrumb": "d073233e62694143",
+   "chip_adds": "d4c4e392b8c79376",
+   "explore_cta": "3fbdea78731bf202",
+   "faq": "39af60e0857b66bd",
+   "feature_1": "3e3b2751f9ecf387",
+   "feature_2": "1e1281eb67877741",
+   "feature_3": "69b96aa6fe701e93",
+   "feature_4": "054e02a2ba2a3dcc",
+   "feature_5": "b0f5cba28177086c",
+   "feature_6": "bbe5ee6c86e88cf3",
+   "features_heading": "7a62a24072f431d9",
+   "features_subheading": "9bac24ae32a3be54",
+   "h1": "ef2cc760d2df1748",
+   "hero_description": "66a9652ab45f9576",
+   "hero_prompt": "bba20edff77e5cda",
+   "howto_description": "22fac29121ccf50c",
+   "howto_step_1_des": "37890ad6ab186179",
+   "howto_step_1_title": "c204a7ba416a28ea",
+   "howto_step_2_des": "1b34ff2a52227b93",
+   "howto_step_2_title": "ff82646255c8a77c",
+   "howto_step_3_des": "378565a1ca9df1e1",
+   "howto_step_3_title": "369f8023b7fc3571",
+   "howto_step_4_des": "8b6e990e388e5526",
+   "howto_step_4_title": "62bec24469cd75d6",
+   "howto_step_5_des": "7947de836e04493b",
+   "howto_step_5_title": "5b67d02e00d23925",
+   "howto_step_6_des": "59c977aea7817702",
+   "howto_step_6_title": "13bc377803c8f457",
+   "howto_step_7_des": "b3367fd8960ea5c2",
+   "howto_step_7_title": "b6eb26afbdcce076",
+   "howto_title": "5e9d05567c84353f",
+   "meta_description": "5c019118326081b4",
+   "meta_title": "c3e1f1993b832fc7",
+   "mockup": "8e9a0f9d5520703f",
+   "product_name": "0307936f142e553c",
+   "prompt_chip_1": "8ff167cb33a3abf0",
+   "prompt_chip_2": "ca571a9eca5c6843",
+   "prompt_chip_3": "552ce69545d0d5cb",
+   "prompt_chip_4": "0f974b2c7f4c63e2",
+   "slug": "dcf847c3766a654f",
+   "tab_content_1": "064bacc8582e65c7",
+   "tab_content_2": "3eab096eba9008c3",
+   "tab_content_3": "798e69453587daae",
+   "tab_content_4": "a9ebfea2d716a3c8",
+   "tab_label_1": "1fd67e84627015bf",
+   "tab_label_2": "dee2ecc183840ab4",
+   "tab_label_3": "552ce69545d0d5cb",
+   "tab_label_4": "9e5a9f0589a57f1b",
+   "usecase_heading": "63089e00f187b6ed",
+   "why_description": "0d1efb42f25c8228",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "04f8d12081d62f97"
+  },
+  "all": "dfd507932c0784be",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "ba00e98ef0f23272",
+   "alt:share_image": "ce05e610e1e25355",
+   "alt:tab_image_1": "b83806ccc90d9745",
+   "alt:tab_image_2": "41cc45479961d820",
+   "alt:tab_image_3": "5bc89a3dde4ab2ce",
+   "alt:tab_image_4": "ef0d8f437d8f1340",
+   "breadcrumb": "d073233e62694143",
+   "chip_adds": "d4c4e392b8c79376",
+   "explore_cta": "3fbdea78731bf202",
+   "faq": "39af60e0857b66bd",
+   "feature_1": "3e3b2751f9ecf387",
+   "feature_2": "1e1281eb67877741",
+   "feature_3": "69b96aa6fe701e93",
+   "feature_4": "054e02a2ba2a3dcc",
+   "feature_5": "b0f5cba28177086c",
+   "feature_6": "bbe5ee6c86e88cf3",
+   "features_heading": "7a62a24072f431d9",
+   "features_subheading": "9bac24ae32a3be54",
+   "h1": "ef2cc760d2df1748",
+   "hero_description": "66a9652ab45f9576",
+   "hero_prompt": "bba20edff77e5cda",
+   "howto_description": "22fac29121ccf50c",
+   "howto_step_1_des": "37890ad6ab186179",
+   "howto_step_1_title": "c204a7ba416a28ea",
+   "howto_step_2_des": "1b34ff2a52227b93",
+   "howto_step_2_title": "ff82646255c8a77c",
+   "howto_step_3_des": "378565a1ca9df1e1",
+   "howto_step_3_title": "369f8023b7fc3571",
+   "howto_step_4_des": "8b6e990e388e5526",
+   "howto_step_4_title": "62bec24469cd75d6",
+   "howto_step_5_des": "7947de836e04493b",
+   "howto_step_5_title": "5b67d02e00d23925",
+   "howto_step_6_des": "59c977aea7817702",
+   "howto_step_6_title": "13bc377803c8f457",
+   "howto_step_7_des": "b3367fd8960ea5c2",
+   "howto_step_7_title": "b6eb26afbdcce076",
+   "howto_title": "5e9d05567c84353f",
+   "meta_description": "5c019118326081b4",
+   "meta_title": "c3e1f1993b832fc7",
+   "mockup": "8e9a0f9d5520703f",
+   "product_name": "0307936f142e553c",
+   "prompt_chip_1": "8ff167cb33a3abf0",
+   "prompt_chip_2": "ca571a9eca5c6843",
+   "prompt_chip_3": "552ce69545d0d5cb",
+   "prompt_chip_4": "0f974b2c7f4c63e2",
+   "slug": "dcf847c3766a654f",
+   "tab_content_1": "064bacc8582e65c7",
+   "tab_content_2": "3eab096eba9008c3",
+   "tab_content_3": "798e69453587daae",
+   "tab_content_4": "a9ebfea2d716a3c8",
+   "tab_label_1": "1fd67e84627015bf",
+   "tab_label_2": "dee2ecc183840ab4",
+   "tab_label_3": "552ce69545d0d5cb",
+   "tab_label_4": "9e5a9f0589a57f1b",
+   "usecase_heading": "63089e00f187b6ed",
+   "why_description": "0d1efb42f25c8228",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "04f8d12081d62f97"
+  },
+  "all": "dfd507932c0784be",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
