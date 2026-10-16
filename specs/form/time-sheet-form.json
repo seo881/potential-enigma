@@ -153,6 +153,13 @@
    "via": null,
    "by": "B-w-194",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 13:12 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-64",
+   "note": "rubric 10/10 by B-r-64; 5 notes"
   }
  ],
  "plan": {
@@ -1026,5 +1033,285 @@
   "how-to-build-a-lead-generation-website: Form fixed set: builds capture forms end to end: fields, submissions and where each lead goes next",
   "client-onboarding-software: Form fixed set: client intake: intake forms, conditional checklists and portals, plus how to build your own",
   "build-your-own-crm-system: Form fixed set: step-by-step build of the CRM that form submissions feed into"
- ]
+ ],
+ "review": {
+  "by": "B-r-64",
+  "date": "2026-10-16 13:12 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Time Sheet Form That Does the Math', title 'Time Sheet Form That Totals Hours | Emergent', hero 'Build a time sheet form that turns clock times into weekly hours, with lunch breaks taken out and overtime split for approval.' cover the whole job; how-to description is one sentence on what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Template SERP, builder-fit angle: fields list (FAQ 3 'Give it the employee's name, the pay period dates and one row per day...'), 7-step how-to, four worked examples by type of work, and a comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'punch-in and punch-out times', 'Job 2207 and Job 2214', 'job costing report', 'pay period closes Sunday night'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Tabs open on full sentences: 'Overtime starts after hour 40.', 'Home care runs on visits, not shifts.', 'Payroll can only run on sheets that exist.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Short varied sentences ending on the key word: 'It goes back to the worker to fix and stays out of both totals until then.' No blocking craft defects."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator voice, concrete details: 'Totals entered by hand drift by quarter hours. Times let the form do the math and show when each shift happened.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "All five DOL facts match their quotes (overtime past 40 at time and a half; short breaks compensable; meal periods not compensable; two-year retention for time cards; no particular form required). Numbers add up: 8.5x4+9.5=43.5, 3.5 past 40; jobs 130 and 64; 9:00 to 11:30 = 2.5; 10+2=12. Claims map to approved ids (alerts, code-export, e-signature-capture, database-owned, api-connect). Legal points stay informational with 'Check your state's rules' and 'your payroll provider applies the rate'."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No sibling primary in headings; time off request, employee evaluation and training feedback forms appear only as links in FAQ answers."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions answered in the first sentence ('No. The Department of Labor says the Fair Labor Standards Act requires no particular form for the records.'); hub link in item 2; paa --spec 10/10 pass; no brand or format asks."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Each tab draws its copy: 'Week total: 43.5 hours' / '3.5 hours past 40'; '6 hours with no job code' 'Sent back to A. Moreau to fix'; 'Visit: 2.5 hours' 'Signature attached'; '10 of 12 approved' '2 time sheets missing' 'Send reminders'. Tab 4 hero is a message to one named person (Dana Price), matching 'a Slack message tells the office manager'; only the header glyph is off (note)."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #25",
+    "field": "image_brief.tabs[3].hero",
+    "quote": "# Dana Price",
+    "issue": "Tab copy says 'a Slack message tells the office manager' and the mockup says 'send me a Slack message'. The hero names one person, so the story agrees, but the header draws the channel hash glyph although the brief sets dm: true. Engine cause: pipeline/engine.py line 120 (hero message header) always draws the 'hash' icon and ignores d.get('dm'); only line 358 honours it.",
+    "fix": "Engine fix: draw 'message-square' in the hero message header when dm is true, then re-render. No copy change.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #25",
+    "field": "image_brief.cover",
+    "quote": "# Shift supervisor",
+    "issue": "Cover and share image draw the approval as a channel-styled header named for a role, while tab 1 says 'her supervisor approves them first' and the hero says 'Sent to the shift supervisor'. Reads as a channel, not the one supervisor.",
+    "fix": "Draw the cover as a direct message or a card addressed to the supervisor once the action cover supports dm.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq[8]",
+    "quote": "Any layout you choose has to capture each day's hours.",
+    "issue": "True (DOL Fact Sheet 21 lists hours worked each day for nonexempt workers), but the quoted span only says 'data about the hours worked and the wages earned', so the daily requirement sits outside the quote.",
+    "fix": "Extend the domain_sources quote to include 'Hours worked each day', or say 'has to capture the hours worked'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_2_des",
+    "quote": "Totals entered by hand drift by quarter hours.",
+    "issue": "A general observation stated as fact with no source; not law, a named system or a statistic, so it is a note.",
+    "fix": "Soften to a reason ('Typed totals are easy to round') or drop.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #18",
+    "field": "feature_2 / howto_step_3_des; feature_5 / howto_step_6_des; tab_content_1 / howto_step_4_des",
+    "quote": "feature_2 'The Department of Labor treats short breaks as paid time and meal periods as unpaid.' vs step 3 'Federal rules count short rest breaks as hours worked and treat a real meal period as unpaid.'; feature_5 'any later edit needs a reason and records who changed it and when' vs step 6 'Lock approved sheets so later edits need a reason and leave a trail.'; tab 1 'Federal law requires overtime pay for those unless she is exempt' vs step 4 'Nonexempt employees earn at least time and a half for those extra hours under federal law.'",
+    "issue": "Three ideas stated twice with words swapped.",
+    "fix": "None required (note); future pages can state each rule once and refer back.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #25",
+   "field": "image_brief.tabs[3].hero",
+   "issue": "Tab copy says 'a Slack message tells the office manager' and the mockup says 'send me a Slack message'. The hero names one person, so the story agrees, but the header draws the channel hash glyph although the brief sets dm: true. Engine cause: pipeline/engine.py line 120 (hero message header) always draws the 'hash' icon and ignores d.get('dm'); only line 358 honours it.",
+   "fix": "Engine fix: draw 'message-square' in the hero message header when dm is true, then re-render. No copy change.",
+   "by": "B-r-64",
+   "via": "review",
+   "date": "2026-10-16 13:12 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #25",
+   "field": "image_brief.cover",
+   "issue": "Cover and share image draw the approval as a channel-styled header named for a role, while tab 1 says 'her supervisor approves them first' and the hero says 'Sent to the shift supervisor'. Reads as a channel, not the one supervisor.",
+   "fix": "Draw the cover as a direct message or a card addressed to the supervisor once the action cover supports dm.",
+   "by": "B-r-64",
+   "via": "review",
+   "date": "2026-10-16 13:12 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq[8]",
+   "issue": "True (DOL Fact Sheet 21 lists hours worked each day for nonexempt workers), but the quoted span only says 'data about the hours worked and the wages earned', so the daily requirement sits outside the quote.",
+   "fix": "Extend the domain_sources quote to include 'Hours worked each day', or say 'has to capture the hours worked'.",
+   "by": "B-r-64",
+   "via": "review",
+   "date": "2026-10-16 13:12 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_2_des",
+   "issue": "A general observation stated as fact with no source; not law, a named system or a statistic, so it is a note.",
+   "fix": "Soften to a reason ('Typed totals are easy to round') or drop.",
+   "by": "B-r-64",
+   "via": "review",
+   "date": "2026-10-16 13:12 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #18",
+   "field": "feature_2 / howto_step_3_des; feature_5 / howto_step_6_des; tab_content_1 / howto_step_4_des",
+   "issue": "Three ideas stated twice with words swapped.",
+   "fix": "None required (note); future pages can state each rule once and refer back.",
+   "by": "B-r-64",
+   "via": "review",
+   "date": "2026-10-16 13:12 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "aa95c3db86d3af3b",
+   "alt:share_image": "489dd980b5cb398a",
+   "alt:tab_image_1": "70334f72264f007a",
+   "alt:tab_image_2": "69fb5a7bd5bdd0bc",
+   "alt:tab_image_3": "2bb3b46e9b01b7cf",
+   "alt:tab_image_4": "50b80338fffe3e8b",
+   "breadcrumb": "56d8ed37d7f48a05",
+   "chip_adds": "93c369e146d29508",
+   "explore_cta": "cd41c6f71599de75",
+   "faq": "c7f6ab37ac79d189",
+   "feature_1": "34625f65938d3bb2",
+   "feature_2": "12d8e895d68b9768",
+   "feature_3": "0baafb31ae8c4f43",
+   "feature_4": "cf38e84ff628b121",
+   "feature_5": "575e6109a9e81983",
+   "feature_6": "4fc325918aa85678",
+   "features_heading": "785e4cb4c444eade",
+   "features_subheading": "b161c32a24a0a2cb",
+   "h1": "36742e0f95052370",
+   "hero_description": "b2aabf5070298741",
+   "hero_prompt": "a0f14384bec14119",
+   "howto_description": "cf0c04370ea1717a",
+   "howto_step_1_des": "d69c2f210e822e74",
+   "howto_step_1_title": "f58ee7bfca30c189",
+   "howto_step_2_des": "ef127070bd9f78e6",
+   "howto_step_2_title": "2f58d1ff27a87dae",
+   "howto_step_3_des": "1592af9264b3b0fc",
+   "howto_step_3_title": "145d450f7d46282f",
+   "howto_step_4_des": "a1312fa712b83797",
+   "howto_step_4_title": "83ea101aef6ffffe",
+   "howto_step_5_des": "bdf2d5019c08a160",
+   "howto_step_5_title": "4068fb68b8b0c0df",
+   "howto_step_6_des": "4c6450d77abcb252",
+   "howto_step_6_title": "0a48507a7fc1236a",
+   "howto_step_7_des": "91e97541454feb11",
+   "howto_step_7_title": "b23abdc96fe3b29f",
+   "howto_title": "04ee79f17b4a29eb",
+   "meta_description": "bdf25efe7a4387fe",
+   "meta_title": "182e9771830c865f",
+   "mockup": "420fc17b1a5257fb",
+   "product_name": "2d31eda03b7c259b",
+   "prompt_chip_1": "2dec889d1cf6b642",
+   "prompt_chip_2": "2c07bb9649e58bf4",
+   "prompt_chip_3": "0dc0c4531127db73",
+   "prompt_chip_4": "2bfc3471571e5c00",
+   "slug": "8842a9aad8507f5e",
+   "tab_content_1": "1dd76f1f078af7b8",
+   "tab_content_2": "b66326ae1807cbe5",
+   "tab_content_3": "2f27ee4571076e35",
+   "tab_content_4": "43842b4f4e6bfe54",
+   "tab_label_1": "466e8abdceaf4599",
+   "tab_label_2": "a90d09f23ab976ff",
+   "tab_label_3": "2a71b0c65c67fe84",
+   "tab_label_4": "dc01ce8a34b14ba1",
+   "usecase_heading": "50165a2d610e2220",
+   "why_description": "6688d292651af103",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "364860069149e18e"
+  },
+  "all": "d05ffe27ad7e3314",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "aa95c3db86d3af3b",
+   "alt:share_image": "489dd980b5cb398a",
+   "alt:tab_image_1": "70334f72264f007a",
+   "alt:tab_image_2": "69fb5a7bd5bdd0bc",
+   "alt:tab_image_3": "2bb3b46e9b01b7cf",
+   "alt:tab_image_4": "50b80338fffe3e8b",
+   "breadcrumb": "56d8ed37d7f48a05",
+   "chip_adds": "93c369e146d29508",
+   "explore_cta": "cd41c6f71599de75",
+   "faq": "c7f6ab37ac79d189",
+   "feature_1": "34625f65938d3bb2",
+   "feature_2": "12d8e895d68b9768",
+   "feature_3": "0baafb31ae8c4f43",
+   "feature_4": "cf38e84ff628b121",
+   "feature_5": "575e6109a9e81983",
+   "feature_6": "4fc325918aa85678",
+   "features_heading": "785e4cb4c444eade",
+   "features_subheading": "b161c32a24a0a2cb",
+   "h1": "36742e0f95052370",
+   "hero_description": "b2aabf5070298741",
+   "hero_prompt": "a0f14384bec14119",
+   "howto_description": "cf0c04370ea1717a",
+   "howto_step_1_des": "d69c2f210e822e74",
+   "howto_step_1_title": "f58ee7bfca30c189",
+   "howto_step_2_des": "ef127070bd9f78e6",
+   "howto_step_2_title": "2f58d1ff27a87dae",
+   "howto_step_3_des": "1592af9264b3b0fc",
+   "howto_step_3_title": "145d450f7d46282f",
+   "howto_step_4_des": "a1312fa712b83797",
+   "howto_step_4_title": "83ea101aef6ffffe",
+   "howto_step_5_des": "bdf2d5019c08a160",
+   "howto_step_5_title": "4068fb68b8b0c0df",
+   "howto_step_6_des": "4c6450d77abcb252",
+   "howto_step_6_title": "0a48507a7fc1236a",
+   "howto_step_7_des": "91e97541454feb11",
+   "howto_step_7_title": "b23abdc96fe3b29f",
+   "howto_title": "04ee79f17b4a29eb",
+   "meta_description": "bdf25efe7a4387fe",
+   "meta_title": "182e9771830c865f",
+   "mockup": "420fc17b1a5257fb",
+   "product_name": "2d31eda03b7c259b",
+   "prompt_chip_1": "2dec889d1cf6b642",
+   "prompt_chip_2": "2c07bb9649e58bf4",
+   "prompt_chip_3": "0dc0c4531127db73",
+   "prompt_chip_4": "2bfc3471571e5c00",
+   "slug": "8842a9aad8507f5e",
+   "tab_content_1": "1dd76f1f078af7b8",
+   "tab_content_2": "b66326ae1807cbe5",
+   "tab_content_3": "2f27ee4571076e35",
+   "tab_content_4": "43842b4f4e6bfe54",
+   "tab_label_1": "466e8abdceaf4599",
+   "tab_label_2": "a90d09f23ab976ff",
+   "tab_label_3": "2a71b0c65c67fe84",
+   "tab_label_4": "dc01ce8a34b14ba1",
+   "usecase_heading": "50165a2d610e2220",
+   "why_description": "6688d292651af103",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "364860069149e18e"
+  },
+  "all": "d05ffe27ad7e3314",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
