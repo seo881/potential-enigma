@@ -129,6 +129,13 @@
    "via": null,
    "by": "B-w-213",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 13:52 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-75",
+   "note": "rubric 10/10 by B-r-75; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -1002,5 +1009,285 @@
  },
  "writers": [
   "B-w-213"
- ]
+ ],
+ "review": {
+  "by": "B-r-75",
+  "date": "2026-10-16 13:52 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Website Feedback Survey That Shows What to Fix'; hero 'Build a website feedback survey that asks visitors one question per screen and saves every answer to a database you own.' (under 130 chars, carries the primary, leads with Build); how-to description one sentence: 'Seven steps to create a website feedback survey that tells you which page to fix first, then build it with Emergent.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is question lists and templates (SurveyMonkey, SurveySparrow, Mouseflow, Typeform template). FAQ 1 lists concrete questions ('Did this page answer your question? What did you come here to do today, and did you do it?'), FAQ 3 covers the template, FAQ 4 examples per page type, 7-step how-to, and a comparison table with SurveyMonkey and Typeform from the top 10."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Website-team vocabulary throughout: 'Report a problem link in the footer', 'order confirmation page', 'Sort pages by the share of no answers', 'Keep it off the first screen of a landing page'. Table cells match rules/competitors/sqb.json for SurveyMonkey, Typeform and Jotform on all five rows."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence with a verb: 'Name the pages you want rated...', 'Each answer lands as a row...', 'Ledgerwick ends every help article with a single question...', 'Place the link where the question makes sense...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences short and single-idea ('Single reports wait in the table for review.'); two ', so' endings (QC Q5 under the cap); repetition of 'reports' and 'question' recorded as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Product-led and concrete: 'When 3 reports name the same page within 24 hours, the app posts in the #web-fixes Slack channel. This morning, 4 reports on the room booking page said the form would not submit.' One soft line in FAQ 8 recorded as a note."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to approved ids in claims_used (prompt-build, database-owned, alerts, conversational, api-connect, code-export, custom-domain, no-caps, free-start); GitHub export stated 'On paid plans'; table cells unedited from the library; tab numbers add up (171+83+58=312; image total 1,380 = 148+204+187+163+266+412; 97/148 = 66% on hero and cover). No third-party facts in prose; one unsourced best-practice line recorded as a note."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Tabs (help center, store visit purpose, footer problem reports, relaunch before/after) differ from customer-feedback-survey (cancellation, in-app, service visit, retail) and the brand pages; FAQ 4, 7 and 10 hand product feedback, brand perception and brand awareness to those siblings with links instead of answering them."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, no brand or file-format asks (hubctl paa: pass 10, reject 0, flag 0; verbatim Q1 ok); hub link in item 2; sibling links in items 4, 7, 10; moat lines in items 5 ('Emergent sets no response cap on either one') and 8; each answers in its first sentence ('Yes, make it anonymous by default...')."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 table Import contacts 148/97 'Worst of 6 articles', 'One step missing: the email column'; tab 2 'Wholesale: 14 of 58', 'Home bakers: 152 of 171', 312 over 14 days; tab 3 four room-booking reports, #web-fixes post 'Rule: 3 reports in 24 hours'; tab 4 'Before: 38 of 90', 'After: 71 of 88'; hero and cover 66% Import contacts. All match the tab copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_2_des",
+    "quote": "A yes or no draws the most answers.",
+    "issue": "Best-practice generalization about response rates with no domain_sources entry; it supports a recommendation, so it is a note.",
+    "fix": "Source it, or recast as advice: 'A one-tap yes or no is the easiest question to answer.'",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "features_subheading, feature_1, faq",
+    "quote": "features_subheading: 'a second prompt changes any of it'; feature_1: 'a follow-up prompt changes any wording before launch'; faq item 2: 'you can change any part by prompting again'",
+    "issue": "The same 'change it by prompting again' idea in three fields with words swapped.",
+    "fix": "Keep it once (the features subheading) and give feature_1 a different closing detail.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "| SurveyMonkey | Typeform | Jotform |",
+    "issue": "Jotform does not rank in this page's top 10 (QC K7); Qualtrics and SurveySparrow do. HUB_RULES 5 says pick the competitors that rank for the query.",
+    "fix": "If the library adds Qualtrics or SurveySparrow, swap it for Jotform on the next regeneration.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "page",
+    "quote": "'reports' 13 times, 'question' 12 times, 'problem' 10 times outside the FAQ (QC Q9)",
+    "issue": "Heavy reuse of the same nouns across features, tabs and how-to.",
+    "fix": "Vary where it reads naturally (an issue, a complaint, a submission) without changing the term for the Report a problem form.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "With Emergent, the responses live in a database you own, so that promise is yours to keep.",
+    "issue": "'that promise is yours to keep' is a slightly writerly flourish on a moat line.",
+    "fix": "'With Emergent, the responses live in a database you own, and no one else reads the emails.'",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_2_des",
+   "issue": "Best-practice generalization about response rates with no domain_sources entry; it supports a recommendation, so it is a note.",
+   "fix": "Source it, or recast as advice: 'A one-tap yes or no is the easiest question to answer.'",
+   "by": "B-r-75",
+   "via": "review",
+   "date": "2026-10-16 13:52 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "features_subheading, feature_1, faq",
+   "issue": "The same 'change it by prompting again' idea in three fields with words swapped.",
+   "fix": "Keep it once (the features subheading) and give feature_1 a different closing detail.",
+   "by": "B-r-75",
+   "via": "review",
+   "date": "2026-10-16 13:52 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "Jotform does not rank in this page's top 10 (QC K7); Qualtrics and SurveySparrow do. HUB_RULES 5 says pick the competitors that rank for the query.",
+   "fix": "If the library adds Qualtrics or SurveySparrow, swap it for Jotform on the next regeneration.",
+   "by": "B-r-75",
+   "via": "review",
+   "date": "2026-10-16 13:52 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "page",
+   "issue": "Heavy reuse of the same nouns across features, tabs and how-to.",
+   "fix": "Vary where it reads naturally (an issue, a complaint, a submission) without changing the term for the Report a problem form.",
+   "by": "B-r-75",
+   "via": "review",
+   "date": "2026-10-16 13:52 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "'that promise is yours to keep' is a slightly writerly flourish on a moat line.",
+   "fix": "'With Emergent, the responses live in a database you own, and no one else reads the emails.'",
+   "by": "B-r-75",
+   "via": "review",
+   "date": "2026-10-16 13:52 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "7b02e9645aa6f6aa",
+   "alt:share_image": "cb74fac3f2430b0e",
+   "alt:tab_image_1": "cb797a4339534523",
+   "alt:tab_image_2": "780b1bb19d40c40d",
+   "alt:tab_image_3": "424654b1a5ebaff8",
+   "alt:tab_image_4": "b4d1056a30a6684b",
+   "breadcrumb": "c212e2d21b83f66f",
+   "chip_adds": "4a11e701e83f180a",
+   "explore_cta": "6ad4be31ca7ac684",
+   "faq": "6f65ab9532aff7ae",
+   "feature_1": "cb1951137457f039",
+   "feature_2": "0e8865855767f5d3",
+   "feature_3": "6fc7fb6ff3a18fea",
+   "feature_4": "640d4eadeb05bad6",
+   "feature_5": "4bf5bd15aa82cfd2",
+   "feature_6": "99bf6798452f8b3e",
+   "features_heading": "684c3b6feba90a8c",
+   "features_subheading": "5aa2ae98ba29297b",
+   "h1": "8e032eeae7057422",
+   "hero_description": "0af3feb4f6b180a1",
+   "hero_prompt": "3e78ad24b8441b3b",
+   "howto_description": "87c172dd4539ec1b",
+   "howto_step_1_des": "4ea3b2c649741a06",
+   "howto_step_1_title": "36e23a61da37ad57",
+   "howto_step_2_des": "2a58917e94c78d34",
+   "howto_step_2_title": "79db440f3dc63cb6",
+   "howto_step_3_des": "8dca304bbb138009",
+   "howto_step_3_title": "300ee6079bd002e2",
+   "howto_step_4_des": "004f5bdd428272ff",
+   "howto_step_4_title": "fe8918fc36535565",
+   "howto_step_5_des": "2cd220866d72dcd0",
+   "howto_step_5_title": "47576e5bf2e53a9d",
+   "howto_step_6_des": "d8ac3185a3a4ec11",
+   "howto_step_6_title": "87437dbc0581c520",
+   "howto_step_7_des": "f50ff8e69ec416f0",
+   "howto_step_7_title": "64e2402014377e1d",
+   "howto_title": "48e19adb6cb5395a",
+   "meta_description": "20d6a8dab4deb7d5",
+   "meta_title": "ac3e1f155fdf9d4a",
+   "mockup": "a3abda900702da96",
+   "product_name": "7925e6c89c35ca87",
+   "prompt_chip_1": "1c128d0378cb5234",
+   "prompt_chip_2": "c868a2d96579bdf7",
+   "prompt_chip_3": "279d3853d5dcb3ef",
+   "prompt_chip_4": "dc7b3208de3ed00f",
+   "slug": "7e9bb492ab7e13d4",
+   "tab_content_1": "e53915c7ce8d479e",
+   "tab_content_2": "af06fec2bf572463",
+   "tab_content_3": "1d891aa1725c5605",
+   "tab_content_4": "c9d1d8b14f06c1f3",
+   "tab_label_1": "a78cebc44214256b",
+   "tab_label_2": "c50970c1903db9ae",
+   "tab_label_3": "279d3853d5dcb3ef",
+   "tab_label_4": "dc7b3208de3ed00f",
+   "usecase_heading": "9380b51d1942f574",
+   "why_description": "2d1a7918a5540552",
+   "why_table": "3141ade05901f6a4",
+   "why_title": "1ae81dba4403cf57"
+  },
+  "all": "6bd6f2cc35e1f42b",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "7b02e9645aa6f6aa",
+   "alt:share_image": "cb74fac3f2430b0e",
+   "alt:tab_image_1": "cb797a4339534523",
+   "alt:tab_image_2": "780b1bb19d40c40d",
+   "alt:tab_image_3": "424654b1a5ebaff8",
+   "alt:tab_image_4": "b4d1056a30a6684b",
+   "breadcrumb": "c212e2d21b83f66f",
+   "chip_adds": "4a11e701e83f180a",
+   "explore_cta": "6ad4be31ca7ac684",
+   "faq": "6f65ab9532aff7ae",
+   "feature_1": "cb1951137457f039",
+   "feature_2": "0e8865855767f5d3",
+   "feature_3": "6fc7fb6ff3a18fea",
+   "feature_4": "640d4eadeb05bad6",
+   "feature_5": "4bf5bd15aa82cfd2",
+   "feature_6": "99bf6798452f8b3e",
+   "features_heading": "684c3b6feba90a8c",
+   "features_subheading": "5aa2ae98ba29297b",
+   "h1": "8e032eeae7057422",
+   "hero_description": "0af3feb4f6b180a1",
+   "hero_prompt": "3e78ad24b8441b3b",
+   "howto_description": "87c172dd4539ec1b",
+   "howto_step_1_des": "4ea3b2c649741a06",
+   "howto_step_1_title": "36e23a61da37ad57",
+   "howto_step_2_des": "2a58917e94c78d34",
+   "howto_step_2_title": "79db440f3dc63cb6",
+   "howto_step_3_des": "8dca304bbb138009",
+   "howto_step_3_title": "300ee6079bd002e2",
+   "howto_step_4_des": "004f5bdd428272ff",
+   "howto_step_4_title": "fe8918fc36535565",
+   "howto_step_5_des": "2cd220866d72dcd0",
+   "howto_step_5_title": "47576e5bf2e53a9d",
+   "howto_step_6_des": "d8ac3185a3a4ec11",
+   "howto_step_6_title": "87437dbc0581c520",
+   "howto_step_7_des": "f50ff8e69ec416f0",
+   "howto_step_7_title": "64e2402014377e1d",
+   "howto_title": "48e19adb6cb5395a",
+   "meta_description": "20d6a8dab4deb7d5",
+   "meta_title": "ac3e1f155fdf9d4a",
+   "mockup": "a3abda900702da96",
+   "product_name": "7925e6c89c35ca87",
+   "prompt_chip_1": "1c128d0378cb5234",
+   "prompt_chip_2": "c868a2d96579bdf7",
+   "prompt_chip_3": "279d3853d5dcb3ef",
+   "prompt_chip_4": "dc7b3208de3ed00f",
+   "slug": "7e9bb492ab7e13d4",
+   "tab_content_1": "e53915c7ce8d479e",
+   "tab_content_2": "af06fec2bf572463",
+   "tab_content_3": "1d891aa1725c5605",
+   "tab_content_4": "c9d1d8b14f06c1f3",
+   "tab_label_1": "a78cebc44214256b",
+   "tab_label_2": "c50970c1903db9ae",
+   "tab_label_3": "279d3853d5dcb3ef",
+   "tab_label_4": "dc7b3208de3ed00f",
+   "usecase_heading": "9380b51d1942f574",
+   "why_description": "2d1a7918a5540552",
+   "why_table": "3141ade05901f6a4",
+   "why_title": "1ae81dba4403cf57"
+  },
+  "all": "6bd6f2cc35e1f42b",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
