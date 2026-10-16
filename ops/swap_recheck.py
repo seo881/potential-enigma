@@ -22,9 +22,10 @@ CACHE = os.path.join(ROOT, ".cache", "swap_recheck.json")   # data fingerprint a
 JUDGED = re.compile(r"off-intent|off-sense")                # park reasons that judged the existing candidates, not their number
 QUESTION_OK = ("PA1b",)                                     # answer-text rejects: fixed in the answer, not by a swap
 
+KEEP = re.compile(r"relevance|intent mismatch|cannibal|vendor comparison|Divit decision", re.I)   # Divit 2026-10-16: never released on supply
 def parked():
     return [(u, e) for h in H.CFG["hubs"] for u, e in H.load_st(h)["pages"].items()
-            if e.get("state") == "parked" and (e.get("note") or "").startswith(TAG)]
+            if e.get("state") == "parked" and (e.get("note") or "").startswith(TAG) and not KEEP.search(e.get("note") or "")]
 
 def listed(note):
     """The Q numbers in the note's lead clause: "Q10 needs a swap", "Q6, Q7, Q10 need swaps", "Q5-Q8 need swaps", "Q2 rejects"."""
@@ -47,7 +48,7 @@ def gate_needs(url, spec=None):
 
 def near(a, b, prim): return P.near_dup(a, b, prim) or P.jacc(P.content(a), P.content(b)) >= P.JACCARD_DUP
 
-def available(url, need, items, slots=None, excluded=(), spec=None):
+def available(url, need, items, slots=None, excluded=(), spec=None, written=True):
     """Replacements for the positions in need: code-built slots in slot order, each not a near-duplicate of a kept question, a dropped
     one (their FAQ text, and the slot question and source wording they came from: a writer may reword a Semrush slot) or a replacement
     already taken; slot 1/2 (definition, how-to-build) only for position 1/2. Returns (filled, needed)."""
@@ -77,7 +78,9 @@ def available(url, need, items, slots=None, excluded=(), spec=None):
         if sl.get("kind") not in ("alsoasked", "semrush") or not ok(sl): continue
         if resp(q) and nresp >= P.MAX_RESPONDENT: continue
         nresp += resp(q); taken.append(q); rest -= 1
-    return len(taken), len(need)
+    # Divit 2026-10-16 item 1: a position no code-built slot fills is a written question (positions 3-10; 1 and 2 are code's defaults)
+    if not written: return len(taken), len(need)
+    return len(taken) + max(0, min(rest, len(need) - len(taken))), len(need)
 
 def fingerprint(url):
     import semrush_questions as SQ

@@ -21,6 +21,7 @@ MAP_PATH = os.path.join(ROOT, "plan", "keyword_map.json")
 _pp = os.path.join(ROOT, "plan"); _pp in sys.path or sys.path.append(_pp); import kmap_load as _KL
 KMAP = _KL.load(ROOT)   # local keyword_map.json + the tracked approved additions it lacks (plan/additions.json)
 F4_RETIRED = True   # Divit, 2026-10-09: F4 retired, superseded by the PAA gate (qc/paa_gate.py, PA1-PA13); code kept, disabled
+WRITTEN_SINCE = "2026-10-16 08:00 UTC"   # Divit 2026-10-16 item 1: skeletons built from here on carry paa|written labels (QC F7)
 FONTS = ["/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", "/System/Library/Fonts/Supplemental/Arial.ttf", "/Library/Fonts/Arial.ttf"]
 FONT = next((f for f in FONTS if os.path.exists(f)), FONTS[0])
 
@@ -561,6 +562,9 @@ def check(spec, siblings):
                 if not src: add("P1", "F2", "faq", f'no source recorded in faq_sources for: "{it["q"][:60]}"'); continue
                 kind, ref = src.get("source"), src.get("ref", "")
                 if kind in ("paa", "alsoasked"): continue
+                if kind == "written":   # Divit 2026-10-16: the writer's question, judged by the gate (PA3-PA21); a named secondary is the page's
+                    if src.get("secondary") and norm(src["secondary"]) not in me_secs: add("P1", "F2", "faq", f'written question names "{src["secondary"][:50]}" as its secondary, not one of this page\'s')
+                    continue
                 if kind in ("secondary", "keyword") and (src.get("prov") or {}).get("tool") == "semrush-phrase_questions":
                     if not _semrush_ok(spec["url"], ref): add("P1", "F2", "faq", f'Semrush question "{ref[:50]}" is not in this page\'s usable Semrush questions (ops/semrush_questions.py derive)')
                     elif not _SQ_HEAD(spec["url"], it["q"]): add("P1", "F2", "faq", f'reworded Semrush question must keep the head phrase: "{it["q"][:50]}" (backlog line 91)')
@@ -571,7 +575,7 @@ def check(spec, siblings):
                 elif kind == "related":
                     add("P1", "F2", "faq", f'related search "{ref[:50]}" has no capture (DataForSEO retired 2026-10-10): source it from the AlsoAsked pull or a secondary')
                 else:
-                    add("P1", "F2", "faq", f'unknown source type "{kind}" (alsoasked, paa, secondary, keyword, definition)')
+                    add("P1", "F2", "faq", f'unknown source type "{kind}" (paa, written; older labels alsoasked, secondary, keyword, definition)')
         else:
             paa_q = {S.tokens(i["q"]).__str__(): i["q"] for i in live["paa"]}
             prims = {}
@@ -582,7 +586,10 @@ def check(spec, siblings):
                 src = srcs.get(it["q"])
                 if not src: add("P1", "F2", "faq", f'no source recorded in faq_sources for: "{it["q"][:60]}"'); continue
                 kind, ref = src.get("source"), src.get("ref", "")
-                if kind == "paa":
+                if kind == "paa" and str((src.get("prov") or {}).get("tool", "")).startswith("alsoasked"): kind = "alsoasked"   # Divit 2026-10-16 label
+                if kind == "written":
+                    if src.get("secondary") and norm(src["secondary"]) not in me_secs: add("P1", "F2", "faq", f'written question names "{src["secondary"][:50]}" as its secondary, not one of this page\'s')
+                elif kind == "paa":
                     match = next((i["q"] for i in live["paa"] if i["q"].strip().lower() == ref.strip().lower()), None)
                     if not match: add("P1", "F2", "faq", f'source says PAA but "{ref[:60]}" is not in the captured PAA list')
                     else:
@@ -605,7 +612,7 @@ def check(spec, siblings):
                 elif kind == "alsoasked":   # rescue rewrites of legacy pages (Divit 2026-10-13, proposal F2): a true AlsoAsked label; PA1 checks it against the pull
                     if not _PG.has_pull(spec["url"].rsplit("/", 1)[1]): add("P1", "F2", "faq", f'source says alsoasked but this page has no AlsoAsked pull')
                 else:
-                    add("P1", "F2", "faq", f'unknown source type "{kind}" (alsoasked, paa, related, secondary, keyword, definition)')
+                    add("P1", "F2", "faq", f'unknown source type "{kind}" (paa, written; older labels alsoasked, related, secondary, keyword, definition)')
             me_page = (KMAP or {}).get(spec["url"], {"primary": prim, "secondaries": []})
             ok_paa, _skip = S.eligible(live, me_page, prims)
             # PA4 per-page skip list (Divit approved PA1-PA13, 2026-10-08): a logged, reasoned skip is not required by F4
@@ -614,6 +621,16 @@ def check(spec, siblings):
             for i in ([] if F4_RETIRED else ok_paa[:10]):
                 if i["q"].lower() not in used_paa: add("P1", "F4", "faq", f'People Also Ask question not answered: "{i["q"]}"')
             if not live["paa"]: add("P2", "F5", "faq", "this SERP shows no People Also Ask box; FAQ comes from related searches and secondaries")
+    # ---------- F7 (Divit 2026-10-16, item 1): every FAQ item is "paa" (AlsoAsked, verbatim, with provenance) or "written" ----------
+    # New writing only: a skeleton built from WRITTEN_SINCE on and never reviewed (ruling 15: no recheck of reviewed or live pages)
+    if not frozen_spec and fq and not spec.get("review") and str((spec.get("skeleton") or {}).get("built") or "") >= WRITTEN_SINCE:
+        srcs7 = {x.get("q"): x for x in spec.get("faq_sources", [])}
+        for n_, it in enumerate(fq.get("items", []), 1):
+            src = srcs7.get(it.get("q")) or {}
+            if src.get("source") not in ("paa", "written"):
+                add("P1", "F7", "faq", f'FAQ item {n_}: source must be "paa" or "written" (is "{src.get("source") or "missing"}"): run skeleton.py assemble')
+            elif src["source"] == "paa" and not str((src.get("prov") or {}).get("tool", "")).startswith("alsoasked"):
+                add("P1", "F7", "faq", f'FAQ item {n_}: a "paa" item carries its AlsoAsked provenance (only AlsoAsked questions are paa; anything else is written)')
     on_hold = CFG.get("images_on_hold")
     if on_hold and not frozen_spec:
         add("P2", "I0", "images", f"image brief and rendering on hold since {on_hold['since']} (brand palette pending)")

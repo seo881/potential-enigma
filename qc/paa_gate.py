@@ -11,6 +11,14 @@ self-quiz, fragment; only where PA6 would flag), PA9/PA10 same-intent variants (
                           that carries a secondary becomes source secondary (ref = that secondary, paa_ref = old ref); text byte-identical
   --cand                  also admit the page's SAFE synonym candidates (rules/paa_synonym_candidates.json; not yet approved)
 
+Written questions (Divit 2026-10-16, "FULL-THROTTLE WRITING" item 1): every page has 10 questions; gate-passing AlsoAsked PAA
+first, verbatim (faq_sources source "paa"; "alsoasked" is the older label), then questions the writer writes (source "written").
+A written question is judged by the same content gates (PA3-PA10, PA14-PA17) and takes no flag (a flag is a reject: rephrase it),
+must not be a respondent's question (PA6; an unclassified asker is a note the reviewer judges), and also: PA18 at most one secondary keyword, PA19 not hub-level generic (a page-topic term: the
+primary's distinguishing word or a page-specific secondary), PA20 never another page's primary, PA21 no third-party pricing.
+Provenance and verbatim checks (PA1, PA1b, hubctl verbatim) apply to source paa only. PA11/PA12 no longer park a page for being
+short of PAA: written questions take it to 10.
+
 Principle: a question is rejected unless it proves it belongs on the page. Each question gets pass, reject or flag
 (needs a human judgment; never silently passed) with every reason by rule ID. Verdicts go to
 private/alsoasked/verdicts/<slug>[.faq].json (git-ignored); one summary line goes to audit/paa/summary.md.
@@ -121,6 +129,20 @@ def trivia(q, page_sense=""):
     if m and re.sub(r"[\s-]", "", m.group(3)) == re.sub(r"[\s-]", "", m.group(4)): return "spelling variant trivia (X or X)"
     return None
 
+# ---------- written questions (Divit 2026-10-16 item 1) ----------
+PAA_SOURCES = ("paa", "alsoasked")
+WRITTEN = "written"
+HUB_GENERIC = {"form", "survey", "quiz", "questionnaire", "landing", "page", "automation", "workflow", "builder", "template", "online",
+               "free", "ai", "maker", "generator", "create", "example", "sample", "best", "digital", "custom", "simple", "website",
+               "site", "tool", "automate", "automated"}
+def _gstem(w): return SAME.get(stem(w), stem(w))
+GENERIC_STEMS = {_gstem(w) for w in HUB_GENERIC}
+def topic_terms(phrase):
+    """A keyword's page-topic words: its content words minus the hub-level generic ones and phrasal particles (PA19)."""
+    return content(phrase) - GENERIC_STEMS - PARTICLES
+PRICE_RX = re.compile(r"\b(cost|costs|price|priced|prices|pricing|how much|cheap|cheapest|fee|fees|charge|charges|subscription|per month|per user|per seat)\b")
+THIRD_PARTY_RX = re.compile(r"\b(software|tools?|apps?|platforms?|builders?|services?|vendors?|providers?|compan(y|ies)|plugins?|solutions?|makers?|generators?|products?)\b")
+
 def hub_of(url):
     for k, h in CFG["hubs"].items():
         if url.startswith(h["path"] + "/"): return k, h
@@ -162,6 +184,14 @@ class Gate:
         self.new_writing = not reviewed_already(self.spec)   # ruling 18 / ruling 15: r18 checks on this page's own FAQ only when never reviewed
         # ruling 18 part 4b: the page's own sense (primary, H1, slug): a sense_shift or named qualifier the page itself carries never fires
         self.page_sense = " " + norm(" ".join([self.primary, str((self.spec.get("fields") or {}).get("h1") or ""), self.slug.replace("-", " ")])) + " "
+        # PA20 (written): every other page's multi-word primary across the hubs, unless this page's own primary or a secondary holds it
+        own = [norm(self.primary)] + [norm(k) for k in self.secondaries]
+        self.other_prims = []
+        if _km is not None:
+            for u, e in _km.items():
+                op = norm((e or {}).get("primary") or "")
+                if u == url or len(op.split()) < 2 or any(op in o for o in own): continue
+                self.other_prims.append((u, op, phrase_re(op)))
         self.siblings = []  # PA10: every other spec in the hub, with its head phrase
         for p in glob.glob(os.path.join(ROOT, "specs", self.dir, "*.json")):
             if os.path.basename(p).startswith("_") or p == self.spec_path: continue
@@ -221,6 +251,8 @@ class Gate:
         """The per-question rules, then Divit's flag decisions (rules/flag_decisions.json, Divit 2026-10-13): an approved flag subtype
         becomes a note, a rejected one a reject; a per-question decision (mixed subtypes such as PA10 and PA14) settles that question."""
         out = self._judge(item)
+        if item.get("source") == WRITTEN:   # Divit 2026-10-16: a written question takes no flag; the writer rephrases it
+            return [(r[0], "reject", "written question, rephrase it: " + r[2]) if r[1] == "flag" else r for r in out]
         if not any(r[1] == "flag" for r in out): return out
         fd = _flag_decisions(); qh = qhash(item.get("q") or "")
         res = []
@@ -236,6 +268,7 @@ class Gate:
         """item: {q, prov, source}. Returns list of (rule, 'reject'|'flag'|'note', reason)."""
         q, out = norm(item["q"]), []
         prov, src = item.get("prov") or {}, item.get("source", "alsoasked")
+        written = src == WRITTEN
         if item.get("n") in (1, 2): src = "slot"  # definition and how-to-build are template slots: exempt from PA1/PA2 (DECISIONS 2026-10-08)
         # PA1 provenance: PAA items come from AlsoAsked only (US, English) with full provenance
         if src in ("paa", "alsoasked"):
@@ -271,7 +304,9 @@ class Gate:
         if nu: out.append(("PA5", "reject", "non-US term: " + ", ".join(nu)))
         # PA6 asker
         a = self.asker(q); item["asker"] = a
-        if a is None: out.append(("PA6", "flag", "asker unclassified (builder/respondent/unrelated): needs judgment"))
+        if written and a == "respondent": out.append(("PA6", "reject", "written question is not builder intent (a respondent asks it): ask what a person building this asks"))
+        elif written and a is None: out.append(("PA6", "note", "asker unclassified on a written question: the reviewer judges builder intent"))
+        elif a is None: out.append(("PA6", "flag", "asker unclassified (builder/respondent/unrelated): needs judgment"))
         # PA7 advice risk
         dom = self.domain(q); adv = any(re.search(p, q) for p in self.pt["advice"])
         if adv and dom: out.append(("PA7", "reject", "advice question in " + "/".join(dom)))
@@ -307,6 +342,7 @@ class Gate:
             if tv: out.append(("PA17", "reject", tv))
             sh = drop_shape(item.get("q") or "", src) if a is None else None   # part 5: only shapes that were PA6 flags (asker unclear)
             if sh: out.append(("PA6", "reject", "dropped shape: " + sh))
+        if written: out += self.written_checks(q)
         # PA10 one page per question per hub: the page whose head phrase the question carries owns it
         cq = content(q)
         for surl, sprim, sq, sc in self.siblings:
@@ -318,6 +354,31 @@ class Gate:
             elif theirs: out.append(("PA10", "reject", f"belongs to {surl} (\"{sq[:50]}\")"))
             else: out.append(("PA10", "flag", f"same question on {surl}: decide one owner"))
             break
+        return out
+
+    def secondaries_in(self, q):
+        """The page's secondaries a question carries (all words, any order), the maximal ones only: one that another carried
+        secondary contains is the same keyword use; a secondary inside the primary is the primary."""
+        cq, cp = content(q), content(self.primary)
+        hits = {frozenset(content(k)): k for k in self.secondaries if content(k) and content(k) <= cq and not content(k) <= cp}
+        return sorted(k for c, k in hits.items() if not any(c < o for o in hits))
+
+    def written_checks(self, q):
+        """Divit 2026-10-16 item 1: the extra checks on a question the writer wrote (q normalised)."""
+        out, cq = [], content(q)
+        secs = self.secondaries_in(q)
+        if len(secs) > 1: out.append(("PA18", "reject", f"{len(secs)} secondary keywords in one question (at most one): " + ", ".join(secs[:3])))
+        topic = topic_terms(self.primary) or content(self.primary)
+        own = bool(topic & cq) if topic_terms(self.primary) else topic <= cq
+        if not own and not any(topic_terms(k) and content(k) <= cq for k in self.secondaries):
+            out.append(("PA19", "reject", f"hub-level generic: names neither the page's topic ({', '.join(sorted(topic)) or self.primary}) nor a page-specific secondary"))
+        mine = q
+        for h in self.heads: mine = h.sub(" ", mine)
+        for k in self.secondaries: mine = phrase_re(k).sub(" ", mine)
+        oth = next(((u, op) for u, op, rx in self.other_prims if rx.search(mine)), None)
+        if oth: out.append(("PA20", "reject", f'names another page\'s primary "{oth[1]}" ({oth[0]})'))
+        if PRICE_RX.search(q) and (THIRD_PARTY_RX.search(q) or any(has(b.lower(), q) for b in self.bl.get("pa14_brands", []) + self.bl["tool_brands"] + self.library)):
+            out.append(("PA21", "reject", "third-party pricing: never ask what other products or vendors cost"))
         return out
 
     def verdict(self, reasons):
@@ -504,7 +565,7 @@ def run_pull(g):
         it["reasons"] = g.judge(it); it["verdict"] = g.verdict(it["reasons"]); by_q[it["q"]] = it
     items = g.finish(sorted(items, key=lambda x: x["prov"]["depth"]))
     ok = sum(i["verdict"] == "pass" for i in items)
-    extra = [("PA11", f"{len(raw)} nodes, {len(items)} distinct; {ok} passing AlsoAsked candidates (fill from secondaries; under {MIN_ON_TOPIC} on-topic in the final FAQ parks the page)")]
+    extra = [("PA11", f"{len(raw)} nodes, {len(items)} distinct; {ok} passing AlsoAsked candidates (written questions fill the rest to {N_FAQ}, Divit 2026-10-16)")]
     return items, extra
 
 def run_spec(g):
@@ -518,15 +579,14 @@ def run_spec(g):
         it["ctx"] = ctx.get(norm((it["prov"] or {}).get("original") or ""), "")
         if (it["prov"] or {}).get("depth") == 2: it["parent_verdict"] = pv.get(norm(it["prov"].get("parent") or ""), "flag")
         it["reasons"] = g.judge(it)
-        w = norm(re.sub(r"<[^>]+>", " ", html.unescape(it["a"]))).split()
+        w = norm(re.sub(r"<[^>]+>", " ", html.unescape(it["a"]))).split() if it["source"] != WRITTEN else []   # PA1b: paa only (Divit 2026-10-16)
         hit = next((" ".join(w[i:i + 6]) for i in range(len(w) - 5) if " ".join(w[i:i + 6]) in sh), None)
         if hit: it["reasons"].append(("PA1b", "reject", f'answer shares a 6-word run with AlsoAsked answer text ("{hit}")'))
         it["verdict"] = g.verdict(it["reasons"])
     items = g.finish(items)
     page = []
     if len(items) != N_FAQ: page.append(("PA12", f"{len(items)} items, not exactly {N_FAQ}"))
-    ok = [i for i in items if i["verdict"] != "reject"]
-    if len(ok) < MIN_ON_TOPIC: page.append(("PA11", f"{len(ok)} on-topic items, under {MIN_ON_TOPIC}: the page parks"))
+    # PA11 (Divit 2026-10-16): no longer parks a page in spec mode; a rejected item is replaced with a written question
     if items and not re.match(r"^(what|which) (is|are) ", norm(items[0]["q"])): page.append(("PA12", "item 1 is not the definition"))
     if len(items) > 1:
         if not re.match(r"^how (do|can|to|should) (i |you |we )?(create|make|build|set up|design)", norm(items[1]["q"])): page.append(("PA12", "item 2 is not how-to-build"))
@@ -543,8 +603,8 @@ def run_spec(g):
         ideas = [k for k in workbook_ideas(g.url) if any(h.search(norm(k)) for h in g.heads) or g.pa3_widened(norm(k))]
         wb = [content(k) for k in ideas]
         sec = sum(any(k and k <= content(i["q"]) for k in wb) for i in items)
-        if len(ideas) < MIN_IDEAS: page.append(("PA12", f"no Semrush secondaries and {len(ideas)} on-topic workbook keyword ideas, under {MIN_IDEAS}"))
-        elif sec < MIN_IDEAS: page.append(("PA12", f"{sec} items carrying a workbook keyword idea, under {MIN_IDEAS}"))
+        # Divit 2026-10-16: a page short of keyword ideas is no longer parked (written questions fill it); with ideas, the bar stands
+        if len(ideas) >= MIN_IDEAS and sec < MIN_IDEAS: page.append(("PA12", f"{sec} items carrying a workbook keyword idea, under {MIN_IDEAS}"))
     for it in items:
         first = norm(re.sub(r"<[^>]+>", " ", html.unescape(it["a"])))[:60]
         bad = [b for b in g.pt["answer_first_banned"] if first.startswith(b)]

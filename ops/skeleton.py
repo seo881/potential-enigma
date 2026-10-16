@@ -1,18 +1,22 @@
 """skeleton.py: ruling 15 (Divit 2026-10-13), constrained writing. Code builds everything that can be decided before prose; the writer
 writes prose only, section by section, and each section is QC'd (and autofixed) as it is written.
 
-    python3 ops/skeleton.py build URL --by A-w-<n>     the skeleton: 10 FAQ slots (passing questions locked verbatim, US display;
-                                                       Semrush questions in filtered form; secondaries in slots), hub + related links,
+    python3 ops/skeleton.py build URL --by A-w-<n>     the skeleton: 10 FAQ slots (gate-passing AlsoAsked questions locked verbatim,
+                                                       US display; then written slots up to 10, Divit 2026-10-16), hub + related links,
                                                        comparison table, hero default prompt, names; spec.pipeline = "r15"
     python3 ops/skeleton.py pack URL                   the compact page pack: locked FAQ, link plan, sections, claims menu, prevention
     python3 ops/skeleton.py set URL FIELD TEXT         write one field (plain text or HTML, exactly as given)
-    python3 ops/skeleton.py answer URL N TEXT [--q QUESTION]   FAQ answer for slot N (the question only for a secondary slot)
+    python3 ops/skeleton.py answer URL N TEXT [--q QUESTION]   FAQ answer for slot N (--q: the question, written slots only; gated)
+    python3 ops/skeleton.py set URL faq_q N QUESTION   the question of written slot N alone (gated as a written question)
     python3 ops/skeleton.py check URL SECTION          autofix (code) then QC filtered to that section: hero|features|why|usecases|howto|faq|all
     python3 ops/skeleton.py assemble URL               build fields.faq (awbFAQ embed) and faq_sources from the slots; links wrapped by code
     python3 ops/skeleton.py set URL quiz @FILE.json    quiz pages: the playable quiz JSON (docs/QUIZ.md) into spec.quiz; check URL quiz
 
-Locked slots: the question text is fixed by code (an AlsoAsked question in its US-spelling display, ruling 14; a Semrush question as filtered).
-The writer never edits it. Secondary slots: the writer writes a natural question that carries every word of the secondary (K8).
+Locked slots: the question text is fixed by code (an AlsoAsked question in its US-spelling display, ruling 14; the default definition
+and how-to-build questions). The writer never edits it. Written slots (Divit 2026-10-16, "FULL-THROTTLE WRITING" item 1): when the
+gate-passing PAA runs out, the writer writes the rest: plain, specific, useful, as a real searcher asks it, about THIS page's topic,
+working in the suggested secondary naturally (at most one per question). It is gated like PAA plus PA18-PA21 (paa_gate) when set,
+and recorded as source "written" (verbatim checks apply to paa only).
 """
 import collections, contextlib, io, json, os, re, subprocess, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -274,23 +278,27 @@ def default_table(url):
     return vs, rows
 
 def plan_slots(url, cap=10, extra=()):
-    """The skeleton's FAQ slots in fill order (no writes): definition, how-to-build, passing candidates, secondaries, flagged
-    candidates; each skipped when same-intent (paa_gate.near_dup) as a slot already taken. cap None = every fillable slot, which is
-    the feasibility count (ruling 18 part 5: feasibility and the skeleton agree by construction)."""
+    """The skeleton's FAQ slots in fill order (no writes), Divit 2026-10-16 item 1: definition, how-to-build, the gate-passing
+    AlsoAsked questions (verbatim, each skipped when same-intent as a slot already taken, paa_gate.near_dup), then WRITTEN slots up to
+    10: each suggests one secondary the page does not carry yet (MSV high to low, gate-clean as a keyword), then a Semrush question
+    as a starting point (the writer may reword it), then free written slots. Flagged PAA no longer fills a slot (a written question
+    does). cap None = the feasibility count: every PAA slot plus every suggestion, padded with free written slots to 10; every page
+    with a plan can reach 10."""
     km = H.kmap().get(url) or {}; prim = km.get("primary") or url.rsplit("/", 1)[1].replace("-", " ")
     g = P.Gate(url, extra); cands = candidates(url, extra); have = []; slots = []
     full = lambda: cap is not None and len(slots) >= cap
     # Gate.finish's within-page caps, as run_spec applies them to the FAQ (Divit 2026-10-14 step 4): PA6 respondents, PA8 brands
     resp = lambda q: g.asker(P.norm(q or "")) == "respondent"; brand = lambda q: any(P.has(b, P.norm(q or "")) for b in g.library)
     capped = lambda c: (resp(c["q"]) and sum(resp(x.get("q")) for x in slots) >= P.MAX_RESPONDENT) or (brand(c["q"]) and sum(brand(x.get("q")) for x in slots) >= P.MAX_BRANDED)
-    pick = lambda rx: next((c for c in cands if rx.search(P.norm(c["q"])) and c not in have and not capped(c)), None)
+    paa = [c for c in cands if c["kind"] == "alsoasked" and not c.get("flagged")]
+    pick = lambda rx: next((c for c in paa if rx.search(P.norm(c["q"])) and c not in have and not capped(c)), None)
     d = pick(DEF_RX); have += [d] if d else []
     dq, hq = def_questions(prim)
     slots.append(d or {"kind": "definition", "q": dq, "ref": prim, "locked": True})
     h = pick(HOW_RX); have += [h] if h else []
     slots.append(h or {"kind": "definition", "q": hq, "ref": prim, "locked": True})
     near = lambda q: any(P.near_dup(q, x["q"], prim) or P.jacc(P.content(q), P.content(x["q"])) >= P.JACCARD_DUP for x in slots if x.get("q"))
-    for c in [c for c in cands if not c.get("flagged")]:
+    for c in paa:
         if full(): break
         if c in have or near(c["q"]) or capped(c): continue
         slots.append(c)
@@ -299,11 +307,13 @@ def plan_slots(url, cap=10, extra=()):
         if full(): break
         c = P.content(x["kw"])
         if not c or any(c <= q for q in carried) or any(r[0] in R.KW_RULES and r[1] == "reject" for r in g.judge({"q": x["kw"], "source": "secondary"})): continue
-        carried.append(c); slots.append({"kind": "secondary", "q": None, "ref": x["kw"], "locked": False})
-    for c in [c for c in cands if c.get("flagged")]:
+        carried.append(c); slots.append({"kind": "written", "q": None, "ref": x["kw"], "secondary": x["kw"], "locked": False})
+    for c in [c for c in cands if c["kind"] == "semrush" and not c.get("flagged")]:
         if full(): break
-        if c in have or near(c["q"]) or capped(c): continue
-        slots.append(c)
+        if near(c["q"]) or capped(c): continue
+        slots.append({"kind": "written", "q": None, "ref": None, "secondary": None, "hint": c["q"], "locked": False})
+    while len(slots) < (cap if cap is not None else P.N_FAQ):
+        slots.append({"kind": "written", "q": None, "ref": None, "secondary": None, "locked": False})
     return slots
 
 def quiz_plan(url, prim):
@@ -332,7 +342,7 @@ def cmd_build(a):
         subprocess.run([sys.executable, os.path.join(ROOT, "ops", "hubctl.py"), "init", url, "--by", by], check=True)
     s = load(url); prim = km["primary"]; hub = H.hub_of(url)
     slots = plan_slots(url, 10)
-    if len(slots) < 10: sys.exit(f"refused: only {len(slots)} FAQ slots from passing sources (ruling 15: the skeleton needs 10); not writable yet")
+    if len(slots) < 10: sys.exit(f"refused: only {len(slots)} FAQ slots (the skeleton needs 10)")
     hubpath = H.CFG["hubs"][hub]["path"]; hubtext = H.CFG["hubs"][hub]["hub_link_text"]
     for i, sl in enumerate(slots, 1): sl.update({"n": i, "a": sl.get("a") or "", "link": None})
     slots[1]["link"] = {"url": "https://emergent.sh" + hubpath, "anchor": hubtext, "write_as": f"Emergent's {hubtext}"}
@@ -361,7 +371,7 @@ def cmd_build(a):
                                                         "flag_subtypes": sorted({f for x in slots for f in (x.get("flagged") or [])}),
                                                         "locked": sum(1 for x in slots if x["locked"]), "table": bool(s.get("table"))})
     save(url, s)
-    print(f"{url}: skeleton built ({sum(1 for x in slots if x['locked'])} locked FAQ questions, {sum(1 for x in slots if not x['locked'])} secondary slots, "
+    print(f"{url}: skeleton built ({sum(1 for x in slots if x['locked'])} locked FAQ questions, {sum(1 for x in slots if not x['locked'])} written slots, "
           f"{sum(1 for x in slots if x.get('flagged'))} FLAGGED (cannot ship until Divit ticks the subtype), "
           f"{sum(1 for x in slots if x['link'])} links, table {'yes' if s.get('table') else 'NO'}); next: skeleton.py pack {url}")
 
@@ -373,12 +383,20 @@ def cmd_pack(a):
            "1 hero: meta_title, meta_description, h1, hero_description, prompt_chip_1-4 + chip_adds (hero_prompt, product_name, breadcrumb, explore_cta are set by code)",
            "2 features: features_heading, features_subheading, feature_1-6", "3 why: why_title, why_description (the table is built by code)",
            "4 usecases: usecase_heading, tab_label_1-4, tab_content_1-4, mockup, image_brief", "5 howto: howto_title, howto_description, 7 steps",
-           "6 faq: one answer per slot with `skeleton.py answer URL N TEXT`; then `skeleton.py assemble URL`; then `skeleton.py check URL faq`",
+           "6 faq: one answer per slot with `skeleton.py answer URL N TEXT` (written slots: add --q QUESTION); then `skeleton.py assemble URL`; then `skeleton.py check URL faq`",
            *(["7 quiz (quiz pages): spec.quiz, the playable quiz JSON, with `skeleton.py set URL quiz @FILE.json`; then `skeleton.py check URL quiz` (see the Quiz section below)"] if QZ.is_quiz_page(url) else []), "",
-           "## FAQ slots (locked questions are fixed; write the answer only)"]
+           "## FAQ slots (locked questions are fixed; write the answer only. Written slots: you write the question, Divit 2026-10-16)",
+           "Written questions: plain, specific and useful, phrased the way a real person building this asks it; about THIS page's topic, never hub-level generic;",
+           "at most one secondary keyword per question, worked in naturally (no stuffing); builder intent; US audience; no state-specific, legal, medical or",
+           "financial advice; no other company's pricing; no brand names; never another page's primary; never the same intent as another question here or on",
+           "a sibling page. `answer --q` gates the question (PA3-PA21) and refuses a reject. Answers: answer-first, truthful, a source for every fact, Emergent",
+           "claims from the claims menu only."]
     for sl in s.get("faq_plan") or []:
-        q = sl["q"] if sl["locked"] else (f"[Semrush: keep or reword naturally (head phrase stays; --q): {sl['q']}]" if sl["kind"] == "semrush"
-                                          else f"[you write a question carrying every word of: {sl['ref']}]")
+        if sl["locked"] or (sl["kind"] == "written" and sl.get("q")): q = sl["q"]
+        elif sl["kind"] == "semrush": q = f"[Semrush: keep or reword naturally (head phrase stays; --q): {sl['q']}]"
+        elif sl["kind"] == "secondary": q = f"[you write a question carrying every word of: {sl['ref']}]"
+        else: q = "[WRITTEN: you write the question" + (f"; work in the secondary '{sl['secondary']}'" if sl.get("secondary") else "") + \
+                  (f"; a starting point you may reword: {sl['hint']}" if sl.get("hint") else "") + "]"
         if sl.get("flagged"): q += f"  [FLAGGED: {', '.join(sl['flagged'])}; write it like any other; it waits for Divit's packet tick]"
         ln = f" | LINK: write the words \"{sl['link'].get('write_as') or sl['link']['anchor']}\" in the answer (code makes them the link)" if sl.get("link") else ""
         out.append(f"{sl['n']:2d}. ({sl['kind']}{', locked' if sl['locked'] else ''}) {q}{ln}")
@@ -413,6 +431,8 @@ def quiz_pack(s):
 
 def cmd_set(a):
     url, field, text = a[0], a[1], a[2]; s = load(url)
+    if field == "faq_q":   # Divit 2026-10-16: set URL faq_q N QUESTION (a written slot's question, gated)
+        set_written_q(url, s, int(text), a[3]); save(url, s); print(f"slot {text} question set"); return
     if field in ("hero_prompt", "why_table", "faq", "slug", "category"): sys.exit(f"refused: {field} is built by code (ruling 15)")
     if field == "chip_adds": s["chip_adds"] = json.loads(text)
     elif field == "image_brief": s["image_brief"] = json.loads(text)
@@ -423,15 +443,38 @@ def cmd_set(a):
     else: s["fields"][field] = text
     save(url, s); print(f"set {field}")
 
+def written_problems(url, s, n, q):
+    """Divit 2026-10-16: a written question as the gate will judge it in the FAQ: the per-question rules (PA3-PA21, flags are rejects)
+    and the same intent as another question of the page (PA9 / near_dup)."""
+    g = P.Gate(url); out = [f"{r[0]} {r[2]}" for r in g.judge({"q": q, "source": P.WRITTEN, "n": n}) if r[1] == "reject"]
+    prim = g.primary
+    for sl in s.get("faq_plan") or []:
+        o = sl.get("q")
+        if sl.get("n") == n or not o: continue
+        if P.jacc(P.pa9_content(q, prim), P.pa9_content(o, prim)) >= P.JACCARD_DUP or P.near_dup(q, o, prim):
+            out.append(f"PA9 same intent as slot {sl['n']}"); break
+    return out
+
+def set_written_q(url, s, n, q):
+    sl = s["faq_plan"][n - 1]
+    if sl["locked"]: sys.exit(f"refused: slot {n}'s question is locked (ruling 15)")
+    if sl["kind"] == "written":
+        q = q.strip()
+        if not q.endswith("?"): sys.exit("refused: a question ends with '?'")
+        bad = written_problems(url, s, n, q)
+        if bad: sys.exit("refused (written question): " + "; ".join(bad))
+        sl["q"] = q; return
+    if sl["kind"] == "semrush":
+        if not any(h.search(P.norm(q)) for h in P.Gate(url).heads): sys.exit("refused: a reworded Semrush question must keep the head phrase (backlog line 91)")
+    elif not all(w in P.norm(q) for w in P.norm(sl["ref"]).split()): sys.exit(f"refused: the question must carry every word of the secondary '{sl['ref']}' (K8)")
+    sl["q"] = q
+
 def cmd_answer(a):
     url, n, text = a[0], int(a[1]), a[2]; s = load(url); sl = s["faq_plan"][n - 1]
     if "--q" in a:
         if sl["locked"]: sys.exit(f"refused: slot {n}'s question is locked (ruling 15)")
         q = a[a.index("--q") + 1]
-        if sl["kind"] == "semrush":
-            if not any(h.search(P.norm(q)) for h in P.Gate(url).heads): sys.exit("refused: a reworded Semrush question must keep the head phrase (backlog line 91)")
-        elif not all(w in P.norm(q) for w in P.norm(sl["ref"]).split()): sys.exit(f"refused: the question must carry every word of the secondary '{sl['ref']}' (K8)")
-        sl["q"] = q
+        set_written_q(url, s, n, q)   # written: gated (Divit 2026-10-16); older semrush/secondary slots: their old checks
     sl["a"] = text; save(url, s); print(f"slot {n} answered")
 
 def _wrap(ans, link):
@@ -453,8 +496,14 @@ def cmd_assemble(a):
             ans, ok = _wrap(ans, sl["link"])
             if not ok: miss.append(sl["n"])
         items.append({"q": sl["q"], "a": ans})
-        src = {"alsoasked": "alsoasked", "semrush": "keyword", "secondary": "secondary", "definition": "definition"}[sl["kind"]]
-        e = {"q": sl["q"], "source": src, "ref": sl["ref"]}
+        # Divit 2026-10-16: every item is "paa" (an AlsoAsked question, verbatim, with provenance) or "written" (code's default
+        # definition/how-to questions and the writer's questions; origin keeps the slot kind, secondary the keyword it works in)
+        src = "paa" if sl["kind"] == "alsoasked" else "written"
+        e = {"q": sl["q"], "source": src, "ref": sl.get("ref")}
+        if src == "written":
+            e["origin"] = sl["kind"]
+            sec = sl.get("secondary") or (sl.get("ref") if sl["kind"] == "secondary" else None)
+            if sec: e["secondary"] = sec
         if sl.get("prov"): e["prov"] = sl["prov"]
         srcs.append(e)
     s["fields"]["faq"] = ("<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = "

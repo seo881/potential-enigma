@@ -160,15 +160,18 @@ def feasibility(url, extra=(), draft=True):
     the Semrush questions, the uncarried secondaries and the 2 template slots, flagged questions included except the shapes the gate
     now drops (fragment, self-quiz, navigational, state- or platform-specific) and PA14 capitalised names, each same-intent
     question once (near_dup). The overnight run of 2026-10-14 found lead-nurturing-workflow at feasibility 10 but skeleton 7/10:
-    the old count skipped the skeleton's filler-aware duplicate test. Under 10: no writer; the page waits at the end of the queue.
-    A page that already has a FAQ draft keeps the ruling 10 count (_feasibility_draft). Returns counts only: pull (AlsoAsked slots), sq (Semrush), sec (secondary slots), slots (template), flagged, total."""
+    the old count skipped the skeleton's filler-aware duplicate test. Since Divit 2026-10-16 (item 1) the plan pads with written
+    slots, so every page reaches 10 and shortness never parks a page. A page that already has a FAQ draft keeps the ruling 10 count (_feasibility_draft). Returns counts only: pull (AlsoAsked slots), sq (Semrush), sec (secondary slots), slots (template), flagged, total."""
     spp = os.path.join(ROOT, "specs", P.hub_of(url)[1]["repo_dir"], url.rsplit("/", 1)[1] + ".json")
     sp = json.load(open(spp)) if os.path.exists(spp) else {}
     if draft and (sp.get("fields") or {}).get("faq"): return _feasibility_draft(url, extra)   # an existing draft keeps its own FAQ count
     import skeleton as SK
     plan = SK.plan_slots(url, None, extra)
     k = Counter(sl.get("kind") for sl in plan); total = len(plan)
-    return {"faq": 0, "pull": k["alsoasked"], "sec": k["secondary"], "sq": k["semrush"], "recoverable": 0, "slots": k["definition"],
+    # Divit 2026-10-16 item 1: written slots take every page to 10; sec/sq count the written slots that suggest a secondary / a Semrush question
+    wr = [sl for sl in plan if sl.get("kind") == "written"]
+    return {"faq": 0, "pull": k["alsoasked"], "sec": sum(1 for sl in wr if sl.get("secondary")), "sq": sum(1 for sl in wr if sl.get("hint")),
+            "written": len(wr), "recoverable": 0, "slots": k["definition"],
             "flagged": sum(1 for sl in plan if sl.get("flagged")), "total": total, "feasible": total >= P.N_FAQ,
             "pulls": len(P.pulls(url.rsplit("/", 1)[1])), "spec_faq": False}
 
@@ -197,4 +200,5 @@ def _feasibility_draft(url, extra=()):
         slots += 0 if any(_re.match(r"^(what is|what's|what are|what does)\b", q) for q in qs) else 1
         slots += 0 if any(_re.search(r"^(how (do|to|can|would) (i|you|we)?\s*(make|create|build|set up|design|write))|^how to (make|create|build|set up)", q) for q in qs) else 1
     total = c["total"] + rec + slots
-    return dict(c, recoverable=rec, slots=slots, total=total, feasible=total >= P.N_FAQ)
+    written = max(0, P.N_FAQ - total)   # Divit 2026-10-16 item 1: written questions fill a draft's remaining slots
+    return dict(c, recoverable=rec, slots=slots, written=written, total=total + written, feasible=total + written >= P.N_FAQ)

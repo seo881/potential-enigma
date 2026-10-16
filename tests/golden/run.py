@@ -132,6 +132,16 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   overnight      {test: tokens {sessions, cap, expect_rcs, expect_total} | aa-run-key {env, keychain, run, expect}}
   webflow-api    test headless-lift {lift, ship_stop?, argv, op, via_request?, expect_refused}; lift-cap {n, live, ship_kind?, pending?, headless?,
                                                           lift?, ship_stop?, expect_n | expect_refused}
+  Divit 2026-10-16 (FULL-THROTTLE WRITING item 1, written questions):
+  gate-written   {url, q, before?: [q], expect | expect_verdict}  the question as source "written" (after the `before` questions, also
+                                                          written, in page order) is rejected with an expected rule (PA9 via Gate.finish), or
+                                                          gets exactly expect_verdict
+  gate-written-prov {url, q_index, source, expect | absent}  provenance (PA1) and AlsoAsked answer reuse (PA1b) on FAQ item q_index of the
+                                                          current spec relabelled `source` without provenance, its answer carrying a synthetic
+                                                          6-word run the stubbed pull holds: rules in expect fire, rules in absent stay silent
+  skel-written   {url, cap?}                               skeleton.plan_slots fills to 10 with paa (alsoasked), definition and written
+                                                          slots only, and feasibility (draft=False) reaches 10
+  standing-go    ... dated? {name: today|yesterday|<date>, age_h}, expect_log?   Divit 2026-10-16 item 4: the dated .cache/standing-go-<date>
 status: "open" = a known miss the gate does not catch yet (a backlog fix); "guarded" = caught; a guarded case that stops being
 caught fails the suite. Open cases that start passing are reported so they can be marked guarded.
 """
@@ -186,6 +196,35 @@ def caught(c):
         rs = PG.Gate(c["url"]).judge({"q": c["q"], "source": "secondary", "n": 5}); lv = c.get("levels") or ["reject"]
         if c.get("absent"): return not any(r[0] in c["absent"] for r in rs)   # ruling 14: the rule must stay silent (a spelling variant)
         return bool({r[0] for r in rs if r[1] in lv} & set(c.get("expect") or [r[0] for r in rs]))
+    if c["kind"] == "gate-written":   # Divit 2026-10-16: written questions get the content gates plus PA18-PA21; flags are rejects
+        import paa_gate as PG
+        g = PG.Gate(c["url"]); its = [{"q": q, "source": "written", "n": 3 + k, "legacy": False} for k, q in enumerate(list(c.get("before") or []) + [c["q"]])]
+        for it in its: it["reasons"] = g.judge(it); it["verdict"] = g.verdict(it["reasons"])
+        g.finish(its); last = its[-1]
+        if c.get("expect_verdict"): return last["verdict"] == c["expect_verdict"]
+        return bool({r[0] for r in last["reasons"] if r[1] == "reject"} & set(c["expect"]))
+    if c["kind"] == "gate-written-prov":   # Divit 2026-10-16: verbatim/provenance checks (PA1, PA1b) apply to paa items only
+        import paa_gate as PG, hubctl as H
+        run = "every donor sees the receipt line before paying today"   # synthetic, not pull text
+        g = PG.Gate(c["url"]); sp = copy.deepcopy(json.load(open(H.spath(c["url"])))); sp.pop("review", None)
+        m = re.search(r"window\.awbFAQ\s*=\s*(\{.*\})\s*;?\s*</script>", sp["fields"]["faq"], re.S); fq = json.loads(m.group(1))
+        it = fq["items"][c["q_index"] - 1]; it["a"] = it["a"] + " " + run[:1].upper() + run[1:] + "."
+        sp["fields"]["faq"] = "<div><script> window.awbFAQ = " + json.dumps(fq) + "; </script></div>"
+        sp["faq_sources"] = [dict(f) for f in sp.get("faq_sources") or []]
+        for f in sp["faq_sources"]:
+            if f.get("q") == it["q"]: f["source"] = c["source"]; f.pop("prov", None)
+        g.spec = sp; w = PG.norm(run).split(); sh = {" ".join(w[i:i + 6]) for i in range(len(w) - 5)}
+        real = (PG.pulls, PG.pull_nodes, PG.answer_shingles)
+        PG.pulls, PG.pull_nodes, PG.answer_shingles = (lambda slug: [{}]), (lambda slug: []), (lambda d, n=6: sh)
+        try: items, _ = PG.run_spec(g)
+        finally: PG.pulls, PG.pull_nodes, PG.answer_shingles = real
+        got = {r[0] for r in items[c["q_index"] - 1]["reasons"] if r[1] == "reject"}
+        if c.get("absent"): return not (got & set(c["absent"]))
+        return set(c["expect"]) <= got
+    if c["kind"] == "skel-written":   # Divit 2026-10-16: the skeleton reaches 10 on any page: paa first, then written slots
+        import skeleton as SK, park_rescue as R
+        sl = SK.quiet(SK.plan_slots, c["url"], c.get("cap", 10)); f = SK.quiet(R.feasibility, c["url"], (), False)
+        return len(sl) == 10 and {x["kind"] for x in sl} <= {"alsoasked", "definition", "written"} and f["feasible"] and f["total"] >= 10
     if c["kind"] == "gate-pull-skip":   # ruling 12: a question Divit struck (stored as its hash) stays rejected PA4 on that page's pull
         import paa_gate as PG, io as _io, contextlib as _cl
         g = PG.Gate(c["url"])
@@ -401,7 +440,7 @@ def caught(c):
         else:                              # code-made questions on the page's head phrase, unlike any on the page: counted
             sl = d + [{"kind": "semrush", "q": x, "ref": x} for x in (f"Which approvals should a {prim} route to a second reviewer?",
                                                                        f"How many fields can a {prim} hold before people abandon it?")]
-        return W.available(c["url"], need, items, sl, spec=s)[0] == c["expect_filled"]
+        return W.available(c["url"], need, items, sl, spec=s, written=False)[0] == c["expect_filled"]   # code-built candidates only (written fill aside)
     if c["kind"] == "coord-id":   # ruling 22: unlock / transfer-hold accept only the coordinator's id from the coordinator's clone
         import hubctl as H
         real = H.clone_account
