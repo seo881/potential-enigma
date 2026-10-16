@@ -1,0 +1,1033 @@
+{
+ "url": "/ai-automation-builder/client-onboarding-workflow",
+ "hub": "Auto",
+ "item_id": null,
+ "status": "spec",
+ "written_by": "B-w-212",
+ "keywords": {
+  "primary": "client onboarding workflow",
+  "secondaries_used": []
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Client Onboarding Workflow: Handoff to Day 30 | Emergent",
+  "meta_description": "Build a client onboarding workflow that opens a record when a deal closes and chases every document and login until kickoff.",
+  "h1": "Build a Client Onboarding Workflow From Handoff to Day 30",
+  "slug": "client-onboarding-workflow",
+  "product_name": "Client Onboarding Workflow Builder",
+  "hero_description": "Build a client onboarding workflow that gives each new client an owner and logs every step in a database you own.",
+  "breadcrumb": "Client Onboarding Workflow",
+  "category": "a33cd4fb124ec86a130809893b2b3896",
+  "explore_cta": "Build My Client Onboarding",
+  "features_heading": "The Parts of a Client Onboarding Workflow",
+  "features_subheading": "Every new client gets one record that holds its owner and the date each step is due.",
+  "feature_1": "<h3>A record the moment a deal closes</h3><p>The app reads your CRM through its API and opens an onboarding record when a deal is marked won. The record carries the contract value and the notes sales left on the deal.</p>",
+  "feature_2": "<h3>A checklist that fits the service sold</h3><p>A bookkeeping client and a payroll client need different steps. Tell Emergent which steps belong to which service, and each new record starts with the right checklist.</p>",
+  "feature_3": "<h3>Requests that chase themselves</h3><p>Each requested file or login has a due date. The app sends the client a reminder by email on the days you pick, and tells the owner in Slack the day an item runs late.</p>",
+  "feature_4": "<h3>AI that reads what clients upload</h3><p>An AI step turns uploaded bank statements and signed forms into fields such as the account number and the start date. A person confirms any field the AI is unsure of.</p>",
+  "feature_5": "<h3>One board for every client in flight</h3><p>A live board lists each client by stage and owner, with late items on top. Account leads see which kickoffs are booked and which clients are still waiting on access.</p>",
+  "feature_6": "<h3>The app's code, in your GitHub</h3><p>Export the full code of your onboarding app to your GitHub repository on paid plans. Your team can review how client files are stored and change the app like any other code.</p>",
+  "why_title": "Why Build Client Onboarding With Emergent?",
+  "why_description": "Emergent builds the client record and its reminders as one app from a prompt, on a database you own.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Zapier</th>\n        <th scope=\"col\">Make (Integromat)</th>\n        <th scope=\"col\">n8n</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt for the workflow and the app around it</td>\n        <td class=\"col-other\">Templates and editor, AI copilot</td>\n        <td class=\"col-other\">Visual canvas</td>\n        <td class=\"col-other\">Visual canvas, self-hosted or cloud</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">What you get</th>\n        <td class=\"col-brand\">Workflow + trigger form + database + dashboard, as code you own</td>\n        <td class=\"col-other\">Zaps, plus Tables and Interfaces inside Zapier</td>\n        <td class=\"col-other\">Scenarios inside Make</td>\n        <td class=\"col-other\">Workflows inside n8n</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Behavior at cap</th>\n        <td class=\"col-brand\">Keeps running, no task cap</td>\n        <td class=\"col-other\">Overage billed at up to 1.25× the base rate</td>\n        <td class=\"col-other\">Runs pause</td>\n        <td class=\"col-other\">Cloud workflows stop until the reset or an upgrade</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">AI and agent steps</th>\n        <td class=\"col-brand\">Native, share the same credit pool</td>\n        <td class=\"col-other\">Priced by model tier, drawn from the task pool</td>\n        <td class=\"col-other\">AI modules cost variable credits</td>\n        <td class=\"col-other\">Bring your own model API key, billed by the provider</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">Yes on Community Edition</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "Four Points Where Client Onboarding Stalls",
+  "tab_label_1": "Sales Handoff",
+  "tab_label_2": "Client Documents",
+  "tab_label_3": "Access Requests",
+  "tab_label_4": "Day-30 Check-In",
+  "tab_content_1": "<h3>Kickoff lands on day 3 after the deal closes</h3><p>Tarrant Bay Logistics signs a $36,000 annual plan with Quillhaven Software, and the deal moves to closed won in HubSpot. The app opens an onboarding record with the sales notes and assigns Imogen Saltash, the West region's customer success manager. Kickoff is due within 5 business days and is booked for day 3.</p>",
+  "tab_content_2": "<h3>Three missing documents reach the partner on day 10</h3><p>Penhallow Reyes CPA asks each new bookkeeping client for 12 documents, and Fenwright Ceramics has uploaded 9. Odalys Fenwright is emailed every 3 days about the other 3: payroll reports, a loan statement, and a merchant statement. On day 10, the partner, Caspian Moorehouse, gets a direct message listing them.</p>",
+  "tab_content_3": "<h3>No kickoff until all 4 access grants land</h3><p>Larkspire Media needs 4 accounts shared before it starts work for Hollin Grove Dental: ads, analytics, social, and the website editor. Three of the 4 are granted, and the social account has been pending for 2 days. The office manager, Rosalind Achterberg, gets a reminder with the steps, and the kickoff stays on hold.</p>",
+  "tab_content_4": "<h3>Any check-in score under 3 reaches the account lead</h3><p>On day 30 after go-live, Corrigan Peak IT asks Silverbeck Architects 3 questions. The office manager, Pieter Lindqvist, rates setup as promised at 2 out of 5 and writes that two laptops still lack the shared drive. Any score under 3 goes to the account lead, and Marisol Thackeray has a direct message with his comment.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { salesHandoff: \"Build an onboarding tracker for my software company. When a deal moves to closed won in HubSpot, open an onboarding record with the plan, the contract value, and the sales notes. Assign the customer success manager for the client's region, send a welcome email with a kickoff booking link, and flag any kickoff not booked within 5 business days of the close.\", clientDocuments: \"Build a document checklist for my accounting firm's new bookkeeping clients. Each client gets a list of 12 documents to upload in a client portal. Email the client a reminder every 3 days about anything missing. On day 10, send the partner a direct message listing the documents that are still missing.\", accessRequests: \"Build an access tracker for my marketing agency. For each new client, list the 4 accounts we need shared: ads, analytics, social, and the website editor. Mark each one granted or pending. Remind the client contact with the steps for any account pending 2 days, and keep the kickoff on hold until all 4 are granted.\", day30CheckIn: \"Build a day-30 check-in for my IT services firm. On day 30 after go-live, send each new client 3 questions, each scored 1 to 5, with a comment box. When any score is under 3, send the client's account lead a direct message with the score and the comment, and log every answer on the client's record.\" };</p>",
+  "howto_title": "How to Build a Client Onboarding Workflow",
+  "howto_description": "Seven steps to plan a client onboarding workflow with owners and deadlines, then build it with Emergent.",
+  "howto_step_1_title": "01 Map the stages after the deal closes",
+  "howto_step_2_title": "02 Write a checklist per service",
+  "howto_step_3_title": "03 Pick the event that opens a record",
+  "howto_step_4_title": "04 Set the reminder and escalation days",
+  "howto_step_1_des": "Write down each stage between the signed contract and the first piece of delivered work, starting with the sales handoff and ending with the first check-in. Next to each stage, note who owns it today and what it waits on.",
+  "howto_step_2_des": "List the items each service needs before work can start, and give each item an owner on your side or the client's. Keep them separate per service, because a bookkeeping client and an ad campaign client wait on different things.",
+  "howto_step_3_des": "Choose the one event that starts onboarding, such as a deal marked won in your CRM or a signed contract. Opening the record from that event means no new client depends on someone remembering to set it up by hand.",
+  "howto_step_4_des": "Decide two numbers per item: how often the client gets a reminder, and how many days late it can run before your account lead or a partner hears about it. Put the kickoff deadline in the same place.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Client Onboarding Questions, Answered\", \"items\": [{\"q\": \"What is a client onboarding workflow?\", \"a\": \"A client onboarding workflow is the set of steps a business runs between a signed deal and a client who is fully set up. Each step has an owner and a due date. Client onboarding is the process of welcoming new clients into your business. The workflow makes that welcome run the same way for every client, whoever closed the deal.\"}, {\"q\": \"How do I create a client onboarding workflow?\", \"a\": \"Start from your last few clients. List each stage they went through, the items you waited on, and who chased them. Turn that into one checklist per service, add the day each reminder goes out, and choose what starts a new record. In Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>, you describe all of that in plain English and get a working app.\"}, {\"q\": \"What does a customer onboarding workflow look like for a software company?\", \"a\": \"For a software product, the customer onboarding workflow covers everything between the closed deal and the customer's first real use of the product. Plan for a handoff from sales with the notes, a kickoff call, account setup and data import, and training for the people who log in daily. Thirty days in, check whether those people use it, not only whether the tasks are done.\"}, {\"q\": \"How do you automate a client onboarding workflow without losing the personal touch?\", \"a\": \"Automate the chasing and keep the conversations. Reminders and document requests can run on their own. A person runs the kickoff call and answers any unhappy client. <a href='https://emergent.sh/ai-automation-builder/recruitment-automation'>Recruitment automation</a> works on the same split: software schedules and reminds, and people interview. Emergent builds the automated half from a plain-English prompt.\"}, {\"q\": \"What are the first steps in a client onboarding workflow?\", \"a\": \"The first step is the handoff from whoever closed the deal: what was promised, to whom, and by when. Send the welcome within one business day, name one point of contact on each side, and ask for everything you need in a single request instead of a string of emails. Book the kickoff in that first message.\"}, {\"q\": \"How long should a client onboarding workflow take?\", \"a\": \"There is no standard length. Set one per service and measure against it. A bookkeeping client can be ready once the documents are in, while a software rollout can run for several weeks. Give each stage its own target, such as a kickoff inside one week of the close, and the slow stage shows itself.\"}, {\"q\": \"When does a client onboarding workflow end and regular support take over?\", \"a\": \"The workflow ends when the client gets the first result they signed up for, not when the checklist is done. Agree on that result at kickoff, such as the first monthly close or the first live campaign. After it, hand the account to your support team on a short call, and route new requests through <a href='https://emergent.sh/ai-automation-builder/customer-service-automation'>customer service automation</a> instead of one person's inbox.\"}, {\"q\": \"What documents should a client onboarding workflow collect?\", \"a\": \"Collect only what the first piece of work needs: the signed agreement, billing and contact details, and the files or logins the service runs on. An accounting firm needs statements, and an agency needs account access. Ask once in a single list and let the client upload against each line. Apps built with Emergent keep every file in a database you own.\"}, {\"q\": \"How do you measure whether a client onboarding workflow is working?\", \"a\": \"Track how many days pass before kickoff and before the first delivery, the open items past due, and the day-30 check-in score. Compare them by service and by account lead, and fix the slowest stage first. An app built with Emergent can show those numbers on a live dashboard that updates as each step closes.\"}, {\"q\": \"Should welcome emails come from the client onboarding workflow or the marketing tool?\", \"a\": \"Send them from the onboarding workflow. A welcome email depends on the client's record, such as their owner and their kickoff link, and the onboarding app holds that record. Keep the <a href='https://emergent.sh/ai-automation-builder/marketing-automation-workflow'>marketing automation workflow</a> for prospects and newsletters, and take new clients out of sales sequences on the day the deal closes.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Describe the workflow in a prompt",
+  "howto_step_5_des": "Write the checklists and day counts in plain English, the way you would brief a new hire. Emergent builds the onboarding app from that prompt: the client record, the reminders, the client upload page, and the board.",
+  "howto_step_6_title": "06 Connect the tools you already use",
+  "howto_step_6_des": "Connect the tools the workflow reads from and writes to through their APIs, such as HubSpot for closed deals, your email for client reminders, and Slack for alerts to your team. Each new client then arrives with its deal details filled in.",
+  "howto_step_7_title": "07 Replay your last three clients",
+  "howto_step_7_des": "Before a real client sees it, replay three recent onboardings in the app with their real dates. Check that each reminder would have gone out on the right day, and fix any step that fired too early or too late.",
+  "prompt_chip_1": "Sales Handoff",
+  "prompt_chip_2": "Client Documents",
+  "prompt_chip_3": "Access Requests",
+  "prompt_chip_4": "Day-30 Check-In",
+  "hero_prompt": "<p>Build a client onboarding workflow that runs on its own and logs every step.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/aab/client-onboarding-workflow/uc-1.svg",
+   "alt": "A client onboarding record for Tarrant Bay Logistics opens when the deal closes, assigns the West region's customer success manager, and books the kickoff for day 3 of 5."
+  },
+  "tab_image_2": {
+   "path": "images/aab/client-onboarding-workflow/uc-2.svg",
+   "alt": "A document checklist shows Fenwright Ceramics has uploaded 9 of 12 documents, and on day 10 the partner gets a direct message listing the 3 missing ones."
+  },
+  "tab_image_3": {
+   "path": "images/aab/client-onboarding-workflow/uc-3.svg",
+   "alt": "An access tracker shows Hollin Grove Dental has granted 3 of 4 accounts, and the office manager gets a reminder to share Meta Business access while the kickoff waits."
+  },
+  "tab_image_4": {
+   "path": "images/aab/client-onboarding-workflow/uc-4.svg",
+   "alt": "A day-30 check-in on a phone shows Silverbeck Architects rating setup 2 out of 5, and the account lead gets a direct message with the client's comment."
+  },
+  "cover_image": {
+   "path": "images/aab/client-onboarding-workflow/cover.svg",
+   "alt": "Client onboarding workflow: a direct message telling the customer success manager that Tarrant Bay Logistics is a new client with its kickoff booked for day 3"
+  },
+  "share_image": {
+   "path": "images/aab/client-onboarding-workflow/og.webp",
+   "alt": "Build a client onboarding workflow from handoff to day 30, with Emergent"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-16 13:25 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-16 13:35 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "B-w-212",
+   "note": ""
+  },
+  {
+   "t": "2026-10-16 13:36 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-212",
+   "note": ""
+  },
+  {
+   "t": "2026-10-16 13:36 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-212",
+   "note": ""
+  }
+ ],
+ "pipeline": "r15",
+ "faq_plan": [
+  {
+   "kind": "definition",
+   "q": "What is a client onboarding workflow?",
+   "ref": "client onboarding workflow",
+   "locked": true,
+   "n": 1,
+   "a": "A client onboarding workflow is the set of steps a business runs between a signed deal and a client who is fully set up. Each step has an owner and a due date. Client onboarding is the process of welcoming new clients into your business. The workflow makes that welcome run the same way for every client, whoever closed the deal.",
+   "link": null
+  },
+  {
+   "kind": "definition",
+   "q": "How do I create a client onboarding workflow?",
+   "ref": "client onboarding workflow",
+   "locked": true,
+   "n": 2,
+   "a": "Start from your last few clients. List each stage they went through, the items you waited on, and who chased them. Turn that into one checklist per service, add the day each reminder goes out, and choose what starts a new record. In Emergent's AI automation builder, you describe all of that in plain English and get a working app.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder",
+    "anchor": "AI automation builder",
+    "write_as": "Emergent's AI automation builder"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "What does a customer onboarding workflow look like for a software company?",
+   "ref": "customer onboarding workflow",
+   "secondary": "customer onboarding workflow",
+   "locked": false,
+   "n": 3,
+   "a": "For a software product, the customer onboarding workflow covers everything between the closed deal and the customer's first real use of the product. Plan for a handoff from sales with the notes, a kickoff call, account setup and data import, and training for the people who log in daily. Thirty days in, check whether those people use it, not only whether the tasks are done.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How do you automate a client onboarding workflow without losing the personal touch?",
+   "ref": null,
+   "secondary": null,
+   "hint": "How to automate client onboarding workflows?",
+   "locked": false,
+   "n": 4,
+   "a": "Automate the chasing and keep the conversations. Reminders and document requests can run on their own. A person runs the kickoff call and answers any unhappy client. Recruitment automation works on the same split: software schedules and reminds, and people interview. Emergent builds the automated half from a plain-English prompt.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/recruitment-automation",
+    "anchor": "recruitment automation"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "What are the first steps in a client onboarding workflow?",
+   "ref": null,
+   "secondary": null,
+   "hint": "What are the first steps in the client onboarding workflow?",
+   "locked": false,
+   "n": 5,
+   "a": "The first step is the handoff from whoever closed the deal: what was promised, to whom, and by when. Send the welcome within one business day, name one point of contact on each side, and ask for everything you need in a single request instead of a string of emails. Book the kickoff in that first message.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How long should a client onboarding workflow take?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 6,
+   "a": "There is no standard length. Set one per service and measure against it. A bookkeeping client can be ready once the documents are in, while a software rollout can run for several weeks. Give each stage its own target, such as a kickoff inside one week of the close, and the slow stage shows itself.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "When does a client onboarding workflow end and regular support take over?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 7,
+   "a": "The workflow ends when the client gets the first result they signed up for, not when the checklist is done. Agree on that result at kickoff, such as the first monthly close or the first live campaign. After it, hand the account to your support team on a short call, and route new requests through customer service automation instead of one person's inbox.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/customer-service-automation",
+    "anchor": "customer service automation"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "What documents should a client onboarding workflow collect?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 8,
+   "a": "Collect only what the first piece of work needs: the signed agreement, billing and contact details, and the files or logins the service runs on. An accounting firm needs statements, and an agency needs account access. Ask once in a single list and let the client upload against each line. Apps built with Emergent keep every file in a database you own.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How do you measure whether a client onboarding workflow is working?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 9,
+   "a": "Track how many days pass before kickoff and before the first delivery, the open items past due, and the day-30 check-in score. Compare them by service and by account lead, and fix the slowest stage first. An app built with Emergent can show those numbers on a live dashboard that updates as each step closes.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Should welcome emails come from the client onboarding workflow or the marketing tool?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 10,
+   "a": "Send them from the onboarding workflow. A welcome email depends on the client's record, such as their owner and their kickoff link, and the onboarding app holds that record. Keep the marketing automation workflow for prospects and newsletters, and take new clients out of sales sequences on the day the deal closes.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/marketing-automation-workflow",
+    "anchor": "marketing automation workflow"
+   }
+  }
+ ],
+ "faq_heading": "Client Onboarding Questions, Answered",
+ "table": {
+  "vs": [
+   "Zapier",
+   "Make (Integromat)",
+   "n8n"
+  ],
+  "rows": [
+   "build",
+   "output",
+   "cap",
+   "ai",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "skeleton": {
+  "built_by": "B-w-212",
+  "built": "2026-10-16 13:25 UTC",
+  "slots": 10,
+  "flagged": 0,
+  "flag_subtypes": [],
+  "locked": 2,
+  "table": true
+ },
+ "learn_refs": [
+  "6aabdd03ab333ad283f63ea9",
+  "6a1729ad1817ffd0330c987d",
+  "6abb39163b3879d1f38197a1"
+ ],
+ "learn_refs_why": [
+  "client-onboarding-software: score 8.07: matches onboard, client",
+  "best-ai-workflow-builders: score 4.41: matches workflow (builder list, hub-term only)",
+  "customer-portal: score 4.17: matches portal, customer"
+ ],
+ "plan": {
+  "angle": "The top 10 are glossary entries and step-list blogs that describe client onboarding but never show it running. This page names the stages from signed deal to the first check-in, then shows the app that runs four of them for four kinds of service business: a software company's sales handoff, an accounting firm's document collection, a marketing agency's access requests, and an IT firm's day-30 check-in. The FAQ covers the first steps, timing, documents, metrics, the support handoff and welcome emails, and leaves question wording to the client onboarding questionnaire page.",
+  "tab_stories": [
+   "Tarrant Bay Logistics signs a $36,000 annual plan with Quillhaven Software, the deal moves to closed won in HubSpot, and the app opens an onboarding record, assigns the West region's customer success manager Imogen Saltash and books the kickoff for day 3 of the 5 business days allowed.",
+   "Fenwright Ceramics owes Penhallow Reyes CPA 12 documents for monthly bookkeeping; 9 are in, the client Odalys Fenwright is emailed every 3 days about the other 3, and on day 10 the partner Caspian Moorehouse gets a direct message listing them.",
+   "Larkspire Media needs 4 accounts shared by its new client Hollin Grove Dental before kickoff; 3 of the 4 are granted, the social account has been pending for 2 days, and the office manager Rosalind Achterberg gets a reminder with the steps while the kickoff stays on hold.",
+   "On day 30 after go-live, Corrigan Peak IT asks Silverbeck Architects 3 questions; the office manager Pieter Lindqvist rates setup 2 out of 5, under the threshold of 3, and the account lead Marisol Thackeray gets a direct message with his comment."
+  ],
+  "openers": [
+   "Tarrant Bay Logistics signs a $36,000 annual plan",
+   "Penhallow Reyes CPA asks each new bookkeeping client",
+   "Larkspire Media needs 4 accounts shared",
+   "On day 30 after go-live, Corrigan Peak IT asks",
+   "Write down what happens between the signed contract and the first delivery",
+   "Pick the one event that opens an onboarding record",
+   "Before a real client sees it, replay three recent onboardings"
+  ],
+  "heading_shapes": [
+   "Kickoff lands on day 3 after the deal closes",
+   "Three missing documents reach the partner on day 10",
+   "No kickoff until all 4 access grants land",
+   "Any check-in score under 3 reaches the account lead"
+  ],
+  "claims_to_source": [
+   "Client onboarding is the process of welcoming new clients into your business",
+   "HubSpot marks a deal closed won when it is in the closed won state"
+  ],
+  "numbers": [
+   {
+    "value": 12,
+    "formula": "9 + 3"
+   },
+   {
+    "value": 4,
+    "formula": "3 + 1"
+   }
+  ],
+  "owns": {
+   "record opened from a closed deal": "feature_1",
+   "checklist by service": "feature_2",
+   "document requests and reminders": "feature_3",
+   "AI reading uploads": "feature_4",
+   "live board": "feature_5",
+   "code export": "feature_6",
+   "definition": "faq 1",
+   "test run on past clients": "howto_step_7_des"
+  }
+ },
+ "domain_sources": [
+  {
+   "claim": "Client onboarding is the process of welcoming new clients into your business",
+   "source_url": "https://dealhub.io/glossary/client-onboarding/",
+   "date": "2026-10-16",
+   "quote": "Client onboarding is the process of welcoming new clients into your business"
+  },
+  {
+   "claim": "HubSpot marks a deal closed won when it is in the closed won state",
+   "source_url": "https://knowledge.hubspot.com/properties/hubspots-default-deal-properties",
+   "date": "2026-10-16",
+   "quote": "true if the deal is in the closed won state"
+  }
+ ],
+ "chip_adds": [
+  "Add a sales handoff that opens an onboarding record and assigns an owner.",
+  "Add client documents that track each requested file and remind about missing ones.",
+  "Add access requests that hold the kickoff until every account login is granted.",
+  "Add a day-30 check-in that alerts the account lead when a client scores below 3."
+ ],
+ "claims_used": [
+  "prompt-build",
+  "database-owned",
+  "api-connect",
+  "alerts",
+  "ai-extraction",
+  "realtime",
+  "code-export"
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R1",
+    "title": "Sales handoff",
+    "prompt": "Open a record when a deal closes and book the kickoff within 5 business days",
+    "main": {
+     "chrome": "Client onboarding",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "QUILLHAVEN SOFTWARE",
+       "title": "Tarrant Bay Logistics",
+       "size": 26,
+       "sub": "$36,000 annual plan"
+      },
+      {
+       "type": "rule",
+       "text": "Rule: kickoff within 5 business days"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Deal closed won",
+         "sub": "Synced from HubSpot"
+        },
+        {
+         "state": "done",
+         "title": "Onboarding record opened",
+         "sub": "Sales notes attached"
+        },
+        {
+         "state": "done",
+         "title": "Customer success manager",
+         "sub": "Imogen Saltash, West region"
+        },
+        {
+         "state": "live",
+         "title": "Kickoff booked for day 3",
+         "sub": "Within the 5-day window"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Imogen Saltash",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Kickoff booked for day 3",
+       "size": 20,
+       "sub": "Tarrant Bay Logistics"
+      },
+      {
+       "type": "meta",
+       "icon": "calendar-check",
+       "kind": "acc",
+       "text": "Annual plan: $36,000"
+      },
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "muted",
+       "text": "West region"
+      }
+     ],
+     "action": {
+      "label": "Open record",
+      "icon": "arrow-right"
+     }
+    },
+    "mini": {
+     "icon": "file-text",
+     "kind": "ok",
+     "title": "Sales notes attached",
+     "sub": "On the onboarding record"
+    },
+    "alt": "A client onboarding record for Tarrant Bay Logistics opens when the deal closes, assigns the West region's customer success manager, and books the kickoff for day 3 of 5.",
+    "story": [
+     {
+      "copy": "Tarrant Bay Logistics",
+      "image": "Tarrant Bay Logistics"
+     },
+     {
+      "copy": "$36,000 annual plan",
+      "image": "$36,000 annual plan"
+     },
+     {
+      "copy": "Quillhaven Software",
+      "image": "QUILLHAVEN SOFTWARE"
+     },
+     {
+      "copy": "closed won in HubSpot",
+      "image": "Deal closed won"
+     },
+     {
+      "copy": "opens an onboarding record with the sales notes",
+      "image": "Onboarding record opened"
+     },
+     {
+      "copy": "Imogen Saltash",
+      "image": "Imogen Saltash, West region"
+     },
+     {
+      "copy": "within 5 business days",
+      "image": "Rule: kickoff within 5 business days"
+     },
+     {
+      "copy": "booked for day 3",
+      "image": "Kickoff booked for day 3"
+     }
+    ]
+   },
+   {
+    "recipe": "R8",
+    "title": "Client documents",
+    "prompt": "Track each new client's 12 documents and tell the partner what is missing on day 10",
+    "rule": "Day 10, items missing → Partner",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Fenwright Ceramics",
+       "size": 20,
+       "chip": [
+        "9 of 12 received",
+        "warn"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Document",
+        "Status"
+       ],
+       "widths": [
+        0.68,
+        0.32
+       ],
+       "row_h": 58,
+       "bad": [
+        0,
+        1,
+        2
+       ],
+       "rows": [
+        [
+         "Payroll reports",
+         [
+          "Missing",
+          "bad"
+         ]
+        ],
+        [
+         "Loan statement",
+         [
+          "Missing",
+          "bad"
+         ]
+        ],
+        [
+         "Merchant statement",
+         [
+          "Missing",
+          "bad"
+         ]
+        ],
+        [
+         "9 other documents",
+         [
+          "Received",
+          "ok"
+         ]
+        ]
+       ]
+      },
+      {
+       "type": "note",
+       "icon": "mail",
+       "text": "Email reminder every 3 days"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "file-warning",
+     "tone": "warn",
+     "title": "3 missing on day 10",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "Client: Odalys Fenwright",
+       "size": 16,
+       "color": "sub"
+      },
+      {
+       "type": "meta",
+       "icon": "message-square",
+       "kind": "acc",
+       "text": "To Caspian Moorehouse"
+      },
+      {
+       "type": "meta",
+       "icon": "mail",
+       "kind": "muted",
+       "text": "Emailed every 3 days"
+      }
+     ],
+     "action": {
+      "label": "Open checklist",
+      "icon": "arrow-right"
+     }
+    },
+    "mini": {
+     "icon": "building-2",
+     "kind": "acc",
+     "title": "Penhallow Reyes CPA",
+     "sub": "New bookkeeping client"
+    },
+    "alt": "A document checklist shows Fenwright Ceramics has uploaded 9 of 12 documents, and on day 10 the partner gets a direct message listing the 3 missing ones.",
+    "story": [
+     {
+      "copy": "Day 10",
+      "image": "Day 10, items missing → Partner"
+     },
+     {
+      "copy": "for 12 documents, and Fenwright Ceramics has uploaded 9",
+      "image": "9 of 12 received"
+     },
+     {
+      "copy": "Penhallow Reyes CPA",
+      "image": "Penhallow Reyes CPA"
+     },
+     {
+      "copy": "Fenwright Ceramics",
+      "image": "Fenwright Ceramics"
+     },
+     {
+      "copy": "emailed every 3 days",
+      "image": "Email reminder every 3 days"
+     },
+     {
+      "copy": "Odalys Fenwright",
+      "image": "Client: Odalys Fenwright"
+     },
+     {
+      "copy": "payroll reports",
+      "image": "Payroll reports"
+     },
+     {
+      "copy": "a loan statement",
+      "image": "Loan statement"
+     },
+     {
+      "copy": "a merchant statement",
+      "image": "Merchant statement"
+     },
+     {
+      "copy": "Three missing documents reach the partner on day 10",
+      "image": "3 missing on day 10"
+     },
+     {
+      "copy": "the partner, Caspian Moorehouse",
+      "image": "To Caspian Moorehouse"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Access requests",
+    "prompt": "Hold each new client's kickoff until all 4 accounts are shared with my agency",
+    "main": {
+     "chrome": "Client access",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "LARKSPIRE MEDIA",
+       "title": "Hollin Grove Dental",
+       "size": 26,
+       "sub": "3 of 4 granted"
+      },
+      {
+       "type": "list",
+       "items": [
+        {
+         "initials": "AD",
+         "name": "Ads account",
+         "chip": [
+          "Granted",
+          "ok"
+         ]
+        },
+        {
+         "initials": "AN",
+         "name": "Analytics",
+         "chip": [
+          "Granted",
+          "ok"
+         ]
+        },
+        {
+         "initials": "SO",
+         "name": "Social account",
+         "sub": "Pending for 2 days",
+         "chip": [
+          "Pending",
+          "warn"
+         ]
+        },
+        {
+         "initials": "WE",
+         "name": "Website editor",
+         "chip": [
+          "Granted",
+          "ok"
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To the client",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Share the social account",
+       "size": 20,
+       "sub": "Rosalind Achterberg"
+      },
+      {
+       "type": "meta",
+       "icon": "list-ordered",
+       "kind": "acc",
+       "text": "Reminder with the steps"
+      }
+     ],
+     "action": {
+      "label": "See steps",
+      "icon": "arrow-right"
+     }
+    },
+    "mini": {
+     "icon": "pause-circle",
+     "kind": "warn",
+     "title": "Kickoff on hold",
+     "sub": "Until all 4 are granted"
+    },
+    "alt": "An access tracker shows Hollin Grove Dental has granted 3 of 4 accounts, and the office manager gets a reminder to share Meta Business access while the kickoff waits.",
+    "story": [
+     {
+      "copy": "Larkspire Media",
+      "image": "LARKSPIRE MEDIA"
+     },
+     {
+      "copy": "Hollin Grove Dental",
+      "image": "Hollin Grove Dental"
+     },
+     {
+      "copy": "all 4 access grants",
+      "image": "Until all 4 are granted"
+     },
+     {
+      "copy": "Three of the 4 are granted",
+      "image": "3 of 4 granted"
+     },
+     {
+      "copy": "ads, analytics, social",
+      "image": "Ads account"
+     },
+     {
+      "copy": "the social account",
+      "image": "Social account"
+     },
+     {
+      "copy": "the website editor",
+      "image": "Website editor"
+     },
+     {
+      "copy": "pending for 2 days",
+      "image": "Pending for 2 days"
+     },
+     {
+      "copy": "Rosalind Achterberg",
+      "image": "Rosalind Achterberg"
+     },
+     {
+      "copy": "a reminder with the steps",
+      "image": "Reminder with the steps"
+     },
+     {
+      "copy": "the kickoff stays on hold",
+      "image": "Kickoff on hold"
+     }
+    ]
+   },
+   {
+    "recipe": "R4",
+    "title": "Day-30 check-in",
+    "prompt": "Ask each client 3 questions on day 30 and alert the account lead on any score under 3",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Day 30 check-in",
+       "size": 22,
+       "sub": "Corrigan Peak IT"
+      },
+      {
+       "type": "chips",
+       "items": [
+        [
+         "3 questions",
+         "acc"
+        ]
+       ]
+      },
+      {
+       "type": "item",
+       "title": "Setup",
+       "sub": "2 out of 5"
+      },
+      {
+       "type": "item",
+       "title": "Training",
+       "sub": "4 out of 5"
+      },
+      {
+       "type": "item",
+       "title": "Support",
+       "sub": "5 out of 5"
+      },
+      {
+       "type": "button",
+       "label": "Send",
+       "full": true,
+       "h": 52
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Silverbeck Architects",
+       "size": 19,
+       "chip": [
+        "Under 3",
+        "bad"
+       ]
+      },
+      {
+       "type": "list",
+       "items": [
+        {
+         "initials": "PL",
+         "name": "Pieter Lindqvist",
+         "sub": "Office manager"
+        }
+       ]
+      },
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "muted",
+       "text": "Account lead: Marisol Thackeray"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Marisol Thackeray",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Setup scored 2 out of 5",
+       "size": 20,
+       "sub": "Two laptops still lack the shared drive"
+      },
+      {
+       "type": "meta",
+       "icon": "message-square",
+       "kind": "acc",
+       "text": "Direct message, with his comment"
+      },
+      {
+       "type": "meta",
+       "icon": "building-2",
+       "kind": "muted",
+       "text": "Silverbeck Architects, day 30"
+      }
+     ],
+     "action": {
+      "label": "Open client",
+      "icon": "arrow-right"
+     }
+    },
+    "alt": "A day-30 check-in on a phone shows Silverbeck Architects rating setup 2 out of 5, and the account lead gets a direct message with the client's comment.",
+    "story": [
+     {
+      "copy": "On day 30 after go-live",
+      "image": "Day 30 check-in"
+     },
+     {
+      "copy": "Corrigan Peak IT",
+      "image": "Corrigan Peak IT"
+     },
+     {
+      "copy": "3 questions",
+      "image": "3 questions"
+     },
+     {
+      "copy": "rates setup as promised at 2 out of 5",
+      "image": "Setup scored 2 out of 5"
+     },
+     {
+      "copy": "two laptops still lack the shared drive",
+      "image": "Two laptops still lack the shared drive"
+     },
+     {
+      "copy": "Pieter Lindqvist",
+      "image": "Pieter Lindqvist"
+     },
+     {
+      "copy": "Silverbeck Architects",
+      "image": "Silverbeck Architects"
+     },
+     {
+      "copy": "Any score under 3",
+      "image": "Under 3"
+     },
+     {
+      "copy": "Marisol Thackeray has a direct message with his comment",
+      "image": "Direct message, with his comment"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "dm": true,
+   "channel": "Imogen Saltash",
+   "title": "New client signed",
+   "sub": "Kickoff booked for day 3",
+   "primary": "Open",
+   "secondary": "View",
+   "icon": "user-plus",
+   "alt": "Client onboarding workflow: a direct message telling the customer success manager that Tarrant Bay Logistics is a new client with its kickoff booked for day 3"
+  },
+  "og": {
+   "headline": "Onboard every new client",
+   "lines": [
+    "Onboard every",
+    "new client"
+   ],
+   "alt": "Build a client onboarding workflow from handoff to day 30, with Emergent"
+  },
+  "checks": [
+   {
+    "fact": [
+     "$36,000"
+    ],
+    "where": 1
+   },
+   {
+    "same": "$36,000",
+    "where": [
+     1
+    ]
+   },
+   {
+    "expr": "3 <= 5",
+    "shows": [
+     "Kickoff booked for day 3"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "9 + 3 == 12",
+    "shows": [
+     "9 of 12 received"
+    ],
+    "where": 2
+   },
+   {
+    "expr": "3 + 1 == 4",
+    "shows": [
+     "3 of 4 granted"
+    ],
+    "where": 3
+   },
+   {
+    "expr": "2 < 3",
+    "shows": [
+     "Setup scored 2 out of 5"
+    ],
+    "where": 4
+   }
+  ]
+ },
+ "faq_sources": [
+  {
+   "q": "What is a client onboarding workflow?",
+   "source": "written",
+   "ref": "client onboarding workflow",
+   "origin": "definition"
+  },
+  {
+   "q": "How do I create a client onboarding workflow?",
+   "source": "written",
+   "ref": "client onboarding workflow",
+   "origin": "definition"
+  },
+  {
+   "q": "What does a customer onboarding workflow look like for a software company?",
+   "source": "written",
+   "ref": "customer onboarding workflow",
+   "origin": "written",
+   "secondary": "customer onboarding workflow"
+  },
+  {
+   "q": "How do you automate a client onboarding workflow without losing the personal touch?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "What are the first steps in a client onboarding workflow?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How long should a client onboarding workflow take?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "When does a client onboarding workflow end and regular support take over?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "What documents should a client onboarding workflow collect?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How do you measure whether a client onboarding workflow is working?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Should welcome emails come from the client onboarding workflow or the marketing tool?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  }
+ ],
+ "qc_passed": {
+  "rules_version": "66200f767ab9",
+  "date": "2026-10-16 13:36 UTC"
+ },
+ "writers": [
+  "B-w-212"
+ ]
+}
