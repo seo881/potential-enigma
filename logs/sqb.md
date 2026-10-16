@@ -57,3 +57,6 @@
 - 2026-10-16 08:24 UTC: released /ai-survey-and-quiz-builder/mental-health-survey (was claimed) to the planned queue; spec file left in place: wave 1 skip (B-c-1 2026-10-16: YMYL/judgement call/later wave)
 - 2026-10-16 08:24 UTC: released /ai-survey-and-quiz-builder/dei-survey (was claimed) to the planned queue; spec file left in place: wave 1 skip (B-c-1 2026-10-16: YMYL/judgement call/later wave)
 - 2026-10-16 08:24 UTC: released /ai-survey-and-quiz-builder/leadership-survey (was claimed) to the planned queue; spec file left in place: wave 1 skip (B-c-1 2026-10-16: YMYL/judgement call/later wave)
+- 2026-10-16 08:47 UTC: released /ai-survey-and-quiz-builder/parent-survey (was claimed) to the planned queue; spec file left in place: wave 2 skip (YMYL/judgement call)
+- 2026-10-16 08:47 UTC: released /ai-survey-and-quiz-builder/mental-health-survey (was claimed) to the planned queue; spec file left in place: wave 2 skip (YMYL/judgement call)
+- 2026-10-16 08:47 UTC: released /ai-survey-and-quiz-builder/dei-survey (was claimed) to the planned queue; spec file left in place: wave 2 skip (YMYL/judgement call)

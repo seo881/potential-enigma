@@ -80,3 +80,7 @@
 - 2026-10-16 08:24 UTC: released /ai-automation-builder/healthcare-automation (was claimed) to the planned queue; spec file left in place: wave 1 skip (B-c-1 2026-10-16: YMYL/judgement call/later wave)
 - 2026-10-16 08:24 UTC: released /ai-automation-builder/recruitment-automation (was claimed) to the planned queue; spec file left in place: wave 1 skip (B-c-1 2026-10-16: YMYL/judgement call/later wave)
 - 2026-10-16 08:30 UTC: api-update relink-2026-10-16.json: 12 item(s) updated via Data API; read back; 0 field mismatch(es); rollback childedits/2026-10-16/relink-2026-10-16.20261016T082941Z.rollback.json
+- 2026-10-16 08:47 UTC: released /ai-automation-builder/it-automation (was claimed) to the planned queue; spec file left in place: wave 2 skip (YMYL/judgement call)
+- 2026-10-16 08:47 UTC: released /ai-automation-builder/crm-automation (was claimed) to the planned queue; spec file left in place: wave 2 skip (YMYL/judgement call)
+- 2026-10-16 08:47 UTC: released /ai-automation-builder/healthcare-automation (was claimed) to the planned queue; spec file left in place: wave 2 skip (YMYL/judgement call)
+- 2026-10-16 08:47 UTC: released /ai-automation-builder/legal-workflow-automation (was claimed) to the planned queue; spec file left in place: wave 2 skip (YMYL: later in the day per Divit)
