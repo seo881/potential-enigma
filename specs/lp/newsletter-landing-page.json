@@ -115,6 +115,20 @@
    "via": null,
    "by": "B-w-154",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 12:41 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-45",
+   "note": "rubric 10/10 by B-r-45; 6 notes"
+  },
+  {
+   "t": "2026-10-16 12:44 UTC",
+   "state": "approved",
+   "via": null,
+   "by": "standing-go (Divit 2026-10-16)",
+   "note": ""
   }
  ],
  "pipeline": "r15",
@@ -923,5 +937,311 @@
  },
  "writers": [
   "B-w-154"
- ]
+ ],
+ "review": {
+  "by": "B-r-45",
+  "date": "2026-10-16 12:41 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Newsletter Landing Page With a List You Own'; hero 'Build a newsletter landing page that previews your latest issue and saves every subscriber to a database you own.' (113 chars, verb-first, carries the primary); howto_description is one sentence of 121 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is example galleries and email-platform feature pages; the page delivers 4 worked examples under 'Newsletter Landing Page Examples', FAQ 3 on what to look for in examples, FAQ 4 on templates, and a 7-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'issue', 'confirm link', 'Pending', 'section tags', 'referral link on the thank-you screen', '?src=podcast'. Table generated from the library (QC V2/V3 pass)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every body opens on a full sentence: 'Describe who reads the newsletter...', 'Each signup saves the email...', 'Haulpoint Weekly goes out every Tuesday to freight brokers.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; sentences short and single-idea, e.g. 'A click turns the row to Confirmed.' One ambiguous referent noted (FAQ 4)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: 'freight rate news every Tuesday', 'a 4-minute read', 'a count of 40 can say the opposite'. No hype verbs or AI tells."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to claims_used (prompt-build, database-owned, api-connect, realtime, custom-domain, code-export, free-start), all approved. Numbers agree: 47 + 7 = 54 in tab 3 copy, alt and image; 38 signups and 3 referrals match across copy and image. No third-party fact stated."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Newsletter-specific stories (issue preview, section picker, confirm link, referral reward); sibling primaries (squeeze page, lead generation landing page) appear only as FAQ link anchors, never as headings; QC D2/Q6 clean."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, no brands or file formats, paa gate pass 10/flag 0; each answered first ('Use both.', 'Short: one phone screen...'); hub link in item 2; 3 sibling links; moat lines in FAQ 4, 5, 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 'Dorian Vesk / Carrier / 38 signups this week'; tab 2 'Openings, Markets' and '2 tags synced to the email tool'; tab 3 'Confirmed 47 of 54 / Pending 7'; tab 4 'Velma Ambrose / Confirmed referrals 3 / Seed-starting guide in her inbox'. One hero each, text readable."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "features_subheading, faq",
+    "quote": "A newsletter landing page has one job: turning a visitor into a subscriber.",
+    "issue": "The same 'one job' framing appears in features_subheading and FAQ 1 ('a standalone web page with one goal: getting a visitor to subscribe to a newsletter').",
+    "fix": "Let FAQ 1 own the definition; give the features subheading a different idea (what the six parts cover after the signup).",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_5, faq",
+    "quote": "Run a podcast mention against a social post for 2 weeks and keep the stronger one.",
+    "issue": "The compare-sources-for-2-weeks advice repeats in FAQ 10 ('Compare confirmed signups by source after 2 weeks rather than raw clicks') and FAQ 6 ('Track the two as separate sources to see which one brings in readers').",
+    "fix": "Keep the 2-week comparison in FAQ 10 only; let feature 5 describe the dashboard split.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "how-to, faq",
+    "quote": "Let a visitor judge the newsletter before you ask for an email",
+    "issue": "Showing the writing above the form recurs in howto_step_3_des, FAQ 3 ('put a sample of the writing on the page, such as recent headlines') and FAQ 7 ('since readers judge a newsletter by its writing'), besides tab 1.",
+    "fix": "Keep it in step 3 and tab 1; cut the justification clause from FAQ 7.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq",
+    "quote": "The form here is shorter than on a <a href='https://emergent.sh/ai-landing-page-builder/lead-generation-landing-page'>lead generation landing page</a>, sometimes only the email.",
+    "issue": "'here' has no clear referent in an answer about templates; the reader has to infer it means a newsletter page.",
+    "fix": "'A newsletter signup form is shorter than the one on a lead generation landing page, sometimes only the email.'",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief.tabs[3].main",
+    "quote": "Thanks for subscribing",
+    "issue": "Tab 4 draws the thank-you screen already showing 3 confirmed referrals; a thank-you screen appears at signup, before any referral exists, and the alt calls it a 'referral page'. Names and numbers still match the copy, so no contradiction.",
+    "fix": "Title the main panel as Velma's referral status page (e.g. 'Your referrals') with the link kept as its sub.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "AI site builders (Wix, Framer) | Unbounce | Landingi / Leadpages / Instapage",
+    "issue": "QC K7: none of the three columns ranks in this page's top 10, which holds email platforms (Mailchimp, beehiiv, CleverReach, MailPoet). HUB_RULES 5 asks for competitors that rank for the query.",
+    "fix": "Coordinator: add an email-platform landing page entry to the LP library, then regenerate the table with it.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "features_subheading, faq",
+   "issue": "The same 'one job' framing appears in features_subheading and FAQ 1 ('a standalone web page with one goal: getting a visitor to subscribe to a newsletter').",
+   "fix": "Let FAQ 1 own the definition; give the features subheading a different idea (what the six parts cover after the signup).",
+   "by": "B-r-45",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_5, faq",
+   "issue": "The compare-sources-for-2-weeks advice repeats in FAQ 10 ('Compare confirmed signups by source after 2 weeks rather than raw clicks') and FAQ 6 ('Track the two as separate sources to see which one brings in readers').",
+   "fix": "Keep the 2-week comparison in FAQ 10 only; let feature 5 describe the dashboard split.",
+   "by": "B-r-45",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "how-to, faq",
+   "issue": "Showing the writing above the form recurs in howto_step_3_des, FAQ 3 ('put a sample of the writing on the page, such as recent headlines') and FAQ 7 ('since readers judge a newsletter by its writing'), besides tab 1.",
+   "fix": "Keep it in step 3 and tab 1; cut the justification clause from FAQ 7.",
+   "by": "B-r-45",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq",
+   "issue": "'here' has no clear referent in an answer about templates; the reader has to infer it means a newsletter page.",
+   "fix": "'A newsletter signup form is shorter than the one on a lead generation landing page, sometimes only the email.'",
+   "by": "B-r-45",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief.tabs[3].main",
+   "issue": "Tab 4 draws the thank-you screen already showing 3 confirmed referrals; a thank-you screen appears at signup, before any referral exists, and the alt calls it a 'referral page'. Names and numbers still match the copy, so no contradiction.",
+   "fix": "Title the main panel as Velma's referral status page (e.g. 'Your referrals') with the link kept as its sub.",
+   "by": "B-r-45",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: none of the three columns ranks in this page's top 10, which holds email platforms (Mailchimp, beehiiv, CleverReach, MailPoet). HUB_RULES 5 asks for competitors that rank for the query.",
+   "fix": "Coordinator: add an email-platform landing page entry to the LP library, then regenerate the table with it.",
+   "by": "B-r-45",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "ffa80e6282a4fc00",
+   "alt:share_image": "68740aa8e7740aa1",
+   "alt:tab_image_1": "3be1cd87f5f6a747",
+   "alt:tab_image_2": "865bdea142002492",
+   "alt:tab_image_3": "5e1e4919b83d46b0",
+   "alt:tab_image_4": "b821a622f175899b",
+   "breadcrumb": "f9c45a968f8b60c9",
+   "chip_adds": "7da6585b5bf67111",
+   "explore_cta": "2e493e7a7093287e",
+   "faq": "550be3d203a7361b",
+   "feature_1": "7e731d5b28e5cdb9",
+   "feature_2": "93817c4c0d5c6b66",
+   "feature_3": "048840ac05fc80e2",
+   "feature_4": "c671dca8ce9feb01",
+   "feature_5": "64c0d93f0410f311",
+   "feature_6": "ca86d70e64aa6be5",
+   "features_heading": "e1fa0097207d27a1",
+   "features_subheading": "b4cc6c3b4eabbc46",
+   "h1": "f3f19d1ebbccc301",
+   "hero_description": "36c318db705e8898",
+   "hero_prompt": "cf7cffa2478ef2ae",
+   "howto_description": "030dc68563e18223",
+   "howto_step_1_des": "4ceb2080502db105",
+   "howto_step_1_title": "487970e7df1a630b",
+   "howto_step_2_des": "5c93bd64132cf0c7",
+   "howto_step_2_title": "fcea59759e99f057",
+   "howto_step_3_des": "5ed07463b9f7d9ab",
+   "howto_step_3_title": "a1cbe0aafc437600",
+   "howto_step_4_des": "6b1d27d554dc22fd",
+   "howto_step_4_title": "05719d3f28f08b53",
+   "howto_step_5_des": "b41e8628c2e73b15",
+   "howto_step_5_title": "cc49a40e05c1be01",
+   "howto_step_6_des": "b26e72d60f4eddd7",
+   "howto_step_6_title": "3e0c4d28468480c0",
+   "howto_step_7_des": "9129d87b69790623",
+   "howto_step_7_title": "69d769cc4de0e0c8",
+   "howto_title": "210b7ef6f2a0b7ba",
+   "meta_description": "5cea3300b6f815d3",
+   "meta_title": "0f929c419b627d38",
+   "mockup": "daa189bf8f023b9b",
+   "product_name": "2cd22437843b08f8",
+   "prompt_chip_1": "ec2f9e17b93ccece",
+   "prompt_chip_2": "10d3c7a04ddbe8a7",
+   "prompt_chip_3": "4380d4d3192d67f6",
+   "prompt_chip_4": "76f0bd5f960277b4",
+   "slug": "ed70898c257815fb",
+   "tab_content_1": "20c5191fdc691759",
+   "tab_content_2": "0bc4e62a45ede31a",
+   "tab_content_3": "ac9fe564b1e11f08",
+   "tab_content_4": "3edb445856a5f1aa",
+   "tab_label_1": "ec2f9e17b93ccece",
+   "tab_label_2": "10d3c7a04ddbe8a7",
+   "tab_label_3": "4380d4d3192d67f6",
+   "tab_label_4": "76f0bd5f960277b4",
+   "usecase_heading": "7c661731891cecb1",
+   "why_description": "3e720b36da5f1811",
+   "why_table": "26f055a5b60fe578",
+   "why_title": "87f3c41a3028023b"
+  },
+  "all": "ea95b1209398d600",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "ffa80e6282a4fc00",
+   "alt:share_image": "68740aa8e7740aa1",
+   "alt:tab_image_1": "3be1cd87f5f6a747",
+   "alt:tab_image_2": "865bdea142002492",
+   "alt:tab_image_3": "5e1e4919b83d46b0",
+   "alt:tab_image_4": "b821a622f175899b",
+   "breadcrumb": "f9c45a968f8b60c9",
+   "chip_adds": "7da6585b5bf67111",
+   "explore_cta": "2e493e7a7093287e",
+   "faq": "550be3d203a7361b",
+   "feature_1": "7e731d5b28e5cdb9",
+   "feature_2": "93817c4c0d5c6b66",
+   "feature_3": "048840ac05fc80e2",
+   "feature_4": "c671dca8ce9feb01",
+   "feature_5": "64c0d93f0410f311",
+   "feature_6": "ca86d70e64aa6be5",
+   "features_heading": "e1fa0097207d27a1",
+   "features_subheading": "b4cc6c3b4eabbc46",
+   "h1": "f3f19d1ebbccc301",
+   "hero_description": "36c318db705e8898",
+   "hero_prompt": "cf7cffa2478ef2ae",
+   "howto_description": "030dc68563e18223",
+   "howto_step_1_des": "4ceb2080502db105",
+   "howto_step_1_title": "487970e7df1a630b",
+   "howto_step_2_des": "5c93bd64132cf0c7",
+   "howto_step_2_title": "fcea59759e99f057",
+   "howto_step_3_des": "5ed07463b9f7d9ab",
+   "howto_step_3_title": "a1cbe0aafc437600",
+   "howto_step_4_des": "6b1d27d554dc22fd",
+   "howto_step_4_title": "05719d3f28f08b53",
+   "howto_step_5_des": "b41e8628c2e73b15",
+   "howto_step_5_title": "cc49a40e05c1be01",
+   "howto_step_6_des": "b26e72d60f4eddd7",
+   "howto_step_6_title": "3e0c4d28468480c0",
+   "howto_step_7_des": "9129d87b69790623",
+   "howto_step_7_title": "69d769cc4de0e0c8",
+   "howto_title": "210b7ef6f2a0b7ba",
+   "meta_description": "5cea3300b6f815d3",
+   "meta_title": "0f929c419b627d38",
+   "mockup": "daa189bf8f023b9b",
+   "product_name": "2cd22437843b08f8",
+   "prompt_chip_1": "ec2f9e17b93ccece",
+   "prompt_chip_2": "10d3c7a04ddbe8a7",
+   "prompt_chip_3": "4380d4d3192d67f6",
+   "prompt_chip_4": "76f0bd5f960277b4",
+   "slug": "ed70898c257815fb",
+   "tab_content_1": "20c5191fdc691759",
+   "tab_content_2": "0bc4e62a45ede31a",
+   "tab_content_3": "ac9fe564b1e11f08",
+   "tab_content_4": "3edb445856a5f1aa",
+   "tab_label_1": "ec2f9e17b93ccece",
+   "tab_label_2": "10d3c7a04ddbe8a7",
+   "tab_label_3": "4380d4d3192d67f6",
+   "tab_label_4": "76f0bd5f960277b4",
+   "usecase_heading": "7c661731891cecb1",
+   "why_description": "3e720b36da5f1811",
+   "why_table": "26f055a5b60fe578",
+   "why_title": "87f3c41a3028023b"
+  },
+  "all": "ea95b1209398d600",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "approval": {
+  "fingerprint": "75f4ad68e347bd0d021f36db1402ca84bd48f66c81c465fb0d87b4e8237dffaf",
+  "date": "2026-10-16 12:44 UTC",
+  "rules_version": "dc0451e3d80d",
+  "by": "standing-go (Divit 2026-10-16)"
+ }
 }

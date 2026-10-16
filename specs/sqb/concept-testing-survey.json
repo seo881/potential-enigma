@@ -115,6 +115,20 @@
    "via": null,
    "by": "B-w-159",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 12:41 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-51",
+   "note": "rubric 10/10 by B-r-51; 7 notes"
+  },
+  {
+   "t": "2026-10-16 12:44 UTC",
+   "state": "approved",
+   "via": null,
+   "by": "standing-go (Divit 2026-10-16)",
+   "note": ""
   }
  ],
  "pipeline": "r15",
@@ -1036,5 +1050,331 @@
  },
  "writers": [
   "B-w-159"
- ]
+ ],
+ "review": {
+  "by": "B-r-51",
+  "date": "2026-10-16 12:41 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Concept Testing Survey That Picks the Winner', meta 'Concept Testing Survey Builder for New Ideas', hero carries the primary and leads with Build; how-to description is one sentence on what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are how-to guides and question lists; the page delivers questions (FAQ 3, step 4), examples (FAQ 4, four tabs), monadic vs sequential (feature 2, FAQ 6), sample size per cell (FAQ 5), reading results (FAQ 9, step 7) and a builder."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'monadic design', 'screened-out status', 'definitely or probably buy', 'a quota for each cell, such as 100 qualified answers'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every body opens on a full sentence: 'Brightfield Granola had 3 package designs and one question', 'Describe each concept in a sentence', 'Give each concept a name, a two-line description'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; QC Q2/Q5/Q7 clean. Short, one-idea sentences: 'No one compared designs side by side.' 'No concept always came first.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: 'It put a survey link at the counter of 2 stores instead', 'Ask which concept screen they read twice and where they stopped.' Two voice notes recorded."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Numbers agree: 412 = 200 + 212; 73 + 64 = 137; 38/73 = 52%, 20/64 = 31%; 3 x 200 = 600. Monadic/sequential definitions and randomisation match the quoted Qualtrics and Maze spans; Emergent claims map to prompt-build, database-owned, alerts, conversational, no-caps, code-export, free-start."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Cell, screener and quota mechanics are specific to concept testing; FAQ 7 hands broad market study to the market research survey sibling instead of answering it."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, each answered first ('Pick monadic if you can reach enough people...'), hub link in item 2, sibling links in items 4, 7 and 10, PAA gate pass 10/10, no brands or file formats."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 bars 92/68/58 and '600, 200 per cell'; tab 2 4.2/3.8/3.3/2.7 with 'Under 3.5'; tab 3 412/212/100/100 and 'Email to Tobin'; tab 4 '38 of 73', '20 of 64', '137 answered'. One hero each, cursor on button."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "tab_heading_1",
+    "quote": "Design B wins its cell with 92 of 200",
+    "issue": "In a monadic test Design B is the only concept in its cell, so it cannot win the cell; it wins across cells.",
+    "fix": "Design B leads the three cells with 92 of 200",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2a",
+    "field": "h1",
+    "quote": "Build a Concept Testing Survey That Picks the Winner",
+    "issue": "The survey does not pick; step 7 says the reader does ('Pick the one to take forward'), and tab 4 ends on a split, not a winner.",
+    "fix": "A head that says what the survey shows, e.g. '...That Shows Which Concept Wins'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "scope",
+    "rule": "HUB_RULES 5",
+    "field": "hero_description",
+    "quote": "shows each person one concept",
+    "issue": "The hero describes only the monadic design, while the meta, feature 2 and tab 2 also sell sequential tests.",
+    "fix": "Optional: 'shows each concept fairly' or name both designs within D1's 130 characters.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Survey builder with templates, including employee engagement",
+    "issue": "Library cells name employee engagement and employee satisfaction templates on a concept testing page; Microsoft Forms and SurveyHero are not in this page's top 10 (QC K7), while SurveyMonkey's concept testing product ranks #2.",
+    "fix": "Coordinator: add a concept or market-research output fact for SurveyMonkey (and a ranking vendor such as Qualtrics) to the library, then regenerate.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq_a_4",
+    "quote": "unlike a wellness survey, which tracks habits people already have",
+    "issue": "The sibling link is forced into an examples answer and reads as placed for the link.",
+    "fix": "Move the link to an answer where the comparison is natural, or drop the clause.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq_a_5",
+    "quote": "Plan for at least 100 qualified answers per cell, and 200 if you want to compare groups",
+    "issue": "Sample-size recommendation with no domain_sources entry; advice, so a note.",
+    "fix": "Add a source for the per-cell minimum if one is to hand.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq_a_8",
+    "quote": "Screen out anyone who has not bought in the category in the past 90 days, plus anyone who works in market research or for a competing brand",
+    "issue": "Screening recommendation without a source; the page elsewhere uses 30 days (feature 3, tab 3), which reads slightly inconsistent.",
+    "fix": "Optional: align on one window or frame 90 days as an example.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "tab_heading_1",
+   "issue": "In a monadic test Design B is the only concept in its cell, so it cannot win the cell; it wins across cells.",
+   "fix": "Design B leads the three cells with 92 of 200",
+   "by": "B-r-51",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "h1",
+   "issue": "The survey does not pick; step 7 says the reader does ('Pick the one to take forward'), and tab 4 ends on a split, not a winner.",
+   "fix": "A head that says what the survey shows, e.g. '...That Shows Which Concept Wins'",
+   "by": "B-r-51",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "scope",
+   "rule": "HUB_RULES 5",
+   "field": "hero_description",
+   "issue": "The hero describes only the monadic design, while the meta, feature 2 and tab 2 also sell sequential tests.",
+   "fix": "Optional: 'shows each concept fairly' or name both designs within D1's 130 characters.",
+   "by": "B-r-51",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "Library cells name employee engagement and employee satisfaction templates on a concept testing page; Microsoft Forms and SurveyHero are not in this page's top 10 (QC K7), while SurveyMonkey's concept testing product ranks #2.",
+   "fix": "Coordinator: add a concept or market-research output fact for SurveyMonkey (and a ranking vendor such as Qualtrics) to the library, then regenerate.",
+   "by": "B-r-51",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq_a_4",
+   "issue": "The sibling link is forced into an examples answer and reads as placed for the link.",
+   "fix": "Move the link to an answer where the comparison is natural, or drop the clause.",
+   "by": "B-r-51",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq_a_5",
+   "issue": "Sample-size recommendation with no domain_sources entry; advice, so a note.",
+   "fix": "Add a source for the per-cell minimum if one is to hand.",
+   "by": "B-r-51",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq_a_8",
+   "issue": "Screening recommendation without a source; the page elsewhere uses 30 days (feature 3, tab 3), which reads slightly inconsistent.",
+   "fix": "Optional: align on one window or frame 90 days as an example.",
+   "by": "B-r-51",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "9584fc607451599f",
+   "alt:share_image": "41114ebe4b8b8367",
+   "alt:tab_image_1": "7004b3b4258ee690",
+   "alt:tab_image_2": "058110446ba1df98",
+   "alt:tab_image_3": "a63429214541f51b",
+   "alt:tab_image_4": "a495d9ab16640214",
+   "breadcrumb": "56f11b586a2e8371",
+   "chip_adds": "8fe15f5b9adc16dc",
+   "explore_cta": "3e33fe8b479f3f3e",
+   "faq": "e9e931e41ea0694a",
+   "feature_1": "a4f013e6d419aadb",
+   "feature_2": "74e5e0a87d25d8b5",
+   "feature_3": "b16b170781efc147",
+   "feature_4": "14472f8cdb54e536",
+   "feature_5": "39f2a138ce702ff5",
+   "feature_6": "9906b28fe9f09d03",
+   "features_heading": "e1fb1ec222cd2e76",
+   "features_subheading": "c0b2eabb001c1026",
+   "h1": "8c45daba20f6856d",
+   "hero_description": "ffef6e2743d17d66",
+   "hero_prompt": "4f906118cd30b2dd",
+   "howto_description": "5f3a19d4e67c9bb0",
+   "howto_step_1_des": "a7e311edce941614",
+   "howto_step_1_title": "75bd9c4d547ae3a5",
+   "howto_step_2_des": "813090cab78bd293",
+   "howto_step_2_title": "4effd83938bd1c0c",
+   "howto_step_3_des": "64ec9c421b44e907",
+   "howto_step_3_title": "616b5c7b8e758dcc",
+   "howto_step_4_des": "39dca8b9f52c1047",
+   "howto_step_4_title": "11fe4c9a989f5165",
+   "howto_step_5_des": "9ab32a3fcd061ded",
+   "howto_step_5_title": "84f18e7b18fb63cd",
+   "howto_step_6_des": "314c126fd4137fcd",
+   "howto_step_6_title": "1a1d9be89c1d5d23",
+   "howto_step_7_des": "77b48e5178a18929",
+   "howto_step_7_title": "8708cc78f0fb3490",
+   "howto_title": "53e8542817d65817",
+   "meta_description": "3bac3586538c9f28",
+   "meta_title": "ae418ece4562caee",
+   "mockup": "0e5e0284e6e8d9f1",
+   "product_name": "63ca2cdeba6b5824",
+   "prompt_chip_1": "931843cf4cbb1f79",
+   "prompt_chip_2": "e071fa4a61d2b33c",
+   "prompt_chip_3": "a6d52d0bbd0c3ee0",
+   "prompt_chip_4": "6322f7bfada417d7",
+   "slug": "c05f16c531eae752",
+   "tab_content_1": "ba03f0f7f50c0121",
+   "tab_content_2": "840343e73e7240be",
+   "tab_content_3": "61b1145fe9d1f5d7",
+   "tab_content_4": "0b98e0212bf550f9",
+   "tab_label_1": "dc9ad1014236ccab",
+   "tab_label_2": "16fb04766d43e3e4",
+   "tab_label_3": "f7023661858814c2",
+   "tab_label_4": "51c7cc97b076438b",
+   "usecase_heading": "58f7a4c7b2220d1a",
+   "why_description": "1c63659d9478b31a",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "46c2933384eb3557"
+  },
+  "all": "2f6d60c518a57b3f",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "9584fc607451599f",
+   "alt:share_image": "41114ebe4b8b8367",
+   "alt:tab_image_1": "7004b3b4258ee690",
+   "alt:tab_image_2": "058110446ba1df98",
+   "alt:tab_image_3": "a63429214541f51b",
+   "alt:tab_image_4": "a495d9ab16640214",
+   "breadcrumb": "56f11b586a2e8371",
+   "chip_adds": "8fe15f5b9adc16dc",
+   "explore_cta": "3e33fe8b479f3f3e",
+   "faq": "e9e931e41ea0694a",
+   "feature_1": "a4f013e6d419aadb",
+   "feature_2": "74e5e0a87d25d8b5",
+   "feature_3": "b16b170781efc147",
+   "feature_4": "14472f8cdb54e536",
+   "feature_5": "39f2a138ce702ff5",
+   "feature_6": "9906b28fe9f09d03",
+   "features_heading": "e1fb1ec222cd2e76",
+   "features_subheading": "c0b2eabb001c1026",
+   "h1": "8c45daba20f6856d",
+   "hero_description": "ffef6e2743d17d66",
+   "hero_prompt": "4f906118cd30b2dd",
+   "howto_description": "5f3a19d4e67c9bb0",
+   "howto_step_1_des": "a7e311edce941614",
+   "howto_step_1_title": "75bd9c4d547ae3a5",
+   "howto_step_2_des": "813090cab78bd293",
+   "howto_step_2_title": "4effd83938bd1c0c",
+   "howto_step_3_des": "64ec9c421b44e907",
+   "howto_step_3_title": "616b5c7b8e758dcc",
+   "howto_step_4_des": "39dca8b9f52c1047",
+   "howto_step_4_title": "11fe4c9a989f5165",
+   "howto_step_5_des": "9ab32a3fcd061ded",
+   "howto_step_5_title": "84f18e7b18fb63cd",
+   "howto_step_6_des": "314c126fd4137fcd",
+   "howto_step_6_title": "1a1d9be89c1d5d23",
+   "howto_step_7_des": "77b48e5178a18929",
+   "howto_step_7_title": "8708cc78f0fb3490",
+   "howto_title": "53e8542817d65817",
+   "meta_description": "3bac3586538c9f28",
+   "meta_title": "ae418ece4562caee",
+   "mockup": "0e5e0284e6e8d9f1",
+   "product_name": "63ca2cdeba6b5824",
+   "prompt_chip_1": "931843cf4cbb1f79",
+   "prompt_chip_2": "e071fa4a61d2b33c",
+   "prompt_chip_3": "a6d52d0bbd0c3ee0",
+   "prompt_chip_4": "6322f7bfada417d7",
+   "slug": "c05f16c531eae752",
+   "tab_content_1": "ba03f0f7f50c0121",
+   "tab_content_2": "840343e73e7240be",
+   "tab_content_3": "61b1145fe9d1f5d7",
+   "tab_content_4": "0b98e0212bf550f9",
+   "tab_label_1": "dc9ad1014236ccab",
+   "tab_label_2": "16fb04766d43e3e4",
+   "tab_label_3": "f7023661858814c2",
+   "tab_label_4": "51c7cc97b076438b",
+   "usecase_heading": "58f7a4c7b2220d1a",
+   "why_description": "1c63659d9478b31a",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "46c2933384eb3557"
+  },
+  "all": "2f6d60c518a57b3f",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "approval": {
+  "fingerprint": "82c6cf72a24b42056e271935121c758082f33548be3e9c3ae25c2b06237f023a",
+  "date": "2026-10-16 12:44 UTC",
+  "rules_version": "dc0451e3d80d",
+  "by": "standing-go (Divit 2026-10-16)"
+ }
 }

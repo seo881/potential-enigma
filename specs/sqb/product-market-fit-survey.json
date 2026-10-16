@@ -119,6 +119,20 @@
    "via": null,
    "by": "B-w-162",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 12:41 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-54",
+   "note": "rubric 10/10 by B-r-54; 5 notes"
+  },
+  {
+   "t": "2026-10-16 12:44 UTC",
+   "state": "approved",
+   "via": null,
+   "by": "standing-go (Divit 2026-10-16)",
+   "note": ""
   }
  ],
  "pipeline": "r15",
@@ -1121,5 +1135,291 @@
  },
  "writers": [
   "B-w-162"
- ]
+ ],
+ "review": {
+  "by": "B-r-54",
+  "date": "2026-10-16 12:41 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Product Market Fit Survey and Find Your Must-Have Users'; hero 'Build a product market fit survey that counts who would be very disappointed and splits that score by role and by quarter.' (carries primary, leads with Build); how-to description 'Seven steps to create a product market fit survey that scores your must-have users and shows which segment to build for.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is the Sean Ellis test (pmfsurvey, First Round/Superhuman, Formbricks question lists). Page gives the must-have question with its three answers (feature 1, how-to 02), the three follow-ups (FAQ 3, how-to 03), the 40% line, ~40 responses minimum, who to survey, cadence, and a template breakdown (FAQ 4)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'very disappointed share', 'segment question', 'main benefit', 'each quarter's new users'; tabs are PMF-specific readings (gap to 40%, role split, quarterly cohorts, main benefit of fans)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature and tab bodies open on full sentences: 'Emergent builds the question with its three answers...', 'Driftpine, a shift-scheduling app, sends its survey only to the 186 users...', 'Pull the users who have used the core of the product more than once this month...'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q6/Q7 clear; sentences short and one idea each: 'Hold off on reading the score until at least 40 people have answered.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, operator voice: 'A score built on 64 replies should never read like one built on 600 replies.'; 'With 40 replies, each one is worth 2.5 points of the score.' Minor voice notes recorded."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Every Superhuman/Ellis fact maps to a quoted span from the First Round source in domain_sources (40% line, nearly a hundred startups, three follow-ups, ~40 respondents directionally correct, twice in two weeks, never surveyed twice, weekly/monthly/quarterly tracking, somewhat-disappointed filter, 22% -> 33% after segmenting). Tab arithmetic checks: 23/64=36% (4 under 40), 41/140, 25/48=52%, 61/197=31%, 74/200=37%, 89/212=42%, 31+15+11=57. Claims_used ids all in rules/capabilities.json (alerts, no-caps, code-export on paid plans, database-owned)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No sibling primary in headings; NPS and satisfaction scoring are handed off by link ('customer satisfaction survey', 'brand perception survey', 'customer feedback survey') rather than answered."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "Exactly 10 on-topic questions, no brand in any question, hub link in item 2 ('AI survey builder'), 3 sibling links in items 4, 7, 10; each answer-first ('Aim for at least 40.', 'Split them by main benefit.'); secondaries 'product market fit survey questions', 'template', 'surveys' each used once; verbatim/paa gate pass 10, flag 0."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: tab 1 '23 of 64 very disappointed', 'of 186 sent', '4 points under 40%'; tab 2 'Agency owner 48 25 52%', 'All roles: 29%'; tab 3 'Q3 212 89 42%' posted to '#product'; tab 4 phone one question per screen, 'Streak reminders: 31', 'Weekly charts 15, shared goals 11'; cover 42% '+5 points on Q2' agrees with tab 3 (37% -> 42%). One hero per panel, cursor on button edge."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_3 / tab_content_3 / faq",
+    "quote": "Nobody answers twice",
+    "issue": "The never-ask-twice idea recurs in feature_3 ('Nobody answers twice'), tab_content_3 ('never asks anyone twice'), the tab 3 image ('never asked twice') and FAQ 8 ('it never surveyed the same user twice'); the database-you-own line recurs in hero prompt, feature_6, why_description and FAQ 2.",
+    "fix": "Keep the idea in tab 3 and FAQ 8; let feature_3 lead on the recent-user filter instead.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "A satisfaction score asks how happy someone was with one experience",
+    "issue": "General definition of a satisfaction score in FAQ 10 has no domain_sources entry; it is common framing for a contrast rather than a claim about a named standard, so recorded as a note.",
+    "fix": "Add a source for the satisfaction-score definition on the next edit, or phrase it as the page's own contrast.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "SurveyMonkey | Microsoft Forms | SurveyHero",
+    "issue": "QC K7: none of the three table competitors rank in this page's top 10 (Pendo, SatisMeter, Formbricks do); the library set is the general one.",
+    "fix": "If Pendo, SatisMeter or Formbricks are added to the competitor library, regenerate the table with them.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "meta_description",
+    "quote": "a very disappointed score by role and quarter",
+    "issue": "Reads compressed; 'a very disappointed score' sounds like a disappointing score to a cold reader.",
+    "fix": "e.g. 'the must-have question, the very disappointed share by role and quarter, and Slack alerts'.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "feature_4",
+    "quote": "The segment that already loves the product stands out from the rest at a glance.",
+    "issue": "'stands out from the rest at a glance' is a stock phrase where a concrete detail could sit.",
+    "fix": "Name what the dashboard shows, e.g. the segment's share beside the 40% line.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_3 / tab_content_3 / faq",
+   "issue": "The never-ask-twice idea recurs in feature_3 ('Nobody answers twice'), tab_content_3 ('never asks anyone twice'), the tab 3 image ('never asked twice') and FAQ 8 ('it never surveyed the same user twice'); the database-you-own line recurs in hero prompt, feature_6, why_description and FAQ 2.",
+   "fix": "Keep the idea in tab 3 and FAQ 8; let feature_3 lead on the recent-user filter instead.",
+   "by": "B-r-54",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "General definition of a satisfaction score in FAQ 10 has no domain_sources entry; it is common framing for a contrast rather than a claim about a named standard, so recorded as a note.",
+   "fix": "Add a source for the satisfaction-score definition on the next edit, or phrase it as the page's own contrast.",
+   "by": "B-r-54",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: none of the three table competitors rank in this page's top 10 (Pendo, SatisMeter, Formbricks do); the library set is the general one.",
+   "fix": "If Pendo, SatisMeter or Formbricks are added to the competitor library, regenerate the table with them.",
+   "by": "B-r-54",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "meta_description",
+   "issue": "Reads compressed; 'a very disappointed score' sounds like a disappointing score to a cold reader.",
+   "fix": "e.g. 'the must-have question, the very disappointed share by role and quarter, and Slack alerts'.",
+   "by": "B-r-54",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "feature_4",
+   "issue": "'stands out from the rest at a glance' is a stock phrase where a concrete detail could sit.",
+   "fix": "Name what the dashboard shows, e.g. the segment's share beside the 40% line.",
+   "by": "B-r-54",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "659130c24d99d2b4",
+   "alt:share_image": "6039629e31b228d2",
+   "alt:tab_image_1": "5e763def05e9c447",
+   "alt:tab_image_2": "24ea204c893b8ee2",
+   "alt:tab_image_3": "44743d10f86c8de9",
+   "alt:tab_image_4": "988f04713ff28ecb",
+   "breadcrumb": "eef7f4425f2d3202",
+   "chip_adds": "18dac0bd13c6b427",
+   "explore_cta": "1ea8b2cf70180f2e",
+   "faq": "ea26bf8f04644f1c",
+   "feature_1": "1bea482269d5e5d5",
+   "feature_2": "55291ba1413588d8",
+   "feature_3": "2e4c7c7a4cdd20a1",
+   "feature_4": "de9a8593d8f89ec0",
+   "feature_5": "71929e6ac0bd7870",
+   "feature_6": "677e954158ad01ef",
+   "features_heading": "cba03e04e2a99365",
+   "features_subheading": "1c8c9d8bd4b7f6b6",
+   "h1": "f0f7f93bcfbc291b",
+   "hero_description": "480461a6ab55de8b",
+   "hero_prompt": "61701dbf4aa69dec",
+   "howto_description": "f3e09577e0be9c58",
+   "howto_step_1_des": "8c962d8869e25ff3",
+   "howto_step_1_title": "4223f8d73bf58520",
+   "howto_step_2_des": "e6106e03604ec1e3",
+   "howto_step_2_title": "13bb907f90711432",
+   "howto_step_3_des": "837973e464b5d3aa",
+   "howto_step_3_title": "a57cd10130df56a1",
+   "howto_step_4_des": "095553c9fdbda72c",
+   "howto_step_4_title": "a92f735fd80d3271",
+   "howto_step_5_des": "694bde84665828a5",
+   "howto_step_5_title": "2e880d7cda0c0225",
+   "howto_step_6_des": "cb634f8dd367580b",
+   "howto_step_6_title": "6c71ec72f507f7c9",
+   "howto_step_7_des": "01c69547c65bc375",
+   "howto_step_7_title": "b71cd6bb0cc16c63",
+   "howto_title": "3089ad757a6cc3d4",
+   "meta_description": "993dc71629f76a18",
+   "meta_title": "9f35047c183705b6",
+   "mockup": "69139b5bb0e5dd32",
+   "product_name": "6bd17ddcaae40856",
+   "prompt_chip_1": "1dc4aefa9a805141",
+   "prompt_chip_2": "988f51bbe5a9bd26",
+   "prompt_chip_3": "99bc8e40948e2f94",
+   "prompt_chip_4": "c1d895961a492bc2",
+   "slug": "da4f476a13ef1eeb",
+   "tab_content_1": "960a033dbaa126f7",
+   "tab_content_2": "a3d8c2bd38f89d4d",
+   "tab_content_3": "92165f55ff2fec44",
+   "tab_content_4": "a99123c30019922c",
+   "tab_label_1": "a28fc57be5e4dd3a",
+   "tab_label_2": "d9c5908fc70227ca",
+   "tab_label_3": "a27e43382072280d",
+   "tab_label_4": "3ec432546e0591e2",
+   "usecase_heading": "6e6e4aca1f5adf40",
+   "why_description": "779d9905575fc5fa",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "8b44ead4563b51cb"
+  },
+  "all": "402429042aaf1a6e",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "659130c24d99d2b4",
+   "alt:share_image": "6039629e31b228d2",
+   "alt:tab_image_1": "5e763def05e9c447",
+   "alt:tab_image_2": "24ea204c893b8ee2",
+   "alt:tab_image_3": "44743d10f86c8de9",
+   "alt:tab_image_4": "988f04713ff28ecb",
+   "breadcrumb": "eef7f4425f2d3202",
+   "chip_adds": "18dac0bd13c6b427",
+   "explore_cta": "1ea8b2cf70180f2e",
+   "faq": "ea26bf8f04644f1c",
+   "feature_1": "1bea482269d5e5d5",
+   "feature_2": "55291ba1413588d8",
+   "feature_3": "2e4c7c7a4cdd20a1",
+   "feature_4": "de9a8593d8f89ec0",
+   "feature_5": "71929e6ac0bd7870",
+   "feature_6": "677e954158ad01ef",
+   "features_heading": "cba03e04e2a99365",
+   "features_subheading": "1c8c9d8bd4b7f6b6",
+   "h1": "f0f7f93bcfbc291b",
+   "hero_description": "480461a6ab55de8b",
+   "hero_prompt": "61701dbf4aa69dec",
+   "howto_description": "f3e09577e0be9c58",
+   "howto_step_1_des": "8c962d8869e25ff3",
+   "howto_step_1_title": "4223f8d73bf58520",
+   "howto_step_2_des": "e6106e03604ec1e3",
+   "howto_step_2_title": "13bb907f90711432",
+   "howto_step_3_des": "837973e464b5d3aa",
+   "howto_step_3_title": "a57cd10130df56a1",
+   "howto_step_4_des": "095553c9fdbda72c",
+   "howto_step_4_title": "a92f735fd80d3271",
+   "howto_step_5_des": "694bde84665828a5",
+   "howto_step_5_title": "2e880d7cda0c0225",
+   "howto_step_6_des": "cb634f8dd367580b",
+   "howto_step_6_title": "6c71ec72f507f7c9",
+   "howto_step_7_des": "01c69547c65bc375",
+   "howto_step_7_title": "b71cd6bb0cc16c63",
+   "howto_title": "3089ad757a6cc3d4",
+   "meta_description": "993dc71629f76a18",
+   "meta_title": "9f35047c183705b6",
+   "mockup": "69139b5bb0e5dd32",
+   "product_name": "6bd17ddcaae40856",
+   "prompt_chip_1": "1dc4aefa9a805141",
+   "prompt_chip_2": "988f51bbe5a9bd26",
+   "prompt_chip_3": "99bc8e40948e2f94",
+   "prompt_chip_4": "c1d895961a492bc2",
+   "slug": "da4f476a13ef1eeb",
+   "tab_content_1": "960a033dbaa126f7",
+   "tab_content_2": "a3d8c2bd38f89d4d",
+   "tab_content_3": "92165f55ff2fec44",
+   "tab_content_4": "a99123c30019922c",
+   "tab_label_1": "a28fc57be5e4dd3a",
+   "tab_label_2": "d9c5908fc70227ca",
+   "tab_label_3": "a27e43382072280d",
+   "tab_label_4": "3ec432546e0591e2",
+   "usecase_heading": "6e6e4aca1f5adf40",
+   "why_description": "779d9905575fc5fa",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "8b44ead4563b51cb"
+  },
+  "all": "402429042aaf1a6e",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "approval": {
+  "fingerprint": "9780a5c554c6eb7319fafb16ba64103f451749189471739b933e70bde1e5a181",
+  "date": "2026-10-16 12:44 UTC",
+  "rules_version": "dc0451e3d80d",
+  "by": "standing-go (Divit 2026-10-16)"
+ }
 }

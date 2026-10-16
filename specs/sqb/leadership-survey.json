@@ -122,6 +122,20 @@
    "via": null,
    "by": "B-w-160",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 12:41 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-52",
+   "note": "rubric 10/10 by B-r-52; 5 notes"
+  },
+  {
+   "t": "2026-10-16 12:44 UTC",
+   "state": "approved",
+   "via": null,
+   "by": "standing-go (Divit 2026-10-16)",
+   "note": ""
   }
  ],
  "pipeline": "r15",
@@ -1096,5 +1110,291 @@
  },
  "writers": [
   "B-w-160"
- ]
+ ],
+ "review": {
+  "by": "B-r-52",
+  "date": "2026-10-16 12:41 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Leadership Survey Where Teams Rate Their Leaders'; hero 'Build a leadership survey where teams rate their managers, with every answer saved to a database you own.' (under 130 chars, carries primary, leads with Build); how-to description is one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Upward-feedback angle from the brief carried in all four tabs; FAQ 1 gives example statements ('My manager explains the reasons behind decisions.'); FAQ 3 covers the template; 7-step how-to specific to leadership ratings (minimum team size, one behavior per statement)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'A manager's report opens only after 5 people on that team have answered', 'roll any smaller team into the report of the next manager up', 'an average below 3.0 on any behavior'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Brenwick Freight asked 268 staff...', 'List the behaviors you expect...', 'Choose 6 to 10 behaviors...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One ', so' ending (feature_5), within limit; sentences carry one idea each, e.g. step 3 'Split it, or the manager cannot tell which half to work on.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain, specific operator voice: 'Arlo Pembry's team was at 4 of 5 answers.' 'buttons large enough to tap with one thumb mid-shift.' No AI-tell vocabulary."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to approved ids (prompt-build, database-owned, alerts 'emails the HR lead or posts in a Slack channel', conversational 'Each screen holds a single statement', no-caps, code-export 'on paid plans', free-start). No third-party fact or statistic in prose; table generated from library. Image numbers check: 29+2=31, 172/410=42%, 52 of 126 under half, 94 of 131 over half."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Upward feedback, senior-team trust, new-manager self-assessment and new plant manager check-in; differs from the 360-survey sibling's rater-nomination and confidential-group tabs. No sibling primary in headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, each answered in its first sentence ('Yes, for any rating of a person's own manager.'); hub link in item 2; 3 sibling links (funny survey questions, yes no questions survey, poll questions); verbatim Q1 ok; paa gate 10 pass, 0 flag; no brand or format in any question."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: one hero per tab, numbers match copy ('29 of 31 ready', '172 of 410 agree', 'Month 6: 3.8 / Week 1: 2.4', 'Day 90: 94 of 131'), CEO Graham Pettit named in copy and image, cursor on button edges."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "tab_content_3",
+    "quote": "Elsby Hotels runs an 18-person program for managers in their first year. Each one rates themselves on the same 10 behaviors from 1 to 5, in week 1 and again at month 6.",
+    "issue": "Same story shape as the 360-survey sibling (new managers in a leadership program, 10 items, a second round six months on); reads close to that page.",
+    "fix": "Next revision: vary the self-assessment story (a different cadence or reader) so it does not mirror the 360 page.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "Can a leadership survey include a lighter question or two?",
+    "issue": "Reads as a question written to carry the funny survey questions link rather than one a leadership-survey searcher asks; FAQ 10 ('quick poll at a town hall') leans the same way for the poll questions link.",
+    "fix": "Prefer questions searchers ask (e.g. who should see the results, what to ask senior leaders) and place sibling links in those.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "With Emergent, the answers sit in a database you own.",
+    "issue": "Moat line in the anonymity answer does not bear on anonymity; owning the database says nothing about who sees names.",
+    "fix": "Tie the line to the question, e.g. leaving out name and email fields so no row carries a name (feature_2 already says this).",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "SurveyMonkey | Microsoft Forms | SurveyHero",
+    "issue": "QC K7: none of the three competitors ranks in this page's top 10 (Leapsome and Jotform are the builder-side results).",
+    "fix": "If the library adds Leapsome or Jotform, prefer them for this table.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "page",
+    "quote": "\"team\" appears 24 times outside the FAQ",
+    "issue": "QC Q9: 'team' (24), 'manager' (20) and 'answer' (10) repeat heavily across body fields.",
+    "fix": "Vary where a plainer noun fits (staff, crew, direct reports, lead).",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "tab_content_3",
+   "issue": "Same story shape as the 360-survey sibling (new managers in a leadership program, 10 items, a second round six months on); reads close to that page.",
+   "fix": "Next revision: vary the self-assessment story (a different cadence or reader) so it does not mirror the 360 page.",
+   "by": "B-r-52",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "Reads as a question written to carry the funny survey questions link rather than one a leadership-survey searcher asks; FAQ 10 ('quick poll at a town hall') leans the same way for the poll questions link.",
+   "fix": "Prefer questions searchers ask (e.g. who should see the results, what to ask senior leaders) and place sibling links in those.",
+   "by": "B-r-52",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "Moat line in the anonymity answer does not bear on anonymity; owning the database says nothing about who sees names.",
+   "fix": "Tie the line to the question, e.g. leaving out name and email fields so no row carries a name (feature_2 already says this).",
+   "by": "B-r-52",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: none of the three competitors ranks in this page's top 10 (Leapsome and Jotform are the builder-side results).",
+   "fix": "If the library adds Leapsome or Jotform, prefer them for this table.",
+   "by": "B-r-52",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "page",
+   "issue": "QC Q9: 'team' (24), 'manager' (20) and 'answer' (10) repeat heavily across body fields.",
+   "fix": "Vary where a plainer noun fits (staff, crew, direct reports, lead).",
+   "by": "B-r-52",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "4aae2733ebb4dfe4",
+   "alt:share_image": "c6e2e78ef34d8144",
+   "alt:tab_image_1": "d0a1e3c74ca2d4aa",
+   "alt:tab_image_2": "257bf492f3ef5836",
+   "alt:tab_image_3": "5ed1b6ac329688e3",
+   "alt:tab_image_4": "a041be87fb9f5f66",
+   "breadcrumb": "ab7847457c58403f",
+   "chip_adds": "b5399c9cc403f578",
+   "explore_cta": "13fe77653e649588",
+   "faq": "63ef0656e2fd069b",
+   "feature_1": "ed1795dd2eaaf0d5",
+   "feature_2": "c42657937a6777d6",
+   "feature_3": "318774a68ab5d9b1",
+   "feature_4": "bbcbbb0fd7f0b5a1",
+   "feature_5": "fc1b76b6127a1bb9",
+   "feature_6": "2444edb2c4aa1f31",
+   "features_heading": "ac2d74c3c62c7a19",
+   "features_subheading": "2807f49f2c0a81cc",
+   "h1": "1078d347d5276437",
+   "hero_description": "885e529cd4d8b1a1",
+   "hero_prompt": "765913f1ccf02cd6",
+   "howto_description": "b33719a0d6ece5bf",
+   "howto_step_1_des": "d12f9958df9dfa81",
+   "howto_step_1_title": "2c81c65bba024e94",
+   "howto_step_2_des": "74b5bae656e25013",
+   "howto_step_2_title": "a900a4fd24251ad1",
+   "howto_step_3_des": "237d40b128d2f469",
+   "howto_step_3_title": "eb700e43d6e78529",
+   "howto_step_4_des": "01cd73189b735fc4",
+   "howto_step_4_title": "f05d88547b2893bd",
+   "howto_step_5_des": "c208ac833f7961e5",
+   "howto_step_5_title": "9851f46e245cfffc",
+   "howto_step_6_des": "9bc5f9f66280b39c",
+   "howto_step_6_title": "11fd2adc7b03b185",
+   "howto_step_7_des": "3e864bfa8095ba5b",
+   "howto_step_7_title": "c2dabe3343565d7f",
+   "howto_title": "bb6327b7d92fd8ea",
+   "meta_description": "a0f2370fc6b32a50",
+   "meta_title": "7ba2c7db0ead7983",
+   "mockup": "be0e4b1013e063cf",
+   "product_name": "b0f4cea29f6a442a",
+   "prompt_chip_1": "74d75890b4c6fb08",
+   "prompt_chip_2": "6bcdb3b1c582189a",
+   "prompt_chip_3": "39d2e6abb9bb0318",
+   "prompt_chip_4": "4252eb90eeb293c2",
+   "slug": "671e7a4cfd1e2c95",
+   "tab_content_1": "64027f8d00b169e8",
+   "tab_content_2": "2652ee01b551cf28",
+   "tab_content_3": "54ad6bf5875048b8",
+   "tab_content_4": "89961f770e4d3a8e",
+   "tab_label_1": "74d75890b4c6fb08",
+   "tab_label_2": "6bcdb3b1c582189a",
+   "tab_label_3": "39d2e6abb9bb0318",
+   "tab_label_4": "4252eb90eeb293c2",
+   "usecase_heading": "558a5bd08a6aea3b",
+   "why_description": "bb367e20dd618d3e",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "999d081af652b81b"
+  },
+  "all": "d43aaea9f187163f",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "4aae2733ebb4dfe4",
+   "alt:share_image": "c6e2e78ef34d8144",
+   "alt:tab_image_1": "d0a1e3c74ca2d4aa",
+   "alt:tab_image_2": "257bf492f3ef5836",
+   "alt:tab_image_3": "5ed1b6ac329688e3",
+   "alt:tab_image_4": "a041be87fb9f5f66",
+   "breadcrumb": "ab7847457c58403f",
+   "chip_adds": "b5399c9cc403f578",
+   "explore_cta": "13fe77653e649588",
+   "faq": "63ef0656e2fd069b",
+   "feature_1": "ed1795dd2eaaf0d5",
+   "feature_2": "c42657937a6777d6",
+   "feature_3": "318774a68ab5d9b1",
+   "feature_4": "bbcbbb0fd7f0b5a1",
+   "feature_5": "fc1b76b6127a1bb9",
+   "feature_6": "2444edb2c4aa1f31",
+   "features_heading": "ac2d74c3c62c7a19",
+   "features_subheading": "2807f49f2c0a81cc",
+   "h1": "1078d347d5276437",
+   "hero_description": "885e529cd4d8b1a1",
+   "hero_prompt": "765913f1ccf02cd6",
+   "howto_description": "b33719a0d6ece5bf",
+   "howto_step_1_des": "d12f9958df9dfa81",
+   "howto_step_1_title": "2c81c65bba024e94",
+   "howto_step_2_des": "74b5bae656e25013",
+   "howto_step_2_title": "a900a4fd24251ad1",
+   "howto_step_3_des": "237d40b128d2f469",
+   "howto_step_3_title": "eb700e43d6e78529",
+   "howto_step_4_des": "01cd73189b735fc4",
+   "howto_step_4_title": "f05d88547b2893bd",
+   "howto_step_5_des": "c208ac833f7961e5",
+   "howto_step_5_title": "9851f46e245cfffc",
+   "howto_step_6_des": "9bc5f9f66280b39c",
+   "howto_step_6_title": "11fd2adc7b03b185",
+   "howto_step_7_des": "3e864bfa8095ba5b",
+   "howto_step_7_title": "c2dabe3343565d7f",
+   "howto_title": "bb6327b7d92fd8ea",
+   "meta_description": "a0f2370fc6b32a50",
+   "meta_title": "7ba2c7db0ead7983",
+   "mockup": "be0e4b1013e063cf",
+   "product_name": "b0f4cea29f6a442a",
+   "prompt_chip_1": "74d75890b4c6fb08",
+   "prompt_chip_2": "6bcdb3b1c582189a",
+   "prompt_chip_3": "39d2e6abb9bb0318",
+   "prompt_chip_4": "4252eb90eeb293c2",
+   "slug": "671e7a4cfd1e2c95",
+   "tab_content_1": "64027f8d00b169e8",
+   "tab_content_2": "2652ee01b551cf28",
+   "tab_content_3": "54ad6bf5875048b8",
+   "tab_content_4": "89961f770e4d3a8e",
+   "tab_label_1": "74d75890b4c6fb08",
+   "tab_label_2": "6bcdb3b1c582189a",
+   "tab_label_3": "39d2e6abb9bb0318",
+   "tab_label_4": "4252eb90eeb293c2",
+   "usecase_heading": "558a5bd08a6aea3b",
+   "why_description": "bb367e20dd618d3e",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "999d081af652b81b"
+  },
+  "all": "d43aaea9f187163f",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "approval": {
+  "fingerprint": "a4beb73b60700681250de3dea3d0655e6725faf6c6db59b4c39f100d2b6cdcef",
+  "date": "2026-10-16 12:44 UTC",
+  "rules_version": "dc0451e3d80d",
+  "by": "standing-go (Divit 2026-10-16)"
+ }
 }

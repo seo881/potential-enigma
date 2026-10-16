@@ -115,6 +115,20 @@
    "via": null,
    "by": "B-w-150",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 12:41 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-55",
+   "note": "rubric 10/10 by B-r-55; 6 notes"
+  },
+  {
+   "t": "2026-10-16 12:44 UTC",
+   "state": "approved",
+   "via": null,
+   "by": "standing-go (Divit 2026-10-16)",
+   "note": ""
   }
  ],
  "pipeline": "r15",
@@ -1027,5 +1041,311 @@
  },
  "writers": [
   "B-w-150"
- ]
+ ],
+ "review": {
+  "by": "B-r-55",
+  "date": "2026-10-16 12:41 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Ranking Survey That Scores Every Item by Points'; hero 127 chars, carries the primary, leads with 'Build a ranking survey people answer by dragging items into order'; how-to description 116 chars, one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 mixes tool pages (SurveyMonkey help, Jotform, OpinionX) with how-to and example guides (Qualtrics, Pollfish, SurveyPlanet); page delivers the builder, a 7-step how-to, examples ('Rank these 5 features in the order you want them built', three customer-research examples in FAQ 5), scoring and analysis ('Start with a weighted score')."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Ranking-specific detail throughout: 'A list of 5 items comes back as 5 distinct ranks', '5 points for first down to 1 for last', 'Read the points total next to the count of first places'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences with verbs: 'Emergent writes the ranking question...', 'Respondents press and drag...', 'Glimmerbook asks 412 customers...', 'Pick the decision the ranking feeds...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Two ', so' endings (under the cap); sentences short and varied; no blocking craft defect. Notes recorded."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Calm, product-led: 'An item that cannot change that decision does not belong on the list.' 'An item that wins overall can still come second with one group.' No AI-tell vocabulary."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Claims map to claims_used (no-caps 'no response cap', free-start 'The free tier covers building and publishing', code-export 'on paid plans', alerts, api-connect, conversational, realtime). Third-party facts sourced with quoted spans: SurveyMonkey 'about 5', Qualtrics '6 to 10' and noisy middle ranks, Pollfish forced preference, Snap common scale. Numbers check: Tab 1 412x15=6,180 = 1,604+1,388+1,236+1,091+861; Tab 2 60+41+24+15=140, 38+72+30+20=160, total 300; Tab 4 38x15=570 = 182+141+108+82+57."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Ranking mechanics (distinct ranks, point weighting, first places vs points) are unique to this page; sibling primaries appear only as FAQ link anchors (yes no questions survey, funny survey questions, poll questions)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, each answered first ('Not on a survey Emergent builds, which has no response cap.'); hub link in item 2; sibling links in items 4, 7, 10; no brand or file-format questions; paa gate pass 10/10, verbatim Q1 ok, Q3 ok."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: Tab 1 table and hero 'Calendar sync 1,604 of 6,180 points', 'Bulk edit second, 1,388' match copy; Tab 2 '60 of 140' and '72 of 160' match; Tab 3 phone list with Next button, '97 first-place votes', 'Design systems next, 64'; Tab 4 #it-planning 'Survey closed Friday', 182 of 570, 141. One hero per tab, readable text."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_7_des / faq item 6",
+    "quote": "An item with high points but few first places is broadly liked yet rarely anyone's favorite",
+    "issue": "Same idea restated in FAQ 6: 'an item can earn high points without being anyone's favorite'.",
+    "fix": "Keep the idea in step 7; give FAQ 6 a different second point.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_2_des / faq item 6 / faq item 8",
+    "quote": "the places in the middle of a long list carry the least signal",
+    "issue": "The noisy-middle point appears three times: step 2, FAQ 6 'Read the middle places with care; they carry the most noise', FAQ 8 'Qualtrics also notes that the middle rankings are the noisiest'.",
+    "fix": "Keep it once, in FAQ 8 with the source.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq item 7",
+    "quote": "Put the ranking first ... A light opener can help: one of a few funny survey questions, such as ranking pizza toppings, gets people used to dragging items before the list that counts.",
+    "issue": "Advice reads in tension with itself and with how-to step 4 ('so the list is the first thing people see'): ranking first, then an opener before the list.",
+    "fix": "Say 'Put the ranking near the start' or frame the opener as a practice ranking.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "CONTENT_DEFECTS #26",
+    "field": "why_table",
+    "quote": "Survey builder with templates, including employee engagement",
+    "issue": "Library cells for SurveyMonkey and SurveyHero ('including employee satisfaction') speak about employee surveys on a ranking page; Microsoft Forms and SurveyHero are not in the top 10 (QC K7); ranking-native tools in the top 10 (Jotform, Qualtrics, OpinionX) are not compared.",
+    "fix": "Coordinator: consider library entries for top-10 ranking tools and a ranking variant.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #5",
+    "field": "image_brief tab 3",
+    "quote": "Accessibility",
+    "issue": "Phone list and bars say 'Accessibility' while the hero card and tab copy say 'Accessibility audits'.",
+    "fix": "Use 'Accessibility audits' in the list if it fits, or accept as a truncated label.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "\"points\" appears 17 times outside the FAQ",
+    "issue": "QC Q9/A4 flags: 'points' 17, 'first' 16, 'item' 15; 5 sentences open 'Add a', 4 'Build a', 4 'An item'.",
+    "fix": "Vary a few openers on a future pass.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_7_des / faq item 6",
+   "issue": "Same idea restated in FAQ 6: 'an item can earn high points without being anyone's favorite'.",
+   "fix": "Keep the idea in step 7; give FAQ 6 a different second point.",
+   "by": "B-r-55",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_2_des / faq item 6 / faq item 8",
+   "issue": "The noisy-middle point appears three times: step 2, FAQ 6 'Read the middle places with care; they carry the most noise', FAQ 8 'Qualtrics also notes that the middle rankings are the noisiest'.",
+   "fix": "Keep it once, in FAQ 8 with the source.",
+   "by": "B-r-55",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq item 7",
+   "issue": "Advice reads in tension with itself and with how-to step 4 ('so the list is the first thing people see'): ranking first, then an opener before the list.",
+   "fix": "Say 'Put the ranking near the start' or frame the opener as a practice ranking.",
+   "by": "B-r-55",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "CONTENT_DEFECTS #26",
+   "field": "why_table",
+   "issue": "Library cells for SurveyMonkey and SurveyHero ('including employee satisfaction') speak about employee surveys on a ranking page; Microsoft Forms and SurveyHero are not in the top 10 (QC K7); ranking-native tools in the top 10 (Jotform, Qualtrics, OpinionX) are not compared.",
+   "fix": "Coordinator: consider library entries for top-10 ranking tools and a ranking variant.",
+   "by": "B-r-55",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #5",
+   "field": "image_brief tab 3",
+   "issue": "Phone list and bars say 'Accessibility' while the hero card and tab copy say 'Accessibility audits'.",
+   "fix": "Use 'Accessibility audits' in the list if it fits, or accept as a truncated label.",
+   "by": "B-r-55",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "QC Q9/A4 flags: 'points' 17, 'first' 16, 'item' 15; 5 sentences open 'Add a', 4 'Build a', 4 'An item'.",
+   "fix": "Vary a few openers on a future pass.",
+   "by": "B-r-55",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "a717240486cce88e",
+   "alt:share_image": "ab3e9d35fcb6e9b5",
+   "alt:tab_image_1": "c7d1931298db511b",
+   "alt:tab_image_2": "be158a19d1317a26",
+   "alt:tab_image_3": "208c3ced7e57bec5",
+   "alt:tab_image_4": "018f6a8987c4e791",
+   "breadcrumb": "ee71967976fe0ffe",
+   "chip_adds": "44e4d8075c824284",
+   "explore_cta": "07a412f38fc1e60a",
+   "faq": "dddb08c0a411105e",
+   "feature_1": "e34d94c0bf67553f",
+   "feature_2": "f4b336ebb42dec49",
+   "feature_3": "364d2733f41f4934",
+   "feature_4": "c33e943fb1171661",
+   "feature_5": "079927416b8860a6",
+   "feature_6": "283cffa81c644de8",
+   "features_heading": "54a5756709102b57",
+   "features_subheading": "95b446a18a44d133",
+   "h1": "c9d99181c31aa857",
+   "hero_description": "0183888eaa8f726b",
+   "hero_prompt": "494324770795ec26",
+   "howto_description": "7562b7ba390bfb23",
+   "howto_step_1_des": "04fcdfd300c61d37",
+   "howto_step_1_title": "175c84ce266e364c",
+   "howto_step_2_des": "680af7dff0f9ad62",
+   "howto_step_2_title": "3c88abbe3506b42c",
+   "howto_step_3_des": "a23c9c308692a987",
+   "howto_step_3_title": "3f25a7fea055b2dc",
+   "howto_step_4_des": "7fd292d66fa018d6",
+   "howto_step_4_title": "782fdc4ea7b43d6e",
+   "howto_step_5_des": "aab3c54f3b004dc5",
+   "howto_step_5_title": "e3079fe1510482cb",
+   "howto_step_6_des": "ccec2a4390dfbffe",
+   "howto_step_6_title": "5844dc8c2b2c44d8",
+   "howto_step_7_des": "7d060ec7105d1296",
+   "howto_step_7_title": "04ba988d33a1b23f",
+   "howto_title": "fc5bd8103f27d31d",
+   "meta_description": "3512e8916c797489",
+   "meta_title": "37767704af8ff81b",
+   "mockup": "9beb4f7ff1083591",
+   "product_name": "bbc0a2d104443810",
+   "prompt_chip_1": "d43f5c7c7849ca3c",
+   "prompt_chip_2": "ed94c3d696a415f9",
+   "prompt_chip_3": "38fa5de01300e6fc",
+   "prompt_chip_4": "a07a320143d1f523",
+   "slug": "eb9f4c0ec35288d2",
+   "tab_content_1": "cb274114392520db",
+   "tab_content_2": "ee770bd49c2d5f2c",
+   "tab_content_3": "44ffab7508aaeb35",
+   "tab_content_4": "6f2ad9280a402d38",
+   "tab_label_1": "5d08a9dd070a4665",
+   "tab_label_2": "fd3f81fae255b265",
+   "tab_label_3": "8a2a94c9cc6e494d",
+   "tab_label_4": "6573e2eb329db504",
+   "usecase_heading": "7c50a57dfe76a2a9",
+   "why_description": "cf79b60b41f49d25",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "a10f3010de05411b"
+  },
+  "all": "13c85f0075bc7368",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "a717240486cce88e",
+   "alt:share_image": "ab3e9d35fcb6e9b5",
+   "alt:tab_image_1": "c7d1931298db511b",
+   "alt:tab_image_2": "be158a19d1317a26",
+   "alt:tab_image_3": "208c3ced7e57bec5",
+   "alt:tab_image_4": "018f6a8987c4e791",
+   "breadcrumb": "ee71967976fe0ffe",
+   "chip_adds": "44e4d8075c824284",
+   "explore_cta": "07a412f38fc1e60a",
+   "faq": "dddb08c0a411105e",
+   "feature_1": "e34d94c0bf67553f",
+   "feature_2": "f4b336ebb42dec49",
+   "feature_3": "364d2733f41f4934",
+   "feature_4": "c33e943fb1171661",
+   "feature_5": "079927416b8860a6",
+   "feature_6": "283cffa81c644de8",
+   "features_heading": "54a5756709102b57",
+   "features_subheading": "95b446a18a44d133",
+   "h1": "c9d99181c31aa857",
+   "hero_description": "0183888eaa8f726b",
+   "hero_prompt": "494324770795ec26",
+   "howto_description": "7562b7ba390bfb23",
+   "howto_step_1_des": "04fcdfd300c61d37",
+   "howto_step_1_title": "175c84ce266e364c",
+   "howto_step_2_des": "680af7dff0f9ad62",
+   "howto_step_2_title": "3c88abbe3506b42c",
+   "howto_step_3_des": "a23c9c308692a987",
+   "howto_step_3_title": "3f25a7fea055b2dc",
+   "howto_step_4_des": "7fd292d66fa018d6",
+   "howto_step_4_title": "782fdc4ea7b43d6e",
+   "howto_step_5_des": "aab3c54f3b004dc5",
+   "howto_step_5_title": "e3079fe1510482cb",
+   "howto_step_6_des": "ccec2a4390dfbffe",
+   "howto_step_6_title": "5844dc8c2b2c44d8",
+   "howto_step_7_des": "7d060ec7105d1296",
+   "howto_step_7_title": "04ba988d33a1b23f",
+   "howto_title": "fc5bd8103f27d31d",
+   "meta_description": "3512e8916c797489",
+   "meta_title": "37767704af8ff81b",
+   "mockup": "9beb4f7ff1083591",
+   "product_name": "bbc0a2d104443810",
+   "prompt_chip_1": "d43f5c7c7849ca3c",
+   "prompt_chip_2": "ed94c3d696a415f9",
+   "prompt_chip_3": "38fa5de01300e6fc",
+   "prompt_chip_4": "a07a320143d1f523",
+   "slug": "eb9f4c0ec35288d2",
+   "tab_content_1": "cb274114392520db",
+   "tab_content_2": "ee770bd49c2d5f2c",
+   "tab_content_3": "44ffab7508aaeb35",
+   "tab_content_4": "6f2ad9280a402d38",
+   "tab_label_1": "5d08a9dd070a4665",
+   "tab_label_2": "fd3f81fae255b265",
+   "tab_label_3": "8a2a94c9cc6e494d",
+   "tab_label_4": "6573e2eb329db504",
+   "usecase_heading": "7c50a57dfe76a2a9",
+   "why_description": "cf79b60b41f49d25",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "a10f3010de05411b"
+  },
+  "all": "13c85f0075bc7368",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "approval": {
+  "fingerprint": "22e691bf2e4e3e3e546ee285cef8e9c0b5521ae9d464149a95cb3f1934b7c6b0",
+  "date": "2026-10-16 12:44 UTC",
+  "rules_version": "dc0451e3d80d",
+  "by": "standing-go (Divit 2026-10-16)"
+ }
 }

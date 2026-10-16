@@ -129,6 +129,20 @@
    "via": null,
    "by": "B-w-156",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 12:41 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-48",
+   "note": "rubric 10/10 by B-r-48; 4 notes"
+  },
+  {
+   "t": "2026-10-16 12:44 UTC",
+   "state": "approved",
+   "via": null,
+   "by": "standing-go (Divit 2026-10-16)",
+   "note": ""
   }
  ],
  "pipeline": "r15",
@@ -998,5 +1012,271 @@
  },
  "writers": [
   "B-w-156"
- ]
+ ],
+ "review": {
+  "by": "B-r-48",
+  "date": "2026-10-16 12:41 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Bookkeeping Automation Around the Ledger You Use'; hero 'Build bookkeeping automation that files each receipt with its charge and codes bank lines in the accounting software you run.' covers the whole bookkeeping week (receipts, coding, statements, owner questions), not one feature or the accounting/AP siblings; how-to description is one sentence on what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are bookkeeping vendors and how-to explainers with an AI Overview: FAQ 1 defines it ('Bookkeeping is the recording of financial transactions', sourced), seven practical steps ('05 Replay last month's bank feed'), a comparison table, and four concrete jobs with real numbers ('An $86.40 receipt finds its card charge')."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: payee rules, chart of accounts, bank feed, card statements, month-end reconciliation sign-off, 'Kestrelpoint Bookkeeping keeps the books for 38 clients'. Table vs Zapier/Make/n8n with no variant (explicit --vs; noted)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Kiri Vanterpool photographs an $86.40 receipt...', 'Write down the bookkeeping work that comes back every week or month...'; feature bodies open on verbs ('Connects to', 'Reads', 'Stores')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences short and single-idea ('Look hardest at payees that appear only once.'); one tacked-on clause in FAQ 4 recorded as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail, no hype: 'A rule that names an account the ledger lacks has nowhere to post.', 'When a March number looks wrong, you see who picked the account and when.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to claims_used (api-connect 'Connects to QuickBooks or Xero', ai-extraction 'A blurry or torn total goes to a person to confirm', no-caps, code-export 'on paid plans', free-start); the one world fact is sourced; table generated from the library; numbers agree across copy and images ($86.40 = $54.40 + $32.00, $212.00 March/April, 38 clients, 2nd/5th/8th, 4 charges, $412.00)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Stories (receipt match, payee rule learned once, client statement chasing, owner's Friday list) differ from accounting-automation's close-centred stories; AP, invoice, payroll and data entry are linked, not headlined."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, PAA gate 10 pass / 0 flag; each answered first ('It uses payee rules: each payee maps to one account...'); hub link in item 2, three sibling links (data entry, invoice, payroll automation); moat lines in items 6 and 8 ('Every coded line and its review sit in a database you own')."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: one hero per tab, readable; tab 1 receipt $54.40 + $32.00 = $86.40 matched same day with '3 days -> reminder'; tab 2 April feed Rook Valley Signs $212.00 Advertising by rule saved in March by Bettina Ruark; tab 3 38 clients, Thornmere Florist card Missing -> Task for Amos Reyburn, 2nd/5th/8th; tab 4 Question 1 of 4, $412.00 Seabright Packaging -> Shipping supplies, saved for Bettina; cover matches tab 2."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "faq (item 4)",
+    "quote": "The same reading step handles supplier price lists and handwritten forms, which is the work of data entry automation.",
+    "issue": "Tacked-on 'which is the work of' clause carries the sibling link at the end of the sentence.",
+    "fix": "Make it its own sentence, e.g. 'Supplier price lists and handwritten forms go through the same reading step, the core of data entry automation.'",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_5; why_description",
+    "quote": "No task cap at month-end / Runs every match and every reminder at month-end with no task cap / on a database you own and with no task cap",
+    "issue": "'no task cap' stated in the feature title, again in its own body, and again in the why description; 'database you own' also recurs in feature_3, why_description, FAQ 6 and FAQ 8.",
+    "fix": "Let the feature body show the effect (300 or 30,000 lines) without repeating the title's words.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #5",
+    "field": "image_brief tab 4 hero",
+    "quote": "Line coded in the ledger",
+    "issue": "Copy says the app 'codes the line and saves his answer for Bettina to review'; 'in the ledger' reads as already synced before review, while how-to step 6 holds syncs for review in the first month. Not a contradiction of names or numbers.",
+    "fix": "'Line coded, waiting for review' or similar.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Zapier | Make (Integromat) | n8n",
+    "issue": "Explicit --vs picks general automation tools, none in this page's top 10 (QC K7 P2); the primary would have matched the finance-ap set, but its AP vendors do not rank here either. No ranking bookkeeping vendor (Dext, Booke) is in the library.",
+    "fix": "Coordinator: consider adding ranking bookkeeping vendors (Dext, Booke) to the library for future pages.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "faq (item 4)",
+   "issue": "Tacked-on 'which is the work of' clause carries the sibling link at the end of the sentence.",
+   "fix": "Make it its own sentence, e.g. 'Supplier price lists and handwritten forms go through the same reading step, the core of data entry automation.'",
+   "by": "B-r-48",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_5; why_description",
+   "issue": "'no task cap' stated in the feature title, again in its own body, and again in the why description; 'database you own' also recurs in feature_3, why_description, FAQ 6 and FAQ 8.",
+   "fix": "Let the feature body show the effect (300 or 30,000 lines) without repeating the title's words.",
+   "by": "B-r-48",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #5",
+   "field": "image_brief tab 4 hero",
+   "issue": "Copy says the app 'codes the line and saves his answer for Bettina to review'; 'in the ledger' reads as already synced before review, while how-to step 6 holds syncs for review in the first month. Not a contradiction of names or numbers.",
+   "fix": "'Line coded, waiting for review' or similar.",
+   "by": "B-r-48",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "Explicit --vs picks general automation tools, none in this page's top 10 (QC K7 P2); the primary would have matched the finance-ap set, but its AP vendors do not rank here either. No ranking bookkeeping vendor (Dext, Booke) is in the library.",
+   "fix": "Coordinator: consider adding ranking bookkeeping vendors (Dext, Booke) to the library for future pages.",
+   "by": "B-r-48",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "f8ba86048bc8bbec",
+   "alt:share_image": "d03445af8a325887",
+   "alt:tab_image_1": "cb2f50325881b2d6",
+   "alt:tab_image_2": "eaa48f42448fe87f",
+   "alt:tab_image_3": "3419ee4d0548077c",
+   "alt:tab_image_4": "597c79acb734b6b2",
+   "breadcrumb": "ee88f495b7e87869",
+   "chip_adds": "a5182a9d3404727f",
+   "explore_cta": "8c25d362e9e1457d",
+   "faq": "a89ff584a9123b74",
+   "feature_1": "a5741de2f80b0e12",
+   "feature_2": "41a60444ac4bfe09",
+   "feature_3": "c9efff458c09d0ab",
+   "feature_4": "6a5e5c735fb6cbea",
+   "feature_5": "8d5fac46799d8928",
+   "feature_6": "5ca9222f3924da80",
+   "features_heading": "93f6f685f25e43d2",
+   "features_subheading": "0a259425a29955ee",
+   "h1": "c0de21cf1702be10",
+   "hero_description": "cd457a2c25b0ae77",
+   "hero_prompt": "da75b1ac1108f185",
+   "howto_description": "7c965ee44baf176b",
+   "howto_step_1_des": "a7943904aad103c8",
+   "howto_step_1_title": "21d6fa3b6ee77c6f",
+   "howto_step_2_des": "c51b02dfd588b204",
+   "howto_step_2_title": "48c06880034abe93",
+   "howto_step_3_des": "ad188e7c4c44de96",
+   "howto_step_3_title": "3247d3af735fa9ff",
+   "howto_step_4_des": "780064ea1a709ea3",
+   "howto_step_4_title": "98089236ee50686e",
+   "howto_step_5_des": "0fd394810ba4e7c6",
+   "howto_step_5_title": "65b4e9f366ef27b9",
+   "howto_step_6_des": "ceeb10dd4daf2aec",
+   "howto_step_6_title": "56a41d6eae69cb67",
+   "howto_step_7_des": "ad8bb2735cffe262",
+   "howto_step_7_title": "5897d9c4aac162ec",
+   "howto_title": "4c3faa768003d435",
+   "meta_description": "847bc9bc208df9f7",
+   "meta_title": "8682d00abb714b2c",
+   "mockup": "2a3aa7b766cb218c",
+   "product_name": "3703b92c002fcafc",
+   "prompt_chip_1": "d239c013939bc692",
+   "prompt_chip_2": "a6dcb6fcf4669718",
+   "prompt_chip_3": "764b11c2e321e7a4",
+   "prompt_chip_4": "d194a4d60204bae2",
+   "slug": "4aad14ef0278b37d",
+   "tab_content_1": "38fdc49a42ec0959",
+   "tab_content_2": "c93dfb87ba076095",
+   "tab_content_3": "a6978dfaf0cafbea",
+   "tab_content_4": "efdb7ede359640e3",
+   "tab_label_1": "1e0e1838fb03c90a",
+   "tab_label_2": "526d4c638922704a",
+   "tab_label_3": "bbca916a9339174f",
+   "tab_label_4": "f70070efab2d458f",
+   "usecase_heading": "5b8035ea3c126c0d",
+   "why_description": "22d66517679a1ae1",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "7ac0e77862b44d4d"
+  },
+  "all": "2f55d22abc22749a",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "f8ba86048bc8bbec",
+   "alt:share_image": "d03445af8a325887",
+   "alt:tab_image_1": "cb2f50325881b2d6",
+   "alt:tab_image_2": "eaa48f42448fe87f",
+   "alt:tab_image_3": "3419ee4d0548077c",
+   "alt:tab_image_4": "597c79acb734b6b2",
+   "breadcrumb": "ee88f495b7e87869",
+   "chip_adds": "a5182a9d3404727f",
+   "explore_cta": "8c25d362e9e1457d",
+   "faq": "a89ff584a9123b74",
+   "feature_1": "a5741de2f80b0e12",
+   "feature_2": "41a60444ac4bfe09",
+   "feature_3": "c9efff458c09d0ab",
+   "feature_4": "6a5e5c735fb6cbea",
+   "feature_5": "8d5fac46799d8928",
+   "feature_6": "5ca9222f3924da80",
+   "features_heading": "93f6f685f25e43d2",
+   "features_subheading": "0a259425a29955ee",
+   "h1": "c0de21cf1702be10",
+   "hero_description": "cd457a2c25b0ae77",
+   "hero_prompt": "da75b1ac1108f185",
+   "howto_description": "7c965ee44baf176b",
+   "howto_step_1_des": "a7943904aad103c8",
+   "howto_step_1_title": "21d6fa3b6ee77c6f",
+   "howto_step_2_des": "c51b02dfd588b204",
+   "howto_step_2_title": "48c06880034abe93",
+   "howto_step_3_des": "ad188e7c4c44de96",
+   "howto_step_3_title": "3247d3af735fa9ff",
+   "howto_step_4_des": "780064ea1a709ea3",
+   "howto_step_4_title": "98089236ee50686e",
+   "howto_step_5_des": "0fd394810ba4e7c6",
+   "howto_step_5_title": "65b4e9f366ef27b9",
+   "howto_step_6_des": "ceeb10dd4daf2aec",
+   "howto_step_6_title": "56a41d6eae69cb67",
+   "howto_step_7_des": "ad8bb2735cffe262",
+   "howto_step_7_title": "5897d9c4aac162ec",
+   "howto_title": "4c3faa768003d435",
+   "meta_description": "847bc9bc208df9f7",
+   "meta_title": "8682d00abb714b2c",
+   "mockup": "2a3aa7b766cb218c",
+   "product_name": "3703b92c002fcafc",
+   "prompt_chip_1": "d239c013939bc692",
+   "prompt_chip_2": "a6dcb6fcf4669718",
+   "prompt_chip_3": "764b11c2e321e7a4",
+   "prompt_chip_4": "d194a4d60204bae2",
+   "slug": "4aad14ef0278b37d",
+   "tab_content_1": "38fdc49a42ec0959",
+   "tab_content_2": "c93dfb87ba076095",
+   "tab_content_3": "a6978dfaf0cafbea",
+   "tab_content_4": "efdb7ede359640e3",
+   "tab_label_1": "1e0e1838fb03c90a",
+   "tab_label_2": "526d4c638922704a",
+   "tab_label_3": "bbca916a9339174f",
+   "tab_label_4": "f70070efab2d458f",
+   "usecase_heading": "5b8035ea3c126c0d",
+   "why_description": "22d66517679a1ae1",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "7ac0e77862b44d4d"
+  },
+  "all": "2f55d22abc22749a",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "approval": {
+  "fingerprint": "44c56e38c4f9c34991d1769c3dffc07755fd253e33fe6523d19df43a6bc21ead",
+  "date": "2026-10-16 12:44 UTC",
+  "rules_version": "dc0451e3d80d",
+  "by": "standing-go (Divit 2026-10-16)"
+ }
 }

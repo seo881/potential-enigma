@@ -122,6 +122,20 @@
    "via": null,
    "by": "B-w-157",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 12:41 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-49",
+   "note": "rubric 10/10 by B-r-49; 5 notes"
+  },
+  {
+   "t": "2026-10-16 12:44 UTC",
+   "state": "approved",
+   "via": null,
+   "by": "standing-go (Divit 2026-10-16)",
+   "note": ""
   }
  ],
  "pipeline": "r15",
@@ -891,5 +905,291 @@
  },
  "writers": [
   "B-w-157"
- ]
+ ],
+ "review": {
+  "by": "B-r-49",
+  "date": "2026-10-16 12:41 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Project Management Automation That Runs the Handoffs'; hero 'Build project management automation that hands off work when a task closes and reports status straight from your tracker.' (under 130 chars, leads with Build); how-to description one sentence: 'Seven steps to choose your first project management automation and test it on last month's projects before launch.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are explainers and task lists; page gives a sourced definition (FAQ 1), four worked examples (intake, handoffs, status reports, budget alerts), a 7-step how-to, a tool comparison (Zapier, Make, n8n) and FAQ on tools and AI vs automation."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "PMO lead, 400-hour threshold, finish-to-start link, 300-hour budget at 80%, Friday 4 pm status report; table generated from the library."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Describe how work moves...', 'Bastian Ellerby at Brackenfield Logistics submits project request PR-214...', 'List what your project leads did by hand last week...'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q5 two ', so' endings (under the block); sentences short and one idea each, e.g. 'The structural review cannot start until that task finishes.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Product-led, concrete: 'The report goes by email to the sponsor, Margarethe Pelloux, and nobody copies numbers into a slide.' No AI tells; notes recorded."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Definition and status-report line match the Smartsheet quotes in domain_sources; finish-to-start matches Oracle P6 quote; Emergent claims map to approved ids (api-connect, ai-extraction, no-caps, code-export, alerts); 300-246=54 and 246/300=82% agree in copy and image."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "PM-specific stories (PMO intake, dependency handoff, sponsor report, hours budget); QC D2 clean; no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, no brands or file formats, each answered first ('Yes, when the tracker has an API.'); hub link in item 2; sibling links customer service automation and incident response automation; paa --spec 10 pass 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: PR-214 520 hours to Philippa Tewkesbury with Approve; structural review to Corvin Teague due in 5 working days, permit set waits; 12 of 18 tasks, content migration 3 days late, email to Margarethe Pelloux; 246 of 300, 54 hours left to Leopold Winterbourne. One hero, cursor on button edges."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_1 / faq item 2 / howto_step_6_des",
+    "quote": "you change a rule by prompting / You change any rule later by prompting / Fix any rule by prompting",
+    "issue": "Same idea restated in three fields with words swapped.",
+    "fix": "Keep it in feature 1; let FAQ 2 and step 6 say something else.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_5_des / faq item 5",
+    "quote": "Send escalations to a named person rather than a busy channel / message a named person rather than only a channel",
+    "issue": "Same named-person-not-channel point in two fields.",
+    "fix": "Keep it in step 5; in FAQ 5 check a different capability.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq items 7 and 10",
+    "quote": "Send client support tickets to customer service automation instead / Route production outages to incident response automation instead",
+    "issue": "Both sibling links use the same 'send X to Y instead' redirect shape and read inserted for the link.",
+    "fix": "Vary one, or anchor a link where the sibling topic arises naturally.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 8",
+    "quote": "Send them weekly while a project is active, and give executives a monthly summary with only the milestones.",
+    "issue": "Cadence recommendation without a source (advice, so a note).",
+    "fix": "Optional: source a cadence or frame it as a starting point.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "n8n",
+    "issue": "QC K7: n8n is not in this page's top 10 (Zapier and Make are).",
+    "fix": "Prefer a vendor ranking for the query (e.g. Wrike) if the library has it.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_1 / faq item 2 / howto_step_6_des",
+   "issue": "Same idea restated in three fields with words swapped.",
+   "fix": "Keep it in feature 1; let FAQ 2 and step 6 say something else.",
+   "by": "B-r-49",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_5_des / faq item 5",
+   "issue": "Same named-person-not-channel point in two fields.",
+   "fix": "Keep it in step 5; in FAQ 5 check a different capability.",
+   "by": "B-r-49",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq items 7 and 10",
+   "issue": "Both sibling links use the same 'send X to Y instead' redirect shape and read inserted for the link.",
+   "fix": "Vary one, or anchor a link where the sibling topic arises naturally.",
+   "by": "B-r-49",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 8",
+   "issue": "Cadence recommendation without a source (advice, so a note).",
+   "fix": "Optional: source a cadence or frame it as a starting point.",
+   "by": "B-r-49",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: n8n is not in this page's top 10 (Zapier and Make are).",
+   "fix": "Prefer a vendor ranking for the query (e.g. Wrike) if the library has it.",
+   "by": "B-r-49",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "7238bbff14db609e",
+   "alt:share_image": "989f47404f3bccd7",
+   "alt:tab_image_1": "76777142272e1812",
+   "alt:tab_image_2": "d96afd45ba27fdba",
+   "alt:tab_image_3": "9e19daf170a9898c",
+   "alt:tab_image_4": "800a251c2e245cf4",
+   "breadcrumb": "a600c9be0081c5c3",
+   "chip_adds": "94eb47ed1f3bb810",
+   "explore_cta": "7c4e33e3de5aa751",
+   "faq": "ba7d6fb4132e03a3",
+   "feature_1": "bd569b05c44a96e8",
+   "feature_2": "2dc90795a4b98cf9",
+   "feature_3": "4ad3cc0f213a13e1",
+   "feature_4": "617a543777ad1563",
+   "feature_5": "ae64919300983b0e",
+   "feature_6": "1d8f85e4a4250c9f",
+   "features_heading": "d347d6acf8a66495",
+   "features_subheading": "3f2225839d803ce5",
+   "h1": "cbb635e6d760f430",
+   "hero_description": "6c750473e3ac562e",
+   "hero_prompt": "c836c5faa6a17e0b",
+   "howto_description": "41b6fa655917cbac",
+   "howto_step_1_des": "79baece0a622a355",
+   "howto_step_1_title": "22b2234aebf401d6",
+   "howto_step_2_des": "83cd7801161b3e8e",
+   "howto_step_2_title": "536efb378f09dec3",
+   "howto_step_3_des": "a03513b7038e1c5c",
+   "howto_step_3_title": "660dcd6d347abb08",
+   "howto_step_4_des": "279bbefd2887f08c",
+   "howto_step_4_title": "d6763e8656fd8a91",
+   "howto_step_5_des": "21cb49f28dacb977",
+   "howto_step_5_title": "fe217d0b4ac4569e",
+   "howto_step_6_des": "db468651d2c452a8",
+   "howto_step_6_title": "a8c6f3cf5e8816e7",
+   "howto_step_7_des": "46172f4de36aec64",
+   "howto_step_7_title": "0e0f902717408b04",
+   "howto_title": "47627f0e698c2512",
+   "meta_description": "a67d596033bbef50",
+   "meta_title": "23830b837b1b3084",
+   "mockup": "b4656245b1d26363",
+   "product_name": "eb8322a316541894",
+   "prompt_chip_1": "7764c4072d9194a1",
+   "prompt_chip_2": "fd0e90b236eeb1c8",
+   "prompt_chip_3": "89f0786b1cfcbb83",
+   "prompt_chip_4": "9f07332a7b25f219",
+   "slug": "7f76a1162edd5548",
+   "tab_content_1": "d19fcd755e12030b",
+   "tab_content_2": "e9b6ef8ad2219d6c",
+   "tab_content_3": "c374cc2acb5f25df",
+   "tab_content_4": "8336121c07c4caeb",
+   "tab_label_1": "7764c4072d9194a1",
+   "tab_label_2": "fd0e90b236eeb1c8",
+   "tab_label_3": "89f0786b1cfcbb83",
+   "tab_label_4": "9f07332a7b25f219",
+   "usecase_heading": "7d6f6db7915e9fcb",
+   "why_description": "86d9842a5de5aede",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "b4c0f53756a2f228"
+  },
+  "all": "3cfafe0615454186",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "7238bbff14db609e",
+   "alt:share_image": "989f47404f3bccd7",
+   "alt:tab_image_1": "76777142272e1812",
+   "alt:tab_image_2": "d96afd45ba27fdba",
+   "alt:tab_image_3": "9e19daf170a9898c",
+   "alt:tab_image_4": "800a251c2e245cf4",
+   "breadcrumb": "a600c9be0081c5c3",
+   "chip_adds": "94eb47ed1f3bb810",
+   "explore_cta": "7c4e33e3de5aa751",
+   "faq": "ba7d6fb4132e03a3",
+   "feature_1": "bd569b05c44a96e8",
+   "feature_2": "2dc90795a4b98cf9",
+   "feature_3": "4ad3cc0f213a13e1",
+   "feature_4": "617a543777ad1563",
+   "feature_5": "ae64919300983b0e",
+   "feature_6": "1d8f85e4a4250c9f",
+   "features_heading": "d347d6acf8a66495",
+   "features_subheading": "3f2225839d803ce5",
+   "h1": "cbb635e6d760f430",
+   "hero_description": "6c750473e3ac562e",
+   "hero_prompt": "c836c5faa6a17e0b",
+   "howto_description": "41b6fa655917cbac",
+   "howto_step_1_des": "79baece0a622a355",
+   "howto_step_1_title": "22b2234aebf401d6",
+   "howto_step_2_des": "83cd7801161b3e8e",
+   "howto_step_2_title": "536efb378f09dec3",
+   "howto_step_3_des": "a03513b7038e1c5c",
+   "howto_step_3_title": "660dcd6d347abb08",
+   "howto_step_4_des": "279bbefd2887f08c",
+   "howto_step_4_title": "d6763e8656fd8a91",
+   "howto_step_5_des": "21cb49f28dacb977",
+   "howto_step_5_title": "fe217d0b4ac4569e",
+   "howto_step_6_des": "db468651d2c452a8",
+   "howto_step_6_title": "a8c6f3cf5e8816e7",
+   "howto_step_7_des": "46172f4de36aec64",
+   "howto_step_7_title": "0e0f902717408b04",
+   "howto_title": "47627f0e698c2512",
+   "meta_description": "a67d596033bbef50",
+   "meta_title": "23830b837b1b3084",
+   "mockup": "b4656245b1d26363",
+   "product_name": "eb8322a316541894",
+   "prompt_chip_1": "7764c4072d9194a1",
+   "prompt_chip_2": "fd0e90b236eeb1c8",
+   "prompt_chip_3": "89f0786b1cfcbb83",
+   "prompt_chip_4": "9f07332a7b25f219",
+   "slug": "7f76a1162edd5548",
+   "tab_content_1": "d19fcd755e12030b",
+   "tab_content_2": "e9b6ef8ad2219d6c",
+   "tab_content_3": "c374cc2acb5f25df",
+   "tab_content_4": "8336121c07c4caeb",
+   "tab_label_1": "7764c4072d9194a1",
+   "tab_label_2": "fd0e90b236eeb1c8",
+   "tab_label_3": "89f0786b1cfcbb83",
+   "tab_label_4": "9f07332a7b25f219",
+   "usecase_heading": "7d6f6db7915e9fcb",
+   "why_description": "86d9842a5de5aede",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "b4c0f53756a2f228"
+  },
+  "all": "3cfafe0615454186",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "approval": {
+  "fingerprint": "c0a3c2418db8594c432b2d24c969942c58bb6a1efa6c4966a793e3005e942958",
+  "date": "2026-10-16 12:44 UTC",
+  "rules_version": "dc0451e3d80d",
+  "by": "standing-go (Divit 2026-10-16)"
+ }
 }

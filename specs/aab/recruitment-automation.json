@@ -122,6 +122,27 @@
    "via": null,
    "by": "B-w-158",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 12:41 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-50",
+   "note": "[images | CONTENT_DEFECTS #29] image_brief (tab 1, applicant table): On a recruitment page, every applicant drawn in the knockout decline queue has a woman's name while three of the four applicants sent to the phone screen have men's names, so the image maps gender onto the negative outcome (row 29:"
+  },
+  {
+   "t": "2026-10-16 12:43 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-174",
+   "note": ""
+  },
+  {
+   "t": "2026-10-16 12:43 UTC",
+   "state": "reviewed",
+   "via": "ready",
+   "by": "B-w-174",
+   "note": "one rework applied by B-w-174 after B-r-50 (1 findings marked blocking then, fixed per rules/SEVERITY.md); ready for Divit"
   }
  ],
  "pipeline": "r15",
@@ -407,7 +428,7 @@
          ]
         ],
         [
-         "Arjun Tiwari",
+         "Priya Nandakumar",
          "Yes",
          "Yes",
          [
@@ -416,7 +437,7 @@
          ]
         ],
         [
-         "Priya Nandakumar",
+         "Arjun Tiwari",
          "No",
          "Yes",
          [
@@ -1036,5 +1057,275 @@
  },
  "writers": [
   "B-w-158"
- ]
+ ],
+ "review": {
+  "by": "B-r-50",
+  "date": "2026-10-16 12:41 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Recruitment Automation That Keeps Candidates Moving'; hero 'Get recruitment automation that screens applicants and puts every hiring stage on a clock, built from a plain-English prompt.' covers the whole job; how-to description is one sentence under 140 characters."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are explainers and roundups; the page defines the term (FAQ 'What is recruitment automation?'), answers the 7-step and 5-step process PAA questions with sourced lists, and shows four concrete automations plus a 7-step build guide."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'knockout questions', 'hiring manager review', 'pay band', 'past finalists', 'applicant tracking system', 'requisition'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs or full sentences: 'Ask yes or no questions about hard requirements', 'Give every stage one owner', 'Store the minimum and maximum pay'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Short declaratives, one idea each: 'That puts the offer $3,500 over the maximum.'; no blocking craft defect (notes only)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail reads human: 'keep a recruiter reading every decline for 2 weeks', 'One daily digest per hiring manager is easier to act on than a message for every candidate.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Claims map to prompt-build, alerts, api-connect, database-owned, code-export, free-start; 7-step and 5-step lists match their quoted domain_sources spans; 142 = 103 + 39 and $81,500 - $78,000 = $3,500 agree in copy and images; table generated from the library."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Leaves interview scheduling, onboarding and HR automation to siblings; one Kestrelwood Home Care story across tabs; no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, gate 10 pass / 0 flag, verbatim Q1 ok Q3 ok; hub link in item 2; 3 exact-match links (social media automation, approval workflow, accounts receivable automation); answers lead with the answer."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 1 image: the only two applicants drawn in the decline queue are 'Hetty Vasquez' and 'Priya Nandakumar' (both women's names), while the advancing rows are 'Cal Mbeki', 'Arjun Tiwari', 'Mateo Ibarra', 'Nkechi Lind' (three men's names). Other tabs match their copy on names, numbers and outcomes."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-names",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #29",
+    "field": "image_brief (tab 1, applicant table)",
+    "quote": "Hetty Vasquez ... Decline queue; Priya Nandakumar ... Decline queue",
+    "issue": "On a recruitment page, every applicant drawn in the knockout decline queue has a woman's name while three of the four applicants sent to the phone screen have men's names, so the image maps gender onto the negative outcome (row 29: check every flag, hold and rejection).",
+    "fix": "Spread the declines across genders: make one of the two decline rows a man's name (for example swap outcomes between Priya Nandakumar and Arjun Tiwari, giving Arjun the 'No' on license), keep 2 decline rows and 4 phone-screen rows so the 39/103 story is unchanged, and re-render.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq item 1 vs faq item 8 and howto_step_1_des",
+    "quote": "Start recruitment automation with screening and the hand-offs between stages / Automate the stage where candidates wait longest, not the busiest one. / Start with the step where the wait is longest.",
+    "issue": "The page gives two different answers to where to start: FAQ 1 says screening (usually the busiest stage), FAQ 8 and step 01 say the longest-wait stage, not the busiest.",
+    "fix": "Align FAQ 1's last sentence with FAQ 8, e.g. 'Start recruitment automation at the stage where candidates wait longest, which is often screening or the hand-off to the hiring manager.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq order",
+    "quote": "What is recruitment automation?",
+    "issue": "HUB_RULES 5 says item 1 defines the primary; the definition sits at item 6 and item 1 is the 7-step PAA question (QC passes the order under the 2026-10-16 PAA-first fill order).",
+    "fix": "If the fill order allows, move the definition to item 1 and the 7-step question to item 6.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 8",
+    "quote": "A time limit and a reminder on that one stage save the most days.",
+    "issue": "Recommendation stated as an outcome with no source.",
+    "fix": "Soften to advice: 'Put a time limit and a reminder on that stage first.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Zapier | Make (Integromat) | n8n",
+    "issue": "None of the three compared tools ranks in this page's top 10 (QC K7 P2); the top 10 are ATS and recruiting-CRM vendors and roundups.",
+    "fix": "If the library gains recruiting tools (Greenhouse, Gem, Recruiterflow) with sources, regenerate the table with them.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq item 1 vs faq item 8 and howto_step_1_des",
+   "issue": "The page gives two different answers to where to start: FAQ 1 says screening (usually the busiest stage), FAQ 8 and step 01 say the longest-wait stage, not the busiest.",
+   "fix": "Align FAQ 1's last sentence with FAQ 8, e.g. 'Start recruitment automation at the stage where candidates wait longest, which is often screening or the hand-off to the hiring manager.'",
+   "by": "B-r-50",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq order",
+   "issue": "HUB_RULES 5 says item 1 defines the primary; the definition sits at item 6 and item 1 is the 7-step PAA question (QC passes the order under the 2026-10-16 PAA-first fill order).",
+   "fix": "If the fill order allows, move the definition to item 1 and the 7-step question to item 6.",
+   "by": "B-r-50",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 8",
+   "issue": "Recommendation stated as an outcome with no source.",
+   "fix": "Soften to advice: 'Put a time limit and a reminder on that stage first.'",
+   "by": "B-r-50",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "None of the three compared tools ranks in this page's top 10 (QC K7 P2); the top 10 are ATS and recruiting-CRM vendors and roundups.",
+   "fix": "If the library gains recruiting tools (Greenhouse, Gem, Recruiterflow) with sources, regenerate the table with them.",
+   "by": "B-r-50",
+   "via": "review",
+   "date": "2026-10-16 12:41 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "15acb82834c46856",
+   "alt:share_image": "4b87518042920e73",
+   "alt:tab_image_1": "ef22ae36b0d1239f",
+   "alt:tab_image_2": "aa013560f97652fc",
+   "alt:tab_image_3": "b9098f206f28af7f",
+   "alt:tab_image_4": "87c997c8cd17ac01",
+   "breadcrumb": "f2ab9ab808afde0d",
+   "chip_adds": "bff8741d53333977",
+   "explore_cta": "6be6bd46a65a6b63",
+   "faq": "03596dbb522d206a",
+   "feature_1": "95954984824dd24f",
+   "feature_2": "9e4a8f2e1ad254d2",
+   "feature_3": "52f35584ca0c2c94",
+   "feature_4": "f620ff9e4fc17c97",
+   "feature_5": "27cc2e7c4239b35b",
+   "feature_6": "ae8eee9c8dbe4d50",
+   "features_heading": "870ca955d63f5ef6",
+   "features_subheading": "06d272cd7aac725a",
+   "h1": "6a195a5c2721d1ed",
+   "hero_description": "40d3ffa7f346bf43",
+   "hero_prompt": "fe0dda3126b4d081",
+   "howto_description": "38bf9c117062292a",
+   "howto_step_1_des": "649a3306ef0c1847",
+   "howto_step_1_title": "7c6626fda0c3960b",
+   "howto_step_2_des": "6467296c8c471ffb",
+   "howto_step_2_title": "e35f0c78c9da0b34",
+   "howto_step_3_des": "6451bf90fced4440",
+   "howto_step_3_title": "d360efca9b2f71c7",
+   "howto_step_4_des": "8de29b2cdec65863",
+   "howto_step_4_title": "fb3a63b3c30057ac",
+   "howto_step_5_des": "0c1ceab382b219be",
+   "howto_step_5_title": "17e7201566a0c9e6",
+   "howto_step_6_des": "062a5c17b7d04030",
+   "howto_step_6_title": "02f5144b0c9a8ca1",
+   "howto_step_7_des": "d4d0a3449980d849",
+   "howto_step_7_title": "0541735a36892722",
+   "howto_title": "ee022611327009ca",
+   "meta_description": "1abbd3e1a0e7aa72",
+   "meta_title": "07156a531e7c51f8",
+   "mockup": "d30602a8e2100bd9",
+   "product_name": "61d9c12cdc55f06b",
+   "prompt_chip_1": "c8af3b8fd7a20cb9",
+   "prompt_chip_2": "d61aa627440f5d3d",
+   "prompt_chip_3": "868f200b8a90f40d",
+   "prompt_chip_4": "0346ae1a7aacab5e",
+   "slug": "e85a66ee4c1edee7",
+   "tab_content_1": "e2cb770af1b26efd",
+   "tab_content_2": "73317e8ab6a2d741",
+   "tab_content_3": "8f874ca2c1f7054d",
+   "tab_content_4": "bc21f162f39f6d89",
+   "tab_label_1": "270287713bdaf84b",
+   "tab_label_2": "1768cd8cf196dc01",
+   "tab_label_3": "aed0aeee1005c79c",
+   "tab_label_4": "35f57f885b044e1f",
+   "usecase_heading": "3d328d50b1c45b77",
+   "why_description": "5671b99b8539ae3f",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "452d6f7a39034751"
+  },
+  "all": "f0ce255febfc375f",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "15acb82834c46856",
+   "alt:share_image": "4b87518042920e73",
+   "alt:tab_image_1": "ef22ae36b0d1239f",
+   "alt:tab_image_2": "aa013560f97652fc",
+   "alt:tab_image_3": "b9098f206f28af7f",
+   "alt:tab_image_4": "87c997c8cd17ac01",
+   "breadcrumb": "f2ab9ab808afde0d",
+   "chip_adds": "bff8741d53333977",
+   "explore_cta": "6be6bd46a65a6b63",
+   "faq": "03596dbb522d206a",
+   "feature_1": "95954984824dd24f",
+   "feature_2": "9e4a8f2e1ad254d2",
+   "feature_3": "52f35584ca0c2c94",
+   "feature_4": "f620ff9e4fc17c97",
+   "feature_5": "27cc2e7c4239b35b",
+   "feature_6": "ae8eee9c8dbe4d50",
+   "features_heading": "870ca955d63f5ef6",
+   "features_subheading": "06d272cd7aac725a",
+   "h1": "6a195a5c2721d1ed",
+   "hero_description": "40d3ffa7f346bf43",
+   "hero_prompt": "fe0dda3126b4d081",
+   "howto_description": "38bf9c117062292a",
+   "howto_step_1_des": "649a3306ef0c1847",
+   "howto_step_1_title": "7c6626fda0c3960b",
+   "howto_step_2_des": "6467296c8c471ffb",
+   "howto_step_2_title": "e35f0c78c9da0b34",
+   "howto_step_3_des": "6451bf90fced4440",
+   "howto_step_3_title": "d360efca9b2f71c7",
+   "howto_step_4_des": "8de29b2cdec65863",
+   "howto_step_4_title": "fb3a63b3c30057ac",
+   "howto_step_5_des": "0c1ceab382b219be",
+   "howto_step_5_title": "17e7201566a0c9e6",
+   "howto_step_6_des": "062a5c17b7d04030",
+   "howto_step_6_title": "02f5144b0c9a8ca1",
+   "howto_step_7_des": "d4d0a3449980d849",
+   "howto_step_7_title": "0541735a36892722",
+   "howto_title": "ee022611327009ca",
+   "meta_description": "1abbd3e1a0e7aa72",
+   "meta_title": "07156a531e7c51f8",
+   "mockup": "d30602a8e2100bd9",
+   "product_name": "61d9c12cdc55f06b",
+   "prompt_chip_1": "c8af3b8fd7a20cb9",
+   "prompt_chip_2": "d61aa627440f5d3d",
+   "prompt_chip_3": "868f200b8a90f40d",
+   "prompt_chip_4": "0346ae1a7aacab5e",
+   "slug": "e85a66ee4c1edee7",
+   "tab_content_1": "e2cb770af1b26efd",
+   "tab_content_2": "73317e8ab6a2d741",
+   "tab_content_3": "8f874ca2c1f7054d",
+   "tab_content_4": "bc21f162f39f6d89",
+   "tab_label_1": "270287713bdaf84b",
+   "tab_label_2": "1768cd8cf196dc01",
+   "tab_label_3": "aed0aeee1005c79c",
+   "tab_label_4": "35f57f885b044e1f",
+   "usecase_heading": "3d328d50b1c45b77",
+   "why_description": "5671b99b8539ae3f",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "452d6f7a39034751"
+  },
+  "all": "f0ce255febfc375f",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
