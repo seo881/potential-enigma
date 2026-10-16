@@ -122,6 +122,13 @@
    "via": null,
    "by": "B-w-223",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 20:26 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-82",
+   "note": "[truth | HUB_RULES 8] features_heading: The heading misdescribes its own section: feature_1 'Sections drafted from your portfolio' happens before any resident answers, feature_4 'One question per screen on a phone' is while answering, feature_5 'Reminders that stop once a unit answers' targets units"
   }
  ],
  "pipeline": "r15",
@@ -958,5 +965,315 @@
  },
  "writers": [
   "B-w-223"
- ]
+ ],
+ "review": {
+  "by": "B-r-82",
+  "date": "2026-10-16 20:26 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Tenant Satisfaction Survey for Every Building'; hero 'Build a tenant satisfaction survey that scores each building, sends low ratings to one manager, and saves answers you own.' (121 chars); how-to description one sentence, 106 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is templates and question lists; FAQ 5 'What questions should a tenant satisfaction survey ask?' lists the topics, seven how-to steps cover running it, four tabs show what a property team does with answers."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Property-team vocabulary throughout: 'work order', 'make-ready checklist', 'leasing manager', 'mailroom flyer', '40-unit walk-up'; table built from the sqb library."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every feature body opens on a verb or full clause: 'Tell Emergent how many buildings', 'Each response saves', 'Set a floor', 'Residents tap through'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; QC Q2/Q5/Q7 clean. Repetition notes recorded."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous details: 'kitchen faucet leak', 'unit 4B', '4 of the 7 named parking', 'deep-clean step to the make-ready checklist'. Voice notes recorded."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "features_heading 'What the Survey Does After a Resident Answers' heads a section whose feature_1 (drafting sections), feature_4 (answering on a phone), feature_5 (reminders to units that have not answered) and feature_6 (custom domain, code export) are not things the survey does after a resident answers. GSA, Pew and Qualtrics statements match their quoted spans; claims_used all approved; table cells match rules/competitors/sqb.json; tab numbers add up (4.1/3.9/4.3 vs 2.6; 13/21=62%)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Tabs are property-specific (building scores, repair follow-up reopening a work order, renewal intent, move-in checks); no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, all pass the PAA gate (pass 10, reject 0, flag 0), no brands or formats, hub link in item 2, three sibling links, Emergent lines in items 4, 9 and 10."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 mail card 'To Teodora Vance' (a person, not a channel) with 'Linden Court: 2.6 out of 5', '58 answers'; tab 2 'Reopened for Gus Pelham', 'Due within 48 hours'; tab 3 'For Corinne Abate', '7 residents chose 1 or 2', 'Parking named by 4 of 7'; tab 4 '13 of 21', '62%', 'Deep-clean step added'. One hero each, text readable."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "features_heading",
+    "quote": "What the Survey Does After a Resident Answers",
+    "issue": "The heading misdescribes its own section: feature_1 'Sections drafted from your portfolio' happens before any resident answers, feature_4 'One question per screen on a phone' is while answering, feature_5 'Reminders that stop once a unit answers' targets units that have not answered, and feature_6 'A survey link on your own domain' is hosting and code export. Only feature_2 and feature_3 happen after an answer.",
+    "fix": "Retitle the section to cover all six features, e.g. 'What Emergent Builds Into a Tenant Survey' (within 48 chars), or rewrite the four features to fit the heading. Check features_subheading still agrees.",
+    "severity": "blocking"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "each year, employees in federally owned and leased buildings provide feedback on their physical space via the Tenant Satisfaction Survey",
+    "issue": "Source sentences pasted verbatim and unattributed read stitched in: FAQ 1 copies the GSA sentence word for word; FAQ 9 copies Qualtrics ('responses are completely separate from any kind of personally identifiable information', 'responses are connected to personal information').",
+    "fix": "Paraphrase in the page's voice, e.g. 'GSA runs one each year for federal employees in the buildings it owns and leases.'",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_2",
+    "quote": "Put last spring's repair score beside this spring's in one table.",
+    "issue": "Year-over-year comparison restated in three fields: feature_2 (above), howto_step_4 'this spring's score lines up against last spring's', faq 6 'this year's scores line up with last year's'. Also howto_step_7 'Ask the same questions next round, and the scores show whether the fixes moved anything' vs faq 8 'check the same question next round to see whether the score moved'.",
+    "fix": "Keep the idea in one field each time.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "The same format works for a customer satisfaction survey that a leasing office sends after a tour.",
+    "issue": "Sibling links read bolted on: FAQ 4 closes on a leasing-tour aside to reach customer-satisfaction; FAQ 7 pivots to 'run a brand awareness survey with people who do not live there yet'.",
+    "fix": "Anchor sibling links where the answer naturally points to them.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Survey builder with templates, including employee satisfaction",
+    "issue": "SurveyMonkey and Microsoft Forms are not in this query's top 10 (QC K7), and the SurveyHero output cell names employee satisfaction on a tenant page; SurveyHero's tenant template ranks #3.",
+    "fix": "Library: add a tenant-template fact for SurveyHero and consider Grace Hill, DoorLoop or SurveySparrow (top 10) for later pages.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #5",
+    "field": "image_brief",
+    "quote": "7 residents chose 1 or 2",
+    "issue": "Tab 3 list draws 4 unit cards (3 parking, 1 rent increase) under a hero of 7; nothing signals the other 3. Not a contradiction.",
+    "fix": "Add a '+3 more' row or caption.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "page",
+    "quote": "building",
+    "issue": "QC Q9: 'building' 15 times, 'residents' 15 times, 'unit' 11 times outside the FAQ.",
+    "fix": "Vary with property, community, apartment, home where meaning holds.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "Source sentences pasted verbatim and unattributed read stitched in: FAQ 1 copies the GSA sentence word for word; FAQ 9 copies Qualtrics ('responses are completely separate from any kind of personally identifiable information', 'responses are connected to personal information').",
+   "fix": "Paraphrase in the page's voice, e.g. 'GSA runs one each year for federal employees in the buildings it owns and leases.'",
+   "by": "B-r-82",
+   "via": "review",
+   "date": "2026-10-16 20:26 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_2",
+   "issue": "Year-over-year comparison restated in three fields: feature_2 (above), howto_step_4 'this spring's score lines up against last spring's', faq 6 'this year's scores line up with last year's'. Also howto_step_7 'Ask the same questions next round, and the scores show whether the fixes moved anything' vs faq 8 'check the same question next round to see whether the score moved'.",
+   "fix": "Keep the idea in one field each time.",
+   "by": "B-r-82",
+   "via": "review",
+   "date": "2026-10-16 20:26 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "Sibling links read bolted on: FAQ 4 closes on a leasing-tour aside to reach customer-satisfaction; FAQ 7 pivots to 'run a brand awareness survey with people who do not live there yet'.",
+   "fix": "Anchor sibling links where the answer naturally points to them.",
+   "by": "B-r-82",
+   "via": "review",
+   "date": "2026-10-16 20:26 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "SurveyMonkey and Microsoft Forms are not in this query's top 10 (QC K7), and the SurveyHero output cell names employee satisfaction on a tenant page; SurveyHero's tenant template ranks #3.",
+   "fix": "Library: add a tenant-template fact for SurveyHero and consider Grace Hill, DoorLoop or SurveySparrow (top 10) for later pages.",
+   "by": "B-r-82",
+   "via": "review",
+   "date": "2026-10-16 20:26 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #5",
+   "field": "image_brief",
+   "issue": "Tab 3 list draws 4 unit cards (3 parking, 1 rent increase) under a hero of 7; nothing signals the other 3. Not a contradiction.",
+   "fix": "Add a '+3 more' row or caption.",
+   "by": "B-r-82",
+   "via": "review",
+   "date": "2026-10-16 20:26 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "page",
+   "issue": "QC Q9: 'building' 15 times, 'residents' 15 times, 'unit' 11 times outside the FAQ.",
+   "fix": "Vary with property, community, apartment, home where meaning holds.",
+   "by": "B-r-82",
+   "via": "review",
+   "date": "2026-10-16 20:26 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "c66b34bf5b3a7729",
+   "alt:share_image": "af69758db0357ce0",
+   "alt:tab_image_1": "dd5202a1a45acb02",
+   "alt:tab_image_2": "57e397428e0a8ca2",
+   "alt:tab_image_3": "5e7dd58c9aafd0ed",
+   "alt:tab_image_4": "27db62761bf0c657",
+   "breadcrumb": "505aeb6f7ca12e01",
+   "chip_adds": "6c0fa61fdc3fac9e",
+   "explore_cta": "8bb4f4323aadbca9",
+   "faq": "39a4ae77b555cbe2",
+   "feature_1": "dcff2897622bc201",
+   "feature_2": "ef6311d97b387e52",
+   "feature_3": "4037d28445285ca1",
+   "feature_4": "3ba639c9fd38b203",
+   "feature_5": "bd4863fa57f7db45",
+   "feature_6": "81575d65c361eba0",
+   "features_heading": "8aea8200d8ac9edd",
+   "features_subheading": "c313825d9dc41d6e",
+   "h1": "67be55ac95560af5",
+   "hero_description": "6e762622a10501ad",
+   "hero_prompt": "e5bf9fc502ae94f6",
+   "howto_description": "d70f2abbe26a56f3",
+   "howto_step_1_des": "e0db68581320c5dc",
+   "howto_step_1_title": "9dfac1771f18f654",
+   "howto_step_2_des": "a561ef98f2aa9729",
+   "howto_step_2_title": "aaa9ad3e5c996f05",
+   "howto_step_3_des": "27cfeab2a6bee3e6",
+   "howto_step_3_title": "bc178af3f4f1288e",
+   "howto_step_4_des": "3ed4284124725fda",
+   "howto_step_4_title": "28a80996614b4e47",
+   "howto_step_5_des": "2e2ed95eb52dd5be",
+   "howto_step_5_title": "45e998ad7a4b0344",
+   "howto_step_6_des": "3179df93107faa08",
+   "howto_step_6_title": "2a4bcc1725673928",
+   "howto_step_7_des": "39fe159153a00250",
+   "howto_step_7_title": "e24f543ac5073493",
+   "howto_title": "89d12eb365fb65aa",
+   "meta_description": "76bf1af8d7001b45",
+   "meta_title": "af1f7ac29b3b3e2e",
+   "mockup": "27fd4ac5a17d6f0c",
+   "product_name": "9f0e76d69c7f8575",
+   "prompt_chip_1": "4b8e66953bfcd3e9",
+   "prompt_chip_2": "314352d421b60768",
+   "prompt_chip_3": "0f9ac54cb5f6d064",
+   "prompt_chip_4": "2876cb42be2dc587",
+   "slug": "93b2f6549d8fe07a",
+   "tab_content_1": "c377f6c41b79f641",
+   "tab_content_2": "d4487fcbca7fae53",
+   "tab_content_3": "11b0ee80ffb67b2d",
+   "tab_content_4": "22dd0f1724d0c84b",
+   "tab_label_1": "47f1160869d6040b",
+   "tab_label_2": "314352d421b60768",
+   "tab_label_3": "0f9ac54cb5f6d064",
+   "tab_label_4": "2876cb42be2dc587",
+   "usecase_heading": "44a90e6ecf86959a",
+   "why_description": "27c9b3a32240fca9",
+   "why_table": "f63d1fed24e78be3",
+   "why_title": "0c64bef97c643326"
+  },
+  "all": "c997809139fd62fa",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "c66b34bf5b3a7729",
+   "alt:share_image": "af69758db0357ce0",
+   "alt:tab_image_1": "dd5202a1a45acb02",
+   "alt:tab_image_2": "57e397428e0a8ca2",
+   "alt:tab_image_3": "5e7dd58c9aafd0ed",
+   "alt:tab_image_4": "27db62761bf0c657",
+   "breadcrumb": "505aeb6f7ca12e01",
+   "chip_adds": "6c0fa61fdc3fac9e",
+   "explore_cta": "8bb4f4323aadbca9",
+   "faq": "39a4ae77b555cbe2",
+   "feature_1": "dcff2897622bc201",
+   "feature_2": "ef6311d97b387e52",
+   "feature_3": "4037d28445285ca1",
+   "feature_4": "3ba639c9fd38b203",
+   "feature_5": "bd4863fa57f7db45",
+   "feature_6": "81575d65c361eba0",
+   "features_heading": "8aea8200d8ac9edd",
+   "features_subheading": "c313825d9dc41d6e",
+   "h1": "67be55ac95560af5",
+   "hero_description": "6e762622a10501ad",
+   "hero_prompt": "e5bf9fc502ae94f6",
+   "howto_description": "d70f2abbe26a56f3",
+   "howto_step_1_des": "e0db68581320c5dc",
+   "howto_step_1_title": "9dfac1771f18f654",
+   "howto_step_2_des": "a561ef98f2aa9729",
+   "howto_step_2_title": "aaa9ad3e5c996f05",
+   "howto_step_3_des": "27cfeab2a6bee3e6",
+   "howto_step_3_title": "bc178af3f4f1288e",
+   "howto_step_4_des": "3ed4284124725fda",
+   "howto_step_4_title": "28a80996614b4e47",
+   "howto_step_5_des": "2e2ed95eb52dd5be",
+   "howto_step_5_title": "45e998ad7a4b0344",
+   "howto_step_6_des": "3179df93107faa08",
+   "howto_step_6_title": "2a4bcc1725673928",
+   "howto_step_7_des": "39fe159153a00250",
+   "howto_step_7_title": "e24f543ac5073493",
+   "howto_title": "89d12eb365fb65aa",
+   "meta_description": "76bf1af8d7001b45",
+   "meta_title": "af1f7ac29b3b3e2e",
+   "mockup": "27fd4ac5a17d6f0c",
+   "product_name": "9f0e76d69c7f8575",
+   "prompt_chip_1": "4b8e66953bfcd3e9",
+   "prompt_chip_2": "314352d421b60768",
+   "prompt_chip_3": "0f9ac54cb5f6d064",
+   "prompt_chip_4": "2876cb42be2dc587",
+   "slug": "93b2f6549d8fe07a",
+   "tab_content_1": "c377f6c41b79f641",
+   "tab_content_2": "d4487fcbca7fae53",
+   "tab_content_3": "11b0ee80ffb67b2d",
+   "tab_content_4": "22dd0f1724d0c84b",
+   "tab_label_1": "47f1160869d6040b",
+   "tab_label_2": "314352d421b60768",
+   "tab_label_3": "0f9ac54cb5f6d064",
+   "tab_label_4": "2876cb42be2dc587",
+   "usecase_heading": "44a90e6ecf86959a",
+   "why_description": "27c9b3a32240fca9",
+   "why_table": "f63d1fed24e78be3",
+   "why_title": "0c64bef97c643326"
+  },
+  "all": "c997809139fd62fa",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
