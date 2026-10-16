@@ -157,6 +157,13 @@
    "via": null,
    "by": "B-w-193",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 13:14 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-66",
+   "note": "rubric 10/10 by B-r-66; 7 notes"
   }
  ],
  "plan": {
@@ -1014,5 +1021,325 @@
   "how-to-build-a-lead-generation-website: Form fixed set: builds capture forms end to end: fields, submissions and where each lead goes next",
   "client-onboarding-software: Form fixed set: client intake: intake forms, conditional checklists and portals, plus how to build your own",
   "build-your-own-crm-system: Form fixed set: step-by-step build of the CRM that form submissions feed into"
- ]
+ ],
+ "review": {
+  "by": "B-r-66",
+  "date": "2026-10-16 13:14 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Credit Application Form for New Trade Accounts'; hero 'Build a credit application form that checks trade references by email and sends large requests to the credit manager.' (under 130 chars, carries primary, leads with Build); how-to description 'Seven steps to set a credit policy, build a credit application form around it, and send every applicant a decision.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is templates and samples (ABC-Amega sample, Jotform, pdfFiller, CFPB model forms); page gives the definition first (FAQ 1), a worked example (FAQ 3 'five sections on its form'), field lists (feature 1, FAQ 5, FAQ 10) and a 7-step how-to tied to Regulation B notice rules."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Trade-credit vocabulary throughout: 'net 30 terms', 'EIN', 'resale certificate', 'promise to pay personally', 'any request over $25,000 needs two years of financial statements'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs ('Asks for the legal name and EIN', 'Emails each reference', 'Reads uploaded resale certificates'); tabs open on full sentences ('Harbor Foods Supply opens restaurant accounts on net 30 terms.')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defects; QC Q2/Q5/Q7 clean. Notes recorded on tab 4's chained clauses."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: 'Dario Vance signed at 7:40 AM', 'silence for three days gets a reminder', 'a skid steer'. Notes recorded on link-carrier sentences."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Every Regulation B / ECOA statement matches its domain_sources quote: step 2 vs 15 U.S.C. 1691 ('race, color, religion, national origin, sex or marital status, or age', 'income derives from any public assistance program') and 12 CFR 1002.5 marital status; step 7 vs 12 CFR 1002.9 ('30 days after receiving a completed application', trade credit 'within a reasonable time, orally or in writing', 'written request for the reasons within 60 days'); FAQ 6 vs Appendix C ('Insufficient number of credit references provided'); FAQ 7 vs Appendix B ('four model credit application forms'). Emergent claims map to claims_used (prompt-build, api-connect, ai-extraction, database-owned, e-signature-capture, code-export, alerts); no compliance or legal-validity claim; table generated from the library."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Trade-credit angle (references, limit routing, resale certificates, personal guarantee) separates it from loan application form and business loan application form siblings; no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first ('Ask for three.', 'Yes. Picture a food distributor...'); hub link in FAQ 2; sibling links to driver application form, rental application form, personal information form; no brand or file format in any question."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: tab 1 'Juniper Bistro', '2 of 3 references in', 'After 3 days without a reply'; tab 2 Pinecrest Foods '$40,000', '2 years attached', 'Posted in Slack', $25,000 exactly to Analyst consistent with 'over $25,000'; tab 3 Bellmont Builders expiration date 62% 'Low confidence', 'Date sent to a clerk'; tab 4 Dario Vance 'Signed 7:40 AM', 'Sent to credit review'. One hero per panel, cursor on button edges."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_7_des",
+    "quote": "Regulation B gives a creditor 30 days after a completed application to approve, counteroffer or deny it.",
+    "issue": "12 CFR 1002.9(a)(1)(i) sets a deadline to notify the applicant of the action taken, not a window to decide; the sentence leans the source slightly from notice to decision. Not false (notice of an action implies the action), so a note.",
+    "fix": "Regulation B gives a creditor 30 days after a completed application to tell the applicant it approved, countered or denied it.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_2_title",
+    "quote": "02 Keep protected traits off the form",
+    "issue": "Recommendation framed beside the ECOA list; Regulation B bars asking race, color, religion, national origin and sex (1002.5(b)) but allows some questions on age, marital status and income source, so the heading is advice, not what the law requires. The body itself is accurate.",
+    "fix": "Optional: 'Leave out questions your decision cannot use' or keep as is; the body sentences are sourced.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 8",
+    "field": "faq_6",
+    "quote": "Ask for three. One reference that never replies then still leaves two answers to judge.",
+    "issue": "A recommendation with no source; fine as advice. It also sits awkwardly beside FAQ 5, which lets a simple form 'stop at ... two trade references'.",
+    "fix": "Optional: tie both to the policy tier ('three for standard accounts, two for small ones').",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_4",
+    "quote": "New customers apply on a phone at the counter, and the last screen shows the full promise to pay personally, and the owner signs it with a finger. Dario Vance signed at 7:40 AM, and his file went to credit review complete.",
+    "issue": "Two chained 'and' clauses in one sentence, and 'went to credit review complete' reads awkwardly.",
+    "fix": "New customers apply on a phone at the counter. The last screen shows the full promise to pay personally, and the owner signs it with a finger. Dario Vance signed at 7:40 AM; his file reached credit review with nothing missing.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "FAQ 4 'The same step works on a driver application form, for a photo of the license.'; FAQ 7 'To screen tenants instead of trade customers, start from a rental application form.'; FAQ 10 'If you need a full profile of a person for something other than credit, a personal information form fits better.'",
+    "issue": "Each internal link rides on a closing sentence added to carry it, the same shape three times.",
+    "fix": "Work the link into the answer's own point where it fits, or keep one closing pointer.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2a",
+    "field": "faq_6",
+    "quote": "The sample notice in Regulation B includes insufficient number of credit references provided as one of the reasons a creditor can check.",
+    "issue": "The regulation's phrase is pasted in unmarked and reads ungrammatically.",
+    "fix": "Regulation B's sample denial notice lists \"insufficient number of credit references provided\" as a reason a creditor can check.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "page",
+    "quote": "'trade' 11 times, 'references' 10, 'manager' 9 outside the FAQ (QC Q9)",
+    "issue": "Heavy repetition of the same nouns across features, tabs and steps.",
+    "fix": "Vary where a synonym is natural (supplier, referee, approver).",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_7_des",
+   "issue": "12 CFR 1002.9(a)(1)(i) sets a deadline to notify the applicant of the action taken, not a window to decide; the sentence leans the source slightly from notice to decision. Not false (notice of an action implies the action), so a note.",
+   "fix": "Regulation B gives a creditor 30 days after a completed application to tell the applicant it approved, countered or denied it.",
+   "by": "B-r-66",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_2_title",
+   "issue": "Recommendation framed beside the ECOA list; Regulation B bars asking race, color, religion, national origin and sex (1002.5(b)) but allows some questions on age, marital status and income source, so the heading is advice, not what the law requires. The body itself is accurate.",
+   "fix": "Optional: 'Leave out questions your decision cannot use' or keep as is; the body sentences are sourced.",
+   "by": "B-r-66",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 8",
+   "field": "faq_6",
+   "issue": "A recommendation with no source; fine as advice. It also sits awkwardly beside FAQ 5, which lets a simple form 'stop at ... two trade references'.",
+   "fix": "Optional: tie both to the policy tier ('three for standard accounts, two for small ones').",
+   "by": "B-r-66",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_4",
+   "issue": "Two chained 'and' clauses in one sentence, and 'went to credit review complete' reads awkwardly.",
+   "fix": "New customers apply on a phone at the counter. The last screen shows the full promise to pay personally, and the owner signs it with a finger. Dario Vance signed at 7:40 AM; his file reached credit review with nothing missing.",
+   "by": "B-r-66",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "Each internal link rides on a closing sentence added to carry it, the same shape three times.",
+   "fix": "Work the link into the answer's own point where it fits, or keep one closing pointer.",
+   "by": "B-r-66",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2a",
+   "field": "faq_6",
+   "issue": "The regulation's phrase is pasted in unmarked and reads ungrammatically.",
+   "fix": "Regulation B's sample denial notice lists \"insufficient number of credit references provided\" as a reason a creditor can check.",
+   "by": "B-r-66",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "page",
+   "issue": "Heavy repetition of the same nouns across features, tabs and steps.",
+   "fix": "Vary where a synonym is natural (supplier, referee, approver).",
+   "by": "B-r-66",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "5bffc93de632f23c",
+   "alt:share_image": "6aa3a3d32256c1ec",
+   "alt:tab_image_1": "14e2b1a171c092f4",
+   "alt:tab_image_2": "822f39456c948cf3",
+   "alt:tab_image_3": "c3a81611259b5d0b",
+   "alt:tab_image_4": "d29baf9beca85b6b",
+   "breadcrumb": "f70e6fb8a54b5dde",
+   "chip_adds": "3dbd48e7ceea4efc",
+   "explore_cta": "1dc28ccaf08c44ed",
+   "faq": "50ffcdf2f37cebcc",
+   "feature_1": "4c7099ea6f5105bb",
+   "feature_2": "7ce28c08843d25fa",
+   "feature_3": "4a715abc1bab4760",
+   "feature_4": "a3dec29eaef12c65",
+   "feature_5": "7bc84ab370d8faae",
+   "feature_6": "c62c976d593145cb",
+   "features_heading": "d1093db976483a67",
+   "features_subheading": "32e29186933b3904",
+   "h1": "9e1e8f331c1a0411",
+   "hero_description": "0f87665edb7dac6e",
+   "hero_prompt": "bacea5b4ecc757ea",
+   "howto_description": "74c96bed052c4d26",
+   "howto_step_1_des": "48b264471a3101a6",
+   "howto_step_1_title": "80bc511a118894bf",
+   "howto_step_2_des": "5593445c219f5a5d",
+   "howto_step_2_title": "6352eb30b9bdfa21",
+   "howto_step_3_des": "7d923346d7b54f36",
+   "howto_step_3_title": "29c92a09a020a6cc",
+   "howto_step_4_des": "9f87308fbf8b4494",
+   "howto_step_4_title": "7fdfa979a2bafec2",
+   "howto_step_5_des": "78ab80ac8a86e255",
+   "howto_step_5_title": "c60eca5f46e7caec",
+   "howto_step_6_des": "36383561b99a1396",
+   "howto_step_6_title": "a75e068384d42aaa",
+   "howto_step_7_des": "438cd1600464dc6a",
+   "howto_step_7_title": "c4347a33bfb130ea",
+   "howto_title": "ee478b59a155c48f",
+   "meta_description": "2978af39989c1158",
+   "meta_title": "75d35c0c1e66dbf7",
+   "mockup": "af270880eeb5edee",
+   "product_name": "51b15831e6ad6bf3",
+   "prompt_chip_1": "743a001a5481fc6d",
+   "prompt_chip_2": "e6bf9c844cba3572",
+   "prompt_chip_3": "809680bda58a41e2",
+   "prompt_chip_4": "62e41874e8ac2d79",
+   "slug": "565c675391baf9c8",
+   "tab_content_1": "549a6b7b37c12969",
+   "tab_content_2": "4f96862f1a8a78e9",
+   "tab_content_3": "e4502ed89360f06e",
+   "tab_content_4": "89e39f91b7ab5e9e",
+   "tab_label_1": "f4281b9562750143",
+   "tab_label_2": "70f1745116da47a5",
+   "tab_label_3": "e625d99460d3e7c1",
+   "tab_label_4": "e4a46777665ef195",
+   "usecase_heading": "0ed9e65349b2ebfb",
+   "why_description": "30d1bb519c18478e",
+   "why_table": "94dc9d1e52f0047a",
+   "why_title": "09e1cc9e1e56b713"
+  },
+  "all": "c888f63300c8c119",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "5bffc93de632f23c",
+   "alt:share_image": "6aa3a3d32256c1ec",
+   "alt:tab_image_1": "14e2b1a171c092f4",
+   "alt:tab_image_2": "822f39456c948cf3",
+   "alt:tab_image_3": "c3a81611259b5d0b",
+   "alt:tab_image_4": "d29baf9beca85b6b",
+   "breadcrumb": "f70e6fb8a54b5dde",
+   "chip_adds": "3dbd48e7ceea4efc",
+   "explore_cta": "1dc28ccaf08c44ed",
+   "faq": "50ffcdf2f37cebcc",
+   "feature_1": "4c7099ea6f5105bb",
+   "feature_2": "7ce28c08843d25fa",
+   "feature_3": "4a715abc1bab4760",
+   "feature_4": "a3dec29eaef12c65",
+   "feature_5": "7bc84ab370d8faae",
+   "feature_6": "c62c976d593145cb",
+   "features_heading": "d1093db976483a67",
+   "features_subheading": "32e29186933b3904",
+   "h1": "9e1e8f331c1a0411",
+   "hero_description": "0f87665edb7dac6e",
+   "hero_prompt": "bacea5b4ecc757ea",
+   "howto_description": "74c96bed052c4d26",
+   "howto_step_1_des": "48b264471a3101a6",
+   "howto_step_1_title": "80bc511a118894bf",
+   "howto_step_2_des": "5593445c219f5a5d",
+   "howto_step_2_title": "6352eb30b9bdfa21",
+   "howto_step_3_des": "7d923346d7b54f36",
+   "howto_step_3_title": "29c92a09a020a6cc",
+   "howto_step_4_des": "9f87308fbf8b4494",
+   "howto_step_4_title": "7fdfa979a2bafec2",
+   "howto_step_5_des": "78ab80ac8a86e255",
+   "howto_step_5_title": "c60eca5f46e7caec",
+   "howto_step_6_des": "36383561b99a1396",
+   "howto_step_6_title": "a75e068384d42aaa",
+   "howto_step_7_des": "438cd1600464dc6a",
+   "howto_step_7_title": "c4347a33bfb130ea",
+   "howto_title": "ee478b59a155c48f",
+   "meta_description": "2978af39989c1158",
+   "meta_title": "75d35c0c1e66dbf7",
+   "mockup": "af270880eeb5edee",
+   "product_name": "51b15831e6ad6bf3",
+   "prompt_chip_1": "743a001a5481fc6d",
+   "prompt_chip_2": "e6bf9c844cba3572",
+   "prompt_chip_3": "809680bda58a41e2",
+   "prompt_chip_4": "62e41874e8ac2d79",
+   "slug": "565c675391baf9c8",
+   "tab_content_1": "549a6b7b37c12969",
+   "tab_content_2": "4f96862f1a8a78e9",
+   "tab_content_3": "e4502ed89360f06e",
+   "tab_content_4": "89e39f91b7ab5e9e",
+   "tab_label_1": "f4281b9562750143",
+   "tab_label_2": "70f1745116da47a5",
+   "tab_label_3": "e625d99460d3e7c1",
+   "tab_label_4": "e4a46777665ef195",
+   "usecase_heading": "0ed9e65349b2ebfb",
+   "why_description": "30d1bb519c18478e",
+   "why_table": "94dc9d1e52f0047a",
+   "why_title": "09e1cc9e1e56b713"
+  },
+  "all": "c888f63300c8c119",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
