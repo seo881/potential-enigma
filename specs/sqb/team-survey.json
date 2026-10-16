@@ -122,6 +122,13 @@
    "via": null,
    "by": "B-w-205",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 13:20 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-70",
+   "note": "rubric 10/10 by B-r-70; 6 notes"
   }
  ],
  "pipeline": "r15",
@@ -963,5 +970,305 @@
  },
  "writers": [
   "B-w-205"
- ]
+ ],
+ "review": {
+  "by": "B-r-70",
+  "date": "2026-10-16 13:20 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Team Survey That Shows How Your Team Works'; meta title 'Team Survey Builder for Team Leads | Emergent'; hero 'Build a team survey that rates how your team works together and saves every answer to a database you own.' (104 chars, carries primary, leads with Build); how-to description one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 mixes form tools, a team performance template and team effectiveness questionnaires; page gives example questions (FAQ 1), template parts (FAQ 3), examples (FAQ 4), length, small-team anonymity, a 7-step how-to and a team effectiveness answer (FAQ 9)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Team-lead vocabulary throughout: 'goal clarity or how decisions get made', 'hands tickets to 4 other teams', 'freezes the spec 2 weeks before each build'; table rows are library-generated for survey tools."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Name the areas you want rated...', 'Set a minimum group size...', 'Corvel Studio counted meeting hours before planning its next quarter.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No tacked-on endings or run-on lists; QC Q5-Q8 clean. Repeated nouns ('score' 11, 'round' 10, 'clarity' 10) kept as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain product-led sentences with concrete detail: 'The team dropped its Friday status meeting and moved those updates to a written thread.' No AI tells."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "re:Work claims in FAQ 9 match both domain_sources quotes ('how the team worked together mattered more than who was on it'; 'five key dynamics'); table cells for SurveyMonkey, Microsoft Forms and SurveyHero equal rules/competitors/sqb.json; tab numbers add up (2+3+7=12, 8+3+1=12, 10 of 11, 12 of 14); 5-answer threshold agrees in feature_2 and howto_step_5."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Tabs (team effectiveness, partner handoffs, meeting load, launch retro) do not overlap leadership-survey (upward feedback), pulse-survey (recurring cadence), employee-engagement-survey (census, eNPS) or manager-feedback-survey (one manager's report); FAQ 7 and 10 route benefits, leader ratings and culture to siblings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, no brands or formats; hub link in item 2; links to exit survey, employee benefits survey, culture survey (all live); Emergent moat lines in items 3 and 6; paa gate 10/10, verbatim ok."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: one hero per tab, each matching its copy ('Role clarity: 2.7', 'Engineering: 2.4' posted to #support-leads, '7 of 12: over 10 hours', 'Late spec changes: 8 of 12'); cursor on button edges; cover and share card clean."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "page (features, tabs, how-to)",
+    "quote": "\"score\" 11 times, \"round\" 10 times, \"clarity\" 10 times outside the FAQ (QC Q9)",
+    "issue": "The same three nouns carry most sections, so the rhythm flattens.",
+    "fix": "Vary where the meaning allows: 'rating', 'this quarter', name the area instead of repeating 'clarity'.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_3; why_description; faq (item 6)",
+    "quote": "'Each response is a row in a database you own, tagged with the team and the survey round.' / 'Each answer lands in a database you own, next to the team and the round.' / 'Each response sits in a database you own on Emergent'",
+    "issue": "The owned-database point restated in three fields with words swapped (hero is a template slot and not counted).",
+    "fix": "Let why_description lead on the between-rounds prompt edit, and give FAQ 6's Emergent line a small-team point such as the 5-answer threshold.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "meta_description; claims_used",
+    "quote": "Free to start.",
+    "issue": "The approved free-start claim is used but its id is missing from spec.claims_used.",
+    "fix": "Add 'free-start' to claims_used.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "SurveyHero",
+    "issue": "SurveyHero does not rank in this page's top 10 (QC K7); Culture Amp and Gallup do.",
+    "fix": "If the library gains a Culture Amp entry, prefer it on the next write.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq (item 1)",
+    "quote": "What are some good questions to ask a team survey?",
+    "issue": "Item 1 is the PAA question, not a definition of the primary; the nearest definition sits in item 10 ('A team survey asks one team how it works together'). Allowed by the 2026-10-16 fill order, recorded for the rules queue.",
+    "fix": "None required; a one-line definition could open FAQ 1's answer.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "feature_3; feature_5",
+    "quote": "Every answer in a database you own / One question per screen on a phone",
+    "issue": "Two feature titles are word for word the board-survey exemplar's titles.",
+    "fix": "Retitle for this page, such as 'Each round saved beside the last' and 'A retro answered on a phone'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "page (features, tabs, how-to)",
+   "issue": "The same three nouns carry most sections, so the rhythm flattens.",
+   "fix": "Vary where the meaning allows: 'rating', 'this quarter', name the area instead of repeating 'clarity'.",
+   "by": "B-r-70",
+   "via": "review",
+   "date": "2026-10-16 13:20 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_3; why_description; faq (item 6)",
+   "issue": "The owned-database point restated in three fields with words swapped (hero is a template slot and not counted).",
+   "fix": "Let why_description lead on the between-rounds prompt edit, and give FAQ 6's Emergent line a small-team point such as the 5-answer threshold.",
+   "by": "B-r-70",
+   "via": "review",
+   "date": "2026-10-16 13:20 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 6",
+   "field": "meta_description; claims_used",
+   "issue": "The approved free-start claim is used but its id is missing from spec.claims_used.",
+   "fix": "Add 'free-start' to claims_used.",
+   "by": "B-r-70",
+   "via": "review",
+   "date": "2026-10-16 13:20 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "SurveyHero does not rank in this page's top 10 (QC K7); Culture Amp and Gallup do.",
+   "fix": "If the library gains a Culture Amp entry, prefer it on the next write.",
+   "by": "B-r-70",
+   "via": "review",
+   "date": "2026-10-16 13:20 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq (item 1)",
+   "issue": "Item 1 is the PAA question, not a definition of the primary; the nearest definition sits in item 10 ('A team survey asks one team how it works together'). Allowed by the 2026-10-16 fill order, recorded for the rules queue.",
+   "fix": "None required; a one-line definition could open FAQ 1's answer.",
+   "by": "B-r-70",
+   "via": "review",
+   "date": "2026-10-16 13:20 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "feature_3; feature_5",
+   "issue": "Two feature titles are word for word the board-survey exemplar's titles.",
+   "fix": "Retitle for this page, such as 'Each round saved beside the last' and 'A retro answered on a phone'.",
+   "by": "B-r-70",
+   "via": "review",
+   "date": "2026-10-16 13:20 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "9c24492357b79797",
+   "alt:share_image": "474933351831b68f",
+   "alt:tab_image_1": "5ccb57921e902ba6",
+   "alt:tab_image_2": "d58caf33c657e771",
+   "alt:tab_image_3": "8b4bd3c60f0a2b7e",
+   "alt:tab_image_4": "5536bf73421efd86",
+   "breadcrumb": "1f1b2ec624153123",
+   "chip_adds": "524f94c98afde7d8",
+   "explore_cta": "8d0834bad18cdd66",
+   "faq": "cc976b84702e0ec9",
+   "feature_1": "a31a6f8bc06f036b",
+   "feature_2": "7b0b99fcaa31719c",
+   "feature_3": "9dcc6934f108bc5c",
+   "feature_4": "0aa11aa19c1ce5f5",
+   "feature_5": "f1b0fa04e5b36bde",
+   "feature_6": "279b99c61aa20e3a",
+   "features_heading": "3b49477032218c72",
+   "features_subheading": "eb039a4eaac243e3",
+   "h1": "0cbf7c9d7a0c197b",
+   "hero_description": "e15843432a4ae9d8",
+   "hero_prompt": "847a50bfb0a999a4",
+   "howto_description": "efbcaf9807593101",
+   "howto_step_1_des": "6daab2deace40a03",
+   "howto_step_1_title": "89daf0ca46d3d50a",
+   "howto_step_2_des": "129f182b25de4ee9",
+   "howto_step_2_title": "9a6c111dd8754e4d",
+   "howto_step_3_des": "750c2666305d08a6",
+   "howto_step_3_title": "c0b12b58b1a1ff2c",
+   "howto_step_4_des": "0aa95fb0392897c1",
+   "howto_step_4_title": "8750e8f9a2730172",
+   "howto_step_5_des": "d9bcc95e2a0f0d3d",
+   "howto_step_5_title": "6b47abad360b4133",
+   "howto_step_6_des": "9f87c7120b7a8b43",
+   "howto_step_6_title": "63bfc6d14d87faa4",
+   "howto_step_7_des": "d707700fba980bfb",
+   "howto_step_7_title": "bd971a6e7d051acf",
+   "howto_title": "073d5fa29d8bf102",
+   "meta_description": "500ee3fe91ea1d7d",
+   "meta_title": "097ef9673dbafee8",
+   "mockup": "30a6b3b0f017bc84",
+   "product_name": "8f93585b234da86a",
+   "prompt_chip_1": "b834a90880577465",
+   "prompt_chip_2": "07ebbf636bc94e4b",
+   "prompt_chip_3": "da518ae875a44d26",
+   "prompt_chip_4": "a49234f1aab9df1e",
+   "slug": "e1e0c5f54115fb54",
+   "tab_content_1": "988c901c8a10eb6c",
+   "tab_content_2": "6f879c4a864e37a7",
+   "tab_content_3": "f6f2acbca21a178b",
+   "tab_content_4": "9f7178190db9af37",
+   "tab_label_1": "d6925c071f17b5a6",
+   "tab_label_2": "07ebbf636bc94e4b",
+   "tab_label_3": "da518ae875a44d26",
+   "tab_label_4": "a49234f1aab9df1e",
+   "usecase_heading": "282f556ac7d58d4c",
+   "why_description": "ae89302334d94cac",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "b08d1495f8772d61"
+  },
+  "all": "721c4f2ae653e556",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "9c24492357b79797",
+   "alt:share_image": "474933351831b68f",
+   "alt:tab_image_1": "5ccb57921e902ba6",
+   "alt:tab_image_2": "d58caf33c657e771",
+   "alt:tab_image_3": "8b4bd3c60f0a2b7e",
+   "alt:tab_image_4": "5536bf73421efd86",
+   "breadcrumb": "1f1b2ec624153123",
+   "chip_adds": "524f94c98afde7d8",
+   "explore_cta": "8d0834bad18cdd66",
+   "faq": "cc976b84702e0ec9",
+   "feature_1": "a31a6f8bc06f036b",
+   "feature_2": "7b0b99fcaa31719c",
+   "feature_3": "9dcc6934f108bc5c",
+   "feature_4": "0aa11aa19c1ce5f5",
+   "feature_5": "f1b0fa04e5b36bde",
+   "feature_6": "279b99c61aa20e3a",
+   "features_heading": "3b49477032218c72",
+   "features_subheading": "eb039a4eaac243e3",
+   "h1": "0cbf7c9d7a0c197b",
+   "hero_description": "e15843432a4ae9d8",
+   "hero_prompt": "847a50bfb0a999a4",
+   "howto_description": "efbcaf9807593101",
+   "howto_step_1_des": "6daab2deace40a03",
+   "howto_step_1_title": "89daf0ca46d3d50a",
+   "howto_step_2_des": "129f182b25de4ee9",
+   "howto_step_2_title": "9a6c111dd8754e4d",
+   "howto_step_3_des": "750c2666305d08a6",
+   "howto_step_3_title": "c0b12b58b1a1ff2c",
+   "howto_step_4_des": "0aa95fb0392897c1",
+   "howto_step_4_title": "8750e8f9a2730172",
+   "howto_step_5_des": "d9bcc95e2a0f0d3d",
+   "howto_step_5_title": "6b47abad360b4133",
+   "howto_step_6_des": "9f87c7120b7a8b43",
+   "howto_step_6_title": "63bfc6d14d87faa4",
+   "howto_step_7_des": "d707700fba980bfb",
+   "howto_step_7_title": "bd971a6e7d051acf",
+   "howto_title": "073d5fa29d8bf102",
+   "meta_description": "500ee3fe91ea1d7d",
+   "meta_title": "097ef9673dbafee8",
+   "mockup": "30a6b3b0f017bc84",
+   "product_name": "8f93585b234da86a",
+   "prompt_chip_1": "b834a90880577465",
+   "prompt_chip_2": "07ebbf636bc94e4b",
+   "prompt_chip_3": "da518ae875a44d26",
+   "prompt_chip_4": "a49234f1aab9df1e",
+   "slug": "e1e0c5f54115fb54",
+   "tab_content_1": "988c901c8a10eb6c",
+   "tab_content_2": "6f879c4a864e37a7",
+   "tab_content_3": "f6f2acbca21a178b",
+   "tab_content_4": "9f7178190db9af37",
+   "tab_label_1": "d6925c071f17b5a6",
+   "tab_label_2": "07ebbf636bc94e4b",
+   "tab_label_3": "da518ae875a44d26",
+   "tab_label_4": "a49234f1aab9df1e",
+   "usecase_heading": "282f556ac7d58d4c",
+   "why_description": "ae89302334d94cac",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "b08d1495f8772d61"
+  },
+  "all": "721c4f2ae653e556",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
