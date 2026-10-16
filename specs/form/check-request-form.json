@@ -129,6 +129,13 @@
    "via": null,
    "by": "B-c-1",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 13:32 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-73",
+   "note": "rubric 10/10 by B-r-73; 4 notes"
   }
  ],
  "plan": {
@@ -1055,5 +1062,265 @@
  },
  "writers": [
   "B-w-211"
- ]
+ ],
+ "review": {
+  "by": "B-r-73",
+  "date": "2026-10-16 13:32 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Check Request Form That Gets Signed and Paid', title 'Check Request Form Builder With Approvals | Emergent' and hero 'Build a check request form that requires receipts, routes each request for approval, and logs every check you write.' (about 115 chars, leads with Build, carries the primary) cover the whole job from receipt to written check; how-to description is one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is PTA, school and university check request PDFs plus Jotform and TemplateLab; the page gives the fields ('the payee's name and mailing address, the amount, the purpose'), a filled example in FAQ 3 ('Payee: Dana Whitfield. Amount: $142.18 ... check 2291'), a seven-step how-to and the approval-routing angle. All five gate-passing PAA questions on topic are answered; the legal 'write myself a check' question is rightly left out."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: treasurer, president, budget line, account codes, invoice 2207, check 1047, receipt R-3318, 'Keep paid requests searchable by payee and invoice number for your next audit.' Table cells match rules/competitors/form.json word for word for Jotform, Google Forms and Typeform; no row falls back to a default."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Make the receipt or invoice a required upload.', 'Maria Lopez bought $86.40 of signs and tape...', 'Every Monday the treasurer of the Riverside Youth Soccer League opens...', 'Write down who approves a check request and in what order...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Short declaratives with one idea each ('Confirm the second one is held.'); QC Q2/Q5/Q7 clean. Only notes on the why intro triplet."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Product-led and unglamorous details: '$86.40 of signs and tape for the fall book fair', 'A card slip with only a total is not itemized. Ask for the store receipt instead.' No hype or AI tells; one triplet logged as a note."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Every PTA statement checked against pta.org paying-expenses page: 'Two signatures should be required on all checks', 'The request should be signed by the requester and the President', 'Check signers should not be related by marriage or in any other way', 'require itemized bills and receipts with all requests', 'Only original invoices should be approved for payment' all present. Hartwick form carries 'Purpose of check or business reason' and an 'Approval signature' field, supporting FAQ 1. Emergent claims map to prompt-build, database-owned, alerts (reminders and escalations), code-export (paid plans), free-start. Tab 4 sums 640+900+275+100=1,915. No financial or legal advice is given."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Four settings (PTA reimbursement, university duplicate invoice, hall deposit refund, league check run) are specific to check payment; expense report and requisition form are linked, not headlined."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, none naming a brand or a file format; hub link in item 2 'Emergent's AI form builder'; sibling links expense report form, requisition form, time off request form; each answers in its first sentence ('After, for a reimbursement or a vendor bill'); F9 lines in items 6, 9, 10. hubctl paa --spec: pass 10, reject 0; verbatim Q1-Q3 ok."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 'Check 1047 / To Maria Lopez / $86.40 for the book fair', 'Signed by two officers'; tab 2 'Invoice 2207 / Fenwick Catering, $1,250.00 / Paid with check 5531'; tab 3 'Refund $250.00 / Original receipt R-3318 / Waiting with finance'; tab 4 '4 checks', 'Week total $1,915.00', 'Referee fees / Valley Referees, $640.00 / Due Friday'. One hero each, text readable, cover matches tab 1."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "why_description",
+    "quote": "A PDF template collects the request. Emergent builds the approvals, the receipt rules, and the payment record behind it.",
+    "issue": "Restates the features intro 'A PDF collects a payee and a signature. These parts carry the request from the receipt to a written check.' with words swapped.",
+    "fix": "Give the why intro its own point, for example what a filed request leaves behind for the audit.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "why_description",
+    "quote": "the approvals, the receipt rules, and the payment record behind it",
+    "issue": "Tidy triplet in a summary sentence.",
+    "fix": "Name one concrete thing Emergent builds that the PDF cannot.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_2_des",
+    "quote": "Leave out bank account and tax ID numbers, which belong in a separate, protected vendor record.",
+    "issue": "Sound recommendation with no domain source.",
+    "fix": "Keep as advice or add a finance-office source.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Jotform | Google Forms | Typeform",
+    "issue": "Google Forms and Typeform do not rank in this page's top 10 (QC K7 P2); only Jotform does. Library has no better-ranking vendor for this query.",
+    "fix": "None needed now; revisit if the library adds a check-request or AP form vendor.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "why_description",
+   "issue": "Restates the features intro 'A PDF collects a payee and a signature. These parts carry the request from the receipt to a written check.' with words swapped.",
+   "fix": "Give the why intro its own point, for example what a filed request leaves behind for the audit.",
+   "by": "B-r-73",
+   "via": "review",
+   "date": "2026-10-16 13:32 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "why_description",
+   "issue": "Tidy triplet in a summary sentence.",
+   "fix": "Name one concrete thing Emergent builds that the PDF cannot.",
+   "by": "B-r-73",
+   "via": "review",
+   "date": "2026-10-16 13:32 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_2_des",
+   "issue": "Sound recommendation with no domain source.",
+   "fix": "Keep as advice or add a finance-office source.",
+   "by": "B-r-73",
+   "via": "review",
+   "date": "2026-10-16 13:32 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "Google Forms and Typeform do not rank in this page's top 10 (QC K7 P2); only Jotform does. Library has no better-ranking vendor for this query.",
+   "fix": "None needed now; revisit if the library adds a check-request or AP form vendor.",
+   "by": "B-r-73",
+   "via": "review",
+   "date": "2026-10-16 13:32 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "d5ce31672e940c96",
+   "alt:share_image": "2a671e32be027da4",
+   "alt:tab_image_1": "125d57a39010079e",
+   "alt:tab_image_2": "ee23935f56ad98f4",
+   "alt:tab_image_3": "329dc0d099bb3289",
+   "alt:tab_image_4": "91a442ec14bb6380",
+   "breadcrumb": "34527838098dd689",
+   "chip_adds": "66e0f097026268e9",
+   "explore_cta": "2348b8df30c91782",
+   "faq": "1f11df437cbebb1c",
+   "feature_1": "b58fa3b78479d34e",
+   "feature_2": "48df9948e99a0756",
+   "feature_3": "6f9a31ef2d9babc1",
+   "feature_4": "0f001c30dd200033",
+   "feature_5": "74a0a09c7ab47af4",
+   "feature_6": "1925ad7475f41d4d",
+   "features_heading": "81c970562e1c75d8",
+   "features_subheading": "28d9e548b44c415d",
+   "h1": "1e7365911a30afc7",
+   "hero_description": "06916e4e2e93833e",
+   "hero_prompt": "e8c4e3f00f5923bd",
+   "howto_description": "41d91ccd8be3a6fa",
+   "howto_step_1_des": "65712322e4f4159a",
+   "howto_step_1_title": "f79b4b976c96c01f",
+   "howto_step_2_des": "5d049a900b92eebf",
+   "howto_step_2_title": "083b28358079f831",
+   "howto_step_3_des": "701ed6e8d700ca02",
+   "howto_step_3_title": "5f794c4f92067ddf",
+   "howto_step_4_des": "9a6fdcf8a7721c89",
+   "howto_step_4_title": "fab9a1b834028c02",
+   "howto_step_5_des": "3321c26116c52273",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "0b30a224064ab8b3",
+   "howto_step_6_title": "0a25eb57c8163b12",
+   "howto_step_7_des": "b479600521688fee",
+   "howto_step_7_title": "70294e6219560eeb",
+   "howto_title": "04c34dc4e7ba6a98",
+   "meta_description": "fc0c2ccf4648017d",
+   "meta_title": "f56fba971b9ea4bc",
+   "mockup": "822e949dadcdc9a5",
+   "product_name": "17488f0c4029e5d0",
+   "prompt_chip_1": "af0ca980dd5720be",
+   "prompt_chip_2": "d8bbc499abd8cc39",
+   "prompt_chip_3": "ddc81c1b747ad80b",
+   "prompt_chip_4": "893a6ef120d093af",
+   "slug": "6ed8b5a8e4131e4e",
+   "tab_content_1": "539b2c530290f628",
+   "tab_content_2": "6ae4101b15a1602d",
+   "tab_content_3": "ecb66498f7aa71ef",
+   "tab_content_4": "83d2b1a000e14623",
+   "tab_label_1": "0e1709aa2cca2af4",
+   "tab_label_2": "9f2cf06a21c80295",
+   "tab_label_3": "cb57f435251708c6",
+   "tab_label_4": "6054b63f5a667230",
+   "usecase_heading": "9fb37ad1a4ac4339",
+   "why_description": "228eeebe587329e0",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "826a5e03386acba5"
+  },
+  "all": "6397dbcc3d2909fe",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "d5ce31672e940c96",
+   "alt:share_image": "2a671e32be027da4",
+   "alt:tab_image_1": "125d57a39010079e",
+   "alt:tab_image_2": "ee23935f56ad98f4",
+   "alt:tab_image_3": "329dc0d099bb3289",
+   "alt:tab_image_4": "91a442ec14bb6380",
+   "breadcrumb": "34527838098dd689",
+   "chip_adds": "66e0f097026268e9",
+   "explore_cta": "2348b8df30c91782",
+   "faq": "1f11df437cbebb1c",
+   "feature_1": "b58fa3b78479d34e",
+   "feature_2": "48df9948e99a0756",
+   "feature_3": "6f9a31ef2d9babc1",
+   "feature_4": "0f001c30dd200033",
+   "feature_5": "74a0a09c7ab47af4",
+   "feature_6": "1925ad7475f41d4d",
+   "features_heading": "81c970562e1c75d8",
+   "features_subheading": "28d9e548b44c415d",
+   "h1": "1e7365911a30afc7",
+   "hero_description": "06916e4e2e93833e",
+   "hero_prompt": "e8c4e3f00f5923bd",
+   "howto_description": "41d91ccd8be3a6fa",
+   "howto_step_1_des": "65712322e4f4159a",
+   "howto_step_1_title": "f79b4b976c96c01f",
+   "howto_step_2_des": "5d049a900b92eebf",
+   "howto_step_2_title": "083b28358079f831",
+   "howto_step_3_des": "701ed6e8d700ca02",
+   "howto_step_3_title": "5f794c4f92067ddf",
+   "howto_step_4_des": "9a6fdcf8a7721c89",
+   "howto_step_4_title": "fab9a1b834028c02",
+   "howto_step_5_des": "3321c26116c52273",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "0b30a224064ab8b3",
+   "howto_step_6_title": "0a25eb57c8163b12",
+   "howto_step_7_des": "b479600521688fee",
+   "howto_step_7_title": "70294e6219560eeb",
+   "howto_title": "04c34dc4e7ba6a98",
+   "meta_description": "fc0c2ccf4648017d",
+   "meta_title": "f56fba971b9ea4bc",
+   "mockup": "822e949dadcdc9a5",
+   "product_name": "17488f0c4029e5d0",
+   "prompt_chip_1": "af0ca980dd5720be",
+   "prompt_chip_2": "d8bbc499abd8cc39",
+   "prompt_chip_3": "ddc81c1b747ad80b",
+   "prompt_chip_4": "893a6ef120d093af",
+   "slug": "6ed8b5a8e4131e4e",
+   "tab_content_1": "539b2c530290f628",
+   "tab_content_2": "6ae4101b15a1602d",
+   "tab_content_3": "ecb66498f7aa71ef",
+   "tab_content_4": "83d2b1a000e14623",
+   "tab_label_1": "0e1709aa2cca2af4",
+   "tab_label_2": "9f2cf06a21c80295",
+   "tab_label_3": "cb57f435251708c6",
+   "tab_label_4": "6054b63f5a667230",
+   "usecase_heading": "9fb37ad1a4ac4339",
+   "why_description": "228eeebe587329e0",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "826a5e03386acba5"
+  },
+  "all": "6397dbcc3d2909fe",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
