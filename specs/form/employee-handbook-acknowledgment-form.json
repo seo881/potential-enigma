@@ -122,6 +122,13 @@
    "via": null,
    "by": "B-w-138",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 08:50 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-21",
+   "note": "[images | CONTENT_DEFECTS #23] image_brief: Tab 2 (Handbook revisions) table names an unsigned, reminded employee 'Liam Gallagher', the full name of a well-known real musician: a fictional name that borrows a real third party's identity. Only instance on the page (no other field uses it). -> Replace"
   }
  ],
  "pipeline": "r15",
@@ -997,5 +1004,275 @@
  },
  "writers": [
   "B-w-138"
- ]
+ ],
+ "review": {
+  "by": "B-r-21",
+  "date": "2026-10-16 08:50 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Employee Handbook Acknowledgment Form by Version'; hero 'records which version each employee signed, in a database you own'."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "AMBER angle (e-signed acknowledgment tracking) carried in every section; example statement (FAQ 3), fields (FAQ 4), refusals (FAQ 8, tab 3) match the HR-template SERP."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "HR vocabulary: 'A statement about receipt, not agreement', 'version 4 stays with version 4 after version 5 goes out', Eddy in the table."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Bodies open on full sentences: 'The app saves every e-signature with the handbook version number...', 'Brackwater Freight sends every new hire...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Craft items recorded as notes only."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Calm, specific copy ('signed March 2 at 6:40 AM, before his first shift'); verbatim source lifts recorded as a note."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Every third-party practice statement maps to a quoted domain_sources span (Eddy, Mosey, HandbookHub); Emergent sentences map to prompt-build, database-owned, e-signature-capture, alerts, no-caps, free-start, code-export; tab 2 numbers 41 of 48, 7 reminders agree with image. No legal advice: FAQ 6 refers at-will wording to 'an employment lawyer'."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Version-tracking angle distinct from training-acknowledgment-form; no sibling primary in headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items; 3 verbatim PAA then written questions with one secondary each ('acknowledgement form template', 'policy acknowledgement form', 'free acknowledgement form'); no brand, pricing, legal or state-specific asks."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 2 table draws employee 'Liam Gallagher' (a famous real musician's full name) in the 'Reminded' row; otherwise images match copy (Mateo Ilarde version 4 March 2 6:40 AM; 41 of 48 within 3 days; Russ Ambler refusal with Bettina Ruel and Karl Ingersen; Peter Lamb version 3 June 14 4:02 PM)."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-names",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #23",
+    "field": "image_brief",
+    "quote": "Liam Gallagher",
+    "issue": "Tab 2 (Handbook revisions) table names an unsigned, reminded employee 'Liam Gallagher', the full name of a well-known real musician: a fictional name that borrows a real third party's identity. Only instance on the page (no other field uses it).",
+    "fix": "Replace with a plain invented name (e.g. 'Liam Garrity') in image_brief tabs[1] and re-render.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "have the HR representative and a neutral witness sign the refusal note",
+    "issue": "FAQ item 8 names an HR representative as co-signer while feature_5 ('asks their manager and a witness'), tab_content_3 ('Manager Bettina Ruel and witness Karl Ingersen') and howto_step_4_des ('have a manager and a witness sign') name a manager. Both are sourced, but the page gives two answers.",
+    "fix": "Pick one co-signer across the page, or say 'a manager or HR representative'.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "howto_step_1_des",
+    "quote": "HR needs to retrieve the exact handbook version, the acknowledgment language shown with it, who signed, and when",
+    "issue": "Source spans pasted near-verbatim into copy, which reads lifted rather than written: also howto_step_2_des 'Clarify that the acknowledgment only confirms receipt of the handbook, not personal agreement with each item', faq 6 'the handbook can undergo changes at any time, with or without notice', faq 8 'have the HR representative and a neutral witness sign the refusal note', faq 9 'should also be sent out to existing employees as often as there are significant handbook updates or changes' ('One HR guide says').",
+    "fix": "Restate each in the page's own words; the domain_sources quote stays as the evidence.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "the employee list behind it can later feed an employee evaluation form when review season comes around",
+    "issue": "FAQ item 7's second sentence exists to place the link and does not answer the free e-signature question.",
+    "fix": "Use the sentence to say what the free form collects.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "Can you provide an example of an employee acknowledgment form?",
+    "issue": "FAQ 3 (example statement), FAQ 6 ('What does an employee handbook acknowledgment form template say?') and FAQ 1 all describe the statement wording; FAQ 6 and FAQ 3 are close in intent.",
+    "fix": "Let FAQ 6 focus on the change clause and lawyer review only.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "FAQ item 8 names an HR representative as co-signer while feature_5 ('asks their manager and a witness'), tab_content_3 ('Manager Bettina Ruel and witness Karl Ingersen') and howto_step_4_des ('have a manager and a witness sign') name a manager. Both are sourced, but the page gives two answers.",
+   "fix": "Pick one co-signer across the page, or say 'a manager or HR representative'.",
+   "by": "B-r-21",
+   "via": "review",
+   "date": "2026-10-16 08:50 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "howto_step_1_des",
+   "issue": "Source spans pasted near-verbatim into copy, which reads lifted rather than written: also howto_step_2_des 'Clarify that the acknowledgment only confirms receipt of the handbook, not personal agreement with each item', faq 6 'the handbook can undergo changes at any time, with or without notice', faq 8 'have the HR representative and a neutral witness sign the refusal note', faq 9 'should also be sent out to existing employees as often as there are significant handbook updates or changes' ('One HR guide says').",
+   "fix": "Restate each in the page's own words; the domain_sources quote stays as the evidence.",
+   "by": "B-r-21",
+   "via": "review",
+   "date": "2026-10-16 08:50 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "FAQ item 7's second sentence exists to place the link and does not answer the free e-signature question.",
+   "fix": "Use the sentence to say what the free form collects.",
+   "by": "B-r-21",
+   "via": "review",
+   "date": "2026-10-16 08:50 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "FAQ 3 (example statement), FAQ 6 ('What does an employee handbook acknowledgment form template say?') and FAQ 1 all describe the statement wording; FAQ 6 and FAQ 3 are close in intent.",
+   "fix": "Let FAQ 6 focus on the change clause and lawyer review only.",
+   "by": "B-r-21",
+   "via": "review",
+   "date": "2026-10-16 08:50 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "7b449de7fe4d7fc6",
+   "alt:share_image": "d820d50c300d2e4b",
+   "alt:tab_image_1": "e5d6999b83cd206a",
+   "alt:tab_image_2": "b9134bf68ec68ab0",
+   "alt:tab_image_3": "c11794a6c7081b19",
+   "alt:tab_image_4": "16a780d49ad1e9d7",
+   "breadcrumb": "3087ac001fa3db43",
+   "chip_adds": "66df8ccf7e858d4f",
+   "explore_cta": "77407cac05e6aaeb",
+   "faq": "fd4d502223cb2f91",
+   "feature_1": "3331bcca79d8a22f",
+   "feature_2": "3da0d8563fa55a5b",
+   "feature_3": "d360a8d5913352f2",
+   "feature_4": "3a2b499839a13d30",
+   "feature_5": "52212f7aeebccff1",
+   "feature_6": "9b3ccf576b39f984",
+   "features_heading": "ed875d79c37f3d0a",
+   "features_subheading": "8d03db5c4e3d64b2",
+   "h1": "c3b98e547735eaa9",
+   "hero_description": "259d896a13784fb8",
+   "hero_prompt": "ba29d5687b4e78fd",
+   "howto_description": "ff40241b41980a16",
+   "howto_step_1_des": "8da7e1528ec09704",
+   "howto_step_1_title": "0d8655b007241ff5",
+   "howto_step_2_des": "53e9171a261466ba",
+   "howto_step_2_title": "504d26085058198e",
+   "howto_step_3_des": "25d7cf2b960a1c47",
+   "howto_step_3_title": "d813a5748f7cdd20",
+   "howto_step_4_des": "2065fade91547c70",
+   "howto_step_4_title": "de303d296d5b7328",
+   "howto_step_5_des": "49c74b8d24bb67b2",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "987020fe02e5ac22",
+   "howto_step_6_title": "ba0401dc4f335f5e",
+   "howto_step_7_des": "d9878bad9d87ace6",
+   "howto_step_7_title": "9e61c0f04c23b444",
+   "howto_title": "8bd5982a61b35e83",
+   "meta_description": "f3f06898e458b174",
+   "meta_title": "036a39439699a020",
+   "mockup": "9a43994c422abf7c",
+   "product_name": "f59194bf17480306",
+   "prompt_chip_1": "989e2ece68f47878",
+   "prompt_chip_2": "da80b1d5740caaef",
+   "prompt_chip_3": "86f941bc03c2bbbc",
+   "prompt_chip_4": "544d33c7b6bb03ee",
+   "slug": "4e0f90657bf78638",
+   "tab_content_1": "b4a470234a4aac60",
+   "tab_content_2": "5b91a794d9c119b4",
+   "tab_content_3": "18cf9b98e10848c8",
+   "tab_content_4": "3a47c3b68e18be63",
+   "tab_label_1": "051d64ae1cae2020",
+   "tab_label_2": "ee5f8f4b6a369c80",
+   "tab_label_3": "86f941bc03c2bbbc",
+   "tab_label_4": "110fa2bb7715b603",
+   "usecase_heading": "a6ad4b0ef1d1715f",
+   "why_description": "d2ca8968e3cb437a",
+   "why_table": "5ce6c04153bb9d40",
+   "why_title": "54b8ca9c0a0776bd"
+  },
+  "all": "d74cc363f5e8ffaf",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "7b449de7fe4d7fc6",
+   "alt:share_image": "d820d50c300d2e4b",
+   "alt:tab_image_1": "e5d6999b83cd206a",
+   "alt:tab_image_2": "b9134bf68ec68ab0",
+   "alt:tab_image_3": "c11794a6c7081b19",
+   "alt:tab_image_4": "16a780d49ad1e9d7",
+   "breadcrumb": "3087ac001fa3db43",
+   "chip_adds": "66df8ccf7e858d4f",
+   "explore_cta": "77407cac05e6aaeb",
+   "faq": "fd4d502223cb2f91",
+   "feature_1": "3331bcca79d8a22f",
+   "feature_2": "3da0d8563fa55a5b",
+   "feature_3": "d360a8d5913352f2",
+   "feature_4": "3a2b499839a13d30",
+   "feature_5": "52212f7aeebccff1",
+   "feature_6": "9b3ccf576b39f984",
+   "features_heading": "ed875d79c37f3d0a",
+   "features_subheading": "8d03db5c4e3d64b2",
+   "h1": "c3b98e547735eaa9",
+   "hero_description": "259d896a13784fb8",
+   "hero_prompt": "ba29d5687b4e78fd",
+   "howto_description": "ff40241b41980a16",
+   "howto_step_1_des": "8da7e1528ec09704",
+   "howto_step_1_title": "0d8655b007241ff5",
+   "howto_step_2_des": "53e9171a261466ba",
+   "howto_step_2_title": "504d26085058198e",
+   "howto_step_3_des": "25d7cf2b960a1c47",
+   "howto_step_3_title": "d813a5748f7cdd20",
+   "howto_step_4_des": "2065fade91547c70",
+   "howto_step_4_title": "de303d296d5b7328",
+   "howto_step_5_des": "49c74b8d24bb67b2",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "987020fe02e5ac22",
+   "howto_step_6_title": "ba0401dc4f335f5e",
+   "howto_step_7_des": "d9878bad9d87ace6",
+   "howto_step_7_title": "9e61c0f04c23b444",
+   "howto_title": "8bd5982a61b35e83",
+   "meta_description": "f3f06898e458b174",
+   "meta_title": "036a39439699a020",
+   "mockup": "9a43994c422abf7c",
+   "product_name": "f59194bf17480306",
+   "prompt_chip_1": "989e2ece68f47878",
+   "prompt_chip_2": "da80b1d5740caaef",
+   "prompt_chip_3": "86f941bc03c2bbbc",
+   "prompt_chip_4": "544d33c7b6bb03ee",
+   "slug": "4e0f90657bf78638",
+   "tab_content_1": "b4a470234a4aac60",
+   "tab_content_2": "5b91a794d9c119b4",
+   "tab_content_3": "18cf9b98e10848c8",
+   "tab_content_4": "3a47c3b68e18be63",
+   "tab_label_1": "051d64ae1cae2020",
+   "tab_label_2": "ee5f8f4b6a369c80",
+   "tab_label_3": "86f941bc03c2bbbc",
+   "tab_label_4": "110fa2bb7715b603",
+   "usecase_heading": "a6ad4b0ef1d1715f",
+   "why_description": "d2ca8968e3cb437a",
+   "why_table": "5ce6c04153bb9d40",
+   "why_title": "54b8ca9c0a0776bd"
+  },
+  "all": "d74cc363f5e8ffaf",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
