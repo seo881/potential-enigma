@@ -41,10 +41,14 @@
   learn-refs READBACK                 the 3 newest published Learn articles -> config/learn_refs.json (L12; new items get them at creation)
   learn-check URL [URL ...]          spec mode (B-dev-17): spec.learn_refs = 3 distinct published Learn articles from .cache/learn/inventory.json,
                                     none of the old default trio (a create refuses otherwise; Divit 2026-10-15/16)
+  learn-match URL [URL ...] [--write] | learn-match --all [--live] --report [--out DIR]
+                                    topic-matched Learn refs (ops/learn_match.py; fallback config/learn_sets.json); --write sets
+                                    spec.learn_refs + learn_refs_why (refused on live pages); --out writes plan.md + plan.json (Divit 2026-10-16)
   ship-check URL [URL ...]          ship-time checks (DECISIONS 2026-10-15 night): QC 0, gate 10/10, review current, no pending flag, images
                                     current, Learn refs (new pages), hero prompt (QC L10 + generic); exit 1 on any failure
-  state URL approved --by standing-go   tonight's standing go: only while .cache/overnight-b/ruling19-lift-2026-10-15 exists and
-                                    ship-check passes; logged as "standing-go (Divit 2026-10-15 night)"; refused otherwise
+  state URL approved --by standing-go   the standing go: only while .cache/overnight-b/ruling19-lift-2026-10-15 or a dated
+                                    .cache/standing-go-<YYYY-MM-DD> (today's, or under 18 hours old; Divit 2026-10-16 item 4) exists and
+                                    ship-check passes; logged as "standing-go (Divit <date>)"; refused otherwise
   verbatim URL...                   ruling 4/12: AlsoAsked-sourced FAQ items equal prov.original and the saved pull (exit 1 on a mismatch)
   feasibility URL | defer URL --by ID   ruling 10 B1: under 10 FAQ sources after the pull = no writer; the page waits in the queue
   review-diff URL | slim-review URL FILE --by A-s-<n>   ruling 1: fields changed since review; record a slim review of them
@@ -172,7 +176,7 @@ def cmd_verbatim(args):
         pq = {i["q"] for i in items}; res = []
         for k, f in enumerate(s.get("faq_sources") or [], 1):
             pv = f.get("prov") or {}
-            if not str(pv.get("tool", "")).startswith("alsoasked"): continue
+            if f.get("source") == "written" or not str(pv.get("tool", "")).startswith("alsoasked"): continue   # paa only (Divit 2026-10-16)
             import spelling as _SP   # ruling 14: US-spelling / house-form display of the original is not a reword
             same = _SP.verbatim_ok(f.get("q"), pv.get("original")); inpull = pv.get("original") in pq
             ok = same and inpull; bad += not ok
@@ -550,14 +554,14 @@ def cmd_state(args):
     if (by0 or "").lower().startswith("standing"):   # DECISIONS 2026-10-15 night: the standing go, tonight's lift only
         if by0 != G.STANDING_GO: sys.exit(f"refused: the standing-go id is exactly '{G.STANDING_GO}'")
         if state != "approved": sys.exit("refused: --by standing-go only approves (hubctl state URL approved --by standing-go)")
-        if not G.ruling19_lifted(): sys.exit("refused: --by standing-go is accepted only while .cache/overnight-b/ruling19-lift-2026-10-15 exists (tonight's loop); approval is Divit's otherwise")
+        if not G.standing_go_active(): sys.exit("refused: --by standing-go is accepted only while .cache/overnight-b/ruling19-lift-2026-10-15 or .cache/standing-go-<today> (under 18 hours old) exists; approval is Divit's otherwise")
         probs = ship_check(url)
         if probs: sys.exit("refused: standing go needs every ship-time check to pass: " + "; ".join(probs))
     if state == "approved":
         cur = load_st(hub_of(url))["pages"].get(url, {}).get("state")
         if cur not in ("reviewed", "challenged"): sys.exit(f"only a reviewed page can be approved (this one is '{cur}')")
         sp = spath(url); s = json.load(open(sp)); s["approval"] = {"fingerprint": G.fingerprint(s), "date": now(), "rules_version": G.rules_version()}
-        if by0 == G.STANDING_GO: s["approval"]["by"] = G.STANDING_GO_LOG
+        if by0 == G.STANDING_GO: s["approval"]["by"] = G.standing_go_log()
         json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
         ex = os.path.join(os.path.dirname(sp), "_exemplar.md")
         if not os.path.exists(ex):
@@ -580,7 +584,7 @@ def cmd_state(args):
     if state == "qc_pass" and by:
         sp = spath(url); s = json.load(open(sp))
         if by not in s.setdefault("writers", []): s["writers"].append(by); json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
-    if by == G.STANDING_GO: by = G.STANDING_GO_LOG
+    if by == G.STANDING_GO: by = G.standing_go_log()
     set_state(url, state, note, by=by); print(f"{url} -> {state}")
 
 def cmd_hold(args):
@@ -1018,22 +1022,28 @@ def overnight_golden(c):
         if c["kind"] == "standing-go":
             u = CFG["hubs"]["Form"]["path"] + "/golden-standing-go"; sp = os.path.join(tmp, "spec.json")
             json.dump(dict(json.load(open(os.path.join(fx, "clean.json"))), url=u), open(sp, "w")); open(os.path.join(tmp, "_exemplar.md"), "w").write("golden")
-            lift = os.path.join(tmp, "lift")
+            lift = os.path.join(tmp, "lift"); sgd = os.path.join(tmp, "sgdir"); os.makedirs(sgd)
             if c["lift"] in ("fresh", "old"):
                 open(lift, "w").write("")
                 if c["lift"] == "old": os.utime(lift, (time_now() - 20 * 3600,) * 2)
-            calls = []; saved = (G.LIFT_FILE, globals()["load_st"], globals()["spath"], globals()["set_state"], globals()["ship_check"])
-            G.LIFT_FILE = lift; globals()["spath"] = lambda x: sp
+            if c.get("dated"):   # Divit 2026-10-16 item 4: dated file {"name": today|yesterday|<date>, "age_h": hours}
+                import datetime as _dt
+                nm = {"today": _dt.date.today().isoformat(), "yesterday": (_dt.date.today() - _dt.timedelta(days=1)).isoformat()}.get(c["dated"]["name"], c["dated"]["name"])
+                f_ = os.path.join(sgd, "standing-go-" + nm); open(f_, "w").close(); os.utime(f_, (time_now() - c["dated"].get("age_h", 0) * 3600,) * 2)
+            calls = []; saved = (G.LIFT_FILE, globals()["load_st"], globals()["spath"], globals()["set_state"], globals()["ship_check"], G.STANDING_GO_DIR)
+            G.LIFT_FILE = lift; G.STANDING_GO_DIR = sgd; globals()["spath"] = lambda x: sp
             globals()["load_st"] = lambda h: {"pages": {u: {"state": c.get("cur", "reviewed")}}}
             globals()["set_state"] = lambda *a, **k: calls.append((a, k))
             globals()["ship_check"] = lambda x: list(c.get("ship_problems") or [])
+            want = G.standing_go_log()
             try:
                 with contextlib.redirect_stdout(io.StringIO()): cmd_state([u, c.get("state", "approved"), "--by", c.get("by", "standing-go")]); refused = False
             except SystemExit: refused = True
-            finally: (G.LIFT_FILE, globals()["load_st"], globals()["spath"], globals()["set_state"], globals()["ship_check"]) = saved
+            finally: (G.LIFT_FILE, globals()["load_st"], globals()["spath"], globals()["set_state"], globals()["ship_check"], G.STANDING_GO_DIR) = saved
             if refused or c["expect_refused"]: return refused == c["expect_refused"] and not calls
-            return (len(calls) == 1 and calls[0][1].get("by") == G.STANDING_GO_LOG
-                    and (json.load(open(sp)).get("approval") or {}).get("by") == G.STANDING_GO_LOG)
+            if c.get("expect_log") and c["expect_log"] not in want: return False
+            return (len(calls) == 1 and calls[0][1].get("by") == want
+                    and (json.load(open(sp)).get("approval") or {}).get("by") == want)
     finally: shutil.rmtree(tmp, ignore_errors=True)
     return None
 def time_now():
@@ -1525,6 +1535,7 @@ def _ship(name):
     return run
 for _n in ("ship-update", "relink-payload", "ship", "ship-done", "ship-cms", "ship-qc", "ship-cost", "readiness",
            "api-read", "api-read-learn", "api-create", "api-update", "api-publish"): CMDS[_n] = _ship(_n)
+CMDS["learn-match"] = lambda a: __import__("learn_match").main(a)   # B-dev-19 (Divit 2026-10-16): topic-matched Learn refs (ops/learn_match.py)
 if __name__ == "__main__":
     if len(sys.argv) < 2 or sys.argv[1] not in CMDS: print(__doc__); sys.exit(0)
     try:

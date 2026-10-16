@@ -42,6 +42,26 @@ def ruling19_lifted(path=None):
     p = path or LIFT_FILE
     try: return (datetime.datetime.now().timestamp() - os.path.getmtime(p)) < LIFT_MAX_AGE
     except OSError: return False
+# Divit 2026-10-16 item 4: the standing go generalised to a dated file, .cache/standing-go-<YYYY-MM-DD> (named for today, or under 18
+# hours old), alongside the overnight lift file above. Only `hubctl state URL approved --by standing-go` reads it; the API-script
+# headless gate (webflow_api / ship.py, ruling 19) is unchanged: these ships run in the coordinator's interactive session.
+STANDING_GO_DIR = os.path.join(ROOT, ".cache")
+def standing_go_file(now=None):
+    """(path, date) of the live dated standing-go file, or (None, None)."""
+    import glob as _glob
+    now = now or datetime.datetime.now(); today = now.strftime("%Y-%m-%d")
+    for p in sorted(_glob.glob(os.path.join(STANDING_GO_DIR, "standing-go-20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]")), reverse=True):
+        d = os.path.basename(p)[len("standing-go-"):]
+        try: fresh = now.timestamp() - os.path.getmtime(p) < LIFT_MAX_AGE
+        except OSError: continue
+        if d == today or fresh: return p, d
+    return None, None
+def standing_go_active(): return ruling19_lifted() or standing_go_file()[0] is not None
+def standing_go_log():
+    """The approval's 'by': the overnight wording under the ruling-19 lift, else the dated file's day."""
+    if ruling19_lifted(): return STANDING_GO_LOG
+    d = standing_go_file()[1]
+    return f"standing-go (Divit {d})" if d else STANDING_GO_LOG
 def ship_stopped(): return os.path.exists(SHIP_STOP)
 def ship_stop(reason):
     os.makedirs(OVERNIGHT_DIR, exist_ok=True)
