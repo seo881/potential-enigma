@@ -392,7 +392,10 @@ class Gate:
         for it in items:
             if it["verdict"] == "reject": continue
             c = pa9_content(it["q"], self.primary)
-            dup = next((k for k in kept if jacc(c, pa9_content(k["q"], self.primary)) >= JACCARD_DUP), None)
+            # B-c-1 2026-10-16: a definition and a how-to question on the same head phrase are different intents ("What is X?" vs
+            # "How do I create X?" share every content word once the verb is dropped); they never count as PA9 duplicates
+            dup = next((k for k in kept if jacc(c, pa9_content(k["q"], self.primary)) >= JACCARD_DUP
+                        and {pa6_shape(it["q"]), pa6_shape(k["q"])} != {"definition", "how-to"}), None)
             if dup: it["reasons"].append(("PA9", "reject", f'same intent as "{dup["q"][:50]}"'))
             elif not it.get("legacy"):   # ruling 18 part 4a (new writing only): same-intent variants (fill/complete/write; shorten/speed up)
                 dup = next((k for k in kept if near_dup(it["q"], k["q"], self.primary)), None)
