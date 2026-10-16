@@ -122,6 +122,13 @@
    "via": null,
    "by": "B-w-212",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 13:52 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-76",
+   "note": "rubric 10/10 by B-r-76; 3 notes"
   }
  ],
  "pipeline": "r15",
@@ -1029,5 +1036,245 @@
  },
  "writers": [
   "B-w-212"
- ]
+ ],
+ "review": {
+  "by": "B-r-76",
+  "date": "2026-10-16 13:52 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Client Onboarding Workflow From Handoff to Day 30' and title 'Client Onboarding Workflow: Handoff to Day 30 | Emergent' cover the whole workflow; hero 'Build a client onboarding workflow that gives each new client an owner and logs every step in a database you own.' (under 130 chars, leads with Build); how-to description is one sentence that says what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are explainers and step lists (dealhub glossary, Zendesk, onramp, avoma); page gives the definition (FAQ 1), seven concrete steps ('01 Map the stages after the deal closes' to '07 Replay your last three clients'), four worked examples, and FAQs on first steps, length, documents, metrics and the support handoff."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'closed won in HubSpot', 'kickoff', '12 documents ... payroll reports, a loan statement, and a merchant statement', 'ads, analytics, social, and the website editor', 'day-30 check-in score'. Table built from the aab library, every cell matches rules/competitors/aab.json."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'The app reads your CRM through its API...', 'Tarrant Bay Logistics signs a $36,000 annual plan...', 'Write down each stage between the signed contract...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; sentences short and end on the key word: 'Kickoff is due within 5 business days and is booked for day 3.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator voice with unglamorous detail: 'two laptops still lack the shared drive', 'the social account has been pending for 2 days'. Two voice notes recorded (FAQ 1, FAQ 4), not blocking."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "claims_used (prompt-build, database-owned, api-connect, alerts, ai-extraction, realtime, code-export) cover every Emergent sentence; dealhub source says 'Client onboarding is the process of welcoming new clients into your business'; HubSpot KB says 'Is Closed Won: true if the deal is in the closed won state'; table cells equal the library text; tab numbers add up (9 + 3 = 12, 3 of 4 granted)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No overlap with live /ai-form-builder/client-onboarding-questionnaire: the page never uses 'questionnaire' or 'client onboarding form' in copy, its FAQ asks about stages, timing, documents and metrics, not question wording or templates. No sibling primary (employee onboarding workflow, vendor onboarding workflow, user provisioning automation) in any heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, all pass the PAA gate (hubctl paa: pass 10, reject 0); hub link in item 2 ('Emergent's AI automation builder'); 3 live sibling links (recruitment automation, customer service automation, marketing automation workflow); secondary 'customer onboarding workflow' in FAQ 3; moat lines in FAQ 4, 8, 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches the copy: Tab 1 'Kickoff booked for day 3', '$36,000 annual plan', 'Imogen Saltash, West region'; Tab 2 '9 of 12 received', three missing items, 'To Caspian Moorehouse', 'Emailed every 3 days'; Tab 3 '3 of 4 granted', 'Social account Pending for 2 days', 'Kickoff on hold'; Tab 4 'Setup 2 out of 5', 'Under 3', 'To Marisol Thackeray', 'Two laptops still lack the shared drive'. One hero, readable text."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_2, howto_step_2_des, faq",
+    "quote": "feature_2: 'A bookkeeping client and a payroll client need different steps.'; howto_step_2_des: 'because a bookkeeping client and an ad campaign client wait on different things'; faq 8: 'An accounting firm needs statements, and an agency needs account access.'",
+    "issue": "The same 'different services need different checklists' idea is stated three times with the nouns swapped.",
+    "fix": "Keep it in feature 2; let step 2 and FAQ 8 say something new (for example what to do when a client buys two services).",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "FAQ 1: 'Client onboarding is the process of welcoming new clients into your business. The workflow makes that welcome run the same way for every client'",
+    "issue": "The answer defines the term twice, and the second definition is dealhub's glossary sentence word for word, unattributed; it reads pasted in.",
+    "fix": "Fold it into one definition in the page's own words and keep dealhub as the source.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "FAQ 4: 'Recruitment automation works on the same split: software schedules and reminds, and people interview.'",
+    "issue": "The recruitment analogy exists to carry the internal link and drifts off the client topic.",
+    "fix": "Anchor the link where it fits naturally, or link a closer sibling (crm automation) with a client-onboarding sentence.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_2, howto_step_2_des, faq",
+   "issue": "The same 'different services need different checklists' idea is stated three times with the nouns swapped.",
+   "fix": "Keep it in feature 2; let step 2 and FAQ 8 say something new (for example what to do when a client buys two services).",
+   "by": "B-r-76",
+   "via": "review",
+   "date": "2026-10-16 13:52 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "The answer defines the term twice, and the second definition is dealhub's glossary sentence word for word, unattributed; it reads pasted in.",
+   "fix": "Fold it into one definition in the page's own words and keep dealhub as the source.",
+   "by": "B-r-76",
+   "via": "review",
+   "date": "2026-10-16 13:52 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "The recruitment analogy exists to carry the internal link and drifts off the client topic.",
+   "fix": "Anchor the link where it fits naturally, or link a closer sibling (crm automation) with a client-onboarding sentence.",
+   "by": "B-r-76",
+   "via": "review",
+   "date": "2026-10-16 13:52 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "2f3c0833f724bbc4",
+   "alt:share_image": "7ab5d0000b3fa07a",
+   "alt:tab_image_1": "33a5154ee27d7e95",
+   "alt:tab_image_2": "25eed6650a6b1a99",
+   "alt:tab_image_3": "fb381d98f0fc1f97",
+   "alt:tab_image_4": "c989ba9fa99501f3",
+   "breadcrumb": "27fce98ced43b675",
+   "chip_adds": "d24300324ebc86d4",
+   "explore_cta": "8ee34aeb43b0f56b",
+   "faq": "35b0b9dad8f5b6b2",
+   "feature_1": "b9eb9b8d6d6b06a5",
+   "feature_2": "543bc19bbd836056",
+   "feature_3": "bb9c6833835eed0e",
+   "feature_4": "8ce2096cd50ccf4c",
+   "feature_5": "c089ea1cb37f8e33",
+   "feature_6": "e6aa84774b25db36",
+   "features_heading": "75aa2f2fb6a26ba8",
+   "features_subheading": "002ca199bab8a05e",
+   "h1": "236c1774fda5da10",
+   "hero_description": "8c8eb6b82cd5a09b",
+   "hero_prompt": "e594251136715762",
+   "howto_description": "0c67fd066939eead",
+   "howto_step_1_des": "f3bfe3f4e01ba4d6",
+   "howto_step_1_title": "b314b39dc544d7fd",
+   "howto_step_2_des": "aa5bf1a7cafd9223",
+   "howto_step_2_title": "67e0db1c3df946ba",
+   "howto_step_3_des": "2ce7441e5213af90",
+   "howto_step_3_title": "21f6f3bd79db0361",
+   "howto_step_4_des": "85141c2043778368",
+   "howto_step_4_title": "5b45be7e79cfe0bc",
+   "howto_step_5_des": "4249698643c35026",
+   "howto_step_5_title": "acdb7bb1041f79f6",
+   "howto_step_6_des": "0d1f95d28c00e5d0",
+   "howto_step_6_title": "2de6a2da523e3945",
+   "howto_step_7_des": "0c8894abb3768bbc",
+   "howto_step_7_title": "75478353791403fc",
+   "howto_title": "3ae139596386d326",
+   "meta_description": "29894df5911d98ad",
+   "meta_title": "677dc3973aacbfc5",
+   "mockup": "c25a526792f44d49",
+   "product_name": "5725433dbe5940c4",
+   "prompt_chip_1": "4e4db8624912dd7e",
+   "prompt_chip_2": "2cb7e7cf2aeb338c",
+   "prompt_chip_3": "d16778314c73cc6c",
+   "prompt_chip_4": "a886e12a05743585",
+   "slug": "340671d19d783c41",
+   "tab_content_1": "a2687e99dd5edcd9",
+   "tab_content_2": "729c55273419c071",
+   "tab_content_3": "6ecb04e2d53ad452",
+   "tab_content_4": "7d31d4fdda391762",
+   "tab_label_1": "4e4db8624912dd7e",
+   "tab_label_2": "2cb7e7cf2aeb338c",
+   "tab_label_3": "d16778314c73cc6c",
+   "tab_label_4": "a886e12a05743585",
+   "usecase_heading": "1974b884e59d725a",
+   "why_description": "8169b48c80890a90",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "7ed84b248fd4d1a3"
+  },
+  "all": "2c73cb083aad070e",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "2f3c0833f724bbc4",
+   "alt:share_image": "7ab5d0000b3fa07a",
+   "alt:tab_image_1": "33a5154ee27d7e95",
+   "alt:tab_image_2": "25eed6650a6b1a99",
+   "alt:tab_image_3": "fb381d98f0fc1f97",
+   "alt:tab_image_4": "c989ba9fa99501f3",
+   "breadcrumb": "27fce98ced43b675",
+   "chip_adds": "d24300324ebc86d4",
+   "explore_cta": "8ee34aeb43b0f56b",
+   "faq": "35b0b9dad8f5b6b2",
+   "feature_1": "b9eb9b8d6d6b06a5",
+   "feature_2": "543bc19bbd836056",
+   "feature_3": "bb9c6833835eed0e",
+   "feature_4": "8ce2096cd50ccf4c",
+   "feature_5": "c089ea1cb37f8e33",
+   "feature_6": "e6aa84774b25db36",
+   "features_heading": "75aa2f2fb6a26ba8",
+   "features_subheading": "002ca199bab8a05e",
+   "h1": "236c1774fda5da10",
+   "hero_description": "8c8eb6b82cd5a09b",
+   "hero_prompt": "e594251136715762",
+   "howto_description": "0c67fd066939eead",
+   "howto_step_1_des": "f3bfe3f4e01ba4d6",
+   "howto_step_1_title": "b314b39dc544d7fd",
+   "howto_step_2_des": "aa5bf1a7cafd9223",
+   "howto_step_2_title": "67e0db1c3df946ba",
+   "howto_step_3_des": "2ce7441e5213af90",
+   "howto_step_3_title": "21f6f3bd79db0361",
+   "howto_step_4_des": "85141c2043778368",
+   "howto_step_4_title": "5b45be7e79cfe0bc",
+   "howto_step_5_des": "4249698643c35026",
+   "howto_step_5_title": "acdb7bb1041f79f6",
+   "howto_step_6_des": "0d1f95d28c00e5d0",
+   "howto_step_6_title": "2de6a2da523e3945",
+   "howto_step_7_des": "0c8894abb3768bbc",
+   "howto_step_7_title": "75478353791403fc",
+   "howto_title": "3ae139596386d326",
+   "meta_description": "29894df5911d98ad",
+   "meta_title": "677dc3973aacbfc5",
+   "mockup": "c25a526792f44d49",
+   "product_name": "5725433dbe5940c4",
+   "prompt_chip_1": "4e4db8624912dd7e",
+   "prompt_chip_2": "2cb7e7cf2aeb338c",
+   "prompt_chip_3": "d16778314c73cc6c",
+   "prompt_chip_4": "a886e12a05743585",
+   "slug": "340671d19d783c41",
+   "tab_content_1": "a2687e99dd5edcd9",
+   "tab_content_2": "729c55273419c071",
+   "tab_content_3": "6ecb04e2d53ad452",
+   "tab_content_4": "7d31d4fdda391762",
+   "tab_label_1": "4e4db8624912dd7e",
+   "tab_label_2": "2cb7e7cf2aeb338c",
+   "tab_label_3": "d16778314c73cc6c",
+   "tab_label_4": "a886e12a05743585",
+   "usecase_heading": "1974b884e59d725a",
+   "why_description": "8169b48c80890a90",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "7ed84b248fd4d1a3"
+  },
+  "all": "2c73cb083aad070e",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
