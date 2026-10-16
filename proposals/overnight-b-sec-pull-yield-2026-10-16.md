@@ -7,3 +7,5 @@
 **Proposed fix (default):** `overnight_b.py next` stops listing 6b for the run once a round of at least 8 secondary pulls lifts no page to ready (count kept in `.cache/overnight-b/`). It then exits 3 ("nothing left") unless other work is listed. Golden case: a run with 8 sec pulls and 0 lifts lists no 6b rows.
 
 **Done this session:** I stopped pulling after the second round and left the remaining 48 credits unspent. No rule or tooling change was made.
+
+**Next session (05:52 IST):** `next` listed one 6b row, lead-nurturing-workflow (the last short row at feasibility >= 7). Pulled it: 1 credit (run total 13 of 60). After `queue_rank.py` it stayed short at 7, so the count is now 0 of 17 lifted. Nothing else is workable (19 ready rows are all quizzes, which wait on the quiz template), so `next` now idles until 08:00 IST and the loop ends with "nothing left" and writes the morning report.
