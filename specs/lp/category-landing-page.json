@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-191",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 13:14 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-65",
+   "note": "[truth | CONTENT_DEFECTS #8] why_table: The grouped column puts Leadpages under a traffic-tiered pricing claim. The library's own, newer Leadpages entry says 'No traffic caps' (https://www.leadpages.com/pricing, 'no traffic caps on any plan', checked 2026-10-12), so the column states a false fact ab"
   }
  ],
  "pipeline": "r15",
@@ -926,5 +933,355 @@
  },
  "writers": [
   "B-w-191"
- ]
+ ],
+ "review": {
+  "by": "B-r-65",
+  "date": "2026-10-16 13:14 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Category Landing Page Shoppers Can Filter', meta 'Category Landing Page Examples and Builder | Emergent' and hero 'Get a category landing page with product filters and a catalog table you own, built from a single prompt.' cover the whole primary; how-to description is one sentence that says what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is UX guidance (NN/g, Baymard) and example galleries; the page gives a definition (FAQ 1), four working examples with data (tabs), a 7-step how-to specific to category pages (intro, subcategory links, filters, faceted URLs, tile order)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'Wide fit, then Max cushion', 'subcategory tile', 'faceted navigation URLs', 'heel drop'. Emergent build cell 'Prompt for a campaign page' is the hub default (no category variant exists; noted)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Emergent builds the grid from a product table...', 'Over 30 days, 3,000 visitors clicked...', 'Write down the question a shopper brings...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Two ', so' endings (within QC limit); one 34-word sentence in feature_5; minor repeats noted only."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous details: 'Ridgeline 30L backpack', '212 shoppers had left an email', 'a roof over 20,000 square feet goes to Priya Raman'. Two soft lines noted."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "why_table column 'Landingi / Leadpages / Instapage' states 'Tiered by traffic on most plans'; the library's own Leadpages entry (leadpages.com/pricing, checked 2026-10-12) says 'No traffic caps'. Google claims in howto_step_3_des, howto_step_6_des and FAQ 6 match their quoted spans."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own subject matter (product table, filters, subcategory tiles, faceted crawling); sibling primaries (recruiting, travel, news) appear only as an FAQ link, never as headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, no brand or file-format ask; each answers in its first sentence ('Not unless the combination answers a search people make'); hub link in item 2; no FAQ statement refers to 'the examples above'."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab images match copy: 48 shoes / 6 match; 1,350+900+480+270 = 3,000 and 45%; roofs over 20,000 sq ft to Priya Raman, smaller get the sheet; 212 shoppers emailed, card switched to Add to cart."
+   }
+  },
+  "findings": [
+   {
+    "class": "wrong-fact",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #8",
+    "field": "why_table",
+    "quote": "Landingi / Leadpages / Instapage ... Tiered by traffic on most plans",
+    "issue": "The grouped column puts Leadpages under a traffic-tiered pricing claim. The library's own, newer Leadpages entry says 'No traffic caps' (https://www.leadpages.com/pricing, 'no traffic caps on any plan', checked 2026-10-12), so the column states a false fact about a named competitor. The grouped entry is the older 2026-09-28 fact; Instapage and Landingi have their own separately vetted entries. No duplicate vendor columns otherwise (Unbounce, the group, Wix each appear once).",
+    "fix": "Regenerate the table with separately vetted vendors instead of the group, e.g. hubctl table <url> --vs Unbounce,Leadpages,Instapage --rows build,data,visitors,abtest,ownership (Leadpages: 'No traffic caps'; Instapage: 'Monthly visitor caps by plan'), or replace the group with Landingi alone. Coordinator: the group entry in rules/competitors/lp.json contradicts the Leadpages entry and sits on about 21 LP specs.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "hero_prompt",
+    "quote": "Build a category landing page that saves every signup to a database I own.",
+    "issue": "A category page's job is products, filters and tiles; 'every signup' fits only tab 4 and none of the chips' main job.",
+    "fix": "Optional: 'Build a category landing page that reads my products from a table I own and lets shoppers filter them.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "CONTENT_DEFECTS #3",
+    "field": "why_table",
+    "quote": "Prompt for a campaign page",
+    "issue": "A category page is not a campaign page; the hub default build cell is used because no category or catalog variant exists. Competitors also do not rank in the top 10 (QC K7), which holds no builders.",
+    "fix": "Coordinator: consider a catalog variant ('Prompt for the page and the product table behind it') in rules/competitors/lp.json.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_6_des",
+    "quote": "Google's crawling guide says to use robots.txt to disallow crawling of faceted navigation URLs.",
+    "issue": "The quoted span is right, but in the guide it sits under the condition that you do not need those URLs indexed; the step states it unconditionally. FAQ 6 then says some combinations deserve their own URL, which reads as a mild tension.",
+    "fix": "Optional: 'If you do not need filter URLs in search, Google's crawling guide says to use robots.txt to disallow crawling of them.'",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_2_des; faq item 3; faq item 8",
+    "quote": "On a phone, the first row of products should show without a long scroll. / a tall banner pushes the first products below the fold / Short enough that the first row of products still shows on a phone",
+    "issue": "The same first-row-above-the-fold idea appears three times.",
+    "fix": "Optional: keep it in FAQ 8; give step 2 or FAQ 3 a different point.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq item 4",
+    "quote": "They work for services too: ... The structure works for open roles too:",
+    "issue": "Two sentences built the same way, each ending its clause on 'too'.",
+    "fix": "Optional: 'Recruiting landing pages use the same structure for open roles...'",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 7",
+    "quote": "A filter panel that opens over the grid keeps the products in view once it closes.",
+    "issue": "Says nothing: any panel leaves the products in view once it closes.",
+    "fix": "Optional: 'A panel that slides over the grid and closes on Apply returns the shopper to the filtered results.'",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief tab 3 (serviceCategory) rule banner",
+    "quote": "If the roof is over 20,000 sq ft → to Priya Raman",
+    "issue": "The arrow and 'to' double up.",
+    "fix": "Optional: 'If the roof is over 20,000 sq ft → Priya Raman'.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #23",
+    "field": "image_brief tab 4 (restockAlerts) form",
+    "quote": "Dev Patel",
+    "issue": "The shopper's name is a well-known actor's name; neutral role, so not a blocking image-names case.",
+    "fix": "Optional: a less recognizable name, e.g. 'Dev Mehta'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "hero_prompt",
+   "issue": "A category page's job is products, filters and tiles; 'every signup' fits only tab 4 and none of the chips' main job.",
+   "fix": "Optional: 'Build a category landing page that reads my products from a table I own and lets shoppers filter them.'",
+   "by": "B-r-65",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "CONTENT_DEFECTS #3",
+   "field": "why_table",
+   "issue": "A category page is not a campaign page; the hub default build cell is used because no category or catalog variant exists. Competitors also do not rank in the top 10 (QC K7), which holds no builders.",
+   "fix": "Coordinator: consider a catalog variant ('Prompt for the page and the product table behind it') in rules/competitors/lp.json.",
+   "by": "B-r-65",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_6_des",
+   "issue": "The quoted span is right, but in the guide it sits under the condition that you do not need those URLs indexed; the step states it unconditionally. FAQ 6 then says some combinations deserve their own URL, which reads as a mild tension.",
+   "fix": "Optional: 'If you do not need filter URLs in search, Google's crawling guide says to use robots.txt to disallow crawling of them.'",
+   "by": "B-r-65",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_2_des; faq item 3; faq item 8",
+   "issue": "The same first-row-above-the-fold idea appears three times.",
+   "fix": "Optional: keep it in FAQ 8; give step 2 or FAQ 3 a different point.",
+   "by": "B-r-65",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq item 4",
+   "issue": "Two sentences built the same way, each ending its clause on 'too'.",
+   "fix": "Optional: 'Recruiting landing pages use the same structure for open roles...'",
+   "by": "B-r-65",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 7",
+   "issue": "Says nothing: any panel leaves the products in view once it closes.",
+   "fix": "Optional: 'A panel that slides over the grid and closes on Apply returns the shopper to the filtered results.'",
+   "by": "B-r-65",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief tab 3 (serviceCategory) rule banner",
+   "issue": "The arrow and 'to' double up.",
+   "fix": "Optional: 'If the roof is over 20,000 sq ft → Priya Raman'.",
+   "by": "B-r-65",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #23",
+   "field": "image_brief tab 4 (restockAlerts) form",
+   "issue": "The shopper's name is a well-known actor's name; neutral role, so not a blocking image-names case.",
+   "fix": "Optional: a less recognizable name, e.g. 'Dev Mehta'.",
+   "by": "B-r-65",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "3021366cffde53a3",
+   "alt:share_image": "f9d1d9d569948f8c",
+   "alt:tab_image_1": "a4555428c4caba28",
+   "alt:tab_image_2": "5ea5591bba6546b5",
+   "alt:tab_image_3": "77af5cb7f87b4384",
+   "alt:tab_image_4": "0753522846517eea",
+   "breadcrumb": "5996b2e13987022f",
+   "chip_adds": "a2e2a8ac36b44062",
+   "explore_cta": "ddd5e111bd16504b",
+   "faq": "9d349a628a51933a",
+   "feature_1": "edd70d2c64da8b4b",
+   "feature_2": "4a38131aee6b6892",
+   "feature_3": "30479cefc59a7b1b",
+   "feature_4": "411a90f2b06cd707",
+   "feature_5": "d965cc311104e390",
+   "feature_6": "09e18c9ce6dc9654",
+   "features_heading": "efc590700ea7f084",
+   "features_subheading": "319f6e9f86bc7096",
+   "h1": "37b8277d64ec1ad8",
+   "hero_description": "f22fff23b4f3ce5d",
+   "hero_prompt": "d0c8be9f4d0654ad",
+   "howto_description": "e9ba7d81a566220c",
+   "howto_step_1_des": "eae66478e5bd74b9",
+   "howto_step_1_title": "6580f1d224542ada",
+   "howto_step_2_des": "b19bd8ed9a6fd118",
+   "howto_step_2_title": "ae4e26972bec77e0",
+   "howto_step_3_des": "c50a35645e74c886",
+   "howto_step_3_title": "af47f8a6a9275c65",
+   "howto_step_4_des": "198fc6fde2f98e81",
+   "howto_step_4_title": "f3dcebb81e2f6785",
+   "howto_step_5_des": "0b48bbc51b8c7a40",
+   "howto_step_5_title": "6345823c841442a4",
+   "howto_step_6_des": "584b4b5fb21f6631",
+   "howto_step_6_title": "b68a4f0e61f5e635",
+   "howto_step_7_des": "d1647410c5ca2bd4",
+   "howto_step_7_title": "b4e53b340f40f3df",
+   "howto_title": "24cabb51fffe35e0",
+   "meta_description": "7b168e78e328b3fb",
+   "meta_title": "9e3f3801c3948e3d",
+   "mockup": "83cff1bbf5f83653",
+   "product_name": "5ed6df3971685b6b",
+   "prompt_chip_1": "76d7f194176ae7cf",
+   "prompt_chip_2": "3416ebe88dcdeba7",
+   "prompt_chip_3": "5b2592d85c4e3c09",
+   "prompt_chip_4": "f85ca979b737adc9",
+   "slug": "1da3a234c3fb6b02",
+   "tab_content_1": "65520435b1eb0ad9",
+   "tab_content_2": "a127db90504fd48d",
+   "tab_content_3": "9959c8d80825fc7d",
+   "tab_content_4": "d5f98adad039b75a",
+   "tab_label_1": "a0948a0e32009a60",
+   "tab_label_2": "3416ebe88dcdeba7",
+   "tab_label_3": "49f1b8bb7fcb90ff",
+   "tab_label_4": "f85ca979b737adc9",
+   "usecase_heading": "c2eceb42612376c8",
+   "why_description": "19b5d50ff2732e43",
+   "why_table": "ca19c6b1f1a9f0c3",
+   "why_title": "b7117bb4cfd044d3"
+  },
+  "all": "6047656f676ecdaf",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "3021366cffde53a3",
+   "alt:share_image": "f9d1d9d569948f8c",
+   "alt:tab_image_1": "a4555428c4caba28",
+   "alt:tab_image_2": "5ea5591bba6546b5",
+   "alt:tab_image_3": "77af5cb7f87b4384",
+   "alt:tab_image_4": "0753522846517eea",
+   "breadcrumb": "5996b2e13987022f",
+   "chip_adds": "a2e2a8ac36b44062",
+   "explore_cta": "ddd5e111bd16504b",
+   "faq": "9d349a628a51933a",
+   "feature_1": "edd70d2c64da8b4b",
+   "feature_2": "4a38131aee6b6892",
+   "feature_3": "30479cefc59a7b1b",
+   "feature_4": "411a90f2b06cd707",
+   "feature_5": "d965cc311104e390",
+   "feature_6": "09e18c9ce6dc9654",
+   "features_heading": "efc590700ea7f084",
+   "features_subheading": "319f6e9f86bc7096",
+   "h1": "37b8277d64ec1ad8",
+   "hero_description": "f22fff23b4f3ce5d",
+   "hero_prompt": "d0c8be9f4d0654ad",
+   "howto_description": "e9ba7d81a566220c",
+   "howto_step_1_des": "eae66478e5bd74b9",
+   "howto_step_1_title": "6580f1d224542ada",
+   "howto_step_2_des": "b19bd8ed9a6fd118",
+   "howto_step_2_title": "ae4e26972bec77e0",
+   "howto_step_3_des": "c50a35645e74c886",
+   "howto_step_3_title": "af47f8a6a9275c65",
+   "howto_step_4_des": "198fc6fde2f98e81",
+   "howto_step_4_title": "f3dcebb81e2f6785",
+   "howto_step_5_des": "0b48bbc51b8c7a40",
+   "howto_step_5_title": "6345823c841442a4",
+   "howto_step_6_des": "584b4b5fb21f6631",
+   "howto_step_6_title": "b68a4f0e61f5e635",
+   "howto_step_7_des": "d1647410c5ca2bd4",
+   "howto_step_7_title": "b4e53b340f40f3df",
+   "howto_title": "24cabb51fffe35e0",
+   "meta_description": "7b168e78e328b3fb",
+   "meta_title": "9e3f3801c3948e3d",
+   "mockup": "83cff1bbf5f83653",
+   "product_name": "5ed6df3971685b6b",
+   "prompt_chip_1": "76d7f194176ae7cf",
+   "prompt_chip_2": "3416ebe88dcdeba7",
+   "prompt_chip_3": "5b2592d85c4e3c09",
+   "prompt_chip_4": "f85ca979b737adc9",
+   "slug": "1da3a234c3fb6b02",
+   "tab_content_1": "65520435b1eb0ad9",
+   "tab_content_2": "a127db90504fd48d",
+   "tab_content_3": "9959c8d80825fc7d",
+   "tab_content_4": "d5f98adad039b75a",
+   "tab_label_1": "a0948a0e32009a60",
+   "tab_label_2": "3416ebe88dcdeba7",
+   "tab_label_3": "49f1b8bb7fcb90ff",
+   "tab_label_4": "f85ca979b737adc9",
+   "usecase_heading": "c2eceb42612376c8",
+   "why_description": "19b5d50ff2732e43",
+   "why_table": "ca19c6b1f1a9f0c3",
+   "why_title": "b7117bb4cfd044d3"
+  },
+  "all": "6047656f676ecdaf",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
