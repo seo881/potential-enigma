@@ -2,6 +2,9 @@
 
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
+## 2026-10-16
+- **Ruling 19 and ruling 12 restored (B-c-1, 2026-10-16):** the overnight loop ended at 08:19 local (02:49 UTC) with "nothing left to do", having shipped 0 pages: 161 live before and after, 785k tokens, 13 of 60 AlsoAsked credits (reports/2026-10-16/0800-overnight.md). Its exit trap deleted the ruling-19 lift file, which also ends the ruling-12 lift.
+
 ## 2026-10-15 (night)
 - **Overnight run, standing go (Divit, 2026-10-15 night):** tonight a page reviewed by an independent reviewer with 0 blocking findings, 0 flags and QC 0 may be approved automatically. It is logged as `by: standing-go (Divit 2026-10-15 night)`, never as divit. Flagged pages never block a batch: they are skipped into one morning packet.
 - **Ruling 19 lifted for tonight's overnight loop only (Divit, 2026-10-15 night):** api-create, api-update and api-publish (item publishes) may run headless, under all of these:
