@@ -251,7 +251,9 @@ class Gate:
         """The per-question rules, then Divit's flag decisions (rules/flag_decisions.json, Divit 2026-10-13): an approved flag subtype
         becomes a note, a rejected one a reject; a per-question decision (mixed subtypes such as PA10 and PA14) settles that question."""
         out = self._judge(item)
-        if item.get("source") == WRITTEN:   # Divit 2026-10-16: a written question takes no flag; the writer rephrases it
+        # Divit 2026-10-16: a written question takes no flag; the writer rephrases it. Exception (Divit 2026-10-16 evening, PA7
+        # ruling): the code-built, locked definition slot cannot be rephrased, so its flags stay flags for Divit's per-question decision
+        if item.get("source") == WRITTEN and item.get("origin") != "definition":
             return [(r[0], "reject", "written question, rephrase it: " + r[2]) if r[1] == "flag" else r for r in out]
         if not any(r[1] == "flag" for r in out): return out
         fd = _flag_decisions(); qh = qhash(item.get("q") or "")
@@ -552,7 +554,7 @@ def faq_items(spec):
     for i, f in enumerate(faq):
         s = src.get(norm(f["q"]), {})
         prov = s.get("prov") or {}
-        out.append({"n": i + 1, "q": f["q"], "a": f.get("a", ""), "source": s.get("source", "unknown"), "prov": prov})
+        out.append({"n": i + 1, "q": f["q"], "a": f.get("a", ""), "source": s.get("source", "unknown"), "prov": prov, "origin": s.get("origin")})
     return out
 
 def run_pull(g):

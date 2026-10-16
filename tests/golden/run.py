@@ -203,6 +203,15 @@ def caught(c):
         g.finish(its); last = its[-1]
         if c.get("expect_verdict"): return last["verdict"] == c["expect_verdict"]
         return bool({r[0] for r in last["reasons"] if r[1] == "reject"} & set(c["expect"]))
+    if c["kind"] == "gate-written-def":   # Divit 2026-10-16 PA7 ruling: a code-built definition slot keeps its flag (never a reject)
+        import paa_gate as PG
+        g = PG.Gate(c["url"]); it = {"q": c["q"], "source": "written", "origin": c.get("origin"), "n": 1, "legacy": False}
+        lv = {r[1] for r in g.judge(it) if r[0] == c["rule"]}
+        return lv == set(c["expect_levels"])
+    if c["kind"] == "flags-pending":   # B-c-1 2026-10-16: stale Semrush/PAA flag markers on slots that now hold a written question
+        import guards as GD, hubctl as H
+        sp = json.load(open(H.spath(c["url"]))) if not c.get("sha") else spec_at(c["sha"], c["url"])
+        return sorted(n for n, _ in GD.flags_pending(sp)) == sorted(c["expect"])
     if c["kind"] == "gate-written-prov":   # Divit 2026-10-16: verbatim/provenance checks (PA1, PA1b) apply to paa items only
         import paa_gate as PG, hubctl as H
         run = "every donor sees the receipt line before paying today"   # synthetic, not pull text

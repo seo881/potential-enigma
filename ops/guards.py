@@ -437,9 +437,13 @@ def flags_pending(spec):
     sub, qs = d.get("subtypes", {}), d.get("questions", {})
     slug = (spec.get("url") or "").rsplit("/", 1)[-1]; out = []
     sys.path.insert(0, os.path.join(ROOT, "qc"))
+    src = spec.get("faq_sources") or []
     for sl in spec.get("faq_plan") or []:
         fl = sl.get("flagged") or []
         if not fl or not sl.get("q"): continue
+        n_ = sl.get("n") or 0
+        if 0 < n_ <= len(src) and (src[n_ - 1] or {}).get("source") == "written" and (src[n_ - 1] or {}).get("q") == sl["q"]:
+            continue   # B-c-1 2026-10-16: the slot now holds a written question (gated strictly: a flag there is a reject); the marker belonged to the replaced Semrush/PAA question
         import paa_gate as _PG
         if (qs.get(slug + ":" + _PG.qhash(sl["q"])) or {}).get("decision") == "approve": continue
         fl = [("PA6 asker unclear: " + _PG.pa6_shape(sl.get("ref") or sl["q"])) if f in ("PA6 asker unclear", "PA6 asker unclear: other") else f for f in fl]   # skeletons built before the 10-14 split
