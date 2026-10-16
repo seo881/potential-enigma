@@ -147,6 +147,13 @@
    "via": null,
    "by": "B-w-220",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 14:02 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-78",
+   "note": "[images | CONTENT_DEFECTS #25] image_brief.tabs[0].hero: The tab 1 hero is a message card, which the engine always draws with the channel hash, so the sign-off request appears posted to a channel called '# Dana Ortiz' while the copy names one person who signs off. This is the row 25 pattern (alert d"
   }
  ],
  "plan": {
@@ -951,5 +958,255 @@
   "Add a score out of 25 that ranks every new request.",
   "Add a rush flag when the due date beats the lead time.",
   "Add a quarterly hours budget that funds requests in score order."
- ]
+ ],
+ "review": {
+  "by": "B-r-78",
+  "date": "2026-10-16 14:02 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Project Request Form That Routes and Ranks New Work'; hero 'Build a project request form that sends each request to the right approver and saves it to a database you own.' (under 130 chars, primary, leads with Build); how-to description one sentence: 'Seven steps to make a project request form that puts every request before the person who approves it and ranks the rest by score.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "AMBER SERP of issuer PDFs and templates: FAQ 1 defines the form, FAQ 5 lists what a sample project intake form asks, FAQ 4 covers adapting a project intake form template, how-to step 1 'Collect the last 20 requests' builds the field list; four tabs show intake offices routing and ranking requests, the angle in spec.plan."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'IT's Thursday intake meeting', 'Facilities turns anything under $50,000 into a work order', 'capital planning committee', 'the quarter's 1,200 team hours'. Table cells match rules/competitors/form.json verbatim for Adobe Acrobat, Jotform, Google Forms and the Emergent column; no cell falls back."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs: 'Show each request type its own fields.', 'Send a request to its sponsor...', 'Route each request by its estimate.', 'Compare the requested due date...', 'Score each request...', 'Export the full code...'; tabs open on full sentences ('Westbrook College's IT office runs every new project through one form.')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; QC Q5/Q6/Q7 clean. Notes only (tab 1 heading vs copy sequencing)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail ('REQ-2214', '$84,000 contractor estimate', 'window posters for a weekend sale that opens in 9 business days'); two forced sibling-link sentences recorded as notes."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to prompt-build, database-owned, alerts, code-export. The one third-party fact, FAQ 6 'In the California Department of Technology's project guidance, the drafted charter goes to the executive sponsor for approval', matches the domain_sources quote 'Once the charter has been drafted, it goes to the Executive Sponsor for approval.' and is attributed to that agency, not presented as a US-wide rule or as state-specific advice to the reader. Tab 4 numbers add up: 400+300+250+200=1,150 of 1,200; 1,150+300>1,200."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Distinct from /ai-form-builder/service-request-form (service queues, request numbers, urgent alerts): this page is pre-commitment approval and portfolio ranking ('Ranking against team hours', 'Capital planning gets any estimate over $50,000'). No sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, none naming a brand or file format; each answered in its first sentence ('They can be one form under two names.'; 'Change the routing first.'); hub link in item 2; secondaries project intake form, project intake form template, sample project intake form each carried; F9 moat lines in items 8 and 10; paa --spec: pass 10, reject 0, flag 0."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 1 hero message is drawn to a channel '# Dana Ortiz' while the copy names one person, 'Registrar Dana Ortiz signs off first' (CONTENT_DEFECTS #25). Tabs 2-4 match copy on names, numbers and outcomes ($84,000 to capital planning, 3 work orders under $50,000; 9 vs 15 business days to Marcus Bell; 1,150 of 1,200 hours, portal 17 of 25 and 300 hours)."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #25",
+    "field": "image_brief.tabs[0].hero",
+    "quote": "\"kind\": \"message\", \"channel\": \"Dana Ortiz\" (renders as '# Dana Ortiz'); tab_content_1: 'Registrar Dana Ortiz signs off first, before IT's Thursday intake meeting.'",
+    "issue": "The tab 1 hero is a message card, which the engine always draws with the channel hash, so the sign-off request appears posted to a channel called '# Dana Ortiz' while the copy names one person who signs off. This is the row 25 pattern (alert drawn to a channel when the copy names a person). The cover gets it right with dm: true; the tab hero does not, and the message kind has no dm option. Only instance on the page (cover and og are correct).",
+    "fix": "Change tab 1 hero to a card addressed to her, as tab 3 does: kind 'card', title 'Sign-off needed: REQ-2214', blocks 'Campus tour sign-ups', 'Touches the student records system', a meta line 'Sent to Registrar Dana Ortiz', action 'Approve'; keep the story link 'Registrar Dana Ortiz signs off' -> 'Registrar sign-off'. Re-render with hubctl images.",
+    "severity": "blocking"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "FAQ 4: 'Intake in other fields follows the same test: a life coaching intake form asks only what the first session needs.' FAQ 7: 'A fitness assessment form works on the same idea: a few measured items add up to one number someone can act on.'",
+    "issue": "Two sibling links arrive as bolted-on analogy sentences that a project office reader has no use for; they read as link placement, not advice. (FAQ 10's event planning form link is natural.)",
+    "fix": "Next time, link siblings a project-request reader would follow (IT request form, maintenance request form) or place the link where it answers the question.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_1",
+    "quote": "H3 'Registrar sign-off comes before IT sees the request' vs body 'Westbrook College's IT office runs every new project through one form... Registrar Dana Ortiz signs off first, before IT's Thursday intake meeting.'",
+    "issue": "IT runs the form, so IT does see the request; the copy and image mean before IT's intake meeting reviews it. Loose, not contradictory (hero prompt says 'before IT reviews it').",
+    "fix": "'Registrar sign-off comes before IT's intake meeting' or '...before IT reviews the request'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "plan.tab_stories",
+    "quote": "plan: 'goes to creative director Priya Shah to approve'; tab_content_3: 'Creative director Marcus Bell approves it'",
+    "issue": "The plan names a different approver from the shipped copy and image (Marcus Bell). Not on the page, so not a contradiction for readers; the plan is stale.",
+    "fix": "Keep plan.tab_stories in step with the copy when names change.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "Two sibling links arrive as bolted-on analogy sentences that a project office reader has no use for; they read as link placement, not advice. (FAQ 10's event planning form link is natural.)",
+   "fix": "Next time, link siblings a project-request reader would follow (IT request form, maintenance request form) or place the link where it answers the question.",
+   "by": "B-r-78",
+   "via": "review",
+   "date": "2026-10-16 14:02 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_1",
+   "issue": "IT runs the form, so IT does see the request; the copy and image mean before IT's intake meeting reviews it. Loose, not contradictory (hero prompt says 'before IT reviews it').",
+   "fix": "'Registrar sign-off comes before IT's intake meeting' or '...before IT reviews the request'.",
+   "by": "B-r-78",
+   "via": "review",
+   "date": "2026-10-16 14:02 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "plan.tab_stories",
+   "issue": "The plan names a different approver from the shipped copy and image (Marcus Bell). Not on the page, so not a contradiction for readers; the plan is stale.",
+   "fix": "Keep plan.tab_stories in step with the copy when names change.",
+   "by": "B-r-78",
+   "via": "review",
+   "date": "2026-10-16 14:02 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "5b1f760b9b086430",
+   "alt:share_image": "842e80b9fd3cc847",
+   "alt:tab_image_1": "68dfe3d9d4253777",
+   "alt:tab_image_2": "9f24d3eb94ba8218",
+   "alt:tab_image_3": "5056c9393fbc4749",
+   "alt:tab_image_4": "120cd01a3fd647e9",
+   "breadcrumb": "51b63dfe4ea3933c",
+   "chip_adds": "f08980fc0ab9f4eb",
+   "explore_cta": "c1b35f31ff8c978f",
+   "faq": "4e781f50bbe7fccb",
+   "feature_1": "2d7e7273bf4e642f",
+   "feature_2": "56a817887974fd42",
+   "feature_3": "9d96a8a12488f2b5",
+   "feature_4": "8184f059ce925912",
+   "feature_5": "0e618193e4a4510e",
+   "feature_6": "cb710d4bdea72740",
+   "features_heading": "3b9d9945d0a70789",
+   "features_subheading": "605a696748057edf",
+   "h1": "ea2e28088449e056",
+   "hero_description": "c6588944a5a3a98f",
+   "hero_prompt": "3587644b23c58dad",
+   "howto_description": "d5db26989104326e",
+   "howto_step_1_des": "7b7919f92ba516a3",
+   "howto_step_1_title": "3ca9007ead3c6fa6",
+   "howto_step_2_des": "09147c856c7eb023",
+   "howto_step_2_title": "c172effadc0fc85a",
+   "howto_step_3_des": "3136f03d9e527029",
+   "howto_step_3_title": "08149d376506ef24",
+   "howto_step_4_des": "36f914ad113a9fd1",
+   "howto_step_4_title": "35c133c91ef9b04d",
+   "howto_step_5_des": "195f7778f7596417",
+   "howto_step_5_title": "844d63895a0fee5f",
+   "howto_step_6_des": "fd2de83d1c0f8f50",
+   "howto_step_6_title": "f293c7e670dc06cf",
+   "howto_step_7_des": "3969bcd05d21995e",
+   "howto_step_7_title": "23016a9c266e1458",
+   "howto_title": "42af032506615c6c",
+   "meta_description": "43b22c7641f520ff",
+   "meta_title": "fbc1edf21ee57904",
+   "mockup": "4cabfd7aeee80de9",
+   "product_name": "032ad742e75ac136",
+   "prompt_chip_1": "d8bbc499abd8cc39",
+   "prompt_chip_2": "2f967bdcc1d58b4e",
+   "prompt_chip_3": "1198665d12af26c4",
+   "prompt_chip_4": "64d9d622a7b93c64",
+   "slug": "97d49fbc63dab4ac",
+   "tab_content_1": "b947f3cc62b835fa",
+   "tab_content_2": "c2d794c76f9df164",
+   "tab_content_3": "43d2ab149d9a12da",
+   "tab_content_4": "8c9a530e5b34dc23",
+   "tab_label_1": "b02479c47fa472e2",
+   "tab_label_2": "9dc7e90e56b2f263",
+   "tab_label_3": "da9cab34f14b9edd",
+   "tab_label_4": "aef2a9c3197c7bb0",
+   "usecase_heading": "2deedb72ace0bc4c",
+   "why_description": "3b20e5249729409d",
+   "why_table": "7730d280b79c5ad2",
+   "why_title": "b9f31aa3ecbc02f8"
+  },
+  "all": "6e1ec3c88a99aaac",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "5b1f760b9b086430",
+   "alt:share_image": "842e80b9fd3cc847",
+   "alt:tab_image_1": "68dfe3d9d4253777",
+   "alt:tab_image_2": "9f24d3eb94ba8218",
+   "alt:tab_image_3": "5056c9393fbc4749",
+   "alt:tab_image_4": "120cd01a3fd647e9",
+   "breadcrumb": "51b63dfe4ea3933c",
+   "chip_adds": "f08980fc0ab9f4eb",
+   "explore_cta": "c1b35f31ff8c978f",
+   "faq": "4e781f50bbe7fccb",
+   "feature_1": "2d7e7273bf4e642f",
+   "feature_2": "56a817887974fd42",
+   "feature_3": "9d96a8a12488f2b5",
+   "feature_4": "8184f059ce925912",
+   "feature_5": "0e618193e4a4510e",
+   "feature_6": "cb710d4bdea72740",
+   "features_heading": "3b9d9945d0a70789",
+   "features_subheading": "605a696748057edf",
+   "h1": "ea2e28088449e056",
+   "hero_description": "c6588944a5a3a98f",
+   "hero_prompt": "3587644b23c58dad",
+   "howto_description": "d5db26989104326e",
+   "howto_step_1_des": "7b7919f92ba516a3",
+   "howto_step_1_title": "3ca9007ead3c6fa6",
+   "howto_step_2_des": "09147c856c7eb023",
+   "howto_step_2_title": "c172effadc0fc85a",
+   "howto_step_3_des": "3136f03d9e527029",
+   "howto_step_3_title": "08149d376506ef24",
+   "howto_step_4_des": "36f914ad113a9fd1",
+   "howto_step_4_title": "35c133c91ef9b04d",
+   "howto_step_5_des": "195f7778f7596417",
+   "howto_step_5_title": "844d63895a0fee5f",
+   "howto_step_6_des": "fd2de83d1c0f8f50",
+   "howto_step_6_title": "f293c7e670dc06cf",
+   "howto_step_7_des": "3969bcd05d21995e",
+   "howto_step_7_title": "23016a9c266e1458",
+   "howto_title": "42af032506615c6c",
+   "meta_description": "43b22c7641f520ff",
+   "meta_title": "fbc1edf21ee57904",
+   "mockup": "4cabfd7aeee80de9",
+   "product_name": "032ad742e75ac136",
+   "prompt_chip_1": "d8bbc499abd8cc39",
+   "prompt_chip_2": "2f967bdcc1d58b4e",
+   "prompt_chip_3": "1198665d12af26c4",
+   "prompt_chip_4": "64d9d622a7b93c64",
+   "slug": "97d49fbc63dab4ac",
+   "tab_content_1": "b947f3cc62b835fa",
+   "tab_content_2": "c2d794c76f9df164",
+   "tab_content_3": "43d2ab149d9a12da",
+   "tab_content_4": "8c9a530e5b34dc23",
+   "tab_label_1": "b02479c47fa472e2",
+   "tab_label_2": "9dc7e90e56b2f263",
+   "tab_label_3": "da9cab34f14b9edd",
+   "tab_label_4": "aef2a9c3197c7bb0",
+   "usecase_heading": "2deedb72ace0bc4c",
+   "why_description": "3b20e5249729409d",
+   "why_table": "7730d280b79c5ad2",
+   "why_title": "b9f31aa3ecbc02f8"
+  },
+  "all": "6e1ec3c88a99aaac",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
