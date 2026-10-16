@@ -122,6 +122,13 @@
    "via": null,
    "by": "B-w-210",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 13:52 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-74",
+   "note": "[truth | HUB_RULES 8] faq: States how CRMs behave when a field is not mapped (answers arrive as one block of text) with no spec.domain_sources entry; it is not true in general (unmapped fields are often dropped or ignored, and behaviour varies by CRM and integration). Only instance on the page: feat"
   }
  ],
  "pipeline": "r15",
@@ -868,5 +875,295 @@
  },
  "writers": [
   "B-w-210"
- ]
+ ],
+ "review": {
+  "by": "B-r-74",
+  "date": "2026-10-16 13:52 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a CRM Landing Page Whose Leads Arrive Ready to Work'; hero 'Get a CRM landing page that sends each lead to your CRM with its campaign and owner, plus a copy in a database you own.' (under 130 chars, carries the primary); how-to description one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Both meanings of the term in the top 10 are covered: pages that feed a CRM (HubSpot, Vtiger, Reddit thread) in tabs 1-3, features and how-to; CRM software marketing pages (Dribbble, Saaspo, SaaSFrame galleries) in tab 4 'Fernly shows the $76 monthly price before any trial' and FAQ 1, 4. Four examples plus a seven-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'utm_campaign parameter', 'CRM property', 'fallback owner', 'look up each email in the CRM before saving'. Table cells match the lp library entries for Unbounce, Instapage, Leadpages word for word."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Tallowfield Solar installs panels on commercial roofs', 'Brackwater Insurance splits new business by territory', 'Open your CRM and find the property each answer should fill.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences carry one idea each, e.g. 'Anything below the rule waits in the CRM.' No tacked-on endings (QC Q5 clean); craft observations recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: 'her new request for 12 pallets was added to that record', 'counts fall_rebate and fall-rebate as two'. One phrasing note in why_description."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "FAQ item 5 states unsourced third-party CRM behaviour: 'Each form field should map to a named property, or the answers arrive as one block of text.' Everything else checks: claims_used all approved (prompt-build, api-connect, database-owned, alerts, custom-domain, code-export, free-start); step 03 matches the Google Analytics source quote 'you can view which campaigns refer traffic'; 4 x $19 = $76; table cells equal the library facts."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No 'crm automation' or sibling primary in any heading; plan keeps pipeline stages and follow-up sequences out. Tabs framed as what a page submission writes, not CRM-internal rules (overlap with crm-automation tabs recorded as a note)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, no brand (PA14) or file-format (PA15) asks, hub link in item 2 'Emergent's AI landing page builder', 3 sibling links (saas, law firm, animated landing page), moat lines in items 3, 5, 8; paa --spec: pass 10, reject 0, flag 0."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 'Campaign fall-rebate', '42 leads from fall-rebate this month'; tab 2 ZIP 80204, 'ZIP starts with 802', 'Direct message to Teo Lindqvist'; tab 3 Dana Okafor, '12 pallets', 'No second contact'; tab 4 4 planners x $19 = '$76 a month', 'Trial saved with team size 4'. All match the tab copy; one hero, cursor on button edges."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Each form field should map to a named property, or the answers arrive as one block of text.",
+    "issue": "States how CRMs behave when a field is not mapped (answers arrive as one block of text) with no spec.domain_sources entry; it is not true in general (unmapped fields are often dropped or ignored, and behaviour varies by CRM and integration). Only instance on the page: feature_2 'Sales opens a complete contact, not a pasted note.' describes the Emergent build and is not a third-party fact.",
+    "fix": "Drop the consequence clause and keep it as advice, e.g. 'Map each form field to a named property so sales opens a filled-in contact.' Or source the behaviour for a named CRM and say so.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "distinct",
+    "rule": "HUB_RULES 5",
+    "field": "tab_content_2, tab_content_3",
+    "quote": "A lead whose ZIP code starts with 802 is assigned to agent Teo Lindqvist in the CRM / Its page looks up each email in the CRM before saving.",
+    "issue": "Two of four tab stories mirror /ai-automation-builder/crm-automation tabs 'Lead Assignment' (state to rep) and 'Duplicate Contacts' (existing email, no second contact). No keyword or heading is taken, and the framing is the page's submission, so this is not cannibalisation, but the stories sit close.",
+    "fix": "None required; watch for further overlap when linking the two pages.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_3, howto_step_7_des",
+    "quote": "Your CRM can then report which ad brought in each contact / Fix that ad or the form fields it brings in",
+    "issue": "The page stores utm_campaign, which identifies the campaign, not the individual ad; both fields say 'ad'. Precision, not a false claim when one campaign runs one ad.",
+    "fix": "Say 'which campaign' in feature_3 and 'Fix that campaign' in step 07.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "features_subheading, faq, hero_description, feature_5, why_description",
+    "quote": "judged by the record it leaves in your CRM (features_subheading) / judge the page by the record it leaves behind (faq 1); a copy in a database you own (hero_description) / A copy of every lead stays yours (feature_5) / keep every submission in a table you own (why_description) / also saves to a database you own (faq 3)",
+    "issue": "The 'record it leaves' idea and the owned-database idea restate across fields with words swapped.",
+    "fix": "None required (note).",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "A law firm landing page, for example, can route each new inquiry by practice area (faq 7) / Should a CRM landing page use animation to show the software? (faq 10)",
+    "issue": "The law firm example and the animation question read as placed to carry sibling links rather than because a CRM landing page searcher needs them.",
+    "fix": "None required (note); prefer a CRM-specific example for the routing link.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "why_description",
+    "quote": "Prompt the page into being",
+    "issue": "Slightly mannered phrasing against an otherwise plain page.",
+    "fix": "'Describe the page in a prompt, connect it to the CRM your sales team already opens...'",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "distinct",
+   "rule": "HUB_RULES 5",
+   "field": "tab_content_2, tab_content_3",
+   "issue": "Two of four tab stories mirror /ai-automation-builder/crm-automation tabs 'Lead Assignment' (state to rep) and 'Duplicate Contacts' (existing email, no second contact). No keyword or heading is taken, and the framing is the page's submission, so this is not cannibalisation, but the stories sit close.",
+   "fix": "None required; watch for further overlap when linking the two pages.",
+   "by": "B-r-74",
+   "via": "review",
+   "date": "2026-10-16 13:52 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_3, howto_step_7_des",
+   "issue": "The page stores utm_campaign, which identifies the campaign, not the individual ad; both fields say 'ad'. Precision, not a false claim when one campaign runs one ad.",
+   "fix": "Say 'which campaign' in feature_3 and 'Fix that campaign' in step 07.",
+   "by": "B-r-74",
+   "via": "review",
+   "date": "2026-10-16 13:52 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "features_subheading, faq, hero_description, feature_5, why_description",
+   "issue": "The 'record it leaves' idea and the owned-database idea restate across fields with words swapped.",
+   "fix": "None required (note).",
+   "by": "B-r-74",
+   "via": "review",
+   "date": "2026-10-16 13:52 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "The law firm example and the animation question read as placed to carry sibling links rather than because a CRM landing page searcher needs them.",
+   "fix": "None required (note); prefer a CRM-specific example for the routing link.",
+   "by": "B-r-74",
+   "via": "review",
+   "date": "2026-10-16 13:52 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "why_description",
+   "issue": "Slightly mannered phrasing against an otherwise plain page.",
+   "fix": "'Describe the page in a prompt, connect it to the CRM your sales team already opens...'",
+   "by": "B-r-74",
+   "via": "review",
+   "date": "2026-10-16 13:52 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "ac2a7b4659c1f1ed",
+   "alt:share_image": "746fb67502c3f908",
+   "alt:tab_image_1": "f8d24217df1624ac",
+   "alt:tab_image_2": "fd1327d35416444a",
+   "alt:tab_image_3": "302b8f0bcaa1df75",
+   "alt:tab_image_4": "2d2eccc2b43b21b5",
+   "breadcrumb": "be4806aa87891b04",
+   "chip_adds": "7f98343537e53e0d",
+   "explore_cta": "65330f0f18e95f09",
+   "faq": "9e0de20de4a374c6",
+   "feature_1": "66a138354cc6580d",
+   "feature_2": "674437dde135cdbb",
+   "feature_3": "d7d167b0d43121c3",
+   "feature_4": "5d49be87eba3de6b",
+   "feature_5": "ebd0f18dfe192fdd",
+   "feature_6": "096800a23fcb57fe",
+   "features_heading": "a79b8de83102de89",
+   "features_subheading": "f22e8f7ec80541d3",
+   "h1": "3cfc8336522c4c1c",
+   "hero_description": "775f5e9ad7b1ae8c",
+   "hero_prompt": "55b4e46d8846fdc5",
+   "howto_description": "eda4bfeec890601b",
+   "howto_step_1_des": "e56beb1219cde9a7",
+   "howto_step_1_title": "f537aa2bab8e09c0",
+   "howto_step_2_des": "b4fc064c874a03d3",
+   "howto_step_2_title": "1253fbc4a379e8ff",
+   "howto_step_3_des": "a18a268682bf9e04",
+   "howto_step_3_title": "382e2ad55efabee2",
+   "howto_step_4_des": "5fc6c7e168c0c195",
+   "howto_step_4_title": "62bec24469cd75d6",
+   "howto_step_5_des": "9a54759884230fbe",
+   "howto_step_5_title": "d5e67a5e54be08f9",
+   "howto_step_6_des": "96eee92dde57eb38",
+   "howto_step_6_title": "cc0881723722f730",
+   "howto_step_7_des": "90f218133506eb42",
+   "howto_step_7_title": "b33eb9eec9766636",
+   "howto_title": "9b268c69bb3aa422",
+   "meta_description": "62097f21c92cfdd2",
+   "meta_title": "44cf6d8a112fba06",
+   "mockup": "161be194740174be",
+   "product_name": "452c2c65fadee6a3",
+   "prompt_chip_1": "8d12bd709efc312c",
+   "prompt_chip_2": "c458f758f90655c2",
+   "prompt_chip_3": "fc2bf5097f927ab7",
+   "prompt_chip_4": "d5d22fa15f48c394",
+   "slug": "26a144b9aa3522b9",
+   "tab_content_1": "39f22e689fbe012a",
+   "tab_content_2": "dcba749b7f8f4c20",
+   "tab_content_3": "918aa6e1af3d1b97",
+   "tab_content_4": "4f46d6fe4794220a",
+   "tab_label_1": "8d12bd709efc312c",
+   "tab_label_2": "c458f758f90655c2",
+   "tab_label_3": "fc2bf5097f927ab7",
+   "tab_label_4": "d5d22fa15f48c394",
+   "usecase_heading": "4d23f403d3b42a21",
+   "why_description": "10c480895902f42a",
+   "why_table": "9db406dc785a9d38",
+   "why_title": "725550bdc6ff7630"
+  },
+  "all": "7c2333ef3767220f",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "ac2a7b4659c1f1ed",
+   "alt:share_image": "746fb67502c3f908",
+   "alt:tab_image_1": "f8d24217df1624ac",
+   "alt:tab_image_2": "fd1327d35416444a",
+   "alt:tab_image_3": "302b8f0bcaa1df75",
+   "alt:tab_image_4": "2d2eccc2b43b21b5",
+   "breadcrumb": "be4806aa87891b04",
+   "chip_adds": "7f98343537e53e0d",
+   "explore_cta": "65330f0f18e95f09",
+   "faq": "9e0de20de4a374c6",
+   "feature_1": "66a138354cc6580d",
+   "feature_2": "674437dde135cdbb",
+   "feature_3": "d7d167b0d43121c3",
+   "feature_4": "5d49be87eba3de6b",
+   "feature_5": "ebd0f18dfe192fdd",
+   "feature_6": "096800a23fcb57fe",
+   "features_heading": "a79b8de83102de89",
+   "features_subheading": "f22e8f7ec80541d3",
+   "h1": "3cfc8336522c4c1c",
+   "hero_description": "775f5e9ad7b1ae8c",
+   "hero_prompt": "55b4e46d8846fdc5",
+   "howto_description": "eda4bfeec890601b",
+   "howto_step_1_des": "e56beb1219cde9a7",
+   "howto_step_1_title": "f537aa2bab8e09c0",
+   "howto_step_2_des": "b4fc064c874a03d3",
+   "howto_step_2_title": "1253fbc4a379e8ff",
+   "howto_step_3_des": "a18a268682bf9e04",
+   "howto_step_3_title": "382e2ad55efabee2",
+   "howto_step_4_des": "5fc6c7e168c0c195",
+   "howto_step_4_title": "62bec24469cd75d6",
+   "howto_step_5_des": "9a54759884230fbe",
+   "howto_step_5_title": "d5e67a5e54be08f9",
+   "howto_step_6_des": "96eee92dde57eb38",
+   "howto_step_6_title": "cc0881723722f730",
+   "howto_step_7_des": "90f218133506eb42",
+   "howto_step_7_title": "b33eb9eec9766636",
+   "howto_title": "9b268c69bb3aa422",
+   "meta_description": "62097f21c92cfdd2",
+   "meta_title": "44cf6d8a112fba06",
+   "mockup": "161be194740174be",
+   "product_name": "452c2c65fadee6a3",
+   "prompt_chip_1": "8d12bd709efc312c",
+   "prompt_chip_2": "c458f758f90655c2",
+   "prompt_chip_3": "fc2bf5097f927ab7",
+   "prompt_chip_4": "d5d22fa15f48c394",
+   "slug": "26a144b9aa3522b9",
+   "tab_content_1": "39f22e689fbe012a",
+   "tab_content_2": "dcba749b7f8f4c20",
+   "tab_content_3": "918aa6e1af3d1b97",
+   "tab_content_4": "4f46d6fe4794220a",
+   "tab_label_1": "8d12bd709efc312c",
+   "tab_label_2": "c458f758f90655c2",
+   "tab_label_3": "fc2bf5097f927ab7",
+   "tab_label_4": "d5d22fa15f48c394",
+   "usecase_heading": "4d23f403d3b42a21",
+   "why_description": "10c480895902f42a",
+   "why_table": "9db406dc785a9d38",
+   "why_title": "725550bdc6ff7630"
+  },
+  "all": "7c2333ef3767220f",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
