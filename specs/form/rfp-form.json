@@ -118,6 +118,13 @@
    "via": null,
    "by": "B-w-203",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 13:23 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-72",
+   "note": "[truth | HUB_RULES 8] faq: FAR 5.203(c) opens 'Except for the acquisition of commercial products or commercial services'; the quoted span in domain_sources was cut just after that exception, and the page states the 30-day minimum as applying to every federal contract above the threshold. The spec's "
   }
  ],
  "pipeline": "r15",
@@ -1005,5 +1012,305 @@
  },
  "writers": [
   "B-w-203"
- ]
+ ],
+ "review": {
+  "by": "B-r-72",
+  "date": "2026-10-16 13:23 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an RFP Form That Takes Proposals Until the Deadline'; hero 'Build an RFP form that takes technical and price proposals until the deadline and saves each one to a database you own.' covers the whole job (intake, cutoff, storage); how-to description is one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is RFP templates and process guides; AMBER angle (vendor-response form, not the document) carried throughout, and FAQ 3 'What should an RFP form template include?' answers the template intent with five concrete parts."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'addendum acknowledgment', 'price proposal as its own upload', 'RFP 26-014 closes at 2:00 PM', 'Evaluators score technical approach out of 40'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on actions or events: 'Ask for the technical proposal...', 'RFP 26-014 closes at 2:00 PM on its due date.', 'Three proposals came in for the gate cameras...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; one 36-word sentence in FAQ 6 kept as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Calm, specific operator voice: 'At 2:00 PM the submit button turns off for every vendor.' Regulation wording lifted into FAQ 1 and 5 kept as a note."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "Two FAR statements drop the qualifier their own source carries: FAQ 5 'Federal agencies shall allow at least a 30-day response time ... when the contract is expected to exceed the simplified acquisition threshold' (FAR 5.203(c) excepts commercial products and services); howto_step_6_des 'A federal RFP states the factors used to evaluate proposals and their relative importance' (FAR 15.203(a) applies this to RFPs for competitive acquisitions). Other FAR lines (FAQ 1, 6, 8) are scoped to federal purchasing and match their quotes; private buyers are told they set their own rule. Table cells match rules/competitors/form.json; 34+26+27=87 agrees in copy and image."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own stories (Winslade USD, Bexley Parks question period, Cordova request intake, Ferrand scoring); no sibling primary in a heading; sponsorship form is linked in an answer, not targeted."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, PAA gate 10 pass 0 reject, verbatim Q1 ok, hub link in item 2, links to sponsorship-form, booking-form, payment-form; no brand or format in any question; no legal-advice question."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 'Submitted at 1:42 PM' and 'Submit turns off at 2:00 PM'; tab 2 '14 answered', '9 registered vendors', 'Ines Baird, buyer'; tab 3 '$85,000' to 'Felix in Slack'; tab 4 '34 26 27 87', 'Next proposal at 79'. All match the tab copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "For a large federal contract, at least 30 days. Federal agencies shall allow at least a 30-day response time for receipt of bids or proposals when the contract is expected to exceed the simplified acquisition threshold.",
+    "issue": "FAR 5.203(c) opens 'Except for the acquisition of commercial products or commercial services'; the quoted span in domain_sources was cut just after that exception, and the page states the 30-day minimum as applying to every federal contract above the threshold. The spec's own claim line records the exception; the copy drops it, so the source does not say what the page says.",
+    "fix": "Restore the exception in both sentences, e.g. 'For a federal contract above the simplified acquisition threshold, at least 30 days, unless the purchase is commercial products or services. FAR 5.203 sets that minimum from the day the solicitation is issued.' Keep the private-purchase sentence as is. Extend the domain_sources quote to include the 'Except for...' clause.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_6_des",
+    "quote": "A federal RFP states the factors used to evaluate proposals and their relative importance, and vendors write their proposals to those factors.",
+    "issue": "FAR 15.203(a) requires this of 'RFPs for competitive acquisitions', and the spec's own claim line says 'for a competitive acquisition'; the copy generalises it to every federal RFP (sole-source RFPs are not covered).",
+    "fix": "Write 'A competitive federal RFP states the factors used to evaluate proposals and their relative importance...' (or 'In a competitive federal acquisition, the RFP states...'). Check the step stays within 35-50 words.",
+    "severity": "blocking"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "Federal agencies shall allow at least a 30-day response time",
+    "issue": "Regulation wording lifted into the copy reads as pasted, not written; same in FAQ 1 'to communicate Government requirements to prospective contractors and to solicit proposals' (capital G, 'prospective contractors') and FAQ 6 'disclosed to one or more potential offerors'.",
+    "fix": "Paraphrase in plain words ('must allow', 'tell vendors what the agency needs', 'shared with any vendor').",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq",
+    "quote": "Federal rules set the bar: information needed to prepare proposals that is disclosed to one or more potential offerors must be made available to the public as soon as practicable, to avoid an unfair competitive advantage.",
+    "issue": "36-word sentence (QC Q2 flag) in FAQ 6.",
+    "fix": "Split after 'as soon as practicable'.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "A gap of 10 points or more on one criterion is the item worth discussing.",
+    "issue": "A rule of thumb with no source; also howto_step_4_des 'a cutoff a week or more before proposals are due'. Recommendations, so notes.",
+    "fix": "Frame as a suggestion or leave; no rework.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #5",
+    "field": "tab_image_3",
+    "quote": "Approve request",
+    "issue": "Tab 3 image and alt ('as a Slack message he can approve') give Felix an approve button; the tab copy says only that the request reaches him as a Slack message. Not a contradiction, but the copy never mentions approval.",
+    "fix": "Optionally label the button 'Open request' or add approval to the copy.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "With Emergent, the score sheets live in a database you own, next to the proposals they rate.",
+    "issue": "Restates feature 5 'Every proposal and every score is a row in a database you own'.",
+    "fix": "None required.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "Regulation wording lifted into the copy reads as pasted, not written; same in FAQ 1 'to communicate Government requirements to prospective contractors and to solicit proposals' (capital G, 'prospective contractors') and FAQ 6 'disclosed to one or more potential offerors'.",
+   "fix": "Paraphrase in plain words ('must allow', 'tell vendors what the agency needs', 'shared with any vendor').",
+   "by": "B-r-72",
+   "via": "review",
+   "date": "2026-10-16 13:23 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq",
+   "issue": "36-word sentence (QC Q2 flag) in FAQ 6.",
+   "fix": "Split after 'as soon as practicable'.",
+   "by": "B-r-72",
+   "via": "review",
+   "date": "2026-10-16 13:23 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "A rule of thumb with no source; also howto_step_4_des 'a cutoff a week or more before proposals are due'. Recommendations, so notes.",
+   "fix": "Frame as a suggestion or leave; no rework.",
+   "by": "B-r-72",
+   "via": "review",
+   "date": "2026-10-16 13:23 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #5",
+   "field": "tab_image_3",
+   "issue": "Tab 3 image and alt ('as a Slack message he can approve') give Felix an approve button; the tab copy says only that the request reaches him as a Slack message. Not a contradiction, but the copy never mentions approval.",
+   "fix": "Optionally label the button 'Open request' or add approval to the copy.",
+   "by": "B-r-72",
+   "via": "review",
+   "date": "2026-10-16 13:23 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "Restates feature 5 'Every proposal and every score is a row in a database you own'.",
+   "fix": "None required.",
+   "by": "B-r-72",
+   "via": "review",
+   "date": "2026-10-16 13:23 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "437bf7c9dec95f02",
+   "alt:share_image": "14028102e4c724dd",
+   "alt:tab_image_1": "1546ebb322fd8d8e",
+   "alt:tab_image_2": "4b236fb2ca1363a6",
+   "alt:tab_image_3": "bf85b5f4b4f8c0ed",
+   "alt:tab_image_4": "35bb52d45909225a",
+   "breadcrumb": "1eaab31feab85d2f",
+   "chip_adds": "c470384d64357474",
+   "explore_cta": "57255b0f8379c1f5",
+   "faq": "a0848b86d09b17cf",
+   "feature_1": "66645f098d780ab1",
+   "feature_2": "104013319ca58a72",
+   "feature_3": "0fb5f80fa09e69fa",
+   "feature_4": "7bc061c4aad0d4c8",
+   "feature_5": "d95b4caa182de00c",
+   "feature_6": "fe8e2a635efba112",
+   "features_heading": "474ebde5622ab245",
+   "features_subheading": "ca33921be938a90a",
+   "h1": "95737ff0629b9272",
+   "hero_description": "2707b2ad29554202",
+   "hero_prompt": "1526f5b41d76f3ff",
+   "howto_description": "4aed19ea7edb490c",
+   "howto_step_1_des": "bf0f5fa0b180a379",
+   "howto_step_1_title": "855c3520b22b7284",
+   "howto_step_2_des": "63793fb7cb9f159c",
+   "howto_step_2_title": "e8a264644f8ae378",
+   "howto_step_3_des": "61a99b4c6d1c810d",
+   "howto_step_3_title": "93f8fce7aa7cc822",
+   "howto_step_4_des": "8ce1335dfd662f7d",
+   "howto_step_4_title": "ee3834d01e272c06",
+   "howto_step_5_des": "c2f5dd8a92837b80",
+   "howto_step_5_title": "9136c235ef19dd89",
+   "howto_step_6_des": "c86649a8bf6d16d4",
+   "howto_step_6_title": "dc1527d8aee133a0",
+   "howto_step_7_des": "fe9d5f5106b49832",
+   "howto_step_7_title": "9db94f087be42d25",
+   "howto_title": "9f8e783555082df2",
+   "meta_description": "663cb8d37b91bc9a",
+   "meta_title": "e285b65b38d8cc68",
+   "mockup": "8a41face3b11baba",
+   "product_name": "6d99f7d5c6b83a09",
+   "prompt_chip_1": "d3e5ca6323b3c5e4",
+   "prompt_chip_2": "87940292db138e0c",
+   "prompt_chip_3": "40ebb8d73f00801e",
+   "prompt_chip_4": "d43f5c7c7849ca3c",
+   "slug": "d21fcd163b766162",
+   "tab_content_1": "020c2822d5fe5f0d",
+   "tab_content_2": "c13f5547dfadaf83",
+   "tab_content_3": "6598749c9f44a90f",
+   "tab_content_4": "61efcdf078793d0d",
+   "tab_label_1": "c06a902eccd0c961",
+   "tab_label_2": "49fc49c181a77619",
+   "tab_label_3": "3b89f42a1f2ef5d5",
+   "tab_label_4": "c0f717cb2b3c78ae",
+   "usecase_heading": "8175b1426acf8831",
+   "why_description": "9923257b40d1ad8c",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "2e5dd6e3ae1957ce"
+  },
+  "all": "bdcff1db6f809a47",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "437bf7c9dec95f02",
+   "alt:share_image": "14028102e4c724dd",
+   "alt:tab_image_1": "1546ebb322fd8d8e",
+   "alt:tab_image_2": "4b236fb2ca1363a6",
+   "alt:tab_image_3": "bf85b5f4b4f8c0ed",
+   "alt:tab_image_4": "35bb52d45909225a",
+   "breadcrumb": "1eaab31feab85d2f",
+   "chip_adds": "c470384d64357474",
+   "explore_cta": "57255b0f8379c1f5",
+   "faq": "a0848b86d09b17cf",
+   "feature_1": "66645f098d780ab1",
+   "feature_2": "104013319ca58a72",
+   "feature_3": "0fb5f80fa09e69fa",
+   "feature_4": "7bc061c4aad0d4c8",
+   "feature_5": "d95b4caa182de00c",
+   "feature_6": "fe8e2a635efba112",
+   "features_heading": "474ebde5622ab245",
+   "features_subheading": "ca33921be938a90a",
+   "h1": "95737ff0629b9272",
+   "hero_description": "2707b2ad29554202",
+   "hero_prompt": "1526f5b41d76f3ff",
+   "howto_description": "4aed19ea7edb490c",
+   "howto_step_1_des": "bf0f5fa0b180a379",
+   "howto_step_1_title": "855c3520b22b7284",
+   "howto_step_2_des": "63793fb7cb9f159c",
+   "howto_step_2_title": "e8a264644f8ae378",
+   "howto_step_3_des": "61a99b4c6d1c810d",
+   "howto_step_3_title": "93f8fce7aa7cc822",
+   "howto_step_4_des": "8ce1335dfd662f7d",
+   "howto_step_4_title": "ee3834d01e272c06",
+   "howto_step_5_des": "c2f5dd8a92837b80",
+   "howto_step_5_title": "9136c235ef19dd89",
+   "howto_step_6_des": "c86649a8bf6d16d4",
+   "howto_step_6_title": "dc1527d8aee133a0",
+   "howto_step_7_des": "fe9d5f5106b49832",
+   "howto_step_7_title": "9db94f087be42d25",
+   "howto_title": "9f8e783555082df2",
+   "meta_description": "663cb8d37b91bc9a",
+   "meta_title": "e285b65b38d8cc68",
+   "mockup": "8a41face3b11baba",
+   "product_name": "6d99f7d5c6b83a09",
+   "prompt_chip_1": "d3e5ca6323b3c5e4",
+   "prompt_chip_2": "87940292db138e0c",
+   "prompt_chip_3": "40ebb8d73f00801e",
+   "prompt_chip_4": "d43f5c7c7849ca3c",
+   "slug": "d21fcd163b766162",
+   "tab_content_1": "020c2822d5fe5f0d",
+   "tab_content_2": "c13f5547dfadaf83",
+   "tab_content_3": "6598749c9f44a90f",
+   "tab_content_4": "61efcdf078793d0d",
+   "tab_label_1": "c06a902eccd0c961",
+   "tab_label_2": "49fc49c181a77619",
+   "tab_label_3": "3b89f42a1f2ef5d5",
+   "tab_label_4": "c0f717cb2b3c78ae",
+   "usecase_heading": "8175b1426acf8831",
+   "why_description": "9923257b40d1ad8c",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "2e5dd6e3ae1957ce"
+  },
+  "all": "bdcff1db6f809a47",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
