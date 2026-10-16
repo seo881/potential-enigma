@@ -746,6 +746,10 @@ def cmd_api_publish(args):
     W = _W(); hub, h = _hub(args); mode = _mode(args); cid = h["collection_id"]
     if _arg(args, "--ids-from-state", "cms_draft") != "cms_draft": sys.exit("refused: only verified cms_draft pages are item-published")
     pairs, warn = H._publish_ids(hub)
+    if "--only" in args:   # --only slug,slug: publish just these cms_draft pages (others in cms_draft stay drafts)
+        want = set(_arg(args, "--only", "").split(","))
+        pairs = [(u, i) for u, i in pairs if u.rsplit("/", 1)[1] in want]
+        if want - {u.rsplit("/", 1)[1] for u, _ in pairs}: sys.exit(f"refused: not verified cms_draft: {', '.join(sorted(want - {u.rsplit('/', 1)[1] for u, _ in pairs}))}")
     if "--limit" in args: pairs = pairs[:int(_arg(args, "--limit"))]
     pairs = lift_cap(pairs, "publish")
     if mode == "live" and os.environ.get("EMG_HEADLESS") and G.ruling19_lifted() and "--verify-live" not in args:
