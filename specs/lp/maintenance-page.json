@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-142",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 00:00 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-30",
+   "note": "rubric 10/10 by B-r-30; 6 notes"
   }
  ],
  "pipeline": "r15",
@@ -1138,5 +1145,305 @@
  ],
  "writers": [
   "B-w-142"
- ]
+ ],
+ "review": {
+  "by": "B-r-30",
+  "date": "2026-10-16 00:00 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Maintenance Page for Planned Downtime', title 'Maintenance Page Builder With Live Updates | Emergent' and hero 'Get a maintenance page that takes emails and requests while you work, and saves each one to a database you own.' (111 chars) cover the whole job; how-to description is one sentence under 140 chars that says what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is example galleries (Atlassian, UptimeRobot, Smashing) plus setup docs (Cloudflare, Akamai, Power Pages). Page gives 'Four Maintenance Page Examples', a seven-step how-to, and FAQ on serving the page off the main server, the 503 status and Retry-After (RFC 9110) and Google's 1 to 2 day 503 guidance."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'Pick the window from your own traffic', 'status.yourstore.com that does not run on the server you are taking down', 'Name the person who gets each alert, not a channel nobody reads at 2 AM'. Table generated from the library (QC V2/V3 clean)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every feature body and step opens on a full sentence with a verb: 'Describe the work, the window...', 'Every email left on the page becomes a row...', 'Open your analytics and find the hour...'. QC Q1 clean."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft class exists; sentences are short and varied ('The rest wait in the table.'). QC Q2/Q5/Q7 clean. Repeated subdomain idea logged as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Calm, specific operator voice with unglamorous detail: 'her third update moved the finish time to 1:30 AM. The app was back at 1:24 AM.' No AI-tell vocabulary (QC clean). Two link-carrying FAQ sentences logged as a voice note."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to claims_used (prompt-build, database-owned, alerts, realtime, custom-domain, free-start, code-export), all in rules/capabilities.json. Third-party facts match domain_sources quotes: RFC 9110 503 'temporary overload or scheduled maintenance' and 'MAY send a Retry-After'; Google 'urgently disable the site for 1-2 days... 503', 'extreme measure... a few days at most', 'date when you expect the website to be online again'. Tab numbers agree: 540+410+310=1,260; 11 PM to 1 AM, update at 12:40 AM to 1:30 AM, back 1:24 AM."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "plan-check 0 warnings; no sibling primary (404 page, one page website, pricing page) used as a heading, only as FAQ link anchors; no coming soon / waitlist / splash wording."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "Exactly 10 on-topic questions, none naming a brand or a file format; item 1 'What is a maintenance page on a website?' answered first sentence; hub link in item 2; sibling links one page website, 404 page, pricing page; verbatim Q1 ok; Emergent named in items 4 and 5 only (F9)."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: each tab draws its copy's names and numbers (318 / Imelda Trask / Free shipping; Ottilie Brandt, 12:40 AM, Finish 1:30 AM, Back at 1:24 AM; Ambrose Penhallow, Table for 8, Friday 7 PM, Slack message to Delphine Ashby, 42 requests; 540/410/310, 1,260, Rosalind Fairweather). One hero per tab, text readable, alert to a named person. Missing Events button in tab 4 logged as image-polish note."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief.tabs[3].main",
+    "quote": "What did you come to do? / Renew a book / Place a hold",
+    "issue": "The library's question offers two buttons, but the dashboard beside it counts a third answer, 'Events 310', and the tab copy says 310 came 'for events'. A reader can see no way to give that answer on the drawn page.",
+    "fix": "Add a third button 'See events' under 'Place a hold' (or a smaller third choice) so every counted answer is selectable.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_5, faq 2, faq 3, faq 5, howto_step_7_des",
+    "quote": "feature_5: 'Give it a subdomain such as status.yourstore.com that does not run on the server you are taking down.'; faq 2: 'Then publish it on its own subdomain a day before the work starts.'; faq 3: 'Serve the page from somewhere other than the server you are working on'; faq 5: 'Open it at its own address, such as status.yourdomain.com, on a host apart from the main server.'; howto_step_7_des: 'Publish the page on its own subdomain'",
+    "issue": "The separate-host idea is stated five times across fields.",
+    "fix": "Keep it in feature 5 and FAQ 3; let the others point to another detail (FAQ 5 could cover bookmarking the posting dashboard only).",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_5, faq 5",
+    "quote": "feature_5: 'Publish the page on a custom domain, which is included and uses credits.'; faq 5: 'With Emergent, custom domains are included and use credits.'",
+    "issue": "The same custom-domain claim restated in two fields with words swapped.",
+    "fix": "Use a different moat line in FAQ 5 (for example the page as code you can export on paid plans).",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq 4, faq 10",
+    "quote": "faq 4: 'Once it grows sections, prices, and a gallery, it has turned into a one page website.'; faq 10: 'If the work is a price change, say so and link the new pricing page once it is live.'",
+    "issue": "Both closing sentences exist to carry a sibling link and read bolted on to the answer.",
+    "fix": "Tie each link to the question's own point, or move the link to an answer where the sibling is the natural next step.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq_sources",
+    "quote": "'How do I take down a maintenance page when the work ends?' ref 'how to access brother printer's maintenance page'; 'How do I set up a routine maintenance page for weekly work?' ref 'how do i get to the brother routine maintenance page'; 'What should a maintenance page say?' ref 'how to change maintenance page prestashop'; 'Can I edit a maintenance page after it goes live?' ref 'can i edit maintenance page storenvy'; 'How can I access my maintenance page while the site is down?' ref 'how can i access my maintenance page for my airport'; 'How long should a maintenance page stay up?' ref 'how to avoid a sight down for maintenance page'",
+    "issue": "Six FAQ items cite Semrush question keywords (zero volume, about printers, an airport, named store platforms) that ask something different from the question on the page; the provenance is stretched even though QC F3 passes. The questions themselves are on topic.",
+    "fix": "Flag for Divit: either accept these as keyword-idea sources or tighten F3 so a ref must ask the same question.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "QC Q9: 'email' 14 times, 'visitors' 11 times, 'time' 10 times outside the FAQ",
+    "issue": "Heavy reuse of the same three nouns flattens the rhythm.",
+    "fix": "Vary where the noun is not the term of art (shoppers, readers, the hour).",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief.tabs[3].main",
+   "issue": "The library's question offers two buttons, but the dashboard beside it counts a third answer, 'Events 310', and the tab copy says 310 came 'for events'. A reader can see no way to give that answer on the drawn page.",
+   "fix": "Add a third button 'See events' under 'Place a hold' (or a smaller third choice) so every counted answer is selectable.",
+   "by": "B-r-30",
+   "via": "review",
+   "date": "2026-10-16 00:00 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_5, faq 2, faq 3, faq 5, howto_step_7_des",
+   "issue": "The separate-host idea is stated five times across fields.",
+   "fix": "Keep it in feature 5 and FAQ 3; let the others point to another detail (FAQ 5 could cover bookmarking the posting dashboard only).",
+   "by": "B-r-30",
+   "via": "review",
+   "date": "2026-10-16 00:00 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_5, faq 5",
+   "issue": "The same custom-domain claim restated in two fields with words swapped.",
+   "fix": "Use a different moat line in FAQ 5 (for example the page as code you can export on paid plans).",
+   "by": "B-r-30",
+   "via": "review",
+   "date": "2026-10-16 00:00 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq 4, faq 10",
+   "issue": "Both closing sentences exist to carry a sibling link and read bolted on to the answer.",
+   "fix": "Tie each link to the question's own point, or move the link to an answer where the sibling is the natural next step.",
+   "by": "B-r-30",
+   "via": "review",
+   "date": "2026-10-16 00:00 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq_sources",
+   "issue": "Six FAQ items cite Semrush question keywords (zero volume, about printers, an airport, named store platforms) that ask something different from the question on the page; the provenance is stretched even though QC F3 passes. The questions themselves are on topic.",
+   "fix": "Flag for Divit: either accept these as keyword-idea sources or tighten F3 so a ref must ask the same question.",
+   "by": "B-r-30",
+   "via": "review",
+   "date": "2026-10-16 00:00 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "Heavy reuse of the same three nouns flattens the rhythm.",
+   "fix": "Vary where the noun is not the term of art (shoppers, readers, the hour).",
+   "by": "B-r-30",
+   "via": "review",
+   "date": "2026-10-16 00:00 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "d6211ec958d48c92",
+   "alt:share_image": "06f8a788aaa89b9e",
+   "alt:tab_image_1": "e19055c556fa5272",
+   "alt:tab_image_2": "520e7604c80f1ca1",
+   "alt:tab_image_3": "03b671b451d29266",
+   "alt:tab_image_4": "01340e512be8699c",
+   "breadcrumb": "fb7680109089f20a",
+   "chip_adds": "8504419d20f3ada3",
+   "explore_cta": "1f4aa9c8a10f9e3e",
+   "faq": "621053183d7cc3c7",
+   "feature_1": "e8efd133bca206ae",
+   "feature_2": "f7be84cc4a0a925f",
+   "feature_3": "b71ad212e66ba792",
+   "feature_4": "5e8d065a0d7ca6b8",
+   "feature_5": "f2f246282be67e24",
+   "feature_6": "4573720a72799013",
+   "features_heading": "00ed02ccb719f802",
+   "features_subheading": "b5f4f251d6590c4c",
+   "h1": "67933f5c50d50bb3",
+   "hero_description": "96b5c81a34b98dd3",
+   "hero_prompt": "1a3ef5bc672457ab",
+   "howto_description": "16f39c6dd8a94b03",
+   "howto_step_1_des": "7cc5fb6107ab39cd",
+   "howto_step_1_title": "909558c76736d935",
+   "howto_step_2_des": "1a60588982aff542",
+   "howto_step_2_title": "4b51fa0e6ef840c3",
+   "howto_step_3_des": "f3968f73f36b781d",
+   "howto_step_3_title": "cb3c711dfec08984",
+   "howto_step_4_des": "b4bb9fe6d696e7ce",
+   "howto_step_4_title": "46cadd9db6df3b36",
+   "howto_step_5_des": "c6fd406e3c64ff9e",
+   "howto_step_5_title": "046f9aebc42b13f4",
+   "howto_step_6_des": "7d632a38dc6c163f",
+   "howto_step_6_title": "87437dbc0581c520",
+   "howto_step_7_des": "62a8e77d2789648d",
+   "howto_step_7_title": "c03f0df01997bdd2",
+   "howto_title": "3185eb721fff3636",
+   "meta_description": "3d4d9b2cad58a6bd",
+   "meta_title": "f290db354b3b65b7",
+   "mockup": "fd242e0196edaedc",
+   "product_name": "9fd2e12f2dde55d6",
+   "prompt_chip_1": "c1784626439fffc1",
+   "prompt_chip_2": "b80aeb0d0a64bd43",
+   "prompt_chip_3": "9a2cbd28c114af46",
+   "prompt_chip_4": "f956c16de7317cee",
+   "slug": "9ce3dff5fd34166a",
+   "tab_content_1": "58e9c780525ec72e",
+   "tab_content_2": "041357a8f250592d",
+   "tab_content_3": "9b740da724be0508",
+   "tab_content_4": "f1359f1af9ce9a54",
+   "tab_label_1": "11cbd1bd735df60e",
+   "tab_label_2": "ced40fb16443ffb5",
+   "tab_label_3": "21308d587b55ec98",
+   "tab_label_4": "5086e7f09592cc90",
+   "usecase_heading": "0dc15902fba44aec",
+   "why_description": "05d4fbccd03779af",
+   "why_table": "26f055a5b60fe578",
+   "why_title": "3d475442674e9394"
+  },
+  "all": "ec5d3dac4ca80b95",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "d6211ec958d48c92",
+   "alt:share_image": "06f8a788aaa89b9e",
+   "alt:tab_image_1": "e19055c556fa5272",
+   "alt:tab_image_2": "520e7604c80f1ca1",
+   "alt:tab_image_3": "03b671b451d29266",
+   "alt:tab_image_4": "01340e512be8699c",
+   "breadcrumb": "fb7680109089f20a",
+   "chip_adds": "8504419d20f3ada3",
+   "explore_cta": "1f4aa9c8a10f9e3e",
+   "faq": "621053183d7cc3c7",
+   "feature_1": "e8efd133bca206ae",
+   "feature_2": "f7be84cc4a0a925f",
+   "feature_3": "b71ad212e66ba792",
+   "feature_4": "5e8d065a0d7ca6b8",
+   "feature_5": "f2f246282be67e24",
+   "feature_6": "4573720a72799013",
+   "features_heading": "00ed02ccb719f802",
+   "features_subheading": "b5f4f251d6590c4c",
+   "h1": "67933f5c50d50bb3",
+   "hero_description": "96b5c81a34b98dd3",
+   "hero_prompt": "1a3ef5bc672457ab",
+   "howto_description": "16f39c6dd8a94b03",
+   "howto_step_1_des": "7cc5fb6107ab39cd",
+   "howto_step_1_title": "909558c76736d935",
+   "howto_step_2_des": "1a60588982aff542",
+   "howto_step_2_title": "4b51fa0e6ef840c3",
+   "howto_step_3_des": "f3968f73f36b781d",
+   "howto_step_3_title": "cb3c711dfec08984",
+   "howto_step_4_des": "b4bb9fe6d696e7ce",
+   "howto_step_4_title": "46cadd9db6df3b36",
+   "howto_step_5_des": "c6fd406e3c64ff9e",
+   "howto_step_5_title": "046f9aebc42b13f4",
+   "howto_step_6_des": "7d632a38dc6c163f",
+   "howto_step_6_title": "87437dbc0581c520",
+   "howto_step_7_des": "62a8e77d2789648d",
+   "howto_step_7_title": "c03f0df01997bdd2",
+   "howto_title": "3185eb721fff3636",
+   "meta_description": "3d4d9b2cad58a6bd",
+   "meta_title": "f290db354b3b65b7",
+   "mockup": "fd242e0196edaedc",
+   "product_name": "9fd2e12f2dde55d6",
+   "prompt_chip_1": "c1784626439fffc1",
+   "prompt_chip_2": "b80aeb0d0a64bd43",
+   "prompt_chip_3": "9a2cbd28c114af46",
+   "prompt_chip_4": "f956c16de7317cee",
+   "slug": "9ce3dff5fd34166a",
+   "tab_content_1": "58e9c780525ec72e",
+   "tab_content_2": "041357a8f250592d",
+   "tab_content_3": "9b740da724be0508",
+   "tab_content_4": "f1359f1af9ce9a54",
+   "tab_label_1": "11cbd1bd735df60e",
+   "tab_label_2": "ced40fb16443ffb5",
+   "tab_label_3": "21308d587b55ec98",
+   "tab_label_4": "5086e7f09592cc90",
+   "usecase_heading": "0dc15902fba44aec",
+   "why_description": "05d4fbccd03779af",
+   "why_table": "26f055a5b60fe578",
+   "why_title": "3d475442674e9394"
+  },
+  "all": "ec5d3dac4ca80b95",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
