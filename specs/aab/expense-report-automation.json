@@ -129,6 +129,13 @@
    "via": null,
    "by": "B-w-221",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 14:05 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-80",
+   "note": "rubric 10/10 by B-r-80; 3 notes"
   }
  ],
  "pipeline": "r15",
@@ -983,5 +990,245 @@
  },
  "writers": [
   "B-w-221"
- ]
+ ],
+ "review": {
+  "by": "B-r-80",
+  "date": "2026-10-16 14:05 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Expense Report Automation That Follows Your Policy'; hero 'Build expense report automation that turns receipt photos into report lines and sends each report to the right approver.' covers capture, policy and approval, not one feature; how-to description one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are expense vendors and explainers; page defines the term in FAQ 1 (Zoho-sourced), shows one report moving receipt -> policy -> approval -> QuickBooks with real amounts, and gives a 7-step how-to ('01 Write down your policy' ... '07 Add the next rule set')."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'a nightly hotel cap, a meal limit per person', 'Reports over $1,000 go on to finance', 'missing-receipt note: what was bought, where, when, and for what business purpose'. Table from library (automation set)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Tamsin Achebe photographs 4 receipts...', 'Tallowmere Consulting allows $75 per person...', 'Every approved report syncs to QuickBooks...'; feature bodies open on verbs or subjects ('The app reads...', 'Type the limits...')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences carry one idea each; one ', so' ending in tab_content_2 ('...$106.20 a head, so the app flags the line') under the Q5 limit; no blocking craft defects."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Calm, product-led copy: 'A faded total waits for the employee to confirm.' 'If a rule flags nearly every report, it is set too tight: loosen it before the next team joins.' No AI tells; one wording note on feature 6."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Numbers agree: 318.00+412.00+46.80+27.20 = $804.00; $212.40/2 = $106.20 > $75; 8,420+4,180+1,660 = $14,260. Definition matches the Zoho quote ('categorized and itemized list of expenses that were made on behalf of the organization'). Emergent claims map to prompt-build, ai-extraction, alerts, api-connect, database-owned, no-caps, code-export, conversational, free-start. No tax or financial advice: every limit is 'the company's own policy'."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Stays on employee-paid spend (trip receipts, dinners, conference reports); no vendor bills, POs or invoice matching, so no overlap with accounts-payable-automation or invoice-automation; sibling primaries appear only as FAQ link anchors (report automation, accounting automation, data entry automation)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, none branded or format asks (paa --spec: pass 10, reject 0); each answered in the first sentence ('It can flag them for a person to decide.', 'Through the accounting software's API.'); hub link in item 2; secondary 'expense approval workflow' in item 3."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: Tab 1 four lines totalling $804.00 'Ready to submit'; Tab 2 '$106.20 a head' 'Note required'; Tab 3 hero 'Slack: Marguerite Sato' is a direct message to the named finance lead, not a # channel (CONTENT_DEFECTS #25 clear); Tab 4 $8,420/$4,180/$1,660 and '$14,260'. One hero per panel, cursor on button edge."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "feature_6",
+    "quote": "paid plans export the full code to your GitHub repository on request",
+    "issue": "'on request' reads as if the export must be requested from Emergent; the approved claim is a user-run export on paid plans.",
+    "fix": "End on the claim: 'and on paid plans you can export the full code to your GitHub repository.'",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "features_heading / tabs heading / meta_title",
+    "quote": "What Runs Between the Receipt and the Approval / Four Stops Between Receipt and Approval / Expense Report Automation, Receipt to Approval",
+    "issue": "The same receipt-to-approval framing is used for three headings with words swapped.",
+    "fix": "Give one of the section headings a different idea, e.g. the tab section as 'Four Expense Reports, Start to Finish'.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq_3",
+    "quote": "Put the employee's manager first, because the manager knows whether the trip or purchase was needed.",
+    "issue": "Approval-order recommendation has no domain source; it is advice, not a fact, so it ships as a note.",
+    "fix": "Optionally source a controls guide for manager-first approval, or frame as one common setup.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "feature_6",
+   "issue": "'on request' reads as if the export must be requested from Emergent; the approved claim is a user-run export on paid plans.",
+   "fix": "End on the claim: 'and on paid plans you can export the full code to your GitHub repository.'",
+   "by": "B-r-80",
+   "via": "review",
+   "date": "2026-10-16 14:05 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "features_heading / tabs heading / meta_title",
+   "issue": "The same receipt-to-approval framing is used for three headings with words swapped.",
+   "fix": "Give one of the section headings a different idea, e.g. the tab section as 'Four Expense Reports, Start to Finish'.",
+   "by": "B-r-80",
+   "via": "review",
+   "date": "2026-10-16 14:05 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq_3",
+   "issue": "Approval-order recommendation has no domain source; it is advice, not a fact, so it ships as a note.",
+   "fix": "Optionally source a controls guide for manager-first approval, or frame as one common setup.",
+   "by": "B-r-80",
+   "via": "review",
+   "date": "2026-10-16 14:05 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "d98992d6add491c3",
+   "alt:share_image": "217c8b839a61cb73",
+   "alt:tab_image_1": "28aac302bc9cbadd",
+   "alt:tab_image_2": "8095001d4a58414f",
+   "alt:tab_image_3": "82eb8718b33c1c11",
+   "alt:tab_image_4": "c9482eac8a03db0e",
+   "breadcrumb": "f6efd8504569e20f",
+   "chip_adds": "6b1095e9020d5041",
+   "explore_cta": "ee8fd4d049be0888",
+   "faq": "48bff1abfa2603b7",
+   "feature_1": "15d96652fb4fb7b0",
+   "feature_2": "597f3515b7015da4",
+   "feature_3": "0e8429d602c6a0ce",
+   "feature_4": "f7d5a1813df91662",
+   "feature_5": "ec76cad0ac20c6bb",
+   "feature_6": "809a05a10a4a4b2e",
+   "features_heading": "7980b99bed913c2d",
+   "features_subheading": "705137bb9ceba881",
+   "h1": "3e341497d27fefa4",
+   "hero_description": "947dbb36816686d9",
+   "hero_prompt": "c084172919d39e83",
+   "howto_description": "7df323ae3af91c58",
+   "howto_step_1_des": "f673987090385184",
+   "howto_step_1_title": "f7fef68aae1fbf48",
+   "howto_step_2_des": "801a9afc2a3c296d",
+   "howto_step_2_title": "f69894d6c32d4aad",
+   "howto_step_3_des": "98c1dcfa6e4cf243",
+   "howto_step_3_title": "8fcd98245b3bcc35",
+   "howto_step_4_des": "d09a0ea25296003a",
+   "howto_step_4_title": "eade6ecd974bdfcb",
+   "howto_step_5_des": "0c34c88d5f1e1e54",
+   "howto_step_5_title": "6bfc324c71840545",
+   "howto_step_6_des": "94aacb3af95c259b",
+   "howto_step_6_title": "6e649ee4fa9edfba",
+   "howto_step_7_des": "f01d6d3b74e935c1",
+   "howto_step_7_title": "ff10c3192e7608e1",
+   "howto_title": "1c7c7d0f72f52843",
+   "meta_description": "2261899bb88ebd12",
+   "meta_title": "785a6c4e14f474d5",
+   "mockup": "1052eb9fe6cb5d45",
+   "product_name": "ca8b3c259115a569",
+   "prompt_chip_1": "b2a03fa97374dcab",
+   "prompt_chip_2": "b2bb770ce81a1d54",
+   "prompt_chip_3": "d8bbc499abd8cc39",
+   "prompt_chip_4": "649ce316ae5465be",
+   "slug": "5b317b045770e447",
+   "tab_content_1": "1c40d0fb6c473395",
+   "tab_content_2": "8575e51473304504",
+   "tab_content_3": "7e4b07e362a7e152",
+   "tab_content_4": "f721a23e89f47ac6",
+   "tab_label_1": "b2a03fa97374dcab",
+   "tab_label_2": "b2bb770ce81a1d54",
+   "tab_label_3": "d8bbc499abd8cc39",
+   "tab_label_4": "649ce316ae5465be",
+   "usecase_heading": "472e3d6120c589c8",
+   "why_description": "7bec20ae8a76f599",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "29ec92dfbb92a04b"
+  },
+  "all": "1346e246bfbbbe92",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "d98992d6add491c3",
+   "alt:share_image": "217c8b839a61cb73",
+   "alt:tab_image_1": "28aac302bc9cbadd",
+   "alt:tab_image_2": "8095001d4a58414f",
+   "alt:tab_image_3": "82eb8718b33c1c11",
+   "alt:tab_image_4": "c9482eac8a03db0e",
+   "breadcrumb": "f6efd8504569e20f",
+   "chip_adds": "6b1095e9020d5041",
+   "explore_cta": "ee8fd4d049be0888",
+   "faq": "48bff1abfa2603b7",
+   "feature_1": "15d96652fb4fb7b0",
+   "feature_2": "597f3515b7015da4",
+   "feature_3": "0e8429d602c6a0ce",
+   "feature_4": "f7d5a1813df91662",
+   "feature_5": "ec76cad0ac20c6bb",
+   "feature_6": "809a05a10a4a4b2e",
+   "features_heading": "7980b99bed913c2d",
+   "features_subheading": "705137bb9ceba881",
+   "h1": "3e341497d27fefa4",
+   "hero_description": "947dbb36816686d9",
+   "hero_prompt": "c084172919d39e83",
+   "howto_description": "7df323ae3af91c58",
+   "howto_step_1_des": "f673987090385184",
+   "howto_step_1_title": "f7fef68aae1fbf48",
+   "howto_step_2_des": "801a9afc2a3c296d",
+   "howto_step_2_title": "f69894d6c32d4aad",
+   "howto_step_3_des": "98c1dcfa6e4cf243",
+   "howto_step_3_title": "8fcd98245b3bcc35",
+   "howto_step_4_des": "d09a0ea25296003a",
+   "howto_step_4_title": "eade6ecd974bdfcb",
+   "howto_step_5_des": "0c34c88d5f1e1e54",
+   "howto_step_5_title": "6bfc324c71840545",
+   "howto_step_6_des": "94aacb3af95c259b",
+   "howto_step_6_title": "6e649ee4fa9edfba",
+   "howto_step_7_des": "f01d6d3b74e935c1",
+   "howto_step_7_title": "ff10c3192e7608e1",
+   "howto_title": "1c7c7d0f72f52843",
+   "meta_description": "2261899bb88ebd12",
+   "meta_title": "785a6c4e14f474d5",
+   "mockup": "1052eb9fe6cb5d45",
+   "product_name": "ca8b3c259115a569",
+   "prompt_chip_1": "b2a03fa97374dcab",
+   "prompt_chip_2": "b2bb770ce81a1d54",
+   "prompt_chip_3": "d8bbc499abd8cc39",
+   "prompt_chip_4": "649ce316ae5465be",
+   "slug": "5b317b045770e447",
+   "tab_content_1": "1c40d0fb6c473395",
+   "tab_content_2": "8575e51473304504",
+   "tab_content_3": "7e4b07e362a7e152",
+   "tab_content_4": "f721a23e89f47ac6",
+   "tab_label_1": "b2a03fa97374dcab",
+   "tab_label_2": "b2bb770ce81a1d54",
+   "tab_label_3": "d8bbc499abd8cc39",
+   "tab_label_4": "649ce316ae5465be",
+   "usecase_heading": "472e3d6120c589c8",
+   "why_description": "7bec20ae8a76f599",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "29ec92dfbb92a04b"
+  },
+  "all": "1346e246bfbbbe92",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
