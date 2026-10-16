@@ -2,6 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-10-16 · [1807-sprint-ship-written-pages](2026-10-16/1807-sprint-ship-written-pages.md) · B sprint: live 176 -> 216, PA7 ruling + 7 flag approvals applied, 16 live LP table fixes (Leadpages fact) staged for verify-live, ~70 reviews · a2834d0f
 - 2026-10-16 · [0800-overnight](2026-10-16/0800-overnight.md) · B overnight (standing go): live 161 -> 161; nothing left to do: live 161 of 200; shipping on; AlsoAsked keychain ok; tokens 785,031; AlsoAsked 13/60 · (this commit)
 - 2026-10-14 · [2015-coordinator-evening-ship-spot-library](2026-10-14/2015-coordinator-evening-ship-spot-library.md) · A: all 12 sections hidden; spot check (AR held); truth gap closed (C6/C7); competitor categories; drip, content-workflow, payroll live (128); crm/healthcare re-parked; B slim-review queue · 221836ec
 - 2026-10-14 · [2000-account-b-routed-swaps](2026-10-14/2000-account-b-routed-swaps.md) · B: compliance Q7 swapped + slim-reviewed; crm Q10, healthcare Q9/Q10 no slot (A re-park); product-launch LP reviewed 0 blocking; 19 new pages claimed; skeleton shortener defect to A · 180a5e28
