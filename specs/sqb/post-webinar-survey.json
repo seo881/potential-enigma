@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-148",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 08:53 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-22",
+   "note": "[truth | HUB_RULES 8] faq item 4: False as stated: in-person events have audio and AV quality and attendees who leave early. The difference is the stream (connection, playback, drop-off), not the existence of audio. Only instance of this class on the page (FAQ 7 'ask about the stream itself, such as"
   }
  ],
  "pipeline": "r15",
@@ -885,5 +892,275 @@
  },
  "writers": [
   "B-w-148"
- ]
+ ],
+ "review": {
+  "by": "B-r-22",
+  "date": "2026-10-16 08:53 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Post Webinar Survey That Shapes Your Next Session'; hero 'Build a post webinar survey attendees open as the session ends, with demo requests sent to your CRM and every answer saved.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is question lists and platform help docs; FAQ 1 question set, FAQ 5 platform end-of-webinar survey (Zoom, sourced), feature 2 'in the redirect field of a webinar tool', how-to and four worked surveys."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Of 312 attendees, 104 answer. Of those, 23 tick Book a demo, and the app adds each one to HubSpot'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "'Name the topic and the speakers, then say what the results should change.'; 'Publish the survey once and put one link everywhere attendees look'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defects; Q2 34-word sentence in FAQ 2 flagged P2 by QC."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Session 3, on pivot tables, is the outlier, and 14 of its comments mention the audio cutting out.'"
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "faq item 4: 'It asks about things an in-person event never has: audio and video quality, and whether attendees stayed to the end.' In-person events have audio, AV and early leavers; the absolute is false. Everything else maps to claims_used or the Zoom spans."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Post event, church and volunteer surveys linked as separate pages, not headlined."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "PAA item 1 verbatim; written questions page-specific, one secondary at most; no brand in questions; no link-only endings."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 312/104/23 to HubSpot before replay; tab 2 4.1/4.4/3.6/4.5, 14 audio comments; tab 3 61/33/46 of 140, QR on final slide; tab 4 46/31/24/17 of 118, 180 trained, 15-minute session."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 4",
+    "quote": "It asks about things an in-person event never has: audio and video quality, and whether attendees stayed to the end.",
+    "issue": "False as stated: in-person events have audio and AV quality and attendees who leave early. The difference is the stream (connection, playback, drop-off), not the existence of audio. Only instance of this class on the page (FAQ 7 'ask about the stream itself, such as sound and video' is accurate).",
+    "fix": "'It asks about the stream itself: whether the audio and video played without breaking up, and whether attendees stayed to the end. It leaves out the venue and catering questions that a post event survey covers.'",
+    "severity": "blocking"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2a",
+    "field": "faq questions",
+    "quote": "How do I create a post webinar survey? / How is a post-webinar survey different from one for an in-person event?",
+    "issue": "Inconsistent term: items 2-3 and all body copy write 'post webinar', items 4-10 write 'post-webinar' (item 1 is PAA verbatim).",
+    "fix": "Use one form in written questions.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq items 5, 6, 8",
+    "quote": "Close the survey after about a week / Keep it to 8 questions or fewer for an hour-long webinar, and about 5 for a 30-minute one / People rate a session more freely when their name is not attached",
+    "issue": "Specific recommendations and a behavioral generalization with no domain_sources span.",
+    "fix": "Source or soften to advice.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "CONTENT_DEFECTS #3",
+    "field": "why_table",
+    "quote": "Survey builder with templates, including employee engagement",
+    "issue": "Library cells name employee templates on a webinar page; vendors (SurveyMonkey, Microsoft Forms, SurveyHero) are not the top-10 set (Zoom, Webex, ON24, Formbricks). Generated text; library-level fix.",
+    "fix": "Coordinator: event/webinar variant in rules/competitors/sqb.json.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #24",
+    "field": "tab_content_1",
+    "quote": "Quillmark's product team ends its reporting webinar",
+    "issue": "Quillmark is also the dental bookkeeping firm in /ai-landing-page-builder/lead-magnet-landing-page tab 1 (reviewed in the same batch); one fictional company in two roles across the site.",
+    "fix": "Rename in one of the two pages if either is reworked.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "faq questions",
+   "issue": "Inconsistent term: items 2-3 and all body copy write 'post webinar', items 4-10 write 'post-webinar' (item 1 is PAA verbatim).",
+   "fix": "Use one form in written questions.",
+   "by": "B-r-22",
+   "via": "review",
+   "date": "2026-10-16 08:53 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq items 5, 6, 8",
+   "issue": "Specific recommendations and a behavioral generalization with no domain_sources span.",
+   "fix": "Source or soften to advice.",
+   "by": "B-r-22",
+   "via": "review",
+   "date": "2026-10-16 08:53 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "CONTENT_DEFECTS #3",
+   "field": "why_table",
+   "issue": "Library cells name employee templates on a webinar page; vendors (SurveyMonkey, Microsoft Forms, SurveyHero) are not the top-10 set (Zoom, Webex, ON24, Formbricks). Generated text; library-level fix.",
+   "fix": "Coordinator: event/webinar variant in rules/competitors/sqb.json.",
+   "by": "B-r-22",
+   "via": "review",
+   "date": "2026-10-16 08:53 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #24",
+   "field": "tab_content_1",
+   "issue": "Quillmark is also the dental bookkeeping firm in /ai-landing-page-builder/lead-magnet-landing-page tab 1 (reviewed in the same batch); one fictional company in two roles across the site.",
+   "fix": "Rename in one of the two pages if either is reworked.",
+   "by": "B-r-22",
+   "via": "review",
+   "date": "2026-10-16 08:53 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "31b0a68e750f48cf",
+   "alt:share_image": "5bd1ef045fbb448f",
+   "alt:tab_image_1": "483362630b9559e0",
+   "alt:tab_image_2": "46513064e31cbe32",
+   "alt:tab_image_3": "b39d197e42c4ba9d",
+   "alt:tab_image_4": "0ee23d8e39c2f42a",
+   "breadcrumb": "7bdd6127af0b0b1f",
+   "chip_adds": "43fefaff2e317660",
+   "explore_cta": "1052b831d1ab540b",
+   "faq": "07c1de99237cdec5",
+   "feature_1": "01bdfc86f819d0f4",
+   "feature_2": "ea728f2919bc5ebc",
+   "feature_3": "ae3eae45bea112ad",
+   "feature_4": "b1e8a73f435c8cb5",
+   "feature_5": "0ee467291ac3793e",
+   "feature_6": "f331acf2001e1c46",
+   "features_heading": "e3b7f2e90f0573a0",
+   "features_subheading": "cb122dd4de2a0301",
+   "h1": "1924aebcba0366b8",
+   "hero_description": "caf42068273fbb5e",
+   "hero_prompt": "941d3f97038bf577",
+   "howto_description": "47166877e7a712ea",
+   "howto_step_1_des": "c60c0fa892ff1651",
+   "howto_step_1_title": "e14a844a1018d67f",
+   "howto_step_2_des": "247a0a0fa2b56018",
+   "howto_step_2_title": "84c577c83b550342",
+   "howto_step_3_des": "56db47ddf35a5ca0",
+   "howto_step_3_title": "966c94e817b902a5",
+   "howto_step_4_des": "4c6449c45af7d823",
+   "howto_step_4_title": "f3156a32a3c772d0",
+   "howto_step_5_des": "0602cbce3f91ad1f",
+   "howto_step_5_title": "eb41ec2fcb2c8855",
+   "howto_step_6_des": "c6646ae8a6a30d93",
+   "howto_step_6_title": "5fb0cc8f629c6bf3",
+   "howto_step_7_des": "714449af6578bda0",
+   "howto_step_7_title": "a98bc28c7c52240f",
+   "howto_title": "46f1597e19061b17",
+   "meta_description": "56e9a553256d5b68",
+   "meta_title": "84918e98cb125ca9",
+   "mockup": "327acea6469648ff",
+   "product_name": "f8e7859e396f800f",
+   "prompt_chip_1": "d1b73adbc12a9961",
+   "prompt_chip_2": "3b8fceca49c0f54c",
+   "prompt_chip_3": "1cc0d20666571295",
+   "prompt_chip_4": "b086383b87b2f93c",
+   "slug": "7dcb41992e9a95c8",
+   "tab_content_1": "ba3d5e3b84bbb452",
+   "tab_content_2": "8567331e1910c1f3",
+   "tab_content_3": "e302036ea31e3fc3",
+   "tab_content_4": "d8c698835de579a1",
+   "tab_label_1": "9f86de04eb2d765a",
+   "tab_label_2": "18cdbbb9ab11efa6",
+   "tab_label_3": "374feb5a16428f0e",
+   "tab_label_4": "8656cd47e94129f9",
+   "usecase_heading": "40fbdc59b80c6db0",
+   "why_description": "77b09ddbd034a022",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "fb524bc066143303"
+  },
+  "all": "c65b37580ff64dff",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "31b0a68e750f48cf",
+   "alt:share_image": "5bd1ef045fbb448f",
+   "alt:tab_image_1": "483362630b9559e0",
+   "alt:tab_image_2": "46513064e31cbe32",
+   "alt:tab_image_3": "b39d197e42c4ba9d",
+   "alt:tab_image_4": "0ee23d8e39c2f42a",
+   "breadcrumb": "7bdd6127af0b0b1f",
+   "chip_adds": "43fefaff2e317660",
+   "explore_cta": "1052b831d1ab540b",
+   "faq": "07c1de99237cdec5",
+   "feature_1": "01bdfc86f819d0f4",
+   "feature_2": "ea728f2919bc5ebc",
+   "feature_3": "ae3eae45bea112ad",
+   "feature_4": "b1e8a73f435c8cb5",
+   "feature_5": "0ee467291ac3793e",
+   "feature_6": "f331acf2001e1c46",
+   "features_heading": "e3b7f2e90f0573a0",
+   "features_subheading": "cb122dd4de2a0301",
+   "h1": "1924aebcba0366b8",
+   "hero_description": "caf42068273fbb5e",
+   "hero_prompt": "941d3f97038bf577",
+   "howto_description": "47166877e7a712ea",
+   "howto_step_1_des": "c60c0fa892ff1651",
+   "howto_step_1_title": "e14a844a1018d67f",
+   "howto_step_2_des": "247a0a0fa2b56018",
+   "howto_step_2_title": "84c577c83b550342",
+   "howto_step_3_des": "56db47ddf35a5ca0",
+   "howto_step_3_title": "966c94e817b902a5",
+   "howto_step_4_des": "4c6449c45af7d823",
+   "howto_step_4_title": "f3156a32a3c772d0",
+   "howto_step_5_des": "0602cbce3f91ad1f",
+   "howto_step_5_title": "eb41ec2fcb2c8855",
+   "howto_step_6_des": "c6646ae8a6a30d93",
+   "howto_step_6_title": "5fb0cc8f629c6bf3",
+   "howto_step_7_des": "714449af6578bda0",
+   "howto_step_7_title": "a98bc28c7c52240f",
+   "howto_title": "46f1597e19061b17",
+   "meta_description": "56e9a553256d5b68",
+   "meta_title": "84918e98cb125ca9",
+   "mockup": "327acea6469648ff",
+   "product_name": "f8e7859e396f800f",
+   "prompt_chip_1": "d1b73adbc12a9961",
+   "prompt_chip_2": "3b8fceca49c0f54c",
+   "prompt_chip_3": "1cc0d20666571295",
+   "prompt_chip_4": "b086383b87b2f93c",
+   "slug": "7dcb41992e9a95c8",
+   "tab_content_1": "ba3d5e3b84bbb452",
+   "tab_content_2": "8567331e1910c1f3",
+   "tab_content_3": "e302036ea31e3fc3",
+   "tab_content_4": "d8c698835de579a1",
+   "tab_label_1": "9f86de04eb2d765a",
+   "tab_label_2": "18cdbbb9ab11efa6",
+   "tab_label_3": "374feb5a16428f0e",
+   "tab_label_4": "8656cd47e94129f9",
+   "usecase_heading": "40fbdc59b80c6db0",
+   "why_description": "77b09ddbd034a022",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "fb524bc066143303"
+  },
+  "all": "c65b37580ff64dff",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
