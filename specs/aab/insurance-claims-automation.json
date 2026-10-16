@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-195",
    "note": ""
+  },
+  {
+   "t": "2026-10-16 13:14 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-67",
+   "note": "rubric 10/10 by B-r-67; 7 notes"
   }
  ],
  "pipeline": "r15",
@@ -1026,5 +1033,325 @@
  },
  "writers": [
   "B-w-195"
- ]
+ ],
+ "review": {
+  "by": "B-r-67",
+  "date": "2026-10-16 13:14 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Insurance Claims Automation for Your Claims Team', title 'Build Insurance Claims Automation | Emergent', hero 'Get insurance claims automation that opens each claim from the first report and assigns the right adjuster.' (107 chars) cover the whole claims job; how-to description is one sentence carrying the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Informational, explainer-heavy SERP: FAQ 1 defines the term ('software that runs the repeat steps of a claim'), four tabs show intake, estimate reading, document chasing and settlement approval, seven how-to steps from 'Pick one line of business' to 'Switch on new claims'."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Claims-desk vocabulary throughout: 'loss type and territory', 'authority limits', 'police report for a theft', 'homeowners water claims or auto physical damage', 'a claim reported 30 days after the loss going to a senior adjuster'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Policyholders answer one question per screen...', 'Kettering Collision, the body shop on claim CL-20844, sends...', 'Henrike Mbeki settles water claims up to $10,000 on her own.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Two ', so' endings (tab_content_2, tab_content_4) are within the QC limit and recorded as a note; no blocking craft class."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail ('a pipe bursts under her kitchen sink', 'photos of the cut lock', 'a total read from a faxed estimate'); one voice note on FAQ 1 recorded."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "BLS spans match: FAQ 1 'adjusters decide whether an insurance company must pay a claim and, if so, how much' = BLS 'They decide whether an insurance company must pay a claim and if so, how much'; FAQ 3 'determine whether the insurance policy covers the loss claimed' = BLS duty line; Kin FNOL spans match FAQ 1 and FAQ 5. Emergent claims map to approved ids (ai-extraction, alerts, api-connect, soc2-iso 'SOC 2 Type I and ISO 27001', database-owned, code-export on paid plans, conversational, free-start, no-caps). No coverage, legal or compliance advice: 'Whether a loss is covered stays a decision people make.' Tab 2 numbers add up: $3,120 + $1,740 = $4,860."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Insurance-only stories (CL-20817 burst pipe, CL-20844 body-shop estimate, CL-20852 stolen e-bike, CL-20861 flooded basement); sibling primaries appear only as FAQ link anchors (accounts receivable automation, accounting automation, data entry automation), never as headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 questions, all ending '?', no brand or file-format asks; hub link in item 2; three sibling links in items 4, 7, 10; secondary 'insurance workflow automation' in Q3; moat lines in items 3, 6, 8. Q1 PA7 gate reject is a gate issue for Divit, not a page defect."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches the copy: Ruairi Osei 'Water claims' assigned on CL-20817 with 6 photos emailed; CL-20844 parts $3,120.00, labor $1,740.00, total $4,860.00, VIN at 54% sent to Marisol Achterberg; CL-20852 '2 of 3 documents in', police report Missing, reminder every 3 days to Teodor Lindqvist; CL-20861 $14,200.00 over the $10,000 authority, Caspian Oyelaran approves, decision logged with name and time."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "tab_content_2",
+    "quote": "The VIN is blurred on the scan and reads at low confidence, so that one field goes to claims handler Marisol Achterberg to check.",
+    "issue": "Tacked-on ', so' ending; the second instance is tab_content_4: 'On claim CL-20861 she proposes $14,200 for a flooded basement, so the settlement waits for claims manager Caspian Oyelaran with the estimate attached.'",
+    "fix": "Split into two sentences in both tabs, e.g. 'The VIN is blurred on the scan and reads at low confidence. That one field goes to claims handler Marisol Achterberg to check.'",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_3",
+    "quote": "A field read with low confidence waits for a claims handler to confirm.",
+    "issue": "The low-confidence-to-a-person idea is restated in four fields: feature_3 (quoted), tab_content_2 'reads at low confidence, so that one field goes to claims handler Marisol Achterberg to check', faq Q3 'send low-confidence fields to a person', faq Q6 'any field read with low confidence goes to a person to check'.",
+    "fix": "Keep it in feature_3 and tab 2; let FAQ 3 and FAQ 6 make a different point.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_6_des",
+    "quote": "Put twenty claims your team closed last quarter through the app and compare its fields and holds with what happened.",
+    "issue": "The replay-closed-claims test appears three times: howto_step_6_des (quoted), faq Q2 'Replay claims you already closed before new ones go through it.', faq Q9 'Twenty claims from last quarter, across every loss type the app handles, make a good first set'.",
+    "fix": "Drop the replay sentence from FAQ 2.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #18",
+    "field": "feature_1",
+    "quote": "Policyholders answer one question per screen: the date and place of the loss, what was damaged, and how it happened.",
+    "issue": "'one question per screen' is in feature_1 title and body, tab_content_1 'She answers one question per screen and adds 6 photos of the floor', and howto_step_3_des 'one question per screen, with photo upload at the end'.",
+    "fix": "Vary the wording in tab 1 and step 3 (for example 'a phone form that asks one thing at a time').",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "For a homeowner, that first notice of loss is how the claims process starts.",
+    "issue": "Introduces the trade term 'first notice of loss' through 'that', pointing back at 'the first report', so the sentence reads stitched onto the definition from its source.",
+    "fix": "Name the term once in plain order: 'The first report, called the first notice of loss, is how a homeowner starts a claim.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "Can insurance claims automation also track premiums that policyholders owe?",
+    "issue": "Premium billing is a policy-administration and receivables question, not one a claims-automation searcher is likely to ask; it reads as a slot built to carry the accounts receivable automation link.",
+    "fix": "On a future pass, replace with a claims question (for example subrogation or reopened claims) and move the AR link elsewhere.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Zapier | Make (Integromat) | n8n",
+    "issue": "None of the three compared tools ranks in this page's top 10 (Salesforce, Blue Prism, EIS, V7, Strada and others); QC K7 flags all three. The table is generated from the library, which has no claims vendors.",
+    "fix": "Coordinator: consider adding claims or RPA vendors (Blue Prism, V7) to the competitor library with sources; no page edit.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "tab_content_2",
+   "issue": "Tacked-on ', so' ending; the second instance is tab_content_4: 'On claim CL-20861 she proposes $14,200 for a flooded basement, so the settlement waits for claims manager Caspian Oyelaran with the estimate attached.'",
+   "fix": "Split into two sentences in both tabs, e.g. 'The VIN is blurred on the scan and reads at low confidence. That one field goes to claims handler Marisol Achterberg to check.'",
+   "by": "B-r-67",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_3",
+   "issue": "The low-confidence-to-a-person idea is restated in four fields: feature_3 (quoted), tab_content_2 'reads at low confidence, so that one field goes to claims handler Marisol Achterberg to check', faq Q3 'send low-confidence fields to a person', faq Q6 'any field read with low confidence goes to a person to check'.",
+   "fix": "Keep it in feature_3 and tab 2; let FAQ 3 and FAQ 6 make a different point.",
+   "by": "B-r-67",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_6_des",
+   "issue": "The replay-closed-claims test appears three times: howto_step_6_des (quoted), faq Q2 'Replay claims you already closed before new ones go through it.', faq Q9 'Twenty claims from last quarter, across every loss type the app handles, make a good first set'.",
+   "fix": "Drop the replay sentence from FAQ 2.",
+   "by": "B-r-67",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #18",
+   "field": "feature_1",
+   "issue": "'one question per screen' is in feature_1 title and body, tab_content_1 'She answers one question per screen and adds 6 photos of the floor', and howto_step_3_des 'one question per screen, with photo upload at the end'.",
+   "fix": "Vary the wording in tab 1 and step 3 (for example 'a phone form that asks one thing at a time').",
+   "by": "B-r-67",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "Introduces the trade term 'first notice of loss' through 'that', pointing back at 'the first report', so the sentence reads stitched onto the definition from its source.",
+   "fix": "Name the term once in plain order: 'The first report, called the first notice of loss, is how a homeowner starts a claim.'",
+   "by": "B-r-67",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "Premium billing is a policy-administration and receivables question, not one a claims-automation searcher is likely to ask; it reads as a slot built to carry the accounts receivable automation link.",
+   "fix": "On a future pass, replace with a claims question (for example subrogation or reopened claims) and move the AR link elsewhere.",
+   "by": "B-r-67",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "None of the three compared tools ranks in this page's top 10 (Salesforce, Blue Prism, EIS, V7, Strada and others); QC K7 flags all three. The table is generated from the library, which has no claims vendors.",
+   "fix": "Coordinator: consider adding claims or RPA vendors (Blue Prism, V7) to the competitor library with sources; no page edit.",
+   "by": "B-r-67",
+   "via": "review",
+   "date": "2026-10-16 13:14 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "b8db698d83b6fcff",
+   "alt:share_image": "58284dd989b8efbe",
+   "alt:tab_image_1": "42b4708de3b15e97",
+   "alt:tab_image_2": "d3ed7bb1bbd65a0c",
+   "alt:tab_image_3": "3c31870eabd56623",
+   "alt:tab_image_4": "70e62f8a1a43df9e",
+   "breadcrumb": "3555e3cc555b5bb8",
+   "chip_adds": "7647c8795898e168",
+   "explore_cta": "2e59c8d8421ac8e5",
+   "faq": "253fe33f2255dc6c",
+   "feature_1": "7d4294e104336a51",
+   "feature_2": "ee0200289617cfa6",
+   "feature_3": "8ea49c549879797e",
+   "feature_4": "f0e4c735ca06a2e9",
+   "feature_5": "78f600d20ff8cabf",
+   "feature_6": "8420b12010ae02d5",
+   "features_heading": "2e727abc7fcab1d0",
+   "features_subheading": "fcd5c8e978307eaf",
+   "h1": "c085f8f929159514",
+   "hero_description": "525cb6578e7c3a5d",
+   "hero_prompt": "7fc7151c6f74cb9f",
+   "howto_description": "f3e7a1778be41df7",
+   "howto_step_1_des": "6fefe7277fa8ec83",
+   "howto_step_1_title": "a4d78b1a62c2a3d0",
+   "howto_step_2_des": "a8adcf4a60363eac",
+   "howto_step_2_title": "80b9a906756f59ff",
+   "howto_step_3_des": "b35a269a51e0c05f",
+   "howto_step_3_title": "7ada5507c1b3f9e2",
+   "howto_step_4_des": "b15e943cc7286a48",
+   "howto_step_4_title": "70bbcff8733e442c",
+   "howto_step_5_des": "067d48566fbbc669",
+   "howto_step_5_title": "2211473e994289f3",
+   "howto_step_6_des": "4157c510384dea54",
+   "howto_step_6_title": "f949a8526f6753c2",
+   "howto_step_7_des": "3ea420f4a0b4a556",
+   "howto_step_7_title": "af171b7fb1e40d87",
+   "howto_title": "fad3793a24709481",
+   "meta_description": "c1b1e86a3b890f0d",
+   "meta_title": "c140086fc8ab79e9",
+   "mockup": "75998e2917402584",
+   "product_name": "9679142a5e63e4c6",
+   "prompt_chip_1": "5c7ef1217a67e137",
+   "prompt_chip_2": "56818b7bc4fd25b9",
+   "prompt_chip_3": "050ad099e09b386e",
+   "prompt_chip_4": "cf26760c2c1cddd3",
+   "slug": "236a12225677b5f4",
+   "tab_content_1": "42a9cde58cbd686a",
+   "tab_content_2": "189e573a4b7f4924",
+   "tab_content_3": "b60fbe5d0280d50f",
+   "tab_content_4": "ea7cd9cc21831b45",
+   "tab_label_1": "5c7ef1217a67e137",
+   "tab_label_2": "486aabed14d7dedd",
+   "tab_label_3": "147b2d0b52ea175d",
+   "tab_label_4": "2eab46fa00edac81",
+   "usecase_heading": "0a8709568bc70ea5",
+   "why_description": "794f8751060c34b4",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "2c5a702e0e746ecd"
+  },
+  "all": "ac3554ff53a5746b",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "b8db698d83b6fcff",
+   "alt:share_image": "58284dd989b8efbe",
+   "alt:tab_image_1": "42b4708de3b15e97",
+   "alt:tab_image_2": "d3ed7bb1bbd65a0c",
+   "alt:tab_image_3": "3c31870eabd56623",
+   "alt:tab_image_4": "70e62f8a1a43df9e",
+   "breadcrumb": "3555e3cc555b5bb8",
+   "chip_adds": "7647c8795898e168",
+   "explore_cta": "2e59c8d8421ac8e5",
+   "faq": "253fe33f2255dc6c",
+   "feature_1": "7d4294e104336a51",
+   "feature_2": "ee0200289617cfa6",
+   "feature_3": "8ea49c549879797e",
+   "feature_4": "f0e4c735ca06a2e9",
+   "feature_5": "78f600d20ff8cabf",
+   "feature_6": "8420b12010ae02d5",
+   "features_heading": "2e727abc7fcab1d0",
+   "features_subheading": "fcd5c8e978307eaf",
+   "h1": "c085f8f929159514",
+   "hero_description": "525cb6578e7c3a5d",
+   "hero_prompt": "7fc7151c6f74cb9f",
+   "howto_description": "f3e7a1778be41df7",
+   "howto_step_1_des": "6fefe7277fa8ec83",
+   "howto_step_1_title": "a4d78b1a62c2a3d0",
+   "howto_step_2_des": "a8adcf4a60363eac",
+   "howto_step_2_title": "80b9a906756f59ff",
+   "howto_step_3_des": "b35a269a51e0c05f",
+   "howto_step_3_title": "7ada5507c1b3f9e2",
+   "howto_step_4_des": "b15e943cc7286a48",
+   "howto_step_4_title": "70bbcff8733e442c",
+   "howto_step_5_des": "067d48566fbbc669",
+   "howto_step_5_title": "2211473e994289f3",
+   "howto_step_6_des": "4157c510384dea54",
+   "howto_step_6_title": "f949a8526f6753c2",
+   "howto_step_7_des": "3ea420f4a0b4a556",
+   "howto_step_7_title": "af171b7fb1e40d87",
+   "howto_title": "fad3793a24709481",
+   "meta_description": "c1b1e86a3b890f0d",
+   "meta_title": "c140086fc8ab79e9",
+   "mockup": "75998e2917402584",
+   "product_name": "9679142a5e63e4c6",
+   "prompt_chip_1": "5c7ef1217a67e137",
+   "prompt_chip_2": "56818b7bc4fd25b9",
+   "prompt_chip_3": "050ad099e09b386e",
+   "prompt_chip_4": "cf26760c2c1cddd3",
+   "slug": "236a12225677b5f4",
+   "tab_content_1": "42a9cde58cbd686a",
+   "tab_content_2": "189e573a4b7f4924",
+   "tab_content_3": "b60fbe5d0280d50f",
+   "tab_content_4": "ea7cd9cc21831b45",
+   "tab_label_1": "5c7ef1217a67e137",
+   "tab_label_2": "486aabed14d7dedd",
+   "tab_label_3": "147b2d0b52ea175d",
+   "tab_label_4": "2eab46fa00edac81",
+   "usecase_heading": "0a8709568bc70ea5",
+   "why_description": "794f8751060c34b4",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "2c5a702e0e746ecd"
+  },
+  "all": "ac3554ff53a5746b",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
