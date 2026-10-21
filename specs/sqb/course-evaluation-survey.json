@@ -23,9 +23,9 @@
   "features_subheading": "Describe the course and who reads the results. Emergent builds each piece below, and a follow-up prompt changes any of them.",
   "feature_1": "<h3>Questions for each part of the course</h3><p>Name the modules, sessions, or lessons your course runs. Emergent drafts a rating question and a comment question for each part, and one more sentence rewords any of them.</p>",
   "feature_2": "<h3>Every answer tagged by course and cohort</h3><p>Each answer is saved as a row in a database you own, with the course, cohort, and date on it. Set this cohort's module scores beside the last one before you plan the next run.</p>",
-  "feature_3": "<h3>An email when a rating falls to 1 or 2</h3><p>A rating of 1 or 2 sends the instructor an email with the student's comment beside it, while the lesson is fresh. Slack alerts work too, and reminders reach anyone yet to answer.</p>",
+  "feature_3": "<h3>An email when a rating falls to 1 or 2</h3><p>A rating of 1 or 2 sends the instructor an email with the student's comment beside it, while the lesson is fresh. Slack alerts work too, and the whole class gets one reminder.</p>",
   "feature_4": "<h3>One question per screen on a phone</h3><p>Students scan the code on your last slide and answer one question per screen on a phone, before they pack up. No response cap applies, whether 12 students answer or 1,200 do.</p>",
-  "feature_5": "<h3>Linked to your course platform</h3><p>Connect the survey to your course platform or any tool with an API. The app can send the link when a student finishes the last lesson and sync each answer to that student's record.</p>",
+  "feature_5": "<h3>Linked to your course platform</h3><p>Connect the survey to your course platform or any tool with an API. The app sends the link when a student finishes the last lesson and keeps the answers apart from names.</p>",
   "feature_6": "<h3>Your domain and your code</h3><p>Publish the survey on your own domain: custom domains are included and use credits. On paid plans, Emergent exports the full code to your GitHub repository for a developer to extend.</p>",
   "why_title": "Why Emergent for a Course Evaluation Survey?",
   "why_description": "One survey app covers every course and cohort you run, and no response cap applies when every class ends in the same week.",
@@ -58,7 +58,7 @@
   "howto_step_5_title": "05 Test it with two past students",
   "howto_step_5_des": "Send the link to 2 people who took the course before and ask them to answer on a phone. Watch for a question they read two ways or a module name they do not recognize, and fix it before launch.",
   "howto_step_6_title": "06 Open it before the last session ends",
-  "howto_step_6_des": "Run the survey during the final session instead of emailing it a week later. UW-Madison's assessment office suggests giving students 10-15 minutes of class time to complete it. Send one reminder to anyone still out after that.",
+  "howto_step_6_des": "Run the survey during the final session instead of emailing it a week later. UW-Madison's assessment office suggests giving students 10-15 minutes of class time to complete it. Send everyone one reminder after that.",
   "howto_step_7_title": "07 Tell the next cohort what changed",
   "howto_step_7_des": "When the survey closes, compare each part's score with the last run and pick one change to make. On day one of the next run, tell students what earlier students asked for and what you changed because of it.",
   "prompt_chip_1": "Module Ratings",
@@ -143,6 +143,20 @@
    "via": "review",
    "by": "B-r-88",
    "note": "[truth | HUB_RULES 8] feature_5: The page contradicts itself: FAQ 8 answers 'Should course evaluation surveys be anonymous?' with 'Yes.' and cites UW-Madison that students hesitate when they may be identified, while this feature ties every answer to the named student's record. A reader following bot"
+  },
+  {
+   "t": "2026-10-21 05:38 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "B-w-258",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 05:38 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-258",
+   "note": ""
   }
  ],
  "pipeline": "r15",
@@ -1066,10 +1080,11 @@
  ],
  "qc_passed": {
   "rules_version": "4bb5d5a61c4e",
-  "date": "2026-10-21 05:31 UTC"
+  "date": "2026-10-21 05:38 UTC"
  },
  "writers": [
-  "B-w-231"
+  "B-w-231",
+  "B-w-258"
  ],
  "review": {
   "by": "B-r-88",
@@ -1370,5 +1385,13 @@
   },
   "all": "07b0781254f28b77",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
- }
+ },
+ "lock_exceptions": [
+  {
+   "field": "howto_step_6_des",
+   "by": "B-c-1",
+   "reason": "B-r-88 finding 2 names step 6 in its fix text (same anonymity contradiction)",
+   "date": "2026-10-21 05:39 UTC"
+  }
+ ]
 }
