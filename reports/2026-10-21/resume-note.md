@@ -14,3 +14,10 @@ Live: 243 of 316. Rulings applied this session: contract-approval Q1 approved (r
 2. First-pass yield (Divit item 2): A passed 11 of 12 reviews today, B 2 of 9. Compare A's writer setup (prompt, pre-review checklist, the QC and gate run before review) with B's, apply A's to every B writer prompt, and report the difference in one line.
 3. Scale up to at least 15 writers on LP and Automation (claims: easy builder-intent first), with matching reviewers and continuous shipping toward 316.
 4. Post-sprint fixes: the skeleton default hero prompt drops its article ("Build low stock alert..."); the related-link picker offers off-hub anchors (low-stock got proposal automation, leadership survey and likert questionnaire); lowercase anchors ("likert", "it automation" in calendar-automation FAQ 4).
+
+## Update (later, same session)
+- Cleared for shipping since the note: budget-approval, instagram, remote-work-survey, whitepaper, custom-order, interview-scheduling, podcast, chiropractic, microsite, lead-routing, calendar.
+- Rework writer B-w-278: linkedin-landing-page (FAQ 5 and 6, LinkedIn scope) and user-provisioning-automation (FAQ 3, Okta SCIM scope), then `hubctl ready`. coaching-landing-page howto_step_7_des changed from "built into Emergent" to "included" (Divit's custom-order rule).
+- After B-w-278: a DIFFERENT agent slim-reviews the changed fields on all 3 pages (Divit item 3); then ship.
+- pdf-automation writer (B-w-277) still running; it needs one full review.
+- Proposal: add a QC check for the "built into Emergent" wording, which QC doesn't catch (found on 2 pages).
