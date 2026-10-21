@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-293",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 11:12 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-112",
+   "note": "rubric 10/10 by B-r-112; 3 notes"
   }
  ],
  "pipeline": "r15",
@@ -993,5 +1000,245 @@
  ],
  "writers": [
   "B-w-293"
- ]
+ ],
+ "review": {
+  "by": "B-r-112",
+  "date": "2026-10-21 11:12 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Offboarding Workflow That Finishes Every Exit Step'; hero covers handover, equipment, payroll and survey, under 130 chars; how-to description one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are offboarding process guides and checklists; page gives the exit tasks, owners, deadlines, a 7-step how-to and FAQ on forms, remote returns, handover and payroll hand-off."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'the IT asset lead, Dorian Achterberg, gets a direct message about the laptop'; 'Count each deadline in days from the last day'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on full sentences: 'The app reads your HR system through its API and opens an offboarding record as soon as HR enters a last day.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One ', so' ending (step 3), under the limit; sentences vary in length."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Payroll applies its own rules and marks it received.' Plain verbs, no hype."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Only world fact (FAQ 1 Wikipedia definition) is quoted in domain_sources; final pay left to payroll ('applies whatever final-pay rules cover that employee'), nothing state-specific; claims map to prompt-build, api-connect, alerts, database-owned, no-caps, code-export; tab numbers add up (6 of 8 plus 2 open; 6+4+3+1=14 of 18)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "FAQ 4 separates it from the linked employee onboarding workflow; access removal is only named ('the accounts IT closes'), leaving user provisioning to its sibling; payroll tab only carries details, not payroll processing."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, each answered in the first sentence; hub link in item 2; links to employee onboarding, client onboarding and recruitment automation siblings."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 '6 of 8 assigned', '2 accounts without a successor', 'To Imogen Varga'; tab 2 '2 of 3 checked in', 'To Dorian Achterberg'; tab 3 '38 unused PTO hours', '$214.60'; tab 4 bars 6/4/3/1, '14 of 18', 'HR only dashboard'. One hero, matches copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #1",
+    "field": "tab_label_4",
+    "quote": "Exit Survey",
+    "issue": "Tab label 4 and prompt_chip_4 ('Exit Survey') use the exact primary of /ai-survey-and-quiz-builder/exit-survey. The page does not target, headline (H1/H2/H3) or answer that keyword: the survey is one exit task and the tab H3 is 'Pay comes up in 6 of 14 leavers' answers', so the cannibalisation risk is low and not sibling-keyword blocking. Same phrase also in meta_description and hero_description as a task, which is fine.",
+    "fix": "Optionally relabel tab and chip 'Leaver Feedback' (the feature H3's term) and link the exit-survey page from FAQ 8.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #18",
+    "field": "faq",
+    "quote": "Set each due date relative to the last day, and a changed date shifts the whole schedule",
+    "issue": "Same idea as howto_step_3_des 'Count each deadline in days from the last day, so a later last day moves every deadline along with it'. Likewise FAQ 8 'decide that before the first leaver answers' repeats howto_step_5_des 'set that access before the first leaver gets the survey'.",
+    "fix": "None required; notes ship.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #1",
+    "field": "howto_step_1_des",
+    "quote": "and the accounts IT closes",
+    "issue": "Account and access removal, a large part of the top-10 offboarding guides, is only named; correct to leave it to user-provisioning-automation, but the reader gets no pointer there.",
+    "fix": "Optionally link user provisioning automation once the sibling is live.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #1",
+   "field": "tab_label_4",
+   "issue": "Tab label 4 and prompt_chip_4 ('Exit Survey') use the exact primary of /ai-survey-and-quiz-builder/exit-survey. The page does not target, headline (H1/H2/H3) or answer that keyword: the survey is one exit task and the tab H3 is 'Pay comes up in 6 of 14 leavers' answers', so the cannibalisation risk is low and not sibling-keyword blocking. Same phrase also in meta_description and hero_description as a task, which is fine.",
+   "fix": "Optionally relabel tab and chip 'Leaver Feedback' (the feature H3's term) and link the exit-survey page from FAQ 8.",
+   "by": "B-r-112",
+   "via": "review",
+   "date": "2026-10-21 11:12 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #18",
+   "field": "faq",
+   "issue": "Same idea as howto_step_3_des 'Count each deadline in days from the last day, so a later last day moves every deadline along with it'. Likewise FAQ 8 'decide that before the first leaver answers' repeats howto_step_5_des 'set that access before the first leaver gets the survey'.",
+   "fix": "None required; notes ship.",
+   "by": "B-r-112",
+   "via": "review",
+   "date": "2026-10-21 11:12 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #1",
+   "field": "howto_step_1_des",
+   "issue": "Account and access removal, a large part of the top-10 offboarding guides, is only named; correct to leave it to user-provisioning-automation, but the reader gets no pointer there.",
+   "fix": "Optionally link user provisioning automation once the sibling is live.",
+   "by": "B-r-112",
+   "via": "review",
+   "date": "2026-10-21 11:12 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "ee35f8a4916c5066",
+   "alt:share_image": "c348d11dc81a69b2",
+   "alt:tab_image_1": "1a240c7a70c54715",
+   "alt:tab_image_2": "888c2f4282097229",
+   "alt:tab_image_3": "c222adaa3813fcd0",
+   "alt:tab_image_4": "7b2537a6b4d5d9bc",
+   "breadcrumb": "d94d030da2ca323d",
+   "chip_adds": "d05c114bcda97fae",
+   "explore_cta": "abd8e344d12cc9ec",
+   "faq": "d572cda967262dc8",
+   "feature_1": "d252b4df7f468161",
+   "feature_2": "09029241858f1f6c",
+   "feature_3": "e71bf4c997a51e99",
+   "feature_4": "ebdfb5cd1ff051d2",
+   "feature_5": "fcead96084a8c17d",
+   "feature_6": "7f5159fb9598bc8c",
+   "features_heading": "91943eee6d72e04f",
+   "features_subheading": "7d0af72caa1c5b40",
+   "h1": "2b6481f76d05d96a",
+   "hero_description": "c7b5d34f3d33342b",
+   "hero_prompt": "86f0bd83e85efc16",
+   "howto_description": "7778254145d1ef63",
+   "howto_step_1_des": "b632c9ef4e1c1c00",
+   "howto_step_1_title": "488956e36baa4e4a",
+   "howto_step_2_des": "c2b4e00da91299be",
+   "howto_step_2_title": "5c46087bb13b2f29",
+   "howto_step_3_des": "483a0d786bd2b35f",
+   "howto_step_3_title": "bbc269c3621ae93e",
+   "howto_step_4_des": "2eed8ba83c78c5b9",
+   "howto_step_4_title": "ca29ff550a5a7592",
+   "howto_step_5_des": "462299c35d74c9ad",
+   "howto_step_5_title": "a8405942c3c05d67",
+   "howto_step_6_des": "6bf8d7c00bcf13c9",
+   "howto_step_6_title": "84c239f75bb46a5c",
+   "howto_step_7_des": "7482ff7bac309904",
+   "howto_step_7_title": "fabb5df12303ec34",
+   "howto_title": "e250ea2dc468f9b3",
+   "meta_description": "05ce220e7db3c389",
+   "meta_title": "a6b97c21207fb1f7",
+   "mockup": "8263bb5ac6e0effa",
+   "product_name": "9daf10e95e71ed9c",
+   "prompt_chip_1": "ef54e01438605ff6",
+   "prompt_chip_2": "9433ff0a472f0339",
+   "prompt_chip_3": "6d163840c9fbeb75",
+   "prompt_chip_4": "8c16558495b8b745",
+   "slug": "b24b2e7fcddeb0b5",
+   "tab_content_1": "74e0c069d2878a7b",
+   "tab_content_2": "85473149b47fa7ab",
+   "tab_content_3": "bb5eec136cdbb6b3",
+   "tab_content_4": "ec0ff746b14d496f",
+   "tab_label_1": "ef54e01438605ff6",
+   "tab_label_2": "9433ff0a472f0339",
+   "tab_label_3": "6d163840c9fbeb75",
+   "tab_label_4": "8c16558495b8b745",
+   "usecase_heading": "655dc2a6ddfb1c5a",
+   "why_description": "0d3bf2be6fec8452",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "3a10d89be23cc51c"
+  },
+  "all": "2e6b27ef5833f634",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "ee35f8a4916c5066",
+   "alt:share_image": "c348d11dc81a69b2",
+   "alt:tab_image_1": "1a240c7a70c54715",
+   "alt:tab_image_2": "888c2f4282097229",
+   "alt:tab_image_3": "c222adaa3813fcd0",
+   "alt:tab_image_4": "7b2537a6b4d5d9bc",
+   "breadcrumb": "d94d030da2ca323d",
+   "chip_adds": "d05c114bcda97fae",
+   "explore_cta": "abd8e344d12cc9ec",
+   "faq": "d572cda967262dc8",
+   "feature_1": "d252b4df7f468161",
+   "feature_2": "09029241858f1f6c",
+   "feature_3": "e71bf4c997a51e99",
+   "feature_4": "ebdfb5cd1ff051d2",
+   "feature_5": "fcead96084a8c17d",
+   "feature_6": "7f5159fb9598bc8c",
+   "features_heading": "91943eee6d72e04f",
+   "features_subheading": "7d0af72caa1c5b40",
+   "h1": "2b6481f76d05d96a",
+   "hero_description": "c7b5d34f3d33342b",
+   "hero_prompt": "86f0bd83e85efc16",
+   "howto_description": "7778254145d1ef63",
+   "howto_step_1_des": "b632c9ef4e1c1c00",
+   "howto_step_1_title": "488956e36baa4e4a",
+   "howto_step_2_des": "c2b4e00da91299be",
+   "howto_step_2_title": "5c46087bb13b2f29",
+   "howto_step_3_des": "483a0d786bd2b35f",
+   "howto_step_3_title": "bbc269c3621ae93e",
+   "howto_step_4_des": "2eed8ba83c78c5b9",
+   "howto_step_4_title": "ca29ff550a5a7592",
+   "howto_step_5_des": "462299c35d74c9ad",
+   "howto_step_5_title": "a8405942c3c05d67",
+   "howto_step_6_des": "6bf8d7c00bcf13c9",
+   "howto_step_6_title": "84c239f75bb46a5c",
+   "howto_step_7_des": "7482ff7bac309904",
+   "howto_step_7_title": "fabb5df12303ec34",
+   "howto_title": "e250ea2dc468f9b3",
+   "meta_description": "05ce220e7db3c389",
+   "meta_title": "a6b97c21207fb1f7",
+   "mockup": "8263bb5ac6e0effa",
+   "product_name": "9daf10e95e71ed9c",
+   "prompt_chip_1": "ef54e01438605ff6",
+   "prompt_chip_2": "9433ff0a472f0339",
+   "prompt_chip_3": "6d163840c9fbeb75",
+   "prompt_chip_4": "8c16558495b8b745",
+   "slug": "b24b2e7fcddeb0b5",
+   "tab_content_1": "74e0c069d2878a7b",
+   "tab_content_2": "85473149b47fa7ab",
+   "tab_content_3": "bb5eec136cdbb6b3",
+   "tab_content_4": "ec0ff746b14d496f",
+   "tab_label_1": "ef54e01438605ff6",
+   "tab_label_2": "9433ff0a472f0339",
+   "tab_label_3": "6d163840c9fbeb75",
+   "tab_label_4": "8c16558495b8b745",
+   "usecase_heading": "655dc2a6ddfb1c5a",
+   "why_description": "0d3bf2be6fec8452",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "3a10d89be23cc51c"
+  },
+  "all": "2e6b27ef5833f634",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
