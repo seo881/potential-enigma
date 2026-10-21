@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-248",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 05:45 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-96",
+   "note": "rubric 10/10 by B-r-96; 3 notes"
   }
  ],
  "pipeline": "r15",
@@ -982,5 +989,245 @@
  },
  "writers": [
   "B-w-248"
- ]
+ ],
+ "review": {
+  "by": "B-r-96",
+  "date": "2026-10-21 05:45 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Employee Onboarding Workflow From Offer to Day 30'; hero 'Build an employee onboarding workflow that gives each new hire's tasks an owner and a due date, from offer to day 30.' covers the whole job, no sibling topic; how-to description one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Informational SERP of checklists and step guides: page gives a 7-step how-to ('01 Map every task through day 30'...'07 Test it on one past hire'), four worked examples across the offer-to-day-30 span, a definition up top for the AI Overview, and a comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "HR vocabulary throughout: 'handbook acknowledgment', 'applicant tracking system', 'HR partner', 'Store each due date as an offset from the start, such as day 14'; table generated from the library."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on full sentences with verbs ('The app reads your HR system...', 'Every task has a due date counted from the start date.'); tabs open on people acting ('Delphine Arceneaux accepts a front desk role...')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No tacked-on endings; FAQ answers answer in sentence one ('Every due date should move with it.'); QC Q2/Q5/Q7 clear."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail ('nobody has shown him who approves code reviews', 'Due 2 business days before Monday'); no AI tells. Word repetition logged as a note."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "SHRM line 'SHRM defines onboarding as the process of integrating new employees into an organization' matches the quoted span on shrm.org (checked). Emergent claims map to prompt-build, api-connect, e-signature-capture (no legal-validity claim), alerts, realtime, code-export ('on paid plans'), database-owned, ai-extraction. No employment-law statements. Numbers agree: 2 business days in tab 2 and FAQ 5; 4+1=5, 3+1=4 checks."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Employee-side offer-to-day-30 stories (forms, team tasks, required courses, day-30 pulse); hiring is handed off to recruitment automation in FAQ 4; no client-onboarding content; no sibling primary in any heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 builder questions, none branded or file-format; hub link in item 2; secondary 'hr onboarding workflow' in item 3; Emergent lines in items 7 and 9 ('stored in a database you own', 'by Slack, email, or in-app'); paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Each tab matches copy on names and numbers: '4 of 5 signed'/'To Renata Szabo'; '3 of 4 done'/'To Gwendolyn Marsh'; '3 of 4 courses finished'/'To Corwin Ashby'; 'Getting help: 2 out of 5'/'To Saoirse Kettering'; cover DM to Renata Szabo matches tab 1. One hero per panel."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief.tabs[3].panel",
+    "quote": "Yusuf Abernathy (heading) / YA Yusuf Abernathy, Engineer, day 30 (list item)",
+    "issue": "Tab 4 side panel prints the new hire's name twice, as the panel heading and again as the only list row directly beneath it; reads redundant, not contradictory.",
+    "fix": "Make the panel heading 'Day-30 pulse result' (keeping the 'Under 3' chip) and leave the name on the row.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 4",
+    "quote": "Recruitment automation uses the same split earlier in hiring, where software handles scheduling and people make the offer.",
+    "issue": "General characterization of how recruitment automation is set up, stated as fact with no domain source; names no third party, so not blocking.",
+    "fix": "Phrase as advice: 'Use the same split in recruitment automation earlier in hiring: let software handle scheduling and keep the offer with people.'",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page body",
+    "quote": "\"hire\" 18 times, \"start\" 15 times, \"task\" 15 times outside the FAQ; 4 sentences open with \"Build an\"",
+    "issue": "Heavy repetition of the same nouns and opener (QC Q9/A4 flags) flattens the rhythm.",
+    "fix": "Vary a few instances (new employee, first day, item) in features and how-to.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief.tabs[3].panel",
+   "issue": "Tab 4 side panel prints the new hire's name twice, as the panel heading and again as the only list row directly beneath it; reads redundant, not contradictory.",
+   "fix": "Make the panel heading 'Day-30 pulse result' (keeping the 'Under 3' chip) and leave the name on the row.",
+   "by": "B-r-96",
+   "via": "review",
+   "date": "2026-10-21 05:45 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 4",
+   "issue": "General characterization of how recruitment automation is set up, stated as fact with no domain source; names no third party, so not blocking.",
+   "fix": "Phrase as advice: 'Use the same split in recruitment automation earlier in hiring: let software handle scheduling and keep the offer with people.'",
+   "by": "B-r-96",
+   "via": "review",
+   "date": "2026-10-21 05:45 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page body",
+   "issue": "Heavy repetition of the same nouns and opener (QC Q9/A4 flags) flattens the rhythm.",
+   "fix": "Vary a few instances (new employee, first day, item) in features and how-to.",
+   "by": "B-r-96",
+   "via": "review",
+   "date": "2026-10-21 05:45 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "2c377d77ee9063a9",
+   "alt:share_image": "8fb7720d99cccecf",
+   "alt:tab_image_1": "4932eecbf0750efb",
+   "alt:tab_image_2": "b056661dc232e673",
+   "alt:tab_image_3": "676ad691618fa054",
+   "alt:tab_image_4": "22972c43da7e30e2",
+   "breadcrumb": "6c873b17991e6cac",
+   "chip_adds": "525f0347ab6d1804",
+   "explore_cta": "0638dce716da0398",
+   "faq": "3ef09ad4d63b4921",
+   "feature_1": "47496019251cc0ad",
+   "feature_2": "0ab1a8e80592edd4",
+   "feature_3": "c28e6113b5a13960",
+   "feature_4": "b623399e18976d22",
+   "feature_5": "0d4a791cf6caa0ad",
+   "feature_6": "2d508894beef099f",
+   "features_heading": "9e2f4737d863663e",
+   "features_subheading": "923b0da26c22fa96",
+   "h1": "35e8f86faf7f1502",
+   "hero_description": "aeec7910761b5150",
+   "hero_prompt": "5de9aab909c5da9f",
+   "howto_description": "fa6f039e3377f8a3",
+   "howto_step_1_des": "591b2c54e79dd423",
+   "howto_step_1_title": "6aa8ebc9b9f9f433",
+   "howto_step_2_des": "dfbf81fb19b9b6f1",
+   "howto_step_2_title": "155ba316604fb812",
+   "howto_step_3_des": "7aa9438374bd0f58",
+   "howto_step_3_title": "0cd816f03ffc89f2",
+   "howto_step_4_des": "783897238f883f24",
+   "howto_step_4_title": "0bde956b3b128226",
+   "howto_step_5_des": "9e691f34dd9cc437",
+   "howto_step_5_title": "acdb7bb1041f79f6",
+   "howto_step_6_des": "59fcdf0a2153fd9f",
+   "howto_step_6_title": "2de6a2da523e3945",
+   "howto_step_7_des": "3e642b6eebab2d51",
+   "howto_step_7_title": "2005f707cbd769dc",
+   "howto_title": "89b78ba3f5b36b52",
+   "meta_description": "ff3fad43d309d498",
+   "meta_title": "874485fcc1159172",
+   "mockup": "1741daf51fdbb134",
+   "product_name": "90715b87fd476441",
+   "prompt_chip_1": "6a4cf7f03ee8d398",
+   "prompt_chip_2": "a6ffd64a83e75980",
+   "prompt_chip_3": "c49ef7d5b4f01579",
+   "prompt_chip_4": "287eddc601e93aed",
+   "slug": "6d8ab7e6e5703c93",
+   "tab_content_1": "451be570da047dc9",
+   "tab_content_2": "89789cbc03a58d98",
+   "tab_content_3": "992bc02e69143ea3",
+   "tab_content_4": "5da1c49bed97348d",
+   "tab_label_1": "6a4cf7f03ee8d398",
+   "tab_label_2": "a6ffd64a83e75980",
+   "tab_label_3": "c49ef7d5b4f01579",
+   "tab_label_4": "287eddc601e93aed",
+   "usecase_heading": "a6aec6d917b1c2db",
+   "why_description": "2b573b7f52a2e560",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "b92603d3e25d62f1"
+  },
+  "all": "457e73637da7640d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "2c377d77ee9063a9",
+   "alt:share_image": "8fb7720d99cccecf",
+   "alt:tab_image_1": "4932eecbf0750efb",
+   "alt:tab_image_2": "b056661dc232e673",
+   "alt:tab_image_3": "676ad691618fa054",
+   "alt:tab_image_4": "22972c43da7e30e2",
+   "breadcrumb": "6c873b17991e6cac",
+   "chip_adds": "525f0347ab6d1804",
+   "explore_cta": "0638dce716da0398",
+   "faq": "3ef09ad4d63b4921",
+   "feature_1": "47496019251cc0ad",
+   "feature_2": "0ab1a8e80592edd4",
+   "feature_3": "c28e6113b5a13960",
+   "feature_4": "b623399e18976d22",
+   "feature_5": "0d4a791cf6caa0ad",
+   "feature_6": "2d508894beef099f",
+   "features_heading": "9e2f4737d863663e",
+   "features_subheading": "923b0da26c22fa96",
+   "h1": "35e8f86faf7f1502",
+   "hero_description": "aeec7910761b5150",
+   "hero_prompt": "5de9aab909c5da9f",
+   "howto_description": "fa6f039e3377f8a3",
+   "howto_step_1_des": "591b2c54e79dd423",
+   "howto_step_1_title": "6aa8ebc9b9f9f433",
+   "howto_step_2_des": "dfbf81fb19b9b6f1",
+   "howto_step_2_title": "155ba316604fb812",
+   "howto_step_3_des": "7aa9438374bd0f58",
+   "howto_step_3_title": "0cd816f03ffc89f2",
+   "howto_step_4_des": "783897238f883f24",
+   "howto_step_4_title": "0bde956b3b128226",
+   "howto_step_5_des": "9e691f34dd9cc437",
+   "howto_step_5_title": "acdb7bb1041f79f6",
+   "howto_step_6_des": "59fcdf0a2153fd9f",
+   "howto_step_6_title": "2de6a2da523e3945",
+   "howto_step_7_des": "3e642b6eebab2d51",
+   "howto_step_7_title": "2005f707cbd769dc",
+   "howto_title": "89b78ba3f5b36b52",
+   "meta_description": "ff3fad43d309d498",
+   "meta_title": "874485fcc1159172",
+   "mockup": "1741daf51fdbb134",
+   "product_name": "90715b87fd476441",
+   "prompt_chip_1": "6a4cf7f03ee8d398",
+   "prompt_chip_2": "a6ffd64a83e75980",
+   "prompt_chip_3": "c49ef7d5b4f01579",
+   "prompt_chip_4": "287eddc601e93aed",
+   "slug": "6d8ab7e6e5703c93",
+   "tab_content_1": "451be570da047dc9",
+   "tab_content_2": "89789cbc03a58d98",
+   "tab_content_3": "992bc02e69143ea3",
+   "tab_content_4": "5da1c49bed97348d",
+   "tab_label_1": "6a4cf7f03ee8d398",
+   "tab_label_2": "a6ffd64a83e75980",
+   "tab_label_3": "c49ef7d5b4f01579",
+   "tab_label_4": "287eddc601e93aed",
+   "usecase_heading": "a6aec6d917b1c2db",
+   "why_description": "2b573b7f52a2e560",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "b92603d3e25d62f1"
+  },
+  "all": "457e73637da7640d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
