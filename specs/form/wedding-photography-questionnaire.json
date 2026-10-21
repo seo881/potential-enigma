@@ -115,6 +115,13 @@
    "via": null,
    "by": "A-w-162",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 11:05 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-46",
+   "note": "[truth | HUB_RULES 8] tab_content_1: The page contradicts itself on what this questionnaire is. Tab 1 shows a couple who have not booked using it as an inquiry form, but FAQ 7 says 'An inquiry form comes before booking... A wedding photography questionnaire comes after booking and covers the day its"
   }
  ],
  "pipeline": "r15",
@@ -885,5 +892,255 @@
  ],
  "writers": [
   "A-w-162"
- ]
+ ],
+ "review": {
+  "by": "A-r-46",
+  "date": "2026-10-21 11:05 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Wedding Photography Questionnaire That Plans the Day'; hero 'checks the couple's timeline and formals list and saves both to a database you own' states the whole job; D1/D2 pass in QC."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "AMBER angle (questionnaire photographers send before the wedding) carried: sections in day order, phonetic names, formals timing, timeline vs coverage, plus FAQ on template edits, timeline and formals questions."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Photographer vocabulary throughout: 'Siobhan (shi-VAWN)', '3 minutes per family grouping', 'sparkler exit at 9:45 pm', 'second shooter'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every body opens on a full sentence: 'The questionnaire takes the couple through getting ready...', 'Callowhill Photo shoots one wedding a day.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q6/Q7 clean; tab 3 arithmetic 14 x 3 = 42, 42 - 30 = 12, 14 - 4 = 10 stated plainly."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Reads as an operator: 'You read it off the list instead of guessing in front of the family.' No AI tells; one heading note recorded."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "Tab 1 presents a pre-booking inquiry ('open its inquiry questionnaire and ask about Saturday, June 12, 2027... says on the first screen that it is taken') while FAQ 7 says 'A wedding photography questionnaire comes after booking', FAQ 4 'After they book' and step 7 'Send the link once the date is booked'. Claims otherwise map to prompt-build, alerts, database-owned, no-caps, code-export, free-start; June 12, 2027 is a Saturday."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Distinct from photography-order-form (print orders), website-design-questionnaire (project scoping) and wedding-photography-contract (deposits, travel fee, signatures); wedding-guest-survey has no spec yet."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first; hub link in item 2; sibling links wedding photography contract, client onboarding questionnaire, brand questionnaire; paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tabs match copy: 'Date taken Saturday, June 12, 2027 / Saved to the waitlist'; '9:45 pm / 45 minutes past coverage'; '42 minutes of formals / 30 minutes held / 12 minutes over / Trim to 10 groupings'; 'To Emeka Thorsen / Planner Gwendolyn Pembury, 2:00 pm / Grand entrance, 6:30 pm'. One hero. (Tab 1's image carries the same pre-booking story as the truth finding.)"
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "tab_content_1",
+    "quote": "Isaura Seferis and Emrys Pollard open its inquiry questionnaire and ask about Saturday, June 12, 2027. The form checks that date against the studio's booked weddings and says on the first screen that it is taken.",
+    "issue": "The page contradicts itself on what this questionnaire is. Tab 1 shows a couple who have not booked using it as an inquiry form, but FAQ 7 says 'An inquiry form comes before booking... A wedding photography questionnaire comes after booking and covers the day itself', FAQ 4 says couples fill it 'After they book, once the wedding photography contract is signed', and howto_step_7_title says '07 Send the link once the date is booked'. Every instance of the pre-booking story: tab_label_1 'New Inquiries'; tab_content_1 (above, H3 'June 12 is booked, which the couple sees first'); prompt_chip_1 'Date Availability'; chip_adds[0] 'Add a date availability check against the weddings already booked.'; mockup newInquiries 'Build an inquiry questionnaire for my wedding photography studio... check the date against my booked weddings'; tab_image_1 (uc-1 'Wedding inquiry' card, 'Join the waitlist', prompt 'Check each inquiry date against my booked weddings and waitlist it') and its alt 'ask Callowhill Photo about Saturday, June 12, 2027, and the inquiry questionnaire shows the date is booked'; plan.tab_stories[0] and plan.angle 'checking an inquiry date against booked dates'.",
+    "fix": "Replace tab 1 with a post-booking planning moment the questionnaire handles (for example two getting-ready addresses and the travel time between them against the coverage start, or a rain-plan location for an outdoor ceremony), and update tab_label_1, the H3 and body, prompt_chip_1 and chip_adds[0], the newInquiries mockup key and prompt, the uc-1 image brief and alt, and the plan entry together. Keep FAQ 4, FAQ 7 and step 7 as they are. Re-render and re-run QC.",
+    "severity": "blocking"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "usecase_heading",
+    "quote": "What Four Studios Learn From the Answers",
+    "issue": "In tabs 1 and 3 the couple, not the studio, learns something ('which the couple sees first'; 'The form shows them the 12-minute overrun'), so the heading does not describe all four tabs.",
+    "fix": "A heading true of every tab, such as 'Four Studios, Four Answers Checked'.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #5",
+    "field": "tab_image_3",
+    "quote": "Cut 4 groupings",
+    "issue": "The Family formals card lists exactly 4 groupings at 3 min each beside 'Cut 4 groupings', which can read as the 4 shown being the ones to cut, or as the full list totalling 12 minutes.",
+    "fix": "Label the list as an excerpt ('4 of 14 groupings') or show the running total '42 min' under it.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "like a sparkler exit that falls after your coverage ends",
+    "issue": "The sparkler-exit-after-coverage rule is restated in tab_content_2, howto_step_3_des 'flag a sparkler exit after coverage', howto_step_6_des 'the exit is flagged' and FAQ 2.",
+    "fix": "Keep it in tab 2 and step 3; give FAQ 2 a different example rule (the formals total).",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "usecase_heading",
+   "issue": "In tabs 1 and 3 the couple, not the studio, learns something ('which the couple sees first'; 'The form shows them the 12-minute overrun'), so the heading does not describe all four tabs.",
+   "fix": "A heading true of every tab, such as 'Four Studios, Four Answers Checked'.",
+   "by": "A-r-46",
+   "via": "review",
+   "date": "2026-10-21 11:05 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #5",
+   "field": "tab_image_3",
+   "issue": "The Family formals card lists exactly 4 groupings at 3 min each beside 'Cut 4 groupings', which can read as the 4 shown being the ones to cut, or as the full list totalling 12 minutes.",
+   "fix": "Label the list as an excerpt ('4 of 14 groupings') or show the running total '42 min' under it.",
+   "by": "A-r-46",
+   "via": "review",
+   "date": "2026-10-21 11:05 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "The sparkler-exit-after-coverage rule is restated in tab_content_2, howto_step_3_des 'flag a sparkler exit after coverage', howto_step_6_des 'the exit is flagged' and FAQ 2.",
+   "fix": "Keep it in tab 2 and step 3; give FAQ 2 a different example rule (the formals total).",
+   "by": "A-r-46",
+   "via": "review",
+   "date": "2026-10-21 11:05 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "4fdf68a28717e226",
+   "alt:share_image": "db6e02c1640b6734",
+   "alt:tab_image_1": "716afe281cddb292",
+   "alt:tab_image_2": "09f1e10b743a7f43",
+   "alt:tab_image_3": "85ef7d600d934a55",
+   "alt:tab_image_4": "859df256acf27906",
+   "breadcrumb": "b63cdfb7c86a8d0f",
+   "chip_adds": "504505afab5f4dbb",
+   "explore_cta": "4e753c6b6fdd8170",
+   "faq": "473f98218df0f123",
+   "feature_1": "f79fb54950ae04f1",
+   "feature_2": "15c90f6d25bfccd6",
+   "feature_3": "04ca54e30ce224a0",
+   "feature_4": "52571c03fe8aa70d",
+   "feature_5": "3ebaeab9848a9e70",
+   "feature_6": "18f1d34fd1868312",
+   "features_heading": "82172bbe76f5269e",
+   "features_subheading": "025b9f8191c35158",
+   "h1": "b214af57ce6e9355",
+   "hero_description": "260da3c1302fe1dc",
+   "hero_prompt": "c42d914b6c5b799c",
+   "howto_description": "593dc0388b326faf",
+   "howto_step_1_des": "1d1f0aedd130fa9e",
+   "howto_step_1_title": "c6ce6abc98c54cbd",
+   "howto_step_2_des": "bddebe3dcacd9289",
+   "howto_step_2_title": "9dabc81f9bac8bd4",
+   "howto_step_3_des": "86530ce94e732d4a",
+   "howto_step_3_title": "fc847d6c4d72d37e",
+   "howto_step_4_des": "72d7e0aaf8e7ed96",
+   "howto_step_4_title": "5039cbba946d5010",
+   "howto_step_5_des": "076887475151e009",
+   "howto_step_5_title": "601d2e1bb6f90bce",
+   "howto_step_6_des": "c89d233a8e80ad4f",
+   "howto_step_6_title": "b95b0c82170837e4",
+   "howto_step_7_des": "88473d288826fc49",
+   "howto_step_7_title": "096a32f34186faef",
+   "howto_title": "f83a57de343ec473",
+   "meta_description": "8cd78d4e3eb0d4d8",
+   "meta_title": "6ffd1f0b01463925",
+   "mockup": "e4f8c4ccbb9c897a",
+   "product_name": "e028893e83f9bd93",
+   "prompt_chip_1": "17deb6134c50a55d",
+   "prompt_chip_2": "6ad31838f4cfd507",
+   "prompt_chip_3": "e385995df79fc1b2",
+   "prompt_chip_4": "708ced500780c83b",
+   "slug": "459dc62834c7baba",
+   "tab_content_1": "4730e7837576a6dd",
+   "tab_content_2": "7ea8381e94994aeb",
+   "tab_content_3": "244bc11a68d14137",
+   "tab_content_4": "690e4a2cfcb6b137",
+   "tab_label_1": "5ff08646785b78e8",
+   "tab_label_2": "e6ef73237be93137",
+   "tab_label_3": "e385995df79fc1b2",
+   "tab_label_4": "708ced500780c83b",
+   "usecase_heading": "0980c5e613da1cf5",
+   "why_description": "a8d03249b7913019",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "c38b8a135fe6c215"
+  },
+  "all": "d601b2722928ec3d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "4fdf68a28717e226",
+   "alt:share_image": "db6e02c1640b6734",
+   "alt:tab_image_1": "716afe281cddb292",
+   "alt:tab_image_2": "09f1e10b743a7f43",
+   "alt:tab_image_3": "85ef7d600d934a55",
+   "alt:tab_image_4": "859df256acf27906",
+   "breadcrumb": "b63cdfb7c86a8d0f",
+   "chip_adds": "504505afab5f4dbb",
+   "explore_cta": "4e753c6b6fdd8170",
+   "faq": "473f98218df0f123",
+   "feature_1": "f79fb54950ae04f1",
+   "feature_2": "15c90f6d25bfccd6",
+   "feature_3": "04ca54e30ce224a0",
+   "feature_4": "52571c03fe8aa70d",
+   "feature_5": "3ebaeab9848a9e70",
+   "feature_6": "18f1d34fd1868312",
+   "features_heading": "82172bbe76f5269e",
+   "features_subheading": "025b9f8191c35158",
+   "h1": "b214af57ce6e9355",
+   "hero_description": "260da3c1302fe1dc",
+   "hero_prompt": "c42d914b6c5b799c",
+   "howto_description": "593dc0388b326faf",
+   "howto_step_1_des": "1d1f0aedd130fa9e",
+   "howto_step_1_title": "c6ce6abc98c54cbd",
+   "howto_step_2_des": "bddebe3dcacd9289",
+   "howto_step_2_title": "9dabc81f9bac8bd4",
+   "howto_step_3_des": "86530ce94e732d4a",
+   "howto_step_3_title": "fc847d6c4d72d37e",
+   "howto_step_4_des": "72d7e0aaf8e7ed96",
+   "howto_step_4_title": "5039cbba946d5010",
+   "howto_step_5_des": "076887475151e009",
+   "howto_step_5_title": "601d2e1bb6f90bce",
+   "howto_step_6_des": "c89d233a8e80ad4f",
+   "howto_step_6_title": "b95b0c82170837e4",
+   "howto_step_7_des": "88473d288826fc49",
+   "howto_step_7_title": "096a32f34186faef",
+   "howto_title": "f83a57de343ec473",
+   "meta_description": "8cd78d4e3eb0d4d8",
+   "meta_title": "6ffd1f0b01463925",
+   "mockup": "e4f8c4ccbb9c897a",
+   "product_name": "e028893e83f9bd93",
+   "prompt_chip_1": "17deb6134c50a55d",
+   "prompt_chip_2": "6ad31838f4cfd507",
+   "prompt_chip_3": "e385995df79fc1b2",
+   "prompt_chip_4": "708ced500780c83b",
+   "slug": "459dc62834c7baba",
+   "tab_content_1": "4730e7837576a6dd",
+   "tab_content_2": "7ea8381e94994aeb",
+   "tab_content_3": "244bc11a68d14137",
+   "tab_content_4": "690e4a2cfcb6b137",
+   "tab_label_1": "5ff08646785b78e8",
+   "tab_label_2": "e6ef73237be93137",
+   "tab_label_3": "e385995df79fc1b2",
+   "tab_label_4": "708ced500780c83b",
+   "usecase_heading": "0980c5e613da1cf5",
+   "why_description": "a8d03249b7913019",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "c38b8a135fe6c215"
+  },
+  "all": "d601b2722928ec3d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

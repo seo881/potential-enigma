@@ -122,6 +122,13 @@
    "via": null,
    "by": "A-w-161",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 11:05 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-46",
+   "note": "rubric 10/10 by A-r-46; 2 notes"
   }
  ],
  "pipeline": "r15",
@@ -920,5 +927,225 @@
  ],
  "writers": [
   "A-w-161"
- ]
+ ],
+ "review": {
+  "by": "A-r-46",
+  "date": "2026-10-21 11:05 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Payroll Change Form That Gets Each Change Approved'; hero 'shows old and new pay side by side and sends each change to the right approvers' covers the form's whole job."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder-fit SERP (Jotform, workforce.com templates): page gives the fields ('Start with the employee's name and ID, the change type, the current value, the new value, the effective date, and the reason'), routing, template-to-online FAQ and a 7-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Payroll vocabulary: 'pay period', 'payroll cutoff', 'Grant 4471', 'stipend', 'keying it into the payroll system'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Bodies open on full sentences: 'Pick the kind of change at the top...', 'Seraphina Quarshie promotes line cook Cosimo Szczepanski...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC clean; one ', so' ending (tab 4) under the limit; numbers stated plainly: $2,400 = 6 x $400, 24 + 16 = 40."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Calm and concrete: 'Payroll marks each one entered after keying it into the payroll system, and the date is saved on it.' One wording note recorded."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent sentences map to prompt-build, alerts, api-connect ('If your payroll provider offers an API'), database-owned, code-export, free-start, soc2-iso, e-signature-capture, custom-domain. No tax, wage-law or payroll-compliance claims; the 32-hour benefits line is the clinic's own policy. Nov 2/16/30 and Nov 16 are Mondays and Nov 13 a Friday in 2026. FAQ 1 PA7 flag goes to Divit's packet, not a finding."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Not a copy of payroll-automation (timesheets, overtime, cutoff reminders, provider sync): this page is the change request itself, with change-type fields, pay-period dates, funding splits and stipend end dates."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 builder-intent questions answered first; hub link in item 2; links direct deposit form, reasonable accommodation request form, refund request form; secondaries template, pdf, free, forms worked in; paa --spec 9 pass, 0 reject, 1 flag (PA7 on Q1, for Divit)."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tabs match copy: 'Mon, Nov 2 / Pay period starts only Nov 2, Nov 16, Nov 30 / For Florian Dalgaard'; '$400 in each of 6 pay periods / Ends Fri, Nov 13 / For Evander Vukovic'; '24 hours / 16 hours / 40 of 40 / For Dr. Tiernan Pimentel'; 'Mirelle Lindgren-Moss 40 -> 24 Benefits review / 3 changes ready / For Solveig Rask'. One hero."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 6",
+    "field": "howto_step_7_des",
+    "quote": "Put it on your own domain (built into Emergent, uses credits)",
+    "issue": "The claims register words custom domains as 'included', never 'built-in'; 'built into' is the same phrasing in a parenthetical that reads like a spec sheet.",
+    "fix": "Put it on your own domain, which Emergent includes and charges in credits, if managers already know your HR site.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "Set approvers by change type instead of one list for everything.",
+    "issue": "Approvers-by-change-type is said three times: feature_3 'A rate change goes to the department head, then HR', howto_step_2_des 'A rate change might need the department head and then HR', FAQ 8 'the department head on rate changes, HR on status changes'. Bank details off the form also repeats: FAQ 4 'Keep bank account updates off it and on a separate direct deposit form' and FAQ 9 'keep bank details on their own form'.",
+    "fix": "Let FAQ 8 add what the body does not (a backup approver, or who approves the requester's own change) and drop the bank-details clause from FAQ 9.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 6",
+   "field": "howto_step_7_des",
+   "issue": "The claims register words custom domains as 'included', never 'built-in'; 'built into' is the same phrasing in a parenthetical that reads like a spec sheet.",
+   "fix": "Put it on your own domain, which Emergent includes and charges in credits, if managers already know your HR site.",
+   "by": "A-r-46",
+   "via": "review",
+   "date": "2026-10-21 11:05 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "Approvers-by-change-type is said three times: feature_3 'A rate change goes to the department head, then HR', howto_step_2_des 'A rate change might need the department head and then HR', FAQ 8 'the department head on rate changes, HR on status changes'. Bank details off the form also repeats: FAQ 4 'Keep bank account updates off it and on a separate direct deposit form' and FAQ 9 'keep bank details on their own form'.",
+   "fix": "Let FAQ 8 add what the body does not (a backup approver, or who approves the requester's own change) and drop the bank-details clause from FAQ 9.",
+   "by": "A-r-46",
+   "via": "review",
+   "date": "2026-10-21 11:05 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "f790a24bccb4b14a",
+   "alt:share_image": "d31b818d098770cb",
+   "alt:tab_image_1": "bd2f1c4ae78b1a53",
+   "alt:tab_image_2": "d031da069f0c29a7",
+   "alt:tab_image_3": "8bff7f3bac6d5d1d",
+   "alt:tab_image_4": "15e597fd9514a67b",
+   "breadcrumb": "e9de4c1f1d864b43",
+   "chip_adds": "94e89d2791547e0f",
+   "explore_cta": "eab97478e22d8e2f",
+   "faq": "01427042c6b63be1",
+   "feature_1": "31abbf2048433e5b",
+   "feature_2": "d3933b9336c02400",
+   "feature_3": "b7b0d9e949621c28",
+   "feature_4": "106035491aa6b5ea",
+   "feature_5": "9a843bd034cf6f2c",
+   "feature_6": "a5dfd242c9691b8c",
+   "features_heading": "7f713d76531519ae",
+   "features_subheading": "2c17f32a04167b00",
+   "h1": "9651b71d6809252f",
+   "hero_description": "2d4ca4cba2a4293b",
+   "hero_prompt": "e322ddae9e4b65f1",
+   "howto_description": "1b29aafac173ba4d",
+   "howto_step_1_des": "4fd9571778a6bb7e",
+   "howto_step_1_title": "f03063c83774953e",
+   "howto_step_2_des": "4b20715589e74c46",
+   "howto_step_2_title": "2cb058770a32df8a",
+   "howto_step_3_des": "650045e59ea45bcc",
+   "howto_step_3_title": "ff047b5e83573c31",
+   "howto_step_4_des": "a5688c60c6b1b6c5",
+   "howto_step_4_title": "7fdfa979a2bafec2",
+   "howto_step_5_des": "d2c5402563d2a4ea",
+   "howto_step_5_title": "7c6a406db60dc231",
+   "howto_step_6_des": "f620d5077f50a0a7",
+   "howto_step_6_title": "5d96fba88cb46a8e",
+   "howto_step_7_des": "3a9428d5c360aabc",
+   "howto_step_7_title": "76185315bc0a0412",
+   "howto_title": "a8b604da1bcda06c",
+   "meta_description": "67cc5d203f359608",
+   "meta_title": "11334967183aecbb",
+   "mockup": "5a422bc3b32b8967",
+   "product_name": "7f865f36a94b03ad",
+   "prompt_chip_1": "f82e23db6625a663",
+   "prompt_chip_2": "0978e8e748dcdba1",
+   "prompt_chip_3": "a58912234e267aba",
+   "prompt_chip_4": "f692c56438bcedf7",
+   "slug": "74b7c3ddf2555746",
+   "tab_content_1": "fc9aa4727f13b843",
+   "tab_content_2": "61852049c230d91c",
+   "tab_content_3": "d376ff30f6b58ca9",
+   "tab_content_4": "afcca943c03eaec1",
+   "tab_label_1": "57017e37117309c2",
+   "tab_label_2": "58133f6068c74582",
+   "tab_label_3": "18edcc5ccecb4f39",
+   "tab_label_4": "fdc2bfe18537b73f",
+   "usecase_heading": "426dcd2d3a55384b",
+   "why_description": "16fa5169a28baa0c",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "1641805c1c8a6c93"
+  },
+  "all": "15dd1e01d7890468",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "f790a24bccb4b14a",
+   "alt:share_image": "d31b818d098770cb",
+   "alt:tab_image_1": "bd2f1c4ae78b1a53",
+   "alt:tab_image_2": "d031da069f0c29a7",
+   "alt:tab_image_3": "8bff7f3bac6d5d1d",
+   "alt:tab_image_4": "15e597fd9514a67b",
+   "breadcrumb": "e9de4c1f1d864b43",
+   "chip_adds": "94e89d2791547e0f",
+   "explore_cta": "eab97478e22d8e2f",
+   "faq": "01427042c6b63be1",
+   "feature_1": "31abbf2048433e5b",
+   "feature_2": "d3933b9336c02400",
+   "feature_3": "b7b0d9e949621c28",
+   "feature_4": "106035491aa6b5ea",
+   "feature_5": "9a843bd034cf6f2c",
+   "feature_6": "a5dfd242c9691b8c",
+   "features_heading": "7f713d76531519ae",
+   "features_subheading": "2c17f32a04167b00",
+   "h1": "9651b71d6809252f",
+   "hero_description": "2d4ca4cba2a4293b",
+   "hero_prompt": "e322ddae9e4b65f1",
+   "howto_description": "1b29aafac173ba4d",
+   "howto_step_1_des": "4fd9571778a6bb7e",
+   "howto_step_1_title": "f03063c83774953e",
+   "howto_step_2_des": "4b20715589e74c46",
+   "howto_step_2_title": "2cb058770a32df8a",
+   "howto_step_3_des": "650045e59ea45bcc",
+   "howto_step_3_title": "ff047b5e83573c31",
+   "howto_step_4_des": "a5688c60c6b1b6c5",
+   "howto_step_4_title": "7fdfa979a2bafec2",
+   "howto_step_5_des": "d2c5402563d2a4ea",
+   "howto_step_5_title": "7c6a406db60dc231",
+   "howto_step_6_des": "f620d5077f50a0a7",
+   "howto_step_6_title": "5d96fba88cb46a8e",
+   "howto_step_7_des": "3a9428d5c360aabc",
+   "howto_step_7_title": "76185315bc0a0412",
+   "howto_title": "a8b604da1bcda06c",
+   "meta_description": "67cc5d203f359608",
+   "meta_title": "11334967183aecbb",
+   "mockup": "5a422bc3b32b8967",
+   "product_name": "7f865f36a94b03ad",
+   "prompt_chip_1": "f82e23db6625a663",
+   "prompt_chip_2": "0978e8e748dcdba1",
+   "prompt_chip_3": "a58912234e267aba",
+   "prompt_chip_4": "f692c56438bcedf7",
+   "slug": "74b7c3ddf2555746",
+   "tab_content_1": "fc9aa4727f13b843",
+   "tab_content_2": "61852049c230d91c",
+   "tab_content_3": "d376ff30f6b58ca9",
+   "tab_content_4": "afcca943c03eaec1",
+   "tab_label_1": "57017e37117309c2",
+   "tab_label_2": "58133f6068c74582",
+   "tab_label_3": "18edcc5ccecb4f39",
+   "tab_label_4": "fdc2bfe18537b73f",
+   "usecase_heading": "426dcd2d3a55384b",
+   "why_description": "16fa5169a28baa0c",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "1641805c1c8a6c93"
+  },
+  "all": "15dd1e01d7890468",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
