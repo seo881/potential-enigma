@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-244",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 05:44 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-93",
+   "note": "rubric 10/10 by B-r-93; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -974,5 +981,265 @@
  },
  "writers": [
   "B-w-244"
- ]
+ ],
+ "review": {
+  "by": "B-r-93",
+  "date": "2026-10-21 05:44 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Service Landing Page for Each Job You Sell\"; hero \"Build a service landing page that sells one job, checks the visitor's ZIP code, and saves each request to a database you own.\" (D1 ok); how-to description one sentence under 140 chars (D2 ok). Single-service scope, not the business-landing-page goal pages."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "No top 10 in the workbook; the AlsoAsked tree asks for a service page example and how to create one. Page delivers four worked examples by trade (Water Heater Install, Home Cleaning, Pest Inspection, Saturday Moves), a seven-step how-to and a comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Trade vocabulary throughout: \"the tank size for a water heater install\", \"A termite job reaches the inspector, not the front desk\", \"the domain already printed on your trucks and invoices\"."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: \"Pinecastle Plumbing installs water heaters, and this page sells only that job.\", \"A cleaning customer buys a schedule, not a single visit.\", \"Mosswick Pest Control asks one question first\"."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One \", so\" ending (step 5), under the cap; sentences vary (\"Keep a second, competing button off the page.\"). Q9 repetition of \"request\" kept as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain operator voice, concrete details: \"Of 84 requests last month, 69 came from ZIP codes the crew serves\", \"nobody can book a crew the company does not have\". No AI tells found."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "claims_used prompt-build, database-owned, alerts, custom-domain, code-export, free-start all in rules/capabilities.json; step 2 matches schema.org quote \"The geographic area where a service or offered item is provided.\"; step 5 matches Google quote on country and area code; FAQ 10 quotes web.dev LCP 2.5 s verbatim; table cells are single-vendor library entries (Unbounce, Landingi, Wix); numbers add up (69+15=84, 18+33+9=60, 7+15=22, 2 of 4); November 7, 2026 is a Saturday."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "business-landing-page owns goal pages (Quote Request, Wholesale Pricing, Free Consultation, Catering Inquiry); this page owns single-service mechanics (ZIP check, price per visit, pest routing, per-Saturday cap). FAQ 4 hands goal offers to the sibling: \"A general business landing page suits offers that are not a single job\"."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, paa --spec pass 10/10, 0 flags; no brands or formats in questions; hub link in item 2; sibling links business-landing-page, b2b-landing-page, qr-code-landing-page with exact anchors; FAQ 5 \"Each of the four examples above sells one job and runs one rule behind its form\" is true of all four tabs; Emergent lines in items 8 and 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 draws 84 / 69 / 15 and \"Out-of-area list 15 requests saved\"; tab 2 $120/$140/$165 with 18/33/9 and button \"Start at $140 a visit\"; tab 3 \"Email to Corin\" addressed to the person, \"15 other pests To the scheduling desk\"; tab 4 \"November 7 ... 2 of 4 left\", \"Full at the 4th move\". One hero card, cursor on button edges."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_2 / tab_content_1 / howto_step_2_des / howto_step_4_des / faq item 2",
+    "quote": "the page checks each visitor's ZIP before the form opens",
+    "issue": "The ZIP check against the service area is restated in five fields (feature 2, tab 1 \"The first field asks for a ZIP code\", step 2 \"Write down the ZIP codes your crews reach\", step 4 \"such as the ZIP code or the pest\", FAQ 2 \"list the ZIP codes you cover\"); QC Q9 also counts \"request\" 15 times and \"code\" 11 times outside the FAQ.",
+    "fix": "Next edit only: say the ZIP rule once in feature 2 and tab 1; vary \"request\" (job, booking, inquiry) where the meaning allows.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2a",
+    "field": "hero_prompt",
+    "quote": "Build a service landing page that saves every signup to a database I own.",
+    "issue": "The page's term for what a visitor submits is \"request\" (hero, features, tabs 1 and 3, how-to); the hero prompt says \"signup\" (2a: same term for the same thing).",
+    "fix": "\"Build a service landing page that saves every request to a database I own.\"",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 6",
+    "quote": "Photos of finished jobs from your own crew do more than stock images.",
+    "issue": "Effectiveness claim with no source; it reads as advice (it repeats step 6's recommendation) rather than a fact about a named third party, so it is a note.",
+    "fix": "\"Use photos of finished jobs from your own crew, not stock images.\"",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #1",
+    "field": "faq item 7",
+    "quote": "How do I write a service landing page that sells to other companies?",
+    "issue": "Close to the b2b-landing-page sibling's topic. Kept as a note: the question stays on service pages, never uses the sibling primary in the question, and the answer hands longer buying decisions to the sibling with a link.",
+    "fix": "None needed now; watch that the b2b page does not answer the same question.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_2 / tab_content_1 / howto_step_2_des / howto_step_4_des / faq item 2",
+   "issue": "The ZIP check against the service area is restated in five fields (feature 2, tab 1 \"The first field asks for a ZIP code\", step 2 \"Write down the ZIP codes your crews reach\", step 4 \"such as the ZIP code or the pest\", FAQ 2 \"list the ZIP codes you cover\"); QC Q9 also counts \"request\" 15 times and \"code\" 11 times outside the FAQ.",
+   "fix": "Next edit only: say the ZIP rule once in feature 2 and tab 1; vary \"request\" (job, booking, inquiry) where the meaning allows.",
+   "by": "B-r-93",
+   "via": "review",
+   "date": "2026-10-21 05:44 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "hero_prompt",
+   "issue": "The page's term for what a visitor submits is \"request\" (hero, features, tabs 1 and 3, how-to); the hero prompt says \"signup\" (2a: same term for the same thing).",
+   "fix": "\"Build a service landing page that saves every request to a database I own.\"",
+   "by": "B-r-93",
+   "via": "review",
+   "date": "2026-10-21 05:44 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 6",
+   "issue": "Effectiveness claim with no source; it reads as advice (it repeats step 6's recommendation) rather than a fact about a named third party, so it is a note.",
+   "fix": "\"Use photos of finished jobs from your own crew, not stock images.\"",
+   "by": "B-r-93",
+   "via": "review",
+   "date": "2026-10-21 05:44 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #1",
+   "field": "faq item 7",
+   "issue": "Close to the b2b-landing-page sibling's topic. Kept as a note: the question stays on service pages, never uses the sibling primary in the question, and the answer hands longer buying decisions to the sibling with a link.",
+   "fix": "None needed now; watch that the b2b page does not answer the same question.",
+   "by": "B-r-93",
+   "via": "review",
+   "date": "2026-10-21 05:44 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "8ba423b64e3182e1",
+   "alt:share_image": "07bf7ee642210cfb",
+   "alt:tab_image_1": "30da993d48672b6c",
+   "alt:tab_image_2": "5dd79fbb287a882e",
+   "alt:tab_image_3": "84e448ef96c9642b",
+   "alt:tab_image_4": "b757dc127ee5d53f",
+   "breadcrumb": "9dcae314a2724d40",
+   "chip_adds": "2d373a66c9107a9e",
+   "explore_cta": "498d4f7330ad2759",
+   "faq": "8dfc4fac80ea0f2f",
+   "feature_1": "3bac774ab7db03b0",
+   "feature_2": "27617c8ace0405f2",
+   "feature_3": "b14a358d93dbf0fd",
+   "feature_4": "2aafd2277c09ef56",
+   "feature_5": "2e1e74ddd23bb333",
+   "feature_6": "3ea5c94e3d3c499d",
+   "features_heading": "5d630e56133aa5ac",
+   "features_subheading": "d84ad9693bad39f4",
+   "h1": "90e9241012e56c8d",
+   "hero_description": "ae5a24565bf56d0b",
+   "hero_prompt": "9a012e4dfbaa8ecc",
+   "howto_description": "86deb4b9217857c5",
+   "howto_step_1_des": "878da90822accaaa",
+   "howto_step_1_title": "d5d1f56ad409d2f6",
+   "howto_step_2_des": "875e6dc6d4569e58",
+   "howto_step_2_title": "68d6ae721113e8c7",
+   "howto_step_3_des": "18309807da615a45",
+   "howto_step_3_title": "56681e89ea99f773",
+   "howto_step_4_des": "f450d13ef407845e",
+   "howto_step_4_title": "e46c39262a23094c",
+   "howto_step_5_des": "803a0e63f2ccbb43",
+   "howto_step_5_title": "6ddd32c1bd426980",
+   "howto_step_6_des": "1ff43efa84c49240",
+   "howto_step_6_title": "50b2e5ffe9bece40",
+   "howto_step_7_des": "4b850e3e339b94ef",
+   "howto_step_7_title": "0013de58ec051ceb",
+   "howto_title": "d274031265820dd3",
+   "meta_description": "f2bcb7d42aec7f65",
+   "meta_title": "9bca5c39e28c1eb4",
+   "mockup": "415ac76e19a3d622",
+   "product_name": "6ec078fa0dd6710b",
+   "prompt_chip_1": "ba44ee1db7dda783",
+   "prompt_chip_2": "30b747cbe7bead34",
+   "prompt_chip_3": "aaa68aaba79ca473",
+   "prompt_chip_4": "9814d4df8a5fa7d0",
+   "slug": "1c8eb1081b6a21b2",
+   "tab_content_1": "83b270e1ef1603a7",
+   "tab_content_2": "02136a3416c2db77",
+   "tab_content_3": "a6f78416521b6208",
+   "tab_content_4": "7c2ecc8d78da5ecf",
+   "tab_label_1": "0343e5e061c2be15",
+   "tab_label_2": "1dbc589f8caf10f6",
+   "tab_label_3": "55b1f9342b9e19c6",
+   "tab_label_4": "630bd809ec4bd148",
+   "usecase_heading": "56ab2b3a87f1d499",
+   "why_description": "e88089b2c0195436",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "7633a997e04e2bc0"
+  },
+  "all": "7d22e741c16e28ba",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "8ba423b64e3182e1",
+   "alt:share_image": "07bf7ee642210cfb",
+   "alt:tab_image_1": "30da993d48672b6c",
+   "alt:tab_image_2": "5dd79fbb287a882e",
+   "alt:tab_image_3": "84e448ef96c9642b",
+   "alt:tab_image_4": "b757dc127ee5d53f",
+   "breadcrumb": "9dcae314a2724d40",
+   "chip_adds": "2d373a66c9107a9e",
+   "explore_cta": "498d4f7330ad2759",
+   "faq": "8dfc4fac80ea0f2f",
+   "feature_1": "3bac774ab7db03b0",
+   "feature_2": "27617c8ace0405f2",
+   "feature_3": "b14a358d93dbf0fd",
+   "feature_4": "2aafd2277c09ef56",
+   "feature_5": "2e1e74ddd23bb333",
+   "feature_6": "3ea5c94e3d3c499d",
+   "features_heading": "5d630e56133aa5ac",
+   "features_subheading": "d84ad9693bad39f4",
+   "h1": "90e9241012e56c8d",
+   "hero_description": "ae5a24565bf56d0b",
+   "hero_prompt": "9a012e4dfbaa8ecc",
+   "howto_description": "86deb4b9217857c5",
+   "howto_step_1_des": "878da90822accaaa",
+   "howto_step_1_title": "d5d1f56ad409d2f6",
+   "howto_step_2_des": "875e6dc6d4569e58",
+   "howto_step_2_title": "68d6ae721113e8c7",
+   "howto_step_3_des": "18309807da615a45",
+   "howto_step_3_title": "56681e89ea99f773",
+   "howto_step_4_des": "f450d13ef407845e",
+   "howto_step_4_title": "e46c39262a23094c",
+   "howto_step_5_des": "803a0e63f2ccbb43",
+   "howto_step_5_title": "6ddd32c1bd426980",
+   "howto_step_6_des": "1ff43efa84c49240",
+   "howto_step_6_title": "50b2e5ffe9bece40",
+   "howto_step_7_des": "4b850e3e339b94ef",
+   "howto_step_7_title": "0013de58ec051ceb",
+   "howto_title": "d274031265820dd3",
+   "meta_description": "f2bcb7d42aec7f65",
+   "meta_title": "9bca5c39e28c1eb4",
+   "mockup": "415ac76e19a3d622",
+   "product_name": "6ec078fa0dd6710b",
+   "prompt_chip_1": "ba44ee1db7dda783",
+   "prompt_chip_2": "30b747cbe7bead34",
+   "prompt_chip_3": "aaa68aaba79ca473",
+   "prompt_chip_4": "9814d4df8a5fa7d0",
+   "slug": "1c8eb1081b6a21b2",
+   "tab_content_1": "83b270e1ef1603a7",
+   "tab_content_2": "02136a3416c2db77",
+   "tab_content_3": "a6f78416521b6208",
+   "tab_content_4": "7c2ecc8d78da5ecf",
+   "tab_label_1": "0343e5e061c2be15",
+   "tab_label_2": "1dbc589f8caf10f6",
+   "tab_label_3": "55b1f9342b9e19c6",
+   "tab_label_4": "630bd809ec4bd148",
+   "usecase_heading": "56ab2b3a87f1d499",
+   "why_description": "e88089b2c0195436",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "7633a997e04e2bc0"
+  },
+  "all": "7d22e741c16e28ba",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
