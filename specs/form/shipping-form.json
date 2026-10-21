@@ -122,6 +122,13 @@
    "via": "review",
    "by": "A-r-27",
    "note": "[truth | HUB_RULES 8] faq item 6: States as fact that a bill of lading needs the pickup address and the carton count. The only domain_sources span (trade.gov common export documents) says a bill of lading is a contract between the owner of the goods and the carrier; the reviewer checked the page and"
+  },
+  {
+   "t": "2026-10-21 06:20 UTC",
+   "state": "reviewed",
+   "via": "slim-review",
+   "by": "A-s-2",
+   "note": "slim review by A-s-2 of 1 changed field(s); 1 notes"
   }
  ],
  "pipeline": "r15",
@@ -1081,6 +1088,16 @@
    "by": "A-r-27",
    "via": "review",
    "date": "2026-10-21 06:17 UTC"
+  },
+  {
+   "criterion": "slim",
+   "rule": "HUB_RULES 8 (Domain sources, QC P2/P4)",
+   "field": "domain_sources",
+   "issue": "After the rework no field on the page mentions a bill of lading, so this domain_sources entry and its plan.claims_to_source[4] line are unused. QC P2 only checks plan to sources, so the leftover does not fail QC, and the page holds 7 of 8 allowed sources.",
+   "fix": "At the next edit, remove the bill-of-lading entry from domain_sources and plan.claims_to_source to keep the source list matched to the copy.",
+   "by": "A-s-2",
+   "via": "slim-review",
+   "date": "2026-10-21 06:20 UTC"
   }
  ],
  "review_hash": {
@@ -1095,7 +1112,7 @@
    "breadcrumb": "2f343ce16644b62a",
    "chip_adds": "aa78816f109551eb",
    "explore_cta": "ba76385326142dd9",
-   "faq": "98e4cba79ac8d91c",
+   "faq": "407613e5270d43b9",
    "feature_1": "c982b5ad403a76d3",
    "feature_2": "63b57f18c13bad29",
    "feature_3": "fe71ed25b5ab00a5",
@@ -1145,7 +1162,7 @@
    "why_table": "a1ff8dc7ca25ca34",
    "why_title": "a14e2a47e8510002"
   },
-  "all": "ece5488ca7104b37",
+  "all": "c698c0c813a9594f",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  },
  "lock_hash": {
@@ -1160,7 +1177,7 @@
    "breadcrumb": "2f343ce16644b62a",
    "chip_adds": "aa78816f109551eb",
    "explore_cta": "ba76385326142dd9",
-   "faq": "98e4cba79ac8d91c",
+   "faq": "407613e5270d43b9",
    "feature_1": "c982b5ad403a76d3",
    "feature_2": "63b57f18c13bad29",
    "feature_3": "fe71ed25b5ab00a5",
@@ -1210,7 +1227,30 @@
    "why_table": "a1ff8dc7ca25ca34",
    "why_title": "a14e2a47e8510002"
   },
-  "all": "ece5488ca7104b37",
+  "all": "c698c0c813a9594f",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
- }
+ },
+ "slim_reviews": [
+  {
+   "by": "A-s-2",
+   "date": "2026-10-21 06:20 UTC",
+   "fields": [
+    "faq"
+   ],
+   "baseline": "review_hash",
+   "blocking": 0,
+   "notes": 1,
+   "findings": [
+    {
+     "criterion": "slim",
+     "field": "domain_sources",
+     "quote": "A bill of lading is a contract between the owner of the goods and the carrier (trade.gov)",
+     "fix": "At the next edit, remove the bill-of-lading entry from domain_sources and plan.claims_to_source to keep the source list matched to the copy.",
+     "rule": "HUB_RULES 8 (Domain sources, QC P2/P4)",
+     "issue": "After the rework no field on the page mentions a bill of lading, so this domain_sources entry and its plan.claims_to_source[4] line are unused. QC P2 only checks plan to sources, so the leftover does not fail QC, and the page holds 7 of 8 allowed sources.",
+     "severity": "note"
+    }
+   ]
+  }
+ ]
 }
