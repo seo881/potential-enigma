@@ -127,6 +127,13 @@
    "via": null,
    "by": "B-w-237",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 05:36 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-90",
+   "note": "[truth | HUB_RULES 8] faq: Statement of fact about how donors perceive a survey, with no domain_sources entry (domain_sources is empty). Rework checklist #1: statements about how a group of people behaves need a quoted source or must be rewritten as advice. -> Cut the sentence or rewrite as advice, "
   }
  ],
  "pipeline": "r15",
@@ -956,5 +963,305 @@
   "how-to-validate-a-business-idea: SurveyQuiz fixed set: collecting and reading customer feedback to test an idea, the research job most surveys do",
   "how-to-build-an-interactive-website: SurveyQuiz fixed set: building interactive elements a visitor answers and gets a result from, the mechanic behind quizzes",
   "how-to-build-an-analytics-dashboard-with-ai: SurveyQuiz fixed set: turning responses into a dashboard: metrics, charts and summaries for survey results"
- ]
+ ],
+ "review": {
+  "by": "B-r-90",
+  "date": "2026-10-21 05:36 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Donor Survey That Keeps Donors Giving'; hero 'Build a donor survey that shows why people give, why some stop, and how each donor wants to hear from you.'; how-to description one sentence on what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "PAA 'What are some good questions to ask in a donor survey?' answered first; four worked donor surveys (annual, lapsed, first-gift welcome, monthly donor check), template and examples FAQs, 7-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Development-team vocabulary throughout: 'gift officer', 'giving level', 'lapsed donors', 'monthly giving manager', 'print list holds only the people who asked for paper'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Tabs open on full sentences: 'Lantern Hill Food Bank emails its annual donor survey to 1,240 donors', 'Every first gift to Ironwood Youth Orchestra is followed by a 4-question welcome survey'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Two ', so' endings (why_description, feature_2) are within the limit; recorded as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete scenes and numbers ('Development director Corinne Abernathy now mails the newsletter only to those 97'); no hype verbs or summary sentences."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "domain_sources is empty, yet two sentences state donor behaviour as fact: faq item 9 'A survey that arrives next to a request for money reads like part of the ask.' and feature_2 'Donors open the email link on a phone and see one question at a time.' Numbers otherwise add up (214+97+43+32=386; 21+17+12+8=58); Emergent claims map to claims_used."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Page is about listening to people who already gave ('why lapsed donors left'), not collecting or asking for gifts, so it stays off donation-form and nonprofit-landing-page; siblings parent, membership and post event survey are linked, not targeted."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, paa --spec 10 pass / 0 reject / 0 flag; hub link in item 2; links to parent-survey, membership-survey, post-event-survey; no brand or file-format asks."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches tab copy: '386 of 1,240 answered', 'Print list: 97 donors'; bars 21/17/12/8 with '58 answers'; 'To: Lowell Ashby' and 'This afternoon'; '2025 average 3.2', '2026 average 4.1', '96 Of 140 donors'."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "A survey that arrives next to a request for money reads like part of the ask.",
+    "issue": "Statement of fact about how donors perceive a survey, with no domain_sources entry (domain_sources is empty). Rework checklist #1: statements about how a group of people behaves need a quoted source or must be rewritten as advice.",
+    "fix": "Cut the sentence or rewrite as advice, e.g. 'Keep it out of the same week as an appeal letter, and send the survey on its own with no ask attached.' Search every field for other donor-behaviour statements stated as fact.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "feature_2",
+    "quote": "Donors open the email link on a phone and see one question at a time.",
+    "issue": "Same class: states as fact that donors open the link on a phone, an unsourced claim about donor behaviour.",
+    "fix": "Describe the product flow instead: 'A donor who opens the email link on a phone sees one question at a time.'",
+    "severity": "blocking"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "why_description",
+    "quote": "Emergent sets no response cap, so you can survey your whole donor file every year",
+    "issue": "', so' tacked-on ending; second instance in feature_2 'and the write-in box comes last, so a busy donor still scores every item'.",
+    "fix": "Split into two sentences in either place.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "donors",
+    "issue": "QC Q9: 'donors' 27 times outside the FAQ, 'gift' 12, 'first' 11.",
+    "fix": "Vary with 'supporters', 'givers', the organisation's own term.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "table",
+    "quote": "Survey builder with templates, including employee engagement",
+    "issue": "Library-locked output cells for SurveyMonkey and SurveyHero ('including employee satisfaction') name HR templates on a donor page; correct and unedited per V2, but off-topic for this buyer.",
+    "fix": "Ask for a donor or nonprofit template variant in rules/competitors/sqb.json (library change, not a page edit).",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief.tabs[1].main",
+    "quote": "NH / BC / DC / OT",
+    "issue": "Answer options on the lapsed-donor phone screen are drawn with initials avatars, so they read like people rather than choices.",
+    "fix": "Use radio circles or icons for the options.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "Ask what made each person give the first time and whether they understand what their gift funds.",
+    "issue": "'donor survey questions' (110 MSV, largest secondary) gets four question topics in FAQ 1 and the tab questions, not a sample question set; adequate for a builder page, thinner than question-list SERP results.",
+    "fix": "Optional later: quote two or three exact sample questions in FAQ 1.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "why_description",
+   "issue": "', so' tacked-on ending; second instance in feature_2 'and the write-in box comes last, so a busy donor still scores every item'.",
+   "fix": "Split into two sentences in either place.",
+   "by": "B-r-90",
+   "via": "review",
+   "date": "2026-10-21 05:36 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "QC Q9: 'donors' 27 times outside the FAQ, 'gift' 12, 'first' 11.",
+   "fix": "Vary with 'supporters', 'givers', the organisation's own term.",
+   "by": "B-r-90",
+   "via": "review",
+   "date": "2026-10-21 05:36 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "table",
+   "issue": "Library-locked output cells for SurveyMonkey and SurveyHero ('including employee satisfaction') name HR templates on a donor page; correct and unedited per V2, but off-topic for this buyer.",
+   "fix": "Ask for a donor or nonprofit template variant in rules/competitors/sqb.json (library change, not a page edit).",
+   "by": "B-r-90",
+   "via": "review",
+   "date": "2026-10-21 05:36 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief.tabs[1].main",
+   "issue": "Answer options on the lapsed-donor phone screen are drawn with initials avatars, so they read like people rather than choices.",
+   "fix": "Use radio circles or icons for the options.",
+   "by": "B-r-90",
+   "via": "review",
+   "date": "2026-10-21 05:36 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "'donor survey questions' (110 MSV, largest secondary) gets four question topics in FAQ 1 and the tab questions, not a sample question set; adequate for a builder page, thinner than question-list SERP results.",
+   "fix": "Optional later: quote two or three exact sample questions in FAQ 1.",
+   "by": "B-r-90",
+   "via": "review",
+   "date": "2026-10-21 05:36 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6ae8250866ee389e",
+   "alt:share_image": "6e1fddce2092d97e",
+   "alt:tab_image_1": "cf04b59456568d87",
+   "alt:tab_image_2": "78a2e0690fe3f232",
+   "alt:tab_image_3": "e04b71063cc63717",
+   "alt:tab_image_4": "06806f24dac2daa1",
+   "breadcrumb": "e47e9acd16404d89",
+   "chip_adds": "816b740d25b77a20",
+   "explore_cta": "65b219fad9113016",
+   "faq": "db5cb1da880f5572",
+   "feature_1": "3ceb7ae196c9cdea",
+   "feature_2": "51ef7074677f97a8",
+   "feature_3": "6802ac6ee4da6181",
+   "feature_4": "b606a24d28bb314f",
+   "feature_5": "dd005f522a0c009d",
+   "feature_6": "d931067d08c5e8a9",
+   "features_heading": "420a113b5eb9e3c7",
+   "features_subheading": "f64f3398280bd583",
+   "h1": "2b2066237e924a04",
+   "hero_description": "d43f70416564f941",
+   "hero_prompt": "0010e505a4720faa",
+   "howto_description": "28434187a3823ab8",
+   "howto_step_1_des": "fb03134cc14bda42",
+   "howto_step_1_title": "328dcf85069540cc",
+   "howto_step_2_des": "855163d54dbcc66e",
+   "howto_step_2_title": "576b98e57d6b2bf3",
+   "howto_step_3_des": "179165a8f7718288",
+   "howto_step_3_title": "6724f5e2585ccfd0",
+   "howto_step_4_des": "3c7bd30c892b1fff",
+   "howto_step_4_title": "db49e580cde78297",
+   "howto_step_5_des": "b50884f5bdb06518",
+   "howto_step_5_title": "d34fe163de4960c1",
+   "howto_step_6_des": "3e7ce5d76b87d2c4",
+   "howto_step_6_title": "3c4d7704e4318e3a",
+   "howto_step_7_des": "31dd60ea8d25d88f",
+   "howto_step_7_title": "0e3536eee55c9254",
+   "howto_title": "ce315349abad9523",
+   "meta_description": "13a1174952fd608c",
+   "meta_title": "3dfd219aca9c694d",
+   "mockup": "f738aeee73e9444c",
+   "product_name": "1984b9d94b929729",
+   "prompt_chip_1": "b4c8e428b14df297",
+   "prompt_chip_2": "3516a9a941fe36b0",
+   "prompt_chip_3": "28a7c45b53ee296e",
+   "prompt_chip_4": "ace1af30cd218925",
+   "slug": "d241e95969b04081",
+   "tab_content_1": "6be91f0c524569dc",
+   "tab_content_2": "12f4cfa8eedcd258",
+   "tab_content_3": "74f24802307d42c0",
+   "tab_content_4": "7306917b183dd7eb",
+   "tab_label_1": "ada32b4f504d53c2",
+   "tab_label_2": "25120bccefcda2d1",
+   "tab_label_3": "5c3fd932d274a450",
+   "tab_label_4": "ec1e4bed5f600c04",
+   "usecase_heading": "75132106ff73d484",
+   "why_description": "6c93a4f18cca96a8",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "6bce10877fe1ab0b"
+  },
+  "all": "d93c7b4336896ed6",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6ae8250866ee389e",
+   "alt:share_image": "6e1fddce2092d97e",
+   "alt:tab_image_1": "cf04b59456568d87",
+   "alt:tab_image_2": "78a2e0690fe3f232",
+   "alt:tab_image_3": "e04b71063cc63717",
+   "alt:tab_image_4": "06806f24dac2daa1",
+   "breadcrumb": "e47e9acd16404d89",
+   "chip_adds": "816b740d25b77a20",
+   "explore_cta": "65b219fad9113016",
+   "faq": "db5cb1da880f5572",
+   "feature_1": "3ceb7ae196c9cdea",
+   "feature_2": "51ef7074677f97a8",
+   "feature_3": "6802ac6ee4da6181",
+   "feature_4": "b606a24d28bb314f",
+   "feature_5": "dd005f522a0c009d",
+   "feature_6": "d931067d08c5e8a9",
+   "features_heading": "420a113b5eb9e3c7",
+   "features_subheading": "f64f3398280bd583",
+   "h1": "2b2066237e924a04",
+   "hero_description": "d43f70416564f941",
+   "hero_prompt": "0010e505a4720faa",
+   "howto_description": "28434187a3823ab8",
+   "howto_step_1_des": "fb03134cc14bda42",
+   "howto_step_1_title": "328dcf85069540cc",
+   "howto_step_2_des": "855163d54dbcc66e",
+   "howto_step_2_title": "576b98e57d6b2bf3",
+   "howto_step_3_des": "179165a8f7718288",
+   "howto_step_3_title": "6724f5e2585ccfd0",
+   "howto_step_4_des": "3c7bd30c892b1fff",
+   "howto_step_4_title": "db49e580cde78297",
+   "howto_step_5_des": "b50884f5bdb06518",
+   "howto_step_5_title": "d34fe163de4960c1",
+   "howto_step_6_des": "3e7ce5d76b87d2c4",
+   "howto_step_6_title": "3c4d7704e4318e3a",
+   "howto_step_7_des": "31dd60ea8d25d88f",
+   "howto_step_7_title": "0e3536eee55c9254",
+   "howto_title": "ce315349abad9523",
+   "meta_description": "13a1174952fd608c",
+   "meta_title": "3dfd219aca9c694d",
+   "mockup": "f738aeee73e9444c",
+   "product_name": "1984b9d94b929729",
+   "prompt_chip_1": "b4c8e428b14df297",
+   "prompt_chip_2": "3516a9a941fe36b0",
+   "prompt_chip_3": "28a7c45b53ee296e",
+   "prompt_chip_4": "ace1af30cd218925",
+   "slug": "d241e95969b04081",
+   "tab_content_1": "6be91f0c524569dc",
+   "tab_content_2": "12f4cfa8eedcd258",
+   "tab_content_3": "74f24802307d42c0",
+   "tab_content_4": "7306917b183dd7eb",
+   "tab_label_1": "ada32b4f504d53c2",
+   "tab_label_2": "25120bccefcda2d1",
+   "tab_label_3": "5c3fd932d274a450",
+   "tab_label_4": "ec1e4bed5f600c04",
+   "usecase_heading": "75132106ff73d484",
+   "why_description": "6c93a4f18cca96a8",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "6bce10877fe1ab0b"
+  },
+  "all": "d93c7b4336896ed6",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
