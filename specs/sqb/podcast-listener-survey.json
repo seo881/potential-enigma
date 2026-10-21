@@ -115,6 +115,13 @@
    "via": null,
    "by": "A-w-139",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 10:32 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-35",
+   "note": "rubric 10/10 by A-r-35; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -977,5 +984,285 @@
  ],
  "writers": [
   "A-w-139"
- ]
+ ],
+ "review": {
+  "by": "A-r-35",
+  "date": "2026-10-21 10:32 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Podcast Listener Survey Your Show Can Act On'; hero 'Build a podcast listener survey that listeners open from your show notes, with every answer saved in a database you own.' covers the whole job, no sibling topic."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "No top 10 in the workbook; every AlsoAsked candidate drifts (all x). The page serves a host who wants to ask the audience: four worked surveys (sponsor profile, segment ratings, season vote, episode length), sample questions in FAQ 3 ('Which recent episode did you like most? Which segment would you skip?'), counts, cadence, sharing and a 7-step how-to. Meta promise (sponsors, segments, season theme, episode length) is delivered tab by tab."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Podcast vocabulary throughout: 'show notes', 'run sheet', 'read it on air', 'sponsor sheet', 'mailbag'. Step 4 'Choose a short link with no numbers or hyphens. A host can read it on air once and listeners can spell it.'"
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Name your show, its recurring segments...', 'Each answer is saved as a row...', 'Every spring, Wet Clay asks...', 'Old Roads, a history podcast, puts a rating link...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Short declaratives, numbers that add up (486+611+143=1,240; 312+241+208+144=905; 402+201+87=690). Two ', so' endings (feature_6, FAQ 9) logged as a note; under the QC block threshold."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Reads like an operator: 'keep that number small enough to say without wincing', 'That is how the people who answered learn their time counted'. No hype verbs, no triplet padding."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent sentences map to claims_used: prompt-build (results view, 'a follow-up prompt rewords, cuts, or adds'), database-owned, conversational ('one question at a time'), api-connect ('to your email list or CRM through its API'), custom-domain ('included in Emergent and use credits'), code-export ('On paid plans'), no-caps. No third-party, legal or statistical fact stated; plan.claims_to_source is empty and nothing needs one. Table is library-generated (QC V2/V3 pass)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own stories (Wet Clay, Old Roads, Garage Floor, Small Hours) and podcast-only how-to (read the link on air, mention it at the start and end); not a sibling with nouns swapped. Sibling primaries appear only as FAQ links (ranking survey, funny survey questions, yes no questions survey)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, each answered in its first sentence ('About 8 for a yearly survey...', 'Once a year for the full survey...'); hub link in item 2; 3 sibling links; moat lines in items 5, 6 and 8 use approved claims only; no brand or file-format asks; paa gate 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: Wet Clay 486/611/143 of 1,240 and 'Sponsor sheet, page 1'; Old Roads 4.6/4.4/2.9 'Last 6 episodes'; Garage Floor 'Hiring: 312 of 905', 'Pricing: 241'; Small Hours 402/201/87 of 690, cover 58% (402/690). One hero per tab, cursor on the button."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2a",
+    "field": "faq item 5 / tab_content_2",
+    "quote": "1 to 3 for a rating linked from one episode's show notes",
+    "issue": "The FAQ's advice for a show-notes rating (1 to 3 questions) sits beside tab 2, where Old Roads 'puts a rating link in each episode's show notes and asks listeners to score its 4 segments out of 5'. It reads as one rating grid, so not a hard contradiction, but a careful reader sees the example break the page's own count.",
+    "fix": "Say '1 to 4' in FAQ 5, or describe tab 2's ask as one rating grid.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "feature_6, faq item 9",
+    "quote": "Custom domains are included in Emergent and use credits, so the survey link read out on air can be short and yours. | Run the yearly survey in the same month each time, and keep its questions the same, so this year's numbers line up with last year's.",
+    "issue": "Two ', so' tacked-on endings (QC Q5 flags at 2).",
+    "fix": "Split each into two sentences on a later pass.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_3, tab_content_3, faq item 5",
+    "quote": "shows one question at a time | closes its season with a vote shown one question per screen | A survey Emergent builds can show one question per screen",
+    "issue": "One-question-per-screen is said three times; in tab 3 it describes a one-question vote, where 'one question per screen' adds nothing.",
+    "fix": "Drop the phrase from tab 3 (and its story link) or let the vote carry more than one question.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "listeners (16), show (13), episode (12) outside the FAQ",
+    "issue": "QC Q9 repetition; the nouns are the topic's own, so it reads natural, but 'listeners' leans heavy in the features.",
+    "fix": "Vary with 'your audience' or the segment name where it fits.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "CONTENT_DEFECTS #26",
+    "field": "why_table",
+    "quote": "Survey builder with templates, including employee engagement | Survey builder with templates, including employee satisfaction",
+    "issue": "Library cells for SurveyMonkey and SurveyHero name employee surveys on a podcast page; true but off this buyer's vocabulary.",
+    "fix": "Coordinator: a general-survey variant for these library entries.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2a",
+   "field": "faq item 5 / tab_content_2",
+   "issue": "The FAQ's advice for a show-notes rating (1 to 3 questions) sits beside tab 2, where Old Roads 'puts a rating link in each episode's show notes and asks listeners to score its 4 segments out of 5'. It reads as one rating grid, so not a hard contradiction, but a careful reader sees the example break the page's own count.",
+   "fix": "Say '1 to 4' in FAQ 5, or describe tab 2's ask as one rating grid.",
+   "by": "A-r-35",
+   "via": "review",
+   "date": "2026-10-21 10:32 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "feature_6, faq item 9",
+   "issue": "Two ', so' tacked-on endings (QC Q5 flags at 2).",
+   "fix": "Split each into two sentences on a later pass.",
+   "by": "A-r-35",
+   "via": "review",
+   "date": "2026-10-21 10:32 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_3, tab_content_3, faq item 5",
+   "issue": "One-question-per-screen is said three times; in tab 3 it describes a one-question vote, where 'one question per screen' adds nothing.",
+   "fix": "Drop the phrase from tab 3 (and its story link) or let the vote carry more than one question.",
+   "by": "A-r-35",
+   "via": "review",
+   "date": "2026-10-21 10:32 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "QC Q9 repetition; the nouns are the topic's own, so it reads natural, but 'listeners' leans heavy in the features.",
+   "fix": "Vary with 'your audience' or the segment name where it fits.",
+   "by": "A-r-35",
+   "via": "review",
+   "date": "2026-10-21 10:32 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "CONTENT_DEFECTS #26",
+   "field": "why_table",
+   "issue": "Library cells for SurveyMonkey and SurveyHero name employee surveys on a podcast page; true but off this buyer's vocabulary.",
+   "fix": "Coordinator: a general-survey variant for these library entries.",
+   "by": "A-r-35",
+   "via": "review",
+   "date": "2026-10-21 10:32 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "85d78b11c68a7218",
+   "alt:share_image": "1f4e46385a58f269",
+   "alt:tab_image_1": "9e2aae40fc47f0a4",
+   "alt:tab_image_2": "0d1e8f25b3884570",
+   "alt:tab_image_3": "4ce653b541971709",
+   "alt:tab_image_4": "b79f8659fe773008",
+   "breadcrumb": "995fa8448ef71710",
+   "chip_adds": "56b9164767a0c93c",
+   "explore_cta": "08581f7f02d95eef",
+   "faq": "0820e76a5f72cef1",
+   "feature_1": "1bf69c939ddd9c19",
+   "feature_2": "e4ccbfee476a3780",
+   "feature_3": "3980450829f329f3",
+   "feature_4": "2d1a0a47e95aed0c",
+   "feature_5": "ab22f5f0bf974c01",
+   "feature_6": "0224ec0e356f8687",
+   "features_heading": "9408106abad963b1",
+   "features_subheading": "421a605ac1715061",
+   "h1": "d02276afc13887b3",
+   "hero_description": "019b48dbc9f2186d",
+   "hero_prompt": "4ccdcc2e5da3150e",
+   "howto_description": "382d6b0cc7ad815e",
+   "howto_step_1_des": "85bcbed6fd9bfbdd",
+   "howto_step_1_title": "01690157aa3d8a9f",
+   "howto_step_2_des": "07fb3256defeabec",
+   "howto_step_2_title": "dfa09daca6787f73",
+   "howto_step_3_des": "2c65211bcb17f917",
+   "howto_step_3_title": "de304de482594448",
+   "howto_step_4_des": "be05ceead556707f",
+   "howto_step_4_title": "0b24a96ee2f12129",
+   "howto_step_5_des": "258a7396ee247619",
+   "howto_step_5_title": "786e12561b49ece4",
+   "howto_step_6_des": "bda1ea62d4771908",
+   "howto_step_6_title": "131bf9e54bbe6405",
+   "howto_step_7_des": "5d0dc61a1ce07944",
+   "howto_step_7_title": "c36b1dc6787fd676",
+   "howto_title": "f338ca5eaa7c19cf",
+   "meta_description": "9896e13428482100",
+   "meta_title": "a9deaa53f34e0982",
+   "mockup": "9307c741bf789361",
+   "product_name": "961e9f6ab44e803c",
+   "prompt_chip_1": "c17a4f08b46eebbc",
+   "prompt_chip_2": "263a800d63de7e09",
+   "prompt_chip_3": "fb2c7623448a6519",
+   "prompt_chip_4": "173a529f40888a3c",
+   "slug": "68fb1729de168011",
+   "tab_content_1": "5c858f79942abcd5",
+   "tab_content_2": "1b62593652ffeb54",
+   "tab_content_3": "a5b960cd94230ce1",
+   "tab_content_4": "61d61b1f7ad6669e",
+   "tab_label_1": "c17a4f08b46eebbc",
+   "tab_label_2": "263a800d63de7e09",
+   "tab_label_3": "fb2c7623448a6519",
+   "tab_label_4": "173a529f40888a3c",
+   "usecase_heading": "1bf52b8dea822942",
+   "why_description": "56a90f420d5301aa",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "a472b00ced10f743"
+  },
+  "all": "a12242797c08796c",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "85d78b11c68a7218",
+   "alt:share_image": "1f4e46385a58f269",
+   "alt:tab_image_1": "9e2aae40fc47f0a4",
+   "alt:tab_image_2": "0d1e8f25b3884570",
+   "alt:tab_image_3": "4ce653b541971709",
+   "alt:tab_image_4": "b79f8659fe773008",
+   "breadcrumb": "995fa8448ef71710",
+   "chip_adds": "56b9164767a0c93c",
+   "explore_cta": "08581f7f02d95eef",
+   "faq": "0820e76a5f72cef1",
+   "feature_1": "1bf69c939ddd9c19",
+   "feature_2": "e4ccbfee476a3780",
+   "feature_3": "3980450829f329f3",
+   "feature_4": "2d1a0a47e95aed0c",
+   "feature_5": "ab22f5f0bf974c01",
+   "feature_6": "0224ec0e356f8687",
+   "features_heading": "9408106abad963b1",
+   "features_subheading": "421a605ac1715061",
+   "h1": "d02276afc13887b3",
+   "hero_description": "019b48dbc9f2186d",
+   "hero_prompt": "4ccdcc2e5da3150e",
+   "howto_description": "382d6b0cc7ad815e",
+   "howto_step_1_des": "85bcbed6fd9bfbdd",
+   "howto_step_1_title": "01690157aa3d8a9f",
+   "howto_step_2_des": "07fb3256defeabec",
+   "howto_step_2_title": "dfa09daca6787f73",
+   "howto_step_3_des": "2c65211bcb17f917",
+   "howto_step_3_title": "de304de482594448",
+   "howto_step_4_des": "be05ceead556707f",
+   "howto_step_4_title": "0b24a96ee2f12129",
+   "howto_step_5_des": "258a7396ee247619",
+   "howto_step_5_title": "786e12561b49ece4",
+   "howto_step_6_des": "bda1ea62d4771908",
+   "howto_step_6_title": "131bf9e54bbe6405",
+   "howto_step_7_des": "5d0dc61a1ce07944",
+   "howto_step_7_title": "c36b1dc6787fd676",
+   "howto_title": "f338ca5eaa7c19cf",
+   "meta_description": "9896e13428482100",
+   "meta_title": "a9deaa53f34e0982",
+   "mockup": "9307c741bf789361",
+   "product_name": "961e9f6ab44e803c",
+   "prompt_chip_1": "c17a4f08b46eebbc",
+   "prompt_chip_2": "263a800d63de7e09",
+   "prompt_chip_3": "fb2c7623448a6519",
+   "prompt_chip_4": "173a529f40888a3c",
+   "slug": "68fb1729de168011",
+   "tab_content_1": "5c858f79942abcd5",
+   "tab_content_2": "1b62593652ffeb54",
+   "tab_content_3": "a5b960cd94230ce1",
+   "tab_content_4": "61d61b1f7ad6669e",
+   "tab_label_1": "c17a4f08b46eebbc",
+   "tab_label_2": "263a800d63de7e09",
+   "tab_label_3": "fb2c7623448a6519",
+   "tab_label_4": "173a529f40888a3c",
+   "usecase_heading": "1bf52b8dea822942",
+   "why_description": "56a90f420d5301aa",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "a472b00ced10f743"
+  },
+  "all": "a12242797c08796c",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

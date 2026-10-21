@@ -129,6 +129,13 @@
    "via": null,
    "by": "A-w-135",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 10:32 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-35",
+   "note": "rubric 10/10 by A-r-35; 7 notes"
   }
  ],
  "pipeline": "r15",
@@ -1050,5 +1057,325 @@
  },
  "writers": [
   "A-w-135"
- ]
+ ],
+ "review": {
+  "by": "A-r-35",
+  "date": "2026-10-21 10:32 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Reference Check Form That Scores Every Reference'; hero 'Get a reference check form that rates every reference from 1 to 5 and averages the scores for each finalist.' covers the whole job and carries the AMBER angle (structured scoring)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is HR offices' own forms plus Indeed/SHRM/LinkedIn question lists. The page gives an example (FAQ 3, UNI questions), what a template includes (FAQ 4), the question flow (steps 3-5: relationship, defined 1-5 work areas, rehire, open question), count and timing (FAQ 6, 7), plus the scoring angle in four tabs. Meta promise (emailed link, 1-5, averages per finalist) delivered in tabs 2 and 4."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Hiring vocabulary throughout: finalist, rehire question, limited reference, 'a peer's 4 and a manager's 4 rest on different views of the work', search committee."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on full sentences: 'Each work area, such as reliability or judgment, gets a 1-5 rating...', 'The candidate enters each reference's name...', 'A former manager opens the emailed link...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No tacked-on endings; two 40-word FAQ sentences (items 3, 8) at the QC limit, noted. Averages in tab 4 check: 4.7, 4.7, 4.3, 4.3, 3.7."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain operator voice: 'No one copies details off a resume.', 'Rewrite any question that drew a one-word answer before a real reference sees it.' No hype or AI tells."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to claims_used (e-signature-capture for the typed signature, with no legal-validity claim; alerts by email or Slack; conversational; database-owned; free-start and no-caps in FAQ 5; prompt-build for the summary page). Every third-party statement carries a quoted span: Berkeley guide (step 1 'advance notice', step 2 'ask the same questions about all final candidates and weigh the answers equally'), UNI sample (FAQ 3 Q1 quote and rehire question, FAQ 9 caller notes), SHRM (FAQ 8, quoted exactly and used in its limited-reference context). No employment-law advice stated as fact; step 2 sends the list to 'your HR or legal team'."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Four employers (Harrow Point Logistics, Ashgrove Home Care, Orchid Lane Dental, Westbrook Literacy Project) with distinct moments: consent list, reminder, rehire alert, averages. Sibling link 'employee referral form' only in FAQ 10."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, 2 verbatim PAA (verbatim check ok), 8 written; each answered first ('Yes.', 'Ask for 3...', 'Send it after the final interview...'); hub link in item 2; secondaries (template, forms, pdf, free) read naturally; paa gate 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: Odessa Varga's typed signature and 3 references; Wren Adebayo '2 of 3 in', reminder to Teodor Brandt after 2 days; Orchid Lane '8 questions', email to Sana Whitfield 'Would not rehire' Mateo Sorensen; Rafael Lindqvist teamwork 3.7 lowest of 5 areas, 3 references. Names spread across outcomes; one hero per tab."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "section intro (features)",
+    "quote": "The forms that rank give you questions and blank lines.",
+    "issue": "A generalization about the top-10 documents with no domain_sources entry. Spot-checked: the UNI sample and the CalHR reference form are question lists with blank lines and no rating scale, so it holds where checked; the other ranking forms (Texas A&M, UCSB, Northwestern, pdfFiller) were not verified.",
+    "fix": "Narrow to what was checked ('The university forms that rank list questions with room for notes') or confirm the rest.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 4",
+    "quote": "Consent for a criminal or credit history search goes on a separate background check form.",
+    "issue": "Employment-law-adjacent guidance (it echoes the FCRA stand-alone disclosure rule) with no source. Phrased as practice, not as law, so a note.",
+    "fix": "Recast as advice ('Keep consent for criminal or credit checks on its own background check form, as your HR or legal team directs') or cite the FTC's employer background-check guidance.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 3",
+    "quote": "publishes a sample that opens with \"Describe how long you have known this candidate and in what capacity.\" Further down, it asks whether the reference would have any reservations about rehiring the candidate.",
+    "issue": "Scope check as requested: the UNI page opens with a call script and caller instructions; the quote is question 1 of its 'Sample Questions', and the source marks the rehire question '(if applicable)'. Both statements stay true; the scope is essentially kept.",
+    "fix": "Optional: 'whose sample questions open with', and 'asks, where it applies, whether...'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2a",
+    "field": "faq item 7 / tab_content_4",
+    "quote": "Send it after the final interview and before any offer goes out. | the chair raises it in the final interview before the board votes",
+    "issue": "FAQ 7 times the reference form after the final interview; tab 4 checks references before the final interview. A multi-round search explains it, but the example departs from the page's own advice.",
+    "fix": "Make tab 4's interview 'a second interview' or soften FAQ 7 to 'once a candidate is a finalist'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "meta_title",
+    "quote": "Reference Check Form Template and Builder",
+    "issue": "The template is delivered in parts (FAQ 4 fields, steps 3-5 question flow, FAQ 3 sample questions) but never as one complete question list a searcher can lift, which is what the issuer forms in the top 10 offer.",
+    "fix": "A later pass could make FAQ 4 or a tab list the 8 Orchid Lane questions.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Jotform | Google Forms | Typeform",
+    "issue": "QC K7: Google Forms and Typeform do not rank in this top 10 (issuer forms, Indeed, SHRM, LinkedIn, pdfFiller); the library has no reference-check vendors.",
+    "fix": "Coordinator: none needed unless an HR-form vendor joins the library.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #6",
+    "field": "faq items 3, 8",
+    "quote": "The University of Northern Iowa's HR office publishes a sample that opens with ... | An article on SHRM's site says that \"HR or a department manager typically provides a limited reference, confirming the employee's position and job tenure.\"",
+    "issue": "Two 40-word sentences, each carrying a quote; at the QC Q2 limit.",
+    "fix": "Split the attribution from the quote on a later pass.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "section intro (features)",
+   "issue": "A generalization about the top-10 documents with no domain_sources entry. Spot-checked: the UNI sample and the CalHR reference form are question lists with blank lines and no rating scale, so it holds where checked; the other ranking forms (Texas A&M, UCSB, Northwestern, pdfFiller) were not verified.",
+   "fix": "Narrow to what was checked ('The university forms that rank list questions with room for notes') or confirm the rest.",
+   "by": "A-r-35",
+   "via": "review",
+   "date": "2026-10-21 10:32 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 4",
+   "issue": "Employment-law-adjacent guidance (it echoes the FCRA stand-alone disclosure rule) with no source. Phrased as practice, not as law, so a note.",
+   "fix": "Recast as advice ('Keep consent for criminal or credit checks on its own background check form, as your HR or legal team directs') or cite the FTC's employer background-check guidance.",
+   "by": "A-r-35",
+   "via": "review",
+   "date": "2026-10-21 10:32 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 3",
+   "issue": "Scope check as requested: the UNI page opens with a call script and caller instructions; the quote is question 1 of its 'Sample Questions', and the source marks the rehire question '(if applicable)'. Both statements stay true; the scope is essentially kept.",
+   "fix": "Optional: 'whose sample questions open with', and 'asks, where it applies, whether...'.",
+   "by": "A-r-35",
+   "via": "review",
+   "date": "2026-10-21 10:32 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2a",
+   "field": "faq item 7 / tab_content_4",
+   "issue": "FAQ 7 times the reference form after the final interview; tab 4 checks references before the final interview. A multi-round search explains it, but the example departs from the page's own advice.",
+   "fix": "Make tab 4's interview 'a second interview' or soften FAQ 7 to 'once a candidate is a finalist'.",
+   "by": "A-r-35",
+   "via": "review",
+   "date": "2026-10-21 10:32 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "meta_title",
+   "issue": "The template is delivered in parts (FAQ 4 fields, steps 3-5 question flow, FAQ 3 sample questions) but never as one complete question list a searcher can lift, which is what the issuer forms in the top 10 offer.",
+   "fix": "A later pass could make FAQ 4 or a tab list the 8 Orchid Lane questions.",
+   "by": "A-r-35",
+   "via": "review",
+   "date": "2026-10-21 10:32 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: Google Forms and Typeform do not rank in this top 10 (issuer forms, Indeed, SHRM, LinkedIn, pdfFiller); the library has no reference-check vendors.",
+   "fix": "Coordinator: none needed unless an HR-form vendor joins the library.",
+   "by": "A-r-35",
+   "via": "review",
+   "date": "2026-10-21 10:32 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #6",
+   "field": "faq items 3, 8",
+   "issue": "Two 40-word sentences, each carrying a quote; at the QC Q2 limit.",
+   "fix": "Split the attribution from the quote on a later pass.",
+   "by": "A-r-35",
+   "via": "review",
+   "date": "2026-10-21 10:32 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "0b4899c09ab3b0fe",
+   "alt:share_image": "3c5c7eda37e0cd78",
+   "alt:tab_image_1": "463fa326207892af",
+   "alt:tab_image_2": "880edbd9b294d34b",
+   "alt:tab_image_3": "0430b74c6f2af5cd",
+   "alt:tab_image_4": "c98fecd8d94c8982",
+   "breadcrumb": "6afba1693594619f",
+   "chip_adds": "81fe03ee40faf466",
+   "explore_cta": "e652ee95cc33cdc5",
+   "faq": "1a1d25202033e309",
+   "feature_1": "37e2e89aa980f632",
+   "feature_2": "d1f34b320ea9c878",
+   "feature_3": "0eb28a2a6672dd2d",
+   "feature_4": "12b45bfe01bc7d83",
+   "feature_5": "aa564fed158d459c",
+   "feature_6": "550f3dd057aee747",
+   "features_heading": "edceafbccd2cffd8",
+   "features_subheading": "40baa754c4bfff72",
+   "h1": "6d5daeee43f44a36",
+   "hero_description": "a885f88b006a0851",
+   "hero_prompt": "42ffe812e81eb7c4",
+   "howto_description": "48ac994b1d130b52",
+   "howto_step_1_des": "9b1e4b390f02a6f5",
+   "howto_step_1_title": "a7484e4e076c1f79",
+   "howto_step_2_des": "2d6d90e359cf614c",
+   "howto_step_2_title": "eda49c23528f4197",
+   "howto_step_3_des": "a34132af25aef9a6",
+   "howto_step_3_title": "b758747db1261c97",
+   "howto_step_4_des": "143811f5384db17a",
+   "howto_step_4_title": "c5cb05c0651a5989",
+   "howto_step_5_des": "0a3723fb455e6ebe",
+   "howto_step_5_title": "588ed6c246489d01",
+   "howto_step_6_des": "c8b1991538ab4914",
+   "howto_step_6_title": "c7eee09858f41ae1",
+   "howto_step_7_des": "82e4c218a5670ae4",
+   "howto_step_7_title": "bac46d6050a11b9d",
+   "howto_title": "5996f8ce6f5706f1",
+   "meta_description": "c861231b9ca0a937",
+   "meta_title": "f52d70a097df3cd8",
+   "mockup": "85fe363dfb0698ad",
+   "product_name": "b567b0459ea3d6c9",
+   "prompt_chip_1": "661b77a2d544eb83",
+   "prompt_chip_2": "7a6b979b93c32e69",
+   "prompt_chip_3": "6fd33819b4fc24d0",
+   "prompt_chip_4": "9a5c7f23a02e0267",
+   "slug": "cecc9df31c0fd41c",
+   "tab_content_1": "48bd964c995105e2",
+   "tab_content_2": "cb306c22b848bc7b",
+   "tab_content_3": "b1768ce199dee635",
+   "tab_content_4": "4aa8e9049d4c77ae",
+   "tab_label_1": "ae6e98909c98e7c9",
+   "tab_label_2": "a5d211dabaf60e39",
+   "tab_label_3": "ff2cb66b6dfb3e49",
+   "tab_label_4": "49cf03993c0ac83a",
+   "usecase_heading": "9b6320023674cce8",
+   "why_description": "64bac870bd237116",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "a14bb7c775464c18"
+  },
+  "all": "cfd5133183202e9c",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "0b4899c09ab3b0fe",
+   "alt:share_image": "3c5c7eda37e0cd78",
+   "alt:tab_image_1": "463fa326207892af",
+   "alt:tab_image_2": "880edbd9b294d34b",
+   "alt:tab_image_3": "0430b74c6f2af5cd",
+   "alt:tab_image_4": "c98fecd8d94c8982",
+   "breadcrumb": "6afba1693594619f",
+   "chip_adds": "81fe03ee40faf466",
+   "explore_cta": "e652ee95cc33cdc5",
+   "faq": "1a1d25202033e309",
+   "feature_1": "37e2e89aa980f632",
+   "feature_2": "d1f34b320ea9c878",
+   "feature_3": "0eb28a2a6672dd2d",
+   "feature_4": "12b45bfe01bc7d83",
+   "feature_5": "aa564fed158d459c",
+   "feature_6": "550f3dd057aee747",
+   "features_heading": "edceafbccd2cffd8",
+   "features_subheading": "40baa754c4bfff72",
+   "h1": "6d5daeee43f44a36",
+   "hero_description": "a885f88b006a0851",
+   "hero_prompt": "42ffe812e81eb7c4",
+   "howto_description": "48ac994b1d130b52",
+   "howto_step_1_des": "9b1e4b390f02a6f5",
+   "howto_step_1_title": "a7484e4e076c1f79",
+   "howto_step_2_des": "2d6d90e359cf614c",
+   "howto_step_2_title": "eda49c23528f4197",
+   "howto_step_3_des": "a34132af25aef9a6",
+   "howto_step_3_title": "b758747db1261c97",
+   "howto_step_4_des": "143811f5384db17a",
+   "howto_step_4_title": "c5cb05c0651a5989",
+   "howto_step_5_des": "0a3723fb455e6ebe",
+   "howto_step_5_title": "588ed6c246489d01",
+   "howto_step_6_des": "c8b1991538ab4914",
+   "howto_step_6_title": "c7eee09858f41ae1",
+   "howto_step_7_des": "82e4c218a5670ae4",
+   "howto_step_7_title": "bac46d6050a11b9d",
+   "howto_title": "5996f8ce6f5706f1",
+   "meta_description": "c861231b9ca0a937",
+   "meta_title": "f52d70a097df3cd8",
+   "mockup": "85fe363dfb0698ad",
+   "product_name": "b567b0459ea3d6c9",
+   "prompt_chip_1": "661b77a2d544eb83",
+   "prompt_chip_2": "7a6b979b93c32e69",
+   "prompt_chip_3": "6fd33819b4fc24d0",
+   "prompt_chip_4": "9a5c7f23a02e0267",
+   "slug": "cecc9df31c0fd41c",
+   "tab_content_1": "48bd964c995105e2",
+   "tab_content_2": "cb306c22b848bc7b",
+   "tab_content_3": "b1768ce199dee635",
+   "tab_content_4": "4aa8e9049d4c77ae",
+   "tab_label_1": "ae6e98909c98e7c9",
+   "tab_label_2": "a5d211dabaf60e39",
+   "tab_label_3": "ff2cb66b6dfb3e49",
+   "tab_label_4": "49cf03993c0ac83a",
+   "usecase_heading": "9b6320023674cce8",
+   "why_description": "64bac870bd237116",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "a14bb7c775464c18"
+  },
+  "all": "cfd5133183202e9c",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
