@@ -122,6 +122,13 @@
    "via": null,
    "by": "A-w-149",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 10:44 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-39",
+   "note": "rubric 10/10 by A-r-39; 6 notes"
   }
  ],
  "pipeline": "r15",
@@ -933,5 +940,305 @@
  },
  "writers": [
   "A-w-149"
- ]
+ ],
+ "review": {
+  "by": "A-r-39",
+  "date": "2026-10-21 10:44 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Salon Client Survey That Ends in One Change'; hero 'Get a salon client survey that asks about the color, the cut, and the booking, and emails the owner each low score.' states the whole job; how-to description is one sentence on what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "No eligible PAA (all 20 AlsoAsked rejected PA3/PA6); page delivers questions to ask (FAQ 3), timing, length, a 7-step how-to and four worked salon examples (color, lapsed, new service, suites)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Salon vocabulary throughout: 'first balayage', 'toner questions for color clients', 'a building of renters', 'weekly blowout'. Table cells from the library (see note on 'employee engagement')."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on full sentences ('The first screen asks which service the client had.', 'Set the score that needs a call back'); tabs open on the business doing something ('Ninebark Salon sends 3 questions')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One ', so' ending (howto_step_4) under the cap; no run-on lists; sentences carry one idea."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Reads operator-written: 'Have two stylists answer the survey on their own phones before any client sees it... send a test score of 1'. Link-bridge sentences noted, not blocking."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Google: 'names selectively soliciting positive reviews from customers among the things merchants may not do' matches source span under 'We do not allow merchants to' (scope kept: Maps reviews, merchants). NPS: 'how likely ... to recommend you to a friend or colleague ... zero-to-ten scale' matches netpromotersystem.com. Emergent sentences map to prompt-build, api-connect, alerts, conversational, no-caps, database-owned, code-export, free-start. Numbers add: 26+17+12+9=64, 71+48+39+24=182, 6+2+1=9, 48+37+55=140."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own angle (one change per survey) and salon-only stories; FAQ 9 shares its idea with dental-patient-survey (note), not blocking: wording differs and QC D2 passed."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, each answered first ('Send it that evening', 'Yes, as an optional field', 'Not only the happy ones'); hub link in item 2; 3 sibling links; 2 moat lines (FAQ 5, FAQ 10)."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 '9 of 164 color clients, August' / '6 of 9 low scores'; tab 2 '26 of 64 wanted weekends' / 'Sundays, 10 to 4'; tab 3 'Picked by 71 of 182'; tab 4 '48 of 140 rated it 1 or 2' / '4 spaces leased next door'; all match tab copy, one hero each."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "faq",
+    "quote": "Not only the happy ones. Google's policy for Maps reviews names selectively soliciting positive reviews from customers among the things merchants may not do. Put the review link on the thank-you screen every client sees, whatever score they gave",
+    "issue": "FAQ 9 follows dental-patient-survey's online-review FAQ beat for beat with nouns swapped (question shape 'Can a ... survey ask happy X ... online review', 'Not for Google reviews' / 'Not only the happy ones', policy line, 'whatever score they gave', low scores handled separately). Not a copy (QC D2 passed, wording differs, both true), but the hub now carries the same answer twice.",
+    "fix": "If this page is reworked for another reason, give FAQ 9 a salon-specific beat (e.g. where the review link sits after a color appointment, or a stylist asking at checkout) instead of the dental page's structure.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "The timing works like a restaurant survey: ask soon after the visit, and send no more than one reminder.",
+    "issue": "Two sibling links ride on bridge sentences written to hold the anchor: FAQ 4 'The timing works like a restaurant survey' and FAQ 10 'Keep the same rating questions for every chair, as in any customer satisfaction survey'. They read as inserted for the link, not for the salon owner.",
+    "fix": "Anchor the links where the sibling genuinely helps (e.g. 'a customer satisfaction survey' as the broader version of this survey) or pick siblings that fit the sentence.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq",
+    "quote": "The question behind every nps survey asks how likely the client is to recommend you",
+    "issue": "'nps' in lowercase mid-sentence reads as a typo; the acronym is NPS everywhere else on the web, including the source.",
+    "fix": "Anchor text 'NPS survey' (case-insensitive exact match) if the link checker allows it.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_2",
+    "quote": "Ninebark Salon sends 3 questions to any client who has not booked in 12 weeks.",
+    "issue": "FAQ 8 advises 'Set overdue from each client's habit: a client booked every 5 weeks is overdue at 8, and a twice-a-year color client is not', while the tab example uses one flat 12-week cutoff for every client. Not a factual contradiction, but the page's example ignores its own advice.",
+    "fix": "Either let the tab mention a per-client cutoff, or soften FAQ 8 to offer a flat cutoff as the simple option.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Survey builder with templates, including employee engagement",
+    "issue": "Library 'output' cells for SurveyMonkey and SurveyHero ('including employee satisfaction') name employee surveys on a salon-client page. True library facts, but off-topic for this buyer; the same cells appear on every general-set survey page.",
+    "fix": "Coordinator: consider a customer-feedback variant of the output fact in rules/competitors/sqb.json, or drop the output row on customer-survey pages.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief",
+    "quote": "15-minute consultation added",
+    "issue": "Tab 1 and tab 4 hero cards are emails addressed to the owner ('To Paz Arriaga', 'To Della Haskins') that also report the owner's own later decision ('15-minute consultation added', '4 spaces leased next door'). The alert would not know the outcome. Copy and image agree on numbers, so polish only.",
+    "fix": "Move the outcome line out of the email card (e.g. into the mini card) or retitle the card as a results summary.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "faq",
+   "issue": "FAQ 9 follows dental-patient-survey's online-review FAQ beat for beat with nouns swapped (question shape 'Can a ... survey ask happy X ... online review', 'Not for Google reviews' / 'Not only the happy ones', policy line, 'whatever score they gave', low scores handled separately). Not a copy (QC D2 passed, wording differs, both true), but the hub now carries the same answer twice.",
+   "fix": "If this page is reworked for another reason, give FAQ 9 a salon-specific beat (e.g. where the review link sits after a color appointment, or a stylist asking at checkout) instead of the dental page's structure.",
+   "by": "A-r-39",
+   "via": "review",
+   "date": "2026-10-21 10:44 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "Two sibling links ride on bridge sentences written to hold the anchor: FAQ 4 'The timing works like a restaurant survey' and FAQ 10 'Keep the same rating questions for every chair, as in any customer satisfaction survey'. They read as inserted for the link, not for the salon owner.",
+   "fix": "Anchor the links where the sibling genuinely helps (e.g. 'a customer satisfaction survey' as the broader version of this survey) or pick siblings that fit the sentence.",
+   "by": "A-r-39",
+   "via": "review",
+   "date": "2026-10-21 10:44 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq",
+   "issue": "'nps' in lowercase mid-sentence reads as a typo; the acronym is NPS everywhere else on the web, including the source.",
+   "fix": "Anchor text 'NPS survey' (case-insensitive exact match) if the link checker allows it.",
+   "by": "A-r-39",
+   "via": "review",
+   "date": "2026-10-21 10:44 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_2",
+   "issue": "FAQ 8 advises 'Set overdue from each client's habit: a client booked every 5 weeks is overdue at 8, and a twice-a-year color client is not', while the tab example uses one flat 12-week cutoff for every client. Not a factual contradiction, but the page's example ignores its own advice.",
+   "fix": "Either let the tab mention a per-client cutoff, or soften FAQ 8 to offer a flat cutoff as the simple option.",
+   "by": "A-r-39",
+   "via": "review",
+   "date": "2026-10-21 10:44 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "Library 'output' cells for SurveyMonkey and SurveyHero ('including employee satisfaction') name employee surveys on a salon-client page. True library facts, but off-topic for this buyer; the same cells appear on every general-set survey page.",
+   "fix": "Coordinator: consider a customer-feedback variant of the output fact in rules/competitors/sqb.json, or drop the output row on customer-survey pages.",
+   "by": "A-r-39",
+   "via": "review",
+   "date": "2026-10-21 10:44 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief",
+   "issue": "Tab 1 and tab 4 hero cards are emails addressed to the owner ('To Paz Arriaga', 'To Della Haskins') that also report the owner's own later decision ('15-minute consultation added', '4 spaces leased next door'). The alert would not know the outcome. Copy and image agree on numbers, so polish only.",
+   "fix": "Move the outcome line out of the email card (e.g. into the mini card) or retitle the card as a results summary.",
+   "by": "A-r-39",
+   "via": "review",
+   "date": "2026-10-21 10:44 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "fc3ecffc15d7afad",
+   "alt:share_image": "809a57b90c79cb28",
+   "alt:tab_image_1": "be6b51cc63fa709a",
+   "alt:tab_image_2": "6357d52f45df3f09",
+   "alt:tab_image_3": "7b9aa6f2d90305ee",
+   "alt:tab_image_4": "4e161d93c72edcb2",
+   "breadcrumb": "1f3088610243edfa",
+   "chip_adds": "2e54f219ba06ad07",
+   "explore_cta": "c469936d4478ce94",
+   "faq": "733687db9e4c250d",
+   "feature_1": "be20239c32153ba2",
+   "feature_2": "e8f488698dee69d7",
+   "feature_3": "6ae416a09dadc74d",
+   "feature_4": "b0d3f246cf726bf3",
+   "feature_5": "20161669ccb6ceb2",
+   "feature_6": "ed612b17fa7bf09f",
+   "features_heading": "b8e138c839af02ba",
+   "features_subheading": "d25540179df002fa",
+   "h1": "7574e10fe8cda5fd",
+   "hero_description": "7666bd17fab90799",
+   "hero_prompt": "e704f830001482d9",
+   "howto_description": "aded07339b0eb1b2",
+   "howto_step_1_des": "79dd8e6fd6b8c4d5",
+   "howto_step_1_title": "6004d6369031df78",
+   "howto_step_2_des": "af122bcb515cd8a5",
+   "howto_step_2_title": "f66aac29deb5c109",
+   "howto_step_3_des": "d5b4a89cce670d0e",
+   "howto_step_3_title": "b904d192dc7784d7",
+   "howto_step_4_des": "9357eed755f67ce7",
+   "howto_step_4_title": "409b2f5b8105d6b1",
+   "howto_step_5_des": "6d236759f403d9b2",
+   "howto_step_5_title": "50a7ee28bb3317b2",
+   "howto_step_6_des": "54b062361dfbeb34",
+   "howto_step_6_title": "35219fe6b3ff0383",
+   "howto_step_7_des": "30f70e39d821cafd",
+   "howto_step_7_title": "b9e2285d9c28bb51",
+   "howto_title": "fb7ab63466486bf5",
+   "meta_description": "d039053b04277b8f",
+   "meta_title": "2f6911ea854cdc04",
+   "mockup": "339c4ec8c9da68b8",
+   "product_name": "c02c01ae01529d94",
+   "prompt_chip_1": "4f4100d0b132cd19",
+   "prompt_chip_2": "d1f65b4f0eb281db",
+   "prompt_chip_3": "a0a04eda2e64dabc",
+   "prompt_chip_4": "3cc74b9521cf398e",
+   "slug": "06f3844a8e2b18b0",
+   "tab_content_1": "ab2292d3bf55b2d6",
+   "tab_content_2": "21df8321c5720e9b",
+   "tab_content_3": "e081dbc20f0defd0",
+   "tab_content_4": "de51882ee3e33438",
+   "tab_label_1": "13641effb175f769",
+   "tab_label_2": "d1f65b4f0eb281db",
+   "tab_label_3": "442de576f1241efb",
+   "tab_label_4": "f260b18b8ba5889f",
+   "usecase_heading": "3153f7f14849aa78",
+   "why_description": "db49fdc1a80db535",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "dc2f3d59810bec9e"
+  },
+  "all": "c64a650c5340daba",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "fc3ecffc15d7afad",
+   "alt:share_image": "809a57b90c79cb28",
+   "alt:tab_image_1": "be6b51cc63fa709a",
+   "alt:tab_image_2": "6357d52f45df3f09",
+   "alt:tab_image_3": "7b9aa6f2d90305ee",
+   "alt:tab_image_4": "4e161d93c72edcb2",
+   "breadcrumb": "1f3088610243edfa",
+   "chip_adds": "2e54f219ba06ad07",
+   "explore_cta": "c469936d4478ce94",
+   "faq": "733687db9e4c250d",
+   "feature_1": "be20239c32153ba2",
+   "feature_2": "e8f488698dee69d7",
+   "feature_3": "6ae416a09dadc74d",
+   "feature_4": "b0d3f246cf726bf3",
+   "feature_5": "20161669ccb6ceb2",
+   "feature_6": "ed612b17fa7bf09f",
+   "features_heading": "b8e138c839af02ba",
+   "features_subheading": "d25540179df002fa",
+   "h1": "7574e10fe8cda5fd",
+   "hero_description": "7666bd17fab90799",
+   "hero_prompt": "e704f830001482d9",
+   "howto_description": "aded07339b0eb1b2",
+   "howto_step_1_des": "79dd8e6fd6b8c4d5",
+   "howto_step_1_title": "6004d6369031df78",
+   "howto_step_2_des": "af122bcb515cd8a5",
+   "howto_step_2_title": "f66aac29deb5c109",
+   "howto_step_3_des": "d5b4a89cce670d0e",
+   "howto_step_3_title": "b904d192dc7784d7",
+   "howto_step_4_des": "9357eed755f67ce7",
+   "howto_step_4_title": "409b2f5b8105d6b1",
+   "howto_step_5_des": "6d236759f403d9b2",
+   "howto_step_5_title": "50a7ee28bb3317b2",
+   "howto_step_6_des": "54b062361dfbeb34",
+   "howto_step_6_title": "35219fe6b3ff0383",
+   "howto_step_7_des": "30f70e39d821cafd",
+   "howto_step_7_title": "b9e2285d9c28bb51",
+   "howto_title": "fb7ab63466486bf5",
+   "meta_description": "d039053b04277b8f",
+   "meta_title": "2f6911ea854cdc04",
+   "mockup": "339c4ec8c9da68b8",
+   "product_name": "c02c01ae01529d94",
+   "prompt_chip_1": "4f4100d0b132cd19",
+   "prompt_chip_2": "d1f65b4f0eb281db",
+   "prompt_chip_3": "a0a04eda2e64dabc",
+   "prompt_chip_4": "3cc74b9521cf398e",
+   "slug": "06f3844a8e2b18b0",
+   "tab_content_1": "ab2292d3bf55b2d6",
+   "tab_content_2": "21df8321c5720e9b",
+   "tab_content_3": "e081dbc20f0defd0",
+   "tab_content_4": "de51882ee3e33438",
+   "tab_label_1": "13641effb175f769",
+   "tab_label_2": "d1f65b4f0eb281db",
+   "tab_label_3": "442de576f1241efb",
+   "tab_label_4": "f260b18b8ba5889f",
+   "usecase_heading": "3153f7f14849aa78",
+   "why_description": "db49fdc1a80db535",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "dc2f3d59810bec9e"
+  },
+  "all": "c64a650c5340daba",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

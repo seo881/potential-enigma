@@ -115,6 +115,13 @@
    "via": null,
    "by": "A-w-150",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 10:44 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-39",
+   "note": "rubric 10/10 by A-r-39; 6 notes"
   }
  ],
  "pipeline": "r15",
@@ -985,5 +992,305 @@
  },
  "writers": [
   "A-w-150"
- ]
+ ],
+ "review": {
+  "by": "A-r-39",
+  "date": "2026-10-21 10:44 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Wedding Guest Survey to Send Before and After the Vows' covers both uses; hero 'Build a wedding guest survey that collects travel plans, dietary needs, and song requests, saved to a database you own.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "No eligible PAA (all 22 rejected); page delivers what to ask (FAQ 3), allergy pick list, timing, anonymity, reminders, a 7-step how-to and four worked surveys (weekend, dietary, songs, venue feedback)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Wedding vocabulary: 'Friday welcome dinner', 'airport shuttle', 'caterer's final count', 'ceremony lawn', 'the name of their party'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every feature body and tab opens on a full sentence ('Describe the weekend, the menu, and who is invited.', 'Lucienne and Arvo invited 140 guests')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No tacked-on endings flagged; sentences short and single-idea; A4 rhythm flags are P2 only."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'A typed answer like no nuts please is hard to count.' reads human; link-bridge sentences are noted, not blocking."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Allergens: 'Under federal law, the major food allergens are milk, egg, fish, Crustacean shellfish, tree nuts, wheat, peanuts, soybeans, and sesame' matches 21 U.S.C. 321(qq)(1) on Cornell LII; scope kept (definition only, the pick-list use is framed as advice: 'which makes a sound starting list'). Emergent sentences map to prompt-build, database-owned, alerts, conversational, no-caps, api-connect, custom-domain ('Custom domains are included in Emergent and use credits'), free-start, code-export. Numbers add: 6+4+3+2+2=17, 9+24+17+14=64; 118 of 140, 81 of 96, 64 of 90; venue scores 4.7/4.5/4.4/3.1 with parking lowest."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Distinct from SQB siblings; overlap with form/wedding-rsvp (per-event attendance) noted, not blocking: FAQ 3 hands the attend yes/no to 'the invitation reply' and no heading uses 'wedding rsvp'."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions answered first ('With a pick list, not a blank box.', 'Before the wedding, no'); hub link in item 2; 3 sibling links; 2 moat lines (FAQ 4, FAQ 9). Code-built fields untouched: FAQ heading = skeleton.faq_heading_for ('Wedding Guest Survey FAQ'), explore_cta = explore_cta_for, table passes V2; learn_refs hand-picked as the writer flow allows and learn-check PASS."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 '118 of 140 answered', '46 need the shuttle', '92 at dinner', 'To Hettie Bellcote'; tab 2 '81 of 96', '17 guests, by table', '4 tree nut allergies', 'To Lisandro Wynter'; tab 3 '1980s: 24 picks', '1990s: 17 picks', '64 of 90 guests'; tab 4 '212', '6 June weddings', 'Parking: 3.1', 'Ceremony lawn: 4.7'. All match tab copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "A planning firm can build an IT survey for its own office staff the same way.",
+    "issue": "All three sibling links sit on sentences written to carry the anchor, not to help a couple or planner: FAQ 4 closes on an office IT survey (off the wedding topic entirely, a non sequitur after 'however many weddings a season holds'); FAQ 7 'send it within a few days, as you would a post purchase survey'; FAQ 10 'Ask for it the way an alumni survey keeps a mailing list current: once, with a box to confirm it.' The FAQ 4 line is the worst: a reader asking about reusing a guest survey gets told about IT surveys.",
+    "fix": "Cut the FAQ 4 IT-survey sentence and place the links on siblings that fit wedding questions (e.g. an event or feedback survey), or anchor them inside sentences that would stand without the link.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq",
+    "quote": "milk, egg, fish, Crustacean shellfish, tree nuts",
+    "issue": "'Crustacean' keeps the statute's capital mid-sentence and reads as a typo in page copy (the quote itself is accurate).",
+    "fix": "'crustacean shellfish' in the answer; the domain_sources quote can keep the statute's casing.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2a",
+    "field": "faq",
+    "quote": "After the wedding, ask how the day went for them and what they would change.",
+    "issue": "FAQ 3 advises asking guests what they would change; FAQ 7 advises the opposite: 'Ask about the guest's own day, not the couple's choices'. What a guest would change about a wedding is the couple's choices. Advice, not a number, so not a wrong-fact block, but the page disagrees with itself.",
+    "fix": "Align FAQ 3 with FAQ 7, e.g. 'ask how the day went for them and one moment they remember'.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "A survey sent the week of the wedding arrives after the vendors have locked their numbers.",
+    "issue": "Stated as a universal about vendors (no named third party, so a note): final-count deadlines vary by caterer and venue, and some fall within the last week.",
+    "fix": "'A survey sent the week of the wedding can arrive after your caterer's final count is due.'",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "howto_step_1_des",
+    "quote": "Each guest then answers only for the events on their invitation and never sees a dinner they were not asked to.",
+    "issue": "Overlaps form/wedding-rsvp (in progress): its tab 4 'Each guest's page lists only their events' and tab 2 meal counts with allergies cover the same moments as this page's step 1, tab 1 ('which events each guest would attend') and tab 2. Not a sibling-keyword block: no heading or question targets 'wedding rsvp', and FAQ 3 hands the attending yes/no to 'the invitation reply'. Flag for the coordinator so the two pages keep separate stories.",
+    "fix": "Coordinator: keep per-event attendance on wedding-rsvp; if this page is reworked, tilt tab 1 toward travel and shuttle rather than event attendance.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Survey builder with templates, including employee engagement",
+    "issue": "Library 'output' cells for SurveyMonkey and SurveyHero ('including employee satisfaction') name employee surveys on a wedding page; true library facts, off-topic for this buyer.",
+    "fix": "Coordinator: a general-audience variant of the output fact in rules/competitors/sqb.json, or a different row set for consumer/event pages.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "All three sibling links sit on sentences written to carry the anchor, not to help a couple or planner: FAQ 4 closes on an office IT survey (off the wedding topic entirely, a non sequitur after 'however many weddings a season holds'); FAQ 7 'send it within a few days, as you would a post purchase survey'; FAQ 10 'Ask for it the way an alumni survey keeps a mailing list current: once, with a box to confirm it.' The FAQ 4 line is the worst: a reader asking about reusing a guest survey gets told about IT surveys.",
+   "fix": "Cut the FAQ 4 IT-survey sentence and place the links on siblings that fit wedding questions (e.g. an event or feedback survey), or anchor them inside sentences that would stand without the link.",
+   "by": "A-r-39",
+   "via": "review",
+   "date": "2026-10-21 10:44 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq",
+   "issue": "'Crustacean' keeps the statute's capital mid-sentence and reads as a typo in page copy (the quote itself is accurate).",
+   "fix": "'crustacean shellfish' in the answer; the domain_sources quote can keep the statute's casing.",
+   "by": "A-r-39",
+   "via": "review",
+   "date": "2026-10-21 10:44 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2a",
+   "field": "faq",
+   "issue": "FAQ 3 advises asking guests what they would change; FAQ 7 advises the opposite: 'Ask about the guest's own day, not the couple's choices'. What a guest would change about a wedding is the couple's choices. Advice, not a number, so not a wrong-fact block, but the page disagrees with itself.",
+   "fix": "Align FAQ 3 with FAQ 7, e.g. 'ask how the day went for them and one moment they remember'.",
+   "by": "A-r-39",
+   "via": "review",
+   "date": "2026-10-21 10:44 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "Stated as a universal about vendors (no named third party, so a note): final-count deadlines vary by caterer and venue, and some fall within the last week.",
+   "fix": "'A survey sent the week of the wedding can arrive after your caterer's final count is due.'",
+   "by": "A-r-39",
+   "via": "review",
+   "date": "2026-10-21 10:44 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "howto_step_1_des",
+   "issue": "Overlaps form/wedding-rsvp (in progress): its tab 4 'Each guest's page lists only their events' and tab 2 meal counts with allergies cover the same moments as this page's step 1, tab 1 ('which events each guest would attend') and tab 2. Not a sibling-keyword block: no heading or question targets 'wedding rsvp', and FAQ 3 hands the attending yes/no to 'the invitation reply'. Flag for the coordinator so the two pages keep separate stories.",
+   "fix": "Coordinator: keep per-event attendance on wedding-rsvp; if this page is reworked, tilt tab 1 toward travel and shuttle rather than event attendance.",
+   "by": "A-r-39",
+   "via": "review",
+   "date": "2026-10-21 10:44 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "Library 'output' cells for SurveyMonkey and SurveyHero ('including employee satisfaction') name employee surveys on a wedding page; true library facts, off-topic for this buyer.",
+   "fix": "Coordinator: a general-audience variant of the output fact in rules/competitors/sqb.json, or a different row set for consumer/event pages.",
+   "by": "A-r-39",
+   "via": "review",
+   "date": "2026-10-21 10:44 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "515ea29d38c08728",
+   "alt:share_image": "07b121c9c978b4d0",
+   "alt:tab_image_1": "9a4b651646eb19a4",
+   "alt:tab_image_2": "66db059fd69946e1",
+   "alt:tab_image_3": "0167c7ac754cf040",
+   "alt:tab_image_4": "f7e35d6a161f7a4a",
+   "breadcrumb": "2b8db00058270eb9",
+   "chip_adds": "c05fa435a60b9774",
+   "explore_cta": "7840322e99c3166c",
+   "faq": "13e5576d7bfdca38",
+   "feature_1": "b400e59fd025b4b2",
+   "feature_2": "7948be20540389b7",
+   "feature_3": "0eb284230be47c64",
+   "feature_4": "d3368df07a30a531",
+   "feature_5": "d0833fa9b3c24070",
+   "feature_6": "efaa960e8a77078a",
+   "features_heading": "76fbfa45d737ceba",
+   "features_subheading": "5654ed71a91f3c10",
+   "h1": "65a8428f5483b388",
+   "hero_description": "87f7d8a06c7c65f5",
+   "hero_prompt": "3a9462d52fb77e39",
+   "howto_description": "3d2712860bda79fb",
+   "howto_step_1_des": "a24991376bae532c",
+   "howto_step_1_title": "25dae12bc447f945",
+   "howto_step_2_des": "1529080f646d1562",
+   "howto_step_2_title": "cd8243a8e5385924",
+   "howto_step_3_des": "82db4dd2278355eb",
+   "howto_step_3_title": "ca609fa4d86c5821",
+   "howto_step_4_des": "ffc69bc88ee832b6",
+   "howto_step_4_title": "6ed8546184ea3611",
+   "howto_step_5_des": "25687be8128770f1",
+   "howto_step_5_title": "8468329805cdd40d",
+   "howto_step_6_des": "30bba386e3f355bc",
+   "howto_step_6_title": "1200052252507940",
+   "howto_step_7_des": "0ab92535fb1d8ce9",
+   "howto_step_7_title": "fa4d9320792f24e9",
+   "howto_title": "1977df1846149c87",
+   "meta_description": "e692b6f91fea9525",
+   "meta_title": "8d3cd1a97895f81b",
+   "mockup": "040eb4a9c509016e",
+   "product_name": "9d4f6a930ea814d9",
+   "prompt_chip_1": "a0eb4b3c781797bc",
+   "prompt_chip_2": "7a93a00a438a2bb4",
+   "prompt_chip_3": "ccaa9e5b3bb96e4a",
+   "prompt_chip_4": "d91cd68fa1def3b3",
+   "slug": "fdaca724e8dc199b",
+   "tab_content_1": "28218e3ea5ae7753",
+   "tab_content_2": "ab472c7858bc6e3a",
+   "tab_content_3": "4b5ab9a415b49699",
+   "tab_content_4": "660810e42079d088",
+   "tab_label_1": "86f785eafa42b4d5",
+   "tab_label_2": "7a93a00a438a2bb4",
+   "tab_label_3": "ccaa9e5b3bb96e4a",
+   "tab_label_4": "d91cd68fa1def3b3",
+   "usecase_heading": "e09c2a1a5373bbe5",
+   "why_description": "5fd14ce20f78821d",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "fad654843d1f3e2d"
+  },
+  "all": "84dd0a640a457a2f",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "515ea29d38c08728",
+   "alt:share_image": "07b121c9c978b4d0",
+   "alt:tab_image_1": "9a4b651646eb19a4",
+   "alt:tab_image_2": "66db059fd69946e1",
+   "alt:tab_image_3": "0167c7ac754cf040",
+   "alt:tab_image_4": "f7e35d6a161f7a4a",
+   "breadcrumb": "2b8db00058270eb9",
+   "chip_adds": "c05fa435a60b9774",
+   "explore_cta": "7840322e99c3166c",
+   "faq": "13e5576d7bfdca38",
+   "feature_1": "b400e59fd025b4b2",
+   "feature_2": "7948be20540389b7",
+   "feature_3": "0eb284230be47c64",
+   "feature_4": "d3368df07a30a531",
+   "feature_5": "d0833fa9b3c24070",
+   "feature_6": "efaa960e8a77078a",
+   "features_heading": "76fbfa45d737ceba",
+   "features_subheading": "5654ed71a91f3c10",
+   "h1": "65a8428f5483b388",
+   "hero_description": "87f7d8a06c7c65f5",
+   "hero_prompt": "3a9462d52fb77e39",
+   "howto_description": "3d2712860bda79fb",
+   "howto_step_1_des": "a24991376bae532c",
+   "howto_step_1_title": "25dae12bc447f945",
+   "howto_step_2_des": "1529080f646d1562",
+   "howto_step_2_title": "cd8243a8e5385924",
+   "howto_step_3_des": "82db4dd2278355eb",
+   "howto_step_3_title": "ca609fa4d86c5821",
+   "howto_step_4_des": "ffc69bc88ee832b6",
+   "howto_step_4_title": "6ed8546184ea3611",
+   "howto_step_5_des": "25687be8128770f1",
+   "howto_step_5_title": "8468329805cdd40d",
+   "howto_step_6_des": "30bba386e3f355bc",
+   "howto_step_6_title": "1200052252507940",
+   "howto_step_7_des": "0ab92535fb1d8ce9",
+   "howto_step_7_title": "fa4d9320792f24e9",
+   "howto_title": "1977df1846149c87",
+   "meta_description": "e692b6f91fea9525",
+   "meta_title": "8d3cd1a97895f81b",
+   "mockup": "040eb4a9c509016e",
+   "product_name": "9d4f6a930ea814d9",
+   "prompt_chip_1": "a0eb4b3c781797bc",
+   "prompt_chip_2": "7a93a00a438a2bb4",
+   "prompt_chip_3": "ccaa9e5b3bb96e4a",
+   "prompt_chip_4": "d91cd68fa1def3b3",
+   "slug": "fdaca724e8dc199b",
+   "tab_content_1": "28218e3ea5ae7753",
+   "tab_content_2": "ab472c7858bc6e3a",
+   "tab_content_3": "4b5ab9a415b49699",
+   "tab_content_4": "660810e42079d088",
+   "tab_label_1": "86f785eafa42b4d5",
+   "tab_label_2": "7a93a00a438a2bb4",
+   "tab_label_3": "ccaa9e5b3bb96e4a",
+   "tab_label_4": "d91cd68fa1def3b3",
+   "usecase_heading": "e09c2a1a5373bbe5",
+   "why_description": "5fd14ce20f78821d",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "fad654843d1f3e2d"
+  },
+  "all": "84dd0a640a457a2f",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
