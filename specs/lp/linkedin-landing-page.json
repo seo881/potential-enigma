@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-243",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 06:13 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-107",
+   "note": "[truth | HUB_RULES 8] faq item 5: A statement about how LinkedIn Lead Gen Forms behave with no matching span in domain_sources; the cited page (help/lms/answer/73944) says only 'Automatically fills forms with member profile information matched to ad set targeting.' Divit's brand ruling (2026-10-21):"
   }
  ],
  "pipeline": "r15",
@@ -948,5 +955,265 @@
    "reason": "brand casing fix (code-built text)",
    "date": "2026-10-21 05:53 UTC"
   }
- ]
+ ],
+ "review": {
+  "by": "B-r-107",
+  "date": "2026-10-21 06:13 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a LinkedIn Landing Page for Every Ad, Profile, and Post'; hero 'tags each lead with the ad or post it came from, in a database you own' (under 130 chars)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition, examples (FAQ 3 'linkedin landing page example'), four surfaces as tabs, 7-step how-to, landing page vs Lead Gen Form."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Sponsored Content, Featured section, company Page button, UTM values per ad; LP table variant with Unbounce, Landingi, Wix."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Bodies open on sentences: 'Describe the offer and the people the ad targets', 'Choose the LinkedIn surface this page serves'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC 0; only a 33-word sentence in FAQ 1 flagged P2."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Of last month's 412 requests, the carrier map ad brought 214, the quote chart ad 131, and the text-only ad 67.'"
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "FAQ 5 'and the visitor never leaves LinkedIn' is not in the quoted source; FAQ 6 'page load conversions are counted when LinkedIn member accounts visit pages on your website' drops the source's Insight Tag requirement."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Built around LinkedIn surfaces and ad tags; ppc and affiliate pages are linked rather than covered."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 questions, gate 10/10 pass, hub link in item 2, sibling links affiliate landing page, ppc landing page, landing page seo; no brand names in questions beyond the primary."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "214+131+67=412; $8M over the $5M rule, 45-minute call; Dunmore Haulage 120 trucks to Joel Amari; 40 staff x 6 min = 4 hours, 186 and 41 match tab 4; no LinkedIn logo or partnership cue."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 5",
+    "quote": "and the visitor never leaves LinkedIn",
+    "issue": "A statement about how LinkedIn Lead Gen Forms behave with no matching span in domain_sources; the cited page (help/lms/answer/73944) says only 'Automatically fills forms with member profile information matched to ad set targeting.' Divit's brand ruling (2026-10-21): any statement about LinkedIn's rules or limits must be sourced.",
+    "fix": "Cut the clause, or add a LinkedIn help source whose quoted span says the form is filled in on LinkedIn, and keep its wording.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 6",
+    "quote": "On LinkedIn's side, page load conversions are counted when LinkedIn member accounts visit pages on your website, which gives you a second count to check against your table.",
+    "issue": "The source's scope is dropped (rework-checklist item 2): the same LinkedIn page requires the Insight Tag ('Conversions can only be verified if the Insight Tag is installed on your website'), and the spec's own domain_sources claim says so. As written, the count sounds automatic (CONTENT_DEFECTS #14).",
+    "fix": "With LinkedIn's Insight Tag installed on the page, page load conversions are counted when LinkedIn member accounts visit it, which gives you a second count to check against your table.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_7_des",
+    "quote": "Open the page from the LinkedIn ad preview or your own profile link before anyone else does.",
+    "issue": "This assumes LinkedIn's ad preview opens the destination URL, and no source backs that. It is phrased as advice.",
+    "fix": "Open the page from your own profile link or the ad's destination URL.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq item 1",
+    "quote": "A LinkedIn landing page is a web page made for visitors who click through from LinkedIn, whether the link sat in a sponsored ad, a member's profile, a company Page, or someone's post.",
+    "issue": "33-word opening sentence with a four-item list (QC Q2 flag).",
+    "fix": "Split after 'from LinkedIn'.",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "voice",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "howto_step_1_des",
+    "quote": "Each one brings a visitor with a different question in mind.",
+    "issue": "This is a generalization about visitors with no named third party.",
+    "fix": "Name the difference, for example an ad click expects the offer and a profile click expects the person.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_7_des",
+   "issue": "This assumes LinkedIn's ad preview opens the destination URL, and no source backs that. It is phrased as advice.",
+   "fix": "Open the page from your own profile link or the ad's destination URL.",
+   "by": "B-r-107",
+   "via": "review",
+   "date": "2026-10-21 06:13 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq item 1",
+   "issue": "33-word opening sentence with a four-item list (QC Q2 flag).",
+   "fix": "Split after 'from LinkedIn'.",
+   "by": "B-r-107",
+   "via": "review",
+   "date": "2026-10-21 06:13 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "howto_step_1_des",
+   "issue": "This is a generalization about visitors with no named third party.",
+   "fix": "Name the difference, for example an ad click expects the offer and a profile click expects the person.",
+   "by": "B-r-107",
+   "via": "review",
+   "date": "2026-10-21 06:13 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "2a94251d3911b025",
+   "alt:share_image": "7f50462e67a4f6ca",
+   "alt:tab_image_1": "b9b1b8687264e884",
+   "alt:tab_image_2": "3a6b115b223841fa",
+   "alt:tab_image_3": "bb1011b4ab9893ab",
+   "alt:tab_image_4": "f25c846cd27bbe61",
+   "breadcrumb": "bd6349d213e0d653",
+   "chip_adds": "e4d32a22720bd1e5",
+   "explore_cta": "80b80f49485d3166",
+   "faq": "7578dd68832bd24e",
+   "feature_1": "a4028a07c5415fe3",
+   "feature_2": "ea6349b13116179f",
+   "feature_3": "2a05b97faef5add0",
+   "feature_4": "1082fc7c7ffc57d1",
+   "feature_5": "f563841358ebf077",
+   "feature_6": "6a90f825590b48e1",
+   "features_heading": "69f02de9e6ccbf26",
+   "features_subheading": "aa346558a7770603",
+   "h1": "e357353a4082fd3a",
+   "hero_description": "8bb9e77214a3a351",
+   "hero_prompt": "c9c92577ae64e3a4",
+   "howto_description": "e3a71032598dc70e",
+   "howto_step_1_des": "533fe78307745418",
+   "howto_step_1_title": "2fea310c6cf4bf9e",
+   "howto_step_2_des": "fe2fc8bf0a1cc9a6",
+   "howto_step_2_title": "2e9d3ec93ba119c2",
+   "howto_step_3_des": "4c6795e17dd50e5a",
+   "howto_step_3_title": "8240314a4a65e333",
+   "howto_step_4_des": "b3db402247ff995b",
+   "howto_step_4_title": "a1e61eea7042a117",
+   "howto_step_5_des": "c95e05058fea71a1",
+   "howto_step_5_title": "16e36cdce53b3988",
+   "howto_step_6_des": "b4d7fef8a95140b8",
+   "howto_step_6_title": "3a17acc04703fa4b",
+   "howto_step_7_des": "a258591537c48d87",
+   "howto_step_7_title": "9c79f508c1962486",
+   "howto_title": "75fe9cb166fda27e",
+   "meta_description": "a764b36f9fe732c0",
+   "meta_title": "9faa798b6b32f7be",
+   "mockup": "1f9dd470603c59be",
+   "product_name": "be080dff16b332db",
+   "prompt_chip_1": "04faa36149f5186a",
+   "prompt_chip_2": "a6ab3a253f7a751c",
+   "prompt_chip_3": "d1b73adbc12a9961",
+   "prompt_chip_4": "c63420eca3f95b89",
+   "slug": "e15e7e68422d665f",
+   "tab_content_1": "2d10cbd291798e33",
+   "tab_content_2": "35795e1b11e0e961",
+   "tab_content_3": "bddd6ab3ceb6b7ba",
+   "tab_content_4": "99c367b8cab5ab61",
+   "tab_label_1": "79a7ed49f763e892",
+   "tab_label_2": "29145d0c714c2f77",
+   "tab_label_3": "23a3342f1fa40fb2",
+   "tab_label_4": "a2c544f0c2554cb9",
+   "usecase_heading": "330be92322d2b3ee",
+   "why_description": "88060a93f8a6818b",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "7d11f0f6c4553341"
+  },
+  "all": "0079e3346b5ed4f4",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "2a94251d3911b025",
+   "alt:share_image": "7f50462e67a4f6ca",
+   "alt:tab_image_1": "b9b1b8687264e884",
+   "alt:tab_image_2": "3a6b115b223841fa",
+   "alt:tab_image_3": "bb1011b4ab9893ab",
+   "alt:tab_image_4": "f25c846cd27bbe61",
+   "breadcrumb": "bd6349d213e0d653",
+   "chip_adds": "e4d32a22720bd1e5",
+   "explore_cta": "80b80f49485d3166",
+   "faq": "7578dd68832bd24e",
+   "feature_1": "a4028a07c5415fe3",
+   "feature_2": "ea6349b13116179f",
+   "feature_3": "2a05b97faef5add0",
+   "feature_4": "1082fc7c7ffc57d1",
+   "feature_5": "f563841358ebf077",
+   "feature_6": "6a90f825590b48e1",
+   "features_heading": "69f02de9e6ccbf26",
+   "features_subheading": "aa346558a7770603",
+   "h1": "e357353a4082fd3a",
+   "hero_description": "8bb9e77214a3a351",
+   "hero_prompt": "c9c92577ae64e3a4",
+   "howto_description": "e3a71032598dc70e",
+   "howto_step_1_des": "533fe78307745418",
+   "howto_step_1_title": "2fea310c6cf4bf9e",
+   "howto_step_2_des": "fe2fc8bf0a1cc9a6",
+   "howto_step_2_title": "2e9d3ec93ba119c2",
+   "howto_step_3_des": "4c6795e17dd50e5a",
+   "howto_step_3_title": "8240314a4a65e333",
+   "howto_step_4_des": "b3db402247ff995b",
+   "howto_step_4_title": "a1e61eea7042a117",
+   "howto_step_5_des": "c95e05058fea71a1",
+   "howto_step_5_title": "16e36cdce53b3988",
+   "howto_step_6_des": "b4d7fef8a95140b8",
+   "howto_step_6_title": "3a17acc04703fa4b",
+   "howto_step_7_des": "a258591537c48d87",
+   "howto_step_7_title": "9c79f508c1962486",
+   "howto_title": "75fe9cb166fda27e",
+   "meta_description": "a764b36f9fe732c0",
+   "meta_title": "9faa798b6b32f7be",
+   "mockup": "1f9dd470603c59be",
+   "product_name": "be080dff16b332db",
+   "prompt_chip_1": "04faa36149f5186a",
+   "prompt_chip_2": "a6ab3a253f7a751c",
+   "prompt_chip_3": "d1b73adbc12a9961",
+   "prompt_chip_4": "c63420eca3f95b89",
+   "slug": "e15e7e68422d665f",
+   "tab_content_1": "2d10cbd291798e33",
+   "tab_content_2": "35795e1b11e0e961",
+   "tab_content_3": "bddd6ab3ceb6b7ba",
+   "tab_content_4": "99c367b8cab5ab61",
+   "tab_label_1": "79a7ed49f763e892",
+   "tab_label_2": "29145d0c714c2f77",
+   "tab_label_3": "23a3342f1fa40fb2",
+   "tab_label_4": "a2c544f0c2554cb9",
+   "usecase_heading": "330be92322d2b3ee",
+   "why_description": "88060a93f8a6818b",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "7d11f0f6c4553341"
+  },
+  "all": "0079e3346b5ed4f4",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
