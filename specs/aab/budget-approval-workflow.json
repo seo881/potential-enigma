@@ -131,6 +131,20 @@
    "via": null,
    "by": "B-w-263",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 06:12 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-107",
+   "note": "rubric 10/10 by B-r-107; 4 notes"
+  },
+  {
+   "t": "2026-10-21 06:14 UTC",
+   "state": "approved",
+   "via": null,
+   "by": "standing-go (Divit 2026-10-21)",
+   "note": ""
   }
  ],
  "pipeline": "r15",
@@ -975,5 +989,272 @@
  },
  "writers": [
   "B-w-263"
- ]
+ ],
+ "review": {
+  "by": "B-r-107",
+  "date": "2026-10-21 06:12 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Budget Approval Workflow Around Your Spending Limits'; hero 'Get a budget approval workflow that checks each request against your limits...' covers annual budgets, capex, transfers, over-budget spend; how-to description one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition in FAQ 1, 7-step how-to 'Write each limit as a number', four request types as worked tabs, comparison table; capex secondary in FAQ 3."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'capex over $50,000 goes to the CFO', 'Transfers under $25,000 inside one department need only the department head'; finance vocabulary throughout."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every body opens on a sentence: 'Describe each rule as your controller would say it', 'Gather last year's budget requests and capex asks in one sheet.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC 0; tab sentences short and numeric ('The events line has $6,200 left')."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Product-led and concrete: 'Who approved the $120,000 packaging line is answered on that request, not in an email thread.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Claims map to prompt-build, api-connect, alerts, database-owned, realtime, no-caps, free-start plus the approved no-per-approver-seats claim; numbers check: 855,000-750,000=105,000 (14% > 10%), 120,000/40,000=3 years, travel 60,000-18,000=42,000, software 90,000+18,000=108,000, 9,500-6,200=3,300; no third-party facts outside the library table."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Stays on budget lines and balances; generic routing, documents and invoices handed to sibling pages via FAQ links."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, PAA gate 10/10 pass, hub link in item 2, sibling links approval-workflow, document-approval-workflow, invoice-approval-workflow; no brands or formats in questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tabs match copy on names and numbers: Ines Haddad waiting, payback 3 years, Yuki Brannigan approved with travel $42,000/software $108,000, $3,300 over budget to Lavinia Osei; cover shows the $120,000 capex request."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "hero_description",
+    "quote": "sends it to the approver they call for",
+    "issue": "'they' points back to 'limits' across a clause; reads awkwardly.",
+    "fix": "sends it to the approver your limits name",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_6",
+    "quote": "The free tier covers building and publishing.",
+    "issue": "A free-tier line tacked onto a feature about approver seats; second idea in one card.",
+    "fix": "Keep the card on seats; leave the free tier to the CTA.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_4, faq item 10, why_description",
+    "quote": "in a database you own / Data lives in a database you own / on a database you own",
+    "issue": "The owned-database line appears in three fields with words swapped; QC Q9 also counts 'line' 16 times and 'request' 14 times outside the FAQ.",
+    "fix": "Vary or drop one occurrence on a future pass.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image tab 1",
+    "quote": "it waits for the CFO, Ines Haddad",
+    "issue": "The status reads 'Waiting', but the cursor sits on the CFO's Approve button in the message card, a step past the copy's moment. Not a contradiction.",
+    "fix": "Point the cursor at the message card's Open button.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "hero_description",
+   "issue": "'they' points back to 'limits' across a clause; reads awkwardly.",
+   "fix": "sends it to the approver your limits name",
+   "by": "B-r-107",
+   "via": "review",
+   "date": "2026-10-21 06:12 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_6",
+   "issue": "A free-tier line tacked onto a feature about approver seats; second idea in one card.",
+   "fix": "Keep the card on seats; leave the free tier to the CTA.",
+   "by": "B-r-107",
+   "via": "review",
+   "date": "2026-10-21 06:12 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_4, faq item 10, why_description",
+   "issue": "The owned-database line appears in three fields with words swapped; QC Q9 also counts 'line' 16 times and 'request' 14 times outside the FAQ.",
+   "fix": "Vary or drop one occurrence on a future pass.",
+   "by": "B-r-107",
+   "via": "review",
+   "date": "2026-10-21 06:12 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image tab 1",
+   "issue": "The status reads 'Waiting', but the cursor sits on the CFO's Approve button in the message card, a step past the copy's moment. Not a contradiction.",
+   "fix": "Point the cursor at the message card's Open button.",
+   "by": "B-r-107",
+   "via": "review",
+   "date": "2026-10-21 06:12 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6f260261b471b524",
+   "alt:share_image": "dfefb04a383441aa",
+   "alt:tab_image_1": "785ac0f05ba62260",
+   "alt:tab_image_2": "8c172a47ec852e62",
+   "alt:tab_image_3": "6a5886cbd2eebb77",
+   "alt:tab_image_4": "6fcd64ab47c926fa",
+   "breadcrumb": "14a5a7b3d7d3c682",
+   "chip_adds": "7abfa9a2bed80956",
+   "explore_cta": "adfd4c316f47ffc3",
+   "faq": "6b8042f14334479c",
+   "feature_1": "bf20ff7612e3d641",
+   "feature_2": "e444178dc3d1267f",
+   "feature_3": "f1cf9052f276545a",
+   "feature_4": "9ed80112c5ebfc4d",
+   "feature_5": "d8a88e166c58f6d4",
+   "feature_6": "a57c0c404b7d67d6",
+   "features_heading": "648dbf4bfb7b2b49",
+   "features_subheading": "4b4024a61d1b5f52",
+   "h1": "95e08232f2dd9b70",
+   "hero_description": "c516bdd452317aef",
+   "hero_prompt": "f9191b839d1b2f40",
+   "howto_description": "a2c4ba29380694c2",
+   "howto_step_1_des": "179ea7fa807f78b9",
+   "howto_step_1_title": "207caf5c5eea0535",
+   "howto_step_2_des": "bab9230313d76368",
+   "howto_step_2_title": "a385ac3aa8a8e4ad",
+   "howto_step_3_des": "850a8f040e06ae09",
+   "howto_step_3_title": "20dfe49631c039d9",
+   "howto_step_4_des": "77df1efbdbb08c1a",
+   "howto_step_4_title": "e52c7776ed7a4278",
+   "howto_step_5_des": "3c40da1786f7f699",
+   "howto_step_5_title": "0cdd047f9a4189a6",
+   "howto_step_6_des": "fa35e1207aaf641d",
+   "howto_step_6_title": "93109ed199ccbf96",
+   "howto_step_7_des": "5d76c82148d229e8",
+   "howto_step_7_title": "68e2c36420d10900",
+   "howto_title": "cf9fe5435eb87efd",
+   "meta_description": "3b59218827d2a62f",
+   "meta_title": "162ae9cf344b8f23",
+   "mockup": "1ca623289536ad59",
+   "product_name": "6dc71bd03c350a3c",
+   "prompt_chip_1": "74db2103372fb488",
+   "prompt_chip_2": "40d037648fc36701",
+   "prompt_chip_3": "9bbc3c0e9c7eac2e",
+   "prompt_chip_4": "e2c6641523907fb6",
+   "slug": "b0b1a9aa32009044",
+   "tab_content_1": "343639c8da66728a",
+   "tab_content_2": "073d46b21063a67f",
+   "tab_content_3": "90b94a2bbf8e3e71",
+   "tab_content_4": "33e6dafc925ca362",
+   "tab_label_1": "74db2103372fb488",
+   "tab_label_2": "40d037648fc36701",
+   "tab_label_3": "9bbc3c0e9c7eac2e",
+   "tab_label_4": "e2c6641523907fb6",
+   "usecase_heading": "c8b0e997212cb85f",
+   "why_description": "a86de3b47c62ebdc",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "f64625d2cd5cf4bf"
+  },
+  "all": "fe81559199b1dd45",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6f260261b471b524",
+   "alt:share_image": "dfefb04a383441aa",
+   "alt:tab_image_1": "785ac0f05ba62260",
+   "alt:tab_image_2": "8c172a47ec852e62",
+   "alt:tab_image_3": "6a5886cbd2eebb77",
+   "alt:tab_image_4": "6fcd64ab47c926fa",
+   "breadcrumb": "14a5a7b3d7d3c682",
+   "chip_adds": "7abfa9a2bed80956",
+   "explore_cta": "adfd4c316f47ffc3",
+   "faq": "6b8042f14334479c",
+   "feature_1": "bf20ff7612e3d641",
+   "feature_2": "e444178dc3d1267f",
+   "feature_3": "f1cf9052f276545a",
+   "feature_4": "9ed80112c5ebfc4d",
+   "feature_5": "d8a88e166c58f6d4",
+   "feature_6": "a57c0c404b7d67d6",
+   "features_heading": "648dbf4bfb7b2b49",
+   "features_subheading": "4b4024a61d1b5f52",
+   "h1": "95e08232f2dd9b70",
+   "hero_description": "c516bdd452317aef",
+   "hero_prompt": "f9191b839d1b2f40",
+   "howto_description": "a2c4ba29380694c2",
+   "howto_step_1_des": "179ea7fa807f78b9",
+   "howto_step_1_title": "207caf5c5eea0535",
+   "howto_step_2_des": "bab9230313d76368",
+   "howto_step_2_title": "a385ac3aa8a8e4ad",
+   "howto_step_3_des": "850a8f040e06ae09",
+   "howto_step_3_title": "20dfe49631c039d9",
+   "howto_step_4_des": "77df1efbdbb08c1a",
+   "howto_step_4_title": "e52c7776ed7a4278",
+   "howto_step_5_des": "3c40da1786f7f699",
+   "howto_step_5_title": "0cdd047f9a4189a6",
+   "howto_step_6_des": "fa35e1207aaf641d",
+   "howto_step_6_title": "93109ed199ccbf96",
+   "howto_step_7_des": "5d76c82148d229e8",
+   "howto_step_7_title": "68e2c36420d10900",
+   "howto_title": "cf9fe5435eb87efd",
+   "meta_description": "3b59218827d2a62f",
+   "meta_title": "162ae9cf344b8f23",
+   "mockup": "1ca623289536ad59",
+   "product_name": "6dc71bd03c350a3c",
+   "prompt_chip_1": "74db2103372fb488",
+   "prompt_chip_2": "40d037648fc36701",
+   "prompt_chip_3": "9bbc3c0e9c7eac2e",
+   "prompt_chip_4": "e2c6641523907fb6",
+   "slug": "b0b1a9aa32009044",
+   "tab_content_1": "343639c8da66728a",
+   "tab_content_2": "073d46b21063a67f",
+   "tab_content_3": "90b94a2bbf8e3e71",
+   "tab_content_4": "33e6dafc925ca362",
+   "tab_label_1": "74db2103372fb488",
+   "tab_label_2": "40d037648fc36701",
+   "tab_label_3": "9bbc3c0e9c7eac2e",
+   "tab_label_4": "e2c6641523907fb6",
+   "usecase_heading": "c8b0e997212cb85f",
+   "why_description": "a86de3b47c62ebdc",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "f64625d2cd5cf4bf"
+  },
+  "all": "fe81559199b1dd45",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "approval": {
+  "fingerprint": "ea4476525d78cdf50204dfe0fcaeca7ceb0812e65e0942b484974175cb08ba3b",
+  "date": "2026-10-21 06:14 UTC",
+  "rules_version": "41519b1f99fa",
+  "by": "standing-go (Divit 2026-10-21)"
+ },
+ "pending_links": []
 }

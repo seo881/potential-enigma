@@ -122,6 +122,13 @@
    "via": null,
    "by": "B-w-273",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 06:15 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-108",
+   "note": "rubric 10/10 by B-r-108; 2 notes"
   }
  ],
  "pipeline": "r15",
@@ -933,5 +940,225 @@
  },
  "writers": [
   "B-w-273"
- ]
+ ],
+ "review": {
+  "by": "B-r-108",
+  "date": "2026-10-21 06:15 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Chiropractic Landing Page That Takes Bookings'; the page books first visits and 'leaves health questions to intake' (how-to description, step 04)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition in FAQ 1, four 'Chiropractic Landing Page Examples' tabs, seven-step how-to, ads-vs-website and multi-location answers (FAQ 3, 7)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Last week 64 requests came in, and 29 of them picked Harlow Road'; 'This week 9 slots are taken and 3 remain'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Bodies open on actions: 'The form asks for...', 'Put the clinic's number in a button...', 'Show the clinic's hours...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q-codes clear; step bodies vary in shape: 'Size the call button for a thumb.' 'Ask only what the front desk needs to call back and set a time.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Staff call back in the order the rows came in.' 'Every Spanish row lands on Lucia Paredes's call-back list, and she returns those calls in Spanish.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "No treatment or health claims anywhere. Lighthouse 'tap targets that are 48 px by 48 px never fail the audit', Google 'include the country code and area code in the phone number' ('In the page's markup'), 'use both the validFrom and validThrough properties to define seasonal hours' ('In structured data'), LocalBusiness type, and WCAG 2.1 SC 3.3.2 'labels or instructions are provided when content requires user input' all match their quoted spans with scope kept. Emergent claims map to prompt-build, database-owned, alerts, custom-domain ('included in Emergent and use credits'), code-export, free-start. FAQ 4's reference to the dentist page's pay-first question is true of dentist tab 3 ('How will you pay for your visit?')."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Dentist tabs: new patient exam, emergency visit, insurance choice, kids' first visit; chiro tabs: clinic locations, Saturday slots, Spanish version, visit reminders. Dentist FAQ covers prices, load speed and structured data in general; chiro FAQ covers multi-location, notes box, seasonal hours, bilingual, ad tracking, full slots. Dentist page only linked, not targeted."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, hub link in FAQ 2, sibling links (dentist, product, waitlist) one per answer, answers lead with 'Yes,' 'No.' 'Point them to...'"
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: Harlow Road 29 of 64 emailed to Wen Hollis; Saturday 12 slots, 9 taken, 3 left; English 25 + Spanish 17 = 42 on Lucia's list; Ines Kowal Thursday 9:30 am, reminder sent Wednesday 6 pm (email card to the person)."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #18",
+    "field": "feature_1",
+    "quote": "The form asks for a name, a phone number, the clinic, and the day that suits the visitor.",
+    "issue": "Same short-form, call-button and request-row feature set as dentist-landing-page ('A request form that stays short', call button, 'each one is a row the front desk calls back from'); the tabs and FAQ differ, the features section reads close.",
+    "fix": "In a later pass, lean the features on multi-clinic and hours detail unique to chiropractic.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_title_2",
+    "quote": "Saturday fills up with 12 requests",
+    "issue": "Headline reads as if Saturday is full while the body and image show 3 of 12 left; it means the cap, not the current state.",
+    "fix": "'Saturday closes after 12 requests'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #18",
+   "field": "feature_1",
+   "issue": "Same short-form, call-button and request-row feature set as dentist-landing-page ('A request form that stays short', call button, 'each one is a row the front desk calls back from'); the tabs and FAQ differ, the features section reads close.",
+   "fix": "In a later pass, lean the features on multi-clinic and hours detail unique to chiropractic.",
+   "by": "B-r-108",
+   "via": "review",
+   "date": "2026-10-21 06:15 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_title_2",
+   "issue": "Headline reads as if Saturday is full while the body and image show 3 of 12 left; it means the cap, not the current state.",
+   "fix": "'Saturday closes after 12 requests'.",
+   "by": "B-r-108",
+   "via": "review",
+   "date": "2026-10-21 06:15 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "8a4187a7bd34af00",
+   "alt:share_image": "51f1d5b1df05db16",
+   "alt:tab_image_1": "ee3e38787d1b8df9",
+   "alt:tab_image_2": "8de62158f42f1598",
+   "alt:tab_image_3": "43138717bd21a14f",
+   "alt:tab_image_4": "36c037824255be61",
+   "breadcrumb": "521a1b89f972a197",
+   "chip_adds": "fa8bedbb5aff6c77",
+   "explore_cta": "367a58475fa39310",
+   "faq": "ae4277bf784748ec",
+   "feature_1": "77de403ee67bd6c8",
+   "feature_2": "fde1e1ce77535e77",
+   "feature_3": "93c8826872e28bbb",
+   "feature_4": "f89b0a1c72c9a3b1",
+   "feature_5": "cff5590fc980a899",
+   "feature_6": "1ba3197a6b2ebe3b",
+   "features_heading": "3a19b283c38f221b",
+   "features_subheading": "9552a5ef7ffeed10",
+   "h1": "0e89525a28ad0794",
+   "hero_description": "9f6675bbce90633d",
+   "hero_prompt": "c8586545a6e5cd03",
+   "howto_description": "ae9ce2eb8e9ca193",
+   "howto_step_1_des": "a7e4461b7443a78e",
+   "howto_step_1_title": "5243d2fe4b8fdfd1",
+   "howto_step_2_des": "fec8c4ec7f012ee5",
+   "howto_step_2_title": "d6bcb92bb4a5cc7c",
+   "howto_step_3_des": "3b88a47cd2d33e77",
+   "howto_step_3_title": "d75b1ea72f530156",
+   "howto_step_4_des": "92f9049c3909e4fd",
+   "howto_step_4_title": "0c245f61f20c603e",
+   "howto_step_5_des": "88fe69b6bcb65731",
+   "howto_step_5_title": "acf758f6cae2e5e5",
+   "howto_step_6_des": "09067445a6b4b960",
+   "howto_step_6_title": "30d6f95cd48f7a0f",
+   "howto_step_7_des": "9b17e369aa326344",
+   "howto_step_7_title": "0013de58ec051ceb",
+   "howto_title": "3307f9f69b654f93",
+   "meta_description": "cd0d41567bbbd2a6",
+   "meta_title": "8d348777fd3d64e3",
+   "mockup": "e242886445eee227",
+   "product_name": "38eb613685fffb5c",
+   "prompt_chip_1": "45dc74518c7ea6dc",
+   "prompt_chip_2": "406de9c14e95d9e8",
+   "prompt_chip_3": "285ae04e2f38a27f",
+   "prompt_chip_4": "112e02bdadd21b09",
+   "slug": "3f78ad1d6355390e",
+   "tab_content_1": "395377cd4d40ae65",
+   "tab_content_2": "ca7c8e31b6e8dca9",
+   "tab_content_3": "5221fe1bebf3f07c",
+   "tab_content_4": "1318e71c3b302368",
+   "tab_label_1": "45dc74518c7ea6dc",
+   "tab_label_2": "406de9c14e95d9e8",
+   "tab_label_3": "285ae04e2f38a27f",
+   "tab_label_4": "112e02bdadd21b09",
+   "usecase_heading": "df64a5fde976bc77",
+   "why_description": "6faf1d8c8bdca768",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "53dbdb6363b83668"
+  },
+  "all": "1ab4557c17f18131",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "8a4187a7bd34af00",
+   "alt:share_image": "51f1d5b1df05db16",
+   "alt:tab_image_1": "ee3e38787d1b8df9",
+   "alt:tab_image_2": "8de62158f42f1598",
+   "alt:tab_image_3": "43138717bd21a14f",
+   "alt:tab_image_4": "36c037824255be61",
+   "breadcrumb": "521a1b89f972a197",
+   "chip_adds": "fa8bedbb5aff6c77",
+   "explore_cta": "367a58475fa39310",
+   "faq": "ae4277bf784748ec",
+   "feature_1": "77de403ee67bd6c8",
+   "feature_2": "fde1e1ce77535e77",
+   "feature_3": "93c8826872e28bbb",
+   "feature_4": "f89b0a1c72c9a3b1",
+   "feature_5": "cff5590fc980a899",
+   "feature_6": "1ba3197a6b2ebe3b",
+   "features_heading": "3a19b283c38f221b",
+   "features_subheading": "9552a5ef7ffeed10",
+   "h1": "0e89525a28ad0794",
+   "hero_description": "9f6675bbce90633d",
+   "hero_prompt": "c8586545a6e5cd03",
+   "howto_description": "ae9ce2eb8e9ca193",
+   "howto_step_1_des": "a7e4461b7443a78e",
+   "howto_step_1_title": "5243d2fe4b8fdfd1",
+   "howto_step_2_des": "fec8c4ec7f012ee5",
+   "howto_step_2_title": "d6bcb92bb4a5cc7c",
+   "howto_step_3_des": "3b88a47cd2d33e77",
+   "howto_step_3_title": "d75b1ea72f530156",
+   "howto_step_4_des": "92f9049c3909e4fd",
+   "howto_step_4_title": "0c245f61f20c603e",
+   "howto_step_5_des": "88fe69b6bcb65731",
+   "howto_step_5_title": "acf758f6cae2e5e5",
+   "howto_step_6_des": "09067445a6b4b960",
+   "howto_step_6_title": "30d6f95cd48f7a0f",
+   "howto_step_7_des": "9b17e369aa326344",
+   "howto_step_7_title": "0013de58ec051ceb",
+   "howto_title": "3307f9f69b654f93",
+   "meta_description": "cd0d41567bbbd2a6",
+   "meta_title": "8d348777fd3d64e3",
+   "mockup": "e242886445eee227",
+   "product_name": "38eb613685fffb5c",
+   "prompt_chip_1": "45dc74518c7ea6dc",
+   "prompt_chip_2": "406de9c14e95d9e8",
+   "prompt_chip_3": "285ae04e2f38a27f",
+   "prompt_chip_4": "112e02bdadd21b09",
+   "slug": "3f78ad1d6355390e",
+   "tab_content_1": "395377cd4d40ae65",
+   "tab_content_2": "ca7c8e31b6e8dca9",
+   "tab_content_3": "5221fe1bebf3f07c",
+   "tab_content_4": "1318e71c3b302368",
+   "tab_label_1": "45dc74518c7ea6dc",
+   "tab_label_2": "406de9c14e95d9e8",
+   "tab_label_3": "285ae04e2f38a27f",
+   "tab_label_4": "112e02bdadd21b09",
+   "usecase_heading": "df64a5fde976bc77",
+   "why_description": "6faf1d8c8bdca768",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "53dbdb6363b83668"
+  },
+  "all": "1ab4557c17f18131",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
