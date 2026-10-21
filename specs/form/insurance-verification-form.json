@@ -129,6 +129,13 @@
    "via": null,
    "by": "A-w-153",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 10:55 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-42",
+   "note": "rubric 10/10 by A-r-42; 3 notes"
   }
  ],
  "pipeline": "r15",
@@ -941,5 +948,245 @@
  ],
  "writers": [
   "A-w-153"
- ]
+ ],
+ "review": {
+  "by": "A-r-42",
+  "date": "2026-10-21 10:55 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Insurance Verification Form Patients Finish Before the Visit'; hero 'Build an insurance verification form that collects each patient's plan and card photos, then logs what the office confirms.' (under 130, primary, leads with Build); how-to description 'Follow 7 steps to build an insurance verification form that collects plan details early and records what the plan confirms.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "AMBER angle carried: practice-side intake form against a top 10 of provider and agency PDFs. FAQ 3 gives the template contents ('the plan name, the member and group numbers, and photos of both sides of the card'), four practice tabs, a 7-step how-to, PDF and template secondaries answered (FAQ 3, FAQ 9)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Front-desk vocabulary: 'member ID, group number, and the phone number on the back of the card', 'copay, deductible left, visit limit, prior authorization status, and the call reference number', '17 of 20 visits used', 'an MRI marked as needing prior authorization'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Full-sentence openers: 'New patients at Bellmoor Family Dental get the form by email when they book.', 'Once the call to the plan ends...', 'Give the form a patient part and a staff part.', 'Two upload fields take a photo...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; one ', so' ending (feature_1) and one 36-word sentence (FAQ 5, a quote) are within limits."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain and concrete: 'Nobody retypes a member ID from a photocopy at check-in.', 'a scheduler picks it up before the end of the day.' The why_description formula shared with siblings is a note."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "All four quotes checked word for word against Wayback captures of the 403 pages: healthcare.gov/glossary/preauthorization (Oct 9, 2026: 'Your health insurance or plan may require preauthorization for certain services before you receive them, except in an emergency.' and 'Preauthorization isn't a promise...'), healthcare.gov/glossary/deductible (Oct 15, 2026: 'The amount you pay for covered health care services before your insurance plan starts to pay.'), Medicare wording (FAQ 6) verbatim on medicare.gov/.../coordination/who-pays-first (Oct 19, 2026) with the same fact on the recorded /coordination URL (source-URL note). Medicare scope kept ('For patients with Medicare and other coverage'); no coverage advice, no HIPAA. Emergent sentences map to prompt-build, database-owned, alerts, conversational, e-signature-capture, free-start, no-caps, code-export. Numbers agree: 20 - 17 = 3 visits; 24 - 21 = 3 scans; copy and images match."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Patient-plus-staff verification record; distinct from hipaa-release, referral, surgery and telemedicine consent siblings; referral form and identity verification form are handed off by link (FAQ 4, FAQ 7); no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic builder questions, PAA gate 9 pass, 0 reject, 1 flag (PA7 on the code-locked Q1 definition, for Divit's packet); each answered first ('Send it as soon as the visit is booked.', 'Ask for both.', 'Yes, both, dated the day of the call.'); hub link in item 2; links referral form and identity verification form; secondaries template, forms, pdf."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: Delphine Arroyo, 'Cleaning in 3 days', 'Card photos: front and back'; Sunniva Holt $30 / $250 / '17 of 20', 'Email to Imani Brooke', '3 visits left'; Marisol Kowalczyk, 'Is the client the policyholder? No', typed signature; '24 scans tomorrow', '21 verified', #scheduling '3 scans not verified', Greta Lindqvist MRI 'no auth'. One hero, readable."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "domain_sources[3] (FAQ item 6)",
+    "quote": "Medicare's guidance says \"The insurance that pays first (primary payer) pays up to the limits of its coverage.\"",
+    "issue": "The quoted words are genuine Medicare wording but sit on medicare.gov/health-drug-plans/coordination/who-pays-first, not the recorded source_url /health-drug-plans/coordination, which states the same fact as 'The \"primary payer\" pays up to the limits of its coverage, then sends the rest of the balance to the \"secondary payer.\"' (Wayback, Oct 19, 2026). The fact is sourced; the quote's provenance URL is off.",
+    "fix": "On the next edit, point domain_sources[3].source_url at https://www.medicare.gov/health-drug-plans/coordination/who-pays-first (or quote the /coordination sentence instead).",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 1",
+    "quote": "An insurance verification form is the record a medical or dental office keeps of a patient's health plan.",
+    "issue": "The definition states the form is only a medical or dental record, while 3 of the top 10 (NY DFS, Oklahoma DPS, Maryland DHS) are auto or benefits verification forms. The AMBER angle justifies the practice-side page, but the definition reads as exclusive. Separate from the PA7 flag, which goes to Divit's packet.",
+    "fix": "On a future edit, frame it as the practice sense ('In a medical or dental office, an insurance verification form is ...').",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "why_description",
+    "quote": "A printed sheet waits for someone to retype it.",
+    "issue": "The 'X waits for someone to ...' why-description formula also opens cake-order-form, risk-assessment-form and training-request-form.",
+    "fix": "Vary the why_description shape across the hub on future pages.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "domain_sources[3] (FAQ item 6)",
+   "issue": "The quoted words are genuine Medicare wording but sit on medicare.gov/health-drug-plans/coordination/who-pays-first, not the recorded source_url /health-drug-plans/coordination, which states the same fact as 'The \"primary payer\" pays up to the limits of its coverage, then sends the rest of the balance to the \"secondary payer.\"' (Wayback, Oct 19, 2026). The fact is sourced; the quote's provenance URL is off.",
+   "fix": "On the next edit, point domain_sources[3].source_url at https://www.medicare.gov/health-drug-plans/coordination/who-pays-first (or quote the /coordination sentence instead).",
+   "by": "A-r-42",
+   "via": "review",
+   "date": "2026-10-21 10:55 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 1",
+   "issue": "The definition states the form is only a medical or dental record, while 3 of the top 10 (NY DFS, Oklahoma DPS, Maryland DHS) are auto or benefits verification forms. The AMBER angle justifies the practice-side page, but the definition reads as exclusive. Separate from the PA7 flag, which goes to Divit's packet.",
+   "fix": "On a future edit, frame it as the practice sense ('In a medical or dental office, an insurance verification form is ...').",
+   "by": "A-r-42",
+   "via": "review",
+   "date": "2026-10-21 10:55 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "why_description",
+   "issue": "The 'X waits for someone to ...' why-description formula also opens cake-order-form, risk-assessment-form and training-request-form.",
+   "fix": "Vary the why_description shape across the hub on future pages.",
+   "by": "A-r-42",
+   "via": "review",
+   "date": "2026-10-21 10:55 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "3acab9db6839ccb6",
+   "alt:share_image": "8112c8a91b40841b",
+   "alt:tab_image_1": "68fb8b3adb3ef398",
+   "alt:tab_image_2": "959023cefa7da3f5",
+   "alt:tab_image_3": "28863517b2b5be2e",
+   "alt:tab_image_4": "64c154fefc183200",
+   "breadcrumb": "e2e0bc4910c5c1ec",
+   "chip_adds": "0ad44a2ecd79c314",
+   "explore_cta": "048968f04729b1f6",
+   "faq": "38c22f94ba416684",
+   "feature_1": "4c0b2f3012e488ce",
+   "feature_2": "91f068b5837e2131",
+   "feature_3": "696876c07d7ad52f",
+   "feature_4": "dcddd0cc6d8d0b70",
+   "feature_5": "8c15f176e7fb2d4b",
+   "feature_6": "d61d527249b8c120",
+   "features_heading": "3e4de09fddb63370",
+   "features_subheading": "6372f11af4a3716b",
+   "h1": "b1713477b3d3b713",
+   "hero_description": "f28f36de846295cc",
+   "hero_prompt": "479d6223228893cc",
+   "howto_description": "729a3ea3043e7c56",
+   "howto_step_1_des": "4828b503a38dc4e6",
+   "howto_step_1_title": "b9ea8eca80f9b6ed",
+   "howto_step_2_des": "dbd83c81c98253ed",
+   "howto_step_2_title": "14157adbbba1f822",
+   "howto_step_3_des": "f73d7b34af373ce6",
+   "howto_step_3_title": "cd3b7e2fa2d0cb1b",
+   "howto_step_4_des": "448356e5feaf15cc",
+   "howto_step_4_title": "93ee74666d738552",
+   "howto_step_5_des": "4bd11abc84b3099c",
+   "howto_step_5_title": "07597db4eb2bcab0",
+   "howto_step_6_des": "4cb75aec6091649f",
+   "howto_step_6_title": "a9f48d7a43223568",
+   "howto_step_7_des": "bbb153a9a83de287",
+   "howto_step_7_title": "ff0f29407b4b2859",
+   "howto_title": "1d4660016beb519c",
+   "meta_description": "7f76cd6ee7d93fb8",
+   "meta_title": "249f891a1af7b62e",
+   "mockup": "37e913acb06ef2ad",
+   "product_name": "e1a742b7974b5b14",
+   "prompt_chip_1": "f6bf9140d731e646",
+   "prompt_chip_2": "59a9b9da66c1be22",
+   "prompt_chip_3": "e3e2fc3ab77ee873",
+   "prompt_chip_4": "f66f072cc2c9877a",
+   "slug": "ab759b97229db4be",
+   "tab_content_1": "ba97a07d6287e088",
+   "tab_content_2": "bdef6d3ff98b6878",
+   "tab_content_3": "08f0c538e3bff429",
+   "tab_content_4": "d171231f9d2d1a24",
+   "tab_label_1": "ff2cb66b6dfb3e49",
+   "tab_label_2": "1002d947bc8957e8",
+   "tab_label_3": "57d6e7ccc8d1d1e7",
+   "tab_label_4": "c16ac7377c98ec10",
+   "usecase_heading": "92995b820a0489a4",
+   "why_description": "655df6ef110e620f",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "9c943a22c1b83edf"
+  },
+  "all": "84927a7c2fd01551",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "3acab9db6839ccb6",
+   "alt:share_image": "8112c8a91b40841b",
+   "alt:tab_image_1": "68fb8b3adb3ef398",
+   "alt:tab_image_2": "959023cefa7da3f5",
+   "alt:tab_image_3": "28863517b2b5be2e",
+   "alt:tab_image_4": "64c154fefc183200",
+   "breadcrumb": "e2e0bc4910c5c1ec",
+   "chip_adds": "0ad44a2ecd79c314",
+   "explore_cta": "048968f04729b1f6",
+   "faq": "38c22f94ba416684",
+   "feature_1": "4c0b2f3012e488ce",
+   "feature_2": "91f068b5837e2131",
+   "feature_3": "696876c07d7ad52f",
+   "feature_4": "dcddd0cc6d8d0b70",
+   "feature_5": "8c15f176e7fb2d4b",
+   "feature_6": "d61d527249b8c120",
+   "features_heading": "3e4de09fddb63370",
+   "features_subheading": "6372f11af4a3716b",
+   "h1": "b1713477b3d3b713",
+   "hero_description": "f28f36de846295cc",
+   "hero_prompt": "479d6223228893cc",
+   "howto_description": "729a3ea3043e7c56",
+   "howto_step_1_des": "4828b503a38dc4e6",
+   "howto_step_1_title": "b9ea8eca80f9b6ed",
+   "howto_step_2_des": "dbd83c81c98253ed",
+   "howto_step_2_title": "14157adbbba1f822",
+   "howto_step_3_des": "f73d7b34af373ce6",
+   "howto_step_3_title": "cd3b7e2fa2d0cb1b",
+   "howto_step_4_des": "448356e5feaf15cc",
+   "howto_step_4_title": "93ee74666d738552",
+   "howto_step_5_des": "4bd11abc84b3099c",
+   "howto_step_5_title": "07597db4eb2bcab0",
+   "howto_step_6_des": "4cb75aec6091649f",
+   "howto_step_6_title": "a9f48d7a43223568",
+   "howto_step_7_des": "bbb153a9a83de287",
+   "howto_step_7_title": "ff0f29407b4b2859",
+   "howto_title": "1d4660016beb519c",
+   "meta_description": "7f76cd6ee7d93fb8",
+   "meta_title": "249f891a1af7b62e",
+   "mockup": "37e913acb06ef2ad",
+   "product_name": "e1a742b7974b5b14",
+   "prompt_chip_1": "f6bf9140d731e646",
+   "prompt_chip_2": "59a9b9da66c1be22",
+   "prompt_chip_3": "e3e2fc3ab77ee873",
+   "prompt_chip_4": "f66f072cc2c9877a",
+   "slug": "ab759b97229db4be",
+   "tab_content_1": "ba97a07d6287e088",
+   "tab_content_2": "bdef6d3ff98b6878",
+   "tab_content_3": "08f0c538e3bff429",
+   "tab_content_4": "d171231f9d2d1a24",
+   "tab_label_1": "ff2cb66b6dfb3e49",
+   "tab_label_2": "1002d947bc8957e8",
+   "tab_label_3": "57d6e7ccc8d1d1e7",
+   "tab_label_4": "c16ac7377c98ec10",
+   "usecase_heading": "92995b820a0489a4",
+   "why_description": "655df6ef110e620f",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "9c943a22c1b83edf"
+  },
+  "all": "84927a7c2fd01551",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

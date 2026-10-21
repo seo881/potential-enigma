@@ -115,6 +115,13 @@
    "via": null,
    "by": "A-w-156",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 10:55 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-42",
+   "note": "[truth | CONTENT_DEFECTS #12] tab_content_3; image_brief tab 3 (main block 'sub', hero items 0 and 1, story[3]); plan.tab_stories[2]: Every weekday-date pair in tab 3 carries no year, so it holds only in 2026: Nov 12 is a Friday in 2027 and a Sunday in 2028, and Nov 11 is not a Wednesday either. Ins"
   }
  ],
  "pipeline": "r15",
@@ -903,5 +910,193 @@
  },
  "writers": [
   "A-w-156"
- ]
+ ],
+ "review": {
+  "by": "A-r-42",
+  "date": "2026-10-21 10:55 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Webinar Registration Form That Sends the Join Link'; hero 'Build a webinar registration form that emails each registrant the join link and saves every registration to a database you own.'; how-to description 'Seven steps to create a webinar registration form that sends the join link and reminders, then build it with Emergent.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder-fit SERP (Typeform, Jotform, SurveyMonkey templates, platform registration docs): fields (FAQ 3), reminders (FAQ 5), seat caps (FAQ 7), sessions (FAQ 10), a 7-step how-to and four webinar types."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Webinar vocabulary: 'join link', '24 hours and 1 hour before the start', 'seat cap, with a waitlist', 'replay link', '143 of 310 registrants who did not join'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Full-sentence openers: 'Tollbridge Payroll runs a product demo every month...', 'Start with the job the registrations do after the submit.', 'Cap each session at the seat count you choose.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; one ', so' ending (FAQ 5); 'join' 15 times and 'registrants' 11 times outside the FAQ (QC Q9 P2)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain and specific: 'The other 11 are still waiting.', 'Compare the newsletter link with a partner post by seats filled.'"
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "tab_content_3 'on Thursday, Nov 12' and image tab 3 'Thursday, Nov 12, 3:00 PM your time', 'Wed, Nov 11, 3:00 PM', 'Thu, Nov 12, 2:00 PM': weekday-date pairs with no year, true in 2026 but false from 2027 (Nov 12, 2027 is a Friday). Everything else checks: Emergent claims map to prompt-build, alerts, api-connect, database-owned, code-export, free-start, no-caps; 9:00 AM Eastern = 3:00 PM CET on Nov 12 (both zones on standard time); 24 + 22 + 15 = 61; 310 - 167 = 143; 12 - 1 = 11; 38 of 214."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Online-session registration (join link, time zones, replay); registration form, conference registration form and summer camp registration form handed off by link; no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic builder questions, PAA gate 10 pass, 0 reject, 0 flag; answer-first ('Send two: one 24 hours before the start and one an hour before'); hub link in item 2; 3 sibling links; no secondaries assigned."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy on names and numbers: '214 registered', 'New CRM leads 38', 'To Ravi Kulkarni'; '3 sessions', '100 of 100 taken', '12 people', 'Your seat is confirmed, Ivo', '11 still waiting'; Joris, '9:00 AM Eastern', '3:00 PM in Rotterdam'; Cost 24 / Setup 22 / Repairs 15, 'Replay link sent 143', '310 registered'. The dated weekday is scored under truth."
+   }
+  },
+  "findings": [
+   {
+    "class": "wrong-fact",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #12, #15",
+    "field": "tab_content_3; image_brief tab 3 (main block 'sub', hero items 0 and 1, story[3]); plan.tab_stories[2]",
+    "quote": "Haugen Marine Sensors hosts the same webinar twice on Thursday, Nov 12, at 9:00 AM and 6:00 PM Eastern.",
+    "issue": "Every weekday-date pair in tab 3 carries no year, so it holds only in 2026: Nov 12 is a Friday in 2027 and a Sunday in 2028, and Nov 11 is not a Wednesday either. Instances: tab_content_3 'Thursday, Nov 12'; image main card 'Thursday, Nov 12, 3:00 PM your time'; image reminders 'Wed, Nov 11, 3:00 PM' and 'Thu, Nov 12, 2:00 PM'; story link 'Thursday, Nov 12' (copy and image). The page goes stale a year after launch, the dated-image defect a prior review blocked on it-automation.",
+    "fix": "Drop the weekday everywhere in tab 3 (copy, main card, both reminder rows, story link, plan): e.g. 'hosts the same webinar twice on Nov 12, at 9:00 AM and 6:00 PM Eastern'; image 'Nov 12, 3:00 PM your time', reminders 'Nov 11, 3:00 PM' and 'Nov 12, 2:00 PM'. Keep a November date after the first Sunday (both zones on standard time) so 9:00 AM Eastern stays 3:00 PM in Rotterdam. Re-render.",
+    "severity": "blocking"
+   }
+  ]
+ },
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "92ee203fa7685fd6",
+   "alt:share_image": "227b8c1a5eda7971",
+   "alt:tab_image_1": "ec0fe8f64fdb6187",
+   "alt:tab_image_2": "02b06e9fe047753c",
+   "alt:tab_image_3": "4a8b298a579fd139",
+   "alt:tab_image_4": "d8308106271ad80f",
+   "breadcrumb": "ca99e71c52f49842",
+   "chip_adds": "2fe272fb687ea3da",
+   "explore_cta": "f67571634ab68392",
+   "faq": "b6c474027fadd850",
+   "feature_1": "ce85c04e4d3761f8",
+   "feature_2": "192474c737967fd9",
+   "feature_3": "8bdec1562ae039a5",
+   "feature_4": "67e4884eef5ce1bc",
+   "feature_5": "c3c90d031e957765",
+   "feature_6": "bfdddc7e206875c3",
+   "features_heading": "1ba8737900460215",
+   "features_subheading": "1f9811f1f74acbe5",
+   "h1": "0105a0b7f83065ef",
+   "hero_description": "ce360bc6afdd035b",
+   "hero_prompt": "cf8472b128fe0cbe",
+   "howto_description": "3f02cb7eb6d5c379",
+   "howto_step_1_des": "e8767a84da7307ac",
+   "howto_step_1_title": "b06346bd89dc5eb2",
+   "howto_step_2_des": "ef9157cbff25055b",
+   "howto_step_2_title": "6718b8070a85b5be",
+   "howto_step_3_des": "e80f3a4f701f187f",
+   "howto_step_3_title": "6068bda9fb52639f",
+   "howto_step_4_des": "2f31f4524a8d93c8",
+   "howto_step_4_title": "62aca0bfcb96956c",
+   "howto_step_5_des": "c9a77f1ac5b96a6d",
+   "howto_step_5_title": "01eaca4b84b78a8e",
+   "howto_step_6_des": "deef1a2cc01f2412",
+   "howto_step_6_title": "9f0a061c8096614b",
+   "howto_step_7_des": "1ed6f239c16bc7c2",
+   "howto_step_7_title": "1ac1e86886ecb416",
+   "howto_title": "92c808c1ef0dbea3",
+   "meta_description": "9861e7b5fe78e3e6",
+   "meta_title": "0687f68efd27d135",
+   "mockup": "1add45f9f6ad1184",
+   "product_name": "75e51525b671cbf2",
+   "prompt_chip_1": "19769f7d87be0cba",
+   "prompt_chip_2": "0d86eb2cfbb009b8",
+   "prompt_chip_3": "4bfceb18b0ee9b0d",
+   "prompt_chip_4": "ff180b53fadd5f65",
+   "slug": "fc96da1f4f83437b",
+   "tab_content_1": "c7b99271f5d6978e",
+   "tab_content_2": "ee5dfd7458131786",
+   "tab_content_3": "d9c36e81d7c61423",
+   "tab_content_4": "2331c1d3ce078dff",
+   "tab_label_1": "ae13eada1c5938bb",
+   "tab_label_2": "6ba72b7e7b793fbf",
+   "tab_label_3": "347e0875789682fa",
+   "tab_label_4": "00e9182649be9eb5",
+   "usecase_heading": "c0226b4658f2fdcf",
+   "why_description": "b133c73013b1a30a",
+   "why_table": "91f75ba2e710a4a9",
+   "why_title": "4003c1bb5c76cbc2"
+  },
+  "all": "f13773b4a7ca1aab",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "92ee203fa7685fd6",
+   "alt:share_image": "227b8c1a5eda7971",
+   "alt:tab_image_1": "ec0fe8f64fdb6187",
+   "alt:tab_image_2": "02b06e9fe047753c",
+   "alt:tab_image_3": "4a8b298a579fd139",
+   "alt:tab_image_4": "d8308106271ad80f",
+   "breadcrumb": "ca99e71c52f49842",
+   "chip_adds": "2fe272fb687ea3da",
+   "explore_cta": "f67571634ab68392",
+   "faq": "b6c474027fadd850",
+   "feature_1": "ce85c04e4d3761f8",
+   "feature_2": "192474c737967fd9",
+   "feature_3": "8bdec1562ae039a5",
+   "feature_4": "67e4884eef5ce1bc",
+   "feature_5": "c3c90d031e957765",
+   "feature_6": "bfdddc7e206875c3",
+   "features_heading": "1ba8737900460215",
+   "features_subheading": "1f9811f1f74acbe5",
+   "h1": "0105a0b7f83065ef",
+   "hero_description": "ce360bc6afdd035b",
+   "hero_prompt": "cf8472b128fe0cbe",
+   "howto_description": "3f02cb7eb6d5c379",
+   "howto_step_1_des": "e8767a84da7307ac",
+   "howto_step_1_title": "b06346bd89dc5eb2",
+   "howto_step_2_des": "ef9157cbff25055b",
+   "howto_step_2_title": "6718b8070a85b5be",
+   "howto_step_3_des": "e80f3a4f701f187f",
+   "howto_step_3_title": "6068bda9fb52639f",
+   "howto_step_4_des": "2f31f4524a8d93c8",
+   "howto_step_4_title": "62aca0bfcb96956c",
+   "howto_step_5_des": "c9a77f1ac5b96a6d",
+   "howto_step_5_title": "01eaca4b84b78a8e",
+   "howto_step_6_des": "deef1a2cc01f2412",
+   "howto_step_6_title": "9f0a061c8096614b",
+   "howto_step_7_des": "1ed6f239c16bc7c2",
+   "howto_step_7_title": "1ac1e86886ecb416",
+   "howto_title": "92c808c1ef0dbea3",
+   "meta_description": "9861e7b5fe78e3e6",
+   "meta_title": "0687f68efd27d135",
+   "mockup": "1add45f9f6ad1184",
+   "product_name": "75e51525b671cbf2",
+   "prompt_chip_1": "19769f7d87be0cba",
+   "prompt_chip_2": "0d86eb2cfbb009b8",
+   "prompt_chip_3": "4bfceb18b0ee9b0d",
+   "prompt_chip_4": "ff180b53fadd5f65",
+   "slug": "fc96da1f4f83437b",
+   "tab_content_1": "c7b99271f5d6978e",
+   "tab_content_2": "ee5dfd7458131786",
+   "tab_content_3": "d9c36e81d7c61423",
+   "tab_content_4": "2331c1d3ce078dff",
+   "tab_label_1": "ae13eada1c5938bb",
+   "tab_label_2": "6ba72b7e7b793fbf",
+   "tab_label_3": "347e0875789682fa",
+   "tab_label_4": "00e9182649be9eb5",
+   "usecase_heading": "c0226b4658f2fdcf",
+   "why_description": "b133c73013b1a30a",
+   "why_table": "91f75ba2e710a4a9",
+   "why_title": "4003c1bb5c76cbc2"
+  },
+  "all": "f13773b4a7ca1aab",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
