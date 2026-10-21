@@ -129,6 +129,13 @@
    "via": null,
    "by": "A-w-136",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 10:35 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-37",
+   "note": "rubric 10/10 by A-r-37; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -932,5 +939,265 @@
  },
  "writers": [
   "A-w-136"
- ]
+ ],
+ "review": {
+  "by": "A-r-37",
+  "date": "2026-10-21 10:35 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Contest Entry Form That Counts Only Valid Entries'; hero 'Build a contest entry form that turns away entrants who do not qualify and keeps every entry in a database you own.' covers the whole job; how-to description is one sentence with the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is template galleries and explainers; the page gives the fields (FAQ 3), what to change in a template (FAQ 4), a seven-step how-to from official rules to a draw, and four contest types (giveaway, writing, referral, public vote)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Organizer vocabulary: 'one entry per email', 'names alternates', 'Pick the exact closing minute and name its time zone in the rules', 'bonus entries stop at five'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Halfmoon Coffee Roasters is giving away a year of coffee...', 'Set out who can enter, the entry period, the prize...', 'Enter twice from one email...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Varied, short sentences; repeated 'entries' recorded as a note only."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Reads operator-written: 'Entry 0147 arrived at 2,740 words and went back with a note to cut 240.' Two forced link sentences recorded as notes."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "domain_sources is empty and no sentence states an FTC, legal or state-specific rule: compliance points are advice ('Before you add any purchase or payment step, check the rules that apply to your promotion.', 'Write the official rules first', 'name its time zone in the rules'). Emergent sentences map to prompt-build, database-owned, alerts, no-caps, code-export, free-start; table from the library (QC V2/V3 clean). Numbers add up: 1,316-32=1,284; 2,740-2,500=240; own entry + 5 bonus = 6; 412+389+205=1,006."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Writing contest, referral and mural vote stories keep clear of siblings photo contest form, raffle form and audition form; no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 organizer questions answered first ('Keep it short: name, email, a birth date...', 'Draw only from entries that passed your checks.'); paa --spec pass 10, reject 0, flag 0; hub link in item 2; moat lines in FAQ 6 and 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: 1,284 valid, 32 duplicates of 1,316, Ruth Ambrose winner with 2 alternates; entry 0147 at 2,740 of 2,500 words, cut 240, brackets 13 to 15 or 16 to 18; Lena Okonjo 7 friends, 6 entries, cap 5 (other rows 3->4, 2->3, 0->1); Riverlight 412, Tin Roof 389, Cornfield 205, 1,006 confirmed."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "Keep it as brief as a training feedback form: three or four questions at most.",
+    "issue": "The comparison exists to carry the sibling link and reads forced; a second link sentence does the same: 'If the prize is cash and your finance team pays by check, send it through a check request form with the winner's details attached.' (FAQ 10).",
+    "fix": "Give each link a reason the reader needs, or drop it for a more natural anchor.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 2a (Consistent)",
+    "field": "feature_2",
+    "quote": "Each new entry is matched on email and phone against everyone who has already entered.",
+    "issue": "The duplicate key shifts across fields: FAQ 6 'compare each new entry's email address', step 03 'Decide whether email or phone number identifies a person', tab 1 'one entry per email'. Not a contradiction, but the reader gets three versions of the rule.",
+    "fix": "Pick one framing (email, with phone optional) and use it in feature 2, step 03 and FAQ 6.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5 (comparison table)",
+    "field": "why_table",
+    "quote": "Google Forms",
+    "issue": "QC K7 P2: Google Forms is not in this page's top 10. Accepted: the rankers (Gravity Forms, Formstack, Formfacade) are not in the vetted form library, and Jotform and SurveyMonkey do rank.",
+    "fix": "Coordinator: add Gravity Forms or Formstack to rules/competitors/form.json for future contest pages.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "Of 1,316 entries, 32 reuse an address that already entered",
+    "issue": "QC Q9: 'entries' 23 times, 'draw' 15 and 'rules' 14 outside the FAQ.",
+    "fix": "Cut repeats where the noun is already clear from context (it, them), keeping one term for an entry.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "The comparison exists to carry the sibling link and reads forced; a second link sentence does the same: 'If the prize is cash and your finance team pays by check, send it through a check request form with the winner's details attached.' (FAQ 10).",
+   "fix": "Give each link a reason the reader needs, or drop it for a more natural anchor.",
+   "by": "A-r-37",
+   "via": "review",
+   "date": "2026-10-21 10:35 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 2a (Consistent)",
+   "field": "feature_2",
+   "issue": "The duplicate key shifts across fields: FAQ 6 'compare each new entry's email address', step 03 'Decide whether email or phone number identifies a person', tab 1 'one entry per email'. Not a contradiction, but the reader gets three versions of the rule.",
+   "fix": "Pick one framing (email, with phone optional) and use it in feature 2, step 03 and FAQ 6.",
+   "by": "A-r-37",
+   "via": "review",
+   "date": "2026-10-21 10:35 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5 (comparison table)",
+   "field": "why_table",
+   "issue": "QC K7 P2: Google Forms is not in this page's top 10. Accepted: the rankers (Gravity Forms, Formstack, Formfacade) are not in the vetted form library, and Jotform and SurveyMonkey do rank.",
+   "fix": "Coordinator: add Gravity Forms or Formstack to rules/competitors/form.json for future contest pages.",
+   "by": "A-r-37",
+   "via": "review",
+   "date": "2026-10-21 10:35 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "QC Q9: 'entries' 23 times, 'draw' 15 and 'rules' 14 outside the FAQ.",
+   "fix": "Cut repeats where the noun is already clear from context (it, them), keeping one term for an entry.",
+   "by": "A-r-37",
+   "via": "review",
+   "date": "2026-10-21 10:35 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "506d7ccd58273daf",
+   "alt:share_image": "02453185227e77a2",
+   "alt:tab_image_1": "855c72f3e86f3c0b",
+   "alt:tab_image_2": "dcdf897548d9e04a",
+   "alt:tab_image_3": "5f81bb49eb22cf84",
+   "alt:tab_image_4": "f3f50d3097420def",
+   "breadcrumb": "59fd41db44df5682",
+   "chip_adds": "676c6d288fefdd5e",
+   "explore_cta": "16fe39ff703a8ad6",
+   "faq": "5a6ee3268dc4f78d",
+   "feature_1": "372ceed63e3ce4cc",
+   "feature_2": "cc3434767f822887",
+   "feature_3": "1165f3d12d23862d",
+   "feature_4": "f22b37a32ccbd1db",
+   "feature_5": "7da478ba1fdc2355",
+   "feature_6": "71c8cd0a8cc2215b",
+   "features_heading": "0319ad29b9be53ab",
+   "features_subheading": "9bb51c78ead5df5b",
+   "h1": "bab626008801ce3a",
+   "hero_description": "719bbb37baab052f",
+   "hero_prompt": "78bf64c725420abb",
+   "howto_description": "fdbb6d59cce70289",
+   "howto_step_1_des": "a15d6454a68ff33b",
+   "howto_step_1_title": "2435f3a0b95f66c5",
+   "howto_step_2_des": "3a654804f22ddc1a",
+   "howto_step_2_title": "3da9657de5ad7f87",
+   "howto_step_3_des": "b8d734c6fa01a0af",
+   "howto_step_3_title": "0e9176417735e051",
+   "howto_step_4_des": "5e67d468aa608df3",
+   "howto_step_4_title": "34e2097bec8f1e27",
+   "howto_step_5_des": "c6563df636ce851f",
+   "howto_step_5_title": "f548e9172795aeea",
+   "howto_step_6_des": "d527e410aaaeea79",
+   "howto_step_6_title": "233d9a844583284d",
+   "howto_step_7_des": "005db83699ba1673",
+   "howto_step_7_title": "f1749e65d327819d",
+   "howto_title": "262c6b296bc8a11b",
+   "meta_description": "c1c37960092c4ed1",
+   "meta_title": "4d737ccb66bc4a56",
+   "mockup": "2bb5a235afb13191",
+   "product_name": "e5429550a841051b",
+   "prompt_chip_1": "d590273cc840f862",
+   "prompt_chip_2": "e81f17a87aaddfb5",
+   "prompt_chip_3": "ad162a58114f6fa2",
+   "prompt_chip_4": "04fbf4df73ec1ebe",
+   "slug": "40da52bd337a88ca",
+   "tab_content_1": "38e6b8c33efdd5f8",
+   "tab_content_2": "20273b03ca8f2ec8",
+   "tab_content_3": "b41f9ced7047cfc3",
+   "tab_content_4": "8ac06eb20fee4567",
+   "tab_label_1": "00dd2a803e4e3229",
+   "tab_label_2": "7b25074459bc17d2",
+   "tab_label_3": "7944d209d3d8b758",
+   "tab_label_4": "220996fbdab347d6",
+   "usecase_heading": "045dd58748ab5154",
+   "why_description": "32fa572308f7df6f",
+   "why_table": "c199d4f8dcd66845",
+   "why_title": "c93618bbb6b11f93"
+  },
+  "all": "0cfdf22478d7ec30",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "506d7ccd58273daf",
+   "alt:share_image": "02453185227e77a2",
+   "alt:tab_image_1": "855c72f3e86f3c0b",
+   "alt:tab_image_2": "dcdf897548d9e04a",
+   "alt:tab_image_3": "5f81bb49eb22cf84",
+   "alt:tab_image_4": "f3f50d3097420def",
+   "breadcrumb": "59fd41db44df5682",
+   "chip_adds": "676c6d288fefdd5e",
+   "explore_cta": "16fe39ff703a8ad6",
+   "faq": "5a6ee3268dc4f78d",
+   "feature_1": "372ceed63e3ce4cc",
+   "feature_2": "cc3434767f822887",
+   "feature_3": "1165f3d12d23862d",
+   "feature_4": "f22b37a32ccbd1db",
+   "feature_5": "7da478ba1fdc2355",
+   "feature_6": "71c8cd0a8cc2215b",
+   "features_heading": "0319ad29b9be53ab",
+   "features_subheading": "9bb51c78ead5df5b",
+   "h1": "bab626008801ce3a",
+   "hero_description": "719bbb37baab052f",
+   "hero_prompt": "78bf64c725420abb",
+   "howto_description": "fdbb6d59cce70289",
+   "howto_step_1_des": "a15d6454a68ff33b",
+   "howto_step_1_title": "2435f3a0b95f66c5",
+   "howto_step_2_des": "3a654804f22ddc1a",
+   "howto_step_2_title": "3da9657de5ad7f87",
+   "howto_step_3_des": "b8d734c6fa01a0af",
+   "howto_step_3_title": "0e9176417735e051",
+   "howto_step_4_des": "5e67d468aa608df3",
+   "howto_step_4_title": "34e2097bec8f1e27",
+   "howto_step_5_des": "c6563df636ce851f",
+   "howto_step_5_title": "f548e9172795aeea",
+   "howto_step_6_des": "d527e410aaaeea79",
+   "howto_step_6_title": "233d9a844583284d",
+   "howto_step_7_des": "005db83699ba1673",
+   "howto_step_7_title": "f1749e65d327819d",
+   "howto_title": "262c6b296bc8a11b",
+   "meta_description": "c1c37960092c4ed1",
+   "meta_title": "4d737ccb66bc4a56",
+   "mockup": "2bb5a235afb13191",
+   "product_name": "e5429550a841051b",
+   "prompt_chip_1": "d590273cc840f862",
+   "prompt_chip_2": "e81f17a87aaddfb5",
+   "prompt_chip_3": "ad162a58114f6fa2",
+   "prompt_chip_4": "04fbf4df73ec1ebe",
+   "slug": "40da52bd337a88ca",
+   "tab_content_1": "38e6b8c33efdd5f8",
+   "tab_content_2": "20273b03ca8f2ec8",
+   "tab_content_3": "b41f9ced7047cfc3",
+   "tab_content_4": "8ac06eb20fee4567",
+   "tab_label_1": "00dd2a803e4e3229",
+   "tab_label_2": "7b25074459bc17d2",
+   "tab_label_3": "7944d209d3d8b758",
+   "tab_label_4": "220996fbdab347d6",
+   "usecase_heading": "045dd58748ab5154",
+   "why_description": "32fa572308f7df6f",
+   "why_table": "c199d4f8dcd66845",
+   "why_title": "c93618bbb6b11f93"
+  },
+  "all": "0cfdf22478d7ec30",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
