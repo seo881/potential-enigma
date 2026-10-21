@@ -115,6 +115,13 @@
    "via": null,
    "by": "A-w-115",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 06:06 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-26",
+   "note": "[truth | HUB_RULES 8] faq: The page contradicts itself. \"Which days they would come in\" cannot be answered on a 1 to 5 scale, and the page's own examples ask it as a weekday pick (tab_content_2 \"pick the days they would come in\"; mockup officeDays) and ask the late-calls count with \"choices of 0, 1 "
   }
  ],
  "pipeline": "r15",
@@ -946,5 +953,295 @@
  },
  "writers": [
   "A-w-115"
- ]
+ ],
+ "review": {
+  "by": "A-r-26",
+  "date": "2026-10-21 06:06 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Remote Work Survey for Every Time Zone\", meta title \"Remote Work Survey Questions and Builder | Emergent\" and hero \"Build a remote work survey that asks about home setup and meeting hours, and saves every answer to a database you own.\" carry the whole primary; how-to description is one sentence that says what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder intent plus the questions secondary: FAQ 1 \"Good remote work survey questions cover home setup, schedule, meeting hours, team connection, and manager support\", four worked survey examples in the tabs, a seven-step how-to and a comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Remote-work vocabulary throughout: \"ask how many calls start after 6 p.m. your time, not after 3 p.m. Eastern\", \"40 desks and is closed on Mondays\", \"pull each person's department and time zone\"; table generated from the library (QC V2/V3 pass)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: \"Tell Emergent whether the team is fully remote or hybrid...\", \"Okeford Labs asks its 64 remote staff...\", \"List the decisions the results could feed...\"."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; QC Q5/Q6/Q7 clean. Notes recorded for 9 \"A, B, and C\" lists and a 35-word sentence in feature_4."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain, concrete operator voice: \"Answers arrive tagged, and nobody retypes the org chart into a spreadsheet.\" Triplet-heavy rhythm recorded as a note."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "FAQ 1 \"Use one 1 to 5 scale for all of them\" covers \"which days they would come in\" and the late-calls count, which tabs 2 and 3 ask as day picks and 0 / 1 to 2 / 3 or more. Every Emergent sentence maps to claims_used (prompt-build, database-owned, alerts, conversational, no-caps, custom-domain, code-export, free-start, api-connect); Pew and Qualtrics statements match their quoted spans."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own angle (one named person acts on each survey: IT lead, office manager, engineering manager, HR partner); sibling primaries (pulse survey, onboarding survey) appear only as FAQ links, never as headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic builder questions, PAA gate 10 pass / 0 reject / 0 flag, verbatim Q1 ok; hub link in item 2; sibling links manager feedback survey, onboarding survey, pulse survey; F9 moat lines in items 3, 8, 10. The FAQ 1 scale contradiction is scored under truth."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 2 image: KPI \"Weekday picks 112\" above bars that total 196 picks (71 + 64 + 52 + 9); Thursday drawn at 52 picks against 40 desks, unflagged, while the copy rotates only \"both busy days\" and the hero flags only Tuesday and Wednesday as \"Over 40 desks\". Tabs 1, 3 and 4 match their copy on names and numbers."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Ask whether people have the equipment they need, which days they would come in, how many calls start outside their working hours, and whether they know who to ask for help. Use one 1 to 5 scale for all of them.",
+    "issue": "The page contradicts itself. \"Which days they would come in\" cannot be answered on a 1 to 5 scale, and the page's own examples ask it as a weekday pick (tab_content_2 \"pick the days they would come in\"; mockup officeDays) and ask the late-calls count with \"choices of 0, 1 to 2, and 3 or more\" (mockup timeZones; tab_content_3 \"5 of 6 engineers say 3 or more\"). Only one instance of this class on the page; howto_step_3_des \"each on the same 1 to 5 scale\" is limited to equipment and internet speed and is fine.",
+    "fix": "Limit the scale advice to the rating questions, e.g. \"Rate setup and connection on one 1 to 5 scale, and ask days and call counts as choices.\", or drop the sentence.",
+    "severity": "blocking"
+   },
+   {
+    "class": "wrong-fact",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "image_brief.tabs[1]; image_brief.checks",
+    "quote": "Weekday picks 112",
+    "issue": "The KPI labels 112 as weekday picks, but 112 is the number of people (tab_content_2 \"Its 112 people on a hybrid schedule pick the days\"); the bars beside it total 71 + 64 + 52 + 9 = 196 picks. A drawn number that does not follow from the others.",
+    "fix": "Relabel the KPI to the people count (e.g. label \"People asked\" or \"Hybrid staff\", value 112, sub \"40 desks in Denver\"), and keep the checks entry true.",
+    "severity": "blocking"
+   },
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief.tabs[1]; image_brief.checks; tab_content_2",
+    "quote": "Office manager Teodor Blaine gets the counts by day and sets a team rotation for both busy days.",
+    "issue": "The image draws Thursday at 52 picks, unflagged, against 40 desks. That is a third day over capacity, so the copy's \"both busy days\", the hero chip \"Over 40 desks\" shown with only \"Tuesday: 71 picks / Wednesday: 64 picks\", and the mockup rule \"when any day draws more picks than desks\" all disagree with the chart.",
+    "fix": "Draw Thursday under 40 (e.g. 34) and update image_brief.checks to match, or drop the Thursday bar; leave the copy as is.",
+    "severity": "blocking"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_1; faq; why_description",
+    "quote": "and a prompt edits any question",
+    "issue": "The edit-by-prompt idea is restated with words swapped in three non-template fields: feature_1 \"and a prompt edits any question\"; faq item 3 \"and you edit them by prompting\"; why_description \"one prompt rewrites next quarter's questions without a rebuild\" (FAQ 2 is the template slot and not counted).",
+    "fix": "Keep it in feature_1 and give FAQ 3 and the why line a different concrete point.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "meta_description; feature_1; feature_4; feature_6; tab_content_1; tab_content_3; tab_content_4; faq",
+    "quote": "office days, time zones, and team connection",
+    "issue": "Nine \"A, B, and C\" lists make the rhythm read templated (QC Q8): meta_description \"home setup, office days, time zones, and team connection\"; feature_1 \"like setup and meeting hours\"; feature_4 \"by Slack, email, or an in-app alert\"; feature_6 \"ready to change or host\"; tab_content_1 \"Imogen Rask, with each name and item\"; tab_content_3 \"Pacific, Eastern, and London time\"; tab_content_4 \"Sales, Product, and Finance\"; faq item 1 \"meeting hours, team connection, and manager support\"; faq item 8 \"fully remote, hybrid, or in the office\".",
+    "fix": "Turn two or three of them into pairs or one specific.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_4",
+    "quote": "Set a rule, such as a team score under 3.0 on one question, and the app sends that team's results to a named person by Slack, email, or an in-app alert, with a reminder later.",
+    "issue": "35-word sentence carrying three ideas (rule, channel, reminder) with a tacked-on \"with a reminder later\". Only instance on the page.",
+    "fix": "Split after the rule: \"...sends that team's results to a named person. A reminder follows by Slack or email.\"",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq; howto_step_1_des",
+    "quote": "Keep it under 15 questions, with a single open question at the end.",
+    "issue": "Recommendations with no source behind the specific numbers: faq item 6 \"Keep it under 15 questions\"; faq item 7 \"an onboarding survey at 30 and 90 days\"; howto_step_1_des \"A survey built around 2 or 3 decisions stays short enough to finish.\" Advice, so a note.",
+    "fix": "None required; a source or softer framing would strengthen them.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_1; faq; why_description",
+   "issue": "The edit-by-prompt idea is restated with words swapped in three non-template fields: feature_1 \"and a prompt edits any question\"; faq item 3 \"and you edit them by prompting\"; why_description \"one prompt rewrites next quarter's questions without a rebuild\" (FAQ 2 is the template slot and not counted).",
+   "fix": "Keep it in feature_1 and give FAQ 3 and the why line a different concrete point.",
+   "by": "A-r-26",
+   "via": "review",
+   "date": "2026-10-21 06:06 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "meta_description; feature_1; feature_4; feature_6; tab_content_1; tab_content_3; tab_content_4; faq",
+   "issue": "Nine \"A, B, and C\" lists make the rhythm read templated (QC Q8): meta_description \"home setup, office days, time zones, and team connection\"; feature_1 \"like setup and meeting hours\"; feature_4 \"by Slack, email, or an in-app alert\"; feature_6 \"ready to change or host\"; tab_content_1 \"Imogen Rask, with each name and item\"; tab_content_3 \"Pacific, Eastern, and London time\"; tab_content_4 \"Sales, Product, and Finance\"; faq item 1 \"meeting hours, team connection, and manager support\"; faq item 8 \"fully remote, hybrid, or in the office\".",
+   "fix": "Turn two or three of them into pairs or one specific.",
+   "by": "A-r-26",
+   "via": "review",
+   "date": "2026-10-21 06:06 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_4",
+   "issue": "35-word sentence carrying three ideas (rule, channel, reminder) with a tacked-on \"with a reminder later\". Only instance on the page.",
+   "fix": "Split after the rule: \"...sends that team's results to a named person. A reminder follows by Slack or email.\"",
+   "by": "A-r-26",
+   "via": "review",
+   "date": "2026-10-21 06:06 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq; howto_step_1_des",
+   "issue": "Recommendations with no source behind the specific numbers: faq item 6 \"Keep it under 15 questions\"; faq item 7 \"an onboarding survey at 30 and 90 days\"; howto_step_1_des \"A survey built around 2 or 3 decisions stays short enough to finish.\" Advice, so a note.",
+   "fix": "None required; a source or softer framing would strengthen them.",
+   "by": "A-r-26",
+   "via": "review",
+   "date": "2026-10-21 06:06 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "416d4488a9e21523",
+   "alt:share_image": "36b78bdabda776ee",
+   "alt:tab_image_1": "edf67633133443b7",
+   "alt:tab_image_2": "e2dfaa1a469128b1",
+   "alt:tab_image_3": "f5d1219a938dbfbb",
+   "alt:tab_image_4": "444b7814827492dc",
+   "breadcrumb": "1f15b976d3d9b7c3",
+   "chip_adds": "15c84d014e2e9b84",
+   "explore_cta": "58034752d2d489a8",
+   "faq": "d101f03c4b091eb4",
+   "feature_1": "53de703df88c6744",
+   "feature_2": "d29b65050f1fab80",
+   "feature_3": "a1b313b927b01b90",
+   "feature_4": "203fab5b7439fb66",
+   "feature_5": "b969ab15dce621f6",
+   "feature_6": "9a08bf568c1ebd4c",
+   "features_heading": "02551f21b4276ddc",
+   "features_subheading": "8609f42cd10ad7e2",
+   "h1": "ef427a582575e53b",
+   "hero_description": "be82ea014cffdc2e",
+   "hero_prompt": "014c65cc737376c2",
+   "howto_description": "41273b393e93c42f",
+   "howto_step_1_des": "94535ffafde86350",
+   "howto_step_1_title": "8d8e0e01c09ade78",
+   "howto_step_2_des": "463334bbb1c90a34",
+   "howto_step_2_title": "3c934a11e0bfcb8c",
+   "howto_step_3_des": "bbe2ee699f53520e",
+   "howto_step_3_title": "c9de9c1fb182f2a6",
+   "howto_step_4_des": "4c832dcb567130e8",
+   "howto_step_4_title": "e800cf2e2c49ea1d",
+   "howto_step_5_des": "8b5a72cf4e6edddf",
+   "howto_step_5_title": "21e1116f723d0b98",
+   "howto_step_6_des": "10da3dc04e715589",
+   "howto_step_6_title": "7e009d94f45c6248",
+   "howto_step_7_des": "63eec63a5b3d4760",
+   "howto_step_7_title": "721b64651a74c971",
+   "howto_title": "ffe5522adcd5b3c0",
+   "meta_description": "646222b82db21e31",
+   "meta_title": "4e9a7fbd624da2c3",
+   "mockup": "cb9941e5a145db3f",
+   "product_name": "505f1b32af6f12d2",
+   "prompt_chip_1": "2775bacb6b0b0cec",
+   "prompt_chip_2": "14e8c6626e89fbb0",
+   "prompt_chip_3": "59c3e24a0bbe1574",
+   "prompt_chip_4": "edf6bdcdb8d6626c",
+   "slug": "f5dd87f7f319b268",
+   "tab_content_1": "29b1d57e8b0f7fb2",
+   "tab_content_2": "4a6d75baf5f08183",
+   "tab_content_3": "3dac4e10696ae890",
+   "tab_content_4": "ef4e9d5c64ab1382",
+   "tab_label_1": "2775bacb6b0b0cec",
+   "tab_label_2": "864a7acdd1400721",
+   "tab_label_3": "0ce10c1f18c7a758",
+   "tab_label_4": "edf6bdcdb8d6626c",
+   "usecase_heading": "6319e2c29fc0f7aa",
+   "why_description": "6da279092d9c1c75",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "731b4d03ba5484d8"
+  },
+  "all": "53ec1ee676c80803",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "416d4488a9e21523",
+   "alt:share_image": "36b78bdabda776ee",
+   "alt:tab_image_1": "edf67633133443b7",
+   "alt:tab_image_2": "e2dfaa1a469128b1",
+   "alt:tab_image_3": "f5d1219a938dbfbb",
+   "alt:tab_image_4": "444b7814827492dc",
+   "breadcrumb": "1f15b976d3d9b7c3",
+   "chip_adds": "15c84d014e2e9b84",
+   "explore_cta": "58034752d2d489a8",
+   "faq": "d101f03c4b091eb4",
+   "feature_1": "53de703df88c6744",
+   "feature_2": "d29b65050f1fab80",
+   "feature_3": "a1b313b927b01b90",
+   "feature_4": "203fab5b7439fb66",
+   "feature_5": "b969ab15dce621f6",
+   "feature_6": "9a08bf568c1ebd4c",
+   "features_heading": "02551f21b4276ddc",
+   "features_subheading": "8609f42cd10ad7e2",
+   "h1": "ef427a582575e53b",
+   "hero_description": "be82ea014cffdc2e",
+   "hero_prompt": "014c65cc737376c2",
+   "howto_description": "41273b393e93c42f",
+   "howto_step_1_des": "94535ffafde86350",
+   "howto_step_1_title": "8d8e0e01c09ade78",
+   "howto_step_2_des": "463334bbb1c90a34",
+   "howto_step_2_title": "3c934a11e0bfcb8c",
+   "howto_step_3_des": "bbe2ee699f53520e",
+   "howto_step_3_title": "c9de9c1fb182f2a6",
+   "howto_step_4_des": "4c832dcb567130e8",
+   "howto_step_4_title": "e800cf2e2c49ea1d",
+   "howto_step_5_des": "8b5a72cf4e6edddf",
+   "howto_step_5_title": "21e1116f723d0b98",
+   "howto_step_6_des": "10da3dc04e715589",
+   "howto_step_6_title": "7e009d94f45c6248",
+   "howto_step_7_des": "63eec63a5b3d4760",
+   "howto_step_7_title": "721b64651a74c971",
+   "howto_title": "ffe5522adcd5b3c0",
+   "meta_description": "646222b82db21e31",
+   "meta_title": "4e9a7fbd624da2c3",
+   "mockup": "cb9941e5a145db3f",
+   "product_name": "505f1b32af6f12d2",
+   "prompt_chip_1": "2775bacb6b0b0cec",
+   "prompt_chip_2": "14e8c6626e89fbb0",
+   "prompt_chip_3": "59c3e24a0bbe1574",
+   "prompt_chip_4": "edf6bdcdb8d6626c",
+   "slug": "f5dd87f7f319b268",
+   "tab_content_1": "29b1d57e8b0f7fb2",
+   "tab_content_2": "4a6d75baf5f08183",
+   "tab_content_3": "3dac4e10696ae890",
+   "tab_content_4": "ef4e9d5c64ab1382",
+   "tab_label_1": "2775bacb6b0b0cec",
+   "tab_label_2": "864a7acdd1400721",
+   "tab_label_3": "0ce10c1f18c7a758",
+   "tab_label_4": "edf6bdcdb8d6626c",
+   "usecase_heading": "6319e2c29fc0f7aa",
+   "why_description": "6da279092d9c1c75",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "731b4d03ba5484d8"
+  },
+  "all": "53ec1ee676c80803",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
