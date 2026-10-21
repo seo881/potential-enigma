@@ -122,6 +122,13 @@
    "via": null,
    "by": "A-w-109",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 05:52 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-22",
+   "note": "rubric 10/10 by A-r-22; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -930,5 +937,285 @@
  },
  "writers": [
   "A-w-109"
- ]
+ ],
+ "review": {
+  "by": "A-r-22",
+  "date": "2026-10-21 05:52 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Daycare Registration Form That Runs Enrollment'; hero 'Build a daycare registration form that places children by birth date and keeps every family in a database you own.' covers the whole job, no sibling topic."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is state licensing PDFs plus template pages; page lists what the form asks (features, steps 2-4), tells the reader to check 'your state's licensing requirements' (step 6), and answers the template and PDF secondaries (FAQ 3, FAQ 9)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Daycare vocabulary throughout: 'authorized pickup list', 'immunization record', 'infant room', '$75 registration fee', 'custody order staff must follow'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs: 'Collect the child's legal name', 'Parents name each adult', 'Ask about allergies', 'Offer full-time care'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; two ', so' endings (feature_3, feature_4) recorded as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous details: 'a substitute teacher sees a peanut allergy before snack time', 'A neighbor who can be called ... is not always someone the parent allows to take the child home'."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent statements map to prompt-build, database-owned, api-connect (Stripe), alerts, e-signature-capture, code-export, free-start, no-caps; no third-party or legal fact stated (licensing left to 'check your state's licensing requirements'); Oct 19 + 14 days = Monday, Nov 2 (2026), 31 + 9 = 40, 8 infant / 12 toddler seats agree in copy and image."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Room placement by birth date, home-provider fee, immunization chase and March re-registration are daycare-specific; siblings (summer camp, conference, registration form) are linked, not targeted."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 builder-intent questions, PAA gate 10 pass 0 reject 0 flag; hub link in item 2; sibling links 'summer camp registration form', 'conference registration form', 'registration form'; moat lines in items 8 and 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 '8 of 8 seats taken', 'Toddler room: 12 seats', Wren on waitlist; tab 2 '$75 fee paid, Through Marisol's Stripe account', '6 children'; tab 3 'Sent Oct 19', 'Monday, Nov 2', 'Email to Leah Beaumont-Kerr'; tab 4 '40 families', '31 families done', 'Emailed 9 families', 'Every Monday until done'."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "features_subheading / faq 1 / faq 10",
+    "quote": "Each section answers something staff need on a child's first morning",
+    "issue": "The 'first morning' idea is stated three times: features_subheading 'something staff need on a child's first morning'; FAQ 1 'one record to check on a child's first morning'; FAQ 10 'walk the family toward their first morning'.",
+    "fix": "Keep it once (features_subheading) and give FAQ 1 and FAQ 10 their own point.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "feature_3 / feature_4",
+    "quote": "Each answer sits on the child's card, so a substitute teacher sees a peanut allergy before snack time.",
+    "issue": "Two ', so' endings in back-to-back feature bodies (feature_3 above; feature_4 'Each choice saves to the family's row, so the director can count which children are due in on any morning.'), same rhythm twice.",
+    "fix": "Recast one as its own sentence.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq 8 / faq 9",
+    "quote": "With Emergent, those answers live in a database you own.",
+    "issue": "Moat lines read bolted on rather than answering the question: FAQ 8 'With Emergent, those answers live in a database you own.'; FAQ 9 'There are no response caps, however many families register in the first week.'",
+    "fix": "Tie each to the question (for FAQ 8, that a parent's change updates the same record staff open at pickup).",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "child",
+    "issue": "QC Q9: 'child' appears 22 times, 'room' 12, 'parent' 9 outside the FAQ; reads repetitive in features and tabs.",
+    "fix": "Vary with names, 'your two-year-old', 'the family' where the referent is clear.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Google Forms | Typeform",
+    "issue": "QC K7: Google Forms and Typeform do not rank in this page's top 10 (Jotform does); HUB_RULES 5 asks for the 3 competitors that rank for the query.",
+    "fix": "If the library holds an enrollment-forms vendor, prefer it on the next refresh; no change needed to ship.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "features_subheading / faq 1 / faq 10",
+   "issue": "The 'first morning' idea is stated three times: features_subheading 'something staff need on a child's first morning'; FAQ 1 'one record to check on a child's first morning'; FAQ 10 'walk the family toward their first morning'.",
+   "fix": "Keep it once (features_subheading) and give FAQ 1 and FAQ 10 their own point.",
+   "by": "A-r-22",
+   "via": "review",
+   "date": "2026-10-21 05:52 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "feature_3 / feature_4",
+   "issue": "Two ', so' endings in back-to-back feature bodies (feature_3 above; feature_4 'Each choice saves to the family's row, so the director can count which children are due in on any morning.'), same rhythm twice.",
+   "fix": "Recast one as its own sentence.",
+   "by": "A-r-22",
+   "via": "review",
+   "date": "2026-10-21 05:52 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq 8 / faq 9",
+   "issue": "Moat lines read bolted on rather than answering the question: FAQ 8 'With Emergent, those answers live in a database you own.'; FAQ 9 'There are no response caps, however many families register in the first week.'",
+   "fix": "Tie each to the question (for FAQ 8, that a parent's change updates the same record staff open at pickup).",
+   "by": "A-r-22",
+   "via": "review",
+   "date": "2026-10-21 05:52 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "QC Q9: 'child' appears 22 times, 'room' 12, 'parent' 9 outside the FAQ; reads repetitive in features and tabs.",
+   "fix": "Vary with names, 'your two-year-old', 'the family' where the referent is clear.",
+   "by": "A-r-22",
+   "via": "review",
+   "date": "2026-10-21 05:52 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: Google Forms and Typeform do not rank in this page's top 10 (Jotform does); HUB_RULES 5 asks for the 3 competitors that rank for the query.",
+   "fix": "If the library holds an enrollment-forms vendor, prefer it on the next refresh; no change needed to ship.",
+   "by": "A-r-22",
+   "via": "review",
+   "date": "2026-10-21 05:52 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "c177ce6f2795d0d7",
+   "alt:share_image": "6adb770320ff6a4f",
+   "alt:tab_image_1": "750495f75a6d76d2",
+   "alt:tab_image_2": "2cbb2017fbed4ef2",
+   "alt:tab_image_3": "85a7d6d89eb0c0f1",
+   "alt:tab_image_4": "51288e35e0953aca",
+   "breadcrumb": "e3fc148190def200",
+   "chip_adds": "574c97dfb565ad69",
+   "explore_cta": "b09ec8d08cecbc40",
+   "faq": "4e057a7af8a57039",
+   "feature_1": "ab5188e58bd3eacc",
+   "feature_2": "e3527f4dc5c390a2",
+   "feature_3": "081b98f5a0828e91",
+   "feature_4": "2785beac748116ca",
+   "feature_5": "cf369e16c83101e3",
+   "feature_6": "003cda52b109850e",
+   "features_heading": "fda7c110efa8b806",
+   "features_subheading": "355e6ad7dad9531c",
+   "h1": "6a0a7a01a158d7a2",
+   "hero_description": "23bb1fee9b197ed4",
+   "hero_prompt": "1ca56a2a4261c08d",
+   "howto_description": "c923e6247180929b",
+   "howto_step_1_des": "5949c7ab85df5114",
+   "howto_step_1_title": "0bf1593263d838b7",
+   "howto_step_2_des": "810a0d4fd34d7e30",
+   "howto_step_2_title": "218cd34dc6c21708",
+   "howto_step_3_des": "4ae8b91aa3ed4679",
+   "howto_step_3_title": "09efcb12612f49b1",
+   "howto_step_4_des": "61e8cbea11e0b751",
+   "howto_step_4_title": "eb84f0a3fb883481",
+   "howto_step_5_des": "a7a394cf4dd31877",
+   "howto_step_5_title": "d9be38d54a09dd5e",
+   "howto_step_6_des": "f80e322d0349c484",
+   "howto_step_6_title": "7c37e281628ddcbb",
+   "howto_step_7_des": "ec4555f1fe20f533",
+   "howto_step_7_title": "5480d5501f6e8d37",
+   "howto_title": "9e26da5a4dcfa7b9",
+   "meta_description": "5be132127ec24e31",
+   "meta_title": "5bdb76d44cf0f9ed",
+   "mockup": "fe105f4ab8ed6370",
+   "product_name": "8b09691732fd3677",
+   "prompt_chip_1": "2b3a7510597e128a",
+   "prompt_chip_2": "507b847312cc52dc",
+   "prompt_chip_3": "e476255a40a14c98",
+   "prompt_chip_4": "529f642caac19068",
+   "slug": "0fec482a7e0ff8f4",
+   "tab_content_1": "925707b1cc84f872",
+   "tab_content_2": "4f1f93a975059b7a",
+   "tab_content_3": "d8844d51a616a492",
+   "tab_content_4": "c179a8fe9af8f3e1",
+   "tab_label_1": "373cdc0ab71a89f3",
+   "tab_label_2": "9a818f4e75c5a64f",
+   "tab_label_3": "e476255a40a14c98",
+   "tab_label_4": "f3ec6350f6a5c0f2",
+   "usecase_heading": "621a48c0397244fc",
+   "why_description": "cdff3b65e990baf7",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "e2c75662b1925d41"
+  },
+  "all": "9d8acee1a1141c6e",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "c177ce6f2795d0d7",
+   "alt:share_image": "6adb770320ff6a4f",
+   "alt:tab_image_1": "750495f75a6d76d2",
+   "alt:tab_image_2": "2cbb2017fbed4ef2",
+   "alt:tab_image_3": "85a7d6d89eb0c0f1",
+   "alt:tab_image_4": "51288e35e0953aca",
+   "breadcrumb": "e3fc148190def200",
+   "chip_adds": "574c97dfb565ad69",
+   "explore_cta": "b09ec8d08cecbc40",
+   "faq": "4e057a7af8a57039",
+   "feature_1": "ab5188e58bd3eacc",
+   "feature_2": "e3527f4dc5c390a2",
+   "feature_3": "081b98f5a0828e91",
+   "feature_4": "2785beac748116ca",
+   "feature_5": "cf369e16c83101e3",
+   "feature_6": "003cda52b109850e",
+   "features_heading": "fda7c110efa8b806",
+   "features_subheading": "355e6ad7dad9531c",
+   "h1": "6a0a7a01a158d7a2",
+   "hero_description": "23bb1fee9b197ed4",
+   "hero_prompt": "1ca56a2a4261c08d",
+   "howto_description": "c923e6247180929b",
+   "howto_step_1_des": "5949c7ab85df5114",
+   "howto_step_1_title": "0bf1593263d838b7",
+   "howto_step_2_des": "810a0d4fd34d7e30",
+   "howto_step_2_title": "218cd34dc6c21708",
+   "howto_step_3_des": "4ae8b91aa3ed4679",
+   "howto_step_3_title": "09efcb12612f49b1",
+   "howto_step_4_des": "61e8cbea11e0b751",
+   "howto_step_4_title": "eb84f0a3fb883481",
+   "howto_step_5_des": "a7a394cf4dd31877",
+   "howto_step_5_title": "d9be38d54a09dd5e",
+   "howto_step_6_des": "f80e322d0349c484",
+   "howto_step_6_title": "7c37e281628ddcbb",
+   "howto_step_7_des": "ec4555f1fe20f533",
+   "howto_step_7_title": "5480d5501f6e8d37",
+   "howto_title": "9e26da5a4dcfa7b9",
+   "meta_description": "5be132127ec24e31",
+   "meta_title": "5bdb76d44cf0f9ed",
+   "mockup": "fe105f4ab8ed6370",
+   "product_name": "8b09691732fd3677",
+   "prompt_chip_1": "2b3a7510597e128a",
+   "prompt_chip_2": "507b847312cc52dc",
+   "prompt_chip_3": "e476255a40a14c98",
+   "prompt_chip_4": "529f642caac19068",
+   "slug": "0fec482a7e0ff8f4",
+   "tab_content_1": "925707b1cc84f872",
+   "tab_content_2": "4f1f93a975059b7a",
+   "tab_content_3": "d8844d51a616a492",
+   "tab_content_4": "c179a8fe9af8f3e1",
+   "tab_label_1": "373cdc0ab71a89f3",
+   "tab_label_2": "9a818f4e75c5a64f",
+   "tab_label_3": "e476255a40a14c98",
+   "tab_label_4": "f3ec6350f6a5c0f2",
+   "usecase_heading": "621a48c0397244fc",
+   "why_description": "cdff3b65e990baf7",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "e2c75662b1925d41"
+  },
+  "all": "9d8acee1a1141c6e",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
