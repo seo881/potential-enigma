@@ -115,6 +115,13 @@
    "via": null,
    "by": "A-w-121",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 06:17 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-27",
+   "note": "[truth | HUB_RULES 8] faq item 6: States as fact that a bill of lading needs the pickup address and the carton count. The only domain_sources span (trade.gov common export documents) says a bill of lading is a contract between the owner of the goods and the carrier; the reviewer checked the page and"
   }
  ],
  "pipeline": "r15",
@@ -915,5 +922,295 @@
  },
  "writers": [
   "A-w-121"
- ]
+ ],
+ "review": {
+  "by": "A-r-27",
+  "date": "2026-10-21 06:17 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Shipping Form That Reaches the Dock Complete'; hero 'Build a shipping form that asks what is in the box and which account pays, then sends each request to your shipping desk.' carries the primary and leads with Build; how-to description 'Follow these 7 steps to build a shipping form, write its routing rules, and test it before the first real shipment goes out.' is one sentence. Meta title 'Shipping Form Builder for Internal Requests' matches the brief's internal-request angle."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder-fit SERP with an internal shipping request angle: FAQ 3 lists what a shipping request form should include, FAQ 5 customs details, FAQ 10 Incoterms, step 5 replaces 'the shipping form PDF off the mailroom door', four worked request flows in the tabs."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Shipping-desk vocabulary throughout: 'grant, cost center, or client code', 'weight off the scale and the carton dimensions', 'a line per item, with an HS code, a country of origin, and a value', 'Booth crates at Pellmont Software ship 12 days before a trade show opens'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens with a full sentence: 'Researchers at Kessington University ship through one form...', 'Choose a shipment that took several emails to sort out.', 'The form requires the grant, cost center, or client code...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No sentence over 40 words, no tacked-on endings; longest sentences (FAQ 1, 4, 6 at 33-38 words) are flagged P2 only."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Calm, concrete operator voice: 'A request nobody has booked by 4 p.m. sends a reminder to the desk.', 'Saskia Drummel's carton for order 20417 comes in at 58 lb'. Word repetition ('request', 'desk') is a note."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "FAQ 6 'since the freight desk needs them for the bill of lading' ties pickup address and carton count to the bill of lading; the quoted trade.gov span only says a bill of lading is a contract between the owner of the goods and the carrier, and the page says nothing about its contents. Other third-party facts hold: FAQ 5 HS 6-digit level and commercial invoice role, FAQ 10 Incoterms both match their quoted spans. Emergent claims map to prompt-build, alerts, database-owned, no-caps, code-export, free-start. Image numbers check: 2 x $1,080 + $300 = $2,460; 4 cartons, 3 to parcel pickup; November 19 - 12 days = November 7."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Internal shipping request page, distinct from shipping-address-form (label-order address collection); customer orders deferred to the order-form siblings ('A customer choosing a size and paying for delivery belongs on an order form'); no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 questions, answer-first, no brand or file-format ask; hub link in item 2; sibling links t shirt order form, cookie order form, purchase order form; secondaries shipping request form, shipping form template, shipping form pdf, shipping forms covered; F9 lines in FAQ 8 and 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Each tab matches its copy on names and numbers: Marisol Etxeberria, 6 tubes of plasma, Monday's mailroom queue; order 20417 at 58 lb to the freight desk with the sealed-box photo; 2 amplifiers at $1,080 and a $300 cable set totalling $2,460; ship by November 7 posted in #events. One hero per panel, cursor on the button edge."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 6",
+    "quote": "Ask for the pickup address and the number of cartons too, since the freight desk needs them for the bill of lading, a contract between the owner of the goods and the carrier.",
+    "issue": "States as fact that a bill of lading needs the pickup address and the carton count. The only domain_sources span (trade.gov common export documents) says a bill of lading is a contract between the owner of the goods and the carrier; the reviewer checked the page and its bill of lading section lists no contents (package count and weight appear only under the packing list). Source scope stretched (rework-checklist 1 and 2). Searched the whole page for the same class: FAQ 5 'The desk uses those lines for the commercial invoice' holds (trade.gov: the invoice 'clearly states the goods being sold and the amount'); FAQ 10 Incoterms sentences match their spans; no other instance.",
+    "fix": "Either drop the bill-of-lading reason ('Ask for the pickup address and the number of cartons too, since the freight carrier books the pickup from them.') or add one domain_sources entry (8th and last slot) whose quoted span lists the shipper address and number of packages on a bill of lading, and keep the copy inside that span.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 7",
+    "quote": "A bakery that mails its cookies can show the ship day on its cookie order form, where customers see it before they pay.",
+    "issue": "The link sentence moves to a customer-facing checkout on a page whose angle is the internal shipping request; it reads as placed for the cookie order form link more than for the reader asking about perishables.",
+    "fix": "Keep the perishables answer on the request form (for example the packer's checklist or a no-weekend hold) and place the sibling link where it helps the reader.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "\"request\" appears 20 times and \"desk\" 12 times outside the FAQ (QC Q9)",
+    "issue": "Heavy repetition of the same nouns across features, tabs and steps flattens the rhythm.",
+    "fix": "Vary where meaning allows (shipment, booking, mailroom, dock).",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 8; faq item 3",
+    "quote": "have a trained person check any request that lists a hazardous material | Lab shipping forms should also ask whether anything inside is hazardous, because the desk needs that answer before it packs.",
+    "issue": "Hazardous-material recommendations carry no source; acceptable as advice.",
+    "fix": "Optional: source the hazmat training point if it is ever stated as a requirement.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief tab 1 hero",
+    "quote": "Held for Monday ... Book carrier",
+    "issue": "The held request's card puts 'Book carrier' as its primary action, which reads as booking now while the copy says the request waits for Monday's queue.",
+    "fix": "Label the action for the held state, e.g. 'Release Monday' or 'View queue'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Jotform | Google Forms | Typeform",
+    "issue": "QC K7: Google Forms and Typeform are not in this page's top 10, where 123FormBuilder holds a template slot.",
+    "fix": "Prefer a ranking builder if the library carries one (123FormBuilder) on the next table regeneration.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 7",
+   "issue": "The link sentence moves to a customer-facing checkout on a page whose angle is the internal shipping request; it reads as placed for the cookie order form link more than for the reader asking about perishables.",
+   "fix": "Keep the perishables answer on the request form (for example the packer's checklist or a no-weekend hold) and place the sibling link where it helps the reader.",
+   "by": "A-r-27",
+   "via": "review",
+   "date": "2026-10-21 06:17 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "Heavy repetition of the same nouns across features, tabs and steps flattens the rhythm.",
+   "fix": "Vary where meaning allows (shipment, booking, mailroom, dock).",
+   "by": "A-r-27",
+   "via": "review",
+   "date": "2026-10-21 06:17 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 8; faq item 3",
+   "issue": "Hazardous-material recommendations carry no source; acceptable as advice.",
+   "fix": "Optional: source the hazmat training point if it is ever stated as a requirement.",
+   "by": "A-r-27",
+   "via": "review",
+   "date": "2026-10-21 06:17 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief tab 1 hero",
+   "issue": "The held request's card puts 'Book carrier' as its primary action, which reads as booking now while the copy says the request waits for Monday's queue.",
+   "fix": "Label the action for the held state, e.g. 'Release Monday' or 'View queue'.",
+   "by": "A-r-27",
+   "via": "review",
+   "date": "2026-10-21 06:17 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: Google Forms and Typeform are not in this page's top 10, where 123FormBuilder holds a template slot.",
+   "fix": "Prefer a ranking builder if the library carries one (123FormBuilder) on the next table regeneration.",
+   "by": "A-r-27",
+   "via": "review",
+   "date": "2026-10-21 06:17 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "8576565d978928f9",
+   "alt:share_image": "a55ec2807034fb1b",
+   "alt:tab_image_1": "d61724c33b414257",
+   "alt:tab_image_2": "d76efd5a79f33990",
+   "alt:tab_image_3": "c7ac2f2bdd728358",
+   "alt:tab_image_4": "f2a1be0670c4cd2f",
+   "breadcrumb": "2f343ce16644b62a",
+   "chip_adds": "aa78816f109551eb",
+   "explore_cta": "ba76385326142dd9",
+   "faq": "98e4cba79ac8d91c",
+   "feature_1": "c982b5ad403a76d3",
+   "feature_2": "63b57f18c13bad29",
+   "feature_3": "fe71ed25b5ab00a5",
+   "feature_4": "3bb500766cbdbe92",
+   "feature_5": "d19c0ccedbfaf6c1",
+   "feature_6": "ba8f045cddf6438c",
+   "features_heading": "f71f9984f0e10c53",
+   "features_subheading": "6ac5dbdbb8fd448c",
+   "h1": "9a24538d39f57c82",
+   "hero_description": "01e21a022ecaefef",
+   "hero_prompt": "8f6c1b54c1a440ee",
+   "howto_description": "6c3105ea8fd7b436",
+   "howto_step_1_des": "d5072f2cb14f8d89",
+   "howto_step_1_title": "06116e4d20275769",
+   "howto_step_2_des": "e0a7e8a9547b4fd2",
+   "howto_step_2_title": "3fffcc19c1ac4e09",
+   "howto_step_3_des": "cf718cdc8f05770a",
+   "howto_step_3_title": "68ee8b578a2ac5c9",
+   "howto_step_4_des": "43fdbc3d144f38bc",
+   "howto_step_4_title": "f7ec6d51ec521c3f",
+   "howto_step_5_des": "8cd74f1315baf9bc",
+   "howto_step_5_title": "588ff855c6afef7f",
+   "howto_step_6_des": "d2392fa6c175f034",
+   "howto_step_6_title": "f61d8f9cd1504916",
+   "howto_step_7_des": "6722a16393b3a83c",
+   "howto_step_7_title": "e9efa1d9453ba396",
+   "howto_title": "9bf22749d42cbd41",
+   "meta_description": "bedc5e9ebfd17f2f",
+   "meta_title": "95b7bcaa5628e716",
+   "mockup": "91740583be92a509",
+   "product_name": "8c60460a09e76d4d",
+   "prompt_chip_1": "2db0625979859595",
+   "prompt_chip_2": "19257a6fc13eca9c",
+   "prompt_chip_3": "9f32f4448324ed31",
+   "prompt_chip_4": "6bb1be1132998ec6",
+   "slug": "56cd0639fdbb03dc",
+   "tab_content_1": "64a7d670da01a1a5",
+   "tab_content_2": "c4e361760e6ddae3",
+   "tab_content_3": "cbe8b8ab809e1f47",
+   "tab_content_4": "09061853f7690a67",
+   "tab_label_1": "05ad6f5b7607b03a",
+   "tab_label_2": "fdcd9efd54158915",
+   "tab_label_3": "8187114383d56ecf",
+   "tab_label_4": "cd9d15f8bdec117e",
+   "usecase_heading": "eb7999c58c728ac0",
+   "why_description": "fff829663b48d1a4",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "a14e2a47e8510002"
+  },
+  "all": "ece5488ca7104b37",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "8576565d978928f9",
+   "alt:share_image": "a55ec2807034fb1b",
+   "alt:tab_image_1": "d61724c33b414257",
+   "alt:tab_image_2": "d76efd5a79f33990",
+   "alt:tab_image_3": "c7ac2f2bdd728358",
+   "alt:tab_image_4": "f2a1be0670c4cd2f",
+   "breadcrumb": "2f343ce16644b62a",
+   "chip_adds": "aa78816f109551eb",
+   "explore_cta": "ba76385326142dd9",
+   "faq": "98e4cba79ac8d91c",
+   "feature_1": "c982b5ad403a76d3",
+   "feature_2": "63b57f18c13bad29",
+   "feature_3": "fe71ed25b5ab00a5",
+   "feature_4": "3bb500766cbdbe92",
+   "feature_5": "d19c0ccedbfaf6c1",
+   "feature_6": "ba8f045cddf6438c",
+   "features_heading": "f71f9984f0e10c53",
+   "features_subheading": "6ac5dbdbb8fd448c",
+   "h1": "9a24538d39f57c82",
+   "hero_description": "01e21a022ecaefef",
+   "hero_prompt": "8f6c1b54c1a440ee",
+   "howto_description": "6c3105ea8fd7b436",
+   "howto_step_1_des": "d5072f2cb14f8d89",
+   "howto_step_1_title": "06116e4d20275769",
+   "howto_step_2_des": "e0a7e8a9547b4fd2",
+   "howto_step_2_title": "3fffcc19c1ac4e09",
+   "howto_step_3_des": "cf718cdc8f05770a",
+   "howto_step_3_title": "68ee8b578a2ac5c9",
+   "howto_step_4_des": "43fdbc3d144f38bc",
+   "howto_step_4_title": "f7ec6d51ec521c3f",
+   "howto_step_5_des": "8cd74f1315baf9bc",
+   "howto_step_5_title": "588ff855c6afef7f",
+   "howto_step_6_des": "d2392fa6c175f034",
+   "howto_step_6_title": "f61d8f9cd1504916",
+   "howto_step_7_des": "6722a16393b3a83c",
+   "howto_step_7_title": "e9efa1d9453ba396",
+   "howto_title": "9bf22749d42cbd41",
+   "meta_description": "bedc5e9ebfd17f2f",
+   "meta_title": "95b7bcaa5628e716",
+   "mockup": "91740583be92a509",
+   "product_name": "8c60460a09e76d4d",
+   "prompt_chip_1": "2db0625979859595",
+   "prompt_chip_2": "19257a6fc13eca9c",
+   "prompt_chip_3": "9f32f4448324ed31",
+   "prompt_chip_4": "6bb1be1132998ec6",
+   "slug": "56cd0639fdbb03dc",
+   "tab_content_1": "64a7d670da01a1a5",
+   "tab_content_2": "c4e361760e6ddae3",
+   "tab_content_3": "cbe8b8ab809e1f47",
+   "tab_content_4": "09061853f7690a67",
+   "tab_label_1": "05ad6f5b7607b03a",
+   "tab_label_2": "fdcd9efd54158915",
+   "tab_label_3": "8187114383d56ecf",
+   "tab_label_4": "cd9d15f8bdec117e",
+   "usecase_heading": "eb7999c58c728ac0",
+   "why_description": "fff829663b48d1a4",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "a14e2a47e8510002"
+  },
+  "all": "ece5488ca7104b37",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
