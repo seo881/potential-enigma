@@ -140,3 +140,12 @@ Who holds a page:
    - staging (unhide for staging only, re-hide right after the checks, no production publish while anything is unhidden);
    - Divit's production go, then verify, relink and live audit.
 5. Token log per page: `hubctl usage-log <url> <tokens> --role writer --agent B-w-<n>` (B). A does the same for review and ship.
+
+## 2026-10-21 split (Divit, 2026-10-21; this section wins over older ones)
+| Account | Clone | Writes and reviews | Webflow | Rules, templates, code |
+|---|---|---|---|---|
+| A | ~/emergent-hubs (CLAUDE_CONFIG_DIR=~/.claude-b) | Form, SurveyQuiz | none | none; proposals to plan/proposals-from-A.md |
+| B | ~/emergent-hubs-a | LP, Automation | ships everything (A's pages too), live QC | owns them; coordination |
+- Reviewer independence holds across accounts: no reviewer reviews a page any part of which it wrote (writer ids carry the account letter: A-w-*, B-w-*).
+- A marks a page ready for B to ship by moving it to `reviewed` (0 blocking, 0 flags, QC 0) and pushing; B's ship loop picks it up after ship-check.
+- Holds (`hubctl hold`) before work, as before. A's week ends Saturday (heavy writing); B's runs to Tuesday.

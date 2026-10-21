@@ -2,6 +2,15 @@
 
 Every ruling Divit has made that a future chat must respect. Newest first. Add a line for every new decision, with the date and where it came from. Never re-ask something settled here.
 
+## 2026-10-21
+- **Standing go (Divit, 2026-10-21):** .cache/standing-go-2026-10-21 created on his explicit instruction. Covers every page reviewed by an independent reviewer with 0 blocking findings, 0 flags and QC 0; approvals logged "standing-go (Divit 2026-10-21)". Ship in rolling batches (drafts, item publish, verify-live). No site publish.
+- **Brand keywords (Divit, 2026-10-21, ruling 3):** a page whose keyword is a brand use case (e.g. instagram-landing-page) may use that brand in its FAQ questions. Builder-intent questions only, no implied partnership, and any statement about the brand's rules or limits must be sourced. Implemented as a PA14 exemption for the page's own primary-keyword brand (qc/paa_gate.py; golden brand-own-primary-*).
+- **"best ..." keywords (Divit, 2026-10-21, ruling 4):** the skeleton drops modifiers such as best, top and examples from the H1, the CTA and the code-built questions; the full keyword stays in the meta and intro. Golden tests; then startup-landing-page is reworked and shipped.
+- **Target today (Divit, 2026-10-21):** 100 pages live (216 -> 316), quality gates unchanged; run until 316 or B weekly 90%; on a session limit, finish commits, write a resume note and resume after the reset.
+- **Two accounts in parallel (Divit, 2026-10-21; supersedes ruling 22's single-writer split for writing):** A (~/emergent-hubs, CLAUDE_CONFIG_DIR=~/.claude-b) writes and reviews Form and SurveyQuiz; no Webflow, no rule or template edits; proposals go to plan/proposals-from-A.md. B (~/emergent-hubs-a) writes and reviews LP and Automation, ships everything (A's pages too), owns live QC, coordination and rules. A reviewer never reviews a page any part of which it wrote, across accounts. A's week ends Saturday, B's Tuesday. docs/TWO_ACCOUNTS.md section "2026-10-21 split".
+- **Token efficiency (Divit, 2026-10-21):** writers pass QC, gate, Learn check and the hero-prompt rule before requesting review; a top-rework-causes checklist goes into writer and reviewer prompts; mechanical agents (ship, skeleton, QC fixes, pulls, read-backs) run on sonnet, page-writer and page-reviewer on the current model; no side investigations until 100; slim reviews for small changes; summaries only; easy builder-intent pages first, YMYL later. Tokens per shipped page reported at each checkpoint.
+- **Live QC (B-c-1, 2026-10-21):** the live-audit and publish-watch launchd jobs pointed at A's clone and had skipped since 10-18; repointed to ~/emergent-hubs-a and reloaded (backups in .cache/*.plist.bak-20261021).
+
 ## 2026-10-16
 - **Sprint rulings (Divit, 2026-10-16 evening, explicit confirmation):**
   - Flags approved per question (rules/flag_decisions.json): donation-form Q9-Q10, compensation-survey Q10, safety-survey Q10, healthcare-automation Q9-Q10, grievance-form Q6. NOT approved: maintenance-page Q3-Q10, school-climate-survey Q7-Q10, proposal-automation Q6-Q10: replace with written questions (0 gate flags), slim review, then ship.
