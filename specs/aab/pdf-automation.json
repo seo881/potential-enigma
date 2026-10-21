@@ -115,6 +115,20 @@
    "via": null,
    "by": "B-w-277",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 06:34 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-r-110",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 06:35 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-110",
+   "note": "rubric 10/10 by B-r-110; 3 notes"
   }
  ],
  "pipeline": "r15",
@@ -1019,5 +1033,245 @@
  },
  "writers": [
   "B-w-277"
- ]
+ ],
+ "review": {
+  "by": "B-r-110",
+  "date": "2026-10-21 06:35 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build PDF Automation for the Paperwork Your Team Repeats'; hero 'Get PDF automation that reads the files coming in and writes the ones going out, built from one prompt.' covers both directions of the primary"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Informational SERP (how-to videos, workflow blogs, tool lists): definition in FAQ 1, 7-step how-to, 'What should I look for in PDF automation software?', PAA 'automate filling out a PDF form' answered in FAQ 3, free tools in FAQ 9"
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Concrete documents and fields: 'Job 2417 closes and its 5 files become 9 pages', 'SSI-1042', '18-item checklist', 'totals over an amount you set'"
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on full sentences: 'The app cuts a multi-page scan at each new document', 'Upload the form your clients know'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; sentences one idea each, e.g. 'The record waits until the reviewer confirms or corrects that value.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain product verbs, unglamorous detail: 'One receipt has a smudged order number, and Dasha Petrakis on the order desk gets that field to confirm.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to claims_used (ai-extraction incl. low-confidence fields to a person, e-signature-capture, no-caps, free-start, code-export); the one third-party fact (FAQ 1 definition) matches its quoted span; tab numbers agree (24 = 23 + 1; 4+1+1+2+1 = 9 pages; 16 + 2 = 18 items); table generated from the library"
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Four tabs span read (receipt scans), write (certificates), fill (signed inspection form) and merge (job packet); no sibling primary in headings (QC K clean)"
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, PAA gate 10/0/0, hub link in item 2, 3 sibling links (proposal automation, ranking survey, leadership survey), secondaries 'pdf automation software' (FAQ 5) and 'pdf automation tools' (FAQ 9); 'pdf' in questions allowed by Divit"
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 '24 receipts / 23 attached / Sent to Dasha', tab 2 '38 passed', SSI-1042 to Ingrid Sorvino, tab 3 18 items / 16 passed / 2 follow-up signed by Benedetta Coyle, tab 4 five files 4+1+1+2+1 = 9 pages to Celeste Tamura; one hero, cursor on button"
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 1",
+    "quote": "PDF automation is the use of automated processes to handle routine document tasks such as generating, organizing, or routing files without constant manual input.",
+    "issue": "The definition is the source's sentence word for word, and the source is a competing automation vendor (activepieces.com); answers are meant to be in the page's own words.",
+    "fix": "Keep the sourced meaning in own words, e.g. 'PDF automation is software that reads, fills, creates or routes PDF files so nobody handles them by hand.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "tab_content_1",
+    "quote": "One scan in, 24 receipts filed by order number",
+    "issue": "The tab H3 says all 24 are filed by order number, while the body and image show 23 attached and one waiting for Dasha to confirm its smudged number.",
+    "fix": "'One scan in, 23 receipts filed and 1 sent to check' or similar.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_2, faq item 6, howto_step_5_des; howto_step_6_des, faq item 4; feature_5, faq item 8",
+    "quote": "feature_2 'that one field goes to a reviewer' / FAQ 6 'a field read with low confidence goes to a person'; step 6 'upload one you sent recently as the layout to copy' / FAQ 4 'Give the app a PDF you sent recently as the model'; feature_5 'Set the order once' / FAQ 8 'Set a fixed order for the documents'",
+    "issue": "Three ideas are restated across body and FAQ with words swapped.",
+    "fix": "Let the FAQ answers add what the body does not (e.g. FAQ 6 keeps only the correction log advice).",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 1",
+   "issue": "The definition is the source's sentence word for word, and the source is a competing automation vendor (activepieces.com); answers are meant to be in the page's own words.",
+   "fix": "Keep the sourced meaning in own words, e.g. 'PDF automation is software that reads, fills, creates or routes PDF files so nobody handles them by hand.'",
+   "by": "B-r-110",
+   "via": "review",
+   "date": "2026-10-21 06:35 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "tab_content_1",
+   "issue": "The tab H3 says all 24 are filed by order number, while the body and image show 23 attached and one waiting for Dasha to confirm its smudged number.",
+   "fix": "'One scan in, 23 receipts filed and 1 sent to check' or similar.",
+   "by": "B-r-110",
+   "via": "review",
+   "date": "2026-10-21 06:35 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_2, faq item 6, howto_step_5_des; howto_step_6_des, faq item 4; feature_5, faq item 8",
+   "issue": "Three ideas are restated across body and FAQ with words swapped.",
+   "fix": "Let the FAQ answers add what the body does not (e.g. FAQ 6 keeps only the correction log advice).",
+   "by": "B-r-110",
+   "via": "review",
+   "date": "2026-10-21 06:35 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "1159e61045001898",
+   "alt:share_image": "3f64236b825d135c",
+   "alt:tab_image_1": "794336e50f64c304",
+   "alt:tab_image_2": "39624e5822752b9f",
+   "alt:tab_image_3": "0c8ab2cd644dbbab",
+   "alt:tab_image_4": "ef78b9fde518f497",
+   "breadcrumb": "4ea41ae85bda2294",
+   "chip_adds": "72131c7216d42afa",
+   "explore_cta": "bae402ff11a0136f",
+   "faq": "fc67dabfeaf4bc82",
+   "feature_1": "13783cd62cce81de",
+   "feature_2": "c70ec3a1cc5b7f39",
+   "feature_3": "b9e120242c110384",
+   "feature_4": "892ccd461f42b562",
+   "feature_5": "7ed757390000cb00",
+   "feature_6": "91475a57d9437b1e",
+   "features_heading": "4bf689066b44a167",
+   "features_subheading": "f0ed096a3072623c",
+   "h1": "109545db2b02047b",
+   "hero_description": "857bcc2d3a81fd4c",
+   "hero_prompt": "c87c8a0fcef8fc1f",
+   "howto_description": "342867fd7bc828fb",
+   "howto_step_1_des": "55478f877faafa8d",
+   "howto_step_1_title": "77ec66957372b88a",
+   "howto_step_2_des": "5224bea9051ba489",
+   "howto_step_2_title": "5ccd31ebf92f2b26",
+   "howto_step_3_des": "fbf06caf1e7ebdd7",
+   "howto_step_3_title": "423899e1db5930df",
+   "howto_step_4_des": "cf190c0c4128c517",
+   "howto_step_4_title": "c846d97dc7aeb410",
+   "howto_step_5_des": "32974c45ebba1b5a",
+   "howto_step_5_title": "7e443c9bd9a8b976",
+   "howto_step_6_des": "435e3d60a3bee6aa",
+   "howto_step_6_title": "4ff7e01fccb3b43e",
+   "howto_step_7_des": "6357e693ee83c822",
+   "howto_step_7_title": "7fe8a77b5b5e6870",
+   "howto_title": "44020b974614f2ba",
+   "meta_description": "98c60d7e1c1d6b14",
+   "meta_title": "4ccd95d8585c90a9",
+   "mockup": "af0ab769013f9663",
+   "product_name": "99174a96d50d056a",
+   "prompt_chip_1": "e437eb796a1969ee",
+   "prompt_chip_2": "16f637921eba69b0",
+   "prompt_chip_3": "7ea5be88bdbc19f2",
+   "prompt_chip_4": "62d528338a26032a",
+   "slug": "cda396ce222c4cd7",
+   "tab_content_1": "b0b0e325a6512375",
+   "tab_content_2": "9fbd992592656fc0",
+   "tab_content_3": "67dfb4c22dbbd892",
+   "tab_content_4": "9a91537b9d367366",
+   "tab_label_1": "e437eb796a1969ee",
+   "tab_label_2": "16f637921eba69b0",
+   "tab_label_3": "7ea5be88bdbc19f2",
+   "tab_label_4": "62d528338a26032a",
+   "usecase_heading": "7e48ac5864cc47ff",
+   "why_description": "8f7b880d26f42be3",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "df9d6194c400ea62"
+  },
+  "all": "18c43fb0b2947127",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "1159e61045001898",
+   "alt:share_image": "3f64236b825d135c",
+   "alt:tab_image_1": "794336e50f64c304",
+   "alt:tab_image_2": "39624e5822752b9f",
+   "alt:tab_image_3": "0c8ab2cd644dbbab",
+   "alt:tab_image_4": "ef78b9fde518f497",
+   "breadcrumb": "4ea41ae85bda2294",
+   "chip_adds": "72131c7216d42afa",
+   "explore_cta": "bae402ff11a0136f",
+   "faq": "fc67dabfeaf4bc82",
+   "feature_1": "13783cd62cce81de",
+   "feature_2": "c70ec3a1cc5b7f39",
+   "feature_3": "b9e120242c110384",
+   "feature_4": "892ccd461f42b562",
+   "feature_5": "7ed757390000cb00",
+   "feature_6": "91475a57d9437b1e",
+   "features_heading": "4bf689066b44a167",
+   "features_subheading": "f0ed096a3072623c",
+   "h1": "109545db2b02047b",
+   "hero_description": "857bcc2d3a81fd4c",
+   "hero_prompt": "c87c8a0fcef8fc1f",
+   "howto_description": "342867fd7bc828fb",
+   "howto_step_1_des": "55478f877faafa8d",
+   "howto_step_1_title": "77ec66957372b88a",
+   "howto_step_2_des": "5224bea9051ba489",
+   "howto_step_2_title": "5ccd31ebf92f2b26",
+   "howto_step_3_des": "fbf06caf1e7ebdd7",
+   "howto_step_3_title": "423899e1db5930df",
+   "howto_step_4_des": "cf190c0c4128c517",
+   "howto_step_4_title": "c846d97dc7aeb410",
+   "howto_step_5_des": "32974c45ebba1b5a",
+   "howto_step_5_title": "7e443c9bd9a8b976",
+   "howto_step_6_des": "435e3d60a3bee6aa",
+   "howto_step_6_title": "4ff7e01fccb3b43e",
+   "howto_step_7_des": "6357e693ee83c822",
+   "howto_step_7_title": "7fe8a77b5b5e6870",
+   "howto_title": "44020b974614f2ba",
+   "meta_description": "98c60d7e1c1d6b14",
+   "meta_title": "4ccd95d8585c90a9",
+   "mockup": "af0ab769013f9663",
+   "product_name": "99174a96d50d056a",
+   "prompt_chip_1": "e437eb796a1969ee",
+   "prompt_chip_2": "16f637921eba69b0",
+   "prompt_chip_3": "7ea5be88bdbc19f2",
+   "prompt_chip_4": "62d528338a26032a",
+   "slug": "cda396ce222c4cd7",
+   "tab_content_1": "b0b0e325a6512375",
+   "tab_content_2": "9fbd992592656fc0",
+   "tab_content_3": "67dfb4c22dbbd892",
+   "tab_content_4": "9a91537b9d367366",
+   "tab_label_1": "e437eb796a1969ee",
+   "tab_label_2": "16f637921eba69b0",
+   "tab_label_3": "7ea5be88bdbc19f2",
+   "tab_label_4": "62d528338a26032a",
+   "usecase_heading": "7e48ac5864cc47ff",
+   "why_description": "8f7b880d26f42be3",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "df9d6194c400ea62"
+  },
+  "all": "18c43fb0b2947127",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
