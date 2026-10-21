@@ -78,6 +78,23 @@ def _flag_decisions():
     p_ = os.path.join(ROOT, "rules", "flag_decisions.json")
     d = json.load(open(p_)) if os.path.exists(p_) else {}
     return {"subtypes": d.get("subtypes", {}), "questions": d.get("questions", {})}
+HEAD_LEAD = {"best", "top"}                      # ruling 4 (Divit 2026-10-21): list modifiers dropped from the code-built text
+HEAD_TRAIL = {"examples", "ideas", "templates"}   # trailing only, and only the plural ("bid proposal template" is the thing itself)
+HEAD_SINGULAR = {"quizzes": "quiz", "pages": "page", "forms": "form", "surveys": "survey", "websites": "website", "sites": "site",
+                 "workflows": "workflow", "apps": "app", "questionnaires": "questionnaire", "applications": "application",
+                 "sheets": "sheet", "checklists": "checklist", "dashboards": "dashboard", "portals": "portal", "trackers": "tracker"}
+def head_phrase(p):
+    """Ruling 4 (Divit 2026-10-21, "best ..." keywords): the head noun phrase of a list-style primary, for the H1, the hero prompt and
+    the code-built FAQ questions: a leading best/top (and a count after it) and a trailing examples/ideas/templates go, and the
+    plural that came with a leading modifier goes too ("best startup landing pages" -> "startup landing page", "landing page
+    examples" -> "landing page"). Any other primary comes back unchanged; the full keyword stays in the meta and the intro."""
+    ws = (p or "").split(); lead = False
+    if len(ws) > 2 and ws[0].lower() in HEAD_LEAD:
+        ws = ws[1:]; lead = True
+        if len(ws) > 2 and ws[0].isdigit(): ws = ws[1:]
+    if len(ws) > 1 and ws[-1].lower() in HEAD_TRAIL: ws = ws[:-1]
+    elif lead and ws[-1].lower() in HEAD_SINGULAR: ws[-1] = HEAD_SINGULAR[ws[-1].lower()]
+    return " ".join(ws) if ws else (p or "")
 def phrase_re(p):  # head phrase, each word optionally plural, space or hyphen between words
     ws = norm(p).split()
     return re.compile(r"(?<![a-z0-9])" + r"[\s-]+".join(re.escape(w) + r"(?:s|es)?" for w in ws) + r"(?![a-z0-9])")
@@ -155,7 +172,7 @@ class Gate:
         self.spec_path = os.path.join(ROOT, "specs", self.dir, self.slug + ".json")
         self.spec = json.load(open(self.spec_path)) if os.path.exists(self.spec_path) else {}
         self.primary = (self.spec.get("keywords") or {}).get("primary") or self.slug.replace("-", " ")
-        self.heads = [phrase_re(p) for p in [self.primary] + R("paa_synonyms.json")["pages"].get(self.slug, []) + list(extra_heads)]
+        self.heads = [phrase_re(p) for p in [self.primary] + ([head_phrase(self.primary)] if head_phrase(self.primary) != self.primary else []) + R("paa_synonyms.json")["pages"].get(self.slug, []) + list(extra_heads)]
         # PA3 widened (Divit, 2026-10-08): head phrase reordered/inflected, or an approved secondary of the page (K8 test)
         self.head_words = [stem(w) for w in norm(self.primary).split()]
         secs = set((self.spec.get("keywords") or {}).get("secondaries_used") or [])
@@ -322,7 +339,9 @@ class Gate:
         if tools: out.append(("PA8", "reject", "brand not in the competitor library: " + ", ".join(tools)))
         # PA14 no brand or product names (Divit 2026-10-09): listed brands reject; an unlisted capitalised name is flagged
         raw = item.get("q") or ""
-        br = [b for b in self.bl.get("pa14_brands", []) if has(b.lower(), q)]
+        # ruling 3 (Divit 2026-10-21): a brand in THIS page's own primary keyword (instagram landing page) is not a PA14 brand here
+        own_pk = " " + norm(self.primary) + " "
+        br = [b for b in self.bl.get("pa14_brands", []) if has(b.lower(), q) and not has(b.lower(), own_pk)]
         if br: out.append(("PA14", "reject", "brand or product name: " + ", ".join(sorted(set(br))[:4])))
         ok_caps = set(self.bl.get("pa14_proper_noun_ok", [])) | set(self.bl.get("pa14_domain_ok", []))
         for st in sorted(self.bl.get("pa14_us_states", []), key=len, reverse=True):   # US state names are places, not brands (backlog line 92)

@@ -1,0 +1,919 @@
+{
+ "url": "/ai-automation-builder/contract-approval-workflow",
+ "hub": "Auto",
+ "item_id": null,
+ "status": "spec",
+ "written_by": "B-w-246",
+ "keywords": {
+  "primary": "contract approval workflow",
+  "secondaries_used": []
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Contract Approval Workflow Built on Your Terms | Emergent",
+  "meta_description": "Build a contract approval workflow that routes each contract by what it says: payment terms, annual value, renewal dates, and whose NDA it is.",
+  "h1": "Build a Contract Approval Workflow That Reads the Terms",
+  "slug": "contract-approval-workflow",
+  "product_name": "Contract Approval Workflow Builder",
+  "hero_description": "Get a contract approval workflow that reads each contract's value and terms and brings in the approvers they call for.",
+  "breadcrumb": "Contract Approval Workflow",
+  "category": "a33cd4fb124ec86a130809893b2b3896",
+  "explore_cta": "Build My Contract Approval",
+  "features_heading": "What Decides Who Signs Off on a Contract",
+  "features_subheading": "Your contract policy, built as an app by Emergent: which terms bring in which approver, when reminders go out, and who decided.",
+  "feature_1": "<h3>Routing rules written as sentences</h3><p>Describe each rule as you would to a new sales rep: changed payment terms add the controller. From that description, Emergent builds the request form and the routing behind it.</p>",
+  "feature_2": "<h3>Key terms read from the draft</h3><p>The app reads the terms your rules use from each uploaded draft, such as payment terms and total value. A term it reads with low confidence goes to a person to confirm first.</p>",
+  "feature_3": "<h3>Reminders before a contract stalls</h3><p>An approver who has not decided in the time you set gets a reminder in Slack or by email. If the contract still waits after that, it escalates to the backup you name for them.</p>",
+  "feature_4": "<h3>One record of every decision</h3><p>Each decision and its comment is saved with the contract version it covers, in a database you own. Who agreed to net 60 is answered on the contract record, not in an inbox.</p>",
+  "feature_5": "<h3>Starts where the deal already lives</h3><p>The app connects to any tool with an API. A contract request can open from a HubSpot deal, and the approval status syncs back to that deal, where the rep already works.</p>",
+  "feature_6": "<h3>Code you can move to GitHub</h3><p>On paid plans, the full code of the app exports to your GitHub repository. Anyone you trust can read the routing logic line by line there and keep their own copy of it.</p>",
+  "why_title": "Why Build Contract Approvals With Emergent?",
+  "why_description": "Emergent builds the routing and the decision record as one app on a database you own, with no per-approver seats as legal joins.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Zapier</th>\n        <th scope=\"col\">Make (Integromat)</th>\n        <th scope=\"col\">n8n</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt for the workflow and the app around it</td>\n        <td class=\"col-other\">Templates and editor, AI copilot</td>\n        <td class=\"col-other\">Visual canvas</td>\n        <td class=\"col-other\">Visual canvas, self-hosted or cloud</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">What you get</th>\n        <td class=\"col-brand\">Workflow + trigger form + database + dashboard, as code you own</td>\n        <td class=\"col-other\">Zaps, plus Tables and Interfaces inside Zapier</td>\n        <td class=\"col-other\">Scenarios inside Make</td>\n        <td class=\"col-other\">Workflows inside n8n</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Behavior at cap</th>\n        <td class=\"col-brand\">Keeps running, no task cap</td>\n        <td class=\"col-other\">Overage billed at up to 1.25× the base rate</td>\n        <td class=\"col-other\">Runs pause</td>\n        <td class=\"col-other\">Cloud workflows stop until the reset or an upgrade</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">AI and agent steps</th>\n        <td class=\"col-brand\">Native, share the same credit pool</td>\n        <td class=\"col-other\">Priced by model tier, drawn from the task pool</td>\n        <td class=\"col-other\">AI modules cost variable credits</td>\n        <td class=\"col-other\">Bring your own model API key, billed by the provider</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">Yes on Community Edition</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "Four Contracts, Four Different Approvers",
+  "tab_label_1": "Payment Terms",
+  "tab_label_2": "Contract Value",
+  "tab_label_3": "Renewals",
+  "tab_label_4": "NDAs",
+  "tab_content_1": "<h3>Net 60 pulls the controller into the deal</h3><p>Orvane Freight returns its $96,000 order form with payment terms changed to net 60. The app reads the term from the redline and finds it differs from your standard net 30. The controller, Ilse Vantongeren, joins as an approver, and the rep, Tobiah Rensselaer, waits for her.</p>",
+  "tab_content_2": "<h3>A $54,000 yearly value waits on the CFO</h3><p>Harrowgate Data quotes three years at once: $162,000 in total, or $54,000 a year. Your rule adds the CFO when annual value passes $50,000. The app divides the total by the term before it routes. Priyanka Szabo, the department head, has approved. The contract now waits for Leon Achebe, the CFO.</p>",
+  "tab_content_3": "<h3>Renewal goes to its owner 30 days ahead of notice</h3><p>Sendara Cloud renews on its own on March 31, 2027, at $24,000 a year, unless you cancel with 60 days' notice. That puts the notice deadline on January 30, 2027. On December 31, 2026, 30 days before it, the app sends the owner, Fenwick Oduya, a direct message asking him to approve the renewal or cancel it.</p>",
+  "tab_content_4": "<h3>Your NDA skips review, theirs goes to counsel</h3><p>Two NDAs arrive in the same week, and the request form asks whose paper each one is on. Quillon Robotics accepts your NDA template with no edits, and the app approves it with no reviewer. Marlowe Biotech sends its own NDA instead, and the app routes it to your counsel, Ada Iheanacho, before anyone signs.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { paymentTerms: \"Read the payment terms from every customer redline and compare them with our standard net 30. If they differ, add the controller as an approver and keep the rep from returning the contract until the controller approves.\", contractValue: \"Work out the annual value of each contract by dividing the total by the term in years. If the annual value is over $50,000, send it to the CFO after the department head approves, and show both approvals on the contract record.\", renewals: \"Track every contract that renews on its own. Work out the notice deadline from the renewal date and the notice period, and 30 days before that deadline send the contract owner a direct message asking them to approve the renewal or cancel it.\", ndas: \"Ask on the NDA request form whose paper the NDA is on and whether it was edited. Approve an NDA on our template with no edits without a reviewer, and send any NDA on the other side's paper to our counsel before it is signed.\" };</p>",
+  "howto_title": "How to Create a Contract Approval Workflow",
+  "howto_description": "Seven steps to set up a contract approval workflow that routes each contract by its terms and value, then build it with Emergent.",
+  "howto_step_1_title": "01 List the contracts you sign",
+  "howto_step_2_title": "02 Name the terms that change the route",
+  "howto_step_3_title": "03 Give each approver a trigger",
+  "howto_step_4_title": "04 Decide what skips review",
+  "howto_step_1_des": "Pull last year's signed contracts and sort them by type, such as vendor agreements and NDAs. Note who approved each one and how many days it waited, and mark any contract that someone signed before every approver had decided.",
+  "howto_step_2_des": "Pick the terms that should bring in another approver, such as payment terms or a liability cap. Keep the list short, because every term on it is one more field each request has to carry.",
+  "howto_step_3_des": "Write each trigger as a number or a fact, not a judgment call: an annual value over $50,000 adds the CFO. A rule with a number in it runs the same way for every rep.",
+  "howto_step_4_des": "Choose the contracts that need no reviewer at all, such as an NDA on your own template with no edits. Routine paper that clears on its own leaves counsel more time for the contracts that need a careful read.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Contract Approval Questions, Answered\", \"items\": [{\"q\": \"What is a contract approval workflow?\", \"a\": \"A contract approval workflow is the set of rules a contract passes through before anyone signs it: who reviews it and which terms bring in an extra approver. Contract approval itself is the process of submitting, reviewing, assessing, and approving whole contracts or specific terms. The workflow turns that process into rules that run the same way on every contract.\"}, {\"q\": \"How do I create a contract approval workflow?\", \"a\": \"Write down which contract terms should change who approves, then describe those rules to Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a> in plain English. It builds the app that routes each contract and logs every decision. Run a handful of last quarter's contracts through it before your team starts sending new ones.\"}, {\"q\": \"How do I track a contract approval workflow across multiple departments?\", \"a\": \"Give every contract one record that shows each department's decision and how long the contract has waited with it. A board filtered by department then lets each team see its own queue without chasing the others. The app Emergent builds can show that board as a live dashboard, sorted by days waiting.\"}, {\"q\": \"Should a contract approval workflow check vendor invoices against the signed contract?\", \"a\": \"Yes, if you pay vendors under the contracts you approve. Store the agreed price and end date on the contract record, and have your <a href='https://emergent.sh/ai-automation-builder/invoice-approval-workflow'>invoice approval workflow</a> compare each invoice with them before payment. An invoice dated after the end date, or billed at a higher price, then goes to the contract owner.\"}, {\"q\": \"How should a contract approval workflow handle a contract redlined after approval?\", \"a\": \"Send it back through approval, but only to the approvers whose terms the redline touched. Compare the new version with the approved one: a corrected notice address can be logged without rerouting, while a change to payment terms goes back to finance. Keep each approval tied to the version it covered.\"}, {\"q\": \"Who belongs in a contract approval workflow?\", \"a\": \"Name one approver per kind of risk, not one per department. A split that works for many teams: the department head approves the spend, finance approves value and payment terms, and counsel approves any change to your standard legal terms. Add an approver only when a rule says what they are checking.\"}, {\"q\": \"How is a contract approval workflow different from approving marketing content?\", \"a\": \"The triggers differ. A contract routes on money and terms, such as value and payment terms, while a marketing piece routes on the words themselves: brand voice and any claims counsel should see. If your team reviews both, keep them as separate flows and use a <a href='https://emergent.sh/ai-automation-builder/content-approval-workflow'>content approval workflow</a> for posts and ads.\"}, {\"q\": \"What fields does a contract approval workflow need on the request form?\", \"a\": \"Ask for what your routing rules read: counterparty, contract type, total value, term length, payment terms, renewal date, notice period, and whose paper it is on. Add the contract owner, the person every reminder should reach. The form comes from the same prompt as the rules, and Emergent changes both when you prompt again.\"}, {\"q\": \"How many approvers should a contract approval workflow have?\", \"a\": \"As few as each contract's risk calls for: none for an unedited NDA on your own template, more only when a rule names a reason. Each approver you add is one more person the contract waits on. Count the approvers on last year's contracts and drop any whose review never changed a decision. The apps Emergent builds have no per-approver seats.\"}, {\"q\": \"Should sales and vendor contracts share one contract approval workflow?\", \"a\": \"Yes: one <a href='https://emergent.sh/ai-automation-builder/approval-workflow'>approval workflow</a> can carry both, as long as each contract type has its own rules. A sales contract puts discounts and payment terms in front of finance, because they change what you collect. A vendor contract puts spend and renewal terms first, because they change what you pay. Both can share the same reminders and decision record.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Set reminders and backups",
+  "howto_step_5_des": "Decide how long a contract may sit with one person before a reminder goes out, and who takes over after that. Name a backup for every approver, including the CFO.",
+  "howto_step_6_title": "06 Describe it to Emergent",
+  "howto_step_6_des": "Write the rules in plain English, one sentence each, and give them to Emergent. It builds the app that runs them, and it changes any rule when you prompt again.",
+  "howto_step_7_title": "07 Test with real contracts",
+  "howto_step_7_des": "Run five signed contracts from last quarter through the rules before going live. Check that each one reaches the approvers it reached in real life, and fix any rule that sends it somewhere else.",
+  "prompt_chip_1": "Changed Terms",
+  "prompt_chip_2": "Value Limits",
+  "prompt_chip_3": "Renewal Notices",
+  "prompt_chip_4": "NDA Rules",
+  "hero_prompt": "<p>Build a contract approval workflow that runs on its own and logs every step.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/aab/contract-approval-workflow/uc-1.svg",
+   "alt": "A $96,000 order form from Orvane Freight comes back with net 60 payment terms instead of the standard net 30, so the controller is added as an approver before the rep can return it."
+  },
+  "tab_image_2": {
+   "path": "images/aab/contract-approval-workflow/uc-2.svg",
+   "alt": "A 3-year Harrowgate Data contract worth $162,000, or $54,000 a year, passes the $50,000 annual limit, so after the department head approves it waits for the CFO."
+  },
+  "tab_image_3": {
+   "path": "images/aab/contract-approval-workflow/uc-3.svg",
+   "alt": "The Sendara Cloud subscription renews on March 31, 2027 at $24,000 a year, and on December 31, 2026, 30 days before the notice deadline, its owner gets a direct message to approve or cancel."
+  },
+  "tab_image_4": {
+   "path": "images/aab/contract-approval-workflow/uc-4.svg",
+   "alt": "Two NDAs arrive in one week: Quillon Robotics accepts the company template with no edits and is approved with no reviewer, while the Marlowe Biotech NDA goes to counsel."
+  },
+  "cover_image": {
+   "path": "images/aab/contract-approval-workflow/cover.svg",
+   "alt": "Contract approval workflow: a direct message asking the CFO to approve a Harrowgate Data contract worth $54,000 a year"
+  },
+  "share_image": {
+   "path": "images/aab/contract-approval-workflow/og.webp",
+   "alt": "Build a contract approval workflow that reads the terms, with Emergent"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-21 05:21 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  }
+ ],
+ "pipeline": "r15",
+ "faq_plan": [
+  {
+   "kind": "definition",
+   "q": "What is a contract approval workflow?",
+   "ref": "contract approval workflow",
+   "locked": true,
+   "n": 1,
+   "a": "A contract approval workflow is the set of rules a contract passes through before anyone signs it: who reviews it and which terms bring in an extra approver. Contract approval itself is the process of submitting, reviewing, assessing, and approving whole contracts or specific terms. The workflow turns that process into rules that run the same way on every contract.",
+   "link": null
+  },
+  {
+   "kind": "definition",
+   "q": "How do I create a contract approval workflow?",
+   "ref": "contract approval workflow",
+   "locked": true,
+   "n": 2,
+   "a": "Write down which contract terms should change who approves, then describe those rules to Emergent's AI automation builder in plain English. It builds the app that routes each contract and logs every decision. Run a handful of last quarter's contracts through it before your team starts sending new ones.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder",
+    "anchor": "AI automation builder",
+    "write_as": "Emergent's AI automation builder"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "How do I track a contract approval workflow across multiple departments?",
+   "ref": null,
+   "secondary": null,
+   "hint": "How do i track contract approval workflows across multiple departments?",
+   "locked": false,
+   "n": 3,
+   "a": "Give every contract one record that shows each department's decision and how long the contract has waited with it. A board filtered by department then lets each team see its own queue without chasing the others. The app Emergent builds can show that board as a live dashboard, sorted by days waiting.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Should a contract approval workflow check vendor invoices against the signed contract?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 4,
+   "a": "Yes, if you pay vendors under the contracts you approve. Store the agreed price and end date on the contract record, and have your invoice approval workflow compare each invoice with them before payment. An invoice dated after the end date, or billed at a higher price, then goes to the contract owner.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/invoice-approval-workflow",
+    "anchor": "invoice approval workflow"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "How should a contract approval workflow handle a contract redlined after approval?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 5,
+   "a": "Send it back through approval, but only to the approvers whose terms the redline touched. Compare the new version with the approved one: a corrected notice address can be logged without rerouting, while a change to payment terms goes back to finance. Keep each approval tied to the version it covered.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Who belongs in a contract approval workflow?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 6,
+   "a": "Name one approver per kind of risk, not one per department. A split that works for many teams: the department head approves the spend, finance approves value and payment terms, and counsel approves any change to your standard legal terms. Add an approver only when a rule says what they are checking.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How is a contract approval workflow different from approving marketing content?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 7,
+   "a": "The triggers differ. A contract routes on money and terms, such as value and payment terms, while a marketing piece routes on the words themselves: brand voice and any claims counsel should see. If your team reviews both, keep them as separate flows and use a content approval workflow for posts and ads.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/content-approval-workflow",
+    "anchor": "content approval workflow"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "What fields does a contract approval workflow need on the request form?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 8,
+   "a": "Ask for what your routing rules read: counterparty, contract type, total value, term length, payment terms, renewal date, notice period, and whose paper it is on. Add the contract owner, the person every reminder should reach. The form comes from the same prompt as the rules, and Emergent changes both when you prompt again.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How many approvers should a contract approval workflow have?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 9,
+   "a": "As few as each contract's risk calls for: none for an unedited NDA on your own template, more only when a rule names a reason. Each approver you add is one more person the contract waits on. Count the approvers on last year's contracts and drop any whose review never changed a decision. The apps Emergent builds have no per-approver seats.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Should sales and vendor contracts share one contract approval workflow?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 10,
+   "a": "Yes: one approval workflow can carry both, as long as each contract type has its own rules. A sales contract puts discounts and payment terms in front of finance, because they change what you collect. A vendor contract puts spend and renewal terms first, because they change what you pay. Both can share the same reminders and decision record.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/approval-workflow",
+    "anchor": "approval workflow"
+   }
+  }
+ ],
+ "faq_heading": "Contract Approval Questions, Answered",
+ "table": {
+  "vs": [
+   "Zapier",
+   "Make (Integromat)",
+   "n8n"
+  ],
+  "rows": [
+   "build",
+   "output",
+   "cap",
+   "ai",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "skeleton": {
+  "built_by": "B-w-246",
+  "built": "2026-10-21 05:22 UTC",
+  "slots": 10,
+  "flagged": 0,
+  "flag_subtypes": [],
+  "locked": 2,
+  "table": true
+ },
+ "plan": {
+  "angle": "The top 10 are contract management vendors and explainers that list generic stages (draft, review, approve, sign). This page shows the routing rules a contract approval workflow actually needs, drawn as working screens: a customer redline that changes payment terms and pulls in the controller, a vendor contract whose annual value adds the CFO, an auto-renewing subscription that asks its owner to decide before the notice deadline, and an NDA on the company's own template that skips review while one on the other side's paper goes to counsel. Generic approval routing belongs to the approval workflow page and file versioning to the document approval page; this page stays on what in a contract decides who signs off.",
+  "tab_stories": [
+   "Orvane Freight returns its $96,000 order form with payment terms changed to net 60; the app reads the term from the redline, finds it differs from the standard net 30, and adds the controller, Ilse Vantongeren, while the rep, Tobiah Rensselaer, waits for her.",
+   "Harrowgate Data's 3-year contract is worth $162,000, or $54,000 a year; the rule adds the CFO when annual value passes $50,000, so after the department head, Priyanka Szabo, approves, it waits for the CFO, Leon Achebe.",
+   "The Sendara Cloud subscription renews on its own on March 31, 2027 at $24,000 a year with 60 days' notice to cancel, so the notice deadline is January 30, 2027; on December 31, 2026, 30 days before that deadline, the app sends the owner, Fenwick Oduya, a direct message to approve the renewal or cancel it.",
+   "The request form asks whose paper each NDA is on; Quillon Robotics accepts the company's NDA template with no edits and the app approves it with no reviewer, while Marlowe Biotech sends its own NDA and the app routes it to counsel, Ada Iheanacho."
+  ],
+  "openers": [
+   "Orvane Freight returns its order form",
+   "Harrowgate Data quotes three years at once",
+   "Sendara Cloud renews on its own on March 31",
+   "Two NDAs arrive in the same week",
+   "Pull last year's signed contracts",
+   "Pick the terms that should bring in another approver",
+   "Run five signed contracts through the rules before going live"
+  ],
+  "heading_shapes": [
+   "Net 60 pulls the controller into the deal",
+   "A $54,000 yearly value waits on the CFO",
+   "Renewal goes to its owner 30 days ahead of notice",
+   "Your NDA skips review, theirs goes to counsel"
+  ],
+  "claims_to_source": [
+   "Contract approval is the process of submitting, reviewing, assessing, and approving whole contracts or specific terms"
+  ]
+ },
+ "chip_adds": [
+  "Add term checks that send nonstandard payment terms to the controller.",
+  "Add value limits that send contracts worth over $50,000 a year on to the CFO.",
+  "Add renewal notices that ask the owner to decide before the notice deadline.",
+  "Add NDA rules that approve the standard template and send the other side's NDA to counsel."
+ ],
+ "claims_used": [
+  "prompt-build",
+  "ai-extraction",
+  "alerts",
+  "database-owned",
+  "api-connect",
+  "code-export",
+  "no-caps",
+  "realtime"
+ ],
+ "domain_sources": [
+  {
+   "claim": "Contract approval is the process of submitting, reviewing, assessing, and approving whole contracts or specific terms",
+   "source_url": "https://juro.com/learn/contract-approval-workflow",
+   "date": "2026-10-21",
+   "quote": "a contract approval, which is the process of submitting, reviewing, assessing, and approving whole contracts or specific terms"
+  }
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R2",
+    "title": "Payment terms",
+    "prompt": "Add the controller when a customer redline changes our net 30 payment terms",
+    "main": {
+     "scan": true,
+     "blocks": [
+      {
+       "type": "doc_header",
+       "initials": "OF",
+       "title": "Orvane Freight",
+       "sub": "Customer redline",
+       "label": "ORDER FORM"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Order total",
+         "$96,000"
+        ],
+        [
+         "Payment terms",
+         "Net 60",
+         true
+        ],
+        [
+         "Our standard",
+         "Net 30"
+        ]
+       ]
+      },
+      {
+       "type": "filler",
+       "n": 2
+      },
+      {
+       "type": "note",
+       "icon": "file-pen",
+       "text": "Payment terms changed in the redline"
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Term check",
+       "size": 19,
+       "chip": [
+        "Changed",
+        "warn"
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Terms read",
+         "sub": "Net 60, standard Net 30"
+        },
+        {
+         "state": "live",
+         "title": "Controller",
+         "sub": "Ilse Vantongeren"
+        },
+        {
+         "state": "next",
+         "title": "Back to the rep",
+         "sub": "Tobiah Rensselaer"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "user-plus",
+     "tone": "warn",
+     "title": "Controller approval added",
+     "blocks": [
+      {
+       "type": "chips",
+       "items": [
+        [
+         "Net 60",
+         "warn"
+        ],
+        [
+         "Changed",
+         "acc"
+        ]
+       ]
+      },
+      {
+       "type": "text",
+       "text": "Orvane Freight, $96,000",
+       "size": 17,
+       "color": "sub"
+      },
+      {
+       "type": "meta",
+       "icon": "user-check",
+       "kind": "acc",
+       "text": "Ilse Vantongeren approves next"
+      }
+     ],
+     "action": {
+      "label": "Review terms",
+      "icon": "file-text"
+     }
+    },
+    "alt": "A $96,000 order form from Orvane Freight comes back with net 60 payment terms instead of the standard net 30, so the controller is added as an approver before the rep can return it.",
+    "story": [
+     {
+      "copy": "Orvane Freight",
+      "image": "Orvane Freight"
+     },
+     {
+      "copy": "$96,000 order form",
+      "image": "$96,000"
+     },
+     {
+      "copy": "payment terms changed",
+      "image": "Payment terms changed in the redline"
+     },
+     {
+      "copy": "to net 60",
+      "image": "Net 60"
+     },
+     {
+      "copy": "your standard net 30",
+      "image": "Net 30"
+     },
+     {
+      "copy": "joins as an approver",
+      "image": "Controller approval added"
+     },
+     {
+      "copy": "Ilse Vantongeren",
+      "image": "Ilse Vantongeren approves next"
+     },
+     {
+      "copy": "Tobiah Rensselaer",
+      "image": "Tobiah Rensselaer"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Contract value",
+    "prompt": "Send contracts worth over $50,000 a year to the CFO after the department head",
+    "main": {
+     "chrome": "Contract approvals",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "Vendor contract",
+       "title": "Harrowgate Data",
+       "size": 28,
+       "sub": "3-year term",
+       "right": "$162,000",
+       "right_sub": "Total value"
+      },
+      {
+       "type": "rule",
+       "text": "Annual value over $50,000 adds the CFO"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Annual value",
+         "$54,000",
+         true
+        ],
+        [
+         "Term",
+         "3 years"
+        ]
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Department head",
+         "sub": "Priyanka Szabo"
+        },
+        {
+         "state": "live",
+         "title": "CFO",
+         "sub": "Leon Achebe",
+         "right": "Waiting"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Leon Achebe",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Approve Harrowgate Data?",
+       "size": 20,
+       "sub": "$54,000 a year"
+      },
+      {
+       "type": "meta",
+       "icon": "check",
+       "kind": "acc",
+       "text": "Priyanka Szabo approved"
+      }
+     ],
+     "action": {
+      "label": "Approve",
+      "icon": "check"
+     }
+    },
+    "mini": {
+     "icon": "calculator",
+     "kind": "acc",
+     "title": "$162,000 over 3 years",
+     "sub": "Divided by the term"
+    },
+    "alt": "A 3-year Harrowgate Data contract worth $162,000, or $54,000 a year, passes the $50,000 annual limit, so after the department head approves it waits for the CFO.",
+    "story": [
+     {
+      "copy": "Harrowgate Data",
+      "image": "Harrowgate Data"
+     },
+     {
+      "copy": "$162,000 in total",
+      "image": "$162,000"
+     },
+     {
+      "copy": "three years at once",
+      "image": "3 years"
+     },
+     {
+      "copy": "$54,000 a year",
+      "image": "$54,000 a year"
+     },
+     {
+      "copy": "adds the CFO when annual value passes $50,000",
+      "image": "Annual value over $50,000 adds the CFO"
+     },
+     {
+      "copy": "divides the total by the term",
+      "image": "Divided by the term"
+     },
+     {
+      "copy": "Priyanka Szabo",
+      "image": "Priyanka Szabo approved"
+     },
+     {
+      "copy": "waits for Leon Achebe",
+      "image": "To Leon Achebe"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Renewals",
+    "prompt": "Ask each contract owner to decide 30 days before the renewal notice deadline",
+    "main": {
+     "chrome": "Contract renewals",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "Auto-renewing",
+       "title": "Sendara Cloud",
+       "size": 28,
+       "sub": "60 days' notice to cancel",
+       "right": "$24,000",
+       "right_sub": "Per year"
+      },
+      {
+       "type": "rule",
+       "text": "Owner decides 30 days before the notice deadline"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Contract owner",
+         "Fenwick Oduya"
+        ],
+        [
+         "Notice period",
+         "60 days"
+        ]
+       ]
+      },
+      {
+       "type": "timeline",
+       "items": [
+        {
+         "label": "Decide by",
+         "chip": "Dec 31, 2026",
+         "kind": "bad",
+         "live": true
+        },
+        {
+         "label": "Notice due",
+         "chip": "Jan 30, 2027",
+         "kind": "next"
+        },
+        {
+         "label": "Renews",
+         "chip": "Mar 31, 2027",
+         "kind": "next"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Fenwick Oduya",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Renew Sendara Cloud?",
+       "size": 20,
+       "sub": "$24,000 a year"
+      },
+      {
+       "type": "meta",
+       "icon": "calendar",
+       "kind": "acc",
+       "text": "Cancel by Jan 30, 2027"
+      }
+     ],
+     "action": {
+      "label": "Approve renewal",
+      "icon": "check"
+     }
+    },
+    "mini": {
+     "icon": "bell",
+     "kind": "warn",
+     "title": "Sent Dec 31, 2026",
+     "sub": "Direct message"
+    },
+    "alt": "The Sendara Cloud subscription renews on March 31, 2027 at $24,000 a year, and on December 31, 2026, 30 days before the notice deadline, its owner gets a direct message to approve or cancel.",
+    "story": [
+     {
+      "copy": "Sendara Cloud",
+      "image": "Sendara Cloud"
+     },
+     {
+      "copy": "March 31, 2027",
+      "image": "Mar 31, 2027"
+     },
+     {
+      "copy": "$24,000 a year",
+      "image": "$24,000 a year"
+     },
+     {
+      "copy": "60 days' notice",
+      "image": "60 days' notice to cancel"
+     },
+     {
+      "copy": "January 30, 2027",
+      "image": "Jan 30, 2027"
+     },
+     {
+      "copy": "30 days before it",
+      "image": "Owner decides 30 days before the notice deadline"
+     },
+     {
+      "copy": "December 31, 2026",
+      "image": "Sent Dec 31, 2026"
+     },
+     {
+      "copy": "Fenwick Oduya, a direct message",
+      "image": "To Fenwick Oduya"
+     },
+     {
+      "copy": "approve the renewal",
+      "image": "Approve renewal"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "NDAs",
+    "prompt": "Approve NDAs on our template with no edits and send other NDAs to counsel",
+    "main": {
+     "chrome": "NDA requests",
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "NDAs this week",
+       "size": 28,
+       "sub": "Routed by whose paper they are on"
+      },
+      {
+       "type": "note",
+       "icon": "clipboard-list",
+       "text": "Whose paper: asked on the request form"
+      },
+      {
+       "type": "rule",
+       "text": "Our template, no edits: approved with no reviewer"
+      },
+      {
+       "type": "list",
+       "row_h": 72,
+       "items": [
+        {
+         "initials": "QR",
+         "name": "Quillon Robotics",
+         "sub": "Our template, no edits",
+         "chip": [
+          "Approved",
+          "ok"
+         ]
+        },
+        {
+         "initials": "MB",
+         "name": "Marlowe Biotech",
+         "sub": "Their own NDA",
+         "chip": [
+          "With counsel",
+          "acc"
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Ada Iheanacho",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Review the Marlowe Biotech NDA",
+       "size": 20,
+       "sub": "On their own paper"
+      },
+      {
+       "type": "meta",
+       "icon": "file-text",
+       "kind": "acc",
+       "text": "Counsel reviews before signing"
+      }
+     ],
+     "action": {
+      "label": "Open NDA",
+      "icon": "file-text"
+     }
+    },
+    "mini": {
+     "icon": "check",
+     "kind": "ok",
+     "title": "Quillon Robotics approved",
+     "sub": "No reviewer needed"
+    },
+    "alt": "Two NDAs arrive in one week: Quillon Robotics accepts the company template with no edits and is approved with no reviewer, while the Marlowe Biotech NDA goes to counsel.",
+    "story": [
+     {
+      "copy": "Quillon Robotics",
+      "image": "Quillon Robotics"
+     },
+     {
+      "copy": "the request form asks whose paper each one is on",
+      "image": "Whose paper: asked on the request form"
+     },
+     {
+      "copy": "with no edits, and the app approves it with no reviewer",
+      "image": "Our template, no edits: approved with no reviewer"
+     },
+     {
+      "copy": "Marlowe Biotech sends its own NDA",
+      "image": "Their own NDA"
+     },
+     {
+      "copy": "Ada Iheanacho",
+      "image": "To Ada Iheanacho"
+     },
+     {
+      "copy": "goes to counsel",
+      "image": "With counsel"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "dm": true,
+   "channel": "Leon Achebe",
+   "title": "Approve Harrowgate",
+   "sub": "$54,000 a year",
+   "primary": "Approve",
+   "secondary": "Open",
+   "icon": "file-text",
+   "alt": "Contract approval workflow: a direct message asking the CFO to approve a Harrowgate Data contract worth $54,000 a year"
+  },
+  "og": {
+   "headline": "Build a contract approval workflow that reads the terms",
+   "alt": "Build a contract approval workflow that reads the terms, with Emergent"
+  },
+  "checks": [
+   {
+    "fact": [
+     "$96,000"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "162000 / 3 == 54000",
+    "shows": [
+     "$162,000",
+     "$54,000"
+    ],
+    "where": 2
+   },
+   {
+    "fact": [
+     "$50,000"
+    ],
+    "where": 2
+   },
+   {
+    "fact": [
+     "$24,000"
+    ],
+    "where": 3
+   },
+   {
+    "same": "$54,000",
+    "where": [
+     2,
+     "cover"
+    ]
+   }
+  ]
+ },
+ "faq_sources": [
+  {
+   "q": "What is a contract approval workflow?",
+   "source": "written",
+   "ref": "contract approval workflow",
+   "origin": "definition"
+  },
+  {
+   "q": "How do I create a contract approval workflow?",
+   "source": "written",
+   "ref": "contract approval workflow",
+   "origin": "definition"
+  },
+  {
+   "q": "How do I track a contract approval workflow across multiple departments?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Should a contract approval workflow check vendor invoices against the signed contract?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How should a contract approval workflow handle a contract redlined after approval?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Who belongs in a contract approval workflow?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How is a contract approval workflow different from approving marketing content?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "What fields does a contract approval workflow need on the request form?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How many approvers should a contract approval workflow have?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Should sales and vendor contracts share one contract approval workflow?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  }
+ ],
+ "learn_refs": [
+  "6a1729ad1817ffd0330c987d",
+  "6abe38fbf322d0af73b37238",
+  "6a172321c4c836a09c1ce435"
+ ],
+ "learn_refs_why": [
+  "best-ai-workflow-builders: score 4.41: matches workflow (builder list, hub-term only)",
+  "how-to-build-an-ai-agent: Auto fixed set: step-by-step build of an agent that handles leads and intake, the AI step inside most automations",
+  "best-no-code-agent-builders: Auto fixed set: no-code agent builders for workflow automation, for readers who want automations without code"
+ ]
+}
