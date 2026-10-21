@@ -129,6 +129,13 @@
    "via": null,
    "by": "A-w-148",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 10:44 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-40",
+   "note": "rubric 10/10 by A-r-40; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -911,5 +918,285 @@
  ],
  "writers": [
   "A-w-148"
- ]
+ ],
+ "review": {
+  "by": "A-r-40",
+  "date": "2026-10-21 10:44 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Pet Adoption Form That Tracks Every Application'; hero 'Build a pet adoption form that asks each applicant only what applies and saves every application to a database you own.' covers the whole application job, not one feature; how-to description is one sentence with the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "AMBER angle (rescues building their own application) carried throughout: questions that decide a placement (step 01, FAQ 3), renter and vet follow-ups (tab 1, FAQ 4, FAQ 8), review steps to a signed contract (tabs 2-4); template and PDF searchers served by FAQ 4 and FAQ 5."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Rescue vocabulary throughout: foster, vet reference, site visit, meet-and-greet, 'whether his lease allows a 62-pound dog like Moose', 'any application under 2 acres to a site visit'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences that say what happens: 'The applicant picks an animal from your current adoptable list', 'Larchmere Dog Rescue asks every applicant whether they own or rent.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; QC Q-checks clean. Repeated renter/vet follow-up idea recorded as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail ('the 5 others this week go straight to review', 'oldest first'); meta description wording and feature 4 heading recorded as notes."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent sentences map to claims_used (prompt-build, alerts 'emails the foster ... or posts in a Slack channel', e-signature-capture with no legal-validity claim, code-export 'on paid plans', custom-domain 'included in Emergent, uses credits', no-caps, free-start); thresholds framed as each rescue's own rule ('Its own rule sends any application under 2 acres'); no veterinary advice; table from library; tab numbers agree (1.5 acres, 5 others, 2 cats)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Animal-record filing, foster routing and the adoption-event contract are specific to rescues; sibling primaries appear only as FAQ link anchors (rental application form, credit application form, driver application form)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first ('Yes. Ask which animal the applicant wants first'); hub link in item 2; secondaries read naturally; moat lines in FAQ 6 and FAQ 9 from approved claims. FAQ 10 framing recorded as a note."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: tab 1 'Lease allows a 62 lb dog' and email card 'For Maribel Pembleton'; tab 2 '2 cats at home', 'Thaddeus Ruelle Called the clinic'; tab 3 Leopold Kaplan 1.5 acres 'Site visit' with '5 to review'; tab 4 Clementine 'Adopted', 'Contract signed by Yusra Whitcombe'."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_2",
+    "quote": "An applicant who rents gets questions about the landlord, and one with pets at home gets questions about their vet. Everyone else skips both and finishes a shorter form.",
+    "issue": "The renter-landlord / pet-owner-vet follow-up idea is restated with words swapped in feature 2, step 02 ('A renter gets the landlord questions and an applicant with pets gets the vet questions. Everyone else moves straight on, and a first-time owner with no pets finishes a shorter form.') and FAQ 8 ('Collect the applicant's vet clinic when they have pets now and the landlord when they rent.').",
+    "fix": "Let step 02 add something the feature does not (for example how to order the follow-ups) and let FAQ 8 lead with the personal reference.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_5",
+    "quote": "The app saves the signature with the application and closes the animal's listing.",
+    "issue": "Tab 4 repeats it nearly word for word: 'The app saves her signature with the application and changes Clementine from Available to Adopted.'",
+    "fix": "Vary one of the two (for example the feature names where the signed contract can be opened later).",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2a",
+    "field": "meta_description",
+    "quote": "holds applications for references",
+    "issue": "Unclear phrase in the search snippet: reads as if applications are held for the references to use.",
+    "fix": "'holds each application until its references check out' or similar.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_4",
+    "quote": "Alerts to the foster, not a shared inbox",
+    "issue": "The body then offers 'or posts in a Slack channel you pick', which is a shared space, so the heading's contrast is softened by its own body.",
+    "fix": "Retitle (for example 'Alerts that reach the animal's foster') or drop the Slack alternative.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "Can a rescue run its pet adoption form and transport driver sign-ups in one app?",
+    "issue": "Reads as built to place the driver application form link ('If you also hire paid drivers, a driver application form collects their license and driving history'); paid drivers are rare for rescues, so the link sentence is a stretch.",
+    "fix": "Keep the volunteer transport point; drop or soften the paid-driver link sentence in a future pass.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_2",
+   "issue": "The renter-landlord / pet-owner-vet follow-up idea is restated with words swapped in feature 2, step 02 ('A renter gets the landlord questions and an applicant with pets gets the vet questions. Everyone else moves straight on, and a first-time owner with no pets finishes a shorter form.') and FAQ 8 ('Collect the applicant's vet clinic when they have pets now and the landlord when they rent.').",
+   "fix": "Let step 02 add something the feature does not (for example how to order the follow-ups) and let FAQ 8 lead with the personal reference.",
+   "by": "A-r-40",
+   "via": "review",
+   "date": "2026-10-21 10:44 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_5",
+   "issue": "Tab 4 repeats it nearly word for word: 'The app saves her signature with the application and changes Clementine from Available to Adopted.'",
+   "fix": "Vary one of the two (for example the feature names where the signed contract can be opened later).",
+   "by": "A-r-40",
+   "via": "review",
+   "date": "2026-10-21 10:44 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "meta_description",
+   "issue": "Unclear phrase in the search snippet: reads as if applications are held for the references to use.",
+   "fix": "'holds each application until its references check out' or similar.",
+   "by": "A-r-40",
+   "via": "review",
+   "date": "2026-10-21 10:44 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_4",
+   "issue": "The body then offers 'or posts in a Slack channel you pick', which is a shared space, so the heading's contrast is softened by its own body.",
+   "fix": "Retitle (for example 'Alerts that reach the animal's foster') or drop the Slack alternative.",
+   "by": "A-r-40",
+   "via": "review",
+   "date": "2026-10-21 10:44 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "Reads as built to place the driver application form link ('If you also hire paid drivers, a driver application form collects their license and driving history'); paid drivers are rare for rescues, so the link sentence is a stretch.",
+   "fix": "Keep the volunteer transport point; drop or soften the paid-driver link sentence in a future pass.",
+   "by": "A-r-40",
+   "via": "review",
+   "date": "2026-10-21 10:44 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "4ff5ee461d4a1482",
+   "alt:share_image": "6b91e50b37981256",
+   "alt:tab_image_1": "9ccbd51842dc5673",
+   "alt:tab_image_2": "f753df105239f9df",
+   "alt:tab_image_3": "5afeb6745a1ec40b",
+   "alt:tab_image_4": "0405e578b1d31e64",
+   "breadcrumb": "13fd9c99f89ea033",
+   "chip_adds": "1e09ce4be04dd370",
+   "explore_cta": "008d7633a84d5a44",
+   "faq": "ac5a9fa1c22f2aff",
+   "feature_1": "5660c7e30b8ded96",
+   "feature_2": "cf19f36044e8fbb9",
+   "feature_3": "5730b227c3062c06",
+   "feature_4": "c493532d32e1b6bb",
+   "feature_5": "563f273606dc9783",
+   "feature_6": "6a995fa771ef9951",
+   "features_heading": "9a4f1b88e2daa831",
+   "features_subheading": "ee374add3d0f9473",
+   "h1": "8dbab86438334fc8",
+   "hero_description": "92c381d463aac70b",
+   "hero_prompt": "03a0fd825954cd23",
+   "howto_description": "e3fb6aedd5376e49",
+   "howto_step_1_des": "6ad1a55b0420ccb5",
+   "howto_step_1_title": "df31eb225b077abe",
+   "howto_step_2_des": "7359358c968b66c4",
+   "howto_step_2_title": "6debf31758794cdc",
+   "howto_step_3_des": "8d6b57240be95185",
+   "howto_step_3_title": "3e586fa439622ed0",
+   "howto_step_4_des": "f9bbf3e04be575b8",
+   "howto_step_4_title": "7f1e448999e09026",
+   "howto_step_5_des": "7e8fcf37330669cd",
+   "howto_step_5_title": "01eaca4b84b78a8e",
+   "howto_step_6_des": "30d2fbf252de506f",
+   "howto_step_6_title": "dee9310b3ef1bd59",
+   "howto_step_7_des": "e2b1e20ecccdaf5b",
+   "howto_step_7_title": "a1a987fd96566d31",
+   "howto_title": "186b9bfaeb41a8ae",
+   "meta_description": "bf89e226d0ba74f4",
+   "meta_title": "0aabab809cc2a570",
+   "mockup": "e6187fe168c472ac",
+   "product_name": "2007ed491dba349b",
+   "prompt_chip_1": "31f72df534cc82cc",
+   "prompt_chip_2": "5ad6c5804e498817",
+   "prompt_chip_3": "87d5c79cc925fc2d",
+   "prompt_chip_4": "daf7d876409fd075",
+   "slug": "dc5b6b11782e6c46",
+   "tab_content_1": "e8de58e911d2131f",
+   "tab_content_2": "1170d5741e346333",
+   "tab_content_3": "86ddde8f614299b4",
+   "tab_content_4": "3339cd880f9d21c0",
+   "tab_label_1": "196cae8c101e693d",
+   "tab_label_2": "944c2e52c7f35c0a",
+   "tab_label_3": "9ebd710a78ff34d3",
+   "tab_label_4": "7b60ea9b77685ca8",
+   "usecase_heading": "8442e25d5e195b8d",
+   "why_description": "1dcda62450be82dc",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "5444882123009724"
+  },
+  "all": "dae38d2432e2383d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "4ff5ee461d4a1482",
+   "alt:share_image": "6b91e50b37981256",
+   "alt:tab_image_1": "9ccbd51842dc5673",
+   "alt:tab_image_2": "f753df105239f9df",
+   "alt:tab_image_3": "5afeb6745a1ec40b",
+   "alt:tab_image_4": "0405e578b1d31e64",
+   "breadcrumb": "13fd9c99f89ea033",
+   "chip_adds": "1e09ce4be04dd370",
+   "explore_cta": "008d7633a84d5a44",
+   "faq": "ac5a9fa1c22f2aff",
+   "feature_1": "5660c7e30b8ded96",
+   "feature_2": "cf19f36044e8fbb9",
+   "feature_3": "5730b227c3062c06",
+   "feature_4": "c493532d32e1b6bb",
+   "feature_5": "563f273606dc9783",
+   "feature_6": "6a995fa771ef9951",
+   "features_heading": "9a4f1b88e2daa831",
+   "features_subheading": "ee374add3d0f9473",
+   "h1": "8dbab86438334fc8",
+   "hero_description": "92c381d463aac70b",
+   "hero_prompt": "03a0fd825954cd23",
+   "howto_description": "e3fb6aedd5376e49",
+   "howto_step_1_des": "6ad1a55b0420ccb5",
+   "howto_step_1_title": "df31eb225b077abe",
+   "howto_step_2_des": "7359358c968b66c4",
+   "howto_step_2_title": "6debf31758794cdc",
+   "howto_step_3_des": "8d6b57240be95185",
+   "howto_step_3_title": "3e586fa439622ed0",
+   "howto_step_4_des": "f9bbf3e04be575b8",
+   "howto_step_4_title": "7f1e448999e09026",
+   "howto_step_5_des": "7e8fcf37330669cd",
+   "howto_step_5_title": "01eaca4b84b78a8e",
+   "howto_step_6_des": "30d2fbf252de506f",
+   "howto_step_6_title": "dee9310b3ef1bd59",
+   "howto_step_7_des": "e2b1e20ecccdaf5b",
+   "howto_step_7_title": "a1a987fd96566d31",
+   "howto_title": "186b9bfaeb41a8ae",
+   "meta_description": "bf89e226d0ba74f4",
+   "meta_title": "0aabab809cc2a570",
+   "mockup": "e6187fe168c472ac",
+   "product_name": "2007ed491dba349b",
+   "prompt_chip_1": "31f72df534cc82cc",
+   "prompt_chip_2": "5ad6c5804e498817",
+   "prompt_chip_3": "87d5c79cc925fc2d",
+   "prompt_chip_4": "daf7d876409fd075",
+   "slug": "dc5b6b11782e6c46",
+   "tab_content_1": "e8de58e911d2131f",
+   "tab_content_2": "1170d5741e346333",
+   "tab_content_3": "86ddde8f614299b4",
+   "tab_content_4": "3339cd880f9d21c0",
+   "tab_label_1": "196cae8c101e693d",
+   "tab_label_2": "944c2e52c7f35c0a",
+   "tab_label_3": "9ebd710a78ff34d3",
+   "tab_label_4": "7b60ea9b77685ca8",
+   "usecase_heading": "8442e25d5e195b8d",
+   "why_description": "1dcda62450be82dc",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "5444882123009724"
+  },
+  "all": "dae38d2432e2383d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
