@@ -1,0 +1,997 @@
+{
+ "url": "/ai-automation-builder/offboarding-workflow",
+ "hub": "Auto",
+ "item_id": null,
+ "status": "spec",
+ "written_by": "B-w-293",
+ "keywords": {
+  "primary": "offboarding workflow",
+  "secondaries_used": []
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Offboarding Workflow for Every Exit Task | Emergent",
+  "meta_description": "Build an offboarding workflow that assigns the client handover, tracks equipment returns, briefs payroll, and sends each leaver an exit survey.",
+  "h1": "Build an Offboarding Workflow That Finishes Every Exit Step",
+  "slug": "offboarding-workflow",
+  "product_name": "Offboarding Workflow Builder",
+  "hero_description": "Build an offboarding workflow that hands off clients, gets equipment back, briefs payroll, and sends the exit survey.",
+  "breadcrumb": "Offboarding Workflow",
+  "category": "a33cd4fb124ec86a130809893b2b3896",
+  "explore_cta": "Build My Offboarding Workflow",
+  "features_heading": "Every Exit Task on One Record",
+  "features_subheading": "Each departure gets one record with the handover, the equipment, the payroll hand-off, and the exit survey on it.",
+  "feature_1": "<h3>A record the day HR enters a last day</h3><p>The app reads your HR system through its API and opens an offboarding record as soon as HR enters a last day. Each exit task on the record gets a named owner and a due date.</p>",
+  "feature_2": "<h3>A successor for every client and project</h3><p>The record lists the departing employee's client accounts and open projects. Each one needs a named successor before the last day, and the manager sees which are unassigned.</p>",
+  "feature_3": "<h3>Equipment tracked until it comes back</h3><p>Every laptop and badge assigned to the departing employee is listed with its return status. If an item is still out after the last day, the app alerts IT in Slack or by email.</p>",
+  "feature_4": "<h3>Final pay details handed to payroll</h3><p>When HR confirms the end date, the app sends payroll that date, the unused PTO hours on record, and any open expense report. Payroll applies its own rules and marks it received.</p>",
+  "feature_5": "<h3>Leaver feedback that only HR reads</h3><p>On the last day the app sends the leaver a short survey, one question per screen. Answers land in a database you own, and the HR dashboard groups them by the reason given.</p>",
+  "feature_6": "<h3>The offboarding app's code in your GitHub</h3><p>Export the app's full code to your GitHub repository on paid plans. Your team can review how exit records and survey answers are stored, and who has permission to open them.</p>",
+  "why_title": "Why Build Offboarding With Emergent?",
+  "why_description": "Emergent builds the exit app from your prompt. Every exit record and survey answer stays in a database you own, with no task cap.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Zapier</th>\n        <th scope=\"col\">Make (Integromat)</th>\n        <th scope=\"col\">n8n</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt for the workflow and the app around it</td>\n        <td class=\"col-other\">Templates and editor, AI copilot</td>\n        <td class=\"col-other\">Visual canvas</td>\n        <td class=\"col-other\">Visual canvas, self-hosted or cloud</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">What you get</th>\n        <td class=\"col-brand\">Workflow + trigger form + database + dashboard, as code you own</td>\n        <td class=\"col-other\">Zaps, plus Tables and Interfaces inside Zapier</td>\n        <td class=\"col-other\">Scenarios inside Make</td>\n        <td class=\"col-other\">Workflows inside n8n</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Behavior at cap</th>\n        <td class=\"col-brand\">Keeps running, no task cap</td>\n        <td class=\"col-other\">Overage billed at up to 1.25× the base rate</td>\n        <td class=\"col-other\">Runs pause</td>\n        <td class=\"col-other\">Cloud workflows stop until the reset or an upgrade</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">AI and agent steps</th>\n        <td class=\"col-brand\">Native, share the same credit pool</td>\n        <td class=\"col-other\">Priced by model tier, drawn from the task pool</td>\n        <td class=\"col-other\">AI modules cost variable credits</td>\n        <td class=\"col-other\">Bring your own model API key, billed by the provider</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">Yes on Community Edition</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "Where an Employee's Exit Stalls",
+  "tab_label_1": "Client Handover",
+  "tab_label_2": "Equipment Return",
+  "tab_label_3": "Final Pay Hand-Off",
+  "tab_label_4": "Exit Survey",
+  "tab_content_1": "<h3>Each client account gets a successor before the last day</h3><p>Tobias Quennell gives notice as an account manager at Wexcombe Insurance Brokers, and the app lists his 8 client accounts on his offboarding record. Six of the 8 have a named successor. Five business days before his last day, his manager, Imogen Varga, gets a direct message naming the 2 accounts still without one.</p>",
+  "tab_content_2": "<h3>A laptop still out 7 days after the last day goes to IT</h3><p>Priya Lindqvist works from home as an analyst at Saltmarsh Analytics, and her record lists 3 items to return. The monitor and the headset are checked in, and the laptop is not. Seven days after her last day, the IT asset lead, Dorian Achterberg, gets a direct message about the laptop.</p>",
+  "tab_content_3": "<h3>Payroll gets one hand-off the day HR confirms the last day</h3><p>HR at Corrigan Dental Partners confirms the last day for Elspeth Moranis, a dental hygienist. The payroll specialist, Joaquin Pellew, gets one hand-off with that date, 38 unused PTO hours, and 1 open expense report for $214.60. He applies the company's final-pay rules and marks it received.</p>",
+  "tab_content_4": "<h3>Pay comes up in 6 of 14 leavers' answers</h3><p>Halverd Outdoor Co. sends every leaver a 5-question exit survey on the last day. Last quarter, 14 of 18 leavers answered: 6 named pay, 4 named growth, 3 named shifts, and 1 named a move. The HR lead, Annika Strand, reads the answers on a dashboard that managers cannot open.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { clientHandover: \"Build a client handover tracker for my insurance brokerage. When an account manager gives notice, list every client account they own on their offboarding record and ask the manager to name a successor for each one. Five business days before the last day, send the manager a direct message naming any account that still has no successor.\", equipmentReturn: \"Build an equipment return tracker for my analytics company, where most of the team works from home. When HR enters a last day, list every item assigned to the employee, such as the laptop, monitor, and headset, and mark each one when it is checked in. Seven days after the last day, send the IT asset lead a direct message about any item still out.\", finalPayHandOff: \"Build a final pay hand-off for my dental practice. When HR confirms an employee's last day, send our payroll specialist one record with that date, the unused PTO hours from our HR system, and any open expense report with its amount. Let the payroll specialist mark the hand-off received, and log the time on the employee's offboarding record.\", exitSurvey: \"Build an exit survey for my outdoor retail company. On each leaver's last day, send a 5-question survey, one question per screen, that asks for the main reason for leaving. Save every answer to the leaver's record, and show HR a dashboard grouped by reason each quarter that managers cannot open.\" };</p>",
+  "howto_title": "How to Build an Offboarding Workflow",
+  "howto_description": "Seven steps to plan an offboarding workflow with an owner on every exit task, then build it with Emergent and test it.",
+  "howto_step_1_title": "01 List every exit task you run",
+  "howto_step_2_title": "02 Pick the event that opens the record",
+  "howto_step_3_title": "03 Give each task an owner",
+  "howto_step_4_title": "04 Connect HR and payroll",
+  "howto_step_1_des": "Write down each task between the day notice is given and the week after the last day: the client handover, equipment, payroll, the exit survey, and the accounts IT closes. Next to each one, note who does it today and how they hear about it.",
+  "howto_step_2_des": "Choose one event that starts every offboarding, such as HR entering a last day in your HR system. Starting from one event keeps a resignation and a dismissal on the same path, with the same owners and the same deadlines.",
+  "howto_step_3_des": "Name one role for every task, such as the manager for the handover or the IT asset lead for equipment. Count each deadline in days from the last day, so a later last day moves every deadline along with it.",
+  "howto_step_4_des": "Connect your HR system and payroll provider through their APIs. The app reads the last day and the unused PTO from the HR system, and it alerts each owner in Slack or by email when a task comes due.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Offboarding Questions, Answered\", \"items\": [{\"q\": \"What is an offboarding workflow?\", \"a\": \"An offboarding workflow is the set of exit tasks a company runs for a departing employee, each assigned to a person with a deadline. Employee offboarding describes the separation process when an employee leaves a company, and the workflow tracks each part of it until the last task is closed.\"}, {\"q\": \"How do I create an offboarding workflow?\", \"a\": \"List every exit task, choose the event that starts each offboarding, and assign every task a person and a deadline. Then describe it in a prompt to Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>, which builds the app with its alerts and an HR dashboard. Run one past departure through it before the next notice.\"}, {\"q\": \"What forms belong in an offboarding workflow?\", \"a\": \"Use the forms your own exit steps need: the separation record HR fills in, a handover list of clients and open work, an equipment return checklist, and the exit survey. Each form becomes a step on the record with one owner. Ask HR which separation documents you keep on file. Emergent sets no response cap on the forms the app collects.\"}, {\"q\": \"How does an offboarding workflow differ from onboarding?\", \"a\": \"It runs the same pattern in reverse. An <a href='https://emergent.sh/ai-automation-builder/employee-onboarding-workflow'>employee onboarding workflow</a> opens a record when an offer is accepted and works toward the first day. An offboarding workflow opens one when HR enters a last day and works toward the client handover, returned equipment, and a finished exit survey. Both track who owns each task and when it is due.\"}, {\"q\": \"When should an offboarding workflow start?\", \"a\": \"Start it the day HR enters a confirmed last day, not on the last day itself. That leaves the manager time to name successors and gives IT time to arrange returns. Set each due date relative to the last day, and a changed date shifts the whole schedule instead of leaving old deadlines behind.\"}, {\"q\": \"How do remote employees return equipment in an offboarding workflow?\", \"a\": \"List every item assigned to the employee on the record, and send return instructions as soon as the last day is set. IT marks each item when it is checked in. Anything still out a set number of days later is flagged to the IT asset lead, and you pick that number to fit how long shipping takes.\"}, {\"q\": \"How should an offboarding workflow hand over a departing employee's clients?\", \"a\": \"Have the manager name a successor for every client account the employee owns, well before the last day. Pass along the account notes and open items, and introduce the successor while the departing employee is still there. If your team runs a <a href='https://emergent.sh/ai-automation-builder/client-onboarding-workflow'>client onboarding workflow</a>, add each successor to it, and the client meets the new owner the way a new client does.\"}, {\"q\": \"Who should read leaver feedback in an offboarding workflow?\", \"a\": \"Keep individual answers with HR, and decide that before the first leaver answers. Managers can get a summary by reason for leaving instead of named answers. Emergent builds the questions and the HR dashboard from your prompt, and the answers stay in a database you own.\"}, {\"q\": \"How does an offboarding workflow pass final pay details to payroll?\", \"a\": \"It sends payroll one hand-off when HR confirms the last day, with that date, the PTO balance still unused, and any expense report not yet paid. Payroll then applies whatever final-pay rules cover that employee, and the workflow only carries the details. Those details come from the HR system, which the app reads through its API.\"}, {\"q\": \"Can an offboarding workflow start the search for a replacement?\", \"a\": \"Yes. Once the last day is in the HR system, the workflow can ask the manager whether the role will be backfilled and open a hiring request with the job title and team. From there, <a href='https://emergent.sh/ai-automation-builder/recruitment-automation'>recruitment automation</a> takes over posting the role and scheduling interviews.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Write the exit survey",
+  "howto_step_5_des": "Keep the exit survey short: one question on the main reason for leaving, and a few on the role and the team. Decide who can read the answers, and set that access before the first leaver gets the survey.",
+  "howto_step_6_title": "06 Describe the workflow to Emergent",
+  "howto_step_6_des": "Write a prompt that names the opening event and each task with its owner, deadline, and alert. Emergent builds the app and its database along with the HR dashboard, and you change any step by prompting again.",
+  "howto_step_7_title": "07 Test it on one past departure",
+  "howto_step_7_des": "Run a recent departure through the app with its real dates and owners. Check that every task opened, each alert reached the right person, and payroll got its hand-off, then fix anything missed before the next notice comes in.",
+  "prompt_chip_1": "Client Handover",
+  "prompt_chip_2": "Equipment Return",
+  "prompt_chip_3": "Final Pay Hand-Off",
+  "prompt_chip_4": "Exit Survey",
+  "hero_prompt": "<p>Build an offboarding workflow that runs on its own and logs every step.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/aab/offboarding-workflow/uc-1.svg",
+   "alt": "An offboarding record shows 6 of Tobias Quennell's 8 client accounts with a successor, and his manager gets a direct message naming the 2 still open 5 business days before his last day."
+  },
+  "tab_image_2": {
+   "path": "images/aab/offboarding-workflow/uc-2.svg",
+   "alt": "An equipment table for Priya Lindqvist shows the monitor and headset checked in and the laptop not returned, and 7 days after her last day the IT asset lead gets a direct message."
+  },
+  "tab_image_3": {
+   "path": "images/aab/offboarding-workflow/uc-3.svg",
+   "alt": "A payroll hand-off for Elspeth Moranis lists her confirmed last day, 38 unused PTO hours, and one open expense report for $214.60, sent to the payroll specialist to mark received."
+  },
+  "tab_image_4": {
+   "path": "images/aab/offboarding-workflow/uc-4.svg",
+   "alt": "An exit survey dashboard shows 14 of 18 leavers answered last quarter, with pay named by 6, growth by 4, schedules by 3, and a move by 1, read by the HR lead."
+  },
+  "cover_image": {
+   "path": "images/aab/offboarding-workflow/cover.svg",
+   "alt": "Offboarding workflow: a direct message telling the IT asset lead that a departing employee's laptop is still out 7 days after her last day"
+  },
+  "share_image": {
+   "path": "images/aab/offboarding-workflow/og.webp",
+   "alt": "Build an offboarding workflow with an owner on every exit task, with Emergent"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-21 10:52 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 11:09 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "B-w-293",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 11:09 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-293",
+   "note": ""
+  }
+ ],
+ "pipeline": "r15",
+ "faq_plan": [
+  {
+   "kind": "definition",
+   "q": "What is an offboarding workflow?",
+   "ref": "offboarding workflow",
+   "locked": true,
+   "n": 1,
+   "a": "An offboarding workflow is the set of exit tasks a company runs for a departing employee, each assigned to a person with a deadline. Employee offboarding describes the separation process when an employee leaves a company, and the workflow tracks each part of it until the last task is closed.",
+   "link": null
+  },
+  {
+   "kind": "definition",
+   "q": "How do I create an offboarding workflow?",
+   "ref": "offboarding workflow",
+   "locked": true,
+   "n": 2,
+   "a": "List every exit task, choose the event that starts each offboarding, and assign every task a person and a deadline. Then describe it in a prompt to Emergent's AI automation builder, which builds the app with its alerts and an HR dashboard. Run one past departure through it before the next notice.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder",
+    "anchor": "AI automation builder",
+    "write_as": "Emergent's AI automation builder"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "What forms belong in an offboarding workflow?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 3,
+   "a": "Use the forms your own exit steps need: the separation record HR fills in, a handover list of clients and open work, an equipment return checklist, and the exit survey. Each form becomes a step on the record with one owner. Ask HR which separation documents you keep on file. Emergent sets no response cap on the forms the app collects.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How does an offboarding workflow differ from onboarding?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 4,
+   "a": "It runs the same pattern in reverse. An employee onboarding workflow opens a record when an offer is accepted and works toward the first day. An offboarding workflow opens one when HR enters a last day and works toward the client handover, returned equipment, and a finished exit survey. Both track who owns each task and when it is due.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/employee-onboarding-workflow",
+    "anchor": "employee onboarding workflow"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "When should an offboarding workflow start?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 5,
+   "a": "Start it the day HR enters a confirmed last day, not on the last day itself. That leaves the manager time to name successors and gives IT time to arrange returns. Set each due date relative to the last day, and a changed date shifts the whole schedule instead of leaving old deadlines behind.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How do remote employees return equipment in an offboarding workflow?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 6,
+   "a": "List every item assigned to the employee on the record, and send return instructions as soon as the last day is set. IT marks each item when it is checked in. Anything still out a set number of days later is flagged to the IT asset lead, and you pick that number to fit how long shipping takes.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How should an offboarding workflow hand over a departing employee's clients?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 7,
+   "a": "Have the manager name a successor for every client account the employee owns, well before the last day. Pass along the account notes and open items, and introduce the successor while the departing employee is still there. If your team runs a client onboarding workflow, add each successor to it, and the client meets the new owner the way a new client does.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/client-onboarding-workflow",
+    "anchor": "client onboarding workflow"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "Who should read leaver feedback in an offboarding workflow?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 8,
+   "a": "Keep individual answers with HR, and decide that before the first leaver answers. Managers can get a summary by reason for leaving instead of named answers. Emergent builds the questions and the HR dashboard from your prompt, and the answers stay in a database you own.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How does an offboarding workflow pass final pay details to payroll?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 9,
+   "a": "It sends payroll one hand-off when HR confirms the last day, with that date, the PTO balance still unused, and any expense report not yet paid. Payroll then applies whatever final-pay rules cover that employee, and the workflow only carries the details. Those details come from the HR system, which the app reads through its API.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Can an offboarding workflow start the search for a replacement?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 10,
+   "a": "Yes. Once the last day is in the HR system, the workflow can ask the manager whether the role will be backfilled and open a hiring request with the job title and team. From there, recruitment automation takes over posting the role and scheduling interviews.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/recruitment-automation",
+    "anchor": "recruitment automation"
+   }
+  }
+ ],
+ "faq_heading": "Offboarding Questions, Answered",
+ "table": {
+  "vs": [
+   "Zapier",
+   "Make (Integromat)",
+   "n8n"
+  ],
+  "rows": [
+   "build",
+   "output",
+   "cap",
+   "ai",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "skeleton": {
+  "built_by": "B-w-293",
+  "built": "2026-10-21 10:52 UTC",
+  "slots": 10,
+  "flagged": 0,
+  "flag_subtypes": [],
+  "locked": 2,
+  "table": true
+ },
+ "plan": {
+  "angle": "The top 10 are HR blog checklists and security explainers that list exit steps but never show them running. This page treats offboarding as one workflow that opens when HR records a last day and gives every exit task an owner and a deadline, then shows it running for four employers: a client handover that needs a successor on every account, equipment that has to come back from a remote employee, a final-pay hand-off to payroll, and an exit survey HR reads by reason. Closing accounts is left to the user provisioning page; hiring the replacement is left to recruitment automation.",
+  "tab_stories": [
+   "Tobias Quennell, an account manager at Wexcombe Insurance Brokers, gives notice; 6 of his 8 client accounts have a named successor, and 5 business days before his last day his manager Imogen Varga gets a direct message naming the 2 without one.",
+   "Priya Lindqvist, a remote analyst at Saltmarsh Analytics, has 3 items to return; the monitor and headset are checked in, the laptop is not, and 7 days after her last day the IT asset lead Dorian Achterberg gets a direct message about it.",
+   "When HR at Corrigan Dental Partners confirms Elspeth Moranis's last day, the app sends the payroll specialist Joaquin Pellew one hand-off with the last day, 38 unused PTO hours as recorded in the HR system, and 1 open expense report of $214.60.",
+   "At Halverd Outdoor Co., 14 of last quarter's 18 leavers answered the exit survey; pay leads their reasons with 6, and the HR lead Annika Strand reads the answers on a dashboard managers cannot open."
+  ],
+  "openers": [
+   "Tobias Quennell gives notice",
+   "Priya Lindqvist works from home",
+   "HR at Corrigan Dental Partners confirms",
+   "Halverd Outdoor Co. sends every leaver",
+   "Write down every task between notice and the last day",
+   "Pick the one event that opens the record",
+   "Run one recent departure through the app"
+  ],
+  "heading_shapes": [
+   "Each client account gets a successor before the last day",
+   "A laptop still out 7 days after the last day goes to IT",
+   "Payroll gets one hand-off the day HR confirms the last day",
+   "Pay comes up in 6 of 14 leavers' answers"
+  ],
+  "claims_to_source": [
+   "Employee offboarding describes the separation process when an employee leaves a company"
+  ],
+  "numbers": [
+   {
+    "value": 8,
+    "formula": "6 + 2"
+   },
+   {
+    "value": 3,
+    "formula": "2 + 1"
+   },
+   {
+    "value": 14,
+    "formula": "6 + 4 + 3 + 1"
+   }
+  ]
+ },
+ "chip_adds": [
+  "Add a client handover that names a successor for every account before the last day.",
+  "Add equipment return tracking that alerts IT when an item is still out after the last day.",
+  "Add a final pay hand-off that sends payroll the last day and unused PTO hours.",
+  "Add an exit survey that only HR can read, grouped by reason for leaving."
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R1",
+    "title": "Client handover",
+    "prompt": "List every client a leaver owns and ask the manager to name a successor",
+    "main": {
+     "chrome": "Offboarding record",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "WEXCOMBE INSURANCE BROKERS",
+       "title": "Tobias Quennell",
+       "size": 24,
+       "sub": "Account manager, 8 client accounts",
+       "chip": [
+        "6 of 8 assigned",
+        "warn"
+       ]
+      },
+      {
+       "type": "list",
+       "items": [
+        {
+         "initials": "BM",
+         "name": "Brennock Marine",
+         "sub": "Successor: Lowen Prideaux",
+         "chip": [
+          "Assigned",
+          "ok"
+         ]
+        },
+        {
+         "initials": "TC",
+         "name": "Tarrant Cold Storage",
+         "sub": "Successor: Lowen Prideaux",
+         "chip": [
+          "Assigned",
+          "ok"
+         ]
+        },
+        {
+         "initials": "FH",
+         "name": "Fenmore Hauliers",
+         "sub": "No successor yet",
+         "chip": [
+          "Open",
+          "warn"
+         ]
+        },
+        {
+         "initials": "GA",
+         "name": "Glasswell Arboretum",
+         "sub": "No successor yet",
+         "chip": [
+          "Open",
+          "warn"
+         ]
+        }
+       ]
+      },
+      {
+       "type": "text",
+       "text": "4 more accounts assigned",
+       "size": 16,
+       "color": "muted"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Imogen Varga",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "2 accounts without a successor",
+       "size": 20,
+       "sub": "Tobias Quennell"
+      },
+      {
+       "type": "meta",
+       "icon": "calendar-clock",
+       "kind": "acc",
+       "text": "5 business days before his last day"
+      },
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "muted",
+       "text": "His manager"
+      }
+     ],
+     "action": {
+      "label": "Assign successors",
+      "icon": "arrow-right"
+     }
+    },
+    "mini": {
+     "icon": "message-square",
+     "kind": "acc",
+     "title": "Direct message",
+     "sub": "Names each open account"
+    },
+    "alt": "An offboarding record shows 6 of Tobias Quennell's 8 client accounts with a successor, and his manager gets a direct message naming the 2 still open 5 business days before his last day.",
+    "story": [
+     {
+      "copy": "Tobias Quennell",
+      "image": "Tobias Quennell"
+     },
+     {
+      "copy": "Wexcombe Insurance Brokers",
+      "image": "WEXCOMBE INSURANCE BROKERS"
+     },
+     {
+      "copy": "his 8 client accounts",
+      "image": "Account manager, 8 client accounts"
+     },
+     {
+      "copy": "Six of the 8 have a named successor",
+      "image": "6 of 8 assigned"
+     },
+     {
+      "copy": "Five business days before his last day",
+      "image": "5 business days before his last day"
+     },
+     {
+      "copy": "Imogen Varga",
+      "image": "To Imogen Varga"
+     },
+     {
+      "copy": "the 2 accounts still without one",
+      "image": "2 accounts without a successor"
+     },
+     {
+      "copy": "his manager",
+      "image": "His manager"
+     }
+    ]
+   },
+   {
+    "recipe": "R8",
+    "title": "Equipment return",
+    "prompt": "Track every item a leaver returns and tell IT about anything still out",
+    "rule": "Out 7 days after last day → IT asset lead",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Priya Lindqvist",
+       "size": 20,
+       "chip": [
+        "2 of 3 checked in",
+        "warn"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Item",
+        "Status"
+       ],
+       "widths": [
+        0.62,
+        0.38
+       ],
+       "row_h": 58,
+       "bad": [
+        2
+       ],
+       "rows": [
+        [
+         "Monitor",
+         [
+          "Checked in",
+          "ok"
+         ]
+        ],
+        [
+         "Headset",
+         [
+          "Checked in",
+          "ok"
+         ]
+        ],
+        [
+         "Laptop",
+         [
+          "Not returned",
+          "bad"
+         ]
+        ]
+       ]
+      },
+      {
+       "type": "note",
+       "icon": "house",
+       "text": "Remote analyst, 3 items to return"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "laptop",
+     "tone": "warn",
+     "title": "Laptop not returned",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "7 days after her last day",
+       "size": 16,
+       "color": "sub"
+      },
+      {
+       "type": "meta",
+       "icon": "message-square",
+       "kind": "acc",
+       "text": "To Dorian Achterberg"
+      },
+      {
+       "type": "meta",
+       "icon": "monitor",
+       "kind": "muted",
+       "text": "IT asset lead"
+      }
+     ],
+     "action": {
+      "label": "Open item",
+      "icon": "arrow-right"
+     }
+    },
+    "mini": {
+     "icon": "package",
+     "kind": "acc",
+     "title": "Saltmarsh Analytics",
+     "sub": "Equipment return"
+    },
+    "alt": "An equipment table for Priya Lindqvist shows the monitor and headset checked in and the laptop not returned, and 7 days after her last day the IT asset lead gets a direct message.",
+    "story": [
+     {
+      "copy": "7 days after the last day",
+      "image": "Out 7 days after last day → IT asset lead"
+     },
+     {
+      "copy": "Priya Lindqvist",
+      "image": "Priya Lindqvist"
+     },
+     {
+      "copy": "Saltmarsh Analytics",
+      "image": "Saltmarsh Analytics"
+     },
+     {
+      "copy": "3 items to return",
+      "image": "Remote analyst, 3 items to return"
+     },
+     {
+      "copy": "The monitor and the headset are checked in",
+      "image": "Checked in"
+     },
+     {
+      "copy": "Seven days after her last day",
+      "image": "7 days after her last day"
+     },
+     {
+      "copy": "Dorian Achterberg",
+      "image": "To Dorian Achterberg"
+     },
+     {
+      "copy": "the IT asset lead",
+      "image": "IT asset lead"
+     },
+     {
+      "copy": "the laptop is not",
+      "image": "Laptop not returned"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Final pay hand-off",
+    "prompt": "Send payroll one hand-off with the last day, unused PTO, and open expenses",
+    "main": {
+     "chrome": "Payroll hand-off",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "CORRIGAN DENTAL PARTNERS",
+       "title": "Elspeth Moranis",
+       "size": 24,
+       "sub": "Dental hygienist",
+       "chip": [
+        "Last day confirmed",
+        "ok"
+       ]
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Last day",
+         "Confirmed by HR"
+        ],
+        [
+         "Unused PTO",
+         "38 hours, from HR system"
+        ],
+        [
+         "Open expense report",
+         "$214.60"
+        ],
+        [
+         "Final-pay rules",
+         "Applied by payroll"
+        ]
+       ]
+      },
+      {
+       "type": "note",
+       "icon": "clock",
+       "text": "Sent the day HR confirmed the last day"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Joaquin Pellew",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Final pay hand-off",
+       "size": 20,
+       "sub": "Elspeth Moranis"
+      },
+      {
+       "type": "meta",
+       "icon": "clock",
+       "kind": "acc",
+       "text": "38 unused PTO hours"
+      },
+      {
+       "type": "meta",
+       "icon": "receipt",
+       "kind": "muted",
+       "text": "1 open expense report, $214.60"
+      }
+     ],
+     "action": {
+      "label": "Mark received",
+      "icon": "check"
+     }
+    },
+    "mini": {
+     "icon": "badge-check",
+     "kind": "ok",
+     "title": "HR confirmed last day",
+     "sub": "Hand-off sent the same day"
+    },
+    "alt": "A payroll hand-off for Elspeth Moranis lists her confirmed last day, 38 unused PTO hours, and one open expense report for $214.60, sent to the payroll specialist to mark received.",
+    "story": [
+     {
+      "copy": "Corrigan Dental Partners",
+      "image": "CORRIGAN DENTAL PARTNERS"
+     },
+     {
+      "copy": "Elspeth Moranis",
+      "image": "Elspeth Moranis"
+     },
+     {
+      "copy": "a dental hygienist",
+      "image": "Dental hygienist"
+     },
+     {
+      "copy": "Joaquin Pellew",
+      "image": "To Joaquin Pellew"
+     },
+     {
+      "copy": "38 unused PTO hours",
+      "image": "38 unused PTO hours"
+     },
+     {
+      "copy": "1 open expense report for $214.60",
+      "image": "1 open expense report, $214.60"
+     },
+     {
+      "copy": "marks it received",
+      "image": "Mark received"
+     },
+     {
+      "copy": "confirms the last day",
+      "image": "HR confirmed last day"
+     },
+     {
+      "copy": "final-pay rules",
+      "image": "Final-pay rules"
+     }
+    ]
+   },
+   {
+    "recipe": "R10",
+    "title": "Exit survey",
+    "prompt": "Send each leaver a short exit survey and group the answers by reason for HR",
+    "main": {
+     "blocks": [
+      {
+       "type": "columns",
+       "cols": [
+        {
+         "w": 0.5,
+         "gap": 16,
+         "blocks": [
+          {
+           "type": "heading",
+           "title": "Reasons for leaving",
+           "size": 19,
+           "sub": "Halverd Outdoor Co."
+          },
+          {
+           "type": "kv",
+           "rows": [
+            [
+             "Answered",
+             "14 of 18"
+            ],
+            [
+             "Questions",
+             "5 per survey"
+            ]
+           ]
+          }
+         ]
+        },
+        {
+         "w": 0.5,
+         "gap": 14,
+         "blocks": [
+          {
+           "type": "bars",
+           "max": 6,
+           "items": [
+            {
+             "label": "Pay",
+             "value": 6,
+             "flag": true
+            },
+            {
+             "label": "Growth",
+             "value": 4
+            },
+            {
+             "label": "Shifts",
+             "value": 3
+            },
+            {
+             "label": "A move",
+             "value": 1
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "kpi": {
+     "icon": "clipboard-list",
+     "label": "Answered",
+     "value": "14 of 18",
+     "sub": "leavers last quarter"
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "chart-bar",
+     "tone": "acc",
+     "title": "Pay leads: 6 of 14",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "Read by Annika Strand, HR lead",
+       "size": 17,
+       "color": "sub"
+      },
+      {
+       "type": "meta",
+       "icon": "lock",
+       "kind": "acc",
+       "text": "HR only dashboard"
+      },
+      {
+       "type": "meta",
+       "icon": "calendar",
+       "kind": "muted",
+       "text": "Sent on each last day"
+      }
+     ],
+     "action": {
+      "label": "Read answers",
+      "icon": "arrow-right"
+     }
+    },
+    "alt": "An exit survey dashboard shows 14 of 18 leavers answered last quarter, with pay named by 6, growth by 4, schedules by 3, and a move by 1, read by the HR lead.",
+    "story": [
+     {
+      "copy": "Halverd Outdoor Co.",
+      "image": "Halverd Outdoor Co."
+     },
+     {
+      "copy": "14 of 18 leavers answered",
+      "image": "14 of 18"
+     },
+     {
+      "copy": "6 of 14 leavers' answers",
+      "image": "Pay leads: 6 of 14"
+     },
+     {
+      "copy": "Annika Strand",
+      "image": "Read by Annika Strand, HR lead"
+     },
+     {
+      "copy": "a dashboard that managers cannot open",
+      "image": "HR only dashboard"
+     },
+     {
+      "copy": "5-question exit survey",
+      "image": "5 per survey"
+     },
+     {
+      "copy": "on the last day",
+      "image": "Sent on each last day"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "dm": true,
+   "channel": "Dorian Achterberg",
+   "title": "Laptop not returned",
+   "sub": "7 days after last day",
+   "primary": "Open item",
+   "secondary": "View",
+   "icon": "laptop",
+   "alt": "Offboarding workflow: a direct message telling the IT asset lead that a departing employee's laptop is still out 7 days after her last day"
+  },
+  "og": {
+   "headline": "Run every exit step",
+   "lines": [
+    "Run every",
+    "exit step"
+   ],
+   "alt": "Build an offboarding workflow with an owner on every exit task, with Emergent"
+  },
+  "checks": [
+   {
+    "expr": "6 + 2 == 8",
+    "shows": [
+     "6 of 8 assigned",
+     "Account manager, 8 client accounts",
+     "2 accounts without a successor"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "2 + 2 + 4 == 8",
+    "shows": [
+     "4 more accounts assigned"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "2 + 1 == 3",
+    "shows": [
+     "2 of 3 checked in",
+     "Remote analyst, 3 items to return"
+    ],
+    "where": 2
+   },
+   {
+    "fact": [
+     "$214.60"
+    ],
+    "where": 3
+   },
+   {
+    "expr": "6 + 4 + 3 + 1 == 14",
+    "shows": [
+     "14 of 18",
+     "Pay leads: 6 of 14"
+    ],
+    "where": 4
+   }
+  ]
+ },
+ "domain_sources": [
+  {
+   "claim": "Employee offboarding describes the separation process when an employee leaves a company",
+   "source_url": "https://en.wikipedia.org/wiki/Employee_offboarding",
+   "date": "2026-10-21",
+   "quote": "Employee offboarding describes the separation process when an employee leaves a company."
+  }
+ ],
+ "claims_used": [
+  "prompt-build",
+  "api-connect",
+  "alerts",
+  "database-owned",
+  "no-caps",
+  "code-export",
+  "realtime",
+  "conversational"
+ ],
+ "faq_sources": [
+  {
+   "q": "What is an offboarding workflow?",
+   "source": "written",
+   "ref": "offboarding workflow",
+   "origin": "definition"
+  },
+  {
+   "q": "How do I create an offboarding workflow?",
+   "source": "written",
+   "ref": "offboarding workflow",
+   "origin": "definition"
+  },
+  {
+   "q": "What forms belong in an offboarding workflow?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How does an offboarding workflow differ from onboarding?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "When should an offboarding workflow start?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How do remote employees return equipment in an offboarding workflow?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How should an offboarding workflow hand over a departing employee's clients?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Who should read leaver feedback in an offboarding workflow?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How does an offboarding workflow pass final pay details to payroll?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Can an offboarding workflow start the search for a replacement?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  }
+ ],
+ "qc_passed": {
+  "rules_version": "41519b1f99fa",
+  "date": "2026-10-21 11:09 UTC"
+ },
+ "learn_refs": [
+  "6a1729ad1817ffd0330c987d",
+  "6abe38fbf322d0af73b37238",
+  "6a172321c4c836a09c1ce435"
+ ],
+ "learn_refs_why": [
+  "best-ai-workflow-builders: score 4.41: matches workflow (builder list, hub-term only)",
+  "how-to-build-an-ai-agent: Auto fixed set: step-by-step build of an agent that handles leads and intake, the AI step inside most automations",
+  "best-no-code-agent-builders: Auto fixed set: no-code agent builders for workflow automation, for readers who want automations without code"
+ ],
+ "writers": [
+  "B-w-293"
+ ]
+}
