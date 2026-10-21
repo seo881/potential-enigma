@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-229",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 05:28 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-86",
+   "note": "rubric 10/10 by B-r-86; 6 notes"
   }
  ],
  "pipeline": "r15",
@@ -1090,5 +1097,305 @@
  },
  "writers": [
   "B-w-229"
- ]
+ ],
+ "review": {
+  "by": "B-r-86",
+  "date": "2026-10-21 05:28 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Quote Automation That Prices Every Request by Your Rules'; hero 'Build quote automation that prices each request from your price book and follows up on every open quote before it expires.' covers pricing, rules and follow-up, the whole job; how-to description one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Sales-quote sense throughout; FAQ 1 answers the PAA 'What is the best automated quoting software available?' with selection criteria; FAQ 3 covers CPQ; 7-step how-to; comparison table vs Zapier, Make, n8n."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary: RFQ, price book, unit tiers, option rules, margin floor, 480V panel, Q-2318 expiring on day 30."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every feature body opens on a full sentence: 'The app prices each line from your price book', 'Write down which options require or exclude each other'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; 11 'A, B, and C' lists (QC Q8) recorded as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'A quote is only as right as the book it reads from.' Plain verbs, concrete numbers, no AI tells."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "CPQ definition in FAQ 3 matches the techtarget spans ('helps sales reps and self-service customers generate accurate quotes for configurable products and services'; 'rules-based and can be customized to address the variables that affect profit margins'). Emergent claims map to prompt-build, api-connect, ai-extraction, alerts, database-owned, code-export, no-caps. Numbers agree: 840+270=1,110; 9,800+1,450=11,250; 18,000-15,480=2,520; 30-10=20."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Stays on the quote itself: no proposal document or signature (proposal-automation), no request form (quote form), no invoice or order-to-cash stages beyond a one-line hand-off in FAQ 10 linked to sales automation."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, PAA gate 10 pass 0 flag; hub link in FAQ 2; sibling links social-media-automation, marketing-automation-workflow, sales-automation; moat lines in FAQ 1, 8, 10."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 $840.00 + $270.00 = $1,110.00 and 'Confirm the washer quantity' to Lisbet Ferraby; tab 2 480V panel $1,450, $11,250; tab 3 Margit Brennecke DM 'Approve a $2,520 margin?'; tab 4 day 3 and day 7 reminders, day 10 call to Wynona Desrosiers, Day 30, 20 days left. One hero each, cursor on button."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "why_description, feature_4, howto_step_1_des, howto_step_2_des, faq items 2, 5, 6, 9",
+    "quote": "the price book, the quote rules, and the follow-up",
+    "issue": "11 'A, B, and C' lists across the page (QC Q8) reads templated: why_description 'the price book, the quote rules, and the follow-up'; feature_4 'from an email, a PDF, or a spreadsheet'; howto_step_1 'the parts, the quantities, the discounts, and the notes'; howto_step_2 'one list price, one cost, and the unit tiers'; faq 2 'option limits, margin floor, and approver'; faq 5 'the total, and the expiry date' and 'Add the terms, who prepared it, and how the customer accepts'.",
+    "fix": "Turn some into pairs or a single specific.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq item 10",
+    "quote": "It should lock the accepted version, record who accepted it and when, and pass the order on without anyone retyping it.",
+    "issue": "The acceptance-to-order hand-off is the quote-to-cash-automation page's 'Quote to Order' tab; this answer edges into that sibling's ground.",
+    "fix": "Keep the answer to locking the accepted version and point onward, as it does, without describing order hand-off steps.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_4 / faq item 4",
+    "quote": "A rep checks any value the AI is unsure of before it is priced.",
+    "issue": "FAQ 4 restates it: 'An AI step in the app can read the parts and quantities in an emailed request and send any unclear value to a person.'",
+    "fix": "Give FAQ 4 a detail the feature lacks.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 6",
+    "quote": "If supplier prices hold for a quarter, use 30 days; if they move weekly, use 7 or 14 days and say so on the quote.",
+    "issue": "Recommendation with no source; acceptable as advice.",
+    "fix": "None required.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief tab 2",
+    "quote": "$11,250 After the switch",
+    "issue": "Main panel shows the post-switch total while the panel check still reads 'Blocked' and the hero asks 'Switch to the 480V panel?'; two moments in one frame. Copy ('the quote totals $11,250') is consistent, so not a contradiction.",
+    "fix": "Label the right figure 'If switched' or show $11,250 only in the hero.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "plan.tab_stories[2]",
+    "quote": "Dorian Pashley at Larkspur Ridge IT",
+    "issue": "Plan names Larkspur Ridge IT; the page and image say Pendlecote IT. Internal only, the shipped copy and image agree.",
+    "fix": "Update the plan to Pendlecote IT for the record.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "why_description, feature_4, howto_step_1_des, howto_step_2_des, faq items 2, 5, 6, 9",
+   "issue": "11 'A, B, and C' lists across the page (QC Q8) reads templated: why_description 'the price book, the quote rules, and the follow-up'; feature_4 'from an email, a PDF, or a spreadsheet'; howto_step_1 'the parts, the quantities, the discounts, and the notes'; howto_step_2 'one list price, one cost, and the unit tiers'; faq 2 'option limits, margin floor, and approver'; faq 5 'the total, and the expiry date' and 'Add the terms, who prepared it, and how the customer accepts'.",
+   "fix": "Turn some into pairs or a single specific.",
+   "by": "B-r-86",
+   "via": "review",
+   "date": "2026-10-21 05:28 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq item 10",
+   "issue": "The acceptance-to-order hand-off is the quote-to-cash-automation page's 'Quote to Order' tab; this answer edges into that sibling's ground.",
+   "fix": "Keep the answer to locking the accepted version and point onward, as it does, without describing order hand-off steps.",
+   "by": "B-r-86",
+   "via": "review",
+   "date": "2026-10-21 05:28 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_4 / faq item 4",
+   "issue": "FAQ 4 restates it: 'An AI step in the app can read the parts and quantities in an emailed request and send any unclear value to a person.'",
+   "fix": "Give FAQ 4 a detail the feature lacks.",
+   "by": "B-r-86",
+   "via": "review",
+   "date": "2026-10-21 05:28 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 6",
+   "issue": "Recommendation with no source; acceptable as advice.",
+   "fix": "None required.",
+   "by": "B-r-86",
+   "via": "review",
+   "date": "2026-10-21 05:28 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief tab 2",
+   "issue": "Main panel shows the post-switch total while the panel check still reads 'Blocked' and the hero asks 'Switch to the 480V panel?'; two moments in one frame. Copy ('the quote totals $11,250') is consistent, so not a contradiction.",
+   "fix": "Label the right figure 'If switched' or show $11,250 only in the hero.",
+   "by": "B-r-86",
+   "via": "review",
+   "date": "2026-10-21 05:28 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "plan.tab_stories[2]",
+   "issue": "Plan names Larkspur Ridge IT; the page and image say Pendlecote IT. Internal only, the shipped copy and image agree.",
+   "fix": "Update the plan to Pendlecote IT for the record.",
+   "by": "B-r-86",
+   "via": "review",
+   "date": "2026-10-21 05:28 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "a80df5081873de49",
+   "alt:share_image": "4e8f91088be92098",
+   "alt:tab_image_1": "a7082e7bf0059f67",
+   "alt:tab_image_2": "d59adfdbd7cd1096",
+   "alt:tab_image_3": "cb66e756d0deadee",
+   "alt:tab_image_4": "fb0c8b993e15421d",
+   "breadcrumb": "5b9681c8185d72b4",
+   "chip_adds": "5db6b772c849d41a",
+   "explore_cta": "3cd0d1222b356e5f",
+   "faq": "2fbd0652edac97b2",
+   "feature_1": "eb37d58f7d8479ba",
+   "feature_2": "feac1142a95bad59",
+   "feature_3": "ad0ae0e2605652f0",
+   "feature_4": "6de75e9b7aaf13cd",
+   "feature_5": "3d2f384040d4dd30",
+   "feature_6": "d7bd42d9f185f6a6",
+   "features_heading": "7324b13acdee5f6b",
+   "features_subheading": "4916fa4c855d7ed6",
+   "h1": "9150f61e2eee3616",
+   "hero_description": "5df0247f099d4a54",
+   "hero_prompt": "8184d0d434f0aad0",
+   "howto_description": "0555ed3ca45ecf6f",
+   "howto_step_1_des": "a97086a6bf64c41c",
+   "howto_step_1_title": "997949a3eb3af5a3",
+   "howto_step_2_des": "15ef391acc092e29",
+   "howto_step_2_title": "3ff36fd97117a18f",
+   "howto_step_3_des": "d2371f34e5c5624a",
+   "howto_step_3_title": "31081577e85ca444",
+   "howto_step_4_des": "68631ed7264d97c7",
+   "howto_step_4_title": "e24b02ef7face349",
+   "howto_step_5_des": "85b85dc135cf8a9a",
+   "howto_step_5_title": "79ae07f429227eb2",
+   "howto_step_6_des": "b9b0977f2b92e9b3",
+   "howto_step_6_title": "d94006c5a4510415",
+   "howto_step_7_des": "10ca91b7b0f319d1",
+   "howto_step_7_title": "ad2638abcb808811",
+   "howto_title": "4e6691bc0dfd197b",
+   "meta_description": "d866c58c348e1f5f",
+   "meta_title": "9119b08d33fb8b31",
+   "mockup": "c8dcd19c40d267ea",
+   "product_name": "a2bd58a44f846b89",
+   "prompt_chip_1": "ea4e01e1aa1100da",
+   "prompt_chip_2": "0fc9451c76871cdc",
+   "prompt_chip_3": "3e24a255cb61914c",
+   "prompt_chip_4": "7a6f27b9ef6693b3",
+   "slug": "25053e867f0c0be3",
+   "tab_content_1": "7fce70b46623ae70",
+   "tab_content_2": "377d4841481334df",
+   "tab_content_3": "ace7058ad530f3f2",
+   "tab_content_4": "1c6ff81eb70efcfd",
+   "tab_label_1": "c8b2d27041d2ae4f",
+   "tab_label_2": "9968c133070a3c9a",
+   "tab_label_3": "c846e1f530af500d",
+   "tab_label_4": "7a6f27b9ef6693b3",
+   "usecase_heading": "ee41cb1e25d4e689",
+   "why_description": "8c94fb1437e763fd",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "aa8e3a20dd795977"
+  },
+  "all": "34a4954a76f56509",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "a80df5081873de49",
+   "alt:share_image": "4e8f91088be92098",
+   "alt:tab_image_1": "a7082e7bf0059f67",
+   "alt:tab_image_2": "d59adfdbd7cd1096",
+   "alt:tab_image_3": "cb66e756d0deadee",
+   "alt:tab_image_4": "fb0c8b993e15421d",
+   "breadcrumb": "5b9681c8185d72b4",
+   "chip_adds": "5db6b772c849d41a",
+   "explore_cta": "3cd0d1222b356e5f",
+   "faq": "2fbd0652edac97b2",
+   "feature_1": "eb37d58f7d8479ba",
+   "feature_2": "feac1142a95bad59",
+   "feature_3": "ad0ae0e2605652f0",
+   "feature_4": "6de75e9b7aaf13cd",
+   "feature_5": "3d2f384040d4dd30",
+   "feature_6": "d7bd42d9f185f6a6",
+   "features_heading": "7324b13acdee5f6b",
+   "features_subheading": "4916fa4c855d7ed6",
+   "h1": "9150f61e2eee3616",
+   "hero_description": "5df0247f099d4a54",
+   "hero_prompt": "8184d0d434f0aad0",
+   "howto_description": "0555ed3ca45ecf6f",
+   "howto_step_1_des": "a97086a6bf64c41c",
+   "howto_step_1_title": "997949a3eb3af5a3",
+   "howto_step_2_des": "15ef391acc092e29",
+   "howto_step_2_title": "3ff36fd97117a18f",
+   "howto_step_3_des": "d2371f34e5c5624a",
+   "howto_step_3_title": "31081577e85ca444",
+   "howto_step_4_des": "68631ed7264d97c7",
+   "howto_step_4_title": "e24b02ef7face349",
+   "howto_step_5_des": "85b85dc135cf8a9a",
+   "howto_step_5_title": "79ae07f429227eb2",
+   "howto_step_6_des": "b9b0977f2b92e9b3",
+   "howto_step_6_title": "d94006c5a4510415",
+   "howto_step_7_des": "10ca91b7b0f319d1",
+   "howto_step_7_title": "ad2638abcb808811",
+   "howto_title": "4e6691bc0dfd197b",
+   "meta_description": "d866c58c348e1f5f",
+   "meta_title": "9119b08d33fb8b31",
+   "mockup": "c8dcd19c40d267ea",
+   "product_name": "a2bd58a44f846b89",
+   "prompt_chip_1": "ea4e01e1aa1100da",
+   "prompt_chip_2": "0fc9451c76871cdc",
+   "prompt_chip_3": "3e24a255cb61914c",
+   "prompt_chip_4": "7a6f27b9ef6693b3",
+   "slug": "25053e867f0c0be3",
+   "tab_content_1": "7fce70b46623ae70",
+   "tab_content_2": "377d4841481334df",
+   "tab_content_3": "ace7058ad530f3f2",
+   "tab_content_4": "1c6ff81eb70efcfd",
+   "tab_label_1": "c8b2d27041d2ae4f",
+   "tab_label_2": "9968c133070a3c9a",
+   "tab_label_3": "c846e1f530af500d",
+   "tab_label_4": "7a6f27b9ef6693b3",
+   "usecase_heading": "ee41cb1e25d4e689",
+   "why_description": "8c94fb1437e763fd",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "aa8e3a20dd795977"
+  },
+  "all": "34a4954a76f56509",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
