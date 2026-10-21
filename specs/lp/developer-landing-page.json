@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-284",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 11:15 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-118",
+   "note": "rubric 10/10 by B-r-118; 3 notes"
   }
  ],
  "pipeline": "r15",
@@ -952,5 +959,245 @@
  },
  "writers": [
   "B-w-284"
- ]
+ ],
+ "review": {
+  "by": "B-r-118",
+  "date": "2026-10-21 11:15 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Developer Landing Page That Shows the Code First'; hero 'Get a developer landing page that shows your install command up top and keeps each signup in a database of your own.' covers a page for any developer product (CLI, SDK, platform, open source)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Mixed SERP (devtools galleries, templates, agency pages); writer's call of a landing page for a developer product is the builder intent, delivered with four example tabs, a 7-step how-to and FAQ on above-the-fold, code samples, docs, pricing and examples."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Developer vocabulary throughout: 'the install line, a code sample, and a docs link', 'one vote per GitHub username', '$0.40 per 1,000 calls'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Describe what the product does...', 'Quillrun asks every signup...', 'Write the one command a developer runs first...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; 13 'A, B, and C' lists (QC Q8 P2) recorded as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Calm, product-led: 'Run a test signup yourself and check that the row lands in your table and the alert arrives.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Claims map to claims_used (custom-domain 'included in Emergent and use credits', free-start 'covers building and publishing', code-export 'on paid plans'). No third-party facts or reader-behaviour statistics; reader guidance is phrased as advice ('A developer who wants to read before signing up should never have to hunt for either one'). Tab numbers add up: 158+254=412, 2,500,000/1,000 x $0.40=$1,000, 14+82=96, 512+388+340=1,240. Table from the library (QC V2/V3 pass)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "D2 hero overlap with coaching-landing-page 23% (under the 30% gate); tabs, how-to and FAQ are developer-specific. 'api landing page' appears in no heading or anywhere on the page; siblings saas/crm/startup appear only as FAQ link anchors."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, no brand or file-format asks, each answered in its first sentence ('Yes, whenever developers call the product from code.'); hub link in item 2; moat lines in items 6, 8, 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: 'If a signup runs Postgres -> first invite wave', '158 of 412 signups / 254 in a later wave'; '$1,000 for Hexley Freight'; 'Brightwell Labs 120 -> HubSpot deal', '14 of 96 requests / 82 to self-serve'; Kafka 512, NATS 388, SQS 340, 1,240 votes. One hero per tab, readable text."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2b",
+    "field": "meta_description, feature_1, feature_3, feature_4, feature_5, tab_content_4, howto_step_2_des, faq items 1, 3, 8, 9, 10",
+    "quote": "the install line, a code sample, and a docs link",
+    "issue": "13 'A, B, and C' lists on the page (QC Q8) give a templated rhythm (tidy triplets).",
+    "fix": "In a future pass, turn some lists into pairs or one specific item.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "hero_description",
+    "quote": "keeps each signup in a database of your own",
+    "issue": "23% of the hero's phrases also appear on /ai-landing-page-builder/coaching-landing-page (QC D2 P2, under the 30% gate); the database-you-own ending is the shared hub phrasing.",
+    "fix": "Optional: end the hero on a developer-specific detail.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2a",
+    "field": "faq item 4",
+    "quote": "A crm landing page speaks to a sales lead and asks for a demo.",
+    "issue": "Lowercase 'crm' in the link anchor reads as a typo to a reader.",
+    "fix": "Write 'CRM landing page' if K4 matching allows the case change.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2b",
+   "field": "meta_description, feature_1, feature_3, feature_4, feature_5, tab_content_4, howto_step_2_des, faq items 1, 3, 8, 9, 10",
+   "issue": "13 'A, B, and C' lists on the page (QC Q8) give a templated rhythm (tidy triplets).",
+   "fix": "In a future pass, turn some lists into pairs or one specific item.",
+   "by": "B-r-118",
+   "via": "review",
+   "date": "2026-10-21 11:15 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "hero_description",
+   "issue": "23% of the hero's phrases also appear on /ai-landing-page-builder/coaching-landing-page (QC D2 P2, under the 30% gate); the database-you-own ending is the shared hub phrasing.",
+   "fix": "Optional: end the hero on a developer-specific detail.",
+   "by": "B-r-118",
+   "via": "review",
+   "date": "2026-10-21 11:15 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2a",
+   "field": "faq item 4",
+   "issue": "Lowercase 'crm' in the link anchor reads as a typo to a reader.",
+   "fix": "Write 'CRM landing page' if K4 matching allows the case change.",
+   "by": "B-r-118",
+   "via": "review",
+   "date": "2026-10-21 11:15 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "abed96909b77824e",
+   "alt:share_image": "8a5ba6d1c97fe312",
+   "alt:tab_image_1": "499e2a43f1fde453",
+   "alt:tab_image_2": "7007857176a28ece",
+   "alt:tab_image_3": "6120e55276ba5724",
+   "alt:tab_image_4": "8c19a6ef0ce95d7b",
+   "breadcrumb": "abe50d26d35de609",
+   "chip_adds": "ce9e542879ebfd26",
+   "explore_cta": "c1fc777ad08b76dc",
+   "faq": "18f2519d37099f44",
+   "feature_1": "95c690a81c40dbd3",
+   "feature_2": "3aa3701fbae3ac30",
+   "feature_3": "788c9f555bf7a551",
+   "feature_4": "f2a0dd65caaa7cf4",
+   "feature_5": "2060e7e25b3c96e9",
+   "feature_6": "c4f6c3aab491f6d7",
+   "features_heading": "394312c9ad9ab25f",
+   "features_subheading": "d64e6c405896450c",
+   "h1": "50e7a5e52869fb65",
+   "hero_description": "2ac6239cec7d7092",
+   "hero_prompt": "de0b6cdbc4401d98",
+   "howto_description": "d0f30b3224dc1fba",
+   "howto_step_1_des": "fe0f9d26dd9156c7",
+   "howto_step_1_title": "b30f55f136e5187d",
+   "howto_step_2_des": "8b831e15ec2c6bfe",
+   "howto_step_2_title": "365f9685aed5113b",
+   "howto_step_3_des": "24d59193858b602e",
+   "howto_step_3_title": "5cc4a47e7fe0b2d2",
+   "howto_step_4_des": "607dc3b0f0f0769d",
+   "howto_step_4_title": "dc22d2f41029d691",
+   "howto_step_5_des": "b255f0e50f7db8d7",
+   "howto_step_5_title": "9a9de6e976d83110",
+   "howto_step_6_des": "2a2677510c728d72",
+   "howto_step_6_title": "70fe81608272007c",
+   "howto_step_7_des": "9876cd2e84cbb720",
+   "howto_step_7_title": "38a37abbd9ef1f43",
+   "howto_title": "75225ad40ede1516",
+   "meta_description": "85ef21ea08de4fd6",
+   "meta_title": "9d9bd82fec846932",
+   "mockup": "e42eef710a5eb9c9",
+   "product_name": "7274f18c6b594d13",
+   "prompt_chip_1": "5f23c9ec3ee33a38",
+   "prompt_chip_2": "a9de5c7fbb9d5f64",
+   "prompt_chip_3": "a735e331c36dbaf0",
+   "prompt_chip_4": "0b94311de2c609b0",
+   "slug": "2820431381c50967",
+   "tab_content_1": "33a0fa5d569e83fc",
+   "tab_content_2": "20d1941923ab4bc6",
+   "tab_content_3": "d625197f17f92a01",
+   "tab_content_4": "352f3dfa2b2b9765",
+   "tab_label_1": "33e88f38385103ae",
+   "tab_label_2": "f35720ac1e47da4f",
+   "tab_label_3": "69ce148f725f632e",
+   "tab_label_4": "fdb627efb86ba73e",
+   "usecase_heading": "a0e9c3b26a52ba10",
+   "why_description": "289402ffe6c22be6",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "66071522e13e08e9"
+  },
+  "all": "7f71e1e284ca5086",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "abed96909b77824e",
+   "alt:share_image": "8a5ba6d1c97fe312",
+   "alt:tab_image_1": "499e2a43f1fde453",
+   "alt:tab_image_2": "7007857176a28ece",
+   "alt:tab_image_3": "6120e55276ba5724",
+   "alt:tab_image_4": "8c19a6ef0ce95d7b",
+   "breadcrumb": "abe50d26d35de609",
+   "chip_adds": "ce9e542879ebfd26",
+   "explore_cta": "c1fc777ad08b76dc",
+   "faq": "18f2519d37099f44",
+   "feature_1": "95c690a81c40dbd3",
+   "feature_2": "3aa3701fbae3ac30",
+   "feature_3": "788c9f555bf7a551",
+   "feature_4": "f2a0dd65caaa7cf4",
+   "feature_5": "2060e7e25b3c96e9",
+   "feature_6": "c4f6c3aab491f6d7",
+   "features_heading": "394312c9ad9ab25f",
+   "features_subheading": "d64e6c405896450c",
+   "h1": "50e7a5e52869fb65",
+   "hero_description": "2ac6239cec7d7092",
+   "hero_prompt": "de0b6cdbc4401d98",
+   "howto_description": "d0f30b3224dc1fba",
+   "howto_step_1_des": "fe0f9d26dd9156c7",
+   "howto_step_1_title": "b30f55f136e5187d",
+   "howto_step_2_des": "8b831e15ec2c6bfe",
+   "howto_step_2_title": "365f9685aed5113b",
+   "howto_step_3_des": "24d59193858b602e",
+   "howto_step_3_title": "5cc4a47e7fe0b2d2",
+   "howto_step_4_des": "607dc3b0f0f0769d",
+   "howto_step_4_title": "dc22d2f41029d691",
+   "howto_step_5_des": "b255f0e50f7db8d7",
+   "howto_step_5_title": "9a9de6e976d83110",
+   "howto_step_6_des": "2a2677510c728d72",
+   "howto_step_6_title": "70fe81608272007c",
+   "howto_step_7_des": "9876cd2e84cbb720",
+   "howto_step_7_title": "38a37abbd9ef1f43",
+   "howto_title": "75225ad40ede1516",
+   "meta_description": "85ef21ea08de4fd6",
+   "meta_title": "9d9bd82fec846932",
+   "mockup": "e42eef710a5eb9c9",
+   "product_name": "7274f18c6b594d13",
+   "prompt_chip_1": "5f23c9ec3ee33a38",
+   "prompt_chip_2": "a9de5c7fbb9d5f64",
+   "prompt_chip_3": "a735e331c36dbaf0",
+   "prompt_chip_4": "0b94311de2c609b0",
+   "slug": "2820431381c50967",
+   "tab_content_1": "33a0fa5d569e83fc",
+   "tab_content_2": "20d1941923ab4bc6",
+   "tab_content_3": "d625197f17f92a01",
+   "tab_content_4": "352f3dfa2b2b9765",
+   "tab_label_1": "33e88f38385103ae",
+   "tab_label_2": "f35720ac1e47da4f",
+   "tab_label_3": "69ce148f725f632e",
+   "tab_label_4": "fdb627efb86ba73e",
+   "usecase_heading": "a0e9c3b26a52ba10",
+   "why_description": "289402ffe6c22be6",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "66071522e13e08e9"
+  },
+  "all": "7f71e1e284ca5086",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

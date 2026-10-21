@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-290",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 11:15 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-119",
+   "note": "[distinct | CONTENT_DEFECTS #1] faq: FAQ 7 answers quote follow-up reminders, which /ai-automation-builder/quote-automation owns (its FAQ covers quote reminder days and stopping reminders on reply). It is also off-intent for someone building appointment reminders (rework checklist 6). This is the on"
   }
  ],
  "pipeline": "r15",
@@ -913,5 +920,193 @@
  },
  "writers": [
   "B-w-290"
- ]
+ ],
+ "review": {
+  "by": "B-r-119",
+  "date": "2026-10-21 11:15 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Appointment Reminder Automation That Gets a Reply' and hero 'reads each client's reply and refills the slot when someone cancels' cover the whole job; stays after-booking, clear of calendar-automation and interview-scheduling-automation."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Four worked reminder rules at Larkspur Grooming plus a 7-step how-to ('Pull 90 days of no-shows' to 'Compare no-shows after 30 days') answer what a searcher wants to build."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Of the 132 clients who confirmed by reply, 2 missed; of the 54 who never answered, 9 missed.'"
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Tabs open on 'Two days before Biscuit's...', 'Pell Ashworth-Nakamura cancels...', 'Dashiell Varga-Mensah's...', 'Larkspur's September board...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One ', so' ending (tab 3) within the QC allowance; numbers add up (132+54=186, 2+9=11, 4:30 to 4:41 = 11 minutes)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Describe the schedule as you would to a new receptionist: a text 48 hours out, an email that morning.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Texting rests on api-connect only: 'Reminders go out through the text messaging service you already use'; consent appears only as advice ('Add a checkbox... Text only the clients who ticked it'), no rule stated as fact; claims_used all in the ledger (ai-extraction, no-caps, code-export, realtime)."
+   },
+   "distinct": {
+    "result": "fail",
+    "evidence": "FAQ 7 'Can appointment reminder automation also chase an unanswered quote?' answers quote follow-up reminders, the topic quote-automation owns."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, hub link in item 2, sibling links to newsletter automation, proposal automation, pdf automation."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches the tabs: C at 2:06 p.m. to Confirmed; waitlist 3 texted, Ines 4:41 p.m., 'Rebooked in 11 minutes'; 2 no-shows in 90 days, Call before booking; 132/2, 54/9, 186/11, 'Second text 3 hours out'."
+   }
+  },
+  "findings": [
+   {
+    "class": "sibling-keyword",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #1",
+    "field": "faq",
+    "quote": "Can appointment reminder automation also chase an unanswered quote? Yes, if the quote has a date the client should answer by. A rule can send a nudge 2 days before that date and a second one on the day itself, then hand the quote to a person if both go unanswered.",
+    "issue": "FAQ 7 answers quote follow-up reminders, which /ai-automation-builder/quote-automation owns (its FAQ covers quote reminder days and stopping reminders on reply). It is also off-intent for someone building appointment reminders (rework checklist 6). This is the only instance on the page; FAQ 10 (documents before a visit) stays on appointments.",
+    "fix": "Replace FAQ 7 with an appointment-reminder question, e.g. reminders for recurring or multi-visit bookings, or what happens when a client replies after the slot was given away; keep the proposal automation link only if it still fits naturally, otherwise move the 2-3 sibling links to answers where they belong.",
+    "severity": "blocking"
+   }
+  ]
+ },
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "fd9fd669ca4775b7",
+   "alt:share_image": "00ec85e2a50c3af0",
+   "alt:tab_image_1": "301776060600a645",
+   "alt:tab_image_2": "ece00489fc51ee21",
+   "alt:tab_image_3": "783a4b5aace9ad5f",
+   "alt:tab_image_4": "cb35e0c6fa0d254a",
+   "breadcrumb": "c6eb1c99a64ed642",
+   "chip_adds": "8e8fc169405cc240",
+   "explore_cta": "638045dbbf09cc4c",
+   "faq": "37d7ede48fd63d0d",
+   "feature_1": "f48ed6ce215be40b",
+   "feature_2": "78f4391171b7491c",
+   "feature_3": "feed52ef2d3ac77d",
+   "feature_4": "800dcf3fa2d38b9f",
+   "feature_5": "3541d46ecc1d5c9d",
+   "feature_6": "6b7770df1e833c22",
+   "features_heading": "43c3699d20348135",
+   "features_subheading": "7a5feb1f318d29f9",
+   "h1": "4fe8703c14b384da",
+   "hero_description": "2747e377ce2e8dae",
+   "hero_prompt": "c0e6a346ccf2cf08",
+   "howto_description": "c21f5e2ed06fc7f2",
+   "howto_step_1_des": "b7505c5ccd356333",
+   "howto_step_1_title": "542bfbd868706b7a",
+   "howto_step_2_des": "ee318ea2dcb2faf2",
+   "howto_step_2_title": "fbd230b8e56bf916",
+   "howto_step_3_des": "d994ed644f67339a",
+   "howto_step_3_title": "9d02bfdcc0e48ac2",
+   "howto_step_4_des": "892a4a44e7ba0413",
+   "howto_step_4_title": "c62bedece4726c11",
+   "howto_step_5_des": "aaf3a1dd0e0e6d17",
+   "howto_step_5_title": "6608c644fa0b8129",
+   "howto_step_6_des": "83a39bc04c451989",
+   "howto_step_6_title": "a7bf7f60e38fd7b3",
+   "howto_step_7_des": "c7fa0810b67aa50b",
+   "howto_step_7_title": "8c6bf3da6956209d",
+   "howto_title": "52fa2aa77dbd98d7",
+   "meta_description": "2a4821bebd77d4eb",
+   "meta_title": "a93dab030b909a0d",
+   "mockup": "7c4d6a32ff633ce4",
+   "product_name": "0ef297369635099e",
+   "prompt_chip_1": "9f00361873285263",
+   "prompt_chip_2": "7a0fa1490a85adc1",
+   "prompt_chip_3": "00308263d03339c0",
+   "prompt_chip_4": "06d02f2005e10400",
+   "slug": "0b3aa9c9292de059",
+   "tab_content_1": "00d5639c684f0bea",
+   "tab_content_2": "b8b980862deb0635",
+   "tab_content_3": "fa3f13c45ddf7d6d",
+   "tab_content_4": "45119ecd41dbbb15",
+   "tab_label_1": "9f00361873285263",
+   "tab_label_2": "7a0fa1490a85adc1",
+   "tab_label_3": "00308263d03339c0",
+   "tab_label_4": "06d02f2005e10400",
+   "usecase_heading": "ea547b9ef599114f",
+   "why_description": "bdbfa5e0d7062f46",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "8bfe47fae08dd8a4"
+  },
+  "all": "836388afb820b5e7",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "fd9fd669ca4775b7",
+   "alt:share_image": "00ec85e2a50c3af0",
+   "alt:tab_image_1": "301776060600a645",
+   "alt:tab_image_2": "ece00489fc51ee21",
+   "alt:tab_image_3": "783a4b5aace9ad5f",
+   "alt:tab_image_4": "cb35e0c6fa0d254a",
+   "breadcrumb": "c6eb1c99a64ed642",
+   "chip_adds": "8e8fc169405cc240",
+   "explore_cta": "638045dbbf09cc4c",
+   "faq": "37d7ede48fd63d0d",
+   "feature_1": "f48ed6ce215be40b",
+   "feature_2": "78f4391171b7491c",
+   "feature_3": "feed52ef2d3ac77d",
+   "feature_4": "800dcf3fa2d38b9f",
+   "feature_5": "3541d46ecc1d5c9d",
+   "feature_6": "6b7770df1e833c22",
+   "features_heading": "43c3699d20348135",
+   "features_subheading": "7a5feb1f318d29f9",
+   "h1": "4fe8703c14b384da",
+   "hero_description": "2747e377ce2e8dae",
+   "hero_prompt": "c0e6a346ccf2cf08",
+   "howto_description": "c21f5e2ed06fc7f2",
+   "howto_step_1_des": "b7505c5ccd356333",
+   "howto_step_1_title": "542bfbd868706b7a",
+   "howto_step_2_des": "ee318ea2dcb2faf2",
+   "howto_step_2_title": "fbd230b8e56bf916",
+   "howto_step_3_des": "d994ed644f67339a",
+   "howto_step_3_title": "9d02bfdcc0e48ac2",
+   "howto_step_4_des": "892a4a44e7ba0413",
+   "howto_step_4_title": "c62bedece4726c11",
+   "howto_step_5_des": "aaf3a1dd0e0e6d17",
+   "howto_step_5_title": "6608c644fa0b8129",
+   "howto_step_6_des": "83a39bc04c451989",
+   "howto_step_6_title": "a7bf7f60e38fd7b3",
+   "howto_step_7_des": "c7fa0810b67aa50b",
+   "howto_step_7_title": "8c6bf3da6956209d",
+   "howto_title": "52fa2aa77dbd98d7",
+   "meta_description": "2a4821bebd77d4eb",
+   "meta_title": "a93dab030b909a0d",
+   "mockup": "7c4d6a32ff633ce4",
+   "product_name": "0ef297369635099e",
+   "prompt_chip_1": "9f00361873285263",
+   "prompt_chip_2": "7a0fa1490a85adc1",
+   "prompt_chip_3": "00308263d03339c0",
+   "prompt_chip_4": "06d02f2005e10400",
+   "slug": "0b3aa9c9292de059",
+   "tab_content_1": "00d5639c684f0bea",
+   "tab_content_2": "b8b980862deb0635",
+   "tab_content_3": "fa3f13c45ddf7d6d",
+   "tab_content_4": "45119ecd41dbbb15",
+   "tab_label_1": "9f00361873285263",
+   "tab_label_2": "7a0fa1490a85adc1",
+   "tab_label_3": "00308263d03339c0",
+   "tab_label_4": "06d02f2005e10400",
+   "usecase_heading": "ea547b9ef599114f",
+   "why_description": "bdbfa5e0d7062f46",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "8bfe47fae08dd8a4"
+  },
+  "all": "836388afb820b5e7",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
