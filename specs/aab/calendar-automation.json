@@ -1,0 +1,959 @@
+{
+ "url": "/ai-automation-builder/calendar-automation",
+ "hub": "Auto",
+ "item_id": null,
+ "status": "spec",
+ "written_by": "B-w-266",
+ "keywords": {
+  "primary": "calendar automation",
+  "secondaries_used": []
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Calendar Automation for Bookings and Meeting Load | Emergent",
+  "meta_description": "Build calendar automation that books interview panels, routes demo requests, flags unconfirmed appointments, and tracks hours in meetings.",
+  "h1": "Build Calendar Automation Around Your Team's Real Availability",
+  "slug": "calendar-automation",
+  "product_name": "Calendar Automation Builder",
+  "hero_description": "Build calendar automation that books meetings only where everyone is free and saves each one to a database you own.",
+  "breadcrumb": "Calendar Automation",
+  "category": "a33cd4fb124ec86a130809893b2b3896",
+  "explore_cta": "Build My Calendar Automation",
+  "features_heading": "Inside the Calendar App Emergent Builds",
+  "features_subheading": "Booking rules tend to live in one coordinator's head. The app Emergent builds runs them against your team's calendars.",
+  "feature_1": "<h3>Free and busy times read before any offer</h3><p>The app asks Google Calendar or Outlook which hours are taken before it offers a slot. A candidate or customer picks from open times only, and nobody checks four calendars by hand.</p>",
+  "feature_2": "<h3>Booking rules described in plain English</h3><p>Tell Emergent your rules the way you would brief an assistant: no calls before 10 AM, 15 minutes between external meetings, Fridays kept for internal work. Emergent builds the logic.</p>",
+  "feature_3": "<h3>A reminder first, then a named person</h3><p>Pick when a reminder goes out by email, and how close to the start an unconfirmed booking can get before a named person on your team hears about it in Slack or in the app.</p>",
+  "feature_4": "<h3>Each booking stored as a row you own</h3><p>Every meeting the app books or cancels is saved, with its owner and the form or CRM record behind it, to a database you own. Next quarter's routing rules start from that history.</p>",
+  "feature_5": "<h3>Meeting hours on a live dashboard</h3><p>The dashboard adds up each person's hours in meetings as events land on their calendars. A manager sees who is close to the weekly limit by Tuesday, while meetings can still move.</p>",
+  "feature_6": "<h3>Your scheduling code in your GitHub</h3><p>Export the full code of the app to your GitHub repository on paid plans. Anyone on your team can read each booking rule, change how ties break, and run it next to your other code.</p>",
+  "why_title": "Why Build Calendar Automation With Emergent?",
+  "why_description": "Emergent builds the booking rules and the meeting dashboard as one app, with no task cap and every booking in a database you own.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Zapier</th>\n        <th scope=\"col\">Make (Integromat)</th>\n        <th scope=\"col\">n8n</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt for the workflow and the app around it</td>\n        <td class=\"col-other\">Templates and editor, AI copilot</td>\n        <td class=\"col-other\">Visual canvas</td>\n        <td class=\"col-other\">Visual canvas, self-hosted or cloud</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">What you get</th>\n        <td class=\"col-brand\">Workflow + trigger form + database + dashboard, as code you own</td>\n        <td class=\"col-other\">Zaps, plus Tables and Interfaces inside Zapier</td>\n        <td class=\"col-other\">Scenarios inside Make</td>\n        <td class=\"col-other\">Workflows inside n8n</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Behavior at cap</th>\n        <td class=\"col-brand\">Keeps running, no task cap</td>\n        <td class=\"col-other\">Overage billed at up to 1.25× the base rate</td>\n        <td class=\"col-other\">Runs pause</td>\n        <td class=\"col-other\">Cloud workflows stop until the reset or an upgrade</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">AI and agent steps</th>\n        <td class=\"col-brand\">Native, share the same credit pool</td>\n        <td class=\"col-other\">Priced by model tier, drawn from the task pool</td>\n        <td class=\"col-other\">AI modules cost variable credits</td>\n        <td class=\"col-other\">Bring your own model API key, billed by the provider</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">Yes on Community Edition</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "Four Calendar Jobs Worth Handing to an App",
+  "tab_label_1": "Interview Panels",
+  "tab_label_2": "Demo Routing",
+  "tab_label_3": "Reminders",
+  "tab_label_4": "Meeting Load",
+  "tab_content_1": "<h3>Odile picks Thursday from 3 open slots</h3><p>Brackenfold Analytics needs a 90-minute panel for candidate Odile Pelletier with Dario Kesterton, Hannelore Brisk, and Lionel Ostberg. The app reads their calendars and offers Odile 3 slots when all of them are free. She picks Thursday at 10:00 AM, and the panel lands on four calendars, hers included.</p>",
+  "tab_content_2": "<h3>With 4 demos booked, Saoirse gets the next one</h3><p>Corrigan Freight asks Tilwick Software for a demo. Your rule gives each demo to the rep with the fewest demos booked this week: Saoirse Malin has 4, Bram Telford 6, and Lionel Ishikawa 7. The 30-minute demo goes on Saoirse's calendar for Tuesday at 2:00 PM, with a direct message to her.</p>",
+  "tab_content_3": "<h3>No reply 4 hours out means a call from the desk</h3><p>Fernmoor Auto Care emails every customer a reminder 24 hours before a service appointment. Nadia Ferreira's brake inspection is Friday at 1:00 PM, and she has not confirmed by 9:00 AM, 4 hours before it starts. Service desk lead Tobias Quennell gets a direct message to call her.</p>",
+  "tab_content_4": "<h3>26 hours of meetings for Garrett, limit 20</h3><p>Sparrowgate Architects caps meetings at a 20-hour limit per person each week. One of the four people on the studio team is past it: Garrett Wexley, at 26 hours. His bar turns red, and a card shows the 6 hours he would need to move to get back under the cap.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { interviewPanels: \"When a candidate reaches the panel stage, read the calendars of the three interviewers and offer the candidate 3 slots of 90 minutes where everyone is free in the next 5 business days. When the candidate picks one, put the panel on all four calendars and email the candidate the time.\", demoRouting: \"When someone requests a demo on our website form, give it to the sales rep with the fewest demos booked this week. Book a 30-minute demo at the first time that rep and the requester are both free, and send the rep a direct message with the company name and the request.\", reminders: \"Email each customer a reminder 24 hours before their service appointment with a button to confirm. If the customer has not confirmed 4 hours before the start time, send our service desk lead a Slack direct message with the customer's name, the service, and the time so they can call.\", meetingLoad: \"Build a dashboard that adds up each person's hours in meetings this week from their calendars, shown as one bar per person. Mark anyone over 20 hours in red, and show how many hours they would need to move to get back under the limit.\" };</p>",
+  "howto_title": "How to Build Calendar Automation",
+  "howto_description": "Seven steps to turn your team's booking rules into calendar automation that reads real availability, then build it with Emergent.",
+  "howto_step_1_title": "01 Pick the hardest meeting to book",
+  "howto_step_2_title": "02 Write each booking rule as a sentence",
+  "howto_step_3_title": "03 Name an owner for each exception",
+  "howto_step_4_title": "04 Describe the app in a prompt",
+  "howto_step_1_des": "Count the emails it took to book your last 10 interviews, demos, or service appointments. Start with the meeting type that needed the most messages per booking. Its rules become the first version of the app, and the other meeting types follow once that one runs cleanly.",
+  "howto_step_2_des": "Write the rules as you would explain them to a new coordinator: who joins, how long it runs, the earliest start time, and the gap between meetings. Keep the numbers exact, such as 90 minutes for a panel or 15 minutes between external calls.",
+  "howto_step_3_des": "Decide who gets told when a booking goes wrong: an unconfirmed appointment, a canceled demo, or a candidate who never picks a slot. Name one person for each case instead of a shared inbox, and choose Slack or email for each one.",
+  "howto_step_4_des": "Open Emergent and describe the app in plain English, with the meeting names your team already uses. Include the rules from step 2 and the people from step 3. Emergent builds the booking page, the routing logic, and the dashboard from that prompt.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Calendar Questions, Answered\", \"items\": [{\"q\": \"What is calendar automation?\", \"a\": \"Calendar automation is software that books and tracks meetings by rules instead of by email back-and-forth. It reads who is free, picks a time that fits the rules, writes the event to each attendee's calendar, and sends the follow-ups. The Google Calendar API, for one, returns free/busy information for a set of calendars, which is the data every booking rule starts from.\"}, {\"q\": \"How do I set up calendar automation?\", \"a\": \"Pick one meeting type, write its booking rules as sentences, and describe them in a prompt to Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>. Emergent builds the app and its database, and the app connects to the calendar your team already uses through its API. Run five real bookings through it before the whole team switches over.\"}, {\"q\": \"What does meeting scheduling automation do after a time is booked?\", \"a\": \"It runs the follow-ups: the confirmation, the reminders, a reschedule link, and the update when someone cancels. Give each one its own timing as a rule. Reminders the app writes onto a Google Calendar event have a ceiling, since the maximum number of override reminders is 5.\"}, {\"q\": \"What permissions does calendar automation need?\", \"a\": \"It needs access to availability, plus access to events if it books meetings. Google Calendar's calendar.events scope is the wider grant, letting an app view and edit events on all your calendars. Request it only for apps that write events. Granting and revoking that access across staff accounts is a job for <a href='https://emergent.sh/ai-automation-builder/it-automation'>it automation</a>.\"}, {\"q\": \"How does calendar automation avoid double bookings?\", \"a\": \"It checks availability twice: once when it offers slots, and again the moment someone picks one. A slot offered at 9:00 can be taken by 9:05. The second check decides whether the event is written or the person sees fresh times. With Emergent, every booking the app makes lands in a database you own.\"}, {\"q\": \"Should calendar automation add buffer time between meetings?\", \"a\": \"Yes, for meetings with people outside your team. Set a fixed gap, such as 15 minutes after each external call, and the app counts that time as busy when it offers slots. Leave internal stand-ups without a buffer, or the day fills with short gaps nobody can book.\"}, {\"q\": \"Can calendar automation create follow-up tasks after a meeting?\", \"a\": \"Yes. The app can watch for an event to end and create a task for its owner, such as sending a proposal within 2 days of a demo. Work that never touches a calendar, like a weekly report reminder, fits better in <a href='https://emergent.sh/ai-automation-builder/task-automation'>task automation</a>. Emergent sets no task cap, and a week of back-to-back demos runs like a quiet one.\"}, {\"q\": \"How does calendar automation handle time zones?\", \"a\": \"It stores each time with its time zone and converts only when it shows the time to a person. Google Calendar events name the zone in a format the API describes as an IANA Time Zone Database name. Show each invitee slots in their own zone, and keep the booking rules, such as no calls before 10 AM, in the host's zone.\"}, {\"q\": \"What should calendar automation do when a meeting is canceled?\", \"a\": \"It should free the slot and tell everyone on the invite. For a canceled demo, the app removes the event from the rep's calendar, updates the CRM deal, and offers the requester new times. Keep canceled bookings in the history: the dashboard can then show how often each meeting type falls through.\"}, {\"q\": \"Can customers reschedule through calendar automation without calling?\", \"a\": \"Yes. Put a reschedule link in the confirmation email that shows only open times, and the app moves the event on every attendee's calendar. Requests that arrive by chat or email instead of the link belong to <a href='https://emergent.sh/ai-automation-builder/customer-service-automation'>customer service automation</a>, which can answer the message and pass the new time to the booking app.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Connect the calendars the app reads",
+  "howto_step_5_des": "Connect Google Calendar or Outlook through their APIs, along with the CRM or form that starts each booking. Grant the access the app needs to see availability and add events, then test it on one person's calendar before adding the whole team.",
+  "howto_step_6_title": "06 Book real meetings through the app",
+  "howto_step_6_des": "Run a handful of real bookings through the app before it goes live, including one with a conflict and one that gets canceled. Check each event on every attendee's calendar, then find the matching row in the database for each booking.",
+  "howto_step_7_title": "07 Change the rules by prompting",
+  "howto_step_7_des": "When a rule needs to change, such as a new 20-hour weekly cap on meetings, describe the change in a new prompt. Emergent changes the app, and the dashboard shows how the next week's calendars look under the new rule.",
+  "prompt_chip_1": "Interview Panels",
+  "prompt_chip_2": "Demo Routing",
+  "prompt_chip_3": "Reminders",
+  "prompt_chip_4": "Meeting Load",
+  "hero_prompt": "<p>Build calendar automation that runs on its own and logs every step.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/aab/calendar-automation/uc-1.svg",
+   "alt": "A candidate picks Thursday at 10:00 AM from 3 open 90-minute panel slots, and the app books the panel on the calendars of all three interviewers and the candidate."
+  },
+  "tab_image_2": {
+   "path": "images/aab/calendar-automation/uc-2.svg",
+   "alt": "A demo request from Corrigan Freight goes to Saoirse Malin, who has 4 demos this week against 6 and 7 for the other reps, and a 30-minute demo is booked for Tuesday at 2:00 PM."
+  },
+  "tab_image_3": {
+   "path": "images/aab/calendar-automation/uc-3.svg",
+   "alt": "A customer's brake inspection on Friday at 1:00 PM is still unconfirmed 4 hours before it starts, so the service desk lead gets a direct message to call her."
+  },
+  "tab_image_4": {
+   "path": "images/aab/calendar-automation/uc-4.svg",
+   "alt": "The meeting load dashboard shows hours in meetings this week for 4 people, with one over the 20-hour limit: Garrett Wexley at 26 hours, 6 hours to move."
+  },
+  "cover_image": {
+   "path": "images/aab/calendar-automation/cover.svg",
+   "alt": "Calendar automation: a direct message asking the service desk lead to call a customer who has not confirmed an appointment 4 hours before it starts"
+  },
+  "share_image": {
+   "path": "images/aab/calendar-automation/og.webp",
+   "alt": "Build calendar automation around real availability, with Emergent"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-21 05:43 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 06:05 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "B-w-266",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 06:05 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-266",
+   "note": ""
+  }
+ ],
+ "pipeline": "r15",
+ "faq_plan": [
+  {
+   "kind": "definition",
+   "q": "What is calendar automation?",
+   "ref": "calendar automation",
+   "locked": true,
+   "n": 1,
+   "a": "Calendar automation is software that books and tracks meetings by rules instead of by email back-and-forth. It reads who is free, picks a time that fits the rules, writes the event to each attendee's calendar, and sends the follow-ups. The Google Calendar API, for one, returns free/busy information for a set of calendars, which is the data every booking rule starts from.",
+   "link": null
+  },
+  {
+   "kind": "definition",
+   "q": "How do I set up calendar automation?",
+   "ref": "calendar automation",
+   "locked": true,
+   "n": 2,
+   "a": "Pick one meeting type, write its booking rules as sentences, and describe them in a prompt to Emergent's AI automation builder. Emergent builds the app and its database, and the app connects to the calendar your team already uses through its API. Run five real bookings through it before the whole team switches over.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder",
+    "anchor": "AI automation builder",
+    "write_as": "Emergent's AI automation builder"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "What does meeting scheduling automation do after a time is booked?",
+   "ref": "meeting scheduling automation",
+   "secondary": "meeting scheduling automation",
+   "locked": false,
+   "n": 3,
+   "a": "It runs the follow-ups: the confirmation, the reminders, a reschedule link, and the update when someone cancels. Give each one its own timing as a rule. Reminders the app writes onto a Google Calendar event have a ceiling, since the maximum number of override reminders is 5.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "What permissions does calendar automation need?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 4,
+   "a": "It needs access to availability, plus access to events if it books meetings. Google Calendar's calendar.events scope is the wider grant, letting an app view and edit events on all your calendars. Request it only for apps that write events. Granting and revoking that access across staff accounts is a job for it automation.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/it-automation",
+    "anchor": "it automation"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "How does calendar automation avoid double bookings?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 5,
+   "a": "It checks availability twice: once when it offers slots, and again the moment someone picks one. A slot offered at 9:00 can be taken by 9:05. The second check decides whether the event is written or the person sees fresh times. With Emergent, every booking the app makes lands in a database you own.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Should calendar automation add buffer time between meetings?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 6,
+   "a": "Yes, for meetings with people outside your team. Set a fixed gap, such as 15 minutes after each external call, and the app counts that time as busy when it offers slots. Leave internal stand-ups without a buffer, or the day fills with short gaps nobody can book.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Can calendar automation create follow-up tasks after a meeting?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 7,
+   "a": "Yes. The app can watch for an event to end and create a task for its owner, such as sending a proposal within 2 days of a demo. Work that never touches a calendar, like a weekly report reminder, fits better in task automation. Emergent sets no task cap, and a week of back-to-back demos runs like a quiet one.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/task-automation",
+    "anchor": "task automation"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "How does calendar automation handle time zones?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 8,
+   "a": "It stores each time with its time zone and converts only when it shows the time to a person. Google Calendar events name the zone in a format the API describes as an IANA Time Zone Database name. Show each invitee slots in their own zone, and keep the booking rules, such as no calls before 10 AM, in the host's zone.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "What should calendar automation do when a meeting is canceled?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 9,
+   "a": "It should free the slot and tell everyone on the invite. For a canceled demo, the app removes the event from the rep's calendar, updates the CRM deal, and offers the requester new times. Keep canceled bookings in the history: the dashboard can then show how often each meeting type falls through.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Can customers reschedule through calendar automation without calling?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 10,
+   "a": "Yes. Put a reschedule link in the confirmation email that shows only open times, and the app moves the event on every attendee's calendar. Requests that arrive by chat or email instead of the link belong to customer service automation, which can answer the message and pass the new time to the booking app.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/customer-service-automation",
+    "anchor": "customer service automation"
+   }
+  }
+ ],
+ "faq_heading": "Calendar Questions, Answered",
+ "table": {
+  "vs": [
+   "Zapier",
+   "Make (Integromat)",
+   "n8n"
+  ],
+  "rows": [
+   "build",
+   "output",
+   "cap",
+   "ai",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "skeleton": {
+  "built_by": "B-w-266",
+  "built": "2026-10-21 05:43 UTC",
+  "slots": 10,
+  "flagged": 0,
+  "flag_subtypes": [],
+  "locked": 2,
+  "table": true
+ },
+ "plan": {
+  "angle": "The query mixes how-to posts about one calendar app with roundups of scheduling tools that each solve one job. This page shows calendar automation as one app that sits on the calendars a team already uses: a 90-minute interview panel booked only where three interviewers are free, demo requests routed to the rep with the fewest demos this week, service appointments confirmed or flagged to the desk 4 hours out, and a dashboard that shows who is past 20 hours of meetings. It stays off generic task lists, help-desk tickets and Slack-only alerts, which sibling pages own.",
+  "tab_stories": [
+   "Brackenfold Analytics needs a 90-minute panel for candidate Odile Pelletier with interviewers Dario Kesterton, Hannelore Brisk and Lionel Ostberg; the app reads their free and busy times, offers Odile 3 open slots, and when she picks Thursday at 10:00 AM it books the panel on all four calendars.",
+   "Tilwick Software gets a demo request from Corrigan Freight; the rule sends each demo to the rep with the fewest demos booked this week, so Saoirse Malin (4) gets it over Bram Telford (6) and Lionel Ishikawa (7), and the 30-minute demo lands on her calendar on Tuesday at 2:00 PM.",
+   "Fernmoor Auto Care emails each customer a reminder 24 hours before a service appointment; Nadia Ferreira's 9:00 AM brake inspection is still unconfirmed 4 hours before it starts, so service desk lead Tobias Quennell gets a Slack direct message to call her.",
+   "Sparrowgate Architects' meeting dashboard totals each person's hours in meetings this week against a 20-hour limit; five of six people are under it, and Garrett Wexley is flagged in red at 26 hours."
+  ],
+  "openers": [
+   "Brackenfold Analytics needs a 90-minute panel",
+   "Corrigan Freight asks Tilwick Software for a demo",
+   "Fernmoor Auto Care emails every customer",
+   "Sparrowgate's dashboard adds up",
+   "Pick one meeting type that eats the most back-and-forth",
+   "Write the booking rules as sentences",
+   "Book three real meetings through the app"
+  ],
+  "heading_shapes": [
+   "Odile picks Thursday from 3 open slots",
+   "With 4 demos booked, Saoirse gets the next one",
+   "No reply 4 hours out means a call from the desk",
+   "26 hours of meetings for Garrett, limit 20"
+  ],
+  "claims_to_source": [
+   "The Google Calendar API freebusy query returns free/busy information for a set of calendars",
+   "Microsoft Graph getSchedule gets free/busy availability for users, distribution lists, or resources for a time period",
+   "Google Calendar API event times carry a time zone formatted as an IANA Time Zone Database name",
+   "The Google Calendar calendar.events scope lets an app view and edit events on all of a user's calendars; calendar.freebusy only views availability",
+   "A Google Calendar event can carry at most 5 override reminders"
+  ]
+ },
+ "chip_adds": [
+  "Add interview panels booked only in slots where every interviewer is free.",
+  "Add demo routing that gives each demo to the rep with the fewest booked this week.",
+  "Add reminders sent 24 hours ahead, with a desk alert when nobody confirms.",
+  "Add a meeting load dashboard of each person's hours in meetings this week."
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R5",
+    "title": "Interview panels",
+    "prompt": "Offer the candidate only the panel times when every interviewer is free",
+    "main": {
+     "chrome": "brackenfold.example/interview",
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Pick a panel time, Odile",
+       "size": 20,
+       "sub": "3 open slots for your panel"
+      },
+      {
+       "type": "list",
+       "row_h": 48,
+       "items": [
+        {
+         "initials": "DK",
+         "name": "Dario Kesterton",
+         "sub": "Interviewer"
+        },
+        {
+         "initials": "HB",
+         "name": "Hannelore Brisk",
+         "sub": "Interviewer"
+        },
+        {
+         "initials": "LO",
+         "name": "Lionel Ostberg",
+         "sub": "Interviewer"
+        }
+       ]
+      },
+      {
+       "type": "slots",
+       "items": [
+        "Wed 2:00 PM",
+        "Thu 10:00 AM",
+        "Fri 1:30 PM"
+       ],
+       "selected": 1
+      },
+      {
+       "type": "button",
+       "label": "Confirm Thu 10:00 AM",
+       "icon": "check",
+       "full": true,
+       "h": 56,
+       "click": true
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "h": 260,
+     "title": "Panel booked",
+     "icon": "calendar-check",
+     "tone": "ok",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "Thursday, 10:00 AM",
+       "size": 18
+      },
+      {
+       "type": "meta",
+       "icon": "clock",
+       "kind": "acc",
+       "text": "90 minutes, all free"
+      },
+      {
+       "type": "meta",
+       "icon": "calendar",
+       "kind": "acc",
+       "text": "On 4 calendars"
+      }
+     ]
+    },
+    "mini": {
+     "icon": "user-check",
+     "title": "Odile Pelletier",
+     "sub": "Candidate, confirmed",
+     "kind": "ok"
+    },
+    "alt": "A candidate picks Thursday at 10:00 AM from 3 open 90-minute panel slots, and the app books the panel on the calendars of all three interviewers and the candidate.",
+    "story": [
+     {
+      "copy": "90-minute panel",
+      "image": "90 minutes, all free"
+     },
+     {
+      "copy": "offers Odile 3 slots",
+      "image": "3 open slots for your panel"
+     },
+     {
+      "copy": "Thursday at 10:00 AM",
+      "image": "Thursday, 10:00 AM"
+     },
+     {
+      "copy": "Dario Kesterton",
+      "image": "Dario Kesterton"
+     },
+     {
+      "copy": "Hannelore Brisk",
+      "image": "Hannelore Brisk"
+     },
+     {
+      "copy": "Lionel Ostberg",
+      "image": "Lionel Ostberg"
+     },
+     {
+      "copy": "lands on four calendars",
+      "image": "On 4 calendars"
+     },
+     {
+      "copy": "candidate Odile Pelletier",
+      "image": "Odile Pelletier"
+     }
+    ]
+   },
+   {
+    "recipe": "R8",
+    "title": "Demo routing",
+    "prompt": "Give each demo request to the rep with the fewest demos booked this week",
+    "rule": "If a demo is requested → fewest demos this week",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Corrigan Freight, demo request",
+       "size": 20,
+       "chip": [
+        "30 minutes",
+        "acc"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Rep",
+        "Demos this week",
+        "Result"
+       ],
+       "widths": [
+        0.42,
+        0.3,
+        0.28
+       ],
+       "row_h": 64,
+       "highlight": 0,
+       "num_cols": [
+        1
+       ],
+       "rows": [
+        [
+         "Saoirse Malin",
+         "4",
+         [
+          "Assigned",
+          "ok"
+         ]
+        ],
+        [
+         "Bram Telford",
+         "6",
+         [
+          "Next up",
+          "acc"
+         ]
+        ],
+        [
+         "Lionel Ishikawa",
+         "7",
+         [
+          "Next up",
+          "acc"
+         ]
+        ]
+       ]
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Booked for",
+         "Tuesday, 2:00 PM"
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "calendar-plus",
+     "tone": "ok",
+     "title": "Demo booked",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "Corrigan Freight, 30 minutes",
+       "size": 18
+      },
+      {
+       "type": "meta",
+       "icon": "clock",
+       "kind": "acc",
+       "text": "Tuesday, 2:00 PM"
+      },
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "acc",
+       "text": "4 demos this week, the fewest"
+      }
+     ],
+     "action": {
+      "label": "Open event",
+      "icon": "external-link"
+     }
+    },
+    "mini": {
+     "icon": "message-square",
+     "kind": "acc",
+     "title": "Saoirse Malin",
+     "sub": "Direct message"
+    },
+    "alt": "A demo request from Corrigan Freight goes to Saoirse Malin, who has 4 demos this week against 6 and 7 for the other reps, and a 30-minute demo is booked for Tuesday at 2:00 PM.",
+    "story": [
+     {
+      "copy": "the fewest demos booked this week",
+      "image": "If a demo is requested → fewest demos this week"
+     },
+     {
+      "copy": "Saoirse Malin",
+      "image": "Saoirse Malin"
+     },
+     {
+      "copy": "Bram Telford",
+      "image": "Bram Telford"
+     },
+     {
+      "copy": "Lionel Ishikawa",
+      "image": "Lionel Ishikawa"
+     },
+     {
+      "copy": "With 4 demos booked",
+      "image": "4 demos this week, the fewest"
+     },
+     {
+      "copy": "The 30-minute demo",
+      "image": "Corrigan Freight, 30 minutes"
+     },
+     {
+      "copy": "Tuesday at 2:00 PM",
+      "image": "Tuesday, 2:00 PM"
+     },
+     {
+      "copy": "a direct message",
+      "image": "Direct message"
+     }
+    ]
+   },
+   {
+    "recipe": "R4",
+    "title": "Reminders",
+    "prompt": "Remind customers a day ahead and alert the desk when nobody confirms",
+    "main": {
+     "blocks": [
+      {
+       "type": "text",
+       "text": "Your appointment",
+       "size": 22
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Service",
+         "Brake inspection"
+        ],
+        [
+         "When",
+         "Friday, 1:00 PM"
+        ],
+        [
+         "Reminder",
+         "24 hours before"
+        ]
+       ]
+      },
+      {
+       "type": "text",
+       "text": "Fernmoor Auto Care",
+       "size": 16,
+       "color": "muted"
+      },
+      {
+       "type": "text",
+       "text": "Tap Confirm to keep your slot",
+       "size": 16,
+       "color": "sub"
+      },
+      {
+       "type": "button",
+       "label": "Confirm",
+       "icon": "check",
+       "full": true
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Nadia Ferreira",
+       "size": 19,
+       "chip": [
+        "Unconfirmed",
+        "warn"
+       ]
+      },
+      {
+       "type": "timeline",
+       "items": [
+        {
+         "label": "Reminder emailed",
+         "chip": "Thu 1:00 PM",
+         "kind": "ok"
+        },
+        {
+         "label": "No reply, 9:00 AM",
+         "chip": "4 hours out",
+         "kind": "bad",
+         "live": true
+        },
+        {
+         "label": "Brake inspection",
+         "chip": "Fri 1:00 PM",
+         "kind": "next"
+        }
+       ]
+      },
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "acc",
+       "text": "Desk lead: Tobias Quennell"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "For Tobias Quennell",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Call Nadia Ferreira",
+       "size": 20,
+       "sub": "Brake inspection, Friday 1:00 PM"
+      },
+      {
+       "type": "meta",
+       "icon": "clock",
+       "kind": "acc",
+       "text": "No reply 4 hours before the start"
+      },
+      {
+       "type": "meta",
+       "icon": "mail",
+       "kind": "acc",
+       "text": "Reminder email unanswered"
+      }
+     ],
+     "action": {
+      "label": "Call now",
+      "icon": "phone"
+     }
+    },
+    "alt": "A customer's brake inspection on Friday at 1:00 PM is still unconfirmed 4 hours before it starts, so the service desk lead gets a direct message to call her.",
+    "story": [
+     {
+      "copy": "24 hours before",
+      "image": "24 hours before"
+     },
+     {
+      "copy": "Friday at 1:00 PM",
+      "image": "Friday, 1:00 PM"
+     },
+     {
+      "copy": "by 9:00 AM",
+      "image": "No reply, 9:00 AM"
+     },
+     {
+      "copy": "4 hours before it starts",
+      "image": "4 hours out"
+     },
+     {
+      "copy": "No reply 4 hours out",
+      "image": "No reply 4 hours before the start"
+     },
+     {
+      "copy": "Nadia Ferreira's brake inspection",
+      "image": "Call Nadia Ferreira"
+     },
+     {
+      "copy": "Tobias Quennell",
+      "image": "For Tobias Quennell"
+     },
+     {
+      "copy": "has not confirmed",
+      "image": "Unconfirmed"
+     }
+    ]
+   },
+   {
+    "recipe": "R10",
+    "title": "Meeting load",
+    "prompt": "Show each person's hours in meetings this week against a 20-hour limit",
+    "kpi": {
+     "icon": "users",
+     "label": "Studio team",
+     "value": "4",
+     "sub": "People tracked"
+    },
+    "main": {
+     "blocks": [
+      {
+       "type": "bars",
+       "max": 30,
+       "items": [
+        {
+         "label": "Mira",
+         "value": 14
+        },
+        {
+         "label": "Garrett",
+         "value": 26,
+         "flag": true
+        },
+        {
+         "label": "Priya",
+         "value": 11
+        },
+        {
+         "label": "Elio",
+         "value": 16
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "title": "Garrett Wexley is over the cap",
+     "icon": "triangle-alert",
+     "tone": "bad",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "26 hours of meetings",
+       "sub": "Limit 20 hours"
+      },
+      {
+       "type": "meta",
+       "icon": "calendar-minus",
+       "kind": "acc",
+       "text": "6 hours to move this week"
+      },
+      {
+       "type": "meta",
+       "icon": "users",
+       "kind": "acc",
+       "text": "Rest of the team under 20"
+      }
+     ],
+     "action": {
+      "label": "Open week"
+     }
+    },
+    "alt": "The meeting load dashboard shows hours in meetings this week for 4 people, with one over the 20-hour limit: Garrett Wexley at 26 hours, 6 hours to move.",
+    "story": [
+     {
+      "copy": "a 20-hour limit",
+      "image": "Limit 20 hours"
+     },
+     {
+      "copy": "the four people",
+      "image": "4"
+     },
+     {
+      "copy": "at 26 hours",
+      "image": "26 hours of meetings"
+     },
+     {
+      "copy": "Garrett Wexley",
+      "image": "Garrett Wexley is over the cap"
+     },
+     {
+      "copy": "the 6 hours",
+      "image": "6 hours to move this week"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "dm": true,
+   "channel": "Tobias Quennell",
+   "title": "Call Nadia Ferreira",
+   "sub": "No reply 4 hours out",
+   "primary": "Call",
+   "secondary": "Reschedule",
+   "icon": "phone",
+   "alt": "Calendar automation: a direct message asking the service desk lead to call a customer who has not confirmed an appointment 4 hours before it starts"
+  },
+  "og": {
+   "headline": "Build calendar automation around real availability",
+   "alt": "Build calendar automation around real availability, with Emergent"
+  },
+  "checks": [
+   {
+    "fact": [
+     "4",
+     "6",
+     "7"
+    ],
+    "where": 2
+   },
+   {
+    "expr": "26 - 20 == 6",
+    "shows": [
+     "26 hours of meetings",
+     "6 hours to move this week"
+    ],
+    "where": 4
+   }
+  ]
+ },
+ "domain_sources": [
+  {
+   "claim": "The Google Calendar API freebusy query returns free/busy information for a set of calendars",
+   "source_url": "https://developers.google.com/workspace/calendar/api/v3/reference/freebusy/query",
+   "date": "2026-10-21",
+   "quote": "Returns free/busy information for a set of calendars."
+  },
+  {
+   "claim": "Microsoft Graph getSchedule gets free/busy availability for users, distribution lists, or resources for a time period",
+   "source_url": "https://learn.microsoft.com/en-us/graph/api/calendar-getschedule",
+   "date": "2026-10-21",
+   "quote": "Get the free/busy availability information for a collection of users, distributions lists, or resources (rooms or equipment) for a specified time period."
+  },
+  {
+   "claim": "Google Calendar API event times carry a time zone formatted as an IANA Time Zone Database name",
+   "source_url": "https://developers.google.com/workspace/calendar/api/v3/reference/events",
+   "date": "2026-10-21",
+   "quote": "Formatted as an IANA Time Zone Database name"
+  },
+  {
+   "claim": "The Google Calendar calendar.events scope lets an app view and edit events on all of a user's calendars; calendar.freebusy only views availability",
+   "source_url": "https://developers.google.com/workspace/calendar/api/auth",
+   "date": "2026-10-21",
+   "quote": "View and edit events on all your calendars"
+  },
+  {
+   "claim": "A Google Calendar event can carry at most 5 override reminders",
+   "source_url": "https://developers.google.com/workspace/calendar/api/v3/reference/events",
+   "date": "2026-10-21",
+   "quote": "The maximum number of override reminders is 5."
+  }
+ ],
+ "claims_used": [
+  "prompt-build",
+  "api-connect",
+  "alerts",
+  "database-owned",
+  "realtime",
+  "code-export",
+  "no-caps"
+ ],
+ "faq_sources": [
+  {
+   "q": "What is calendar automation?",
+   "source": "written",
+   "ref": "calendar automation",
+   "origin": "definition"
+  },
+  {
+   "q": "How do I set up calendar automation?",
+   "source": "written",
+   "ref": "calendar automation",
+   "origin": "definition"
+  },
+  {
+   "q": "What does meeting scheduling automation do after a time is booked?",
+   "source": "written",
+   "ref": "meeting scheduling automation",
+   "origin": "written",
+   "secondary": "meeting scheduling automation"
+  },
+  {
+   "q": "What permissions does calendar automation need?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How does calendar automation avoid double bookings?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Should calendar automation add buffer time between meetings?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Can calendar automation create follow-up tasks after a meeting?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How does calendar automation handle time zones?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "What should calendar automation do when a meeting is canceled?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Can customers reschedule through calendar automation without calling?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  }
+ ],
+ "learn_refs": [
+  "6a1729ad1817ffd0330c987d",
+  "6abe38fbf322d0af73b37238",
+  "6a172321c4c836a09c1ce435"
+ ],
+ "learn_refs_why": [
+  "best-ai-workflow-builders: Auto fixed set: the hub's category: what an AI workflow builder is and how to choose one",
+  "how-to-build-an-ai-agent: Auto fixed set: step-by-step build of an agent that handles leads and intake, the AI step inside most automations",
+  "best-no-code-agent-builders: Auto fixed set: no-code agent builders for workflow automation, for readers who want automations without code"
+ ],
+ "qc_passed": {
+  "rules_version": "41519b1f99fa",
+  "date": "2026-10-21 06:05 UTC"
+ },
+ "writers": [
+  "B-w-266"
+ ]
+}
