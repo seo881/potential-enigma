@@ -1106,6 +1106,8 @@ def ship_check(url):
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G, ship as SH
     if not os.path.exists(spath(url)): return [f"no spec for {url}"]
     s = SH.spec(url); out = []
+    st_ = load_st(hub_of(url))["pages"].get(url, {}).get("state")   # B-c-1 2026-10-21: a page a review sent to rework (or not yet reviewed) never passes
+    if st_ not in ("reviewed", "approved", "cms_draft", "published"): out.append(f"state is '{st_}', not reviewed")
     r = subprocess.run([sys.executable, os.path.join(ROOT, "qc", "qc_hub.py"), spath(url)], capture_output=True, text=True)
     if r.returncode: out.append("QC TOTAL is not 0: " + (", ".join(sorted({m.group(2) for m in re.finditer(r"^  (P0|P1) (\S+)", r.stdout, re.M)})) or "run hubctl qc"))
     ok, n, page, _fl = SH.paa(url)
