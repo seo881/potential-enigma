@@ -149,6 +149,7 @@ def case_primary(p):
     return re.sub(r"^it\b(?=\s+\w)", "IT", case_acronyms(p))
 def def_questions(prim):
     """The two default definition slots when no candidate fills them (plan_slots), acronyms cased (decision 8, QC R15)."""
+    prim = P.head_phrase(prim)   # ruling 4 (Divit 2026-10-21): "best startup landing pages" -> "What is a startup landing page?"
     pc = case_primary(prim); art = _art(prim); plural = bool(PLURAL.search(P.norm(prim)))
     d = f"What {'are' if plural else 'is'} {art}{pc}?"
     h = f"How do I create {art}{pc}?" if art or plural else f"How do I set up {pc}?"
@@ -156,6 +157,7 @@ def def_questions(prim):
 def hero_prompt_for(prim, hub):
     """The hero default prompt (ruling 15, HUB_RULES 5): 'Build' + the primary with the right article: by sound ("a uniform"), none on a
     mass noun ("Build SEO automation"), "a set of" before a plural ("Build a set of poll questions"), acronyms cased (decision 8)."""
+    prim = P.head_phrase(prim)   # ruling 4 (Divit 2026-10-21): "Build a startup landing page ...", never "a set of best ..."
     tmpl = HERO[hub]; pc = case_primary(prim); plural = bool(PLURAL.search(P.norm(prim)))
     if hub == "Auto":
         if plural: tmpl = "Build {p} that run on their own and log every step."
@@ -169,7 +171,11 @@ def built_fields(url):
     when the field is empty."""
     km = H.kmap()[url]; prim = km["primary"]; hub = H.hub_of(url); disp = _title(km.get("display_name") or prim); d, h = def_questions(prim)
     return {"faq_heading": faq_heading_for(disp, url), "explore_cta": explore_cta_for(disp, url), "hero_prompt": hero_prompt_for(prim, hub),
-            "breadcrumb": disp, "product_name": f"{disp} Builder", "def_q": d, "how_q": h}
+            "breadcrumb": disp, "product_name": f"{disp} Builder", "def_q": d, "how_q": h, "h1_phrase": h1_phrase_for(prim)}
+def h1_phrase_for(prim):
+    """Ruling 4 (Divit 2026-10-21): the keyword phrase the H1 carries, title case: the head phrase of a list-style primary
+    ("Startup Landing Page" for "best startup landing pages"), the primary itself otherwise. QC K1 accepts either in the H1."""
+    return _title(P.head_phrase(prim))
 
 ACRO = P.r18()["acronyms"]   # rules/paa_patterns.json (ruling 18 part 4e: CFOs, KYC ...); None = never cased (it, us)
 def case_acronyms(text):
@@ -381,6 +387,7 @@ def cmd_pack(a):
     out = [f"# Page pack (ruling 15): {url}", "", f"Primary: {km.get('primary')} | intent: {km.get('intent')} | angle note: {(km.get('angle') or '')[:300]}", "",
            "## Sections, in order (write one, run `skeleton.py check URL <section>`, fix to 0, then the next)",
            "1 hero: meta_title, meta_description, h1, hero_description, prompt_chip_1-4 + chip_adds (hero_prompt, product_name, breadcrumb, explore_cta are set by code)",
+           *([f"Ruling 4 (Divit 2026-10-21): the H1 carries the head phrase \"{h1_phrase_for(km['primary'])}\", never the modifiers of \"{km['primary']}\"; the full keyword goes in meta_title, meta_description and hero_description."] if km.get("primary") and P.head_phrase(km["primary"]) != km["primary"] else []),
            "2 features: features_heading, features_subheading, feature_1-6", "3 why: why_title, why_description (the table is built by code)",
            "4 usecases: usecase_heading, tab_label_1-4, tab_content_1-4, mockup, image_brief", "5 howto: howto_title, howto_description, 7 steps",
            "6 faq: one answer per slot with `skeleton.py answer URL N TEXT` (written slots: add --q QUESTION); then `skeleton.py assemble URL`; then `skeleton.py check URL faq`",
