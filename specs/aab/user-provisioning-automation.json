@@ -50,7 +50,7 @@
   "howto_step_2_des": "For each role, name the apps it gets and the level of access in each, such as viewer, editor, or admin. Start with the 5 roles you hire into most often, and leave rare roles as manual requests for now.",
   "howto_step_3_des": "Choose one system whose records drive every account change, such as your HR system. Every account change then follows a change to that record, and nobody opens accounts from a chat request.",
   "howto_step_4_des": "Mark each app and access level that should wait for a person, such as admin rights or billing. Name an approver for each one, and decide how long a request can wait before their manager hears about it.",
-  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"User Provisioning Questions, Answered\", \"items\": [{\"q\": \"What is user provisioning automation?\", \"a\": \"User provisioning automation is software that keeps a person's app accounts in step with their HR record. It opens accounts for a new hire and closes them after a last day, and a move to another team swaps one set of apps for another. A role list decides which apps and access levels each person gets, and every change is logged.\"}, {\"q\": \"How do I set up user provisioning automation?\", \"a\": \"Start with a role list that names the apps and access level for every role. Pick the HR record that triggers changes, mark which accounts need an approver, and describe all of it to Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>. Connect each app's API, then replay a past hire and a past departure against test accounts before you switch it on.\"}, {\"q\": \"Does user provisioning automation delete accounts or deactivate them?\", \"a\": \"Either one, depending on the rule you write, and you can start with deactivation. In Okta's provisioning integration, for example, deprovisioning a user updates that user's account in the connected app with active=false. Deactivate on the last day, and delete on a later date you choose, once someone else owns the person's files.\"}, {\"q\": \"What should trigger user provisioning automation for a new hire?\", \"a\": \"Use a change to the HR record, such as a status of hired with a start date, rather than an offer accepted by email. The start date gives the app a deadline to open accounts before day one. If you run <a href='https://emergent.sh/ai-automation-builder/recruitment-automation'>recruitment automation</a>, the accepted candidate it passes to HR can create that record.\"}, {\"q\": \"Should user provisioning automation run on each change or on a schedule?\", \"a\": \"Run it on each change to the HR record, and add a nightly check on top. The change-driven run opens and closes accounts the day the HR record changes. The nightly check compares each app's user list with the role list and reports any account nobody expected, such as one an admin created by hand.\"}, {\"q\": \"How do I decide which apps each role gets in user provisioning automation?\", \"a\": \"Give each role only the apps and access levels its work needs. NIST defines least privilege as restricting the access privileges of users to the minimum necessary to accomplish assigned tasks. Build each role's list from what people in that role open in a normal week, and send anything else through a request with an approver.\"}, {\"q\": \"Can user provisioning automation create accounts for clients as well as employees?\", \"a\": \"Yes. The same pattern works for customer portal accounts: a signed contract triggers the account, and the client's plan sets what they can see. If you already run a <a href='https://emergent.sh/ai-automation-builder/client-onboarding-workflow'>client onboarding workflow</a>, its last step can create the client's portal login. Emergent builds that app from a plain-English prompt and connects it to any tool with an API.\"}, {\"q\": \"How does user provisioning automation keep access correct over time?\", \"a\": \"Run an access review every quarter. The app sends each app owner a list of who has an account and at what level, and the owner confirms or removes each one. Every answer is saved with the date and the reviewer in a database you own, and next quarter's review starts from it.\"}, {\"q\": \"Do I need an identity provider for user provisioning automation?\", \"a\": \"No. The app can call each tool's own user API where the tool offers one, and a team with a dozen such apps can start there. If you already run an identity provider, connect it through its API and leave it the accounts it manages today. Emergent builds the provisioning app from a prompt, and the free tier covers building and publishing.\"}, {\"q\": \"How do I grant temporary access with user provisioning automation?\", \"a\": \"Give every access request outside the role list an end date. The person asks through a form, the app's owner approves, and the app removes the access on that date and logs it. A support agent who needs the refund tool for a week of escalations gets 7 days. If you run <a href='https://emergent.sh/ai-automation-builder/customer-service-automation'>customer service automation</a>, link the escalated ticket to the request so the owner sees why.\"}]}; </script></div></div>",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"User Provisioning Questions, Answered\", \"items\": [{\"q\": \"What is user provisioning automation?\", \"a\": \"User provisioning automation is software that keeps a person's app accounts in step with their HR record. It opens accounts for a new hire and closes them after a last day, and a move to another team swaps one set of apps for another. A role list decides which apps and access levels each person gets, and every change is logged.\"}, {\"q\": \"How do I set up user provisioning automation?\", \"a\": \"Start with a role list that names the apps and access level for every role. Pick the HR record that triggers changes, mark which accounts need an approver, and describe all of it to Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>. Connect each app's API, then replay a past hire and a past departure against test accounts before you switch it on.\"}, {\"q\": \"Does user provisioning automation delete accounts or deactivate them?\", \"a\": \"Either one, depending on the rule you write, and you can start with deactivation. Check each app's admin settings to see what its deactivate option keeps before you rely on it. Deactivate on the last day, and delete on a later date you choose, once someone else owns the person's files.\"}, {\"q\": \"What should trigger user provisioning automation for a new hire?\", \"a\": \"Use a change to the HR record, such as a status of hired with a start date, rather than an offer accepted by email. The start date gives the app a deadline to open accounts before day one. If you run <a href='https://emergent.sh/ai-automation-builder/recruitment-automation'>recruitment automation</a>, the accepted candidate it passes to HR can create that record.\"}, {\"q\": \"Should user provisioning automation run on each change or on a schedule?\", \"a\": \"Run it on each change to the HR record, and add a nightly check on top. The change-driven run opens and closes accounts the day the HR record changes. The nightly check compares each app's user list with the role list and reports any account nobody expected, such as one an admin created by hand.\"}, {\"q\": \"How do I decide which apps each role gets in user provisioning automation?\", \"a\": \"Give each role only the apps and access levels its work needs. NIST defines least privilege as restricting the access privileges of users to the minimum necessary to accomplish assigned tasks. Build each role's list from what people in that role open in a normal week, and send anything else through a request with an approver.\"}, {\"q\": \"Can user provisioning automation create accounts for clients as well as employees?\", \"a\": \"Yes. The same pattern works for customer portal accounts: a signed contract triggers the account, and the client's plan sets what they can see. If you already run a <a href='https://emergent.sh/ai-automation-builder/client-onboarding-workflow'>client onboarding workflow</a>, its last step can create the client's portal login. Emergent builds that app from a plain-English prompt and connects it to any tool with an API.\"}, {\"q\": \"How does user provisioning automation keep access correct over time?\", \"a\": \"Run an access review every quarter. The app sends each app owner a list of who has an account and at what level, and the owner confirms or removes each one. Every answer is saved with the date and the reviewer in a database you own, and next quarter's review starts from it.\"}, {\"q\": \"Do I need an identity provider for user provisioning automation?\", \"a\": \"No. The app can call each tool's own user API where the tool offers one, and a team with a dozen such apps can start there. If you already run an identity provider, connect it through its API and leave it the accounts it manages today. Emergent builds the provisioning app from a prompt, and the free tier covers building and publishing.\"}, {\"q\": \"How do I grant temporary access with user provisioning automation?\", \"a\": \"Give every access request outside the role list an end date. The person asks through a form, the app's owner approves, and the app removes the access on that date and logs it. A support agent who needs the refund tool for a week of escalations gets 7 days. If you run <a href='https://emergent.sh/ai-automation-builder/customer-service-automation'>customer service automation</a>, link the escalated ticket to the request so the owner sees why.\"}]}; </script></div></div>",
   "learn": null,
   "tutorials": null,
   "case_study": null,
@@ -122,6 +122,27 @@
    "via": "review",
    "by": "B-r-107",
    "note": "[truth | HUB_RULES 8] faq item 3: The source scope is dropped (rework-checklist item 2). Okta's page says this of SCIM apps only: 'If an admin deprovisions a user's profile inside Okta, the user resource inside your SCIM app is updated with active=false'. Without 'SCIM', the sentence covers every Ok"
+  },
+  {
+   "t": "2026-10-21 06:20 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "B-w-278",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 06:20 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-278",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 06:20 UTC",
+   "state": "reviewed",
+   "via": "ready",
+   "by": "B-w-278",
+   "note": "one rework applied by B-w-278 after B-r-107 (1 findings marked blocking then, fixed per rules/SEVERITY.md); ready for Divit"
   }
  ],
  "pipeline": "r15",
@@ -155,7 +176,7 @@
    "secondary": null,
    "locked": false,
    "n": 3,
-   "a": "Either one, depending on the rule you write, and you can start with deactivation. In Okta's provisioning integration, for example, deprovisioning a user updates that user's account in the connected app with active=false. Deactivate on the last day, and delete on a later date you choose, once someone else owns the person's files.",
+   "a": "Either one, depending on the rule you write, and you can start with deactivation. Check each app's admin settings to see what its deactivate option keeps before you rely on it. Deactivate on the last day, and delete on a later date you choose, once someone else owns the person's files.",
    "link": null
   },
   {
@@ -287,7 +308,6 @@
    "IT hears which of 6 accounts failed to close"
   ],
   "claims_to_source": [
-   "In Okta's provisioning integration, deprovisioning a user updates the user's account in the connected app with active=false",
    "NIST defines least privilege as restricting the access privileges of users to the minimum necessary to accomplish assigned tasks"
   ],
   "numbers": [
@@ -317,12 +337,6 @@
   "free-start"
  ],
  "domain_sources": [
-  {
-   "claim": "In Okta's provisioning integration, deprovisioning a user updates the user's account in the connected app with active=false",
-   "source_url": "https://developer.okta.com/docs/concepts/scim/",
-   "date": "2026-10-21",
-   "quote": "If an admin deprovisions a user's profile inside Okta, the user resource inside your SCIM app is updated with active=false"
-  },
   {
    "claim": "NIST defines least privilege as restricting the access privileges of users to the minimum necessary to accomplish assigned tasks",
    "source_url": "https://csrc.nist.gov/glossary/term/least_privilege",
@@ -982,10 +996,11 @@
  ],
  "qc_passed": {
   "rules_version": "41519b1f99fa",
-  "date": "2026-10-21 06:11 UTC"
+  "date": "2026-10-21 06:20 UTC"
  },
  "writers": [
-  "B-w-275"
+  "B-w-275",
+  "B-w-278"
  ],
  "review": {
   "by": "B-r-107",
