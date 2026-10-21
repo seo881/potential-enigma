@@ -125,6 +125,13 @@
    "via": null,
    "by": "A-w-159",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 10:59 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-44",
+   "note": "rubric 10/10 by A-r-44; 7 notes"
   }
  ],
  "pipeline": "r15",
@@ -932,5 +939,325 @@
  },
  "writers": [
   "A-w-159"
- ]
+ ],
+ "review": {
+  "by": "A-r-44",
+  "date": "2026-10-21 10:59 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Interior Design Questionnaire That Drafts the Plan'; hero 'Build an interior design questionnaire that collects photos room by room and saves every answer to a database you own.'; how-to description one sentence carrying the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is designers' question lists and templates; page gives the sections to ask (FAQ 1, FAQ 3 'Five parts: contact details and the property address...'), budget, office and photo questions, a 7-step how-to and the builder."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Designer vocabulary throughout: 'performance fabric on every upholstered piece', 'keep or replace', 'busiest-day count sizes the desk plan', 'two sets of twin bunks'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on full sentences: 'The client ticks the rooms in scope...', 'Each room asks for photos taken from the doorway...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; ambiguous 'They set the bed plan' (tab 4) recorded as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail ('a walnut dresser', '34 in on Tuesdays'); repeated 'not X' contrast frame recorded as a note."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to prompt-build, alerts, database-owned, no-caps, code-export, free-start (FAQ 8 uses approved api-connect, not listed: note). Numbers agree: $46,000 vs $40,000 = $6,000 gap; 12 pieces, 5 kept, 7 to source; 48 staff, 34 desks; king 2 + queen 2 + two bunk sets 4 = sleeps 8. No third-party facts stated; table generated from library."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Not a near-copy of website-design-questionnaire: different tabs (family fabric rule, keep-or-replace, office desks, rental beds vs copy gaps, budget packages, product import, rush launches), different steps and FAQ; QC D2 clean."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first ('Before the first consultation.', 'Yes. Each room section can take photos...'); hub link in FAQ 2; sibling links brand questionnaire, client onboarding questionnaire, project request form; no brand or format asks in questions; paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: Two dogs / One, age 4 / 5 pieces marked; Marisa Velasquez 12 pieces, 7 to source, 5 kept, walnut dresser kept; Quennell 48 / 34 / Tuesday / 34 desks instead of 48; Gullrock Cottage sleeps 8 in 3 bedrooms, king 2, queen 2, two twin bunk sets 4. One hero, cursor on button edges."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "features_intro; howto_step_7_des; faq item 7",
+    "quote": "the first visit starts from a draft plan, not a blank notepad",
+    "issue": "The same idea (start the first visit from a draft, not a blank page) appears three times: features_intro 'the first visit starts from a draft plan, not a blank notepad'; howto_step_7 'You then walk into the first meeting with the client's photos and a draft plan already in hand'; faq 7 'lets the consultation start from the client's photos and budget instead of a blank page'.",
+    "fix": "Keep it once (step 7) and give the features intro and FAQ 7 their own point.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "features_intro; feature_3 title; howto_step_3_des; faq items 7, 8",
+    "quote": "Style chosen from pictures, not adjectives",
+    "issue": "The 'X, not Y' / 'instead of' contrast frame recurs: features_intro 'not a blank notepad'; feature_3 'Style chosen from pictures, not adjectives'; howto_step_3 'instead of something you remember'; faq 7 'instead of a blank page'; faq 8 'not only how big the team is'. Repeated, it reads templated.",
+    "fix": "Keep one or two; state the others positively.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "faq item 8; claims_used",
+    "quote": "The app Emergent builds can send each response to any project tool with an API.",
+    "issue": "The sentence uses the approved api-connect claim, but claims_used does not list api-connect.",
+    "fix": "Add api-connect to claims_used.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 10; feature_1",
+    "quote": "No. A full-home questionnaire asks far more than a single-room job needs.",
+    "issue": "Feature 1 says the questionnaire scales down by room ('A two-room refresh skips the kitchen'), while FAQ 10 says a one-room refresh should get a different form. Not a contradiction in fact (one room vs two), but the reader gets two different answers to how small jobs are handled.",
+    "fix": "In FAQ 10, say the room-by-room questionnaire already trims to the rooms ticked, and point one-off styling jobs (a bookshelf wall) to the project request form.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_4",
+    "quote": "They set the bed plan before any style question",
+    "issue": "'They' has no clear referent after 'His designer's rental questionnaire asks for both numbers first' (the numbers? the designer?).",
+    "fix": "'The designer sets the bed plan before any style question: ...'",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 6",
+    "quote": "about 25 questions plus photos is a workable ceiling",
+    "issue": "A specific number given as guidance with no source; it is advice, so a note.",
+    "fix": "Keep as the page's recommendation or tie the ceiling to finishing in one sitting without a number.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "feature_5",
+    "quote": "Every questionnaire saves as a row in a database you own, with no response caps. The app emails you or posts in Slack when one arrives",
+    "issue": "Same sentence formula as sibling feature bodies (cake-order-form 'Each order saves as a row in a database you own, with no response caps in your busiest week'; catering-order-form 'Every order saves as a row in a database you own, with no response caps in June or December').",
+    "fix": "Tie the alert body to the designer's moment (the inquiry with budget and rooms in scope) in a shape the siblings do not use.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "features_intro; howto_step_7_des; faq item 7",
+   "issue": "The same idea (start the first visit from a draft, not a blank page) appears three times: features_intro 'the first visit starts from a draft plan, not a blank notepad'; howto_step_7 'You then walk into the first meeting with the client's photos and a draft plan already in hand'; faq 7 'lets the consultation start from the client's photos and budget instead of a blank page'.",
+   "fix": "Keep it once (step 7) and give the features intro and FAQ 7 their own point.",
+   "by": "A-r-44",
+   "via": "review",
+   "date": "2026-10-21 10:59 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "features_intro; feature_3 title; howto_step_3_des; faq items 7, 8",
+   "issue": "The 'X, not Y' / 'instead of' contrast frame recurs: features_intro 'not a blank notepad'; feature_3 'Style chosen from pictures, not adjectives'; howto_step_3 'instead of something you remember'; faq 7 'instead of a blank page'; faq 8 'not only how big the team is'. Repeated, it reads templated.",
+   "fix": "Keep one or two; state the others positively.",
+   "by": "A-r-44",
+   "via": "review",
+   "date": "2026-10-21 10:59 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 6",
+   "field": "faq item 8; claims_used",
+   "issue": "The sentence uses the approved api-connect claim, but claims_used does not list api-connect.",
+   "fix": "Add api-connect to claims_used.",
+   "by": "A-r-44",
+   "via": "review",
+   "date": "2026-10-21 10:59 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 10; feature_1",
+   "issue": "Feature 1 says the questionnaire scales down by room ('A two-room refresh skips the kitchen'), while FAQ 10 says a one-room refresh should get a different form. Not a contradiction in fact (one room vs two), but the reader gets two different answers to how small jobs are handled.",
+   "fix": "In FAQ 10, say the room-by-room questionnaire already trims to the rooms ticked, and point one-off styling jobs (a bookshelf wall) to the project request form.",
+   "by": "A-r-44",
+   "via": "review",
+   "date": "2026-10-21 10:59 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_4",
+   "issue": "'They' has no clear referent after 'His designer's rental questionnaire asks for both numbers first' (the numbers? the designer?).",
+   "fix": "'The designer sets the bed plan before any style question: ...'",
+   "by": "A-r-44",
+   "via": "review",
+   "date": "2026-10-21 10:59 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 6",
+   "issue": "A specific number given as guidance with no source; it is advice, so a note.",
+   "fix": "Keep as the page's recommendation or tie the ceiling to finishing in one sitting without a number.",
+   "by": "A-r-44",
+   "via": "review",
+   "date": "2026-10-21 10:59 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "feature_5",
+   "issue": "Same sentence formula as sibling feature bodies (cake-order-form 'Each order saves as a row in a database you own, with no response caps in your busiest week'; catering-order-form 'Every order saves as a row in a database you own, with no response caps in June or December').",
+   "fix": "Tie the alert body to the designer's moment (the inquiry with budget and rooms in scope) in a shape the siblings do not use.",
+   "by": "A-r-44",
+   "via": "review",
+   "date": "2026-10-21 10:59 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "812be02665176ccc",
+   "alt:share_image": "374eeebf06b5002e",
+   "alt:tab_image_1": "118b8a56e29aa4ca",
+   "alt:tab_image_2": "d9e97476a3cfd857",
+   "alt:tab_image_3": "451fbfd681ff045a",
+   "alt:tab_image_4": "5ce1124bb828bce0",
+   "breadcrumb": "583227aca63e2f9c",
+   "chip_adds": "89014c48a79445b3",
+   "explore_cta": "c08f3661a6908d58",
+   "faq": "c1a433ea8ec6d306",
+   "feature_1": "f14928086882c662",
+   "feature_2": "5ee41660c49a9910",
+   "feature_3": "87129134e8eb4b7b",
+   "feature_4": "4c740d98a50714a8",
+   "feature_5": "c0fddebab88f5926",
+   "feature_6": "0d3a92ed598b8e32",
+   "features_heading": "40187e039dd6f906",
+   "features_subheading": "bd6c9f822773b926",
+   "h1": "418edcdedee38830",
+   "hero_description": "ae352ff99a73cee5",
+   "hero_prompt": "6eca3980bdd61ec2",
+   "howto_description": "ee367eeecc2be28c",
+   "howto_step_1_des": "b0d19e96ecfb7933",
+   "howto_step_1_title": "917f03831dbc5582",
+   "howto_step_2_des": "9fd63b78ad46e2e8",
+   "howto_step_2_title": "a34316619beea224",
+   "howto_step_3_des": "ab299671bd9569e7",
+   "howto_step_3_title": "553926a9bafad4b4",
+   "howto_step_4_des": "589791de544fc1f3",
+   "howto_step_4_title": "4b75a2c5807c5bbf",
+   "howto_step_5_des": "e2ea5d43ca20ece4",
+   "howto_step_5_title": "47e21227c893f179",
+   "howto_step_6_des": "e9542a488437d8f5",
+   "howto_step_6_title": "3f269b400fa75393",
+   "howto_step_7_des": "b1c43ee59e5874dc",
+   "howto_step_7_title": "d4b0ee5f9f83f0a5",
+   "howto_title": "723d58388a5a8241",
+   "meta_description": "77793545a312247e",
+   "meta_title": "b61120640d00238d",
+   "mockup": "1437a2f86b83a011",
+   "product_name": "8bb0519f0cd5fde6",
+   "prompt_chip_1": "ecd2a636aabbf45e",
+   "prompt_chip_2": "31b8227865b6ba77",
+   "prompt_chip_3": "e0904883a17ba306",
+   "prompt_chip_4": "ccb58435d878671b",
+   "slug": "d3ec83e751354925",
+   "tab_content_1": "43755177a871e3c1",
+   "tab_content_2": "81c7da8bf6aa88ba",
+   "tab_content_3": "58d50bc968b9f273",
+   "tab_content_4": "97f67ff3c97daadf",
+   "tab_label_1": "4333f42e51bc546e",
+   "tab_label_2": "68774059fa98fdba",
+   "tab_label_3": "8a195571745b94b2",
+   "tab_label_4": "024064b18281d92c",
+   "usecase_heading": "b9d544d5f0b8e451",
+   "why_description": "f22d4b983b2356c7",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "c38b8a135fe6c215"
+  },
+  "all": "f597837a08051b5f",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "812be02665176ccc",
+   "alt:share_image": "374eeebf06b5002e",
+   "alt:tab_image_1": "118b8a56e29aa4ca",
+   "alt:tab_image_2": "d9e97476a3cfd857",
+   "alt:tab_image_3": "451fbfd681ff045a",
+   "alt:tab_image_4": "5ce1124bb828bce0",
+   "breadcrumb": "583227aca63e2f9c",
+   "chip_adds": "89014c48a79445b3",
+   "explore_cta": "c08f3661a6908d58",
+   "faq": "c1a433ea8ec6d306",
+   "feature_1": "f14928086882c662",
+   "feature_2": "5ee41660c49a9910",
+   "feature_3": "87129134e8eb4b7b",
+   "feature_4": "4c740d98a50714a8",
+   "feature_5": "c0fddebab88f5926",
+   "feature_6": "0d3a92ed598b8e32",
+   "features_heading": "40187e039dd6f906",
+   "features_subheading": "bd6c9f822773b926",
+   "h1": "418edcdedee38830",
+   "hero_description": "ae352ff99a73cee5",
+   "hero_prompt": "6eca3980bdd61ec2",
+   "howto_description": "ee367eeecc2be28c",
+   "howto_step_1_des": "b0d19e96ecfb7933",
+   "howto_step_1_title": "917f03831dbc5582",
+   "howto_step_2_des": "9fd63b78ad46e2e8",
+   "howto_step_2_title": "a34316619beea224",
+   "howto_step_3_des": "ab299671bd9569e7",
+   "howto_step_3_title": "553926a9bafad4b4",
+   "howto_step_4_des": "589791de544fc1f3",
+   "howto_step_4_title": "4b75a2c5807c5bbf",
+   "howto_step_5_des": "e2ea5d43ca20ece4",
+   "howto_step_5_title": "47e21227c893f179",
+   "howto_step_6_des": "e9542a488437d8f5",
+   "howto_step_6_title": "3f269b400fa75393",
+   "howto_step_7_des": "b1c43ee59e5874dc",
+   "howto_step_7_title": "d4b0ee5f9f83f0a5",
+   "howto_title": "723d58388a5a8241",
+   "meta_description": "77793545a312247e",
+   "meta_title": "b61120640d00238d",
+   "mockup": "1437a2f86b83a011",
+   "product_name": "8bb0519f0cd5fde6",
+   "prompt_chip_1": "ecd2a636aabbf45e",
+   "prompt_chip_2": "31b8227865b6ba77",
+   "prompt_chip_3": "e0904883a17ba306",
+   "prompt_chip_4": "ccb58435d878671b",
+   "slug": "d3ec83e751354925",
+   "tab_content_1": "43755177a871e3c1",
+   "tab_content_2": "81c7da8bf6aa88ba",
+   "tab_content_3": "58d50bc968b9f273",
+   "tab_content_4": "97f67ff3c97daadf",
+   "tab_label_1": "4333f42e51bc546e",
+   "tab_label_2": "68774059fa98fdba",
+   "tab_label_3": "8a195571745b94b2",
+   "tab_label_4": "024064b18281d92c",
+   "usecase_heading": "b9d544d5f0b8e451",
+   "why_description": "f22d4b983b2356c7",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "c38b8a135fe6c215"
+  },
+  "all": "f597837a08051b5f",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

@@ -122,6 +122,13 @@
    "via": null,
    "by": "A-w-163",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 10:59 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-44",
+   "note": "rubric 10/10 by A-r-44; 6 notes"
   }
  ],
  "pipeline": "r15",
@@ -903,5 +910,305 @@
  },
  "writers": [
   "A-w-163"
- ]
+ ],
+ "review": {
+  "by": "A-r-44",
+  "date": "2026-10-21 10:59 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Catering Order Form That Keeps the Final Count Straight'; hero 'Build a catering order form that logs the event date, guest count, and special meals to a database you own.'; how-to description one sentence carrying the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is catering request templates and PDFs; page gives what a template should include (FAQ 3), the order questions (features), a 7-step how-to and the builder; notice, allergies, count changes and PO numbers answered."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Caterer vocabulary: 'final count date', 'drop-off, buffet, or plated service', '1 server per 30 guests, plus a captain', 'event captain', 'loading door'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on full sentences: 'The form asks for the event date...', 'The client picks drop-off, buffet, or plated service...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; 'such as counts can rise' (FAQ 9), 'Crustacean' capital (FAQ 6) and 2 ', so' endings recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Specific, plain: 'A driver who cannot find the loading door calls that person directly.'; 'Jonah's confirmation waited for her yes.' FAQ 4 secondary sentence recorded as a note."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Claims map to prompt-build, database-owned, free-start, alerts, no-caps, code-export, api-connect (QuickBooks, Xero), e-signature-capture (no legal-validity claim). 21 U.S.C. 321(qq) list matches the quoted span word for word (milk, egg, fish, Crustacean shellfish, tree nuts, wheat, peanuts, soybeans, sesame); scope kept: the copy states the definition and uses it as a checklist, it does not say the labeling law binds caterers. Numbers agree: 140 -> 132 before May 30 (14 days before June 13, matching step 2's example); 9 + 3 = 12 special, 85 - 12 = 73 standard; 120 / 30 = 4 servers, 6:00 pm - 90 min = 4:30 pm; Tuesday 9:00 am to Thursday 8:00 am = 47 hours < 72."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Not a near-copy of food-order-form (takeout tickets, kitchen screen, prep cutoffs) or cake-order-form (servings sizing, tier flavors, delivery fees): catering tabs are count revisions, named special lunches, staffing by guest count, short-notice approval; FAQ 7 defers takeout to food order form. Shared feature-body formulas with cake-order-form recorded as a note; QC D2 clean."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first; hub link in FAQ 2; links to sibling pages (uniform order form, food order form, purchase order form); no brand or format asks in questions; paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: Ilse Varga, June 13, 132, final count due May 30, Revision 2, was 140, changed May 27; Teodor Mbeki, 9 veg, 3 gluten-free, 73 standard boxes, 85 lunches, 12 lids by name; Wren Okonjo, 120, 6:00 pm, 4 servers 1 captain, 4:30 pm, 90 minutes; Jonah Pell, breakfast for 30, Thursday 8:00 am, placed Tuesday 9:00 am, 47 hours, To: Odalys Ferro (email to the named owner)."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "features_intro; feature_4; feature_5",
+    "quote": "Every order saves as a row in a database you own, with no response caps in June or December. Filter the rows by event date",
+    "issue": "Three feature fields reuse cake-order-form's sentence formulas with nouns swapped: feature_5 vs cake 'Each order saves as a row in a database you own, with no response caps in your busiest week. Filter the rows by pickup date...'; feature_4 'The app emails you or posts in Slack when an order arrives... A reminder goes to the client a week before' vs cake 'The app sends you an email or Slack alert when an order comes in... A reminder goes to the customer the day before pickup'; features_intro 'Each answer on the form replaces a follow-up call' vs cake 'Each question on the form replaces a phone call the baker would otherwise make'.",
+    "fix": "Recast these three in shapes the cake page does not use (for example, feature_5 on the week's events lined up by count, without the 'saves as a row... no response caps in X. Filter the rows by Y' frame).",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq item 6",
+    "quote": "fish, Crustacean shellfish, tree nuts",
+    "issue": "The statute's capital C carried into a sentence reads as a typo; the source span itself is unaffected.",
+    "fix": "'crustacean shellfish' in the prose (the domain_sources quote keeps the statute's spelling).",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq item 9",
+    "quote": "state your rule for it on the form, such as counts can rise after that date but not fall",
+    "issue": "'such as' followed by a clause is ungrammatical.",
+    "fix": "'...and state your rule on the form, for example that counts can rise after that date but not fall.'",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 4",
+    "quote": "Catering order forms cover the client side.",
+    "issue": "A short sentence that exists to carry the secondary 'catering order forms'; it restates the question's premise and reads inserted. The question itself is a link-carrier more than a searcher's question.",
+    "fix": "Fold the secondary into a sentence that adds information, or drop it (K8 is met by other items).",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "howto_step_1_des; howto_step_3_des",
+    "quote": "Each one becomes a field, so the order arrives complete.",
+    "issue": "Two ', so' tacked-on endings (QC Q5 flag, under the block limit): step 1 'Each one becomes a field, so the order arrives complete.'; step 3 'Add the arrival time you want, counted back from service, so the staff sheet is complete when the order lands.'",
+    "fix": "End each on its own sentence.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief tab 1",
+    "quote": "Couple: Ilse Varga",
+    "issue": "The form field is labeled 'Couple' but holds one name; the copy names only Ilse.",
+    "fix": "Label the field 'Booked by' or add the partner's name.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "features_intro; feature_4; feature_5",
+   "issue": "Three feature fields reuse cake-order-form's sentence formulas with nouns swapped: feature_5 vs cake 'Each order saves as a row in a database you own, with no response caps in your busiest week. Filter the rows by pickup date...'; feature_4 'The app emails you or posts in Slack when an order arrives... A reminder goes to the client a week before' vs cake 'The app sends you an email or Slack alert when an order comes in... A reminder goes to the customer the day before pickup'; features_intro 'Each answer on the form replaces a follow-up call' vs cake 'Each question on the form replaces a phone call the baker would otherwise make'.",
+   "fix": "Recast these three in shapes the cake page does not use (for example, feature_5 on the week's events lined up by count, without the 'saves as a row... no response caps in X. Filter the rows by Y' frame).",
+   "by": "A-r-44",
+   "via": "review",
+   "date": "2026-10-21 10:59 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq item 6",
+   "issue": "The statute's capital C carried into a sentence reads as a typo; the source span itself is unaffected.",
+   "fix": "'crustacean shellfish' in the prose (the domain_sources quote keeps the statute's spelling).",
+   "by": "A-r-44",
+   "via": "review",
+   "date": "2026-10-21 10:59 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq item 9",
+   "issue": "'such as' followed by a clause is ungrammatical.",
+   "fix": "'...and state your rule on the form, for example that counts can rise after that date but not fall.'",
+   "by": "A-r-44",
+   "via": "review",
+   "date": "2026-10-21 10:59 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 4",
+   "issue": "A short sentence that exists to carry the secondary 'catering order forms'; it restates the question's premise and reads inserted. The question itself is a link-carrier more than a searcher's question.",
+   "fix": "Fold the secondary into a sentence that adds information, or drop it (K8 is met by other items).",
+   "by": "A-r-44",
+   "via": "review",
+   "date": "2026-10-21 10:59 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "howto_step_1_des; howto_step_3_des",
+   "issue": "Two ', so' tacked-on endings (QC Q5 flag, under the block limit): step 1 'Each one becomes a field, so the order arrives complete.'; step 3 'Add the arrival time you want, counted back from service, so the staff sheet is complete when the order lands.'",
+   "fix": "End each on its own sentence.",
+   "by": "A-r-44",
+   "via": "review",
+   "date": "2026-10-21 10:59 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief tab 1",
+   "issue": "The form field is labeled 'Couple' but holds one name; the copy names only Ilse.",
+   "fix": "Label the field 'Booked by' or add the partner's name.",
+   "by": "A-r-44",
+   "via": "review",
+   "date": "2026-10-21 10:59 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "c6b9e1d202592e55",
+   "alt:share_image": "7ef3978886b818ba",
+   "alt:tab_image_1": "2221c4c5d84dbb10",
+   "alt:tab_image_2": "018491e17da91bc4",
+   "alt:tab_image_3": "ffb0662bb7e1134a",
+   "alt:tab_image_4": "b40e40a33ff6fc7b",
+   "breadcrumb": "4b8e7052c5f59fcd",
+   "chip_adds": "f69f3df5fe5aac6b",
+   "explore_cta": "24749919b9973bb8",
+   "faq": "7d7583ec442b1f5a",
+   "feature_1": "7a918f755f4eafc2",
+   "feature_2": "ebb4d3a80dac3cb0",
+   "feature_3": "3f7d654ba2a729b6",
+   "feature_4": "e00882db2b743c25",
+   "feature_5": "8f9f160279b08012",
+   "feature_6": "5742b4b7db20002f",
+   "features_heading": "74c3da92ebb4984b",
+   "features_subheading": "501c5471afe66c6c",
+   "h1": "01a979e7a166b485",
+   "hero_description": "01a60fe9c6eaf5bb",
+   "hero_prompt": "b244c0709a57451a",
+   "howto_description": "e44011ee2f2190bd",
+   "howto_step_1_des": "753ee95ad793dcb9",
+   "howto_step_1_title": "44a1516b4c571b7c",
+   "howto_step_2_des": "07a823b7e3d0a27f",
+   "howto_step_2_title": "9f8b476f41165866",
+   "howto_step_3_des": "cee260bba0fae0af",
+   "howto_step_3_title": "fa0b48e930718717",
+   "howto_step_4_des": "0a8740b49aa20950",
+   "howto_step_4_title": "fd77ab1651aa22ce",
+   "howto_step_5_des": "175ddf183cb23e9d",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "639b181986085e80",
+   "howto_step_6_title": "1f20a6774b333928",
+   "howto_step_7_des": "b77e809e3ce6a8ab",
+   "howto_step_7_title": "800397c494c6e21a",
+   "howto_title": "3bfc0ed2ed6d14eb",
+   "meta_description": "31130207f5e64856",
+   "meta_title": "2ea0fc2f5c40d1d0",
+   "mockup": "9a9c1d6b0efa645b",
+   "product_name": "1f0abfd20f9697ad",
+   "prompt_chip_1": "8ca3e625dae17d68",
+   "prompt_chip_2": "16067792a72dd6a3",
+   "prompt_chip_3": "a3ad8d9e9ce347b9",
+   "prompt_chip_4": "23a045e5aee3ac65",
+   "slug": "a4fbee22896fa2ab",
+   "tab_content_1": "b3f320c37df77911",
+   "tab_content_2": "c493942a96f8cd85",
+   "tab_content_3": "05282356373833c8",
+   "tab_content_4": "b8185eefacd7cf71",
+   "tab_label_1": "8ca3e625dae17d68",
+   "tab_label_2": "16067792a72dd6a3",
+   "tab_label_3": "a3ad8d9e9ce347b9",
+   "tab_label_4": "23a045e5aee3ac65",
+   "usecase_heading": "4cc047e234e71e19",
+   "why_description": "1dcfd2ce338cd0d8",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "e237c7ce26330be1"
+  },
+  "all": "cd7d0c8f63a24698",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "c6b9e1d202592e55",
+   "alt:share_image": "7ef3978886b818ba",
+   "alt:tab_image_1": "2221c4c5d84dbb10",
+   "alt:tab_image_2": "018491e17da91bc4",
+   "alt:tab_image_3": "ffb0662bb7e1134a",
+   "alt:tab_image_4": "b40e40a33ff6fc7b",
+   "breadcrumb": "4b8e7052c5f59fcd",
+   "chip_adds": "f69f3df5fe5aac6b",
+   "explore_cta": "24749919b9973bb8",
+   "faq": "7d7583ec442b1f5a",
+   "feature_1": "7a918f755f4eafc2",
+   "feature_2": "ebb4d3a80dac3cb0",
+   "feature_3": "3f7d654ba2a729b6",
+   "feature_4": "e00882db2b743c25",
+   "feature_5": "8f9f160279b08012",
+   "feature_6": "5742b4b7db20002f",
+   "features_heading": "74c3da92ebb4984b",
+   "features_subheading": "501c5471afe66c6c",
+   "h1": "01a979e7a166b485",
+   "hero_description": "01a60fe9c6eaf5bb",
+   "hero_prompt": "b244c0709a57451a",
+   "howto_description": "e44011ee2f2190bd",
+   "howto_step_1_des": "753ee95ad793dcb9",
+   "howto_step_1_title": "44a1516b4c571b7c",
+   "howto_step_2_des": "07a823b7e3d0a27f",
+   "howto_step_2_title": "9f8b476f41165866",
+   "howto_step_3_des": "cee260bba0fae0af",
+   "howto_step_3_title": "fa0b48e930718717",
+   "howto_step_4_des": "0a8740b49aa20950",
+   "howto_step_4_title": "fd77ab1651aa22ce",
+   "howto_step_5_des": "175ddf183cb23e9d",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "639b181986085e80",
+   "howto_step_6_title": "1f20a6774b333928",
+   "howto_step_7_des": "b77e809e3ce6a8ab",
+   "howto_step_7_title": "800397c494c6e21a",
+   "howto_title": "3bfc0ed2ed6d14eb",
+   "meta_description": "31130207f5e64856",
+   "meta_title": "2ea0fc2f5c40d1d0",
+   "mockup": "9a9c1d6b0efa645b",
+   "product_name": "1f0abfd20f9697ad",
+   "prompt_chip_1": "8ca3e625dae17d68",
+   "prompt_chip_2": "16067792a72dd6a3",
+   "prompt_chip_3": "a3ad8d9e9ce347b9",
+   "prompt_chip_4": "23a045e5aee3ac65",
+   "slug": "a4fbee22896fa2ab",
+   "tab_content_1": "b3f320c37df77911",
+   "tab_content_2": "c493942a96f8cd85",
+   "tab_content_3": "05282356373833c8",
+   "tab_content_4": "b8185eefacd7cf71",
+   "tab_label_1": "8ca3e625dae17d68",
+   "tab_label_2": "16067792a72dd6a3",
+   "tab_label_3": "a3ad8d9e9ce347b9",
+   "tab_label_4": "23a045e5aee3ac65",
+   "usecase_heading": "4cc047e234e71e19",
+   "why_description": "1dcfd2ce338cd0d8",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "e237c7ce26330be1"
+  },
+  "all": "cd7d0c8f63a24698",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
