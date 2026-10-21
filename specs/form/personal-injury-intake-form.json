@@ -115,6 +115,13 @@
    "via": null,
    "by": "A-w-170",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 11:16 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-47",
+   "note": "[truth | HUB_RULES 8] faq: States as fact what a treating clinic's own intake form contains, a statement about a third party's records with no spec.domain_sources span (rework-checklist item 1). Same class as the two findings below: three link-carrying sentences each assert what another organisation"
   }
  ],
  "pipeline": "r15",
@@ -910,5 +917,275 @@
  ],
  "writers": [
   "A-w-170"
- ]
+ ],
+ "review": {
+  "by": "A-r-47",
+  "date": "2026-10-21 11:16 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Personal Injury Intake Form That Flags Conflicts Early', meta title 'Personal Injury Intake Form With Conflict Checks | Emergent' and hero 'Build a personal injury intake form that screens names against your client list and saves every intake to your own database.' carry the AMBER law-firm-side conflict-check angle; how-to description one sentence under 140 characters."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is law firms' PDF questionnaires plus Jotform; the page gives what those hold (accident, injuries, providers, insurers, witnesses) as a buildable firm-side intake, defines the form (FAQ 1), covers 'accident intake form' (FAQ 3), and a 7-step how-to; no case value, limitation period or privilege advice anywhere."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Firm vocabulary: 'whoever clears conflicts', 'the other side's insurer and any claim number already opened', 'records requests', 'incident report number the store gave her, IR-20417'; table from the form library (QC V2/V4 clean)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Bodies open on full sentences: 'Ask what kind of accident it was before anything else', 'The app compares the other driver...', 'Tobiah Renfrew tells Haverline Injury Law...', 'List the case types your attorneys accept'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q6/Q7 clean; sentences end on the operative word ('before any attorney opens it', 'with the time: 9:42 p.m.')."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Calm, concrete, unglamorous detail ('aisle 7 of Pellham Market', 'plastic surgeon Dr. Leonie Farquhar', 'signs a statement that her answers are true'); no AI tells beyond the notes."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "Three FAQ sentences state what other organisations' forms hold with no domain_sources span: faq 4 'The clinic's own pt intake form holds the clinical history.', faq 7 'much as a counselor's therapy intake form keeps that detail in the counselor's own records.', faq 10 'the agency's home care intake form holds the care plan.' The CasePeer spans keep their scope (FAQ 1 'A lawyer uses the answers to check for conflicts and evaluate the case'; 'a fee agreement follows once the firm accepts the case and the client wants to move forward', attributed; FAQ 6 'including the provider name, the policy number, and policy limits if available'); nothing implies an attorney-client relationship forms through the form; signature answer makes no legal-validity claim."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Not a copy of legal-intake-form: that page is practice-area branching, disclaimers and day counts; this one is accident types, conflict hold on named parties, providers, insurers and witnesses. Sibling primaries only as FAQ link anchors. One shared idea noted (clean names, not a paragraph)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic, builder-intent questions, answer-first ('Yes. Make the provider section repeat...', 'Ask for both sides.'), hub link in item 2, 3 sibling links, no brand or file-format asks; PAA spec check 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: tab 1 'Wendell Ashgrove is on the client list', 'Intake held', 'To Imelda Ostrander', 'No attorney sees it yet'; tab 2 'IR-20417', '4 photos of the spill', 'Attorney Desmond Achterberg'; tab 3 three provider rows with first visit and phone, 'To Ysolde Partridge'; tab 4 one-question phone flow, 'Signed at 9:42 p.m.', 'To Bram Kettleworth'. One hero each, cursor on the button."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "The clinic's own pt intake form holds the clinical history.",
+    "issue": "States as fact what a treating clinic's own intake form contains, a statement about a third party's records with no spec.domain_sources span (rework-checklist item 1). Same class as the two findings below: three link-carrying sentences each assert what another organisation's form holds.",
+    "fix": "Rewrite as advice that does not describe another organisation's records, e.g. 'Leave the clinical history to the clinic; the firm's form only needs where treatment happened and whom to call.' Keep the pt intake form link only in a sentence that makes no claim about the clinic's paperwork, or move it.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "much as a counselor's therapy intake form keeps that detail in the counselor's own records.",
+    "issue": "'that detail' is 'diagnoses and session notes'; an intake form is completed before any session, so saying it keeps session notes is unsourced and likely untrue. No domain_sources span covers counselors' intake forms.",
+    "fix": "Drop the comparison: 'Leave diagnoses and session notes with the providers.' Place the therapy intake form link where it makes no claim about a counselor's records, or cut it (two other links remain).",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "the agency's home care intake form holds the care plan.",
+    "issue": "Asserts what a care agency's intake form holds with no source; a care plan is usually its own document, so the statement is likely untrue as well as unsourced.",
+    "fix": "'When a care agency is involved, ask only for its name and start date.' Keep any link in a sentence that states no fact about the agency's paperwork.",
+    "severity": "blocking"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "It hands whoever clears conflicts clean names instead of a paragraph.",
+    "issue": "The separate-fields-not-a-paragraph idea recurs: feature_3 'Staff read each one from its own field, not from a paragraph.', feature_5 'No one has to squeeze three names into one box', faq 3 'A separate field for each fact lets staff sort and search later.', faq 5 (this quote); the sibling legal-intake-form feature says 'Staff then run the firm's conflict check on clean names, not on a paragraph'.",
+    "fix": "Keep it once (feature_2 or faq 5) and give the other fields their own point.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "howto_step_5_des",
+    "quote": "An upload for a photo of the insurance card brings in the policy number without anyone typing it.",
+    "issue": "This is the approved ai-extraction claim, but claims_used does not list ai-extraction (bookkeeping only; the claim itself is approved).",
+    "fix": "Add ai-extraction to spec.claims_used.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "A shorter form is easier to finish in one sitting.",
+    "issue": "General completion claim with no source; it reads as advice, so it ships.",
+    "fix": "Phrase as advice: 'Keep it short enough to finish in one sitting.'",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "The separate-fields-not-a-paragraph idea recurs: feature_3 'Staff read each one from its own field, not from a paragraph.', feature_5 'No one has to squeeze three names into one box', faq 3 'A separate field for each fact lets staff sort and search later.', faq 5 (this quote); the sibling legal-intake-form feature says 'Staff then run the firm's conflict check on clean names, not on a paragraph'.",
+   "fix": "Keep it once (feature_2 or faq 5) and give the other fields their own point.",
+   "by": "A-r-47",
+   "via": "review",
+   "date": "2026-10-21 11:16 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 6",
+   "field": "howto_step_5_des",
+   "issue": "This is the approved ai-extraction claim, but claims_used does not list ai-extraction (bookkeeping only; the claim itself is approved).",
+   "fix": "Add ai-extraction to spec.claims_used.",
+   "by": "A-r-47",
+   "via": "review",
+   "date": "2026-10-21 11:16 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "General completion claim with no source; it reads as advice, so it ships.",
+   "fix": "Phrase as advice: 'Keep it short enough to finish in one sitting.'",
+   "by": "A-r-47",
+   "via": "review",
+   "date": "2026-10-21 11:16 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "d8bd6a79c8e0f82f",
+   "alt:share_image": "a145e2a54eae578e",
+   "alt:tab_image_1": "522dcbea2c05f177",
+   "alt:tab_image_2": "942cbb948e933901",
+   "alt:tab_image_3": "920fb99a8f9d216c",
+   "alt:tab_image_4": "dec7cf2dc658295e",
+   "breadcrumb": "fe6bfabe22e78a0d",
+   "chip_adds": "962674dd8f5c72ed",
+   "explore_cta": "ed90e4fc3e22aec7",
+   "faq": "9c6bb9a9798cd9d3",
+   "feature_1": "dec7a85eb894230b",
+   "feature_2": "557c0ca4b9df407c",
+   "feature_3": "a93be10e4156c627",
+   "feature_4": "b5c47e6e9b894034",
+   "feature_5": "8fa137a0338213ce",
+   "feature_6": "08b3bb9e832f3fd6",
+   "features_heading": "5150d71e1bbd0c08",
+   "features_subheading": "4600e73e9003e723",
+   "h1": "a53e8584cf6095d2",
+   "hero_description": "16d71c8b9a25e268",
+   "hero_prompt": "f829761ff1785023",
+   "howto_description": "a9af1a487bc3eeb7",
+   "howto_step_1_des": "c3a2d06f82b4d277",
+   "howto_step_1_title": "6eacaab9ecf0f4e0",
+   "howto_step_2_des": "221379344b7b1666",
+   "howto_step_2_title": "95f82decdeaef1d2",
+   "howto_step_3_des": "0f602a7668f14846",
+   "howto_step_3_title": "7862425f8b7a011f",
+   "howto_step_4_des": "efea6e9c21acfadf",
+   "howto_step_4_title": "ab278a8211a44f34",
+   "howto_step_5_des": "93404fd89e2da809",
+   "howto_step_5_title": "762f3c0562148a89",
+   "howto_step_6_des": "29c71ea1dcd8aa22",
+   "howto_step_6_title": "59e59a644f5836d6",
+   "howto_step_7_des": "d79dd4b5a2a7d13a",
+   "howto_step_7_title": "027f1aaa2f429017",
+   "howto_title": "03d4ea3181ae08a4",
+   "meta_description": "cfedc92740466c05",
+   "meta_title": "c6c2089205d556ca",
+   "mockup": "b62366cbc023c18b",
+   "product_name": "689ed30bd7ab3c77",
+   "prompt_chip_1": "ecdd549a254262a6",
+   "prompt_chip_2": "842f474d92d00106",
+   "prompt_chip_3": "10f02819606b52da",
+   "prompt_chip_4": "06fcbed0c929161c",
+   "slug": "0943092509543f00",
+   "tab_content_1": "0200bb6fd309d06b",
+   "tab_content_2": "d2f001fd234e6677",
+   "tab_content_3": "f0af48d6b9f8fd67",
+   "tab_content_4": "4e25771cb34f2945",
+   "tab_label_1": "e21ed3c7c1e8d872",
+   "tab_label_2": "4f480688a5cb1690",
+   "tab_label_3": "70e479cf16f03896",
+   "tab_label_4": "ef5b3591011218a3",
+   "usecase_heading": "76f9e964d8124d0b",
+   "why_description": "a45422ddebf1d489",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "563ba4e5d5c8b4ac"
+  },
+  "all": "5f37d7b04aadbef6",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "d8bd6a79c8e0f82f",
+   "alt:share_image": "a145e2a54eae578e",
+   "alt:tab_image_1": "522dcbea2c05f177",
+   "alt:tab_image_2": "942cbb948e933901",
+   "alt:tab_image_3": "920fb99a8f9d216c",
+   "alt:tab_image_4": "dec7cf2dc658295e",
+   "breadcrumb": "fe6bfabe22e78a0d",
+   "chip_adds": "962674dd8f5c72ed",
+   "explore_cta": "ed90e4fc3e22aec7",
+   "faq": "9c6bb9a9798cd9d3",
+   "feature_1": "dec7a85eb894230b",
+   "feature_2": "557c0ca4b9df407c",
+   "feature_3": "a93be10e4156c627",
+   "feature_4": "b5c47e6e9b894034",
+   "feature_5": "8fa137a0338213ce",
+   "feature_6": "08b3bb9e832f3fd6",
+   "features_heading": "5150d71e1bbd0c08",
+   "features_subheading": "4600e73e9003e723",
+   "h1": "a53e8584cf6095d2",
+   "hero_description": "16d71c8b9a25e268",
+   "hero_prompt": "f829761ff1785023",
+   "howto_description": "a9af1a487bc3eeb7",
+   "howto_step_1_des": "c3a2d06f82b4d277",
+   "howto_step_1_title": "6eacaab9ecf0f4e0",
+   "howto_step_2_des": "221379344b7b1666",
+   "howto_step_2_title": "95f82decdeaef1d2",
+   "howto_step_3_des": "0f602a7668f14846",
+   "howto_step_3_title": "7862425f8b7a011f",
+   "howto_step_4_des": "efea6e9c21acfadf",
+   "howto_step_4_title": "ab278a8211a44f34",
+   "howto_step_5_des": "93404fd89e2da809",
+   "howto_step_5_title": "762f3c0562148a89",
+   "howto_step_6_des": "29c71ea1dcd8aa22",
+   "howto_step_6_title": "59e59a644f5836d6",
+   "howto_step_7_des": "d79dd4b5a2a7d13a",
+   "howto_step_7_title": "027f1aaa2f429017",
+   "howto_title": "03d4ea3181ae08a4",
+   "meta_description": "cfedc92740466c05",
+   "meta_title": "c6c2089205d556ca",
+   "mockup": "b62366cbc023c18b",
+   "product_name": "689ed30bd7ab3c77",
+   "prompt_chip_1": "ecdd549a254262a6",
+   "prompt_chip_2": "842f474d92d00106",
+   "prompt_chip_3": "10f02819606b52da",
+   "prompt_chip_4": "06fcbed0c929161c",
+   "slug": "0943092509543f00",
+   "tab_content_1": "0200bb6fd309d06b",
+   "tab_content_2": "d2f001fd234e6677",
+   "tab_content_3": "f0af48d6b9f8fd67",
+   "tab_content_4": "4e25771cb34f2945",
+   "tab_label_1": "e21ed3c7c1e8d872",
+   "tab_label_2": "4f480688a5cb1690",
+   "tab_label_3": "70e479cf16f03896",
+   "tab_label_4": "ef5b3591011218a3",
+   "usecase_heading": "76f9e964d8124d0b",
+   "why_description": "a45422ddebf1d489",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "563ba4e5d5c8b4ac"
+  },
+  "all": "5f37d7b04aadbef6",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

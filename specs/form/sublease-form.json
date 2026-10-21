@@ -122,6 +122,13 @@
    "via": null,
    "by": "A-w-168",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 11:16 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-47",
+   "note": "[truth | HUB_RULES 8] faq: States as fact what landlords ask a new tenant (including 'two references'), a statement about how a group behaves with no spec.domain_sources span (rework-checklist item 1). This is the only instance of the class on the page; every other rule about subletting is phrased a"
   }
  ],
  "pipeline": "r15",
@@ -962,5 +969,275 @@
  ],
  "writers": [
   "A-w-168"
- ]
+ ],
+ "review": {
+  "by": "A-r-47",
+  "date": "2026-10-21 11:16 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Sublease Form That Handles Approvals and Signatures', meta title 'Sublease Form With Approvals and Signatures | Emergent' and hero 'Build a sublease form that collects the sublet dates and rent, then asks the landlord to approve before both parties sign.' state the whole job (dates, rent, consent, signatures); how-to description is one sentence under 140 characters."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is sublease agreement PDFs/templates; the page answers the template question ('A sublease form template should cover the parties, the property, the term, and the money...'), the free question ('Emergent is free to start'), the form vs agreement question, and a 7-step how-to, while staying on builder intent with no state-specific content."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'subtenant', 'written consent or a notice period', 'divides the sublet space by the total and applies that share to the rent', 'Any request still waiting after 3 days goes back to manager Hollis Brennan'; table from the form library (QC V2/V4 clean)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Bodies open on full sentences: 'The form asks for both parties and the unit address first', 'Once the subtenant submits, the app emails the landlord', 'Thea Marchetti is spending the summer away', 'Read what your lease says about subletting'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q6/Q7 clean; one craft note on feature_3's dangling 'first' (see notes), no blocking craft defect."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Calm, concrete operator voice ('The bakery's $2,700 goes on the record both businesses sign', 'the latest says 2 of 3 are in'); voice notes recorded on FAQ 4's forced link and tab 2's 'goes back to', neither blocking."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "faq item 7: 'It can ask the questions a landlord asks a new tenant: current address, employer, a previous landlord's contact, and two references.' states what landlords ask with no domain_sources span. Everything else checks: the Cornell LII spans keep their scope ('all or part', 'shorter term', 'still has the responsibility to fulfill the lease obligations', 'a new contract between the lessee and the sublessee'); no enforceability or state-specific claims; maths true (1,200/4,000 x $9,000 = $2,700; June 7 to August 23 = 11 weeks; 1 of 3 rooms on $2,400 = $800); claims map to prompt-build, alerts, e-signature-capture, database-owned, free-start."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own angle (consent chain and partial-space rent share) distinct from rental-agreement-form and lease-termination-form; sibling primaries appear only as FAQ link anchors ('tenant screening form', 'maintenance request form', 'service request form'), never as headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first ('A sublease form records a sublease...', 'Yes. Emergent is free to start...'), hub link in item 2, 3 sibling links, no brand or file-format asks; PAA spec check 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: tab 1 'Anders Lykke signed first / Thea Marchetti signed second', $1,650, $800, 'June 7 through August 23'; tab 2 '9 open', 'Waiting over 3 days 2 requests' with 5 and 4 day rows, 'To Hollis Brennan'; tab 3 '1,200 of 4,000 sq ft', '$2,700 a month'; tab 4 roommates approved, Landlord waiting, '2 of 3', 'To Yara Holloway'. One hero per image, cursor on the button."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "It can ask the questions a landlord asks a new tenant: current address, employer, a previous landlord's contact, and two references.",
+    "issue": "States as fact what landlords ask a new tenant (including 'two references'), a statement about how a group behaves with no spec.domain_sources span (rework-checklist item 1). This is the only instance of the class on the page; every other rule about subletting is phrased as advice or carries a Cornell LII span.",
+    "fix": "Rewrite as what the form asks, not what landlords do, e.g. 'It can ask for the subtenant's current address, employer, a previous landlord's contact and two references.' Or source the landlord practice with a quoted span.",
+    "severity": "blocking"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_3",
+    "quote": "Check with an attorney whether e-signatures suit your lease first.",
+    "issue": "The ask-an-attorney caveat recurs in five fields: feature_3 (this quote), howto_step_1_des 'check your lease and local law with an attorney when the clause leaves you unsure', faq item 5 'ask an attorney who knows your lease and your area's rules', faq item 6 'Whether an e-signature suits your sublease depends on your lease and local law. Ask an attorney before you rely on one.', faq item 8 'have an attorney review the agreement's wording'. The e-signature version appears twice (feature_3, faq 6).",
+    "fix": "Keep the caveat in step 1 and FAQ 8; let the other fields say what the form does.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_3",
+    "quote": "Check with an attorney whether e-signatures suit your lease first.",
+    "issue": "'first' trails the sentence after the capability has already been described, so the order reads backwards.",
+    "fix": "Move the check before the capture or drop it here (it is in FAQ 6).",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "A service request form built on the same account can take the subtenant's other requests during the sublet, such as a parking permit or a spare key.",
+    "issue": "Reads as a sentence written to carry the link; it answers nothing the 'free sublease form' question asked.",
+    "fix": "Move the service request form link to an answer where it fits, or cut the sentence.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "tab_content_2",
+    "quote": "Any request still waiting after 3 days goes back to manager Hollis Brennan by email",
+    "issue": "'goes back to' implies the request was already with Hollis; the heading says 'goes to Hollis'. Who the request is waiting on is left unsaid.",
+    "fix": "'Any request still waiting on a decision after 3 days goes to manager Hollis Brennan by email'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_3",
+   "issue": "The ask-an-attorney caveat recurs in five fields: feature_3 (this quote), howto_step_1_des 'check your lease and local law with an attorney when the clause leaves you unsure', faq item 5 'ask an attorney who knows your lease and your area's rules', faq item 6 'Whether an e-signature suits your sublease depends on your lease and local law. Ask an attorney before you rely on one.', faq item 8 'have an attorney review the agreement's wording'. The e-signature version appears twice (feature_3, faq 6).",
+   "fix": "Keep the caveat in step 1 and FAQ 8; let the other fields say what the form does.",
+   "by": "A-r-47",
+   "via": "review",
+   "date": "2026-10-21 11:16 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_3",
+   "issue": "'first' trails the sentence after the capability has already been described, so the order reads backwards.",
+   "fix": "Move the check before the capture or drop it here (it is in FAQ 6).",
+   "by": "A-r-47",
+   "via": "review",
+   "date": "2026-10-21 11:16 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "Reads as a sentence written to carry the link; it answers nothing the 'free sublease form' question asked.",
+   "fix": "Move the service request form link to an answer where it fits, or cut the sentence.",
+   "by": "A-r-47",
+   "via": "review",
+   "date": "2026-10-21 11:16 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "tab_content_2",
+   "issue": "'goes back to' implies the request was already with Hollis; the heading says 'goes to Hollis'. Who the request is waiting on is left unsaid.",
+   "fix": "'Any request still waiting on a decision after 3 days goes to manager Hollis Brennan by email'.",
+   "by": "A-r-47",
+   "via": "review",
+   "date": "2026-10-21 11:16 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "317523e7db4a5a13",
+   "alt:share_image": "b3c975ed8bb1b71a",
+   "alt:tab_image_1": "afbffca682ffeff6",
+   "alt:tab_image_2": "724467e3f6c65c41",
+   "alt:tab_image_3": "926327f85553d450",
+   "alt:tab_image_4": "2669efcd45a4e3d3",
+   "breadcrumb": "db85c1ed08b00c22",
+   "chip_adds": "6776a7f785931220",
+   "explore_cta": "64c8e639ef9b697e",
+   "faq": "1515e30f87581c83",
+   "feature_1": "ba1cf0dd9f8d9500",
+   "feature_2": "869934043a47d369",
+   "feature_3": "466365d939f50c9e",
+   "feature_4": "990df123961126db",
+   "feature_5": "62de9042b9a9f127",
+   "feature_6": "0242da0555dec046",
+   "features_heading": "06a724fce289090f",
+   "features_subheading": "fbbdd2ce1e39278b",
+   "h1": "050d470f8d65ca07",
+   "hero_description": "63d960ccc3600353",
+   "hero_prompt": "24707c12245e5f6a",
+   "howto_description": "d602603e64964238",
+   "howto_step_1_des": "133111641e4832e8",
+   "howto_step_1_title": "7e2b3544f4abed3b",
+   "howto_step_2_des": "8c74c81ef40fce5b",
+   "howto_step_2_title": "24f1ebe25d9f0c2c",
+   "howto_step_3_des": "856619e84f903295",
+   "howto_step_3_title": "7774e3d15b82e1ad",
+   "howto_step_4_des": "371d3d36e178c22d",
+   "howto_step_4_title": "cb51b0bb44cd6db8",
+   "howto_step_5_des": "7ab83a6f4ce6555e",
+   "howto_step_5_title": "01eaca4b84b78a8e",
+   "howto_step_6_des": "7ba0c86c70e49ff7",
+   "howto_step_6_title": "9dbe18131ffdf9b6",
+   "howto_step_7_des": "b0fe3e6a8c9130de",
+   "howto_step_7_title": "36025a4889d5ddb2",
+   "howto_title": "87f926638ed3eca8",
+   "meta_description": "793c9c598d4726a8",
+   "meta_title": "20609553038c7302",
+   "mockup": "c83d0cb2838a17e7",
+   "product_name": "d25563295516b372",
+   "prompt_chip_1": "97bbaee914538fd7",
+   "prompt_chip_2": "99fd12713a0e96b0",
+   "prompt_chip_3": "56a2d55798d1de41",
+   "prompt_chip_4": "40157473441eb388",
+   "slug": "84021deee0115d86",
+   "tab_content_1": "d7f47d76834f1a1a",
+   "tab_content_2": "1baa6eb8c888f93e",
+   "tab_content_3": "82ccd4876fd024fd",
+   "tab_content_4": "c2ab3bb76acd47f0",
+   "tab_label_1": "9f296554a11ff640",
+   "tab_label_2": "7c3ce1ece6e0e446",
+   "tab_label_3": "8a93fba9e4a1f2f0",
+   "tab_label_4": "d5c6e6dc1e5ca7aa",
+   "usecase_heading": "e4fb7481bc51dfb4",
+   "why_description": "eb66dcdc8541ec4c",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "bf6c5b9480d5eb8e"
+  },
+  "all": "2c9d336de64a220c",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "317523e7db4a5a13",
+   "alt:share_image": "b3c975ed8bb1b71a",
+   "alt:tab_image_1": "afbffca682ffeff6",
+   "alt:tab_image_2": "724467e3f6c65c41",
+   "alt:tab_image_3": "926327f85553d450",
+   "alt:tab_image_4": "2669efcd45a4e3d3",
+   "breadcrumb": "db85c1ed08b00c22",
+   "chip_adds": "6776a7f785931220",
+   "explore_cta": "64c8e639ef9b697e",
+   "faq": "1515e30f87581c83",
+   "feature_1": "ba1cf0dd9f8d9500",
+   "feature_2": "869934043a47d369",
+   "feature_3": "466365d939f50c9e",
+   "feature_4": "990df123961126db",
+   "feature_5": "62de9042b9a9f127",
+   "feature_6": "0242da0555dec046",
+   "features_heading": "06a724fce289090f",
+   "features_subheading": "fbbdd2ce1e39278b",
+   "h1": "050d470f8d65ca07",
+   "hero_description": "63d960ccc3600353",
+   "hero_prompt": "24707c12245e5f6a",
+   "howto_description": "d602603e64964238",
+   "howto_step_1_des": "133111641e4832e8",
+   "howto_step_1_title": "7e2b3544f4abed3b",
+   "howto_step_2_des": "8c74c81ef40fce5b",
+   "howto_step_2_title": "24f1ebe25d9f0c2c",
+   "howto_step_3_des": "856619e84f903295",
+   "howto_step_3_title": "7774e3d15b82e1ad",
+   "howto_step_4_des": "371d3d36e178c22d",
+   "howto_step_4_title": "cb51b0bb44cd6db8",
+   "howto_step_5_des": "7ab83a6f4ce6555e",
+   "howto_step_5_title": "01eaca4b84b78a8e",
+   "howto_step_6_des": "7ba0c86c70e49ff7",
+   "howto_step_6_title": "9dbe18131ffdf9b6",
+   "howto_step_7_des": "b0fe3e6a8c9130de",
+   "howto_step_7_title": "36025a4889d5ddb2",
+   "howto_title": "87f926638ed3eca8",
+   "meta_description": "793c9c598d4726a8",
+   "meta_title": "20609553038c7302",
+   "mockup": "c83d0cb2838a17e7",
+   "product_name": "d25563295516b372",
+   "prompt_chip_1": "97bbaee914538fd7",
+   "prompt_chip_2": "99fd12713a0e96b0",
+   "prompt_chip_3": "56a2d55798d1de41",
+   "prompt_chip_4": "40157473441eb388",
+   "slug": "84021deee0115d86",
+   "tab_content_1": "d7f47d76834f1a1a",
+   "tab_content_2": "1baa6eb8c888f93e",
+   "tab_content_3": "82ccd4876fd024fd",
+   "tab_content_4": "c2ab3bb76acd47f0",
+   "tab_label_1": "9f296554a11ff640",
+   "tab_label_2": "7c3ce1ece6e0e446",
+   "tab_label_3": "8a93fba9e4a1f2f0",
+   "tab_label_4": "d5c6e6dc1e5ca7aa",
+   "usecase_heading": "e4fb7481bc51dfb4",
+   "why_description": "eb66dcdc8541ec4c",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "bf6c5b9480d5eb8e"
+  },
+  "all": "2c9d336de64a220c",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
