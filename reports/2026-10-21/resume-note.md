@@ -25,3 +25,5 @@ Live: 243 of 316. Rulings applied this session: contract-approval Q1 approved (r
 - Proposal: add a QC check for the "built into Emergent" wording, which QC doesn't catch (found on 2 pages).
 - SCIM ruling (Divit 2026-10-21): user-provisioning-automation may name SCIM as the provisioning standard, sourced (RFC 7644 or the IdP docs). Never claim Emergent has built-in SCIM support unless it is in rules/claims.json; say an app built with Emergent can connect to identity providers. QC C2 currently blocks the word SCIM, so C2 needs an exception (standard named with a source, no Emergent claim) plus a golden test, then rework FAQ 3, slim review, ship. The page is held until then.
 - Holds (B-c-1): coaching, linkedin (slim reviews, B-r-110), user-provisioning (SCIM).
+- artist-landing-page: draft item 6ad86401 exists (recorded). Learn ref 6a17299f is an unpublished Learn article, so verify failed. Swap it for a published ref (learn-match), slim review, ship-update the draft, unhold, publish. Held by B-c-1.
+- After the ship chain: rerun ship5.sh for LP (chiropractic, podcast, whitepaper) and Auto (pdf-automation).
