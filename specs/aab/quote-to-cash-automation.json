@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-236",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 05:45 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-95",
+   "note": "[truth | HUB_RULES 8] feature_1: Statement of fact about third-party systems with no domain_sources entry, and false as written: the QuickBooks Online and Xero accounting APIs expose invoices (and estimates/quotes, purchase orders) but no sales-order object, so the app cannot write the order to them"
   }
  ],
  "pipeline": "r15",
@@ -1008,5 +1015,305 @@
  ],
  "writers": [
   "B-w-236"
- ]
+ ],
+ "review": {
+  "by": "B-r-95",
+  "date": "2026-10-21 05:45 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Quote to Cash Automation That Hands Off Every Stage'; hero 'Build quote to cash automation that turns accepted quotes into orders and invoices that match, on a database you own.' covers the whole quote-to-payment run; how-to description one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are CPQ/billing vendors and step explainers; page gives the definition (FAQ 1, Zuora), the stage list (FAQ 3, Conga), four working handoffs (quote to order, invoice check, renewals, cycle time), a 7-step how-to and a comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'quote line to invoice line, payment terms to due date'; 'Order to invoice runs 9 days against a 3-day target'; 'a $350.00 freight line was added'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Harlow Creek Brewing accepts quote Q-4127', 'Take the 10 most recent deals you won', 'Export the full code of the app'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; sentences short and single-idea, e.g. 'Name one person, not a team inbox'."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Describe each handoff the way you would brief a new ops hire: when a quote is accepted, open the order; when it ships, draft the invoice.' Plain operator voice, no hype."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "feature_1: 'writes the order and invoice to QuickBooks or Xero through their APIs' (neither QuickBooks Online nor Xero has a sales-order object; unsourced). faq 3: 'It covers the seven that follow the quote ... the app takes over at the signed contract and runs through to renewal' (signed contract onward is five of Conga's ten steps, not seven)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Tabs (Quote to Order, Invoice Check, Renewals, Cycle Time) do not overlap quote-automation (RFQs, equipment quotes, margin checks, follow-up), invoice-automation (bill intake, GL coding) or accounts-receivable-automation (late invoices, cash application); FAQ 4 hands pre-quote work to sales automation."
+   },
+   "faq": {
+    "result": "fail",
+    "evidence": "faq 3 answers its own question with a self-contradicting count: 'It covers the seven that follow the quote' vs 'the app takes over at the signed contract'. Otherwise 10 on-topic questions, no brands, hub link in item 2, 3 sibling links, paa --spec 10/10 pass."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 Q-4127 $18,400.00 = $15,600.00 + $2,800.00, SO-4127, Closed Won, Renata Okafor; tab 2 $7,200 + $2,300 = $9,500 vs $9,850 with $350 freight, Callum Lindqvist by direct message; tab 3 R-2207, Jan 31 / Dec 2, $7,350 + $4,410 + $1,470 = $13,230 vs $12,600; tab 4 6+1+9+31 = 47 days, order to invoice 9 vs 3-day target."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "feature_1",
+    "quote": "The app reads each accepted quote from your CRM and writes the order and invoice to QuickBooks or Xero through their APIs.",
+    "issue": "Statement of fact about third-party systems with no domain_sources entry, and false as written: the QuickBooks Online and Xero accounting APIs expose invoices (and estimates/quotes, purchase orders) but no sales-order object, so the app cannot write the order to them. It also disagrees with howto_step_2 ('orders in a spreadsheet or the ERP'). Only instance on the page: tab 2 and the image say only the invoice posts to QuickBooks, which is fine.",
+    "fix": "Keep the order in the app (or the ERP) and write only the invoice to the ledger, e.g. 'The app reads each accepted quote from your CRM, opens the order in its own database, and writes the invoice to QuickBooks or Xero through their APIs.' Recheck body length 165-182.",
+    "severity": "blocking"
+   },
+   {
+    "class": "untrue",
+    "criterion": "faq",
+    "rule": "HUB_RULES 8; rules/rework-checklist.md 5 (internal contradiction)",
+    "field": "faq",
+    "quote": "It covers the seven that follow the quote. ... The first three happen before acceptance and belong to the quote itself; the app takes over at the signed contract and runs through to renewal.",
+    "issue": "The answer contradicts itself on a number. The seven steps after quoting in Conga's sourced list start at contract creation and contract negotiation, but the same answer says the app takes over at the signed contract (contract execution), which leaves five steps. A reader counting gets 5, not 7. No other FAQ answer or field restates the count.",
+    "fix": "Make the count and the starting point agree, e.g. 'It covers the seven that follow quoting: contract creation, negotiation and execution, order fulfillment, billing, revenue recognition, and renewal.' and drop 'takes over at the signed contract', or keep the signed-contract start and say five. Keep the Conga sentence as quoted.",
+    "severity": "blocking"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2a",
+    "field": "faq",
+    "quote": "a marketing team's seo automation can come from the same builder",
+    "issue": "The sibling anchor is lowercase 'seo' in running prose; the acronym reads as a typo.",
+    "fix": "Keep the exact-match anchor if K4 needs it, otherwise 'SEO automation'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5 (FAQ, PA19)",
+    "field": "faq",
+    "quote": "Can one tool run quote to cash automation and marketing workflows?",
+    "issue": "The weakest question on the page: closer to a hub-level 'one builder for everything' pitch than to something a quote-to-cash searcher asks. It passes the gate, so a note.",
+    "fix": "A future rewrite could ask about approvals or partial shipments inside quote to cash instead.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "hero_description",
+    "quote": "on a database you own",
+    "issue": "'a database you own' recurs in hero_description, feature_5 ('lands in a database you own'), the why line ('on a database you own') and faq 6 ('every version sits in a database you own').",
+    "fix": "Vary or drop one or two instances on a future pass.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5 (comparison table)",
+    "field": "why_table",
+    "quote": "Zapier | Make (Integromat) | n8n",
+    "issue": "QC K7: none of the three columns ranks in this page's top 10 (Salesforce, Conga, Zuora, Maxio, Workato...). The table is library-generated and valid, but the comparison is with general automation tools rather than the Q2C set searchers see.",
+    "fix": "If the library gains Q2C vendors (Workato, Conga), regenerate for new pages; no change required here.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8 (plan before prose)",
+    "field": "plan",
+    "quote": "sends billing lead Theo Lindqvist a direct message",
+    "issue": "spec.plan tab story names Theo Lindqvist; the page, image brief and contact sheet all use Callum Lindqvist. Not rendered, so no reader impact.",
+    "fix": "Align the plan to Callum on the rework.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2a",
+   "field": "faq",
+   "issue": "The sibling anchor is lowercase 'seo' in running prose; the acronym reads as a typo.",
+   "fix": "Keep the exact-match anchor if K4 needs it, otherwise 'SEO automation'.",
+   "by": "B-r-95",
+   "via": "review",
+   "date": "2026-10-21 05:45 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5 (FAQ, PA19)",
+   "field": "faq",
+   "issue": "The weakest question on the page: closer to a hub-level 'one builder for everything' pitch than to something a quote-to-cash searcher asks. It passes the gate, so a note.",
+   "fix": "A future rewrite could ask about approvals or partial shipments inside quote to cash instead.",
+   "by": "B-r-95",
+   "via": "review",
+   "date": "2026-10-21 05:45 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "hero_description",
+   "issue": "'a database you own' recurs in hero_description, feature_5 ('lands in a database you own'), the why line ('on a database you own') and faq 6 ('every version sits in a database you own').",
+   "fix": "Vary or drop one or two instances on a future pass.",
+   "by": "B-r-95",
+   "via": "review",
+   "date": "2026-10-21 05:45 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5 (comparison table)",
+   "field": "why_table",
+   "issue": "QC K7: none of the three columns ranks in this page's top 10 (Salesforce, Conga, Zuora, Maxio, Workato...). The table is library-generated and valid, but the comparison is with general automation tools rather than the Q2C set searchers see.",
+   "fix": "If the library gains Q2C vendors (Workato, Conga), regenerate for new pages; no change required here.",
+   "by": "B-r-95",
+   "via": "review",
+   "date": "2026-10-21 05:45 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8 (plan before prose)",
+   "field": "plan",
+   "issue": "spec.plan tab story names Theo Lindqvist; the page, image brief and contact sheet all use Callum Lindqvist. Not rendered, so no reader impact.",
+   "fix": "Align the plan to Callum on the rework.",
+   "by": "B-r-95",
+   "via": "review",
+   "date": "2026-10-21 05:45 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "f2806c8806c6894e",
+   "alt:share_image": "c262fbfb13868702",
+   "alt:tab_image_1": "e9b65a398f8f0981",
+   "alt:tab_image_2": "3765f6dfad84da18",
+   "alt:tab_image_3": "f602ba039307ff3b",
+   "alt:tab_image_4": "5e5fb2b307c29968",
+   "breadcrumb": "6d8f58fd2eaecbec",
+   "chip_adds": "733115d959dd444d",
+   "explore_cta": "506dfdb50030e4df",
+   "faq": "e06422665dbd2d93",
+   "feature_1": "21340db5b826091e",
+   "feature_2": "a0e99059c3a3dd45",
+   "feature_3": "d8546e47556187c0",
+   "feature_4": "3031cf84c1ac1a81",
+   "feature_5": "0264663652f6c5a6",
+   "feature_6": "62e1370eeac80ae9",
+   "features_heading": "0467e09e1c7f3325",
+   "features_subheading": "f6b11a733111bf8a",
+   "h1": "594707624bff5e86",
+   "hero_description": "6b6a7f63fbfa0e28",
+   "hero_prompt": "3a0de88662786207",
+   "howto_description": "b44babd9fb7568e4",
+   "howto_step_1_des": "84ad9b5662776445",
+   "howto_step_1_title": "fed9ee49b8b966c4",
+   "howto_step_2_des": "750ac9d1e7dc621e",
+   "howto_step_2_title": "a96ac05ad15c21b9",
+   "howto_step_3_des": "cb18568cd0fc22c1",
+   "howto_step_3_title": "6a8455337788510e",
+   "howto_step_4_des": "8d8d0b3683c75aa4",
+   "howto_step_4_title": "b4a3c4ec0490ce56",
+   "howto_step_5_des": "c74bd535b2c978bd",
+   "howto_step_5_title": "e8ce4e49a8de0beb",
+   "howto_step_6_des": "7ef17e839926293e",
+   "howto_step_6_title": "7612653d60bfdfde",
+   "howto_step_7_des": "6187f5e8fce0f4f7",
+   "howto_step_7_title": "064dcac726946ba2",
+   "howto_title": "91075553eacdebff",
+   "meta_description": "0847a895e79c32b3",
+   "meta_title": "6ce3fef17abafe8f",
+   "mockup": "82453c24727b9e82",
+   "product_name": "7784485a6cc97b0e",
+   "prompt_chip_1": "19c645adcdba1e8f",
+   "prompt_chip_2": "ddc81c1b747ad80b",
+   "prompt_chip_3": "522af04cb3e4b9fa",
+   "prompt_chip_4": "3dac2fe7204a2c2d",
+   "slug": "d0ee13a9bb47e919",
+   "tab_content_1": "1e49f1940e5d0609",
+   "tab_content_2": "8da975420e8e10c1",
+   "tab_content_3": "7ca4b6926e65925d",
+   "tab_content_4": "502aa3fda942e675",
+   "tab_label_1": "19c645adcdba1e8f",
+   "tab_label_2": "8e5bd1e43d6463cc",
+   "tab_label_3": "6bb027cae12f0825",
+   "tab_label_4": "164882496e30fd7c",
+   "usecase_heading": "be1cc71d68c0f635",
+   "why_description": "f01941bccd7c38e2",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "d8d3e1b5538e0674"
+  },
+  "all": "83e118deb3cc98f9",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "f2806c8806c6894e",
+   "alt:share_image": "c262fbfb13868702",
+   "alt:tab_image_1": "e9b65a398f8f0981",
+   "alt:tab_image_2": "3765f6dfad84da18",
+   "alt:tab_image_3": "f602ba039307ff3b",
+   "alt:tab_image_4": "5e5fb2b307c29968",
+   "breadcrumb": "6d8f58fd2eaecbec",
+   "chip_adds": "733115d959dd444d",
+   "explore_cta": "506dfdb50030e4df",
+   "faq": "e06422665dbd2d93",
+   "feature_1": "21340db5b826091e",
+   "feature_2": "a0e99059c3a3dd45",
+   "feature_3": "d8546e47556187c0",
+   "feature_4": "3031cf84c1ac1a81",
+   "feature_5": "0264663652f6c5a6",
+   "feature_6": "62e1370eeac80ae9",
+   "features_heading": "0467e09e1c7f3325",
+   "features_subheading": "f6b11a733111bf8a",
+   "h1": "594707624bff5e86",
+   "hero_description": "6b6a7f63fbfa0e28",
+   "hero_prompt": "3a0de88662786207",
+   "howto_description": "b44babd9fb7568e4",
+   "howto_step_1_des": "84ad9b5662776445",
+   "howto_step_1_title": "fed9ee49b8b966c4",
+   "howto_step_2_des": "750ac9d1e7dc621e",
+   "howto_step_2_title": "a96ac05ad15c21b9",
+   "howto_step_3_des": "cb18568cd0fc22c1",
+   "howto_step_3_title": "6a8455337788510e",
+   "howto_step_4_des": "8d8d0b3683c75aa4",
+   "howto_step_4_title": "b4a3c4ec0490ce56",
+   "howto_step_5_des": "c74bd535b2c978bd",
+   "howto_step_5_title": "e8ce4e49a8de0beb",
+   "howto_step_6_des": "7ef17e839926293e",
+   "howto_step_6_title": "7612653d60bfdfde",
+   "howto_step_7_des": "6187f5e8fce0f4f7",
+   "howto_step_7_title": "064dcac726946ba2",
+   "howto_title": "91075553eacdebff",
+   "meta_description": "0847a895e79c32b3",
+   "meta_title": "6ce3fef17abafe8f",
+   "mockup": "82453c24727b9e82",
+   "product_name": "7784485a6cc97b0e",
+   "prompt_chip_1": "19c645adcdba1e8f",
+   "prompt_chip_2": "ddc81c1b747ad80b",
+   "prompt_chip_3": "522af04cb3e4b9fa",
+   "prompt_chip_4": "3dac2fe7204a2c2d",
+   "slug": "d0ee13a9bb47e919",
+   "tab_content_1": "1e49f1940e5d0609",
+   "tab_content_2": "8da975420e8e10c1",
+   "tab_content_3": "7ca4b6926e65925d",
+   "tab_content_4": "502aa3fda942e675",
+   "tab_label_1": "19c645adcdba1e8f",
+   "tab_label_2": "8e5bd1e43d6463cc",
+   "tab_label_3": "6bb027cae12f0825",
+   "tab_label_4": "164882496e30fd7c",
+   "usecase_heading": "be1cc71d68c0f635",
+   "why_description": "f01941bccd7c38e2",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "d8d3e1b5538e0674"
+  },
+  "all": "83e118deb3cc98f9",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
