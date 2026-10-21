@@ -10,7 +10,7 @@ Live: 243 of 316. Rulings applied this session: contract-approval Q1 approved (r
 - The live audit (hubctl live-audit --all --dry) was running; its log is in the session scratchpad. Re-run it into audits/live/2026-10-21 if its results are missing, and fix real P0/P1 first.
 
 ## Next after the reset (Divit 2026-10-21 items 4 and 5)
-1. Check git log, status/*.json and logs/; recommit anything uncommitted, but only after reading it. Never run  while a rules or skeleton edit is uncommitted: that is how 23 Form pages were wrongly moved to rework this session (I reverted them).
+1. Check git log, status/*.json and logs/; recommit anything uncommitted, but only after reading it. Never run hubctl recheck while a rules or skeleton edit is uncommitted: that is how 23 Form pages were wrongly moved to rework this session (I reverted them).
 2. First-pass yield (Divit item 2): A passed 11 of 12 reviews today, B 2 of 9. Compare A's writer setup (prompt, pre-review checklist, the QC and gate run before review) with B's, apply A's to every B writer prompt, and report the difference in one line.
 3. Scale up to at least 15 writers on LP and Automation (claims: easy builder-intent first), with matching reviewers and continuous shipping toward 316.
 4. Post-sprint fixes: the skeleton default hero prompt drops its article ("Build low stock alert..."); the related-link picker offers off-hub anchors (low-stock got proposal automation, leadership survey and likert questionnaire); lowercase anchors ("likert", "it automation" in calendar-automation FAQ 4).
