@@ -1,0 +1,913 @@
+{
+ "url": "/ai-automation-builder/lead-nurturing-workflow",
+ "hub": "Auto",
+ "item_id": null,
+ "status": "spec",
+ "written_by": "B-w-251",
+ "keywords": {
+  "primary": "lead nurturing workflow",
+  "secondaries_used": []
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Lead Nurturing Workflow for Leads Not Yet Ready | Emergent",
+  "meta_description": "Build a lead nurturing workflow that picks the track for each lead, sorts event scans, hands replies to a rep, and brings lost deals back on time.",
+  "h1": "Build a Lead Nurturing Workflow for Every Lead Not Ready to Buy",
+  "slug": "lead-nurturing-workflow",
+  "product_name": "Lead Nurturing Workflow Builder",
+  "hero_description": "Build a lead nurturing workflow that puts each lead on the right track and hands it to a rep the moment the lead replies.",
+  "breadcrumb": "Lead Nurturing Workflow",
+  "category": "a33cd4fb124ec86a130809893b2b3896",
+  "explore_cta": "Build My Lead Nurturing Workflow",
+  "features_heading": "What Emergent Builds Into a Nurturing App",
+  "features_subheading": "Each part decides what a lead hears next, or which rep hears about the lead.",
+  "feature_1": "<h3>A track for each way a lead arrives</h3><p>The app enrolls each new lead by the guide or event that brought it in, and each track keeps its own emails and timing. Describe a new track in a prompt and Emergent builds it.</p>",
+  "feature_2": "<h3>Exit rules that end a track early</h3><p>A reply, a booked meeting, an unsubscribe, or a closed deal ends the track, and no queued email goes out after it. You choose which of these events counts as an exit.</p>",
+  "feature_3": "<h3>Handoffs that carry the whole history</h3><p>When a lead is ready for a person, the rep gets a Slack or email alert with the reply and every email the lead received. The call starts from what the lead has read.</p>",
+  "feature_4": "<h3>Lead records in a database you own</h3><p>Every lead, track, and send is stored in a database you own. The app reads and writes contacts and deal stages in your CRM through its API, where your reps already work.</p>",
+  "feature_5": "<h3>Lost leads come back on a set date</h3><p>A deal marked lost on timing, or a lead a rep marks as not now, gets a return date. On that date the app restarts nurturing for the contact and alerts the original rep.</p>",
+  "feature_6": "<h3>No task cap as the list grows</h3><p>Sends and branch checks run with no task cap, whether the list holds 500 leads or 50,000. On paid plans, you can export the full code of the app to your own GitHub repository.</p>",
+  "why_title": "Why Build Lead Nurturing With Emergent?",
+  "why_description": "Emergent builds the nurture tracks and the rep handoff as one app from a prompt, and every lead record sits in a database you own.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Zapier</th>\n        <th scope=\"col\">Make (Integromat)</th>\n        <th scope=\"col\">n8n</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt for the workflow and the app around it</td>\n        <td class=\"col-other\">Templates and editor, AI copilot</td>\n        <td class=\"col-other\">Visual canvas</td>\n        <td class=\"col-other\">Visual canvas, self-hosted or cloud</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">What you get</th>\n        <td class=\"col-brand\">Workflow + trigger form + database + dashboard, as code you own</td>\n        <td class=\"col-other\">Zaps, plus Tables and Interfaces inside Zapier</td>\n        <td class=\"col-other\">Scenarios inside Make</td>\n        <td class=\"col-other\">Workflows inside n8n</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Behavior at cap</th>\n        <td class=\"col-brand\">Keeps running, no task cap</td>\n        <td class=\"col-other\">Overage billed at up to 1.25× the base rate</td>\n        <td class=\"col-other\">Runs pause</td>\n        <td class=\"col-other\">Cloud workflows stop until the reset or an upgrade</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">AI and agent steps</th>\n        <td class=\"col-brand\">Native, share the same credit pool</td>\n        <td class=\"col-other\">Priced by model tier, drawn from the task pool</td>\n        <td class=\"col-other\">AI modules cost variable credits</td>\n        <td class=\"col-other\">Bring your own model API key, billed by the provider</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">Yes on Community Edition</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "Where Each Lead Goes, and When It Leaves",
+  "tab_label_1": "Guide Downloads",
+  "tab_label_2": "Trade Show Scans",
+  "tab_label_3": "Lead Replies",
+  "tab_label_4": "Closed-Lost Deals",
+  "tab_content_1": "<h3>Tip pooling readers get restaurant emails for 21 days</h3><p>Ottilie Marchbank, operations manager at Fennick Hall Bistros, downloads the tip pooling guide from Corvane Payroll. The app tags her by that guide and enrolls her in the restaurant track: 4 emails, on day 2, day 7, day 14, and day 21. A lead who downloads the overtime guide gets the hourly staff track instead.</p>",
+  "tab_content_2": "<h3>140 badge scans, 18 calls before the day ends</h3><p>Hartsfell Robotics brings 140 badge scans home from a warehouse trade show, each with a booth note. The app sorts them by that note. The 18 hot leads reach the rep, Caspian Oduya, as call tasks the same day. The 97 warm leads start a 6-week track with one email a week, and the 25 cold leads get one recap email.</p>",
+  "tab_content_3": "<h3>One reply stops emails 4 and 5 for good</h3><p>Henrike Valdes at Copperfold Dental Group replies to email 3 of 5 from Tallowmere Scheduling to ask whether it syncs with her phone system. The app cancels emails 4 and 5. Her reply goes to the rep Matthias Okonjo in a direct message, along with the 3 emails she received.</p>",
+  "tab_content_4": "<h3>Lost on timing, back in a track after 180 days</h3><p>Brindlecrest HR lost the Wexcombe Logistics deal, and the rep logged the reason as timing: the budget was frozen. After 180 days, the app puts the contact, Perpetua Lindgren, into a 3-email check-in track and sends the original rep, Leocadia Fenn, a direct message with the lost reason.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { guideDownloads: \"When a lead downloads one of my guides, tag the lead by that guide and enroll it in the matching track. The tip pooling guide starts the restaurant track of 4 emails on day 2, day 7, day 14, and day 21. The overtime guide starts the hourly staff track.\", tradeShowScans: \"Import the badge scans from a trade show with the booth note on each. Turn every hot lead into a call task for the rep the same day. Put warm leads in a 6-week track with one email a week, and send cold leads one recap email.\", leadReplies: \"When a lead replies to any email in a track, cancel the rest of that track. Send the lead's owner a direct message with the reply and every email the lead received so far.\", closedLostDeals: \"When a deal is marked lost with the reason timing, wait 180 days. Then put the contact into a 3-email check-in track and send the original rep a direct message with the lost reason.\" };</p>",
+  "howto_title": "How to Build a Lead Nurturing Workflow",
+  "howto_description": "These 7 steps map your lead sources into a lead nurturing workflow and test it on last month's leads before it goes live.",
+  "howto_step_1_title": "01 List every way a lead reaches you",
+  "howto_step_2_title": "02 Write one track per entry point",
+  "howto_step_3_title": "03 Choose who gets the handoff",
+  "howto_step_4_title": "04 Describe it to Emergent",
+  "howto_step_1_des": "Pull last quarter's new leads and group them by what brought them in: a guide, an event, a demo form, or a referral. Any group with 20 or more leads earns its own track.",
+  "howto_step_2_des": "For each group, write the emails in order with the day each one goes out. Keep a track to 5 emails or fewer, and let each email answer one question that group asks before buying.",
+  "howto_step_3_des": "Decide which rep receives a lead that leaves a track, and whether the alert goes to Slack or email. A lead that already has an owner in your CRM goes back to that owner.",
+  "howto_step_4_des": "Paste your tracks and handoff rules into a prompt. Emergent builds the app with its database and a dashboard that shows each lead's current track and next send.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Lead Nurturing Questions, Answered\", \"items\": [{\"q\": \"What is a lead nurturing workflow?\", \"a\": \"A lead nurturing workflow is the set of rules that chooses the next message for a lead that is not ready to buy, and the moment a rep takes over. Lead nurturing itself is the act of educating a lead and moving them through the stages of your customer lifecycle. The workflow turns that into steps: the track a lead enters, and the event that hands it to a person.\"}, {\"q\": \"How do I create a lead nurturing workflow?\", \"a\": \"Group your leads by what brought them in, write one short track for each group, and decide which events end a track. Describe those tracks in Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>, and Emergent builds the app and its database from your prompt. Connect your CRM through its API, then run last month's leads through the tracks before you switch them on.\"}, {\"q\": \"What are good lead nurturing workflow examples to start with?\", \"a\": \"Start with tracks tied to something the lead did. A lead who views your pricing page twice in a week can move to a shorter track with a case study and a meeting link. A free trial that ends without an upgrade can start a track built on the setup questions trial users send your support team. Emergent adds either one to the app when you ask for it in a prompt.\"}, {\"q\": \"How do I keep the emails in a lead nurturing workflow from going stale?\", \"a\": \"Review each track every quarter and replace any email whose guide or offer has been retired. Store each email's link alongside the track to see at a glance which emails still point to old pages. When your <a href='https://emergent.sh/ai-automation-builder/content-workflow'>content workflow</a> publishes a new guide, add it to the track for the group that asks that question, and drop the email it replaces.\"}, {\"q\": \"What lead data does a lead nurturing workflow need?\", \"a\": \"Each lead needs two fields beyond a valid email address: the source that brought it in and an owner, even if the owner field is empty. The source picks the track, and the owner decides who gets the handoff. Add company size or role only when a track reads it. The app keeps these fields in a database you own.\"}, {\"q\": \"How many emails should a lead nurturing workflow send?\", \"a\": \"Start with 5 emails or fewer, and widen the gap between them as the track goes on. Add an email only when leads are still opening the last one you send. Each email should answer one question the group asks before buying, and the last one should ask plainly whether the lead wants to talk to someone.\"}, {\"q\": \"What happens to a lead after it leaves a lead nurturing workflow?\", \"a\": \"It goes to a person or back into a waiting period, depending on why it left. A reply or a booked meeting sends it to the owning rep, and from there your <a href='https://emergent.sh/ai-automation-builder/sales-workflow'>sales workflow</a> sets the stages the deal moves through. An unsubscribe ends all email to that address. A lead that finishes a track without responding can wait 90 days and then start a check-in track.\"}, {\"q\": \"How do I measure whether a lead nurturing workflow is working?\", \"a\": \"Track two numbers for each track every month: the share of enrolled leads that reach a rep, and the days it takes them to get there. If fewer than 1 in 20 leads in a track reach a rep within 90 days, rewrite its emails or change its exit rule. Emergent can build a dashboard with both numbers per track, from the same database the tracks run on.\"}, {\"q\": \"How do I keep a lead on only one lead nurturing workflow track at a time?\", \"a\": \"Give each lead one active track at a time, and rank your tracks in priority order. When a lead qualifies for a second track, the app keeps it on the higher-ranked track and queues the other until the first one ends. A trade show lead who also downloads a guide, for example, stays on the event track until it finishes.\"}, {\"q\": \"How is a lead nurturing workflow different from lead scoring?\", \"a\": \"Scoring ranks leads by what they do, while nurturing picks the emails each lead gets until it is ready to talk to a rep. The two meet at the handoff, where a score threshold can be the event that ends a track. Points for page views and an alert at a set score belong in a <a href='https://emergent.sh/ai-automation-builder/marketing-automation-workflow'>marketing automation workflow</a>, and the nurture track reads the score it produces.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Connect your CRM and email tool",
+  "howto_step_5_des": "Give the app API access to your CRM and to the tool that sends your email. Map each field the tracks read, such as lead source and deal stage, before any lead is enrolled.",
+  "howto_step_6_title": "06 Run last month's leads through it",
+  "howto_step_6_des": "Load last month's leads in test mode and check which track each one lands in. Compare the result with what your reps would have chosen, and fix any rule that disagrees.",
+  "howto_step_7_title": "07 Go live on one entry point",
+  "howto_step_7_des": "Turn on the track with the most leads first and keep the others manual for 2 weeks. Read every handoff message in that time, then switch on the next track.",
+  "prompt_chip_1": "Content Tracks",
+  "prompt_chip_2": "Event Leads",
+  "prompt_chip_3": "Reply Handoff",
+  "prompt_chip_4": "Lost Deals",
+  "hero_prompt": "<p>Build a lead nurturing workflow that runs on its own and logs every step.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/aab/lead-nurturing-workflow/uc-1.svg",
+   "alt": "A lead from Fennick Hall Bistros downloads the tip pooling guide and is enrolled in the restaurant track of 4 emails on day 2, day 7, day 14, and day 21."
+  },
+  "tab_image_2": {
+   "path": "images/aab/lead-nurturing-workflow/uc-2.svg",
+   "alt": "140 badge scans from a warehouse trade show are sorted by booth note into 18 hot leads to call today, 97 warm leads in a 6-week track, and 25 cold leads with one recap email."
+  },
+  "tab_image_3": {
+   "path": "images/aab/lead-nurturing-workflow/uc-3.svg",
+   "alt": "A lead at Copperfold Dental Group replies to email 3 of 5; the track stops, emails 4 and 5 are canceled, and the rep gets a direct message with her reply."
+  },
+  "tab_image_4": {
+   "path": "images/aab/lead-nurturing-workflow/uc-4.svg",
+   "alt": "A Brindlecrest HR deal with Wexcombe Logistics, lost on timing, returns after 180 days: the contact enters a 3-email check-in track and the original rep gets a direct message."
+  },
+  "cover_image": {
+   "path": "images/aab/lead-nurturing-workflow/cover.svg",
+   "alt": "Lead nurturing workflow: a direct message tells the rep a lead replied to email 3 and the rest of her track was canceled"
+  },
+  "share_image": {
+   "path": "images/aab/lead-nurturing-workflow/og.webp",
+   "alt": "Build a lead nurturing workflow for every lead not ready to buy, with Emergent"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-21 05:28 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 05:44 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "B-w-251",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 05:45 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-251",
+   "note": ""
+  }
+ ],
+ "pipeline": "r15",
+ "faq_plan": [
+  {
+   "kind": "definition",
+   "q": "What is a lead nurturing workflow?",
+   "ref": "lead nurturing workflow",
+   "locked": true,
+   "n": 1,
+   "a": "A lead nurturing workflow is the set of rules that chooses the next message for a lead that is not ready to buy, and the moment a rep takes over. Lead nurturing itself is the act of educating a lead and moving them through the stages of your customer lifecycle. The workflow turns that into steps: the track a lead enters, and the event that hands it to a person.",
+   "link": null
+  },
+  {
+   "kind": "definition",
+   "q": "How do I create a lead nurturing workflow?",
+   "ref": "lead nurturing workflow",
+   "locked": true,
+   "n": 2,
+   "a": "Group your leads by what brought them in, write one short track for each group, and decide which events end a track. Describe those tracks in Emergent's AI automation builder, and Emergent builds the app and its database from your prompt. Connect your CRM through its API, then run last month's leads through the tracks before you switch them on.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder",
+    "anchor": "AI automation builder",
+    "write_as": "Emergent's AI automation builder"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "What are good lead nurturing workflow examples to start with?",
+   "ref": "lead nurturing workflow examples",
+   "secondary": "lead nurturing workflow examples",
+   "locked": false,
+   "n": 3,
+   "a": "Start with tracks tied to something the lead did. A lead who views your pricing page twice in a week can move to a shorter track with a case study and a meeting link. A free trial that ends without an upgrade can start a track built on the setup questions trial users send your support team. Emergent adds either one to the app when you ask for it in a prompt.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How do I keep the emails in a lead nurturing workflow from going stale?",
+   "ref": null,
+   "secondary": null,
+   "hint": "How to automate lead nurturing workflows?",
+   "locked": false,
+   "n": 4,
+   "a": "Review each track every quarter and replace any email whose guide or offer has been retired. Store each email's link alongside the track to see at a glance which emails still point to old pages. When your content workflow publishes a new guide, add it to the track for the group that asks that question, and drop the email it replaces.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/content-workflow",
+    "anchor": "content workflow"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "What lead data does a lead nurturing workflow need?",
+   "ref": null,
+   "secondary": null,
+   "hint": "Are there any tools that help automate lead nurturing workflows?",
+   "locked": false,
+   "n": 5,
+   "a": "Each lead needs two fields beyond a valid email address: the source that brought it in and an owner, even if the owner field is empty. The source picks the track, and the owner decides who gets the handoff. Add company size or role only when a track reads it. The app keeps these fields in a database you own.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How many emails should a lead nurturing workflow send?",
+   "ref": null,
+   "secondary": null,
+   "hint": "How to automate lead nurturing workflows best practices?",
+   "locked": false,
+   "n": 6,
+   "a": "Start with 5 emails or fewer, and widen the gap between them as the track goes on. Add an email only when leads are still opening the last one you send. Each email should answer one question the group asks before buying, and the last one should ask plainly whether the lead wants to talk to someone.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "What happens to a lead after it leaves a lead nurturing workflow?",
+   "ref": null,
+   "secondary": null,
+   "hint": "How to automate lead nurturing workflows for e commerce?",
+   "locked": false,
+   "n": 7,
+   "a": "It goes to a person or back into a waiting period, depending on why it left. A reply or a booked meeting sends it to the owning rep, and from there your sales workflow sets the stages the deal moves through. An unsubscribe ends all email to that address. A lead that finishes a track without responding can wait 90 days and then start a check-in track.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/sales-workflow",
+    "anchor": "sales workflow"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "How do I measure whether a lead nurturing workflow is working?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 8,
+   "a": "Track two numbers for each track every month: the share of enrolled leads that reach a rep, and the days it takes them to get there. If fewer than 1 in 20 leads in a track reach a rep within 90 days, rewrite its emails or change its exit rule. Emergent can build a dashboard with both numbers per track, from the same database the tracks run on.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How do I keep a lead on only one lead nurturing workflow track at a time?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 9,
+   "a": "Give each lead one active track at a time, and rank your tracks in priority order. When a lead qualifies for a second track, the app keeps it on the higher-ranked track and queues the other until the first one ends. A trade show lead who also downloads a guide, for example, stays on the event track until it finishes.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How is a lead nurturing workflow different from lead scoring?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 10,
+   "a": "Scoring ranks leads by what they do, while nurturing picks the emails each lead gets until it is ready to talk to a rep. The two meet at the handoff, where a score threshold can be the event that ends a track. Points for page views and an alert at a set score belong in a marketing automation workflow, and the nurture track reads the score it produces.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/marketing-automation-workflow",
+    "anchor": "marketing automation workflow"
+   }
+  }
+ ],
+ "faq_heading": "Lead Nurturing Questions, Answered",
+ "table": {
+  "vs": [
+   "Zapier",
+   "Make (Integromat)",
+   "n8n"
+  ],
+  "rows": [
+   "build",
+   "output",
+   "cap",
+   "ai",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "skeleton": {
+  "built_by": "B-w-251",
+  "built": "2026-10-21 05:28 UTC",
+  "slots": 10,
+  "flagged": 0,
+  "flag_subtypes": [],
+  "locked": 2,
+  "table": true
+ },
+ "plan": {
+  "angle": "The SERP for lead nurturing workflow is glossary posts and email-template listicles that stop at sending a sequence. This page shows the decisions a nurturing app makes about leads that are not ready to buy: which track a lead enters based on the content that brought it in, how a pile of trade-show scans is split by the booth note, when a reply ends the track and goes to a rep, and when a deal lost on timing comes back. Timed email series belong to drip campaign, scoring and cart recovery to marketing automation workflow, rep assignment and stalled deals to CRM automation, and demo follow-up to sales automation.",
+  "tab_stories": [
+   "Ottilie Marchbank, operations manager at Fennick Hall Bistros, downloads Corvane Payroll's tip pooling guide; the app tags her by that guide and enrolls her in the restaurant track of 4 emails on day 2, day 7, day 14, and day 21, while a lead who downloads the overtime guide gets the hourly staff track.",
+   "Hartsfell Robotics brings 140 badge scans home from a warehouse trade show; the app sorts them by the booth note into 18 hot leads that reach the rep Caspian Oduya as call tasks the same day, 97 warm leads in a 6-week track with one email a week, and 25 cold leads that get a single recap email.",
+   "Henrike Valdes at Copperfold Dental Group replies to email 3 of 5 from Tallowmere Scheduling to ask whether it syncs with her phone system; the app cancels emails 4 and 5 and sends the rep Matthias Okonjo a direct message with her reply and the 3 emails she received.",
+   "Brindlecrest HR lost the Wexcombe Logistics deal with the reason Timing, budget frozen; 180 days later the app puts the contact Perpetua Lindgren into a 3-email check-in track and sends the original rep Leocadia Fenn a direct message with the lost reason."
+  ],
+  "openers": [
+   "Ottilie Marchbank downloads",
+   "Hartsfell Robotics brings home",
+   "Henrike Valdes replies to email 3",
+   "Brindlecrest HR lost the Wexcombe Logistics deal",
+   "List every way a lead reaches you",
+   "Write one track per entry point",
+   "Run last month's leads through it"
+  ],
+  "heading_shapes": [
+   "Tip pooling readers get restaurant emails for 21 days",
+   "140 badge scans, 18 calls before the day ends",
+   "One reply stops emails 4 and 5 for good",
+   "Lost on timing, back in a track after 180 days"
+  ],
+  "claims_to_source": [
+   "Lead nurturing is the act of educating a lead and moving them through the stages of a company's customer lifecycle, improving the quality of that lead over time"
+  ],
+  "numbers": [
+   {
+    "value": 140,
+    "formula": "18 + 97 + 25"
+   },
+   {
+    "value": 2,
+    "formula": "5 - 3"
+   }
+  ],
+  "owns": {
+   "track chosen by entry content": "feature_1",
+   "exit rules on reply, meeting, unsubscribe": "feature_2",
+   "handoff message to the rep with history": "feature_3",
+   "lead records in your database and CRM sync": "feature_4",
+   "recycling lost or not-now leads": "feature_5",
+   "no task cap and code export": "feature_6",
+   "mapping entry points": "howto_step_1_des",
+   "test on last month's leads": "howto_step_6_des",
+   "definition": "faq 1",
+   "examples": "faq 3"
+  }
+ },
+ "chip_adds": [
+  "Add content tracks that enroll each lead by the guide it downloaded.",
+  "Add event lead sorting that splits badge scans by the booth note.",
+  "Add reply handoff that stops the track and sends the rep the reply.",
+  "Add lost deal handling that brings a deal lost on timing back after 180 days."
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R1",
+    "title": "Guide downloads",
+    "prompt": "Enroll each lead in the track that matches the guide it downloaded",
+    "main": {
+     "chrome": "Leads",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "CORVANE PAYROLL",
+       "title": "Ottilie Marchbank",
+       "size": 28,
+       "sub": "Fennick Hall Bistros"
+      },
+      {
+       "type": "rule",
+       "text": "Rule matched: tip pooling guide → restaurant track"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Guide downloaded",
+         "sub": "Tip pooling guide"
+        },
+        {
+         "state": "live",
+         "title": "Restaurant track",
+         "sub": "Email 1 on day 2",
+         "right": "Enrolled"
+        },
+        {
+         "state": "next",
+         "title": "3 more emails",
+         "sub": "Day 7, day 14, day 21"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "Restaurant track",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Ottilie enrolled, 4 emails",
+       "size": 20,
+       "sub": "Day 2, day 7, day 14, day 21"
+      },
+      {
+       "type": "meta",
+       "icon": "book-open",
+       "kind": "acc",
+       "text": "Tagged: tip pooling guide"
+      }
+     ],
+     "action": {
+      "label": "View track",
+      "icon": "eye"
+     }
+    },
+    "mini": {
+     "icon": "git-branch",
+     "kind": "acc",
+     "title": "Overtime guide",
+     "sub": "Hourly staff track"
+    },
+    "alt": "A lead from Fennick Hall Bistros downloads the tip pooling guide and is enrolled in the restaurant track of 4 emails on day 2, day 7, day 14, and day 21.",
+    "story": [
+     {
+      "copy": "Ottilie Marchbank",
+      "image": "Ottilie Marchbank"
+     },
+     {
+      "copy": "Fennick Hall Bistros",
+      "image": "Fennick Hall Bistros"
+     },
+     {
+      "copy": "Corvane Payroll",
+      "image": "CORVANE PAYROLL"
+     },
+     {
+      "copy": "enrolls her in the restaurant track",
+      "image": "Rule matched: tip pooling guide → restaurant track"
+     },
+     {
+      "copy": "the tip pooling guide",
+      "image": "Tip pooling guide"
+     },
+     {
+      "copy": "on day 2, day 7, day 14, and day 21",
+      "image": "Day 2, day 7, day 14, day 21"
+     },
+     {
+      "copy": "4 emails",
+      "image": "Ottilie enrolled, 4 emails"
+     },
+     {
+      "copy": "the overtime guide",
+      "image": "Overtime guide"
+     },
+     {
+      "copy": "the hourly staff track",
+      "image": "Hourly staff track"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Trade show scans",
+    "prompt": "Sort my trade show badge scans by the booth note and call hot leads today",
+    "main": {
+     "chrome": "Leads",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "HARTSFELL ROBOTICS",
+       "title": "Warehouse trade show",
+       "size": 28,
+       "sub": "140 badge scans"
+      },
+      {
+       "type": "rule",
+       "text": "Rule matched: booth note hot → call task today"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Cold: 25 leads",
+         "sub": "One recap email"
+        },
+        {
+         "state": "done",
+         "title": "Warm: 97 leads",
+         "sub": "One email a week, 6 weeks"
+        },
+        {
+         "state": "live",
+         "title": "Hot: 18 leads",
+         "sub": "Call tasks",
+         "right": "Today"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Caspian",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "18 hot leads to call",
+       "size": 20,
+       "sub": "Caspian Oduya, today"
+      },
+      {
+       "type": "meta",
+       "icon": "phone",
+       "kind": "acc",
+       "text": "Call tasks created"
+      }
+     ],
+     "action": {
+      "label": "Open tasks",
+      "icon": "list-checks"
+     }
+    },
+    "mini": {
+     "icon": "mail",
+     "kind": "ok",
+     "title": "6-week track",
+     "sub": "97 warm leads"
+    },
+    "alt": "140 badge scans from a warehouse trade show are sorted by booth note into 18 hot leads to call today, 97 warm leads in a 6-week track, and 25 cold leads with one recap email.",
+    "story": [
+     {
+      "copy": "each with a booth note",
+      "image": "Rule matched: booth note hot → call task today"
+     },
+     {
+      "copy": "The 18 hot leads",
+      "image": "18 hot leads to call"
+     },
+     {
+      "copy": "Caspian Oduya",
+      "image": "Caspian Oduya, today"
+     },
+     {
+      "copy": "Hartsfell Robotics",
+      "image": "HARTSFELL ROBOTICS"
+     },
+     {
+      "copy": "140 badge scans",
+      "image": "140 badge scans"
+     },
+     {
+      "copy": "a warehouse trade show",
+      "image": "Warehouse trade show"
+     },
+     {
+      "copy": "The 97 warm leads",
+      "image": "Warm: 97 leads"
+     },
+     {
+      "copy": "a 6-week track with one email a week",
+      "image": "One email a week, 6 weeks"
+     },
+     {
+      "copy": "the 25 cold leads",
+      "image": "Cold: 25 leads"
+     },
+     {
+      "copy": "one recap email",
+      "image": "One recap email"
+     },
+     {
+      "copy": "18 calls",
+      "image": "Hot: 18 leads"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Lead replies",
+    "prompt": "When a lead replies, stop the track and send the rep the reply",
+    "main": {
+     "chrome": "Nurture tracks",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "TALLOWMERE SCHEDULING",
+       "title": "Henrike Valdes",
+       "size": 28,
+       "sub": "Copperfold Dental Group"
+      },
+      {
+       "type": "rule",
+       "text": "Rule matched: lead replied → stop the track"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Emails 1 to 3 sent",
+         "sub": "3 of 5 in the track"
+        },
+        {
+         "state": "live",
+         "title": "Reply to email 3",
+         "sub": "Phone system sync",
+         "right": "Track stopped"
+        },
+        {
+         "state": "skip",
+         "title": "Emails 4 and 5",
+         "sub": "Canceled"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Matthias",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Henrike Valdes replied",
+       "size": 20,
+       "sub": "Copperfold Dental Group, email 3"
+      },
+      {
+       "type": "meta",
+       "icon": "message-square",
+       "kind": "acc",
+       "text": "Does it sync with our phone system?"
+      },
+      {
+       "type": "meta",
+       "icon": "paperclip",
+       "kind": "muted",
+       "text": "3 emails she received"
+      }
+     ],
+     "action": {
+      "label": "Reply",
+      "icon": "reply"
+     }
+    },
+    "mini": {
+     "icon": "ban",
+     "kind": "warn",
+     "title": "Emails 4 and 5",
+     "sub": "Canceled after her reply"
+    },
+    "alt": "A lead at Copperfold Dental Group replies to email 3 of 5; the track stops, emails 4 and 5 are canceled, and the rep gets a direct message with her reply.",
+    "story": [
+     {
+      "copy": "Henrike Valdes",
+      "image": "Henrike Valdes"
+     },
+     {
+      "copy": "Copperfold Dental Group",
+      "image": "Copperfold Dental Group"
+     },
+     {
+      "copy": "Tallowmere Scheduling",
+      "image": "TALLOWMERE SCHEDULING"
+     },
+     {
+      "copy": "replies to email 3 of 5",
+      "image": "3 of 5 in the track"
+     },
+     {
+      "copy": "One reply stops",
+      "image": "Rule matched: lead replied → stop the track"
+     },
+     {
+      "copy": "cancels emails 4 and 5",
+      "image": "Emails 4 and 5"
+     },
+     {
+      "copy": "syncs with her phone system",
+      "image": "Phone system sync"
+     },
+     {
+      "copy": "Matthias Okonjo",
+      "image": "To Matthias"
+     },
+     {
+      "copy": "the 3 emails she received",
+      "image": "3 emails she received"
+     }
+    ]
+   },
+   {
+    "recipe": "R10",
+    "title": "Closed-lost deals",
+    "prompt": "Bring deals lost on timing back into a check-in track after 180 days",
+    "kpi": {
+     "icon": "calendar-clock",
+     "label": "Back in a track",
+     "value": "Day 180",
+     "sub": "Lost on timing"
+    },
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Wexcombe Logistics, Perpetua Lindgren",
+       "size": 20,
+       "sub": "Brindlecrest HR deal, lost"
+      },
+      {
+       "type": "timeline",
+       "items": [
+        {
+         "label": "Lost: budget frozen",
+         "chip": "Day 0",
+         "kind": "bad"
+        },
+        {
+         "label": "Leocadia Fenn alerted",
+         "chip": "Day 180",
+         "kind": "ok"
+        },
+        {
+         "label": "3-email check-in track",
+         "chip": "Starts",
+         "kind": "next",
+         "live": true
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Leocadia Fenn",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Wexcombe Logistics is back",
+       "size": 20,
+       "sub": "Lost 180 days ago on timing"
+      },
+      {
+       "type": "meta",
+       "icon": "history",
+       "kind": "warn",
+       "text": "Lost reason: budget frozen"
+      },
+      {
+       "type": "chips",
+       "items": [
+        [
+         "3 check-in emails",
+         "acc"
+        ],
+        [
+         "Perpetua Lindgren",
+         "ok"
+        ]
+       ]
+      }
+     ],
+     "action": {
+      "label": "Open deal",
+      "icon": "external-link"
+     }
+    },
+    "alt": "A Brindlecrest HR deal with Wexcombe Logistics, lost on timing, returns after 180 days: the contact enters a 3-email check-in track and the original rep gets a direct message.",
+    "story": [
+     {
+      "copy": "Wexcombe Logistics",
+      "image": "Wexcombe Logistics is back"
+     },
+     {
+      "copy": "Brindlecrest HR",
+      "image": "Brindlecrest HR deal, lost"
+     },
+     {
+      "copy": "the budget was frozen",
+      "image": "Lost reason: budget frozen"
+     },
+     {
+      "copy": "After 180 days",
+      "image": "Day 180"
+     },
+     {
+      "copy": "back in a track after 180 days",
+      "image": "Lost 180 days ago on timing"
+     },
+     {
+      "copy": "Perpetua Lindgren",
+      "image": "Perpetua Lindgren"
+     },
+     {
+      "copy": "a 3-email check-in track",
+      "image": "3-email check-in track"
+     },
+     {
+      "copy": "Leocadia Fenn",
+      "image": "To Leocadia Fenn"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "dm": true,
+   "channel": "Matthias Okonjo",
+   "title": "Reply to email 3",
+   "sub": "Henrike Valdes, Copperfold",
+   "primary": "Reply",
+   "secondary": "Open",
+   "icon": "message-square",
+   "alt": "Lead nurturing workflow: a direct message tells the rep a lead replied to email 3 and the rest of her track was canceled"
+  },
+  "og": {
+   "headline": "Build a lead nurturing workflow",
+   "lines": [
+    "Build a lead",
+    "nurturing workflow"
+   ],
+   "alt": "Build a lead nurturing workflow for every lead not ready to buy, with Emergent"
+  },
+  "checks": [
+   {
+    "expr": "18 + 97 + 25 == 140",
+    "shows": [
+     "140 badge scans",
+     "Hot: 18 leads",
+     "Warm: 97 leads",
+     "Cold: 25 leads"
+    ],
+    "where": 2
+   },
+   {
+    "expr": "5 - 3 == 2",
+    "shows": [
+     "3 of 5 in the track"
+    ],
+    "where": 3
+   }
+  ]
+ },
+ "domain_sources": [
+  {
+   "claim": "Lead nurturing is the act of educating a lead and moving them through the stages of a company's customer lifecycle, improving the quality of that lead over time",
+   "source_url": "https://unbounce.com/conversion-glossary/definition/lead-nurturing/",
+   "date": "2026-10-21",
+   "quote": "The act of educating a lead and moving them through the stages"
+  }
+ ],
+ "claims_used": [
+  "prompt-build",
+  "api-connect",
+  "alerts",
+  "database-owned",
+  "no-caps",
+  "code-export"
+ ],
+ "faq_sources": [
+  {
+   "q": "What is a lead nurturing workflow?",
+   "source": "written",
+   "ref": "lead nurturing workflow",
+   "origin": "definition"
+  },
+  {
+   "q": "How do I create a lead nurturing workflow?",
+   "source": "written",
+   "ref": "lead nurturing workflow",
+   "origin": "definition"
+  },
+  {
+   "q": "What are good lead nurturing workflow examples to start with?",
+   "source": "written",
+   "ref": "lead nurturing workflow examples",
+   "origin": "written",
+   "secondary": "lead nurturing workflow examples"
+  },
+  {
+   "q": "How do I keep the emails in a lead nurturing workflow from going stale?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "What lead data does a lead nurturing workflow need?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How many emails should a lead nurturing workflow send?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "What happens to a lead after it leaves a lead nurturing workflow?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How do I measure whether a lead nurturing workflow is working?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How do I keep a lead on only one lead nurturing workflow track at a time?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How is a lead nurturing workflow different from lead scoring?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  }
+ ],
+ "learn_refs": [
+  "6a86eb8060318c6090f362ce",
+  "6a1957a93f071bd243a53c20",
+  "6a1729ad1817ffd0330c987d"
+ ],
+ "learn_refs_why": [
+  "crm-system-examples: score 9.09: matches workflow, sale, crm",
+  "how-to-build-a-lead-generation-website: score 6.11: matches lead (how-to)",
+  "best-ai-workflow-builders: score 4.41: matches workflow (builder list, hub-term only)"
+ ],
+ "qc_passed": {
+  "rules_version": "4bb5d5a61c4e",
+  "date": "2026-10-21 05:44 UTC"
+ },
+ "writers": [
+  "B-w-251"
+ ]
+}
