@@ -1,0 +1,918 @@
+{
+ "url": "/ai-automation-builder/timesheet-approval-workflow",
+ "hub": "Auto",
+ "item_id": null,
+ "status": "spec",
+ "written_by": "B-w-288",
+ "keywords": {
+  "primary": "timesheet approval workflow",
+  "secondaries_used": []
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Timesheet Approval Workflow for Any Approver | Emergent",
+  "meta_description": "Build a timesheet approval workflow that sends project hours to their leads, contractor weeks to the client, and incomplete weeks back.",
+  "h1": "Build a Timesheet Approval Workflow for Every Approver",
+  "slug": "timesheet-approval-workflow",
+  "product_name": "Timesheet Approval Workflow Builder",
+  "hero_description": "Get a timesheet approval workflow that sends each week of hours to the person who should sign it and logs the decision.",
+  "breadcrumb": "Timesheet Approval Workflow",
+  "category": "a33cd4fb124ec86a130809893b2b3896",
+  "explore_cta": "Build My Timesheet Approval",
+  "features_heading": "The Rules Behind Every Approved Timesheet",
+  "features_subheading": "Emergent builds the timesheet form, the routing, and the record from your description of who signs which hours.",
+  "feature_1": "<h3>Approvers named in plain English</h3><p>Describe the rule as your operations lead would: hours on a client project go to its lead. Emergent builds the timesheet form and routing from that, and edits both by prompt.</p>",
+  "feature_2": "<h3>Project codes from the tools you use</h3><p>The app connects to any tool with an API, such as your project tracker or QuickBooks. Project codes and their leads sync in, and each line of hours names the person who approves it.</p>",
+  "feature_3": "<h3>Checks that run before a manager looks</h3><p>Write down the checks someone runs by hand today, like an empty workday or a closed project code. The app runs them on submit and returns the week with the problem line marked.</p>",
+  "feature_4": "<h3>Reminders that reach one person</h3><p>The app sends Slack, email, and in-app reminders to whoever holds a timesheet right now. A week that sits unsigned past the time you set escalates to the next name on your list.</p>",
+  "feature_5": "<h3>Every decision kept in your database</h3><p>Submissions, approvals, returns, and comments live in a database you own. Months later, the record for any week still shows who signed it, when, and the comment they left.</p>",
+  "feature_6": "<h3>No approver seats to count</h3><p>Emergent has no per-approver seats and no task cap. Add every project lead and client contact who signs hours as approvers. The free tier covers building and publishing the app.</p>",
+  "why_title": "Why Build Timesheet Approvals With Emergent?",
+  "why_description": "Your approval rules and every signed week sit in one app on a database you own, with no task cap when everyone submits at once.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Zapier</th>\n        <th scope=\"col\">Make (Integromat)</th>\n        <th scope=\"col\">n8n</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt for the workflow and the app around it</td>\n        <td class=\"col-other\">Templates and editor, AI copilot</td>\n        <td class=\"col-other\">Visual canvas</td>\n        <td class=\"col-other\">Visual canvas, self-hosted or cloud</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">What you get</th>\n        <td class=\"col-brand\">Workflow + trigger form + database + dashboard, as code you own</td>\n        <td class=\"col-other\">Zaps, plus Tables and Interfaces inside Zapier</td>\n        <td class=\"col-other\">Scenarios inside Make</td>\n        <td class=\"col-other\">Workflows inside n8n</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Behavior at cap</th>\n        <td class=\"col-brand\">Keeps running, no task cap</td>\n        <td class=\"col-other\">Overage billed at up to 1.25× the base rate</td>\n        <td class=\"col-other\">Runs pause</td>\n        <td class=\"col-other\">Cloud workflows stop until the reset or an upgrade</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">AI and agent steps</th>\n        <td class=\"col-brand\">Native, share the same credit pool</td>\n        <td class=\"col-other\">Priced by model tier, drawn from the task pool</td>\n        <td class=\"col-other\">AI modules cost variable credits</td>\n        <td class=\"col-other\">Bring your own model API key, billed by the provider</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">Yes on Community Edition</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "Four Weeks of Hours, Four Approvers",
+  "tab_label_1": "Project Hours",
+  "tab_label_2": "Client Sign-Off",
+  "tab_label_3": "Missing Days",
+  "tab_label_4": "Backup Approvers",
+  "tab_content_1": "<h3>24 hours to one lead, 16 to another</h3><p>Imre Tolvanen splits his 40-hour week between two projects. The 24 hours on the Clinic Booking App go to its project lead, Tobiah Mwangi, and the 16 hours on Internal Tools go to Renske Obuya. Tobiah has approved his part. The week counts as approved once Renske signs too.</p>",
+  "tab_content_2": "<h3>Billing waits for Lowmoor to sign off</h3><p>Lior Bramwell works on site at Lowmoor Dental Group, placed there by the agency he works for. His 38 hours go to the client contact, Ysolde Kirchner, not to anyone at the agency. Once she approves, the hours sync to your billing tool. Until then, billing sees nothing.</p>",
+  "tab_content_3": "<h3>Eight missing hours send it back</h3><p>Kwabena Lisle leaves Thursday blank and submits 32 of his 40 hours, with no leave entry for that day. The app returns the week to him with Thursday marked, before his manager, Ottoline Brandt, sees it. Once he logs the 8 hours or a leave day, it goes to Ottoline.</p>",
+  "tab_content_4": "<h3>With Henrike out, Rasmus approves seven</h3><p>Henrike Aldana is out this week, so the 7 timesheets from her team go to the backup she named, Rasmus Ekwueme. He approves all 7. When Henrike is back, the log shows every week Rasmus signed and the comments he left on each.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { projectHours: \"Let employees split a week of hours across project codes. Send each project's hours to that project's lead, and mark the week approved only when every lead has signed their part.\", clientSignOff: \"For contractors placed at a client, send the weekly timesheet to the client contact named on the placement. Sync the hours to the billing tool only after the client approves them.\", missingDays: \"When an employee submits a week with a workday that has no hours and no leave entry, return it to the employee with that day marked, before it reaches the manager.\", backupApprovers: \"Let each manager name a backup approver. While the manager is on leave, route the team's timesheets to the backup, and keep every approval and comment in a log the manager can read on return.\" };</p>",
+  "howto_title": "How to Build a Timesheet Approval Workflow",
+  "howto_description": "Seven steps to map who signs which hours, then build a timesheet approval workflow with Emergent and test it on past weeks.",
+  "howto_step_1_title": "01 Export last month's timesheets",
+  "howto_step_2_title": "02 Write down who approves which hours",
+  "howto_step_3_title": "03 List the checks before anyone signs",
+  "howto_step_4_title": "04 Name a backup for every approver",
+  "howto_step_1_des": "Export last month's timesheets to one sheet. Mark the weeks that were sent back, who approved each one, and how many days each waited for a signature.",
+  "howto_step_2_des": "Write down the approver for each kind of hours: the project lead for project codes, the client contact for placed contractors, the manager for the rest.",
+  "howto_step_3_des": "List what should stop a week before it reaches an approver, such as a workday with no hours and no leave entry, or a project code that has closed.",
+  "howto_step_4_des": "Pick a backup for each approver. Decide how long a week can wait before the first reminder, and when it should escalate to the next name.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Timesheet Approval Workflow FAQ\", \"items\": [{\"q\": \"What is a timesheet approval workflow?\", \"a\": \"A timesheet approval workflow is the path a submitted week of hours takes until someone with authority signs it. It sets who signs which hours and what a week must pass before it reaches them. It also names a stand-in for each approver and where approved hours go next, such as billing or payroll.\"}, {\"q\": \"How do I create a timesheet approval workflow?\", \"a\": \"List the people who sign each kind of hours, the problems that should stop a week, and a stand-in for each approver. Then describe those rules in plain English to Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>. It builds the app from that prompt, and you change any rule later by prompting again. Test it on two past weeks before you publish.\"}, {\"q\": \"How should a timesheet approval workflow handle hours split across projects?\", \"a\": \"It should send each project's hours to that project's lead, and the week should count as approved only once every lead has signed their part. If your policy wants one person accountable for the total, add the employee's manager as a final step after the leads. Keep project codes in one list, so each line of hours resolves to exactly one lead.\"}, {\"q\": \"Can a timesheet approval workflow pass approved hours to a billing tool?\", \"a\": \"Yes, once they are approved. An app built on Emergent connects to any accounting or invoicing tool with an API and syncs approved hours to it. Unsigned weeks stay out. The invoice built from those hours is a separate decision: an <a href='https://emergent.sh/ai-automation-builder/invoice-approval-workflow'>invoice approval workflow</a> handles who signs it before it goes to the client.\"}, {\"q\": \"What should a timesheet approval workflow check before a manager sees the week?\", \"a\": \"It should check whatever a manager would otherwise catch by eye. Start with four: an empty workday with no leave logged, a weekly total under the hours you expect, a project code that is no longer open, and hours on a project the employee is not assigned to. Keep the list short, since every extra check is one more reason a correct week comes back.\"}, {\"q\": \"What should a timesheet approval workflow do when the manager is on leave?\", \"a\": \"It should send the team's weeks to a backup the manager named in advance, for the dates the manager is away. If no backup is named, send the week to the manager's own manager rather than leaving it open. Because Emergent has no per-approver seats, naming a backup for every manager adds none.\"}, {\"q\": \"Can a timesheet approval workflow flag hours over a project's budget?\", \"a\": \"Yes. The app can read the hours budgeted for each project from your project tracker and compare them with the hours logged to date. A week that takes a project past its budgeted hours goes to the project lead with the overrun shown. Approving the budget itself is a different job, covered by a <a href='https://emergent.sh/ai-automation-builder/budget-approval-workflow'>budget approval workflow</a>.\"}, {\"q\": \"How do I add client sign-off to a timesheet approval workflow for contractors?\", \"a\": \"Store the client contact on each placement, and route the contractor's weekly timesheet to that person instead of an internal manager. The client approves the week or returns it with a comment. Emergent builds the email reminders too, and the app can nudge the client contact each day the week sits unsigned.\"}, {\"q\": \"How long should a timesheet approval workflow wait before sending a reminder?\", \"a\": \"Wait one workday after submission before the first reminder, and escalate to the backup after a second day. Set the window per approver group: a client contact may need longer than an internal lead. Leave enough time before your payroll cutoff to fix a week that comes back.\"}, {\"q\": \"Should a timesheet approval workflow send rejected weeks back to the employee?\", \"a\": \"Yes. It should return a rejected week to the employee, with a comment on the line that needs changing, because only the employee can correct their own hours. The approver sees the week again after the fix. The same return-with-comment step fits any <a href='https://emergent.sh/ai-automation-builder/approval-workflow'>approval workflow</a>, where a request goes back to the person who made it.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Describe the rules to Emergent",
+  "howto_step_5_des": "Describe the rules in plain English. From that prompt, Emergent builds the app: the submission form, each route, the reminders, and a dashboard of open weeks.",
+  "howto_step_6_title": "06 Connect your project and billing tools",
+  "howto_step_6_des": "Connect the project tracker that holds your project codes and the billing or payroll tool that should receive approved hours. Any tool with an API works.",
+  "howto_step_7_title": "07 Run two past weeks through the rules",
+  "howto_step_7_des": "Replay two past weeks and compare each route with the person who signed at the time. Fix any route that sent hours to the wrong person, then publish the app.",
+  "prompt_chip_1": "Project Hours",
+  "prompt_chip_2": "Client Sign-Off",
+  "prompt_chip_3": "Missing Days",
+  "prompt_chip_4": "Backup Approvers",
+  "hero_prompt": "<p>Build a timesheet approval workflow that runs on its own and logs every step.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/aab/timesheet-approval-workflow/uc-1.svg",
+   "alt": "Imre Tolvanen's 40-hour week is split by project: Tobiah Mwangi has approved the 24 hours on the Clinic Booking App, and Renske Obuya gets a direct message to approve the 16 hours on Internal Tools."
+  },
+  "tab_image_2": {
+   "path": "images/aab/timesheet-approval-workflow/uc-2.svg",
+   "alt": "A contractor's 38-hour week at Lowmoor Dental Group waits for the client contact, Ysolde Kirchner, to approve it before the hours sync to the agency's billing tool."
+  },
+  "tab_image_3": {
+   "path": "images/aab/timesheet-approval-workflow/uc-3.svg",
+   "alt": "Kwabena Lisle submitted 32 of 40 hours with Thursday empty and no leave entry, so the week goes back to him to log 8 hours or a leave day before his manager, Ottoline Brandt, sees it."
+  },
+  "tab_image_4": {
+   "path": "images/aab/timesheet-approval-workflow/uc-4.svg",
+   "alt": "With Henrike Aldana on leave, the 7 timesheets from her team route to her backup, Rasmus Ekwueme, who approves all 7, and the log keeps his comments for her return."
+  },
+  "cover_image": {
+   "path": "images/aab/timesheet-approval-workflow/cover.svg",
+   "alt": "Timesheet approval workflow: a direct message asking a project lead to approve 16 hours logged on Internal Tools"
+  },
+  "share_image": {
+   "path": "images/aab/timesheet-approval-workflow/og.webp",
+   "alt": "Build a timesheet approval workflow for every approver, with Emergent"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-21 10:52 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 11:09 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "B-w-288",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 11:10 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-288",
+   "note": ""
+  }
+ ],
+ "pipeline": "r15",
+ "faq_plan": [
+  {
+   "kind": "definition",
+   "q": "What is a timesheet approval workflow?",
+   "ref": "timesheet approval workflow",
+   "locked": true,
+   "n": 1,
+   "a": "A timesheet approval workflow is the path a submitted week of hours takes until someone with authority signs it. It sets who signs which hours and what a week must pass before it reaches them. It also names a stand-in for each approver and where approved hours go next, such as billing or payroll.",
+   "link": null
+  },
+  {
+   "kind": "definition",
+   "q": "How do I create a timesheet approval workflow?",
+   "ref": "timesheet approval workflow",
+   "locked": true,
+   "n": 2,
+   "a": "List the people who sign each kind of hours, the problems that should stop a week, and a stand-in for each approver. Then describe those rules in plain English to Emergent's AI automation builder. It builds the app from that prompt, and you change any rule later by prompting again. Test it on two past weeks before you publish.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder",
+    "anchor": "AI automation builder",
+    "write_as": "Emergent's AI automation builder"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "How should a timesheet approval workflow handle hours split across projects?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 3,
+   "a": "It should send each project's hours to that project's lead, and the week should count as approved only once every lead has signed their part. If your policy wants one person accountable for the total, add the employee's manager as a final step after the leads. Keep project codes in one list, so each line of hours resolves to exactly one lead.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Can a timesheet approval workflow pass approved hours to a billing tool?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 4,
+   "a": "Yes, once they are approved. An app built on Emergent connects to any accounting or invoicing tool with an API and syncs approved hours to it. Unsigned weeks stay out. The invoice built from those hours is a separate decision: an invoice approval workflow handles who signs it before it goes to the client.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/invoice-approval-workflow",
+    "anchor": "invoice approval workflow"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "What should a timesheet approval workflow check before a manager sees the week?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 5,
+   "a": "It should check whatever a manager would otherwise catch by eye. Start with four: an empty workday with no leave logged, a weekly total under the hours you expect, a project code that is no longer open, and hours on a project the employee is not assigned to. Keep the list short, since every extra check is one more reason a correct week comes back.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "What should a timesheet approval workflow do when the manager is on leave?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 6,
+   "a": "It should send the team's weeks to a backup the manager named in advance, for the dates the manager is away. If no backup is named, send the week to the manager's own manager rather than leaving it open. Because Emergent has no per-approver seats, naming a backup for every manager adds none.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Can a timesheet approval workflow flag hours over a project's budget?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 7,
+   "a": "Yes. The app can read the hours budgeted for each project from your project tracker and compare them with the hours logged to date. A week that takes a project past its budgeted hours goes to the project lead with the overrun shown. Approving the budget itself is a different job, covered by a budget approval workflow.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/budget-approval-workflow",
+    "anchor": "budget approval workflow"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "How do I add client sign-off to a timesheet approval workflow for contractors?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 8,
+   "a": "Store the client contact on each placement, and route the contractor's weekly timesheet to that person instead of an internal manager. The client approves the week or returns it with a comment. Emergent builds the email reminders too, and the app can nudge the client contact each day the week sits unsigned.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How long should a timesheet approval workflow wait before sending a reminder?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 9,
+   "a": "Wait one workday after submission before the first reminder, and escalate to the backup after a second day. Set the window per approver group: a client contact may need longer than an internal lead. Leave enough time before your payroll cutoff to fix a week that comes back.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Should a timesheet approval workflow send rejected weeks back to the employee?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 10,
+   "a": "Yes. It should return a rejected week to the employee, with a comment on the line that needs changing, because only the employee can correct their own hours. The approver sees the week again after the fix. The same return-with-comment step fits any approval workflow, where a request goes back to the person who made it.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/approval-workflow",
+    "anchor": "approval workflow"
+   }
+  }
+ ],
+ "faq_heading": "Timesheet Approval Workflow FAQ",
+ "table": {
+  "vs": [
+   "Zapier",
+   "Make (Integromat)",
+   "n8n"
+  ],
+  "rows": [
+   "build",
+   "output",
+   "cap",
+   "ai",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "skeleton": {
+  "built_by": "B-w-288",
+  "built": "2026-10-21 10:52 UTC",
+  "slots": 10,
+  "flagged": 0,
+  "flag_subtypes": [],
+  "locked": 2,
+  "table": true
+ },
+ "plan": {
+  "angle": "The top results define timesheet approval as one employee, one manager, one approve button. This page builds the four routing problems that make a timesheet approval workflow hard in practice: one week of hours split across two projects with two different leads, a contractor's week that the client has to sign before it counts, a week with a missing day that goes back to the employee before any manager sees it, and a manager on leave whose team still needs a named backup approver. Overtime review, raises and pay-run cutoffs belong to the payroll automation page and generic routing to the approval workflow page; this page stays on getting submitted hours approved by the right person.",
+  "tab_stories": [
+   "Imre Tolvanen submits a 40-hour week: 24 hours on the Clinic Booking App go to its project lead, Tobiah Mwangi, and 16 hours on Internal Tools go to Renske Obuya, and the week counts as approved only when both have signed off.",
+   "Lior Bramwell, a contractor placed at Lowmoor Dental Group, submits 38 hours; the app sends the week to the client contact, Ysolde Kirchner, and only her approval moves the hours to the agency's billing tool.",
+   "Kwabena Lisle submits 32 hours with nothing logged for Thursday and no leave entry; the app sends the week back to him to fill the 8-hour gap before his manager, Ottoline Brandt, sees it.",
+   "Henrike Aldana is on leave this week, so the 7 timesheets from her team route to her named backup, Rasmus Ekwueme, and Henrike sees every decision in the log when she returns."
+  ],
+  "openers": [
+   "Imre Tolvanen splits his week",
+   "Lior Bramwell works on site",
+   "Kwabena Lisle leaves Thursday blank",
+   "Henrike Aldana is out this week",
+   "Export last month's timesheets",
+   "Write down who approves which hours",
+   "Run two past weeks through the rules"
+  ],
+  "heading_shapes": [
+   "24 hours to one lead, 16 to another",
+   "Billing waits for Lowmoor to sign off",
+   "Eight missing hours send it back",
+   "With Henrike out, Rasmus approves seven"
+  ],
+  "claims_to_source": []
+ },
+ "chip_adds": [
+  "Add project hour splits that send each project's hours to its own lead.",
+  "Add client sign-off that sends contractor weeks to the client contact before billing.",
+  "Add missing day checks that return a week with an empty workday to the employee.",
+  "Add backup approvers who take a manager's timesheets while the manager is on leave."
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R1",
+    "title": "Project hours",
+    "prompt": "Send each project's hours to that project's lead",
+    "main": {
+     "chrome": "Timesheet approvals",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "Week of hours",
+       "title": "Imre Tolvanen",
+       "size": 28,
+       "sub": "Two projects",
+       "right": "40 hours",
+       "right_sub": "Submitted"
+      },
+      {
+       "type": "rule",
+       "text": "Each project's hours go to its lead"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Clinic Booking App",
+         "24 hours"
+        ],
+        [
+         "Internal Tools",
+         "16 hours",
+         true
+        ]
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Tobiah Mwangi",
+         "sub": "Clinic Booking App",
+         "right": "Approved"
+        },
+        {
+         "state": "live",
+         "title": "Renske Obuya",
+         "sub": "Internal Tools",
+         "right": "Waiting"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Renske Obuya",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Approve 16 hours?",
+       "size": 20,
+       "sub": "Imre Tolvanen, Internal Tools"
+      },
+      {
+       "type": "meta",
+       "icon": "check",
+       "kind": "acc",
+       "text": "Tobiah Mwangi has approved"
+      }
+     ],
+     "action": {
+      "label": "Approve",
+      "icon": "check"
+     }
+    },
+    "mini": {
+     "icon": "clock",
+     "kind": "warn",
+     "title": "1 of 2 leads signed",
+     "sub": "Week not approved yet"
+    },
+    "alt": "Imre Tolvanen's 40-hour week is split by project: Tobiah Mwangi has approved the 24 hours on the Clinic Booking App, and Renske Obuya gets a direct message to approve the 16 hours on Internal Tools.",
+    "story": [
+     {
+      "copy": "Imre Tolvanen",
+      "image": "Imre Tolvanen"
+     },
+     {
+      "copy": "40-hour week",
+      "image": "40 hours"
+     },
+     {
+      "copy": "Clinic Booking App",
+      "image": "Clinic Booking App"
+     },
+     {
+      "copy": "The 24 hours",
+      "image": "24 hours"
+     },
+     {
+      "copy": "16 hours on Internal Tools",
+      "image": "16 hours"
+     },
+     {
+      "copy": "go to its project lead",
+      "image": "Each project's hours go to its lead"
+     },
+     {
+      "copy": "Tobiah has approved",
+      "image": "Tobiah Mwangi has approved"
+     },
+     {
+      "copy": "Renske Obuya",
+      "image": "To Renske Obuya"
+     }
+    ]
+   },
+   {
+    "recipe": "R2",
+    "title": "Client sign-off",
+    "prompt": "Send contractor timesheets to the client contact before billing",
+    "main": {
+     "blocks": [
+      {
+       "type": "doc_header",
+       "initials": "LB",
+       "title": "Timesheet",
+       "sub": "Lior Bramwell",
+       "label": "CONTRACTOR"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Placed at",
+         "Lowmoor Dental Group"
+        ],
+        [
+         "Hours",
+         "38 hours",
+         true
+        ],
+        [
+         "Approver",
+         "Ysolde Kirchner"
+        ]
+       ]
+      },
+      {
+       "type": "filler",
+       "n": 2
+      },
+      {
+       "type": "note",
+       "icon": "lock",
+       "text": "Billing sees nothing until approved"
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Client sign-off",
+       "size": 19,
+       "chip": [
+        "Client approves",
+        "acc"
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Submitted",
+         "sub": "Lior Bramwell"
+        },
+        {
+         "state": "live",
+         "title": "Client contact",
+         "sub": "Ysolde Kirchner",
+         "right": "Waiting"
+        },
+        {
+         "state": "next",
+         "title": "Billing tool",
+         "sub": "Hours sync"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Ysolde Kirchner",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Approve 38 hours?",
+       "size": 20,
+       "sub": "Lior Bramwell, this week"
+      },
+      {
+       "type": "meta",
+       "icon": "building-2",
+       "kind": "acc",
+       "text": "Lowmoor Dental Group"
+      },
+      {
+       "type": "meta",
+       "icon": "refresh-cw",
+       "kind": "ok",
+       "text": "Syncs to billing once approved"
+      }
+     ],
+     "action": {
+      "label": "Approve",
+      "icon": "check"
+     }
+    },
+    "alt": "A contractor's 38-hour week at Lowmoor Dental Group waits for the client contact, Ysolde Kirchner, to approve it before the hours sync to the agency's billing tool.",
+    "story": [
+     {
+      "copy": "Lior Bramwell",
+      "image": "Lior Bramwell"
+     },
+     {
+      "copy": "Lowmoor Dental Group",
+      "image": "Lowmoor Dental Group"
+     },
+     {
+      "copy": "His 38 hours",
+      "image": "38 hours"
+     },
+     {
+      "copy": "the client contact, Ysolde Kirchner",
+      "image": "To Ysolde Kirchner"
+     },
+     {
+      "copy": "the hours sync to your billing tool",
+      "image": "Hours sync"
+     },
+     {
+      "copy": "billing sees nothing",
+      "image": "Billing sees nothing until approved"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Missing days",
+    "prompt": "Return weeks with an empty workday to the employee before the manager sees them",
+    "main": {
+     "chrome": "Timesheet checks",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "Returned",
+       "title": "Kwabena Lisle",
+       "size": 28,
+       "sub": "No leave entry for Thursday",
+       "right": "32 hours",
+       "right_sub": "Submitted"
+      },
+      {
+       "type": "rule",
+       "text": "Empty workday, no leave: back to the employee"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Expected",
+         "40 hours"
+        ],
+        [
+         "Thursday",
+         "0 hours",
+         true
+        ]
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "live",
+         "title": "Returned to Kwabena Lisle",
+         "sub": "Thursday marked",
+         "right": "Open"
+        },
+        {
+         "state": "next",
+         "title": "Manager",
+         "sub": "Ottoline Brandt"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Kwabena Lisle",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Thursday is empty",
+       "size": 20,
+       "sub": "Log 8 hours or a leave day"
+      },
+      {
+       "type": "meta",
+       "icon": "calendar",
+       "kind": "warn",
+       "text": "Not sent to Ottoline Brandt yet"
+      }
+     ],
+     "action": {
+      "label": "Fix timesheet",
+      "icon": "pencil"
+     }
+    },
+    "mini": {
+     "icon": "undo-2",
+     "kind": "warn",
+     "title": "Sent back",
+     "sub": "32 of 40 hours"
+    },
+    "alt": "Kwabena Lisle submitted 32 of 40 hours with Thursday empty and no leave entry, so the week goes back to him to log 8 hours or a leave day before his manager, Ottoline Brandt, sees it.",
+    "story": [
+     {
+      "copy": "Kwabena Lisle",
+      "image": "Kwabena Lisle"
+     },
+     {
+      "copy": "32 of his 40 hours",
+      "image": "32 of 40 hours"
+     },
+     {
+      "copy": "no leave entry for that day",
+      "image": "No leave entry for Thursday"
+     },
+     {
+      "copy": "returns the week to him with Thursday marked",
+      "image": "Thursday marked"
+     },
+     {
+      "copy": "logs the 8 hours or a leave day",
+      "image": "Log 8 hours or a leave day"
+     },
+     {
+      "copy": "Ottoline Brandt",
+      "image": "Ottoline Brandt"
+     },
+     {
+      "copy": "leaves Thursday blank",
+      "image": "Empty workday, no leave: back to the employee"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Backup approvers",
+    "prompt": "Route a team's timesheets to the named backup while the manager is on leave",
+    "main": {
+     "chrome": "Approver coverage",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "This week",
+       "title": "Henrike Aldana's team",
+       "size": 28,
+       "sub": "Henrike on leave",
+       "right": "7",
+       "right_sub": "Timesheets"
+      },
+      {
+       "type": "rule",
+       "text": "Manager away: the named backup approves"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Backup",
+         "Rasmus Ekwueme",
+         true
+        ],
+        [
+         "Approved",
+         "7 of 7"
+        ]
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Routed to backup",
+         "sub": "7 timesheets"
+        },
+        {
+         "state": "live",
+         "title": "Log for Henrike Aldana",
+         "sub": "Read on return"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "history",
+     "tone": "acc",
+     "title": "Signed while you were out",
+     "blocks": [
+      {
+       "type": "chips",
+       "items": [
+        [
+         "7 approved",
+         "ok"
+        ]
+       ]
+      },
+      {
+       "type": "text",
+       "text": "By Rasmus Ekwueme",
+       "size": 17,
+       "color": "sub"
+      },
+      {
+       "type": "meta",
+       "icon": "message-square",
+       "kind": "acc",
+       "text": "Comments kept on each week"
+      }
+     ],
+     "action": {
+      "label": "Open log",
+      "icon": "file-text"
+     }
+    },
+    "mini": {
+     "icon": "user-check",
+     "kind": "ok",
+     "title": "Backup approver",
+     "sub": "Rasmus Ekwueme"
+    },
+    "alt": "With Henrike Aldana on leave, the 7 timesheets from her team route to her backup, Rasmus Ekwueme, who approves all 7, and the log keeps his comments for her return.",
+    "story": [
+     {
+      "copy": "Henrike Aldana",
+      "image": "Henrike Aldana's team"
+     },
+     {
+      "copy": "the 7 timesheets",
+      "image": "7 timesheets"
+     },
+     {
+      "copy": "go to the backup she named",
+      "image": "Manager away: the named backup approves"
+     },
+     {
+      "copy": "Rasmus Ekwueme",
+      "image": "By Rasmus Ekwueme"
+     },
+     {
+      "copy": "He approves all 7",
+      "image": "7 approved"
+     },
+     {
+      "copy": "the comments he left on each",
+      "image": "Comments kept on each week"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "dm": true,
+   "channel": "Renske Obuya",
+   "title": "Approve 16 hours",
+   "sub": "Internal Tools hours",
+   "primary": "Approve",
+   "secondary": "Open",
+   "icon": "clock",
+   "alt": "Timesheet approval workflow: a direct message asking a project lead to approve 16 hours logged on Internal Tools"
+  },
+  "og": {
+   "headline": "Build a timesheet approval workflow for every approver",
+   "alt": "Build a timesheet approval workflow for every approver, with Emergent"
+  },
+  "checks": [
+   {
+    "expr": "24 + 16 == 40",
+    "shows": [
+     "24 hours",
+     "16 hours",
+     "40 hours"
+    ],
+    "where": 1
+   },
+   {
+    "fact": [
+     "38 hours"
+    ],
+    "where": 2
+   },
+   {
+    "expr": "40 - 32 == 8",
+    "shows": [
+     "40 hours",
+     "32 hours",
+     "8 hours"
+    ],
+    "where": 3
+   },
+   {
+    "fact": [
+     "7"
+    ],
+    "where": 4
+   },
+   {
+    "same": "16 hours",
+    "where": [
+     1,
+     "cover"
+    ]
+   }
+  ]
+ },
+ "faq_sources": [
+  {
+   "q": "What is a timesheet approval workflow?",
+   "source": "written",
+   "ref": "timesheet approval workflow",
+   "origin": "definition"
+  },
+  {
+   "q": "How do I create a timesheet approval workflow?",
+   "source": "written",
+   "ref": "timesheet approval workflow",
+   "origin": "definition"
+  },
+  {
+   "q": "How should a timesheet approval workflow handle hours split across projects?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Can a timesheet approval workflow pass approved hours to a billing tool?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "What should a timesheet approval workflow check before a manager sees the week?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "What should a timesheet approval workflow do when the manager is on leave?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Can a timesheet approval workflow flag hours over a project's budget?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How do I add client sign-off to a timesheet approval workflow for contractors?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How long should a timesheet approval workflow wait before sending a reminder?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Should a timesheet approval workflow send rejected weeks back to the employee?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  }
+ ],
+ "claims_used": [
+  "prompt-build",
+  "api-connect",
+  "alerts",
+  "database-owned",
+  "no-caps",
+  "free-start"
+ ],
+ "domain_sources": [],
+ "qc_passed": {
+  "rules_version": "41519b1f99fa",
+  "date": "2026-10-21 11:09 UTC"
+ },
+ "learn_refs": [
+  "6a1729ad1817ffd0330c987d",
+  "6abe38fbf322d0af73b37238",
+  "6a172321c4c836a09c1ce435"
+ ],
+ "learn_refs_why": [
+  "best-ai-workflow-builders: score 4.41: matches workflow (builder list, hub-term only)",
+  "how-to-build-an-ai-agent: Auto fixed set: step-by-step build of an agent that handles leads and intake, the AI step inside most automations",
+  "best-no-code-agent-builders: Auto fixed set: no-code agent builders for workflow automation, for readers who want automations without code"
+ ],
+ "writers": [
+  "B-w-288"
+ ]
+}
