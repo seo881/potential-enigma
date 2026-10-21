@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-245",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 05:40 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-91",
+   "note": "[truth | HUB_RULES 8] faq item 7: A statement of fact about how a group of people (authors) behaves, with no spec.domain_sources entry (rework-checklist item 1). It is the only such fact on the page: other FAQ and how-to sentences about practice are phrased as advice. -> Recast as advice that keeps "
   }
  ],
  "pipeline": "r15",
@@ -929,5 +936,315 @@
  },
  "writers": [
   "B-w-245"
- ]
+ ],
+ "review": {
+  "by": "B-r-91",
+  "date": "2026-10-21 05:40 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Artist Landing Page That Turns Listeners Into Fans'; hero 'Get an artist landing page built from one prompt, with your music up front and every fan email saved to a database you own.'; how-to description one sentence on what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Four music examples (single release, tour dates, booking requests, session dates) as the meta promises, a seven-step how-to, comparison table, FAQ covering the free option, examples, templates, top of page, fan emails, tour dates, bookings."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Musician vocabulary throughout: '?from=video or ?from=bio', 'set lengths and a short live clip', 'mark sold-out dates instead of deleting them'; table built from single-vendor library entries Unbounce, Landingi, Wix."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every body opens on a sentence: 'Tell Emergent who you are...', 'The app saves every signup...', 'Tess Okonkwo plays drums on other people's records...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5 within limits (two ', so' endings, feature_6 and tab_content_4); sentences vary, e.g. 'It speaks to a different reader.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous details ('9 of 31 requests went to Priya and the other 22 to Wendell', 'Take past shows off the list the morning after'); voice notes recorded, none blocking."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "FAQ 7: 'Authors do the same with a book landing page for each title.' states how a group of people behaves with no domain_sources entry. Everything else checks: claims map to approved ids (prompt-build, database-owned, alerts, api-connect, custom-domain, code-export, free-start); tab 4 'reads free/busy information from her Google Calendar through its API' matches the quoted freebusy.query span 'Returns free/busy information for a set of calendars.'; numbers add up (268+144=412, 9+22=31, 19+11=30)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Music-only angle, leaving visual-art portfolios to the portfolio page; feature-grid overlap with portfolio-landing-page (D2 19%) is recorded as a note."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 questions, 1 PAA verbatim + 9 written, paa --spec pass 10 reject 0 flag 0; hub link in item 2; sibling links in items 4, 7, 10; every answer answers in its first sentence."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 412/268/144, tab 2 'Show added March 3', 'Fans emailed 87', tab 3 rule '$2,000 -> Priya Castellanos', '9 of 31 to Priya', tab 4 'Open days 11 / Booked days 19 / Days in April 30', 'Free/busy read by API'; one hero per panel, readable."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 7",
+    "quote": "Authors do the same with a book landing page for each title.",
+    "issue": "A statement of fact about how a group of people (authors) behaves, with no spec.domain_sources entry (rework-checklist item 1). It is the only such fact on the page: other FAQ and how-to sentences about practice are phrased as advice.",
+    "fix": "Recast as advice that keeps the link, e.g. 'The same logic works for an author's book landing page, one per title.' or 'If you also write, give each title its own book landing page.'",
+    "severity": "blocking"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "hero_description, feature_3, hero prompt",
+    "quote": "Get an artist landing page built from one prompt, with your music up front and every fan email saved to a database you own. / Name the requests you want to hear about at once, such as a wedding date or a festival slot, and the app sends you an email, Slack, or in-app alert with the details in it.",
+    "issue": "Same sentence shapes as portfolio-landing-page: its hero 'Get a portfolio landing page built from one prompt, with your work up front and every inquiry saved to a database you own.', its feature 3 'Name the requests that matter in your prompt, such as a booking date or a licensing question, and the app sends an email, Slack, or in-app alert with the answers in it.', and the identical prompt box '...that saves every signup to a database I own.' D2 19%, under the gate.",
+    "fix": "Next time the grid is touched, give feature 3 a music-only shape (the festival slot request named, routed to the manager) and the hero a different sentence frame.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_5, faq item 8",
+    "quote": "A short address is easy to say from the stage. / Pick an address you can say once from a stage and spell on a poster",
+    "issue": "The say-it-from-the-stage idea and 'custom domains are included in Emergent and use credits' appear in both fields.",
+    "fix": "Keep the stage line in one field only.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_4, faq item 6, faq item 9, tab_content_2",
+    "quote": "Ask for a city with the email / ask for the email and the city / If you ask fans for their city at signup, a new date can go straight to the people who live there.",
+    "issue": "Email-plus-city signup restated in the how-to, two FAQ answers and tab 2.",
+    "fix": "Let tab 2 and step 4 carry it; give FAQ 9's last sentence another detail.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_2, faq item 5",
+    "quote": "Open the page on the record fans are hearing about now, with the cover art and your streaming links next to it. / Put your name, your newest release with its streaming links",
+    "issue": "Newest-release-first advice restated.",
+    "fix": "Vary FAQ 5 toward what the first screen shows on a phone.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "feature_5",
+    "quote": "custom domains are included in Emergent and use credits",
+    "issue": "Ledger wording pasted into the body after a semicolon; reads like a compliance line.",
+    "fix": "Fold it into a plain sentence: 'A custom domain is included and runs on credits.'",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "page",
+    "quote": "\"signup\" 10x, \"prompt\" 9x, \"fans\" 9x outside the FAQ (QC Q9)",
+    "issue": "Repeated nouns flagged P2.",
+    "fix": "Vary where a plainer word fits (list, email, listener).",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "hero_description, feature_3, hero prompt",
+   "issue": "Same sentence shapes as portfolio-landing-page: its hero 'Get a portfolio landing page built from one prompt, with your work up front and every inquiry saved to a database you own.', its feature 3 'Name the requests that matter in your prompt, such as a booking date or a licensing question, and the app sends an email, Slack, or in-app alert with the answers in it.', and the identical prompt box '...that saves every signup to a database I own.' D2 19%, under the gate.",
+   "fix": "Next time the grid is touched, give feature 3 a music-only shape (the festival slot request named, routed to the manager) and the hero a different sentence frame.",
+   "by": "B-r-91",
+   "via": "review",
+   "date": "2026-10-21 05:40 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_5, faq item 8",
+   "issue": "The say-it-from-the-stage idea and 'custom domains are included in Emergent and use credits' appear in both fields.",
+   "fix": "Keep the stage line in one field only.",
+   "by": "B-r-91",
+   "via": "review",
+   "date": "2026-10-21 05:40 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_4, faq item 6, faq item 9, tab_content_2",
+   "issue": "Email-plus-city signup restated in the how-to, two FAQ answers and tab 2.",
+   "fix": "Let tab 2 and step 4 carry it; give FAQ 9's last sentence another detail.",
+   "by": "B-r-91",
+   "via": "review",
+   "date": "2026-10-21 05:40 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_2, faq item 5",
+   "issue": "Newest-release-first advice restated.",
+   "fix": "Vary FAQ 5 toward what the first screen shows on a phone.",
+   "by": "B-r-91",
+   "via": "review",
+   "date": "2026-10-21 05:40 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "feature_5",
+   "issue": "Ledger wording pasted into the body after a semicolon; reads like a compliance line.",
+   "fix": "Fold it into a plain sentence: 'A custom domain is included and runs on credits.'",
+   "by": "B-r-91",
+   "via": "review",
+   "date": "2026-10-21 05:40 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "page",
+   "issue": "Repeated nouns flagged P2.",
+   "fix": "Vary where a plainer word fits (list, email, listener).",
+   "by": "B-r-91",
+   "via": "review",
+   "date": "2026-10-21 05:40 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "fee3eae08e58bf0c",
+   "alt:share_image": "086bbbe55f549236",
+   "alt:tab_image_1": "8e0fe038007a9939",
+   "alt:tab_image_2": "64df9ef289dbaade",
+   "alt:tab_image_3": "b09de509800fa284",
+   "alt:tab_image_4": "89a7bd8fbdce3e9f",
+   "breadcrumb": "6aec09675fd14a7c",
+   "chip_adds": "605dce11aaf421d2",
+   "explore_cta": "572ba72f9a55d4e0",
+   "faq": "a6af35eb9baa8491",
+   "feature_1": "3e2c3f0b1e923556",
+   "feature_2": "839124eb1ecd346f",
+   "feature_3": "a4cb87774dee1aef",
+   "feature_4": "86a05c559a3c48f1",
+   "feature_5": "3272383716a45693",
+   "feature_6": "e46fbe454a7211c0",
+   "features_heading": "2c8bb158da69afef",
+   "features_subheading": "45afcfe2cf08f269",
+   "h1": "ab829cfd0d1a87d1",
+   "hero_description": "4367fda341a693cc",
+   "hero_prompt": "ac525660ef8e080c",
+   "howto_description": "bc1907422f8ae8b0",
+   "howto_step_1_des": "8035137af43013e4",
+   "howto_step_1_title": "25453656787483ad",
+   "howto_step_2_des": "94a9fc1b237a7a4d",
+   "howto_step_2_title": "4cc077e4290cfd8a",
+   "howto_step_3_des": "0c24e405f649d914",
+   "howto_step_3_title": "e5092e2ff5f5067b",
+   "howto_step_4_des": "67f81e2ca1ab3cc5",
+   "howto_step_4_title": "8b4aaa3aa7575c48",
+   "howto_step_5_des": "b590366ab1a02208",
+   "howto_step_5_title": "b2d7c08513754839",
+   "howto_step_6_des": "dbc7cae1f81281b9",
+   "howto_step_6_title": "ed5b7114d3d82b2c",
+   "howto_step_7_des": "44f1498610546c4c",
+   "howto_step_7_title": "68f981ad38563e2c",
+   "howto_title": "743f1767e92a18fc",
+   "meta_description": "c6180b59cfdaf358",
+   "meta_title": "6b7ef7e862a10b22",
+   "mockup": "2e9bb80e4f960ce2",
+   "product_name": "af67df935fdf44b4",
+   "prompt_chip_1": "128f327661968c06",
+   "prompt_chip_2": "cceae45a8084cc5c",
+   "prompt_chip_3": "5f6bef6e21882a0b",
+   "prompt_chip_4": "33a24623dcdf8abd",
+   "slug": "52ec6b4e288b4f63",
+   "tab_content_1": "d435b2b8c67595c5",
+   "tab_content_2": "2e1ce8aa60a5d372",
+   "tab_content_3": "49c5122571cc06f2",
+   "tab_content_4": "124ea44afd10c906",
+   "tab_label_1": "f7995122a48a2126",
+   "tab_label_2": "03e7132234eead63",
+   "tab_label_3": "4e18f2a3bda71fc9",
+   "tab_label_4": "be05618f8aeb59d3",
+   "usecase_heading": "92ac31ead1780f88",
+   "why_description": "3d5001234b73a505",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "87801aab0e843220"
+  },
+  "all": "a261986130997c1d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "fee3eae08e58bf0c",
+   "alt:share_image": "086bbbe55f549236",
+   "alt:tab_image_1": "8e0fe038007a9939",
+   "alt:tab_image_2": "64df9ef289dbaade",
+   "alt:tab_image_3": "b09de509800fa284",
+   "alt:tab_image_4": "89a7bd8fbdce3e9f",
+   "breadcrumb": "6aec09675fd14a7c",
+   "chip_adds": "605dce11aaf421d2",
+   "explore_cta": "572ba72f9a55d4e0",
+   "faq": "a6af35eb9baa8491",
+   "feature_1": "3e2c3f0b1e923556",
+   "feature_2": "839124eb1ecd346f",
+   "feature_3": "a4cb87774dee1aef",
+   "feature_4": "86a05c559a3c48f1",
+   "feature_5": "3272383716a45693",
+   "feature_6": "e46fbe454a7211c0",
+   "features_heading": "2c8bb158da69afef",
+   "features_subheading": "45afcfe2cf08f269",
+   "h1": "ab829cfd0d1a87d1",
+   "hero_description": "4367fda341a693cc",
+   "hero_prompt": "ac525660ef8e080c",
+   "howto_description": "bc1907422f8ae8b0",
+   "howto_step_1_des": "8035137af43013e4",
+   "howto_step_1_title": "25453656787483ad",
+   "howto_step_2_des": "94a9fc1b237a7a4d",
+   "howto_step_2_title": "4cc077e4290cfd8a",
+   "howto_step_3_des": "0c24e405f649d914",
+   "howto_step_3_title": "e5092e2ff5f5067b",
+   "howto_step_4_des": "67f81e2ca1ab3cc5",
+   "howto_step_4_title": "8b4aaa3aa7575c48",
+   "howto_step_5_des": "b590366ab1a02208",
+   "howto_step_5_title": "b2d7c08513754839",
+   "howto_step_6_des": "dbc7cae1f81281b9",
+   "howto_step_6_title": "ed5b7114d3d82b2c",
+   "howto_step_7_des": "44f1498610546c4c",
+   "howto_step_7_title": "68f981ad38563e2c",
+   "howto_title": "743f1767e92a18fc",
+   "meta_description": "c6180b59cfdaf358",
+   "meta_title": "6b7ef7e862a10b22",
+   "mockup": "2e9bb80e4f960ce2",
+   "product_name": "af67df935fdf44b4",
+   "prompt_chip_1": "128f327661968c06",
+   "prompt_chip_2": "cceae45a8084cc5c",
+   "prompt_chip_3": "5f6bef6e21882a0b",
+   "prompt_chip_4": "33a24623dcdf8abd",
+   "slug": "52ec6b4e288b4f63",
+   "tab_content_1": "d435b2b8c67595c5",
+   "tab_content_2": "2e1ce8aa60a5d372",
+   "tab_content_3": "49c5122571cc06f2",
+   "tab_content_4": "124ea44afd10c906",
+   "tab_label_1": "f7995122a48a2126",
+   "tab_label_2": "03e7132234eead63",
+   "tab_label_3": "4e18f2a3bda71fc9",
+   "tab_label_4": "be05618f8aeb59d3",
+   "usecase_heading": "92ac31ead1780f88",
+   "why_description": "3d5001234b73a505",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "87801aab0e843220"
+  },
+  "all": "a261986130997c1d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-238",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 05:40 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-92",
+   "note": "[truth | HUB_RULES 8] usecase_heading: The heading says all four tabs are alumni offices, but tab_content_1 is 'Quarrybank College's engineering school' with its career center, tab_content_2 is 'Brierwood High School's class of 2016' and 'The committee books homecoming', and tab_content_4 is 'Thornq"
   }
  ],
  "pipeline": "r15",
@@ -1045,5 +1052,315 @@
  },
  "writers": [
   "B-w-238"
- ]
+ ],
+ "review": {
+  "by": "B-r-92",
+  "date": "2026-10-21 05:40 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Alumni Survey for Schools and Alumni Networks'; hero 'Get an alumni survey that tracks graduate outcomes and reunion plans, with every answer saved in a database you own.' (116 chars); how-to description one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Four worked examples (career outcomes, reunion vote, mentor sign-up, former staff), template contents in FAQ 4, question types in FAQ 3 and how-to step 3, seven run steps, comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Alumni-office vocabulary throughout: 'tagged with class year and degree', 'personal emails collected at commencement', 'first-destination reporting'. Table generated from the library (QC V2/V3 pass)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Tell Emergent what you need to learn', 'Quarrybank College's engineering school surveys all 212 graduates', 'Remove addresses that bounced on the last mailing'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q5 at 2 ', so' endings (under the block); sentences short and single-idea; tab 3 tense shift recorded as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Product-led and concrete: 'Each of the 11 gets an email inviting them to book a session with the career center.' Two forced sibling links recorded as a note."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "usecase_heading 'How Four Alumni Offices Use Their Surveys' is contradicted by three tabs: tab 1 is Quarrybank's engineering school and career center, tab 2 is Brierwood High's class of 2016 reunion committee ('The committee books homecoming'), tab 4 is Thornquist Advisory's recruiter. Only tab 3 is an alumni office. NACE knowledge-rate claim in FAQ 7 matches the Quinnipiac span; Emergent claims all map to claims_used."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No giving or course-feedback content (donor-survey, course-evaluation-survey own those); no school-climate content; QC D2 highest overlap 20% with board-survey hero (template slot)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, paa --spec 10 pass / 0 reject / 0 flag; hub link in item 2; three sibling links (funny-survey-questions, yes-no-questions-survey, poll-questions); moat lines in items 6, 8, 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: each tab matches its copy on names and numbers (151 of 212; 104/61/31 of 196; 6 mentors for 38 requests; 23 of 187 to Marisol Raske); one hero per tab; cover 78% = 118/151."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "usecase_heading",
+    "quote": "How Four Alumni Offices Use Their Surveys",
+    "issue": "The heading says all four tabs are alumni offices, but tab_content_1 is 'Quarrybank College's engineering school' with its career center, tab_content_2 is 'Brierwood High School's class of 2016' and 'The committee books homecoming', and tab_content_4 is 'Thornquist Advisory' and its recruiter. Only tab_content_3 ('Merrivale University's alumni office') is an alumni office. A heading the tabs contradict is untrue (SEVERITY: untrue).",
+    "fix": "Rename to a heading true of all four tabs, e.g. 'How Four Schools and Firms Run Alumni Surveys' (check width and that no sibling primary is used); do not change the tabs.",
+    "severity": "blocking"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #15",
+    "field": "image_brief.tabs[0].main",
+    "quote": "Engineering class of 2026 / 6 months after commencement",
+    "issue": "A class of 2026 six months past commencement is a moment slightly after today (2026-10-21); the copy names no year, so the image date can only age badly or read as future.",
+    "fix": "Drop the year ('Engineering graduates') or use class of 2025.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_4",
+    "quote": "A recruiter email for every former consultant who says yes",
+    "issue": "The H3 says 'former consultant'; the body and image say '412 former employees'. Same term for the same thing (2a Consistent).",
+    "fix": "'A recruiter email for every former employee who says yes'.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "If the survey also warms people up for a reunion, put the funny survey questions in a separate event poll. | For graduates who skip long forms, send a short yes no questions survey first.",
+    "issue": "Two sibling-link sentences (FAQ 4, FAQ 7) read as placed for the anchor rather than the answer; the FAQ 7 one also states a behaviour of graduates as an aside.",
+    "fix": "Tie each link to the question asked, or move the link to an answer where it fits naturally.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "CONTENT_DEFECTS #3",
+    "field": "why_table",
+    "quote": "Survey builder with templates, including employee engagement | Survey builder with templates, including employee satisfaction",
+    "issue": "Library cells name employee templates on an alumni page; correct as facts but off the buyer's vocabulary.",
+    "fix": "Coordinator: consider an alumni or education template fact in the library for these vendors.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_3",
+    "quote": "Merrivale University's alumni office wanted a mentor for every student who asked. It asked graduates ... 74 alumni signed up ... Finance has 31 mentors",
+    "issue": "Tense shifts from past to present mid-paragraph, unlike the other three tabs which run in present tense.",
+    "fix": "Keep the paragraph in one tense.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Aim for about 12 questions. | Leave the survey open for 3 weeks with 2 reminders",
+    "issue": "Specific length and timing recommendations (FAQ 8, howto_step_3_des, howto_step_6_des) carry no source; they are advice, so a note.",
+    "fix": "Optional: source or frame as a starting point.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #15",
+   "field": "image_brief.tabs[0].main",
+   "issue": "A class of 2026 six months past commencement is a moment slightly after today (2026-10-21); the copy names no year, so the image date can only age badly or read as future.",
+   "fix": "Drop the year ('Engineering graduates') or use class of 2025.",
+   "by": "B-r-92",
+   "via": "review",
+   "date": "2026-10-21 05:40 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_4",
+   "issue": "The H3 says 'former consultant'; the body and image say '412 former employees'. Same term for the same thing (2a Consistent).",
+   "fix": "'A recruiter email for every former employee who says yes'.",
+   "by": "B-r-92",
+   "via": "review",
+   "date": "2026-10-21 05:40 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "Two sibling-link sentences (FAQ 4, FAQ 7) read as placed for the anchor rather than the answer; the FAQ 7 one also states a behaviour of graduates as an aside.",
+   "fix": "Tie each link to the question asked, or move the link to an answer where it fits naturally.",
+   "by": "B-r-92",
+   "via": "review",
+   "date": "2026-10-21 05:40 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "CONTENT_DEFECTS #3",
+   "field": "why_table",
+   "issue": "Library cells name employee templates on an alumni page; correct as facts but off the buyer's vocabulary.",
+   "fix": "Coordinator: consider an alumni or education template fact in the library for these vendors.",
+   "by": "B-r-92",
+   "via": "review",
+   "date": "2026-10-21 05:40 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_3",
+   "issue": "Tense shifts from past to present mid-paragraph, unlike the other three tabs which run in present tense.",
+   "fix": "Keep the paragraph in one tense.",
+   "by": "B-r-92",
+   "via": "review",
+   "date": "2026-10-21 05:40 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Specific length and timing recommendations (FAQ 8, howto_step_3_des, howto_step_6_des) carry no source; they are advice, so a note.",
+   "fix": "Optional: source or frame as a starting point.",
+   "by": "B-r-92",
+   "via": "review",
+   "date": "2026-10-21 05:40 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "86d29ca7e228d284",
+   "alt:share_image": "24b9ff668a5a2af9",
+   "alt:tab_image_1": "48b29cdb8e733224",
+   "alt:tab_image_2": "3139cf1a6112b0f7",
+   "alt:tab_image_3": "fb00acfa49db699c",
+   "alt:tab_image_4": "a5fe0c29e63c1ba2",
+   "breadcrumb": "a2dee51f7108558c",
+   "chip_adds": "a2a11588041eb5b5",
+   "explore_cta": "e6edc17c0df1fca7",
+   "faq": "69718b4a9082b248",
+   "feature_1": "d32d53f062ccd010",
+   "feature_2": "5d6fc5659a01b883",
+   "feature_3": "8b049c124b6d34e6",
+   "feature_4": "1902abf8729dde07",
+   "feature_5": "1e989aa4e55bcd03",
+   "feature_6": "ee62eebaa889edc4",
+   "features_heading": "f4e54f7ee7162cb2",
+   "features_subheading": "59e959d7d815e821",
+   "h1": "e4d763d703909229",
+   "hero_description": "30bb74e0631bd2f1",
+   "hero_prompt": "7b83157d3a3a0e4d",
+   "howto_description": "5d4b2a6e9768c892",
+   "howto_step_1_des": "b0b5725987225d15",
+   "howto_step_1_title": "eb492b943c73568b",
+   "howto_step_2_des": "b399bf97edb69790",
+   "howto_step_2_title": "62493aeffd5bc4a0",
+   "howto_step_3_des": "af19338c93f36949",
+   "howto_step_3_title": "8ea6b5e2cdcbe6fb",
+   "howto_step_4_des": "d64e8ab407089c59",
+   "howto_step_4_title": "a94c2d296014e5e0",
+   "howto_step_5_des": "7b9d90e0cb46c94c",
+   "howto_step_5_title": "ebd9fb0cb63fb1be",
+   "howto_step_6_des": "9600d6655f547140",
+   "howto_step_6_title": "6027658cb696096a",
+   "howto_step_7_des": "40d9063a578814e2",
+   "howto_step_7_title": "561720be8865c508",
+   "howto_title": "fb5ef978ab50feb4",
+   "meta_description": "8fceaa46347e24fc",
+   "meta_title": "ff77772510e56dc6",
+   "mockup": "1f90abc9f2329865",
+   "product_name": "e6f2dbf2bd26af6b",
+   "prompt_chip_1": "7150e62642c255f1",
+   "prompt_chip_2": "c8da79bce015300c",
+   "prompt_chip_3": "50c3b2f8ec2ed323",
+   "prompt_chip_4": "a4de03b46ae919a0",
+   "slug": "092908d37bd4295f",
+   "tab_content_1": "b00f056326f08c4a",
+   "tab_content_2": "58c7061951e0fbfd",
+   "tab_content_3": "7558716c5b91ca96",
+   "tab_content_4": "abc29b80d732f84d",
+   "tab_label_1": "7150e62642c255f1",
+   "tab_label_2": "c8da79bce015300c",
+   "tab_label_3": "50c3b2f8ec2ed323",
+   "tab_label_4": "a4de03b46ae919a0",
+   "usecase_heading": "c0c77ea98e9954e6",
+   "why_description": "bd1a0b8d05944484",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "c07afcae389df364"
+  },
+  "all": "d707bf3a9dd7ab7f",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "86d29ca7e228d284",
+   "alt:share_image": "24b9ff668a5a2af9",
+   "alt:tab_image_1": "48b29cdb8e733224",
+   "alt:tab_image_2": "3139cf1a6112b0f7",
+   "alt:tab_image_3": "fb00acfa49db699c",
+   "alt:tab_image_4": "a5fe0c29e63c1ba2",
+   "breadcrumb": "a2dee51f7108558c",
+   "chip_adds": "a2a11588041eb5b5",
+   "explore_cta": "e6edc17c0df1fca7",
+   "faq": "69718b4a9082b248",
+   "feature_1": "d32d53f062ccd010",
+   "feature_2": "5d6fc5659a01b883",
+   "feature_3": "8b049c124b6d34e6",
+   "feature_4": "1902abf8729dde07",
+   "feature_5": "1e989aa4e55bcd03",
+   "feature_6": "ee62eebaa889edc4",
+   "features_heading": "f4e54f7ee7162cb2",
+   "features_subheading": "59e959d7d815e821",
+   "h1": "e4d763d703909229",
+   "hero_description": "30bb74e0631bd2f1",
+   "hero_prompt": "7b83157d3a3a0e4d",
+   "howto_description": "5d4b2a6e9768c892",
+   "howto_step_1_des": "b0b5725987225d15",
+   "howto_step_1_title": "eb492b943c73568b",
+   "howto_step_2_des": "b399bf97edb69790",
+   "howto_step_2_title": "62493aeffd5bc4a0",
+   "howto_step_3_des": "af19338c93f36949",
+   "howto_step_3_title": "8ea6b5e2cdcbe6fb",
+   "howto_step_4_des": "d64e8ab407089c59",
+   "howto_step_4_title": "a94c2d296014e5e0",
+   "howto_step_5_des": "7b9d90e0cb46c94c",
+   "howto_step_5_title": "ebd9fb0cb63fb1be",
+   "howto_step_6_des": "9600d6655f547140",
+   "howto_step_6_title": "6027658cb696096a",
+   "howto_step_7_des": "40d9063a578814e2",
+   "howto_step_7_title": "561720be8865c508",
+   "howto_title": "fb5ef978ab50feb4",
+   "meta_description": "8fceaa46347e24fc",
+   "meta_title": "ff77772510e56dc6",
+   "mockup": "1f90abc9f2329865",
+   "product_name": "e6f2dbf2bd26af6b",
+   "prompt_chip_1": "7150e62642c255f1",
+   "prompt_chip_2": "c8da79bce015300c",
+   "prompt_chip_3": "50c3b2f8ec2ed323",
+   "prompt_chip_4": "a4de03b46ae919a0",
+   "slug": "092908d37bd4295f",
+   "tab_content_1": "b00f056326f08c4a",
+   "tab_content_2": "58c7061951e0fbfd",
+   "tab_content_3": "7558716c5b91ca96",
+   "tab_content_4": "abc29b80d732f84d",
+   "tab_label_1": "7150e62642c255f1",
+   "tab_label_2": "c8da79bce015300c",
+   "tab_label_3": "50c3b2f8ec2ed323",
+   "tab_label_4": "a4de03b46ae919a0",
+   "usecase_heading": "c0c77ea98e9954e6",
+   "why_description": "bd1a0b8d05944484",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "c07afcae389df364"
+  },
+  "all": "d707bf3a9dd7ab7f",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
