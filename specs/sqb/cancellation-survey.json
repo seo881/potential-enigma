@@ -122,6 +122,13 @@
    "via": null,
    "by": "A-w-114",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 05:54 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-24",
+   "note": "rubric 10/10 by A-r-24; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -942,5 +949,285 @@
  },
  "writers": [
   "A-w-114"
- ]
+ ],
+ "review": {
+  "by": "A-r-24",
+  "date": "2026-10-21 05:54 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Cancellation Survey That Acts on Every Reason'; hero 'Build a cancellation survey that asks why customers leave, sends each reason to its owner, and saves it to a database you own.' covers the whole job; how-to description one sentence with the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is SaaS guides listing questions and reasons plus Jotform/Wufoo templates; the page gives questions (FAQ 3 'What is the main reason you're canceling?'), examples (four tabs, FAQ 4), question count, offers, timing, analysis and a 7-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Subscription vocabulary: 'a pause offer after Too expensive', 'compare Too expensive on the monthly plan against the annual one', 'customers in their first 90 days', 'Let Skip finish the cancellation'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Wordsail, a language-learning app, asks every subscriber who cancels...', 'Trackwell sells scheduling software to field-service companies.', 'Before writing a question, list what the answers could change...'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences mostly carry one idea ('Test that path before any other.'); one ', so' ending in feature_3 and a 34-word sentence in feature_4 (QC P2, noted)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete and unglamorous: 'I only practice on weekends now.', 'a 6:15 am weekday class', 'have 3 coworkers cancel a test account and note where they pause'. Two FAQ answers bent around link anchors are noted."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent sentences map to prompt-build, database-owned, api-connect, alerts, no-caps, custom-domain, code-export, free-start. Third-party facts match quoted spans: Memberful ('collects feedback from members when they cancel a subscription'), FastSpring ('appears when a customer initiates a subscription cancellation'), Pew (primacy in self-administered lists, double-barreled, open-ended pilot, pretesting 'an essential step'). Numbers agree: 18 of 61; East Valley 23 of 47 with others at 4, 3, 1; 14+11+9+6=40; 4, 9, 19 of 42."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own angle (each reason ends in an action: pause offer, zone alert, Monday feature count, new class); tab H3s use no sibling primary; sibling primaries only as FAQ link anchors (yes no questions survey, funny survey questions, poll questions)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic builder questions, answer-first ('Two or three: the reason, one follow-up...', 'Only after a reason the offer answers.', 'Both, in that order.'); hub link in item 2; 3 sibling links; secondaries 'cancellation survey questions' and 'cancellation survey examples' in questions 3 and 4; PAA gate 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: Wordsail 'Pause for 2 months', 'No thanks finishes the cancellation', '18 took the pause of 61 who chose Too expensive'; Pantry Post table East Valley 47/23 'Emailed' with other zones at 4, 3, 1 and card 'To Ruthanne Pickett'; Trackwell '40 customers named one since July', 14 route optimization, 11 offline mode, card 'To Cosima Brandauer', 'Sent every Monday'; Quayside 4, 9, 19 of 42 and '6:15 am weekday class added'."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 7",
+    "quote": "Keep the reason options plain and free of jokes, and every answer counts cleanly. Jokes fit better in funny survey questions people answer for fun than on a screen someone sees on the way out.",
+    "issue": "The tone question exists mainly to carry the funny-survey-questions link, and 'and every answer counts cleanly' is a non-sequitur clause.",
+    "fix": "'Keep the reason options plain so every answer counts toward one reason.'",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 4",
+    "quote": "To test one fix with past customers, such as whether an earlier class would bring them back, a single question in a yes no questions survey gives a clean count.",
+    "issue": "The closing sentence drifts from 'what do examples look like' to win-back testing to carry the sibling link; the answer's own examples stop at two.",
+    "fix": "Give a third example (a gym asking which class time would fit) and attach the link to a sentence that belongs to the question.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_3, feature_6",
+    "quote": "through its API, so every reason sits in your own database next to the account that gave it",
+    "issue": "Tacked-on ', so' ending (QC Q5 P2, 1 on the page); feature_6 stacks two relative clauses: 'on a custom domain, which Emergent includes and which uses credits'.",
+    "fix": "Split each into two sentences.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Survey builder with templates, including employee engagement",
+    "issue": "Library output cells for SurveyMonkey and SurveyHero ('including employee satisfaction') name employee-survey templates on a customer cancellation page; QC K7 also notes Microsoft Forms and SurveyHero do not rank in the top 10, while Jotform and Wufoo hold template slots.",
+    "fix": "Coordinator: add a customer-feedback category set or variant to the SQB library so the output row fits; prefer ranking vendors on regeneration.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief cover/og",
+    "quote": "Build a cancellation survey that routes every reason",
+    "issue": "Share image headline differs from the H1 'Build a Cancellation Survey That Acts on Every Reason'; not a contradiction, but the page and its share card say two things.",
+    "fix": "Use the H1 wording on the share card at the next render.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 7",
+   "issue": "The tone question exists mainly to carry the funny-survey-questions link, and 'and every answer counts cleanly' is a non-sequitur clause.",
+   "fix": "'Keep the reason options plain so every answer counts toward one reason.'",
+   "by": "A-r-24",
+   "via": "review",
+   "date": "2026-10-21 05:54 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 4",
+   "issue": "The closing sentence drifts from 'what do examples look like' to win-back testing to carry the sibling link; the answer's own examples stop at two.",
+   "fix": "Give a third example (a gym asking which class time would fit) and attach the link to a sentence that belongs to the question.",
+   "by": "A-r-24",
+   "via": "review",
+   "date": "2026-10-21 05:54 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_3, feature_6",
+   "issue": "Tacked-on ', so' ending (QC Q5 P2, 1 on the page); feature_6 stacks two relative clauses: 'on a custom domain, which Emergent includes and which uses credits'.",
+   "fix": "Split each into two sentences.",
+   "by": "A-r-24",
+   "via": "review",
+   "date": "2026-10-21 05:54 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "Library output cells for SurveyMonkey and SurveyHero ('including employee satisfaction') name employee-survey templates on a customer cancellation page; QC K7 also notes Microsoft Forms and SurveyHero do not rank in the top 10, while Jotform and Wufoo hold template slots.",
+   "fix": "Coordinator: add a customer-feedback category set or variant to the SQB library so the output row fits; prefer ranking vendors on regeneration.",
+   "by": "A-r-24",
+   "via": "review",
+   "date": "2026-10-21 05:54 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief cover/og",
+   "issue": "Share image headline differs from the H1 'Build a Cancellation Survey That Acts on Every Reason'; not a contradiction, but the page and its share card say two things.",
+   "fix": "Use the H1 wording on the share card at the next render.",
+   "by": "A-r-24",
+   "via": "review",
+   "date": "2026-10-21 05:54 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "e17a923e363bb1f1",
+   "alt:share_image": "037cc85b0f410c01",
+   "alt:tab_image_1": "49bf03b010d2f739",
+   "alt:tab_image_2": "563b69bedf59d5fb",
+   "alt:tab_image_3": "78a757168c58f2f8",
+   "alt:tab_image_4": "9461381067f0b451",
+   "breadcrumb": "0b23ed7e5f3420f5",
+   "chip_adds": "d2ee068dbe0aef63",
+   "explore_cta": "55e3f9db7d255c5e",
+   "faq": "645005c449fc467e",
+   "feature_1": "1cd176c5aefdbc1b",
+   "feature_2": "8f74fc1383a1e868",
+   "feature_3": "0203592dd4aa0ed2",
+   "feature_4": "b9d0f7767e20377a",
+   "feature_5": "33f8794cf5558887",
+   "feature_6": "2cf7661c23cde194",
+   "features_heading": "9b59c72ceadea1b4",
+   "features_subheading": "f958a6b37171448f",
+   "h1": "09d9274ad4302753",
+   "hero_description": "801e5f4b24d33244",
+   "hero_prompt": "ceb10f3c22e4d47f",
+   "howto_description": "c904aa094a2d0d4a",
+   "howto_step_1_des": "010bb1d458b019e8",
+   "howto_step_1_title": "efd185d8cfc8ea4e",
+   "howto_step_2_des": "2cf96969f338a56f",
+   "howto_step_2_title": "bab9f45d75bc0b1a",
+   "howto_step_3_des": "f0e2d813de10a3a3",
+   "howto_step_3_title": "cf77aae1894b89a7",
+   "howto_step_4_des": "f19e812bcced359e",
+   "howto_step_4_title": "d7dd9c8c8df04897",
+   "howto_step_5_des": "5f52751e5e904c69",
+   "howto_step_5_title": "4efbcbfc396e1919",
+   "howto_step_6_des": "9b114adadce65979",
+   "howto_step_6_title": "dabd39abc0911fad",
+   "howto_step_7_des": "aa2f98a2d369b9aa",
+   "howto_step_7_title": "9e77a037848ef635",
+   "howto_title": "88d6e0ac8321760c",
+   "meta_description": "bedafb0fa77f7cd3",
+   "meta_title": "a8e72244f0df66f5",
+   "mockup": "0d701f03eae4f4bd",
+   "product_name": "3d2940d84c0a2254",
+   "prompt_chip_1": "610fc3bd701820a5",
+   "prompt_chip_2": "6c28d808980869f9",
+   "prompt_chip_3": "d737b736eae80cc7",
+   "prompt_chip_4": "456013816c35aeef",
+   "slug": "63d4acfa97f7639f",
+   "tab_content_1": "7224e973d8da558e",
+   "tab_content_2": "53763db87f7156b7",
+   "tab_content_3": "53b63c134e5109bc",
+   "tab_content_4": "1751c1f5072eec1d",
+   "tab_label_1": "146ff0045484c3d9",
+   "tab_label_2": "c1518c8b8be83f8f",
+   "tab_label_3": "f196522a3ff23a17",
+   "tab_label_4": "7b31ce3b02185b84",
+   "usecase_heading": "1894c4b4ad69a6f8",
+   "why_description": "3d45baa802c88f90",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "62bc75d4bd23555c"
+  },
+  "all": "9b98108e5fae6407",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "e17a923e363bb1f1",
+   "alt:share_image": "037cc85b0f410c01",
+   "alt:tab_image_1": "49bf03b010d2f739",
+   "alt:tab_image_2": "563b69bedf59d5fb",
+   "alt:tab_image_3": "78a757168c58f2f8",
+   "alt:tab_image_4": "9461381067f0b451",
+   "breadcrumb": "0b23ed7e5f3420f5",
+   "chip_adds": "d2ee068dbe0aef63",
+   "explore_cta": "55e3f9db7d255c5e",
+   "faq": "645005c449fc467e",
+   "feature_1": "1cd176c5aefdbc1b",
+   "feature_2": "8f74fc1383a1e868",
+   "feature_3": "0203592dd4aa0ed2",
+   "feature_4": "b9d0f7767e20377a",
+   "feature_5": "33f8794cf5558887",
+   "feature_6": "2cf7661c23cde194",
+   "features_heading": "9b59c72ceadea1b4",
+   "features_subheading": "f958a6b37171448f",
+   "h1": "09d9274ad4302753",
+   "hero_description": "801e5f4b24d33244",
+   "hero_prompt": "ceb10f3c22e4d47f",
+   "howto_description": "c904aa094a2d0d4a",
+   "howto_step_1_des": "010bb1d458b019e8",
+   "howto_step_1_title": "efd185d8cfc8ea4e",
+   "howto_step_2_des": "2cf96969f338a56f",
+   "howto_step_2_title": "bab9f45d75bc0b1a",
+   "howto_step_3_des": "f0e2d813de10a3a3",
+   "howto_step_3_title": "cf77aae1894b89a7",
+   "howto_step_4_des": "f19e812bcced359e",
+   "howto_step_4_title": "d7dd9c8c8df04897",
+   "howto_step_5_des": "5f52751e5e904c69",
+   "howto_step_5_title": "4efbcbfc396e1919",
+   "howto_step_6_des": "9b114adadce65979",
+   "howto_step_6_title": "dabd39abc0911fad",
+   "howto_step_7_des": "aa2f98a2d369b9aa",
+   "howto_step_7_title": "9e77a037848ef635",
+   "howto_title": "88d6e0ac8321760c",
+   "meta_description": "bedafb0fa77f7cd3",
+   "meta_title": "a8e72244f0df66f5",
+   "mockup": "0d701f03eae4f4bd",
+   "product_name": "3d2940d84c0a2254",
+   "prompt_chip_1": "610fc3bd701820a5",
+   "prompt_chip_2": "6c28d808980869f9",
+   "prompt_chip_3": "d737b736eae80cc7",
+   "prompt_chip_4": "456013816c35aeef",
+   "slug": "63d4acfa97f7639f",
+   "tab_content_1": "7224e973d8da558e",
+   "tab_content_2": "53763db87f7156b7",
+   "tab_content_3": "53b63c134e5109bc",
+   "tab_content_4": "1751c1f5072eec1d",
+   "tab_label_1": "146ff0045484c3d9",
+   "tab_label_2": "c1518c8b8be83f8f",
+   "tab_label_3": "f196522a3ff23a17",
+   "tab_label_4": "7b31ce3b02185b84",
+   "usecase_heading": "1894c4b4ad69a6f8",
+   "why_description": "3d45baa802c88f90",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "62bc75d4bd23555c"
+  },
+  "all": "9b98108e5fae6407",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

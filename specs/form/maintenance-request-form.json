@@ -115,6 +115,13 @@
    "via": null,
    "by": "A-w-111",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 05:54 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-24",
+   "note": "rubric 10/10 by A-r-24; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -955,5 +962,265 @@
  ],
  "writers": [
   "A-w-111"
- ]
+ ],
+ "review": {
+  "by": "A-r-24",
+  "date": "2026-10-21 05:54 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Maintenance Request Form That Routes Every Repair'; hero 'Build a maintenance request form that asks where the problem is and whether to enter, then sends it to the right technician.' states the whole job (intake, entry, routing); how-to description one sentence with the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is institution portals and templates; the page gives the fields ('Include the requester's name and phone number, the unit, the room and fixture...'), a 7-step how-to, four settings (apartments, student housing, hotel, rentals) and request vs work order."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Landlord and facilities vocabulary throughout: 'whether a technician may enter when nobody is home, and whether a pet is inside', 'a third leak under the same sink in 60 days', 'any repair estimated at $500 or less straight to its vendor'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Harlow Court's form starts with the unit and the exact fixture.', 'Housekeepers at the Ashgrove Hotel file requests from their phones between rooms.', 'Go through one unit and note everything in it that can fail.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences carry one idea each ('Keep the list short. An alert should still mean that someone gets up and goes.'); QC flags 10 'A, B, and C' lists (P2, noted)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail reads human: 'a cat that must stay in the bedroom', 'a sign by the mailboxes, where tenants will see it the next time a faucet drips'. One forced moat line noted (FAQ 9)."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent sentences map to prompt-build, alerts, database-owned, no-caps, code-export, free-start, custom-domain. UpKeep definitions in FAQ 4 match the quoted spans ('submitted by your staff or customers to request that work be performed on an asset'; 'an authorization from your maintenance planner'; 'When work requests are submitted and approved, work orders are created'). Numbers agree: 22+9+7=38; 3 of 4 under $500 plus the $1,240 heater."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own angle (entry permission, trade routing, owner approval over $500); tab H3s use no sibling primary; sibling primaries appear only as FAQ link anchors (rental agreement form, service request form, tenant screening form)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first ('No. In UpKeep's definition...', 'Yes. Ask it as a yes or no question...', 'You decide.'); hub link in item 2; 3 sibling links; PAA gate 10 pass, 0 reject, 0 flag; verbatim Q1 ok."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: 'Work order: unit 4B' to Dunmore Plumbing with 'Entry OK, dog at home'; '#carpentry-shop' message for Ezra Narvaez room 214 with Furniture 22 / Plumbing 9 / Electrical 7 and 38 requests; card 'For Anselm Haddow, on shift' with Paloma Grieve's photo; Brightfern table 3 sent to vendor and 233 Halsey St $1,240 'Owner to approve', email to Henrietta Vosburgh."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #1",
+    "field": "faq item 4",
+    "quote": "Is a maintenance request form the same as a work order?",
+    "issue": "The sibling /ai-form-builder/work-order-form (spec) carries 'What is the difference between a work request form and a work order form?'; both pages answer the request vs work order distinction from their own side. Legitimate for this query (the AlsoAsked pull has 'Is a work order a maintenance request?'), but the two answers should not converge.",
+    "fix": "When the work-order-form page is written, keep its answer on the work order side and link here with 'maintenance request form'.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 9",
+    "quote": "Emergent forms have no response caps, which matters on a checkout morning with 40 rooms turning over.",
+    "issue": "Moat line is forced: 40 requests on one morning would not reach any vendor's monthly cap, so the 'which matters' clause overstates the stakes and tacks on.",
+    "fix": "Tie the moat to something the hotel case needs, e.g. every request saved by room in a database the hotel owns.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2b",
+    "field": "feature_6, tab_content_2, howto_step_2_des, howto_step_4_des, howto_step_6_des, faq items 1, 3, 7, 9",
+    "quote": "a routine repair, an emergency, and one over your dollar limit",
+    "issue": "QC Q8 counts 10 'A, B, and C' lists on the page (feature_6 'exports the form, with its dashboard and routing rules'; tab_content_2 '22 furniture, 9 plumbing, and 7 electrical'; howto_step_2_des 'the form, its routing rules, and the database'; howto_step_4_des 'a burst pipe, a gas smell, or a lockout'; howto_step_6_des; faq 1 'a tenant, guest, or employee'; faq 3 twice; faq 7; faq 9 'the room or area, the issue, who found it, and whether'). Over 8 reads templated.",
+    "fix": "Turn two or three into pairs or a single specific.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Google Forms | Typeform",
+    "issue": "QC K7: Google Forms and Typeform do not rank in this page's top 10; Jotform and Wufoo (both template slots in the top 10) do.",
+    "fix": "If Wufoo is in the library, prefer it over Typeform on a future regeneration.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #1",
+   "field": "faq item 4",
+   "issue": "The sibling /ai-form-builder/work-order-form (spec) carries 'What is the difference between a work request form and a work order form?'; both pages answer the request vs work order distinction from their own side. Legitimate for this query (the AlsoAsked pull has 'Is a work order a maintenance request?'), but the two answers should not converge.",
+   "fix": "When the work-order-form page is written, keep its answer on the work order side and link here with 'maintenance request form'.",
+   "by": "A-r-24",
+   "via": "review",
+   "date": "2026-10-21 05:54 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 9",
+   "issue": "Moat line is forced: 40 requests on one morning would not reach any vendor's monthly cap, so the 'which matters' clause overstates the stakes and tacks on.",
+   "fix": "Tie the moat to something the hotel case needs, e.g. every request saved by room in a database the hotel owns.",
+   "by": "A-r-24",
+   "via": "review",
+   "date": "2026-10-21 05:54 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2b",
+   "field": "feature_6, tab_content_2, howto_step_2_des, howto_step_4_des, howto_step_6_des, faq items 1, 3, 7, 9",
+   "issue": "QC Q8 counts 10 'A, B, and C' lists on the page (feature_6 'exports the form, with its dashboard and routing rules'; tab_content_2 '22 furniture, 9 plumbing, and 7 electrical'; howto_step_2_des 'the form, its routing rules, and the database'; howto_step_4_des 'a burst pipe, a gas smell, or a lockout'; howto_step_6_des; faq 1 'a tenant, guest, or employee'; faq 3 twice; faq 7; faq 9 'the room or area, the issue, who found it, and whether'). Over 8 reads templated.",
+   "fix": "Turn two or three into pairs or a single specific.",
+   "by": "A-r-24",
+   "via": "review",
+   "date": "2026-10-21 05:54 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: Google Forms and Typeform do not rank in this page's top 10; Jotform and Wufoo (both template slots in the top 10) do.",
+   "fix": "If Wufoo is in the library, prefer it over Typeform on a future regeneration.",
+   "by": "A-r-24",
+   "via": "review",
+   "date": "2026-10-21 05:54 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "a1dfda6a94f28c0d",
+   "alt:share_image": "1934d832247b84f4",
+   "alt:tab_image_1": "9d9a28ff98cdc5e3",
+   "alt:tab_image_2": "0fe20ca36c30dbeb",
+   "alt:tab_image_3": "a541c4a15bc79dd0",
+   "alt:tab_image_4": "b834a837cd9c2f05",
+   "breadcrumb": "79178ec89bfd8187",
+   "chip_adds": "76884a9d30689970",
+   "explore_cta": "ab198f7c8366c9fa",
+   "faq": "8bd5b0e3ddcec1b3",
+   "feature_1": "490e384fb3f740a3",
+   "feature_2": "1fb5f95b150c0454",
+   "feature_3": "1f600c40b1e22cd9",
+   "feature_4": "02b5c62ddd0d4b3e",
+   "feature_5": "ce85d8eda6e6b0d9",
+   "feature_6": "a2a9f9a77827e096",
+   "features_heading": "098f5cc2e8d39eac",
+   "features_subheading": "abbd7969e4816b08",
+   "h1": "a5e204e89eee94c3",
+   "hero_description": "1c131d30cc4758ba",
+   "hero_prompt": "0b03c00663b0241c",
+   "howto_description": "7566ab6499a867e0",
+   "howto_step_1_des": "575534fcb84709a2",
+   "howto_step_1_title": "a0ff6ae9e52520ce",
+   "howto_step_2_des": "5352d7e1a0b16ce9",
+   "howto_step_2_title": "3fffcc19c1ac4e09",
+   "howto_step_3_des": "9c2c186cec3c2852",
+   "howto_step_3_title": "661ad12caa69ec72",
+   "howto_step_4_des": "bdf202c0282cae8b",
+   "howto_step_4_title": "cbe03bf7d31fcecc",
+   "howto_step_5_des": "42abfb27cf9b3032",
+   "howto_step_5_title": "ddd98a3703486d2f",
+   "howto_step_6_des": "53d413b1cbeaa59a",
+   "howto_step_6_title": "9aed03a5e4640367",
+   "howto_step_7_des": "f3de82dc1072c175",
+   "howto_step_7_title": "7cb2483573cd801b",
+   "howto_title": "c357705a6f33821d",
+   "meta_description": "17eccdc6cc714ce1",
+   "meta_title": "30a7abef818d56f4",
+   "mockup": "bf3fcda005b4e6fd",
+   "product_name": "88b4a44a2cc27c6b",
+   "prompt_chip_1": "fee09a6d2ac0f0a2",
+   "prompt_chip_2": "2cf106c0817b346e",
+   "prompt_chip_3": "eaad4f6d80088422",
+   "prompt_chip_4": "31b8227865b6ba77",
+   "slug": "0819312b732c1200",
+   "tab_content_1": "d3a6ee5f935c92db",
+   "tab_content_2": "a0e80960d0d59fbe",
+   "tab_content_3": "de64c4afba3fb956",
+   "tab_content_4": "297e03c25837379d",
+   "tab_label_1": "7bea17666de6ec4a",
+   "tab_label_2": "ecfeaf55623dfa89",
+   "tab_label_3": "9fb889ca7b718a04",
+   "tab_label_4": "aab218c5136a5f5c",
+   "usecase_heading": "9fb8f8b9fa1e6694",
+   "why_description": "a91147a32c8fec56",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "b7501c73942ce1bd"
+  },
+  "all": "0e03d969ede7beb6",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "a1dfda6a94f28c0d",
+   "alt:share_image": "1934d832247b84f4",
+   "alt:tab_image_1": "9d9a28ff98cdc5e3",
+   "alt:tab_image_2": "0fe20ca36c30dbeb",
+   "alt:tab_image_3": "a541c4a15bc79dd0",
+   "alt:tab_image_4": "b834a837cd9c2f05",
+   "breadcrumb": "79178ec89bfd8187",
+   "chip_adds": "76884a9d30689970",
+   "explore_cta": "ab198f7c8366c9fa",
+   "faq": "8bd5b0e3ddcec1b3",
+   "feature_1": "490e384fb3f740a3",
+   "feature_2": "1fb5f95b150c0454",
+   "feature_3": "1f600c40b1e22cd9",
+   "feature_4": "02b5c62ddd0d4b3e",
+   "feature_5": "ce85d8eda6e6b0d9",
+   "feature_6": "a2a9f9a77827e096",
+   "features_heading": "098f5cc2e8d39eac",
+   "features_subheading": "abbd7969e4816b08",
+   "h1": "a5e204e89eee94c3",
+   "hero_description": "1c131d30cc4758ba",
+   "hero_prompt": "0b03c00663b0241c",
+   "howto_description": "7566ab6499a867e0",
+   "howto_step_1_des": "575534fcb84709a2",
+   "howto_step_1_title": "a0ff6ae9e52520ce",
+   "howto_step_2_des": "5352d7e1a0b16ce9",
+   "howto_step_2_title": "3fffcc19c1ac4e09",
+   "howto_step_3_des": "9c2c186cec3c2852",
+   "howto_step_3_title": "661ad12caa69ec72",
+   "howto_step_4_des": "bdf202c0282cae8b",
+   "howto_step_4_title": "cbe03bf7d31fcecc",
+   "howto_step_5_des": "42abfb27cf9b3032",
+   "howto_step_5_title": "ddd98a3703486d2f",
+   "howto_step_6_des": "53d413b1cbeaa59a",
+   "howto_step_6_title": "9aed03a5e4640367",
+   "howto_step_7_des": "f3de82dc1072c175",
+   "howto_step_7_title": "7cb2483573cd801b",
+   "howto_title": "c357705a6f33821d",
+   "meta_description": "17eccdc6cc714ce1",
+   "meta_title": "30a7abef818d56f4",
+   "mockup": "bf3fcda005b4e6fd",
+   "product_name": "88b4a44a2cc27c6b",
+   "prompt_chip_1": "fee09a6d2ac0f0a2",
+   "prompt_chip_2": "2cf106c0817b346e",
+   "prompt_chip_3": "eaad4f6d80088422",
+   "prompt_chip_4": "31b8227865b6ba77",
+   "slug": "0819312b732c1200",
+   "tab_content_1": "d3a6ee5f935c92db",
+   "tab_content_2": "a0e80960d0d59fbe",
+   "tab_content_3": "de64c4afba3fb956",
+   "tab_content_4": "297e03c25837379d",
+   "tab_label_1": "7bea17666de6ec4a",
+   "tab_label_2": "ecfeaf55623dfa89",
+   "tab_label_3": "9fb889ca7b718a04",
+   "tab_label_4": "aab218c5136a5f5c",
+   "usecase_heading": "9fb8f8b9fa1e6694",
+   "why_description": "a91147a32c8fec56",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "b7501c73942ce1bd"
+  },
+  "all": "0e03d969ede7beb6",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
