@@ -6,9 +6,9 @@
   - SurveyQuiz: cancellation, remote-work, stakeholder, newsletter.
 - Writers must reach QC 0, gate 0 rejects / 0 flags, learn-check, L10 and rendered images (rules/rework-checklist.md) before review. Independent A-r reviewers follow as pages land.
 - Pages held by B-c-1 in Form/SurveyQuiz (employee-feedback-form, accounting-client-intake-form, alumni, course-evaluation, donor surveys) are left to B.
-- Reviewed (0 blocking, 0 flags, review_ok) and ready for B to ship (11): custom-order-form, esthetician-intake-form, audition-form, cake-order-form (A-r-25, 61ac97a3); daycare-registration-form, newsletter-survey (A-r-22, 78d29c20); maintenance-request-form, cancellation-survey (A-r-24, 70b20b75); interview-evaluation-form, waxing-consent-form, stakeholder-survey (A-r-23, dd245c4d). Note for B: on waxing-consent-form A-r-23 corrected one capital letter in FAQ 5 ("Brazilian") before recording its review (gate 10/0/0 and QC 0 after); reviewers no longer edit pages (brief tightened).
-- In review: remote-work-survey (A-r-26).
+- Reviewed (0 blocking, 0 flags, review_ok) and ready for B to ship (12): remote-work-survey (A-r-26 blocked 3 -> one rework A-w-130 -> slim review A-s-1 of the 3 fixed points incl. image and cover, e382e8ad); custom-order-form, esthetician-intake-form, audition-form, cake-order-form (A-r-25, 61ac97a3); daycare-registration-form, newsletter-survey (A-r-22, 78d29c20); maintenance-request-form, cancellation-survey (A-r-24, 70b20b75); interview-evaluation-form, waxing-consent-form, stakeholder-survey (A-r-23, dd245c4d). Note for B: on waxing-consent-form A-r-23 corrected one capital letter in FAQ 5 ("Brazilian") before recording its review (gate 10/0/0 and QC 0 after); reviewers no longer edit pages (brief tightened).
+- In review: shipping-form, teacher-evaluation-survey (A-r-27).
 - Writing: esthetician-intake, cake-order, audition, pt-intake, silent-auction, shipping, food-order, refund-request forms; remote-work, teacher-evaluation, vendor, win-loss surveys.
 - Writer cost: about 180-210k tokens per page; review about 60-90k per page.
 
-WRITTEN today: 12 | REVIEWED ready for B: 11 | IN PROGRESS: 13 | FLAGS: 0 | A weekly %: 9 (session 50%) | NEEDS DIVIT: ping at ~80% session so A stops new writers and finishes commits cleanly
+WRITTEN today: 14 | REVIEWED ready for B: 12 | IN PROGRESS: 14 | FLAGS: 0 | A weekly %: 9 (session 65%) | NEEDS DIVIT: ping at ~80% session
