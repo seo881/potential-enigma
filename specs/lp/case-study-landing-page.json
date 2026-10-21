@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-250",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 05:49 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-98",
+   "note": "rubric 10/10 by B-r-98; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -897,5 +904,285 @@
  },
  "writers": [
   "B-w-250"
- ]
+ ],
+ "review": {
+  "by": "B-r-98",
+  "date": "2026-10-21 05:49 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Case Study Landing Page That Leads With the Result'; hero 'Get a case study landing page built from one prompt, with the result up top and every demo request saved to a database you own.' states the whole job; how-to description is one sentence on what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Informational/examples intent served: definition in FAQ 1, four worked examples ('Anouk Verhaegen's link led May with 19 opens', 'Visitors who pick dental see that story first', '$1,240 per compressor...', 'Three quotes approved...'), a seven-step how-to and the PAA-style questions on gating, sections, length and CTA."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "B2B case-study vocabulary throughout: 'Clear the figures first', 'Tag every request with the story it came from', rep links, customer quote approval; table uses landing-page vendors from the library."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences, e.g. 'Quillwater's story on Sabledge Freight goes out through 5 sales reps', 'Choose a customer whose outcome has a number in it'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; long sentences (feature_4, howto_step_7_des, FAQ 2) and a loose pronoun in tab_content_3 recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Reads as an operator's page: 'Pulling a figure after launch costs more goodwill than leaving it out.'; word repetition ('request' and 'story' 15 times each outside the FAQ) recorded as a note."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to claims_used (prompt-build, database-owned, alerts, api-connect incl. HubSpot, custom-domain 'included in Emergent and use credits', code-export 'Paid plans', free-start). Table cells match rules/competitors/lp.json verbatim for single-vendor Unbounce, Landingi, Wix. Numbers agree: 19+11+8+6+3=47, 27+19+12=58, 6 x $1,240 = $7,440, 3 approved + 1 edit = 4. No third-party facts or statistics stated as fact; FAQ length/gating lines are advice."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Single-customer-story page with rep links, industry picker, savings estimate and customer approval; no portfolio or agency case-study index content; siblings linked, not headlined (ebook landing page, lead magnet landing page, campaign landing page)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, each answered in its first sentence ('Gate only the long version.', 'Aim for 400 to 800 words'); hub link in item 2; two subtle Emergent sentences (FAQ 5, FAQ 9); no claim about 'the examples above'; paa --spec: pass 10, reject 0, flag 0."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: each tab shows its copy's names and numbers (Anouk Verhaegen 19 of 47 opens, 5 reps; April 58 = 27/19/12; Wexford 6 compressors -> $7,440; Tove Ferrante 3 of 4 approved, 'Round the patient count'); alert in tab 1 is an email card to the rep, matching the copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "A short story that builds trust works best open, with the request form placed after the result, because a buyer has to read it before they want to talk.",
+    "issue": "Recommendation framed with a performance claim about buyers and no source; same class in FAQ 6 'Aim for 400 to 800 words' and howto_step_2_des 'Pulling a figure after launch costs more goodwill than leaving it out.'",
+    "fix": "Keep as advice; optionally soften 'works best' to 'Keep a short story open'.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_3",
+    "quote": "Thistledown Creamery saves $1,240 a month per compressor since Varrick Air Systems refit them.",
+    "issue": "'them' has no plural antecedent (only 'per compressor'), so the sentence reads loosely.",
+    "fix": "'...since Varrick Air Systems refit its compressors.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "hero_prompt",
+    "quote": "Build a case study landing page that saves every signup to a database I own.",
+    "issue": "The rest of the page is about demo and consult requests, not signups.",
+    "fix": "'...that saves every demo request to a database I own.'",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "voice",
+    "rule": "CONTENT_DEFECTS #18",
+    "field": "feature_2",
+    "quote": "Prompt for the headline figure, such as hours saved or cost cut, in a band above the story.",
+    "issue": "The 'put the number at the top' idea recurs in feature_2, howto_step_1_des 'A buyer can repeat a number to their team', howto_step_3_des 'Lead with the result in the customer's own unit', FAQ 3 'put a number at the top that a buyer could repeat in a meeting' and FAQ 5 'a headline with the result'.",
+    "fix": "None required; vary in a later edit.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "request",
+    "issue": "QC Q9: 'request' and 'story' each appear 15 times and 'customer' 12 times outside the FAQ.",
+    "fix": "Vary with 'demo ask', 'case study', 'account' where natural.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Recommendation framed with a performance claim about buyers and no source; same class in FAQ 6 'Aim for 400 to 800 words' and howto_step_2_des 'Pulling a figure after launch costs more goodwill than leaving it out.'",
+   "fix": "Keep as advice; optionally soften 'works best' to 'Keep a short story open'.",
+   "by": "B-r-98",
+   "via": "review",
+   "date": "2026-10-21 05:49 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_3",
+   "issue": "'them' has no plural antecedent (only 'per compressor'), so the sentence reads loosely.",
+   "fix": "'...since Varrick Air Systems refit its compressors.'",
+   "by": "B-r-98",
+   "via": "review",
+   "date": "2026-10-21 05:49 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "hero_prompt",
+   "issue": "The rest of the page is about demo and consult requests, not signups.",
+   "fix": "'...that saves every demo request to a database I own.'",
+   "by": "B-r-98",
+   "via": "review",
+   "date": "2026-10-21 05:49 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "CONTENT_DEFECTS #18",
+   "field": "feature_2",
+   "issue": "The 'put the number at the top' idea recurs in feature_2, howto_step_1_des 'A buyer can repeat a number to their team', howto_step_3_des 'Lead with the result in the customer's own unit', FAQ 3 'put a number at the top that a buyer could repeat in a meeting' and FAQ 5 'a headline with the result'.",
+   "fix": "None required; vary in a later edit.",
+   "by": "B-r-98",
+   "via": "review",
+   "date": "2026-10-21 05:49 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "QC Q9: 'request' and 'story' each appear 15 times and 'customer' 12 times outside the FAQ.",
+   "fix": "Vary with 'demo ask', 'case study', 'account' where natural.",
+   "by": "B-r-98",
+   "via": "review",
+   "date": "2026-10-21 05:49 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "651c3449c8c1be60",
+   "alt:share_image": "183a85536b48143b",
+   "alt:tab_image_1": "4759e985c3c776a0",
+   "alt:tab_image_2": "ab47b3492fac032c",
+   "alt:tab_image_3": "b27c186be5962f09",
+   "alt:tab_image_4": "5998ac78775d1ae9",
+   "breadcrumb": "e1476d4bf566263b",
+   "chip_adds": "dcf43e0d6b90cdf3",
+   "explore_cta": "5e93923b0dbf0c1e",
+   "faq": "5ff6c2d8d89d96c8",
+   "feature_1": "2a706c4658fc81b6",
+   "feature_2": "c224c33b4ab06e67",
+   "feature_3": "1207d2c365a87870",
+   "feature_4": "3f38c9ebecc7a584",
+   "feature_5": "3d8ee7dd0ad9d07a",
+   "feature_6": "4c7492c267d0ed09",
+   "features_heading": "b0b28d374e2d966d",
+   "features_subheading": "13d7ed6bb149dd10",
+   "h1": "d01df156267d8fd0",
+   "hero_description": "45132a9929a8f006",
+   "hero_prompt": "c697d6c6d1b068fc",
+   "howto_description": "1eb3809c5d865c0e",
+   "howto_step_1_des": "00dc7fc6e437a028",
+   "howto_step_1_title": "15f285a16c47ff1c",
+   "howto_step_2_des": "92d8f89c529429ee",
+   "howto_step_2_title": "e5b560b1ee8860e7",
+   "howto_step_3_des": "85b35a6761420835",
+   "howto_step_3_title": "35177f31caf3bb98",
+   "howto_step_4_des": "c315309aa98ecc7d",
+   "howto_step_4_title": "459ddc72f611127e",
+   "howto_step_5_des": "8193b92424188ee3",
+   "howto_step_5_title": "9a9de6e976d83110",
+   "howto_step_6_des": "97d78aadceee1959",
+   "howto_step_6_title": "d3179d93b03a42c3",
+   "howto_step_7_des": "9cdd5ab37f058065",
+   "howto_step_7_title": "38a37abbd9ef1f43",
+   "howto_title": "30dd8b12b6dcf787",
+   "meta_description": "b5c510e7b3d68cc7",
+   "meta_title": "86738e78d1082f86",
+   "mockup": "e49629ecfb15cd33",
+   "product_name": "7218c545b47cace0",
+   "prompt_chip_1": "b9cb04b483bb2fce",
+   "prompt_chip_2": "5da36259221563c2",
+   "prompt_chip_3": "bb966bd42989b7ca",
+   "prompt_chip_4": "1025b5484b8a5fb3",
+   "slug": "5e2444848866fb91",
+   "tab_content_1": "cb87af4768dee195",
+   "tab_content_2": "417480ab272d9ee7",
+   "tab_content_3": "43c6973ff0f5a2a5",
+   "tab_content_4": "c0056cd42dd8d812",
+   "tab_label_1": "28ac01e97fffea5e",
+   "tab_label_2": "6571f3b0ac6eb204",
+   "tab_label_3": "5ac98f8f565b0d94",
+   "tab_label_4": "17b6f05d15896f10",
+   "usecase_heading": "ec0bed7fd8bbe79c",
+   "why_description": "e768f352d58b7bd5",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "f2f01a5e63cd761d"
+  },
+  "all": "9e5ee745cf06666e",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "651c3449c8c1be60",
+   "alt:share_image": "183a85536b48143b",
+   "alt:tab_image_1": "4759e985c3c776a0",
+   "alt:tab_image_2": "ab47b3492fac032c",
+   "alt:tab_image_3": "b27c186be5962f09",
+   "alt:tab_image_4": "5998ac78775d1ae9",
+   "breadcrumb": "e1476d4bf566263b",
+   "chip_adds": "dcf43e0d6b90cdf3",
+   "explore_cta": "5e93923b0dbf0c1e",
+   "faq": "5ff6c2d8d89d96c8",
+   "feature_1": "2a706c4658fc81b6",
+   "feature_2": "c224c33b4ab06e67",
+   "feature_3": "1207d2c365a87870",
+   "feature_4": "3f38c9ebecc7a584",
+   "feature_5": "3d8ee7dd0ad9d07a",
+   "feature_6": "4c7492c267d0ed09",
+   "features_heading": "b0b28d374e2d966d",
+   "features_subheading": "13d7ed6bb149dd10",
+   "h1": "d01df156267d8fd0",
+   "hero_description": "45132a9929a8f006",
+   "hero_prompt": "c697d6c6d1b068fc",
+   "howto_description": "1eb3809c5d865c0e",
+   "howto_step_1_des": "00dc7fc6e437a028",
+   "howto_step_1_title": "15f285a16c47ff1c",
+   "howto_step_2_des": "92d8f89c529429ee",
+   "howto_step_2_title": "e5b560b1ee8860e7",
+   "howto_step_3_des": "85b35a6761420835",
+   "howto_step_3_title": "35177f31caf3bb98",
+   "howto_step_4_des": "c315309aa98ecc7d",
+   "howto_step_4_title": "459ddc72f611127e",
+   "howto_step_5_des": "8193b92424188ee3",
+   "howto_step_5_title": "9a9de6e976d83110",
+   "howto_step_6_des": "97d78aadceee1959",
+   "howto_step_6_title": "d3179d93b03a42c3",
+   "howto_step_7_des": "9cdd5ab37f058065",
+   "howto_step_7_title": "38a37abbd9ef1f43",
+   "howto_title": "30dd8b12b6dcf787",
+   "meta_description": "b5c510e7b3d68cc7",
+   "meta_title": "86738e78d1082f86",
+   "mockup": "e49629ecfb15cd33",
+   "product_name": "7218c545b47cace0",
+   "prompt_chip_1": "b9cb04b483bb2fce",
+   "prompt_chip_2": "5da36259221563c2",
+   "prompt_chip_3": "bb966bd42989b7ca",
+   "prompt_chip_4": "1025b5484b8a5fb3",
+   "slug": "5e2444848866fb91",
+   "tab_content_1": "cb87af4768dee195",
+   "tab_content_2": "417480ab272d9ee7",
+   "tab_content_3": "43c6973ff0f5a2a5",
+   "tab_content_4": "c0056cd42dd8d812",
+   "tab_label_1": "28ac01e97fffea5e",
+   "tab_label_2": "6571f3b0ac6eb204",
+   "tab_label_3": "5ac98f8f565b0d94",
+   "tab_label_4": "17b6f05d15896f10",
+   "usecase_heading": "ec0bed7fd8bbe79c",
+   "why_description": "e768f352d58b7bd5",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "f2f01a5e63cd761d"
+  },
+  "all": "9e5ee745cf06666e",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
