@@ -1,4 +1,4 @@
-**FIRST: ship the waiting queue.** Run the group-of-5 ship script (scratchpad ship5.sh, logic: standing-go approve reviewed pages that pass ship-check and aren't held, then api-read, cms-check, api-create --limit 5, api-publish --only <drafts> --verify-live, a sync after each step) for Auto, LP, SurveyQuiz, Form until no approved page is left. Progress: reports/2026-10-21/ship-groups.log. The ship agent B-ship-3 got stuck at 11:43 IST and was stopped. Nothing else runs before the queue is empty.
+**FIRST: ship the waiting queue** (emptied 08:05 UTC, 297 live; rerun the scratchpad ship5.sh per hub for any new approved pages). Then the artist Learn link fix, re-approval of coaching (Divit), the SCIM exception, and after the reset 15 writers.
 
 # Resume note, B session, 2026-10-21 (written at about 90% session)
 
