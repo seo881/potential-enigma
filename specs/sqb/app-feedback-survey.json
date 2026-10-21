@@ -124,6 +124,13 @@
    "via": null,
    "by": "A-w-129",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 06:24 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-31",
+   "note": "rubric 10/10 by A-r-31; 6 notes"
   }
  ],
  "pipeline": "r15",
@@ -948,5 +955,305 @@
  ],
  "writers": [
   "A-w-129"
- ]
+ ],
+ "review": {
+  "by": "A-r-31",
+  "date": "2026-10-21 06:24 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an App Feedback Survey That Points to the Next Fix', hero 'Build an app feedback survey that asks users about a screen right after they use it and keeps every answer in a database you own.' (D1 ok); how-to description one sentence on what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder intent for teams surveying their own app users; example questions in every tab ('how easy was it, from 1 to 5', 'what almost stopped you', 'did anything get harder in this update?') and FAQ 3 for the 'app feedback survey questions' secondary; how-to covers timing, length, context, alerts, testing."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary: screen, app version, release, issue tracker, '5 reports naming one screen in 2 hours'; table rows from the library."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Pursewise shipped Split a bill...', 'On day 3, Stridewell asks...', 'Write down the one product decision...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Short declaratives, one idea each; one tacked-on ending in step 7 kept as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail ('the proof of delivery photo will not upload', 'the filter bar had moved under a menu'); no AI-tell vocabulary. Notes on FAQ 4 and repeated primary in questions."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent sentences map to claims_used (prompt-build, database-owned, alerts, conversational, api-connect, code-export, custom-domain, no-caps, free-start); no third-party facts outside the library table; numbers agree: 110+43+61=214, 167+98+61+77=403, 126/388=32%, 38/410=9%, 5 reports in 2 hours in feature 3, tab 3 and step 5."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own stories and headings; no sibling primary in a heading. Structural templating on the published website-feedback-survey recorded as a note (severity table: repeated-idea is a note)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, answer-first, hub link in item 2, links to funny-survey-questions, yes-no-questions-survey, post-purchase-survey; paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: one hero per tab; tab 1 '61 rated it 1 or 2', '214', '44 of 61'; tab 2 'Watch step: 167 of 403'; tab 3 '#driver-app' channel matches copy that names the channel, '7 reports', 'Rule: 5 reports in 2 hours'; tab 4 '5.3: 126 of 388 said yes', '91 named Search'; cover 32% vs 9%."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "tab_content_3, feature_3, feature_4, feature_6, howto_step_1_des, howto_step_5",
+    "quote": "Haulbright Couriers puts Report a problem in its driver app menu. The form asks which screen the driver was on and what happened. When 5 reports name the same screen within 2 hours, the app posts in the #driver-app Slack channel. This morning, seven drivers report...",
+    "issue": "The page follows the published sibling /ai-survey-and-quiz-builder/website-feedback-survey sentence by sentence with nouns swapped. Its tab 3: 'Oxbury Public Library puts a Report a problem link in the footer of every page. The form asks which page and what went wrong. When 3 reports name the same page within 24 hours, the app posts in the #web-fixes Slack channel. This morning, 4 reports...'. Also feature_3 'Single reports stay in the table until someone reads them' (sibling: 'Single reports wait in the table for review'); feature_4 'Phone users see one question per screen' (sibling: 'Visitors on a phone see one question per screen'); feature_6 'Run the survey on your own domain... On paid plans, export the full code to your GitHub repository, next to the app's code' (sibling: '...and keep it with your site'); howto_step_1_des 'Put it at the top of your prompt. Any question whose answer cannot change that decision comes out before launch' (sibling: 'Write it at the top of your prompt. A question that cannot change that decision comes out before launch'); howto_step_5 alert-rule step mirrors sibling step 5. Same feature order and how-to arc. QC D2 passes (under 30% shared phrases) but the page reads as the website page with app nouns.",
+    "fix": "Next time: give tab 3 a different mechanism or story shape (e.g. a crash report with device and OS, or a ticket opened per report) and write step 1 and step 5 without the sibling's sentence frames.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq 4",
+    "quote": "Can an app feedback survey have a playful tone? ... A light closing question, such as which animal the app would be, can make the survey feel less like a form. ... A list of funny survey questions is a good place to borrow from.",
+    "issue": "HUB_RULES 5: every FAQ item must be a question a searcher of this keyword asks, never padded for a forced keyword or link. This item exists to carry the funny-survey-questions link and its advice ('which animal the app would be') sits oddly against the page's own rule of two or three questions that change a product decision.",
+    "fix": "Replace with a searcher question (e.g. whether to ask in the app or by email, or whether to make answers anonymous) and move the funny-survey-questions link or drop it.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "howto_step_7_des",
+    "quote": "Mention it in the next release notes: that is how the users who answered learn their feedback was read.",
+    "issue": "Tacked-on 'that is how...' explanation after the colon; the only instance on the page.",
+    "fix": "'Mention the change in the next release notes, so the users who answered see it.' or end at 'release notes'.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq questions 1, 2, 3, 4, 5, 6, 7, 9, 10",
+    "quote": "Can an app feedback survey have a playful tone? / When is the best time to show an app feedback survey? / How many questions should an app feedback survey have? / Should an app feedback survey use a rating scale or a yes or no answer? / Should an app feedback survey follow an in-app purchase?",
+    "issue": "Nine of 10 questions carry the full primary 'app feedback survey'; read in sequence it is keyword-stuffed rather than how people ask (FAQ 8 'an in-app feedback survey' shows the natural variant).",
+    "fix": "Keep the primary in items 1-3 and phrase the rest as people ask ('When should the survey appear?', 'How many questions is too many inside an app?').",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief tab 4 table; cover",
+    "quote": "columns Release / Asked / Said yes; cover delta '9% after 5.2' (delta_kind bad)",
+    "issue": "Copy counts answers ('38 of 410 said yes', '126 of 388 did'), while the table heads that column 'Asked', which reads as people shown the survey, not people who answered. The cover draws the 5.2 baseline '9% after 5.2' as a red bad chip, though 9% is the better, earlier figure.",
+    "fix": "Head the column 'Answered'; draw the cover delta as 'Up from 9% after 5.2' or neutral.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_2",
+    "quote": "On day 3, Stridewell asks each new runner one question per screen: what almost stopped you from logging your first run?",
+    "issue": "'one question per screen' describes a survey of one question; the hub's conversational-flow phrase is dropped in where it adds nothing (the image repeats it as 'One question per screen').",
+    "fix": "'On day 3, Stridewell asks each new runner one question: what almost stopped you from logging your first run?'",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "tab_content_3, feature_3, feature_4, feature_6, howto_step_1_des, howto_step_5",
+   "issue": "The page follows the published sibling /ai-survey-and-quiz-builder/website-feedback-survey sentence by sentence with nouns swapped. Its tab 3: 'Oxbury Public Library puts a Report a problem link in the footer of every page. The form asks which page and what went wrong. When 3 reports name the same page within 24 hours, the app posts in the #web-fixes Slack channel. This morning, 4 reports...'. Also feature_3 'Single reports stay in the table until someone reads them' (sibling: 'Single reports wait in the table for review'); feature_4 'Phone users see one question per screen' (sibling: 'Visitors on a phone see one question per screen'); feature_6 'Run the survey on your own domain... On paid plans, export the full code to your GitHub repository, next to the app's code' (sibling: '...and keep it with your site'); howto_step_1_des 'Put it at the top of your prompt. Any question whose answer cannot change that decision comes out before launch' (sibling: 'Write it at the top of your prompt. A question that cannot change that decision comes out before launch'); howto_step_5 alert-rule step mirrors sibling step 5. Same feature order and how-to arc. QC D2 passes (under 30% shared phrases) but the page reads as the website page with app nouns.",
+   "fix": "Next time: give tab 3 a different mechanism or story shape (e.g. a crash report with device and OS, or a ticket opened per report) and write step 1 and step 5 without the sibling's sentence frames.",
+   "by": "A-r-31",
+   "via": "review",
+   "date": "2026-10-21 06:24 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq 4",
+   "issue": "HUB_RULES 5: every FAQ item must be a question a searcher of this keyword asks, never padded for a forced keyword or link. This item exists to carry the funny-survey-questions link and its advice ('which animal the app would be') sits oddly against the page's own rule of two or three questions that change a product decision.",
+   "fix": "Replace with a searcher question (e.g. whether to ask in the app or by email, or whether to make answers anonymous) and move the funny-survey-questions link or drop it.",
+   "by": "A-r-31",
+   "via": "review",
+   "date": "2026-10-21 06:24 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "howto_step_7_des",
+   "issue": "Tacked-on 'that is how...' explanation after the colon; the only instance on the page.",
+   "fix": "'Mention the change in the next release notes, so the users who answered see it.' or end at 'release notes'.",
+   "by": "A-r-31",
+   "via": "review",
+   "date": "2026-10-21 06:24 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq questions 1, 2, 3, 4, 5, 6, 7, 9, 10",
+   "issue": "Nine of 10 questions carry the full primary 'app feedback survey'; read in sequence it is keyword-stuffed rather than how people ask (FAQ 8 'an in-app feedback survey' shows the natural variant).",
+   "fix": "Keep the primary in items 1-3 and phrase the rest as people ask ('When should the survey appear?', 'How many questions is too many inside an app?').",
+   "by": "A-r-31",
+   "via": "review",
+   "date": "2026-10-21 06:24 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief tab 4 table; cover",
+   "issue": "Copy counts answers ('38 of 410 said yes', '126 of 388 did'), while the table heads that column 'Asked', which reads as people shown the survey, not people who answered. The cover draws the 5.2 baseline '9% after 5.2' as a red bad chip, though 9% is the better, earlier figure.",
+   "fix": "Head the column 'Answered'; draw the cover delta as 'Up from 9% after 5.2' or neutral.",
+   "by": "A-r-31",
+   "via": "review",
+   "date": "2026-10-21 06:24 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_2",
+   "issue": "'one question per screen' describes a survey of one question; the hub's conversational-flow phrase is dropped in where it adds nothing (the image repeats it as 'One question per screen').",
+   "fix": "'On day 3, Stridewell asks each new runner one question: what almost stopped you from logging your first run?'",
+   "by": "A-r-31",
+   "via": "review",
+   "date": "2026-10-21 06:24 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "a57ce01d0b840421",
+   "alt:share_image": "deec3a4a4e46c05c",
+   "alt:tab_image_1": "4b402d19c99aa8bb",
+   "alt:tab_image_2": "a9c0ca844c9b5850",
+   "alt:tab_image_3": "2aea2d9ef6be0894",
+   "alt:tab_image_4": "0c4c221a5aedf08f",
+   "breadcrumb": "be5408af9e161acd",
+   "chip_adds": "b292ea313b909c97",
+   "explore_cta": "51d7e44d16a770b9",
+   "faq": "1ec9ee22d3414abd",
+   "feature_1": "656764dec008551c",
+   "feature_2": "7d5e1f060a318cec",
+   "feature_3": "f736f9faea8fa3c3",
+   "feature_4": "9d4e15c6e741289a",
+   "feature_5": "7a23b1a20bb38220",
+   "feature_6": "c2316d93f48f9948",
+   "features_heading": "68377351d83c45a8",
+   "features_subheading": "87ebe16e3e30ff32",
+   "h1": "b50c9be5f943798d",
+   "hero_description": "0fb9d64c778bea97",
+   "hero_prompt": "42b0e04c028b3b17",
+   "howto_description": "eaa91497d354d51f",
+   "howto_step_1_des": "2fccd8a2a67d9710",
+   "howto_step_1_title": "825b3fde39a2c600",
+   "howto_step_2_des": "ca7e4f0d130f955e",
+   "howto_step_2_title": "ddcd49cd85edbe34",
+   "howto_step_3_des": "24e252426334bbf1",
+   "howto_step_3_title": "093454384de5bab7",
+   "howto_step_4_des": "1947a35b85a1430c",
+   "howto_step_4_title": "eff222c27c747c54",
+   "howto_step_5_des": "75aef5626e603967",
+   "howto_step_5_title": "ceff16f5cda54ea7",
+   "howto_step_6_des": "948f0fe1609dc322",
+   "howto_step_6_title": "c55781c3366918f1",
+   "howto_step_7_des": "81eb25c7c44924a1",
+   "howto_step_7_title": "4f25113bfb8f2562",
+   "howto_title": "6b14a97c05dcbd6d",
+   "meta_description": "83542b3835f1d175",
+   "meta_title": "e022670c5f77f03c",
+   "mockup": "9628a0720b2899dc",
+   "product_name": "3d8dfbbaf71a9f17",
+   "prompt_chip_1": "b833ac94f3706cd1",
+   "prompt_chip_2": "a2198f472ce2fbee",
+   "prompt_chip_3": "4664f8a1bd5464f3",
+   "prompt_chip_4": "ea673050dd302e7b",
+   "slug": "4ecc593b7b8b5d6c",
+   "tab_content_1": "2d318725d53a0f89",
+   "tab_content_2": "81aa510df97823b1",
+   "tab_content_3": "e341a1b115e83962",
+   "tab_content_4": "643d7b33cd400485",
+   "tab_label_1": "b833ac94f3706cd1",
+   "tab_label_2": "a2198f472ce2fbee",
+   "tab_label_3": "4664f8a1bd5464f3",
+   "tab_label_4": "ea673050dd302e7b",
+   "usecase_heading": "f4f06257ad618477",
+   "why_description": "4e2ea839cb94b94a",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "e79a86f2f26bf263"
+  },
+  "all": "8c402003b4eb896d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "a57ce01d0b840421",
+   "alt:share_image": "deec3a4a4e46c05c",
+   "alt:tab_image_1": "4b402d19c99aa8bb",
+   "alt:tab_image_2": "a9c0ca844c9b5850",
+   "alt:tab_image_3": "2aea2d9ef6be0894",
+   "alt:tab_image_4": "0c4c221a5aedf08f",
+   "breadcrumb": "be5408af9e161acd",
+   "chip_adds": "b292ea313b909c97",
+   "explore_cta": "51d7e44d16a770b9",
+   "faq": "1ec9ee22d3414abd",
+   "feature_1": "656764dec008551c",
+   "feature_2": "7d5e1f060a318cec",
+   "feature_3": "f736f9faea8fa3c3",
+   "feature_4": "9d4e15c6e741289a",
+   "feature_5": "7a23b1a20bb38220",
+   "feature_6": "c2316d93f48f9948",
+   "features_heading": "68377351d83c45a8",
+   "features_subheading": "87ebe16e3e30ff32",
+   "h1": "b50c9be5f943798d",
+   "hero_description": "0fb9d64c778bea97",
+   "hero_prompt": "42b0e04c028b3b17",
+   "howto_description": "eaa91497d354d51f",
+   "howto_step_1_des": "2fccd8a2a67d9710",
+   "howto_step_1_title": "825b3fde39a2c600",
+   "howto_step_2_des": "ca7e4f0d130f955e",
+   "howto_step_2_title": "ddcd49cd85edbe34",
+   "howto_step_3_des": "24e252426334bbf1",
+   "howto_step_3_title": "093454384de5bab7",
+   "howto_step_4_des": "1947a35b85a1430c",
+   "howto_step_4_title": "eff222c27c747c54",
+   "howto_step_5_des": "75aef5626e603967",
+   "howto_step_5_title": "ceff16f5cda54ea7",
+   "howto_step_6_des": "948f0fe1609dc322",
+   "howto_step_6_title": "c55781c3366918f1",
+   "howto_step_7_des": "81eb25c7c44924a1",
+   "howto_step_7_title": "4f25113bfb8f2562",
+   "howto_title": "6b14a97c05dcbd6d",
+   "meta_description": "83542b3835f1d175",
+   "meta_title": "e022670c5f77f03c",
+   "mockup": "9628a0720b2899dc",
+   "product_name": "3d8dfbbaf71a9f17",
+   "prompt_chip_1": "b833ac94f3706cd1",
+   "prompt_chip_2": "a2198f472ce2fbee",
+   "prompt_chip_3": "4664f8a1bd5464f3",
+   "prompt_chip_4": "ea673050dd302e7b",
+   "slug": "4ecc593b7b8b5d6c",
+   "tab_content_1": "2d318725d53a0f89",
+   "tab_content_2": "81aa510df97823b1",
+   "tab_content_3": "e341a1b115e83962",
+   "tab_content_4": "643d7b33cd400485",
+   "tab_label_1": "b833ac94f3706cd1",
+   "tab_label_2": "a2198f472ce2fbee",
+   "tab_label_3": "4664f8a1bd5464f3",
+   "tab_label_4": "ea673050dd302e7b",
+   "usecase_heading": "f4f06257ad618477",
+   "why_description": "4e2ea839cb94b94a",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "e79a86f2f26bf263"
+  },
+  "all": "8c402003b4eb896d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
