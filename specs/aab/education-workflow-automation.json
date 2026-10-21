@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-247",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 05:44 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-94",
+   "note": "rubric 10/10 by B-r-94; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -925,5 +932,285 @@
  },
  "writers": [
   "B-w-247"
- ]
+ ],
+ "review": {
+  "by": "B-r-94",
+  "date": "2026-10-21 05:44 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Education Workflow Automation for the School Front Office'; hero 'Build education workflow automation that follows up on unexplained absences and books a substitute before the first bell.' (under 130 chars, leads with Build); how-to description one sentence with the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition up top for the AI Overview (FAQ 1, sourced to FlowForma), four working office flows as examples, a 7-step how-to, and a Zapier/Make/n8n comparison table; covers what the vendor-blog top 10 offers and shows it running."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Front-office vocabulary throughout: 'attendance clerk', 'registrar', 'homeroom 4B', 'substitute list in the order the office set', 'permission slips chased at pickup'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Describe a rule in plain English...', 'Tavi Okafor-Brennan is marked absent...', 'For one school week, have the front office write down...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5 within limits (2 ', so' endings); no blocking craft defect; two craft notes recorded (tab 3 word order, FAQ 10 answer-first)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain verbs and concrete details: 'No reply comes by 11:00 a.m.', '23 of 26 permission slips are signed', 'Linnea Castellanos-Moyo accepts at 6:20 a.m.'; no AI tells beyond the sourced 'streamline' in the definition."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to approved ids (prompt-build, api-connect, ai-extraction, alerts, database-owned, no-caps, code-export, conversational, e-signature-capture); FAQ 1 matches the FlowForma span 'the use of technology to streamline and automate repetitive administrative tasks'; FAQ 5 FERPA sentence matches the studentprivacy.ed.gov span and makes no compliance claim or legal advice ('Ask the person who handles student privacy at your school to review...'); table from library; times and counts agree across copy and images (8:15/8:45/11:00, 23 of 26 and 3, 5 classes, 6:20, room 214)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own K-8 front-office angle (Calloway Brook School); no survey content, so no overlap with the survey hub's school pages; sibling primaries (property management automation, healthcare automation, hotel automation) appear only as FAQ link anchors, not headings; no state-specific content."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, paa --spec 10 pass / 0 reject / 0 flag; hub link in item 2; sibling links in items 4, 7, 10; F9 moat lines in items 3, 8, 9; no brand or file-format questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 in-app alert to Desmond Ilunga-Park 'No reply by 11:00 a.m.' with Open record; tab 2 Pia Enrolled, homeroom 4B, Ignatius Veldkamp-Rao roster; tab 3 '23 of 26' signed, '3 slips not signed', 'Each email links to the slip'; tab 4 'Reported sick 6:05 a.m.', 'Accepted 6:20 a.m.', 'Room 214', 'Classes: Covered'. One hero, readable text."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_1 / howto_step_3",
+    "quote": "Rules written the way the handbook reads / Write rules like the handbook",
+    "issue": "The same handbook idea is a feature title and a how-to step title; likewise feature 4 'Every exception has one owner' vs step 04 'Pick one staff member per exception', and feature 5 'Paper forms read into fields' vs FAQ 9 'Scan the form, and the app reads the fields into the student record'.",
+    "fix": "Vary one side of each pair if the page is touched again.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_3",
+    "quote": "The app emails each of the 3 guardians who have not signed a reminder with a link to the slip.",
+    "issue": "Word order reads as 'guardians who have not signed a reminder'.",
+    "fix": "'The app emails a reminder with a link to the slip to each of the 3 guardians who have not signed.'",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 10",
+    "quote": "Send each student a check-in link with a move-in time slot before they arrive",
+    "issue": "A yes/no question answered with an instruction; the answer arrives implicitly rather than first.",
+    "fix": "Open with 'Yes.' as the other Can-questions do.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 5",
+    "quote": "Under FERPA, parents have the right to some control over the disclosure of personally identifiable information from the education records.",
+    "issue": "Accurate to the quoted span and no compliance claim, but the page also addresses colleges, where FERPA rights belong to the student; the sentence is true as sourced, only incomplete for that reader.",
+    "fix": "Optional: 'parents, or the student once they turn 18 or enter college' only with that span added to domain_sources.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "tab_content_2 / tab_content_4 / feature_3",
+    "quote": "The app marks Pia Enrolled ... The app offers his 5 classes ... The app emails her room 214 ... The app saves the signature",
+    "issue": "Five sentences open with 'The app' (QC A4 P2); same rhythm across tabs.",
+    "fix": "Vary openers on a future edit.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_1 / howto_step_3",
+   "issue": "The same handbook idea is a feature title and a how-to step title; likewise feature 4 'Every exception has one owner' vs step 04 'Pick one staff member per exception', and feature 5 'Paper forms read into fields' vs FAQ 9 'Scan the form, and the app reads the fields into the student record'.",
+   "fix": "Vary one side of each pair if the page is touched again.",
+   "by": "B-r-94",
+   "via": "review",
+   "date": "2026-10-21 05:44 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_3",
+   "issue": "Word order reads as 'guardians who have not signed a reminder'.",
+   "fix": "'The app emails a reminder with a link to the slip to each of the 3 guardians who have not signed.'",
+   "by": "B-r-94",
+   "via": "review",
+   "date": "2026-10-21 05:44 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 10",
+   "issue": "A yes/no question answered with an instruction; the answer arrives implicitly rather than first.",
+   "fix": "Open with 'Yes.' as the other Can-questions do.",
+   "by": "B-r-94",
+   "via": "review",
+   "date": "2026-10-21 05:44 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 5",
+   "issue": "Accurate to the quoted span and no compliance claim, but the page also addresses colleges, where FERPA rights belong to the student; the sentence is true as sourced, only incomplete for that reader.",
+   "fix": "Optional: 'parents, or the student once they turn 18 or enter college' only with that span added to domain_sources.",
+   "by": "B-r-94",
+   "via": "review",
+   "date": "2026-10-21 05:44 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "tab_content_2 / tab_content_4 / feature_3",
+   "issue": "Five sentences open with 'The app' (QC A4 P2); same rhythm across tabs.",
+   "fix": "Vary openers on a future edit.",
+   "by": "B-r-94",
+   "via": "review",
+   "date": "2026-10-21 05:44 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "130703fd7f5e8de0",
+   "alt:share_image": "c4f792d7ad3621a3",
+   "alt:tab_image_1": "b59da490124e4bd0",
+   "alt:tab_image_2": "5fee854dac7e7e13",
+   "alt:tab_image_3": "bfad65d54e089d50",
+   "alt:tab_image_4": "6b09529d9f83ba88",
+   "breadcrumb": "bb60d3c27a7de960",
+   "chip_adds": "2bd0546c6eeebf3a",
+   "explore_cta": "1f9fdea676d9a2d1",
+   "faq": "92c390d381619821",
+   "feature_1": "2260c187451453a2",
+   "feature_2": "d345c10ae45eb9ad",
+   "feature_3": "0af689b53d5a0853",
+   "feature_4": "01f719d63cc3be44",
+   "feature_5": "0cededf243d2d4d8",
+   "feature_6": "d09fe87666c3e1bf",
+   "features_heading": "341bd425492db847",
+   "features_subheading": "5ca7672b973e3399",
+   "h1": "0e5dfc7840d642ad",
+   "hero_description": "7e755c4882444306",
+   "hero_prompt": "004ce6c0fec6bdb0",
+   "howto_description": "b582672579f76e7e",
+   "howto_step_1_des": "08b81c8b7bfb1457",
+   "howto_step_1_title": "a595db025252fe80",
+   "howto_step_2_des": "0ce1dc9ee2fa6d64",
+   "howto_step_2_title": "f71421fa336f40f8",
+   "howto_step_3_des": "175ef8d6082b89eb",
+   "howto_step_3_title": "f38b9003e6b95fac",
+   "howto_step_4_des": "ed2dd5be85a7d06e",
+   "howto_step_4_title": "3dedc7edc55485ea",
+   "howto_step_5_des": "f032cef1ccf337a3",
+   "howto_step_5_title": "7b93f43fdbd9bf05",
+   "howto_step_6_des": "b39203480adc995a",
+   "howto_step_6_title": "09be723ecfee7306",
+   "howto_step_7_des": "2b5e70c5cd8f76dc",
+   "howto_step_7_title": "07aaa9a0f1edabd9",
+   "howto_title": "d4f9dfa2cf3b7505",
+   "meta_description": "7dc06dba7e9f6ee9",
+   "meta_title": "52efd19f5c0f7591",
+   "mockup": "516bddbb1313e766",
+   "product_name": "e314a7da1d481892",
+   "prompt_chip_1": "73c245db7feb29cd",
+   "prompt_chip_2": "cd45376a1b7a9c8a",
+   "prompt_chip_3": "5927d36a3ff8ef1c",
+   "prompt_chip_4": "035df4fc8276a9fc",
+   "slug": "54a38c035f88375e",
+   "tab_content_1": "01b4844ad79d72de",
+   "tab_content_2": "f78e4379478f2d88",
+   "tab_content_3": "dda450feac560276",
+   "tab_content_4": "894b9e4655b16a72",
+   "tab_label_1": "73c245db7feb29cd",
+   "tab_label_2": "cd45376a1b7a9c8a",
+   "tab_label_3": "5927d36a3ff8ef1c",
+   "tab_label_4": "035df4fc8276a9fc",
+   "usecase_heading": "0217be9883deb785",
+   "why_description": "49f1eb215e9062fa",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "43861dba82a7bbed"
+  },
+  "all": "c93233c121b15ebb",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "130703fd7f5e8de0",
+   "alt:share_image": "c4f792d7ad3621a3",
+   "alt:tab_image_1": "b59da490124e4bd0",
+   "alt:tab_image_2": "5fee854dac7e7e13",
+   "alt:tab_image_3": "bfad65d54e089d50",
+   "alt:tab_image_4": "6b09529d9f83ba88",
+   "breadcrumb": "bb60d3c27a7de960",
+   "chip_adds": "2bd0546c6eeebf3a",
+   "explore_cta": "1f9fdea676d9a2d1",
+   "faq": "92c390d381619821",
+   "feature_1": "2260c187451453a2",
+   "feature_2": "d345c10ae45eb9ad",
+   "feature_3": "0af689b53d5a0853",
+   "feature_4": "01f719d63cc3be44",
+   "feature_5": "0cededf243d2d4d8",
+   "feature_6": "d09fe87666c3e1bf",
+   "features_heading": "341bd425492db847",
+   "features_subheading": "5ca7672b973e3399",
+   "h1": "0e5dfc7840d642ad",
+   "hero_description": "7e755c4882444306",
+   "hero_prompt": "004ce6c0fec6bdb0",
+   "howto_description": "b582672579f76e7e",
+   "howto_step_1_des": "08b81c8b7bfb1457",
+   "howto_step_1_title": "a595db025252fe80",
+   "howto_step_2_des": "0ce1dc9ee2fa6d64",
+   "howto_step_2_title": "f71421fa336f40f8",
+   "howto_step_3_des": "175ef8d6082b89eb",
+   "howto_step_3_title": "f38b9003e6b95fac",
+   "howto_step_4_des": "ed2dd5be85a7d06e",
+   "howto_step_4_title": "3dedc7edc55485ea",
+   "howto_step_5_des": "f032cef1ccf337a3",
+   "howto_step_5_title": "7b93f43fdbd9bf05",
+   "howto_step_6_des": "b39203480adc995a",
+   "howto_step_6_title": "09be723ecfee7306",
+   "howto_step_7_des": "2b5e70c5cd8f76dc",
+   "howto_step_7_title": "07aaa9a0f1edabd9",
+   "howto_title": "d4f9dfa2cf3b7505",
+   "meta_description": "7dc06dba7e9f6ee9",
+   "meta_title": "52efd19f5c0f7591",
+   "mockup": "516bddbb1313e766",
+   "product_name": "e314a7da1d481892",
+   "prompt_chip_1": "73c245db7feb29cd",
+   "prompt_chip_2": "cd45376a1b7a9c8a",
+   "prompt_chip_3": "5927d36a3ff8ef1c",
+   "prompt_chip_4": "035df4fc8276a9fc",
+   "slug": "54a38c035f88375e",
+   "tab_content_1": "01b4844ad79d72de",
+   "tab_content_2": "f78e4379478f2d88",
+   "tab_content_3": "dda450feac560276",
+   "tab_content_4": "894b9e4655b16a72",
+   "tab_label_1": "73c245db7feb29cd",
+   "tab_label_2": "cd45376a1b7a9c8a",
+   "tab_label_3": "5927d36a3ff8ef1c",
+   "tab_label_4": "035df4fc8276a9fc",
+   "usecase_heading": "0217be9883deb785",
+   "why_description": "49f1eb215e9062fa",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "43861dba82a7bbed"
+  },
+  "all": "c93233c121b15ebb",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
