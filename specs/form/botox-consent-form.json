@@ -115,6 +115,13 @@
    "via": null,
    "by": "A-w-131",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 10:29 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-34",
+   "note": "rubric 10/10 by A-r-34; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -892,5 +899,285 @@
  },
  "writers": [
   "A-w-131"
- ]
+ ],
+ "review": {
+  "by": "A-r-34",
+  "date": "2026-10-21 10:29 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Botox Consent Form Patients Sign Before the Visit'; hero 'Build a botox consent form with your medical director's wording, an e-signature, and every signed copy in a database you own.' (D1 ok); how-to description one sentence, 'Seven steps to create a botox consent form your medical director approves and patients e-sign before the visit.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is clinic PDFs (template intent, AMBER angle: template page with digital signature). The page lays out what the form holds (health questions, initialed consent statements, e-signature, photo consent, product and lot), a 7-step how-to and form-specific FAQs (filler sections, photos, re-signing, lot number)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'the injector adds the areas treated, the product, and the lot number to the row that already holds the signed consent'; 'chart only, or chart and marketing'; version 3 to version 4 re-sign."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs ('Turn each health question...', 'Break the consent wording...', 'Ask about before and after photos separately'); tabs open on a named patient or clinic."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No tacked-on endings; FAQ answers arrive in the first sentence ('Your medical director decides.', 'Yes, if your medical director agrees.')."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain, operator detail: 'lot C4471C3', 'So far 14 have signed and 24 have not.' No hype; no AI-tell vocabulary. Repetition notes recorded."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent sentences map to prompt-build, database-owned, e-signature-capture (no legal-validity claim; FAQ 8 sends the reader to a healthcare attorney), alerts, api-connect, code-export, free-start, no-caps. Medical content is limited to the Medication Guide spans: 'tell their doctor about all their medical conditions and all the medicines they take' and 'be sure their doctor knows exactly which product they received', scoped to patients who had other botulinum toxin injections, as the guide says; checked against the AbbVie PDF, which is titled for BOTOX and BOTOX Cosmetic and carries the FDA-approval line. No risks, eligibility, injector-licensing, legal-validity or HIPAA statements. Tab 4: 14 + 24 = 38."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own stories (lot traceability, chart-only photos, medicines yes to the medical director, wording version 4). Phrasing shared with waxing-consent-form in step 6 and the free-tier answer is recorded as a note."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, no brand or file-format asks; hub link in item 2; sibling links to tattoo consent form and permanent makeup consent form; secondary 'filler consent form' in item 3. Q1's PA7 flag is code-locked and goes to Divit's packet, not this review."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 draws lot C4471C3, 'Forehead, crow's feet', 'Lot added by Pilar Esquivel'; tab 2 Wynne Talcott 4 photos, Chart only, 'Not in the marketing gallery'; tab 3 'Email to Dr. Theo Esterly', form filled Sunday, Tuesday appointment, '2 days before her Tuesday visit'; tab 4 'Signed so far: 14 of 38', 'Still to sign 24', 'Version 3 stays on her record'. One cursor per panel."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_6_des",
+    "quote": "Link each signed record to its appointment in the booking software you already use, since the app can connect to any tool with an API.",
+    "issue": "The opening sentence of step 6 is waxing-consent-form's step 6 with one word swapped ('Emergent connects' -> 'the app can connect'). The second sentence's 'keep a tablet at the front desk for walk-ins' also appears in waxing, chemical-peel and esthetician-intake pages.",
+    "fix": "Write step 6 around this page's own detail, for example sending the link with the booking confirmation and attaching the lot entry to the appointment.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq (item 9), howto_step_1_des",
+    "quote": "Emergent is free to start, and the free tier covers building and publishing a botox consent form. The form has no response caps, however many patients book and sign it.",
+    "issue": "FAQ 9 repeats waxing-consent-form's free answer nearly word for word ('...covers building and publishing. The form has no response caps, however many clients sign it.'); step 1's 'Each becomes a choice at the top of the form, and the sections a patient sees follow from it' follows waxing's step 1 sentence shape ('Each area becomes a choice at the top of the form, and the questions a client sees depend on the areas picked').",
+    "fix": "Rephrase both around this page (for example, what a single-location med spa can publish on the free tier).",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "scope",
+    "rule": "HUB_RULES 5",
+    "field": "meta_title, usecase_heading",
+    "quote": "Botox Consent Form Builder for Med Spas",
+    "issue": "The meta title and 'How Med Spas Use a Botox Consent Form' frame the page for med spas, while 4 of the top 10 are dental practices offering Botox (gantosdentalgroup, lakeeriedental, kennerdentalgroup, facialesthetics.org). The body copy itself is practice-neutral, so this narrows the snippet only.",
+    "fix": "Consider 'for Med Spas and Practices' or 'for Clinics' in the meta title.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "tab_content_2",
+    "quote": "For chart-only photos, no place in the gallery",
+    "issue": "Inverted, headline-ese construction that reads as written to a pattern rather than said aloud.",
+    "fix": "'Chart-only photos stay out of the marketing gallery'.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "page (QC Q9)",
+    "quote": "\"patient\" appears 14 times outside the FAQ; \"wording\" 13; \"record\" 11",
+    "issue": "Heavy repetition of three nouns across features, tabs and steps (QC Q9 P2).",
+    "fix": "Vary where meaning allows ('consent text', 'chart', 'row').",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_6_des",
+   "issue": "The opening sentence of step 6 is waxing-consent-form's step 6 with one word swapped ('Emergent connects' -> 'the app can connect'). The second sentence's 'keep a tablet at the front desk for walk-ins' also appears in waxing, chemical-peel and esthetician-intake pages.",
+   "fix": "Write step 6 around this page's own detail, for example sending the link with the booking confirmation and attaching the lot entry to the appointment.",
+   "by": "A-r-34",
+   "via": "review",
+   "date": "2026-10-21 10:29 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq (item 9), howto_step_1_des",
+   "issue": "FAQ 9 repeats waxing-consent-form's free answer nearly word for word ('...covers building and publishing. The form has no response caps, however many clients sign it.'); step 1's 'Each becomes a choice at the top of the form, and the sections a patient sees follow from it' follows waxing's step 1 sentence shape ('Each area becomes a choice at the top of the form, and the questions a client sees depend on the areas picked').",
+   "fix": "Rephrase both around this page (for example, what a single-location med spa can publish on the free tier).",
+   "by": "A-r-34",
+   "via": "review",
+   "date": "2026-10-21 10:29 UTC"
+  },
+  {
+   "criterion": "scope",
+   "rule": "HUB_RULES 5",
+   "field": "meta_title, usecase_heading",
+   "issue": "The meta title and 'How Med Spas Use a Botox Consent Form' frame the page for med spas, while 4 of the top 10 are dental practices offering Botox (gantosdentalgroup, lakeeriedental, kennerdentalgroup, facialesthetics.org). The body copy itself is practice-neutral, so this narrows the snippet only.",
+   "fix": "Consider 'for Med Spas and Practices' or 'for Clinics' in the meta title.",
+   "by": "A-r-34",
+   "via": "review",
+   "date": "2026-10-21 10:29 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "tab_content_2",
+   "issue": "Inverted, headline-ese construction that reads as written to a pattern rather than said aloud.",
+   "fix": "'Chart-only photos stay out of the marketing gallery'.",
+   "by": "A-r-34",
+   "via": "review",
+   "date": "2026-10-21 10:29 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "page (QC Q9)",
+   "issue": "Heavy repetition of three nouns across features, tabs and steps (QC Q9 P2).",
+   "fix": "Vary where meaning allows ('consent text', 'chart', 'row').",
+   "by": "A-r-34",
+   "via": "review",
+   "date": "2026-10-21 10:29 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "d8c341e86b8417e9",
+   "alt:share_image": "da7a62e9630c40b4",
+   "alt:tab_image_1": "1aadc6b4a4003cb1",
+   "alt:tab_image_2": "e944d6bd3c0e9e0b",
+   "alt:tab_image_3": "45eafa54bddb2958",
+   "alt:tab_image_4": "c5ac39056f1614a4",
+   "breadcrumb": "78448c50ea84ad73",
+   "chip_adds": "eaa899d7539f1787",
+   "explore_cta": "4d13948a286ed39b",
+   "faq": "02e28a1058f3ca23",
+   "feature_1": "ce1708f78bb074ee",
+   "feature_2": "ce3cd715b3c51302",
+   "feature_3": "2ebeaddcd9dd40fb",
+   "feature_4": "032d5181935d8ed3",
+   "feature_5": "d55d62bed722638c",
+   "feature_6": "be1f602ee21a39ad",
+   "features_heading": "f630a36beae9945a",
+   "features_subheading": "da3f442495690672",
+   "h1": "bbfd9dc95dff2103",
+   "hero_description": "f27d37a1b0e625e6",
+   "hero_prompt": "af828f9cec16088a",
+   "howto_description": "44c463ced4d1510a",
+   "howto_step_1_des": "46bfa4908c786adb",
+   "howto_step_1_title": "f53ecbe6ab4f7206",
+   "howto_step_2_des": "b107229298e940f5",
+   "howto_step_2_title": "e29e574017fd4aab",
+   "howto_step_3_des": "7b9af277891a93d0",
+   "howto_step_3_title": "1270f1bcc5937b35",
+   "howto_step_4_des": "c5dba903d450fdbe",
+   "howto_step_4_title": "25ac24d0ad511fb4",
+   "howto_step_5_des": "f4a3c0db8844ee3d",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "62860a498585f6aa",
+   "howto_step_6_title": "c05e2f52096bd43a",
+   "howto_step_7_des": "47acea3c8d68da72",
+   "howto_step_7_title": "91f480ed70dc1ed6",
+   "howto_title": "a9604ed97a6ff95b",
+   "meta_description": "fd4d1de8c061c5c3",
+   "meta_title": "999d5c19584d4bac",
+   "mockup": "1b7bdca49ef27a0b",
+   "product_name": "a9b06ad74d08d698",
+   "prompt_chip_1": "0c6a833a2e94e35f",
+   "prompt_chip_2": "94ea4d313c427258",
+   "prompt_chip_3": "ff1820b38daf295a",
+   "prompt_chip_4": "5ea79c082b13bac4",
+   "slug": "047c4736f5100a75",
+   "tab_content_1": "9de76dcd5d25def3",
+   "tab_content_2": "cd0ed99f6082580d",
+   "tab_content_3": "18f5d7d2cb4e9136",
+   "tab_content_4": "c7b6c011fb7530f2",
+   "tab_label_1": "d6f1e05cf0b3bf74",
+   "tab_label_2": "a59d7be6c167187d",
+   "tab_label_3": "585ac14c7da0f4b5",
+   "tab_label_4": "0836de061eae6496",
+   "usecase_heading": "e91d981cd02543bc",
+   "why_description": "5fb98b26f6d4e257",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "ee26af00c8f2dc5e"
+  },
+  "all": "daa2e6bb62c88f47",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "d8c341e86b8417e9",
+   "alt:share_image": "da7a62e9630c40b4",
+   "alt:tab_image_1": "1aadc6b4a4003cb1",
+   "alt:tab_image_2": "e944d6bd3c0e9e0b",
+   "alt:tab_image_3": "45eafa54bddb2958",
+   "alt:tab_image_4": "c5ac39056f1614a4",
+   "breadcrumb": "78448c50ea84ad73",
+   "chip_adds": "eaa899d7539f1787",
+   "explore_cta": "4d13948a286ed39b",
+   "faq": "02e28a1058f3ca23",
+   "feature_1": "ce1708f78bb074ee",
+   "feature_2": "ce3cd715b3c51302",
+   "feature_3": "2ebeaddcd9dd40fb",
+   "feature_4": "032d5181935d8ed3",
+   "feature_5": "d55d62bed722638c",
+   "feature_6": "be1f602ee21a39ad",
+   "features_heading": "f630a36beae9945a",
+   "features_subheading": "da3f442495690672",
+   "h1": "bbfd9dc95dff2103",
+   "hero_description": "f27d37a1b0e625e6",
+   "hero_prompt": "af828f9cec16088a",
+   "howto_description": "44c463ced4d1510a",
+   "howto_step_1_des": "46bfa4908c786adb",
+   "howto_step_1_title": "f53ecbe6ab4f7206",
+   "howto_step_2_des": "b107229298e940f5",
+   "howto_step_2_title": "e29e574017fd4aab",
+   "howto_step_3_des": "7b9af277891a93d0",
+   "howto_step_3_title": "1270f1bcc5937b35",
+   "howto_step_4_des": "c5dba903d450fdbe",
+   "howto_step_4_title": "25ac24d0ad511fb4",
+   "howto_step_5_des": "f4a3c0db8844ee3d",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "62860a498585f6aa",
+   "howto_step_6_title": "c05e2f52096bd43a",
+   "howto_step_7_des": "47acea3c8d68da72",
+   "howto_step_7_title": "91f480ed70dc1ed6",
+   "howto_title": "a9604ed97a6ff95b",
+   "meta_description": "fd4d1de8c061c5c3",
+   "meta_title": "999d5c19584d4bac",
+   "mockup": "1b7bdca49ef27a0b",
+   "product_name": "a9b06ad74d08d698",
+   "prompt_chip_1": "0c6a833a2e94e35f",
+   "prompt_chip_2": "94ea4d313c427258",
+   "prompt_chip_3": "ff1820b38daf295a",
+   "prompt_chip_4": "5ea79c082b13bac4",
+   "slug": "047c4736f5100a75",
+   "tab_content_1": "9de76dcd5d25def3",
+   "tab_content_2": "cd0ed99f6082580d",
+   "tab_content_3": "18f5d7d2cb4e9136",
+   "tab_content_4": "c7b6c011fb7530f2",
+   "tab_label_1": "d6f1e05cf0b3bf74",
+   "tab_label_2": "a59d7be6c167187d",
+   "tab_label_3": "585ac14c7da0f4b5",
+   "tab_label_4": "0836de061eae6496",
+   "usecase_heading": "e91d981cd02543bc",
+   "why_description": "5fb98b26f6d4e257",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "ee26af00c8f2dc5e"
+  },
+  "all": "daa2e6bb62c88f47",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

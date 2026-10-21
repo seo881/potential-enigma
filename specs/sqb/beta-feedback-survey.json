@@ -115,6 +115,13 @@
    "via": null,
    "by": "A-w-134",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 10:29 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-34",
+   "note": "rubric 10/10 by A-r-34; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -1015,5 +1022,285 @@
  },
  "writers": [
   "A-w-134"
- ]
+ ],
+ "review": {
+  "by": "A-r-34",
+  "date": "2026-10-21 10:29 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Beta Feedback Survey Before Launch Day'; hero 'Build a beta feedback survey that records the build behind every answer and saves results to a database you own.' (D1 ok); how-to description one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Searchers want the questions and how to run one: step 3 'rate this build, did it crash, what were you doing, and what confused you', FAQ 3 question list, exit survey (step 7), usability scale (step 5, FAQ 6), closed vs open beta (FAQ 9)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'save the build number with each answer'; 'On build 2.4, 11 of 47 testers said it crashed while scanning a barcode'; '10-statement System Usability Scale'; firmware 1.2."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every feature body opens on a verb or a full statement ('Describe the product...', 'Every response is a row...', 'Set the line...'); tabs open on the company doing something."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One ', so' ending (step 5, P2); answers arrive first ('Anything above 68 on the System Usability Scale.', 'Yes. A closed beta test...')."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail ('#beta-bugs', 'firmware engineer Saffi Brennick', 'Launch moved 2 weeks'). No AI-tell vocabulary. Notes on repetition and one link sentence."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent sentences map to prompt-build, database-owned, alerts, conversational, no-caps, api-connect, code-export. Third-party facts quote their spans: TechTarget (beta test is the second phase; closed and open beta wording) and MeasuringU (SUS 10 items, 5 options, average 68 from 500 studies, above 68 above average, 0-100 not a percentage). Tab 2: (12 x 80 + 24 x 71) / 36 = 74, 12 + 24 = 36 of 42."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Beta-specific stories (build-tagged crashes, SUS by role, firmware field test, design-partner exit survey). Parallel FAQ shapes with app-feedback-survey recorded as a note."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, gate 10/0/0, no brands or file formats; hub link in item 2; sibling links yes no questions survey, post purchase survey, funny survey questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 build 2.4 row 47 answered, 11 crashes, '11 of 47 testers', #beta-bugs, 60 testers, 4-question check-in; tab 2 Managers 80, Staff 71, 74 from 36 of 42, '12 managers, 24 staff'; tab 3 18 + 20 = 38 homes, 9 offline on 1.2, email to Saffi Brennick; tab 4 18 of 25 (72%), scheduled reports 7, launch moves 2 weeks."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq (item 4)",
+    "quote": "see the yes no questions survey for the format at full length",
+    "issue": "The exact-match anchor is dropped into the sentence ungrammatically ('the yes no questions survey'), and the sentence reads as link placement.",
+    "fix": "'For more on writing them, see these yes no questions survey examples' or move the link to a sentence where the phrase reads naturally.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "meta_description",
+    "quote": "Build a beta feedback survey from a prompt: build check-ins, usability scores, field tests, and exit surveys",
+    "issue": "'build' as verb and 'build check-ins' (software build) in one sentence reads as a stutter in the snippet.",
+    "fix": "'...from a prompt: per-build check-ins, usability scores, field tests, and exit surveys...'",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "faq (items 4, 8, 10)",
+    "quote": "When should a beta feedback survey use a yes or no question instead of a rating? / How do you get beta testers to finish a beta feedback survey? / Can a beta feedback survey include a fun question?",
+    "issue": "Three FAQ shapes mirror app-feedback-survey's ('rating scale or a yes or no answer', 'get more users to answer', 'playful tone'); the answers differ, the question set reads templated across the two pages. FAQ 7's 'is the job of a post purchase survey' also repeats app-feedback-survey's link sentence.",
+    "fix": "Keep the beta angle in the question itself (for example 'Which beta answers should trigger a follow-up question?').",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "page (QC Q9)",
+    "quote": "\"answer\" appears 11 times outside the FAQ; \"crash\" 11",
+    "issue": "Heavy repetition of two words across features, tabs and steps (QC Q9 P2).",
+    "fix": "Vary where meaning allows ('response', 'reply', 'failure').",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "howto_step_5_des",
+    "quote": "ask the same 10 usability statements every time, so this beta's score compares with the last one",
+    "issue": "Tacked-on ', so' ending (QC Q5 P2, 1 on the page).",
+    "fix": "'Ask the same 10 usability statements every round. This beta's score then compares with the last one.'",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq (item 4)",
+   "issue": "The exact-match anchor is dropped into the sentence ungrammatically ('the yes no questions survey'), and the sentence reads as link placement.",
+   "fix": "'For more on writing them, see these yes no questions survey examples' or move the link to a sentence where the phrase reads naturally.",
+   "by": "A-r-34",
+   "via": "review",
+   "date": "2026-10-21 10:29 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "meta_description",
+   "issue": "'build' as verb and 'build check-ins' (software build) in one sentence reads as a stutter in the snippet.",
+   "fix": "'...from a prompt: per-build check-ins, usability scores, field tests, and exit surveys...'",
+   "by": "A-r-34",
+   "via": "review",
+   "date": "2026-10-21 10:29 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "faq (items 4, 8, 10)",
+   "issue": "Three FAQ shapes mirror app-feedback-survey's ('rating scale or a yes or no answer', 'get more users to answer', 'playful tone'); the answers differ, the question set reads templated across the two pages. FAQ 7's 'is the job of a post purchase survey' also repeats app-feedback-survey's link sentence.",
+   "fix": "Keep the beta angle in the question itself (for example 'Which beta answers should trigger a follow-up question?').",
+   "by": "A-r-34",
+   "via": "review",
+   "date": "2026-10-21 10:29 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "page (QC Q9)",
+   "issue": "Heavy repetition of two words across features, tabs and steps (QC Q9 P2).",
+   "fix": "Vary where meaning allows ('response', 'reply', 'failure').",
+   "by": "A-r-34",
+   "via": "review",
+   "date": "2026-10-21 10:29 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "howto_step_5_des",
+   "issue": "Tacked-on ', so' ending (QC Q5 P2, 1 on the page).",
+   "fix": "'Ask the same 10 usability statements every round. This beta's score then compares with the last one.'",
+   "by": "A-r-34",
+   "via": "review",
+   "date": "2026-10-21 10:29 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "66262e013a0367ff",
+   "alt:share_image": "9371ac359f499611",
+   "alt:tab_image_1": "a3a9bbe87df4dc6c",
+   "alt:tab_image_2": "0bf0aec5e856fd32",
+   "alt:tab_image_3": "f51e51c3cd844597",
+   "alt:tab_image_4": "84233744b74486ad",
+   "breadcrumb": "13802d1260ce01d5",
+   "chip_adds": "36ba40f198fb7e3b",
+   "explore_cta": "ae75f82f7dc793aa",
+   "faq": "6f15e697ea425ea4",
+   "feature_1": "9977f29f0fd354cd",
+   "feature_2": "b39cef836c852c6b",
+   "feature_3": "7d6f68e6061f44b9",
+   "feature_4": "7ca6bf32cbecbf54",
+   "feature_5": "aa4a844999291252",
+   "feature_6": "4a7dc40fb0ac5d69",
+   "features_heading": "a0ba15634c19417b",
+   "features_subheading": "105b06198aa9205e",
+   "h1": "7a5fac3db28f7c40",
+   "hero_description": "4b14589c4aff4bdc",
+   "hero_prompt": "a45ffac601e9012c",
+   "howto_description": "aa37127e1f29e27d",
+   "howto_step_1_des": "74088ebd92c3b5d5",
+   "howto_step_1_title": "56ffd966f91edede",
+   "howto_step_2_des": "79ae601e84930faa",
+   "howto_step_2_title": "3af081cbb42f8b71",
+   "howto_step_3_des": "25a3e85abd973926",
+   "howto_step_3_title": "909153d57035d98c",
+   "howto_step_4_des": "2942b551a504d443",
+   "howto_step_4_title": "8972bb0cbfdf9552",
+   "howto_step_5_des": "e1912dd944b819a4",
+   "howto_step_5_title": "fabaeeb8a9005069",
+   "howto_step_6_des": "680a8769808f0ca8",
+   "howto_step_6_title": "4722da01b46d9a2e",
+   "howto_step_7_des": "83dbc84eef7c6859",
+   "howto_step_7_title": "9753c0c26a23ba99",
+   "howto_title": "e51af03e23fd749f",
+   "meta_description": "7efdaef9ae28c926",
+   "meta_title": "70bf8c22c75d1379",
+   "mockup": "38925b0d06ae28c0",
+   "product_name": "2396509e4ba2487d",
+   "prompt_chip_1": "1f58599bc91dbb48",
+   "prompt_chip_2": "435fd2e4d63ed5d4",
+   "prompt_chip_3": "279e065a1a7534b5",
+   "prompt_chip_4": "8c16558495b8b745",
+   "slug": "90644be9cb1ccd2f",
+   "tab_content_1": "f2c68bc17d89abb1",
+   "tab_content_2": "9257a2e949d2d7c8",
+   "tab_content_3": "be06bb404db1b7b4",
+   "tab_content_4": "baa287ddbea201f8",
+   "tab_label_1": "5793e03338793cdd",
+   "tab_label_2": "6ee0725eda6ff668",
+   "tab_label_3": "41e33c52c5ded4a8",
+   "tab_label_4": "8f3d4b04ef5d02db",
+   "usecase_heading": "76fbf7f5f929abf9",
+   "why_description": "0dffd4f62823ee10",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "ac11b27ca87d60f5"
+  },
+  "all": "bf5ffd1b2bdc3562",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "66262e013a0367ff",
+   "alt:share_image": "9371ac359f499611",
+   "alt:tab_image_1": "a3a9bbe87df4dc6c",
+   "alt:tab_image_2": "0bf0aec5e856fd32",
+   "alt:tab_image_3": "f51e51c3cd844597",
+   "alt:tab_image_4": "84233744b74486ad",
+   "breadcrumb": "13802d1260ce01d5",
+   "chip_adds": "36ba40f198fb7e3b",
+   "explore_cta": "ae75f82f7dc793aa",
+   "faq": "6f15e697ea425ea4",
+   "feature_1": "9977f29f0fd354cd",
+   "feature_2": "b39cef836c852c6b",
+   "feature_3": "7d6f68e6061f44b9",
+   "feature_4": "7ca6bf32cbecbf54",
+   "feature_5": "aa4a844999291252",
+   "feature_6": "4a7dc40fb0ac5d69",
+   "features_heading": "a0ba15634c19417b",
+   "features_subheading": "105b06198aa9205e",
+   "h1": "7a5fac3db28f7c40",
+   "hero_description": "4b14589c4aff4bdc",
+   "hero_prompt": "a45ffac601e9012c",
+   "howto_description": "aa37127e1f29e27d",
+   "howto_step_1_des": "74088ebd92c3b5d5",
+   "howto_step_1_title": "56ffd966f91edede",
+   "howto_step_2_des": "79ae601e84930faa",
+   "howto_step_2_title": "3af081cbb42f8b71",
+   "howto_step_3_des": "25a3e85abd973926",
+   "howto_step_3_title": "909153d57035d98c",
+   "howto_step_4_des": "2942b551a504d443",
+   "howto_step_4_title": "8972bb0cbfdf9552",
+   "howto_step_5_des": "e1912dd944b819a4",
+   "howto_step_5_title": "fabaeeb8a9005069",
+   "howto_step_6_des": "680a8769808f0ca8",
+   "howto_step_6_title": "4722da01b46d9a2e",
+   "howto_step_7_des": "83dbc84eef7c6859",
+   "howto_step_7_title": "9753c0c26a23ba99",
+   "howto_title": "e51af03e23fd749f",
+   "meta_description": "7efdaef9ae28c926",
+   "meta_title": "70bf8c22c75d1379",
+   "mockup": "38925b0d06ae28c0",
+   "product_name": "2396509e4ba2487d",
+   "prompt_chip_1": "1f58599bc91dbb48",
+   "prompt_chip_2": "435fd2e4d63ed5d4",
+   "prompt_chip_3": "279e065a1a7534b5",
+   "prompt_chip_4": "8c16558495b8b745",
+   "slug": "90644be9cb1ccd2f",
+   "tab_content_1": "f2c68bc17d89abb1",
+   "tab_content_2": "9257a2e949d2d7c8",
+   "tab_content_3": "be06bb404db1b7b4",
+   "tab_content_4": "baa287ddbea201f8",
+   "tab_label_1": "5793e03338793cdd",
+   "tab_label_2": "6ee0725eda6ff668",
+   "tab_label_3": "41e33c52c5ded4a8",
+   "tab_label_4": "8f3d4b04ef5d02db",
+   "usecase_heading": "76fbf7f5f929abf9",
+   "why_description": "0dffd4f62823ee10",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "ac11b27ca87d60f5"
+  },
+  "all": "bf5ffd1b2bdc3562",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

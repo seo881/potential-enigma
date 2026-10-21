@@ -122,6 +122,13 @@
    "via": null,
    "by": "A-w-132",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 10:29 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-34",
+   "note": "rubric 10/10 by A-r-34; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -959,5 +966,285 @@
  ],
  "writers": [
   "A-w-132"
- ]
+ ],
+ "review": {
+  "by": "A-r-34",
+  "date": "2026-10-21 10:29 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Dental Patient Survey Your Office Acts On'; hero 'Build a dental patient survey patients answer on a phone after each visit, with low scores sent to your office manager.' (D1 ok); how-to description one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Questions to ask (FAQ 3, feature 1), timing (FAQ 4, feature 2), length (FAQ 5), anonymity (FAQ 6), children (FAQ 10, tab 2), acting on low scores (FAQ 9, step 5), plus a 7-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Any wait score of 1 or 2 emails office manager Ines Haverty the comment'; '8 of those 11 had a Monday morning slot'; 'whether someone went over the cost before they paid'; face screen for the child."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs ('List what the practice wants to hear about', 'Connect your scheduling software', 'Pick the score'); tabs open on the practice doing something."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No tacked-on endings; FAQ answers lead with the answer ('Not fully: make the name field optional.', 'Not for Google reviews.'). Two P2 long sentences (FAQ 1, FAQ 8) under 40 words."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail ('stays open on Thursdays until 7 pm', 'Its front desk now reviews the estimate at checkout'). No AI-tell vocabulary. Repetition notes recorded."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent sentences map to prompt-build, api-connect, alerts, conversational, no-caps, database-owned, code-export, free-start. The one third-party fact (Google contributor policy: merchants may not 'selectively solicit positive reviews from customers') quotes its span. No clinical advice ('not to assess anyone's teeth'; step 2 keeps symptoms and care decisions out of the survey) and no HIPAA or privacy-compliance claims. Numbers: 8 + 2 + 1 = 11; 58 + 39 + 27 + 16 = 140; 112/123 = 91%, 95/108 = 88%, 57/89 = 64%."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Dental-specific stories (Monday wait scores, pediatric face screen, ortho ranked hours, multi-office cost explanation); no patient satisfaction survey heading. Sentence shared with cancellation-survey recorded as a note."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, gate 10/0/0, no brands or file formats; hub link in item 2; sibling links post purchase survey, ranking survey, funny survey questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 'If a wait score is 1 or 2, email Ines Haverty', 11 of 248, Monday mornings 8; tab 2 4 parent questions then faces, 81 of 96 smile, 23 parents unsure; tab 3 ranking 58/39/27/16 of 140, Thursdays until 7 pm; tab 4 Cedar Gate 112/123, Orchard Row 95/108, Sallow Hill 57/89, estimate review at checkout. Render is current (render.json brief hash matches)."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_1, faq (items 1, 3, 5)",
+    "quote": "booking, the wait, the front desk, and the cost / how easy it was to book, how long they waited, and whether the cost was clear / how easy it was to get an appointment, whether the patient was seen on time, and how the front desk treated them / one each for scheduling, waiting, the staff, and cost",
+    "issue": "The same four-topic list (booking, wait, front desk, cost) is restated in feature 1, FAQ 1, FAQ 3 and FAQ 5 with the words swapped.",
+    "fix": "Keep the full list in FAQ 3; let FAQ 5 give the count and FAQ 1 one example.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_1_des",
+    "quote": "Put that list in your prompt, and Emergent drafts the survey around it.",
+    "issue": "Sentence copied verbatim from cancellation-survey step 1 (also close to board-survey and tenant-satisfaction-survey).",
+    "fix": "'Paste those decisions into your prompt; each question Emergent drafts should feed one of them.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "faq (item 5)",
+    "quote": "and one open question. Save a longer survey for once a year. Emergent builds it with one question per screen, and a patient answers each with one tap on a phone.",
+    "issue": "The same answer includes an open question, which takes typing, so 'answers each with one tap' overstates.",
+    "fix": "'...and a patient answers each rating with one tap on a phone.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_3, faq (item 6)",
+    "quote": "The app emails that answer and its comment to the office manager, with the patient's name and phone number. / Not fully: make the name field optional.",
+    "issue": "Feature 3 promises the patient's name and phone with every low-score alert; FAQ 6 recommends an optional name field. Read together, the reader cannot tell whether low scores are identified.",
+    "fix": "Feature 3: '...with the patient's name and phone number when the patient left them.'",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq (item 6)",
+    "quote": "while an anonymous one may draw blunter comments with no way to follow up",
+    "issue": "Hedged generalization about respondent behavior with no source; it supports a recommendation, not a stated fact.",
+    "fix": "Drop 'may draw blunter comments' or source it.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_1, faq (items 1, 3, 5)",
+   "issue": "The same four-topic list (booking, wait, front desk, cost) is restated in feature 1, FAQ 1, FAQ 3 and FAQ 5 with the words swapped.",
+   "fix": "Keep the full list in FAQ 3; let FAQ 5 give the count and FAQ 1 one example.",
+   "by": "A-r-34",
+   "via": "review",
+   "date": "2026-10-21 10:29 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_1_des",
+   "issue": "Sentence copied verbatim from cancellation-survey step 1 (also close to board-survey and tenant-satisfaction-survey).",
+   "fix": "'Paste those decisions into your prompt; each question Emergent drafts should feed one of them.'",
+   "by": "A-r-34",
+   "via": "review",
+   "date": "2026-10-21 10:29 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "faq (item 5)",
+   "issue": "The same answer includes an open question, which takes typing, so 'answers each with one tap' overstates.",
+   "fix": "'...and a patient answers each rating with one tap on a phone.'",
+   "by": "A-r-34",
+   "via": "review",
+   "date": "2026-10-21 10:29 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_3, faq (item 6)",
+   "issue": "Feature 3 promises the patient's name and phone with every low-score alert; FAQ 6 recommends an optional name field. Read together, the reader cannot tell whether low scores are identified.",
+   "fix": "Feature 3: '...with the patient's name and phone number when the patient left them.'",
+   "by": "A-r-34",
+   "via": "review",
+   "date": "2026-10-21 10:29 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq (item 6)",
+   "issue": "Hedged generalization about respondent behavior with no source; it supports a recommendation, not a stated fact.",
+   "fix": "Drop 'may draw blunter comments' or source it.",
+   "by": "A-r-34",
+   "via": "review",
+   "date": "2026-10-21 10:29 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "2f45fda033f79f0a",
+   "alt:share_image": "0bd35a9166dfffc5",
+   "alt:tab_image_1": "3f2c8ce6dbcbfa52",
+   "alt:tab_image_2": "99ea5ab8af9ed412",
+   "alt:tab_image_3": "667f4b4a53297e9d",
+   "alt:tab_image_4": "fe7281b9a912c49f",
+   "breadcrumb": "abe6bd7d580d2a47",
+   "chip_adds": "f20ea758f6fcf81d",
+   "explore_cta": "44f8edc3cf5a5a8b",
+   "faq": "df5c2d3fbe945172",
+   "feature_1": "96d04137a572736e",
+   "feature_2": "332c0a7ddc3cfa21",
+   "feature_3": "4dfcdd7da7824e22",
+   "feature_4": "f2ae65869136486a",
+   "feature_5": "a53318ae1c1502f5",
+   "feature_6": "24cf97b0659ddab1",
+   "features_heading": "afd4245d8fdbc13d",
+   "features_subheading": "a374e1d1f8d1af2b",
+   "h1": "0c528e4febc44b61",
+   "hero_description": "ffa639a8a52bbb70",
+   "hero_prompt": "5e988793e8d8e902",
+   "howto_description": "1d681d15bd787a2c",
+   "howto_step_1_des": "01d784a82343738f",
+   "howto_step_1_title": "8678036b8a955c60",
+   "howto_step_2_des": "5dd8a37daa894a61",
+   "howto_step_2_title": "f45a74ef367e4779",
+   "howto_step_3_des": "67989a13f990d29d",
+   "howto_step_3_title": "412f34f3d8b7cf47",
+   "howto_step_4_des": "b7b57a98d90bb3a5",
+   "howto_step_4_title": "2621e9761d0f3957",
+   "howto_step_5_des": "096e571731352b64",
+   "howto_step_5_title": "3d9a7d14befb2ac8",
+   "howto_step_6_des": "c42162b5d7574739",
+   "howto_step_6_title": "6e20d080d34f8a5d",
+   "howto_step_7_des": "a3627d183d237a46",
+   "howto_step_7_title": "c7ac3eaf258a5d0b",
+   "howto_title": "e92f7931b5b51ad2",
+   "meta_description": "8779d238f60bc9ca",
+   "meta_title": "be164f3b7649f0af",
+   "mockup": "481da302305ee017",
+   "product_name": "abe9608239805db0",
+   "prompt_chip_1": "5b492e3ff0003731",
+   "prompt_chip_2": "5ef7e6e9498899a0",
+   "prompt_chip_3": "280409957b032207",
+   "prompt_chip_4": "0e6953a922d891bd",
+   "slug": "e5fa9cf12a89feab",
+   "tab_content_1": "b51a9b55bba0f3d6",
+   "tab_content_2": "27807872427b8285",
+   "tab_content_3": "87e155a758a17c94",
+   "tab_content_4": "179313fc18a66eac",
+   "tab_label_1": "9a6dc298e1c17222",
+   "tab_label_2": "51d7132b48299707",
+   "tab_label_3": "f325953ea439db9e",
+   "tab_label_4": "ab73b19ee1267548",
+   "usecase_heading": "c419f40880b7f507",
+   "why_description": "8c321f288a119205",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "e0f7699e4168ec95"
+  },
+  "all": "fb0bdf7738b7b000",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "2f45fda033f79f0a",
+   "alt:share_image": "0bd35a9166dfffc5",
+   "alt:tab_image_1": "3f2c8ce6dbcbfa52",
+   "alt:tab_image_2": "99ea5ab8af9ed412",
+   "alt:tab_image_3": "667f4b4a53297e9d",
+   "alt:tab_image_4": "fe7281b9a912c49f",
+   "breadcrumb": "abe6bd7d580d2a47",
+   "chip_adds": "f20ea758f6fcf81d",
+   "explore_cta": "44f8edc3cf5a5a8b",
+   "faq": "df5c2d3fbe945172",
+   "feature_1": "96d04137a572736e",
+   "feature_2": "332c0a7ddc3cfa21",
+   "feature_3": "4dfcdd7da7824e22",
+   "feature_4": "f2ae65869136486a",
+   "feature_5": "a53318ae1c1502f5",
+   "feature_6": "24cf97b0659ddab1",
+   "features_heading": "afd4245d8fdbc13d",
+   "features_subheading": "a374e1d1f8d1af2b",
+   "h1": "0c528e4febc44b61",
+   "hero_description": "ffa639a8a52bbb70",
+   "hero_prompt": "5e988793e8d8e902",
+   "howto_description": "1d681d15bd787a2c",
+   "howto_step_1_des": "01d784a82343738f",
+   "howto_step_1_title": "8678036b8a955c60",
+   "howto_step_2_des": "5dd8a37daa894a61",
+   "howto_step_2_title": "f45a74ef367e4779",
+   "howto_step_3_des": "67989a13f990d29d",
+   "howto_step_3_title": "412f34f3d8b7cf47",
+   "howto_step_4_des": "b7b57a98d90bb3a5",
+   "howto_step_4_title": "2621e9761d0f3957",
+   "howto_step_5_des": "096e571731352b64",
+   "howto_step_5_title": "3d9a7d14befb2ac8",
+   "howto_step_6_des": "c42162b5d7574739",
+   "howto_step_6_title": "6e20d080d34f8a5d",
+   "howto_step_7_des": "a3627d183d237a46",
+   "howto_step_7_title": "c7ac3eaf258a5d0b",
+   "howto_title": "e92f7931b5b51ad2",
+   "meta_description": "8779d238f60bc9ca",
+   "meta_title": "be164f3b7649f0af",
+   "mockup": "481da302305ee017",
+   "product_name": "abe9608239805db0",
+   "prompt_chip_1": "5b492e3ff0003731",
+   "prompt_chip_2": "5ef7e6e9498899a0",
+   "prompt_chip_3": "280409957b032207",
+   "prompt_chip_4": "0e6953a922d891bd",
+   "slug": "e5fa9cf12a89feab",
+   "tab_content_1": "b51a9b55bba0f3d6",
+   "tab_content_2": "27807872427b8285",
+   "tab_content_3": "87e155a758a17c94",
+   "tab_content_4": "179313fc18a66eac",
+   "tab_label_1": "9a6dc298e1c17222",
+   "tab_label_2": "51d7132b48299707",
+   "tab_label_3": "f325953ea439db9e",
+   "tab_label_4": "ab73b19ee1267548",
+   "usecase_heading": "c419f40880b7f507",
+   "why_description": "8c321f288a119205",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "e0f7699e4168ec95"
+  },
+  "all": "fb0bdf7738b7b000",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
