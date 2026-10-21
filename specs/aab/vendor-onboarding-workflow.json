@@ -1,0 +1,1032 @@
+{
+ "url": "/ai-automation-builder/vendor-onboarding-workflow",
+ "hub": "Auto",
+ "item_id": null,
+ "status": "spec",
+ "written_by": "B-w-303",
+ "keywords": {
+  "primary": "vendor onboarding workflow",
+  "secondaries_used": []
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Vendor Onboarding Workflow With W-9 Intake | Emergent",
+  "meta_description": "Build a vendor onboarding workflow that collects W-9s and insurance certificates, holds new bank details for a callback, and routes approval.",
+  "h1": "Build a Vendor Onboarding Workflow Vendors Fill In",
+  "slug": "vendor-onboarding-workflow",
+  "product_name": "Vendor Onboarding Workflow Builder",
+  "hero_description": "Get a vendor onboarding workflow that collects W-9s, insurance, and bank details, then routes each vendor for approval.",
+  "breadcrumb": "Vendor Onboarding Workflow",
+  "category": "a33cd4fb124ec86a130809893b2b3896",
+  "explore_cta": "Build My Vendor Onboarding",
+  "features_heading": "What Emergent Builds Into Vendor Onboarding",
+  "features_subheading": "Each new vendor gets one record that fills in as its documents and approvals arrive.",
+  "feature_1": "<h3>An intake link the vendor fills in</h3><p>Emergent builds the intake form and the vendor database behind it from your prompt. The vendor's contact fills in company details and files, and it all lands in a database you own.</p>",
+  "feature_2": "<h3>W-9s and certificates read into fields</h3><p>The app reads a signed W-9 and a certificate of insurance into structured fields with AI. A value it cannot read with confidence goes to a person to check before the record moves on.</p>",
+  "feature_3": "<h3>Reminders for anything still missing</h3><p>A vendor that stops halfway gets an email reminder on the days you pick. If the record is still incomplete after the last one, the buyer who asked for the vendor gets a Slack alert.</p>",
+  "feature_4": "<h3>Approvers chosen by expected spend</h3><p>You set the spend lines, and the app sends each new vendor to the right approvers in order. Add as many approvers as your rules need, since none of them takes a paid seat.</p>",
+  "feature_5": "<h3>New vendors created in your ledger</h3><p>Connect QuickBooks, Xero, or NetSuite through their APIs. After the last approval, the app writes the vendor's legal name and payment terms into the ledger, and nobody retypes them.</p>",
+  "feature_6": "<h3>The onboarding code, in your GitHub</h3><p>Export the full code of the workflow to your GitHub repository on paid plans. Anyone on your team can read every rule the onboarding follows and change it like any codebase.</p>",
+  "why_title": "Why Build Vendor Onboarding on Emergent?",
+  "why_description": "Emergent builds the vendor database and its approvals as one app from a prompt, with no cap on tasks.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Zapier</th>\n        <th scope=\"col\">Make (Integromat)</th>\n        <th scope=\"col\">n8n</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt for the workflow and the app around it</td>\n        <td class=\"col-other\">Templates and editor, AI copilot</td>\n        <td class=\"col-other\">Visual canvas</td>\n        <td class=\"col-other\">Visual canvas, self-hosted or cloud</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">What you get</th>\n        <td class=\"col-brand\">Workflow + trigger form + database + dashboard, as code you own</td>\n        <td class=\"col-other\">Zaps, plus Tables and Interfaces inside Zapier</td>\n        <td class=\"col-other\">Scenarios inside Make</td>\n        <td class=\"col-other\">Workflows inside n8n</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Behavior at cap</th>\n        <td class=\"col-brand\">Keeps running, no task cap</td>\n        <td class=\"col-other\">Overage billed at up to 1.25× the base rate</td>\n        <td class=\"col-other\">Runs pause</td>\n        <td class=\"col-other\">Cloud workflows stop until the reset or an upgrade</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">AI and agent steps</th>\n        <td class=\"col-brand\">Native, share the same credit pool</td>\n        <td class=\"col-other\">Priced by model tier, drawn from the task pool</td>\n        <td class=\"col-other\">AI modules cost variable credits</td>\n        <td class=\"col-other\">Bring your own model API key, billed by the provider</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">Yes on Community Edition</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "Where Each New Vendor Gets Checked",
+  "tab_label_1": "W-9 Intake",
+  "tab_label_2": "Insurance",
+  "tab_label_3": "Bank Details",
+  "tab_label_4": "Approvals",
+  "tab_content_1": "<h3>When the W-9 name differs, accounts payable decides</h3><p>Mossgiel Animal Hospitals adds Calderbrook Lab Supply, and the app emails Iwona Brannoch an intake link. She uploads a signed W-9, and the app reads its legal name and TIN. The TIN matches what she typed. The W-9 says Calderbrook Lab Supply LLC, and Ellery Castellanos in accounts payable confirms the name.</p>",
+  "tab_content_2": "<h3>The $500,000 certificate goes back to Yarrowby</h3><p>Hollins Cove Properties asks maintenance vendors for $1,000,000 in general liability per occurrence. Yarrowby Facilities Services uploads a certificate showing $500,000, and the app marks it below minimum. Its contact, Rafferty Velasquez-Fry, gets an email asking for an updated certificate, and Yarrowby waits.</p>",
+  "tab_content_3": "<h3>Before Ashgrove is paid, someone calls its contract number</h3><p>Ashgrove Print Co. typed its bank details into Pinewick Brewing's intake form, and the app saved them as unverified. Marguerite Osei in accounts payable gets a task to call Ashgrove at the phone number on its signed contract. Until she marks the call done, Ashgrove's first invoice of $2,340 stays out of payment runs.</p>",
+  "tab_content_4": "<h3>With $68,000 of spend, Quillon goes to two approvers</h3><p>Tidewater Robotics routes new vendors by expected annual spend, and anything over $25,000 needs two approvals. Quillon Machining is expected at $68,000 a year. Callum Vance, the engineering lead, approves first, then Ingrid Solberg, the finance director. The app then creates Quillon in NetSuite through its API.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { w9Intake: \"Build a vendor intake workflow for my animal hospital group. Email each new vendor's contact an intake link for company details and a signed W-9. Read the legal name and TIN from the W-9 and compare them with what the vendor typed. Send any name that does not match to accounts payable to confirm.\", insurance: \"Build an insurance check for my property management company's vendor onboarding. Each maintenance vendor uploads a certificate of insurance, and the app reads the general liability limit per occurrence. If it is under $1,000,000, mark it below minimum and email the vendor's contact for an updated certificate.\", bankDetails: \"Build a bank details step for my brewery's vendor onboarding. Save the bank details a new vendor enters as unverified, and give accounts payable a task to call the vendor at the phone number on its signed contract. Keep the vendor's invoices out of payment runs until the call is marked done.\", approvals: \"Build approval routing for new vendors at my robotics company. Ask for the expected annual spend on each request. Over $25,000, send the vendor to the requesting team's lead first and the finance director second. After the last approval, create the vendor in NetSuite.\" };</p>",
+  "howto_title": "How to Build a Vendor Onboarding Workflow",
+  "howto_description": "Seven steps to decide what a vendor onboarding workflow collects and who approves it, then build and test it in Emergent.",
+  "howto_step_1_title": "01 Write down every document you need",
+  "howto_step_2_title": "02 Pick an insurance minimum",
+  "howto_step_3_title": "03 Set a second-approver line",
+  "howto_step_4_title": "04 Choose who confirms bank details",
+  "howto_step_1_des": "List each item a new vendor must send, and mark which ones block the first payment. Each item becomes a field or an upload on the intake form, and anything optional can arrive after approval.",
+  "howto_step_2_des": "Write a coverage minimum for each kind of vendor you hire, with a higher general liability limit for vendors who work on your sites. Ask your insurance broker which limits fit your contracts.",
+  "howto_step_3_des": "Choose the expected annual spend that adds a second approver, and name who approves on each side of that line. Keep the first approver close to the work, since that person knows whether the vendor is needed.",
+  "howto_step_4_des": "Name the person who confirms new bank details and the phone number they call. Use a number from a signed contract or an earlier invoice, never one sent in the same email or form as the bank details.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Vendor Onboarding Workflow FAQ\", \"items\": [{\"q\": \"What is a vendor onboarding workflow?\", \"a\": \"A vendor onboarding workflow is the fixed set of steps a business runs to bring on a new vendor before its first payment. It covers an intake form, tax and insurance documents, bank details, and an approval. Each step has an owner, and the vendor goes into the accounting system only after the last approval.\"}, {\"q\": \"How do I create a vendor onboarding workflow?\", \"a\": \"Write down the documents you require and the spend line that adds a second approver. Then describe them in a prompt to Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>, which builds the intake form, the vendor database, and the approval workflow as one app. To change a rule later, ask for the change in another prompt.\"}, {\"q\": \"What should a vendor onboarding workflow ask a new vendor to submit?\", \"a\": \"Ask for 4 things before the first payment: a signed W-9, a certificate of insurance that meets your minimum, bank details, and the legal name and address its invoices will carry. Add any license the work needs, such as a trade license for electrical or plumbing work. Mark each item required on the intake form, and a record with a gap cannot move on to approval.\"}, {\"q\": \"How is a vendor onboarding workflow different from onboarding a new hire?\", \"a\": \"A vendor is a business you pay against invoices, and its onboarding checks tax forms and bank details before the first payment. A new hire joins the company and needs equipment and accounts on day one, which an <a href='https://emergent.sh/ai-automation-builder/employee-onboarding-workflow'>employee onboarding workflow</a> handles. Keep the two apart, because they collect different forms and answer to different owners.\"}, {\"q\": \"Why does a vendor onboarding workflow collect a W-9?\", \"a\": \"It gives you the vendor's correct TIN when you are required to file an information return with the IRS for payments to it. The IRS says to use Form W-9 \\\"to provide your correct Taxpayer Identification Number (TIN) to the person who is required to file an information return with the IRS\\\". Apps Emergent builds collect W-9s at intake and keep them with each vendor's payment records.\"}, {\"q\": \"How should a vendor onboarding workflow confirm a vendor's bank details?\", \"a\": \"Confirm them by phone before the first payment, at a number you already hold instead of one sent with the bank details. Record who called and when on the vendor's record, and run the same callback whenever the vendor later asks to change its account.\"}, {\"q\": \"Can vendors complete a vendor onboarding workflow on their own?\", \"a\": \"In the app Emergent builds, they can. Each new vendor gets an intake link, and its contact enters the company details and uploads its documents, then sees which items are still missing. Your team reviews the answers instead of retyping them. The same self-serve pattern runs a <a href='https://emergent.sh/ai-automation-builder/client-onboarding-workflow'>client onboarding workflow</a>, where the person filling in the form is a customer, not a vendor.\"}, {\"q\": \"Who should approve a new vendor in a vendor onboarding workflow?\", \"a\": \"Have the person who asked for the vendor approve first, then add finance once expected annual spend passes a line you set. Write that line as one number, such as $25,000 a year, and each request goes to the same approvers every time. Apps Emergent builds include every approver you add, with no per-approver seats.\"}, {\"q\": \"Can a vendor onboarding workflow check a vendor's taxpayer ID number?\", \"a\": \"Yes, against the vendor's own W-9: the app compares the TIN on it with the one the vendor typed and sends a mismatch to a person. The IRS adds that \\\"The IRS website offers TIN matching e-services for certain payors to validate name and TIN combinations.\\\" Ask your accounts payable lead whether your business is one of those payors.\"}, {\"q\": \"Should freelancers go through a vendor onboarding workflow?\", \"a\": \"Yes, if you pay them as independent businesses against invoices: run them through the same intake and documents as any other vendor. People hired as employees go through hiring instead, which <a href='https://emergent.sh/ai-automation-builder/recruitment-automation'>recruitment automation</a> covers. Decide whether a person is a contractor or an employee with your accountant or lawyer, not inside the workflow.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Describe the workflow in a prompt",
+  "howto_step_5_des": "Paste your document list and approval rules into a prompt in plain English. Emergent builds the form and its workflow logic, and you change any rule later by asking for the change.",
+  "howto_step_6_title": "06 Connect your accounting system",
+  "howto_step_6_des": "Link the ledger you already use and map each intake field to a ledger field. Send the legal name from the W-9 to the vendor name field, not the name the vendor typed.",
+  "howto_step_7_title": "07 Test with 3 vendors you already use",
+  "howto_step_7_des": "Run 3 current vendors through the workflow, including one whose certificate is below your minimum. Check that every hold and every approval reaches the person you expect before a new vendor gets the link.",
+  "prompt_chip_1": "W-9 Intake",
+  "prompt_chip_2": "Insurance Check",
+  "prompt_chip_3": "Bank Details",
+  "prompt_chip_4": "Approval Routing",
+  "hero_prompt": "<p>Build a vendor onboarding workflow that runs on its own and logs every step.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/aab/vendor-onboarding-workflow/uc-1.svg",
+   "alt": "A vendor record for Calderbrook Lab Supply shows its W-9 TIN matching and its legal name sent to accounts payable to confirm."
+  },
+  "tab_image_2": {
+   "path": "images/aab/vendor-onboarding-workflow/uc-2.svg",
+   "alt": "A certificate check shows Yarrowby Facilities Services at $500,000 in general liability against a $1,000,000 minimum, marked below minimum."
+  },
+  "tab_image_3": {
+   "path": "images/aab/vendor-onboarding-workflow/uc-3.svg",
+   "alt": "A bank details screen shows Ashgrove Print Co. unverified, with a callback task for accounts payable and a $2,340 invoice out of payment runs."
+  },
+  "tab_image_4": {
+   "path": "images/aab/vendor-onboarding-workflow/uc-4.svg",
+   "alt": "An approval screen shows Quillon Machining at $68,000 expected annual spend, approved by the engineering lead and the finance director, then created in NetSuite."
+  },
+  "cover_image": {
+   "path": "images/aab/vendor-onboarding-workflow/cover.svg",
+   "alt": "Vendor onboarding workflow: a direct message asking accounts payable to confirm a new vendor's legal name from its W-9"
+  },
+  "share_image": {
+   "path": "images/aab/vendor-onboarding-workflow/og.webp",
+   "alt": "Build a vendor onboarding workflow that vendors fill in, with Emergent"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-21 11:18 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 11:31 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "B-w-303",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 11:31 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-303",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 11:32 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-303",
+   "note": ""
+  }
+ ],
+ "pipeline": "r15",
+ "faq_plan": [
+  {
+   "kind": "definition",
+   "q": "What is a vendor onboarding workflow?",
+   "ref": "vendor onboarding workflow",
+   "locked": true,
+   "n": 1,
+   "a": "A vendor onboarding workflow is the fixed set of steps a business runs to bring on a new vendor before its first payment. It covers an intake form, tax and insurance documents, bank details, and an approval. Each step has an owner, and the vendor goes into the accounting system only after the last approval.",
+   "link": null
+  },
+  {
+   "kind": "definition",
+   "q": "How do I create a vendor onboarding workflow?",
+   "ref": "vendor onboarding workflow",
+   "locked": true,
+   "n": 2,
+   "a": "Write down the documents you require and the spend line that adds a second approver. Then describe them in a prompt to Emergent's AI automation builder, which builds the intake form, the vendor database, and the approval workflow as one app. To change a rule later, ask for the change in another prompt.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder",
+    "anchor": "AI automation builder",
+    "write_as": "Emergent's AI automation builder"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "What should a vendor onboarding workflow ask a new vendor to submit?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 3,
+   "a": "Ask for 4 things before the first payment: a signed W-9, a certificate of insurance that meets your minimum, bank details, and the legal name and address its invoices will carry. Add any license the work needs, such as a trade license for electrical or plumbing work. Mark each item required on the intake form, and a record with a gap cannot move on to approval.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How is a vendor onboarding workflow different from onboarding a new hire?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 4,
+   "a": "A vendor is a business you pay against invoices, and its onboarding checks tax forms and bank details before the first payment. A new hire joins the company and needs equipment and accounts on day one, which an employee onboarding workflow handles. Keep the two apart, because they collect different forms and answer to different owners.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/employee-onboarding-workflow",
+    "anchor": "employee onboarding workflow"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "Why does a vendor onboarding workflow collect a W-9?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 5,
+   "a": "It gives you the vendor's correct TIN when you are required to file an information return with the IRS for payments to it. The IRS says to use Form W-9 \"to provide your correct Taxpayer Identification Number (TIN) to the person who is required to file an information return with the IRS\". Apps Emergent builds collect W-9s at intake and keep them with each vendor's payment records.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How should a vendor onboarding workflow confirm a vendor's bank details?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 6,
+   "a": "Confirm them by phone before the first payment, at a number you already hold instead of one sent with the bank details. Record who called and when on the vendor's record, and run the same callback whenever the vendor later asks to change its account.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Can vendors complete a vendor onboarding workflow on their own?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 7,
+   "a": "In the app Emergent builds, they can. Each new vendor gets an intake link, and its contact enters the company details and uploads its documents, then sees which items are still missing. Your team reviews the answers instead of retyping them. The same self-serve pattern runs a client onboarding workflow, where the person filling in the form is a customer, not a vendor.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/client-onboarding-workflow",
+    "anchor": "client onboarding workflow"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "Who should approve a new vendor in a vendor onboarding workflow?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 8,
+   "a": "Have the person who asked for the vendor approve first, then add finance once expected annual spend passes a line you set. Write that line as one number, such as $25,000 a year, and each request goes to the same approvers every time. Apps Emergent builds include every approver you add, with no per-approver seats.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Can a vendor onboarding workflow check a vendor's taxpayer ID number?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 9,
+   "a": "Yes, against the vendor's own W-9: the app compares the TIN on it with the one the vendor typed and sends a mismatch to a person. The IRS adds that \"The IRS website offers TIN matching e-services for certain payors to validate name and TIN combinations.\" Ask your accounts payable lead whether your business is one of those payors.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Should freelancers go through a vendor onboarding workflow?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 10,
+   "a": "Yes, if you pay them as independent businesses against invoices: run them through the same intake and documents as any other vendor. People hired as employees go through hiring instead, which recruitment automation covers. Decide whether a person is a contractor or an employee with your accountant or lawyer, not inside the workflow.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/recruitment-automation",
+    "anchor": "recruitment automation"
+   }
+  }
+ ],
+ "faq_heading": "Vendor Onboarding Workflow FAQ",
+ "table": {
+  "vs": [
+   "Zapier",
+   "Make (Integromat)",
+   "n8n"
+  ],
+  "rows": [
+   "build",
+   "output",
+   "cap",
+   "ai",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "skeleton": {
+  "built_by": "B-w-303",
+  "built": "2026-10-21 11:18 UTC",
+  "slots": 10,
+  "flagged": 0,
+  "flag_subtypes": [],
+  "locked": 2,
+  "table": true
+ },
+ "plan": {
+  "angle": "The top results explain supplier onboarding in general steps or sell onboarding software. This page shows the app that brings one new vendor on: an intake form the vendor fills in, a W-9 read into fields and checked against what was typed, an insurance minimum checked on the certificate, bank details held until a callback, and approval routed by expected spend before the vendor is created in the accounting system. Recurring reviews of existing vendors stay on the vendor management page, and purchasing stays on the procurement and purchase order pages.",
+  "tab_stories": [
+   "Mossgiel Animal Hospitals adds Calderbrook Lab Supply, and the app emails its contact Iwona Brannoch an intake link; she uploads a signed W-9, the app reads the legal name and TIN from it, the TIN matches what she typed but the legal name reads Calderbrook Lab Supply LLC, so the name goes to Ellery Castellanos in accounts payable to confirm.",
+   "Hollins Cove Properties requires $1,000,000 in general liability per occurrence from each maintenance vendor; Yarrowby Facilities Services uploads a certificate showing $500,000, so the app marks it below minimum and emails Rafferty Velasquez-Fry, the vendor's contact, for an updated certificate, and Yarrowby waits on the vendor.",
+   "Pinewick Brewing gets bank details from Ashgrove Print Co. on the intake form; the app saves them as unverified and gives Marguerite Osei in accounts payable a task to call Ashgrove at the phone number on its signed contract, and Ashgrove's first invoice of $2,340 stays out of payment runs until she marks the call done.",
+   "Tidewater Robotics routes each new vendor by expected annual spend; Quillon Machining is expected at $68,000 a year, over the $25,000 line, so Callum Vance, the engineering lead, approves first and Ingrid Solberg, the finance director, second, and then the app creates Quillon in NetSuite through its API."
+  ],
+  "openers": [
+   "Mossgiel Animal Hospitals adds Calderbrook Lab Supply",
+   "Hollins Cove Properties asks every maintenance vendor",
+   "Ashgrove Print Co. typed its bank details",
+   "Tidewater Robotics sends new vendors to approvers",
+   "Write down every document you need",
+   "Pick an insurance minimum for each kind of vendor",
+   "Set the spend line that adds a second approver"
+  ],
+  "heading_shapes": [
+   "When the W-9 name differs, accounts payable decides",
+   "The $500,000 certificate goes back to Yarrowby",
+   "Before Ashgrove is paid, someone calls its contract number",
+   "With $68,000 of spend, Quillon goes to two approvers"
+  ],
+  "claims_to_source": [
+   "Form W-9 gives the correct TIN to the person required to file an information return with the IRS",
+   "The IRS offers TIN matching e-services for certain payors to validate name and TIN combinations"
+  ],
+  "numbers": [
+   {
+    "value": 500000,
+    "formula": "500000"
+   },
+   {
+    "value": 68000,
+    "formula": "68000"
+   }
+  ],
+  "owns": {
+   "vendor intake form": "feature_1",
+   "W-9 read and name check": "tab_content_1",
+   "insurance minimum": "tab_content_2",
+   "bank detail callback": "tab_content_3",
+   "approval by spend": "tab_content_4",
+   "document reminders": "feature_3",
+   "accounting system sync": "feature_5",
+   "code export": "feature_6",
+   "test with 3 vendors": "howto_step_7_des",
+   "why collect a W-9": "faq"
+  }
+ },
+ "chip_adds": [
+  "Add a W-9 intake step that reads each vendor's legal name and TIN.",
+  "Add an insurance check that compares each certificate with the required minimum.",
+  "Add a bank details step that holds new account numbers until a callback is logged.",
+  "Add approval routing that sends each new vendor to approvers by expected annual spend."
+ ],
+ "claims_used": [
+  "prompt-build",
+  "database-owned",
+  "ai-extraction",
+  "tax-records",
+  "alerts",
+  "no-caps",
+  "api-connect",
+  "code-export",
+  "payments-out"
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R4",
+    "title": "W-9 intake",
+    "prompt": "Read each new vendor's W-9 and send a name that does not match to accounts payable",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Calderbrook Lab Supply",
+       "size": 19,
+       "sub": "Mossgiel Animal Hospitals"
+      },
+      {
+       "type": "item",
+       "title": "Signed W-9",
+       "sub": "Uploaded"
+      },
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "muted",
+       "text": "From Iwona Brannoch"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "TIN",
+         "Matches"
+        ],
+        [
+         "Legal name",
+         "Differs"
+        ]
+       ]
+      },
+      {
+       "type": "chips",
+       "items": [
+        [
+         "Name to confirm",
+         "warn"
+        ]
+       ]
+      },
+      {
+       "type": "meta",
+       "icon": "mail",
+       "kind": "muted",
+       "text": "Intake link emailed"
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Name check",
+       "size": 19,
+       "chip": [
+        "Differs",
+        "warn"
+       ]
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Typed",
+         "Calderbrook Lab Supply"
+        ],
+        [
+         "W-9",
+         "Calderbrook Lab Supply LLC"
+        ]
+       ]
+      },
+      {
+       "type": "meta",
+       "icon": "alert-triangle",
+       "kind": "warn",
+       "text": "Sent to accounts payable"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Ellery Castellanos",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Confirm legal name",
+       "size": 20,
+       "sub": "Calderbrook Lab Supply LLC"
+      },
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "acc",
+       "text": "Accounts payable"
+      },
+      {
+       "type": "meta",
+       "icon": "check",
+       "kind": "muted",
+       "text": "TIN matches"
+      }
+     ],
+     "action": {
+      "label": "Confirm name",
+      "icon": "arrow-right"
+     }
+    },
+    "alt": "A vendor record for Calderbrook Lab Supply shows its W-9 TIN matching and its legal name sent to accounts payable to confirm.",
+    "story": [
+     {
+      "copy": "Mossgiel Animal Hospitals",
+      "image": "Mossgiel Animal Hospitals"
+     },
+     {
+      "copy": "Calderbrook Lab Supply",
+      "image": "Calderbrook Lab Supply"
+     },
+     {
+      "copy": "the app emails Iwona Brannoch",
+      "image": "From Iwona Brannoch"
+     },
+     {
+      "copy": "an intake link",
+      "image": "Intake link emailed"
+     },
+     {
+      "copy": "She uploads a signed W-9",
+      "image": "Signed W-9"
+     },
+     {
+      "copy": "The TIN matches what she typed",
+      "image": "Matches"
+     },
+     {
+      "copy": "the W-9 says Calderbrook Lab Supply LLC",
+      "image": "Calderbrook Lab Supply LLC"
+     },
+     {
+      "copy": "Ellery Castellanos in accounts payable",
+      "image": "To Ellery Castellanos"
+     },
+     {
+      "copy": "confirms the name",
+      "image": "Confirm legal name"
+     }
+    ]
+   },
+   {
+    "recipe": "R8",
+    "title": "Insurance",
+    "prompt": "Check each certificate against a $1,000,000 general liability minimum",
+    "rule": "Under $1,000,000 → below minimum",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Yarrowby Facilities Services",
+       "size": 20,
+       "sub": "Hollins Cove Properties"
+      },
+      {
+       "type": "table",
+       "columns": [
+        "General liability",
+        "Amount"
+       ],
+       "widths": [
+        0.62,
+        0.38
+       ],
+       "num_cols": [
+        1
+       ],
+       "row_h": 64,
+       "rows": [
+        [
+         "Required per occurrence",
+         "$1,000,000"
+        ],
+        [
+         "On certificate",
+         "$500,000"
+        ],
+        [
+         "Short by",
+         "$500,000"
+        ]
+       ]
+      },
+      {
+       "type": "note",
+       "icon": "shield",
+       "text": "Maintenance vendors"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "mail",
+     "tone": "warn",
+     "title": "Below minimum",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "$500,000 of $1,000,000 required",
+       "size": 16,
+       "color": "sub"
+      },
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "acc",
+       "text": "To Rafferty Velasquez-Fry"
+      },
+      {
+       "type": "meta",
+       "icon": "file-text",
+       "kind": "muted",
+       "text": "Updated certificate requested"
+      }
+     ],
+     "action": {
+      "label": "Upload certificate",
+      "icon": "arrow-right"
+     }
+    },
+    "mini": {
+     "icon": "clock",
+     "kind": "warn",
+     "title": "Waiting on vendor",
+     "sub": "Certificate step"
+    },
+    "alt": "A certificate check shows Yarrowby Facilities Services at $500,000 in general liability against a $1,000,000 minimum, marked below minimum.",
+    "story": [
+     {
+      "copy": "Hollins Cove Properties",
+      "image": "Hollins Cove Properties"
+     },
+     {
+      "copy": "maintenance vendors",
+      "image": "Maintenance vendors"
+     },
+     {
+      "copy": "$1,000,000 in general liability per occurrence",
+      "image": "$1,000,000"
+     },
+     {
+      "copy": "Yarrowby Facilities Services",
+      "image": "Yarrowby Facilities Services"
+     },
+     {
+      "copy": "a certificate showing $500,000",
+      "image": "$500,000"
+     },
+     {
+      "copy": "marks it below minimum",
+      "image": "Below minimum"
+     },
+     {
+      "copy": "Rafferty Velasquez-Fry",
+      "image": "To Rafferty Velasquez-Fry"
+     },
+     {
+      "copy": "asking for an updated certificate",
+      "image": "Updated certificate requested"
+     },
+     {
+      "copy": "and Yarrowby waits",
+      "image": "Waiting on vendor"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Bank details",
+    "prompt": "Hold new bank details until accounts payable calls the vendor back",
+    "main": {
+     "chrome": "Bank details",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "PINEWICK BREWING",
+       "title": "Ashgrove Print Co.",
+       "size": 26,
+       "sub": "Bank details unverified"
+      },
+      {
+       "type": "rule",
+       "text": "Rule: new bank details → callback first"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Bank details entered",
+         "sub": "Intake form"
+        },
+        {
+         "state": "live",
+         "title": "Call contract number",
+         "sub": "Task for Marguerite Osei"
+        },
+        {
+         "state": "next",
+         "title": "Call marked done",
+         "sub": "Accounts payable"
+        },
+        {
+         "state": "next",
+         "title": "Into payment runs",
+         "sub": "$2,340 invoice waiting"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Marguerite Osei",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Call Ashgrove Print Co.",
+       "size": 20,
+       "sub": "Number on the signed contract"
+      },
+      {
+       "type": "meta",
+       "icon": "phone",
+       "kind": "muted",
+       "text": "Accounts payable task"
+      }
+     ],
+     "action": {
+      "label": "Mark call done",
+      "icon": "arrow-right"
+     }
+    },
+    "mini": {
+     "icon": "pause",
+     "kind": "warn",
+     "title": "$2,340 invoice",
+     "sub": "Out of payment runs"
+    },
+    "alt": "A bank details screen shows Ashgrove Print Co. unverified, with a callback task for accounts payable and a $2,340 invoice out of payment runs.",
+    "story": [
+     {
+      "copy": "Pinewick Brewing",
+      "image": "PINEWICK BREWING"
+     },
+     {
+      "copy": "Ashgrove Print Co. typed its bank details",
+      "image": "Bank details entered"
+     },
+     {
+      "copy": "intake form",
+      "image": "Intake form"
+     },
+     {
+      "copy": "saved them as unverified",
+      "image": "Bank details unverified"
+     },
+     {
+      "copy": "Marguerite Osei in accounts payable",
+      "image": "To Marguerite Osei"
+     },
+     {
+      "copy": "call Ashgrove at the phone number on its signed contract",
+      "image": "Number on the signed contract"
+     },
+     {
+      "copy": "Until she marks the call done",
+      "image": "Mark call done"
+     },
+     {
+      "copy": "first invoice of $2,340",
+      "image": "$2,340 invoice"
+     },
+     {
+      "copy": "stays out of payment runs",
+      "image": "Out of payment runs"
+     },
+     {
+      "copy": "Until she marks the call done",
+      "image": "Rule: new bank details → callback first"
+     }
+    ]
+   },
+   {
+    "recipe": "R10",
+    "title": "Approvals",
+    "prompt": "Route new vendors over $25,000 a year to two approvers, then create them in NetSuite",
+    "main": {
+     "blocks": [
+      {
+       "type": "columns",
+       "cols": [
+        {
+         "w": 0.44,
+         "gap": 16,
+         "blocks": [
+          {
+           "type": "heading",
+           "title": "Quillon Machining",
+           "size": 19,
+           "sub": "Tidewater Robotics"
+          },
+          {
+           "type": "kv",
+           "rows": [
+            [
+             "Expected spend",
+             "$68,000"
+            ],
+            [
+             "Approvals",
+             "2"
+            ]
+           ]
+          },
+          {
+           "type": "meta",
+           "icon": "git-branch",
+           "kind": "acc",
+           "text": "Over $25,000 → 2 approvals"
+          }
+         ]
+        },
+        {
+         "w": 0.56,
+         "gap": 14,
+         "blocks": [
+          {
+           "type": "text",
+           "text": "Approval order",
+           "size": 17
+          },
+          {
+           "type": "table",
+           "columns": [
+            "Approver",
+            "Status"
+           ],
+           "widths": [
+            0.6,
+            0.4
+           ],
+           "row_h": 56,
+           "rows": [
+            [
+             "Callum Vance",
+             "Approved"
+            ],
+            [
+             "Ingrid Solberg",
+             "Approved"
+            ]
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "kpi": {
+     "icon": "users",
+     "label": "Approvals",
+     "value": "2",
+     "sub": "Over $25,000"
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "check-circle",
+     "tone": "ok",
+     "title": "Created in NetSuite",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "Quillon Machining",
+       "size": 17,
+       "color": "sub"
+      },
+      {
+       "type": "meta",
+       "icon": "dollar-sign",
+       "kind": "acc",
+       "text": "Expected at $68,000 a year"
+      },
+      {
+       "type": "meta",
+       "icon": "check",
+       "kind": "muted",
+       "text": "After 2 approvals"
+      }
+     ],
+     "action": {
+      "label": "Open vendor",
+      "icon": "arrow-right"
+     }
+    },
+    "alt": "An approval screen shows Quillon Machining at $68,000 expected annual spend, approved by the engineering lead and the finance director, then created in NetSuite.",
+    "story": [
+     {
+      "copy": "Tidewater Robotics",
+      "image": "Tidewater Robotics"
+     },
+     {
+      "copy": "anything over $25,000 needs two approvals",
+      "image": "Over $25,000 → 2 approvals"
+     },
+     {
+      "copy": "Quillon Machining is expected at $68,000 a year",
+      "image": "Expected at $68,000 a year"
+     },
+     {
+      "copy": "Callum Vance",
+      "image": "Callum Vance"
+     },
+     {
+      "copy": "Ingrid Solberg",
+      "image": "Ingrid Solberg"
+     },
+     {
+      "copy": "The app then creates Quillon in NetSuite",
+      "image": "Created in NetSuite"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "dm": true,
+   "channel": "Ellery Castellanos",
+   "title": "Confirm legal name",
+   "sub": "From Calderbrook's W-9",
+   "primary": "Open",
+   "secondary": "View",
+   "icon": "file-text",
+   "alt": "Vendor onboarding workflow: a direct message asking accounts payable to confirm a new vendor's legal name from its W-9"
+  },
+  "og": {
+   "headline": "Build a vendor onboarding workflow you own",
+   "lines": [
+    "Build a vendor",
+    "onboarding",
+    "workflow you own"
+   ],
+   "alt": "Build a vendor onboarding workflow that vendors fill in, with Emergent"
+  },
+  "checks": [
+   {
+    "fact": [
+     "$1,000,000",
+     "$500,000"
+    ],
+    "where": 2
+   },
+   {
+    "expr": "1000000 - 500000 == 500000",
+    "shows": [
+     "Short by"
+    ],
+    "where": 2
+   },
+   {
+    "fact": [
+     "$2,340"
+    ],
+    "where": 3
+   },
+   {
+    "fact": [
+     "$68,000",
+     "$25,000",
+     "2 approvals"
+    ],
+    "where": 4
+   },
+   {
+    "expr": "500000 < 1000000",
+    "shows": [
+     "Below minimum"
+    ],
+    "where": 2
+   },
+   {
+    "expr": "68000 > 25000",
+    "shows": [
+     "Over $25,000 → 2 approvals"
+    ],
+    "where": 4
+   }
+  ]
+ },
+ "domain_sources": [
+  {
+   "claim": "Form W-9 gives the correct TIN to the person required to file an information return with the IRS",
+   "source_url": "https://www.irs.gov/forms-pubs/about-form-w-9",
+   "date": "2026-10-21",
+   "quote": "Use Form W-9 to provide your correct Taxpayer Identification Number (TIN) to the person who is required to file an information return with the IRS"
+  },
+  {
+   "claim": "The IRS offers TIN matching e-services for certain payors to validate name and TIN combinations",
+   "source_url": "https://www.irs.gov/instructions/iw9",
+   "date": "2026-10-21",
+   "quote": "The IRS website offers TIN matching e-services for certain payors to validate name and TIN combinations."
+  }
+ ],
+ "faq_sources": [
+  {
+   "q": "What is a vendor onboarding workflow?",
+   "source": "written",
+   "ref": "vendor onboarding workflow",
+   "origin": "definition"
+  },
+  {
+   "q": "How do I create a vendor onboarding workflow?",
+   "source": "written",
+   "ref": "vendor onboarding workflow",
+   "origin": "definition"
+  },
+  {
+   "q": "What should a vendor onboarding workflow ask a new vendor to submit?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How is a vendor onboarding workflow different from onboarding a new hire?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Why does a vendor onboarding workflow collect a W-9?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How should a vendor onboarding workflow confirm a vendor's bank details?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Can vendors complete a vendor onboarding workflow on their own?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Who should approve a new vendor in a vendor onboarding workflow?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Can a vendor onboarding workflow check a vendor's taxpayer ID number?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Should freelancers go through a vendor onboarding workflow?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  }
+ ],
+ "learn_refs": [
+  "6aabdd03ab333ad283f63ea9",
+  "6a1729ad1817ffd0330c987d",
+  "6abe38fbf322d0af73b37238"
+ ],
+ "learn_refs_why": [
+  "client-onboarding-software: score 5.8: matches onboard",
+  "best-ai-workflow-builders: score 4.41: matches workflow (builder list, hub-term only)",
+  "how-to-build-an-ai-agent: Auto fixed set: step-by-step build of an agent that handles leads and intake, the AI step inside most automations"
+ ],
+ "qc_passed": {
+  "rules_version": "5bdaae64bebe",
+  "date": "2026-10-21 11:32 UTC"
+ },
+ "writers": [
+  "B-w-303"
+ ]
+}
