@@ -64,7 +64,7 @@ def _title(t):
         tw = "-".join(x[:1].upper() + x[1:].lower() for x in w.split("-")) if i == 0 or i == len(ws) - 1 or particle or lw not in SMALL else lw
         if particle and i + 1 < len(ws) and ws[i + 1].lower() not in SMALL and out and "-" not in out[-1]: out[-1] += "-" + tw
         else: out.append(tw)
-    return case_acronyms(" ".join(out))
+    return case_acronyms(case_brands(" ".join(out)))
 def _fits(text, field):
     """The text renders within the widest approved rendering of that field (ops/typeset.py ceilings, T1)."""
     try:
@@ -144,9 +144,10 @@ def _a(primary):
 def _art(primary):
     return (_a(primary) + " ") if COUNTABLE.search(P.norm(primary)) and not PLURAL.search(P.norm(primary)) else ""
 def case_primary(p):
-    """A primary keyword in running text: acronyms in house casing (QC R15), and a leading 'it' is the department (IT automation,
-    IT request form; case_acronyms never cases 'it' in a sentence)."""
-    return re.sub(r"^it\b(?=\s+\w)", "IT", case_acronyms(p))
+    """A primary keyword in running text: brands in their own casing ("a LinkedIn landing page", not "a linkedin landing page"),
+    acronyms in house casing (QC R15), and a leading 'it' is the department (IT automation, IT request form; case_acronyms never
+    cases 'it' in a sentence)."""
+    return re.sub(r"^it\b(?=\s+\w)", "IT", case_acronyms(case_brands(p)))
 def def_questions(prim):
     """The two default definition slots when no candidate fills them (plan_slots), acronyms cased (decision 8, QC R15)."""
     prim = P.head_phrase(prim)   # ruling 4 (Divit 2026-10-21): "best startup landing pages" -> "What is a startup landing page?"
@@ -186,6 +187,28 @@ def case_acronyms(text):
         if lw.endswith("s") and ACRO.get(lw[:-1]): return ACRO[lw[:-1]] + "s"
         return w
     return re.sub(r"(?<![A-Za-z0-9'-])[A-Za-z0-9][A-Za-z0-9'-]*(?![A-Za-z0-9'-])", one, text)
+# Brand casing for code-built text (brand primaries: "What is a LinkedIn landing page?", "Build a YouTube landing page ...").
+# The list is rules/paa_blocklist.json pa14_brands (the one brand list) plus WhatsApp; minus entries that are also everyday words
+# ("word", "teams", "square", "notion", "indeed" ...), which are never cased from a lowercase primary. Brands not written as one
+# capital then lowercase take their casing from BRAND_IRREGULAR; every other brand is each word capitalised (Shopify, Google Sheets).
+BRAND_COMMON_WORD = {"word", "docs", "sheets", "teams", "square", "interact", "tally", "notion", "gemini", "claude", "copilot",
+                     "framer", "indeed", "apple", "zoom", "excel", "slack", "stripe", "make.com", "monday.com"}
+BRAND_IRREGULAR = {"linkedin": "LinkedIn", "tiktok": "TikTok", "youtube": "YouTube", "whatsapp": "WhatsApp", "hubspot": "HubSpot",
+                   "paypal": "PayPal", "quickbooks": "QuickBooks", "chatgpt": "ChatGPT", "openai": "OpenAI", "gpt": "GPT", "adp": "ADP",
+                   "ifttt": "IFTTT", "surveymonkey": "SurveyMonkey", "docusign": "DocuSign", "bamboohr": "BambooHR", "wordpress": "WordPress",
+                   "wpforms": "WPForms", "pandadoc": "PandaDoc", "sharepoint": "SharePoint", "onedrive": "OneDrive", "ebay": "eBay",
+                   "iphone": "iPhone", "ziprecruiter": "ZipRecruiter", "n8n": "n8n", "jotform": "Jotform"}
+BRAND_PAGE_WORDS = {"excel", "slack", "stripe"}   # page primaries (excel automation, slack automation, stripe donation form): cased as the first word only
+BRANDS = {b: BRAND_IRREGULAR.get(b) or " ".join(x[:1].upper() + x[1:] for x in b.split())
+          for b in [*json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "rules", "paa_blocklist.json")))["pa14_brands"], "whatsapp"]
+          if b not in BRAND_COMMON_WORD}
+_BRAND_RX = re.compile(r"(?<![A-Za-z0-9'.-])(" + "|".join(re.escape(b) for b in sorted(BRANDS, key=len, reverse=True)) + r")(?![A-Za-z0-9'-])", re.I)
+_BRAND_LEAD_RX = re.compile(r"^(" + "|".join(sorted(BRAND_PAGE_WORDS)) + r")\b(?=\s+\w)", re.I)
+def case_brands(text):
+    """Known brands in their own casing (LinkedIn, TikTok, YouTube, HubSpot, Google Sheets); a brand-and-everyday word (Excel, Slack,
+    Stripe) only as the first word of a primary ("excel automation" -> "Excel automation"; "help teams excel" untouched)."""
+    text = _BRAND_RX.sub(lambda m: BRANDS[m.group(0).lower()], text)
+    return _BRAND_LEAD_RX.sub(lambda m: m.group(0)[:1].upper() + m.group(0)[1:].lower(), text)
 def clean_question(raw):
     """A Semrush question as a starting point only (keyword-sourced: the writer may reword it naturally, head phrase kept, backlog line 91):
     years stripped, acronyms cased (plurals too, ruling 18), first letter capitalised, a question mark."""
