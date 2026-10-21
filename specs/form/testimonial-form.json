@@ -120,6 +120,13 @@
    "via": null,
    "by": "A-w-128",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 06:22 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-30",
+   "note": "[truth | HUB_RULES 8] faq (item 5): Source scope dropped (rework-checklist 2). The quoted FTC answer (Endorsement Guides: What People Are Asking, the question about quoting customers in ads) continues: 'if you've given these customers a reason to expect a benefit from providing their thoughts about "
   }
  ],
  "pipeline": "r15",
@@ -909,5 +916,275 @@
  ],
  "writers": [
   "A-w-128"
- ]
+ ],
+ "review": {
+  "by": "A-r-30",
+  "date": "2026-10-21 06:22 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Testimonial Form That Gets Quotes Cleared to Publish'; hero 'Build a testimonial form that records consent, sends edited quotes for approval, and saves each one to a database you own.' (121 chars, primary, leads with Build); how-to description one sentence carrying the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is template galleries; FAQ 3 gives the question set ('Start with five: the problem before, what changed, a number...'), the how-to plans questions, consent and approval, and the four tabs show the form in use."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'Client approved', 'first name and last initial', quotes 'tagged with its neighborhood', 'Received a $10 store credit'; table rows are form-builder dimensions."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every feature body opens on a full sentence: 'A checkbox asks whether the quote may be published', 'When you shorten a quote, the app emails the client...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Two ', so' endings (feature_4, tab_content_2), under the limit; notes on repeated consent idea and FAQ 8 closing line."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous details: '40 online orders in its first week', '11 discovery calls in 12 weeks', 'sold in 9 days'; no hype words."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "faq item 5: 'The FTC's guidance for advertisers says a business can ask customers about their experiences and feature their comments in its ads, and the checkbox keeps a written record of each yes.' The same FTC answer goes on to say that when customers have reason to expect a benefit, including being told in advance they might be featured, the ad should disclose that; the condition is dropped. FAQ 9 FTC sentence stays inside its span ('consumer reviews expressing a particular sentiment, either positive or negative'). Emergent claims map to prompt-build, database-owned, alerts, code-export, free-start, no-caps."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Angle (what happens after submit: client approval, name choice, neighborhood tags, sentiment-free credit) differs from feedback-form and case-study-form siblings; no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic builder questions, answer-first; hub link in item 2; sibling links feedback form (7), assessment form (4), favorite things questionnaire (10: 'For a lighter staff spotlight, pair it with a favorite things questionnaire.' reads naturally); secondaries testimonial form template, free testimonial form, testimonial form pdf, testimonial forms. PAA gate 10 pass, 0 reject, 0 flag; verbatim Q1 ok."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 Ruth Abernathy approve email, '40 online orders in its first week', Client approved; tab 2 'Marek D.', 'First name and last initial', 'Same row as the quote'; tab 3 '4 quotes from Oak Hollow', 'Leading: the Lindqvists, sold in 9 days'; tab 4 Tobias Ferreira, 4 stars, 'Received a $10 store credit', 'Credit emailed'. One hero, numbers match copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq (item 5)",
+    "quote": "The FTC's guidance for advertisers says a business can ask customers about their experiences and feature their comments in its ads, and the checkbox keeps a written record of each yes.",
+    "issue": "Source scope dropped (rework-checklist 2). The quoted FTC answer (Endorsement Guides: What People Are Asking, the question about quoting customers in ads) continues: 'if you've given these customers a reason to expect a benefit from providing their thoughts about your product, you should disclose that fact in your ads', and says even being told in advance they might be featured can be such a benefit ('Customers were told in advance they might be featured in an ad.'). The page states only the permissive half and pairs it with the consent checkbox, implying a recorded yes is what the FTC asks for. The source does not say the unconditional version. Only instance of this class on the page; the FAQ 9 FTC sentence stays inside its span.",
+    "fix": "Either keep the FTC's condition in the sentence and add the span to domain_sources (e.g. 'The FTC's guidance says a business can feature customers' comments in its ads, and that if they expected a benefit, or knew in advance they might be featured, the ad should say so.'), or cut the FTC sentence and let the checkbox stand as advice ('the checkbox keeps a written record of each yes').",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq (item 9)",
+    "quote": "Offer the same thank-you at any rating, and note it beside the quote when you publish it.",
+    "issue": "The disclosure advice is sound (the same FTC page supports disclosing benefits) but no domain_sources span backs it; as advice it is a note.",
+    "fix": "Optional: add the FTC disclosure span if the rework touches domain_sources anyway.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_1, howto_step_3_des, howto_step_4_des, faq (items 5, 8, 10)",
+    "quote": "feature_1 'A checkbox asks whether the quote may be published, and the next question asks how the name should read'; step 3 'Use a checkbox for permission to publish and a separate choice for how the name appears.'; step 4 'the consent checkbox, and the name choices'; FAQ 5 'A checkbox names where the quote may appear, and a second choice sets the display name.'; FAQ 8 'Cover the image in the same consent question as the quote.'; FAQ 10 'Keep the permission checkbox and the name choice'",
+    "issue": "The checkbox plus name-choice mechanic is restated in six places with words swapped.",
+    "fix": "Say it once in feature_1; elsewhere add only what is new (timing in step 3, the FTC context in FAQ 5).",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq (item 4)",
+    "quote": "If you work with clients over weeks, send an assessment form when the work starts, too: the baseline it records gives the testimonial at the end a before number to compare against.",
+    "issue": "The question asks about a free testimonial form; the second half pivots to a sibling link the question did not ask about. Links should help the reader of that answer.",
+    "fix": "Move the assessment form link to step 2 territory (FAQ on before-and-after numbers) or keep the free answer to the free tier.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq (item 8)",
+    "quote": "Forms built with Emergent have no response caps.",
+    "issue": "F9 moat line is meant to be question-specific; response caps have nothing to do with collecting photos and video, so it reads bolted on.",
+    "fix": "Use a question-specific line, e.g. each file saved in the same database row as the quote, or drop it (F9 is met by items 4 and 6).",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq (item 9)",
+   "issue": "The disclosure advice is sound (the same FTC page supports disclosing benefits) but no domain_sources span backs it; as advice it is a note.",
+   "fix": "Optional: add the FTC disclosure span if the rework touches domain_sources anyway.",
+   "by": "A-r-30",
+   "via": "review",
+   "date": "2026-10-21 06:22 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_1, howto_step_3_des, howto_step_4_des, faq (items 5, 8, 10)",
+   "issue": "The checkbox plus name-choice mechanic is restated in six places with words swapped.",
+   "fix": "Say it once in feature_1; elsewhere add only what is new (timing in step 3, the FTC context in FAQ 5).",
+   "by": "A-r-30",
+   "via": "review",
+   "date": "2026-10-21 06:22 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq (item 4)",
+   "issue": "The question asks about a free testimonial form; the second half pivots to a sibling link the question did not ask about. Links should help the reader of that answer.",
+   "fix": "Move the assessment form link to step 2 territory (FAQ on before-and-after numbers) or keep the free answer to the free tier.",
+   "by": "A-r-30",
+   "via": "review",
+   "date": "2026-10-21 06:22 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq (item 8)",
+   "issue": "F9 moat line is meant to be question-specific; response caps have nothing to do with collecting photos and video, so it reads bolted on.",
+   "fix": "Use a question-specific line, e.g. each file saved in the same database row as the quote, or drop it (F9 is met by items 4 and 6).",
+   "by": "A-r-30",
+   "via": "review",
+   "date": "2026-10-21 06:22 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "4e19b84fa7e4aa7d",
+   "alt:share_image": "2d8d8b9a214a8daa",
+   "alt:tab_image_1": "b4bad5f6d1b27697",
+   "alt:tab_image_2": "3f88b8c3f450e784",
+   "alt:tab_image_3": "bcbd5fabacbcf809",
+   "alt:tab_image_4": "2160db909cbf764a",
+   "breadcrumb": "1aced85db79894c2",
+   "chip_adds": "b100150b45cdfb53",
+   "explore_cta": "8734d8b1720ed7d6",
+   "faq": "408d6de76a7cb2f5",
+   "feature_1": "800409c368610928",
+   "feature_2": "51ca8a249fd7cf78",
+   "feature_3": "92911b2d38a0616e",
+   "feature_4": "d9670a4ce7553d6f",
+   "feature_5": "573afe4bc3f69d5b",
+   "feature_6": "e7f55ab9833ccf63",
+   "features_heading": "f9450f095ed21ab0",
+   "features_subheading": "05def4bac625369f",
+   "h1": "5ccc95dd8f6112dc",
+   "hero_description": "f71893f120f9b171",
+   "hero_prompt": "f62479c3e096aa4f",
+   "howto_description": "e20eba9f8fe816d3",
+   "howto_step_1_des": "867391bf22b3d1c8",
+   "howto_step_1_title": "becb4b5d8fa136b6",
+   "howto_step_2_des": "3ca9c00132e8f040",
+   "howto_step_2_title": "c795d2569d0c6396",
+   "howto_step_3_des": "9ca0fd7ed422ebcd",
+   "howto_step_3_title": "ce85b528997ab197",
+   "howto_step_4_des": "c8ac9039169d5bcf",
+   "howto_step_4_title": "7fdfa979a2bafec2",
+   "howto_step_5_des": "3842c5f47ff66385",
+   "howto_step_5_title": "d4e76ecc79626362",
+   "howto_step_6_des": "badb707e950a9747",
+   "howto_step_6_title": "9e3c70972c1303c9",
+   "howto_step_7_des": "277ff0bedd5da7b5",
+   "howto_step_7_title": "e9144ee5d2114876",
+   "howto_title": "a676d595a75f3e8e",
+   "meta_description": "cc43d65e67e3260b",
+   "meta_title": "7987eb56d89c5636",
+   "mockup": "3fda4348b63a11f8",
+   "product_name": "4e47aeaf1caac31c",
+   "prompt_chip_1": "375ebc666f055459",
+   "prompt_chip_2": "b80adcaf97ff0e3c",
+   "prompt_chip_3": "1195f39c0d520a0d",
+   "prompt_chip_4": "bf1a010bba7fddba",
+   "slug": "677f91cdfa9adff9",
+   "tab_content_1": "35d7674b0afa3417",
+   "tab_content_2": "0f6480b3588630c6",
+   "tab_content_3": "d04f77e73813368e",
+   "tab_content_4": "9f47a528dbbb3df2",
+   "tab_label_1": "ef3da2f4810cfa75",
+   "tab_label_2": "19b01b648df7196b",
+   "tab_label_3": "88d1b4e5c13c915e",
+   "tab_label_4": "b18bf98c0725bef8",
+   "usecase_heading": "a5939a4f426c5bee",
+   "why_description": "922384371982a9de",
+   "why_table": "91f75ba2e710a4a9",
+   "why_title": "02400e7e891ba785"
+  },
+  "all": "614d5e81f90c606e",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "4e19b84fa7e4aa7d",
+   "alt:share_image": "2d8d8b9a214a8daa",
+   "alt:tab_image_1": "b4bad5f6d1b27697",
+   "alt:tab_image_2": "3f88b8c3f450e784",
+   "alt:tab_image_3": "bcbd5fabacbcf809",
+   "alt:tab_image_4": "2160db909cbf764a",
+   "breadcrumb": "1aced85db79894c2",
+   "chip_adds": "b100150b45cdfb53",
+   "explore_cta": "8734d8b1720ed7d6",
+   "faq": "408d6de76a7cb2f5",
+   "feature_1": "800409c368610928",
+   "feature_2": "51ca8a249fd7cf78",
+   "feature_3": "92911b2d38a0616e",
+   "feature_4": "d9670a4ce7553d6f",
+   "feature_5": "573afe4bc3f69d5b",
+   "feature_6": "e7f55ab9833ccf63",
+   "features_heading": "f9450f095ed21ab0",
+   "features_subheading": "05def4bac625369f",
+   "h1": "5ccc95dd8f6112dc",
+   "hero_description": "f71893f120f9b171",
+   "hero_prompt": "f62479c3e096aa4f",
+   "howto_description": "e20eba9f8fe816d3",
+   "howto_step_1_des": "867391bf22b3d1c8",
+   "howto_step_1_title": "becb4b5d8fa136b6",
+   "howto_step_2_des": "3ca9c00132e8f040",
+   "howto_step_2_title": "c795d2569d0c6396",
+   "howto_step_3_des": "9ca0fd7ed422ebcd",
+   "howto_step_3_title": "ce85b528997ab197",
+   "howto_step_4_des": "c8ac9039169d5bcf",
+   "howto_step_4_title": "7fdfa979a2bafec2",
+   "howto_step_5_des": "3842c5f47ff66385",
+   "howto_step_5_title": "d4e76ecc79626362",
+   "howto_step_6_des": "badb707e950a9747",
+   "howto_step_6_title": "9e3c70972c1303c9",
+   "howto_step_7_des": "277ff0bedd5da7b5",
+   "howto_step_7_title": "e9144ee5d2114876",
+   "howto_title": "a676d595a75f3e8e",
+   "meta_description": "cc43d65e67e3260b",
+   "meta_title": "7987eb56d89c5636",
+   "mockup": "3fda4348b63a11f8",
+   "product_name": "4e47aeaf1caac31c",
+   "prompt_chip_1": "375ebc666f055459",
+   "prompt_chip_2": "b80adcaf97ff0e3c",
+   "prompt_chip_3": "1195f39c0d520a0d",
+   "prompt_chip_4": "bf1a010bba7fddba",
+   "slug": "677f91cdfa9adff9",
+   "tab_content_1": "35d7674b0afa3417",
+   "tab_content_2": "0f6480b3588630c6",
+   "tab_content_3": "d04f77e73813368e",
+   "tab_content_4": "9f47a528dbbb3df2",
+   "tab_label_1": "ef3da2f4810cfa75",
+   "tab_label_2": "19b01b648df7196b",
+   "tab_label_3": "88d1b4e5c13c915e",
+   "tab_label_4": "b18bf98c0725bef8",
+   "usecase_heading": "a5939a4f426c5bee",
+   "why_description": "922384371982a9de",
+   "why_table": "91f75ba2e710a4a9",
+   "why_title": "02400e7e891ba785"
+  },
+  "all": "614d5e81f90c606e",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

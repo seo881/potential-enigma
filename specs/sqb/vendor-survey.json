@@ -125,6 +125,13 @@
    "via": null,
    "by": "A-w-122",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 06:22 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-30",
+   "note": "rubric 10/10 by A-r-30; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -1020,5 +1027,285 @@
  },
  "writers": [
   "A-w-122"
- ]
+ ],
+ "review": {
+  "by": "A-r-30",
+  "date": "2026-10-21 06:22 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Vendor Survey to Rate Vendors and Hear From Them' covers both directions; hero 'Build a vendor survey that scores each vendor or asks vendors about working with you, and saves answers to a database you own.' (125 chars); how-to description one sentence with the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Delivers questions (FAQ 3 lists scorecard and feedback questions), a template answer (FAQ 4), length, frequency, scale and anonymity, plus a 7-step how-to; covers both senses (rating vendors, vendors rating you)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Procurement vocabulary: 'on-time delivery and invoice accuracy', 'purchase order sent late', 'payment run', 'lead time over 14 days'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs or full sentences: 'List the areas you score', 'Every response is saved as a row', 'Set a floor'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft issues; notes on FAQ 6 broken clause and FAQ 5 count."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Ludlow Box averaged 2.5 on on-time delivery, under the floor of 3'; '19 said payments arrived late'; plain verbs throughout."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "York University used only as an attributed example (step 2 'York University's procurement office reviews areas such as...'; FAQ 1 'York University's procurement office describes its online Vendor Evaluation Survey form as...'), never as a general or regulatory rule; Pew sentences (steps 3, 4, 6) and Harvard GPL (FAQ 7, 'tells government buyers') inside their quoted spans. Emergent claims map to prompt-build, database-owned, alerts, conversational, api-connect (QuickBooks, Xero, NetSuite), no-caps, custom-domain, code-export, free-start."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No sibling primary in headings; customer satisfaction survey, customer feedback survey and pricing survey only as FAQ link anchors; hotel onboarding tab does not headline vendor application or vendor management workflow."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic builder questions, answer-first; hub link in item 2; secondaries vendor survey questions (3), vendor survey template (4). PAA gate 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 Ludlow Box 2.5 on-time, email to Elspeth Wyndell, 'Rated by 6 managers'; tab 2 'Answered 31 of 52 asked', '19 of 31 named late payments', 'Every 2 weeks, Was monthly' (19+7+5=31); tab 3 '48 of 64 sent', 41 return, 22 later close, 'Closing moves to 2 pm, Was 1 pm', Imogen Strand; tab 4 Beaumont Linen 21 days, Cass Delacroix, 14-day limit, 3 hotels."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2a",
+    "field": "faq (item 6)",
+    "quote": "Once a year fits vendors you use a few times a year, and a feedback survey sent to vendors.",
+    "issue": "The second clause has no verb and reads as a broken sentence.",
+    "fix": "'Once a year fits vendors you use a few times a year, and it suits a feedback survey sent to vendors.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "faq (item 5)",
+    "quote": "Keep it under 20: 4 or 5 areas with 2 or 3 rating statements each, plus one open question per area.",
+    "issue": "The recipe's top end (5 areas x 3 statements + 5 open questions) is exactly 20, not under 20.",
+    "fix": "'Keep it to 20 or fewer' or 'about 12 to 20'.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_2_des, howto_step_4_des, faq (items 5, 6, 9), feature_2, why intro",
+    "quote": "step 2 'Pick 4 or 5 areas, each with 2 or 3 statements.' / FAQ 5 '4 or 5 areas with 2 or 3 rating statements each'; step 4 'the same 1 to 5 scale every quarter' / FAQ 9 'One scale lets averages compare across areas and quarters'; feature_2 'Compare a vendor's Q3 scores with Q2' / why intro 'beside last quarter's' / FAQ 6 'each round's answers land in a database you own, next to the round before'",
+    "issue": "Three ideas restated across fields with words swapped.",
+    "fix": "Say each once; let the FAQ add what the body does not.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq (item 4)",
+    "quote": "Asking customers what they would pay is a different job, and a pricing survey covers it.",
+    "issue": "The template answer ends on a sibling link the question did not raise; it reads placed for the link.",
+    "fix": "Place the pricing survey link where pricing comes up, or link a sibling that fits the template answer.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief (cover)",
+    "quote": "Elspeth Wyndell / Ludlow Box: 2.5 / Book call",
+    "issue": "The cover card uses a chat-bubble header while tab 1 says the app emailed her; names and numbers agree, so it is polish only.",
+    "fix": "Use the mail icon on the cover card.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2a",
+   "field": "faq (item 6)",
+   "issue": "The second clause has no verb and reads as a broken sentence.",
+   "fix": "'Once a year fits vendors you use a few times a year, and it suits a feedback survey sent to vendors.'",
+   "by": "A-r-30",
+   "via": "review",
+   "date": "2026-10-21 06:22 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #10",
+   "field": "faq (item 5)",
+   "issue": "The recipe's top end (5 areas x 3 statements + 5 open questions) is exactly 20, not under 20.",
+   "fix": "'Keep it to 20 or fewer' or 'about 12 to 20'.",
+   "by": "A-r-30",
+   "via": "review",
+   "date": "2026-10-21 06:22 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_2_des, howto_step_4_des, faq (items 5, 6, 9), feature_2, why intro",
+   "issue": "Three ideas restated across fields with words swapped.",
+   "fix": "Say each once; let the FAQ add what the body does not.",
+   "by": "A-r-30",
+   "via": "review",
+   "date": "2026-10-21 06:22 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq (item 4)",
+   "issue": "The template answer ends on a sibling link the question did not raise; it reads placed for the link.",
+   "fix": "Place the pricing survey link where pricing comes up, or link a sibling that fits the template answer.",
+   "by": "A-r-30",
+   "via": "review",
+   "date": "2026-10-21 06:22 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief (cover)",
+   "issue": "The cover card uses a chat-bubble header while tab 1 says the app emailed her; names and numbers agree, so it is polish only.",
+   "fix": "Use the mail icon on the cover card.",
+   "by": "A-r-30",
+   "via": "review",
+   "date": "2026-10-21 06:22 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "8fa808383e8d6b03",
+   "alt:share_image": "ac73e46ee4d527df",
+   "alt:tab_image_1": "a25a4dcdd94a1a78",
+   "alt:tab_image_2": "8cd4b4903d60d09c",
+   "alt:tab_image_3": "dc2212bba166fea6",
+   "alt:tab_image_4": "a4dc456f22cd0fdc",
+   "breadcrumb": "4743460b49595539",
+   "chip_adds": "47d5009eabc69c71",
+   "explore_cta": "01b338317255b944",
+   "faq": "0d2b367e8a149247",
+   "feature_1": "d394a8e5f2a888aa",
+   "feature_2": "a2a09fb9e777b746",
+   "feature_3": "465caa5f65d177ad",
+   "feature_4": "36917e433170beca",
+   "feature_5": "d370810cd2636ffc",
+   "feature_6": "d92f977a733aaed9",
+   "features_heading": "46ec5e83fdf4ac4e",
+   "features_subheading": "2d29c132f23b41aa",
+   "h1": "ba5e031aba018306",
+   "hero_description": "877475f991af18e9",
+   "hero_prompt": "8d0ccafdd0aa1824",
+   "howto_description": "85361ff2e0193eb7",
+   "howto_step_1_des": "4375dd7a8cfbeef4",
+   "howto_step_1_title": "f681be393b8bd479",
+   "howto_step_2_des": "53693b7cbeef982b",
+   "howto_step_2_title": "c44291f98f85dbc7",
+   "howto_step_3_des": "7ba5f0bc049aa57e",
+   "howto_step_3_title": "3716e67ec1a8647b",
+   "howto_step_4_des": "2f01851a70b2d739",
+   "howto_step_4_title": "e33c19830dfff010",
+   "howto_step_5_des": "0600402a9c2a3c21",
+   "howto_step_5_title": "cf0f576d8723c036",
+   "howto_step_6_des": "95405cc289d379fe",
+   "howto_step_6_title": "fab2d4bf96e34270",
+   "howto_step_7_des": "1dc100f93dc67f96",
+   "howto_step_7_title": "4d89c0169531556a",
+   "howto_title": "0a2d1e74fcd5057b",
+   "meta_description": "74ebef926532fccd",
+   "meta_title": "84751f380d2031ef",
+   "mockup": "0c2990c11c6a1e6a",
+   "product_name": "dd474adf16a52afb",
+   "prompt_chip_1": "931b76ace557ae43",
+   "prompt_chip_2": "1f456716b0fcd26e",
+   "prompt_chip_3": "c6c335a2a1c056e1",
+   "prompt_chip_4": "b4c2a7b0e32c2a34",
+   "slug": "6b5da4a241ae7d4c",
+   "tab_content_1": "4bc262f2c7d353cf",
+   "tab_content_2": "a7d63524e23e1e1a",
+   "tab_content_3": "18e9920335742f97",
+   "tab_content_4": "a303d7696201210c",
+   "tab_label_1": "1de10614ae9b1343",
+   "tab_label_2": "795ada98f38e16fd",
+   "tab_label_3": "6a8cecc9f65a34be",
+   "tab_label_4": "d99e3d317f0f7a5e",
+   "usecase_heading": "ea9679d633ba74d2",
+   "why_description": "b72bd440d34b3c5f",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "a08d1dfd098b7f8d"
+  },
+  "all": "d182f9f2a7584d81",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "8fa808383e8d6b03",
+   "alt:share_image": "ac73e46ee4d527df",
+   "alt:tab_image_1": "a25a4dcdd94a1a78",
+   "alt:tab_image_2": "8cd4b4903d60d09c",
+   "alt:tab_image_3": "dc2212bba166fea6",
+   "alt:tab_image_4": "a4dc456f22cd0fdc",
+   "breadcrumb": "4743460b49595539",
+   "chip_adds": "47d5009eabc69c71",
+   "explore_cta": "01b338317255b944",
+   "faq": "0d2b367e8a149247",
+   "feature_1": "d394a8e5f2a888aa",
+   "feature_2": "a2a09fb9e777b746",
+   "feature_3": "465caa5f65d177ad",
+   "feature_4": "36917e433170beca",
+   "feature_5": "d370810cd2636ffc",
+   "feature_6": "d92f977a733aaed9",
+   "features_heading": "46ec5e83fdf4ac4e",
+   "features_subheading": "2d29c132f23b41aa",
+   "h1": "ba5e031aba018306",
+   "hero_description": "877475f991af18e9",
+   "hero_prompt": "8d0ccafdd0aa1824",
+   "howto_description": "85361ff2e0193eb7",
+   "howto_step_1_des": "4375dd7a8cfbeef4",
+   "howto_step_1_title": "f681be393b8bd479",
+   "howto_step_2_des": "53693b7cbeef982b",
+   "howto_step_2_title": "c44291f98f85dbc7",
+   "howto_step_3_des": "7ba5f0bc049aa57e",
+   "howto_step_3_title": "3716e67ec1a8647b",
+   "howto_step_4_des": "2f01851a70b2d739",
+   "howto_step_4_title": "e33c19830dfff010",
+   "howto_step_5_des": "0600402a9c2a3c21",
+   "howto_step_5_title": "cf0f576d8723c036",
+   "howto_step_6_des": "95405cc289d379fe",
+   "howto_step_6_title": "fab2d4bf96e34270",
+   "howto_step_7_des": "1dc100f93dc67f96",
+   "howto_step_7_title": "4d89c0169531556a",
+   "howto_title": "0a2d1e74fcd5057b",
+   "meta_description": "74ebef926532fccd",
+   "meta_title": "84751f380d2031ef",
+   "mockup": "0c2990c11c6a1e6a",
+   "product_name": "dd474adf16a52afb",
+   "prompt_chip_1": "931b76ace557ae43",
+   "prompt_chip_2": "1f456716b0fcd26e",
+   "prompt_chip_3": "c6c335a2a1c056e1",
+   "prompt_chip_4": "b4c2a7b0e32c2a34",
+   "slug": "6b5da4a241ae7d4c",
+   "tab_content_1": "4bc262f2c7d353cf",
+   "tab_content_2": "a7d63524e23e1e1a",
+   "tab_content_3": "18e9920335742f97",
+   "tab_content_4": "a303d7696201210c",
+   "tab_label_1": "1de10614ae9b1343",
+   "tab_label_2": "795ada98f38e16fd",
+   "tab_label_3": "6a8cecc9f65a34be",
+   "tab_label_4": "d99e3d317f0f7a5e",
+   "usecase_heading": "ea9679d633ba74d2",
+   "why_description": "b72bd440d34b3c5f",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "a08d1dfd098b7f8d"
+  },
+  "all": "d182f9f2a7584d81",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
