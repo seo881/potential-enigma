@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-228",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 05:33 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-87",
+   "note": "rubric 10/10 by B-r-87; 6 notes"
   }
  ],
  "pipeline": "r15",
@@ -865,5 +872,305 @@
  },
  "writers": [
   "B-w-228"
- ]
+ ],
+ "review": {
+  "by": "B-r-87",
+  "date": "2026-10-21 05:33 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Employee Feedback Form That Routes Every Comment'; hero 'Create an employee feedback form that routes each comment to the person who can act on it and saves it to a database you own.' covers the whole job; howto description is one sentence with the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is templates and question lists; page gives a question set (FAQ 3 'what the note is about, what happened or what you suggest, and whether the person wants a reply'), length guidance (FAQ 8), a 7-step how-to, four worked examples and the performance-review distinction (FAQ 7)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'case sealer on line 3 jams every shift', 'Thursday one-on-one', 'on-call policy took comments for 14 days', 'a reroute takes 4 taps'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Packers at Pellard Foods have no company email', 'Brennor Health drafts policy in the open.', 'Equipment notes go to maintenance'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One ', so' ending (tab 1) under the cap; sentences short and varied; no blocking craft defects."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain verbs and concrete detail ('A packer on a 10-minute break can file a note before heading back to the line'); no AI tells. Word repetition of 'comment'/'topic' noted."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to prompt-build, alerts, conversational, database-owned, code-export, no-caps, free-start. FAQ 7 quote 'the process under which performance is reviewed and evaluated' matches the 5 CFR 430.203 span in domain_sources; not presented as binding on private employers. Bars 4+6+7+21=38 match tab 3."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Standing employee-to-employer channel with owners and statuses; no survey/engagement/evaluation/manager-feedback framing in headings; FAQ 7 sends performance scoring elsewhere. Tabs (equipment, 1:1 prep, draft policy, tool rollout) differ from suggestion-form, engagement, pulse and manager-feedback tabs."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, paa --spec 10 pass 0 reject 0 flag; hub link in item 2; links to feedback form, assessment form, favorite things questionnaire; moat lines in items 5, 8, 9; no brands or file formats in questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 'Sent to Teodor Vass' / 'Assigned, Before the shift ended'; tab 2 'Slow staging server' Stuck, 'Manager: Marisol Teague'; tab 3 38 comments, 21 on Sec. 4; tab 4 Bo Lindgren 2, 'Reroute takes 4 taps', sent to Halsey Ruiz. One hero each, all match copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Federal rules, for example, define an appraisal as \"the process under which performance is reviewed and evaluated.\"",
+    "issue": "5 CFR 430.203 governs federal agency performance management; 'Federal rules' without that scope could be read as a definition binding all employers (rework-checklist #2, source scope). The definition itself is accurate and imposes nothing, so this is a note.",
+    "fix": "Optionally write 'Rules for federal agencies, for example, define an appraisal as ...'.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "features_subheading",
+    "quote": "A template stops at submit.",
+    "issue": "Same idea restated in why_description: 'A printed template asks the questions and stops.'",
+    "fix": "Vary one of the two intros.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq",
+    "quote": "such as a new tool's score after its first month",
+    "issue": "The page's own tool-rollout example (tab_content_4) rates after 2 weeks ('After 2 weeks, each one rated it'); likewise FAQ 8 'takes about 2 minutes' vs howto_step_2_des 'done in under 2 minutes'. Compatible, but slightly inconsistent.",
+    "fix": "Align to 'after its first 2 weeks' and 'under 2 minutes'.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "comment",
+    "issue": "'comment' appears 15 times and 'topic' 14 times outside the FAQ (QC Q9 P2).",
+    "fix": "Vary with note, report, request where the meaning holds.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Google Forms",
+    "issue": "Google Forms is not in this page's top 10 (QC K7 P2); SmartSurvey or LimeSurvey rank but may not be in the library.",
+    "fix": "Next regeneration, prefer a ranking vendor if the library has one.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "Is an employee feedback form the same as a performance review?",
+    "issue": "Part of the top 10 (Lattice, K-State, Smartsheet) reads the primary as manager-to-employee feedback; the page covers that sense only in FAQ 7 and links assessment form rather than the employee evaluation form sibling.",
+    "fix": "Optionally link the employee evaluation form page in FAQ 7 once it is live.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "5 CFR 430.203 governs federal agency performance management; 'Federal rules' without that scope could be read as a definition binding all employers (rework-checklist #2, source scope). The definition itself is accurate and imposes nothing, so this is a note.",
+   "fix": "Optionally write 'Rules for federal agencies, for example, define an appraisal as ...'.",
+   "by": "B-r-87",
+   "via": "review",
+   "date": "2026-10-21 05:33 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "features_subheading",
+   "issue": "Same idea restated in why_description: 'A printed template asks the questions and stops.'",
+   "fix": "Vary one of the two intros.",
+   "by": "B-r-87",
+   "via": "review",
+   "date": "2026-10-21 05:33 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq",
+   "issue": "The page's own tool-rollout example (tab_content_4) rates after 2 weeks ('After 2 weeks, each one rated it'); likewise FAQ 8 'takes about 2 minutes' vs howto_step_2_des 'done in under 2 minutes'. Compatible, but slightly inconsistent.",
+   "fix": "Align to 'after its first 2 weeks' and 'under 2 minutes'.",
+   "by": "B-r-87",
+   "via": "review",
+   "date": "2026-10-21 05:33 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "'comment' appears 15 times and 'topic' 14 times outside the FAQ (QC Q9 P2).",
+   "fix": "Vary with note, report, request where the meaning holds.",
+   "by": "B-r-87",
+   "via": "review",
+   "date": "2026-10-21 05:33 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "Google Forms is not in this page's top 10 (QC K7 P2); SmartSurvey or LimeSurvey rank but may not be in the library.",
+   "fix": "Next regeneration, prefer a ranking vendor if the library has one.",
+   "by": "B-r-87",
+   "via": "review",
+   "date": "2026-10-21 05:33 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "Part of the top 10 (Lattice, K-State, Smartsheet) reads the primary as manager-to-employee feedback; the page covers that sense only in FAQ 7 and links assessment form rather than the employee evaluation form sibling.",
+   "fix": "Optionally link the employee evaluation form page in FAQ 7 once it is live.",
+   "by": "B-r-87",
+   "via": "review",
+   "date": "2026-10-21 05:33 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "2a4cc1c36dd6936d",
+   "alt:share_image": "4de4ea932db0cde6",
+   "alt:tab_image_1": "ef4e31ca21d11839",
+   "alt:tab_image_2": "29fcb9491722630e",
+   "alt:tab_image_3": "a2bf7261e3a434d8",
+   "alt:tab_image_4": "cf610ec30fde0898",
+   "breadcrumb": "b0d71c99107c26c8",
+   "chip_adds": "900a3a962c0f1af0",
+   "explore_cta": "399704b68e25bbd5",
+   "faq": "012af9bb77124ac5",
+   "feature_1": "5a5a8684db2b7c99",
+   "feature_2": "5d57c1509b7fafe5",
+   "feature_3": "173285a594dd8da9",
+   "feature_4": "237b936dcb472286",
+   "feature_5": "8a904fd9ad1808e4",
+   "feature_6": "d4e2cecff7108793",
+   "features_heading": "97b4ffa6843d7fc1",
+   "features_subheading": "9143305dd732cc6b",
+   "h1": "e1857127967f582a",
+   "hero_description": "36b40d9fb9716169",
+   "hero_prompt": "2e6736b272b902cf",
+   "howto_description": "471cdbe029a0d530",
+   "howto_step_1_des": "0ff21de85460a3a3",
+   "howto_step_1_title": "2c1c07708e32d008",
+   "howto_step_2_des": "98edb2a5b0260f29",
+   "howto_step_2_title": "405f4fde809abac8",
+   "howto_step_3_des": "6b0e6b2b96f4ec8c",
+   "howto_step_3_title": "198a534b83a51f60",
+   "howto_step_4_des": "ee0ae24b76a92111",
+   "howto_step_4_title": "fa96fe17a38cf34d",
+   "howto_step_5_des": "90feaeaf8331d637",
+   "howto_step_5_title": "4ba23bdf0d8035ea",
+   "howto_step_6_des": "c17d3f770f6bbf0e",
+   "howto_step_6_title": "f630be2ec8201b22",
+   "howto_step_7_des": "7045b0be3e2e6d4c",
+   "howto_step_7_title": "0ae885b0583e74fa",
+   "howto_title": "53e645f1d76f966c",
+   "meta_description": "1ccb292da8132f47",
+   "meta_title": "4a5e21173f5eeeb6",
+   "mockup": "75be7aaa2d6e4fe1",
+   "product_name": "abfcdd3388046379",
+   "prompt_chip_1": "633b335bd0d40108",
+   "prompt_chip_2": "04b2fa474c6673a7",
+   "prompt_chip_3": "1f028a7a24d8178d",
+   "prompt_chip_4": "fb1b1e9b029bfd63",
+   "slug": "c070cb998deeee79",
+   "tab_content_1": "0bf27281ec8f6354",
+   "tab_content_2": "f65567a121ab43a7",
+   "tab_content_3": "8b8a85c36b46643d",
+   "tab_content_4": "441eceadd621f548",
+   "tab_label_1": "c3882a6515076807",
+   "tab_label_2": "da69d5b2ca34a565",
+   "tab_label_3": "d86c5ad8c9b11584",
+   "tab_label_4": "91db12b3757da19f",
+   "usecase_heading": "a8826bb959c8947f",
+   "why_description": "029b569569e794a5",
+   "why_table": "c199d4f8dcd66845",
+   "why_title": "261691c1bbcdef62"
+  },
+  "all": "f99d765941f67384",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "2a4cc1c36dd6936d",
+   "alt:share_image": "4de4ea932db0cde6",
+   "alt:tab_image_1": "ef4e31ca21d11839",
+   "alt:tab_image_2": "29fcb9491722630e",
+   "alt:tab_image_3": "a2bf7261e3a434d8",
+   "alt:tab_image_4": "cf610ec30fde0898",
+   "breadcrumb": "b0d71c99107c26c8",
+   "chip_adds": "900a3a962c0f1af0",
+   "explore_cta": "399704b68e25bbd5",
+   "faq": "012af9bb77124ac5",
+   "feature_1": "5a5a8684db2b7c99",
+   "feature_2": "5d57c1509b7fafe5",
+   "feature_3": "173285a594dd8da9",
+   "feature_4": "237b936dcb472286",
+   "feature_5": "8a904fd9ad1808e4",
+   "feature_6": "d4e2cecff7108793",
+   "features_heading": "97b4ffa6843d7fc1",
+   "features_subheading": "9143305dd732cc6b",
+   "h1": "e1857127967f582a",
+   "hero_description": "36b40d9fb9716169",
+   "hero_prompt": "2e6736b272b902cf",
+   "howto_description": "471cdbe029a0d530",
+   "howto_step_1_des": "0ff21de85460a3a3",
+   "howto_step_1_title": "2c1c07708e32d008",
+   "howto_step_2_des": "98edb2a5b0260f29",
+   "howto_step_2_title": "405f4fde809abac8",
+   "howto_step_3_des": "6b0e6b2b96f4ec8c",
+   "howto_step_3_title": "198a534b83a51f60",
+   "howto_step_4_des": "ee0ae24b76a92111",
+   "howto_step_4_title": "fa96fe17a38cf34d",
+   "howto_step_5_des": "90feaeaf8331d637",
+   "howto_step_5_title": "4ba23bdf0d8035ea",
+   "howto_step_6_des": "c17d3f770f6bbf0e",
+   "howto_step_6_title": "f630be2ec8201b22",
+   "howto_step_7_des": "7045b0be3e2e6d4c",
+   "howto_step_7_title": "0ae885b0583e74fa",
+   "howto_title": "53e645f1d76f966c",
+   "meta_description": "1ccb292da8132f47",
+   "meta_title": "4a5e21173f5eeeb6",
+   "mockup": "75be7aaa2d6e4fe1",
+   "product_name": "abfcdd3388046379",
+   "prompt_chip_1": "633b335bd0d40108",
+   "prompt_chip_2": "04b2fa474c6673a7",
+   "prompt_chip_3": "1f028a7a24d8178d",
+   "prompt_chip_4": "fb1b1e9b029bfd63",
+   "slug": "c070cb998deeee79",
+   "tab_content_1": "0bf27281ec8f6354",
+   "tab_content_2": "f65567a121ab43a7",
+   "tab_content_3": "8b8a85c36b46643d",
+   "tab_content_4": "441eceadd621f548",
+   "tab_label_1": "c3882a6515076807",
+   "tab_label_2": "da69d5b2ca34a565",
+   "tab_label_3": "d86c5ad8c9b11584",
+   "tab_label_4": "91db12b3757da19f",
+   "usecase_heading": "a8826bb959c8947f",
+   "why_description": "029b569569e794a5",
+   "why_table": "c199d4f8dcd66845",
+   "why_title": "261691c1bbcdef62"
+  },
+  "all": "f99d765941f67384",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
