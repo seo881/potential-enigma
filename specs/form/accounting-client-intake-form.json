@@ -150,6 +150,13 @@
    "via": null,
    "by": "B-w-234",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 05:26 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-83",
+   "note": "rubric 10/10 by B-r-83; 5 notes"
   }
  ],
  "plan": {
@@ -1066,5 +1073,285 @@
   "Add upload requests for the documents each answer calls for.",
   "Add a fee quote built from the entity type, partner count and states.",
   "Add an engagement letter with the quoted fee and a signature field."
- ]
+ ],
+ "review": {
+  "by": "B-r-83",
+  "date": "2026-10-21 05:26 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Accounting Client Intake Form for Every Service Line'; hero 'Build an accounting client intake form that shows each client only the questions for their services and prices the work.' (under 130 chars, primary, verb-led); how-to description one sentence with the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are templates and question lists; page covers what to ask (FAQ 3, 4, 6), per-service sections, document requests, fee quotes, engagement letter, a 7-step how-to and a comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Accounting vocabulary throughout: 'last reconciled', '1099-B', 'Schedule K-1', 'EIN', 'catch-up quote', 'engagement letter', 'each added state return adds $150'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs ('Show payroll questions...', 'Turn answers into...', 'Price each engagement...'); tabs open on full sentences ('Ledgerline Bookkeeping asks each new client...')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; tab numbers stated plainly ('Fenwick Bakery reports 14 staff: 11 in Ohio and three in Kentucky.')."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Product-led and concrete ('A partnership return starts at $1,200. Each partner's K-1 adds $75'); two shoehorned link sentences and a slogan intro noted, not blocking."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "1099-B, K-1 and EIN statements match their IRS quotes in domain_sources; $1,200 + 4 x $75 + 1 x $150 = $1,650; 11 + 3 = 14; 6 docs = 4 received + 2 missing; every Emergent claim maps to claims_used (prompt-build, api-connect, alerts, e-signature-capture, code-export, no-caps, database-owned, free-start). No tax advice."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Organized by accounting service line (bookkeeping, personal tax, business tax, payroll); FAQ 10 draws the line to the client onboarding questionnaire instead of covering it."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, paa --spec 10 pass 0 reject 0 flag; hub link in item 2; links to life coaching intake form, fitness assessment form, client onboarding questionnaire; answers answer-first."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: Harlow Florist 4 accounts, checking 7 months behind; Dev Arora 6 documents, 4 received, 2 missing, reminder after 7 days; Ostrander quote $1,650.00 with 2 states; Fenwick Bakery Ohio 11, Kentucky 3, card addressed to Lena Brooks, not a channel. One hero per image."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "Showing sections only to the clients who need them works the same way on a life coaching intake form or any other service intake.",
+    "issue": "Link sentence bolted onto a bookkeeping answer; same pattern in FAQ 7: 'The same upload-per-answer pattern carries over to a fitness assessment form that asks for a doctor's note.'",
+    "fix": "Next touch: link from answers where the sibling is a natural next read, or drop to two sibling links.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "body",
+    "quote": "Every answer a client gives once is a call you skip and a document you never have to ask for twice.",
+    "issue": "Slogan-shaped intro line; reads written-for-effect.",
+    "fix": "State what the six pieces settle, e.g. 'These six pieces settle scope, documents and fee before the first call.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "A new job, a home sale, a new child, or a side business each points to paperwork the client may not know by name.",
+    "issue": "General tax observation without a domain source; hedged and names no specific form or rule, so not a sourced-fact block.",
+    "fix": "Keep as advice or source one example (W-2 for a new job).",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Jotform | Google Forms | Typeform",
+    "issue": "QC K7: Google Forms and Typeform do not rank in this page's top 10 (Jotform does).",
+    "fix": "On a future regen, prefer vendors that rank for the query if the library has them.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "images.cover",
+    "quote": "Accept / Pass",
+    "issue": "Cover card's Accept/Pass buttons differ from the tab's 'Take setup' action for the same Lena Brooks handoff; not a contradiction.",
+    "fix": "Use 'Take setup' on the cover card.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "Link sentence bolted onto a bookkeeping answer; same pattern in FAQ 7: 'The same upload-per-answer pattern carries over to a fitness assessment form that asks for a doctor's note.'",
+   "fix": "Next touch: link from answers where the sibling is a natural next read, or drop to two sibling links.",
+   "by": "B-r-83",
+   "via": "review",
+   "date": "2026-10-21 05:26 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "body",
+   "issue": "Slogan-shaped intro line; reads written-for-effect.",
+   "fix": "State what the six pieces settle, e.g. 'These six pieces settle scope, documents and fee before the first call.'",
+   "by": "B-r-83",
+   "via": "review",
+   "date": "2026-10-21 05:26 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "General tax observation without a domain source; hedged and names no specific form or rule, so not a sourced-fact block.",
+   "fix": "Keep as advice or source one example (W-2 for a new job).",
+   "by": "B-r-83",
+   "via": "review",
+   "date": "2026-10-21 05:26 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: Google Forms and Typeform do not rank in this page's top 10 (Jotform does).",
+   "fix": "On a future regen, prefer vendors that rank for the query if the library has them.",
+   "by": "B-r-83",
+   "via": "review",
+   "date": "2026-10-21 05:26 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "images.cover",
+   "issue": "Cover card's Accept/Pass buttons differ from the tab's 'Take setup' action for the same Lena Brooks handoff; not a contradiction.",
+   "fix": "Use 'Take setup' on the cover card.",
+   "by": "B-r-83",
+   "via": "review",
+   "date": "2026-10-21 05:26 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "af2b958a7f2ef3d6",
+   "alt:share_image": "3e3371fc28754207",
+   "alt:tab_image_1": "92a7df9ee218b596",
+   "alt:tab_image_2": "797c629a01f5a481",
+   "alt:tab_image_3": "1000b037cbc81189",
+   "alt:tab_image_4": "d9081a5fe7b131e4",
+   "breadcrumb": "089c6d227284afd7",
+   "chip_adds": "3a14fd59a159db3c",
+   "explore_cta": "e3dee7b49a061300",
+   "faq": "05260ce12c39b43b",
+   "feature_1": "6f8785c1f2828661",
+   "feature_2": "331f083d90c29da6",
+   "feature_3": "fba39fcf2e0cc90b",
+   "feature_4": "3ab6eaf4edb187be",
+   "feature_5": "bc5fd659ef647c09",
+   "feature_6": "4be1c0e42884c92a",
+   "features_heading": "e2b4f7c8a7e81ec0",
+   "features_subheading": "04c06d3560aded9b",
+   "h1": "b128b53c6a85abd6",
+   "hero_description": "e606e4f038696269",
+   "hero_prompt": "46565a460a7198dd",
+   "howto_description": "9f289ebb482874c1",
+   "howto_step_1_des": "64bb6bb2586edbfa",
+   "howto_step_1_title": "319d2bcbdef48ecf",
+   "howto_step_2_des": "c993005b7258060f",
+   "howto_step_2_title": "2c8d70e62d13a188",
+   "howto_step_3_des": "056e22a1bca29971",
+   "howto_step_3_title": "45f416ccea790b5e",
+   "howto_step_4_des": "399256b2a9f8202d",
+   "howto_step_4_title": "9ee22db988d61dba",
+   "howto_step_5_des": "79f826e9fa86c87a",
+   "howto_step_5_title": "47e21227c893f179",
+   "howto_step_6_des": "c36b4cf9be9b2425",
+   "howto_step_6_title": "5af480dd18561aac",
+   "howto_step_7_des": "897eaa818373cc41",
+   "howto_step_7_title": "8c7220573330b47d",
+   "howto_title": "a143fae7f2b9bb32",
+   "meta_description": "c93374ad462159a0",
+   "meta_title": "34734bf18807d9a6",
+   "mockup": "45cb04d0e8ac5280",
+   "product_name": "8b66fa0d5684f981",
+   "prompt_chip_1": "c7c24be56c62735c",
+   "prompt_chip_2": "c44905a20696b3f3",
+   "prompt_chip_3": "b11ee59180db2058",
+   "prompt_chip_4": "99fd12713a0e96b0",
+   "slug": "20fab2e4579b09f4",
+   "tab_content_1": "1172cece446ca795",
+   "tab_content_2": "0cb0b3929dc5d737",
+   "tab_content_3": "03786bc2e3a4b83b",
+   "tab_content_4": "b8e351b1fb36aa18",
+   "tab_label_1": "f47f3fc97e87f5fe",
+   "tab_label_2": "15054bee966ed59b",
+   "tab_label_3": "cb22b9146326b2f8",
+   "tab_label_4": "53fe8dfb6d9e1b03",
+   "usecase_heading": "3718aadb43393f3b",
+   "why_description": "0663ec378646cfe1",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "2fd75a22fcb904a9"
+  },
+  "all": "6f3822bd2ca51999",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "af2b958a7f2ef3d6",
+   "alt:share_image": "3e3371fc28754207",
+   "alt:tab_image_1": "92a7df9ee218b596",
+   "alt:tab_image_2": "797c629a01f5a481",
+   "alt:tab_image_3": "1000b037cbc81189",
+   "alt:tab_image_4": "d9081a5fe7b131e4",
+   "breadcrumb": "089c6d227284afd7",
+   "chip_adds": "3a14fd59a159db3c",
+   "explore_cta": "e3dee7b49a061300",
+   "faq": "05260ce12c39b43b",
+   "feature_1": "6f8785c1f2828661",
+   "feature_2": "331f083d90c29da6",
+   "feature_3": "fba39fcf2e0cc90b",
+   "feature_4": "3ab6eaf4edb187be",
+   "feature_5": "bc5fd659ef647c09",
+   "feature_6": "4be1c0e42884c92a",
+   "features_heading": "e2b4f7c8a7e81ec0",
+   "features_subheading": "04c06d3560aded9b",
+   "h1": "b128b53c6a85abd6",
+   "hero_description": "e606e4f038696269",
+   "hero_prompt": "46565a460a7198dd",
+   "howto_description": "9f289ebb482874c1",
+   "howto_step_1_des": "64bb6bb2586edbfa",
+   "howto_step_1_title": "319d2bcbdef48ecf",
+   "howto_step_2_des": "c993005b7258060f",
+   "howto_step_2_title": "2c8d70e62d13a188",
+   "howto_step_3_des": "056e22a1bca29971",
+   "howto_step_3_title": "45f416ccea790b5e",
+   "howto_step_4_des": "399256b2a9f8202d",
+   "howto_step_4_title": "9ee22db988d61dba",
+   "howto_step_5_des": "79f826e9fa86c87a",
+   "howto_step_5_title": "47e21227c893f179",
+   "howto_step_6_des": "c36b4cf9be9b2425",
+   "howto_step_6_title": "5af480dd18561aac",
+   "howto_step_7_des": "897eaa818373cc41",
+   "howto_step_7_title": "8c7220573330b47d",
+   "howto_title": "a143fae7f2b9bb32",
+   "meta_description": "c93374ad462159a0",
+   "meta_title": "34734bf18807d9a6",
+   "mockup": "45cb04d0e8ac5280",
+   "product_name": "8b66fa0d5684f981",
+   "prompt_chip_1": "c7c24be56c62735c",
+   "prompt_chip_2": "c44905a20696b3f3",
+   "prompt_chip_3": "b11ee59180db2058",
+   "prompt_chip_4": "99fd12713a0e96b0",
+   "slug": "20fab2e4579b09f4",
+   "tab_content_1": "1172cece446ca795",
+   "tab_content_2": "0cb0b3929dc5d737",
+   "tab_content_3": "03786bc2e3a4b83b",
+   "tab_content_4": "b8e351b1fb36aa18",
+   "tab_label_1": "f47f3fc97e87f5fe",
+   "tab_label_2": "15054bee966ed59b",
+   "tab_label_3": "cb22b9146326b2f8",
+   "tab_label_4": "53fe8dfb6d9e1b03",
+   "usecase_heading": "3718aadb43393f3b",
+   "why_description": "0663ec378646cfe1",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "2fd75a22fcb904a9"
+  },
+  "all": "6f3822bd2ca51999",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
