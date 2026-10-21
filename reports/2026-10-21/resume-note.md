@@ -1,3 +1,5 @@
+**FIRST: ship the waiting queue.** Run the group-of-5 ship script (scratchpad ship5.sh, logic: standing-go approve reviewed pages that pass ship-check and aren't held, then api-read, cms-check, api-create --limit 5, api-publish --only <drafts> --verify-live, a sync after each step) for Auto, LP, SurveyQuiz, Form until no approved page is left. Progress: reports/2026-10-21/ship-groups.log. The ship agent B-ship-3 got stuck at 11:43 IST and was stopped. Nothing else runs before the queue is empty.
+
 # Resume note, B session, 2026-10-21 (written at about 90% session)
 
 Live: 243 of 316. Rulings applied this session: contract-approval Q1 approved (rules/flag_decisions.json, 11699e47); PA15 allows "pdf" on pdf-automation only (17034b26, golden cases in b27f619c); brand casing in skeleton (b27f619c).
@@ -21,3 +23,5 @@ Live: 243 of 316. Rulings applied this session: contract-approval Q1 approved (r
 - After B-w-278: a DIFFERENT agent slim-reviews the changed fields on all 3 pages (Divit item 3); then ship.
 - pdf-automation writer (B-w-277) still running; it needs one full review.
 - Proposal: add a QC check for the "built into Emergent" wording, which QC doesn't catch (found on 2 pages).
+- SCIM ruling (Divit 2026-10-21): user-provisioning-automation may name SCIM as the provisioning standard, sourced (RFC 7644 or the IdP docs). Never claim Emergent has built-in SCIM support unless it is in rules/claims.json; say an app built with Emergent can connect to identity providers. QC C2 currently blocks the word SCIM, so C2 needs an exception (standard named with a source, no Emergent claim) plus a golden test, then rework FAQ 3, slim review, ship. The page is held until then.
+- Holds (B-c-1): coaching, linkedin (slim reviews, B-r-110), user-provisioning (SCIM).

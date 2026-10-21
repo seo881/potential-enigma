@@ -430,3 +430,6 @@ Every ruling Divit has made that a future chat must respect. Newest first. Add a
 - Comparison tables put Emergent first, darker grey alternating column.
 - Image standard: v5 design system, outlined SVG at the slot's exact aspect (use-case 3:2, object-fit fill), share images PNG 1200x630. No Anthropic API key in the image process.
 - GitHub token is fine-grained to this repo only, expires 2026-12-28; never commit it.
+
+- 2026-10-21 (Divit): SCIM on user-provisioning-automation: yes. Mention SCIM as the provisioning standard, sourced. No claim that Emergent has built-in SCIM support unless it is in rules/claims.json; say an app built with Emergent can connect to identity providers.
+- 2026-10-21 (Divit): ship in rolling groups of 5 and report the live count after each group. If the session ends, the next session ships the waiting queue before anything else.
