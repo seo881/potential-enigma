@@ -1,1 +1,1 @@
-LIVE: 243 (today +27 / 100) | APPROVED waiting: ~28 reviewed/approved (ship agent shipping) | IN REVIEW: 1 | WRITING: 8 (B 8; A separate) | FLAGS for Divit: 0 | B weekly %: 13 (session ~80+) | NEEDS DIVIT: none | NEXT: rolling item publishes; commit the pdf rule after golden tests
+LIVE: 243 (today +27 / 100) | APPROVED waiting: ~28 reviewed/approved (ship agent shipping) | IN REVIEW: 3 | WRITING: 6 (B 6; A separate) | FLAGS for Divit: 0 | B weekly %: 13 (session ~80+) | NEEDS DIVIT: none | NEXT: rolling item publishes; commit the pdf rule after golden tests
