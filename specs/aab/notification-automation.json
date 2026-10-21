@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-302",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 11:32 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-132",
+   "note": "[truth | HUB_RULES 8] faq: Source scope dropped (rework-checklist 2). Twilio gives 153 characters per segment for GSM-7 messages only; UCS-2 segments carry 67. Placed right after the UCS-2 sentence, 'Longer texts' reads as covering emoji texts too, which the source does not say. Only instance on the"
   }
  ],
  "pipeline": "r15",
@@ -1011,5 +1018,193 @@
  },
  "writers": [
   "B-w-302"
- ]
+ ],
+ "review": {
+  "by": "B-r-132",
+  "date": "2026-10-21 11:32 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Notification Automation With Rules for Who Hears What'; hero covers event, person, channel, hour."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition in FAQ 1, 7-step how-to, four worked rules (routing, digest, quiet hours, send log), comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'When a shipment runs more than 24 hours late, the rule sends account owner Imogen Varga a Slack direct message'"
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature and tab bodies open on full sentences: 'Quillmark Logistics has 13 people on the Halvane Foods account.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences carry one idea each; Q-checks clean."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Describe each rule the way you would tell a new hire: when an order is refunded, email the store manager.'"
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "faq item 3: 'Longer texts are split into segments of 153 characters each.' follows the UCS-2 sentence; Twilio gives 153 for GSM-7 only and 67 for UCS-2."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Stays off stock alerts, outages (FAQ 7 hands off to incident response automation) and appointment reminders; tab 3 texts staff, not customers."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions; Slack quote keeps 'in general' and the burst allowance."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 table 6+5 = 11 not told of 13; tab 2 digest items sum to 17; tab 4 shows 5 bounced of 214."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "An emoji in an SMS switches it to UCS-2 encoding, which cuts the limit to 70 characters. Longer texts are split into segments of 153 characters each.",
+    "issue": "Source scope dropped (rework-checklist 2). Twilio gives 153 characters per segment for GSM-7 messages only; UCS-2 segments carry 67. Placed right after the UCS-2 sentence, 'Longer texts' reads as covering emoji texts too, which the source does not say. Only instance on the page (no other field states SMS segment sizes).",
+    "fix": "Scope it to GSM-7, e.g. 'Longer GSM-7 texts are split into 153-character segments, and UCS-2 texts into 67-character ones', with a domain_sources entry for the 67 figure (Twilio: 'UCS-2 encoded messages contain 67 Unicode characters'), or drop the UCS-2 segment clause and say only GSM-7.",
+    "severity": "blocking"
+   }
+  ]
+ },
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "014e063bf53c2924",
+   "alt:share_image": "a61c8e9101af6cab",
+   "alt:tab_image_1": "59f65f6dc088f9b2",
+   "alt:tab_image_2": "76c65997415e19be",
+   "alt:tab_image_3": "4d4bd247cbc0b846",
+   "alt:tab_image_4": "cc457e7797ae47a8",
+   "breadcrumb": "7f6ba61fd45a485d",
+   "chip_adds": "563f9fc89afe9174",
+   "explore_cta": "d481c0c5340b2b26",
+   "faq": "93c7872bd66da8e9",
+   "feature_1": "7dd17ae7e73b5046",
+   "feature_2": "f31c34c2679d8978",
+   "feature_3": "7a65d8fa0a4232ce",
+   "feature_4": "7e2414663e91773b",
+   "feature_5": "e56a589a6cfd85ea",
+   "feature_6": "20447ac0f31c714f",
+   "features_heading": "fa47828d16bc0d24",
+   "features_subheading": "65c67bcadb846f35",
+   "h1": "e4fd44ab77cd6b9b",
+   "hero_description": "736ede38ac6eeda8",
+   "hero_prompt": "2516c87117484aa4",
+   "howto_description": "27c610804b8b7b53",
+   "howto_step_1_des": "e85933faa2023bfd",
+   "howto_step_1_title": "8e911edde19c8509",
+   "howto_step_2_des": "a4e5671cbe828aed",
+   "howto_step_2_title": "caa8baf6c8866ddb",
+   "howto_step_3_des": "05dd54c5c863395d",
+   "howto_step_3_title": "7b283c1578705296",
+   "howto_step_4_des": "f1407fe26847d372",
+   "howto_step_4_title": "37f896eb06d33185",
+   "howto_step_5_des": "fe098f98a3cd6c9e",
+   "howto_step_5_title": "0c4ffa2b187a1181",
+   "howto_step_6_des": "814daa84d3d74a1c",
+   "howto_step_6_title": "98fe64b2421d82f8",
+   "howto_step_7_des": "7ccedd5389c36e5c",
+   "howto_step_7_title": "3d95851c92a8a432",
+   "howto_title": "21bd3699401653fa",
+   "meta_description": "d36a00e94b243844",
+   "meta_title": "fa87d98ff55fac01",
+   "mockup": "e64eed53b726807e",
+   "product_name": "d569caf76738dfea",
+   "prompt_chip_1": "2cf589794a6f8d04",
+   "prompt_chip_2": "5da948c2ea2a9cad",
+   "prompt_chip_3": "46e406ca2f3277fb",
+   "prompt_chip_4": "75a645726e79e86a",
+   "slug": "a67d92497f234c9f",
+   "tab_content_1": "d2e55f6c500e2db0",
+   "tab_content_2": "66a4f25b4e9447f0",
+   "tab_content_3": "2a4d62b6abab1dff",
+   "tab_content_4": "1b3dfb9d6a45a015",
+   "tab_label_1": "2cf589794a6f8d04",
+   "tab_label_2": "5da948c2ea2a9cad",
+   "tab_label_3": "46e406ca2f3277fb",
+   "tab_label_4": "75a645726e79e86a",
+   "usecase_heading": "c9c2fbe789461438",
+   "why_description": "bc0e8fffdb8ba429",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "1f07d2e3efb44509"
+  },
+  "all": "90036104905a5892",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "014e063bf53c2924",
+   "alt:share_image": "a61c8e9101af6cab",
+   "alt:tab_image_1": "59f65f6dc088f9b2",
+   "alt:tab_image_2": "76c65997415e19be",
+   "alt:tab_image_3": "4d4bd247cbc0b846",
+   "alt:tab_image_4": "cc457e7797ae47a8",
+   "breadcrumb": "7f6ba61fd45a485d",
+   "chip_adds": "563f9fc89afe9174",
+   "explore_cta": "d481c0c5340b2b26",
+   "faq": "93c7872bd66da8e9",
+   "feature_1": "7dd17ae7e73b5046",
+   "feature_2": "f31c34c2679d8978",
+   "feature_3": "7a65d8fa0a4232ce",
+   "feature_4": "7e2414663e91773b",
+   "feature_5": "e56a589a6cfd85ea",
+   "feature_6": "20447ac0f31c714f",
+   "features_heading": "fa47828d16bc0d24",
+   "features_subheading": "65c67bcadb846f35",
+   "h1": "e4fd44ab77cd6b9b",
+   "hero_description": "736ede38ac6eeda8",
+   "hero_prompt": "2516c87117484aa4",
+   "howto_description": "27c610804b8b7b53",
+   "howto_step_1_des": "e85933faa2023bfd",
+   "howto_step_1_title": "8e911edde19c8509",
+   "howto_step_2_des": "a4e5671cbe828aed",
+   "howto_step_2_title": "caa8baf6c8866ddb",
+   "howto_step_3_des": "05dd54c5c863395d",
+   "howto_step_3_title": "7b283c1578705296",
+   "howto_step_4_des": "f1407fe26847d372",
+   "howto_step_4_title": "37f896eb06d33185",
+   "howto_step_5_des": "fe098f98a3cd6c9e",
+   "howto_step_5_title": "0c4ffa2b187a1181",
+   "howto_step_6_des": "814daa84d3d74a1c",
+   "howto_step_6_title": "98fe64b2421d82f8",
+   "howto_step_7_des": "7ccedd5389c36e5c",
+   "howto_step_7_title": "3d95851c92a8a432",
+   "howto_title": "21bd3699401653fa",
+   "meta_description": "d36a00e94b243844",
+   "meta_title": "fa87d98ff55fac01",
+   "mockup": "e64eed53b726807e",
+   "product_name": "d569caf76738dfea",
+   "prompt_chip_1": "2cf589794a6f8d04",
+   "prompt_chip_2": "5da948c2ea2a9cad",
+   "prompt_chip_3": "46e406ca2f3277fb",
+   "prompt_chip_4": "75a645726e79e86a",
+   "slug": "a67d92497f234c9f",
+   "tab_content_1": "d2e55f6c500e2db0",
+   "tab_content_2": "66a4f25b4e9447f0",
+   "tab_content_3": "2a4d62b6abab1dff",
+   "tab_content_4": "1b3dfb9d6a45a015",
+   "tab_label_1": "2cf589794a6f8d04",
+   "tab_label_2": "5da948c2ea2a9cad",
+   "tab_label_3": "46e406ca2f3277fb",
+   "tab_label_4": "75a645726e79e86a",
+   "usecase_heading": "c9c2fbe789461438",
+   "why_description": "bc0e8fffdb8ba429",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "1f07d2e3efb44509"
+  },
+  "all": "90036104905a5892",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
