@@ -1,0 +1,1052 @@
+{
+ "url": "/ai-automation-builder/vendor-management-workflow",
+ "hub": "Auto",
+ "item_id": null,
+ "status": "spec",
+ "written_by": "B-w-253",
+ "keywords": {
+  "primary": "vendor management workflow",
+  "secondaries_used": []
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Vendor Management Workflow With Scorecards | Emergent",
+  "meta_description": "Build a vendor management workflow that schedules reviews, chases insurance certificates before they lapse, and scores on-time delivery.",
+  "h1": "Build a Vendor Management Workflow That Keeps Vendors Current",
+  "slug": "vendor-management-workflow",
+  "product_name": "Vendor Management Workflow Builder",
+  "hero_description": "Build a vendor management workflow that tracks each vendor's reviews and insurance in a database you own.",
+  "breadcrumb": "Vendor Management Workflow",
+  "category": "a33cd4fb124ec86a130809893b2b3896",
+  "explore_cta": "Build My Vendor Management",
+  "features_heading": "What Emergent Builds Into the Workflow",
+  "features_subheading": "Every part writes to the same vendor record, so an owner sees a vendor's whole history on one screen.",
+  "feature_1": "<h3>One register, one owner per vendor</h3><p>Emergent builds the register from your prompt. Each vendor carries a risk tier, a named owner, a next review date, and its files, and the register lives in a database you own.</p>",
+  "feature_2": "<h3>Expiry dates read from each certificate</h3><p>Upload a certificate of insurance and the app reads the policy end date into the vendor's record with AI. A date it cannot read with confidence goes to a person to confirm.</p>",
+  "feature_3": "<h3>Reminders that escalate on your schedule</h3><p>The app emails the vendor's contact before a document lapses and sends the owner a Slack alert as the deadline gets close. You pick the number of days for each step.</p>",
+  "feature_4": "<h3>Scorecards built from your delivery records</h3><p>Point the app at the orders you already log, and a live dashboard shows each vendor's on-time rate by quarter. Vendors below the target you set are flagged for their owner.</p>",
+  "feature_5": "<h3>Vendor status kept in step with your ledger</h3><p>Connect QuickBooks, Xero, or NetSuite through their APIs. The app syncs vendor records in and out, so a vendor you mark inactive shows the same status in both places.</p>",
+  "feature_6": "<h3>The workflow's code, in your GitHub</h3><p>Export the full code of the vendor workflow to your GitHub repository on paid plans. Anyone can then read how each review date is set and extend the rules like any codebase.</p>",
+  "why_title": "Why Build Vendor Management on Emergent?",
+  "why_description": "Emergent builds the vendor register and the scorecard dashboard as one app from a prompt, and the workflow runs with no cap on tasks.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Zapier</th>\n        <th scope=\"col\">Make (Integromat)</th>\n        <th scope=\"col\">n8n</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt for the workflow and the app around it</td>\n        <td class=\"col-other\">Templates and editor, AI copilot</td>\n        <td class=\"col-other\">Visual canvas</td>\n        <td class=\"col-other\">Visual canvas, self-hosted or cloud</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">What you get</th>\n        <td class=\"col-brand\">Workflow + trigger form + database + dashboard, as code you own</td>\n        <td class=\"col-other\">Zaps, plus Tables and Interfaces inside Zapier</td>\n        <td class=\"col-other\">Scenarios inside Make</td>\n        <td class=\"col-other\">Workflows inside n8n</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Behavior at cap</th>\n        <td class=\"col-brand\">Keeps running, no task cap</td>\n        <td class=\"col-other\">Overage billed at up to 1.25× the base rate</td>\n        <td class=\"col-other\">Runs pause</td>\n        <td class=\"col-other\">Cloud workflows stop until the reset or an upgrade</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">AI and agent steps</th>\n        <td class=\"col-brand\">Native, share the same credit pool</td>\n        <td class=\"col-other\">Priced by model tier, drawn from the task pool</td>\n        <td class=\"col-other\">AI modules cost variable credits</td>\n        <td class=\"col-other\">Bring your own model API key, billed by the provider</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">Yes on Community Edition</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "Four Vendor Jobs the App Runs for You",
+  "tab_label_1": "Review Dates",
+  "tab_label_2": "Insurance",
+  "tab_label_3": "Delivery Scores",
+  "tab_label_4": "Vendor Exits",
+  "tab_content_1": "<h3>Every 6 months for tier 1, every 12 for the rest</h3><p>Thistlebay Hotels sorts its vendors into risk tiers. Tier 1 vendors come up for review every 6 months, and the rest every 12 months. This month 18 reviews came due: 11 are done and 5 are in progress with their owners. The 2 overdue reviews went to Marisol Quenneville, the vendor manager, by direct message.</p>",
+  "tab_content_2": "<h3>With 7 days left, the vendor goes on hold</h3><p>Gableworth Property Group needs a current certificate of insurance from each vendor. Fallowmere Electric's expires on November 30, and the app emailed Ottilie Brannock 30 days before. With 7 days left and no upload, Fallowmere went on hold, and Rufus Adeyemi-Clarke, the operations lead, got a direct message.</p>",
+  "tab_content_3": "<h3>Pellbrook Produce misses its target with 6 late orders</h3><p>Brineford Kitchens scores produce vendors on delivery each quarter. In Q3, Pellbrook Produce delivered 46 of 52 orders on time. Of the 6 late, 2 were under 2 hours late and 4 more than 2 hours. Under 95% on time means a scorecard by email for Pellbrook and a message to Juniper Okonkwo-Hale, the kitchen manager.</p>",
+  "tab_content_4": "<h3>Corvane leaves the approved list before its logins close</h3><p>When Oakhurst Logistics marks Corvane Security Systems inactive, the app runs 4 offboarding steps. It takes Corvane off the approved vendor list and archives its 7 documents. Ivo Brannagh in IT then gets a task to remove its 2 system logins, and the offboarding closes when he confirms.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { reviewDates: \"Build a vendor review calendar for my hotel group. Give each vendor a risk tier and an owner. Schedule a review every 6 months for tier 1 vendors and every 12 months for the rest. Show this month's reviews as done, in progress, or overdue, and send the vendor manager a direct message for each overdue review.\", insuranceCertificates: \"Build an insurance tracker for my property management company. Each maintenance vendor uploads a certificate of insurance, and the app reads its expiry date. Email the vendor's contact 30 days before expiry to ask for a new certificate. If nothing is uploaded with 7 days left, put the vendor on hold for new work orders and send the operations lead a direct message.\", deliveryScores: \"Build a quarterly scorecard for the produce vendors that supply my restaurant kitchens. Count each vendor's orders delivered on time and late, and split late orders into under 2 hours and more than 2 hours. Email the scorecard to any vendor under a 95% on-time target, and send the kitchen manager a direct message.\", vendorExits: \"Build an offboarding checklist for my logistics company that starts when a vendor is marked inactive. Remove the vendor from the approved vendor list, archive its documents, and give IT a task to remove its system logins. Close the offboarding when IT confirms the logins are gone.\" };</p>",
+  "howto_title": "How to Build a Vendor Management Workflow",
+  "howto_description": "Seven steps to set the tiers and rules of a vendor management workflow, then build and test it with Emergent.",
+  "howto_step_1_title": "01 List every vendor with an owner",
+  "howto_step_2_title": "02 Sort vendors into risk tiers",
+  "howto_step_3_title": "03 Name the documents each tier keeps",
+  "howto_step_4_title": "04 Set the reminder and hold rules",
+  "howto_step_1_des": "Pull every active vendor out of your accounting system into one sheet and write a single owner next to each name. A vendor with no owner is the first gap to close, because nobody will act on its reminders.",
+  "howto_step_2_des": "Put the vendors you could not run a week without in tier 1, and decide how often each tier gets reviewed. A 6-month cycle for tier 1 and a yearly one for everyone else is a sound place to start.",
+  "howto_step_3_des": "Write down which documents you hold on file for each tier, such as a certificate of insurance or a signed security questionnaire. Next to each one, note the minimum coverage or the latest version you accept.",
+  "howto_step_4_des": "Choose how many days before expiry the vendor is asked for a new document, when its owner hears about it, and when the vendor goes on hold. Write each rule with its exact number of days.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Vendor Management Workflow FAQ\", \"items\": [{\"q\": \"What is a vendor management workflow?\", \"a\": \"A vendor management workflow is the set of recurring steps a business runs to keep each approved vendor in good standing: scheduled reviews, current documents, performance scores, and a clean exit when the relationship ends. Each step has an owner and a due date, and every result is recorded against the vendor.\"}, {\"q\": \"How do I create a vendor management workflow?\", \"a\": \"Write your vendor rules down first: the risk tiers, the review cycle for each, the documents you hold on file, and how many days before expiry a reminder goes out. Then describe those rules in a prompt to Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>, which builds the vendor register, the reminders, and a scorecard dashboard as one app. You change a rule later by prompting again.\"}, {\"q\": \"How do I automate vendor management workflows with AI?\", \"a\": \"Use AI for the step where a person would otherwise read a document, and keep the rest as fixed rules. Apps Emergent builds can read an uploaded certificate of insurance into fields such as the policy end date, and send a low-confidence field to a person. Dates, tiers, and holds should stay rules, because they need to behave the same way every time.\"}, {\"q\": \"What should a vendor management workflow measure on each vendor's scorecard?\", \"a\": \"Start with 2 measures you already record: on-time delivery and the share of orders returned for a quality problem. If your receipts and stock counts run through <a href='https://emergent.sh/ai-automation-builder/automated-inventory-management'>automated inventory management</a>, the delivery dates can feed the scorecard without anyone retyping them. Add a third measure, such as how fast a vendor answers an issue, only after the first two are trusted.\"}, {\"q\": \"How often should a vendor management workflow review each vendor?\", \"a\": \"Set the review cycle by risk, not one calendar for everyone. Review the vendors you depend on daily twice a year and the rest once a year, then shorten the cycle for any vendor that misses its scorecard target 2 quarters running. Put the next review date on the vendor's record. The reminder then comes from the date, not from memory.\"}, {\"q\": \"When should a vendor management workflow put a vendor on hold?\", \"a\": \"Put a vendor on hold when a required document has lapsed or is about to, or when its scores stay under target after a warning. Write each trigger as a rule with an exact number of days, and decide what the hold blocks, such as new orders or new work orders. Apps Emergent builds send Slack, email, and in-app alerts to the vendor's owner when the status changes.\"}, {\"q\": \"Can an online store use a vendor management workflow?\", \"a\": \"An online store that restocks from outside vendors can use one to score each vendor on delivery time and to hold a vendor whose certificate or scores slip. The vendor records then sit next to the rest of your <a href='https://emergent.sh/ai-automation-builder/ecommerce-automation'>ecommerce automation</a>, such as order updates and stock alerts, and read from the same order history.\"}, {\"q\": \"Which documents should a vendor management workflow track?\", \"a\": \"Track the documents that expire or that you would need in a dispute: a certificate of insurance, a W-9, any license the work requires, and a signed security questionnaire for vendors with system access. Give each one an expiry or review date, since a file with no date never triggers a reminder. Apps Emergent builds can collect W-9s and keep them on each vendor's record.\"}, {\"q\": \"How do you offboard a vendor in a vendor management workflow?\", \"a\": \"Run the same steps in the same order every time. Take the vendor off the approved list first to stop new work, then archive its files for as long as your records policy says. Remove each login and badge it holds, and close the record only when the person who removed them confirms it in writing.\"}, {\"q\": \"Is a vendor management workflow the same as procurement?\", \"a\": \"No. A vendor management workflow looks after vendors you already use, while procurement covers buying from them: purchase requests, approvals, and purchase orders. The two meet at the approved vendor list, which purchasing checks before an order goes out. Purchase requests and their approvals belong to <a href='https://emergent.sh/ai-automation-builder/procurement-automation'>procurement automation</a>, which can read that same list.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Pick 2 scorecard measures",
+  "howto_step_5_des": "Choose 2 measures you already record and can count without debate. Give each one a target, and decide who sees a vendor's scorecard when it falls short of that target.",
+  "howto_step_6_title": "06 Describe the workflow to Emergent",
+  "howto_step_6_des": "Put the tiers, rules, and targets into one prompt. Emergent builds the register, the reminders, and the scorecard dashboard, and you change any rule later by prompting again.",
+  "howto_step_7_title": "07 Test with 5 vendors before go-live",
+  "howto_step_7_des": "Load 5 real vendors with known dates, including one whose certificate has already expired. Check that each reminder and each hold lands on the day you expect before you add the rest.",
+  "prompt_chip_1": "Review Calendar",
+  "prompt_chip_2": "Insurance Expiry",
+  "prompt_chip_3": "Vendor Scorecards",
+  "prompt_chip_4": "Offboarding Steps",
+  "hero_prompt": "<p>Build a vendor management workflow that runs on its own and logs every step.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/aab/vendor-management-workflow/uc-1.svg",
+   "alt": "A vendor review table for this month shows 11 of 18 reviews done, 5 in progress, and 2 overdue, with the overdue reviews sent to the vendor manager."
+  },
+  "tab_image_2": {
+   "path": "images/aab/vendor-management-workflow/uc-2.svg",
+   "alt": "A phone screen shows Fallowmere Electric on hold with 7 days left on its certificate of insurance, which expires November 30, after the vendor's contact was emailed 30 days before."
+  },
+  "tab_image_3": {
+   "path": "images/aab/vendor-management-workflow/uc-3.svg",
+   "alt": "A quarterly scorecard shows Pellbrook Produce delivered 46 of 52 orders on time in Q3, under its 95% target, with 2 orders under 2 hours late and 4 more than 2 hours late."
+  },
+  "tab_image_4": {
+   "path": "images/aab/vendor-management-workflow/uc-4.svg",
+   "alt": "An offboarding screen for Corvane Security Systems shows it removed from the approved vendor list and 7 documents archived, with a task to remove 2 system logins assigned to IT."
+  },
+  "cover_image": {
+   "path": "images/aab/vendor-management-workflow/cover.svg",
+   "alt": "Vendor management workflow: a direct message telling the vendor manager that 2 of 18 vendor reviews due this month are overdue"
+  },
+  "share_image": {
+   "path": "images/aab/vendor-management-workflow/og.webp",
+   "alt": "Build a vendor management workflow that keeps vendors current, with Emergent"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-21 05:32 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 05:53 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "B-w-253",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 05:53 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-253",
+   "note": ""
+  }
+ ],
+ "pipeline": "r15",
+ "faq_plan": [
+  {
+   "kind": "definition",
+   "q": "What is a vendor management workflow?",
+   "ref": "vendor management workflow",
+   "locked": true,
+   "n": 1,
+   "a": "A vendor management workflow is the set of recurring steps a business runs to keep each approved vendor in good standing: scheduled reviews, current documents, performance scores, and a clean exit when the relationship ends. Each step has an owner and a due date, and every result is recorded against the vendor.",
+   "link": null
+  },
+  {
+   "kind": "definition",
+   "q": "How do I create a vendor management workflow?",
+   "ref": "vendor management workflow",
+   "locked": true,
+   "n": 2,
+   "a": "Write your vendor rules down first: the risk tiers, the review cycle for each, the documents you hold on file, and how many days before expiry a reminder goes out. Then describe those rules in a prompt to Emergent's AI automation builder, which builds the vendor register, the reminders, and a scorecard dashboard as one app. You change a rule later by prompting again.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder",
+    "anchor": "AI automation builder",
+    "write_as": "Emergent's AI automation builder"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "How do I automate vendor management workflows with AI?",
+   "ref": null,
+   "secondary": null,
+   "hint": "How to automate vendor management workflows with AI?",
+   "locked": false,
+   "n": 3,
+   "a": "Use AI for the step where a person would otherwise read a document, and keep the rest as fixed rules. Apps Emergent builds can read an uploaded certificate of insurance into fields such as the policy end date, and send a low-confidence field to a person. Dates, tiers, and holds should stay rules, because they need to behave the same way every time.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "What should a vendor management workflow measure on each vendor's scorecard?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 4,
+   "a": "Start with 2 measures you already record: on-time delivery and the share of orders returned for a quality problem. If your receipts and stock counts run through automated inventory management, the delivery dates can feed the scorecard without anyone retyping them. Add a third measure, such as how fast a vendor answers an issue, only after the first two are trusted.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/automated-inventory-management",
+    "anchor": "automated inventory management"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "How often should a vendor management workflow review each vendor?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 5,
+   "a": "Set the review cycle by risk, not one calendar for everyone. Review the vendors you depend on daily twice a year and the rest once a year, then shorten the cycle for any vendor that misses its scorecard target 2 quarters running. Put the next review date on the vendor's record. The reminder then comes from the date, not from memory.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "When should a vendor management workflow put a vendor on hold?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 6,
+   "a": "Put a vendor on hold when a required document has lapsed or is about to, or when its scores stay under target after a warning. Write each trigger as a rule with an exact number of days, and decide what the hold blocks, such as new orders or new work orders. Apps Emergent builds send Slack, email, and in-app alerts to the vendor's owner when the status changes.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Can an online store use a vendor management workflow?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 7,
+   "a": "An online store that restocks from outside vendors can use one to score each vendor on delivery time and to hold a vendor whose certificate or scores slip. The vendor records then sit next to the rest of your ecommerce automation, such as order updates and stock alerts, and read from the same order history.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/ecommerce-automation",
+    "anchor": "ecommerce automation"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "Which documents should a vendor management workflow track?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 8,
+   "a": "Track the documents that expire or that you would need in a dispute: a certificate of insurance, a W-9, any license the work requires, and a signed security questionnaire for vendors with system access. Give each one an expiry or review date, since a file with no date never triggers a reminder. Apps Emergent builds can collect W-9s and keep them on each vendor's record.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How do you offboard a vendor in a vendor management workflow?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 9,
+   "a": "Run the same steps in the same order every time. Take the vendor off the approved list first to stop new work, then archive its files for as long as your records policy says. Remove each login and badge it holds, and close the record only when the person who removed them confirms it in writing.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Is a vendor management workflow the same as procurement?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 10,
+   "a": "No. A vendor management workflow looks after vendors you already use, while procurement covers buying from them: purchase requests, approvals, and purchase orders. The two meet at the approved vendor list, which purchasing checks before an order goes out. Purchase requests and their approvals belong to procurement automation, which can read that same list.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/procurement-automation",
+    "anchor": "procurement automation"
+   }
+  }
+ ],
+ "faq_heading": "Vendor Management Workflow FAQ",
+ "table": {
+  "vs": [
+   "Zapier",
+   "Make (Integromat)",
+   "n8n"
+  ],
+  "rows": [
+   "build",
+   "output",
+   "cap",
+   "ai",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "skeleton": {
+  "built_by": "B-w-253",
+  "built": "2026-10-21 05:32 UTC",
+  "slots": 10,
+  "flagged": 0,
+  "flag_subtypes": [],
+  "locked": 2,
+  "table": true
+ },
+ "plan": {
+  "angle": "The top results define vendor management in general terms or sell vendor software. This page shows the app that runs the recurring work after a vendor is already on the books: review dates set by risk tier, insurance certificates chased before they lapse, quarterly on-time scorecards, and a closed-out checklist when a vendor is dropped. It leaves intake to the vendor onboarding page, and purchasing, bills and contracts to their own pages.",
+  "tab_stories": [
+   "Thistlebay Hotels reviews tier 1 vendors every 6 months and the rest every 12 months; this month 18 reviews came due, 11 are done, 5 are in progress with their owners, and 2 are overdue, so those 2 go to Marisol Quenneville, the vendor manager, by direct message.",
+   "Gableworth Property Group needs a current certificate of insurance from each vendor; Fallowmere Electric's certificate expires on November 30, the app emailed its contact Ottilie Brannock 30 days before, and with 7 days left and no upload it put Fallowmere on hold and messaged Rufus Adeyemi-Clarke, the operations lead.",
+   "Brineford Kitchens scores produce vendors on delivery each quarter; in Q3 Pellbrook Produce delivered 46 of 52 orders on time, with 2 late by under 2 hours and 4 by more than 2 hours, and being under 95% on time means a scorecard by email for the vendor and a message to Juniper Okonkwo-Hale, the kitchen manager.",
+   "Oakhurst Logistics marks Corvane Security Systems inactive, and the app runs 4 offboarding steps: it takes Corvane off the approved vendor list, archives its 7 documents, assigns Ivo Brannagh in IT a task to remove its 2 system logins, and closes the offboarding when he confirms."
+  ],
+  "openers": [
+   "Thistlebay Hotels sorts its vendors into tiers",
+   "Gableworth Property Group needs a current certificate",
+   "Brineford Kitchens scores each produce vendor",
+   "Oakhurst Logistics marks Corvane Security Systems inactive",
+   "Pull every active vendor into one sheet",
+   "Put the vendors you could not run a week without in tier 1",
+   "Load 5 real vendors with known dates"
+  ],
+  "heading_shapes": [
+   "Every 6 months for tier 1, every 12 for the rest",
+   "With 7 days left, the vendor goes on hold",
+   "Pellbrook Produce misses its target with 6 late orders",
+   "Corvane leaves the approved list before its logins close"
+  ],
+  "claims_to_source": [],
+  "numbers": [
+   {
+    "value": 18,
+    "formula": "11 + 5 + 2"
+   },
+   {
+    "value": 52,
+    "formula": "46 + 2 + 4"
+   },
+   {
+    "value": 6,
+    "formula": "2 + 4"
+   }
+  ],
+  "owns": {
+   "risk tiers and review dates": "tab_content_1",
+   "certificate expiry reading": "feature_2",
+   "reminder and hold timing": "tab_content_2",
+   "on-time scorecards": "feature_4",
+   "offboarding steps": "tab_content_4",
+   "accounting system sync": "feature_5",
+   "code export": "feature_6",
+   "test with 5 vendors": "howto_step_7_des"
+  }
+ },
+ "chip_adds": [
+  "Add a review calendar that sets each vendor's next review date from its risk tier.",
+  "Add insurance expiry tracking that asks a vendor for its new certificate in time.",
+  "Add vendor scorecards that work out each vendor's on-time delivery rate every quarter.",
+  "Add offboarding steps that run when a vendor is marked inactive."
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R8",
+    "title": "Review dates",
+    "prompt": "Schedule reviews by risk tier and message the vendor manager about overdue ones",
+    "rule": "Tier 1 → review every 6 months",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Vendor reviews this month",
+       "size": 20,
+       "chip": [
+        "Thistlebay Hotels",
+        "acc"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Status",
+        "Reviews"
+       ],
+       "widths": [
+        0.7,
+        0.3
+       ],
+       "num_cols": [
+        1
+       ],
+       "row_h": 64,
+       "rows": [
+        [
+         "Done",
+         "11"
+        ],
+        [
+         "In progress",
+         "5"
+        ],
+        [
+         "Overdue",
+         "2"
+        ]
+       ]
+      },
+      {
+       "type": "note",
+       "icon": "calendar-check",
+       "text": "Every other tier: every 12 months"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "calendar-x",
+     "tone": "warn",
+     "title": "2 reviews overdue",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "Of 18 due this month",
+       "size": 16,
+       "color": "sub"
+      },
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "acc",
+       "text": "To Marisol Quenneville"
+      },
+      {
+       "type": "meta",
+       "icon": "briefcase",
+       "kind": "muted",
+       "text": "Vendor manager"
+      }
+     ],
+     "action": {
+      "label": "Open reviews",
+      "icon": "arrow-right"
+     }
+    },
+    "mini": {
+     "icon": "calendar",
+     "kind": "acc",
+     "title": "18 reviews due",
+     "sub": "This month"
+    },
+    "alt": "A vendor review table for this month shows 11 of 18 reviews done, 5 in progress, and 2 overdue, with the overdue reviews sent to the vendor manager.",
+    "story": [
+     {
+      "copy": "Tier 1 vendors come up for review every 6 months",
+      "image": "Tier 1 → review every 6 months"
+     },
+     {
+      "copy": "the rest every 12 months",
+      "image": "Every other tier: every 12 months"
+     },
+     {
+      "copy": "Thistlebay Hotels",
+      "image": "Thistlebay Hotels"
+     },
+     {
+      "copy": "This month 18 reviews came due",
+      "image": "18 reviews due"
+     },
+     {
+      "copy": "11 are done",
+      "image": "11"
+     },
+     {
+      "copy": "5 are in progress",
+      "image": "5"
+     },
+     {
+      "copy": "The 2 overdue reviews",
+      "image": "2 reviews overdue"
+     },
+     {
+      "copy": "Marisol Quenneville",
+      "image": "To Marisol Quenneville"
+     },
+     {
+      "copy": "the vendor manager",
+      "image": "Vendor manager"
+     }
+    ]
+   },
+   {
+    "recipe": "R4",
+    "title": "Insurance certificates",
+    "prompt": "Ask for a new certificate 30 days out and put the vendor on hold at 7 days",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Fallowmere Electric",
+       "size": 22,
+       "sub": "Gableworth Property Group"
+      },
+      {
+       "type": "item",
+       "title": "Insurance",
+       "sub": "Expires Nov 30"
+      },
+      {
+       "type": "chips",
+       "items": [
+        [
+         "On hold",
+         "warn"
+        ]
+       ]
+      },
+      {
+       "type": "meta",
+       "icon": "mail",
+       "kind": "muted",
+       "text": "Emailed Ottilie Brannock"
+      },
+      {
+       "type": "meta",
+       "icon": "calendar",
+       "kind": "muted",
+       "text": "30 days before"
+      },
+      {
+       "type": "meta",
+       "icon": "upload",
+       "kind": "muted",
+       "text": "No upload yet"
+      },
+      {
+       "type": "meta",
+       "icon": "clock",
+       "kind": "warn",
+       "text": "7 days left"
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Vendor status",
+       "size": 19,
+       "chip": [
+        "On hold",
+        "warn"
+       ]
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Status",
+         "On hold"
+        ],
+        [
+         "Days left",
+         "7"
+        ]
+       ]
+      },
+      {
+       "type": "meta",
+       "icon": "shield",
+       "kind": "muted",
+       "text": "Trigger: 7 days, no upload"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Rufus Adeyemi-Clarke",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Fallowmere Electric on hold",
+       "size": 20,
+       "sub": "Certificate expires November 30"
+      },
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "acc",
+       "text": "Operations lead"
+      },
+      {
+       "type": "meta",
+       "icon": "mail",
+       "kind": "muted",
+       "text": "Vendor contact emailed"
+      }
+     ],
+     "action": {
+      "label": "Open vendor",
+      "icon": "arrow-right"
+     }
+    },
+    "alt": "A phone screen shows Fallowmere Electric on hold with 7 days left on its certificate of insurance, which expires November 30, after the vendor's contact was emailed 30 days before.",
+    "story": [
+     {
+      "copy": "Gableworth Property Group",
+      "image": "Gableworth Property Group"
+     },
+     {
+      "copy": "Fallowmere Electric's expires on November 30",
+      "image": "Expires Nov 30"
+     },
+     {
+      "copy": "the app emailed Ottilie Brannock",
+      "image": "Emailed Ottilie Brannock"
+     },
+     {
+      "copy": "30 days before",
+      "image": "30 days before"
+     },
+     {
+      "copy": "With 7 days left",
+      "image": "7 days left"
+     },
+     {
+      "copy": "no upload",
+      "image": "No upload yet"
+     },
+     {
+      "copy": "Fallowmere went on hold",
+      "image": "Fallowmere Electric on hold"
+     },
+     {
+      "copy": "Rufus Adeyemi-Clarke",
+      "image": "To Rufus Adeyemi-Clarke"
+     },
+     {
+      "copy": "the operations lead",
+      "image": "Operations lead"
+     }
+    ]
+   },
+   {
+    "recipe": "R10",
+    "title": "Delivery scores",
+    "prompt": "Score on-time delivery each quarter and email vendors under 95%",
+    "main": {
+     "blocks": [
+      {
+       "type": "columns",
+       "cols": [
+        {
+         "w": 0.42,
+         "gap": 16,
+         "blocks": [
+          {
+           "type": "heading",
+           "title": "Pellbrook Produce",
+           "size": 19,
+           "sub": "Brineford Kitchens"
+          },
+          {
+           "type": "kv",
+           "rows": [
+            [
+             "On time",
+             "46"
+            ],
+            [
+             "Late",
+             "6"
+            ]
+           ]
+          },
+          {
+           "type": "meta",
+           "icon": "mail",
+           "kind": "acc",
+           "text": "Under 95% → scorecard by email"
+          }
+         ]
+        },
+        {
+         "w": 0.58,
+         "gap": 14,
+         "blocks": [
+          {
+           "type": "text",
+           "text": "Q3 orders",
+           "size": 17
+          },
+          {
+           "type": "table",
+           "columns": [
+            "Delivery",
+            "Orders"
+           ],
+           "widths": [
+            0.68,
+            0.32
+           ],
+           "num_cols": [
+            1
+           ],
+           "row_h": 56,
+           "rows": [
+            [
+             "On time",
+             "46"
+            ],
+            [
+             "Under 2 hours late",
+             "2"
+            ],
+            [
+             "More than 2 hours late",
+             "4"
+            ]
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "kpi": {
+     "icon": "truck",
+     "label": "On time",
+     "value": "46",
+     "sub": "Of 52 Q3 orders"
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "message-square",
+     "tone": "warn",
+     "title": "Pellbrook Produce: under 95%",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "46 of 52 orders on time in Q3",
+       "size": 17,
+       "color": "sub"
+      },
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "acc",
+       "text": "To Juniper Okonkwo-Hale"
+      },
+      {
+       "type": "meta",
+       "icon": "mail",
+       "kind": "muted",
+       "text": "Scorecard emailed to vendor"
+      }
+     ],
+     "action": {
+      "label": "Open scorecard",
+      "icon": "arrow-right"
+     }
+    },
+    "alt": "A quarterly scorecard shows Pellbrook Produce delivered 46 of 52 orders on time in Q3, under its 95% target, with 2 orders under 2 hours late and 4 more than 2 hours late.",
+    "story": [
+     {
+      "copy": "Brineford Kitchens",
+      "image": "Brineford Kitchens"
+     },
+     {
+      "copy": "In Q3, Pellbrook Produce delivered 46 of 52 orders on time",
+      "image": "46 of 52 orders on time in Q3"
+     },
+     {
+      "copy": "Of the 6 late",
+      "image": "6"
+     },
+     {
+      "copy": "2 were under 2 hours late",
+      "image": "Under 2 hours late"
+     },
+     {
+      "copy": "more than 2 hours",
+      "image": "More than 2 hours late"
+     },
+     {
+      "copy": "Under 95% on time means a scorecard by email",
+      "image": "Under 95% → scorecard by email"
+     },
+     {
+      "copy": "a scorecard by email for Pellbrook",
+      "image": "Scorecard emailed to vendor"
+     },
+     {
+      "copy": "Juniper Okonkwo-Hale",
+      "image": "To Juniper Okonkwo-Hale"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Vendor exits",
+    "prompt": "Run 4 offboarding steps when a vendor is marked inactive",
+    "main": {
+     "chrome": "Vendor offboarding",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "OAKHURST LOGISTICS",
+       "title": "Corvane Security Systems",
+       "size": 26,
+       "sub": "Marked inactive"
+      },
+      {
+       "type": "rule",
+       "text": "Rule: inactive → 4 offboarding steps"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Off the approved vendor list",
+         "sub": "Step 1"
+        },
+        {
+         "state": "done",
+         "title": "7 documents archived",
+         "sub": "Vendor files"
+        },
+        {
+         "state": "live",
+         "title": "Remove 2 system logins",
+         "sub": "Task for Ivo Brannagh"
+        },
+        {
+         "state": "next",
+         "title": "Offboarding closed",
+         "sub": "When IT confirms"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Ivo Brannagh",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Remove 2 system logins",
+       "size": 20,
+       "sub": "Corvane Security Systems"
+      },
+      {
+       "type": "meta",
+       "icon": "key",
+       "kind": "muted",
+       "text": "IT task, step 3 of 4"
+      }
+     ],
+     "action": {
+      "label": "Confirm removed",
+      "icon": "arrow-right"
+     }
+    },
+    "mini": {
+     "icon": "archive",
+     "kind": "ok",
+     "title": "7 documents archived",
+     "sub": "Corvane Security Systems"
+    },
+    "alt": "An offboarding screen for Corvane Security Systems shows it removed from the approved vendor list and 7 documents archived, with a task to remove 2 system logins assigned to IT.",
+    "story": [
+     {
+      "copy": "Oakhurst Logistics",
+      "image": "OAKHURST LOGISTICS"
+     },
+     {
+      "copy": "marks Corvane Security Systems inactive",
+      "image": "Marked inactive"
+     },
+     {
+      "copy": "the app runs 4 offboarding steps",
+      "image": "Rule: inactive → 4 offboarding steps"
+     },
+     {
+      "copy": "takes Corvane off the approved vendor list",
+      "image": "Off the approved vendor list"
+     },
+     {
+      "copy": "archives its 7 documents",
+      "image": "7 documents archived"
+     },
+     {
+      "copy": "Ivo Brannagh in IT",
+      "image": "To Ivo Brannagh"
+     },
+     {
+      "copy": "remove its 2 system logins",
+      "image": "Remove 2 system logins"
+     },
+     {
+      "copy": "the offboarding closes when he confirms",
+      "image": "Offboarding closed"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "dm": true,
+   "channel": "Marisol Quenneville",
+   "title": "2 reviews overdue",
+   "sub": "Of 18 due this month",
+   "primary": "Open",
+   "secondary": "View",
+   "icon": "calendar",
+   "alt": "Vendor management workflow: a direct message telling the vendor manager that 2 of 18 vendor reviews due this month are overdue"
+  },
+  "og": {
+   "headline": "Build a vendor management workflow you own",
+   "lines": [
+    "Build a vendor",
+    "management",
+    "workflow you own"
+   ],
+   "alt": "Build a vendor management workflow that keeps vendors current, with Emergent"
+  },
+  "checks": [
+   {
+    "expr": "11 + 5 + 2 == 18",
+    "shows": [
+     "11",
+     "5",
+     "2",
+     "18 reviews due"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "18 - 11 - 5 == 2",
+    "shows": [
+     "2 reviews overdue"
+    ],
+    "where": 1
+   },
+   {
+    "fact": [
+     "6 months",
+     "12 months"
+    ],
+    "where": 1
+   },
+   {
+    "fact": [
+     "30 days",
+     "7 days",
+     "Nov 30"
+    ],
+    "where": 2
+   },
+   {
+    "expr": "46 + 2 + 4 == 52",
+    "shows": [
+     "46",
+     "2",
+     "4",
+     "46 of 52 orders on time in Q3",
+     "Of 52 Q3 orders"
+    ],
+    "where": 3
+   },
+   {
+    "expr": "2 + 4 == 6",
+    "shows": [
+     "6"
+    ],
+    "where": 3
+   },
+   {
+    "expr": "46 / 52 * 100 < 95",
+    "shows": [
+     "Pellbrook Produce: under 95%"
+    ],
+    "where": 3
+   },
+   {
+    "fact": [
+     "7 documents",
+     "2 system logins",
+     "4 offboarding steps",
+     "step 3 of 4"
+    ],
+    "where": 4
+   },
+   {
+    "expr": "18 - 11 - 5 == 2",
+    "shows": [
+     "2 reviews overdue"
+    ],
+    "where": "cover"
+   }
+  ]
+ },
+ "faq_sources": [
+  {
+   "q": "What is a vendor management workflow?",
+   "source": "written",
+   "ref": "vendor management workflow",
+   "origin": "definition"
+  },
+  {
+   "q": "How do I create a vendor management workflow?",
+   "source": "written",
+   "ref": "vendor management workflow",
+   "origin": "definition"
+  },
+  {
+   "q": "How do I automate vendor management workflows with AI?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "What should a vendor management workflow measure on each vendor's scorecard?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How often should a vendor management workflow review each vendor?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "When should a vendor management workflow put a vendor on hold?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Can an online store use a vendor management workflow?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Which documents should a vendor management workflow track?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How do you offboard a vendor in a vendor management workflow?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Is a vendor management workflow the same as procurement?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  }
+ ],
+ "claims_used": [
+  "prompt-build",
+  "database-owned",
+  "ai-extraction",
+  "alerts",
+  "realtime",
+  "api-connect",
+  "code-export",
+  "no-caps",
+  "tax-records"
+ ],
+ "domain_sources": [],
+ "learn_refs": [
+  "6a1729ad1817ffd0330c987d",
+  "6a6093ffbb922a09179ffb6a",
+  "6a4b8a07c9eb31a4f30e924d"
+ ],
+ "learn_refs_why": [
+  "best-ai-workflow-builders: the hub category, how to choose an AI workflow builder for recurring vendor work",
+  "best-internal-tool-builders: a vendor register with reviews and scorecards is an internal tool for operations teams",
+  "business-app-development: building software that fits an existing vendor process instead of changing the process to fit a tool"
+ ],
+ "qc_passed": {
+  "rules_version": "4bb5d5a61c4e",
+  "date": "2026-10-21 05:53 UTC"
+ },
+ "writers": [
+  "B-w-253"
+ ]
+}
