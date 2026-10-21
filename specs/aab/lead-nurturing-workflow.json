@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-251",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 05:49 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-97",
+   "note": "rubric 10/10 by B-r-97; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -909,5 +916,285 @@
  },
  "writers": [
   "B-w-251"
- ]
+ ],
+ "review": {
+  "by": "B-r-97",
+  "date": "2026-10-21 05:49 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Lead Nurturing Workflow for Every Lead Not Ready to Buy'; hero 'Build a lead nurturing workflow that puts each lead on the right track and hands it to a rep the moment the lead replies.' (under 130 chars, primary, leads with Build); how-to description is one sentence: 'These 7 steps map your lead sources into a lead nurturing workflow and test it on last month's leads before it goes live.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Informational primary with an examples secondary: definition first (FAQ 1, sourced to Unbounce), four worked examples in the tabs (guide downloads, trade show scans, replies, closed-lost), FAQ 3 'What are good lead nurturing workflow examples to start with?', and a 7-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'booth note', 'closed-lost', 'exit rules', 'lost on timing', '140 badge scans'; table compares Zapier, Make and n8n on task caps and code ownership from the library."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every feature body opens on a full sentence with a verb: 'The app enrolls each new lead...', 'A reply, a booked meeting, an unsubscribe, or a closed deal ends the track...', 'Every lead, track, and send is stored...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Short declaratives, numbers that drive the story ('The 18 hot leads reach the rep, Caspian Oduya, as call tasks the same day'); QC Q2/Q5/Q7 clean. Repeated 'track' (22 uses) logged as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Product-led, calm: 'The app cancels emails 4 and 5.' 'On that date the app restarts nurturing for the contact and alerts the original rep.' One 'whether X or Y' construction in feature 6 logged as a note."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Unbounce definition checked: source reads 'The act of educating a lead and moving them through the stages of your company's customer lifecycle'; FAQ 1 'the act of educating a lead and moving them through the stages of your customer lifecycle' matches. Emergent claims map to prompt-build, api-connect ('reads and writes contacts and deal stages in your CRM through its API'), alerts ('Slack or email alert'), database-owned, no-caps, code-export ('On paid plans... GitHub'), all approved. Tab 2: 18+97+25=140; Tab 3: 5-3=2 canceled."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Owns entry-content tracks, exit rules, reply handoff and closed-lost recycling; plan sends timed series to drip campaign, scoring to marketing automation workflow, assignment to CRM automation. No sibling primary in a heading; sibling tabs (drip 'Welcome Series', CRM 'Lead Assignment', sales 'Demo Follow-Up', lead scoring 'Demo Form Fit') do not overlap the four tabs here."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, paa --spec 10 pass 0 reject 0 flag; hub link in item 2 ('Emergent's AI automation builder'); 3 sibling links (content workflow, sales workflow, marketing automation workflow); moat lines in FAQ 3, 5, 8; no brands or file formats in questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: Tab 1 'Ottilie enrolled, 4 emails / Day 2, day 7, day 14, day 21' and 'Overtime guide / Hourly staff track'; Tab 2 'Cold: 25 / Warm: 97 / Hot: 18', '18 hot leads to call, Caspian Oduya, today'; Tab 3 DM card 'To Matthias', 'Emails 4 and 5 Canceled', '3 emails she received'; Tab 4 'Lost: budget frozen Day 0', 'Leocadia Fenn alerted Day 180', '3-email check-in track', 'Perpetua Lindgren'. One hero, cursor on button edges."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "Each email should answer one question the group asks before buying",
+    "issue": "Restates howto_step_2_des 'let each email answer one question that group asks before buying' with words swapped.",
+    "fix": "Give FAQ 6 its own point, for example how the last email asks for the conversation.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "feature_6",
+    "quote": "whether the list holds 500 leads or 50,000",
+    "issue": "'Whether X or Y' filler construction listed in 2b.",
+    "fix": "Sends and branch checks run with no task cap at 50,000 leads.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "distinct",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Scoring ranks leads by what they do ... Points for page views and an alert at a set score belong in a marketing automation workflow",
+    "issue": "Scoring is narrowed to behavior only (the lead-scoring-automation sibling scores fit too, 'Demo Form Fit'), and the reader is pointed to marketing automation workflow although lead-scoring-automation is the plan's owner of scoring.",
+    "fix": "Scoring ranks leads by fit and behavior; link lead scoring automation once that page is live.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "If fewer than 1 in 20 leads in a track reach a rep within 90 days, rewrite its emails or change its exit rule.",
+    "issue": "A specific threshold given as advice without a source; acceptable as a recommendation.",
+    "fix": "Keep, or frame as a starting threshold to tune.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "page",
+    "quote": "\"track\" appears 22 times outside the FAQ",
+    "issue": "Heavy repetition of one noun (QC Q9 P2).",
+    "fix": "Vary with sequence or series where the meaning holds.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "Restates howto_step_2_des 'let each email answer one question that group asks before buying' with words swapped.",
+   "fix": "Give FAQ 6 its own point, for example how the last email asks for the conversation.",
+   "by": "B-r-97",
+   "via": "review",
+   "date": "2026-10-21 05:49 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "feature_6",
+   "issue": "'Whether X or Y' filler construction listed in 2b.",
+   "fix": "Sends and branch checks run with no task cap at 50,000 leads.",
+   "by": "B-r-97",
+   "via": "review",
+   "date": "2026-10-21 05:49 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Scoring is narrowed to behavior only (the lead-scoring-automation sibling scores fit too, 'Demo Form Fit'), and the reader is pointed to marketing automation workflow although lead-scoring-automation is the plan's owner of scoring.",
+   "fix": "Scoring ranks leads by fit and behavior; link lead scoring automation once that page is live.",
+   "by": "B-r-97",
+   "via": "review",
+   "date": "2026-10-21 05:49 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "A specific threshold given as advice without a source; acceptable as a recommendation.",
+   "fix": "Keep, or frame as a starting threshold to tune.",
+   "by": "B-r-97",
+   "via": "review",
+   "date": "2026-10-21 05:49 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "page",
+   "issue": "Heavy repetition of one noun (QC Q9 P2).",
+   "fix": "Vary with sequence or series where the meaning holds.",
+   "by": "B-r-97",
+   "via": "review",
+   "date": "2026-10-21 05:49 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "ad72785fdea348c4",
+   "alt:share_image": "e0ac6685a615397d",
+   "alt:tab_image_1": "addb9d7ced6d50bf",
+   "alt:tab_image_2": "d006a2539751fe6f",
+   "alt:tab_image_3": "0866421bc1a6ed20",
+   "alt:tab_image_4": "cd5cbb8863f88867",
+   "breadcrumb": "340e1a32106cae10",
+   "chip_adds": "cde5df65820405cf",
+   "explore_cta": "1c0db09d6edb726c",
+   "faq": "a4dec64e0f9318b2",
+   "feature_1": "c96501d833766235",
+   "feature_2": "76868a04419c8cfd",
+   "feature_3": "3ca4a03eba874e61",
+   "feature_4": "d2004cfbcc218341",
+   "feature_5": "0dee2331dea6e414",
+   "feature_6": "8830186d2c0b6543",
+   "features_heading": "07ba7568bc72ac8d",
+   "features_subheading": "1639ab35edaa363d",
+   "h1": "e55bb9ec8097aed3",
+   "hero_description": "128ad70c0c2b6e2b",
+   "hero_prompt": "05c9c0917b552cb3",
+   "howto_description": "ea3cd5133e9305e8",
+   "howto_step_1_des": "23c7d85ffce29ada",
+   "howto_step_1_title": "8a22f7ed1b558cbc",
+   "howto_step_2_des": "b4b4303cf433756d",
+   "howto_step_2_title": "aa9d39d2fc21dfb4",
+   "howto_step_3_des": "4be63701671a4c12",
+   "howto_step_3_title": "ca703f11a318d97e",
+   "howto_step_4_des": "27edba83031a202f",
+   "howto_step_4_title": "5039cbba946d5010",
+   "howto_step_5_des": "a29a095208d98d89",
+   "howto_step_5_title": "57810d758a6abe55",
+   "howto_step_6_des": "fd283aae874419af",
+   "howto_step_6_title": "b50df53d0208c692",
+   "howto_step_7_des": "37d11e2b9798376c",
+   "howto_step_7_title": "561552703b7f5c07",
+   "howto_title": "8fcb23162a63a727",
+   "meta_description": "8f16d219e853ccb1",
+   "meta_title": "59117ef45c439a0b",
+   "mockup": "aefc2fe79c8cfe14",
+   "product_name": "bde32ca404be789e",
+   "prompt_chip_1": "04be7978bd6c771c",
+   "prompt_chip_2": "caee67b63fd2f129",
+   "prompt_chip_3": "cd5afde2760c1cf9",
+   "prompt_chip_4": "d059bd2a5482bed4",
+   "slug": "b5dd08316cf630c0",
+   "tab_content_1": "1c885b23dd9dd090",
+   "tab_content_2": "292ad1e198675c84",
+   "tab_content_3": "f9bba4b7ab341cfa",
+   "tab_content_4": "bb27ad17c067d293",
+   "tab_label_1": "91fbf309782c5b26",
+   "tab_label_2": "cf01c594e3d8837f",
+   "tab_label_3": "c8250bcd6171ac0d",
+   "tab_label_4": "394a07ad4fb78084",
+   "usecase_heading": "16a3fb18effcb3b5",
+   "why_description": "4adde5fc7d569d0e",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "31d978684b1c840f"
+  },
+  "all": "503b4090302a82e9",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "ad72785fdea348c4",
+   "alt:share_image": "e0ac6685a615397d",
+   "alt:tab_image_1": "addb9d7ced6d50bf",
+   "alt:tab_image_2": "d006a2539751fe6f",
+   "alt:tab_image_3": "0866421bc1a6ed20",
+   "alt:tab_image_4": "cd5cbb8863f88867",
+   "breadcrumb": "340e1a32106cae10",
+   "chip_adds": "cde5df65820405cf",
+   "explore_cta": "1c0db09d6edb726c",
+   "faq": "a4dec64e0f9318b2",
+   "feature_1": "c96501d833766235",
+   "feature_2": "76868a04419c8cfd",
+   "feature_3": "3ca4a03eba874e61",
+   "feature_4": "d2004cfbcc218341",
+   "feature_5": "0dee2331dea6e414",
+   "feature_6": "8830186d2c0b6543",
+   "features_heading": "07ba7568bc72ac8d",
+   "features_subheading": "1639ab35edaa363d",
+   "h1": "e55bb9ec8097aed3",
+   "hero_description": "128ad70c0c2b6e2b",
+   "hero_prompt": "05c9c0917b552cb3",
+   "howto_description": "ea3cd5133e9305e8",
+   "howto_step_1_des": "23c7d85ffce29ada",
+   "howto_step_1_title": "8a22f7ed1b558cbc",
+   "howto_step_2_des": "b4b4303cf433756d",
+   "howto_step_2_title": "aa9d39d2fc21dfb4",
+   "howto_step_3_des": "4be63701671a4c12",
+   "howto_step_3_title": "ca703f11a318d97e",
+   "howto_step_4_des": "27edba83031a202f",
+   "howto_step_4_title": "5039cbba946d5010",
+   "howto_step_5_des": "a29a095208d98d89",
+   "howto_step_5_title": "57810d758a6abe55",
+   "howto_step_6_des": "fd283aae874419af",
+   "howto_step_6_title": "b50df53d0208c692",
+   "howto_step_7_des": "37d11e2b9798376c",
+   "howto_step_7_title": "561552703b7f5c07",
+   "howto_title": "8fcb23162a63a727",
+   "meta_description": "8f16d219e853ccb1",
+   "meta_title": "59117ef45c439a0b",
+   "mockup": "aefc2fe79c8cfe14",
+   "product_name": "bde32ca404be789e",
+   "prompt_chip_1": "04be7978bd6c771c",
+   "prompt_chip_2": "caee67b63fd2f129",
+   "prompt_chip_3": "cd5afde2760c1cf9",
+   "prompt_chip_4": "d059bd2a5482bed4",
+   "slug": "b5dd08316cf630c0",
+   "tab_content_1": "1c885b23dd9dd090",
+   "tab_content_2": "292ad1e198675c84",
+   "tab_content_3": "f9bba4b7ab341cfa",
+   "tab_content_4": "bb27ad17c067d293",
+   "tab_label_1": "91fbf309782c5b26",
+   "tab_label_2": "cf01c594e3d8837f",
+   "tab_label_3": "c8250bcd6171ac0d",
+   "tab_label_4": "394a07ad4fb78084",
+   "usecase_heading": "16a3fb18effcb3b5",
+   "why_description": "4adde5fc7d569d0e",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "31d978684b1c840f"
+  },
+  "all": "503b4090302a82e9",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
