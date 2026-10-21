@@ -1,0 +1,979 @@
+{
+ "url": "/ai-automation-builder/budget-approval-workflow",
+ "hub": "Auto",
+ "item_id": null,
+ "status": "spec",
+ "written_by": "B-w-263",
+ "keywords": {
+  "primary": "budget approval workflow",
+  "secondaries_used": [
+   "capex approval workflow"
+  ]
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Budget Approval Workflow Built on Your Limits | Emergent",
+  "meta_description": "Build a budget approval workflow that routes annual budgets, capex requests, line transfers, and over-budget spend to the right approver.",
+  "h1": "Build a Budget Approval Workflow Around Your Spending Limits",
+  "slug": "budget-approval-workflow",
+  "product_name": "Budget Approval Workflow Builder",
+  "hero_description": "Get a budget approval workflow that checks each request against your limits and sends it to the approver they call for.",
+  "breadcrumb": "Budget Approval Workflow",
+  "category": "a33cd4fb124ec86a130809893b2b3896",
+  "explore_cta": "Build My Budget Approval Workflow",
+  "features_heading": "What Decides Who Approves a Budget Request",
+  "features_subheading": "Your budget policy as an app built by Emergent: the limits that add an approver, the balance each request is checked against.",
+  "feature_1": "<h3>Limits written in plain English</h3><p>Describe each rule as your controller would say it: capex over $50,000 goes to the CFO. Emergent builds the request form and routing from that, and changes both when you prompt.</p>",
+  "feature_2": "<h3>Actuals pulled from your ledger</h3><p>The app connects to any tool with an API, such as QuickBooks or NetSuite. Spend to date syncs in. Each request is then weighed against what its budget line has left today.</p>",
+  "feature_3": "<h3>Nudges before a request stalls</h3><p>An approver who has not decided within the window you set gets a reminder in Slack or by email. After a second miss, the request goes to the backup you named for them.</p>",
+  "feature_4": "<h3>Every decision on one record</h3><p>Each decision and its comment is saved with its request in a database you own. Who approved the $120,000 packaging line is answered on that request, not in an email thread.</p>",
+  "feature_5": "<h3>A live view of what is left</h3><p>The app can show a live dashboard of every budget line, with approved, spent, and open amounts. Department heads can check their own balance before asking for more money.</p>",
+  "feature_6": "<h3>No seat for each approver</h3><p>Apps built on Emergent carry no per-approver seats. Adding a plant manager or the CFO to a rule costs no extra license. The free tier covers building and publishing.</p>",
+  "why_title": "Why Build Budget Approvals With Emergent?",
+  "why_description": "Emergent builds your budget rules and every decision into one app on a database you own, with no task cap when year-end requests pile in.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Zapier</th>\n        <th scope=\"col\">Make (Integromat)</th>\n        <th scope=\"col\">n8n</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt for the workflow and the app around it</td>\n        <td class=\"col-other\">Templates and editor, AI copilot</td>\n        <td class=\"col-other\">Visual canvas</td>\n        <td class=\"col-other\">Visual canvas, self-hosted or cloud</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">What you get</th>\n        <td class=\"col-brand\">Workflow + trigger form + database + dashboard, as code you own</td>\n        <td class=\"col-other\">Zaps, plus Tables and Interfaces inside Zapier</td>\n        <td class=\"col-other\">Scenarios inside Make</td>\n        <td class=\"col-other\">Workflows inside n8n</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Behavior at cap</th>\n        <td class=\"col-brand\">Keeps running, no task cap</td>\n        <td class=\"col-other\">Overage billed at up to 1.25× the base rate</td>\n        <td class=\"col-other\">Runs pause</td>\n        <td class=\"col-other\">Cloud workflows stop until the reset or an upgrade</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">AI and agent steps</th>\n        <td class=\"col-brand\">Native, share the same credit pool</td>\n        <td class=\"col-other\">Priced by model tier, drawn from the task pool</td>\n        <td class=\"col-other\">AI modules cost variable credits</td>\n        <td class=\"col-other\">Bring your own model API key, billed by the provider</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">Yes on Community Edition</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "Four Budget Requests, Four Different Limits",
+  "tab_label_1": "Annual Budgets",
+  "tab_label_2": "Capex Requests",
+  "tab_label_3": "Line Transfers",
+  "tab_label_4": "Over-Budget Holds",
+  "tab_content_1": "<h3>A $105,000 rise waits for a written reason</h3><p>Field Operations asks for $855,000 for FY2027, $105,000 more than its $750,000 for FY2026. Any budget more than 10% above last year goes to the CFO with a written reason. The app got one from Odalys Kerrigan, the department head. Mattias Oyelaran in finance has signed off, and it waits for the CFO, Ines Haddad.</p>",
+  "tab_content_2": "<h3>No payback figure, no CFO review</h3><p>Desmond Achterberg wants a second packaging line for the plant: $120,000, saving $40,000 a year. Capex over $50,000 needs a payback figure on the form before it moves. The app sent his first draft back with that field marked. He added a payback of 3 years, and the request went to the CFO, Ines Haddad.</p>",
+  "tab_content_3": "<h3>Software gets $18,000 that travel will not spend</h3><p>Caspian Rowe in Customer Success asks to move $18,000 out of the travel line and into software. Transfers under $25,000 inside one department need only the department head. This one goes to Yuki Brannigan alone. Once she approves, travel drops to $42,000, software rises to $108,000, and finance gets a notice.</p>",
+  "tab_content_4": "<h3>$9,500 asked, $6,200 left on the line</h3><p>Teodor Vasko asks for a $9,500 print run with Kestrel Print Co. for a trade show. The events line has $6,200 left, and the app holds any request larger than its line's balance. It sends the budget owner, Lavinia Osei, a direct message: approve the $3,300 over budget, or move money in first.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { annualBudgets: \"Compare each department's budget for next year with this year's. If it is more than 10% higher, ask the department head for a written reason, then send it to finance and, once finance signs off, to the CFO.\", capexRequests: \"Add a capex request form that asks for the cost, the yearly savings, and the payback in years. Send back any request over $50,000 that has no payback figure, and route complete ones over $50,000 to the CFO.\", lineTransfers: \"Let managers ask to move money between budget lines. Send transfers under $25,000 inside one department to that department head only, update both line balances once approved, and notify finance.\", overBudgetHolds: \"Check every spend request against what is left on its budget line. If the request is larger, hold it and send the budget owner a direct message to approve the amount over budget or move money in first.\" };</p>",
+  "howto_title": "How to Create a Budget Approval Workflow",
+  "howto_description": "Seven steps to turn your budget policy into a budget approval workflow that routes every request, then build it with Emergent.",
+  "howto_step_1_title": "01 Pull last year's requests",
+  "howto_step_2_title": "02 Sort them by decision type",
+  "howto_step_3_title": "03 Write each limit as a number",
+  "howto_step_4_title": "04 Choose the fields each rule reads",
+  "howto_step_1_des": "Gather last year's budget requests and capex asks in one sheet. Note who approved each one and how many days it waited, and mark any spend that went ahead before approval.",
+  "howto_step_2_des": "Group the requests into the decisions your finance team makes: new annual budgets, capex, moves between lines, and spend past a line's balance. Each group gets its own rules.",
+  "howto_step_3_des": "Turn every judgment call into a figure: a large request becomes one over $10,000, and a quick reply becomes 3 working days. A limit with a number in it routes the same way for every department head.",
+  "howto_step_4_des": "List what the form must ask so the rules can run, such as the budget line, the amount, and the payback in years. A rule that needs a field the form lacks cannot route anything.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Budget Approval Questions, Answered\", \"items\": [{\"q\": \"What is a budget approval workflow?\", \"a\": \"A budget approval workflow is the set of rules a budget, or a change to it, passes through before money can be spent. The rules say who reviews it, in what order, and which limits add another approver. It covers the annual budget itself and the requests that change it during the year, such as capex and transfers between lines.\"}, {\"q\": \"How do I create a budget approval workflow?\", \"a\": \"Write down the limits that change who approves a budget request, then describe them to Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a> in plain English. It builds the form and the routing rules, with a record of each decision. Replay a few of last year's requests through it before department heads start submitting new ones.\"}, {\"q\": \"What should a capex approval workflow ask for on the request form?\", \"a\": \"Ask for what the CFO needs to decide without a follow-up email. That means the asset and its cost, the yearly savings it brings, the payback in years, and the budget line it comes from. Require the payback field above your capex limit. An incomplete request then goes back to its owner instead of waiting in the CFO's queue.\"}, {\"q\": \"How is a budget approval workflow different from other approval workflows?\", \"a\": \"It weighs each request against what is left on its budget line, while a time-off or policy request has no balance to check. Keep that balance check in the budget rules, and let a general <a href='https://emergent.sh/ai-automation-builder/approval-workflow'>approval workflow</a> handle the requests that carry no amount.\"}, {\"q\": \"How many approval levels does a budget approval workflow need?\", \"a\": \"As few as the amount calls for: one approver for a small transfer inside a department, more for a new annual budget or a large capex request. Each level you add is one more person the request waits on. Check last year's requests and drop any level whose approver never changed an outcome. The apps Emergent builds have no per-approver seats.\"}, {\"q\": \"Should a budget approval workflow block spend or only warn when a line runs out?\", \"a\": \"Use both, split by amount: hold large overages and warn on small ones. A hold makes the budget owner choose between approving the overage and moving money in from another line. A warning lets the spend go ahead and flags it for the monthly review. Pick the figure, such as $500 over, below which the app only warns.\"}, {\"q\": \"How should a budget approval workflow handle changes after the budget is approved?\", \"a\": \"Treat each change as its own request, and keep the approved budget as a version nobody edits. A mid-year transfer or a reforecast then records what changed and who approved it, with the balance before and after. If the budget lives in a spreadsheet passed around for sign-off, a <a href='https://emergent.sh/ai-automation-builder/document-approval-workflow'>document approval workflow</a> keeps each version tied to the approvals it received.\"}, {\"q\": \"When should a budget approval workflow send a transfer to finance?\", \"a\": \"Whenever money leaves one department for another, because two budget owners are affected and neither can approve for the other. Route the transfer to both department heads, then to finance. Moves inside one department can stay with its head below a limit you set, with finance getting a notice instead of a request.\"}, {\"q\": \"How long should a budget approval workflow wait before it escalates a request?\", \"a\": \"Pick a window your approvers agree to, such as 2 working days, then pass the request to the backup named for that person. Shorten it near quarter close, when a stalled request can push spend into the next period. The app Emergent builds sends the reminder through Slack or email and escalates when the window closes.\"}, {\"q\": \"Should a budget approval workflow check invoices against the approved budget?\", \"a\": \"Yes, when the invoice is charged to a budget line. Have your <a href='https://emergent.sh/ai-automation-builder/invoice-approval-workflow'>invoice approval workflow</a> read that line's remaining balance before payment, and send any invoice larger than the balance to the budget owner. Data lives in a database you own, where the budget and the invoices it pays can sit side by side.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Name a backup for each approver",
+  "howto_step_5_des": "Decide how long a request may wait with one person before a reminder goes out, and who takes over after that. The CFO needs a backup too, especially during year-end planning.",
+  "howto_step_6_title": "06 Describe it to Emergent",
+  "howto_step_6_des": "Paste your limits and form fields into Emergent as a short prompt, one rule per line. It turns them into a working app, and you change any rule later by prompting again.",
+  "howto_step_7_title": "07 Replay three old requests",
+  "howto_step_7_des": "Before going live, replay three of last year's requests, one from each of three groups. Each should land with the approvers who decided it then; adjust any rule that sends one somewhere new.",
+  "prompt_chip_1": "Annual Budgets",
+  "prompt_chip_2": "Capex Requests",
+  "prompt_chip_3": "Line Transfers",
+  "prompt_chip_4": "Over-Budget Holds",
+  "hero_prompt": "<p>Build a budget approval workflow that runs on its own and logs every step.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/aab/budget-approval-workflow/uc-1.svg",
+   "alt": "Field Operations asks for $855,000 for FY2027, $105,000 more than the $750,000 it had for FY2026, so after finance signs off the budget waits for the CFO with a written reason attached."
+  },
+  "tab_image_2": {
+   "path": "images/aab/budget-approval-workflow/uc-2.svg",
+   "alt": "A $120,000 capex request for a second packaging line, saving $40,000 a year, was sent back until it carried a 3-year payback figure and now goes to the CFO."
+  },
+  "tab_image_3": {
+   "path": "images/aab/budget-approval-workflow/uc-3.svg",
+   "alt": "A team lead in Customer Success moves $18,000 of the travel line into software; the department head approves it alone, travel falls to $42,000, software rises to $108,000 and finance is notified."
+  },
+  "tab_image_4": {
+   "path": "images/aab/budget-approval-workflow/uc-4.svg",
+   "alt": "A $9,500 print run from Kestrel Print Co. is larger than the $6,200 left on the events line, so it is held and the budget owner gets a direct message to approve the $3,300 over budget."
+  },
+  "cover_image": {
+   "path": "images/aab/budget-approval-workflow/cover.svg",
+   "alt": "Budget approval workflow: a direct message asking the CFO to approve a $120,000 capex request for a packaging line"
+  },
+  "share_image": {
+   "path": "images/aab/budget-approval-workflow/og.webp",
+   "alt": "Build a budget approval workflow around your spending limits, with Emergent"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-21 05:42 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 06:05 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "B-w-263",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 06:05 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-263",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 06:06 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "B-w-263",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 06:07 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-263",
+   "note": ""
+  }
+ ],
+ "pipeline": "r15",
+ "faq_plan": [
+  {
+   "kind": "definition",
+   "q": "What is a budget approval workflow?",
+   "ref": "budget approval workflow",
+   "locked": true,
+   "n": 1,
+   "a": "A budget approval workflow is the set of rules a budget, or a change to it, passes through before money can be spent. The rules say who reviews it, in what order, and which limits add another approver. It covers the annual budget itself and the requests that change it during the year, such as capex and transfers between lines.",
+   "link": null
+  },
+  {
+   "kind": "definition",
+   "q": "How do I create a budget approval workflow?",
+   "ref": "budget approval workflow",
+   "locked": true,
+   "n": 2,
+   "a": "Write down the limits that change who approves a budget request, then describe them to Emergent's AI automation builder in plain English. It builds the form and the routing rules, with a record of each decision. Replay a few of last year's requests through it before department heads start submitting new ones.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder",
+    "anchor": "AI automation builder",
+    "write_as": "Emergent's AI automation builder"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "What should a capex approval workflow ask for on the request form?",
+   "ref": "capex approval workflow",
+   "secondary": "capex approval workflow",
+   "locked": false,
+   "n": 3,
+   "a": "Ask for what the CFO needs to decide without a follow-up email. That means the asset and its cost, the yearly savings it brings, the payback in years, and the budget line it comes from. Require the payback field above your capex limit. An incomplete request then goes back to its owner instead of waiting in the CFO's queue.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How is a budget approval workflow different from other approval workflows?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 4,
+   "a": "It weighs each request against what is left on its budget line, while a time-off or policy request has no balance to check. Keep that balance check in the budget rules, and let a general approval workflow handle the requests that carry no amount.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/approval-workflow",
+    "anchor": "approval workflow"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "How many approval levels does a budget approval workflow need?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 5,
+   "a": "As few as the amount calls for: one approver for a small transfer inside a department, more for a new annual budget or a large capex request. Each level you add is one more person the request waits on. Check last year's requests and drop any level whose approver never changed an outcome. The apps Emergent builds have no per-approver seats.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Should a budget approval workflow block spend or only warn when a line runs out?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 6,
+   "a": "Use both, split by amount: hold large overages and warn on small ones. A hold makes the budget owner choose between approving the overage and moving money in from another line. A warning lets the spend go ahead and flags it for the monthly review. Pick the figure, such as $500 over, below which the app only warns.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How should a budget approval workflow handle changes after the budget is approved?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 7,
+   "a": "Treat each change as its own request, and keep the approved budget as a version nobody edits. A mid-year transfer or a reforecast then records what changed and who approved it, with the balance before and after. If the budget lives in a spreadsheet passed around for sign-off, a document approval workflow keeps each version tied to the approvals it received.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/document-approval-workflow",
+    "anchor": "document approval workflow"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "When should a budget approval workflow send a transfer to finance?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 8,
+   "a": "Whenever money leaves one department for another, because two budget owners are affected and neither can approve for the other. Route the transfer to both department heads, then to finance. Moves inside one department can stay with its head below a limit you set, with finance getting a notice instead of a request.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How long should a budget approval workflow wait before it escalates a request?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 9,
+   "a": "Pick a window your approvers agree to, such as 2 working days, then pass the request to the backup named for that person. Shorten it near quarter close, when a stalled request can push spend into the next period. The app Emergent builds sends the reminder through Slack or email and escalates when the window closes.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Should a budget approval workflow check invoices against the approved budget?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 10,
+   "a": "Yes, when the invoice is charged to a budget line. Have your invoice approval workflow read that line's remaining balance before payment, and send any invoice larger than the balance to the budget owner. Data lives in a database you own, where the budget and the invoices it pays can sit side by side.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/invoice-approval-workflow",
+    "anchor": "invoice approval workflow"
+   }
+  }
+ ],
+ "faq_heading": "Budget Approval Questions, Answered",
+ "table": {
+  "vs": [
+   "Zapier",
+   "Make (Integromat)",
+   "n8n"
+  ],
+  "rows": [
+   "build",
+   "output",
+   "cap",
+   "ai",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "skeleton": {
+  "built_by": "B-w-263",
+  "built": "2026-10-21 05:42 UTC",
+  "slots": 10,
+  "flagged": 0,
+  "flag_subtypes": [],
+  "locked": 2,
+  "table": true
+ },
+ "plan": {
+  "angle": "The top results explain budget approval as a generic cycle (prepare, review, approve). This page shows the four decisions a budget approval workflow actually routes, as working screens: an annual department budget that rises more than 10% and needs a written reason before the CFO, a capex request over $50,000 that must carry its payback before it moves, a mid-year transfer between two lines of one department, and a spend request larger than what is left on its budget line. Generic routing belongs to the approval workflow page, single invoices to the invoice approval page and receipts to expense report automation; this page stays on approving the budget and changes to it.",
+  "tab_stories": [
+   "Field Operations submits its FY2027 budget at $855,000 against $750,000 for FY2026, a 14% rise; the rule sends any budget more than 10% above last year to the CFO, Corinne Haddad, with a written reason, after the finance reviewer, Mattias Oyelaran, signs off.",
+   "The plant manager, Desmond Achterberg, asks for $120,000 for a packaging line that saves $40,000 a year, a payback of 3 years; capex over $50,000 needs a payback figure on the form and goes to the CFO, Corinne Haddad.",
+   "Yuki Brannigan, head of Customer Success, moves $18,000 from the travel line to software; transfers under $25,000 inside one department need only the department head, so travel drops from $60,000 to $42,000 and software rises from $90,000 to $108,000.",
+   "Teodor Vasko asks for $9,500 from Kestrel Print Co. against a events line with $6,200 left; the app holds it and asks the budget owner, Lavinia Osei, to approve the $3,300 over budget or move money in first."
+  ],
+  "openers": [
+   "Field Operations sends in its FY2027 budget",
+   "Desmond Achterberg wants a second packaging line",
+   "Halfway through the year, Yuki Brannigan",
+   "Teodor Vasko books a print run",
+   "Pull last year's budget requests",
+   "Write each limit as a number",
+   "Run three of last year's requests through the rules"
+  ],
+  "heading_shapes": [
+   "A 14% jump waits for a written reason",
+   "No payback figure, no CFO review",
+   "Software gets $18,000 that travel will not spend",
+   "$9,500 asked, $6,200 left on the line"
+  ],
+  "claims_to_source": []
+ },
+ "chip_adds": [
+  "Add annual budget reviews that send rises over 10% to the CFO with a reason.",
+  "Add capex requests that need a payback figure and go to the CFO when they pass $50,000.",
+  "Add line transfers that the department head approves alone when they stay under $25,000.",
+  "Add over-budget holds that ask the budget owner before spend passes a line's balance."
+ ],
+ "claims_used": [
+  "prompt-build",
+  "api-connect",
+  "alerts",
+  "database-owned",
+  "realtime",
+  "no-caps",
+  "free-start"
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R1",
+    "title": "Annual budgets",
+    "prompt": "Send budgets more than 10% above last year to the CFO with a written reason",
+    "main": {
+     "chrome": "Budget approvals",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "FY2027 budget",
+       "title": "Field Operations",
+       "size": 28,
+       "sub": "FY2026: $750,000",
+       "right": "$855,000",
+       "right_sub": "Requested"
+      },
+      {
+       "type": "rule",
+       "text": "More than 10% above last year goes to the CFO"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Increase",
+         "$105,000",
+         true
+        ],
+        [
+         "Written reason",
+         "Attached by Odalys Kerrigan"
+        ]
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Finance",
+         "sub": "Mattias Oyelaran"
+        },
+        {
+         "state": "live",
+         "title": "CFO",
+         "sub": "Ines Haddad",
+         "right": "Waiting"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Ines Haddad",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Approve Field Operations?",
+       "size": 20,
+       "sub": "$855,000 for FY2027"
+      },
+      {
+       "type": "meta",
+       "icon": "check",
+       "kind": "acc",
+       "text": "Mattias Oyelaran signed off"
+      }
+     ],
+     "action": {
+      "label": "Approve",
+      "icon": "check"
+     }
+    },
+    "mini": {
+     "icon": "file-text",
+     "kind": "warn",
+     "title": "Up $105,000",
+     "sub": "Reason attached"
+    },
+    "alt": "Field Operations asks for $855,000 for FY2027, $105,000 more than the $750,000 it had for FY2026, so after finance signs off the budget waits for the CFO with a written reason attached.",
+    "story": [
+     {
+      "copy": "Field Operations",
+      "image": "Field Operations"
+     },
+     {
+      "copy": "$855,000",
+      "image": "$855,000"
+     },
+     {
+      "copy": "$105,000 more",
+      "image": "Up $105,000"
+     },
+     {
+      "copy": "$750,000 for FY2026",
+      "image": "FY2026: $750,000"
+     },
+     {
+      "copy": "more than 10% above last year goes to the CFO",
+      "image": "More than 10% above last year goes to the CFO"
+     },
+     {
+      "copy": "Odalys Kerrigan",
+      "image": "Attached by Odalys Kerrigan"
+     },
+     {
+      "copy": "Mattias Oyelaran in finance has signed off",
+      "image": "Mattias Oyelaran signed off"
+     },
+     {
+      "copy": "the CFO, Ines Haddad",
+      "image": "To Ines Haddad"
+     }
+    ]
+   },
+   {
+    "recipe": "R2",
+    "title": "Capex requests",
+    "prompt": "Send back capex over $50,000 without a payback figure, then route it to the CFO",
+    "main": {
+     "blocks": [
+      {
+       "type": "doc_header",
+       "initials": "DA",
+       "title": "Second line",
+       "sub": "Plant equipment",
+       "label": "CAPEX REQUEST"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Requested by",
+         "Desmond Achterberg"
+        ],
+        [
+         "Cost",
+         "$120,000"
+        ],
+        [
+         "Yearly savings",
+         "$40,000"
+        ],
+        [
+         "Payback",
+         "3 years",
+         true
+        ]
+       ]
+      },
+      {
+       "type": "filler",
+       "n": 2
+      },
+      {
+       "type": "note",
+       "icon": "file-pen",
+       "text": "Payback added on the second draft"
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Capex check",
+       "size": 19,
+       "chip": [
+        "Over $50,000",
+        "warn"
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Sent back",
+         "sub": "Payback field empty"
+        },
+        {
+         "state": "done",
+         "title": "Payback added",
+         "sub": "3 years"
+        },
+        {
+         "state": "live",
+         "title": "CFO",
+         "sub": "Ines Haddad"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "calculator",
+     "tone": "acc",
+     "title": "Ready for CFO review",
+     "blocks": [
+      {
+       "type": "chips",
+       "items": [
+        [
+         "3-year payback",
+         "ok"
+        ]
+       ]
+      },
+      {
+       "type": "text",
+       "text": "Second packaging line",
+       "size": 17,
+       "color": "sub"
+      },
+      {
+       "type": "meta",
+       "icon": "user-check",
+       "kind": "acc",
+       "text": "Ines Haddad reviews next"
+      }
+     ],
+     "action": {
+      "label": "Open request",
+      "icon": "file-text"
+     }
+    },
+    "alt": "A $120,000 capex request for a second packaging line, saving $40,000 a year, was sent back until it carried a 3-year payback figure and now goes to the CFO.",
+    "story": [
+     {
+      "copy": "Desmond Achterberg",
+      "image": "Desmond Achterberg"
+     },
+     {
+      "copy": "second packaging line",
+      "image": "Second packaging line"
+     },
+     {
+      "copy": "$120,000",
+      "image": "$120,000"
+     },
+     {
+      "copy": "saving $40,000 a year",
+      "image": "$40,000"
+     },
+     {
+      "copy": "Capex over $50,000",
+      "image": "Over $50,000"
+     },
+     {
+      "copy": "sent his first draft back with that field marked",
+      "image": "Payback field empty"
+     },
+     {
+      "copy": "a payback of 3 years",
+      "image": "3-year payback"
+     },
+     {
+      "copy": "went to the CFO, Ines Haddad",
+      "image": "Ines Haddad reviews next"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Line transfers",
+    "prompt": "Let department heads approve transfers under $25,000 inside their own department",
+    "main": {
+     "chrome": "Budget transfers",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "Customer Success",
+       "title": "Travel to software",
+       "size": 28,
+       "sub": "Asked by Caspian Rowe",
+       "right": "$18,000",
+       "right_sub": "Transfer"
+      },
+      {
+       "type": "rule",
+       "text": "Under $25,000 in one department: head only"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Travel, after",
+         "$42,000"
+        ],
+        [
+         "Software, after",
+         "$108,000",
+         true
+        ]
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Department head",
+         "sub": "Yuki Brannigan",
+         "right": "Approved"
+        },
+        {
+         "state": "live",
+         "title": "Finance",
+         "sub": "Notice sent"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "check",
+     "tone": "ok",
+     "title": "Transfer approved",
+     "blocks": [
+      {
+       "type": "chips",
+       "items": [
+        [
+         "$18,000",
+         "ok"
+        ]
+       ]
+      },
+      {
+       "type": "text",
+       "text": "Travel line to software",
+       "size": 17,
+       "color": "sub"
+      },
+      {
+       "type": "meta",
+       "icon": "user-check",
+       "kind": "acc",
+       "text": "Approved by Yuki Brannigan"
+      }
+     ],
+     "action": {
+      "label": "View lines",
+      "icon": "file-text"
+     }
+    },
+    "mini": {
+     "icon": "bell",
+     "kind": "ok",
+     "title": "Finance notified",
+     "sub": "Balances updated"
+    },
+    "alt": "A team lead in Customer Success moves $18,000 of the travel line into software; the department head approves it alone, travel falls to $42,000, software rises to $108,000 and finance is notified.",
+    "story": [
+     {
+      "copy": "Caspian Rowe",
+      "image": "Asked by Caspian Rowe"
+     },
+     {
+      "copy": "Customer Success",
+      "image": "Customer Success"
+     },
+     {
+      "copy": "$18,000",
+      "image": "$18,000"
+     },
+     {
+      "copy": "Transfers under $25,000 inside one department need only the department head",
+      "image": "Under $25,000 in one department: head only"
+     },
+     {
+      "copy": "Yuki Brannigan alone",
+      "image": "Approved by Yuki Brannigan"
+     },
+     {
+      "copy": "travel drops to $42,000",
+      "image": "$42,000"
+     },
+     {
+      "copy": "software rises to $108,000",
+      "image": "$108,000"
+     },
+     {
+      "copy": "finance gets a notice",
+      "image": "Finance notified"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Over-budget holds",
+    "prompt": "Hold spend requests larger than what is left on their budget line",
+    "main": {
+     "chrome": "Spend requests",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "Events line",
+       "title": "Kestrel Print Co.",
+       "size": 28,
+       "sub": "Trade show print run",
+       "right": "$9,500",
+       "right_sub": "Requested"
+      },
+      {
+       "type": "rule",
+       "text": "Larger than the line's balance: held"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Left on the line",
+         "$6,200"
+        ],
+        [
+         "Over budget",
+         "$3,300",
+         true
+        ]
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Requested",
+         "sub": "Teodor Vasko"
+        },
+        {
+         "state": "live",
+         "title": "Budget owner",
+         "sub": "Lavinia Osei",
+         "right": "On hold"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Lavinia Osei",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Approve $3,300 over budget?",
+       "size": 20,
+       "sub": "Kestrel Print Co., $9,500"
+      },
+      {
+       "type": "meta",
+       "icon": "wallet",
+       "kind": "warn",
+       "text": "$6,200 left on events"
+      }
+     ],
+     "action": {
+      "label": "Approve",
+      "icon": "check"
+     }
+    },
+    "mini": {
+     "icon": "pause",
+     "kind": "warn",
+     "title": "On hold",
+     "sub": "Until the owner decides"
+    },
+    "alt": "A $9,500 print run from Kestrel Print Co. is larger than the $6,200 left on the events line, so it is held and the budget owner gets a direct message to approve the $3,300 over budget.",
+    "story": [
+     {
+      "copy": "Teodor Vasko",
+      "image": "Teodor Vasko"
+     },
+     {
+      "copy": "Kestrel Print Co.",
+      "image": "Kestrel Print Co."
+     },
+     {
+      "copy": "$9,500 print run",
+      "image": "$9,500"
+     },
+     {
+      "copy": "holds any request larger than its line's balance",
+      "image": "Larger than the line's balance: held"
+     },
+     {
+      "copy": "for a trade show",
+      "image": "Trade show print run"
+     },
+     {
+      "copy": "The events line has $6,200 left",
+      "image": "$6,200 left on events"
+     },
+     {
+      "copy": "Lavinia Osei, a direct message",
+      "image": "To Lavinia Osei"
+     },
+     {
+      "copy": "the $3,300 over budget",
+      "image": "Approve $3,300 over budget?"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "dm": true,
+   "channel": "Ines Haddad",
+   "title": "Approve capex",
+   "sub": "$120,000 packaging line",
+   "primary": "Approve",
+   "secondary": "Open",
+   "icon": "file-text",
+   "alt": "Budget approval workflow: a direct message asking the CFO to approve a $120,000 capex request for a packaging line"
+  },
+  "og": {
+   "headline": "Build a budget approval workflow around your limits",
+   "alt": "Build a budget approval workflow around your spending limits, with Emergent"
+  },
+  "checks": [
+   {
+    "expr": "855000 - 750000 == 105000",
+    "shows": [
+     "$855,000",
+     "$750,000",
+     "$105,000"
+    ],
+    "where": 1
+   },
+   {
+    "fact": [
+     "10%"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "120000 / 40000 == 3",
+    "shows": [
+     "$120,000",
+     "$40,000"
+    ],
+    "where": 2
+   },
+   {
+    "fact": [
+     "$50,000"
+    ],
+    "where": 2
+   },
+   {
+    "fact": [
+     "$18,000",
+     "$42,000",
+     "$108,000",
+     "$25,000"
+    ],
+    "where": 3
+   },
+   {
+    "expr": "9500 - 6200 == 3300",
+    "shows": [
+     "$9,500",
+     "$6,200",
+     "$3,300"
+    ],
+    "where": 4
+   },
+   {
+    "same": "$120,000",
+    "where": [
+     2,
+     "cover"
+    ]
+   }
+  ]
+ },
+ "faq_sources": [
+  {
+   "q": "What is a budget approval workflow?",
+   "source": "written",
+   "ref": "budget approval workflow",
+   "origin": "definition"
+  },
+  {
+   "q": "How do I create a budget approval workflow?",
+   "source": "written",
+   "ref": "budget approval workflow",
+   "origin": "definition"
+  },
+  {
+   "q": "What should a capex approval workflow ask for on the request form?",
+   "source": "written",
+   "ref": "capex approval workflow",
+   "origin": "written",
+   "secondary": "capex approval workflow"
+  },
+  {
+   "q": "How is a budget approval workflow different from other approval workflows?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How many approval levels does a budget approval workflow need?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Should a budget approval workflow block spend or only warn when a line runs out?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How should a budget approval workflow handle changes after the budget is approved?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "When should a budget approval workflow send a transfer to finance?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How long should a budget approval workflow wait before it escalates a request?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Should a budget approval workflow check invoices against the approved budget?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  }
+ ],
+ "learn_refs": [
+  "6a7ac70bd03b604d7570f4d8",
+  "6a1729ad1817ffd0330c987d",
+  "6aaa7b6c1a2b91c273a71c62"
+ ],
+ "learn_refs_why": [
+  "how-to-build-a-budget-dashboard-with-ai: score 6.8: matches budget (how-to)",
+  "best-ai-workflow-builders: score 4.41: matches workflow (builder list, hub-term only)",
+  "what-should-a-financial-dashboard-include-a-cfo-checklist: score 3.24: matches financial"
+ ],
+ "qc_passed": {
+  "rules_version": "41519b1f99fa",
+  "date": "2026-10-21 06:06 UTC"
+ },
+ "writers": [
+  "B-w-263"
+ ]
+}
