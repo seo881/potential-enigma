@@ -350,7 +350,8 @@ class Gate:
                 and w.lower().rstrip("?.") not in self.page_terms and re.sub(r"'?s$", "", w.lower().rstrip("?.")) not in self.page_terms and w[0].isupper() and w.rstrip("?.'s") not in ok_caps and w not in ok_caps and w.lower().rstrip("?.") not in self.bl.get("pa15_formats", [])]
         if caps and not br: out.append(("PA14", "flag", "capitalised name, possibly a brand: " + ", ".join(caps[:3])))
         # PA15 no file formats or download-style asks
-        fm = [f for f in self.bl.get("pa15_formats", []) if has(f, q)]
+        pa15_ok = set(self.bl.get("pa15_allowed", {}).get(norm(self.primary), []))   # Divit 2026-10-21: a format that is the page's own subject (pdf automation)
+        fm = [f for f in self.bl.get("pa15_formats", []) if has(f, q) and f not in pa15_ok]
         if fm: out.append(("PA15", "reject", "file format or download ask: " + ", ".join(fm[:3])))
         # ruling 18 parts 4 and 5 (Divit 2026-10-14): new writing only; a reviewed page's own FAQ (run_spec marks it legacy) is never re-gated
         r18on = not item.get("legacy")
