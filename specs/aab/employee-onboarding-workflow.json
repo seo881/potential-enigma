@@ -1,0 +1,986 @@
+{
+ "url": "/ai-automation-builder/employee-onboarding-workflow",
+ "hub": "Auto",
+ "item_id": null,
+ "status": "spec",
+ "written_by": "B-w-248",
+ "keywords": {
+  "primary": "employee onboarding workflow",
+  "secondaries_used": []
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Employee Onboarding Workflow: Offer to Day 30 | Emergent",
+  "meta_description": "Build an employee onboarding workflow that chases unsigned forms before the start date and checks in with every new hire on day 30.",
+  "h1": "Build an Employee Onboarding Workflow From Offer to Day 30",
+  "slug": "employee-onboarding-workflow",
+  "product_name": "Employee Onboarding Workflow Builder",
+  "hero_description": "Build an employee onboarding workflow that gives each new hire's tasks an owner and a due date, from offer to day 30.",
+  "breadcrumb": "Employee Onboarding Workflow",
+  "category": "a33cd4fb124ec86a130809893b2b3896",
+  "explore_cta": "Build My Employee Onboarding",
+  "features_heading": "What Your Onboarding Workflow Handles",
+  "features_subheading": "Each new hire gets one record that holds every task, its owner, and its due date.",
+  "feature_1": "<h3>A record the day the offer is accepted</h3><p>The app reads your HR system through its API and opens an onboarding record when a candidate accepts. The record starts with the role and start date from the signed offer.</p>",
+  "feature_2": "<h3>Tasks routed to the team that owns them</h3><p>IT, facilities, and payroll each get a task list for the new hire. Tell Emergent which tasks belong to which role, and a warehouse hire gets a different list than an engineer.</p>",
+  "feature_3": "<h3>Forms signed before day one</h3><p>The new hire opens one link, fills in each form, and signs on screen. The app captures each e-signature and marks that form done on the new hire's record for HR to see.</p>",
+  "feature_4": "<h3>Reminders before anything runs late</h3><p>Every task has a due date counted from the start date. The app reminds the owner by email or Slack on the days you pick, then alerts a named person if the task stays open.</p>",
+  "feature_5": "<h3>A live board of every hire in progress</h3><p>HR sees each new hire by stage and start date, with any overdue task at the top. The board updates the moment IT or payroll marks its task done in the onboarding app.</p>",
+  "feature_6": "<h3>The onboarding app's code in GitHub</h3><p>Export the full code of the app to your GitHub repository on paid plans. Anyone on your team can review how employee records are stored and change the app like any other code.</p>",
+  "why_title": "Why Build Employee Onboarding With Emergent?",
+  "why_description": "Emergent builds the onboarding app and its reminders from one prompt, and every new hire's record sits in a database you own.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Zapier</th>\n        <th scope=\"col\">Make (Integromat)</th>\n        <th scope=\"col\">n8n</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt for the workflow and the app around it</td>\n        <td class=\"col-other\">Templates and editor, AI copilot</td>\n        <td class=\"col-other\">Visual canvas</td>\n        <td class=\"col-other\">Visual canvas, self-hosted or cloud</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">What you get</th>\n        <td class=\"col-brand\">Workflow + trigger form + database + dashboard, as code you own</td>\n        <td class=\"col-other\">Zaps, plus Tables and Interfaces inside Zapier</td>\n        <td class=\"col-other\">Scenarios inside Make</td>\n        <td class=\"col-other\">Workflows inside n8n</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Behavior at cap</th>\n        <td class=\"col-brand\">Keeps running, no task cap</td>\n        <td class=\"col-other\">Overage billed at up to 1.25× the base rate</td>\n        <td class=\"col-other\">Runs pause</td>\n        <td class=\"col-other\">Cloud workflows stop until the reset or an upgrade</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">AI and agent steps</th>\n        <td class=\"col-brand\">Native, share the same credit pool</td>\n        <td class=\"col-other\">Priced by model tier, drawn from the task pool</td>\n        <td class=\"col-other\">AI modules cost variable credits</td>\n        <td class=\"col-other\">Bring your own model API key, billed by the provider</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">Yes on Community Edition</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "Where a New Hire's First Month Slips",
+  "tab_label_1": "Pre-Start Forms",
+  "tab_label_2": "Day-One Setup",
+  "tab_label_3": "Required Training",
+  "tab_label_4": "Day-30 Pulse",
+  "tab_content_1": "<h3>HR hears about any unsigned form 3 days before the start</h3><p>Delphine Arceneaux accepts a front desk role at Oakhurst Pediatrics, and the app sends her 5 forms to sign online. She signs 4 of the 5 and gets an email reminder every 2 days about the handbook acknowledgment. Three days before her start date, the HR coordinator, Renata Szabo, gets a direct message naming it.</p>",
+  "tab_content_2": "<h3>Four teams get day-one tasks when the offer is accepted</h3><p>Amadou Fairweather accepts a dispatcher role at Kestrel Ridge Logistics, and the app opens a task for each of 4 teams, due 2 business days before his Monday start. Three of the 4 are done. The badge is still open, and the facilities lead, Gwendolyn Marsh, gets a direct message about it.</p>",
+  "tab_content_3": "<h3>Solo shifts open only after all 4 courses</h3><p>Thornbury Outdoor Supply gives every new store associate 4 required courses to finish by day 14. On day 14, Paloma Reinholt has finished 3 of the 4, and the returns process course is still open. The app keeps her solo shifts locked and tells the store manager, Corwin Ashby, which course she has left.</p>",
+  "tab_content_4": "<h3>HR partners see every day-30 score under 3</h3><p>On day 30, Yusuf Abernathy answers 3 questions about his first month at Fallowmere Software. He rates getting help at 2 out of 5 and writes that nobody has shown him who approves code reviews. Any score under 3 goes to the HR partner, Saoirse Kettering, as a direct message with his comment.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { preStartForms: \"Build a pre-start paperwork tracker for my pediatric clinic. When a candidate accepts an offer, send them 5 forms to sign online: direct deposit, emergency contacts, tax withholding, the handbook acknowledgment, and a badge photo. Email the new hire a reminder every 2 days about any unsigned form, and send the HR coordinator a direct message 3 days before the start date if any form is still open.\", dayOneSetup: \"Build a day-one setup tracker for my logistics company. When a candidate accepts an offer, open 4 tasks: a laptop from IT, a building badge from facilities, a payroll record, and a first-week schedule from the hiring manager. Make each task due 2 business days before the start date, and send the owning team's lead a direct message about any task still open on that day.\", requiredTraining: \"Build a training tracker for my outdoor retail stores. Give every new store associate 4 required courses to finish by day 14: a safety walkthrough, register basics, product care, and the returns process. Keep solo shifts locked until all 4 are done, and on day 14 tell the store manager which courses are still open.\", day30Pulse: \"Build a day-30 pulse survey for my software company. On day 30 after a new hire's start, send them 3 questions, each scored 1 to 5, with a comment box. When any score is under 3, send the HR partner a direct message with the score and the comment, and log every answer on the employee's record.\" };</p>",
+  "howto_title": "Build an Employee Onboarding Workflow",
+  "howto_description": "Seven steps to plan an employee onboarding workflow and its reminders, then build it with Emergent and test it on a past hire.",
+  "howto_step_1_title": "01 Map every task through day 30",
+  "howto_step_2_title": "02 Give each task an owner",
+  "howto_step_3_title": "03 Choose the event that starts it",
+  "howto_step_4_title": "04 Set due dates and escalations",
+  "howto_step_1_des": "Write down every task between the accepted offer and day 30, such as signed forms or a first-week training plan. Next to each task, note who does it today and what it waits on.",
+  "howto_step_2_des": "Assign every task to a team or a named role, such as IT for the laptop or the hiring manager for the first-week schedule. Keep separate lists where roles differ, since a warehouse hire and an engineer need different equipment.",
+  "howto_step_3_des": "Choose the one event that opens a new hire's record, such as an offer marked accepted in your applicant tracking system. Count every due date from the start date on that record.",
+  "howto_step_4_des": "Decide how many days before the start date each task is due, how often its owner gets a reminder, and who hears about it when it runs late. Write those numbers next to each task.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Employee Onboarding Workflow FAQ\", \"items\": [{\"q\": \"What is an employee onboarding workflow?\", \"a\": \"An employee onboarding workflow is the set of tasks a company runs between an accepted offer and a new hire who can do the job. Each task is assigned to a person and tied to a date. SHRM defines onboarding as the process of integrating new employees into an organization. The workflow is the part of that process you can schedule and track.\"}, {\"q\": \"How do I create an employee onboarding workflow?\", \"a\": \"Write the workflow down before you build anything. For each role you hire, list every task through day 30, who owns it, and the day it is due counted from the start date. Then describe those lists in a prompt in Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>. Emergent builds the onboarding app with its database and dashboard, and you change it later by prompting again.\"}, {\"q\": \"Which tasks in an HR onboarding workflow belong to HR and which to the hiring manager?\", \"a\": \"Give HR the paperwork and the check-ins that compare one hire with another. Give the hiring manager the job itself, such as the first-week schedule and the first real assignment. Write the owner next to every task, because a task each side thinks the other has is the one that slips.\"}, {\"q\": \"How can AI agents automate an employee onboarding workflow?\", \"a\": \"AI agents fit the reading and chasing, not the decisions. An AI step can read an uploaded form into fields on the employee record and send any field it is unsure of to a person. Keep judgment calls, such as a missed training deadline, with a manager. <a href='https://emergent.sh/ai-automation-builder/recruitment-automation'>Recruitment automation</a> uses the same split earlier in hiring, where software handles scheduling and people make the offer.\"}, {\"q\": \"What should an employee onboarding workflow finish before the first day?\", \"a\": \"Paperwork, equipment, and accounts should all be finished before day one. Send the forms as soon as the candidate accepts, and open the laptop and account tasks for each team at the same time. Set those due dates 2 business days before the start to leave room for a late delivery. A few days out, send the new hire a short note with where to go and who will meet them.\"}, {\"q\": \"How long should an employee onboarding workflow run?\", \"a\": \"Build the tasks around the first 30 days, then keep check-ins running after that. Setup and required training belong in that first month. For roles that take longer to learn, add check-ins at day 60 and day 90. Close the workflow when the new hire and the manager both say the role is clear, and record that date on the employee's record.\"}, {\"q\": \"How does an employee onboarding workflow record who finished each task?\", \"a\": \"It logs every task change on the employee's record with the name of the person who made it and the time. In an app built with Emergent, that history is stored in a database you own, next to the rest of the employee data. If an <a href='https://emergent.sh/ai-automation-builder/audit-workflow'>audit workflow</a> already runs for other processes, point it at the same log instead of keeping a second copy.\"}, {\"q\": \"Can one employee onboarding workflow cover remote and office hires?\", \"a\": \"Yes. Keep one workflow and add a work-location field that switches a few tasks. A remote hire's laptop ships to a home address with a delivery date before the start, while an office hire gets a desk and a badge instead. The first-week schedule lists video call links in place of room numbers. The forms and the check-ins stay the same for both.\"}, {\"q\": \"What happens to an employee onboarding workflow when a start date changes?\", \"a\": \"Every due date should move with it. Store each due date as an offset from the start, such as day 14, instead of a calendar date. When HR changes the start date, the app recalculates each task and alerts every owner whose deadline moved. When Emergent builds the app, those alerts can go out by Slack, email, or in-app. If an offer is withdrawn, close the open tasks.\"}, {\"q\": \"How do I keep the documents in an employee onboarding workflow up to date?\", \"a\": \"Give each document and course an owner and a review date, and keep both on the list the workflow reads from. When a policy changes, the owner updates the file once, and every new hire after that date gets the new version. If your handbook needs sign-off from leadership before it goes out, run its edits through a <a href='https://emergent.sh/ai-automation-builder/content-workflow'>content workflow</a> with a review step.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Describe the workflow in a prompt",
+  "howto_step_5_des": "Write the task lists and day counts in plain English, the way you would brief a new HR coordinator. Emergent builds the onboarding app from that prompt, with the employee record, forms, reminders, and the board.",
+  "howto_step_6_title": "06 Connect the tools you already use",
+  "howto_step_6_des": "Connect your HR system and Slack through their APIs. Each new hire then arrives with the start date and manager filled in, and alerts reach people in the tools they already check.",
+  "howto_step_7_title": "07 Test it on one past hire",
+  "howto_step_7_des": "Run one recent hire through the app with their real offer and start dates. Check that each reminder lands on the day you planned, then adjust the day counts before the next offer goes out.",
+  "prompt_chip_1": "Pre-Start Forms",
+  "prompt_chip_2": "Day-One Setup",
+  "prompt_chip_3": "Required Training",
+  "prompt_chip_4": "Day-30 Pulse",
+  "hero_prompt": "<p>Build an employee onboarding workflow that runs on its own and logs every step.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/aab/employee-onboarding-workflow/uc-1.svg",
+   "alt": "An onboarding record shows Delphine Arceneaux has signed 4 of 5 forms, and 3 days before her start date the HR coordinator gets a direct message about the unsigned handbook acknowledgment."
+  },
+  "tab_image_2": {
+   "path": "images/aab/employee-onboarding-workflow/uc-2.svg",
+   "alt": "A day-one task table for Amadou Fairweather shows 3 of 4 tasks done, and the facilities lead gets a direct message about the building badge due before his Monday start."
+  },
+  "tab_image_3": {
+   "path": "images/aab/employee-onboarding-workflow/uc-3.svg",
+   "alt": "A training tracker shows Paloma Reinholt has finished 3 of 4 required courses on day 14, so her solo shifts stay locked and the store manager sees the returns course is left."
+  },
+  "tab_image_4": {
+   "path": "images/aab/employee-onboarding-workflow/uc-4.svg",
+   "alt": "A day-30 pulse on a phone shows Yusuf Abernathy rating getting help 2 out of 5, and the HR partner gets a direct message with his comment."
+  },
+  "cover_image": {
+   "path": "images/aab/employee-onboarding-workflow/cover.svg",
+   "alt": "Employee onboarding workflow: a direct message telling the HR coordinator that a new hire starting in 3 days has not signed the handbook acknowledgment"
+  },
+  "share_image": {
+   "path": "images/aab/employee-onboarding-workflow/og.webp",
+   "alt": "Build an employee onboarding workflow from offer to day 30, with Emergent"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-21 05:23 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 05:41 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "B-w-248",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 05:42 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-248",
+   "note": ""
+  }
+ ],
+ "pipeline": "r15",
+ "faq_plan": [
+  {
+   "kind": "definition",
+   "q": "What is an employee onboarding workflow?",
+   "ref": "employee onboarding workflow",
+   "locked": true,
+   "n": 1,
+   "a": "An employee onboarding workflow is the set of tasks a company runs between an accepted offer and a new hire who can do the job. Each task is assigned to a person and tied to a date. SHRM defines onboarding as the process of integrating new employees into an organization. The workflow is the part of that process you can schedule and track.",
+   "link": null
+  },
+  {
+   "kind": "definition",
+   "q": "How do I create an employee onboarding workflow?",
+   "ref": "employee onboarding workflow",
+   "locked": true,
+   "n": 2,
+   "a": "Write the workflow down before you build anything. For each role you hire, list every task through day 30, who owns it, and the day it is due counted from the start date. Then describe those lists in a prompt in Emergent's AI automation builder. Emergent builds the onboarding app with its database and dashboard, and you change it later by prompting again.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder",
+    "anchor": "AI automation builder",
+    "write_as": "Emergent's AI automation builder"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "Which tasks in an HR onboarding workflow belong to HR and which to the hiring manager?",
+   "ref": "hr onboarding workflow",
+   "secondary": "hr onboarding workflow",
+   "locked": false,
+   "n": 3,
+   "a": "Give HR the paperwork and the check-ins that compare one hire with another. Give the hiring manager the job itself, such as the first-week schedule and the first real assignment. Write the owner next to every task, because a task each side thinks the other has is the one that slips.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How can AI agents automate an employee onboarding workflow?",
+   "ref": null,
+   "secondary": null,
+   "hint": "How to use AI agents to automate employee onboarding workflows?",
+   "locked": false,
+   "n": 4,
+   "a": "AI agents fit the reading and chasing, not the decisions. An AI step can read an uploaded form into fields on the employee record and send any field it is unsure of to a person. Keep judgment calls, such as a missed training deadline, with a manager. Recruitment automation uses the same split earlier in hiring, where software handles scheduling and people make the offer.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/recruitment-automation",
+    "anchor": "recruitment automation"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "What should an employee onboarding workflow finish before the first day?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 5,
+   "a": "Paperwork, equipment, and accounts should all be finished before day one. Send the forms as soon as the candidate accepts, and open the laptop and account tasks for each team at the same time. Set those due dates 2 business days before the start to leave room for a late delivery. A few days out, send the new hire a short note with where to go and who will meet them.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How long should an employee onboarding workflow run?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 6,
+   "a": "Build the tasks around the first 30 days, then keep check-ins running after that. Setup and required training belong in that first month. For roles that take longer to learn, add check-ins at day 60 and day 90. Close the workflow when the new hire and the manager both say the role is clear, and record that date on the employee's record.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How does an employee onboarding workflow record who finished each task?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 7,
+   "a": "It logs every task change on the employee's record with the name of the person who made it and the time. In an app built with Emergent, that history is stored in a database you own, next to the rest of the employee data. If an audit workflow already runs for other processes, point it at the same log instead of keeping a second copy.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/audit-workflow",
+    "anchor": "audit workflow"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "Can one employee onboarding workflow cover remote and office hires?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 8,
+   "a": "Yes. Keep one workflow and add a work-location field that switches a few tasks. A remote hire's laptop ships to a home address with a delivery date before the start, while an office hire gets a desk and a badge instead. The first-week schedule lists video call links in place of room numbers. The forms and the check-ins stay the same for both.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "What happens to an employee onboarding workflow when a start date changes?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 9,
+   "a": "Every due date should move with it. Store each due date as an offset from the start, such as day 14, instead of a calendar date. When HR changes the start date, the app recalculates each task and alerts every owner whose deadline moved. When Emergent builds the app, those alerts can go out by Slack, email, or in-app. If an offer is withdrawn, close the open tasks.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How do I keep the documents in an employee onboarding workflow up to date?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 10,
+   "a": "Give each document and course an owner and a review date, and keep both on the list the workflow reads from. When a policy changes, the owner updates the file once, and every new hire after that date gets the new version. If your handbook needs sign-off from leadership before it goes out, run its edits through a content workflow with a review step.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/content-workflow",
+    "anchor": "content workflow"
+   }
+  }
+ ],
+ "faq_heading": "Employee Onboarding Workflow FAQ",
+ "table": {
+  "vs": [
+   "Zapier",
+   "Make (Integromat)",
+   "n8n"
+  ],
+  "rows": [
+   "build",
+   "output",
+   "cap",
+   "ai",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "skeleton": {
+  "built_by": "B-w-248",
+  "built": "2026-10-21 05:23 UTC",
+  "slots": 10,
+  "flagged": 0,
+  "flag_subtypes": [],
+  "locked": 2,
+  "table": true
+ },
+ "plan": {
+  "angle": "The top 10 are HR blog checklists and 30-60-90 explainers that list onboarding steps but never show them running. This page treats onboarding as a workflow with owners and deadlines from the accepted offer to day 30, then shows the app running four stages for four employers: signed forms before the start date, day-one tasks fanned out to four teams, required courses that gate solo shifts, and a day-30 pulse that reaches HR. The FAQ answers builder questions on owners, AI agents, the first day, length, records, remote hires, start-date changes and keeping content current, and leaves hiring itself to the recruitment automation page.",
+  "tab_stories": [
+   "Delphine Arceneaux accepts a front desk role at Oakhurst Pediatrics, signs 4 of the 5 forms the app sent her, gets an email reminder every 2 days about the handbook acknowledgment, and 3 days before her start date the HR coordinator Renata Szabo gets a direct message.",
+   "When Amadou Fairweather accepts a dispatcher role at Kestrel Ridge Logistics, the app opens a task for each of 4 teams (IT, facilities, payroll and his manager), each due 2 business days before his Monday start; 3 of the 4 are done and the facilities lead Gwendolyn Marsh gets a direct message about the open badge.",
+   "Paloma Reinholt, a new store associate at Thornbury Outdoor Supply, has 4 required courses due by day 14; on day 14 she has finished 3, so the app keeps solo shifts locked and tells the store manager Corwin Ashby that the returns process course is open.",
+   "On day 30 at Fallowmere Software, the new engineer Yusuf Abernathy answers 3 questions and rates getting help 2 out of 5, under the threshold of 3, so the HR partner Saoirse Kettering gets a direct message with his comment."
+  ],
+  "openers": [
+   "Delphine Arceneaux accepts a front desk role",
+   "Amadou Fairweather accepts a dispatcher role",
+   "Thornbury Outdoor Supply gives every new store associate",
+   "On day 30, Yusuf Abernathy answers",
+   "Write down every task between the accepted offer and day 30",
+   "Choose the one event that opens a new hire's record",
+   "Run one recent hire through the app"
+  ],
+  "heading_shapes": [
+   "HR hears about any unsigned form 3 days before the start",
+   "Four teams get day-one tasks when the offer is accepted",
+   "Solo shifts open only after all 4 courses",
+   "HR partners see every day-30 score under 3"
+  ],
+  "claims_to_source": [
+   "Onboarding is the process of integrating new employees into an organization"
+  ],
+  "numbers": [
+   {
+    "value": 5,
+    "formula": "4 + 1"
+   },
+   {
+    "value": 4,
+    "formula": "3 + 1"
+   }
+  ],
+  "owns": {
+   "record opened from an accepted offer": "feature_1",
+   "tasks per team": "feature_2",
+   "forms and e-signatures": "feature_3",
+   "reminders and escalations": "feature_4",
+   "live board of hires in flight": "feature_5",
+   "code export": "feature_6",
+   "definition": "faq 1",
+   "replay test on past hires": "howto_step_7_des"
+  }
+ },
+ "chip_adds": [
+  "Add pre-start forms the new hire signs online, with reminders.",
+  "Add day-one setup tasks for each team, due before the start date.",
+  "Add required training that keeps solo shifts locked until every course is complete.",
+  "Add a day-30 pulse that sends the HR partner any answer scored below 3."
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R1",
+    "title": "Pre-start forms",
+    "prompt": "Send each new hire 5 forms to sign and tell HR about any still open",
+    "main": {
+     "chrome": "New hire onboarding",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "OAKHURST PEDIATRICS",
+       "title": "Delphine Arceneaux",
+       "size": 24,
+       "sub": "5 forms to sign online",
+       "chip": [
+        "4 of 5 signed",
+        "warn"
+       ]
+      },
+      {
+       "type": "list",
+       "items": [
+        {
+         "initials": "DD",
+         "name": "Direct deposit",
+         "chip": [
+          "Signed",
+          "ok"
+         ]
+        },
+        {
+         "initials": "EC",
+         "name": "Emergency contacts",
+         "chip": [
+          "Signed",
+          "ok"
+         ]
+        },
+        {
+         "initials": "TW",
+         "name": "Tax withholding",
+         "chip": [
+          "Signed",
+          "ok"
+         ]
+        },
+        {
+         "initials": "BP",
+         "name": "Badge photo",
+         "chip": [
+          "Signed",
+          "ok"
+         ]
+        },
+        {
+         "initials": "HA",
+         "name": "Handbook acknowledgment",
+         "sub": "Reminder every 2 days",
+         "chip": [
+          "Open",
+          "warn"
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Renata Szabo",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Handbook form unsigned",
+       "size": 20,
+       "sub": "Delphine Arceneaux"
+      },
+      {
+       "type": "meta",
+       "icon": "calendar-clock",
+       "kind": "acc",
+       "text": "3 days before start date"
+      },
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "muted",
+       "text": "HR coordinator"
+      }
+     ],
+     "action": {
+      "label": "Open record",
+      "icon": "arrow-right"
+     }
+    },
+    "mini": {
+     "icon": "mail",
+     "kind": "acc",
+     "title": "Email reminder",
+     "sub": "Every 2 days until signed"
+    },
+    "alt": "An onboarding record shows Delphine Arceneaux has signed 4 of 5 forms, and 3 days before her start date the HR coordinator gets a direct message about the unsigned handbook acknowledgment.",
+    "story": [
+     {
+      "copy": "Delphine Arceneaux",
+      "image": "Delphine Arceneaux"
+     },
+     {
+      "copy": "Oakhurst Pediatrics",
+      "image": "OAKHURST PEDIATRICS"
+     },
+     {
+      "copy": "5 forms to sign online",
+      "image": "5 forms to sign online"
+     },
+     {
+      "copy": "She signs 4 of the 5",
+      "image": "4 of 5 signed"
+     },
+     {
+      "copy": "the handbook acknowledgment",
+      "image": "Handbook acknowledgment"
+     },
+     {
+      "copy": "every 2 days",
+      "image": "Reminder every 2 days"
+     },
+     {
+      "copy": "Three days before her start date",
+      "image": "3 days before start date"
+     },
+     {
+      "copy": "Renata Szabo",
+      "image": "To Renata Szabo"
+     },
+     {
+      "copy": "HR hears about any unsigned form",
+      "image": "Handbook form unsigned"
+     }
+    ]
+   },
+   {
+    "recipe": "R8",
+    "title": "Day-one setup",
+    "prompt": "Open a task for each team when an offer is accepted, due before day one",
+    "rule": "Offer accepted → 4 team tasks",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Amadou Fairweather",
+       "size": 20,
+       "chip": [
+        "3 of 4 done",
+        "warn"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Task",
+        "Status"
+       ],
+       "widths": [
+        0.68,
+        0.32
+       ],
+       "row_h": 58,
+       "bad": [
+        3
+       ],
+       "rows": [
+        [
+         "Laptop from IT",
+         [
+          "Done",
+          "ok"
+         ]
+        ],
+        [
+         "Payroll record",
+         [
+          "Done",
+          "ok"
+         ]
+        ],
+        [
+         "First-week schedule",
+         [
+          "Done",
+          "ok"
+         ]
+        ],
+        [
+         "Building badge",
+         [
+          "Open",
+          "bad"
+         ]
+        ]
+       ]
+      },
+      {
+       "type": "note",
+       "icon": "calendar",
+       "text": "Due 2 business days before Monday"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "id-card",
+     "tone": "warn",
+     "title": "Badge still open",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "Dispatcher, starts Monday",
+       "size": 16,
+       "color": "sub"
+      },
+      {
+       "type": "meta",
+       "icon": "message-square",
+       "kind": "acc",
+       "text": "To Gwendolyn Marsh"
+      },
+      {
+       "type": "meta",
+       "icon": "building-2",
+       "kind": "muted",
+       "text": "Facilities lead"
+      }
+     ],
+     "action": {
+      "label": "Open task",
+      "icon": "arrow-right"
+     }
+    },
+    "mini": {
+     "icon": "truck",
+     "kind": "acc",
+     "title": "Kestrel Ridge Logistics",
+     "sub": "New dispatcher"
+    },
+    "alt": "A day-one task table for Amadou Fairweather shows 3 of 4 tasks done, and the facilities lead gets a direct message about the building badge due before his Monday start.",
+    "story": [
+     {
+      "copy": "a task for each of 4 teams",
+      "image": "Offer accepted → 4 team tasks"
+     },
+     {
+      "copy": "Amadou Fairweather",
+      "image": "Amadou Fairweather"
+     },
+     {
+      "copy": "Kestrel Ridge Logistics",
+      "image": "Kestrel Ridge Logistics"
+     },
+     {
+      "copy": "Three of the 4 are done",
+      "image": "3 of 4 done"
+     },
+     {
+      "copy": "2 business days before his Monday start",
+      "image": "Due 2 business days before Monday"
+     },
+     {
+      "copy": "Gwendolyn Marsh",
+      "image": "To Gwendolyn Marsh"
+     },
+     {
+      "copy": "the facilities lead",
+      "image": "Facilities lead"
+     },
+     {
+      "copy": "The badge is still open",
+      "image": "Badge still open"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Required training",
+    "prompt": "Lock solo shifts until each new associate finishes 4 courses by day 14",
+    "main": {
+     "chrome": "Store training",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "THORNBURY OUTDOOR SUPPLY",
+       "title": "Paloma Reinholt",
+       "size": 24,
+       "sub": "Store associate, day 14"
+      },
+      {
+       "type": "rule",
+       "text": "Rule: 4 courses by day 14"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Safety walkthrough",
+         "sub": "Finished"
+        },
+        {
+         "state": "done",
+         "title": "Register basics",
+         "sub": "Finished"
+        },
+        {
+         "state": "done",
+         "title": "Product care",
+         "sub": "Finished"
+        },
+        {
+         "state": "live",
+         "title": "Returns process",
+         "sub": "Still open"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Corwin Ashby",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Solo shifts locked",
+       "size": 20,
+       "sub": "Paloma Reinholt"
+      },
+      {
+       "type": "meta",
+       "icon": "book-open",
+       "kind": "acc",
+       "text": "Left: returns process"
+      },
+      {
+       "type": "meta",
+       "icon": "check",
+       "kind": "muted",
+       "text": "3 of 4 courses finished"
+      }
+     ],
+     "action": {
+      "label": "View courses",
+      "icon": "arrow-right"
+     }
+    },
+    "mini": {
+     "icon": "store",
+     "kind": "acc",
+     "title": "Store manager",
+     "sub": "Corwin Ashby"
+    },
+    "alt": "A training tracker shows Paloma Reinholt has finished 3 of 4 required courses on day 14, so her solo shifts stay locked and the store manager sees the returns course is left.",
+    "story": [
+     {
+      "copy": "Thornbury Outdoor Supply",
+      "image": "THORNBURY OUTDOOR SUPPLY"
+     },
+     {
+      "copy": "4 required courses to finish by day 14",
+      "image": "Rule: 4 courses by day 14"
+     },
+     {
+      "copy": "Paloma Reinholt has finished 3 of the 4",
+      "image": "3 of 4 courses finished"
+     },
+     {
+      "copy": "the returns process course is still open",
+      "image": "Returns process"
+     },
+     {
+      "copy": "keeps her solo shifts locked",
+      "image": "Solo shifts locked"
+     },
+     {
+      "copy": "the store manager, Corwin Ashby",
+      "image": "To Corwin Ashby"
+     }
+    ]
+   },
+   {
+    "recipe": "R4",
+    "title": "Day-30 pulse",
+    "prompt": "Ask each new hire 3 questions on day 30 and alert HR on any score under 3",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Day 30 pulse",
+       "size": 22,
+       "sub": "Fallowmere Software"
+      },
+      {
+       "type": "chips",
+       "items": [
+        [
+         "3 questions",
+         "acc"
+        ]
+       ]
+      },
+      {
+       "type": "item",
+       "title": "Getting help",
+       "sub": "2 out of 5"
+      },
+      {
+       "type": "item",
+       "title": "Role clarity",
+       "sub": "4 out of 5"
+      },
+      {
+       "type": "item",
+       "title": "My tools",
+       "sub": "5 out of 5"
+      },
+      {
+       "type": "button",
+       "label": "Send",
+       "full": true,
+       "h": 52
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Yusuf Abernathy",
+       "size": 19,
+       "chip": [
+        "Under 3",
+        "bad"
+       ]
+      },
+      {
+       "type": "list",
+       "items": [
+        {
+         "initials": "YA",
+         "name": "Yusuf Abernathy",
+         "sub": "Engineer, day 30"
+        }
+       ]
+      },
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "muted",
+       "text": "HR partner: Saoirse Kettering"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Saoirse Kettering",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Getting help: 2 out of 5",
+       "size": 20,
+       "sub": "Unsure who approves code reviews"
+      },
+      {
+       "type": "meta",
+       "icon": "message-square",
+       "kind": "acc",
+       "text": "Direct message, with his comment"
+      },
+      {
+       "type": "meta",
+       "icon": "building-2",
+       "kind": "muted",
+       "text": "Fallowmere Software, day 30"
+      }
+     ],
+     "action": {
+      "label": "Open record",
+      "icon": "arrow-right"
+     }
+    },
+    "alt": "A day-30 pulse on a phone shows Yusuf Abernathy rating getting help 2 out of 5, and the HR partner gets a direct message with his comment.",
+    "story": [
+     {
+      "copy": "On day 30",
+      "image": "Day 30 pulse"
+     },
+     {
+      "copy": "3 questions",
+      "image": "3 questions"
+     },
+     {
+      "copy": "Fallowmere Software",
+      "image": "Fallowmere Software"
+     },
+     {
+      "copy": "Yusuf Abernathy",
+      "image": "Yusuf Abernathy"
+     },
+     {
+      "copy": "2 out of 5",
+      "image": "Getting help: 2 out of 5"
+     },
+     {
+      "copy": "getting help",
+      "image": "Getting help"
+     },
+     {
+      "copy": "Any score under 3",
+      "image": "Under 3"
+     },
+     {
+      "copy": "as a direct message with his comment",
+      "image": "Direct message, with his comment"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "dm": true,
+   "channel": "Renata Szabo",
+   "title": "Handbook unsigned",
+   "sub": "Starts in 3 days",
+   "primary": "Remind",
+   "secondary": "View",
+   "icon": "file-signature",
+   "alt": "Employee onboarding workflow: a direct message telling the HR coordinator that a new hire starting in 3 days has not signed the handbook acknowledgment"
+  },
+  "og": {
+   "headline": "Onboard every new hire",
+   "lines": [
+    "Onboard every",
+    "new hire"
+   ],
+   "alt": "Build an employee onboarding workflow from offer to day 30, with Emergent"
+  },
+  "checks": [
+   {
+    "expr": "4 + 1 == 5",
+    "shows": [
+     "4 of 5 signed"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "3 + 1 == 4",
+    "shows": [
+     "3 of 4 done"
+    ],
+    "where": 2
+   },
+   {
+    "expr": "3 + 1 == 4",
+    "shows": [
+     "3 of 4 courses finished"
+    ],
+    "where": 3
+   },
+   {
+    "expr": "2 < 3",
+    "shows": [
+     "Getting help: 2 out of 5"
+    ],
+    "where": 4
+   }
+  ]
+ },
+ "domain_sources": [
+  {
+   "claim": "Onboarding is the process of integrating new employees into an organization",
+   "source_url": "https://www.shrm.org/topics-tools/topics/onboarding",
+   "date": "2026-10-21",
+   "quote": "Onboarding is the process of integrating new employees into an organization."
+  }
+ ],
+ "claims_used": [
+  "prompt-build",
+  "api-connect",
+  "e-signature-capture",
+  "alerts",
+  "realtime",
+  "code-export",
+  "database-owned",
+  "ai-extraction"
+ ],
+ "faq_sources": [
+  {
+   "q": "What is an employee onboarding workflow?",
+   "source": "written",
+   "ref": "employee onboarding workflow",
+   "origin": "definition"
+  },
+  {
+   "q": "How do I create an employee onboarding workflow?",
+   "source": "written",
+   "ref": "employee onboarding workflow",
+   "origin": "definition"
+  },
+  {
+   "q": "Which tasks in an HR onboarding workflow belong to HR and which to the hiring manager?",
+   "source": "written",
+   "ref": "hr onboarding workflow",
+   "origin": "written",
+   "secondary": "hr onboarding workflow"
+  },
+  {
+   "q": "How can AI agents automate an employee onboarding workflow?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "What should an employee onboarding workflow finish before the first day?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How long should an employee onboarding workflow run?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How does an employee onboarding workflow record who finished each task?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Can one employee onboarding workflow cover remote and office hires?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "What happens to an employee onboarding workflow when a start date changes?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How do I keep the documents in an employee onboarding workflow up to date?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  }
+ ],
+ "learn_refs": [
+  "6a1729ad1817ffd0330c987d",
+  "6a6093ffbb922a09179ffb6a",
+  "6aa0084cfc41d8fbfedc3c3c"
+ ],
+ "qc_passed": {
+  "rules_version": "4bb5d5a61c4e",
+  "date": "2026-10-21 05:41 UTC"
+ },
+ "writers": [
+  "B-w-248"
+ ]
+}
