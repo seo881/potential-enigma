@@ -115,6 +115,13 @@
    "via": null,
    "by": "A-w-125",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 06:19 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-29",
+   "note": "rubric 10/10 by A-r-29; 3 notes"
   }
  ],
  "pipeline": "r15",
@@ -986,5 +993,245 @@
  },
  "writers": [
   "A-w-125"
- ]
+ ],
+ "review": {
+  "by": "A-r-29",
+  "date": "2026-10-21 06:19 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Refund Request Form That Applies Your Own Policy' and hero 'Get a refund request form that checks every request against your refund policy and saves it to a database you own.' cover the merchant-side form as a whole."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder-fit SERP (templates plus issuer forms): FAQ 3 lists the fields ('the order number and the checkout email ... a reason from a short list, the refund method'), the how-to turns a policy into rules, four tabs show the form working."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Merchant vocabulary: 'refund queue', 'store credit', '9 unused months at $20, or $180', 'Larkspur Cycles lets its floor staff approve refunds up to $500'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on full clauses ('The customer enters the order number', 'Offer a short list of reasons'); tabs open on the business acting."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One idea per sentence ('Ask for a photo only when the reason is damage. Other requests stay short.'); QC Q-codes clean."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete detail ('2 mugs at $38 each, $76 in all, 12 days after they arrive', 'his pasta class 3 days before it starts'); repeated 'its own policy' formula noted."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent sentences map to claims_used: api-connect ('finds that order in your store's records through its API'), alerts ('an email or a Slack message'; status emails FAQ 8), database-owned, prompt-build (dashboard, 'change any rule later by prompting'), custom-domain ('uses credits', wording as in claims.json), free-start. No consumer-law or refund-right claim: every rule is the business's own policy. Numbers check: 2 x $38 = $76; $240/12 = $20, 9 x $20 = $180; 3 < 7 days gives the $85 credit; $1,280 > $500."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Policy-as-rules angle with four refund rules (window, proration, credit, approval limit); no sibling primary in a heading; QC D2 clean."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 merchant-side questions answered first ('Yes, make it required, but keep it to one quick choice.'), hub link in item 2, sibling links (service request form, reasonable accommodation request form, time off request form); paa gate 10/10, verbatim Q1 ok."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 'If delivered within 30 days -> refund queue, no review', 'Wendell Ouko: $76', '2 mugs at $38 each', 'Asked 12 days after delivery'; tab 2 'Your refund: $180', '9 unused months at $20', 'Back to the original card'; tab 3 'Jonah Petrakis: $85 credit', 'Canceled 3 days ahead'; tab 4 '$1,280', 'Rule matched: refund above $500', 'For Teodora Vance' as an email card. All match the copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "tab_content_1 / tab_content_2 / tab_content_3 / tab_content_4",
+    "quote": "its own policy refunds any order within 30 days of delivery | its own policy refunds each unused full month at $20 | Its own policy refunds a class canceled 7 or more days ahead | its policy sends any refund above $500",
+    "issue": "All four tabs use the same 'its own policy refunds' shape, so the tabs read templated (the framing itself is right: no consumer-law claim).",
+    "fix": "Keep the own-policy framing but vary the shape, e.g. 'Saltmarsh Ceramics takes mugs back for 30 days after delivery.'",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 7 / faq item 10",
+    "quote": "an HR team that takes a reasonable accommodation request form should keep those records away from the staff who handle refunds | If people already book leave through a time off request form",
+    "issue": "Both sentences exist to carry sibling links; an HR accommodation scenario is far from a refund searcher's question and reads bolted on.",
+    "fix": "Link siblings a refund reader would meet (for example a return or service form) or keep the link sentence closer to the refund case.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_7_des",
+    "quote": "publish on its own link or your custom domain (built into Emergent, uses credits)",
+    "issue": "The parenthetical reads like a comparison-table cell dropped into a how-to step.",
+    "fix": "'then publish on its own link or on your custom domain, which uses credits.'",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "tab_content_1 / tab_content_2 / tab_content_3 / tab_content_4",
+   "issue": "All four tabs use the same 'its own policy refunds' shape, so the tabs read templated (the framing itself is right: no consumer-law claim).",
+   "fix": "Keep the own-policy framing but vary the shape, e.g. 'Saltmarsh Ceramics takes mugs back for 30 days after delivery.'",
+   "by": "A-r-29",
+   "via": "review",
+   "date": "2026-10-21 06:19 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 7 / faq item 10",
+   "issue": "Both sentences exist to carry sibling links; an HR accommodation scenario is far from a refund searcher's question and reads bolted on.",
+   "fix": "Link siblings a refund reader would meet (for example a return or service form) or keep the link sentence closer to the refund case.",
+   "by": "A-r-29",
+   "via": "review",
+   "date": "2026-10-21 06:19 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_7_des",
+   "issue": "The parenthetical reads like a comparison-table cell dropped into a how-to step.",
+   "fix": "'then publish on its own link or on your custom domain, which uses credits.'",
+   "by": "A-r-29",
+   "via": "review",
+   "date": "2026-10-21 06:19 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "7715d30f33437f64",
+   "alt:share_image": "ac8ef437c2784466",
+   "alt:tab_image_1": "3e57506e1ca8ac0c",
+   "alt:tab_image_2": "792a303076c29667",
+   "alt:tab_image_3": "3c692dc5d2310e86",
+   "alt:tab_image_4": "119ad81002d20931",
+   "breadcrumb": "4a53baf243ce0d3c",
+   "chip_adds": "9f2db083924607ed",
+   "explore_cta": "8c8699965c0b4355",
+   "faq": "c6cd3e9c7f3dd59f",
+   "feature_1": "d6e5772bb900c1f7",
+   "feature_2": "a2f09623d2e81ae7",
+   "feature_3": "5357c22cbb0ea2cb",
+   "feature_4": "18c8283e0ea1cdee",
+   "feature_5": "9fccd126a855e539",
+   "feature_6": "4a3e325f16daf802",
+   "features_heading": "61f6aa0d3dbe8729",
+   "features_subheading": "1b905e36a5d705f9",
+   "h1": "b065467b47b22441",
+   "hero_description": "b2665f90381cafb0",
+   "hero_prompt": "9ebcb5e88323c76d",
+   "howto_description": "b903136373aaa132",
+   "howto_step_1_des": "9d000f3b8df2c97f",
+   "howto_step_1_title": "6cff894a491d5f31",
+   "howto_step_2_des": "fbe7aa08691c59bc",
+   "howto_step_2_title": "1308e4c9b540f20b",
+   "howto_step_3_des": "12ef32e0375ea4ed",
+   "howto_step_3_title": "68c088840aeb5f9b",
+   "howto_step_4_des": "76c994cd5a873f90",
+   "howto_step_4_title": "726638d47d96acc5",
+   "howto_step_5_des": "7b4eba96c93e54fa",
+   "howto_step_5_title": "01eaca4b84b78a8e",
+   "howto_step_6_des": "953fc10deaf28477",
+   "howto_step_6_title": "2b54e1d7513cfd41",
+   "howto_step_7_des": "c11b523db8088c36",
+   "howto_step_7_title": "5a53b48d53ac39f8",
+   "howto_title": "e3bf84522e11e022",
+   "meta_description": "db7c4c50f693b004",
+   "meta_title": "6bde52a49dc1183e",
+   "mockup": "82e41d224942437f",
+   "product_name": "4c2760e8bdfdc2aa",
+   "prompt_chip_1": "c53fcd47b2995034",
+   "prompt_chip_2": "31e93abc02f8b63c",
+   "prompt_chip_3": "79f3bfca69464f06",
+   "prompt_chip_4": "1f69bf95d5d1d73f",
+   "slug": "4476b194f45684a2",
+   "tab_content_1": "798f1a6ba6d4a991",
+   "tab_content_2": "10291b28b47f4c2d",
+   "tab_content_3": "b4d38a6042c0ee91",
+   "tab_content_4": "b1e951b5b683be5b",
+   "tab_label_1": "9c20ee9c54afe8e3",
+   "tab_label_2": "a151f2e912fe8d5b",
+   "tab_label_3": "eeb735b06af172d3",
+   "tab_label_4": "48f8a91db5b86964",
+   "usecase_heading": "1abc1ccfcc8ee35a",
+   "why_description": "b3104f66ea9bafb2",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "8d4e31c2b2764d0b"
+  },
+  "all": "8f5665aa035a041f",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "7715d30f33437f64",
+   "alt:share_image": "ac8ef437c2784466",
+   "alt:tab_image_1": "3e57506e1ca8ac0c",
+   "alt:tab_image_2": "792a303076c29667",
+   "alt:tab_image_3": "3c692dc5d2310e86",
+   "alt:tab_image_4": "119ad81002d20931",
+   "breadcrumb": "4a53baf243ce0d3c",
+   "chip_adds": "9f2db083924607ed",
+   "explore_cta": "8c8699965c0b4355",
+   "faq": "c6cd3e9c7f3dd59f",
+   "feature_1": "d6e5772bb900c1f7",
+   "feature_2": "a2f09623d2e81ae7",
+   "feature_3": "5357c22cbb0ea2cb",
+   "feature_4": "18c8283e0ea1cdee",
+   "feature_5": "9fccd126a855e539",
+   "feature_6": "4a3e325f16daf802",
+   "features_heading": "61f6aa0d3dbe8729",
+   "features_subheading": "1b905e36a5d705f9",
+   "h1": "b065467b47b22441",
+   "hero_description": "b2665f90381cafb0",
+   "hero_prompt": "9ebcb5e88323c76d",
+   "howto_description": "b903136373aaa132",
+   "howto_step_1_des": "9d000f3b8df2c97f",
+   "howto_step_1_title": "6cff894a491d5f31",
+   "howto_step_2_des": "fbe7aa08691c59bc",
+   "howto_step_2_title": "1308e4c9b540f20b",
+   "howto_step_3_des": "12ef32e0375ea4ed",
+   "howto_step_3_title": "68c088840aeb5f9b",
+   "howto_step_4_des": "76c994cd5a873f90",
+   "howto_step_4_title": "726638d47d96acc5",
+   "howto_step_5_des": "7b4eba96c93e54fa",
+   "howto_step_5_title": "01eaca4b84b78a8e",
+   "howto_step_6_des": "953fc10deaf28477",
+   "howto_step_6_title": "2b54e1d7513cfd41",
+   "howto_step_7_des": "c11b523db8088c36",
+   "howto_step_7_title": "5a53b48d53ac39f8",
+   "howto_title": "e3bf84522e11e022",
+   "meta_description": "db7c4c50f693b004",
+   "meta_title": "6bde52a49dc1183e",
+   "mockup": "82e41d224942437f",
+   "product_name": "4c2760e8bdfdc2aa",
+   "prompt_chip_1": "c53fcd47b2995034",
+   "prompt_chip_2": "31e93abc02f8b63c",
+   "prompt_chip_3": "79f3bfca69464f06",
+   "prompt_chip_4": "1f69bf95d5d1d73f",
+   "slug": "4476b194f45684a2",
+   "tab_content_1": "798f1a6ba6d4a991",
+   "tab_content_2": "10291b28b47f4c2d",
+   "tab_content_3": "b4d38a6042c0ee91",
+   "tab_content_4": "b1e951b5b683be5b",
+   "tab_label_1": "9c20ee9c54afe8e3",
+   "tab_label_2": "a151f2e912fe8d5b",
+   "tab_label_3": "eeb735b06af172d3",
+   "tab_label_4": "48f8a91db5b86964",
+   "usecase_heading": "1abc1ccfcc8ee35a",
+   "why_description": "b3104f66ea9bafb2",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "8d4e31c2b2764d0b"
+  },
+  "all": "8f5665aa035a041f",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

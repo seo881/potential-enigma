@@ -122,6 +122,13 @@
    "via": null,
    "by": "A-w-118",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 06:19 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-29",
+   "note": "rubric 10/10 by A-r-29; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -882,5 +889,265 @@
  },
  "writers": [
   "A-w-118"
- ]
+ ],
+ "review": {
+  "by": "A-r-29",
+  "date": "2026-10-21 06:19 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a PT Intake Form That Puts Pain and Goals on the Record', title 'PT Intake Form for Physical Therapy Clinics | Emergent' and hero 'Build a PT intake form that asks where it hurts and what the patient wants back, saved to a database you own.' cover the whole form, not one feature or a sibling topic."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is clinic PDFs and one intake-software page (AMBER). The page names what a PT intake form collects (features, FAQ 3 'The reason for the visit comes first, with the pain behind it. Goals come next. History and insurance close the form.') and how to build and send it (7 steps), carrying the online-form angle."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "PT vocabulary throughout: 'left shoulder, 5 when reaching overhead', 'plan of care', 'surgeon's referral and protocol', 'claim number, and adjuster email'; table uses the forms variant."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open with verbs or full clauses ('Ask the patient to pick a body region', 'Close the intake with the clinic's consent and cancellation policy'); tabs open on the clinic doing something ('Moraine Physical Therapy sends the intake link')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences carry one idea each ('A patient with nothing to report skips past it and sees a shorter form.'); no tacked-on endings; QC Q-codes clean."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail ('a goal of climbing to her apartment without the rail', 'Before her 8:30 evaluation'); no hype verbs. One forced link line noted."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Every Emergent sentence maps to claims_used: database-owned ('saves to a database you own'), api-connect ('Connect it to any clinic system with an API'), e-signature-capture ('signs on screen', no legal-validity claim), ai-extraction (plan name 'below the clinic's confidence line' sent to a person), alerts, conversational (FAQ 6), no-caps (FAQ 10), code-export on paid plans. No HIPAA, compliance, clinical or legal claim; no third-party fact or statistic in the copy (tab 2 now carries no percentage)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Movement, pain trigger and goal angle with work-injury and post-op tabs; patient-intake-form and therapy-intake-form are linked, not restated; QC D2 clean."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic builder questions, answer-first ('Yes, if the first question splits the path.'), hub link in item 2, sibling links to therapy-intake-form and patient-intake-form; paa gate 10/10, verbatim ok."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Each tab's image matches its copy: 'Right knee', '6 of 10', 'For Owen Pryce'; tab 2 'Below the confidence line', '1 to confirm', 'For Ingrid Solberg'; tab 3 '2 work injury intakes', '4 intakes today', 'For Wynn Mercado'; tab 4 'ACL reconstruction on Oct 9', 'Both files received', 'Book first visit'. Drawn confidences 98/96/71 are illustrative read scores consistent with the copy and the mockup's user-set 80% line, not a statistic."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "tab_image_2",
+    "quote": "Plan name  Cedarline Select PPO  71%",
+    "issue": "The image draws per-field read scores (98%, 96%, 71%) while tab_content_2 states no number ('below the clinic's confidence line') and the 80% line the mockup sets ('Any field read below 80% confidence') is drawn nowhere, so a reader cannot see where the line sits. Consistent with the copy and the ai-extraction claim, so not a contradiction.",
+    "fix": "If the image is ever re-rendered, either label the line ('Confirm below 80%') in the panel or drop the percentages and keep the warn chip.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 4",
+    "quote": "If the clinic also offers counseling, give those visits their own therapy intake form.",
+    "issue": "The sentence exists to carry the therapy-intake-form link; a PT clinic offering counseling is an unusual case and reads bolted on.",
+    "fix": "Anchor the link in a case PT readers meet, or move the link to an answer where a separate form is natural.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_2_des / faq item 4 / howto_step_6_des",
+    "quote": "Each answer opens only its own section. | Ask why the patient is booking and show only the matching section. | Check that each path shows only its own section",
+    "issue": "The first-question split is explained three times with words swapped.",
+    "fix": "Keep it in step 2; let FAQ 4 lead with the pediatric wording and step 6 with testing the alerts.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 8",
+    "quote": "Make the question optional for patients who book on their own.",
+    "issue": "Recommendation without a source; whether a patient may start PT without a referral depends on state direct-access rules and the payer, which the page rightly does not state.",
+    "fix": "Optional: 'Make it optional, or required if your clinic or the patient's plan needs a referral before the first visit.'",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "tab_image_2",
+   "issue": "The image draws per-field read scores (98%, 96%, 71%) while tab_content_2 states no number ('below the clinic's confidence line') and the 80% line the mockup sets ('Any field read below 80% confidence') is drawn nowhere, so a reader cannot see where the line sits. Consistent with the copy and the ai-extraction claim, so not a contradiction.",
+   "fix": "If the image is ever re-rendered, either label the line ('Confirm below 80%') in the panel or drop the percentages and keep the warn chip.",
+   "by": "A-r-29",
+   "via": "review",
+   "date": "2026-10-21 06:19 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 4",
+   "issue": "The sentence exists to carry the therapy-intake-form link; a PT clinic offering counseling is an unusual case and reads bolted on.",
+   "fix": "Anchor the link in a case PT readers meet, or move the link to an answer where a separate form is natural.",
+   "by": "A-r-29",
+   "via": "review",
+   "date": "2026-10-21 06:19 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_2_des / faq item 4 / howto_step_6_des",
+   "issue": "The first-question split is explained three times with words swapped.",
+   "fix": "Keep it in step 2; let FAQ 4 lead with the pediatric wording and step 6 with testing the alerts.",
+   "by": "A-r-29",
+   "via": "review",
+   "date": "2026-10-21 06:19 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 8",
+   "issue": "Recommendation without a source; whether a patient may start PT without a referral depends on state direct-access rules and the payer, which the page rightly does not state.",
+   "fix": "Optional: 'Make it optional, or required if your clinic or the patient's plan needs a referral before the first visit.'",
+   "by": "A-r-29",
+   "via": "review",
+   "date": "2026-10-21 06:19 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "bc5ad54f90dc27e2",
+   "alt:share_image": "505a3b7cc2465aee",
+   "alt:tab_image_1": "eacf77f668e89466",
+   "alt:tab_image_2": "714d30ce87913e1f",
+   "alt:tab_image_3": "b7c69e9298c9a533",
+   "alt:tab_image_4": "d0705b1198e1aa6b",
+   "breadcrumb": "bd8cca61ed4861a5",
+   "chip_adds": "87bd8e0b0fa15470",
+   "explore_cta": "f9b6c63b02a8ef46",
+   "faq": "db7f9798763e6b6d",
+   "feature_1": "ff999ebb451ddea8",
+   "feature_2": "7dda34ebdc144120",
+   "feature_3": "7df28b45e2b2dfa1",
+   "feature_4": "b1872c6b0ff6b402",
+   "feature_5": "d1779c11d0a789b5",
+   "feature_6": "703c901022a85535",
+   "features_heading": "a04cdec9333678d4",
+   "features_subheading": "fd9f9d508facee4d",
+   "h1": "ca176bcfc0d89853",
+   "hero_description": "829bf57c1c73ed15",
+   "hero_prompt": "f68fee3f1c7cc8d3",
+   "howto_description": "09e59a11b859ef44",
+   "howto_step_1_des": "2eca92847b716ebe",
+   "howto_step_1_title": "ac8435e44d779cd4",
+   "howto_step_2_des": "d512a77415a243ac",
+   "howto_step_2_title": "d1d8a0b467c8c096",
+   "howto_step_3_des": "ce5e92d893f3a107",
+   "howto_step_3_title": "94351997652620f1",
+   "howto_step_4_des": "81b16bfd5c69586a",
+   "howto_step_4_title": "233936cff059bdf0",
+   "howto_step_5_des": "1437ee095fe9679e",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "b3af803c597358d7",
+   "howto_step_6_title": "23d583067137a600",
+   "howto_step_7_des": "3f9c37ccb6a67f02",
+   "howto_step_7_title": "81396535f126da3e",
+   "howto_title": "430d358728b080ef",
+   "meta_description": "3703b323231b00be",
+   "meta_title": "b0a2a9dddfec9318",
+   "mockup": "2ae50616d49285dc",
+   "product_name": "4b06439cd3c5d237",
+   "prompt_chip_1": "9a0848e117b27721",
+   "prompt_chip_2": "83312f192c33b8dc",
+   "prompt_chip_3": "a27b6328f46a706c",
+   "prompt_chip_4": "910782636153c1b8",
+   "slug": "3b64ad5633495730",
+   "tab_content_1": "de23f478aee19e79",
+   "tab_content_2": "7f5ee528e2509c40",
+   "tab_content_3": "e182c1fc509fd95b",
+   "tab_content_4": "19324eb8c8d1e2a3",
+   "tab_label_1": "4dbf85d3aaa352b0",
+   "tab_label_2": "ad33424025b174a4",
+   "tab_label_3": "b01c4d381064e389",
+   "tab_label_4": "100e3c53338ebefb",
+   "usecase_heading": "6e867588b09a9b8e",
+   "why_description": "da765bb1aef4d331",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "79754bba667c3c8f"
+  },
+  "all": "9757487634de11ad",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "bc5ad54f90dc27e2",
+   "alt:share_image": "505a3b7cc2465aee",
+   "alt:tab_image_1": "eacf77f668e89466",
+   "alt:tab_image_2": "714d30ce87913e1f",
+   "alt:tab_image_3": "b7c69e9298c9a533",
+   "alt:tab_image_4": "d0705b1198e1aa6b",
+   "breadcrumb": "bd8cca61ed4861a5",
+   "chip_adds": "87bd8e0b0fa15470",
+   "explore_cta": "f9b6c63b02a8ef46",
+   "faq": "db7f9798763e6b6d",
+   "feature_1": "ff999ebb451ddea8",
+   "feature_2": "7dda34ebdc144120",
+   "feature_3": "7df28b45e2b2dfa1",
+   "feature_4": "b1872c6b0ff6b402",
+   "feature_5": "d1779c11d0a789b5",
+   "feature_6": "703c901022a85535",
+   "features_heading": "a04cdec9333678d4",
+   "features_subheading": "fd9f9d508facee4d",
+   "h1": "ca176bcfc0d89853",
+   "hero_description": "829bf57c1c73ed15",
+   "hero_prompt": "f68fee3f1c7cc8d3",
+   "howto_description": "09e59a11b859ef44",
+   "howto_step_1_des": "2eca92847b716ebe",
+   "howto_step_1_title": "ac8435e44d779cd4",
+   "howto_step_2_des": "d512a77415a243ac",
+   "howto_step_2_title": "d1d8a0b467c8c096",
+   "howto_step_3_des": "ce5e92d893f3a107",
+   "howto_step_3_title": "94351997652620f1",
+   "howto_step_4_des": "81b16bfd5c69586a",
+   "howto_step_4_title": "233936cff059bdf0",
+   "howto_step_5_des": "1437ee095fe9679e",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "b3af803c597358d7",
+   "howto_step_6_title": "23d583067137a600",
+   "howto_step_7_des": "3f9c37ccb6a67f02",
+   "howto_step_7_title": "81396535f126da3e",
+   "howto_title": "430d358728b080ef",
+   "meta_description": "3703b323231b00be",
+   "meta_title": "b0a2a9dddfec9318",
+   "mockup": "2ae50616d49285dc",
+   "product_name": "4b06439cd3c5d237",
+   "prompt_chip_1": "9a0848e117b27721",
+   "prompt_chip_2": "83312f192c33b8dc",
+   "prompt_chip_3": "a27b6328f46a706c",
+   "prompt_chip_4": "910782636153c1b8",
+   "slug": "3b64ad5633495730",
+   "tab_content_1": "de23f478aee19e79",
+   "tab_content_2": "7f5ee528e2509c40",
+   "tab_content_3": "e182c1fc509fd95b",
+   "tab_content_4": "19324eb8c8d1e2a3",
+   "tab_label_1": "4dbf85d3aaa352b0",
+   "tab_label_2": "ad33424025b174a4",
+   "tab_label_3": "b01c4d381064e389",
+   "tab_label_4": "100e3c53338ebefb",
+   "usecase_heading": "6e867588b09a9b8e",
+   "why_description": "da765bb1aef4d331",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "79754bba667c3c8f"
+  },
+  "all": "9757487634de11ad",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
