@@ -122,6 +122,13 @@
    "via": null,
    "by": "A-w-107",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 06:01 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-25",
+   "note": "rubric 10/10 by A-r-25; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -861,5 +868,285 @@
  },
  "writers": [
   "A-w-107"
- ]
+ ],
+ "review": {
+  "by": "A-r-25",
+  "date": "2026-10-21 06:01 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Esthetician Intake Form Clients Finish Before the Facial'; hero 'Build an esthetician intake form that gathers skin type and daily products before the visit, saved to a database you own.' states the whole job; consent-form siblings are only linked."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "SERP is intake templates and PDFs (ASCP, Jotform, AidaForm, esign.com); page delivers the question set ('Start with contact details and date of birth. The skin questions come next'), a 7-step build, four studio scenarios and a comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Esthetician vocabulary: 'combination skin and a fragrance allergy', 'A retinol used only at night', 'vitamin C serum', 'nurse practitioner Bea Marsh', 'three daylight photos, front and both sides'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Ask the client to pick a skin type', 'Thistle Skin Studio sends the intake link with every first-facial booking.', 'Write down each service the intake has to cover'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No tacked-on endings, sentence lengths vary; QC P2 serial-comma flags read by hand (two-item lists). Notes below ship."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete and calm ('Maya Ferris last answered on March 4'); no AI-tell vocabulary. The 'X, not Y' pattern note ships."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent sentences map to claims_used: alerts ('sends one reminder the day before'), api-connect ('connect to it through that tool's API'), e-signature-capture ('answer and sign on a phone'), no-caps, database-owned, code-export 'on paid plans'. No third-party, legal or clinical fact is stated as fact (domain_sources empty, none needed): FAQ 4 and 5 are advice ('Ask your medical director which questions that section holds'). Tab numbers agree: 4 bookings, 2 on hold."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Intake (pre-visit answers) not consent: FAQ 4 sends procedure consent to its own document and links 'permanent makeup consent form'; tab H3s use no sibling primary."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions carrying all 5 secondaries ('esthetician client intake form', 'facial intake form', 'medical spa client intake form', 'spa intake form', 'spa consultation form'); hub link item 2; 3 sibling links; paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: Lena Cho combination + fragrance, email to Wren Ito for the 10:00 facial; Maya Ferris '1 change since March 4', vitamin C serum to mornings; Calla Med Spa 4 bookings, 2 nurse review for Bea Marsh; Elise Dunn 3 photos sent Sunday, Monday 6:30 pm with Ivy Rowe."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Google Forms",
+    "issue": "HUB_RULES 5 says to pick the competitors that rank for this query; Google Forms is not in this page's top 10 (QC K7 P2), while Jotform and AidaForm are.",
+    "fix": "Next regeneration: a ranking vendor from the library in place of Google Forms, if one is vetted.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_3",
+    "quote": "Allergies as a question nobody can skip / Nobody can skip past it",
+    "issue": "The body repeats its own title's idea one sentence after saying the question is required.",
+    "fix": "Drop 'Nobody can skip past it,' and keep the sentence on the blank field.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "feature_1, tab_content_2, howto_step_5_des, faq item 5, faq item 9",
+    "quote": "not a single box ticked on a list / changes one line, not the whole form / not to a loose email thread / send its answers to the provider, not the front desk / not in a binder or a shared inbox",
+    "issue": "The 'X, not Y' contrast closes five sentences across the page, a rhythm that reads templated.",
+    "fix": "Keep two; state the others plainly (e.g. FAQ 9 'Keep them in one place tied to each client, and limit who can open the health answers.').",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image cover / share",
+    "quote": "Build an esthetician intake form clients fill out online",
+    "issue": "The cover title differs from the page H1 ('Clients Finish Before the Facial'); the other covers in this batch repeat their H1.",
+    "fix": "Use the H1 wording on the cover if it fits the cover width.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 5",
+    "quote": "a health history that a licensed provider reviews before treatment",
+    "issue": "Correctly framed as advice and deferred to the medical director; recorded so a rework never turns it into a statement of what med spas must do (that would need a source).",
+    "fix": "Keep the advice framing.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "HUB_RULES 5 says to pick the competitors that rank for this query; Google Forms is not in this page's top 10 (QC K7 P2), while Jotform and AidaForm are.",
+   "fix": "Next regeneration: a ranking vendor from the library in place of Google Forms, if one is vetted.",
+   "by": "A-r-25",
+   "via": "review",
+   "date": "2026-10-21 06:01 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_3",
+   "issue": "The body repeats its own title's idea one sentence after saying the question is required.",
+   "fix": "Drop 'Nobody can skip past it,' and keep the sentence on the blank field.",
+   "by": "A-r-25",
+   "via": "review",
+   "date": "2026-10-21 06:01 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "feature_1, tab_content_2, howto_step_5_des, faq item 5, faq item 9",
+   "issue": "The 'X, not Y' contrast closes five sentences across the page, a rhythm that reads templated.",
+   "fix": "Keep two; state the others plainly (e.g. FAQ 9 'Keep them in one place tied to each client, and limit who can open the health answers.').",
+   "by": "A-r-25",
+   "via": "review",
+   "date": "2026-10-21 06:01 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image cover / share",
+   "issue": "The cover title differs from the page H1 ('Clients Finish Before the Facial'); the other covers in this batch repeat their H1.",
+   "fix": "Use the H1 wording on the cover if it fits the cover width.",
+   "by": "A-r-25",
+   "via": "review",
+   "date": "2026-10-21 06:01 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 5",
+   "issue": "Correctly framed as advice and deferred to the medical director; recorded so a rework never turns it into a statement of what med spas must do (that would need a source).",
+   "fix": "Keep the advice framing.",
+   "by": "A-r-25",
+   "via": "review",
+   "date": "2026-10-21 06:01 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6a08935f4f3f1d2e",
+   "alt:share_image": "4c94b21213eb7ef6",
+   "alt:tab_image_1": "2cfc92cf2893dadb",
+   "alt:tab_image_2": "02e126df9bf7c185",
+   "alt:tab_image_3": "550c7f64368cf92a",
+   "alt:tab_image_4": "e178bcdf88de20d9",
+   "breadcrumb": "e5409047c93f8805",
+   "chip_adds": "693d3cae86136aee",
+   "explore_cta": "7c84fded24869d1a",
+   "faq": "3d990f382da74b90",
+   "feature_1": "95b8199bdb41d842",
+   "feature_2": "b279015355549b52",
+   "feature_3": "5779e623a22e2168",
+   "feature_4": "d251df5b3efa2fff",
+   "feature_5": "c63031d1c9681657",
+   "feature_6": "cf5534c996e62cdb",
+   "features_heading": "35df658ab0ff673c",
+   "features_subheading": "903fb73251860a8c",
+   "h1": "313f0e48159cc44b",
+   "hero_description": "b0e8b3fb4b835953",
+   "hero_prompt": "9a4adcf359d57ce1",
+   "howto_description": "09fd5770d913ec62",
+   "howto_step_1_des": "af0f1da54ea6e000",
+   "howto_step_1_title": "1f4af4079d4d9b6a",
+   "howto_step_2_des": "11657dc0c3dfa91a",
+   "howto_step_2_title": "e94fee843efb295a",
+   "howto_step_3_des": "a38706fcdee1a84c",
+   "howto_step_3_title": "7749b1bb5c174628",
+   "howto_step_4_des": "a49b547f096f77a4",
+   "howto_step_4_title": "7fdfa979a2bafec2",
+   "howto_step_5_des": "e1109be969b0e8c8",
+   "howto_step_5_title": "baba0882fb22e5bb",
+   "howto_step_6_des": "3cd06b32a974052b",
+   "howto_step_6_title": "0b4f787a66ea61fd",
+   "howto_step_7_des": "83d0ee4fdd7c7bb1",
+   "howto_step_7_title": "8ecdd97d6853812f",
+   "howto_title": "98d6bae0bb13887f",
+   "meta_description": "5fb09c685734f295",
+   "meta_title": "8fc4d222b8fabc1f",
+   "mockup": "e78b60c568b083a8",
+   "product_name": "131155a837ace046",
+   "prompt_chip_1": "c68b77b3e08c8bd3",
+   "prompt_chip_2": "c627109b3cbde741",
+   "prompt_chip_3": "6bf6b81cb42d1864",
+   "prompt_chip_4": "d923d86e6feed19d",
+   "slug": "b95815ac39820ff0",
+   "tab_content_1": "5e965fc124f475bb",
+   "tab_content_2": "74e9dea0d1df8be1",
+   "tab_content_3": "7ec0099c4d34fbf4",
+   "tab_content_4": "35a464dd1d593739",
+   "tab_label_1": "da97b48b257b33b0",
+   "tab_label_2": "dc53a64a766f0e52",
+   "tab_label_3": "a8c1aaf2833e2cd6",
+   "tab_label_4": "59ab3cf3cf3c9ed9",
+   "usecase_heading": "cbd4cc338e9cb954",
+   "why_description": "ee44e74ad11b0c75",
+   "why_table": "c41e428c9d82c3dc",
+   "why_title": "0043f44f8e5542cb"
+  },
+  "all": "50e3352a291d86cd",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6a08935f4f3f1d2e",
+   "alt:share_image": "4c94b21213eb7ef6",
+   "alt:tab_image_1": "2cfc92cf2893dadb",
+   "alt:tab_image_2": "02e126df9bf7c185",
+   "alt:tab_image_3": "550c7f64368cf92a",
+   "alt:tab_image_4": "e178bcdf88de20d9",
+   "breadcrumb": "e5409047c93f8805",
+   "chip_adds": "693d3cae86136aee",
+   "explore_cta": "7c84fded24869d1a",
+   "faq": "3d990f382da74b90",
+   "feature_1": "95b8199bdb41d842",
+   "feature_2": "b279015355549b52",
+   "feature_3": "5779e623a22e2168",
+   "feature_4": "d251df5b3efa2fff",
+   "feature_5": "c63031d1c9681657",
+   "feature_6": "cf5534c996e62cdb",
+   "features_heading": "35df658ab0ff673c",
+   "features_subheading": "903fb73251860a8c",
+   "h1": "313f0e48159cc44b",
+   "hero_description": "b0e8b3fb4b835953",
+   "hero_prompt": "9a4adcf359d57ce1",
+   "howto_description": "09fd5770d913ec62",
+   "howto_step_1_des": "af0f1da54ea6e000",
+   "howto_step_1_title": "1f4af4079d4d9b6a",
+   "howto_step_2_des": "11657dc0c3dfa91a",
+   "howto_step_2_title": "e94fee843efb295a",
+   "howto_step_3_des": "a38706fcdee1a84c",
+   "howto_step_3_title": "7749b1bb5c174628",
+   "howto_step_4_des": "a49b547f096f77a4",
+   "howto_step_4_title": "7fdfa979a2bafec2",
+   "howto_step_5_des": "e1109be969b0e8c8",
+   "howto_step_5_title": "baba0882fb22e5bb",
+   "howto_step_6_des": "3cd06b32a974052b",
+   "howto_step_6_title": "0b4f787a66ea61fd",
+   "howto_step_7_des": "83d0ee4fdd7c7bb1",
+   "howto_step_7_title": "8ecdd97d6853812f",
+   "howto_title": "98d6bae0bb13887f",
+   "meta_description": "5fb09c685734f295",
+   "meta_title": "8fc4d222b8fabc1f",
+   "mockup": "e78b60c568b083a8",
+   "product_name": "131155a837ace046",
+   "prompt_chip_1": "c68b77b3e08c8bd3",
+   "prompt_chip_2": "c627109b3cbde741",
+   "prompt_chip_3": "6bf6b81cb42d1864",
+   "prompt_chip_4": "d923d86e6feed19d",
+   "slug": "b95815ac39820ff0",
+   "tab_content_1": "5e965fc124f475bb",
+   "tab_content_2": "74e9dea0d1df8be1",
+   "tab_content_3": "7ec0099c4d34fbf4",
+   "tab_content_4": "35a464dd1d593739",
+   "tab_label_1": "da97b48b257b33b0",
+   "tab_label_2": "dc53a64a766f0e52",
+   "tab_label_3": "a8c1aaf2833e2cd6",
+   "tab_label_4": "59ab3cf3cf3c9ed9",
+   "usecase_heading": "cbd4cc338e9cb954",
+   "why_description": "ee44e74ad11b0c75",
+   "why_table": "c41e428c9d82c3dc",
+   "why_title": "0043f44f8e5542cb"
+  },
+  "all": "50e3352a291d86cd",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
