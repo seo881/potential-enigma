@@ -77,6 +77,9 @@ def kwmap(low):
     for rx, c in KV_RX: low = rx.sub(lambda m: c + m.group(1), low)
     return low
 def kwn(s): return kwmap(norm(s))
+def _PG_head(p):
+    sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate as _PG
+    return _PG.head_phrase(p)
 HOUSE = {g["house"] for g in KV if g.get("house")}
 def kw_bag(s): return {_stem(w) for w in re.findall(r"[a-z0-9]+", kwmap((s or "").lower()))}
 def title_px(s):
@@ -183,7 +186,8 @@ def check(spec, siblings):
         for i, a in enumerate(adds if isinstance(adds, list) else [], 1):
             if not re.fullmatch(r"Add [^.!?]{8,85}\.", a or ""): add("P1", "L10", "chip_adds", f"clause {i} must be one sentence starting with \"Add \" (under 90 chars): {a!r}")
         d = strip_html(F.get("hero_prompt", ""))
-        if prim and kwn(prim) not in kwn(d): add("P1", "L10", "hero_prompt", "default prompt must carry the primary keyword")
+        if prim and kwn(prim) not in kwn(d) and not (_PG_head(prim) != prim and kwn(_PG_head(prim)) in kwn(d)):   # ruling 4: or its head phrase
+            add("P1", "L10", "hero_prompt", "default prompt must carry the primary keyword")
         if len(d) > 150: add("P1", "L10", "hero_prompt", f"default prompt {len(d)} chars (max 150)")
     # L13 (Divit 2026-10-15): rendered lines in the 1440 px prompt box, default <= 2, each chip prompt (default + its add) <= 3;
     # measured in headless Chromium with the live box style cached in rules/prompt_box.json (ops/prompt_lines.py), not by characters
@@ -393,7 +397,8 @@ def check(spec, siblings):
         pr = kwn(prim)
         def has(field_text): return pr in kwn(field_text) or pr.rstrip("s") in kwn(field_text)
         if not has(mt): add("P0", "K1", "meta_title", f'primary "{prim}" not in meta title')
-        if not has(h1): add("P0", "K1", "h1", f'primary "{prim}" not in H1')
+        _hp = _PG_head(prim)   # ruling 4 (Divit 2026-10-21): the H1 of a "best ..." primary carries the head phrase, not the modifiers
+        if not has(h1) and not (_hp != prim and kwn(_hp) in kwn(h1)): add("P0", "K1", "h1", f'primary "{prim}" not in H1' + (f' (or its head phrase "{_hp}")' if _hp != prim else ''))
         if not has(md): add("P1", "K2", "meta_description", f'primary "{prim}" not in meta description')
         if fq and fq.get("items") and not has(fq["items"][0]["q"] + " " + fq["items"][0]["a"]): add("P2", "K2", "faq", "primary not in the first FAQ item")
         if not has(F.get("hero_description", "") + F.get("features_subheading", "")): add("P2", "K2", "hero_description", "primary not in hero or features subheading")
