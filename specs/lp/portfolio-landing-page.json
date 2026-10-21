@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-227",
    "note": ""
+  },
+  {
+   "t": "2026-10-21 05:28 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-85",
+   "note": "rubric 10/10 by B-r-85; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -915,5 +922,285 @@
  },
  "writers": [
   "B-w-227"
- ]
+ ],
+ "review": {
+  "by": "B-r-85",
+  "date": "2026-10-21 05:28 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Portfolio Landing Page That Puts Your Best Work First', meta title 'Portfolio Landing Page Builder for Your Work | Emergent' and hero 'Get a portfolio landing page built from one prompt, with your work up front and every inquiry saved to a database you own.' cover the whole job; how-to description is one sentence under 140 characters."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Informational SERP with image pack: definition in FAQ 1, four worked examples (photographer, UX designer under NDA, illustrator, developer), a seven-step how-to and a comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Speaks to individual portfolio owners: 'Of September's 64 inquiries, 38 came from the wedding gallery', 'The checkout redesign Maren Kaminski led is under NDA', 'Give each a title and your role, plus one result in plain numbers.' Table generated from the library (Unbounce, Landingi, Wix, single-vendor entries)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Corin Sorrell shoots weddings, elopements, and portraits', 'Describe your work and who should see it', 'Decide what a visitor should do after looking at the work'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q6/Q7 clean; one ', so' ending in feature_6; sentences carry one idea each ('The page shows 9 cards.')."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous details: 'ledger-lite: Theo made it public on Tuesday, and its card was up by Wednesday morning', 'Last quarter, 14 of 52 requests were commercial'. Notes recorded on feature templating and 'rather than'."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to claims_used (prompt-build, database-owned, alerts, api-connect, custom-domain, code-export, free-start). Third-party facts quoted from domain_sources: WCAG 2.2 1.1.1 span verbatim, web.dev LCP 'sites should strive to have Largest Contentful Paint of 2.5 seconds or less' verbatim, GitHub API 'Lists public repositories for the specified user' supports tab 4. Numbers agree: 38+17+9=64; 14+38=52."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Tabs are individual portfolios (photo galleries, NDA case study, licensing commissions, GitHub cards), distinct from design-agency (studio budgets, sprints, pitch pages) and artist (musician signups, tour dates). D2 19% vs artist, under 30%; feature-grid templating noted."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, answer-first ('Yes. Expect a company client to forward the page to colleagues.'), hub link in item 2, sibling links b2b landing page, qr code landing page, sales funnel landing page; paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: Weddings 38 / Elopements 17 / Portraits 9 with 64 and 'Three galleries'; 'Emailed to Maren Kaminski', 'Unlocks in October 23', 'From 17 companies'; 'Sent to Arlo on Slack' as a person-addressed card, '14 of 52 commercial', 'Other 38 in Ines's queue'; '9 cards', ledger-lite 'Made public Tuesday', 'Wednesday', 'Every night'. One hero per tab, cursor on button edges."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_4",
+    "quote": "Under WCAG 2.2, all non-text content that is presented to the user has a text alternative that serves the equivalent purpose.",
+    "issue": "SC 1.1.1 continues 'except for the situations listed below' (decoration, controls, CAPTCHA and others); the copy drops that limit, and the title 'Write alt text for every image' follows it. For portfolio work images the advice holds, so this is a scope note, not a false statement.",
+    "fix": "Add the limit, e.g. 'WCAG 2.2 asks for a text alternative for non-text content, with a few exceptions such as pure decoration.'",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "feature_3, feature_5, feature_6",
+    "quote": "Name the requests that matter in your prompt, such as a booking date or a licensing question, and the app sends an email, Slack, or in-app alert with the answers in it. / Your name as the address / Free to start, yours to keep",
+    "issue": "The feature grid follows artist-landing-page's grid sentence for sentence ('such as a wedding date or a festival slot, and the app sends you an email, Slack, or in-app alert with the details in it'; 'Your band name as the address'; 'Free to publish, yours to export'). D2 is 19%, under the gate.",
+    "fix": "Give feature 3 and 5 a portfolio-specific shape (e.g. the licensing request routed to an agent; the address printed on a resume) next time the grid is touched.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "a short list of projects rather than everything ever made / rather than show your work / rather than custom work",
+    "issue": "'rather than' carries the contrast in three FAQ answers (items 3, 4, 10); QC A2 flags it.",
+    "fix": "Recast one or two, e.g. 'not everything ever made'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "why_description",
+    "quote": "One prompt builds the project pages, the inquiry form, and the table its messages land in",
+    "issue": "'project pages' (plural) sits against FAQ 1's 'A portfolio landing page is one page' and feature 1's 'the project sections'; consistent-term rule.",
+    "fix": "'One prompt builds the project sections, the inquiry form, and the table its messages land in'.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "page",
+    "quote": "\"work\" appears 12 times outside the FAQ; \"project\" appears 12 times",
+    "issue": "QC Q9 repetition flags on 'work' and 'project' (P2).",
+    "fix": "Vary where a plainer noun fits (portfolio, case study, gallery).",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_4",
+   "issue": "SC 1.1.1 continues 'except for the situations listed below' (decoration, controls, CAPTCHA and others); the copy drops that limit, and the title 'Write alt text for every image' follows it. For portfolio work images the advice holds, so this is a scope note, not a false statement.",
+   "fix": "Add the limit, e.g. 'WCAG 2.2 asks for a text alternative for non-text content, with a few exceptions such as pure decoration.'",
+   "by": "B-r-85",
+   "via": "review",
+   "date": "2026-10-21 05:28 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "feature_3, feature_5, feature_6",
+   "issue": "The feature grid follows artist-landing-page's grid sentence for sentence ('such as a wedding date or a festival slot, and the app sends you an email, Slack, or in-app alert with the details in it'; 'Your band name as the address'; 'Free to publish, yours to export'). D2 is 19%, under the gate.",
+   "fix": "Give feature 3 and 5 a portfolio-specific shape (e.g. the licensing request routed to an agent; the address printed on a resume) next time the grid is touched.",
+   "by": "B-r-85",
+   "via": "review",
+   "date": "2026-10-21 05:28 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "'rather than' carries the contrast in three FAQ answers (items 3, 4, 10); QC A2 flags it.",
+   "fix": "Recast one or two, e.g. 'not everything ever made'.",
+   "by": "B-r-85",
+   "via": "review",
+   "date": "2026-10-21 05:28 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "why_description",
+   "issue": "'project pages' (plural) sits against FAQ 1's 'A portfolio landing page is one page' and feature 1's 'the project sections'; consistent-term rule.",
+   "fix": "'One prompt builds the project sections, the inquiry form, and the table its messages land in'.",
+   "by": "B-r-85",
+   "via": "review",
+   "date": "2026-10-21 05:28 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "page",
+   "issue": "QC Q9 repetition flags on 'work' and 'project' (P2).",
+   "fix": "Vary where a plainer noun fits (portfolio, case study, gallery).",
+   "by": "B-r-85",
+   "via": "review",
+   "date": "2026-10-21 05:28 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6b2e3fe3286a802d",
+   "alt:share_image": "560479eb86589d89",
+   "alt:tab_image_1": "04341161693e1907",
+   "alt:tab_image_2": "d0d5d60bde4e17ef",
+   "alt:tab_image_3": "5136459bd4375cd6",
+   "alt:tab_image_4": "7d2f9c316abd32de",
+   "breadcrumb": "110a921d4e28b2ea",
+   "chip_adds": "5a13e6e89c1815da",
+   "explore_cta": "f5486d310cb1ca28",
+   "faq": "f126229915c479d2",
+   "feature_1": "e49b59445a0333b7",
+   "feature_2": "84a39cf91c5a84e2",
+   "feature_3": "2c56dbe871c28788",
+   "feature_4": "1b42243ad9755f58",
+   "feature_5": "e4430d516d383d84",
+   "feature_6": "05b3cf6b3a1f313c",
+   "features_heading": "c530fcfdeee682cc",
+   "features_subheading": "71a3d9edeba88d60",
+   "h1": "cf17a6db04a22a71",
+   "hero_description": "c45d79adb2a12a9d",
+   "hero_prompt": "1491e84dc57d7de5",
+   "howto_description": "1807de4eb17779ba",
+   "howto_step_1_des": "3ee540b8f9cf10d7",
+   "howto_step_1_title": "73cc48d3842e2570",
+   "howto_step_2_des": "95da3912f58f49b5",
+   "howto_step_2_title": "945cf5e91fe577b3",
+   "howto_step_3_des": "e92f14c79317b5a2",
+   "howto_step_3_title": "e5092e2ff5f5067b",
+   "howto_step_4_des": "b159fc5ee23fffcb",
+   "howto_step_4_title": "cf6478cf161bb653",
+   "howto_step_5_des": "6e23526988acbf1f",
+   "howto_step_5_title": "13f2b3f2b5468faf",
+   "howto_step_6_des": "65b0f33921e36073",
+   "howto_step_6_title": "b42042bd9624ff8c",
+   "howto_step_7_des": "95b3cf79bd210803",
+   "howto_step_7_title": "ad51b1371f131585",
+   "howto_title": "a3bb2a7c6db64520",
+   "meta_description": "9f3b9c5e031f273c",
+   "meta_title": "652d211648f7a6bb",
+   "mockup": "11a87193e6460803",
+   "product_name": "569ff3a1e3a97365",
+   "prompt_chip_1": "c0977420fa6297f8",
+   "prompt_chip_2": "9c0b1ac9a2b85f22",
+   "prompt_chip_3": "faa075c3a7414d78",
+   "prompt_chip_4": "d7a36384633f6d9a",
+   "slug": "18721fc388369a4e",
+   "tab_content_1": "b4d0c906b796a494",
+   "tab_content_2": "4b8f5238549f0c99",
+   "tab_content_3": "1c3c917d3e48cac2",
+   "tab_content_4": "8123a43ced6b074b",
+   "tab_label_1": "97d6dbf3c5120ec4",
+   "tab_label_2": "9c615ebbe6185070",
+   "tab_label_3": "62809bf1374f90b5",
+   "tab_label_4": "3fb7b39416f1d067",
+   "usecase_heading": "e6ce00753ec7c218",
+   "why_description": "fa90cb5f4785df24",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "65ed89d6d6f0e0e9"
+  },
+  "all": "f8253dfe923844d8",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6b2e3fe3286a802d",
+   "alt:share_image": "560479eb86589d89",
+   "alt:tab_image_1": "04341161693e1907",
+   "alt:tab_image_2": "d0d5d60bde4e17ef",
+   "alt:tab_image_3": "5136459bd4375cd6",
+   "alt:tab_image_4": "7d2f9c316abd32de",
+   "breadcrumb": "110a921d4e28b2ea",
+   "chip_adds": "5a13e6e89c1815da",
+   "explore_cta": "f5486d310cb1ca28",
+   "faq": "f126229915c479d2",
+   "feature_1": "e49b59445a0333b7",
+   "feature_2": "84a39cf91c5a84e2",
+   "feature_3": "2c56dbe871c28788",
+   "feature_4": "1b42243ad9755f58",
+   "feature_5": "e4430d516d383d84",
+   "feature_6": "05b3cf6b3a1f313c",
+   "features_heading": "c530fcfdeee682cc",
+   "features_subheading": "71a3d9edeba88d60",
+   "h1": "cf17a6db04a22a71",
+   "hero_description": "c45d79adb2a12a9d",
+   "hero_prompt": "1491e84dc57d7de5",
+   "howto_description": "1807de4eb17779ba",
+   "howto_step_1_des": "3ee540b8f9cf10d7",
+   "howto_step_1_title": "73cc48d3842e2570",
+   "howto_step_2_des": "95da3912f58f49b5",
+   "howto_step_2_title": "945cf5e91fe577b3",
+   "howto_step_3_des": "e92f14c79317b5a2",
+   "howto_step_3_title": "e5092e2ff5f5067b",
+   "howto_step_4_des": "b159fc5ee23fffcb",
+   "howto_step_4_title": "cf6478cf161bb653",
+   "howto_step_5_des": "6e23526988acbf1f",
+   "howto_step_5_title": "13f2b3f2b5468faf",
+   "howto_step_6_des": "65b0f33921e36073",
+   "howto_step_6_title": "b42042bd9624ff8c",
+   "howto_step_7_des": "95b3cf79bd210803",
+   "howto_step_7_title": "ad51b1371f131585",
+   "howto_title": "a3bb2a7c6db64520",
+   "meta_description": "9f3b9c5e031f273c",
+   "meta_title": "652d211648f7a6bb",
+   "mockup": "11a87193e6460803",
+   "product_name": "569ff3a1e3a97365",
+   "prompt_chip_1": "c0977420fa6297f8",
+   "prompt_chip_2": "9c0b1ac9a2b85f22",
+   "prompt_chip_3": "faa075c3a7414d78",
+   "prompt_chip_4": "d7a36384633f6d9a",
+   "slug": "18721fc388369a4e",
+   "tab_content_1": "b4d0c906b796a494",
+   "tab_content_2": "4b8f5238549f0c99",
+   "tab_content_3": "1c3c917d3e48cac2",
+   "tab_content_4": "8123a43ced6b074b",
+   "tab_label_1": "97d6dbf3c5120ec4",
+   "tab_label_2": "9c615ebbe6185070",
+   "tab_label_3": "62809bf1374f90b5",
+   "tab_label_4": "3fb7b39416f1d067",
+   "usecase_heading": "e6ce00753ec7c218",
+   "why_description": "fa90cb5f4785df24",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "65ed89d6d6f0e0e9"
+  },
+  "all": "f8253dfe923844d8",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
