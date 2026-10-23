@@ -55,7 +55,8 @@ _PL_PRE = {"m": None}         # main() measures every page of a run in one Chrom
 def _semrush_ok(url, ref):
     """Divit 2026-10-13: a keyword-sourced FAQ item from Semrush phrase_questions must cite a question this page's derive step kept."""
     sys.path.insert(0, os.path.join(ROOT, "ops")); import semrush_questions as _SQ
-    return any(norm(x["q"]) == norm(ref) for x in _SQ.usable(url.rsplit("/", 1)[1]))
+    import slugs as _SLK   # store key: the pre-migration slug (DECISIONS 2026-10-23)
+    return any(norm(x["q"]) == norm(ref) for x in _SQ.usable(_SLK.store_key(url)))
 def _SQ_HEAD(url, q):
     """The (possibly reworded) question still carries the head phrase or an approved multi-word variant (backlog line 91)."""
     sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate as _PG
@@ -556,7 +557,7 @@ def check(spec, siblings):
     if not frozen_spec and fq:
         sys.path.insert(0, os.path.join(ROOT, "plan")); import serp as S
         sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate as _PG
-        if not _PG.has_pull(spec["url"].rsplit("/", 1)[1]):   # primary or --sec pull: the gate reads both (paa_gate.pulls)
+        if not _PG.has_pull(_PG._store_key(spec["url"])):   # primary or --sec pull: the gate reads both (paa_gate.pulls)
             add("P1", "F1", "faq", "no AlsoAsked pull for this page (private/alsoasked/<slug>.json or <slug>--sec.json): pull it through ops/weekend.py aa <url> before writing the FAQ")
         live = S.load(spec["url"])  # legacy DataForSEO capture (pages written before 2026-10-10): F2/F3/F5 still check against it
         srcs = {x.get("q"): x for x in spec.get("faq_sources", [])}
@@ -615,13 +616,13 @@ def check(spec, siblings):
                 elif kind == "definition":
                     if norm(ref) != norm(prim): add("P1", "F2", "faq", "a definition item must define the page's primary keyword")
                 elif kind == "alsoasked":   # rescue rewrites of legacy pages (Divit 2026-10-13, proposal F2): a true AlsoAsked label; PA1 checks it against the pull
-                    if not _PG.has_pull(spec["url"].rsplit("/", 1)[1]): add("P1", "F2", "faq", f'source says alsoasked but this page has no AlsoAsked pull')
+                    if not _PG.has_pull(_PG._store_key(spec["url"])): add("P1", "F2", "faq", f'source says alsoasked but this page has no AlsoAsked pull')
                 else:
                     add("P1", "F2", "faq", f'unknown source type "{kind}" (paa, written; older labels alsoasked, related, secondary, keyword, definition)')
             me_page = (KMAP or {}).get(spec["url"], {"primary": prim, "secondaries": []})
             ok_paa, _skip = S.eligible(live, me_page, prims)
             # PA4 per-page skip list (Divit approved PA1-PA13, 2026-10-08): a logged, reasoned skip is not required by F4
-            _pp = json.load(open(os.path.join(ROOT, "rules", "paa_blocklist.json")))["per_page"].get(spec["url"].rsplit("/", 1)[1], [])
+            _pp = json.load(open(os.path.join(ROOT, "rules", "paa_blocklist.json")))["per_page"].get(__import__("slugs").store_key(spec["url"]), [])
             ok_paa = [i for i in ok_paa if not pp_skipped(_pp, i["q"])]
             for i in ([] if F4_RETIRED else ok_paa[:10]):
                 if i["q"].lower() not in used_paa: add("P1", "F4", "faq", f'People Also Ask question not answered: "{i["q"]}"')
@@ -963,7 +964,7 @@ def check(spec, siblings):
     if spec.get("status") not in ("live-draft", "published"):
         try:
             sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate as _PG, datetime as _dt
-            _ap = _PG.pull_path(spec["url"].rsplit("/", 1)[1])
+            _ap = _PG.pull_path(_PG._store_key(spec["url"]))
             _f = json.load(open(_ap))["_meta"]["fetched"][:10] if os.path.exists(_ap) else None
             if _f and (_dt.date.today() - _dt.date.fromisoformat(_f)).days > 30: add("P1", "F6", "serp", f"AlsoAsked pull from {_f} is over 30 days old: re-pull it and re-check the FAQ")
         except Exception: pass

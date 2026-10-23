@@ -435,7 +435,7 @@ def flags_pending(spec):
     p_ = os.path.join(ROOT, "rules", "flag_decisions.json")
     d = json.load(open(p_)) if os.path.exists(p_) else {}
     sub, qs = d.get("subtypes", {}), d.get("questions", {})
-    slug = (spec.get("url") or "").rsplit("/", 1)[-1]; out = []
+    import slugs as _SL; slug = _SL.store_key(spec.get("url") or ""); out = []   # flag_decisions keys "<store key>:<hash>"
     sys.path.insert(0, os.path.join(ROOT, "qc"))
     src = spec.get("faq_sources") or []
     for sl in spec.get("faq_plan") or []:

@@ -1,0 +1,1254 @@
+{
+ "url": "/ai-automation-builder/lead-routing",
+ "hub": "Auto",
+ "item_id": "6ad85f22d6e634f787386b06",
+ "status": "spec",
+ "written_by": "B-w-268",
+ "keywords": {
+  "primary": "lead routing automation",
+  "secondaries_used": [
+   "lead routing automation software",
+   "lead routing automation tools"
+  ]
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Lead Routing Automation: Round Robin and Timers | Emergent",
+  "meta_description": "Build lead routing automation that sends known companies to their account owner and moves any lead left untouched for 15 minutes.",
+  "h1": "Build Lead Routing Automation That Assigns Every Lead an Owner",
+  "slug": "lead-routing",
+  "product_name": "Lead Routing Automation Builder",
+  "hero_description": "Build lead routing automation that assigns each new lead to a rep by rules you write in plain English.",
+  "breadcrumb": "Lead Routing Automation",
+  "category": "a33cd4fb124ec86a130809893b2b3896",
+  "explore_cta": "Build My Lead Routing Automation",
+  "features_heading": "What Your Lead Routing App Handles",
+  "features_subheading": "Every new lead passes through your rules in order and leaves with one owner and a record of why.",
+  "feature_1": "<h3>Rules checked in the order you set</h3><p>You write each rule as a sentence. The app checks them top to bottom and stops at the first match, and any lead that matches no rule goes to a fallback queue you name.</p>",
+  "feature_2": "<h3>A rotation that respects caps and time off</h3><p>Reps take new leads in turn. Set a daily cap for each rep and mark anyone who is away, and the app passes over them until they are back under the cap or back at work.</p>",
+  "feature_3": "<h3>Existing accounts stay with their owner</h3><p>The app reads your CRM through its API and matches each lead's email domain to an account. A match goes to that account's owner, whose name is written back to the CRM.</p>",
+  "feature_4": "<h3>Timers on the first call or email</h3><p>Each assignment starts a clock. If no call or email is logged before it runs out, the app moves the lead to the next rep and alerts the sales manager in Slack or by email.</p>",
+  "feature_5": "<h3>A log of why each lead went where it did</h3><p>Each lead keeps the rule it matched, the rep it reached, and every handoff after that, in a database you own. A rep who asks why a lead skipped them gets the answer there.</p>",
+  "feature_6": "<h3>The routing app's code in GitHub</h3><p>Export the full code of the app to your GitHub repository on paid plans. Your team can read every routing rule in the code and change it like the rest of your stack.</p>",
+  "why_title": "Why Build Lead Routing With Emergent?",
+  "why_description": "Emergent builds the routing app and its log from one prompt, and there is no task cap on how many leads the app routes.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Zapier</th>\n        <th scope=\"col\">Make (Integromat)</th>\n        <th scope=\"col\">n8n</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt for the workflow and the app around it</td>\n        <td class=\"col-other\">Templates and editor, AI copilot</td>\n        <td class=\"col-other\">Visual canvas</td>\n        <td class=\"col-other\">Visual canvas, self-hosted or cloud</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">What you get</th>\n        <td class=\"col-brand\">Workflow + trigger form + database + dashboard, as code you own</td>\n        <td class=\"col-other\">Zaps, plus Tables and Interfaces inside Zapier</td>\n        <td class=\"col-other\">Scenarios inside Make</td>\n        <td class=\"col-other\">Workflows inside n8n</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Behavior at cap</th>\n        <td class=\"col-brand\">Keeps running, no task cap</td>\n        <td class=\"col-other\">Overage billed at up to 1.25× the base rate</td>\n        <td class=\"col-other\">Runs pause</td>\n        <td class=\"col-other\">Cloud workflows stop until the reset or an upgrade</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">AI and agent steps</th>\n        <td class=\"col-brand\">Native, share the same credit pool</td>\n        <td class=\"col-other\">Priced by model tier, drawn from the task pool</td>\n        <td class=\"col-other\">AI modules cost variable credits</td>\n        <td class=\"col-other\">Bring your own model API key, billed by the provider</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">Yes on Community Edition</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "Four Rules That Decide Who Gets the Lead",
+  "tab_label_1": "Round Robin",
+  "tab_label_2": "Account Owners",
+  "tab_label_3": "First-Touch Timer",
+  "tab_label_4": "Language Routing",
+  "tab_content_1": "<h3>A rep with 6 new leads today is skipped in the rotation</h3><p>Thistlegate Analytics rotates demo requests among 4 reps, each capped at 6 new leads a day. Tobias Wrenfield already has 6 today, so the request from Ines Calloway at Orchard Lane Clinics skips him. It goes to Mireille Okafor, the next rep in line, as a direct message.</p>",
+  "tab_content_2": "<h3>Leads from a known domain reach that account's owner</h3><p>A dispatcher at Harrowgate Freight, Wilhelmina Dacosta, starts a trial of Calderwood Fleet Software. Her email domain matches an account Benedikt Sorell already owns in HubSpot. The app sends the lead to him instead of the rotation and adds her as a contact on that account.</p>",
+  "tab_content_3": "<h3>An untouched lead moves on after 15 minutes</h3><p>Pellbrook Payroll assigns Annika Lindqvist's quote request to Dorian Hale at 2:05 pm. At 2:20 pm, with no call or email logged in 15 minutes, the app moves the request to Keziah Brandt. The sales manager, Ottavio Renn, gets a direct message saying the lead has moved.</p>",
+  "tab_content_4": "<h3>Leads written in Spanish go to a bilingual rep</h3><p>Valentina Arroyo writes her request in Spanish on the contact form at Saltmarsh Learning, an online tutoring company. The app sends Spanish requests to the 2 bilingual reps in turn. It is Rafael Quintero's turn, so he gets the lead, with Spanish marked as her language on the record.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { roundRobin: \"Build a round robin lead router for my analytics company. Rotate new demo requests among 4 reps, cap each rep at 6 new leads a day, and skip anyone at the cap or marked away. Send the assigned rep a direct message with the request, and log the rule that placed each lead.\", accountOwners: \"Build an account owner match for my fleet software company. When someone starts a trial, compare their email domain with the accounts in HubSpot. On a match, send the lead to that account's owner and add the person as a contact on the account. Send every other lead to the rotation.\", firstTouchTimer: \"Build a first-touch timer for my payroll company's quote requests. Start a 15-minute clock when a lead is assigned. If the rep logs no call or email in that time, move the lead to the next rep and send the sales manager a direct message naming the lead.\", languageRouting: \"Build language routing for my online tutoring company. Add a language choice to the contact form. Send any request in Spanish to the 2 bilingual reps in turn, mark the language on the lead record, and send all other requests to the main rotation.\" };</p>",
+  "howto_title": "Build Lead Routing Automation",
+  "howto_description": "Seven steps to plan lead routing automation and its rules, then build it with Emergent and test it on last week's leads.",
+  "howto_step_1_title": "01 List every way leads arrive",
+  "howto_step_2_title": "02 Put the rules in order",
+  "howto_step_3_title": "03 Decide who is in each rotation",
+  "howto_step_4_title": "04 Set a first-touch window",
+  "howto_step_1_des": "Write down every place a lead can arrive, such as the demo form, trial signups, or the chat widget. Note the fields each one captures, since a rule can only check a field the lead carries.",
+  "howto_step_2_des": "Put the rules in the order they should be checked, with the narrowest first: account owners, then language, then the rotation. Name the person who works the fallback queue.",
+  "howto_step_3_des": "List the reps in each rotation and the daily cap for each one. Pick the one place reps mark themselves away, such as a status field in the CRM.",
+  "howto_step_4_des": "Choose how many minutes a rep has to call or email a new lead, and who gets the lead next if they do not. Decide what the clock does outside business hours.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Lead Routing Questions, Answered\", \"items\": [{\"q\": \"What is lead routing automation?\", \"a\": \"Lead routing automation is software that gives every incoming lead an owner on the sales team by rules, as soon as the lead arrives. The rules check fields on the lead, such as company or language, and fall back to a rotation when nothing matches. It takes the place of a person reading a shared inbox and forwarding each request by hand.\"}, {\"q\": \"How do I set up lead routing automation?\", \"a\": \"Write your routing rules as sentences first, in the order they should run, with a fallback for leads that match none. Then describe them in a prompt in Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>. Emergent builds the routing app with its lead database and routing log, and you change any rule later by prompting again.\"}, {\"q\": \"What should lead routing automation software check before it assigns a lead?\", \"a\": \"It should check whether the lead already belongs to someone. Look for an open lead with the same email, and an account with the same email domain, before any rotation runs. Then check the fields your rules depend on, such as language or product, and send a lead with an empty required field to the fallback queue instead of guessing.\"}, {\"q\": \"Do lead routing automation tools work inside the CRM or alongside it?\", \"a\": \"A routing app built with Emergent works alongside the CRM: it reads leads through the CRM's API and writes each owner back. Keep routing inside the CRM when every rule uses CRM fields, and pick a separate app when your rules need data the CRM does not hold, such as rep calendars. If you also want follow-up tasks or deal stage changes, that is <a href='https://emergent.sh/ai-automation-builder/crm'>crm automation</a>, not routing.\"}, {\"q\": \"What should lead routing automation do with a lead that matches no rule?\", \"a\": \"It should send that lead to one named person, never to nobody. Have that person assign it by hand and note why no rule caught it. Read those notes every week, and when the same reason shows up 3 times, write a rule for it and put it in the right place in the order.\"}, {\"q\": \"When should lead routing automation use round robin instead of fixed owners?\", \"a\": \"Use round robin when any rep can handle any lead. Use fixed owners when the relationship matters more than speed, such as an existing customer or a named target account. Combine the two by checking ownership first and sending only unowned leads to the rotation. Emergent builds either setup from a prompt and changes it when you prompt again.\"}, {\"q\": \"Can lead routing automation route leads by the page they came from?\", \"a\": \"Yes, if the page travels with the lead: capture it in a hidden form field and write a rule on that field. Group pages by topic, such as pricing pages for senior reps. If your <a href='https://emergent.sh/ai-automation-builder/seo'>seo automation</a> publishes new pages every week, route by URL path: a new page under the pricing path then lands in the right group with no rule change.\"}, {\"q\": \"What first-touch window should I set in lead routing automation?\", \"a\": \"Set a window your team can meet on its busiest day, such as 15 minutes in business hours, and put a timer on it. A window the team misses every afternoon teaches everyone to ignore the alerts. Decide separately what happens after hours: pause the clock until morning, or send the lead to whoever is on call. In an app Emergent builds, the alert can go out by Slack or email.\"}, {\"q\": \"What should lead routing automation do when a rep leaves the team?\", \"a\": \"It should move that rep's open leads to other reps the same day. Take the rep out of every rotation first, then move their named accounts to the new owner as one batch. Keep the old owner's name on the routing log, which the app stores in a database you own. The history of each lead then still shows who worked it.\"}, {\"q\": \"Where does lead routing automation end and the rest of the sales process begin?\", \"a\": \"Routing ends when the lead has an owner and that owner has made first contact. What comes after, such as follow-up emails and pipeline updates, belongs to <a href='https://emergent.sh/ai-automation-builder/sales'>sales automation</a>. Keep the two apart: when a routing rule also sends emails, a lead that reaches the wrong rep is much harder to trace.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Describe the routing in a prompt",
+  "howto_step_5_des": "Write the rules, caps, and timer in plain English, the way you would brief a new sales ops hire. Emergent builds the routing app from that prompt, with the lead record and the routing log.",
+  "howto_step_6_title": "06 Connect your CRM and forms",
+  "howto_step_6_des": "Connect your CRM and your forms through their APIs. Leads then arrive with their fields filled in and ready for the first rule.",
+  "howto_step_7_title": "07 Replay last week's leads",
+  "howto_step_7_des": "Take last week's leads and run them through the app. Compare each owner the app picks with the rep who took the lead by hand, then fix any rule that sent one to the wrong place.",
+  "prompt_chip_1": "Round Robin",
+  "prompt_chip_2": "Account Owners",
+  "prompt_chip_3": "First-Touch Timer",
+  "prompt_chip_4": "Language Routing",
+  "hero_prompt": "<p>Build lead routing automation that runs on its own and logs every step.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/aab/lead-routing/uc-1.svg",
+   "alt": "A rotation table shows Tobias Wrenfield at the cap of 6 new leads today, so a demo request from Ines Calloway skips him and reaches Mireille Okafor as a direct message.",
+   "file_id": "6ad85f1fd6e634f787386ab4",
+   "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6ad85f1fd6e634f787386ab4_uc-1.svg"
+  },
+  "tab_image_2": {
+   "path": "images/aab/lead-routing/uc-2.svg",
+   "alt": "A lead record shows Wilhelmina Dacosta's email domain matching the Harrowgate Freight account, so the trial goes to its owner, Benedikt Sorell, instead of the rotation.",
+   "file_id": "6ad85f1fd6e634f787386abc",
+   "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6ad85f1fd6e634f787386abc_uc-2.svg"
+  },
+  "tab_image_3": {
+   "path": "images/aab/lead-routing/uc-3.svg",
+   "alt": "A lead timeline shows Annika Lindqvist's quote request assigned to Dorian Hale at 2:05 pm and moved to Keziah Brandt at 2:20 pm, with a direct message to the sales manager.",
+   "file_id": "6ad85f1fd6e634f787386ab9",
+   "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6ad85f1fd6e634f787386ab9_uc-3.svg"
+  },
+  "tab_image_4": {
+   "path": "images/aab/lead-routing/uc-4.svg",
+   "alt": "A contact form on a phone shows Valentina Arroyo writing in Spanish, and the request goes to Rafael Quintero, whose turn it is among the 2 bilingual reps.",
+   "file_id": "6ad85f1fd6e634f787386abf",
+   "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6ad85f1fd6e634f787386abf_uc-4.svg"
+  },
+  "cover_image": {
+   "path": "images/aab/lead-routing/cover.svg",
+   "alt": "Lead routing automation: a direct message telling the sales manager that a quote request moved to another rep after 15 minutes with no first touch",
+   "file_id": "6ad85f1ed6e634f787386aa5",
+   "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6ad85f1ed6e634f787386aa5_cover.svg"
+  },
+  "share_image": {
+   "path": "images/aab/lead-routing/og.webp",
+   "alt": "Build lead routing automation that assigns every lead an owner, with Emergent",
+   "file_id": "6ad85f1cd6e634f787386a97",
+   "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6ad85f1cd6e634f787386a97_og.webp"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-21 05:45 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 06:04 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "B-w-268",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 06:05 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-268",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 06:08 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-104",
+   "note": "rubric 10/10 by B-r-104; 3 notes"
+  },
+  {
+   "t": "2026-10-21 06:14 UTC",
+   "state": "approved",
+   "via": null,
+   "by": "standing-go (Divit 2026-10-21)",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 06:46 UTC",
+   "state": "cms_draft",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 06:49 UTC",
+   "state": "published",
+   "via": "api-publish",
+   "by": null,
+   "note": "live page verified"
+  },
+  {
+   "t": "2026-10-23 14:40 UTC",
+   "state": "spec",
+   "via": "slug-migration",
+   "by": "slug_migrate",
+   "note": "slug lead-routing-automation -> lead-routing; 7 child link(s) rewritten (DECISIONS 2026-10-23); stamps current before were restamped"
+  }
+ ],
+ "pipeline": "r15",
+ "faq_plan": [
+  {
+   "kind": "definition",
+   "q": "What is lead routing automation?",
+   "ref": "lead routing automation",
+   "locked": true,
+   "n": 1,
+   "a": "Lead routing automation is software that gives every incoming lead an owner on the sales team by rules, as soon as the lead arrives. The rules check fields on the lead, such as company or language, and fall back to a rotation when nothing matches. It takes the place of a person reading a shared inbox and forwarding each request by hand.",
+   "link": null
+  },
+  {
+   "kind": "definition",
+   "q": "How do I set up lead routing automation?",
+   "ref": "lead routing automation",
+   "locked": true,
+   "n": 2,
+   "a": "Write your routing rules as sentences first, in the order they should run, with a fallback for leads that match none. Then describe them in a prompt in Emergent's AI automation builder. Emergent builds the routing app with its lead database and routing log, and you change any rule later by prompting again.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder",
+    "anchor": "AI automation builder",
+    "write_as": "Emergent's AI automation builder"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "What should lead routing automation software check before it assigns a lead?",
+   "ref": "lead routing automation software",
+   "secondary": "lead routing automation software",
+   "locked": false,
+   "n": 3,
+   "a": "It should check whether the lead already belongs to someone. Look for an open lead with the same email, and an account with the same email domain, before any rotation runs. Then check the fields your rules depend on, such as language or product, and send a lead with an empty required field to the fallback queue instead of guessing.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Do lead routing automation tools work inside the CRM or alongside it?",
+   "ref": "lead routing automation tools",
+   "secondary": "lead routing automation tools",
+   "locked": false,
+   "n": 4,
+   "a": "A routing app built with Emergent works alongside the CRM: it reads leads through the CRM's API and writes each owner back. Keep routing inside the CRM when every rule uses CRM fields, and pick a separate app when your rules need data the CRM does not hold, such as rep calendars. If you also want follow-up tasks or deal stage changes, that is crm automation, not routing.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/crm",
+    "anchor": "crm automation"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "What should lead routing automation do with a lead that matches no rule?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 5,
+   "a": "It should send that lead to one named person, never to nobody. Have that person assign it by hand and note why no rule caught it. Read those notes every week, and when the same reason shows up 3 times, write a rule for it and put it in the right place in the order.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "When should lead routing automation use round robin instead of fixed owners?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 6,
+   "a": "Use round robin when any rep can handle any lead. Use fixed owners when the relationship matters more than speed, such as an existing customer or a named target account. Combine the two by checking ownership first and sending only unowned leads to the rotation. Emergent builds either setup from a prompt and changes it when you prompt again.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Can lead routing automation route leads by the page they came from?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 7,
+   "a": "Yes, if the page travels with the lead: capture it in a hidden form field and write a rule on that field. Group pages by topic, such as pricing pages for senior reps. If your seo automation publishes new pages every week, route by URL path: a new page under the pricing path then lands in the right group with no rule change.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/seo",
+    "anchor": "seo automation"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "What first-touch window should I set in lead routing automation?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 8,
+   "a": "Set a window your team can meet on its busiest day, such as 15 minutes in business hours, and put a timer on it. A window the team misses every afternoon teaches everyone to ignore the alerts. Decide separately what happens after hours: pause the clock until morning, or send the lead to whoever is on call. In an app Emergent builds, the alert can go out by Slack or email.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "What should lead routing automation do when a rep leaves the team?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 9,
+   "a": "It should move that rep's open leads to other reps the same day. Take the rep out of every rotation first, then move their named accounts to the new owner as one batch. Keep the old owner's name on the routing log, which the app stores in a database you own. The history of each lead then still shows who worked it.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Where does lead routing automation end and the rest of the sales process begin?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 10,
+   "a": "Routing ends when the lead has an owner and that owner has made first contact. What comes after, such as follow-up emails and pipeline updates, belongs to sales automation. Keep the two apart: when a routing rule also sends emails, a lead that reaches the wrong rep is much harder to trace.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/sales",
+    "anchor": "sales automation"
+   }
+  }
+ ],
+ "faq_heading": "Lead Routing Questions, Answered",
+ "table": {
+  "vs": [
+   "Zapier",
+   "Make (Integromat)",
+   "n8n"
+  ],
+  "rows": [
+   "build",
+   "output",
+   "cap",
+   "ai",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "skeleton": {
+  "built_by": "B-w-268",
+  "built": "2026-10-21 05:45 UTC",
+  "slots": 10,
+  "flagged": 0,
+  "flag_subtypes": [],
+  "locked": 2,
+  "table": true
+ },
+ "plan": {
+  "angle": "The top results define lead routing and list routing methods, but none shows the rules firing on a real lead. This page treats routing as an ordered set of rules and shows four of them running for four sellers: a round robin that skips a rep at the daily cap, a known company's lead going to its account owner, a 15-minute first-touch timer that moves an untouched lead, and Spanish-language requests going to the 2 bilingual reps. Scoring, nurturing and the wider CRM stay with their own pages.",
+  "tab_stories": [
+   "At Thistlegate Analytics, demo requests rotate among 4 reps capped at 6 new leads a day; Tobias Wrenfield already has 6, so the request from Ines Calloway skips him and goes to Mireille Okafor.",
+   "A trial signup from a dispatcher at Harrowgate Freight matches the harrowgate.com domain on an account Benedikt Sorell owns, so Calderwood Fleet Software's app sends it to him instead of the rotation.",
+   "Pellbrook Payroll assigns Annika Lindqvist's quote request to Dorian Matsuda at 2:05 pm; with no call or email logged by 2:20 pm, the app moves it to Keziah Brandt and sends the sales manager Ottavio Renn a direct message.",
+   "Valentina Arroyo picks Spanish on Saltmarsh Learning's contact form, so the app sends her request to Rafael Quintero, the next of the 2 bilingual reps."
+  ],
+  "openers": [
+   "Thistlegate Analytics rotates demo requests",
+   "A dispatcher at Harrowgate Freight starts a trial",
+   "Pellbrook Payroll assigns Annika Lindqvist's quote request",
+   "Valentina Arroyo picks Spanish",
+   "Write down every place a lead can arrive",
+   "Put the rules in the order they should be checked",
+   "Take last week's leads and run them through the app"
+  ],
+  "heading_shapes": [
+   "A rep with 6 new leads today is skipped in the rotation",
+   "Leads from a known domain reach that account's owner",
+   "An untouched lead moves on after 15 minutes",
+   "Leads written in Spanish go to a bilingual rep"
+  ],
+  "claims_to_source": [],
+  "numbers": [
+   {
+    "value": 6,
+    "formula": "6"
+   },
+   {
+    "value": 15,
+    "formula": "20 - 5"
+   }
+  ],
+  "owns": {
+   "ordered rules, first match wins": "feature_1",
+   "rotation with caps and away status": "feature_2",
+   "account owner match by domain": "feature_3",
+   "first-touch timer and escalation": "feature_4",
+   "routing log per lead": "feature_5",
+   "code export": "feature_6",
+   "definition": "faq 1",
+   "replay test on last week's leads": "howto_step_7_des"
+  }
+ },
+ "chip_adds": [
+  "Add a round robin that skips any rep already at the daily cap.",
+  "Add account owner matching by the lead's email domain.",
+  "Add a 15-minute first-touch timer that moves untouched leads.",
+  "Add language routing that sends Spanish requests to bilingual reps."
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R8",
+    "title": "Round robin",
+    "prompt": "Rotate demo requests among 4 reps and skip anyone at 6 new leads today",
+    "rule": "Daily cap: 6 new leads per rep",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Demo request rotation",
+       "size": 20,
+       "chip": [
+        "4 reps",
+        "acc"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Rep",
+        "New today",
+        "Status"
+       ],
+       "widths": [
+        0.46,
+        0.22,
+        0.32
+       ],
+       "row_h": 58,
+       "bad": [
+        0
+       ],
+       "rows": [
+        [
+         "Tobias Wrenfield",
+         "6",
+         [
+          "At cap",
+          "warn"
+         ]
+        ],
+        [
+         "Mireille Okafor",
+         "4",
+         [
+          "Next",
+          "ok"
+         ]
+        ],
+        [
+         "Hollis Grange",
+         "5",
+         [
+          "In turn",
+          "acc"
+         ]
+        ],
+        [
+         "Seraphine Lowe",
+         "3",
+         [
+          "In turn",
+          "acc"
+         ]
+        ]
+       ]
+      },
+      {
+       "type": "note",
+       "icon": "rotate-cw",
+       "text": "At cap: skipped until tomorrow"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "message-square",
+     "tone": "acc",
+     "title": "New demo request",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "Ines Calloway",
+       "size": 16,
+       "color": "sub"
+      },
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "acc",
+       "text": "To Mireille Okafor"
+      },
+      {
+       "type": "meta",
+       "icon": "building-2",
+       "kind": "muted",
+       "text": "Orchard Lane Clinics"
+      }
+     ],
+     "action": {
+      "label": "Open lead",
+      "icon": "arrow-right"
+     }
+    },
+    "mini": {
+     "icon": "chart-line",
+     "kind": "acc",
+     "title": "Thistlegate Analytics",
+     "sub": "Demo requests"
+    },
+    "alt": "A rotation table shows Tobias Wrenfield at the cap of 6 new leads today, so a demo request from Ines Calloway skips him and reaches Mireille Okafor as a direct message.",
+    "story": [
+     {
+      "copy": "Thistlegate Analytics",
+      "image": "Thistlegate Analytics"
+     },
+     {
+      "copy": "among 4 reps",
+      "image": "4 reps"
+     },
+     {
+      "copy": "each capped at 6 new leads a day",
+      "image": "Daily cap: 6 new leads per rep"
+     },
+     {
+      "copy": "Tobias Wrenfield",
+      "image": "Tobias Wrenfield"
+     },
+     {
+      "copy": "Ines Calloway",
+      "image": "Ines Calloway"
+     },
+     {
+      "copy": "Orchard Lane Clinics",
+      "image": "Orchard Lane Clinics"
+     },
+     {
+      "copy": "Mireille Okafor",
+      "image": "To Mireille Okafor"
+     },
+     {
+      "copy": "the next rep in line",
+      "image": "Next"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Account owners",
+    "prompt": "Send a trial from a known email domain to the rep who owns that account",
+    "main": {
+     "chrome": "Lead routing",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "CALDERWOOD FLEET SOFTWARE",
+       "title": "Wilhelmina Dacosta",
+       "size": 24,
+       "sub": "Trial signup, dispatcher",
+       "chip": [
+        "Owner match",
+        "ok"
+       ]
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Company",
+         "Harrowgate Freight"
+        ],
+        [
+         "Email domain",
+         "Matches an account",
+         true
+        ],
+        [
+         "Account owner",
+         "Benedikt Sorell"
+        ],
+        [
+         "Rotation",
+         "Skipped"
+        ]
+       ]
+      },
+      {
+       "type": "note",
+       "icon": "refresh-cw",
+       "text": "Owner written back to HubSpot"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Benedikt Sorell",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "New trial on your account",
+       "size": 20,
+       "sub": "Wilhelmina Dacosta"
+      },
+      {
+       "type": "meta",
+       "icon": "building-2",
+       "kind": "acc",
+       "text": "Harrowgate Freight"
+      },
+      {
+       "type": "meta",
+       "icon": "user-plus",
+       "kind": "muted",
+       "text": "Added as a HubSpot contact"
+      }
+     ],
+     "action": {
+      "label": "Open account",
+      "icon": "arrow-right"
+     }
+    },
+    "mini": {
+     "icon": "truck",
+     "kind": "acc",
+     "title": "Harrowgate Freight",
+     "sub": "Owner: Benedikt Sorell"
+    },
+    "alt": "A lead record shows Wilhelmina Dacosta's email domain matching the Harrowgate Freight account, so the trial goes to its owner, Benedikt Sorell, instead of the rotation.",
+    "story": [
+     {
+      "copy": "Wilhelmina Dacosta",
+      "image": "Wilhelmina Dacosta"
+     },
+     {
+      "copy": "Harrowgate Freight",
+      "image": "Harrowgate Freight"
+     },
+     {
+      "copy": "Calderwood Fleet Software",
+      "image": "CALDERWOOD FLEET SOFTWARE"
+     },
+     {
+      "copy": "Her email domain matches an account",
+      "image": "Matches an account"
+     },
+     {
+      "copy": "Benedikt Sorell",
+      "image": "To Benedikt Sorell"
+     },
+     {
+      "copy": "instead of the rotation",
+      "image": "Skipped"
+     },
+     {
+      "copy": "adds her as a contact",
+      "image": "Added as a HubSpot contact"
+     },
+     {
+      "copy": "starts a trial",
+      "image": "Trial signup, dispatcher"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "First-touch timer",
+    "prompt": "Move a lead to the next rep when no call or email is logged in 15 minutes",
+    "main": {
+     "chrome": "Lead routing",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "PELLBROOK PAYROLL",
+       "title": "Annika Lindqvist",
+       "size": 24,
+       "sub": "Quote request"
+      },
+      {
+       "type": "rule",
+       "text": "Rule: first touch within 15 minutes"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Assigned to Dorian Hale",
+         "sub": "2:05 pm"
+        },
+        {
+         "state": "skip",
+         "title": "No call or email logged",
+         "sub": "15 minutes"
+        },
+        {
+         "state": "live",
+         "title": "Moved to Keziah Brandt",
+         "sub": "2:20 pm"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Ottavio Renn",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Lead moved to Keziah Brandt",
+       "size": 20,
+       "sub": "Annika Lindqvist"
+      },
+      {
+       "type": "meta",
+       "icon": "timer",
+       "kind": "acc",
+       "text": "No first touch in 15 minutes"
+      },
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "muted",
+       "text": "Sales manager"
+      }
+     ],
+     "action": {
+      "label": "Open lead",
+      "icon": "arrow-right"
+     }
+    },
+    "mini": {
+     "icon": "phone-off",
+     "kind": "warn",
+     "title": "Dorian Hale",
+     "sub": "No call or email logged"
+    },
+    "alt": "A lead timeline shows Annika Lindqvist's quote request assigned to Dorian Hale at 2:05 pm and moved to Keziah Brandt at 2:20 pm, with a direct message to the sales manager.",
+    "story": [
+     {
+      "copy": "Pellbrook Payroll",
+      "image": "PELLBROOK PAYROLL"
+     },
+     {
+      "copy": "Annika Lindqvist",
+      "image": "Annika Lindqvist"
+     },
+     {
+      "copy": "to Dorian Hale",
+      "image": "Assigned to Dorian Hale"
+     },
+     {
+      "copy": "at 2:05 pm",
+      "image": "2:05 pm"
+     },
+     {
+      "copy": "At 2:20 pm",
+      "image": "2:20 pm"
+     },
+     {
+      "copy": "no call or email logged in 15 minutes",
+      "image": "Rule: first touch within 15 minutes"
+     },
+     {
+      "copy": "moves the request to Keziah Brandt",
+      "image": "Moved to Keziah Brandt"
+     },
+     {
+      "copy": "Ottavio Renn",
+      "image": "To Ottavio Renn"
+     },
+     {
+      "copy": "The sales manager",
+      "image": "Sales manager"
+     },
+     {
+      "copy": "the lead has moved",
+      "image": "Lead moved to Keziah Brandt"
+     }
+    ]
+   },
+   {
+    "recipe": "R4",
+    "title": "Language routing",
+    "prompt": "Send contact form requests written in Spanish to the 2 bilingual reps in turn",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Contact us",
+       "size": 22,
+       "sub": "Saltmarsh Learning"
+      },
+      {
+       "type": "item",
+       "title": "Name",
+       "sub": "Valentina Arroyo"
+      },
+      {
+       "type": "item",
+       "title": "Language",
+       "sub": "Spanish"
+      },
+      {
+       "type": "item",
+       "title": "Request",
+       "sub": "Written in Spanish"
+      },
+      {
+       "type": "button",
+       "label": "Send",
+       "full": true,
+       "h": 52
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Spanish requests",
+       "size": 19,
+       "chip": [
+        "2 bilingual reps",
+        "acc"
+       ]
+      },
+      {
+       "type": "list",
+       "items": [
+        {
+         "initials": "RQ",
+         "name": "Rafael Quintero",
+         "sub": "His turn",
+         "chip": [
+          "Assigned",
+          "ok"
+         ]
+        },
+        {
+         "initials": "MF",
+         "name": "Marisela Fuentes",
+         "sub": "Took the last one",
+         "muted": true
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Rafael Quintero",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "New lead in Spanish",
+       "size": 20,
+       "sub": "Valentina Arroyo"
+      },
+      {
+       "type": "meta",
+       "icon": "languages",
+       "kind": "acc",
+       "text": "Language saved on the record"
+      },
+      {
+       "type": "meta",
+       "icon": "graduation-cap",
+       "kind": "muted",
+       "text": "Saltmarsh Learning"
+      }
+     ],
+     "action": {
+      "label": "Open lead",
+      "icon": "arrow-right"
+     }
+    },
+    "alt": "A contact form on a phone shows Valentina Arroyo writing in Spanish, and the request goes to Rafael Quintero, whose turn it is among the 2 bilingual reps.",
+    "story": [
+     {
+      "copy": "Valentina Arroyo",
+      "image": "Valentina Arroyo"
+     },
+     {
+      "copy": "Saltmarsh Learning",
+      "image": "Saltmarsh Learning"
+     },
+     {
+      "copy": "writes her request in Spanish",
+      "image": "Written in Spanish"
+     },
+     {
+      "copy": "the 2 bilingual reps",
+      "image": "2 bilingual reps"
+     },
+     {
+      "copy": "It is Rafael Quintero's turn",
+      "image": "His turn"
+     },
+     {
+      "copy": "he gets the lead",
+      "image": "To Rafael Quintero"
+     },
+     {
+      "copy": "Spanish marked as her language on the record",
+      "image": "Language saved on the record"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "dm": true,
+   "channel": "Ottavio Renn",
+   "title": "Lead reassigned",
+   "sub": "No first touch in 15 minutes",
+   "primary": "Open lead",
+   "secondary": "View log",
+   "icon": "timer",
+   "alt": "Lead routing automation: a direct message telling the sales manager that a quote request moved to another rep after 15 minutes with no first touch"
+  },
+  "og": {
+   "headline": "Every lead gets an owner",
+   "lines": [
+    "Every lead",
+    "gets an owner"
+   ],
+   "alt": "Build lead routing automation that assigns every lead an owner, with Emergent"
+  },
+  "checks": [
+   {
+    "fact": [
+     "6",
+     "4",
+     "5",
+     "3"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "20 - 5 == 15",
+    "shows": [
+     "2:05 pm",
+     "2:20 pm",
+     "15 minutes"
+    ],
+    "where": 3
+   },
+   {
+    "same": "No first touch in 15 minutes",
+    "where": [
+     3,
+     "cover"
+    ]
+   }
+  ]
+ },
+ "faq_sources": [
+  {
+   "q": "What is lead routing automation?",
+   "source": "written",
+   "ref": "lead routing automation",
+   "origin": "definition"
+  },
+  {
+   "q": "How do I set up lead routing automation?",
+   "source": "written",
+   "ref": "lead routing automation",
+   "origin": "definition"
+  },
+  {
+   "q": "What should lead routing automation software check before it assigns a lead?",
+   "source": "written",
+   "ref": "lead routing automation software",
+   "origin": "written",
+   "secondary": "lead routing automation software"
+  },
+  {
+   "q": "Do lead routing automation tools work inside the CRM or alongside it?",
+   "source": "written",
+   "ref": "lead routing automation tools",
+   "origin": "written",
+   "secondary": "lead routing automation tools"
+  },
+  {
+   "q": "What should lead routing automation do with a lead that matches no rule?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "When should lead routing automation use round robin instead of fixed owners?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Can lead routing automation route leads by the page they came from?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "What first-touch window should I set in lead routing automation?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "What should lead routing automation do when a rep leaves the team?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Where does lead routing automation end and the rest of the sales process begin?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  }
+ ],
+ "claims_used": [
+  "prompt-build",
+  "api-connect",
+  "alerts",
+  "database-owned",
+  "code-export",
+  "no-caps"
+ ],
+ "domain_sources": [],
+ "learn_refs": [
+  "6a589dc9ab93f6339f3baf0c",
+  "6ab5783d0d81048ed0aae71f",
+  "6a7d7aa5a51445e385c58237"
+ ],
+ "qc_passed": {
+  "rules_version": "41519b1f99fa",
+  "date": "2026-10-21 06:04 UTC"
+ },
+ "writers": [
+  "B-w-268"
+ ],
+ "review": {
+  "by": "B-r-104",
+  "date": "2026-10-21 06:08 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Lead Routing Automation That Assigns Every Lead an Owner' covers the whole topic; four tabs are four rule types (Round Robin, Account Owners, First-Touch Timer, Language Routing)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition in FAQ 1, a 7-step plan from 'List every way leads arrive' to 'Replay last week's leads', and software/tools questions in FAQ 3 and 4 answer what a 'lead routing automation' searcher wants to build."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'each capped at 6 new leads a day', 'At 2:20 pm, with no call or email logged in 15 minutes', 'matches each lead's email domain to an account'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs or subjects: 'You write each rule as a sentence', 'Reps take new leads in turn', 'Each assignment starts a clock'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC TOTAL 0; two ', so' endings (tab 1, tab 4) under the cap of 2."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain operator advice: 'A window the team misses every afternoon teaches everyone to ignore the alerts.' No hype words."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to claims_used (prompt-build, api-connect, alerts, database-owned, code-export, no-caps); no third-party facts or statistics in prose; table generated from the library; image numbers agree with copy (6 at cap, 2:05 to 2:20 pm, 2 bilingual reps)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "lead-scoring-automation explicitly leaves routing to this page; crm automation and sales automation are handed off in FAQ 4 and FAQ 10 ('that is crm automation, not routing'); no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 questions, each answered in its first sentence, e.g. 'It should send that lead to one named person, never to nobody.'"
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: one hero card per tab addressed to the named person (To Mireille Okafor, To Benedikt Sorell, To Ottavio Renn, To Rafael Quintero), matching the 'direct message' copy; numbers match tab copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "If your seo automation publishes new pages every week, route by URL path",
+    "issue": "The seo automation link is forced into a routing answer; reads as link placement rather than operator advice.",
+    "fix": "Drop the sibling reference: 'Route by URL path, so a new page under the pricing path lands in the right group with no rule change.'",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief.tabs[3]",
+    "quote": "Language: Spanish",
+    "issue": "Tab 4 copy says she 'writes her request in Spanish' (implying detection) while the form image shows a Language field she filled in; not a contradiction, but the two methods differ.",
+    "fix": "Either show only the request text in Spanish, or say in the copy that the form asks for her language.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_5 / faq",
+    "quote": "in a database you own",
+    "issue": "The routing log in a database you own is restated in feature 5, how-to step 5 and FAQ 9 with words swapped.",
+    "fix": "Keep it in feature 5; let FAQ 9 say only that the old owner's name stays on the log.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "The seo automation link is forced into a routing answer; reads as link placement rather than operator advice.",
+   "fix": "Drop the sibling reference: 'Route by URL path, so a new page under the pricing path lands in the right group with no rule change.'",
+   "by": "B-r-104",
+   "via": "review",
+   "date": "2026-10-21 06:08 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief.tabs[3]",
+   "issue": "Tab 4 copy says she 'writes her request in Spanish' (implying detection) while the form image shows a Language field she filled in; not a contradiction, but the two methods differ.",
+   "fix": "Either show only the request text in Spanish, or say in the copy that the form asks for her language.",
+   "by": "B-r-104",
+   "via": "review",
+   "date": "2026-10-21 06:08 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_5 / faq",
+   "issue": "The routing log in a database you own is restated in feature 5, how-to step 5 and FAQ 9 with words swapped.",
+   "fix": "Keep it in feature 5; let FAQ 9 say only that the old owner's name stays on the log.",
+   "by": "B-r-104",
+   "via": "review",
+   "date": "2026-10-21 06:08 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "5c0a60f301744646",
+   "alt:share_image": "b025845c007f5d4c",
+   "alt:tab_image_1": "82c13b910dd7388c",
+   "alt:tab_image_2": "735c776ae568583e",
+   "alt:tab_image_3": "947796b9d0925d7d",
+   "alt:tab_image_4": "f2644ae04bda55a8",
+   "breadcrumb": "3fba42c1b484b066",
+   "chip_adds": "be25d5dad98c015f",
+   "explore_cta": "8a4315c91eb94945",
+   "faq": "1b72d3d47b466ea1",
+   "feature_1": "eadeda3454965656",
+   "feature_2": "80620f140b8662ec",
+   "feature_3": "6541051313878f6a",
+   "feature_4": "482e3286c90d6954",
+   "feature_5": "efa5fe6a2115d202",
+   "feature_6": "04c559fd99b3341a",
+   "features_heading": "6185ecb0b81adaa7",
+   "features_subheading": "bcdc8d6939fb3312",
+   "h1": "e57b5b4e016d938a",
+   "hero_description": "8ff39e62f0479709",
+   "hero_prompt": "555546aed797ce44",
+   "howto_description": "27c10fd8b05819ea",
+   "howto_step_1_des": "328a9ae3dd18a947",
+   "howto_step_1_title": "6cdc6a1f83a76045",
+   "howto_step_2_des": "5b9199c34080a36b",
+   "howto_step_2_title": "873deb17796720f7",
+   "howto_step_3_des": "34fd0e392b28c7d0",
+   "howto_step_3_title": "ce5a1be4c7413a0d",
+   "howto_step_4_des": "711ddefdb0e49b0f",
+   "howto_step_4_title": "df0bdbd611c048b8",
+   "howto_step_5_des": "284924a1464a5231",
+   "howto_step_5_title": "d6e73d4ac389a037",
+   "howto_step_6_des": "aac1ec3488ae72fe",
+   "howto_step_6_title": "ec827cf797fe5d52",
+   "howto_step_7_des": "08ebdfb12be0829b",
+   "howto_step_7_title": "e2f1df992c6870c2",
+   "howto_title": "8122f1c25a11fe03",
+   "meta_description": "ca4306260c2187aa",
+   "meta_title": "c0b9dc7986ceb04d",
+   "mockup": "374ce006e7262fb5",
+   "product_name": "8f38753d8a3a058f",
+   "prompt_chip_1": "1c0a486688ee0449",
+   "prompt_chip_2": "d9df6b44479dc782",
+   "prompt_chip_3": "cf22c42b731c813f",
+   "prompt_chip_4": "6dac8bf7566f8f3f",
+   "slug": "dcf96c1f60c0bdab",
+   "tab_content_1": "90aa515eb06b0953",
+   "tab_content_2": "123ee76892df9ee7",
+   "tab_content_3": "c60a004a429fdf5d",
+   "tab_content_4": "8bc1bb2a80b298a2",
+   "tab_label_1": "1c0a486688ee0449",
+   "tab_label_2": "d9df6b44479dc782",
+   "tab_label_3": "cf22c42b731c813f",
+   "tab_label_4": "6dac8bf7566f8f3f",
+   "usecase_heading": "290afdd0bccfeec4",
+   "why_description": "146f6e5763534fba",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "edede894e3c0ce82"
+  },
+  "all": "b6cd734e4b28c649",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "5c0a60f301744646",
+   "alt:share_image": "b025845c007f5d4c",
+   "alt:tab_image_1": "82c13b910dd7388c",
+   "alt:tab_image_2": "735c776ae568583e",
+   "alt:tab_image_3": "947796b9d0925d7d",
+   "alt:tab_image_4": "f2644ae04bda55a8",
+   "breadcrumb": "3fba42c1b484b066",
+   "chip_adds": "be25d5dad98c015f",
+   "explore_cta": "8a4315c91eb94945",
+   "faq": "1b72d3d47b466ea1",
+   "feature_1": "eadeda3454965656",
+   "feature_2": "80620f140b8662ec",
+   "feature_3": "6541051313878f6a",
+   "feature_4": "482e3286c90d6954",
+   "feature_5": "efa5fe6a2115d202",
+   "feature_6": "04c559fd99b3341a",
+   "features_heading": "6185ecb0b81adaa7",
+   "features_subheading": "bcdc8d6939fb3312",
+   "h1": "e57b5b4e016d938a",
+   "hero_description": "8ff39e62f0479709",
+   "hero_prompt": "555546aed797ce44",
+   "howto_description": "27c10fd8b05819ea",
+   "howto_step_1_des": "328a9ae3dd18a947",
+   "howto_step_1_title": "6cdc6a1f83a76045",
+   "howto_step_2_des": "5b9199c34080a36b",
+   "howto_step_2_title": "873deb17796720f7",
+   "howto_step_3_des": "34fd0e392b28c7d0",
+   "howto_step_3_title": "ce5a1be4c7413a0d",
+   "howto_step_4_des": "711ddefdb0e49b0f",
+   "howto_step_4_title": "df0bdbd611c048b8",
+   "howto_step_5_des": "284924a1464a5231",
+   "howto_step_5_title": "d6e73d4ac389a037",
+   "howto_step_6_des": "aac1ec3488ae72fe",
+   "howto_step_6_title": "ec827cf797fe5d52",
+   "howto_step_7_des": "08ebdfb12be0829b",
+   "howto_step_7_title": "e2f1df992c6870c2",
+   "howto_title": "8122f1c25a11fe03",
+   "meta_description": "ca4306260c2187aa",
+   "meta_title": "c0b9dc7986ceb04d",
+   "mockup": "374ce006e7262fb5",
+   "product_name": "8f38753d8a3a058f",
+   "prompt_chip_1": "1c0a486688ee0449",
+   "prompt_chip_2": "d9df6b44479dc782",
+   "prompt_chip_3": "cf22c42b731c813f",
+   "prompt_chip_4": "6dac8bf7566f8f3f",
+   "slug": "dcf96c1f60c0bdab",
+   "tab_content_1": "90aa515eb06b0953",
+   "tab_content_2": "123ee76892df9ee7",
+   "tab_content_3": "c60a004a429fdf5d",
+   "tab_content_4": "8bc1bb2a80b298a2",
+   "tab_label_1": "1c0a486688ee0449",
+   "tab_label_2": "d9df6b44479dc782",
+   "tab_label_3": "cf22c42b731c813f",
+   "tab_label_4": "6dac8bf7566f8f3f",
+   "usecase_heading": "290afdd0bccfeec4",
+   "why_description": "146f6e5763534fba",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "edede894e3c0ce82"
+  },
+  "all": "b6cd734e4b28c649",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "approval": {
+  "fingerprint": "25bb6872419f720c4e33888b4bcb0359e62b0ded85d360c91457f35470cbfc00",
+  "date": "2026-10-21 06:14 UTC",
+  "rules_version": "41519b1f99fa",
+  "by": "standing-go (Divit 2026-10-21)"
+ },
+ "pending_links": []
+}

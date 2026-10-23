@@ -94,6 +94,10 @@ def kmap():
     m = KL.load(ROOT)
     if m is None: sys.exit("plan/keyword_map.json missing. Run: python3 plan/build_map.py /mnt/project/Emergent_Hub_Child_Pages_Final_v3.xlsx")
     return m
+def _store_key(url):
+    """slug-keyed store key (ops/slugs.store_key: the pre-migration slug, unique across hubs; DECISIONS 2026-10-23)."""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import slugs as _SL
+    return _SL.store_key(url)
 def hub_of(url):
     for k, h in CFG["hubs"].items():
         if url.startswith(h["path"] + "/"): return k
@@ -137,7 +141,7 @@ def set_state(url, state, note=None, via=None, by=None, **extra):
         st = load_st(hub); e = st["pages"].setdefault(url, {})
         h = e.get("hold")
         _sp = os.path.join(ROOT, "status", "synonyms.json")
-        _sy = (json.load(open(_sp))["pages"].get(url.rsplit("/", 1)[1]) or {}) if os.path.exists(_sp) else {}
+        _sy = (json.load(open(_sp))["pages"].get(_store_key(url)) or {}) if os.path.exists(_sp) else {}
         _waiting = _sy.get("pending") and _sy.get("feasibility", 0) < 10   # under 10 without the undecided phrases
         if (e.get("faq_pending") or _waiting) and state in ("qc_pass", "images", "reviewed", "approved"):
             sys.exit(f"refused: {url} is a split write waiting for Divit's synonym decision (ruling 12 part 5): QC, gate and review run on the whole page only after the FAQ lands")
@@ -173,7 +177,7 @@ def cmd_verbatim(args):
     bad = 0
     for u in args:
         s = json.load(open(spath(u)))
-        with contextlib.redirect_stdout(io.StringIO()): items, _x = PG.run_pull(PG.Gate(u)) if PG.pulls(u.rsplit("/", 1)[1]) else ([], None)
+        with contextlib.redirect_stdout(io.StringIO()): items, _x = PG.run_pull(PG.Gate(u)) if PG.pulls(_store_key(u)) else ([], None)
         pq = {i["q"] for i in items}; res = []
         for k, f in enumerate(s.get("faq_sources") or [], 1):
             pv = f.get("prov") or {}
@@ -230,7 +234,7 @@ def claim_queue(hub, m, st):
     except (OSError, ValueError): _qok = False
     try: _qcan = set(json.load(open(os.path.join(ROOT, "status", "quiz-canary.json"))).get("canary_pages") or [])
     except (OSError, ValueError): _qcan = set()
-    if not _qok: queue = [p for p in queue if "quiz" not in p["url"].rsplit("/", 1)[1] or p["url"] in _qcan]   # the named canary pages stay claimable
+    if not _qok: queue = [p for p in queue if not _quiz().is_quiz_page(p["url"]) or p["url"] in _qcan]   # the named canary pages stay claimable
     return queue, cls
 
 def cmd_claim(args):
@@ -260,7 +264,7 @@ def cmd_claim(args):
     for p in queue:
         if p["url"] in st["pages"]: continue
         # ruling 10 B1 (Divit 2026-10-13): a page whose one pull cannot reach 10 FAQ items is not written; it waits at the end of the queue
-        if _PG.pulls(p["url"].rsplit("/", 1)[1]):
+        if _PG.pulls(_store_key(p["url"])):
             import park_rescue as _R
             f = _R.feasibility(p["url"])
             if not f["feasible"]: skipped.append((p["url"], f["total"])); _record_feasibility(p["url"], f); continue
@@ -276,7 +280,7 @@ def _print_aa(url):
     """The page's AlsoAsked candidates (primary and top-secondary pulls) with gate verdicts, gated in memory: writers on either
     account never read private/ (Divit 2026-10-13, Account A read access). Nothing is written."""
     sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate as PG, io, contextlib
-    if not PG.pulls(url.rsplit("/", 1)[1]): print("ALSOASKED   no pull yet: ops/weekend.py aa <url> (QC F1)"); return
+    if not PG.pulls(_store_key(url)): print("ALSOASKED   no pull yet: ops/weekend.py aa <url> (QC F1)"); return
     with contextlib.redirect_stdout(io.StringIO()): items, _x = PG.run_pull(PG.Gate(url))
     print("ALSOASKED CANDIDATES (gated in memory; + use verbatim, ? flag: usable and listed in Divit's packet, never reword it to clear the flag, x reject):")
     for v, mark in (("pass", "+"), ("flag", "?"), ("reject", "x")):
@@ -628,9 +632,10 @@ def _review_baseline(s, path):
     if not d: return None, None
     iso = _dt.datetime.strptime(d, "%Y-%m-%d %H:%M").strftime("%Y-%m-%dT%H:%M:59Z")
     rel = os.path.relpath(path, ROOT)
-    sha = subprocess.run(["git", "log", "-1", "--format=%H", f"--before={iso}", "--", rel], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    import slugs as SL   # the slug migration renamed specs: history continues at the old path
+    sha = subprocess.run(["git", "log", "-1", "--format=%H", f"--before={iso}", "--", *SL.git_rels(rel)], cwd=ROOT, capture_output=True, text=True).stdout.strip()
     if not sha: return None, None
-    old = subprocess.run(["git", "show", f"{sha}:{rel}"], cwd=ROOT, capture_output=True, text=True).stdout
+    old = SL.git_show(sha, rel, ROOT)
     try: return sha, json.loads(old)
     except ValueError: return sha, None
 

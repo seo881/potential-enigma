@@ -26,7 +26,7 @@ def main(argv):
     start = int(opt("--start-balance", log_rows()[-1]["after"]["credits"]))
     st = G.all_status(); queue = []
     for s in G.all_specs():
-        slug = s["url"].rsplit("/", 1)[1]
+        import slugs as _SL; slug = _SL.store_key(s["url"])   # store key (pre-migration slug; DECISIONS 2026-10-23)
         if s.get("status") == "live-draft" or st.get(s["url"], {}).get("state") not in WRITTEN or slug in skip: continue
         if os.path.exists(os.path.join(ROOT, "private", "alsoasked", slug + ".json")): continue
         queue.append((slug, (s.get("keywords") or {}).get("primary")))

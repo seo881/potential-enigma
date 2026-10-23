@@ -154,8 +154,10 @@ CASES = os.path.join(ROOT, "tests", "golden", "cases.jsonl")
 
 def spec_at(sha, url):
     import hubctl as H
-    rel = os.path.relpath(H.spath(url), ROOT)
-    return json.loads(subprocess.run(["git", "show", f"{sha}:{rel}"], cwd=ROOT, capture_output=True, text=True, check=True).stdout)
+    import slugs as SL   # a spec renamed by the slug migration is read at its old path for commits before the rename
+    rel = os.path.relpath(H.spath(url), ROOT); out = SL.git_show(sha, rel, ROOT)
+    if not out: raise FileNotFoundError(f"{rel} at {sha}")
+    return json.loads(out)
 
 def _truth_spec(c):
     """A synthetic page for the claim/span binding cases (no real page text)."""
@@ -566,7 +568,7 @@ def caught(c):
         if c.get("expect_name") and CF.ignored_by(c["err"]) != c["expect_name"]: return False
         if c.get("via") != "audit": return bool(CF.ignored_by(c["err"])) == c["expect_ignored"]
         import live_audit as LA
-        u = "/ai-form-builder/ach-form"
+        u = "/ai-form-builder/ach"
         m = {"pages": [{"url": u, "hub": "/ai-form-builder", "fields": {}, "faq_items": [], "images": {}, "meta_title": "x" * 40, "meta_description": "y" * 120}]}
         raw = {"pages": [{"url": u, "checks": {"http200": True}, "verify": {}, "render": {"http": 200, "console_errors": [c["err"]], "jsonld": [], "links": [], "images": [], "text_visible": "", "text_all": "", "h1s": ["h"]}}], "hubs": [], "held": []}
         flagged = any(f["code"] == "A9-console" for f in LA.evaluate(raw, m, "https://emergent.sh"))
@@ -614,8 +616,8 @@ def _quiz_js(q, answers=None, cid="x"):
     r = subprocess.run(["node", os.path.join(ROOT, "ops", "quiz", "logic.mjs"), p], capture_output=True, text=True, cwd=ROOT)
     return json.loads(r.stdout)
 
-QUIZ_HERO = "/ai-survey-and-quiz-builder/employee-engagement-survey"   # a real SurveyQuiz spec with chip_adds, used as a quiz page's body
-def _quiz_spec(fixture="knowledge", url="/ai-survey-and-quiz-builder/vocabulary-quiz"):
+QUIZ_HERO = "/ai-survey-and-quiz-builder/employee-engagement"   # a real SurveyQuiz spec with chip_adds, used as a quiz page's body
+def _quiz_spec(fixture="knowledge", url="/ai-survey-and-quiz-builder/vocabulary"):
     import hubctl as H
     s = copy.deepcopy(json.load(open(H.spath(QUIZ_HERO)))); s["url"] = url; s["status"] = "spec"
     s["quiz"] = json.load(open(os.path.join(ROOT, "ops", "quiz", "fixtures", fixture + ".json"))); return s

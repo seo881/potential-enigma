@@ -151,8 +151,9 @@ def og_stale(s):
     cur = re.sub(r"\W+", " ", re.sub(r"<[^>]+>", "", s["fields"]["h1"]).lower()).strip()
     if og == cur: return False
     rel = os.path.relpath(s["_path"], ROOT); olds = set()
-    for sha in subprocess.run(["git", "log", "--format=%H", "--", rel], cwd=ROOT, capture_output=True, text=True).stdout.split()[:40]:
-        try: olds.add(re.sub(r"\W+", " ", re.sub(r"<[^>]+>", "", json.loads(subprocess.run(["git", "show", f"{sha}:{rel}"], cwd=ROOT, capture_output=True, text=True).stdout)["fields"]["h1"]).lower()).strip())
+    import slugs as SL   # the slug migration renamed specs: history continues at the old path
+    for sha in subprocess.run(["git", "log", "--format=%H", "--", *SL.git_rels(rel)], cwd=ROOT, capture_output=True, text=True).stdout.split()[:40]:
+        try: olds.add(re.sub(r"\W+", " ", re.sub(r"<[^>]+>", "", json.loads(SL.git_show(sha, rel, ROOT))["fields"]["h1"]).lower()).strip())
         except Exception: pass
     return og in olds
 

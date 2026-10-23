@@ -18,13 +18,13 @@ const ALL = args.includes('--all'); if (ALL) args.splice(args.indexOf('--all'), 
 let css = null; const ci = args.indexOf('--css'); if (ci >= 0) { css = args[ci + 1]; args.splice(ci, 2); }
 let jsonOut = null; const ji = args.indexOf('--json'); if (ji >= 0) { jsonOut = args[ji + 1]; args.splice(ji, 2); }
 // representative child per template, and a second child used only to tell CMS-bound headings from static text
-const SECOND = { '/ai-form-builder/contact-form': '/ai-form-builder/ach-form',
-  '/ai-landing-page-builder/affiliate-landing-page': '/ai-landing-page-builder/app-landing-page',
-  '/ai-automation-builder/accounting-automation': '/ai-automation-builder/accounts-payable-automation',
-  '/ai-survey-and-quiz-builder/360-survey': '/ai-survey-and-quiz-builder/brand-awareness-survey' };
+const SECOND = { '/ai-form-builder/contact': '/ai-form-builder/ach',
+  '/ai-landing-page-builder/affiliate': '/ai-landing-page-builder/app',
+  '/ai-automation-builder/accounting': '/ai-automation-builder/accounts-payable',
+  '/ai-survey-and-quiz-builder/360': '/ai-survey-and-quiz-builder/brand-awareness' };
 const paths = args.length ? args : ALL
   ? ['/ai-form-builder', '/ai-landing-page-builder', '/ai-automation-builder', '/ai-survey-and-quiz-builder', ...Object.keys(SECOND)]
-  : ['/ai-form-builder', '/ai-form-builder/contact-form'];
+  : ['/ai-form-builder', '/ai-form-builder/contact'];
 const SEL = ALL ? 'h1, h2, h3' : '.section_build h2.text-align-center';
 const RUN_SECTIONS = ['section_build', 'section_blog-related', 'section_faq2'];
 const WIDTHS = [390, 768, 1440];

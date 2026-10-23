@@ -126,3 +126,61 @@ def spec_problems(hub, url, spec):
     """problems() for a spec: slug from its url, target keyword from keywords.primary, H1 from fields.h1."""
     kw = spec.get("keywords") if isinstance(spec.get("keywords"), dict) else {}
     return problems(hub, url.rsplit("/", 1)[1], kw.get("primary"), (spec.get("fields") or {}).get("h1"))
+
+
+_RENAMES = None
+def git_rels(rel):
+    """[rel] plus its pre-migration path (specs/<dir>/<old>.json or images/<dir>/<old>/...), so git history and git show at a commit
+    before the slug migration still find the file (DECISIONS 2026-10-23; renames come from plan/slug-migration.json)."""
+    global _RENAMES
+    import json, os
+    if _RENAMES is None:
+        root = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); _RENAMES = {}
+        try:
+            cfg = json.load(open(os.path.join(root, "config", "collections.json")))["hubs"]
+            for e in json.load(open(os.path.join(root, "plan", "slug-migration.json")))["pages"]:
+                if e["new_slug"] != e["old_slug"] and e.get("decision") in ("change",):
+                    d = cfg[e["hub"]]["repo_dir"]; _RENAMES[(d, e["new_slug"])] = e["old_slug"]
+        except (OSError, ValueError, KeyError): pass
+    parts = rel.replace(os.sep, "/").split("/")
+    if len(parts) >= 3 and parts[0] in ("specs", "images"):
+        slug = parts[2][:-5] if parts[0] == "specs" and parts[2].endswith(".json") else parts[2]
+        old = _RENAMES.get((parts[1], slug))
+        if old: return [rel, "/".join(parts[:2] + [old + (".json" if parts[0] == "specs" and parts[2].endswith(".json") else "")] + parts[3:])]
+    return [rel]
+
+
+def git_show(sha, rel, root):
+    """git show sha:rel, falling back to the pre-migration path; '' when neither exists."""
+    import subprocess
+    for r in git_rels(rel):
+        p = subprocess.run(["git", "show", f"{sha}:{r}"], cwd=root, capture_output=True, text=True)
+        if p.returncode == 0: return p.stdout
+    return ""
+
+
+_STORE = None
+def store_key(url):
+    """The key of a page's slug-keyed stores (private/alsoasked/<key>.json, AlsoAsked verdicts, Semrush derived questions,
+    rules/paa_blocklist.json per_page, rules/paa_synonyms.json, rules/paa_synonym_candidates.json, rules/flag_decisions.json
+    "<key>:<hash>", status/synonyms.json, status/swap_short.json). These stores are keyed by a bare slug ACROSS hubs, and the
+    migrated slugs repeat across hubs (crm, membership, newsletter, it ...), so they keep the pre-migration slug, which is unique:
+    a page in plan/slug-migration.json -> its old slug (old == new when unchanged); a page created after the migration ->
+    "<slug>--<repo dir>" (never shared across hubs). DECISIONS 2026-10-23 SLUG MIGRATION."""
+    global _STORE
+    import json, os
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    cfg = json.load(open(os.path.join(root, "config", "collections.json")))["hubs"]
+    if _STORE is None:
+        _STORE = {}
+        for f in (os.path.join(root, "plan", "slug-migration.json"), os.path.join(root, "private", "migration", "slug-migration-kmap.json")):
+            try:
+                for e in json.load(open(f))["pages"]:
+                    _STORE.setdefault(f"{cfg[e['hub']]['path']}/{e['new_slug'] if e.get('decision') != 'collision' else e['old_slug']}", e["old_slug"])
+                    _STORE.setdefault(f"{cfg[e['hub']]['path']}/{e['old_slug']}", e["old_slug"])
+            except (OSError, ValueError, KeyError): pass
+    url = (url or "").split("?")[0].rstrip("/")
+    if url in _STORE: return _STORE[url]
+    slug = url.rsplit("/", 1)[-1]
+    d = next((h["repo_dir"] for h in cfg.values() if url.startswith(h["path"] + "/")), None)
+    return f"{slug}--{d}" if d else slug

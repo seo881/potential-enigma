@@ -50,7 +50,7 @@
   "howto_step_2_des": "Export 90 days of sales for each item on the list and work out units sold per day. Note the supplier's lead time beside it, counted from the day you order to the day stock is on the shelf.",
   "howto_step_3_des": "Multiply daily sales by the lead time in days, then add a buffer for late deliveries. A teapot that sells 2 a day, with a 5-day lead time and 2 days of buffer, gets a threshold of 14.",
   "howto_step_4_des": "Connect the system that holds your counts, then pick 5 items and count them by hand. If a shelf count and the app's count disagree, fix the source before any alert goes out.",
-  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Low Stock Alert Questions, Answered\", \"items\": [{\"q\": \"What is low stock alert?\", \"a\": \"A low stock alert tells you when an item's on-hand quantity falls to or below the safety stock level you set, giving you time to reorder before you run out. The useful part is who receives it: one person who can act on that item that day.\"}, {\"q\": \"How do I set up low stock alert?\", \"a\": \"Describe the rule in a prompt to Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>: the item and its threshold, plus the person who hears about it. Emergent builds the app and its logic from that description. Link your point of sale or online store through its API, and switch the alert on once a replay of last month matches what you saw on the shelf.\"}, {\"q\": \"Should a low stock alert fire again on every sale below the threshold?\", \"a\": \"No. Have it fire once when the count crosses the threshold, then stay quiet until someone marks the item ordered or a delivery lifts the count back above the line. An alert that repeats on every sale buries the one that mattered.\"}, {\"q\": \"Can a low stock alert send a reorder request to the supplier?\", \"a\": \"Yes, but keep a person between the alert and the supplier. The app can draft the request with the item and a suggested quantity, and the buyer approves it before anything goes out. That approve-before-send step is the same one <a href='https://emergent.sh/ai-automation-builder/proposal-automation'>proposal automation</a> puts in front of a quote.\"}, {\"q\": \"Which items need an instant low stock alert instead of a daily summary?\", \"a\": \"Items that sell out within their supplier's lead time, and items a regular customer comes in for by name. Everything else can wait for one summary email at the start of the day. One list at 8:00 a.m. is easier to work through than 30 pings spread across a shift.\"}, {\"q\": \"Should each store location get its own low stock alert threshold?\", \"a\": \"Yes. Base each store's number on that store's own sales, since two stores can sell the same item at different speeds. Give the warehouse a separate threshold too, set by supplier lead time, not shelf space. In an app built on Emergent, the counts for every location live in a database you own.\"}, {\"q\": \"Who should receive low stock alerts at a business with several stores?\", \"a\": \"The person who can fix the shortage that day: the buyer for items that need a new order, the store manager for items another location can transfer. Name one person per item, plus a backup for vacations. If store managers start ignoring alerts, add a question about them to your next <a href='https://emergent.sh/ai-survey-and-quiz-builder/leadership-survey'>leadership survey</a> and ask which ones they act on.\"}, {\"q\": \"How can a low stock alert account for stock that is already on order?\", \"a\": \"Compare the threshold with units on hand plus units on open orders due before the shelf would empty. Without that, the alert fires again the day after the buyer orders. When the delivery arrives, the app moves those units from on order to on hand, and the item's alert resets.\"}, {\"q\": \"What should a low stock alert message include?\", \"a\": \"Enough to act without opening another screen: the item, the count, the threshold, days of cover, the supplier, and one button such as Mark ordered. Leave out anything the owner would not use to decide. Emergent builds the alert and a live dashboard of open alerts from a plain-English prompt, and a new prompt changes any of them.\"}, {\"q\": \"How do I know if my low stock alert thresholds are too high or too low?\", \"a\": \"Count two things each month: stockouts that happened even though an alert fired, and alerts that sat more than 2 weeks before anyone ordered. The first group needs higher thresholds; the second, lower ones. Then ask each alert owner to rate the timing on a short <a href='https://emergent.sh/ai-survey-and-quiz-builder/likert-questionnaire'>likert questionnaire</a>, from far too early to far too late.\"}]}; </script></div></div>",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Low Stock Alert Questions, Answered\", \"items\": [{\"q\": \"What is low stock alert?\", \"a\": \"A low stock alert tells you when an item's on-hand quantity falls to or below the safety stock level you set, giving you time to reorder before you run out. The useful part is who receives it: one person who can act on that item that day.\"}, {\"q\": \"How do I set up low stock alert?\", \"a\": \"Describe the rule in a prompt to Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>: the item and its threshold, plus the person who hears about it. Emergent builds the app and its logic from that description. Link your point of sale or online store through its API, and switch the alert on once a replay of last month matches what you saw on the shelf.\"}, {\"q\": \"Should a low stock alert fire again on every sale below the threshold?\", \"a\": \"No. Have it fire once when the count crosses the threshold, then stay quiet until someone marks the item ordered or a delivery lifts the count back above the line. An alert that repeats on every sale buries the one that mattered.\"}, {\"q\": \"Can a low stock alert send a reorder request to the supplier?\", \"a\": \"Yes, but keep a person between the alert and the supplier. The app can draft the request with the item and a suggested quantity, and the buyer approves it before anything goes out. That approve-before-send step is the same one <a href='https://emergent.sh/ai-automation-builder/proposal'>proposal automation</a> puts in front of a quote.\"}, {\"q\": \"Which items need an instant low stock alert instead of a daily summary?\", \"a\": \"Items that sell out within their supplier's lead time, and items a regular customer comes in for by name. Everything else can wait for one summary email at the start of the day. One list at 8:00 a.m. is easier to work through than 30 pings spread across a shift.\"}, {\"q\": \"Should each store location get its own low stock alert threshold?\", \"a\": \"Yes. Base each store's number on that store's own sales, since two stores can sell the same item at different speeds. Give the warehouse a separate threshold too, set by supplier lead time, not shelf space. In an app built on Emergent, the counts for every location live in a database you own.\"}, {\"q\": \"Who should receive low stock alerts at a business with several stores?\", \"a\": \"The person who can fix the shortage that day: the buyer for items that need a new order, the store manager for items another location can transfer. Name one person per item, plus a backup for vacations. If store managers start ignoring alerts, add a question about them to your next <a href='https://emergent.sh/ai-survey-and-quiz-builder/leadership'>leadership survey</a> and ask which ones they act on.\"}, {\"q\": \"How can a low stock alert account for stock that is already on order?\", \"a\": \"Compare the threshold with units on hand plus units on open orders due before the shelf would empty. Without that, the alert fires again the day after the buyer orders. When the delivery arrives, the app moves those units from on order to on hand, and the item's alert resets.\"}, {\"q\": \"What should a low stock alert message include?\", \"a\": \"Enough to act without opening another screen: the item, the count, the threshold, days of cover, the supplier, and one button such as Mark ordered. Leave out anything the owner would not use to decide. Emergent builds the alert and a live dashboard of open alerts from a plain-English prompt, and a new prompt changes any of them.\"}, {\"q\": \"How do I know if my low stock alert thresholds are too high or too low?\", \"a\": \"Count two things each month: stockouts that happened even though an alert fired, and alerts that sat more than 2 weeks before anyone ordered. The first group needs higher thresholds; the second, lower ones. Then ask each alert owner to rate the timing on a short <a href='https://emergent.sh/ai-survey-and-quiz-builder/likert-questionnaire'>likert questionnaire</a>, from far too early to far too late.\"}]}; </script></div></div>",
   "learn": null,
   "tutorials": null,
   "case_study": null,
@@ -155,6 +155,13 @@
    "via": "api-publish",
    "by": null,
    "note": "live page verified"
+  },
+  {
+   "t": "2026-10-23 14:40 UTC",
+   "state": "spec",
+   "via": "slug-migration",
+   "by": "slug_migrate",
+   "note": "4 child link(s) rewritten (DECISIONS 2026-10-23); stamps current before were restamped"
   }
  ],
  "pipeline": "r15",
@@ -202,7 +209,7 @@
    "n": 4,
    "a": "Yes, but keep a person between the alert and the supplier. The app can draft the request with the item and a suggested quantity, and the buyer approves it before anything goes out. That approve-before-send step is the same one proposal automation puts in front of a quote.",
    "link": {
-    "url": "https://emergent.sh/ai-automation-builder/proposal-automation",
+    "url": "https://emergent.sh/ai-automation-builder/proposal",
     "anchor": "proposal automation"
    }
   },
@@ -237,7 +244,7 @@
    "n": 7,
    "a": "The person who can fix the shortage that day: the buyer for items that need a new order, the store manager for items another location can transfer. Name one person per item, plus a backup for vacations. If store managers start ignoring alerts, add a question about them to your next leadership survey and ask which ones they act on.",
    "link": {
-    "url": "https://emergent.sh/ai-survey-and-quiz-builder/leadership-survey",
+    "url": "https://emergent.sh/ai-survey-and-quiz-builder/leadership",
     "anchor": "leadership survey"
    }
   },
@@ -1069,7 +1076,7 @@
    "breadcrumb": "850894dbda06bdff",
    "chip_adds": "7a57e03c8b349bb3",
    "explore_cta": "ad9cbbd7decd308d",
-   "faq": "c1717e91b8648230",
+   "faq": "1751798d5c78de5a",
    "feature_1": "b756a95a688cde95",
    "feature_2": "2bba06b16fb3c65a",
    "feature_3": "aadde00e53f8c528",
@@ -1119,7 +1126,7 @@
    "why_table": "f3261a7513a4d087",
    "why_title": "9083489642a8913b"
   },
-  "all": "a56e00929622992d",
+  "all": "e8171fc8d7d3dd64",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  },
  "lock_hash": {
@@ -1134,7 +1141,7 @@
    "breadcrumb": "850894dbda06bdff",
    "chip_adds": "7a57e03c8b349bb3",
    "explore_cta": "ad9cbbd7decd308d",
-   "faq": "c1717e91b8648230",
+   "faq": "1751798d5c78de5a",
    "feature_1": "b756a95a688cde95",
    "feature_2": "2bba06b16fb3c65a",
    "feature_3": "aadde00e53f8c528",
@@ -1184,11 +1191,11 @@
    "why_table": "f3261a7513a4d087",
    "why_title": "9083489642a8913b"
   },
-  "all": "a56e00929622992d",
+  "all": "e8171fc8d7d3dd64",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  },
  "approval": {
-  "fingerprint": "4dad0a0031f643cbcd4639f82cd7f8045c52f2159d231f716438d7d826189c6c",
+  "fingerprint": "82e5562322a573fa8cbb3103b78bafc343c68dd5b6e7546606c0310ab4a2449d",
   "date": "2026-10-21 06:15 UTC",
   "rules_version": "41519b1f99fa",
   "by": "standing-go (Divit 2026-10-21)"

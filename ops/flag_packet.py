@@ -78,7 +78,7 @@ def cmd_build(a):
         mixed = st in P.MIXED_SUBTYPES
         for f in (fs if mixed else fs[:3]):
             md.append(f"- `{f[4]}` ({f[1].rsplit('/', 1)[1]}, {f[2]}) {f[3]}")
-            if mixed: rows.append({"kind": "question", "subtype": st, "page": f[1].rsplit("/", 1)[1], "id": f[4], "source": f[2], "text": f[3], "decision": ""})
+            if mixed: rows.append({"kind": "question", "subtype": st, "page": __import__("slugs").store_key(f[1]), "id": f[4], "source": f[2], "text": f[3], "decision": ""})
         if not mixed and len(fs) > 3: md.append(f"- … {len(fs) - 3} more of the same subtype")
         md.append("")
     os.makedirs(CACHE, exist_ok=True)

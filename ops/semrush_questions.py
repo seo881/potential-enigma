@@ -176,7 +176,7 @@ SENSE_SHIFT = P.r18()["sense_shift_modifiers"]   # rules/paa_patterns.json (ruli
 def keep_reason(url, q, have=()):
     """Why a Semrush question is dropped (or None when it is usable): no_head | drop_class | brand | gate_reject | duplicate."""
     import synonyms as SY, park_rescue as R
-    s = url.rsplit("/", 1)[1]; g = P.Gate(url); nq = P.norm(q)
+    s = P._store_key(url); g = P.Gate(url); nq = P.norm(q)
     heads = [P.phrase_re(g.primary)] + [P.phrase_re(x) for x in (json.load(open(os.path.join(ROOT, "rules", "paa_synonyms.json")))["pages"].get(s) or []) if len(x.split()) >= 2]
     if not any(h.search(nq) for h in heads): return "no_head"
     if SY.drop_class(q): return "drop_class"
@@ -187,7 +187,7 @@ def keep_reason(url, q, have=()):
 
 def derive(url):
     import synonyms as SY, park_rescue as R
-    s = url.rsplit("/", 1)[1]; g = P.Gate(url)
+    s = P._store_key(url); g = P.Gate(url)
     heads = [P.phrase_re(g.primary)] + [P.phrase_re(x) for x in (json.load(open(os.path.join(ROOT, "rules", "paa_synonyms.json")))["pages"].get(s) or []) if len(x.split()) >= 2]
     brands = _brands(url)
     # existing candidates: FAQ items the gate does not reject, passing pull questions, the page's secondaries
@@ -238,7 +238,7 @@ def cmd_report(urls):
     for u in urls:
         ps = phrases(u); units = sum(per[p].get("units", per[p].get("units_est", 0)) for p in ps if p in per); tot += units
         f = quiet(R.feasibility, u)
-        print(f"{u}: calls {sum(p in per for p in ps)}, usable {len(usable(u.rsplit('/', 1)[1]))}, feasibility {f['total']}/10" + (" REACHES 10" if f["feasible"] else "") + f", units est {units}")
+        print(f"{u}: calls {sum(p in per for p in ps)}, usable {len(usable(P._store_key(u)))}, feasibility {f['total']}/10" + (" REACHES 10" if f["feasible"] else "") + f", units est {units}")
     print(f"calls total {len(led)}; units total {sum(c.get('units', c.get('units_est', 0)) for c in led)} (this set {tot})")
 
 if __name__ == "__main__":

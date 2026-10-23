@@ -536,35 +536,99 @@ def cmd_crawl(args):
     for p in list(res)[:15]: print(f"  {p}: {res[p]['links']} link(s), {res[p]['changing']} changing")
 
 
+REPO_FILES = ["status/lp.json", "status/form.json", "status/aab.json", "status/sqb.json", "status/live.json", "status/feasibility.json",
+              "status/synonyms.json", "status/fix_queue.json", "status/swap_short.json", "status/quiz-canary.json", "status/canary-r15.json",
+              "plan/queue-ranked.txt", "plan/additions.json", "plan/overrides.json", "plan/keyword_map.json", "config/typography.json",
+              "ops/heading_lines.mjs", "ops/ship.py"]   # files the code reads today (history files, logs and reports keep the old URLs)
+
+
+def _walk_set(o, fn):
+    if isinstance(o, dict): return {k: _walk_set(v, fn) for k, v in o.items()}
+    if isinstance(o, list): return [_walk_set(v, fn) for v in o]
+    if isinstance(o, str): return fn(o)
+    return o
+
+
 def cmd_repo_rewrite(args):
-    """slug_migrate.py repo-rewrite [--apply]: rewrite the repo to the new slugs. DRY by default (prints what changes; nothing is
-    written). --apply: git mv specs/<dir>/<old>.json -> <new>.json, spec url, every child URL inside specs (FAQ, faq_plan, pending_links),
-    status/<dir>.json page keys, plan/queue-ranked.txt, plan/additions.json, plan/overrides.json, plan/keyword_map.json (git-ignored),
-    images/<dir>/<old> folders. Run ONLY after the CMS migration is live and verified (Divit's go)."""
-    apply = "--apply" in args; mp = _mapping(); ch = Counter(); moves = []
+    """slug_migrate.py repo-rewrite [--apply]: the repo moves to the new slugs (DECISIONS 2026-10-23 one-publish plan, step 1).
+      specs: git mv specs/<dir>/<old>.json -> <new>.json and images/<dir>/<old>/ -> <new>/; url, fields.slug and images[*].path follow;
+        every child URL in every spec string is rewritten (FAQ, faq_plan, pending_links, notes). The text change is mechanical, so a
+        review hash, approval fingerprint or cms_draft fingerprint that was current BEFORE the rewrite is restamped after it (history
+        entry "slug migration"); a stamp that was already stale stays stale.
+      REPO_FILES and rules/*.json: child URLs rewritten. Bare-slug keys (per_page, synonyms, flag_decisions "<slug>:<hash>",
+        private pulls) are NOT renamed: new slugs repeat across hubs, so those stores keep the old slug via slugs.store_key.
+      tests/golden/cases.jsonl: urls rewritten in cases that read the CURRENT spec (cases pinned to a sha keep the historical path).
+    DRY by default."""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G, subprocess, datetime
+    apply = "--apply" in args; mp = _mapping(); ch = Counter(); moves = []; restamp = Counter()
+    fn = lambda t: rewrite_links(t, mp)[0]
+    now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     for hub, h in hubs().items():
         d, path = h["repo_dir"], h["path"]
         for f in sorted(glob.glob(os.path.join(ROOT, f"specs/{d}/*.json"))):
-            s = open(f).read(); t, n = rewrite_links(s, mp); ch["spec urls+links"] += n
-            sl = os.path.basename(f)[:-5]
-            if (path, sl) in mp:
-                nf = os.path.join(os.path.dirname(f), mp[(path, sl)] + ".json"); moves.append((f, nf))
+            raw = open(f).read(); s = json.loads(raw); sl = os.path.basename(f)[:-5]
+            new = mp.get((path, sl)); n_links = rewrite_links(raw, mp)[1]
+            if not new and not n_links: continue
+            rc0 = G.review_changed(s) == [] if s.get("review_hash") else None
+            fp0 = G.fingerprint(s)
+            ap0 = (s.get("approval") or {}).get("fingerprint") == fp0
+            cd0 = (s.get("cms_draft") or {}).get("fingerprint") == fp0
+            lk0 = bool(s.get("lock_hash")) and (G.review_changed(dict(s, review_hash=s["lock_hash"])) or []) == []   # review lock (ruling 10 B2)
+            s2 = _walk_set(s, fn)
+            if new:
+                s2["url"] = f"{path}/{new}"
+                if (s2.get("fields") or {}).get("slug") == sl: s2["fields"]["slug"] = new
+                for im in (s2.get("images") or {}).values():
+                    if isinstance(im, dict) and (im.get("path") or "").startswith(f"images/{d}/{sl}/"): im["path"] = f"images/{d}/{new}/" + im["path"][len(f"images/{d}/{sl}/"):]
+                nf = os.path.join(os.path.dirname(f), new + ".json")
                 if os.path.exists(nf): sys.exit(f"refused: {os.path.relpath(nf, ROOT)} exists")
-            if apply and n: open(f, "w").write(t)
-        img = os.path.join(ROOT, "images", d)
-        for (p, o), n_ in mp.items():
-            if p == path and os.path.isdir(os.path.join(img, o)): moves.append((os.path.join(img, o), os.path.join(img, n_)))
-    for rel in ["status/lp.json", "status/form.json", "status/aab.json", "status/sqb.json", "status/live.json", "plan/queue-ranked.txt",
-                "plan/additions.json", "plan/overrides.json", "plan/keyword_map.json"]:
+                moves.append((f, nf))
+                if os.path.isdir(os.path.join(ROOT, "images", d, sl)): moves.append((os.path.join(ROOT, "images", d, sl), os.path.join(ROOT, "images", d, new)))
+            ch["specs touched"] += 1; ch["spec links"] += n_links
+            if apply:
+                tgt = f
+                if new:
+                    subprocess.run(["git", "mv", os.path.relpath(f, ROOT), os.path.relpath(nf, ROOT)], cwd=ROOT, check=True); tgt = nf
+                    imd = os.path.join(ROOT, "images", d, sl)
+                    if os.path.isdir(imd): subprocess.run(["git", "mv", os.path.relpath(imd, ROOT), os.path.join("images", d, new)], cwd=ROOT, check=True)
+                fp1 = G.fingerprint(s2)
+                if rc0: s2["review_hash"] = G.review_hash(s2); restamp["review_hash"] += 1
+                if lk0: s2["lock_hash"] = G.review_hash(s2); restamp["lock_hash"] += 1
+                if ap0 and s2.get("approval"): s2["approval"]["fingerprint"] = fp1; restamp["approval"] += 1
+                if cd0 and s2.get("cms_draft"): s2["cms_draft"]["fingerprint"] = fp1; restamp["cms_draft"] += 1
+                s2.setdefault("history", []).append({"t": now, "state": s2.get("status"), "via": "slug-migration", "by": "slug_migrate",
+                                                     "note": (f"slug {sl} -> {new}; " if new else "") + f"{n_links} child link(s) rewritten (DECISIONS 2026-10-23); stamps current before were restamped"})
+                json.dump(s2, open(tgt, "w"), indent=1, ensure_ascii=False)
+    files = REPO_FILES + sorted(os.path.relpath(p, ROOT) for p in glob.glob(os.path.join(ROOT, "rules", "*.json")))
+    for rel in files:
         fp = os.path.join(ROOT, rel)
         if not os.path.exists(fp): continue
-        t, n = rewrite_links(open(fp).read(), mp); ch[rel] += n
-        if apply and n: open(fp, "w").write(t)
+        t, n = rewrite_links(open(fp).read(), mp)
+        if n:
+            ch[rel] += n
+            if apply:
+                if rel.endswith(".json"): json.loads(t)
+                open(fp, "w").write(t)
+    # the git-ignored live SERP pull is COPIED to the new slug (the old file stays for the other clone and history)
+    import shutil
+    for (p, o), n in mp.items():
+        d = next(h["repo_dir"] for h in hubs().values() if h["path"] == p)
+        for src in glob.glob(os.path.join(ROOT, "private", "serp", d, o + ".json")):   # serp is per hub dir and read by URL; the bare-slug
+            # stores (alsoasked, verdicts, Semrush derived, rules per_page/synonyms/flag_decisions) keep the old key: slugs.store_key
+            dst = os.path.join(os.path.dirname(src), n + os.path.basename(src)[len(o):])
+            if not os.path.exists(dst):
+                ch["private pulls copied"] += 1
+                if apply: shutil.copy2(src, dst)
+    gc = os.path.join(ROOT, "tests", "golden", "cases.jsonl"); out = []; ng = 0
+    for line in open(gc):
+        if not line.strip(): out.append(line); continue
+        c = json.loads(line)
+        if c.get("sha") or c.get("kind") in ("slug-rule", "slug-for"): out.append(line); continue
+        t, n = rewrite_links(line, mp); ng += n; out.append(t)
+    ch["golden case links"] = ng
+    if apply: open(gc, "w").write("".join(out))
     ch["moves (specs + image folders)"] = len(moves)
-    if apply:
-        import subprocess
-        for a, b in moves: subprocess.run(["git", "mv", os.path.relpath(a, ROOT), os.path.relpath(b, ROOT)], cwd=ROOT, check=True)
-    print(("APPLIED" if apply else "DRY RUN (nothing written)") + ": " + json.dumps(dict(ch)))
+    print(("APPLIED" if apply else "DRY RUN (nothing written)") + ": " + json.dumps(dict(ch)) + ("; restamped " + json.dumps(dict(restamp)) if apply else ""))
 
 
 def cmd_plan_regen(args):

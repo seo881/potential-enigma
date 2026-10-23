@@ -35,7 +35,7 @@ def page_metrics(slug, suffix):
     return {"on": len(on), "replace": len(v["items"]) - len(on), "park": len(on) < P.MIN_ON_TOPIC, "pa7": pa7, "rej": rej, "flags": v["counts"]["flag"]}
 
 def risk(s):
-    slug = s["url"].rsplit("/", 1)[1]; prim = (s.get("keywords") or {}).get("primary", "")
+    slug = P._store_key(s["url"]); prim = (s.get("keywords") or {}).get("primary", "")
     text = " ".join(v for v in (s.get("fields") or {}).values() if isinstance(v, str))
     tags = []
     if slug in LEGAL_MEDICAL or any(re.search(r"\b" + w + r"\b", prim) for w in LM_WORDS): tags.append("legal/medical")
@@ -50,9 +50,9 @@ def risk(s):
 def main():
     st = G.all_status()
     pages = [s for s in G.all_specs() if s.get("status") != "live-draft" and st.get(s["url"], {}).get("state") in WRITTEN
-             and os.path.exists(P.pull_path(s["url"].rsplit("/", 1)[1]))]
+             and os.path.exists(P.pull_path(P._store_key(s["url"])))]
     unpulled = [s["url"] for s in G.all_specs() if s.get("status") != "live-draft" and st.get(s["url"], {}).get("state") in WRITTEN
-                and not os.path.exists(P.pull_path(s["url"].rsplit("/", 1)[1]))]
+                and not os.path.exists(P.pull_path(P._store_key(s["url"])))]
     print(f"{len(pages)} pulled written pages; {len(unpulled)} written pages without a pull", flush=True)
     errs = []
     for s in pages:
@@ -69,7 +69,7 @@ def main():
     rows = []
     for s in G.all_specs():
         if s["url"] not in {p["url"] for p in pages}: continue
-        slug = s["url"].rsplit("/", 1)[1]; a, b = page_metrics(slug, ".faq"), page_metrics(slug, ".faq.cand")
+        slug = P._store_key(s["url"]); a, b = page_metrics(slug, ".faq"), page_metrics(slug, ".faq.cand")
         pull = json.load(open(os.path.join(VD, slug + ".json")))["counts"]
         rows.append({"hub": P.hub_of(s["url"])[0], "url": s["url"], "state": st[s["url"]]["state"],
                      "pull_pass": pull["pass"], "pull_reject": pull["reject"], "pull_flag": pull["flag"],

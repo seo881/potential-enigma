@@ -69,11 +69,22 @@ def parse_secs(s):
         if m: out.append({"kw": m.group(1).strip(), "msv": int(m.group(2))})
     return out
 
+def _slug_moves():
+    """old URL -> new URL from the slug migration (DECISIONS 2026-10-23 PERMANENT SLUG RULE): the workbook still carries the old
+    slugs, so every rebuilt map uses the migrated URL (plan/slug-migration.json + private/migration/slug-migration-kmap.json)."""
+    out = {}
+    for f in ("plan/slug-migration.json", "private/migration/slug-migration-kmap.json"):
+        if os.path.exists(f):
+            for e in json.load(open(f))["pages"]:
+                if e["new_slug"] != e["old_slug"] and e.get("decision") != "collision": out[f"{HUB_PATH[e['hub']]}/{e['old_slug']}"] = f"{HUB_PATH[e['hub']]}/{e['new_slug']}"
+    return out
+SLUG_MOVES = _slug_moves()
+
 def norm_url(u):
     u = str(u)
     for hub, sp in SHEET_PATH.items():
         if u.startswith(sp + "/"): u = HUB_PATH[hub] + u[len(sp):]
-    return u
+    return SLUG_MOVES.get(u, u)
 
 fin = pd.read_excel(SRC, "Final - all hubs", header=3)
 bp = pd.read_excel(SRC, "Build plan", header=3)

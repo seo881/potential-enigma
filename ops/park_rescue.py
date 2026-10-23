@@ -173,7 +173,7 @@ def feasibility(url, extra=(), draft=True):
     return {"faq": 0, "pull": k["alsoasked"], "sec": sum(1 for sl in wr if sl.get("secondary")), "sq": sum(1 for sl in wr if sl.get("hint")),
             "written": len(wr), "recoverable": 0, "slots": k["definition"],
             "flagged": sum(1 for sl in plan if sl.get("flagged")), "total": total, "feasible": total >= P.N_FAQ,
-            "pulls": len(P.pulls(url.rsplit("/", 1)[1])), "spec_faq": False}
+            "pulls": len(P.pulls(P._store_key(url))), "spec_faq": False}
 
 def _feasibility_draft(url, extra=()):
     """A page that already has a FAQ draft (rework, --adopt): its count before ruling 18 (ruling 10 B1). Ruling 10 B1 (Divit 2026-10-13): can this page reach 10 FAQ items with 0 rejects after its one pull? Counts a6_count

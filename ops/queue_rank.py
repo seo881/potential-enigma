@@ -23,8 +23,7 @@ OUT = os.path.join(ROOT, "plan", "queue-ranked.txt")
 ORDER = {"ready": 0, "syn-pending": 1, "no-pull": 2, "short": 3}
 # 2026-10-14 05:10 IST (A-coord): --release-parked released these although they were parked for intent mismatch, a rule conflict or a
 # library gap, not FAQ supply. Kept out of the claim order until Divit rules (10:00 report); their park notes are in git (status/*.json at 621731fc).
-NOT_RELEASED = {"grant-application-form", "loan-application-form", "jurat-form", "non-compete-form", "pledge-form", "change-request-form",
-                "body-type-quiz", "fun-quiz", "product-survey", "survey-questionnaire", "user-experience-survey"}
+NOT_RELEASED = {"body-type", "body-type-quiz", "change-request", "change-request-form", "fun", "fun-quiz", "grant-application", "grant-application-form", "jurat", "jurat-form", "loan-application", "loan-application-form", "non-compete", "non-compete-form", "pledge", "pledge-form", "product", "product-survey", "questionnaire", "survey-questionnaire", "user-experience", "user-experience-survey"}   # old and migrated slugs (DECISIONS 2026-10-23)
 
 def quiet(f, *a):
     with contextlib.redirect_stdout(io.StringIO()): return f(*a)
@@ -44,7 +43,7 @@ def rows():
     for p in W.queued():
         if p["url"].rsplit("/", 1)[1] in NOT_RELEASED: continue
         c, f = classify(p["url"], syn)
-        quiz = int("quiz" in p["url"].rsplit("/", 1)[1])   # quiz pages stay last (DECISIONS 2026-10-14): non-quiz rows first inside each class
+        quiz = int("quiz" in p["url"].rsplit("/", 1)[1] or "quiz" in (p.get("primary") or "").lower().split())   # quiz pages stay last (DECISIONS 2026-10-14): non-quiz rows first inside each class
         out.append((ORDER[c], quiz, -(f or 0) if c == "short" else 0, -(p.get("total_msv") or 0), p["hub"], p["url"], c, f))
     return sorted(out)
 

@@ -121,21 +121,21 @@ def queued_under_10():
     import pull_wave as W
     out = []
     for p in W.queued():
-        if not P.pulls(p["url"].rsplit("/", 1)[1]): continue
+        if not P.pulls(P._store_key(p["url"])): continue
         f = quiet(R.feasibility, p["url"])
         if not f["feasible"]: out.append(p["url"])
     return out
 
 def cmd_sheet(a):
     n = int(a[0]); st = load_status()
-    urls = a[a.index("--pages") + 1].split(",") if "--pages" in a else [u for u in queued_under_10() if u.rsplit("/", 1)[1] not in st["pages"]][:50]
+    urls = a[a.index("--pages") + 1].split(",") if "--pages" in a else [u for u in queued_under_10() if P._store_key(u) not in st["pages"]][:50]
     md = [f"# PA3 synonym candidates, tranche {n} ({today()}; Divit ruling 12)", "",
           "For Divit's read. NOT applied until you fill the decision sheet: `.cache/review/pa3-tranche-%d.csv` (phrase rows: yes or no; question rows: x strikes that question). Git-ignored: contains AlsoAsked question text." % n,
           "Every listed question passes every other gate rule with the phrase on. Questions marked (also P1) are admitted by both phrases.",
           "Candidates are multi-word variants of the page's head phrase only. Political, YMYL-advice, salary and competitor-listicle questions are pre-struck (counted, not shown).", ""]
     rows_csv = []
     for u in urls:
-        s = u.rsplit("/", 1)[1]; hub = H.hub_of(u)
+        s = P._store_key(u); hub = H.hub_of(u)
         now_f = quiet(R.feasibility, u)
         t2 = top2(candidates(u)) if P.pulls(s) else []
         with_f = quiet(R.feasibility, u, tuple(p for p, _, _ in t2)) if t2 else now_f
