@@ -445,6 +445,7 @@ def flatten(d):
     for q in r.get("queries") or []: walk(q.get("results"), 1, None, q.get("term"), q.get("language_fallback") or q.get("region_fallback"))
     return out
 
+def self_bl_pa12(g): return (getattr(g, 'bl', {}) or {}).get('pa12_waiver', {})
 MIN_IDEAS = 4   # PA12 for pages without Semrush secondaries (Divit 2026-10-13, ruling 5)
 _WB_IDEAS = None
 def workbook_ideas(url):
@@ -622,7 +623,7 @@ def run_spec(g):
     if g.workbook_secs:
         wb = [content(k) for k in g.workbook_secs]
         sec = sum(i["source"] == "secondary" or any(k and k <= content(i["q"]) for k in wb) for i in items)   # "secondary" labels: QC F2 checks them
-        need = min(MIN_SECONDARIES, len(wb))
+        need = min(MIN_SECONDARIES, len(wb), int(self_bl_pa12(g).get(norm(g.primary), MIN_SECONDARIES)))   # Divit 2026-10-23: per-page PA12 waiver (rules/paa_blocklist.json pa12_waiver)
         if sec < need: page.append(("PA12", f"{sec} items carrying a workbook secondary, under {need}"))
     else:
         ideas = [k for k in workbook_ideas(g.url) if any(h.search(norm(k)) for h in g.heads) or g.pa3_widened(norm(k))]
