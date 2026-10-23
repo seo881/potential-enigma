@@ -56,3 +56,10 @@ The first command reads the collection back and diffs every sent field itself. T
    - the sitemap lists the new URL.
 
 The same row is in `reports/2026-10-23/canary-redirect.csv`.
+
+## Staged (2026-10-23 14:10 UTC, B-c-1 on Divit's go)
+- `api-update ops/out/migration/canary-accident-report-form.json --live --migration`: 2 items updated with the staged PATCH /v2/collections/{id}/items (no publish). Read back clean. Rollback: childedits/2026-10-23/canary-accident-report-form.20261023T141025Z.rollback.json.
+- Staged-vs-live diff after staging (fresh read of all 4 collections: LP 73, Form 131, Auto 76, SurveyQuiz 59): exactly 2 items with unpublished changes, both canary items:
+  - form accident-report (6acf52edf6ceb166b92077bc): slug accident-report-form -> accident-report
+  - form daily-report-form (6ad09f43e35e19e82573e41f): FAQ link to the canary rewritten
+  - Nothing else is pending. The hub pages show no CMS changes; check template and style changes in the Publish dialog.
