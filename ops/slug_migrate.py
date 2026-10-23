@@ -161,6 +161,27 @@ def _find_in_h1(phrase, h1):
     return m.group(0) if m else None
 
 
+# Tightened check (Divit 2026-10-23): words the H1 adds right before or after the keyword inside the same noun phrase
+# ("Wedding RSVP Website", "Custom Thank You Page"). A word after the keyword that opens a clause (That, Around, for ...) or a
+# capitalised clause subject (Clients Sign ...) is not an addition; those were read by hand and listed in H1_CLAUSE_OK.
+H1_CONNECTORS = set("that which who whose whom for to with on in and then your you so where when while from at by into before after "
+                    "without across as or but than every each any all one its their his her our around using".split())
+H1_LEAD = re.compile(r"^\s*build\s+(?:(?:a|an|the|your(?:\s+own)?)\s+)?", re.I)
+H1_ADDS = {"generator", "website", "app", "template", "builder", "maker", "software", "tool", "system", "page", "form", "survey",
+           "quiz", "workflow", "automation", "sheet", "letter", "custom", "free", "online", "simple", "best"}
+
+
+def h1_extra_words(h1, phrase):
+    """[(side, word)] the H1 adds to the keyword phrase in the same noun phrase."""
+    i = (h1 or "").lower().find((phrase or "").lower())
+    if i < 0: return []
+    pre, post = h1[:i], h1[i + len(phrase):]
+    out = [("before", w) for w in H1_LEAD.sub("", pre).split() if w.lower() in H1_ADDS]
+    m = re.match(r"^\s*([A-Za-z0-9'\u2019-]+)", post)
+    if m and not re.match(r"^\s*[,.:;!?)]", post) and m.group(1).lower() in H1_ADDS: out.append(("after", m.group(1)))
+    return out
+
+
 def slugify(phrase):
     return re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", phrase.lower().replace("'", "").replace("’", ""))).strip("-")
 
@@ -220,6 +241,8 @@ def cmd_map(args):
                  "_public": r["origin"] == "webflow" or r.get("public_source", True)}
             if not n: e["flags"].append("empty")
             if prim and _norm(phrase) != _norm(prim): e["flags"].append("h1_vs_primary")
+            if source == "h1":
+                for side, w in h1_extra_words(h1, phrase): e["flags"].append(f"h1_adds_{side}:{w}")
             if n != strip(hub, r["slug"])[0]: e["flags"].append("differs_from_old_stripped")
             rows_all.append(e)
     # collisions: one new slug used twice within a collection
@@ -254,7 +277,8 @@ def cmd_map(args):
     json.dump(col, open(os.path.join(PRIV, "collisions.json"), "w"), indent=1)
     print(json.dumps(doc["totals"], indent=1))
     print("rows:", len(rows_all), "(public", len(public), "+ keyword-map-only", len(private), ") collisions:", len(col),
-          "h1_vs_primary:", sum("h1_vs_primary" in e["flags"] for e in rows_all), "->", os.path.relpath(OUT, ROOT))
+          "h1_vs_primary:", sum("h1_vs_primary" in e["flags"] for e in rows_all),
+          "h1_adds:", sum(any(f.startswith("h1_adds") for f in e["flags"]) for e in rows_all), "->", os.path.relpath(OUT, ROOT))
 
 # ---------------------------------------------------------------- links
 LINK = re.compile(r"(?:https?://(?:www\.)?emergent\.sh)?(/ai-(?:landing-page|form|automation|survey-and-quiz)-builder/[a-z0-9-]+)")

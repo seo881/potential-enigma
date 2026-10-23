@@ -69,3 +69,30 @@ No other collection has a collision.
   - **Specs** (non-archived): 1,133 rendered FAQ links and 908 link-plan entries (`faq_plan.link.url`, `pending_links.target`).
   - **Hub pages:** they link only through dynamic collection lists, so they update by themselves.
   - **Not checked:** links from other collections and from pages outside the 4 hubs.
+
+## Tightened check (step A): the H1 adds words to the keyword. 6 new pages; work stopped here
+
+Method: the H1 noun phrase around the keyword was compared with the primary for all 421 rows whose slug comes from the H1. This catches words added before or after the keyword inside the same noun phrase.
+- `ops/slug_migrate.py map` sets the flag `h1_adds_*`.
+- 49 H1s had some word after the keyword. Each was read by hand: in the other 43, that word opens a clause ("Around Your...", "Clients Sign...", "Driven by..."). That is not an addition.
+- Already ruled, so not counted: startup, hipaa-release, and wedding-rsvp (its H1 is now "Wedding RSVP Form", per the ruling).
+
+The six new pages split by whether the addition changes the slug.
+
+**The addition would change the slug (4):**
+
+| Hub | Page | H1 | Primary | Slug from the primary | Slug from the full H1 phrase |
+|---|---|---|---|---|---|
+| Form | employment-verification-letter | Build an Employment Verification Letter **Generator** for HR | employment verification letter | employment-verification-letter | employment-verification-letter-generator |
+| Form | independent-contractor-agreement | Build an Independent Contractor Agreement **Generator** | independent contractor agreement | independent-contractor-agreement | independent-contractor-agreement-generator |
+| Form | nda-form | Build an NDA Form **Generator** and Signing App | nda form | nda | nda-generator |
+| LP | thank-you-page | Build a **Custom** Thank You Page With One Clear Next Step | thank you page | thank-you-page | custom-thank-you-page |
+
+**The slug is the same either way, because the added word is the category word (2):**
+
+| Hub | Page | H1 | Primary | Slug |
+|---|---|---|---|---|
+| Form | creator-application (draft) | Build a Creator Application **Form** Using AI in Minutes | creator application | creator-application |
+| SurveyQuiz | customer-effort-score | Build a Customer Effort Score **Survey** That Finds the Hard Step | customer effort score | customer-effort-score |
+
+Steps B (staging prep) and C (canary) have not started; they wait on these calls.
