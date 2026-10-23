@@ -129,6 +129,13 @@
    "via": null,
    "by": "B-w-325",
    "note": ""
+  },
+  {
+   "t": "2026-10-23 09:04 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-153",
+   "note": "rubric 10/10 by B-r-153; 3 notes"
   }
  ],
  "pipeline": "r15",
@@ -857,5 +864,245 @@
  ],
  "writers": [
   "B-w-325"
- ]
+ ],
+ "review": {
+  "by": "B-r-153",
+  "date": "2026-10-23 09:04 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a News Landing Page That Leads With What Just Happened' and hero 'puts breaking stories on top and saves every story and reader tip' cover a publication's front page, not one feature or the newsletter sibling."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is front-page design galleries and templates (dribbble, envato, HubSpot best news site design, Freedom Forum front pages); page gives four worked front-page examples (Brindle County Courier, Cold Chain Weekly, Oakridge Lantern, Marlow Bay Gazette), a 7-step how-to and an FAQ on what leads, sections, breaking news and live updates."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Newsroom vocabulary throughout: 'beat page has 214 followers', 'Sports tips go to Tomasz Wielgosz', 'A morning banner still up at 9 p.m. reads as news that never ended'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every body opens on a full sentence: 'Name the sections you publish...', 'An editor flags a story as breaking...', 'During a storm, the Marlow Bay Gazette runs one live updates page...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC TOTAL 0; sentences vary, e.g. 'Keep the front page for news.' beside longer procedural sentences."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain product verbs and unglamorous detail: 'At 2:15 p.m. it read Route 9 bridge closed after a crash', 'delete the test tip from the database'."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to claims_used (prompt-build, database-owned, alerts, realtime, api-connect, custom-domain, code-export, free-start), all in rules/capabilities.json; no third-party statistics or legal facts stated; table generated from the library."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No overlap with newsletter-landing-page: the page is about stories, sections, tips and live updates; beat follows are one tab, never framed as a newsletter list. No press-page sibling exists in the LP plan. Sibling primaries (category landing page, travel landing page, recruiting landing pages) appear only as FAQ links."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic builder questions ('How do I show breaking news on a news landing page?', 'How do readers send news tips through a news landing page?'), answer-first, hub link in item 2, no brands or formats in questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: banner 'Route 9 bridge closed' posted 2:15 p.m. over Local/Schools/Business/Sports showing 3 each; 'Emailed to 214 followers'; tip 'Sunday dining hall hours' to Junia 9:12 p.m.; 'Since 6:00 a.m. 12', 9:40 a.m. Shelter opens at Harbor Street library."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "hero_prompt",
+    "quote": "Build a news landing page that saves every signup to a database I own.",
+    "issue": "The hub-default prompt (ops/skeleton.py LP template, shared by 56 LP specs) centres on signups, which reads as the newsletter-landing-page job; this page's database holds stories and reader tips, as the hero description says ('saves every story and reader tip').",
+    "fix": "Build a news landing page that saves every story and reader tip to a database I own. (Coordinator: consider a per-page override of the LP template.)",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Unbounce | Landingi | Wix",
+    "issue": "QC K7: none of the three competitors ranks in this query's top 10 (galleries and template stores); library has no news-site vendors.",
+    "fix": "Accept; library gap for the coordinator.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "story (20 times outside the FAQ), breaking (12)",
+    "issue": "QC Q9 repetition of 'story' and 'breaking' across features, tabs and how-to.",
+    "fix": "Vary with headline, post, update where literal.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "hero_prompt",
+   "issue": "The hub-default prompt (ops/skeleton.py LP template, shared by 56 LP specs) centres on signups, which reads as the newsletter-landing-page job; this page's database holds stories and reader tips, as the hero description says ('saves every story and reader tip').",
+   "fix": "Build a news landing page that saves every story and reader tip to a database I own. (Coordinator: consider a per-page override of the LP template.)",
+   "by": "B-r-153",
+   "via": "review",
+   "date": "2026-10-23 09:04 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7: none of the three competitors ranks in this query's top 10 (galleries and template stores); library has no news-site vendors.",
+   "fix": "Accept; library gap for the coordinator.",
+   "by": "B-r-153",
+   "via": "review",
+   "date": "2026-10-23 09:04 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "QC Q9 repetition of 'story' and 'breaking' across features, tabs and how-to.",
+   "fix": "Vary with headline, post, update where literal.",
+   "by": "B-r-153",
+   "via": "review",
+   "date": "2026-10-23 09:04 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6d41dc3897a49854",
+   "alt:share_image": "baddf912f548e69b",
+   "alt:tab_image_1": "fa792e04195355ff",
+   "alt:tab_image_2": "dc565cd5a1fbbef3",
+   "alt:tab_image_3": "b2c3ebebfa5fb9bf",
+   "alt:tab_image_4": "2a8be7fe69d8f905",
+   "breadcrumb": "22d06334188c5b48",
+   "chip_adds": "332becb180a6b3c0",
+   "explore_cta": "7699b58aa9318379",
+   "faq": "ce86153743317217",
+   "feature_1": "cc363c6f2036a9d4",
+   "feature_2": "3f38718dabaa3c43",
+   "feature_3": "c6ed5107e84cd631",
+   "feature_4": "7126cdbbb4f50915",
+   "feature_5": "612eeb8c6efa231d",
+   "feature_6": "bca0de0ae00edfe8",
+   "features_heading": "db7c653b568ff886",
+   "features_subheading": "9eac0c81acb212b5",
+   "h1": "aa4f11de7f2d0eb7",
+   "hero_description": "6a3085b424ad8218",
+   "hero_prompt": "827bfc15a97a9295",
+   "howto_description": "e2ca6fe49f3b5de7",
+   "howto_step_1_des": "f7e5de8a331c31af",
+   "howto_step_1_title": "1822d1f8b7332755",
+   "howto_step_2_des": "c74a768355e86e7a",
+   "howto_step_2_title": "3e3e820193898766",
+   "howto_step_3_des": "b3e00f6e0fe04c42",
+   "howto_step_3_title": "a6a87075636fcc93",
+   "howto_step_4_des": "0be4665147431370",
+   "howto_step_4_title": "6abf0b86a509cc0d",
+   "howto_step_5_des": "694ef5d52dcb94a9",
+   "howto_step_5_title": "3ba19b223bb3a884",
+   "howto_step_6_des": "9804c064b0cd37ea",
+   "howto_step_6_title": "939c9c423f0eaf1f",
+   "howto_step_7_des": "a0427adf5545d686",
+   "howto_step_7_title": "dcc7d5e2234a8497",
+   "howto_title": "69d9639e1589c232",
+   "meta_description": "934ee718a3467617",
+   "meta_title": "14e1eac2ad6553da",
+   "mockup": "69cac4f20d29b6c0",
+   "product_name": "cc79c9d6dc83c29d",
+   "prompt_chip_1": "4b46f55bcc82bf32",
+   "prompt_chip_2": "225880d13af89ffc",
+   "prompt_chip_3": "c6f4688e00835c95",
+   "prompt_chip_4": "b80aeb0d0a64bd43",
+   "slug": "17e61acf73c3a536",
+   "tab_content_1": "de9a5e8e64cd0918",
+   "tab_content_2": "75435fa1a2d7e9e6",
+   "tab_content_3": "faecef2a72828b1f",
+   "tab_content_4": "d2806a0ab1848641",
+   "tab_label_1": "1bd47e72f1516387",
+   "tab_label_2": "8011e289b93c7c45",
+   "tab_label_3": "2910e6ff9664810c",
+   "tab_label_4": "6a911e76b2f5ff4b",
+   "usecase_heading": "14353ef95303ca2f",
+   "why_description": "18beb71d1e3e3e25",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "0ad89e2610bb549f"
+  },
+  "all": "523f944586c12ad2",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6d41dc3897a49854",
+   "alt:share_image": "baddf912f548e69b",
+   "alt:tab_image_1": "fa792e04195355ff",
+   "alt:tab_image_2": "dc565cd5a1fbbef3",
+   "alt:tab_image_3": "b2c3ebebfa5fb9bf",
+   "alt:tab_image_4": "2a8be7fe69d8f905",
+   "breadcrumb": "22d06334188c5b48",
+   "chip_adds": "332becb180a6b3c0",
+   "explore_cta": "7699b58aa9318379",
+   "faq": "ce86153743317217",
+   "feature_1": "cc363c6f2036a9d4",
+   "feature_2": "3f38718dabaa3c43",
+   "feature_3": "c6ed5107e84cd631",
+   "feature_4": "7126cdbbb4f50915",
+   "feature_5": "612eeb8c6efa231d",
+   "feature_6": "bca0de0ae00edfe8",
+   "features_heading": "db7c653b568ff886",
+   "features_subheading": "9eac0c81acb212b5",
+   "h1": "aa4f11de7f2d0eb7",
+   "hero_description": "6a3085b424ad8218",
+   "hero_prompt": "827bfc15a97a9295",
+   "howto_description": "e2ca6fe49f3b5de7",
+   "howto_step_1_des": "f7e5de8a331c31af",
+   "howto_step_1_title": "1822d1f8b7332755",
+   "howto_step_2_des": "c74a768355e86e7a",
+   "howto_step_2_title": "3e3e820193898766",
+   "howto_step_3_des": "b3e00f6e0fe04c42",
+   "howto_step_3_title": "a6a87075636fcc93",
+   "howto_step_4_des": "0be4665147431370",
+   "howto_step_4_title": "6abf0b86a509cc0d",
+   "howto_step_5_des": "694ef5d52dcb94a9",
+   "howto_step_5_title": "3ba19b223bb3a884",
+   "howto_step_6_des": "9804c064b0cd37ea",
+   "howto_step_6_title": "939c9c423f0eaf1f",
+   "howto_step_7_des": "a0427adf5545d686",
+   "howto_step_7_title": "dcc7d5e2234a8497",
+   "howto_title": "69d9639e1589c232",
+   "meta_description": "934ee718a3467617",
+   "meta_title": "14e1eac2ad6553da",
+   "mockup": "69cac4f20d29b6c0",
+   "product_name": "cc79c9d6dc83c29d",
+   "prompt_chip_1": "4b46f55bcc82bf32",
+   "prompt_chip_2": "225880d13af89ffc",
+   "prompt_chip_3": "c6f4688e00835c95",
+   "prompt_chip_4": "b80aeb0d0a64bd43",
+   "slug": "17e61acf73c3a536",
+   "tab_content_1": "de9a5e8e64cd0918",
+   "tab_content_2": "75435fa1a2d7e9e6",
+   "tab_content_3": "faecef2a72828b1f",
+   "tab_content_4": "d2806a0ab1848641",
+   "tab_label_1": "1bd47e72f1516387",
+   "tab_label_2": "8011e289b93c7c45",
+   "tab_label_3": "2910e6ff9664810c",
+   "tab_label_4": "6a911e76b2f5ff4b",
+   "usecase_heading": "14353ef95303ca2f",
+   "why_description": "18beb71d1e3e3e25",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "0ad89e2610bb549f"
+  },
+  "all": "523f944586c12ad2",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

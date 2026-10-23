@@ -115,6 +115,20 @@
    "via": null,
    "by": "B-w-334",
    "note": ""
+  },
+  {
+   "t": "2026-10-23 09:06 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-r-155",
+   "note": ""
+  },
+  {
+   "t": "2026-10-23 09:07 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-155",
+   "note": "rubric 10/10 by B-r-155; 3 notes"
   }
  ],
  "pipeline": "r15",
@@ -913,5 +927,245 @@
  ],
  "writers": [
   "B-w-334"
- ]
+ ],
+ "review": {
+  "by": "B-r-155",
+  "date": "2026-10-23 09:07 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Feature Request Form Your Product Team Can Triage'; hero 'files each request under a product area and tells the requester when it ships' covers intake to ship, not one feature."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is templates, a definition and collection advice; page gives the definition (FAQ 1), the fields (FAQ 3 'Start with five: the product area, a short title...'), a 7-step how-to and the triage-to-ship flow none of them show."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Product-team vocabulary throughout: 'Under review, Planned, Merged, Declined, or Shipped', 'contract value', 'release note', 'standup'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Full-sentence openers: 'The requester picks the part of the product...', 'Every Monday at Hollowpine Docs...', 'List the parts of the product that one team owns'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Varied sentence lengths, no tacked-on endings; QC Q5-Q8 clean. 'A merge moves the votes along.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Calm, product-led: 'A workaround that takes an hour a week tells the team more than a vote does.' No hype verbs or summary lines."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "All 3 Atlassian statements match their quoted spans in domain_sources (FAQ 1, 3, 7); HubSpot lookup under api-connect; 'no response caps' under no-caps; numbers 46+1=47, 84,000+126,000=210,000, 5+4+14=23, 31 agree in copy and image checks."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Owns product-area intake, contract value and ship notices; app-feedback-survey (in-app screen surveys) and beta-landing-page (tester signups) do not overlap; suggestion-form overlap is a note below."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions answered first sentence, e.g. 'Merge each one into the original and keep every requester attached.' Hub link in item 2; no brand names in questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 'Similar: Recurring appointments, 46 votes' -> '47 votes'; tab 2 '$84,000 / $126,000 / 3 accounts $210,000'; tab 3 '23', 'Planned 5, Merged 4, Under review 14'; tab 4 'Requested by 31 people', '31 emails sent', 'Email to Wilhelmina Haldane'. One hero, readable."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "That matches Atlassian's advice that well written requests clearly describe the problem, provide context, suggest solutions, and highlight benefits.",
+    "issue": "The quote itself is exact, but 'matches' stretches its scope: the five listed fields cover the problem and context, not suggested solutions or benefits (the page even makes the suggested design optional in step 2).",
+    "fix": "Say the fields follow Atlassian's advice to describe the problem and give context, or add the optional suggested-fix field to the list.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "tab_title_4",
+    "quote": "All 31 dark mode requesters hear it shipped",
+    "issue": "Sibling /ai-form-builder/suggestion-form has tab H3 'All 31 voters hear the answer at once' with the same vote-then-email-everyone story and the same 31; its feature 'Show open requests first so customers can vote on one instead of adding a duplicate' mirrors this page's feature_2. The ideas belong more naturally here, but the two pages read alike in those spots.",
+    "fix": "Change the tab 4 count and heading shape (and image checks) so it does not echo the suggestion-form tab.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "\"product\" appears 19 times outside the FAQ",
+    "issue": "QC Q9 P2: 'product' 19, 'requests' 13, 'account' 12 times; heavy repetition flattens the prose.",
+    "fix": "Vary with 'app', 'idea', 'customer' where meaning holds.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "The quote itself is exact, but 'matches' stretches its scope: the five listed fields cover the problem and context, not suggested solutions or benefits (the page even makes the suggested design optional in step 2).",
+   "fix": "Say the fields follow Atlassian's advice to describe the problem and give context, or add the optional suggested-fix field to the list.",
+   "by": "B-r-155",
+   "via": "review",
+   "date": "2026-10-23 09:07 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "tab_title_4",
+   "issue": "Sibling /ai-form-builder/suggestion-form has tab H3 'All 31 voters hear the answer at once' with the same vote-then-email-everyone story and the same 31; its feature 'Show open requests first so customers can vote on one instead of adding a duplicate' mirrors this page's feature_2. The ideas belong more naturally here, but the two pages read alike in those spots.",
+   "fix": "Change the tab 4 count and heading shape (and image checks) so it does not echo the suggestion-form tab.",
+   "by": "B-r-155",
+   "via": "review",
+   "date": "2026-10-23 09:07 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "QC Q9 P2: 'product' 19, 'requests' 13, 'account' 12 times; heavy repetition flattens the prose.",
+   "fix": "Vary with 'app', 'idea', 'customer' where meaning holds.",
+   "by": "B-r-155",
+   "via": "review",
+   "date": "2026-10-23 09:07 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "06c344dbd4631fec",
+   "alt:share_image": "750f7cf415de57af",
+   "alt:tab_image_1": "e68f639e0bc44066",
+   "alt:tab_image_2": "bcc4bde1593277b4",
+   "alt:tab_image_3": "96313edfa1230d1e",
+   "alt:tab_image_4": "b5e582a6da1c2bd1",
+   "breadcrumb": "007af9ed92e415c2",
+   "chip_adds": "870c5ad318eac088",
+   "explore_cta": "32ed8476455c84fe",
+   "faq": "5e8e577f06234e3a",
+   "feature_1": "2c3ff7223b724156",
+   "feature_2": "99d384b7fdb3a58f",
+   "feature_3": "de3f68abf6b54316",
+   "feature_4": "ad2433c221e93d7d",
+   "feature_5": "f4c3b046e57bccc5",
+   "feature_6": "dc7486648f6f9175",
+   "features_heading": "850291f8f624bc95",
+   "features_subheading": "05756d15a5a4fd81",
+   "h1": "04e9a04cbd6cc69e",
+   "hero_description": "3c9396846600ded8",
+   "hero_prompt": "cff24319526f9143",
+   "howto_description": "0e0732bc89defa2d",
+   "howto_step_1_des": "c90e6d3b840fdea2",
+   "howto_step_1_title": "8668742fcf46fcda",
+   "howto_step_2_des": "608801572496b3d1",
+   "howto_step_2_title": "d0bdfe8e42cfcf60",
+   "howto_step_3_des": "c82d9dcc53457bd6",
+   "howto_step_3_title": "6e933bb923d4b048",
+   "howto_step_4_des": "10b9e5c969179e3b",
+   "howto_step_4_title": "61b0dda98fa31ddf",
+   "howto_step_5_des": "e09e6298b69cff2b",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "ef27e1b7a750bb44",
+   "howto_step_6_title": "e7be1307c6547f82",
+   "howto_step_7_des": "904471174a42d6a9",
+   "howto_step_7_title": "ce69151247193451",
+   "howto_title": "0a914a5807365049",
+   "meta_description": "cef03dac0fc21bfd",
+   "meta_title": "c83ce5209708c972",
+   "mockup": "ad95d0f70eb4e19c",
+   "product_name": "f59c2cec95340b24",
+   "prompt_chip_1": "aca36360ce36a737",
+   "prompt_chip_2": "3ee014df60807424",
+   "prompt_chip_3": "bcb1837af2e118fb",
+   "prompt_chip_4": "7d62340d20f49a16",
+   "slug": "046f284968dbff8c",
+   "tab_content_1": "433830efbebe5874",
+   "tab_content_2": "de05c3fc789fc685",
+   "tab_content_3": "6222a5ca82e70027",
+   "tab_content_4": "609e8f6e4b8fe16d",
+   "tab_label_1": "63f85c3677ad7089",
+   "tab_label_2": "7bde47774b6ec78f",
+   "tab_label_3": "f88e135c8d3cbbc7",
+   "tab_label_4": "7d62340d20f49a16",
+   "usecase_heading": "30a1f558207857dc",
+   "why_description": "5f0df4ce339dedb5",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "19b537a59c76f923"
+  },
+  "all": "af23690fe0d77378",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "06c344dbd4631fec",
+   "alt:share_image": "750f7cf415de57af",
+   "alt:tab_image_1": "e68f639e0bc44066",
+   "alt:tab_image_2": "bcc4bde1593277b4",
+   "alt:tab_image_3": "96313edfa1230d1e",
+   "alt:tab_image_4": "b5e582a6da1c2bd1",
+   "breadcrumb": "007af9ed92e415c2",
+   "chip_adds": "870c5ad318eac088",
+   "explore_cta": "32ed8476455c84fe",
+   "faq": "5e8e577f06234e3a",
+   "feature_1": "2c3ff7223b724156",
+   "feature_2": "99d384b7fdb3a58f",
+   "feature_3": "de3f68abf6b54316",
+   "feature_4": "ad2433c221e93d7d",
+   "feature_5": "f4c3b046e57bccc5",
+   "feature_6": "dc7486648f6f9175",
+   "features_heading": "850291f8f624bc95",
+   "features_subheading": "05756d15a5a4fd81",
+   "h1": "04e9a04cbd6cc69e",
+   "hero_description": "3c9396846600ded8",
+   "hero_prompt": "cff24319526f9143",
+   "howto_description": "0e0732bc89defa2d",
+   "howto_step_1_des": "c90e6d3b840fdea2",
+   "howto_step_1_title": "8668742fcf46fcda",
+   "howto_step_2_des": "608801572496b3d1",
+   "howto_step_2_title": "d0bdfe8e42cfcf60",
+   "howto_step_3_des": "c82d9dcc53457bd6",
+   "howto_step_3_title": "6e933bb923d4b048",
+   "howto_step_4_des": "10b9e5c969179e3b",
+   "howto_step_4_title": "61b0dda98fa31ddf",
+   "howto_step_5_des": "e09e6298b69cff2b",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "ef27e1b7a750bb44",
+   "howto_step_6_title": "e7be1307c6547f82",
+   "howto_step_7_des": "904471174a42d6a9",
+   "howto_step_7_title": "ce69151247193451",
+   "howto_title": "0a914a5807365049",
+   "meta_description": "cef03dac0fc21bfd",
+   "meta_title": "c83ce5209708c972",
+   "mockup": "ad95d0f70eb4e19c",
+   "product_name": "f59c2cec95340b24",
+   "prompt_chip_1": "aca36360ce36a737",
+   "prompt_chip_2": "3ee014df60807424",
+   "prompt_chip_3": "bcb1837af2e118fb",
+   "prompt_chip_4": "7d62340d20f49a16",
+   "slug": "046f284968dbff8c",
+   "tab_content_1": "433830efbebe5874",
+   "tab_content_2": "de05c3fc789fc685",
+   "tab_content_3": "6222a5ca82e70027",
+   "tab_content_4": "609e8f6e4b8fe16d",
+   "tab_label_1": "63f85c3677ad7089",
+   "tab_label_2": "7bde47774b6ec78f",
+   "tab_label_3": "f88e135c8d3cbbc7",
+   "tab_label_4": "7d62340d20f49a16",
+   "usecase_heading": "30a1f558207857dc",
+   "why_description": "5f0df4ce339dedb5",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "19b537a59c76f923"
+  },
+  "all": "af23690fe0d77378",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
