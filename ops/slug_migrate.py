@@ -6,10 +6,13 @@ A child slug is ONLY the page's own name: the hub's category word never appears 
   slug_migrate.py inventory [--readback-dir .cache/readback]
       newest full `hubctl api-read <HUB>` per hub (run those first) + specs/, status/<dir>.json, plan/queue-ranked.txt,
       plan/keyword_map.json, plan/additions.json -> private/migration/inventory.json (git-ignored) and a count summary.
-  slug_migrate.py map [--no-fetch]
-      strips the category word (hyphen-bounded, anywhere) and checks every new slug -> plan/slug-migration.json
-      (Webflow items + pages named in tracked repo files). Pages known only from the keyword map (git-ignored) go to
-      private/migration/slug-migration-kmap.json. The sitemap is cached in .cache/migration/.
+  slug_migrate.py map
+      slug = the primary keyword as it appears in the page's H1 (skeleton.h1_phrase_for, found in spec fields.h1 or the CMS name;
+      the primary itself when there is no H1 yet, source marked), ONLY the category word removed, lowercased, hyphenated.
+      Flags: collision (a new slug used twice in a collection), h1_vs_primary. -> plan/slug-migration.json (Webflow items + pages
+      named in tracked repo files); keyword-map-only pages, and collisions with MSV, go to private/migration/ (git-ignored).
+  slug_migrate.py sample [N] [--seed S]
+      N random rows (old, H1, new) from plan/slug-migration.json.
   slug_migrate.py links
       counts hard-coded internal links to child pages in specs/ (non-archived) and in the newest CMS read.
 """
@@ -22,26 +25,14 @@ PRIV = os.path.join(ROOT, "private/migration")
 CACHE = os.path.join(ROOT, ".cache/migration")
 OUT = os.path.join(ROOT, "plan/slug-migration.json")
 
-# Category words per hub, as hyphen-token sequences, longest first. "strip" = the rule; "variant" = similar words that
-# are flagged for Divit, never stripped automatically.
+# Category words per hub (Divit 2026-10-23), as hyphen-token sequences, longest first; plural forms are the same word.
+# Nothing else is ever removed or added (workflow, page, questionnaire, sheet, template, automated, questions all stay).
 CATEGORY = {
-    "LP":         {"strip": [["landing", "pages"], ["landing", "page"]], "variant": [["page"], ["pages"]]},
-    "Form":       {"strip": [["forms"], ["form"]], "variant": []},
-    "Auto":       {"strip": [["automations"], ["automation"]], "variant": [["automated"], ["workflow"], ["workflows"]]},
-    "SurveyQuiz": {"strip": [["survey", "questions"], ["surveys"], ["survey"], ["quizzes"], ["quiz"]],
-                   "variant": [["questionnaire"], ["questions"], ["poll"], ["polls"]]},
+    "LP":         {"strip": [["landing", "pages"], ["landing", "page"]]},
+    "Form":       {"strip": [["forms"], ["form"]]},
+    "Auto":       {"strip": [["automations"], ["automation"]]},
+    "SurveyQuiz": {"strip": [["surveys"], ["survey"], ["quizzes"], ["quiz"]]},
 }
-RESERVED = {"index", "page", "new", "edit", "admin", "login", "logout", "signin", "signup", "search", "404", "draft", "preview",
-            "home", "sitemap", "robots", "feed", "rss"}
-# bare results that read as site UI, a pronoun, a number or a different thing (Divit's examples first)
-# Single function or industry words (feedback, payment, sales, video) are NOT flagged: the hub path carries the meaning,
-# as on /ai-website-builder/video or /ai-website-builder/instant.
-AMBIGUOUS = {"contact", "order", "sign-up", "approval", "it", "360", "sign-in", "sign-out", "checkout", "pricing", "interest",
-             "style", "team", "funny", "category", "funnel", "matching"}
-# short tokens that are clear acronyms in context (not "too short")
-ACRONYMS = {"crm", "seo", "nda", "rfp", "nps", "pdf", "ppc", "b2b", "nft", "dei", "ach", "app", "hvac", "saas", "cpa", "pt", "qr", "it", "hr", "sms", "rfq", "dj", "spa", "pet", "api", "seo"}
-DANGLING = {"ai", "free", "online", "best", "simple", "easy", "custom", "builder", "maker", "template", "templates", "generator",
-            "creator", "example", "examples", "for", "to", "and", "or", "of", "with", "the", "a", "in", "on", "by", "questions"}
 
 
 def hubs():
@@ -65,11 +56,6 @@ def strip(hub, slug):
         else:
             out.append(toks[i]); i += 1
     return "-".join(out), removed
-
-
-def variants(hub, slug):
-    toks = slug.split("-")
-    return sorted({"-".join(v) for v in CATEGORY[hub]["variant"] for i in range(len(toks)) if toks[i:i + len(v)] == v})
 
 
 # ---------------------------------------------------------------- inventory
@@ -162,142 +148,113 @@ def sitemap_urls(fetch=True):
 
 
 # ---------------------------------------------------------------- map
-def judge(hub, old, new, removed):
-    """flags for one mapping (before collection-level checks)."""
-    f = []
-    toks = new.split("-") if new else []
-    if not new: f.append("empty")
-    if any(r[2] == "middle" for r in removed): f.append("mid_slug")
-    if any(r[2] == "start" for r in removed): f.append("start_slug")
-    if new and (new.isdigit() or (len(new) <= 3 and new not in ACRONYMS)): f.append("too_short")
-    if removed and toks and toks[-1] in {"maker", "builder", "generator", "creator", "template", "templates"}:
-        f.append("dangling"); toks = toks[:-1]
-    if new in AMBIGUOUS: f.append("ambiguous")
-    if removed and new and (all(t in DANGLING for t in toks) or toks[0] in {"and", "or", "to", "for", "of", "with"} or toks[-1] in {"and", "or", "to", "for", "of", "with", "the", "a"}):
-        f.append("dangling")
-    if new in RESERVED: f.append("reserved")
-    v = variants(hub, new if new else old)
-    if v: f.append("variant:" + ",".join(v))
-    return f
+def _norm(t):
+    return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9]+", " ", (t or "").lower())).strip()
 
 
-def recommend(hub, old, new, flags):
-    """(recommended slug, note). Default: the stripped slug."""
-    rec, note = new, ""
-    if hub == "LP" and not new == old: pass
-    if hub == "LP" and any(x.startswith("variant:page") for x in flags) and new == old:
-        note = "'-page' type, not 'landing-page': keep (a thank-you or pricing page is its own page type)"
-    if hub == "Auto" and any("workflow" in x for x in flags):
-        note = "keep 'workflow': not the category word; stripping it would leave generic stems (approval, content, sales, audit, legal)"
-    if hub == "Auto" and any("automated" in x for x in flags):
-        rec = re.sub(r"(^|-)automated(-|$)", r"\1", new).strip("-")
-        rec = re.sub(r"-system$", "", rec)
-        note = "'automated' is the category word in adjective form: strip it"
-    if hub == "SurveyQuiz" and any("questionnaire" in x for x in flags):
-        rec = re.sub(r"-?questionnaire", "", new).strip("-") or new
-        note = "'questionnaire' is a survey synonym: strip it"
-    if hub == "SurveyQuiz" and old.endswith("survey-questions"):
-        rec = old.replace("survey-questions", "questions").strip("-")
-        note = "stripping 'survey-questions' leaves a bare adjective: keep 'questions'"
-    special = {("SurveyQuiz", "it-survey"): ("it-support", "'it' reads as a pronoun; the page covers help desk, devices, software"),
-               ("Auto", "it-automation"): ("it-operations", "'it' reads as a pronoun"),
-               ("SurveyQuiz", "360-survey"): ("360-feedback", "a bare number; 360 feedback is the standard name"),
-               ("Form", "sign-in-form"): ("visitor-sign-in", "bare 'sign-in' reads as the site's login; the page tracks who comes and goes"),
-               ("Form", "sign-out-form"): ("staff-sign-out", "bare 'sign-out' reads as logout; the page shows who is away"),
-               ("Form", "checkout-form"): ("equipment-checkout", "bare 'checkout' reads as a cart checkout; the page tracks who has each item"),
-               ("Form", "interest-form"): ("interest-list", "bare 'interest' reads as financial interest"),
-               ("Form", "approval-form"): ("approval-request", "bare 'approval' is too generic (Divit's example)"),
-               ("Form", "sign-up-form"): ("sign-up", "reads as the site's sign-up, but the hub path disambiguates; accept"),
-               ("Form", "contact-form"): ("contact", "the head term; the hub path disambiguates; accept"),
-               ("Form", "order-form"): ("order", "the head term; every variant keeps its qualifier (cake-order, purchase-order); accept"),
-               ("SurveyQuiz", "pricing-survey"): ("price-testing", "bare 'pricing' shadows the top-level /pricing page"),
-               ("SurveyQuiz", "style-quiz"): ("personal-style", "bare 'style' is ambiguous"),
-               ("SurveyQuiz", "team-survey"): ("team", "live survey keeps the bare stem; the planned team-quiz takes team-trivia"),
-               ("SurveyQuiz", "team-quiz"): ("team-trivia", "collides with team-survey -> team"),
-               ("SurveyQuiz", "safety-survey"): ("safety", "live survey keeps the bare stem; the planned safety-quiz takes safety-knowledge-check"),
-               ("SurveyQuiz", "safety-quiz"): ("safety-knowledge-check", "collides with safety-survey -> safety"),
-               ("SurveyQuiz", "wellness-survey"): ("wellness", "live survey keeps the bare stem; the planned wellness-quiz takes wellness-check"),
-               ("SurveyQuiz", "wellness-quiz"): ("wellness-check", "collides with wellness-survey -> wellness"),
-               ("SurveyQuiz", "quiz-funnel"): ("funnel", "the category word is the concept; the hub path says quiz; accept"),
-               ("SurveyQuiz", "matching-quiz-maker"): ("matching", "'-maker' dangles once 'quiz' goes; drop it"),
-               ("SurveyQuiz", "survey-questionnaire"): ("(park)", "nothing left but a synonym of the hub's own head term: park, the hub page owns it"),
-               ("SurveyQuiz", "likert-questionnaire"): ("likert-scale", "'questionnaire' is a survey synonym; likert-scale is the page's own name"),
-               ("LP", "category-landing-page"): ("product-category", "bare 'category' reads as an archive page; the page is a shop category"),
-               ("LP", "landing-page-seo"): ("seo", "category word was at the start; the page is landing page SEO; accept")}
-    if (hub, old) in special: rec, n = special[(hub, old)]; note = n or note
-    return rec, note
+def _find_in_h1(phrase, h1):
+    """the H1's own spelling of phrase (hyphen, space and case insensitive), or None."""
+    toks = _norm(phrase).split()
+    if not toks: return None
+    rx = r"(?<![A-Za-z0-9])" + r"[^A-Za-z0-9]+".join(re.escape(t) for t in toks) + r"s?(?![A-Za-z0-9])"   # the H1 may use the plural
+    m = re.search(rx, h1 or "", re.I)
+    return m.group(0) if m else None
+
+
+def slugify(phrase):
+    return re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", phrase.lower().replace("'", "").replace("’", ""))).strip("-")
+
+
+def new_slug(hub, phrase):
+    """slugify(phrase) with ONLY the hub's category word removed (hyphen-bounded, anywhere)."""
+    s, removed = strip(hub, slugify(phrase))
+    return s, removed
+
+
+def _load_sources():
+    km_p = os.path.join(ROOT, "plan/keyword_map.json")
+    km = json.load(open(km_p)) if os.path.exists(km_p) else {}
+    ad = json.load(open(os.path.join(ROOT, "plan/additions.json"))).get("pages", {})
+    sys.path.insert(0, os.path.join(ROOT, "ops"))
+    import skeleton as K   # h1_phrase_for: the keyword phrase the H1 carries (ruling 4)
+    return km, ad, K
 
 
 def cmd_map(args):
+    """Divit 2026-10-23 (as the AI App Builder collection): slug = the primary keyword as it appears in the page's H1, with ONLY the
+    category word removed, lowercased and hyphenated. No other change. Only collisions are flagged."""
     inv_p = os.path.join(PRIV, "inventory.json")
     if not os.path.exists(inv_p): sys.exit("run: slug_migrate.py inventory (after hubctl api-read for each hub)")
     inv = json.load(open(inv_p))
-    smap = sitemap_urls(fetch="--no-fetch" not in args)
-    top = {p.strip("/") for p in smap if p.count("/") == 1 and p != "/"}
-    smset = set(smap)
-    hub_paths = {h["path"].strip("/") for h in hubs().values()}
-    public, private, totals = [], [], {}
+    km, ad, K = _load_sources()
+    rows_all = []
     for hub, H in inv["hubs"].items():
-        path = H["path"]
-        rows = [dict(r, origin="webflow") for r in H["webflow"]] + [dict(r, origin="planned") for r in H["planned"]]
-        current = Counter(r["slug"] for r in rows)
-        ents = []
-        for r in rows:
-            new, removed = strip(hub, r["slug"])
-            flags = judge(hub, r["slug"], new, removed)
-            ents.append({"hub": hub, "item_id": r.get("item_id"), "origin": r["origin"],
-                         "webflow_state": r.get("webflow_state"), "repo_state": r.get("status_state"),
-                         "old_slug": r["slug"], "new_slug": new, "removed": [x[1] + "@" + x[2] for x in removed],
-                         "flags": flags, "_public": r["origin"] == "webflow" or r.get("public_source", True)})
-        # collection-level checks
-        news = Counter(e["new_slug"] for e in ents)
-        olds = {e["old_slug"]: e for e in ents}
-        stems = defaultdict(list)
-        for e in ents: stems[e["new_slug"]].append(e["old_slug"])
-        for e in ents:
-            n, o = e["new_slug"], e["old_slug"]
-            if n != o:
-                if news[n] > 1:
-                    others = [x for x in stems[n] if x != o]
-                    kinds = {("quiz" if "quiz" in x.split("-") else "survey" if "survey" in x.split("-") else "other") for x in stems[n]}
-                    e["flags"].append(("survey_quiz_collision:" if hub == "SurveyQuiz" and {"quiz", "survey"} <= kinds else "duplicate_new:") + ",".join(others))
-                if n in current and n in olds and olds[n]["new_slug"] == n:
-                    e["flags"].append("clashes_current:" + n)
-                url = f"{path}/{n}"
-                if url in smset and url != f"{path}/{o}": e["flags"].append("clashes_sitemap:" + url)
-            if n in top or n.rstrip("s") in top or (n + "s") in top: e["flags"].append("toplevel_name:/" + next(t for t in (n, n.rstrip("s"), n + "s") if t in top))
-            if n in hub_paths or n == path.strip("/"): e["flags"].append("hub_path")
-            rec, note = recommend(hub, o, n, e["flags"])
-            e["recommended"], e["note"] = rec, note
-            blocking = [f for f in e["flags"] if f.split(":")[0] in {"empty", "too_short", "ambiguous", "dangling", "reserved", "duplicate_new",
-                                                                     "survey_quiz_collision", "clashes_current", "clashes_sitemap", "hub_path", "start_slug"}]
-            var = {v for f in e["flags"] if f.startswith("variant:") for v in f[8:].split(",")}
-            hard_var = var & {"automated", "questionnaire"}          # category word in another form: Divit decides per page
-            class_var = var & {"page", "pages", "workflow", "workflows"}   # one class ruling (LP -page types, Auto -workflow)
-            if blocking or hard_var or rec != n: e["decision"] = "needs_call"
-            elif class_var: e["decision"] = "class_call"; e["class"] = "LP -page types" if hub == "LP" else "Auto -workflow"
-            elif n == o: e["decision"] = "unchanged"
-            else: e["decision"] = "auto"
-        for e in ents:
-            pub = e.pop("_public")
-            (public if pub else private).append(e)
-        t = Counter((e["origin"], e["decision"]) for e in ents)
-        totals[hub] = {o: {d: t[(o, d)] for d in ("unchanged", "auto", "class_call", "needs_call")} for o in ("webflow", "planned")}
-    pub_totals = defaultdict(Counter)
-    for e in public: pub_totals[e["hub"]][(e["origin"] + "_" + e["decision"])] += 1
-    doc = {"_note": "Slug migration map (DECISIONS 2026-10-23 SLUG MIGRATION). Generated by ops/slug_migrate.py map; read only toward Webflow. "
-                    "decision: unchanged (no category word), auto (stripped, all checks pass), class_call (one ruling covers the class; recommended shown), needs_call (Divit decides; see recommended/note). "
+        d = hubs()[hub]["repo_dir"]
+        specs = {}
+        for f in glob.glob(os.path.join(ROOT, f"specs/{d}/*.json")):
+            try: s = json.load(open(f))
+            except Exception: continue
+            if s.get("url"): specs[s["url"]] = s
+        for r in [dict(x, origin="webflow") for x in H["webflow"]] + [dict(x, origin="planned") for x in H["planned"]]:
+            u, s = r["url"], specs.get(r["url"], {})
+            kw = s.get("keywords") if isinstance(s.get("keywords"), dict) else {}
+            prim, psrc = kw.get("primary"), "spec"
+            if not prim and (km.get(u) or {}).get("primary"): prim, psrc = km[u]["primary"], "keyword_map"
+            if not prim and (ad.get(u) or {}).get("primary"): prim, psrc = ad[u]["primary"], "additions"
+            h1 = (s.get("fields") or {}).get("h1") or (r.get("name") if r["origin"] == "webflow" else None)
+            h1src = "spec" if (s.get("fields") or {}).get("h1") else ("webflow" if h1 else None)
+            phrase, source = None, None
+            if h1 and prim:
+                cand = K.h1_phrase_for(prim)
+                phrase = _find_in_h1(cand, h1) or _find_in_h1(prim, h1)
+                source = "h1" if phrase else None
+            if not phrase and prim:
+                phrase, source = K.h1_phrase_for(prim), ("primary (no H1 yet)" if not h1 else "primary (phrase not found in H1)")
+            if not phrase:
+                phrase, source = r["slug"].replace("-", " "), "old slug (no H1, no primary)"
+            n, removed = new_slug(hub, phrase)
+            e = {"hub": hub, "item_id": r.get("item_id"), "origin": r["origin"], "webflow_state": r.get("webflow_state"),
+                 "repo_state": r.get("status_state"), "old_slug": r["slug"], "h1": h1, "h1_source": h1src, "h1_phrase": phrase,
+                 "slug_source": source, "primary": prim, "primary_source": psrc if prim else None, "new_slug": n,
+                 "removed": [x[1] + "@" + x[2] for x in removed], "flags": [],
+                 "_public": r["origin"] == "webflow" or r.get("public_source", True)}
+            if not n: e["flags"].append("empty")
+            if prim and _norm(phrase) != _norm(prim): e["flags"].append("h1_vs_primary")
+            if n != strip(hub, r["slug"])[0]: e["flags"].append("differs_from_old_stripped")
+            rows_all.append(e)
+    # collisions: one new slug used twice within a collection
+    by = defaultdict(list)
+    for e in rows_all: by[(e["hub"], e["new_slug"])].append(e)
+    for (hub, n), es in by.items():
+        if len(es) > 1:
+            for e in es: e["flags"].append("collision:" + ",".join(x["old_slug"] for x in es if x is not e))
+    for e in rows_all:
+        e["decision"] = "collision" if any(f.startswith("collision") for f in e["flags"]) else ("unchanged" if e["new_slug"] == e["old_slug"] else "change")
+    public = [e for e in rows_all if e["_public"]]; private = [e for e in rows_all if not e["_public"]]
+    for e in rows_all: e.pop("_public")
+    tot = defaultdict(Counter)
+    for e in public: tot[e["hub"]][e["origin"] + "_" + e["decision"]] += 1
+    doc = {"_note": "Slug migration map (DECISIONS 2026-10-23 SLUG MIGRATION; Divit's rule 2026-10-23, as the AI App Builder collection): "
+                    "slug = the primary keyword as it appears in the page's H1, ONLY the category word removed, lowercased and hyphenated; "
+                    "no other change. Generated by ops/slug_migrate.py map (read only toward Webflow). decision: unchanged | change | collision. "
                     "Pages known only from the git-ignored keyword map are in private/migration/slug-migration-kmap.json.",
-           "rule": {h: {"strip": ["-".join(s) for s in v["strip"]], "flag_only": ["-".join(s) for s in v["variant"]]} for h, v in CATEGORY.items()},
-           "sitemap_paths_checked": len(smap),
-           "totals": {h: dict(c) for h, c in pub_totals.items()},
-           "pages": sorted(public, key=lambda e: (e["hub"], e["origin"] != "webflow", e["old_slug"]))}
+           "rule": {h: ["-".join(s) for s in v["strip"]] for h, v in CATEGORY.items()},
+           "totals": {h: dict(c) for h, c in tot.items()},
+           "pages": [{k: v for k, v in e.items() if not (k == "primary" and e.get("primary_source") == "keyword_map")}   # no Semrush data in git
+                     for e in sorted(public, key=lambda e: (e["hub"], e["origin"] != "webflow", e["old_slug"]))]}
     json.dump(doc, open(OUT, "w"), indent=1)
     os.makedirs(PRIV, exist_ok=True)
-    json.dump({"pages": private, "totals_all": totals}, open(os.path.join(PRIV, "slug-migration-kmap.json"), "w"), indent=1)
-    print(json.dumps(totals, indent=1))
-    print("needs_call (public map):", sum(e["decision"] == "needs_call" for e in public), "->", os.path.relpath(OUT, ROOT))
-
+    json.dump({"pages": private}, open(os.path.join(PRIV, "slug-migration-kmap.json"), "w"), indent=1)
+    # collisions with MSV: private only
+    col = []
+    for (hub, n), es in sorted(by.items()):
+        if len(es) > 1:
+            col.append({"hub": hub, "new_slug": n, "pages": [{"old_slug": x["old_slug"], "origin": x["origin"], "h1": x["h1"], "primary": x["primary"],
+                        "msv": (km.get(hubs()[hub]["path"] + "/" + x["old_slug"]) or {}).get("primary_msv")} for x in es]})
+    json.dump(col, open(os.path.join(PRIV, "collisions.json"), "w"), indent=1)
+    print(json.dumps(doc["totals"], indent=1))
+    print("rows:", len(rows_all), "(public", len(public), "+ keyword-map-only", len(private), ") collisions:", len(col),
+          "h1_vs_primary:", sum("h1_vs_primary" in e["flags"] for e in rows_all), "->", os.path.relpath(OUT, ROOT))
 
 # ---------------------------------------------------------------- links
 LINK = re.compile(r"(?:https?://(?:www\.)?emergent\.sh)?(/ai-(?:landing-page|form|automation|survey-and-quiz)-builder/[a-z0-9-]+)")
@@ -339,7 +296,17 @@ def cmd_links(args):
     print("CMS total:", tot)
 
 
+def cmd_sample(args):
+    import random
+    n = int(args[0]) if args and args[0].isdigit() else 15
+    seed = int(args[args.index("--seed") + 1]) if "--seed" in args else 20261023
+    rows = json.load(open(OUT))["pages"]
+    print("seed", seed)
+    for e in random.Random(seed).sample(rows, n):
+        print(f"{e['hub']}\t{e['old_slug']}\t{e['h1'] or '(no H1: ' + e['slug_source'] + ')'}\t{e['new_slug']}")
+
+
 if __name__ == "__main__":
-    cmds = {"inventory": cmd_inventory, "map": cmd_map, "links": cmd_links}
+    cmds = {"inventory": cmd_inventory, "map": cmd_map, "links": cmd_links, "sample": cmd_sample}
     if len(sys.argv) < 2 or sys.argv[1] not in cmds: sys.exit(__doc__)
     cmds[sys.argv[1]](sys.argv[2:])
