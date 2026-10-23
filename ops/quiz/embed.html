@@ -6,6 +6,11 @@
 <style>
 .emgq-src, .emgq-data { display: none !important; }
 .emgq-mount:empty { display: none; }
+/* Space reservation (Divit 2026-10-23, CLS): on a quiz page (the hero carries the quiz data block) the mount holds the start screen's
+   height from first paint, so the quiz rendering at DOMContentLoaded no longer pushes the sections below it down. Measured start screen,
+   style-quiz and vocabulary-quiz (the larger kept): 403/438 px at 1440 and 768, 378/435 px at 390. Pages without quiz data: unchanged (no space). */
+body:has(#awb-quiz-data) .emgq-mount { display: block; min-height: 438px; }
+@media (max-width: 479px) { body:has(#awb-quiz-data) .emgq-mount { min-height: 435px; } }
 .emgq { box-sizing: border-box; max-width: 760px; margin: 0 auto; padding: 64px 16px; border: 0; background: transparent; color: #1c1917; font-family: inherit; text-align: left; }
 .emgq .emgq-card { box-sizing: border-box; background: #fff; border: 1px solid #f0e6dd; border-radius: 16px; padding: 32px; box-shadow: 0 1px 2px rgba(124, 45, 18, .06), 0 8px 24px rgba(124, 45, 18, .06); }
 .emgq .emgq-kicker { margin: 0 0 8px; font-size: 13px; line-height: 1.4; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #9a3412; }

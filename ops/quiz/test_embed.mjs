@@ -208,6 +208,7 @@ async function run() {
     await base.page.click("[data-hubchip='1']"); const h0c = await base.page.$eval("#hero-prompt-form textarea", (t) => t.value);
     ok(h0.v.length > 20 && h0.q === "undefined", `hero-noquiz: prompt prefilled, no quiz data (${h0.v.slice(0, 50)})`);
     ok((await base.page.$$(".emgq-mount .emgq")).length === 0, "hero-noquiz: no quiz rendered");
+    ok((await base.page.$eval(".emgq-mount", (m) => m.offsetHeight)) === 0, "hero-noquiz: mount takes no space (no reservation without quiz data)");
     await base.ctx.close();
     for (const name of ["knowledge-min", "matching-full", "knowledge-before"]) {
       const { ctx, page } = await open(browser, name, 390); await page.waitForTimeout(50);
@@ -231,7 +232,9 @@ async function run() {
     const { ctx, page, warns, reqs } = await open(browser, name, 390);
     const n = (await page.$$(".emgq-mount .emgq")).length;
     ok(n === (expectQuiz ? 1 : 0), `${name}: ${expectQuiz ? "renders" : "renders nothing"} (${n})`);
-    ok(!(await page.$eval(".emgq-mount", (m) => m.offsetHeight)) === !expectQuiz, `${name}: mount ${expectQuiz ? "visible" : "takes no space"}`);
+    // a page that carries the quiz data block (#awb-quiz-data) reserves the start screen's height (CLS), even if the data is invalid (QC Z1 P0 blocks shipping that)
+    const reserves = expectQuiz || name === "badschema";
+    ok(!(await page.$eval(".emgq-mount", (m) => m.offsetHeight)) === !reserves, `${name}: mount ${expectQuiz ? "visible" : reserves ? "keeps its reserved space (quiz data block present)" : "takes no space"}`);
     ok(warnRx ? warns.some((w) => warnRx.test(w)) : warns.length === 0, `${name}: console warning ${warnRx || "none"} (${warns.join(" | ")})`);
     ok(reqs.length === 0, `${name}: no network requests`);
     await ctx.close();
