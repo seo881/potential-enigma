@@ -129,6 +129,13 @@
    "via": null,
    "by": "B-w-321",
    "note": ""
+  },
+  {
+   "t": "2026-10-23 08:50 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-146",
+   "note": "[images | CONTENT_DEFECTS #20] tab_content_1: The tab is labelled Photo Hero and the copy describes a full-width photo with the headline and button laid over it. uc-1 shows no photo: a heading sits above a small product card with a cube icon and the Buy button inside the card. The layout is what thi"
   }
  ],
  "pipeline": "r15",
@@ -925,5 +932,235 @@
  ],
  "writers": [
   "B-w-321"
- ]
+ ],
+ "review": {
+  "by": "B-r-146",
+  "date": "2026-10-23 08:50 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Minimalist Landing Page With One Message and One Action'; hero 'Build a minimalist landing page with one headline and one button, and save each signup to a database you own.' (D1 ok)"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "SERP is galleries and templates; page gives four layout examples ('Minimalist Landing Page Examples'), a 7-step how-to and sourced design rules"
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Kelda Ceramics sells one stoneware mug', 'The form asks for 3 fields: name, email, and project type'"
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on full sentences: 'Describe the offer in a sentence...', 'Every entry from the page's one form lands in a database you own.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "'Two changes at once leave you guessing which one worked.' QC Q2/Q5 clean apart from one 33-word P2"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Keep the parts that do and delete the rest, even the ones that took a day to make.'"
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "feature_3 'A light gray headline on white ... WCAG 2.2 asks for a contrast ratio of at least 4.5:1 for text' drops the large-scale-text 3:1 exception the source states and contradicts faq 6 'large-scale text, such as a big headline, can pass at 3:1'"
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Tabs Photo Hero / Type Only / Split Screen / Single Email Field share no axis with animated (Scroll Reveal...), interactive (Price Calculator...) or personal (Keynote Speaker...); motion, QR and phone FAQs answer briefly and link out to the sibling"
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first ('No. Emergent builds the page from a plain-English prompt'), hub link in item 2, 3 exact-match sibling links"
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 1 copy 'A full-width photo of the mug fills the first screen, with a short headline and a single Buy button laid over it' but uc-1 draws a headline above a boxed product card with a cube icon, no photo; tab 3 copy 'Its page splits the screen. A photo of one finished extension fills the left half' but uc-3 draws one column with a form and no photo"
+   }
+  },
+  "findings": [
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "tab_content_1",
+    "quote": "A full-width photo of the mug fills the first screen, with a short headline and a single Buy button laid over it.",
+    "issue": "The tab is labelled Photo Hero and the copy describes a full-width photo with the headline and button laid over it. uc-1 shows no photo: a heading sits above a small product card with a cube icon and the Buy button inside the card. The layout is what this tab exists to show, so the image tells a different story. Same class in the same tab: mockup photoHero 'Fill the first screen with one full-width photo of the mug, lay a short headline and a single Buy button over it'; image_brief prompt 'Fill the first screen with one mug photo and a single Buy button'.",
+    "fix": "Redraw uc-1 so a full-width image area fills the panel with the headline and Buy button over it (or a clearly marked photo block above them). If the engine cannot draw a photo, rewrite tab 1 copy, label, mockup and chip to a layout the image actually shows.",
+    "severity": "blocking"
+   },
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "tab_content_3",
+    "quote": "Its page splits the screen. A photo of one finished extension fills the left half; a headline and a form fill the right.",
+    "issue": "uc-3 draws a single column: heading, three fields and a Send inquiry button. There is no photo and no split. Same class: tab_label_3 'Split Screen'; images.tab_image_3 alt 'Fenmarch Studio's split-screen page'; mockup splitScreen 'Put one photograph of a finished extension on the left. On the right, put a headline above a form'; image_brief prompt 'Put one project photo beside a 3-field inquiry form'.",
+    "fix": "Redraw uc-3 with the `columns` block: a photo panel on the left and the heading, 3 fields and button on the right, and keep the alt text in line with what is drawn.",
+    "severity": "blocking"
+   },
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "feature_3",
+    "quote": "A light gray headline on white can look calm and still be hard to read. WCAG 2.2 asks for a contrast ratio of at least 4.5:1 for text.",
+    "issue": "The source (SC 1.4.3, Level AA) sets 4.5:1 with an exception: 'Large-scale text and images of large-scale text have a contrast ratio of at least 3:1'. Applied to a headline, the feature drops that scope (rework checklist 2) and contradicts faq 6 'large-scale text, such as a big headline, can pass at 3:1' (rework checklist 5). The H3 'Pale colors checked against the 4.5:1 line' carries the same unscoped number. No other field has it.",
+    "fix": "Keep the scope, for example: 'A light gray line on white can look calm and still be hard to read. WCAG 2.2 sets 4.5:1 for body text and 3:1 for large text. Test each pair before you publish.' Adjust the H3 if needed and keep the body in the 165-182 band.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_4_des",
+    "quote": "WCAG's AAA guideline on visual presentation says width is no more than 80 characters.",
+    "issue": "SC 1.4.8 asks that 'a mechanism is available to achieve' a width of no more than 80 characters; the sentence leaves out that condition. The AAA label is kept and the step's advice is a recommendation, so this is a note.",
+    "fix": "Optionally: 'WCAG's AAA guideline on visual presentation lists a width of no more than 80 characters.'",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_4_des",
+   "issue": "SC 1.4.8 asks that 'a mechanism is available to achieve' a width of no more than 80 characters; the sentence leaves out that condition. The AAA label is kept and the step's advice is a recommendation, so this is a note.",
+   "fix": "Optionally: 'WCAG's AAA guideline on visual presentation lists a width of no more than 80 characters.'",
+   "by": "B-r-146",
+   "via": "review",
+   "date": "2026-10-23 08:50 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6c3ef5d68ad0f1f6",
+   "alt:share_image": "88d97ccf23fb69f4",
+   "alt:tab_image_1": "32a6cd64c27f8248",
+   "alt:tab_image_2": "3b864f6f09682828",
+   "alt:tab_image_3": "7d13b71c5fab3dc1",
+   "alt:tab_image_4": "a711c787d356d860",
+   "breadcrumb": "4350677a32ba3d22",
+   "chip_adds": "61b0bd83aec012ed",
+   "explore_cta": "dd9b299739177f74",
+   "faq": "211fdfd9eccfe7c0",
+   "feature_1": "029e33da5193a544",
+   "feature_2": "96bacf5fde7ec689",
+   "feature_3": "10367daacd7ac21d",
+   "feature_4": "7e5e970cd07b180a",
+   "feature_5": "d154e072bf5ce767",
+   "feature_6": "52f9dd735be2e611",
+   "features_heading": "9b157b7d0673ac00",
+   "features_subheading": "c369a6268be06816",
+   "h1": "b36577e0cb78da38",
+   "hero_description": "0cc25b0736ceda46",
+   "hero_prompt": "62bff1fa4848c1e4",
+   "howto_description": "da6b68452cf57147",
+   "howto_step_1_des": "47aeadff9f01f0d0",
+   "howto_step_1_title": "385c9965c0776db4",
+   "howto_step_2_des": "56a391b0b2e739bf",
+   "howto_step_2_title": "1d4b0b3b422a7b85",
+   "howto_step_3_des": "adeca2c2803e6004",
+   "howto_step_3_title": "85d8917f1f17530a",
+   "howto_step_4_des": "cf3134421462a101",
+   "howto_step_4_title": "8d120b064ea11507",
+   "howto_step_5_des": "b5d6bb19192d5020",
+   "howto_step_5_title": "bf5125cf617535c6",
+   "howto_step_6_des": "9e9daf0152f6682c",
+   "howto_step_6_title": "f6980a98b85b34a0",
+   "howto_step_7_des": "08aa6aecd3af7390",
+   "howto_step_7_title": "9392d31085789ffd",
+   "howto_title": "bdd672a8de9e9dc2",
+   "meta_description": "9d6b15a7a5b4f60b",
+   "meta_title": "ec4a531420404673",
+   "mockup": "5519a19ecd78f560",
+   "product_name": "46ecbf8736c91b21",
+   "prompt_chip_1": "654a6ce44c78c257",
+   "prompt_chip_2": "48888a3dbb767b49",
+   "prompt_chip_3": "c1862410076c1394",
+   "prompt_chip_4": "0527a2811fa700f1",
+   "slug": "0f94e97e5a30aa07",
+   "tab_content_1": "b6814af8e0b59749",
+   "tab_content_2": "5266ae3d8d98494e",
+   "tab_content_3": "9ba2ac151f406d9b",
+   "tab_content_4": "e83e76673695d18a",
+   "tab_label_1": "654a6ce44c78c257",
+   "tab_label_2": "e271073fcd7355b1",
+   "tab_label_3": "c1862410076c1394",
+   "tab_label_4": "0527a2811fa700f1",
+   "usecase_heading": "10d8bc7dd6ce3399",
+   "why_description": "1e365b93138e20aa",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "bd22144acc93144c"
+  },
+  "all": "095539e4d6745e9c",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6c3ef5d68ad0f1f6",
+   "alt:share_image": "88d97ccf23fb69f4",
+   "alt:tab_image_1": "32a6cd64c27f8248",
+   "alt:tab_image_2": "3b864f6f09682828",
+   "alt:tab_image_3": "7d13b71c5fab3dc1",
+   "alt:tab_image_4": "a711c787d356d860",
+   "breadcrumb": "4350677a32ba3d22",
+   "chip_adds": "61b0bd83aec012ed",
+   "explore_cta": "dd9b299739177f74",
+   "faq": "211fdfd9eccfe7c0",
+   "feature_1": "029e33da5193a544",
+   "feature_2": "96bacf5fde7ec689",
+   "feature_3": "10367daacd7ac21d",
+   "feature_4": "7e5e970cd07b180a",
+   "feature_5": "d154e072bf5ce767",
+   "feature_6": "52f9dd735be2e611",
+   "features_heading": "9b157b7d0673ac00",
+   "features_subheading": "c369a6268be06816",
+   "h1": "b36577e0cb78da38",
+   "hero_description": "0cc25b0736ceda46",
+   "hero_prompt": "62bff1fa4848c1e4",
+   "howto_description": "da6b68452cf57147",
+   "howto_step_1_des": "47aeadff9f01f0d0",
+   "howto_step_1_title": "385c9965c0776db4",
+   "howto_step_2_des": "56a391b0b2e739bf",
+   "howto_step_2_title": "1d4b0b3b422a7b85",
+   "howto_step_3_des": "adeca2c2803e6004",
+   "howto_step_3_title": "85d8917f1f17530a",
+   "howto_step_4_des": "cf3134421462a101",
+   "howto_step_4_title": "8d120b064ea11507",
+   "howto_step_5_des": "b5d6bb19192d5020",
+   "howto_step_5_title": "bf5125cf617535c6",
+   "howto_step_6_des": "9e9daf0152f6682c",
+   "howto_step_6_title": "f6980a98b85b34a0",
+   "howto_step_7_des": "08aa6aecd3af7390",
+   "howto_step_7_title": "9392d31085789ffd",
+   "howto_title": "bdd672a8de9e9dc2",
+   "meta_description": "9d6b15a7a5b4f60b",
+   "meta_title": "ec4a531420404673",
+   "mockup": "5519a19ecd78f560",
+   "product_name": "46ecbf8736c91b21",
+   "prompt_chip_1": "654a6ce44c78c257",
+   "prompt_chip_2": "48888a3dbb767b49",
+   "prompt_chip_3": "c1862410076c1394",
+   "prompt_chip_4": "0527a2811fa700f1",
+   "slug": "0f94e97e5a30aa07",
+   "tab_content_1": "b6814af8e0b59749",
+   "tab_content_2": "5266ae3d8d98494e",
+   "tab_content_3": "9ba2ac151f406d9b",
+   "tab_content_4": "e83e76673695d18a",
+   "tab_label_1": "654a6ce44c78c257",
+   "tab_label_2": "e271073fcd7355b1",
+   "tab_label_3": "c1862410076c1394",
+   "tab_label_4": "0527a2811fa700f1",
+   "usecase_heading": "10d8bc7dd6ce3399",
+   "why_description": "1e365b93138e20aa",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "bd22144acc93144c"
+  },
+  "all": "095539e4d6745e9c",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
