@@ -924,6 +924,9 @@ def check(spec, siblings):
             plain = strip_html(v)
             for pend in CAP["pending"]:
                 for m_ in re.finditer(pend["rx"], plain, re.I):
+                    if pend.get("standard_ok") and m_.group(0).upper() in pend["standard_ok"]:   # Divit 2026-10-23: SCIM may be named as the provisioning standard
+                        sent = next((x for x in re.split(r"(?<=[.!?])\s+", plain) if m_.start() >= plain.find(x) and m_.start() < plain.find(x) + len(x)), plain)
+                        if not re.search(pend.get("claim_rx", r"\bEmergent\b"), sent, re.I): continue   # any Emergent SCIM claim still fails C2
                     add("P1", "C2", k, f'capability claim needs Divit\'s approval ({pend["id"]}): "{m_.group(0)}" ({pend["why"]})')
         approved_ids = {c["id"] for c in CAP["approved"]}
         used = spec.get("claims_used")

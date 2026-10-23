@@ -433,3 +433,10 @@ Every ruling Divit has made that a future chat must respect. Newest first. Add a
 
 - 2026-10-21 (Divit): SCIM on user-provisioning-automation: yes. Mention SCIM as the provisioning standard, sourced. No claim that Emergent has built-in SCIM support unless it is in rules/claims.json; say an app built with Emergent can connect to identity providers.
 - 2026-10-21 (Divit): ship in rolling groups of 5 and report the live count after each group. If the session ends, the next session ships the waiting queue before anything else.
+
+## 2026-10-23 (Divit)
+- mental-health-landing-page Q1 (PA7 definition) approved; the 988 Lifeline mention stays (both quotes verified word for word against 988lifeline.org on 2026-10-23).
+- coaching-landing-page re-approved (wording-only change: "included").
+- SCIM: QC C2 exception, scoped. Naming SCIM as the provisioning standard (sourced) passes; any claim that Emergent has built-in SCIM support still fails C2 (rules/capabilities.json identity.standard_ok / claim_rx; golden c2-scim-*).
+- Account A is paused until further notice. B covers all 4 hubs (LP, Automation, Form, SurveyQuiz) for writing, review and shipping. B ships every page A left reviewed with 0 flags (reviewer independence still holds: never re-review with an agent that wrote any part of a page). Pages A claimed or left mid-write stay claimed by A and are not touched; B takes new claims from the top of the queue across all 4 hubs.
+- Resume message (2026-10-23): ship the waiting pages in groups of 5 with verify-live, then continuous rolling ships of reviewed pages; approvals logged "by B-c-1, Divit 2026-10-23 go".
