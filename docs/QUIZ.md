@@ -114,6 +114,8 @@ Paste **`ops/quiz/embed.min.html`** (15.1k characters; the Code Embed limit is 5
 - No existing element, class or component is edited.
 - `ops/quiz/embed.html` is the readable source; `python3 ops/quiz/build.py` regenerates the minified copy and refuses any CSS selector outside `.emgq` classes.
 
+Space reservation (Divit 2026-10-23, CLS): on a page whose hero carries `#awb-quiz-data`, the mount keeps `min-height` 438 px (435 px at 479 px and below), the larger measured start screen of style-quiz and vocabulary-quiz, so rendering at DOMContentLoaded does not push the sections below. The gate `body:has(#awb-quiz-data)` is the one selector prefix build.py allows; pages without quiz data take no space.
+
 What the embed does:
 - **Reads the data** from `window.awbQuiz`, falling back to `<script type="application/json" id="emgq-data">` or a `.emgq-data` element.
 - **Validates it** with the same rules as Z1-Z3. Invalid or missing data renders nothing; invalid data logs one console warning.
