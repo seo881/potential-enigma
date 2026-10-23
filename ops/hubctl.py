@@ -1527,7 +1527,8 @@ CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cm
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
         "recheck": cmd_recheck, "live-sync": cmd_live_sync, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live,
         "swap-recheck": lambda a: __import__("swap_recheck").main(a),   # Divit 2026-10-14 step 3: r18-swap-short pages back to rework once replacements exist
-        "live-audit": lambda a: _live().main(a), "live-fix": lambda a: _live().fix_main(a), "live-rollback": lambda a: _live().cmd_rollback(a), "retro": lambda a: __import__("retro").main(a)}
+        "live-audit": lambda a: _live().main(a), "live-fix": lambda a: _live().fix_main(a), "live-rollback": lambda a: _live().cmd_rollback(a), "retro": lambda a: __import__("retro").main(a),
+        "audit-status": lambda a: print(__import__("audit_status").line())}   # Divit 2026-10-23: one line for every coordinator report
 def _live():
     sys.path.insert(0, os.path.join(ROOT, "ops")); import live_audit; return live_audit
 def _ship(name):

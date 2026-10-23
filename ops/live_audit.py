@@ -284,7 +284,7 @@ def img_field(m, src):
 def number(F, date):
     seen = {}
     for f in F:
-        k = f"{date.replace('-', '')}-{slug_of(f['url']) if f['url'].count('/') > 1 else 'hub' + f['url'].replace('/', '-')}-{f['code']}"
+        k = f"{date[:10].replace('-', '')}-{slug_of(f['url']) if f['url'].count('/') > 1 else 'hub' + f['url'].replace('/', '-')}-{f['code']}"
         seen[k] = seen.get(k, 0) + 1; f["id"] = f"{k}-{seen[k]}"
     return F
 
@@ -319,6 +319,9 @@ def sitemap_text(base):
 
 def cmd_run(args):
     date = today(); base = (args[args.index("--base") + 1] if "--base" in args else CANON).rstrip("/"); dry = "--dry" in args
+    # --run-name N: a partial run (post-ship URLs, a re-run) writes to audits/live/DATE/N/ and .cache/live/DATE/N/, never over the
+    # day's full run (LESSONS 2026-10-13)
+    if "--run-name" in args: date = f"{date}/{re.sub(r'[^A-Za-z0-9_-]', '', args[args.index('--run-name') + 1])}"
     urls = select(args)
     import launch
     hubs = sorted({H.CFG["hubs"][H.hub_of(u)]["path"] for u in urls}) if ("--all" in args or "--set" in args or "--since-publish" in args or not args) else []
