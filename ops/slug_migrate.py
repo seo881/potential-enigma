@@ -878,13 +878,18 @@ def _fetch(url, follow=False):
         def redirect_request(self, *a, **k): return None
     op = urllib.request.build_opener() if follow else urllib.request.build_opener(NoRedir)
     req = urllib.request.Request(url, headers={"User-Agent": "emergent-hubs-slug-verify", "Cache-Control": "no-cache"})
-    for attempt in range(3):
+    import time
+    last = (0, None, "")
+    for attempt in range(5):   # timeouts, 429 and 5xx are retried with backoff (a status 0 is a transport error, never a page result)
         try:
-            r = op.open(req, timeout=40); return r.status, r.headers.get("Location"), r.read().decode("utf-8", "replace")
-        except urllib.error.HTTPError as e: return e.code, e.headers.get("Location"), (e.read() or b"").decode("utf-8", "replace")
+            r = op.open(req, timeout=60); return r.status, r.headers.get("Location"), r.read().decode("utf-8", "replace")
+        except urllib.error.HTTPError as e:
+            last = (e.code, e.headers.get("Location"), (e.read() or b"").decode("utf-8", "replace"))
+            if e.code not in (429, 500, 502, 503, 504): return last
+            time.sleep(float(e.headers.get("Retry-After") or 2 ** attempt))
         except Exception as e:
-            if attempt == 2: return 0, None, str(e)
-    return 0, None, ""
+            last = (0, None, str(e)); time.sleep(2 ** attempt)
+    return last
 
 
 def cmd_verify_site(args):
@@ -899,7 +904,7 @@ def cmd_verify_site(args):
     --audit then runs the full live audit against the same base (hubctl live-audit --all --base URL). Prints one table."""
     import concurrent.futures as cf
     sys.path.insert(0, os.path.join(ROOT, "ops")); import hubctl as H, verify_live as V
-    base = args[args.index("--base") + 1].rstrip("/"); n = int(args[args.index("--workers") + 1]) if "--workers" in args else 12
+    base = args[args.index("--base") + 1].rstrip("/"); n = int(args[args.index("--workers") + 1]) if "--workers" in args else 6
     rows = [e for e in json.load(open(OUT))["pages"] if e["origin"] == "webflow" and e.get("webflow_state") == "published"]
     mp = _mapping(); res = defaultdict(lambda: [0, 0, []])   # check -> [checked, passed, failures]
     def rec(check, ok, why=""):
