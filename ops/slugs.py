@@ -6,7 +6,8 @@ ops/slug_migrate.py map, hubctl api-create (blocking), hubctl ship-check (blocki
   ONLY the hub category word (LP "landing page"; Form "form"; Automation "automation"; SurveyQuiz "survey" and "quiz").
   Lowercase and hyphenated, nothing else changed.
 
-The only exceptions: safety-quiz, team-quiz, wellness-quiz (collisions with the live surveys), in EXCEPTIONS below.
+The only exceptions, in EXCEPTIONS below: safety-quiz, team-quiz, wellness-quiz (collisions with the live surveys); custom-order and
+free-trial ("custom" and "free" are part of the page's own name; Divit 2026-10-23).
 """
 import re
 
@@ -31,7 +32,10 @@ NOT_PLURAL = {"news", "sales", "business", "analytics", "logistics", "ethics", "
               "yes", "jobs", "hr", "its", "us", "kudos", "means", "always", "pros", "aids", "goods", "earnings", "savings", "lens",
               "tennis", "chess", "dress", "christmas", "physics", "mathematics", "politics", "electronics", "esports", "sports", "ads",
               "questions", "results", "rewards", "leads", "events", "reviews", "terms", "rsvps", "nps", "kpis", "okrs", "sms", "pos", "gps", "faqs", "plus", "bus"}
-EXCEPTIONS = {("SurveyQuiz", "safety quiz"): "safety-quiz", ("SurveyQuiz", "team quiz"): "team-quiz", ("SurveyQuiz", "wellness quiz"): "wellness-quiz"}
+EXCEPTIONS = {   # the ONLY named exceptions (Divit 2026-10-23): (hub, target keyword) -> slug
+    ("SurveyQuiz", "safety quiz"): "safety-quiz", ("SurveyQuiz", "team quiz"): "team-quiz", ("SurveyQuiz", "wellness quiz"): "wellness-quiz",   # collisions with the live surveys
+    ("Form", "custom order form"): "custom-order", ("LP", "free trial landing page"): "free-trial",   # "custom" / "free" are part of the page's own name
+}
 EXCEPTION_SLUGS = {(h, s) for (h, _k), s in EXCEPTIONS.items()}
 
 

@@ -916,14 +916,15 @@ def api_golden(c):
             iid = "0" * 23 + "1"; hub = W.CHILD[cid]
             mapping = {"pages": [{"hub": hub, "item_id": iid, "old_slug": "golden-old-form", "new_slug": "golden-old", "decision": "change"}]}
             freeze = {"active": c.get("freeze_active", True), "reason": "slug migration (golden)"}
-            argv = ["hubctl", "api-update", "x.json"] + (["--migration"] if c.get("migration", True) else [])
-            slug = {"approved": "golden-old", "wrong": "golden-other"}[c.get("slug", "approved")]
+            argv = ["hubctl", "api-update", "x.json"] + (["--migration"] if c.get("migration", True) else []) + (["--rollback"] if c.get("rollback") else [])
+            slug = {"approved": "golden-old", "wrong": "golden-other", "before": "golden-old-form"}[c.get("slug", "approved")]
+            before = {"items": [{"id": iid, "collection": cid, "fieldData": {"slug": "golden-old-form"}}]}
             item = c.get("item", "mapped")
-            why = W.migration_slug_block(cid, iid if item == "mapped" else "0" * 23 + "2", slug, argv=argv, freeze=freeze, mapping=mapping)
+            why = W.migration_slug_block(cid, iid if item == "mapped" else "0" * 23 + "2", slug, argv=argv, freeze=freeze, mapping=mapping, before=before)
             old_argv = W.ARGV; W.ARGV = argv
             try:   # the same decision through check() (the real gate) with the real freeze/map replaced
                 real_fn = W.migration_slug_block
-                W.migration_slug_block = lambda *a, **k: real_fn(*a, freeze=freeze, mapping=mapping, **{x: y for x, y in k.items() if x not in ("freeze", "mapping")})
+                W.migration_slug_block = lambda *a, **k: real_fn(*a, freeze=freeze, mapping=mapping, before=before, **{x: y for x, y in k.items() if x not in ("freeze", "mapping", "before")})
                 try: W.check("PATCH", f"/collections/{cid}/items", {"items": [{"id": iid if item == "mapped" else "0" * 23 + "2", "fieldData": {"slug": slug}}]}); refused = False
                 except W.Refused: refused = True
             finally: W.ARGV = old_argv; W.migration_slug_block = real_fn

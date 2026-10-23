@@ -218,6 +218,9 @@ def cmd_map(args):
     if not os.path.exists(inv_p): sys.exit("run: slug_migrate.py inventory (after hubctl api-read for each hub)")
     inv = json.load(open(inv_p))
     km, ad, K = _load_sources()
+    prev = {}
+    for fp in (OUT, os.path.join(PRIV, "slug-migration-kmap.json")):
+        if os.path.exists(fp): prev.update({(e["hub"], e["old_slug"]): e["new_slug"] for e in json.load(open(fp))["pages"]})
     rows_all = []
     for hub, H in inv["hubs"].items():
         d = hubs()[hub]["repo_dir"]
@@ -230,8 +233,9 @@ def cmd_map(args):
             u, s = r["url"], specs.get(r["url"], {})
             kw = s.get("keywords") if isinstance(s.get("keywords"), dict) else {}
             prim, psrc = kw.get("primary"), "spec"
-            if not prim and (km.get(u) or {}).get("primary"): prim, psrc = km[u]["primary"], "keyword_map"
-            if not prim and (ad.get(u) or {}).get("primary"): prim, psrc = ad[u]["primary"], "additions"
+            u2 = f"{hubs()[hub]['path']}/{prev.get((hub, r['slug']), r['slug'])}"   # plan-regen renamed planned pages in the plan files
+            if not prim and (km.get(u) or km.get(u2) or {}).get("primary"): prim, psrc = (km.get(u) or km.get(u2))["primary"], "keyword_map"
+            if not prim and (ad.get(u) or ad.get(u2) or {}).get("primary"): prim, psrc = (ad.get(u) or ad.get(u2))["primary"], "additions"
             h1 = (s.get("fields") or {}).get("h1") or (r.get("name") if r["origin"] == "webflow" else None)
             h1src = "spec" if (s.get("fields") or {}).get("h1") else ("webflow" if h1 else None)
             phrase, source = None, None
@@ -267,6 +271,7 @@ def cmd_map(args):
             for e in es: e["flags"].append("collision:" + ",".join(x["old_slug"] for x in es if x is not e))
     for e in rows_all:
         e["decision"] = "collision" if any(f.startswith("collision") for f in e["flags"]) else ("unchanged" if e["new_slug"] == e["old_slug"] else "change")
+        if (e["hub"], e["new_slug"]) in SL.EXCEPTION_SLUGS and not e["new_slug"].endswith("-quiz"): e["resolution"] = "DECISIONS 2026-10-23: named exception (custom / free are part of the page's own name)"
         if (e["hub"], e["old_slug"]) in SL.EXCEPTION_SLUGS: e["decision"] = "exception"; e["resolution"] = "DECISIONS 2026-10-23: survey/quiz collision exception, the quiz keeps -quiz"
         if (e["hub"], e["old_slug"]) in RESOLVED: e["resolution"] = RESOLVED[(e["hub"], e["old_slug"])]
     public = [e for e in rows_all if e["_public"]]; private = [e for e in rows_all if not e["_public"]]
@@ -483,8 +488,8 @@ def cmd_rollback(args):
     """slug_migrate.py rollback [--canary OLD_SLUG]: ONE command to build the restore. Writes ops/out/migration/rollback[-canary-<slug>].json
     (api-update payload: the before-values of slug and awb---faq-data, staged only) and reports/<day>/slug-migration-redirects-remove.csv
     (the 301 rows to delete). Then run: hubctl api-update <that payload> --live --migration.
-    NOTE: restoring an OLD slug is NOT covered by the approved slug-guard exception (only the approved new slug is); until Divit
-    approves a rollback exception, the restore of slugs is refused by ops/webflow_api.py and the slug goes back by hand in the Designer."""
+    Slug restores pass the guard only with --rollback, only to each item's committed before-value, only while the freeze is active
+    (Divit 2026-10-23 rollback exception in ops/webflow_api.py)."""
     B = json.load(open(BEFORE)); items = B["items"]
     if "--canary" in args:
         old = args[args.index("--canary") + 1]
@@ -501,7 +506,7 @@ def cmd_rollback(args):
     rp = os.path.join(ROOT, "reports", DAY, ("canary-" if "--canary" in args else "slug-migration-") + "redirects-remove.csv")
     open(rp, "w").write(open(src).read())
     print(f"rollback payload {os.path.relpath(pf, ROOT)} ({len(items)} item(s)); redirects to delete {os.path.relpath(rp, ROOT)}")
-    print(f"run: .venv/bin/python3 ops/hubctl.py api-update {os.path.relpath(pf, ROOT)} --live --migration   (slug restores need the rollback exception; see the docstring)")
+    print(f"run: .venv/bin/python3 ops/hubctl.py api-update {os.path.relpath(pf, ROOT)} --live --migration --rollback")
 
 
 def cmd_crawl(args):
@@ -594,6 +599,58 @@ def cmd_plan_regen(args):
     print(f"kept for the repo rewrite (spec or writer at work): {len(kept)}: " + ", ".join(f"{h}:{o}({s or 'no status'}{', spec' if sp else ''})" for h, o, n, s, sp in kept))
 
 
+def _redirect_rows(text):
+    """(source, target) pairs from a Webflow 301 export (CSV, any header) or a pasted list ("old new", "old -> new", "old,new")."""
+    import csv, io
+    out = []
+    for row in csv.reader(io.StringIO(text)):
+        line = ",".join(row).strip()
+        if not line: continue
+        parts = [p.strip() for p in re.split(r"\s*(?:,|->|=>|\t|\s{1,})\s*", line) if p.strip()]
+        if len(parts) < 2 or not parts[0].startswith("/") and not parts[0].startswith("http"): continue   # header or junk
+        norm = lambda p: re.sub(r"^https?://(www\.)?emergent\.sh", "", p).rstrip("/") or "/"
+        out.append((norm(parts[0]), norm(parts[1])))
+    return out
+
+
+def cmd_redirects_merge(args):
+    """slug_migrate.py redirects-merge EXPORT [--out FILE]: Webflow's CSV import REPLACES every existing 301, so the import file must
+    be Divit's export (Site settings > Publishing > 301 redirects > Export; or a pasted list in a file) merged with our rows
+    (reports/<day>/slug-migration-redirects.csv). Dedupes; turns chains into single hops (an existing redirect whose target is one of
+    our old paths now points straight at the new path); flags conflicts (the same source to two targets; an existing redirect away
+    from one of our new paths; a loop). Writes the merged CSV (default .cache/migration/redirects-merged.csv) and prints counts.
+    Nothing is sent to Webflow; the import is Divit's click."""
+    existing = _redirect_rows(open(args[0]).read())
+    ours = _redirect_rows(open(REDIRECTS).read())
+    out = os.path.join(ROOT, args[args.index("--out") + 1]) if "--out" in args else os.path.join(CACHE, "redirects-merged.csv")
+    oursrc = dict(ours); ournew = {t for _, t in ours}
+    merged, seen, chains, conflicts, dups = [], {}, [], [], 0
+    for s, t in existing:
+        if s in seen:
+            if seen[s] != t: conflicts.append(f"existing: {s} has two targets ({seen[s]}, {t})")
+            else: dups += 1
+            continue
+        if t in oursrc: chains.append(f"{s} -> {t} becomes {s} -> {oursrc[t]} (single hop)"); t = oursrc[t]
+        if s in oursrc and oursrc[s] != t: conflicts.append(f"{s}: existing target {t} vs migration target {oursrc[s]} (migration row kept)"); continue
+        if s in ournew: conflicts.append(f"{s}: an existing redirect leaves one of our NEW paths (to {t}); it would hide the page (dropped)"); continue
+        if s == t: conflicts.append(f"{s}: redirects to itself (dropped)"); continue
+        seen[s] = t; merged.append((s, t))
+    for s, t in ours:
+        if s in seen:
+            if seen[s] == t: dups += 1
+            continue
+        seen[s] = t; merged.append((s, t))
+    loops = [s for s, t in merged if t in seen and seen[t] != t]   # any remaining two-hop
+    for s in loops: conflicts.append(f"{s}: still two hops ({s} -> {seen[s]} -> {seen[seen[s]]})")
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    with open(out, "w") as f:
+        f.write("source,target\n"); [f.write(f"{s},{t}\n") for s, t in merged]
+    print(f"existing {len(existing)} + migration {len(ours)} -> merged {len(merged)} rows ({dups} duplicate(s) dropped, {len(chains)} chain(s) collapsed, {len(conflicts)} conflict(s)) -> {os.path.relpath(out, ROOT)}")
+    for c in chains: print("  CHAIN   " + c)
+    for c in conflicts: print("  CONFLICT " + c)
+    return 1 if conflicts else 0
+
+
 def cmd_sample(args):
     import random
     n = int(args[0]) if args and args[0].isdigit() else 15
@@ -606,6 +663,6 @@ def cmd_sample(args):
 
 if __name__ == "__main__":
     cmds = {"inventory": cmd_inventory, "map": cmd_map, "links": cmd_links, "sample": cmd_sample, "stage": cmd_stage,
-            "canary": cmd_canary, "verify": cmd_verify, "rollback": cmd_rollback, "crawl": cmd_crawl, "repo-rewrite": cmd_repo_rewrite, "plan-regen": cmd_plan_regen}
+            "canary": cmd_canary, "verify": cmd_verify, "rollback": cmd_rollback, "crawl": cmd_crawl, "repo-rewrite": cmd_repo_rewrite, "plan-regen": cmd_plan_regen, "redirects-merge": cmd_redirects_merge}
     if len(sys.argv) < 2 or sys.argv[1] not in cmds: sys.exit(__doc__)
     cmds[sys.argv[1]](sys.argv[2:])

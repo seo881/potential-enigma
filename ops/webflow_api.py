@@ -100,14 +100,24 @@ def check(method, path, body=None, query=None):
 # (decision "change"). Every other slug change stays refused. Golden: tests/golden cases api-migration-slug-*.
 FREEZE_FILE = os.path.join(ROOT, "status", "freeze.json")
 MIGRATION_MAP = os.path.join(ROOT, "plan", "slug-migration.json")
-def migration_slug_block(cid, item_id, slug, argv=None, freeze=None, mapping=None):
-    """None when this slug change is the approved migration change, else why it is refused ("-": no migration context at all)."""
+ROLLBACK_BEFORE = os.path.join(ROOT, "childedits", "2026-10-23", "slug-migration.before.json")
+def migration_slug_block(cid, item_id, slug, argv=None, freeze=None, mapping=None, before=None):
+    """None when this slug change is the approved migration change, else why it is refused ("-": no migration context at all).
+    ROLLBACK (Divit 2026-10-23, TEMPORARY like the rest: REMOVE when the migration closes): with --rollback, the slug may go back ONLY
+    to this item's committed before-value in childedits/2026-10-23/slug-migration.before.json, and only while the freeze is active."""
     import sys as _s
     a = argv if argv is not None else (ARGV if ARGV is not None else _s.argv)
-    if "--migration" not in a: return "-"
+    if "--migration" not in a and "--rollback" not in a: return "-"
     try: f = freeze if freeze is not None else json.load(open(FREEZE_FILE))
     except (OSError, ValueError): return "migration: no status/freeze.json"
     if not f.get("active") or "slug migration" not in (f.get("reason") or "").lower(): return "migration: the slug-migration freeze is not active"
+    if "--rollback" in a:
+        try: b = before if before is not None else json.load(open(ROLLBACK_BEFORE))
+        except (OSError, ValueError): return "rollback: no committed before-value file"
+        it = next((x for x in b.get("items", []) if x.get("id") == item_id and x.get("collection", cid) == cid), None)
+        if not it or "slug" not in (it.get("fieldData") or {}): return f"rollback: no before-value slug for {item_id}"
+        if slug != it["fieldData"]["slug"]: return f"rollback: '{slug}' is not the before-value slug '{it['fieldData']['slug']}' for {item_id}"
+        return None
     try: m = mapping if mapping is not None else json.load(open(MIGRATION_MAP))
     except (OSError, ValueError): return "migration: no plan/slug-migration.json"
     hub = CHILD.get(cid)
