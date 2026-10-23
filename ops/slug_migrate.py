@@ -715,6 +715,290 @@ def cmd_redirects_merge(args):
     return 1 if conflicts else 0
 
 
+FULL_BEFORE = os.path.join(CHILDEDITS, "slug-migration-full.before.json")
+FULL_PAYLOAD = os.path.join(OUTDIR, "full.json")
+GLOSSARY_CID = "6a7ec305d1588226be6fe84f"
+GLOSSARY_ITEMS = {"6ada1d308bdda167d0d2a515": "data-entry-automation", "6ad0b5cf77dcc42a34cf7d77": "what-is-task-automation",
+                  "6ad0ad37a85323214cd0d52c": "document-automation"}   # Divit 2026-10-23: one-off Glossary write (3 links)
+GLOSSARY_FIELD = "glossary---content"
+EXTRA_PAGES = {"/ai-form-builder/wedding-rsvp": "ac55c3de"}   # reviewed changes shipped with the migration (DECISIONS 2026-10-23)
+
+
+def _text_fields(hub, url):
+    """CMS text fields as the spec exports them (images excluded): {cms field: value}."""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import hubctl as H
+    s = json.load(open(H.spath(url))); out, _pending = H.export_fields(url, s)
+    fm = CFG["hubs"][hub]["fields"]; imgs = set(CFG.get("image_fields") or [])
+    return {fm[k]: v for k, v in out.items() if k in fm and k not in imgs and isinstance(v, str)}
+
+
+def cmd_stage_full(args):
+    """slug_migrate.py stage-full [--glossary FILE]: THE staging payload for the one-publish plan (DECISIONS 2026-10-23), from the
+    newest full reads (hubctl api-read x4):
+      ops/out/migration/full.json    api-update payload, all 4 child collections: every slug change, every FAQ link rewrite and the
+                                     reviewed changes of EXTRA_PAGES; staged only, no publish action. Run ONCE:
+                                     hubctl api-update ops/out/migration/full.json --live --migration
+      ops/out/migration/glossary-mcp.json   the 3 Glossary items' glossary---content with the links rewritten, as one Webflow MCP
+                                     data_cms_tool update_collection_items action (the repo API refuses the Glossary collection);
+                                     needs --glossary FILE: a read of those 3 items (list_collection_items output saved as JSON).
+      childedits/<day>/slug-migration-full.before.json   before-values (the PUBLISHED values) of every field sent, incl. the Glossary.
+    Items already staged to the target (the canary) keep their published before-values from slug-migration.before.json."""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import hubctl as H
+    reads = _fresh_reads(); mp = _mapping()
+    rows = {e["item_id"]: e for e in json.load(open(OUT))["pages"] if e.get("item_id")}
+    old_before = {x["id"]: x for x in json.load(open(BEFORE))["items"]} if os.path.exists(BEFORE) else {}
+    plan, before = defaultdict(list), []
+    for hub, (rb, items) in reads.items():
+        path = hubs()[hub]["path"]; cid = hubs()[hub]["collection_id"]
+        for it in items:
+            fd = it["fieldData"]; nf = {}; r = rows.get(it["id"])
+            if r and r["decision"] in ("change", "exception") and r["new_slug"] != r["old_slug"]:
+                if fd["slug"] not in (r["old_slug"], r["new_slug"]): sys.exit(f"refused: {it['id']} slug {fd['slug']} is neither {r['old_slug']} nor {r['new_slug']}")
+                if fd["slug"] != r["new_slug"]: nf["slug"] = r["new_slug"]
+            txt, n = rewrite_links(fd.get(FAQ), mp)
+            if n: nf[FAQ] = txt
+            url_now = f"{path}/{r['new_slug'] if r else fd['slug']}"
+            if url_now in EXTRA_PAGES:
+                for k, v in _text_fields(hub, url_now).items():
+                    v2 = rewrite_links(v, mp)[0]
+                    if fd.get(k) != v2: nf[k] = v2
+            if not nf: continue
+            plan[cid].append({"id": it["id"], "fieldData": nf})
+            ob = old_before.get(it["id"], {}).get("fieldData", {})
+            bfd = {}
+            for k in nf:   # published value: the old before-value where this item was already staged (canary), else the live read
+                bfd[k] = ob[k] if (k in ob and it.get("lastUpdated", "") > (it.get("lastPublished") or "")) else fd.get(k)
+            before.append({"id": it["id"], "hub": hub, "collection": cid, "fieldData": bfd})
+    # the canary items already staged: nothing left to send, but their published before-values stay in the file for the rollback
+    sent = {x["id"] for x in before}
+    for iid, ob in old_before.items():
+        if iid not in sent: before.append(dict(ob, note="already staged (canary); published before-value kept for rollback"))
+    payload = [{"label": f"slug migration FULL {CHILD_NAME[c]} (staged only)", "update_collection_items": {"collection_id": c, "request": {"items": its}}} for c, its in plan.items()]
+    gl = None
+    if "--glossary" in args:
+        g = json.load(open(args[args.index("--glossary") + 1]))
+        gitems = (g.get("result") or g).get("items") if isinstance(g, dict) else g
+        gl = []
+        for it in gitems:
+            if it["id"] not in GLOSSARY_ITEMS: continue
+            txt, n = rewrite_links(it["fieldData"].get(GLOSSARY_FIELD), mp)
+            if n:
+                gl.append({"id": it["id"], "fieldData": {GLOSSARY_FIELD: txt}, "_links": n})
+                before.append({"id": it["id"], "hub": "Glossary", "collection": GLOSSARY_CID, "fieldData": {GLOSSARY_FIELD: it["fieldData"].get(GLOSSARY_FIELD)}})
+        json.dump([{"label": "slug migration: 3 Glossary links (one-off, Divit 2026-10-23; staged only)", "update_collection_items": {
+            "collection_id": GLOSSARY_CID, "request": {"items": [{"id": x["id"], "fieldData": x["fieldData"]} for x in gl]}}}],
+            open(os.path.join(OUTDIR, "glossary-mcp.json"), "w"), indent=1, ensure_ascii=False)
+    os.makedirs(OUTDIR, exist_ok=True); json.dump(payload, open(FULL_PAYLOAD, "w"), indent=1, ensure_ascii=False)
+    json.dump({"op": "slug-migration", "day": DAY, "note": "FULL staging before-values (published values of every field in ops/out/migration/full.json and glossary-mcp.json). Rollback: slug_migrate.py rollback-full.",
+               "reads": {h: os.path.basename(rb) for h, (rb, _) in reads.items()}, "items": before}, open(FULL_BEFORE, "w"), indent=1, ensure_ascii=False)
+    c = Counter()
+    for cid, its in plan.items():
+        for it in its:
+            for k in it["fieldData"]: c[(CHILD_NAME[cid], k)] += 1
+    print(f"full.json: {sum(len(v) for v in plan.values())} items in {len(plan)} collections; fields: " + ", ".join(f"{h}:{k}={n}" for (h, k), n in sorted(c.items())))
+    if gl is not None: print(f"glossary-mcp.json: {len(gl)} items, {sum(x['_links'] for x in gl)} links")
+    print(f"before-values: {os.path.relpath(FULL_BEFORE, ROOT)} ({len(before)} items)")
+
+
+def cmd_rollback_full(args):
+    """slug_migrate.py rollback-full: ONE restore payload from childedits/<day>/slug-migration-full.before.json (slugs, links, every
+    staged field back to the PUBLISHED value): ops/out/migration/rollback-full.json (4 child collections; run
+    hubctl api-update ops/out/migration/rollback-full.json --live --migration --rollback) and rollback-glossary-mcp.json (the 3
+    Glossary items, one MCP update). Redirects: re-import private/migration/existing-redirects-2026-10-23.csv (the original
+    553 rows), which replaces the migration's 301s. Nothing is published either way."""
+    B = json.load(open(FULL_BEFORE)); by = defaultdict(list)
+    for x in B["items"]: by[x["collection"]].append({"id": x["id"], "fieldData": x["fieldData"]})
+    child = [{"label": f"slug migration ROLLBACK {CHILD_NAME.get(c, c)} (before-values)", "update_collection_items": {"collection_id": c, "request": {"items": its}}} for c, its in by.items() if c != GLOSSARY_CID]
+    json.dump(child, open(os.path.join(OUTDIR, "rollback-full.json"), "w"), indent=1, ensure_ascii=False)
+    if GLOSSARY_CID in by:
+        json.dump([{"label": "slug migration ROLLBACK Glossary (before-values)", "update_collection_items": {"collection_id": GLOSSARY_CID, "request": {"items": by[GLOSSARY_CID]}}}],
+                  open(os.path.join(OUTDIR, "rollback-glossary-mcp.json"), "w"), indent=1, ensure_ascii=False)
+    print(f"rollback-full.json: {sum(len(v) for c, v in by.items() if c != GLOSSARY_CID)} items; rollback-glossary-mcp.json: {len(by.get(GLOSSARY_CID, []))} items")
+    print("run: .venv/bin/python3 ops/hubctl.py api-update ops/out/migration/rollback-full.json --live --migration --rollback")
+    print("then: the Glossary restore through the Webflow MCP (rollback-glossary-mcp.json), and re-import private/migration/existing-redirects-2026-10-23.csv")
+
+
+def cmd_diff_staged(args):
+    """slug_migrate.py diff-staged [--glossary FILE] (step 4): after the staging write, read the 4 collections again (hubctl api-read x4
+    first) and prove the staged state is EXACTLY the migration:
+      - every sent field now equals full.json exactly; every field NOT sent equals the pre-staging read named in the before file;
+      - every item NOT in full.json (canary aside) is field-for-field identical to that pre-staging read: anything else STOPS (exit 1).
+        (lastUpdated > lastPublished is only informational: a publish to the webflow.io staging domain also sets lastPublished.)
+      - counts per collection (expected, staged, exact, mismatched, unexpected).
+    --glossary FILE: a fresh MCP read of the 3 Glossary items, checked the same way against glossary-mcp.json."""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import hubctl as H
+    P = json.load(open(FULL_PAYLOAD)); B = json.load(open(FULL_BEFORE))
+    want = {it["id"]: (a["update_collection_items"]["collection_id"], it["fieldData"]) for a in P for it in a["update_collection_items"]["request"]["items"]}
+    canary = {x["id"]: x for x in B["items"] if x.get("note", "").startswith("already staged")}
+    pre = {}
+    for hub, f in (B.get("reads") or {}).items():
+        for it in json.load(open(os.path.join(ROOT, ".cache", "readback", f)))["result"]["items"]: pre[it["id"]] = it
+    cur = _fresh_reads(); stop = []; rows = []
+    for hub, (rb, items) in cur.items():
+        c = Counter(); cid = hubs()[hub]["collection_id"]
+        c["expected"] = sum(1 for i, (cc, _) in want.items() if cc == cid)
+        for it in items:
+            staged = (it.get("lastUpdated") or "") > (it.get("lastPublished") or "")
+            if staged and not it.get("isDraft"): c["staged"] += 1   # informational: a webflow.io publish also sets lastPublished
+            fd = it["fieldData"]; p0 = (pre.get(it["id"]) or {}).get("fieldData")
+            if it["id"] in want:
+                sent = want[it["id"]][1]
+                bad = [k for k, v in sent.items() if fd.get(k) != v]
+                bad += [k + " (not sent, changed)" for k in set(fd) | set(p0 or {}) if k not in sent and fd.get(k) != (p0 or {}).get(k)]
+                if bad: c["mismatched"] += 1; stop.append(f"{hub} {fd.get('slug')} {it['id']}: " + ", ".join(sorted(bad)[:6]))
+                else: c["exact"] += 1
+            elif it["id"] in canary:
+                cf_ = canary[it["id"]]; c["canary"] += 1
+            elif p0 is None:
+                c["unexpected"] += 1; stop.append(f"{hub} {fd.get('slug')} {it['id']}: UNEXPECTED item (not in the pre-staging read)")
+            elif fd != p0:
+                c["unexpected"] += 1; stop.append(f"{hub} {fd.get('slug')} {it['id']}: UNEXPECTED change in " + ", ".join(sorted(k for k in set(fd) | set(p0) if fd.get(k) != p0.get(k))[:6]))
+        missing = [i for i, (cc, _) in want.items() if cc == cid and i not in {x["id"] for x in items}]
+        for i in missing: stop.append(f"{hub} {i}: expected item not in the read"); c["mismatched"] += 1
+        rows.append((hub, c))
+    if "--glossary" in args:
+        g = json.load(open(args[args.index("--glossary") + 1])); gitems = {x["id"]: x for x in ((g.get("result") or g).get("items") if isinstance(g, dict) else g)}
+        GP = json.load(open(os.path.join(OUTDIR, "glossary-mcp.json")))[0]["update_collection_items"]["request"]["items"]; c = Counter(expected=len(GP))
+        for x in GP:
+            got = (gitems.get(x["id"]) or {}).get("fieldData", {}).get(GLOSSARY_FIELD)
+            if got == x["fieldData"][GLOSSARY_FIELD]: c["exact"] += 1
+            else: c["mismatched"] += 1; stop.append(f"Glossary {x['id']}: glossary---content differs from glossary-mcp.json")
+        rows.append(("Glossary", c))
+    print(f"{'collection':12} {'expected':>8} {'staged':>7} {'exact':>6} {'canary':>7} {'mismatch':>9} {'unexpected':>11}")
+    for h, c in rows: print(f"{h:12} {c['expected']:8} {c['staged']:7} {c['exact']:6} {c['canary']:7} {c['mismatched']:9} {c['unexpected']:11}")
+    for s in stop: print("  STOP " + s)
+    print("EXACT: the staged state is the migration and nothing else" if not stop else f"STOP: {len(stop)} problem(s); do not publish")
+    return 1 if stop else 0
+
+
+def _fetch(url, follow=False):
+    """(status, location, body) without following redirects (follow=True: urllib default)."""
+    import urllib.request, urllib.error
+    class NoRedir(urllib.request.HTTPRedirectHandler):
+        def redirect_request(self, *a, **k): return None
+    op = urllib.request.build_opener() if follow else urllib.request.build_opener(NoRedir)
+    req = urllib.request.Request(url, headers={"User-Agent": "emergent-hubs-slug-verify", "Cache-Control": "no-cache"})
+    for attempt in range(3):
+        try:
+            r = op.open(req, timeout=40); return r.status, r.headers.get("Location"), r.read().decode("utf-8", "replace")
+        except urllib.error.HTTPError as e: return e.code, e.headers.get("Location"), (e.read() or b"").decode("utf-8", "replace")
+        except Exception as e:
+            if attempt == 2: return 0, None, str(e)
+    return 0, None, ""
+
+
+def cmd_verify_site(args):
+    """slug_migrate.py verify-site --base URL [--workers N] [--audit] (step 5): READ ONLY, the same on staging and production.
+      new URLs   every live child page under its new URL: 200, the spec's H1, canonical = the new path, carousel (section_build with
+                 cards), Learn (3 cards to /learn/<slug>), FAQ (window.awbFAQ questions = the spec's)
+      old URLs   every changed live page's old URL: exactly one 301 to its new URL, and that target answers 200 (single hop)
+      redirects  every row of reports/<day>/redirects-final.csv (the 553 pre-existing rows, chains collapsed, plus ours): 301 to the
+                 target, target not itself a redirect
+      old links  every page in the base sitemap (hubs, Glossary, carousels, child pages): 0 hrefs to an old child URL
+      sitemap    the base sitemap lists every new URL and no old URL
+    --audit then runs the full live audit against the same base (hubctl live-audit --all --base URL). Prints one table."""
+    import concurrent.futures as cf
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import hubctl as H, verify_live as V
+    base = args[args.index("--base") + 1].rstrip("/"); n = int(args[args.index("--workers") + 1]) if "--workers" in args else 12
+    rows = [e for e in json.load(open(OUT))["pages"] if e["origin"] == "webflow" and e.get("webflow_state") == "published"]
+    mp = _mapping(); res = defaultdict(lambda: [0, 0, []])   # check -> [checked, passed, failures]
+    def rec(check, ok, why=""):
+        r = res[check]; r[0] += 1; r[1] += bool(ok)
+        if not ok: r[2].append(why)
+    def page(e):
+        path = hubs()[e["hub"]]["path"]; new = f"{path}/{e['new_slug']}"; out = []
+        st, loc, html = _fetch(base + new)
+        out.append(("new URL 200", st == 200, f"{new}: {st}"))
+        if st != 200: return out
+        sp = H.spath(new); s = json.load(open(sp)) if os.path.exists(sp) else {}
+        want_h1 = (s.get("fields") or {}).get("h1") or e.get("h1")
+        h1 = re.search(r"<h1[^>]*>(.*?)</h1>", html, re.S); h1 = re.sub(r"\s+", " ", __import__("html").unescape(re.sub(r"<[^>]+>", "", h1.group(1)))).strip() if h1 else None
+        out.append(("H1", h1 == (want_h1 or "").strip(), f"{new}: {h1!r} vs {want_h1!r}"))
+        can = re.search(r'<link[^>]+rel="canonical"[^>]+href="([^"]+)"', html) or re.search(r'<link[^>]+href="([^"]+)"[^>]+rel="canonical"', html)
+        out.append(("canonical", bool(can) and re.sub(r"^https?://[^/]+", "", can.group(1)).rstrip("/") == new, f"{new}: {can.group(1) if can else 'missing'}"))
+        car = re.search(r'class="section_build[^"]*"(.*?)</section>', html, re.S)
+        out.append(("carousel", bool(car) and len(re.findall(r'href="[^"]*/ai-[a-z-]+-builder/[a-z0-9-]+"', car.group(1))) > 0, f"{new}: section_build missing or without cards"))
+        lok, lline = V.learn_section(html); out.append(("Learn", lok, f"{new}: {lline}"))
+        fq = re.search(r"window\.awbFAQ\s*=\s*(\{.*?\})\s*;\s*</script>", html, re.S); fs = re.search(r"window\.awbFAQ\s*=\s*(\{.*\})\s*;\s*</script>", (s.get("fields") or {}).get("faq", ""), re.S)
+        try: lq = [i["q"] for i in json.loads(fq.group(1))["items"]] if fq else []
+        except Exception: lq = []
+        sq = [i["q"] for i in json.loads(fs.group(1))["items"]] if fs else None
+        out.append(("FAQ", bool(lq) and (sq is None or lq == sq), f"{new}: {len(lq)} live vs {len(sq) if sq else '?'} spec"))
+        return out
+    def old(e):
+        path = hubs()[e["hub"]]["path"]; o, nw = f"{path}/{e['old_slug']}", f"{path}/{e['new_slug']}"
+        st, loc, _ = _fetch(base + o); tgt = re.sub(r"^https?://[^/]+", "", loc or "").rstrip("/")
+        ok = st == 301 and tgt == nw
+        st2 = _fetch(base + nw)[0] if ok else None
+        return [("old URL 301 single hop", ok and st2 == 200, f"{o}: {st} -> {loc} ({st2})")]
+    def redir(row):
+        s, t = row; st, loc, _ = _fetch(base + s); got = re.sub(r"^https?://[^/]+", "", loc or "").rstrip("/") or "/"
+        tt = t if t.startswith("http") and not t.startswith(base) else re.sub(r"^https?://[^/]+", "", t).rstrip("/") or "/"
+        ok = st == 301 and (got == tt or loc == t)
+        st2 = _fetch(t if t.startswith("http") else base + t)[0] if ok else None
+        return [("redirect rows (301, single hop)", ok and st2 == 200, f"{s}: {st} -> {loc} (target {st2})")]
+    changed = [e for e in rows if e["new_slug"] != e["old_slug"]]
+    csvp = os.path.join(ROOT, "reports", DAY, "redirects-final.csv")
+    rrows = [tuple(l.strip().split(",", 1)) for l in open(csvp).read().splitlines()[1:] if "," in l] if os.path.exists(csvp) else []
+    with cf.ThreadPoolExecutor(n) as ex:
+        for out in ex.map(page, rows):
+            for c, ok, why in out: rec(c, ok, why)
+        for out in ex.map(old, changed):
+            for c, ok, why in out: rec(c, ok, why)
+        for out in ex.map(redir, rrows):
+            for c, ok, why in out: rec(c, ok, why)
+    # sitemap and old links. The sub-sitemaps (page-sitemap.xml ...) are served on emergent.sh by Cloudflare, not by Webflow: on a
+    # webflow.io base they 404, so the sitemap checks run only where the base serves them; the page list for the link crawl then
+    # comes from the production sitemap with the migrated paths swapped in.
+    sst, _, sm = _fetch(base + "/sitemap.xml", follow=True)
+    locs = re.findall(r"<loc>([^<]+)</loc>", sm); own = True
+    if "<sitemapindex" in sm:
+        allp = []
+        for u in locs:
+            stx, _, body = _fetch(base + re.sub(r"^https?://[^/]+", "", u), follow=True)
+            if stx != 200: own = False; stx, _, body = _fetch(u, follow=True)
+            allp += re.findall(r"<loc>([^<]+)</loc>", body)
+        locs = allp
+    paths = sorted({re.sub(r"^https?://[^/]+", "", u).rstrip("/") or "/" for u in locs})
+    pset = set(paths)
+    if own:
+        rec("sitemap fetched", sst == 200 and bool(paths), f"{base}/sitemap.xml: {sst}")
+        for e in changed:
+            p_ = hubs()[e["hub"]]["path"]
+            rec("sitemap: new URL listed", f"{p_}/{e['new_slug']}" in pset, f"{p_}/{e['new_slug']} not in the sitemap")
+            rec("sitemap: old URL absent", f"{p_}/{e['old_slug']}" not in pset, f"{p_}/{e['old_slug']} still in the sitemap")
+    else:
+        print(f"  sitemap checks skipped on {base}: its sub-sitemaps are not served there (Cloudflare on emergent.sh); run verify-site on production after the publish")
+    moved = {f"{hubs()[e['hub']]['path']}/{e['old_slug']}": f"{hubs()[e['hub']]['path']}/{e['new_slug']}" for e in changed}
+    crawl = sorted({moved.get(p, p) for p in paths} | {f"{hubs()[e['hub']]['path']}/{e['new_slug']}" for e in rows} | {h["path"] for h in hubs().values()})
+    oldset = {f"{p}/{o}" for (p, o) in mp}
+    def links(p):
+        st_, _, html = _fetch(base + p)
+        bad = sorted({h for h in re.findall(r'href="(?:https?://(?:www\.)?(?:emergent\.sh|emergent-sh\.webflow\.io))?(/ai-(?:landing-page|form|automation|survey-and-quiz)-builder/[a-z0-9-]+)', html) if h in oldset})
+        return p, st_, bad
+    with cf.ThreadPoolExecutor(n) as ex:
+        for p, st_, bad in ex.map(links, crawl):
+            if st_ in (301, 302, 404) and p not in moved.values(): continue   # a sitemap page that is itself a redirect or gone: not a page to scan
+            rec("0 links to old URLs (every page)", st_ == 200 and not bad, f"{p}: HTTP {st_}" if st_ != 200 else f"{p}: " + ", ".join(bad[:5]))
+    print(f"verify-site {base}")
+    print(f"{'check':45} {'checked':>8} {'passed':>7} {'failed':>7}")
+    tot_f = 0
+    for c, (k, p, f) in res.items():
+        print(f"{c:45} {k:8} {p:7} {k - p:7}"); tot_f += k - p
+    for c, (k, p, f) in res.items():
+        for w in f[:10]: print(f"  FAIL {c}: {w}")
+        if len(f) > 10: print(f"  ... {len(f) - 10} more {c} failure(s)")
+    os.makedirs(CACHE, exist_ok=True)
+    json.dump({c: {"checked": k, "passed": p, "failures": f} for c, (k, p, f) in res.items()}, open(os.path.join(CACHE, f"verify-site-{re.sub(r'[^a-z0-9]+', '-', base)}.json"), "w"), indent=1)
+    if "--audit" in args:
+        import subprocess
+        r = subprocess.run([sys.executable, os.path.join(ROOT, "ops", "hubctl.py"), "live-audit", "--all", "--base", base], cwd=ROOT)
+        print(f"live audit on {base}: exit {r.returncode}")
+        tot_f += bool(r.returncode)
+    print("ALL PASS" if not tot_f else f"FAILED: {tot_f}")
+    return 1 if tot_f else 0
+
+
 def cmd_sample(args):
     import random
     n = int(args[0]) if args and args[0].isdigit() else 15
@@ -727,6 +1011,6 @@ def cmd_sample(args):
 
 if __name__ == "__main__":
     cmds = {"inventory": cmd_inventory, "map": cmd_map, "links": cmd_links, "sample": cmd_sample, "stage": cmd_stage,
-            "canary": cmd_canary, "verify": cmd_verify, "rollback": cmd_rollback, "crawl": cmd_crawl, "repo-rewrite": cmd_repo_rewrite, "plan-regen": cmd_plan_regen, "redirects-merge": cmd_redirects_merge}
+            "canary": cmd_canary, "verify": cmd_verify, "rollback": cmd_rollback, "crawl": cmd_crawl, "repo-rewrite": cmd_repo_rewrite, "plan-regen": cmd_plan_regen, "redirects-merge": cmd_redirects_merge, "stage-full": cmd_stage_full, "rollback-full": cmd_rollback_full, "diff-staged": cmd_diff_staged, "verify-site": cmd_verify_site}
     if len(sys.argv) < 2 or sys.argv[1] not in cmds: sys.exit(__doc__)
-    cmds[sys.argv[1]](sys.argv[2:])
+    sys.exit(cmds[sys.argv[1]](sys.argv[2:]) or 0)
