@@ -571,7 +571,19 @@ def plan_create(cands, live_items, limit=None):
         (skip.append((url, live[sl])) if sl in live else go.append((url, it)))
     return (go[:limit] if limit is not None else go), skip
 
+def _freeze_check(args, op):
+    """Divit 2026-10-23 SLUG MIGRATION freeze: no creates, ships or item publishes while status/freeze.json is active.
+    Migration writes pass only with an explicit --migration flag; --dry-run and --before-only (no Webflow write) always pass."""
+    fp = os.path.join(ROOT, "status", "freeze.json")
+    if not os.path.exists(fp): return
+    f = json.load(open(fp))
+    if not f.get("active"): return
+    if "--dry-run" in args or "--before-only" in args: return
+    if "--migration" in args and op in f.get("migration_ops", []): return
+    sys.exit(f"refused: FREEZE active ({f.get('reason')}, since {f.get('since')}): {op} is blocked; status/freeze.json")
+
 def cmd_api_create(args):
+    _freeze_check(args, "api-create")
     """hubctl api-create HUB --sha SHA [--limit N] [--readback FILE] [--dry-run | --before-only | --live]
     The bulk-payload list (approved, no item ID, review hash current, approval fingerprint, slug check within the hour). --before-only
     reads the live collection and writes the before-value (the slugs to create, absent in that read) to childedits/<date>/; commit and
@@ -669,6 +681,7 @@ def apply_readback_file_ids(read, item_ids, specs=None, save=True):
     return out
 
 def cmd_api_update(args):
+    _freeze_check(args, "api-update")
     """hubctl api-update PAYLOAD.json [--dry-run | --live]: run the item updates (and the item publishes of exactly those items) in a
     payload written by ship-update or relink-payload (ops/out/ship/*.json). Every item needs a committed and pushed before-value in
     childedits/ covering its fields; the rollback payload (the before-values) is written before the write; the collection is read
@@ -737,6 +750,7 @@ def cmd_api_update(args):
     print(f"updated {n} item(s); read back clean" + (f"; item-published {sum(len(v) for v in pub.values())}" if pub else "") + f"; rollback {_rel(rp)}")
 
 def cmd_api_publish(args):
+    _freeze_check(args, "api-publish")
     """hubctl api-publish HUB [--ids-from-state cms_draft] [--limit N] [--dry-run | --before-only | --live] [--verify-live] [--no-relink]
     Item publish (never a site publish) of exactly the verified cms_draft pages' item IDs, 100 per call. --before-only writes their
     before-state from a fresh read (isDraft, lastPublished, lastUpdated) to childedits/<date>/; --live refuses unless it is committed,
