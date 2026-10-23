@@ -90,7 +90,7 @@ def manifest_entry(url):
 # ---------------------------------------------------------------- Layer A evaluation (deterministic)
 ZW = re.compile("[​‌‍⁠﻿­]"); CTRL = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
 ENT = re.compile(r"&(?:amp;)+(?:amp|lt|gt|quot|#\d+|nbsp);|&(?:amp|lt|gt|quot|nbsp|#\d{2,5});")
-DASH = re.compile("[–—]"); CURLY = re.compile("[‘’“”]"); REPEAT = re.compile(r"(?i)\b([a-z]{2,}) +\1\b(?!-\d)")   # spaces only: table cells (tabs) and lines are separate
+DASH = re.compile("[–—]"); CURLY = re.compile("[‘’“”]"); REPEAT = re.compile(r"(?i)(?<![-\w])([a-z]{2,}) +\1\b(?!-)")   # not part of a hyphenated word: "check-in in", "on on-time" (2026-10-23)   # spaces only: table cells (tabs) and lines are separate
 def us_map():
     return json.load(open(os.path.join(ROOT, "rules", "us_spelling.json")))["map"]
 
@@ -246,7 +246,10 @@ def evaluate(raw, man, base):
         if not h.get("carousel_visible"): add(h["hub"], "A9-carousel-hidden", "P0", "carousel (section_build) not visible on the hub (Divit 2026-10-23)", field="hub", fix="proposed")
         else:
             if not h.get("carousel_cards_resolve"): add(h["hub"], "A9-carousel-link", "P0", "hub carousel cards that do not resolve: " + ", ".join((h.get("carousel_bad") or [])[:6]), field="hub", fix="proposed")
-            if not h.get("carousel_has_all_new_cards"): add(h["hub"], "A9-carousel", "P1", f"carousel misses {len(h['missing'])} live page(s): " + ", ".join(h["missing"][:6]), field="hub", fix="proposed")
+            # Divit 2026-10-23: the hub carousel is a CMS list capped at CONF carousel_limit cards (15), so it cannot list every live page
+            # (the 2026-10-09 launch rule, when a hub had under 15): it must show min(limit, live pages of the hub) cards
+            lim = CONF.get("carousel_limit", 15); n_live = len([p for p in man["pages"] if p["hub"] == h["hub"]])
+            if (h.get("carousel_cards") or 0) < min(lim, n_live): add(h["hub"], "A9-carousel", "P1", f"hub carousel shows {h.get('carousel_cards')} cards, expected {min(lim, n_live)} (limit {lim}, {n_live} live pages)", field="hub", fix="proposed")
             if not h.get("hub_card_cover_alt"): add(h["hub"], "A9-cover-alt", "P1", "hub card covers without alt: " + ", ".join(h["cover_alt_missing"]), field="hub", fix="proposed")
         for code, msg, snip in hygiene((h.get("render") or {}).get("text_visible", "")):
             add(h["hub"], code, "P2" if code == "A5-empty-p" else "P1", f"{msg} in hub text", field="hub", snippet=snip, fix="proposed")
@@ -320,9 +323,16 @@ def cmd_run(args):
     import launch
     hubs = sorted({H.CFG["hubs"][H.hub_of(u)]["path"] for u in urls}) if ("--all" in args or "--set" in args or "--since-publish" in args or not args) else []
     if "--all" in args: hubs = sorted(h["path"] for h in H.CFG["hubs"].values())
-    man = {"pages": [manifest_entry(u) for u in urls], "hubs": hubs, "held": held_pages(), "held_hosts": CONF["held_hosts"]}
     cdir = os.path.join(CACHE, date); os.makedirs(cdir, exist_ok=True)
-    jsave(os.path.join(cdir, "manifest.json"), man)
+    if "--from-raw" in args and os.path.exists(os.path.join(cdir, "manifest.json")):
+        # score exactly what was captured: the pages and hubs of the run's own manifest (2026-10-23: 9 pages shipped during a 48-minute
+        # run were listed as checked though no browser had loaded them); held pages are re-read now, so a stale ledger stop on a page
+        # published during the run is not reported as a held page live
+        man = jload(os.path.join(cdir, "manifest.json"), {}); urls = [p["url"] for p in man["pages"]]; hubs = man["hubs"]
+        man["held"] = held_pages()
+    else:
+        man = {"pages": [manifest_entry(u) for u in urls], "hubs": hubs, "held": held_pages(), "held_hosts": CONF["held_hosts"]}
+        jsave(os.path.join(cdir, "manifest.json"), man)
     if "--manifest-only" in args:   # ops/schedule/live_audit_checks.sh shards this manifest, runs live_audit.mjs in parallel, then --from-raw
         print(os.path.join(cdir, "manifest.json")); return
     rawp = os.path.join(cdir, "raw.json")
@@ -334,7 +344,9 @@ def cmd_run(args):
         if args[args.index("--from-raw") + 1:][:1] and not args[args.index("--from-raw") + 1].startswith("--"): rawp = args[args.index("--from-raw") + 1]
         raw = json.load(open(rawp)); sm = sitemap_text(base); raw["sitemap_ok"] = bool(sm)
         for r in raw["pages"]: r["in_sitemap"] = bool(sm) and (f"emergent.sh{r['url']}<" in sm or f"{base.split('//')[1]}{r['url']}<" in sm)
-        man = jload(os.path.join(cdir, "manifest.json"), man)
+        held_now = {h["url"] for h in man["held"]}; raw["held"] = [h for h in raw.get("held") or [] if h["url"] in held_now]
+        got = {r["url"] for r in raw["pages"]}   # a manifest page with no capture is never counted as passed
+        raw["pages"] += [{"url": u, "checks": {"http200": False}, "verify": {"http": 0}, "transport_error": "no capture in raw.json"} for u in urls if u not in got]
     else:
         rc = subprocess.run(cmd, cwd=ROOT).returncode
         if rc: sys.exit(f"live_audit.mjs failed ({rc})")
