@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-313",
    "note": ""
+  },
+  {
+   "t": "2026-10-23 08:38 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-141",
+   "note": "rubric 10/10 by B-r-141; 3 notes"
   }
  ],
  "pipeline": "r15",
@@ -1089,5 +1096,245 @@
  ],
  "writers": [
   "B-w-313"
- ]
+ ],
+ "review": {
+  "by": "B-r-141",
+  "date": "2026-10-23 08:38 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Order Confirmation Automation for Customers and Suppliers' and hero 'emails customers on payment and checks supplier confirmations against each PO' cover both senses of the primary; intake, labels and purchasing policy are left to siblings."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 splits between supplier PO confirmation tools (Doxis, Docbits, Onventis) and store emails (Omnisend, UiPath thread); the page delivers both with a how-to, four worked examples and a comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Harnet's confirmation PDF says $3.35 a hinge'; 'A delivery date one day late might pass on its own, while any price change waits for the buyer named on the PO.'"
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every feature body opens on a full sentence: 'The app connects to your store...', 'When an order holds items with different ship dates...', 'You decide how far a confirmed price...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Varied sentence lengths; 'Each alert then reaches one person.' One craft note on FAQ 5 (below)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Send the customer confirmation when payment clears, not when the cart is submitted. A declined card then never gets one.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "CAN-SPAM lines match the FTC quotes in domain_sources with scope kept ('such as confirming a commercial transaction', 'views these categories narrowly', 'primary purpose ... deciding factor'); X12 855 line matches the X12 quote; 3 x $24 + $38 = $110; ($3.35 - $3.10) x 400 = $100; claims map to prompt-build, api-connect, ai-extraction, database-owned, alerts, no-caps, code-export, free-start."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "order-processing-automation defers confirmation emails to this page; purchase-order-automation covers approval, receiving and invoice match; FAQ 10 hands approvals to procurement automation, FAQ 7 tracking to shipping automation, FAQ 4 returns to returns automation; no sibling primary in headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, hub link in item 2, three exact-match sibling links (returns, shipping, procurement automation), no brand in a question; answer-first ('Yes.', 'No.', 'Only if the order has already shipped.')."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: order #20417 $72 + $38 = $110 with two ship dates; #8812 old/new address, $41.50 unchanged; PO-4471 $3.10 vs $3.35, '$100 more on 400 hinges' to Tobiah Ferrante; PO-1186 reminder at 48 hours, DM to Marisol Achterberg at 72, due November 4. One hero, cursor on button edges."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "faq",
+    "quote": "Whether the reply arrives as an 855 or as a PDF by email, the app reads it and checks each line against the PO.",
+    "issue": "Reading an X12 855 needs an EDI connection (a VAN or EDI provider with an API); api-connect covers it only when that provider is connected, and the sentence reads as if the app parses EDI on its own.",
+    "fix": "Say 'an 855 through your EDI provider's API or a PDF by email'.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "It can, with care.",
+    "issue": "The CAN-SPAM answer quotes the FTC rules but never says the consequence for the reader (promotional content can make the email's primary purpose commercial, bringing CAN-SPAM's commercial requirements); the 'care' is left to inference.",
+    "fix": "Add one plain sentence on what happens when recommendations become the primary purpose.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "hero_prompt",
+    "quote": "Build order confirmation automation that runs on its own and logs every step.",
+    "issue": "Generic hub-level prompt where the page has specific stories (payment, PO match).",
+    "fix": "Name the payment trigger and the PO check in the prompt.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 6",
+   "field": "faq",
+   "issue": "Reading an X12 855 needs an EDI connection (a VAN or EDI provider with an API); api-connect covers it only when that provider is connected, and the sentence reads as if the app parses EDI on its own.",
+   "fix": "Say 'an 855 through your EDI provider's API or a PDF by email'.",
+   "by": "B-r-141",
+   "via": "review",
+   "date": "2026-10-23 08:38 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "The CAN-SPAM answer quotes the FTC rules but never says the consequence for the reader (promotional content can make the email's primary purpose commercial, bringing CAN-SPAM's commercial requirements); the 'care' is left to inference.",
+   "fix": "Add one plain sentence on what happens when recommendations become the primary purpose.",
+   "by": "B-r-141",
+   "via": "review",
+   "date": "2026-10-23 08:38 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "hero_prompt",
+   "issue": "Generic hub-level prompt where the page has specific stories (payment, PO match).",
+   "fix": "Name the payment trigger and the PO check in the prompt.",
+   "by": "B-r-141",
+   "via": "review",
+   "date": "2026-10-23 08:38 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "30d364dd95df142e",
+   "alt:share_image": "ad6256bf5d8e0844",
+   "alt:tab_image_1": "34ed8559adf60e5b",
+   "alt:tab_image_2": "e8e61629ec9bad2f",
+   "alt:tab_image_3": "b88c870f0438c1cb",
+   "alt:tab_image_4": "b0ddfe11c8a5db96",
+   "breadcrumb": "ec1f460e6a48e0d7",
+   "chip_adds": "1ce7a4f881bb55af",
+   "explore_cta": "7f8eb0270fffe694",
+   "faq": "84b0c87a5daaa911",
+   "feature_1": "fa2d0456a96076eb",
+   "feature_2": "44a1943d87945c94",
+   "feature_3": "652b1094f88fb626",
+   "feature_4": "b1b2719fe40a1bec",
+   "feature_5": "52b4d12761916284",
+   "feature_6": "afb8945f47113c53",
+   "features_heading": "fc33cbdb981ac5a5",
+   "features_subheading": "17368c43292c1984",
+   "h1": "a2f47914aa136c46",
+   "hero_description": "654a2c64f0f57342",
+   "hero_prompt": "22c9876dd74b5bc1",
+   "howto_description": "13a59168e59ce9f4",
+   "howto_step_1_des": "415eeb1901c281fd",
+   "howto_step_1_title": "b7f03689f17f5fbe",
+   "howto_step_2_des": "6945709431361aaa",
+   "howto_step_2_title": "cb9c87627d755197",
+   "howto_step_3_des": "c783e34d985bb3f2",
+   "howto_step_3_title": "03235f87d9acdfef",
+   "howto_step_4_des": "7051ae7ae83286d0",
+   "howto_step_4_title": "82d54bd6fdf7f159",
+   "howto_step_5_des": "046ca0382a34342f",
+   "howto_step_5_title": "26a71ddb81f67d2d",
+   "howto_step_6_des": "9ea010e86d84e7cb",
+   "howto_step_6_title": "f03a3b643891e62f",
+   "howto_step_7_des": "a08e2eda7817047c",
+   "howto_step_7_title": "1d750b7a837c4c4a",
+   "howto_title": "ed23977f3725415e",
+   "meta_description": "1c5486599ab8e77f",
+   "meta_title": "11296ac92bd3da94",
+   "mockup": "fcf5597254db1d94",
+   "product_name": "0ed9c98075127a06",
+   "prompt_chip_1": "0c9fd21d44a815a4",
+   "prompt_chip_2": "ffa7e86f792d34f0",
+   "prompt_chip_3": "2740a5b7b6cdc0b8",
+   "prompt_chip_4": "bdcb17231429796e",
+   "slug": "1ab777c8b86a15f6",
+   "tab_content_1": "57bc80fc178d9648",
+   "tab_content_2": "06b194caea654834",
+   "tab_content_3": "8d9220b16cd92fb8",
+   "tab_content_4": "3fa01a4e3a233f2e",
+   "tab_label_1": "faa88d4b5609d304",
+   "tab_label_2": "ffa7e86f792d34f0",
+   "tab_label_3": "076c6b846ed3d10b",
+   "tab_label_4": "97e4ed515211f083",
+   "usecase_heading": "3093e48be76b841d",
+   "why_description": "618186cc33c48b2f",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "1d3aa7a37339fa72"
+  },
+  "all": "282967459b00777d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "30d364dd95df142e",
+   "alt:share_image": "ad6256bf5d8e0844",
+   "alt:tab_image_1": "34ed8559adf60e5b",
+   "alt:tab_image_2": "e8e61629ec9bad2f",
+   "alt:tab_image_3": "b88c870f0438c1cb",
+   "alt:tab_image_4": "b0ddfe11c8a5db96",
+   "breadcrumb": "ec1f460e6a48e0d7",
+   "chip_adds": "1ce7a4f881bb55af",
+   "explore_cta": "7f8eb0270fffe694",
+   "faq": "84b0c87a5daaa911",
+   "feature_1": "fa2d0456a96076eb",
+   "feature_2": "44a1943d87945c94",
+   "feature_3": "652b1094f88fb626",
+   "feature_4": "b1b2719fe40a1bec",
+   "feature_5": "52b4d12761916284",
+   "feature_6": "afb8945f47113c53",
+   "features_heading": "fc33cbdb981ac5a5",
+   "features_subheading": "17368c43292c1984",
+   "h1": "a2f47914aa136c46",
+   "hero_description": "654a2c64f0f57342",
+   "hero_prompt": "22c9876dd74b5bc1",
+   "howto_description": "13a59168e59ce9f4",
+   "howto_step_1_des": "415eeb1901c281fd",
+   "howto_step_1_title": "b7f03689f17f5fbe",
+   "howto_step_2_des": "6945709431361aaa",
+   "howto_step_2_title": "cb9c87627d755197",
+   "howto_step_3_des": "c783e34d985bb3f2",
+   "howto_step_3_title": "03235f87d9acdfef",
+   "howto_step_4_des": "7051ae7ae83286d0",
+   "howto_step_4_title": "82d54bd6fdf7f159",
+   "howto_step_5_des": "046ca0382a34342f",
+   "howto_step_5_title": "26a71ddb81f67d2d",
+   "howto_step_6_des": "9ea010e86d84e7cb",
+   "howto_step_6_title": "f03a3b643891e62f",
+   "howto_step_7_des": "a08e2eda7817047c",
+   "howto_step_7_title": "1d750b7a837c4c4a",
+   "howto_title": "ed23977f3725415e",
+   "meta_description": "1c5486599ab8e77f",
+   "meta_title": "11296ac92bd3da94",
+   "mockup": "fcf5597254db1d94",
+   "product_name": "0ed9c98075127a06",
+   "prompt_chip_1": "0c9fd21d44a815a4",
+   "prompt_chip_2": "ffa7e86f792d34f0",
+   "prompt_chip_3": "2740a5b7b6cdc0b8",
+   "prompt_chip_4": "bdcb17231429796e",
+   "slug": "1ab777c8b86a15f6",
+   "tab_content_1": "57bc80fc178d9648",
+   "tab_content_2": "06b194caea654834",
+   "tab_content_3": "8d9220b16cd92fb8",
+   "tab_content_4": "3fa01a4e3a233f2e",
+   "tab_label_1": "faa88d4b5609d304",
+   "tab_label_2": "ffa7e86f792d34f0",
+   "tab_label_3": "076c6b846ed3d10b",
+   "tab_label_4": "97e4ed515211f083",
+   "usecase_heading": "3093e48be76b841d",
+   "why_description": "618186cc33c48b2f",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "1d3aa7a37339fa72"
+  },
+  "all": "282967459b00777d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

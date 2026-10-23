@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-315",
    "note": ""
+  },
+  {
+   "t": "2026-10-23 08:36 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-137",
+   "note": "rubric 10/10 by B-r-137; 3 notes"
   }
  ],
  "pipeline": "r15",
@@ -1051,5 +1058,245 @@
  ],
  "writers": [
   "B-w-315"
- ]
+ ],
+ "review": {
+  "by": "B-r-137",
+  "date": "2026-10-23 08:36 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Renewal Reminder Automation Before Anything Lapses'; hero 'emails the owner before a contract, plan, license, or membership renews, then escalates' covers all four renewal types; how-to description one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are glossaries, contract/insurance renewal recipes; page defines the term (FAQ 1), shows contract, subscription, license and membership renewals, a 7-step how-to and an email-content answer (FAQ 5) for the 'email'/'template' related searches."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Notice date vs end date (step 02), 'such as 90, 30, and 7 days before a renewal', license upload read with AI, lapsed list for memberships."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Bramblecote IT Services tracks every client contract.', 'Emergent builds the renewal database from your prompt.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; sentences short and single-idea, e.g. 'A message with a name on it has an owner.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous details: '$240 plan renews on November 14', '408 members have renewed, out of 480', 'Load 5 renewals due in the next 90 days, including one with no owner.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "No auto-renewal law or state claims anywhere; Emergent claims map to claims_used (no-caps 'Emergent has no task cap', code-export 'on paid plans', ai-extraction with human check on low confidence); dates verified: Dec 31 to Mar 31 = 90, Oct 15 to Nov 14 = 30, May 1 to Jun 30 = 60, 480 - 408 = 72; table generated from library."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Renewal-date countdowns per record; no overlap with appointment-reminder (confirmations/no-shows), notification-automation (routing/digests) or vendor-management-workflow (vendor reviews/insurance): none of those mention renewals, and this page has no vendor or appointment tab."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic renewal questions, answer-first, hub link in item 2, sibling links 'pdf automation', 'proposal automation', 'newsletter automation'; no brand or file format in questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: Hartwell 'December 31, 90 days out' / 'March 1, 30 days out' / 'To Ines Albrecht'; '$240' 'November 14' 'Sent October 15'; 'New expiry June 30, 2028' 'Asked May 1, 60 days out'; '408' 'Of 480 members' '72 moved to lapsed' 'Final email January 7', all matching tab copy; one hero each, cursor on button."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "learn_refs",
+    "quote": "how-to-build-an-ai-agent: Auto fixed set: step-by-step agent build",
+    "issue": "References rule says leave empty rather than link something loosely related; an AI-agent build guide is only loosely related to renewal reminders (the subscription-business and workflow-builders refs fit).",
+    "fix": "Drop the AI-agent ref or swap in a Learn article on reminders or scheduled workflows if one exists.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq_10",
+    "quote": "Should renewal reminder automation send reminders with my member newsletter?",
+    "issue": "Reads as a question written to carry the newsletter automation link rather than one a searcher asks.",
+    "fix": "Leave; consider a more natural question next refresh.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "tab_content_1",
+    "quote": "the app sends account manager Teodor Varga a renewal task",
+    "issue": "The image step reads 'Reminder emailed' before 'Renewal task opened'; the copy never says the reminder is an email (the plan did). Not a contradiction, the image adds a detail.",
+    "fix": "Optionally 'emails account manager Teodor Varga and opens a renewal task'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "learn_refs",
+   "issue": "References rule says leave empty rather than link something loosely related; an AI-agent build guide is only loosely related to renewal reminders (the subscription-business and workflow-builders refs fit).",
+   "fix": "Drop the AI-agent ref or swap in a Learn article on reminders or scheduled workflows if one exists.",
+   "by": "B-r-137",
+   "via": "review",
+   "date": "2026-10-23 08:36 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq_10",
+   "issue": "Reads as a question written to carry the newsletter automation link rather than one a searcher asks.",
+   "fix": "Leave; consider a more natural question next refresh.",
+   "by": "B-r-137",
+   "via": "review",
+   "date": "2026-10-23 08:36 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "tab_content_1",
+   "issue": "The image step reads 'Reminder emailed' before 'Renewal task opened'; the copy never says the reminder is an email (the plan did). Not a contradiction, the image adds a detail.",
+   "fix": "Optionally 'emails account manager Teodor Varga and opens a renewal task'.",
+   "by": "B-r-137",
+   "via": "review",
+   "date": "2026-10-23 08:36 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "04fca69403b4f7c5",
+   "alt:share_image": "616ba871cf8e1139",
+   "alt:tab_image_1": "03258c90f6b7a274",
+   "alt:tab_image_2": "666405730a928e5c",
+   "alt:tab_image_3": "cbcabc9f4128da82",
+   "alt:tab_image_4": "723307aa58abd445",
+   "breadcrumb": "f1cfd577104bbe5a",
+   "chip_adds": "5f2674000564c47f",
+   "explore_cta": "ecd31140506b86cf",
+   "faq": "5e0c66298ef50e40",
+   "feature_1": "d8a341c32a0e91a9",
+   "feature_2": "0447599e58aa34dc",
+   "feature_3": "3db400b8e6eea236",
+   "feature_4": "5f0a231e1dbf85f4",
+   "feature_5": "93812f59b53e6637",
+   "feature_6": "89feaf85b4fa7d34",
+   "features_heading": "e4a1a76e7d85e3ff",
+   "features_subheading": "c7ae216afe82c90e",
+   "h1": "41e9d3cfa4a13109",
+   "hero_description": "c57c4b3b56d397da",
+   "hero_prompt": "911e2524bbd64328",
+   "howto_description": "8d4f6d24d624484f",
+   "howto_step_1_des": "d0d15176198ddd84",
+   "howto_step_1_title": "d24ea7a0d0dbb5f4",
+   "howto_step_2_des": "1757a09d17dff862",
+   "howto_step_2_title": "1baea7d6ee5aa069",
+   "howto_step_3_des": "590d3a39d7918c37",
+   "howto_step_3_title": "1071a782487df77f",
+   "howto_step_4_des": "4f9e4fb773e50c5d",
+   "howto_step_4_title": "40af4181c3d9c729",
+   "howto_step_5_des": "4127dd3c20578868",
+   "howto_step_5_title": "b4781ae4e7ee7bdb",
+   "howto_step_6_des": "4daf91f50e375a3a",
+   "howto_step_6_title": "4eec4e51d872d91b",
+   "howto_step_7_des": "65f0379d89365ce4",
+   "howto_step_7_title": "81306a9951f6c941",
+   "howto_title": "7c919e4a7cc45b2b",
+   "meta_description": "ad037758e89098d8",
+   "meta_title": "24de55818f6da007",
+   "mockup": "ae47a51caeebb717",
+   "product_name": "11530bbd01fcb101",
+   "prompt_chip_1": "8f923d76f87506ee",
+   "prompt_chip_2": "a151f2e912fe8d5b",
+   "prompt_chip_3": "fad5548e8891bd35",
+   "prompt_chip_4": "b50f1a427c0b2620",
+   "slug": "fcc0773e32601f4b",
+   "tab_content_1": "f95541e5aa9e2b79",
+   "tab_content_2": "0ceab468083aaabe",
+   "tab_content_3": "3b658fabc4fd95fc",
+   "tab_content_4": "026a8b8b640d81df",
+   "tab_label_1": "c36cc978c277ac83",
+   "tab_label_2": "a151f2e912fe8d5b",
+   "tab_label_3": "523010175fe36bd1",
+   "tab_label_4": "5164ec7dd5bc5248",
+   "usecase_heading": "84125c0002d90b4d",
+   "why_description": "8b1db69a1734d296",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "d4b1a3142963f6c5"
+  },
+  "all": "4b1ebfecea9941bd",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "04fca69403b4f7c5",
+   "alt:share_image": "616ba871cf8e1139",
+   "alt:tab_image_1": "03258c90f6b7a274",
+   "alt:tab_image_2": "666405730a928e5c",
+   "alt:tab_image_3": "cbcabc9f4128da82",
+   "alt:tab_image_4": "723307aa58abd445",
+   "breadcrumb": "f1cfd577104bbe5a",
+   "chip_adds": "5f2674000564c47f",
+   "explore_cta": "ecd31140506b86cf",
+   "faq": "5e0c66298ef50e40",
+   "feature_1": "d8a341c32a0e91a9",
+   "feature_2": "0447599e58aa34dc",
+   "feature_3": "3db400b8e6eea236",
+   "feature_4": "5f0a231e1dbf85f4",
+   "feature_5": "93812f59b53e6637",
+   "feature_6": "89feaf85b4fa7d34",
+   "features_heading": "e4a1a76e7d85e3ff",
+   "features_subheading": "c7ae216afe82c90e",
+   "h1": "41e9d3cfa4a13109",
+   "hero_description": "c57c4b3b56d397da",
+   "hero_prompt": "911e2524bbd64328",
+   "howto_description": "8d4f6d24d624484f",
+   "howto_step_1_des": "d0d15176198ddd84",
+   "howto_step_1_title": "d24ea7a0d0dbb5f4",
+   "howto_step_2_des": "1757a09d17dff862",
+   "howto_step_2_title": "1baea7d6ee5aa069",
+   "howto_step_3_des": "590d3a39d7918c37",
+   "howto_step_3_title": "1071a782487df77f",
+   "howto_step_4_des": "4f9e4fb773e50c5d",
+   "howto_step_4_title": "40af4181c3d9c729",
+   "howto_step_5_des": "4127dd3c20578868",
+   "howto_step_5_title": "b4781ae4e7ee7bdb",
+   "howto_step_6_des": "4daf91f50e375a3a",
+   "howto_step_6_title": "4eec4e51d872d91b",
+   "howto_step_7_des": "65f0379d89365ce4",
+   "howto_step_7_title": "81306a9951f6c941",
+   "howto_title": "7c919e4a7cc45b2b",
+   "meta_description": "ad037758e89098d8",
+   "meta_title": "24de55818f6da007",
+   "mockup": "ae47a51caeebb717",
+   "product_name": "11530bbd01fcb101",
+   "prompt_chip_1": "8f923d76f87506ee",
+   "prompt_chip_2": "a151f2e912fe8d5b",
+   "prompt_chip_3": "fad5548e8891bd35",
+   "prompt_chip_4": "b50f1a427c0b2620",
+   "slug": "fcc0773e32601f4b",
+   "tab_content_1": "f95541e5aa9e2b79",
+   "tab_content_2": "0ceab468083aaabe",
+   "tab_content_3": "3b658fabc4fd95fc",
+   "tab_content_4": "026a8b8b640d81df",
+   "tab_label_1": "c36cc978c277ac83",
+   "tab_label_2": "a151f2e912fe8d5b",
+   "tab_label_3": "523010175fe36bd1",
+   "tab_label_4": "5164ec7dd5bc5248",
+   "usecase_heading": "84125c0002d90b4d",
+   "why_description": "8b1db69a1734d296",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "d4b1a3142963f6c5"
+  },
+  "all": "4b1ebfecea9941bd",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
