@@ -4,7 +4,8 @@ Allowed requests, and nothing else (check() refuses before any network call, tok
   GET   /collections/{cid}/items             list (query offset and limit only, limit 1-100)
   GET   /collections/{cid}/items/{item_id}   one item
   POST  /collections/{cid}/items             create: 1-100 items, every item isDraft true with a name and a slug
-  PATCH /collections/{cid}/items             update: 1-100 items, each with an id; never a slug, isArchived or isDraft false
+  PATCH /collections/{cid}/items             update: 1-100 items, each with an id; never a slug (one TEMPORARY exception: the
+                                             approved slug migration, migration_slug_block), isArchived or isDraft false
   POST  /collections/{cid}/items/publish     item publish by IDs: 1-100 itemIds
 {cid} must be one of the 4 child collection IDs in config/collections.json. One exception, read only (Divit 2026-10-16): the Learn
 collection (config learn_collection) allows GET list, so the published status of acrm---learn references can be checked; every
@@ -85,10 +86,37 @@ def check(method, path, body=None, query=None):
             if set(it) - {"id", "isDraft", "fieldData"}: _refuse(f"update items carry id, isDraft and fieldData only, got {sorted(it)}")
             if not (isinstance(it.get("id"), str) and re.fullmatch(ID, it["id"])): _refuse("update: every item needs a 24-hex id")
             if "isDraft" in it and it["isDraft"] is not True: _refuse("update: isDraft may only be true (status kept otherwise)")
-            if "slug" in it["fieldData"]: _refuse("update: a slug never changes through the API")
+            if "slug" in it["fieldData"]:
+                why = migration_slug_block(cid, it["id"], it["fieldData"]["slug"])
+                if why: _refuse("update: a slug never changes through the API" + (f" ({why})" if why != "-" else ""))
     if op == "create" and len({it["fieldData"]["slug"] for it in items}) != len(items): _refuse("create: duplicate slugs in one request")
     if op == "update" and len({it["id"] for it in items}) != len(items): _refuse("update: duplicate item ids in one request")
     return op, cid
+
+# ---------- SLUG MIGRATION EXCEPTION (Divit 2026-10-23, DECISIONS "staged-write go ... Slug-guard exception approved").
+# TEMPORARY: REMOVE this function and its call in check() when the slug migration is closed (status/freeze.json inactive for good).
+# A slug in an update passes ONLY when (1) status/freeze.json is active with the slug-migration reason, (2) the process carries
+# --migration, and (3) plan/slug-migration.json maps this exact item id, in this collection's hub, to exactly this new slug
+# (decision "change"). Every other slug change stays refused. Golden: tests/golden cases api-migration-slug-*.
+FREEZE_FILE = os.path.join(ROOT, "status", "freeze.json")
+MIGRATION_MAP = os.path.join(ROOT, "plan", "slug-migration.json")
+def migration_slug_block(cid, item_id, slug, argv=None, freeze=None, mapping=None):
+    """None when this slug change is the approved migration change, else why it is refused ("-": no migration context at all)."""
+    import sys as _s
+    a = argv if argv is not None else (ARGV if ARGV is not None else _s.argv)
+    if "--migration" not in a: return "-"
+    try: f = freeze if freeze is not None else json.load(open(FREEZE_FILE))
+    except (OSError, ValueError): return "migration: no status/freeze.json"
+    if not f.get("active") or "slug migration" not in (f.get("reason") or "").lower(): return "migration: the slug-migration freeze is not active"
+    try: m = mapping if mapping is not None else json.load(open(MIGRATION_MAP))
+    except (OSError, ValueError): return "migration: no plan/slug-migration.json"
+    hub = CHILD.get(cid)
+    row = next((e for e in m.get("pages", []) if e.get("item_id") == item_id), None)
+    if not row: return f"migration: item {item_id} is not in plan/slug-migration.json"
+    if row.get("hub") != hub: return f"migration: item {item_id} belongs to {row.get('hub')}, not {hub}"
+    if row.get("decision") != "change" or row.get("new_slug") == row.get("old_slug"): return f"migration: item {item_id} has no approved slug change"
+    if slug != row.get("new_slug"): return f"migration: '{slug}' is not the approved slug '{row.get('new_slug')}' for {item_id}"
+    return None
 
 # ---------- token and transport (both replaceable by the golden tests; nothing here ever returns the token to a caller's output)
 def _token():

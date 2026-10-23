@@ -58,6 +58,8 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   swap-recheck   {url, sha, note, expect_need, inject?, expect_filled?}  step 3: positions to swap for the spec at sha (note lead clause +
                                                           gate rejects); inject dropped|synthetic: replacements counted from those slots
   qc-r18         {url, sha, match, expect, keep_review?}  ruling 18 in QC R15: the spec at sha as new writing raises R15 `match` exactly when expected
+  slug-rule      {hub, slug, primary, h1?, expect_ok}     PERMANENT SLUG RULE (Divit 2026-10-23): ops/slugs.problems (blocks create, ship-check)
+  slug-for       {hub, keyword, expect}                   the rule's examples: ops/slugs.slug_for
   webflow-api    {test, ...}                              Divit 2026-10-14, ops/webflow_api.py + hubctl api-*: test refuse {method, path, body?,
                                                           query?, expect_refused} ({child} = a child collection id), dry-no-network, batching
                                                           {op, n, expect: sizes}, slug-skip {cands, live, limit?, expect_create, expect_skip},
@@ -191,6 +193,12 @@ def caught(c):
         import paa_gate as PG          # (sign up, check in) are function words, any other word counts
         g = PG.Gate(c["url"]); its = [{"q": q, "verdict": "pass", "reasons": [], "legacy": not c.get("new_writing")} for q in (c["a"], c["b"])]
         g.finish(its); return any(r[0] == "PA9" for r in its[1]["reasons"]) == c["expect_dup"]
+    if c["kind"] == "slug-rule":   # PERMANENT SLUG RULE (Divit 2026-10-23): ops/slugs.problems, blocking at create and ship-check
+        import slugs as SL
+        return (not SL.problems(c["hub"], c["slug"], c["primary"], c.get("h1"))) == c["expect_ok"]
+    if c["kind"] == "slug-for":    # PERMANENT SLUG RULE examples: ops/slugs.slug_for(hub, target keyword)
+        import slugs as SL
+        return SL.slug_for(c["hub"], c["keyword"]) == c["expect"]
     if c["kind"] == "pa12-page":   # Divit 2026-10-23: PA12 skips "pdf" secondaries unless PDF is the page's subject
         import paa_gate as PG
         g = PG.Gate(c["url"]); _items, page = PG.run_spec(g)

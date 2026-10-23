@@ -44,6 +44,7 @@
   learn-match URL [URL ...] [--write] | learn-match --all [--live] --report [--out DIR]
                                     topic-matched Learn refs (ops/learn_match.py; fallback config/learn_sets.json); --write sets
                                     spec.learn_refs + learn_refs_why (refused on live pages); --out writes plan.md + plan.json (Divit 2026-10-16)
+  slug-check HUB|URL [...]          the PERMANENT slug rule (ops/slugs.py slug_for): slug = target keyword standalone minus the category word
   ship-check URL [URL ...]          ship-time checks (DECISIONS 2026-10-15 night): QC 0, gate 10/10, review current, no pending flag, images
                                     current, Learn refs (new pages), hero prompt (QC L10 + generic); exit 1 on any failure
   state URL approved --by standing-go   the standing go: only while .cache/overnight-b/ruling19-lift-2026-10-15 or a dated
@@ -1004,7 +1005,8 @@ def overnight_golden(c):
                 sp["url"] = u; p = os.path.join(tmp, sl + ".json"); json.dump(sp, open(p, "w")); pages[u] = p
             st = {"pages": {u: {"state": "approved", "queue_rank": i, "cms_checked": now()} for i, u in enumerate(pages)}}
             changed = set(c.get("changed") or [])
-            saved = (globals()["load_st"], globals()["spath"], globals()["_field_data"], G.review_changed, G.fingerprint)
+            saved = (globals()["load_st"], globals()["spath"], globals()["_field_data"], G.review_changed, G.fingerprint, globals()["slug_rule_problems"])
+            globals()["slug_rule_problems"] = lambda u, s: []   # synthetic golden-* slugs: the slug rule has its own golden cases (slug-rule-*)
             globals()["load_st"] = lambda h: st; globals()["spath"] = lambda u: pages[u]
             globals()["_field_data"] = lambda u, sha, create=False: (json.load(open(pages[u])), {"name": u, "slug": u.rsplit("/", 1)[1]})
             G.review_changed = lambda s: ["h1"] if s["url"].rsplit("/", 1)[1] in changed else []
@@ -1013,7 +1015,7 @@ def overnight_golden(c):
             try:
                 with contextlib.redirect_stdout(out): got = [u.rsplit("/", 1)[1] for u, _ in _create_candidates(hub, "0" * 40, packet)]; stopped = False
             except SystemExit: got, stopped = None, True
-            finally: (globals()["load_st"], globals()["spath"], globals()["_field_data"], G.review_changed, G.fingerprint) = saved
+            finally: (globals()["load_st"], globals()["spath"], globals()["_field_data"], G.review_changed, G.fingerprint, globals()["slug_rule_problems"]) = saved
             if c.get("expect_stop"): return stopped
             pk = open(packet).read() if os.path.exists(packet) else ""
             held = [f"{base}/{sl}" for sl in c["expect_held"]]
@@ -1100,6 +1102,26 @@ def record_file_ids(hub, s, item):
             im["file_id"] = got["fileId"]; im["cdn_url"] = got.get("url")
     return ch
 
+def slug_rule_problems(url, s):
+    """PERMANENT SLUG RULE (Divit 2026-10-23, final): the slug must equal slugs.slug_for(hub, the page's target keyword) and the H1
+    carries that keyword (ops/slugs.py, the one slug function; exceptions safety-quiz, team-quiz, wellness-quiz). BLOCKS create and ship."""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import slugs as SL
+    return SL.spec_problems(hub_of(url), url, s)
+
+def cmd_slug_check(args):
+    """hubctl slug-check <HUB|URL> [...]: every spec of the hub (or the URLs) against slugs.slug_for(hub, keywords.primary). Exit 1 on any mismatch."""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    urls = []
+    for a in args:
+        if a.startswith("/"): urls.append(a)
+        elif a in CFG["hubs"]: urls += sorted(s["url"] for s in G.all_specs() if s.get("url", "").startswith(CFG["hubs"][a]["path"] + "/"))
+    bad = 0
+    for u in urls:
+        if not os.path.exists(spath(u)): print(f"FAIL {u}: no spec"); bad += 1; continue
+        pr = slug_rule_problems(u, json.load(open(spath(u)))); bad += bool(pr)
+        if pr: print(f"FAIL {u}: " + "; ".join(pr))
+    print(f"slug-check: {len(urls) - bad}/{len(urls)} pass"); return 1 if bad else 0
+
 def ship_check(url):
     """Ship-time checks (DECISIONS 2026-10-15 night): [] when the page may ship. QC TOTAL 0, PAA gate 10/10, review current and
     no pending flag, images current, Learn refs (new items: spec.learn_refs), hero prompt (QC L10 runs in QC; generic default)."""
@@ -1117,6 +1139,7 @@ def ship_check(url):
         rk, why = G.review_ok(s)
         if not rk: out.append(why)
     if not SH.images_current(s): out.append("images not current (hubctl images)")
+    out += ["slug rule: " + p for p in slug_rule_problems(url, s)]   # Divit 2026-10-23 PERMANENT (blocks api-create too)
     if not s.get("item_id") and learn_from_item(hub_of(url)): out += learn_spec_problems(s)
     hp = re.sub(r"<[^>]+>", "", re.sub(r"<script.*?</script>", "", (s.get("fields") or {}).get("hero_prompt") or "", flags=re.S))
     if re.search(r"\b(my|our)\s+\d", hp, re.I): out.append("hero prompt names a scenario (DECISIONS 2026-10-09: generic default)")
@@ -1145,6 +1168,8 @@ def _create_candidates(hub, sha, packet=None):
         if verdict == "hold": continue
         if verdict != "ok": sys.exit(f"{url}: refused, {why_r} (ruling 1: a page ships only if its current text was reviewed)")
         s, fd = _field_data(url, sha, create=True)
+        sr = slug_rule_problems(url, s0)   # Divit 2026-10-23 PERMANENT create check: a mismatch BLOCKS the create
+        if sr: sys.exit(f"{url}: refused, slug rule: " + "; ".join(sr) + " (DECISIONS 2026-10-23 SLUG MIGRATION)")
         if not s.get("approval") or G.fingerprint(s) != s["approval"]["fingerprint"]:
             sys.exit(f"{url}: content or images changed after Divit approved it. Re-run review and approval.")
         chk = e.get("cms_checked")
@@ -1523,7 +1548,7 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "release": cmd_release, "paa": cmd_paa, "paa-resource": cmd_paa_resource, "paa-synonyms": cmd_paa_synonyms, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "transfer-hold": cmd_transfer_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "feasibility": cmd_feasibility, "daily-batch": cmd_daily_batch, "unlock": cmd_unlock, "verbatim": cmd_verbatim, "defer": cmd_defer, "batch-check": cmd_batch_check, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "learn-check": cmd_learn_check, "ship-check": cmd_ship_check, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "transfer-hold": cmd_transfer_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "feasibility": cmd_feasibility, "daily-batch": cmd_daily_batch, "unlock": cmd_unlock, "verbatim": cmd_verbatim, "defer": cmd_defer, "batch-check": cmd_batch_check, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "learn-check": cmd_learn_check, "ship-check": cmd_ship_check, "slug-check": cmd_slug_check, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
         "recheck": cmd_recheck, "live-sync": cmd_live_sync, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live,
         "swap-recheck": lambda a: __import__("swap_recheck").main(a),   # Divit 2026-10-14 step 3: r18-swap-short pages back to rework once replacements exist

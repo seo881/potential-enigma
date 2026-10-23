@@ -11,12 +11,16 @@ A child slug is ONLY the page's own name: the hub's category word never appears 
       the primary itself when there is no H1 yet, source marked), ONLY the category word removed, lowercased, hyphenated.
       Flags: collision (a new slug used twice in a collection), h1_vs_primary. -> plan/slug-migration.json (Webflow items + pages
       named in tracked repo files); keyword-map-only pages, and collisions with MSV, go to private/migration/ (git-ignored).
+  slug_migrate.py stage | canary HUB OLD | verify PAYLOAD READBACK... | rollback [--canary OLD] | crawl | repo-rewrite [--apply]
+      staging prep and canary (see each function); none of them calls Webflow (api-update does, with --migration).
   slug_migrate.py sample [N] [--seed S]
       N random rows (old, H1, new) from plan/slug-migration.json.
   slug_migrate.py links
       counts hard-coded internal links to child pages in specs/ (non-archived) and in the newest CMS read.
 """
 import glob, json, os, re, sys, urllib.request
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import slugs as SL   # THE slug function (ops/slugs.py slug_for): the permanent rule and its one exception, used everywhere
 from collections import Counter, defaultdict
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -186,10 +190,16 @@ def slugify(phrase):
     return re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", phrase.lower().replace("'", "").replace("’", ""))).strip("-")
 
 
-def new_slug(hub, phrase):
-    """slugify(phrase) with ONLY the hub's category word removed (hyphen-bounded, anywhere)."""
-    s, removed = strip(hub, slugify(phrase))
-    return s, removed
+# Divit's rulings on the flagged rows (DECISIONS 2026-10-23); the slug in the map already follows each one.
+RESOLVED = {("LP", "startup-landing-page"): "DECISIONS 2026-10-23: startup, the H1 wins",
+            ("Form", "hipaa-release-form"): "DECISIONS 2026-10-23: hipaa-release approved",
+            ("Form", "wedding-rsvp"): "DECISIONS 2026-10-23: H1 fixed to the keyword (Wedding RSVP Form); slug stays wedding-rsvp",
+            ("Form", "employment-verification-letter"): "DECISIONS 2026-10-23: the primary wins",
+            ("Form", "independent-contractor-agreement"): "DECISIONS 2026-10-23: the primary wins",
+            ("Form", "nda-form"): "DECISIONS 2026-10-23: the primary wins (nda)",
+            ("LP", "thank-you-page"): "DECISIONS 2026-10-23: the primary wins",
+            ("Form", "creator-application"): "H1 adds only the category word (Form): slug unaffected",
+            ("SurveyQuiz", "customer-effort-score"): "H1 adds only the category word (Survey): slug unaffected"}
 
 
 def _load_sources():
@@ -233,7 +243,10 @@ def cmd_map(args):
                 phrase, source = K.h1_phrase_for(prim), ("primary (no H1 yet)" if not h1 else "primary (phrase not found in H1)")
             if not phrase:
                 phrase, source = r["slug"].replace("-", " "), "old slug (no H1, no primary)"
-            n, removed = new_slug(hub, phrase)
+            # Divit 2026-10-23 FINAL: the slug is slug_for(hub, target keyword); the H1 phrase is kept only for the H1 checks
+            n = SL.slug_for(hub, prim or phrase); removed = strip(hub, r["slug"])[1]
+            if source and source.startswith("old slug"): source = "old slug (no H1, no primary)"
+            else: source = "slug_for(primary)" if prim else "slug_for(H1 phrase)"
             e = {"hub": hub, "item_id": r.get("item_id"), "origin": r["origin"], "webflow_state": r.get("webflow_state"),
                  "repo_state": r.get("status_state"), "old_slug": r["slug"], "h1": h1, "h1_source": h1src, "h1_phrase": phrase,
                  "slug_source": source, "primary": prim, "primary_source": psrc if prim else None, "new_slug": n,
@@ -241,7 +254,8 @@ def cmd_map(args):
                  "_public": r["origin"] == "webflow" or r.get("public_source", True)}
             if not n: e["flags"].append("empty")
             if prim and _norm(phrase) != _norm(prim): e["flags"].append("h1_vs_primary")
-            if source == "h1":
+            if e["h1"] and prim and not SL.keyword_in_h1(e["h1"], prim): e["flags"].append("h1_lacks_keyword")
+            if source == "slug_for(primary)" and phrase and h1:
                 for side, w in h1_extra_words(h1, phrase): e["flags"].append(f"h1_adds_{side}:{w}")
             if n != strip(hub, r["slug"])[0]: e["flags"].append("differs_from_old_stripped")
             rows_all.append(e)
@@ -253,13 +267,15 @@ def cmd_map(args):
             for e in es: e["flags"].append("collision:" + ",".join(x["old_slug"] for x in es if x is not e))
     for e in rows_all:
         e["decision"] = "collision" if any(f.startswith("collision") for f in e["flags"]) else ("unchanged" if e["new_slug"] == e["old_slug"] else "change")
+        if (e["hub"], e["old_slug"]) in SL.EXCEPTION_SLUGS: e["decision"] = "exception"; e["resolution"] = "DECISIONS 2026-10-23: survey/quiz collision exception, the quiz keeps -quiz"
+        if (e["hub"], e["old_slug"]) in RESOLVED: e["resolution"] = RESOLVED[(e["hub"], e["old_slug"])]
     public = [e for e in rows_all if e["_public"]]; private = [e for e in rows_all if not e["_public"]]
     for e in rows_all: e.pop("_public")
     tot = defaultdict(Counter)
     for e in public: tot[e["hub"]][e["origin"] + "_" + e["decision"]] += 1
     doc = {"_note": "Slug migration map (DECISIONS 2026-10-23 SLUG MIGRATION; Divit's rule 2026-10-23, as the AI App Builder collection): "
                     "slug = the primary keyword as it appears in the page's H1, ONLY the category word removed, lowercased and hyphenated; "
-                    "no other change. Generated by ops/slug_migrate.py map (read only toward Webflow). decision: unchanged | change | collision. "
+                    "no other change. Generated by ops/slug_migrate.py map (read only toward Webflow). decision: unchanged | change | exception (survey/quiz collision: the quiz keeps -quiz) | collision. "
                     "Pages known only from the git-ignored keyword map are in private/migration/slug-migration-kmap.json.",
            "rule": {h: ["-".join(s) for s in v["strip"]] for h, v in CATEGORY.items()},
            "totals": {h: dict(c) for h, c in tot.items()},
@@ -320,6 +336,264 @@ def cmd_links(args):
     print("CMS total:", tot)
 
 
+# ---------------------------------------------------------------- staging prep (step B) and canary (step C)
+DAY = "2026-10-23"
+CHILDEDITS = os.path.join(ROOT, "childedits", DAY)
+BEFORE = os.path.join(CHILDEDITS, "slug-migration.before.json")
+OUTDIR = os.path.join(ROOT, "ops", "out", "migration")          # git-ignored: payloads
+REDIRECTS = os.path.join(ROOT, "reports", DAY, "slug-migration-redirects.csv")
+FAQ = "awb---faq-data"
+
+
+def _mapping(public_only=False):
+    """{(hub path, old slug): new slug} for every row whose slug changes (live and planned)."""
+    rows = json.load(open(OUT))["pages"]
+    if not public_only and os.path.exists(os.path.join(PRIV, "slug-migration-kmap.json")):
+        rows += json.load(open(os.path.join(PRIV, "slug-migration-kmap.json")))["pages"]
+    return {(hubs()[e["hub"]]["path"], e["old_slug"]): e["new_slug"] for e in rows if e["new_slug"] != e["old_slug"] and e.get("decision") != "collision"}
+
+
+def rewrite_links(text, mp):
+    """every child-page URL (absolute emergent.sh or root-relative) whose slug changes, rewritten to the new slug; (text, n)."""
+    n = [0]
+    def one(m):
+        new = mp.get((m.group(2), m.group(3)))
+        if not new: return m.group(0)
+        n[0] += 1; return f"{m.group(1) or ''}{m.group(2)}/{new}"
+    out = re.sub(r"(https?://(?:www\.)?emergent\.sh)?(/ai-(?:landing-page|form|automation|survey-and-quiz)-builder)/([a-z0-9-]+)(?![a-z0-9-])", one, text or "")
+    return out, n[0]
+
+
+def _fresh_reads():
+    rbdir = os.path.join(ROOT, ".cache/readback"); out = {}
+    for hub, h in hubs().items():
+        rb = newest_readback(h["repo_dir"], rbdir)
+        out[hub] = (rb, json.load(open(rb))["result"]["items"])
+    return out
+
+
+def plan_items(reads, mp, only_target=None):
+    """[(hub, item, new fieldData)] for every item whose slug or FAQ links change. only_target (hub, old slug): the canary, i.e.
+    that one item's slug plus the links pointing at it, nothing else."""
+    rows = {e["item_id"]: e for e in json.load(open(OUT))["pages"] if e.get("item_id")}
+    sub = {only_target: mp[only_target]} if only_target else mp
+    out = []
+    for hub, (rb, items) in reads.items():
+        path = hubs()[hub]["path"]
+        for it in items:
+            fd = it["fieldData"]; nf = {}
+            r = rows.get(it["id"])
+            if r and r["decision"] == "change" and (not only_target or only_target == (path, fd["slug"])):
+                if r["old_slug"] != fd["slug"]: sys.exit(f"refused: {it['id']} slug is {fd['slug']} in Webflow, the map says {r['old_slug']} (re-run inventory/map)")
+                nf["slug"] = r["new_slug"]
+            txt, n = rewrite_links(fd.get(FAQ), sub)
+            if n: nf[FAQ] = txt
+            if nf: out.append((hub, it, nf, n))
+    return out
+
+
+def pending_staged(reads):
+    """items whose staged version is newer than the published one (a domain publish would push them too)."""
+    out = []
+    for hub, (rb, items) in reads.items():
+        for it in items:
+            lu, lp = it.get("lastUpdated"), it.get("lastPublished")
+            if it.get("isDraft") or it.get("isArchived"): continue
+            if lp is None or (lu and lu > lp): out.append({"hub": hub, "id": it["id"], "slug": it["fieldData"]["slug"], "lastUpdated": lu, "lastPublished": lp})
+    return out
+
+
+def _payload(plan, label):
+    by = defaultdict(list)
+    for hub, it, nf, _n in plan: by[hubs()[hub]["collection_id"]].append({"id": it["id"], "fieldData": nf})
+    return [{"label": f"{label} {CHILD_NAME.get(c, c)}", "update_collection_items": {"collection_id": c, "request": {"items": its}}} for c, its in by.items()]
+
+
+CHILD_NAME = {h["collection_id"]: n for n, h in CFG["hubs"].items()}
+
+
+def cmd_stage(args):
+    """slug_migrate.py stage: from the newest full reads (hubctl api-read x4) write
+      childedits/<day>/slug-migration.before.json (slug + awb---faq-data of every item the migration touches; commit it),
+      ops/out/migration/full-<hub>.json (api-update payloads: slugs + rewritten FAQ links; staged only, no publish action),
+      reports/<day>/slug-migration-redirects.csv (old path,new path; one row per changing live page; single hop),
+      .cache/migration/pending-staged.json (items with unpublished staged changes) and a summary. Nothing is sent to Webflow."""
+    reads = _fresh_reads(); mp = _mapping()
+    plan = plan_items(reads, mp)
+    # single hop: no new slug is itself an old slug that changes again
+    chains = [(k, v) for k, v in mp.items() if (k[0], v) in mp]
+    if chains: sys.exit(f"refused: redirect chains {chains[:5]}")
+    before = {"op": "slug-migration", "day": DAY, "note": "Before-values for the slug migration (DECISIONS 2026-10-23): slug and awb---faq-data of every touched item, from the reads named here. Rollback: ops/slug_migrate.py rollback.",
+              "reads": {h: os.path.basename(rb) for h, (rb, _) in reads.items()},
+              "items": [{"id": it["id"], "hub": hub, "collection": hubs()[hub]["collection_id"], "fieldData": {k: it["fieldData"].get(k) for k in nf}} for hub, it, nf, _n in plan]}
+    os.makedirs(CHILDEDITS, exist_ok=True); json.dump(before, open(BEFORE, "w"), indent=1, ensure_ascii=False)
+    os.makedirs(OUTDIR, exist_ok=True)
+    for hub in hubs():
+        sub = [p for p in plan if p[0] == hub]
+        if sub: json.dump(_payload(sub, "slug migration (staged only)"), open(os.path.join(OUTDIR, f"full-{hubs()[hub]['repo_dir']}.json"), "w"), indent=1, ensure_ascii=False)
+    live = {(hubs()[h]["path"], it["fieldData"]["slug"]) for h, (rb, its) in reads.items() for it in its if not it.get("isDraft") and it.get("lastPublished")}
+    rows = sorted((f"{p}/{o}", f"{p}/{n}") for (p, o), n in mp.items() if (p, o) in live)
+    with open(REDIRECTS, "w") as f:
+        f.write("source,target\n"); [f.write(f"{a},{b}\n") for a, b in rows]
+    pend = pending_staged(reads); os.makedirs(CACHE, exist_ok=True)
+    json.dump(pend, open(os.path.join(CACHE, "pending-staged.json"), "w"), indent=1)
+    c = Counter(); links = Counter()
+    for hub, it, nf, n in plan: c[(hub, "slug" in nf, FAQ in nf)] += 1; links[hub] += n
+    print(f"items touched: {len(plan)} (slug changes {sum(1 for p in plan if 'slug' in p[2])}, FAQ rewrites {sum(1 for p in plan if FAQ in p[2])}, links rewritten {sum(links.values())}: {dict(links)})")
+    print(f"redirects: {len(rows)} rows -> {os.path.relpath(REDIRECTS, ROOT)}; before-values -> {os.path.relpath(BEFORE, ROOT)}; payloads -> {os.path.relpath(OUTDIR, ROOT)}/")
+    print(f"pending staged changes (lastUpdated > lastPublished): {len(pend)}")
+    for p in pend: print(f"  {p['hub']} {p['slug']} {p['id']} updated {p['lastUpdated']} published {p['lastPublished']}")
+
+
+def cmd_canary(args):
+    """slug_migrate.py canary HUB OLD_SLUG: the api-update payload for ONE page (its slug + every FAQ link pointing at it, no other
+    change), ops/out/migration/canary-<slug>.json, and its single redirect row reports/<day>/canary-redirect.csv. Run it through
+    hubctl api-update <payload> --dry-run, then --live --migration (staged only; the payload has no publish action)."""
+    hub, old = args[0], args[1]; path = hubs()[hub]["path"]; mp = _mapping()
+    if (path, old) not in mp: sys.exit(f"{hub} {old}: no slug change in the map")
+    reads = _fresh_reads(); plan = plan_items(reads, mp, only_target=(path, old))
+    B = json.load(open(BEFORE)); bidx = {x["id"]: x for x in B["items"]}
+    for hub_, it, nf, _n in plan:   # the before-values must still be the live values
+        for k in nf:
+            if (bidx.get(it["id"]) or {}).get("fieldData", {}).get(k) != it["fieldData"].get(k):
+                sys.exit(f"refused: {it['id']} {k} changed since {os.path.relpath(BEFORE, ROOT)}; re-run stage and commit")
+    pf = os.path.join(OUTDIR, f"canary-{old}.json"); os.makedirs(OUTDIR, exist_ok=True)
+    json.dump(_payload(plan, f"slug migration canary {old} (staged only)"), open(pf, "w"), indent=1, ensure_ascii=False)
+    cp = os.path.join(ROOT, "reports", DAY, "canary-redirect.csv")
+    with open(cp, "w") as f: f.write("source,target\n" + f"{path}/{old},{path}/{mp[(path, old)]}\n")
+    print(f"canary {path}/{old} -> {path}/{mp[(path, old)]}: {len(plan)} item(s): " + ", ".join(f"{h}:{it['fieldData']['slug']}({it['id']}; {'+'.join(sorted(nf))}; {n} link(s))" for h, it, nf, n in plan))
+    print(f"payload {os.path.relpath(pf, ROOT)}; redirect row {os.path.relpath(cp, ROOT)}")
+
+
+def cmd_verify(args):
+    """slug_migrate.py verify PAYLOAD READBACK...: every item in the payload has exactly the sent fields in the given reads; prints diffs."""
+    pf, rbs = args[0], args[1:]
+    got = {it["id"]: it for rb in rbs for it in json.load(open(rb))["result"]["items"]}
+    bad = 0
+    for a in json.load(open(pf)):
+        for it in a["update_collection_items"]["request"]["items"]:
+            g = (got.get(it["id"]) or {}).get("fieldData") or {}
+            for k, v in it["fieldData"].items():
+                ok = g.get(k) == v; bad += not ok
+                print(("OK   " if ok else "DIFF ") + f"{it['id']} {k}" + ("" if ok else f": got {str(g.get(k))[:80]!r}"))
+    print("read-back clean" if not bad else f"{bad} mismatch(es)"); return 1 if bad else 0
+
+
+def cmd_rollback(args):
+    """slug_migrate.py rollback [--canary OLD_SLUG]: ONE command to build the restore. Writes ops/out/migration/rollback[-canary-<slug>].json
+    (api-update payload: the before-values of slug and awb---faq-data, staged only) and reports/<day>/slug-migration-redirects-remove.csv
+    (the 301 rows to delete). Then run: hubctl api-update <that payload> --live --migration.
+    NOTE: restoring an OLD slug is NOT covered by the approved slug-guard exception (only the approved new slug is); until Divit
+    approves a rollback exception, the restore of slugs is refused by ops/webflow_api.py and the slug goes back by hand in the Designer."""
+    B = json.load(open(BEFORE)); items = B["items"]
+    if "--canary" in args:
+        old = args[args.index("--canary") + 1]
+        pf0 = os.path.join(OUTDIR, f"canary-{old}.json")
+        ids = {it["id"] for a in json.load(open(pf0)) for it in a["update_collection_items"]["request"]["items"]}
+        sent = {it["id"]: set(it["fieldData"]) for a in json.load(open(pf0)) for it in a["update_collection_items"]["request"]["items"]}
+        items = [dict(x, fieldData={k: v for k, v in x["fieldData"].items() if k in sent[x["id"]]}) for x in items if x["id"] in ids]
+    by = defaultdict(list)
+    for x in items: by[x["collection"]].append({"id": x["id"], "fieldData": x["fieldData"]})
+    name = "rollback" + (f"-canary-{args[args.index('--canary') + 1]}" if "--canary" in args else "")
+    pf = os.path.join(OUTDIR, f"{name}.json"); os.makedirs(OUTDIR, exist_ok=True)
+    json.dump([{"label": f"slug migration {name} (before-values)", "update_collection_items": {"collection_id": c, "request": {"items": its}}} for c, its in by.items()], open(pf, "w"), indent=1, ensure_ascii=False)
+    src = os.path.join(ROOT, "reports", DAY, "canary-redirect.csv" if "--canary" in args else "slug-migration-redirects.csv")
+    rp = os.path.join(ROOT, "reports", DAY, ("canary-" if "--canary" in args else "slug-migration-") + "redirects-remove.csv")
+    open(rp, "w").write(open(src).read())
+    print(f"rollback payload {os.path.relpath(pf, ROOT)} ({len(items)} item(s)); redirects to delete {os.path.relpath(rp, ROOT)}")
+    print(f"run: .venv/bin/python3 ops/hubctl.py api-update {os.path.relpath(pf, ROOT)} --live --migration   (slug restores need the rollback exception; see the docstring)")
+
+
+def cmd_crawl(args):
+    """slug_migrate.py crawl [--workers N]: fetch every sitemap page outside the 4 hubs' child pages (static pages, Learn, other hubs,
+    blog ...) and count hard-coded links to child pages whose slug changes -> .cache/migration/crawl.json + summary."""
+    import concurrent.futures as cf
+    mp = _mapping(); paths = sitemap_urls(fetch=True)
+    hubp = {h["path"] for h in hubs().values()}
+    todo = [p for p in paths if not any(p.startswith(h + "/") for h in hubp)]
+    def get(p):
+        try:
+            r = urllib.request.urlopen(urllib.request.Request("https://emergent.sh" + p, headers={"User-Agent": "emergent-hubs-slug-migrate"}), timeout=30)
+            return p, r.read().decode("utf-8", "replace"), None
+        except Exception as e: return p, "", str(e)[:80]
+    n = int(args[args.index("--workers") + 1]) if "--workers" in args else 12
+    res, errs = {}, []
+    with cf.ThreadPoolExecutor(n) as ex:
+        for p, html, err in ex.map(get, todo):
+            if err: errs.append((p, err)); continue
+            hits = [m.group(0) for m in re.finditer(r"href=[\"']((?:https?://(?:www\.)?emergent\.sh)?/ai-(?:landing-page|form|automation|survey-and-quiz)-builder/[a-z0-9-]+)", html)]
+            ch = [h for h in hits if rewrite_links(h, mp)[1]]
+            if hits: res[p] = {"links": len(hits), "changing": len(ch), "targets": sorted(set(re.sub(r"^href=[\"']", "", h) for h in ch))}
+    os.makedirs(CACHE, exist_ok=True); json.dump({"pages": res, "errors": errs, "fetched": len(todo)}, open(os.path.join(CACHE, "crawl.json"), "w"), indent=1)
+    sec = Counter("/" + p.split("/")[1] for p in res)
+    print(f"crawled {len(todo)} pages outside the 4 hubs' child pages ({len(errs)} errors); {len(res)} link to child pages; "
+          f"{sum(v['changing'] for v in res.values())} links to changing slugs on {sum(1 for v in res.values() if v['changing'])} pages; by section {dict(sec)}")
+    for p in list(res)[:15]: print(f"  {p}: {res[p]['links']} link(s), {res[p]['changing']} changing")
+
+
+def cmd_repo_rewrite(args):
+    """slug_migrate.py repo-rewrite [--apply]: rewrite the repo to the new slugs. DRY by default (prints what changes; nothing is
+    written). --apply: git mv specs/<dir>/<old>.json -> <new>.json, spec url, every child URL inside specs (FAQ, faq_plan, pending_links),
+    status/<dir>.json page keys, plan/queue-ranked.txt, plan/additions.json, plan/overrides.json, plan/keyword_map.json (git-ignored),
+    images/<dir>/<old> folders. Run ONLY after the CMS migration is live and verified (Divit's go)."""
+    apply = "--apply" in args; mp = _mapping(); ch = Counter(); moves = []
+    for hub, h in hubs().items():
+        d, path = h["repo_dir"], h["path"]
+        for f in sorted(glob.glob(os.path.join(ROOT, f"specs/{d}/*.json"))):
+            s = open(f).read(); t, n = rewrite_links(s, mp); ch["spec urls+links"] += n
+            sl = os.path.basename(f)[:-5]
+            if (path, sl) in mp:
+                nf = os.path.join(os.path.dirname(f), mp[(path, sl)] + ".json"); moves.append((f, nf))
+                if os.path.exists(nf): sys.exit(f"refused: {os.path.relpath(nf, ROOT)} exists")
+            if apply and n: open(f, "w").write(t)
+        img = os.path.join(ROOT, "images", d)
+        for (p, o), n_ in mp.items():
+            if p == path and os.path.isdir(os.path.join(img, o)): moves.append((os.path.join(img, o), os.path.join(img, n_)))
+    for rel in ["status/lp.json", "status/form.json", "status/aab.json", "status/sqb.json", "status/live.json", "plan/queue-ranked.txt",
+                "plan/additions.json", "plan/overrides.json", "plan/keyword_map.json"]:
+        fp = os.path.join(ROOT, rel)
+        if not os.path.exists(fp): continue
+        t, n = rewrite_links(open(fp).read(), mp); ch[rel] += n
+        if apply and n: open(fp, "w").write(t)
+    ch["moves (specs + image folders)"] = len(moves)
+    if apply:
+        import subprocess
+        for a, b in moves: subprocess.run(["git", "mv", os.path.relpath(a, ROOT), os.path.relpath(b, ROOT)], cwd=ROOT, check=True)
+    print(("APPLIED" if apply else "DRY RUN (nothing written)") + ": " + json.dumps(dict(ch)))
+
+
+def cmd_plan_regen(args):
+    """slug_migrate.py plan-regen [--apply]: the keyword plan's slugs regenerated from slugs.slug_for for every PLANNED page that has
+    no spec and no writer at work (state none or parked): plan/keyword_map.json (git-ignored, in place), plan/additions.json,
+    plan/queue-ranked.txt and its status/<dir>.json key. Pages with a spec or a writer at work keep their URL until the repo
+    rewrite (repo-rewrite), so a spec, its status and its queue row never disagree. DRY by default."""
+    apply = "--apply" in args
+    rows = json.load(open(OUT))["pages"] + (json.load(open(os.path.join(PRIV, "slug-migration-kmap.json")))["pages"] if os.path.exists(os.path.join(PRIV, "slug-migration-kmap.json")) else [])
+    specs = {}
+    for f in glob.glob(os.path.join(ROOT, "specs", "*", "*.json")):
+        try: specs[json.load(open(f)).get("url")] = f
+        except ValueError: pass
+    mp, kept = {}, []
+    for e in rows:
+        if e["origin"] != "planned" or e["new_slug"] == e["old_slug"] or e.get("decision") == "collision": continue
+        path = hubs()[e["hub"]]["path"]; u = f"{path}/{e['old_slug']}"
+        if u in specs or e.get("repo_state") not in (None, "parked"): kept.append((e["hub"], e["old_slug"], e["new_slug"], e.get("repo_state"), u in specs)); continue
+        mp[(path, e["old_slug"])] = e["new_slug"]
+    clash = [(p, n) for (p, o), n in mp.items() if any(r["hub"] and hubs()[r["hub"]]["path"] == p and r["old_slug"] == n for r in rows)]
+    if clash: sys.exit(f"refused: new slugs already used as current URLs: {clash[:5]}")
+    ch = Counter()
+    files = ["plan/keyword_map.json", "plan/additions.json", "plan/queue-ranked.txt"] + [f"status/{h['repo_dir']}.json" for h in hubs().values()]
+    for rel in files:
+        fp = os.path.join(ROOT, rel)
+        if not os.path.exists(fp): continue
+        t, n = rewrite_links(open(fp).read(), mp); ch[rel] = n
+        if apply and n:
+            if rel.endswith(".json"): json.loads(t)   # still valid JSON
+            open(fp, "w").write(t)
+    print(("APPLIED" if apply else "DRY RUN (nothing written)") + f": {len(mp)} planned page(s) renamed; " + json.dumps(dict(ch)))
+    print(f"kept for the repo rewrite (spec or writer at work): {len(kept)}: " + ", ".join(f"{h}:{o}({s or 'no status'}{', spec' if sp else ''})" for h, o, n, s, sp in kept))
+
+
 def cmd_sample(args):
     import random
     n = int(args[0]) if args and args[0].isdigit() else 15
@@ -331,6 +605,7 @@ def cmd_sample(args):
 
 
 if __name__ == "__main__":
-    cmds = {"inventory": cmd_inventory, "map": cmd_map, "links": cmd_links, "sample": cmd_sample}
+    cmds = {"inventory": cmd_inventory, "map": cmd_map, "links": cmd_links, "sample": cmd_sample, "stage": cmd_stage,
+            "canary": cmd_canary, "verify": cmd_verify, "rollback": cmd_rollback, "crawl": cmd_crawl, "repo-rewrite": cmd_repo_rewrite, "plan-regen": cmd_plan_regen}
     if len(sys.argv) < 2 or sys.argv[1] not in cmds: sys.exit(__doc__)
     cmds[sys.argv[1]](sys.argv[2:])

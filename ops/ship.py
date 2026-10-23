@@ -658,6 +658,9 @@ def _before_index():
         try: d = json.load(open(p))
         except ValueError: continue
         if isinstance(d, dict) and d.get("id") and isinstance(d.get("fieldData"), dict): idx.setdefault(d["id"], []).append((p, d))
+        elif isinstance(d, dict) and d.get("op") == "slug-migration" and isinstance(d.get("items"), list):   # one file, many items (Divit 2026-10-23)
+            for it in d["items"]:
+                if it.get("id") and isinstance(it.get("fieldData"), dict): idx.setdefault(it["id"], []).append((p, it))
     return idx
 def _same_image(sent, got, before):
     g = got or {}
@@ -909,6 +912,22 @@ def api_golden(c):
             try: W.check(c["method"], path, body_of(c.get("body")), c.get("query")); refused = False
             except W.Refused: refused = True
             return refused == c["expect_refused"]
+        if t == "migration-slug":   # Divit 2026-10-23 TEMPORARY slug-migration exception (remove with it): stubbed freeze and map
+            iid = "0" * 23 + "1"; hub = W.CHILD[cid]
+            mapping = {"pages": [{"hub": hub, "item_id": iid, "old_slug": "golden-old-form", "new_slug": "golden-old", "decision": "change"}]}
+            freeze = {"active": c.get("freeze_active", True), "reason": "slug migration (golden)"}
+            argv = ["hubctl", "api-update", "x.json"] + (["--migration"] if c.get("migration", True) else [])
+            slug = {"approved": "golden-old", "wrong": "golden-other"}[c.get("slug", "approved")]
+            item = c.get("item", "mapped")
+            why = W.migration_slug_block(cid, iid if item == "mapped" else "0" * 23 + "2", slug, argv=argv, freeze=freeze, mapping=mapping)
+            old_argv = W.ARGV; W.ARGV = argv
+            try:   # the same decision through check() (the real gate) with the real freeze/map replaced
+                real_fn = W.migration_slug_block
+                W.migration_slug_block = lambda *a, **k: real_fn(*a, freeze=freeze, mapping=mapping, **{x: y for x, y in k.items() if x not in ("freeze", "mapping")})
+                try: W.check("PATCH", f"/collections/{cid}/items", {"items": [{"id": iid if item == "mapped" else "0" * 23 + "2", "fieldData": {"slug": slug}}]}); refused = False
+                except W.Refused: refused = True
+            finally: W.ARGV = old_argv; W.migration_slug_block = real_fn
+            return (why is None) == c["expect_allowed"] and refused == (not c["expect_allowed"])
         if t == "dry-no-network":
             W.TRANSPORT = no_net; W.TOKEN = lambda: (_ for _ in ()).throw(AssertionError("token read in a dry run"))
             W.create_items(cid, synth(250)); W.update_items(cid, body_of({"synth": {"op": "update", "n": 3}})["items"]); W.publish_items(cid, [f"{i:024x}" for i in range(3)])

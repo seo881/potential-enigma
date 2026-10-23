@@ -130,6 +130,23 @@ def field_of(m, snippet):
 TEMPLATE_P0 = {"A9-carousel-hidden", "A5-learn", "A5-learn-cards"}
 CARD_LINK_P0 = {"A9-carousel-link", "A5-learn-link"}   # a card linking to #, the hub root or a 404 is a broken internal link: P0 like A7-link
 
+import slugs as _SLUGS
+_SPEC_BY_URL = None
+def _slug_problems(url):
+    """slugs.spec_problems for the page's spec ([] when no spec is found)."""
+    global _SPEC_BY_URL
+    if _SPEC_BY_URL is None:
+        import glob as _g
+        _SPEC_BY_URL = {}
+        for f in _g.glob(os.path.join(ROOT, "specs", "*", "*.json")):
+            try: d = json.load(open(f))
+            except ValueError: continue
+            if d.get("url"): _SPEC_BY_URL[d["url"]] = d
+    s = _SPEC_BY_URL.get(url)
+    if not s: return []
+    hub = next((h for h, v in json.load(open(os.path.join(ROOT, "config", "collections.json")))["hubs"].items() if url.startswith(v["path"] + "/")), None)
+    return _SLUGS.spec_problems(hub, url, s) if hub else []
+
 CONSOLE_EXCEPTIONS = []   # filled by evaluate(); printed on every run (Divit 2026-10-14)
 def evaluate(raw, man, base):
     """Findings for every page and hub: dicts with id, url, field, severity, code, rule, msg, snippet, fix kind."""
@@ -145,6 +162,8 @@ def evaluate(raw, man, base):
         if not c.get("http200"): add(url, "A1-http", "P0", f"page does not return HTTP 200 ({(r.get('verify') or {}).get('http')})", fix="proposed"); continue
         if R.get("http") not in (200, None): add(url, "A1-http", "P0", f"browser load returned {R.get('http')}")
         if R.get("robots") and "noindex" in R["robots"].lower(): add(url, "A2-noindex", "P0", "robots meta has noindex", field="template")
+        _sp = _slug_problems(url)   # PERMANENT SLUG RULE (Divit 2026-10-23): reported once the slug migration is live
+        if _sp and not _SLUGS.migration_pending(): add(url, "A2-slug", "P1", "slug breaks the slug rule: " + "; ".join(_sp), field="slug", fix="proposed")
         if not c.get("canonical"): add(url, "A2-canonical", "P1", f"canonical is {R.get('canonical') or 'missing'}, not the page URL", field="template")
         if not staging and raw.get("sitemap_ok") and not r.get("in_sitemap"): add(url, "A2-sitemap", "P1", "not in /sitemap.xml", field="template")
         # title and meta: exact match with the spec; limits as QC L1/L2

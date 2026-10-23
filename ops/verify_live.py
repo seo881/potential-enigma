@@ -162,6 +162,10 @@ def verify(spec, html=None, check_links=True, fetch=None):
     def chk(name, cond, detail=""):
         nonlocal ok
         rep.append(("PASS " if cond else "FAIL ") + name + (f": {detail}" if detail and not cond else "")); ok = ok and cond
+    import sys as _sy, os as _o; _sy.path.insert(0, _o.path.dirname(_o.path.abspath(__file__))); import slugs as _SL, hubctl as _H0
+    _sp = _SL.spec_problems(_H0.hub_of(spec["url"]), spec["url"], spec)   # PERMANENT SLUG RULE (Divit 2026-10-23)
+    if _sp and _SL.migration_pending(): rep.append("PEND slug (migration pending): " + "; ".join(_sp))
+    else: chk("slug (slugs.slug_for)", not _sp, "; ".join(_sp))
     t = re.search(r"<title>(.*?)</title>", html, re.S)
     chk("title", t and unescape(t.group(1)).strip() == F["meta_title"], t.group(1)[:80] if t else "missing")
     d = re.search(r'<meta[^>]+name="description"[^>]+content="([^"]*)"', html) or re.search(r'<meta[^>]+content="([^"]*)"[^>]+name="description"', html)
