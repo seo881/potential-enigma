@@ -1,0 +1,1093 @@
+{
+ "url": "/ai-automation-builder/order-confirmation-automation",
+ "hub": "Auto",
+ "item_id": null,
+ "status": "spec",
+ "written_by": "B-w-313",
+ "keywords": {
+  "primary": "order confirmation automation",
+  "secondaries_used": []
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Order Confirmation Automation: Emails and POs | Emergent",
+  "meta_description": "Build order confirmation automation that emails each customer on payment and checks every supplier confirmation against its PO. Free to start.",
+  "h1": "Build Order Confirmation Automation for Customers and Suppliers",
+  "slug": "order-confirmation-automation",
+  "product_name": "Order Confirmation Automation Builder",
+  "hero_description": "Get order confirmation automation that emails customers on payment and checks supplier confirmations against each PO.",
+  "breadcrumb": "Order Confirmation Automation",
+  "category": "a33cd4fb124ec86a130809893b2b3896",
+  "explore_cta": "Build My Order Confirmation",
+  "features_heading": "What Emergent Builds Into Order Confirmations",
+  "features_subheading": "Order confirmation automation sends the customer's confirmation when an order is paid and checks the supplier's reply to each PO.",
+  "feature_1": "<h3>Each paid order, picked up from your store</h3><p>The app connects to your store or order system through its API and picks up each order once it is paid. The order and every email sent for it land in a database you own.</p>",
+  "feature_2": "<h3>One confirmation, split by shipment</h3><p>When an order holds items with different ship dates, the email lists each shipment with its own date. The customer sees what leaves first and what follows, before writing to ask.</p>",
+  "feature_3": "<h3>Supplier PDFs read into fields</h3><p>The app reads a supplier's confirmation PDF into fields with AI: PO number, lines, quantities, prices, and dates. A value it cannot read with confidence goes to a person to check.</p>",
+  "feature_4": "<h3>Tolerances you set for price and date</h3><p>You decide how far a confirmed price or delivery date may move from the PO before a buyer looks. Lines inside your limits are accepted, and the rest wait for a decision.</p>",
+  "feature_5": "<h3>Reminders first, then the buyer hears</h3><p>A PO with no confirmation gets an email reminder to the supplier at the hour you pick. If the supplier stays quiet, the buyer gets an alert, and no task cap limits how many run.</p>",
+  "feature_6": "<h3>The full code, in your GitHub</h3><p>Export the app's full code to your GitHub repository on paid plans. Anyone on the team can read the exact rule behind each email sent and each PO line flagged, and change it.</p>",
+  "why_title": "Why Build Order Confirmations With Emergent?",
+  "why_description": "Emergent builds the customer emails and the supplier PO checks as one app from a prompt, with the data in a database you own.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Zapier</th>\n        <th scope=\"col\">Make (Integromat)</th>\n        <th scope=\"col\">n8n</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt for the workflow and the app around it</td>\n        <td class=\"col-other\">Templates and editor, AI copilot</td>\n        <td class=\"col-other\">Visual canvas</td>\n        <td class=\"col-other\">Visual canvas, self-hosted or cloud</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">What you get</th>\n        <td class=\"col-brand\">Workflow + trigger form + database + dashboard, as code you own</td>\n        <td class=\"col-other\">Zaps, plus Tables and Interfaces inside Zapier</td>\n        <td class=\"col-other\">Scenarios inside Make</td>\n        <td class=\"col-other\">Workflows inside n8n</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Behavior at cap</th>\n        <td class=\"col-brand\">Keeps running, no task cap</td>\n        <td class=\"col-other\">Overage billed at up to 1.25× the base rate</td>\n        <td class=\"col-other\">Runs pause</td>\n        <td class=\"col-other\">Cloud workflows stop until the reset or an upgrade</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">AI and agent steps</th>\n        <td class=\"col-brand\">Native, share the same credit pool</td>\n        <td class=\"col-other\">Priced by model tier, drawn from the task pool</td>\n        <td class=\"col-other\">AI modules cost variable credits</td>\n        <td class=\"col-other\">Bring your own model API key, billed by the provider</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">Yes on Community Edition</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "Confirmations Going Out and Coming In",
+  "tab_label_1": "Paid Orders",
+  "tab_label_2": "Edited Orders",
+  "tab_label_3": "PO Confirmations",
+  "tab_label_4": "Unconfirmed POs",
+  "tab_content_1": "<h3>Candles in 2 days, the diffuser on November 18</h3><p>Wren Halloway orders 3 Juniper candles at $24 each and a preorder diffuser at $38 from Brambleton Candle Co., $110 in all. When payment clears on order #20417, the app emails her a confirmation with two shipments. The candles ship within 2 business days, and the diffuser ships on November 18.</p>",
+  "tab_content_2": "<h3>Order #8812 moves address and keeps its total</h3><p>Fallowmere Coffee keeps an order open to edits for 60 minutes after checkout. Odessa Pruitt changes the ship-to address on order #8812 after 25 minutes. The app sends her a confirmation marked Updated that shows the old address and the new one, and the $41.50 total stays the same.</p>",
+  "tab_content_3": "<h3>Harnet raised the hinge price to $3.35</h3><p>Kestrelwood Cabinets sends PO-4471 to Harnet Hardware for 400 soft-close hinges at $3.10 each. Harnet's confirmation PDF says $3.35 a hinge, and the app reads it into fields and marks the price line as changed. The buyer, Tobiah Ferrante, sees a $100 difference across 400 hinges to accept or dispute.</p>",
+  "tab_content_4": "<h3>PO-1186 sits unconfirmed, and the buyer hears at 72 hours</h3><p>Lindqvist Dental Lab sends PO-1186 to Corvane Ceramics for delivery on November 4. With no confirmation after 48 hours, the app emails Corvane a reminder. At 72 hours, the buyer, Marisol Achterberg, gets a direct message about PO-1186, due November 4.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { paidOrders: \"Build order confirmation emails for my candle shop. When payment clears on an order, email the customer a confirmation with the order number, each item and price, and the total. If the order mixes in-stock items with a preorder, split it into two shipments and show each one's ship date, like 2 business days for candles and the release date for the preorder.\", editedOrders: \"Build updated confirmations for my coffee store. Customers can edit an order for 60 minutes after checkout. When someone changes the ship-to address or an item, send a new confirmation marked Updated that shows the old value next to the new one and the order total, so the customer can see exactly what changed and nothing else.\", poConfirmations: \"Build supplier confirmation matching for my cabinet shop. When a supplier emails a confirmation PDF for one of our purchase orders, read the PO number, lines, quantities, prices, and dates. Compare every line with the PO. If a price or quantity differs, mark the line as changed and send the buyer the difference to accept or dispute.\", unconfirmedPOs: \"Build reminders for purchase orders my dental lab sends to suppliers. If a supplier has not confirmed a PO after 48 hours, email their contact a reminder that names the PO and the delivery date we asked for. At 72 hours with still no confirmation, send our buyer a direct message with the PO number and the requested date.\" };</p>",
+  "howto_title": "How to Build Order Confirmation Automation",
+  "howto_description": "Seven steps to plan order confirmation automation for customers and suppliers, then build and test it in Emergent.",
+  "howto_step_1_title": "01 List what a confirmation shows",
+  "howto_step_2_title": "02 Decide when the email goes out",
+  "howto_step_3_title": "03 Set an edit window",
+  "howto_step_4_title": "04 Write a tolerance for supplier changes",
+  "howto_step_1_des": "Write down the fields a customer confirmation carries: the order number, each item with its price, the total, the ship-to address, and a date for each shipment. Add a line on how to change or cancel the order, because that is the first thing customers ask.",
+  "howto_step_2_des": "Send the customer confirmation when payment clears, not when the cart is submitted. A declined card then never gets one. If you take preorders, decide whether one email lists every shipment or each shipment gets its own email.",
+  "howto_step_3_des": "Pick how long a customer can change an order after checkout, and which changes you accept, such as a new address or a different size. Each accepted change sends a new confirmation, and you decide what the updated email shows next to the original value.",
+  "howto_step_4_des": "For each field on a supplier confirmation, write the change you accept without review. A delivery date one day late might pass on its own, while any price change waits for the buyer named on the PO.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Order Confirmation Automation FAQ\", \"items\": [{\"q\": \"What is order confirmation automation?\", \"a\": \"Order confirmation automation sends or checks order confirmations without anyone typing them. On the selling side, the app emails each customer the order details once payment clears. On the buying side, it reads the confirmation a supplier sends back for a purchase order and compares every line with the PO.\"}, {\"q\": \"How do I set up order confirmation automation?\", \"a\": \"Write down what each confirmation shows and when it goes out, then describe it in a prompt to Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>. Emergent builds the emails and the supplier checks, with your orders in a database you own. Connect your store and the inbox that receives supplier replies, then run a few real orders through before anyone outside sees it.\"}, {\"q\": \"What should order confirmation automation put in the customer email?\", \"a\": \"Put in the order number, what was bought and for how much, where it ships, and when. Add a link for edits and cancellations and a reply address that reaches a person. In an app built with Emergent, every one of those values comes from the order record in a database you own.\"}, {\"q\": \"Should order confirmation automation send an email when an order is canceled?\", \"a\": \"Yes. A cancellation confirmation names the order, the items canceled, and the refund amount and method, and the customer no longer has to rely on the original email. An item sent back after delivery is a separate flow, and <a href='https://emergent.sh/ai-automation-builder/returns-automation'>returns automation</a> covers its label and refund.\"}, {\"q\": \"Can order confirmation automation add product recommendations to the email?\", \"a\": \"It can, with care. The FTC's CAN-SPAM guide says an email's primary purpose is transactional if it consists only of content such as confirming a commercial transaction the recipient already has agreed to. It adds that the law views these categories narrowly. When an email contains both kinds of content, the primary purpose of the message is the deciding factor.\"}, {\"q\": \"Does order confirmation automation work with purchase order acknowledgments?\", \"a\": \"Yes. A purchase order acknowledgment is the supplier's reply to a PO, and X12 defines an EDI version, the 855 Purchase Order Acknowledgment, for a seller's acknowledgment of a buyer's purchase order. Whether the reply arrives as an 855 or as a PDF by email, the app reads it and checks each line against the PO.\"}, {\"q\": \"Should order confirmation automation include a tracking number?\", \"a\": \"Only if the order has already shipped. A confirmation goes out when the order is paid, before a label exists. It carries the expected ship date instead. The tracking number belongs in the shipping notice sent when the label prints, a separate email that <a href='https://emergent.sh/ai-automation-builder/shipping-automation'>shipping automation</a> sends on its own trigger.\"}, {\"q\": \"Can order confirmation automation handle orders from more than one store?\", \"a\": \"Yes, as long as each store has an API the app can connect to. The app picks up paid orders from each store, records which store each came from, and sends each confirmation with that store's name and reply address. Emergent sets no task cap, and a busy sale day runs on the same rules.\"}, {\"q\": \"How fast should order confirmation automation send the customer email?\", \"a\": \"Send it on the payment event itself, not on an hourly or nightly schedule. A confirmation that waits for a batch leaves the customer wondering whether the order went through. In the app Emergent builds, each paid order triggers its own email, and the send time is saved with the order.\"}, {\"q\": \"Does order confirmation automation replace purchase approvals?\", \"a\": \"No. It starts once a PO has gone out: it reads the supplier's reply, checks it against the PO, and chases suppliers who never confirm. Approvals and buying policy come earlier, before a PO exists, and belong to <a href='https://emergent.sh/ai-automation-builder/procurement-automation'>procurement automation</a>.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Pick when to chase a supplier",
+  "howto_step_5_des": "Pick the hour after a PO goes out when the supplier gets a reminder, and the hour when the buyer hears instead. Use the supplier contact on the PO and name one buyer per PO. Each alert then reaches one person.",
+  "howto_step_6_title": "06 Describe it in a prompt",
+  "howto_step_6_des": "Paste your fields, timings, and tolerances into one prompt in plain English. Emergent builds the emails, the PO checks, and the database behind them, connected to your store through its API, and you change any rule later by asking for it.",
+  "howto_step_7_title": "07 Test with 5 real orders",
+  "howto_step_7_des": "Run 5 orders through before launch: a paid order, a preorder, an edited address, a PO confirmed at a changed price, and a PO never confirmed. Check that each email and each alert reaches the person you expect.",
+  "prompt_chip_1": "Order Emails",
+  "prompt_chip_2": "Edited Orders",
+  "prompt_chip_3": "PO Matching",
+  "prompt_chip_4": "PO Reminders",
+  "hero_prompt": "<p>Build order confirmation automation that runs on its own and logs every step.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/aab/order-confirmation-automation/uc-1.svg",
+   "alt": "Order #20417 from Brambleton Candle Co. lists 3 Juniper candles and a preorder diffuser, $110.00 in all, with a confirmation email to Wren Halloway showing two ship dates."
+  },
+  "tab_image_2": {
+   "path": "images/aab/order-confirmation-automation/uc-2.svg",
+   "alt": "Order #8812 from Fallowmere Coffee shows a ship-to address edited after 25 minutes and an updated confirmation to Odessa Pruitt with the $41.50 total unchanged."
+  },
+  "tab_image_3": {
+   "path": "images/aab/order-confirmation-automation/uc-3.svg",
+   "alt": "A Harnet Hardware confirmation for PO-4471 shows soft-close hinges at $3.35 against $3.10 on the PO, with a $100 difference sent to the buyer."
+  },
+  "tab_image_4": {
+   "path": "images/aab/order-confirmation-automation/uc-4.svg",
+   "alt": "PO-1186 from Lindqvist Dental Lab to Corvane Ceramics shows a reminder at 48 hours and a direct message to the buyer at 72 hours, with delivery asked for November 4."
+  },
+  "cover_image": {
+   "path": "images/aab/order-confirmation-automation/cover.svg",
+   "alt": "Order confirmation automation: a direct message asking a buyer to accept or dispute a price change on a supplier's confirmation"
+  },
+  "share_image": {
+   "path": "images/aab/order-confirmation-automation/og.webp",
+   "alt": "Build order confirmation automation for customers and suppliers, with Emergent"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-23 08:21 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-23 08:35 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "B-w-313",
+   "note": ""
+  },
+  {
+   "t": "2026-10-23 08:35 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-313",
+   "note": ""
+  }
+ ],
+ "pipeline": "r15",
+ "faq_plan": [
+  {
+   "kind": "definition",
+   "q": "What is order confirmation automation?",
+   "ref": "order confirmation automation",
+   "locked": true,
+   "n": 1,
+   "a": "Order confirmation automation sends or checks order confirmations without anyone typing them. On the selling side, the app emails each customer the order details once payment clears. On the buying side, it reads the confirmation a supplier sends back for a purchase order and compares every line with the PO.",
+   "link": null
+  },
+  {
+   "kind": "definition",
+   "q": "How do I set up order confirmation automation?",
+   "ref": "order confirmation automation",
+   "locked": true,
+   "n": 2,
+   "a": "Write down what each confirmation shows and when it goes out, then describe it in a prompt to Emergent's AI automation builder. Emergent builds the emails and the supplier checks, with your orders in a database you own. Connect your store and the inbox that receives supplier replies, then run a few real orders through before anyone outside sees it.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder",
+    "anchor": "AI automation builder",
+    "write_as": "Emergent's AI automation builder"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "What should order confirmation automation put in the customer email?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 3,
+   "a": "Put in the order number, what was bought and for how much, where it ships, and when. Add a link for edits and cancellations and a reply address that reaches a person. In an app built with Emergent, every one of those values comes from the order record in a database you own.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Should order confirmation automation send an email when an order is canceled?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 4,
+   "a": "Yes. A cancellation confirmation names the order, the items canceled, and the refund amount and method, and the customer no longer has to rely on the original email. An item sent back after delivery is a separate flow, and returns automation covers its label and refund.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/returns-automation",
+    "anchor": "returns automation"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "Can order confirmation automation add product recommendations to the email?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 5,
+   "a": "It can, with care. The FTC's CAN-SPAM guide says an email's primary purpose is transactional if it consists only of content such as confirming a commercial transaction the recipient already has agreed to. It adds that the law views these categories narrowly. When an email contains both kinds of content, the primary purpose of the message is the deciding factor.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Does order confirmation automation work with purchase order acknowledgments?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 6,
+   "a": "Yes. A purchase order acknowledgment is the supplier's reply to a PO, and X12 defines an EDI version, the 855 Purchase Order Acknowledgment, for a seller's acknowledgment of a buyer's purchase order. Whether the reply arrives as an 855 or as a PDF by email, the app reads it and checks each line against the PO.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Should order confirmation automation include a tracking number?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 7,
+   "a": "Only if the order has already shipped. A confirmation goes out when the order is paid, before a label exists. It carries the expected ship date instead. The tracking number belongs in the shipping notice sent when the label prints, a separate email that shipping automation sends on its own trigger.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/shipping-automation",
+    "anchor": "shipping automation"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "Can order confirmation automation handle orders from more than one store?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 8,
+   "a": "Yes, as long as each store has an API the app can connect to. The app picks up paid orders from each store, records which store each came from, and sends each confirmation with that store's name and reply address. Emergent sets no task cap, and a busy sale day runs on the same rules.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How fast should order confirmation automation send the customer email?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 9,
+   "a": "Send it on the payment event itself, not on an hourly or nightly schedule. A confirmation that waits for a batch leaves the customer wondering whether the order went through. In the app Emergent builds, each paid order triggers its own email, and the send time is saved with the order.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Does order confirmation automation replace purchase approvals?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 10,
+   "a": "No. It starts once a PO has gone out: it reads the supplier's reply, checks it against the PO, and chases suppliers who never confirm. Approvals and buying policy come earlier, before a PO exists, and belong to procurement automation.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/procurement-automation",
+    "anchor": "procurement automation"
+   }
+  }
+ ],
+ "faq_heading": "Order Confirmation Automation FAQ",
+ "table": {
+  "vs": [
+   "Zapier",
+   "Make (Integromat)",
+   "n8n"
+  ],
+  "rows": [
+   "build",
+   "output",
+   "cap",
+   "ai",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "skeleton": {
+  "built_by": "B-w-313",
+  "built": "2026-10-23 08:21 UTC",
+  "slots": 10,
+  "flagged": 0,
+  "flag_subtypes": [],
+  "locked": 2,
+  "table": true
+ },
+ "plan": {
+  "angle": "The top 10 splits in two: five results (Doxis, Docbits, free-com, easy software, Onventis) mean the confirmation a supplier sends back on a purchase order, matched against the PO, and the rest (Omnisend, a UiPath forum thread, Pabbly videos) mean the confirmation email a store sends a customer after checkout. No result shows both. This page shows both directions as one app: the customer email that goes out on payment and splits a preorder onto its own ship date, the updated confirmation after a customer edits an order, a supplier confirmation read and checked line by line against the PO, and the chase when a supplier never confirms. Order intake and credit holds stay on the order processing page, labels and tracking on the shipping page, and purchasing policy on the procurement page.",
+  "tab_stories": [
+   "Brambleton Candle Co. takes order #20417 from Wren Halloway for 3 Juniper candles at $24 each and a preorder diffuser at $38, $110 in all; the moment payment clears, the app emails her a confirmation that lists two shipments, the candles within 2 business days and the diffuser on November 18.",
+   "Fallowmere Coffee lets customers edit an order for 60 minutes after checkout; Odessa Pruitt changes the ship-to address on order #8812 after 25 minutes, and the app sends a confirmation marked Updated that shows the old and the new address, with the $41.50 total unchanged.",
+   "Kestrelwood Cabinets sends PO-4471 to Harnet Hardware for 400 soft-close hinges at $3.10; Harnet emails back a confirmation PDF at $3.35, the app reads it into fields, marks the price line as changed, and sends the $100 difference to the buyer, Tobiah Ferrante, to accept or dispute.",
+   "Lindqvist Dental Lab sends PO-1186 to Corvane Ceramics; with no confirmation after 48 hours the app emails Corvane a reminder, and at 72 hours the buyer, Marisol Achterberg, gets a direct message naming the PO and the requested delivery date of November 4."
+  ],
+  "openers": [
+   "Wren Halloway orders 3 Juniper candles",
+   "Fallowmere Coffee keeps an order open to edits",
+   "Kestrelwood Cabinets sends PO-4471",
+   "Lindqvist Dental Lab waits on Corvane Ceramics",
+   "List what each confirmation must show",
+   "Decide when the email goes out",
+   "Write the tolerance for a supplier's changes"
+  ],
+  "heading_shapes": [
+   "Candles in 2 days, the diffuser on November 18",
+   "Order #8812 moves address and keeps its total",
+   "Harnet raised the hinge price to $3.35",
+   "PO-1186 sits unconfirmed, and the buyer hears at 72 hours"
+  ],
+  "claims_to_source": [
+   "Under CAN-SPAM, an email whose content only confirms a commercial transaction the recipient already agreed to is transactional, and when an email mixes commercial and transactional content its primary purpose decides",
+   "X12 855 is the EDI transaction set for a seller's acknowledgment of a buyer's purchase order"
+  ],
+  "numbers": [
+   {
+    "value": 110,
+    "formula": "3*24+38"
+   },
+   {
+    "value": 100,
+    "formula": "400*(3.35-3.10)"
+   }
+  ],
+  "owns": {
+   "confirmation on payment": "tab_content_1",
+   "preorder split shipments": "tab_content_1",
+   "edited order confirmation": "tab_content_2",
+   "supplier confirmation matched to PO": "tab_content_3",
+   "missing supplier confirmation chase": "tab_content_4",
+   "order data from the store": "feature_1",
+   "AI reads supplier PDFs": "feature_3",
+   "code export": "feature_6",
+   "test orders before launch": "howto_step_7_des",
+   "promotions in confirmation emails": "faq",
+   "EDI acknowledgments": "faq"
+  }
+ },
+ "chip_adds": [
+  "Add order emails that go out when payment clears, with a ship date per shipment.",
+  "Add an updated confirmation for edited orders that shows what the customer changed.",
+  "Add PO matching that reads each supplier confirmation and compares it line by line.",
+  "Add PO reminders that chase a supplier at 48 hours and alert the buyer at 72."
+ ],
+ "claims_used": [
+  "prompt-build",
+  "api-connect",
+  "ai-extraction",
+  "database-owned",
+  "alerts",
+  "no-caps",
+  "code-export",
+  "free-start"
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R8",
+    "title": "Paid orders",
+    "prompt": "Email each customer a confirmation when payment clears, split by shipment",
+    "rule": "Payment cleared → confirmation email",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Order #20417",
+       "size": 20,
+       "sub": "Brambleton Candle Co."
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Item",
+        "Price",
+        "Ships"
+       ],
+       "widths": [
+        0.46,
+        0.22,
+        0.32
+       ],
+       "num_cols": [
+        1
+       ],
+       "row_h": 60,
+       "rows": [
+        [
+         "3 Juniper candles",
+         "$72.00",
+         "2 business days"
+        ],
+        [
+         "Preorder diffuser",
+         "$38.00",
+         "November 18"
+        ],
+        [
+         "Total",
+         "$110.00",
+         ""
+        ]
+       ]
+      },
+      {
+       "type": "note",
+       "icon": "tag",
+       "text": "Juniper candles at $24 each"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "mail",
+     "tone": "ok",
+     "title": "Order confirmed",
+     "blocks": [
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "acc",
+       "text": "To Wren Halloway"
+      },
+      {
+       "type": "meta",
+       "icon": "package",
+       "kind": "muted",
+       "text": "Candles: 2 business days"
+      },
+      {
+       "type": "meta",
+       "icon": "calendar",
+       "kind": "muted",
+       "text": "Diffuser: ships November 18"
+      }
+     ],
+     "action": {
+      "label": "View order",
+      "icon": "arrow-right"
+     }
+    },
+    "mini": {
+     "icon": "credit-card",
+     "kind": "ok",
+     "title": "Payment cleared",
+     "sub": "2 shipments"
+    },
+    "alt": "Order #20417 from Brambleton Candle Co. lists 3 Juniper candles and a preorder diffuser, $110.00 in all, with a confirmation email to Wren Halloway showing two ship dates.",
+    "story": [
+     {
+      "copy": "Wren Halloway",
+      "image": "To Wren Halloway"
+     },
+     {
+      "copy": "Brambleton Candle Co.",
+      "image": "Brambleton Candle Co."
+     },
+     {
+      "copy": "3 Juniper candles",
+      "image": "3 Juniper candles"
+     },
+     {
+      "copy": "a preorder diffuser at $38",
+      "image": "$38.00"
+     },
+     {
+      "copy": "$110 in all",
+      "image": "$110.00"
+     },
+     {
+      "copy": "order #20417",
+      "image": "Order #20417"
+     },
+     {
+      "copy": "When payment clears",
+      "image": "Payment cleared → confirmation email"
+     },
+     {
+      "copy": "two shipments",
+      "image": "2 shipments"
+     },
+     {
+      "copy": "within 2 business days",
+      "image": "Candles: 2 business days"
+     },
+     {
+      "copy": "the diffuser ships on November 18",
+      "image": "Diffuser: ships November 18"
+     },
+     {
+      "copy": "at $24 each",
+      "image": "Juniper candles at $24 each"
+     }
+    ]
+   },
+   {
+    "recipe": "R4",
+    "title": "Edited orders",
+    "prompt": "Send an updated confirmation when a customer edits an order",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Order #8812",
+       "size": 19,
+       "sub": "Fallowmere Coffee"
+      },
+      {
+       "type": "item",
+       "title": "Ship-to address",
+       "sub": "Changed"
+      },
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "muted",
+       "text": "Edited by Odessa Pruitt"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Edited after",
+         "25 minutes"
+        ],
+        [
+         "Edit window",
+         "60 minutes"
+        ]
+       ]
+      },
+      {
+       "type": "chips",
+       "items": [
+        [
+         "Updated",
+         "acc"
+        ]
+       ]
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "What changed",
+       "size": 19,
+       "chip": [
+        "Updated",
+        "acc"
+       ]
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Old address",
+         "Cedar Lane, Ashby"
+        ],
+        [
+         "New address",
+         "Quarry Street, Ashby"
+        ]
+       ]
+      },
+      {
+       "type": "meta",
+       "icon": "check",
+       "kind": "muted",
+       "text": "Total $41.50, the same"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "mail",
+     "tone": "acc",
+     "title": "Order #8812 updated",
+     "blocks": [
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "acc",
+       "text": "To Odessa Pruitt"
+      },
+      {
+       "type": "meta",
+       "icon": "map-pin",
+       "kind": "muted",
+       "text": "New ship-to address"
+      },
+      {
+       "type": "meta",
+       "icon": "receipt",
+       "kind": "muted",
+       "text": "Total $41.50"
+      }
+     ],
+     "action": {
+      "label": "View changes",
+      "icon": "arrow-right"
+     }
+    },
+    "alt": "Order #8812 from Fallowmere Coffee shows a ship-to address edited after 25 minutes and an updated confirmation to Odessa Pruitt with the $41.50 total unchanged.",
+    "story": [
+     {
+      "copy": "Fallowmere Coffee",
+      "image": "Fallowmere Coffee"
+     },
+     {
+      "copy": "for 60 minutes after checkout",
+      "image": "60 minutes"
+     },
+     {
+      "copy": "Odessa Pruitt changes the ship-to address",
+      "image": "Edited by Odessa Pruitt"
+     },
+     {
+      "copy": "order #8812",
+      "image": "Order #8812"
+     },
+     {
+      "copy": "after 25 minutes",
+      "image": "25 minutes"
+     },
+     {
+      "copy": "a confirmation marked Updated",
+      "image": "Updated"
+     },
+     {
+      "copy": "the old address and the new one",
+      "image": "What changed"
+     },
+     {
+      "copy": "the $41.50 total stays the same",
+      "image": "Total $41.50, the same"
+     }
+    ]
+   },
+   {
+    "recipe": "R2",
+    "title": "PO confirmations",
+    "prompt": "Read each supplier confirmation and compare every line with the PO",
+    "main": {
+     "scan": true,
+     "blocks": [
+      {
+       "type": "doc_header",
+       "initials": "HH",
+       "title": "Harnet Hardware",
+       "sub": "Order confirmation",
+       "label": "PO-4471"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Customer",
+         "Kestrelwood Cabinets"
+        ],
+        [
+         "Item",
+         "Soft-close hinge"
+        ],
+        [
+         "Quantity",
+         "400"
+        ],
+        [
+         "Unit price",
+         "$3.35"
+        ]
+       ]
+      },
+      {
+       "type": "filler"
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Line check",
+       "size": 19,
+       "chip": [
+        "Changed",
+        "warn"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Field",
+        "PO",
+        "Confirmed"
+       ],
+       "widths": [
+        0.4,
+        0.3,
+        0.3
+       ],
+       "num_cols": [
+        1,
+        2
+       ],
+       "row_h": 52,
+       "rows": [
+        [
+         "Quantity",
+         "400",
+         "400"
+        ],
+        [
+         "Unit price",
+         "$3.10",
+         [
+          "$3.35",
+          "warn"
+         ]
+        ]
+       ]
+      },
+      {
+       "type": "meta",
+       "icon": "alert-triangle",
+       "kind": "warn",
+       "text": "Sent to the buyer"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Tobiah Ferrante",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Price changed on PO-4471",
+       "size": 20,
+       "sub": "$3.35 a hinge, not $3.10"
+      },
+      {
+       "type": "meta",
+       "icon": "dollar-sign",
+       "kind": "acc",
+       "text": "$100 more on 400 hinges"
+      },
+      {
+       "type": "meta",
+       "icon": "building",
+       "kind": "muted",
+       "text": "Harnet Hardware"
+      }
+     ],
+     "action": {
+      "label": "Accept or dispute",
+      "icon": "arrow-right"
+     }
+    },
+    "alt": "A Harnet Hardware confirmation for PO-4471 shows soft-close hinges at $3.35 against $3.10 on the PO, with a $100 difference sent to the buyer.",
+    "story": [
+     {
+      "copy": "Kestrelwood Cabinets",
+      "image": "Kestrelwood Cabinets"
+     },
+     {
+      "copy": "PO-4471",
+      "image": "PO-4471"
+     },
+     {
+      "copy": "Harnet Hardware",
+      "image": "Harnet Hardware"
+     },
+     {
+      "copy": "400 soft-close hinges",
+      "image": "400"
+     },
+     {
+      "copy": "at $3.10 each",
+      "image": "$3.10"
+     },
+     {
+      "copy": "says $3.35 a hinge",
+      "image": "$3.35"
+     },
+     {
+      "copy": "marks the price line as changed",
+      "image": "Price changed on PO-4471"
+     },
+     {
+      "copy": "Tobiah Ferrante",
+      "image": "To Tobiah Ferrante"
+     },
+     {
+      "copy": "to accept or dispute",
+      "image": "Accept or dispute"
+     },
+     {
+      "copy": "a $100 difference across 400 hinges",
+      "image": "$100 more on 400 hinges"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Unconfirmed POs",
+    "prompt": "Remind suppliers at 48 hours and tell the buyer at 72",
+    "main": {
+     "chrome": "Purchase orders",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "LINDQVIST DENTAL LAB",
+       "title": "PO-1186",
+       "size": 26,
+       "sub": "Corvane Ceramics"
+      },
+      {
+       "type": "rule",
+       "text": "Rule: no confirmation → remind at 48 hours"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "PO sent",
+         "sub": "Delivery November 4"
+        },
+        {
+         "state": "done",
+         "title": "Reminder emailed",
+         "sub": "At 48 hours"
+        },
+        {
+         "state": "live",
+         "title": "Buyer told",
+         "sub": "At 72 hours"
+        },
+        {
+         "state": "next",
+         "title": "Confirmation in",
+         "sub": "Waiting on Corvane"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "message-circle",
+     "tone": "warn",
+     "title": "PO-1186 unconfirmed",
+     "blocks": [
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "acc",
+       "text": "To Marisol Achterberg"
+      },
+      {
+       "type": "meta",
+       "icon": "clock",
+       "kind": "muted",
+       "text": "72 hours, no reply"
+      },
+      {
+       "type": "meta",
+       "icon": "calendar",
+       "kind": "muted",
+       "text": "Due November 4"
+      }
+     ],
+     "action": {
+      "label": "Open PO",
+      "icon": "arrow-right"
+     }
+    },
+    "mini": {
+     "icon": "clock",
+     "kind": "warn",
+     "title": "No confirmation",
+     "sub": "72 hours"
+    },
+    "alt": "PO-1186 from Lindqvist Dental Lab to Corvane Ceramics shows a reminder at 48 hours and a direct message to the buyer at 72 hours, with delivery asked for November 4.",
+    "story": [
+     {
+      "copy": "Lindqvist Dental Lab",
+      "image": "LINDQVIST DENTAL LAB"
+     },
+     {
+      "copy": "PO-1186",
+      "image": "PO-1186"
+     },
+     {
+      "copy": "Corvane Ceramics",
+      "image": "Corvane Ceramics"
+     },
+     {
+      "copy": "for delivery on November 4",
+      "image": "Delivery November 4"
+     },
+     {
+      "copy": "With no confirmation after 48 hours",
+      "image": "Rule: no confirmation → remind at 48 hours"
+     },
+     {
+      "copy": "emails Corvane a reminder",
+      "image": "Reminder emailed"
+     },
+     {
+      "copy": "At 72 hours",
+      "image": "At 72 hours"
+     },
+     {
+      "copy": "Marisol Achterberg",
+      "image": "To Marisol Achterberg"
+     },
+     {
+      "copy": "due November 4",
+      "image": "Due November 4"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "dm": true,
+   "channel": "Tobiah Ferrante",
+   "title": "Price changed",
+   "sub": "PO-4471 at $3.35, not $3.10",
+   "primary": "Accept",
+   "secondary": "Dispute",
+   "icon": "file-text",
+   "alt": "Order confirmation automation: a direct message asking a buyer to accept or dispute a price change on a supplier's confirmation"
+  },
+  "og": {
+   "headline": "Build order confirmations for every order",
+   "lines": [
+    "Build order",
+    "confirmations for",
+    "every order"
+   ],
+   "alt": "Build order confirmation automation for customers and suppliers, with Emergent"
+  },
+  "checks": [
+   {
+    "expr": "3*24 + 38 == 110",
+    "shows": [
+     "$72.00",
+     "$38.00",
+     "$110.00"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "3*24 == 72",
+    "shows": [
+     "$72.00"
+    ],
+    "where": 1
+   },
+   {
+    "fact": [
+     "$41.50"
+    ],
+    "where": 2
+   },
+   {
+    "fact": [
+     "$3.10",
+     "$3.35"
+    ],
+    "where": 3
+   },
+   {
+    "expr": "400*335 - 400*310 == 10000",
+    "shows": [
+     "$100 more on 400 hinges"
+    ],
+    "where": 3
+   },
+   {
+    "same": "$3.35",
+    "where": [
+     3,
+     "cover"
+    ]
+   },
+   {
+    "fact": [
+     "$3.10"
+    ],
+    "where": "cover"
+   },
+   {
+    "fact": [
+     "$24"
+    ],
+    "where": 1
+   }
+  ]
+ },
+ "domain_sources": [
+  {
+   "claim": "Under CAN-SPAM, an email whose content only confirms a commercial transaction the recipient already agreed to is transactional, and when an email mixes commercial and transactional content its primary purpose decides",
+   "source_url": "https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business",
+   "date": "2026-10-23",
+   "quote": "When an email contains both kinds of content, the primary purpose of the message is the deciding factor."
+  },
+  {
+   "claim": "X12 855 is the EDI transaction set for a seller's acknowledgment of a buyer's purchase order",
+   "source_url": "https://x12.org/products/transaction-sets",
+   "date": "2026-10-23",
+   "quote": "a seller's acknowledgment of a buyer's purchase order"
+  },
+  {
+   "claim": "CAN-SPAM treats an email whose content only confirms a commercial transaction the recipient already agreed to as transactional",
+   "source_url": "https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business",
+   "date": "2026-10-23",
+   "quote": "Facilitates, completes, or confirms a commercial transaction that the recipient already has agreed to"
+  },
+  {
+   "claim": "The FTC says the law views the transactional and relationship categories narrowly",
+   "source_url": "https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business",
+   "date": "2026-10-23",
+   "quote": "Keep in mind that the law views these categories narrowly."
+  },
+  {
+   "claim": "X12 855 is the Purchase Order Acknowledgment transaction set for EDI",
+   "source_url": "https://x12.org/products/transaction-sets",
+   "date": "2026-10-23",
+   "quote": "Purchase Order Acknowledgment Transaction Set (855) for use within the context of an Electronic Data Interchange (EDI) environment"
+  },
+  {
+   "claim": "Under CAN-SPAM an email's primary purpose is transactional or relationship only if it consists only of such content",
+   "source_url": "https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business",
+   "date": "2026-10-23",
+   "quote": "The primary purpose of an email is transactional or relationship if it consists only of content that"
+  }
+ ],
+ "faq_sources": [
+  {
+   "q": "What is order confirmation automation?",
+   "source": "written",
+   "ref": "order confirmation automation",
+   "origin": "definition"
+  },
+  {
+   "q": "How do I set up order confirmation automation?",
+   "source": "written",
+   "ref": "order confirmation automation",
+   "origin": "definition"
+  },
+  {
+   "q": "What should order confirmation automation put in the customer email?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Should order confirmation automation send an email when an order is canceled?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Can order confirmation automation add product recommendations to the email?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Does order confirmation automation work with purchase order acknowledgments?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Should order confirmation automation include a tracking number?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Can order confirmation automation handle orders from more than one store?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How fast should order confirmation automation send the customer email?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Does order confirmation automation replace purchase approvals?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  }
+ ],
+ "qc_passed": {
+  "rules_version": "32317cdaeeee",
+  "date": "2026-10-23 08:35 UTC"
+ },
+ "learn_refs": [
+  "6a1729ad1817ffd0330c987d",
+  "6abe38fbf322d0af73b37238",
+  "6a172321c4c836a09c1ce435"
+ ],
+ "learn_refs_why": [
+  "best-ai-workflow-builders: Auto fixed set: the hub's category: what an AI workflow builder is and how to choose one",
+  "how-to-build-an-ai-agent: Auto fixed set: step-by-step build of an agent that handles leads and intake, the AI step inside most automations",
+  "best-no-code-agent-builders: Auto fixed set: no-code agent builders for workflow automation, for readers who want automations without code"
+ ],
+ "writers": [
+  "B-w-313"
+ ]
+}
