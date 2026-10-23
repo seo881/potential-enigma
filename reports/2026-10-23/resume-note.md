@@ -30,3 +30,4 @@ Live: 339. Account A is paused; B covers all 4 hubs. The post-live QC launchd jo
 ## Fixes logged, not done
 - The skeleton default LP hero prompt "saves every signup" is on 56 LP specs, live ones included, and misfits service, shop and news pages. Per-hub rewrite plan for Divit (it touches many live pages).
 - The related-link picker gives off-topic sibling links. Learn library gaps (yoga, studio, training).
+- skeleton.py assemble relabels original keyword-sourced FAQ items as "written" on legacy live pages, which exposes them to the written-question gate (wedding-rsvp Q2, Q6, Q7). Fix: assemble keeps each item's provenance unless its question text changed.
