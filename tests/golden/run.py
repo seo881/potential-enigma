@@ -312,7 +312,7 @@ def caught(c):
         import live_audit as LA
         ls = {c["href"]: {"internal": c.get("internal", False), "status": c["status_code"]}}
         if c.get("hub"):
-            raw = {"pages": [], "held": [], "hubs": [{"hub": c["url"], "http200": True, "carousel_hidden": True, "render": {"text_visible": ""}, "link_status": ls}]}
+            raw = {"pages": [], "held": [], "hubs": [{"hub": c["url"], "http200": True, "carousel_visible": True, "carousel_cards_resolve": True, "carousel_has_all_new_cards": True, "hub_card_cover_alt": True, "missing": [], "cover_alt_missing": [], "render": {"text_visible": ""}, "link_status": ls}]}
             m = {"pages": []}
         else:
             m = {"pages": [{"url": c["url"], "hub": "/" + c["url"].split("/")[1], "fields": {}, "faq_items": [], "images": {}, "meta_title": "x" * 40, "meta_description": "y" * 120}]}
@@ -322,7 +322,9 @@ def caught(c):
     if c["kind"] == "audit-sev":      # one failed verify check (page) or a shown carousel (hub) raises code at severity
         import live_audit as LA
         if c.get("hub"):
-            raw = {"pages": [], "held": [], "hubs": [{"hub": c["url"], "http200": True, "carousel_hidden": False, "carousel_has_all_new_cards": True, "hub_card_cover_alt": True, "missing": [], "cover_alt_missing": [], "render": {"text_visible": ""}, "link_status": {}}]}
+            # Divit 2026-10-23: a healthy hub has the carousel visible with every card resolving; the case turns its check off
+            raw = {"pages": [], "held": [], "hubs": [{"hub": c["url"], "http200": True, "carousel_visible": True, "carousel_cards_resolve": True, "carousel_bad": ["#"], "carousel_has_all_new_cards": True, "hub_card_cover_alt": True, "missing": [], "cover_alt_missing": [], "render": {"text_visible": ""}, "link_status": {}}]}
+            raw["hubs"][0][c.get("check", "carousel_visible")] = False
             m = {"pages": []}
         else:
             m = {"pages": [{"url": c["url"], "hub": "/" + c["url"].split("/")[1], "fields": {}, "faq_items": [], "images": {}, "meta_title": "x" * 40, "meta_description": "y" * 120}]}

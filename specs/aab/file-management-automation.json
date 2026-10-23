@@ -122,6 +122,13 @@
    "via": null,
    "by": "B-w-314",
    "note": ""
+  },
+  {
+   "t": "2026-10-23 08:40 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-143",
+   "note": "rubric 10/10 by B-r-143; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -999,5 +1006,265 @@
  ],
  "writers": [
   "B-w-314"
- ]
+ ],
+ "review": {
+  "by": "B-r-143",
+  "date": "2026-10-23 08:40 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build File Management Automation That Files Every Upload'; hero 'renames each upload, files it in the right folder, and logs each move in a database you own' covers naming, filing, duplicates and archive across the page, not one feature."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is rule-based sorting guides and tool roundups; page gives the rules (naming pattern, folder per type, checksum duplicates, archive rule), a 7-step how-to and a tool table; PAA on automated transfers is answered through the Drive/Graph change-trigger FAQ."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'CLIENT_DocType_YYYY-MM', 'scan0042 or final-v3', 'Warranty open', MD5 checksum and content_hash: shared-drive operator vocabulary throughout."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every body opens on a full sentence: 'Write the convention once...', 'Say where each kind of file belongs.', 'Open three folders your team uses every day...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One ', so' ending (tab 3 H3), under the Q5 limit; sentences short and single-idea; noted below."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Shared drives fill up with files named scan0042 and final-v3.' Plain, unglamorous, specific; no AI tells."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "All 7 storage-API statements keep the scope of their quoted spans: Drive folder MIME type, addParents/removeParents, MD5 'only applicable to files with binary content' (step 4 and FAQ 6 both keep the binary limit), Dropbox content_hash 'without downloading them', Drive push 'POST request', Graph delta 'driveItem and its children over time' and 'track items by id'. Emergent claims map to prompt-build, api-connect, ai-extraction, database-owned, alerts, no-caps, code-export, free-start. Numbers agree: 14=12+2, 9=7+2, 3200+1150=4350."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Stays off pdf-automation (split/merge/fill: FAQ 10 hands splitting scans to 'pdf automation') and document-automation (drafting letters/quotes; AI read here only drives naming and filing). No sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, hub link in item 2, exact-match links 'proposal automation', 'newsletter automation', 'pdf automation'; each answered in its first sentence; moat lines in items 5, 7, 8."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Each tab matches its copy: FENWICK_BankStatement_2026-03.pdf in Clients/Fenwick/2026 with 14/12/2; 2611 Harlow Library with the 5 named subfolders; hero-final-v3.png held against spring-hero.png with 'Use existing'; 7 moved, 2 kept Warranty open, all 9 listed. One hero per image, cursor on the button."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief.cover.primary",
+    "quote": "Reuse",
+    "issue": "The cover button reads 'Reuse' while tab 3's copy and image say 'use the existing file' / 'Use existing'. Same outcome, so not a contradiction, but the label differs from the copy.",
+    "fix": "Set cover primary to 'Use existing' to match tab 3.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "tab_content_3 (H3)",
+    "quote": "Its checksum matches spring-hero.png, so it waits",
+    "issue": "Heading opens on 'Its' with no antecedent and ends on a ', so' clause (QC Q5 flag).",
+    "fix": "e.g. 'hero-final-v3.png waits: it matches spring-hero.png'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 4; faq item 7",
+    "quote": "How does file management automation file proposals by client?; Can file management automation sort the images for each newsletter issue?",
+    "issue": "Both questions read as carriers for the sibling links more than as questions a file-management searcher asks.",
+    "fix": "On a later pass, anchor the links in questions searchers ask (e.g. file sorting software, free AI file organizer).",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 9",
+    "quote": "It runs when the storage service reports the change.",
+    "issue": "The lead generalizes to 'reports'; the Graph delta call cited next is one the app polls, not a push. The sourced sentences themselves are accurate.",
+    "fix": "'It runs when the app learns of the change: a push notification or a delta query.'",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief.cover.primary",
+   "issue": "The cover button reads 'Reuse' while tab 3's copy and image say 'use the existing file' / 'Use existing'. Same outcome, so not a contradiction, but the label differs from the copy.",
+   "fix": "Set cover primary to 'Use existing' to match tab 3.",
+   "by": "B-r-143",
+   "via": "review",
+   "date": "2026-10-23 08:40 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "tab_content_3 (H3)",
+   "issue": "Heading opens on 'Its' with no antecedent and ends on a ', so' clause (QC Q5 flag).",
+   "fix": "e.g. 'hero-final-v3.png waits: it matches spring-hero.png'.",
+   "by": "B-r-143",
+   "via": "review",
+   "date": "2026-10-23 08:40 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 4; faq item 7",
+   "issue": "Both questions read as carriers for the sibling links more than as questions a file-management searcher asks.",
+   "fix": "On a later pass, anchor the links in questions searchers ask (e.g. file sorting software, free AI file organizer).",
+   "by": "B-r-143",
+   "via": "review",
+   "date": "2026-10-23 08:40 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 9",
+   "issue": "The lead generalizes to 'reports'; the Graph delta call cited next is one the app polls, not a push. The sourced sentences themselves are accurate.",
+   "fix": "'It runs when the app learns of the change: a push notification or a delta query.'",
+   "by": "B-r-143",
+   "via": "review",
+   "date": "2026-10-23 08:40 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "f6ec37c17aa740ed",
+   "alt:share_image": "8b54d886d91e6494",
+   "alt:tab_image_1": "026c1c5ecf46b949",
+   "alt:tab_image_2": "c5c3818114c5d07d",
+   "alt:tab_image_3": "e6a50da767b1f3a6",
+   "alt:tab_image_4": "8d5f356a0b5a3d24",
+   "breadcrumb": "df6196f82c310ac2",
+   "chip_adds": "354fb12fd87cfe86",
+   "explore_cta": "e0da82d01b6889ed",
+   "faq": "6945e3d8dba95123",
+   "feature_1": "f9c3e04cdd8a347d",
+   "feature_2": "5acc5ddbd52df6cc",
+   "feature_3": "be0fc3fec5937188",
+   "feature_4": "5e6078f5e0e0ae11",
+   "feature_5": "951d3fd823691372",
+   "feature_6": "45d96cfb92cac7a4",
+   "features_heading": "78788e25463d29c6",
+   "features_subheading": "cfbfdc9873f5960d",
+   "h1": "79401e1d0b02add9",
+   "hero_description": "f193527c5251ce2a",
+   "hero_prompt": "3a01591cbc639ff4",
+   "howto_description": "b272212c8e12c057",
+   "howto_step_1_des": "c74d190ef1b7e9c8",
+   "howto_step_1_title": "7760b6541f2525a0",
+   "howto_step_2_des": "b069475054f6fc5a",
+   "howto_step_2_title": "19e64a351b9d0fa8",
+   "howto_step_3_des": "d174ee103f86eac0",
+   "howto_step_3_title": "ba4fe8779cac6728",
+   "howto_step_4_des": "e7cd51faf322a51f",
+   "howto_step_4_title": "57d5ea3df7fee8c0",
+   "howto_step_5_des": "bd8b4fb42fa41005",
+   "howto_step_5_title": "cd4e30b03a133c81",
+   "howto_step_6_des": "b2a8162a2a4f3ddf",
+   "howto_step_6_title": "fa206e994237fb53",
+   "howto_step_7_des": "9b5cf0eed94d99c7",
+   "howto_step_7_title": "b40702d270745f6b",
+   "howto_title": "a531f4d340a8955a",
+   "meta_description": "a20eda4d14b45d12",
+   "meta_title": "d5a839465f5375a8",
+   "mockup": "0ecd22f5dd4a8b5d",
+   "product_name": "6c1721eef74c7bc2",
+   "prompt_chip_1": "1a6bf733951e2bd3",
+   "prompt_chip_2": "0a93d3af5a4d1443",
+   "prompt_chip_3": "9158c5c9f77dae02",
+   "prompt_chip_4": "7bc7649daeecb29a",
+   "slug": "85731a2ec4df54ae",
+   "tab_content_1": "59307d0ddb3b5fe4",
+   "tab_content_2": "9a73d16da3e9bb45",
+   "tab_content_3": "6f8ebf1732a086e2",
+   "tab_content_4": "29dfa03ba5093ca4",
+   "tab_label_1": "562e7fd64df1a2ff",
+   "tab_label_2": "e32d62842e7b6e14",
+   "tab_label_3": "04057cc7821ec83c",
+   "tab_label_4": "342a0e9f56c5bed8",
+   "usecase_heading": "85fc3a03950826eb",
+   "why_description": "79a0337168cfdd36",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "989a5f3e9a927d9b"
+  },
+  "all": "e475b83b79797718",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "f6ec37c17aa740ed",
+   "alt:share_image": "8b54d886d91e6494",
+   "alt:tab_image_1": "026c1c5ecf46b949",
+   "alt:tab_image_2": "c5c3818114c5d07d",
+   "alt:tab_image_3": "e6a50da767b1f3a6",
+   "alt:tab_image_4": "8d5f356a0b5a3d24",
+   "breadcrumb": "df6196f82c310ac2",
+   "chip_adds": "354fb12fd87cfe86",
+   "explore_cta": "e0da82d01b6889ed",
+   "faq": "6945e3d8dba95123",
+   "feature_1": "f9c3e04cdd8a347d",
+   "feature_2": "5acc5ddbd52df6cc",
+   "feature_3": "be0fc3fec5937188",
+   "feature_4": "5e6078f5e0e0ae11",
+   "feature_5": "951d3fd823691372",
+   "feature_6": "45d96cfb92cac7a4",
+   "features_heading": "78788e25463d29c6",
+   "features_subheading": "cfbfdc9873f5960d",
+   "h1": "79401e1d0b02add9",
+   "hero_description": "f193527c5251ce2a",
+   "hero_prompt": "3a01591cbc639ff4",
+   "howto_description": "b272212c8e12c057",
+   "howto_step_1_des": "c74d190ef1b7e9c8",
+   "howto_step_1_title": "7760b6541f2525a0",
+   "howto_step_2_des": "b069475054f6fc5a",
+   "howto_step_2_title": "19e64a351b9d0fa8",
+   "howto_step_3_des": "d174ee103f86eac0",
+   "howto_step_3_title": "ba4fe8779cac6728",
+   "howto_step_4_des": "e7cd51faf322a51f",
+   "howto_step_4_title": "57d5ea3df7fee8c0",
+   "howto_step_5_des": "bd8b4fb42fa41005",
+   "howto_step_5_title": "cd4e30b03a133c81",
+   "howto_step_6_des": "b2a8162a2a4f3ddf",
+   "howto_step_6_title": "fa206e994237fb53",
+   "howto_step_7_des": "9b5cf0eed94d99c7",
+   "howto_step_7_title": "b40702d270745f6b",
+   "howto_title": "a531f4d340a8955a",
+   "meta_description": "a20eda4d14b45d12",
+   "meta_title": "d5a839465f5375a8",
+   "mockup": "0ecd22f5dd4a8b5d",
+   "product_name": "6c1721eef74c7bc2",
+   "prompt_chip_1": "1a6bf733951e2bd3",
+   "prompt_chip_2": "0a93d3af5a4d1443",
+   "prompt_chip_3": "9158c5c9f77dae02",
+   "prompt_chip_4": "7bc7649daeecb29a",
+   "slug": "85731a2ec4df54ae",
+   "tab_content_1": "59307d0ddb3b5fe4",
+   "tab_content_2": "9a73d16da3e9bb45",
+   "tab_content_3": "6f8ebf1732a086e2",
+   "tab_content_4": "29dfa03ba5093ca4",
+   "tab_label_1": "562e7fd64df1a2ff",
+   "tab_label_2": "e32d62842e7b6e14",
+   "tab_label_3": "04057cc7821ec83c",
+   "tab_label_4": "342a0e9f56c5bed8",
+   "usecase_heading": "85fc3a03950826eb",
+   "why_description": "79a0337168cfdd36",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "989a5f3e9a927d9b"
+  },
+  "all": "e475b83b79797718",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
