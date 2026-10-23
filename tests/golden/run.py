@@ -191,6 +191,11 @@ def caught(c):
         import paa_gate as PG          # (sign up, check in) are function words, any other word counts
         g = PG.Gate(c["url"]); its = [{"q": q, "verdict": "pass", "reasons": [], "legacy": not c.get("new_writing")} for q in (c["a"], c["b"])]
         g.finish(its); return any(r[0] == "PA9" for r in its[1]["reasons"]) == c["expect_dup"]
+    if c["kind"] == "pa12-page":   # Divit 2026-10-23: PA12 skips "pdf" secondaries unless PDF is the page's subject
+        import paa_gate as PG
+        g = PG.Gate(c["url"]); _items, page = PG.run_spec(g)
+        has = any(r[0] == "PA12" and "secondar" in r[1] for r in page)
+        return has == c["expect_pa12"]
     if c["kind"] == "gate-text":   # a literal question (Divit's examples, our own copy): the gate's per-question rules reject it
         import paa_gate as PG
         rs = PG.Gate(c["url"]).judge({"q": c["q"], "source": "secondary", "n": 5}); lv = c.get("levels") or ["reject"]
