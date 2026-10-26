@@ -122,6 +122,13 @@
    "via": null,
    "by": "A-w-179",
    "note": ""
+  },
+  {
+   "t": "2026-10-26 09:24 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-51",
+   "note": "rubric 10/10 by A-r-51; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -876,5 +883,265 @@
  ],
  "writers": [
   "A-w-179"
- ]
+ ],
+ "review": {
+  "by": "A-r-51",
+  "date": "2026-10-26 09:24 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Class Registration Form for Every Section You Run'; hero 'flags schedule clashes and stops taking sign-ups once a section is full' covers seats, sections and sign-up."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are fill-in PDFs and templates; page gives the template contents (FAQ 3 'full name and birth date, plus the class and section... guardian and an emergency contact for anyone under 18'), a 7-step how-to and four provider examples."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Class vocabulary: 'Jazz II, a 60-minute class on Tuesday at 5:00 PM', 'a current CPR card', 'runs a Beginning Pottery section only when 6 adults register by January 10'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Bodies open on full sentences, e.g. 'Every section of a class carries its own meeting time and its own seat limit.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft class; QC P2 Q2 34-word sentence in feature 6 logged as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'a 6-year-old never scrolls past adult pottery' reads human and specific."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent sentences map to prompt-build, conversational ('one question per screen'), alerts, database-owned, no-caps, code-export, free-start, api-connect ('connects to your payment tool through its API'). Numbers: 29 of 112 Spanish; Jazz II 5:00-6:00 overlaps Tap I 5:30; card expired March 30 before April 14; Tuesday 4 < 6, Thursday 9. No third-party facts outside the vetted table."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Not a near-copy of the registration siblings: tabs are bilingual rec center, dance schedule clash, CPR prerequisite, minimum-enrollment cutoff; FAQ routes multi-week camps, conferences and daycare to their own pages. Two feature ideas shared with workshop registration logged as a note."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions answered first-sentence ('Register once for the whole run, not week by week.', 'Collect the birth date, not the age.'); paa --spec 10 pass, 0 reject, 0 flag; hub link in item 2."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 '29 of 112 marked Spanish', '112 spring registrations, One table, in English'; tab 2 'Tap I overlaps Jazz II', 'Tap I open Thursday 5:30 PM'; tab 3 'CPR card expired March 30', 'Seat held', email to Desmond Achterberg; tab 4 Pottery Tuesday 4 'Not running', Thursday 9, email to Barnaby Quist. Image paths use images/form/class-registration/."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_1; feature_5",
+    "quote": "Each section keeps its own seat limit / A roster per section, in your database",
+    "issue": "Same two ideas as workshop registration's 'A seat limit on every session' and 'A roster for each session' (and registration's 'Caps and a waitlist on any option').",
+    "fix": "Give one of them a class-only angle, such as term dates or instructor rosters on day one.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #1",
+    "field": "why_title",
+    "quote": "Why Build Your Registration Form With Emergent?",
+    "issue": "Dropping 'Class' leaves the generic registration form page's primary as the heading; context keeps it class-specific, so not a cannibalising headline.",
+    "fix": "'Why Run Class Sign-Ups on Emergent?'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 5",
+    "field": "feature_1; faq item 5",
+    "quote": "the form stops offering that section and points to the next open one / the form offers a waitlist spot instead",
+    "issue": "Two different behaviours for a full section; both are buildable options but the page never says it is a choice.",
+    "fix": "In FAQ 5 say 'instead of pointing to the next section'.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_6",
+    "quote": "On paid plans, export the full code of the form and its database to your GitHub repository, where a developer of your own can read every line of it and change what you need.",
+    "issue": "QC P2 Q2: 34-word sentence with a tacked-on clause.",
+    "fix": "Split after 'repository'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_1; feature_5",
+   "issue": "Same two ideas as workshop registration's 'A seat limit on every session' and 'A roster for each session' (and registration's 'Caps and a waitlist on any option').",
+   "fix": "Give one of them a class-only angle, such as term dates or instructor rosters on day one.",
+   "by": "A-r-51",
+   "via": "review",
+   "date": "2026-10-26 09:24 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #1",
+   "field": "why_title",
+   "issue": "Dropping 'Class' leaves the generic registration form page's primary as the heading; context keeps it class-specific, so not a cannibalising headline.",
+   "fix": "'Why Run Class Sign-Ups on Emergent?'",
+   "by": "A-r-51",
+   "via": "review",
+   "date": "2026-10-26 09:24 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 5",
+   "field": "feature_1; faq item 5",
+   "issue": "Two different behaviours for a full section; both are buildable options but the page never says it is a choice.",
+   "fix": "In FAQ 5 say 'instead of pointing to the next section'.",
+   "by": "A-r-51",
+   "via": "review",
+   "date": "2026-10-26 09:24 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_6",
+   "issue": "QC P2 Q2: 34-word sentence with a tacked-on clause.",
+   "fix": "Split after 'repository'.",
+   "by": "A-r-51",
+   "via": "review",
+   "date": "2026-10-26 09:24 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "4b08604bcaca91f9",
+   "alt:share_image": "0c38ca7a0d600fbd",
+   "alt:tab_image_1": "b71c2ee70843e987",
+   "alt:tab_image_2": "d7502ae2f88a7e63",
+   "alt:tab_image_3": "69fce9a5c9c189ab",
+   "alt:tab_image_4": "1a9ae7d044b5eba1",
+   "breadcrumb": "1e44cfe20214a222",
+   "chip_adds": "3db5cabb53980f67",
+   "explore_cta": "c17c084e1fd34aba",
+   "faq": "0b23a887faeb77c9",
+   "feature_1": "4e0ecfe1503f81ea",
+   "feature_2": "ca1df36ba9c64db2",
+   "feature_3": "02220bf85ecd7c74",
+   "feature_4": "2a5d270bf4d31a0e",
+   "feature_5": "364bc1bc8e9fdf3c",
+   "feature_6": "78dbb2d53b96fc88",
+   "features_heading": "33e738acb5f4ed73",
+   "features_subheading": "89b3ee3073422cc2",
+   "h1": "f20c1b5ca24cb835",
+   "hero_description": "386be254ef316887",
+   "hero_prompt": "47d3a22be72de713",
+   "howto_description": "60b92ef081b28ff1",
+   "howto_step_1_des": "fb3fcb25519533b2",
+   "howto_step_1_title": "de2f580950e79f38",
+   "howto_step_2_des": "26ee2af9e8585f1f",
+   "howto_step_2_title": "de962caec5eb54e2",
+   "howto_step_3_des": "b8168860352b0209",
+   "howto_step_3_title": "6fc543840e7835a6",
+   "howto_step_4_des": "cc4b509e43881342",
+   "howto_step_4_title": "7fdfa979a2bafec2",
+   "howto_step_5_des": "389074c3cc4232b4",
+   "howto_step_5_title": "4ae8b3a5a89cb328",
+   "howto_step_6_des": "46fb30f9c515a009",
+   "howto_step_6_title": "cae96ce832605ef6",
+   "howto_step_7_des": "969e577709f22d19",
+   "howto_step_7_title": "a17f1b9dc5860e53",
+   "howto_title": "052b54457c1f7022",
+   "meta_description": "1646d71c8b966152",
+   "meta_title": "061b41cb8ee704ad",
+   "mockup": "17c4e61269484418",
+   "product_name": "fc12d3b96ad106c7",
+   "prompt_chip_1": "6ff15df19e8f7ccc",
+   "prompt_chip_2": "abd714971be498ab",
+   "prompt_chip_3": "4c4cbbfac2fe1933",
+   "prompt_chip_4": "285ae04e2f38a27f",
+   "slug": "5e64f64df843e050",
+   "tab_content_1": "e704523848ba3dac",
+   "tab_content_2": "9125091eb8f26205",
+   "tab_content_3": "886e5a1877790ec0",
+   "tab_content_4": "1a29dbf107a1c7c4",
+   "tab_label_1": "7f57922e8189b069",
+   "tab_label_2": "3ad396cb5cbb71a9",
+   "tab_label_3": "a91f5302b185ca80",
+   "tab_label_4": "85479ec39eb4e070",
+   "usecase_heading": "a261545c2c4ab206",
+   "why_description": "bfa857d981f81bd7",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "962cd35e96d8d3cf"
+  },
+  "all": "667fccfd7ff5049b",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "4b08604bcaca91f9",
+   "alt:share_image": "0c38ca7a0d600fbd",
+   "alt:tab_image_1": "b71c2ee70843e987",
+   "alt:tab_image_2": "d7502ae2f88a7e63",
+   "alt:tab_image_3": "69fce9a5c9c189ab",
+   "alt:tab_image_4": "1a9ae7d044b5eba1",
+   "breadcrumb": "1e44cfe20214a222",
+   "chip_adds": "3db5cabb53980f67",
+   "explore_cta": "c17c084e1fd34aba",
+   "faq": "0b23a887faeb77c9",
+   "feature_1": "4e0ecfe1503f81ea",
+   "feature_2": "ca1df36ba9c64db2",
+   "feature_3": "02220bf85ecd7c74",
+   "feature_4": "2a5d270bf4d31a0e",
+   "feature_5": "364bc1bc8e9fdf3c",
+   "feature_6": "78dbb2d53b96fc88",
+   "features_heading": "33e738acb5f4ed73",
+   "features_subheading": "89b3ee3073422cc2",
+   "h1": "f20c1b5ca24cb835",
+   "hero_description": "386be254ef316887",
+   "hero_prompt": "47d3a22be72de713",
+   "howto_description": "60b92ef081b28ff1",
+   "howto_step_1_des": "fb3fcb25519533b2",
+   "howto_step_1_title": "de2f580950e79f38",
+   "howto_step_2_des": "26ee2af9e8585f1f",
+   "howto_step_2_title": "de962caec5eb54e2",
+   "howto_step_3_des": "b8168860352b0209",
+   "howto_step_3_title": "6fc543840e7835a6",
+   "howto_step_4_des": "cc4b509e43881342",
+   "howto_step_4_title": "7fdfa979a2bafec2",
+   "howto_step_5_des": "389074c3cc4232b4",
+   "howto_step_5_title": "4ae8b3a5a89cb328",
+   "howto_step_6_des": "46fb30f9c515a009",
+   "howto_step_6_title": "cae96ce832605ef6",
+   "howto_step_7_des": "969e577709f22d19",
+   "howto_step_7_title": "a17f1b9dc5860e53",
+   "howto_title": "052b54457c1f7022",
+   "meta_description": "1646d71c8b966152",
+   "meta_title": "061b41cb8ee704ad",
+   "mockup": "17c4e61269484418",
+   "product_name": "fc12d3b96ad106c7",
+   "prompt_chip_1": "6ff15df19e8f7ccc",
+   "prompt_chip_2": "abd714971be498ab",
+   "prompt_chip_3": "4c4cbbfac2fe1933",
+   "prompt_chip_4": "285ae04e2f38a27f",
+   "slug": "5e64f64df843e050",
+   "tab_content_1": "e704523848ba3dac",
+   "tab_content_2": "9125091eb8f26205",
+   "tab_content_3": "886e5a1877790ec0",
+   "tab_content_4": "1a29dbf107a1c7c4",
+   "tab_label_1": "7f57922e8189b069",
+   "tab_label_2": "3ad396cb5cbb71a9",
+   "tab_label_3": "a91f5302b185ca80",
+   "tab_label_4": "85479ec39eb4e070",
+   "usecase_heading": "a261545c2c4ab206",
+   "why_description": "bfa857d981f81bd7",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "962cd35e96d8d3cf"
+  },
+  "all": "667fccfd7ff5049b",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
