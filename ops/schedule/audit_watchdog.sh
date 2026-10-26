@@ -11,6 +11,12 @@ OUT="$("$PY" ops/audit_status.py watchdog --runner "watchdog:$(hostname -s)" 2>&
 echo "$(date '+%F %T') rc=$RC $(echo "$OUT" | tr '\n' ' ')" >> "$LOG"
 if [ $RC -ne 0 ]; then
   MSG="$(echo "$OUT" | grep -E 'STALE|FAILED|unknown|no completed' | head -2 | tr '\n' ' ' | tr -d '"')"
-  osascript -e "display notification \"${MSG:-audit watchdog rc $RC}\" with title \"emergent.sh live audit ALERT\" sound name \"Basso\"" >/dev/null 2>&1
+  # What "Open report" opens (Divit 2026-10-26: a click must open the report, not a blank Script Editor): the failing GitHub run when
+  # the backup failed, else the newest audit digest.
+  TARGET="$(echo "$OUT" | grep -q 'BACKUP AUDIT' && echo "$OUT" | grep -qE 'BACKUP AUDIT (FAILED|STALE)' && echo "https://github.com/seo881/potential-enigma/actions/workflows/live-audit.yml")"
+  [ -z "$TARGET" ] && TARGET="$(ls -t "$REPO"/audits/live/*/digest.txt 2>/dev/null | head -1)"
+  [ -z "$TARGET" ] && TARGET="$HOME/Library/Logs/emergent-audit-watchdog.log"
+  BTN="$(osascript -e "display dialog \"${MSG:-audit watchdog rc $RC}\" & return & return & \"Report: $TARGET\" with title \"emergent.sh live audit ALERT\" buttons {\"OK\", \"Open report\"} default button \"Open report\" with icon caution giving up after 3600" 2>/dev/null)"
+  case "$BTN" in *"Open report"*) open "$TARGET";; esac
 fi
 exit 0

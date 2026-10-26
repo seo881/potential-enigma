@@ -18,11 +18,34 @@ STALE_H = 26
 def utcnow(): return datetime.datetime.now(datetime.timezone.utc)
 def fmt(t): return t.strftime("%Y-%m-%d %H:%M UTC")
 
+def _known():
+    try: return json.load(open(os.path.join(ROOT, "rules", "live_audit.json"))).get("known_open_issues") or []
+    except (OSError, ValueError): return []
+
+def known_id(f, known=None):
+    """The id of the known open issue a finding matches (rules/live_audit.json known_open_issues), else None."""
+    for k in (known if known is not None else _known()):
+        if f.get("code") != k.get("code"): continue
+        if k.get("msg_contains") and k["msg_contains"] not in (f.get("msg") or ""): continue
+        if k.get("snippet_contains") and k["snippet_contains"] not in (f.get("snippet") or ""): continue
+        return k["id"]
+    return None
+
+def real_counts(F):
+    """(real failing urls, {known id: n findings}) over the P0/P1 findings: Divit 2026-10-26, count REAL failures only."""
+    kn = _known(); real, known = set(), {}
+    for f in F:
+        if f["severity"] not in ("P0", "P1"): continue
+        k = known_id(f, kn)
+        if k: known[k] = known.get(k, 0) + 1
+        else: real.add(f["url"])
+    return real, known
+
 def success(date, runner):
     d = json.load(open(os.path.join(ROOT, "audits", "live", date, "findings.json")))
-    F = d["findings"]; bad = {f["url"] for f in F if f["severity"] in ("P0", "P1")}
+    F = d["findings"]; bad = {f["url"] for f in F if f["severity"] in ("P0", "P1")}; real, known = real_counts(F)
     rec = {"time": fmt(utcnow()), "epoch": int(utcnow().timestamp()), "runner": runner, "date": date, "base": d.get("base"),
-           "pages": len(d["pages"]), "hubs": len(d["hubs"]), "fails": len(bad),
+           "pages": len(d["pages"]), "hubs": len(d["hubs"]), "fails": len(bad), "real_fails": len(real), "known": known,
            "p0": sum(f["severity"] == "P0" for f in F), "p1": sum(f["severity"] == "P1" for f in F),
            "findings": f"audits/live/{date}/findings.json"}
     old = json.load(open(LAST)) if os.path.exists(LAST) else {}
@@ -50,7 +73,12 @@ def state():
 def line():
     r, age = state()
     if r is None: return "AUDIT: STALE: no full run recorded (audits/live/last_success.json missing)"
-    return f"AUDIT: last full run {r['time']}, {r['pages']} pages, {r['fails']} fail" + (f" ({r['runner']})" if r.get("runner") else "") \
+    real, known = r.get("real_fails"), r.get("known")
+    if real is None and r.get("findings") and os.path.exists(os.path.join(ROOT, r["findings"])):
+        rs, known = real_counts(json.load(open(os.path.join(ROOT, r["findings"])))["findings"]); real = len(rs)
+    kn = (" (known open: " + ", ".join(f"{k} {n}" for k, n in sorted((known or {}).items())) + ")") if known else ""
+    fails = f"{real} real fail{kn}" if real is not None else f"{r['fails']} fail"
+    return f"AUDIT: last full run {r['time']}, {r['pages']} pages, {fails}" + (f" ({r['runner']})" if r.get("runner") else "") \
         + (f"  STALE ({age:.0f} h old, limit {STALE_H} h)" if age > STALE_H else "")
 
 GH_RUNS = "https://api.github.com/repos/seo881/potential-enigma/actions/workflows/live-audit.yml/runs?per_page=20"

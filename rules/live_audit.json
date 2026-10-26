@@ -210,10 +210,38 @@
  ],
  "_note_console_ignore_sources": "console_ignore_sources (Divit 2026-10-14, widened 2026-10-15; narrow, named exceptions): a console error or page error is ignored only when (a) its SOURCE (the reporting script URL or the top stack frame, captured through CDP by ops/console_capture.mjs) matches `src`, and, where given, some stack frame matches `stack_any`: Microsoft Clarity's clarity.js (any version), the Bing UET automatic Clarity loader (www.clarity.ms/tag/uet/..., source of the \"reading 'unshift'\" page error; counts as the Clarity exception, 2026-10-15), the Clarity loader GTM injects (its www.clarity.ms/tag/ script, or GTM's inline code with a clarity.ms frame in the stack) Clarity's collect beacon https://c.clarity.ms/c.gif when the request fails or the host is unreachable (kind log, that URL as the source; 2026-10-15, counts as the Clarity exception; `kind` restricts a source entry to one kind of error) and Adwire's molecule.js; or (b) for an `element` entry, the page document itself reported it (kind log, no script in the stack) and the capture tied it to the element matching every `element` field: the navbar <svg width=\"2o\"> on the /ai-contests dropdown icon in KS's shared navbar component (2026-10-15, until KS fixes it; each document is tied on its own load, so the first load is matched as well as the load-more ?xxxx_page=2 document; an svg width error from any other element, or the same text from a script, still fails). Never matched on message text. The exceptions in force and every ignored error are printed on every run (ops/console_filter.py). ops/staging_check.py and ops/live_audit.py apply only this list; any other console error fails.",
  "social_ok": {
-  "domains": ["instagram.com", "x.com", "twitter.com", "linkedin.com", "facebook.com", "fb.com", "youtube.com", "youtu.be", "tiktok.com"],
-  "statuses": [429, 999]
+  "domains": [
+   "instagram.com",
+   "x.com",
+   "twitter.com",
+   "linkedin.com",
+   "facebook.com",
+   "fb.com",
+   "youtube.com",
+   "youtu.be",
+   "tiktok.com"
+  ],
+  "statuses": [
+   429,
+   999
+  ]
  },
  "_note_social_ok": "social_ok: A7-link treats these statuses from these domains (and their subdomains) as OK: social sites rate-limit or bot-block the audit (429; LinkedIn answers bots with 999) but serve people (Divit 2026-10-12). Any other status from them (404, 410, 5xx) is still a finding; a 429 from any other domain is still a finding.",
  "outside_check": "/ai-app-builder/vedic-astrology",
- "faq_schema": "info-only: FAQ schema on child templates is not needed (DECISIONS 2026-10-06); a schema that exists must match the visible FAQ"
+ "faq_schema": "info-only: FAQ schema on child templates is not needed (DECISIONS 2026-10-06); a schema that exists must match the visible FAQ",
+ "known_open_issues": [
+  {
+   "id": "G1",
+   "code": "A9-console",
+   "msg_contains": "<svg> attribute width: Expected length, \"2o\"",
+   "note": "KS's shared navbar /ai-contests icon svg width=\"2o\"; Divit's call (fix in the Designer + his publish, or widen the console exception). Counted as known, not as a real fail."
+  },
+  {
+   "id": "G2",
+   "code": "A6-dash",
+   "snippet_contains": "AI Workflow Builders in 2026 – Expert Picks",
+   "note": "en dash in a third-party Learn article title on the Automation Learn cards; Divit's call (blog retitle or ref swap)."
+  }
+ ],
+ "_note_known_open_issues": "known_open_issues (A 2026-10-26, Divit: count REAL failures only): a P0/P1 finding that matches an entry (same code and the msg_contains/snippet_contains text) is reported as known, not as a real fail, in ops/audit_status.py (line, watchdog, last_success.json real_fails). The finding itself is still recorded. Remove an entry when its issue is fixed."
 }
