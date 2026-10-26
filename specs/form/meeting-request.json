@@ -122,6 +122,13 @@
    "via": null,
    "by": "A-w-185",
    "note": ""
+  },
+  {
+   "t": "2026-10-26 09:31 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-54",
+   "note": "rubric 10/10 by A-r-54; 3 notes"
   }
  ],
  "pipeline": "r15",
@@ -922,5 +929,245 @@
  ],
  "writers": [
   "A-w-185"
- ]
+ ],
+ "review": {
+  "by": "A-r-54",
+  "date": "2026-10-26 09:31 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Meeting Request Form That Moves Requests to a Decision'; hero 'Build a meeting request form that routes each request to the right approver and keeps every answer in a database you own.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is event-platform meeting request pages (requests reaching a meetings team) and template PDFs; the page builds the form plus what happens after submit, and covers the template secondary in FAQ 3 ('Use a meeting request form template when all you need is a record of who asked and when')."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Meetings-desk vocabulary: '2-day offsite for 24 people with an $18,000 budget', 'pre-read upload', '#meetings-desk', 'chief of staff'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on full sentences: 'The form asks what the meeting needs to decide', 'Approvers get a Slack or email alert'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC 0; one ', so' ending (feature_3) under the limit, logged as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Specific and calm: 'The 9 requests that named none were offered a meeting with a delegate. The other 17 went on the CEO's list'."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "No third-party facts stated (domain_sources empty, nothing needs one). Emergent sentences map to prompt-build, api-connect ('connects to the calendar tool already in use through its API'), alerts, database-owned, no-caps, code-export ('On paid plans'). Numbers agree: 9+17=26; $18,000 over $10,000; 2 of the pending start within 14 days, Cosima 5 days out first."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Not a near-copy of demo-request (self-serve booking, work email check, no-show recovery) or budget-request (line items, partial approvals); delegate routing, virtual-skip and Monday digest are this page's own. H1 shape overlap with budget-request noted."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "Item 1 is the verbatim PAA 'What is a meeting request form?'; 10 builder questions answered first-sentence; hub link in item 2; links to sign up, consultation and lead capture pages; paa --spec 10 pass, 0 reject, 0 flag; verbatim Q1 ok."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab images match copy: 'Budget over $10,000 -> finance first', 'Feodor Zuberi Tuesday'; '26 requests in May, 17 on the CEO's list, 9 offered a delegate', Bryn Merriwell 'Q3 carrier contract'; 'Room and catering skipped', '45 minutes, 6 attendees', 'Review deck attached'; '#meetings-desk 6 requests pending, 2 start within 14 days', 'Monday, 9:00 am'."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "h1; tab_content_1",
+    "quote": "Build a Meeting Request Form That Moves Requests to a Decision / Any request over $10,000 goes to finance first",
+    "issue": "The H1 shares its shape with budget-request ('That Carries Every Line to a Decision'), and tab 1's budget threshold to finance is the budget-request page's core story in a meeting context.",
+    "fix": "On a future pass, give the H1 a meeting-specific outcome (an approved meeting on the calendar) and keep the finance threshold as one example rather than the lead tab.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 4",
+    "quote": "That is more than a sign up form asks.",
+    "issue": "The sentence exists to carry the sign up form link and adds nothing to the field list; reads inserted.",
+    "fix": "Move the link to an answer where a sign up form is the natural comparison, or drop the sentence.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "feature_3",
+    "quote": "A video call needs none of that, so the form shows those sections only to the in-person requests and skips them for calls.",
+    "issue": "', so' tacked-on ending (QC Q5 flag, 1 on the page); the sentence also says the same thing twice (shows only to in-person, skips for calls).",
+    "fix": "'A video call needs none of that. The form shows those sections to in-person requests only.'",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "h1; tab_content_1",
+   "issue": "The H1 shares its shape with budget-request ('That Carries Every Line to a Decision'), and tab 1's budget threshold to finance is the budget-request page's core story in a meeting context.",
+   "fix": "On a future pass, give the H1 a meeting-specific outcome (an approved meeting on the calendar) and keep the finance threshold as one example rather than the lead tab.",
+   "by": "A-r-54",
+   "via": "review",
+   "date": "2026-10-26 09:31 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 4",
+   "issue": "The sentence exists to carry the sign up form link and adds nothing to the field list; reads inserted.",
+   "fix": "Move the link to an answer where a sign up form is the natural comparison, or drop the sentence.",
+   "by": "A-r-54",
+   "via": "review",
+   "date": "2026-10-26 09:31 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "feature_3",
+   "issue": "', so' tacked-on ending (QC Q5 flag, 1 on the page); the sentence also says the same thing twice (shows only to in-person, skips for calls).",
+   "fix": "'A video call needs none of that. The form shows those sections to in-person requests only.'",
+   "by": "A-r-54",
+   "via": "review",
+   "date": "2026-10-26 09:31 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "7d65ac2d4d819c40",
+   "alt:share_image": "fcd4f56e12f5a4bc",
+   "alt:tab_image_1": "1da468f5daf84d63",
+   "alt:tab_image_2": "7035c7e9aa82690c",
+   "alt:tab_image_3": "acd7c0cd6f12da9f",
+   "alt:tab_image_4": "b6048852cce5ce20",
+   "breadcrumb": "86f8e8296f10eee0",
+   "chip_adds": "d0c10cc686410e21",
+   "explore_cta": "b1802252aa298dd9",
+   "faq": "bcd8ec787abaf185",
+   "feature_1": "f0a4800acab58760",
+   "feature_2": "3771f111f671531b",
+   "feature_3": "dbf1ee5719e57674",
+   "feature_4": "e3bba77a617e80fc",
+   "feature_5": "481f3d5d71036a39",
+   "feature_6": "ea6a7178d52582a9",
+   "features_heading": "435125bec52d42e5",
+   "features_subheading": "3c1c882b6ed6c780",
+   "h1": "0cdfcbffa886c38a",
+   "hero_description": "209da4ccadcfeea8",
+   "hero_prompt": "03ac8bae8192b5e2",
+   "howto_description": "0327434f0175aceb",
+   "howto_step_1_des": "d69285031ff4f7af",
+   "howto_step_1_title": "c2a59763988a8daf",
+   "howto_step_2_des": "45479da5c56785eb",
+   "howto_step_2_title": "6b3aa6ea4f1b2b21",
+   "howto_step_3_des": "f610aaac0670d393",
+   "howto_step_3_title": "e0c4d5f57e6a28b2",
+   "howto_step_4_des": "11b8b3325b8ec6c7",
+   "howto_step_4_title": "00578457664c7718",
+   "howto_step_5_des": "3f03931e5ebbaf59",
+   "howto_step_5_title": "a6e5267f9553b85a",
+   "howto_step_6_des": "2ed9300e62798d85",
+   "howto_step_6_title": "528eebf46b211128",
+   "howto_step_7_des": "7b03a674c6ec770b",
+   "howto_step_7_title": "5ee4a85f79b3b2f2",
+   "howto_title": "04d8c8a9fa16a06b",
+   "meta_description": "09412e58f1a754c1",
+   "meta_title": "7ab02e4e004548c3",
+   "mockup": "5d492075f07e4e72",
+   "product_name": "99011331fd4467b0",
+   "prompt_chip_1": "feb4f5c126689ef8",
+   "prompt_chip_2": "ad8e369c78dc8f2e",
+   "prompt_chip_3": "cd3a75240552789d",
+   "prompt_chip_4": "0ec793645cb341a7",
+   "slug": "83a5e49e798d1764",
+   "tab_content_1": "28885aebaf509770",
+   "tab_content_2": "d6fb7cd7b7df52e8",
+   "tab_content_3": "2258a7bb6aa62d6e",
+   "tab_content_4": "27203dd7cea4d507",
+   "tab_label_1": "feb4f5c126689ef8",
+   "tab_label_2": "abde83c71e6f75df",
+   "tab_label_3": "4c936391213a8838",
+   "tab_label_4": "75d4b16ed14f636b",
+   "usecase_heading": "d127665d407cabad",
+   "why_description": "265c3777b9775153",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "178cef5f996924c5"
+  },
+  "all": "a8e02642a612c4e9",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "7d65ac2d4d819c40",
+   "alt:share_image": "fcd4f56e12f5a4bc",
+   "alt:tab_image_1": "1da468f5daf84d63",
+   "alt:tab_image_2": "7035c7e9aa82690c",
+   "alt:tab_image_3": "acd7c0cd6f12da9f",
+   "alt:tab_image_4": "b6048852cce5ce20",
+   "breadcrumb": "86f8e8296f10eee0",
+   "chip_adds": "d0c10cc686410e21",
+   "explore_cta": "b1802252aa298dd9",
+   "faq": "bcd8ec787abaf185",
+   "feature_1": "f0a4800acab58760",
+   "feature_2": "3771f111f671531b",
+   "feature_3": "dbf1ee5719e57674",
+   "feature_4": "e3bba77a617e80fc",
+   "feature_5": "481f3d5d71036a39",
+   "feature_6": "ea6a7178d52582a9",
+   "features_heading": "435125bec52d42e5",
+   "features_subheading": "3c1c882b6ed6c780",
+   "h1": "0cdfcbffa886c38a",
+   "hero_description": "209da4ccadcfeea8",
+   "hero_prompt": "03ac8bae8192b5e2",
+   "howto_description": "0327434f0175aceb",
+   "howto_step_1_des": "d69285031ff4f7af",
+   "howto_step_1_title": "c2a59763988a8daf",
+   "howto_step_2_des": "45479da5c56785eb",
+   "howto_step_2_title": "6b3aa6ea4f1b2b21",
+   "howto_step_3_des": "f610aaac0670d393",
+   "howto_step_3_title": "e0c4d5f57e6a28b2",
+   "howto_step_4_des": "11b8b3325b8ec6c7",
+   "howto_step_4_title": "00578457664c7718",
+   "howto_step_5_des": "3f03931e5ebbaf59",
+   "howto_step_5_title": "a6e5267f9553b85a",
+   "howto_step_6_des": "2ed9300e62798d85",
+   "howto_step_6_title": "528eebf46b211128",
+   "howto_step_7_des": "7b03a674c6ec770b",
+   "howto_step_7_title": "5ee4a85f79b3b2f2",
+   "howto_title": "04d8c8a9fa16a06b",
+   "meta_description": "09412e58f1a754c1",
+   "meta_title": "7ab02e4e004548c3",
+   "mockup": "5d492075f07e4e72",
+   "product_name": "99011331fd4467b0",
+   "prompt_chip_1": "feb4f5c126689ef8",
+   "prompt_chip_2": "ad8e369c78dc8f2e",
+   "prompt_chip_3": "cd3a75240552789d",
+   "prompt_chip_4": "0ec793645cb341a7",
+   "slug": "83a5e49e798d1764",
+   "tab_content_1": "28885aebaf509770",
+   "tab_content_2": "d6fb7cd7b7df52e8",
+   "tab_content_3": "2258a7bb6aa62d6e",
+   "tab_content_4": "27203dd7cea4d507",
+   "tab_label_1": "feb4f5c126689ef8",
+   "tab_label_2": "abde83c71e6f75df",
+   "tab_label_3": "4c936391213a8838",
+   "tab_label_4": "75d4b16ed14f636b",
+   "usecase_heading": "d127665d407cabad",
+   "why_description": "265c3777b9775153",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "178cef5f996924c5"
+  },
+  "all": "a8e02642a612c4e9",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

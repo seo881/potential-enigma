@@ -127,6 +127,13 @@
    "via": null,
    "by": "A-w-183",
    "note": ""
+  },
+  {
+   "t": "2026-10-26 09:31 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-54",
+   "note": "rubric 10/10 by A-r-54; 6 notes"
   }
  ],
  "pipeline": "r15",
@@ -847,5 +854,305 @@
  },
  "writers": [
   "A-w-183"
- ]
+ ],
+ "review": {
+  "by": "A-r-54",
+  "date": "2026-10-26 09:31 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Chemical Peel Consent Form Tied to Each Client's Record'; hero 'Build a chemical peel consent form that keeps your wording intact and logs each signed visit of a peel series.' (carries the primary, leads with Build, under 130); how-to description one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is downloadable peel consent PDFs plus one builder template; the page builds the form and answers the template/PDF need in FAQ 3 ('Starting from a chemical peel consent form PDF works too: paste its text into the prompt')."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Peel-clinic vocabulary throughout: '6-peel series', 'Day-3 Check-In', 'esthetician on the booking', 'lobby tablet'; no hub boilerplate."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on full sentences: 'Paste the consent text your provider or lawyer approved.', 'The client signs with a finger or a mouse on the last screen.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC 0; sentences short and one idea each ('She signs, and her record reads visit 3 of 6 confirmed.'). Minor notes recorded."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: '14 forms signed there this week, out of 41', '8 of 9 Saturday clients signed'; no hype verbs."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Only third-party fact is MedlinePlus, kept to its scope ('For medical procedures, MedlinePlus describes written informed consent the same way') and matching the quoted span 'read a description of it and sign a form'. No risk, contraindication, practitioner, legal-validity or HIPAA claim. Emergent sentences map to prompt-build, database-owned, e-signature-capture, free-start, alerts. Image numbers 16+14+11=41 match tab 2."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Series re-confirmation, day-3 check-in and lobby-tablet stories are this page's own; feature set differs from botox, waxing and tattoo consent pages. Overlap with laser-hair-removal-consent tabs logged as a note."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic builder questions, answer-first ('Change the wording first.'), hub link in item 2, sibling links to tattoo, permanent makeup and waxing consent pages; paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Each tab image matches its copy: 'Visit 3 of 6 confirmed', 'Northgate: 14 signed Of 41 across all 3', 'Email to Faustine Delacey: Nadira asked for a call' (addressed to the person), '8 of 9 signed Saturday clients'."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "tab_label_1, tab_label_2",
+    "quote": "Peel Series / Three Locations",
+    "issue": "The tab set echoes laser-hair-removal-consent ('Session Check-In', 'Multiple Locations'): a short re-check before each later session and one form across locations. The stories and numbers differ, so it reads as its own page, but the shape is shared.",
+    "fix": "On a future pass, consider replacing the locations tab with a peel-specific moment (for example a peel-type picker showing only that peel's wording, which FAQ 5 already describes).",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 8",
+    "quote": "Email it to her the moment she submits. Ask Emergent to add a button on the confirmation screen that sends the client a copy",
+    "issue": "The first sentence says the copy is emailed automatically on submit; the second has the client press a button for it. The two mechanisms disagree within one answer.",
+    "fix": "Pick one: 'Ask Emergent to email her a copy of her answers and signature the moment she submits.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 9",
+    "quote": "Ask it to save a version number with each signature. A record signed last spring then still shows the wording that client saw",
+    "issue": "A version number identifies which wording was signed; it shows the wording only if each version's text is kept too.",
+    "fix": "'Ask it to keep each version of the wording and save its number with each signature.'",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq items 1, 8",
+    "quote": "to record that she agrees to the treatment / Email it to her the moment she submits",
+    "issue": "Generic clients default to 'she' in the definition and FAQ 8; reads slightly off in a definition.",
+    "fix": "Use 'the client' in the definition: 'to record that the client agrees to the treatment'.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 6",
+    "quote": "What should a chemical peel consent form do after a yes answer?",
+    "issue": "The question does not say a yes to what; the reader learns only in the answer that it means a yes on a provider's intake question.",
+    "fix": "'What should a chemical peel consent form do when a client answers yes to a screening question?'",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief tab 3",
+    "quote": "Answers saved / To the consent record",
+    "issue": "The timeline draws 'Answers saved' as an open (not yet done) step while the side card reads 'Saved to her record' and the copy says the answers save to the record.",
+    "fix": "Mark the last timeline step done, or drop it since the side card carries it.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "tab_label_1, tab_label_2",
+   "issue": "The tab set echoes laser-hair-removal-consent ('Session Check-In', 'Multiple Locations'): a short re-check before each later session and one form across locations. The stories and numbers differ, so it reads as its own page, but the shape is shared.",
+   "fix": "On a future pass, consider replacing the locations tab with a peel-specific moment (for example a peel-type picker showing only that peel's wording, which FAQ 5 already describes).",
+   "by": "A-r-54",
+   "via": "review",
+   "date": "2026-10-26 09:31 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 8",
+   "issue": "The first sentence says the copy is emailed automatically on submit; the second has the client press a button for it. The two mechanisms disagree within one answer.",
+   "fix": "Pick one: 'Ask Emergent to email her a copy of her answers and signature the moment she submits.'",
+   "by": "A-r-54",
+   "via": "review",
+   "date": "2026-10-26 09:31 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 9",
+   "issue": "A version number identifies which wording was signed; it shows the wording only if each version's text is kept too.",
+   "fix": "'Ask it to keep each version of the wording and save its number with each signature.'",
+   "by": "A-r-54",
+   "via": "review",
+   "date": "2026-10-26 09:31 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq items 1, 8",
+   "issue": "Generic clients default to 'she' in the definition and FAQ 8; reads slightly off in a definition.",
+   "fix": "Use 'the client' in the definition: 'to record that the client agrees to the treatment'.",
+   "by": "A-r-54",
+   "via": "review",
+   "date": "2026-10-26 09:31 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 6",
+   "issue": "The question does not say a yes to what; the reader learns only in the answer that it means a yes on a provider's intake question.",
+   "fix": "'What should a chemical peel consent form do when a client answers yes to a screening question?'",
+   "by": "A-r-54",
+   "via": "review",
+   "date": "2026-10-26 09:31 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief tab 3",
+   "issue": "The timeline draws 'Answers saved' as an open (not yet done) step while the side card reads 'Saved to her record' and the copy says the answers save to the record.",
+   "fix": "Mark the last timeline step done, or drop it since the side card carries it.",
+   "by": "A-r-54",
+   "via": "review",
+   "date": "2026-10-26 09:31 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "60bcdf6f36f9d006",
+   "alt:share_image": "388b8a5e33f0060b",
+   "alt:tab_image_1": "2d3a933c8a3d1553",
+   "alt:tab_image_2": "f181e907a482a6a0",
+   "alt:tab_image_3": "cfaeee7ce4d4e1ff",
+   "alt:tab_image_4": "1958d58e821e1755",
+   "breadcrumb": "e0354c1c23f975f8",
+   "chip_adds": "61987a7a91ff2c9f",
+   "explore_cta": "c9f37d7e1be4ffc4",
+   "faq": "4e562284dab51c23",
+   "feature_1": "6b11280f967201d9",
+   "feature_2": "3a379959c7fd90d8",
+   "feature_3": "e5aac4f2befbe1b9",
+   "feature_4": "b45855e5ab3d576e",
+   "feature_5": "c32dfd4f818a98a6",
+   "feature_6": "1b3e5ccb3eb8ad00",
+   "features_heading": "b728ba81b90a5776",
+   "features_subheading": "846d72ff9bc5b20f",
+   "h1": "88570b8d103a86a6",
+   "hero_description": "b3916bae21159438",
+   "hero_prompt": "1d5c65a83683ac5a",
+   "howto_description": "aa89200d5374ea78",
+   "howto_step_1_des": "8c2780a847d92bf8",
+   "howto_step_1_title": "2bf673d07431162a",
+   "howto_step_2_des": "fd5af21a06f6043d",
+   "howto_step_2_title": "78e130ce8696840e",
+   "howto_step_3_des": "4d87a6d0ed772c2b",
+   "howto_step_3_title": "5682df209e7a8dcc",
+   "howto_step_4_des": "7ec33650ef4c8658",
+   "howto_step_4_title": "9d96ba426c310492",
+   "howto_step_5_des": "da086532be0795ce",
+   "howto_step_5_title": "e32d6828ba828f42",
+   "howto_step_6_des": "ce4d850fef8845c9",
+   "howto_step_6_title": "5b0f6ce56df45a60",
+   "howto_step_7_des": "17a9aa705ae83cfc",
+   "howto_step_7_title": "47f07b3b3fd6e151",
+   "howto_title": "e02421c40898bced",
+   "meta_description": "00162248d6817c8f",
+   "meta_title": "956e7a329f75e3be",
+   "mockup": "3d69e11f27b81196",
+   "product_name": "ea01b709fcac230f",
+   "prompt_chip_1": "b6b4c520d870c785",
+   "prompt_chip_2": "d6bd4fd90208ffb2",
+   "prompt_chip_3": "af97b1e732dacbe6",
+   "prompt_chip_4": "8cce4e32da747f3c",
+   "slug": "b043cd8fbb8b3499",
+   "tab_content_1": "49b9e8bb54db1c2a",
+   "tab_content_2": "a2fa04c0e72d517e",
+   "tab_content_3": "2c7e2b3f914b977b",
+   "tab_content_4": "593108bc250d39bc",
+   "tab_label_1": "5c097fd7d7a16d21",
+   "tab_label_2": "6d46d8f58f8ccd18",
+   "tab_label_3": "af97b1e732dacbe6",
+   "tab_label_4": "4277aabc35eca861",
+   "usecase_heading": "827864b0547476ac",
+   "why_description": "52c33028a1d71838",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "c336d01dface98c2"
+  },
+  "all": "47a6c28a5b2cd066",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "60bcdf6f36f9d006",
+   "alt:share_image": "388b8a5e33f0060b",
+   "alt:tab_image_1": "2d3a933c8a3d1553",
+   "alt:tab_image_2": "f181e907a482a6a0",
+   "alt:tab_image_3": "cfaeee7ce4d4e1ff",
+   "alt:tab_image_4": "1958d58e821e1755",
+   "breadcrumb": "e0354c1c23f975f8",
+   "chip_adds": "61987a7a91ff2c9f",
+   "explore_cta": "c9f37d7e1be4ffc4",
+   "faq": "4e562284dab51c23",
+   "feature_1": "6b11280f967201d9",
+   "feature_2": "3a379959c7fd90d8",
+   "feature_3": "e5aac4f2befbe1b9",
+   "feature_4": "b45855e5ab3d576e",
+   "feature_5": "c32dfd4f818a98a6",
+   "feature_6": "1b3e5ccb3eb8ad00",
+   "features_heading": "b728ba81b90a5776",
+   "features_subheading": "846d72ff9bc5b20f",
+   "h1": "88570b8d103a86a6",
+   "hero_description": "b3916bae21159438",
+   "hero_prompt": "1d5c65a83683ac5a",
+   "howto_description": "aa89200d5374ea78",
+   "howto_step_1_des": "8c2780a847d92bf8",
+   "howto_step_1_title": "2bf673d07431162a",
+   "howto_step_2_des": "fd5af21a06f6043d",
+   "howto_step_2_title": "78e130ce8696840e",
+   "howto_step_3_des": "4d87a6d0ed772c2b",
+   "howto_step_3_title": "5682df209e7a8dcc",
+   "howto_step_4_des": "7ec33650ef4c8658",
+   "howto_step_4_title": "9d96ba426c310492",
+   "howto_step_5_des": "da086532be0795ce",
+   "howto_step_5_title": "e32d6828ba828f42",
+   "howto_step_6_des": "ce4d850fef8845c9",
+   "howto_step_6_title": "5b0f6ce56df45a60",
+   "howto_step_7_des": "17a9aa705ae83cfc",
+   "howto_step_7_title": "47f07b3b3fd6e151",
+   "howto_title": "e02421c40898bced",
+   "meta_description": "00162248d6817c8f",
+   "meta_title": "956e7a329f75e3be",
+   "mockup": "3d69e11f27b81196",
+   "product_name": "ea01b709fcac230f",
+   "prompt_chip_1": "b6b4c520d870c785",
+   "prompt_chip_2": "d6bd4fd90208ffb2",
+   "prompt_chip_3": "af97b1e732dacbe6",
+   "prompt_chip_4": "8cce4e32da747f3c",
+   "slug": "b043cd8fbb8b3499",
+   "tab_content_1": "49b9e8bb54db1c2a",
+   "tab_content_2": "a2fa04c0e72d517e",
+   "tab_content_3": "2c7e2b3f914b977b",
+   "tab_content_4": "593108bc250d39bc",
+   "tab_label_1": "5c097fd7d7a16d21",
+   "tab_label_2": "6d46d8f58f8ccd18",
+   "tab_label_3": "af97b1e732dacbe6",
+   "tab_label_4": "4277aabc35eca861",
+   "usecase_heading": "827864b0547476ac",
+   "why_description": "52c33028a1d71838",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "c336d01dface98c2"
+  },
+  "all": "47a6c28a5b2cd066",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
