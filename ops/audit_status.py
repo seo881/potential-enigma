@@ -29,9 +29,22 @@ def success(date, runner):
     if old.get("epoch", 0) > rec["epoch"]: return old
     os.makedirs(os.path.dirname(LAST), exist_ok=True); json.dump(rec, open(LAST, "w"), indent=1); return rec
 
+RAW_LAST = "https://raw.githubusercontent.com/seo881/potential-enigma/main/audits/live/last_success.json"
+
 def state():
-    if not os.path.exists(LAST): return None, None
-    r = json.load(open(LAST)); age = (utcnow().timestamp() - r.get("epoch", 0)) / 3600
+    """The newest of the local last_success.json and the one on origin/main (public raw URL): the watchdog stays right whichever clone
+    it runs from and whether or not that clone has pulled (A 2026-10-26, stable shim)."""
+    recs = []
+    if os.path.exists(LAST):
+        try: recs.append(json.load(open(LAST)))
+        except ValueError: pass
+    if os.environ.get("AUDIT_STATUS_OFFLINE") != "1":
+        try:
+            import urllib.request
+            recs.append(json.load(urllib.request.urlopen(urllib.request.Request(RAW_LAST, headers={"User-Agent": "emergent-audit-watchdog"}), timeout=20)))
+        except Exception: pass
+    if not recs: return None, None
+    r = max(recs, key=lambda x: x.get("epoch", 0)); age = (utcnow().timestamp() - r.get("epoch", 0)) / 3600
     return r, age
 
 def line():
