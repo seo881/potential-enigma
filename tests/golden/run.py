@@ -340,6 +340,17 @@ def caught(c):
             raw = {"pages": [{"url": c["url"], "checks": {"http200": True}, "verify": {}, "link_status": ls, "render": {"http": 200, "jsonld": [], "links": [], "images": [], "text_visible": "", "text_all": "", "h1s": ["h"]}}], "hubs": [], "held": []}
         hit = any(f["code"] == "A7-link" for f in LA.evaluate(raw, m, "https://emergent.sh"))
         return hit == c["expect_finding"]
+    if c["kind"] == "ship-postreview":  # Divit 2026-10-26: ship-check refuses a page whose reviewed fields changed after its review without
+        import hubctl as H, tempfile, shutil  # a covering slim review (approval-workflow: rework after review, shipped without a slim review)
+        src = H.spath(c["url"]); d = json.load(open(src))
+        if c.get("set_field"): d["fields"][c["set_field"]] = c["value"]
+        if c.get("drop_hold") is not None: pass
+        tmp = tempfile.NamedTemporaryFile("w", suffix=".json", delete=False); json.dump(d, tmp); tmp.close()
+        orig = H.spath; H.spath = lambda u, _o=orig: tmp.name if u == c["url"] else _o(u)
+        try: probs = H.ship_check(c["url"])
+        finally: H.spath = orig; os.unlink(tmp.name)
+        hit = any("text changed after review" in p_ for p_ in probs)
+        return hit == c["expect_refused"]
     if c["kind"] == "audit-held":     # A0-held-live (A 2026-10-26): a held ledger URL live on a host is P0 unless, resolved through the
         import live_audit as LA        # slug migration, its page is published now (shipped after the ledger held it)
         raw = {"pages": [], "hubs": [], "held": [{"url": c["url"], "status": c["status"], "ledger": "golden.json", "item_id": None}]}
