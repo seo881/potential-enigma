@@ -3,7 +3,10 @@
   audit_status.py success DATE RUNNER     after a FULL run: audits/live/last_success.json {time, runner, date, pages, hubs, fails, p0, p1}
                                           (kept only if newer than what is there)
   audit_status.py line                    one line: "AUDIT: last full run <time UTC>, <n> pages, <n> fail" (STALE if older than 26 h)
-  audit_status.py watchdog [--runner R]   writes status/audit_watchdog.json; exit 3 (and the caller alerts) when stale or missing
+  audit_status.py watchdog [--runner R]   writes status/audit_watchdog.json; exit 3 (and the caller alerts) when the last full run is
+                                          stale or missing, OR the GitHub Actions backup (live-audit.yml) did not succeed: its newest
+                                          completed run failed/was cancelled/timed out, or no run succeeded in the last 26 h (A 2026-10-26:
+                                          runs #10-#18 timed out daily and nobody was alerted). Public API, no token.
 `hubctl audit-status` prints the line. "fail" = pages (and hubs) with a P0 or P1 finding.
 """
 import datetime, json, os, sys
@@ -37,12 +40,33 @@ def line():
     return f"AUDIT: last full run {r['time']}, {r['pages']} pages, {r['fails']} fail" + (f" ({r['runner']})" if r.get("runner") else "") \
         + (f"  STALE ({age:.0f} h old, limit {STALE_H} h)" if age > STALE_H else "")
 
-def watchdog(runner):
+GH_RUNS = "https://api.github.com/repos/seo881/potential-enigma/actions/workflows/live-audit.yml/runs?per_page=20"
+
+def backup(runs=None):
+    """(ok, line) for the GitHub Actions backup audit. runs: the API's workflow_runs list (tests pass it in)."""
+    if runs is None:
+        import urllib.request
+        try: runs = json.load(urllib.request.urlopen(urllib.request.Request(GH_RUNS, headers={"User-Agent": "emergent-audit-watchdog"}), timeout=30))["workflow_runs"]
+        except Exception as e: return False, f"BACKUP AUDIT: status unknown (GitHub API unreachable: {type(e).__name__})"
+    done = [r for r in runs if r.get("status") == "completed"]
+    if not done: return False, "BACKUP AUDIT: no completed run"
+    last = done[0]; ts = lambda r: datetime.datetime.fromisoformat(r["updated_at"].replace("Z", "+00:00"))
+    ok_runs = [r for r in done if r.get("conclusion") == "success"]
+    if last.get("conclusion") != "success":
+        return False, f"BACKUP AUDIT FAILED: run #{last['run_number']} {last.get('conclusion')} at {fmt(ts(last))}" + \
+            (f"; last success #{ok_runs[0]['run_number']} {fmt(ts(ok_runs[0]))}" if ok_runs else "; no successful run on record")
+    if (utcnow() - ts(ok_runs[0])).total_seconds() / 3600 > STALE_H:
+        return False, f"BACKUP AUDIT STALE: last success #{ok_runs[0]['run_number']} {fmt(ts(ok_runs[0]))}"
+    return True, f"BACKUP AUDIT: run #{last['run_number']} success {fmt(ts(last))}"
+
+def watchdog(runner, runs=None):
     r, age = state(); stale = r is None or age > STALE_H
+    bok, bline = backup(runs)
     rec = {"checked": fmt(utcnow()), "checked_by": runner, "stale": stale, "limit_hours": STALE_H,
-           "age_hours": None if age is None else round(age, 1), "last_success": r, "line": line()}
+           "age_hours": None if age is None else round(age, 1), "last_success": r, "line": line(),
+           "backup_ok": bok, "backup_line": bline}
     os.makedirs(os.path.dirname(WATCH), exist_ok=True); json.dump(rec, open(WATCH, "w"), indent=1)
-    print(rec["line"]); return 3 if stale else 0
+    print(rec["line"]); print(bline); return 3 if (stale or not bok) else 0
 
 if __name__ == "__main__":
     a = sys.argv[1:]
