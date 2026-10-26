@@ -1,0 +1,1 @@
+LIVE: 339 on new slugs | FREEZE: active | AUDIT: production re-run needed (overnight run hit sleep) | VERIFY: all green except 11 pages to re-check (fetch errors) | SHIP QUEUE: 43 pass ship-check | NEXT: reports/2026-10-26/resume-note.md
