@@ -262,7 +262,7 @@ def cmd_aa(args):
     private/alsoasked/<slug>--sec.json and read by the gate with it; never repeated (like the primary, one fresh retry only after no_results). Before any pull: page credits (primary and
     secondary) + expected cost <= 2. --run ID --run-cap N: credits.log rows carry the run ID; no pull once the run's credits + the
     expected cost would pass N. A pull that costs more than expected exits 5, so a run loop stops."""
-    url = args[0]; s = slug(url); opt = lambda k: args[args.index(k) + 1] if k in args else None
+    url = args[0]; s = __import__("slugs").store_key(url); opt = lambda k: args[args.index(k) + 1] if k in args else None   # s: AlsoAsked store key (pre-migration slug; DECISIONS 2026-10-23)
     sec = opt("--kw") == "secondary"
     if opt("--kw") not in (None, "primary", "secondary"): sys.exit("--kw is primary or secondary")
     run, cap = opt("--run"), opt("--run-cap"); cap = int(cap) if cap else None

@@ -40,10 +40,12 @@ def selectors(html):
         out += [s.strip() for s in pre.split(",") if s.strip()]
     return out
 
+QUIZ_PAGE_GATE = "body:has(#awb-quiz-data)"   # true only on a page whose hero carries the quiz data block (the space reservation, CLS)
 def bad_selectors(html):
     """Selectors that could touch anything outside the quiz: each compound must be one of the embed's own classes."""
     bad = []
     for s in selectors(html):
+        if s.startswith(QUIZ_PAGE_GATE + " "): s = s[len(QUIZ_PAGE_GATE) + 1:]   # the gate only reads the page; the rule still styles .emgq-* only
         for part in re.split(r"\s+|>|\+|~", s):
             if not part: continue
             if not re.fullmatch(r"(\.emgq(?:-[a-z0-9-]+)?)+(?::{1,2}[a-z-]+(?:\([^)]*\))?)*", part): bad.append(s); break

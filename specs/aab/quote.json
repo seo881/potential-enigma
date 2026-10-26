@@ -1,0 +1,1448 @@
+{
+ "url": "/ai-automation-builder/quote",
+ "hub": "Auto",
+ "item_id": "6ad859d6da6d57deef1d6feb",
+ "status": "spec",
+ "written_by": "B-w-229",
+ "keywords": {
+  "primary": "quote automation",
+  "secondaries_used": []
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Quote Automation From Your Own Price Book | Emergent",
+  "meta_description": "Build quote automation that reads RFQs, prices lines from your price book, holds low-margin quotes for approval, and follows up before expiry.",
+  "h1": "Build Quote Automation That Prices Every Request by Your Rules",
+  "slug": "quote",
+  "product_name": "Quote Automation Builder",
+  "hero_description": "Build quote automation that prices each request from your price book and follows up on every open quote before it expires.",
+  "breadcrumb": "Quote Automation",
+  "category": "a33cd4fb124ec86a130809893b2b3896",
+  "explore_cta": "Build My Quote Automation",
+  "features_heading": "The Quoting Rules Emergent Builds Into the App",
+  "features_subheading": "Each part settles one question a rep would otherwise answer by hand.",
+  "feature_1": "<h3>Prices that come from one price book</h3><p>The app prices each line from your price book, unit tiers included, such as 1,000 or more. Keep the book in the app's database, or sync it from your ERP through its API.</p>",
+  "feature_2": "<h3>Option rules for configured products</h3><p>Write down which options require or exclude each other, and the app checks every configuration against that list. A quote that breaks a rule stays unsent until it is fixed.</p>",
+  "feature_3": "<h3>A margin floor with a named approver</h3><p>The app compares each quote's price with its cost and works out the margin. Set the floor and the approver, and a quote below it waits for that person's yes in Slack or email.</p>",
+  "feature_4": "<h3>AI that reads emailed RFQs</h3><p>An AI step reads a request for quote into part numbers and quantities, from an email, a PDF, or a spreadsheet. A rep checks any value the AI is unsure of before it is priced.</p>",
+  "feature_5": "<h3>Reminders and an expiry date</h3><p>Pick the days a reminder email goes to the customer and the day the rep takes over. Each quote carries its expiry date, and the dashboard lists open quotes by days left.</p>",
+  "feature_6": "<h3>Every quote version, in a database you own</h3><p>Each revision is saved next to the one it replaced, with the person who made it, in a database you own. Paid plans export the app's full code to your GitHub repository.</p>",
+  "why_title": "Why Build Quote Automation With Emergent?",
+  "why_description": "Emergent builds the price book, the quote rules, and the follow-up as one app from a prompt, with no task cap on its runs.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Zapier</th>\n        <th scope=\"col\">Make (Integromat)</th>\n        <th scope=\"col\">n8n</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt for the workflow and the app around it</td>\n        <td class=\"col-other\">Templates and editor, AI copilot</td>\n        <td class=\"col-other\">Visual canvas</td>\n        <td class=\"col-other\">Visual canvas, self-hosted or cloud</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">What you get</th>\n        <td class=\"col-brand\">Workflow + trigger form + database + dashboard, as code you own</td>\n        <td class=\"col-other\">Zaps, plus Tables and Interfaces inside Zapier</td>\n        <td class=\"col-other\">Scenarios inside Make</td>\n        <td class=\"col-other\">Workflows inside n8n</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Behavior at cap</th>\n        <td class=\"col-brand\">Keeps running, no task cap</td>\n        <td class=\"col-other\">Overage billed at up to 1.25× the base rate</td>\n        <td class=\"col-other\">Runs pause</td>\n        <td class=\"col-other\">Cloud workflows stop until the reset or an upgrade</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">AI and agent steps</th>\n        <td class=\"col-brand\">Native, share the same credit pool</td>\n        <td class=\"col-other\">Priced by model tier, drawn from the task pool</td>\n        <td class=\"col-other\">AI modules cost variable credits</td>\n        <td class=\"col-other\">Bring your own model API key, billed by the provider</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">Yes on Community Edition</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "Four Quotes and the Rule Each One Meets",
+  "tab_label_1": "Emailed RFQs",
+  "tab_label_2": "Equipment Quotes",
+  "tab_label_3": "Margin Checks",
+  "tab_label_4": "Quote Follow-Up",
+  "tab_content_1": "<h3>Three RFQ lines, one quantity to confirm</h3><p>Hollinwade Boatworks emails Quenby Fasteners an RFQ for three parts. The app prices two lines at the 1,000-unit tier: hex bolts x 2,000 come to $840.00 and lock nuts x 1,500 to $270.00, or $1,110.00 so far. The washer quantity was read with low confidence, and the rep, Lisbet Ferraby, confirms it first.</p>",
+  "tab_content_2": "<h3>15 HP means the 480V panel, or no quote</h3><p>Anselm Kovacevic builds a quote at Thistlecourt Compressors for Ossory Cabinetworks: a 15 HP compressor at $9,800 with the 230V panel. The option rule says every 15 HP model needs the 480V panel, and until it does, the quote cannot be sent. Anselm switches to the $1,450 480V panel, and the quote totals $11,250.</p>",
+  "tab_content_3": "<h3>Any margin under 18% goes to Margit</h3><p>Dorian Pashley at Pendlecote IT prices 12 laptops and setup for Fenwhistle Veterinary Group at $18,000. Against a cost of $15,480, the margin is $2,520. Any quote with a margin under 18% needs the sales manager: the app holds it and sends Margit Brennecke a direct message to approve.</p>",
+  "tab_content_4": "<h3>Day 10 with no reply goes to Wynona</h3><p>Gallowmere Signworks sent quote Q-2318 for $4,760 to Pennick Street Bakery. The app emailed the bakery a reminder on day 3 and again on day 7. On day 10 with no reply, it sends the rep, Wynona Desrosiers, a direct message to call, with 20 days left before the quote expires on day 30.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { emailedRfqs: \"When a customer emails a request for quote, read the part numbers and quantities from the email or its attachment. Price each line from my price book at the right unit tier. If any value was read with low confidence, send it to the rep to confirm before the quote goes out.\", configuredEquipment: \"Let my reps build quotes for configurable compressors. Check every configuration against my option rules, such as a 15 HP model needing the 480V panel. If a quote breaks a rule, block sending and show the rep which option to switch.\", marginChecks: \"Work out the margin on every quote from my price and my cost. If the margin is under 18%, hold the quote and send my sales manager a direct message with the price, the cost, and the margin. Unlock sending only after she approves.\", quoteFollowUp: \"Give every quote an expiry date 30 days after it is sent. Email the customer a reminder on day 3 and day 7 while the quote is open. If there is no reply by day 10, send the rep a direct message to call, with the days left before the quote expires.\" };</p>",
+  "howto_title": "How to Build Quote Automation",
+  "howto_description": "Seven steps to turn your past quotes and price book into quote automation, then test it on real requests before going live.",
+  "howto_step_1_title": "01 Mark up 20 recent quotes",
+  "howto_step_2_title": "02 Clean the price book first",
+  "howto_step_3_title": "03 Write down the rules reps follow",
+  "howto_step_4_title": "04 Hook up your CRM and accounting",
+  "howto_step_1_des": "Gather 20 quotes your team sent last quarter, both won and lost. On each one, mark what the rep typed by hand: the parts, the quantities, the discounts, and the notes. Any field typed the same way twice is one the app can fill.",
+  "howto_step_2_des": "Clean the price book before you prompt. Give every part one list price, one cost, and the unit tiers that apply, and retire part numbers nobody sells anymore. A quote is only as right as the book it reads from.",
+  "howto_step_3_des": "List the rules reps apply from memory today: which options go together, the lowest margin a quote may carry, and who approves anything below it. Describe the price book and those rules in a prompt, and Emergent builds the quoting app.",
+  "howto_step_4_des": "Connect your CRM and accounting system through their APIs, such as HubSpot or QuickBooks. Customer details then come from the CRM and part costs from the accounting records, without anyone retyping them.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Quote Automation Questions, Answered\", \"items\": [{\"q\": \"What is the best automated quoting software available?\", \"a\": \"No single automated quoting software is best for every seller; the best one prices from your own price book and follows your own rules. Check whether it handles your product options, checks margin before a quote goes out, and follows up on its own. Emergent builds a quoting app to those rules from a plain-English prompt.\"}, {\"q\": \"How do I set up quote automation?\", \"a\": \"Set it up in three parts: the data (price book and costs), the rules (option limits, margin floor, and approver), and the follow-up (validity and reminder days). In Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>, you describe all three in one prompt and get a working quoting app. Change any rule later by prompting again.\"}, {\"q\": \"How is CPQ quote automation different from a basic quoting tool?\", \"a\": \"CPQ quote automation adds a configuration step that a plain quoting tool skips. CPQ stands for configure, price, quote: software that helps sales reps and self-service customers generate accurate quotes for configurable products and services. It is rules-based and can be customized to address the variables that affect profit margins. Sellers of fixed part numbers may not need it.\"}, {\"q\": \"How do I automate quotes for requests that arrive by email and social media?\", \"a\": \"Send every channel into one request queue, and quote from there. An AI step in the app can read the parts and quantities in an emailed request and send any unclear value to a person. For price questions in comments or direct messages, a <a href='https://emergent.sh/ai-automation-builder/social-media'>social media automation</a> can collect them into the same queue. Ask for quantity and options before you automate quotes for them.\"}, {\"q\": \"What should quote automation put on every quote it sends?\", \"a\": \"Every quote should carry a quote number, the customer, each line with its quantity and unit price, the total, and the expiry date. Add the terms, who prepared it, and how the customer accepts. The quote number matters most once quotes get revised, because it lets the customer and the rep point to the same version.\"}, {\"q\": \"What expiry date should quote automation set on a quote?\", \"a\": \"Set the expiry by how fast your own costs change. If supplier prices hold for a quarter, use 30 days; if they move weekly, use 7 or 14 days and say so on the quote. Print the date on the quote itself, not only in the terms. Have the app recheck prices on any quote a customer accepts after it expires.\"}, {\"q\": \"How should quote automation follow up on quotes nobody has answered?\", \"a\": \"Follow up a set number of times, then hand the quote to a person. Two short reminder emails that each name the quote number and the expiry date are enough before the rep calls. Stop every reminder the moment the customer replies. A quote that expires unanswered can move into a <a href='https://emergent.sh/ai-automation-builder/marketing-workflow'>marketing automation workflow</a> that checks back with that customer next quarter.\"}, {\"q\": \"How does quote automation handle a supplier price increase on open quotes?\", \"a\": \"Open quotes either keep their price until they expire or go back for a requote, and you pick which rule the app applies. In an app built with Emergent, every quote sits in a database you own. When the price book changes, the app can list each open quote that contains the affected parts, and the rep decides which to honor.\"}, {\"q\": \"How do I measure whether quote automation is working?\", \"a\": \"Track three numbers from the month before launch onward: the hours from request to quote sent, the share of quotes a rep edits by hand, and the share of quotes accepted. If hand edits stay high after a month, the price book or a rule is wrong. Fix it there before adding more reminders.\"}, {\"q\": \"What should automated quoting software do when a customer accepts a quote?\", \"a\": \"It should lock the accepted version, record who accepted it and when, and pass the order on without anyone retyping it. Mark the deal won in your CRM and send the order to the people who fill it. Those hand-offs belong to your wider <a href='https://emergent.sh/ai-automation-builder/sales'>sales automation</a>, and apps built with Emergent connect to any tool with an API to carry the accepted quote across.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Set the follow-up calendar",
+  "howto_step_5_des": "Choose how long a quote stays valid and the days the customer gets a reminder email. Pick the day a quiet quote moves to the rep for a call, and write the reminder in your own words.",
+  "howto_step_6_title": "06 Requote 10 past requests",
+  "howto_step_6_des": "Requote 10 past requests through the app and compare each total with the quote your team sent. Include one configuration that breaks a rule and one quote under the margin floor, and check both stop where they should. Fix any rule by prompting.",
+  "howto_step_7_title": "07 Go live on one product line",
+  "howto_step_7_des": "Start with the product line that gets the most requests, and keep the old process for the rest for a month. Watch the first approvals and reminders closely, adjust the days, then move the next line over.",
+  "prompt_chip_1": "RFQ Reading",
+  "prompt_chip_2": "Option Rules",
+  "prompt_chip_3": "Margin Floor",
+  "prompt_chip_4": "Quote Follow-Up",
+  "hero_prompt": "<p>Build quote automation that runs on its own and logs every step.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/aab/quote/uc-1.svg",
+   "alt": "An emailed RFQ from Hollinwade Boatworks is read into 3 lines; two are priced at $1,110.00 so far, and the washer quantity goes to the rep to confirm.",
+   "file_id": "6ad859c9da6d57deef1d6f19",
+   "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6ad859c9da6d57deef1d6f19_uc-1.svg"
+  },
+  "tab_image_2": {
+   "path": "images/aab/quote/uc-2.svg",
+   "alt": "A 15 HP compressor quote with a 230V panel is blocked by an option rule, and switching to the $1,450 480V panel brings the total to $11,250.",
+   "file_id": "6ad859c9da6d57deef1d6f1f",
+   "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6ad859c9da6d57deef1d6f1f_uc-2.svg"
+  },
+  "tab_image_3": {
+   "path": "images/aab/quote/uc-3.svg",
+   "alt": "An $18,000 laptop quote with a $2,520 margin falls under the 18% floor, so it is held and the sales manager gets a direct message to approve it.",
+   "file_id": "6ad859c9da6d57deef1d6f25",
+   "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6ad859c9da6d57deef1d6f25_uc-3.svg"
+  },
+  "tab_image_4": {
+   "path": "images/aab/quote/uc-4.svg",
+   "alt": "Quote Q-2318 for $4,760 got email reminders on day 3 and day 7; with no reply on day 10, the rep gets a direct message to call, 20 days before it expires on day 30.",
+   "file_id": "6ad859c9da6d57deef1d6f16",
+   "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6ad859c9da6d57deef1d6f16_uc-4.svg"
+  },
+  "cover_image": {
+   "path": "images/aab/quote/cover.svg",
+   "alt": "Quote automation: a direct message asks the sales manager to approve a $2,520 margin on an $18,000 quote",
+   "file_id": "6ad859c8da6d57deef1d6efd",
+   "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6ad859c8da6d57deef1d6efd_cover.svg"
+  },
+  "share_image": {
+   "path": "images/aab/quote/og.webp",
+   "alt": "Build quote automation that prices every request by your rules, with Emergent",
+   "file_id": "6ad859c8da6d57deef1d6ef6",
+   "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6ad859c8da6d57deef1d6ef6_og.webp"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-16 13:59 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 05:25 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "B-w-229",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 05:25 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-229",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 05:28 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-86",
+   "note": "rubric 10/10 by B-r-86; 6 notes"
+  },
+  {
+   "t": "2026-10-21 06:15 UTC",
+   "state": "approved",
+   "via": null,
+   "by": "standing-go (Divit 2026-10-21)",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 06:24 UTC",
+   "state": "cms_draft",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 06:27 UTC",
+   "state": "published",
+   "via": "api-publish",
+   "by": null,
+   "note": "live page verified"
+  },
+  {
+   "t": "2026-10-23 14:40 UTC",
+   "state": "spec",
+   "via": "slug-migration",
+   "by": "slug_migrate",
+   "note": "slug quote-automation -> quote; 7 child link(s) rewritten (DECISIONS 2026-10-23); stamps current before were restamped"
+  }
+ ],
+ "pipeline": "r15",
+ "faq_plan": [
+  {
+   "kind": "alsoasked",
+   "q": "What is the best automated quoting software available?",
+   "ref": "What is the best automated quoting software available?",
+   "prov": {
+    "tool": "alsoasked-api",
+    "query": "quote automation",
+    "depth": 1,
+    "parent": null,
+    "fetched": "2026-10-13",
+    "original": "What is the best automated quoting software available?",
+    "region": "us",
+    "language": "en",
+    "fallback": false
+   },
+   "locked": true,
+   "flagged": [],
+   "n": 1,
+   "a": "No single automated quoting software is best for every seller; the best one prices from your own price book and follows your own rules. Check whether it handles your product options, checks margin before a quote goes out, and follows up on its own. Emergent builds a quoting app to those rules from a plain-English prompt.",
+   "link": null
+  },
+  {
+   "kind": "definition",
+   "q": "How do I set up quote automation?",
+   "ref": "quote automation",
+   "locked": true,
+   "n": 2,
+   "a": "Set it up in three parts: the data (price book and costs), the rules (option limits, margin floor, and approver), and the follow-up (validity and reminder days). In Emergent's AI automation builder, you describe all three in one prompt and get a working quoting app. Change any rule later by prompting again.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder",
+    "anchor": "AI automation builder",
+    "write_as": "Emergent's AI automation builder"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "How is CPQ quote automation different from a basic quoting tool?",
+   "ref": "cpq quote automation",
+   "secondary": "cpq quote automation",
+   "locked": false,
+   "n": 3,
+   "a": "CPQ quote automation adds a configuration step that a plain quoting tool skips. CPQ stands for configure, price, quote: software that helps sales reps and self-service customers generate accurate quotes for configurable products and services. It is rules-based and can be customized to address the variables that affect profit margins. Sellers of fixed part numbers may not need it.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How do I automate quotes for requests that arrive by email and social media?",
+   "ref": "automate quotes",
+   "secondary": "automate quotes",
+   "locked": false,
+   "n": 4,
+   "a": "Send every channel into one request queue, and quote from there. An AI step in the app can read the parts and quantities in an emailed request and send any unclear value to a person. For price questions in comments or direct messages, a social media automation can collect them into the same queue. Ask for quantity and options before you automate quotes for them.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/social-media",
+    "anchor": "social media automation"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "What should quote automation put on every quote it sends?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 5,
+   "a": "Every quote should carry a quote number, the customer, each line with its quantity and unit price, the total, and the expiry date. Add the terms, who prepared it, and how the customer accepts. The quote number matters most once quotes get revised, because it lets the customer and the rep point to the same version.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "What expiry date should quote automation set on a quote?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 6,
+   "a": "Set the expiry by how fast your own costs change. If supplier prices hold for a quarter, use 30 days; if they move weekly, use 7 or 14 days and say so on the quote. Print the date on the quote itself, not only in the terms. Have the app recheck prices on any quote a customer accepts after it expires.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How should quote automation follow up on quotes nobody has answered?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 7,
+   "a": "Follow up a set number of times, then hand the quote to a person. Two short reminder emails that each name the quote number and the expiry date are enough before the rep calls. Stop every reminder the moment the customer replies. A quote that expires unanswered can move into a marketing automation workflow that checks back with that customer next quarter.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/marketing-workflow",
+    "anchor": "marketing automation workflow"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "How does quote automation handle a supplier price increase on open quotes?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 8,
+   "a": "Open quotes either keep their price until they expire or go back for a requote, and you pick which rule the app applies. In an app built with Emergent, every quote sits in a database you own. When the price book changes, the app can list each open quote that contains the affected parts, and the rep decides which to honor.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How do I measure whether quote automation is working?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 9,
+   "a": "Track three numbers from the month before launch onward: the hours from request to quote sent, the share of quotes a rep edits by hand, and the share of quotes accepted. If hand edits stay high after a month, the price book or a rule is wrong. Fix it there before adding more reminders.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "What should automated quoting software do when a customer accepts a quote?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 10,
+   "a": "It should lock the accepted version, record who accepted it and when, and pass the order on without anyone retyping it. Mark the deal won in your CRM and send the order to the people who fill it. Those hand-offs belong to your wider sales automation, and apps built with Emergent connect to any tool with an API to carry the accepted quote across.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/sales",
+    "anchor": "sales automation"
+   }
+  }
+ ],
+ "faq_heading": "Quote Automation Questions, Answered",
+ "table": {
+  "vs": [
+   "Zapier",
+   "Make (Integromat)",
+   "n8n"
+  ],
+  "rows": [
+   "build",
+   "output",
+   "cap",
+   "ai",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "skeleton": {
+  "built_by": "B-w-229",
+  "built": "2026-10-16 13:59 UTC",
+  "slots": 10,
+  "flagged": 0,
+  "flag_subtypes": [],
+  "locked": 2,
+  "table": true
+ },
+ "learn_refs": [
+  "6a1729ad1817ffd0330c987d",
+  "6abe38fbf322d0af73b37238",
+  "6a172321c4c836a09c1ce435"
+ ],
+ "learn_refs_why": [
+  "best-ai-workflow-builders: Auto fixed set: the hub's category: what an AI workflow builder is and how to choose one",
+  "how-to-build-an-ai-agent: Auto fixed set: step-by-step build of an agent that handles leads and intake, the AI step inside most automations",
+  "best-no-code-agent-builders: Auto fixed set: no-code agent builders for workflow automation, for readers who want automations without code"
+ ],
+ "plan": {
+  "angle": "The SERP for quote automation is CPQ vendors and listicles that define the term and rank tools. This page shows the four jobs a quoting app does once a request arrives: reading an emailed RFQ into priced line items, enforcing an option rule on configured equipment (the CPQ part), holding a quote under the margin floor for the sales manager, and following up on an open quote before it expires. It stays on the quote itself; the proposal document and signature belong to proposal automation, and the customer-facing request form belongs to the quote form page.",
+  "tab_stories": [
+   "Hollinwade Boatworks emails Quenby Fasteners an RFQ for three parts; the app reads it, prices 2,000 hex bolts at $840.00 and 1,500 lock nuts at $270.00 from the price book's 1,000-unit tier, and sends the washer quantity it read with low confidence to the rep Lisbet Ferraby to confirm.",
+   "Anselm Kovacevic at Thistlecourt Compressors quotes Ossory Cabinetworks a 15 HP compressor with a 230V panel; the option rule says 15 HP models need the 480V panel, so the quote cannot be sent until he switches it, and the total becomes $11,250.",
+   "Dorian Pashley at Larkspur Ridge IT quotes Fenwhistle Veterinary Group $18,000 for 12 laptops and setup against $15,480 in cost, a 14% margin; any quote under 18% goes to the sales manager Margit Brennecke by direct message before it can be sent.",
+   "Gallowmere Signworks sent quote Q-2318 for $4,760 to Pennick Street Bakery; the app emailed reminders on day 3 and day 7, and on day 10 with no reply it sends the rep Wynona Desrosiers a direct message, 20 days before the quote expires on day 30."
+  ],
+  "openers": [
+   "Hollinwade Boatworks emails Quenby Fasteners",
+   "Anselm Kovacevic builds a quote",
+   "Dorian Pashley prices 12 laptops",
+   "Gallowmere Signworks sent quote Q-2318",
+   "Pull your last 20 quotes",
+   "Clean the price book before you prompt",
+   "Requote 10 past requests"
+  ],
+  "heading_shapes": [
+   "Three RFQ lines, one quantity to confirm",
+   "15 HP means the 480V panel, or no quote",
+   "Any margin under 18% goes to Margit",
+   "Day 10 with no reply goes to Wynona"
+  ],
+  "claims_to_source": [
+   "CPQ (configure, price, quote) is programming that helps sales representatives and self-service customers quickly generate accurate quotes for configurable products and services",
+   "CPQ software is rules-based and can be customized to address variables that affect profit margins"
+  ],
+  "numbers": [
+   {
+    "value": 840,
+    "formula": "2000 * 0.42"
+   },
+   {
+    "value": 270,
+    "formula": "1500 * 0.18"
+   },
+   {
+    "value": 1110,
+    "formula": "840 + 270"
+   },
+   {
+    "value": 11250,
+    "formula": "9800 + 1450"
+   },
+   {
+    "value": 14,
+    "formula": "round((18000 - 15480) / 18000 * 100)"
+   },
+   {
+    "value": 20,
+    "formula": "30 - 10"
+   }
+  ],
+  "owns": {
+   "price book with unit tiers": "feature_1",
+   "option rules for configured products": "feature_2",
+   "margin floor and approval": "feature_3",
+   "AI reading emailed RFQs": "feature_4",
+   "reminders and expiry on open quotes": "feature_5",
+   "quote history and code export": "feature_6",
+   "cleaning the price book": "howto_step_2_des",
+   "requote past requests as a test": "howto_step_6_des",
+   "one product line first": "howto_step_7_des",
+   "CPQ versus a basic quoting tool": "faq 3",
+   "quote contents": "faq 5",
+   "expiry length": "faq 6",
+   "what a reminder says and when to stop": "faq 7",
+   "supplier price increases": "faq 8",
+   "measuring time to quote and win rate": "faq 9",
+   "what happens on acceptance": "faq 10"
+  }
+ },
+ "chip_adds": [
+  "Add RFQ reading that turns an emailed request into priced line items.",
+  "Add option rules that block a quote until the chosen options fit together.",
+  "Add a margin floor that holds any quote below it for the sales manager.",
+  "Add quote follow-up that emails reminders and alerts the rep before a quote expires."
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R2",
+    "title": "Emailed RFQs",
+    "prompt": "Price every emailed RFQ from my price book and flag unclear values",
+    "main": {
+     "blocks": [
+      {
+       "type": "doc_header",
+       "icon": "mail",
+       "title": "Hollinwade Boatworks",
+       "sub": "RFQ to Quenby Fasteners",
+       "label": "RFQ"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Parts",
+         "3 lines"
+        ],
+        [
+         "Price tier",
+         "1,000-unit tier"
+        ],
+        [
+         "Rep",
+         "Lisbet Ferraby"
+        ]
+       ]
+      },
+      {
+       "type": "lineitems",
+       "items": [
+        [
+         "Hex bolts x 2,000",
+         "$840.00"
+        ],
+        [
+         "Lock nuts x 1,500",
+         "$270.00"
+        ]
+       ],
+       "total": [
+        "Priced so far",
+        "$1,110.00"
+       ]
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Read from the RFQ",
+       "size": 19,
+       "chip": [
+        "3 lines",
+        "ok"
+       ]
+      },
+      {
+       "type": "list",
+       "items": [
+        {
+         "initials": "HB",
+         "name": "Hex bolts",
+         "sub": "2,000 units",
+         "chip": [
+          "Priced",
+          "ok"
+         ]
+        },
+        {
+         "initials": "LN",
+         "name": "Lock nuts",
+         "sub": "1,500 units",
+         "chip": [
+          "Priced",
+          "ok"
+         ]
+        },
+        {
+         "initials": "WS",
+         "name": "Washers",
+         "sub": "Quantity unclear",
+         "chip": [
+          "Low confidence",
+          "warn"
+         ]
+        }
+       ],
+       "row_h": 60
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Lisbet Ferraby",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Confirm the washer quantity",
+       "size": 20,
+       "sub": "Hollinwade Boatworks RFQ"
+      },
+      {
+       "type": "meta",
+       "icon": "triangle-alert",
+       "kind": "warn",
+       "text": "Read with low confidence"
+      },
+      {
+       "type": "meta",
+       "icon": "clock",
+       "kind": "muted",
+       "text": "Before the quote is priced"
+      }
+     ],
+     "action": {
+      "label": "Confirm",
+      "icon": "check"
+     }
+    },
+    "alt": "An emailed RFQ from Hollinwade Boatworks is read into 3 lines; two are priced at $1,110.00 so far, and the washer quantity goes to the rep to confirm.",
+    "story": [
+     {
+      "copy": "Hollinwade Boatworks",
+      "image": "Hollinwade Boatworks"
+     },
+     {
+      "copy": "Quenby Fasteners",
+      "image": "RFQ to Quenby Fasteners"
+     },
+     {
+      "copy": "an RFQ for three parts",
+      "image": "3 lines"
+     },
+     {
+      "copy": "the 1,000-unit tier",
+      "image": "1,000-unit tier"
+     },
+     {
+      "copy": "$1,110.00 so far",
+      "image": "$1,110.00"
+     },
+     {
+      "copy": "The washer quantity was read with low confidence",
+      "image": "Read with low confidence"
+     },
+     {
+      "copy": "Lisbet Ferraby",
+      "image": "To Lisbet Ferraby"
+     },
+     {
+      "copy": "confirms it first",
+      "image": "Confirm the washer quantity"
+     },
+     {
+      "copy": "hex bolts x 2,000",
+      "image": "Hex bolts x 2,000"
+     },
+     {
+      "copy": "$840.00",
+      "image": "$840.00"
+     },
+     {
+      "copy": "lock nuts x 1,500",
+      "image": "Lock nuts x 1,500"
+     },
+     {
+      "copy": "$270.00",
+      "image": "$270.00"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Configured equipment",
+    "prompt": "Block any compressor quote that breaks an option rule until it is fixed",
+    "main": {
+     "chrome": "Quotes",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "THISTLECOURT COMPRESSORS",
+       "title": "Ossory Cabinetworks",
+       "size": 28,
+       "sub": "15 HP compressor, $9,800",
+       "right": "$11,250",
+       "right_sub": "After the switch"
+      },
+      {
+       "type": "rule",
+       "text": "Rule matched: 15 HP model → needs the 480V panel"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Compressor chosen",
+         "sub": "Anselm Kovacevic"
+        },
+        {
+         "state": "live",
+         "title": "Panel check",
+         "sub": "230V panel does not fit",
+         "right": "Blocked"
+        },
+        {
+         "state": "next",
+         "title": "Send to Ossory Cabinetworks",
+         "sub": "After the panel matches"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Anselm",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Switch to the 480V panel?",
+       "size": 20,
+       "sub": "480V panel, $1,450"
+      },
+      {
+       "type": "meta",
+       "icon": "lock",
+       "kind": "warn",
+       "text": "Quote cannot be sent yet"
+      }
+     ],
+     "action": {
+      "label": "Switch",
+      "icon": "repeat"
+     }
+    },
+    "mini": {
+     "icon": "ban",
+     "kind": "warn",
+     "title": "230V panel",
+     "sub": "Not allowed on 15 HP"
+    },
+    "alt": "A 15 HP compressor quote with a 230V panel is blocked by an option rule, and switching to the $1,450 480V panel brings the total to $11,250.",
+    "story": [
+     {
+      "copy": "The option rule says every 15 HP model needs the 480V panel",
+      "image": "Rule matched: 15 HP model → needs the 480V panel"
+     },
+     {
+      "copy": "Anselm Kovacevic",
+      "image": "Anselm Kovacevic"
+     },
+     {
+      "copy": "Thistlecourt Compressors",
+      "image": "THISTLECOURT COMPRESSORS"
+     },
+     {
+      "copy": "Ossory Cabinetworks",
+      "image": "Ossory Cabinetworks"
+     },
+     {
+      "copy": "a 15 HP compressor at $9,800",
+      "image": "15 HP compressor, $9,800"
+     },
+     {
+      "copy": "the 230V panel",
+      "image": "230V panel does not fit"
+     },
+     {
+      "copy": "the quote cannot be sent",
+      "image": "Quote cannot be sent yet"
+     },
+     {
+      "copy": "the $1,450 480V panel",
+      "image": "480V panel, $1,450"
+     },
+     {
+      "copy": "the quote totals $11,250",
+      "image": "$11,250"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Margin checks",
+    "prompt": "Hold any quote with a margin under 18% for my sales manager",
+    "main": {
+     "chrome": "Quotes",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "PENDLECOTE IT",
+       "title": "Fenwhistle Veterinary Group",
+       "size": 28,
+       "sub": "12 laptops and setup",
+       "right": "$18,000",
+       "right_sub": "Cost $15,480"
+      },
+      {
+       "type": "rule",
+       "text": "Rule matched: margin under 18% → Sales manager"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Quote priced",
+         "sub": "Dorian Pashley"
+        },
+        {
+         "state": "live",
+         "title": "Sales manager",
+         "sub": "Margit Brennecke",
+         "right": "Waiting"
+        },
+        {
+         "state": "next",
+         "title": "Send to Fenwhistle",
+         "sub": "After she approves"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Margit",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Approve a $2,520 margin?",
+       "size": 20,
+       "sub": "Fenwhistle Veterinary Group, $18,000"
+      },
+      {
+       "type": "meta",
+       "icon": "lock",
+       "kind": "warn",
+       "text": "Held until you approve"
+      }
+     ],
+     "action": {
+      "label": "Approve",
+      "icon": "check"
+     }
+    },
+    "mini": {
+     "icon": "percent",
+     "kind": "warn",
+     "title": "Margin $2,520",
+     "sub": "Under the 18% floor"
+    },
+    "alt": "An $18,000 laptop quote with a $2,520 margin falls under the 18% floor, so it is held and the sales manager gets a direct message to approve it.",
+    "story": [
+     {
+      "copy": "Any quote with a margin under 18% needs the sales manager",
+      "image": "Rule matched: margin under 18% → Sales manager"
+     },
+     {
+      "copy": "Dorian Pashley",
+      "image": "Dorian Pashley"
+     },
+     {
+      "copy": "12 laptops and setup",
+      "image": "12 laptops and setup"
+     },
+     {
+      "copy": "Fenwhistle Veterinary Group at $18,000",
+      "image": "$18,000"
+     },
+     {
+      "copy": "Pendlecote IT",
+      "image": "PENDLECOTE IT"
+     },
+     {
+      "copy": "a cost of $15,480",
+      "image": "Cost $15,480"
+     },
+     {
+      "copy": "the app holds it",
+      "image": "Held until you approve"
+     },
+     {
+      "copy": "Margit Brennecke",
+      "image": "Margit Brennecke"
+     },
+     {
+      "copy": "sends Margit Brennecke a direct message",
+      "image": "To Margit"
+     },
+     {
+      "copy": "the margin is $2,520",
+      "image": "Margin $2,520"
+     }
+    ]
+   },
+   {
+    "recipe": "R10",
+    "title": "Quote follow-up",
+    "prompt": "Remind customers on day 3 and day 7, then alert the rep on day 10",
+    "kpi": {
+     "icon": "calendar-clock",
+     "label": "Quote expires",
+     "value": "Day 30",
+     "sub": "20 days left"
+    },
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Q-2318, Pennick Street Bakery",
+       "size": 20,
+       "sub": "Gallowmere Signworks, $4,760"
+      },
+      {
+       "type": "timeline",
+       "items": [
+        {
+         "label": "Reminder emailed",
+         "chip": "Day 3",
+         "kind": "ok"
+        },
+        {
+         "label": "Reminder emailed",
+         "chip": "Day 7",
+         "kind": "ok"
+        },
+        {
+         "label": "No reply",
+         "chip": "Day 10",
+         "kind": "bad"
+        },
+        {
+         "label": "Wynona Desrosiers",
+         "chip": "Call",
+         "kind": "next",
+         "live": true
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Wynona Desrosiers",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Call Pennick Street Bakery about Q-2318",
+       "size": 20,
+       "sub": "No reply in 10 days"
+      },
+      {
+       "type": "meta",
+       "icon": "mail",
+       "kind": "acc",
+       "text": "Reminders sent on day 3 and day 7"
+      },
+      {
+       "type": "chips",
+       "items": [
+        [
+         "20 days left",
+         "warn"
+        ],
+        [
+         "$4,760",
+         "acc"
+        ]
+       ]
+      }
+     ],
+     "action": {
+      "label": "Log call",
+      "icon": "phone"
+     }
+    },
+    "alt": "Quote Q-2318 for $4,760 got email reminders on day 3 and day 7; with no reply on day 10, the rep gets a direct message to call, 20 days before it expires on day 30.",
+    "story": [
+     {
+      "copy": "Pennick Street Bakery",
+      "image": "Q-2318, Pennick Street Bakery"
+     },
+     {
+      "copy": "quote Q-2318 for $4,760",
+      "image": "Gallowmere Signworks, $4,760"
+     },
+     {
+      "copy": "a reminder on day 3 and again on day 7",
+      "image": "Reminders sent on day 3 and day 7"
+     },
+     {
+      "copy": "On day 10 with no reply",
+      "image": "No reply in 10 days"
+     },
+     {
+      "copy": "Wynona Desrosiers",
+      "image": "To Wynona Desrosiers"
+     },
+     {
+      "copy": "with 20 days left",
+      "image": "20 days left"
+     },
+     {
+      "copy": "expires on day 30",
+      "image": "Day 30"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "dm": true,
+   "channel": "Margit Brennecke",
+   "title": "Margin under 18%",
+   "sub": "$2,520 on $18,000",
+   "primary": "Approve",
+   "secondary": "Open",
+   "icon": "percent",
+   "alt": "Quote automation: a direct message asks the sales manager to approve a $2,520 margin on an $18,000 quote"
+  },
+  "og": {
+   "headline": "Build a quote automation app",
+   "lines": [
+    "Build a quote",
+    "automation app"
+   ],
+   "alt": "Build quote automation that prices every request by your rules, with Emergent"
+  },
+  "checks": [
+   {
+    "expr": "2000 * 0.42 == 840",
+    "shows": [
+     "$840.00",
+     "2,000"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "1500 * 0.18 == 270",
+    "shows": [
+     "$270.00",
+     "1,500"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "840 + 270 == 1110",
+    "shows": [
+     "$1,110.00"
+    ],
+    "where": 1
+   },
+   {
+    "fact": [
+     "1,000"
+    ],
+    "where": 1
+   },
+   {
+    "same": "$18,000",
+    "where": [
+     3,
+     "cover"
+    ]
+   },
+   {
+    "fact": [
+     "$4,760"
+    ],
+    "where": 4
+   },
+   {
+    "expr": "30 - 10 == 20",
+    "shows": [
+     "20 days left"
+    ],
+    "where": 4
+   },
+   {
+    "expr": "18000 - 15480 == 2520",
+    "shows": [
+     "$18,000",
+     "$15,480",
+     "$2,520"
+    ],
+    "where": 3
+   },
+   {
+    "expr": "2520 / 18000 * 100 < 18",
+    "shows": [
+     "18%"
+    ],
+    "where": 3
+   },
+   {
+    "same": "$2,520",
+    "where": [
+     3,
+     "cover"
+    ]
+   },
+   {
+    "expr": "9800 + 1450 == 11250",
+    "shows": [
+     "$9,800",
+     "$1,450",
+     "$11,250"
+    ],
+    "where": 2
+   },
+   {
+    "same": "18%",
+    "where": [
+     3,
+     "cover"
+    ]
+   }
+  ]
+ },
+ "claims_used": [
+  "prompt-build",
+  "api-connect",
+  "ai-extraction",
+  "alerts",
+  "database-owned",
+  "code-export",
+  "no-caps"
+ ],
+ "domain_sources": [
+  {
+   "claim": "CPQ (configure, price, quote) is programming that helps sales representatives and self-service customers quickly generate accurate quotes for configurable products and services",
+   "source_url": "https://www.techtarget.com/searchcustomerexperience/definition/CPQ-software-configure-price-quote-software",
+   "date": "2026-10-21",
+   "quote": "is programming that helps sales representatives and self-service customers quickly generate accurate quotes for configurable products and services"
+  },
+  {
+   "claim": "CPQ software is rules-based and can be customized to address variables that affect profit margins",
+   "source_url": "https://www.techtarget.com/searchcustomerexperience/definition/CPQ-software-configure-price-quote-software",
+   "date": "2026-10-21",
+   "quote": "The software is rules-based and can be customized to address multiple variables that will affect profit margins"
+  }
+ ],
+ "faq_sources": [
+  {
+   "q": "What is the best automated quoting software available?",
+   "source": "paa",
+   "ref": "What is the best automated quoting software available?",
+   "prov": {
+    "tool": "alsoasked-api",
+    "query": "quote automation",
+    "depth": 1,
+    "parent": null,
+    "fetched": "2026-10-13",
+    "original": "What is the best automated quoting software available?",
+    "region": "us",
+    "language": "en",
+    "fallback": false
+   }
+  },
+  {
+   "q": "How do I set up quote automation?",
+   "source": "written",
+   "ref": "quote automation",
+   "origin": "definition"
+  },
+  {
+   "q": "How is CPQ quote automation different from a basic quoting tool?",
+   "source": "written",
+   "ref": "cpq quote automation",
+   "origin": "written",
+   "secondary": "cpq quote automation"
+  },
+  {
+   "q": "How do I automate quotes for requests that arrive by email and social media?",
+   "source": "written",
+   "ref": "automate quotes",
+   "origin": "written",
+   "secondary": "automate quotes"
+  },
+  {
+   "q": "What should quote automation put on every quote it sends?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "What expiry date should quote automation set on a quote?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How should quote automation follow up on quotes nobody has answered?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How does quote automation handle a supplier price increase on open quotes?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How do I measure whether quote automation is working?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "What should automated quoting software do when a customer accepts a quote?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  }
+ ],
+ "qc_passed": {
+  "rules_version": "4bb5d5a61c4e",
+  "date": "2026-10-21 05:25 UTC"
+ },
+ "writers": [
+  "B-w-229"
+ ],
+ "review": {
+  "by": "B-r-86",
+  "date": "2026-10-21 05:28 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Quote Automation That Prices Every Request by Your Rules'; hero 'Build quote automation that prices each request from your price book and follows up on every open quote before it expires.' covers pricing, rules and follow-up, the whole job; how-to description one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Sales-quote sense throughout; FAQ 1 answers the PAA 'What is the best automated quoting software available?' with selection criteria; FAQ 3 covers CPQ; 7-step how-to; comparison table vs Zapier, Make, n8n."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary: RFQ, price book, unit tiers, option rules, margin floor, 480V panel, Q-2318 expiring on day 30."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every feature body opens on a full sentence: 'The app prices each line from your price book', 'Write down which options require or exclude each other'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; 11 'A, B, and C' lists (QC Q8) recorded as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'A quote is only as right as the book it reads from.' Plain verbs, concrete numbers, no AI tells."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "CPQ definition in FAQ 3 matches the techtarget spans ('helps sales reps and self-service customers generate accurate quotes for configurable products and services'; 'rules-based and can be customized to address the variables that affect profit margins'). Emergent claims map to prompt-build, api-connect, ai-extraction, alerts, database-owned, code-export, no-caps. Numbers agree: 840+270=1,110; 9,800+1,450=11,250; 18,000-15,480=2,520; 30-10=20."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Stays on the quote itself: no proposal document or signature (proposal-automation), no request form (quote form), no invoice or order-to-cash stages beyond a one-line hand-off in FAQ 10 linked to sales automation."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, PAA gate 10 pass 0 flag; hub link in FAQ 2; sibling links social-media-automation, marketing-automation-workflow, sales-automation; moat lines in FAQ 1, 8, 10."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 $840.00 + $270.00 = $1,110.00 and 'Confirm the washer quantity' to Lisbet Ferraby; tab 2 480V panel $1,450, $11,250; tab 3 Margit Brennecke DM 'Approve a $2,520 margin?'; tab 4 day 3 and day 7 reminders, day 10 call to Wynona Desrosiers, Day 30, 20 days left. One hero each, cursor on button."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "why_description, feature_4, howto_step_1_des, howto_step_2_des, faq items 2, 5, 6, 9",
+    "quote": "the price book, the quote rules, and the follow-up",
+    "issue": "11 'A, B, and C' lists across the page (QC Q8) reads templated: why_description 'the price book, the quote rules, and the follow-up'; feature_4 'from an email, a PDF, or a spreadsheet'; howto_step_1 'the parts, the quantities, the discounts, and the notes'; howto_step_2 'one list price, one cost, and the unit tiers'; faq 2 'option limits, margin floor, and approver'; faq 5 'the total, and the expiry date' and 'Add the terms, who prepared it, and how the customer accepts'.",
+    "fix": "Turn some into pairs or a single specific.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq item 10",
+    "quote": "It should lock the accepted version, record who accepted it and when, and pass the order on without anyone retyping it.",
+    "issue": "The acceptance-to-order hand-off is the quote-to-cash-automation page's 'Quote to Order' tab; this answer edges into that sibling's ground.",
+    "fix": "Keep the answer to locking the accepted version and point onward, as it does, without describing order hand-off steps.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_4 / faq item 4",
+    "quote": "A rep checks any value the AI is unsure of before it is priced.",
+    "issue": "FAQ 4 restates it: 'An AI step in the app can read the parts and quantities in an emailed request and send any unclear value to a person.'",
+    "fix": "Give FAQ 4 a detail the feature lacks.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 6",
+    "quote": "If supplier prices hold for a quarter, use 30 days; if they move weekly, use 7 or 14 days and say so on the quote.",
+    "issue": "Recommendation with no source; acceptable as advice.",
+    "fix": "None required.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief tab 2",
+    "quote": "$11,250 After the switch",
+    "issue": "Main panel shows the post-switch total while the panel check still reads 'Blocked' and the hero asks 'Switch to the 480V panel?'; two moments in one frame. Copy ('the quote totals $11,250') is consistent, so not a contradiction.",
+    "fix": "Label the right figure 'If switched' or show $11,250 only in the hero.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "plan.tab_stories[2]",
+    "quote": "Dorian Pashley at Larkspur Ridge IT",
+    "issue": "Plan names Larkspur Ridge IT; the page and image say Pendlecote IT. Internal only, the shipped copy and image agree.",
+    "fix": "Update the plan to Pendlecote IT for the record.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "why_description, feature_4, howto_step_1_des, howto_step_2_des, faq items 2, 5, 6, 9",
+   "issue": "11 'A, B, and C' lists across the page (QC Q8) reads templated: why_description 'the price book, the quote rules, and the follow-up'; feature_4 'from an email, a PDF, or a spreadsheet'; howto_step_1 'the parts, the quantities, the discounts, and the notes'; howto_step_2 'one list price, one cost, and the unit tiers'; faq 2 'option limits, margin floor, and approver'; faq 5 'the total, and the expiry date' and 'Add the terms, who prepared it, and how the customer accepts'.",
+   "fix": "Turn some into pairs or a single specific.",
+   "by": "B-r-86",
+   "via": "review",
+   "date": "2026-10-21 05:28 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq item 10",
+   "issue": "The acceptance-to-order hand-off is the quote-to-cash-automation page's 'Quote to Order' tab; this answer edges into that sibling's ground.",
+   "fix": "Keep the answer to locking the accepted version and point onward, as it does, without describing order hand-off steps.",
+   "by": "B-r-86",
+   "via": "review",
+   "date": "2026-10-21 05:28 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_4 / faq item 4",
+   "issue": "FAQ 4 restates it: 'An AI step in the app can read the parts and quantities in an emailed request and send any unclear value to a person.'",
+   "fix": "Give FAQ 4 a detail the feature lacks.",
+   "by": "B-r-86",
+   "via": "review",
+   "date": "2026-10-21 05:28 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 6",
+   "issue": "Recommendation with no source; acceptable as advice.",
+   "fix": "None required.",
+   "by": "B-r-86",
+   "via": "review",
+   "date": "2026-10-21 05:28 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief tab 2",
+   "issue": "Main panel shows the post-switch total while the panel check still reads 'Blocked' and the hero asks 'Switch to the 480V panel?'; two moments in one frame. Copy ('the quote totals $11,250') is consistent, so not a contradiction.",
+   "fix": "Label the right figure 'If switched' or show $11,250 only in the hero.",
+   "by": "B-r-86",
+   "via": "review",
+   "date": "2026-10-21 05:28 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "plan.tab_stories[2]",
+   "issue": "Plan names Larkspur Ridge IT; the page and image say Pendlecote IT. Internal only, the shipped copy and image agree.",
+   "fix": "Update the plan to Pendlecote IT for the record.",
+   "by": "B-r-86",
+   "via": "review",
+   "date": "2026-10-21 05:28 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "a80df5081873de49",
+   "alt:share_image": "4e8f91088be92098",
+   "alt:tab_image_1": "a7082e7bf0059f67",
+   "alt:tab_image_2": "d59adfdbd7cd1096",
+   "alt:tab_image_3": "cb66e756d0deadee",
+   "alt:tab_image_4": "fb0c8b993e15421d",
+   "breadcrumb": "5b9681c8185d72b4",
+   "chip_adds": "5db6b772c849d41a",
+   "explore_cta": "3cd0d1222b356e5f",
+   "faq": "78a8a34b08f128a2",
+   "feature_1": "eb37d58f7d8479ba",
+   "feature_2": "feac1142a95bad59",
+   "feature_3": "ad0ae0e2605652f0",
+   "feature_4": "6de75e9b7aaf13cd",
+   "feature_5": "3d2f384040d4dd30",
+   "feature_6": "d7bd42d9f185f6a6",
+   "features_heading": "7324b13acdee5f6b",
+   "features_subheading": "4916fa4c855d7ed6",
+   "h1": "9150f61e2eee3616",
+   "hero_description": "5df0247f099d4a54",
+   "hero_prompt": "8184d0d434f0aad0",
+   "howto_description": "0555ed3ca45ecf6f",
+   "howto_step_1_des": "a97086a6bf64c41c",
+   "howto_step_1_title": "997949a3eb3af5a3",
+   "howto_step_2_des": "15ef391acc092e29",
+   "howto_step_2_title": "3ff36fd97117a18f",
+   "howto_step_3_des": "d2371f34e5c5624a",
+   "howto_step_3_title": "31081577e85ca444",
+   "howto_step_4_des": "68631ed7264d97c7",
+   "howto_step_4_title": "e24b02ef7face349",
+   "howto_step_5_des": "85b85dc135cf8a9a",
+   "howto_step_5_title": "79ae07f429227eb2",
+   "howto_step_6_des": "b9b0977f2b92e9b3",
+   "howto_step_6_title": "d94006c5a4510415",
+   "howto_step_7_des": "10ca91b7b0f319d1",
+   "howto_step_7_title": "ad2638abcb808811",
+   "howto_title": "4e6691bc0dfd197b",
+   "meta_description": "d866c58c348e1f5f",
+   "meta_title": "9119b08d33fb8b31",
+   "mockup": "c8dcd19c40d267ea",
+   "product_name": "a2bd58a44f846b89",
+   "prompt_chip_1": "ea4e01e1aa1100da",
+   "prompt_chip_2": "0fc9451c76871cdc",
+   "prompt_chip_3": "3e24a255cb61914c",
+   "prompt_chip_4": "7a6f27b9ef6693b3",
+   "slug": "6327245c3a45d3d9",
+   "tab_content_1": "7fce70b46623ae70",
+   "tab_content_2": "377d4841481334df",
+   "tab_content_3": "ace7058ad530f3f2",
+   "tab_content_4": "1c6ff81eb70efcfd",
+   "tab_label_1": "c8b2d27041d2ae4f",
+   "tab_label_2": "9968c133070a3c9a",
+   "tab_label_3": "c846e1f530af500d",
+   "tab_label_4": "7a6f27b9ef6693b3",
+   "usecase_heading": "ee41cb1e25d4e689",
+   "why_description": "8c94fb1437e763fd",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "aa8e3a20dd795977"
+  },
+  "all": "6e22971c736dfdd7",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "a80df5081873de49",
+   "alt:share_image": "4e8f91088be92098",
+   "alt:tab_image_1": "a7082e7bf0059f67",
+   "alt:tab_image_2": "d59adfdbd7cd1096",
+   "alt:tab_image_3": "cb66e756d0deadee",
+   "alt:tab_image_4": "fb0c8b993e15421d",
+   "breadcrumb": "5b9681c8185d72b4",
+   "chip_adds": "5db6b772c849d41a",
+   "explore_cta": "3cd0d1222b356e5f",
+   "faq": "78a8a34b08f128a2",
+   "feature_1": "eb37d58f7d8479ba",
+   "feature_2": "feac1142a95bad59",
+   "feature_3": "ad0ae0e2605652f0",
+   "feature_4": "6de75e9b7aaf13cd",
+   "feature_5": "3d2f384040d4dd30",
+   "feature_6": "d7bd42d9f185f6a6",
+   "features_heading": "7324b13acdee5f6b",
+   "features_subheading": "4916fa4c855d7ed6",
+   "h1": "9150f61e2eee3616",
+   "hero_description": "5df0247f099d4a54",
+   "hero_prompt": "8184d0d434f0aad0",
+   "howto_description": "0555ed3ca45ecf6f",
+   "howto_step_1_des": "a97086a6bf64c41c",
+   "howto_step_1_title": "997949a3eb3af5a3",
+   "howto_step_2_des": "15ef391acc092e29",
+   "howto_step_2_title": "3ff36fd97117a18f",
+   "howto_step_3_des": "d2371f34e5c5624a",
+   "howto_step_3_title": "31081577e85ca444",
+   "howto_step_4_des": "68631ed7264d97c7",
+   "howto_step_4_title": "e24b02ef7face349",
+   "howto_step_5_des": "85b85dc135cf8a9a",
+   "howto_step_5_title": "79ae07f429227eb2",
+   "howto_step_6_des": "b9b0977f2b92e9b3",
+   "howto_step_6_title": "d94006c5a4510415",
+   "howto_step_7_des": "10ca91b7b0f319d1",
+   "howto_step_7_title": "ad2638abcb808811",
+   "howto_title": "4e6691bc0dfd197b",
+   "meta_description": "d866c58c348e1f5f",
+   "meta_title": "9119b08d33fb8b31",
+   "mockup": "c8dcd19c40d267ea",
+   "product_name": "a2bd58a44f846b89",
+   "prompt_chip_1": "ea4e01e1aa1100da",
+   "prompt_chip_2": "0fc9451c76871cdc",
+   "prompt_chip_3": "3e24a255cb61914c",
+   "prompt_chip_4": "7a6f27b9ef6693b3",
+   "slug": "6327245c3a45d3d9",
+   "tab_content_1": "7fce70b46623ae70",
+   "tab_content_2": "377d4841481334df",
+   "tab_content_3": "ace7058ad530f3f2",
+   "tab_content_4": "1c6ff81eb70efcfd",
+   "tab_label_1": "c8b2d27041d2ae4f",
+   "tab_label_2": "9968c133070a3c9a",
+   "tab_label_3": "c846e1f530af500d",
+   "tab_label_4": "7a6f27b9ef6693b3",
+   "usecase_heading": "ee41cb1e25d4e689",
+   "why_description": "8c94fb1437e763fd",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "aa8e3a20dd795977"
+  },
+  "all": "6e22971c736dfdd7",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "approval": {
+  "fingerprint": "5488a6dbfcb6e8b8c2febf9595416ec607f85262911db74f486d2f05846c73a6",
+  "date": "2026-10-21 06:15 UTC",
+  "rules_version": "41519b1f99fa",
+  "by": "standing-go (Divit 2026-10-21)"
+ },
+ "pending_links": []
+}

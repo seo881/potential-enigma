@@ -1,6 +1,6 @@
 """alsoasked_pull.py: one synchronous AlsoAsked API search, saved raw to private/alsoasked/<slug>.json (git-ignored).
 
-  .venv/bin/python3 ops/alsoasked_pull.py <slug> "<term>" [--depth 2] [--region us] [--language en] [--fresh]
+  .venv/bin/python3 ops/alsoasked_pull.py <page URL | slug> "<term>" [--depth 2] [--region us] [--language en] [--fresh]
 
 API (alsoasked.com/llms.txt, developers.alsoasked.com): base https://alsoaskedapi.com/v1, X-Api-Key header,
 POST /search, GET /account. Depth 2 costs 1 credit, depth 3 costs 4 (PA2 never needs level 3).
@@ -112,6 +112,12 @@ def main(argv):
     if "ALSOASKED_API_KEY" not in os.environ and not authorised_run(): sys.exit("ALSOASKED_API_KEY is not set (and this is not an authorised --run: no keychain read)")
     if not api_key(): sys.exit("no AlsoAsked key: ALSOASKED_API_KEY is unset and the keychain (service alsoasked, account $USER) has none")
     slug, term = argv[0], argv[1]
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import slugs as _SL
+    if slug.startswith("/"): slug = _SL.store_key(slug)   # a page URL: its store key (pre-migration slug; DECISIONS 2026-10-23)
+    else:
+        _SL.store_key("/x"); hits = sorted({v for k, v in (_SL._STORE or {}).items() if k.rsplit("/", 1)[-1] == slug})
+        if len(hits) > 1: sys.exit(f"refused: slug {slug} is shared by {len(hits)} hubs since the migration; pass the page URL instead")
+        if hits: slug = hits[0]
     opt = lambda k, d: argv[argv.index(k) + 1] if k in argv else d
     depth = int(opt("--depth", "2"))
     if depth > 2: sys.exit("PA2: depth 3+ is never required; refusing (costs 4 credits)")

@@ -1,0 +1,1268 @@
+{
+ "url": "/ai-automation-builder/leave-approval-workflow",
+ "hub": "Auto",
+ "item_id": "6adb1b69cad284cf1562fc8f",
+ "status": "spec",
+ "written_by": "B-w-305",
+ "keywords": {
+  "primary": "leave approval workflow",
+  "secondaries_used": []
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Leave Approval Workflow With Balance Checks | Emergent",
+  "meta_description": "Build a leave approval workflow that checks the balance, flags team overlaps, sends long leave to HR, and approves same-day sick calls.",
+  "h1": "Build a Leave Approval Workflow Around Balances and Coverage",
+  "slug": "leave-approval-workflow",
+  "product_name": "Leave Approval Workflow Builder",
+  "hero_description": "Get a leave approval workflow that checks each request against the balance and the team calendar before a manager decides.",
+  "breadcrumb": "Leave Approval Workflow",
+  "category": "a33cd4fb124ec86a130809893b2b3896",
+  "explore_cta": "Build My Leave Approval Workflow",
+  "features_heading": "What the App Checks Before Anyone Approves",
+  "features_subheading": "Describe your leave types and who signs off. Emergent builds the app that holds the balances and routes each request.",
+  "feature_1": "<h3>Leave policy written as you say it</h3><p>Write the policy as HR explains it: 15 vacation days, 5 sick days, HR signs anything over 10 days. Emergent builds the request form and rules from that, and edits both by prompt.</p>",
+  "feature_2": "<h3>Balances by person and leave type</h3><p>The app keeps a balance for each employee and leave type. Approved days come off when the manager signs, a canceled request puts them back, and it all sits in a database you own.</p>",
+  "feature_3": "<h3>Who is out, shown next to the request</h3><p>A manager opening a request sees the team calendar for those dates on the same screen. Two names already out that Friday tell the manager more than the request alone.</p>",
+  "feature_4": "<h3>Nudges when a request sits</h3><p>Set how long a request may wait. The app sends the approver a Slack or email reminder after 2 days and escalates to the next approver on day 3, so no request sits unread.</p>",
+  "feature_5": "<h3>Approved leave lands in your other tools</h3><p>The app connects to any tool with an API. An approval can post the dates to the shared calendar and update the employee record in your HR system, with no dates copied by hand.</p>",
+  "feature_6": "<h3>Every decision on the record</h3><p>Each request keeps its dates, the balance at the time, the approver, the decision, and any comment. Add every manager who approves leave, since there are no per-approver seats.</p>",
+  "why_title": "Why Build Leave Approvals With Emergent?",
+  "why_description": "Your leave rules, every balance, and every decision sit in one app on a database you own, and you change the rules by prompt.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Zapier</th>\n        <th scope=\"col\">Make (Integromat)</th>\n        <th scope=\"col\">n8n</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt for the workflow and the app around it</td>\n        <td class=\"col-other\">Templates and editor, AI copilot</td>\n        <td class=\"col-other\">Visual canvas</td>\n        <td class=\"col-other\">Visual canvas, self-hosted or cloud</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">What you get</th>\n        <td class=\"col-brand\">Workflow + trigger form + database + dashboard, as code you own</td>\n        <td class=\"col-other\">Zaps, plus Tables and Interfaces inside Zapier</td>\n        <td class=\"col-other\">Scenarios inside Make</td>\n        <td class=\"col-other\">Workflows inside n8n</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Behavior at cap</th>\n        <td class=\"col-brand\">Keeps running, no task cap</td>\n        <td class=\"col-other\">Overage billed at up to 1.25× the base rate</td>\n        <td class=\"col-other\">Runs pause</td>\n        <td class=\"col-other\">Cloud workflows stop until the reset or an upgrade</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">AI and agent steps</th>\n        <td class=\"col-brand\">Native, share the same credit pool</td>\n        <td class=\"col-other\">Priced by model tier, drawn from the task pool</td>\n        <td class=\"col-other\">AI modules cost variable credits</td>\n        <td class=\"col-other\">Bring your own model API key, billed by the provider</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">Yes on Community Edition</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "Four Requests, Four Checks",
+  "tab_label_1": "Balance Check",
+  "tab_label_2": "Team Coverage",
+  "tab_label_3": "Long Leave",
+  "tab_label_4": "Sick Days",
+  "tab_content_1": "<h3>5 days asked with 3 in the balance</h3><p>Quillon Ravensberg wants a full week off in June, but his vacation balance shows 3 days. The form shows the 2-day shortfall before he submits, and any days past the balance go in as unpaid. His manager, Odessa Prewitt, gets one request: 3 vacation days and 2 unpaid.</p>",
+  "tab_content_2": "<h3>Third agent out? The manager sees it first</h3><p>Two of the six support agents are already off on May 14 and 15 when Marisol Lindqvist asks for both days. Her request reaches her manager, Teodor Vance, with a flag: she would be the third agent out at once, and the rule allows 2. He decides with the team calendar open.</p>",
+  "tab_content_3": "<h3>12 days off needs HR and the manager</h3><p>Benedikt Amara plans a long trip and requests 12 working days. Anything over 10 days needs a second signature. His manager, Saoirse Delmont, approves first, and the request then goes to Ignatius Bell in HR. The days come off his balance only when Ignatius signs.</p>",
+  "tab_content_4": "<h3>No waiting on a sick call at 7:40</h3><p>Philippa Narang wakes up sick and logs 1 sick day from her phone at 7:40. A single sick day needs no approval under the rule. The app approves it on submission, and her sick balance drops from 5 days to 4. Her manager, Casimir Thorne, gets a message that she is out today.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { balanceCheck: \"Show the employee's balance for the leave type on the request form. If the request is longer than the balance, show the shortfall before submit and file the extra days as unpaid.\", teamCoverage: \"Before a manager sees a leave request, count who on the same team is already out on those dates. If 2 people are out, flag the request and show the team calendar next to it.\", longLeave: \"Send leave requests over 10 working days to the manager first, then to HR. Take the days off the balance only after HR approves.\", sickDays: \"Approve a single sick day as soon as it is submitted, take it off the sick balance, and message the manager that the employee is out today.\" };</p>",
+  "howto_title": "How to Build a Leave Approval Workflow",
+  "howto_description": "Seven steps to turn your leave policy into a leave approval workflow that checks balances and coverage before anyone approves.",
+  "howto_step_1_title": "01 Export a year of leave requests",
+  "howto_step_2_title": "02 List each leave type and its allowance",
+  "howto_step_3_title": "03 Write the balance rule first",
+  "howto_step_4_title": "04 Set a coverage limit for each team",
+  "howto_step_1_des": "Export last year's leave requests to one sheet with the dates, leave type, approver, and how many days each one waited. Mark the requests that were approved and later canceled.",
+  "howto_step_2_des": "Write down every leave type with its yearly allowance and whether unused days carry over. Note which types need a manager's approval and which, like a single sick day, do not.",
+  "howto_step_3_des": "Decide what happens when a request is longer than the balance: block it, file the extra days as unpaid, or send it to HR. Every later rule reads that balance.",
+  "howto_step_4_des": "For each team, write how many people may be out on the same day, and name the person who decides a request that goes past the limit.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Leave Approval Questions, Answered\", \"items\": [{\"q\": \"What is a leave approval workflow?\", \"a\": \"A leave approval workflow is the path a time-off request takes from the employee to a decision. The employee picks the leave type and dates, the app compares it with the days left and with who else is off, the right approver says yes or no, and the balance updates once it is approved.\"}, {\"q\": \"How do I create a leave approval workflow?\", \"a\": \"Write down your leave types, allowances, and who approves what, then describe them in a prompt to Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>. Emergent turns that into one app: a form for employees, a screen for managers, and the rules between them. Test it on a month of old requests before you open it to the team.\"}, {\"q\": \"What should the request form in a leave approval workflow ask for?\", \"a\": \"Ask for the leave type, the first and last day, and whether either end is a half day. Add an optional note for the approver. Show the employee's current balance for that leave type on the form itself. A request that runs past it is then caught before submit, not after a manager reads it.\"}, {\"q\": \"Can I reuse a leave approval workflow for other kinds of requests?\", \"a\": \"Yes, the chain itself carries over: manager first, then a second approver past a threshold. What changes is the threshold. Leave routes on the number of days. A <a href='https://emergent.sh/ai-automation-builder/budget-approval-workflow'>budget approval workflow</a> routes on the amount instead. Give each its own rules, even when the same managers approve both.\"}, {\"q\": \"How does a leave approval workflow track half days?\", \"a\": \"Store balances in hours or in half-day units instead of whole days. A balance of 7.5 days then holds up when someone takes Friday afternoon off, and the form can offer morning or afternoon on the first and last day of any request.\"}, {\"q\": \"What should a leave approval workflow do when approved leave is canceled?\", \"a\": \"Return only the days that have not been taken yet. If someone cancels the last 2 days of a 5-day trip on day 3, put those 2 back and keep the 3 already used. Keep the canceled request on file with its original approval. The history then still matches the balance.\"}, {\"q\": \"Can a leave approval workflow have more than one approver?\", \"a\": \"Yes. Set a sequence, such as the manager first and HR second for anything over 10 days, or ask for two approvals at once when someone reports to a line manager and a project lead. A <a href='https://emergent.sh/ai-automation-builder/contract-approval-workflow'>contract approval workflow</a> uses the same sequence with legal and finance in place of HR. Add every approver you need, since the app has no per-approver seats.\"}, {\"q\": \"How much notice should a leave approval workflow require?\", \"a\": \"Pick a notice period per leave type and put it in the rules, for example 2 weeks for vacation and none for sick days. The form can then warn anyone asking for vacation next Monday, and you decide whether a late request is blocked or sent to the manager with a note.\"}, {\"q\": \"How do I add blackout dates to a leave approval workflow?\", \"a\": \"List the dates per team, such as a year-end close or a product launch week, and have the form stop vacation requests that touch them. Leave sick days outside the block. Because Emergent builds the app from a prompt, adding next year's dates is one sentence, not a settings hunt.\"}, {\"q\": \"Can employees see where their request is in a leave approval workflow?\", \"a\": \"Yes. Give each employee a page listing their requests with the current step, the approver it waits on, and the decision once made. A <a href='https://emergent.sh/ai-automation-builder/content-approval-workflow'>content approval workflow</a> gives writers the same view of each draft. The app Emergent builds keeps every request and decision in a database you own.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Describe it to Emergent",
+  "howto_step_5_des": "Paste the leave types, the balance rule, the coverage limits, and the approvers into one prompt. Emergent builds the request form, the balances, the routing, and the manager's view.",
+  "howto_step_6_title": "06 Replay your busiest month",
+  "howto_step_6_des": "Run 10 requests from your busiest month through the app. Compare each outcome with what your managers decided, and change any rule that disagrees by prompting.",
+  "howto_step_7_title": "07 Start with one team",
+  "howto_step_7_des": "Open the app to one team for a month. Then load every employee's opening balance and invite the rest of the company.",
+  "prompt_chip_1": "Balance Check",
+  "prompt_chip_2": "Team Coverage",
+  "prompt_chip_3": "Long Leave",
+  "prompt_chip_4": "Sick Days",
+  "hero_prompt": "<p>Build a leave approval workflow that runs on its own and logs every step.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/aab/leave-approval-workflow/uc-1.svg",
+   "alt": "Quillon Ravensberg asks for 5 days with 3 days in his vacation balance; the form shows the 2-day shortfall, and his manager, Odessa Prewitt, gets one request for 3 vacation days and 2 unpaid.",
+   "file_id": "6adb1b67cad284cf1562fc6e",
+   "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6adb1b67cad284cf1562fc6e_uc-1.svg"
+  },
+  "tab_image_2": {
+   "path": "images/aab/leave-approval-workflow/uc-2.svg",
+   "alt": "Two of the six support agents are already out on May 14 and 15, so Marisol Lindqvist's request for both days reaches her manager, Teodor Vance, flagged as the third agent out at once.",
+   "file_id": "6adb1b67cad284cf1562fc74",
+   "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6adb1b67cad284cf1562fc74_uc-2.svg"
+  },
+  "tab_image_3": {
+   "path": "images/aab/leave-approval-workflow/uc-3.svg",
+   "alt": "Benedikt Amara's request for 12 working days is over the 10-day line, so his manager, Saoirse Delmont, has approved and the request waits for Ignatius Bell in HR before his balance changes.",
+   "file_id": "6adb1b67cad284cf1562fc71",
+   "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6adb1b67cad284cf1562fc71_uc-3.svg"
+  },
+  "tab_image_4": {
+   "path": "images/aab/leave-approval-workflow/uc-4.svg",
+   "alt": "Philippa Narang logs 1 sick day from her phone at 7:40; the app approves it on submission, her sick balance shows 4 of 5 days left, and her manager, Casimir Thorne, gets a message that she is out today.",
+   "file_id": "6adb1b67cad284cf1562fc69",
+   "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6adb1b67cad284cf1562fc69_uc-4.svg"
+  },
+  "cover_image": {
+   "path": "images/aab/leave-approval-workflow/cover.svg",
+   "alt": "Leave approval workflow: a direct message asking a manager to approve a 5-day request split into 3 vacation days and 2 unpaid",
+   "file_id": "6adb1b67cad284cf1562fc61",
+   "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6adb1b67cad284cf1562fc61_cover.svg"
+  },
+  "share_image": {
+   "path": "images/aab/leave-approval-workflow/og.webp",
+   "alt": "Build a leave approval workflow that checks balances and coverage, with Emergent",
+   "file_id": "6adb1b66cad284cf1562fc5c",
+   "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6adb1b66cad284cf1562fc5c_og.webp"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-10-21 11:18 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 11:27 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "B-w-305",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 11:27 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-305",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 11:28 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "B-w-305",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 11:28 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-305",
+   "note": ""
+  },
+  {
+   "t": "2026-10-21 11:30 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-128",
+   "note": "rubric 10/10 by B-r-128; 2 notes"
+  },
+  {
+   "t": "2026-10-23 08:14 UTC",
+   "state": "approved",
+   "via": null,
+   "by": "B-c-1",
+   "note": "Divit 2026-10-23 go (resume message), approved by B-c-1"
+  },
+  {
+   "t": "2026-10-23 08:32 UTC",
+   "state": "cms_draft",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-10-23 08:34 UTC",
+   "state": "published",
+   "via": "api-publish",
+   "by": null,
+   "note": "live page verified"
+  }
+ ],
+ "pipeline": "r15",
+ "faq_plan": [
+  {
+   "kind": "definition",
+   "q": "What is a leave approval workflow?",
+   "ref": "leave approval workflow",
+   "locked": true,
+   "n": 1,
+   "a": "A leave approval workflow is the path a time-off request takes from the employee to a decision. The employee picks the leave type and dates, the app compares it with the days left and with who else is off, the right approver says yes or no, and the balance updates once it is approved.",
+   "link": null
+  },
+  {
+   "kind": "definition",
+   "q": "How do I create a leave approval workflow?",
+   "ref": "leave approval workflow",
+   "locked": true,
+   "n": 2,
+   "a": "Write down your leave types, allowances, and who approves what, then describe them in a prompt to Emergent's AI automation builder. Emergent turns that into one app: a form for employees, a screen for managers, and the rules between them. Test it on a month of old requests before you open it to the team.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder",
+    "anchor": "AI automation builder",
+    "write_as": "Emergent's AI automation builder"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "What should the request form in a leave approval workflow ask for?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 3,
+   "a": "Ask for the leave type, the first and last day, and whether either end is a half day. Add an optional note for the approver. Show the employee's current balance for that leave type on the form itself. A request that runs past it is then caught before submit, not after a manager reads it.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Can I reuse a leave approval workflow for other kinds of requests?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 4,
+   "a": "Yes, the chain itself carries over: manager first, then a second approver past a threshold. What changes is the threshold. Leave routes on the number of days. A budget approval workflow routes on the amount instead. Give each its own rules, even when the same managers approve both.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/budget-approval-workflow",
+    "anchor": "budget approval workflow"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "How does a leave approval workflow track half days?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 5,
+   "a": "Store balances in hours or in half-day units instead of whole days. A balance of 7.5 days then holds up when someone takes Friday afternoon off, and the form can offer morning or afternoon on the first and last day of any request.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "What should a leave approval workflow do when approved leave is canceled?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 6,
+   "a": "Return only the days that have not been taken yet. If someone cancels the last 2 days of a 5-day trip on day 3, put those 2 back and keep the 3 already used. Keep the canceled request on file with its original approval. The history then still matches the balance.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Can a leave approval workflow have more than one approver?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 7,
+   "a": "Yes. Set a sequence, such as the manager first and HR second for anything over 10 days, or ask for two approvals at once when someone reports to a line manager and a project lead. A contract approval workflow uses the same sequence with legal and finance in place of HR. Add every approver you need, since the app has no per-approver seats.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/contract-approval-workflow",
+    "anchor": "contract approval workflow"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "How much notice should a leave approval workflow require?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 8,
+   "a": "Pick a notice period per leave type and put it in the rules, for example 2 weeks for vacation and none for sick days. The form can then warn anyone asking for vacation next Monday, and you decide whether a late request is blocked or sent to the manager with a note.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How do I add blackout dates to a leave approval workflow?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 9,
+   "a": "List the dates per team, such as a year-end close or a product launch week, and have the form stop vacation requests that touch them. Leave sick days outside the block. Because Emergent builds the app from a prompt, adding next year's dates is one sentence, not a settings hunt.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Can employees see where their request is in a leave approval workflow?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 10,
+   "a": "Yes. Give each employee a page listing their requests with the current step, the approver it waits on, and the decision once made. A content approval workflow gives writers the same view of each draft. The app Emergent builds keeps every request and decision in a database you own.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/content-approval-workflow",
+    "anchor": "content approval workflow"
+   }
+  }
+ ],
+ "faq_heading": "Leave Approval Questions, Answered",
+ "table": {
+  "vs": [
+   "Zapier",
+   "Make (Integromat)",
+   "n8n"
+  ],
+  "rows": [
+   "build",
+   "output",
+   "cap",
+   "ai",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "skeleton": {
+  "built_by": "B-w-305",
+  "built": "2026-10-21 11:18 UTC",
+  "slots": 10,
+  "flagged": 0,
+  "flag_subtypes": [],
+  "locked": 2,
+  "table": true
+ },
+ "plan": {
+  "angle": "The top results are vendor setup guides and forum threads that treat a leave approval workflow as a form that emails a manager. This page builds the four checks that decide whether a leave request should be approved at all: the balance the request draws on, who else on the team is already off those dates, how long the absence runs, and whether it is a same-day sick call that cannot wait for a reply. Timesheet sign-off, pay runs and generic routing belong to the timesheet approval, payroll automation and approval workflow pages; this page stays on leave requests, balances and coverage.",
+  "tab_stories": [
+   "Quillon Ravensberg asks for 5 days of vacation in June with 3 days in his balance, so the form shows the 2-day shortfall before he submits, the extra days go in as unpaid, and his manager, Odessa Prewitt, gets one request for 3 vacation days and 2 unpaid.",
+   "Marisol Lindqvist asks for May 14 and 15 when 2 of the 6 support agents are already out, so her request reaches her manager, Teodor Vance, flagged as the third agent away at once.",
+   "Benedikt Amara requests 12 working days, over the 10-day line, so his manager, Saoirse Delmont, approves first and Ignatius Bell in HR signs second before any days come off his balance.",
+   "Philippa Narang logs 1 sick day at 7:40, the rule approves a single sick day on submission, her sick balance drops from 5 days to 4, and her manager, Casimir Thorne, gets a message that she is out today."
+  ],
+  "openers": [
+   "Quillon Ravensberg wants",
+   "Two of the six support agents",
+   "Benedikt Amara plans",
+   "Philippa Narang wakes up sick",
+   "Export a year of leave requests",
+   "Write the balance rule first",
+   "Replay last December through the rules"
+  ],
+  "heading_shapes": [
+   "5 days asked with 3 in the balance",
+   "Third agent out? The manager sees it first",
+   "12 days off needs HR and the manager",
+   "No waiting on a sick call at 7:40"
+  ],
+  "claims_to_source": []
+ },
+ "chip_adds": [
+  "Add a balance check that shows the shortfall before an employee submits a request.",
+  "Add team coverage limits that flag a request when two teammates are already out.",
+  "Add long leave routing that sends requests over 10 days to HR after the manager.",
+  "Add sick day handling that approves one sick day and messages the manager."
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R1",
+    "title": "Balance check",
+    "prompt": "Show the shortfall when a request is longer than the balance",
+    "main": {
+     "chrome": "Leave requests",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "Vacation request",
+       "title": "Quillon Ravensberg",
+       "size": 28,
+       "sub": "A full week in June",
+       "right": "5 days",
+       "right_sub": "Requested"
+      },
+      {
+       "type": "rule",
+       "text": "Days past the balance go in as unpaid"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Vacation balance",
+         "3 days"
+        ],
+        [
+         "Shortfall",
+         "2 days",
+         true
+        ]
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Submitted",
+         "sub": "3 vacation, 2 unpaid"
+        },
+        {
+         "state": "live",
+         "title": "Odessa Prewitt",
+         "sub": "Manager",
+         "right": "Waiting"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Odessa Prewitt",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Approve 5 days?",
+       "size": 20,
+       "sub": "Quillon Ravensberg, June"
+      },
+      {
+       "type": "meta",
+       "icon": "calendar",
+       "kind": "acc",
+       "text": "3 vacation days, 2 unpaid"
+      }
+     ],
+     "action": {
+      "label": "Approve",
+      "icon": "check"
+     }
+    },
+    "mini": {
+     "icon": "alert-triangle",
+     "kind": "warn",
+     "title": "2-day shortfall",
+     "sub": "Shown before submit"
+    },
+    "alt": "Quillon Ravensberg asks for 5 days with 3 days in his vacation balance; the form shows the 2-day shortfall, and his manager, Odessa Prewitt, gets one request for 3 vacation days and 2 unpaid.",
+    "story": [
+     {
+      "copy": "Quillon Ravensberg",
+      "image": "Quillon Ravensberg"
+     },
+     {
+      "copy": "5 days asked",
+      "image": "5 days"
+     },
+     {
+      "copy": "his vacation balance shows 3 days",
+      "image": "3 days"
+     },
+     {
+      "copy": "the 2-day shortfall",
+      "image": "2-day shortfall"
+     },
+     {
+      "copy": "any days past the balance go in as unpaid",
+      "image": "Days past the balance go in as unpaid"
+     },
+     {
+      "copy": "Odessa Prewitt",
+      "image": "To Odessa Prewitt"
+     },
+     {
+      "copy": "3 vacation days and 2 unpaid",
+      "image": "3 vacation days, 2 unpaid"
+     }
+    ]
+   },
+   {
+    "recipe": "R8",
+    "title": "Team coverage",
+    "prompt": "Flag a leave request when 2 people on the team are already out",
+    "rule": "If 2 agents are already out → flag the request for the manager",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Support team, 6 agents",
+       "size": 20,
+       "chip": [
+        "May 14 and 15",
+        "acc"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Agent",
+        "May 14",
+        "May 15"
+       ],
+       "widths": [
+        0.5,
+        0.25,
+        0.25
+       ],
+       "avatars": true,
+       "row_h": 50,
+       "highlight": 2,
+       "rows": [
+        [
+         "Anouk Ferreira",
+         [
+          "Out",
+          "warn"
+         ],
+         [
+          "Out",
+          "warn"
+         ]
+        ],
+        [
+         "Dmitri Osei",
+         [
+          "Out",
+          "warn"
+         ],
+         [
+          "Out",
+          "warn"
+         ]
+        ],
+        [
+         "Marisol Lindqvist",
+         [
+          "Asking",
+          "acc"
+         ],
+         [
+          "Asking",
+          "acc"
+         ]
+        ],
+        [
+         "Hollis Brandvold",
+         [
+          "In",
+          "n"
+         ],
+         [
+          "In",
+          "n"
+         ]
+        ],
+        [
+         "Yusra Kellerman",
+         [
+          "In",
+          "n"
+         ],
+         [
+          "In",
+          "n"
+         ]
+        ],
+        [
+         "Ottavio Linde",
+         [
+          "In",
+          "n"
+         ],
+         [
+          "In",
+          "n"
+         ]
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "flag",
+     "tone": "warn",
+     "title": "Third agent out",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "Marisol Lindqvist",
+       "size": 18
+      },
+      {
+       "type": "text",
+       "text": "To Teodor Vance",
+       "size": 16,
+       "color": "muted"
+      },
+      {
+       "type": "meta",
+       "icon": "calendar",
+       "kind": "acc",
+       "text": "Asking for May 14 and 15"
+      }
+     ],
+     "action": {
+      "label": "Review",
+      "icon": "calendar"
+     }
+    },
+    "mini": {
+     "icon": "flag",
+     "kind": "warn",
+     "title": "Coverage flag",
+     "sub": "2 of 6 already out"
+    },
+    "alt": "Two of the six support agents are already out on May 14 and 15, so Marisol Lindqvist's request for both days reaches her manager, Teodor Vance, flagged as the third agent out at once.",
+    "story": [
+     {
+      "copy": "Two of the six support agents are already off",
+      "image": "2 of 6 already out"
+     },
+     {
+      "copy": "May 14 and 15",
+      "image": "May 14 and 15"
+     },
+     {
+      "copy": "Marisol Lindqvist",
+      "image": "Marisol Lindqvist"
+     },
+     {
+      "copy": "Teodor Vance",
+      "image": "To Teodor Vance"
+     },
+     {
+      "copy": "the third agent out at once",
+      "image": "Third agent out"
+     },
+     {
+      "copy": "the rule allows 2",
+      "image": "If 2 agents are already out"
+     }
+    ]
+   },
+   {
+    "recipe": "R2",
+    "title": "Long leave",
+    "prompt": "Send leave over 10 working days to the manager, then to HR",
+    "main": {
+     "blocks": [
+      {
+       "type": "doc_header",
+       "initials": "BA",
+       "title": "Leave request",
+       "sub": "Benedikt Amara",
+       "label": "VACATION"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Working days",
+         "12 days",
+         true
+        ],
+        [
+         "Second signature",
+         "Over 10 days"
+        ],
+        [
+         "Manager",
+         "Saoirse Delmont"
+        ]
+       ]
+      },
+      {
+       "type": "filler",
+       "n": 2
+      },
+      {
+       "type": "note",
+       "icon": "lock",
+       "text": "Balance changes after HR signs"
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Two signatures",
+       "size": 19,
+       "chip": [
+        "Over 10 days",
+        "warn"
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Saoirse Delmont",
+         "sub": "Manager",
+         "right": "Approved"
+        },
+        {
+         "state": "live",
+         "title": "Ignatius Bell",
+         "sub": "HR",
+         "right": "Waiting"
+        },
+        {
+         "state": "next",
+         "title": "Balance updated",
+         "sub": "12 days off"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Ignatius Bell",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Approve 12 days?",
+       "size": 20,
+       "sub": "Benedikt Amara, vacation"
+      },
+      {
+       "type": "meta",
+       "icon": "check",
+       "kind": "acc",
+       "text": "Saoirse Delmont approved"
+      },
+      {
+       "type": "meta",
+       "icon": "file-text",
+       "kind": "warn",
+       "text": "Over 10 days: HR signs second"
+      }
+     ],
+     "action": {
+      "label": "Approve",
+      "icon": "check"
+     }
+    },
+    "alt": "Benedikt Amara's request for 12 working days is over the 10-day line, so his manager, Saoirse Delmont, has approved and the request waits for Ignatius Bell in HR before his balance changes.",
+    "story": [
+     {
+      "copy": "Benedikt Amara",
+      "image": "Benedikt Amara"
+     },
+     {
+      "copy": "12 working days",
+      "image": "12 days"
+     },
+     {
+      "copy": "Anything over 10 days needs a second signature",
+      "image": "Over 10 days"
+     },
+     {
+      "copy": "Saoirse Delmont, approves first",
+      "image": "Saoirse Delmont approved"
+     },
+     {
+      "copy": "Ignatius Bell in HR",
+      "image": "To Ignatius Bell"
+     },
+     {
+      "copy": "The days come off his balance only when Ignatius signs",
+      "image": "Balance changes after HR signs"
+     }
+    ]
+   },
+   {
+    "recipe": "R4",
+    "title": "Sick days",
+    "prompt": "Approve a single sick day on submit and tell the manager",
+    "main": {
+     "blocks": [
+      {
+       "type": "text",
+       "text": "Sick day",
+       "size": 22
+      },
+      {
+       "type": "text",
+       "text": "Philippa Narang",
+       "size": 16,
+       "color": "muted"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Type",
+         "Sick leave"
+        ],
+        [
+         "Date",
+         "Today"
+        ],
+        [
+         "Logged",
+         "7:40 AM"
+        ],
+        [
+         "Days",
+         "1 day"
+        ]
+       ]
+      },
+      {
+       "type": "status",
+       "title": "Approved",
+       "sub": "On submission",
+       "icon": "check",
+       "kind": "ok"
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Philippa Narang",
+       "size": 19,
+       "chip": [
+        "Sick leave",
+        "acc"
+       ]
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Sick balance",
+         "5 days to 4",
+         true
+        ],
+        [
+         "Taken today",
+         "1 day"
+        ]
+       ]
+      },
+      {
+       "type": "checks",
+       "items": [
+        "Single sick day: no approval needed"
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Casimir Thorne",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Philippa Narang is out today",
+       "size": 20,
+       "sub": "Sick day, approved at 7:40"
+      },
+      {
+       "type": "meta",
+       "icon": "check",
+       "kind": "ok",
+       "text": "Approved on submission"
+      },
+      {
+       "type": "meta",
+       "icon": "smartphone",
+       "kind": "acc",
+       "text": "Logged from her phone"
+      }
+     ],
+     "action": {
+      "label": "Open team calendar",
+      "icon": "calendar"
+     }
+    },
+    "alt": "Philippa Narang logs 1 sick day from her phone at 7:40; the app approves it on submission, her sick balance shows 4 of 5 days left, and her manager, Casimir Thorne, gets a message that she is out today.",
+    "story": [
+     {
+      "copy": "Philippa Narang",
+      "image": "Philippa Narang"
+     },
+     {
+      "copy": "logs 1 sick day",
+      "image": "1 day"
+     },
+     {
+      "copy": "at 7:40",
+      "image": "7:40 AM"
+     },
+     {
+      "copy": "A single sick day needs no approval",
+      "image": "Single sick day: no approval needed"
+     },
+     {
+      "copy": "drops from 5 days to 4",
+      "image": "5 days to 4"
+     },
+     {
+      "copy": "Casimir Thorne",
+      "image": "To Casimir Thorne"
+     },
+     {
+      "copy": "she is out today",
+      "image": "Philippa Narang is out today"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "dm": true,
+   "channel": "Odessa Prewitt",
+   "title": "Approve 5 days",
+   "sub": "3 vacation, 2 unpaid",
+   "primary": "Approve",
+   "secondary": "Open",
+   "icon": "calendar",
+   "alt": "Leave approval workflow: a direct message asking a manager to approve a 5-day request split into 3 vacation days and 2 unpaid"
+  },
+  "og": {
+   "headline": "Build a leave approval workflow",
+   "alt": "Build a leave approval workflow that checks balances and coverage, with Emergent"
+  },
+  "checks": [
+   {
+    "expr": "3 + 2 == 5",
+    "shows": [
+     "3 days",
+     "2 days",
+     "5 days"
+    ],
+    "where": 1
+   },
+   {
+    "fact": [
+     "2 of 6"
+    ],
+    "where": 2
+   },
+   {
+    "fact": [
+     "12 days",
+     "10 days"
+    ],
+    "where": 3
+   },
+   {
+    "expr": "5 - 1 == 4",
+    "shows": [
+     "5 days to 4",
+     "1 day"
+    ],
+    "where": 4
+   },
+   {
+    "same": "5 days",
+    "where": [
+     1,
+     "cover"
+    ]
+   }
+  ]
+ },
+ "faq_sources": [
+  {
+   "q": "What is a leave approval workflow?",
+   "source": "written",
+   "ref": "leave approval workflow",
+   "origin": "definition"
+  },
+  {
+   "q": "How do I create a leave approval workflow?",
+   "source": "written",
+   "ref": "leave approval workflow",
+   "origin": "definition"
+  },
+  {
+   "q": "What should the request form in a leave approval workflow ask for?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Can I reuse a leave approval workflow for other kinds of requests?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How does a leave approval workflow track half days?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "What should a leave approval workflow do when approved leave is canceled?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Can a leave approval workflow have more than one approver?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How much notice should a leave approval workflow require?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How do I add blackout dates to a leave approval workflow?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Can employees see where their request is in a leave approval workflow?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  }
+ ],
+ "claims_used": [
+  "prompt-build",
+  "api-connect",
+  "alerts",
+  "database-owned",
+  "no-caps"
+ ],
+ "domain_sources": [],
+ "learn_refs": [
+  "6a1729ad1817ffd0330c987d",
+  "6abe38fbf322d0af73b37238",
+  "6a172321c4c836a09c1ce435"
+ ],
+ "learn_refs_why": [
+  "best-ai-workflow-builders: score 4.41: matches workflow (builder list, hub-term only)",
+  "how-to-build-an-ai-agent: Auto fixed set: step-by-step build of an agent that handles leads and intake, the AI step inside most automations",
+  "best-no-code-agent-builders: Auto fixed set: no-code agent builders for workflow automation, for readers who want automations without code"
+ ],
+ "qc_passed": {
+  "rules_version": "5bdaae64bebe",
+  "date": "2026-10-21 11:28 UTC"
+ },
+ "writers": [
+  "B-w-305"
+ ],
+ "review": {
+  "by": "B-r-128",
+  "date": "2026-10-21 11:30 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Leave Approval Workflow Around Balances and Coverage'; every section stays on leave requests, balances and approvers."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition up top in FAQ 1 ('the path a time-off request takes from the employee to a decision'), seven build steps, four tab cases (balance, coverage, long leave, sick days)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Tab 1 '5 days asked with 3 in the balance', '3 vacation days and 2 unpaid'; how-to 06 'Run 10 requests from your busiest month'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Openers vary: 'Quillon Ravensberg wants...', 'Two of the six support agents...', 'Benedikt Amara plans...', 'Philippa Narang wakes up sick...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; two long FAQ sentences recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Two names already out that Friday tell the manager more than the request alone.' Plain operator voice."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to prompt-build, api-connect, alerts, database-owned, no-caps; no leave-law or state-specific claims; table cells match rules/competitors/aab.json (Make: 'Visual canvas', 'Scenarios inside Make', 'Runs pause', 'AI modules cost variable credits', 'None')."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Balance, coverage limit and sick-day cases are leave-only; no overlap in angle with timesheet-approval-workflow ('for Every Approver'), payroll-automation or approval-workflow."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions (half days, cancellations, notice, blackout dates); QC F and K clean."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 '2-day shortfall', '3 vacation, 2 unpaid' to Odessa Prewitt; tab 2 '2 of 6 already out' to Teodor Vance; tab 3 HR second at 12 days; tab 4 sick balance '5 days to 4' at 7:40. All match tab copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #18",
+    "field": "feature_6 / faq item 7",
+    "quote": "since there are no per-approver seats / since the app has no per-approver seats",
+    "issue": "Same seat point closes both fields with nearly the same words.",
+    "fix": "Keep it in one field only.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq item 1 / faq item 7",
+    "quote": "The employee picks the leave type and dates, the app compares it with the days left and with who else is off, the right approver says yes or no, and the balance updates once it is approved.",
+    "issue": "37- and 34-word sentences (QC Q2).",
+    "fix": "Split each into two sentences.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #18",
+   "field": "feature_6 / faq item 7",
+   "issue": "Same seat point closes both fields with nearly the same words.",
+   "fix": "Keep it in one field only.",
+   "by": "B-r-128",
+   "via": "review",
+   "date": "2026-10-21 11:30 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq item 1 / faq item 7",
+   "issue": "37- and 34-word sentences (QC Q2).",
+   "fix": "Split each into two sentences.",
+   "by": "B-r-128",
+   "via": "review",
+   "date": "2026-10-21 11:30 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "fab10407b1cf83d6",
+   "alt:share_image": "9cb93bcb21e73859",
+   "alt:tab_image_1": "227e3065c6ad46d9",
+   "alt:tab_image_2": "5c1c9a97f748d9d8",
+   "alt:tab_image_3": "2b4be3e8417475cd",
+   "alt:tab_image_4": "39d89f8117df4c90",
+   "breadcrumb": "1fdbd1faac3aa9c5",
+   "chip_adds": "75d08fe91cd7cb87",
+   "explore_cta": "0d34c15310dc41ca",
+   "faq": "098d58ea8dc0e38a",
+   "feature_1": "4f26e05da52ec46c",
+   "feature_2": "c2874ac2837bd2ea",
+   "feature_3": "3b434e6709aaa60c",
+   "feature_4": "d3c019ea0117b4f7",
+   "feature_5": "c2ac99848eee306f",
+   "feature_6": "8c12a88eaf5e967b",
+   "features_heading": "67dd29ccd822bf42",
+   "features_subheading": "eba207989181c5ce",
+   "h1": "244261a8daca4217",
+   "hero_description": "353e0919938109cd",
+   "hero_prompt": "4bcf07d9d94a1a22",
+   "howto_description": "3e890e042d9335f7",
+   "howto_step_1_des": "cab129f0dc63d5bb",
+   "howto_step_1_title": "fc0efeba1829d711",
+   "howto_step_2_des": "950872cdee65f346",
+   "howto_step_2_title": "e2be33eb5c9df7ad",
+   "howto_step_3_des": "0160189050c24dfe",
+   "howto_step_3_title": "f4000e45f1ed6a9a",
+   "howto_step_4_des": "4c332739a135d1ae",
+   "howto_step_4_title": "4b05f58b2c588eab",
+   "howto_step_5_des": "6feefe10b3c3b789",
+   "howto_step_5_title": "47e21227c893f179",
+   "howto_step_6_des": "18cbb8c7856700f9",
+   "howto_step_6_title": "c3d50c4a85e50ca2",
+   "howto_step_7_des": "712e6999998c7caf",
+   "howto_step_7_title": "9437eebf664436db",
+   "howto_title": "6a14b393daa53416",
+   "meta_description": "a808d6d1ed7d9fa2",
+   "meta_title": "682495d9b28b4bef",
+   "mockup": "1e7c1cb9aef64a61",
+   "product_name": "32cbfaf632619b1e",
+   "prompt_chip_1": "09d6e40848aa804d",
+   "prompt_chip_2": "6ba4a3ba115efb5a",
+   "prompt_chip_3": "74dfc89c34c0d9f3",
+   "prompt_chip_4": "be02419de0160eb7",
+   "slug": "ac9748f428dd2202",
+   "tab_content_1": "fbc465d0ff8c20aa",
+   "tab_content_2": "30dfb13a1dc96379",
+   "tab_content_3": "e0eacf90f6ee9ff1",
+   "tab_content_4": "12f8996dcd5f3006",
+   "tab_label_1": "09d6e40848aa804d",
+   "tab_label_2": "6ba4a3ba115efb5a",
+   "tab_label_3": "74dfc89c34c0d9f3",
+   "tab_label_4": "be02419de0160eb7",
+   "usecase_heading": "773f24fbffc75e80",
+   "why_description": "b474233214ff17f3",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "9ac337554e080759"
+  },
+  "all": "57a1f3b07d163892",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "fab10407b1cf83d6",
+   "alt:share_image": "9cb93bcb21e73859",
+   "alt:tab_image_1": "227e3065c6ad46d9",
+   "alt:tab_image_2": "5c1c9a97f748d9d8",
+   "alt:tab_image_3": "2b4be3e8417475cd",
+   "alt:tab_image_4": "39d89f8117df4c90",
+   "breadcrumb": "1fdbd1faac3aa9c5",
+   "chip_adds": "75d08fe91cd7cb87",
+   "explore_cta": "0d34c15310dc41ca",
+   "faq": "098d58ea8dc0e38a",
+   "feature_1": "4f26e05da52ec46c",
+   "feature_2": "c2874ac2837bd2ea",
+   "feature_3": "3b434e6709aaa60c",
+   "feature_4": "d3c019ea0117b4f7",
+   "feature_5": "c2ac99848eee306f",
+   "feature_6": "8c12a88eaf5e967b",
+   "features_heading": "67dd29ccd822bf42",
+   "features_subheading": "eba207989181c5ce",
+   "h1": "244261a8daca4217",
+   "hero_description": "353e0919938109cd",
+   "hero_prompt": "4bcf07d9d94a1a22",
+   "howto_description": "3e890e042d9335f7",
+   "howto_step_1_des": "cab129f0dc63d5bb",
+   "howto_step_1_title": "fc0efeba1829d711",
+   "howto_step_2_des": "950872cdee65f346",
+   "howto_step_2_title": "e2be33eb5c9df7ad",
+   "howto_step_3_des": "0160189050c24dfe",
+   "howto_step_3_title": "f4000e45f1ed6a9a",
+   "howto_step_4_des": "4c332739a135d1ae",
+   "howto_step_4_title": "4b05f58b2c588eab",
+   "howto_step_5_des": "6feefe10b3c3b789",
+   "howto_step_5_title": "47e21227c893f179",
+   "howto_step_6_des": "18cbb8c7856700f9",
+   "howto_step_6_title": "c3d50c4a85e50ca2",
+   "howto_step_7_des": "712e6999998c7caf",
+   "howto_step_7_title": "9437eebf664436db",
+   "howto_title": "6a14b393daa53416",
+   "meta_description": "a808d6d1ed7d9fa2",
+   "meta_title": "682495d9b28b4bef",
+   "mockup": "1e7c1cb9aef64a61",
+   "product_name": "32cbfaf632619b1e",
+   "prompt_chip_1": "09d6e40848aa804d",
+   "prompt_chip_2": "6ba4a3ba115efb5a",
+   "prompt_chip_3": "74dfc89c34c0d9f3",
+   "prompt_chip_4": "be02419de0160eb7",
+   "slug": "ac9748f428dd2202",
+   "tab_content_1": "fbc465d0ff8c20aa",
+   "tab_content_2": "30dfb13a1dc96379",
+   "tab_content_3": "e0eacf90f6ee9ff1",
+   "tab_content_4": "12f8996dcd5f3006",
+   "tab_label_1": "09d6e40848aa804d",
+   "tab_label_2": "6ba4a3ba115efb5a",
+   "tab_label_3": "74dfc89c34c0d9f3",
+   "tab_label_4": "be02419de0160eb7",
+   "usecase_heading": "773f24fbffc75e80",
+   "why_description": "b474233214ff17f3",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "9ac337554e080759"
+  },
+  "all": "57a1f3b07d163892",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "approval": {
+  "fingerprint": "82c1c7023a8650f5ba0e45fc82397a185c127a626e5a313d93359732a245f957",
+  "date": "2026-10-23 08:14 UTC",
+  "rules_version": "c7afc109cb50"
+ },
+ "pending_links": []
+}

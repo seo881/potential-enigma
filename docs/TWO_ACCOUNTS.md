@@ -149,3 +149,9 @@ Who holds a page:
 - Reviewer independence holds across accounts: no reviewer reviews a page any part of which it wrote (writer ids carry the account letter: A-w-*, B-w-*).
 - A marks a page ready for B to ship by moving it to `reviewed` (0 blocking, 0 flags, QC 0) and pushing; B's ship loop picks it up after ship-check.
 - Holds (`hubctl hold`) before work, as before. A's week ends Saturday (heavy writing); B's runs to Tuesday.
+
+## 2026-10-23: Account A paused (Divit)
+Account A (~/emergent-hubs) is paused until further notice. Account B (this clone) writes, reviews and ships all 4 hubs: LP, Automation, Form, SurveyQuiz. Pages A reviewed with 0 flags are shipped by B. Pages A claimed or left mid-write stay claimed by A; B does not touch them and claims new pages from the top of the queue across all 4 hubs. Reviewer independence holds across accounts.
+
+## READ FIRST (both accounts): slug rule, 2026-10-23
+Before writing or claiming anything, read the PERMANENT SLUG RULE in CLAUDE.md (it loads automatically) and DECISIONS 2026-10-23. Account A's resume prompt adds this line: "Before writing, run the slug check on your claimed pages: `.venv/bin/python3 ops/hubctl.py slug-check <HUB>`; fix the slug or H1 per the rule before any prose."

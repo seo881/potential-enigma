@@ -20,10 +20,36 @@ DIAG = [re.compile(p.replace("{C}", _C), re.I) for p in R["diagnosis"]["patterns
 FACT = re.compile(R["fact_rx"], re.I)
 KEY_RX = re.compile(R["result_key_rx"])
 
+_QUIZ_URLS = None
+def _quiz_urls():
+    """SurveyQuiz URLs whose target keyword is a quiz: since the slug migration (DECISIONS 2026-10-23) the category word "quiz" is
+    no longer in the slug, so the keyword (plan keyword map, or the migration map's old slug) decides."""
+    global _QUIZ_URLS
+    if _QUIZ_URLS is None:
+        import os as _o, json as _j
+        root = _o.path.dirname(_o.path.dirname(_o.path.abspath(__file__))); out = set(); p = "/ai-survey-and-quiz-builder/"
+        try:
+            for e in _j.load(open(_o.path.join(root, "plan", "slug-migration.json")))["pages"]:
+                if e["hub"] == "SurveyQuiz" and ("quiz" in e["old_slug"].split("-") or "quiz" in (e.get("primary") or "").lower().split()): out.add(p + e["new_slug"])
+        except (OSError, ValueError, KeyError): pass
+        try:
+            import sys as _s; _s.path.insert(0, _o.path.join(root, "plan")); import kmap_load as _KL
+            for u, k in (_KL.load(root) or {}).items():
+                if u.startswith(p) and "quiz" in (k.get("primary") or "").lower().split(): out.add(u)
+        except Exception: pass
+        _QUIZ_URLS = out
+    return _QUIZ_URLS
+
 def is_quiz_page(spec_or_url):
-    """SurveyQuiz pages whose slug contains 'quiz' (Divit 2026-10-14 step 5)."""
+    """SurveyQuiz quiz pages (Divit 2026-10-14 step 5): the slug contains 'quiz' (the 3 exceptions, older URLs) or the page's target
+    keyword is a quiz (slug migration, DECISIONS 2026-10-23)."""
     url = spec_or_url if isinstance(spec_or_url, str) else (spec_or_url.get("url") or "")
-    return url.startswith("/ai-survey-and-quiz-builder/") and "quiz" in url.rsplit("/", 1)[-1]
+    if not url.startswith("/ai-survey-and-quiz-builder/"): return False
+    if "quiz" in url.rsplit("/", 1)[-1]: return True
+    if not isinstance(spec_or_url, str):
+        kw = (spec_or_url.get("keywords") or {}).get("primary") if isinstance(spec_or_url.get("keywords"), dict) else None
+        if kw and "quiz" in kw.lower().split(): return True
+    return url in _quiz_urls()
 
 def _s(x): return isinstance(x, str) and x.strip() != ""
 def _int(x): return isinstance(x, int) and not isinstance(x, bool)

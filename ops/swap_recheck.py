@@ -84,7 +84,7 @@ def available(url, need, items, slots=None, excluded=(), spec=None, written=True
 
 def fingerprint(url):
     import semrush_questions as SQ
-    s = url.rsplit("/", 1)[1]
+    s = P._store_key(url)
     fs = [P.pull_path(s), P.sec_pull_path(s), os.path.join(SQ.DER, s + ".json"), H.spath(url), os.path.join(ROOT, "plan", "keyword_map.json"),
           os.path.join(ROOT, "ops", "skeleton.py"), os.path.join(ROOT, "qc", "paa_gate.py")] + \
          [os.path.join(ROOT, "rules", f) for f in ("paa_patterns.json", "paa_blocklist.json", "paa_synonyms.json", "flag_decisions.json")]
@@ -102,7 +102,7 @@ def run(dry=False, quiet=False, force=False, by=None):
     cache = _load(CACHE, {}); res = {"parked": 0, "checked": 0, "unchanged": 0, "releasable": 0, "released": 0, "pages": {}}
     base_new = False
     for url, e in parked():
-        res["parked"] += 1; s = url.rsplit("/", 1)[1]; fp = fingerprint(url)
+        res["parked"] += 1; s = P._store_key(url); fp = fingerprint(url)
         if not force and cache.get(url) == fp: res["unchanged"] += 1; continue
         res["checked"] += 1
         need, items = gate_needs(url); need |= listed(e.get("note"))

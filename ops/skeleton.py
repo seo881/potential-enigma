@@ -246,7 +246,7 @@ def spec_reasons(g, c, view, live=None):
 def candidates(url, extra=()):
     """FAQ candidates: AlsoAsked pull and Semrush questions, passing first, then flagged (ruling 18 part 5: flags may fill slots; the
     shapes code drops are gate rejects). extra: unapproved synonym phrases, only for ruling 12's 'feasibility with' column."""
-    s = url.rsplit("/", 1)[1]; g = P.Gate(url, extra); out = []; live = {}
+    s = P._store_key(url); g = P.Gate(url, extra); out = []; live = {}
     if P.pulls(s):
         items, _ = quiet(P.run_pull, g); live = {P.norm(i["q"]): i["verdict"] for i in items}
         for i in items:

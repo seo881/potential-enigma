@@ -151,8 +151,9 @@ def og_stale(s):
     cur = re.sub(r"\W+", " ", re.sub(r"<[^>]+>", "", s["fields"]["h1"]).lower()).strip()
     if og == cur: return False
     rel = os.path.relpath(s["_path"], ROOT); olds = set()
-    for sha in subprocess.run(["git", "log", "--format=%H", "--", rel], cwd=ROOT, capture_output=True, text=True).stdout.split()[:40]:
-        try: olds.add(re.sub(r"\W+", " ", re.sub(r"<[^>]+>", "", json.loads(subprocess.run(["git", "show", f"{sha}:{rel}"], cwd=ROOT, capture_output=True, text=True).stdout)["fields"]["h1"]).lower()).strip())
+    import slugs as SL   # the slug migration renamed specs: history continues at the old path
+    for sha in subprocess.run(["git", "log", "--format=%H", "--", *SL.git_rels(rel)], cwd=ROOT, capture_output=True, text=True).stdout.split()[:40]:
+        try: olds.add(re.sub(r"\W+", " ", re.sub(r"<[^>]+>", "", json.loads(SL.git_show(sha, rel, ROOT))["fields"]["h1"]).lower()).strip())
         except Exception: pass
     return og in olds
 
@@ -571,7 +572,19 @@ def plan_create(cands, live_items, limit=None):
         (skip.append((url, live[sl])) if sl in live else go.append((url, it)))
     return (go[:limit] if limit is not None else go), skip
 
+def _freeze_check(args, op):
+    """Divit 2026-10-23 SLUG MIGRATION freeze: no creates, ships or item publishes while status/freeze.json is active.
+    Migration writes pass only with an explicit --migration flag; --dry-run and --before-only (no Webflow write) always pass."""
+    fp = os.path.join(ROOT, "status", "freeze.json")
+    if not os.path.exists(fp): return
+    f = json.load(open(fp))
+    if not f.get("active"): return
+    if "--dry-run" in args or "--before-only" in args: return
+    if "--migration" in args and op in f.get("migration_ops", []): return
+    sys.exit(f"refused: FREEZE active ({f.get('reason')}, since {f.get('since')}): {op} is blocked; status/freeze.json")
+
 def cmd_api_create(args):
+    _freeze_check(args, "api-create")
     """hubctl api-create HUB --sha SHA [--limit N] [--readback FILE] [--dry-run | --before-only | --live]
     The bulk-payload list (approved, no item ID, review hash current, approval fingerprint, slug check within the hour). --before-only
     reads the live collection and writes the before-value (the slugs to create, absent in that read) to childedits/<date>/; commit and
@@ -646,6 +659,9 @@ def _before_index():
         try: d = json.load(open(p))
         except ValueError: continue
         if isinstance(d, dict) and d.get("id") and isinstance(d.get("fieldData"), dict): idx.setdefault(d["id"], []).append((p, d))
+        elif isinstance(d, dict) and d.get("op") == "slug-migration" and isinstance(d.get("items"), list):   # one file, many items (Divit 2026-10-23)
+            for it in d["items"]:
+                if it.get("id") and isinstance(it.get("fieldData"), dict): idx.setdefault(it["id"], []).append((p, it))
     return idx
 def _same_image(sent, got, before):
     g = got or {}
@@ -669,6 +685,7 @@ def apply_readback_file_ids(read, item_ids, specs=None, save=True):
     return out
 
 def cmd_api_update(args):
+    _freeze_check(args, "api-update")
     """hubctl api-update PAYLOAD.json [--dry-run | --live]: run the item updates (and the item publishes of exactly those items) in a
     payload written by ship-update or relink-payload (ops/out/ship/*.json). Every item needs a committed and pushed before-value in
     childedits/ covering its fields; the rollback payload (the before-values) is written before the write; the collection is read
@@ -737,6 +754,7 @@ def cmd_api_update(args):
     print(f"updated {n} item(s); read back clean" + (f"; item-published {sum(len(v) for v in pub.values())}" if pub else "") + f"; rollback {_rel(rp)}")
 
 def cmd_api_publish(args):
+    _freeze_check(args, "api-publish")
     """hubctl api-publish HUB [--ids-from-state cms_draft] [--limit N] [--dry-run | --before-only | --live] [--verify-live] [--no-relink]
     Item publish (never a site publish) of exactly the verified cms_draft pages' item IDs, 100 per call. --before-only writes their
     before-state from a fresh read (isDraft, lastPublished, lastUpdated) to childedits/<date>/; --live refuses unless it is committed,
@@ -895,6 +913,23 @@ def api_golden(c):
             try: W.check(c["method"], path, body_of(c.get("body")), c.get("query")); refused = False
             except W.Refused: refused = True
             return refused == c["expect_refused"]
+        if t == "migration-slug":   # Divit 2026-10-23 TEMPORARY slug-migration exception (remove with it): stubbed freeze and map
+            iid = "0" * 23 + "1"; hub = W.CHILD[cid]
+            mapping = {"pages": [{"hub": hub, "item_id": iid, "old_slug": "golden-old-form", "new_slug": "golden-old", "decision": "change"}]}
+            freeze = {"active": c.get("freeze_active", True), "reason": "slug migration (golden)"}
+            argv = ["hubctl", "api-update", "x.json"] + (["--migration"] if c.get("migration", True) else []) + (["--rollback"] if c.get("rollback") else [])
+            slug = {"approved": "golden-old", "wrong": "golden-other", "before": "golden-old-form"}[c.get("slug", "approved")]
+            before = {"items": [{"id": iid, "collection": cid, "fieldData": {"slug": "golden-old-form"}}]}
+            item = c.get("item", "mapped")
+            why = W.migration_slug_block(cid, iid if item == "mapped" else "0" * 23 + "2", slug, argv=argv, freeze=freeze, mapping=mapping, before=before)
+            old_argv = W.ARGV; W.ARGV = argv
+            try:   # the same decision through check() (the real gate) with the real freeze/map replaced
+                real_fn = W.migration_slug_block
+                W.migration_slug_block = lambda *a, **k: real_fn(*a, freeze=freeze, mapping=mapping, before=before, **{x: y for x, y in k.items() if x not in ("freeze", "mapping", "before")})
+                try: W.check("PATCH", f"/collections/{cid}/items", {"items": [{"id": iid if item == "mapped" else "0" * 23 + "2", "fieldData": {"slug": slug}}]}); refused = False
+                except W.Refused: refused = True
+            finally: W.ARGV = old_argv; W.migration_slug_block = real_fn
+            return (why is None) == c["expect_allowed"] and refused == (not c["expect_allowed"])
         if t == "dry-no-network":
             W.TRANSPORT = no_net; W.TOKEN = lambda: (_ for _ in ()).throw(AssertionError("token read in a dry run"))
             W.create_items(cid, synth(250)); W.update_items(cid, body_of({"synth": {"op": "update", "n": 3}})["items"]); W.publish_items(cid, [f"{i:024x}" for i in range(3)])

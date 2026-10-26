@@ -1,0 +1,1 @@
+LIVE: 339 | AUDIT: last full run 2026-10-23 ~09:50 UTC, 327 pages, 0 real fail | SHIPPING: held (stopped gracefully) | APPROVED waiting: ~39 | WRITING: 0 | FLAGS for Divit: 3 (resume shipping; G1 a/b; G2) | B weekly %: 32+ | NEXT: see reports/2026-10-23/resume-note.md

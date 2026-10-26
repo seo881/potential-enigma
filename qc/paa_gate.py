@@ -167,9 +167,9 @@ def hub_of(url):
 
 class Gate:
     def __init__(self, url, extra_heads=()):
-        self.url, self.slug = url, url.rsplit("/", 1)[1]
+        self.url, self.slug = url, _store_key(url)
         self.hub, h = hub_of(url); self.dir, self.hub_path = h["repo_dir"], h["path"]
-        self.spec_path = os.path.join(ROOT, "specs", self.dir, self.slug + ".json")
+        self.spec_path = os.path.join(ROOT, "specs", self.dir, url.rsplit("/", 1)[1] + ".json")   # the spec follows the URL; self.slug is the store key
         self.spec = json.load(open(self.spec_path)) if os.path.exists(self.spec_path) else {}
         self.primary = (self.spec.get("keywords") or {}).get("primary") or self.slug.replace("-", " ")
         self.heads = [phrase_re(p) for p in [self.primary] + ([head_phrase(self.primary)] if head_phrase(self.primary) != self.primary else []) + R("paa_synonyms.json")["pages"].get(self.slug, []) + list(extra_heads)]
@@ -461,6 +461,12 @@ def workbook_ideas(url):
                 _WB_IDEAS.setdefault(u, []).append(str(r["Keyword"]))
     return _WB_IDEAS.get(url, [])
 
+def _store_key(url):
+    """slug-keyed store key of a page (ops/slugs.store_key: the pre-migration slug; DECISIONS 2026-10-23)."""
+    _ops = os.path.join(ROOT, "ops")
+    if _ops not in sys.path: sys.path.insert(0, _ops)
+    import slugs as _SL
+    return _SL.store_key(url)
 def pull_path(slug): return os.path.join(ROOT, "private", "alsoasked", slug + ".json")
 def sec_pull_path(slug): return os.path.join(ROOT, "private", "alsoasked", slug + "--sec.json")   # A6 (2026-10-12): one pull on the top secondary
 def has_pull(slug):
@@ -620,7 +626,8 @@ def run_spec(g):
     # A page with NO Semrush secondaries uses the workbook's keyword ideas for the page as its secondaries (min 4, on-topic);
     # DataForSEO ideas and padding never count. Fewer than 4 on-topic workbook ideas = PA12 fails (the page stays parked).
     if g.workbook_secs:
-        wb = [content(k) for k in g.workbook_secs]
+        _ok15 = set((g.bl.get("pa15_allowed") or {}).get(norm(g.primary), []))   # Divit 2026-10-23: a "pdf" secondary is download intent, not builder intent; it never counts for PA12 unless PDF is the page's subject
+        wb = [content(k) for k in g.workbook_secs if "pdf" in _ok15 or not re.search(r"(?<![a-z])pdf(?![a-z])", norm(k))]
         sec = sum(i["source"] == "secondary" or any(k and k <= content(i["q"]) for k in wb) for i in items)   # "secondary" labels: QC F2 checks them
         need = min(MIN_SECONDARIES, len(wb))
         if sec < need: page.append(("PA12", f"{sec} items carrying a workbook secondary, under {need}"))
@@ -641,7 +648,7 @@ def main(argv):
     cand = []
     if "--cand" in argv:
         cp = os.path.join(ROOT, "rules", "paa_synonym_candidates.json")
-        cand = [c["phrase"] for c in (json.load(open(cp))["pages"].get(argv[0].rsplit("/", 1)[1], []) if os.path.exists(cp) else []) if c.get("status") == "safe"]
+        cand = [c["phrase"] for c in (json.load(open(cp))["pages"].get(_store_key(argv[0]), []) if os.path.exists(cp) else []) if c.get("status") == "safe"]
     g = Gate(argv[0], cand); mode = ("spec" if "--spec" in argv else "pull") + ("+cand" if "--cand" in argv else "")
     items, page = run_spec(g) if mode.startswith("spec") else run_pull(g)
     c = {v: sum(i["verdict"] == v for i in items) for v in ("pass", "reject", "flag")}

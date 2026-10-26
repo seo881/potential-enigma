@@ -58,6 +58,8 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   swap-recheck   {url, sha, note, expect_need, inject?, expect_filled?}  step 3: positions to swap for the spec at sha (note lead clause +
                                                           gate rejects); inject dropped|synthetic: replacements counted from those slots
   qc-r18         {url, sha, match, expect, keep_review?}  ruling 18 in QC R15: the spec at sha as new writing raises R15 `match` exactly when expected
+  slug-rule      {hub, slug, primary, h1?, expect_ok}     PERMANENT SLUG RULE (Divit 2026-10-23): ops/slugs.problems (blocks create, ship-check)
+  slug-for       {hub, keyword, expect}                   the rule's examples: ops/slugs.slug_for
   webflow-api    {test, ...}                              Divit 2026-10-14, ops/webflow_api.py + hubctl api-*: test refuse {method, path, body?,
                                                           query?, expect_refused} ({child} = a child collection id), dry-no-network, batching
                                                           {op, n, expect: sizes}, slug-skip {cands, live, limit?, expect_create, expect_skip},
@@ -152,8 +154,10 @@ CASES = os.path.join(ROOT, "tests", "golden", "cases.jsonl")
 
 def spec_at(sha, url):
     import hubctl as H
-    rel = os.path.relpath(H.spath(url), ROOT)
-    return json.loads(subprocess.run(["git", "show", f"{sha}:{rel}"], cwd=ROOT, capture_output=True, text=True, check=True).stdout)
+    import slugs as SL   # a spec renamed by the slug migration is read at its old path for commits before the rename
+    rel = os.path.relpath(H.spath(url), ROOT); out = SL.git_show(sha, rel, ROOT)
+    if not out: raise FileNotFoundError(f"{rel} at {sha}")
+    return json.loads(out)
 
 def _truth_spec(c):
     """A synthetic page for the claim/span binding cases (no real page text)."""
@@ -191,6 +195,17 @@ def caught(c):
         import paa_gate as PG          # (sign up, check in) are function words, any other word counts
         g = PG.Gate(c["url"]); its = [{"q": q, "verdict": "pass", "reasons": [], "legacy": not c.get("new_writing")} for q in (c["a"], c["b"])]
         g.finish(its); return any(r[0] == "PA9" for r in its[1]["reasons"]) == c["expect_dup"]
+    if c["kind"] == "slug-rule":   # PERMANENT SLUG RULE (Divit 2026-10-23): ops/slugs.problems, blocking at create and ship-check
+        import slugs as SL
+        return (not SL.problems(c["hub"], c["slug"], c["primary"], c.get("h1"))) == c["expect_ok"]
+    if c["kind"] == "slug-for":    # PERMANENT SLUG RULE examples: ops/slugs.slug_for(hub, target keyword)
+        import slugs as SL
+        return SL.slug_for(c["hub"], c["keyword"]) == c["expect"]
+    if c["kind"] == "pa12-page":   # Divit 2026-10-23: PA12 skips "pdf" secondaries unless PDF is the page's subject
+        import paa_gate as PG
+        g = PG.Gate(c["url"]); _items, page = PG.run_spec(g)
+        has = any(r[0] == "PA12" and "secondar" in r[1] for r in page)
+        return has == c["expect_pa12"]
     if c["kind"] == "gate-text":   # a literal question (Divit's examples, our own copy): the gate's per-question rules reject it
         import paa_gate as PG
         rs = PG.Gate(c["url"]).judge({"q": c["q"], "source": "secondary", "n": 5}); lv = c.get("levels") or ["reject"]
@@ -312,7 +327,7 @@ def caught(c):
         import live_audit as LA
         ls = {c["href"]: {"internal": c.get("internal", False), "status": c["status_code"]}}
         if c.get("hub"):
-            raw = {"pages": [], "held": [], "hubs": [{"hub": c["url"], "http200": True, "carousel_hidden": True, "render": {"text_visible": ""}, "link_status": ls}]}
+            raw = {"pages": [], "held": [], "hubs": [{"hub": c["url"], "http200": True, "carousel_visible": True, "carousel_cards_resolve": True, "carousel_has_all_new_cards": True, "hub_card_cover_alt": True, "missing": [], "cover_alt_missing": [], "render": {"text_visible": ""}, "link_status": ls}]}
             m = {"pages": []}
         else:
             m = {"pages": [{"url": c["url"], "hub": "/" + c["url"].split("/")[1], "fields": {}, "faq_items": [], "images": {}, "meta_title": "x" * 40, "meta_description": "y" * 120}]}
@@ -322,7 +337,9 @@ def caught(c):
     if c["kind"] == "audit-sev":      # one failed verify check (page) or a shown carousel (hub) raises code at severity
         import live_audit as LA
         if c.get("hub"):
-            raw = {"pages": [], "held": [], "hubs": [{"hub": c["url"], "http200": True, "carousel_hidden": False, "carousel_has_all_new_cards": True, "hub_card_cover_alt": True, "missing": [], "cover_alt_missing": [], "render": {"text_visible": ""}, "link_status": {}}]}
+            # Divit 2026-10-23: a healthy hub has the carousel visible with every card resolving; the case turns its check off
+            raw = {"pages": [], "held": [], "hubs": [{"hub": c["url"], "http200": True, "carousel_visible": True, "carousel_cards_resolve": True, "carousel_bad": ["#"], "carousel_has_all_new_cards": True, "hub_card_cover_alt": True, "missing": [], "cover_alt_missing": [], "render": {"text_visible": ""}, "link_status": {}}]}
+            raw["hubs"][0][c.get("check", "carousel_visible")] = False
             m = {"pages": []}
         else:
             m = {"pages": [{"url": c["url"], "hub": "/" + c["url"].split("/")[1], "fields": {}, "faq_items": [], "images": {}, "meta_title": "x" * 40, "meta_description": "y" * 120}]}
@@ -551,7 +568,7 @@ def caught(c):
         if c.get("expect_name") and CF.ignored_by(c["err"]) != c["expect_name"]: return False
         if c.get("via") != "audit": return bool(CF.ignored_by(c["err"])) == c["expect_ignored"]
         import live_audit as LA
-        u = "/ai-form-builder/ach-form"
+        u = "/ai-form-builder/ach"
         m = {"pages": [{"url": u, "hub": "/ai-form-builder", "fields": {}, "faq_items": [], "images": {}, "meta_title": "x" * 40, "meta_description": "y" * 120}]}
         raw = {"pages": [{"url": u, "checks": {"http200": True}, "verify": {}, "render": {"http": 200, "console_errors": [c["err"]], "jsonld": [], "links": [], "images": [], "text_visible": "", "text_all": "", "h1s": ["h"]}}], "hubs": [], "held": []}
         flagged = any(f["code"] == "A9-console" for f in LA.evaluate(raw, m, "https://emergent.sh"))
@@ -599,8 +616,8 @@ def _quiz_js(q, answers=None, cid="x"):
     r = subprocess.run(["node", os.path.join(ROOT, "ops", "quiz", "logic.mjs"), p], capture_output=True, text=True, cwd=ROOT)
     return json.loads(r.stdout)
 
-QUIZ_HERO = "/ai-survey-and-quiz-builder/employee-engagement-survey"   # a real SurveyQuiz spec with chip_adds, used as a quiz page's body
-def _quiz_spec(fixture="knowledge", url="/ai-survey-and-quiz-builder/vocabulary-quiz"):
+QUIZ_HERO = "/ai-survey-and-quiz-builder/employee-engagement"   # a real SurveyQuiz spec with chip_adds, used as a quiz page's body
+def _quiz_spec(fixture="knowledge", url="/ai-survey-and-quiz-builder/vocabulary"):
     import hubctl as H
     s = copy.deepcopy(json.load(open(H.spath(QUIZ_HERO)))); s["url"] = url; s["status"] = "spec"
     s["quiz"] = json.load(open(os.path.join(ROOT, "ops", "quiz", "fixtures", fixture + ".json"))); return s

@@ -90,7 +90,7 @@ def manifest_entry(url):
 # ---------------------------------------------------------------- Layer A evaluation (deterministic)
 ZW = re.compile("[​‌‍⁠﻿­]"); CTRL = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
 ENT = re.compile(r"&(?:amp;)+(?:amp|lt|gt|quot|#\d+|nbsp);|&(?:amp|lt|gt|quot|nbsp|#\d{2,5});")
-DASH = re.compile("[–—]"); CURLY = re.compile("[‘’“”]"); REPEAT = re.compile(r"(?i)\b([a-z]{2,}) +\1\b(?!-\d)")   # spaces only: table cells (tabs) and lines are separate
+DASH = re.compile("[–—]"); CURLY = re.compile("[‘’“”]"); REPEAT = re.compile(r"(?i)(?<![-\w])([a-z]{2,}) +\1\b(?!-)")   # not part of a hyphenated word: "check-in in", "on on-time" (2026-10-23)   # spaces only: table cells (tabs) and lines are separate
 def us_map():
     return json.load(open(os.path.join(ROOT, "rules", "us_spelling.json")))["map"]
 
@@ -125,7 +125,27 @@ def field_of(m, snippet):
         if s in squash(it["q"] + it["a"]): return f"faq#{i}"
     return None
 
-TEMPLATE_P0 = {"A9-carousel-shown", "A5-learn"}   # sections Divit hid (carousel everywhere, Learn on Form/LP/AAB); shown = template regression
+# template sections in the wrong state show on every page of a hub. Divit 2026-10-23 (supersedes 2026-10-09 "hidden"): the carousel is
+# visible and the Learn list shows exactly 3 cards on every page; hidden or emptied = template regression
+TEMPLATE_P0 = {"A9-carousel-hidden", "A5-learn", "A5-learn-cards"}
+CARD_LINK_P0 = {"A9-carousel-link", "A5-learn-link"}   # a card linking to #, the hub root or a 404 is a broken internal link: P0 like A7-link
+
+import slugs as _SLUGS
+_SPEC_BY_URL = None
+def _slug_problems(url):
+    """slugs.spec_problems for the page's spec ([] when no spec is found)."""
+    global _SPEC_BY_URL
+    if _SPEC_BY_URL is None:
+        import glob as _g
+        _SPEC_BY_URL = {}
+        for f in _g.glob(os.path.join(ROOT, "specs", "*", "*.json")):
+            try: d = json.load(open(f))
+            except ValueError: continue
+            if d.get("url"): _SPEC_BY_URL[d["url"]] = d
+    s = _SPEC_BY_URL.get(url)
+    if not s: return []
+    hub = next((h for h, v in json.load(open(os.path.join(ROOT, "config", "collections.json")))["hubs"].items() if url.startswith(v["path"] + "/")), None)
+    return _SLUGS.spec_problems(hub, url, s) if hub else []
 
 CONSOLE_EXCEPTIONS = []   # filled by evaluate(); printed on every run (Divit 2026-10-14)
 def evaluate(raw, man, base):
@@ -136,9 +156,14 @@ def evaluate(raw, man, base):
         F.append({"url": url, "field": field, "severity": sev, "code": code, "msg": msg, "snippet": (snippet or "")[:160], "fix": fix, "layer": "A", **kw})
     for r in raw["pages"]:
         url = r["url"]; m = by[url]; c = r["checks"]; R = r.get("render") or {}
-        if not c.get("http200"): add(url, "A1-http", "P0", "page does not return HTTP 200", fix="proposed"); continue
+        # a transport error (timeout, connection reset, net::ERR_*) is not a page result: the checks script re-runs those pages once;
+        # a page still unreachable after that is reported as unchecked, never as a 404 (LESSONS 2026-10-13)
+        if r.get("transport_error"): add(url, "A1-transport", "P1", f"not checked: transport error after retries ({r['transport_error'][:120]})", fix="rerun"); continue
+        if not c.get("http200"): add(url, "A1-http", "P0", f"page does not return HTTP 200 ({(r.get('verify') or {}).get('http')})", fix="proposed"); continue
         if R.get("http") not in (200, None): add(url, "A1-http", "P0", f"browser load returned {R.get('http')}")
         if R.get("robots") and "noindex" in R["robots"].lower(): add(url, "A2-noindex", "P0", "robots meta has noindex", field="template")
+        _sp = _slug_problems(url)   # PERMANENT SLUG RULE (Divit 2026-10-23): reported once the slug migration is live
+        if _sp and not _SLUGS.migration_pending(): add(url, "A2-slug", "P1", "slug breaks the slug rule: " + "; ".join(_sp), field="slug", fix="proposed")
         if not c.get("canonical"): add(url, "A2-canonical", "P1", f"canonical is {R.get('canonical') or 'missing'}, not the page URL", field="template")
         if not staging and raw.get("sitemap_ok") and not r.get("in_sitemap"): add(url, "A2-sitemap", "P1", "not in /sitemap.xml", field="template")
         # title and meta: exact match with the spec; limits as QC L1/L2
@@ -199,10 +224,16 @@ def evaluate(raw, man, base):
         for k, code, msg, fld in (("hero_prefilled", "A9-prompt", "hero prompt not prefilled (T1)", "hero_prompt"), ("chip_switches", "A9-chips", "chip does not switch the prompt (T1)", "hero_prompt"),
                                   ("chip_stable", "A9-chip-fight", "chip prompt overwritten after the click (older chip script fights T1)", "template"),
                                   ("faq_rendered", "A9-faq", "FAQ not rendered with all 10 questions (T2)", "faq"), ("first_tab_active", "A9-tab", "first use-case tab not active on load (T10)", "template"),
-                                  ("carousel_cover_alt", "A9-cover-alt", "carousel cover images without alt (T5)", "template"), ("carousel_hidden", "A9-carousel-shown", "carousel shown while it should be hidden (Divit 2026-10-09)", "template"), ("comparison_table", "A9-table", "comparison table missing", "why_table"),
+                                  ("carousel_cover_alt", "A9-cover-alt", "carousel cover images without alt (T5)", "template"), ("carousel_visible", "A9-carousel-hidden", "carousel (section_build) not visible (Divit 2026-10-23: shown on every page)", "template"),
+                                  ("carousel_cards_resolve", "A9-carousel-link", "a carousel card has no per-item link (#, empty, hub root) or its link does not return 200", "template"),
+                                  ("learn_cards_3", "A5-learn-cards", "Learn section not showing exactly 3 cards (Divit 2026-10-23)", "learn"),
+                                  ("learn_cards_resolve", "A5-learn-link", "a Learn card does not link to its own /learn/<slug> article returning 200", "learn"), ("comparison_table", "A9-table", "comparison table missing", "why_table"),
                                   ("learn_not_empty", "A5-learn", 'Learn section shows "No items found"', "template")):
             # a template section in the wrong state shows on every page of the hub: P0 (Divit 2026-10-12, 10:05 UTC publish went unnoticed as P1)
-            if not c.get(k, True): add(url, code, "P0" if code in TEMPLATE_P0 else "P1", msg, field=fld, fix="proposed")
+            if not c.get(k, True):
+                det = {"carousel_cards_resolve": r["verify"].get("carousel_bad"), "learn_cards_resolve": r["verify"].get("learn_bad"),
+                       "learn_cards_3": [f"{r['verify'].get('learn_items')} card(s)"]}.get(k)
+                add(url, code, "P0" if code in TEMPLATE_P0 | CARD_LINK_P0 else "P1", msg + (": " + ", ".join(map(str, det[:4])) if det else ""), field=fld, fix="proposed")
         # only Divit's named exception (2026-10-14/15; ops/console_filter.py): by source (clarity.js, the Bing UET and GTM Clarity
         # loaders, Adwire molecule.js) or by element (the navbar <svg width="2o"> on /ai-contests). The old text list (console_ignore)
         # is gone (Divit 2026-10-15): any other error counts. Errors are {t, src, stack, kind, doc?, element?} from ops/console_capture.mjs
@@ -230,9 +261,15 @@ def evaluate(raw, man, base):
                 fix="unpublish" if hp.get("item_id") else "proposed", item_id=hp.get("item_id"), collection=hp.get("collection"))
     for h in raw.get("hubs") or []:
         if not h.get("http200"): add(h["hub"], "A1-http", "P0", "hub page does not return HTTP 200", field="hub", fix="proposed"); continue
-        if not h.get("carousel_hidden"): add(h["hub"], "A9-carousel-shown", "P0", "carousel shown on the hub while it should be hidden (Divit 2026-10-12)", field="hub", fix="proposed")
-        if not h.get("carousel_hidden") and not h.get("carousel_has_all_new_cards"): add(h["hub"], "A9-carousel", "P1", "carousel misses live pages: " + ", ".join(h["missing"]), field="hub", fix="proposed")
-        if not h.get("carousel_hidden") and not h.get("hub_card_cover_alt"): add(h["hub"], "A9-cover-alt", "P1", "hub card covers without alt: " + ", ".join(h["cover_alt_missing"]), field="hub", fix="proposed")
+        # Divit 2026-10-23: the hub carousel is visible and every card resolves (supersedes the 2026-10-12 "hidden on hubs")
+        if not h.get("carousel_visible"): add(h["hub"], "A9-carousel-hidden", "P0", "carousel (section_build) not visible on the hub (Divit 2026-10-23)", field="hub", fix="proposed")
+        else:
+            if not h.get("carousel_cards_resolve"): add(h["hub"], "A9-carousel-link", "P0", "hub carousel cards that do not resolve: " + ", ".join((h.get("carousel_bad") or [])[:6]), field="hub", fix="proposed")
+            # Divit 2026-10-23: the hub carousel is a CMS list capped at CONF carousel_limit cards (15), so it cannot list every live page
+            # (the 2026-10-09 launch rule, when a hub had under 15): it must show min(limit, live pages of the hub) cards
+            lim = CONF.get("carousel_limit", 15); n_live = len([p for p in man["pages"] if p["hub"] == h["hub"]])
+            if (h.get("carousel_cards") or 0) < min(lim, n_live): add(h["hub"], "A9-carousel", "P1", f"hub carousel shows {h.get('carousel_cards')} cards, expected {min(lim, n_live)} (limit {lim}, {n_live} live pages)", field="hub", fix="proposed")
+            if not h.get("hub_card_cover_alt"): add(h["hub"], "A9-cover-alt", "P1", "hub card covers without alt: " + ", ".join(h["cover_alt_missing"]), field="hub", fix="proposed")
         for code, msg, snip in hygiene((h.get("render") or {}).get("text_visible", "")):
             add(h["hub"], code, "P2" if code == "A5-empty-p" else "P1", f"{msg} in hub text", field="hub", snippet=snip, fix="proposed")
         for href, st in (h.get("link_status") or {}).items():
@@ -266,7 +303,7 @@ def img_field(m, src):
 def number(F, date):
     seen = {}
     for f in F:
-        k = f"{date.replace('-', '')}-{slug_of(f['url']) if f['url'].count('/') > 1 else 'hub' + f['url'].replace('/', '-')}-{f['code']}"
+        k = f"{date[:10].replace('-', '')}-{slug_of(f['url']) if f['url'].count('/') > 1 else 'hub' + f['url'].replace('/', '-')}-{f['code']}"
         seen[k] = seen.get(k, 0) + 1; f["id"] = f"{k}-{seen[k]}"
     return F
 
@@ -301,22 +338,37 @@ def sitemap_text(base):
 
 def cmd_run(args):
     date = today(); base = (args[args.index("--base") + 1] if "--base" in args else CANON).rstrip("/"); dry = "--dry" in args
+    # --run-name N: a partial run (post-ship URLs, a re-run) writes to audits/live/DATE/N/ and .cache/live/DATE/N/, never over the
+    # day's full run (LESSONS 2026-10-13)
+    if "--run-name" in args: date = f"{date}/{re.sub(r'[^A-Za-z0-9_-]', '', args[args.index('--run-name') + 1])}"
     urls = select(args)
     import launch
     hubs = sorted({H.CFG["hubs"][H.hub_of(u)]["path"] for u in urls}) if ("--all" in args or "--set" in args or "--since-publish" in args or not args) else []
     if "--all" in args: hubs = sorted(h["path"] for h in H.CFG["hubs"].values())
-    man = {"pages": [manifest_entry(u) for u in urls], "hubs": hubs, "held": held_pages(), "held_hosts": CONF["held_hosts"]}
     cdir = os.path.join(CACHE, date); os.makedirs(cdir, exist_ok=True)
-    jsave(os.path.join(cdir, "manifest.json"), man)
+    if "--from-raw" in args and os.path.exists(os.path.join(cdir, "manifest.json")):
+        # score exactly what was captured: the pages and hubs of the run's own manifest (2026-10-23: 9 pages shipped during a 48-minute
+        # run were listed as checked though no browser had loaded them); held pages are re-read now, so a stale ledger stop on a page
+        # published during the run is not reported as a held page live
+        man = jload(os.path.join(cdir, "manifest.json"), {}); urls = [p["url"] for p in man["pages"]]; hubs = man["hubs"]
+        man["held"] = held_pages()
+    else:
+        man = {"pages": [manifest_entry(u) for u in urls], "hubs": hubs, "held": held_pages(), "held_hosts": CONF["held_hosts"]}
+        jsave(os.path.join(cdir, "manifest.json"), man)
+    if "--manifest-only" in args:   # ops/schedule/live_audit_checks.sh shards this manifest, runs live_audit.mjs in parallel, then --from-raw
+        print(os.path.join(cdir, "manifest.json")); return
     rawp = os.path.join(cdir, "raw.json")
     cmd = ["node", os.path.join(ROOT, "ops", "live_audit.mjs"), os.path.join(cdir, "manifest.json"), rawp, "--base", base]
     if "--no-shots" not in args: cmd += ["--shots", cdir]
     if "--external" in args or datetime.date.today().weekday() == 0: cmd += ["--external"]   # external links weekly (Mondays)
     print(f"Layer A on {len(urls)} pages and {len(hubs)} hubs at {base}" + (" (DRY)" if dry else ""))
     if "--from-raw" in args:   # re-score the last capture (raw.json) with the current rules; sitemap membership is re-read (index aware)
+        if args[args.index("--from-raw") + 1:][:1] and not args[args.index("--from-raw") + 1].startswith("--"): rawp = args[args.index("--from-raw") + 1]
         raw = json.load(open(rawp)); sm = sitemap_text(base); raw["sitemap_ok"] = bool(sm)
         for r in raw["pages"]: r["in_sitemap"] = bool(sm) and (f"emergent.sh{r['url']}<" in sm or f"{base.split('//')[1]}{r['url']}<" in sm)
-        man = jload(os.path.join(cdir, "manifest.json"), man)
+        held_now = {h["url"] for h in man["held"]}; raw["held"] = [h for h in raw.get("held") or [] if h["url"] in held_now]
+        got = {r["url"] for r in raw["pages"]}   # a manifest page with no capture is never counted as passed
+        raw["pages"] += [{"url": u, "checks": {"http200": False}, "verify": {"http": 0}, "transport_error": "no capture in raw.json"} for u in urls if u not in got]
     else:
         rc = subprocess.run(cmd, cwd=ROOT).returncode
         if rc: sys.exit(f"live_audit.mjs failed ({rc})")
@@ -699,7 +751,27 @@ def cmd_report(args):
           "## Not done", "", "- Proposals and drift wait for Divit.", "", "## Open questions for Divit", "", "- Each proposal above has a recommended fix in its per-page file."]
     open(rp, "w").write("\n".join(L) + "\n"); print(rp); print(digest(d))
 
+def plain_digest(date):
+    """audits/live/DATE/digest.txt: the Claude-free digest (Divit 2026-10-23): counts by severity and code, then every failing URL by code."""
+    d = json.load(open(findings_path(date))); F = d["findings"]
+    from collections import Counter, defaultdict
+    sev = Counter(f["severity"] for f in F); codes = Counter((f["severity"], f["code"]) for f in F); urls = defaultdict(list)
+    for f in F: urls[(f["severity"], f["code"])].append(f["url"] + (f"  ({f['msg'][:140]})" if f["code"] in ("A1-http", "A7-link", "A8-load", "A9-console", "A9-carousel-link", "A5-learn-link", "A5-learn-cards", "A9-carousel") else ""))
+    bad_pages = {f["url"] for f in F if f["severity"] in ("P0", "P1")}
+    L = [f"Live audit {date} on {d['base']} (plain checks, no Claude){' DRY' if d.get('dry') else ''}",
+         f"pages {len(d['pages'])}, hubs {len(d['hubs'])}; pages/hubs with P0/P1: {len(bad_pages & set(d['pages'] + d['hubs']))}; passed (no P0/P1): {len(set(d['pages']) - bad_pages)} of {len(d['pages'])}",
+         f"findings P0 {sev.get('P0', 0)}, P1 {sev.get('P1', 0)}, P2 {sev.get('P2', 0)}", "", "by code:"]
+    L += [f"  {s} {c}: {n}" for (s, c), n in sorted(codes.items())]
+    L += ["", console_line(d), ""]
+    for (s, c) in sorted(codes):
+        if s == "P2": continue
+        L.append(f"{s} {c} ({len(urls[(s, c)])}):"); L += [f"  {u}" for u in sorted(urls[(s, c)])[:400]]; L.append("")
+    if d.get("transport_retried") is not None: L.append(f"transport errors re-checked: {d['transport_retried']}; still failing after the re-check: {d.get('transport_failed', 0)}")
+    open(os.path.join(AUD, date, "digest.txt"), "w").write("\n".join(L) + "\n")
+    return L
+
 def main(args):
+    if args[:1] == ["plain-digest"]: print("\n".join(plain_digest(args[1] if len(args) > 1 else today())[:4])); return
     sub = args[0] if args and not args[0].startswith("--") else "run"
     rest = args[1:] if sub != "run" or (args and args[0] == "run") else args
     {"run": cmd_run, "record": cmd_record, "drift": cmd_drift, "plan": lambda a: plan(a[0]), "report": cmd_report, "held-done": cmd_held_done}[sub](rest)

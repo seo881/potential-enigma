@@ -81,3 +81,7 @@ A metric that worsens two batches running is a P1 item for the next batch.
 - 2026-10-08 · Report rule wording tripped the safety check, 3 sessions lost · report sections are outcomes and sources only
 - 2026-10-08 · 172/183 pages parked by strict PA3 · PA3 widened with a full human read of what it admits
 - 2026-10-07 · 170 pages written on unvalidated PAA data · canary rule and source rule
+
+## 2026-10-23: child slugs repeated the hub's category word
+What went wrong: the keyword plan's slug column carried the category word (/ai-landing-page-builder/hvac-landing-page). Nothing checked slugs against the existing hubs' convention (the AI App Builder uses /church, not /church-app). When it was caught, "improved" slugs (product-category, it-operations, price-testing) were proposed instead of following the reference exactly.
+Rule that prevents it: one slug function (ops/slugs.py) builds every slug from the H1's target keyword. It is standalone (no prefixes or suffixes), singular, and has only the category word removed. It is used by the mapping, create, ship-check, verify-live and the audit, and a mismatch BLOCKS create and ship. When a reference convention exists, follow it exactly; never "improve" it. See DECISIONS 2026-10-23 PERMANENT SLUG RULE.
