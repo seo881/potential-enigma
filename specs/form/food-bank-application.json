@@ -136,6 +136,13 @@
    "via": null,
    "by": "A-w-184",
    "note": ""
+  },
+  {
+   "t": "2026-10-26 09:32 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-55",
+   "note": "[truth | HUB_RULES 8] faq: States as a universal fact that a PDF must be printed and handwritten; fillable PDFs are typed on screen, so the absolute is false, and no domain source backs it. Same class, every instance: why_intro 'A food bank application form PDF gets typed up after the line clears.' "
   }
  ],
  "pipeline": "r15",
@@ -864,5 +871,255 @@
  ],
  "writers": [
   "A-w-184"
- ]
+ ],
+ "review": {
+  "by": "A-r-55",
+  "date": "2026-10-26 09:32 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Food Bank Application Form That Knows Each Household'; hero 'Get a food bank application form that sizes each grocery box and keeps the household on file for the next visit.' covers the whole intake job, not one feature."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "AMBER angle carried: pantries building client intake ('What a Paper Intake Sheet Leaves to Volunteers'); how-to, FAQ on questions to include and what to leave out, and the PDF secondary in why_intro and FAQ 5. No eligibility rules, no income or benefit claims."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Pantry vocabulary throughout: 'packing table', 'box for 5 with 1 gluten-free swap', 'stop 14 on the Tuesday route', '702 adults, 418 children, and 148 seniors'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'The form asks how many adults, children, and seniors live in the home', 'Odalys Brenner walks into Larkspur Hollow Pantry'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One ', so' ending ('see the total, so a family of 6 never gets a box for 2'), under the cap; sentences short and varied."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain, respectful wording: 'Keep the wording plain and kind, and never ask a client to explain why.' No hype vocabulary."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "FAQ 5 'A food bank application form PDF has to be printed, filled in by hand' and why_intro 'A food bank application form PDF gets typed up after the line clears' state as a universal fact what is false for fillable PDFs; no domain source. Emergent claims map to prompt-build, database-owned, alerts, conversational, no-caps, code-export; tab 4 numbers add up (702+418+148=1,268; 96+104+99+113=412)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Reads as client intake for a pantry (household counts by age, return check-in, delivery routing, board totals); nothing shared with food-order, catering-order or donation pages; QC D2 clean."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic intake questions ('What should a food bank application form leave out?', 'Can a volunteer fill out a food bank application form for a client?'), each answered first; hub link in item 2; no brand or file-format asks."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet (2026-10-26) matches tab copy: 'Box for 5', '1 gluten-free swap', 'Household of 4', 'Same as his September 12 visit', 'Email to Ines Halloway', 'Tuesday route, stop 14', weeks 96/104/99/113 summing to 412, '1,268 people served'. One hero per panel."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "A food bank application form PDF has to be printed, filled in by hand, and typed up later by someone who can read the handwriting.",
+    "issue": "States as a universal fact that a PDF must be printed and handwritten; fillable PDFs are typed on screen, so the absolute is false, and no domain source backs it. Same class, every instance: why_intro 'A food bank application form PDF gets typed up after the line clears.' (generalises every PDF to a typed-up paper process).",
+    "fix": "Scope both sentences to a printed sheet, e.g. FAQ 5: 'A printed food bank application form PDF is filled in by hand and typed up later by someone who can read the handwriting.' why_intro: 'A printed food bank application form PDF waits to be typed up after the line clears.' Keep the secondary in one sentence each.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "Volunteer drivers are a separate group: sign them up through a driver application form and keep their details apart from client records.",
+    "issue": "The linked driver application page is commercial driver hiring (license checks, moving violations, record checks); sending pantry volunteer drivers there is the wrong sense. The volunteer form sibling fits.",
+    "fix": "Link volunteer drivers to the volunteer form page ('sign them up through a volunteer form') instead.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Keep it to 12 questions or fewer, short enough to finish on a phone while waiting in line.",
+    "issue": "Specific numeric recommendation with no source; also FAQ 8 'ask for a full update once a year or whenever the household changes'. Advice, so a note.",
+    "fix": "Optional: frame as the page's own guidance or tie to the phone-in-line test without a fixed count.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_1_des",
+    "quote": "Write down what your pantry actually uses at the table",
+    "issue": "'actually' is filler (QC A2); also 'household' appears 15 times outside the FAQ (QC Q9), which makes the body read samey.",
+    "fix": "Drop 'actually'; vary 'household' with 'family' or 'client' where the meaning holds.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "The linked driver application page is commercial driver hiring (license checks, moving violations, record checks); sending pantry volunteer drivers there is the wrong sense. The volunteer form sibling fits.",
+   "fix": "Link volunteer drivers to the volunteer form page ('sign them up through a volunteer form') instead.",
+   "by": "A-r-55",
+   "via": "review",
+   "date": "2026-10-26 09:32 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Specific numeric recommendation with no source; also FAQ 8 'ask for a full update once a year or whenever the household changes'. Advice, so a note.",
+   "fix": "Optional: frame as the page's own guidance or tie to the phone-in-line test without a fixed count.",
+   "by": "A-r-55",
+   "via": "review",
+   "date": "2026-10-26 09:32 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_1_des",
+   "issue": "'actually' is filler (QC A2); also 'household' appears 15 times outside the FAQ (QC Q9), which makes the body read samey.",
+   "fix": "Drop 'actually'; vary 'household' with 'family' or 'client' where the meaning holds.",
+   "by": "A-r-55",
+   "via": "review",
+   "date": "2026-10-26 09:32 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "5efa066a2d6ed9a5",
+   "alt:share_image": "e457d5d2e2b4c4d0",
+   "alt:tab_image_1": "40ca230c887ffbc8",
+   "alt:tab_image_2": "7a091e23307b13bd",
+   "alt:tab_image_3": "5b11efcd2c6de0bf",
+   "alt:tab_image_4": "a3419dca4c75d591",
+   "breadcrumb": "9dfc08b1f0c1f2d4",
+   "chip_adds": "9626f78ed036b60f",
+   "explore_cta": "e8d70bec7400985e",
+   "faq": "4de29642f3a5b16c",
+   "feature_1": "75064290d5af4a86",
+   "feature_2": "aff2b5d053b220c5",
+   "feature_3": "cf6dcb17840b4157",
+   "feature_4": "95f914b18e8f386d",
+   "feature_5": "053d85c37d2e75f1",
+   "feature_6": "a4f7d688ae8616ee",
+   "features_heading": "a9af94a612eb144c",
+   "features_subheading": "1760295e688ae29e",
+   "h1": "4f4b8056181fc959",
+   "hero_description": "1c2c846968142aad",
+   "hero_prompt": "93af2907c9f43a8d",
+   "howto_description": "f90e24864ca05a2a",
+   "howto_step_1_des": "f0ae5f7150c2a647",
+   "howto_step_1_title": "ccea422e5d4d6db9",
+   "howto_step_2_des": "455a59057914c1cf",
+   "howto_step_2_title": "df2f3527f9e95972",
+   "howto_step_3_des": "c007471ab6066c8c",
+   "howto_step_3_title": "598e54c6e7b38727",
+   "howto_step_4_des": "c8d7f0fdc39ad8f5",
+   "howto_step_4_title": "2527d4685ea4e772",
+   "howto_step_5_des": "f37cfc2ec3e35475",
+   "howto_step_5_title": "7ef6e2f66f7b6dc3",
+   "howto_step_6_des": "335cc1d39e202f56",
+   "howto_step_6_title": "d4ab49d810fc8096",
+   "howto_step_7_des": "39f97d415266cf1f",
+   "howto_step_7_title": "1751a141f16d4d5e",
+   "howto_title": "ab049b87f4abbb3c",
+   "meta_description": "58ace76d2a70e9ad",
+   "meta_title": "02deed053fe05e07",
+   "mockup": "4f17b022c677ace1",
+   "product_name": "5447731db48a6151",
+   "prompt_chip_1": "5bb41fc696006272",
+   "prompt_chip_2": "abf7d1c153c62577",
+   "prompt_chip_3": "963ab2bc94724548",
+   "prompt_chip_4": "fac58cb12d5b41a1",
+   "slug": "4e2ded2a006e6aa5",
+   "tab_content_1": "01edecb0fee81826",
+   "tab_content_2": "7d686cb27a2873ef",
+   "tab_content_3": "e0aa812b0c715f02",
+   "tab_content_4": "780122fda9b617d2",
+   "tab_label_1": "7000ea1ec3992d69",
+   "tab_label_2": "76c4644894b0d6e3",
+   "tab_label_3": "963ab2bc94724548",
+   "tab_label_4": "fac58cb12d5b41a1",
+   "usecase_heading": "2301f1386f47d89b",
+   "why_description": "3aac16ab0d211da2",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "8b724ad7de50e210"
+  },
+  "all": "c32649fc783bed32",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "5efa066a2d6ed9a5",
+   "alt:share_image": "e457d5d2e2b4c4d0",
+   "alt:tab_image_1": "40ca230c887ffbc8",
+   "alt:tab_image_2": "7a091e23307b13bd",
+   "alt:tab_image_3": "5b11efcd2c6de0bf",
+   "alt:tab_image_4": "a3419dca4c75d591",
+   "breadcrumb": "9dfc08b1f0c1f2d4",
+   "chip_adds": "9626f78ed036b60f",
+   "explore_cta": "e8d70bec7400985e",
+   "faq": "4de29642f3a5b16c",
+   "feature_1": "75064290d5af4a86",
+   "feature_2": "aff2b5d053b220c5",
+   "feature_3": "cf6dcb17840b4157",
+   "feature_4": "95f914b18e8f386d",
+   "feature_5": "053d85c37d2e75f1",
+   "feature_6": "a4f7d688ae8616ee",
+   "features_heading": "a9af94a612eb144c",
+   "features_subheading": "1760295e688ae29e",
+   "h1": "4f4b8056181fc959",
+   "hero_description": "1c2c846968142aad",
+   "hero_prompt": "93af2907c9f43a8d",
+   "howto_description": "f90e24864ca05a2a",
+   "howto_step_1_des": "f0ae5f7150c2a647",
+   "howto_step_1_title": "ccea422e5d4d6db9",
+   "howto_step_2_des": "455a59057914c1cf",
+   "howto_step_2_title": "df2f3527f9e95972",
+   "howto_step_3_des": "c007471ab6066c8c",
+   "howto_step_3_title": "598e54c6e7b38727",
+   "howto_step_4_des": "c8d7f0fdc39ad8f5",
+   "howto_step_4_title": "2527d4685ea4e772",
+   "howto_step_5_des": "f37cfc2ec3e35475",
+   "howto_step_5_title": "7ef6e2f66f7b6dc3",
+   "howto_step_6_des": "335cc1d39e202f56",
+   "howto_step_6_title": "d4ab49d810fc8096",
+   "howto_step_7_des": "39f97d415266cf1f",
+   "howto_step_7_title": "1751a141f16d4d5e",
+   "howto_title": "ab049b87f4abbb3c",
+   "meta_description": "58ace76d2a70e9ad",
+   "meta_title": "02deed053fe05e07",
+   "mockup": "4f17b022c677ace1",
+   "product_name": "5447731db48a6151",
+   "prompt_chip_1": "5bb41fc696006272",
+   "prompt_chip_2": "abf7d1c153c62577",
+   "prompt_chip_3": "963ab2bc94724548",
+   "prompt_chip_4": "fac58cb12d5b41a1",
+   "slug": "4e2ded2a006e6aa5",
+   "tab_content_1": "01edecb0fee81826",
+   "tab_content_2": "7d686cb27a2873ef",
+   "tab_content_3": "e0aa812b0c715f02",
+   "tab_content_4": "780122fda9b617d2",
+   "tab_label_1": "7000ea1ec3992d69",
+   "tab_label_2": "76c4644894b0d6e3",
+   "tab_label_3": "963ab2bc94724548",
+   "tab_label_4": "fac58cb12d5b41a1",
+   "usecase_heading": "2301f1386f47d89b",
+   "why_description": "3aac16ab0d211da2",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "8b724ad7de50e210"
+  },
+  "all": "c32649fc783bed32",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
