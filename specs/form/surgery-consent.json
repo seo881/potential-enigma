@@ -122,6 +122,13 @@
    "via": "slug-migration",
    "by": "slug_migrate",
    "note": "slug surgery-consent-form -> surgery-consent; 7 child link(s) rewritten (DECISIONS 2026-10-23); stamps current before were restamped"
+  },
+  {
+   "t": "2026-10-26 09:20 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-50",
+   "note": "rubric 10/10 by A-r-50; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -955,5 +962,265 @@
  ],
  "writers": [
   "A-w-169"
- ]
+ ],
+ "review": {
+  "by": "A-r-50",
+  "date": "2026-10-26 09:20 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Surgery Consent Form That Arrives Signed on Surgery Day'; hero 'Build a surgery consent form where staff fill in the case, patients e-sign at home, and each signed form saves to your database.' (under 130, plain, carries the primary); how-to description one sentence"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "AMBER angle (practice-side digital consent with e-signature) carried in all four tabs; template and PDF secondaries answered in FAQ 3 ('Copy the approved text out of your current template, such as a surgery consent form PDF'); definition up top for the AI Overview; witness and who-signs PAA themes in FAQ 8 and feature 5"
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Pre-op nurse unsigned list, staff-locked procedure/side/surgeon lines, witness, representative, interpreter ID: 'Staff enter the procedure, the side, the surgeon, and the date before the link goes out.'"
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every tab opens on a full sentence: 'Marrowfield Surgery Center emails the consent link to every patient booked for surgery.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; 11 'A, B, and C' lists noted (Q8 P2)"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain, specific prose; two forced sibling-link sentences noted (FAQ 7, FAQ 10)"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent sentences map to claims_used (alerts, e-signature-capture, conversational, api-connect, code-export, free-start, no-caps). 42 CFR 482.51 keeps 'For hospitals that provide surgical services' and 'except in emergencies'; 42 CFR 482.24 keeps 'as appropriate' and 'that the medical staff, or Federal or State law if applicable, specify'; AMA Opinion 2.1.1 limited to 'a written consent form belongs in the record'. No risk, legal-validity or HIPAA claims; FAQ 6 defers e-signed consent to 'your legal team'. 19 + 3 = 22; Thursday, Nov 12 2026 is a Thursday"
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Surgery-day logistics (unsigned list the afternoon before, interpreter on record, vet call-first choice) are specific to this page; QC D2 clean; no sibling primary in a heading"
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions answered in their first sentence, PAA gate 10 questions 0 rejects (1 PA7 flag on the code-locked Q1 definition goes to Divit's packet); hub link in FAQ 2; links to referral, waxing-consent, tattoo-consent; F9 sentences in FAQ 3, 6, 10"
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 '19 of 22 signed', '3 unsigned for Thursday', 'To Odette Rainsford' matches copy; tab 2 'Right knee arthroscopy', 'Dr. Anselm Hartigan', 'Thursday, Nov 12', '4 of 4 sections ticked'; tab 3 'Call first: 555-0142', 'Owner: Rosalind Ferraby'; tab 4 'Graciela Montoya, ID 2209', '9:42 AM', 'Entered by Nurse'. render.json brief hash current"
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "meta_description, feature_1, feature_3, feature_5, howto_step_2_des, howto_step_3_des, faq item 4",
+    "quote": "the procedure, the side, the surgeon, and the date / a printed name, the date, and the time / their full name, phone number, and relationship / the acknowledgments, the signer details, and the signature itself / saves the patient, the referring doctor, and the requested procedure",
+    "issue": "11 'A, B, and C' lists across the page (QC Q8) give the page a templated rhythm",
+    "fix": "Turn a few into pairs or one named detail",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 7, faq item 10",
+    "quote": "A waxing consent form can fit on one screen / which is the main change from a tattoo consent form or any form clients sign for themselves",
+    "issue": "Both sentences exist to carry an exact-match sibling link and read bolted on to a surgery answer",
+    "fix": "Link from a sentence the answer needs, or pick siblings closer to surgery (anesthesia consent, hipaa release)",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 8",
+    "quote": "Your hospital's policy decides who may witness and when a witness is needed.",
+    "issue": "Phrased as fact with no source; state law can also set witness rules",
+    "fix": "Ask your policy owner (and counsel, for state rules) who may witness and when a witness is needed.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "tab_content_3 / uc-3",
+    "quote": "The Monday surgery board shows Call first and her number, 555-0142, next to Clementine.",
+    "issue": "The board row for Clementine shows 'Call first' only; the number sits in the side card 'Call first: 555-0142', not on the board line",
+    "fix": "Draw the number in Clementine's board row, or say the board opens her card with the number",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "meta_description, feature_1, feature_3, feature_5, howto_step_2_des, howto_step_3_des, faq item 4",
+   "issue": "11 'A, B, and C' lists across the page (QC Q8) give the page a templated rhythm",
+   "fix": "Turn a few into pairs or one named detail",
+   "by": "A-r-50",
+   "via": "review",
+   "date": "2026-10-26 09:20 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 7, faq item 10",
+   "issue": "Both sentences exist to carry an exact-match sibling link and read bolted on to a surgery answer",
+   "fix": "Link from a sentence the answer needs, or pick siblings closer to surgery (anesthesia consent, hipaa release)",
+   "by": "A-r-50",
+   "via": "review",
+   "date": "2026-10-26 09:20 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 8",
+   "issue": "Phrased as fact with no source; state law can also set witness rules",
+   "fix": "Ask your policy owner (and counsel, for state rules) who may witness and when a witness is needed.",
+   "by": "A-r-50",
+   "via": "review",
+   "date": "2026-10-26 09:20 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "tab_content_3 / uc-3",
+   "issue": "The board row for Clementine shows 'Call first' only; the number sits in the side card 'Call first: 555-0142', not on the board line",
+   "fix": "Draw the number in Clementine's board row, or say the board opens her card with the number",
+   "by": "A-r-50",
+   "via": "review",
+   "date": "2026-10-26 09:20 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "27b39f9f358d991a",
+   "alt:share_image": "711017ce4ddcbba5",
+   "alt:tab_image_1": "434a0ab04db03e1b",
+   "alt:tab_image_2": "7ad6f110c0a6d9d8",
+   "alt:tab_image_3": "3d9061dbb7c915c1",
+   "alt:tab_image_4": "32244b466895e7b7",
+   "breadcrumb": "f55fd0841e9a5545",
+   "chip_adds": "612947702f079a0d",
+   "explore_cta": "7e9c13b680c31275",
+   "faq": "135d23c308cf142e",
+   "feature_1": "17566c8bc53188ae",
+   "feature_2": "0b9fa7b4e5ea3926",
+   "feature_3": "10a061872a3f7258",
+   "feature_4": "e7ee284f930ab618",
+   "feature_5": "e1fbeac2477d9825",
+   "feature_6": "f02dde0128828f5b",
+   "features_heading": "e257983cc2c4661f",
+   "features_subheading": "5cb2b2f68fd3f774",
+   "h1": "5b9cc462d4418438",
+   "hero_description": "d29cf1df0cd5f66e",
+   "hero_prompt": "01ba5f3013df99a0",
+   "howto_description": "78f48e3adf4cb38e",
+   "howto_step_1_des": "1560cca1f67a3269",
+   "howto_step_1_title": "1a3c58a2118c5907",
+   "howto_step_2_des": "9b8dc019a029f14a",
+   "howto_step_2_title": "5b28470aacd10c11",
+   "howto_step_3_des": "e2119a83ed098038",
+   "howto_step_3_title": "0d0381650ac8f1c3",
+   "howto_step_4_des": "3dfc932112df76a6",
+   "howto_step_4_title": "61d3e3aac8382bdc",
+   "howto_step_5_des": "11d48bb88db54fa9",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "84ef213b1198db74",
+   "howto_step_6_title": "6f8342ca76f8e27e",
+   "howto_step_7_des": "21b381053a62b5cf",
+   "howto_step_7_title": "b192798d7f23b48c",
+   "howto_title": "5e3092f3359f1277",
+   "meta_description": "add84b35ce9ae83c",
+   "meta_title": "9764f3af8dbbc067",
+   "mockup": "416668492ea6ad59",
+   "product_name": "3df99632a48bd918",
+   "prompt_chip_1": "e92b2c3aa5f11493",
+   "prompt_chip_2": "5aaec03f6347d56d",
+   "prompt_chip_3": "b5e142331b773390",
+   "prompt_chip_4": "baa738e1c25305ec",
+   "slug": "4d26da200099fc5d",
+   "tab_content_1": "b00644c983f03e45",
+   "tab_content_2": "fa48f32d3cbea5f1",
+   "tab_content_3": "8d4b2ced7484fe5f",
+   "tab_content_4": "727e862d42bf27bd",
+   "tab_label_1": "94811c86bb6dff33",
+   "tab_label_2": "403559cb5643dbeb",
+   "tab_label_3": "19d06061ac5649cd",
+   "tab_label_4": "b359be728c249074",
+   "usecase_heading": "732e19dc4e026eb8",
+   "why_description": "6565035497ab7d7a",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "5591a88014efdab1"
+  },
+  "all": "d2fad55b1754eb91",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "27b39f9f358d991a",
+   "alt:share_image": "711017ce4ddcbba5",
+   "alt:tab_image_1": "434a0ab04db03e1b",
+   "alt:tab_image_2": "7ad6f110c0a6d9d8",
+   "alt:tab_image_3": "3d9061dbb7c915c1",
+   "alt:tab_image_4": "32244b466895e7b7",
+   "breadcrumb": "f55fd0841e9a5545",
+   "chip_adds": "612947702f079a0d",
+   "explore_cta": "7e9c13b680c31275",
+   "faq": "135d23c308cf142e",
+   "feature_1": "17566c8bc53188ae",
+   "feature_2": "0b9fa7b4e5ea3926",
+   "feature_3": "10a061872a3f7258",
+   "feature_4": "e7ee284f930ab618",
+   "feature_5": "e1fbeac2477d9825",
+   "feature_6": "f02dde0128828f5b",
+   "features_heading": "e257983cc2c4661f",
+   "features_subheading": "5cb2b2f68fd3f774",
+   "h1": "5b9cc462d4418438",
+   "hero_description": "d29cf1df0cd5f66e",
+   "hero_prompt": "01ba5f3013df99a0",
+   "howto_description": "78f48e3adf4cb38e",
+   "howto_step_1_des": "1560cca1f67a3269",
+   "howto_step_1_title": "1a3c58a2118c5907",
+   "howto_step_2_des": "9b8dc019a029f14a",
+   "howto_step_2_title": "5b28470aacd10c11",
+   "howto_step_3_des": "e2119a83ed098038",
+   "howto_step_3_title": "0d0381650ac8f1c3",
+   "howto_step_4_des": "3dfc932112df76a6",
+   "howto_step_4_title": "61d3e3aac8382bdc",
+   "howto_step_5_des": "11d48bb88db54fa9",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "84ef213b1198db74",
+   "howto_step_6_title": "6f8342ca76f8e27e",
+   "howto_step_7_des": "21b381053a62b5cf",
+   "howto_step_7_title": "b192798d7f23b48c",
+   "howto_title": "5e3092f3359f1277",
+   "meta_description": "add84b35ce9ae83c",
+   "meta_title": "9764f3af8dbbc067",
+   "mockup": "416668492ea6ad59",
+   "product_name": "3df99632a48bd918",
+   "prompt_chip_1": "e92b2c3aa5f11493",
+   "prompt_chip_2": "5aaec03f6347d56d",
+   "prompt_chip_3": "b5e142331b773390",
+   "prompt_chip_4": "baa738e1c25305ec",
+   "slug": "4d26da200099fc5d",
+   "tab_content_1": "b00644c983f03e45",
+   "tab_content_2": "fa48f32d3cbea5f1",
+   "tab_content_3": "8d4b2ced7484fe5f",
+   "tab_content_4": "727e862d42bf27bd",
+   "tab_label_1": "94811c86bb6dff33",
+   "tab_label_2": "403559cb5643dbeb",
+   "tab_label_3": "19d06061ac5649cd",
+   "tab_label_4": "b359be728c249074",
+   "usecase_heading": "732e19dc4e026eb8",
+   "why_description": "6565035497ab7d7a",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "5591a88014efdab1"
+  },
+  "all": "d2fad55b1754eb91",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
