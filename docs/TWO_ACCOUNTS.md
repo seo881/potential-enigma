@@ -1,5 +1,7 @@
 # Two Claude Code accounts on one Mac (Divit, 2026-10-13)
 
+> **TEMPORARY HANDOVER (Divit, 2026-10-26): A is coordinator and the only shipper for all 4 hubs today; B makes no writes to this repo or the hub collections. Handback to B on 2026-10-27 after B's weekly reset, via reports/2026-10-26/handback-to-B.md.** No Webflow MCP or Designer work; CMS writes through the API script only.
+
 > **Ruling 22 (Divit, 2026-10-14 night): B is the coordinator and the only Webflow writer.** It overrides the A-side list in ruling 20 below. A makes no Webflow calls until a new ruling. The live audit and the publish watch run in `~/emergent-hubs-a` on `~/.claude`. Handover state: `docs/COORDINATOR_HANDOFF.md`.
 
 > **Ruling 20 (Divit, 2026-10-14): rebalance to B.** This overrides ruling 9 and the review split in section 1 below.
