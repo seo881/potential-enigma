@@ -129,6 +129,13 @@
    "via": null,
    "by": "A-w-181",
    "note": ""
+  },
+  {
+   "t": "2026-10-26 09:30 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-53",
+   "note": "[truth | HUB_RULES 8] faq: Source scope dropped (rework checklist 2). FAR 53.213 sits under 'Simplified acquisition procedures' and prescribes SF 18 'as specified in 13.307(b)', adding that 'SF 1449 ... or other agency forms/automated formats, may also be used'; FAR 13.004 is likewise a Part 13 (sim"
   }
  ],
  "pipeline": "r15",
@@ -1120,5 +1127,235 @@
  ],
  "writers": [
   "A-w-181"
- ]
+ ],
+ "review": {
+  "by": "A-r-53",
+  "date": "2026-10-26 09:30 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an RFQ Form That Works for Buyers and Suppliers'; hero 'Create an RFQ form that asks for quantity and unit on each line and lines up supplier quotes in one table.' covers the whole job; how-to description one sentence under 140."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Defines the RFQ form (FAQ 1), what a template includes (FAQ 3), a seven-step build, both buyer and supplier sides across four tabs (distributor, cans on delivered total, freight broker, line-split award), and RFQ vs proposals (FAQ 10)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'unit of measure on every line', '300 of EMT conduit', 'freight on its own line', 'lowest delivered total, or each line to its own lowest bid'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every body opens on a full sentence: 'Each line carries a part number, a quantity, and a unit picked from a list'; 'Pipewell Cider needs 120,000 16-ounce cans'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences short and concrete; QC Q5-Q8 clear; 'The comparison becomes a sort, not a spreadsheet you retype.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Reads like an operator: 'Brightmet Containers had the lowest can at $0.131, but $1,650 in freight brought it to $17,370 delivered.'"
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "FAQ 4 states the FAR SF 18 prescription and the 'quotation is not an offer' rule for all US federal buying; both sources are FAR simplified-acquisition provisions (53.213 heading 'Simplified acquisition procedures', 13.004 in Part 13) and 53.213 adds that SF 1449 or other agency forms may also be used. All tab arithmetic checks: 120,000 x $0.131 + $1,650 = $17,370; $17,370 - $17,040 = $330; $6,240 + $1,980 = $8,220."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own stories and headings ('The cheapest can loses by $330 once freight is in'); proposals routed to the rfp and proposal siblings by link; QC D2 clear."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first, hub link in item 2, 3 sibling links (proposal, sponsorship, rfp), paa --spec 10 pass 0 reject 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Each tab matches its copy: 'Line 4: 300 FT EMT conduit' / 'To: Emeka Ruthven'; '$17,040 delivered', '$330 under Brightmet Containers'; 'To: Ksenia Darrow' 8 pallets 6,400 lb; Clearbrook 1 to 4 $6,240, Hollis 5 and 6 $1,980, Marlpit 'Ranked second on all 6 lines'. render.json matches the current brief."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "For US federal buying, yes: the FAR prescribes SF 18 for obtaining price, cost, delivery, and related information from suppliers. Under the FAR, a quotation is not an offer and cannot be accepted by the Government to form a binding contract.",
+    "issue": "Source scope dropped (rework checklist 2). FAR 53.213 sits under 'Simplified acquisition procedures' and prescribes SF 18 'as specified in 13.307(b)', adding that 'SF 1449 ... or other agency forms/automated formats, may also be used'; FAR 13.004 is likewise a Part 13 (simplified acquisition) rule. The answer says 'For US federal buying, yes' and 'Under the FAR', presenting SF 18 as the single standard form for all federal buying and the not-an-offer rule as FAR-wide. The writer's own domain_sources claim says 'In US federal simplified acquisitions'. Both sentences in FAQ 4 carry this; no other field mentions the FAR or SF 18.",
+    "fix": "Scope both sentences to simplified acquisitions and keep the alternative: e.g. 'For US federal simplified acquisitions, the FAR prescribes SF 18, Request for Quotations, though SF 1449 or an agency's own form may also be used. In those buys, a quotation is not an offer, so the Government cannot accept it to form a binding contract.' Keep the private-buying sentence as advice. Stay within 75 words.",
+    "severity": "blocking"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "use a proposal form for work you want designed",
+    "issue": "FAQ 4 sends supplier-designed work to the proposal form; FAQ 10 sends the same case ('For work where the supplier designs the approach, collect answers on your rfp form') to the rfp form. Same idea twice, pointing at two different siblings.",
+    "fix": "Optional: give FAQ 4's private-buying sentence a different point, or leave the designed-work routing to FAQ 10 only.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Jotform | Google Forms | Typeform",
+    "issue": "QC K7 notes none of the three table competitors ranks in this page's top 10 (the top 10 is form-plugin and public-sector pages). Library table, unedited; accepted.",
+    "fix": "None required.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "FAQ 4 sends supplier-designed work to the proposal form; FAQ 10 sends the same case ('For work where the supplier designs the approach, collect answers on your rfp form') to the rfp form. Same idea twice, pointing at two different siblings.",
+   "fix": "Optional: give FAQ 4's private-buying sentence a different point, or leave the designed-work routing to FAQ 10 only.",
+   "by": "A-r-53",
+   "via": "review",
+   "date": "2026-10-26 09:30 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "QC K7 notes none of the three table competitors ranks in this page's top 10 (the top 10 is form-plugin and public-sector pages). Library table, unedited; accepted.",
+   "fix": "None required.",
+   "by": "A-r-53",
+   "via": "review",
+   "date": "2026-10-26 09:30 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "b790a80128364758",
+   "alt:share_image": "aeb192981d01b297",
+   "alt:tab_image_1": "0d5a2294e9ce3a3c",
+   "alt:tab_image_2": "4d0f5b4cc041f06a",
+   "alt:tab_image_3": "c2dbd09fbbe4deca",
+   "alt:tab_image_4": "11ce83f35e7d1ea7",
+   "breadcrumb": "b218c95baa9b24e1",
+   "chip_adds": "b605505316cd9732",
+   "explore_cta": "e3b5b3d1a86ae2ed",
+   "faq": "a5e0aa08248092b3",
+   "feature_1": "46297d22c8d25000",
+   "feature_2": "063c1278d76d1549",
+   "feature_3": "bc93801c7e27dc7d",
+   "feature_4": "be9589d7cf6c01d4",
+   "feature_5": "b3dbeeae34b96682",
+   "feature_6": "22a48d1e6f1fa3f6",
+   "features_heading": "615a5e8d5d4d9828",
+   "features_subheading": "7fb6e2492ff036ac",
+   "h1": "efdb226afeb1e399",
+   "hero_description": "0c27dad4b71e380d",
+   "hero_prompt": "b9ac7351b4947b55",
+   "howto_description": "b08e2950ccec3ae0",
+   "howto_step_1_des": "9cb5564d819c78eb",
+   "howto_step_1_title": "a112426f57218986",
+   "howto_step_2_des": "bc4ec1ffa50a182d",
+   "howto_step_2_title": "07d2a96ec7d72e00",
+   "howto_step_3_des": "8f5bd0976b1c700d",
+   "howto_step_3_title": "ae1e708bc402f285",
+   "howto_step_4_des": "7628c703b3bbb886",
+   "howto_step_4_title": "0b53ab445d3704fe",
+   "howto_step_5_des": "081f3a9a6301f6e4",
+   "howto_step_5_title": "a595006a67607817",
+   "howto_step_6_des": "a66d124a25c725f5",
+   "howto_step_6_title": "52d5b9b045c71d4a",
+   "howto_step_7_des": "ce2d92053f4b9ca1",
+   "howto_step_7_title": "f1ee2cc5fa36e40d",
+   "howto_title": "5c86c2b30580a03c",
+   "meta_description": "027de5c929bc8248",
+   "meta_title": "f35f67960fd8dd2b",
+   "mockup": "021ca24741079760",
+   "product_name": "72cf2cf60d8dd3c0",
+   "prompt_chip_1": "a0b958dc608643bc",
+   "prompt_chip_2": "946f4d5161d49e20",
+   "prompt_chip_3": "4c72dcbe48ef1918",
+   "prompt_chip_4": "71cb5e6851be9017",
+   "slug": "1421473c78d8e0ec",
+   "tab_content_1": "c551ff6507e9c1ae",
+   "tab_content_2": "9ba7137583cf205b",
+   "tab_content_3": "5ac02184037ba2b8",
+   "tab_content_4": "8fe1e7cc22850696",
+   "tab_label_1": "3723be1fd414b8a4",
+   "tab_label_2": "66d864699b0fec9e",
+   "tab_label_3": "e57bbf05376365e4",
+   "tab_label_4": "b732d30a3cf30777",
+   "usecase_heading": "1fa6925e91da829b",
+   "why_description": "e723326d7d597e9a",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "1f17e3a6f6d6654c"
+  },
+  "all": "ca4cfbeea0bd3310",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "b790a80128364758",
+   "alt:share_image": "aeb192981d01b297",
+   "alt:tab_image_1": "0d5a2294e9ce3a3c",
+   "alt:tab_image_2": "4d0f5b4cc041f06a",
+   "alt:tab_image_3": "c2dbd09fbbe4deca",
+   "alt:tab_image_4": "11ce83f35e7d1ea7",
+   "breadcrumb": "b218c95baa9b24e1",
+   "chip_adds": "b605505316cd9732",
+   "explore_cta": "e3b5b3d1a86ae2ed",
+   "faq": "a5e0aa08248092b3",
+   "feature_1": "46297d22c8d25000",
+   "feature_2": "063c1278d76d1549",
+   "feature_3": "bc93801c7e27dc7d",
+   "feature_4": "be9589d7cf6c01d4",
+   "feature_5": "b3dbeeae34b96682",
+   "feature_6": "22a48d1e6f1fa3f6",
+   "features_heading": "615a5e8d5d4d9828",
+   "features_subheading": "7fb6e2492ff036ac",
+   "h1": "efdb226afeb1e399",
+   "hero_description": "0c27dad4b71e380d",
+   "hero_prompt": "b9ac7351b4947b55",
+   "howto_description": "b08e2950ccec3ae0",
+   "howto_step_1_des": "9cb5564d819c78eb",
+   "howto_step_1_title": "a112426f57218986",
+   "howto_step_2_des": "bc4ec1ffa50a182d",
+   "howto_step_2_title": "07d2a96ec7d72e00",
+   "howto_step_3_des": "8f5bd0976b1c700d",
+   "howto_step_3_title": "ae1e708bc402f285",
+   "howto_step_4_des": "7628c703b3bbb886",
+   "howto_step_4_title": "0b53ab445d3704fe",
+   "howto_step_5_des": "081f3a9a6301f6e4",
+   "howto_step_5_title": "a595006a67607817",
+   "howto_step_6_des": "a66d124a25c725f5",
+   "howto_step_6_title": "52d5b9b045c71d4a",
+   "howto_step_7_des": "ce2d92053f4b9ca1",
+   "howto_step_7_title": "f1ee2cc5fa36e40d",
+   "howto_title": "5c86c2b30580a03c",
+   "meta_description": "027de5c929bc8248",
+   "meta_title": "f35f67960fd8dd2b",
+   "mockup": "021ca24741079760",
+   "product_name": "72cf2cf60d8dd3c0",
+   "prompt_chip_1": "a0b958dc608643bc",
+   "prompt_chip_2": "946f4d5161d49e20",
+   "prompt_chip_3": "4c72dcbe48ef1918",
+   "prompt_chip_4": "71cb5e6851be9017",
+   "slug": "1421473c78d8e0ec",
+   "tab_content_1": "c551ff6507e9c1ae",
+   "tab_content_2": "9ba7137583cf205b",
+   "tab_content_3": "5ac02184037ba2b8",
+   "tab_content_4": "8fe1e7cc22850696",
+   "tab_label_1": "3723be1fd414b8a4",
+   "tab_label_2": "66d864699b0fec9e",
+   "tab_label_3": "e57bbf05376365e4",
+   "tab_label_4": "b732d30a3cf30777",
+   "usecase_heading": "1fa6925e91da829b",
+   "why_description": "e723326d7d597e9a",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "1f17e3a6f6d6654c"
+  },
+  "all": "ca4cfbeea0bd3310",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

@@ -129,6 +129,13 @@
    "via": null,
    "by": "A-w-182",
    "note": ""
+  },
+  {
+   "t": "2026-10-26 09:30 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-53",
+   "note": "[truth | HUB_RULES 8] feature_1: The source does not say it. AHRQ's line is 'Mail or use your patient portal to send the form in advance, so patients can review it ahead of time', and its signature routes are the patient portal and U.S. mail. The sentence puts 'then e-sign on a phone' inside AHRQ's "
   }
  ],
  "pipeline": "r15",
@@ -912,5 +919,215 @@
  },
  "writers": [
   "A-w-182"
- ]
+ ],
+ "review": {
+  "by": "A-r-53",
+  "date": "2026-10-26 09:30 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Telemedicine Consent Form for Video and Phone Visits'; hero 'Get a telemedicine consent form that saves each patient's e-signature or spoken yes, plus a callback number for every visit.' (D1 ok)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is clinic consent PDFs; the page defines the form (FAQ 1), covers template adaptation (FAQ 3), when to complete it, verbal consent, decline, and a seven-step build."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Telehealth-specific: 'Verbal consent given at check-in', 'confirming the patient's exact location at the beginning of each telemedicine appointment', 'a callback number on file'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Full-sentence openers: 'Some patients never open a link.'; 'Desmond Achterberg has no portal login at Harlow Bend Family Practice.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Two ', so' endings (under QC limit); sentences short, one idea each."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'A consent PDF ends at the signature line.'; 'The text is their call, not the form's.' Reads human."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "All ten AHRQ/HHS quotes verified by web search against ahrq.gov and telehealth.hhs.gov wording (purpose of consent forms, send in advance, verbal at first visit, portal and U.S. mail, do not consent, chunk and teach back, read aloud to all patients, sample must be adapted, laws vary by state, exact location each appointment). Fails on feature_1, which attaches 'then e-sign on a phone' to AHRQ's advice. No HIPAA, state-rule or legal-validity claim; e-signature claim stays within e-signature-capture."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Built around telehealth moments (no portal, family on call, dropped video, phone-only), not the clinical-risk shape of the other consent pages; QC D2 clear."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first, hub link in item 2, sibling links referral, permanent makeup consent, waxing consent; paa --spec 10 pass 0 reject 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tabs match copy: 'Saved at 9:04 AM' / 'Recorded by Noor Abernethy' / 'Dr. Sabine Oyelaran Joins after consent'; 'Lucia Ferreira can join' 'Saved before the doctor starts'; 'Video froze at 3:22 PM' 'Therapist: Mireille Okonjo'; Harriet Kowalczyk 'Phone only' 'Thursday, 2:30 PM' 'Video slot blocked'. render.json matches the current brief."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "feature_1",
+    "quote": "AHRQ advises sending the form in advance so patients can review it ahead of time, then e-sign on a phone.",
+    "issue": "The source does not say it. AHRQ's line is 'Mail or use your patient portal to send the form in advance, so patients can review it ahead of time', and its signature routes are the patient portal and U.S. mail. The sentence puts 'then e-sign on a phone' inside AHRQ's advice, attributing a phone e-signature step to a federal agency. Searched every other AHRQ/HHS attribution on the page (feature_4, feature_6, howto_step_2, howto_step_3, FAQ 1, 3, 5, 6, 8, 9): all stay within their quoted spans.",
+    "fix": "Split the attribution from the product step: 'AHRQ advises sending the form in advance so patients can review it ahead of time. Here the patient opens it on a phone and e-signs.' Keep the body within 165-182 characters.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "the same way a permanent makeup consent form keeps the photo checkbox separate",
+    "issue": "Stated as general practice of permanent makeup consent forms without a source; it reads as an analogy rather than a fact claim, so it is a note.",
+    "fix": "Optional: 'the way you might separate photo permission on a permanent makeup consent form'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Stated as general practice of permanent makeup consent forms without a source; it reads as an analogy rather than a fact claim, so it is a note.",
+   "fix": "Optional: 'the way you might separate photo permission on a permanent makeup consent form'.",
+   "by": "A-r-53",
+   "via": "review",
+   "date": "2026-10-26 09:30 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "bff924f3e7f06086",
+   "alt:share_image": "48f31deec35ab119",
+   "alt:tab_image_1": "59ab53bd4e3cf017",
+   "alt:tab_image_2": "cd51ba56d4b623cb",
+   "alt:tab_image_3": "9461f3f8a136e3b1",
+   "alt:tab_image_4": "0fdee1b3a2ea9319",
+   "breadcrumb": "5422cb75b23f0d5d",
+   "chip_adds": "de938152878e367d",
+   "explore_cta": "2204ffd911b89a23",
+   "faq": "b14212039acbaeb2",
+   "feature_1": "064fdc9263b2c3e8",
+   "feature_2": "75dfd432a1674d59",
+   "feature_3": "eeaafcbe1b9c95c9",
+   "feature_4": "840123dd1153f370",
+   "feature_5": "723d52b7595decfa",
+   "feature_6": "dc637ec4cb5adb60",
+   "features_heading": "2fabb3e31b9ce0a0",
+   "features_subheading": "649065ccf9820f79",
+   "h1": "0880180c9dbf6920",
+   "hero_description": "2fd09aa5f69b4f0e",
+   "hero_prompt": "e24644e7fb9c0cd0",
+   "howto_description": "9024f1f155b14d50",
+   "howto_step_1_des": "2d31afe9c1b870b5",
+   "howto_step_1_title": "c078ae3a4b423939",
+   "howto_step_2_des": "30a775f9165b46a4",
+   "howto_step_2_title": "c96c561489496788",
+   "howto_step_3_des": "323074fe2120aada",
+   "howto_step_3_title": "f5b4912559f1aacf",
+   "howto_step_4_des": "ea6e515bdfd4c2eb",
+   "howto_step_4_title": "10fa2b07a0ac2830",
+   "howto_step_5_des": "c26609f85a77e8c0",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "0f8cf62e9eb6b72f",
+   "howto_step_6_title": "f8230587c0ef6eca",
+   "howto_step_7_des": "5b3442f2d51324ff",
+   "howto_step_7_title": "00eadb096e644765",
+   "howto_title": "968fe0b112e89cf7",
+   "meta_description": "4cc4e3f630cb1722",
+   "meta_title": "850e80e1bd768ac2",
+   "mockup": "7cc8ad9916e8abbd",
+   "product_name": "54cb1483709f86cf",
+   "prompt_chip_1": "25c61da3a0920441",
+   "prompt_chip_2": "c1d4fc6614505ab5",
+   "prompt_chip_3": "13ac6a9bdf6901b1",
+   "prompt_chip_4": "3134a531ffbd715a",
+   "slug": "952eedef90c8f529",
+   "tab_content_1": "9765ff86103f6f9e",
+   "tab_content_2": "7f87cf6194049f16",
+   "tab_content_3": "56ce10778e2fa0fa",
+   "tab_content_4": "2b19fab63b16b1cb",
+   "tab_label_1": "25c61da3a0920441",
+   "tab_label_2": "dd302f8d133ec4cf",
+   "tab_label_3": "07d8a8d4edb6ed30",
+   "tab_label_4": "552d73f319c86484",
+   "usecase_heading": "c26b8d66144efbcd",
+   "why_description": "7bf015326234ffda",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "833ffb2958efa526"
+  },
+  "all": "581e43491b95ab99",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "bff924f3e7f06086",
+   "alt:share_image": "48f31deec35ab119",
+   "alt:tab_image_1": "59ab53bd4e3cf017",
+   "alt:tab_image_2": "cd51ba56d4b623cb",
+   "alt:tab_image_3": "9461f3f8a136e3b1",
+   "alt:tab_image_4": "0fdee1b3a2ea9319",
+   "breadcrumb": "5422cb75b23f0d5d",
+   "chip_adds": "de938152878e367d",
+   "explore_cta": "2204ffd911b89a23",
+   "faq": "b14212039acbaeb2",
+   "feature_1": "064fdc9263b2c3e8",
+   "feature_2": "75dfd432a1674d59",
+   "feature_3": "eeaafcbe1b9c95c9",
+   "feature_4": "840123dd1153f370",
+   "feature_5": "723d52b7595decfa",
+   "feature_6": "dc637ec4cb5adb60",
+   "features_heading": "2fabb3e31b9ce0a0",
+   "features_subheading": "649065ccf9820f79",
+   "h1": "0880180c9dbf6920",
+   "hero_description": "2fd09aa5f69b4f0e",
+   "hero_prompt": "e24644e7fb9c0cd0",
+   "howto_description": "9024f1f155b14d50",
+   "howto_step_1_des": "2d31afe9c1b870b5",
+   "howto_step_1_title": "c078ae3a4b423939",
+   "howto_step_2_des": "30a775f9165b46a4",
+   "howto_step_2_title": "c96c561489496788",
+   "howto_step_3_des": "323074fe2120aada",
+   "howto_step_3_title": "f5b4912559f1aacf",
+   "howto_step_4_des": "ea6e515bdfd4c2eb",
+   "howto_step_4_title": "10fa2b07a0ac2830",
+   "howto_step_5_des": "c26609f85a77e8c0",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "0f8cf62e9eb6b72f",
+   "howto_step_6_title": "f8230587c0ef6eca",
+   "howto_step_7_des": "5b3442f2d51324ff",
+   "howto_step_7_title": "00eadb096e644765",
+   "howto_title": "968fe0b112e89cf7",
+   "meta_description": "4cc4e3f630cb1722",
+   "meta_title": "850e80e1bd768ac2",
+   "mockup": "7cc8ad9916e8abbd",
+   "product_name": "54cb1483709f86cf",
+   "prompt_chip_1": "25c61da3a0920441",
+   "prompt_chip_2": "c1d4fc6614505ab5",
+   "prompt_chip_3": "13ac6a9bdf6901b1",
+   "prompt_chip_4": "3134a531ffbd715a",
+   "slug": "952eedef90c8f529",
+   "tab_content_1": "9765ff86103f6f9e",
+   "tab_content_2": "7f87cf6194049f16",
+   "tab_content_3": "56ce10778e2fa0fa",
+   "tab_content_4": "2b19fab63b16b1cb",
+   "tab_label_1": "25c61da3a0920441",
+   "tab_label_2": "dd302f8d133ec4cf",
+   "tab_label_3": "07d8a8d4edb6ed30",
+   "tab_label_4": "552d73f319c86484",
+   "usecase_heading": "c26b8d66144efbcd",
+   "why_description": "7bf015326234ffda",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "833ffb2958efa526"
+  },
+  "all": "581e43491b95ab99",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
