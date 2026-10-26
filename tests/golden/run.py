@@ -144,6 +144,12 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   skel-written   {url, cap?}                               skeleton.plan_slots fills to 10 with paa (alsoasked), definition and written
                                                           slots only, and feasibility (draft=False) reaches 10
   standing-go    ... dated? {name: today|yesterday|<date>, age_h}, expect_log?   Divit 2026-10-16 item 4: the dated .cache/standing-go-<date>
+  A-dev-10 (DECISIONS 2026-10-26, SHIPPING STOPPED; hubctl.go_golden, stubs and a temp go dir only):
+  hold-ship      {url, entry, expect_match}               ship_check on the real spec with that status entry (its real hold): a hold problem
+  hold-create    {url, entry, layer: candidates|api, expect_match}  api-create --dry-run REFUSES the held page (never planned, no network)
+  go-approve     {by, go: none|today|yesterday|other-url, expect_refused}  state URL approved --by X: only --by divit with the URL in
+                                                          today's status/go/<date>.json (or the standing go); every other --by refuses
+  go-ship        {url, go: none|approval-day, expect_fail}  ship_check refuses an approved page whose approval has no go record
 status: "open" = a known miss the gate does not catch yet (a backlog fix); "guarded" = caught; a guarded case that stops being
 caught fails the suite. Open cases that start passing are reported so they can be marked guarded.
 """
@@ -519,6 +525,9 @@ def caught(c):
     if c["kind"] in ("flag-hold", "standing-go", "learn-create"):   # B-dev-17 (DECISIONS 2026-10-15 night)
         import hubctl as H
         return H.overnight_golden(c)
+    if c["kind"] in ("hold-ship", "hold-create", "go-approve", "go-ship"):   # A-dev-10 (DECISIONS 2026-10-26 SHIPPING STOPPED)
+        import hubctl as H
+        return H.go_golden(c)
     if c["kind"] == "ship-fileids":        # B-dev-17 (a): read-back file IDs into the spec; verify-live uses them
         import ship
         return ship.fileids_golden(c)

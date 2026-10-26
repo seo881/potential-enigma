@@ -240,7 +240,9 @@ def build_payloads(bf, L, sha):
         hub = H.hub_of(url); h = H.CFG["hubs"][hub]; s, fd = H._field_data(url, sha)
         e0 = H.load_st(H.hub_of(url))["pages"].get(url, {})   # ruling 6: only reviewed pages, never over the other account's hold
         if not s.get("item_id") and e0.get("state") not in ("reviewed", "approved"): print(f"  REFUSED {url}: state {e0.get('state')}, not reviewed"); continue
-        if e0.get("hold") and H.hold_account(e0["hold"]) != H.clone_account(): print(f"  REFUSED {url}: held by account {H.hold_account(e0['hold'])}"); continue
+        hr = H.hold_refusal(url)   # DECISIONS 2026-10-26: an active hold of ANY account blocks every create/update (no bypass)
+        if hr: print(f"  REFUSED {url}: " + hr[len("refused: "):]); continue
+        if not s.get("item_id") and e0.get("state") == "approved" and H.approval_unbacked(url, s): print(f"  REFUSED {url}: " + H.approval_unbacked(url, s)); continue
         verdict, why_r = H.ship_review_gate(url, s)   # ruling 1 (Divit 2026-10-13): only reviewed text ships; flags -> morning packet
         if verdict == "hold": continue
         if verdict != "ok": print(f"  REFUSED {url}: {why_r}"); continue
@@ -303,6 +305,8 @@ def cmd_update(args):
     if "--verify" in args: return update_verify(bf, name, items, day, H.learn_index(_arg(args, "--learn")) if "--learn" in args else None)
     for url in batch_urls(bf):
         s = spec(url); h = H.CFG["hubs"][H.hub_of(url)]; it = items.get(s.get("item_id"))
+        hr = H.hold_refusal(url)   # DECISIONS 2026-10-26: a held page is never updated (any account, no bypass)
+        if hr: print(f"  REFUSED {url}: " + hr[len("refused: "):]); continue
         fp = G.flags_pending(s)
         if fp: H.flag_hold(url, s, fp); continue   # DECISIONS 2026-10-15 night: a flagged page never blocks its batch
         if not it: sys.exit(f"{url}: item {s.get('item_id')} not in {rb}")
@@ -345,6 +349,7 @@ def relink_plan(items, live, specs=None, targets=None, day=None, write=True):
     for s in (G.all_specs() if specs is None else specs):
         url = s["url"]; ready = sorted({p["target"] for p in s.get("pending_links") or [] if p["target"] in live and (targets is None or p["target"] in targets)})
         if not ready or url not in live: continue
+        if H.hold_refusal(url): refused.append(H.hold_refusal(url)[len("refused: "):]); continue   # DECISIONS 2026-10-26: held -> not relinked
         it = items.get(s.get("item_id"))
         if not it: refused.append(f"{url}: item {s.get('item_id')} not in the read-back"); continue
         h = H.CFG["hubs"][H.hub_of(url)]; fd = it["fieldData"]; ex = H.export_fields(url, {k: v for k, v in s.items() if k != "_path"}, live)[0]; ch = {}
@@ -593,11 +598,10 @@ def cmd_api_create(args):
     if not sha: sys.exit("--sha SHA required (the pushed commit the image URLs are pinned to)")
     lim = int(_arg(args, "--limit")) if "--limit" in args else None
     cands = H._create_candidates(hub, sha); held = []
-    for url, _it in list(cands):
-        e = H.load_st(hub)["pages"].get(url, {})
-        if e.get("hold") and H.hold_account(e["hold"]) != H.clone_account(): held.append(url)
+    for url, _it in list(cands):   # DECISIONS 2026-10-26: any account's hold refuses the create (surgery-consent); no flag bypasses it
+        hr = H.hold_refusal(url)
+        if hr: held.append(url); print(f"  REFUSED {url}: " + hr[len("refused: "):])
     cands = [c for c in cands if c[0] not in held]
-    for u in held: print(f"  REFUSED {u}: held by the other account")
     cands = lift_cap(cands, "create")
     if not cands: sys.exit("no approved pages without an item ID")
     if mode == "dry":
@@ -702,6 +706,9 @@ def cmd_api_update(args):
     for c, ids in pub.items():
         extra = set(ids) - {it["id"] for it in upd.get(c, [])}
         if extra: sys.exit(f"refused: publish of {len(extra)} item(s) not updated by this payload")
+    by_item = {s.get("item_id"): s["url"] for s in G.all_specs() if s.get("item_id") and s.get("url")}
+    held = [H.hold_refusal(by_item[it["id"]]) for its in upd.values() for it in its if it["id"] in by_item and H.hold_refusal(by_item[it["id"]])]
+    if held: sys.exit("\n".join(held) + "\n(the whole payload is refused: DECISIONS 2026-10-26)")   # any account's hold, no bypass
     idx = _before_index(); bfile = {}; missing = []
     for c, its in upd.items():
         for it in its:
@@ -772,6 +779,9 @@ def cmd_api_publish(args):
     if mode == "live" and os.environ.get("EMG_HEADLESS") and G.ruling19_lifted() and "--verify-live" not in args:
         sys.exit("refused: a headless item publish needs --verify-live (DECISIONS 2026-10-15 night: verify-live on every page)")
     if not pairs: sys.exit("no verified cms_draft pages to publish")
+    for url, _ in pairs:   # DECISIONS 2026-10-26 (also in _publish_ids): a held page is never item-published; no flag bypasses it
+        hr = H.hold_refusal(url)
+        if hr: sys.exit(hr)
     for url, _ in pairs:
         s = spec(url); fp = G.fingerprint(s)
         if fp not in {(s.get("approval") or {}).get("fingerprint"), (s.get("cms_draft") or {}).get("fingerprint")}:

@@ -50,6 +50,10 @@
   state URL approved --by standing-go   the standing go: only while .cache/overnight-b/ruling19-lift-2026-10-15 or a dated
                                     .cache/standing-go-<YYYY-MM-DD> (today's, or under 18 hours old; Divit 2026-10-16 item 4) exists and
                                     ship-check passes; logged as "standing-go (Divit <date>)"; refused otherwise
+  go-record DATE --urls U,U --quote "..." --by A-c|B-c-<n>   DECISIONS 2026-10-26: record Divit's explicit go (status/go/DATE.json, tracked)
+  state URL approved --by divit     only if URL is in today's status/go/<date>.json (or a standing-go file exists); any other --by refuses.
+                                    ship-check / api-create refuse an approved page no go record backs, and every create/update/publish
+                                    path refuses a page with an active hold of ANY account (no bypass)
   verbatim URL...                   ruling 4/12: AlsoAsked-sourced FAQ items equal prov.original and the saved pull (exit 1 on a mismatch)
   feasibility URL | defer URL --by ID   ruling 10 B1: under 10 FAQ sources after the pull = no writer; the page waits in the queue
   review-diff URL | slim-review URL FILE --by A-s-<n>   ruling 1: fields changed since review; record a slim review of them
@@ -133,6 +137,81 @@ def hold_conflict(url, by=None):
     """The page is held by the other clone's account (docs/TWO_ACCOUNTS.md section 1)."""
     h = load_st(hub_of(url))["pages"].get(url, {}).get("hold")
     return h if (h and hold_account(h) != clone_account()) else None
+
+# ---------- DECISIONS 2026-10-26 (SHIPPING STOPPED): every create/update/publish path refuses an active hold of ANY account (no
+# flag bypasses it), and a page is `approved` only through a recorded go from Divit (status/go/<date>.json or the standing-go file).
+def active_hold(url):
+    """The page's hold (any account), or None."""
+    try: return load_st(hub_of(url))["pages"].get(url, {}).get("hold") or None
+    except SystemExit: return None
+def hold_refusal(url):
+    """'refused: ...' naming the hold's by/note when the page has an active hold (any account), else None."""
+    h = active_hold(url)
+    if not h: return None
+    return (f"refused: {url} has an active hold by {h.get('by')} (account {hold_account(h)}, since {h.get('t')}): "
+            f"{h.get('note') or 'no note'}; nothing is created, updated or published while it is held (hubctl unhold first; DECISIONS 2026-10-26)")
+
+GO_DIR = os.path.join(ROOT, "status", "go")   # tracked: status/go/<YYYY-MM-DD>.json, written only by `hubctl go-record` (and the standing go)
+GO_SINCE = "2026-10-26"                       # item publishes check the go for approvals from this day on (older drafts not retro-broken)
+GO_RECORDERS = r"^[AB]-c(oord)?(-\w+)?$"     # the coordinator who heard Divit's go: A-c, A-coord, B-c-<n>
+def go_path(day): return os.path.join(GO_DIR, f"{day}.json")
+def go_records(day=None):
+    """[(day, record)] from status/go/<day>.json (every day when day is None). record: {urls, quote, by, recorded_at, source}."""
+    import glob as _g
+    files = [go_path(day)] if day else sorted(_g.glob(os.path.join(GO_DIR, "20[0-9][0-9]-[0-9][0-9]-[0-9][0-9].json")))
+    out = []
+    for p in files:
+        try: d = json.load(open(p))
+        except (OSError, ValueError): continue
+        out += [(d.get("date") or os.path.basename(p)[:10], r) for r in d.get("records") or []]
+    return out
+def go_for(url, since=None):
+    """(day, record) of the newest go record listing url, dated on or after `since` (YYYY-MM-DD), or None."""
+    hits = [(d, r) for d, r in go_records() if url in (r.get("urls") or []) and (since is None or d >= since)]
+    return hits[-1] if hits else None
+def go_append(day, urls, quote, by, source):
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    os.makedirs(GO_DIR, exist_ok=True); p = go_path(day)
+    with G.lock("go-" + day):
+        d = json.load(open(p)) if os.path.exists(p) else {"date": day, "about": "Divit's recorded go (DECISIONS 2026-10-26): a page may become approved only if listed here (or by the standing-go file); hubctl go-record writes it", "records": []}
+        rec = {"urls": list(urls), "quote": quote, "by": by, "recorded_at": now(), "source": source}
+        d["records"].append(rec); json.dump(d, open(p, "w"), indent=1, ensure_ascii=False)
+    return p, rec
+def approval_unbacked(url, s=None):
+    """None when the page's approval is backed by a go record (status/go/, dated on or after the approval day), else the reason.
+    A hand-edited status or an approval inferred from `--by divit` without a go record never ships."""
+    s = s if s is not None else (json.load(open(spath(url))) if os.path.exists(spath(url)) else {})
+    ap = s.get("approval") or {}
+    if not ap: return "no approval record on the spec (revoked, or a hand-edited status): not backed by a recorded go from Divit"
+    day = (ap.get("date") or "")[:10]   # UTC; go files are named by the local day, so one day of slack (never an older go)
+    g = ap.get("go") or {}
+    if g.get("date") and any(url in (r.get("urls") or []) for _d, r in go_records(g["date"])): return None
+    try:
+        import datetime as _dt; since = (_dt.date.fromisoformat(day) - _dt.timedelta(days=1)).isoformat()
+    except ValueError: since = None
+    if since and go_for(url, since=since): return None
+    return (f"approval of {day or '?'} is not backed by a recorded go from Divit (status/go/<date>.json listing this URL, or the "
+            "standing-go file); record his words with hubctl go-record DATE --urls ... (dated on or after the approval day)")
+
+def cmd_go_record(args):
+    """hubctl go-record DATE --urls U,U --quote "Divit's words" --by A-c|B-c-<n>: record an explicit go from Divit for exactly these
+    URLs in status/go/DATE.json (tracked; commit and push it). DATE is today or earlier, never the future."""
+    import datetime as _dt
+    day = args[0] if args and not args[0].startswith("-") else None; by = need_by(args, "go-record")
+    try: d0 = _dt.date.fromisoformat(day or "")
+    except ValueError: sys.exit("refused: hubctl go-record YYYY-MM-DD --urls U,U --quote \"...\" --by A-c|B-c-<n>")
+    if d0 > _dt.date.today(): sys.exit(f"refused: {day} is in the future; a go is recorded on or after the day Divit gave it")
+    if not re.match(GO_RECORDERS, by): sys.exit(f"refused: --by {by}: a go is recorded only by the coordinator (A-c, A-coord or B-c-<n>)")
+    quote = args[args.index("--quote") + 1] if "--quote" in args and args.index("--quote") + 1 < len(args) else ""
+    if len(quote.strip()) < 3: sys.exit("refused: --quote must carry Divit's words, quoted")
+    urls = [u.strip() for u in (args[args.index("--urls") + 1] if "--urls" in args and args.index("--urls") + 1 < len(args) else "").split(",") if u.strip()]
+    if not urls: sys.exit("refused: --urls U,U (the exact URLs Divit approved)")
+    bad = [u for u in urls if not u.startswith("/") or not any(u.startswith(h["path"] + "/") for h in CFG["hubs"].values())]
+    if bad: sys.exit(f"refused: not a child-page URL of a hub: {', '.join(bad)}")
+    if len(set(urls)) != len(urls): sys.exit("refused: a URL is listed twice")
+    p, rec = go_append(day, urls, quote.strip(), by, "go-record")
+    print(f"go recorded in {os.path.relpath(p, ROOT)}: {len(urls)} URL(s) by {by}. Commit and push it (ops/sync.sh), then approve with "
+          "hubctl state URL approved --by divit (same day).")
 
 def set_state(url, state, note=None, via=None, by=None, **extra):
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
@@ -560,12 +639,26 @@ def cmd_state(args):
         if by0 != G.STANDING_GO: sys.exit(f"refused: the standing-go id is exactly '{G.STANDING_GO}'")
         if state != "approved": sys.exit("refused: --by standing-go only approves (hubctl state URL approved --by standing-go)")
         if not G.standing_go_active(): sys.exit("refused: --by standing-go is accepted only while .cache/overnight-b/ruling19-lift-2026-10-15 or .cache/standing-go-<today> (under 18 hours old) exists; approval is Divit's otherwise")
-        probs = ship_check(url)
+        probs = [p for p in ship_check(url) if not p.startswith("approval ")]   # the go record is written below, on approval
         if probs: sys.exit("refused: standing go needs every ship-time check to pass: " + "; ".join(probs))
+    go = None
+    if state == "approved":   # DECISIONS 2026-10-26: approved only through a recorded go from Divit, never inferred from --by
+        import datetime as _dt
+        today = _dt.date.today().isoformat()
+        if by0 not in (G.STANDING_GO, "divit"): sys.exit(f"refused: --by {by0}: a page is approved only with --by divit (URL in today's status/go/{today}.json, written by hubctl go-record) or --by standing-go (the dated standing-go file)")
+        hr = hold_refusal(url)
+        if hr: sys.exit(hr)
+        if by0 == "divit":
+            hit = [r for _d, r in go_records(today) if url in (r.get("urls") or [])]
+            if hit: go = (today, hit[-1])
+            elif not G.standing_go_active(): sys.exit(f"refused: {url} is not in a go record dated today (status/go/{today}.json) and no standing-go file exists: Divit's approval is never inferred. Record his words first: hubctl go-record {today} --urls {url} --quote \"...\" --by A-c")
     if state == "approved":
         cur = load_st(hub_of(url))["pages"].get(url, {}).get("state")
         if cur not in ("reviewed", "challenged"): sys.exit(f"only a reviewed page can be approved (this one is '{cur}')")
-        sp = spath(url); s = json.load(open(sp)); s["approval"] = {"fingerprint": G.fingerprint(s), "date": now(), "rules_version": G.rules_version()}
+        if go is None:   # the standing go: recorded as a go too, so ship-check and api-create find it (status/go/<today>.json)
+            gp, grec = go_append(today, [url], f"standing go: {G.standing_go_log()}", by0, "standing-go"); go = (today, grec)
+        sp = spath(url); s = json.load(open(sp)); s["approval"] = {"fingerprint": G.fingerprint(s), "date": now(), "rules_version": G.rules_version(),
+                                                                   "go": {"date": go[0], "by": go[1].get("by"), "source": go[1].get("source"), "recorded_at": go[1].get("recorded_at")}}
         if by0 == G.STANDING_GO: s["approval"]["by"] = G.standing_go_log()
         json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
         ex = os.path.join(os.path.dirname(sp), "_exemplar.md")
@@ -1010,8 +1103,9 @@ def overnight_golden(c):
                 sp["url"] = u; p = os.path.join(tmp, sl + ".json"); json.dump(sp, open(p, "w")); pages[u] = p
             st = {"pages": {u: {"state": "approved", "queue_rank": i, "cms_checked": now()} for i, u in enumerate(pages)}}
             changed = set(c.get("changed") or [])
-            saved = (globals()["load_st"], globals()["spath"], globals()["_field_data"], G.review_changed, G.fingerprint, globals()["slug_rule_problems"])
+            saved = (globals()["load_st"], globals()["spath"], globals()["_field_data"], G.review_changed, G.fingerprint, globals()["slug_rule_problems"], globals()["approval_unbacked"])
             globals()["slug_rule_problems"] = lambda u, s: []   # synthetic golden-* slugs: the slug rule has its own golden cases (slug-rule-*)
+            globals()["approval_unbacked"] = lambda u, s=None: None   # the recorded-go check has its own golden cases (go-*)
             globals()["load_st"] = lambda h: st; globals()["spath"] = lambda u: pages[u]
             globals()["_field_data"] = lambda u, sha, create=False: (json.load(open(pages[u])), {"name": u, "slug": u.rsplit("/", 1)[1]})
             G.review_changed = lambda s: ["h1"] if s["url"].rsplit("/", 1)[1] in changed else []
@@ -1020,7 +1114,7 @@ def overnight_golden(c):
             try:
                 with contextlib.redirect_stdout(out): got = [u.rsplit("/", 1)[1] for u, _ in _create_candidates(hub, "0" * 40, packet)]; stopped = False
             except SystemExit: got, stopped = None, True
-            finally: (globals()["load_st"], globals()["spath"], globals()["_field_data"], G.review_changed, G.fingerprint, globals()["slug_rule_problems"]) = saved
+            finally: (globals()["load_st"], globals()["spath"], globals()["_field_data"], G.review_changed, G.fingerprint, globals()["slug_rule_problems"], globals()["approval_unbacked"]) = saved
             if c.get("expect_stop"): return stopped
             pk = open(packet).read() if os.path.exists(packet) else ""
             held = [f"{base}/{sl}" for sl in c["expect_held"]]
@@ -1037,8 +1131,8 @@ def overnight_golden(c):
                 import datetime as _dt
                 nm = {"today": _dt.date.today().isoformat(), "yesterday": (_dt.date.today() - _dt.timedelta(days=1)).isoformat()}.get(c["dated"]["name"], c["dated"]["name"])
                 f_ = os.path.join(sgd, "standing-go-" + nm); open(f_, "w").close(); os.utime(f_, (time_now() - c["dated"].get("age_h", 0) * 3600,) * 2)
-            calls = []; saved = (G.LIFT_FILE, globals()["load_st"], globals()["spath"], globals()["set_state"], globals()["ship_check"], G.STANDING_GO_DIR)
-            G.LIFT_FILE = lift; G.STANDING_GO_DIR = sgd; globals()["spath"] = lambda x: sp
+            calls = []; saved = (G.LIFT_FILE, globals()["load_st"], globals()["spath"], globals()["set_state"], globals()["ship_check"], G.STANDING_GO_DIR, globals()["GO_DIR"])
+            G.LIFT_FILE = lift; G.STANDING_GO_DIR = sgd; globals()["spath"] = lambda x: sp; globals()["GO_DIR"] = os.path.join(tmp, "go")
             globals()["load_st"] = lambda h: {"pages": {u: {"state": c.get("cur", "reviewed")}}}
             globals()["set_state"] = lambda *a, **k: calls.append((a, k))
             globals()["ship_check"] = lambda x: list(c.get("ship_problems") or [])
@@ -1046,12 +1140,75 @@ def overnight_golden(c):
             try:
                 with contextlib.redirect_stdout(io.StringIO()): cmd_state([u, c.get("state", "approved"), "--by", c.get("by", "standing-go")]); refused = False
             except SystemExit: refused = True
-            finally: (G.LIFT_FILE, globals()["load_st"], globals()["spath"], globals()["set_state"], globals()["ship_check"], G.STANDING_GO_DIR) = saved
+            finally: (G.LIFT_FILE, globals()["load_st"], globals()["spath"], globals()["set_state"], globals()["ship_check"], G.STANDING_GO_DIR, globals()["GO_DIR"]) = saved
             if refused or c["expect_refused"]: return refused == c["expect_refused"] and not calls
             if c.get("expect_log") and c["expect_log"] not in want: return False
             return (len(calls) == 1 and calls[0][1].get("by") == want
                     and (json.load(open(sp)).get("approval") or {}).get("by") == want)
     finally: shutil.rmtree(tmp, ignore_errors=True)
+    return None
+
+def go_golden(c):
+    """A-dev-10 golden kinds (DECISIONS 2026-10-26, SHIPPING STOPPED): holds and the recorded go. Stubs and a temp go dir only: no
+    status, spec or go file of the repo is written, no network.
+      hold-ship    {url, entry, expect_match}       ship_check on the real spec with the case's status entry (the real hold) -> a hold problem
+      hold-create  {url, entry, layer: candidates|api, expect_match}  api-create --dry-run: the held page is REFUSED (never planned)
+      go-approve   {by, go: none|today|yesterday|other-url, expect_refused}  hubctl state URL approved --by ... on a reviewed page
+      go-ship      {url, go: none|approval-day, expect_fail}  ship_check of an approved page: 'approval ...' problem without a go record"""
+    import tempfile, io, contextlib, shutil, datetime as _dt
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    tmp = tempfile.mkdtemp(prefix="golden-go-", dir=os.path.join(ROOT, ".cache") if os.path.isdir(os.path.join(ROOT, ".cache")) else None)
+    g = globals(); saved = {k: g[k] for k in ("load_st", "spath", "set_state", "GO_DIR", "_create_candidates")}
+    sg = (G.LIFT_FILE, G.STANDING_GO_DIR)
+    try:
+        g["GO_DIR"] = os.path.join(tmp, "go"); G.LIFT_FILE = os.path.join(tmp, "no-lift"); G.STANDING_GO_DIR = os.path.join(tmp, "no-sg")
+        k = c["kind"]
+        if k == "hold-ship":
+            g["load_st"] = lambda h: {"pages": {c["url"]: c["entry"]}}
+            pr = ship_check(c["url"])
+            return any(p.startswith("hold: ") and c["expect_match"] in p for p in pr)
+        if k == "hold-create":
+            import ship as SH, webflow_api as W
+            g["load_st"] = lambda h: {"pages": {c["url"]: c["entry"]}}
+            if c.get("layer") == "api":   # the api-create layer itself (a candidate list that, wrongly, still holds the page)
+                g["_create_candidates"] = lambda hub, sha, packet=None: [(c["url"], {"isDraft": True, "fieldData": {"name": "g", "slug": c["url"].rsplit("/", 1)[1]}})]
+            rt, rk = W.TRANSPORT, W.TOKEN
+            W.TRANSPORT = lambda *a, **k: (_ for _ in ()).throw(AssertionError("network")); W.TOKEN = lambda: (_ for _ in ()).throw(AssertionError("token read"))
+            out = io.StringIO(); planned = None
+            try:
+                with contextlib.redirect_stdout(out): SH.cmd_api_create([hub_of(c["url"]), "--sha", "0" * 40, "--dry-run", "--readback", os.path.join(tmp, "none.json")])
+                planned = True
+            except SystemExit: planned = False
+            finally: W.TRANSPORT, W.TOKEN = rt, rk
+            o = out.getvalue()
+            return (planned is False and f"REFUSED {c['url']}: " in o and c["expect_match"] in o and "DRY RUN" not in o)
+        if k == "go-approve":
+            u = CFG["hubs"]["Form"]["path"] + "/golden-go"; sp = os.path.join(tmp, "spec.json")
+            json.dump(dict(json.load(open(os.path.join(ROOT, "tests", "golden", "fixtures", "overnight", "clean.json"))), url=u), open(sp, "w"))
+            open(os.path.join(tmp, "_exemplar.md"), "w").write("golden")
+            calls = []
+            g["spath"] = lambda x: sp; g["load_st"] = lambda h: {"pages": {u: {"state": "reviewed"}}}; g["set_state"] = lambda *a, **kw: calls.append((a, kw))
+            day = {"today": _dt.date.today(), "yesterday": _dt.date.today() - _dt.timedelta(days=1)}.get(c["go"], _dt.date.today()).isoformat()
+            if c["go"] != "none": go_append(day, [u if c["go"] != "other-url" else u + "-other"], "golden quote", "A-c", "go-record")
+            try:
+                with contextlib.redirect_stdout(io.StringIO()): cmd_state([u, "approved", "--by", c["by"]]); refused = False
+            except SystemExit: refused = True
+            if refused or c["expect_refused"]: return refused == c["expect_refused"] and not calls
+            ap = json.load(open(sp)).get("approval") or {}
+            return len(calls) == 1 and (ap.get("go") or {}).get("date") == day and approval_unbacked(u, json.load(open(sp))) is None
+        if k == "go-ship":
+            s = json.load(open(spath(c["url"])))
+            if not s.get("approval"): s["approval"] = {"fingerprint": "golden", "date": now()}
+            sp = os.path.join(tmp, "spec.json"); json.dump(s, open(sp, "w"), ensure_ascii=False); real_sp = g["spath"]
+            g["spath"] = lambda x: sp if x == c["url"] else real_sp(x)
+            g["load_st"] = lambda h: {"pages": {c["url"]: {"state": "approved"}}}
+            if c["go"] == "approval-day": go_append(s["approval"]["date"][:10], [c["url"]], "golden quote", "A-c", "go-record")
+            pr = ship_check(c["url"])
+            return any(p.startswith("approval ") for p in pr) == c["expect_fail"]
+    finally:
+        for k_, v in saved.items(): g[k_] = v
+        G.LIFT_FILE, G.STANDING_GO_DIR = sg
+        shutil.rmtree(tmp, ignore_errors=True)
     return None
 def time_now():
     import time as _t; return _t.time()
@@ -1135,6 +1292,11 @@ def ship_check(url):
     s = SH.spec(url); out = []
     st_ = load_st(hub_of(url))["pages"].get(url, {}).get("state")   # B-c-1 2026-10-21: a page a review sent to rework (or not yet reviewed) never passes
     if st_ not in ("reviewed", "approved", "cms_draft", "published"): out.append(f"state is '{st_}', not reviewed")
+    hr = hold_refusal(url)   # DECISIONS 2026-10-26: an active hold of any account blocks shipping (surgery-consent's hold was ignored)
+    if hr: out.append("hold: " + hr[len("refused: "):])
+    if st_ == "approved":    # DECISIONS 2026-10-26: approval only through a recorded go (a hand-edited status never ships)
+        au = approval_unbacked(url, s)
+        if au: out.append("approval " + au)
     r = subprocess.run([sys.executable, os.path.join(ROOT, "qc", "qc_hub.py"), spath(url)], capture_output=True, text=True)
     if r.returncode: out.append("QC TOTAL is not 0: " + (", ".join(sorted({m.group(2) for m in re.finditer(r"^  (P0|P1) (\S+)", r.stdout, re.M)})) or "run hubctl qc"))
     ok, n, page, _fl = SH.paa(url)
@@ -1165,7 +1327,11 @@ def _create_candidates(hub, sha, packet=None):
     sys.path.insert(0, os.path.join(ROOT, "ops")); sys.path.insert(0, os.path.join(ROOT, "plan")); import guards as G, serp as S, datetime as _dt
     for url, e in sorted(st["pages"].items(), key=lambda x: x[1].get("queue_rank", 0)):
         if e.get("state") != "approved": continue
+        hr = hold_refusal(url)   # DECISIONS 2026-10-26: any account's hold; never created, no flag bypasses it
+        if hr: print(f"  REFUSED {url}: " + hr[len("refused: "):]); continue
         s0 = json.load(open(spath(url)))
+        au = approval_unbacked(url, s0)   # DECISIONS 2026-10-26: approval backed by a recorded go, or no create
+        if au: print(f"  REFUSED {url}: {au}"); continue
         qb = quiz_ship_block(url, s0)
         if qb: print(f"  HOLD {url}: {qb}"); continue
         if s0.get("item_id"): continue
@@ -1529,6 +1695,11 @@ def _publish_ids(hub):
             sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
             fp = G.flags_pending(s)
             if fp: flag_hold(url, s, fp); continue   # DECISIONS 2026-10-15 night: a flagged page never blocks its batch
+            hr = hold_refusal(url)   # DECISIONS 2026-10-26: a held draft is never item-published (any account, no bypass)
+            if hr: print(f"  REFUSED {url}: " + hr[len("refused: "):], file=sys.stderr); continue
+            if not s.get("approval") or (s["approval"].get("date") or "")[:10] >= GO_SINCE:   # no approval (revoked) = never published
+                au = approval_unbacked(url, s)   # a draft created without a recorded go stays a draft (older drafts are not retro-broken)
+                if au: print(f"  REFUSED {url}: {au}", file=sys.stderr); continue
             if s.get("item_id"): pairs.append((url, s["item_id"]))
     # FAQ links must never point at a page that is not live (Webflow publish state, live registry) or publishing in this batch
     batch = {url for url, e in st["pages"].items() if e.get("state") == "cms_draft"}
@@ -1553,7 +1724,7 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "release": cmd_release, "paa": cmd_paa, "paa-resource": cmd_paa_resource, "paa-synonyms": cmd_paa_synonyms, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "transfer-hold": cmd_transfer_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "feasibility": cmd_feasibility, "daily-batch": cmd_daily_batch, "unlock": cmd_unlock, "verbatim": cmd_verbatim, "defer": cmd_defer, "batch-check": cmd_batch_check, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "learn-check": cmd_learn_check, "ship-check": cmd_ship_check, "slug-check": cmd_slug_check, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "transfer-hold": cmd_transfer_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "feasibility": cmd_feasibility, "daily-batch": cmd_daily_batch, "unlock": cmd_unlock, "verbatim": cmd_verbatim, "defer": cmd_defer, "batch-check": cmd_batch_check, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "learn-check": cmd_learn_check, "ship-check": cmd_ship_check, "go-record": cmd_go_record,"slug-check": cmd_slug_check, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
         "recheck": cmd_recheck, "live-sync": cmd_live_sync, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live,
         "swap-recheck": lambda a: __import__("swap_recheck").main(a),   # Divit 2026-10-14 step 3: r18-swap-short pages back to rework once replacements exist
