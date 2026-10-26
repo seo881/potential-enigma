@@ -136,6 +136,13 @@
    "via": null,
    "by": "A-w-177",
    "note": ""
+  },
+  {
+   "t": "2026-10-26 09:26 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-52",
+   "note": "rubric 10/10 by A-r-52; 3 notes"
   }
  ],
  "pipeline": "r15",
@@ -858,5 +865,245 @@
  ],
  "writers": [
   "A-w-177"
- ]
+ ],
+ "review": {
+  "by": "A-r-52",
+  "date": "2026-10-26 09:26 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Dental Intake Form the Dentist Reads Before the Visit', hero 'Build a dental intake form that sends each new patient's history and visit reason to a database you own before the appointment.' covers the whole job; no insurance, survey or consent sibling topic."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is practice new-patient packets and form vendors; the page shows the sections (visit reason, x-ray dates, medical history, medications, policy signature) and FAQ 3 handles 'dental intake form template' by turning a paper packet into an online form."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Dental vocabulary throughout: 'last had a cleaning and last had x-rays, each as a month and a year', 'records to request', 'hygienist's card', 'financial policy and the cancellation policy'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs ('Open the form', 'Ask when', 'Show the conditions', 'Place the financial policy', 'Pick how many days', 'On paid plans, export'); tabs open on the patient's action."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One ', so' ending (tab_content_4) noted; sentences short and varied; no run-on lists."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete details ('the 11:40 same-day slot', 'nerves at 4 out of 5', 'Book a fake patient'); one vague 'built here' noted."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent sentences map to claims_used (prompt-build, database-owned, e-signature-capture, alerts, code-export, free-start, no-caps), all in capabilities.json; no HIPAA, legal or clinical statements of fact; the dentist decides the medical list ('have the dentist read the full list before it goes live'). Image numbers agree with copy (3 records, Mar 2025, 2 days, 4 of 5, 2:15, 9:00)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No insurance section (insurance-verification), no satisfaction questions (dental-patient-survey); FAQ 4 separates it from pt intake by the dental sections and links the sibling rather than restating it."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic builder questions, answer-first; hub link in item 2; secondaries 'dental intake forms' and 'dental intake form template' used; sibling links pt intake, massage intake, therapy intake; paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 card to Dr. Ilona Ferrante: Lower left, 2 days, Hurts with cold drinks, 11:40; Tab 2 list of 3 sorted Aug 2024, Mar 2025, Jan 2026 oldest first; Tab 3 Nerves 4 out of 5, raised hand, headphones, 2:15; Tab 4 Language: Spanish, Book assistant, 9:00. Paths use images/form/dental-intake/."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "features_subheading",
+    "quote": "A dental intake form built here asks for the dates and signatures the front desk and the dentist use before the first exam.",
+    "issue": "'built here' is a vague place-holder where the product should be named; reads as filler.",
+    "fix": "Name the builder or drop the clause, e.g. 'This dental intake form asks for the dates and signatures...'.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_7_des",
+    "quote": "Book a fake patient and fill out the intake on a phone, the way a patient would from the confirmation email.",
+    "issue": "Same test restated in FAQ 2: 'Fill it out yourself on a phone as a fake patient, then send the link in each booking confirmation.'",
+    "fix": "Give FAQ 2 a different closing step, or keep the fake-patient test in the how-to only.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "tab_content_4",
+    "quote": "His choices fill the same fields as the English form, so the record shows English labels.",
+    "issue": "Tacked-on ', so' ending (QC Q5 P2).",
+    "fix": "Split: 'His choices fill the same fields as the English form. Staff see English labels.'",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "features_subheading",
+   "issue": "'built here' is a vague place-holder where the product should be named; reads as filler.",
+   "fix": "Name the builder or drop the clause, e.g. 'This dental intake form asks for the dates and signatures...'.",
+   "by": "A-r-52",
+   "via": "review",
+   "date": "2026-10-26 09:26 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_7_des",
+   "issue": "Same test restated in FAQ 2: 'Fill it out yourself on a phone as a fake patient, then send the link in each booking confirmation.'",
+   "fix": "Give FAQ 2 a different closing step, or keep the fake-patient test in the how-to only.",
+   "by": "A-r-52",
+   "via": "review",
+   "date": "2026-10-26 09:26 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "tab_content_4",
+   "issue": "Tacked-on ', so' ending (QC Q5 P2).",
+   "fix": "Split: 'His choices fill the same fields as the English form. Staff see English labels.'",
+   "by": "A-r-52",
+   "via": "review",
+   "date": "2026-10-26 09:26 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "03391e8aede599ef",
+   "alt:share_image": "3a6ef537840ddb44",
+   "alt:tab_image_1": "dbf7300edb9de7a3",
+   "alt:tab_image_2": "287e044a71186e6d",
+   "alt:tab_image_3": "ae8c136d5d36fd95",
+   "alt:tab_image_4": "5862c6b4f28ad72b",
+   "breadcrumb": "fced7b693db54e07",
+   "chip_adds": "8e82e3fadb33f8f7",
+   "explore_cta": "0771e5cd06634b1b",
+   "faq": "c323329f75142ee2",
+   "feature_1": "271ca3f8ea8fccc8",
+   "feature_2": "bc3481918f321cda",
+   "feature_3": "6039a8773497e809",
+   "feature_4": "328609d9c347f82a",
+   "feature_5": "1151d25c6dd65c66",
+   "feature_6": "44e3eb7ca26ae70d",
+   "features_heading": "08a6c112a9da0808",
+   "features_subheading": "e4bf9a652e4bcaaa",
+   "h1": "de36cfa79ae43049",
+   "hero_description": "0c5f644e81b52543",
+   "hero_prompt": "eb1b092fb947a91b",
+   "howto_description": "ae222453c6cf115f",
+   "howto_step_1_des": "ec889c64a9604b4d",
+   "howto_step_1_title": "34f71a8813fbba15",
+   "howto_step_2_des": "6d0ad1ece57c41ce",
+   "howto_step_2_title": "8b3f8d0f411d1e82",
+   "howto_step_3_des": "9f0a84acbb24beec",
+   "howto_step_3_title": "3fe4265168f58560",
+   "howto_step_4_des": "5583610a000f15ec",
+   "howto_step_4_title": "06f18ccc313fa5a5",
+   "howto_step_5_des": "420d659fa097c1d2",
+   "howto_step_5_title": "31a74fb886591812",
+   "howto_step_6_des": "1d0ea6dfe60c34bd",
+   "howto_step_6_title": "ae6edd14bb510d28",
+   "howto_step_7_des": "37921e313decde70",
+   "howto_step_7_title": "66204d3821feb5c4",
+   "howto_title": "ab668d394733194f",
+   "meta_description": "ac83a9e4b65314a0",
+   "meta_title": "622cb988342bbf9a",
+   "mockup": "d6be9290cbd253bf",
+   "product_name": "eda47de04331dd0e",
+   "prompt_chip_1": "1ce45b4128576f37",
+   "prompt_chip_2": "d5e97e2d58728b2f",
+   "prompt_chip_3": "b63c0d66acf2ec28",
+   "prompt_chip_4": "285ae04e2f38a27f",
+   "slug": "b5d0200b919e3f0b",
+   "tab_content_1": "5c0ca89209720ef7",
+   "tab_content_2": "aba6fdfcf636bb96",
+   "tab_content_3": "a36bfd02c7c001e8",
+   "tab_content_4": "6fc90ae195df6747",
+   "tab_label_1": "0eaa3a349cb99704",
+   "tab_label_2": "d50b527af3641f7f",
+   "tab_label_3": "0614396ff34926bf",
+   "tab_label_4": "0030f2d489ae912b",
+   "usecase_heading": "f2bc9edeef76b6b8",
+   "why_description": "f437497d60df4c4b",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "b69bacfbe229fb62"
+  },
+  "all": "8fa6c90989560135",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "03391e8aede599ef",
+   "alt:share_image": "3a6ef537840ddb44",
+   "alt:tab_image_1": "dbf7300edb9de7a3",
+   "alt:tab_image_2": "287e044a71186e6d",
+   "alt:tab_image_3": "ae8c136d5d36fd95",
+   "alt:tab_image_4": "5862c6b4f28ad72b",
+   "breadcrumb": "fced7b693db54e07",
+   "chip_adds": "8e82e3fadb33f8f7",
+   "explore_cta": "0771e5cd06634b1b",
+   "faq": "c323329f75142ee2",
+   "feature_1": "271ca3f8ea8fccc8",
+   "feature_2": "bc3481918f321cda",
+   "feature_3": "6039a8773497e809",
+   "feature_4": "328609d9c347f82a",
+   "feature_5": "1151d25c6dd65c66",
+   "feature_6": "44e3eb7ca26ae70d",
+   "features_heading": "08a6c112a9da0808",
+   "features_subheading": "e4bf9a652e4bcaaa",
+   "h1": "de36cfa79ae43049",
+   "hero_description": "0c5f644e81b52543",
+   "hero_prompt": "eb1b092fb947a91b",
+   "howto_description": "ae222453c6cf115f",
+   "howto_step_1_des": "ec889c64a9604b4d",
+   "howto_step_1_title": "34f71a8813fbba15",
+   "howto_step_2_des": "6d0ad1ece57c41ce",
+   "howto_step_2_title": "8b3f8d0f411d1e82",
+   "howto_step_3_des": "9f0a84acbb24beec",
+   "howto_step_3_title": "3fe4265168f58560",
+   "howto_step_4_des": "5583610a000f15ec",
+   "howto_step_4_title": "06f18ccc313fa5a5",
+   "howto_step_5_des": "420d659fa097c1d2",
+   "howto_step_5_title": "31a74fb886591812",
+   "howto_step_6_des": "1d0ea6dfe60c34bd",
+   "howto_step_6_title": "ae6edd14bb510d28",
+   "howto_step_7_des": "37921e313decde70",
+   "howto_step_7_title": "66204d3821feb5c4",
+   "howto_title": "ab668d394733194f",
+   "meta_description": "ac83a9e4b65314a0",
+   "meta_title": "622cb988342bbf9a",
+   "mockup": "d6be9290cbd253bf",
+   "product_name": "eda47de04331dd0e",
+   "prompt_chip_1": "1ce45b4128576f37",
+   "prompt_chip_2": "d5e97e2d58728b2f",
+   "prompt_chip_3": "b63c0d66acf2ec28",
+   "prompt_chip_4": "285ae04e2f38a27f",
+   "slug": "b5d0200b919e3f0b",
+   "tab_content_1": "5c0ca89209720ef7",
+   "tab_content_2": "aba6fdfcf636bb96",
+   "tab_content_3": "a36bfd02c7c001e8",
+   "tab_content_4": "6fc90ae195df6747",
+   "tab_label_1": "0eaa3a349cb99704",
+   "tab_label_2": "d50b527af3641f7f",
+   "tab_label_3": "0614396ff34926bf",
+   "tab_label_4": "0030f2d489ae912b",
+   "usecase_heading": "f2bc9edeef76b6b8",
+   "why_description": "f437497d60df4c4b",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "b69bacfbe229fb62"
+  },
+  "all": "8fa6c90989560135",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
