@@ -112,16 +112,6 @@ def problems(hub, slug, target_keyword, h1=None):
     return out
 
 
-def migration_pending():
-    """True while the slug-migration freeze is active (status/freeze.json): live pages still carry old slugs, so verify-live and the
-    live audit report a slug mismatch without failing; create and ship-check block regardless."""
-    import json, os
-    fp = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "status", "freeze.json")
-    try: f = json.load(open(fp))
-    except (OSError, ValueError): return False
-    return bool(f.get("active")) and "slug migration" in (f.get("reason") or "").lower()
-
-
 def spec_problems(hub, url, spec):
     """problems() for a spec: slug from its url, target keyword from keywords.primary, H1 from fields.h1."""
     kw = spec.get("keywords") if isinstance(spec.get("keywords"), dict) else {}

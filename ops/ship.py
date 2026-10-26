@@ -573,14 +573,13 @@ def plan_create(cands, live_items, limit=None):
     return (go[:limit] if limit is not None else go), skip
 
 def _freeze_check(args, op):
-    """Divit 2026-10-23 SLUG MIGRATION freeze: no creates, ships or item publishes while status/freeze.json is active.
-    Migration writes pass only with an explicit --migration flag; --dry-run and --before-only (no Webflow write) always pass."""
+    """Freeze (first used for the 2026-10-23 slug migration, now closed): no creates, ships or item publishes while status/freeze.json
+    is active; --dry-run and --before-only (no Webflow write) always pass. No flag bypasses a freeze (the --migration exception is removed)."""
     fp = os.path.join(ROOT, "status", "freeze.json")
     if not os.path.exists(fp): return
     f = json.load(open(fp))
     if not f.get("active"): return
     if "--dry-run" in args or "--before-only" in args: return
-    if "--migration" in args and op in f.get("migration_ops", []): return
     sys.exit(f"refused: FREEZE active ({f.get('reason')}, since {f.get('since')}): {op} is blocked; status/freeze.json")
 
 def cmd_api_create(args):
@@ -913,23 +912,17 @@ def api_golden(c):
             try: W.check(c["method"], path, body_of(c.get("body")), c.get("query")); refused = False
             except W.Refused: refused = True
             return refused == c["expect_refused"]
-        if t == "migration-slug":   # Divit 2026-10-23 TEMPORARY slug-migration exception (remove with it): stubbed freeze and map
-            iid = "0" * 23 + "1"; hub = W.CHILD[cid]
-            mapping = {"pages": [{"hub": hub, "item_id": iid, "old_slug": "golden-old-form", "new_slug": "golden-old", "decision": "change"}]}
-            freeze = {"active": c.get("freeze_active", True), "reason": "slug migration (golden)"}
+        if t == "migration-slug":   # the 2026-10-23 slug-migration and rollback exceptions are removed: every slug change through
+            # check() (the real gate) is refused, whatever the flags (--migration, --rollback) or the slug (approved, wrong, before-value)
+            iid = "0" * 23 + ("1" if c.get("item", "mapped") == "mapped" else "2")
             argv = ["hubctl", "api-update", "x.json"] + (["--migration"] if c.get("migration", True) else []) + (["--rollback"] if c.get("rollback") else [])
             slug = {"approved": "golden-old", "wrong": "golden-other", "before": "golden-old-form"}[c.get("slug", "approved")]
-            before = {"items": [{"id": iid, "collection": cid, "fieldData": {"slug": "golden-old-form"}}]}
-            item = c.get("item", "mapped")
-            why = W.migration_slug_block(cid, iid if item == "mapped" else "0" * 23 + "2", slug, argv=argv, freeze=freeze, mapping=mapping, before=before)
             old_argv = W.ARGV; W.ARGV = argv
-            try:   # the same decision through check() (the real gate) with the real freeze/map replaced
-                real_fn = W.migration_slug_block
-                W.migration_slug_block = lambda *a, **k: real_fn(*a, freeze=freeze, mapping=mapping, before=before, **{x: y for x, y in k.items() if x not in ("freeze", "mapping", "before")})
-                try: W.check("PATCH", f"/collections/{cid}/items", {"items": [{"id": iid if item == "mapped" else "0" * 23 + "2", "fieldData": {"slug": slug}}]}); refused = False
+            try:
+                try: W.check("PATCH", f"/collections/{cid}/items", {"items": [{"id": iid, "fieldData": {"slug": slug}}]}); refused = False
                 except W.Refused: refused = True
-            finally: W.ARGV = old_argv; W.migration_slug_block = real_fn
-            return (why is None) == c["expect_allowed"] and refused == (not c["expect_allowed"])
+            finally: W.ARGV = old_argv
+            return refused == (not c["expect_allowed"]) and not hasattr(W, "migration_slug_block")
         if t == "dry-no-network":
             W.TRANSPORT = no_net; W.TOKEN = lambda: (_ for _ in ()).throw(AssertionError("token read in a dry run"))
             W.create_items(cid, synth(250)); W.update_items(cid, body_of({"synth": {"op": "update", "n": 3}})["items"]); W.publish_items(cid, [f"{i:024x}" for i in range(3)])

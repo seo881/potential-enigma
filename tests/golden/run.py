@@ -334,6 +334,11 @@ def caught(c):
             raw = {"pages": [{"url": c["url"], "checks": {"http200": True}, "verify": {}, "link_status": ls, "render": {"http": 200, "jsonld": [], "links": [], "images": [], "text_visible": "", "text_all": "", "h1s": ["h"]}}], "hubs": [], "held": []}
         hit = any(f["code"] == "A7-link" for f in LA.evaluate(raw, m, "https://emergent.sh"))
         return hit == c["expect_finding"]
+    if c["kind"] == "audit-held":     # A0-held-live (A 2026-10-26): a held ledger URL live on a host is P0 unless, resolved through the
+        import live_audit as LA        # slug migration, its page is published now (shipped after the ledger held it)
+        raw = {"pages": [], "hubs": [], "held": [{"url": c["url"], "status": c["status"], "ledger": "golden.json", "item_id": None}]}
+        hit = any(f["code"] == "A0-held-live" and f["severity"] == "P0" for f in LA.evaluate(raw, {"pages": []}, "https://emergent.sh"))
+        return hit == c["expect_finding"]
     if c["kind"] == "audit-sev":      # one failed verify check (page) or a shown carousel (hub) raises code at severity
         import live_audit as LA
         if c.get("hub"):
