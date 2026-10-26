@@ -35,6 +35,20 @@ TEXT_FIELDS = [k for k in CONF["rendered_fields"]]
 AUTO_FIELDS = set(CONF["auto_fields"])          # fields the audit may change on its own (doc: text, FAQ, meta, alt, CMS links, images)
 MAX_FIELDS = 10
 
+_MIG = None
+def _migrated(u):
+    """The current URL of a child page: plan/slug-migration.json maps a pre-migration URL to its new slug (DECISIONS 2026-10-23)."""
+    global _MIG
+    if _MIG is None:
+        _MIG = {}
+        try:
+            cfg = json.load(open(os.path.join(ROOT, "config", "collections.json")))
+            for r in json.load(open(os.path.join(ROOT, "plan", "slug-migration.json")))["pages"]:
+                pth = cfg["hubs"][r["hub"]]["path"]
+                if r.get("old_slug") and r.get("new_slug"): _MIG[f"{pth}/{r['old_slug']}"] = f"{pth}/{r['new_slug']}"
+        except (OSError, ValueError, KeyError): pass
+    return _MIG.get(u.rstrip("/"), u.rstrip("/"))
+
 def today(): return datetime.date.today().isoformat()
 def now(): return datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 def jload(p, d): return json.load(open(p)) if os.path.exists(p) else d
@@ -254,8 +268,18 @@ def evaluate(raw, man, base):
             want = [(i["q"], i["a"]) for i in m["faq_items"]]
             if [squash(a) + squash(b) for a, b in sq] != [squash(a) + squash(b) for a, b in want]: add(url, "A10-faq-match", "P1", "FAQ schema differs from the visible FAQ", field="faq", fix="drift-check")
     # A0: a page held in status/ship/*.json must not be live anywhere (LESSONS 2026-10-09 incident). P0, unpublish at once.
+    # A 2026-10-26: a ledger's held URL is resolved through the slug migration (old ledgers list pre-migration URLs, which now 301 to
+    # the new slug); a page whose CURRENT status state is published was shipped after that ledger held it, so it is not held any more.
+    # Without this, all 50 such pages read as P0 "held page is live" and a fix run would unpublish live pages.
+    def _now_published(u):
+        try:
+            import slugs as _SL, hubctl as _H
+            cur = _SL.current_url(u) if hasattr(_SL, "current_url") else _migrated(u)
+            return ((_H.load_st(_H.hub_of(cur))["pages"].get(cur) or {}).get("state") == "published")
+        except Exception: return False
     for hp in raw.get("held") or []:
         live = [host for host, code in hp["status"].items() if code == 200]
+        if live and _now_published(hp["url"]): continue
         if live:
             add(hp["url"], "A0-held-live", "P0", f"HELD page is live on {', '.join(live)} (ledger {hp.get('ledger')})", field="item",
                 fix="unpublish" if hp.get("item_id") else "proposed", item_id=hp.get("item_id"), collection=hp.get("collection"))
