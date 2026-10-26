@@ -2,6 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-10-26 · [handback-to-B](2026-10-26/handback-to-B.md) · A coordinator day: migration closed, freeze lifted, G1 closed, 22 shipped (all QC pass) then shipping STOPPED by Divit; guards for holds and recorded go; backup audit Action fixed; watchdog; 19 holds cleared, 42 for B · e74ece1a
 - 2026-10-23 · [1504-quiz-embed-cls-reservation](2026-10-23/1504-quiz-embed-cls-reservation.md) · Quiz embed 117b49c2 on the SurveyQuiz template: CLS space reservation (438/435 px, quiz pages only), staged and read back; local CLS 0.0006/0.0008 · bcefdfde
 - 2026-10-21 · [2359-full-throttle-run](2026-10-21/2359-full-throttle-run.md) · B full-throttle run: live 216 -> 305 (+89, target 316), brand/best/PA7/PA15 rulings, rolling item publishes in groups of 5, ~45 B pages written and reviewed · b6442b53
 - 2026-10-16 · [1807-sprint-ship-written-pages](2026-10-16/1807-sprint-ship-written-pages.md) · B sprint: live 176 -> 216, PA7 ruling + 7 flag approvals applied, 16 live LP table fixes (Leadpages fact) staged for verify-live, ~70 reviews · a2834d0f
