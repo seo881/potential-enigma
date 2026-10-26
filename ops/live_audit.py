@@ -108,6 +108,20 @@ DASH = re.compile("[–—]"); CURLY = re.compile("[‘’“”]"); REPEAT = re
 def us_map():
     return json.load(open(os.path.join(ROOT, "rules", "us_spelling.json")))["map"]
 
+_LEARN_DATE = re.compile(r"(January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}, \d{4}")
+def strip_learn_cards(vis, links):
+    """Visible text without the Learn cards (section_blog-related): each /learn/<slug> card shows a third-party blog title, date and
+    category that our pages do not write. DECISIONS 2026-10-23 (A 2026-10-26): Learn card titles are exempt from A6 hygiene and the other
+    AI-tell checks in the audit; the cards themselves are still checked (exactly 3, each to a published /learn/ article)."""
+    for l in links:
+        if "/learn/" not in (l.get("href") or ""): continue
+        t = (l.get("text") or "").replace("\xa0", " ")
+        m = _LEARN_DATE.search(t); title = (t[:m.start()] if m else t).strip()
+        rest = t[m.start():].strip() if m else ""
+        for piece in (title, rest):
+            if len(piece) >= 6: vis = vis.replace(piece, " ")
+    return vis
+
 def hygiene(text):
     """[(code, message, snippet)] for one text."""
     out = []; t = text or ""
@@ -195,12 +209,13 @@ def evaluate(raw, man, base):
             if n == 0: add(url, "A4-missing", "P1", f"field {k} is not rendered as approved", field=k, fix="drift-check")
             elif n > 1 and k not in CONF["may_repeat"]: add(url, "A4-repeat", "P2", f"field {k} rendered {n} times", field=k, fix="backlog")
         vis = R.get("text_visible") or ""
+        vis_own = strip_learn_cards(vis, R.get("links") or [])   # DECISIONS 2026-10-23/26: Learn card titles are third-party blog content
         for pat in CONF["stray_patterns"]:
             mm = re.search(pat, vis)
             if mm: add(url, "A5-stray", "P1", f'stray template text: "{mm.group(0)}"', field=field_of(m, mm.group(0)) or "template", snippet=vis[max(0, mm.start() - 40):mm.end() + 40])
         for cls in R.get("empty_sections") or []: add(url, "A5-empty", "P2", f"empty visible section ({cls[:40]})", field="template", fix="backlog")
         # character hygiene: visible text, alt text, meta, JSON-LD
-        texts = [("visible", vis), ("meta", (R.get("title") or "") + "\n" + (R.get("description") or ""))]
+        texts = [("visible", vis_own), ("meta", (R.get("title") or "") + "\n" + (R.get("description") or ""))]
         texts += [("alt", i.get("alt") or "") for i in R.get("images") or []] + [("jsonld", j) for j in R.get("jsonld") or []]
         seen = set()
         for where, t in texts:

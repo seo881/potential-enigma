@@ -2,6 +2,8 @@
 
   audit_status.py success DATE RUNNER     after a FULL run: audits/live/last_success.json {time, runner, date, pages, hubs, fails, p0, p1}
                                           (kept only if newer than what is there)
+  audit_status.py real FINDINGS           "REAL: N real fail on M page(s) (codes ...); known open ...; P2 n in the report"; exit 3 when N > 0
+                                          (Divit 2026-10-26: alerts fire only on REAL failures after exceptions; P2 goes in the report)
   audit_status.py line                    one line: "AUDIT: last full run <time UTC>, <n> pages, <n> fail" (STALE if older than 26 h)
   audit_status.py watchdog [--runner R]   writes status/audit_watchdog.json; exit 3 (and the caller alerts) when the last full run is
                                           stale or missing, OR the GitHub Actions backup (live-audit.yml) did not succeed: its newest
@@ -113,5 +115,12 @@ if __name__ == "__main__":
     a = sys.argv[1:]
     if a[:1] == ["success"]: print(json.dumps(success(a[1], a[2] if len(a) > 2 else "unknown")))
     elif a[:1] == ["line"] or not a: print(line())
+    elif a[:1] == ["real"]:
+        F = json.load(open(a[1]))["findings"]; rs, known = real_counts(F)
+        n = sum(1 for f in F if f["severity"] in ("P0", "P1") and f["url"] in rs and not known_id(f))
+        codes = sorted({f["code"] for f in F if f["severity"] in ("P0", "P1") and f["url"] in rs and not known_id(f)})
+        p2 = sum(1 for f in F if f["severity"] == "P2")
+        print(f"REAL: {n} real fail on {len(rs)} page(s)" + (f" ({', '.join(codes)})" if codes else "") + (f"; known open: " + ", ".join(f"{k} {v}" for k, v in sorted(known.items())) if known else "") + f"; P2 {p2} in the report")
+        sys.exit(3 if n else 0)
     elif a[:1] == ["watchdog"]: sys.exit(watchdog(a[a.index("--runner") + 1] if "--runner" in a else "unknown"))
     else: sys.exit(__doc__)

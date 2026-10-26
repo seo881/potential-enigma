@@ -142,6 +142,9 @@ PY
 COUNTS="$(sed -n 2,3p "$SDIR/digest.head" | tr '\n' ' ' | sed 's/  */ /g')"
 if [ -z "$URLS" ]; then "$PY" ops/audit_status.py success "$DATE" "$RUNNER" > /dev/null || fail "last_success.json"; fi
 say "done in $(( $(date +%s) - T0 ))s; transport re-checked $NRETRY, still failing $NT; digest audits/live/$RDATE/digest.txt"
-notify "Checks ${RUNNAME:-$DATE}: $COUNTS"
+REAL="$("$PY" ops/audit_status.py real "$REPO/audits/live/$RDATE/findings.json" 2>&1)"; RRC=$?
+say "$REAL"
+# Divit 2026-10-26: alert only on REAL failures after exceptions (known open issues excluded); P2 stays in the report
+[ $RRC -eq 3 ] && notify "Checks ${RUNNAME:-$DATE}: $REAL"
 echo "COUNTS $RDATE: $COUNTS"
 exit 0

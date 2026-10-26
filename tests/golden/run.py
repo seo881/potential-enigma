@@ -351,6 +351,14 @@ def caught(c):
         finally: H.spath = orig; os.unlink(tmp.name)
         hit = any("text changed after review" in p_ for p_ in probs)
         return hit == c["expect_refused"]
+    if c["kind"] == "audit-learn-dash":  # DECISIONS 2026-10-23/26: Learn card titles (third-party blog) are exempt from A6 hygiene; our copy is not
+        import live_audit as LA
+        u = c["url"]; m = {"pages": [{"url": u, "hub": "/" + u.split("/")[1], "fields": {}, "faq_items": [], "images": {}, "meta_title": "x" * 40, "meta_description": "y" * 120}]}
+        links = [{"href": "https://emergent.sh/learn/best-ai-workflow-builders", "text": "5 Best AI Workflow Builders in 2026 \u2013 Expert PicksDecember 29, 2025\u00a0\u2022\u00a0Website Building", "in_faq": False, "visible": True}]
+        vis = "Intro text of our page. " + c.get("own_text", "") + "\n5 Best AI Workflow Builders in 2026 \u2013 Expert Picks\nDecember 29, 2025 \u2022 Website Building"
+        raw = {"pages": [{"url": u, "checks": {"http200": True}, "verify": {}, "link_status": {}, "render": {"http": 200, "jsonld": [], "links": links, "images": [], "text_visible": vis, "text_all": vis, "h1s": ["h"]}}], "hubs": [], "held": []}
+        hit = any(f["code"] == "A6-dash" for f in LA.evaluate(raw, m, "https://emergent.sh"))
+        return hit == c["expect_finding"]
     if c["kind"] == "audit-held":     # A0-held-live (A 2026-10-26): a held ledger URL live on a host is P0 unless, resolved through the
         import live_audit as LA        # slug migration, its page is published now (shipped after the ledger held it)
         raw = {"pages": [], "hubs": [], "held": [{"url": c["url"], "status": c["status"], "ledger": "golden.json", "item_id": None}]}

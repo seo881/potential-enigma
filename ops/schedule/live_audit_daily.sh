@@ -32,6 +32,7 @@ if [ $CRC -ne 0 ] || [ ! -s "$ADIR/digest.txt" ]; then
 fi
 COUNTS="$(sed -n 2,3p "$ADIR/digest.txt" | tr '\n' ' ' | sed 's/  */ /g')"
 log "checks ok: $COUNTS (audits/live/$DATE/digest.txt)"
+REAL="$(.venv/bin/python3 ops/audit_status.py real "$ADIR/findings.json" 2>&1)"; RRC=$?; log "$REAL"   # Divit 2026-10-26: alerts only on REAL failures
 
 # ---- 2. optional prose digest by Claude (read-only; its failure never hides the counts) ----
 PROMPT="$(sed "s|{{DATE}}|$DATE|g" ops/schedule/live_audit_prompt.md)"
@@ -49,10 +50,10 @@ CPID=$!; ( sleep 900; kill -TERM "$CPID" 2>/dev/null ) >/dev/null 2>&1 & WD=$!
 wait "$CPID"; RC=$?; kill "$WD" 2>/dev/null; wait "$WD" 2>/dev/null
 if [ $RC -eq 0 ] && grep -q "Live audit $DATE" "$OUT"; then   # the prose must name this run's date, or it is not this run's digest
   cp "$OUT" "$ADIR/digest-prose.txt"; log "prose digest: $(head -1 "$OUT" | cut -c1-300)"
-  notify "$(head -1 "$OUT" | cut -c1-200)"
+  [ $RRC -eq 3 ] && notify "$REAL | $(head -1 "$OUT" | cut -c1-120)"
 else
   log "digest unavailable (claude rc $RC: $(tail -1 "$OUT" | cut -c1-160)); plain counts: $COUNTS"
-  notify "Digest unavailable. Checks $DATE: $COUNTS"
+  [ $RRC -eq 3 ] && notify "Digest unavailable. $REAL"
 fi
 rm -f "$OUT"
 log "end: checks rc $CRC; findings audits/live/$DATE/findings.json; digest audits/live/$DATE/digest.txt"

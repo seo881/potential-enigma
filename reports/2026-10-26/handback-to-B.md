@@ -17,6 +17,7 @@
   - ship-check also refuses post-review edits without a slim review (golden ship-postreview-*, e74ece1a).
 
 ## For B, in order
+0. **FIRST: add the redirect check to the daily audit on both runners (Divit 2026-10-26; NOT done by A today).** Check all 843 rows of reports/2026-10-23/redirects-final.csv: each source must return a single 301 to its target, and every target must return 200. Run it in ops/schedule/live_audit_checks.sh, so the Mac job and the GitHub Actions matrix both get it. Count failures as real P0/P1 in audit_status.real_counts, and alert on any change. Add golden tests.
 1. **approval-workflow:** record A-s-13's slim review and clear the hold. Run `hubctl slim-review /ai-automation-builder/approval-workflow .cache/review/slim/approval-workflow-A-s-13.json --by A-s-13` from A's clone, or copy the file over; all 3 fields pass with no findings. Then `hubctl unhold … --by B-…`. Then **clear the 42 resolved B holds** listed in status/hold-clearances-2026-10-26.md: each page is published, audited clean, and its text is unchanged since review. `unhold` refuses another account, so only B's clone can remove them.
 2. **Backlog, low priority:** for the 35 live pages reviewed before 2026-10-13 (no review hash), compare their spec text at the review commit (git history) with today's live text, and report any differences. For all other live pages, live CMS text equals the spec (358 compared today, 0 differ) and the spec equals the reviewed text, except approval-workflow (item 1).
 3. **Watchdog repo file:** switch it to B's clone with `echo "$HOME/emergent-hubs-a" > "$HOME/Library/Application Support/emergent/repo"`. launchd runs the watchdog through the stable shim `~/Library/Application Support/emergent/run.sh`, which reads that file (94768fac).
@@ -44,3 +45,16 @@
 
 ## Commits (today, A)
 ccbb480a, 80ec9e46, 3c33fc8b, 98aaac4b, 94768fac, 023f177a, 4934d819, c918f33f, 67051ed5, 6720cf63, 97c2d88b, 2d19a277, 9c0f79f5, 06a9128d, e74ece1a, and the writers', reviewers' and ship agent's commits in between.
+
+## Late additions (A, end of day)
+- **Sitemap recheck:** all 5 Form group-2 pages are IN the sitemap.
+- **Noise fixes:**
+  - The morning Mac run (B's clone), re-scored with the fixed checker (audits/live/2026-10-26/rescore-mac/), shows **0 A0-held-live and 0 A6-dash**.
+  - 4 findings remain, all transient or stale:
+    - abandoned-cart A7-nonlive: it links to appointment-reminder, which is published and returns 200. B's clone ran without pulling, so its live list was stale.
+    - photo-release and testimonial A9-console: a 503 and a socket error during the network drop.
+    - funny-questions A1-transport: same drop.
+  - All 4 pages return 200 now. Re-check them on the next full run.
+- **Learn card titles are exempt** from A6 hygiene in the audit (ops/live_audit.py strip_learn_cards). Golden audit-learn-dash-* covers both directions: a Learn title is exempt, our own copy still fails. G2 is retired from known_open_issues. verify-live runs no text-hygiene checks, so it needed no change.
+- **facebook-ads cover image:** 200 on 3 checks.
+- **Alerts are real-only:** live_audit_checks.sh and live_audit_daily.sh notify only when `audit_status.py real` finds REAL P0/P1 after exceptions and known issues. P2s (A5-empty-p, A4-repeat and the rest) stay in the digest and report.
