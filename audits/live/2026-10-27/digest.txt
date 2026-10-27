@@ -1,0 +1,25 @@
+Live audit 2026-10-27 on https://emergent.sh (plain checks, no Claude) DRY
+pages 358, hubs 4; pages/hubs with P0/P1: 5; passed (no P0/P1): 353 of 358
+findings P0 1, P1 4, P2 365
+
+by code:
+  P0 A5-learn-link: 1
+  P1 A8-load: 1
+  P1 A9-console: 3
+  P2 A4-repeat: 3
+  P2 A5-empty-p: 362
+
+console: 3 page(s) with counted console errors (A9-console) (0 ignored by Divit's console exception (2026-10-14/15); in force: clarity.js, bing-uet-clarity-loader, gtm-clarity-loader, clarity-beacon, adwire)
+
+P0 A5-learn-link (1):
+  /ai-landing-page-builder/book  (a Learn card does not link to its own /learn/<slug> article returning 200: /learn/best-website-builders-for-authors (500))
+
+P1 A8-load (1):
+  /ai-landing-page-builder/minimalist  (image does not load: /6a0f028de6df6a6fd88c3f89/6adb18e08baf382b8389d752_cover.svg)
+
+P1 A9-console (3):
+  /ai-form-builder/potluck-sign-up-sheet  (1 console error(s) in Chromium: Failed to load resource: the server responded with a status of 500 ())
+  /ai-survey-and-quiz-builder/post-webinar  (1 console error(s) in Chromium: Failed to load resource: net::ERR_TIMED_OUT)
+  /ai-survey-and-quiz-builder/tenant-satisfaction  (1 console error(s) in Chromium: Failed to load resource: the server responded with a status of 500 ())
+
+transport errors re-checked: 0; still failing after the re-check: 0
