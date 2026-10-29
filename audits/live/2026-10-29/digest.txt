@@ -1,0 +1,37 @@
+Live audit 2026-10-29 on https://emergent.sh (plain checks, no Claude) DRY
+pages 358, hubs 4; pages/hubs with P0/P1: 14; passed (no P0/P1): 344 of 358
+findings P0 2, P1 12, P2 363
+
+by code:
+  P0 A1-http: 2
+  P1 A7-nonlive: 1
+  P1 A8-load: 6
+  P1 A9-console: 5
+  P2 A4-repeat: 3
+  P2 A5-empty-p: 360
+
+console: 5 page(s) with counted console errors (A9-console) (0 ignored by Divit's console exception (2026-10-14/15); in force: clarity.js, bing-uet-clarity-loader, gtm-clarity-loader, clarity-beacon, adwire)
+
+P0 A1-http (2):
+  /ai-landing-page-builder/automotive  (page does not return HTTP 200 (500))
+  /ai-landing-page-builder/book  (page does not return HTTP 200 (500))
+
+P1 A7-nonlive (1):
+  /ai-automation-builder/shipping
+
+P1 A8-load (6):
+  /ai-automation-builder/appointment-reminder  (image does not load: /6a0f028de6df6a6fd88c3f89/6ad860b6e7967cf31482b534_cover.svg)
+  /ai-form-builder/botox-consent  (image does not load: /6a0f028de6df6a6fd88c3f89/6adb1d2935f9b03ac4343c97_cover.svg)
+  /ai-form-builder/interior-design-questionnaire  (image does not load: /6a0f028de6df6a6fd88c3f89/6adb1d2935f9b03ac4343c97_cover.svg)
+  /ai-form-builder/it-request  (image does not load: /6a0f028de6df6a6fd88c3f89/6adb1d2935f9b03ac4343c97_cover.svg)
+  /ai-form-builder/legal-intake  (image does not load: /6a0f028de6df6a6fd88c3f89/6adb1d2935f9b03ac4343c97_cover.svg)
+  /ai-form-builder/webinar-registration  (image does not load: /6a0f028de6df6a6fd88c3f89/6adb1d2935f9b03ac4343c97_cover.svg)
+
+P1 A9-console (5):
+  /ai-automation-builder/timesheet-approval-workflow  (1 console error(s) in Chromium: Failed to load resource: the server responded with a status of 500 ())
+  /ai-form-builder/cake-order  (1 console error(s) in Chromium: Failed to load resource: the server responded with a status of 500 ())
+  /ai-form-builder/purchase-order  (1 console error(s) in Chromium: Failed to load resource: the server responded with a status of 500 ())
+  /ai-form-builder/uniform-order  (1 console error(s) in Chromium: Failed to load resource: the server responded with a status of 500 ())
+  /ai-survey-and-quiz-builder/concept-testing  (1 console error(s) in Chromium: Failed to load resource: the server responded with a status of 500 ())
+
+transport errors re-checked: 0; still failing after the re-check: 0
