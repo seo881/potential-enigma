@@ -22,13 +22,13 @@ def queued():
     return sorted([p for p in m.values() if p["status"] == "planned" and p["url"] not in st[p["hub"]]], key=lambda p: p["queue_rank"])
 
 def primaries():
-    return [p for p in queued() if saved_status(p["url"].rsplit("/", 1)[1]) is None]
+    return [p for p in queued() if saved_status(P._store_key(p["url"])) is None]   # pulls are saved under the store key (B-dev-22)
 
 def lp_secondaries():
     import park_rescue as R
     out = []
     for p in queued():
-        s = p["url"].rsplit("/", 1)[1]
+        s = P._store_key(p["url"])   # pulls are saved under the pre-migration store key (B-dev-22, Divit 2026-11-03)
         if p["hub"] != "LP" or saved_status(s) != "no_results" or saved_status(s + "--sec") is not None: continue
         with contextlib.redirect_stdout(io.StringIO()): f = R.feasibility(p["url"])
         if not f["feasible"]: out.append(p)

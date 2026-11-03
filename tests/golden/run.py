@@ -66,6 +66,8 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   swap-recheck   {url, sha, note, expect_need, inject?, expect_filled?}  step 3: positions to swap for the spec at sha (note lead clause +
                                                           gate rejects); inject dropped|synthetic: replacements counted from those slots
   qc-r18         {url, sha, match, expect, keep_review?}  ruling 18 in QC R15: the spec at sha as new writing raises R15 `match` exactly when expected
+  rank-class     {url, pull_keys, feasibility?, expect}   B-dev-22: ops/queue_rank.classify(url) with saved pulls only under pull_keys is `expect`
+  rerank-perm    {clone, coordinator, expect_allowed}     B-dev-22: queue_rank.rerank_refusal follows the CURRENT COORDINATOR marker
   slug-rule      {hub, slug, primary, h1?, expect_ok}     PERMANENT SLUG RULE (Divit 2026-10-23): ops/slugs.problems (blocks create, ship-check)
   slug-for       {hub, keyword, expect}                   the rule's examples: ops/slugs.slug_for
   webflow-api    {test, ...}                              Divit 2026-10-14, ops/webflow_api.py + hubctl api-*: test refuse {method, path, body?,
@@ -542,6 +544,23 @@ def caught(c):
         try:
             H.clone_account = lambda: c["clone"]; H.COORDINATOR = c.get("coordinator", "B")
             return (H.unhold_refusal(c["hold"], c["by"], c.get("reason")) is None) == c["expect_allowed"]
+        finally:
+            H.clone_account, H.COORDINATOR = real_c, real_co
+    if c["kind"] == "rank-class":   # B-dev-22 (Divit 2026-11-03): queue_rank.classify finds pulls under the store key (pre-migration slug)
+        import queue_rank as QR
+        real_p, real_f = QR.P.pulls, QR.R.feasibility
+        try:
+            QR.P.pulls = lambda k: [{}] if k in c["pull_keys"] else []
+            QR.R.feasibility = lambda u, *a, **k: {"total": c.get("feasibility", 10)}
+            return QR.classify(c["url"], {})[0] == c["expect"]
+        finally:
+            QR.P.pulls, QR.R.feasibility = real_p, real_f
+    if c["kind"] == "rerank-perm":   # B-dev-22 (Divit 2026-11-03): re-rank permission follows the CURRENT coordinator marker
+        import queue_rank as QR, hubctl as H
+        real_c, real_co = H.clone_account, H.COORDINATOR
+        try:
+            H.clone_account = lambda: c["clone"]; H.COORDINATOR = c["coordinator"]
+            return (QR.rerank_refusal() is None) == c["expect_allowed"]
         finally:
             H.clone_account, H.COORDINATOR = real_c, real_co
     if c["kind"] == "coord-doc":   # the coordinator comes from the one marker line in docs/TWO_ACCOUNTS.md
