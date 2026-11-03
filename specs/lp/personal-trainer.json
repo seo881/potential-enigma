@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-313",
    "note": ""
+  },
+  {
+   "t": "2026-11-03 12:39 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-418",
+   "note": "[truth | HUB_RULES 8] tab_content_1: False about the page's own content: the tab 1 image draws a Name field (Priya Natarajan), the freeConsult mockup asks for 'a name, an email, a goal, and preferred training days', and howto_step_5_des and FAQ 6 recommend those same four fields. A form with no name"
   }
  ],
  "pipeline": "r15",
@@ -903,5 +910,235 @@
  ],
  "writers": [
   "B-w-313"
- ]
+ ],
+ "review": {
+  "by": "B-r-418",
+  "date": "2026-11-03 12:39 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Personal Trainer Landing Page That Books Consults'; hero 'Build a personal trainer landing page that turns visitors into consult requests and saves every lead to a database you own.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Four examples (Free Consult, Coaching Intake, Lead Sources, Session Packs), a 7-step how-to and FAQ on sections, prices, form fields and screening."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Ember Lane Training lists three session packs: 4 sessions for $260, 8 for $480, and 12 for $660.' Trainer vocabulary throughout."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "'Applicants tell Pike Online Coaching how many hours a week they can train.' 'Koa Performance runs the same page behind three links.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC clean; 'Ask only for what your first reply needs: a name, an email, the goal, and the days that suit them.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete details ('Deadlift your body weight by summer.'); no hype. Hero prompt wording logged as a note."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "tab_content_1 'Its form asks for a goal and preferred days, and nothing else.' contradicts its own image (Name field: Priya Natarajan), the freeConsult mockup ('asks only for a name, an email, a goal, and preferred training days'), howto_step_5 and FAQ 6 (four fields). Emergent claims map to prompt-build, database-owned, alerts, api-connect, custom-domain, code-export; no third-party facts stated (domain_sources empty). Numbers agree: 42+17+11=70, 2+4+9=15, 9 of 23."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Hands memberships to 'the gym's fitness landing page', speaking and press to 'a personal landing page', free plans to 'a lead magnet landing page'; no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, gate 10 pass 0 reject 0 flag; answer-first, e.g. 'Four are enough for a first request: name, email, goal, and preferred days.'"
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches tabs on numbers and names: Emailed to Marisol Vega, 31 requests in October; 4-hour rule, 9 of 23, To Dorian Pike; 42/17/11 = 70; $260/$480/$660, 12 sessions 9 of 15. The tab 1 field mismatch is a copy error, recorded under truth."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "tab_content_1",
+    "quote": "Its form asks for a goal and preferred days, and nothing else.",
+    "issue": "False about the page's own content: the tab 1 image draws a Name field (Priya Natarajan), the freeConsult mockup asks for 'a name, an email, a goal, and preferred training days', and howto_step_5_des and FAQ 6 recommend those same four fields. A form with no name or email also could not reach Marisol's reply.",
+    "fix": "'Its form asks for a name, an email, a goal, and preferred days, and nothing else.' (or drop 'and nothing else'); keep tab width limits.",
+    "severity": "blocking"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "hero_prompt",
+    "quote": "Build a personal trainer landing page that saves every signup to a database I own.",
+    "issue": "The page's noun is 'consult request' or 'lead'; 'signup' is the hub's generic word.",
+    "fix": "'...that saves every consult request to a database I own.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "distinct",
+    "rule": "HUB_RULES 2b",
+    "field": "tab_content_1",
+    "quote": "Marisol Vega books consults for Vega Strength from one page.",
+    "issue": "The name Marisol Vega is also the travel nurse in /ai-landing-page-builder/resume tab 2; a reused example name across sibling pages reads templated.",
+    "fix": "Use a name not used elsewhere in the hub (and in the image brief).",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "hero_prompt",
+   "issue": "The page's noun is 'consult request' or 'lead'; 'signup' is the hub's generic word.",
+   "fix": "'...that saves every consult request to a database I own.'",
+   "by": "B-r-418",
+   "via": "review",
+   "date": "2026-11-03 12:39 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "HUB_RULES 2b",
+   "field": "tab_content_1",
+   "issue": "The name Marisol Vega is also the travel nurse in /ai-landing-page-builder/resume tab 2; a reused example name across sibling pages reads templated.",
+   "fix": "Use a name not used elsewhere in the hub (and in the image brief).",
+   "by": "B-r-418",
+   "via": "review",
+   "date": "2026-11-03 12:39 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "3c1e1612801e2098",
+   "alt:share_image": "65995f002e0650e8",
+   "alt:tab_image_1": "a2b445c98186d66c",
+   "alt:tab_image_2": "30333b38d2ff7942",
+   "alt:tab_image_3": "ccab45425d4ce9b2",
+   "alt:tab_image_4": "2b6efb9f4729ce9c",
+   "breadcrumb": "7bd4ae5038e5b363",
+   "chip_adds": "3967bb47576ff747",
+   "explore_cta": "84ae9f04e6fa74e6",
+   "faq": "215015d48880eaff",
+   "feature_1": "8d69671219f55066",
+   "feature_2": "41176f36f0825515",
+   "feature_3": "27d925b4778ccd0e",
+   "feature_4": "61c2747dd15aa6d8",
+   "feature_5": "f07eac9a52dd6db7",
+   "feature_6": "a351bdfc0c07f22b",
+   "features_heading": "eedda4eb95a7dc48",
+   "features_subheading": "0d1ab87d66dde30b",
+   "h1": "8923621450545026",
+   "hero_description": "ebaa729541a4f17e",
+   "hero_prompt": "b192964bafdd2388",
+   "howto_description": "a146cc30c7200c4d",
+   "howto_step_1_des": "661b67e0e66adffe",
+   "howto_step_1_title": "5c26db6ba2a481ea",
+   "howto_step_2_des": "8122c23c6b217d94",
+   "howto_step_2_title": "a24a56c50b0986a4",
+   "howto_step_3_des": "f7ce782acc6e28cd",
+   "howto_step_3_title": "867c1b36b776425a",
+   "howto_step_4_des": "14f531005c07880c",
+   "howto_step_4_title": "027c9d6a1de63371",
+   "howto_step_5_des": "788bc80f353c3d22",
+   "howto_step_5_title": "29e26d80b527d8c1",
+   "howto_step_6_des": "e3b9d77983a4f067",
+   "howto_step_6_title": "b86cefa8de198e5d",
+   "howto_step_7_des": "6d5934a7444a01aa",
+   "howto_step_7_title": "4b9d6bd4ae731996",
+   "howto_title": "3e484d0c1797df16",
+   "meta_description": "4dd075d2302cdc7a",
+   "meta_title": "7e8449d0401df4dc",
+   "mockup": "8c9dda9ac01b4f1f",
+   "product_name": "87afb7d75255044d",
+   "prompt_chip_1": "5654be48c9475289",
+   "prompt_chip_2": "95a8a4327e44d58b",
+   "prompt_chip_3": "7fe7a22226c6fb8c",
+   "prompt_chip_4": "5a10f55f42f4e92e",
+   "slug": "7f89eb420301cb35",
+   "tab_content_1": "192b58565cd0832f",
+   "tab_content_2": "588b15ccbf940efd",
+   "tab_content_3": "a05dac124c7d388f",
+   "tab_content_4": "c888c86fd744adb0",
+   "tab_label_1": "5654be48c9475289",
+   "tab_label_2": "95a8a4327e44d58b",
+   "tab_label_3": "7fe7a22226c6fb8c",
+   "tab_label_4": "5a10f55f42f4e92e",
+   "usecase_heading": "d0580df411eca3ce",
+   "why_description": "4fefbe890fda9cab",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "434c47804e4068fe"
+  },
+  "all": "f74fd6de5fee8221",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "3c1e1612801e2098",
+   "alt:share_image": "65995f002e0650e8",
+   "alt:tab_image_1": "a2b445c98186d66c",
+   "alt:tab_image_2": "30333b38d2ff7942",
+   "alt:tab_image_3": "ccab45425d4ce9b2",
+   "alt:tab_image_4": "2b6efb9f4729ce9c",
+   "breadcrumb": "7bd4ae5038e5b363",
+   "chip_adds": "3967bb47576ff747",
+   "explore_cta": "84ae9f04e6fa74e6",
+   "faq": "215015d48880eaff",
+   "feature_1": "8d69671219f55066",
+   "feature_2": "41176f36f0825515",
+   "feature_3": "27d925b4778ccd0e",
+   "feature_4": "61c2747dd15aa6d8",
+   "feature_5": "f07eac9a52dd6db7",
+   "feature_6": "a351bdfc0c07f22b",
+   "features_heading": "eedda4eb95a7dc48",
+   "features_subheading": "0d1ab87d66dde30b",
+   "h1": "8923621450545026",
+   "hero_description": "ebaa729541a4f17e",
+   "hero_prompt": "b192964bafdd2388",
+   "howto_description": "a146cc30c7200c4d",
+   "howto_step_1_des": "661b67e0e66adffe",
+   "howto_step_1_title": "5c26db6ba2a481ea",
+   "howto_step_2_des": "8122c23c6b217d94",
+   "howto_step_2_title": "a24a56c50b0986a4",
+   "howto_step_3_des": "f7ce782acc6e28cd",
+   "howto_step_3_title": "867c1b36b776425a",
+   "howto_step_4_des": "14f531005c07880c",
+   "howto_step_4_title": "027c9d6a1de63371",
+   "howto_step_5_des": "788bc80f353c3d22",
+   "howto_step_5_title": "29e26d80b527d8c1",
+   "howto_step_6_des": "e3b9d77983a4f067",
+   "howto_step_6_title": "b86cefa8de198e5d",
+   "howto_step_7_des": "6d5934a7444a01aa",
+   "howto_step_7_title": "4b9d6bd4ae731996",
+   "howto_title": "3e484d0c1797df16",
+   "meta_description": "4dd075d2302cdc7a",
+   "meta_title": "7e8449d0401df4dc",
+   "mockup": "8c9dda9ac01b4f1f",
+   "product_name": "87afb7d75255044d",
+   "prompt_chip_1": "5654be48c9475289",
+   "prompt_chip_2": "95a8a4327e44d58b",
+   "prompt_chip_3": "7fe7a22226c6fb8c",
+   "prompt_chip_4": "5a10f55f42f4e92e",
+   "slug": "7f89eb420301cb35",
+   "tab_content_1": "192b58565cd0832f",
+   "tab_content_2": "588b15ccbf940efd",
+   "tab_content_3": "a05dac124c7d388f",
+   "tab_content_4": "c888c86fd744adb0",
+   "tab_label_1": "5654be48c9475289",
+   "tab_label_2": "95a8a4327e44d58b",
+   "tab_label_3": "7fe7a22226c6fb8c",
+   "tab_label_4": "5a10f55f42f4e92e",
+   "usecase_heading": "d0580df411eca3ce",
+   "why_description": "4fefbe890fda9cab",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "434c47804e4068fe"
+  },
+  "all": "f74fd6de5fee8221",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
