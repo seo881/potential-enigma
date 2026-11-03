@@ -154,6 +154,13 @@
    "via": null,
    "by": "B-w-404",
    "note": ""
+  },
+  {
+   "t": "2026-11-03 12:27 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-402",
+   "note": "[truth | HUB_RULES 8] faq: FAQ 9 says the chain restarts on resubmission; the page elsewhere says it resumes at the step that asked for changes and keeps earlier approvals: feature_3 'then picks up again at the same step once fixed' and tab_content_2 'The two approvals stay for the next round.' The "
   }
  ],
  "plan": {
@@ -793,5 +800,255 @@
   "how-to-build-a-lead-generation-website: Form fixed set: builds capture forms end to end: fields, submissions and where each lead goes next",
   "client-onboarding-software: Form fixed set: client intake: intake forms, conditional checklists and portals, plus how to build your own",
   "build-your-own-crm-system: Form fixed set: step-by-step build of the CRM that form submissions feed into"
- ]
+ ],
+ "review": {
+  "by": "B-r-402",
+  "date": "2026-11-03 12:27 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Approval Form That Records Every Sign-Off'; hero 'Build an approval form from a plain list of who signs and when. Emergent keeps each decision on file.' (D1); how-to description one sentence (D2)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder-fit SERP (6 builder slots): page delivers what to include (FAQ 3), sequential vs parallel (FAQ 4, howto 2), template (FAQ 2) and a builder; the meta's promises are all on the page."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Approval-specific mechanics: version lock ('that approval resets'), delegate 'on behalf of', changes-requested third answer, parallel completion rule."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Tab and how-to paragraphs open on full sentences ('Contracts change after legal has read them.'); feature fragments noted, not blocking."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Tab 3: 'After two business days without an answer, the form moves it to the delegate she named before leaving.' one idea per sentence."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'A scanned signature on paper shows who signed, but not which draft was in front of them.' reads human."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "FAQ 9 'the chain restarts when they resubmit' contradicts feature_3 'picks up again at the same step once fixed' and tab_content_2 'The two approvals stay for the next round.'"
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "General approval routing; links out to purchase-order, time-off-request and requisition siblings rather than covering them."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, gate 10/10 pass; hub link in item 2; 3 exact-match links; answers open on the answer ('The approval should reset.', 'The form holds the decision and the letter announces it.')."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: version 3 approved, 30 -> 45 days, version 4 waiting; brand and product approved, legal changes requested on discount wording; $4,800, Rachel Kim away, Sam Patel after 2 business days; 6 of 40 hours, coordinator approved before first shift."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8; rules/rework-checklist.md 5",
+    "field": "faq",
+    "severity": "blocking",
+    "quote": "The request then returns to the requester with the comment, and the chain restarts when they resubmit.",
+    "issue": "FAQ 9 says the chain restarts on resubmission; the page elsewhere says it resumes at the step that asked for changes and keeps earlier approvals: feature_3 'then picks up again at the same step once fixed' and tab_content_2 'The two approvals stay for the next round.' The page contradicts itself on how its own form behaves. No other field says the chain restarts.",
+    "fix": "'...and the chain picks up again at that step when they resubmit, with earlier approvals kept.'"
+   },
+   {
+    "class": "openers",
+    "criterion": "openers",
+    "rule": "CONTENT_DEFECTS #2",
+    "field": "feature_1",
+    "severity": "note",
+    "quote": "Sends each request to approvers one after another",
+    "issue": "All six feature bodies open on a subjectless verb fragment: feature_1 'Sends each request...', feature_2 'Stores the exact version...', feature_3 'Gives approvers a third answer...', feature_4 'Lets each approver name a delegate.', feature_5 'Posts each request to the approver...', feature_6 'Pushes the full codebase...'.",
+    "fix": "Give each a subject: 'The form sends each request...', 'Each approval is tied to the version...'."
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "howto_step_4_des",
+    "severity": "note",
+    "quote": "A decline without a reason tends to come back a week later as a second request with the same problem.",
+    "issue": "Unsupported generalizations about no named third party: howto_step_4_des (above); faq 5 'A time off request form, for example, usually needs only the employee's manager.'; faq 8 'many teams generate it from the approved record'; tab_content_4 'Schools want the placement cleared first.'",
+    "fix": "State the consequence as advice ('Require a reason so the requester can fix the problem before resubmitting') or drop the quantifier."
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #5",
+    "field": "tab_image_2",
+    "severity": "note",
+    "quote": "Ines Ward, legal",
+    "issue": "Ines Ward is legal's approver in both tab 1 (vendor contract) and tab 2 (launch email), which reads as one company in two tabs; not contradictory, since the role is the same.",
+    "fix": "Use a different legal reviewer name in tab 2."
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "openers",
+   "rule": "CONTENT_DEFECTS #2",
+   "field": "feature_1",
+   "issue": "All six feature bodies open on a subjectless verb fragment: feature_1 'Sends each request...', feature_2 'Stores the exact version...', feature_3 'Gives approvers a third answer...', feature_4 'Lets each approver name a delegate.', feature_5 'Posts each request to the approver...', feature_6 'Pushes the full codebase...'.",
+   "fix": "Give each a subject: 'The form sends each request...', 'Each approval is tied to the version...'.",
+   "by": "B-r-402",
+   "via": "review",
+   "date": "2026-11-03 12:27 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "howto_step_4_des",
+   "issue": "Unsupported generalizations about no named third party: howto_step_4_des (above); faq 5 'A time off request form, for example, usually needs only the employee's manager.'; faq 8 'many teams generate it from the approved record'; tab_content_4 'Schools want the placement cleared first.'",
+   "fix": "State the consequence as advice ('Require a reason so the requester can fix the problem before resubmitting') or drop the quantifier.",
+   "by": "B-r-402",
+   "via": "review",
+   "date": "2026-11-03 12:27 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #5",
+   "field": "tab_image_2",
+   "issue": "Ines Ward is legal's approver in both tab 1 (vendor contract) and tab 2 (launch email), which reads as one company in two tabs; not contradictory, since the role is the same.",
+   "fix": "Use a different legal reviewer name in tab 2.",
+   "by": "B-r-402",
+   "via": "review",
+   "date": "2026-11-03 12:27 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "c013dbadb5561c84",
+   "alt:share_image": "fd53da57d0fb9167",
+   "alt:tab_image_1": "9d17d8ac13990de7",
+   "alt:tab_image_2": "f1c09d1d83e46ecb",
+   "alt:tab_image_3": "fd4a66ac47c1d779",
+   "alt:tab_image_4": "0cc75362f707289d",
+   "breadcrumb": "a6b9ee0d7add9a08",
+   "chip_adds": "7a7021dcc1c3981c",
+   "explore_cta": "0f7b1259fb611362",
+   "faq": "3e734a94ea655155",
+   "feature_1": "35197d330d28d4dc",
+   "feature_2": "429b8c22ced3169b",
+   "feature_3": "0b682c1d0f5ceef8",
+   "feature_4": "ca0186e372f9e3cc",
+   "feature_5": "94d207d234aba477",
+   "feature_6": "8814852425359fed",
+   "features_heading": "773c95ed35b7bac6",
+   "features_subheading": "88f2aa73847afcd4",
+   "h1": "0cb92e76f527f1e6",
+   "hero_description": "5ac963b50b827487",
+   "hero_prompt": "58753f65f2184ebe",
+   "howto_description": "570f25bb82a0e0c3",
+   "howto_step_1_des": "b08ba19df1183f95",
+   "howto_step_1_title": "400b09f7e20a2799",
+   "howto_step_2_des": "06fc00015d21bf79",
+   "howto_step_2_title": "e6dd40da8b6f56a7",
+   "howto_step_3_des": "8c1b75e8ac41c681",
+   "howto_step_3_title": "955e9d63138fff88",
+   "howto_step_4_des": "2285da697f77cef2",
+   "howto_step_4_title": "2e3d96125adf9941",
+   "howto_step_5_des": "6e3bcb1b24f87c9b",
+   "howto_step_5_title": "49fdd6b49b905c2c",
+   "howto_step_6_des": "3fcfa0d99d1efbe5",
+   "howto_step_6_title": "f6ac2583c7aa766b",
+   "howto_step_7_des": "b034722666402239",
+   "howto_step_7_title": "6d6255d827883c74",
+   "howto_title": "843b62a842938b1e",
+   "meta_description": "00cc3786761c61e2",
+   "meta_title": "83813fab791c891b",
+   "mockup": "803e58f7c157a6ba",
+   "product_name": "225282e8bc8974ab",
+   "prompt_chip_1": "2775239a18030e2f",
+   "prompt_chip_2": "8e9704c50d4b5b71",
+   "prompt_chip_3": "a6d910ba93b7f894",
+   "prompt_chip_4": "248181643228ad24",
+   "slug": "9deb65b8788f41ff",
+   "tab_content_1": "6d3bd285eff34ceb",
+   "tab_content_2": "3049283a38d1ff60",
+   "tab_content_3": "972acab83506805b",
+   "tab_content_4": "d3ade2ead5c9e87c",
+   "tab_label_1": "2fbcb432a4136ca7",
+   "tab_label_2": "d649e1ef43903ab8",
+   "tab_label_3": "89a1c9ffad2e71c5",
+   "tab_label_4": "36c255817c90c5d5",
+   "usecase_heading": "6b4907a14a3de9b1",
+   "why_description": "6c85ac550328906a",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "229ae2711c5c1c06"
+  },
+  "all": "407916b83c863a03",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "c013dbadb5561c84",
+   "alt:share_image": "fd53da57d0fb9167",
+   "alt:tab_image_1": "9d17d8ac13990de7",
+   "alt:tab_image_2": "f1c09d1d83e46ecb",
+   "alt:tab_image_3": "fd4a66ac47c1d779",
+   "alt:tab_image_4": "0cc75362f707289d",
+   "breadcrumb": "a6b9ee0d7add9a08",
+   "chip_adds": "7a7021dcc1c3981c",
+   "explore_cta": "0f7b1259fb611362",
+   "faq": "3e734a94ea655155",
+   "feature_1": "35197d330d28d4dc",
+   "feature_2": "429b8c22ced3169b",
+   "feature_3": "0b682c1d0f5ceef8",
+   "feature_4": "ca0186e372f9e3cc",
+   "feature_5": "94d207d234aba477",
+   "feature_6": "8814852425359fed",
+   "features_heading": "773c95ed35b7bac6",
+   "features_subheading": "88f2aa73847afcd4",
+   "h1": "0cb92e76f527f1e6",
+   "hero_description": "5ac963b50b827487",
+   "hero_prompt": "58753f65f2184ebe",
+   "howto_description": "570f25bb82a0e0c3",
+   "howto_step_1_des": "b08ba19df1183f95",
+   "howto_step_1_title": "400b09f7e20a2799",
+   "howto_step_2_des": "06fc00015d21bf79",
+   "howto_step_2_title": "e6dd40da8b6f56a7",
+   "howto_step_3_des": "8c1b75e8ac41c681",
+   "howto_step_3_title": "955e9d63138fff88",
+   "howto_step_4_des": "2285da697f77cef2",
+   "howto_step_4_title": "2e3d96125adf9941",
+   "howto_step_5_des": "6e3bcb1b24f87c9b",
+   "howto_step_5_title": "49fdd6b49b905c2c",
+   "howto_step_6_des": "3fcfa0d99d1efbe5",
+   "howto_step_6_title": "f6ac2583c7aa766b",
+   "howto_step_7_des": "b034722666402239",
+   "howto_step_7_title": "6d6255d827883c74",
+   "howto_title": "843b62a842938b1e",
+   "meta_description": "00cc3786761c61e2",
+   "meta_title": "83813fab791c891b",
+   "mockup": "803e58f7c157a6ba",
+   "product_name": "225282e8bc8974ab",
+   "prompt_chip_1": "2775239a18030e2f",
+   "prompt_chip_2": "8e9704c50d4b5b71",
+   "prompt_chip_3": "a6d910ba93b7f894",
+   "prompt_chip_4": "248181643228ad24",
+   "slug": "9deb65b8788f41ff",
+   "tab_content_1": "6d3bd285eff34ceb",
+   "tab_content_2": "3049283a38d1ff60",
+   "tab_content_3": "972acab83506805b",
+   "tab_content_4": "d3ade2ead5c9e87c",
+   "tab_label_1": "2fbcb432a4136ca7",
+   "tab_label_2": "d649e1ef43903ab8",
+   "tab_label_3": "89a1c9ffad2e71c5",
+   "tab_label_4": "36c255817c90c5d5",
+   "usecase_heading": "6b4907a14a3de9b1",
+   "why_description": "6c85ac550328906a",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "229ae2711c5c1c06"
+  },
+  "all": "407916b83c863a03",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

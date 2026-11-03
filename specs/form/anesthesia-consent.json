@@ -146,6 +146,20 @@
    "via": null,
    "by": "B-w-403",
    "note": "rework for rules 4bb5d5a61c4e: hero_description, howto_description, feature_1, feature_6, why_description, chip_adds, faq (8 questions rewritten for the PA gate), faq_sources, learn_refs; images unchanged"
+  },
+  {
+   "t": "2026-11-03 12:24 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-i-402",
+   "note": ""
+  },
+  {
+   "t": "2026-11-03 12:26 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-402",
+   "note": "[truth | HUB_RULES 8] howto_step_3_des: The cited source (42 CFR 482.52(a)(4)) says a CRNA is supervised 'unless exempted in accordance with paragraph (c)': states that opt out (Governor's letter to CMS) exempt hospitals from physician supervision of CRNAs. The copy states supervision as the CoP rul"
   }
  ],
  "plan": {
@@ -828,5 +842,295 @@
   "how-to-build-a-healthcare-practice-website: score 4.24: matches healthcar (how-to)",
   "how-to-build-a-lead-generation-website: Form fixed set: builds capture forms end to end: fields, submissions and where each lead goes next",
   "client-onboarding-software: Form fixed set: client intake: intake forms, conditional checklists and portals, plus how to build your own"
- ]
+ ],
+ "review": {
+  "by": "B-r-402",
+  "date": "2026-11-03 12:26 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Anesthesia Consent Form for Every Anesthetic Plan'; hero 'Build an anesthesia consent form that names the plan and the provider and keeps a timed signature for every case.' (D1); how-to description one sentence (D2)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are consent PDFs and the 'process, not a form' article; page covers plan choice, separate signature, pre-anesthesia questions, and FAQ on validity, timing, who signs, template/PDF conversion."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: MAC, CRNA, fasting cutoff, malignant hyperthermia, pre-op list, 'A signature apart from the surgeon's'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on full sentences: 'Offer each anesthetic your group uses...', 'Ask when the patient last ate...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Tabs carry one moment each ('Greg Holloway types toast at 6:40 a.m. for his 9:00 a.m. colonoscopy. His case waits'); no blocking craft defects."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'A printed form shows a ticked box. This one sends each pre-anesthesia answer to the provider and saves the signed plan in your database.' reads human."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "howto_step_3_des states the CoP CRNA supervision rule without the regulation's own state opt-out exemption (42 CFR 482.52(a)(4) 'unless exempted in accordance with paragraph (c)')."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Anesthesia-specific (plan selection, airway, MH family history); links out to the consent and surgery-consent siblings instead of covering them."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, gate 10/10 pass; hub link in item 2; 2 exact-match links (consent form, surgery consent form); each answer opens on the answer ('Before any sedative premedication.', 'Express consent.')."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: Mark Delaney 6:52 a.m., Tom Becker CRNA supervised by Dr. Nair; Greg Holloway toast 6:40 a.m., 9:00 colonoscopy, sent to Joy Park; 4 of 19; Paul Reyes uncle 2019, call 2 days before."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8; rules/rework-checklist.md 2",
+    "field": "howto_step_3_des",
+    "severity": "blocking",
+    "quote": "Under the hospital Conditions of Participation, anesthesia is given by an anesthesiologist, another qualified physician, dentist or podiatrist, or a CRNA or anesthesiologist's assistant under supervision.",
+    "issue": "The cited source (42 CFR 482.52(a)(4)) says a CRNA is supervised 'unless exempted in accordance with paragraph (c)': states that opt out (Governor's letter to CMS) exempt hospitals from physician supervision of CRNAs. The copy states supervision as the CoP rule everywhere, which is false for hospitals in opt-out states. The domain_sources claim for 482.52(a) drops the same exemption; that entry needs the condition too. No other field states the rule as law (tab 1 and FAQ 7 describe supervision only as a case or a condition).",
+    "fix": "Keep the source's condition, e.g. '...or a CRNA, supervised unless the state has opted out, or an anesthesiologist's assistant under an anesthesiologist's supervision.' and update the domain_sources claim to include 'unless exempted under 482.52(c)'."
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "severity": "note",
+    "quote": "ANZCA expects it to carry a signature of its own, apart from the consent for the operation.",
+    "issue": "FAQ 1: the ANZCA source accepts 'separate signatures or acknowledgment'; FAQ 8 states it correctly ('a separate signature or acknowledgment'), so FAQ 1 slightly overstates it.",
+    "fix": "'ANZCA expects it to carry its own signature or acknowledgment, apart from the consent for the operation.'"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "severity": "note",
+    "quote": "Your facility's policy sets the limit, and the form should record the date and the case it covers.",
+    "issue": "FAQ 3 states who sets a consent's validity period without a source; it is true in practice and reads as advice, but could be phrased as advice outright.",
+    "fix": "'Check your facility's policy for the limit, and record the date and the case the form covers.'"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "severity": "note",
+    "quote": "Schedule the anesthesia signature at the pre-op visit, never in the procedure room.",
+    "issue": "FAQ 5: 'never in the procedure room' is a recommendation the ANZCA source does not make (it ties timing to sedative premedication, not to the room).",
+    "fix": "'Schedule the anesthesia signature at the pre-op visit, before any premedication.'"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "severity": "note",
+    "quote": "ANZCA warns against asking a patient to sign after sedative premedication has been given.",
+    "issue": "FAQ 1, 5, 6 and 8 cite ANZCA (Australia and New Zealand) on a page otherwise built on US rules (CMS, CRNA, AANA); a US reader may not know the body. Sourced, so not a defect of truth.",
+    "fix": "Name it once as 'the Australian and New Zealand College of Anaesthetists (ANZCA)', or pair it with a US source where one says the same."
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #5",
+    "field": "tab_image_3",
+    "severity": "note",
+    "quote": "Their names top Dr. Hana Lee's pre-op list, each with the tooth or appliance they described.",
+    "issue": "The list shows Lily Shah 'Jaw stiff when opening wide', which is neither a tooth nor an appliance; the side card posts to '#brightwater-pre-op' while the copy speaks only of Dr. Lee's list.",
+    "fix": "Copy: 'each with the answer they gave'; or draw the side card as Dr. Hana Lee's list notice."
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "FAQ 1: the ANZCA source accepts 'separate signatures or acknowledgment'; FAQ 8 states it correctly ('a separate signature or acknowledgment'), so FAQ 1 slightly overstates it.",
+   "fix": "'ANZCA expects it to carry its own signature or acknowledgment, apart from the consent for the operation.'",
+   "by": "B-r-402",
+   "via": "review",
+   "date": "2026-11-03 12:26 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "FAQ 3 states who sets a consent's validity period without a source; it is true in practice and reads as advice, but could be phrased as advice outright.",
+   "fix": "'Check your facility's policy for the limit, and record the date and the case the form covers.'",
+   "by": "B-r-402",
+   "via": "review",
+   "date": "2026-11-03 12:26 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "FAQ 5: 'never in the procedure room' is a recommendation the ANZCA source does not make (it ties timing to sedative premedication, not to the room).",
+   "fix": "'Schedule the anesthesia signature at the pre-op visit, before any premedication.'",
+   "by": "B-r-402",
+   "via": "review",
+   "date": "2026-11-03 12:26 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "FAQ 1, 5, 6 and 8 cite ANZCA (Australia and New Zealand) on a page otherwise built on US rules (CMS, CRNA, AANA); a US reader may not know the body. Sourced, so not a defect of truth.",
+   "fix": "Name it once as 'the Australian and New Zealand College of Anaesthetists (ANZCA)', or pair it with a US source where one says the same.",
+   "by": "B-r-402",
+   "via": "review",
+   "date": "2026-11-03 12:26 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #5",
+   "field": "tab_image_3",
+   "issue": "The list shows Lily Shah 'Jaw stiff when opening wide', which is neither a tooth nor an appliance; the side card posts to '#brightwater-pre-op' while the copy speaks only of Dr. Lee's list.",
+   "fix": "Copy: 'each with the answer they gave'; or draw the side card as Dr. Hana Lee's list notice.",
+   "by": "B-r-402",
+   "via": "review",
+   "date": "2026-11-03 12:26 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "af8072406fb361ae",
+   "alt:share_image": "604bf373423122d4",
+   "alt:tab_image_1": "202cec9767e89aaf",
+   "alt:tab_image_2": "7e2afbea0b606adb",
+   "alt:tab_image_3": "c7c00c454c591a5e",
+   "alt:tab_image_4": "874dfac94fb8c6d2",
+   "breadcrumb": "b0230a8163780095",
+   "chip_adds": "5f501acbaa516c47",
+   "explore_cta": "0945759a5fd4151c",
+   "faq": "5edea652384417af",
+   "feature_1": "eeece31500833dec",
+   "feature_2": "f93a37b33d6d43eb",
+   "feature_3": "4bc9ed0b7dcf889e",
+   "feature_4": "e231959a4a5bbff0",
+   "feature_5": "e6a80de0b7780702",
+   "feature_6": "645a94335af74864",
+   "features_heading": "b82dc6fbd52f98ce",
+   "features_subheading": "79552a1e1978c545",
+   "h1": "715c1a155f1831db",
+   "hero_description": "aad54978f43c71d5",
+   "hero_prompt": "a9f2ccf9adef619c",
+   "howto_description": "837da13fd3888b91",
+   "howto_step_1_des": "0cc62763a0c13f51",
+   "howto_step_1_title": "c4627b81ea97d1a4",
+   "howto_step_2_des": "c3a99469e7ee870b",
+   "howto_step_2_title": "c7cf11c3bb43a491",
+   "howto_step_3_des": "ad5219bcf0bd58a6",
+   "howto_step_3_title": "a3be2ae152322de6",
+   "howto_step_4_des": "b8312cf50b67423e",
+   "howto_step_4_title": "af1e4bec6a44c7e3",
+   "howto_step_5_des": "e4442f202e8e4dd4",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "1359b726abf3b17c",
+   "howto_step_6_title": "81f73f4f3d8055a5",
+   "howto_step_7_des": "6bac9e448f1ec6dd",
+   "howto_step_7_title": "db7d46aa5f8a2658",
+   "howto_title": "91c7b0d351a675fe",
+   "meta_description": "e63ad5d1c39bfbdf",
+   "meta_title": "0c185cecd99bfce2",
+   "mockup": "18626fa793cfcfa8",
+   "product_name": "1c3946fd5174d044",
+   "prompt_chip_1": "c60482405ff6dfaa",
+   "prompt_chip_2": "43c7f5d0bbda1a0c",
+   "prompt_chip_3": "5054e9cbaa44e557",
+   "prompt_chip_4": "47b182a9c0568bb8",
+   "slug": "a4e7a6a8efa9289b",
+   "tab_content_1": "7bcc4be28146b016",
+   "tab_content_2": "3d47359636b94861",
+   "tab_content_3": "b4dba11eed77db7a",
+   "tab_content_4": "057dab63fff79a72",
+   "tab_label_1": "6b52d18eea099b46",
+   "tab_label_2": "512debfbd3519dc7",
+   "tab_label_3": "48794f18cd696cea",
+   "tab_label_4": "2249cc09fcd6e037",
+   "usecase_heading": "eb7e4869cff3ea16",
+   "why_description": "93cb7902811fd752",
+   "why_table": "58fa6f0d6df9b80d",
+   "why_title": "6048e766d7865816"
+  },
+  "all": "b944897db37a1903",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "af8072406fb361ae",
+   "alt:share_image": "604bf373423122d4",
+   "alt:tab_image_1": "202cec9767e89aaf",
+   "alt:tab_image_2": "7e2afbea0b606adb",
+   "alt:tab_image_3": "c7c00c454c591a5e",
+   "alt:tab_image_4": "874dfac94fb8c6d2",
+   "breadcrumb": "b0230a8163780095",
+   "chip_adds": "5f501acbaa516c47",
+   "explore_cta": "0945759a5fd4151c",
+   "faq": "5edea652384417af",
+   "feature_1": "eeece31500833dec",
+   "feature_2": "f93a37b33d6d43eb",
+   "feature_3": "4bc9ed0b7dcf889e",
+   "feature_4": "e231959a4a5bbff0",
+   "feature_5": "e6a80de0b7780702",
+   "feature_6": "645a94335af74864",
+   "features_heading": "b82dc6fbd52f98ce",
+   "features_subheading": "79552a1e1978c545",
+   "h1": "715c1a155f1831db",
+   "hero_description": "aad54978f43c71d5",
+   "hero_prompt": "a9f2ccf9adef619c",
+   "howto_description": "837da13fd3888b91",
+   "howto_step_1_des": "0cc62763a0c13f51",
+   "howto_step_1_title": "c4627b81ea97d1a4",
+   "howto_step_2_des": "c3a99469e7ee870b",
+   "howto_step_2_title": "c7cf11c3bb43a491",
+   "howto_step_3_des": "ad5219bcf0bd58a6",
+   "howto_step_3_title": "a3be2ae152322de6",
+   "howto_step_4_des": "b8312cf50b67423e",
+   "howto_step_4_title": "af1e4bec6a44c7e3",
+   "howto_step_5_des": "e4442f202e8e4dd4",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "1359b726abf3b17c",
+   "howto_step_6_title": "81f73f4f3d8055a5",
+   "howto_step_7_des": "6bac9e448f1ec6dd",
+   "howto_step_7_title": "db7d46aa5f8a2658",
+   "howto_title": "91c7b0d351a675fe",
+   "meta_description": "e63ad5d1c39bfbdf",
+   "meta_title": "0c185cecd99bfce2",
+   "mockup": "18626fa793cfcfa8",
+   "product_name": "1c3946fd5174d044",
+   "prompt_chip_1": "c60482405ff6dfaa",
+   "prompt_chip_2": "43c7f5d0bbda1a0c",
+   "prompt_chip_3": "5054e9cbaa44e557",
+   "prompt_chip_4": "47b182a9c0568bb8",
+   "slug": "a4e7a6a8efa9289b",
+   "tab_content_1": "7bcc4be28146b016",
+   "tab_content_2": "3d47359636b94861",
+   "tab_content_3": "b4dba11eed77db7a",
+   "tab_content_4": "057dab63fff79a72",
+   "tab_label_1": "6b52d18eea099b46",
+   "tab_label_2": "512debfbd3519dc7",
+   "tab_label_3": "48794f18cd696cea",
+   "tab_label_4": "2249cc09fcd6e037",
+   "usecase_heading": "eb7e4869cff3ea16",
+   "why_description": "93cb7902811fd752",
+   "why_table": "58fa6f0d6df9b80d",
+   "why_title": "6048e766d7865816"
+  },
+  "all": "b944897db37a1903",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
