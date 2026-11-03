@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-307",
    "note": ""
+  },
+  {
+   "t": "2026-11-03 12:29 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-414",
+   "note": "rubric 10/10 by B-r-414; 3 notes"
   }
  ],
  "pipeline": "r15",
@@ -954,5 +961,245 @@
  ],
  "writers": [
   "B-w-307"
- ]
+ ],
+ "review": {
+  "by": "B-r-414",
+  "date": "2026-11-03 12:29 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Electrician Landing Page for Installs and Repairs' and hero 'Get an electrician landing page that sends each install quote and repair call to the right person, saved in a database you own.' cover the whole job; howto_description is one sentence naming what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Meta promises four examples (EV charger, generator, small jobs, property managers); all four tabs deliver them with form, routing and database row, plus 7 trade-specific steps (panel questions, tel autocomplete, LocalBusiness markup)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'panel's amp rating and the year the house was built', '$165 to install a ceiling fan and $95 for a dimmer switch', 'building and unit number'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every feature body opens on a full imperative or declarative sentence: 'Open with two buttons', 'Ask for the panel's amp rating', 'List a fixed price', 'Print the license number'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q5 shows two ', so' endings (feature_1, feature_3), under the limit; sentences short and varied, e.g. 'Everyone else picks an install date.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail reads as operator-written: 'Camphor Ridge Electric will not price a charger on a panel it has not seen.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "claims_used prompt-build, database-owned, alerts ('by email or in Slack' within 'Slack, email and in-app alerts, reminders and escalations'), code-export ('Paid plans include code export to GitHub'); MDN and Google quotes match domain_sources spans verbatim; sibling references checked against their specs (pest-control 'Plan prices by home size', plumber arrival windows and leaks, roofing 'Morning or Afternoon'); tab sums 9+22=31, 21+5=26, 2x165+3x95=615, 12+7=19."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own stories (panel-gated charger quotes, generator reminders, fan/dimmer price list, contract buildings); sibling primaries appear only as FAQ link anchors, never in headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 electrician-specific questions, each answered in its first sentence ('Yes: list a fixed price...', 'It can, but give each trade its own page...'); hub link in item 2; paa --spec 10 pass 0 reject 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 'Quote requests 31 / To Ewald 9 / Picked a date 22'; tab 2 '26 / 21 / Reminders 5' with Rukmini addressed by card and email; tab 3 '$330 + $285 = Total $615'; tab 4 '19 / Contract buildings 12 / Homeowner desk 7', Ilsa Madrigal named; one hero, text readable."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_2, faq (item 3), howto_step_3_des",
+    "quote": "feature_2: 'knows whether to price by phone or book a visit'; faq 3: 'the estimator can tell whether a phone quote will hold or a visit has to come first'; howto_step_3_des: 'say that a visit comes before the number'",
+    "issue": "The phone-quote-or-visit idea is restated in three fields with words swapped.",
+    "fix": "Keep it in feature_2; let FAQ 3 end on the charger-model point.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_1_des, faq (item 7)",
+    "quote": "howto_step_1_des: 'give each its own page if each has its own ads'; faq 7: 'give each trade its own page if each runs its own ads'",
+    "issue": "Same sentence shape and idea in two fields.",
+    "fix": "Vary one of them.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "scope",
+    "rule": "HUB_RULES 5",
+    "field": "hero_prompt",
+    "quote": "Build an electrician landing page that saves every job request to a database I own.",
+    "issue": "Hand-edited in the spec JSON (skeleton.py set refuses hero_prompt; skeleton output is '...saves every signup...'). Sanctioned by rules/writer-brief.md item 5 ('a word that fits the business; never \"signup\" for a service call', Divit 2026-10-23 item 5) with precedent on lp/roofing (8c8a61de, coordinator fix 2026-10-21, 'inspection request') and lp/plumber (01fa6ea5, 'service call'), both reviewed and approved. Passes skeleton check all 0, QC L10/L13 and the ship-check generic-default test. Recorded so the coordinator can give skeleton a sanctioned noun override instead of direct JSON edits (docs/PREVENTION.md row 16 still says writers never write it).",
+    "fix": "No page change. Coordinator: add a noun override to skeleton.hero_prompt_for for LP service trades.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_2, faq (item 3), howto_step_3_des",
+   "issue": "The phone-quote-or-visit idea is restated in three fields with words swapped.",
+   "fix": "Keep it in feature_2; let FAQ 3 end on the charger-model point.",
+   "by": "B-r-414",
+   "via": "review",
+   "date": "2026-11-03 12:29 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_1_des, faq (item 7)",
+   "issue": "Same sentence shape and idea in two fields.",
+   "fix": "Vary one of them.",
+   "by": "B-r-414",
+   "via": "review",
+   "date": "2026-11-03 12:29 UTC"
+  },
+  {
+   "criterion": "scope",
+   "rule": "HUB_RULES 5",
+   "field": "hero_prompt",
+   "issue": "Hand-edited in the spec JSON (skeleton.py set refuses hero_prompt; skeleton output is '...saves every signup...'). Sanctioned by rules/writer-brief.md item 5 ('a word that fits the business; never \"signup\" for a service call', Divit 2026-10-23 item 5) with precedent on lp/roofing (8c8a61de, coordinator fix 2026-10-21, 'inspection request') and lp/plumber (01fa6ea5, 'service call'), both reviewed and approved. Passes skeleton check all 0, QC L10/L13 and the ship-check generic-default test. Recorded so the coordinator can give skeleton a sanctioned noun override instead of direct JSON edits (docs/PREVENTION.md row 16 still says writers never write it).",
+   "fix": "No page change. Coordinator: add a noun override to skeleton.hero_prompt_for for LP service trades.",
+   "by": "B-r-414",
+   "via": "review",
+   "date": "2026-11-03 12:29 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "8a01e253b2ae30b8",
+   "alt:share_image": "3ab25e7a5b7d7167",
+   "alt:tab_image_1": "bff72875aa82cf98",
+   "alt:tab_image_2": "9f662c15fa8d4886",
+   "alt:tab_image_3": "025edbcc1ff829b5",
+   "alt:tab_image_4": "191756e12f9738f2",
+   "breadcrumb": "6b61924932c6613a",
+   "chip_adds": "fb28dcc38b9cbed1",
+   "explore_cta": "6695ad5ded7c1d98",
+   "faq": "9c29b765feca032c",
+   "feature_1": "5e8692d3eac03c6f",
+   "feature_2": "d88d8f49837c184f",
+   "feature_3": "233b4f441cbce7c6",
+   "feature_4": "3ebc8bf1a86b2ada",
+   "feature_5": "d0a3ac9ec80310f6",
+   "feature_6": "c16def8a457e81cc",
+   "features_heading": "2a87499d2dd91067",
+   "features_subheading": "3bbe323755be0234",
+   "h1": "2af3754786e31a6c",
+   "hero_description": "9715d6ff98a51899",
+   "hero_prompt": "e526241863a25c77",
+   "howto_description": "3714675f1ed2dbac",
+   "howto_step_1_des": "2716d78cf6edc0b7",
+   "howto_step_1_title": "038ede1c0dc7cef2",
+   "howto_step_2_des": "092271060cd2ecce",
+   "howto_step_2_title": "c6ac9e93faafe855",
+   "howto_step_3_des": "b3a7dbbc75bf6065",
+   "howto_step_3_title": "2f535459662dccc9",
+   "howto_step_4_des": "e79d4842d14bcd09",
+   "howto_step_4_title": "e0608c6bf9a7d40f",
+   "howto_step_5_des": "7dbabe4dcb7a1537",
+   "howto_step_5_title": "46fb851a0ce395a1",
+   "howto_step_6_des": "8b5be7fa614256f2",
+   "howto_step_6_title": "b56b2c48d14bdcaf",
+   "howto_step_7_des": "8e5a14908901bcfd",
+   "howto_step_7_title": "0013de58ec051ceb",
+   "howto_title": "22f7c7988cb9a91a",
+   "meta_description": "2ec9fda6be25cf58",
+   "meta_title": "72ef9f7526eedc07",
+   "mockup": "fc432a3a108489c3",
+   "product_name": "c3e8a2010f1f0368",
+   "prompt_chip_1": "b94896b0026e2a7a",
+   "prompt_chip_2": "73f1cf0febaaf0c0",
+   "prompt_chip_3": "43c3d3feba6370a2",
+   "prompt_chip_4": "7c3ce1ece6e0e446",
+   "slug": "f2a955255f249d33",
+   "tab_content_1": "9c1f31f87f202183",
+   "tab_content_2": "5eace2c4ebaee95c",
+   "tab_content_3": "f02b9ada470c9d06",
+   "tab_content_4": "b5925c7bbcbc4652",
+   "tab_label_1": "b94896b0026e2a7a",
+   "tab_label_2": "73f1cf0febaaf0c0",
+   "tab_label_3": "43c3d3feba6370a2",
+   "tab_label_4": "7c3ce1ece6e0e446",
+   "usecase_heading": "9ccde017ca34c40a",
+   "why_description": "ac05fcd81606f26b",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "895293cd35f36096"
+  },
+  "all": "423bf42f122fbbcd",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "8a01e253b2ae30b8",
+   "alt:share_image": "3ab25e7a5b7d7167",
+   "alt:tab_image_1": "bff72875aa82cf98",
+   "alt:tab_image_2": "9f662c15fa8d4886",
+   "alt:tab_image_3": "025edbcc1ff829b5",
+   "alt:tab_image_4": "191756e12f9738f2",
+   "breadcrumb": "6b61924932c6613a",
+   "chip_adds": "fb28dcc38b9cbed1",
+   "explore_cta": "6695ad5ded7c1d98",
+   "faq": "9c29b765feca032c",
+   "feature_1": "5e8692d3eac03c6f",
+   "feature_2": "d88d8f49837c184f",
+   "feature_3": "233b4f441cbce7c6",
+   "feature_4": "3ebc8bf1a86b2ada",
+   "feature_5": "d0a3ac9ec80310f6",
+   "feature_6": "c16def8a457e81cc",
+   "features_heading": "2a87499d2dd91067",
+   "features_subheading": "3bbe323755be0234",
+   "h1": "2af3754786e31a6c",
+   "hero_description": "9715d6ff98a51899",
+   "hero_prompt": "e526241863a25c77",
+   "howto_description": "3714675f1ed2dbac",
+   "howto_step_1_des": "2716d78cf6edc0b7",
+   "howto_step_1_title": "038ede1c0dc7cef2",
+   "howto_step_2_des": "092271060cd2ecce",
+   "howto_step_2_title": "c6ac9e93faafe855",
+   "howto_step_3_des": "b3a7dbbc75bf6065",
+   "howto_step_3_title": "2f535459662dccc9",
+   "howto_step_4_des": "e79d4842d14bcd09",
+   "howto_step_4_title": "e0608c6bf9a7d40f",
+   "howto_step_5_des": "7dbabe4dcb7a1537",
+   "howto_step_5_title": "46fb851a0ce395a1",
+   "howto_step_6_des": "8b5be7fa614256f2",
+   "howto_step_6_title": "b56b2c48d14bdcaf",
+   "howto_step_7_des": "8e5a14908901bcfd",
+   "howto_step_7_title": "0013de58ec051ceb",
+   "howto_title": "22f7c7988cb9a91a",
+   "meta_description": "2ec9fda6be25cf58",
+   "meta_title": "72ef9f7526eedc07",
+   "mockup": "fc432a3a108489c3",
+   "product_name": "c3e8a2010f1f0368",
+   "prompt_chip_1": "b94896b0026e2a7a",
+   "prompt_chip_2": "73f1cf0febaaf0c0",
+   "prompt_chip_3": "43c3d3feba6370a2",
+   "prompt_chip_4": "7c3ce1ece6e0e446",
+   "slug": "f2a955255f249d33",
+   "tab_content_1": "9c1f31f87f202183",
+   "tab_content_2": "5eace2c4ebaee95c",
+   "tab_content_3": "f02b9ada470c9d06",
+   "tab_content_4": "b5925c7bbcbc4652",
+   "tab_label_1": "b94896b0026e2a7a",
+   "tab_label_2": "73f1cf0febaaf0c0",
+   "tab_label_3": "43c3d3feba6370a2",
+   "tab_label_4": "7c3ce1ece6e0e446",
+   "usecase_heading": "9ccde017ca34c40a",
+   "why_description": "ac05fcd81606f26b",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "895293cd35f36096"
+  },
+  "all": "423bf42f122fbbcd",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
