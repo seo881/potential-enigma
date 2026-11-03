@@ -129,6 +129,13 @@
    "via": null,
    "by": "B-w-313",
    "note": "rework: tab_content_1 now lists the form's four fields (review 24e36881 blocking finding); no image fields changed"
+  },
+  {
+   "t": "2026-11-03 12:41 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "B-s-406",
+   "note": "slim review: [truth | CONTENT_DEFECTS #20; HUB_RULES 8] tab_content_1 vs image_brief.tabs[0].main: The tab 1 image draws the whole consult form (heading 'Book a free consult', fields, 'Request my consult' button) with only three fields: Name, Goal, Preferred days. No Email field. The copy says the f"
   }
  ],
  "pipeline": "r15",
@@ -1132,7 +1139,7 @@
    "prompt_chip_3": "7fe7a22226c6fb8c",
    "prompt_chip_4": "5a10f55f42f4e92e",
    "slug": "7f89eb420301cb35",
-   "tab_content_1": "192b58565cd0832f",
+   "tab_content_1": "b5ddaa492cc8256b",
    "tab_content_2": "588b15ccbf940efd",
    "tab_content_3": "a05dac124c7d388f",
    "tab_content_4": "c888c86fd744adb0",
@@ -1145,7 +1152,31 @@
    "why_table": "2b1f9047599f7186",
    "why_title": "434c47804e4068fe"
   },
-  "all": "f74fd6de5fee8221",
+  "all": "7e032ada419ec16f",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
- }
+ },
+ "slim_reviews": [
+  {
+   "by": "B-s-406",
+   "date": "2026-11-03 12:41 UTC",
+   "fields": [
+    "tab_content_1"
+   ],
+   "baseline": "review_hash",
+   "blocking": 1,
+   "notes": 0,
+   "findings": [
+    {
+     "criterion": "truth",
+     "field": "tab_content_1 vs image_brief.tabs[0].main",
+     "quote": "Its form asks for a name and an email, plus a goal and preferred days, and nothing else.",
+     "fix": "Add an Email field to image_brief.tabs[0].main fields (e.g. ['Email', 'priya@example.com'], between Name and Goal, reserved example domain) so the drawn form shows name, email, goal, preferred days; keep the copy as is. Re-render (hubctl images) and check the balance gate, then hubctl ready.",
+     "class": "image-contradiction",
+     "rule": "SEVERITY image-contradiction; CONTENT_DEFECTS #20; HUB_RULES 8",
+     "issue": "The tab 1 image draws the whole consult form (heading 'Book a free consult', fields, 'Request my consult' button) with only three fields: Name, Goal, Preferred days. No Email field. The copy says the form asks for four fields 'and nothing else' (as do FAQ 6 and the freeConsult mockup), so copy and image disagree on what the form collects. The hero card 'Emailed to Marisol Vega' kv also lists Goal, Preferred days, Client, no email.",
+     "severity": "blocking"
+    }
+   ]
+  }
+ ]
 }
