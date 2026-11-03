@@ -10,7 +10,11 @@
 #    4 hubs, the held pages);
 # 2. the pages are split round-robin into N shards (default 10), each its own manifest and out file, run as parallel `node live_audit.mjs`
 #    with a per-page timeout and a watchdog per shard; the held-page sweep runs once (shard 0 only); the hubs run in their own shard;
+# 0. (Divit 2026-11-03) the live list is fresh: off GitHub Actions the clone is fetched and fast-forwarded when clean, else the newer
+#    registry per hub of the clone and origin/main is used; the digest says which ("clone: ...");
 # 3. pages that failed on a transport error (timeout, http 0, net::ERR_*) are re-run ONCE, serially (capped; LESSONS 2026-10-13);
+#    within a page, every failed resource load (image, link, card, og:image, child-link status, a console network error) is re-fetched
+#    up to 3 times with backoff before it counts (ops/verify_launch.mjs statusRetry, ops/live_audit.mjs retryFailedLoads), on both runners;
 # 4. the shards are merged into .cache/live/DATE/raw.json and scored by `live_audit.py run --from-raw` -> audits/live/DATE/findings.json;
 #    then (full runs only) the daily 843-row redirect check (ops/redirect_check.py, Divit 2026-10-26): every row of
 #    reports/2026-10-23/redirects-final.csv must 301 single-hop to exactly its target (else P0 A11-redirect) and the target must
@@ -72,7 +76,27 @@ T0=$(date +%s)
 # ---- manifest + split ----
 if [ "$PHASE" = all ] || [ "$PHASE" = manifest ]; then
   rm -f "$SDIR"/*
+  # Divit 2026-11-03 (B-dev-21): the live list comes from a fresh source, so a stale clone never audits (or misses) pages by an old
+  # status/live.json. GitHub Actions checks out main fresh. Elsewhere (the Mac): fetch origin/main; a clean tree is fast-forwarded (never
+  # a merge, rebase or stash); a dirty or diverged tree is left as it is (said in the digest) and the live list is the newer of this
+  # clone's and origin/main's registry per hub (live_audit.py fresh-live). A failed fetch is said in the digest too.
+  if [ "${GITHUB_ACTIONS:-}" = true ]; then SYNC="fresh checkout of main $(git rev-parse --short HEAD 2>/dev/null) (GitHub Actions)"
+  else
+    export GIT_HTTP_LOW_SPEED_LIMIT=1000 GIT_HTTP_LOW_SPEED_TIME=60 GIT_TERMINAL_PROMPT=0
+    if git fetch -q origin main > "$SDIR/fetch.out" 2>&1; then
+      DIRTY="$(git status --porcelain --untracked-files=no | wc -l | tr -d ' ')"
+      if [ "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" ]; then SYNC="clone at origin/main $(git rev-parse --short HEAD)"
+      elif [ "$DIRTY" != 0 ]; then SYNC="NOT PULLED: work tree dirty ($DIRTY tracked file(s) changed); live list merged with origin/main"
+      elif git merge -q --ff-only origin/main > "$SDIR/pull.out" 2>&1; then SYNC="fast-forwarded to origin/main $(git rev-parse --short HEAD)"
+      else SYNC="NOT PULLED: fast-forward not possible (local commits not on origin/main); live list merged with origin/main"; fi
+      if "$PY" ops/live_audit.py fresh-live "$CDIR/live.fresh.json" > "$SDIR/fresh.out" 2>&1; then export EMG_LIVE_REGISTRY="$CDIR/live.fresh.json"; SYNC="$SYNC; $(tail -1 "$SDIR/fresh.out")"
+      else SYNC="$SYNC; fresh live list failed ($(tail -1 "$SDIR/fresh.out")), clone's status/live.json used"; fi
+    else SYNC="NOT PULLED: git fetch failed ($(tail -1 "$SDIR/fetch.out" | cut -c1-120)); clone's status/live.json used (may be stale)"; fi
+  fi
+  say "clone: $SYNC"
   "$PY" ops/live_audit.py run "${SEL[@]}" ${NAMEARG[@]+"${NAMEARG[@]}"} --dry --manifest-only --base "$BASE" > "$SDIR/manifest.out" 2>&1 || fail "manifest: $(tail -1 "$SDIR/manifest.out")"
+  NOTE="$(grep '^note: ' "$SDIR/manifest.out" | head -3 | tr '\n' ' ')"; [ -n "$NOTE" ] && SYNC="$SYNC; $NOTE"
+  printf '%s\n' "$SYNC" > "$CDIR/clone_sync.txt"   # read by the score phase into findings.json clone_sync and the digest
   "$PY" - "$CDIR/manifest.json" "$SDIR" "$SHARDS" <<'PY' || fail "sharding"
 import json, sys
 man = json.load(open(sys.argv[1])); d = sys.argv[2]; n = int(sys.argv[3])
@@ -135,10 +159,11 @@ fi
 
 # score (the same rules as `hubctl live-audit`), then the plain digest
 "$PY" ops/live_audit.py run "${SEL[@]}" ${NAMEARG[@]+"${NAMEARG[@]}"} --dry --no-shots --base "$BASE" --from-raw "$CDIR/raw.json" > "$SDIR/score.out" 2>&1 || fail "scoring: $(tail -3 "$SDIR/score.out" | tr '\n' ' ')"
-"$PY" - "$REPO/audits/live/$RDATE/findings.json" "$NRETRY" "$NT" "$RUNNER" <<'PY'
-import json, sys
+"$PY" - "$REPO/audits/live/$RDATE/findings.json" "$NRETRY" "$NT" "$RUNNER" "$CDIR/clone_sync.txt" <<'PY'
+import json, os, sys
 p = sys.argv[1]; d = json.load(open(p)); d["transport_retried"] = int(sys.argv[2]); d["transport_failed"] = int(sys.argv[3])
 d["runner"] = f"ops/schedule/live_audit_checks.sh on {sys.argv[4]}"
+d["clone_sync"] = open(sys.argv[5]).read().strip() if os.path.exists(sys.argv[5]) else "unknown (manifest phase wrote no clone_sync.txt)"
 json.dump(d, open(p, "w"), indent=1, ensure_ascii=False)
 PY
 # Divit 2026-10-26 (handback item 0): the daily 843-row redirect check (reports/2026-10-23/redirects-final.csv), full runs only,

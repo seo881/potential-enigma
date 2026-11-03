@@ -64,9 +64,47 @@ def git(*a): return subprocess.run(["git", *a], cwd=ROOT, capture_output=True, t
 
 # ---------------------------------------------------------------- page selection
 def published_urls():
-    """Live child pages: the Webflow publish state (status/live.json, Divit 2026-10-15), not the workflow state."""
+    """Live child pages: the Webflow publish state (status/live.json, Divit 2026-10-15), not the workflow state. EMG_LIVE_REGISTRY
+    (set by ops/schedule/live_audit_checks.sh from `live_audit.py fresh-live`, Divit 2026-11-03) points at the freshest registry
+    when the clone could not be fast-forwarded; a live page whose spec this clone does not have yet is listed and left out."""
     import guards as G
-    return sorted(G.live_child_urls())
+    fresh = os.environ.get("EMG_LIVE_REGISTRY")
+    urls = G.live_child_urls(G.live_registry(fresh) if fresh and os.path.exists(fresh) else None)
+    nospec = sorted(u for u in urls if not os.path.exists(H.spath(u)))
+    if nospec: print(f"note: {len(nospec)} live page(s) without a spec in this clone, not audited: {', '.join(nospec[:10])}", file=sys.stderr)
+    return sorted(set(urls) - set(nospec))
+
+def _ts(v):
+    """'2026-11-03 13:05 UTC' or '2026-11-03T13:05:30.936Z' -> '2026-11-03T13:05' (comparable)."""
+    return re.sub(r"^(\d{4}-\d\d-\d\d)[ T](\d\d:\d\d).*$", r"\1T\2", v or "")
+
+def fresh_live(local, remote):
+    """Divit 2026-11-03 (B-dev-21): the freshest live registry from two copies (this clone's status/live.json and origin/main's).
+    Per hub, the copy with the newer full collection read (hubs[hub].read_at) wins; a page the other copy marked live after that
+    read (a ship's live_mark, lastPublished later than the read) is added. Returns (registry, notes)."""
+    out = {"hubs": {}, "pages": {}, "_note": "fresh_live merge (ops/live_audit.py): newer hub read wins, later live marks added"}; notes = []
+    for hub, hc in H.CFG["hubs"].items():
+        hp = hc["path"] + "/"
+        rl, rr = (local.get("hubs") or {}).get(hub, {}), (remote.get("hubs") or {}).get(hub, {})
+        base, other, name = (remote, local, "origin/main") if _ts(rr.get("read_at")) > _ts(rl.get("read_at")) else (local, remote, "clone")
+        read = _ts((base.get("hubs") or {}).get(hub, {}).get("read_at"))
+        out["hubs"][hub] = (base.get("hubs") or {}).get(hub, {})
+        mine = {u: e for u, e in (base.get("pages") or {}).items() if u.startswith(hp)}
+        extra = {u: e for u, e in (other.get("pages") or {}).items() if u.startswith(hp) and e.get("live") and not (mine.get(u) or {}).get("live") and _ts(e.get("lastPublished")) > read}
+        out["pages"].update(mine); out["pages"].update(extra)
+        notes.append(f"{hub} {name} read {read or '?'}" + (f" +{len(extra)} later" if extra else ""))
+    return out, notes
+
+def cmd_fresh_live(args):
+    """live_audit.py fresh-live OUT.json: merge this clone's status/live.json with origin/main's (fetched by the caller) into OUT."""
+    import guards as G
+    local = G.live_registry()
+    r = subprocess.run(["git", "show", "origin/main:status/live.json"], cwd=ROOT, capture_output=True, text=True)
+    remote = json.loads(r.stdout) if r.returncode == 0 and r.stdout.strip() else {"hubs": {}, "pages": {}}
+    R, notes = fresh_live(local, remote)
+    jsave(args[0], R)
+    nl, nf = len(G.live_child_urls(local)), len(G.live_child_urls(R))
+    print(f"live registry: clone {nl} live, fresh {nf} live ({'; '.join(notes)})")
 
 def select(args):
     st = jload(STATE, {"pages": {}})
@@ -176,10 +214,22 @@ def _slug_problems(url):
     return _SLUGS.spec_problems(hub, url, s) if hub else []
 
 CONSOLE_EXCEPTIONS = []   # filled by evaluate(); printed on every run (Divit 2026-10-14)
+RETRY_CLEARED = []        # (url, "image"|"console", resource) failed in the render, loaded on a direct retry: filled by evaluate(), printed in the digest
+def _retry_ok(x):
+    """Divit 2026-11-03 (B-dev-21): the capture (ops/live_audit.mjs retryFailedLoads) re-fetched this failed resource and it loaded."""
+    rt = (x or {}).get("retry") if isinstance(x, dict) else None
+    return isinstance(rt, dict) and rt.get("ok") is True
+def net_cleared(e):
+    """A console entry that is PURELY a network failure (rules/live_audit.json console_network_retry on its whole text, kind log)
+    and whose resource answered 2xx on a direct retry. Anything else (script and page errors, other text, no retry, a retry that
+    failed) still counts as A9-console."""
+    return (isinstance(e, dict) and e.get("kind") == "log" and bool(re.search(CONF["console_network_retry"], e.get("t") or ""))
+            and _retry_ok(e) and 200 <= int((e.get("retry") or {}).get("status") or 0) < 300)
 def evaluate(raw, man, base):
     """Findings for every page and hub: dicts with id, url, field, severity, code, rule, msg, snippet, fix kind."""
     by = {p["url"]: p for p in man["pages"]}; F = []; staging = base.rstrip("/") != CANON
     console_exceptions = CONSOLE_EXCEPTIONS; console_exceptions.clear()   # (url, name, error) ignored by Divit's named console exception (2026-10-14/15)
+    RETRY_CLEARED.clear()
     def add(url, code, sev, msg, field=None, snippet="", fix="proposed", **kw):
         F.append({"url": url, "field": field, "severity": sev, "code": code, "msg": msg, "snippet": (snippet or "")[:160], "fix": fix, "layer": "A", **kw})
     for r in raw["pages"]:
@@ -235,8 +285,13 @@ def evaluate(raw, man, base):
                     field=fld, fix="auto" if fld == "faq" and st["internal"] else "proposed")
         if not c.get("no_link_to_non_live"): add(url, "A7-nonlive", "P1", "links to a child page that is not live: " + ", ".join(r["verify"].get("dead_links") or []), field="faq", fix="auto")
         # images
+        # Divit 2026-11-03: an image that failed in the render but decoded on a direct retry (retry.ok) is a network flake, not a finding;
+        # one that still fails after the re-tries (404, broken file, persistent transport error) is scored as before
         for i in R.get("images") or []:
-            if i["visible"] and not i["loaded"] and i["src"]: add(url, "A8-load", "P1", f"image does not load: {i['src'][-60:]}", field=img_field(m, i["src"]) or "template")
+            if i["visible"] and not i["loaded"] and i["src"]:
+                if _retry_ok(i): RETRY_CLEARED.append((url, "image", i["src"])); continue
+                rt = i.get("retry") or {}
+                add(url, "A8-load", "P1", f"image does not load: {i['src'][-60:]}" + (f" (still failing after {rt.get('attempts')} re-tries, http {rt.get('status')})" if rt.get("attempts") else ""), field=img_field(m, i["src"]) or "template")
         for k, im in m["images"].items():
             u = im.get("cdn_url") or ""
             want = "webp" if k == "share_image" else "svg"
@@ -268,7 +323,10 @@ def evaluate(raw, man, base):
         # is gone (Divit 2026-10-15): any other error counts. Errors are {t, src, stack, kind, doc?, element?} from ops/console_capture.mjs
         import console_filter as CF
         ce, cign = CF.split(R.get("console_errors") or [])
-        ce = [CF.text(e) for e in ce]
+        # Divit 2026-11-03: a pure network failure whose resource loaded on a direct retry is not counted (net_cleared); every other error is
+        for e in ce:
+            if net_cleared(e): RETRY_CLEARED.append((url, "console", e.get("src", "")))
+        ce = [CF.text(e) for e in ce if not net_cleared(e)]
         if cign: console_exceptions.extend((url, n, e) for n, e in cign)
         if ce: add(url, "A9-console", "P1", f"{len(ce)} console error(s) in Chromium: {ce[0][:120]}", field="template", fix="proposed")
         # JSON-LD: parses; FAQPage matches the visible FAQ word for word
@@ -286,15 +344,23 @@ def evaluate(raw, man, base):
     # A 2026-10-26: a ledger's held URL is resolved through the slug migration (old ledgers list pre-migration URLs, which now 301 to
     # the new slug); a page whose CURRENT status state is published was shipped after that ledger held it, so it is not held any more.
     # Without this, all 50 such pages read as P0 "held page is live" and a fix run would unpublish live pages.
-    def _now_published(u):
+    # B-dev-21 2026-11-03: a shipped page later sent back through the workflow (the HERO PROMPT FIX slim reviews put live pages in
+    # state reviewed) is still a page shipped after the hold: its spec history has a `published` event later than the ledger's last
+    # entry for it. A page published BEFORE it was held, then held, still raises A0.
+    def _now_published(u, ledger=None):
         try:
             import slugs as _SL, hubctl as _H
             cur = _SL.current_url(u) if hasattr(_SL, "current_url") else _migrated(u)
-            return ((_H.load_st(_H.hub_of(cur))["pages"].get(cur) or {}).get("state") == "published")
+            if (_H.load_st(_H.hub_of(cur))["pages"].get(cur) or {}).get("state") == "published": return True
+            if not ledger or not os.path.exists(_H.spath(cur)): return False
+            le = (jload(os.path.join(ROOT, "status", "ship", ledger), {}).get("pages") or {}).get(u) or {}
+            held_at = max([h.get("t") or "" for h in le.get("history") or []] + [""])
+            if not held_at: return False
+            return any(h.get("state") == "published" and (h.get("t") or "") > held_at for h in spec(cur).get("history") or [])
         except Exception: return False
     for hp in raw.get("held") or []:
         live = [host for host, code in hp["status"].items() if code == 200]
-        if live and _now_published(hp["url"]): continue
+        if live and _now_published(hp["url"], hp.get("ledger")): continue
         if live:
             add(hp["url"], "A0-held-live", "P0", f"HELD page is live on {', '.join(live)} (ledger {hp.get('ledger')})", field="item",
                 fix="unpublish" if hp.get("item_id") else "proposed", item_id=hp.get("item_id"), collection=hp.get("collection"))
@@ -422,7 +488,8 @@ def cmd_run(args):
     briefs = write_layer_b(date, needB, base)
     doc = {"date": date, "base": base, "dry": dry, "pages": urls, "hubs": hubs, "findings": F, "layer_b_needed": needB, "layer_b_briefs": briefs,
            "hashes": hashes, "raw": os.path.relpath(rawp, ROOT), "started": now(),
-           "console_exceptions": [{"url": u, "name": n, "t": e.get("t", ""), "src": e.get("src", "")} for u, n, e in CONSOLE_EXCEPTIONS]}
+           "console_exceptions": [{"url": u, "name": n, "t": e.get("t", ""), "src": e.get("src", "")} for u, n, e in CONSOLE_EXCEPTIONS],
+           "retry_cleared": [{"url": u, "kind": k, "resource": x} for u, k, x in RETRY_CLEARED]}
     jsave(findings_path(date), doc)
     plan(date)
     if not dry:
@@ -805,12 +872,17 @@ def plain_digest(date):
     for (s, c) in sorted(codes):
         if s == "P2": continue
         L.append(f"{s} {c} ({len(urls[(s, c)])}):"); L += [f"  {u}" for u in sorted(urls[(s, c)])[:400]]; L.append("")
+    if d.get("retry_cleared") is not None:
+        rc = Counter(x["kind"] for x in d["retry_cleared"])
+        L.append(f"resource loads re-tried and loaded (not counted, Divit 2026-11-03): {rc.get('image', 0)} image(s), {rc.get('console', 0)} console network error(s) on {len({x['url'] for x in d['retry_cleared']})} page(s)")
+    if d.get("clone_sync"): L.append(f"clone: {d['clone_sync']}")
     if d.get("transport_retried") is not None: L.append(f"transport errors re-checked: {d['transport_retried']}; still failing after the re-check: {d.get('transport_failed', 0)}")
     if d.get("redirects"): L.append(f"redirects (Divit 2026-10-26): {d['redirects']['rows']} rows of {d['redirects']['csv']} checked at {d['redirects']['checked']}; findings {d['redirects']['failing']}")
     open(os.path.join(AUD, date, "digest.txt"), "w").write("\n".join(L) + "\n")
     return L
 
 def main(args):
+    if args[:1] == ["fresh-live"]: cmd_fresh_live(args[1:]); return
     if args[:1] == ["plain-digest"]: print("\n".join(plain_digest(args[1] if len(args) > 1 else today())[:4])); return
     sub = args[0] if args and not args[0].startswith("--") else "run"
     rest = args[1:] if sub != "run" or (args and args[0] == "run") else args

@@ -27,14 +27,24 @@ export const norm = (s) => (s || "").replace(/\s+/g, " ").trim();
 // every request has a 30 s ceiling (2026-10-23: a full serial run hung for 6 hours on requests and jsdom loads that never ended)
 export const FETCH_MS = 30000;
 export const status = async (u, method = "HEAD") => { try { const r = await fetch(u, { method, redirect: "follow", signal: AbortSignal.timeout(FETCH_MS) }); return r.status; } catch { return 0; } };
-// card links (Learn and carousel) repeat on every page of a hub: one probe per URL per run; a transport error (0) gets one GET retry
-// and is not cached
+// Divit 2026-11-03 (B-dev-21): a failed resource load is re-tried before it counts, on BOTH runners (Mac launchd and the GitHub
+// Actions matrix run this same code). Transient = a transport error (0: socket, DNS, reset, timeout), 5xx or 429. Up to 3 re-tries of
+// the same URL with backoff (RETRY_MS; EMG_RETRY_MS="a,b,c" overrides, golden tests only); only an answer that persists is scored.
+// A real 404/410/403 is never re-tried (it is final at once) and still fails.
+export const transient = (s) => s === 0 || s === 429 || s >= 500;
+export const RETRY_MS = (process.env.EMG_RETRY_MS || "1500,4000,9000").split(",").map(Number).filter((n) => n >= 0).slice(0, 3);
+export async function statusRetry(u, method = "HEAD") {
+  let s = await status(u, method); if (method === "HEAD" && (s === 405 || s === 403 || s === 0)) s = await status(u, "GET");
+  for (let i = 0; transient(s) && i < RETRY_MS.length; i++) { await sleep(RETRY_MS[i]); s = await status(u, "GET"); }
+  return s;
+}
+// card links (Learn and carousel) repeat on every page of a hub: one probe per URL per run; a transient answer is re-tried
+// (statusRetry) and never cached
 const cardCache = new Map();
 export async function cardStatus(u) {
   if (cardCache.has(u)) return cardCache.get(u);
-  let s = await status(u, "HEAD"); if (s === 405 || s === 403 || s === 0) s = await status(u, "GET");
-  if (s === 0) { await sleep(2000); s = await status(u, "GET"); }
-  if (s !== 0) cardCache.set(u, s);
+  const s = await statusRetry(u, "HEAD");
+  if (!transient(s)) cardCache.set(u, s);
   return s;
 }
 // Divit 2026-10-23: Learn cards and the carousel are shown, and every card carries a real per-item link that resolves (200; Webflow
@@ -74,10 +84,15 @@ export const webpSize = (b) => {
 // share image (DECISIONS 2026-10-09): WebP, 200 with content-type image/webp, exactly 1200x630, at most 300 KB
 export async function ogWebp(u) {
   const o = { url: u };
-  try {
-    const r = await fetch(u, { redirect: "follow" }); const b = Buffer.from(await r.arrayBuffer());
-    Object.assign(o, { status: r.status, type: (r.headers.get("content-type") || "").split(";")[0].trim(), bytes: b.length, size: webpSize(b) });
-  } catch (e) { o.error = String(e); }
+  for (let a = 0; a <= RETRY_MS.length; a++) {   // a transport error, 5xx or 429 is re-tried (Divit 2026-11-03); the final answer is judged
+    if (a) { await sleep(RETRY_MS[a - 1]); o.attempts = a + 1; }
+    delete o.error;
+    try {
+      const r = await fetch(u, { redirect: "follow", signal: AbortSignal.timeout(FETCH_MS) }); const b = Buffer.from(await r.arrayBuffer());
+      Object.assign(o, { status: r.status, type: (r.headers.get("content-type") || "").split(";")[0].trim(), bytes: b.length, size: webpSize(b) });
+    } catch (e) { o.error = String(e); o.status = 0; }
+    if (!transient(o.status)) break;
+  }
   o.ok = /\.webp(\?|$)/i.test(new URL(u).pathname) && o.status === 200 && o.type === "image/webp"
     && !!o.size && o.size[0] === 1200 && o.size[1] === 630 && o.bytes <= 300 * 1024;
   return o;
@@ -108,7 +123,7 @@ export async function checkPage(p, opts = {}) {
   c.meta_description = norm($('meta[name="description"]')?.content) === norm(p.meta_description);
   c.canonical = ($('link[rel="canonical"]')?.getAttribute("href") || "").replace(/\/$/, "") === CANON + p.url;
   const og = $('meta[property="og:image"]')?.content;
-  c.og_image = !!og && (await status(og)) === 200;
+  c.og_image = !!og && (await statusRetry(og)) === 200;
   if (og) { out.og = await ogWebp(new URL(og, url).href); c.og_webp = out.og.ok; } else c.og_webp = false;
   const faqText = norm($$("[data-faq-wrapper]").map((e) => e.textContent).join(" "));
   c.faq_rendered = p.faq.every((q) => faqText.includes(norm(q))) && !PLACEHOLDER.test(faqText);
@@ -139,7 +154,7 @@ export async function checkPage(p, opts = {}) {
   c.first_tab_active = !!first && first.classList.contains("w--current") && !!pane && pane.classList.contains("w--tab-active")
     && !links.some((a) => a !== first && a.parentElement === first.parentElement && a.classList.contains("w--current"));
   const imgs = p.uc_images.filter(Boolean);
-  c.usecase_images_4 = imgs.length === 4 && (await Promise.all(imgs.map((u) => status(u)))).every((s) => s === 200)
+  c.usecase_images_4 = imgs.length === 4 && (await Promise.all(imgs.map((u) => statusRetry(u)))).every((s) => s === 200)
     && imgs.every((u) => $$("img").some((i) => (i.getAttribute("src") || "") === u || (i.getAttribute("srcset") || "").includes(u)));
   c.comparison_table = !!$(".cmp table");
   c.learn_not_empty = !/No items found/i.test($(".section_blog-related")?.textContent || "");
@@ -158,7 +173,7 @@ export async function checkPage(p, opts = {}) {
   if (p.howto_description) c.howto_description_live = bodyText.includes(norm(p.howto_description));
   c.hub_link = $$("a").some((a) => pathOf(a.href) === p.hub);
   const kids = [...new Set($$("a").map((a) => pathOf(a.href.split("#")[0])).filter((h) => /^\/ai-[a-z-]+\/[a-z0-9-]+$/.test(h)))];
-  const dead = []; for (const k of kids) if ((await status(BASE + k)) !== 200) dead.push(k);
+  const dead = []; for (const k of kids) if ((await statusRetry(BASE + k)) !== 200) dead.push(k);   // A7-nonlive: a transient answer is re-tried (Divit 2026-11-03)
   c.no_link_to_non_live = dead.length === 0; if (dead.length) out.dead_links = dead;
   // T5: the carousel on the child template (section_build, made visible by T6) shows covers with alt text
   const build = $(".section_build"), covers = build ? coverImgs(build) : [];

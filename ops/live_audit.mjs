@@ -11,7 +11,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { createRequire } from "node:module";
-import { checkPage, checkHub, setBase, status, ogWebp } from "./verify_launch.mjs";
+import { checkPage, checkHub, setBase, status, statusRetry, transient, RETRY_MS, sleep, ogWebp } from "./verify_launch.mjs";
 import { captureErrors, tieElements } from "./console_capture.mjs";
 const require = createRequire(import.meta.url);
 const { chromium } = require("playwright");
@@ -31,12 +31,10 @@ const man = JSON.parse(fs.readFileSync(MAN, "utf8"));
 const hosts = [new URL(BASE).host, "emergent.sh", "www.emergent.sh"];
 const statusCache = new Map();
 const headStatus = async (u) => {
-  if (!statusCache.has(u)) statusCache.set(u, (async () => {   // transport errors (0) are retried with a pause: a crawl of many links trips rate limits
-    let s = await status(u, "HEAD"); if (s === 405 || s === 403 || s === 0) s = await status(u, "GET");
-    for (let i = 0; s === 0 && i < 2; i++) { await new Promise((r) => setTimeout(r, 2000 * (i + 1))); s = await status(u, "GET"); }   // capped: 2 retries
-    return s; })());
+  // a transient answer (0, 5xx, 429) is re-tried with backoff (statusRetry, Divit 2026-11-03): a crawl of many links trips rate limits
+  if (!statusCache.has(u)) statusCache.set(u, statusRetry(u, "HEAD"));
   const s = await statusCache.get(u);
-  if (s === 0) statusCache.delete(u);   // a transport error is not cached: the next page probes again (one bad probe made 40 P0s, 2026-10-12)
+  if (transient(s)) statusCache.delete(u);   // a transient answer is not cached: the next page probes again (one bad probe made 40 P0s, 2026-10-12)
   return s;
 };
 // /sitemap.xml may be a sitemap index (2026-10-12: post-, page-, news- and archive-news-sitemap.xml): read every child sitemap it lists
@@ -83,7 +81,48 @@ async function render(url, slug) {
     if (SHOTS) { fs.mkdirSync(SHOTS, { recursive: true }); await pg.screenshot({ path: path.join(SHOTS, `${slug}-${w}.png`), fullPage: true }).catch(() => {}); }
     await ctx.close();
   }
+  await retryFailedLoads(out);
   return out;
+}
+
+// Divit 2026-11-03 (B-dev-21): the Mac run found 44 A8-load and an A9-console net::ERR_SOCKET_NOT_CONNECTED on shared CDN assets that
+// all returned 200 on re-check (11 shards' browsers on one home network). A failed resource load is re-fetched (the same URL) before it
+// counts, on both runners: up to RETRY_MS.length re-tries with backoff. The finding is still scored when the failure persists.
+//  - an image that did not load (visible, not complete or naturalWidth 0): decoded again in a fresh browser context (a new connection);
+//    images[i].retry = {ok, attempts, status, w, h}. Python counts A8-load unless retry.ok. A real 404 stops at once (never ok); an
+//    image that answers 200 but does not decode (broken file) is never ok.
+//  - a console entry that is purely a network failure (rules/live_audit.json console_network_retry, kind "log", with the resource URL
+//    as its source): the URL is fetched again (statusRetry); retry = {ok, status}. Python drops it only when retry.ok (2xx). Script
+//    errors, page errors and any other console text are never re-tried and still count.
+const NET_RX = new RegExp(JSON.parse(fs.readFileSync(new URL("../rules/live_audit.json", import.meta.url), "utf8")).console_network_retry);
+const loadedOnce = new Map();   // src -> retry result, only for a success (a failure is never cached: each page re-tries)
+async function decodeOnce(src) {
+  const ctx = await browser.newContext(); const pg = await ctx.newPage();
+  try {
+    return await withTimeout(pg.evaluate(async (u) => { const i = new Image(); i.src = u; try { await i.decode(); } catch {}
+      return { loaded: i.complete && i.naturalWidth > 0, w: i.naturalWidth, h: i.naturalHeight }; }, src), 45000, "image " + src);
+  } catch (e) { return { loaded: false, error: String(e).slice(0, 120) }; } finally { await ctx.close().catch(() => {}); }
+}
+async function retryImage(src) {
+  if (loadedOnce.has(src)) return loadedOnce.get(src);
+  let r = { ok: false, attempts: 0 };
+  for (let a = 0; a < RETRY_MS.length; a++) {
+    await sleep(RETRY_MS[a]);
+    const d = await decodeOnce(src), st = await status(src, "GET");
+    r = { ok: !!d.loaded, attempts: a + 1, status: st, w: d.w, h: d.h, ...(d.error ? { error: d.error } : {}) };
+    if (r.ok) { loadedOnce.set(src, r); break; }
+    if (!transient(st) && st !== 200) break;   // 404, 410, 403: final, the image is broken; no more re-tries
+  }
+  return r;
+}
+async function retryFailedLoads(out) {   // in parallel per page (one probe per distinct URL), so a flaky network cannot run into the page timeout
+  const imgs = (out.images || []).filter((i) => i.visible && !i.loaded && i.src && /^https?:/.test(i.src));
+  const nets = (out.console_errors || []).filter((e) => e.kind === "log" && NET_RX.test(e.t || "") && /^https?:/.test(e.src || ""));
+  const ir = new Map(), nr = new Map();
+  for (const i of imgs) if (!ir.has(i.src)) ir.set(i.src, retryImage(i.src));
+  for (const e of nets) if (!nr.has(e.src)) nr.set(e.src, statusRetry(e.src, "GET"));
+  for (const i of imgs) i.retry = await ir.get(i.src);
+  for (const e of nets) { const s = await nr.get(e.src); e.retry = { ok: s >= 200 && s < 300, status: s }; }
 }
 
 async function linkStatuses(links) {
@@ -108,7 +147,7 @@ const result = { base: BASE, date: new Date().toISOString(), sitemap_ok: !!sitem
 // A0: pages held in status/ship/*.json must not be live on any host (GET, no cache; 200 = live)
 for (const hp of man.held || []) {
   const st = {};
-  for (const host of man.held_hosts || [BASE]) st[host] = await status(`${host.replace(/\/$/, "")}${hp.url}?la=${Date.now()}`, "GET");
+  for (const host of man.held_hosts || [BASE]) st[host] = await statusRetry(`${host.replace(/\/$/, "")}${hp.url}?la=${Date.now()}`, "GET");   // a transport error is re-tried, so a live held page is not missed
   result.held.push({ ...hp, status: st });
   const live = Object.entries(st).filter(([, c]) => c === 200).map(([h]) => h);
   console.log(`${live.length ? "P0 HELD PAGE LIVE" : "held ok "} ${hp.url}${live.length ? "  on " + live.join(", ") : ""}`);
@@ -141,3 +180,4 @@ for (const hub of man.hubs || []) {
 await browser.close();
 fs.mkdirSync(path.dirname(OUT), { recursive: true }); fs.writeFileSync(OUT, JSON.stringify(result));
 console.log(`wrote ${OUT}: ${result.pages.length} pages, ${result.hubs.length} hubs`);
+process.exit(0);   // the per-page timeout timers (withTimeout) would keep node alive up to --page-timeout after the last page
