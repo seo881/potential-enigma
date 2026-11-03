@@ -7,6 +7,7 @@ TRUTH
 - Every third-party, law, standard or software-category fact has a domain_sources quote span (6+ words), or it becomes plain advice.
 - No flat yes or no about what a category of software or a law does without a span. No unsourced taxonomy ("N kinds"). Keep each source's own limits.
 - No state-specific, legal, medical or financial advice. No compliance claims beyond SOC 2 Type I and ISO 27001. E-signatures: capture only. SCIM only as the named standard, never as an Emergent feature.
+- The 3 top rework causes (Divit 2026-11-03; rework-checklist 1, 7, 9): no sentence about what a type of person looks for or wants (write advice); no "each tab"/"every example" claim unless true of every tab; one form field set across copy, mockup and image.
 - Rename people and companies reused from other pages. Builder intent only; brand pages imply no partnership.
 
 FINISH GATE (all required, in order)
@@ -14,7 +15,7 @@ FINISH GATE (all required, in order)
 2. `hubctl qc URL --stamp` TOTAL 0
 3. `hubctl paa URL --spec`: 0 rejects AND 0 flags
 4. `hubctl learn-check URL` ok
-5. Hero prompt rule (QC L10) clean, and the prompt reads right (article, casing, a word that fits the business; never "signup" for a service call)
+5. Hero prompt rule (QC L10) clean, and the prompt reads right (article, casing, the noun comes from rules/hero_nouns.json via code: if it is wrong for the page, report it to the coordinator; never edit the field by hand)
 6. `hubctl verbatim URL` ok
 7. `hubctl state URL qc_pass --by ID`, then `hubctl images URL --by ID`
 8. READ the contact sheet: one hero, readable text, numbers add up across images and copy, images match the tab copy, and a person-addressed message is a card to that person, not a # channel. If not, fix the brief and re-render.

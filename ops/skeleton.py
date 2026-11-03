@@ -155,11 +155,22 @@ def def_questions(prim):
     d = f"What {'are' if plural else 'is'} {art}{pc}?"
     h = f"How do I create {art}{pc}?" if art or plural else f"How do I set up {pc}?"
     return d[:1].upper() + d[1:], h
-def hero_prompt_for(prim, hub):
+def hero_noun_for(url, prim, nouns=None):
+    """What an LP page's form collects, for its hero prompt (Divit 2026-11-03: never the generic 'signup' when the page collects a
+    booking, estimate, quote ...): rules/hero_nouns.json pages (exact URL) win, then the first rule matching the primary, then default."""
+    if nouns is None:
+        nouns = json.load(open(os.path.join(H.ROOT, "rules", "hero_nouns.json")))
+    if url and url in nouns.get("pages", {}): return nouns["pages"][url]
+    for r in nouns.get("rules", []):
+        if re.search(r["match"], P.norm(prim or "")): return r["noun"]
+    return nouns.get("default", "signup")
+def hero_prompt_for(prim, hub, url=None, nouns=None):
     """The hero default prompt (ruling 15, HUB_RULES 5): 'Build' + the primary with the right article: by sound ("a uniform"), none on a
-    mass noun ("Build SEO automation"), "a set of" before a plural ("Build a set of poll questions"), acronyms cased (decision 8)."""
+    mass noun ("Build SEO automation"), "a set of" before a plural ("Build a set of poll questions"), acronyms cased (decision 8).
+    LP: the noun is what the page collects (hero_noun_for, Divit 2026-11-03)."""
     prim = P.head_phrase(prim)   # ruling 4 (Divit 2026-10-21): "Build a startup landing page ...", never "a set of best ..."
     tmpl = HERO[hub]; pc = case_primary(prim); plural = bool(PLURAL.search(P.norm(prim)))
+    if hub == "LP": tmpl = tmpl.replace("every signup", "every " + hero_noun_for(url, prim, nouns))
     if hub == "Auto":
         if plural: tmpl = "Build {p} that run on their own and log every step."
         elif re.search(r"\b(workflow|system|process|pipeline|app|bot|tool|tracker|dashboard|portal|engine)$", P.norm(prim)):
@@ -171,7 +182,7 @@ def built_fields(url):
     """Every code-built hero/FAQ field for a page, read-only (decision 8 golden cases and old/new reports): what cmd_build sets
     when the field is empty."""
     km = H.kmap()[url]; prim = km["primary"]; hub = H.hub_of(url); disp = _title(km.get("display_name") or prim); d, h = def_questions(prim)
-    return {"faq_heading": faq_heading_for(disp, url), "explore_cta": explore_cta_for(disp, url), "hero_prompt": hero_prompt_for(prim, hub),
+    return {"faq_heading": faq_heading_for(disp, url), "explore_cta": explore_cta_for(disp, url), "hero_prompt": hero_prompt_for(prim, hub, url),
             "breadcrumb": disp, "product_name": f"{disp} Builder", "def_q": d, "how_q": h, "h1_phrase": h1_phrase_for(prim)}
 def h1_phrase_for(prim):
     """Ruling 4 (Divit 2026-10-21): the keyword phrase the H1 carries, title case: the head phrase of a list-style primary

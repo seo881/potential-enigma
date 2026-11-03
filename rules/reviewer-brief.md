@@ -1,7 +1,8 @@
 # Reviewer brief (Divit 2026-10-23 item 5)
 - Check every line of rules/rework-checklist.md first.
 - Run `hubctl verbatim URL` and `hubctl paa URL --spec` (0 rejects, 0 flags).
-- Read the contact sheet.
+- Read the contact sheet. Blocking on sight (Divit 2026-11-03; rework-checklist 1, 7, 9): an unsourced line about what a type of person looks for or wants; an "each tab"/"every example" claim false for one tab; form fields that differ between copy, mockup and image.
+- Before reviewing, claim the page: `hubctl review-claim URL --by <id>` (refused if another agent holds or claimed it).
 - Severity comes from rules/SEVERITY.md only.
 - Never edit the page. Never review a page you wrote any part of.
 - No blocking finding: the page moves to reviewed; then run `hubctl ship-check URL`. Blocking finding: record it (the page goes to rework) and stop.

@@ -1,0 +1,131 @@
+{
+ "about": "Divit 2026-11-03: the LP hero default prompt names what the page actually collects ('saves every booking request to a database I own'), chosen per page from its purpose, never the generic 'signup' when the page collects something else. ops/skeleton.py hero_noun_for() reads this file: pages (exact URL) win, then the first rule whose regex matches the primary keyword, then default. Golden: hero-noun-*.",
+ "default": "signup",
+ "pages": {
+  "/ai-landing-page-builder/artist": "fan signup",
+  "/ai-landing-page-builder/automotive": "test drive request",
+  "/ai-landing-page-builder/beta": "tester application",
+  "/ai-landing-page-builder/black-friday": "early-access signup",
+  "/ai-landing-page-builder/book": "reader signup",
+  "/ai-landing-page-builder/business": "inquiry",
+  "/ai-landing-page-builder/case-study": "demo request",
+  "/ai-landing-page-builder/category": "lead",
+  "/ai-landing-page-builder/chiropractic": "booking request",
+  "/ai-landing-page-builder/church": "visitor signup",
+  "/ai-landing-page-builder/cleaning-service": "booking request",
+  "/ai-landing-page-builder/click-through": "order",
+  "/ai-landing-page-builder/coaching": "client inquiry",
+  "/ai-landing-page-builder/consulting": "discovery call request",
+  "/ai-landing-page-builder/contractor": "estimate request",
+  "/ai-landing-page-builder/course": "enrollment",
+  "/ai-landing-page-builder/crm": "lead",
+  "/ai-landing-page-builder/demo": "demo request",
+  "/ai-landing-page-builder/dentist": "appointment request",
+  "/ai-landing-page-builder/design-agency": "project inquiry",
+  "/ai-landing-page-builder/dj": "booking request",
+  "/ai-landing-page-builder/dropshipping": "order",
+  "/ai-landing-page-builder/electrician": "job request",
+  "/ai-landing-page-builder/facebook-ads": "lead",
+  "/ai-landing-page-builder/fitness": "trial signup",
+  "/ai-landing-page-builder/free-trial": "trial signup",
+  "/ai-landing-page-builder/freelancer": "client inquiry",
+  "/ai-landing-page-builder/giveaway": "entry",
+  "/ai-landing-page-builder/high-converting": "lead",
+  "/ai-landing-page-builder/hvac": "service request",
+  "/ai-landing-page-builder/influencer": "brand inquiry",
+  "/ai-landing-page-builder/insurance": "quote request",
+  "/ai-landing-page-builder/interactive": "lead",
+  "/ai-landing-page-builder/landscaping": "estimate request",
+  "/ai-landing-page-builder/lead-magnet": "lead",
+  "/ai-landing-page-builder/linkedin": "lead",
+  "/ai-landing-page-builder/local-business": "booking and order",
+  "/ai-landing-page-builder/maintenance-page": "notify-me signup",
+  "/ai-landing-page-builder/membership": "member signup",
+  "/ai-landing-page-builder/mental-health": "consultation request",
+  "/ai-landing-page-builder/mortgage": "call request",
+  "/ai-landing-page-builder/news": "subscriber signup",
+  "/ai-landing-page-builder/nft": "allowlist signup",
+  "/ai-landing-page-builder/personal": "inquiry",
+  "/ai-landing-page-builder/personal-trainer": "consult request",
+  "/ai-landing-page-builder/pest-control": "service request",
+  "/ai-landing-page-builder/plumber": "service call",
+  "/ai-landing-page-builder/podcast": "listener signup",
+  "/ai-landing-page-builder/political": "volunteer signup",
+  "/ai-landing-page-builder/portfolio": "client inquiry",
+  "/ai-landing-page-builder/product-launch": "launch signup",
+  "/ai-landing-page-builder/qr-code": "lead",
+  "/ai-landing-page-builder/recruiting": "application",
+  "/ai-landing-page-builder/referral": "referral",
+  "/ai-landing-page-builder/restaurant": "reservation request",
+  "/ai-landing-page-builder/resume": "recruiter message",
+  "/ai-landing-page-builder/roofing": "inspection request",
+  "/ai-landing-page-builder/salon": "booking request",
+  "/ai-landing-page-builder/seo-agency": "audit request",
+  "/ai-landing-page-builder/service": "job request",
+  "/ai-landing-page-builder/travel": "trip inquiry",
+  "/ai-landing-page-builder/wedding": "RSVP",
+  "/ai-landing-page-builder/whitepaper": "download request"
+ },
+ "rules": [
+  {
+   "match": "\\b(salon|spa|barber|massage|nail|lash|dj|photograph\\w*|tutor\\w*|cleaning|chiropract\\w*|physio\\w*|vet\\w*|groom\\w*)\\b",
+   "noun": "booking request"
+  },
+  {
+   "match": "\\b(dentist|dental|clinic|doctor|medical|optometr\\w*|dermatolog\\w*)\\b",
+   "noun": "appointment request"
+  },
+  {
+   "match": "\\b(contractor|landscap\\w*|remodel\\w*|construction|paint\\w*|fenc\\w*|concrete|flooring)\\b",
+   "noun": "estimate request"
+  },
+  {
+   "match": "\\b(insurance|moving|freight|solar|printing)\\b",
+   "noun": "quote request"
+  },
+  {
+   "match": "\\b(hvac|plumb\\w*|electric\\w*|pest|repair|handyman|locksmith|roof\\w*)\\b",
+   "noun": "service request"
+  },
+  {
+   "match": "\\b(therap\\w*|counsel\\w*|coach\\w*|consult\\w*|trainer|lawyer|attorney|law|accountant|advisor)\\b",
+   "noun": "consultation request"
+  },
+  {
+   "match": "\\b(restaurant|cafe|bar|bistro|catering)\\b",
+   "noun": "reservation request"
+  },
+  {
+   "match": "\\b(agency|freelance\\w*|portfolio|designer|developer agency)\\b",
+   "noun": "client inquiry"
+  },
+  {
+   "match": "\\b(saas|software|demo|b2b|enterprise)\\b",
+   "noun": "demo request"
+  },
+  {
+   "match": "\\b(real estate|realtor|property|mortgage)\\b",
+   "noun": "inquiry"
+  },
+  {
+   "match": "\\b(recruit\\w*|hiring|job|career)\\b",
+   "noun": "application"
+  },
+  {
+   "match": "\\b(course|class|school|workshop|bootcamp)\\b",
+   "noun": "enrollment"
+  },
+  {
+   "match": "\\b(shop|store|ecommerce|product|dropship\\w*)\\b",
+   "noun": "order"
+  },
+  {
+   "match": "\\b(wedding|party|reunion)\\b",
+   "noun": "RSVP"
+  },
+  {
+   "match": "\\b(ads?|ppc|lead|campaign)\\b",
+   "noun": "lead"
+  }
+ ]
+}
