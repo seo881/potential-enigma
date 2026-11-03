@@ -190,6 +190,13 @@
    "via": "slug-migration",
    "by": "slug_migrate",
    "note": "slug crm-landing-page -> crm; 10 child link(s) rewritten (DECISIONS 2026-10-23); stamps current before were restamped"
+  },
+  {
+   "t": "2026-11-03 13:33 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "B-hs-1",
+   "note": "slim review: [slim | ] hero_prompt: With chip 4 (CRM Product Page) appended, the prompt asks a solar installer's lead page to price a CRM product by planner count: two different businesses in one build, so the chip prompt does not read right. -> Rewrite the default so all 4 chip adds fit (for exampl"
   }
  ],
  "pipeline": "r15",
@@ -1186,7 +1193,7 @@
    "features_subheading": "f22e8f7ec80541d3",
    "h1": "3cfc8336522c4c1c",
    "hero_description": "775f5e9ad7b1ae8c",
-   "hero_prompt": "55b4e46d8846fdc5",
+   "hero_prompt": "932e85034ed5a1b0",
    "howto_description": "eda4bfeec890601b",
    "howto_step_1_des": "e56beb1219cde9a7",
    "howto_step_1_title": "f537aa2bab8e09c0",
@@ -1225,7 +1232,7 @@
    "why_table": "9db406dc785a9d38",
    "why_title": "725550bdc6ff7630"
   },
-  "all": "aa0cc19ce683326a",
+  "all": "e0fd6d42a6303932",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  },
  "slim_reviews": [
@@ -1239,6 +1246,28 @@
    "blocking": 0,
    "notes": 0,
    "findings": []
+  },
+  {
+   "by": "B-hs-1",
+   "date": "2026-11-03 13:33 UTC",
+   "fields": [
+    "hero_prompt"
+   ],
+   "baseline": "review_hash",
+   "blocking": 1,
+   "notes": 0,
+   "findings": [
+    {
+     "criterion": "slim",
+     "field": "hero_prompt",
+     "quote": "Build a CRM landing page for my solar installer ads that creates each homeowner lead in my CRM as a new contact. Add a CRM product page that prices a team by its planner count before the trial.",
+     "fix": "Rewrite the default so all 4 chip adds fit (for example keep the business neutral between a lead-capture page and a CRM vendor's own page), or rewrite chip add 4 to fit the solar installer.",
+     "class": "untrue",
+     "rule": "writer-brief FINISH GATE 5 (each chip add must still read right appended to the prompt); HERO PROMPT FIX bar, Divit 2026-11-03",
+     "issue": "With chip 4 (CRM Product Page) appended, the prompt asks a solar installer's lead page to price a CRM product by planner count: two different businesses in one build, so the chip prompt does not read right.",
+     "severity": "blocking"
+    }
+   ]
   }
  ],
  "approval": {
