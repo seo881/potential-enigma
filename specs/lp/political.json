@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-314",
    "note": ""
+  },
+  {
+   "t": "2026-11-03 12:40 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-418",
+   "note": "[faq | CONTENT_DEFECTS #10] faq: The page gives three different volunteer-shift field sets (rework checklist 5, internal contradiction). Every instance: FAQ 5 'Four: a name, a way to reach the person, the precinct, and the shift.'; howto_step_3_des 'A shift needs a name, a phone number, and a time s"
   }
  ],
  "pipeline": "r15",
@@ -909,5 +916,235 @@
  ],
  "writers": [
   "B-w-314"
- ]
+ ],
+ "review": {
+  "by": "B-r-418",
+  "date": "2026-11-03 12:40 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Political Landing Page That Turns Visits Into Volunteers'; hero 'Build a political landing page that signs up volunteers and takes RSVPs, then saves each supporter to a database you own.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Four local-race asks (Volunteer Shifts, Yard Sign Requests, Town Hall RSVP, Vote Pledge), a 7-step how-to including the paid-for-by notice, and FAQ on contents, fields and the list after the race."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Requests group by neighborhood into Saturday delivery routes: 24 in Maple Hill, 19 in Cedar Flats, and 18 in Old Town, 61 signs in all.'"
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "'Odette Rasmuson is running for city council', 'Wendell Sverdrup's school board page asks for a street address with every yard sign request.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC clean; 'A thin precinct needs a canvass of its own.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain campaign vocabulary (canvass, phone bank, precinct, treasurer); no hype."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "FEC statement in howto_step_2 is scoped to federal candidates and matches its quoted source ('The notice must state that the communication was paid for by the authorized committee.'). Emergent claims map to prompt-build, database-owned, alerts, api-connect, custom-domain, code-export, free-start. Numbers agree: 14 of 20 with 6 open, 24+19+18=61 plus 1 pickup, 97+23=120, 312."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Charity asks go to 'a nonprofit landing page'; no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "fail",
+    "evidence": "FAQ 5 'Four: a name, a way to reach the person, the precinct, and the shift.' disagrees with howto_step_3_des 'A shift needs a name, a phone number, and a time slot.' and with tab_content_1 'Each signup saves the volunteer's name, precinct, and shift'. Otherwise 10 on-topic questions, gate 10 pass 0 reject 0 flag, answer-first."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches tabs: Rasmuson for Council, 14 of 20, 6 open, closes at 20; 24/19/18 = 61 plus 1 office pickup; 97 confirmed, 23 open, limit 120, waitlist; 312 pledges, 7 a.m., election day."
+   }
+  },
+  "findings": [
+   {
+    "class": "wrong-fact",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "faq",
+    "quote": "Four: a name, a way to reach the person, the precinct, and the shift.",
+    "issue": "The page gives three different volunteer-shift field sets (rework checklist 5, internal contradiction). Every instance: FAQ 5 'Four: a name, a way to reach the person, the precinct, and the shift.'; howto_step_3_des 'A shift needs a name, a phone number, and a time slot.' (three fields, no precinct); tab_content_1 'Each signup saves the volunteer's name, precinct, and shift as a row.' with the matching image and volunteerShifts mockup ('Save every signup with the volunteer's name, precinct, and shift'), which collect no way to reach the volunteer, the field FAQ 5 and step 3 both require.",
+    "fix": "Pick one set (e.g. name, phone, precinct, shift) and use it in FAQ 5, howto_step_3_des, tab_content_1, the volunteerShifts mockup and the tab 1 image brief fields; re-render.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "it carries the paid-for-by notice the treasurer approves",
+    "issue": "FAQ 4 implies every political page carries a paid-for-by notice; the only source is the FEC rule for federal candidates, and this page targets local races where state rules apply. Phrased as a description, not a legal requirement, so a note.",
+    "fix": "'...and it should carry the paid-for-by notice your treasurer approves.'",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "If a congregation hosts the forum, ask whether it will also list the night on its church landing page.",
+    "issue": "The FAQ 7 church link reads as inserted for the link, not for the reader of a town hall RSVP answer.",
+    "fix": "Move the link to an answer where a church page is a natural next step, or drop it.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "FAQ 4 implies every political page carries a paid-for-by notice; the only source is the FEC rule for federal candidates, and this page targets local races where state rules apply. Phrased as a description, not a legal requirement, so a note.",
+   "fix": "'...and it should carry the paid-for-by notice your treasurer approves.'",
+   "by": "B-r-418",
+   "via": "review",
+   "date": "2026-11-03 12:40 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "The FAQ 7 church link reads as inserted for the link, not for the reader of a town hall RSVP answer.",
+   "fix": "Move the link to an answer where a church page is a natural next step, or drop it.",
+   "by": "B-r-418",
+   "via": "review",
+   "date": "2026-11-03 12:40 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "ae56e707cd530d1c",
+   "alt:share_image": "7ab7612855cc5bd6",
+   "alt:tab_image_1": "fd3e7f3c84d22319",
+   "alt:tab_image_2": "cd5c96b98421a778",
+   "alt:tab_image_3": "0d95edf0cadf748b",
+   "alt:tab_image_4": "cd56fbb20846ea2c",
+   "breadcrumb": "0fcdef3f0c3ddb10",
+   "chip_adds": "c2e814387abb74db",
+   "explore_cta": "77edef6c450e9b12",
+   "faq": "3cac36d6a77c46fb",
+   "feature_1": "0325172bd62ddadd",
+   "feature_2": "9cbe63fc104eff3a",
+   "feature_3": "0077d75232e21128",
+   "feature_4": "3da075ecb6aabb58",
+   "feature_5": "fdf02fcb4406049c",
+   "feature_6": "8506d6cd3a2251e0",
+   "features_heading": "c55f72f5936affc7",
+   "features_subheading": "84651a5c539591b5",
+   "h1": "e9842617e886d148",
+   "hero_description": "fb5cefdc3af3a286",
+   "hero_prompt": "f5d6dd76a03812e2",
+   "howto_description": "7a77df885e8a0bb8",
+   "howto_step_1_des": "18a1c22ebf87f811",
+   "howto_step_1_title": "20af1cf564213040",
+   "howto_step_2_des": "4cf80e97aa9cee6e",
+   "howto_step_2_title": "d9c025bd2af903f5",
+   "howto_step_3_des": "cbe2c6fae0314db6",
+   "howto_step_3_title": "5093b5b215a299d3",
+   "howto_step_4_des": "675919fef662c14f",
+   "howto_step_4_title": "a1e61eea7042a117",
+   "howto_step_5_des": "231cb5f21a3743fd",
+   "howto_step_5_title": "ab92c27519699c42",
+   "howto_step_6_des": "2bde57411ab0a72e",
+   "howto_step_6_title": "87437dbc0581c520",
+   "howto_step_7_des": "ae293000ef82e0a4",
+   "howto_step_7_title": "289dd5f27bf62b9d",
+   "howto_title": "576b48844fbc773b",
+   "meta_description": "8c3085b247163cf7",
+   "meta_title": "4be7da28aa88220f",
+   "mockup": "e978fadeedf8085f",
+   "product_name": "bc315cb69323f928",
+   "prompt_chip_1": "8fa7d216ce891c54",
+   "prompt_chip_2": "ca1fee83ca4b2892",
+   "prompt_chip_3": "cce4acfb67e77965",
+   "prompt_chip_4": "2f1a22c9f81a0db1",
+   "slug": "ec08467ce12be512",
+   "tab_content_1": "c17067c1c291bd8e",
+   "tab_content_2": "62767695ecb72569",
+   "tab_content_3": "4505a0ae311f24a0",
+   "tab_content_4": "40f334af1ba72a79",
+   "tab_label_1": "8fa7d216ce891c54",
+   "tab_label_2": "ca1fee83ca4b2892",
+   "tab_label_3": "cce4acfb67e77965",
+   "tab_label_4": "45a3f887e8e98c49",
+   "usecase_heading": "3f6294327cacc5bc",
+   "why_description": "e2e0369cde3047a4",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "7cdc7828262d179a"
+  },
+  "all": "386241acbd2c7091",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "ae56e707cd530d1c",
+   "alt:share_image": "7ab7612855cc5bd6",
+   "alt:tab_image_1": "fd3e7f3c84d22319",
+   "alt:tab_image_2": "cd5c96b98421a778",
+   "alt:tab_image_3": "0d95edf0cadf748b",
+   "alt:tab_image_4": "cd56fbb20846ea2c",
+   "breadcrumb": "0fcdef3f0c3ddb10",
+   "chip_adds": "c2e814387abb74db",
+   "explore_cta": "77edef6c450e9b12",
+   "faq": "3cac36d6a77c46fb",
+   "feature_1": "0325172bd62ddadd",
+   "feature_2": "9cbe63fc104eff3a",
+   "feature_3": "0077d75232e21128",
+   "feature_4": "3da075ecb6aabb58",
+   "feature_5": "fdf02fcb4406049c",
+   "feature_6": "8506d6cd3a2251e0",
+   "features_heading": "c55f72f5936affc7",
+   "features_subheading": "84651a5c539591b5",
+   "h1": "e9842617e886d148",
+   "hero_description": "fb5cefdc3af3a286",
+   "hero_prompt": "f5d6dd76a03812e2",
+   "howto_description": "7a77df885e8a0bb8",
+   "howto_step_1_des": "18a1c22ebf87f811",
+   "howto_step_1_title": "20af1cf564213040",
+   "howto_step_2_des": "4cf80e97aa9cee6e",
+   "howto_step_2_title": "d9c025bd2af903f5",
+   "howto_step_3_des": "cbe2c6fae0314db6",
+   "howto_step_3_title": "5093b5b215a299d3",
+   "howto_step_4_des": "675919fef662c14f",
+   "howto_step_4_title": "a1e61eea7042a117",
+   "howto_step_5_des": "231cb5f21a3743fd",
+   "howto_step_5_title": "ab92c27519699c42",
+   "howto_step_6_des": "2bde57411ab0a72e",
+   "howto_step_6_title": "87437dbc0581c520",
+   "howto_step_7_des": "ae293000ef82e0a4",
+   "howto_step_7_title": "289dd5f27bf62b9d",
+   "howto_title": "576b48844fbc773b",
+   "meta_description": "8c3085b247163cf7",
+   "meta_title": "4be7da28aa88220f",
+   "mockup": "e978fadeedf8085f",
+   "product_name": "bc315cb69323f928",
+   "prompt_chip_1": "8fa7d216ce891c54",
+   "prompt_chip_2": "ca1fee83ca4b2892",
+   "prompt_chip_3": "cce4acfb67e77965",
+   "prompt_chip_4": "2f1a22c9f81a0db1",
+   "slug": "ec08467ce12be512",
+   "tab_content_1": "c17067c1c291bd8e",
+   "tab_content_2": "62767695ecb72569",
+   "tab_content_3": "4505a0ae311f24a0",
+   "tab_content_4": "40f334af1ba72a79",
+   "tab_label_1": "8fa7d216ce891c54",
+   "tab_label_2": "ca1fee83ca4b2892",
+   "tab_label_3": "cce4acfb67e77965",
+   "tab_label_4": "45a3f887e8e98c49",
+   "usecase_heading": "3f6294327cacc5bc",
+   "why_description": "e2e0369cde3047a4",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "7cdc7828262d179a"
+  },
+  "all": "386241acbd2c7091",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
