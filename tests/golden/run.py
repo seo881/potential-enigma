@@ -41,6 +41,9 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   known-expiry   {entry, finding, today, expect_known}    audit_status.real_counts: the finding counts as known (not real) exactly when
                                                           expected; an entry whose `expires` <= today, or whose `url` differs, is real
   audit-link     {url, href, status_code, internal?, hub?, expect_finding}  A7-link raises a finding for this link status exactly when expected
+  audit-retry    {test: status|image|console, ...}        Divit 2026-11-03 (B-dev-21): a failed resource load counts only when it persists:
+                                                          status {script: [code|"reset"], expect_status, expect_requests?} (statusRetry on a
+                                                          local server); image {img, expect_finding} (A8-load); console {err, expect_finding} (A9-console)
   engine-brief   {url, path, value, expect: renders|brief-error, match?}  the image engine on the spec's brief with image_brief[path] = value
                                                           renders cleanly, or reports a BriefError issue (containing `match`); never crashes
   h3-noflag      {text}                                    the serial-comma detector must NOT call this text a certain miss (a trap)
@@ -377,6 +380,22 @@ def caught(c):
         raw = {"pages": [], "hubs": [], "held": [{"url": c["url"], "status": c["status"], "ledger": "golden.json", "item_id": None}]}
         hit = any(f["code"] == "A0-held-live" and f["severity"] == "P0" for f in LA.evaluate(raw, {"pages": []}, "https://emergent.sh"))
         return hit == c["expect_finding"]
+    if c["kind"] == "audit-retry":    # Divit 2026-11-03 (B-dev-21): a failed resource load counts only when it persists across re-tries
+        if c["test"] == "status":     # ops/verify_launch.mjs statusRetry on a local server answering c["script"] (offline)
+            env = dict(os.environ, EMG_RETRY_MS="10,20,40")
+            p_ = subprocess.run(["node", os.path.join(ROOT, "tests", "golden", "fixtures", "audit_retry", "status_retry.mjs"), json.dumps(c["script"])],
+                                cwd=ROOT, env=env, capture_output=True, text=True, timeout=60)
+            o = json.loads(p_.stdout.strip().splitlines()[-1])
+            return o["status"] == c["expect_status"] and ("expect_requests" not in c or o["requests"] == c["expect_requests"])
+        import live_audit as LA       # scoring: an image (render images[]) or a console entry with the capture's retry result
+        u = "/ai-form-builder/ach"
+        m = {"pages": [{"url": u, "hub": "/ai-form-builder", "fields": {}, "faq_items": [], "images": {}, "meta_title": "x" * 40, "meta_description": "y" * 120}]}
+        R = {"http": 200, "jsonld": [], "links": [], "images": [], "console_errors": [], "text_visible": "", "text_all": "", "h1s": ["h"]}
+        if c["test"] == "image": R["images"] = [dict({"src": "https://cdn.prod.website-files.com/x/y_cover.svg", "alt": "a", "cls": "", "loaded": False, "w": 0, "h": 0, "visible": True}, **c.get("img", {}))]
+        else: R["console_errors"] = [c["err"]]
+        raw = {"pages": [{"url": u, "checks": {"http200": True}, "verify": {}, "link_status": {}, "render": R}], "hubs": [], "held": []}
+        code = "A8-load" if c["test"] == "image" else "A9-console"
+        return any(f["code"] == code for f in LA.evaluate(raw, m, "https://emergent.sh")) == c["expect_finding"]
     if c["kind"] == "audit-sev":      # one failed verify check (page) or a shown carousel (hub) raises code at severity
         import live_audit as LA
         if c.get("hub"):
@@ -556,7 +575,7 @@ def caught(c):
                 ws = re.findall(r"\w+", t.lower())
                 if ws.count("questions") > 1 or any(ws[i] == ws[i + 1] for i in range(len(ws) - 1)): return False
             if len(b["explore_cta"]) > 34: return False
-            txt = b["hero_prompt"] + " " + b["def_q"] + " " + b["how_q"]
+            txt = b["def_q"] + " " + b["how_q"]   # hero_prompt is no longer code-built (HERO PROMPT FIX 2026-11-03)
             if re.search(r"\b(seo|crm|gdpr|hr|pdf|sms|nps|rsvp|hipaa|saas|ppc|api)\b", txt) or re.search(r"\ban (uni(form|que|on|t)|user|one\b)", txt, re.I): return False
         return True
     if c["kind"] == "acronym-case":        # ruling 18 part 4e: keyword-sourced questions case known acronyms, plurals too

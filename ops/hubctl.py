@@ -542,7 +542,7 @@ def cmd_review_claim(args):
     """hubctl review-claim URL --by B-r-<n>|B-s-<n>: take the page for review (a hold noted "review"); hubctl review and slim-review
     then refuse every other agent. The claim is lifted automatically when the review is recorded."""
     url = args[0]; by = need_by(args, "review-claim")
-    if not re.match(r"^[AB]-[rs]-\w+$", by): sys.exit("refused: review-claim takes a reviewer id (B-r-<n> or B-s-<n>)")
+    if not re.match(r"^[AB]-(r|s|hs)-\w+$", by): sys.exit("refused: review-claim takes a reviewer id (B-r-<n>, B-s-<n> or B-hs-<n>)")
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
     with G.lock("status-" + hub_of(url)):
         st = load_st(hub_of(url)); e = st["pages"].get(url)
