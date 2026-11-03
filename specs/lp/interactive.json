@@ -162,6 +162,13 @@
    "via": "slug-migration",
    "by": "slug_migrate",
    "note": "slug interactive-landing-page -> interactive; 7 child link(s) rewritten (DECISIONS 2026-10-23); stamps current before were restamped"
+  },
+  {
+   "t": "2026-11-03 13:33 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "B-hs-1",
+   "note": "slim review: [slim | ] hero_prompt: The new default ties the page to an online store, but chip 1 (Price Calculator: monthly total from square feet and visits, a service quote) and chip 4 (Product Tour ending on a demo form, a software page) describe other businesses, so 2 of the 4 chip prompts do no"
   }
  ],
  "pipeline": "r15",
@@ -1164,7 +1171,7 @@
    "features_subheading": "1d67590f738dd713",
    "h1": "7ea1aef49b00f0ec",
    "hero_description": "118c4c237d899b03",
-   "hero_prompt": "f6e093372de58ee8",
+   "hero_prompt": "c1446ef1f6188a38",
    "howto_description": "8e9a2fe6f4a524bf",
    "howto_step_1_des": "6e8860602258e152",
    "howto_step_1_title": "cccfa5c0dfdce26e",
@@ -1203,7 +1210,7 @@
    "why_table": "51e9e021211e3ac6",
    "why_title": "8fd6b14c1ec21121"
   },
-  "all": "208fcd448a4ed611",
+  "all": "4dcf293a32993d2b",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  },
  "approval": {
@@ -1219,6 +1226,30 @@
    "by": "B-c-1",
    "reason": "Divit 2026-11-03 HERO PROMPT FIX: page-specific default prompt",
    "date": "2026-11-03 13:28 UTC"
+  }
+ ],
+ "slim_reviews": [
+  {
+   "by": "B-hs-1",
+   "date": "2026-11-03 13:33 UTC",
+   "fields": [
+    "hero_prompt"
+   ],
+   "baseline": "review_hash",
+   "blocking": 1,
+   "notes": 0,
+   "findings": [
+    {
+     "criterion": "slim",
+     "field": "hero_prompt",
+     "quote": "Build an interactive landing page for my online store that shows each visitor a result and saves their email with it. Add a price calculator that shows a monthly total from square feet and visits. / ... Add a product tour with clickable hotspots and a demo form after the last one.",
+     "fix": "Make the default business fit all four interactive elements (calculator, quiz, configurator, tour), or keep it neutral on the business while staying specific about the result and the saved email.",
+     "class": "untrue",
+     "rule": "writer-brief FINISH GATE 5 (each chip add must still read right appended to the prompt); HERO PROMPT FIX bar, Divit 2026-11-03",
+     "issue": "The new default ties the page to an online store, but chip 1 (Price Calculator: monthly total from square feet and visits, a service quote) and chip 4 (Product Tour ending on a demo form, a software page) describe other businesses, so 2 of the 4 chip prompts do not read right.",
+     "severity": "blocking"
+    }
+   ]
   }
  ]
 }
