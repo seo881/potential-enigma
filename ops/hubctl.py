@@ -1352,7 +1352,7 @@ def cmd_slug_check(args):
 
 def ship_check(url):
     """Ship-time checks (DECISIONS 2026-10-15 night): [] when the page may ship. QC TOTAL 0, PAA gate 10/10, review current and
-    no pending flag, images current, Learn refs (new items: spec.learn_refs), hero prompt (QC L10 runs in QC; generic default)."""
+    no pending flag, images current, Learn refs (new items: spec.learn_refs), hero prompt (QC L10/L13/L14 run in QC; page-specific default, HERO PROMPT FIX 2026-11-03)."""
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G, ship as SH
     if not os.path.exists(spath(url)): return [f"no spec for {url}"]
     s = SH.spec(url); out = []
@@ -1375,7 +1375,8 @@ def ship_check(url):
     out += ["slug rule: " + p for p in slug_rule_problems(url, s)]   # Divit 2026-10-23 PERMANENT (blocks api-create too)
     if not s.get("item_id") and learn_from_item(hub_of(url)): out += learn_spec_problems(s)
     hp = re.sub(r"<[^>]+>", "", re.sub(r"<script.*?</script>", "", (s.get("fields") or {}).get("hero_prompt") or "", flags=re.S))
-    if re.search(r"\b(my|our)\s+\d", hp, re.I): out.append("hero prompt names a scenario (DECISIONS 2026-10-09: generic default)")
+    # the 2026-10-09 "generic default" rule (no "my/our + number" scenario) is SUPERSEDED by Divit's HERO PROMPT FIX (2026-11-03): the
+    # default is ONE specific, concrete build ("a 60-seat cap"); QC L14 blocks template sentences and near-duplicates instead
     return out
 
 def cmd_ship_check(args):
