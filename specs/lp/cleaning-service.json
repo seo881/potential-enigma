@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-302",
    "note": ""
+  },
+  {
+   "t": "2026-11-03 12:27 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-411",
+   "note": "rubric 10/10 by B-r-411; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -946,5 +953,265 @@
  ],
  "writers": [
   "B-w-302"
- ]
+ ],
+ "review": {
+  "by": "B-r-411",
+  "date": "2026-11-03 12:27 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Cleaning Service Landing Page for Booking Requests\", meta title \"Cleaning Service Landing Page for Booked Cleans | Emergent\" and hero \"Build a cleaning service landing page that takes booking requests and saves each one to a database you own.\" (108 chars) cover the whole job; how-to description is one sentence that says what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Four worked examples (Recurring Cleans, Move-Out Cleans, Office Cleaning, Deep Clean Extras), seven build steps specific to cleaning bookings, and a comparison table; no top 10 recorded (Wave 3), PAA gate 10 pass 0 reject 0 flag."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Cleaning vocabulary throughout: \"Standard clean, Deep clean, Move-out, and Office\", \"a standard clean by bedroom count\", \"5,000 sq ft or more books a walkthrough\", \"$35 for inside the oven\"."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs or full sentences: \"Start the form with fixed choices...\", \"Ask whether the visitor wants...\", \"Put the preferred date near the top...\", \"Each request is saved as a row...\"."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7/Q8 clean; sentences short and single-idea, e.g. \"A smaller office gets its price by email.\""
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, operator voice: \"A typed \\\"next Friday\\\" cannot be sorted, while a picked date lets a short-notice job reach the crew lead first.\" No AI tells (QC A1 clean). Wording notes recorded separately."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Every Emergent claim maps to claims_used (prompt-build, database-owned, alerts \"Slack, email, or in-app alerts\", code-export \"On paid plans... GitHub repository\", free-start \"The free tier covers building and publishing\"); no third-party, legal or statistical facts stated (plan.claims_to_source empty, consistent with the copy); tab numbers add up (26+14=40, 4+8=12, 7+11=18, 220+35+30=285, 14+8=22); table from the vetted library (V2/V3 clean)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Angle is the cleaning booking request (frequency split, move-out date urgency, office size walkthrough, priced extras); sibling primaries (pest control, contractor, hvac) appear only as FAQ link anchors to live pages, never in headings; QC D2 clean."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic builder questions, each answered in its first sentence (\"Yes, if you run ads for it.\"); hub link in item 2; 3 exact-match links to live siblings (pest-control, contractor, hvac); no brands or file formats in questions; Emergent moat lines in items 9 and 10."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Each tab image matches its copy: Larkspen 40/26/14 and \"Emailed Mairead Birchall\"; \"Email to Anneke Visser\" 12/4/8; Gablewood 18/7/11 with Office 18 at 5,000 sq ft marked Walkthrough and \"Rowena Petrassi Walkthrough booked\"; Hollowbrook $220+$35+$30 = $285 and 22/14/8. One hero, readable text, cursor on button edge; example domain hollowbrook.example."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "scope",
+    "rule": "HUB_RULES 2a",
+    "field": "hero_prompt",
+    "quote": "Build a cleaning service landing page that saves every signup to a database I own.",
+    "issue": "A cleaning service page takes booking requests, not signups; the hero (\"takes booking requests\"), features (\"Each request is saved as a row\") and every tab use request/booking, so the prompt box breaks the same-term-for-the-same-thing rule. The field is code-built (skeleton default), so the fix belongs in the generator, not a hand edit.",
+    "fix": "Have the skeleton pick the hub noun per page type, e.g. \"Build a cleaning service landing page that saves every booking request to a database I own.\"; flag the code default to the coordinator for service-business pages.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "Ask for the type of clean first, as one tap on a short list such as Standard, Deep, Move-out, and Office.",
+    "issue": "FAQ answers restate body sections with words swapped: FAQ 3 restates feature_1 (\"Start the form with fixed choices such as Standard clean, Deep clean, Move-out, and Office\"); FAQ 8 \"List each add-on as a checkbox with its price\" restates howto_step_4_des \"List add-ons such as inside the oven or interior windows as checkboxes, each with its price\" and its quote-on-visit line; FAQ 9 \"Each booking is saved in a database you own.\" restates why_description \"with every request in a database you own\" and feature_4.",
+    "fix": "Next pass: let FAQ 3 and 8 add something the body does not (what to do when a visitor picks two types; how the crew sees the extras on the row) instead of repeating it.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2a",
+    "field": "meta_description",
+    "quote": "See how four cleaning companies route recurring, move-out, office and deep clean requests",
+    "issue": "Three tabs route requests to a person, but the deep clean tab (Hollowbrook) prices extras on the page and routes nothing; the verb \"route\" stretches over the fourth example. Also no serial comma before \"and deep clean\" while the body uses serial commas (\"Standard clean, Deep clean, Move-out, and Office\").",
+    "fix": "\"See how four cleaning companies handle recurring, move-out, office, and deep clean requests, then build your cleaning service landing page.\" (check length)",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "\"clean\" appears 21 times outside the FAQ",
+    "issue": "QC Q9 flags \"clean\" 21x, \"request\" 15x and \"recurring\" 13x outside the FAQ; the nouns are the buyer's literal vocabulary, so this reads as precise rather than padded, but the density is high in tab_content_1 (\"Recurring plan\" x2, \"recurring\" x1 in four sentences).",
+    "fix": "Accepted as the trade's vocabulary; vary where a pronoun or \"visit\" reads as naturally.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "scope",
+   "rule": "HUB_RULES 2a",
+   "field": "hero_prompt",
+   "issue": "A cleaning service page takes booking requests, not signups; the hero (\"takes booking requests\"), features (\"Each request is saved as a row\") and every tab use request/booking, so the prompt box breaks the same-term-for-the-same-thing rule. The field is code-built (skeleton default), so the fix belongs in the generator, not a hand edit.",
+   "fix": "Have the skeleton pick the hub noun per page type, e.g. \"Build a cleaning service landing page that saves every booking request to a database I own.\"; flag the code default to the coordinator for service-business pages.",
+   "by": "B-r-411",
+   "via": "review",
+   "date": "2026-11-03 12:27 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "FAQ answers restate body sections with words swapped: FAQ 3 restates feature_1 (\"Start the form with fixed choices such as Standard clean, Deep clean, Move-out, and Office\"); FAQ 8 \"List each add-on as a checkbox with its price\" restates howto_step_4_des \"List add-ons such as inside the oven or interior windows as checkboxes, each with its price\" and its quote-on-visit line; FAQ 9 \"Each booking is saved in a database you own.\" restates why_description \"with every request in a database you own\" and feature_4.",
+   "fix": "Next pass: let FAQ 3 and 8 add something the body does not (what to do when a visitor picks two types; how the crew sees the extras on the row) instead of repeating it.",
+   "by": "B-r-411",
+   "via": "review",
+   "date": "2026-11-03 12:27 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "meta_description",
+   "issue": "Three tabs route requests to a person, but the deep clean tab (Hollowbrook) prices extras on the page and routes nothing; the verb \"route\" stretches over the fourth example. Also no serial comma before \"and deep clean\" while the body uses serial commas (\"Standard clean, Deep clean, Move-out, and Office\").",
+   "fix": "\"See how four cleaning companies handle recurring, move-out, office, and deep clean requests, then build your cleaning service landing page.\" (check length)",
+   "by": "B-r-411",
+   "via": "review",
+   "date": "2026-11-03 12:27 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "QC Q9 flags \"clean\" 21x, \"request\" 15x and \"recurring\" 13x outside the FAQ; the nouns are the buyer's literal vocabulary, so this reads as precise rather than padded, but the density is high in tab_content_1 (\"Recurring plan\" x2, \"recurring\" x1 in four sentences).",
+   "fix": "Accepted as the trade's vocabulary; vary where a pronoun or \"visit\" reads as naturally.",
+   "by": "B-r-411",
+   "via": "review",
+   "date": "2026-11-03 12:27 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "0245e81b3f593426",
+   "alt:share_image": "0e6d7c139ab2bca6",
+   "alt:tab_image_1": "ff52a1652a05d310",
+   "alt:tab_image_2": "a368457a9b49a93d",
+   "alt:tab_image_3": "d0c535505e5b313f",
+   "alt:tab_image_4": "2e8440957cf0f5f7",
+   "breadcrumb": "190aaf77c39984cb",
+   "chip_adds": "0252ced62ee7c259",
+   "explore_cta": "d53440f44fbaf165",
+   "faq": "672b7f657fc87852",
+   "feature_1": "36ee4b0703b46347",
+   "feature_2": "7c05d32439544f6e",
+   "feature_3": "a54030464bb83fcc",
+   "feature_4": "b415e3657da4a9c9",
+   "feature_5": "6d2a476433ad6418",
+   "feature_6": "2ce06fec4665f678",
+   "features_heading": "ecb39f88d23157d5",
+   "features_subheading": "ca08ddcbf60e8eac",
+   "h1": "a1a3399e1c30075f",
+   "hero_description": "aa528afc5e7cc629",
+   "hero_prompt": "6fea559bb503a422",
+   "howto_description": "cbf4b89adda65c28",
+   "howto_step_1_des": "c2cad47cb30af492",
+   "howto_step_1_title": "b479708f5a0576ca",
+   "howto_step_2_des": "8b001dfa80143482",
+   "howto_step_2_title": "2eb253fc9b1b03c0",
+   "howto_step_3_des": "1843d364762f28ef",
+   "howto_step_3_title": "fd3a6c56b50407ae",
+   "howto_step_4_des": "0173cdbe82308bf8",
+   "howto_step_4_title": "9cbba8a87d483366",
+   "howto_step_5_des": "6a0ba28c54356705",
+   "howto_step_5_title": "d37ab08e73644c6d",
+   "howto_step_6_des": "acd6c753c6dd870d",
+   "howto_step_6_title": "1f62faf14afe2598",
+   "howto_step_7_des": "ba0f837ec6da70fa",
+   "howto_step_7_title": "f960e3839163b46b",
+   "howto_title": "8803977575b53dc2",
+   "meta_description": "af9f3b09c57a3380",
+   "meta_title": "4f87f43602a0a72f",
+   "mockup": "ffea4b847afba75a",
+   "product_name": "d3611496d2ca85c5",
+   "prompt_chip_1": "6ed9f709dcb2091a",
+   "prompt_chip_2": "2336ee7c24236629",
+   "prompt_chip_3": "0034dc05a3c5f52c",
+   "prompt_chip_4": "4e61b24b2f595c7d",
+   "slug": "cbdd2365425bf6da",
+   "tab_content_1": "f531561d871b008d",
+   "tab_content_2": "abfba129c0e6dc43",
+   "tab_content_3": "2604f3a4aed04f32",
+   "tab_content_4": "14208e7501b86561",
+   "tab_label_1": "6ed9f709dcb2091a",
+   "tab_label_2": "2336ee7c24236629",
+   "tab_label_3": "0034dc05a3c5f52c",
+   "tab_label_4": "4e61b24b2f595c7d",
+   "usecase_heading": "45a5d1f9e5218ae2",
+   "why_description": "b370aa5d853b575f",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "d57f6014559875e6"
+  },
+  "all": "1af497c904d176fd",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "0245e81b3f593426",
+   "alt:share_image": "0e6d7c139ab2bca6",
+   "alt:tab_image_1": "ff52a1652a05d310",
+   "alt:tab_image_2": "a368457a9b49a93d",
+   "alt:tab_image_3": "d0c535505e5b313f",
+   "alt:tab_image_4": "2e8440957cf0f5f7",
+   "breadcrumb": "190aaf77c39984cb",
+   "chip_adds": "0252ced62ee7c259",
+   "explore_cta": "d53440f44fbaf165",
+   "faq": "672b7f657fc87852",
+   "feature_1": "36ee4b0703b46347",
+   "feature_2": "7c05d32439544f6e",
+   "feature_3": "a54030464bb83fcc",
+   "feature_4": "b415e3657da4a9c9",
+   "feature_5": "6d2a476433ad6418",
+   "feature_6": "2ce06fec4665f678",
+   "features_heading": "ecb39f88d23157d5",
+   "features_subheading": "ca08ddcbf60e8eac",
+   "h1": "a1a3399e1c30075f",
+   "hero_description": "aa528afc5e7cc629",
+   "hero_prompt": "6fea559bb503a422",
+   "howto_description": "cbf4b89adda65c28",
+   "howto_step_1_des": "c2cad47cb30af492",
+   "howto_step_1_title": "b479708f5a0576ca",
+   "howto_step_2_des": "8b001dfa80143482",
+   "howto_step_2_title": "2eb253fc9b1b03c0",
+   "howto_step_3_des": "1843d364762f28ef",
+   "howto_step_3_title": "fd3a6c56b50407ae",
+   "howto_step_4_des": "0173cdbe82308bf8",
+   "howto_step_4_title": "9cbba8a87d483366",
+   "howto_step_5_des": "6a0ba28c54356705",
+   "howto_step_5_title": "d37ab08e73644c6d",
+   "howto_step_6_des": "acd6c753c6dd870d",
+   "howto_step_6_title": "1f62faf14afe2598",
+   "howto_step_7_des": "ba0f837ec6da70fa",
+   "howto_step_7_title": "f960e3839163b46b",
+   "howto_title": "8803977575b53dc2",
+   "meta_description": "af9f3b09c57a3380",
+   "meta_title": "4f87f43602a0a72f",
+   "mockup": "ffea4b847afba75a",
+   "product_name": "d3611496d2ca85c5",
+   "prompt_chip_1": "6ed9f709dcb2091a",
+   "prompt_chip_2": "2336ee7c24236629",
+   "prompt_chip_3": "0034dc05a3c5f52c",
+   "prompt_chip_4": "4e61b24b2f595c7d",
+   "slug": "cbdd2365425bf6da",
+   "tab_content_1": "f531561d871b008d",
+   "tab_content_2": "abfba129c0e6dc43",
+   "tab_content_3": "2604f3a4aed04f32",
+   "tab_content_4": "14208e7501b86561",
+   "tab_label_1": "6ed9f709dcb2091a",
+   "tab_label_2": "2336ee7c24236629",
+   "tab_label_3": "0034dc05a3c5f52c",
+   "tab_label_4": "4e61b24b2f595c7d",
+   "usecase_heading": "45a5d1f9e5218ae2",
+   "why_description": "b370aa5d853b575f",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "d57f6014559875e6"
+  },
+  "all": "1af497c904d176fd",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
