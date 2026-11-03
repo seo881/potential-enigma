@@ -108,6 +108,20 @@
    "via": null,
    "by": "B-w-310",
    "note": ""
+  },
+  {
+   "t": "2026-11-03 12:25 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-r-410",
+   "note": ""
+  },
+  {
+   "t": "2026-11-03 12:26 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-410",
+   "note": "rubric 10/10 by B-r-410; 3 notes"
   }
  ],
  "pipeline": "r15",
@@ -879,5 +893,245 @@
  ],
  "writers": [
   "B-w-310"
- ]
+ ],
+ "review": {
+  "by": "B-r-410",
+  "date": "2026-11-03 12:26 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Freelancer Landing Page That Turns Visitors Into Clients'; hero 'Build a freelancer landing page that sells your services, qualifies each brief, and saves every inquiry to a database you own.' states the whole job, under 130 chars; how-to description is one sentence with the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Searchers want examples and a how-to: four example tabs (Copywriter, Video Editor, Translator, Bookkeeper), 'How to Create a Freelancer Landing Page' in 7 specific steps, and a comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Freelancer vocabulary throughout: 'packages', 'brief form', 'turnaround', '$0.12 a word', '20-minute intro call'; FAQ 6 'word count for a translator or video length for an editor'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on full sentences with verbs: 'Describe what you sell...', 'Every brief from the page lands...', 'Set the turnaround that counts as rush...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences carry one idea each; QC Q5 at 2 ', so' endings (under the limit); triplet density recorded as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain verbs and concrete details: 'a 48-hour launch teaser reached him first, while a 6-day product demo and a 10-day tutorial series waited in the table'; no AI tells. Notes recorded."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Every Emergent claim maps to claims_used (prompt-build, database-owned, alerts, custom-domain, code-export, free-start, ai-extraction), all approved in rules/capabilities.json; no third-party facts in prose; 4,800 x $0.12 = $576; table from the library."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Stays off sibling ground: FAQ 4 sends about-me intent to 'personal landing page', FAQ 7 several-links intent to 'link in bio landing page', FAQ 10 work-gallery intent to 'portfolio landing page'; no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, each answered in the first sentence ('A freelancer landing page is a single page that sells one person's services...'); hub link in item 2; 3 sibling links; no brands or formats in questions; paa --spec 0 rejects 0 flags."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: Tab 1 'Email sequence' brief $1,400 / 3 weeks matches copy; Tab 2 'Launch teaser 48 hours Rush', card 'To Caspar Askew' (person, not channel), 'Product demo 6 days', 'Tutorial series 10 days'; Tab 3 '4,800 words', '$0.12 a word', 'Quote $576', 'Saved with File and email'; Tab 4 'October 22 / 9 booked calls', Cedar Spoon Diner booked last; one hero, readable text."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2a",
+    "field": "hero_prompt",
+    "quote": "Build a freelancer landing page that saves every signup to a database I own.",
+    "issue": "Code-built hero prompt says 'signup' while the whole page calls the record an inquiry or brief (hero_description 'saves every inquiry'); 2a asks for the same term for the same thing. Not untrue (the built page does save each submission), so a note.",
+    "fix": "When the skeleton slot allows: 'Build a freelancer landing page that saves every client inquiry to a database I own.'",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "a homepage, an email sequence, and a retainer",
+    "issue": "14 'A, B, and C' lists on the page (QC Q8): meta_description, hero_description, why_description, feature_1, feature_2, feature_4, feature_6, tab_content_1 (x2), howto_step_3_des, FAQ 6, 7, 8, 10; tidy triplets read templated.",
+    "fix": "Turn some into pairs or one specific.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "voice",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "page",
+    "quote": "brief",
+    "issue": "'brief' and 'client' each appear 17 times outside the FAQ (QC Q9).",
+    "fix": "Vary with request, project, inquiry where meaning holds.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "hero_prompt",
+   "issue": "Code-built hero prompt says 'signup' while the whole page calls the record an inquiry or brief (hero_description 'saves every inquiry'); 2a asks for the same term for the same thing. Not untrue (the built page does save each submission), so a note.",
+   "fix": "When the skeleton slot allows: 'Build a freelancer landing page that saves every client inquiry to a database I own.'",
+   "by": "B-r-410",
+   "via": "review",
+   "date": "2026-11-03 12:26 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "14 'A, B, and C' lists on the page (QC Q8): meta_description, hero_description, why_description, feature_1, feature_2, feature_4, feature_6, tab_content_1 (x2), howto_step_3_des, FAQ 6, 7, 8, 10; tidy triplets read templated.",
+   "fix": "Turn some into pairs or one specific.",
+   "by": "B-r-410",
+   "via": "review",
+   "date": "2026-11-03 12:26 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "page",
+   "issue": "'brief' and 'client' each appear 17 times outside the FAQ (QC Q9).",
+   "fix": "Vary with request, project, inquiry where meaning holds.",
+   "by": "B-r-410",
+   "via": "review",
+   "date": "2026-11-03 12:26 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "11fc8a24078338b6",
+   "alt:share_image": "8a4003f637060a10",
+   "alt:tab_image_1": "c4153c8d29a73c39",
+   "alt:tab_image_2": "10ecc16b5439a6cb",
+   "alt:tab_image_3": "ebea2e2b0180357f",
+   "alt:tab_image_4": "560824f6777080be",
+   "breadcrumb": "60735a063ad50150",
+   "chip_adds": "b832a61afd9ea977",
+   "explore_cta": "4151bbb5635e7e9a",
+   "faq": "64f042d496d1bda0",
+   "feature_1": "14a99ef549b36dca",
+   "feature_2": "0d87965e29a64c4c",
+   "feature_3": "6abdd2b5261a3371",
+   "feature_4": "a867ad3f2ae9190f",
+   "feature_5": "3a0571a8e29bc514",
+   "feature_6": "3220089808a68dac",
+   "features_heading": "9ea50617311f9af6",
+   "features_subheading": "fadf5ab0016db51c",
+   "h1": "f5845d237cea7edd",
+   "hero_description": "da8b6416a5812f11",
+   "hero_prompt": "8997f92a2df6d65d",
+   "howto_description": "ba1d399c83103aa9",
+   "howto_step_1_des": "46ccb27f251aecdc",
+   "howto_step_1_title": "20976c140bd54964",
+   "howto_step_2_des": "73f2e506d4a08f47",
+   "howto_step_2_title": "509ea7d74e5e30ae",
+   "howto_step_3_des": "b94671ec39663365",
+   "howto_step_3_title": "e5092e2ff5f5067b",
+   "howto_step_4_des": "672d5c5e8d861e97",
+   "howto_step_4_title": "b7c37b7dd50202fc",
+   "howto_step_5_des": "4f08e7d83f251100",
+   "howto_step_5_title": "b51370283447c6a7",
+   "howto_step_6_des": "3097b07e01073014",
+   "howto_step_6_title": "51a696778c1054d0",
+   "howto_step_7_des": "3e3b0c06f7ca21eb",
+   "howto_step_7_title": "3f38df4a28f7429f",
+   "howto_title": "5cfb552aac92103a",
+   "meta_description": "ec7297831b0cecfb",
+   "meta_title": "37f68fff8756b67c",
+   "mockup": "f11e5debff235310",
+   "product_name": "07fe7f92cbe0f2b9",
+   "prompt_chip_1": "e1abb7d2e3e8d87a",
+   "prompt_chip_2": "da8292dae0d48b8e",
+   "prompt_chip_3": "5e66ad1d25bf09a3",
+   "prompt_chip_4": "1fb5953c2773a2c1",
+   "slug": "33cd8916347d2576",
+   "tab_content_1": "760b9100aa4b76a0",
+   "tab_content_2": "25819eaffcb32ecd",
+   "tab_content_3": "22110c81a5e0f747",
+   "tab_content_4": "c8d64d0f01a76ffb",
+   "tab_label_1": "31de2b19e18bccde",
+   "tab_label_2": "d93937650f349e60",
+   "tab_label_3": "e6fe8ee281de7e49",
+   "tab_label_4": "8dd9b400945f14c5",
+   "usecase_heading": "f0fdf65117a51bee",
+   "why_description": "a8131e5f874214e4",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "1a9c4a31c1c99bc6"
+  },
+  "all": "f6c2b16722644c6e",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "11fc8a24078338b6",
+   "alt:share_image": "8a4003f637060a10",
+   "alt:tab_image_1": "c4153c8d29a73c39",
+   "alt:tab_image_2": "10ecc16b5439a6cb",
+   "alt:tab_image_3": "ebea2e2b0180357f",
+   "alt:tab_image_4": "560824f6777080be",
+   "breadcrumb": "60735a063ad50150",
+   "chip_adds": "b832a61afd9ea977",
+   "explore_cta": "4151bbb5635e7e9a",
+   "faq": "64f042d496d1bda0",
+   "feature_1": "14a99ef549b36dca",
+   "feature_2": "0d87965e29a64c4c",
+   "feature_3": "6abdd2b5261a3371",
+   "feature_4": "a867ad3f2ae9190f",
+   "feature_5": "3a0571a8e29bc514",
+   "feature_6": "3220089808a68dac",
+   "features_heading": "9ea50617311f9af6",
+   "features_subheading": "fadf5ab0016db51c",
+   "h1": "f5845d237cea7edd",
+   "hero_description": "da8b6416a5812f11",
+   "hero_prompt": "8997f92a2df6d65d",
+   "howto_description": "ba1d399c83103aa9",
+   "howto_step_1_des": "46ccb27f251aecdc",
+   "howto_step_1_title": "20976c140bd54964",
+   "howto_step_2_des": "73f2e506d4a08f47",
+   "howto_step_2_title": "509ea7d74e5e30ae",
+   "howto_step_3_des": "b94671ec39663365",
+   "howto_step_3_title": "e5092e2ff5f5067b",
+   "howto_step_4_des": "672d5c5e8d861e97",
+   "howto_step_4_title": "b7c37b7dd50202fc",
+   "howto_step_5_des": "4f08e7d83f251100",
+   "howto_step_5_title": "b51370283447c6a7",
+   "howto_step_6_des": "3097b07e01073014",
+   "howto_step_6_title": "51a696778c1054d0",
+   "howto_step_7_des": "3e3b0c06f7ca21eb",
+   "howto_step_7_title": "3f38df4a28f7429f",
+   "howto_title": "5cfb552aac92103a",
+   "meta_description": "ec7297831b0cecfb",
+   "meta_title": "37f68fff8756b67c",
+   "mockup": "f11e5debff235310",
+   "product_name": "07fe7f92cbe0f2b9",
+   "prompt_chip_1": "e1abb7d2e3e8d87a",
+   "prompt_chip_2": "da8292dae0d48b8e",
+   "prompt_chip_3": "5e66ad1d25bf09a3",
+   "prompt_chip_4": "1fb5953c2773a2c1",
+   "slug": "33cd8916347d2576",
+   "tab_content_1": "760b9100aa4b76a0",
+   "tab_content_2": "25819eaffcb32ecd",
+   "tab_content_3": "22110c81a5e0f747",
+   "tab_content_4": "c8d64d0f01a76ffb",
+   "tab_label_1": "31de2b19e18bccde",
+   "tab_label_2": "d93937650f349e60",
+   "tab_label_3": "e6fe8ee281de7e49",
+   "tab_label_4": "8dd9b400945f14c5",
+   "usecase_heading": "f0fdf65117a51bee",
+   "why_description": "a8131e5f874214e4",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "1a9c4a31c1c99bc6"
+  },
+  "all": "f6c2b16722644c6e",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
