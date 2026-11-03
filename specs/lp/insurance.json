@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-311",
    "note": ""
+  },
+  {
+   "t": "2026-11-03 12:31 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-415",
+   "note": "rubric 10/10 by B-r-415; 3 notes"
   }
  ],
  "pipeline": "r15",
@@ -956,5 +963,245 @@
  },
  "writers": [
   "B-w-311"
- ]
+ ],
+ "review": {
+  "by": "B-r-415",
+  "date": "2026-11-03 12:31 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Insurance Landing Page That Routes Every Quote'; hero 'Build an insurance landing page that sends each quote request to the right agent and saves it to a database you own.' (D1 clean); how-to description one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "SERP is design galleries and templates; page gives four agency examples (Auto Quotes, Life Callbacks, Business Coverage, Renewal Reviews), a 7-step how-to and 'Is an insurance landing page template enough to get quote requests?'."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Agency vocabulary: 'coverage line', 'the agent who writes auto', 'commercial lines producer', 'Quoted or Not a fit'; table uses the campaign-page variant."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Open the form with fixed choices: Auto, Home, Life, or Business.', 'Bridgemont Life stopped calling people at dinner.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocked endings; short declaratives such as 'Name a backup for each line, for the days its agent is out.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete details: 'weekdays from 8 am to 6 pm', 'Evening for 5 pm to 8 pm', 'a 60-second intro from the agent who will call back'; no AI tells."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Step 1 Ad Rank line matches Google Ads help 1722122 ('The quality of your ads and landing page' ... 'the expectations users have about your landing page based on the clicked ad creative'); step 4 matches the mobile-first indexing quote verbatim; claims map to prompt-build, database-owned, alerts, api-connect, custom-domain, code-export, free-start; 19+15=34, 6+5+3=14, 9+18=27, 12+28=40."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own angle (coverage-line routing to a named agent); sibling primaries only as FAQ anchors ('mortgage landing page', 'video landing page', 'mental health landing page')."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first ('Not on its own.', 'It is better not to.', 'Yes.'); hub link in item 2; no brands or formats in questions; one PA7 flag on the definition question (note)."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 'If Auto, email Ewan Vann', 34/19/15; tab 2 Bridgemont call list sorted by window, 6/5/3 of 14; tab 3 'To Verity 9', '15-minute call 18', Granger Mills Bakery at 16 employees sent to Verity; tab 4 40/12/28, 'Something changed: 30 minutes. No change: 15 minutes.'"
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 1",
+    "quote": "What is an insurance landing page?",
+    "issue": "hubctl paa --spec raises a PA7 flag (legal, medical or financial advice) on the required definition question; it is a false positive on the word 'insurance', not advice.",
+    "fix": "Leave the question; list the flag in Divit's packet and teach PA7 that the hub's definition question is not financial advice.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #22",
+    "field": "feature_6",
+    "quote": "Code you can take with you",
+    "issue": "The same feature heading appears on 7 LP specs (dj among them).",
+    "fix": "Next time the grid is touched, tie the heading to the agency, such as the quote page and its request table as code.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "hero_prompt",
+    "quote": "Build an insurance landing page that saves every signup to a database I own.",
+    "issue": "'signup' is the code default; the page's own word is 'quote request'.",
+    "fix": "'...that saves every quote request to a database I own.'",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 1",
+   "issue": "hubctl paa --spec raises a PA7 flag (legal, medical or financial advice) on the required definition question; it is a false positive on the word 'insurance', not advice.",
+   "fix": "Leave the question; list the flag in Divit's packet and teach PA7 that the hub's definition question is not financial advice.",
+   "by": "B-r-415",
+   "via": "review",
+   "date": "2026-11-03 12:31 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #22",
+   "field": "feature_6",
+   "issue": "The same feature heading appears on 7 LP specs (dj among them).",
+   "fix": "Next time the grid is touched, tie the heading to the agency, such as the quote page and its request table as code.",
+   "by": "B-r-415",
+   "via": "review",
+   "date": "2026-11-03 12:31 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "hero_prompt",
+   "issue": "'signup' is the code default; the page's own word is 'quote request'.",
+   "fix": "'...that saves every quote request to a database I own.'",
+   "by": "B-r-415",
+   "via": "review",
+   "date": "2026-11-03 12:31 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "cfba5d93b9ada38f",
+   "alt:share_image": "592effea9e5c4c54",
+   "alt:tab_image_1": "69068d3ed3de7f5e",
+   "alt:tab_image_2": "2082b2d58f293bb7",
+   "alt:tab_image_3": "9559f684e535d4d6",
+   "alt:tab_image_4": "aea00bcfae977631",
+   "breadcrumb": "48384b4493b727a5",
+   "chip_adds": "14771a1b57d3e20f",
+   "explore_cta": "79054f22afc9bade",
+   "faq": "ea1900d362d1aca6",
+   "feature_1": "e0cd369cc071c415",
+   "feature_2": "88e368b76438e282",
+   "feature_3": "8c8d9847f40781b0",
+   "feature_4": "ed198bf8a82ec0fb",
+   "feature_5": "69bade501ba49982",
+   "feature_6": "46c7a7aee09b64b4",
+   "features_heading": "42a2d2825aad582b",
+   "features_subheading": "491badfc0ed10c48",
+   "h1": "7cab9f78e02a3509",
+   "hero_description": "922dc00d68095c87",
+   "hero_prompt": "ca01a32594a7e487",
+   "howto_description": "7e03bb6e2b1be621",
+   "howto_step_1_des": "6ee691f02fac346d",
+   "howto_step_1_title": "46d02c1b73781efc",
+   "howto_step_2_des": "05a585caaa9f989f",
+   "howto_step_2_title": "3a3897566eea6daf",
+   "howto_step_3_des": "b116a48bf8052e7b",
+   "howto_step_3_title": "02549e57dfea34bc",
+   "howto_step_4_des": "05a328514156120b",
+   "howto_step_4_title": "8f2b1a34f37a3073",
+   "howto_step_5_des": "dde8a6f6d5435123",
+   "howto_step_5_title": "70dce281e08fd880",
+   "howto_step_6_des": "a1bd990d52d48849",
+   "howto_step_6_title": "9eb15072706fe74e",
+   "howto_step_7_des": "cce3fc1536b0d996",
+   "howto_step_7_title": "5e67dd990aa34c09",
+   "howto_title": "1d6e869209ebdbea",
+   "meta_description": "6256ad523cd9b019",
+   "meta_title": "89b40b00b6246782",
+   "mockup": "57bf468d4bf82016",
+   "product_name": "4c86f6e9c1cff158",
+   "prompt_chip_1": "d1aeef6b77c093e7",
+   "prompt_chip_2": "b63557658b705f16",
+   "prompt_chip_3": "347327fe3cf3822f",
+   "prompt_chip_4": "08e03a5fa1efcde7",
+   "slug": "64e8937abc6d71cf",
+   "tab_content_1": "5df489fcaffe7946",
+   "tab_content_2": "283dfd6315c91a23",
+   "tab_content_3": "f2474a89be909aa0",
+   "tab_content_4": "7c064f9024bceb10",
+   "tab_label_1": "d1aeef6b77c093e7",
+   "tab_label_2": "b63557658b705f16",
+   "tab_label_3": "347327fe3cf3822f",
+   "tab_label_4": "08e03a5fa1efcde7",
+   "usecase_heading": "3c211fdaff3a5726",
+   "why_description": "0b8c3c026a9cbf97",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "50460e0d9b5273c8"
+  },
+  "all": "ddbc5b7cabf1233e",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "cfba5d93b9ada38f",
+   "alt:share_image": "592effea9e5c4c54",
+   "alt:tab_image_1": "69068d3ed3de7f5e",
+   "alt:tab_image_2": "2082b2d58f293bb7",
+   "alt:tab_image_3": "9559f684e535d4d6",
+   "alt:tab_image_4": "aea00bcfae977631",
+   "breadcrumb": "48384b4493b727a5",
+   "chip_adds": "14771a1b57d3e20f",
+   "explore_cta": "79054f22afc9bade",
+   "faq": "ea1900d362d1aca6",
+   "feature_1": "e0cd369cc071c415",
+   "feature_2": "88e368b76438e282",
+   "feature_3": "8c8d9847f40781b0",
+   "feature_4": "ed198bf8a82ec0fb",
+   "feature_5": "69bade501ba49982",
+   "feature_6": "46c7a7aee09b64b4",
+   "features_heading": "42a2d2825aad582b",
+   "features_subheading": "491badfc0ed10c48",
+   "h1": "7cab9f78e02a3509",
+   "hero_description": "922dc00d68095c87",
+   "hero_prompt": "ca01a32594a7e487",
+   "howto_description": "7e03bb6e2b1be621",
+   "howto_step_1_des": "6ee691f02fac346d",
+   "howto_step_1_title": "46d02c1b73781efc",
+   "howto_step_2_des": "05a585caaa9f989f",
+   "howto_step_2_title": "3a3897566eea6daf",
+   "howto_step_3_des": "b116a48bf8052e7b",
+   "howto_step_3_title": "02549e57dfea34bc",
+   "howto_step_4_des": "05a328514156120b",
+   "howto_step_4_title": "8f2b1a34f37a3073",
+   "howto_step_5_des": "dde8a6f6d5435123",
+   "howto_step_5_title": "70dce281e08fd880",
+   "howto_step_6_des": "a1bd990d52d48849",
+   "howto_step_6_title": "9eb15072706fe74e",
+   "howto_step_7_des": "cce3fc1536b0d996",
+   "howto_step_7_title": "5e67dd990aa34c09",
+   "howto_title": "1d6e869209ebdbea",
+   "meta_description": "6256ad523cd9b019",
+   "meta_title": "89b40b00b6246782",
+   "mockup": "57bf468d4bf82016",
+   "product_name": "4c86f6e9c1cff158",
+   "prompt_chip_1": "d1aeef6b77c093e7",
+   "prompt_chip_2": "b63557658b705f16",
+   "prompt_chip_3": "347327fe3cf3822f",
+   "prompt_chip_4": "08e03a5fa1efcde7",
+   "slug": "64e8937abc6d71cf",
+   "tab_content_1": "5df489fcaffe7946",
+   "tab_content_2": "283dfd6315c91a23",
+   "tab_content_3": "f2474a89be909aa0",
+   "tab_content_4": "7c064f9024bceb10",
+   "tab_label_1": "d1aeef6b77c093e7",
+   "tab_label_2": "b63557658b705f16",
+   "tab_label_3": "347327fe3cf3822f",
+   "tab_label_4": "08e03a5fa1efcde7",
+   "usecase_heading": "3c211fdaff3a5726",
+   "why_description": "0b8c3c026a9cbf97",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "50460e0d9b5273c8"
+  },
+  "all": "ddbc5b7cabf1233e",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
