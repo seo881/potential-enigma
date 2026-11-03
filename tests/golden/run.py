@@ -510,6 +510,9 @@ def caught(c):
             sl = d + [{"kind": "semrush", "q": x, "ref": x} for x in (f"Which approvals should a {prim} route to a second reviewer?",
                                                                        f"How many fields can a {prim} hold before people abandon it?")]
         return W.available(c["url"], need, items, sl, spec=s, written=False)[0] == c["expect_filled"]   # code-built candidates only (written fill aside)
+    if c["kind"] == "review-claim-lock":   # Divit 2026-11-03: a page claimed or held by another agent refuses hubctl review / slim-review
+        import hubctl as H
+        return (H.review_refusal(c.get("entry"), c["by"]) is None) == c["expect_allowed"]
     if c["kind"] == "hold-lift":   # Divit 2026-11-03: the CURRENT coordinator lifts any account's hold (reason required); others only their own
         import hubctl as H
         real_c, real_co = H.clone_account, H.COORDINATOR

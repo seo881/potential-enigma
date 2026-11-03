@@ -50,6 +50,7 @@
   state URL approved --by standing-go   the standing go: only while .cache/overnight-b/ruling19-lift-2026-10-15 or a dated
                                     .cache/standing-go-<YYYY-MM-DD> (today's, or under 18 hours old; Divit 2026-10-16 item 4) exists and
                                     ship-check passes; logged as "standing-go (Divit <date>)"; refused otherwise
+  review-claim URL --by B-r-<n>|B-s-<n>   take a page for review first: review/slim-review refuse every other agent while it stands (Divit 2026-11-03)
   go-record DATE --urls U,U --quote "..." --by A-c|B-c-<n>   DECISIONS 2026-10-26: record Divit's explicit go (status/go/DATE.json, tracked)
   state URL approved --by divit     only if URL is in today's status/go/<date>.json (or a standing-go file exists); any other --by refuses.
                                     ship-check / api-create refuse an approved page no go record backs, and every create/update/publish
@@ -530,11 +531,37 @@ def _keep_notes(s, findings, by, via):
     for f in findings:
         if f["severity"] == "note": s.setdefault("review_notes", []).append({**{k: f.get(k) for k in ("criterion", "rule", "field", "issue", "fix")}, "by": by, "via": via, "date": now()})
 
+def review_refusal(entry, by):
+    """None when `by` may record a review on this page, else why not (Divit 2026-11-03: two reviewers never take the same page).
+    Refused while ANY other agent holds the page or has claimed it for review (hubctl review-claim); the claimant itself passes."""
+    h = (entry or {}).get("hold")
+    if h and h.get("by") != by:
+        return f"refused: {h.get('by')} holds this page" + (" for review" if (h.get("note") or "").startswith("review") else "") + f" since {h.get('t')} ({h.get('note') or 'no note'}); one review per page, one reviewer at a time"
+    return None
+def cmd_review_claim(args):
+    """hubctl review-claim URL --by B-r-<n>|B-s-<n>: take the page for review (a hold noted "review"); hubctl review and slim-review
+    then refuse every other agent. The claim is lifted automatically when the review is recorded."""
+    url = args[0]; by = need_by(args, "review-claim")
+    if not re.match(r"^[AB]-[rs]-\w+$", by): sys.exit("refused: review-claim takes a reviewer id (B-r-<n> or B-s-<n>)")
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    with G.lock("status-" + hub_of(url)):
+        st = load_st(hub_of(url)); e = st["pages"].get(url)
+        if e is None: sys.exit(f"{url} is not in status")
+        why = review_refusal(e, by)
+        if why: sys.exit(why)
+        e["hold"] = {"by": by, "account": clone_account(), "t": now(), "note": "review claim"}; save_st(hub_of(url), st)
+    print(f"{url}: claimed for review by {by}")
+def _review_release(url, by):
+    """Lift the reviewer's own review claim once its review is recorded."""
+    st = load_st(hub_of(url)); e = st["pages"].get(url) or {}; h = e.get("hold")
+    if h and h.get("by") == by and (h.get("note") or "").startswith("review"): e.pop("hold"); save_st(hub_of(url), st)
 def cmd_review(args):
     """RUBRIC.json: {"rubric": {criterion: {result, evidence}}, "findings": [{criterion, rule, field, quote, issue, fix, severity}]}.
     Every finding cites the HUB_RULES section or CONTENT_DEFECTS row it breaks and is blocking or a note. Only blocking findings
     send the page to rework; notes are kept in spec.review_notes (hubctl metrics proposes a rule when one recurs on 3+ pages)."""
     url, rf = args[0], args[1]; by = need_by(args, "review")
+    why = review_refusal(load_st(hub_of(url))["pages"].get(url), by)
+    if why: sys.exit(why)
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
     raw = json.load(open(rf)); rub = raw.get("rubric", raw); findings = raw.get("findings", [])
     RUB = json.load(open(os.path.join(ROOT, "rules", "rubric.json")))["criteria"]; ids = {c["id"] for c in RUB}
@@ -564,6 +591,7 @@ def cmd_review(args):
     s["lock_hash"] = s["review_hash"]      # ruling 10 B2: the review lock compares against the text at the latest review event
     json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
     notes = len(findings) - len(blocking)
+    _review_release(url, by)   # the claim ends with the recorded review (a hold left behind would block ship-check)
     if blocking: set_state(url, "rework", note=" | ".join(G.fmt_finding(f) for f in blocking), via="review", by=by); print(f"REWORK: {len(blocking)} blocking, {notes} notes\n  " + "\n  ".join(G.fmt_finding(f) for f in blocking))
     else: set_state(url, "reviewed", note=f"rubric 10/10 by {by}; {notes} notes", via="review", by=by); print(f"REVIEWED: rubric 10/10, {notes} notes kept in spec.review_notes")
 
@@ -792,6 +820,8 @@ def cmd_slim_review(args):
     writers = _authors(s) | {h.get("by") for h in s.get("history", []) if h.get("via") == "ready" or h.get("state") in ("qc_pass", "images")}
     if by in writers: sys.exit("refused: the slim reviewer wrote part of this page")
     if not s.get("review"): sys.exit("this page has never had its full review: use hubctl review")
+    _why = review_refusal(load_st(hub_of(url))["pages"].get(url), by) if not hold_conflict(url) else None
+    if _why: sys.exit(_why)
     if hold_conflict(url): sys.exit(f"refused: {url} is held by the other account; " + (f"as the current coordinator ({COORDINATOR}), lift it first: hubctl unhold URL --by {COORDINATOR}-c-<n> --reason TEXT" if coordinator_clone() else "only that account or the current coordinator lifts it") + " (checked before anything is written: no half-recorded review, 2026-11-03)")
     ch, base = review_changed_fields(url); missing = sorted(set(ch) - set(raw.get("fields") or []))
     if missing: sys.exit(f"slim review must cover every changed field ({base}); missing: {', '.join(missing)}")
@@ -805,6 +835,7 @@ def cmd_slim_review(args):
     if not blocking: s["review_hash"] = G.review_hash(s)
     s["lock_hash"] = G.review_hash(s)   # ruling 10 B2: lock against the text as reviewed, whether the slim review passed or blocked
     json.dump(s, open(spath(url), "w"), indent=1, ensure_ascii=False)
+    _review_release(url, by)
     if blocking: set_state(url, "rework", note="slim review: " + note_txt, via="slim-review", by=by); print(f"REWORK: {len(blocking)} blocking")
     else: set_state(url, "reviewed", note=f"slim review by {by} of {len(ch)} changed field(s); {len(findings)} notes", via="slim-review", by=by); print(f"REVIEWED (slim): {len(ch)} field(s), {len(findings)} notes; review hash renewed")
 
@@ -1759,7 +1790,7 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "release": cmd_release, "paa": cmd_paa, "paa-resource": cmd_paa_resource, "paa-synonyms": cmd_paa_synonyms, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "transfer-hold": cmd_transfer_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "feasibility": cmd_feasibility, "daily-batch": cmd_daily_batch, "unlock": cmd_unlock, "verbatim": cmd_verbatim, "defer": cmd_defer, "batch-check": cmd_batch_check, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "learn-check": cmd_learn_check, "ship-check": cmd_ship_check, "go-record": cmd_go_record,"slug-check": cmd_slug_check, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "review-claim": cmd_review_claim, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "transfer-hold": cmd_transfer_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "feasibility": cmd_feasibility, "daily-batch": cmd_daily_batch, "unlock": cmd_unlock, "verbatim": cmd_verbatim, "defer": cmd_defer, "batch-check": cmd_batch_check, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "learn-check": cmd_learn_check, "ship-check": cmd_ship_check, "go-record": cmd_go_record,"slug-check": cmd_slug_check, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
         "recheck": cmd_recheck, "live-sync": cmd_live_sync, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live,
         "swap-recheck": lambda a: __import__("swap_recheck").main(a),   # Divit 2026-10-14 step 3: r18-swap-short pages back to rework once replacements exist
