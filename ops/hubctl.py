@@ -662,7 +662,10 @@ def cmd_state(args):
             elif not G.standing_go_active(): sys.exit(f"refused: {url} is not in a go record dated today (status/go/{today}.json) and no standing-go file exists: Divit's approval is never inferred. Record his words first: hubctl go-record {today} --urls {url} --quote \"...\" --by A-c")
     if state == "approved":
         cur = load_st(hub_of(url))["pages"].get(url, {}).get("state")
-        if cur not in ("reviewed", "challenged"): sys.exit(f"only a reviewed page can be approved (this one is '{cur}')")
+        # Divit 2026-11-03: a CMS draft whose approval was revoked (no approval record) is re-approved only with --by divit and a go
+        # record dated today naming it (never the standing go); the approval record is written and the page stays cms_draft
+        redraft = cur == "cms_draft" and by0 == "divit" and go is not None and not (json.load(open(spath(url))).get("approval"))
+        if cur not in ("reviewed", "challenged") and not redraft: sys.exit(f"only a reviewed page can be approved (this one is '{cur}'; a revoked cms_draft needs --by divit and today's go record naming it)")
         if go is None:   # the standing go: recorded as a go too, so ship-check and api-create find it (status/go/<today>.json)
             gp, grec = go_append(today, [url], f"standing go: {G.standing_go_log()}", by0, "standing-go"); go = (today, grec)
         sp = spath(url); s = json.load(open(sp)); s["approval"] = {"fingerprint": G.fingerprint(s), "date": now(), "rules_version": G.rules_version(),
@@ -691,6 +694,8 @@ def cmd_state(args):
         sp = spath(url); s = json.load(open(sp))
         if by not in s.setdefault("writers", []): s["writers"].append(by); json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
     if by == G.STANDING_GO: by = G.standing_go_log()
+    if state == "approved" and redraft:
+        set_state(url, "cms_draft", note or f"re-approved (revoked draft) on Divit's go {go[0]}", by=by); print(f"{url}: approval recorded (Divit go {go[0]}); stays cms_draft"); return
     set_state(url, state, note, by=by); print(f"{url} -> {state}")
 
 def cmd_hold(args):
