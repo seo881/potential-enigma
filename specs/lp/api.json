@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-301",
    "note": ""
+  },
+  {
+   "t": "2026-11-03 12:29 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-412",
+   "note": "[truth | HUB_RULES 8] faq: FAQ 9 says every tab shows the data it saves and the follow-up it runs (rework-checklist 7: claims about the examples must be true of every tab). Tab 3 (Version Sunsets) saves nothing and runs no follow-up; the owner enters an email and reads v1 call counts that 'come from"
   }
  ],
  "pipeline": "r15",
@@ -903,5 +910,275 @@
  ],
  "writers": [
   "B-w-301"
- ]
+ ],
+ "review": {
+  "by": "B-r-412",
+  "date": "2026-11-03 12:29 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an API Landing Page Developers Can Test Before Signing Up' is borne out by feature 2 ('Visitors paste their own input and see the response your API sends back'), tab 1 ('After 5 free lookups the page asks for an email') and steps 03-04; hero description under 130 chars with the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is example galleries, templates and builders; page gives four worked examples, a 7-step how-to, a comparison table and FAQs on above-the-fold, pricing, CTA and docs."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Developer vocabulary: 'sandbox key', 'GET /rates?base=USD', 'each v1 endpoint the account called in the last 30 days, next to its v2 replacement', 'rate limits or auth'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on full sentences: 'Describe the API, who calls it', 'Visitors paste their own input', 'Every signup lands as a row'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC 0; sentences carry one idea ('A new Striate key starts a clock.')."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain and concrete: 'Pinmark verifies mailing addresses through its API', 'Keep volume discounts behind a contact link if they depend on the deal.'"
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "FAQ 9: 'Each shows the page, the data it saves, and the follow-up it runs.' Tab 3 (Version Sunsets) saves no data and runs no follow-up: the account owner only reads v1 call counts from Parcelio's own API. Emergent claims otherwise map to claims_used; 61+153=214 agrees in copy and image."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Kept apart from siblings: FAQ 4 hands app pages to the saas page, FAQ 10 hands SDK/CLI pages to the developer page."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic builder questions, gate 10 pass 0 flag, hub link in item 2, sibling links in items 4, 7, 10, Emergent lines in items 5 and 7."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: '5 of 5 free' and 'Next lookup asks for an email', ZIP 62704; Dara Whitcombe key 4 days old 'Example sent' after the 3-day rule; '61 of 214 accounts still call v1, 153 have moved'; growers page opens the frost quickstart, dispatchers road weather."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "The four tabs on this page are worked examples: ... Each shows the page, the data it saves, and the follow-up it runs.",
+    "issue": "FAQ 9 says every tab shows the data it saves and the follow-up it runs (rework-checklist 7: claims about the examples must be true of every tab). Tab 3 (Version Sunsets) saves nothing and runs no follow-up; the owner enters an email and reads v1 call counts that 'come from Parcelio's own API'. This is the only such claim on the page.",
+    "fix": "Make the sentence true of all four tabs (for example 'Each shows the page and the data behind it'), or give tab 3 a saved row and a follow-up in copy, mockup and image together.",
+    "severity": "blocking"
+   },
+   {
+    "class": "voice",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "hero_prompt",
+    "quote": "Build an API landing page that saves every signup to a database I own.",
+    "issue": "The default prompt is the hub-wide pattern (same sentence on about 70 LP specs) and leaves out the request demo the H1 and meta title promise; a developer would type the demo.",
+    "fix": "For example 'Build an API landing page where developers run a real request before they sign up.' (check QC L13 line count).",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "| Emergent | Unbounce | Landingi | Wix |",
+    "issue": "Competitors are the library default, not the ones on this SERP: Leadpages ranks #3 in the live top 10 and has its own library entry. The facts are library facts, so this ships as a note.",
+    "fix": "On a later regeneration, consider --vs Leadpages,Unbounce,Wix.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq",
+    "quote": "A saas landing page sells a finished app | see how a crm landing page handles it",
+    "issue": "Sibling anchors keep the keyword's lowercase, so the acronyms read 'saas' and 'crm' in FAQ 4 and FAQ 7.",
+    "fix": "SaaS, CRM in the visible anchor text.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "scope",
+    "rule": "CONTENT_DEFECTS #1",
+    "field": "name",
+    "quote": "Build an API Landing Page Developers Can Test Before Signing Up",
+    "issue": "The H1 is carried by the request demo (feature 2, tab 1, steps 03-04); tabs 2-4 (keys at signup, a sunset page for existing accounts, audience pages) are after-signup or other jobs. No field contradicts it, so a note.",
+    "fix": "None required; a broader H1 would cover all four tabs.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "hero_prompt",
+   "issue": "The default prompt is the hub-wide pattern (same sentence on about 70 LP specs) and leaves out the request demo the H1 and meta title promise; a developer would type the demo.",
+   "fix": "For example 'Build an API landing page where developers run a real request before they sign up.' (check QC L13 line count).",
+   "by": "B-r-412",
+   "via": "review",
+   "date": "2026-11-03 12:29 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "Competitors are the library default, not the ones on this SERP: Leadpages ranks #3 in the live top 10 and has its own library entry. The facts are library facts, so this ships as a note.",
+   "fix": "On a later regeneration, consider --vs Leadpages,Unbounce,Wix.",
+   "by": "B-r-412",
+   "via": "review",
+   "date": "2026-11-03 12:29 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq",
+   "issue": "Sibling anchors keep the keyword's lowercase, so the acronyms read 'saas' and 'crm' in FAQ 4 and FAQ 7.",
+   "fix": "SaaS, CRM in the visible anchor text.",
+   "by": "B-r-412",
+   "via": "review",
+   "date": "2026-11-03 12:29 UTC"
+  },
+  {
+   "criterion": "scope",
+   "rule": "CONTENT_DEFECTS #1",
+   "field": "name",
+   "issue": "The H1 is carried by the request demo (feature 2, tab 1, steps 03-04); tabs 2-4 (keys at signup, a sunset page for existing accounts, audience pages) are after-signup or other jobs. No field contradicts it, so a note.",
+   "fix": "None required; a broader H1 would cover all four tabs.",
+   "by": "B-r-412",
+   "via": "review",
+   "date": "2026-11-03 12:29 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "4e165944edb4a724",
+   "alt:share_image": "32d91b74990a8a3e",
+   "alt:tab_image_1": "2a801a53960ffb5c",
+   "alt:tab_image_2": "b70d5c04e3ae8807",
+   "alt:tab_image_3": "e5859e8978bef4d2",
+   "alt:tab_image_4": "5b281c1421b9e921",
+   "breadcrumb": "f87de6c818628e99",
+   "chip_adds": "466163c0a6cce6a6",
+   "explore_cta": "29ba55aba7fd7581",
+   "faq": "1f7f8b753c5ef716",
+   "feature_1": "24def9c75d9aee7c",
+   "feature_2": "6b2daee8d3238e9c",
+   "feature_3": "849455d10b1bc37a",
+   "feature_4": "8fa92532875b47f5",
+   "feature_5": "73cb7fdc1c908c4f",
+   "feature_6": "da0c979b4e424134",
+   "features_heading": "6e8d0c4aab7991c1",
+   "features_subheading": "70a4065af7b1da6c",
+   "h1": "328395cd7d809294",
+   "hero_description": "5cce80eb4c19bb1a",
+   "hero_prompt": "8d8a1e62c71b7bc7",
+   "howto_description": "0639fcc13fe45323",
+   "howto_step_1_des": "9263d6ec2373151b",
+   "howto_step_1_title": "382e8fd3b362d3dd",
+   "howto_step_2_des": "727ccf79e43b42a6",
+   "howto_step_2_title": "0c0210ec4186c9bf",
+   "howto_step_3_des": "5e64367f97c970dc",
+   "howto_step_3_title": "a9c0f7a823e15e24",
+   "howto_step_4_des": "ae95f54f7d67effd",
+   "howto_step_4_title": "4dcb1a34de40ae88",
+   "howto_step_5_des": "581eb168277f6935",
+   "howto_step_5_title": "0ae53e0e7a5c23aa",
+   "howto_step_6_des": "e5e2d19ffe0afc06",
+   "howto_step_6_title": "37a7556879d6589f",
+   "howto_step_7_des": "e16d81b8741fa149",
+   "howto_step_7_title": "a52a62650a99d858",
+   "howto_title": "97db577793239ecd",
+   "meta_description": "16aaec9f34c33482",
+   "meta_title": "b0b5c9b193c96f2d",
+   "mockup": "7ad5caed1b8d2896",
+   "product_name": "6b1835c0a1d5aa98",
+   "prompt_chip_1": "c70d7ad91db36e0a",
+   "prompt_chip_2": "06683631550ac144",
+   "prompt_chip_3": "509f4733b1da34bd",
+   "prompt_chip_4": "c7f8194b03edc62a",
+   "slug": "14c2529eb4498c5d",
+   "tab_content_1": "b8471738cd6cb672",
+   "tab_content_2": "4f961cc31a34ff9f",
+   "tab_content_3": "e8606de7b7ddec4b",
+   "tab_content_4": "0db5ff78561ad00e",
+   "tab_label_1": "6d193f4048d21849",
+   "tab_label_2": "06683631550ac144",
+   "tab_label_3": "297e72a1bb340ca0",
+   "tab_label_4": "c7f8194b03edc62a",
+   "usecase_heading": "8a30879f81e78554",
+   "why_description": "9f5d9b48b9fa1edf",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "a2690081b443b25c"
+  },
+  "all": "cc262c7e39be53d9",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "4e165944edb4a724",
+   "alt:share_image": "32d91b74990a8a3e",
+   "alt:tab_image_1": "2a801a53960ffb5c",
+   "alt:tab_image_2": "b70d5c04e3ae8807",
+   "alt:tab_image_3": "e5859e8978bef4d2",
+   "alt:tab_image_4": "5b281c1421b9e921",
+   "breadcrumb": "f87de6c818628e99",
+   "chip_adds": "466163c0a6cce6a6",
+   "explore_cta": "29ba55aba7fd7581",
+   "faq": "1f7f8b753c5ef716",
+   "feature_1": "24def9c75d9aee7c",
+   "feature_2": "6b2daee8d3238e9c",
+   "feature_3": "849455d10b1bc37a",
+   "feature_4": "8fa92532875b47f5",
+   "feature_5": "73cb7fdc1c908c4f",
+   "feature_6": "da0c979b4e424134",
+   "features_heading": "6e8d0c4aab7991c1",
+   "features_subheading": "70a4065af7b1da6c",
+   "h1": "328395cd7d809294",
+   "hero_description": "5cce80eb4c19bb1a",
+   "hero_prompt": "8d8a1e62c71b7bc7",
+   "howto_description": "0639fcc13fe45323",
+   "howto_step_1_des": "9263d6ec2373151b",
+   "howto_step_1_title": "382e8fd3b362d3dd",
+   "howto_step_2_des": "727ccf79e43b42a6",
+   "howto_step_2_title": "0c0210ec4186c9bf",
+   "howto_step_3_des": "5e64367f97c970dc",
+   "howto_step_3_title": "a9c0f7a823e15e24",
+   "howto_step_4_des": "ae95f54f7d67effd",
+   "howto_step_4_title": "4dcb1a34de40ae88",
+   "howto_step_5_des": "581eb168277f6935",
+   "howto_step_5_title": "0ae53e0e7a5c23aa",
+   "howto_step_6_des": "e5e2d19ffe0afc06",
+   "howto_step_6_title": "37a7556879d6589f",
+   "howto_step_7_des": "e16d81b8741fa149",
+   "howto_step_7_title": "a52a62650a99d858",
+   "howto_title": "97db577793239ecd",
+   "meta_description": "16aaec9f34c33482",
+   "meta_title": "b0b5c9b193c96f2d",
+   "mockup": "7ad5caed1b8d2896",
+   "product_name": "6b1835c0a1d5aa98",
+   "prompt_chip_1": "c70d7ad91db36e0a",
+   "prompt_chip_2": "06683631550ac144",
+   "prompt_chip_3": "509f4733b1da34bd",
+   "prompt_chip_4": "c7f8194b03edc62a",
+   "slug": "14c2529eb4498c5d",
+   "tab_content_1": "b8471738cd6cb672",
+   "tab_content_2": "4f961cc31a34ff9f",
+   "tab_content_3": "e8606de7b7ddec4b",
+   "tab_content_4": "0db5ff78561ad00e",
+   "tab_label_1": "6d193f4048d21849",
+   "tab_label_2": "06683631550ac144",
+   "tab_label_3": "297e72a1bb340ca0",
+   "tab_label_4": "c7f8194b03edc62a",
+   "usecase_heading": "8a30879f81e78554",
+   "why_description": "9f5d9b48b9fa1edf",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "a2690081b443b25c"
+  },
+  "all": "cc262c7e39be53d9",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
