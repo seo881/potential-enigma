@@ -24,21 +24,27 @@ def _known():
     try: return json.load(open(os.path.join(ROOT, "rules", "live_audit.json"))).get("known_open_issues") or []
     except (OSError, ValueError): return []
 
-def known_id(f, known=None):
-    """The id of the known open issue a finding matches (rules/live_audit.json known_open_issues), else None."""
+def known_id(f, known=None, today=None):
+    """The id of the known open issue a finding matches (rules/live_audit.json known_open_issues), else None.
+    Optional entry keys: url (the finding's url, exact) and expires (YYYY-MM-DD, UTC): from that date on the entry no longer
+    matches, so the finding counts as REAL again (Divit 2026-11-03: the 24 redirect targets, known until 2026-11-17)."""
+    today = today or utcnow().strftime("%Y-%m-%d")
     for k in (known if known is not None else _known()):
         if f.get("code") != k.get("code"): continue
+        if k.get("expires") and today >= k["expires"]: continue
+        if k.get("url") and k["url"] != f.get("url"): continue
         if k.get("msg_contains") and k["msg_contains"] not in (f.get("msg") or ""): continue
         if k.get("snippet_contains") and k["snippet_contains"] not in (f.get("snippet") or ""): continue
         return k["id"]
     return None
 
-def real_counts(F):
-    """(real failing urls, {known id: n findings}) over the P0/P1 findings: Divit 2026-10-26, count REAL failures only."""
-    kn = _known(); real, known = set(), {}
+def real_counts(F, known_list=None, today=None):
+    """(real failing urls, {known id: n findings}) over the P0/P1 findings: Divit 2026-10-26, count REAL failures only.
+    An expired known_open_issues entry (expires <= today) matches nothing: its findings are real again."""
+    kn = known_list if known_list is not None else _known(); real, known = set(), {}
     for f in F:
         if f["severity"] not in ("P0", "P1"): continue
-        k = known_id(f, kn)
+        k = known_id(f, kn, today)
         if k: known[k] = known.get(k, 0) + 1
         else: real.add(f["url"])
     return real, known

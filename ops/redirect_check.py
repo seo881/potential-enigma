@@ -14,7 +14,9 @@ ADDS checks; it never pauses, weakens or replaces an existing one (permanent rul
   redirect_check.py check [--base URL] [--csv PATH] [--workers N] [--min-rows N]
       the same checks without touching findings.json (ad-hoc). Exit 3 when any row fails, 0 clean, 1 could not run.
 
-Codes (REAL findings, never in known_open_issues; severities per Divit 2026-10-26):
+Codes (REAL findings; severities per Divit 2026-10-26). Divit 2026-11-03: the 24 targets found on the first run are known_open_issues
+(ids redir-*, url-exact, expires 2026-11-17) until reports/2026-11-03/redirects-final-v2.csv ships with the next planned domain publish;
+CSV stays redirects-final.csv until Divit says v2 is imported. Any other A11 finding counts as real:
   A11-redirect   P0  the source does not return a single-hop 301 to exactly its target (missing, changed, 302/307/308, a chain)
   A11-target     P1  the redirect target does not return HTTP 200 (one finding per failing target, however many rows point at it)
   A11-transport  P1  not checked: transport error after a retry (like A1-transport; a re-run clears it)
