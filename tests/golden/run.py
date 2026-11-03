@@ -35,6 +35,9 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   qc-f1          {url, aa, sec?, serp, expect_f1}         QC raises F1 exactly when the page has no AlsoAsked pull (DataForSEO capture irrelevant;
                                                           aa = primary pull, sec = top-secondary --sec pull; either one counts, as in the gate)
   audit-noflag   {url, code}                              the live audit does NOT raise `code` on a bare page (a settled non-issue)
+  redirect-row   {source, target, first, tgt, expect: [[code, sev]]}  Divit 2026-10-26: the daily 843-row redirect check
+                                                          (ops/redirect_check.classify) on synthetic responses first/tgt
+                                                          ({status, location} or {error}) raises exactly these findings ([] = passes)
   audit-link     {url, href, status_code, internal?, hub?, expect_finding}  A7-link raises a finding for this link status exactly when expected
   engine-brief   {url, path, value, expect: renders|brief-error, match?}  the image engine on the spec's brief with image_brief[path] = value
                                                           renders cleanly, or reports a BriefError issue (containing `match`); never crashes
@@ -340,6 +343,10 @@ def caught(c):
             raw = {"pages": [{"url": c["url"], "checks": {"http200": True}, "verify": {}, "link_status": ls, "render": {"http": 200, "jsonld": [], "links": [], "images": [], "text_visible": "", "text_all": "", "h1s": ["h"]}}], "hubs": [], "held": []}
         hit = any(f["code"] == "A7-link" for f in LA.evaluate(raw, m, "https://emergent.sh"))
         return hit == c["expect_finding"]
+    if c["kind"] == "redirect-row":   # Divit 2026-10-26: every redirects-final.csv row = single-hop 301 to exactly its target, target 200
+        import redirect_check as RC
+        fs = RC.classify(c["source"], c["target"], c.get("first") or {}, c.get("tgt"), "https://emergent.sh")
+        return sorted((f["code"], f["severity"]) for f in fs) == sorted((e[0], e[1]) for e in c["expect"])
     if c["kind"] == "ship-postreview":  # Divit 2026-10-26: ship-check refuses a page whose reviewed fields changed after its review without
         import hubctl as H, tempfile, shutil  # a covering slim review (approval-workflow: rework after review, shipped without a slim review)
         src = H.spath(c["url"]); d = json.load(open(src))

@@ -795,7 +795,7 @@ def plain_digest(date):
     d = json.load(open(findings_path(date))); F = d["findings"]
     from collections import Counter, defaultdict
     sev = Counter(f["severity"] for f in F); codes = Counter((f["severity"], f["code"]) for f in F); urls = defaultdict(list)
-    for f in F: urls[(f["severity"], f["code"])].append(f["url"] + (f"  ({f['msg'][:140]})" if f["code"] in ("A1-http", "A7-link", "A8-load", "A9-console", "A9-carousel-link", "A5-learn-link", "A5-learn-cards", "A9-carousel") else ""))
+    for f in F: urls[(f["severity"], f["code"])].append(f["url"] + (f"  ({f['msg'][:140]})" if f["code"] in ("A1-http", "A7-link", "A8-load", "A9-console", "A9-carousel-link", "A5-learn-link", "A5-learn-cards", "A9-carousel", "A11-redirect", "A11-target", "A11-transport") else ""))
     bad_pages = {f["url"] for f in F if f["severity"] in ("P0", "P1")}
     L = [f"Live audit {date} on {d['base']} (plain checks, no Claude){' DRY' if d.get('dry') else ''}",
          f"pages {len(d['pages'])}, hubs {len(d['hubs'])}; pages/hubs with P0/P1: {len(bad_pages & set(d['pages'] + d['hubs']))}; passed (no P0/P1): {len(set(d['pages']) - bad_pages)} of {len(d['pages'])}",
@@ -806,6 +806,7 @@ def plain_digest(date):
         if s == "P2": continue
         L.append(f"{s} {c} ({len(urls[(s, c)])}):"); L += [f"  {u}" for u in sorted(urls[(s, c)])[:400]]; L.append("")
     if d.get("transport_retried") is not None: L.append(f"transport errors re-checked: {d['transport_retried']}; still failing after the re-check: {d.get('transport_failed', 0)}")
+    if d.get("redirects"): L.append(f"redirects (Divit 2026-10-26): {d['redirects']['rows']} rows of {d['redirects']['csv']} checked at {d['redirects']['checked']}; findings {d['redirects']['failing']}")
     open(os.path.join(AUD, date, "digest.txt"), "w").write("\n".join(L) + "\n")
     return L
 

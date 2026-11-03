@@ -109,7 +109,7 @@ jobs:
           pattern: raw-*
           merge-multiple: true
           path: .cache/live/
-      - name: Score, digest, last_success.json
+      - name: Score, digest, last_success.json (includes the daily 843-row redirect check, Divit 2026-10-26)
         run: bash ops/schedule/live_audit_checks.sh --phase score --base "$BASE"
       - name: Commit audits/live
         run: |

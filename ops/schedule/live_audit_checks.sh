@@ -12,6 +12,9 @@
 #    with a per-page timeout and a watchdog per shard; the held-page sweep runs once (shard 0 only); the hubs run in their own shard;
 # 3. pages that failed on a transport error (timeout, http 0, net::ERR_*) are re-run ONCE, serially (capped; LESSONS 2026-10-13);
 # 4. the shards are merged into .cache/live/DATE/raw.json and scored by `live_audit.py run --from-raw` -> audits/live/DATE/findings.json;
+#    then (full runs only) the daily 843-row redirect check (ops/redirect_check.py, Divit 2026-10-26): every row of
+#    reports/2026-10-23/redirects-final.csv must 301 single-hop to exactly its target (else P0 A11-redirect) and the target must
+#    return 200 (else P1 A11-target); the findings join findings.json before the digest and last_success.json;
 # 5. plain digest -> audits/live/DATE/digest.txt (counts by severity and code, failing URLs), a macOS notification with the counts, and
 #    for a full run audits/live/last_success.json (ops/audit_status.py; the watchdog alerts when it is older than 26 h).
 # A second run waits for the first (lock), never skips. Exit 0 when the checks completed (findings or not), 1 when they could not run.
@@ -138,6 +141,13 @@ p = sys.argv[1]; d = json.load(open(p)); d["transport_retried"] = int(sys.argv[2
 d["runner"] = f"ops/schedule/live_audit_checks.sh on {sys.argv[4]}"
 json.dump(d, open(p, "w"), indent=1, ensure_ascii=False)
 PY
+# Divit 2026-10-26 (handback item 0): the daily 843-row redirect check (reports/2026-10-23/redirects-final.csv), full runs only,
+# on BOTH runners (this same score phase runs on the Mac and in the GitHub Actions matrix). Plain Python HEAD/GETs; its A11-*
+# findings join findings.json BEFORE the digest and last_success.json, so real_counts and the watchdog see them. Only adds.
+if [ -z "$URLS" ]; then
+  "$PY" ops/redirect_check.py run --date "$RDATE" --base "$BASE" > "$SDIR/redirects.out" 2>&1 || fail "redirect check: $(tail -1 "$SDIR/redirects.out")"
+  say "$(sed -n 1,2p "$SDIR/redirects.out" | tr '\n' ';' )"
+fi
 "$PY" ops/live_audit.py plain-digest "$RDATE" > "$SDIR/digest.head" 2>&1 || fail "digest: $(tail -1 "$SDIR/digest.head")"
 COUNTS="$(sed -n 2,3p "$SDIR/digest.head" | tr '\n' ' ' | sed 's/  */ /g')"
 if [ -z "$URLS" ]; then "$PY" ops/audit_status.py success "$DATE" "$RUNNER" > /dev/null || fail "last_success.json"; fi
