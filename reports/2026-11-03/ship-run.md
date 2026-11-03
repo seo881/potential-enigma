@@ -65,9 +65,25 @@ Coordinator brief (B-c-1, relaying Divit's recorded standing go of 2026-11-02, p
   - Every publish call refused the held surgery-consent and the 3 revoked drafts until Divit's go and the hold lift landed.
   - restaurant was refused once while B-r-419's review claim held it, and shipped after the hold was lifted.
 
+## Relink after B-v-1 verification (13:05 to 13:08 UTC)
+- B-v-1 verified the 43 pages it covered (Form g2 to g5, Auto g1, SQ g1, LP g1 to g3): all PASS and all published (reported by the coordinator). B-v-1 is read-only, so the automatic relink never ran for those pages.
+- I ran it the way auto_relink does:
+  - Fresh reads of all 4 hubs, then `live-sync` (417 live).
+  - `relink-payload` targeted at today's 58 pages; the plan found 4 holders and 0 refusals.
+  - The before-values were committed and pushed (88eafa8d).
+  - `api-update` updated the FAQ field only and item-published the 4 items; read back clean, 0 mismatches. Rollback: childedits/2026-11-03/relink-2026-11-03.20261103T130617Z.rollback.json.
+  - Relink verify-live passed 4 of 4, and pending_links were cleared (23a05c7e).
+- Pages relinked:
+  - anesthesia-consent, linking to surgery-consent
+  - client-onboarding-questionnaire, linking to wedding-photography-questionnaire
+  - consent, linking to surgery-consent
+  - driver-application, linking to drug-test-consent
+- A second relink plan finds 0 pages left.
+- Final check-back for new reviewed pages: none in 10 minutes. The queue is empty.
+
 ## Not done
 - `hubctl state … approved --by divit` for the 3 named drafts was **denied by the permission system**. I did not retry it. The approval came from the coordinator's side instead, and I then shipped the pages.
-- B-v-1's verify-live and post-ship audit results for Form g2–g5, Auto, SurveyQuiz and LP g1–g3 are not in the repo yet. 26 pages await its verify-live.
+- B-v-1's post-ship audit files are not in the repo from my side. Its verify-live results came through the coordinator: 43 of 43 PASS.
 
 ## Incidents (mine)
 - **Audit manifest overwritten and restored:** at 12:00 UTC I ran `ops/live_audit.py --help`, which has no help flag and started a run. That run overwrote the running full audit's .cache/live/2026-11-03/manifest.json (350 pages, 0 hubs). I stopped it and restored the manifest exactly from that run's own shards/hubs.manifest.json and shards/s0.manifest.json (359 pages, 4 hubs, 87 held). The full run then scored normally at 12:45 UTC (359 pages, 4 hubs).
