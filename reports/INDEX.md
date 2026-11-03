@@ -2,6 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-11-03 · [ship-run](2026-11-03/ship-run.md) · B-ship-5: 58 pages item-published under Divit's standing/named go (Form 31, LP 18, Auto 3, SQ 6), 0 publish errors, no site publish; live 359 -> 417; 504'd Form create found to have written 22 drafts (no retry); approval-workflow already live = spec · see report
 - 2026-10-26 · [handback-to-B](2026-10-26/handback-to-B.md) · A coordinator day: migration closed, freeze lifted, G1 closed, 22 shipped (all QC pass) then shipping STOPPED by Divit; guards for holds and recorded go; backup audit Action fixed; watchdog; 19 holds cleared, 42 for B · e74ece1a
 - 2026-10-23 · [1504-quiz-embed-cls-reservation](2026-10-23/1504-quiz-embed-cls-reservation.md) · Quiz embed 117b49c2 on the SurveyQuiz template: CLS space reservation (438/435 px, quiz pages only), staged and read back; local CLS 0.0006/0.0008 · bcefdfde
 - 2026-10-21 · [2359-full-throttle-run](2026-10-21/2359-full-throttle-run.md) · B full-throttle run: live 216 -> 305 (+89, target 316), brand/best/PA7/PA15 rulings, rolling item publishes in groups of 5, ~45 B pages written and reviewed · b6442b53
