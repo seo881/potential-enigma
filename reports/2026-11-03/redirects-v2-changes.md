@@ -47,6 +47,9 @@ Found by the daily redirect check (B-dev-20, 2026-11-03): 24 targets not returni
 | /build/subscription-website-builder | /ai-website-builder/subscription | /ai-website-builder/membership | chain: /ai-website-builder/subscription now 301s to /ai-website-builder/membership (200) |
 | /build/automotive-website-builder | /ai-website-builder/automotive | /ai-website-builder/auto | chain: /ai-website-builder/automotive now 301s to /ai-website-builder/auto (200) |
 | /build/property-website-builder | /ai-website-builder/property | /ai-website-builder/real-estate | chain: /ai-website-builder/property now 301s to /ai-website-builder/real-estate (200) |
-| /build/ai-website-builder/resume | /ai-website-builder/resume | /ai-web-app-builder/resume | closest live page: an online resume built in the browser (title "Resume Web App Builder"); /ai-app-builder/resume-builder is a resume-builder product, a different intent |
+| /build/ai-website-builder/resume | /ai-website-builder/resume | /ai-landing-page-builder/resume | Divit 2026-11-03: a personal resume site for job seekers = the resume landing page ("Build a Resume Landing Page That Gets Recruiters to Write Back"). CONDITION: that page is not live yet (in rework on 2026-11-03); it must return 200 before this CSV is imported. Was proposed: /ai-web-app-builder/resume |
 
 All other rows are unchanged.
+
+## Before import (checklist)
+- /ai-landing-page-builder/resume must be live (200): run `python3 ops/redirect_check.py check --csv reports/2026-11-03/redirects-final-v2.csv` against staging after the import and confirm 843/843.
