@@ -268,7 +268,15 @@ def cmd_verbatim(args):
         print(f"{u}: " + ("; ".join(res) or "no AlsoAsked items"))
     sys.exit(1 if bad else 0)
 
-COORDINATOR = "B"   # ruling 22 (Divit 2026-10-14 night): the coordinator moved from A to B
+def current_coordinator(doc=None):
+    """The CURRENT coordinator account, from the one machine-readable line in docs/TWO_ACCOUNTS.md ("CURRENT COORDINATOR: B"; Divit
+    2026-11-03: rewritten at every handover). Falls back to B (ruling 22) when the line is missing."""
+    try: txt = open(doc or os.path.join(ROOT, "docs", "TWO_ACCOUNTS.md")).read()
+    except OSError: return "B"
+    m = re.search(r"^CURRENT COORDINATOR:\s*([AB])\b", txt, re.M)
+    return m.group(1) if m else "B"
+COORDINATOR = current_coordinator()   # ruling 22 (Divit 2026-10-14 night) made B the coordinator; since 2026-11-03 read from the doc
+def coordinator_clone(): return clone_account() == COORDINATOR
 def is_coordinator(by):
     """Coordinator-only commands (unlock, transfer-hold): --by <COORDINATOR>-c-<n>, from the coordinator's own clone (ruling 22)."""
     return bool(re.match(rf"^{COORDINATOR}-c-\w+$", by or "")) and clone_account() == COORDINATOR
@@ -708,15 +716,29 @@ def cmd_transfer_hold(args):
         if e.get("hold"): e.setdefault("hold_history", []).append(e["hold"])
         e["hold"] = {"by": by, "account": clone_account(), "t": now(), "note": note}; save_st(hub_of(url), st)
     print(f"{url}: hold transferred to {by} ({note}); state {e.get('state')}. Commit and push status now.")
+HOLD_LIFTS = os.path.join(ROOT, "status", "hold-lifts.jsonl")   # tracked: every hold lift, with the original holder and the reason
+def unhold_refusal(h, by, reason):
+    """None when `by` (from this clone) may lift hold h, else why not. The holding account's clone lifts its own holds; the CURRENT
+    coordinator (docs/TWO_ACCOUNTS.md, Divit 2026-11-03) lifts any account's hold, with its coordinator id and a reason."""
+    if hold_account(h) == clone_account(): return None
+    if not coordinator_clone(): return f"refused: held by account {hold_account(h)} ({h.get('by')}); only that clone or the current coordinator ({COORDINATOR}, docs/TWO_ACCOUNTS.md) removes it"
+    if not is_coordinator(by): return f"refused: a hold placed by account {hold_account(h)} is lifted only with --by {COORDINATOR}-c-<n> (current coordinator)"
+    if not (reason or "").strip(): return "refused: lifting another account's hold needs --reason TEXT (logged with the original holder)"
+    return None
 def cmd_unhold(args):
     url = args[0]; by = need_by(args, "unhold")
+    reason = next((args[args.index(k) + 1] for k in ("--reason", "--note") if k in args and args.index(k) + 1 < len(args)), None)
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
     with G.lock("status-" + hub_of(url)):
         st = load_st(hub_of(url)); e = st["pages"].get(url) or {}; h = e.get("hold")
         if not h: sys.exit(f"{url} has no hold")
-        if hold_account(h) != clone_account(): sys.exit(f"refused: held by account {hold_account(h)} ({h.get('by')}); only that clone removes it")
-        e.pop("hold"); save_st(hub_of(url), st)
-    print(f"{url}: hold removed by {by}")
+        why = unhold_refusal(h, by, reason)
+        if why: sys.exit(why)
+        rec = {"url": url, "date": now(), "lifted_by": by, "lifted_from_account": clone_account(), "reason": reason or "",
+               "holder": h.get("by"), "holder_account": hold_account(h), "hold_note": h.get("note"), "hold_since": h.get("date") or h.get("since")}
+        e.pop("hold"); e.setdefault("hold_lifts", []).append(rec); save_st(hub_of(url), st)
+        with open(HOLD_LIFTS, "a") as f: f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    print(f"{url}: hold of {rec['holder']} (account {rec['holder_account']}) removed by {by}" + (f": {reason}" if reason else ""))
 
 def _review_baseline(s, path):
     """The spec as it was when its review was recorded (git), for pages reviewed before review hashes existed."""
@@ -750,14 +772,22 @@ def cmd_slim_review(args):
     """hubctl slim-review URL FILE.json --by A-s-<n>. FILE: {"fields": [reviewed field names], "findings": [{rule, field, quote, issue, fix,
     severity: blocking|note}]}. Covers every field changed since the review (review-diff). The reviewer is a coordinator agent (A-)
     that wrote none of it. Pass: the review hash is renewed and the page is `reviewed`. Blocking: `rework` (Form/Auto back to B)."""
-    url, rf = args[0], args[1]; by = need_by(args, "slim-review")
+    url, rf = args[0], args[1]
+    # Divit 2026-11-03: the CURRENT coordinator's clone records a slim review done by the other account's reviewer (e.g. A-s-13 in B's
+    # clone) with --recorded-by <COORDINATOR>-c-<n>; the reviewer id stays the real reviewer and the recorder is stored with it
+    recorded_by = args[args.index("--recorded-by") + 1] if "--recorded-by" in args and args.index("--recorded-by") + 1 < len(args) else None
+    if recorded_by:
+        if not (coordinator_clone() and is_coordinator(recorded_by)): sys.exit(f"refused: --recorded-by takes the current coordinator's id ({COORDINATOR}-c-<n>) in the coordinator's clone")
+        by = args[args.index("--by") + 1] if "--by" in args and args.index("--by") + 1 < len(args) else None
+        if not by or not re.match(r"^[AB]-s-\w+$", by): sys.exit("refused: with --recorded-by, --by names the slim reviewer (A-s-<n> or B-s-<n>)")
+    else: by = need_by(args, "slim-review")
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
     if not re.match(r"^[AB]-", by): sys.exit("refused: slim reviews are done by A- or B-s reviewers (ruling 1; ruling 20: B does every review)")
     s = json.load(open(spath(url))); raw = json.load(open(rf))
     writers = _authors(s) | {h.get("by") for h in s.get("history", []) if h.get("via") == "ready" or h.get("state") in ("qc_pass", "images")}
     if by in writers: sys.exit("refused: the slim reviewer wrote part of this page")
     if not s.get("review"): sys.exit("this page has never had its full review: use hubctl review")
-    if hold_conflict(url): sys.exit(f"refused: {url} is held by the other account")
+    if hold_conflict(url): sys.exit(f"refused: {url} is held by the other account; " + (f"as the current coordinator ({COORDINATOR}), lift it first: hubctl unhold URL --by {COORDINATOR}-c-<n> --reason TEXT" if coordinator_clone() else "only that account or the current coordinator lifts it") + " (checked before anything is written: no half-recorded review, 2026-11-03)")
     ch, base = review_changed_fields(url); missing = sorted(set(ch) - set(raw.get("fields") or []))
     if missing: sys.exit(f"slim review must cover every changed field ({base}); missing: {', '.join(missing)}")
     findings = [dict({"criterion": "slim", "field": "", "quote": "", "fix": ""}, **f) for f in (raw.get("findings") or [])]
@@ -765,7 +795,7 @@ def cmd_slim_review(args):
     if bad: sys.exit("each finding needs rule, issue and severity blocking|note")
     blocking = [f for f in findings if f["severity"] == "blocking"]
     note_txt = " | ".join(G.fmt_finding(f) for f in blocking)   # format before anything is saved (a crash must not leave a half-recorded review)
-    s.setdefault("slim_reviews", []).append({"by": by, "date": now(), "fields": ch, "baseline": base, "blocking": len(blocking), "notes": len(findings) - len(blocking), "findings": findings})
+    s.setdefault("slim_reviews", []).append({"by": by, **({"recorded_by": recorded_by} if recorded_by else {}), "date": now(), "fields": ch, "baseline": base, "blocking": len(blocking), "notes": len(findings) - len(blocking), "findings": findings})
     _keep_notes(s, findings, by, "slim-review")
     if not blocking: s["review_hash"] = G.review_hash(s)
     s["lock_hash"] = G.review_hash(s)   # ruling 10 B2: lock against the text as reviewed, whether the slim review passed or blocked

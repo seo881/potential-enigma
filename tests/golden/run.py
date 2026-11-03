@@ -38,6 +38,8 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   redirect-row   {source, target, first, tgt, expect: [[code, sev]]}  Divit 2026-10-26: the daily 843-row redirect check
                                                           (ops/redirect_check.classify) on synthetic responses first/tgt
                                                           ({status, location} or {error}) raises exactly these findings ([] = passes)
+  known-expiry   {entry, finding, today, expect_known}    audit_status.real_counts: the finding counts as known (not real) exactly when
+                                                          expected; an entry whose `expires` <= today, or whose `url` differs, is real
   audit-link     {url, href, status_code, internal?, hub?, expect_finding}  A7-link raises a finding for this link status exactly when expected
   engine-brief   {url, path, value, expect: renders|brief-error, match?}  the image engine on the spec's brief with image_brief[path] = value
                                                           renders cleanly, or reports a BriefError issue (containing `match`); never crashes
@@ -343,6 +345,10 @@ def caught(c):
             raw = {"pages": [{"url": c["url"], "checks": {"http200": True}, "verify": {}, "link_status": ls, "render": {"http": 200, "jsonld": [], "links": [], "images": [], "text_visible": "", "text_all": "", "h1s": ["h"]}}], "hubs": [], "held": []}
         hit = any(f["code"] == "A7-link" for f in LA.evaluate(raw, m, "https://emergent.sh"))
         return hit == c["expect_finding"]
+    if c["kind"] == "known-expiry":   # Divit 2026-11-03: a known_open_issues entry with `expires` stops matching on that date (real again)
+        import audit_status as AS
+        real, known = AS.real_counts([c["finding"]], [c["entry"]], c["today"])
+        return (bool(known) and not real) == c["expect_known"] and (bool(real) != c["expect_known"])
     if c["kind"] == "redirect-row":   # Divit 2026-10-26: every redirects-final.csv row = single-hop 301 to exactly its target, target 200
         import redirect_check as RC
         fs = RC.classify(c["source"], c["target"], c.get("first") or {}, c.get("tgt"), "https://emergent.sh")
@@ -504,6 +510,19 @@ def caught(c):
             sl = d + [{"kind": "semrush", "q": x, "ref": x} for x in (f"Which approvals should a {prim} route to a second reviewer?",
                                                                        f"How many fields can a {prim} hold before people abandon it?")]
         return W.available(c["url"], need, items, sl, spec=s, written=False)[0] == c["expect_filled"]   # code-built candidates only (written fill aside)
+    if c["kind"] == "hold-lift":   # Divit 2026-11-03: the CURRENT coordinator lifts any account's hold (reason required); others only their own
+        import hubctl as H
+        real_c, real_co = H.clone_account, H.COORDINATOR
+        try:
+            H.clone_account = lambda: c["clone"]; H.COORDINATOR = c.get("coordinator", "B")
+            return (H.unhold_refusal(c["hold"], c["by"], c.get("reason")) is None) == c["expect_allowed"]
+        finally:
+            H.clone_account, H.COORDINATOR = real_c, real_co
+    if c["kind"] == "coord-doc":   # the coordinator comes from the one marker line in docs/TWO_ACCOUNTS.md
+        import hubctl as H, tempfile
+        with tempfile.NamedTemporaryFile("w", suffix=".md", delete=False) as f: f.write(c["doc"]); fp = f.name
+        try: return H.current_coordinator(fp) == c["expect"]
+        finally: os.unlink(fp)
     if c["kind"] == "coord-id":   # ruling 22: unlock / transfer-hold accept only the coordinator's id from the coordinator's clone
         import hubctl as H
         real = H.clone_account
