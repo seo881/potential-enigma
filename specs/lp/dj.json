@@ -128,6 +128,13 @@
    "date": "2026-11-03 12:28 UTC",
    "via": "acronym-casing",
    "note": "definition questions 1-2 and hero_prompt rebuilt with DJ casing (rules/paa_patterns.json acronyms gained dj, 2026-11-03); pre-review"
+  },
+  {
+   "t": "2026-11-03 12:29 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-413",
+   "note": "[truth | HUB_RULES 8] howto_step_1_des: States as fact how two groups of people behave, with no spec.domain_sources entry (rework-checklist item 1). Same class as FAQ 3; fix both together. -> Rewrite as advice ('Write for a couple planning a reception or for a talent buyer filling a lineup, not both"
   }
  ],
  "pipeline": "r15",
@@ -892,5 +899,245 @@
  ],
  "writers": [
   "B-w-305"
- ]
+ ],
+ "review": {
+  "by": "B-r-413",
+  "date": "2026-11-03 12:29 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a DJ Landing Page That Books Your Next Gig'; hero 'Build a DJ landing page that takes gig requests, caps RSVPs at the room limit, and saves every fan to a database you own.' (D1 ok); how-to description one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is DJ website galleries, builders and a landing-page-vs-website comparison; the page gives four examples (Wedding DJ, Club Night, Mix Release, Press Kit), seven steps and FAQ 5 'Is a DJ landing page enough, or do I need a full website?'."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "DJ vocabulary: 'stage plot or rider', 'talent buyers', 'avails form', 'peak-time recording', 'residency moves to Thursdays'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Bodies open on full sentences: 'Emergent builds the request form a booking needs', 'Vega Sound Co. plays weddings'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; two P2 long sentences (FAQ 1, FAQ 6) read fine."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete details: 'The Larkspur Barn request for June 12 asked for a 5-hour set and 140 guests', 'a double-booked Saturday'."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "Two sentences state as fact what a group of people looks for, with no domain_sources entry (the only source is SoundCloud oEmbed): howto_step_1 'A couple planning a reception and a talent buyer filling a lineup look for different things on a page.'; FAQ 3 'Promoters also look for a stage plot or rider they can pass on.' Emergent claims map to claims_used; SoundCloud line matches its quoted span; numbers agree (180 cap, 37 waitlist, 318 emails, 4 rooms, 900 capacity); table is the unedited library set Unbounce, Landingi, Wix."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Stories are DJ-only (room-capped club night, gated mix, avails form); sibling primaries (podcast, influencer, course landing page) appear only as FAQ link anchors."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, answer-first, hub link in item 2, three sibling links, no brands or formats in questions; paa --spec 0/0."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "uc-1 'Emailed to Mateo Vega' Larkspur Barn, June 12, 140, 5 hours; uc-2 'RSVPs 180 of 180', 'Waitlist 37'; uc-3 Solstice Mix Vol. 7, 318 new emails; uc-4 4 rooms, Halden Hall, March 6, 900. Matches tab copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_1_des",
+    "quote": "A couple planning a reception and a talent buyer filling a lineup look for different things on a page.",
+    "issue": "States as fact how two groups of people behave, with no spec.domain_sources entry (rework-checklist item 1). Same class as FAQ 3; fix both together.",
+    "fix": "Rewrite as advice ('Write for a couple planning a reception or for a talent buyer filling a lineup, not both at once.') or source it. While there, keep step 2 'Thirty seconds of your blends tells a visitor more...' and FAQ 9 'looks more established' framed as advice too.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 3",
+    "quote": "Promoters also look for a stage plot or rider they can pass on.",
+    "issue": "States as fact what promoters look for, with no spec.domain_sources entry (rework-checklist item 1).",
+    "fix": "Rewrite as advice ('Add a stage plot or rider a promoter can pass on.') or source it.",
+    "severity": "blocking"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "feature_3",
+    "quote": "SoundCloud's oEmbed endpoint serves the widget embed code for a SoundCloud URL that points to a playlist.",
+    "issue": "Reads as API documentation in a feature body, and narrows to playlists while the feature is about a single mix.",
+    "fix": "Next time the grid is touched, say plainly that a SoundCloud playlist link becomes a player on the page.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_1, howto_step_3_des, tab_content_1",
+    "quote": "event date, venue, start and end time, and guest count",
+    "issue": "The date-venue-hours-guests form list appears in feature_1, step 3 ('the day, the room, the hours you will play, and how many people are coming') and tab 1.",
+    "fix": "Let tab 1 carry it; give step 3 a different detail.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "feature_3",
+   "issue": "Reads as API documentation in a feature body, and narrows to playlists while the feature is about a single mix.",
+   "fix": "Next time the grid is touched, say plainly that a SoundCloud playlist link becomes a player on the page.",
+   "by": "B-r-413",
+   "via": "review",
+   "date": "2026-11-03 12:29 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_1, howto_step_3_des, tab_content_1",
+   "issue": "The date-venue-hours-guests form list appears in feature_1, step 3 ('the day, the room, the hours you will play, and how many people are coming') and tab 1.",
+   "fix": "Let tab 1 carry it; give step 3 a different detail.",
+   "by": "B-r-413",
+   "via": "review",
+   "date": "2026-11-03 12:29 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "2303c83f674173e4",
+   "alt:share_image": "e7d5aa0d00ce4228",
+   "alt:tab_image_1": "b2f240ae70aae338",
+   "alt:tab_image_2": "b6f72dc874837fe5",
+   "alt:tab_image_3": "894c01faf53b400d",
+   "alt:tab_image_4": "38d2eb6ccefd6ecc",
+   "breadcrumb": "51906694046fdc62",
+   "chip_adds": "f5ea720d2280659a",
+   "explore_cta": "29a6c3870b490492",
+   "faq": "f9694925286fa0da",
+   "feature_1": "4829e53a98f8c2a2",
+   "feature_2": "b88c63ddf2b6c4f7",
+   "feature_3": "3012a9d309b7df06",
+   "feature_4": "6d61f5abbf0b7084",
+   "feature_5": "30339265bf694c77",
+   "feature_6": "1968afb5e7360a72",
+   "features_heading": "c66c3b3c13ea0a45",
+   "features_subheading": "9063c8055e413d3e",
+   "h1": "1cc3ac2868583575",
+   "hero_description": "6ee8d14bca2c5cbe",
+   "hero_prompt": "9fc079f765512ade",
+   "howto_description": "d697960f612be81e",
+   "howto_step_1_des": "931bae66c7981d36",
+   "howto_step_1_title": "71b0eb40b73b44b6",
+   "howto_step_2_des": "0fbbf42fb5aa711f",
+   "howto_step_2_title": "623eb579fbd10ad2",
+   "howto_step_3_des": "b60cdf8239ac9f2a",
+   "howto_step_3_title": "44dc6a3548d0b3dd",
+   "howto_step_4_des": "c0e90bac24cfdf6f",
+   "howto_step_4_title": "ff443b95d1f984df",
+   "howto_step_5_des": "9505a7c061391a04",
+   "howto_step_5_title": "61f50cb8d585a8b2",
+   "howto_step_6_des": "1bcdec02a3c98a69",
+   "howto_step_6_title": "69603265c30d62a4",
+   "howto_step_7_des": "29da2e5e8fe3659a",
+   "howto_step_7_title": "85c35e52c6a552b1",
+   "howto_title": "306a1dc42eb9ed20",
+   "meta_description": "cbfafe0fc75f712e",
+   "meta_title": "ead1e2a7b23d5e15",
+   "mockup": "b6723861f5b001a1",
+   "product_name": "94a007da18b8725e",
+   "prompt_chip_1": "c5aaff24ce0c92d5",
+   "prompt_chip_2": "76dcff378b6399f6",
+   "prompt_chip_3": "e88904550808a33e",
+   "prompt_chip_4": "17996c2ab79adc51",
+   "slug": "9cde7dd490c4fc16",
+   "tab_content_1": "3ddc5f0cba529d01",
+   "tab_content_2": "42ca366de073a774",
+   "tab_content_3": "fb2ed22f1a1ff821",
+   "tab_content_4": "c1c4f73b10b03653",
+   "tab_label_1": "464200fdeface300",
+   "tab_label_2": "329bc470760eacc1",
+   "tab_label_3": "573aa6b4e6a7c8aa",
+   "tab_label_4": "01ca2f9c46249aa2",
+   "usecase_heading": "137e37d6ab376ef3",
+   "why_description": "10d480f995e9eabe",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "1e37e97c1bf51a6b"
+  },
+  "all": "53e3714bf165a653",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "2303c83f674173e4",
+   "alt:share_image": "e7d5aa0d00ce4228",
+   "alt:tab_image_1": "b2f240ae70aae338",
+   "alt:tab_image_2": "b6f72dc874837fe5",
+   "alt:tab_image_3": "894c01faf53b400d",
+   "alt:tab_image_4": "38d2eb6ccefd6ecc",
+   "breadcrumb": "51906694046fdc62",
+   "chip_adds": "f5ea720d2280659a",
+   "explore_cta": "29a6c3870b490492",
+   "faq": "f9694925286fa0da",
+   "feature_1": "4829e53a98f8c2a2",
+   "feature_2": "b88c63ddf2b6c4f7",
+   "feature_3": "3012a9d309b7df06",
+   "feature_4": "6d61f5abbf0b7084",
+   "feature_5": "30339265bf694c77",
+   "feature_6": "1968afb5e7360a72",
+   "features_heading": "c66c3b3c13ea0a45",
+   "features_subheading": "9063c8055e413d3e",
+   "h1": "1cc3ac2868583575",
+   "hero_description": "6ee8d14bca2c5cbe",
+   "hero_prompt": "9fc079f765512ade",
+   "howto_description": "d697960f612be81e",
+   "howto_step_1_des": "931bae66c7981d36",
+   "howto_step_1_title": "71b0eb40b73b44b6",
+   "howto_step_2_des": "0fbbf42fb5aa711f",
+   "howto_step_2_title": "623eb579fbd10ad2",
+   "howto_step_3_des": "b60cdf8239ac9f2a",
+   "howto_step_3_title": "44dc6a3548d0b3dd",
+   "howto_step_4_des": "c0e90bac24cfdf6f",
+   "howto_step_4_title": "ff443b95d1f984df",
+   "howto_step_5_des": "9505a7c061391a04",
+   "howto_step_5_title": "61f50cb8d585a8b2",
+   "howto_step_6_des": "1bcdec02a3c98a69",
+   "howto_step_6_title": "69603265c30d62a4",
+   "howto_step_7_des": "29da2e5e8fe3659a",
+   "howto_step_7_title": "85c35e52c6a552b1",
+   "howto_title": "306a1dc42eb9ed20",
+   "meta_description": "cbfafe0fc75f712e",
+   "meta_title": "ead1e2a7b23d5e15",
+   "mockup": "b6723861f5b001a1",
+   "product_name": "94a007da18b8725e",
+   "prompt_chip_1": "c5aaff24ce0c92d5",
+   "prompt_chip_2": "76dcff378b6399f6",
+   "prompt_chip_3": "e88904550808a33e",
+   "prompt_chip_4": "17996c2ab79adc51",
+   "slug": "9cde7dd490c4fc16",
+   "tab_content_1": "3ddc5f0cba529d01",
+   "tab_content_2": "42ca366de073a774",
+   "tab_content_3": "fb2ed22f1a1ff821",
+   "tab_content_4": "c1c4f73b10b03653",
+   "tab_label_1": "464200fdeface300",
+   "tab_label_2": "329bc470760eacc1",
+   "tab_label_3": "573aa6b4e6a7c8aa",
+   "tab_label_4": "01ca2f9c46249aa2",
+   "usecase_heading": "137e37d6ab376ef3",
+   "why_description": "10d480f995e9eabe",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "1e37e97c1bf51a6b"
+  },
+  "all": "53e3714bf165a653",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
