@@ -214,3 +214,62 @@
 - 2026-11-03 08:12 UTC: api-publish: 1 item(s) item-published via Data API (no site publish); errors 0; not published 0; before childedits/2026-11-03/form.api-publish.3c4fcdde.before.json; rollback childedits/2026-11-03/form.api-publish.3c4fcdde.20261103T081241Z.rollback.json
 - 2026-11-03 08:15 UTC: api-update relink-auto-20261103T081449Z.json: 1 item(s) updated via Data API; read back; 0 field mismatch(es); rollback childedits/2026-11-03/relink-auto-20261103T081449Z.20261103T081450Z.rollback.json
 - 2026-11-03 08:24 UTC: B-c-2 handback cleanup: cleared 9 resolved B holds (anonymous-feedback, credit-card-authorization, employee-availability, employee-handbook-acknowledgment, employee-information, favorite-things-questionnaire, fundraiser-order, petition, vendor-application) per status/hold-clearances-2026-10-26.md (A verified 2026-10-26). surgery-consent and food-bank-application stay held (Divit Q1). No Webflow calls.
+- 2026-11-03 08:29 UTC: api-create: 0 draft(s) created via Data API at 61b8f99 (); read back 168 items; verified 0, mismatched 0; before childedits/2026-11-03/form.api-create.61b8f99.before.json; rollback childedits/2026-11-03/form.api-create.61b8f99.20261103T082802Z.rollback.json; stopped: POST /collections/6aaaaa02995bb2f9f4d6a36c/items -> HTTP 504: <html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+</body>
+</html>
+
+- 2026-11-03 11:56 UTC: released /ai-form-builder/acupuncture-intake (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/bankruptcy-intake (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/benefits-enrollment (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/calculator (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/candidate-screening (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/case-study (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/chiropractic-intake (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/cleaning-quote (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/coaching-application (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/construction-quote (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/dj-booking (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/employee-training (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/event-booking (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/event-waiver (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/family-law-intake (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/financial-planning-intake (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/guest-list (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/gym-membership-cancellation (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/health-coaching-intake (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/home-insurance-quote (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/influencer-application (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/job-posting (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/landscaping-quote (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/little-league-registration (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/makeup-consultation (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/massage-booking (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/mentorship-application (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/moving-quote (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/nutrition-intake (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/occupational-therapy-intake (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/painting-quote (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/password-reset (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/paypal-donation (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/personal-training-intake (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/pest-control-quote (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/photo-contest (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/podcast-application (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/roofing-quote (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/royalty-agreement (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/salon-booking (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/solar-quote (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/song-request (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/spa-booking (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/speaker-application (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/speech-therapy-intake (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/stay-interview (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/stripe-donation (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/team-registration (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/tour-booking (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/walk-through (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/wellness-intake (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
+- 2026-11-03 11:56 UTC: released /ai-form-builder/youth-sports-registration (was claimed) to the planned queue; spec file left in place: Divit 2026-11-03 SHIP FIRST: claim had no started work; released
