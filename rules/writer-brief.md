@@ -15,7 +15,7 @@ FINISH GATE (all required, in order)
 2. `hubctl qc URL --stamp` TOTAL 0
 3. `hubctl paa URL --spec`: 0 rejects AND 0 flags
 4. `hubctl learn-check URL` ok
-5. Hero prompt rule (QC L10) clean, and the prompt reads right (article, casing, the noun comes from rules/hero_nouns.json via code: if it is wrong for the page, report it to the coordinator; never edit the field by hand)
+5. Hero prompt rule (QC L10) clean, and the prompt reads right (article, casing, WRITE it yourself with `skeleton.py set URL hero_prompt TEXT`: ONE specific sentence in the user's voice describing a concrete, realistic build for THIS page's use case (e.g. "Build a registration form for a spring workshop with two ticket types, a 60-seat cap and a confirmation email"); the primary keyword exactly; the right action (rules/hero_nouns.json is a hint); approved capabilities only; never a template or a near-duplicate of another page in the hub (QC L14); each chip add must still read right appended to it)
 6. `hubctl verbatim URL` ok
 7. `hubctl state URL qc_pass --by ID`, then `hubctl images URL --by ID`
 8. READ the contact sheet: one hero, readable text, numbers add up across images and copy, images match the tab copy, and a person-addressed message is a card to that person, not a # channel. If not, fix the brief and re-render.

@@ -28,10 +28,8 @@ def quiet(f, *a):
 def load(url): return json.load(open(H.spath(url)))
 def save(url, s): json.dump(s, open(H.spath(url), "w"), indent=1, ensure_ascii=False)
 
-HERO = {"Form": "Build a {p} that saves every response to a database I own.",
-        "SurveyQuiz": "Build a {p} that collects every answer in a database I own.",
-        "LP": "Build a {p} that saves every signup to a database I own.",
-        "Auto": "Build {p} that runs on its own and logs every step."}
+# HERO template defaults REMOVED (Divit 2026-11-03 HERO PROMPT FIX): every page's default hero prompt is one page-specific sentence
+# written by the writer (skeleton.py set URL hero_prompt TEXT); QC L14 blocks template sentences and near-duplicates in the hub.
 SECTIONS = {
     "hero": ["meta_title", "meta_description", "h1", "hero_description", "product_name", "breadcrumb", "explore_cta", "hero_prompt",
              "prompt_chip_1", "prompt_chip_2", "prompt_chip_3", "prompt_chip_4", "chip_adds", "chip_prompts"],
@@ -155,34 +153,11 @@ def def_questions(prim):
     d = f"What {'are' if plural else 'is'} {art}{pc}?"
     h = f"How do I create {art}{pc}?" if art or plural else f"How do I set up {pc}?"
     return d[:1].upper() + d[1:], h
-def hero_noun_for(url, prim, nouns=None):
-    """What an LP page's form collects, for its hero prompt (Divit 2026-11-03: never the generic 'signup' when the page collects a
-    booking, estimate, quote ...): rules/hero_nouns.json pages (exact URL) win, then the first rule matching the primary, then default."""
-    if nouns is None:
-        nouns = json.load(open(os.path.join(H.ROOT, "rules", "hero_nouns.json")))
-    if url and url in nouns.get("pages", {}): return nouns["pages"][url]
-    for r in nouns.get("rules", []):
-        if re.search(r["match"], P.norm(prim or "")): return r["noun"]
-    return nouns.get("default", "signup")
-def hero_prompt_for(prim, hub, url=None, nouns=None):
-    """The hero default prompt (ruling 15, HUB_RULES 5): 'Build' + the primary with the right article: by sound ("a uniform"), none on a
-    mass noun ("Build SEO automation"), "a set of" before a plural ("Build a set of poll questions"), acronyms cased (decision 8).
-    LP: the noun is what the page collects (hero_noun_for, Divit 2026-11-03)."""
-    prim = P.head_phrase(prim)   # ruling 4 (Divit 2026-10-21): "Build a startup landing page ...", never "a set of best ..."
-    tmpl = HERO[hub]; pc = case_primary(prim); plural = bool(PLURAL.search(P.norm(prim)))
-    if hub == "LP": tmpl = tmpl.replace("every signup", "every " + hero_noun_for(url, prim, nouns))
-    if hub == "Auto":
-        if plural: tmpl = "Build {p} that run on their own and log every step."
-        elif re.search(r"\b(workflow|system|process|pipeline|app|bot|tool|tracker|dashboard|portal|engine)$", P.norm(prim)):
-            tmpl = "Build {a} {p} that runs on its own and logs every step."   # countable primary takes an article (canary 2026-10-14)
-    else:
-        tmpl = tmpl.replace("Build a {p}", "Build a set of {p}" if plural else "Build {a} {p}")
-    return "<p>" + tmpl.format(p=pc, a=_a(prim)) + "</p>"
 def built_fields(url):
     """Every code-built hero/FAQ field for a page, read-only (decision 8 golden cases and old/new reports): what cmd_build sets
     when the field is empty."""
     km = H.kmap()[url]; prim = km["primary"]; hub = H.hub_of(url); disp = _title(km.get("display_name") or prim); d, h = def_questions(prim)
-    return {"faq_heading": faq_heading_for(disp, url), "explore_cta": explore_cta_for(disp, url), "hero_prompt": hero_prompt_for(prim, hub, url),
+    return {"faq_heading": faq_heading_for(disp, url), "explore_cta": explore_cta_for(disp, url),
             "breadcrumb": disp, "product_name": f"{disp} Builder", "def_q": d, "how_q": h, "h1_phrase": h1_phrase_for(prim)}
 def h1_phrase_for(prim):
     """Ruling 4 (Divit 2026-10-21): the keyword phrase the H1 carries, title case: the head phrase of a list-style primary
@@ -394,7 +369,6 @@ def cmd_build(a):
     if not s.get("faq_heading"): s["faq_heading"] = B["faq_heading"]
     F["breadcrumb"] = F.get("breadcrumb") or B["breadcrumb"]; F["product_name"] = F.get("product_name") or B["product_name"]
     if not F.get("explore_cta"): F["explore_cta"] = B["explore_cta"]
-    if not F.get("hero_prompt"): F["hero_prompt"] = B["hero_prompt"]
     s.setdefault("keywords", {})["primary"] = prim
     save(url, s)
     vs, rows = default_table(url)
@@ -420,7 +394,7 @@ def cmd_pack(a):
     caps = json.load(open(os.path.join(ROOT, "rules", "capabilities.json")))["approved"]
     out = [f"# Page pack (ruling 15): {url}", "", f"Primary: {km.get('primary')} | intent: {km.get('intent')} | angle note: {(km.get('angle') or '')[:300]}", "",
            "## Sections, in order (write one, run `skeleton.py check URL <section>`, fix to 0, then the next)",
-           "1 hero: meta_title, meta_description, h1, hero_description, prompt_chip_1-4 + chip_adds (hero_prompt, product_name, breadcrumb, explore_cta are set by code)",
+           "1 hero: meta_title, meta_description, h1, hero_description, prompt_chip_1-4 + chip_adds + hero_prompt (ONE page-specific sentence in the user's voice, a concrete realistic build, the primary keyword exactly, Divit 2026-11-03); product_name, breadcrumb, explore_cta are set by code",
            *([f"Ruling 4 (Divit 2026-10-21): the H1 carries the head phrase \"{h1_phrase_for(km['primary'])}\", never the modifiers of \"{km['primary']}\"; the full keyword goes in meta_title, meta_description and hero_description."] if km.get("primary") and P.head_phrase(km["primary"]) != km["primary"] else []),
            "2 features: features_heading, features_subheading, feature_1-6", "3 why: why_title, why_description (the table is built by code)",
            "4 usecases: usecase_heading, tab_label_1-4, tab_content_1-4, mockup, image_brief", "5 howto: howto_title, howto_description, 7 steps",
@@ -474,7 +448,7 @@ def cmd_set(a):
     url, field, text = a[0], a[1], a[2]; s = load(url)
     if field == "faq_q":   # Divit 2026-10-16: set URL faq_q N QUESTION (a written slot's question, gated)
         set_written_q(url, s, int(text), a[3]); save(url, s); print(f"slot {text} question set"); return
-    if field in ("hero_prompt", "why_table", "faq", "slug", "category"): sys.exit(f"refused: {field} is built by code (ruling 15)")
+    if field in ("why_table", "faq", "slug", "category"): sys.exit(f"refused: {field} is built by code (ruling 15)")
     if field == "chip_adds": s["chip_adds"] = json.loads(text)
     elif field == "image_brief": s["image_brief"] = json.loads(text)
     elif field in ("plan", "domain_sources", "claims_used"): s[field] = json.loads(text)

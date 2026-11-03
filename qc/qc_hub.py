@@ -168,6 +168,30 @@ def k7_ranks(header, urls):
     return False
 
 # ---------------- checks ----------------
+HERO_TEMPLATES = [   # the retired code defaults (ops/skeleton.py HERO, removed 2026-11-03) and their generic shape
+    r"^build (an? |a set of )?.+ that saves every [\w -]+ to a (database|table|list) i own\.?$",
+    r"^build (an? |a set of )?.+ that collects every answer in a database i own\.?$",
+    r"^build .+ that runs? on (its|their) own and logs? every step\.?$"]
+def _hp_words(text, prim):
+    t = re.sub(r"[^a-z0-9 ]+", " ", (text or "").lower())
+    for w in (prim or "").lower().split(): t = re.sub(rf"\b{re.escape(w)}\b", " ", t)
+    return [w for w in t.split() if w not in ("a", "an", "the", "and", "to", "for", "of", "with", "that", "i", "my", "build", "in", "on", "each", "every")]
+def hero_prompt_issues(d, prim, url, hub, siblings, near=0.6):
+    """L14 (Divit 2026-11-03): [(sev, code, field, msg)] for a default hero prompt d: a template sentence, more than one sentence, or a
+    near-duplicate (word-set Jaccard >= near, keywords removed) of a sibling page's prompt in the same hub."""
+    out = []; low = (d or "").strip().lower()
+    if any(re.match(r, low) for r in HERO_TEMPLATES): out.append(("P1", "L14", "hero_prompt", "default prompt is the retired template sentence: write ONE specific sentence in the user's voice for a concrete, realistic build of this page's use case"))
+    if len(re.findall(r"[.!?](\s|$)", (d or "").strip())) > 1: out.append(("P1", "L14", "hero_prompt", "default prompt must be one sentence"))
+    mine = set(_hp_words(d, prim))
+    for sib in siblings or []:
+        if sib.get("hub") != hub or sib.get("url") == url: continue
+        other = strip_html((sib.get("fields") or {}).get("hero_prompt") or "")
+        if not other or any(re.match(r, other.strip().lower()) for r in HERO_TEMPLATES): continue
+        theirs = set(_hp_words(other, (sib.get("keywords") or {}).get("primary", "")))
+        if mine and theirs and len(mine & theirs) / len(mine | theirs) >= near:
+            out.append(("P1", "L14", "hero_prompt", f"default prompt near-duplicates {sib.get('url')}: make it specific to this page")); break
+    return out
+
 def check(spec, siblings):
     I = []
     def add(sev, code, field, msg): I.append({"sev": sev, "code": code, "field": field, "msg": msg})
@@ -190,6 +214,10 @@ def check(spec, siblings):
         if prim and kwn(prim) not in kwn(d) and not (_PG_head(prim) != prim and kwn(_PG_head(prim)) in kwn(d)):   # ruling 4: or its head phrase
             add("P1", "L10", "hero_prompt", "default prompt must carry the primary keyword")
         if len(d) > 150: add("P1", "L10", "hero_prompt", f"default prompt {len(d)} chars (max 150)")
+    # L14 (Divit 2026-11-03 HERO PROMPT FIX): the default hero prompt is ONE page-specific sentence (a concrete, realistic build for this
+    # use case), never a template sentence and never a near-duplicate of another page's prompt in the same hub
+    if F.get("hero_prompt"):
+        for sev, code, fld, msg in hero_prompt_issues(strip_html(F["hero_prompt"]), prim, spec.get("url"), hub, siblings): add(sev, code, fld, msg)
     # L13 (Divit 2026-10-15): rendered lines in the 1440 px prompt box, default <= 2, each chip prompt (default + its add) <= 3;
     # measured in headless Chromium with the live box style cached in rules/prompt_box.json (ops/prompt_lines.py), not by characters
     if F.get("hero_prompt"):

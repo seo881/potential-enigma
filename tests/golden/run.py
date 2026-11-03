@@ -510,6 +510,10 @@ def caught(c):
             sl = d + [{"kind": "semrush", "q": x, "ref": x} for x in (f"Which approvals should a {prim} route to a second reviewer?",
                                                                        f"How many fields can a {prim} hold before people abandon it?")]
         return W.available(c["url"], need, items, sl, spec=s, written=False)[0] == c["expect_filled"]   # code-built candidates only (written fill aside)
+    if c["kind"] == "hero-l14":   # Divit 2026-11-03 HERO PROMPT FIX: template sentences, two sentences and same-hub near-duplicates fail L14
+        sys.path.insert(0, os.path.join(ROOT, "qc")); import qc_hub as Q
+        codes = sorted({x[1] for x in Q.hero_prompt_issues(c["d"], c["prim"], "/golden/self", c["hub"], c.get("siblings"))})
+        return codes == sorted(set(c["expect_codes"]))
     if c["kind"] == "review-claim-lock":   # Divit 2026-11-03: a page claimed or held by another agent refuses hubctl review / slim-review
         import hubctl as H
         return (H.review_refusal(c.get("entry"), c["by"]) is None) == c["expect_allowed"]
