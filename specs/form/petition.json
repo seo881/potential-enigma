@@ -216,6 +216,13 @@
    "via": "slug-migration",
    "by": "slug_migrate",
    "note": "slug petition-form -> petition; 7 child link(s) rewritten (DECISIONS 2026-10-23); stamps current before were restamped"
+  },
+  {
+   "t": "2026-11-03 13:34 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "B-hs-2",
+   "note": "slim review: [slim | HUB_RULES 8] hero_prompt: The new default is a neighborhood crosswalk petition to the city; chip 4 appended to it adds a student-to-dean academic petition, so the composed Academic Petition prompt asks for two unrelated petitions in one build. -> Rewrite chip_adds[3] so it exten"
   }
  ],
  "pipeline": "r15",
@@ -1332,7 +1339,7 @@
    "features_subheading": "156f743993e9de86",
    "h1": "92dbfe752e31b127",
    "hero_description": "5d6da77d6f845b9f",
-   "hero_prompt": "1eb2b4c6936b483e",
+   "hero_prompt": "a91fa17acfb67489",
    "howto_description": "709928d2ac371bab",
    "howto_step_1_des": "b8c447fd96c50f3a",
    "howto_step_1_title": "3f40592cf1ca35d1",
@@ -1371,7 +1378,7 @@
    "why_table": "a1ff8dc7ca25ca34",
    "why_title": "4006219dfa591384"
   },
-  "all": "0de8778c0ec41d99",
+  "all": "447479314429da76",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  },
  "slim_reviews": [
@@ -1412,6 +1419,28 @@
      "rule": "HUB_RULES 2b",
      "issue": "Asking petition volunteers to sign an NDA is a heavy step for a neighborhood petition; the sentence exists mainly to carry the sibling link, as the earlier review note on items 7 and 10 said.",
      "severity": "note"
+    }
+   ]
+  },
+  {
+   "by": "B-hs-2",
+   "date": "2026-11-03 13:34 UTC",
+   "fields": [
+    "hero_prompt"
+   ],
+   "baseline": "review_hash",
+   "blocking": 1,
+   "notes": 0,
+   "findings": [
+    {
+     "criterion": "slim",
+     "field": "hero_prompt",
+     "quote": "Build a petition form for neighbors asking the city for a crosswalk, with each signer's name and street address. + Add an academic petition that routes each student request to the dean.",
+     "fix": "Rewrite chip_adds[3] so it extends the default (or the chip itself), or choose a default an academic-petition clause can extend; the composed prompt must describe one build.",
+     "class": "untrue",
+     "rule": "writer-brief 5 (each chip add must still read right appended to the default prompt); HUB_RULES 8 (page contradicting itself)",
+     "issue": "The new default is a neighborhood crosswalk petition to the city; chip 4 appended to it adds a student-to-dean academic petition, so the composed Academic Petition prompt asks for two unrelated petitions in one build.",
+     "severity": "blocking"
     }
    ]
   }

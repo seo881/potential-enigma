@@ -169,6 +169,13 @@
    "via": "slug-migration",
    "by": "slug_migrate",
    "note": "slug medical-history-form -> medical-history; 7 child link(s) rewritten (DECISIONS 2026-10-23); stamps current before were restamped"
+  },
+  {
+   "t": "2026-11-03 13:34 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "B-hs-2",
+   "note": "slim review: [slim | HUB_RULES 8] hero_prompt: The new default sets the build at an internal medicine practice; chip 4 appended to it then asks for campers on a nurse's list, so the composed Health Screenings prompt describes two different builds and reads wrong. -> Keep the practice default and rew"
   }
  ],
  "pipeline": "r15",
@@ -1250,7 +1257,7 @@
    "features_subheading": "cb9bd853ffdec088",
    "h1": "8801ad0999cdd6f5",
    "hero_description": "7f8136848ebfb712",
-   "hero_prompt": "4fb7354b0351a177",
+   "hero_prompt": "2d94779d82ab5b2f",
    "howto_description": "7ba07d0ddb141627",
    "howto_step_1_des": "700f91f5f99e23c2",
    "howto_step_1_title": "fe63047efb60e76f",
@@ -1289,7 +1296,7 @@
    "why_table": "a1ff8dc7ca25ca34",
    "why_title": "99577b40a4e8025c"
   },
-  "all": "fb9a901c5e8e0bd6",
+  "all": "4097fb1261d10c1f",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  },
  "approval": {
@@ -1304,6 +1311,30 @@
    "by": "B-c-1",
    "reason": "Divit 2026-11-03 HERO PROMPT FIX: page-specific default prompt",
    "date": "2026-11-03 13:28 UTC"
+  }
+ ],
+ "slim_reviews": [
+  {
+   "by": "B-hs-2",
+   "date": "2026-11-03 13:34 UTC",
+   "fields": [
+    "hero_prompt"
+   ],
+   "baseline": "review_hash",
+   "blocking": 1,
+   "notes": 0,
+   "findings": [
+    {
+     "criterion": "slim",
+     "field": "hero_prompt",
+     "quote": "Build a medical history form for an internal medicine practice with medications, allergies, and past surgeries by year. + Add health screenings that put every camper with an auto-injector on the nurse's list.",
+     "fix": "Keep the practice default and rewrite chip_adds[3] for a practice (e.g. 'Add health screenings that flag every patient who carries an auto-injector for the nurse.'), or pick a default that a camp screening chip extends.",
+     "class": "untrue",
+     "rule": "writer-brief 5 (each chip add must still read right appended to the default prompt); HUB_RULES 8 (page contradicting itself)",
+     "issue": "The new default sets the build at an internal medicine practice; chip 4 appended to it then asks for campers on a nurse's list, so the composed Health Screenings prompt describes two different builds and reads wrong.",
+     "severity": "blocking"
+    }
+   ]
   }
  ]
 }
