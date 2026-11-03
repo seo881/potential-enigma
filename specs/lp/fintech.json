@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-308",
    "note": ""
+  },
+  {
+   "t": "2026-11-03 12:28 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-413",
+   "note": "[truth | HUB_RULES 8] feature_2: States as fact how a group of people (visitors choosing a financial product) behaves, with no spec.domain_sources entry (domain_sources is empty; rework-checklist item 1). Same class as FAQ 5 and FAQ 10; fix all three together. -> Rewrite as advice or a product fact,"
   }
  ],
  "pipeline": "r15",
@@ -882,5 +889,255 @@
  ],
  "writers": [
   "B-w-308"
- ]
+ ],
+ "review": {
+  "by": "B-r-413",
+  "date": "2026-11-03 12:28 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Fintech Landing Page That Captures More Than an Email'; hero 'Build a fintech landing page that saves each signup with the detail behind it, in a database you own.' (D1 ok); how-to description one sentence (D2 ok)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is galleries and templates; the page gives four worked examples (Waitlist Spot, Demo Routing, Fee Estimate, Link Tracking), seven build steps and a comparison, matching 'See four examples' in the meta."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'monthly card volume', 'one flat rate per card sale', 'business debit card', 'partner bank holds the funds'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature and tab bodies open on full sentences: 'Harborlane sells nothing yet', 'Lead with what the visitor gets'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Short declaratives, QC Q2/Q5/Q7 clean; serial-comma P2 flags read by hand are two-item phrases."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete details ('2,417 this morning', 'Dana Merced, who handles larger merchants', '$232 a month'); no AI tells."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "domain_sources is empty, yet three sentences state as fact how a group of people behaves: feature_2 'A visitor deciding where to keep money looks for both before clicking.'; FAQ 5 'A shop owner comparing card processors wants the monthly cost before giving an email.'; FAQ 10 'A business owner looks for the fee and a person to call, while a developer wants the docs and a test key first.' Emergent claims all map to claims_used (prompt-build, database-owned, free-start, alerts, api-connect, code-export); tab numbers add up (2,417+1, 9+22=31, 8,000 x 2.9% = 232, 37+21=58); no rate, APR, licensing or compliance claims; table is the unedited library set Unbounce, Landingi, Wix."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Tab stories are fintech-only (card-volume routing, fee estimate before the email ask); sibling primaries appear only as FAQ link anchors."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, answer-first, hub link in item 2, sibling links (crm, saas, developer landing page), no brands or formats in questions; paa --spec 0 rejects 0 flags."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "uc-1 'You are spot 2,418' / 'In line before you 2,417'; uc-2 31 requests, 9 to Dana Merced, 22 onboarding, 'Emailed Dana Merced' card addressed to the person; uc-3 $8,000 x 2.9% = $232 'Estimate saved with the email'; uc-4 37 + 21 = 58. One hero per panel, readable."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "feature_2",
+    "quote": "A visitor deciding where to keep money looks for both before clicking.",
+    "issue": "States as fact how a group of people (visitors choosing a financial product) behaves, with no spec.domain_sources entry (domain_sources is empty; rework-checklist item 1). Same class as FAQ 5 and FAQ 10; fix all three together.",
+    "fix": "Rewrite as advice or a product fact, e.g. 'Keep both in view so nobody has to scroll to find them before signing up.', or add a primary source that says it and quote it in domain_sources.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 5",
+    "quote": "A shop owner comparing card processors wants the monthly cost before giving an email.",
+    "issue": "States as fact what shop owners comparing processors want, with no spec.domain_sources entry (rework-checklist item 1).",
+    "fix": "Rephrase as advice tied to the page ('Put the monthly cost above the email field so a shop owner can compare it first.') or source it.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 10",
+    "quote": "A business owner looks for the fee and a person to call, while a developer wants the docs and a test key first.",
+    "issue": "States as fact how two groups of people behave, with no spec.domain_sources entry (rework-checklist item 1).",
+    "fix": "Rephrase as advice ('Lead the business page with the fee and a contact line, and the developer page with the docs and a test key.') or source it. While reworking, keep FAQ 6 'the facts a careful visitor checks' and feature_3 'when people have a reason to answer' advice-framed too.",
+    "severity": "blocking"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_2, howto_step_3_des, faq item 3, faq item 6, faq item 7",
+    "quote": "Put the monthly cost and a way to reach a person right beside the signup button",
+    "issue": "The cost-and-contact-beside-the-button idea appears in five fields ('Show the cost in dollars a month beside the signup button, with a short line on how to reach a person'; 'Place the price and the contact line beside the button'; 'what it costs, and how to reach a person'; 'moves the cost and the contact details up beside the button'). Feature_1/step 2 (headline about the account) and feature_3/step 4 (short form) pair the same way.",
+    "fix": "Let feature_2 and step 3 carry it; give FAQ 3 and FAQ 7 a different detail next time the page is touched.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "cover",
+    "quote": "You are on the list / Join the waitlist",
+    "issue": "The cover shows the confirmation and the join button together, so the click lands after the outcome.",
+    "fix": "Optional: draw the button before the confirmation or drop it.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_2, howto_step_3_des, faq item 3, faq item 6, faq item 7",
+   "issue": "The cost-and-contact-beside-the-button idea appears in five fields ('Show the cost in dollars a month beside the signup button, with a short line on how to reach a person'; 'Place the price and the contact line beside the button'; 'what it costs, and how to reach a person'; 'moves the cost and the contact details up beside the button'). Feature_1/step 2 (headline about the account) and feature_3/step 4 (short form) pair the same way.",
+   "fix": "Let feature_2 and step 3 carry it; give FAQ 3 and FAQ 7 a different detail next time the page is touched.",
+   "by": "B-r-413",
+   "via": "review",
+   "date": "2026-11-03 12:28 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "cover",
+   "issue": "The cover shows the confirmation and the join button together, so the click lands after the outcome.",
+   "fix": "Optional: draw the button before the confirmation or drop it.",
+   "by": "B-r-413",
+   "via": "review",
+   "date": "2026-11-03 12:28 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "c8ba92a0e46530a2",
+   "alt:share_image": "ebafe3014799e307",
+   "alt:tab_image_1": "5dda19d1245a89b1",
+   "alt:tab_image_2": "4d15e1ebf419e9ba",
+   "alt:tab_image_3": "661db9f768323791",
+   "alt:tab_image_4": "d4a9374cdf92bfd3",
+   "breadcrumb": "82687c2ee3cebef3",
+   "chip_adds": "33e2f80f5b029c8f",
+   "explore_cta": "d5aad6f155b60e27",
+   "faq": "4dc4e5b957274a9d",
+   "feature_1": "e6f1d677665d725f",
+   "feature_2": "f6fc159578b7cefe",
+   "feature_3": "2ed88a507883b7ed",
+   "feature_4": "080eb160a109580f",
+   "feature_5": "36e7077543551a43",
+   "feature_6": "260c874f5a65e13a",
+   "features_heading": "a701a8bb3ad82549",
+   "features_subheading": "a0d167116499d1db",
+   "h1": "2cbb9ac4c53f5a63",
+   "hero_description": "fedbed9e38ef3fd4",
+   "hero_prompt": "42683e12c14662a6",
+   "howto_description": "c446537f4fb7723a",
+   "howto_step_1_des": "5c768fbde691205a",
+   "howto_step_1_title": "c3f112bc5c884520",
+   "howto_step_2_des": "2eff74aa03070209",
+   "howto_step_2_title": "4a779a806eb73182",
+   "howto_step_3_des": "dbd1fbe8554ae51b",
+   "howto_step_3_title": "0e21f4aafbf5aea3",
+   "howto_step_4_des": "93393b0ad412955b",
+   "howto_step_4_title": "7875353abaa2f4c3",
+   "howto_step_5_des": "ee045d4844fe56bc",
+   "howto_step_5_title": "efcce8fe15dc35dd",
+   "howto_step_6_des": "eac469dce6c3542c",
+   "howto_step_6_title": "40c5c6d5a60a113f",
+   "howto_step_7_des": "90b40845c6622f43",
+   "howto_step_7_title": "3c817adfecc1a132",
+   "howto_title": "d5fe0b8e7d67b2d4",
+   "meta_description": "125ed4387db37a03",
+   "meta_title": "e02febff980c8ead",
+   "mockup": "c88af0afa808be77",
+   "product_name": "d0aaf95ecb2251ac",
+   "prompt_chip_1": "16cb164e795ac94a",
+   "prompt_chip_2": "fc86b3bc6c65d68c",
+   "prompt_chip_3": "87ac5790b43e74cb",
+   "prompt_chip_4": "40088f3bb620d863",
+   "slug": "110599ccb008c674",
+   "tab_content_1": "ff9b475d7d63a436",
+   "tab_content_2": "5da49c3c9a7467cf",
+   "tab_content_3": "f269690b88455c04",
+   "tab_content_4": "45f37a0022a98a19",
+   "tab_label_1": "16cb164e795ac94a",
+   "tab_label_2": "fc86b3bc6c65d68c",
+   "tab_label_3": "31557e11388d1755",
+   "tab_label_4": "40088f3bb620d863",
+   "usecase_heading": "6401b71b46cf2ff7",
+   "why_description": "62bf4f7f8f79e342",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "a38f653fa5b2cb83"
+  },
+  "all": "11ca591b43d628de",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "c8ba92a0e46530a2",
+   "alt:share_image": "ebafe3014799e307",
+   "alt:tab_image_1": "5dda19d1245a89b1",
+   "alt:tab_image_2": "4d15e1ebf419e9ba",
+   "alt:tab_image_3": "661db9f768323791",
+   "alt:tab_image_4": "d4a9374cdf92bfd3",
+   "breadcrumb": "82687c2ee3cebef3",
+   "chip_adds": "33e2f80f5b029c8f",
+   "explore_cta": "d5aad6f155b60e27",
+   "faq": "4dc4e5b957274a9d",
+   "feature_1": "e6f1d677665d725f",
+   "feature_2": "f6fc159578b7cefe",
+   "feature_3": "2ed88a507883b7ed",
+   "feature_4": "080eb160a109580f",
+   "feature_5": "36e7077543551a43",
+   "feature_6": "260c874f5a65e13a",
+   "features_heading": "a701a8bb3ad82549",
+   "features_subheading": "a0d167116499d1db",
+   "h1": "2cbb9ac4c53f5a63",
+   "hero_description": "fedbed9e38ef3fd4",
+   "hero_prompt": "42683e12c14662a6",
+   "howto_description": "c446537f4fb7723a",
+   "howto_step_1_des": "5c768fbde691205a",
+   "howto_step_1_title": "c3f112bc5c884520",
+   "howto_step_2_des": "2eff74aa03070209",
+   "howto_step_2_title": "4a779a806eb73182",
+   "howto_step_3_des": "dbd1fbe8554ae51b",
+   "howto_step_3_title": "0e21f4aafbf5aea3",
+   "howto_step_4_des": "93393b0ad412955b",
+   "howto_step_4_title": "7875353abaa2f4c3",
+   "howto_step_5_des": "ee045d4844fe56bc",
+   "howto_step_5_title": "efcce8fe15dc35dd",
+   "howto_step_6_des": "eac469dce6c3542c",
+   "howto_step_6_title": "40c5c6d5a60a113f",
+   "howto_step_7_des": "90b40845c6622f43",
+   "howto_step_7_title": "3c817adfecc1a132",
+   "howto_title": "d5fe0b8e7d67b2d4",
+   "meta_description": "125ed4387db37a03",
+   "meta_title": "e02febff980c8ead",
+   "mockup": "c88af0afa808be77",
+   "product_name": "d0aaf95ecb2251ac",
+   "prompt_chip_1": "16cb164e795ac94a",
+   "prompt_chip_2": "fc86b3bc6c65d68c",
+   "prompt_chip_3": "87ac5790b43e74cb",
+   "prompt_chip_4": "40088f3bb620d863",
+   "slug": "110599ccb008c674",
+   "tab_content_1": "ff9b475d7d63a436",
+   "tab_content_2": "5da49c3c9a7467cf",
+   "tab_content_3": "f269690b88455c04",
+   "tab_content_4": "45f37a0022a98a19",
+   "tab_label_1": "16cb164e795ac94a",
+   "tab_label_2": "fc86b3bc6c65d68c",
+   "tab_label_3": "31557e11388d1755",
+   "tab_label_4": "40088f3bb620d863",
+   "usecase_heading": "6401b71b46cf2ff7",
+   "why_description": "62bf4f7f8f79e342",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "a38f653fa5b2cb83"
+  },
+  "all": "11ca591b43d628de",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
