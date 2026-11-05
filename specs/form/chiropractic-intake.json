@@ -131,6 +131,13 @@
    "via": null,
    "by": "B-w-419",
    "note": ""
+  },
+  {
+   "t": "2026-11-05 10:08 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-427",
+   "note": "rubric 10/10 by B-r-427; 6 notes"
   }
  ],
  "pipeline": "r15",
@@ -898,5 +905,305 @@
  ],
  "writers": [
   "B-w-419"
- ]
+ ],
+ "review": {
+  "by": "B-r-427",
+  "date": "2026-11-05 10:08 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Chiropractic Intake Form That Maps Pain Before the Exam'; hero 'Build a chiropractic intake form where new patients mark the pain on a body chart, saved to a database you own.' (under 130 chars, leads with Build, carries primary); how-to description one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Delivers what the form asks (FAQ 3 field list, features 1-5), four clinic examples, a 7-step how-to and a comparison table; no SERP pulled (Wave 3), nothing missing for the primary."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Chiropractic vocabulary throughout: body chart, 0 to 10 rating, car accident branch with claim number and attorney, consent to care, re-exam at visit 12."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Larchmont Chiropractic sends the intake with each booking.', 'New patients tap each spot that hurts...', 'Ask each chiropractor in the clinic...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One ', so' ending (step 6) and a dangling 'saved to' in the hero recorded as notes; nothing blocking."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail ('started 3 weeks ago while moving a couch', 'Sitting at her desk now lasts 45 minutes before it hurts, up from 15'); pronoun slip in tab 1 recorded as a note."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to claims_used (ai-extraction with low-confidence to a person, e-signature-capture, conversational, alerts, code-export on paid plans, no-caps); no third-party or legal fact stated; numbers agree (7 of 10, 9:15; Oct 28, HL 40719; 8:52, 9:30; 8 to 3, 15 to 45 at visit 12)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own angle (pain map, car accident cases, consent, re-exam comparison); sibling primaries (massage, home care, therapy intake form) appear only as FAQ link anchors, never as headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 written, on-topic questions, answer-first; hub link in item 2; links to massage-intake, home-care-intake and therapy-intake; no brand or file-format asks; paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 'Gideon Haas, 9:15 exam', 'Lower back, 7 of 10', 'Worse after 30 minutes of sitting'; tab 2 'rear-ended Oct 28', 'Wendell Kim, by email', 'Not in the health plan queue'; tab 3 'Signed 8:52 AM', '9:30 AM', 'Consent signed'; tab 4 bars 8 and 3, 15 and 45 minutes. One hero, readable text."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "tab_content_1",
+    "quote": "Dr. Imogen Raleigh gets the answers on an email card before his 9:15 exam.",
+    "issue": "'his' follows the doctor's name, so it first reads as the doctor's pronoun; it means the patient's exam.",
+    "fix": "Dr. Imogen Raleigh reads the answers on an email card before Gideon's 9:15 exam.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "hero_description",
+    "quote": "where new patients mark the pain on a body chart, saved to a database you own.",
+    "issue": "'saved to' dangles: it attaches to the body chart, not the answers.",
+    "fix": "Build a chiropractic intake form where new patients mark the pain on a body chart, with every answer saved to a database you own.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_4 / faq item 9",
+    "quote": "reads the member ID and group number into the intake / pulls the plan name, member ID, and group number onto the patient record",
+    "issue": "The card-reading feature lists two values in feature 4 and three in FAQ 9; not a contradiction (neither says 'only'), but the field set should match.",
+    "fix": "Name the same values in both: plan name, member ID and group number.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 7",
+    "quote": "If the patient also gets care at home, ask for the agency's name; that agency keeps its own home care intake form.",
+    "issue": "Drifts from the question (a family member filling the form) to home care to carry a link; reads as a link hook.",
+    "fix": "Drop the home care sentence or tie it to the family member (a caregiver filling the form for a patient who gets home care).",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief tab 1",
+    "quote": "Where it hurts: Lower back, right hip",
+    "issue": "Tab copy and feature 1 say the patient taps a body chart; the image draws a text field. Same names and numbers, so not a contradiction.",
+    "fix": "Draw a small front/back body outline with the two spots marked, if the engine supports it.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "howto_step_6_description",
+    "quote": "Add the intake link to the booking confirmation email, so patients answer at home instead of in the waiting room.",
+    "issue": "', so' ending (QC Q5 P2, 1 on the page); accepted.",
+    "fix": "Add the intake link to the booking confirmation email. Patients then answer at home, not in the waiting room.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "tab_content_1",
+   "issue": "'his' follows the doctor's name, so it first reads as the doctor's pronoun; it means the patient's exam.",
+   "fix": "Dr. Imogen Raleigh reads the answers on an email card before Gideon's 9:15 exam.",
+   "by": "B-r-427",
+   "via": "review",
+   "date": "2026-11-05 10:08 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "hero_description",
+   "issue": "'saved to' dangles: it attaches to the body chart, not the answers.",
+   "fix": "Build a chiropractic intake form where new patients mark the pain on a body chart, with every answer saved to a database you own.",
+   "by": "B-r-427",
+   "via": "review",
+   "date": "2026-11-05 10:08 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_4 / faq item 9",
+   "issue": "The card-reading feature lists two values in feature 4 and three in FAQ 9; not a contradiction (neither says 'only'), but the field set should match.",
+   "fix": "Name the same values in both: plan name, member ID and group number.",
+   "by": "B-r-427",
+   "via": "review",
+   "date": "2026-11-05 10:08 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 7",
+   "issue": "Drifts from the question (a family member filling the form) to home care to carry a link; reads as a link hook.",
+   "fix": "Drop the home care sentence or tie it to the family member (a caregiver filling the form for a patient who gets home care).",
+   "by": "B-r-427",
+   "via": "review",
+   "date": "2026-11-05 10:08 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief tab 1",
+   "issue": "Tab copy and feature 1 say the patient taps a body chart; the image draws a text field. Same names and numbers, so not a contradiction.",
+   "fix": "Draw a small front/back body outline with the two spots marked, if the engine supports it.",
+   "by": "B-r-427",
+   "via": "review",
+   "date": "2026-11-05 10:08 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "howto_step_6_description",
+   "issue": "', so' ending (QC Q5 P2, 1 on the page); accepted.",
+   "fix": "Add the intake link to the booking confirmation email. Patients then answer at home, not in the waiting room.",
+   "by": "B-r-427",
+   "via": "review",
+   "date": "2026-11-05 10:08 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "7dae1fef957a2319",
+   "alt:share_image": "96179130233c1d06",
+   "alt:tab_image_1": "3c08f9dfcc29e879",
+   "alt:tab_image_2": "b15a7d2d1ef4c90b",
+   "alt:tab_image_3": "689be55494d67be8",
+   "alt:tab_image_4": "eac0e7f3860a79b4",
+   "breadcrumb": "e408df7de4ae34a1",
+   "chip_adds": "9a261fdfefa0611a",
+   "explore_cta": "fc73a07923d1afb4",
+   "faq": "0fe84b59ffec05bc",
+   "feature_1": "14dc0789ba8d2006",
+   "feature_2": "59b2ce6011fc7c05",
+   "feature_3": "cefbdab89fcd1398",
+   "feature_4": "105a21e66cb1fe67",
+   "feature_5": "a3dc93a134540b25",
+   "feature_6": "cd72f75fca72e2b5",
+   "features_heading": "75fedd6762126fd1",
+   "features_subheading": "34872d53c56b4e77",
+   "h1": "e200995c493faefe",
+   "hero_description": "91e0e8abd5c55f4b",
+   "hero_prompt": "d564debd6fc743e3",
+   "howto_description": "38826715cf583fd3",
+   "howto_step_1_des": "03d99e1eb2c2b032",
+   "howto_step_1_title": "90a7b0650cc8a35a",
+   "howto_step_2_des": "1af89584dd803df5",
+   "howto_step_2_title": "262d85600b3ca931",
+   "howto_step_3_des": "643ab24f313ef8f5",
+   "howto_step_3_title": "5708e1c93af54eb6",
+   "howto_step_4_des": "7bc1596a25f0ee4e",
+   "howto_step_4_title": "5851947837a2eeed",
+   "howto_step_5_des": "63b886894a058dc7",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "7847bdf579884c80",
+   "howto_step_6_title": "8076e6e95ed518c0",
+   "howto_step_7_des": "2ec44958bb560306",
+   "howto_step_7_title": "a038fec4e4cce132",
+   "howto_title": "0a74b7a0042212ef",
+   "meta_description": "3cf8efd4b940f616",
+   "meta_title": "ca416f238e52e790",
+   "mockup": "b4548b4f68efc391",
+   "product_name": "697c80749f3f618b",
+   "prompt_chip_1": "ef338646053decb0",
+   "prompt_chip_2": "e21ed3c7c1e8d872",
+   "prompt_chip_3": "81c1ea53ec81261e",
+   "prompt_chip_4": "589506f56097c312",
+   "slug": "78b66a07b9fd7af2",
+   "tab_content_1": "bb273efe6e90ea62",
+   "tab_content_2": "6c317695894175b2",
+   "tab_content_3": "27fa515b2a9113a6",
+   "tab_content_4": "94898c621226486b",
+   "tab_label_1": "d6f8d779183f4a1a",
+   "tab_label_2": "4628b1c2ca43e000",
+   "tab_label_3": "81c1ea53ec81261e",
+   "tab_label_4": "1446416f60e112f2",
+   "usecase_heading": "0263482d631a473f",
+   "why_description": "27efb67723830c2a",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "894cd6c32fa64bba"
+  },
+  "all": "bf9e263c01f57848",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "7dae1fef957a2319",
+   "alt:share_image": "96179130233c1d06",
+   "alt:tab_image_1": "3c08f9dfcc29e879",
+   "alt:tab_image_2": "b15a7d2d1ef4c90b",
+   "alt:tab_image_3": "689be55494d67be8",
+   "alt:tab_image_4": "eac0e7f3860a79b4",
+   "breadcrumb": "e408df7de4ae34a1",
+   "chip_adds": "9a261fdfefa0611a",
+   "explore_cta": "fc73a07923d1afb4",
+   "faq": "0fe84b59ffec05bc",
+   "feature_1": "14dc0789ba8d2006",
+   "feature_2": "59b2ce6011fc7c05",
+   "feature_3": "cefbdab89fcd1398",
+   "feature_4": "105a21e66cb1fe67",
+   "feature_5": "a3dc93a134540b25",
+   "feature_6": "cd72f75fca72e2b5",
+   "features_heading": "75fedd6762126fd1",
+   "features_subheading": "34872d53c56b4e77",
+   "h1": "e200995c493faefe",
+   "hero_description": "91e0e8abd5c55f4b",
+   "hero_prompt": "d564debd6fc743e3",
+   "howto_description": "38826715cf583fd3",
+   "howto_step_1_des": "03d99e1eb2c2b032",
+   "howto_step_1_title": "90a7b0650cc8a35a",
+   "howto_step_2_des": "1af89584dd803df5",
+   "howto_step_2_title": "262d85600b3ca931",
+   "howto_step_3_des": "643ab24f313ef8f5",
+   "howto_step_3_title": "5708e1c93af54eb6",
+   "howto_step_4_des": "7bc1596a25f0ee4e",
+   "howto_step_4_title": "5851947837a2eeed",
+   "howto_step_5_des": "63b886894a058dc7",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "7847bdf579884c80",
+   "howto_step_6_title": "8076e6e95ed518c0",
+   "howto_step_7_des": "2ec44958bb560306",
+   "howto_step_7_title": "a038fec4e4cce132",
+   "howto_title": "0a74b7a0042212ef",
+   "meta_description": "3cf8efd4b940f616",
+   "meta_title": "ca416f238e52e790",
+   "mockup": "b4548b4f68efc391",
+   "product_name": "697c80749f3f618b",
+   "prompt_chip_1": "ef338646053decb0",
+   "prompt_chip_2": "e21ed3c7c1e8d872",
+   "prompt_chip_3": "81c1ea53ec81261e",
+   "prompt_chip_4": "589506f56097c312",
+   "slug": "78b66a07b9fd7af2",
+   "tab_content_1": "bb273efe6e90ea62",
+   "tab_content_2": "6c317695894175b2",
+   "tab_content_3": "27fa515b2a9113a6",
+   "tab_content_4": "94898c621226486b",
+   "tab_label_1": "d6f8d779183f4a1a",
+   "tab_label_2": "4628b1c2ca43e000",
+   "tab_label_3": "81c1ea53ec81261e",
+   "tab_label_4": "1446416f60e112f2",
+   "usecase_heading": "0263482d631a473f",
+   "why_description": "27efb67723830c2a",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "894cd6c32fa64bba"
+  },
+  "all": "bf9e263c01f57848",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
