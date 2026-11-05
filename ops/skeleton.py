@@ -141,11 +141,17 @@ def _a(primary):
     return "an" if lw[:1] in "aeiou" else "a"
 def _art(primary):
     return (_a(primary) + " ") if COUNTABLE.search(P.norm(primary)) and not PLURAL.search(P.norm(primary)) else ""
+_FORMS = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "rules", "keyword_forms.json")))["forms"]
+_FORMS_RX = re.compile(r"(?<![A-Za-z0-9'-])(" + "|".join(re.escape(k) for k in sorted(_FORMS, key=len, reverse=True)) + r")(?![A-Za-z0-9'-])", re.I)
+def case_forms(text):
+    """Keyword phrases in their written form (rules/keyword_forms.json, Divit 2026-11-05): "short form landing page" ->
+    "short-form landing page", "little league registration form" -> "Little League registration form"."""
+    return _FORMS_RX.sub(lambda m: _FORMS[m.group(0).lower()], text)
 def case_primary(p):
     """A primary keyword in running text: brands in their own casing ("a LinkedIn landing page", not "a linkedin landing page"),
     acronyms in house casing (QC R15), and a leading 'it' is the department (IT automation, IT request form; case_acronyms never
     cases 'it' in a sentence)."""
-    return re.sub(r"^it\b(?=\s+\w)", "IT", case_acronyms(case_brands(p)))
+    return re.sub(r"^it\b(?=\s+\w)", "IT", case_acronyms(case_brands(case_forms(p))))
 def def_questions(prim):
     """The two default definition slots when no candidate fills them (plan_slots), acronyms cased (decision 8, QC R15)."""
     prim = P.head_phrase(prim)   # ruling 4 (Divit 2026-10-21): "best startup landing pages" -> "What is a startup landing page?"
@@ -156,13 +162,13 @@ def def_questions(prim):
 def built_fields(url):
     """Every code-built hero/FAQ field for a page, read-only (decision 8 golden cases and old/new reports): what cmd_build sets
     when the field is empty."""
-    km = H.kmap()[url]; prim = km["primary"]; hub = H.hub_of(url); disp = _title(km.get("display_name") or prim); d, h = def_questions(prim)
+    km = H.kmap()[url]; prim = km["primary"]; hub = H.hub_of(url); disp = _title(case_forms(km.get("display_name") or prim)); d, h = def_questions(prim)
     return {"faq_heading": faq_heading_for(disp, url), "explore_cta": explore_cta_for(disp, url),
             "breadcrumb": disp, "product_name": f"{disp} Builder", "def_q": d, "how_q": h, "h1_phrase": h1_phrase_for(prim)}
 def h1_phrase_for(prim):
     """Ruling 4 (Divit 2026-10-21): the keyword phrase the H1 carries, title case: the head phrase of a list-style primary
     ("Startup Landing Page" for "best startup landing pages"), the primary itself otherwise. QC K1 accepts either in the H1."""
-    return _title(P.head_phrase(prim))
+    return _title(case_forms(P.head_phrase(prim)))
 
 ACRO = P.r18()["acronyms"]   # rules/paa_patterns.json (ruling 18 part 4e: CFOs, KYC ...); None = never cased (it, us)
 def case_acronyms(text):
