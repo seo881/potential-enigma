@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-405",
    "note": ""
+  },
+  {
+   "t": "2026-11-05 10:09 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-432",
+   "note": "[truth | HUB_RULES 8] faq item 6: States what a type of person does (wonders, resubmits) as fact with no domain_sources span; Divit 2026-11-03 lists this sentence shape as blocking on sight. No other instance of the class on the page (FAQ 3, 4, 9, how-to 5 phrase visitor lines as advice). -> Rewrite"
   }
  ],
  "pipeline": "r15",
@@ -972,5 +979,295 @@
  ],
  "writers": [
   "B-w-405"
- ]
+ ],
+ "review": {
+  "by": "B-r-432",
+  "date": "2026-11-05 10:09 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Short-Form Landing Page With Two Fields or Fewer'; hero 'Build a short-form landing page that states the offer in a few lines and saves each signup to a database you own.' (D1 ok); how-to description one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition in FAQ 1, four built examples by offer, seven-step how-to, comparison table; meta promises 'four examples' and delivers four tabs."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Pell Street Bakery's page offers 15% off a first order in one line, above a single email field'; table uses campaign-page variant 'Prompt for a campaign page'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on full sentences: 'Describe the offer...', 'Each submission lands as a row...', 'Name who answers each request...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; Q8 list count (9) and repeated 'changes ... by prompting' kept as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Take off the site menu and any second offer. A short page has room for one button.' Plain, specific, no AI tells."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "FAQ 6: 'A visitor who sees nothing change may wonder whether the form worked and send it twice.' states how a type of person behaves with no domain_sources span (rework-checklist 1)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own angle (field count and copy length by offer); siblings minimalist, click through and video linked and distinguished in FAQ 4, 7, 10, not headlined."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first ('One or two.'), hub link in item 2, sibling links in items 4, 7, 10, Emergent lines in 3, 6, 9; paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: BREAD15 and 214 signups; 5 trial rows with 2 Team plan (32, 25) and 3 Solo; email card to Marisol Okafor with name and phone; 1,800/118/79 with 6.6% and 4.4%, March. All match tab copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8; rules/rework-checklist.md 1",
+    "field": "faq item 6",
+    "quote": "A visitor who sees nothing change may wonder whether the form worked and send it twice.",
+    "issue": "States what a type of person does (wonders, resubmits) as fact with no domain_sources span; Divit 2026-11-03 lists this sentence shape as blocking on sight. No other instance of the class on the page (FAQ 3, 4, 9, how-to 5 phrase visitor lines as advice).",
+    "fix": "Rewrite as advice, e.g. 'Replace the form with the code or the call time, so the screen itself confirms the signup.'",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2a (Consistent: same term for the same thing)",
+    "field": "faq items 3-10 (questions), faq item 1 (answer)",
+    "quote": "When should I use a short form landing page instead of a long one? / How many words should a short form landing page have? / How many form fields should a short form landing page ask for? / What should a short form landing page show after someone signs up? / Should a short form landing page open its form from a button? / How do I test a short form landing page against a longer version? / Should a short form landing page include customer reviews? / Can a short form landing page include a video? / A1: A short form landing page is a standalone page",
+    "issue": "Compound adjective left open while H1, meta, hero, prompt and body write 'short-form'. These are written (unlocked) slots and an answer, so the writer can hyphenate them; QC treats a hyphen as a space, so K8/keyword matching is unaffected.",
+    "fix": "Write 'short-form landing page' in all eight written questions and FAQ answer 1.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2a (Consistent); HUB_RULES 5 (code-built fields)",
+    "field": "faq items 1-2 (locked), faq heading, breadcrumb, product_name, explore_cta",
+    "quote": "What is a short form landing page? / How do I create a short form landing page? / Short Form Questions, Answered / Short Form Landing Page / Short Form Landing Page Builder / Build My Short Form Landing Page",
+    "issue": "Code-built by ops/skeleton.py (def_questions -> faq_plan slots 1-2 locked; built_fields -> breadcrumb, product_name; faq_heading_for; explore_cta_for) from the raw primary. The working-tree skeleton.py now applies rules/keyword_forms.json (case_forms) and yields the hyphenated forms, but this spec still holds the old values.",
+    "fix": "Coordinator re-applies built_fields to this spec: 'What is a short-form landing page?', 'How do I create a short-form landing page?', 'Short-Form Questions, Answered', 'Short-Form Landing Page', 'Short-Form Landing Page Builder', 'Build My Short-Form Landing Page'.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_1, faq items 3 and 9",
+    "quote": "then changes either one when you prompt again / changes it by prompting / Emergent changes the page by prompting",
+    "issue": "Same idea three times with words swapped.",
+    "fix": "Keep it in one place.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a (Consistent)",
+    "field": "tab_content_2",
+    "quote": "Teachers who try Slatebook, a scheduling app for tutors",
+    "issue": "Teachers vs tutors for the same user within one sentence (mockup says 'the tutor teaches').",
+    "fix": "Tutors who try Slatebook, a scheduling app for tutoring businesses...",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_7_des",
+    "quote": "wait until both pages have a few hundred visits before you choose",
+    "issue": "Sample-size recommendation with no source.",
+    "fix": "Optional: source a test-duration guideline or keep as plain advice.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2a (Consistent: same term for the same thing)",
+   "field": "faq items 3-10 (questions), faq item 1 (answer)",
+   "issue": "Compound adjective left open while H1, meta, hero, prompt and body write 'short-form'. These are written (unlocked) slots and an answer, so the writer can hyphenate them; QC treats a hyphen as a space, so K8/keyword matching is unaffected.",
+   "fix": "Write 'short-form landing page' in all eight written questions and FAQ answer 1.",
+   "by": "B-r-432",
+   "via": "review",
+   "date": "2026-11-05 10:09 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2a (Consistent); HUB_RULES 5 (code-built fields)",
+   "field": "faq items 1-2 (locked), faq heading, breadcrumb, product_name, explore_cta",
+   "issue": "Code-built by ops/skeleton.py (def_questions -> faq_plan slots 1-2 locked; built_fields -> breadcrumb, product_name; faq_heading_for; explore_cta_for) from the raw primary. The working-tree skeleton.py now applies rules/keyword_forms.json (case_forms) and yields the hyphenated forms, but this spec still holds the old values.",
+   "fix": "Coordinator re-applies built_fields to this spec: 'What is a short-form landing page?', 'How do I create a short-form landing page?', 'Short-Form Questions, Answered', 'Short-Form Landing Page', 'Short-Form Landing Page Builder', 'Build My Short-Form Landing Page'.",
+   "by": "B-r-432",
+   "via": "review",
+   "date": "2026-11-05 10:09 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_1, faq items 3 and 9",
+   "issue": "Same idea three times with words swapped.",
+   "fix": "Keep it in one place.",
+   "by": "B-r-432",
+   "via": "review",
+   "date": "2026-11-05 10:09 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a (Consistent)",
+   "field": "tab_content_2",
+   "issue": "Teachers vs tutors for the same user within one sentence (mockup says 'the tutor teaches').",
+   "fix": "Tutors who try Slatebook, a scheduling app for tutoring businesses...",
+   "by": "B-r-432",
+   "via": "review",
+   "date": "2026-11-05 10:09 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_7_des",
+   "issue": "Sample-size recommendation with no source.",
+   "fix": "Optional: source a test-duration guideline or keep as plain advice.",
+   "by": "B-r-432",
+   "via": "review",
+   "date": "2026-11-05 10:09 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "677ff75db4e70179",
+   "alt:share_image": "5f04e3e5e024f27f",
+   "alt:tab_image_1": "1323652e3b52c3e5",
+   "alt:tab_image_2": "8c3d5a31052d9ba4",
+   "alt:tab_image_3": "e4488b057a7ec2c0",
+   "alt:tab_image_4": "6a1fd0cddd28f2e2",
+   "breadcrumb": "8992202024d29db3",
+   "chip_adds": "0431901232dfc9ce",
+   "explore_cta": "7d8649a8dd57cbb9",
+   "faq": "a7afdd9d8e730c67",
+   "feature_1": "dd51dc5c091255a9",
+   "feature_2": "5b531de45f3ccfaa",
+   "feature_3": "ebc14e074192e4d9",
+   "feature_4": "bd2e2ff8f7a76a14",
+   "feature_5": "43189b56b201285c",
+   "feature_6": "b08f05040f71ca08",
+   "features_heading": "83b6172f4ebdce3f",
+   "features_subheading": "cbe097a08746073a",
+   "h1": "43aa449382212b88",
+   "hero_description": "cf9063457348456f",
+   "hero_prompt": "9d90d524e2b70e17",
+   "howto_description": "ae255e9df466c928",
+   "howto_step_1_des": "9375a1defe9da0ca",
+   "howto_step_1_title": "145ef5313bc5275f",
+   "howto_step_2_des": "e23f3cf7006f8f8d",
+   "howto_step_2_title": "58bc5bee201c4519",
+   "howto_step_3_des": "4ce3606abcff48d1",
+   "howto_step_3_title": "d8bbcc46bf6d3dd1",
+   "howto_step_4_des": "9ff9bb7709ff928b",
+   "howto_step_4_title": "25329d9c218d04d7",
+   "howto_step_5_des": "3a99e8c33d974982",
+   "howto_step_5_title": "12ddea6c034088b9",
+   "howto_step_6_des": "95cf65c5c75dfe2b",
+   "howto_step_6_title": "067f250c5a4aa12b",
+   "howto_step_7_des": "671ef884185b9b06",
+   "howto_step_7_title": "101aff0c14a850c2",
+   "howto_title": "27313f65966d6132",
+   "meta_description": "eeb201ae76b421bc",
+   "meta_title": "c8b8444f82828afd",
+   "mockup": "9895fb1582c06a7a",
+   "product_name": "7e21fe6b247e1465",
+   "prompt_chip_1": "c56e54750d167406",
+   "prompt_chip_2": "ac745c50b536951e",
+   "prompt_chip_3": "bf2aac24001e51d4",
+   "prompt_chip_4": "38001d2e9c7b402a",
+   "slug": "d4df0d9a31bbbe3f",
+   "tab_content_1": "b661ca007f7ac78a",
+   "tab_content_2": "7400033a83d9fa8b",
+   "tab_content_3": "d2a2c689474b7589",
+   "tab_content_4": "b4226979d2a8e00a",
+   "tab_label_1": "7585541bf2c9dfdd",
+   "tab_label_2": "c96264b68a5307aa",
+   "tab_label_3": "77044194a10a84c2",
+   "tab_label_4": "98c8142b312b93c0",
+   "usecase_heading": "25b794095077ae70",
+   "why_description": "b72e267488df8672",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "1da5f8332b1fba9b"
+  },
+  "all": "644e5cbb6d95d656",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "677ff75db4e70179",
+   "alt:share_image": "5f04e3e5e024f27f",
+   "alt:tab_image_1": "1323652e3b52c3e5",
+   "alt:tab_image_2": "8c3d5a31052d9ba4",
+   "alt:tab_image_3": "e4488b057a7ec2c0",
+   "alt:tab_image_4": "6a1fd0cddd28f2e2",
+   "breadcrumb": "8992202024d29db3",
+   "chip_adds": "0431901232dfc9ce",
+   "explore_cta": "7d8649a8dd57cbb9",
+   "faq": "a7afdd9d8e730c67",
+   "feature_1": "dd51dc5c091255a9",
+   "feature_2": "5b531de45f3ccfaa",
+   "feature_3": "ebc14e074192e4d9",
+   "feature_4": "bd2e2ff8f7a76a14",
+   "feature_5": "43189b56b201285c",
+   "feature_6": "b08f05040f71ca08",
+   "features_heading": "83b6172f4ebdce3f",
+   "features_subheading": "cbe097a08746073a",
+   "h1": "43aa449382212b88",
+   "hero_description": "cf9063457348456f",
+   "hero_prompt": "9d90d524e2b70e17",
+   "howto_description": "ae255e9df466c928",
+   "howto_step_1_des": "9375a1defe9da0ca",
+   "howto_step_1_title": "145ef5313bc5275f",
+   "howto_step_2_des": "e23f3cf7006f8f8d",
+   "howto_step_2_title": "58bc5bee201c4519",
+   "howto_step_3_des": "4ce3606abcff48d1",
+   "howto_step_3_title": "d8bbcc46bf6d3dd1",
+   "howto_step_4_des": "9ff9bb7709ff928b",
+   "howto_step_4_title": "25329d9c218d04d7",
+   "howto_step_5_des": "3a99e8c33d974982",
+   "howto_step_5_title": "12ddea6c034088b9",
+   "howto_step_6_des": "95cf65c5c75dfe2b",
+   "howto_step_6_title": "067f250c5a4aa12b",
+   "howto_step_7_des": "671ef884185b9b06",
+   "howto_step_7_title": "101aff0c14a850c2",
+   "howto_title": "27313f65966d6132",
+   "meta_description": "eeb201ae76b421bc",
+   "meta_title": "c8b8444f82828afd",
+   "mockup": "9895fb1582c06a7a",
+   "product_name": "7e21fe6b247e1465",
+   "prompt_chip_1": "c56e54750d167406",
+   "prompt_chip_2": "ac745c50b536951e",
+   "prompt_chip_3": "bf2aac24001e51d4",
+   "prompt_chip_4": "38001d2e9c7b402a",
+   "slug": "d4df0d9a31bbbe3f",
+   "tab_content_1": "b661ca007f7ac78a",
+   "tab_content_2": "7400033a83d9fa8b",
+   "tab_content_3": "d2a2c689474b7589",
+   "tab_content_4": "b4226979d2a8e00a",
+   "tab_label_1": "7585541bf2c9dfdd",
+   "tab_label_2": "c96264b68a5307aa",
+   "tab_label_3": "77044194a10a84c2",
+   "tab_label_4": "98c8142b312b93c0",
+   "usecase_heading": "25b794095077ae70",
+   "why_description": "b72e267488df8672",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "1da5f8332b1fba9b"
+  },
+  "all": "644e5cbb6d95d656",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
