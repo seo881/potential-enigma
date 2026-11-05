@@ -162,6 +162,13 @@
    "via": null,
    "by": "B-w-482",
    "note": ""
+  },
+  {
+   "t": "2026-11-05 10:37 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "B-hs-27",
+   "note": "slim review: [slim | CONTENT_DEFECTS #20] tab_content_3: Price placement still disagrees inside the changed field. The H3 says the price is stated first, but the body of the same field says it sits beside the booking button, and the tab 3 image (uc-3) draws $65 below all five fields (Name, Email, St"
   }
  ],
  "pipeline": "r15",
@@ -1255,12 +1262,12 @@
    "alt:share_image": "66abcc752f05b66b",
    "alt:tab_image_1": "636bbb141b68de80",
    "alt:tab_image_2": "a6eebf6afd41617f",
-   "alt:tab_image_3": "5a5b0df51be3d773",
+   "alt:tab_image_3": "1f8a48fa860fc84d",
    "alt:tab_image_4": "3f09a164611e0934",
    "breadcrumb": "9b8c36bc2a528bc0",
-   "chip_adds": "051a564c25552b02",
+   "chip_adds": "b1294e83091b63b2",
    "explore_cta": "5dd1282d21240879",
-   "faq": "4cccda102a800bce",
+   "faq": "e7135259837f2d91",
    "feature_1": "be6f1f006147f2ac",
    "feature_2": "affd0074f82af51b",
    "feature_3": "e7f04316daac9c3c",
@@ -1279,7 +1286,7 @@
    "howto_step_2_title": "8ba5c83df1aeaff6",
    "howto_step_3_des": "f65304bed3f3e29f",
    "howto_step_3_title": "ae0e9db222e9662a",
-   "howto_step_4_des": "1e66d783e0e0019e",
+   "howto_step_4_des": "7bab06ea2242192b",
    "howto_step_4_title": "d329f776287357cc",
    "howto_step_5_des": "c629a90b13d631e3",
    "howto_step_5_title": "69fd1a31f7bb2f79",
@@ -1290,7 +1297,7 @@
    "howto_title": "cda72475bdb3fe20",
    "meta_description": "1e696ba7372f4a96",
    "meta_title": "d2e09eaf93ff0ac7",
-   "mockup": "96ee5e7f96278fad",
+   "mockup": "e3ab16100ad9e686",
    "product_name": "5386e7ffa3a18f24",
    "prompt_chip_1": "3695713bc74a5805",
    "prompt_chip_2": "112e02bdadd21b09",
@@ -1299,7 +1306,7 @@
    "slug": "27abc9432be12177",
    "tab_content_1": "f8ec2d2b30243bb2",
    "tab_content_2": "5d199a30400c17b0",
-   "tab_content_3": "2c9dccb2cca2ca07",
+   "tab_content_3": "94aa7aa00f62f689",
    "tab_content_4": "de1223474c079850",
    "tab_label_1": "3695713bc74a5805",
    "tab_label_2": "112e02bdadd21b09",
@@ -1310,7 +1317,7 @@
    "why_table": "2b1f9047599f7186",
    "why_title": "c9840a930256d11e"
   },
-  "all": "4eba9b174e398ab0",
+  "all": "27560012de4bf2ec",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  },
  "approval": {
@@ -1368,6 +1375,35 @@
    "by": "B-c-1",
    "reason": "Divit 2026-11-05 rulings 1-2: health details in transit / cross-field mismatches always blocking; fixing the reviewer's note",
    "date": "2026-11-05 10:32 UTC"
+  }
+ ],
+ "slim_reviews": [
+  {
+   "by": "B-hs-27",
+   "date": "2026-11-05 10:37 UTC",
+   "fields": [
+    "alt:tab_image_3",
+    "chip_adds",
+    "faq",
+    "howto_step_4_des",
+    "mockup",
+    "tab_content_3"
+   ],
+   "baseline": "review_hash",
+   "blocking": 1,
+   "notes": 0,
+   "findings": [
+    {
+     "criterion": "slim",
+     "field": "tab_content_3",
+     "quote": "<h3>For self-pay, a video visit is $65, stated first</h3>",
+     "fix": "Rewrite the H3 so it matches the beside-the-button placement, e.g. 'For self-pay, a video visit is $65, shown at the button', and keep alt, mockup, chip, step 3/4 and FAQ as they are.",
+     "class": "image-contradiction",
+     "rule": "CONTENT_DEFECTS #20; SEVERITY cross-field mismatch (Divit 2026-11-05)",
+     "issue": "Price placement still disagrees inside the changed field. The H3 says the price is stated first, but the body of the same field says it sits beside the booking button, and the tab 3 image (uc-3) draws $65 below all five fields (Name, Email, State, Preferred time, Pay with), directly above Request a visit. The heading was written for the old above-the-form placement and was not updated with the fix.",
+     "severity": "blocking"
+    }
+   ]
   }
  ]
 }
