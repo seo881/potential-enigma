@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-410",
    "note": ""
+  },
+  {
+   "t": "2026-11-05 10:04 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-420",
+   "note": "rubric 10/10 by B-r-420; 3 notes"
   }
  ],
  "pipeline": "r15",
@@ -993,5 +1000,245 @@
  ],
  "writers": [
   "B-w-410"
- ]
+ ],
+ "review": {
+  "by": "B-r-420",
+  "date": "2026-11-05 10:04 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Yoga Landing Page That Books Classes by the Mat'; hero 'Build a yoga landing page that books each class up to its mat count and saves every student to a database you own.' (under 130 chars, primary, verb-led); how-to description one sentence with the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition in FAQ 1, four examples by offer (Class Booking, Teacher Training, Retreat Rooms, Park Class RSVP), a seven-step how-to specific to studios ('02 Count the mats before you set a cap'), and a comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Studio vocabulary throughout: '18 mats', 'restorative classes with bolsters and blankets', 'drop-in price and each class pack', 'foundations series'; table generated from the library."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Sunwick Yoga's schedule page caps every class at 18 mats', 'For its 4-day lake retreat, Juniper Bend Yoga holds 20 spots', 'Tell Emergent that Sunday's restorative class now starts at 5:30 PM'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Short declaratives with concrete endings: 'Of 31 applications, 22 went to the list and 9 got the email.' QC Q5/Q6/Q7 clean."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail, no hype: 'Lay out mats in each room at the spacing you teach with, then count them.' 'Each Monday, put last week's bookings next to the students who came in.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Emergent claims map to claims_used (prompt-build, database-owned, alerts, realtime, api-connect, custom-domain 'included and uses credits', code-export 'On paid plans', free-start 'The free tier covers building and publishing'). No third-party facts stated; numbers add up (22+9=31, 12+8=20, 10+5=15, 18-13=5)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Mat caps, teacher training screening and retreat room types are yoga-specific; FAQ 4 separates it from the fitness landing page sibling and links it; QC D2 clean."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first ('Yes, when classes have a fixed mat count.'), hub link in item 2, sibling links (fitness, personal trainer, consulting), moat lines in items 5 and 9; paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: tab 1 '18 of 18 Full' on both 6:15 PM vinyasa and 'Mats left 5' on Sat slow flow; tab 2 fields Name, Email, Years of practice, Why do you want to teach, 22/9/31; tab 3 'Shared room, 2 left', 'Private room, 3 left', 10 of 12, 5 of 8; tab 4 'Emailing all 38 RSVPs', 9:30 AM, Studio address. Field sets agree with how-to 04 and FAQ 6."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_5 / faq 9",
+    "quote": "The page changes at the same address, and past bookings stay in the table. / it changes the page at the same address, with every past booking kept in a database you own",
+    "issue": "The same idea (change by prompt, same address, bookings kept) restated with words swapped.",
+    "fix": "In FAQ 9 end on the price update itself, e.g. 'tell Emergent the new price and the schedule shows it'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq 4",
+    "quote": "It sells classes with a fixed number of mats, not open floor time.",
+    "issue": "A generalization about yoga studios stated flatly; many studios do cap by room, but not all, and no named third party is involved.",
+    "fix": "Frame it as the page's job: 'Build it around classes with a fixed number of mats, not open floor time.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "scope",
+    "rule": "HUB_RULES 5 (hero prompt lines)",
+    "field": "chip_adds[1]",
+    "quote": "Add a teacher training application that sorts applicants by years of practice.",
+    "issue": "Composite with the hero prompt stays one studio (coherent), but unlike chips 3 ('Add a retreat page') it does not say the application gets its own page, which how-to 01 recommends ('Give each its own page').",
+    "fix": "'Add a teacher training application page that sorts applicants by years of practice.'",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_5 / faq 9",
+   "issue": "The same idea (change by prompt, same address, bookings kept) restated with words swapped.",
+   "fix": "In FAQ 9 end on the price update itself, e.g. 'tell Emergent the new price and the schedule shows it'.",
+   "by": "B-r-420",
+   "via": "review",
+   "date": "2026-11-05 10:04 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq 4",
+   "issue": "A generalization about yoga studios stated flatly; many studios do cap by room, but not all, and no named third party is involved.",
+   "fix": "Frame it as the page's job: 'Build it around classes with a fixed number of mats, not open floor time.'",
+   "by": "B-r-420",
+   "via": "review",
+   "date": "2026-11-05 10:04 UTC"
+  },
+  {
+   "criterion": "scope",
+   "rule": "HUB_RULES 5 (hero prompt lines)",
+   "field": "chip_adds[1]",
+   "issue": "Composite with the hero prompt stays one studio (coherent), but unlike chips 3 ('Add a retreat page') it does not say the application gets its own page, which how-to 01 recommends ('Give each its own page').",
+   "fix": "'Add a teacher training application page that sorts applicants by years of practice.'",
+   "by": "B-r-420",
+   "via": "review",
+   "date": "2026-11-05 10:04 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "f0b6308fbf535ccd",
+   "alt:share_image": "e9916daa1da99f86",
+   "alt:tab_image_1": "9191fe03499ea850",
+   "alt:tab_image_2": "a21f486992811406",
+   "alt:tab_image_3": "3a24428aba8f143d",
+   "alt:tab_image_4": "da09bbc89d4f28a9",
+   "breadcrumb": "b7dc6699d7c86c20",
+   "chip_adds": "5dd97836fa5eb08d",
+   "explore_cta": "35900d29b4b74fda",
+   "faq": "5c4e1fc13df92e7e",
+   "feature_1": "9effbf5c5e349b07",
+   "feature_2": "3dc09a180b3bfbb7",
+   "feature_3": "829264faea7b3004",
+   "feature_4": "3e58747edcf7d132",
+   "feature_5": "dbaf0cb8d9833034",
+   "feature_6": "61fe582b76159eba",
+   "features_heading": "8f10dd092288a1e3",
+   "features_subheading": "8749601acaadf17c",
+   "h1": "42d915a297cd1ed1",
+   "hero_description": "727d510fcac63812",
+   "hero_prompt": "dd2efd51e514b64b",
+   "howto_description": "27ca66fbae174b3b",
+   "howto_step_1_des": "c8beb5fe08767a08",
+   "howto_step_1_title": "597185352511c27d",
+   "howto_step_2_des": "3c13e8150e54173d",
+   "howto_step_2_title": "2c0766779dc63475",
+   "howto_step_3_des": "bec399cffdd81ccc",
+   "howto_step_3_title": "f5a59c3882f2f4e4",
+   "howto_step_4_des": "bd863d70496fe217",
+   "howto_step_4_title": "f31a54847b1e07b4",
+   "howto_step_5_des": "39c555a8c3a325fd",
+   "howto_step_5_title": "505109a6b65c5c83",
+   "howto_step_6_des": "7592deecf255ffce",
+   "howto_step_6_title": "be5ea7f5fc7a383d",
+   "howto_step_7_des": "64adb2fd9ba63dcb",
+   "howto_step_7_title": "9ebf236f5be4549c",
+   "howto_title": "7f622496e7f76f76",
+   "meta_description": "680d9147114041b4",
+   "meta_title": "03c8d2d528f79f7c",
+   "mockup": "d0c6200cd081d86e",
+   "product_name": "7573f658bb5cec3d",
+   "prompt_chip_1": "69c07f524e7bdb20",
+   "prompt_chip_2": "1e809211c2acf808",
+   "prompt_chip_3": "de882144e0e2c192",
+   "prompt_chip_4": "13a7aed134d02a85",
+   "slug": "ca3142d55e008e17",
+   "tab_content_1": "395e4f7711724999",
+   "tab_content_2": "db063c093966b6d7",
+   "tab_content_3": "bd24ae1fc567acd2",
+   "tab_content_4": "f967c94b4dfad36f",
+   "tab_label_1": "69c07f524e7bdb20",
+   "tab_label_2": "1e809211c2acf808",
+   "tab_label_3": "de882144e0e2c192",
+   "tab_label_4": "13a7aed134d02a85",
+   "usecase_heading": "05cf2e98ffb00e92",
+   "why_description": "117a8dea2192b3ba",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "a4c6af8559fb7f64"
+  },
+  "all": "53b3a4ad43c65fa4",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "f0b6308fbf535ccd",
+   "alt:share_image": "e9916daa1da99f86",
+   "alt:tab_image_1": "9191fe03499ea850",
+   "alt:tab_image_2": "a21f486992811406",
+   "alt:tab_image_3": "3a24428aba8f143d",
+   "alt:tab_image_4": "da09bbc89d4f28a9",
+   "breadcrumb": "b7dc6699d7c86c20",
+   "chip_adds": "5dd97836fa5eb08d",
+   "explore_cta": "35900d29b4b74fda",
+   "faq": "5c4e1fc13df92e7e",
+   "feature_1": "9effbf5c5e349b07",
+   "feature_2": "3dc09a180b3bfbb7",
+   "feature_3": "829264faea7b3004",
+   "feature_4": "3e58747edcf7d132",
+   "feature_5": "dbaf0cb8d9833034",
+   "feature_6": "61fe582b76159eba",
+   "features_heading": "8f10dd092288a1e3",
+   "features_subheading": "8749601acaadf17c",
+   "h1": "42d915a297cd1ed1",
+   "hero_description": "727d510fcac63812",
+   "hero_prompt": "dd2efd51e514b64b",
+   "howto_description": "27ca66fbae174b3b",
+   "howto_step_1_des": "c8beb5fe08767a08",
+   "howto_step_1_title": "597185352511c27d",
+   "howto_step_2_des": "3c13e8150e54173d",
+   "howto_step_2_title": "2c0766779dc63475",
+   "howto_step_3_des": "bec399cffdd81ccc",
+   "howto_step_3_title": "f5a59c3882f2f4e4",
+   "howto_step_4_des": "bd863d70496fe217",
+   "howto_step_4_title": "f31a54847b1e07b4",
+   "howto_step_5_des": "39c555a8c3a325fd",
+   "howto_step_5_title": "505109a6b65c5c83",
+   "howto_step_6_des": "7592deecf255ffce",
+   "howto_step_6_title": "be5ea7f5fc7a383d",
+   "howto_step_7_des": "64adb2fd9ba63dcb",
+   "howto_step_7_title": "9ebf236f5be4549c",
+   "howto_title": "7f622496e7f76f76",
+   "meta_description": "680d9147114041b4",
+   "meta_title": "03c8d2d528f79f7c",
+   "mockup": "d0c6200cd081d86e",
+   "product_name": "7573f658bb5cec3d",
+   "prompt_chip_1": "69c07f524e7bdb20",
+   "prompt_chip_2": "1e809211c2acf808",
+   "prompt_chip_3": "de882144e0e2c192",
+   "prompt_chip_4": "13a7aed134d02a85",
+   "slug": "ca3142d55e008e17",
+   "tab_content_1": "395e4f7711724999",
+   "tab_content_2": "db063c093966b6d7",
+   "tab_content_3": "bd24ae1fc567acd2",
+   "tab_content_4": "f967c94b4dfad36f",
+   "tab_label_1": "69c07f524e7bdb20",
+   "tab_label_2": "1e809211c2acf808",
+   "tab_label_3": "de882144e0e2c192",
+   "tab_label_4": "13a7aed134d02a85",
+   "usecase_heading": "05cf2e98ffb00e92",
+   "why_description": "117a8dea2192b3ba",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "a4c6af8559fb7f64"
+  },
+  "all": "53b3a4ad43c65fa4",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
