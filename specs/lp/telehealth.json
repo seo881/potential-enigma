@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-408",
    "note": ""
+  },
+  {
+   "t": "2026-11-05 10:05 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-422",
+   "note": "rubric 10/10 by B-r-422; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -956,5 +963,285 @@
  ],
  "writers": [
   "B-w-408"
- ]
+ ],
+ "review": {
+  "by": "B-r-422",
+  "date": "2026-11-05 10:05 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Telehealth Landing Page That Books Virtual Visits\"; hero \"Build a telehealth landing page that books video visits and saves each request to a database you own.\" (102 chars, leads with Build, carries the primary); how-to description one sentence: \"Seven steps to a telehealth landing page that books video visits in the states you serve, then build it with Emergent.\" Hero prompt is one concrete sentence with the exact primary; each chip composite (state picker, reminders, self-pay pricing, visit language) describes the same family-practice booking page."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder intent met: four practice examples (\"Telehealth Landing Page Examples\"), a seven-step how-to (\"How to Create a Telehealth Landing Page\"), comparison table, and FAQ on above-the-fold content, form fields, emergency notice, time zones and reminders."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Telehealth logistics throughout: \"The form asks where the patient will be when the call starts, and it lists only the states the practice serves\"; \"Put one line above the form telling visitors to call 911 in an emergency\"; \"10:20 am Eastern\"; table generated from the library (QC V2/V3 pass)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: \"Larkspan Virtual Care sees patients in six states\"; \"An hour before each video follow-up\"; \"Every booking request lands as a row\"; QC Q1 clean."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; short declaratives such as \"Twelve patients kept their time, and 2 used the button to move to Thursday.\" Notes: \"visit\" density, a doubled domain sentence in step 6."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Unglamorous concrete detail: \"a 15-minute video visit for a skin concern costs $65 self-pay\", \"the 18 insurance requests were emailed to Corwin Ahlberg, the billing coordinator\". No AI tells (QC A1 clean)."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "claims_used (prompt-build, database-owned, alerts, code-export, custom-domain, free-start, api-connect) all approved in rules/capabilities.json. No statement of fact about law, licensure or a third-party system: state, 911 and intake lines are written as advice (\"Ask each clinician which states they see patients in\"). Numbers add up: 77+7=84, 12+2=14, 34+18=52, 15+23=38, matching copy and images."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Sibling primaries (dentist, chiropractic, mental health) appear only as FAQ link anchors, never in headings; tab stories (state picker, reminders, self-pay, language) are telehealth-specific."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, paa --spec 10 pass 0 reject 0 flag; hub link in item 2 (\"Emergent's AI landing page builder\"); answers lead with the answer (\"Four: the patient's name, one way to reach them...\"); no brand or file format in any question."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: one hero per panel, cursor on button edge; tab 1 84/77/7 and \"If Another state, save the email for later\"; tab 2 14/12/2 and \"Pick a new time\"; tab 3 $65, 15 minutes, 52/34/18, \"Emailed Corwin Ahlberg\"; tab 4 38/15/23, \"Emailed Dr. Fairbairn\", \"Front desk\". All match tab copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_6_des",
+    "quote": "Put the page on the practice's own domain (built into Emergent, uses credits). ... Custom domains are included in Emergent and use credits",
+    "issue": "The same custom-domain claim is stated twice in one step; feature_6 repeats it a third time (\"on the practice's own domain, which uses credits\").",
+    "fix": "Keep one statement of the domain claim in step 6.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "tab_content_3 / mockup selfPayPricing / tab 3 image",
+    "quote": "Ask for a name, an email, and Self-pay or Insurance.",
+    "issue": "The Orrin Vale form (mockup and image: Name, Email, Pay with) has no state field or preferred time, while faq 5 (\"Four: the patient's name, one way to reach them, the state..., and a preferred time\") and howto_step_4_des give the four-field set. Copy, mockup and image agree within tab 3, so this is a different example form, not a contradiction.",
+    "fix": "Optionally add the state field to the tab 3 mockup and image so every example follows the page's own four-field advice.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a (Consistent)",
+    "field": "feature_2 / howto_step_3_des vs tab_content_3 / chip_adds[2]",
+    "quote": "the page shows all three beside the button\" / \"Place all of it beside the booking button\" vs \"puts its price above the form\" / \"shows the visit price above the form",
+    "issue": "Price placement is advised as beside the button but shown above the form in the example and chip.",
+    "fix": "Pick one placement wording across the page.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq 4",
+    "quote": "A clinic with a chiropractic landing page for adjustments in the office can run a second page for video follow-ups",
+    "issue": "The sibling anchor reads forced into the example.",
+    "fix": "Lead with the clinic and the visit, then link: \"A chiropractor who books adjustments through a chiropractic landing page can...\"",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2b (Rhythm)",
+    "field": "page",
+    "quote": "\"visit\" appears 31 times outside the FAQ",
+    "issue": "Heavy repetition of \"visit\" (QC Q9 P2).",
+    "fix": "Vary with appointment, call or booking where the meaning holds.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_6_des",
+   "issue": "The same custom-domain claim is stated twice in one step; feature_6 repeats it a third time (\"on the practice's own domain, which uses credits\").",
+   "fix": "Keep one statement of the domain claim in step 6.",
+   "by": "B-r-422",
+   "via": "review",
+   "date": "2026-11-05 10:05 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #10",
+   "field": "tab_content_3 / mockup selfPayPricing / tab 3 image",
+   "issue": "The Orrin Vale form (mockup and image: Name, Email, Pay with) has no state field or preferred time, while faq 5 (\"Four: the patient's name, one way to reach them, the state..., and a preferred time\") and howto_step_4_des give the four-field set. Copy, mockup and image agree within tab 3, so this is a different example form, not a contradiction.",
+   "fix": "Optionally add the state field to the tab 3 mockup and image so every example follows the page's own four-field advice.",
+   "by": "B-r-422",
+   "via": "review",
+   "date": "2026-11-05 10:05 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a (Consistent)",
+   "field": "feature_2 / howto_step_3_des vs tab_content_3 / chip_adds[2]",
+   "issue": "Price placement is advised as beside the button but shown above the form in the example and chip.",
+   "fix": "Pick one placement wording across the page.",
+   "by": "B-r-422",
+   "via": "review",
+   "date": "2026-11-05 10:05 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq 4",
+   "issue": "The sibling anchor reads forced into the example.",
+   "fix": "Lead with the clinic and the visit, then link: \"A chiropractor who books adjustments through a chiropractic landing page can...\"",
+   "by": "B-r-422",
+   "via": "review",
+   "date": "2026-11-05 10:05 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2b (Rhythm)",
+   "field": "page",
+   "issue": "Heavy repetition of \"visit\" (QC Q9 P2).",
+   "fix": "Vary with appointment, call or booking where the meaning holds.",
+   "by": "B-r-422",
+   "via": "review",
+   "date": "2026-11-05 10:05 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "855e09cc99b41295",
+   "alt:share_image": "66abcc752f05b66b",
+   "alt:tab_image_1": "636bbb141b68de80",
+   "alt:tab_image_2": "a6eebf6afd41617f",
+   "alt:tab_image_3": "5a5b0df51be3d773",
+   "alt:tab_image_4": "3f09a164611e0934",
+   "breadcrumb": "9b8c36bc2a528bc0",
+   "chip_adds": "051a564c25552b02",
+   "explore_cta": "5dd1282d21240879",
+   "faq": "4cccda102a800bce",
+   "feature_1": "be6f1f006147f2ac",
+   "feature_2": "affd0074f82af51b",
+   "feature_3": "e7f04316daac9c3c",
+   "feature_4": "e34465ab79fb7a56",
+   "feature_5": "a39903381ca739c3",
+   "feature_6": "4eac00ee6bdd286a",
+   "features_heading": "60db13796f514132",
+   "features_subheading": "10793bf9c877039d",
+   "h1": "96234c51aaf0ca07",
+   "hero_description": "79ffce971b860d0d",
+   "hero_prompt": "962a100439dd0a0b",
+   "howto_description": "4e0cdf94787d5fe8",
+   "howto_step_1_des": "d7590222432f5397",
+   "howto_step_1_title": "8f263cea77c59203",
+   "howto_step_2_des": "5d2c79c084f794ec",
+   "howto_step_2_title": "8ba5c83df1aeaff6",
+   "howto_step_3_des": "f65304bed3f3e29f",
+   "howto_step_3_title": "ae0e9db222e9662a",
+   "howto_step_4_des": "1e66d783e0e0019e",
+   "howto_step_4_title": "d329f776287357cc",
+   "howto_step_5_des": "c629a90b13d631e3",
+   "howto_step_5_title": "69fd1a31f7bb2f79",
+   "howto_step_6_des": "ea631de956232e55",
+   "howto_step_6_title": "7b994c77a2b05438",
+   "howto_step_7_des": "a6fce3c499bef466",
+   "howto_step_7_title": "1faae13cb02f3f39",
+   "howto_title": "cda72475bdb3fe20",
+   "meta_description": "1e696ba7372f4a96",
+   "meta_title": "d2e09eaf93ff0ac7",
+   "mockup": "96ee5e7f96278fad",
+   "product_name": "5386e7ffa3a18f24",
+   "prompt_chip_1": "3695713bc74a5805",
+   "prompt_chip_2": "112e02bdadd21b09",
+   "prompt_chip_3": "a1fa755faeafc7e7",
+   "prompt_chip_4": "e004ee409683316d",
+   "slug": "27abc9432be12177",
+   "tab_content_1": "f8ec2d2b30243bb2",
+   "tab_content_2": "5d199a30400c17b0",
+   "tab_content_3": "2c9dccb2cca2ca07",
+   "tab_content_4": "de1223474c079850",
+   "tab_label_1": "3695713bc74a5805",
+   "tab_label_2": "112e02bdadd21b09",
+   "tab_label_3": "a1fa755faeafc7e7",
+   "tab_label_4": "e004ee409683316d",
+   "usecase_heading": "f2b87f9795c2b9bd",
+   "why_description": "6f64888f7614ef2a",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "c9840a930256d11e"
+  },
+  "all": "4eba9b174e398ab0",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "855e09cc99b41295",
+   "alt:share_image": "66abcc752f05b66b",
+   "alt:tab_image_1": "636bbb141b68de80",
+   "alt:tab_image_2": "a6eebf6afd41617f",
+   "alt:tab_image_3": "5a5b0df51be3d773",
+   "alt:tab_image_4": "3f09a164611e0934",
+   "breadcrumb": "9b8c36bc2a528bc0",
+   "chip_adds": "051a564c25552b02",
+   "explore_cta": "5dd1282d21240879",
+   "faq": "4cccda102a800bce",
+   "feature_1": "be6f1f006147f2ac",
+   "feature_2": "affd0074f82af51b",
+   "feature_3": "e7f04316daac9c3c",
+   "feature_4": "e34465ab79fb7a56",
+   "feature_5": "a39903381ca739c3",
+   "feature_6": "4eac00ee6bdd286a",
+   "features_heading": "60db13796f514132",
+   "features_subheading": "10793bf9c877039d",
+   "h1": "96234c51aaf0ca07",
+   "hero_description": "79ffce971b860d0d",
+   "hero_prompt": "962a100439dd0a0b",
+   "howto_description": "4e0cdf94787d5fe8",
+   "howto_step_1_des": "d7590222432f5397",
+   "howto_step_1_title": "8f263cea77c59203",
+   "howto_step_2_des": "5d2c79c084f794ec",
+   "howto_step_2_title": "8ba5c83df1aeaff6",
+   "howto_step_3_des": "f65304bed3f3e29f",
+   "howto_step_3_title": "ae0e9db222e9662a",
+   "howto_step_4_des": "1e66d783e0e0019e",
+   "howto_step_4_title": "d329f776287357cc",
+   "howto_step_5_des": "c629a90b13d631e3",
+   "howto_step_5_title": "69fd1a31f7bb2f79",
+   "howto_step_6_des": "ea631de956232e55",
+   "howto_step_6_title": "7b994c77a2b05438",
+   "howto_step_7_des": "a6fce3c499bef466",
+   "howto_step_7_title": "1faae13cb02f3f39",
+   "howto_title": "cda72475bdb3fe20",
+   "meta_description": "1e696ba7372f4a96",
+   "meta_title": "d2e09eaf93ff0ac7",
+   "mockup": "96ee5e7f96278fad",
+   "product_name": "5386e7ffa3a18f24",
+   "prompt_chip_1": "3695713bc74a5805",
+   "prompt_chip_2": "112e02bdadd21b09",
+   "prompt_chip_3": "a1fa755faeafc7e7",
+   "prompt_chip_4": "e004ee409683316d",
+   "slug": "27abc9432be12177",
+   "tab_content_1": "f8ec2d2b30243bb2",
+   "tab_content_2": "5d199a30400c17b0",
+   "tab_content_3": "2c9dccb2cca2ca07",
+   "tab_content_4": "de1223474c079850",
+   "tab_label_1": "3695713bc74a5805",
+   "tab_label_2": "112e02bdadd21b09",
+   "tab_label_3": "a1fa755faeafc7e7",
+   "tab_label_4": "e004ee409683316d",
+   "usecase_heading": "f2b87f9795c2b9bd",
+   "why_description": "6f64888f7614ef2a",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "c9840a930256d11e"
+  },
+  "all": "4eba9b174e398ab0",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
