@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-424",
    "note": ""
+  },
+  {
+   "t": "2026-11-05 10:16 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-439",
+   "note": "[truth | HUB_RULES 8] features_subheading: An all-six claim the features break: feature 4 'Reminders before anyone falls behind' sends emails and Slack messages, and feature 6 'The code is yours to take' is code export; neither records what an employee learned or when it is due (rework-checklist 7)."
   }
  ],
  "pipeline": "r15",
@@ -908,5 +915,235 @@
  ],
  "writers": [
   "B-w-424"
- ]
+ ],
+ "review": {
+  "by": "B-r-439",
+  "date": "2026-11-05 10:16 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Employee Training Form With Sign-Offs and Due Dates'; hero 'Build an employee training form that saves each course and its trainer sign-off to a database you own.' covers the whole record job."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Fields, sign-offs, renewal periods and a training log answer the template/record intent: FAQ 1 defines it, FAQ 6 lists the OSHA certification fields, FAQ 9 'the table of all submissions is your training log'."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'12 months for a ladder safety course', 'a 4-hour code update class and a 2-hour arc flash refresher', forklift operator certification."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Pell Creek Freight trains its forklift operators in pairs.', 'Set how long each course stays current...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q5 one ', so' ending only; sentences carry one idea each; no blocking craft defect."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain, product-led: 'The app adds that period to the last session date and lists every record due next month.'"
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "features_subheading: 'These six pieces record what they learned and when it is due again.' is false for feature 4 (reminders) and feature 6 (code export). OSHA lines in tab_content_1 and FAQ 6 match their quoted 1910.178 spans; tab numbers add up (18+4=22, 4+2=6, 4 of 5 tasks)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Four records (forklift certification, shop task sign-offs, portal rollout, yearly hours) unique to this page; sibling primaries only in FAQ answers as pointers ('employee evaluation form')."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first ('Not on its own.', 'Yes.', 'No.'); paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab images match copy: 'Due by June 10, 2029', '4 of 5 tasks signed', '18 of 22 done' and '4 reminders sent', 'Owen Pickard: 6 hours' with 4 + 2 hour courses; one hero."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "features_subheading",
+    "quote": "These six pieces record what they learned and when it is due again.",
+    "issue": "An all-six claim the features break: feature 4 'Reminders before anyone falls behind' sends emails and Slack messages, and feature 6 'The code is yours to take' is code export; neither records what an employee learned or when it is due (rework-checklist 7). No other each/every claim on the page fails.",
+    "fix": "Make the sentence true of all six or drop the count, e.g. 'These six pieces turn that sheet into a record of what they learned and when it is due again.' is still false; write something like 'The pieces below record what they learned, flag when it is due again, and keep the record yours.'",
+    "severity": "blocking"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief tab 2",
+    "quote": "Brakes · Wheels · E-bike",
+    "issue": "The 'Shop task record' card's chip row shows two of the four signed tasks next to the open one, which reads as an incomplete list beside '4 of 5 tasks signed'.",
+    "fix": "Show all four signed chips plus the open one, or drop the chip row.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "distinct",
+    "rule": "HUB_RULES 5",
+    "field": "mockup",
+    "quote": "newHireShopTasks",
+    "issue": "Mockup key does not follow the tab label 'New Mechanics' (keys are camelCase tab names).",
+    "fix": "newMechanics, if the template keys on the label.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief tab 2",
+   "issue": "The 'Shop task record' card's chip row shows two of the four signed tasks next to the open one, which reads as an incomplete list beside '4 of 5 tasks signed'.",
+   "fix": "Show all four signed chips plus the open one, or drop the chip row.",
+   "by": "B-r-439",
+   "via": "review",
+   "date": "2026-11-05 10:16 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "HUB_RULES 5",
+   "field": "mockup",
+   "issue": "Mockup key does not follow the tab label 'New Mechanics' (keys are camelCase tab names).",
+   "fix": "newMechanics, if the template keys on the label.",
+   "by": "B-r-439",
+   "via": "review",
+   "date": "2026-11-05 10:16 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "91b45d3eea17c11d",
+   "alt:share_image": "7005c42e264c85c6",
+   "alt:tab_image_1": "80d9c2e377c5cf9b",
+   "alt:tab_image_2": "3cafc3b1daabf463",
+   "alt:tab_image_3": "569f781484b7d6ae",
+   "alt:tab_image_4": "f590c213d02e7be4",
+   "breadcrumb": "cfca3608959fdf1d",
+   "chip_adds": "d7908258940732f0",
+   "explore_cta": "b472d8f1dbf22ba3",
+   "faq": "32a34dd22f90bcdc",
+   "feature_1": "a0cc45c6201ebd77",
+   "feature_2": "08ea9725a1d37bff",
+   "feature_3": "9bf9dc1d916db790",
+   "feature_4": "281322575be23092",
+   "feature_5": "a0db153cb8acf02e",
+   "feature_6": "64786e2c0000ab32",
+   "features_heading": "33f710f53eb64ba5",
+   "features_subheading": "49bc79da9c8eedcf",
+   "h1": "5681a9903469de00",
+   "hero_description": "98762101fe59c99f",
+   "hero_prompt": "76c4914bcfcc2b78",
+   "howto_description": "d1b2daa981dfc37a",
+   "howto_step_1_des": "ee105e0b7477c261",
+   "howto_step_1_title": "19b01e94ed225233",
+   "howto_step_2_des": "8c96573b0f980811",
+   "howto_step_2_title": "a174abbe56568521",
+   "howto_step_3_des": "56002c7268d65ab7",
+   "howto_step_3_title": "c5d42beb157a6682",
+   "howto_step_4_des": "768395eedded3db7",
+   "howto_step_4_title": "6e61921fb7a41693",
+   "howto_step_5_des": "40deb548c4a6d521",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "083c865d347caffa",
+   "howto_step_6_title": "88af391308d46648",
+   "howto_step_7_des": "da19c914f1562785",
+   "howto_step_7_title": "0f6326ce9b4d6c06",
+   "howto_title": "0cbcc7916107ecd7",
+   "meta_description": "6b1ccddb18aa2be7",
+   "meta_title": "b00de6f60819231f",
+   "mockup": "b89ffab15279f230",
+   "product_name": "ee11fb51cf46ceea",
+   "prompt_chip_1": "bdbe59eb8ebb9636",
+   "prompt_chip_2": "d134a39c3e5bc4c5",
+   "prompt_chip_3": "7db12024578bad57",
+   "prompt_chip_4": "ad1bd145df66222c",
+   "slug": "9283ee861e5a1c7f",
+   "tab_content_1": "b74094e240c2ebee",
+   "tab_content_2": "29e5d39e2b2f8a65",
+   "tab_content_3": "c7f63fd0bcf83da2",
+   "tab_content_4": "1ab5d4bc916b2ce5",
+   "tab_label_1": "6b8865b36621a2db",
+   "tab_label_2": "41874a5066b78a3a",
+   "tab_label_3": "d0fa278b4468bac0",
+   "tab_label_4": "92183d2efc367965",
+   "usecase_heading": "29fa8f8252401b92",
+   "why_description": "2da144c2cf4d8727",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "545b9c323506ba55"
+  },
+  "all": "d59665c8c802c9c6",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "91b45d3eea17c11d",
+   "alt:share_image": "7005c42e264c85c6",
+   "alt:tab_image_1": "80d9c2e377c5cf9b",
+   "alt:tab_image_2": "3cafc3b1daabf463",
+   "alt:tab_image_3": "569f781484b7d6ae",
+   "alt:tab_image_4": "f590c213d02e7be4",
+   "breadcrumb": "cfca3608959fdf1d",
+   "chip_adds": "d7908258940732f0",
+   "explore_cta": "b472d8f1dbf22ba3",
+   "faq": "32a34dd22f90bcdc",
+   "feature_1": "a0cc45c6201ebd77",
+   "feature_2": "08ea9725a1d37bff",
+   "feature_3": "9bf9dc1d916db790",
+   "feature_4": "281322575be23092",
+   "feature_5": "a0db153cb8acf02e",
+   "feature_6": "64786e2c0000ab32",
+   "features_heading": "33f710f53eb64ba5",
+   "features_subheading": "49bc79da9c8eedcf",
+   "h1": "5681a9903469de00",
+   "hero_description": "98762101fe59c99f",
+   "hero_prompt": "76c4914bcfcc2b78",
+   "howto_description": "d1b2daa981dfc37a",
+   "howto_step_1_des": "ee105e0b7477c261",
+   "howto_step_1_title": "19b01e94ed225233",
+   "howto_step_2_des": "8c96573b0f980811",
+   "howto_step_2_title": "a174abbe56568521",
+   "howto_step_3_des": "56002c7268d65ab7",
+   "howto_step_3_title": "c5d42beb157a6682",
+   "howto_step_4_des": "768395eedded3db7",
+   "howto_step_4_title": "6e61921fb7a41693",
+   "howto_step_5_des": "40deb548c4a6d521",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "083c865d347caffa",
+   "howto_step_6_title": "88af391308d46648",
+   "howto_step_7_des": "da19c914f1562785",
+   "howto_step_7_title": "0f6326ce9b4d6c06",
+   "howto_title": "0cbcc7916107ecd7",
+   "meta_description": "6b1ccddb18aa2be7",
+   "meta_title": "b00de6f60819231f",
+   "mockup": "b89ffab15279f230",
+   "product_name": "ee11fb51cf46ceea",
+   "prompt_chip_1": "bdbe59eb8ebb9636",
+   "prompt_chip_2": "d134a39c3e5bc4c5",
+   "prompt_chip_3": "7db12024578bad57",
+   "prompt_chip_4": "ad1bd145df66222c",
+   "slug": "9283ee861e5a1c7f",
+   "tab_content_1": "b74094e240c2ebee",
+   "tab_content_2": "29e5d39e2b2f8a65",
+   "tab_content_3": "c7f63fd0bcf83da2",
+   "tab_content_4": "1ab5d4bc916b2ce5",
+   "tab_label_1": "6b8865b36621a2db",
+   "tab_label_2": "41874a5066b78a3a",
+   "tab_label_3": "d0fa278b4468bac0",
+   "tab_label_4": "92183d2efc367965",
+   "usecase_heading": "29fa8f8252401b92",
+   "why_description": "2da144c2cf4d8727",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "545b9c323506ba55"
+  },
+  "all": "d59665c8c802c9c6",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
