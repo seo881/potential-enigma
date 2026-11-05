@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-415",
    "note": ""
+  },
+  {
+   "t": "2026-11-05 10:14 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-438",
+   "note": "rubric 10/10 by B-r-438; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -1026,5 +1033,265 @@
  ],
  "writers": [
   "B-w-415"
- ]
+ ],
+ "review": {
+  "by": "B-r-438",
+  "date": "2026-11-05 10:14 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Benefits Enrollment Form for Every Enrollment Window'; hero 'Build a benefits enrollment form where employees compare plans and add dependents, with every election stored in tables you own.' covers the whole job (plans, dependents, elections), under 130 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Informational searchers get what the form asks for (FAQ 4 'Plan for four groups...'), the template question (FAQ 3), windows and life events (FAQ 5-6) and a seven-step build."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "HR vocabulary throughout: 'cost per paycheck', 'coverage tier', 'Bronze HDHP at $38', 'waive option', 'plan administrator'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs or full sentences: 'Show each medical plan...', 'Add a spouse or child...', 'An employee who declines coverage picks a reason...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Varied sentences, one idea each: 'He takes Silver PPO and dental, not vision. The elections save to the HR table with 26 days to spare.' Two ', so' endings, under the limit."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous details: 'Baylock Bakery', '9 of Baylock's 46 staff with a signed waiver', 'with their manager's name beside it'. No hype."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "DOL quotes checked against the publication text: 'you must notify the plan within 30 days ... of the birth, adoption, or placement for adoption', 'The child's coverage will be effective on the date of the birth', 'within 30 days after you marry'; TR 12-02 90-day waiting period. Numbers agree: 112+28=140, day 4 + 26 = 30, 9 + 21 = 30, 7+2 = 9 waivers. Claims map to claims_used."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own stories (new hire, open enrollment, birth, waiver); sibling primaries appear only as FAQ link anchors ('payroll change form', 'direct deposit form', 'reasonable accommodation request form'), never as headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic builder questions, answer-first ('Yes. A waive option on each benefit...'); hub link in item 2; secondary 'benefits enrollment form template' in item 3; paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches tab copy: '$38/$96/$151', 'Day 4 of 30 / 26 days to spare', '112 of 140 submitted', 'Reminder sent to 28 staff', '21 days left', '9 of 46'. One hero per panel, readable."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_3_body / tab_content_2 / mockup openEnrollment",
+    "quote": "Reminder emails go out 7 days and 2 days before the end.",
+    "issue": "Feature 3 states a fixed reminder schedule (7 and 2 days before), while tab 2 and its mockup remind at day 11 of 14 ('Three days before it closes'). Different employers can configure this, but a reader sees two schedules.",
+    "fix": "Phrase feature 3 as a configurable example ('for example 7 days and 2 days before') or align tab 2 to one of those offsets.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "tab_content_3",
+    "quote": "adds his son to medical and dental ... His son's coverage starts on the date of birth.",
+    "issue": "The DOL source ties the 30-day notice and date-of-birth effective date to HIPAA special enrollment in an employer health plan; dental is not clearly covered by it, and the tab applies it to both.",
+    "fix": "Say 'His son's medical coverage starts on the date of birth' to keep the source's scope.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "hero_prompt",
+    "quote": "pick dental and vision, and sign before their 30-day window closes.",
+    "issue": "The hero prompt has new hires sign their elections; elsewhere a signature appears only on waivers, and tab 1 copy, mockup and image show no signature on the new-hire form. Not a contradiction (nothing says the form has no signature) but the field set drifts.",
+    "fix": "Either drop 'and sign' from the hero prompt or mention a signature on the new-hire submission in tab 1.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "\"employee\" appears 18 times outside the FAQ",
+    "issue": "Heavy repetition of 'employee' and 'plan(s)' across features and how-to (QC Q9).",
+    "fix": "Vary with names, 'new hire', 'staff' where the meaning holds.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_3_body / tab_content_2 / mockup openEnrollment",
+   "issue": "Feature 3 states a fixed reminder schedule (7 and 2 days before), while tab 2 and its mockup remind at day 11 of 14 ('Three days before it closes'). Different employers can configure this, but a reader sees two schedules.",
+   "fix": "Phrase feature 3 as a configurable example ('for example 7 days and 2 days before') or align tab 2 to one of those offsets.",
+   "by": "B-r-438",
+   "via": "review",
+   "date": "2026-11-05 10:14 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "tab_content_3",
+   "issue": "The DOL source ties the 30-day notice and date-of-birth effective date to HIPAA special enrollment in an employer health plan; dental is not clearly covered by it, and the tab applies it to both.",
+   "fix": "Say 'His son's medical coverage starts on the date of birth' to keep the source's scope.",
+   "by": "B-r-438",
+   "via": "review",
+   "date": "2026-11-05 10:14 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "hero_prompt",
+   "issue": "The hero prompt has new hires sign their elections; elsewhere a signature appears only on waivers, and tab 1 copy, mockup and image show no signature on the new-hire form. Not a contradiction (nothing says the form has no signature) but the field set drifts.",
+   "fix": "Either drop 'and sign' from the hero prompt or mention a signature on the new-hire submission in tab 1.",
+   "by": "B-r-438",
+   "via": "review",
+   "date": "2026-11-05 10:14 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "Heavy repetition of 'employee' and 'plan(s)' across features and how-to (QC Q9).",
+   "fix": "Vary with names, 'new hire', 'staff' where the meaning holds.",
+   "by": "B-r-438",
+   "via": "review",
+   "date": "2026-11-05 10:14 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "1d3b15d453b8bf21",
+   "alt:share_image": "32426aa7e0a09753",
+   "alt:tab_image_1": "e8d27c415b281c9f",
+   "alt:tab_image_2": "568b17dbd866a72f",
+   "alt:tab_image_3": "669e265397de72bf",
+   "alt:tab_image_4": "361ec419dadc9621",
+   "breadcrumb": "79100437bf12a44a",
+   "chip_adds": "c8047f11eaf28123",
+   "explore_cta": "91868b3108f7e0fb",
+   "faq": "5d974750aedda0ec",
+   "feature_1": "72d6f2457aacf804",
+   "feature_2": "b9e480b09d67ffdf",
+   "feature_3": "d789b24a45551af5",
+   "feature_4": "124a9f65343f1e9d",
+   "feature_5": "5fddb5f4110abbb5",
+   "feature_6": "31aa8c08a3556d04",
+   "features_heading": "a397c49f7b0ed789",
+   "features_subheading": "35a8de1b64b592e1",
+   "h1": "15e9d69f6b18cbc0",
+   "hero_description": "d0b7d54f91b1f23a",
+   "hero_prompt": "0015fb382a1e2a02",
+   "howto_description": "629c71a45330ccb6",
+   "howto_step_1_des": "f35e6fc9f3300ad4",
+   "howto_step_1_title": "380a755676944cad",
+   "howto_step_2_des": "d7a78a504dd02bfb",
+   "howto_step_2_title": "a1bc898f731b2a1a",
+   "howto_step_3_des": "7d942de950e76848",
+   "howto_step_3_title": "e49851c647d861cd",
+   "howto_step_4_des": "9c0598d1f7474665",
+   "howto_step_4_title": "5e61ddbb29bf0fd3",
+   "howto_step_5_des": "83c1664dd96c113c",
+   "howto_step_5_title": "6b74ae8498512b39",
+   "howto_step_6_des": "ed2483e844c940ea",
+   "howto_step_6_title": "0a763450d3431365",
+   "howto_step_7_des": "e649843c721dfc7f",
+   "howto_step_7_title": "a3d387f57e619cb6",
+   "howto_title": "fdb924d1e818e5eb",
+   "meta_description": "ad708eb16e6c41e4",
+   "meta_title": "5b66983e2232659b",
+   "mockup": "2fd24e95c8a645db",
+   "product_name": "139f51969e021a3f",
+   "prompt_chip_1": "2ad2dad70b25a954",
+   "prompt_chip_2": "9aa3b72617ae6d69",
+   "prompt_chip_3": "c895f2b75bedb68b",
+   "prompt_chip_4": "b2f0928cbb0aa69c",
+   "slug": "f162080fbf8d6acb",
+   "tab_content_1": "cda5f867b8edf086",
+   "tab_content_2": "70ea736ac69fe761",
+   "tab_content_3": "e41c4cb5de674adc",
+   "tab_content_4": "48cb47f4f40e21e3",
+   "tab_label_1": "051d64ae1cae2020",
+   "tab_label_2": "3021f2ad2ef62363",
+   "tab_label_3": "dcdc2acebff55377",
+   "tab_label_4": "b2f0928cbb0aa69c",
+   "usecase_heading": "21ee3c1e2e05821e",
+   "why_description": "faad61dbf1e78162",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "6817ca62e54b58b8"
+  },
+  "all": "9585d93c074b1546",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "1d3b15d453b8bf21",
+   "alt:share_image": "32426aa7e0a09753",
+   "alt:tab_image_1": "e8d27c415b281c9f",
+   "alt:tab_image_2": "568b17dbd866a72f",
+   "alt:tab_image_3": "669e265397de72bf",
+   "alt:tab_image_4": "361ec419dadc9621",
+   "breadcrumb": "79100437bf12a44a",
+   "chip_adds": "c8047f11eaf28123",
+   "explore_cta": "91868b3108f7e0fb",
+   "faq": "5d974750aedda0ec",
+   "feature_1": "72d6f2457aacf804",
+   "feature_2": "b9e480b09d67ffdf",
+   "feature_3": "d789b24a45551af5",
+   "feature_4": "124a9f65343f1e9d",
+   "feature_5": "5fddb5f4110abbb5",
+   "feature_6": "31aa8c08a3556d04",
+   "features_heading": "a397c49f7b0ed789",
+   "features_subheading": "35a8de1b64b592e1",
+   "h1": "15e9d69f6b18cbc0",
+   "hero_description": "d0b7d54f91b1f23a",
+   "hero_prompt": "0015fb382a1e2a02",
+   "howto_description": "629c71a45330ccb6",
+   "howto_step_1_des": "f35e6fc9f3300ad4",
+   "howto_step_1_title": "380a755676944cad",
+   "howto_step_2_des": "d7a78a504dd02bfb",
+   "howto_step_2_title": "a1bc898f731b2a1a",
+   "howto_step_3_des": "7d942de950e76848",
+   "howto_step_3_title": "e49851c647d861cd",
+   "howto_step_4_des": "9c0598d1f7474665",
+   "howto_step_4_title": "5e61ddbb29bf0fd3",
+   "howto_step_5_des": "83c1664dd96c113c",
+   "howto_step_5_title": "6b74ae8498512b39",
+   "howto_step_6_des": "ed2483e844c940ea",
+   "howto_step_6_title": "0a763450d3431365",
+   "howto_step_7_des": "e649843c721dfc7f",
+   "howto_step_7_title": "a3d387f57e619cb6",
+   "howto_title": "fdb924d1e818e5eb",
+   "meta_description": "ad708eb16e6c41e4",
+   "meta_title": "5b66983e2232659b",
+   "mockup": "2fd24e95c8a645db",
+   "product_name": "139f51969e021a3f",
+   "prompt_chip_1": "2ad2dad70b25a954",
+   "prompt_chip_2": "9aa3b72617ae6d69",
+   "prompt_chip_3": "c895f2b75bedb68b",
+   "prompt_chip_4": "b2f0928cbb0aa69c",
+   "slug": "f162080fbf8d6acb",
+   "tab_content_1": "cda5f867b8edf086",
+   "tab_content_2": "70ea736ac69fe761",
+   "tab_content_3": "e41c4cb5de674adc",
+   "tab_content_4": "48cb47f4f40e21e3",
+   "tab_label_1": "051d64ae1cae2020",
+   "tab_label_2": "3021f2ad2ef62363",
+   "tab_label_3": "dcdc2acebff55377",
+   "tab_label_4": "b2f0928cbb0aa69c",
+   "usecase_heading": "21ee3c1e2e05821e",
+   "why_description": "faad61dbf1e78162",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "6817ca62e54b58b8"
+  },
+  "all": "9585d93c074b1546",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
