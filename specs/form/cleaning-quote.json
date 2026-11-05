@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-420",
    "note": ""
+  },
+  {
+   "t": "2026-11-05 10:08 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-431",
+   "note": "rubric 10/10 by B-r-431; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -867,5 +874,285 @@
  ],
  "writers": [
   "B-w-420"
- ]
+ ],
+ "review": {
+  "by": "B-r-431",
+  "date": "2026-11-05 10:08 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Cleaning Quote Form Priced by Rooms and Extras'; hero 'Build a cleaning quote form that prices each home from its rooms and extras and saves every request to a database you own.' (under 130 chars, leads with Build); how-to description one sentence with the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder intent delivered: six features on pricing logic, four quote scenarios (house, move-out, turnovers, post-construction), seven-step how-to, comparison table; FAQ 'What questions should a cleaning quote form ask?' answers the field question searchers have."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Cleaning vocabulary throughout: 'inside the oven for $35', 'every-two-weeks schedule', '14 turnovers at $95 each', 'Anything over 4,000 square feet gets a site walk before a price'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs ('Set a base price', 'Offer weekly', 'List add-ons', 'Pick the square footage', 'Choose who hears'); tabs open on full sentences ('Kalinda Vaszary wants her house...')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; QC 0. Notes recorded on the lowercase 'rfp form' anchor and an advice tension between step 3 and FAQ 3."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Calm, product-led: 'The form does the math as the customer answers and shows the price per visit before anyone submits.' One forced sentence in FAQ 10 recorded as a note."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "All arithmetic holds: $150 less 10% = $135; $220+$35+$30+$45 = $330; 14 x $95 = $1,330. Emergent claims map to prompt-build, database-owned, alerts, no-caps, code-export, free-start. No third-party facts in prose (domain_sources empty, none needed); table generated from the library."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Rooms-and-extras pricing angle and site-walk threshold are specific to cleaning; sibling primaries (rfp form, proposal form, sponsorship form) appear only as FAQ link anchors, not headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first; hub link in item 2 ('Emergent's AI form builder'); paa --spec pass 10, reject 0, flag 0; Emergent lines in items 7 and 8 ('each request lands in a database you own', 'no response caps')."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 '$135 a visit' / '$150 standard clean' / '10% off every two weeks'; tab 2 line items sum to 'Quote total $330'; tab 3 '#turnovers' message '$1,330 for July at $95 each'; tab 4 'Ardmoor Builders 4,800 Site walk needed' with 2 priced rows. One hero each, text readable."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq (item 10)",
+    "quote": "If the organizer offers sponsorship credit in place of payment, ask for their sponsorship form and weigh its value against your quote.",
+    "issue": "Sentence exists to carry the sibling link; the scenario is unlikely and reads forced.",
+    "fix": "Move the sponsorship form link to an answer where it fits naturally, or drop it for another sibling.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq (item 4)",
+    "quote": "If a facility manager sends its own rfp form instead",
+    "issue": "Acronym rendered lowercase in body copy.",
+    "fix": "Write 'RFP form' in the anchor text.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_3_description / faq (item 3)",
+    "quote": "cut any question that does not change the total",
+    "issue": "Taken literally, step 3 cuts the address and phone, which FAQ 3 tells the reader to add ('Add the address and a phone number last'). FAQ 8 repeats the price-only rule ('Keep it to the questions that move the price').",
+    "fix": "Step 3: 'cut any question that does not change the total, apart from contact details'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "feature_4 / feature_5",
+    "quote": "goes on the owner's list for a site walk, with the address attached",
+    "issue": "The features say every request and message carries the address, but the post-construction mockup asks only company name and square footage, and the tab 3 Slack message shows no address. These are generic features, not the tab builds, so the finding is a note.",
+    "fix": "Add 'and the site address' to the postConstruction mockup ask on a future edit.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq (items 3, 8) / howto_step_3",
+    "quote": "Ask what sets the price. / Keep it to the questions that move the price / Ask only what changes the price",
+    "issue": "Same idea in three places with words swapped.",
+    "fix": "Let one field carry it; give FAQ 8 a different angle (grouping, phone fit).",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq (item 10)",
+   "issue": "Sentence exists to carry the sibling link; the scenario is unlikely and reads forced.",
+   "fix": "Move the sponsorship form link to an answer where it fits naturally, or drop it for another sibling.",
+   "by": "B-r-431",
+   "via": "review",
+   "date": "2026-11-05 10:08 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq (item 4)",
+   "issue": "Acronym rendered lowercase in body copy.",
+   "fix": "Write 'RFP form' in the anchor text.",
+   "by": "B-r-431",
+   "via": "review",
+   "date": "2026-11-05 10:08 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_3_description / faq (item 3)",
+   "issue": "Taken literally, step 3 cuts the address and phone, which FAQ 3 tells the reader to add ('Add the address and a phone number last'). FAQ 8 repeats the price-only rule ('Keep it to the questions that move the price').",
+   "fix": "Step 3: 'cut any question that does not change the total, apart from contact details'.",
+   "by": "B-r-431",
+   "via": "review",
+   "date": "2026-11-05 10:08 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #10",
+   "field": "feature_4 / feature_5",
+   "issue": "The features say every request and message carries the address, but the post-construction mockup asks only company name and square footage, and the tab 3 Slack message shows no address. These are generic features, not the tab builds, so the finding is a note.",
+   "fix": "Add 'and the site address' to the postConstruction mockup ask on a future edit.",
+   "by": "B-r-431",
+   "via": "review",
+   "date": "2026-11-05 10:08 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq (items 3, 8) / howto_step_3",
+   "issue": "Same idea in three places with words swapped.",
+   "fix": "Let one field carry it; give FAQ 8 a different angle (grouping, phone fit).",
+   "by": "B-r-431",
+   "via": "review",
+   "date": "2026-11-05 10:08 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6f774d0f07cbaf54",
+   "alt:share_image": "0aad3e4fb7e9aee2",
+   "alt:tab_image_1": "737cff7d7f629c8f",
+   "alt:tab_image_2": "842e024da4a401ba",
+   "alt:tab_image_3": "66d524b5b9f47e9a",
+   "alt:tab_image_4": "c80b36ffc41ffe54",
+   "breadcrumb": "5b039956e82e555c",
+   "chip_adds": "d93408e5eb5335d6",
+   "explore_cta": "6e7b49bd63984d20",
+   "faq": "40021fc5fd942899",
+   "feature_1": "73da205c0c078131",
+   "feature_2": "4a797df0abfb2969",
+   "feature_3": "c9316ba9bc0d55fd",
+   "feature_4": "c3dd75bc0d792b31",
+   "feature_5": "67a1936ee0a5d0b4",
+   "feature_6": "66b9a013eedd8f2a",
+   "features_heading": "d31749535f610165",
+   "features_subheading": "882dc610dba20108",
+   "h1": "cdb90c708b836587",
+   "hero_description": "9fbe0051720ff8ab",
+   "hero_prompt": "cb14ed9630c00b7a",
+   "howto_description": "aa18edf59d19a3ac",
+   "howto_step_1_des": "15809db943e6580b",
+   "howto_step_1_title": "7667e3cd86528753",
+   "howto_step_2_des": "3065777b92eb1e07",
+   "howto_step_2_title": "0b38072dc64b84e0",
+   "howto_step_3_des": "2a2be46a239b74a3",
+   "howto_step_3_title": "178300c38b0859d8",
+   "howto_step_4_des": "025ad61f0ed0150b",
+   "howto_step_4_title": "e567959b75084ef6",
+   "howto_step_5_des": "5e9a616261eb5487",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "5bca90513c628b6b",
+   "howto_step_6_title": "69603265c30d62a4",
+   "howto_step_7_des": "a2a740d0f0d74144",
+   "howto_step_7_title": "5ee4a85f79b3b2f2",
+   "howto_title": "633239a80cb1cf93",
+   "meta_description": "606e8d9e87470a2a",
+   "meta_title": "38e7965491836527",
+   "mockup": "ea7d7acf41d752d0",
+   "product_name": "a40468ea44758e6a",
+   "prompt_chip_1": "8f77635cc14ab412",
+   "prompt_chip_2": "a230bd32153bbac4",
+   "prompt_chip_3": "882d81dd0ab30160",
+   "prompt_chip_4": "df6ce0c7f84f09b6",
+   "slug": "1a0275fbc7f4c831",
+   "tab_content_1": "bdda3abc8b2f0a8f",
+   "tab_content_2": "c0a8467973c37312",
+   "tab_content_3": "8885a800d2097bd3",
+   "tab_content_4": "f1ed146f88c89996",
+   "tab_label_1": "a9125945c8da55da",
+   "tab_label_2": "2336ee7c24236629",
+   "tab_label_3": "eb10b8af15e6b665",
+   "tab_label_4": "a49536b8210011d3",
+   "usecase_heading": "f05771a4ef2aed8e",
+   "why_description": "64004601527b08dc",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "789d47eb7a1d4cad"
+  },
+  "all": "cc2911bd5485659e",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6f774d0f07cbaf54",
+   "alt:share_image": "0aad3e4fb7e9aee2",
+   "alt:tab_image_1": "737cff7d7f629c8f",
+   "alt:tab_image_2": "842e024da4a401ba",
+   "alt:tab_image_3": "66d524b5b9f47e9a",
+   "alt:tab_image_4": "c80b36ffc41ffe54",
+   "breadcrumb": "5b039956e82e555c",
+   "chip_adds": "d93408e5eb5335d6",
+   "explore_cta": "6e7b49bd63984d20",
+   "faq": "40021fc5fd942899",
+   "feature_1": "73da205c0c078131",
+   "feature_2": "4a797df0abfb2969",
+   "feature_3": "c9316ba9bc0d55fd",
+   "feature_4": "c3dd75bc0d792b31",
+   "feature_5": "67a1936ee0a5d0b4",
+   "feature_6": "66b9a013eedd8f2a",
+   "features_heading": "d31749535f610165",
+   "features_subheading": "882dc610dba20108",
+   "h1": "cdb90c708b836587",
+   "hero_description": "9fbe0051720ff8ab",
+   "hero_prompt": "cb14ed9630c00b7a",
+   "howto_description": "aa18edf59d19a3ac",
+   "howto_step_1_des": "15809db943e6580b",
+   "howto_step_1_title": "7667e3cd86528753",
+   "howto_step_2_des": "3065777b92eb1e07",
+   "howto_step_2_title": "0b38072dc64b84e0",
+   "howto_step_3_des": "2a2be46a239b74a3",
+   "howto_step_3_title": "178300c38b0859d8",
+   "howto_step_4_des": "025ad61f0ed0150b",
+   "howto_step_4_title": "e567959b75084ef6",
+   "howto_step_5_des": "5e9a616261eb5487",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "5bca90513c628b6b",
+   "howto_step_6_title": "69603265c30d62a4",
+   "howto_step_7_des": "a2a740d0f0d74144",
+   "howto_step_7_title": "5ee4a85f79b3b2f2",
+   "howto_title": "633239a80cb1cf93",
+   "meta_description": "606e8d9e87470a2a",
+   "meta_title": "38e7965491836527",
+   "mockup": "ea7d7acf41d752d0",
+   "product_name": "a40468ea44758e6a",
+   "prompt_chip_1": "8f77635cc14ab412",
+   "prompt_chip_2": "a230bd32153bbac4",
+   "prompt_chip_3": "882d81dd0ab30160",
+   "prompt_chip_4": "df6ce0c7f84f09b6",
+   "slug": "1a0275fbc7f4c831",
+   "tab_content_1": "bdda3abc8b2f0a8f",
+   "tab_content_2": "c0a8467973c37312",
+   "tab_content_3": "8885a800d2097bd3",
+   "tab_content_4": "f1ed146f88c89996",
+   "tab_label_1": "a9125945c8da55da",
+   "tab_label_2": "2336ee7c24236629",
+   "tab_label_3": "eb10b8af15e6b665",
+   "tab_label_4": "a49536b8210011d3",
+   "usecase_heading": "f05771a4ef2aed8e",
+   "why_description": "64004601527b08dc",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "789d47eb7a1d4cad"
+  },
+  "all": "cc2911bd5485659e",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
