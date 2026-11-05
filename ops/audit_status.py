@@ -24,15 +24,25 @@ def _known():
     try: return json.load(open(os.path.join(ROOT, "rules", "live_audit.json"))).get("known_open_issues") or []
     except (OSError, ValueError): return []
 
+_URLS = {}
+def _urls_file(rel):
+    """URLs listed one per line in a repo file (known_open_issues key urls_file, Divit 2026-11-05: hero backlog on hold)."""
+    if rel not in _URLS:
+        try: _URLS[rel] = set(open(os.path.join(ROOT, rel)).read().split())
+        except OSError: _URLS[rel] = set()
+    return _URLS[rel]
+
 def known_id(f, known=None, today=None):
     """The id of the known open issue a finding matches (rules/live_audit.json known_open_issues), else None.
     Optional entry keys: url (the finding's url, exact) and expires (YYYY-MM-DD, UTC): from that date on the entry no longer
-    matches, so the finding counts as REAL again (Divit 2026-11-03: the 24 redirect targets, known until 2026-11-17)."""
+    matches, so the finding counts as REAL again (Divit 2026-11-03: the 24 redirect targets, known until 2026-11-17);
+    urls_file (a repo file of URLs, one per line): the entry matches only findings on those URLs (missing file: matches nothing)."""
     today = today or utcnow().strftime("%Y-%m-%d")
     for k in (known if known is not None else _known()):
         if f.get("code") != k.get("code"): continue
         if k.get("expires") and today >= k["expires"]: continue
         if k.get("url") and k["url"] != f.get("url"): continue
+        if k.get("urls_file") and f.get("url") not in _urls_file(k["urls_file"]): continue
         if k.get("msg_contains") and k["msg_contains"] not in (f.get("msg") or ""): continue
         if k.get("snippet_contains") and k["snippet_contains"] not in (f.get("snippet") or ""): continue
         return k["id"]

@@ -385,9 +385,23 @@
    "url": "/ai-website-builder/subscription",
    "expires": "2026-11-17",
    "note": "redirect target not 200 (Divit 2026-11-03); fixed in reports/2026-11-03/redirects-final-v2.csv -> /ai-website-builder/membership, ships with the next planned domain publish"
+  },
+  {
+   "id": "hero-backlog-prompt",
+   "code": "A9-prompt",
+   "urls_file": "plan/hero-backlog-urls.txt",
+   "expires": "2026-11-19",
+   "note": "Divit 2026-11-05: the hero-prompt rewrite for live pages is ON HOLD as backlog; these 280 specs carry the new prompt, the live page still has the old one, so the prefill/chip checks compare against an unshipped spec. Clears as each page ships; remove when the backlog ships."
+  },
+  {
+   "id": "hero-backlog-chip-fight",
+   "code": "A9-chip-fight",
+   "urls_file": "plan/hero-backlog-urls.txt",
+   "expires": "2026-11-19",
+   "note": "Divit 2026-11-05: the hero-prompt rewrite for live pages is ON HOLD as backlog; these 280 specs carry the new prompt, the live page still has the old one, so the prefill/chip checks compare against an unshipped spec. Clears as each page ships; remove when the backlog ships."
   }
  ],
- "_note_known_open_issues": "known_open_issues (A 2026-10-26, Divit: count REAL failures only): a P0/P1 finding that matches an entry (same code and the msg_contains/snippet_contains text) is reported as known, not as a real fail, in ops/audit_status.py (line, watchdog, last_success.json real_fails). The finding itself is still recorded. Remove an entry when its issue is fixed. G2 removed 2026-10-26: Learn card titles are now exempt in the audit itself (ops/live_audit.py strip_learn_cards). Optional keys (2026-11-03): url (exact finding url) and expires (YYYY-MM-DD UTC; from that date the entry matches nothing and its findings count as real again).",
+ "_note_known_open_issues": "known_open_issues (A 2026-10-26, Divit: count REAL failures only): a P0/P1 finding that matches an entry (same code and the msg_contains/snippet_contains text) is reported as known, not as a real fail, in ops/audit_status.py (line, watchdog, last_success.json real_fails). The finding itself is still recorded. Remove an entry when its issue is fixed. G2 removed 2026-10-26: Learn card titles are now exempt in the audit itself (ops/live_audit.py strip_learn_cards). Optional keys (2026-11-03): url (exact finding url) and expires (YYYY-MM-DD UTC; from that date the entry matches nothing and its findings count as real again). Optional key urls_file (2026-11-05): a repo file of URLs; the entry matches only findings on those URLs.",
  "console_network_retry": "^Failed to load resource: (net::ERR_(SOCKET_NOT_CONNECTED|CONNECTION_RESET|NAME_NOT_RESOLVED|TIMED_OUT|NETWORK_CHANGED)|the server responded with a status of (429|5\\d\\d)\\b.*)\\s*$",
  "_note_console_network_retry": "Divit 2026-11-03 (B-dev-21): a console entry that is PURELY a failed resource load on the network (this regex on its whole text, kind log, with the resource URL as its source) counts as A9-console only when that URL still fails on a direct retry (ops/live_audit.mjs statusRetry: up to 3 re-tries with backoff; ok = 2xx). Script errors, page errors and every other console text are never re-tried and always count. Same code on the Mac and GitHub Actions runners."
 }
