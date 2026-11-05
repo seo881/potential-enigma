@@ -2,6 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-11-05 · [1600-new-pages-first](2026-11-05/1600-new-pages-first.md) · new pages first: 22 written, 8 reworks fixed, 19 pass ship-check, B-ship-7 shipping; writing paused at Divit's 10% message; QC L15, keyword_forms hyphenation, hero-backlog known issue · 1ca42d57
 - 2026-11-05 · [1000-quiz-unblock](2026-11-05/1000-quiz-unblock.md) · B-quiz-2: quiz height fix already staged and live (read-only check, no write); staging CLS all < 0.01; cls.mjs committed; one pre-publish checklist (quiz + redirect v2 + canary) · adfc1816
 - 2026-11-03 · [1400-max-throughput-ship-first](2026-11-03/1400-max-throughput-ship-first.md) · Coordinator B-c-1: 59 shipped (359 -> 417 live), 0 errors, verify-live 59/59; hold ownership (current coordinator), review lock, revoked-draft re-approval, DJ acronym; redirect check on both runners; v2 redirect CSV prepared (not imported) · dac88909
 - 2026-11-03 · [ship-run](2026-11-03/ship-run.md) · B-ship-5: 58 pages item-published under Divit's standing/named go (Form 31, LP 18, Auto 3, SQ 6), 0 publish errors, no site publish; live 359 -> 417; 504'd Form create found to have written 22 drafts (no retry); approval-workflow already live = spec · see report
