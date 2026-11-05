@@ -24,7 +24,7 @@
   "feature_1": "<h3>An intake link with every booking</h3><p>A new appointment in your scheduling system starts the intake, and the app emails the patient a link that same minute. A new patient and a returning one can get different forms.</p>",
   "feature_2": "<h3>Reminders that end in a call list</h3><p>Choose when an unfinished intake gets a reminder email and when it moves to a person instead. Open intakes land on a front desk list sorted by visit time, with phone numbers.</p>",
   "feature_3": "<h3>Card photos read into plan fields</h3><p>Patients photograph the front and back of their insurance card, and AI turns each photo into fields. A value read with low confidence goes to a person before the record is saved.</p>",
-  "feature_4": "<h3>Answers routed to one named person</h3><p>Write a rule for any answer staff must act on, such as an allergy or a missing referral. The app messages that person in Slack, by email, or in the app, and logs who was told.</p>",
+  "feature_4": "<h3>Answers routed to one named person</h3><p>Write a rule for any answer staff must act on, such as an allergy or a missing referral. The app tells that person in Slack, by email, or in the app that a record needs review.</p>",
   "feature_5": "<h3>A live board of tomorrow's arrivals</h3><p>The dashboard lists tomorrow's patients with each intake marked finished, open, or held, and it updates as answers come in. Every answer is saved to a database you own.</p>",
   "feature_6": "<h3>The intake app's code, in your GitHub</h3><p>Export the full code of the intake app to your GitHub repository on paid plans. A developer can host it on your own servers and connect it to new software as the practice adds it.</p>",
   "why_title": "Why Automate Patient Intake With Emergent?",
@@ -37,9 +37,9 @@
   "tab_label_4": "Duplicate Records",
   "tab_content_1": "<h3>By 4 p.m. Wednesday, 3 open intakes reach the front desk</h3><p>Brindlewood Dermatology has 24 new patients booked for Thursday. Each one got an intake link by email at booking, and anyone unfinished got a reminder 2 days before the visit. By 4 p.m. Wednesday, 21 intakes are complete. The app sends the 3 still open to Ilsabet Aldecoa, the front desk lead, as a call list.</p>",
   "tab_content_2": "<h3>Billing checks a member ID that is one digit off</h3><p>Cormac Tennant photographs both sides of his insurance card for a Monday knee consult at Coldharbor Orthopedics. AI reads the member ID from the front. He typed QX4471902, but the card reads QX4471962. The app holds the intake for Odhran Fairclough, the billing coordinator.</p>",
-  "tab_content_3": "<h3>Before Tuesday, a latex allergy reaches the surgical assistant</h3><p>Saoirse Ebbesen is booked for a tooth extraction at Hollins Creek Oral Surgery on Tuesday at 8:00 a.m. On Sunday at 7:12 p.m., she answers yes to the latex allergy question. The app sends a direct message to Ysella Quellet, Tuesday's surgical assistant, and flags latex on the day sheet.</p>",
+  "tab_content_3": "<h3>Before Tuesday, a latex allergy reaches the day sheet</h3><p>Saoirse Ebbesen is booked for an extraction at Hollins Creek Oral Surgery on Tuesday at 8:00 a.m. On Sunday at 7:12 p.m., she answers yes to the latex allergy question. The app flags latex on the day sheet and tells Ysella Quellet, Tuesday's surgical assistant, that an intake needs review.</p>",
   "tab_content_4": "<h3>Two possible duplicates stay out of the patient records</h3><p>Pallas Ridge Sleep Clinic sends each finished intake to its scheduling system through its API. On Monday, 41 intakes finish, and 39 become new patient records. The other 2 share a last name and date of birth with an existing patient, and wait in a merge queue for Fenella Sarvari, the records lead.</p>",
-  "mockup": "<p id=\"\">window.awbMockup = { intakeReminders: \"Email every new patient an intake link the moment they book. Two days before the visit, email a reminder to anyone who has not finished. At 4 p.m. the day before, send the front desk lead a call list of the intakes still open, with each patient's visit time and phone number, earliest visit first.\", insuranceCards: \"Ask each patient to photograph the front and back of their insurance card during intake. Read the plan name, group number, and member ID from the front of the card. If the member ID read from the card does not match the one the patient typed, hold the intake for my billing coordinator to check before the visit.\", allergyAlerts: \"Add a latex allergy question to the intake for every procedure visit. When a patient answers yes, send a direct message to the surgical assistant on that day's schedule with the patient's name and visit time, and add a latex flag next to the patient on the day sheet.\", duplicateRecords: \"Send each finished intake to my scheduling system through its API as a new patient record. If the last name and date of birth match an existing patient, hold the intake in a merge queue for my records lead instead of creating a record. Show each day's count of new records and held intakes.\" };</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { intakeReminders: \"Email every new patient an intake link the moment they book. Two days before the visit, email a reminder to anyone who has not finished. At 4 p.m. the day before, send the front desk lead a call list of the intakes still open, with each patient's visit time and phone number, earliest visit first.\", insuranceCards: \"Ask each patient to photograph the front and back of their insurance card during intake. Read the plan name, group number, and member ID from the front of the card. If the member ID read from the card does not match the one the patient typed, hold the intake for my billing coordinator to check before the visit.\", allergyAlerts: \"Add a latex allergy question to the intake for every procedure visit. When a patient answers yes, add a latex flag next to the patient on the day sheet, and message the surgical assistant on that day's schedule that a new intake needs review before surgery. Keep the allergy answer in the app, not in the message.\", duplicateRecords: \"Send each finished intake to my scheduling system through its API as a new patient record. If the last name and date of birth match an existing patient, hold the intake in a merge queue for my records lead instead of creating a record. Show each day's count of new records and held intakes.\" };</p>",
   "howto_title": "How to Automate Patient Intake",
   "howto_description": "Seven steps to map your intake, give every exception an owner, and build patient intake automation with Emergent.",
   "howto_step_1_title": "01 Write down how intake runs today",
@@ -82,7 +82,7 @@
   },
   "tab_image_3": {
    "path": "images/aab/patient-intake/uc-3.svg",
-   "alt": "A patient answers yes to the latex allergy question on her phone on Sunday at 7:12 p.m., and the surgical assistant gets a direct message before her Tuesday 8:00 a.m. extraction.",
+   "alt": "A patient answers yes to the latex allergy question on her phone on Sunday at 7:12 p.m., the day sheet flags latex, and the surgical assistant is asked to review her intake before the Tuesday 8:00 a.m. extraction.",
    "file_id": "6aec581230e7165c1ab2d824",
    "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6aec581230e7165c1ab2d824_uc-3.svg"
   },
@@ -161,6 +161,13 @@
    "state": "cms_draft",
    "via": null,
    "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-11-05 10:32 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-473",
    "note": ""
   }
  ],
@@ -331,7 +338,7 @@
  "chip_adds": [
   "Add intake reminders 2 days out and a front desk call list for any still open.",
   "Add card photo checks that compare the member ID a patient types with the one on the card.",
-  "Add allergy alerts that message the procedure nurse when a patient answers yes to latex.",
+  "Add allergy alerts that flag latex and ask the surgical assistant to review the intake.",
   "Add record sync to my scheduling system that holds possible duplicate patients."
  ],
  "image_brief": {
@@ -574,7 +581,7 @@
    {
     "recipe": "R4",
     "title": "Allergy alerts",
-    "prompt": "Message the surgical assistant when a patient answers yes to latex allergy",
+    "prompt": "Flag latex allergies on the day sheet and ask the surgical assistant to review the intake",
     "main": {
      "blocks": [
       {
@@ -658,11 +665,11 @@
     "hero": {
      "kind": "card",
      "app": true,
-     "app_sub": "Direct message to Ysella",
+     "app_sub": "Message to Ysella",
      "blocks": [
       {
        "type": "title",
-       "title": "Latex allergy: Saoirse Ebbesen",
+       "title": "Intake to review: Saoirse Ebbesen",
        "size": 20,
        "sub": "Tuesday, 8:00 a.m. extraction"
       },
@@ -670,25 +677,25 @@
        "type": "meta",
        "icon": "clock",
        "kind": "warn",
-       "text": "Answered yes Sunday, 7:12 p.m."
+       "text": "Finished Sunday, 7:12 p.m."
       },
       {
        "type": "meta",
        "icon": "flag",
        "kind": "bad",
-       "text": "Latex flag on the day sheet"
+       "text": "Review before surgery"
       }
      ],
      "action": {
-      "label": "Open day sheet",
+      "label": "Open intake",
       "icon": "arrow-right"
      }
     },
-    "alt": "A patient answers yes to the latex allergy question on her phone on Sunday at 7:12 p.m., and the surgical assistant gets a direct message before her Tuesday 8:00 a.m. extraction.",
+    "alt": "A patient answers yes to the latex allergy question on her phone on Sunday at 7:12 p.m., the day sheet flags latex, and the surgical assistant is asked to review her intake before the Tuesday 8:00 a.m. extraction.",
     "story": [
      {
       "copy": "Saoirse Ebbesen",
-      "image": "Latex allergy: Saoirse Ebbesen"
+      "image": "Intake to review: Saoirse Ebbesen"
      },
      {
       "copy": "Tuesday at 8:00 a.m.",
@@ -696,15 +703,15 @@
      },
      {
       "copy": "On Sunday at 7:12 p.m.",
-      "image": "Answered yes Sunday, 7:12 p.m."
+      "image": "Sent Sun 7:12 p.m."
      },
      {
       "copy": "Ysella Quellet",
-      "image": "Direct message to Ysella"
+      "image": "Message to Ysella"
      },
      {
-      "copy": "flags latex on the day sheet",
-      "image": "Latex flag on the day sheet"
+      "copy": "on the day sheet",
+      "image": "Tuesday day sheet"
      }
     ]
    },
@@ -1247,6 +1254,36 @@
    "by": "B-c-1",
    "reason": "Divit 2026-11-05 rulings 1-2: health details in transit / cross-field mismatches always blocking; fixing the reviewer's note",
    "date": "2026-11-05 10:29 UTC"
+  },
+  {
+   "field": "chip_adds",
+   "by": "B-c-1",
+   "reason": "Divit 2026-11-05 rulings 1-2: health details in transit / cross-field mismatches always blocking; fixing the reviewer's note",
+   "date": "2026-11-05 10:32 UTC"
+  },
+  {
+   "field": "image_brief",
+   "by": "B-c-1",
+   "reason": "Divit 2026-11-05 rulings 1-2: health details in transit / cross-field mismatches always blocking; fixing the reviewer's note",
+   "date": "2026-11-05 10:32 UTC"
+  },
+  {
+   "field": "tab_content_3",
+   "by": "B-c-1",
+   "reason": "Divit 2026-11-05 rulings 1-2: health details in transit / cross-field mismatches always blocking; fixing the reviewer's note",
+   "date": "2026-11-05 10:32 UTC"
+  },
+  {
+   "field": "feature_4",
+   "by": "B-c-1",
+   "reason": "Divit 2026-11-05 rulings 1-2: health details in transit / cross-field mismatches always blocking; fixing the reviewer's note",
+   "date": "2026-11-05 10:32 UTC"
+  },
+  {
+   "field": "mockup",
+   "by": "B-c-1",
+   "reason": "Divit 2026-11-05 rulings 1-2: health details in transit / cross-field mismatches always blocking; fixing the reviewer's note",
+   "date": "2026-11-05 10:32 UTC"
   }
  ]
 }
