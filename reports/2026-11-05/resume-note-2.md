@@ -13,3 +13,9 @@ FIRST: read reports/2026-11-05/ship-run.md (B-ship-7's tally). Any new page in s
 - 6 LIVE pages with spec fixes (spec only, not yet on Webflow): solar, acupuncture-intake, coaching-application, cleaning-quote (passed slim; a second feature_5 fix B-w-483 running, needs slim review), chiropractic-intake (slim review B-hs-26 running), telehealth (slim review B-hs-27 running). All need Divit's go for api-update + item publish (R3 re-approval by Divit).
 - Pre-publish checklist agent B-pub-1 was running: reports/2026-11-05/pre-publish-checklist.md (a-d GREEN/RED). No domain publish ever by Claude.
 - Live registry (status/live.json, 437) still lists the 6 live fixed pages, so the audit keeps covering them despite their workflow state.
+
+## Update 2 (after the usage reset)
+- B-ship-7 done: 19 new pages live (436 total), verify-live 19/19, reports/2026-11-05/ship-run.md (091f65f0). Post-ship audit queued as postship-2026-11-05 (starts when the audit lock frees).
+- All 7 rulings-1-2 fixes are slim-reviewed PASS (solar, telehealth, chiropractic-intake, acupuncture-intake, cleaning-quote, coaching-application live; patient-intake CMS draft). Only R3 blocks them: Divit runs `bash ops/livefix_reapprove.sh` (b111c0f4), then ONE ship agent: api-update changed fields on the 6 live items + item publish, update patient-intake's draft (old content) + publish, verify-live, post-ship audit.
+- Audit 2026-11-05 13:07 UTC (GitHub, 436 pages): 4 real fails = spec-vs-live drift on chiropractic-intake, cleaning-quote, solar, telehealth (the unshipped fixes). Clears when they ship. Mac run kept under audits/live/2026-11-05/mac/.
+- Open note: cleaning-quote hero/meta descriptions say it prices each home by rooms and extras (no site-walk exception); a general claim, left as a note.
