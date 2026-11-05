@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-422",
    "note": ""
+  },
+  {
+   "t": "2026-11-05 10:11 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-435",
+   "note": "[truth | HUB_RULES 8] features_subheading: An each/every claim about the six features that is false for most of them (rework-checklist 7, Divit 2026-11-03): feature_3 'A price on screen from your rates' shows the customer an estimate, feature_4 'Each request routed to the right estimator' routes, fe"
   }
  ],
  "pipeline": "r15",
@@ -971,5 +978,275 @@
  ],
  "writers": [
   "B-w-422"
- ]
+ ],
+ "review": {
+  "by": "B-r-435",
+  "date": "2026-11-05 10:11 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Construction Quote Form That Prices Each Job'; hero 'Build a construction quote form that collects measurements and site photos, then prices the job from your own rates.' (under 130 chars, primary, Build-led); how-to description one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder intent for contractors: job-type questions, photos and plans, on-screen price from your rates, routing, signed quote; how-to 'List the jobs you quote most' to 'Send the itemized quote to sign'; comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Contractor vocabulary throughout: 'feet of cabinets', 'whether an old slab comes out', 'tenant fit-out', 'site walk'; table uses vetted single-vendor entries."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Pick a kitchen remodel and the form asks...', 'Tollgate Concrete prices driveways at $9 a square foot...', 'Pull up your last year of quotes...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q5/Q7 clear; sentences short and concrete, e.g. 'He signs to accept it.' Notes only."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain operator voice with unglamorous detail: '12 by 14 foot room, 18 feet of cabinets', 'a draft that changed twice'. No AI tells (QC A1 clear)."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "features_subheading: 'These six parts collect what the estimator needs the first time.' is false for feature_3 (shows a price to the customer), feature_4 (routing), feature_5 (quote signing) and feature_6 (database), which collect nothing. Numbers otherwise check: 24x30=720; 720x$9=$6,480; 720x$2=$1,440; $7,920. $6,200+$4,800+$3,900+$5,100=$20,000. claims_used all approved."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own story set (kitchen, driveway, tenant fit-out, basement) and own heading shapes; sibling primaries (proposal form, RFP form, sponsorship form) appear only as FAQ link anchors, not headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, answer-first ('Yes, from rates you set.'); hub link in item 2; sibling links proposal form (4), RFP form (7), sponsorship form (10); paa --spec 10 pass, 0 reject, 0 flag; moat lines in 5, 9, 10."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: Corvallo form (Project type, Room size 12 by 14, Cabinets 18 feet, Site address, 3 photos) and email to Tobias Kwan with site walk Thursday; Tollgate $6,480 + $1,440 = $7,920; Brightquay table with Venn Pediatrics 5,200 sq ft to Bastian Roe, rest Queue; Pellwick lines totalling $20,000 and email to Ruben Iyer. Fields agree with mockups."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "features_subheading",
+    "quote": "These six parts collect what the estimator needs the first time.",
+    "issue": "An each/every claim about the six features that is false for most of them (rework-checklist 7, Divit 2026-11-03): feature_3 'A price on screen from your rates' shows the customer an estimate, feature_4 'Each request routed to the right estimator' routes, feature_5 'Quotes accepted with a signature' collects the customer's acceptance after pricing, and feature_6 'Every request in a database you own' stores. Only features 1 and 2 collect what the estimator needs. No other each/all claim on the page is false (checked H1, howto_description, why_description, every feature and step).",
+    "fix": "Drop the 'six parts collect' claim and describe the form as a whole, e.g. 'The form asks for the measurements and photos up front, prices the job from your rates and gets the signed quote back.'",
+    "severity": "blocking"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 10",
+    "quote": "requests for the company to back a local youth team go on a sponsorship form",
+    "issue": "Writer's flagged code-placed link: it reads acceptably (contractors do get sponsorship asks) but the circumlocution 'requests for the company to back a local youth team' is wordier than the other two examples in the list.",
+    "fix": "Optional: 'and youth-team sponsorship asks go on a sponsorship form'.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 10",
+    "quote": "Forms built with Emergent have no response caps.",
+    "issue": "The moat line does not bear on the question (keeping quote requests apart from other inquiries); it reads appended.",
+    "fix": "Tie it to the question, e.g. each form saving to its own table in the database you own.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "tab_title_1, howto_step_4_des, faq item 6, chip_adds[0]",
+    "quote": "the estimator sees it before the site walk",
+    "issue": "The estimator-sees-photos-before-the-visit idea recurs: tab 1 H3 'The estimator sees 3 kitchen photos before the site walk', step 4 'The estimator can then plan the site walk before arriving', FAQ 6 'the estimator sees it before the site walk', chip 'so the estimator sees each room before the visit'. QC Q9 also counts 'estimator' 17 times outside the FAQ.",
+    "fix": "Let step 4 or FAQ 6 add something new (what the photos let the estimator rule out).",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 4",
+    "quote": "A quote fits a settled scope where the customer mainly needs the price.",
+    "issue": "Framed as a general rule about quotes versus proposals with no domain source; reads as guidance, so a note.",
+    "fix": "Phrase as advice: 'Use a quote when the scope is settled and only the price is open.'",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 10",
+   "issue": "Writer's flagged code-placed link: it reads acceptably (contractors do get sponsorship asks) but the circumlocution 'requests for the company to back a local youth team' is wordier than the other two examples in the list.",
+   "fix": "Optional: 'and youth-team sponsorship asks go on a sponsorship form'.",
+   "by": "B-r-435",
+   "via": "review",
+   "date": "2026-11-05 10:11 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 10",
+   "issue": "The moat line does not bear on the question (keeping quote requests apart from other inquiries); it reads appended.",
+   "fix": "Tie it to the question, e.g. each form saving to its own table in the database you own.",
+   "by": "B-r-435",
+   "via": "review",
+   "date": "2026-11-05 10:11 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "tab_title_1, howto_step_4_des, faq item 6, chip_adds[0]",
+   "issue": "The estimator-sees-photos-before-the-visit idea recurs: tab 1 H3 'The estimator sees 3 kitchen photos before the site walk', step 4 'The estimator can then plan the site walk before arriving', FAQ 6 'the estimator sees it before the site walk', chip 'so the estimator sees each room before the visit'. QC Q9 also counts 'estimator' 17 times outside the FAQ.",
+   "fix": "Let step 4 or FAQ 6 add something new (what the photos let the estimator rule out).",
+   "by": "B-r-435",
+   "via": "review",
+   "date": "2026-11-05 10:11 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 4",
+   "issue": "Framed as a general rule about quotes versus proposals with no domain source; reads as guidance, so a note.",
+   "fix": "Phrase as advice: 'Use a quote when the scope is settled and only the price is open.'",
+   "by": "B-r-435",
+   "via": "review",
+   "date": "2026-11-05 10:11 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "4f0fec3e70cb5a2a",
+   "alt:share_image": "314b5b7b1ca30d93",
+   "alt:tab_image_1": "48881069924e4290",
+   "alt:tab_image_2": "88de7449f08acd1a",
+   "alt:tab_image_3": "d8561edfe05e1da6",
+   "alt:tab_image_4": "811ece108a7ceb43",
+   "breadcrumb": "650f6ce5c08217eb",
+   "chip_adds": "5fe0e181bee15738",
+   "explore_cta": "248ed90d5f588366",
+   "faq": "c4cdbc06c827ee8b",
+   "feature_1": "4d7c3eed33ae7525",
+   "feature_2": "63b1e0127982b092",
+   "feature_3": "1ed18ed7b4b231f2",
+   "feature_4": "f952ce18252c4a07",
+   "feature_5": "060d703fabb61d1d",
+   "feature_6": "b6fdd0eadb9e217c",
+   "features_heading": "2f819433af9b476a",
+   "features_subheading": "e07dc8e3cc26ec25",
+   "h1": "bc1d7e24b7067955",
+   "hero_description": "65a1f6dc09fc7015",
+   "hero_prompt": "5e3361ec0eb7de5b",
+   "howto_description": "a7adc105a44c1177",
+   "howto_step_1_des": "da03c986acd3ee70",
+   "howto_step_1_title": "68c7843f6784eed1",
+   "howto_step_2_des": "732154b56dbb517f",
+   "howto_step_2_title": "b483649439a11f16",
+   "howto_step_3_des": "f3bdbb9296b46845",
+   "howto_step_3_title": "1da80cf1e9f1a0df",
+   "howto_step_4_des": "423073d54c6ca457",
+   "howto_step_4_title": "2c9c0a8f3eeedc55",
+   "howto_step_5_des": "7fa3dd5086fb01f0",
+   "howto_step_5_title": "8c5928fe50dc7c00",
+   "howto_step_6_des": "b4e1cdb247045f55",
+   "howto_step_6_title": "2e56356beea6bfcf",
+   "howto_step_7_des": "4cbde54f7c75ac19",
+   "howto_step_7_title": "4c7b88c7863543da",
+   "howto_title": "1af27430d1b0c84e",
+   "meta_description": "986db448e4846443",
+   "meta_title": "b39224b8df5cf91c",
+   "mockup": "85503cc1b0162366",
+   "product_name": "7fa998d54a1c3fb2",
+   "prompt_chip_1": "9784bd78dfbe6a84",
+   "prompt_chip_2": "c3bd6cd76b62711d",
+   "prompt_chip_3": "cf6c97932102a8fe",
+   "prompt_chip_4": "a7ed944c3c0db70a",
+   "slug": "55a136dea85ee198",
+   "tab_content_1": "58b0b4cb69f08cd5",
+   "tab_content_2": "48940a64c2ddb708",
+   "tab_content_3": "1d417748c091441f",
+   "tab_content_4": "9e3443b8d370b3fe",
+   "tab_label_1": "acb8ec299384db8f",
+   "tab_label_2": "43d614b74af389ce",
+   "tab_label_3": "860b3140b3400d08",
+   "tab_label_4": "d96cf0b981834c33",
+   "usecase_heading": "39fe3b51725080dd",
+   "why_description": "4e8511f1af79b121",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "3cce130a75c9838e"
+  },
+  "all": "2a2341a0345bce95",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "4f0fec3e70cb5a2a",
+   "alt:share_image": "314b5b7b1ca30d93",
+   "alt:tab_image_1": "48881069924e4290",
+   "alt:tab_image_2": "88de7449f08acd1a",
+   "alt:tab_image_3": "d8561edfe05e1da6",
+   "alt:tab_image_4": "811ece108a7ceb43",
+   "breadcrumb": "650f6ce5c08217eb",
+   "chip_adds": "5fe0e181bee15738",
+   "explore_cta": "248ed90d5f588366",
+   "faq": "c4cdbc06c827ee8b",
+   "feature_1": "4d7c3eed33ae7525",
+   "feature_2": "63b1e0127982b092",
+   "feature_3": "1ed18ed7b4b231f2",
+   "feature_4": "f952ce18252c4a07",
+   "feature_5": "060d703fabb61d1d",
+   "feature_6": "b6fdd0eadb9e217c",
+   "features_heading": "2f819433af9b476a",
+   "features_subheading": "e07dc8e3cc26ec25",
+   "h1": "bc1d7e24b7067955",
+   "hero_description": "65a1f6dc09fc7015",
+   "hero_prompt": "5e3361ec0eb7de5b",
+   "howto_description": "a7adc105a44c1177",
+   "howto_step_1_des": "da03c986acd3ee70",
+   "howto_step_1_title": "68c7843f6784eed1",
+   "howto_step_2_des": "732154b56dbb517f",
+   "howto_step_2_title": "b483649439a11f16",
+   "howto_step_3_des": "f3bdbb9296b46845",
+   "howto_step_3_title": "1da80cf1e9f1a0df",
+   "howto_step_4_des": "423073d54c6ca457",
+   "howto_step_4_title": "2c9c0a8f3eeedc55",
+   "howto_step_5_des": "7fa3dd5086fb01f0",
+   "howto_step_5_title": "8c5928fe50dc7c00",
+   "howto_step_6_des": "b4e1cdb247045f55",
+   "howto_step_6_title": "2e56356beea6bfcf",
+   "howto_step_7_des": "4cbde54f7c75ac19",
+   "howto_step_7_title": "4c7b88c7863543da",
+   "howto_title": "1af27430d1b0c84e",
+   "meta_description": "986db448e4846443",
+   "meta_title": "b39224b8df5cf91c",
+   "mockup": "85503cc1b0162366",
+   "product_name": "7fa998d54a1c3fb2",
+   "prompt_chip_1": "9784bd78dfbe6a84",
+   "prompt_chip_2": "c3bd6cd76b62711d",
+   "prompt_chip_3": "cf6c97932102a8fe",
+   "prompt_chip_4": "a7ed944c3c0db70a",
+   "slug": "55a136dea85ee198",
+   "tab_content_1": "58b0b4cb69f08cd5",
+   "tab_content_2": "48940a64c2ddb708",
+   "tab_content_3": "1d417748c091441f",
+   "tab_content_4": "9e3443b8d370b3fe",
+   "tab_label_1": "acb8ec299384db8f",
+   "tab_label_2": "43d614b74af389ce",
+   "tab_label_3": "860b3140b3400d08",
+   "tab_label_4": "d96cf0b981834c33",
+   "usecase_heading": "39fe3b51725080dd",
+   "why_description": "4e8511f1af79b121",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "3cce130a75c9838e"
+  },
+  "all": "2a2341a0345bce95",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
