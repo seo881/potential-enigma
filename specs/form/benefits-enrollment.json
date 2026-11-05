@@ -23,7 +23,7 @@
   "features_subheading": "Describe your plans and enrollment rules. Emergent builds the form employees fill in, the deadlines behind it, and the tables HR reads.",
   "feature_1": "<h3>Plans side by side, priced per paycheck</h3><p>Show each medical plan with its deductible and the employee's cost per paycheck. Switching the tier from employee only to family reprices every plan on the same screen.</p>",
   "feature_2": "<h3>A row for each person covered</h3><p>Add a spouse or child with name, relationship, and date of birth. Each dependent is tied to the plans they join. Dental can cover the kids while medical covers one adult.</p>",
-  "feature_3": "<h3>Deadlines counted from the right date</h3><p>The app counts each window from the employee's start date or event date and closes it when the days run out. Reminder emails go out 7 days and 2 days before the end.</p>",
+  "feature_3": "<h3>Deadlines counted from the right date</h3><p>The app counts each window from the employee's start date or event date and closes it when the days run out. Anyone not done gets a reminder email 3 days before the end.</p>",
   "feature_4": "<h3>Waivers with the reason on file</h3><p>An employee who declines coverage picks a reason, names the other plan if there is one, and signs. The waiver lands in the same table as an election, under the same employee.</p>",
   "feature_5": "<h3>Every election in a table you own</h3><p>Elections save to a database you own, one row per employee and plan. The HR dashboard shows who has finished and who has waived, plus how many days each open form has left.</p>",
   "feature_6": "<h3>The whole form, exported to GitHub</h3><p>On paid plans, export the full codebase to your GitHub repository and run it next to your HR systems. Keep changing the form by prompt after export, or edit the code by hand.</p>",
@@ -37,7 +37,7 @@
   "tab_label_4": "Coverage Waivers",
   "tab_content_1": "<h3>Gareth picks Silver PPO for two on day 4 of 30</h3><p>Dorrance Millwork gives each new hire 30 days to enroll. On day 4, Gareth Linwood compares 3 medical plans for employee and spouse: Bronze HDHP at $38, Silver PPO at $96, and Gold PPO at $151 a paycheck. He takes Silver PPO and dental, not vision. The elections save to the HR table with 26 days to spare.</p>",
   "tab_content_2": "<h3>All but 28 of 140 staff enroll by day 11</h3><p>Aldergrove Animal Hospital opens enrollment for 14 days each fall, and every form starts with last year's elections filled in. By day 11, 112 of the 140 staff have submitted. The other 28 get an email reminder with their own link, and Yesenia Dunleavy in HR watches the count on her dashboard.</p>",
-  "tab_content_3": "<h3>From the day he was born, Bogdan's son is covered</h3><p>Bogdan Truett opens the form at Tuckahoe Brewing 9 days after his son is born. He picks Birth as the event and adds his son to medical and dental. The form shows 21 days left of the 30 days he has to notify the plan, and HR gets the request by email when he submits. His son's coverage starts on the date of birth.</p>",
+  "tab_content_3": "<h3>Bogdan's son is on medical from the day he was born</h3><p>Bogdan Truett opens the form at Tuckahoe Brewing 9 days after his son is born. He picks Birth as the event and adds his son to medical and dental. The form shows 21 days left of his 30 days to notify the plan, and HR gets the request by email when he submits. His son's medical coverage starts on the date of birth.</p>",
   "tab_content_4": "<h3>Pilar's medical waiver is signed and on file</h3><p>Pilar Kaskade is covered on her spouse's plan, so she waives medical at Baylock Bakery and keeps dental. The waiver asks for her reason and the other plan's carrier, Wenlock Health, then her signature. It saves under her employee record, and the HR table now shows 9 of Baylock's 46 staff with a signed waiver.</p>",
   "mockup": "<p id=\"\">window.awbMockup = { newHires: \"Build a benefits enrollment form for my new hires. Each person gets 30 days from their start date. Show 3 medical plans side by side with the cost per paycheck for the coverage tier they pick, then dental and vision as add or skip choices. Save the elections to my HR table and show how many days each person has left.\", openEnrollment: \"Run my open enrollment for 14 days. Start each employee's form with last year's elections filled in so keeping a plan takes one click. Three days before it closes, email everyone who has not submitted a reminder with their own link, and show me on a dashboard how many of my 140 staff have finished.\", lifeEvents: \"Add a life event path to my benefits enrollment form. An employee picks birth, adoption, or marriage, enters the date, and adds the new dependent with name, relationship, and date of birth. Show how many of the 30 days to notify the plan are left, and email my HR inbox the request on submit.\", coverageWaivers: \"Let my employees waive a benefit they do not need. The waiver asks for a reason and the carrier of the other plan they are on, then takes their signature. Save each waiver under the employee's record next to their other elections, and show me how many staff have a signed waiver on file.\" };</p>",
   "howto_title": "How to Create a Benefits Enrollment Form",
@@ -65,7 +65,7 @@
   "prompt_chip_2": "Dependents",
   "prompt_chip_3": "Life Event Changes",
   "prompt_chip_4": "Coverage Waivers",
-  "hero_prompt": "<p>Build a benefits enrollment form where my new hires compare 3 medical plans, pick dental and vision, and sign before their 30-day window closes.</p>"
+  "hero_prompt": "<p>Build a benefits enrollment form where my new hires compare 3 medical plans and pick dental and vision before their 30-day window closes.</p>"
  },
  "images": {
   "tab_image_1": {
@@ -122,6 +122,13 @@
    "via": "review",
    "by": "B-r-438",
    "note": "rubric 10/10 by B-r-438; 4 notes"
+  },
+  {
+   "t": "2026-11-05 10:32 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-474",
+   "note": ""
   }
  ],
  "pipeline": "r15",
@@ -620,7 +627,7 @@
          "9"
         ],
         [
-         "Coverage starts",
+         "Medical starts",
          "Date of birth"
         ]
        ]
@@ -643,7 +650,7 @@
        "type": "meta",
        "icon": "calendar",
        "kind": "acc",
-       "text": "Coverage starts on the date of birth"
+       "text": "Medical starts on the date of birth"
       },
       {
        "type": "meta",
@@ -672,7 +679,7 @@
       "image": "21 days left"
      },
      {
-      "copy": "the 30 days he has to notify the plan",
+      "copy": "his 30 days to notify the plan",
       "image": "Birth → 30 days to notify the plan"
      },
      {
@@ -684,8 +691,8 @@
       "image": "Medical and dental"
      },
      {
-      "copy": "coverage starts on the date of birth",
-      "image": "Coverage starts on the date of birth"
+      "copy": "medical coverage starts on the date of birth",
+      "image": "Medical starts on the date of birth"
      }
     ],
     "alt": "Bogdan Truett adds his newborn son to medical and dental 9 days after the birth, the form shows 21 days left of 30, and HR gets the request by email."
@@ -1018,8 +1025,8 @@
   }
  ],
  "qc_passed": {
-  "rules_version": "c28d39bd6817",
-  "date": "2026-11-05 10:08 UTC"
+  "rules_version": "fc4d1e2171ed",
+  "date": "2026-11-05 10:32 UTC"
  },
  "learn_refs": [
   "6a6093ffbb922a09179ffb6a",
@@ -1300,6 +1307,48 @@
    "by": "B-c-1",
    "reason": "Divit 2026-11-05 rulings 1-2: health details in transit / cross-field mismatches always blocking; fixing the reviewer's note",
    "date": "2026-11-05 10:29 UTC"
+  },
+  {
+   "field": "feature_3",
+   "by": "B-c-1",
+   "reason": "Divit 2026-11-05 rulings 1-2: health details in transit / cross-field mismatches always blocking; fixing the reviewer's note",
+   "date": "2026-11-05 10:32 UTC"
+  },
+  {
+   "field": "tab_content_1",
+   "by": "B-c-1",
+   "reason": "Divit 2026-11-05 rulings 1-2: health details in transit / cross-field mismatches always blocking; fixing the reviewer's note",
+   "date": "2026-11-05 10:32 UTC"
+  },
+  {
+   "field": "tab_content_2",
+   "by": "B-c-1",
+   "reason": "Divit 2026-11-05 rulings 1-2: health details in transit / cross-field mismatches always blocking; fixing the reviewer's note",
+   "date": "2026-11-05 10:32 UTC"
+  },
+  {
+   "field": "tab_content_3",
+   "by": "B-c-1",
+   "reason": "Divit 2026-11-05 rulings 1-2: health details in transit / cross-field mismatches always blocking; fixing the reviewer's note",
+   "date": "2026-11-05 10:32 UTC"
+  },
+  {
+   "field": "hero_prompt",
+   "by": "B-c-1",
+   "reason": "Divit 2026-11-05 rulings 1-2: health details in transit / cross-field mismatches always blocking; fixing the reviewer's note",
+   "date": "2026-11-05 10:32 UTC"
+  },
+  {
+   "field": "image_brief",
+   "by": "B-c-1",
+   "reason": "Divit 2026-11-05 rulings 1-2: health details in transit / cross-field mismatches always blocking; fixing the reviewer's note",
+   "date": "2026-11-05 10:32 UTC"
+  },
+  {
+   "field": "mockup",
+   "by": "B-c-1",
+   "reason": "Divit 2026-11-05 rulings 1-2: health details in transit / cross-field mismatches always blocking; fixing the reviewer's note",
+   "date": "2026-11-05 10:32 UTC"
   }
  ]
 }
