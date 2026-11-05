@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-406",
    "note": ""
+  },
+  {
+   "t": "2026-11-05 10:05 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-421",
+   "note": "[truth | CONTENT_DEFECTS #14] feature_5: An 'every' claim false for the page's own examples (rework-checklist 7): the battery page skips the roof questions (feature_3 'not the roof', FAQ 6 'skips the roof questions'), the business page asks for an average monthly bill in dollars, not kWh, and the re"
   }
  ],
  "pipeline": "r15",
@@ -980,5 +987,265 @@
  ],
  "writers": [
   "B-w-406"
- ]
+ ],
+ "review": {
+  "by": "B-r-421",
+  "date": "2026-11-05 10:05 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Solar Landing Page That Reads the Electric Bill'; hero 'Build a solar landing page that turns a photo of an electric bill into a quote request, saved to a database you own.' (under 130 chars, verb first); how-to description one sentence with the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Four installer examples by job (Bill Upload, Battery Quotes, Business Rooftops, Repair Requests), a seven-step how-to and a comparison table: examples plus build steps for 'solar landing page'."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Installer vocabulary throughout: 'kWh used and the billing month', 'Whole home or Essentials only', 'ground-mount arrays', 'Inverter fault light'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every body opens on a full sentence with a verb: 'Ask homeowners to upload their latest electric bill', 'Sunhallow Solar's quote page skips the usage question'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Varied sentences; 9 'A, B, and C' lists and 2 ', so' endings recorded as a note, not blocking."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain verbs and unglamorous detail ('48 bills came in: 41 read cleanly and 7 went to Wenna'); bolted-on sibling-link sentences recorded as a note."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "feature_5 'Every request saves as a row with the job type, the kWh used, the roof answers' and feature_4 'emails that person the new request with the address, the phone, and the usage it read' are false for the battery, business and repair pages; feature_2 'where the designer sees them from the driveway' and howto_step_4 'An array on a street the visitor knows tells them more about your work than a stock photo' state facts about designers and visitors with no domain_sources entry (domain_sources is empty)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Bill photo reading, battery split by backup type, farm buildings to a ground-mount designer: none of this is a sibling home-services page with nouns swapped."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, paa --spec 10 pass 0 reject 0 flag; hub link in item 2; sibling links in items 4, 7, 10; moat lines in items 3 and 5."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches tab copy: 48 bills, 41 read cleanly, 7 to Wenna Strathe; 27 battery requests, 11 to Ravi Kalloo, 16 to sales; 18 business requests 8/6/4; 15 repair requests, 9 to Petra Lindell, 6 to service queue; form fields as in copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #14",
+    "field": "feature_5",
+    "quote": "Every request saves as a row with the job type, the kWh used, the roof answers, and the ad it came from.",
+    "issue": "An 'every' claim false for the page's own examples (rework-checklist 7): the battery page skips the roof questions (feature_3 'not the roof', FAQ 6 'skips the roof questions'), the business page asks for an average monthly bill in dollars, not kWh, and the repair page asks for symptom, address and system size with no kWh or roof answers. Same class in feature_4: 'The app emails that person the new request with the address, the phone, and the usage it read' is false for the battery page (no bill read), the business page (bill typed, not read) and the repair page (no phone asked, tab_content_4).",
+    "fix": "feature_5: 'Every request saves as a row with the job type, the answers it carried, and the ad it came from.' (or limit to rooftop requests). feature_4: say the email carries the request's answers, not address, phone and read usage, or scope it to the rooftop quote page.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "feature_2",
+    "quote": "Leave pitch, age, and material for the site visit, where the designer sees them from the driveway.",
+    "issue": "States how solar designers work (that roof pitch, age and material are seen from the driveway) with no domain_sources entry; domain_sources is empty (rework-checklist 1). Same class in howto_step_4: 'An array on a street the visitor knows tells them more about your work than a stock photo of panels at sunset.' states what visitors take from a photo, unsourced.",
+    "fix": "feature_2: end at 'Leave pitch, age, and material for the site visit.' and fill the length with advice. howto_step_4: rewrite as advice, e.g. 'Caption each photo with the town so a visitor can place it.', and drop the comparison with stock photos.",
+    "severity": "blocking"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "A plumber landing page confirms an urgent job the same way, with the time the plumber is expected at the door.",
+    "issue": "Sibling-link sentences bolted onto the end of answers, off the question's subject: also FAQ 7 'A landscaping landing page splits off a seasonal offer the same way.' and FAQ 4 'A cleaning service landing page can price a job from a room count.'",
+    "fix": "Work each link into a sentence that answers the solar question, or link where the comparison is natural.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_2_des",
+    "quote": "The usage printed on a bill is a better start for a quote than a figure recalled from memory",
+    "issue": "Same idea as feature_1 'A bill photo, not a guess at usage' and FAQ 5 'real usage in kWh instead of a figure the homeowner has to guess'.",
+    "fix": "Give one of the three a different reason or detail.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #6",
+    "field": "page",
+    "quote": "Export the page, its forms, and the request table",
+    "issue": "9 'A, B, and C' lists (QC Q8: why_description, feature_2-6, tab_content_3, FAQ 3, FAQ 7) and 2 ', so' endings (howto_step_1, howto_step_3); reads templated.",
+    "fix": "Turn some lists into pairs or one specific.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "Sibling-link sentences bolted onto the end of answers, off the question's subject: also FAQ 7 'A landscaping landing page splits off a seasonal offer the same way.' and FAQ 4 'A cleaning service landing page can price a job from a room count.'",
+   "fix": "Work each link into a sentence that answers the solar question, or link where the comparison is natural.",
+   "by": "B-r-421",
+   "via": "review",
+   "date": "2026-11-05 10:05 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_2_des",
+   "issue": "Same idea as feature_1 'A bill photo, not a guess at usage' and FAQ 5 'real usage in kWh instead of a figure the homeowner has to guess'.",
+   "fix": "Give one of the three a different reason or detail.",
+   "by": "B-r-421",
+   "via": "review",
+   "date": "2026-11-05 10:05 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #6",
+   "field": "page",
+   "issue": "9 'A, B, and C' lists (QC Q8: why_description, feature_2-6, tab_content_3, FAQ 3, FAQ 7) and 2 ', so' endings (howto_step_1, howto_step_3); reads templated.",
+   "fix": "Turn some lists into pairs or one specific.",
+   "by": "B-r-421",
+   "via": "review",
+   "date": "2026-11-05 10:05 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "7a7091c0ca174871",
+   "alt:share_image": "c1212b1c47f53e7c",
+   "alt:tab_image_1": "3afddda741f56f55",
+   "alt:tab_image_2": "8cf60976be9f8fdd",
+   "alt:tab_image_3": "e5cbd533142538de",
+   "alt:tab_image_4": "d74fe6b45b3e429b",
+   "breadcrumb": "015d5159fe5aeed2",
+   "chip_adds": "6357bd5921c8eaf8",
+   "explore_cta": "0d453b9522e8bc3b",
+   "faq": "3ecc28e8b4092f89",
+   "feature_1": "9e7c32589b35d081",
+   "feature_2": "256c8c7e166d3c52",
+   "feature_3": "5b07808dfed76e07",
+   "feature_4": "e20d19e5a90f440e",
+   "feature_5": "6b97810616653c41",
+   "feature_6": "248a23f1b61bd23f",
+   "features_heading": "b49262c2f153d645",
+   "features_subheading": "47132927ac508c6f",
+   "h1": "243fd69f2a36de1c",
+   "hero_description": "ac68c6164fe23980",
+   "hero_prompt": "f116ea5952071bee",
+   "howto_description": "7761d7b59fb4dabc",
+   "howto_step_1_des": "230b68c3c820afec",
+   "howto_step_1_title": "20f96c591ebed2dd",
+   "howto_step_2_des": "11058ae9b7656f6e",
+   "howto_step_2_title": "c372d98f91e8a45d",
+   "howto_step_3_des": "34308cf1073f0370",
+   "howto_step_3_title": "72183c48bad63785",
+   "howto_step_4_des": "1a02c27c27577e38",
+   "howto_step_4_title": "a38e8362e74189cb",
+   "howto_step_5_des": "fd340ea88e2f3dd6",
+   "howto_step_5_title": "061ab7f6f7cbdb08",
+   "howto_step_6_des": "2205a502e9a508e3",
+   "howto_step_6_title": "7bfb5ffa9391b84d",
+   "howto_step_7_des": "f2322ba300512376",
+   "howto_step_7_title": "0659b230072d9e30",
+   "howto_title": "f009f04562657db7",
+   "meta_description": "024ae32dccb8058a",
+   "meta_title": "bd7a427fe5370595",
+   "mockup": "cb753e59d5fb0cba",
+   "product_name": "6e39abb3f37a46c9",
+   "prompt_chip_1": "c67f11854ddc786d",
+   "prompt_chip_2": "ebaf0b6f23a07bd3",
+   "prompt_chip_3": "3ff402fad35f00be",
+   "prompt_chip_4": "26025cbb92e24ec2",
+   "slug": "2bfbc118abcafe8c",
+   "tab_content_1": "4a9ba58714dcd1c1",
+   "tab_content_2": "1211925d0f015946",
+   "tab_content_3": "a78fe9772387c40a",
+   "tab_content_4": "b1092505b1ddff3d",
+   "tab_label_1": "c67f11854ddc786d",
+   "tab_label_2": "ebaf0b6f23a07bd3",
+   "tab_label_3": "3ff402fad35f00be",
+   "tab_label_4": "26025cbb92e24ec2",
+   "usecase_heading": "0037903ab53d9e50",
+   "why_description": "7c34de0419b57844",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "3d55427fbfcb79d9"
+  },
+  "all": "59b3f5d1e33aa7bb",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "7a7091c0ca174871",
+   "alt:share_image": "c1212b1c47f53e7c",
+   "alt:tab_image_1": "3afddda741f56f55",
+   "alt:tab_image_2": "8cf60976be9f8fdd",
+   "alt:tab_image_3": "e5cbd533142538de",
+   "alt:tab_image_4": "d74fe6b45b3e429b",
+   "breadcrumb": "015d5159fe5aeed2",
+   "chip_adds": "6357bd5921c8eaf8",
+   "explore_cta": "0d453b9522e8bc3b",
+   "faq": "3ecc28e8b4092f89",
+   "feature_1": "9e7c32589b35d081",
+   "feature_2": "256c8c7e166d3c52",
+   "feature_3": "5b07808dfed76e07",
+   "feature_4": "e20d19e5a90f440e",
+   "feature_5": "6b97810616653c41",
+   "feature_6": "248a23f1b61bd23f",
+   "features_heading": "b49262c2f153d645",
+   "features_subheading": "47132927ac508c6f",
+   "h1": "243fd69f2a36de1c",
+   "hero_description": "ac68c6164fe23980",
+   "hero_prompt": "f116ea5952071bee",
+   "howto_description": "7761d7b59fb4dabc",
+   "howto_step_1_des": "230b68c3c820afec",
+   "howto_step_1_title": "20f96c591ebed2dd",
+   "howto_step_2_des": "11058ae9b7656f6e",
+   "howto_step_2_title": "c372d98f91e8a45d",
+   "howto_step_3_des": "34308cf1073f0370",
+   "howto_step_3_title": "72183c48bad63785",
+   "howto_step_4_des": "1a02c27c27577e38",
+   "howto_step_4_title": "a38e8362e74189cb",
+   "howto_step_5_des": "fd340ea88e2f3dd6",
+   "howto_step_5_title": "061ab7f6f7cbdb08",
+   "howto_step_6_des": "2205a502e9a508e3",
+   "howto_step_6_title": "7bfb5ffa9391b84d",
+   "howto_step_7_des": "f2322ba300512376",
+   "howto_step_7_title": "0659b230072d9e30",
+   "howto_title": "f009f04562657db7",
+   "meta_description": "024ae32dccb8058a",
+   "meta_title": "bd7a427fe5370595",
+   "mockup": "cb753e59d5fb0cba",
+   "product_name": "6e39abb3f37a46c9",
+   "prompt_chip_1": "c67f11854ddc786d",
+   "prompt_chip_2": "ebaf0b6f23a07bd3",
+   "prompt_chip_3": "3ff402fad35f00be",
+   "prompt_chip_4": "26025cbb92e24ec2",
+   "slug": "2bfbc118abcafe8c",
+   "tab_content_1": "4a9ba58714dcd1c1",
+   "tab_content_2": "1211925d0f015946",
+   "tab_content_3": "a78fe9772387c40a",
+   "tab_content_4": "b1092505b1ddff3d",
+   "tab_label_1": "c67f11854ddc786d",
+   "tab_label_2": "ebaf0b6f23a07bd3",
+   "tab_label_3": "3ff402fad35f00be",
+   "tab_label_4": "26025cbb92e24ec2",
+   "usecase_heading": "0037903ab53d9e50",
+   "why_description": "7c34de0419b57844",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "3d55427fbfcb79d9"
+  },
+  "all": "59b3f5d1e33aa7bb",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
