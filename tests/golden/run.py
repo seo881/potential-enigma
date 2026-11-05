@@ -38,6 +38,8 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   redirect-row   {source, target, first, tgt, expect: [[code, sev]]}  Divit 2026-10-26: the daily 843-row redirect check
                                                           (ops/redirect_check.classify) on synthetic responses first/tgt
                                                           ({status, location} or {error}) raises exactly these findings ([] = passes)
+  health-m1      {t, url, prim, expect_fail}              QC M1: health details in chat/email/text on healthcare pages (Divit 2026-11-05)
+  mismatch-note  {finding, expect_refused}                guards.validate_findings: a #10/#20 note is refused (always blocking)
   features-l15   {t, expect_fail}                         QC L15: features subheading with an all-six/each-piece claim (Divit 2026-11-05)
   known-expiry   {entry, finding, today, expect_known}    audit_status.real_counts: the finding counts as known (not real) exactly when
                                                           expected; an entry whose `expires` <= today, or whose `url` differs, is real
@@ -532,6 +534,13 @@ def caught(c):
             sl = d + [{"kind": "semrush", "q": x, "ref": x} for x in (f"Which approvals should a {prim} route to a second reviewer?",
                                                                        f"How many fields can a {prim} hold before people abandon it?")]
         return W.available(c["url"], need, items, sl, spec=s, written=False)[0] == c["expect_filled"]   # code-built candidates only (written fill aside)
+    if c["kind"] == "health-m1":   # Divit 2026-11-05: healthcare pages never show health details going through chat, email or text
+        sys.path.insert(0, os.path.join(ROOT, "qc")); import qc_hub as Q
+        return bool(Q.health_transit_issues([("f", c["t"])], c["url"], c.get("prim", ""))) == c["expect_fail"]
+    if c["kind"] == "mismatch-note":   # Divit 2026-11-05: a CONTENT_DEFECTS #10/#20 mismatch recorded as a note is refused
+        import guards as GG
+        errs = GG.validate_findings([c["finding"]], {c["finding"]["criterion"]}, need_class=True)
+        return any("always blocking" in e for e in errs) == c["expect_refused"]
     if c["kind"] == "features-l15":   # Divit 2026-11-05: a features subheading claiming something of all six features fails L15
         sys.path.insert(0, os.path.join(ROOT, "qc")); import qc_hub as Q
         return bool(Q.features_subheading_issues(c["t"])) == c["expect_fail"]

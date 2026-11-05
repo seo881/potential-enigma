@@ -9,6 +9,7 @@ The one table the reviewer uses to decide whether a finding blocks. Every findin
 | wrong-fact | blocking | A wrong number, date, price, plan or competitor fact; numbers that disagree between fields or between copy and image; a weekday that does not match its date; a stale image date. | CONTENT_DEFECTS #10, #12, #13, #15 |
 | structure | blocking | A required field, section, FAQ item or link missing or malformed; the FAQ not exactly 10 items; the hub link missing from FAQ 2; a table cell falling back to the hub default; a heading or field the template cannot render. Anything QC already blocks is structure. Includes a brand or product name in an FAQ question (PA14), a file-format or download ask in an FAQ question (PA15), and a hero or how-to description that breaks D1 or D2 (Divit 2026-10-09). | HUB_RULES 5, 6; CONTENT_DEFECTS #11, #26 |
 | image-contradiction | blocking | An image that tells a different story from its tab copy on names, numbers or outcomes; one company playing incompatible roles across tabs; an alert drawn to a channel when the copy names a person. | CONTENT_DEFECTS #20, #24, #25 |
+| health-in-transit | blocking | Healthcare and medical pages (Divit 2026-11-05): a patient's health details (allergies, conditions, medications, symptoms, results, diagnoses) shown traveling through Slack, email, SMS, a text or a DM, in copy or images. Notifications say a record is ready for review; the details stay in the app. QC M1 flags the copy. | HUB_RULES 8; CONTENT_DEFECTS #20 |
 | sibling-keyword | blocking | The page targets, headlines or answers a keyword or topic another page in the plan owns (`hubctl brief` lists the siblings). | CONTENT_DEFECTS #1 |
 | missing-intent | blocking | The page does not deliver what the top 10 and PAA show searchers want (comparison, how-to, examples, template), or an FAQ answer never answers its question. | HUB_RULES 5 |
 | image-names | blocking | A fictional name in an image that borrows third-party IP (Umbrella Co, Hooli, Stark), or names whose pattern maps ethnicity, gender or age onto a negative outcome (Divit, 2026-10-07). | CONTENT_DEFECTS #23, #29 |
@@ -20,6 +21,8 @@ The one table the reviewer uses to decide whether a finding blocks. Every findin
 | openers | note | A paragraph or feature body that opens on a label or fragment. | CONTENT_DEFECTS #2, #16 |
 | image-polish | note | Image layout or wording that could be better without contradicting the copy (engine gates already block empty panels, overflow, hero space, reserved domains and code covers). | CONTENT_DEFECTS #5, #28 |
 | other | note | Anything else. | the rule it breaks |
+
+**Cross-field mismatches are always blocking (Divit 2026-11-05).** Numbers, timings, counts, names or form-field sets that differ between fields, or between copy, mockup and image, are `wrong-fact` (between fields) or `image-contradiction` (copy vs image), never a note. `hubctl review` refuses a note that cites CONTENT_DEFECTS #10 or #20.
 
 **Not findings at all.** Template slots: the hero pitch restated in FAQ 2 (the hub-link answer), the hub name and the primary keyword where the template places them. These are never repeated ideas.
 

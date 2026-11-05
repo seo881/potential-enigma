@@ -183,6 +183,21 @@ def features_subheading_issues(t):
     code export (rework-checklist 7). Describe the build as a whole. NEW writing only: a spec with a review is not checked."""
     return [("P1", "L15", "features_subheading", "claims something of all six features (false when one is routing, signing, a database or code export; rework-checklist 7): describe the build as a whole")] if FEATURES_ALL_CLAIM.search(t or "") else []
 
+HEALTH_PAGE = re.compile(r"(patient|clinic|medical|health|telehealth|chiropract|acupunct|therap|dental|dentist|nutrition|hipaa|pharmac|physician|doctor|nurs|massage|mental|counsel|medication|surgery|vaccin|dermatolog|pediatric)", re.I)
+HEALTH_CHANNEL = re.compile(r"\b(slack|e-?mails?|e-?mailed|e-?mailing|sms|texts?|texted|dms?|direct messages?|messages? (?:the|to)|whatsapp)\b|#[a-z][\w-]+", re.I)
+HEALTH_DETAIL = re.compile(r"\b(allerg\w*|medications?|conditions?|symptoms?|diagnos\w*|prescriptions?|lab (?:results?|values?)|test results?|(?:screening|scan|blood|their|own|her|his) results?|blood pressure|pain (?:level|score)s?|injur(?:y|ies)|pregnan\w*|pacemakers?|health history|medical history)\b", re.I)
+def health_transit_issues(texts, url, prim):
+    """QC M1 (Divit 2026-11-05, healthcare and medical pages): a sentence that shows a patient's health details (allergies,
+    conditions, medications, symptoms, results) traveling through Slack, email, SMS, a text or a DM. Notifications say a record
+    is ready for review; the details stay in the app. texts: [(field, text)] including the image brief."""
+    if not HEALTH_PAGE.search((url or "") + " " + (prim or "")): return []
+    out = []
+    for fld, t in texts:
+        for sent in re.split(r"(?<=[.!?])\s+|\n|\\n|\",\s*\"", t or ""):
+            if HEALTH_CHANNEL.search(sent) and HEALTH_DETAIL.search(sent):
+                out.append(("P1", "M1", fld, "health detail shown going through a chat, email or text (Divit 2026-11-05): say a record is ready for review; keep the details in the app: " + sent.strip()[:90]))
+    return out
+
 def hero_prompt_issues(d, prim, url, hub, siblings, near=0.6):
     """L14 (Divit 2026-11-03): [(sev, code, field, msg)] for a default hero prompt d: a template sentence, more than one sentence, or a
     near-duplicate (word-set Jaccard >= near, keywords removed) of a sibling page's prompt in the same hub."""
@@ -305,6 +320,9 @@ def check(spec, siblings):
     for k in ("features_heading", "usecase_heading", "why_title", "howto_title"):
         if len(F.get(k, "")) > 48: add("P1", "L6", k, f"{len(F[k])} chars: H2 wraps past 2 lines (max 48)")
     if len(F.get("features_subheading", "")) > 135: add("P1", "L6", "features_subheading", f"{len(F['features_subheading'])} chars (max 135)")
+    def _strs(v): return [v] if isinstance(v, str) else [x for i in (v.values() if isinstance(v, dict) else v if isinstance(v, list) else []) for x in _strs(i)]
+    _mt = [(k, strip_html(x)) for k, v in F.items() for x in _strs(v)] + [("image_brief", x) for x in _strs(spec.get("image_brief") or {})]
+    for sev, code, fld, msg in health_transit_issues(_mt, spec.get("url"), (spec.get("keywords") or {}).get("primary") or ""): add(sev, code, fld, msg)
     if not spec.get("review"):   # L15 is NEW writing only (never-reviewed specs): reviewed and live pages keep their reviewer's verdict
         for sev, code, fld, msg in features_subheading_issues(strip_html(F.get("features_subheading", ""))): add(sev, code, fld, msg)
     if F.get("why_title") and not re.match(r"^Why (Build|Choose|Create)\b.*\?$", F["why_title"]): add("P2", "L6", "why_title", 'profile: "Why Build Your {Keyword} With Emergent?"')

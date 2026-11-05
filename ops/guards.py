@@ -211,6 +211,8 @@ def validate_findings(findings, criteria, need_class=False):
             elif f.get("severity") in ("blocking", "note") and sev[f["class"]] != f["severity"]:
                 errs.append(f'{tag}: class "{f["class"]}" is {sev[f["class"]]} in rules/SEVERITY.md, not {f["severity"]}')
         cites = citations(f.get("rule"))
+        if f.get("severity") == "note" and any(c.split()[-1].lstrip("#") in ("10", "20") and c.startswith("CONTENT_DEFECTS") for c in cites):
+            errs.append(f"{tag}: a cross-field or copy-vs-image mismatch (CONTENT_DEFECTS #10/#20) is always blocking (Divit 2026-11-05): class wrong-fact or image-contradiction")
         if not cites: errs.append(f'{tag}: rule must cite a HUB_RULES section (e.g. "HUB_RULES 2b") or a CONTENT_DEFECTS row (e.g. "CONTENT_DEFECTS #18")')
         for c in cites:
             k = c.split()[-1].lstrip("#")

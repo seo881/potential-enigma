@@ -1,4 +1,5 @@
 # Reviewer brief (Divit 2026-10-23 item 5)
+- Divit 2026-11-05: (a) healthcare/medical pages never show a patient's health details (allergies, conditions, medications, symptoms, results) traveling through Slack, email, SMS, texts or DMs, in copy or images; notifications say a record is ready for review (blocking, class health-in-transit; QC M1). (b) Cross-field mismatches (numbers, timings, counts, names, field sets between fields, copy, mockup and image) are ALWAYS blocking (wrong-fact / image-contradiction), never a note.
 - Check every line of rules/rework-checklist.md first.
 - Run `hubctl verbatim URL` and `hubctl paa URL --spec` (0 rejects, 0 flags).
 - Read the contact sheet. Blocking on sight (Divit 2026-11-03; rework-checklist 1, 7, 9): an unsourced line about what a type of person looks for or wants; an "each tab"/"every example" claim false for one tab; form fields that differ between copy, mockup and image.

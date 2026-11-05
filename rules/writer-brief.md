@@ -10,6 +10,8 @@ TRUTH
 - The 3 top rework causes (Divit 2026-11-03; rework-checklist 1, 7, 9): no sentence about what a type of person looks for or wants (write advice); no "each tab"/"every example" claim unless true of every tab; one form field set across copy, mockup and image.
 - Rename people and companies reused from other pages. Builder intent only; brand pages imply no partnership.
 
+- Divit 2026-11-05: (a) healthcare/medical pages never show a patient's health details (allergies, conditions, medications, symptoms, results) traveling through Slack, email, SMS, texts or DMs, in copy or images; notifications say a record is ready for review (blocking, class health-in-transit; QC M1). (b) Cross-field mismatches (numbers, timings, counts, names, field sets between fields, copy, mockup and image) are ALWAYS blocking (wrong-fact / image-contradiction), never a note.
+
 FINISH GATE (all required, in order)
 1. `skeleton.py check URL all` = 0
 2. `hubctl qc URL --stamp` TOTAL 0
