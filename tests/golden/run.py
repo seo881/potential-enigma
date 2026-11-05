@@ -38,6 +38,7 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   redirect-row   {source, target, first, tgt, expect: [[code, sev]]}  Divit 2026-10-26: the daily 843-row redirect check
                                                           (ops/redirect_check.classify) on synthetic responses first/tgt
                                                           ({status, location} or {error}) raises exactly these findings ([] = passes)
+  features-l15   {t, expect_fail}                         QC L15: features subheading with an all-six/each-piece claim (Divit 2026-11-05)
   known-expiry   {entry, finding, today, expect_known}    audit_status.real_counts: the finding counts as known (not real) exactly when
                                                           expected; an entry whose `expires` <= today, or whose `url` differs, is real
   audit-link     {url, href, status_code, internal?, hub?, expect_finding}  A7-link raises a finding for this link status exactly when expected
@@ -531,6 +532,9 @@ def caught(c):
             sl = d + [{"kind": "semrush", "q": x, "ref": x} for x in (f"Which approvals should a {prim} route to a second reviewer?",
                                                                        f"How many fields can a {prim} hold before people abandon it?")]
         return W.available(c["url"], need, items, sl, spec=s, written=False)[0] == c["expect_filled"]   # code-built candidates only (written fill aside)
+    if c["kind"] == "features-l15":   # Divit 2026-11-05: a features subheading claiming something of all six features fails L15
+        sys.path.insert(0, os.path.join(ROOT, "qc")); import qc_hub as Q
+        return bool(Q.features_subheading_issues(c["t"])) == c["expect_fail"]
     if c["kind"] == "hero-l14":   # Divit 2026-11-03 HERO PROMPT FIX: template sentences, two sentences and same-hub near-duplicates fail L14
         sys.path.insert(0, os.path.join(ROOT, "qc")); import qc_hub as Q
         codes = sorted({x[1] for x in Q.hero_prompt_issues(c["d"], c["prim"], "/golden/self", c["hub"], c.get("siblings"))})

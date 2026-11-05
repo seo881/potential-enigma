@@ -176,6 +176,13 @@ def _hp_words(text, prim):
     t = re.sub(r"[^a-z0-9 ]+", " ", (text or "").lower())
     for w in (prim or "").lower().split(): t = re.sub(rf"\b{re.escape(w)}\b", " ", t)
     return [w for w in t.split() if w not in ("a", "an", "the", "and", "to", "for", "of", "with", "that", "i", "my", "build", "in", "on", "each", "every")]
+FEATURES_ALL_CLAIM = re.compile(r"\b(?:these|the|all|its|our)\s+(?:six|6)\s+(?:pieces|parts|features|steps|blocks)\b|\b(?:each|every)\s+(?:piece|part|feature|block)\b", re.I)
+def features_subheading_issues(t):
+    """QC L15 (Divit 2026-11-05: the top rework cause that day, 5 pages): a features subheading that makes a claim about all six
+    features ("These six pieces collect...", "Each piece moves...") is false when a feature is routing, signing, a database or the
+    code export (rework-checklist 7). Describe the build as a whole. NEW writing only: a spec with a review is not checked."""
+    return [("P1", "L15", "features_subheading", "claims something of all six features (false when one is routing, signing, a database or code export; rework-checklist 7): describe the build as a whole")] if FEATURES_ALL_CLAIM.search(t or "") else []
+
 def hero_prompt_issues(d, prim, url, hub, siblings, near=0.6):
     """L14 (Divit 2026-11-03): [(sev, code, field, msg)] for a default hero prompt d: a template sentence, more than one sentence, or a
     near-duplicate (word-set Jaccard >= near, keywords removed) of a sibling page's prompt in the same hub."""
@@ -298,6 +305,8 @@ def check(spec, siblings):
     for k in ("features_heading", "usecase_heading", "why_title", "howto_title"):
         if len(F.get(k, "")) > 48: add("P1", "L6", k, f"{len(F[k])} chars: H2 wraps past 2 lines (max 48)")
     if len(F.get("features_subheading", "")) > 135: add("P1", "L6", "features_subheading", f"{len(F['features_subheading'])} chars (max 135)")
+    if not spec.get("review"):   # L15 is NEW writing only (never-reviewed specs): reviewed and live pages keep their reviewer's verdict
+        for sev, code, fld, msg in features_subheading_issues(strip_html(F.get("features_subheading", ""))): add(sev, code, fld, msg)
     if F.get("why_title") and not re.match(r"^Why (Build|Choose|Create)\b.*\?$", F["why_title"]): add("P2", "L6", "why_title", 'profile: "Why Build Your {Keyword} With Emergent?"')
     if F.get("howto_title") and not re.match(r"^How to (Build|Create|Make|Set Up|Automate|Run) ", F["howto_title"]): add("P2", "L6", "howto_title", 'profile: "How to Build/Create a/an {Keyword}"')
     bodies = []
