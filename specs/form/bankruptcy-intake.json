@@ -124,6 +124,13 @@
    "via": null,
    "by": "B-w-414",
    "note": ""
+  },
+  {
+   "t": "2026-11-05 10:14 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-436",
+   "note": "rubric 10/10 by B-r-436; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -959,5 +966,285 @@
  ],
  "writers": [
   "B-w-414"
- ]
+ ],
+ "review": {
+  "by": "B-r-436",
+  "date": "2026-11-05 10:14 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Bankruptcy Intake Form That Lists Every Debt'; hero 'Build a bankruptcy intake form that lists each creditor with its balance and saves every answer to a database you own.' (under 130 chars, primary, leads with Build); how-to description one sentence with the primary. Slug bankruptcy-intake matches the slug rule."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Searchers want what the questionnaire asks: FAQ 3 lists what the official forms need (creditors, income, property, monthly expenses), features cover creditor rows, pay stubs, tax return, monthly expenses; 7-step how-to; comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Foreclosure sale dates, wage garnishments, credit counseling certificate, case trustee tax return, '$6,215 hospital bill'; how-to step 7 'one as a homeowner with a sale next week'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on full sentences: 'Answer yes to owning a home and the form asks who holds the mortgage...', 'Upload a pay stub and the app reads its date and gross amount...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC TOTAL 0; one ', so' ending (FAQ 1). Remaining items are notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain, product-led: 'Any sale date within 14 days sends attorney Ysanne Corrigal an email with his phone number. She calls him that afternoon.' Minor phrasing notes only."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Every third-party fact quotes its source: FAQ 1 and 'starts the petition' (NextChapter); FAQ 3 creditor/income/property/expenses list, FAQ 5 180-day counseling rule with emergency exception, FAQ 6 trustee tax return (uscourts.gov Chapter 7 basics). Image totals add up: 12,480+6,215+14,900+5,345 = $38,940. No legal advice: 'The attorney then decides what happens next.' Claims map to prompt-build, database-owned, ai-extraction, alerts, conversational, no-caps, code-export, free-start."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Bankruptcy-only stories (foreclosure sale alert, counseling certificate age, pay stub reading); sibling primaries 'personal injury intake form' and 'legal intake form' appear only as FAQ link anchors, never as headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, each answered in its first sentence; hub link in item 2; sibling links in items 4 and 7; no brand or file-format questions; paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 table four creditors and '$38,940 total' to Henrike Dablow; tab 2 'Sale in 9 days' to Ysanne Corrigal with phone; tab 3 gross pay 54% to Fenna Stoddart, '5 of 6 stubs read'; tab 4 'Certificate 212 days old', 'Older than 180 days' to Rosamund Thorncliffe. Names and numbers match the tab copy; one hero per image."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "within 180 days before filing, with exceptions in emergency situations",
+    "issue": "The uscourts.gov source names two exceptions (emergency situations, and districts where the U.S. trustee finds too few approved agencies); the answer keeps only the first. Not false, since it does not say 'only', but the source's limits are carried partially (rework-checklist 2).",
+    "fix": "'with exceptions in emergencies or where too few approved agencies exist'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "howto_step_3_des",
+    "quote": "plus the last four digits of the account",
+    "issue": "The creditor-row advice differs between fields: step 3 asks for the last four digits, FAQ 10 asks for 'the balance and the account number from the statement'; tab 1, feature 2, mockup and image use creditor, type and balance with no account number (rework-checklist 9, advice only, so not blocking).",
+    "fix": "Use one account-number field everywhere, for example 'the last four digits of the account' in FAQ 10 too.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq",
+    "quote": "Ask the type of matter first and show only the matching section. / Yes, with one question at the start. Ask what the person needs help with",
+    "issue": "FAQ 4 (injury cases) and FAQ 7 (screen out other cases) both answer with the same first-question routing idea.",
+    "fix": "Let one item own the routing answer and give the other slot a distinct bankruptcy question (for example joint filers or business debts).",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "which helps when someone enters debts one letter at a time from a pile of mail",
+    "issue": "'one letter at a time' reads as a pun on letters and is unclear; also features_subheading 'the attorney reads debts and income as one record' is abstract.",
+    "fix": "'which helps when someone enters debts from a stack of collection letters'.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief",
+    "quote": "Counseling date: 212 days ago",
+    "issue": "Tab 4 draws the counseling date as a form field the prospect filled in, while the copy says 'The app reads the counseling date' from the certificate (the hero card says 'read from upload'). Same numbers and outcome, so not a contradiction.",
+    "fix": "Draw the field as the certificate date read from the upload.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "The uscourts.gov source names two exceptions (emergency situations, and districts where the U.S. trustee finds too few approved agencies); the answer keeps only the first. Not false, since it does not say 'only', but the source's limits are carried partially (rework-checklist 2).",
+   "fix": "'with exceptions in emergencies or where too few approved agencies exist'.",
+   "by": "B-r-436",
+   "via": "review",
+   "date": "2026-11-05 10:14 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #10",
+   "field": "howto_step_3_des",
+   "issue": "The creditor-row advice differs between fields: step 3 asks for the last four digits, FAQ 10 asks for 'the balance and the account number from the statement'; tab 1, feature 2, mockup and image use creditor, type and balance with no account number (rework-checklist 9, advice only, so not blocking).",
+   "fix": "Use one account-number field everywhere, for example 'the last four digits of the account' in FAQ 10 too.",
+   "by": "B-r-436",
+   "via": "review",
+   "date": "2026-11-05 10:14 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq",
+   "issue": "FAQ 4 (injury cases) and FAQ 7 (screen out other cases) both answer with the same first-question routing idea.",
+   "fix": "Let one item own the routing answer and give the other slot a distinct bankruptcy question (for example joint filers or business debts).",
+   "by": "B-r-436",
+   "via": "review",
+   "date": "2026-11-05 10:14 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "'one letter at a time' reads as a pun on letters and is unclear; also features_subheading 'the attorney reads debts and income as one record' is abstract.",
+   "fix": "'which helps when someone enters debts from a stack of collection letters'.",
+   "by": "B-r-436",
+   "via": "review",
+   "date": "2026-11-05 10:14 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief",
+   "issue": "Tab 4 draws the counseling date as a form field the prospect filled in, while the copy says 'The app reads the counseling date' from the certificate (the hero card says 'read from upload'). Same numbers and outcome, so not a contradiction.",
+   "fix": "Draw the field as the certificate date read from the upload.",
+   "by": "B-r-436",
+   "via": "review",
+   "date": "2026-11-05 10:14 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "8d63a3a5a6dfb605",
+   "alt:share_image": "a5ae62507fe34e1a",
+   "alt:tab_image_1": "378ded0f0afbb823",
+   "alt:tab_image_2": "c1c6f0d58ad879be",
+   "alt:tab_image_3": "b8ebb5ac884c75f8",
+   "alt:tab_image_4": "6bd04c7f5e711435",
+   "breadcrumb": "e77c882e7d5dd084",
+   "chip_adds": "c7acd650c3e146e1",
+   "explore_cta": "5b97b6070fbc7ef3",
+   "faq": "b017e61520fb90fa",
+   "feature_1": "aec18eaf08e89e96",
+   "feature_2": "311d7bc20b078822",
+   "feature_3": "54e74ac5f4104fd8",
+   "feature_4": "824a0c4bba6d74db",
+   "feature_5": "c36aaad78af1a77c",
+   "feature_6": "719cf0245abdf470",
+   "features_heading": "879ffe1992bec11f",
+   "features_subheading": "057d80a7da89f52e",
+   "h1": "d66f3e1459b8f5f2",
+   "hero_description": "43eff1e6da2cb6d2",
+   "hero_prompt": "fe1c14b9a1906263",
+   "howto_description": "657a8d08048e9f88",
+   "howto_step_1_des": "31d2cf9f31f421ac",
+   "howto_step_1_title": "211644f8fc2f61fc",
+   "howto_step_2_des": "0bc98b48b3e58960",
+   "howto_step_2_title": "328ada23dc20585b",
+   "howto_step_3_des": "2aecc109b86fc99b",
+   "howto_step_3_title": "680089879300fabd",
+   "howto_step_4_des": "b6de933eb026c244",
+   "howto_step_4_title": "ef0d1e4af4771d21",
+   "howto_step_5_des": "93a0a5a10ed006fc",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "d2036140a4f33459",
+   "howto_step_6_title": "f05c3aad43a91da8",
+   "howto_step_7_des": "45bf6bb54f11716d",
+   "howto_step_7_title": "0de252f6e98560cb",
+   "howto_title": "e283095bebde5f3b",
+   "meta_description": "d52d5586c52d51e6",
+   "meta_title": "546afff5adaeed33",
+   "mockup": "89780d94cb9dfd11",
+   "product_name": "1f11538ea37c2049",
+   "prompt_chip_1": "3bfc32cf89dda823",
+   "prompt_chip_2": "df235be38b8c83ba",
+   "prompt_chip_3": "cf5606d4972e3ec1",
+   "prompt_chip_4": "d8ec2e881fab61f8",
+   "slug": "b59bcdf10c90034d",
+   "tab_content_1": "0bb0b47027731327",
+   "tab_content_2": "412683989d5f051f",
+   "tab_content_3": "97517d6673a43fee",
+   "tab_content_4": "a598c8084a9e6bd5",
+   "tab_label_1": "882b00ba1de4fb89",
+   "tab_label_2": "2020e609bc91f267",
+   "tab_label_3": "1e40de8bf74d8397",
+   "tab_label_4": "86a7f10357141724",
+   "usecase_heading": "303e6be52763172c",
+   "why_description": "f6c2c6c0e6312ca4",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "c13ac3dd364ad02b"
+  },
+  "all": "8da8eca22c2f6feb",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "8d63a3a5a6dfb605",
+   "alt:share_image": "a5ae62507fe34e1a",
+   "alt:tab_image_1": "378ded0f0afbb823",
+   "alt:tab_image_2": "c1c6f0d58ad879be",
+   "alt:tab_image_3": "b8ebb5ac884c75f8",
+   "alt:tab_image_4": "6bd04c7f5e711435",
+   "breadcrumb": "e77c882e7d5dd084",
+   "chip_adds": "c7acd650c3e146e1",
+   "explore_cta": "5b97b6070fbc7ef3",
+   "faq": "b017e61520fb90fa",
+   "feature_1": "aec18eaf08e89e96",
+   "feature_2": "311d7bc20b078822",
+   "feature_3": "54e74ac5f4104fd8",
+   "feature_4": "824a0c4bba6d74db",
+   "feature_5": "c36aaad78af1a77c",
+   "feature_6": "719cf0245abdf470",
+   "features_heading": "879ffe1992bec11f",
+   "features_subheading": "057d80a7da89f52e",
+   "h1": "d66f3e1459b8f5f2",
+   "hero_description": "43eff1e6da2cb6d2",
+   "hero_prompt": "fe1c14b9a1906263",
+   "howto_description": "657a8d08048e9f88",
+   "howto_step_1_des": "31d2cf9f31f421ac",
+   "howto_step_1_title": "211644f8fc2f61fc",
+   "howto_step_2_des": "0bc98b48b3e58960",
+   "howto_step_2_title": "328ada23dc20585b",
+   "howto_step_3_des": "2aecc109b86fc99b",
+   "howto_step_3_title": "680089879300fabd",
+   "howto_step_4_des": "b6de933eb026c244",
+   "howto_step_4_title": "ef0d1e4af4771d21",
+   "howto_step_5_des": "93a0a5a10ed006fc",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "d2036140a4f33459",
+   "howto_step_6_title": "f05c3aad43a91da8",
+   "howto_step_7_des": "45bf6bb54f11716d",
+   "howto_step_7_title": "0de252f6e98560cb",
+   "howto_title": "e283095bebde5f3b",
+   "meta_description": "d52d5586c52d51e6",
+   "meta_title": "546afff5adaeed33",
+   "mockup": "89780d94cb9dfd11",
+   "product_name": "1f11538ea37c2049",
+   "prompt_chip_1": "3bfc32cf89dda823",
+   "prompt_chip_2": "df235be38b8c83ba",
+   "prompt_chip_3": "cf5606d4972e3ec1",
+   "prompt_chip_4": "d8ec2e881fab61f8",
+   "slug": "b59bcdf10c90034d",
+   "tab_content_1": "0bb0b47027731327",
+   "tab_content_2": "412683989d5f051f",
+   "tab_content_3": "97517d6673a43fee",
+   "tab_content_4": "a598c8084a9e6bd5",
+   "tab_label_1": "882b00ba1de4fb89",
+   "tab_label_2": "2020e609bc91f267",
+   "tab_label_3": "1e40de8bf74d8397",
+   "tab_label_4": "86a7f10357141724",
+   "usecase_heading": "303e6be52763172c",
+   "why_description": "f6c2c6c0e6312ca4",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "c13ac3dd364ad02b"
+  },
+  "all": "8da8eca22c2f6feb",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
