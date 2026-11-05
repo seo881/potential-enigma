@@ -122,6 +122,13 @@
    "via": null,
    "by": "B-w-412",
    "note": ""
+  },
+  {
+   "t": "2026-11-05 10:06 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-424",
+   "note": "[truth | HUB_RULES 8] features_subheading: An 'each' claim about the six features that is false for one: feature 6 (\"The intake app's code, in your GitHub\") moves no intake toward the visit. Divit 2026-11-03: an each/every claim false for one item is blocking. -> Drop 'each piece' and describe the a"
   }
  ],
  "pipeline": "r15",
@@ -924,5 +931,235 @@
  ],
  "writers": [
   "B-w-412"
- ]
+ ],
+ "review": {
+  "by": "B-r-424",
+  "date": "2026-11-05 10:06 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build Patient Intake Automation That Routes Only the Exceptions\"; hero \"Build patient intake automation that sends intake forms at booking, chases unfinished ones, and flags answers that need a person.\" covers the whole intake job from booking to visit."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition in FAQ 1, seven-step how-to \"How to Automate Patient Intake\", four worked exception examples and a comparison table for an informational query."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Front desk vocabulary throughout: \"member ID\", \"merge queue\", \"day sheet\", \"call list sorted by visit time\"; automation table variant in use."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Tab and step openers are full sentences: \"Brindlewood Dermatology has 24 new patients booked for Thursday.\", \"Load 10 of last week's bookings...\"."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One \", so\" ending (howto_step_5_des), within the limit; sentences carry one idea each."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous details: \"He typed QX4471902, but the card reads QX4471962.\" Forced sibling-link sentences in the FAQ are a note."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "features_subheading: \"Each piece moves an intake one step closer to the visit\" is false for feature 6, the GitHub code export, which moves no intake."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Angle stays on what happens between booking and the visit (exceptions with owners), distinct from the Form hub's patient intake form page and the healthcare automation page; QC D2 clean."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, each answered first (\"Yes. Place the consents after the last question...\"); hub link in item 2; moat lines in items 6, 8, 9; paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: 24 sent / 21 complete / 3 open sent 4:00 p.m. Wednesday to Ilsabet; QX4471902 vs QX4471962 held for Odhran; Saoirse latex Sun 7:12 p.m. to Ysella, Tue 8:00 a.m.; 41 finished, 39 new records, 2 held for Fenella."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "rules/rework-checklist.md 7; HUB_RULES 8",
+    "field": "features_subheading",
+    "quote": "Each piece moves an intake one step closer to the visit and stops for a person only when an answer needs one.",
+    "issue": "An 'each' claim about the six features that is false for one: feature 6 (\"The intake app's code, in your GitHub\") moves no intake toward the visit. Divit 2026-11-03: an each/every claim false for one item is blocking.",
+    "fix": "Drop 'each piece' and describe the app as a whole, e.g. \"The app sends, chases and files every intake, and stops for a person only when an answer needs one.\"",
+    "severity": "blocking"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "Buyer paperwork in real estate workflow automation follows the same order: upload, read, then check. | Volunteer waivers in nonprofit workflow automation use the same signature step. | The same setup suits education workflow automation, where a school's front office owns the absence rules.",
+    "issue": "All three sibling links (FAQ 4, 7, 10) are bolted-on comparison sentences that leave the patient intake topic to place an anchor; they read as link insertion.",
+    "fix": "Next writing pass: link siblings a front desk would actually open (appointment reminder, healthcare automation) inside a sentence about intake.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "howto_step_3_des",
+    "quote": "Work back from the visit and leave a full afternoon to call patients who still have not finished.",
+    "issue": "The worked example (tab_content_1 and mockup) hands the call list over at 4 p.m. the day before, which leaves no full afternoon; advice and example pull apart.",
+    "fix": "Align the example time with the advice (e.g. noon the day before) or soften the advice to 'time to call'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "All three sibling links (FAQ 4, 7, 10) are bolted-on comparison sentences that leave the patient intake topic to place an anchor; they read as link insertion.",
+   "fix": "Next writing pass: link siblings a front desk would actually open (appointment reminder, healthcare automation) inside a sentence about intake.",
+   "by": "B-r-424",
+   "via": "review",
+   "date": "2026-11-05 10:06 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "howto_step_3_des",
+   "issue": "The worked example (tab_content_1 and mockup) hands the call list over at 4 p.m. the day before, which leaves no full afternoon; advice and example pull apart.",
+   "fix": "Align the example time with the advice (e.g. noon the day before) or soften the advice to 'time to call'.",
+   "by": "B-r-424",
+   "via": "review",
+   "date": "2026-11-05 10:06 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "9108a42a444e9db6",
+   "alt:share_image": "214b05ee3224907d",
+   "alt:tab_image_1": "4ebf7175199036e4",
+   "alt:tab_image_2": "384916b7bda44346",
+   "alt:tab_image_3": "f73fc16a427b8229",
+   "alt:tab_image_4": "adc0e07558bccdee",
+   "breadcrumb": "6218cdf5ce03ec4e",
+   "chip_adds": "8b4f56b124738557",
+   "explore_cta": "6f4ea829069f7482",
+   "faq": "9b66a63ad6165cc5",
+   "feature_1": "a1f91df0b6b076d8",
+   "feature_2": "5d7acada0ae36833",
+   "feature_3": "cc64b2595c697677",
+   "feature_4": "6e85a3f5d9242ff6",
+   "feature_5": "d448b83fd7f8a883",
+   "feature_6": "edb224066936638d",
+   "features_heading": "73782aa1cc06e551",
+   "features_subheading": "2b9f81ce26bd00a7",
+   "h1": "abcbc50a51ce541d",
+   "hero_description": "63f835c8666749fe",
+   "hero_prompt": "1eab00ff0f9601aa",
+   "howto_description": "fd2532bc14c1af05",
+   "howto_step_1_des": "24c5d63a989324f6",
+   "howto_step_1_title": "a60e69d857b219b9",
+   "howto_step_2_des": "291289049157538b",
+   "howto_step_2_title": "69d9c876935f4e64",
+   "howto_step_3_des": "b31b5c056f695ad8",
+   "howto_step_3_title": "1071a782487df77f",
+   "howto_step_4_des": "9b9db20c70286ccd",
+   "howto_step_4_title": "1389a86a9ce0b48e",
+   "howto_step_5_des": "c23fcaa0d6bd489d",
+   "howto_step_5_title": "83e0c25097e79c61",
+   "howto_step_6_des": "fe8edd3b8242fa08",
+   "howto_step_6_title": "9fc205cb69267a00",
+   "howto_step_7_des": "562adea242471109",
+   "howto_step_7_title": "5774217b7c81c381",
+   "howto_title": "0b2567de8d201bec",
+   "meta_description": "f33dd31a9988c64f",
+   "meta_title": "4350583291b23040",
+   "mockup": "2a64fc7b6ccf0b06",
+   "product_name": "40597c37f25f806e",
+   "prompt_chip_1": "8ba3f0bd8149442f",
+   "prompt_chip_2": "644a3edbcc0009fd",
+   "prompt_chip_3": "90c496978c3030c1",
+   "prompt_chip_4": "d65829f5df82cb60",
+   "slug": "bc9df822042b64c9",
+   "tab_content_1": "1930bc235bd8ac6f",
+   "tab_content_2": "ffe1418bd8a27b64",
+   "tab_content_3": "60d6698f19fe4489",
+   "tab_content_4": "687caefc85fd3a68",
+   "tab_label_1": "8ba3f0bd8149442f",
+   "tab_label_2": "ad33424025b174a4",
+   "tab_label_3": "90c496978c3030c1",
+   "tab_label_4": "fac49297aae17cba",
+   "usecase_heading": "ca97a8865c4044f1",
+   "why_description": "2a36cf3a72a646d9",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "dc04158f145c997e"
+  },
+  "all": "a66600d69e1eb32f",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "9108a42a444e9db6",
+   "alt:share_image": "214b05ee3224907d",
+   "alt:tab_image_1": "4ebf7175199036e4",
+   "alt:tab_image_2": "384916b7bda44346",
+   "alt:tab_image_3": "f73fc16a427b8229",
+   "alt:tab_image_4": "adc0e07558bccdee",
+   "breadcrumb": "6218cdf5ce03ec4e",
+   "chip_adds": "8b4f56b124738557",
+   "explore_cta": "6f4ea829069f7482",
+   "faq": "9b66a63ad6165cc5",
+   "feature_1": "a1f91df0b6b076d8",
+   "feature_2": "5d7acada0ae36833",
+   "feature_3": "cc64b2595c697677",
+   "feature_4": "6e85a3f5d9242ff6",
+   "feature_5": "d448b83fd7f8a883",
+   "feature_6": "edb224066936638d",
+   "features_heading": "73782aa1cc06e551",
+   "features_subheading": "2b9f81ce26bd00a7",
+   "h1": "abcbc50a51ce541d",
+   "hero_description": "63f835c8666749fe",
+   "hero_prompt": "1eab00ff0f9601aa",
+   "howto_description": "fd2532bc14c1af05",
+   "howto_step_1_des": "24c5d63a989324f6",
+   "howto_step_1_title": "a60e69d857b219b9",
+   "howto_step_2_des": "291289049157538b",
+   "howto_step_2_title": "69d9c876935f4e64",
+   "howto_step_3_des": "b31b5c056f695ad8",
+   "howto_step_3_title": "1071a782487df77f",
+   "howto_step_4_des": "9b9db20c70286ccd",
+   "howto_step_4_title": "1389a86a9ce0b48e",
+   "howto_step_5_des": "c23fcaa0d6bd489d",
+   "howto_step_5_title": "83e0c25097e79c61",
+   "howto_step_6_des": "fe8edd3b8242fa08",
+   "howto_step_6_title": "9fc205cb69267a00",
+   "howto_step_7_des": "562adea242471109",
+   "howto_step_7_title": "5774217b7c81c381",
+   "howto_title": "0b2567de8d201bec",
+   "meta_description": "f33dd31a9988c64f",
+   "meta_title": "4350583291b23040",
+   "mockup": "2a64fc7b6ccf0b06",
+   "product_name": "40597c37f25f806e",
+   "prompt_chip_1": "8ba3f0bd8149442f",
+   "prompt_chip_2": "644a3edbcc0009fd",
+   "prompt_chip_3": "90c496978c3030c1",
+   "prompt_chip_4": "d65829f5df82cb60",
+   "slug": "bc9df822042b64c9",
+   "tab_content_1": "1930bc235bd8ac6f",
+   "tab_content_2": "ffe1418bd8a27b64",
+   "tab_content_3": "60d6698f19fe4489",
+   "tab_content_4": "687caefc85fd3a68",
+   "tab_label_1": "8ba3f0bd8149442f",
+   "tab_label_2": "ad33424025b174a4",
+   "tab_label_3": "90c496978c3030c1",
+   "tab_label_4": "fac49297aae17cba",
+   "usecase_heading": "ca97a8865c4044f1",
+   "why_description": "2a36cf3a72a646d9",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "dc04158f145c997e"
+  },
+  "all": "a66600d69e1eb32f",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
