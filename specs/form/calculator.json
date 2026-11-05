@@ -122,6 +122,13 @@
    "via": null,
    "by": "B-w-416",
    "note": ""
+  },
+  {
+   "t": "2026-11-05 10:08 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-428",
+   "note": "rubric 10/10 by B-r-428; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -960,5 +967,265 @@
  ],
  "writers": [
   "B-w-416"
- ]
+ ],
+ "review": {
+  "by": "B-r-428",
+  "date": "2026-11-05 10:08 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Calculator Form That Shows the Result Before Submit', hero 'Build a calculator form that turns each answer into a price or a quantity, and keeps the inputs with the result.' state the whole job; slug calculator follows the slug rule."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder intent delivered: four kinds of math (boarding price, mulch yards, ROI, pallet count), a 7-step how-to starting 'Write the formula as a sentence', comparison table, FAQ on rounding, ranges, CRM, conditional questions."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Round mulch up to whole yards, cartons up to whole pallets'; 'each pallet takes 48 cartons and any partial pallet rounds up'; table variant from library."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs: 'Write the math...', 'Change a quantity...', 'Round mulch up...', 'Email each respondent...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One ', so' ending (howto_step_6_des); sentences short; minor repetition of 'result'/'total' recorded as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Write the math as you would explain it to a new hire: nights times the rate, less $10 a night for a second dog.' reads operator-written."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "All math checks: 48x5+38x5=$430.00; 400 sq ft x 3 in = 3.7 yd -> 4 x $38 + $45 = $197.00; 12x3x$30=$1,080; 340/48=7.08 -> 8 (96->2, 150->4, 61->2). Claims map to prompt-build, database-owned, alerts, api-connect, code-export, free-start, no-caps, realtime; no third-party facts in prose; table from library (V2/V3 clean)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Calculator-specific stories and how-to (rounding rules, minimums, test against a spreadsheet); sibling primaries appear only as FAQ link anchors, not headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first ('Anything you can write as a formula from the answers.'), hub link in item 2, sibling links multi step form / file upload form / conditional logic form, secondary 'calculator forms' in item 6, F9 moat lines in items 6 and 9; paa --spec 0 rejects 0 flags."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: each tab matches its copy (Gwen Albright, 2 dogs, $430.00, email to front desk; 400 sq ft, 3.7 -> 4 yards, $197.00; Corinne Badu $1,080, rule to Joan Pettibone; #20417 340 cartons 8 pallets, morning lead); one hero, readable text; hero prompt and all 4 chip composites describe one dog boarding build."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "page",
+    "quote": "result (14 times outside the FAQ), total (12 times)",
+    "issue": "The same two nouns carry nearly every sentence, flattening the rhythm (QC Q9 P2).",
+    "fix": "Vary with price, count, quote, figure where the meaning holds.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "h1",
+    "quote": "That Shows the Result Before Submit",
+    "issue": "'Before Submit' drops the article and reads clipped, like UI shorthand.",
+    "fix": "Consider 'Before Anyone Submits' if width allows.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_3",
+    "quote": "When savings pass $1,000 a week, Joan gets the lead",
+    "issue": "The $1,080 is the weekly cost of schedule time (12 x 3 x $30), labelled savings as if the software removes all of it; the image labels it only '$1,080 a week'.",
+    "fix": "Call it 'time spent on schedules' or apply a saved share in the formula.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 4",
+    "quote": "If a calculation needs more than 6 inputs, split them across pages with a multi step form",
+    "issue": "The 6-input threshold is a recommendation with no source; it ships as advice.",
+    "fix": "None needed; optionally soften to 'when a calculation needs many inputs'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "page",
+   "issue": "The same two nouns carry nearly every sentence, flattening the rhythm (QC Q9 P2).",
+   "fix": "Vary with price, count, quote, figure where the meaning holds.",
+   "by": "B-r-428",
+   "via": "review",
+   "date": "2026-11-05 10:08 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "h1",
+   "issue": "'Before Submit' drops the article and reads clipped, like UI shorthand.",
+   "fix": "Consider 'Before Anyone Submits' if width allows.",
+   "by": "B-r-428",
+   "via": "review",
+   "date": "2026-11-05 10:08 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_3",
+   "issue": "The $1,080 is the weekly cost of schedule time (12 x 3 x $30), labelled savings as if the software removes all of it; the image labels it only '$1,080 a week'.",
+   "fix": "Call it 'time spent on schedules' or apply a saved share in the formula.",
+   "by": "B-r-428",
+   "via": "review",
+   "date": "2026-11-05 10:08 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 4",
+   "issue": "The 6-input threshold is a recommendation with no source; it ships as advice.",
+   "fix": "None needed; optionally soften to 'when a calculation needs many inputs'.",
+   "by": "B-r-428",
+   "via": "review",
+   "date": "2026-11-05 10:08 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "ba15b85e1260bc40",
+   "alt:share_image": "6eb55f066a28608d",
+   "alt:tab_image_1": "1c3a52dbdebe7b97",
+   "alt:tab_image_2": "fde1c52e1e5054df",
+   "alt:tab_image_3": "d0b9715a127ec4f4",
+   "alt:tab_image_4": "8ea63fe5eb47dedc",
+   "breadcrumb": "0d94d6be567859f1",
+   "chip_adds": "351593625fe53347",
+   "explore_cta": "1e21a9b18495f2f0",
+   "faq": "6abeaa763b999188",
+   "feature_1": "8be3291e1dec6c7f",
+   "feature_2": "bf847abbdac7baa2",
+   "feature_3": "5a9c24c708c2c3fa",
+   "feature_4": "69b345ba55aa85d8",
+   "feature_5": "d08db8f87d1dff4f",
+   "feature_6": "2a4f1858a98f161c",
+   "features_heading": "30f6bd819008def0",
+   "features_subheading": "3a69e8bc5a4d9b40",
+   "h1": "36ee979af5c07cfb",
+   "hero_description": "75636d79b9f24b95",
+   "hero_prompt": "6f35af8f45acb357",
+   "howto_description": "954b0383085b5be2",
+   "howto_step_1_des": "460b4dcc788c755c",
+   "howto_step_1_title": "ba39360df2b19738",
+   "howto_step_2_des": "7d47462b10c2f65b",
+   "howto_step_2_title": "41d6a0b9fc91349f",
+   "howto_step_3_des": "23bb8ac172c99e76",
+   "howto_step_3_title": "fb11e8ac0eb8d5ec",
+   "howto_step_4_des": "824a2f9775e51664",
+   "howto_step_4_title": "3383c099d7c8e8a8",
+   "howto_step_5_des": "8e648d50bd83a284",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "cba04010475f226c",
+   "howto_step_6_title": "bd189b518f6e261c",
+   "howto_step_7_des": "49e0a9f81648bd39",
+   "howto_step_7_title": "3d0040bdfd0ceff7",
+   "howto_title": "af6227241bcfbc68",
+   "meta_description": "78de8c239520b4a1",
+   "meta_title": "d0668aebb4517235",
+   "mockup": "3481afb131caa240",
+   "product_name": "b4951e5cb0893b5c",
+   "prompt_chip_1": "ae3ed0e1f59f2236",
+   "prompt_chip_2": "bca6ccb583669d4e",
+   "prompt_chip_3": "d6c615c26ffaba2c",
+   "prompt_chip_4": "fae70ab30e87eace",
+   "slug": "d2d4a592700b0920",
+   "tab_content_1": "434141b2ceb8afb0",
+   "tab_content_2": "ccd7454cb4b3e2b6",
+   "tab_content_3": "b8ac2c50ba9fbf1f",
+   "tab_content_4": "cb124c1821d4aa06",
+   "tab_label_1": "5d6a942432ee4e44",
+   "tab_label_2": "c534267da800a448",
+   "tab_label_3": "066c87e8a062265f",
+   "tab_label_4": "0cdb76143a341287",
+   "usecase_heading": "49f30ca9f7bbadb1",
+   "why_description": "26ea068b7500811b",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "4ae4c96a19e2b8d5"
+  },
+  "all": "edb3471d70280ba7",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "ba15b85e1260bc40",
+   "alt:share_image": "6eb55f066a28608d",
+   "alt:tab_image_1": "1c3a52dbdebe7b97",
+   "alt:tab_image_2": "fde1c52e1e5054df",
+   "alt:tab_image_3": "d0b9715a127ec4f4",
+   "alt:tab_image_4": "8ea63fe5eb47dedc",
+   "breadcrumb": "0d94d6be567859f1",
+   "chip_adds": "351593625fe53347",
+   "explore_cta": "1e21a9b18495f2f0",
+   "faq": "6abeaa763b999188",
+   "feature_1": "8be3291e1dec6c7f",
+   "feature_2": "bf847abbdac7baa2",
+   "feature_3": "5a9c24c708c2c3fa",
+   "feature_4": "69b345ba55aa85d8",
+   "feature_5": "d08db8f87d1dff4f",
+   "feature_6": "2a4f1858a98f161c",
+   "features_heading": "30f6bd819008def0",
+   "features_subheading": "3a69e8bc5a4d9b40",
+   "h1": "36ee979af5c07cfb",
+   "hero_description": "75636d79b9f24b95",
+   "hero_prompt": "6f35af8f45acb357",
+   "howto_description": "954b0383085b5be2",
+   "howto_step_1_des": "460b4dcc788c755c",
+   "howto_step_1_title": "ba39360df2b19738",
+   "howto_step_2_des": "7d47462b10c2f65b",
+   "howto_step_2_title": "41d6a0b9fc91349f",
+   "howto_step_3_des": "23bb8ac172c99e76",
+   "howto_step_3_title": "fb11e8ac0eb8d5ec",
+   "howto_step_4_des": "824a2f9775e51664",
+   "howto_step_4_title": "3383c099d7c8e8a8",
+   "howto_step_5_des": "8e648d50bd83a284",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "cba04010475f226c",
+   "howto_step_6_title": "bd189b518f6e261c",
+   "howto_step_7_des": "49e0a9f81648bd39",
+   "howto_step_7_title": "3d0040bdfd0ceff7",
+   "howto_title": "af6227241bcfbc68",
+   "meta_description": "78de8c239520b4a1",
+   "meta_title": "d0668aebb4517235",
+   "mockup": "3481afb131caa240",
+   "product_name": "b4951e5cb0893b5c",
+   "prompt_chip_1": "ae3ed0e1f59f2236",
+   "prompt_chip_2": "bca6ccb583669d4e",
+   "prompt_chip_3": "d6c615c26ffaba2c",
+   "prompt_chip_4": "fae70ab30e87eace",
+   "slug": "d2d4a592700b0920",
+   "tab_content_1": "434141b2ceb8afb0",
+   "tab_content_2": "ccd7454cb4b3e2b6",
+   "tab_content_3": "b8ac2c50ba9fbf1f",
+   "tab_content_4": "cb124c1821d4aa06",
+   "tab_label_1": "5d6a942432ee4e44",
+   "tab_label_2": "c534267da800a448",
+   "tab_label_3": "066c87e8a062265f",
+   "tab_label_4": "0cdb76143a341287",
+   "usecase_heading": "49f30ca9f7bbadb1",
+   "why_description": "26ea068b7500811b",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "4ae4c96a19e2b8d5"
+  },
+  "all": "edb3471d70280ba7",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
