@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-413",
    "note": ""
+  },
+  {
+   "t": "2026-11-05 10:10 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-434",
+   "note": "rubric 10/10 by B-r-434; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -909,5 +916,265 @@
  ],
  "writers": [
   "B-w-413"
- ]
+ ],
+ "review": {
+  "by": "B-r-434",
+  "date": "2026-11-05 10:10 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Acupuncture Intake Form Read Before the First Needle'; hero 'Build an acupuncture intake form that records each patient's pain, sleep, and digestion in a database you own.' (D1 ok); how-to description one sentence with the primary (D2 ok). Hero prompt is one user-voice sentence with the exact primary; all 4 chip composites (health history, body map, visit pain scores, consent) describe the same clinic intake."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "SERP is downloadable TCM checklists; page gives the question set (FAQ 3, how-to 01-04), the acupuncture-specific additions (pacemaker before e-stim, herbs and supplements, pattern questions) and a 7-step build."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Acupuncture vocabulary throughout: 'No e-stim label', 'Recliner 4', 'herbal formula', 'runs hot or cold', 'manual-needle treatment'; table uses the form library rows."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence, e.g. 'Patients tap each sore spot on a front and back figure...', 'Every new patient at Tarrowby Acupuncture answers a pacemaker question...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One ', so' ending on the page (feature_1); sentences vary; no run-on lists in the FAQ."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: 'a paragraph typed in a hurry at the door', 'He scored 7 at visit 1 and 3 at visit 4'; no AI tells found."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Pacemaker line attributed and verbatim: 'Patient guidance from the University of Edinburgh says electroacupuncture is not recommended for people with a pacemaker' (source quote 'it is not recommended for people with a pacemaker'); keeps the source's own limit (not recommended, attributed) and gives no clinical instruction, only form design. NIH supplement line verbatim. claims_used all approved; numbers agree (6/10, 2+3=5, 7..3 over 4 visits)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Pacemaker/e-stim, herbal formula rows and recliner seating are specific to acupuncture; siblings (dental, pt, therapy intake) only linked, not targeted."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, paa --spec 10 pass 0 reject 0 flag; hub link in item 2; sibling links 'dental intake form', 'pt intake form', 'therapy intake form'; moat lines in FAQ 5 and 9; no brand or file format in questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 'Low back pain, 6 out of 10' / 'Recliner 4' / 'For Wenqi Lattimore'; tab 2 Efua Asamoah 10:30 'No e-stim' for Ruairi Bale; tab 3 five rows, '2 medications, 3 supplements'; tab 4 bars 7, 6, 4, 3 with '4 Scores logged'. One hero per tab, cursor on button edge."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #7",
+    "field": "faq",
+    "quote": "Acupuncture versions add Traditional Chinese Medicine questions about temperature, digestion, sleep, and emotional health",
+    "issue": "General statement about acupuncture intake forms is sourced to one vendor template page (Paperform) describing its own template; reads as a general fact.",
+    "fix": "Next time source the pattern questions to a practice or professional source, or phrase as 'Many acupuncture forms add...' style advice.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief.tabs[1]",
+    "quote": "E-stim: Allowed",
+    "issue": "The table marks patients who answered No as e-stim 'Allowed', implying the form clears e-stim from one answer; the copy only says a yes adds a No e-stim label.",
+    "fix": "Show a dash or 'No flag' for the No rows.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "a full mental health history belongs on a therapy intake form, completed with a counselor",
+    "issue": "Recommendation stated without a source.",
+    "fix": "Acceptable as advice; could read 'keep a full mental health history for a therapy intake form'.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "why_description",
+    "quote": "A clipboard packet gets read with the patient already on the table.",
+    "issue": "Broad generalization about clinic practice; QC Q9 also flags 'patient' 13 and 'chart' 12 times outside the FAQ.",
+    "fix": "Vary 'chart' (record, file) and 'patient' in later pages.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq",
+   "issue": "General statement about acupuncture intake forms is sourced to one vendor template page (Paperform) describing its own template; reads as a general fact.",
+   "fix": "Next time source the pattern questions to a practice or professional source, or phrase as 'Many acupuncture forms add...' style advice.",
+   "by": "B-r-434",
+   "via": "review",
+   "date": "2026-11-05 10:10 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief.tabs[1]",
+   "issue": "The table marks patients who answered No as e-stim 'Allowed', implying the form clears e-stim from one answer; the copy only says a yes adds a No e-stim label.",
+   "fix": "Show a dash or 'No flag' for the No rows.",
+   "by": "B-r-434",
+   "via": "review",
+   "date": "2026-11-05 10:10 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Recommendation stated without a source.",
+   "fix": "Acceptable as advice; could read 'keep a full mental health history for a therapy intake form'.",
+   "by": "B-r-434",
+   "via": "review",
+   "date": "2026-11-05 10:10 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "why_description",
+   "issue": "Broad generalization about clinic practice; QC Q9 also flags 'patient' 13 and 'chart' 12 times outside the FAQ.",
+   "fix": "Vary 'chart' (record, file) and 'patient' in later pages.",
+   "by": "B-r-434",
+   "via": "review",
+   "date": "2026-11-05 10:10 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "447083222b5e304e",
+   "alt:share_image": "f4a5c9c9f85b98fe",
+   "alt:tab_image_1": "d1ae47577e5f311f",
+   "alt:tab_image_2": "045a422a53fc9ad7",
+   "alt:tab_image_3": "4c634a7f292a9e05",
+   "alt:tab_image_4": "3eecb3bafa8e9fcf",
+   "breadcrumb": "0949aee600afedaa",
+   "chip_adds": "488a74f9cd5c5cb8",
+   "explore_cta": "ec50976c2857916d",
+   "faq": "4d5a9b78a42e9b9a",
+   "feature_1": "faa5dbd3bada9ba1",
+   "feature_2": "24becd09174830d2",
+   "feature_3": "d1f85258f022a275",
+   "feature_4": "b5563a260593285b",
+   "feature_5": "2ae41d0a3476732c",
+   "feature_6": "487fd7546933c316",
+   "features_heading": "4f92daa202386e47",
+   "features_subheading": "fff5108c758cfcd6",
+   "h1": "037e025bdd7ad83b",
+   "hero_description": "bf6adcf5c9bfab4e",
+   "hero_prompt": "5b08b30128908369",
+   "howto_description": "019589f78c2b4759",
+   "howto_step_1_des": "139c6b4266ae12bc",
+   "howto_step_1_title": "b2711c4c921544f3",
+   "howto_step_2_des": "8dbc740de43454c4",
+   "howto_step_2_title": "d93779618441ac23",
+   "howto_step_3_des": "22825e99ef927071",
+   "howto_step_3_title": "a9025381e331c8b4",
+   "howto_step_4_des": "b89b5a38e51ed258",
+   "howto_step_4_title": "9cf24159366a89a6",
+   "howto_step_5_des": "694e853837169669",
+   "howto_step_5_title": "2d3e9c51386a4eac",
+   "howto_step_6_des": "b1a55ec38b876080",
+   "howto_step_6_title": "452b2d2d94a7adc8",
+   "howto_step_7_des": "19791ff0af195062",
+   "howto_step_7_title": "789c043ba84d4475",
+   "howto_title": "6a8de9767e1bd5e4",
+   "meta_description": "1ba43e8c9ac58b27",
+   "meta_title": "69593fd06e72f08f",
+   "mockup": "6fc7a695ea28642f",
+   "product_name": "f6fcc469c2ce5a0c",
+   "prompt_chip_1": "c56f24d4ea384857",
+   "prompt_chip_2": "ac41863d8efb47a7",
+   "prompt_chip_3": "fdf03d2541cce6c0",
+   "prompt_chip_4": "b614101562c8980e",
+   "slug": "1976ebcbe8c61061",
+   "tab_content_1": "e9e5d270aec8c424",
+   "tab_content_2": "536c8a6419355629",
+   "tab_content_3": "66cd1c0ce1661724",
+   "tab_content_4": "0b2043278d6d47f1",
+   "tab_label_1": "4bdc895d04610f8e",
+   "tab_label_2": "f56b2cd0771cdf8d",
+   "tab_label_3": "1615109584054a97",
+   "tab_label_4": "deb3e62f70ca1d75",
+   "usecase_heading": "646da2d1f64e3173",
+   "why_description": "d599fc5fbc2607d1",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "4a8be06e4ea778d0"
+  },
+  "all": "ea05fcc9f59320c7",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "447083222b5e304e",
+   "alt:share_image": "f4a5c9c9f85b98fe",
+   "alt:tab_image_1": "d1ae47577e5f311f",
+   "alt:tab_image_2": "045a422a53fc9ad7",
+   "alt:tab_image_3": "4c634a7f292a9e05",
+   "alt:tab_image_4": "3eecb3bafa8e9fcf",
+   "breadcrumb": "0949aee600afedaa",
+   "chip_adds": "488a74f9cd5c5cb8",
+   "explore_cta": "ec50976c2857916d",
+   "faq": "4d5a9b78a42e9b9a",
+   "feature_1": "faa5dbd3bada9ba1",
+   "feature_2": "24becd09174830d2",
+   "feature_3": "d1f85258f022a275",
+   "feature_4": "b5563a260593285b",
+   "feature_5": "2ae41d0a3476732c",
+   "feature_6": "487fd7546933c316",
+   "features_heading": "4f92daa202386e47",
+   "features_subheading": "fff5108c758cfcd6",
+   "h1": "037e025bdd7ad83b",
+   "hero_description": "bf6adcf5c9bfab4e",
+   "hero_prompt": "5b08b30128908369",
+   "howto_description": "019589f78c2b4759",
+   "howto_step_1_des": "139c6b4266ae12bc",
+   "howto_step_1_title": "b2711c4c921544f3",
+   "howto_step_2_des": "8dbc740de43454c4",
+   "howto_step_2_title": "d93779618441ac23",
+   "howto_step_3_des": "22825e99ef927071",
+   "howto_step_3_title": "a9025381e331c8b4",
+   "howto_step_4_des": "b89b5a38e51ed258",
+   "howto_step_4_title": "9cf24159366a89a6",
+   "howto_step_5_des": "694e853837169669",
+   "howto_step_5_title": "2d3e9c51386a4eac",
+   "howto_step_6_des": "b1a55ec38b876080",
+   "howto_step_6_title": "452b2d2d94a7adc8",
+   "howto_step_7_des": "19791ff0af195062",
+   "howto_step_7_title": "789c043ba84d4475",
+   "howto_title": "6a8de9767e1bd5e4",
+   "meta_description": "1ba43e8c9ac58b27",
+   "meta_title": "69593fd06e72f08f",
+   "mockup": "6fc7a695ea28642f",
+   "product_name": "f6fcc469c2ce5a0c",
+   "prompt_chip_1": "c56f24d4ea384857",
+   "prompt_chip_2": "ac41863d8efb47a7",
+   "prompt_chip_3": "fdf03d2541cce6c0",
+   "prompt_chip_4": "b614101562c8980e",
+   "slug": "1976ebcbe8c61061",
+   "tab_content_1": "e9e5d270aec8c424",
+   "tab_content_2": "536c8a6419355629",
+   "tab_content_3": "66cd1c0ce1661724",
+   "tab_content_4": "0b2043278d6d47f1",
+   "tab_label_1": "4bdc895d04610f8e",
+   "tab_label_2": "f56b2cd0771cdf8d",
+   "tab_label_3": "1615109584054a97",
+   "tab_label_4": "deb3e62f70ca1d75",
+   "usecase_heading": "646da2d1f64e3173",
+   "why_description": "d599fc5fbc2607d1",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "4a8be06e4ea778d0"
+  },
+  "all": "ea05fcc9f59320c7",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
