@@ -122,6 +122,13 @@
    "via": null,
    "by": "B-w-423",
    "note": ""
+  },
+  {
+   "t": "2026-11-05 10:09 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-433",
+   "note": "[truth | HUB_RULES 8] features_subheading: An each/every claim about the six features that is false for some of them (rework-checklist 7, Divit 2026-11-03): feature 6 'Your booking app's code, on GitHub' and feature 5 'New inquiries reach the right DJ' collect no detail from the client; feature 1 fi"
   }
  ],
  "pipeline": "r15",
@@ -917,5 +924,265 @@
  ],
  "writers": [
   "B-w-423"
- ]
+ ],
+ "review": {
+  "by": "B-r-433",
+  "date": "2026-11-05 10:09 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a DJ Booking Form for Every Gig on Your Calendar'; hero 'Build a DJ booking form that offers only your open dates and saves each gig's timeline to a database you own.' (under 130 chars, primary, leads with Build); how-to description one sentence with the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Template-led query served: FAQ 3 lists the fields ('client's name, phone, and email, then the event date, venue, start and end times, and event type'), 7-step how-to, four DJ segments (weddings, corporate, schools, multi-DJ), comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "DJ vocabulary throughout: load-in, loading dock, wireless mics, clean edits, do-not-play list, grand entrance, parent dances; table uses form-category rows."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs ('The date picker checks...', 'Ask for the setup time...', 'Give the client room...', 'Collect the venue address...', 'Email each new inquiry...', 'On paid plans, export...'); tabs open on full sentences."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; QC Q8 flags 12 'A, B, and C' lists (recorded as a note)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous details: 'Dock B, east side', '2 wireless mics for speeches', 'Cap the list at a number you can honor, such as 10 songs'."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "features_subheading: 'These six pieces collect each detail when the client books.' is false for feature 6 ('Your booking app's code, on GitHub') and feature 5 ('New inquiries reach the right DJ'), which collect no detail."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Reads as its own page: wedding timeline, load-in sheet, school clean-edits rule and multi-DJ availability are DJ-specific; sibling primaries appear only as FAQ links, never in headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, each answered in its first sentence ('Yes, if you plan the set from it.'); hub link in item 2; moat lines in items 5 and 9 from approved claims (prompt-build, no-caps); paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 2 image draws a 'Power: 2 outlets by the stage' row on the load-in sheet that neither the corporateParties mockup nor tab_content_2 collects; tab 1 image form draws Date, Venue, Ceremony, First dance only while the weddingReceptions mockup also asks 'when the last song plays'."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "features_subheading",
+    "quote": "These six pieces collect each detail when the client books.",
+    "issue": "An each/every claim about the six features that is false for some of them (rework-checklist 7, Divit 2026-11-03): feature 6 'Your booking app's code, on GitHub' and feature 5 'New inquiries reach the right DJ' collect no detail from the client; feature 1 filters dates rather than collecting a detail.",
+    "fix": "Drop the 'six pieces collect each detail' claim and describe the form as a whole, e.g. 'The form collects the timeline, music notes and load-in details when the client books, and sends them to the DJ who is free.'",
+    "severity": "blocking"
+   },
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief.tabs[1].main (Load-in sheet); image_brief.tabs[0].main (Tannery Lane DJs form)",
+    "quote": "Power | 2 outlets by the stage",
+    "issue": "Form fields differ between copy, mockup and image (rework-checklist 9). Instance 1: the tab 2 load-in sheet draws a Power row, but the corporateParties mockup asks only for 'the event date, the venue, the load-in time, which loading dock to use, and how many wireless mics' and sends 'a load-in sheet with all of it', and tab_content_2 names only the arrival and the dock. Instance 2: the weddingReceptions mockup asks for 'the date, the venue, the ceremony time, the first dance time, and when the last song plays', while the tab 1 image form draws only Date, Venue, Ceremony and First dance.",
+    "fix": "Pick one field set per tab: either drop the Power row from the tab 2 image or add the power question to the corporateParties mockup and tab copy; add a Last song field to the tab 1 form image (or drop it from the mockup), then re-render and check the contact sheet.",
+    "severity": "blocking"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_2, feature_3, tab_content_1, howto_step_3_des, faq items 1, 3, 6",
+    "quote": "the setup time, the start, and the end, then the moments in between, like the grand entrance, toasts, and the first dance",
+    "issue": "12 'A, B, and C' lists on the page (QC Q8); several fields read as inventories.",
+    "fix": "Turn some lists into pairs or a single concrete item.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "hero_description, feature_1, howto_step_2_des, faq item 5, tab_content_4",
+    "quote": "offers only dates with no booking yet",
+    "issue": "The open-dates-only idea is restated in five fields with words swapped (hero 'offers only your open dates', step 2 'so it offers only open dates', FAQ 5 'a booked date stops showing', tab 4 'the date leaves the picker').",
+    "fix": "Keep it in the hero, feature 1 and tab 4; let step 2 and FAQ 5 add something new (how cancellations reopen a date, for example).",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 4",
+    "quote": "Guests who need rooms for the night book them through a separate hotel booking form.",
+    "issue": "The sibling link sentence sits off the question (venue load-in details) and reads inserted for the link.",
+    "fix": "Link from a sentence about the venue itself, or move the link to an answer where hotel rooms belong.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_2, feature_3, tab_content_1, howto_step_3_des, faq items 1, 3, 6",
+   "issue": "12 'A, B, and C' lists on the page (QC Q8); several fields read as inventories.",
+   "fix": "Turn some lists into pairs or a single concrete item.",
+   "by": "B-r-433",
+   "via": "review",
+   "date": "2026-11-05 10:09 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "hero_description, feature_1, howto_step_2_des, faq item 5, tab_content_4",
+   "issue": "The open-dates-only idea is restated in five fields with words swapped (hero 'offers only your open dates', step 2 'so it offers only open dates', FAQ 5 'a booked date stops showing', tab 4 'the date leaves the picker').",
+   "fix": "Keep it in the hero, feature 1 and tab 4; let step 2 and FAQ 5 add something new (how cancellations reopen a date, for example).",
+   "by": "B-r-433",
+   "via": "review",
+   "date": "2026-11-05 10:09 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 4",
+   "issue": "The sibling link sentence sits off the question (venue load-in details) and reads inserted for the link.",
+   "fix": "Link from a sentence about the venue itself, or move the link to an answer where hotel rooms belong.",
+   "by": "B-r-433",
+   "via": "review",
+   "date": "2026-11-05 10:09 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "66c3306c09fb63df",
+   "alt:share_image": "389227ee253bef1a",
+   "alt:tab_image_1": "7f5f9d72b2954beb",
+   "alt:tab_image_2": "ca97493409f944fa",
+   "alt:tab_image_3": "b3d478a3ad5c8a49",
+   "alt:tab_image_4": "62e42de6c5afd601",
+   "breadcrumb": "3a019a2d5afd50d4",
+   "chip_adds": "516b360c2d321760",
+   "explore_cta": "d43862be7cbb11db",
+   "faq": "943d44e48d754527",
+   "feature_1": "fbad972f4d54d280",
+   "feature_2": "ccbdb70def265f6a",
+   "feature_3": "b6b0e9d78d5bec23",
+   "feature_4": "48c5f2c2a5de4f70",
+   "feature_5": "d3a03083b25f4fae",
+   "feature_6": "61e57f3d1f208849",
+   "features_heading": "68f49fd7651e234c",
+   "features_subheading": "1535e52e01f8f9e7",
+   "h1": "fec06b2632f05978",
+   "hero_description": "5c8b32b99292b751",
+   "hero_prompt": "e729274fbd64dad2",
+   "howto_description": "7e597db9b76ab222",
+   "howto_step_1_des": "19a6180206d8b0dd",
+   "howto_step_1_title": "236615a3bd77a402",
+   "howto_step_2_des": "2332c7df63d08ea1",
+   "howto_step_2_title": "f9391d093529ca3b",
+   "howto_step_3_des": "5fc60d607039bc7a",
+   "howto_step_3_title": "c76d189c65333c0f",
+   "howto_step_4_des": "9dad46de013d5221",
+   "howto_step_4_title": "2a3544d346e05642",
+   "howto_step_5_des": "3cb75793de00cf2c",
+   "howto_step_5_title": "5aa55318a7947998",
+   "howto_step_6_des": "007b2e24276dab84",
+   "howto_step_6_title": "57d3f7d6f1174aba",
+   "howto_step_7_des": "c3e16343d72ab376",
+   "howto_step_7_title": "3d9fed9939a3199b",
+   "howto_title": "ce0c7cdcdd0df531",
+   "meta_description": "9989d2a7ecd67202",
+   "meta_title": "45539a70af24efce",
+   "mockup": "53956d6f576f47f1",
+   "product_name": "1b8a309debccf970",
+   "prompt_chip_1": "ec133a7bada8b2d2",
+   "prompt_chip_2": "50c4cd49a7988484",
+   "prompt_chip_3": "171c507a2d419a0b",
+   "prompt_chip_4": "9e16bde95a371ec8",
+   "slug": "5f873b53f48c46b8",
+   "tab_content_1": "6237cd8c3104610b",
+   "tab_content_2": "4dedb1e1daf75c2b",
+   "tab_content_3": "3f969d1cfda2c283",
+   "tab_content_4": "47d1919fcbf4c81a",
+   "tab_label_1": "f64987bc22cc6a8a",
+   "tab_label_2": "6c9d1d1b4c56a5a0",
+   "tab_label_3": "eb9c24a3dcd47dfc",
+   "tab_label_4": "a777ff1d53b7f196",
+   "usecase_heading": "b9b159f3074d7a3b",
+   "why_description": "707a628d6afea98a",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "305078a29762c6fb"
+  },
+  "all": "c2252387ea6924b6",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "66c3306c09fb63df",
+   "alt:share_image": "389227ee253bef1a",
+   "alt:tab_image_1": "7f5f9d72b2954beb",
+   "alt:tab_image_2": "ca97493409f944fa",
+   "alt:tab_image_3": "b3d478a3ad5c8a49",
+   "alt:tab_image_4": "62e42de6c5afd601",
+   "breadcrumb": "3a019a2d5afd50d4",
+   "chip_adds": "516b360c2d321760",
+   "explore_cta": "d43862be7cbb11db",
+   "faq": "943d44e48d754527",
+   "feature_1": "fbad972f4d54d280",
+   "feature_2": "ccbdb70def265f6a",
+   "feature_3": "b6b0e9d78d5bec23",
+   "feature_4": "48c5f2c2a5de4f70",
+   "feature_5": "d3a03083b25f4fae",
+   "feature_6": "61e57f3d1f208849",
+   "features_heading": "68f49fd7651e234c",
+   "features_subheading": "1535e52e01f8f9e7",
+   "h1": "fec06b2632f05978",
+   "hero_description": "5c8b32b99292b751",
+   "hero_prompt": "e729274fbd64dad2",
+   "howto_description": "7e597db9b76ab222",
+   "howto_step_1_des": "19a6180206d8b0dd",
+   "howto_step_1_title": "236615a3bd77a402",
+   "howto_step_2_des": "2332c7df63d08ea1",
+   "howto_step_2_title": "f9391d093529ca3b",
+   "howto_step_3_des": "5fc60d607039bc7a",
+   "howto_step_3_title": "c76d189c65333c0f",
+   "howto_step_4_des": "9dad46de013d5221",
+   "howto_step_4_title": "2a3544d346e05642",
+   "howto_step_5_des": "3cb75793de00cf2c",
+   "howto_step_5_title": "5aa55318a7947998",
+   "howto_step_6_des": "007b2e24276dab84",
+   "howto_step_6_title": "57d3f7d6f1174aba",
+   "howto_step_7_des": "c3e16343d72ab376",
+   "howto_step_7_title": "3d9fed9939a3199b",
+   "howto_title": "ce0c7cdcdd0df531",
+   "meta_description": "9989d2a7ecd67202",
+   "meta_title": "45539a70af24efce",
+   "mockup": "53956d6f576f47f1",
+   "product_name": "1b8a309debccf970",
+   "prompt_chip_1": "ec133a7bada8b2d2",
+   "prompt_chip_2": "50c4cd49a7988484",
+   "prompt_chip_3": "171c507a2d419a0b",
+   "prompt_chip_4": "9e16bde95a371ec8",
+   "slug": "5f873b53f48c46b8",
+   "tab_content_1": "6237cd8c3104610b",
+   "tab_content_2": "4dedb1e1daf75c2b",
+   "tab_content_3": "3f969d1cfda2c283",
+   "tab_content_4": "47d1919fcbf4c81a",
+   "tab_label_1": "f64987bc22cc6a8a",
+   "tab_label_2": "6c9d1d1b4c56a5a0",
+   "tab_label_3": "eb9c24a3dcd47dfc",
+   "tab_label_4": "a777ff1d53b7f196",
+   "usecase_heading": "b9b159f3074d7a3b",
+   "why_description": "707a628d6afea98a",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "305078a29762c6fb"
+  },
+  "all": "c2252387ea6924b6",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
