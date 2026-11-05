@@ -1,0 +1,928 @@
+{
+ "url": "/ai-automation-builder/patient-intake",
+ "hub": "Auto",
+ "item_id": null,
+ "status": "spec",
+ "written_by": "B-w-412",
+ "keywords": {
+  "primary": "patient intake automation",
+  "secondaries_used": []
+ },
+ "vendor_facts_checked": null,
+ "fields": {
+  "meta_title": "Patient Intake Automation for Front Desks | Emergent",
+  "meta_description": "Build patient intake automation that chases unfinished intakes, checks card photos, flags allergies, and holds possible duplicates.",
+  "h1": "Build Patient Intake Automation That Routes Only the Exceptions",
+  "slug": "patient-intake",
+  "product_name": "Patient Intake Automation Builder",
+  "hero_description": "Build patient intake automation that sends intake forms at booking, chases unfinished ones, and flags answers that need a person.",
+  "breadcrumb": "Patient Intake Automation",
+  "category": "a33cd4fb124ec86a130809893b2b3896",
+  "explore_cta": "Build My Patient Intake Automation",
+  "features_heading": "What Emergent Builds Into an Intake Workflow",
+  "features_subheading": "Each piece moves an intake one step closer to the visit and stops for a person only when an answer needs one.",
+  "feature_1": "<h3>An intake link with every booking</h3><p>A new appointment in your scheduling system starts the intake, and the app emails the patient a link that same minute. A new patient and a returning one can get different forms.</p>",
+  "feature_2": "<h3>Reminders that end in a call list</h3><p>Choose when an unfinished intake gets a reminder email and when it moves to a person instead. Open intakes land on a front desk list sorted by visit time, with phone numbers.</p>",
+  "feature_3": "<h3>Card photos read into plan fields</h3><p>Patients photograph the front and back of their insurance card, and AI turns each photo into fields. A value read with low confidence goes to a person before the record is saved.</p>",
+  "feature_4": "<h3>Answers routed to one named person</h3><p>Write a rule for any answer staff must act on, such as an allergy or a missing referral. The app messages that person in Slack, by email, or in the app, and logs who was told.</p>",
+  "feature_5": "<h3>A live board of tomorrow's arrivals</h3><p>The dashboard lists tomorrow's patients with each intake marked finished, open, or held, and it updates as answers come in. Every answer is saved to a database you own.</p>",
+  "feature_6": "<h3>The intake app's code, in your GitHub</h3><p>Export the full code of the intake app to your GitHub repository on paid plans. A developer can host it on your own servers and connect it to new software as the practice adds it.</p>",
+  "why_title": "Why Automate Patient Intake With Emergent?",
+  "why_description": "Emergent builds the intake rules, the front desk board, and the patient database as one app from a prompt, with no task cap.",
+  "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Zapier</th>\n        <th scope=\"col\">Make (Integromat)</th>\n        <th scope=\"col\">n8n</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt for the workflow and the app around it</td>\n        <td class=\"col-other\">Templates and editor, AI copilot</td>\n        <td class=\"col-other\">Visual canvas</td>\n        <td class=\"col-other\">Visual canvas, self-hosted or cloud</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">What you get</th>\n        <td class=\"col-brand\">Workflow + trigger form + database + dashboard, as code you own</td>\n        <td class=\"col-other\">Zaps, plus Tables and Interfaces inside Zapier</td>\n        <td class=\"col-other\">Scenarios inside Make</td>\n        <td class=\"col-other\">Workflows inside n8n</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Behavior at cap</th>\n        <td class=\"col-brand\">Keeps running, no task cap</td>\n        <td class=\"col-other\">Overage billed at up to 1.25× the base rate</td>\n        <td class=\"col-other\">Runs pause</td>\n        <td class=\"col-other\">Cloud workflows stop until the reset or an upgrade</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">AI and agent steps</th>\n        <td class=\"col-brand\">Native, share the same credit pool</td>\n        <td class=\"col-other\">Priced by model tier, drawn from the task pool</td>\n        <td class=\"col-other\">AI modules cost variable credits</td>\n        <td class=\"col-other\">Bring your own model API key, billed by the provider</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">Yes on Community Edition</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
+  "usecase_heading": "Four Intake Exceptions a Person Should See",
+  "tab_label_1": "Intake Reminders",
+  "tab_label_2": "Insurance Cards",
+  "tab_label_3": "Allergy Alerts",
+  "tab_label_4": "Duplicate Records",
+  "tab_content_1": "<h3>By 4 p.m. Wednesday, 3 open intakes reach the front desk</h3><p>Brindlewood Dermatology has 24 new patients booked for Thursday. Each one got an intake link by email at booking, and anyone unfinished got a reminder 2 days before the visit. By 4 p.m. Wednesday, 21 intakes are complete. The app sends the 3 still open to Ilsabet Aldecoa, the front desk lead, as a call list.</p>",
+  "tab_content_2": "<h3>Billing checks a member ID that is one digit off</h3><p>Cormac Tennant photographs both sides of his insurance card for a Monday knee consult at Coldharbor Orthopedics. AI reads the member ID from the front. He typed QX4471902, but the card reads QX4471962. The app holds the intake for Odhran Fairclough, the billing coordinator.</p>",
+  "tab_content_3": "<h3>Before Tuesday, a latex allergy reaches the surgical assistant</h3><p>Saoirse Ebbesen is booked for a tooth extraction at Hollins Creek Oral Surgery on Tuesday at 8:00 a.m. On Sunday at 7:12 p.m., she answers yes to the latex allergy question. The app sends a direct message to Ysella Quellet, Tuesday's surgical assistant, and flags latex on the day sheet.</p>",
+  "tab_content_4": "<h3>Two possible duplicates stay out of the patient records</h3><p>Pallas Ridge Sleep Clinic sends each finished intake to its scheduling system through its API. On Monday, 41 intakes finish, and 39 become new patient records. The other 2 share a last name and date of birth with an existing patient, and wait in a merge queue for Fenella Sarvari, the records lead.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { intakeReminders: \"Email every new patient an intake link the moment they book. Two days before the visit, email a reminder to anyone who has not finished. At 4 p.m. the day before, send the front desk lead a call list of the intakes still open, with each patient's visit time and phone number, earliest visit first.\", insuranceCards: \"Ask each patient to photograph the front and back of their insurance card during intake. Read the plan name, group number, and member ID from the front of the card. If the member ID read from the card does not match the one the patient typed, hold the intake for my billing coordinator to check before the visit.\", allergyAlerts: \"Add a latex allergy question to the intake for every procedure visit. When a patient answers yes, send a direct message to the surgical assistant on that day's schedule with the patient's name and visit time, and add a latex flag next to the patient on the day sheet.\", duplicateRecords: \"Send each finished intake to my scheduling system through its API as a new patient record. If the last name and date of birth match an existing patient, hold the intake in a merge queue for my records lead instead of creating a record. Show each day's count of new records and held intakes.\" };</p>",
+  "howto_title": "How to Automate Patient Intake",
+  "howto_description": "Seven steps to map your intake, give every exception an owner, and build patient intake automation with Emergent.",
+  "howto_step_1_title": "01 Write down how intake runs today",
+  "howto_step_2_title": "02 Pick the questions per visit type",
+  "howto_step_3_title": "03 Set the reminder schedule",
+  "howto_step_4_title": "04 Give every exception an owner",
+  "howto_step_1_des": "List every step from the booking call to the patient in the exam room: who sends the forms, how they come back, who types them into the scheduling system, and who checks insurance. Mark each step where a staff member waits on a patient.",
+  "howto_step_2_des": "Split the questions every new patient answers from the ones only one visit type needs, such as a procedure consent. Cut any question nobody on staff reads before the visit. Keep the intake short enough to finish on a phone in one sitting.",
+  "howto_step_3_des": "Pick two times for each visit type: the day an unfinished intake gets its reminder, and the hour the front desk takes over. Work back from the visit and leave a full afternoon to call patients who still have not finished.",
+  "howto_step_4_des": "List the answers that need a staff member before the visit, such as a mismatched member ID, an allergy, or a possible duplicate record. Put one named person against each, add a backup for days off, and choose how each person is told.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Patient Intake Questions, Answered\", \"items\": [{\"q\": \"What is patient intake automation?\", \"a\": \"Patient intake automation is software that sends and chases a new patient's intake without a staff member doing each step by hand. The intake goes out when the visit is booked, a reminder follows if it sits unfinished, and the finished answers move into the patient record.\"}, {\"q\": \"How do I set up patient intake automation?\", \"a\": \"Start with one visit type and write its rules in plain English: when the intake goes out, when an unfinished one gets a reminder, and which answers go to which staff member. Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a> turns that description into a working app with its own database, and a later prompt changes any rule.\"}, {\"q\": \"What should patient intake automation handle first?\", \"a\": \"Automate the step your front desk repeats most. If staff retype paper forms into the scheduling system, start with getting answers into the patient record. If intakes already arrive online, start with reminders for the unfinished ones, because each open intake becomes a phone call the day before.\"}, {\"q\": \"How should patient intake automation handle insurance card photos?\", \"a\": \"Ask for both sides of the card, read the fields from the front, and compare them with what the patient typed. Send a mismatch or a hard-to-read value to one person before the visit. Buyer paperwork in <a href='https://emergent.sh/ai-automation-builder/real-estate-workflow'>real estate workflow automation</a> follows the same order: upload, read, then check.\"}, {\"q\": \"Which answers should patient intake automation send to staff?\", \"a\": \"Alert only on answers a person must act on before the visit. Good candidates are an allergy that changes the room setup, a missing referral, a member ID that does not match the card, and a minor with no guardian listed. Send each alert to one named person, not a shared inbox.\"}, {\"q\": \"How does patient intake automation get answers into the patient record?\", \"a\": \"Through your scheduling or records system's API, if it offers one. The app sends each finished intake as a new patient record or an update to an existing one. Hold any intake that matches an existing patient on name and date of birth for a person to merge. Apps built with Emergent connect to any system with an API.\"}, {\"q\": \"Can patient intake automation collect signatures on consents?\", \"a\": \"Yes. Place the consents after the last question and capture a typed or drawn signature, saved with the answers from that visit. Use the consent wording your practice already has. Volunteer waivers in <a href='https://emergent.sh/ai-automation-builder/nonprofit-workflow'>nonprofit workflow automation</a> use the same signature step.\"}, {\"q\": \"How do I measure whether patient intake automation is working?\", \"a\": \"Track three numbers each week: the share of intakes finished before the visit, the length of the front desk call list, and how many intakes staff still type in by hand. Compare them with the 4 weeks before go-live. Emergent builds the dashboard with the intake app, on the same database.\"}, {\"q\": \"Does patient intake automation work on a patient's phone?\", \"a\": \"Yes, if the intake is built for a small screen. Show one question per screen, let patients photograph their card instead of typing it, and save progress so they can stop and return. Emergent can build the intake as a conversational flow with one question per screen.\"}, {\"q\": \"Who on staff should own patient intake automation?\", \"a\": \"Give it to the front desk lead, who sees every unfinished intake and every call list. Billing owns the insurance rules and a clinician owns the alert rules, but one person approves every rule change. The same setup suits <a href='https://emergent.sh/ai-automation-builder/education-workflow'>education workflow automation</a>, where a school's front office owns the absence rules.\"}]}; </script></div></div>",
+  "learn": null,
+  "tutorials": null,
+  "case_study": null,
+  "integration": null,
+  "howto_step_5_title": "05 Connect your scheduling system",
+  "howto_step_5_des": "Connect your scheduling or practice management system through its API, so a booking starts the intake and a finished one returns as a patient record. Describe the rules from steps 2 to 4 in a prompt, and Emergent builds the app around them.",
+  "howto_step_6_title": "06 Replay last week's bookings",
+  "howto_step_6_des": "Load 10 of last week's bookings with made-up patient details and run them through the app. Leave one intake unfinished and upload one blurry card photo on purpose, then confirm that the reminder, the call list, and the review step all arrive.",
+  "howto_step_7_title": "07 Go live with one visit type",
+  "howto_step_7_des": "Start with new patient visits for one provider. Watch the call list and the merge queue for two weeks, move the reminder earlier or later if calls pile up, and add the next visit type once nobody types intakes in by hand.",
+  "prompt_chip_1": "Intake Reminders",
+  "prompt_chip_2": "Card Photo Checks",
+  "prompt_chip_3": "Allergy Alerts",
+  "prompt_chip_4": "Record Sync",
+  "hero_prompt": "<p>Build patient intake automation for my dermatology practice that emails each new patient an intake link when they book.</p>"
+ },
+ "images": {
+  "tab_image_1": {
+   "path": "images/aab/patient-intake/uc-1.svg",
+   "alt": "A dermatology practice sends 24 intake links for Thursday's new patients, 21 are complete by 4 p.m. Wednesday, and the front desk lead gets a call list of the 3 still open."
+  },
+  "tab_image_2": {
+   "path": "images/aab/patient-intake/uc-2.svg",
+   "alt": "A photographed insurance card is read into fields, and a member ID one digit off from the one the patient typed is held for the billing coordinator."
+  },
+  "tab_image_3": {
+   "path": "images/aab/patient-intake/uc-3.svg",
+   "alt": "A patient answers yes to the latex allergy question on her phone on Sunday at 7:12 p.m., and the surgical assistant gets a direct message before her Tuesday 8:00 a.m. extraction."
+  },
+  "tab_image_4": {
+   "path": "images/aab/patient-intake/uc-4.svg",
+   "alt": "Of 41 finished intakes on Monday, 39 become new patient records and 2 that match an existing patient on last name and date of birth wait in the records lead's merge queue."
+  },
+  "cover_image": {
+   "path": "images/aab/patient-intake/cover.svg",
+   "alt": "Patient intake automation: a billing coordinator gets a direct message about a member ID that does not match the insurance card"
+  },
+  "share_image": {
+   "path": "images/aab/patient-intake/og.webp",
+   "alt": "Build patient intake automation that routes exceptions to staff, with Emergent"
+  }
+ },
+ "image_spec": null,
+ "history": [
+  {
+   "t": "2026-11-05 09:44 UTC",
+   "state": "spec",
+   "via": null,
+   "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-11-05 10:01 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "B-w-412",
+   "note": ""
+  },
+  {
+   "t": "2026-11-05 10:01 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-412",
+   "note": ""
+  },
+  {
+   "t": "2026-11-05 10:03 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-412",
+   "note": ""
+  }
+ ],
+ "pipeline": "r15",
+ "faq_plan": [
+  {
+   "kind": "definition",
+   "q": "What is patient intake automation?",
+   "ref": "patient intake automation",
+   "locked": true,
+   "n": 1,
+   "a": "Patient intake automation is software that sends and chases a new patient's intake without a staff member doing each step by hand. The intake goes out when the visit is booked, a reminder follows if it sits unfinished, and the finished answers move into the patient record.",
+   "link": null
+  },
+  {
+   "kind": "definition",
+   "q": "How do I set up patient intake automation?",
+   "ref": "patient intake automation",
+   "locked": true,
+   "n": 2,
+   "a": "Start with one visit type and write its rules in plain English: when the intake goes out, when an unfinished one gets a reminder, and which answers go to which staff member. Emergent's AI automation builder turns that description into a working app with its own database, and a later prompt changes any rule.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder",
+    "anchor": "AI automation builder",
+    "write_as": "Emergent's AI automation builder"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "What should patient intake automation handle first?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 3,
+   "a": "Automate the step your front desk repeats most. If staff retype paper forms into the scheduling system, start with getting answers into the patient record. If intakes already arrive online, start with reminders for the unfinished ones, because each open intake becomes a phone call the day before.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How should patient intake automation handle insurance card photos?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 4,
+   "a": "Ask for both sides of the card, read the fields from the front, and compare them with what the patient typed. Send a mismatch or a hard-to-read value to one person before the visit. Buyer paperwork in real estate workflow automation follows the same order: upload, read, then check.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/real-estate-workflow",
+    "anchor": "real estate workflow automation"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "Which answers should patient intake automation send to staff?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 5,
+   "a": "Alert only on answers a person must act on before the visit. Good candidates are an allergy that changes the room setup, a missing referral, a member ID that does not match the card, and a minor with no guardian listed. Send each alert to one named person, not a shared inbox.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How does patient intake automation get answers into the patient record?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 6,
+   "a": "Through your scheduling or records system's API, if it offers one. The app sends each finished intake as a new patient record or an update to an existing one. Hold any intake that matches an existing patient on name and date of birth for a person to merge. Apps built with Emergent connect to any system with an API.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Can patient intake automation collect signatures on consents?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 7,
+   "a": "Yes. Place the consents after the last question and capture a typed or drawn signature, saved with the answers from that visit. Use the consent wording your practice already has. Volunteer waivers in nonprofit workflow automation use the same signature step.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/nonprofit-workflow",
+    "anchor": "nonprofit workflow automation"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "How do I measure whether patient intake automation is working?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 8,
+   "a": "Track three numbers each week: the share of intakes finished before the visit, the length of the front desk call list, and how many intakes staff still type in by hand. Compare them with the 4 weeks before go-live. Emergent builds the dashboard with the intake app, on the same database.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Does patient intake automation work on a patient's phone?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 9,
+   "a": "Yes, if the intake is built for a small screen. Show one question per screen, let patients photograph their card instead of typing it, and save progress so they can stop and return. Emergent can build the intake as a conversational flow with one question per screen.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "Who on staff should own patient intake automation?",
+   "ref": null,
+   "secondary": null,
+   "locked": false,
+   "n": 10,
+   "a": "Give it to the front desk lead, who sees every unfinished intake and every call list. Billing owns the insurance rules and a clinician owns the alert rules, but one person approves every rule change. The same setup suits education workflow automation, where a school's front office owns the absence rules.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/education-workflow",
+    "anchor": "education workflow automation"
+   }
+  }
+ ],
+ "faq_heading": "Patient Intake Questions, Answered",
+ "table": {
+  "vs": [
+   "Zapier",
+   "Make (Integromat)",
+   "n8n"
+  ],
+  "rows": [
+   "build",
+   "output",
+   "cap",
+   "ai",
+   "ownership"
+  ],
+  "variant": null
+ },
+ "skeleton": {
+  "built_by": "B-w-412",
+  "built": "2026-11-05 09:44 UTC",
+  "slots": 10,
+  "flagged": 0,
+  "flag_subtypes": [],
+  "locked": 2,
+  "table": true
+ },
+ "plan": {
+  "angle": "Searches for patient intake automation return vendor overviews that list benefits without showing a single rule. This page shows the four places an automated intake should stop and hand work to one named person: unfinished intakes the day before, a member ID that does not match the card photo, an allergy answer before a procedure, and a finished intake that may duplicate an existing patient record. Form design belongs to the Form hub's patient intake page and clinic-wide reminders, referrals and supplies to the healthcare automation page; this page stays on what happens to an intake between booking and the visit.",
+  "tab_stories": [
+   "Brindlewood Dermatology has 24 new patients booked for Thursday; each got an intake link at booking and a reminder 2 days out, 21 are complete by Wednesday at 4 p.m., and the 3 still open go to Ilsabet Aldecoa, the front desk lead, as a call list.",
+   "Cormac Tennant photographs his insurance card for a Monday knee consult at Coldharbor Orthopedics; AI reads member ID QX4471962 from the card while he typed QX4471902, and the one-digit mismatch is held for Odhran Fairclough, the billing coordinator.",
+   "Saoirse Ebbesen, booked for a Tuesday 8:00 a.m. wisdom tooth extraction at Hollins Creek Oral Surgery, answers yes to the latex allergy question on Sunday at 7:12 p.m.; the surgical assistant on Tuesday's schedule, Ysella Quellet, gets a direct message and the day sheet shows a latex flag.",
+   "Pallas Ridge Sleep Clinic sends finished intakes to its scheduling system through its API; of Monday's 41, 39 become new patient records and 2 that share a last name and date of birth with an existing patient wait in a merge queue for Fenella Sarvari, the records lead."
+  ],
+  "openers": [
+   "Brindlewood Dermatology has 24 new patients",
+   "Cormac Tennant books a knee consult",
+   "Saoirse Ebbesen is booked for",
+   "Pallas Ridge Sleep Clinic sends each finished intake",
+   "List every step from the booking call",
+   "Pick two times",
+   "Load 10 bookings from last week"
+  ],
+  "heading_shapes": [
+   "By 4 p.m. Wednesday, 3 open intakes reach the front desk",
+   "Billing checks a member ID that is one digit off",
+   "Before Tuesday, a latex allergy reaches the surgical assistant",
+   "Two possible duplicates stay out of the patient records"
+  ],
+  "claims_to_source": []
+ },
+ "chip_adds": [
+  "Add intake reminders 2 days out and a front desk call list for any still open.",
+  "Add card photo checks that compare the member ID a patient types with the one on the card.",
+  "Add allergy alerts that message the procedure nurse when a patient answers yes to latex.",
+  "Add record sync to my scheduling system that holds possible duplicate patients."
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R1",
+    "title": "Intake reminders",
+    "prompt": "Email an intake link at booking and send the front desk the ones still open",
+    "main": {
+     "chrome": "Brindlewood Dermatology",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "THURSDAY NEW PATIENTS",
+       "title": "24 intakes sent",
+       "size": 24,
+       "sub": "21 complete by 4 p.m. Wednesday"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Intake link emailed",
+         "sub": "At booking"
+        },
+        {
+         "state": "done",
+         "title": "Reminder emailed",
+         "sub": "2 days before the visit"
+        },
+        {
+         "state": "live",
+         "title": "Call list to Ilsabet Aldecoa",
+         "sub": "Front desk lead",
+         "right": "4:00 p.m."
+        }
+       ]
+      },
+      {
+       "type": "list",
+       "row_h": 46,
+       "items": [
+        {
+         "initials": "NA",
+         "name": "Noelani Achterlonie",
+         "right": "9:15 a.m."
+        },
+        {
+         "initials": "TH",
+         "name": "Tamar Hesketh",
+         "right": "10:40 a.m."
+        },
+        {
+         "initials": "OF",
+         "name": "Osric Fairbrook",
+         "right": "2:30 p.m."
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "Call list for Ilsabet",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "3 intakes still open",
+       "size": 20,
+       "sub": "Thursday new patients"
+      },
+      {
+       "type": "meta",
+       "icon": "phone",
+       "kind": "warn",
+       "text": "Earliest visit first"
+      },
+      {
+       "type": "meta",
+       "icon": "clock",
+       "kind": "acc",
+       "text": "Sent 4:00 p.m. Wednesday"
+      }
+     ],
+     "action": {
+      "label": "Start calls",
+      "icon": "phone"
+     }
+    },
+    "mini": {
+     "icon": "check",
+     "kind": "ok",
+     "title": "21 of 24 complete",
+     "sub": "Wednesday, 4 p.m."
+    },
+    "alt": "A dermatology practice sends 24 intake links for Thursday's new patients, 21 are complete by 4 p.m. Wednesday, and the front desk lead gets a call list of the 3 still open.",
+    "story": [
+     {
+      "copy": "24 new patients",
+      "image": "24 intakes sent"
+     },
+     {
+      "copy": "a reminder 2 days before the visit",
+      "image": "2 days before the visit"
+     },
+     {
+      "copy": "By 4 p.m. Wednesday, 21 intakes are complete",
+      "image": "21 complete by 4 p.m. Wednesday"
+     },
+     {
+      "copy": "the 3 still open",
+      "image": "3 intakes still open"
+     },
+     {
+      "copy": "Ilsabet Aldecoa",
+      "image": "Call list to Ilsabet Aldecoa"
+     }
+    ]
+   },
+   {
+    "recipe": "R2",
+    "title": "Insurance card checks",
+    "prompt": "Read each insurance card photo and hold any member ID that does not match",
+    "main": {
+     "scan": true,
+     "blocks": [
+      {
+       "type": "doc_header",
+       "icon": "credit-card",
+       "title": "Insurance card, front",
+       "sub": "From Cormac Tennant",
+       "label": "PHOTO"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Member name",
+         "Cormac Tennant"
+        ],
+        [
+         "Plan name",
+         "Meridale Choice PPO"
+        ],
+        [
+         "Group number",
+         "GRP-20418"
+        ],
+        [
+         "Member ID",
+         "QX4471962",
+         true
+        ]
+       ]
+      },
+      {
+       "type": "filler"
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Intake check",
+       "size": 19,
+       "sub": "Monday knee consult"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Typed by patient",
+         "QX4471902"
+        ],
+        [
+         "Read from card",
+         "QX4471962",
+         true
+        ]
+       ]
+      },
+      {
+       "type": "text",
+       "text": "Visit held until checked",
+       "color": "bad"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "title": "Member ID does not match",
+     "icon": "alert-triangle",
+     "tone": "warn",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "One digit is different",
+       "size": 20,
+       "sub": "Held for Odhran Fairclough"
+      },
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "warn",
+       "text": "Billing coordinator"
+      }
+     ],
+     "action": {
+      "label": "Review card",
+      "icon": "arrow-right"
+     }
+    },
+    "alt": "A photographed insurance card is read into fields, and a member ID one digit off from the one the patient typed is held for the billing coordinator.",
+    "story": [
+     {
+      "copy": "one digit off",
+      "image": "One digit is different"
+     },
+     {
+      "copy": "He typed QX4471902",
+      "image": "QX4471902"
+     },
+     {
+      "copy": "Odhran Fairclough",
+      "image": "Held for Odhran Fairclough"
+     },
+     {
+      "copy": "Cormac Tennant",
+      "image": "From Cormac Tennant"
+     },
+     {
+      "copy": "Monday knee consult",
+      "image": "Monday knee consult"
+     }
+    ]
+   },
+   {
+    "recipe": "R4",
+    "title": "Allergy alerts",
+    "prompt": "Message the surgical assistant when a patient answers yes to latex allergy",
+    "main": {
+     "blocks": [
+      {
+       "type": "text",
+       "text": "Hollins Creek Oral Surgery",
+       "size": 16,
+       "color": "muted"
+      },
+      {
+       "type": "text",
+       "text": "Allergies",
+       "size": 20
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Patient",
+         "Saoirse Ebbesen"
+        ],
+        [
+         "Visit",
+         "Tue 8:00 a.m."
+        ],
+        [
+         "Latex allergy",
+         "Yes",
+         true
+        ]
+       ]
+      },
+      {
+       "type": "button",
+       "label": "Submit intake",
+       "full": true,
+       "primary": true
+      },
+      {
+       "type": "chips",
+       "items": [
+        [
+         "Sent Sun 7:12 p.m.",
+         "ok"
+        ]
+       ]
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Tuesday day sheet",
+       "size": 19
+      },
+      {
+       "type": "list",
+       "items": [
+        {
+         "initials": "SE",
+         "name": "Saoirse Ebbesen",
+         "sub": "8:00 a.m. extraction",
+         "chip": [
+          "Latex",
+          "bad"
+         ]
+        },
+        {
+         "initials": "LM",
+         "name": "Leif Marrable",
+         "sub": "9:30 a.m. implant consult",
+         "chip": [
+          "No flags",
+          "ok"
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "Direct message to Ysella",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Latex allergy: Saoirse Ebbesen",
+       "size": 20,
+       "sub": "Tuesday, 8:00 a.m. extraction"
+      },
+      {
+       "type": "meta",
+       "icon": "clock",
+       "kind": "warn",
+       "text": "Answered yes Sunday, 7:12 p.m."
+      },
+      {
+       "type": "meta",
+       "icon": "flag",
+       "kind": "bad",
+       "text": "Latex flag on the day sheet"
+      }
+     ],
+     "action": {
+      "label": "Open day sheet",
+      "icon": "arrow-right"
+     }
+    },
+    "alt": "A patient answers yes to the latex allergy question on her phone on Sunday at 7:12 p.m., and the surgical assistant gets a direct message before her Tuesday 8:00 a.m. extraction.",
+    "story": [
+     {
+      "copy": "Saoirse Ebbesen",
+      "image": "Latex allergy: Saoirse Ebbesen"
+     },
+     {
+      "copy": "Tuesday at 8:00 a.m.",
+      "image": "Tuesday, 8:00 a.m. extraction"
+     },
+     {
+      "copy": "On Sunday at 7:12 p.m.",
+      "image": "Answered yes Sunday, 7:12 p.m."
+     },
+     {
+      "copy": "Ysella Quellet",
+      "image": "Direct message to Ysella"
+     },
+     {
+      "copy": "flags latex on the day sheet",
+      "image": "Latex flag on the day sheet"
+     }
+    ]
+   },
+   {
+    "recipe": "R8",
+    "title": "Duplicate records",
+    "prompt": "Send finished intakes to my scheduling system and hold possible duplicates",
+    "rule": "If last name and date of birth match, hold for merge",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Monday intakes",
+       "size": 19,
+       "sub": "41 finished"
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Intake",
+        "Match",
+        "Result"
+       ],
+       "widths": [
+        0.4,
+        0.3,
+        0.3
+       ],
+       "rows": [
+        [
+         "Linnea Wynne",
+         "None",
+         [
+          "New record",
+          "ok"
+         ]
+        ],
+        [
+         "Rafe Oyelaran",
+         "Name and birth date",
+         [
+          "Held",
+          "warn"
+         ]
+        ],
+        [
+         "Anselm Krogh",
+         "None",
+         [
+          "New record",
+          "ok"
+         ]
+        ],
+        [
+         "Petra Galloway",
+         "Name and birth date",
+         [
+          "Held",
+          "warn"
+         ]
+        ],
+        [
+         "Bexley Marchetti",
+         "None",
+         [
+          "New record",
+          "ok"
+         ]
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "title": "Merge queue",
+     "icon": "git-merge",
+     "tone": "warn",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "2 possible duplicates",
+       "size": 20,
+       "sub": "For Fenella Sarvari"
+      },
+      {
+       "type": "meta",
+       "icon": "database",
+       "kind": "ok",
+       "text": "39 new patient records"
+      }
+     ],
+     "action": {
+      "label": "Review matches",
+      "icon": "arrow-right"
+     }
+    },
+    "mini": {
+     "icon": "database",
+     "kind": "acc",
+     "title": "Pallas Ridge",
+     "sub": "Sent through the API"
+    },
+    "alt": "Of 41 finished intakes on Monday, 39 become new patient records and 2 that match an existing patient on last name and date of birth wait in the records lead's merge queue.",
+    "story": [
+     {
+      "copy": "a last name and date of birth",
+      "image": "If last name and date of birth match, hold for merge"
+     },
+     {
+      "copy": "41 intakes finish",
+      "image": "41 finished"
+     },
+     {
+      "copy": "39 become new patient records",
+      "image": "39 new patient records"
+     },
+     {
+      "copy": "The other 2",
+      "image": "2 possible duplicates"
+     },
+     {
+      "copy": "Fenella Sarvari",
+      "image": "For Fenella Sarvari"
+     },
+     {
+      "copy": "Pallas Ridge Sleep Clinic",
+      "image": "Pallas Ridge"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "dm": true,
+   "channel": "Odhran Fairclough",
+   "title": "Member ID mismatch",
+   "sub": "Monday knee consult",
+   "primary": "Review",
+   "secondary": "Call",
+   "alt": "Patient intake automation: a billing coordinator gets a direct message about a member ID that does not match the insurance card"
+  },
+  "og": {
+   "headline": "Build patient intake automation that routes exceptions",
+   "lines": null,
+   "alt": "Build patient intake automation that routes exceptions to staff, with Emergent"
+  },
+  "checks": [
+   {
+    "expr": "21 + 3 == 24",
+    "shows": [
+     "21",
+     "3",
+     "24"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "39 + 2 == 41",
+    "shows": [
+     "39",
+     "2",
+     "41"
+    ],
+    "where": 4
+   }
+  ]
+ },
+ "claims_used": [
+  "prompt-build",
+  "api-connect",
+  "ai-extraction",
+  "alerts",
+  "database-owned",
+  "realtime",
+  "code-export",
+  "no-caps",
+  "conversational",
+  "e-signature-capture"
+ ],
+ "domain_sources": [],
+ "faq_sources": [
+  {
+   "q": "What is patient intake automation?",
+   "source": "written",
+   "ref": "patient intake automation",
+   "origin": "definition"
+  },
+  {
+   "q": "How do I set up patient intake automation?",
+   "source": "written",
+   "ref": "patient intake automation",
+   "origin": "definition"
+  },
+  {
+   "q": "What should patient intake automation handle first?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How should patient intake automation handle insurance card photos?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Which answers should patient intake automation send to staff?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How does patient intake automation get answers into the patient record?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Can patient intake automation collect signatures on consents?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How do I measure whether patient intake automation is working?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Does patient intake automation work on a patient's phone?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Who on staff should own patient intake automation?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  }
+ ],
+ "qc_passed": {
+  "rules_version": "c28d39bd6817",
+  "date": "2026-11-05 10:03 UTC"
+ },
+ "learn_refs": [
+  "6a194dc74b2dd96125597476",
+  "6a17297dbd77904753f20c77",
+  "6a1729625875b81361c4e8d0"
+ ],
+ "learn_refs_why": [
+  "how-to-build-a-healthcare-practice-website: score 10.04: matches patient, healthcar (how-to)",
+  "best-healthcare-website-builders: score 6.87: matches healthcar, medic (builder list)",
+  "best-website-builders-for-medical-practice: score 3.24: matches medic"
+ ],
+ "writers": [
+  "B-w-412"
+ ]
+}
