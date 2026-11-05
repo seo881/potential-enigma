@@ -129,6 +129,13 @@
    "via": null,
    "by": "B-w-407",
    "note": ""
+  },
+  {
+   "t": "2026-11-05 10:13 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-437",
+   "note": "[truth | HUB_RULES 8] howto_step_2_des: States as fact what spa guests compare first, with no domain_sources entry (rework-checklist 1, Divit 2026-11-03: any sentence on what a type of person looks for or does). Second instance of the class: howto_step_4_des 'Put the photos beside the price, where a"
   }
  ],
  "pipeline": "r15",
@@ -958,5 +965,275 @@
  ],
  "writers": [
   "B-w-407"
- ]
+ ],
+ "review": {
+  "by": "B-r-437",
+  "date": "2026-11-05 10:13 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Spa Landing Page That Takes Every Request'; hero 'Build a spa landing page with one treatment, its price, a short request form, and an email to the front desk for each request.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "No live top 10 (Wave 3); page gives a definition (FAQ 1), four spa examples by type, a 7-step how-to and a comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Ask about preferences, such as pressure, only where they change the booking'; 'a swimsuit for the sauna'; table column uses the campaign-page variant."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Openers vary: 'Name the treatment', 'Every request lands', 'When a request arrives', 'Saturdays at Ironleaf Bathhouse run'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences under 40 words; QC Q5/Q7 clean; Q8 list density kept as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'The front desk books from that table instead of a voicemail list.' Rhythm notes only."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "howto_step_2_des 'Build the headline around what a guest compares first: the treatment, how long it lasts, and what it costs.'; howto_step_4_des 'where a guest deciding on the visit will see them' (unsourced statements of what guests do)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Salon sibling only linked in FAQ 4 answer, never a heading; tabs (couples, resort, bathhouse, corporate) are spa-specific."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, each answered in its first sentence ('Yes, if the scheduling software has an API.'); hub link in item 2; paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 2 image lists Room 305 'Queued' above Room 127 'Before checkout', against copy 'goes to the top of Juhani Esterly's list'; tab 1 image form draws Name, When, Pressure while copy and mockup list name, phone number, date, time of day and pressure."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_2_des",
+    "quote": "Build the headline around what a guest compares first: the treatment, how long it lasts, and what it costs.",
+    "issue": "States as fact what spa guests compare first, with no domain_sources entry (rework-checklist 1, Divit 2026-11-03: any sentence on what a type of person looks for or does). Second instance of the class: howto_step_4_des 'Put the photos beside the price, where a guest deciding on the visit will see them, not in a gallery at the bottom.'",
+    "fix": "Rewrite both as advice: 'Put the treatment, its length and its price in the headline.' and 'Put the photos beside the price, not in a gallery at the bottom.' Search the page again for any other sentence on what guests want, compare or see.",
+    "severity": "blocking"
+   },
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief.tabs[1].main (tab_content_2)",
+    "quote": "A guest checking out within 24 hours is marked Before checkout and goes to the top of Juhani Esterly's list.",
+    "issue": "The drawn list puts Room 305 'In 3 days / Queued' above Room 127 'In 22 hours / Before checkout', so a Before checkout request is not at the top, contradicting the tab's outcome.",
+    "fix": "Order the table rows with all Before checkout rows first (Room 412, Room 218, Room 127, then Room 305, Room 509), re-render and check the contact sheet.",
+    "severity": "blocking"
+   },
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief.tabs[0].main (tab_content_1, mockup.couplesMassage)",
+    "quote": "The form asks for a name, a phone number, a date, a time of day, and each guest's pressure: light, medium, or firm.",
+    "issue": "Rework-checklist 9: form fields must agree in copy, mockup and image. The drawn form has three fields (Name, When, Pressure) with no phone number field and one merged When field; the mini card 'Phone number asked' admits a field the form does not show.",
+    "fix": "Pick one field set: either draw Name, Phone, Date, Time of day and Pressure in the image form, or cut the copy and mockup to the fields the image draws. Check every mention (tab_content_1, mockup, alt, mini).",
+    "severity": "blocking"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "page (QC Q8)",
+    "quote": "hotel guests, bathhouse sessions, or office visits",
+    "issue": "12 'A, B, and C' lists on the page (meta, feature_1, feature_6, tabs 1, 2, 4, steps 6, 7, FAQ 3, 4, 7).",
+    "fix": "Use pairs or one specific in a few of them.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page (QC Q9, A4)",
+    "quote": "Build a spa landing page",
+    "issue": "'request' 21 times, 'treatment' 14, 'desk' 10 outside the FAQ; 4 sentences open with 'Build a'.",
+    "fix": "Vary the nouns and the openers.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq item 3, faq item 6, howto_step_2_des",
+    "quote": "Put the price and the length side by side in the headline, such as $135 for 60 minutes.",
+    "issue": "Price and length in the headline is said in feature_1, step 2, FAQ 3 and FAQ 6 with words swapped.",
+    "fix": "Let FAQ 6 focus on add-on pricing.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "page (QC Q8)",
+   "issue": "12 'A, B, and C' lists on the page (meta, feature_1, feature_6, tabs 1, 2, 4, steps 6, 7, FAQ 3, 4, 7).",
+   "fix": "Use pairs or one specific in a few of them.",
+   "by": "B-r-437",
+   "via": "review",
+   "date": "2026-11-05 10:13 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page (QC Q9, A4)",
+   "issue": "'request' 21 times, 'treatment' 14, 'desk' 10 outside the FAQ; 4 sentences open with 'Build a'.",
+   "fix": "Vary the nouns and the openers.",
+   "by": "B-r-437",
+   "via": "review",
+   "date": "2026-11-05 10:13 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq item 3, faq item 6, howto_step_2_des",
+   "issue": "Price and length in the headline is said in feature_1, step 2, FAQ 3 and FAQ 6 with words swapped.",
+   "fix": "Let FAQ 6 focus on add-on pricing.",
+   "by": "B-r-437",
+   "via": "review",
+   "date": "2026-11-05 10:13 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "38baa862d4f69d7e",
+   "alt:share_image": "9e76e6ff7f6ec427",
+   "alt:tab_image_1": "e9217af923306d98",
+   "alt:tab_image_2": "aab074988a840110",
+   "alt:tab_image_3": "9874cf85e0e6ada0",
+   "alt:tab_image_4": "cac0e9756c38fd01",
+   "breadcrumb": "256347d5d426fa47",
+   "chip_adds": "649dfca6b3e9c2d4",
+   "explore_cta": "ff77708d9e39c9de",
+   "faq": "b9162c53240c585e",
+   "feature_1": "d3d51ce0d42a9778",
+   "feature_2": "c3a9848ff251c45f",
+   "feature_3": "5059d33ecd89e75f",
+   "feature_4": "7186d7272aadaffd",
+   "feature_5": "ab4eb16c8fd9a62a",
+   "feature_6": "9426e8608826d692",
+   "features_heading": "b2ab80be4620b805",
+   "features_subheading": "ddb0d71e00cddb75",
+   "h1": "4a5f62722d3e36e1",
+   "hero_description": "b79fdd884c811f75",
+   "hero_prompt": "69a71dd320f7dca5",
+   "howto_description": "517c5d118f778d15",
+   "howto_step_1_des": "0a2edcf34dd9f06e",
+   "howto_step_1_title": "5e13599fd6bd456f",
+   "howto_step_2_des": "2605513165f8d405",
+   "howto_step_2_title": "8c06cbac25b82352",
+   "howto_step_3_des": "0391d028762140f5",
+   "howto_step_3_title": "806b1632d432cbaa",
+   "howto_step_4_des": "ae02cb5b20337768",
+   "howto_step_4_title": "69f024480c5febd8",
+   "howto_step_5_des": "d451a851100599dd",
+   "howto_step_5_title": "9def9fe32eefc085",
+   "howto_step_6_des": "d943f302ac2d7fe3",
+   "howto_step_6_title": "30610ea10e29a1ec",
+   "howto_step_7_des": "d07934f6fb10c29e",
+   "howto_step_7_title": "6aa9f75ad0850266",
+   "howto_title": "1a76c533fd123e42",
+   "meta_description": "e17971c3307151e6",
+   "meta_title": "327733cf3878acfc",
+   "mockup": "d90e654dc4f17daa",
+   "product_name": "a9cb2412bf7e856d",
+   "prompt_chip_1": "a234070bb57b54e6",
+   "prompt_chip_2": "b9f008a00213a85d",
+   "prompt_chip_3": "0190e54020f6ddb7",
+   "prompt_chip_4": "d63a3a012e2b97e2",
+   "slug": "01698ce1dc071ffe",
+   "tab_content_1": "7ef6878bf0893f75",
+   "tab_content_2": "e47c0105453d5b6e",
+   "tab_content_3": "3812f0d804b0f604",
+   "tab_content_4": "28569fed16c2793c",
+   "tab_label_1": "37ac8f41a127ebb7",
+   "tab_label_2": "7c028c0566c8fb92",
+   "tab_label_3": "869c91644b5336cc",
+   "tab_label_4": "ee19067d7248392a",
+   "usecase_heading": "b47cc9fb85917b41",
+   "why_description": "7e77023df252ce04",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "1179772979a8a2c7"
+  },
+  "all": "976c04ca4cda970a",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "38baa862d4f69d7e",
+   "alt:share_image": "9e76e6ff7f6ec427",
+   "alt:tab_image_1": "e9217af923306d98",
+   "alt:tab_image_2": "aab074988a840110",
+   "alt:tab_image_3": "9874cf85e0e6ada0",
+   "alt:tab_image_4": "cac0e9756c38fd01",
+   "breadcrumb": "256347d5d426fa47",
+   "chip_adds": "649dfca6b3e9c2d4",
+   "explore_cta": "ff77708d9e39c9de",
+   "faq": "b9162c53240c585e",
+   "feature_1": "d3d51ce0d42a9778",
+   "feature_2": "c3a9848ff251c45f",
+   "feature_3": "5059d33ecd89e75f",
+   "feature_4": "7186d7272aadaffd",
+   "feature_5": "ab4eb16c8fd9a62a",
+   "feature_6": "9426e8608826d692",
+   "features_heading": "b2ab80be4620b805",
+   "features_subheading": "ddb0d71e00cddb75",
+   "h1": "4a5f62722d3e36e1",
+   "hero_description": "b79fdd884c811f75",
+   "hero_prompt": "69a71dd320f7dca5",
+   "howto_description": "517c5d118f778d15",
+   "howto_step_1_des": "0a2edcf34dd9f06e",
+   "howto_step_1_title": "5e13599fd6bd456f",
+   "howto_step_2_des": "2605513165f8d405",
+   "howto_step_2_title": "8c06cbac25b82352",
+   "howto_step_3_des": "0391d028762140f5",
+   "howto_step_3_title": "806b1632d432cbaa",
+   "howto_step_4_des": "ae02cb5b20337768",
+   "howto_step_4_title": "69f024480c5febd8",
+   "howto_step_5_des": "d451a851100599dd",
+   "howto_step_5_title": "9def9fe32eefc085",
+   "howto_step_6_des": "d943f302ac2d7fe3",
+   "howto_step_6_title": "30610ea10e29a1ec",
+   "howto_step_7_des": "d07934f6fb10c29e",
+   "howto_step_7_title": "6aa9f75ad0850266",
+   "howto_title": "1a76c533fd123e42",
+   "meta_description": "e17971c3307151e6",
+   "meta_title": "327733cf3878acfc",
+   "mockup": "d90e654dc4f17daa",
+   "product_name": "a9cb2412bf7e856d",
+   "prompt_chip_1": "a234070bb57b54e6",
+   "prompt_chip_2": "b9f008a00213a85d",
+   "prompt_chip_3": "0190e54020f6ddb7",
+   "prompt_chip_4": "d63a3a012e2b97e2",
+   "slug": "01698ce1dc071ffe",
+   "tab_content_1": "7ef6878bf0893f75",
+   "tab_content_2": "e47c0105453d5b6e",
+   "tab_content_3": "3812f0d804b0f604",
+   "tab_content_4": "28569fed16c2793c",
+   "tab_label_1": "37ac8f41a127ebb7",
+   "tab_label_2": "7c028c0566c8fb92",
+   "tab_label_3": "869c91644b5336cc",
+   "tab_label_4": "ee19067d7248392a",
+   "usecase_heading": "b47cc9fb85917b41",
+   "why_description": "7e77023df252ce04",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "1179772979a8a2c7"
+  },
+  "all": "976c04ca4cda970a",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
