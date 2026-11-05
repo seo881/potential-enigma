@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-417",
    "note": ""
+  },
+  {
+   "t": "2026-11-05 10:08 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-426",
+   "note": "rubric 10/10 by B-r-426; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -929,5 +936,265 @@
  ],
  "writers": [
   "B-w-417"
- ]
+ ],
+ "review": {
+  "by": "B-r-426",
+  "date": "2026-11-05 10:08 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Candidate Screening Form That Shortlists Applicants'; hero 'Build a candidate screening form that scores each applicant's answers and saves every one to a database you own.'; how-to description one sentence on what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Employer builder intent served: must-have questions, scoring, routing, what to leave off under EEOC guidance, 7-step how-to, comparison table; job-seeker AlsoAsked items rejected by the gate (paa --spec 10 pass, 0 reject, 0 flag)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'a current forklift certification and the 10 PM to 6 AM shift'; 'A card that expires within 30 days marks the record Renewal due'; table column 'Describe it in plain English' / 'No response caps'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs ('Mark the answers...', 'Give each answer a point value...', 'Send each shortlisted applicant...'); tabs open on full sentences ('Grisholt Distribution fills its overnight forklift shifts from a single link.')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; one ', so' ending (tab_content_3) and word repetition recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail throughout: 'Of 64 applicants this week, 41 meet both', 'At 7:00 AM, Ilsabet Danvik, who manages Quay Street, gets an email with the 9 who chose her restaurant.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Claims map to claims_used (prompt-build, database-owned, no-caps, alerts, ai-extraction, code-export, free-start, api-connect), all in rules/capabilities.json; EEOC and 29 CFR 1602.14 statements match their quoted domain_sources spans; image numbers add up (41+23=64; 9+6+4=19)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Tab H3s use their own shapes ('Jessamy scores 82 and lands with the hiring manager'); sibling primaries (background check form, interview evaluation form, new employee form) appear only as FAQ link anchors."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic builder questions, each answered first ('No. A screening form records what applicants tell you...'); hub link in item 2; links to background-check, interview-evaluation, new-employee; Emergent lines in items 5, 6, 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: one hero per tab, cursor on button edge; tab 1 '64 applicants'/'41 shortlisted'/'23 need review' match copy; tab 2 'Jessamy Prudhomme, 82' to Cormac Strandmoor; tab 3 '18 days', 'Renewal due'; tab 4 'Quay Street 9', 'Sent at 7:00 AM'."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_2_des",
+    "quote": "EEOC guidance says what you ask before hiring should be limited to those essential for determining if a person is qualified for the job.",
+    "issue": "The quoted fragment 'those essential' has no antecedent in the sentence ('what you ask ... limited to those'), so the sentence reads ungrammatically.",
+    "fix": "EEOC guidance says pre-employment questions should be limited to those essential for determining if a person is qualified for the job.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Under 29 CFR 1602.14, an employment record shall be preserved for one year from the date of the making of the record or the personnel action involved, whichever occurs later.",
+    "issue": "Quote is accurate, but the rule binds employers covered by Title VII; the coverage condition is not carried.",
+    "fix": "Optionally add 'employers covered by Title VII' to the sentence.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "page",
+    "quote": "\"applicant\" appears 15 times outside the FAQ; \"must\" 11 times",
+    "issue": "Heavy repetition of 'applicant' and 'must-have' across features, tabs and how-to (QC Q9 flags).",
+    "fix": "Vary with 'candidate', 'person', 'requirement' where meaning allows.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "tab_content_3",
+    "quote": "Orrisdale Home Care requires a current CPR card for every home health aide, so the form asks when the card expires.",
+    "issue": "', so' tacked-on ending (QC Q5 flag, 1 on the page).",
+    "fix": "Every home health aide at Orrisdale Home Care needs a current CPR card. The form asks when the card expires.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_2_des",
+   "issue": "The quoted fragment 'those essential' has no antecedent in the sentence ('what you ask ... limited to those'), so the sentence reads ungrammatically.",
+   "fix": "EEOC guidance says pre-employment questions should be limited to those essential for determining if a person is qualified for the job.",
+   "by": "B-r-426",
+   "via": "review",
+   "date": "2026-11-05 10:08 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Quote is accurate, but the rule binds employers covered by Title VII; the coverage condition is not carried.",
+   "fix": "Optionally add 'employers covered by Title VII' to the sentence.",
+   "by": "B-r-426",
+   "via": "review",
+   "date": "2026-11-05 10:08 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "page",
+   "issue": "Heavy repetition of 'applicant' and 'must-have' across features, tabs and how-to (QC Q9 flags).",
+   "fix": "Vary with 'candidate', 'person', 'requirement' where meaning allows.",
+   "by": "B-r-426",
+   "via": "review",
+   "date": "2026-11-05 10:08 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "tab_content_3",
+   "issue": "', so' tacked-on ending (QC Q5 flag, 1 on the page).",
+   "fix": "Every home health aide at Orrisdale Home Care needs a current CPR card. The form asks when the card expires.",
+   "by": "B-r-426",
+   "via": "review",
+   "date": "2026-11-05 10:08 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "7f16e9fd826ca811",
+   "alt:share_image": "de721eb13eb99360",
+   "alt:tab_image_1": "dc6a7f4dd471f678",
+   "alt:tab_image_2": "fe1730c1f74e41cb",
+   "alt:tab_image_3": "5bb2aa5bde6ac8df",
+   "alt:tab_image_4": "4b9f870a2e9558fd",
+   "breadcrumb": "c93d7c783599eba3",
+   "chip_adds": "c9bcbe540b4b2bcd",
+   "explore_cta": "945848a158f443e3",
+   "faq": "6486e0b611c3c677",
+   "feature_1": "0ecf0667999b97ee",
+   "feature_2": "3b648525f96d7f1b",
+   "feature_3": "37a3dfba08604177",
+   "feature_4": "bebd82820661cb2e",
+   "feature_5": "d1f181fcf5717647",
+   "feature_6": "537dad5a7c11d2f4",
+   "features_heading": "0c38414e24d1fda5",
+   "features_subheading": "c79e770dac38d10b",
+   "h1": "6aa39f442a195c42",
+   "hero_description": "99c359df776ebcda",
+   "hero_prompt": "4d7fc0beb5fbf03a",
+   "howto_description": "9c5fa58827fe6d89",
+   "howto_step_1_des": "f236a978645ce020",
+   "howto_step_1_title": "75024d48cd0ac724",
+   "howto_step_2_des": "6a098c96b23ffc18",
+   "howto_step_2_title": "211bfefe07625357",
+   "howto_step_3_des": "ca489f21df9df706",
+   "howto_step_3_title": "4026c7e3b33a6760",
+   "howto_step_4_des": "e7141f2f0f6cfa83",
+   "howto_step_4_title": "0f29dccd3d01efef",
+   "howto_step_5_des": "60d58c34bf75b00b",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "184f26797436ce13",
+   "howto_step_6_title": "f0358ef76afba1bc",
+   "howto_step_7_des": "9a5775962cc1f745",
+   "howto_step_7_title": "a63d1426ebe416d1",
+   "howto_title": "41b7a2d5f6ce9112",
+   "meta_description": "e172fc3e06c5ca9b",
+   "meta_title": "c742236632dcc55d",
+   "mockup": "40e05832b5b79636",
+   "product_name": "264ff51c5938f231",
+   "prompt_chip_1": "5ab7d02994f59859",
+   "prompt_chip_2": "bc6511778a1c8c25",
+   "prompt_chip_3": "4047f903217cf27b",
+   "prompt_chip_4": "00534a9c9086d026",
+   "slug": "93a0b13f23171de2",
+   "tab_content_1": "4bca71e756e2096d",
+   "tab_content_2": "a536e6c19cda9201",
+   "tab_content_3": "f97b9bf0089294db",
+   "tab_content_4": "2e556d73123a3fc0",
+   "tab_label_1": "0f384403d11e7fa3",
+   "tab_label_2": "bed4c4cf501bd25d",
+   "tab_label_3": "e516f3c25228e13b",
+   "tab_label_4": "57017e37117309c2",
+   "usecase_heading": "caa80ad3ea3c8da7",
+   "why_description": "826c6ac8fbe235f0",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "d973f94f7384a2b4"
+  },
+  "all": "cb1a2aba1632de7b",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "7f16e9fd826ca811",
+   "alt:share_image": "de721eb13eb99360",
+   "alt:tab_image_1": "dc6a7f4dd471f678",
+   "alt:tab_image_2": "fe1730c1f74e41cb",
+   "alt:tab_image_3": "5bb2aa5bde6ac8df",
+   "alt:tab_image_4": "4b9f870a2e9558fd",
+   "breadcrumb": "c93d7c783599eba3",
+   "chip_adds": "c9bcbe540b4b2bcd",
+   "explore_cta": "945848a158f443e3",
+   "faq": "6486e0b611c3c677",
+   "feature_1": "0ecf0667999b97ee",
+   "feature_2": "3b648525f96d7f1b",
+   "feature_3": "37a3dfba08604177",
+   "feature_4": "bebd82820661cb2e",
+   "feature_5": "d1f181fcf5717647",
+   "feature_6": "537dad5a7c11d2f4",
+   "features_heading": "0c38414e24d1fda5",
+   "features_subheading": "c79e770dac38d10b",
+   "h1": "6aa39f442a195c42",
+   "hero_description": "99c359df776ebcda",
+   "hero_prompt": "4d7fc0beb5fbf03a",
+   "howto_description": "9c5fa58827fe6d89",
+   "howto_step_1_des": "f236a978645ce020",
+   "howto_step_1_title": "75024d48cd0ac724",
+   "howto_step_2_des": "6a098c96b23ffc18",
+   "howto_step_2_title": "211bfefe07625357",
+   "howto_step_3_des": "ca489f21df9df706",
+   "howto_step_3_title": "4026c7e3b33a6760",
+   "howto_step_4_des": "e7141f2f0f6cfa83",
+   "howto_step_4_title": "0f29dccd3d01efef",
+   "howto_step_5_des": "60d58c34bf75b00b",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "184f26797436ce13",
+   "howto_step_6_title": "f0358ef76afba1bc",
+   "howto_step_7_des": "9a5775962cc1f745",
+   "howto_step_7_title": "a63d1426ebe416d1",
+   "howto_title": "41b7a2d5f6ce9112",
+   "meta_description": "e172fc3e06c5ca9b",
+   "meta_title": "c742236632dcc55d",
+   "mockup": "40e05832b5b79636",
+   "product_name": "264ff51c5938f231",
+   "prompt_chip_1": "5ab7d02994f59859",
+   "prompt_chip_2": "bc6511778a1c8c25",
+   "prompt_chip_3": "4047f903217cf27b",
+   "prompt_chip_4": "00534a9c9086d026",
+   "slug": "93a0b13f23171de2",
+   "tab_content_1": "4bca71e756e2096d",
+   "tab_content_2": "a536e6c19cda9201",
+   "tab_content_3": "f97b9bf0089294db",
+   "tab_content_4": "2e556d73123a3fc0",
+   "tab_label_1": "0f384403d11e7fa3",
+   "tab_label_2": "bed4c4cf501bd25d",
+   "tab_label_3": "e516f3c25228e13b",
+   "tab_label_4": "57017e37117309c2",
+   "usecase_heading": "caa80ad3ea3c8da7",
+   "why_description": "826c6ac8fbe235f0",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "d973f94f7384a2b4"
+  },
+  "all": "cb1a2aba1632de7b",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
