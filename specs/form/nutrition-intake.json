@@ -118,6 +118,13 @@
    "via": null,
    "by": "B-w-441",
    "note": ""
+  },
+  {
+   "t": "2026-11-06 07:53 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-455",
+   "note": "[truth | HUB_RULES 8] why_description: States as fact what every practice does with a paper food diary (rework-checklist 1: what a type of person does). It is unsourced and false as a universal: a dietitian can read a paper diary without retyping it. Same class in faq item 8: \"A nutrition intake for"
   }
  ],
  "pipeline": "r15",
@@ -890,5 +897,295 @@
  ],
  "writers": [
   "B-w-441"
- ]
+ ],
+ "review": {
+  "by": "B-r-455",
+  "date": "2026-11-06 07:53 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Nutrition Intake Form That Includes a 3-Day Food Record\"; hero \"Get a nutrition intake form clients finish on a phone before the first session, with each answer saved to the client's record.\""
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition in FAQ 1, template contents in FAQ 3, PDF secondary in FAQ 8, seven-step how-to \"How to Create a Nutrition Intake Form\", comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Dietitian vocabulary throughout: \"3-day food record\", \"24-hour dietary recall\", allergen checklist of the nine major allergens, supplement rows \"Fish oil and vitamin D become two rows\"."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every body opens on a full sentence: \"Give clients three days to log meals...\", \"Quillan Nutrition sends the intake link with the booking email...\"."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences carry one idea each; Q8 list count (12) accepted as a note, not blocking."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "\"Fish oil and vitamin D become two rows, not a sentence someone has to decode.\" reads human; no hype verbs."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "why_description \"A printed food diary gets retyped before anyone reads it.\"; faq item 8 \"then typed up at the practice\": unsourced universal claims about what practices do with paper and PDF intakes (rework-checklist 1). The 21 U.S.C. 321(qq) list and both NCI quotes keep their source's wording and limits (\"may decline\")."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Four dietitian settings (private practice, rowing team, pediatrics, week 4 check-in) with their own names and numbers; no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, each answered in its first sentence; hub link in item 2; paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 email to Ines Marlow \"Jonah Vel's intake is ready\", \"Answers: Kept in the app\"; tab 2 \"21 of 24 complete\", \"3 rowers reminded\"; tab 3 \"Allergy: peanuts\" banner in-app; tab 4 \"5 questions answered\", \"Ready for Leah Ferris\". No health detail in any notification."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "why_description",
+    "quote": "A printed food diary gets retyped before anyone reads it.",
+    "issue": "States as fact what every practice does with a paper food diary (rework-checklist 1: what a type of person does). It is unsourced and false as a universal: a dietitian can read a paper diary without retyping it. Same class in faq item 8: \"A nutrition intake form PDF has to be printed or filled in a PDF reader, then typed up at the practice.\"",
+    "fix": "Rewrite both as true, scoped statements, e.g. why_description: \"Entries on a printed food diary stay on paper. Emergent builds a web intake that saves every answer to a database you own.\"; faq 8: \"A nutrition intake form PDF is printed or filled in a PDF reader, and its answers do not land in a database.\" Search the page again for any other line about what practices or clients do.",
+    "severity": "blocking"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_3",
+    "quote": "When Hannah Brooks opens Theo's record, a banner across the top names the allergy first.",
+    "issue": "Hannah Brooks appears with no role; the reader cannot tell she is the clinic's dietitian.",
+    "fix": "\"When Hannah Brooks, the clinic's dietitian, opens Theo's record...\"",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_3_des",
+    "quote": "a structured interview intended to capture detailed information, which suits the session itself",
+    "issue": "\"detailed information\" hangs without its object, and the sentence ends on a tacked-on which-clause.",
+    "fix": "\"The NCI describes a 24-hour dietary recall as a structured interview intended to capture detailed information about what a person consumed. Keep it for the session.\"",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_7_des",
+    "quote": "the unfinished one gets a reminder, and both appear in the table",
+    "issue": "An unfinished intake only appears in the table if the build saves partial progress, which no step or prompt asks for.",
+    "fix": "Add saving progress to step 5's prompt, or check only that the unfinished client gets a reminder.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #1",
+    "field": "faq",
+    "quote": "For coaching that reaches past food into work and routines, a life coaching intake form fits better.",
+    "issue": "The health-coach question points to the life coaching sibling while /ai-form-builder/health-coaching-intake exists in the plan.",
+    "fix": "Consider linking health coaching intake form for health coaches.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "page",
+    "quote": "\"3-day food record, an allergen checklist, and supplement\" (one of 12 A, B, and C lists)",
+    "issue": "QC Q8: 12 three-item lists on the page reads templated (meta_description, feature_1-6, tab_content_1, 2, 4, faq 1, 3).",
+    "fix": "Turn a few into pairs or one specific item.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_3",
+   "issue": "Hannah Brooks appears with no role; the reader cannot tell she is the clinic's dietitian.",
+   "fix": "\"When Hannah Brooks, the clinic's dietitian, opens Theo's record...\"",
+   "by": "B-r-455",
+   "via": "review",
+   "date": "2026-11-06 07:53 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_3_des",
+   "issue": "\"detailed information\" hangs without its object, and the sentence ends on a tacked-on which-clause.",
+   "fix": "\"The NCI describes a 24-hour dietary recall as a structured interview intended to capture detailed information about what a person consumed. Keep it for the session.\"",
+   "by": "B-r-455",
+   "via": "review",
+   "date": "2026-11-06 07:53 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_7_des",
+   "issue": "An unfinished intake only appears in the table if the build saves partial progress, which no step or prompt asks for.",
+   "fix": "Add saving progress to step 5's prompt, or check only that the unfinished client gets a reminder.",
+   "by": "B-r-455",
+   "via": "review",
+   "date": "2026-11-06 07:53 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #1",
+   "field": "faq",
+   "issue": "The health-coach question points to the life coaching sibling while /ai-form-builder/health-coaching-intake exists in the plan.",
+   "fix": "Consider linking health coaching intake form for health coaches.",
+   "by": "B-r-455",
+   "via": "review",
+   "date": "2026-11-06 07:53 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "page",
+   "issue": "QC Q8: 12 three-item lists on the page reads templated (meta_description, feature_1-6, tab_content_1, 2, 4, faq 1, 3).",
+   "fix": "Turn a few into pairs or one specific item.",
+   "by": "B-r-455",
+   "via": "review",
+   "date": "2026-11-06 07:53 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "68b5124505b0d14e",
+   "alt:share_image": "de511ee0ba87e3f1",
+   "alt:tab_image_1": "35e7ebe1d65334c8",
+   "alt:tab_image_2": "2589dbbdfbabcd89",
+   "alt:tab_image_3": "ce979beb8dae6687",
+   "alt:tab_image_4": "83f06ce707f0a819",
+   "breadcrumb": "f2ed446786900c07",
+   "chip_adds": "c8d1ddd8018b4b61",
+   "explore_cta": "4a20f50099feeaf4",
+   "faq": "bd0ee08c452316ec",
+   "feature_1": "4f7801c37be2e0f7",
+   "feature_2": "dab1f6fd182b0a92",
+   "feature_3": "93ace3ac56d13739",
+   "feature_4": "fa7b7049c9daf1d3",
+   "feature_5": "56a73cfb36b725e9",
+   "feature_6": "2b974025b44361be",
+   "features_heading": "14af70ec43b78c43",
+   "features_subheading": "8aadead99a58106c",
+   "h1": "59c5957084db447a",
+   "hero_description": "45fb7b057c397692",
+   "hero_prompt": "853e85d2c4937d6e",
+   "howto_description": "6a1a59efcd8b3902",
+   "howto_step_1_des": "523c05a2ce461f9e",
+   "howto_step_1_title": "ae75fc97bc7fecec",
+   "howto_step_2_des": "8679a1f44d74efaa",
+   "howto_step_2_title": "f1e9edfc946a15bd",
+   "howto_step_3_des": "31bcefa5e96defa8",
+   "howto_step_3_title": "97a015008385ff58",
+   "howto_step_4_des": "1d22c67111f3d37f",
+   "howto_step_4_title": "71aa5f75d3d2963d",
+   "howto_step_5_des": "4f7debac563ecd17",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "edd762776337317a",
+   "howto_step_6_title": "d3565741e5129891",
+   "howto_step_7_des": "fa2ff83a62e2beff",
+   "howto_step_7_title": "46d01f70fb9f24c3",
+   "howto_title": "839e8608dc7b53bf",
+   "meta_description": "292d7ac526ab73d7",
+   "meta_title": "b035626a0191c728",
+   "mockup": "ddbc1883bf0bd55d",
+   "product_name": "0e7508bf3c82aaa3",
+   "prompt_chip_1": "06861af55eaaae3a",
+   "prompt_chip_2": "90afcf6a5ebb3c3b",
+   "prompt_chip_3": "7971dd7526694c6a",
+   "prompt_chip_4": "a9bb161bffdecd15",
+   "slug": "349e091d31fae7eb",
+   "tab_content_1": "825cba15f4bf2f2e",
+   "tab_content_2": "06749f09ae9b9daa",
+   "tab_content_3": "34a78e87401c55c1",
+   "tab_content_4": "6b257f0f152b2098",
+   "tab_label_1": "3dcc16a59fc0a019",
+   "tab_label_2": "e29a89e7cb88041b",
+   "tab_label_3": "671ff9645513c795",
+   "tab_label_4": "54bed0a249d2d0a7",
+   "usecase_heading": "46f2ebaa08abcd32",
+   "why_description": "e3609a7ddcae150f",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "e8e76ad0598ffcfd"
+  },
+  "all": "b554fd2cbca9f599",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "68b5124505b0d14e",
+   "alt:share_image": "de511ee0ba87e3f1",
+   "alt:tab_image_1": "35e7ebe1d65334c8",
+   "alt:tab_image_2": "2589dbbdfbabcd89",
+   "alt:tab_image_3": "ce979beb8dae6687",
+   "alt:tab_image_4": "83f06ce707f0a819",
+   "breadcrumb": "f2ed446786900c07",
+   "chip_adds": "c8d1ddd8018b4b61",
+   "explore_cta": "4a20f50099feeaf4",
+   "faq": "bd0ee08c452316ec",
+   "feature_1": "4f7801c37be2e0f7",
+   "feature_2": "dab1f6fd182b0a92",
+   "feature_3": "93ace3ac56d13739",
+   "feature_4": "fa7b7049c9daf1d3",
+   "feature_5": "56a73cfb36b725e9",
+   "feature_6": "2b974025b44361be",
+   "features_heading": "14af70ec43b78c43",
+   "features_subheading": "8aadead99a58106c",
+   "h1": "59c5957084db447a",
+   "hero_description": "45fb7b057c397692",
+   "hero_prompt": "853e85d2c4937d6e",
+   "howto_description": "6a1a59efcd8b3902",
+   "howto_step_1_des": "523c05a2ce461f9e",
+   "howto_step_1_title": "ae75fc97bc7fecec",
+   "howto_step_2_des": "8679a1f44d74efaa",
+   "howto_step_2_title": "f1e9edfc946a15bd",
+   "howto_step_3_des": "31bcefa5e96defa8",
+   "howto_step_3_title": "97a015008385ff58",
+   "howto_step_4_des": "1d22c67111f3d37f",
+   "howto_step_4_title": "71aa5f75d3d2963d",
+   "howto_step_5_des": "4f7debac563ecd17",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "edd762776337317a",
+   "howto_step_6_title": "d3565741e5129891",
+   "howto_step_7_des": "fa2ff83a62e2beff",
+   "howto_step_7_title": "46d01f70fb9f24c3",
+   "howto_title": "839e8608dc7b53bf",
+   "meta_description": "292d7ac526ab73d7",
+   "meta_title": "b035626a0191c728",
+   "mockup": "ddbc1883bf0bd55d",
+   "product_name": "0e7508bf3c82aaa3",
+   "prompt_chip_1": "06861af55eaaae3a",
+   "prompt_chip_2": "90afcf6a5ebb3c3b",
+   "prompt_chip_3": "7971dd7526694c6a",
+   "prompt_chip_4": "a9bb161bffdecd15",
+   "slug": "349e091d31fae7eb",
+   "tab_content_1": "825cba15f4bf2f2e",
+   "tab_content_2": "06749f09ae9b9daa",
+   "tab_content_3": "34a78e87401c55c1",
+   "tab_content_4": "6b257f0f152b2098",
+   "tab_label_1": "3dcc16a59fc0a019",
+   "tab_label_2": "e29a89e7cb88041b",
+   "tab_label_3": "671ff9645513c795",
+   "tab_label_4": "54bed0a249d2d0a7",
+   "usecase_heading": "46f2ebaa08abcd32",
+   "why_description": "e3609a7ddcae150f",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "e8e76ad0598ffcfd"
+  },
+  "all": "b554fd2cbca9f599",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
