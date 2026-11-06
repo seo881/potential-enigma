@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-438",
    "note": ""
+  },
+  {
+   "t": "2026-11-06 07:52 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-454",
+   "note": "rubric 10/10 by B-r-454; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -863,5 +870,285 @@
  ],
  "writers": [
   "B-w-438"
- ]
+ ],
+ "review": {
+  "by": "B-r-454",
+  "date": "2026-11-06 07:52 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Massage Booking Form for Studios and Mobile Therapists'; hero 'Build a massage booking form that matches each session to a free therapist and room, then saves it to a database you own.' (under 130 chars, leads with Build, carries the primary); how-to description one sentence that says what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "No ranked top 10 and all AlsoAsked items off-topic (tipping, etiquette); the page delivers a builder how-to (7 steps), four worked examples (home visits, rooms, late cancellations, packages), a fields answer (FAQ 3) and a comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Massage vocabulary throughout: 'cleanup time', 'treatment rooms', 'first available', 'hot stone', '45 minutes of road time', '5-visit package'; table uses form-builder dimensions from the library."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Zuri Vandemark drives to every session she books', 'Osprey Lane Bodywork runs three therapists through two rooms', 'Write down who gives which session'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One ', so' ending on the page (feature 3), under the cap; no from-to filler; sentences short and one idea each. Craft notes recorded."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: '14 Larch Lane', 'cancels a Friday 4 p.m. session at 8 p.m. Thursday, 20 hours ahead', 'A therapist who does not offer hot stone should never appear for it.' No AI tells."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Claims map to prompt-build, database-owned, alerts, code-export, no-caps; no third-party facts in prose (domain_sources empty and none needed); arithmetic holds: 1 p.m. + 90 min + 45 min = 3:15 p.m.; Thu 8 p.m. to Fri 4 p.m. = 20 hours; 76/33/64-hour notices correct; 5 - 4 = 1."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Booking-only scope (health questions sent to a separate intake step, FAQ 3); room-plus-therapist and drive-time logic are massage-specific; sibling primaries appear only as FAQ link anchors (hotel booking form, dj booking form), never in headings; no spa or salon targeting."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic builder questions, each answered in its first sentence ('Yes, whenever you have fewer treatment rooms than therapists on shift.'); hub link in item 2; two sibling links; paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 'Next opening: 3:15 p.m.', '90-minute visit', '1 p.m.'; tab 2 Kasimir/Solveig 5:30 Booked, Isolde 5:30 Hidden, 6:30 Room 2, 'Hesper Doane with Isolde'; tab 3 'Fri 4 p.m. / Thu 8 p.m. / 20 hours / Late', 'First of 3 on the waitlist', 'Claim it within 2 hours'; tab 4 'Visits used: 4 of 5', '1 visit left'. Each matches its tab copy and mockup; one hero each."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_7_description",
+    "quote": "Book a test session for tomorrow from your phone and cancel it an hour later. It should be marked late",
+    "issue": "With a 24-hour notice period, a session tomorrow booked in the morning for a late slot is more than 24 hours away, so it would not be marked late; the expected result is stated as certain.",
+    "fix": "Book a test session that starts within your notice period (for example, a few hours from now) and cancel it.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2a",
+    "field": "faq item 6 vs feature_5, tab_content_3, howto_step_6",
+    "quote": "An opening then goes to the first person whose answers fit it, instead of the first name on the list.",
+    "issue": "Feature 5 ('emails the first client on the waitlist'), tab 3 ('Anwen Feeney is first of 3 on the waitlist') and step 6 ('moves to the next name') describe first-in-line; FAQ 6 recommends against first-in-line. Both can be configured, but the page reads as arguing with itself.",
+    "fix": "Frame FAQ 6 as an option: 'By default the first name gets it; ask for days and therapists if you want the first person whose answers fit.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_3_description vs faq item 7",
+    "quote": "list the towns you travel to / limit home visits to the ZIP codes you travel to",
+    "issue": "The service-area rule is towns in step 3 and ZIP codes in FAQ 7 (HUB_RULES 2a consistency: same term for the same thing).",
+    "fix": "Pick one (ZIP codes) and use it in both.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2a",
+    "field": "faq item 10",
+    "quote": "A dj booking form, for example, books a whole evening",
+    "issue": "'dj' lowercase in the anchor; the reader sees 'dj booking form' mid-sentence.",
+    "fix": "Write 'DJ booking form' if K4 accepts case-insensitive anchors.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #5",
+    "field": "image_brief tab 1 hero",
+    "quote": "Visit booked for Zuri ... Confirm visit",
+    "issue": "The card title says the visit is already booked while the clicked button asks to confirm it.",
+    "fix": "Title 'New visit for Zuri' or button 'View schedule'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_7_description",
+   "issue": "With a 24-hour notice period, a session tomorrow booked in the morning for a late slot is more than 24 hours away, so it would not be marked late; the expected result is stated as certain.",
+   "fix": "Book a test session that starts within your notice period (for example, a few hours from now) and cancel it.",
+   "by": "B-r-454",
+   "via": "review",
+   "date": "2026-11-06 07:52 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2a",
+   "field": "faq item 6 vs feature_5, tab_content_3, howto_step_6",
+   "issue": "Feature 5 ('emails the first client on the waitlist'), tab 3 ('Anwen Feeney is first of 3 on the waitlist') and step 6 ('moves to the next name') describe first-in-line; FAQ 6 recommends against first-in-line. Both can be configured, but the page reads as arguing with itself.",
+   "fix": "Frame FAQ 6 as an option: 'By default the first name gets it; ask for days and therapists if you want the first person whose answers fit.'",
+   "by": "B-r-454",
+   "via": "review",
+   "date": "2026-11-06 07:52 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_3_description vs faq item 7",
+   "issue": "The service-area rule is towns in step 3 and ZIP codes in FAQ 7 (HUB_RULES 2a consistency: same term for the same thing).",
+   "fix": "Pick one (ZIP codes) and use it in both.",
+   "by": "B-r-454",
+   "via": "review",
+   "date": "2026-11-06 07:52 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2a",
+   "field": "faq item 10",
+   "issue": "'dj' lowercase in the anchor; the reader sees 'dj booking form' mid-sentence.",
+   "fix": "Write 'DJ booking form' if K4 accepts case-insensitive anchors.",
+   "by": "B-r-454",
+   "via": "review",
+   "date": "2026-11-06 07:52 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #5",
+   "field": "image_brief tab 1 hero",
+   "issue": "The card title says the visit is already booked while the clicked button asks to confirm it.",
+   "fix": "Title 'New visit for Zuri' or button 'View schedule'.",
+   "by": "B-r-454",
+   "via": "review",
+   "date": "2026-11-06 07:52 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "7d5a7a0a50a7e054",
+   "alt:share_image": "60df28b73834490c",
+   "alt:tab_image_1": "f565bb562be96b09",
+   "alt:tab_image_2": "90b90ece00a497ab",
+   "alt:tab_image_3": "76828ce6ac4ad890",
+   "alt:tab_image_4": "8caca88f6155db21",
+   "breadcrumb": "0ff7880191da3b5e",
+   "chip_adds": "4c6933a0cdc344e6",
+   "explore_cta": "2d44ffa5b606af65",
+   "faq": "d810f16e66fe9d09",
+   "feature_1": "19576b9c659a0239",
+   "feature_2": "0651058a3df4218e",
+   "feature_3": "7ec3983ffd436304",
+   "feature_4": "c8d80efec63d2999",
+   "feature_5": "665bb36859d3e93a",
+   "feature_6": "95eb560f41c14b0b",
+   "features_heading": "dc45796f6b9a65f0",
+   "features_subheading": "589092a965d35d9e",
+   "h1": "531bfc8f8259596d",
+   "hero_description": "66cb2a793e6d55f2",
+   "hero_prompt": "6ccc8ceffe792351",
+   "howto_description": "144861e2919b3bda",
+   "howto_step_1_des": "c40dff88a793b182",
+   "howto_step_1_title": "20ff1116090f14bd",
+   "howto_step_2_des": "7d84f69258add2cd",
+   "howto_step_2_title": "de35d6e5edbd9a31",
+   "howto_step_3_des": "38cba81a1cc2df2c",
+   "howto_step_3_title": "5c65224b3f4031b0",
+   "howto_step_4_des": "23909d47681b275c",
+   "howto_step_4_title": "462e5ab20b376a06",
+   "howto_step_5_des": "76892d7698588e95",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "20a5aab0774242d9",
+   "howto_step_6_title": "4d197f696cb58f65",
+   "howto_step_7_des": "156280e43a68065e",
+   "howto_step_7_title": "ad6fbc995711e09e",
+   "howto_title": "67a342e82261d0b6",
+   "meta_description": "2880776a4c0fc518",
+   "meta_title": "c14d6e3cfb079788",
+   "mockup": "acfe4c2f241a3462",
+   "product_name": "b094a83c56609828",
+   "prompt_chip_1": "5c272dac5e6321f5",
+   "prompt_chip_2": "007ef73c1f3b0e1c",
+   "prompt_chip_3": "4c5d65d567978a66",
+   "prompt_chip_4": "7ef72b8bf202f2b5",
+   "slug": "cf4b18695702a6fa",
+   "tab_content_1": "32989b32e3cb7f27",
+   "tab_content_2": "9316ea098a6997be",
+   "tab_content_3": "cd4b1a6faaaf8d5b",
+   "tab_content_4": "75afaa5daf937a02",
+   "tab_label_1": "f40d2dedf4b19da0",
+   "tab_label_2": "874e52aa0d0014f7",
+   "tab_label_3": "eef0601df802e8df",
+   "tab_label_4": "99eb4a29f23ab4b1",
+   "usecase_heading": "f2e714c54aa866de",
+   "why_description": "ce761d42e722df25",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "854774788ccad390"
+  },
+  "all": "2cff3708b1077ccb",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "7d5a7a0a50a7e054",
+   "alt:share_image": "60df28b73834490c",
+   "alt:tab_image_1": "f565bb562be96b09",
+   "alt:tab_image_2": "90b90ece00a497ab",
+   "alt:tab_image_3": "76828ce6ac4ad890",
+   "alt:tab_image_4": "8caca88f6155db21",
+   "breadcrumb": "0ff7880191da3b5e",
+   "chip_adds": "4c6933a0cdc344e6",
+   "explore_cta": "2d44ffa5b606af65",
+   "faq": "d810f16e66fe9d09",
+   "feature_1": "19576b9c659a0239",
+   "feature_2": "0651058a3df4218e",
+   "feature_3": "7ec3983ffd436304",
+   "feature_4": "c8d80efec63d2999",
+   "feature_5": "665bb36859d3e93a",
+   "feature_6": "95eb560f41c14b0b",
+   "features_heading": "dc45796f6b9a65f0",
+   "features_subheading": "589092a965d35d9e",
+   "h1": "531bfc8f8259596d",
+   "hero_description": "66cb2a793e6d55f2",
+   "hero_prompt": "6ccc8ceffe792351",
+   "howto_description": "144861e2919b3bda",
+   "howto_step_1_des": "c40dff88a793b182",
+   "howto_step_1_title": "20ff1116090f14bd",
+   "howto_step_2_des": "7d84f69258add2cd",
+   "howto_step_2_title": "de35d6e5edbd9a31",
+   "howto_step_3_des": "38cba81a1cc2df2c",
+   "howto_step_3_title": "5c65224b3f4031b0",
+   "howto_step_4_des": "23909d47681b275c",
+   "howto_step_4_title": "462e5ab20b376a06",
+   "howto_step_5_des": "76892d7698588e95",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "20a5aab0774242d9",
+   "howto_step_6_title": "4d197f696cb58f65",
+   "howto_step_7_des": "156280e43a68065e",
+   "howto_step_7_title": "ad6fbc995711e09e",
+   "howto_title": "67a342e82261d0b6",
+   "meta_description": "2880776a4c0fc518",
+   "meta_title": "c14d6e3cfb079788",
+   "mockup": "acfe4c2f241a3462",
+   "product_name": "b094a83c56609828",
+   "prompt_chip_1": "5c272dac5e6321f5",
+   "prompt_chip_2": "007ef73c1f3b0e1c",
+   "prompt_chip_3": "4c5d65d567978a66",
+   "prompt_chip_4": "7ef72b8bf202f2b5",
+   "slug": "cf4b18695702a6fa",
+   "tab_content_1": "32989b32e3cb7f27",
+   "tab_content_2": "9316ea098a6997be",
+   "tab_content_3": "cd4b1a6faaaf8d5b",
+   "tab_content_4": "75afaa5daf937a02",
+   "tab_label_1": "f40d2dedf4b19da0",
+   "tab_label_2": "874e52aa0d0014f7",
+   "tab_label_3": "eef0601df802e8df",
+   "tab_label_4": "99eb4a29f23ab4b1",
+   "usecase_heading": "f2e714c54aa866de",
+   "why_description": "ce761d42e722df25",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "854774788ccad390"
+  },
+  "all": "2cff3708b1077ccb",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
