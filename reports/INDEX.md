@@ -2,6 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-11-06 · [pre-publish-checklist](2026-11-06/0745-pre-publish-checklist.md) · B-pub-1: pre-publish checklist (reports/2026-11-05/pre-publish-checklist.md): quiz GREEN, hero backlog not staged (0 unstaging writes), redirects v2 843 rows GREEN; RED: 14 staged Learn edits, Designer state unreadable · see git log
 - 2026-11-05 · [ship-run](2026-11-05/ship-run.md) · B-ship-7: 19 new pages shipped (LP 7, Form 12, Auto 0), verify-live 19/19, live 436; patient-intake held as draft; 5 pages went live before the hold ruling; post-ship audit queued behind the full run · 9aad61f2
 - 2026-11-05 · [1600-new-pages-first](2026-11-05/1600-new-pages-first.md) · new pages first: 22 written, 8 reworks fixed, 19 pass ship-check, B-ship-7 shipping; writing paused at Divit's 10% message; QC L15, keyword_forms hyphenation, hero-backlog known issue · 1ca42d57
 - 2026-11-05 · [1000-quiz-unblock](2026-11-05/1000-quiz-unblock.md) · B-quiz-2: quiz height fix already staged and live (read-only check, no write); staging CLS all < 0.01; cls.mjs committed; one pre-publish checklist (quiz + redirect v2 + canary) · adfc1816
