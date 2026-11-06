@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-427",
    "note": ""
+  },
+  {
+   "t": "2026-11-06 07:45 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-442",
+   "note": "[truth | HUB_RULES 8] faq: FAQ item 1 states as fact what a type of person (the attorney) does, with no domain_sources entry (rework-checklist 1, Divit 2026-11-03: any sentence saying what a type of person looks for, wants or does is unsourced). Searched the whole page: the other attorney mentions a"
   }
  ],
  "pipeline": "r15",
@@ -878,5 +885,275 @@
  ],
  "writers": [
   "B-w-427"
- ]
+ ],
+ "review": {
+  "by": "B-r-442",
+  "date": "2026-11-06 07:45 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Family Law Intake Form That Asks What Each Case Needs'; hero 'Build a family law intake form that opens divorce, custody, or support questions by case, saved to a database you own.' (under 130 chars, carries primary, leads with Build)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition (FAQ 1), what to ask per case type (FAQ 3, 4, 6), seven-step how-to 'List the cases the firm takes' to 'Send a test intake', four case-type examples; builder intent throughout, no legal advice, no state-specific content."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Firm vocabulary: 'conflict checks', 'associate queue', '2023 parenting order', 'gross pay of $2,240 for each 2-week period', 'protective order'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every feature body opens on a full sentence: 'Pick divorce and the form asks...', 'The client picks how the firm may reach them...', 'Clients upload pay stubs...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; 13 'A, B, and C' lists (QC Q8) recorded as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'A custody client never scrolls past questions about the house.' Plain verbs, concrete names; no AI tells."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "faq item 1: 'The attorney reads it before the consult starts.' is an unsourced statement of what a type of person does (spec has no domain_sources). Only instance of the class on the page; all Emergent claims map to claims_used ids (prompt-build, ai-extraction, alerts, api-connect, database-owned, code-export, conversational, no-caps, free-start); numbers agree across copy, mockup and images (June 2014, March 2026, ages 6 and 9, $2,240, 2 weeks, 2 pay stubs)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Divorce house routing, per-child rows, pay stub extraction and safe-contact stories are specific to family law; sibling primaries (legal, bankruptcy, personal injury intake form) appear only as FAQ link anchors."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic builder questions, answer-first; hub link in item 2 'Emergent's AI form builder'; links to bankruptcy, legal and personal injury intake form in items 4, 7, 10; no brands or file formats in questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: Thaddeus Wren card 'Lists a house owned together', 'Married June 2014, separated March 2026'; Esperanza Tull 'Ages 6 and 9', '2023 parenting order attached'; Calder Freight '$2,240.00', '2 weeks', 'Overtime line unclear' for Corwin Ashe; Hollis Grant 'Email only, no calls', 'Protective order: yes'. Each matches its tab copy; one hero each, cursor on button edge."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "The attorney reads it before the consult starts.",
+    "issue": "FAQ item 1 states as fact what a type of person (the attorney) does, with no domain_sources entry (rework-checklist 1, Divit 2026-11-03: any sentence saying what a type of person looks for, wants or does is unsourced). Searched the whole page: the other attorney mentions are advice ('list what an attorney asks', 'Ask for the papers an attorney wants', 'Cut any question no attorney reads'), so this is the only instance; the related step 4 clause 'the papers an attorney wants' is inside an imperative and may be tightened in the same pass if wanted.",
+    "fix": "Drop the sentence or rewrite it as advice or as what the form does, e.g. 'Send it to the attorney before the consult starts.' or 'Built with Emergent, each intake sits on the attorney's review screen before the consult.'",
+    "severity": "blocking"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "page",
+    "quote": "sections for divorce, custody, and child support",
+    "issue": "QC Q8: 13 'A, B, and C' lists across meta, hero, features, tabs, how-to and FAQ read templated.",
+    "fix": "Cut a few lists to pairs or one specific.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "Forms built with Emergent have no response caps.",
+    "issue": "F9 moat line in the upload answer (item 8) is not specific to the upload question.",
+    "fix": "Use a question-specific approved claim, e.g. ai-extraction reading the pay stub into fields.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "feature_2",
+    "quote": "and no one leaves a voicemail on a phone someone else checks",
+    "issue": "States an outcome the form cannot guarantee; staff behaviour follows the preference but the form does not enforce it.",
+    "fix": "'so staff see the preference before they call'.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "page",
+    "quote": "email only, calls, or texts",
+    "issue": "The contact-options list appears in feature_2 and howto_step_3_des, and the 'shown first/at the top' idea recurs in feature_2, howto 3, howto 7, FAQ 5, tab 4.",
+    "fix": "Vary one mention.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "page",
+   "issue": "QC Q8: 13 'A, B, and C' lists across meta, hero, features, tabs, how-to and FAQ read templated.",
+   "fix": "Cut a few lists to pairs or one specific.",
+   "by": "B-r-442",
+   "via": "review",
+   "date": "2026-11-06 07:45 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "F9 moat line in the upload answer (item 8) is not specific to the upload question.",
+   "fix": "Use a question-specific approved claim, e.g. ai-extraction reading the pay stub into fields.",
+   "by": "B-r-442",
+   "via": "review",
+   "date": "2026-11-06 07:45 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "feature_2",
+   "issue": "States an outcome the form cannot guarantee; staff behaviour follows the preference but the form does not enforce it.",
+   "fix": "'so staff see the preference before they call'.",
+   "by": "B-r-442",
+   "via": "review",
+   "date": "2026-11-06 07:45 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "page",
+   "issue": "The contact-options list appears in feature_2 and howto_step_3_des, and the 'shown first/at the top' idea recurs in feature_2, howto 3, howto 7, FAQ 5, tab 4.",
+   "fix": "Vary one mention.",
+   "by": "B-r-442",
+   "via": "review",
+   "date": "2026-11-06 07:45 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "179fbaeb13c035d0",
+   "alt:share_image": "84c5eb9a9ce9c405",
+   "alt:tab_image_1": "2566ae6709bbe438",
+   "alt:tab_image_2": "909c4c120a24551c",
+   "alt:tab_image_3": "6e1f295e72b73728",
+   "alt:tab_image_4": "a48c32f015efe671",
+   "breadcrumb": "f1d4d887c95a8fc2",
+   "chip_adds": "431587c9f186768a",
+   "explore_cta": "71ba545f3e475079",
+   "faq": "157c1caa5c455845",
+   "feature_1": "284984ccb09452cc",
+   "feature_2": "23cde4cd716212da",
+   "feature_3": "fa22ec15e97378ca",
+   "feature_4": "e2fb53003022cb82",
+   "feature_5": "a5072ad2d18974a8",
+   "feature_6": "95023992ef3930a7",
+   "features_heading": "e079c237031e0e3a",
+   "features_subheading": "979f876b1e1c312e",
+   "h1": "b4f7822e7950954f",
+   "hero_description": "fc30c21bf79f7e5b",
+   "hero_prompt": "afec29f4cceee826",
+   "howto_description": "abd5b855d0916fa4",
+   "howto_step_1_des": "7ec734dbdad33ba9",
+   "howto_step_1_title": "64cc83cb099e5097",
+   "howto_step_2_des": "b5bd93739d1419e0",
+   "howto_step_2_title": "d5dd0c36b5a57dd6",
+   "howto_step_3_des": "46aed50aad087dbb",
+   "howto_step_3_title": "1f8180ef87eca790",
+   "howto_step_4_des": "8f7fde30ccccd8b9",
+   "howto_step_4_title": "b038988d2223dbf1",
+   "howto_step_5_des": "d2813a3f27605393",
+   "howto_step_5_title": "fe6941e6569adcc0",
+   "howto_step_6_des": "b0410f312e593ebc",
+   "howto_step_6_title": "d4ab49d810fc8096",
+   "howto_step_7_des": "23330a2d426fdb70",
+   "howto_step_7_title": "a8e921565e6c890a",
+   "howto_title": "cf0d1e499dba53f6",
+   "meta_description": "e4e2aca22f953e1a",
+   "meta_title": "49562e3a4d75adf0",
+   "mockup": "64404d065a288599",
+   "product_name": "829c8075eb96ac99",
+   "prompt_chip_1": "a4d9a2d1830bc0a7",
+   "prompt_chip_2": "3c112b89dc62891f",
+   "prompt_chip_3": "1e40de8bf74d8397",
+   "prompt_chip_4": "d5f682c47707b7e6",
+   "slug": "66d465fcf0af8d0c",
+   "tab_content_1": "a83fdac7115be411",
+   "tab_content_2": "1fc9e83d9786985a",
+   "tab_content_3": "0a8d4ee086a9ee72",
+   "tab_content_4": "77dd89db4fc4bfdf",
+   "tab_label_1": "49cdb706199c8f58",
+   "tab_label_2": "489576319a6fce5d",
+   "tab_label_3": "8c312401c89ee65a",
+   "tab_label_4": "3c112b89dc62891f",
+   "usecase_heading": "afa2008310b1382b",
+   "why_description": "d287c65bb4468ea1",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "de2e502241817a5e"
+  },
+  "all": "9e6673829315d792",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "179fbaeb13c035d0",
+   "alt:share_image": "84c5eb9a9ce9c405",
+   "alt:tab_image_1": "2566ae6709bbe438",
+   "alt:tab_image_2": "909c4c120a24551c",
+   "alt:tab_image_3": "6e1f295e72b73728",
+   "alt:tab_image_4": "a48c32f015efe671",
+   "breadcrumb": "f1d4d887c95a8fc2",
+   "chip_adds": "431587c9f186768a",
+   "explore_cta": "71ba545f3e475079",
+   "faq": "157c1caa5c455845",
+   "feature_1": "284984ccb09452cc",
+   "feature_2": "23cde4cd716212da",
+   "feature_3": "fa22ec15e97378ca",
+   "feature_4": "e2fb53003022cb82",
+   "feature_5": "a5072ad2d18974a8",
+   "feature_6": "95023992ef3930a7",
+   "features_heading": "e079c237031e0e3a",
+   "features_subheading": "979f876b1e1c312e",
+   "h1": "b4f7822e7950954f",
+   "hero_description": "fc30c21bf79f7e5b",
+   "hero_prompt": "afec29f4cceee826",
+   "howto_description": "abd5b855d0916fa4",
+   "howto_step_1_des": "7ec734dbdad33ba9",
+   "howto_step_1_title": "64cc83cb099e5097",
+   "howto_step_2_des": "b5bd93739d1419e0",
+   "howto_step_2_title": "d5dd0c36b5a57dd6",
+   "howto_step_3_des": "46aed50aad087dbb",
+   "howto_step_3_title": "1f8180ef87eca790",
+   "howto_step_4_des": "8f7fde30ccccd8b9",
+   "howto_step_4_title": "b038988d2223dbf1",
+   "howto_step_5_des": "d2813a3f27605393",
+   "howto_step_5_title": "fe6941e6569adcc0",
+   "howto_step_6_des": "b0410f312e593ebc",
+   "howto_step_6_title": "d4ab49d810fc8096",
+   "howto_step_7_des": "23330a2d426fdb70",
+   "howto_step_7_title": "a8e921565e6c890a",
+   "howto_title": "cf0d1e499dba53f6",
+   "meta_description": "e4e2aca22f953e1a",
+   "meta_title": "49562e3a4d75adf0",
+   "mockup": "64404d065a288599",
+   "product_name": "829c8075eb96ac99",
+   "prompt_chip_1": "a4d9a2d1830bc0a7",
+   "prompt_chip_2": "3c112b89dc62891f",
+   "prompt_chip_3": "1e40de8bf74d8397",
+   "prompt_chip_4": "d5f682c47707b7e6",
+   "slug": "66d465fcf0af8d0c",
+   "tab_content_1": "a83fdac7115be411",
+   "tab_content_2": "1fc9e83d9786985a",
+   "tab_content_3": "0a8d4ee086a9ee72",
+   "tab_content_4": "77dd89db4fc4bfdf",
+   "tab_label_1": "49cdb706199c8f58",
+   "tab_label_2": "489576319a6fce5d",
+   "tab_label_3": "8c312401c89ee65a",
+   "tab_label_4": "3c112b89dc62891f",
+   "usecase_heading": "afa2008310b1382b",
+   "why_description": "d287c65bb4468ea1",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "de2e502241817a5e"
+  },
+  "all": "9e6673829315d792",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
