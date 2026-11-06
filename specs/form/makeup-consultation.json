@@ -117,6 +117,13 @@
    "via": null,
    "by": "B-w-437",
    "note": ""
+  },
+  {
+   "t": "2026-11-06 07:51 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-451",
+   "note": "[images | CONTENT_DEFECTS #20] tab_content_3: Question count disagrees across fields (Divit 2026-11-05: cross-field counts always blocking). The copy says one question; the tab 3 image draws two fields (\"Past reaction to a product?\" and \"Which product?\") and the reactionChecks mockup asks \"whether a"
   }
  ],
  "pipeline": "r15",
@@ -857,5 +864,275 @@
  ],
  "writers": [
   "B-w-437"
- ]
+ ],
+ "review": {
+  "by": "B-r-451",
+  "date": "2026-11-06 07:51 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Makeup Consultation Form Clients Answer Before the Chair\"; hero \"Build a makeup consultation form that asks about the skin and the look before the event, then saves every booking for you.\" covers the whole job."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top results are printable consultation sheets; page gives the questions (FAQ 3, step 2), four worked consultations, a 7-step how-to and a comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Makeup-artist vocabulary throughout: \"3 pm outdoor ceremony, 4 people getting makeup, dry skin\", \"lists the 6 products she already owns\", \"matte or dewy finish\"."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: \"Amaya Szabolcs is getting married on October 17\", \"Write down the services you book\"."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5 clean; only notes (tab 1 heading \"By September 5\")."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain product-led sentences: \"A yes holds the booking as Needs review, and the artist reads that answer in the app before confirming the time.\" Repetition of \"booking\" is a note."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "claims_used all approved; dates check (October 17 minus 6 weeks = September 5; June 12 minus 2 days = June 10; 11 + 3 = 14); alerts say \"a booking is ready for review\" with answers kept in the app."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Bridal trials, lessons, reaction checks and headshot days are distinct from the esthetician-intake and consent siblings; siblings only linked (tattoo, permanent makeup, botox consent)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 questions, none names a brand or asks for a file format (FAQ 9 asks \"Should a makeup consultation form be online or on paper?\"; the \"makeup consultation form pdf\" secondary sits only in the answer); hub link in item 2; paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "tab_content_3 says Pellicano \"asks one question before any eye look\" but the image and mockup draw two questions: \"Past reaction to a product?\" and \"Which product?\"."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "tab_content_3",
+    "quote": "Pellicano Beauty Bar asks one question before any eye look: has a product ever caused a reaction? Ysolde Farquhar answers yes and names lash glue.",
+    "issue": "Question count disagrees across fields (Divit 2026-11-05: cross-field counts always blocking). The copy says one question; the tab 3 image draws two fields (\"Past reaction to a product?\" and \"Which product?\") and the reactionChecks mockup asks \"whether a product has ever caused a reaction and which one\". FAQ 5 also says \"Ask whether any product has ever caused a reaction, and which one\". Only tab_content_3 states the count; no other field says \"one question\".",
+    "fix": "Drop the count: \"Before any eye look, Pellicano Beauty Bar asks whether a product has ever caused a reaction, and which one. Ysolde Farquhar answers yes and names lash glue.\" Keep the image and mockup as they are.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "faq",
+    "quote": "A makeup consultation form pdf has to be printed, filled in by hand, and brought along or scanned back.",
+    "issue": "Overstated: a fillable PDF can be completed on screen; the point holds for a printed sheet.",
+    "fix": "\"A printed makeup consultation form pdf is filled in by hand and brought along or scanned back.\"",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "Can a makeup consultation form cover a studio's tattoo clients too?",
+    "issue": "Reads as a vehicle for the tattoo consent form link more than a question a makeup consultation searcher asks.",
+    "fix": "Next time, use a searcher question (for example on trial timing or deposits) and place the sibling link elsewhere.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "Every booking in a table you own",
+    "issue": "\"booking\" appears 21 times outside the FAQ (QC Q9 P2); the noun repeats in features, tabs and steps.",
+    "fix": "Vary with appointment, client, request where the meaning holds.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_1",
+    "quote": "By September 5, Amaya has her trial with Liesel",
+    "issue": "\"By\" reads as a deadline, but the trial is on September 5.",
+    "fix": "\"Amaya's trial with Liesel lands on September 5\".",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "faq",
+   "issue": "Overstated: a fillable PDF can be completed on screen; the point holds for a printed sheet.",
+   "fix": "\"A printed makeup consultation form pdf is filled in by hand and brought along or scanned back.\"",
+   "by": "B-r-451",
+   "via": "review",
+   "date": "2026-11-06 07:51 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "Reads as a vehicle for the tattoo consent form link more than a question a makeup consultation searcher asks.",
+   "fix": "Next time, use a searcher question (for example on trial timing or deposits) and place the sibling link elsewhere.",
+   "by": "B-r-451",
+   "via": "review",
+   "date": "2026-11-06 07:51 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "\"booking\" appears 21 times outside the FAQ (QC Q9 P2); the noun repeats in features, tabs and steps.",
+   "fix": "Vary with appointment, client, request where the meaning holds.",
+   "by": "B-r-451",
+   "via": "review",
+   "date": "2026-11-06 07:51 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_1",
+   "issue": "\"By\" reads as a deadline, but the trial is on September 5.",
+   "fix": "\"Amaya's trial with Liesel lands on September 5\".",
+   "by": "B-r-451",
+   "via": "review",
+   "date": "2026-11-06 07:51 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "cfe358dc6edeb206",
+   "alt:share_image": "5152214cb6fc2d7b",
+   "alt:tab_image_1": "a1911f3722cd2e85",
+   "alt:tab_image_2": "b373adf29ceec35e",
+   "alt:tab_image_3": "e9c003cec898bade",
+   "alt:tab_image_4": "c3d8d55b57e1ac4a",
+   "breadcrumb": "6a091f02a057d020",
+   "chip_adds": "dc6dc10d6bccf9d4",
+   "explore_cta": "7f5d73d3e464f799",
+   "faq": "deac9467982d6c6b",
+   "feature_1": "ceb820b9de216044",
+   "feature_2": "f8dff8a448654dfb",
+   "feature_3": "2c6b223237204278",
+   "feature_4": "8618d4763f013b87",
+   "feature_5": "c2945e051c577e33",
+   "feature_6": "c532eed101cf0831",
+   "features_heading": "65cf0a49e79379d6",
+   "features_subheading": "03c47379ecee587e",
+   "h1": "7ce6ee3216d05e85",
+   "hero_description": "2c7db93384c06093",
+   "hero_prompt": "e534397b65dc0a6f",
+   "howto_description": "c04685c88a551d68",
+   "howto_step_1_des": "b86ce7bef0c2de85",
+   "howto_step_1_title": "954dec3962ef7e9f",
+   "howto_step_2_des": "210b543f57e2dce7",
+   "howto_step_2_title": "58f6f752dbbb7ec3",
+   "howto_step_3_des": "c3e416f64c85e23a",
+   "howto_step_3_title": "e39358b4045e6974",
+   "howto_step_4_des": "7b56cb40707ddd27",
+   "howto_step_4_title": "bf5bc072ea9fa5df",
+   "howto_step_5_des": "bd1079dc843d1894",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "3558eca86fe2f5ff",
+   "howto_step_6_title": "36944b0286c72e56",
+   "howto_step_7_des": "df35773ad47d581b",
+   "howto_step_7_title": "fa3f594e38ac2a30",
+   "howto_title": "fb6129c87b9a060f",
+   "meta_description": "73b66c3282a6d4ef",
+   "meta_title": "311fa741c44f5a0c",
+   "mockup": "b454f3f49a4d31a0",
+   "product_name": "42e2aee37e399b6e",
+   "prompt_chip_1": "df6d848bb8d0cef8",
+   "prompt_chip_2": "02a645b551aa50f9",
+   "prompt_chip_3": "d4afa5da9b6b46ea",
+   "prompt_chip_4": "4f6292c6daca3d5e",
+   "slug": "8a5caf47daa60bcd",
+   "tab_content_1": "56ce6dc14f5ad62c",
+   "tab_content_2": "1a4da96d78dc6de0",
+   "tab_content_3": "0bc9d7af20853d4a",
+   "tab_content_4": "b25cdd73384d5b9d",
+   "tab_label_1": "ad49175d0f39d97b",
+   "tab_label_2": "a1ab31200d260da5",
+   "tab_label_3": "ae8ca10bf3891e6a",
+   "tab_label_4": "9635dcc54f6c1b29",
+   "usecase_heading": "3b9b92fa9c489b9f",
+   "why_description": "19643a9055db3275",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "80b24d7bfdc38c95"
+  },
+  "all": "998f8ac5b4358c8b",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "cfe358dc6edeb206",
+   "alt:share_image": "5152214cb6fc2d7b",
+   "alt:tab_image_1": "a1911f3722cd2e85",
+   "alt:tab_image_2": "b373adf29ceec35e",
+   "alt:tab_image_3": "e9c003cec898bade",
+   "alt:tab_image_4": "c3d8d55b57e1ac4a",
+   "breadcrumb": "6a091f02a057d020",
+   "chip_adds": "dc6dc10d6bccf9d4",
+   "explore_cta": "7f5d73d3e464f799",
+   "faq": "deac9467982d6c6b",
+   "feature_1": "ceb820b9de216044",
+   "feature_2": "f8dff8a448654dfb",
+   "feature_3": "2c6b223237204278",
+   "feature_4": "8618d4763f013b87",
+   "feature_5": "c2945e051c577e33",
+   "feature_6": "c532eed101cf0831",
+   "features_heading": "65cf0a49e79379d6",
+   "features_subheading": "03c47379ecee587e",
+   "h1": "7ce6ee3216d05e85",
+   "hero_description": "2c7db93384c06093",
+   "hero_prompt": "e534397b65dc0a6f",
+   "howto_description": "c04685c88a551d68",
+   "howto_step_1_des": "b86ce7bef0c2de85",
+   "howto_step_1_title": "954dec3962ef7e9f",
+   "howto_step_2_des": "210b543f57e2dce7",
+   "howto_step_2_title": "58f6f752dbbb7ec3",
+   "howto_step_3_des": "c3e416f64c85e23a",
+   "howto_step_3_title": "e39358b4045e6974",
+   "howto_step_4_des": "7b56cb40707ddd27",
+   "howto_step_4_title": "bf5bc072ea9fa5df",
+   "howto_step_5_des": "bd1079dc843d1894",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "3558eca86fe2f5ff",
+   "howto_step_6_title": "36944b0286c72e56",
+   "howto_step_7_des": "df35773ad47d581b",
+   "howto_step_7_title": "fa3f594e38ac2a30",
+   "howto_title": "fb6129c87b9a060f",
+   "meta_description": "73b66c3282a6d4ef",
+   "meta_title": "311fa741c44f5a0c",
+   "mockup": "b454f3f49a4d31a0",
+   "product_name": "42e2aee37e399b6e",
+   "prompt_chip_1": "df6d848bb8d0cef8",
+   "prompt_chip_2": "02a645b551aa50f9",
+   "prompt_chip_3": "d4afa5da9b6b46ea",
+   "prompt_chip_4": "4f6292c6daca3d5e",
+   "slug": "8a5caf47daa60bcd",
+   "tab_content_1": "56ce6dc14f5ad62c",
+   "tab_content_2": "1a4da96d78dc6de0",
+   "tab_content_3": "0bc9d7af20853d4a",
+   "tab_content_4": "b25cdd73384d5b9d",
+   "tab_label_1": "ad49175d0f39d97b",
+   "tab_label_2": "a1ab31200d260da5",
+   "tab_label_3": "ae8ca10bf3891e6a",
+   "tab_label_4": "9635dcc54f6c1b29",
+   "usecase_heading": "3b9b92fa9c489b9f",
+   "why_description": "19643a9055db3275",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "80b24d7bfdc38c95"
+  },
+  "all": "998f8ac5b4358c8b",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
