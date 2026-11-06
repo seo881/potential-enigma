@@ -3,7 +3,7 @@
     python3 ops/render_changed.py <before-sha> <after-sha> [--pages slug,slug] [--no-commit]
 
 Render set = specs whose image_brief changed between the two commits, plus pages queued in status/render-queue.txt
-(written by `hubctl ship` for pages whose images are not current), plus --pages. A page is skipped when its
+(written by `hubctl ship` for pages whose images are not current), plus --pages; with --pages ONLY those pages are rendered (no range, no queue; 2026-11-06). A page is skipped when its
 images/<dir>/<slug>/render.json already records the current brief hash. Each page goes through engine.render_spec,
 which runs every image gate; a blocked brief is reported and left unrendered (exit 1 at the end).
 After a render, render.json records the brief hash, the commit and the runner, so `hubctl ship` and `hubctl readiness`
@@ -52,6 +52,8 @@ def main(argv):
     queued = [l.strip() for l in open(QUEUE)] if os.path.exists(QUEUE) else []
     extra = argv[argv.index("--pages") + 1].split(",") if "--pages" in argv else []
     import glob
+    if extra:   # B-c-1 2026-11-06: --pages renders ONLY those pages (writers passed wide sha ranges and re-rendered other writers' pages)
+        paths, queued = set(), []
     for slug in [q for q in queued + extra if q and not q.startswith("#")]:
         hit = glob.glob(os.path.join(ROOT, "specs", "*", slug.rsplit("/", 1)[-1] + ".json"))
         if hit: paths.add(hit[0])
