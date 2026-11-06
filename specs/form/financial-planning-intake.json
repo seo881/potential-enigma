@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-428",
    "note": ""
+  },
+  {
+   "t": "2026-11-06 07:47 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-443",
+   "note": "rubric 10/10 by B-r-443; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -928,5 +935,265 @@
  ],
  "writers": [
   "B-w-428"
- ]
+ ],
+ "review": {
+  "by": "B-r-443",
+  "date": "2026-11-06 07:47 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Financial Planning Intake Form for the Discovery Meeting'; hero 'Build a financial planning intake form that collects goals, income, and account statements before the first client meeting.' (under 130 chars, primary first); how-to description one sentence: 'Seven steps to design a financial planning intake form that has the first meeting ready, then build and test it with Emergent.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "No top 10 pulled (wave 3); the page gives the definition (FAQ 1), the questions to ask (FAQ 3, CFP Board examples), a 7-step how-to and four practice examples (discovery, statements, routing, annual review); framed as form design, no financial advice."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Planner vocabulary throughout: 'discovery meeting', 'investable assets', '401(k), IRA, or brokerage statement', 'annual review', 'Ask for the last four digits only'; table column uses the form variant."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every body opens on a full sentence: 'Clients enter each goal with the year they want it and what it costs', 'Cedar Fold Planning sends its intake with each discovery booking', 'Three weeks before each annual review, Osterly Planning Group sends clients last year's answers to update.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; 14 'A, B, and C' lists recorded as a note (e.g. FAQ 3 'savings, assets, and liabilities', step 3 'full account numbers, passwords, and logins')."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete and plain: 'The planner opens the first meeting to dated goals, not a line that says retire early.' 'Keep full account numbers, passwords, and logins off the intake.' Word repetition recorded as a note."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Claims map to prompt-build, ai-extraction, alerts, database-owned, no-caps, code-export, free-start. Both CFP Board lines keep the source's 'examples' framing and match the quoted spans ('age, dependents, other professional advisors, income, expenses, cash flow, savings, assets, liabilities'; 'values, attitudes, expectations, earnings potential, risk tolerance, goals, needs, priorities'). $184,200 + $41,750 + $62,300 = $288,250; $640,000 over $500,000; $96,000 to $118,000 and 1 to 2 agree across tab, mockup and image."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own scenarios (dated goals, statement reading, asset-threshold routing, yearly update); siblings only linked: 'accounting client intake form', 'life coaching intake form', 'event planning form'; QC D2 clean."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions each answered in sentence one ('Yes, if the form branches on the service each client picks.'; 'Yes, briefly.'); hub link in item 2; Emergent sentences in FAQ 5 and FAQ 6 only; paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 draws '$40,000 by 2027', '$25,000 by 2028', '$90,000 by 2034' and 'For Hollis Varga ... Sent the night before'; tab 2 '3 of 4 read', 'Mortgage Unclear', '$288,250'; tab 3 rule 'over $500,000 -> Odette Lindqvist', Treadwell $640,000; tab 4 'Bettina Szabo: 2 changes', 'Sent 3 weeks before the review'. One hero each, cursor on button edge."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "page (meta_description, hero_description, features_subheading, tab_content_4, howto_step_3_des x2, howto_step_6_des, howto_step_7_des, faq 1, 3, 7, 8 x2, 10)",
+    "quote": "savings, assets, and liabilities",
+    "issue": "14 'A, B, and C' lists on one page (QC Q8 flags more than 8); the rhythm reads templated.",
+    "fix": "Turn several triplets into pairs or one specific item, e.g. meta 'asks new clients for goals and debts'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_3",
+    "quote": "A single renter sees neither section.",
+    "issue": "Being single and renting does not mean no children and no business, so the example does not follow from the two branches above it.",
+    "fix": "A household that answers no to both sees neither section.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #18",
+    "field": "feature_2, tab_content_2, howto_step_4_des, faq item 5",
+    "quote": "A value it reads with low confidence goes to a person to confirm.",
+    "issue": "The read-the-balance, send-the-unclear-one-back idea is told four times with words swapped ('send anything unclear back to the client'; 'sends any it is unsure of to a person to check').",
+    "fix": "Keep it in feature 2 and tab 2; let step 4 and FAQ 5 say something new (for example which statement date to ask for).",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "planner",
+    "issue": "'planner' appears 16 times, 'year' 15 and 'meeting' 13 outside the FAQ (QC Q9).",
+    "fix": "Vary with the practice, the adviser's name, 'the review', where the meaning holds.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "page (meta_description, hero_description, features_subheading, tab_content_4, howto_step_3_des x2, howto_step_6_des, howto_step_7_des, faq 1, 3, 7, 8 x2, 10)",
+   "issue": "14 'A, B, and C' lists on one page (QC Q8 flags more than 8); the rhythm reads templated.",
+   "fix": "Turn several triplets into pairs or one specific item, e.g. meta 'asks new clients for goals and debts'.",
+   "by": "B-r-443",
+   "via": "review",
+   "date": "2026-11-06 07:47 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_3",
+   "issue": "Being single and renting does not mean no children and no business, so the example does not follow from the two branches above it.",
+   "fix": "A household that answers no to both sees neither section.",
+   "by": "B-r-443",
+   "via": "review",
+   "date": "2026-11-06 07:47 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #18",
+   "field": "feature_2, tab_content_2, howto_step_4_des, faq item 5",
+   "issue": "The read-the-balance, send-the-unclear-one-back idea is told four times with words swapped ('send anything unclear back to the client'; 'sends any it is unsure of to a person to check').",
+   "fix": "Keep it in feature 2 and tab 2; let step 4 and FAQ 5 say something new (for example which statement date to ask for).",
+   "by": "B-r-443",
+   "via": "review",
+   "date": "2026-11-06 07:47 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "'planner' appears 16 times, 'year' 15 and 'meeting' 13 outside the FAQ (QC Q9).",
+   "fix": "Vary with the practice, the adviser's name, 'the review', where the meaning holds.",
+   "by": "B-r-443",
+   "via": "review",
+   "date": "2026-11-06 07:47 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6594560303897710",
+   "alt:share_image": "6fe521bc75d0ecb5",
+   "alt:tab_image_1": "8ed173f507847e3b",
+   "alt:tab_image_2": "60114401ff13a591",
+   "alt:tab_image_3": "0cc66f0ce25de16e",
+   "alt:tab_image_4": "1a020b11a6d65d13",
+   "breadcrumb": "0d1073d0ed805d82",
+   "chip_adds": "3b47fe0953f90012",
+   "explore_cta": "c3d6be83a4505f31",
+   "faq": "27ead337d92767e7",
+   "feature_1": "04dfef40aca4f11c",
+   "feature_2": "54e5a7c1aa30b9fa",
+   "feature_3": "6f1ede12c0a14109",
+   "feature_4": "802faa04b86827c6",
+   "feature_5": "ff2a56a4aaf5cd60",
+   "feature_6": "48fd468d196f0e5c",
+   "features_heading": "64fbe48c909c0848",
+   "features_subheading": "1799662492627578",
+   "h1": "2cde6ff0b8ea8c44",
+   "hero_description": "31a6b52e3057c588",
+   "hero_prompt": "fd9bb7bcd86bdaad",
+   "howto_description": "807ccc53b8881124",
+   "howto_step_1_des": "ecc4c34199406ccb",
+   "howto_step_1_title": "42af66ceac4c18e7",
+   "howto_step_2_des": "a78f1a8ef5919661",
+   "howto_step_2_title": "1ba05f4e0d71abd2",
+   "howto_step_3_des": "8383bfa4b523de3f",
+   "howto_step_3_title": "44c041e763ed6ae7",
+   "howto_step_4_des": "29ea5931eee5a044",
+   "howto_step_4_title": "7d9a62892acd49b9",
+   "howto_step_5_des": "76cbeeba8fa37b3c",
+   "howto_step_5_title": "dcd37c784eab990e",
+   "howto_step_6_des": "13aca2e3eddc5a25",
+   "howto_step_6_title": "dc2d5f619eebb400",
+   "howto_step_7_des": "1d030340e1b10d68",
+   "howto_step_7_title": "e7be4364f4c402c2",
+   "howto_title": "9dac052839c7ab0f",
+   "meta_description": "3643aed5809e759c",
+   "meta_title": "27d07ff7b17d2d2a",
+   "mockup": "97230a12f7bb4ea3",
+   "product_name": "bc7a0f45d919136f",
+   "prompt_chip_1": "0729084f98b3fdee",
+   "prompt_chip_2": "6c29276153d1e9c9",
+   "prompt_chip_3": "f8452835ab985ef2",
+   "prompt_chip_4": "1a7a9c0395b8364e",
+   "slug": "e8859a58e927a785",
+   "tab_content_1": "36551de3a1d10876",
+   "tab_content_2": "648cb2c6a2d802e8",
+   "tab_content_3": "0b0aeae7008be9e6",
+   "tab_content_4": "4bcfc6eb6753e0c8",
+   "tab_label_1": "31a0a6c824d4cc4b",
+   "tab_label_2": "6c29276153d1e9c9",
+   "tab_label_3": "f8452835ab985ef2",
+   "tab_label_4": "c5d02d1a765d072f",
+   "usecase_heading": "280df19bdc3ee72a",
+   "why_description": "840abe8401d3e310",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "e64de389b75e0a39"
+  },
+  "all": "3a1a883d7daeb046",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6594560303897710",
+   "alt:share_image": "6fe521bc75d0ecb5",
+   "alt:tab_image_1": "8ed173f507847e3b",
+   "alt:tab_image_2": "60114401ff13a591",
+   "alt:tab_image_3": "0cc66f0ce25de16e",
+   "alt:tab_image_4": "1a020b11a6d65d13",
+   "breadcrumb": "0d1073d0ed805d82",
+   "chip_adds": "3b47fe0953f90012",
+   "explore_cta": "c3d6be83a4505f31",
+   "faq": "27ead337d92767e7",
+   "feature_1": "04dfef40aca4f11c",
+   "feature_2": "54e5a7c1aa30b9fa",
+   "feature_3": "6f1ede12c0a14109",
+   "feature_4": "802faa04b86827c6",
+   "feature_5": "ff2a56a4aaf5cd60",
+   "feature_6": "48fd468d196f0e5c",
+   "features_heading": "64fbe48c909c0848",
+   "features_subheading": "1799662492627578",
+   "h1": "2cde6ff0b8ea8c44",
+   "hero_description": "31a6b52e3057c588",
+   "hero_prompt": "fd9bb7bcd86bdaad",
+   "howto_description": "807ccc53b8881124",
+   "howto_step_1_des": "ecc4c34199406ccb",
+   "howto_step_1_title": "42af66ceac4c18e7",
+   "howto_step_2_des": "a78f1a8ef5919661",
+   "howto_step_2_title": "1ba05f4e0d71abd2",
+   "howto_step_3_des": "8383bfa4b523de3f",
+   "howto_step_3_title": "44c041e763ed6ae7",
+   "howto_step_4_des": "29ea5931eee5a044",
+   "howto_step_4_title": "7d9a62892acd49b9",
+   "howto_step_5_des": "76cbeeba8fa37b3c",
+   "howto_step_5_title": "dcd37c784eab990e",
+   "howto_step_6_des": "13aca2e3eddc5a25",
+   "howto_step_6_title": "dc2d5f619eebb400",
+   "howto_step_7_des": "1d030340e1b10d68",
+   "howto_step_7_title": "e7be4364f4c402c2",
+   "howto_title": "9dac052839c7ab0f",
+   "meta_description": "3643aed5809e759c",
+   "meta_title": "27d07ff7b17d2d2a",
+   "mockup": "97230a12f7bb4ea3",
+   "product_name": "bc7a0f45d919136f",
+   "prompt_chip_1": "0729084f98b3fdee",
+   "prompt_chip_2": "6c29276153d1e9c9",
+   "prompt_chip_3": "f8452835ab985ef2",
+   "prompt_chip_4": "1a7a9c0395b8364e",
+   "slug": "e8859a58e927a785",
+   "tab_content_1": "36551de3a1d10876",
+   "tab_content_2": "648cb2c6a2d802e8",
+   "tab_content_3": "0b0aeae7008be9e6",
+   "tab_content_4": "4bcfc6eb6753e0c8",
+   "tab_label_1": "31a0a6c824d4cc4b",
+   "tab_label_2": "6c29276153d1e9c9",
+   "tab_label_3": "f8452835ab985ef2",
+   "tab_label_4": "c5d02d1a765d072f",
+   "usecase_heading": "280df19bdc3ee72a",
+   "why_description": "840abe8401d3e310",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "e64de389b75e0a39"
+  },
+  "all": "3a1a883d7daeb046",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
