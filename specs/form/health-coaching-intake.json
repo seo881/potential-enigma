@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-431",
    "note": ""
+  },
+  {
+   "t": "2026-11-06 07:49 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-447",
+   "note": "[truth | CONTENT_DEFECTS #10] howto_step_7_des: The alert's content differs between fields: feature_5 says the alert carries 'a new intake is ready, with the client's name' and FAQ 8 says it 'carries the client's name only', but step 7 says it says only that an intake is ready (no name). Cross-field"
   }
  ],
  "pipeline": "r15",
@@ -890,5 +897,255 @@
  ],
  "writers": [
   "B-w-431"
- ]
+ ],
+ "review": {
+  "by": "B-r-447",
+  "date": "2026-11-06 07:49 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Health Coaching Intake Form That Measures Readiness'; hero 'Build a health coaching intake form that rates each client's readiness to change and puts the scores on the coach's prep sheet.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "FAQ 3 lists the questions to ask; seven-step how-to 'List the changes clients ask for' through 'Run three test intakes'; four practice tabs."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Evander Pyle rates walking after dinner 9 and 4'; '12:30 am, 6:15 am, and 2'; coaching vocabulary (importance and confidence rulers, prep sheet, coaching agreement)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Tabs open 'Thaddea Ruskin coaches', 'Coldbrook Haulage offers', 'Cressida Wilmot coaches', 'Every Sunday, clients of Linfield'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Notes only: 17 A-B-C lists (QC Q8); FAQ 5 opens 'Use rulers.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Both scores sit side by side on the coach's prep sheet.' Plain verbs, no hype."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "howto_step_7_des 'Check that the coach's alert says only that an intake is ready' vs feature_5 'a new intake is ready, with the client's name' and FAQ 8 'carries the client's name only'. Numbers check: 9-4=5, 14+19+13=46, 12:30-6:15=5h45; Oct 18 and Oct 25 2026 are Sundays; NBHWC and Miller/Rollnick lines match their quoted spans."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "FAQ 4 sends work/money/relationship goals to the life coaching intake form; FAQ 10 sends measured tests to the fitness assessment form."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, hub link in item 2, sibling links in 4, 7, 10; paa --spec 0 rejects (Q1 PA7 flag pending Divit)."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: Gap of 5 points / Evander Pyle 9 and 4; table 14/19/13, 46 enrolled, Answers shown None; 5 h 45 min; email To Arvid Kincaid 'Beatrix Fitzalan missed 2 in a row', Oct 18 and Oct 25, no health details in transit."
+   }
+  },
+  "findings": [
+   {
+    "class": "wrong-fact",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "howto_step_7_des",
+    "quote": "Check that the coach's alert says only that an intake is ready",
+    "issue": "The alert's content differs between fields: feature_5 says the alert carries 'a new intake is ready, with the client's name' and FAQ 8 says it 'carries the client's name only', but step 7 says it says only that an intake is ready (no name). Cross-field mismatch on what the alert contains (Divit 2026-11-05: always blocking).",
+    "fix": "Make every mention say the same thing, e.g. step 7: 'Check that the coach's alert gives only the client's name and that a new intake is ready, and that every answer lands on the prep sheet.' Keep feature_5, FAQ 8 and the cover image consistent with that.",
+    "severity": "blocking"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "17 'A, B, and C' lists (QC Q8), e.g. 'sleep, stress, and eating' in tab_content_2, FAQ 3, FAQ 4",
+    "issue": "Triplet lists repeat across the page and read templated.",
+    "fix": "Use pairs or one specific in a few places.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 5",
+    "quote": "Use rulers.",
+    "issue": "Two-word opener leans on jargon the reader has not met yet; the real answer arrives in the third sentence.",
+    "fix": "Open with the method: 'Ask two 1-to-10 questions, one for importance and one for confidence.'",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "why_description",
+    "quote": "An emailed questionnaire comes back as one long paragraph.",
+    "issue": "Broad generalization stated as fact about every emailed questionnaire.",
+    "fix": "Frame it as the coach's experience or as advice.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "Triplet lists repeat across the page and read templated.",
+   "fix": "Use pairs or one specific in a few places.",
+   "by": "B-r-447",
+   "via": "review",
+   "date": "2026-11-06 07:49 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 5",
+   "issue": "Two-word opener leans on jargon the reader has not met yet; the real answer arrives in the third sentence.",
+   "fix": "Open with the method: 'Ask two 1-to-10 questions, one for importance and one for confidence.'",
+   "by": "B-r-447",
+   "via": "review",
+   "date": "2026-11-06 07:49 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "why_description",
+   "issue": "Broad generalization stated as fact about every emailed questionnaire.",
+   "fix": "Frame it as the coach's experience or as advice.",
+   "by": "B-r-447",
+   "via": "review",
+   "date": "2026-11-06 07:49 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "a0d939f4d6a1c3cc",
+   "alt:share_image": "b06a744cd74ae347",
+   "alt:tab_image_1": "d14f88f9069f31f5",
+   "alt:tab_image_2": "219832a63eecc608",
+   "alt:tab_image_3": "ae881dd384386fca",
+   "alt:tab_image_4": "3543f7b010443289",
+   "breadcrumb": "54b42bd24c506385",
+   "chip_adds": "6fa6bcc1ed34ec76",
+   "explore_cta": "d7a13b4a5b071dfd",
+   "faq": "981f4dac445a0c93",
+   "feature_1": "3dc1752ba29263d7",
+   "feature_2": "51dadc624dc893de",
+   "feature_3": "9d31961749c7dec4",
+   "feature_4": "c477c2263bb75557",
+   "feature_5": "d8dc996598ca6bb6",
+   "feature_6": "d24f55c81d431adb",
+   "features_heading": "f1ee98c63c66b2a7",
+   "features_subheading": "641a0866e998b306",
+   "h1": "fb13c4ab67bf7465",
+   "hero_description": "3537d3e5d9249888",
+   "hero_prompt": "a7a5d7332304e539",
+   "howto_description": "7d48034b962de7cc",
+   "howto_step_1_des": "2273c26eb0db0a24",
+   "howto_step_1_title": "5128846c803ea965",
+   "howto_step_2_des": "bd10f126996cca29",
+   "howto_step_2_title": "f1ad9d073bd85dc4",
+   "howto_step_3_des": "857bbbf53e9b5f54",
+   "howto_step_3_title": "aa4ea29249fead0e",
+   "howto_step_4_des": "b8978dce6d239b7f",
+   "howto_step_4_title": "70a70471e5de1bf3",
+   "howto_step_5_des": "c41083bb7e6cfe0c",
+   "howto_step_5_title": "a58baac3c52db8f9",
+   "howto_step_6_des": "a582f3a6d2301579",
+   "howto_step_6_title": "d4ab49d810fc8096",
+   "howto_step_7_des": "7cec233014782f6e",
+   "howto_step_7_title": "32ec05f63d52036f",
+   "howto_title": "36cd334f4999bb99",
+   "meta_description": "8c610d82c255cc14",
+   "meta_title": "ae2a87c27a7ec60e",
+   "mockup": "421108e590f1fbbd",
+   "product_name": "eecafc82530bc406",
+   "prompt_chip_1": "c56f24d4ea384857",
+   "prompt_chip_2": "74af6cd2704b69e4",
+   "prompt_chip_3": "712d5eef3e5ec221",
+   "prompt_chip_4": "31298df26210f120",
+   "slug": "c008905a949ea669",
+   "tab_content_1": "f83e138ffe02737a",
+   "tab_content_2": "f32ebb283976990a",
+   "tab_content_3": "52fef495017147de",
+   "tab_content_4": "6d1cca4b6f027660",
+   "tab_label_1": "3561b3631d52428a",
+   "tab_label_2": "2bdb68fbaa9a05af",
+   "tab_label_3": "d070f79220014163",
+   "tab_label_4": "31298df26210f120",
+   "usecase_heading": "cd65cc026b18933d",
+   "why_description": "f2af484c04edcacd",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "020d7f85fa567d18"
+  },
+  "all": "b6e0fe10d5369cef",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "a0d939f4d6a1c3cc",
+   "alt:share_image": "b06a744cd74ae347",
+   "alt:tab_image_1": "d14f88f9069f31f5",
+   "alt:tab_image_2": "219832a63eecc608",
+   "alt:tab_image_3": "ae881dd384386fca",
+   "alt:tab_image_4": "3543f7b010443289",
+   "breadcrumb": "54b42bd24c506385",
+   "chip_adds": "6fa6bcc1ed34ec76",
+   "explore_cta": "d7a13b4a5b071dfd",
+   "faq": "981f4dac445a0c93",
+   "feature_1": "3dc1752ba29263d7",
+   "feature_2": "51dadc624dc893de",
+   "feature_3": "9d31961749c7dec4",
+   "feature_4": "c477c2263bb75557",
+   "feature_5": "d8dc996598ca6bb6",
+   "feature_6": "d24f55c81d431adb",
+   "features_heading": "f1ee98c63c66b2a7",
+   "features_subheading": "641a0866e998b306",
+   "h1": "fb13c4ab67bf7465",
+   "hero_description": "3537d3e5d9249888",
+   "hero_prompt": "a7a5d7332304e539",
+   "howto_description": "7d48034b962de7cc",
+   "howto_step_1_des": "2273c26eb0db0a24",
+   "howto_step_1_title": "5128846c803ea965",
+   "howto_step_2_des": "bd10f126996cca29",
+   "howto_step_2_title": "f1ad9d073bd85dc4",
+   "howto_step_3_des": "857bbbf53e9b5f54",
+   "howto_step_3_title": "aa4ea29249fead0e",
+   "howto_step_4_des": "b8978dce6d239b7f",
+   "howto_step_4_title": "70a70471e5de1bf3",
+   "howto_step_5_des": "c41083bb7e6cfe0c",
+   "howto_step_5_title": "a58baac3c52db8f9",
+   "howto_step_6_des": "a582f3a6d2301579",
+   "howto_step_6_title": "d4ab49d810fc8096",
+   "howto_step_7_des": "7cec233014782f6e",
+   "howto_step_7_title": "32ec05f63d52036f",
+   "howto_title": "36cd334f4999bb99",
+   "meta_description": "8c610d82c255cc14",
+   "meta_title": "ae2a87c27a7ec60e",
+   "mockup": "421108e590f1fbbd",
+   "product_name": "eecafc82530bc406",
+   "prompt_chip_1": "c56f24d4ea384857",
+   "prompt_chip_2": "74af6cd2704b69e4",
+   "prompt_chip_3": "712d5eef3e5ec221",
+   "prompt_chip_4": "31298df26210f120",
+   "slug": "c008905a949ea669",
+   "tab_content_1": "f83e138ffe02737a",
+   "tab_content_2": "f32ebb283976990a",
+   "tab_content_3": "52fef495017147de",
+   "tab_content_4": "6d1cca4b6f027660",
+   "tab_label_1": "3561b3631d52428a",
+   "tab_label_2": "2bdb68fbaa9a05af",
+   "tab_label_3": "d070f79220014163",
+   "tab_label_4": "31298df26210f120",
+   "usecase_heading": "cd65cc026b18933d",
+   "why_description": "f2af484c04edcacd",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "020d7f85fa567d18"
+  },
+  "all": "b6e0fe10d5369cef",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
