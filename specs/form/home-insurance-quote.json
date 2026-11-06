@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-432",
    "note": ""
+  },
+  {
+   "t": "2026-11-06 07:52 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-453",
+   "note": "rubric 10/10 by B-r-453; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -938,5 +945,265 @@
  ],
  "writers": [
   "B-w-432"
- ]
+ ],
+ "review": {
+  "by": "B-r-453",
+  "date": "2026-11-06 07:52 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Home Insurance Quote Form That Reaches the Right Agent', hero 'asks about the house and its current policy, then sends each request to the right agent' (127 chars); how-to description one sentence on planning, building and testing."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "No top 10 in workbook; builder intent delivered: features on house questions, declarations upload, routing, renewal reminders; 7-step how-to 'How to Create a Home Insurance Quote Form'; FAQ 'What questions should a home insurance quote form ask?'."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Agency vocabulary throughout: 'declarations page', 'dwelling limit', 'year-built line, such as 1960', 'shared quoting queue'; no insurance, coverage or pricing advice ('Leave coverage choices for the agent')."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Lisbeth Arnaud's policy renews April 14', 'Pull 20 quote requests from last year'. One fragment FAQ opener logged as a note."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Two ', so' endings (feature_1, feature_5), under the limit; sentences vary in length."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete scenes ('This morning the rule caught a 1924 house at 41 Kettering Lane'); repetition of 'agent' logged as a note."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Declarations-page facts in FAQ 5 match the two Hartford spans ('itemizes the coverages ... limits of liability', 'dates ... coverage begins and ends'); Emergent claims map to prompt-build, ai-extraction, alerts, database-owned, no-caps, code-export, conversational, free-start. Numbers agree across fields: 1960 line (feature_3, tab 2, step 7 1950 test, chip 2, mockup), 45 days (feature_4, tab 4, mockup, chip 3, image), 3 policy values (tab 3, feature_2, mockup, image), FAQ 7 'About 10' matches the 10 questions listed in FAQ 3."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own scenes (older-home routing, declarations upload, renewal window); no sibling primary in headings; sibling pages linked only in FAQ (construction quote form, cleaning quote form, rfq form)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic builder questions, hub link in FAQ 2, Emergent sentences in FAQ 5, 9, 10 with approved claims. Q1 PA7 flag pending Divit (locked question)."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 '1998 / 2,350 / 7 years / April 14 / To Rhys Marsden'; tab 2 1924 row to Agathe Quayle, 4 queue rows; tab 3 three values read, 'Deductible not read', 'To Imelda Corsi'; tab 4 38/52/67/81 days, one 'Sent', '3 renew later'. DM drawn as a card to the person, not a channel; one hero per tab."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2",
+    "field": "chip_adds[2]",
+    "quote": "Add renewal alerts that email the agent 45 days before a current policy renews.",
+    "issue": "The chip drops the 'no quote sent' condition that feature_4, tab_content_4, the mockup and the image all use ('within 45 days of renewal with no quote'); same 45-day number, looser rule.",
+    "fix": "Add renewal alerts that email the agent when a request is within 45 days of renewal with no quote.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2",
+    "field": "faq (item 10)",
+    "quote": "The pattern matches the rfq form",
+    "issue": "Acronym lowercased in the link anchor.",
+    "fix": "RFQ form (keep the link).",
+    "severity": "note"
+   },
+   {
+    "class": "openers",
+    "criterion": "openers",
+    "rule": "CONTENT_DEFECTS #16",
+    "field": "faq (item 6)",
+    "quote": "By a rule that fits in one line.",
+    "issue": "Answer opens on a fragment.",
+    "fix": "Route each request by one rule, such as the year built, the ZIP code, or the kind of home.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "agent (32 times outside the FAQ), renewal (16), request (13)",
+    "issue": "Heavy repetition of the same nouns (QC Q9).",
+    "fix": "Vary where the referent is clear (she, the senior agent, the policy date).",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2",
+   "field": "chip_adds[2]",
+   "issue": "The chip drops the 'no quote sent' condition that feature_4, tab_content_4, the mockup and the image all use ('within 45 days of renewal with no quote'); same 45-day number, looser rule.",
+   "fix": "Add renewal alerts that email the agent when a request is within 45 days of renewal with no quote.",
+   "by": "B-r-453",
+   "via": "review",
+   "date": "2026-11-06 07:52 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2",
+   "field": "faq (item 10)",
+   "issue": "Acronym lowercased in the link anchor.",
+   "fix": "RFQ form (keep the link).",
+   "by": "B-r-453",
+   "via": "review",
+   "date": "2026-11-06 07:52 UTC"
+  },
+  {
+   "criterion": "openers",
+   "rule": "CONTENT_DEFECTS #16",
+   "field": "faq (item 6)",
+   "issue": "Answer opens on a fragment.",
+   "fix": "Route each request by one rule, such as the year built, the ZIP code, or the kind of home.",
+   "by": "B-r-453",
+   "via": "review",
+   "date": "2026-11-06 07:52 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "Heavy repetition of the same nouns (QC Q9).",
+   "fix": "Vary where the referent is clear (she, the senior agent, the policy date).",
+   "by": "B-r-453",
+   "via": "review",
+   "date": "2026-11-06 07:52 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "1aca02fb233fc32f",
+   "alt:share_image": "8c32438f35aaffb0",
+   "alt:tab_image_1": "728276456d674d55",
+   "alt:tab_image_2": "6e20acac858d0e4d",
+   "alt:tab_image_3": "0b229a0d6bd4a888",
+   "alt:tab_image_4": "d60e335b8fb4238d",
+   "breadcrumb": "f6792e2e688e445f",
+   "chip_adds": "7a9dd64fb14502b6",
+   "explore_cta": "51f01f3c5cd6c0da",
+   "faq": "5d6aae4c31b30be4",
+   "feature_1": "dd44596b1d98a31c",
+   "feature_2": "2573130600d2f00d",
+   "feature_3": "6fc72917e587e183",
+   "feature_4": "3c40fd144dc5139d",
+   "feature_5": "fb08fd17d38dda09",
+   "feature_6": "b032d108946171dc",
+   "features_heading": "f28277cf9924c815",
+   "features_subheading": "4b91369b457e91ec",
+   "h1": "37f197ea784d8c5f",
+   "hero_description": "d3fba4cee7f575a5",
+   "hero_prompt": "71c3edacbe5de1bf",
+   "howto_description": "9a7e43c9b28d5ae1",
+   "howto_step_1_des": "4d2715df8b58f0fe",
+   "howto_step_1_title": "0165ca2cb6eac2ec",
+   "howto_step_2_des": "2be53c31af02b4bd",
+   "howto_step_2_title": "3a50414cce92931b",
+   "howto_step_3_des": "6ff11ddfb3c8fea6",
+   "howto_step_3_title": "0457993d1a5c6683",
+   "howto_step_4_des": "1befef4c4feb86b9",
+   "howto_step_4_title": "4dc17242d1e05a53",
+   "howto_step_5_des": "14aa2dd3e86d7c57",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "ff9e153cd07abf06",
+   "howto_step_6_title": "6d9eb709708c221f",
+   "howto_step_7_des": "2d60d2104793681f",
+   "howto_step_7_title": "f271577bc1361c74",
+   "howto_title": "f02ff271f53a4e28",
+   "meta_description": "19695a48136fb665",
+   "meta_title": "69982c1e48c5a441",
+   "mockup": "5c5cc23c2687278e",
+   "product_name": "219a6fccf2c1517f",
+   "prompt_chip_1": "d4ec235f83be5b84",
+   "prompt_chip_2": "43a166a2ab99d2b3",
+   "prompt_chip_3": "cfbf6e5b73a9af2b",
+   "prompt_chip_4": "bdaf4782602bdc93",
+   "slug": "b6cab50132857bf9",
+   "tab_content_1": "86bea4f212da4b6b",
+   "tab_content_2": "824f8231c505c263",
+   "tab_content_3": "89d495b86cbc0118",
+   "tab_content_4": "7df4cdac02dad948",
+   "tab_label_1": "198c2e35254b83a5",
+   "tab_label_2": "dc8ff78bd0a529fb",
+   "tab_label_3": "a043c7d7af6bdfc3",
+   "tab_label_4": "138bb567dcfca320",
+   "usecase_heading": "9fddcbe7197c6bc7",
+   "why_description": "7af6841e3a993104",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "7bead76d3778f316"
+  },
+  "all": "2bca97b63042a0e9",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "1aca02fb233fc32f",
+   "alt:share_image": "8c32438f35aaffb0",
+   "alt:tab_image_1": "728276456d674d55",
+   "alt:tab_image_2": "6e20acac858d0e4d",
+   "alt:tab_image_3": "0b229a0d6bd4a888",
+   "alt:tab_image_4": "d60e335b8fb4238d",
+   "breadcrumb": "f6792e2e688e445f",
+   "chip_adds": "7a9dd64fb14502b6",
+   "explore_cta": "51f01f3c5cd6c0da",
+   "faq": "5d6aae4c31b30be4",
+   "feature_1": "dd44596b1d98a31c",
+   "feature_2": "2573130600d2f00d",
+   "feature_3": "6fc72917e587e183",
+   "feature_4": "3c40fd144dc5139d",
+   "feature_5": "fb08fd17d38dda09",
+   "feature_6": "b032d108946171dc",
+   "features_heading": "f28277cf9924c815",
+   "features_subheading": "4b91369b457e91ec",
+   "h1": "37f197ea784d8c5f",
+   "hero_description": "d3fba4cee7f575a5",
+   "hero_prompt": "71c3edacbe5de1bf",
+   "howto_description": "9a7e43c9b28d5ae1",
+   "howto_step_1_des": "4d2715df8b58f0fe",
+   "howto_step_1_title": "0165ca2cb6eac2ec",
+   "howto_step_2_des": "2be53c31af02b4bd",
+   "howto_step_2_title": "3a50414cce92931b",
+   "howto_step_3_des": "6ff11ddfb3c8fea6",
+   "howto_step_3_title": "0457993d1a5c6683",
+   "howto_step_4_des": "1befef4c4feb86b9",
+   "howto_step_4_title": "4dc17242d1e05a53",
+   "howto_step_5_des": "14aa2dd3e86d7c57",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "ff9e153cd07abf06",
+   "howto_step_6_title": "6d9eb709708c221f",
+   "howto_step_7_des": "2d60d2104793681f",
+   "howto_step_7_title": "f271577bc1361c74",
+   "howto_title": "f02ff271f53a4e28",
+   "meta_description": "19695a48136fb665",
+   "meta_title": "69982c1e48c5a441",
+   "mockup": "5c5cc23c2687278e",
+   "product_name": "219a6fccf2c1517f",
+   "prompt_chip_1": "d4ec235f83be5b84",
+   "prompt_chip_2": "43a166a2ab99d2b3",
+   "prompt_chip_3": "cfbf6e5b73a9af2b",
+   "prompt_chip_4": "bdaf4782602bdc93",
+   "slug": "b6cab50132857bf9",
+   "tab_content_1": "86bea4f212da4b6b",
+   "tab_content_2": "824f8231c505c263",
+   "tab_content_3": "89d495b86cbc0118",
+   "tab_content_4": "7df4cdac02dad948",
+   "tab_label_1": "198c2e35254b83a5",
+   "tab_label_2": "dc8ff78bd0a529fb",
+   "tab_label_3": "a043c7d7af6bdfc3",
+   "tab_label_4": "138bb567dcfca320",
+   "usecase_heading": "9fddcbe7197c6bc7",
+   "why_description": "7af6841e3a993104",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "7bead76d3778f316"
+  },
+  "all": "2bca97b63042a0e9",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
