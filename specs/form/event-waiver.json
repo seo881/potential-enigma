@@ -131,6 +131,13 @@
    "via": null,
    "by": "B-w-426",
    "note": ""
+  },
+  {
+   "t": "2026-11-06 07:48 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-445",
+   "note": "[truth | HUB_RULES 8; CONTENT_DEFECTS #14] feature_1: States every picked activity adds a clause; tab_content_3 (and the tab 3 image row 'Hayride: Yes / No clause') shows a picked activity that adds none. The page contradicts itself. -> Limit it to the risky picks, matching step 1: 'the waiver adds "
   }
  ],
  "pipeline": "r15",
@@ -915,5 +922,295 @@
  ],
  "writers": [
   "B-w-426"
- ]
+ ],
+ "review": {
+  "by": "B-r-445",
+  "date": "2026-11-06 07:48 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Event Waiver Form Signed Before Anyone Joins In'; hero 'Build an event waiver form that gets a signature from every attendee and guardian before they pass the gate.' covers the whole job; how-to description one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition in FAQ 1, template contents in FAQ 3 ('What should an event waiver form template include?'), seven-step how-to, four event types in tabs, comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Gate staff type a last name on a tablet and see Signed with the date and time'; U10/U13 rosters, wristbands, zip line clause."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Hessel Robotics is taking 26 employees...', 'Attendees pick their activities first...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; 10 'A, B, and C' lists recorded as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain, concrete product voice: 'Every signed waiver is a row in a database you own, searchable by name and event.' Notes only."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "feature_1 'the waiver adds a clause to initial for each one' and faq item 9 'then show one clause for each pick' are contradicted by tab_content_3 'The hayride adds no clause.'"
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Event-specific stories (group invite link, guardian for two players, activity clauses, gate walk-ups); sibling primaries used only as FAQ link anchors."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first, hub link in item 2, 3 sibling links (yoga waiver form, liability waiver form, gym waiver form); paa --spec 10 pass, 0 reject, 0 flag; legal points sourced (SignUpGenius) and routed to an attorney."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 2 image 'Guardian section' draws only Guardian / Player 1 / Player 2 while feature_2 says the section collects 'the guardian's name, phone number, and signature'."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8; CONTENT_DEFECTS #14; rework-checklist 7",
+    "field": "feature_1",
+    "quote": "Attendees pick their activities first, and the waiver adds a clause to initial for each one.",
+    "issue": "States every picked activity adds a clause; tab_content_3 (and the tab 3 image row 'Hayride: Yes / No clause') shows a picked activity that adds none. The page contradicts itself.",
+    "fix": "Limit it to the risky picks, matching step 1: 'the waiver adds a clause to initial for each risky one' (or 'for each activity that carries its own risk'). Keep 165-182 chars.",
+    "severity": "blocking"
+   },
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8; CONTENT_DEFECTS #14; rework-checklist 7",
+    "field": "faq item 9",
+    "quote": "then show one clause for each pick, with a box for their initials",
+    "issue": "Same class as feature_1: one clause for each pick contradicts tab_content_3 'The hayride adds no clause.' and step 1 'each risky activity adds one short clause'.",
+    "fix": "'then show one clause for each risky activity they pick, with a box for their initials.'",
+    "severity": "blocking"
+   },
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20; rework-checklist 9",
+    "field": "image_brief.tabs[1].main (tab 2 image) vs feature_2",
+    "quote": "A date of birth under 18 opens a section for the guardian's name, phone number, and signature.",
+    "issue": "The tab 2 image is titled 'Guardian section' and draws the fields Guardian, Player 1, Player 2 and a sign button, with no phone number; the copy's field set for the guardian section (name, phone number, signature) differs from the drawn one. Cross-field field-set mismatch (Divit 2026-11-05).",
+    "fix": "Add a 'Phone' field row for Delphine Okoro (reserved-format number, e.g. 555 prefix) to the tab 2 fields block, or drop 'phone number' from feature_2 so the field sets match; re-render and check balance.",
+    "severity": "blocking"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 5",
+    "quote": "An organizer who signs on behalf of 20 coworkers leaves 20 waivers nobody read.",
+    "issue": "Rhetorical flourish; reads as a line written for effect.",
+    "fix": "State the advice plainly: each person reads and signs their own waiver.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a; CONTENT_DEFECTS #19",
+    "field": "page",
+    "quote": "the zip line, the climbing wall, and the hayride",
+    "issue": "10 'A, B, and C' lists across the page (QC Q8), plus 'signed' 17x and 'gate' 15x outside the FAQ (Q9).",
+    "fix": "Use pairs or one specific in a few places.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 4",
+    "quote": "Yes, ask for a new signature for each event, because the date and the activities change, and the waiver names both.",
+    "issue": "Recommendation without a source; hedged by the attorney line that follows.",
+    "fix": "None required.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "share image",
+    "quote": "Build an event waiver form signed before entry",
+    "issue": "Share card headline differs from the H1 'Signed Before Anyone Joins In'.",
+    "fix": "Optional: match the H1 wording.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 5",
+   "issue": "Rhetorical flourish; reads as a line written for effect.",
+   "fix": "State the advice plainly: each person reads and signs their own waiver.",
+   "by": "B-r-445",
+   "via": "review",
+   "date": "2026-11-06 07:48 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a; CONTENT_DEFECTS #19",
+   "field": "page",
+   "issue": "10 'A, B, and C' lists across the page (QC Q8), plus 'signed' 17x and 'gate' 15x outside the FAQ (Q9).",
+   "fix": "Use pairs or one specific in a few places.",
+   "by": "B-r-445",
+   "via": "review",
+   "date": "2026-11-06 07:48 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 4",
+   "issue": "Recommendation without a source; hedged by the attorney line that follows.",
+   "fix": "None required.",
+   "by": "B-r-445",
+   "via": "review",
+   "date": "2026-11-06 07:48 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "share image",
+   "issue": "Share card headline differs from the H1 'Signed Before Anyone Joins In'.",
+   "fix": "Optional: match the H1 wording.",
+   "by": "B-r-445",
+   "via": "review",
+   "date": "2026-11-06 07:48 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "4ea1e8e85ed4d9de",
+   "alt:share_image": "98a6b701d4fec380",
+   "alt:tab_image_1": "fa4fd357264cbeeb",
+   "alt:tab_image_2": "c43077d39bcf3ce2",
+   "alt:tab_image_3": "0e83107d7c6e3f46",
+   "alt:tab_image_4": "83034004c28c4c13",
+   "breadcrumb": "8c7dc52fb0b6cb91",
+   "chip_adds": "39d9ddb122d7da82",
+   "explore_cta": "83f39ebb049d42c5",
+   "faq": "a6cf48ef4670d84e",
+   "feature_1": "d67de53b95443db7",
+   "feature_2": "35c4c70907f2bf27",
+   "feature_3": "7e7e4ee325ed6608",
+   "feature_4": "d715d7ed56119046",
+   "feature_5": "0a4e9e2e2d422c52",
+   "feature_6": "fe04f8de3e0f3b1b",
+   "features_heading": "3dbb491af550dd54",
+   "features_subheading": "be2921b0d5e549c9",
+   "h1": "7aa1456599e13d99",
+   "hero_description": "1b525fc40dd7d01c",
+   "hero_prompt": "15528512f3b1ccf6",
+   "howto_description": "bd4b6cb847d7c5d2",
+   "howto_step_1_des": "1c9a1af25eb9d0d6",
+   "howto_step_1_title": "32a8c70b935eace6",
+   "howto_step_2_des": "10df714bf6661a67",
+   "howto_step_2_title": "386b02959990223c",
+   "howto_step_3_des": "1f60e440956442d5",
+   "howto_step_3_title": "b6a2d010ca8ad204",
+   "howto_step_4_des": "10646ffcb5b1c673",
+   "howto_step_4_title": "f6330eeec77fd5ab",
+   "howto_step_5_des": "8457cb44906e6a66",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "a1eae60bffb2ebe6",
+   "howto_step_6_title": "ba0401dc4f335f5e",
+   "howto_step_7_des": "f34e6ead008c6313",
+   "howto_step_7_title": "a0825a6f1b442901",
+   "howto_title": "7d14c25f2740e7e2",
+   "meta_description": "5d1b16fe2b1f8b56",
+   "meta_title": "8f26ed72242018d7",
+   "mockup": "83f2a2c51370e67d",
+   "product_name": "cb9476924c81c3bf",
+   "prompt_chip_1": "6928d694bfa66d6d",
+   "prompt_chip_2": "e6c95d37e6b37aa1",
+   "prompt_chip_3": "a1676d2fc5592cfa",
+   "prompt_chip_4": "5d2cb681697f0652",
+   "slug": "7fc0c9341088f4ad",
+   "tab_content_1": "d3f18d6253f06bff",
+   "tab_content_2": "a802eee5e8277a5f",
+   "tab_content_3": "92d956c72e88062a",
+   "tab_content_4": "ab2e2eeb314239e8",
+   "tab_label_1": "34d6761c6920fc27",
+   "tab_label_2": "5c20b56fc3e3d147",
+   "tab_label_3": "a65cf742dc7d9e22",
+   "tab_label_4": "c6d02a664ac333a3",
+   "usecase_heading": "e9d9bb6c3df59ac4",
+   "why_description": "6d6f24c14f0a6a47",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "983668d3db48f839"
+  },
+  "all": "51e22f6517092cb0",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "4ea1e8e85ed4d9de",
+   "alt:share_image": "98a6b701d4fec380",
+   "alt:tab_image_1": "fa4fd357264cbeeb",
+   "alt:tab_image_2": "c43077d39bcf3ce2",
+   "alt:tab_image_3": "0e83107d7c6e3f46",
+   "alt:tab_image_4": "83034004c28c4c13",
+   "breadcrumb": "8c7dc52fb0b6cb91",
+   "chip_adds": "39d9ddb122d7da82",
+   "explore_cta": "83f39ebb049d42c5",
+   "faq": "a6cf48ef4670d84e",
+   "feature_1": "d67de53b95443db7",
+   "feature_2": "35c4c70907f2bf27",
+   "feature_3": "7e7e4ee325ed6608",
+   "feature_4": "d715d7ed56119046",
+   "feature_5": "0a4e9e2e2d422c52",
+   "feature_6": "fe04f8de3e0f3b1b",
+   "features_heading": "3dbb491af550dd54",
+   "features_subheading": "be2921b0d5e549c9",
+   "h1": "7aa1456599e13d99",
+   "hero_description": "1b525fc40dd7d01c",
+   "hero_prompt": "15528512f3b1ccf6",
+   "howto_description": "bd4b6cb847d7c5d2",
+   "howto_step_1_des": "1c9a1af25eb9d0d6",
+   "howto_step_1_title": "32a8c70b935eace6",
+   "howto_step_2_des": "10df714bf6661a67",
+   "howto_step_2_title": "386b02959990223c",
+   "howto_step_3_des": "1f60e440956442d5",
+   "howto_step_3_title": "b6a2d010ca8ad204",
+   "howto_step_4_des": "10646ffcb5b1c673",
+   "howto_step_4_title": "f6330eeec77fd5ab",
+   "howto_step_5_des": "8457cb44906e6a66",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "a1eae60bffb2ebe6",
+   "howto_step_6_title": "ba0401dc4f335f5e",
+   "howto_step_7_des": "f34e6ead008c6313",
+   "howto_step_7_title": "a0825a6f1b442901",
+   "howto_title": "7d14c25f2740e7e2",
+   "meta_description": "5d1b16fe2b1f8b56",
+   "meta_title": "8f26ed72242018d7",
+   "mockup": "83f2a2c51370e67d",
+   "product_name": "cb9476924c81c3bf",
+   "prompt_chip_1": "6928d694bfa66d6d",
+   "prompt_chip_2": "e6c95d37e6b37aa1",
+   "prompt_chip_3": "a1676d2fc5592cfa",
+   "prompt_chip_4": "5d2cb681697f0652",
+   "slug": "7fc0c9341088f4ad",
+   "tab_content_1": "d3f18d6253f06bff",
+   "tab_content_2": "a802eee5e8277a5f",
+   "tab_content_3": "92d956c72e88062a",
+   "tab_content_4": "ab2e2eeb314239e8",
+   "tab_label_1": "34d6761c6920fc27",
+   "tab_label_2": "5c20b56fc3e3d147",
+   "tab_label_3": "a65cf742dc7d9e22",
+   "tab_label_4": "c6d02a664ac333a3",
+   "usecase_heading": "e9d9bb6c3df59ac4",
+   "why_description": "6d6f24c14f0a6a47",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "983668d3db48f839"
+  },
+  "all": "51e22f6517092cb0",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
