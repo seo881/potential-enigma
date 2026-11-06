@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-439",
    "note": ""
+  },
+  {
+   "t": "2026-11-06 07:51 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-450",
+   "note": "rubric 10/10 by B-r-450; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -859,5 +866,265 @@
  ],
  "writers": [
   "B-w-439"
- ]
+ ],
+ "review": {
+  "by": "B-r-450",
+  "date": "2026-11-06 07:51 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Mentorship Application Form That Matches Mentors'; hero 'Build a mentorship application form that takes mentee goals and mentor skills, then lists the mentors who fit each goal.' (D1, under 130); how-to description one sentence on what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder intent delivered: what to ask mentees and mentors (FAQ 3, FAQ 8), seven specific steps from 'List the programs you run' to 'Submit one test application', four program examples, comparison table; paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Program-lead vocabulary throughout: 'Use one skills list for both sides', 'Track the first meeting', 'code of conduct signed on the form'; table column uses the form variant."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'The first question asks whether someone is applying as a mentee or a mentor.', 'Brightlow Scholars pairs working professionals with first-generation college students.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Only notes: two ', so' endings (feature_2, tab_content_4) under the Q5 limit; how-to bodies restating their step titles."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Reads as a program lead's guide: 'A picked goal can be compared with mentor skills, while a long free-text answer has to be read by hand.' One aphoristic opener noted (tab_content_4)."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "claims_used (prompt-build, database-owned, alerts, no-caps, code-export, free-start, e-signature-capture) all in rules/capabilities.json; no third-party fact needing domain_sources; numbers agree: 14 months, 2 hours a month, 3 mentors, 1 student Saturdays, 18 pairs = 3 reminders + 15 met, 14 days in copy, mockup and image."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own angle (application as the front of a matching program: goal-to-skill matching, first-meeting follow-up); siblings coaching application, vendor application and food bank application form appear only as FAQ links, never headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions each answered in its first sentence ('Yes, when the program has more applicants than mentors...'); hub link in item 2; no brand or file-format question; Emergent lines in FAQ 5 and FAQ 9 use approved claims."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: one hero per tab, cursor on button edge; tab 1 'Night shift supervisor / 14 months / Operations planning / 2 hours a month / 3 mentors match'; tab 2 'To Oonagh Wilmarth, Ready to review, 1 student, Saturdays'; tab 3 person-addressed 'To Perrin Galloway, Slack message'; tab 4 '18 pairs', 'Reminder to 3 pairs', '15 pairs have met'. Hero prompt is one sentence carrying the primary, and all four chip composites describe one company mentoring program."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "tab_content_4",
+    "quote": "A match means nothing until the pair sits down together.",
+    "issue": "Aphoristic opener that reads machine-written.",
+    "fix": "Open on the program: 'Ludmila Hartsell's program at Kestrevan Engineering logs each first meeting on the application record.'",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_2",
+    "quote": "shows the program lead every mentor who fits, so pairing starts from a short list",
+    "issue": "Tacked-on ', so' ending; a second in tab_content_4 ('14 days after the match, so the app emails the mentee and mentor a reminder').",
+    "fix": "Split into two sentences in both fields.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_1_des",
+    "quote": "List the programs you run before writing a single question",
+    "issue": "Step bodies restate their titles word for word: also howto_step_4_des 'Decide who reads applications, and how they hear about new ones' and howto_step_7_des 'Submit one test application as a mentee and one as a mentor'.",
+    "fix": "Open each body on the next detail rather than the title.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "contact details, role, goal, time, and one open question",
+    "issue": "FAQ 6's list of what the form holds omits the permission-to-share line FAQ 3 recommends ('a line asking permission to share their answers with a mentor'); advice, not a form's field set, so not a cross-field mismatch, but the two lists could match.",
+    "fix": "Add 'and a consent line' to the FAQ 6 list.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "tab_content_4",
+   "issue": "Aphoristic opener that reads machine-written.",
+   "fix": "Open on the program: 'Ludmila Hartsell's program at Kestrevan Engineering logs each first meeting on the application record.'",
+   "by": "B-r-450",
+   "via": "review",
+   "date": "2026-11-06 07:51 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_2",
+   "issue": "Tacked-on ', so' ending; a second in tab_content_4 ('14 days after the match, so the app emails the mentee and mentor a reminder').",
+   "fix": "Split into two sentences in both fields.",
+   "by": "B-r-450",
+   "via": "review",
+   "date": "2026-11-06 07:51 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_1_des",
+   "issue": "Step bodies restate their titles word for word: also howto_step_4_des 'Decide who reads applications, and how they hear about new ones' and howto_step_7_des 'Submit one test application as a mentee and one as a mentor'.",
+   "fix": "Open each body on the next detail rather than the title.",
+   "by": "B-r-450",
+   "via": "review",
+   "date": "2026-11-06 07:51 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "FAQ 6's list of what the form holds omits the permission-to-share line FAQ 3 recommends ('a line asking permission to share their answers with a mentor'); advice, not a form's field set, so not a cross-field mismatch, but the two lists could match.",
+   "fix": "Add 'and a consent line' to the FAQ 6 list.",
+   "by": "B-r-450",
+   "via": "review",
+   "date": "2026-11-06 07:51 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "11b14948d302500f",
+   "alt:share_image": "8ce94b0b69370d65",
+   "alt:tab_image_1": "c3772354c3e758cf",
+   "alt:tab_image_2": "eec37ba6c2dd5562",
+   "alt:tab_image_3": "6895b6f32701fc7e",
+   "alt:tab_image_4": "e367487d7306a7fe",
+   "breadcrumb": "55b9af47455042f5",
+   "chip_adds": "63f02412904d9f96",
+   "explore_cta": "c630f3b244984d81",
+   "faq": "dd1db86969338c24",
+   "feature_1": "63e4bd28f8be3aa8",
+   "feature_2": "f61ec323b9f0793d",
+   "feature_3": "377938bedfd8cdef",
+   "feature_4": "aaa44a13a334db56",
+   "feature_5": "5e0f594e6fe37b03",
+   "feature_6": "2a87f0157b013cce",
+   "features_heading": "5ef5c2187aff9647",
+   "features_subheading": "8ba51aa91a7db0d3",
+   "h1": "2e0cab6745f26ac0",
+   "hero_description": "35147822a39208f4",
+   "hero_prompt": "ab5a46d90d17dfca",
+   "howto_description": "0ce8be6175a80612",
+   "howto_step_1_des": "cd76c363d2d0b9e3",
+   "howto_step_1_title": "8e0c50dc0dc89405",
+   "howto_step_2_des": "7b15425135942db2",
+   "howto_step_2_title": "c8800b452f1b1b24",
+   "howto_step_3_des": "66dff602af094a7b",
+   "howto_step_3_title": "90dbd33dbdc64e49",
+   "howto_step_4_des": "8f26ee89869a9c02",
+   "howto_step_4_title": "29d86153ac7af58b",
+   "howto_step_5_des": "79026aa6c2300cb2",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "ade8e6b05458c337",
+   "howto_step_6_title": "9aecddcc67fe0df8",
+   "howto_step_7_des": "846f4adf47f6c601",
+   "howto_step_7_title": "0e47fd4f7dbb52cb",
+   "howto_title": "ab539f69dc558b23",
+   "meta_description": "90dabbdfa452604b",
+   "meta_title": "f1d2bd127ebbba32",
+   "mockup": "d149cca9c3098863",
+   "product_name": "219dbdae90dd6562",
+   "prompt_chip_1": "db771134a2326acc",
+   "prompt_chip_2": "32dc99fa714081db",
+   "prompt_chip_3": "2d3b04305cf835c8",
+   "prompt_chip_4": "d1ac4796616f0e50",
+   "slug": "818f0d2bf2c20648",
+   "tab_content_1": "310056a2cd8d27fc",
+   "tab_content_2": "6387b11d6f6aac4c",
+   "tab_content_3": "64dc99d754391ba8",
+   "tab_content_4": "6137753bdab30c6c",
+   "tab_label_1": "889e3f6d81f30a77",
+   "tab_label_2": "9210b9787fcfef5a",
+   "tab_label_3": "ddde8df1b87ec223",
+   "tab_label_4": "30e55f187658de31",
+   "usecase_heading": "4f81b1c7d60aecac",
+   "why_description": "ba42d74b97924eda",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "fd26468c97f3f2f7"
+  },
+  "all": "cfc0f2fd4eca362a",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "11b14948d302500f",
+   "alt:share_image": "8ce94b0b69370d65",
+   "alt:tab_image_1": "c3772354c3e758cf",
+   "alt:tab_image_2": "eec37ba6c2dd5562",
+   "alt:tab_image_3": "6895b6f32701fc7e",
+   "alt:tab_image_4": "e367487d7306a7fe",
+   "breadcrumb": "55b9af47455042f5",
+   "chip_adds": "63f02412904d9f96",
+   "explore_cta": "c630f3b244984d81",
+   "faq": "dd1db86969338c24",
+   "feature_1": "63e4bd28f8be3aa8",
+   "feature_2": "f61ec323b9f0793d",
+   "feature_3": "377938bedfd8cdef",
+   "feature_4": "aaa44a13a334db56",
+   "feature_5": "5e0f594e6fe37b03",
+   "feature_6": "2a87f0157b013cce",
+   "features_heading": "5ef5c2187aff9647",
+   "features_subheading": "8ba51aa91a7db0d3",
+   "h1": "2e0cab6745f26ac0",
+   "hero_description": "35147822a39208f4",
+   "hero_prompt": "ab5a46d90d17dfca",
+   "howto_description": "0ce8be6175a80612",
+   "howto_step_1_des": "cd76c363d2d0b9e3",
+   "howto_step_1_title": "8e0c50dc0dc89405",
+   "howto_step_2_des": "7b15425135942db2",
+   "howto_step_2_title": "c8800b452f1b1b24",
+   "howto_step_3_des": "66dff602af094a7b",
+   "howto_step_3_title": "90dbd33dbdc64e49",
+   "howto_step_4_des": "8f26ee89869a9c02",
+   "howto_step_4_title": "29d86153ac7af58b",
+   "howto_step_5_des": "79026aa6c2300cb2",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "ade8e6b05458c337",
+   "howto_step_6_title": "9aecddcc67fe0df8",
+   "howto_step_7_des": "846f4adf47f6c601",
+   "howto_step_7_title": "0e47fd4f7dbb52cb",
+   "howto_title": "ab539f69dc558b23",
+   "meta_description": "90dabbdfa452604b",
+   "meta_title": "f1d2bd127ebbba32",
+   "mockup": "d149cca9c3098863",
+   "product_name": "219dbdae90dd6562",
+   "prompt_chip_1": "db771134a2326acc",
+   "prompt_chip_2": "32dc99fa714081db",
+   "prompt_chip_3": "2d3b04305cf835c8",
+   "prompt_chip_4": "d1ac4796616f0e50",
+   "slug": "818f0d2bf2c20648",
+   "tab_content_1": "310056a2cd8d27fc",
+   "tab_content_2": "6387b11d6f6aac4c",
+   "tab_content_3": "64dc99d754391ba8",
+   "tab_content_4": "6137753bdab30c6c",
+   "tab_label_1": "889e3f6d81f30a77",
+   "tab_label_2": "9210b9787fcfef5a",
+   "tab_label_3": "ddde8df1b87ec223",
+   "tab_label_4": "30e55f187658de31",
+   "usecase_heading": "4f81b1c7d60aecac",
+   "why_description": "ba42d74b97924eda",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "fd26468c97f3f2f7"
+  },
+  "all": "cfc0f2fd4eca362a",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
