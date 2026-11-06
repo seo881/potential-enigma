@@ -9,6 +9,7 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   gate-pa9-pair  {url, a, b, expect_dup, new_writing?}    PA9 (same intent in page order) rejects b after a exactly when expect_dup
   gate-text      {url, q, expect | absent, levels?}         (absent: none of these rules may fire, e.g. PA3 on a spelling variant)
   spelling-verbatim {q, orig, expect_ok}                  ruling 14: q is the original or its US-spelling/house-form display, nothing else
+  gate-def-decision {url, q, expect}                      Divit's decision on a code-locked definition question: approved -> no flag
   gate-flag-decision {url, qh, from, subtype, expect}     Divit's flag packet: the question is rejected (expect reject) or no longer flagged for that subtype
   sq-filter      {url, q, expect_drop}                    Semrush question filter: drop reason (no_head|drop_class|brand|gate_reject|duplicate) or null = kept
   kw-variant     {a, b, expect_same}                      ruling 14: the K keyword checks treat a and b as the same keyword
@@ -460,6 +461,10 @@ def caught(c):
     if c["kind"] == "kw-variant":          # ruling 14: the K checks read a UK spelling as the keyword's US spelling
         import qc_hub as Q
         return (Q.kw_bag(c["a"]) == Q.kw_bag(c["b"])) == c["expect_same"]
+    if c["kind"] == "gate-def-decision":   # Divit's per-question decision on a code-locked definition slot (Q1): approved -> no flag
+        import paa_gate as PG
+        rs = PG.Gate(c["url"]).judge({"q": c["q"], "source": PG.WRITTEN, "origin": "definition", "n": 1})
+        return (not any(r[1] in ("flag", "reject") for r in rs)) == (c["expect"] == "approved")
     if c["kind"] == "gate-flag-decision":  # Divit's packet: a decided flag subtype/question is a reject (rejected) or no longer that flag (approved)
         import paa_gate as PG, semrush_questions as SQ, io as _io, contextlib as _cl
         g = PG.Gate(c["url"]); qs = []
