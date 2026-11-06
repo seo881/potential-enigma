@@ -2,6 +2,7 @@
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
 
+- 2026-11-06 · [ship-run](2026-11-06/ship-run.md) · B-ship-8: 21 item publishes, 0 errors, verify-live 21/21 (6 rulings-1-2 fixes incl. patient-intake first live; Form g1 7 + g2 6 new; quiz style). Style CLS FAIL at 390 (0.061), so vocabulary stopped; post-ship audits P0 0 P1 0; live 451 · see git log
 - 2026-11-06 · [quiz-cls-390-investigation](2026-11-06/quiz-cls-390-investigation.md) · B-quiz-3: style 0.061 at 390 is the hero font swap (H1 3->4 lines, subtitle 3->4), not the quiz mount (378 in 435); 18/64 live SQB heroes rewrap at 390; fix (a) copy, (b) head font preload + Inter display=optional (0.0003); embed change not staged (would not move 390) · see git log
 - 2026-11-06 · [pre-publish-checklist](2026-11-06/0745-pre-publish-checklist.md) · B-pub-1: pre-publish checklist (reports/2026-11-05/pre-publish-checklist.md): quiz GREEN, hero backlog not staged (0 unstaging writes), redirects v2 843 rows GREEN; RED: 14 staged Learn edits, Designer state unreadable · see git log
 - 2026-11-05 · [ship-run](2026-11-05/ship-run.md) · B-ship-7: 19 new pages shipped (LP 7, Form 12, Auto 0), verify-live 19/19, live 436; patient-intake held as draft; 5 pages went live before the hold ruling; post-ship audit queued behind the full run · 9aad61f2
