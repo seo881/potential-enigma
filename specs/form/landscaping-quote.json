@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-435",
    "note": ""
+  },
+  {
+   "t": "2026-11-06 07:49 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-446",
+   "note": "[truth | CONTENT_DEFECTS #14] feature_5: Not every request has a price shown: walls over 3 feet 'show no price' (feature 4, tab 2, image 'No price shown') and the HOA request in tab 3 shows none. The cleaning-quote defect: a price claim that does not hold for every request type. -> Say the price is "
   }
  ],
  "pipeline": "r15",
@@ -874,5 +881,255 @@
  ],
  "writers": [
   "B-w-435"
- ]
+ ],
+ "review": {
+  "by": "B-r-446",
+  "date": "2026-11-06 07:49 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Landscaping Quote Form That Arrives Ready to Price'; hero 'asks for the service, the address, the area, and yard photos, saved to a database you own'; how-to description one sentence on pricing routine work and routing big jobs."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder intent delivered: field list (FAQ 3), on-screen pricing (feature 3, tab 1), site-visit routing (tab 2, FAQ 7), 7-step how-to specific to landscaping."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'For customers who don't know it, add a hint: pace off the length and width, then multiply'; 'a narrow side gate shows up in the request'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Tabs open on full sentences: 'Fernside Lawn Care charges $55 a visit for any lawn up to 8,000 square feet.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q8 counts 12 'A, B, and C' lists (note, recorded); otherwise sentences carry one idea each."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'A note saying \"look at my yard\" means a drive out to measure. Square feet and photos let you price the lawn from the truck.'"
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "feature_5 'Each request becomes a row with the service, the address, the size, the price shown, and its status' and FAQ 6 'each photo lands ... in the same row as the address and the price shown' are false for wall requests, which show no price (tab 2, feature 4); FAQ 5 asks for length and width fields while howto step 2, the mockup and the tab 1 image collect one lawn size in square feet."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Season mowing math, 3-foot wall threshold, HOA acreage rows and fall cleanup call list are specific to landscaping; siblings (cleaning, construction quote) only linked."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, each answered in its first sentence ('Yes, for work you price by size.'); paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 '$55 a visit', '$1,540 for 28 visits' (55 x 28 = 1,540); tab 3 0.4+0.9+1.2+0.5 = 'Total: 3 acres'; tab 4 '20 sent, 14 accepted, 6 open', 4 rows over 7 days, Duquette 12."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "rework-checklist 7; CONTENT_DEFECTS #14",
+    "field": "feature_5",
+    "quote": "Each request becomes a row with the service, the address, the size, the price shown, and its status.",
+    "issue": "Not every request has a price shown: walls over 3 feet 'show no price' (feature 4, tab 2, image 'No price shown') and the HOA request in tab 3 shows none. The cleaning-quote defect: a price claim that does not hold for every request type.",
+    "fix": "Say the price is saved when one was shown, e.g. 'Each request becomes a row with the service, the address, the size, and its status, plus the price when the form showed one.'",
+    "severity": "blocking"
+   },
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "rework-checklist 7; CONTENT_DEFECTS #14",
+    "field": "faq item 6",
+    "quote": "each photo lands in a database you own, in the same row as the address and the price shown",
+    "issue": "Same class, second instance: the answer requires photos for walls and drainage, the very requests that show no price, so their photos sit in a row with no price shown.",
+    "fix": "Drop 'and the price shown' or replace it with something every request has, e.g. 'in the same row as the address and the service'.",
+    "severity": "blocking"
+   },
+   {
+    "class": "wrong-fact",
+    "criterion": "truth",
+    "rule": "rework-checklist 9; CONTENT_DEFECTS #10",
+    "field": "faq item 5",
+    "quote": "Ask for the length and the width in feet, and let the form multiply them into square feet.",
+    "issue": "Field set differs from the rest of the page: howto_step_2_des 'Ask for the lawn or bed size in square feet ... add a hint: pace off the length and width, then multiply', the mockup 'the lawn size in square feet', the hero prompt 'the area in square feet' and the tab 1 image field 'Lawn size: 7,200 square feet' all collect one size field, not length and width fields.",
+    "fix": "Match step 2: ask for the size in square feet with a hint to pace off the length and the width and multiply them, then keep the Not sure option.",
+    "severity": "blocking"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a; CONTENT_DEFECTS #6",
+    "field": "page",
+    "quote": "the address, the area, and yard photos",
+    "issue": "QC Q8: 12 'A, B, and C' lists across hero, usecase_heading, features 1/3/5, tab 3, how-to 1/3/6, FAQ 1 and 3; reads templated.",
+    "fix": "Turn a few into pairs or one specific item.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "faq item 7",
+    "quote": "something a photo cannot show, such as the soil behind a wall or the grade of a slope",
+    "issue": "Mild tension with feature_2 'the estimator sees the slope ... before calling' and how-to step 4 'A slope ... shows up in the request'.",
+    "fix": "Use an example photos plainly miss, such as the soil behind a wall or buried drainage.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a; CONTENT_DEFECTS #6",
+   "field": "page",
+   "issue": "QC Q8: 12 'A, B, and C' lists across hero, usecase_heading, features 1/3/5, tab 3, how-to 1/3/6, FAQ 1 and 3; reads templated.",
+   "fix": "Turn a few into pairs or one specific item.",
+   "by": "B-r-446",
+   "via": "review",
+   "date": "2026-11-06 07:49 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "faq item 7",
+   "issue": "Mild tension with feature_2 'the estimator sees the slope ... before calling' and how-to step 4 'A slope ... shows up in the request'.",
+   "fix": "Use an example photos plainly miss, such as the soil behind a wall or buried drainage.",
+   "by": "B-r-446",
+   "via": "review",
+   "date": "2026-11-06 07:49 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "8a27a54619acfa29",
+   "alt:share_image": "a7d0d99094086963",
+   "alt:tab_image_1": "a5f992adc533108a",
+   "alt:tab_image_2": "d66cf89749dfd0f0",
+   "alt:tab_image_3": "f3a5e457d4a61ff6",
+   "alt:tab_image_4": "af3fc1b659edc2aa",
+   "breadcrumb": "62227706d174f09a",
+   "chip_adds": "dc6964cb4e0d2205",
+   "explore_cta": "31cb1013ead6417d",
+   "faq": "fe3d3fa7d693de7f",
+   "feature_1": "418d53b379a147ba",
+   "feature_2": "9082a6e1fd1b2574",
+   "feature_3": "3430e115fa083a81",
+   "feature_4": "346a8dcc3965844f",
+   "feature_5": "46e84e5c03baf05a",
+   "feature_6": "7f8c5b8efe73bb90",
+   "features_heading": "c80d028c4fe831a0",
+   "features_subheading": "37c13b3adabb4916",
+   "h1": "d9204751fe54444d",
+   "hero_description": "a5b67b8b32525529",
+   "hero_prompt": "7dd3a97e1ca48fa3",
+   "howto_description": "f31903619abef055",
+   "howto_step_1_des": "5ae4b85227c65d64",
+   "howto_step_1_title": "b3538b2f10602ecf",
+   "howto_step_2_des": "1fcaf145443966f3",
+   "howto_step_2_title": "3b416f0a155658c8",
+   "howto_step_3_des": "74a25a8e269b42e8",
+   "howto_step_3_title": "6005b3aaf0002e06",
+   "howto_step_4_des": "b087643d459cea5e",
+   "howto_step_4_title": "7a085bf4f2ef5fae",
+   "howto_step_5_des": "190793d967d31cd7",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "dd846a546b1636b1",
+   "howto_step_6_title": "b051a06159936ddd",
+   "howto_step_7_des": "67ae3dd317a8f0e6",
+   "howto_step_7_title": "a8ae2c554ce0e17b",
+   "howto_title": "b71fd1fb7d1dc3a8",
+   "meta_description": "99766b1649fe1ef6",
+   "meta_title": "aef1c9e10f2cb0e2",
+   "mockup": "76caa9b5f997d5b4",
+   "product_name": "a497ddc050aaf8c1",
+   "prompt_chip_1": "228b0cd9a08a66df",
+   "prompt_chip_2": "aecb7d23cf4fd834",
+   "prompt_chip_3": "8456dfe98a2f0baa",
+   "prompt_chip_4": "7a6f27b9ef6693b3",
+   "slug": "67b9c28b92902a18",
+   "tab_content_1": "340b07740ddbb572",
+   "tab_content_2": "1f63c6f27b6309a1",
+   "tab_content_3": "b730bca6d00a31da",
+   "tab_content_4": "ff6a6a20e17265b4",
+   "tab_label_1": "956a4e354e8718d8",
+   "tab_label_2": "bb5bf0a24170c9f5",
+   "tab_label_3": "8456dfe98a2f0baa",
+   "tab_label_4": "f863260e88d90b39",
+   "usecase_heading": "7e715f658dbe2c61",
+   "why_description": "ade4480e4233ac05",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "36417d3d6a4eab05"
+  },
+  "all": "d5bc2d172e9e848b",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "8a27a54619acfa29",
+   "alt:share_image": "a7d0d99094086963",
+   "alt:tab_image_1": "a5f992adc533108a",
+   "alt:tab_image_2": "d66cf89749dfd0f0",
+   "alt:tab_image_3": "f3a5e457d4a61ff6",
+   "alt:tab_image_4": "af3fc1b659edc2aa",
+   "breadcrumb": "62227706d174f09a",
+   "chip_adds": "dc6964cb4e0d2205",
+   "explore_cta": "31cb1013ead6417d",
+   "faq": "fe3d3fa7d693de7f",
+   "feature_1": "418d53b379a147ba",
+   "feature_2": "9082a6e1fd1b2574",
+   "feature_3": "3430e115fa083a81",
+   "feature_4": "346a8dcc3965844f",
+   "feature_5": "46e84e5c03baf05a",
+   "feature_6": "7f8c5b8efe73bb90",
+   "features_heading": "c80d028c4fe831a0",
+   "features_subheading": "37c13b3adabb4916",
+   "h1": "d9204751fe54444d",
+   "hero_description": "a5b67b8b32525529",
+   "hero_prompt": "7dd3a97e1ca48fa3",
+   "howto_description": "f31903619abef055",
+   "howto_step_1_des": "5ae4b85227c65d64",
+   "howto_step_1_title": "b3538b2f10602ecf",
+   "howto_step_2_des": "1fcaf145443966f3",
+   "howto_step_2_title": "3b416f0a155658c8",
+   "howto_step_3_des": "74a25a8e269b42e8",
+   "howto_step_3_title": "6005b3aaf0002e06",
+   "howto_step_4_des": "b087643d459cea5e",
+   "howto_step_4_title": "7a085bf4f2ef5fae",
+   "howto_step_5_des": "190793d967d31cd7",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "dd846a546b1636b1",
+   "howto_step_6_title": "b051a06159936ddd",
+   "howto_step_7_des": "67ae3dd317a8f0e6",
+   "howto_step_7_title": "a8ae2c554ce0e17b",
+   "howto_title": "b71fd1fb7d1dc3a8",
+   "meta_description": "99766b1649fe1ef6",
+   "meta_title": "aef1c9e10f2cb0e2",
+   "mockup": "76caa9b5f997d5b4",
+   "product_name": "a497ddc050aaf8c1",
+   "prompt_chip_1": "228b0cd9a08a66df",
+   "prompt_chip_2": "aecb7d23cf4fd834",
+   "prompt_chip_3": "8456dfe98a2f0baa",
+   "prompt_chip_4": "7a6f27b9ef6693b3",
+   "slug": "67b9c28b92902a18",
+   "tab_content_1": "340b07740ddbb572",
+   "tab_content_2": "1f63c6f27b6309a1",
+   "tab_content_3": "b730bca6d00a31da",
+   "tab_content_4": "ff6a6a20e17265b4",
+   "tab_label_1": "956a4e354e8718d8",
+   "tab_label_2": "bb5bf0a24170c9f5",
+   "tab_label_3": "8456dfe98a2f0baa",
+   "tab_label_4": "f863260e88d90b39",
+   "usecase_heading": "7e715f658dbe2c61",
+   "why_description": "ade4480e4233ac05",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "36417d3d6a4eab05"
+  },
+  "all": "d5bc2d172e9e848b",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
