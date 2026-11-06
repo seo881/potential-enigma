@@ -122,6 +122,13 @@
    "via": null,
    "by": "B-w-436",
    "note": ""
+  },
+  {
+   "t": "2026-11-06 07:57 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-456",
+   "note": "rubric 10/10 by B-r-456; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -949,5 +956,265 @@
  },
  "writers": [
   "B-w-436"
- ]
+ ],
+ "review": {
+  "by": "B-r-456",
+  "date": "2026-11-06 07:57 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Little League Registration Form That Calculates League Age'; hero 'Get a Little League registration form that places every player by league age and saves each family to a database you own.' (under 130 chars, primary first); how-to description is one sentence on league age and residency."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder intent for a league registrar: league age by program (feature 1, tabs 1-2, FAQ 5), residency uploads (feature 3, tab 3, FAQ 6), siblings, volunteer shifts, seven-step how-to, PDF secondary answered in FAQ 9. No affiliation with Little League International implied."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Keep baseball and softball on separate lists, because the two programs count league age from different dates'; 'Register one player with a July birthday, a softball player born in the spring, and a family with a blurry upload.'"
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Parents enter a birth date and choose a program.'; 'Della Brightmore uploads one document from each of the three residency groups.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One ', so' ending on the page (tab 2); sentence lengths vary; no blocking craft defect."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Her Group 2 scan is too blurry to read. It goes to registrar Anselm Nadeau, who checks it by hand before he confirms her son's spot.' Two minor voice notes recorded."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Baseball 'August 31 of the current year' and softball 'December 31 of the previous year' match the littleleague.org spans verbatim; tab 2 uses December 31, 2026 for the 2027 season (correct previous year), tab 1 uses August 31 of 2027; arithmetic checked (July 19, 2017 -> 10; April 22, 2016 -> 10 softball, 11 baseball). Residency 'one or more documents from each of the three groups' and 'February 1 of the previous year and February 1 of the current year' match the span; name and full address confirmed on the source page. 120 = 60 x 2 agrees in tab 4, mockup, chip, image. Claims map to prompt-build, ai-extraction, alerts, database-owned, no-caps, code-export, free-start."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "League-age dates, three-group residency proof and concession shifts are specific to this page; sibling primaries (class, webinar registration form) appear only as FAQ link anchors."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, each answered in sentence one ('Yes. Put the parent's details at the top...'; 'No, give it its own form.'); hub link in item 2; 'little league registration form pdf' read naturally in FAQ 9; paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 'Age on August 31: 10' / 'Lachlan plays in Minors'; tab 2 'Age on December 31, 2026: 10' and 'Baseball age: 11'; tab 3 '2 addresses match the form', Group 2 'Unreadable', 'To Anselm Nadeau'; tab 4 'All 120 shifts covered', '60 families, 2 shifts each'. One hero each, names and numbers match the tab copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq (item 4)",
+    "quote": "Build it that way instead of as a one-player registration form, and a family of three types its address once.",
+    "issue": "Stiff construction, and 'a family of three' is ambiguous (three people or three players).",
+    "fix": "Something like: 'A family with three players then types its address once.'",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "table_intro",
+    "quote": "Birth dates checked by hand miss a player or two.",
+    "issue": "Generic assertion standing in for a specific detail.",
+    "fix": "Tie it to the page's case, e.g. a softball player placed by the baseball date.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq (items 7 and 10)",
+    "quote": "Can a winter hitting class use the Little League registration form? / Should a parents' meeting held online go on the Little League registration form?",
+    "issue": "Both questions read as built to carry sibling links rather than as questions a registrar asks.",
+    "fix": "Next time, use registrar questions (late registration, divisions for players who move) and place sibling links inside them.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief tab 3 hero",
+    "quote": "1 scan to check by hand / Read: 418 Quarry Bend Road",
+    "issue": "On the card about the unreadable scan, the 'Read:' line could be taken as the address read from that scan. It does not contradict the copy, because 'Form address matches 2 of 3' sits beside it.",
+    "fix": "Label it 'Form address: 418 Quarry Bend Road'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq (item 4)",
+   "issue": "Stiff construction, and 'a family of three' is ambiguous (three people or three players).",
+   "fix": "Something like: 'A family with three players then types its address once.'",
+   "by": "B-r-456",
+   "via": "review",
+   "date": "2026-11-06 07:57 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "table_intro",
+   "issue": "Generic assertion standing in for a specific detail.",
+   "fix": "Tie it to the page's case, e.g. a softball player placed by the baseball date.",
+   "by": "B-r-456",
+   "via": "review",
+   "date": "2026-11-06 07:57 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq (items 7 and 10)",
+   "issue": "Both questions read as built to carry sibling links rather than as questions a registrar asks.",
+   "fix": "Next time, use registrar questions (late registration, divisions for players who move) and place sibling links inside them.",
+   "by": "B-r-456",
+   "via": "review",
+   "date": "2026-11-06 07:57 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief tab 3 hero",
+   "issue": "On the card about the unreadable scan, the 'Read:' line could be taken as the address read from that scan. It does not contradict the copy, because 'Form address matches 2 of 3' sits beside it.",
+   "fix": "Label it 'Form address: 418 Quarry Bend Road'.",
+   "by": "B-r-456",
+   "via": "review",
+   "date": "2026-11-06 07:57 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "c2b874d49da34c89",
+   "alt:share_image": "c90ed141e9c53c65",
+   "alt:tab_image_1": "e79c53f152d4f7fb",
+   "alt:tab_image_2": "1d5244d4381d0bdb",
+   "alt:tab_image_3": "966524be7bdc0e34",
+   "alt:tab_image_4": "92860c2300d9fe75",
+   "breadcrumb": "70eef2d1c3fb50c6",
+   "chip_adds": "ca725e050e4749d8",
+   "explore_cta": "77407cac05e6aaeb",
+   "faq": "a7e8d31bee16eb34",
+   "feature_1": "c8aef3d9d4d83dea",
+   "feature_2": "062680d9b993782e",
+   "feature_3": "8fa1a1e6db385b39",
+   "feature_4": "e6bbf1fa8def7e49",
+   "feature_5": "51be7eb293300599",
+   "feature_6": "13dfb11adec155ab",
+   "features_heading": "e66b906bc62bcc4b",
+   "features_subheading": "bf2b880bd6657c81",
+   "h1": "e4432a8690d7a157",
+   "hero_description": "e258b2d2b356e552",
+   "hero_prompt": "533eb8e592413161",
+   "howto_description": "55f315d6b1467b0e",
+   "howto_step_1_des": "e441186c4f08ad9b",
+   "howto_step_1_title": "5a1027c1ed0d830f",
+   "howto_step_2_des": "6aae789602cedcd3",
+   "howto_step_2_title": "fab57c507d6db6d9",
+   "howto_step_3_des": "4fa1619f1403a27e",
+   "howto_step_3_title": "c3af2751f505cd39",
+   "howto_step_4_des": "d576da7721e80545",
+   "howto_step_4_title": "63bff90e4319a441",
+   "howto_step_5_des": "1b6f64c471c95ae1",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "0e13831199443f30",
+   "howto_step_6_title": "ee5a6529dea023ed",
+   "howto_step_7_des": "7db4c48f0e315ddf",
+   "howto_step_7_title": "2bc329303fa54583",
+   "howto_title": "4079926f72224d62",
+   "meta_description": "405142b6fc534ce6",
+   "meta_title": "07dda970ee7ea708",
+   "mockup": "7906947a49c8b2c2",
+   "product_name": "b0e030edb72acb50",
+   "prompt_chip_1": "71950902d999b76b",
+   "prompt_chip_2": "77e9134306a0f187",
+   "prompt_chip_3": "e6a7df79b0a6e139",
+   "prompt_chip_4": "8fa7d216ce891c54",
+   "slug": "d82e089a44b714f9",
+   "tab_content_1": "581827832e3ff424",
+   "tab_content_2": "b2205a4586ef64b0",
+   "tab_content_3": "eac5dc00f3cb87b0",
+   "tab_content_4": "07d7851ebc0e5d54",
+   "tab_label_1": "ec8d13ef13104ad2",
+   "tab_label_2": "9cdcf8db6c99d37a",
+   "tab_label_3": "77e9134306a0f187",
+   "tab_label_4": "8fa7d216ce891c54",
+   "usecase_heading": "ad6c4756ef9569dc",
+   "why_description": "604c25006329c66f",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "b00f5bcfd6921dee"
+  },
+  "all": "e3bd77ef5bedfb54",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "c2b874d49da34c89",
+   "alt:share_image": "c90ed141e9c53c65",
+   "alt:tab_image_1": "e79c53f152d4f7fb",
+   "alt:tab_image_2": "1d5244d4381d0bdb",
+   "alt:tab_image_3": "966524be7bdc0e34",
+   "alt:tab_image_4": "92860c2300d9fe75",
+   "breadcrumb": "70eef2d1c3fb50c6",
+   "chip_adds": "ca725e050e4749d8",
+   "explore_cta": "77407cac05e6aaeb",
+   "faq": "a7e8d31bee16eb34",
+   "feature_1": "c8aef3d9d4d83dea",
+   "feature_2": "062680d9b993782e",
+   "feature_3": "8fa1a1e6db385b39",
+   "feature_4": "e6bbf1fa8def7e49",
+   "feature_5": "51be7eb293300599",
+   "feature_6": "13dfb11adec155ab",
+   "features_heading": "e66b906bc62bcc4b",
+   "features_subheading": "bf2b880bd6657c81",
+   "h1": "e4432a8690d7a157",
+   "hero_description": "e258b2d2b356e552",
+   "hero_prompt": "533eb8e592413161",
+   "howto_description": "55f315d6b1467b0e",
+   "howto_step_1_des": "e441186c4f08ad9b",
+   "howto_step_1_title": "5a1027c1ed0d830f",
+   "howto_step_2_des": "6aae789602cedcd3",
+   "howto_step_2_title": "fab57c507d6db6d9",
+   "howto_step_3_des": "4fa1619f1403a27e",
+   "howto_step_3_title": "c3af2751f505cd39",
+   "howto_step_4_des": "d576da7721e80545",
+   "howto_step_4_title": "63bff90e4319a441",
+   "howto_step_5_des": "1b6f64c471c95ae1",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "0e13831199443f30",
+   "howto_step_6_title": "ee5a6529dea023ed",
+   "howto_step_7_des": "7db4c48f0e315ddf",
+   "howto_step_7_title": "2bc329303fa54583",
+   "howto_title": "4079926f72224d62",
+   "meta_description": "405142b6fc534ce6",
+   "meta_title": "07dda970ee7ea708",
+   "mockup": "7906947a49c8b2c2",
+   "product_name": "b0e030edb72acb50",
+   "prompt_chip_1": "71950902d999b76b",
+   "prompt_chip_2": "77e9134306a0f187",
+   "prompt_chip_3": "e6a7df79b0a6e139",
+   "prompt_chip_4": "8fa7d216ce891c54",
+   "slug": "d82e089a44b714f9",
+   "tab_content_1": "581827832e3ff424",
+   "tab_content_2": "b2205a4586ef64b0",
+   "tab_content_3": "eac5dc00f3cb87b0",
+   "tab_content_4": "07d7851ebc0e5d54",
+   "tab_label_1": "ec8d13ef13104ad2",
+   "tab_label_2": "9cdcf8db6c99d37a",
+   "tab_label_3": "77e9134306a0f187",
+   "tab_label_4": "8fa7d216ce891c54",
+   "usecase_heading": "ad6c4756ef9569dc",
+   "why_description": "604c25006329c66f",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "b00f5bcfd6921dee"
+  },
+  "all": "e3bd77ef5bedfb54",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
