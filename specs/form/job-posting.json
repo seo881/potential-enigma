@@ -129,6 +129,13 @@
    "via": null,
    "by": "B-w-434",
    "note": ""
+  },
+  {
+   "t": "2026-11-06 07:52 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-452",
+   "note": "[truth | HUB_RULES 8] faq item 8: Source scope dropped (rework-checklist 2). The EEOC rule (domain_sources claim 1) protects 'age (40 or older)', not any age; 'favors one age' plus 'traits like these' states the rule as covering every age, which the source does not say. The trailing example (over 40"
   }
  ],
  "pipeline": "r15",
@@ -984,5 +991,265 @@
  ],
  "writers": [
   "B-w-434"
- ]
+ ],
+ "review": {
+  "by": "B-r-452",
+  "date": "2026-11-06 07:52 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Job Posting Form That Clears HR Before It Goes Live'; hero 'Build a job posting form that collects each opening's title, pay range, and close date, and holds it until HR approves.' (under 130 chars, carries the primary)"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Employer-side build intent delivered: fields, approval step, close date, open-role table, 7-step how-to 'How to Create a Job Posting Form', FAQ 3 covers 'job posting form template'"
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Clinic, job board, campus and hardware-store requests; 'A cashier request should never ask about a relocation package.'"
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every body opens on a full sentence: 'The form asks for a low and a high figure...', 'Ines Vardanyan runs one of the 6...', 'Pull last year's openings...'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; 12 'A, B, and C' lists recorded as a note"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain operator voice: 'Send a request with the pay figures reversed and no close date, and check that it goes back to the manager.'"
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "faq item 8: 'Flag wording that favors one age, sex, race, or other protected trait. The EEOC says it is illegal ... because of traits like these.' drops the source's 'age (40 or older)' limit"
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Owns the opening-request side; links job application, reference check and new employee forms instead of covering them"
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, each answered in its first sentence ('The employer does.', 'Yes.', 'Applicant review comes next.'); hub link in item 2; paa --spec 10 pass, 0 reject, 0 flag"
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 1 image draws one 'Pay range' box reading '$19 to $23 an hour' while feature_1 promises 'Pay range as two numbers, not a sentence' with a low figure, a high figure and hourly or yearly"
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 8",
+    "quote": "Flag wording that favors one age, sex, race, or other protected trait. The EEOC says it is illegal for an employer to publish a job advertisement that shows a preference for or discourages someone from applying for a job because of traits like these.",
+    "issue": "Source scope dropped (rework-checklist 2). The EEOC rule (domain_sources claim 1) protects 'age (40 or older)', not any age; 'favors one age' plus 'traits like these' states the rule as covering every age, which the source does not say. The trailing example (over 40) does not restore the limit in the rule sentence.",
+    "fix": "Keep the source's list and limit, e.g. 'Flag wording that prefers one sex or race, or that would put off applicants 40 or older. The EEOC says it is illegal for an employer to publish a job advertisement that shows a preference for or discourages someone from applying because of race, color, religion, sex, national origin, age (40 or older), disability or genetic information.' Keep the recent-graduates example; no state-specific or legal advice.",
+    "severity": "blocking"
+   },
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief tab 1 (main fields)",
+    "quote": "Pay range as two numbers, not a sentence",
+    "issue": "Form fields disagree between copy and image (rework-checklist 9, 11). feature_1 says the form asks for a low and a high figure and whether pay is hourly or yearly, and the mockup and chip_add 2 say 'a low and a high hourly rate'; the tab 1 image draws a single 'Pay range' field filled with the sentence '$19 to $23 an hour'. Related instance: feature_3 says managers pick the location ('Managers choose the clinic, store, or campus'), but the tab 1 request form (image and tab_content_1 field list) has no clinic field.",
+    "fix": "Redraw tab 1's form with the field set the copy describes: 'Pay low $19', 'Pay high $23', 'Pay basis Hourly' (and a 'Clinic' pick if the writer keeps feature_3 as is), keep '$19 to $23 an hour' in tab_content_1 and the story links, update the checks and re-render; or align feature_1 and the mockup to the drawn field.",
+    "severity": "blocking"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "page",
+    "quote": "opening's title, pay range, and close date",
+    "issue": "12 'A, B, and C' lists (QC Q8): hero_description, feature_2 x2, feature_3 x2, feature_5, tab_content_2, howto steps 2 and 4, faq items 1, 3 and 8.",
+    "fix": "Turn some into pairs or a single specific item.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "why_description",
+    "quote": "An approval buried in email gets lost.",
+    "issue": "Generic aphorism opener; reads stock.",
+    "fix": "Open on the concrete row: the pay range, approver and close date kept together.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 5",
+    "field": "feature_4",
+    "quote": "On that date the app takes the posting down and marks it closed, unless the manager extends it first",
+    "issue": "Reads as fixed behaviour, while howto_step_5 makes it a choice ('take the posting down, or ask the manager whether to extend it'). Configurable, so not a contradiction, but the two could align.",
+    "fix": "Say 'by default' in feature_4.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "page",
+   "issue": "12 'A, B, and C' lists (QC Q8): hero_description, feature_2 x2, feature_3 x2, feature_5, tab_content_2, howto steps 2 and 4, faq items 1, 3 and 8.",
+   "fix": "Turn some into pairs or a single specific item.",
+   "by": "B-r-452",
+   "via": "review",
+   "date": "2026-11-06 07:52 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "why_description",
+   "issue": "Generic aphorism opener; reads stock.",
+   "fix": "Open on the concrete row: the pay range, approver and close date kept together.",
+   "by": "B-r-452",
+   "via": "review",
+   "date": "2026-11-06 07:52 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 5",
+   "field": "feature_4",
+   "issue": "Reads as fixed behaviour, while howto_step_5 makes it a choice ('take the posting down, or ask the manager whether to extend it'). Configurable, so not a contradiction, but the two could align.",
+   "fix": "Say 'by default' in feature_4.",
+   "by": "B-r-452",
+   "via": "review",
+   "date": "2026-11-06 07:52 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "a6cf91f8e3d467e2",
+   "alt:share_image": "90cb576e63a2f13a",
+   "alt:tab_image_1": "14734aef30e6f7fe",
+   "alt:tab_image_2": "ed607614a237913e",
+   "alt:tab_image_3": "8e495dcf606ccd58",
+   "alt:tab_image_4": "f941c2a833e51b47",
+   "breadcrumb": "19a145d3f8ede552",
+   "chip_adds": "6a24e2962e4b6c7a",
+   "explore_cta": "36d1893db908283b",
+   "faq": "1566454f2d682df5",
+   "feature_1": "adb62dc1f7b7996e",
+   "feature_2": "fb80a56b003a393b",
+   "feature_3": "c788364c5a69242f",
+   "feature_4": "5ccf0e4b16bc605f",
+   "feature_5": "633f46fd4e03337f",
+   "feature_6": "1e0a0b16232beeb9",
+   "features_heading": "9d4928e1b86354bf",
+   "features_subheading": "1e3209dfdd295ea5",
+   "h1": "62920e2c218a2d06",
+   "hero_description": "1a7798a824e185b0",
+   "hero_prompt": "64ad859a1acf283a",
+   "howto_description": "b1684c431265e35e",
+   "howto_step_1_des": "888d719044a204c4",
+   "howto_step_1_title": "7377014d39845b0d",
+   "howto_step_2_des": "317dceb88425d889",
+   "howto_step_2_title": "15d22ed5e6391f75",
+   "howto_step_3_des": "13d0e7d967b519de",
+   "howto_step_3_title": "4851d5af642e8c43",
+   "howto_step_4_des": "c803025d76e24040",
+   "howto_step_4_title": "da8cbb30a59b2636",
+   "howto_step_5_des": "217fcc6721a779e8",
+   "howto_step_5_title": "0f5d533b8ffc4275",
+   "howto_step_6_des": "ebbc1886da071725",
+   "howto_step_6_title": "544111c57536b725",
+   "howto_step_7_des": "d887aa25fe562bda",
+   "howto_step_7_title": "01c03baba27b54cb",
+   "howto_title": "d022678304b2c6de",
+   "meta_description": "c814f06ea0fc1aa3",
+   "meta_title": "ff20a1919f82f319",
+   "mockup": "a233dbc7c5a67110",
+   "product_name": "e2aec76eb0d991cf",
+   "prompt_chip_1": "3b49aa45591a1966",
+   "prompt_chip_2": "9c5dab96fbbe76c7",
+   "prompt_chip_3": "d8eea63ee09e84cc",
+   "prompt_chip_4": "e7abe4f520f8786d",
+   "slug": "2a882937ccb3c88f",
+   "tab_content_1": "2e86fb472cfc948f",
+   "tab_content_2": "2853d36c64583441",
+   "tab_content_3": "472491b2a97c48d4",
+   "tab_content_4": "2dea179ee327d480",
+   "tab_label_1": "26ec5c97b66546a4",
+   "tab_label_2": "b4318a366e0e5af0",
+   "tab_label_3": "31c6234bde849101",
+   "tab_label_4": "4a14634624433865",
+   "usecase_heading": "79d46cd45cec416e",
+   "why_description": "7cc6c5205944c34a",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "6f188062dffdc695"
+  },
+  "all": "d0eb1740182b145d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "a6cf91f8e3d467e2",
+   "alt:share_image": "90cb576e63a2f13a",
+   "alt:tab_image_1": "14734aef30e6f7fe",
+   "alt:tab_image_2": "ed607614a237913e",
+   "alt:tab_image_3": "8e495dcf606ccd58",
+   "alt:tab_image_4": "f941c2a833e51b47",
+   "breadcrumb": "19a145d3f8ede552",
+   "chip_adds": "6a24e2962e4b6c7a",
+   "explore_cta": "36d1893db908283b",
+   "faq": "1566454f2d682df5",
+   "feature_1": "adb62dc1f7b7996e",
+   "feature_2": "fb80a56b003a393b",
+   "feature_3": "c788364c5a69242f",
+   "feature_4": "5ccf0e4b16bc605f",
+   "feature_5": "633f46fd4e03337f",
+   "feature_6": "1e0a0b16232beeb9",
+   "features_heading": "9d4928e1b86354bf",
+   "features_subheading": "1e3209dfdd295ea5",
+   "h1": "62920e2c218a2d06",
+   "hero_description": "1a7798a824e185b0",
+   "hero_prompt": "64ad859a1acf283a",
+   "howto_description": "b1684c431265e35e",
+   "howto_step_1_des": "888d719044a204c4",
+   "howto_step_1_title": "7377014d39845b0d",
+   "howto_step_2_des": "317dceb88425d889",
+   "howto_step_2_title": "15d22ed5e6391f75",
+   "howto_step_3_des": "13d0e7d967b519de",
+   "howto_step_3_title": "4851d5af642e8c43",
+   "howto_step_4_des": "c803025d76e24040",
+   "howto_step_4_title": "da8cbb30a59b2636",
+   "howto_step_5_des": "217fcc6721a779e8",
+   "howto_step_5_title": "0f5d533b8ffc4275",
+   "howto_step_6_des": "ebbc1886da071725",
+   "howto_step_6_title": "544111c57536b725",
+   "howto_step_7_des": "d887aa25fe562bda",
+   "howto_step_7_title": "01c03baba27b54cb",
+   "howto_title": "d022678304b2c6de",
+   "meta_description": "c814f06ea0fc1aa3",
+   "meta_title": "ff20a1919f82f319",
+   "mockup": "a233dbc7c5a67110",
+   "product_name": "e2aec76eb0d991cf",
+   "prompt_chip_1": "3b49aa45591a1966",
+   "prompt_chip_2": "9c5dab96fbbe76c7",
+   "prompt_chip_3": "d8eea63ee09e84cc",
+   "prompt_chip_4": "e7abe4f520f8786d",
+   "slug": "2a882937ccb3c88f",
+   "tab_content_1": "2e86fb472cfc948f",
+   "tab_content_2": "2853d36c64583441",
+   "tab_content_3": "472491b2a97c48d4",
+   "tab_content_4": "2dea179ee327d480",
+   "tab_label_1": "26ec5c97b66546a4",
+   "tab_label_2": "b4318a366e0e5af0",
+   "tab_label_3": "31c6234bde849101",
+   "tab_label_4": "4a14634624433865",
+   "usecase_heading": "79d46cd45cec416e",
+   "why_description": "7cc6c5205944c34a",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "6f188062dffdc695"
+  },
+  "all": "d0eb1740182b145d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
