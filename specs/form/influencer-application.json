@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-433",
    "note": ""
+  },
+  {
+   "t": "2026-11-06 07:50 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-448",
+   "note": "[truth | CONTENT_DEFECTS #10] faq item 9: Cross-field mismatch on when the shipping address and signed terms are collected (Divit 2026-11-05; rework-checklist 5, 9, 11). Every other mention collects both on the application, before approval: hero_prompt 'asks for handles, follower counts, and a shipp"
   }
  ],
  "pipeline": "r15",
@@ -863,5 +870,275 @@
  ],
  "writers": [
   "B-w-433"
- ]
+ ],
+ "review": {
+  "by": "B-r-448",
+  "date": "2026-11-06 07:50 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Influencer Application Form That Sorts Every Applicant'; hero 'Build an influencer application form that saves each creator's handles, audience, and rate in a database you own.' (D1 ok); how-to description one sentence under 140."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder intent delivered: field list (FAQ 3), seven how-to steps, four program types (seeding, paid, hosted stays, signed terms), comparison table vs Jotform, Google Forms, Typeform."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Teodor Lisk asks $2,400 for 1 Reel and 2 Stories'; 'Pelican Rock Inn hosts 2 travel creators per weekend'; per-platform rows, rate per deliverable."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Mossgrove Skincare ships a box of new products...', 'Applicants add a row for every platform...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One ', so' ending (FAQ 5), within limits; sentences short and varied."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain verbs and concrete details ('418 Alder Street', 'November 14 weekend'); no AI tells found."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "FAQ 9 'Leave the shipping address and the tax form for after approval, with the signed terms.' contradicts hero_prompt, tab_content_1, tab_content_4, feature_5, howto_step_6, chip_add 4, FAQ 3, FAQ 4, mockup productSeeding and tab images 1 and 4, which all collect the address and the signature on the application, before approval. FTC lines checked: placement with the endorsement, hashtag 'fine (but not necessary)', no mixing into hashtags all hold and keep their limits; no legal advice."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Form-builder intent with seeding/paid/hosted/terms stories; no 'landing page' wording, distinct from /ai-landing-page-builder/influencer; sibling primaries only as FAQ link anchors."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, paa --spec 10 pass 0 reject 0 flag; hub link in item 2; 3 sibling links (coaching-application, vendor-application, driver-application)."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: names, numbers and outcomes match tab copy ('$2,400 rate to approve', 'November 14 2 of 2 Closed', 'Approved by Tamsin Okoro', 'Reviewer: Briar Okonkwo'); Slack card addressed 'To Hollis Tran'; one hero per tab."
+   }
+  },
+  "findings": [
+   {
+    "class": "wrong-fact",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "faq item 9",
+    "quote": "Leave the shipping address and the tax form for after approval, with the signed terms.",
+    "issue": "Cross-field mismatch on when the shipping address and signed terms are collected (Divit 2026-11-05; rework-checklist 5, 9, 11). Every other mention collects both on the application, before approval: hero_prompt 'asks for handles, follower counts, and a shipping address'; tab_content_1 'Mirela Szabo applies with 14,200 Instagram followers, combination skin, and a shipping address' (image tab 1 draws 'Ships to 418 Alder Street' on the Seeding application); mockup productSeeding 'asks for the Instagram handle, follower count, skin type, and shipping address'; FAQ 4 'Gifted applicants see a shipping address instead'; howto_step_1 'A seeding program needs a shipping address and no rate'; tab_content_4 'the signed terms and their date sit above the approve button' (image tab 4 'Read and sign before you submit', 'Sign and submit'); feature_5 'Close the form with your disclosure and usage terms and a typed or drawn signature'; howto_step_6 'Ask the applicant to sign before submitting'; chip_add 4 'disclosure terms the applicant signs before submitting'; FAQ 3 'Close with your posting terms.'",
+    "fix": "Rewrite FAQ 9 so it agrees with the rest of the page: keep the first screen short, collect the shipping address and the signed terms on the application as the tabs show, and leave only the W-9 for after approval (as FAQ 7 says). For example: 'Leave only the tax form for after approval; the shipping address and the signed terms stay at the end of the application.'",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "domain_sources[1]",
+    "quote": "The same page calls it fine, but not necessary, to include a hashtag with the disclosure, such as #ad or #sponsored.",
+    "issue": "The claim holds (FTC Disclosures 101: 'It's fine (but not necessary) to include a hashtag with the disclosure, such as #ad or #sponsored'), but the recorded quote span drops 'fine (but not necessary)', the part the copy relies on.",
+    "fix": "Extend the recorded quote to the full sentence including 'It's fine (but not necessary)'.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "mockup signedAgreements",
+    "quote": "My tea company wants approved creators to agree to its terms before anything ships.",
+    "issue": "Says 'approved creators' agree, while the tab and image have applicants sign before approval; reads loosely against the tab story.",
+    "fix": "'My tea company wants every applicant to sign its terms before I approve them.'",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 6",
+    "quote": "Recent posts with comments from real accounts tell you more than the follower number on its own.",
+    "issue": "Judgment stated as general fact without a source; acceptable as advice.",
+    "fix": "Phrase as advice: 'Read the comments on recent posts as well as the follower number.'",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "voice",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "page",
+    "quote": "rate",
+    "issue": "QC Q9: 'rate' appears 17 times and 'terms' 11 times outside the FAQ.",
+    "fix": "Vary with 'fee', 'price', 'agreement' where meaning allows.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "domain_sources[1]",
+   "issue": "The claim holds (FTC Disclosures 101: 'It's fine (but not necessary) to include a hashtag with the disclosure, such as #ad or #sponsored'), but the recorded quote span drops 'fine (but not necessary)', the part the copy relies on.",
+   "fix": "Extend the recorded quote to the full sentence including 'It's fine (but not necessary)'.",
+   "by": "B-r-448",
+   "via": "review",
+   "date": "2026-11-06 07:50 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "mockup signedAgreements",
+   "issue": "Says 'approved creators' agree, while the tab and image have applicants sign before approval; reads loosely against the tab story.",
+   "fix": "'My tea company wants every applicant to sign its terms before I approve them.'",
+   "by": "B-r-448",
+   "via": "review",
+   "date": "2026-11-06 07:50 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 6",
+   "issue": "Judgment stated as general fact without a source; acceptable as advice.",
+   "fix": "Phrase as advice: 'Read the comments on recent posts as well as the follower number.'",
+   "by": "B-r-448",
+   "via": "review",
+   "date": "2026-11-06 07:50 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "page",
+   "issue": "QC Q9: 'rate' appears 17 times and 'terms' 11 times outside the FAQ.",
+   "fix": "Vary with 'fee', 'price', 'agreement' where meaning allows.",
+   "by": "B-r-448",
+   "via": "review",
+   "date": "2026-11-06 07:50 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "a9b9dead41e53a59",
+   "alt:share_image": "86943b7612e9c860",
+   "alt:tab_image_1": "d33ab8f562cfe0c8",
+   "alt:tab_image_2": "ddcd272042a1b394",
+   "alt:tab_image_3": "0805fb9f8399d838",
+   "alt:tab_image_4": "42d559ad165b4b51",
+   "breadcrumb": "3243811a717ba656",
+   "chip_adds": "7dd0d7eb02f1e75c",
+   "explore_cta": "e77ffa6895cbab0b",
+   "faq": "603467e927f053bc",
+   "feature_1": "94ddc0d45950a890",
+   "feature_2": "1d83b41fab06d7e7",
+   "feature_3": "4ee11b61a9fcda83",
+   "feature_4": "0209fdbb81d13f99",
+   "feature_5": "ce67bf5a09613675",
+   "feature_6": "c9945ebf8304c933",
+   "features_heading": "cc436b769435ee08",
+   "features_subheading": "fcfb6f9cfa8431c6",
+   "h1": "31294fd8518bc6f3",
+   "hero_description": "68d7b105f53e000a",
+   "hero_prompt": "8995197c5f772f84",
+   "howto_description": "2a72d5fec47ab10e",
+   "howto_step_1_des": "99dd53843f64b34b",
+   "howto_step_1_title": "d65fdf614833d4eb",
+   "howto_step_2_des": "83c9f848a932c8d7",
+   "howto_step_2_title": "24ccb50fab611d84",
+   "howto_step_3_des": "b4443a2fdfe627a9",
+   "howto_step_3_title": "6f852ea39372255d",
+   "howto_step_4_des": "50f19c10d402dacb",
+   "howto_step_4_title": "7f123afcc89d20e7",
+   "howto_step_5_des": "b5b38fb1e9af7fc6",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "33e8fba79d0bba50",
+   "howto_step_6_title": "74044edfa606e623",
+   "howto_step_7_des": "06e52cf387acf992",
+   "howto_step_7_title": "24fb237f90b5fed1",
+   "howto_title": "ba8983688211bdbb",
+   "meta_description": "07b701e2319a7485",
+   "meta_title": "dc91cf0b2da6475a",
+   "mockup": "926765cca2f64679",
+   "product_name": "4552a4722b529b65",
+   "prompt_chip_1": "53b18aca85ea1c96",
+   "prompt_chip_2": "30a485c62c00ba5a",
+   "prompt_chip_3": "969f6777842ce2bc",
+   "prompt_chip_4": "edb97c2c648fa269",
+   "slug": "b4e7de0a28675429",
+   "tab_content_1": "e982dbd9990be4c4",
+   "tab_content_2": "61691ca53a2be992",
+   "tab_content_3": "d66c704f52742bce",
+   "tab_content_4": "da0e1a05b4919841",
+   "tab_label_1": "cf9cdfd52835cdf6",
+   "tab_label_2": "bb654bcd5e2cd91b",
+   "tab_label_3": "cac30bc3b0dbe2d7",
+   "tab_label_4": "7f403f875710eb27",
+   "usecase_heading": "60ff6563a594fdbe",
+   "why_description": "169e74b5622472bc",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "ed4fe56914a4af3a"
+  },
+  "all": "3e827e094f88dc9c",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "a9b9dead41e53a59",
+   "alt:share_image": "86943b7612e9c860",
+   "alt:tab_image_1": "d33ab8f562cfe0c8",
+   "alt:tab_image_2": "ddcd272042a1b394",
+   "alt:tab_image_3": "0805fb9f8399d838",
+   "alt:tab_image_4": "42d559ad165b4b51",
+   "breadcrumb": "3243811a717ba656",
+   "chip_adds": "7dd0d7eb02f1e75c",
+   "explore_cta": "e77ffa6895cbab0b",
+   "faq": "603467e927f053bc",
+   "feature_1": "94ddc0d45950a890",
+   "feature_2": "1d83b41fab06d7e7",
+   "feature_3": "4ee11b61a9fcda83",
+   "feature_4": "0209fdbb81d13f99",
+   "feature_5": "ce67bf5a09613675",
+   "feature_6": "c9945ebf8304c933",
+   "features_heading": "cc436b769435ee08",
+   "features_subheading": "fcfb6f9cfa8431c6",
+   "h1": "31294fd8518bc6f3",
+   "hero_description": "68d7b105f53e000a",
+   "hero_prompt": "8995197c5f772f84",
+   "howto_description": "2a72d5fec47ab10e",
+   "howto_step_1_des": "99dd53843f64b34b",
+   "howto_step_1_title": "d65fdf614833d4eb",
+   "howto_step_2_des": "83c9f848a932c8d7",
+   "howto_step_2_title": "24ccb50fab611d84",
+   "howto_step_3_des": "b4443a2fdfe627a9",
+   "howto_step_3_title": "6f852ea39372255d",
+   "howto_step_4_des": "50f19c10d402dacb",
+   "howto_step_4_title": "7f123afcc89d20e7",
+   "howto_step_5_des": "b5b38fb1e9af7fc6",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "33e8fba79d0bba50",
+   "howto_step_6_title": "74044edfa606e623",
+   "howto_step_7_des": "06e52cf387acf992",
+   "howto_step_7_title": "24fb237f90b5fed1",
+   "howto_title": "ba8983688211bdbb",
+   "meta_description": "07b701e2319a7485",
+   "meta_title": "dc91cf0b2da6475a",
+   "mockup": "926765cca2f64679",
+   "product_name": "4552a4722b529b65",
+   "prompt_chip_1": "53b18aca85ea1c96",
+   "prompt_chip_2": "30a485c62c00ba5a",
+   "prompt_chip_3": "969f6777842ce2bc",
+   "prompt_chip_4": "edb97c2c648fa269",
+   "slug": "b4e7de0a28675429",
+   "tab_content_1": "e982dbd9990be4c4",
+   "tab_content_2": "61691ca53a2be992",
+   "tab_content_3": "d66c704f52742bce",
+   "tab_content_4": "da0e1a05b4919841",
+   "tab_label_1": "cf9cdfd52835cdf6",
+   "tab_label_2": "bb654bcd5e2cd91b",
+   "tab_label_3": "cac30bc3b0dbe2d7",
+   "tab_label_4": "7f403f875710eb27",
+   "usecase_heading": "60ff6563a594fdbe",
+   "why_description": "169e74b5622472bc",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "ed4fe56914a4af3a"
+  },
+  "all": "3e827e094f88dc9c",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
