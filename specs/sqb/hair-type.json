@@ -129,6 +129,13 @@
    "via": null,
    "by": "B-w-540",
    "note": ""
+  },
+  {
+   "t": "2026-11-11 10:43 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-60",
+   "note": "[truth | HUB_RULES 8] quiz results, quiz questions Q3-Q6, howto_step_2_des: The quiz and how-to state traits of each hair type as fact, but domain_sources holds only the four types, the A/B/C subtypes and the porosity definition. The cited WebMD page supports the S shape (type 2), spirals (3B), zigz"
   }
  ],
  "pipeline": "r15",
@@ -1044,5 +1051,257 @@
  ],
  "writers": [
   "B-w-540"
- ]
+ ],
+ "review": {
+  "by": "A-r-60",
+  "date": "2026-11-11 10:43 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Hair Type Quiz That Ends With a Care Routine'; hero carries the primary and offers the playable eight-question quiz (AMBER angle)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are consumer quizzes; the page leads with a playable 8-question quiz with four results and a routine each, then the builder story."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Kettlewell's 3 products tagged Curly, 90-minute curl slot with Simone Achebe, 1,800 summer results at Tidemark."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature and how-to bodies open on full sentences: 'Settle the results before writing a question.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q8 flags 13 A-B-and-C lists (note); no tacked-on endings blocked."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'A result that only names the type leaves the visitor where they began.' Operator voice."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "Hair-type characteristics stated as fact with no domain_sources span: how-to 2 'since heat and styling hide the pattern'; results 'start below the ears', 'shrink as they dry' (curly), 'start at the scalp', 'Brushing dry hair turns waves to fluff', 'heavy creams, which weigh straight strands down'; the matching map in Q3, Q4, Q5, Q6 rests on the same unsourced traits."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Hair-specific results, salon booking and shelf counts; no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions answered first-sentence; 7 secondaries; hub link in item 2; sibling links style quiz, vocabulary quiz, free trial landing page."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 4 bars 640+520+410+230 = 1,800; tab 2 Pilar Coily 90 min with Simone, email before Friday's cut; tab 3 Dorian Wavy, 4 emails each Tuesday; tab 1 three Curly products match copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "quiz results, quiz questions Q3-Q6, howto_step_2_des",
+    "quote": "Your answers lean toward wavy hair: loose S-shaped bends that start below the ears.",
+    "issue": "The quiz and how-to state traits of each hair type as fact, but domain_sources holds only the four types, the A/B/C subtypes and the porosity definition. The cited WebMD page supports the S shape (type 2), spirals (3B), zigzags and shrinking as it dries (4B, not curly), oily straight hair and frizz in humidity (type 2, 3A); it says nothing on where waves or coils start, heat hiding the pattern, brushing, or creams weighing hair down. Every instance: (1) howto_step_2_des 'since heat and styling hide the pattern'; (2) result wavy 'start below the ears'; (3) result wavy 'Brushing dry hair turns waves to fluff'; (4) result curly 'springy spirals that shrink as they dry' (source gives shrinkage for type 4B); (5) result coily 'tight coils or zigzags that start at the scalp'; (6) result straight 'Skip heavy creams, which weigh straight strands down'; (7) Q5 options 'Around the ears or below -> wavy', 'Close to the roots -> curly', 'Right at the scalp -> coily'; (8) Q6 'The waves get bigger -> wavy', 'The coils draw up even tighter -> coily' (source: type 2 and 3A frizz); (9) Q3 shrinkage ladder 'A little shorter' / 'Noticeably shorter' / 'Much shorter'; (10) Q4 brushing ladder 'waves loosen into fluff' / 'curls break up into frizz' / 'coils puff into a soft cloud'.",
+    "fix": "Add quoted spans for each trait kept (up to 8 sources; WebMD already covers S shape, spirals, zigzags, 4B shrinkage, type 1 oil, humidity frizz), and rewrite or drop every trait no source states; keep care tips as advice ('Try a light conditioner'), not as facts with a 'which/because' reason.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "SurveyMonkey | Microsoft Forms | SurveyHero",
+    "issue": "No builder ranks for hair type quiz (AMBER); the rows describe employee engagement and satisfaction templates. Interact (quiz specialist) and Typeform in the library fit a consumer quiz better.",
+    "fix": "Regenerate with Interact and Typeform if the coordinator agrees.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq items 1, 3 and page",
+    "quote": "into subtypes A, B, and C ... based on texture, thickness, and curl",
+    "issue": "QC Q8: 13 'A, B, and C' lists on the page, including faq 1 'wavy, curly, and coily', faq 3 twice, feature 2 'the cleanser, leave-in, and styler', tab 1 'a cream cleanser, a leave-in conditioner, and a curl gel', how-to 4 'a cleanser, a leave-in, and a styler'.",
+    "fix": "Turn some into pairs or one specific.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq items 4 and 7",
+    "quote": "A brand that also sells clothing can run a style quiz on the same site. / because the quiz should never read like a vocabulary quiz on terms such as porosity",
+    "issue": "Both sentences exist to carry a sibling link and read bolted on.",
+    "fix": "Link from a sentence the answer needs, or pick a closer sibling (skin type quiz).",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "No builder ranks for hair type quiz (AMBER); the rows describe employee engagement and satisfaction templates. Interact (quiz specialist) and Typeform in the library fit a consumer quiz better.",
+   "fix": "Regenerate with Interact and Typeform if the coordinator agrees.",
+   "by": "A-r-60",
+   "via": "review",
+   "date": "2026-11-11 10:43 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq items 1, 3 and page",
+   "issue": "QC Q8: 13 'A, B, and C' lists on the page, including faq 1 'wavy, curly, and coily', faq 3 twice, feature 2 'the cleanser, leave-in, and styler', tab 1 'a cream cleanser, a leave-in conditioner, and a curl gel', how-to 4 'a cleanser, a leave-in, and a styler'.",
+   "fix": "Turn some into pairs or one specific.",
+   "by": "A-r-60",
+   "via": "review",
+   "date": "2026-11-11 10:43 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq items 4 and 7",
+   "issue": "Both sentences exist to carry a sibling link and read bolted on.",
+   "fix": "Link from a sentence the answer needs, or pick a closer sibling (skin type quiz).",
+   "by": "A-r-60",
+   "via": "review",
+   "date": "2026-11-11 10:43 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "20c26eb0a2b23e53",
+   "alt:share_image": "bddc06e0134eaa13",
+   "alt:tab_image_1": "fae30362308c7498",
+   "alt:tab_image_2": "107bbda3a7b25da3",
+   "alt:tab_image_3": "8086eba2b8f9ea3f",
+   "alt:tab_image_4": "daea6cbef558a0c1",
+   "breadcrumb": "d27f5e219914ba0a",
+   "chip_adds": "bdd38d0a9dd90d9b",
+   "explore_cta": "0b394bf06f8ba3e3",
+   "faq": "30f6e72e95af4ed9",
+   "feature_1": "38a00b2a35bd8804",
+   "feature_2": "2729672a0f5d41b3",
+   "feature_3": "3aa84b687407d604",
+   "feature_4": "5145639ac06af671",
+   "feature_5": "296dba52dcb4c3e5",
+   "feature_6": "9ca3070d397acc67",
+   "features_heading": "2b676f105ade310a",
+   "features_subheading": "9e4902829a0a5471",
+   "h1": "96ea01f1bdca6421",
+   "hero_description": "c9665f2321d68189",
+   "hero_prompt": "6ba30bd146ddc29a",
+   "howto_description": "8915ec7142eb6c5c",
+   "howto_step_1_des": "fba19646933a012a",
+   "howto_step_1_title": "dcbfa8a3bf0462e4",
+   "howto_step_2_des": "157c891a6608bfeb",
+   "howto_step_2_title": "32742358bd400068",
+   "howto_step_3_des": "147c7f79c74cd5cf",
+   "howto_step_3_title": "cfae519030b42cc1",
+   "howto_step_4_des": "3dcf59363c41a983",
+   "howto_step_4_title": "474d284de2a81f16",
+   "howto_step_5_des": "01cdd516f229acc9",
+   "howto_step_5_title": "04eab9ef86cc2188",
+   "howto_step_6_des": "58703ef54838ee34",
+   "howto_step_6_title": "57075c8aab05b5e0",
+   "howto_step_7_des": "c0d17f134ec45251",
+   "howto_step_7_title": "ea992e49d27961e0",
+   "howto_title": "220190eeea0b1f79",
+   "meta_description": "09687353d9714c1c",
+   "meta_title": "9869a9e48028610b",
+   "mockup": "052e35f54e521164",
+   "product_name": "649394546d921840",
+   "prompt_chip_1": "9829722f4ac2543e",
+   "prompt_chip_2": "838b57ce1c1601a0",
+   "prompt_chip_3": "e2f14e7482be7200",
+   "prompt_chip_4": "c8733b68a44a3449",
+   "quiz": "c357996de60b3548",
+   "slug": "15147ca92bba00a1",
+   "tab_content_1": "108805f7e026afcd",
+   "tab_content_2": "35208d931b3dd16f",
+   "tab_content_3": "05a8ad6cb2ae99d2",
+   "tab_content_4": "c38b24bad37a24a4",
+   "tab_label_1": "871c73306d84ee3a",
+   "tab_label_2": "51515688474b18c1",
+   "tab_label_3": "d8748e7526d128c6",
+   "tab_label_4": "6ea96e7cb5a211c4",
+   "usecase_heading": "02200f7947c39f18",
+   "why_description": "f16b1f90787d3033",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "dbe15a58a2be08b8"
+  },
+  "all": "970608d305d985e6",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "20c26eb0a2b23e53",
+   "alt:share_image": "bddc06e0134eaa13",
+   "alt:tab_image_1": "fae30362308c7498",
+   "alt:tab_image_2": "107bbda3a7b25da3",
+   "alt:tab_image_3": "8086eba2b8f9ea3f",
+   "alt:tab_image_4": "daea6cbef558a0c1",
+   "breadcrumb": "d27f5e219914ba0a",
+   "chip_adds": "bdd38d0a9dd90d9b",
+   "explore_cta": "0b394bf06f8ba3e3",
+   "faq": "30f6e72e95af4ed9",
+   "feature_1": "38a00b2a35bd8804",
+   "feature_2": "2729672a0f5d41b3",
+   "feature_3": "3aa84b687407d604",
+   "feature_4": "5145639ac06af671",
+   "feature_5": "296dba52dcb4c3e5",
+   "feature_6": "9ca3070d397acc67",
+   "features_heading": "2b676f105ade310a",
+   "features_subheading": "9e4902829a0a5471",
+   "h1": "96ea01f1bdca6421",
+   "hero_description": "c9665f2321d68189",
+   "hero_prompt": "6ba30bd146ddc29a",
+   "howto_description": "8915ec7142eb6c5c",
+   "howto_step_1_des": "fba19646933a012a",
+   "howto_step_1_title": "dcbfa8a3bf0462e4",
+   "howto_step_2_des": "157c891a6608bfeb",
+   "howto_step_2_title": "32742358bd400068",
+   "howto_step_3_des": "147c7f79c74cd5cf",
+   "howto_step_3_title": "cfae519030b42cc1",
+   "howto_step_4_des": "3dcf59363c41a983",
+   "howto_step_4_title": "474d284de2a81f16",
+   "howto_step_5_des": "01cdd516f229acc9",
+   "howto_step_5_title": "04eab9ef86cc2188",
+   "howto_step_6_des": "58703ef54838ee34",
+   "howto_step_6_title": "57075c8aab05b5e0",
+   "howto_step_7_des": "c0d17f134ec45251",
+   "howto_step_7_title": "ea992e49d27961e0",
+   "howto_title": "220190eeea0b1f79",
+   "meta_description": "09687353d9714c1c",
+   "meta_title": "9869a9e48028610b",
+   "mockup": "052e35f54e521164",
+   "product_name": "649394546d921840",
+   "prompt_chip_1": "9829722f4ac2543e",
+   "prompt_chip_2": "838b57ce1c1601a0",
+   "prompt_chip_3": "e2f14e7482be7200",
+   "prompt_chip_4": "c8733b68a44a3449",
+   "quiz": "c357996de60b3548",
+   "slug": "15147ca92bba00a1",
+   "tab_content_1": "108805f7e026afcd",
+   "tab_content_2": "35208d931b3dd16f",
+   "tab_content_3": "05a8ad6cb2ae99d2",
+   "tab_content_4": "c38b24bad37a24a4",
+   "tab_label_1": "871c73306d84ee3a",
+   "tab_label_2": "51515688474b18c1",
+   "tab_label_3": "d8748e7526d128c6",
+   "tab_label_4": "6ea96e7cb5a211c4",
+   "usecase_heading": "02200f7947c39f18",
+   "why_description": "f16b1f90787d3033",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "dbe15a58a2be08b8"
+  },
+  "all": "970608d305d985e6",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
