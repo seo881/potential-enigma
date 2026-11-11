@@ -129,6 +129,13 @@
    "via": null,
    "by": "B-w-528",
    "note": ""
+  },
+  {
+   "t": "2026-11-11 10:42 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-61",
+   "note": "rubric 10/10 by A-r-61; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -1192,5 +1199,267 @@
  ],
  "writers": [
   "B-w-528"
- ]
+ ],
+ "review": {
+  "by": "A-r-61",
+  "date": "2026-11-11 10:42 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Team Quiz With a Leaderboard That Updates Live'; hero 'Take the team quiz below, or build one with a live leaderboard and every answer saved to a database you own.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder-fit SERP with quiz-host intent: playable team role quiz, idea-led FAQ 1 ('a picture round of office objects shot up close...'), seven host steps on rounds, ties and team mixing."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Teo Brandt scored 5 of 8. His manager, Dalia Brenner, got an email naming the 3 he missed: refund approvals, the carrier booking tool, and the on-call handover.'"
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "'Name the topic, the number of rounds...', 'Players pick a team when they open the link', 'Host the quiz on your own domain'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC craft checks clear (one ', so' ending, under the cap); steps concrete: 'Allow 20 to 30 seconds per question on a call.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Drop the ones every team got right, rewrite the ones nobody got, and keep the rest for next quarter.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Claims map to claims_used incl. realtime (live leaderboard), alerts, no-caps, free-start. No third-party facts stated. Numbers agree: tab 3 5+4+3+2+0 = 14; tab 4 image 64+22+41+59 = 186; 10 questions x 20-30 s fits FAQ 4's 'about 5 minutes' and three rounds fit step 4's 'near 30 minutes'; new hire quiz 8 questions in tab 2 and FAQ 8."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Sibling surveys only linked, never headlined: 'send a team survey instead', 'run an employee engagement survey', 'a separate manager feedback survey'."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 questions, 3 secondaries all used, each answered first ('Ten questions make a good round'; 'For a game, no'); hub link in item 2."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: Ridge 8 / Harbor 7 / Summit 6 / Delta 5, 24 players 4 teams of 6, Friday 4:00; Dalia Brenner email card (person, not channel) with 3 Missed rows; 0 Checker of 14; Warehouse 9.1, Finance 8.4, Sales 7.6."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_3; faq item 6; tab_content_1",
+    "quote": "feature_3: 'each correct answer adds a point to that team' / tab_content_1: 'splits its 24 analysts into 4 teams of 6 for a 10-question team quiz... Ridge finished on 8 correct, one ahead of Harbor at 7'",
+    "issue": "Scoring model reads two ways: per-player points (feature 3, FAQ 6) would give a team of 6 up to 60 points on 10 questions, while tab 1 reads as one team answer per question. Not a numeric contradiction, but a careful reader may stall.",
+    "fix": "If touched later, say 'Ridge answered 8 of 10 correctly as a team' or show per-player totals.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_5; faq item 9",
+    "quote": "feature_5: 'Emergent puts no cap on responses, and a company-wide all-hands runs on the same build as a team of 6.' / faq 9: 'A quiz built on Emergent has no response cap, however many offices join.'",
+    "issue": "No-cap idea restated with words swapped.",
+    "fix": "Keep it in feature 5 only.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 7",
+    "quote": "It can, when teams mix people who rarely work together and the questions reward the group over one expert.",
+    "issue": "Hedged claim about team-building effect with no source; reads as advice, so a note.",
+    "fix": "Phrase as advice: 'Mix people who rarely work together and reward the group over one expert.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "SurveyMonkey | Microsoft Forms | SurveyHero",
+    "issue": "Brief's angle names Slido, Mentimeter and ProProfs as the ranking quiz tools; the generated default set is used instead (QC K7 P2). Library-level.",
+    "fix": "Coordinator: add live-quiz vendors to rules/competitors/sqb.json for team and trivia quiz pages.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_3; faq item 6; tab_content_1",
+   "issue": "Scoring model reads two ways: per-player points (feature 3, FAQ 6) would give a team of 6 up to 60 points on 10 questions, while tab 1 reads as one team answer per question. Not a numeric contradiction, but a careful reader may stall.",
+   "fix": "If touched later, say 'Ridge answered 8 of 10 correctly as a team' or show per-player totals.",
+   "by": "A-r-61",
+   "via": "review",
+   "date": "2026-11-11 10:42 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_5; faq item 9",
+   "issue": "No-cap idea restated with words swapped.",
+   "fix": "Keep it in feature 5 only.",
+   "by": "A-r-61",
+   "via": "review",
+   "date": "2026-11-11 10:42 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 7",
+   "issue": "Hedged claim about team-building effect with no source; reads as advice, so a note.",
+   "fix": "Phrase as advice: 'Mix people who rarely work together and reward the group over one expert.'",
+   "by": "A-r-61",
+   "via": "review",
+   "date": "2026-11-11 10:42 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "Brief's angle names Slido, Mentimeter and ProProfs as the ranking quiz tools; the generated default set is used instead (QC K7 P2). Library-level.",
+   "fix": "Coordinator: add live-quiz vendors to rules/competitors/sqb.json for team and trivia quiz pages.",
+   "by": "A-r-61",
+   "via": "review",
+   "date": "2026-11-11 10:42 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "1e1321d58debd97b",
+   "alt:share_image": "96b3a061f3aa6236",
+   "alt:tab_image_1": "bd5193a12aa814da",
+   "alt:tab_image_2": "57b58ac299349ca7",
+   "alt:tab_image_3": "d5c65ff083cc6bb5",
+   "alt:tab_image_4": "56fd77bff5a31d48",
+   "breadcrumb": "b0c710b8fa19b28f",
+   "chip_adds": "829321f14e3405ac",
+   "explore_cta": "3df70975e4b10dc0",
+   "faq": "90ab2dc87cf61db0",
+   "feature_1": "871c7560790e54f8",
+   "feature_2": "d0514f9107df1f95",
+   "feature_3": "a9143df31ef00794",
+   "feature_4": "01e1ccb50addd85f",
+   "feature_5": "3ae0d2285f37534d",
+   "feature_6": "2e226eebd655acb4",
+   "features_heading": "74c09fb95002e675",
+   "features_subheading": "0f7fd8e02ff79a7d",
+   "h1": "bebc9e4c2c317a0a",
+   "hero_description": "230dbbe24ab59b10",
+   "hero_prompt": "6e8e10a616c0d76a",
+   "howto_description": "5f64497bd0ac39a7",
+   "howto_step_1_des": "13ec2a00bcd693c4",
+   "howto_step_1_title": "49749836f57b01f3",
+   "howto_step_2_des": "f3f109a4ff93e50a",
+   "howto_step_2_title": "58f80ae9cfe1cbde",
+   "howto_step_3_des": "a45ec671d5048dc0",
+   "howto_step_3_title": "025077fc5a5405f0",
+   "howto_step_4_des": "52a7a28b3fb0c09a",
+   "howto_step_4_title": "f2d700ce515a8d23",
+   "howto_step_5_des": "3738671f1eb14337",
+   "howto_step_5_title": "7c58cd5359842fbe",
+   "howto_step_6_des": "9b06d226aedc9ec2",
+   "howto_step_6_title": "ad2c3bdb2317dca1",
+   "howto_step_7_des": "4ea58327861df530",
+   "howto_step_7_title": "bc8797d1b11ca290",
+   "howto_title": "841638352566d95b",
+   "meta_description": "c36ee35af4c53f7c",
+   "meta_title": "89618dcef6c0806e",
+   "mockup": "e5c394c1e42e28a3",
+   "product_name": "9a8d8eeb29bdc655",
+   "prompt_chip_1": "e0c40a8567e3e2cb",
+   "prompt_chip_2": "50e6b5884b79968a",
+   "prompt_chip_3": "8c318dd7e7445898",
+   "prompt_chip_4": "b29949efb21e3cbd",
+   "quiz": "07db586879f12163",
+   "slug": "6acdcc10d7d17055",
+   "tab_content_1": "51fb20e237cbce19",
+   "tab_content_2": "4551df225b5261c0",
+   "tab_content_3": "5a1011713e97e679",
+   "tab_content_4": "870833b608340551",
+   "tab_label_1": "9f71ba95cf395ba4",
+   "tab_label_2": "0a4d11c17ce8492f",
+   "tab_label_3": "ba5da37c2210fac1",
+   "tab_label_4": "89276a028303a83b",
+   "usecase_heading": "df9138bb19121e1e",
+   "why_description": "b5371d72ec5d5365",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "148dfd6aeaf7b119"
+  },
+  "all": "c4738b2d7dced7a7",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "1e1321d58debd97b",
+   "alt:share_image": "96b3a061f3aa6236",
+   "alt:tab_image_1": "bd5193a12aa814da",
+   "alt:tab_image_2": "57b58ac299349ca7",
+   "alt:tab_image_3": "d5c65ff083cc6bb5",
+   "alt:tab_image_4": "56fd77bff5a31d48",
+   "breadcrumb": "b0c710b8fa19b28f",
+   "chip_adds": "829321f14e3405ac",
+   "explore_cta": "3df70975e4b10dc0",
+   "faq": "90ab2dc87cf61db0",
+   "feature_1": "871c7560790e54f8",
+   "feature_2": "d0514f9107df1f95",
+   "feature_3": "a9143df31ef00794",
+   "feature_4": "01e1ccb50addd85f",
+   "feature_5": "3ae0d2285f37534d",
+   "feature_6": "2e226eebd655acb4",
+   "features_heading": "74c09fb95002e675",
+   "features_subheading": "0f7fd8e02ff79a7d",
+   "h1": "bebc9e4c2c317a0a",
+   "hero_description": "230dbbe24ab59b10",
+   "hero_prompt": "6e8e10a616c0d76a",
+   "howto_description": "5f64497bd0ac39a7",
+   "howto_step_1_des": "13ec2a00bcd693c4",
+   "howto_step_1_title": "49749836f57b01f3",
+   "howto_step_2_des": "f3f109a4ff93e50a",
+   "howto_step_2_title": "58f80ae9cfe1cbde",
+   "howto_step_3_des": "a45ec671d5048dc0",
+   "howto_step_3_title": "025077fc5a5405f0",
+   "howto_step_4_des": "52a7a28b3fb0c09a",
+   "howto_step_4_title": "f2d700ce515a8d23",
+   "howto_step_5_des": "3738671f1eb14337",
+   "howto_step_5_title": "7c58cd5359842fbe",
+   "howto_step_6_des": "9b06d226aedc9ec2",
+   "howto_step_6_title": "ad2c3bdb2317dca1",
+   "howto_step_7_des": "4ea58327861df530",
+   "howto_step_7_title": "bc8797d1b11ca290",
+   "howto_title": "841638352566d95b",
+   "meta_description": "c36ee35af4c53f7c",
+   "meta_title": "89618dcef6c0806e",
+   "mockup": "e5c394c1e42e28a3",
+   "product_name": "9a8d8eeb29bdc655",
+   "prompt_chip_1": "e0c40a8567e3e2cb",
+   "prompt_chip_2": "50e6b5884b79968a",
+   "prompt_chip_3": "8c318dd7e7445898",
+   "prompt_chip_4": "b29949efb21e3cbd",
+   "quiz": "07db586879f12163",
+   "slug": "6acdcc10d7d17055",
+   "tab_content_1": "51fb20e237cbce19",
+   "tab_content_2": "4551df225b5261c0",
+   "tab_content_3": "5a1011713e97e679",
+   "tab_content_4": "870833b608340551",
+   "tab_label_1": "9f71ba95cf395ba4",
+   "tab_label_2": "0a4d11c17ce8492f",
+   "tab_label_3": "ba5da37c2210fac1",
+   "tab_label_4": "89276a028303a83b",
+   "usecase_heading": "df9138bb19121e1e",
+   "why_description": "b5371d72ec5d5365",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "148dfd6aeaf7b119"
+  },
+  "all": "c4738b2d7dced7a7",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
