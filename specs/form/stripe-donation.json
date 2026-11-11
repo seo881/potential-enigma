@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-513",
    "note": ""
+  },
+  {
+   "t": "2026-11-11 10:43 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-58",
+   "note": "rubric 10/10 by A-r-58; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -1015,5 +1022,265 @@
  ],
  "writers": [
   "B-w-513"
- ]
+ ],
+ "review": {
+  "by": "A-r-58",
+  "date": "2026-11-11 10:43 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Stripe Donation Form With Gifts in Your Own Database'; hero 'takes one-time and monthly gifts and saves each paid gift to a donor table you own' (D1 passes QC)."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder intent served with the Stripe-specific details: 'Stripe's pay-what-you-want prices do not support recurring payments', 'checkout.session.completed event', 'custom fields hold up to 3 extra questions', sandbox test gift; full 7-step how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Nonprofit vocabulary throughout: funds, tribute, monthly tiers, giving day, 'Set the submit type to donate and the pay button reads Donate'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every body opens on a full sentence: 'The form asks for the fund and a dedication...', 'Stripe creates a checkout.session.completed event when someone pays.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q8 flags 9 'A, B, and C' lists (P2, accepted); no tacked-on endings."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, operator voice: 'Linnea Nyberg picks $15', '$2,340 for books', 'She calls him that afternoon to thank him.' One note on the 'Not ... but' heading."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "All 8 Stripe facts match their quoted spans in domain_sources; 2340+1180+860=4380; Emergent claims within claims_used (prompt-build, api-connect, database-owned, alerts, code-export, no-caps, free-start)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Stripe mechanics (fixed monthly tiers, payment event, Donate label) separate it from /donation and /paypal-donation; silent auction and pet adoption handed off with links."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 builder questions, answer-first ('Yes, for one-time gifts.', 'Before.', 'Not well.'); hub link in item 2; links to donation, silent-auction, pet-adoption."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 $8/$15/$30, 'Next gift on Dec 9'; tab 2 $2,340/$1,180/$860 = $4,380; tab 3 '$3,915', '46 gifts', starts at $40; tab 4 DM 'To Imogen Quarles', 'Rafferty Gale gave $2,500'. All match the copy."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "tab_content_1",
+    "quote": "Not a one-time gift but $15 a month from Linnea",
+    "issue": "The 'not X but Y' contrast shape sits close to the banned 'it's not just X, it's Y' tell.",
+    "fix": "State it plainly, e.g. 'Linnea gives $15 a month on a fixed tier'.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "since a suggested figure gives undecided donors a place to start",
+    "issue": "A claim about donor behaviour given as the reason for the advice, with no source.",
+    "fix": "Keep the advice and drop the reason, or source it.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "The order holds for any donation form: amount and fund first, contact details after.",
+    "issue": "A best-practice ordering stated as a universal rule, unsourced.",
+    "fix": "Phrase it as advice: 'Put the amount and fund first, contact details after.'",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Test the embedded version on a phone, where the payment step is easiest to break.",
+    "issue": "Where the payment step breaks is asserted without a source.",
+    "fix": "'Test the embedded version on a phone before you announce it.'",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "tab_content_1",
+   "issue": "The 'not X but Y' contrast shape sits close to the banned 'it's not just X, it's Y' tell.",
+   "fix": "State it plainly, e.g. 'Linnea gives $15 a month on a fixed tier'.",
+   "by": "A-r-58",
+   "via": "review",
+   "date": "2026-11-11 10:43 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "A claim about donor behaviour given as the reason for the advice, with no source.",
+   "fix": "Keep the advice and drop the reason, or source it.",
+   "by": "A-r-58",
+   "via": "review",
+   "date": "2026-11-11 10:43 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "A best-practice ordering stated as a universal rule, unsourced.",
+   "fix": "Phrase it as advice: 'Put the amount and fund first, contact details after.'",
+   "by": "A-r-58",
+   "via": "review",
+   "date": "2026-11-11 10:43 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Where the payment step breaks is asserted without a source.",
+   "fix": "'Test the embedded version on a phone before you announce it.'",
+   "by": "A-r-58",
+   "via": "review",
+   "date": "2026-11-11 10:43 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "d03fa6ebd24ab6bb",
+   "alt:share_image": "dd3fe9131f6272ac",
+   "alt:tab_image_1": "22e9e72407b9c787",
+   "alt:tab_image_2": "84d637324ffc816e",
+   "alt:tab_image_3": "d3a7aaf22502d7f7",
+   "alt:tab_image_4": "4be961a45ad671cf",
+   "breadcrumb": "3426751a62e90d48",
+   "chip_adds": "39fe3b064114c138",
+   "explore_cta": "690e26ca757cb375",
+   "faq": "681e79fd6d795ed0",
+   "feature_1": "0bc8e4c27ca3a119",
+   "feature_2": "930f58808bc71ff4",
+   "feature_3": "a2ba70b3c03d9d16",
+   "feature_4": "41f148f96796352d",
+   "feature_5": "b9aac4e18d88a25b",
+   "feature_6": "2881b1ee553daf90",
+   "features_heading": "5335b645ac04e7aa",
+   "features_subheading": "5528d4aab9685546",
+   "h1": "f33a63d039184a3a",
+   "hero_description": "a2e585c92d23c84a",
+   "hero_prompt": "6b241e83a312daef",
+   "howto_description": "85f1cb90be4fc01a",
+   "howto_step_1_des": "e9cb3dec1300add5",
+   "howto_step_1_title": "f5b672fe29bb2772",
+   "howto_step_2_des": "b2771053a40c4ca8",
+   "howto_step_2_title": "5a2102015f081d78",
+   "howto_step_3_des": "eeb1f42e4658df3f",
+   "howto_step_3_title": "bc923ba36b7f9049",
+   "howto_step_4_des": "6dd6eceb76eb53fd",
+   "howto_step_4_title": "7fdfa979a2bafec2",
+   "howto_step_5_des": "171b14728bb55cc4",
+   "howto_step_5_title": "4d0ef81cdd86cee4",
+   "howto_step_6_des": "3791591345abb825",
+   "howto_step_6_title": "9e6101a7f1dabee6",
+   "howto_step_7_des": "a9a9f08ede3c7af7",
+   "howto_step_7_title": "dc3adf213e00f321",
+   "howto_title": "e1aba8d7eb5941e1",
+   "meta_description": "52704fd0c8a1db1f",
+   "meta_title": "17bb98d45315c031",
+   "mockup": "7faa4a95fafdef57",
+   "product_name": "640f22fa7dfec82b",
+   "prompt_chip_1": "0fe826724d1ce5a6",
+   "prompt_chip_2": "fe2c3eb06376595f",
+   "prompt_chip_3": "8a794c48bffb922e",
+   "prompt_chip_4": "ea559c476a984c5f",
+   "slug": "3464395b6a14b2f5",
+   "tab_content_1": "de0656e0b55ce102",
+   "tab_content_2": "9230186b421e082f",
+   "tab_content_3": "e9bf05f0fab15415",
+   "tab_content_4": "9d32cffc579f753e",
+   "tab_label_1": "c508ce5adde9e74d",
+   "tab_label_2": "4ff9384dcb015493",
+   "tab_label_3": "2d873c0366fae04f",
+   "tab_label_4": "45eee3827d7e2215",
+   "usecase_heading": "3bf1a2cbf976c9f2",
+   "why_description": "b191c9105bc38682",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "3c39ed6ca5be9664"
+  },
+  "all": "8bab4899cceb55d1",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "d03fa6ebd24ab6bb",
+   "alt:share_image": "dd3fe9131f6272ac",
+   "alt:tab_image_1": "22e9e72407b9c787",
+   "alt:tab_image_2": "84d637324ffc816e",
+   "alt:tab_image_3": "d3a7aaf22502d7f7",
+   "alt:tab_image_4": "4be961a45ad671cf",
+   "breadcrumb": "3426751a62e90d48",
+   "chip_adds": "39fe3b064114c138",
+   "explore_cta": "690e26ca757cb375",
+   "faq": "681e79fd6d795ed0",
+   "feature_1": "0bc8e4c27ca3a119",
+   "feature_2": "930f58808bc71ff4",
+   "feature_3": "a2ba70b3c03d9d16",
+   "feature_4": "41f148f96796352d",
+   "feature_5": "b9aac4e18d88a25b",
+   "feature_6": "2881b1ee553daf90",
+   "features_heading": "5335b645ac04e7aa",
+   "features_subheading": "5528d4aab9685546",
+   "h1": "f33a63d039184a3a",
+   "hero_description": "a2e585c92d23c84a",
+   "hero_prompt": "6b241e83a312daef",
+   "howto_description": "85f1cb90be4fc01a",
+   "howto_step_1_des": "e9cb3dec1300add5",
+   "howto_step_1_title": "f5b672fe29bb2772",
+   "howto_step_2_des": "b2771053a40c4ca8",
+   "howto_step_2_title": "5a2102015f081d78",
+   "howto_step_3_des": "eeb1f42e4658df3f",
+   "howto_step_3_title": "bc923ba36b7f9049",
+   "howto_step_4_des": "6dd6eceb76eb53fd",
+   "howto_step_4_title": "7fdfa979a2bafec2",
+   "howto_step_5_des": "171b14728bb55cc4",
+   "howto_step_5_title": "4d0ef81cdd86cee4",
+   "howto_step_6_des": "3791591345abb825",
+   "howto_step_6_title": "9e6101a7f1dabee6",
+   "howto_step_7_des": "a9a9f08ede3c7af7",
+   "howto_step_7_title": "dc3adf213e00f321",
+   "howto_title": "e1aba8d7eb5941e1",
+   "meta_description": "52704fd0c8a1db1f",
+   "meta_title": "17bb98d45315c031",
+   "mockup": "7faa4a95fafdef57",
+   "product_name": "640f22fa7dfec82b",
+   "prompt_chip_1": "0fe826724d1ce5a6",
+   "prompt_chip_2": "fe2c3eb06376595f",
+   "prompt_chip_3": "8a794c48bffb922e",
+   "prompt_chip_4": "ea559c476a984c5f",
+   "slug": "3464395b6a14b2f5",
+   "tab_content_1": "de0656e0b55ce102",
+   "tab_content_2": "9230186b421e082f",
+   "tab_content_3": "e9bf05f0fab15415",
+   "tab_content_4": "9d32cffc579f753e",
+   "tab_label_1": "c508ce5adde9e74d",
+   "tab_label_2": "4ff9384dcb015493",
+   "tab_label_3": "2d873c0366fae04f",
+   "tab_label_4": "45eee3827d7e2215",
+   "usecase_heading": "3bf1a2cbf976c9f2",
+   "why_description": "b191c9105bc38682",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "3c39ed6ca5be9664"
+  },
+  "all": "8bab4899cceb55d1",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
