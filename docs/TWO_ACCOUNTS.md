@@ -1,7 +1,9 @@
 # Two Claude Code accounts on one Mac (Divit, 2026-10-13)
 
-CURRENT COORDINATOR: B
+CURRENT COORDINATOR: A
 <!-- machine-readable (Divit 2026-11-03): ops/hubctl.py current_coordinator() reads this line; rewrite it at every handover. The current coordinator lifts any account's hold (hubctl unhold --by <C>-c-<n> --reason ...; logged in status/hold-lifts.jsonl with the original holder) and records the other account's slim review (hubctl slim-review ... --by A-s-<n> --recorded-by <C>-c-<n>). -->
+
+> **TEMPORARY HANDOVER (Divit, 2026-11-11): A (`~/emergent-hubs`, CLAUDE_CONFIG_DIR=~/.claude-b) is the coordinator and the ONLY shipper, and takes over ALL of B's remaining work (reviews, reworks, writers, ships). B is stopped at its usage limit and makes no writes to this repo or the hub collections until handback. B's uncommitted work is on origin/b-wip-2026-11-11; A brings onto main only what Webflow confirms. Handback on Divit's word after B's reset, via reports/2026-11-11/handback-to-B.md.**
 
 > **TEMPORARY HANDOVER (Divit, 2026-10-26): A is coordinator and the only shipper for all 4 hubs today; B makes no writes to this repo or the hub collections. Handback to B on 2026-10-27 after B's weekly reset, via reports/2026-10-26/handback-to-B.md.** No Webflow MCP or Designer work; CMS writes through the API script only.
 
