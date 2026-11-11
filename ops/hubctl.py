@@ -1503,10 +1503,18 @@ def table_defaults(url, args):
         p = kmap().get(url, {}); top = list(p.get("top10", []))
         try: sys.path.insert(0, os.path.join(ROOT, "plan")); import serp as S; top += [o.get("url", "") for o in (S.load(url) or {}).get("organic", [])]
         except Exception: pass
-        cat, pvs, prow, pvar = TB.pick(d, p.get("primary") or json.load(open(spath(url))).get("primary", ""), rows, top)
+        cat, pvs, prow, pvar = TB.pick(d, p.get("primary") or json.load(open(spath(url))).get("primary", ""), rows, top, category=table_category_hint(url))
         if not vs: vs = pvs; variant = variant if "--variant" in args else pvar
         rows = rows or prow
     return cat, vs, rows, variant
+
+def table_category_hint(url):
+    """Divit 2026-11-11 decision 3: a SurveyQuiz quiz page (a playable spec.quiz, or qc/quiz.is_quiz_page) gets the library's
+    quiz-maker set whatever its primary says; other pages: None (the primary keyword picks, surveys fall to general)."""
+    if hub_of(url) != "SurveyQuiz": return None
+    try: s = json.load(open(spath(url)))
+    except (OSError, ValueError): s = None
+    return "quiz-maker" if (s or {}).get("quiz") is not None or _quiz().is_quiz_page(s or url) else None
 
 def cmd_table(args):
     url = args[0]; sys.path.insert(0, os.path.join(ROOT, "ops")); import table as TB
