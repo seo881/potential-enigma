@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-505",
    "note": ""
+  },
+  {
+   "t": "2026-11-11 08:15 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-470",
+   "note": "rubric 10/10 by B-r-470; 3 notes"
   }
  ],
  "pipeline": "r15",
@@ -949,5 +956,245 @@
  ],
  "writers": [
   "B-w-505"
- ]
+ ],
+ "review": {
+  "by": "B-r-470",
+  "date": "2026-11-11 08:15 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Painting Quote Form Customers Fill Out Room by Room'; hero 'Build a painting quote form that prices each room from your rates and saves every request to a database you own.' (113 chars, primary, leads with Build); howto_description one sentence 'Seven steps to a painting quote form that prices rooms from your own rates and hands bigger jobs to an estimator.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder intent delivered: four tabs (interior rooms priced, exterior 3-story routed to estimator, cabinet piece pricing with signature, color picks by room), a seven-step how-to from rate list to test quote, and a comparison table; plan angle keeps pricing averages out and quotes the EPA RRP rule with its 'In general' limit."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Painter vocabulary throughout: 'Peeling trim, water stains, and old wallpaper', 'each door at $85 and each drawer front at $45', 'Fog Linen, number 112, for the den', 'houses of 3 stories or more'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature and tab bodies open on full sentences: 'Set a rate for each kind of room...', 'Odessa Varnell wants 3 rooms repainted.', 'Ravelstone Exteriors prices one- and two-story houses online.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences short and single-idea; QC TOTAL 0. Q8 count of 14 'A, B, and C' lists recorded as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Calm, product-led: 'As the customer adds rooms, the form totals the quote, and the price shown is the one saved with the request.' No AI tells."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "All Emergent statements map to claims_used (prompt-build, database-owned, alerts, e-signature-capture with no legal-validity claim, code-export 'On paid plans', api-connect, no-caps, free-start). FAQ 3 EPA sentence matches the domain_sources quote verbatim, 'in general' scope kept. Arithmetic: 480+480+640+2x140=1,880; 22x85=1,870, 9x45=405, total 2,275; May 12 - 2 = May 10. Copy, mockup and images agree on every number, name and condition."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own scenarios (stories threshold, cabinet piece pricing, color sheet to crew lead); sibling primaries appear only as FAQ link anchors ('cleaning quote form', 'construction quote form', 'rfq form'), never as headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic builder questions, each answered first ('Yes, for any job on an older home.', 'Price it by the piece...'); hub link in item 2; 3 sibling links in items 4, 7, 10; Emergent lines in items 6, 9, 10; paa --spec 10 pass, 0 reject, 0 flag; verbatim: no AlsoAsked items."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 lines $480/$480/$640/$280 = $1,880 with 'Saved to Brushline's table'; tab 2 'Site visit' for Ezekiel Corwick 3 stories, 'To Clemency Wroxley', '4 photos attached', 'North side / Peeling trim'; tab 3 22 doors $1,870 + 9 drawer fronts $405 = $2,275, 'Signed on her phone'; tab 4 Cosima Bartlett 4 rooms from 24 colors, 'To Lowell Ravensby', 'Sent May 10, 2 days early', 'Job starts May 12'. One hero each, readable."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "why_description, usecase_heading, feature_2, feature_3, feature_4, howto_step_1_des, howto_step_5_des, faq items 1, 5, 7, 9",
+    "quote": "Peeling trim, water stains, and old wallpaper",
+    "issue": "QC Q8 counts 14 'A, B, and C' lists on the page, which reads templated.",
+    "fix": "Turn a few lists into pairs or one specific item.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 4",
+    "quote": "If you also sell move-out cleaning, keep its rates on a separate cleaning quote form.",
+    "issue": "A painting company selling move-out cleaning reads as a sentence written to carry the link.",
+    "fix": "Anchor the cleaning link on a scenario a painter meets, or link a closer sibling.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "why_description",
+    "quote": "A phone call cannot price a hallway. Emergent builds the form that does",
+    "issue": "The aphorism opener is a little writerly for the plain product voice.",
+    "fix": "Lead with what the form collects that a phone call misses.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "why_description, usecase_heading, feature_2, feature_3, feature_4, howto_step_1_des, howto_step_5_des, faq items 1, 5, 7, 9",
+   "issue": "QC Q8 counts 14 'A, B, and C' lists on the page, which reads templated.",
+   "fix": "Turn a few lists into pairs or one specific item.",
+   "by": "B-r-470",
+   "via": "review",
+   "date": "2026-11-11 08:15 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 4",
+   "issue": "A painting company selling move-out cleaning reads as a sentence written to carry the link.",
+   "fix": "Anchor the cleaning link on a scenario a painter meets, or link a closer sibling.",
+   "by": "B-r-470",
+   "via": "review",
+   "date": "2026-11-11 08:15 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "why_description",
+   "issue": "The aphorism opener is a little writerly for the plain product voice.",
+   "fix": "Lead with what the form collects that a phone call misses.",
+   "by": "B-r-470",
+   "via": "review",
+   "date": "2026-11-11 08:15 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "da1d1c101540ebcf",
+   "alt:share_image": "3eb20a0462aea810",
+   "alt:tab_image_1": "8189b619632c2356",
+   "alt:tab_image_2": "4553e3f1d8acc6a7",
+   "alt:tab_image_3": "35b221795c9433b6",
+   "alt:tab_image_4": "cfaa177c1215927c",
+   "breadcrumb": "638e5e5b01cb7d50",
+   "chip_adds": "30974fe21dfa3a7b",
+   "explore_cta": "60f1fc75b3e20dc6",
+   "faq": "48e60159bfe461b5",
+   "feature_1": "ec6a38d5afba29f5",
+   "feature_2": "996bb949bb7e4452",
+   "feature_3": "69f3ef68d112bbd7",
+   "feature_4": "eac92e479a692b4c",
+   "feature_5": "e8801245d9e7432d",
+   "feature_6": "1631dbffe2e5b950",
+   "features_heading": "5b0432e9084ca757",
+   "features_subheading": "832caefde3e19e2c",
+   "h1": "b601e3b59100f2ed",
+   "hero_description": "2b0f7623dade1f19",
+   "hero_prompt": "40b866c934061cf7",
+   "howto_description": "e5ebcc120240ee81",
+   "howto_step_1_des": "fdf6096ceb0d5fc3",
+   "howto_step_1_title": "6c4de668d2603138",
+   "howto_step_2_des": "53156d726d70edf6",
+   "howto_step_2_title": "942c45612f055700",
+   "howto_step_3_des": "e3b014c82312d622",
+   "howto_step_3_title": "9e0edfe0bdf9c573",
+   "howto_step_4_des": "68bf9151978a6698",
+   "howto_step_4_title": "c01f2871fea80dfb",
+   "howto_step_5_des": "0827fbc39c3c4983",
+   "howto_step_5_title": "317206f79c397751",
+   "howto_step_6_des": "50d36bc3cd0c6149",
+   "howto_step_6_title": "db9934d75d388c4c",
+   "howto_step_7_des": "0deec383b062488d",
+   "howto_step_7_title": "eac9b1845e1d1891",
+   "howto_title": "61389a1388f604d2",
+   "meta_description": "f61e18642d1da2b6",
+   "meta_title": "7ee101114ea630f1",
+   "mockup": "9abe09079afc7026",
+   "product_name": "e5d5f311e47f50d3",
+   "prompt_chip_1": "5efba4d13c19ced4",
+   "prompt_chip_2": "c8d6488c2761c879",
+   "prompt_chip_3": "a7ed944c3c0db70a",
+   "prompt_chip_4": "07d27e84e6af661e",
+   "slug": "414e07e1968a1c34",
+   "tab_content_1": "128469595f668b34",
+   "tab_content_2": "b8358ca670b12573",
+   "tab_content_3": "292b43b0d87124cf",
+   "tab_content_4": "30d27b5582733e3d",
+   "tab_label_1": "a7c60fa460448eac",
+   "tab_label_2": "57879427936cdb4b",
+   "tab_label_3": "a52ed021d32c1248",
+   "tab_label_4": "2bf31b84d2acf868",
+   "usecase_heading": "36ceb1119c4ed45c",
+   "why_description": "36d0d4f5e0001c24",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "9da5ce6db802f328"
+  },
+  "all": "9da19e2a3c546b40",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "da1d1c101540ebcf",
+   "alt:share_image": "3eb20a0462aea810",
+   "alt:tab_image_1": "8189b619632c2356",
+   "alt:tab_image_2": "4553e3f1d8acc6a7",
+   "alt:tab_image_3": "35b221795c9433b6",
+   "alt:tab_image_4": "cfaa177c1215927c",
+   "breadcrumb": "638e5e5b01cb7d50",
+   "chip_adds": "30974fe21dfa3a7b",
+   "explore_cta": "60f1fc75b3e20dc6",
+   "faq": "48e60159bfe461b5",
+   "feature_1": "ec6a38d5afba29f5",
+   "feature_2": "996bb949bb7e4452",
+   "feature_3": "69f3ef68d112bbd7",
+   "feature_4": "eac92e479a692b4c",
+   "feature_5": "e8801245d9e7432d",
+   "feature_6": "1631dbffe2e5b950",
+   "features_heading": "5b0432e9084ca757",
+   "features_subheading": "832caefde3e19e2c",
+   "h1": "b601e3b59100f2ed",
+   "hero_description": "2b0f7623dade1f19",
+   "hero_prompt": "40b866c934061cf7",
+   "howto_description": "e5ebcc120240ee81",
+   "howto_step_1_des": "fdf6096ceb0d5fc3",
+   "howto_step_1_title": "6c4de668d2603138",
+   "howto_step_2_des": "53156d726d70edf6",
+   "howto_step_2_title": "942c45612f055700",
+   "howto_step_3_des": "e3b014c82312d622",
+   "howto_step_3_title": "9e0edfe0bdf9c573",
+   "howto_step_4_des": "68bf9151978a6698",
+   "howto_step_4_title": "c01f2871fea80dfb",
+   "howto_step_5_des": "0827fbc39c3c4983",
+   "howto_step_5_title": "317206f79c397751",
+   "howto_step_6_des": "50d36bc3cd0c6149",
+   "howto_step_6_title": "db9934d75d388c4c",
+   "howto_step_7_des": "0deec383b062488d",
+   "howto_step_7_title": "eac9b1845e1d1891",
+   "howto_title": "61389a1388f604d2",
+   "meta_description": "f61e18642d1da2b6",
+   "meta_title": "7ee101114ea630f1",
+   "mockup": "9abe09079afc7026",
+   "product_name": "e5d5f311e47f50d3",
+   "prompt_chip_1": "5efba4d13c19ced4",
+   "prompt_chip_2": "c8d6488c2761c879",
+   "prompt_chip_3": "a7ed944c3c0db70a",
+   "prompt_chip_4": "07d27e84e6af661e",
+   "slug": "414e07e1968a1c34",
+   "tab_content_1": "128469595f668b34",
+   "tab_content_2": "b8358ca670b12573",
+   "tab_content_3": "292b43b0d87124cf",
+   "tab_content_4": "30d27b5582733e3d",
+   "tab_label_1": "a7c60fa460448eac",
+   "tab_label_2": "57879427936cdb4b",
+   "tab_label_3": "a52ed021d32c1248",
+   "tab_label_4": "2bf31b84d2acf868",
+   "usecase_heading": "36ceb1119c4ed45c",
+   "why_description": "36d0d4f5e0001c24",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "9da5ce6db802f328"
+  },
+  "all": "9da19e2a3c546b40",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
