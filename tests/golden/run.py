@@ -549,6 +549,13 @@ def caught(c):
     if c["kind"] == "features-l15":   # Divit 2026-11-05: a features subheading claiming something of all six features fails L15
         sys.path.insert(0, os.path.join(ROOT, "qc")); import qc_hub as Q
         return bool(Q.features_subheading_issues(c["t"])) == c["expect_fail"]
+    if c["kind"] == "standards-gate":   # Divit 2026-11-11 gate: ops/standards_gate.check_page (SLUG, CMS slug, L14) on a synthetic page; expect = sorted check names that fail
+        sys.path.insert(0, os.path.join(ROOT, "ops")); sys.path.insert(0, os.path.join(ROOT, "qc")); import standards_gate as SG
+        sp = {"keywords": {"primary": c["prim"]}, "fields": {"h1": c["h1"], "hero_prompt": "<p>" + c["hero"] + "</p>"}}
+        eff = json.loads(json.dumps(sp))
+        if c.get("cms_slug"): eff["_cms_slug"] = c["cms_slug"]
+        f, _ = SG.check_page(c["hub"], c["url"], sp, eff, c.get("siblings") or [])
+        return sorted({x[0] for x in f}) == sorted(c["expect"])
     if c["kind"] == "hero-l14":   # Divit 2026-11-03 HERO PROMPT FIX: template sentences, two sentences and same-hub near-duplicates fail L14
         sys.path.insert(0, os.path.join(ROOT, "qc")); import qc_hub as Q
         codes = sorted({x[1] for x in Q.hero_prompt_issues(c["d"], c["prim"], "/golden/self", c["hub"], c.get("siblings"))})
