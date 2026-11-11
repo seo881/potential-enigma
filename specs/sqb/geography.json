@@ -115,6 +115,13 @@
    "via": null,
    "by": "A-w-203",
    "note": ""
+  },
+  {
+   "t": "2026-11-11 10:49 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-65",
+   "note": "rubric 10/10 by A-r-65; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -1240,5 +1247,267 @@
  ],
  "writers": [
   "B-w-533"
- ]
+ ],
+ "review": {
+  "by": "A-r-65",
+  "date": "2026-11-11 10:49 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Geography Quiz That Shows Which Places People Miss', title 'Geography Quiz: Play 8 Questions, Build Your Own | Emergent', hero 'Build a geography quiz on any region, with right answers and score bands, and see which places each class or team missed.' Slug geography == slug_for."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is play-a-quiz sites (Seterra, Sporcle, JetPunk); the page opens with a playable 8-question knowledge quiz with a source per answer, as the meta promises ('Play an 8-question geography quiz on oceans, rivers, deserts, and Europe, with a source for every answer'), then the build how-to."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Speaks to teachers, librarians, tour operators and trainers: 'Only 259 of 480 Northeast answers were right', 'A question about a European river should offer four European rivers.'"
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Full-sentence openers: 'Vinton Middle School's 96 seventh graders...', 'New dispatchers at Coldspring Freight take...', 'Set a pass mark, and the app emails...'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q6/Q7 clear; one ', so' ending and 12 'A, B, and C' lists recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: 'The Meridians led with 27 of 30, 2 ahead of Due North', 'The river through Budapest was missed by 39 of them', 'each one shadows a senior dispatcher for a shift.' No AI tells."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "All 8 quiz answers correct and matched to their quoted spans (NOAA, NatGeo, FWS, NPS); explanation numbers checked against the sources: FWS 'more than 2,500 miles from ... near Three Forks, Montana', NPS '31,700 square miles ... about the size of the state of Maine', NPS '278 miles (447 km) of the Colorado River'. Bands 0-3/4-6/7-8 match step 5 and feature 2. Tab maths: 96 x 5 = 480; 27 - 25 = 2; 5 + 3 + 3 = 11. Claims map to approved ids."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own angle (where people miss on the map); sibling primaries only as FAQ links ('vocabulary quiz', 'style quiz'), never as headings; trivia appears as 'trivia night', not the sibling primary."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions answered first; secondaries us geography quiz, geography america quiz, world geography quiz, europe geography quiz, geography quiz on europe, geography quiz maker; hub link in item 2; no brands or file formats in questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: Vinton 96 students, 4 sections, 25 questions, 5 per region, Northeast 259 of 480 lowest of 5, 2 more days; Ostwick 18 teams, 30 questions, Meridians 27 of 30, Due North 25; Elsmere 80 passengers, 9 days, 10 questions, 64 of 80, Budapest 39; Coldspring 20 questions, under 16, 3 of 11, Lupe Harlan. One cursor per panel."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_3, howto_step_2_des, howto_step_7_des, faq 1, faq 3",
+    "quote": "feature_3: 'Group the rows by region to see which part of the map a class keeps missing.'; step 2: 'Those tags are what let the results table group answers by place'; step 7: 'sort the table by question and by region'; faq 1: 'which parts of the map a player knows and which to study again'; faq 3: 'The results then show which part of the country needs more class time'",
+    "issue": "The group-results-by-region idea is restated in five fields.",
+    "fix": "Keep it in feature_3 and step 7; let the others carry a different point.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "feature_4",
+    "quote": "Players answer one question per screen under a progress bar, so a team at a trivia table can play without zooming.",
+    "issue": "', so' tacked-on ending (QC Q5, 1 on the page).",
+    "fix": "Two sentences: 'Players answer one question per screen under a progress bar. A team at a trivia table plays without zooming.'",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "meta_description, hero_description, feature_2, feature_3, tab_content_1, tab_content_4, howto_step_5_des, howto_step_7_des, faq 3, faq 4 (x3)",
+    "quote": "'rivers, deserts, and Europe'; 'with the player, the region, and the question'; 'with the student, the section, and the region'; 'states, interstates, and time zones'; 'the next lesson, talk, or training shift'; 'Canada, Mexico, and Central America'; 'delta, plateau, and isthmus'",
+    "issue": "12 'A, B, and C' lists on the page (QC Q8 flags above 8): reads templated, three in faq 4 alone.",
+    "fix": "Turn half into pairs or one specific.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "CONTENT_DEFECTS #3",
+    "field": "why_table",
+    "quote": "Survey builder with templates, including employee engagement",
+    "issue": "Library cells for SurveyMonkey and SurveyHero speak of employee surveys on a geography quiz page; no table competitor ranks in the top 10 (QC K7 P2), as the top 10 holds no builders.",
+    "fix": "Coordinator: consider a quiz-maker variant in the SQB competitor library for quiz pages.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_3, howto_step_2_des, howto_step_7_des, faq 1, faq 3",
+   "issue": "The group-results-by-region idea is restated in five fields.",
+   "fix": "Keep it in feature_3 and step 7; let the others carry a different point.",
+   "by": "A-r-65",
+   "via": "review",
+   "date": "2026-11-11 10:49 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "feature_4",
+   "issue": "', so' tacked-on ending (QC Q5, 1 on the page).",
+   "fix": "Two sentences: 'Players answer one question per screen under a progress bar. A team at a trivia table plays without zooming.'",
+   "by": "A-r-65",
+   "via": "review",
+   "date": "2026-11-11 10:49 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "meta_description, hero_description, feature_2, feature_3, tab_content_1, tab_content_4, howto_step_5_des, howto_step_7_des, faq 3, faq 4 (x3)",
+   "issue": "12 'A, B, and C' lists on the page (QC Q8 flags above 8): reads templated, three in faq 4 alone.",
+   "fix": "Turn half into pairs or one specific.",
+   "by": "A-r-65",
+   "via": "review",
+   "date": "2026-11-11 10:49 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "CONTENT_DEFECTS #3",
+   "field": "why_table",
+   "issue": "Library cells for SurveyMonkey and SurveyHero speak of employee surveys on a geography quiz page; no table competitor ranks in the top 10 (QC K7 P2), as the top 10 holds no builders.",
+   "fix": "Coordinator: consider a quiz-maker variant in the SQB competitor library for quiz pages.",
+   "by": "A-r-65",
+   "via": "review",
+   "date": "2026-11-11 10:49 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "9a05d3b2ce73982b",
+   "alt:share_image": "18bf0630c6a91a29",
+   "alt:tab_image_1": "8e56fa530c2bd890",
+   "alt:tab_image_2": "d189bed3e2b790de",
+   "alt:tab_image_3": "e7850e96856f7bdf",
+   "alt:tab_image_4": "5c3d718fd0526f18",
+   "breadcrumb": "6e96523f72438cca",
+   "chip_adds": "da21990f77323d9b",
+   "explore_cta": "b444f71dc8b7d50d",
+   "faq": "0c05a2c63c3ec1ed",
+   "feature_1": "0cbfba69d97627fb",
+   "feature_2": "b97b81d5c113d534",
+   "feature_3": "5abd453a4c3384b0",
+   "feature_4": "193685e1df3cf0b3",
+   "feature_5": "38d6875b8d80c177",
+   "feature_6": "e0807d8c36c26c59",
+   "features_heading": "7ac2d306386b4625",
+   "features_subheading": "c308069ef38b82c8",
+   "h1": "b4a6ceef61302827",
+   "hero_description": "6ed378967afe4ed0",
+   "hero_prompt": "8f2ed0b819b87c0b",
+   "howto_description": "f2c6f848bfde594f",
+   "howto_step_1_des": "0b65ae5660b5beca",
+   "howto_step_1_title": "715f1f99a50fd9b0",
+   "howto_step_2_des": "64a7a9f172ceb2e1",
+   "howto_step_2_title": "5c4815ecace0759f",
+   "howto_step_3_des": "33b453ae59c86137",
+   "howto_step_3_title": "03ff86454456c732",
+   "howto_step_4_des": "8b6d705b045d4fe4",
+   "howto_step_4_title": "aba9cc41adee3f72",
+   "howto_step_5_des": "de7b3501bfbb7ca8",
+   "howto_step_5_title": "54bb9b396632600b",
+   "howto_step_6_des": "331fcfb59e4ea6d5",
+   "howto_step_6_title": "d43b8cddfd93839a",
+   "howto_step_7_des": "a738700e01b84065",
+   "howto_step_7_title": "387b5f9a24bf8040",
+   "howto_title": "98b1d40c23b3b1f8",
+   "meta_description": "d7ff27b0e620d4d7",
+   "meta_title": "c6f496bc29c44950",
+   "mockup": "209f67e5e53ea08e",
+   "product_name": "3ab4cdeffc004627",
+   "prompt_chip_1": "517101e65dbfac64",
+   "prompt_chip_2": "76f27a65869cd5e1",
+   "prompt_chip_3": "d234c64cff408cdb",
+   "prompt_chip_4": "a00a6a3d95d37456",
+   "quiz": "27798ea75a729868",
+   "slug": "bf8e5ca0b2d5abd3",
+   "tab_content_1": "3f67d5d8432df4d0",
+   "tab_content_2": "1d6a74d8547e7672",
+   "tab_content_3": "7c5d72addc8c65ab",
+   "tab_content_4": "278ad8c719010034",
+   "tab_label_1": "140ecf7f7608020c",
+   "tab_label_2": "34747dc52727055c",
+   "tab_label_3": "56d17b41c18ca10f",
+   "tab_label_4": "474cf67da3d5a71e",
+   "usecase_heading": "52f26f7c3aa1a68d",
+   "why_description": "3f6fdde3b4c3039b",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "74395bf257bf2603"
+  },
+  "all": "fdaf28dc8d772bfe",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "9a05d3b2ce73982b",
+   "alt:share_image": "18bf0630c6a91a29",
+   "alt:tab_image_1": "8e56fa530c2bd890",
+   "alt:tab_image_2": "d189bed3e2b790de",
+   "alt:tab_image_3": "e7850e96856f7bdf",
+   "alt:tab_image_4": "5c3d718fd0526f18",
+   "breadcrumb": "6e96523f72438cca",
+   "chip_adds": "da21990f77323d9b",
+   "explore_cta": "b444f71dc8b7d50d",
+   "faq": "0c05a2c63c3ec1ed",
+   "feature_1": "0cbfba69d97627fb",
+   "feature_2": "b97b81d5c113d534",
+   "feature_3": "5abd453a4c3384b0",
+   "feature_4": "193685e1df3cf0b3",
+   "feature_5": "38d6875b8d80c177",
+   "feature_6": "e0807d8c36c26c59",
+   "features_heading": "7ac2d306386b4625",
+   "features_subheading": "c308069ef38b82c8",
+   "h1": "b4a6ceef61302827",
+   "hero_description": "6ed378967afe4ed0",
+   "hero_prompt": "8f2ed0b819b87c0b",
+   "howto_description": "f2c6f848bfde594f",
+   "howto_step_1_des": "0b65ae5660b5beca",
+   "howto_step_1_title": "715f1f99a50fd9b0",
+   "howto_step_2_des": "64a7a9f172ceb2e1",
+   "howto_step_2_title": "5c4815ecace0759f",
+   "howto_step_3_des": "33b453ae59c86137",
+   "howto_step_3_title": "03ff86454456c732",
+   "howto_step_4_des": "8b6d705b045d4fe4",
+   "howto_step_4_title": "aba9cc41adee3f72",
+   "howto_step_5_des": "de7b3501bfbb7ca8",
+   "howto_step_5_title": "54bb9b396632600b",
+   "howto_step_6_des": "331fcfb59e4ea6d5",
+   "howto_step_6_title": "d43b8cddfd93839a",
+   "howto_step_7_des": "a738700e01b84065",
+   "howto_step_7_title": "387b5f9a24bf8040",
+   "howto_title": "98b1d40c23b3b1f8",
+   "meta_description": "d7ff27b0e620d4d7",
+   "meta_title": "c6f496bc29c44950",
+   "mockup": "209f67e5e53ea08e",
+   "product_name": "3ab4cdeffc004627",
+   "prompt_chip_1": "517101e65dbfac64",
+   "prompt_chip_2": "76f27a65869cd5e1",
+   "prompt_chip_3": "d234c64cff408cdb",
+   "prompt_chip_4": "a00a6a3d95d37456",
+   "quiz": "27798ea75a729868",
+   "slug": "bf8e5ca0b2d5abd3",
+   "tab_content_1": "3f67d5d8432df4d0",
+   "tab_content_2": "1d6a74d8547e7672",
+   "tab_content_3": "7c5d72addc8c65ab",
+   "tab_content_4": "278ad8c719010034",
+   "tab_label_1": "140ecf7f7608020c",
+   "tab_label_2": "34747dc52727055c",
+   "tab_label_3": "56d17b41c18ca10f",
+   "tab_label_4": "474cf67da3d5a71e",
+   "usecase_heading": "52f26f7c3aa1a68d",
+   "why_description": "3f6fdde3b4c3039b",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "74395bf257bf2603"
+  },
+  "all": "fdaf28dc8d772bfe",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
