@@ -122,6 +122,13 @@
    "via": null,
    "by": "B-w-508",
    "note": ""
+  },
+  {
+   "t": "2026-11-11 08:18 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-473",
+   "note": "rubric 10/10 by B-r-473; 3 notes"
   }
  ],
  "pipeline": "r15",
@@ -899,5 +906,245 @@
  ],
  "writers": [
   "B-w-508"
- ]
+ ],
+ "review": {
+  "by": "B-r-473",
+  "date": "2026-11-11 08:18 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Photo Contest Form With Category Caps and Blind Judging', hero 'Build a photo contest form that takes each photo with its title and category, then shows judges entry numbers instead of names.' covers entry, limits and judging; howto description one sentence; slug photo-contest per ops/slugs.py rule."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder intent delivered: entry fields (howto 02 'name, email, the photo, its title, and the category'), category caps, blind judging, shortlist, results email, 7-step how-to, comparison table, 10 organizer FAQs; AlsoAsked items are entrant-side and correctly rejected (paa --spec 0 rejects, 0 flags)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Organizer vocabulary throughout: 'entry number', 'final round', 'Nature is full this month', '2 stars from a panel of 3'; four distinct segments (camera club, visitors bureau, school art department, rescue calendar)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Kettle Rock Camera Club lets each member enter 2 photos per category', 'Each upload carries a title and the category it enters', 'Set how many photos one person may enter in a category.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft class exists; Q8 list count (9) and 4 'Build a' openers recorded as notes. Sentences short and concrete: 'She enters it there as Fog Over the Weir.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain, specific, unglamorous detail: 'Pauline Vashenko has 2 heron shots in Nature for October', 'A file named after its owner, or a title that mentions them, breaks the blind.' No hype vocabulary."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "claims_used prompt-build, database-owned, code-export, alerts, no-caps, free-start all approved; feature 6 'On paid plans, export the code ... to your GitHub repository'; FAQ 3 math 60x2x3=360 photos, 360x30s=3 hours correct; tab 2 41+37+33+29+26+22=188; cap 2, bar '2 or more of 3 judges', month reset agree across features, tabs, how-to, FAQ, mockup and chips; table from vetted library (QC V2/V3 pass); no third-party facts stated, so empty domain_sources is consistent."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Siblings contest-entry, audition and raffle are linked, not headlined (FAQ 4 'contest entry form', FAQ 7 'audition form'); page angle is category caps plus blind judging, specific to photos."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "Exactly 10 on-topic organizer questions, answer-first ('Allow 2 or 3 per category for a club contest'), hub link in item 2, 3 exact-match sibling/hub links (contest entry form, audition form, giveaway landing page), moat lines in items 6, 8, 9; no brand or file-format questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: tab 1 'Nature is full', '2 of 2', 'Monochrome: 0 entries', 'Fog Over the Weir'; tab 2 six parks summing to 188, 'Quarry Lake 22 photos, next newsletter'; tab 3 '9 photos', 'Entry 0583: all 3 stars', '96 photos, 3 judges, names hidden'; tab 4 'February: 3 entries', 'July: 4 entries', '140 entries so far', 'For Albertine Marrow'. One hero each, cursor on button."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #14",
+    "field": "faq item 6",
+    "quote": "In a form built on Emergent, the app emails your mailing list a reminder 2 days before the close.",
+    "issue": "Reads as a default platform behaviour rather than something the organizer asks for; the alerts claim covers reminders the user builds.",
+    "fix": "A form built on Emergent can email your mailing list a reminder 2 days before the close.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2b",
+    "field": "usecase_heading, feature_5, tab_content_2, tab_content_4, howto_step_1_des, howto_step_2_des, howto_step_4_des, howto_step_5_des, faq item 10",
+    "quote": "the entrant, the email, the category, the photo, and its stars",
+    "issue": "Nine 'A, B, and C' lists on the page (QC Q8 flag) plus 4 sentences opening 'Build a' (QC A4); the list shape repeats enough to read templated.",
+    "fix": "Turn two or three of the lists into pairs or a single specific item.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 7",
+    "quote": "Should a talent search use a photo contest form?",
+    "issue": "Written mainly to route to the audition sibling; few organizers would phrase this question.",
+    "fix": "Keep for linking, or swap for an organizer question such as rules for edited photos, with the audition link moved.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #14",
+   "field": "faq item 6",
+   "issue": "Reads as a default platform behaviour rather than something the organizer asks for; the alerts claim covers reminders the user builds.",
+   "fix": "A form built on Emergent can email your mailing list a reminder 2 days before the close.",
+   "by": "B-r-473",
+   "via": "review",
+   "date": "2026-11-11 08:18 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2b",
+   "field": "usecase_heading, feature_5, tab_content_2, tab_content_4, howto_step_1_des, howto_step_2_des, howto_step_4_des, howto_step_5_des, faq item 10",
+   "issue": "Nine 'A, B, and C' lists on the page (QC Q8 flag) plus 4 sentences opening 'Build a' (QC A4); the list shape repeats enough to read templated.",
+   "fix": "Turn two or three of the lists into pairs or a single specific item.",
+   "by": "B-r-473",
+   "via": "review",
+   "date": "2026-11-11 08:18 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 7",
+   "issue": "Written mainly to route to the audition sibling; few organizers would phrase this question.",
+   "fix": "Keep for linking, or swap for an organizer question such as rules for edited photos, with the audition link moved.",
+   "by": "B-r-473",
+   "via": "review",
+   "date": "2026-11-11 08:18 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "b511336c0374b2fe",
+   "alt:share_image": "4292ac7c4fbf5d98",
+   "alt:tab_image_1": "1271efadb1f326c0",
+   "alt:tab_image_2": "a1688306cba5142b",
+   "alt:tab_image_3": "9deed4724c3ba6a5",
+   "alt:tab_image_4": "96b4b30c8edffd1f",
+   "breadcrumb": "ea951cdae722d898",
+   "chip_adds": "b51d2e43dc416e7a",
+   "explore_cta": "cc8570c22dd9c09a",
+   "faq": "0cb08a66db4b8a33",
+   "feature_1": "70df2ce4b5129fa1",
+   "feature_2": "b36d45e9ef03e7ed",
+   "feature_3": "4140aae5ce04a7b8",
+   "feature_4": "822e90931b4eda40",
+   "feature_5": "bf5adea8f2d85f3d",
+   "feature_6": "98dafaffaabdb46c",
+   "features_heading": "7f6784c5bc2b1996",
+   "features_subheading": "4fb14a2ce92b3953",
+   "h1": "83421482af4a62fc",
+   "hero_description": "a25f5fa589f000d3",
+   "hero_prompt": "fc70224d733f140e",
+   "howto_description": "588625b2dbf9b24f",
+   "howto_step_1_des": "ce72d88fada6a605",
+   "howto_step_1_title": "555b50cf60290341",
+   "howto_step_2_des": "9d558c8d42865545",
+   "howto_step_2_title": "c5e7c3355d5badf7",
+   "howto_step_3_des": "8e7dfd085b2addfb",
+   "howto_step_3_title": "d6f8fb1c5f394c63",
+   "howto_step_4_des": "8faf534179bbe58c",
+   "howto_step_4_title": "5de4c588b55c1c74",
+   "howto_step_5_des": "4f947a34f8dc430b",
+   "howto_step_5_title": "8f00524bbdb44b4a",
+   "howto_step_6_des": "487cda356fcb9543",
+   "howto_step_6_title": "ecae2a006895e746",
+   "howto_step_7_des": "68c90e74d9ee541e",
+   "howto_step_7_title": "fc5007803b1fe68d",
+   "howto_title": "d252c2f0cdb44d23",
+   "meta_description": "e4fc20ccf0a69973",
+   "meta_title": "7f30ffde5dca9365",
+   "mockup": "af08c65dbaddcdd0",
+   "product_name": "7a3a7cc986350ac8",
+   "prompt_chip_1": "5ba1ac25861b03ff",
+   "prompt_chip_2": "13e7d2d9b5ed92b6",
+   "prompt_chip_3": "5071979219ddad41",
+   "prompt_chip_4": "a7eea58ddce4384f",
+   "slug": "ad63ae8b311e710c",
+   "tab_content_1": "1127b43a4e7f7eaf",
+   "tab_content_2": "6120f01798d4d429",
+   "tab_content_3": "15940e813d4491fe",
+   "tab_content_4": "cdeef92aaa1ff910",
+   "tab_label_1": "1d00eab01f05472e",
+   "tab_label_2": "f7045aa533b41a4d",
+   "tab_label_3": "dcc1692117da16f2",
+   "tab_label_4": "4d8199cf60c96ca6",
+   "usecase_heading": "6f588f331eb2efd6",
+   "why_description": "53f1443a55bcd2e4",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "47a60e292adccd26"
+  },
+  "all": "14b7da2df9797fa5",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "b511336c0374b2fe",
+   "alt:share_image": "4292ac7c4fbf5d98",
+   "alt:tab_image_1": "1271efadb1f326c0",
+   "alt:tab_image_2": "a1688306cba5142b",
+   "alt:tab_image_3": "9deed4724c3ba6a5",
+   "alt:tab_image_4": "96b4b30c8edffd1f",
+   "breadcrumb": "ea951cdae722d898",
+   "chip_adds": "b51d2e43dc416e7a",
+   "explore_cta": "cc8570c22dd9c09a",
+   "faq": "0cb08a66db4b8a33",
+   "feature_1": "70df2ce4b5129fa1",
+   "feature_2": "b36d45e9ef03e7ed",
+   "feature_3": "4140aae5ce04a7b8",
+   "feature_4": "822e90931b4eda40",
+   "feature_5": "bf5adea8f2d85f3d",
+   "feature_6": "98dafaffaabdb46c",
+   "features_heading": "7f6784c5bc2b1996",
+   "features_subheading": "4fb14a2ce92b3953",
+   "h1": "83421482af4a62fc",
+   "hero_description": "a25f5fa589f000d3",
+   "hero_prompt": "fc70224d733f140e",
+   "howto_description": "588625b2dbf9b24f",
+   "howto_step_1_des": "ce72d88fada6a605",
+   "howto_step_1_title": "555b50cf60290341",
+   "howto_step_2_des": "9d558c8d42865545",
+   "howto_step_2_title": "c5e7c3355d5badf7",
+   "howto_step_3_des": "8e7dfd085b2addfb",
+   "howto_step_3_title": "d6f8fb1c5f394c63",
+   "howto_step_4_des": "8faf534179bbe58c",
+   "howto_step_4_title": "5de4c588b55c1c74",
+   "howto_step_5_des": "4f947a34f8dc430b",
+   "howto_step_5_title": "8f00524bbdb44b4a",
+   "howto_step_6_des": "487cda356fcb9543",
+   "howto_step_6_title": "ecae2a006895e746",
+   "howto_step_7_des": "68c90e74d9ee541e",
+   "howto_step_7_title": "fc5007803b1fe68d",
+   "howto_title": "d252c2f0cdb44d23",
+   "meta_description": "e4fc20ccf0a69973",
+   "meta_title": "7f30ffde5dca9365",
+   "mockup": "af08c65dbaddcdd0",
+   "product_name": "7a3a7cc986350ac8",
+   "prompt_chip_1": "5ba1ac25861b03ff",
+   "prompt_chip_2": "13e7d2d9b5ed92b6",
+   "prompt_chip_3": "5071979219ddad41",
+   "prompt_chip_4": "a7eea58ddce4384f",
+   "slug": "ad63ae8b311e710c",
+   "tab_content_1": "1127b43a4e7f7eaf",
+   "tab_content_2": "6120f01798d4d429",
+   "tab_content_3": "15940e813d4491fe",
+   "tab_content_4": "cdeef92aaa1ff910",
+   "tab_label_1": "1d00eab01f05472e",
+   "tab_label_2": "f7045aa533b41a4d",
+   "tab_label_3": "dcc1692117da16f2",
+   "tab_label_4": "4d8199cf60c96ca6",
+   "usecase_heading": "6f588f331eb2efd6",
+   "why_description": "53f1443a55bcd2e4",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "47a60e292adccd26"
+  },
+  "all": "14b7da2df9797fa5",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
