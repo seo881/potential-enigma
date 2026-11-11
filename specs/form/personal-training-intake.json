@@ -122,6 +122,13 @@
    "via": null,
    "by": "B-w-503",
    "note": ""
+  },
+  {
+   "t": "2026-11-11 08:21 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-476",
+   "note": "[images | CONTENT_DEFECTS #20] image_brief.tabs[0].hero, image_brief.tabs[3].hero: The copy says the alert carries only the client's name and a ready note: feature_4 'The trainer gets an email or a Slack message with the client's name and a note that the intake is ready. Screening answers stay out o"
   }
  ],
  "pipeline": "r15",
@@ -930,5 +937,245 @@
  ],
  "writers": [
   "B-w-503"
- ]
+ ],
+ "review": {
+  "by": "B-r-476",
+  "date": "2026-11-11 08:21 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Personal Training Intake Form for the First Session' and hero 'Build a personal training intake form that collects goals, available days, and PAR-Q+ answers before the first session.' state the whole job; how-to description is one sentence on screening and routing."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Delivers what a searcher building the form needs: which questions to ask (FAQ 3 'Start with four groups...'), a seven-step how-to, the PAR-Q+ step and Yes rule, and four working setups (studio, screening follow-up, online coaching, multi-trainer gym)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Trainer vocabulary throughout: 'which lifts they do now', 'race date and weekly mileage', 'two adjustable dumbbells up to 50 lb', 'ePARmed-X+'; table uses the form-builder variant."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Corwin Kerrane signs up at Ironwhistle Strength.', 'A client who picks strength is asked which lifts they do now'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Short declaratives, one idea each: 'Her intake reads Needs review, and her first session stays unbooked.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail, no hype: 'Marisela reads the list the day before and plans a program with no bench work.'"
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "hero_prompt 'then emails the trainer.' composed with chip_add 1 'Add a PAR-Q+ step that opens the follow-up pages after any Yes answer.' reads as the intake, PAR-Q+ answers included, being emailed (health-in-transit). PAR-Q+ facts otherwise match the eparmedx.com spans; claims map to claims_used ids."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "PAR-Q+ step, home-equipment list and goal-and-slot trainer routing are specific to this page; no sibling primary (fitness assessment form, client onboarding questionnaire) used as a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic builder questions, answer-first, hub link in item 2, three sibling links ('accounting client intake form', 'life coaching intake form', 'project request form'); paa --spec 10 pass, 0 reject, 0 flag."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 1 email card to Liesel Lartey carries 'Corwin Kerrane, strength', '3 slots requested at 6 AM', '2 years at a home gym'; tab 4 email card to Dashiell Okoye carries 'Fat loss, after 6 PM' and 'Call her the next day'; copy says the alert holds only the name and a ready note (feature_4, howto_step_6_des)."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief.tabs[0].hero, image_brief.tabs[3].hero",
+    "quote": "Tab 1 email: 'Corwin's intake is ready / Corwin Kerrane, strength / 3 slots requested at 6 AM / 2 years at a home gym'; tab 4 email: 'Henrietta's intake is ready / Fat loss, after 6 PM / Call her the next day'",
+    "issue": "The copy says the alert carries only the client's name and a ready note: feature_4 'The trainer gets an email or a Slack message with the client's name and a note that the intake is ready. Screening answers stay out of the message and wait in the app.' and howto_step_6_des 'their email names the client and nothing else.' Both email cards in the images carry intake details (goal, training history, slots, goal and time slot, an instruction). Copy and image disagree on what the email contains (Divit 2026-11-05 cross-field rule).",
+    "fix": "Make both email hero cards name the client and say the intake is ready, nothing more (e.g. title 'Corwin's intake is ready', sub 'Corwin Kerrane', one meta such as 'Details in the app'); keep goal, history and slots in the main intake panel only. Update the story links (tab 1 '2 years at a home gym' and '3 slots' map to the main panel fields; tab 4 'Fat loss, after 6 PM' to the trainer table row, 'calls her the next day' to a mini card or drop it from the story). Re-render and check the contact sheet.",
+    "severity": "blocking"
+   },
+   {
+    "class": "health-in-transit",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "hero_prompt (+ chip_adds[0] composite)",
+    "quote": "Build a personal training intake form for my strength studio that asks for goals, training history, and available days, then emails the trainer. + Add a PAR-Q+ step that opens the follow-up pages after any Yes answer.",
+    "issue": "'then emails the trainer' reads as the form emailing its contents to the trainer. With the PAR-Q+ Screening chip selected, the composed prompt asks for a health screen whose answers are then emailed, which Divit's 2026-11-05 ruling 1 forbids (health answers never shown traveling by email). The mockup and image prompt already use the safe wording ('email the trainer when an intake is ready').",
+    "fix": "End the hero prompt with 'then emails the trainer when an intake is ready.' (re-check QC L13 line count for the default and all four chip composites).",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 1",
+    "quote": "It can also carry the PAR-Q+, a seven-question readiness screen, as a separate step",
+    "issue": "The source span covers seven general health questions on page 1; the PAR-Q+ also has follow-up pages, which the page itself describes. 'seven-question readiness screen' undersells it slightly.",
+    "fix": "'the PAR-Q+, a readiness screen that opens with seven general health questions,'",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "body, feature_4, tab_content_2, howto_step_6_des",
+    "quote": "'the screening answers stay inside the app' / 'Screening answers stay out of the message and wait in the app.' / 'with no answers in it' / 'their email names the client and nothing else'",
+    "issue": "The no-details-in-the-alert idea is restated in four fields.",
+    "fix": "Keep it in feature_4 and tab 2; trim one of the others.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 1",
+   "issue": "The source span covers seven general health questions on page 1; the PAR-Q+ also has follow-up pages, which the page itself describes. 'seven-question readiness screen' undersells it slightly.",
+   "fix": "'the PAR-Q+, a readiness screen that opens with seven general health questions,'",
+   "by": "B-r-476",
+   "via": "review",
+   "date": "2026-11-11 08:21 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "body, feature_4, tab_content_2, howto_step_6_des",
+   "issue": "The no-details-in-the-alert idea is restated in four fields.",
+   "fix": "Keep it in feature_4 and tab 2; trim one of the others.",
+   "by": "B-r-476",
+   "via": "review",
+   "date": "2026-11-11 08:21 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "a60d2fe8ec2de14d",
+   "alt:share_image": "93f29ebed994ddac",
+   "alt:tab_image_1": "f1aeb764e5238c51",
+   "alt:tab_image_2": "43d0d11b4723ba3b",
+   "alt:tab_image_3": "7b7a3419296e33c9",
+   "alt:tab_image_4": "7bc38a11b9ac9b51",
+   "breadcrumb": "7ad791e6e28693a2",
+   "chip_adds": "6d3630eeb7ab6cc8",
+   "explore_cta": "000c2d3806747ae3",
+   "faq": "f9355201beb2f7c8",
+   "feature_1": "90b1631bd1773b30",
+   "feature_2": "20b9b155c882956b",
+   "feature_3": "7fa9915ed024a29a",
+   "feature_4": "3bcc2abf17df13d4",
+   "feature_5": "b57f38b0f0c5e610",
+   "feature_6": "ca5f66eb1a92b18d",
+   "features_heading": "8ab1916b80f66244",
+   "features_subheading": "aefdd991758c4f54",
+   "h1": "73580651614a53a8",
+   "hero_description": "218e6049ce63bbb9",
+   "hero_prompt": "85c1595dfb5d5b8d",
+   "howto_description": "b531adca4b1f9c5b",
+   "howto_step_1_des": "d7977d99fce46315",
+   "howto_step_1_title": "edb3c58d0d4c2737",
+   "howto_step_2_des": "e9e85c7343d6bd7b",
+   "howto_step_2_title": "d631299f8bfee57a",
+   "howto_step_3_des": "5a5672c119084f65",
+   "howto_step_3_title": "2dfcea4eb1c1bead",
+   "howto_step_4_des": "adf851d477d521e6",
+   "howto_step_4_title": "c4250ecdae1f76eb",
+   "howto_step_5_des": "a9a7e1bbaeb3eec5",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "f6c4e933eccf3b47",
+   "howto_step_6_title": "ba6a29b398273f5c",
+   "howto_step_7_des": "b0752d615506bd88",
+   "howto_step_7_title": "4609be649192a988",
+   "howto_title": "f76db8ae769733a0",
+   "meta_description": "8978a6bd1207cde0",
+   "meta_title": "815599ecff043d04",
+   "mockup": "33ec7cda0a637ab1",
+   "product_name": "1174034ac997685f",
+   "prompt_chip_1": "d0b3d942ac2c900d",
+   "prompt_chip_2": "2320d9296125c633",
+   "prompt_chip_3": "b96b734e1e12861e",
+   "prompt_chip_4": "4a63158fa4adb84a",
+   "slug": "7b85785413436962",
+   "tab_content_1": "d9736d0aa8493e0e",
+   "tab_content_2": "8bd355db361bae9d",
+   "tab_content_3": "1b208140f06526df",
+   "tab_content_4": "96b0b3d15dd1e1ad",
+   "tab_label_1": "26393bb76526b71a",
+   "tab_label_2": "62b398066379101f",
+   "tab_label_3": "592f19bb2d0b8ce9",
+   "tab_label_4": "36535d2e4bb85cab",
+   "usecase_heading": "e540be46aaaf8c1d",
+   "why_description": "aa5e42615b2fe474",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "a5aedb12f5638110"
+  },
+  "all": "a608c4d6404d9e13",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "a60d2fe8ec2de14d",
+   "alt:share_image": "93f29ebed994ddac",
+   "alt:tab_image_1": "f1aeb764e5238c51",
+   "alt:tab_image_2": "43d0d11b4723ba3b",
+   "alt:tab_image_3": "7b7a3419296e33c9",
+   "alt:tab_image_4": "7bc38a11b9ac9b51",
+   "breadcrumb": "7ad791e6e28693a2",
+   "chip_adds": "6d3630eeb7ab6cc8",
+   "explore_cta": "000c2d3806747ae3",
+   "faq": "f9355201beb2f7c8",
+   "feature_1": "90b1631bd1773b30",
+   "feature_2": "20b9b155c882956b",
+   "feature_3": "7fa9915ed024a29a",
+   "feature_4": "3bcc2abf17df13d4",
+   "feature_5": "b57f38b0f0c5e610",
+   "feature_6": "ca5f66eb1a92b18d",
+   "features_heading": "8ab1916b80f66244",
+   "features_subheading": "aefdd991758c4f54",
+   "h1": "73580651614a53a8",
+   "hero_description": "218e6049ce63bbb9",
+   "hero_prompt": "85c1595dfb5d5b8d",
+   "howto_description": "b531adca4b1f9c5b",
+   "howto_step_1_des": "d7977d99fce46315",
+   "howto_step_1_title": "edb3c58d0d4c2737",
+   "howto_step_2_des": "e9e85c7343d6bd7b",
+   "howto_step_2_title": "d631299f8bfee57a",
+   "howto_step_3_des": "5a5672c119084f65",
+   "howto_step_3_title": "2dfcea4eb1c1bead",
+   "howto_step_4_des": "adf851d477d521e6",
+   "howto_step_4_title": "c4250ecdae1f76eb",
+   "howto_step_5_des": "a9a7e1bbaeb3eec5",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "f6c4e933eccf3b47",
+   "howto_step_6_title": "ba6a29b398273f5c",
+   "howto_step_7_des": "b0752d615506bd88",
+   "howto_step_7_title": "4609be649192a988",
+   "howto_title": "f76db8ae769733a0",
+   "meta_description": "8978a6bd1207cde0",
+   "meta_title": "815599ecff043d04",
+   "mockup": "33ec7cda0a637ab1",
+   "product_name": "1174034ac997685f",
+   "prompt_chip_1": "d0b3d942ac2c900d",
+   "prompt_chip_2": "2320d9296125c633",
+   "prompt_chip_3": "b96b734e1e12861e",
+   "prompt_chip_4": "4a63158fa4adb84a",
+   "slug": "7b85785413436962",
+   "tab_content_1": "d9736d0aa8493e0e",
+   "tab_content_2": "8bd355db361bae9d",
+   "tab_content_3": "1b208140f06526df",
+   "tab_content_4": "96b0b3d15dd1e1ad",
+   "tab_label_1": "26393bb76526b71a",
+   "tab_label_2": "62b398066379101f",
+   "tab_label_3": "592f19bb2d0b8ce9",
+   "tab_label_4": "36535d2e4bb85cab",
+   "usecase_heading": "e540be46aaaf8c1d",
+   "why_description": "aa5e42615b2fe474",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "a5aedb12f5638110"
+  },
+  "all": "a608c4d6404d9e13",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
