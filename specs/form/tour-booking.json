@@ -122,6 +122,13 @@
    "via": null,
    "by": "B-w-515",
    "note": ""
+  },
+  {
+   "t": "2026-11-11 10:43 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "A-r-57",
+   "note": "[images | CONTENT_DEFECTS #20] image_brief tab 1 (main fields) vs tab_content_1: The form field set differs between copy and image. tab_content_1 and the foodWalkingTours mockup ('Ask for the guest's name, email, the departure, and the number of guests') and FAQ 5 ('the departure, the number of gues"
   }
  ],
  "pipeline": "r15",
@@ -929,5 +936,215 @@
  ],
  "writers": [
   "B-w-515"
- ]
+ ],
+ "review": {
+  "by": "A-r-57",
+  "date": "2026-11-11 10:43 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Tour Booking Form That Closes Each Departure When Full'; hero covers open-seat departures and database."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder page for 'tour booking form': seat caps, departures, group quotes, pickups, cancellations, 7-step how-to; FAQ 3 answers the 'template' secondary."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'18 guests across 5 hotels, in stop order, starting at the Harborline Inn at 7:10 am'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Bodies open on full sentences: 'Set a seat cap for each departure time.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Two ', so' endings (QC P2, under threshold)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Wind picked up over the harbor at 4:00 pm' concrete; no AI tells."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Claims in claims_used. Numbers agree: 12-seat cap, 16 riders over 10, 4 confirmed; 4+3+5+2+4=18 pickups; 4+2+3+2+3=14 guests, 3 of 5 rebooked. Field set mismatch is recorded under images."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Departure seat counting, pickups and charters; event, hotel and dj booking linked, not targeted."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first; hub link in item 2; three sibling links."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 1 image draws Departure, Guests, Name and 'Seats left: 3' with no Email field, while tab_content_1 says 'enters her name and email' and the mockup and FAQ 5 list name, email, departure and number of guests."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief tab 1 (main fields) vs tab_content_1",
+    "quote": "Delphine Marchetti picks the Saturday 11:00 am walk, enters her name and email, and books 3 seats",
+    "issue": "The form field set differs between copy and image. tab_content_1 and the foodWalkingTours mockup ('Ask for the guest's name, email, the departure, and the number of guests') and FAQ 5 ('the departure, the number of guests, and the lead guest's name and email') list four fields including email; the tab 1 image draws Departure, Guests, Name and a 'Seats left: 3' input, with no Email field, and shows a seats counter as if the guest typed it (rework-checklist 9 and 11).",
+    "fix": "Redraw tab 1's form as Departure 'Saturday 11:00 am', Guests '3', Name 'Delphine Marchetti', Email (a reserved example address, e.g. delphine@example.com); move 'Seats left' out of the input fields (it already appears as '12 of 12 seats booked' on the hero card). Re-render and recheck the contact sheet.",
+    "severity": "blocking"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "faq",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq items 8 and 10",
+    "quote": "How should a tour booking form handle private groups? / Can a tour booking form take bookings for private charters?",
+    "issue": "Both answers route a large private party to the owner instead of confirming; item 10's dj booking link reads forced ('If the party also wants music on board').",
+    "fix": "None required (note).",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq items 8 and 10",
+   "issue": "Both answers route a large private party to the owner instead of confirming; item 10's dj booking link reads forced ('If the party also wants music on board').",
+   "fix": "None required (note).",
+   "by": "A-r-57",
+   "via": "review",
+   "date": "2026-11-11 10:43 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "8a0f9b5c9f86445f",
+   "alt:share_image": "99186f0371c76242",
+   "alt:tab_image_1": "a1a28d6ea58c845e",
+   "alt:tab_image_2": "f48ea856e8f7f113",
+   "alt:tab_image_3": "f2df3b2ce093afdb",
+   "alt:tab_image_4": "553639dae75522b6",
+   "breadcrumb": "590e0937787cac27",
+   "chip_adds": "e376973e0307a2bf",
+   "explore_cta": "61c9c8a60134712e",
+   "faq": "b2071a1f714cf8df",
+   "feature_1": "f3171e5add3ee2ca",
+   "feature_2": "b9b9d99d300e2fe4",
+   "feature_3": "cf4d4de6ddb84884",
+   "feature_4": "19caa782df69d6dc",
+   "feature_5": "c7f2891ba705ec18",
+   "feature_6": "4aa2ecfc1d7680b1",
+   "features_heading": "7efa3f85a2f4d5c4",
+   "features_subheading": "15fe854c09703c4a",
+   "h1": "0e2e2641fa6748b3",
+   "hero_description": "24078763b8c5d209",
+   "hero_prompt": "d76395c6b9dba2ae",
+   "howto_description": "65ce1b43256af7c4",
+   "howto_step_1_des": "b27b309fa9037917",
+   "howto_step_1_title": "b955893fd573bc8a",
+   "howto_step_2_des": "228eb6d6e9f552bd",
+   "howto_step_2_title": "8da3d8895193a697",
+   "howto_step_3_des": "e62baf42693747ba",
+   "howto_step_3_title": "d83b57de7f9b5f49",
+   "howto_step_4_des": "71c621ea657bc195",
+   "howto_step_4_title": "d453e87e5f9a305e",
+   "howto_step_5_des": "a352e0b78d848b38",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "1d1f14936b73df62",
+   "howto_step_6_title": "3c98e7e6ef5435b3",
+   "howto_step_7_des": "245007706853ee56",
+   "howto_step_7_title": "a00ae6e9933ccf02",
+   "howto_title": "b705c00ba6c5398d",
+   "meta_description": "cba5c32890bf2c05",
+   "meta_title": "fdd4e1f7baf8eb04",
+   "mockup": "d8ead432821a57c2",
+   "product_name": "71b056c47153014c",
+   "prompt_chip_1": "6ff15df19e8f7ccc",
+   "prompt_chip_2": "1077abef9b103240",
+   "prompt_chip_3": "65a50f485c23b218",
+   "prompt_chip_4": "af0a0f58d0a6ff56",
+   "slug": "0bd5104d9f654f52",
+   "tab_content_1": "4bfa5c8552c5ca8c",
+   "tab_content_2": "90436ffb62b6fdea",
+   "tab_content_3": "a4a207d044afc019",
+   "tab_content_4": "127e1955ef96af7e",
+   "tab_label_1": "3eb549fcb69b360d",
+   "tab_label_2": "e3f5fe17b75ea93e",
+   "tab_label_3": "4fdf52760bf7280e",
+   "tab_label_4": "f1786cea0ca41e55",
+   "usecase_heading": "baf534d8e013fb87",
+   "why_description": "2dd774e85e69f783",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "28b5d24fbc389412"
+  },
+  "all": "d6c4a4ec49d6758c",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "8a0f9b5c9f86445f",
+   "alt:share_image": "99186f0371c76242",
+   "alt:tab_image_1": "a1a28d6ea58c845e",
+   "alt:tab_image_2": "f48ea856e8f7f113",
+   "alt:tab_image_3": "f2df3b2ce093afdb",
+   "alt:tab_image_4": "553639dae75522b6",
+   "breadcrumb": "590e0937787cac27",
+   "chip_adds": "e376973e0307a2bf",
+   "explore_cta": "61c9c8a60134712e",
+   "faq": "b2071a1f714cf8df",
+   "feature_1": "f3171e5add3ee2ca",
+   "feature_2": "b9b9d99d300e2fe4",
+   "feature_3": "cf4d4de6ddb84884",
+   "feature_4": "19caa782df69d6dc",
+   "feature_5": "c7f2891ba705ec18",
+   "feature_6": "4aa2ecfc1d7680b1",
+   "features_heading": "7efa3f85a2f4d5c4",
+   "features_subheading": "15fe854c09703c4a",
+   "h1": "0e2e2641fa6748b3",
+   "hero_description": "24078763b8c5d209",
+   "hero_prompt": "d76395c6b9dba2ae",
+   "howto_description": "65ce1b43256af7c4",
+   "howto_step_1_des": "b27b309fa9037917",
+   "howto_step_1_title": "b955893fd573bc8a",
+   "howto_step_2_des": "228eb6d6e9f552bd",
+   "howto_step_2_title": "8da3d8895193a697",
+   "howto_step_3_des": "e62baf42693747ba",
+   "howto_step_3_title": "d83b57de7f9b5f49",
+   "howto_step_4_des": "71c621ea657bc195",
+   "howto_step_4_title": "d453e87e5f9a305e",
+   "howto_step_5_des": "a352e0b78d848b38",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "1d1f14936b73df62",
+   "howto_step_6_title": "3c98e7e6ef5435b3",
+   "howto_step_7_des": "245007706853ee56",
+   "howto_step_7_title": "a00ae6e9933ccf02",
+   "howto_title": "b705c00ba6c5398d",
+   "meta_description": "cba5c32890bf2c05",
+   "meta_title": "fdd4e1f7baf8eb04",
+   "mockup": "d8ead432821a57c2",
+   "product_name": "71b056c47153014c",
+   "prompt_chip_1": "6ff15df19e8f7ccc",
+   "prompt_chip_2": "1077abef9b103240",
+   "prompt_chip_3": "65a50f485c23b218",
+   "prompt_chip_4": "af0a0f58d0a6ff56",
+   "slug": "0bd5104d9f654f52",
+   "tab_content_1": "4bfa5c8552c5ca8c",
+   "tab_content_2": "90436ffb62b6fdea",
+   "tab_content_3": "a4a207d044afc019",
+   "tab_content_4": "127e1955ef96af7e",
+   "tab_label_1": "3eb549fcb69b360d",
+   "tab_label_2": "e3f5fe17b75ea93e",
+   "tab_label_3": "4fdf52760bf7280e",
+   "tab_label_4": "f1786cea0ca41e55",
+   "usecase_heading": "baf534d8e013fb87",
+   "why_description": "2dd774e85e69f783",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "28b5d24fbc389412"
+  },
+  "all": "d6c4a4ec49d6758c",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
