@@ -1764,12 +1764,6 @@
    "cms_checked": "2026-11-11 08:06 UTC",
    "cms_exists": false,
    "cms_item_id": null,
-   "hold": {
-    "account": "B",
-    "by": "B-ship-8",
-    "note": "R3: fix df6bedbc + slim review 8675cdbd pass; waits for Divit's own re-approval command, then unhold and ship",
-    "t": "2026-11-06 08:17 UTC"
-   },
    "hold_lifts": [
     {
      "date": "2026-11-06 07:57 UTC",
@@ -1781,12 +1775,23 @@
      "lifted_from_account": "B",
      "reason": "fix df6bedbc landed; hold by B-ship-8 lifted for the slim review; R3 still blocks shipping until Divit re-approves",
      "url": "/ai-form-builder/massage-booking"
+    },
+    {
+     "date": "2026-11-11 08:20 UTC",
+     "hold_note": "R3: fix df6bedbc + slim review 8675cdbd pass; waits for Divit's own re-approval command, then unhold and ship",
+     "hold_since": null,
+     "holder": "B-ship-8",
+     "holder_account": "B",
+     "lifted_by": "B-c-1",
+     "lifted_from_account": "B",
+     "reason": "Divit 2026-11-11: massage-booking good as is; re-approved under the item-5 standing go",
+     "url": "/ai-form-builder/massage-booking"
     }
    ],
    "note": "slim review by B-hs-42 of 3 changed field(s); 0 notes",
    "queue_rank": 499,
-   "state": "reviewed",
-   "updated": "2026-11-06 07:58 UTC"
+   "state": "approved",
+   "updated": "2026-11-11 08:20 UTC"
   },
   "/ai-form-builder/massage-intake": {
    "by": "orchestrator-overnight",
@@ -2130,15 +2135,10 @@
    "cms_checked": "2026-11-11 08:06 UTC",
    "cms_exists": false,
    "cms_item_id": null,
-   "hold": {
-    "account": "B",
-    "by": "B-r-474",
-    "note": "review claim",
-    "t": "2026-11-11 08:17 UTC"
-   },
+   "note": "[truth | CONTENT_DEFECTS #10] hero_description: The page gives two timings for when the homeowner sees the price. 'On submit' (hero_description; plan.angle 'prices a home job from square footage on submit'; cover image and cover alt 'a homeowner's request is in and the first-visit price is ready', drawn as 'Your quote is ready / See my price' after submission; uc-1 image title 'Priced on submit' with the price card beside a 'Request saved' panel) against 'before submit' (tab_content_1 'He sees a $129 first-visit price before he submits'; feature_2 'A homeowner sees the price for their tier on screen before submitting'; mockup homePestJobs 'Show that price on screen before the customer submits'; uc-1 prompt and alt 'before he submits'). Cross-field timing mismatch (Divit 2026-11-05; rework-checklist 11). -> Pick one timing and use it everywhere. Simplest: keep 'before submitting' and rewrite hero_description (e.g. 'shows homeowners a price before they submit'), the cover (price shown on the form, not after a saved request) and uc-1 (title 'Priced before submit'; mini panel no longer implies the price follows the save). Then re-check every field and image for the old wording. | [truth | CONTENT_DEFECTS #10] faq: Form field sets disagree (rework-checklist 9). FAQ 6 adds two termite-only questions (prior treatment, and when). FAQ 9 says 'Ask only what changes the price or the route: name, email, address, property type, square footage, the pest, where it was seen, and an optional photo', the plan fixes that same eight-field set 'throughout', and mockup termiteInspections, tab_content_2 and uc-2 show no prior-treatment questions. -> Either drop the two extra questions from FAQ 6 (answer with the inspection booking and the photo only), or add the conditional termite questions to FAQ 9's list, the termiteInspections mockup, tab 2 and uc-2. One field set everywhere.",
    "queue_rank": 512,
-   "state": "images",
-   "updated": "2026-11-11 08:16 UTC"
+   "state": "rework",
+   "updated": "2026-11-11 08:20 UTC"
   },
   "/ai-form-builder/pet-adoption": {
    "by": "A-w-148",

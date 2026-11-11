@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-509",
    "note": ""
+  },
+  {
+   "t": "2026-11-11 08:20 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-474",
+   "note": "[truth | CONTENT_DEFECTS #10] hero_description: The page gives two timings for when the homeowner sees the price. 'On submit' (hero_description; plan.angle 'prices a home job from square footage on submit'; cover image and cover alt 'a homeowner's request is in and the first-visit price is ready', d"
   }
  ],
  "pipeline": "r15",
@@ -853,5 +860,245 @@
  ],
  "writers": [
   "B-w-509"
- ]
+ ],
+ "review": {
+  "by": "B-r-474",
+  "date": "2026-11-11 08:20 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Pest Control Quote Form That Prices the Job'; hero description 126 chars carrying the primary; how-to description 'Seven steps to build a pest control quote form that prices home jobs on screen and routes the rest to a person.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder intent delivered: field set (FAQ 9), square footage tiers (feature_2, step 2), termite inspection booking (tab 2), commercial routing (tab 3), follow-up (tab 4), 7-step how-to, comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Pest-trade detail throughout: 'droppings, mud tubes, or a wasp nest', 'fruit flies at the bar drains', 'Soil treatment for a builder before a slab is poured'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Zebulon Lowrie found ants along the kitchen baseboards', 'Gorsedge Termite and Pest inspects before it prices a termite job', 'Customers pick the pest first'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Varied sentence length; 2 ', so' endings (under the cap); no run-on lists."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain operator voice: 'Choose Business as the property type and the form shows no price.' No AI tells."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "Price timing disagrees: hero_description 'shows homeowners a price on submit' and cover 'Your quote is ready / See my price' vs tab_content_1 'He sees a $129 first-visit price before he submits', feature_2 'before submitting', mockup 'before the customer submits'. Field set disagrees: faq 6 'Add two questions only termite requests see' vs faq 9 'Ask only what changes the price or the route: name, email, address, property type, square footage, the pest, where it was seen, and an optional photo' and mockup termiteInspections (no prior-treatment questions)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own angle (pest-first, termite hold, square footage tiers); siblings cleaning-quote, construction-quote, proposal linked by exact anchors, never as headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, answer-first, hub link in item 2, 3 sibling links, PAA gate 10 pass 0 reject 0 flag; moat lines in items 5 and 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tabs 2-4 match copy on names, numbers and outcomes (Thursday 2:00 PM with Abner Plumley; Hartley Brakefield by email; 14 open, 4 reminded, 10 waiting); the uc-1/cover timing mismatch is recorded under truth as one class."
+   }
+  },
+  "findings": [
+   {
+    "class": "wrong-fact",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "hero_description",
+    "quote": "Get a pest control quote form that shows homeowners a price on submit",
+    "issue": "The page gives two timings for when the homeowner sees the price. 'On submit' (hero_description; plan.angle 'prices a home job from square footage on submit'; cover image and cover alt 'a homeowner's request is in and the first-visit price is ready', drawn as 'Your quote is ready / See my price' after submission; uc-1 image title 'Priced on submit' with the price card beside a 'Request saved' panel) against 'before submit' (tab_content_1 'He sees a $129 first-visit price before he submits'; feature_2 'A homeowner sees the price for their tier on screen before submitting'; mockup homePestJobs 'Show that price on screen before the customer submits'; uc-1 prompt and alt 'before he submits'). Cross-field timing mismatch (Divit 2026-11-05; rework-checklist 11).",
+    "fix": "Pick one timing and use it everywhere. Simplest: keep 'before submitting' and rewrite hero_description (e.g. 'shows homeowners a price before they submit'), the cover (price shown on the form, not after a saved request) and uc-1 (title 'Priced before submit'; mini panel no longer implies the price follows the save). Then re-check every field and image for the old wording.",
+    "severity": "blocking"
+   },
+   {
+    "class": "wrong-fact",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "faq",
+    "quote": "Add two questions only termite requests see, asking whether the home was treated before and roughly when.",
+    "issue": "Form field sets disagree (rework-checklist 9). FAQ 6 adds two termite-only questions (prior treatment, and when). FAQ 9 says 'Ask only what changes the price or the route: name, email, address, property type, square footage, the pest, where it was seen, and an optional photo', the plan fixes that same eight-field set 'throughout', and mockup termiteInspections, tab_content_2 and uc-2 show no prior-treatment questions.",
+    "fix": "Either drop the two extra questions from FAQ 6 (answer with the inspection booking and the photo only), or add the conditional termite questions to FAQ 9's list, the termiteInspections mockup, tab 2 and uc-2. One field set everywhere.",
+    "severity": "blocking"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief tab 4",
+    "quote": "Rosalind Achterberg 8 Reminded ... 4 reminded today",
+    "issue": "With a once-only reminder after 5 days, a quote open 8 days being reminded today reads oddly next to three at 6 days; a reader may ask why it was not nudged two days ago.",
+    "fix": "Draw all four at 6 days open, or mark the 8-day row as reminded earlier.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "\"price\" appears 23 times outside the FAQ",
+    "issue": "QC Q9 flags heavy repetition of 'price' (23), 'square' (13), 'business' (10) outside the FAQ.",
+    "fix": "Vary with 'quote', 'first-visit rate', 'home size' where the meaning holds.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief tab 4",
+   "issue": "With a once-only reminder after 5 days, a quote open 8 days being reminded today reads oddly next to three at 6 days; a reader may ask why it was not nudged two days ago.",
+   "fix": "Draw all four at 6 days open, or mark the 8-day row as reminded earlier.",
+   "by": "B-r-474",
+   "via": "review",
+   "date": "2026-11-11 08:20 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "QC Q9 flags heavy repetition of 'price' (23), 'square' (13), 'business' (10) outside the FAQ.",
+   "fix": "Vary with 'quote', 'first-visit rate', 'home size' where the meaning holds.",
+   "by": "B-r-474",
+   "via": "review",
+   "date": "2026-11-11 08:20 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "4d706ab95dad41f1",
+   "alt:share_image": "ea47c6216a0905b4",
+   "alt:tab_image_1": "f375e4a73e95a56a",
+   "alt:tab_image_2": "8e7e067fb59dab26",
+   "alt:tab_image_3": "310bd11260cae09f",
+   "alt:tab_image_4": "217876e4bb1447bc",
+   "breadcrumb": "64f053ba95369cb0",
+   "chip_adds": "10802f9c900b0f2c",
+   "explore_cta": "d961b0e81d003912",
+   "faq": "1a6c173170ddb395",
+   "feature_1": "0b99924133204fef",
+   "feature_2": "81f3256a54a901a2",
+   "feature_3": "4a3b60d0808741ad",
+   "feature_4": "11da1d5ab5e7e09d",
+   "feature_5": "552064e0bb4c7920",
+   "feature_6": "647483c22e5eb917",
+   "features_heading": "6a8df6c73bbe48ba",
+   "features_subheading": "aa8283ef0d8c9801",
+   "h1": "0e06a14ff50defdd",
+   "hero_description": "5318e02a663241a3",
+   "hero_prompt": "04865abcc8e1cd25",
+   "howto_description": "884ebbb777bf2fd1",
+   "howto_step_1_des": "0cf38232c98863bb",
+   "howto_step_1_title": "798e9826186c74dd",
+   "howto_step_2_des": "0595871e2c5b23c1",
+   "howto_step_2_title": "201e06f10bda6cfd",
+   "howto_step_3_des": "0498ca6d62481e00",
+   "howto_step_3_title": "fb0e1111c97a0795",
+   "howto_step_4_des": "452b8dd22dd37bb0",
+   "howto_step_4_title": "102947968617d41d",
+   "howto_step_5_des": "b7363777ca302666",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "6117f85a57ffe6c8",
+   "howto_step_6_title": "6f3154e344f98df9",
+   "howto_step_7_des": "2567c8729fb04719",
+   "howto_step_7_title": "70294e6219560eeb",
+   "howto_title": "dee35b8a258e20e2",
+   "meta_description": "aa0e368059528dbb",
+   "meta_title": "7002e62e231aed82",
+   "mockup": "318fd05b4defa832",
+   "product_name": "dd843316c51b70f9",
+   "prompt_chip_1": "371a1865df1d0257",
+   "prompt_chip_2": "20cbe85cdd07f333",
+   "prompt_chip_3": "5851354f0fe720ed",
+   "prompt_chip_4": "c5b1ac2cf466d281",
+   "slug": "f1018d6d282ae100",
+   "tab_content_1": "da06f566f6723395",
+   "tab_content_2": "60a4c24bec306474",
+   "tab_content_3": "556fd1189524e878",
+   "tab_content_4": "b1a971eac8710044",
+   "tab_label_1": "0118a031be6efe3f",
+   "tab_label_2": "ca6b3e2dbcd98042",
+   "tab_label_3": "a626b3aee02d1613",
+   "tab_label_4": "9abb242332dc3bc4",
+   "usecase_heading": "fa2a22c115c296b3",
+   "why_description": "e54a7fa9b0caac2c",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "f9e01308fb1c6d1e"
+  },
+  "all": "aed161c06b2787c2",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "4d706ab95dad41f1",
+   "alt:share_image": "ea47c6216a0905b4",
+   "alt:tab_image_1": "f375e4a73e95a56a",
+   "alt:tab_image_2": "8e7e067fb59dab26",
+   "alt:tab_image_3": "310bd11260cae09f",
+   "alt:tab_image_4": "217876e4bb1447bc",
+   "breadcrumb": "64f053ba95369cb0",
+   "chip_adds": "10802f9c900b0f2c",
+   "explore_cta": "d961b0e81d003912",
+   "faq": "1a6c173170ddb395",
+   "feature_1": "0b99924133204fef",
+   "feature_2": "81f3256a54a901a2",
+   "feature_3": "4a3b60d0808741ad",
+   "feature_4": "11da1d5ab5e7e09d",
+   "feature_5": "552064e0bb4c7920",
+   "feature_6": "647483c22e5eb917",
+   "features_heading": "6a8df6c73bbe48ba",
+   "features_subheading": "aa8283ef0d8c9801",
+   "h1": "0e06a14ff50defdd",
+   "hero_description": "5318e02a663241a3",
+   "hero_prompt": "04865abcc8e1cd25",
+   "howto_description": "884ebbb777bf2fd1",
+   "howto_step_1_des": "0cf38232c98863bb",
+   "howto_step_1_title": "798e9826186c74dd",
+   "howto_step_2_des": "0595871e2c5b23c1",
+   "howto_step_2_title": "201e06f10bda6cfd",
+   "howto_step_3_des": "0498ca6d62481e00",
+   "howto_step_3_title": "fb0e1111c97a0795",
+   "howto_step_4_des": "452b8dd22dd37bb0",
+   "howto_step_4_title": "102947968617d41d",
+   "howto_step_5_des": "b7363777ca302666",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "6117f85a57ffe6c8",
+   "howto_step_6_title": "6f3154e344f98df9",
+   "howto_step_7_des": "2567c8729fb04719",
+   "howto_step_7_title": "70294e6219560eeb",
+   "howto_title": "dee35b8a258e20e2",
+   "meta_description": "aa0e368059528dbb",
+   "meta_title": "7002e62e231aed82",
+   "mockup": "318fd05b4defa832",
+   "product_name": "dd843316c51b70f9",
+   "prompt_chip_1": "371a1865df1d0257",
+   "prompt_chip_2": "20cbe85cdd07f333",
+   "prompt_chip_3": "5851354f0fe720ed",
+   "prompt_chip_4": "c5b1ac2cf466d281",
+   "slug": "f1018d6d282ae100",
+   "tab_content_1": "da06f566f6723395",
+   "tab_content_2": "60a4c24bec306474",
+   "tab_content_3": "556fd1189524e878",
+   "tab_content_4": "b1a971eac8710044",
+   "tab_label_1": "0118a031be6efe3f",
+   "tab_label_2": "ca6b3e2dbcd98042",
+   "tab_label_3": "a626b3aee02d1613",
+   "tab_label_4": "9abb242332dc3bc4",
+   "usecase_heading": "fa2a22c115c296b3",
+   "why_description": "e54a7fa9b0caac2c",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "f9e01308fb1c6d1e"
+  },
+  "all": "aed161c06b2787c2",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
