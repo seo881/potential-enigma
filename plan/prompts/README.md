@@ -6,6 +6,7 @@ Every agent, every prompt:
 - Repo `~/emergent-hubs` (account A, CURRENT COORDINATOR: A). Run every repo command as `.venv/bin/python3 ...`.
 - Read CLAUDE.md, LESSONS.md, and the DECISIONS lines from 2026-11-03 onward before starting.
 - Commit only the paths you changed, with `bash ops/sync.sh "<msg>" <paths...>` (never directories except images/<hub>/<slug> and audits/live/<date>). Never discard another agent's uncommitted work; check `git status` first.
+- Never `git stash` (LESSONS 2026-10-13): if a push is rejected, `git merge --no-edit origin/main` then push; if the merge is refused because another agent's uncommitted files overlap, wait 2 minutes and retry, never stash or touch their files.
 - NO SITE PUBLISH EVER. CMS item publishes only, through `hubctl api-*` (never the Webflow connector for CMS writes).
 - Never edit templates, components, classes or pages; only the 4 child collections.
 - Quality gates unchanged. Every page must read as human, operator-grade (HUB_RULES 2b, rules/ai_tells.json).
