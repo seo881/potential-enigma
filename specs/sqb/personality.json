@@ -127,6 +127,13 @@
    "via": null,
    "by": "A-w-200",
    "note": ""
+  },
+  {
+   "t": "2026-11-11 10:48 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-65",
+   "note": "rubric 10/10 by A-r-65; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -1071,5 +1078,287 @@
  ],
  "writers": [
   "B-w-534"
- ]
+ ],
+ "review": {
+  "by": "A-r-65",
+  "date": "2026-11-11 10:48 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Personality Quiz That Ends on a Useful Result', title 'Take a Personality Quiz, Then Make One | Emergent', hero 'Build a personality quiz that maps every answer to a type and saves each result to a database you own. Try the one below.' (under 130 chars, carries the primary); how-to description one sentence. Slug personality == slug_for."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is all quizzes to take (16Personalities, BuzzFeed, Truity); the page leads with a playable 8-question 'What Is Your Free Day Personality?' quiz, then a 7-step how-to and four business uses. The meta promise 'Take a free personality quiz about your ideal free day, then build one' is delivered."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Every section speaks to quiz owners: 'Name the four or five types you want to sort people into, such as Scholar or Dreamer'; tabs a bookstore, game cafe, aquarium and paper shop with named results and staff picks."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Marlowe Street Books asks 7 questions...', 'Booking a table at Two Dice Game Cafe ends with...', 'Emergent sets no response cap on the quizzes it builds.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Q2/Q5/Q6/Q7 clear in QC; sentences short and varied, e.g. 'Nothing is right or wrong.' Notes recorded (repeated save-row idea)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: 'Thea Sorensen books for 4 on Friday at 7 pm', 'the next otter feeding at 2:30 pm', 'List Maker led with 640 results'. No AI tells; note on 'result' density."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Claims map to approved ids (prompt-build, database-owned, api-connect, conversational, no-caps, code-export, custom-domain, free-start, alerts). FAQ 9 'gives a tie to the result listed first' matches docs/QUIZ.md matching rule. Tab 4 640+520+410+230 = 1,800. No third-party facts outside the generated table."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own angle (play first, then four result-driven next steps); sibling primaries appear only as links ('style quiz', 'vocabulary quiz'), never as headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, each answered first ('You set the rule.', 'Eight to ten questions is a workable length.'); hub link in item 2; secondaries personality type quiz, free personality quiz, animal personality quiz, personality quiz maker; no brands or file formats in questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: Wilda Haines / Investigator / 3 staff picks / 7 questions; Thea Sorensen party of 4 Friday 7 pm, Calvin Ostrow, table 6; Sea Otter, Kelp Coast upper level, 2:30 pm, 6 questions, 4 animal results; 1,800 March, 640/520/410/230, April 4 versions. One cursor per panel, fictional names."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_4",
+    "quote": "Emergent builds the quiz as one question per screen, with a progress bar above each question.",
+    "issue": "States one-question-per-screen with a progress bar as the default build, while faq item 8 says 'Emergent builds the quiz with one question per screen when you ask' and chip_adds 4 offers 'Add a mobile layout with one question per screen and a progress bar.' as an add-on. Inconsistent framing of the same behaviour (HUB_RULES 2a Consistent).",
+    "fix": "Frame it the same way everywhere, e.g. 'Ask for one question per screen and Emergent adds a progress bar above each one.'",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_2, faq 6, howto_step_7_des, howto_step_6_des",
+    "quote": "feature_2: 'holding the result, every answer, and an email if one was given'; faq 6: 'Keep the result, each answer picked, and any email the person entered.'; step 7: 'confirm each one holds the result and all eight answers'; step 6: 'The result is saved to the same row whether or not the field is filled.'",
+    "issue": "The same 'row holds the result, the answers and the email' idea restated in four fields.",
+    "fix": "Leave it in feature_2 and faq 6; let the how-to steps say something new.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "'result' appears 31 times outside the FAQ (QC Q9), e.g. 'A result screen with a next step', 'Each result saved with its answers', 'Every Sea Otter result ends at Kelp Coast'",
+    "issue": "Word density makes the page read repetitive.",
+    "fix": "Vary with 'type', 'outcome' or the type's name where meaning holds.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "quiz.results.maker",
+    "quote": "Try a one-day project with a clear end, like a shelf or a loaf of bread.",
+    "issue": "The quiz intro promises 'with two things to try'; Explorer, Host and Recharger each give two, Maker gives one suggestion with two examples.",
+    "fix": "Give Maker a second try, e.g. 'Try a one-day project with a clear end, like a shelf, or a new bread recipe by dinner.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "CONTENT_DEFECTS #3",
+    "field": "why_table",
+    "quote": "Survey builder with templates, including employee engagement",
+    "issue": "Library cells for SurveyMonkey and SurveyHero speak of employee surveys on a personality quiz page; no table competitor ranks in the top 10 (QC K7 P2), as the top 10 holds no builders.",
+    "fix": "Coordinator: consider a quiz-maker variant in the SQB competitor library for quiz pages.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_4",
+   "issue": "States one-question-per-screen with a progress bar as the default build, while faq item 8 says 'Emergent builds the quiz with one question per screen when you ask' and chip_adds 4 offers 'Add a mobile layout with one question per screen and a progress bar.' as an add-on. Inconsistent framing of the same behaviour (HUB_RULES 2a Consistent).",
+   "fix": "Frame it the same way everywhere, e.g. 'Ask for one question per screen and Emergent adds a progress bar above each one.'",
+   "by": "A-r-65",
+   "via": "review",
+   "date": "2026-11-11 10:48 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_2, faq 6, howto_step_7_des, howto_step_6_des",
+   "issue": "The same 'row holds the result, the answers and the email' idea restated in four fields.",
+   "fix": "Leave it in feature_2 and faq 6; let the how-to steps say something new.",
+   "by": "A-r-65",
+   "via": "review",
+   "date": "2026-11-11 10:48 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "Word density makes the page read repetitive.",
+   "fix": "Vary with 'type', 'outcome' or the type's name where meaning holds.",
+   "by": "A-r-65",
+   "via": "review",
+   "date": "2026-11-11 10:48 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "quiz.results.maker",
+   "issue": "The quiz intro promises 'with two things to try'; Explorer, Host and Recharger each give two, Maker gives one suggestion with two examples.",
+   "fix": "Give Maker a second try, e.g. 'Try a one-day project with a clear end, like a shelf, or a new bread recipe by dinner.'",
+   "by": "A-r-65",
+   "via": "review",
+   "date": "2026-11-11 10:48 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "CONTENT_DEFECTS #3",
+   "field": "why_table",
+   "issue": "Library cells for SurveyMonkey and SurveyHero speak of employee surveys on a personality quiz page; no table competitor ranks in the top 10 (QC K7 P2), as the top 10 holds no builders.",
+   "fix": "Coordinator: consider a quiz-maker variant in the SQB competitor library for quiz pages.",
+   "by": "A-r-65",
+   "via": "review",
+   "date": "2026-11-11 10:48 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "0b2baa084f520dba",
+   "alt:share_image": "728466a659bf95b7",
+   "alt:tab_image_1": "3ebc9204e9970631",
+   "alt:tab_image_2": "b9db7ee90b5f0d0c",
+   "alt:tab_image_3": "a05a30f8013adb42",
+   "alt:tab_image_4": "cb68b6d224e45185",
+   "breadcrumb": "e04c23d2fba858d9",
+   "chip_adds": "1a75ad8ccd277f09",
+   "explore_cta": "283a6492cf6e55cb",
+   "faq": "e5b02fdf1684c968",
+   "feature_1": "77ecf44881a8d554",
+   "feature_2": "506a5248c5fa274f",
+   "feature_3": "fd142f8ad86de395",
+   "feature_4": "25b455391ca8cebc",
+   "feature_5": "be9f526f1200a560",
+   "feature_6": "efe72ed5fbad944e",
+   "features_heading": "2d0c0b1e21ef80ae",
+   "features_subheading": "5d7be2e808b47e9e",
+   "h1": "d9b5ae51e5e3b506",
+   "hero_description": "4a21859938738719",
+   "hero_prompt": "0c4858e06d9856ec",
+   "howto_description": "b10cdc3802f4915d",
+   "howto_step_1_des": "f58a4cd98cefbd30",
+   "howto_step_1_title": "b46342b2349360c3",
+   "howto_step_2_des": "053bba8e93310611",
+   "howto_step_2_title": "be92f3ff8ac594bc",
+   "howto_step_3_des": "51f0e3fe04063329",
+   "howto_step_3_title": "fca6e2506ce8c764",
+   "howto_step_4_des": "a912443b658dfea1",
+   "howto_step_4_title": "cf239ed0c8e01a45",
+   "howto_step_5_des": "85078561e6525312",
+   "howto_step_5_title": "e1f57a0c350c4771",
+   "howto_step_6_des": "0ef4c71f05256ac7",
+   "howto_step_6_title": "474df50cf4d34cb7",
+   "howto_step_7_des": "ccf7dadc9c0b996b",
+   "howto_step_7_title": "ed1fa6330b4b419c",
+   "howto_title": "92d6bfa0a294407c",
+   "meta_description": "78f5f88c0ce05948",
+   "meta_title": "a655d74b776b2eff",
+   "mockup": "14cb15c6f6e0bb6d",
+   "product_name": "8473c8ae50db4b78",
+   "prompt_chip_1": "504a351fd6a55c13",
+   "prompt_chip_2": "1aefcff21a558fb8",
+   "prompt_chip_3": "c8733b68a44a3449",
+   "prompt_chip_4": "23b8898a1970a56a",
+   "quiz": "dd6f9865f99ca9ed",
+   "slug": "f046cfb2d0788f93",
+   "tab_content_1": "6bb97186ccf2c929",
+   "tab_content_2": "21767327a84ccbee",
+   "tab_content_3": "9c822a779b262e8b",
+   "tab_content_4": "e388b8ef238cb9bf",
+   "tab_label_1": "a77d2912a0f30bed",
+   "tab_label_2": "66a13f6da9978bbd",
+   "tab_label_3": "85d3d0fefc2e83db",
+   "tab_label_4": "db755f5d4325dbc2",
+   "usecase_heading": "874f90da0daf3c7b",
+   "why_description": "636ad10713e62f26",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "2742170a8bac8b37"
+  },
+  "all": "e5de22d7a1571e70",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "0b2baa084f520dba",
+   "alt:share_image": "728466a659bf95b7",
+   "alt:tab_image_1": "3ebc9204e9970631",
+   "alt:tab_image_2": "b9db7ee90b5f0d0c",
+   "alt:tab_image_3": "a05a30f8013adb42",
+   "alt:tab_image_4": "cb68b6d224e45185",
+   "breadcrumb": "e04c23d2fba858d9",
+   "chip_adds": "1a75ad8ccd277f09",
+   "explore_cta": "283a6492cf6e55cb",
+   "faq": "e5b02fdf1684c968",
+   "feature_1": "77ecf44881a8d554",
+   "feature_2": "506a5248c5fa274f",
+   "feature_3": "fd142f8ad86de395",
+   "feature_4": "25b455391ca8cebc",
+   "feature_5": "be9f526f1200a560",
+   "feature_6": "efe72ed5fbad944e",
+   "features_heading": "2d0c0b1e21ef80ae",
+   "features_subheading": "5d7be2e808b47e9e",
+   "h1": "d9b5ae51e5e3b506",
+   "hero_description": "4a21859938738719",
+   "hero_prompt": "0c4858e06d9856ec",
+   "howto_description": "b10cdc3802f4915d",
+   "howto_step_1_des": "f58a4cd98cefbd30",
+   "howto_step_1_title": "b46342b2349360c3",
+   "howto_step_2_des": "053bba8e93310611",
+   "howto_step_2_title": "be92f3ff8ac594bc",
+   "howto_step_3_des": "51f0e3fe04063329",
+   "howto_step_3_title": "fca6e2506ce8c764",
+   "howto_step_4_des": "a912443b658dfea1",
+   "howto_step_4_title": "cf239ed0c8e01a45",
+   "howto_step_5_des": "85078561e6525312",
+   "howto_step_5_title": "e1f57a0c350c4771",
+   "howto_step_6_des": "0ef4c71f05256ac7",
+   "howto_step_6_title": "474df50cf4d34cb7",
+   "howto_step_7_des": "ccf7dadc9c0b996b",
+   "howto_step_7_title": "ed1fa6330b4b419c",
+   "howto_title": "92d6bfa0a294407c",
+   "meta_description": "78f5f88c0ce05948",
+   "meta_title": "a655d74b776b2eff",
+   "mockup": "14cb15c6f6e0bb6d",
+   "product_name": "8473c8ae50db4b78",
+   "prompt_chip_1": "504a351fd6a55c13",
+   "prompt_chip_2": "1aefcff21a558fb8",
+   "prompt_chip_3": "c8733b68a44a3449",
+   "prompt_chip_4": "23b8898a1970a56a",
+   "quiz": "dd6f9865f99ca9ed",
+   "slug": "f046cfb2d0788f93",
+   "tab_content_1": "6bb97186ccf2c929",
+   "tab_content_2": "21767327a84ccbee",
+   "tab_content_3": "9c822a779b262e8b",
+   "tab_content_4": "e388b8ef238cb9bf",
+   "tab_label_1": "a77d2912a0f30bed",
+   "tab_label_2": "66a13f6da9978bbd",
+   "tab_label_3": "85d3d0fefc2e83db",
+   "tab_label_4": "db755f5d4325dbc2",
+   "usecase_heading": "874f90da0daf3c7b",
+   "why_description": "636ad10713e62f26",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "2742170a8bac8b37"
+  },
+  "all": "e5de22d7a1571e70",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
