@@ -124,6 +124,13 @@
    "via": null,
    "by": "B-w-504",
    "note": ""
+  },
+  {
+   "t": "2026-11-11 10:46 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "A-r-62",
+   "note": "rubric 10/10 by A-r-62; 3 notes"
   }
  ],
  "pipeline": "r15",
@@ -293,7 +300,8 @@
    "PayPal Donate SDK: the onComplete result includes the transaction ID",
    "PayPal Subscriptions: bill customers at regular intervals rather than one-time payments",
    "PayPal webhooks: HTTPS posts from PayPal to your server when an event occurs",
-   "PayPal webhooks: events include a subscription processing each cycle and a refund initiated from the PayPal business dashboard"
+   "PayPal webhooks: events include a subscription processing each cycle and a refund initiated from the PayPal business dashboard",
+   "PayPal Donate SDK: accepts Donate button parameters such as item_name and item_number, which return in the onComplete result"
   ]
  },
  "domain_sources": [
@@ -332,6 +340,12 @@
    "source_url": "https://developer.paypal.com/api/rest/webhooks/",
    "date": "2026-11-06",
    "quote": "a subscription processing each cycle, a refund being initiated from the www.paypal.com business dashboard"
+  },
+  {
+   "claim": "PayPal Donate SDK: accepts Donate button parameters such as item_name and item_number, which return in the onComplete result",
+   "source_url": "https://developer.paypal.com/sdk/donate/",
+   "date": "2026-11-11",
+   "quote": "accepts all parameters accepted by a Donate button, such as item_name or item_number"
   }
  ],
  "claims_used": [
@@ -896,5 +910,245 @@
  ],
  "writers": [
   "B-w-504"
- ]
+ ],
+ "review": {
+  "by": "A-r-62",
+  "date": "2026-11-11 10:46 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a PayPal Donation Form That Records Every Gift'; hero 'Build a PayPal donation form that ties each gift to a fund and saves the PayPal transaction in a database you own.' (under 130 chars, primary, leads with Build); how-to description one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "A nonprofit setting up PayPal giving gets the fields, the PayPal connection (pop-up, transaction ID, subscriptions, refund webhooks), a 7-step how-to ending in 'Give a real $1 gift' and 10 builder FAQs ('How do I create a PayPal donation form?')."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Fundraising vocabulary: 'Weekend Backpacks fund', 'PayPal business dashboard', 'treasurer Ophelia Dunstable', 'spring appeal and one from the gala'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Cobbleford Community Pantry's form asks for a name and a fund before the amount.', 'PayPal returns a transaction ID when a gift completes'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q5-Q8 clear; sentences short and single-idea. FAQ 2 craft note recorded."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator voice, product-led: 'Matching a PayPal statement line to a donor takes one search.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "claims_used (prompt-build, api-connect, database-owned, alerts, no-caps, free-start, code-export) all approved. PayPal facts match domain_sources quotes: pop-up 'keeps users on your website instead of redirecting them', onComplete 'tx Transaction ID', subscriptions 'bill customers at regular intervals', webhooks 'a subscription processing each cycle, a refund being initiated from the ... business dashboard'. Tab 3 name passed into the pop-up is supported by the Donate SDK page ('accepts all parameters accepted by a Donate button, such as item_name or item_number'); reviewer added that source entry. Numbers agree: 4 x $25 = $100; $8,450 - $150 = $8,300."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "PayPal-specific mechanics (Donate pop-up, transaction ID, subscription cycle events, dashboard refunds) separate it from the donation and stripe-donation siblings; no sibling primary in a heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic builder questions answered first ('Yes. Ask for the fund on the form before the PayPal pop-up opens'); secondary 'paypal donation forms' in item 8; hub link in item 2; PayPal in questions is the page's own primary (PA14 gate passed)."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: 'Oksana Feldmanis, $60 / Fund: Weekend Backpacks / PayPal transaction ID stored'; 'Payment 4 recorded / Given to date $100'; board of 14 students with 'Ambrose Tuck 9 donors $420'; 'Gift refunded $150 / Year's total: $8,300 / Was $8,450', email to Ophelia Dunstable."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "tab_content_3",
+    "quote": "A gift that starts from a link carries that student's name into the PayPal pop-up and onto the gift row.",
+    "issue": "Statement about PayPal's Donate SDK had no domain_sources entry, although the page's own cited source supports it.",
+    "fix": "Done by reviewer (no copy change): added plan.claims_to_source and domain_sources entry, https://developer.paypal.com/sdk/donate/, quote 'accepts all parameters accepted by a Donate button, such as item_name or item_number'. QC re-run TOTAL 0.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq",
+    "quote": "Describe the funds and where each gift should be saved to Emergent's AI form builder in one prompt.",
+    "issue": "Item 2: the modifier lands so the gift seems saved 'to Emergent's AI form builder', and the sentence repeats the funds from the sentence before.",
+    "fix": "Describe the funds, the amounts and the PayPal account to Emergent's AI form builder in one prompt.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "feature_2, howto_step_3_des, faq",
+    "quote": "keeps donors on your website instead of redirecting them to a PayPal page | pays without being sent to a donation page on PayPal | Keep the PayPal pop-up on that page, where donors finish without leaving it.",
+    "issue": "The stay-on-your-site point is made three times with words swapped.",
+    "fix": "Keep it in feature 2; give step 3 and FAQ item 9 a different detail.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "tab_content_3",
+   "issue": "Statement about PayPal's Donate SDK had no domain_sources entry, although the page's own cited source supports it.",
+   "fix": "Done by reviewer (no copy change): added plan.claims_to_source and domain_sources entry, https://developer.paypal.com/sdk/donate/, quote 'accepts all parameters accepted by a Donate button, such as item_name or item_number'. QC re-run TOTAL 0.",
+   "by": "A-r-62",
+   "via": "review",
+   "date": "2026-11-11 10:46 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq",
+   "issue": "Item 2: the modifier lands so the gift seems saved 'to Emergent's AI form builder', and the sentence repeats the funds from the sentence before.",
+   "fix": "Describe the funds, the amounts and the PayPal account to Emergent's AI form builder in one prompt.",
+   "by": "A-r-62",
+   "via": "review",
+   "date": "2026-11-11 10:46 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "feature_2, howto_step_3_des, faq",
+   "issue": "The stay-on-your-site point is made three times with words swapped.",
+   "fix": "Keep it in feature 2; give step 3 and FAQ item 9 a different detail.",
+   "by": "A-r-62",
+   "via": "review",
+   "date": "2026-11-11 10:46 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "f48103553b23398c",
+   "alt:share_image": "be897e551d9a6428",
+   "alt:tab_image_1": "74c0e00d3ed086ef",
+   "alt:tab_image_2": "daa2f33099a35754",
+   "alt:tab_image_3": "b3743ed20fb1a5c8",
+   "alt:tab_image_4": "8c6dacb8241689eb",
+   "breadcrumb": "64b3c6693a6ddbe3",
+   "chip_adds": "95dda3f7eb5488c6",
+   "explore_cta": "b6ca697984adffd0",
+   "faq": "4f6bde277abbf012",
+   "feature_1": "4bc6ae713cd16c10",
+   "feature_2": "ac09bb3a10ad5462",
+   "feature_3": "8d6802e5d687c437",
+   "feature_4": "778b3147fc94338f",
+   "feature_5": "c3825f4bba9aa336",
+   "feature_6": "185f47716c4305df",
+   "features_heading": "213d8f940dba04f5",
+   "features_subheading": "7c3d0b61206f6cbf",
+   "h1": "16d964db9cc5954d",
+   "hero_description": "42fc0eb54ecf4466",
+   "hero_prompt": "9b6d5199ae5cb17c",
+   "howto_description": "882651137fbed7a6",
+   "howto_step_1_des": "807fc290285d5b97",
+   "howto_step_1_title": "64c651ffeffcf2a7",
+   "howto_step_2_des": "a8036f899829eb80",
+   "howto_step_2_title": "36d1398592472962",
+   "howto_step_3_des": "cf404f58b2f59064",
+   "howto_step_3_title": "7dfbbd049a73a954",
+   "howto_step_4_des": "ed23f2dda0facb1f",
+   "howto_step_4_title": "7fdfa979a2bafec2",
+   "howto_step_5_des": "751e94f65a9e9c71",
+   "howto_step_5_title": "19d838f7ef233b35",
+   "howto_step_6_des": "923b6ff2e563c52b",
+   "howto_step_6_title": "8c1b5e0fe4f6de44",
+   "howto_step_7_des": "5cb9e75ec9e4e171",
+   "howto_step_7_title": "c0a2bc7da47bd922",
+   "howto_title": "830b5ac6bc1a3fdb",
+   "meta_description": "ccd229b38b29ba38",
+   "meta_title": "31e6da6799907ee4",
+   "mockup": "6d90850819a196dd",
+   "product_name": "52b9f845e8df3dd0",
+   "prompt_chip_1": "22606e07fc36ccb8",
+   "prompt_chip_2": "f1fffbeffcb12792",
+   "prompt_chip_3": "437375fa47ad8cc7",
+   "prompt_chip_4": "4622469ced9a2573",
+   "slug": "b86b66bff41e46d7",
+   "tab_content_1": "939df21926c5ecd3",
+   "tab_content_2": "fdf53b264fcb56f7",
+   "tab_content_3": "bb06744deac7b5e0",
+   "tab_content_4": "131484443171022e",
+   "tab_label_1": "22606e07fc36ccb8",
+   "tab_label_2": "f1fffbeffcb12792",
+   "tab_label_3": "ae4438cef59e7e4f",
+   "tab_label_4": "4622469ced9a2573",
+   "usecase_heading": "7834e3b8df3c9c78",
+   "why_description": "a672d7870f69f884",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "ba7ae00914f2f154"
+  },
+  "all": "76d39b76e377c035",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "f48103553b23398c",
+   "alt:share_image": "be897e551d9a6428",
+   "alt:tab_image_1": "74c0e00d3ed086ef",
+   "alt:tab_image_2": "daa2f33099a35754",
+   "alt:tab_image_3": "b3743ed20fb1a5c8",
+   "alt:tab_image_4": "8c6dacb8241689eb",
+   "breadcrumb": "64b3c6693a6ddbe3",
+   "chip_adds": "95dda3f7eb5488c6",
+   "explore_cta": "b6ca697984adffd0",
+   "faq": "4f6bde277abbf012",
+   "feature_1": "4bc6ae713cd16c10",
+   "feature_2": "ac09bb3a10ad5462",
+   "feature_3": "8d6802e5d687c437",
+   "feature_4": "778b3147fc94338f",
+   "feature_5": "c3825f4bba9aa336",
+   "feature_6": "185f47716c4305df",
+   "features_heading": "213d8f940dba04f5",
+   "features_subheading": "7c3d0b61206f6cbf",
+   "h1": "16d964db9cc5954d",
+   "hero_description": "42fc0eb54ecf4466",
+   "hero_prompt": "9b6d5199ae5cb17c",
+   "howto_description": "882651137fbed7a6",
+   "howto_step_1_des": "807fc290285d5b97",
+   "howto_step_1_title": "64c651ffeffcf2a7",
+   "howto_step_2_des": "a8036f899829eb80",
+   "howto_step_2_title": "36d1398592472962",
+   "howto_step_3_des": "cf404f58b2f59064",
+   "howto_step_3_title": "7dfbbd049a73a954",
+   "howto_step_4_des": "ed23f2dda0facb1f",
+   "howto_step_4_title": "7fdfa979a2bafec2",
+   "howto_step_5_des": "751e94f65a9e9c71",
+   "howto_step_5_title": "19d838f7ef233b35",
+   "howto_step_6_des": "923b6ff2e563c52b",
+   "howto_step_6_title": "8c1b5e0fe4f6de44",
+   "howto_step_7_des": "5cb9e75ec9e4e171",
+   "howto_step_7_title": "c0a2bc7da47bd922",
+   "howto_title": "830b5ac6bc1a3fdb",
+   "meta_description": "ccd229b38b29ba38",
+   "meta_title": "31e6da6799907ee4",
+   "mockup": "6d90850819a196dd",
+   "product_name": "52b9f845e8df3dd0",
+   "prompt_chip_1": "22606e07fc36ccb8",
+   "prompt_chip_2": "f1fffbeffcb12792",
+   "prompt_chip_3": "437375fa47ad8cc7",
+   "prompt_chip_4": "4622469ced9a2573",
+   "slug": "b86b66bff41e46d7",
+   "tab_content_1": "939df21926c5ecd3",
+   "tab_content_2": "fdf53b264fcb56f7",
+   "tab_content_3": "bb06744deac7b5e0",
+   "tab_content_4": "131484443171022e",
+   "tab_label_1": "22606e07fc36ccb8",
+   "tab_label_2": "f1fffbeffcb12792",
+   "tab_label_3": "ae4438cef59e7e4f",
+   "tab_label_4": "4622469ced9a2573",
+   "usecase_heading": "7834e3b8df3c9c78",
+   "why_description": "a672d7870f69f884",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "ba7ae00914f2f154"
+  },
+  "all": "76d39b76e377c035",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
