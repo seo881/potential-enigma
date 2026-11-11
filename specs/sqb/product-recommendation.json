@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-527",
    "note": ""
+  },
+  {
+   "t": "2026-11-11 08:27 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-478",
+   "note": "rubric 10/10 by B-r-478; 3 notes"
   }
  ],
  "pipeline": "r15",
@@ -1076,5 +1083,247 @@
  ],
  "writers": [
   "B-w-527"
- ]
+ ],
+ "review": {
+  "by": "B-r-478",
+  "date": "2026-11-11 08:27 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Product Recommendation Quiz for Your Store'; hero 'Take the backpack quiz below, or build a product recommendation quiz that matches each shopper to a product you stock.'; hero prompt carries the primary exactly for one bike shop, and all four chip_adds stay with that bike shop."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is quiz apps plus example listicles; the page gives a playable 7-question backpack quiz, four shop examples, a 7-step plan and FAQ on scoring, question count, catalog hookup and placement."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Treat budget, size, and age as filters, not points. A shopper with $40 to spend should never see a $90 match'; tag-based catalog pull in FAQ 3."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Tabs open on full sentences: 'Nora Ilves tells Sill and Stem's plant quiz...', 'In March, 3,200 shoppers started...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Two ', so' endings (under the limit); one 35-word sentence in feature_4 noted by QC, not blocking."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'Ask about the shopper's life, not your spec sheet: the light in the room, the roads they ride, the pans they burn.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "claims_used prompt-build, api-connect, database-owned, alerts, custom-domain, code-export cover every Emergent sentence; tab 3 3,200 started, 1,940 finished, bars 300+150+760+50 = 1,260 quits drawn; quiz is a matching quiz with no knowledge answers needing sources."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own angle: matches tied to live stock, a fitter alert above $2,500, a drop-off count, and a QR gift finder with aisles; no sibling primary in any heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions answered in the first sentence ('It counts points.', 'Aim for six to eight.'); paa --spec 10 pass, 0 reject, 0 flag; F9 sentences in FAQ 3, 9, 10."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: plant result shows 3 tagged plants with stock and Nora Ilves's customer row; email card to Lucia Brandt with 'Sam Okafor: Gravel, 60-mile weekend rides, $3,200'; '760 quit at question 6'; gift finder with 3 toys at $40 or less and aisles, 'No name', '5 of 5'."
+   }
+  },
+  "findings": [
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Survey builder with templates, including employee engagement",
+    "issue": "The table compares SurveyMonkey, Microsoft Forms and SurveyHero, none of them in this keyword's top 10 (QC K7), and their rows describe employee surveys rather than product quizzes.",
+    "fix": "When the library has a single-vendor entry for a top-10 quiz tool (Typeform, Interact, RevenueHunt), prefer it.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "quiz.questions[0]",
+    "quote": "I work from wherever I am traveling that month",
+    "issue": "The option does not answer the question 'How do you get to work or school most days?' with a way of getting there, unlike the other three options.",
+    "fix": "For example: 'By plane or train, a few trips a month'.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_4",
+    "quote": "Set a rule, such as a budget over $2,500, and the app sends a Slack or email alert to the staff member who handles that sale, with every answer the shopper gave on the quiz.",
+    "issue": "35-word sentence carrying the rule, the channel, the recipient and the payload (QC Q2).",
+    "fix": "Split after the recipient.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "The table compares SurveyMonkey, Microsoft Forms and SurveyHero, none of them in this keyword's top 10 (QC K7), and their rows describe employee surveys rather than product quizzes.",
+   "fix": "When the library has a single-vendor entry for a top-10 quiz tool (Typeform, Interact, RevenueHunt), prefer it.",
+   "by": "B-r-478",
+   "via": "review",
+   "date": "2026-11-11 08:27 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "quiz.questions[0]",
+   "issue": "The option does not answer the question 'How do you get to work or school most days?' with a way of getting there, unlike the other three options.",
+   "fix": "For example: 'By plane or train, a few trips a month'.",
+   "by": "B-r-478",
+   "via": "review",
+   "date": "2026-11-11 08:27 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_4",
+   "issue": "35-word sentence carrying the rule, the channel, the recipient and the payload (QC Q2).",
+   "fix": "Split after the recipient.",
+   "by": "B-r-478",
+   "via": "review",
+   "date": "2026-11-11 08:27 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "04011c8d2c3a49ad",
+   "alt:share_image": "ed96b4cdaf9800e6",
+   "alt:tab_image_1": "a5dca6bfd7f873ac",
+   "alt:tab_image_2": "63a8bda307a77459",
+   "alt:tab_image_3": "0df40d11b44e53ac",
+   "alt:tab_image_4": "b2323fb229e28db8",
+   "breadcrumb": "1232a2c7067f9130",
+   "chip_adds": "ead9d48cca06edb4",
+   "explore_cta": "bb06d97c73bf057f",
+   "faq": "9433c4fd33e8808f",
+   "feature_1": "e356387fe03ead17",
+   "feature_2": "82a79c2d5dfb3757",
+   "feature_3": "98154ea9876313a6",
+   "feature_4": "83c46ce9d5439244",
+   "feature_5": "453bb7f3b9a08592",
+   "feature_6": "bfa71b1b04fb7752",
+   "features_heading": "0fdea44e4d1242e5",
+   "features_subheading": "c913706a7a283770",
+   "h1": "37e8cdeb73969f0d",
+   "hero_description": "718b04d5090955ab",
+   "hero_prompt": "04189875161b547b",
+   "howto_description": "92570ce0866e44d6",
+   "howto_step_1_des": "a36eb4f999caa068",
+   "howto_step_1_title": "751b67b2a3eef9c8",
+   "howto_step_2_des": "1c511f51358eeddb",
+   "howto_step_2_title": "794d4da434f8d7ae",
+   "howto_step_3_des": "afac50e034ed6479",
+   "howto_step_3_title": "e8206f75d6bccb90",
+   "howto_step_4_des": "0bf12e83bedc5ebf",
+   "howto_step_4_title": "26a65d7e318fdf64",
+   "howto_step_5_des": "601a8fe66e26c7b1",
+   "howto_step_5_title": "f87630db0b68eaed",
+   "howto_step_6_des": "9b71952945f4ea37",
+   "howto_step_6_title": "a7902659b3da2236",
+   "howto_step_7_des": "fdc4fcda8547c153",
+   "howto_step_7_title": "34947e58a92e712e",
+   "howto_title": "61eed8cfa240208e",
+   "meta_description": "71cf0252717a5d9a",
+   "meta_title": "e0162674f2f9f5e1",
+   "mockup": "9bb44ed216106286",
+   "product_name": "2851a5e767447c0e",
+   "prompt_chip_1": "2c970c2e9735dcd0",
+   "prompt_chip_2": "504a351fd6a55c13",
+   "prompt_chip_3": "a66b008de7d3fc51",
+   "prompt_chip_4": "ea85788e2976758f",
+   "quiz": "68e7ca75166eac03",
+   "slug": "721e9171af353d2c",
+   "tab_content_1": "4d218d8e7979991a",
+   "tab_content_2": "6a4b60de70f71c7e",
+   "tab_content_3": "412cbcbe467a944e",
+   "tab_content_4": "a0c350042fa662f9",
+   "tab_label_1": "ace714da3c5c425e",
+   "tab_label_2": "7d8428cee08bf8db",
+   "tab_label_3": "7b2834312ea836a0",
+   "tab_label_4": "53c174a1eb509fc4",
+   "usecase_heading": "cf1707d65a2f3244",
+   "why_description": "748cca0563a408f0",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "0b7f41ea244e7909"
+  },
+  "all": "202691bd72f8c337",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "04011c8d2c3a49ad",
+   "alt:share_image": "ed96b4cdaf9800e6",
+   "alt:tab_image_1": "a5dca6bfd7f873ac",
+   "alt:tab_image_2": "63a8bda307a77459",
+   "alt:tab_image_3": "0df40d11b44e53ac",
+   "alt:tab_image_4": "b2323fb229e28db8",
+   "breadcrumb": "1232a2c7067f9130",
+   "chip_adds": "ead9d48cca06edb4",
+   "explore_cta": "bb06d97c73bf057f",
+   "faq": "9433c4fd33e8808f",
+   "feature_1": "e356387fe03ead17",
+   "feature_2": "82a79c2d5dfb3757",
+   "feature_3": "98154ea9876313a6",
+   "feature_4": "83c46ce9d5439244",
+   "feature_5": "453bb7f3b9a08592",
+   "feature_6": "bfa71b1b04fb7752",
+   "features_heading": "0fdea44e4d1242e5",
+   "features_subheading": "c913706a7a283770",
+   "h1": "37e8cdeb73969f0d",
+   "hero_description": "718b04d5090955ab",
+   "hero_prompt": "04189875161b547b",
+   "howto_description": "92570ce0866e44d6",
+   "howto_step_1_des": "a36eb4f999caa068",
+   "howto_step_1_title": "751b67b2a3eef9c8",
+   "howto_step_2_des": "1c511f51358eeddb",
+   "howto_step_2_title": "794d4da434f8d7ae",
+   "howto_step_3_des": "afac50e034ed6479",
+   "howto_step_3_title": "e8206f75d6bccb90",
+   "howto_step_4_des": "0bf12e83bedc5ebf",
+   "howto_step_4_title": "26a65d7e318fdf64",
+   "howto_step_5_des": "601a8fe66e26c7b1",
+   "howto_step_5_title": "f87630db0b68eaed",
+   "howto_step_6_des": "9b71952945f4ea37",
+   "howto_step_6_title": "a7902659b3da2236",
+   "howto_step_7_des": "fdc4fcda8547c153",
+   "howto_step_7_title": "34947e58a92e712e",
+   "howto_title": "61eed8cfa240208e",
+   "meta_description": "71cf0252717a5d9a",
+   "meta_title": "e0162674f2f9f5e1",
+   "mockup": "9bb44ed216106286",
+   "product_name": "2851a5e767447c0e",
+   "prompt_chip_1": "2c970c2e9735dcd0",
+   "prompt_chip_2": "504a351fd6a55c13",
+   "prompt_chip_3": "a66b008de7d3fc51",
+   "prompt_chip_4": "ea85788e2976758f",
+   "quiz": "68e7ca75166eac03",
+   "slug": "721e9171af353d2c",
+   "tab_content_1": "4d218d8e7979991a",
+   "tab_content_2": "6a4b60de70f71c7e",
+   "tab_content_3": "412cbcbe467a944e",
+   "tab_content_4": "a0c350042fa662f9",
+   "tab_label_1": "ace714da3c5c425e",
+   "tab_label_2": "7d8428cee08bf8db",
+   "tab_label_3": "7b2834312ea836a0",
+   "tab_label_4": "53c174a1eb509fc4",
+   "usecase_heading": "cf1707d65a2f3244",
+   "why_description": "748cca0563a408f0",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "0b7f41ea244e7909"
+  },
+  "all": "202691bd72f8c337",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
