@@ -18,7 +18,7 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   qc-field       {url, field, text, expect, drop_key?, path?}  QC raises one of the expected codes when the field holds this text (or the spec
                                                           key drop_key is missing; or path, a list of keys into the spec, e.g. ["image_brief","tabs",0,"alt"], holds it)
   k7-header      {url, header, expect_k7}                 QC K7 fires on a why_table column header exactly when expect_k7 (top-10 URLs: keyword map + saved SERP)
-  qc-code-text   {url, field, text, code, match?}         QC raises exactly `code` (message containing `match`) on that field for this text
+  qc-code-text   {url, field, text, code, match?, sha?}       QC raises exactly `code` (message containing `match`) on that field for this text
   qc-k5-locked   {url, sha, q_index, locked, set_q?, match, expect_k5}  K5 (sibling primary in a heading) fires on FAQ item q_index of
                                                           the spec at sha exactly when expected: never on a locked skeleton question as built
                                                           (faq_plan slot locked and the item equals it); set_q rewords the item
@@ -89,7 +89,7 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
                                                           spec without a quiz exports byte for byte as with no carrier), with-quiz {url, fixture}
                                                           (hero <p> and awbPrompt unchanged, one separate quiz block, Z9 clean), z9-wrong-quiz,
                                                           z9-no-carrier, verify-live {mutate: none|quiz|prompt|no-embed|no-quiz, expect_fail: [checks]},
-                                                          ship-block {url, quiz, expect_blocked}, css-scope {inject?, expect_bad}, plan-type {primary, expect}
+                                                          ship-block {url, quiz, expect_blocked, template_live?}, css-scope {inject?, expect_bad}, plan-type {primary, expect}
   learn-check    {hub, readback, slug, learn?, expect_fail, match?}  Divit 2026-10-16: hubctl.learn_problems on the item `slug` in the
                                                           read-back (repo-relative; a missing .cache read = not machine-tested), with the Learn
                                                           read `learn` (published status) or count only; match: substrings every one in a problem
@@ -207,6 +207,7 @@ def caught(c):
     if c["kind"] == "gate-question":
         import paa_gate as PG
         g = PG.Gate(c["url"]); g.spec = spec_at(c["sha"], c["url"])
+        g.new_writing = not PG.reviewed_already(g.spec)   # A-fix-1 2026-11-11: review state of the spec AT sha (Gate() reads today's file; a page reviewed later made its pinned FAQ legacy)
         items, _ = PG.run_spec(g); it = items[c["q_index"] - 1]
         if c.get("absent"): return not any(r[0] in c["absent"] for r in it["reasons"])   # an exemption: the rule must stay silent
         rej = {r[0] for r in it["reasons"] if r[1] == "reject"}
@@ -481,7 +482,7 @@ def caught(c):
         return SQ.keep_reason(c["url"], c["q"]) == c.get("expect_drop")
     if c["kind"] == "qc-code-text":        # QC raises exactly `code` on `field` when it holds `text` (canary 2026-10-14: R15 brand + moat)
         import qc_hub as Q, hubctl as H
-        s = copy.deepcopy(json.load(open(H.spath(c["url"])))); s["fields"][c["field"]] = c["text"]
+        s = copy.deepcopy(spec_at(c["sha"], c["url"]) if c.get("sha") else json.load(open(H.spath(c["url"])))); s["fields"][c["field"]] = c["text"]   # sha: the page as it was (A-fix-1 2026-11-11)
         return any(i["code"] == c["code"] and i["sev"] in ("P0", "P1") and c.get("match", "") in i["msg"] for i in Q.check(s, Q.load_specs([H.spath(c["url"])])))
     if c["kind"] == "qc-k5-locked":        # B-dev-11 (Divit's go 2026-10-15): K5 skips a locked skeleton FAQ question (code-built, verbatim,
         import qc_hub as Q, hubctl as H, io, contextlib    # PA10 owns the sibling call); an unlocked or reworded question still raises K5
@@ -595,12 +596,12 @@ def caught(c):
         finally: os.unlink(fp)
     if c["kind"] == "coord-id":   # ruling 22: unlock / transfer-hold accept only the coordinator's id from the coordinator's clone
         import hubctl as H
-        real = H.clone_account
-        try:
-            H.clone_account = lambda: c["clone"]
+        real, real_co = H.clone_account, H.COORDINATOR   # A-fix-1 2026-11-11: the case names the coordinator (default B, ruling 22), so the
+        try:                                              # result never depends on today's CURRENT COORDINATOR marker
+            H.clone_account = lambda: c["clone"]; H.COORDINATOR = c.get("coordinator", "B")
             return H.is_coordinator(c["by"]) == c["expect"]
         finally:
-            H.clone_account = real
+            H.clone_account, H.COORDINATOR = real, real_co
     if c["kind"] in ("skel-field", "skel-fn", "skel-invariants"):   # decision 8 (2026-10-15): the deterministic field builders
         import skeleton as SK
         if c["kind"] == "skel-field":
@@ -820,7 +821,10 @@ def quiz_case(c):
         return failed == set(c.get("expect_fail") or []) and passed | failed == set(names)
     if t == "ship-block":
         s = json.load(open(H.spath(QUIZ_HERO))) if not c.get("quiz") else _quiz_spec()
-        return bool(H.quiz_ship_block(c["url"], s)) == c["expect_blocked"]
+        hub = H.CFG["hubs"]["SurveyQuiz"]; saved = hub.get("quiz_template_live")   # template_live: override config (A-fix-1 2026-11-11)
+        if "template_live" in c: hub["quiz_template_live"] = c["template_live"]
+        try: return bool(H.quiz_ship_block(c["url"], s)) == c["expect_blocked"]
+        finally: hub["quiz_template_live"] = saved
     if t == "css-scope":
         sys.path.insert(0, os.path.join(ROOT, "ops", "quiz")); import build as QB
         html = open(os.path.join(ROOT, "ops", "quiz", "embed.html")).read()
