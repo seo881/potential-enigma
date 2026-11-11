@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-511",
    "note": ""
+  },
+  {
+   "t": "2026-11-11 08:19 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-472",
+   "note": "[images | CONTENT_DEFECTS #20] mockup (handTherapy) vs image_brief.tabs[1].main table: The handTherapy mockup prompt defines the new-patient table as appointment time plus both answers; the tab 2 image draws that same 'Today's new patients' table with columns Patient, Injured, Writes with, Label and"
   }
  ],
  "pipeline": "r15",
@@ -953,5 +960,275 @@
  ],
  "writers": [
   "B-w-511"
- ]
+ ],
+ "review": {
+  "by": "B-r-472",
+  "date": "2026-11-11 08:19 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Occupational Therapy Intake Form Around Daily Tasks'; hero 'Build an occupational therapy intake form that records the daily tasks each patient wants back, in a database you own.'; how-to description one sentence on what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "No top 10 in the workbook; page delivers what goes on an OT intake (daily tasks checklist, injured vs writing hand, pediatric school section, referral, goal ratings), a 7-step how-to and FAQ 3 'What daily living questions belong on an occupational therapy intake form?'."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "OT vocabulary throughout: 'which hand was injured, and which hand they write with', 'driving evaluation', 'goals the patient rates from 1 to 10' at re-evaluation; table uses the form category variant."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Fernwold Pediatric Therapy asks each parent for the child's age first.', 'Give patients a checklist of daily tasks...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC 0; 11 'A, B, and C' lists and 2 ', so' endings recorded as a craft note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete and human: 'Lift my granddaughter tells the therapist more than a box marked shoulder strength'; one phrasing note on FAQ 5."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "BLS quotes back FAQ 1, 3, 5; COPM quotes back FAQ 6 ('five priority areas... 10-point scales on two domains', 'score each of the five activities' again); claims_used all approved; tab numbers 3/2/4/5 and 7/6/8/7 match tab 4 copy and image."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Hand dominance, driving-rehab referral and goal re-rating are OT-specific; sibling primaries (therapy intake form, patient intake form, acupuncture intake form) appear only as FAQ link anchors, never in headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions answered in the first sentence; hub link in item 2; Q1 PA7 flag pending Divit (held by B-c-1), not scored here; acupuncture question recorded as a note."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 2 image table 'Patient | Injured | Writes with | Label' has no appointment time column while the handTherapy mockup asks for 'a table with their appointment time and both answers'."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "mockup (handTherapy) vs image_brief.tabs[1].main table",
+    "quote": "Show today's new patients in a table with their appointment time and both answers.",
+    "issue": "The handTherapy mockup prompt defines the new-patient table as appointment time plus both answers; the tab 2 image draws that same 'Today's new patients' table with columns Patient, Injured, Writes with, Label and no time column (the 2:15 appears only on the hero card). The field set of the table differs between mockup and image (rework-checklist 9/11, cross-field rule 2026-11-05).",
+    "fix": "Make one field set: either change the mockup to 'Show today's new patients in a table with both answers and the label.' or add a Time column to the tab 2 image table (Lorcan Osei-Bonsu at 2:15) and keep the mockup. Re-check every other mention of that table.",
+    "severity": "blocking"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_1, tab_content_1, tab_content_4, howto_step_1_des, faq items 1, 3, 4, 5",
+    "quote": "cooking, writing, and opening jars / gardening, typing emails, and carrying groceries / bathing, eating, and using the toilet / shopping, driving, and work",
+    "issue": "11 'A, B, and C' lists on the page (QC Q8) read templated; FAQ 3 alone carries two.",
+    "fix": "Turn a few into pairs or one specific example.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 7",
+    "quote": "Can one occupational therapy intake form also cover acupuncture patients?",
+    "issue": "Reads as a question written to carry the acupuncture intake form link rather than one an OT searcher asks.",
+    "fix": "A real OT question would serve better, e.g. how the form handles a patient with an injured hand typing answers.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 5",
+    "quote": "the intake should ask which of those sent the child",
+    "issue": "A setting does not send a child; the sentence stretches the BLS quote into an awkward instruction.",
+    "fix": "'...so ask where the child is seen now: inpatient, outpatient, or at school.'",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 3",
+    "quote": "Self-care covers dressing, bathing, eating, and using the toilet, and the second group covers cooking, shopping, driving, and work.",
+    "issue": "Reads close to the ADL/IADL taxonomy without a source; framed as the page's own grouping advice, so a note.",
+    "fix": "Keep it framed as advice ('Put dressing, bathing... under self-care') or source the AOTA framework.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_1, tab_content_1, tab_content_4, howto_step_1_des, faq items 1, 3, 4, 5",
+   "issue": "11 'A, B, and C' lists on the page (QC Q8) read templated; FAQ 3 alone carries two.",
+   "fix": "Turn a few into pairs or one specific example.",
+   "by": "B-r-472",
+   "via": "review",
+   "date": "2026-11-11 08:19 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 7",
+   "issue": "Reads as a question written to carry the acupuncture intake form link rather than one an OT searcher asks.",
+   "fix": "A real OT question would serve better, e.g. how the form handles a patient with an injured hand typing answers.",
+   "by": "B-r-472",
+   "via": "review",
+   "date": "2026-11-11 08:19 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 5",
+   "issue": "A setting does not send a child; the sentence stretches the BLS quote into an awkward instruction.",
+   "fix": "'...so ask where the child is seen now: inpatient, outpatient, or at school.'",
+   "by": "B-r-472",
+   "via": "review",
+   "date": "2026-11-11 08:19 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 3",
+   "issue": "Reads close to the ADL/IADL taxonomy without a source; framed as the page's own grouping advice, so a note.",
+   "fix": "Keep it framed as advice ('Put dressing, bathing... under self-care') or source the AOTA framework.",
+   "by": "B-r-472",
+   "via": "review",
+   "date": "2026-11-11 08:19 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "3f7a859af72105bb",
+   "alt:share_image": "0bb64be9e1bd2a5e",
+   "alt:tab_image_1": "090233162eed5b68",
+   "alt:tab_image_2": "a30b10ac7007ddf9",
+   "alt:tab_image_3": "d29dd21db4bb52db",
+   "alt:tab_image_4": "0aca25139ff70a35",
+   "breadcrumb": "e05c347164c77c96",
+   "chip_adds": "29122348be318e35",
+   "explore_cta": "77407cac05e6aaeb",
+   "faq": "bcafa788cd79351e",
+   "feature_1": "8bbd287026aa1283",
+   "feature_2": "8f1e9b4c159d354f",
+   "feature_3": "baa64f23b0bc957c",
+   "feature_4": "f72bceb3f82180b4",
+   "feature_5": "c21d4a2fb2fc293d",
+   "feature_6": "cb1d5daa8624dee9",
+   "features_heading": "0002f5f7adfcb1c4",
+   "features_subheading": "bed4082ec0a6e9ba",
+   "h1": "e8c82dfa12cf6c68",
+   "hero_description": "78e216a0fb59d70d",
+   "hero_prompt": "a401574a5e42272a",
+   "howto_description": "d23a2e262ad8f62f",
+   "howto_step_1_des": "25a3b63409f62ce6",
+   "howto_step_1_title": "9edb8a41c162f000",
+   "howto_step_2_des": "c8900e6b284dceaa",
+   "howto_step_2_title": "3c2818f1c5db7935",
+   "howto_step_3_des": "4eb3795c50758aef",
+   "howto_step_3_title": "dd5da06205f2dd24",
+   "howto_step_4_des": "21241ba06eb4370a",
+   "howto_step_4_title": "40fe7e36e5dda02f",
+   "howto_step_5_des": "877a7778f73bf529",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "f16a3c2c1e92ac57",
+   "howto_step_6_title": "6c2078c16e8419b3",
+   "howto_step_7_des": "49ad97c052fc5a2e",
+   "howto_step_7_title": "f65c7dfb58d6e0d5",
+   "howto_title": "c348b9cbf073f8b2",
+   "meta_description": "590445f34238c5cd",
+   "meta_title": "6aae1a8d0a37670a",
+   "mockup": "2e38cc547838f1c2",
+   "product_name": "4fe7ac354c307c56",
+   "prompt_chip_1": "41e00928d501bbb1",
+   "prompt_chip_2": "52555e4a5ccfafa7",
+   "prompt_chip_3": "bbd1381a9b9b650b",
+   "prompt_chip_4": "53b4246231c6fdaa",
+   "slug": "b242be88c3119108",
+   "tab_content_1": "fb7c283447c0f5e4",
+   "tab_content_2": "f97875cec9c4432c",
+   "tab_content_3": "476484ac1b139539",
+   "tab_content_4": "83dcb1ef4654f312",
+   "tab_label_1": "c31da79fb3553368",
+   "tab_label_2": "41e00928d501bbb1",
+   "tab_label_3": "81b502a94382a5e0",
+   "tab_label_4": "53b4246231c6fdaa",
+   "usecase_heading": "cb805d659da6574e",
+   "why_description": "3550450fbe461c45",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "8b317d356c30fe5b"
+  },
+  "all": "3910b34e707084e3",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "3f7a859af72105bb",
+   "alt:share_image": "0bb64be9e1bd2a5e",
+   "alt:tab_image_1": "090233162eed5b68",
+   "alt:tab_image_2": "a30b10ac7007ddf9",
+   "alt:tab_image_3": "d29dd21db4bb52db",
+   "alt:tab_image_4": "0aca25139ff70a35",
+   "breadcrumb": "e05c347164c77c96",
+   "chip_adds": "29122348be318e35",
+   "explore_cta": "77407cac05e6aaeb",
+   "faq": "bcafa788cd79351e",
+   "feature_1": "8bbd287026aa1283",
+   "feature_2": "8f1e9b4c159d354f",
+   "feature_3": "baa64f23b0bc957c",
+   "feature_4": "f72bceb3f82180b4",
+   "feature_5": "c21d4a2fb2fc293d",
+   "feature_6": "cb1d5daa8624dee9",
+   "features_heading": "0002f5f7adfcb1c4",
+   "features_subheading": "bed4082ec0a6e9ba",
+   "h1": "e8c82dfa12cf6c68",
+   "hero_description": "78e216a0fb59d70d",
+   "hero_prompt": "a401574a5e42272a",
+   "howto_description": "d23a2e262ad8f62f",
+   "howto_step_1_des": "25a3b63409f62ce6",
+   "howto_step_1_title": "9edb8a41c162f000",
+   "howto_step_2_des": "c8900e6b284dceaa",
+   "howto_step_2_title": "3c2818f1c5db7935",
+   "howto_step_3_des": "4eb3795c50758aef",
+   "howto_step_3_title": "dd5da06205f2dd24",
+   "howto_step_4_des": "21241ba06eb4370a",
+   "howto_step_4_title": "40fe7e36e5dda02f",
+   "howto_step_5_des": "877a7778f73bf529",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "f16a3c2c1e92ac57",
+   "howto_step_6_title": "6c2078c16e8419b3",
+   "howto_step_7_des": "49ad97c052fc5a2e",
+   "howto_step_7_title": "f65c7dfb58d6e0d5",
+   "howto_title": "c348b9cbf073f8b2",
+   "meta_description": "590445f34238c5cd",
+   "meta_title": "6aae1a8d0a37670a",
+   "mockup": "2e38cc547838f1c2",
+   "product_name": "4fe7ac354c307c56",
+   "prompt_chip_1": "41e00928d501bbb1",
+   "prompt_chip_2": "52555e4a5ccfafa7",
+   "prompt_chip_3": "bbd1381a9b9b650b",
+   "prompt_chip_4": "53b4246231c6fdaa",
+   "slug": "b242be88c3119108",
+   "tab_content_1": "fb7c283447c0f5e4",
+   "tab_content_2": "f97875cec9c4432c",
+   "tab_content_3": "476484ac1b139539",
+   "tab_content_4": "83dcb1ef4654f312",
+   "tab_label_1": "c31da79fb3553368",
+   "tab_label_2": "41e00928d501bbb1",
+   "tab_label_3": "81b502a94382a5e0",
+   "tab_label_4": "53b4246231c6fdaa",
+   "usecase_heading": "cb805d659da6574e",
+   "why_description": "3550450fbe461c45",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "8b317d356c30fe5b"
+  },
+  "all": "3910b34e707084e3",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
