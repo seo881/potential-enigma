@@ -1,7 +1,9 @@
 # Two Claude Code accounts on one Mac (Divit, 2026-10-13)
 
-CURRENT COORDINATOR: A
+CURRENT COORDINATOR: B
 <!-- machine-readable (Divit 2026-11-03): ops/hubctl.py current_coordinator() reads this line; rewrite it at every handover. The current coordinator lifts any account's hold (hubctl unhold --by <C>-c-<n> --reason ...; logged in status/hold-lifts.jsonl with the original holder) and records the other account's slim review (hubctl slim-review ... --by A-s-<n> --recorded-by <C>-c-<n>). -->
+
+> **TAKE-BACK (Divit, 2026-11-12): B (`~/emergent-hubs-a`) is the coordinator again and takes over all of A's work (A's 24 claimed SurveyQuiz pages transferred to B, resumed from saved state). A stays stopped until Divit splits work again. Watchdog repo file (`~/Library/Application Support/emergent/repo`) = `~/emergent-hubs-a`. Speed rulings of 2026-11-12 apply: reworks fix only failing fields; sonnet for reworks/skeleton fills/ship/verify/read-backs; per-page source packs; writer cap 40 with no "max 10 waiting" throttle; coordinator reads summaries, not diffs or transcripts; resume note every ~3 h; no side work during production.**
 
 > **TEMPORARY HANDOVER (Divit, 2026-11-11): A (`~/emergent-hubs`, CLAUDE_CONFIG_DIR=~/.claude-b) is the coordinator and the ONLY shipper, and takes over ALL of B's remaining work (reviews, reworks, writers, ships). B is stopped at its usage limit and makes no writes to this repo or the hub collections until handback. B's uncommitted work is on origin/b-wip-2026-11-11; A brings onto main only what Webflow confirms. Handback on Divit's word after B's reset, via reports/2026-11-11/handback-to-B.md.**
 
