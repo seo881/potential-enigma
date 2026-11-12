@@ -265,7 +265,7 @@ def caught(c):
         return lv == set(c["expect_levels"])
     if c["kind"] == "flags-pending":   # B-c-1 2026-10-16: stale Semrush/PAA flag markers on slots that now hold a written question
         import guards as GD, hubctl as H
-        sp = json.load(open(H.spath(c["url"]))) if not c.get("sha") else spec_at(c["sha"], c["url"])
+        sp = c["spec"] if c.get("spec") else (json.load(open(H.spath(c["url"]))) if not c.get("sha") else spec_at(c["sha"], c["url"]))   # inline spec: synthetic cases (B-c-2 2026-11-12)
         return sorted(n for n, _ in GD.flags_pending(sp)) == sorted(c["expect"])
     if c["kind"] == "gate-written-prov":   # Divit 2026-10-16: verbatim/provenance checks (PA1, PA1b) apply to paa items only
         import paa_gate as PG, hubctl as H

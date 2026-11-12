@@ -444,8 +444,11 @@ def flags_pending(spec):
         fl = sl.get("flagged") or []
         if not fl or not sl.get("q"): continue
         n_ = sl.get("n") or 0
-        if 0 < n_ <= len(src) and (src[n_ - 1] or {}).get("source") == "written" and (src[n_ - 1] or {}).get("q") == sl["q"]:
+        if 0 < n_ <= len(src) and (src[n_ - 1] or {}).get("source") == "written" and (src[n_ - 1] or {}).get("q") == sl["q"] \
+                and (src[n_ - 1] or {}).get("origin") != "definition":
             continue   # B-c-1 2026-10-16: the slot now holds a written question (gated strictly: a flag there is a reject); the marker belonged to the replaced Semrush/PAA question
+            # origin "definition" excepted (Divit 2026-11-12, closing A-fix-1's gap): the locked definition slot cannot be rephrased,
+            # so its flags stay flags (paa_gate PA7 ruling 2026-10-16 evening) and MUST hold the page for Divit's packet decision
         import paa_gate as _PG
         if (qs.get(slug + ":" + _PG.qhash(sl["q"])) or {}).get("decision") == "approve": continue
         fl = [("PA6 asker unclear: " + _PG.pa6_shape(sl.get("ref") or sl["q"])) if f in ("PA6 asker unclear", "PA6 asker unclear: other") else f for f in fl]   # skeletons built before the 10-14 split
