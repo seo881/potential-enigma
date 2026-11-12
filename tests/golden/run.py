@@ -263,6 +263,14 @@ def caught(c):
         g = PG.Gate(c["url"]); it = {"q": c["q"], "source": "written", "origin": c.get("origin"), "n": 1, "legacy": False}
         lv = {r[1] for r in g.judge(it) if r[0] == c["rule"]}
         return lv == set(c["expect_levels"])
+    if c["kind"] == "ymyl":   # SHIP-FIRST (Divit 2026-11-12): YMYL pages keep the pre-ship review (rules/ymyl.json)
+        import hubctl as H
+        return bool(H.ymyl(c["url"], {"keywords": {"primary": c.get("primary", "")}})) == c["expect_ymyl"]
+    if c["kind"] == "ship-first-gate":   # SHIP-FIRST: a ship_first marker exempts the review only while the approved fingerprint matches
+        import hubctl as H, guards as GD
+        sp = dict(c["spec"]); fp = GD.fingerprint(sp)
+        sp["approval"] = {"by": "ship-first", "fingerprint": fp if c["fingerprint_matches"] else "stale"}; sp["ship_first"] = {"approved": "2026-11-12 12:00 UTC"}
+        return H.ship_first_ok(sp) == c["expect_ok"]
     if c["kind"] == "flags-pending":   # B-c-1 2026-10-16: stale Semrush/PAA flag markers on slots that now hold a written question
         import guards as GD, hubctl as H
         sp = c["spec"] if c.get("spec") else (json.load(open(H.spath(c["url"]))) if not c.get("sha") else spec_at(c["sha"], c["url"]))   # inline spec: synthetic cases (B-c-2 2026-11-12)

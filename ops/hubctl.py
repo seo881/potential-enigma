@@ -45,6 +45,10 @@
                                     topic-matched Learn refs (ops/learn_match.py; fallback config/learn_sets.json); --write sets
                                     spec.learn_refs + learn_refs_why (refused on live pages); --out writes plan.md + plan.json (Divit 2026-10-16)
   slug-check HUB|URL [...]          the PERMANENT slug rule (ops/slugs.py slug_for): slug = target keyword standalone minus the category word
+  postlive-backlog [--json]          SHIP-FIRST pages awaiting their independent post-live review (due within 24 h; Divit 2026-11-12)
+  postlive-review URL F.json --by B-r-<n>   record that review (blocking findings -> CMS item update + verify-live)
+  ymyl URL...                        legal/medical/health/financial/insurance? (rules/ymyl.json; such pages need review BEFORE shipping)
+  state URL approved --by ship-first   SHIP-FIRST approval: every automated check but the review; refuses YMYL
   ship-check URL [URL ...]          ship-time checks (DECISIONS 2026-10-15 night): QC 0, gate 10/10, review current, no pending flag, images
                                     current, Learn refs (new pages), hero prompt (QC L10 + generic); exit 1 on any failure
   state URL approved --by standing-go   the standing go: only while .cache/overnight-b/ruling19-lift-2026-10-15 or a dated
@@ -687,8 +691,24 @@ def cmd_state(args):
         if by0 != G.STANDING_GO: sys.exit(f"refused: the standing-go id is exactly '{G.STANDING_GO}'")
         if state != "approved": sys.exit("refused: --by standing-go only approves (hubctl state URL approved --by standing-go)")
         if not G.standing_go_active(): sys.exit("refused: --by standing-go is accepted only while .cache/overnight-b/ruling19-lift-2026-10-15 or .cache/standing-go-<today> (under 18 hours old) exists; approval is Divit's otherwise")
-        probs = [p for p in ship_check(url) if not p.startswith("approval ")]   # the go record is written below, on approval
+        probs = [p for p in ship_check(url, reapprove=True) if not p.startswith("approval ")]   # the go record is written below, on approval; R3 is what approving clears
         if probs: sys.exit("refused: standing go needs every ship-time check to pass: " + "; ".join(probs))
+    if by0 == SHIP_FIRST:   # Divit 2026-11-12: approve on automated checks; the go record cites the rule; review follows within 24 h
+        if state != "approved": sys.exit("refused: --by ship-first only approves (hubctl state URL approved --by ship-first)")
+        hr = hold_refusal(url)
+        if hr: sys.exit(hr)
+        probs = ship_first_problems(url)
+        if probs: sys.exit("refused: SHIP-FIRST needs every automated check to pass: " + "; ".join(probs))
+        import datetime as _dt
+        today = _dt.date.today().isoformat()
+        _gp, grec = go_append(today, [url], SHIP_FIRST_RULE, SHIP_FIRST, "ship-first")
+        sp = spath(url); s = json.load(open(sp))
+        s["approval"] = {"fingerprint": G.fingerprint(s), "date": now(), "rules_version": G.rules_version(), "by": SHIP_FIRST,
+                         "go": {"date": today, "by": SHIP_FIRST, "source": "ship-first", "recorded_at": grec.get("recorded_at")}}
+        s["ship_first"] = {"approved": now(), "rule": "Divit 2026-11-12 SHIP-FIRST", "postlive_review": None}
+        json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
+        note = args[args.index("--note") + 1] if "--note" in args else "SHIP-FIRST: automated checks pass; independent review due within 24 h of going live"
+        set_state(url, "approved", note, by=SHIP_FIRST); print(f"{url} -> approved (SHIP-FIRST; post-live review due)"); return
     go = None
     if state == "approved":   # DECISIONS 2026-10-26: approved only through a recorded go from Divit, never inferred from --by
         import datetime as _dt
@@ -1324,6 +1344,7 @@ def ship_review_gate(url, s, packet=None):
     """(verdict, why): 'ok', 'hold' (refused only for pending flags: printed and added to the morning packet) or 'refuse'."""
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
     fp = G.flags_pending(s)
+    if not fp and ship_first_ok(s): return "ok", ""   # SHIP-FIRST (Divit 2026-11-12): approved on automated checks, content unchanged since
     if fp:
         ch = G.review_changed(s)
         if ch == []: flag_hold(url, s, fp, packet); return "hold", "flags pending (morning packet)"
@@ -1362,25 +1383,61 @@ def cmd_slug_check(args):
         if pr: print(f"FAIL {u}: " + "; ".join(pr))
     print(f"slug-check: {len(urls) - bad}/{len(urls)} pass"); return 1 if bad else 0
 
-def ship_check(url):
+SHIP_FIRST = "ship-first"
+SHIP_FIRST_RULE = ("SHIP-FIRST (Divit 2026-11-12): a page ships as soon as the automated checks pass (QC 0, gate, slug rule, hero rule, "
+                   "Learn check, images current, ship-check) without waiting for the independent review; legal, medical, health, financial "
+                   "and insurance pages still need the review first; every page shipped this way gets its independent review within 24 hours")
+def ymyl(url, s=None):
+    """[category, ...] when the page is legal/medical/health/financial/insurance (rules/ymyl.json; slug and primary keyword only)."""
+    d = json.load(open(os.path.join(ROOT, "rules", "ymyl.json"))); stems = set(d.get("stems") or [])
+    s = s if s is not None else (json.load(open(spath(url))) if os.path.exists(spath(url)) else {})
+    text = " ".join([url.rsplit("/", 1)[-1].replace("-", " "), ((s.get("keywords") or {}).get("primary") or "")]).lower()
+    hits = []
+    for cat, terms in d["categories"].items():
+        for t in terms:
+            rx = r"(?<![a-z])" + re.escape(t.lower()) + ("" if t in stems else r"(?:s|es)?(?![a-z])")
+            if re.search(rx, text): hits.append(cat); break
+    return hits
+def ship_first_ok(s):
+    """True when the page was approved under SHIP-FIRST and its content is unchanged since that approval (fingerprint)."""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
+    sf, ap = s.get("ship_first") or {}, s.get("approval") or {}
+    return bool(sf) and ap.get("by") == SHIP_FIRST and ap.get("fingerprint") == G.fingerprint(s)
+def ship_first_problems(url):
+    """[] when SHIP-FIRST may approve the page: every automated ship-time check passes except 'state reviewed' and 'review current',
+    and the page is not YMYL. Flags pending still block (they wait for Divit's packet)."""
+    if not os.path.exists(spath(url)): return [f"no spec for {url}"]
+    s = json.load(open(spath(url)))
+    cats = ymyl(url, s)
+    if cats: return [f"YMYL ({', '.join(cats)}): needs the independent review before shipping (SHIP-FIRST exception)"]
+    st_ = load_st(hub_of(url))["pages"].get(url, {}).get("state")
+    if st_ not in ("qc_pass", "images", "reviewed"): return [f"state is '{st_}' (SHIP-FIRST approves qc_pass, images or reviewed pages)"]
+    return [p for p in ship_check(url, review_exempt=True, reapprove=True) if not p.startswith("approval ")]
+
+def ship_check(url, review_exempt=False, reapprove=False):
     """Ship-time checks (DECISIONS 2026-10-15 night): [] when the page may ship. QC TOTAL 0, PAA gate 10/10, review current and
     no pending flag, images current, Learn refs (new items: spec.learn_refs), hero prompt (QC L10/L13/L14 run in QC; page-specific default, HERO PROMPT FIX 2026-11-03)."""
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G, ship as SH
     if not os.path.exists(spath(url)): return [f"no spec for {url}"]
     s = SH.spec(url); out = []
+    review_exempt = review_exempt or ship_first_ok(s)   # SHIP-FIRST (Divit 2026-11-12): review comes after going live
     st_ = load_st(hub_of(url))["pages"].get(url, {}).get("state")   # B-c-1 2026-10-21: a page a review sent to rework (or not yet reviewed) never passes
-    if st_ not in ("reviewed", "approved", "cms_draft", "published"): out.append(f"state is '{st_}', not reviewed")
+    if st_ == "rework": out.append("state is 'rework': a review found blocking problems")
+    elif st_ not in ("reviewed", "approved", "cms_draft", "published") and not review_exempt: out.append(f"state is '{st_}', not reviewed")
     hr = hold_refusal(url)   # DECISIONS 2026-10-26: an active hold of any account blocks shipping (surgery-consent's hold was ignored)
     if hr: out.append("hold: " + hr[len("refused: "):])
     if st_ == "approved":    # DECISIONS 2026-10-26: approval only through a recorded go (a hand-edited status never ships)
         au = approval_unbacked(url, s)
         if au: out.append("approval " + au)
     r = subprocess.run([sys.executable, os.path.join(ROOT, "qc", "qc_hub.py"), spath(url)], capture_output=True, text=True)
-    if r.returncode: out.append("QC TOTAL is not 0: " + (", ".join(sorted({m.group(2) for m in re.finditer(r"^  (P0|P1) (\S+)", r.stdout, re.M)})) or "run hubctl qc"))
+    if r.returncode:
+        ids = sorted({m.group(2) for m in re.finditer(r"^  (P0|P1) (\S+)", r.stdout, re.M)})
+        if reapprove: ids = [i for i in ids if i != "R3"]   # approving IS the re-approval R3 asks for: it restamps the fingerprint (Divit 2026-11-12)
+        if ids or not reapprove: out.append("QC TOTAL is not 0: " + (", ".join(ids) or "run hubctl qc"))
     ok, n, page, _fl = SH.paa(url)
     if not (ok == 10 and n == 10 and not page): out.append(f"PAA gate {ok}/{n}" + (f" ({', '.join(page)})" if page else ""))
     if G.flags_pending(s): out.append("flags pending (morning packet)")
-    else:
+    elif not review_exempt:
         rk, why = G.review_ok(s)
         if not rk: out.append(why)
     if not SH.images_current(s): out.append("images not current (hubctl images)")
@@ -1390,6 +1447,40 @@ def ship_check(url):
     # the 2026-10-09 "generic default" rule (no "my/our + number" scenario) is SUPERSEDED by Divit's HERO PROMPT FIX (2026-11-03): the
     # default is ONE specific, concrete build ("a 60-seat cap"); QC L14 blocks template sentences and near-duplicates instead
     return out
+
+def cmd_postlive_backlog(args):
+    """hubctl postlive-backlog [--json]: SHIP-FIRST pages without their independent post-live review (Divit 2026-11-12: due within
+    24 hours of going live). Prints due/overdue counts and the list, oldest first."""
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G, datetime as _dt
+    rows = []; nowt = _dt.datetime.now(_dt.timezone.utc)
+    for s in G.all_specs():
+        sf = s.get("ship_first")
+        if not sf or sf.get("postlive_review"): continue
+        u = s.get("url"); st_ = load_st(hub_of(u))["pages"].get(u, {}).get("state")
+        t = _dt.datetime.strptime(sf["approved"], "%Y-%m-%d %H:%M UTC").replace(tzinfo=_dt.timezone.utc)
+        rows.append((t, u, st_, (nowt - t).total_seconds() / 3600))
+    rows.sort()
+    if "--json" in args: print(json.dumps([{"url": u, "state": st_, "approved": t.strftime("%Y-%m-%d %H:%M UTC"), "age_h": round(a, 1)} for t, u, st_, a in rows], indent=1)); return
+    over = [r for r in rows if r[3] > 24]
+    print(f"post-live review backlog: {len(rows)} page(s); overdue (>24 h): {len(over)}; live: {sum(1 for r in rows if r[2] == 'published')}")
+    for t, u, st_, a in rows: print(f"  {'OVERDUE ' if a > 24 else ''}{u}  ({st_}, approved {t.strftime('%m-%d %H:%M')} UTC, {a:.1f} h)")
+
+def cmd_postlive_review(args):
+    """hubctl postlive-review URL FINDINGS.json --by B-r-<n>: record the independent post-live review of a SHIP-FIRST page.
+    FINDINGS.json: {"blocking": [{"field", "severity", "rule", "finding"}], "notes": [...]} with severities from rules/SEVERITY.md.
+    The reviewer never wrote the page. Blocking findings are fixed by CMS item update plus verify-live (they are listed for the fix)."""
+    url, fp = args[0], args[1]; by = need_by(args, "postlive-review")
+    if not re.match(r"^[AB]-r-\d+$", by): sys.exit("refused: --by must be a full reviewer id (A-r-<n> or B-r-<n>)")
+    sp = spath(url); s = json.load(open(sp))
+    if not s.get("ship_first"): sys.exit(f"refused: {url} was not shipped under SHIP-FIRST (its review happened before shipping)")
+    if by in (s.get("writers") or []) or by == s.get("written_by"): sys.exit(f"refused: {by} wrote part of this page; the review must be independent")
+    f = json.load(open(fp)); blk = f.get("blocking") or []
+    rd = os.path.join(ROOT, "reviews", CFG["hubs"][hub_of(url)]["repo_dir"]); os.makedirs(rd, exist_ok=True)
+    rp = os.path.join(rd, f"{url.rsplit('/', 1)[1]}.postlive.{by}.json"); json.dump(f, open(rp, "w"), indent=1, ensure_ascii=False)
+    s["ship_first"]["postlive_review"] = {"by": by, "date": now(), "blocking": len(blk), "notes": len(f.get("notes") or []),
+                                         "file": os.path.relpath(rp, ROOT), "fixed": not blk}
+    json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
+    print(f"{url}: post-live review by {by}: {len(blk)} blocking, {len(f.get('notes') or [])} note(s)" + ("; fix each blocking finding by CMS item update + verify-live" if blk else "") + f" -> {os.path.relpath(rp, ROOT)}")
 
 def cmd_ship_check(args):
     urls = [a for a in args if a.startswith("/")]; bad = 0
@@ -1811,7 +1902,7 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "release": cmd_release, "paa": cmd_paa, "paa-resource": cmd_paa_resource, "paa-synonyms": cmd_paa_synonyms, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "review-claim": cmd_review_claim, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "transfer-hold": cmd_transfer_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "feasibility": cmd_feasibility, "daily-batch": cmd_daily_batch, "unlock": cmd_unlock, "verbatim": cmd_verbatim, "defer": cmd_defer, "batch-check": cmd_batch_check, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "learn-check": cmd_learn_check, "ship-check": cmd_ship_check, "go-record": cmd_go_record,"slug-check": cmd_slug_check, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "review-claim": cmd_review_claim, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "transfer-hold": cmd_transfer_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "feasibility": cmd_feasibility, "daily-batch": cmd_daily_batch, "unlock": cmd_unlock, "verbatim": cmd_verbatim, "defer": cmd_defer, "batch-check": cmd_batch_check, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "learn-check": cmd_learn_check, "ship-check": cmd_ship_check, "postlive-backlog": cmd_postlive_backlog, "postlive-review": cmd_postlive_review, "ymyl": lambda a: print("\n".join(f"{u}: {', '.join(ymyl(u)) or 'not YMYL'}" for u in a)), "go-record": cmd_go_record,"slug-check": cmd_slug_check, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
         "recheck": cmd_recheck, "live-sync": cmd_live_sync, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live,
         "swap-recheck": lambda a: __import__("swap_recheck").main(a),   # Divit 2026-10-14 step 3: r18-swap-short pages back to rework once replacements exist
