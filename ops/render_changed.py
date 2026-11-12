@@ -1,6 +1,14 @@
 """render_changed.py: render images for changed pages only (the GitHub Action .github/workflows/render.yml runs it; any machine can).
 
-    python3 ops/render_changed.py <before-sha> <after-sha> [--pages slug,slug] [--no-commit]
+    python3 ops/render_changed.py <before-sha> <after-sha> [--pages PAGE,PAGE] [--no-commit] [--force]
+
+--pages takes, comma-separated, any of (2026-11-11; a slug can exist in two hubs, e.g. fitness in LP and SurveyQuiz):
+  /ai-survey-and-quiz-builder/fitness   the page URL path (a full https://... URL works too)
+  SurveyQuiz:fitness                    HUB:slug, HUB = a hub key in config/collections.json (LP, Form, Auto, SurveyQuiz; any case)
+  fitness                               a bare slug, ONLY when exactly one hub has it; an ambiguous bare slug is refused with the
+                                        candidates named, and nothing is rendered
+Any --pages entry that does not resolve refuses the whole run (exit 2). Queue entries resolve the same way; an unresolvable one
+is reported and stays in the queue.
 
 Render set = specs whose image_brief changed between the two commits, plus pages queued in status/render-queue.txt
 (written by `hubctl ship` for pages whose images are not current), plus --pages; with --pages ONLY those pages are rendered (no range, no queue; 2026-11-06). A page is skipped when its
@@ -14,6 +22,44 @@ import hashlib, json, os, subprocess, sys, datetime
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "pipeline"))
 QUEUE = os.path.join(ROOT, "status", "render-queue.txt")
+
+CFG = json.load(open(os.path.join(ROOT, "config", "collections.json")))
+
+def resolve_page(token):
+    """(url, spec_path) for a --pages / queue entry, or ValueError naming why not (unknown hub, no spec, ambiguous bare slug)."""
+    t = token.strip()
+    if t.startswith(("http://", "https://")): t = "/" + t.split("://", 1)[1].split("/", 1)[-1]
+    t = t.split("?", 1)[0].split("#", 1)[0].rstrip("/")
+    hubs = CFG["hubs"]
+    if t.startswith("/"):
+        cands = [(k, h) for k, h in hubs.items() if t.startswith(h["path"] + "/") and "/" not in t[len(h["path"]) + 1:]]
+        if not cands: raise ValueError(f"{token}: no hub owns this URL (hub paths: {', '.join(h['path'] for h in hubs.values())})")
+        k, h = cands[0]; slug = t[len(h["path"]) + 1:]
+    elif ":" in t:
+        hk, slug = t.split(":", 1); k = next((x for x in hubs if x.lower() == hk.strip().lower()), None)
+        if k is None: raise ValueError(f"{token}: unknown hub {hk!r} (hubs: {', '.join(hubs)})")
+        h = hubs[k]
+    else:
+        slug = t; hits = [(k, h) for k, h in hubs.items() if os.path.exists(os.path.join(ROOT, "specs", h["repo_dir"], slug + ".json"))]
+        if len(hits) > 1:
+            raise ValueError(f"{token}: ambiguous bare slug, it exists in {len(hits)} hubs; name one: " + ", ".join(f"{h['path']}/{slug} ({k}:{slug})" for k, h in hits))
+        if not hits: raise ValueError(f"{token}: no spec in any hub")
+        k, h = hits[0]
+    slug = slug.strip()
+    if not slug or "/" in slug: raise ValueError(f"{token}: no page slug")
+    p = os.path.join(ROOT, "specs", h["repo_dir"], slug + ".json")
+    if not os.path.exists(p): raise ValueError(f"{token}: no spec at specs/{h['repo_dir']}/{slug}.json ({k})")
+    return f"{h['path']}/{slug}", p
+
+def resolve_pages(tokens):
+    """Resolve every --pages entry; ValueError listing every one that fails (all-or-nothing: never render a guessed page)."""
+    out, errs = [], []
+    for tok in tokens:
+        if not tok.strip(): continue
+        try: out.append(resolve_page(tok))
+        except ValueError as e: errs.append(str(e))
+    if errs: raise ValueError("refused: " + "; ".join(errs))
+    return out
 
 def brief_hash(spec):
     return hashlib.sha256(json.dumps(spec.get("image_brief"), sort_keys=True, ensure_ascii=False, separators=(",", ":")).encode()).hexdigest()
@@ -47,17 +93,19 @@ def changed_specs(before, after):
     return keep
 
 def main(argv):
+    if "-h" in argv or "--help" in argv: print(__doc__); return 0
     before, after = (argv + ["", "HEAD"])[:2] if argv and not argv[0].startswith("--") else ("", "HEAD")
     paths = set(changed_specs(before, after)) if before or after != "HEAD" else set()
     queued = [l.strip() for l in open(QUEUE)] if os.path.exists(QUEUE) else []
     extra = argv[argv.index("--pages") + 1].split(",") if "--pages" in argv else []
-    import glob
     if extra:   # B-c-1 2026-11-06: --pages renders ONLY those pages (writers passed wide sha ranges and re-rendered other writers' pages)
         paths, queued = set(), []
-    for slug in [q for q in queued + extra if q and not q.startswith("#")]:
-        hit = glob.glob(os.path.join(ROOT, "specs", "*", slug.rsplit("/", 1)[-1] + ".json"))
-        if hit: paths.add(hit[0])
-        else: print(f"SKIP {slug}: no spec")
+        try: paths = {p for _u, p in resolve_pages(extra)}   # 2026-11-11: URL or HUB:slug; an ambiguous bare slug never picks a hub
+        except ValueError as e: print(e); return 2
+    unresolved = []
+    for q in [q for q in queued if q.strip() and not q.startswith("#")]:
+        try: paths.add(resolve_page(q)[1])
+        except ValueError as e: print(f"SKIP {e}"); unresolved.append(q)
     import engine
     done, bad, skipped = [], [], []
     for p in sorted(paths):
@@ -74,7 +122,10 @@ def main(argv):
                   open(os.path.join(render_dir(s), "render.json"), "w"), indent=1)
         done.append(s["url"])
     if queued:   # the queue is consumed: pages still stale stay listed for the next run
-        left = [q for q in queued if q.strip() and not q.startswith("#") and any(u.endswith("/" + q.strip().rsplit("/", 1)[-1]) for u in bad)]
+        def _url(q):
+            try: return resolve_page(q)[0]
+            except ValueError: return None
+        left = [q for q in queued if q.strip() and not q.startswith("#") and (q in unresolved or _url(q) in bad)]
         open(QUEUE, "w").write("".join(x.strip() + "\n" for x in left))
     print(f"rendered {len(done)}; current already {len(skipped)}; blocked {len(bad)}" + (f": {', '.join(bad)}" if bad else ""))
     if done and "--no-commit" not in argv and os.environ.get("GITHUB_ACTIONS"):

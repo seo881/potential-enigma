@@ -74,6 +74,12 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   rerank-perm    {clone, coordinator, expect_allowed}     B-dev-22: queue_rank.rerank_refusal follows the CURRENT COORDINATOR marker
   slug-rule      {hub, slug, primary, h1?, expect_ok}     PERMANENT SLUG RULE (Divit 2026-10-23): ops/slugs.problems (blocks create, ship-check)
   slug-for       {hub, keyword, expect}                   the rule's examples: ops/slugs.slug_for
+  render-pages   {pages, expect_urls | expect_refused, match?, via_main?}  2026-11-11: ops/render_changed.resolve_pages on the --pages
+                                                          entries (URL, https URL, HUB:slug, bare slug) gives exactly expect_urls, or is
+                                                          refused (message containing every `match` text); via_main: main() returns 2 and
+                                                          renders nothing (a bare slug in two hubs never picks one)
+  review-claim-past {entry, by, expect_refused, match?}   2026-11-11 (A-r-62 claimed reviewed song-request): hubctl.review_claim_refusal
+                                                          refuses a page past review (-r-: reviewed and later; -s-: approved and later)
   webflow-api    {test, ...}                              Divit 2026-10-14, ops/webflow_api.py + hubctl api-*: test refuse {method, path, body?,
                                                           query?, expect_refused} ({child} = a child collection id), dry-no-network, batching
                                                           {op, n, expect: sizes}, slug-skip {cands, live, limit?, expect_create, expect_skip},
@@ -219,6 +225,19 @@ def caught(c):
     if c["kind"] == "slug-rule":   # PERMANENT SLUG RULE (Divit 2026-10-23): ops/slugs.problems, blocking at create and ship-check
         import slugs as SL
         return (not SL.problems(c["hub"], c["slug"], c["primary"], c.get("h1"))) == c["expect_ok"]
+    if c["kind"] == "render-pages":   # 2026-11-11: --pages resolves URL / HUB:slug; an ambiguous bare slug is refused, never guessed
+        import render_changed as RC, io, contextlib
+        if c.get("via_main"):
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf): rc = RC.main(["--pages", ",".join(c["pages"]), "--no-commit"])
+            return rc == 2 and all(m in buf.getvalue() for m in c.get("match") or [])
+        try: got = [u for u, _p in RC.resolve_pages(c["pages"])]
+        except ValueError as e: return bool(c.get("expect_refused")) and all(m in str(e) for m in c.get("match") or [])
+        return not c.get("expect_refused") and got == c["expect_urls"]
+    if c["kind"] == "review-claim-past":   # 2026-11-11: review-claim refuses a page already past review (no stray hold)
+        import hubctl as H
+        why = H.review_claim_refusal(c.get("entry"), c["by"])
+        return (why is not None) == c["expect_refused"] and all(m in (why or "") for m in c.get("match") or [])
     if c["kind"] == "slug-for":    # PERMANENT SLUG RULE examples: ops/slugs.slug_for(hub, target keyword)
         import slugs as SL
         return SL.slug_for(c["hub"], c["keyword"]) == c["expect"]
