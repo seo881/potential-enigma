@@ -50,7 +50,8 @@
   state URL approved --by standing-go   the standing go: only while .cache/overnight-b/ruling19-lift-2026-10-15 or a dated
                                     .cache/standing-go-<YYYY-MM-DD> (today's, or under 18 hours old; Divit 2026-10-16 item 4) exists and
                                     ship-check passes; logged as "standing-go (Divit <date>)"; refused otherwise
-  review-claim URL --by B-r-<n>|B-s-<n>   take a page for review first: review/slim-review refuse every other agent while it stands (Divit 2026-11-03)
+  review-claim URL --by B-r-<n>|B-s-<n>   take a page for review first: review/slim-review refuse every other agent while it stands (Divit 2026-11-03);
+                                         refused on a page past review (-r-: reviewed/approved/cms_draft/published; -s-: approved or later; 2026-11-11)
   go-record DATE --urls U,U --quote "..." --by A-c|B-c-<n>   DECISIONS 2026-10-26: record Divit's explicit go (status/go/DATE.json, tracked)
   state URL approved --by divit     only if URL is in today's status/go/<date>.json (or a standing-go file exists); any other --by refuses.
                                     ship-check / api-create refuse an approved page no go record backs, and every create/update/publish
@@ -538,6 +539,17 @@ def review_refusal(entry, by):
     if h and h.get("by") != by:
         return f"refused: {h.get('by')} holds this page" + (" for review" if (h.get("note") or "").startswith("review") else "") + f" since {h.get('t')} ({h.get('note') or 'no note'}); one review per page, one reviewer at a time"
     return None
+PAST_REVIEW = ("reviewed", "approved", "cms_draft", "published")
+def review_claim_refusal(entry, by):
+    """None when `by` may claim this page for review, else why not. Divit 2026-11-11 (A-r-62 claimed the already-reviewed song-request
+    and left a stray hold): a full reviewer (-r-) is refused on a page already past review (reviewed, approved, cms_draft, published);
+    a slim reviewer (-s-/-hs-) claims a reworked page in state reviewed (after hubctl ready) but never one approved or later.
+    Then the review lock (review_refusal) applies."""
+    st = (entry or {}).get("state")
+    past = PAST_REVIEW if re.match(r"^[AB]-r-", by or "") else PAST_REVIEW[1:]
+    if st in past:
+        return f"refused: the page is already past review (state {st}); " + ("a full review is done once per page; a reworked page gets a slim review (A-s-<n>)" if st == "reviewed" else "nothing to claim") + "; no hold was taken"
+    return review_refusal(entry, by)
 def cmd_review_claim(args):
     """hubctl review-claim URL --by B-r-<n>|B-s-<n>: take the page for review (a hold noted "review"); hubctl review and slim-review
     then refuse every other agent. The claim is lifted automatically when the review is recorded."""
@@ -547,7 +559,7 @@ def cmd_review_claim(args):
     with G.lock("status-" + hub_of(url)):
         st = load_st(hub_of(url)); e = st["pages"].get(url)
         if e is None: sys.exit(f"{url} is not in status")
-        why = review_refusal(e, by)
+        why = review_claim_refusal(e, by)
         if why: sys.exit(why)
         e["hold"] = {"by": by, "account": clone_account(), "t": now(), "note": "review claim"}; save_st(hub_of(url), st)
     print(f"{url}: claimed for review by {by}")
