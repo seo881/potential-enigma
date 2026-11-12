@@ -183,7 +183,7 @@ def advance(url, P, queue):
         if st in ("images", "images2"):
             s = spec(url)
             if not images_current(s):
-                queue.add(url.rsplit("/", 1)[1]); return "images"
+                queue.add(url); return "images"   # the URL, never the bare slug (a slug can exist in two hubs; 2026-11-11)
             if state_of(url) != "images":   # hubctl review and hubctl ready both need state images
                 H.set_state(url, "images", note="launch: QC 0, PAA 10/10, images current", via="ship")
             note(P, st, True, "images current")
