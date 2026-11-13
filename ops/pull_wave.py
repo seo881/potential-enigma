@@ -43,7 +43,7 @@ def aa(url, run, sec=False):
 
 def main(a):
     if not a or a[0] not in ("plan", "run"): sys.exit(__doc__)
-    if H.clone_account() != "A": sys.exit("refused: pulls run in Account A only (ruling 12)")
+    if H.clone_account() != H.COORDINATOR: sys.exit(f"refused: pulls run in the coordinator account {H.COORDINATOR} only (ruling 12, ruling 22)")
     run = a[a.index("--run") + 1] if "--run" in a else "wave-r12"
     if a[0] == "plan":
         pr = primaries(); print(f"primary pulls: {len(pr)} queued pages with no pull")
