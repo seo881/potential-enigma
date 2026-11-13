@@ -1,0 +1,58 @@
+{
+ "reviewer": "B-r-625",
+ "date": "2026-11-13",
+ "live_h1_checked": true,
+ "qc_total_excluding_R1": 0,
+ "blocking": [
+  {
+   "class": "wrong-fact",
+   "field": "feature_1, tab_content_1, image tab 1 (game night board), howto_step_2_des, feature_4",
+   "severity": "blocking",
+   "rule": "CONTENT_DEFECTS #10 (number that does not follow from the others); SEVERITY cross-field mismatches (Divit 2026-11-05)",
+   "finding": "The couple score cannot be out of 12 if both partners guess all 12 questions. feature_1: 'Each partner answers every question twice: once for themselves, once guessing the other. The app counts every guess that lands on the partner's own answer and scores it out of 12.' tab_content_1: 'Each partner answered 12 questions about the other, and a guess that matched the partner's own answer scored 1 point. The final board put Leah and Sam Brandt first at 11 of 12 and June and Ravi Chandran last at 6 of 12.' That is 24 one-point guesses per couple, yet the board (image: '11 of 12 guesses matched', 9/8/6 of 12), howto_step_2 ('one number out of 12') and feature_4 ('couples who scored under 8') all score couples out of 12.",
+   "fix": "Make each question carry one guess per couple: partners take turns, one answers for themselves and the other guesses (6 guesses each, 12 per couple). Rewrite feature_1 ('Partners take turns on each question: one answers, the other guesses. The app counts every match and scores the couple out of 12.') and tab_content_1 ('Each couple played 12 questions, partners taking turns to guess, and a matched guess scored 1 point.'). Image, step 2, feature_4 and FAQ 7 then stand unchanged. CMS item update + verify-live."
+  }
+ ],
+ "notes": [
+  {
+   "class": "voice",
+   "field": "tab_content_2",
+   "severity": "note",
+   "rule": "HUB_RULES 2a (consistent terms)",
+   "finding": "'Talk leads at 14 of 36 partners' uses the quiz's internal key 'Talk'; the result is named 'Conversation First' everywhere else, including the same paragraph.",
+   "fix": "'Conversation First leads at 14 of 36 partners'."
+  },
+  {
+   "class": "craft",
+   "field": "tab_content_2",
+   "severity": "note",
+   "rule": "CONTENT_DEFECTS #4",
+   "finding": "', so' ending: 'No names are stored, so facilitator Dana Mercer sees the tally'.",
+   "fix": "Two sentences."
+  },
+  {
+   "class": "craft",
+   "field": "faq item 8",
+   "severity": "note",
+   "rule": "HUB_RULES 5 (answer-first)",
+   "finding": "'Can I build an is my relationship toxic quiz without giving advice?' opens 'Treat that topic with care.'; the yes arrives in the third sentence.",
+   "fix": "Open with 'Yes, if the result names patterns to discuss, never a verdict on a partner.'"
+  },
+  {
+   "class": "other",
+   "field": "tab_content_4",
+   "severity": "note",
+   "rule": "HUB_RULES 5 (tab stories)",
+   "finding": "A singles mixer sorts 40 single guests with a 'relationship quiz' whose connection styles (and the playable quiz's questions, e.g. 'What do you hope your partner suggests?') assume an existing partner.",
+   "fix": "Say the mixer's version asks what each guest wants in a partner."
+  },
+  {
+   "class": "image-polish",
+   "field": "image tab 4",
+   "severity": "note",
+   "rule": "CONTENT_DEFECTS #28 (image wording)",
+   "finding": "The image posts '20 pairs posted' to a Slack channel #mixer-check-in that the copy never mentions ('posts 20 pairs for round 1'). Not a contradiction (no person named), but the channel is unexplained.",
+   "fix": "Optional: name the check-in screen or channel in the copy."
+  }
+ ]
+}
