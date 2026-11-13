@@ -154,6 +154,13 @@
    "via": null,
    "by": "B-w-635",
    "note": ""
+  },
+  {
+   "t": "2026-11-13 08:25 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "B-s-43",
+   "note": "slim review: [truth | CONTENT_DEFECTS #10] howto_step_3_des: The rewritten step names a rating set that differs from the one the rest of the page uses and that the next steps tell the reader to apply: feature_2 'such as Inspected, Not Inspected, Not Present, or Deficient'; howto_step_4_des 'whenever"
   }
  ],
  "plan": {
@@ -1449,7 +1456,7 @@
    "breadcrumb": "58c87f6588e89a44",
    "chip_adds": "f63a2918e8275985",
    "explore_cta": "430c308dbf25052a",
-   "faq": "b1f16e35ce71ad19",
+   "faq": "6884ee0ab0be5363",
    "feature_1": "b274c5c2670e9b3c",
    "feature_2": "51991e665a9bb139",
    "feature_3": "c90a97355f613341",
@@ -1466,7 +1473,7 @@
    "howto_step_1_title": "119dbd14700b0148",
    "howto_step_2_des": "7e3fd2f5678d4424",
    "howto_step_2_title": "6910fdfa6ec1e24c",
-   "howto_step_3_des": "e5c7ddba064e2cba",
+   "howto_step_3_des": "dfeeece8ef11b55f",
    "howto_step_3_title": "46287ba436dc2f83",
    "howto_step_4_des": "ecc8f3b873649238",
    "howto_step_4_title": "17eaf269dc2c1541",
@@ -1499,7 +1506,7 @@
    "why_table": "5bdff290f59abffb",
    "why_title": "71e9dca3a90af6ee"
   },
-  "all": "510c490d6c9eb576",
+  "all": "49816af30e6264e3",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  },
  "lock_exceptions": [
@@ -1525,5 +1532,30 @@
   "how-to-build-a-lead-generation-website: Form fixed set: builds capture forms end to end: fields, submissions and where each lead goes next",
   "client-onboarding-software: Form fixed set: client intake: intake forms, conditional checklists and portals, plus how to build your own",
   "build-your-own-crm-system: Form fixed set: step-by-step build of the CRM that form submissions feed into"
+ ],
+ "slim_reviews": [
+  {
+   "by": "B-s-43",
+   "date": "2026-11-13 08:25 UTC",
+   "fields": [
+    "faq",
+    "howto_step_3_des"
+   ],
+   "baseline": "review_hash",
+   "blocking": 1,
+   "notes": 0,
+   "findings": [
+    {
+     "criterion": "truth",
+     "field": "howto_step_3_des",
+     "quote": "Pick one rating scale and keep it the same on every item. Four choices cover a walk-through: checked, skipped, missing, or failing.",
+     "fix": "Name the page's own scale in step 3, state-neutral and unattributed: 'Four choices cover a walk-through: Inspected, Not Inspected, Not Present, or Deficient.' Keep the rest of the step.",
+     "class": "wrong-fact",
+     "rule": "SEVERITY cross-field mismatch (Divit 2026-11-05); CONTENT_DEFECTS #10",
+     "issue": "The rewritten step names a rating set that differs from the one the rest of the page uses and that the next steps tell the reader to apply: feature_2 'such as Inspected, Not Inspected, Not Present, or Deficient'; howto_step_4_des 'whenever an item is marked Deficient'; howto_step_7_des 'Mark two items Deficient'; faq item 1 'beside the Deficient rating'; tab_content_1 'three come back Deficient'; chip_prompts 'rate each one Inspected, Not Inspected, Not Present, or Deficient'; image_brief tab 1 rows 'Deficient'/'Inspected'. A reader following step 3 builds labels that steps 4 and 7 never use.",
+     "severity": "blocking"
+    }
+   ]
+  }
  ]
 }
