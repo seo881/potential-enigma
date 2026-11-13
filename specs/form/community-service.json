@@ -30,16 +30,16 @@
   "why_title": "Why Build Hours Logs With Emergent?",
   "why_description": "A paper sheet gets chased for signatures and added up by hand. With Emergent, each shift arrives signed and counted.",
   "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Jotform</th>\n        <th scope=\"col\">Google Forms</th>\n        <th scope=\"col\">Typeform</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Describe it in plain English</td>\n        <td class=\"col-other\">Templates, editor, AI generator</td>\n        <td class=\"col-other\">Editor, with Gemini drafting on some Workspace plans</td>\n        <td class=\"col-other\">Templates, editor, AI assist</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Where responses live</th>\n        <td class=\"col-brand\">A database table you own, plus any integration</td>\n        <td class=\"col-other\">Jotform account</td>\n        <td class=\"col-other\">Google Sheets</td>\n        <td class=\"col-other\">Typeform account</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Response limits</th>\n        <td class=\"col-brand\">No response caps</td>\n        <td class=\"col-other\">Monthly submission caps by plan; the form stops at the cap</td>\n        <td class=\"col-other\">No limit</td>\n        <td class=\"col-other\">Monthly response caps by plan; the form closes at the cap</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
-  "usecase_heading": "",
-  "tab_label_1": "",
-  "tab_label_2": "",
-  "tab_label_3": "",
-  "tab_label_4": "",
-  "tab_content_1": "",
-  "tab_content_2": "",
-  "tab_content_3": "",
-  "tab_content_4": "",
-  "mockup": "",
+  "usecase_heading": "Logged by Volunteers, Signed by Supervisors",
+  "tab_label_1": "Graduation Hours",
+  "tab_label_2": "Court Programs",
+  "tab_label_3": "Supervisor Sign-Off",
+  "tab_label_4": "Club Hour Goals",
+  "tab_content_1": "<h3>Noor is 8 hours from 40 after one pantry shift</h3><p>Pinecroft High School asks every senior for 40 hours of service before graduation. Noor Danso sorts donations on Saturday at Tannery Street Food Pantry and logs the 4-hour shift on her phone before she leaves. Her record moves from 28 to 32 hours, and the form shows her the 8 she still needs.</p>",
+  "tab_content_2": "<h3>Rosalie gets each of the 11 sessions at 50 hours</h3><p>Kettle Hill Animal Shelter takes volunteers from the Edgemoor Diversion Program. One participant's final 6-hour shift takes his total from 44 to the 50 hours ordered. The app emails Rosalie Ventner, the program coordinator, a summary of all 11 sessions, each signed by the shelter supervisor.</p>",
+  "tab_content_3": "<h3>Lina's shift is back with Ezra by Friday</h3><p>Lina Sorvik tutors second graders at Quarrybrook Reading Center and logs 3 hours on Tuesday. Ezra Mandeville, her supervisor, gets an email asking him to confirm it. Her two earlier shifts, 2 hours each, are signed. By Friday, 3 days later, he has not confirmed, and the app emails him a reminder.</p>",
+  "tab_content_4": "<h3>In one view, Corrine finds the 3 under 10 hours</h3><p>The Ashcombe Service Club sets a goal of 10 hours per member each semester. Corrine Dahlberg advises the club. She opens the hours dashboard and sorts its members by hours logged. Three of the 6 are under 10, and she emails Kenji, Maeve, and Zuri a reminder from the same screen.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { schoolGraduationHours: \"My high school asks every senior for 40 hours of community service. Build a community service form template students fill in on a phone after each shift: the site, the day, and the hours. Keep a running total on each student's record and show them how many hours they still need after every entry.\", courtOrderedHours: \"Our animal shelter hosts volunteers from a diversion program. Build a form where each participant logs a session with the date and hours, and the shelter supervisor signs it. When a participant's signed hours reach the total ordered, email the program coordinator a summary listing every signed session.\", supervisorSignOff: \"Volunteers at my reading center log their tutoring shifts. Each new shift should email the site supervisor a link to confirm it, and a shift only counts toward the volunteer's total once he confirms. If a shift is still unconfirmed 3 days later, email the supervisor a reminder.\", clubHourGoals: \"I advise a student service club with a goal of 10 hours per member each semester. Build an hours dashboard that lists every member with the hours they have logged, sorted lowest first. Mark anyone under 10, and let me send those members one reminder email from the dashboard.\" };</p>",
   "howto_title": "",
   "howto_description": "",
   "howto_step_1_title": "",
@@ -272,5 +272,535 @@
   "Add a shift sign-off email to the supervisor, with a reminder after 3 days.",
   "Add a completion email to the coordinator when a total reaches its goal.",
   "Add an hours dashboard that shows who is under the goal."
- ]
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R4",
+    "title": "School graduation hours",
+    "prompt": "Let students log each shift on a phone and see the hours still needed",
+    "main": {
+     "blocks": [
+      {
+       "type": "text",
+       "text": "Log a shift",
+       "size": 22
+      },
+      {
+       "type": "text",
+       "text": "Sorting donations",
+       "size": 16,
+       "color": "sub"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Student",
+         "Noor Danso"
+        ],
+        [
+         "Day",
+         "Saturday"
+        ],
+        [
+         "Site",
+         "Food pantry"
+        ],
+        [
+         "Hours",
+         "4"
+        ]
+       ]
+      },
+      {
+       "type": "button",
+       "label": "Submit shift",
+       "icon": "send",
+       "full": true
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Noor Danso",
+       "size": 19,
+       "sub": "Pinecroft High School"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Goal",
+         "40 hours"
+        ],
+        [
+         "Logged",
+         "32 hours"
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "clock",
+     "tone": "acc",
+     "title": "Noor Danso",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "8 hours to go",
+       "size": 20,
+       "sub": "28 to 32 hours"
+      },
+      {
+       "type": "meta",
+       "icon": "calendar",
+       "kind": "ok",
+       "text": "Saturday: 4 hours"
+      },
+      {
+       "type": "meta",
+       "icon": "target",
+       "kind": "acc",
+       "text": "Goal: 40 hours"
+      }
+     ],
+     "action": {
+      "label": "View hours log",
+      "icon": "arrow-right"
+     }
+    },
+    "alt": "Noor Danso logs a 4-hour Saturday shift at a food pantry on her phone, and her Pinecroft High School record moves from 28 to 32 of 40 hours, with 8 to go.",
+    "story": [
+     {
+      "copy": "40 hours of service",
+      "image": "Goal: 40 hours"
+     },
+     {
+      "copy": "logs the 4-hour shift",
+      "image": "Saturday: 4 hours"
+     },
+     {
+      "copy": "sorts donations",
+      "image": "Sorting donations"
+     },
+     {
+      "copy": "from 28 to 32 hours",
+      "image": "28 to 32 hours"
+     },
+     {
+      "copy": "the 8 she still needs",
+      "image": "8 hours to go"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Court-ordered hours",
+    "prompt": "Email the coordinator a summary when signed hours reach the total ordered",
+    "main": {
+     "chrome": "Edgemoor program",
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Hours log",
+       "sub": "Kettle Hill Animal Shelter"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Hours ordered",
+         "50"
+        ],
+        [
+         "Before final shift",
+         "44 hours"
+        ],
+        [
+         "Final shift",
+         "6 hours"
+        ]
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Final shift signed"
+        },
+        {
+         "state": "live",
+         "title": "Summary emailed"
+        },
+        {
+         "state": "next",
+         "title": "Coordinator review"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "mail",
+     "tone": "ok",
+     "title": "To: Rosalie Ventner",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "50 of 50 hours signed",
+       "size": 20,
+       "sub": "11 sessions, all signed"
+      },
+      {
+       "type": "meta",
+       "icon": "paw-print",
+       "kind": "acc",
+       "text": "Kettle Hill Animal Shelter"
+      }
+     ],
+     "action": {
+      "label": "Open summary",
+      "icon": "arrow-right"
+     }
+    },
+    "mini": {
+     "icon": "check",
+     "kind": "ok",
+     "title": "Total reached",
+     "sub": "50 hours ordered"
+    },
+    "alt": "A diversion program participant's final 6-hour shift at Kettle Hill Animal Shelter brings the total from 44 to 50 hours, and coordinator Rosalie Ventner gets an email summary of all 11 signed sessions.",
+    "story": [
+     {
+      "copy": "final 6-hour shift",
+      "image": "6 hours"
+     },
+     {
+      "copy": "from 44",
+      "image": "44 hours"
+     },
+     {
+      "copy": "the 50 hours ordered",
+      "image": "50 hours ordered"
+     },
+     {
+      "copy": "emails Rosalie Ventner",
+      "image": "To: Rosalie Ventner"
+     },
+     {
+      "copy": "all 11 sessions",
+      "image": "11 sessions, all signed"
+     }
+    ]
+   },
+   {
+    "recipe": "R8",
+    "title": "Supervisor sign-off",
+    "prompt": "Remind the site supervisor when a shift waits 3 days for a sign-off",
+    "rule": "If a shift waits 3 days unconfirmed → email a reminder",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Lina Sorvik",
+       "size": 20,
+       "sub": "Quarrybrook Reading Center",
+       "chip": [
+        "1 waiting",
+        "warn"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Shift",
+        "Hours",
+        "Status"
+       ],
+       "widths": [
+        0.45,
+        0.2,
+        0.35
+       ],
+       "row_h": 60,
+       "highlight": 0,
+       "rows": [
+        [
+         "Tuesday tutoring",
+         "3",
+         [
+          "Waiting",
+          "warn"
+         ]
+        ],
+        [
+         "Earlier shift",
+         "2",
+         [
+          "Signed",
+          "ok"
+         ]
+        ],
+        [
+         "Earlier shift",
+         "2",
+         [
+          "Signed",
+          "ok"
+         ]
+        ]
+       ]
+      },
+      {
+       "type": "text",
+       "text": "Site supervisor: Ezra Mandeville",
+       "size": 16,
+       "color": "sub"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "mail",
+     "tone": "warn",
+     "title": "To: Ezra Mandeville",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Confirm Lina's shift",
+       "size": 20,
+       "sub": "Tuesday, 3 hours"
+      },
+      {
+       "type": "meta",
+       "icon": "clock",
+       "kind": "warn",
+       "text": "Sent Friday"
+      }
+     ],
+     "action": {
+      "label": "Confirm shift",
+      "icon": "check"
+     }
+    },
+    "mini": {
+     "icon": "book-open",
+     "kind": "ok",
+     "title": "2 shifts signed",
+     "sub": "2 hours each"
+    },
+    "alt": "Lina Sorvik's Tuesday tutoring shift of 3 hours waits for a sign-off at Quarrybrook Reading Center while her 2 earlier shifts are signed, and on Friday supervisor Ezra Mandeville gets a reminder email.",
+    "story": [
+     {
+      "copy": "3 days later",
+      "image": "If a shift waits 3 days unconfirmed → email a reminder"
+     },
+     {
+      "copy": "logs 3 hours on Tuesday",
+      "image": "Tuesday, 3 hours"
+     },
+     {
+      "copy": "two earlier shifts, 2 hours each",
+      "image": "2 hours each"
+     },
+     {
+      "copy": "By Friday",
+      "image": "Sent Friday"
+     },
+     {
+      "copy": "Ezra Mandeville, her supervisor, gets an email",
+      "image": "To: Ezra Mandeville"
+     }
+    ]
+   },
+   {
+    "recipe": "R11",
+    "title": "Club hour goals",
+    "prompt": "Show every member's hours against the goal and remind anyone under 10",
+    "main": {
+     "blocks": [
+      {
+       "type": "table",
+       "columns": [
+        "Member",
+        "Hours",
+        "Status"
+       ],
+       "widths": [
+        0.4,
+        0.25,
+        0.35
+       ],
+       "num_cols": [
+        1
+       ],
+       "row_h": 44,
+       "rows": [
+        [
+         "Maeve",
+         "4",
+         [
+          "Under 10",
+          "warn"
+         ]
+        ],
+        [
+         "Kenji",
+         "7",
+         [
+          "Under 10",
+          "warn"
+         ]
+        ],
+        [
+         "Zuri",
+         "9",
+         [
+          "Under 10",
+          "warn"
+         ]
+        ],
+        [
+         "Hollis",
+         "11",
+         [
+          "On track",
+          "ok"
+         ]
+        ],
+        [
+         "Priya",
+         "12",
+         [
+          "On track",
+          "ok"
+         ]
+        ],
+        [
+         "Bastien",
+         "14",
+         [
+          "On track",
+          "ok"
+         ]
+        ]
+       ]
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "3 of 6 members",
+       "size": 20,
+       "sub": "Under the 10-hour goal"
+      },
+      {
+       "type": "text",
+       "text": "This semester",
+       "size": 18,
+       "color": "sub"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "mail",
+     "tone": "acc",
+     "title": "From: Corrine Dahlberg",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Reminder to 3 members",
+       "size": 20,
+       "sub": "Kenji, Maeve, and Zuri"
+      },
+      {
+       "type": "meta",
+       "icon": "users",
+       "kind": "acc",
+       "text": "Ashcombe Service Club"
+      }
+     ],
+     "action": {
+      "label": "Send reminder",
+      "icon": "send"
+     }
+    },
+    "alt": "The Ashcombe Service Club hours dashboard shows 3 of 6 members under the 10-hour goal, and adviser Corrine Dahlberg sends Kenji, Maeve, and Zuri one reminder email.",
+    "story": [
+     {
+      "copy": "a goal of 10 hours",
+      "image": "Under the 10-hour goal"
+     },
+     {
+      "copy": "Three of the 6",
+      "image": "3 of 6 members"
+     },
+     {
+      "copy": "Kenji, Maeve, and Zuri",
+      "image": "Kenji, Maeve, and Zuri"
+     },
+     {
+      "copy": "are under 10",
+      "image": "Under 10"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "confirm",
+   "title": "Shift logged",
+   "button": "View hours",
+   "icon": "check",
+   "alt": "Community service form template: a volunteer's shift is logged and added to their running hours total."
+  },
+  "og": {
+   "headline": "Log community service hours and get them signed",
+   "lines": null,
+   "alt": "Share image for the community service form template page: Log community service hours and get them signed"
+  },
+  "checks": [
+   {
+    "expr": "28 + 4 == 32",
+    "shows": [
+     "28 to 32 hours",
+     "Saturday: 4 hours",
+     "32 hours"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "40 - 32 == 8",
+    "shows": [
+     "Goal: 40 hours",
+     "8 hours to go"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "44 + 6 == 50",
+    "shows": [
+     "44 hours",
+     "6 hours",
+     "50 of 50 hours signed"
+    ],
+    "where": 2
+   },
+   {
+    "fact": [
+     "11 sessions, all signed"
+    ],
+    "where": 2
+   }
+  ]
+ }
 }
