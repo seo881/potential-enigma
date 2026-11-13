@@ -122,6 +122,13 @@
    "via": null,
    "by": "B-w-691",
    "note": ""
+  },
+  {
+   "t": "2026-11-13 13:02 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-642",
+   "note": "[truth | HUB_RULES 6] faq: FAQ item 5 (privacy of health answers). The approved claim soc2-iso is the bare 'SOC 2 Type I and ISO 27001'; 'certified to SOC 2' is the compliance wording DECISIONS (C2, 2026-10-13/14) keeps unapproved, and SOC 2 is an attestation report, not a certification. QC C2 misse"
   }
  ],
  "pipeline": "r15",
@@ -944,5 +951,315 @@
  ],
  "writers": [
   "B-w-691"
- ]
+ ],
+ "review": {
+  "by": "B-r-642",
+  "date": "2026-11-13 13:02 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Medical Waiver Form for Trips, Classes and Clinics', meta title 'Medical Waiver Form Builder for Trips and Clinics | Emergent' and hero 'Build a medical waiver form that collects health answers, emergency contacts, and a signature before anyone takes part.' (118 chars) state the whole job; howto_description is one sentence of 129 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is printable waivers and fill-and-sign templates; PAA asks purpose, what goes on the form and how long it lasts. FAQ 1 gives the purpose, FAQ 3 the four sections, FAQ 6 the re-sign period, and the how-to builds it step by step; the builder angle (hold on a yes, alerts without answers, yearly renewal) is carried through."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'physician's clearance letter', 'consent to treatment abroad', '4 paragraphs on the risks of an IV drip', 'renewal ... 14 days before each waiver turns one'; table uses the general form set with no default fallback."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every feature body opens on a verb or full sentence ('List the health questions...', 'Write the clause...', 'Participants photograph...'); tab paragraphs open on the company doing something ('Grace Hollow Church is sending 22 travelers')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences carry one idea each; QC Q2/Q5/Q7 clean. Only notes (see review notes)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail and plain verbs: 'The other 3 get an email reminder that morning.' 'Of 12 students in Saturday's class, 2 are on hold.' Forced cross-hub link sentences recorded as notes."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "faq item 5: 'Emergent is certified to SOC 2 Type I and ISO 27001.' states SOC 2 as a certification, beyond the approved bare wording of soc2-iso (DECISIONS 2026-10-13/14 C2). Everything else checks: Wex quote matches its span exactly; all claims_used ids approved; tab numbers (22/19/3, 12/2, 4 paragraphs, 9:00 a.m., 12 months/14 days/9 riders) agree across tabs, mockups, alt text and images; no health detail in any alert (feature_3, tab 2, howto 4, FAQ 5)."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No sibling primary in headings ('consent to treat form', 'medical consent form for minor' absent); trips/dive/IV/riding stories are this page's own."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, each answered in the first sentence; hub link in item 2; three SQB links (forced placement recorded as a note); no brand or file-format in any question."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 '19 of 22 signed', 'Flight in 10 days', 'Reminder sent to 3 travelers'; tab 2 '12 students', '2 on hold', 'A waiver needs review ... None of the answers in the email'; tab 3 'Tuesday schedule', 9:00 a.m. Ari Kessler 'Not signed', '4 of 4 risks initialed'; tab 4 '9 due this month', 'Due in 14 days', Eli Brandt 'Lapsed' and 'Sign first' on Thursday lessons. One hero each, text readable, matches copy and alt text."
+   }
+  },
+  "findings": [
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 6",
+    "field": "faq",
+    "quote": "Emergent is certified to SOC 2 Type I and ISO 27001.",
+    "issue": "FAQ item 5 (privacy of health answers). The approved claim soc2-iso is the bare 'SOC 2 Type I and ISO 27001'; 'certified to SOC 2' is the compliance wording DECISIONS (C2, 2026-10-13/14) keeps unapproved, and SOC 2 is an attestation report, not a certification. QC C2 missed it only because 'certified' precedes 'SOC 2'. Only instance on the page.",
+    "fix": "FAQ item 5, last sentence: 'Emergent has SOC 2 Type I and ISO 27001.'",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "learn_refs",
+    "quote": "best-healthcare-website-builders; best-website-builders-for-medical-practice; how-to-build-a-healthcare-practice-website",
+    "issue": "All three Learn refs are about building healthcare websites and match only on 'medic'/'healthcar'; none is about waivers, consent or forms. HUB_RULES 5 References: leave empty rather than link something loosely related.",
+    "fix": "Drop the three refs (leave learn empty) unless a forms, e-signature or consent article exists.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "The same phone flow suits lighter forms as well, such as game survey questions for a camp's closing night.",
+    "issue": "Cross-hub link sentences read bolted on (links should help the reader). All instances: item 4 (above); item 7 'then gather each reviewer's notes afterward with a few post meeting survey questions'; item 10 'The same database can hold staff records too, such as answers to learning and development survey questions after first aid training.' Natural form siblings were available (medical-consent-for-minor next to FAQ 3's guardian section or FAQ 8's children; consent-to-treat next to FAQ 3's treatment consent).",
+    "fix": "Next time, link the siblings the reader would want here (medical consent form for minor, consent to treat form).",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_4_des",
+    "quote": "Pick the people who read health answers, such as the trip leader or the dive instructor. Everyone else gets a link and a note that a record is ready for review.",
+    "issue": "Muddled roles: the designated readers are the ones who need the link (tab 2: the instructor's email 'links to the record'); 'everyone else' getting a link to a record they may not open reads backwards. Not a number or channel mismatch.",
+    "fix": "'Those people get an alert that a record is ready, with a link; the details stay in the app.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq",
+    "quote": "An attorney licensed where the activity happens should review the release and consent language",
+    "issue": "Jurisdiction wording varies across fields: FAQ 7 'licensed where the activity happens'; howto_step_3_des 'a lawyer licensed in your state'; FAQ 3 'an attorney in your state'; FAQ 4 'your state's rules'. Tab 1 is a trip abroad. Advice, not a fact, so a note.",
+    "fix": "Use one phrasing page-wide, e.g. 'an attorney licensed where the activity happens'.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "Forms built on Emergent have no response caps: a family of five adds five records.",
+    "issue": "FAQ item 8 moat line is a non sequitur (five records never approach a cap); 'staff can open one camper' introduces camps nowhere else on the page.",
+    "fix": "Tie the moat to the question, e.g. each child as its own record in a database you own.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "once per event for a one-off trip, or every 12 months for ongoing lessons and memberships",
+    "issue": "Re-sign periods (FAQ 6) and 'Plan on four sections' (FAQ 3) are recommendations with no domain source; acceptable as advice, recorded as a note.",
+    "fix": "None required; source if reworked.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "learn_refs",
+   "issue": "All three Learn refs are about building healthcare websites and match only on 'medic'/'healthcar'; none is about waivers, consent or forms. HUB_RULES 5 References: leave empty rather than link something loosely related.",
+   "fix": "Drop the three refs (leave learn empty) unless a forms, e-signature or consent article exists.",
+   "by": "B-r-642",
+   "via": "review",
+   "date": "2026-11-13 13:02 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "Cross-hub link sentences read bolted on (links should help the reader). All instances: item 4 (above); item 7 'then gather each reviewer's notes afterward with a few post meeting survey questions'; item 10 'The same database can hold staff records too, such as answers to learning and development survey questions after first aid training.' Natural form siblings were available (medical-consent-for-minor next to FAQ 3's guardian section or FAQ 8's children; consent-to-treat next to FAQ 3's treatment consent).",
+   "fix": "Next time, link the siblings the reader would want here (medical consent form for minor, consent to treat form).",
+   "by": "B-r-642",
+   "via": "review",
+   "date": "2026-11-13 13:02 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_4_des",
+   "issue": "Muddled roles: the designated readers are the ones who need the link (tab 2: the instructor's email 'links to the record'); 'everyone else' getting a link to a record they may not open reads backwards. Not a number or channel mismatch.",
+   "fix": "'Those people get an alert that a record is ready, with a link; the details stay in the app.'",
+   "by": "B-r-642",
+   "via": "review",
+   "date": "2026-11-13 13:02 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq",
+   "issue": "Jurisdiction wording varies across fields: FAQ 7 'licensed where the activity happens'; howto_step_3_des 'a lawyer licensed in your state'; FAQ 3 'an attorney in your state'; FAQ 4 'your state's rules'. Tab 1 is a trip abroad. Advice, not a fact, so a note.",
+   "fix": "Use one phrasing page-wide, e.g. 'an attorney licensed where the activity happens'.",
+   "by": "B-r-642",
+   "via": "review",
+   "date": "2026-11-13 13:02 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "FAQ item 8 moat line is a non sequitur (five records never approach a cap); 'staff can open one camper' introduces camps nowhere else on the page.",
+   "fix": "Tie the moat to the question, e.g. each child as its own record in a database you own.",
+   "by": "B-r-642",
+   "via": "review",
+   "date": "2026-11-13 13:02 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Re-sign periods (FAQ 6) and 'Plan on four sections' (FAQ 3) are recommendations with no domain source; acceptable as advice, recorded as a note.",
+   "fix": "None required; source if reworked.",
+   "by": "B-r-642",
+   "via": "review",
+   "date": "2026-11-13 13:02 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "deb29fa7a10c0e3c",
+   "alt:share_image": "3a3c50174cbb198f",
+   "alt:tab_image_1": "a3c67e8f32d3fb0d",
+   "alt:tab_image_2": "930cb69bb6b50cfe",
+   "alt:tab_image_3": "a7a9c210188958cf",
+   "alt:tab_image_4": "8f3143b837f9eda5",
+   "breadcrumb": "9937357004242d37",
+   "chip_adds": "1de7adef0214434c",
+   "explore_cta": "2ebf751c1081e184",
+   "faq": "655672f47d433656",
+   "feature_1": "7fcfc8583f39c167",
+   "feature_2": "3326c07f73f10ead",
+   "feature_3": "e8bec5e07f2296c4",
+   "feature_4": "c6c61f9cca8d7a61",
+   "feature_5": "4498be0685f7f6bc",
+   "feature_6": "8b2553a2330e6a87",
+   "features_heading": "9ea442d4f6ed738e",
+   "features_subheading": "5967ef4c1bfd231f",
+   "h1": "cb032b0cdda97fec",
+   "hero_description": "b8698f9573d293e6",
+   "hero_prompt": "b011e5917057b51c",
+   "howto_description": "ef61989014b76ce4",
+   "howto_step_1_des": "b8a668f9044e4963",
+   "howto_step_1_title": "9185559dccdc3aac",
+   "howto_step_2_des": "f7aaab4192150c48",
+   "howto_step_2_title": "e7acf67baaa62d51",
+   "howto_step_3_des": "d246a1169519455b",
+   "howto_step_3_title": "a094970180a59820",
+   "howto_step_4_des": "46b609f7e21cd7e0",
+   "howto_step_4_title": "5e13d499a6d71f97",
+   "howto_step_5_des": "416cbd32037b8fef",
+   "howto_step_5_title": "f5389052d431cbde",
+   "howto_step_6_des": "993f68c4488edebf",
+   "howto_step_6_title": "d484355fab098980",
+   "howto_step_7_des": "ce8fdc6496c36f57",
+   "howto_step_7_title": "4c91d09e07aaf830",
+   "howto_title": "cedb03551ff2fb53",
+   "meta_description": "36580caac48fbafd",
+   "meta_title": "6218e9c36a55dc57",
+   "mockup": "39404d49e0b0f49b",
+   "product_name": "1b3e3620bb3ab2f1",
+   "prompt_chip_1": "60089a676b0f3368",
+   "prompt_chip_2": "81c1ea53ec81261e",
+   "prompt_chip_3": "1912dad29ff309c7",
+   "prompt_chip_4": "bd074d238ab5f12a",
+   "slug": "fdd1b00a163ff9cc",
+   "tab_content_1": "d3cb91f2f1c60f86",
+   "tab_content_2": "4400676fcca39e6a",
+   "tab_content_3": "5210ab8186ad5d43",
+   "tab_content_4": "afc942af56f6fe5e",
+   "tab_label_1": "b2eed54d8f7fa6a7",
+   "tab_label_2": "03c47d9d08c008e4",
+   "tab_label_3": "abbfbbe728783d7f",
+   "tab_label_4": "89a1d1dee0944a8f",
+   "usecase_heading": "396d5c5acb66abcd",
+   "why_description": "3f05a36dcbd3186a",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "8e06ff90b1b7cd5a"
+  },
+  "all": "bc1acda7b6fe60d9",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "deb29fa7a10c0e3c",
+   "alt:share_image": "3a3c50174cbb198f",
+   "alt:tab_image_1": "a3c67e8f32d3fb0d",
+   "alt:tab_image_2": "930cb69bb6b50cfe",
+   "alt:tab_image_3": "a7a9c210188958cf",
+   "alt:tab_image_4": "8f3143b837f9eda5",
+   "breadcrumb": "9937357004242d37",
+   "chip_adds": "1de7adef0214434c",
+   "explore_cta": "2ebf751c1081e184",
+   "faq": "655672f47d433656",
+   "feature_1": "7fcfc8583f39c167",
+   "feature_2": "3326c07f73f10ead",
+   "feature_3": "e8bec5e07f2296c4",
+   "feature_4": "c6c61f9cca8d7a61",
+   "feature_5": "4498be0685f7f6bc",
+   "feature_6": "8b2553a2330e6a87",
+   "features_heading": "9ea442d4f6ed738e",
+   "features_subheading": "5967ef4c1bfd231f",
+   "h1": "cb032b0cdda97fec",
+   "hero_description": "b8698f9573d293e6",
+   "hero_prompt": "b011e5917057b51c",
+   "howto_description": "ef61989014b76ce4",
+   "howto_step_1_des": "b8a668f9044e4963",
+   "howto_step_1_title": "9185559dccdc3aac",
+   "howto_step_2_des": "f7aaab4192150c48",
+   "howto_step_2_title": "e7acf67baaa62d51",
+   "howto_step_3_des": "d246a1169519455b",
+   "howto_step_3_title": "a094970180a59820",
+   "howto_step_4_des": "46b609f7e21cd7e0",
+   "howto_step_4_title": "5e13d499a6d71f97",
+   "howto_step_5_des": "416cbd32037b8fef",
+   "howto_step_5_title": "f5389052d431cbde",
+   "howto_step_6_des": "993f68c4488edebf",
+   "howto_step_6_title": "d484355fab098980",
+   "howto_step_7_des": "ce8fdc6496c36f57",
+   "howto_step_7_title": "4c91d09e07aaf830",
+   "howto_title": "cedb03551ff2fb53",
+   "meta_description": "36580caac48fbafd",
+   "meta_title": "6218e9c36a55dc57",
+   "mockup": "39404d49e0b0f49b",
+   "product_name": "1b3e3620bb3ab2f1",
+   "prompt_chip_1": "60089a676b0f3368",
+   "prompt_chip_2": "81c1ea53ec81261e",
+   "prompt_chip_3": "1912dad29ff309c7",
+   "prompt_chip_4": "bd074d238ab5f12a",
+   "slug": "fdd1b00a163ff9cc",
+   "tab_content_1": "d3cb91f2f1c60f86",
+   "tab_content_2": "4400676fcca39e6a",
+   "tab_content_3": "5210ab8186ad5d43",
+   "tab_content_4": "afc942af56f6fe5e",
+   "tab_label_1": "b2eed54d8f7fa6a7",
+   "tab_label_2": "03c47d9d08c008e4",
+   "tab_label_3": "abbfbbe728783d7f",
+   "tab_label_4": "89a1d1dee0944a8f",
+   "usecase_heading": "396d5c5acb66abcd",
+   "why_description": "3f05a36dcbd3186a",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "8e06ff90b1b7cd5a"
+  },
+  "all": "bc1acda7b6fe60d9",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
