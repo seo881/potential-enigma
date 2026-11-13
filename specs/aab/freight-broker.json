@@ -30,16 +30,16 @@
   "why_title": "Why Automate Freight Brokerage With Emergent?",
   "why_description": "Emergent builds the brokerage app around your own lanes, margin floor, and carrier rules, with no task cap and a database you own.",
   "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Zapier</th>\n        <th scope=\"col\">Make (Integromat)</th>\n        <th scope=\"col\">n8n</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt for the workflow and the app around it</td>\n        <td class=\"col-other\">Templates and editor, AI copilot</td>\n        <td class=\"col-other\">Visual canvas</td>\n        <td class=\"col-other\">Visual canvas, self-hosted or cloud</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">What you get</th>\n        <td class=\"col-brand\">Workflow + trigger form + database + dashboard, as code you own</td>\n        <td class=\"col-other\">Zaps, plus Tables and Interfaces inside Zapier</td>\n        <td class=\"col-other\">Scenarios inside Make</td>\n        <td class=\"col-other\">Workflows inside n8n</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Behavior at cap</th>\n        <td class=\"col-brand\">Keeps running, no task cap</td>\n        <td class=\"col-other\">Overage billed at up to 1.25× the base rate</td>\n        <td class=\"col-other\">Runs pause</td>\n        <td class=\"col-other\">Cloud workflows stop until the reset or an upgrade</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">AI and agent steps</th>\n        <td class=\"col-brand\">Native, share the same credit pool</td>\n        <td class=\"col-other\">Priced by model tier, drawn from the task pool</td>\n        <td class=\"col-other\">AI modules cost variable credits</td>\n        <td class=\"col-other\">Bring your own model API key, billed by the provider</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">Yes on Community Edition</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
-  "usecase_heading": "",
-  "tab_label_1": "",
-  "tab_label_2": "",
-  "tab_label_3": "",
-  "tab_label_4": "",
-  "tab_content_1": "",
-  "tab_content_2": "",
-  "tab_content_3": "",
-  "tab_content_4": "",
-  "mockup": "",
+  "usecase_heading": "Freight Broker Workflows to Build",
+  "tab_label_1": "Quote Requests",
+  "tab_label_2": "Carrier Onboarding",
+  "tab_label_3": "Driver Check-Ins",
+  "tab_label_4": "Carrier Invoices",
+  "tab_content_1": "<h3>Q-2291 falls below its margin floor at $1,800</h3><p>Rathbone Mills emails Brindlecote Freight for a dry van from Dallas to Memphis at a target rate of $1,800. The app reads it into quote Q-2291 and prices the lane from the last 3 loads, which cost $1,650 on average. That leaves $150 of margin, and any quote under $200 of margin waits for Arvo Ingersoll, the account rep.</p>",
+  "tab_content_2": "<h3>Pikeview waits with $75,000 of cargo cover</h3><p>Pikeview Transport sends a W-9, the signed carrier agreement, and an insurance certificate. The app reads $75,000 of cargo coverage on the certificate. Any carrier under the $100,000 minimum stays off the tender list, and Sabela Moraes, the carrier rep, gets a direct message to ask for an updated certificate.</p>",
+  "tab_content_3": "<h3>The 2:00 PM appointment on L-40872 slips to 3:30 PM</h3><p>The Northgate Carriers driver on load L-40872 checks in at 11:15 AM from an emailed link with an ETA of 3:30 PM. The receiver's appointment is at 2:00 PM, so the load will arrive 90 minutes late. Any ETA more than 60 minutes past the appointment sends Folarin Lamont, the ops rep, a direct message to call the receiver.</p>",
+  "tab_content_4": "<h3>Before Bellwood is paid, billing rules on $150 of detention</h3><p>Bellwood Trucking invoices $2,250 for load L-40915 with the signed proof of delivery. The app reads both and matches the $2,100 linehaul to the rate confirmation. The other $150 is detention. Any charge missing from the rate confirmation waits for Grisette Ottery, the billing lead, before Bellwood is paid.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { shipperQuoteRequests: \"Build quote intake for my freight brokerage. Shippers email quote requests to our quotes inbox. Read each one into a quote with the lane, equipment, commodity, and target rate. Price the lane from our last 3 loads on it and show the average carrier cost. If the margin at the target rate is under $200, hold the quote for the account rep instead of replying.\", carrierOnboarding: \"Build carrier onboarding for my brokerage. New carriers upload a W-9, our signed carrier agreement, and an insurance certificate. Read the cargo coverage amount from the certificate. If cargo coverage is under $100,000, keep the carrier off our tender list and send the carrier rep a direct message in Slack so they can ask for an updated certificate.\", driverCheckIns: \"Build driver check-ins for my brokerage's loads. Email each driver a check-in link where they enter their location and ETA, with nothing to install. Save every check-in on the load. Compare the ETA with the receiver's appointment time, and if it is more than 60 minutes past the appointment, send the ops rep who owns the load a direct message to call the receiver.\", carrierInvoices: \"Build carrier invoice checks for my brokerage. Carriers email an invoice and a signed proof of delivery for each load. Read both, then match every charge on the invoice to the load's rate confirmation. If a charge such as detention is missing from the rate confirmation, hold that line for our billing lead. Send approved carrier bills to QuickBooks.\" };</p>",
   "howto_title": "",
   "howto_description": "",
   "howto_step_1_title": "",
@@ -275,5 +275,609 @@
   "Add carrier onboarding that reads W-9s and insurance certificates.",
   "Add driver check-ins that alert the ops rep when an ETA runs late.",
   "Add a carrier invoice audit against each rate confirmation."
- ]
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R2",
+    "title": "Emailed quote request",
+    "prompt": "Read shipper quote emails and hold any quote under $200 of margin",
+    "main": {
+     "blocks": [
+      {
+       "type": "doc_header",
+       "initials": "RM",
+       "title": "Rathbone Mills",
+       "sub": "Quote request by email",
+       "label": "Q-2291"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Lane",
+         "Dallas, TX to Memphis, TN"
+        ],
+        [
+         "Equipment",
+         "Dry van"
+        ],
+        [
+         "Commodity",
+         "Bagged flour"
+        ],
+        [
+         "Weight",
+         "42,000 lb"
+        ],
+        [
+         "Quote",
+         "Q-2291"
+        ],
+        [
+         "Target rate",
+         "$1,800",
+         true
+        ]
+       ]
+      },
+      {
+       "type": "rule",
+       "icon": "scale",
+       "text": "Margin under $200 → hold for the rep"
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Last 3 loads",
+       "sub": "Average cost $1,650",
+       "size": 19
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Load L-39610",
+         "$1,620"
+        ],
+        [
+         "Load L-40018",
+         "$1,650"
+        ],
+        [
+         "Load L-40388",
+         "$1,680"
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "triangle-alert",
+     "tone": "warn",
+     "title": "Held for Arvo Ingersoll",
+     "blocks": [
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Quote at target",
+         "$1,800"
+        ],
+        [
+         "Margin",
+         "$150",
+         true
+        ]
+       ]
+      }
+     ],
+     "action": {
+      "label": "Review quote",
+      "icon": "eye"
+     }
+    },
+    "alt": "Rathbone Mills emails a quote request for a dry van from Dallas to Memphis at a target of $1,800; the last 3 loads on the lane averaged $1,650, so quote Q-2291, with $150 of margin, waits for the account rep.",
+    "story": [
+     {
+      "copy": "quote Q-2291",
+      "image": "Q-2291"
+     },
+     {
+      "copy": "target rate of $1,800",
+      "image": "$1,800"
+     },
+     {
+      "copy": "the last 3 loads",
+      "image": "Last 3 loads"
+     },
+     {
+      "copy": "$1,650 on average",
+      "image": "Average cost $1,650"
+     },
+     {
+      "copy": "$150 of margin",
+      "image": "$150"
+     },
+     {
+      "copy": "any quote under $200 of margin",
+      "image": "Margin under $200"
+     },
+     {
+      "copy": "waits for Arvo Ingersoll",
+      "image": "Held for Arvo Ingersoll"
+     }
+    ]
+   },
+   {
+    "recipe": "R2",
+    "title": "Carrier insurance certificate",
+    "prompt": "Read carrier insurance certificates and hold carriers under $100,000 cargo",
+    "main": {
+     "scan": true,
+     "blocks": [
+      {
+       "type": "doc_header",
+       "icon": "shield-check",
+       "title": "Insurance certificate",
+       "sub": "Pikeview Transport",
+       "label": "Packet"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Insured",
+         "Pikeview Transport"
+        ],
+        [
+         "Policy",
+         "Motor truck cargo"
+        ],
+        [
+         "Policy number",
+         "MTC-48213"
+        ],
+        [
+         "Auto liability",
+         "$1,000,000"
+        ],
+        [
+         "Cargo limit",
+         "$75,000",
+         true
+        ],
+        [
+         "Certificate holder",
+         "Brindlecote Freight"
+        ]
+       ]
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Pikeview Transport",
+       "size": 19,
+       "chip": [
+        "3 files in",
+        "ok"
+       ],
+       "sub": "New carrier packet"
+      },
+      {
+       "type": "checks",
+       "items": [
+        "W-9 received",
+        "Carrier agreement signed",
+        "Certificate read",
+        "Cargo limit checked"
+       ]
+      },
+      {
+       "type": "rule",
+       "icon": "shield",
+       "text": "Cargo under $100,000 → off the tender list"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Sabela Moraes",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Off the tender list",
+       "size": 19,
+       "sub": "Needs $100,000 cargo"
+      },
+      {
+       "type": "text",
+       "text": "Pikeview cargo cover: $75,000",
+       "size": 16,
+       "color": "sub"
+      },
+      {
+       "type": "meta",
+       "icon": "mail",
+       "kind": "acc",
+       "text": "Ask for a new certificate"
+      }
+     ],
+     "action": {
+      "label": "Request certificate",
+      "icon": "send"
+     }
+    },
+    "alt": "Pikeview Transport's insurance certificate shows $75,000 of cargo coverage against a $100,000 minimum, so the carrier stays off the tender list and the carrier rep gets a direct message.",
+    "story": [
+     {
+      "copy": "$75,000 of cargo coverage",
+      "image": "$75,000"
+     },
+     {
+      "copy": "Any carrier under the $100,000 minimum",
+      "image": "Cargo under $100,000"
+     },
+     {
+      "copy": "stays off the tender list",
+      "image": "Off the tender list"
+     },
+     {
+      "copy": "Sabela Moraes",
+      "image": "To Sabela Moraes"
+     },
+     {
+      "copy": "ask for an updated certificate",
+      "image": "Ask for a new certificate"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Late ETA on a load",
+    "prompt": "Alert the ops rep when a driver ETA runs over 60 minutes past the appointment",
+    "main": {
+     "chrome": "Load board",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "LOAD · L-40872",
+       "title": "Northgate Carriers",
+       "size": 26,
+       "sub": "In transit to the receiver",
+       "right": "3:30 PM",
+       "right_sub": "driver ETA"
+      },
+      {
+       "type": "rule",
+       "text": "ETA over 60 min past appointment → alert the ops rep"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Lane",
+         "Dallas, TX to Tulsa, OK"
+        ],
+        [
+         "Check-in",
+         "11:15 AM"
+        ],
+        [
+         "Receiver appointment",
+         "2:00 PM"
+        ],
+        [
+         "Driver ETA",
+         "3:30 PM",
+         true
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Folarin Lamont",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "L-40872 runs 90 min late",
+       "size": 20,
+       "sub": "Appointment at 2:00 PM"
+      },
+      {
+       "type": "meta",
+       "icon": "phone",
+       "kind": "acc",
+       "text": "Call the receiver"
+      }
+     ],
+     "action": {
+      "label": "Open load",
+      "icon": "truck"
+     }
+    },
+    "mini": {
+     "icon": "map-pin",
+     "kind": "ok",
+     "title": "Check-in saved",
+     "sub": "From the email link"
+    },
+    "alt": "The Northgate Carriers driver on load L-40872 checks in at 11:15 AM with an ETA of 3:30 PM for a 2:00 PM appointment, 90 minutes late, so the ops rep gets a direct message to call the receiver.",
+    "story": [
+     {
+      "copy": "load L-40872",
+      "image": "LOAD · L-40872"
+     },
+     {
+      "copy": "at 11:15 AM",
+      "image": "11:15 AM"
+     },
+     {
+      "copy": "ETA of 3:30 PM",
+      "image": "3:30 PM"
+     },
+     {
+      "copy": "appointment is at 2:00 PM",
+      "image": "Appointment at 2:00 PM"
+     },
+     {
+      "copy": "90 minutes late",
+      "image": "90 min late"
+     },
+     {
+      "copy": "more than 60 minutes past the appointment",
+      "image": "ETA over 60 min past appointment"
+     },
+     {
+      "copy": "Folarin Lamont",
+      "image": "To Folarin Lamont"
+     },
+     {
+      "copy": "call the receiver",
+      "image": "Call the receiver"
+     }
+    ]
+   },
+   {
+    "recipe": "R2",
+    "title": "Carrier invoice against the rate confirmation",
+    "prompt": "Match carrier invoices to the rate confirmation and hold extra charges",
+    "main": {
+     "scan": true,
+     "blocks": [
+      {
+       "type": "doc_header",
+       "initials": "BT",
+       "title": "Bellwood Trucking",
+       "sub": "Invoice, load L-40915",
+       "label": "Invoice"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Lane",
+         "Fort Worth, TX to Little Rock, AR"
+        ],
+        [
+         "Rate confirmation",
+         "RC-40915"
+        ],
+        [
+         "Proof of delivery",
+         "Signed by receiver"
+        ]
+       ]
+      },
+      {
+       "type": "lineitems",
+       "items": [
+        [
+         "Linehaul",
+         "$2,100.00"
+        ],
+        [
+         "Detention",
+         "$150.00"
+        ]
+       ],
+       "total": [
+        "Invoice total",
+        "$2,250.00"
+       ]
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Rate confirmation match",
+       "size": 19,
+       "chip": [
+        "1 line held",
+        "warn"
+       ],
+       "sub": "Load L-40915"
+      },
+      {
+       "type": "checks",
+       "items": [
+        "Invoice read",
+        "Proof of delivery signed",
+        "Linehaul matches $2,100.00",
+        "Detention not listed"
+       ]
+      },
+      {
+       "type": "rule",
+       "icon": "file-search",
+       "text": "Charge missing from rate confirmation → billing lead"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "app": true,
+     "app_sub": "To Grisette Ottery",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Approve $150.00 detention?",
+       "size": 20,
+       "sub": "Not on the rate confirmation"
+      },
+      {
+       "type": "text",
+       "text": "Linehaul matched, rest on hold",
+       "size": 16,
+       "color": "sub"
+      },
+      {
+       "type": "meta",
+       "icon": "receipt",
+       "kind": "acc",
+       "text": "Bellwood is paid after review"
+      }
+     ],
+     "action": {
+      "label": "Review charge",
+      "icon": "eye"
+     }
+    },
+    "alt": "Bellwood Trucking's $2,250 invoice for load L-40915 matches the $2,100 linehaul on the rate confirmation, and the $150 detention line waits for the billing lead.",
+    "story": [
+     {
+      "copy": "invoices $2,250",
+      "image": "$2,250.00"
+     },
+     {
+      "copy": "load L-40915",
+      "image": "Invoice, load L-40915"
+     },
+     {
+      "copy": "signed proof of delivery",
+      "image": "Proof of delivery signed"
+     },
+     {
+      "copy": "$2,100 linehaul",
+      "image": "Linehaul matches $2,100.00"
+     },
+     {
+      "copy": "The other $150 is detention",
+      "image": "Approve $150.00 detention?"
+     },
+     {
+      "copy": "Any charge missing from the rate confirmation",
+      "image": "Charge missing from rate confirmation"
+     },
+     {
+      "copy": "Grisette Ottery",
+      "image": "To Grisette Ottery"
+     },
+     {
+      "copy": "before Bellwood is paid",
+      "image": "Bellwood is paid after review"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "dm": true,
+   "channel": "Arvo Ingersoll",
+   "title": "Q-2291 held",
+   "sub": "$1,800 with $150 margin",
+   "primary": "Review",
+   "secondary": "Reprice",
+   "icon": "check",
+   "alt": "Freight broker automation: a direct message asking the account rep to review a $1,800 quote held with $150 of margin"
+  },
+  "og": {
+   "headline": "Freight broker automation for every load",
+   "alt": "Freight broker automation for every load, built with Emergent",
+   "lines": null
+  },
+  "checks": [
+   {
+    "expr": "(1620 + 1650 + 1680) / 3 == 1650",
+    "shows": [
+     "$1,620",
+     "$1,650",
+     "$1,680"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "1800 - 1650 == 150",
+    "shows": [
+     "$1,800",
+     "$150"
+    ],
+    "where": 1
+   },
+   {
+    "fact": [
+     "$200",
+     "42,000"
+    ],
+    "where": 1
+   },
+   {
+    "same": "$1,800",
+    "where": [
+     1,
+     "cover"
+    ]
+   },
+   {
+    "same": "$150",
+    "where": [
+     1,
+     "cover"
+    ]
+   },
+   {
+    "fact": [
+     "$75,000",
+     "$100,000",
+     "$1,000,000"
+    ],
+    "where": 2
+   },
+   {
+    "expr": "(15*60 + 30) - (14*60) == 90",
+    "shows": [
+     "90 min"
+    ],
+    "where": 3
+   },
+   {
+    "fact": [
+     "60 min"
+    ],
+    "where": 3
+   },
+   {
+    "expr": "2100 + 150 == 2250",
+    "shows": [
+     "$2,100.00",
+     "$150.00",
+     "$2,250.00"
+    ],
+    "where": 4
+   }
+  ]
+ }
 }
