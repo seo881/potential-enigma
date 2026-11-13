@@ -1,0 +1,30 @@
+{
+ "blocking": [
+  {
+   "field": "hero_description (live page)",
+   "severity": "blocking",
+   "class": "structure",
+   "rule": "SEVERITY structure (a field the template cannot render); HUB_RULES 6",
+   "finding": "The hero description is stored wrapped in <p>...</p>, but the Webflow hero field is plain text, so the live page at https://emergent.sh/ai-form-builder/tryout-evaluation prints the tags as visible text under the H1: '&lt;p&gt;Build a tryout evaluation form coaches score on a phone, with every evaluator averaged into one ranked list of players.&lt;/p&gt;' (curl 2026-11-13). Every other field on the page renders correctly; QC did not catch it.",
+   "fix": "Remove the <p> and </p> wrapper from spec.fields.hero_description (text unchanged), CMS item update of the hero description field, then hubctl verify-live."
+  }
+ ],
+ "notes": [
+  {
+   "field": "feature_3",
+   "severity": "note",
+   "class": "voice",
+   "rule": "HUB_RULES 2b",
+   "finding": "'Three coaches scoring the same player add up to one number' says 'add up' where the app averages (the next sentence and tab 1 both say average).",
+   "fix": "'...come down to one number'."
+  },
+  {
+   "field": "faq item 5 vs image_brief.tabs[1]",
+   "severity": "note",
+   "class": "image-polish",
+   "rule": "CONTENT_DEFECTS #28",
+   "finding": "FAQ 5 advises rotating evaluators instead of parking each coach on one skill; the tab 2 image shows all four coaches at the Defense station. Plausible for one drill, not a contradiction."
+  }
+ ],
+ "checked": "QC TOTAL 0; verbatim: no AlsoAsked items; live H1 matches spec; live hero shows literal <p> tags (blocking above). Arithmetic: 4 skills x 1-5 = out of 20 (hero prompt, tab 1, mockup, image 'Each coach's total out of 20'), 14 varsity + 14 JV, #22 rank 14 at 15.7 in copy, alt and image; #31 defense 2 vs 5 (gap 3 >= 2), #8 3 vs 5, #17 2 vs 4 = 3 on the second-look list; 8 x 8 = 64, averages 3.3-3.5 drawn; 2.7 < 3.8 < 4.1 so serve receive is lowest; Mar 9, 52 families. Channel: family feedback by email in meta, tab 4, mockup, image. No third-party facts; claims map to prompt-build, database-owned, alerts, code-export, free-start."
+}

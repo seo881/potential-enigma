@@ -1,0 +1,46 @@
+{
+ "blocking": [
+  {
+   "field": "hero_description (live page)",
+   "severity": "blocking",
+   "class": "structure",
+   "rule": "SEVERITY structure (a field the template cannot render); HUB_RULES 6",
+   "finding": "The hero description is stored wrapped in <p>...</p>, but the Webflow hero field is plain text, so the live page at https://emergent.sh/ai-form-builder/parent-conference-for-teacher prints the tags as visible text under the H1: '&lt;p&gt;Build parent conference forms for teachers that book each family a slot and send notes home after the meeting.&lt;/p&gt;' (curl 2026-11-13). Every other field on the page renders correctly; QC did not catch it.",
+   "fix": "Remove the <p> and </p> wrapper from spec.fields.hero_description (text unchanged), CMS item update of the hero description field, then hubctl verify-live."
+  }
+ ],
+ "notes": [
+  {
+   "field": "faq item 1 (question)",
+   "severity": "note",
+   "class": "craft",
+   "rule": "HUB_RULES 5; CONTENT_DEFECTS #19",
+   "finding": "'What is parent conference forms for teachers?' is ungrammatical (singular verb, plural noun); the answer itself uses 'are'.",
+   "fix": "'What are parent conference forms for teachers?' if the FAQ lock allows."
+  },
+  {
+   "field": "tab_content_3 heading vs image_brief.tabs[2]",
+   "severity": "note",
+   "class": "image-polish",
+   "rule": "CONTENT_DEFECTS #28",
+   "finding": "The H3 says 'Seven interpreter requests, sorted by language on one list', but the drawn request table runs Spanish, Vietnamese, Spanish, Arabic (sorted by slot time); only the 'By language' summary card groups them.",
+   "fix": "Sort the drawn rows by language (Spanish, Spanish, Vietnamese, Arabic) on the next re-render."
+  },
+  {
+   "field": "image_brief.tabs[2].prompt",
+   "severity": "note",
+   "class": "other",
+   "rule": "HUB_RULES 2a",
+   "finding": "The prompt bar says 'email each request to the front office' while tab_content_3, the mockup and the drawn email say 'office manager'. Same recipient, looser label.",
+   "fix": "Use 'office manager' in the prompt bar."
+  },
+  {
+   "field": "faq item 3",
+   "severity": "note",
+   "class": "unsourced-advice",
+   "rule": "HUB_RULES 8",
+   "finding": "'Plan 15 minutes for a routine conference and 20 to 30 for a family with a bigger concern' is a recommendation with no source; fine as advice."
+  }
+ ],
+ "checked": "QC TOTAL 0; verbatim: no AlsoAsked items; live H1 matches spec; live hero shows literal <p> tags (blocking above). Arithmetic: 28 - 21 = 7 open slots, 24 - 21 = 3 families reminded, 28 - 24 = 4 spares (howto_1 '4 or 5'), 4 + 2 + 1 = 7 of 31 interpreter requests, 19 of 22 answered; 15-minute slots + 5-minute gap match the drawn 4:00/4:20/4:40/5:00 grid and feature_1 '4:20'. Channels: every hand-off is email (tab 1 reminder, tab 3 office manager, tab 4 6:00 PM summary) in copy, mockup, images and alts. Notes fields (strength, goal, plan at home, check-in 6 weeks) agree across tab 4, howto_5, mockup and image. No third-party facts needing domain_sources; claims map to prompt-build, database-owned, alerts, no-caps, code-export."
+}
