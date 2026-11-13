@@ -1,0 +1,39 @@
+{
+ "blocking": [
+  {
+   "field": "howto_step_2_des vs faq[5] (Can singers fill in a karaoke sign up sheet on their phones?)",
+   "severity": "blocking",
+   "class": "wrong-fact",
+   "rule": "CONTENT_DEFECTS #10; SEVERITY cross-field mismatch (form-field sets, Divit 2026-11-05)",
+   "finding": "Step 2 prescribes four fields: 'Ask for a name or stage name, the song, the artist, and any note the host needs. Stop there.' FAQ 6 says 'Keep it under four questions.' The page's own recommended form breaks its own limit.",
+   "fix": "FAQ 6: 'Keep it to four questions at most: name, song, artist and a note for the host.' (or drop the host note from step 2 and keep 'under four')."
+  }
+ ],
+ "notes": [
+  {
+   "field": "image_brief.cover / og",
+   "severity": "note",
+   "class": "image-polish",
+   "rule": "CONTENT_DEFECTS #5/#28 (image-polish)",
+   "finding": "Cover (dm: true) draws 'To: Horatio Lamplugh, Your sheet is full' with a chat-bubble icon; copy, mockup, tab 4 hero (mail icon) and the cover alt all say email. The 'To:' label keeps it readable as email, but the icon is a message icon.",
+   "fix": "Render the cover with the mail icon (dm false)."
+  },
+  {
+   "field": "feature_1..feature_5",
+   "severity": "note",
+   "class": "openers",
+   "rule": "CONTENT_DEFECTS #2, #16",
+   "finding": "Five feature bodies open on a subjectless verb: 'Shows the singer one question at a time', 'Gives each singer one song per rotation', 'Shows the next five singers', 'Checks each song', 'Adds a line for a duet partner', 'Keeps every night's sign-ups'.",
+   "fix": "Open each with a subject ('The sheet shows ...') or a concrete scene."
+  },
+  {
+   "field": "feature_4 / howto_step_4",
+   "severity": "note",
+   "class": "other",
+   "rule": "HUB_RULES 2a",
+   "finding": "Feature 4 states as a given that 'no ballad gets sung twice in one night', while step 4 presents blocking repeats as a choice ('Choose whether two people may sing the same song'). Not a numeric conflict, but feature 4 could say it is a setting.",
+   "fix": "Feature 4: 'If you block repeats, the form asks for a second choice ...'."
+  }
+ ],
+ "checked": "QC TOTAL 0; live H1 matches spec; step 1 180/5=36 and FAQ 3 60/5=12, 60/6=10; tab 3 9+10+8=27 of 3x10=30 with table rows summing; tab 4 18x5=90, slot 19 = waitlist #1, email to Horatio across copy/mockup/tab image/alt; tab 1 rotation 2 -> 3 hold agrees with feature 2, step 3, FAQ 5; claims_used all approved (conversational, realtime)."
+}

@@ -1,0 +1,39 @@
+{
+ "blocking": [
+  {
+   "field": "image_brief.cover (cover image and og share image)",
+   "severity": "blocking",
+   "class": "image-contradiction",
+   "rule": "CONTENT_DEFECTS #20, #25",
+   "finding": "The cover (dm: true, channel 'Clementine Szabo-Reyes') renders as a chat direct message with the message-square icon, the same style the page uses for the Slack DM in tab 3, carrying 'Approve $516.00?' with Approve/Decline. Every copy field sends this approval by email: feature_4 'requests above it email the approver a summary with a link to approve or decline'; tab_content_4 'who approves it from an email'; mockup fieldCrews 'Email me any request over $500'; image_brief.tabs[3] hero icon 'mail' and panel chip 'Emailed'. The cover tells a different channel story.",
+   "fix": "Redraw the cover as an email: dm false, mail icon, 'To: Clementine Szabo-Reyes', title 'Approve $516.00?', Approve/Decline; alt 'an approval email to the operations manager ...'. Re-render cover and og."
+  },
+  {
+   "field": "faq[9] (Should laptops and tools go on a supply request form?) vs tab_content_4",
+   "severity": "blocking",
+   "class": "untrue",
+   "rule": "HUB_RULES 8; CONTENT_DEFECTS #14",
+   "finding": "FAQ 10 answers 'No' for tools: 'Laptops and ladders last for years ... Put them on an equipment request form. Keep the supply request form for things that get used up, like paper and gloves.' Tab 4 shows exactly that on the supply request form. Every instance: tab_content_4 'he asks for safety vests, pruning shears, and work gloves'; image_brief.tabs[3] lineitems 'Pruning shears ×6 $186.00'; image_brief.tabs[3].alt 'safety vests, pruning shears and work gloves'. The page contradicts itself.",
+   "fix": "Swap pruning shears for a consumable at the same cost in all three places (e.g. 'trimmer line ×6, $186.00'; total stays $516.00), then re-render tab 4. Alternatively narrow FAQ 10 to equipment with serial numbers ('laptops and power tools'), keeping the SERP phrasing."
+  }
+ ],
+ "notes": [
+  {
+   "field": "features_subheading / why_subheading / hero",
+   "severity": "note",
+   "class": "repeated-idea",
+   "rule": "CONTENT_DEFECTS #18",
+   "finding": "Budget check plus manager approval is stated in the hero ('checks each request against a budget, routes it for approval'), feature 3, feature 4, step 4, FAQ 8 and the why subheading ('checks each one against an allowance and sends big orders to a manager').",
+   "fix": "Let the why subheading make a different point (the weekly merged order)."
+  },
+  {
+   "field": "feature_3 / tab_content_2",
+   "severity": "note",
+   "class": "other",
+   "rule": "HUB_RULES 8",
+   "finding": "Feature 3 and feature 4 say requests go 'to the buyer'; tab 2 says the classroom request 'goes straight to the front office'. Same role in a school, but the label changes.",
+   "fix": "Tab 2: 'goes straight to the front office, which does the ordering'."
+  }
+ ],
+ "checked": "QC TOTAL 0; live H1 matches spec; tab 1 5+4+3+2=14 and 8 reams/5 people matches feature 2; tab 2 300-214-62=24; tab 3 Slack DM to Isolde agrees across feature 5, step 5, tab copy, mockup, image, alt (no patient details in transit); tab 4 114+186+216=516 over $500 by email in copy/mockup/tab image; claims_used all approved; domain_sources empty and no third-party facts found."
+}
