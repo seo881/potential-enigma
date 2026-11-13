@@ -1,0 +1,75 @@
+{
+ "reviewer": "B-r-642",
+ "date": "2026-11-13",
+ "live_h1_checked": true,
+ "qc_total_excluding_R1": 0,
+ "quiz_answers_checked": "8 of 8 correct options match their quoted vocabulary.com spans (joey, fawn, leveret, gosling, filly, eyas, cub, tadpole); no distractor is also correct.",
+ "blocking": [
+  {
+   "class": "untrue",
+   "field": "feature_4",
+   "severity": "blocking",
+   "rule": "HUB_RULES 8; CONTENT_DEFECTS #8 (rubric truth)",
+   "finding": "'The quiz shuffles the answer choices for each person who opens it. The right partner never sits in the same spot twice, and two students at one table see a different order.' With 12 questions (hero prompt, tab 1, tab 3) and 4 choices per question (feature_1, howto_step_3, the playable quiz), the right partner must land in the same spot at least 3 times for every player, and a random shuffle can give two students the same order. Both promises are impossible.",
+   "fix": "'The quiz shuffles the answer choices for each person who opens it, so the right partner moves around and two students at one table are unlikely to see the same order.' (or drop the second sentence). CMS item update + verify-live."
+  },
+  {
+   "class": "image-contradiction",
+   "field": "image tab 2 (picture matching phone screen) vs feature_1, howto_step_3",
+   "severity": "blocking",
+   "rule": "CONTENT_DEFECTS #20; SEVERITY cross-field mismatches (Divit 2026-11-05)",
+   "finding": "The tab 2 image draws each question with 3 choices ('A run', 'B sit', 'C jump'), but feature_1 says Emergent writes each question 'with the right partner and three wrong ones drawn from the same list', howto_step_3 says 'Three wrong choices per question', and the playable quiz on the page shows 4 choices per question. The image counts 1 right + 2 wrong.",
+   "fix": "Add a fourth choice to image_brief.tabs[1].main list (e.g. {initials: 'D', name: 'eat'}), re-render with hubctl images, upload the new tab 2 image by CMS item update + verify-live."
+  }
+ ],
+ "notes": [
+  {
+   "class": "soft-quantifier",
+   "field": "quiz result good-eye (score 4-6)",
+   "severity": "note",
+   "rule": "CONTENT_DEFECTS #7",
+   "finding": "'You matched most of the set.' A score of 4 of 8 is half, not most.",
+   "fix": "'You matched at least half the set.'"
+  },
+  {
+   "class": "craft",
+   "field": "quiz result keep-matching (score 0-3)",
+   "severity": "note",
+   "rule": "HUB_RULES 2a",
+   "finding": "'A few pairs got crossed.' covers scores of 0 to 3 of 8, where 5 to 8 pairs were crossed.",
+   "fix": "'Several pairs got crossed.'"
+  },
+  {
+   "class": "craft",
+   "field": "quiz Q2 explanation",
+   "severity": "note",
+   "rule": "HUB_RULES 2a",
+   "finding": "'Fawn is the noun for a young deer, so this pair is deer and fawn.' restates the answer; the other explanations add a fact.",
+   "fix": "Add a fact, e.g. that fawn also names a light yellowish-brown color."
+  },
+  {
+   "class": "image-polish",
+   "field": "image tab 2 (picture card)",
+   "severity": "note",
+   "rule": "CONTENT_DEFECTS #28",
+   "finding": "The 'picture' is a color swatch labeled 'A dog running', and the right answer is 'run': the caption gives the answer away to a reader who can read, which undercuts tab 2's point that first graders match pictures, not text.",
+   "fix": "Label the card 'Picture 4' only, or use a noun sight word that is not in the caption."
+  },
+  {
+   "class": "repeated-idea",
+   "field": "feature_2, tab_content_1, howto_step_7_des",
+   "severity": "note",
+   "rule": "CONTENT_DEFECTS #18",
+   "finding": "The 'sort by pair and see which partner people picked by mistake' idea appears three times ('Sort the table by pair and you see which two terms a class confuses'; 'The app saves the meaning each one picked'; 'Sort the saved answers by pair and look at the partner people picked by mistake').",
+   "fix": "None required; vary on next edit."
+  },
+  {
+   "class": "unsourced-advice",
+   "field": "faq item 6",
+   "severity": "note",
+   "rule": "HUB_RULES 8",
+   "finding": "'Show the term first for a new list ... Once the class knows the list, flip it' is recommendation without a source; fine as advice.",
+   "fix": "None required."
+  }
+ ]
+}
