@@ -25,7 +25,7 @@
   "feature_2": "<h3>Fields that change with the kind of gift</h3><p>Pick cash or check and the form asks for the amount and the date received. Pick donated goods and it asks for a description of each item instead, with no box for a dollar value.</p>",
   "feature_3": "<h3>Receipt numbers that count up by one</h3><p>Each saved gift takes the next number in the year's series, such as 2026-0418. The treasurer can match any receipt to its gift record and see at a glance if a number is missing.</p>",
   "feature_4": "<h3>Online gifts receipted with no typing</h3><p>Connect the Stripe account your online gifts run through. Each completed payment fills a receipt record with the donor, amount, and date, like a gift logged at the front desk.</p>",
-  "feature_5": "<h3>A heads-up when a receipt needs a person</h3><p>Gifts of goods and gala tickets post a Slack message to your development channel saying a receipt is waiting, with a link to the record. Names and amounts stay in the database.</p>",
+  "feature_5": "<h3>A heads-up when a receipt needs a person</h3><p>Each goods receipt waits for a staff check, and Slack tells your development channel a receipt is waiting, with a link to the record. Names and amounts stay in the database.</p>",
   "feature_6": "<h3>Your receipt app, in your GitHub repository</h3><p>On paid plans, export the full codebase to your GitHub repository and host the receipt app beside your donor system. The receipt layout and the numbering rules move with the code.</p>",
   "why_title": "Why Emergent for a Donation Receipt Form?",
   "why_description": "Every gift and its receipt sit in a database you own, with no response caps and code you can export on paid plans.",
@@ -39,7 +39,7 @@
   "tab_content_2": "<h3>From the loading dock, a receipt with no dollar value</h3><p>Gareth Ovington drops off a sofa and 2 bookcases at Old Mill Reuse Center's dock, and the dock lead logs them on a tablet. The IRS lists a description, but not the value, of a non-cash contribution among the contents of a written acknowledgment. His receipt describes each piece and its condition, with no dollar figure.</p>",
   "tab_content_3": "<h3>When a $150 gala seat includes a $60 dinner</h3><p>Quillmarsh Youth Orchestra sells gala seats at $150, each with a dinner it values at $60. The IRS requires a disclosure statement when a donor's quid pro quo payment is more than $75, giving a good faith estimate of what the donor received. Every gala receipt states the $60 estimate beside the price paid.</p>",
   "tab_content_4": "<h3>In January, one statement for 12 gifts of $30</h3><p>Rosamund Vesterholm gives Kestwood Animal Shelter $30 a month by card. In early January, the app gathers her 12 gifts from the year before into one statement, each with its date and amount, $360 in all. She gets it by email, and the shelter's copy stays on her donor record for the day she asks for it again.</p>",
-  "mockup": "<p id=\"\">window.awbMockup = { cashAndChecks: \"Build a donation receipt form for my food bank's front desk. Let a volunteer log a cash or check gift with the donor's name, email, amount, and date received. Give each gift the next receipt number in the year's series and email the donor a receipt with our name, the amount, and a statement that no goods or services were provided.\", donatedGoods: \"Add a donated goods section to my reuse center's receipt form for the loading dock tablet. Ask the dock lead to describe each item and its condition, with no field for a dollar value. Email the donor a receipt that lists the items, and post a Slack message to our team with a link to the record.\", galaTickets: \"Build receipts for my youth orchestra's gala tickets. Each seat costs $150 and includes a dinner we value at $60. When a guest buys a seat, email a receipt that shows the price paid and states the $60 dinner estimate, and save the receipt to the guest's donor record.\", yearEndTotals: \"Add a year-end statement to my animal shelter's donation receipt form. In early January, gather every gift each donor made the year before into one statement that lists each date and amount with the total. Email it to the donor and save a copy to their donor record.\" };</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { cashAndChecks: \"Build a donation receipt form for my food bank's front desk. Let a volunteer log a cash or check gift with the donor's name, email, amount, and date received. Give each gift the next receipt number in the year's series and email the donor a receipt with our name, the amount, and a statement that no goods or services were provided.\", donatedGoods: \"Add a donated goods section to my reuse center's receipt form for the loading dock tablet. Ask the dock lead to describe each item and its condition, with no field for a dollar value. Hold the receipt for a staff member to check the description, then send it. Post a Slack notice to our team that a receipt is waiting, with a link to the record.\", galaTickets: \"Build receipts for my youth orchestra's gala tickets. Each seat costs $150 and includes a dinner we value at $60. When a guest buys a seat, email a receipt that shows the price paid and states the $60 dinner estimate, and save the receipt to the guest's donor record.\", yearEndTotals: \"Add a year-end statement to my animal shelter's donation receipt form. In early January, gather every gift each donor made the year before into one statement that lists each date and amount with the total. Email it to the donor and save a copy to their donor record.\" };</p>",
   "howto_title": "How to Create a Donation Receipt Form",
   "howto_description": "Seven steps to create a donation receipt form that gives each kind of gift the right receipt, then build it with Emergent.",
   "howto_step_1_title": "01 List every way gifts reach you",
@@ -74,7 +74,7 @@
   },
   "tab_image_2": {
    "path": "images/form/donation-receipt/uc-2.svg",
-   "alt": "Old Mill Reuse Center's dock form records Gareth Ovington's donated sofa and 2 oak bookcases with their condition and no dollar value field; the goods receipt is sent with no dollar figure."
+   "alt": "Old Mill Reuse Center's dock form records Gareth Ovington's donated sofa and 2 oak bookcases with their condition and no dollar value field; the goods receipt waits for staff review with no dollar figure."
   },
   "tab_image_3": {
    "path": "images/form/donation-receipt/uc-3.svg",
@@ -122,6 +122,13 @@
    "via": "review",
    "by": "B-r-637",
    "note": "[truth | CONTENT_DEFECTS #10] feature_5: The page tells two incompatible stories about when goods and gala receipts go out. feature_5 says goods and gala-ticket receipts wait for a person (title 'A heads-up when a receipt needs a person'), and howto_step_6 says goods receipts 'wait in a review list'"
+  },
+  {
+   "t": "2026-11-13 12:43 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-698",
+   "note": ""
   }
  ],
  "pipeline": "r15",
@@ -525,7 +532,7 @@
       },
       {
        "type": "button",
-       "label": "Save and send receipt",
+       "label": "Review and send",
        "icon": "send",
        "full": true
       }
@@ -533,11 +540,11 @@
     },
     "hero": {
      "kind": "card",
-     "icon": "package-check",
+     "icon": "clock",
      "tone": "ok",
-     "title": "Goods receipt sent",
+     "title": "Goods receipt waiting for review",
      "action": {
-      "label": "View record",
+      "label": "Review and send",
       "icon": "arrow-right"
      },
      "blocks": [
@@ -566,7 +573,7 @@
      "title": "Saved to the gifts table",
      "sub": "Logged on the dock tablet"
     },
-    "alt": "Old Mill Reuse Center's dock form records Gareth Ovington's donated sofa and 2 oak bookcases with their condition and no dollar value field; the goods receipt is sent with no dollar figure.",
+    "alt": "Old Mill Reuse Center's dock form records Gareth Ovington's donated sofa and 2 oak bookcases with their condition and no dollar value field; the goods receipt waits for staff review with no dollar figure.",
     "story": [
      {
       "copy": "a sofa and 2 bookcases",
@@ -1258,5 +1265,19 @@
   },
   "all": "94f70687be6dc2df",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
- }
+ },
+ "lock_exceptions": [
+  {
+   "field": "alt:tab_image_2",
+   "by": "B-c-2",
+   "reason": "B-r-637's blocking finding (one receipt flow everywhere) requires these fields in its own fix text: tab 2 alt and the donatedGoods mockup prompt; slim review follows",
+   "date": "2026-11-13 12:44 UTC"
+  },
+  {
+   "field": "mockup",
+   "by": "B-c-2",
+   "reason": "B-r-637's blocking finding (one receipt flow everywhere) requires these fields in its own fix text: tab 2 alt and the donatedGoods mockup prompt; slim review follows",
+   "date": "2026-11-13 12:44 UTC"
+  }
+ ]
 }
