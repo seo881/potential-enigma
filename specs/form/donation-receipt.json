@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-654",
    "note": ""
+  },
+  {
+   "t": "2026-11-13 12:38 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-637",
+   "note": "[truth | CONTENT_DEFECTS #10] feature_5: The page tells two incompatible stories about when goods and gala receipts go out. feature_5 says goods and gala-ticket receipts wait for a person (title 'A heads-up when a receipt needs a person'), and howto_step_6 says goods receipts 'wait in a review list'"
   }
  ],
  "pipeline": "r15",
@@ -981,5 +988,275 @@
  ],
  "writers": [
   "B-w-654"
- ]
+ ],
+ "review": {
+  "by": "B-r-637",
+  "date": "2026-11-13 12:38 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Donation Receipt Form That Writes the Receipt for You'; hero 'Build a donation receipt form that turns each logged gift into a numbered receipt, saved in a database you own.' (D1 ok); how-to description one sentence, D2 ok."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Searchers want what a receipt must say and a form that produces it: FAQ 3 'What should a donation receipt form collect?' and tabs 1-3 quote the IRS acknowledgment contents (org name, cash amount, goods description with no value, no-goods statement, quid pro quo estimate); 7-step how-to; four gift types."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Receipt 2026-0418, a $400 check at Tamarack Valley Food Bank, a sofa and 2 bookcases at the dock, $150 gala seat with a $60 dinner, 12 x $30 = $360 statement; table uses form variant."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs or full sentences: 'Describe the receipt your office sends', 'Pick cash or check and the form asks', 'Connect the Stripe account'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Two ', so' endings (steps 4, 5) under the limit; noted only."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain product verbs, concrete detail ('Start the series at the number your paper receipt book would have used next'); no AI tells found."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "IRS statements match their quoted irs.gov spans with no widening and no tax-deductibility claim; but the review step contradicts itself across fields: feature_5 'Gifts of goods and gala tickets post a Slack message ... saying a receipt is waiting' and howto_step_6 'Those wait in a review list' vs tab image 2 'Goods receipt sent' + 'Save and send receipt', mockup donatedGoods 'Email the donor a receipt that lists the items, and post a Slack message', tab image 3 '5 gala receipts sent' and mockup galaTickets 'When a guest buys a seat, email a receipt'."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Receipting after the gift (numbering, in-kind descriptions, quid pro quo estimate, year-end statement); does not headline donation request, paypal or stripe donation, which are linked as FAQ anchors only."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, no brand or file-format ask, hub link in item 2, sibling links 'paypal donation form' and 'stripe donation form', answers answer first, FAQ 5 matches the IRS solicitation-or-receipt span."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Numbers agree with copy ($400 vs $250 rule, $150/$60 vs $75, 12 x $30 = $360 with 4 x $90), one hero per panel, Slack line carries no names or amounts; the sent-vs-waiting status conflict is recorded under truth."
+   }
+  },
+  "findings": [
+   {
+    "class": "wrong-fact",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "feature_5",
+    "quote": "Gifts of goods and gala tickets post a Slack message to your development channel saying a receipt is waiting, with a link to the record.",
+    "issue": "The page tells two incompatible stories about when goods and gala receipts go out. feature_5 says goods and gala-ticket receipts wait for a person (title 'A heads-up when a receipt needs a person'), and howto_step_6 says goods receipts 'wait in a review list' while 'Every other receipt is sent as soon as the gift is saved' (FAQ 6 also: 'Staff check the description before the receipt is sent'). Every other field shows those receipts sent at once: tab image 2 hero 'Goods receipt sent' with button 'Save and send receipt' and, in the same card, 'Slack: a receipt is waiting, with a link' (sent and waiting at once); mockup donatedGoods 'Email the donor a receipt that lists the items, and post a Slack message to our team'; tab image 3 mini '5 gala receipts sent' and every row 'Sent'; mockup galaTickets 'When a guest buys a seat, email a receipt'; tab_content_3 'Every gala receipt states the $60 estimate beside the price paid.'",
+    "fix": "Pick one flow and apply it in every field. Simplest: feature_5 covers only receipts held for review (e.g. goods a volunteer described at the dock), drop gala tickets from it, and make the Slack text say a goods receipt is waiting for review. Then either redraw tab 2 as held for review (hero 'Goods receipt waiting for review', button 'Save for review', Slack line kept; mockup donatedGoods says the receipt waits for a staff check before it is emailed), or keep tab 2 as sent and remove the Slack 'waiting' line from image and mockup. Leave tab 3 gala receipts sent on purchase.",
+    "severity": "blocking"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "howto_step_4_des",
+    "quote": "Start the series at the number your paper receipt book would have used next, so the records run on without a break.",
+    "issue": "', so' tacked-on ending; second instance in howto_step_5_des 'Connect the payment account your website gifts go through, so each completed payment creates a gift record.'",
+    "fix": "Split into two sentences where it reads better.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "gift",
+    "issue": "'gift' 21 times and 'gifts' 13 times outside the FAQ (QC Q9); the page leans on one noun.",
+    "fix": "Vary with donation, check, payment where the meaning holds.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "Jotform | Google Forms | Typeform",
+    "issue": "None of the three table competitors ranks in this page's top 10 (QC K7); the SERP is template sites.",
+    "fix": "Accept: the library has no receipt-template vendors; revisit if one is added.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Void the receipt and issue a new one with the next number in the series.",
+    "issue": "Correction procedure (FAQ 8) is practice advice with no source; acceptable as a recommendation, not stated as an IRS rule.",
+    "fix": "None needed; keep it framed as practice.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "howto_step_4_des",
+   "issue": "', so' tacked-on ending; second instance in howto_step_5_des 'Connect the payment account your website gifts go through, so each completed payment creates a gift record.'",
+   "fix": "Split into two sentences where it reads better.",
+   "by": "B-r-637",
+   "via": "review",
+   "date": "2026-11-13 12:38 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "'gift' 21 times and 'gifts' 13 times outside the FAQ (QC Q9); the page leans on one noun.",
+   "fix": "Vary with donation, check, payment where the meaning holds.",
+   "by": "B-r-637",
+   "via": "review",
+   "date": "2026-11-13 12:38 UTC"
+  },
+  {
+   "criterion": "specificity",
+   "rule": "HUB_RULES 5",
+   "field": "why_table",
+   "issue": "None of the three table competitors ranks in this page's top 10 (QC K7); the SERP is template sites.",
+   "fix": "Accept: the library has no receipt-template vendors; revisit if one is added.",
+   "by": "B-r-637",
+   "via": "review",
+   "date": "2026-11-13 12:38 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Correction procedure (FAQ 8) is practice advice with no source; acceptable as a recommendation, not stated as an IRS rule.",
+   "fix": "None needed; keep it framed as practice.",
+   "by": "B-r-637",
+   "via": "review",
+   "date": "2026-11-13 12:38 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "b0d6c8c2fa7b68f1",
+   "alt:share_image": "0c0b86ff6a542032",
+   "alt:tab_image_1": "783356ea244caaba",
+   "alt:tab_image_2": "42260a6308e38edd",
+   "alt:tab_image_3": "4d5ad740c5697f3f",
+   "alt:tab_image_4": "126397b4a683b7ba",
+   "breadcrumb": "b746f3af5be21764",
+   "chip_adds": "7310a711505ab1c6",
+   "explore_cta": "75ba76ede62dcb58",
+   "faq": "3e03eb68962995d1",
+   "feature_1": "4b55051170e77553",
+   "feature_2": "3a751cbca5ca0126",
+   "feature_3": "de181e091d4f1edd",
+   "feature_4": "b2faf4399fb102e7",
+   "feature_5": "4d94f0344376e212",
+   "feature_6": "ef03381c06bdd42c",
+   "features_heading": "86ec46c28a914c71",
+   "features_subheading": "e4116b6b9b440052",
+   "h1": "584fac1a53777b2e",
+   "hero_description": "48861aa356a381ca",
+   "hero_prompt": "8881d192769c236a",
+   "howto_description": "d53c0a20e5387bb7",
+   "howto_step_1_des": "b9ffd61538ba4dad",
+   "howto_step_1_title": "7e040a5a03cf81ad",
+   "howto_step_2_des": "5a4d7fe521d8a145",
+   "howto_step_2_title": "544ffb5a6085e037",
+   "howto_step_3_des": "34c7b77c6ed825f9",
+   "howto_step_3_title": "ceec2349a69f944c",
+   "howto_step_4_des": "cbc29fbb97b64a42",
+   "howto_step_4_title": "6e3395004bee1be8",
+   "howto_step_5_des": "1a2576c728e83096",
+   "howto_step_5_title": "9c995ee82f383990",
+   "howto_step_6_des": "67427203e9c8f615",
+   "howto_step_6_title": "dc78637ca5927de8",
+   "howto_step_7_des": "fe0395238c4bbf1f",
+   "howto_step_7_title": "305d0423c2f7a509",
+   "howto_title": "1f4a2bd5b748dfac",
+   "meta_description": "120db096466f73b9",
+   "meta_title": "5189784577d5cbf9",
+   "mockup": "c650a8a665864629",
+   "product_name": "a6caef86dab03ae8",
+   "prompt_chip_1": "b18df0fbb266c073",
+   "prompt_chip_2": "d0a6e504433dbb00",
+   "prompt_chip_3": "7f9df18e512f65f7",
+   "prompt_chip_4": "d787c674491de5d1",
+   "slug": "6ab9932cbeca2a1e",
+   "tab_content_1": "485f6c83b966f64b",
+   "tab_content_2": "22448ac17c15e3e1",
+   "tab_content_3": "7d676802d6b9e0c1",
+   "tab_content_4": "21388ca571e5a110",
+   "tab_label_1": "ee67503842b3a5b8",
+   "tab_label_2": "d381e762e61dcfc5",
+   "tab_label_3": "7f9df18e512f65f7",
+   "tab_label_4": "d787c674491de5d1",
+   "usecase_heading": "1d380661f38fd6a9",
+   "why_description": "49227aced383f623",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "c62140fd4c4c24f4"
+  },
+  "all": "94f70687be6dc2df",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "b0d6c8c2fa7b68f1",
+   "alt:share_image": "0c0b86ff6a542032",
+   "alt:tab_image_1": "783356ea244caaba",
+   "alt:tab_image_2": "42260a6308e38edd",
+   "alt:tab_image_3": "4d5ad740c5697f3f",
+   "alt:tab_image_4": "126397b4a683b7ba",
+   "breadcrumb": "b746f3af5be21764",
+   "chip_adds": "7310a711505ab1c6",
+   "explore_cta": "75ba76ede62dcb58",
+   "faq": "3e03eb68962995d1",
+   "feature_1": "4b55051170e77553",
+   "feature_2": "3a751cbca5ca0126",
+   "feature_3": "de181e091d4f1edd",
+   "feature_4": "b2faf4399fb102e7",
+   "feature_5": "4d94f0344376e212",
+   "feature_6": "ef03381c06bdd42c",
+   "features_heading": "86ec46c28a914c71",
+   "features_subheading": "e4116b6b9b440052",
+   "h1": "584fac1a53777b2e",
+   "hero_description": "48861aa356a381ca",
+   "hero_prompt": "8881d192769c236a",
+   "howto_description": "d53c0a20e5387bb7",
+   "howto_step_1_des": "b9ffd61538ba4dad",
+   "howto_step_1_title": "7e040a5a03cf81ad",
+   "howto_step_2_des": "5a4d7fe521d8a145",
+   "howto_step_2_title": "544ffb5a6085e037",
+   "howto_step_3_des": "34c7b77c6ed825f9",
+   "howto_step_3_title": "ceec2349a69f944c",
+   "howto_step_4_des": "cbc29fbb97b64a42",
+   "howto_step_4_title": "6e3395004bee1be8",
+   "howto_step_5_des": "1a2576c728e83096",
+   "howto_step_5_title": "9c995ee82f383990",
+   "howto_step_6_des": "67427203e9c8f615",
+   "howto_step_6_title": "dc78637ca5927de8",
+   "howto_step_7_des": "fe0395238c4bbf1f",
+   "howto_step_7_title": "305d0423c2f7a509",
+   "howto_title": "1f4a2bd5b748dfac",
+   "meta_description": "120db096466f73b9",
+   "meta_title": "5189784577d5cbf9",
+   "mockup": "c650a8a665864629",
+   "product_name": "a6caef86dab03ae8",
+   "prompt_chip_1": "b18df0fbb266c073",
+   "prompt_chip_2": "d0a6e504433dbb00",
+   "prompt_chip_3": "7f9df18e512f65f7",
+   "prompt_chip_4": "d787c674491de5d1",
+   "slug": "6ab9932cbeca2a1e",
+   "tab_content_1": "485f6c83b966f64b",
+   "tab_content_2": "22448ac17c15e3e1",
+   "tab_content_3": "7d676802d6b9e0c1",
+   "tab_content_4": "21388ca571e5a110",
+   "tab_label_1": "ee67503842b3a5b8",
+   "tab_label_2": "d381e762e61dcfc5",
+   "tab_label_3": "7f9df18e512f65f7",
+   "tab_label_4": "d787c674491de5d1",
+   "usecase_heading": "1d380661f38fd6a9",
+   "why_description": "49227aced383f623",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "c62140fd4c4c24f4"
+  },
+  "all": "94f70687be6dc2df",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
