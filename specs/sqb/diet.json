@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-611",
    "note": ""
+  },
+  {
+   "t": "2026-11-13 07:36 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-623",
+   "note": "[specificity | CONTENT_DEFECTS #26] why_table: A quiz page (playable spec.quiz, primary 'diet quiz') carries the hub's general survey table, the default the quiz-maker category set replaced (Divit 2026-11-11 decision 3: new quiz pages use the quiz-maker set). The cells talk about employee engagement"
   }
  ],
  "pipeline": "r15",
@@ -1142,5 +1149,317 @@
   "how-to-validate-a-business-idea: SurveyQuiz fixed set: collecting and reading customer feedback to test an idea, the research job most surveys do",
   "how-to-build-an-interactive-website: SurveyQuiz fixed set: building interactive elements a visitor answers and gets a result from, the mechanic behind quizzes",
   "how-to-build-an-analytics-dashboard-with-ai: SurveyQuiz fixed set: turning responses into a dashboard: metrics, charts and summaries for survey results"
- ]
+ ],
+ "review": {
+  "by": "B-r-623",
+  "date": "2026-11-13 07:36 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Diet Quiz That Matches People to an Eating Pattern'; hero 'Build a diet quiz that matches each taker to an eating pattern, saved to a database you own, or play the 8-question quiz below.' covers the whole job."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "AMBER angle carried: playable 8-question matching quiz on the page for takers, plus builder copy for makers; FAQ 3 'Try the quiz on this page: 8 questions that match you to 1 of 4 eating patterns'."
+   },
+   "specificity": {
+    "result": "fail",
+    "evidence": "why_table is the general survey set (SurveyMonkey, Microsoft Forms, SurveyHero; 'Survey builder with templates, including employee engagement') on a quiz page; Divit 2026-11-11 decision 3 requires the quiz-maker set."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Larkglen Nutrition matches every quiz taker to an eating pattern.', 'Describe the patterns you want to match, such as a planner or a grazer.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Two ', so' endings (under the cap); sentences vary: 'One quiz does one job well.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete and calm: 'If every taker picks the same answer, the question splits nothing'; no AI tells found."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "FAQ 8 'No, as long as the quiz recommends rather than prescribes' states a professional/legal standard with no domain source; feature_5 'keeps a 10-question quiz under 3 minutes on a phone' unsourced timing fact; howto_step_5_des 'say what the address gets: the result plus one follow-up' and FAQ 7 'send one follow-up tied to the pattern that taker matched' put a taker's eating result in email. Tab numbers check: 64+58+49+41=212, 448/1,180=38%, 1,468/2,406=61%."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own eating-pattern vocabulary (Planner, Grazer, Winger, Social Eater) and four distinct segments: coaching, meal boxes, gym intake, newsletter."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, hub link in item 2, sibling links (love language quiz, spirit animal quiz), F9 moat lines in FAQ 3, 7, 9; FAQ 8 truth issue scored under truth."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab images match copy: bars 64/58/49/41 and 212 takers; 448 of 1,180 with locked result; habit score < 6 rule with 9 of 31; 1,468 of 2,406 and Question 5 of 7. No health details in transit drawn."
+   }
+  },
+  "findings": [
+   {
+    "class": "structure",
+    "criterion": "specificity",
+    "rule": "CONTENT_DEFECTS #26",
+    "field": "why_table",
+    "quote": "SurveyMonkey | Microsoft Forms | SurveyHero; Survey builder with templates, including employee engagement",
+    "issue": "A quiz page (playable spec.quiz, primary 'diet quiz') carries the hub's general survey table, the default the quiz-maker category set replaced (Divit 2026-11-11 decision 3: new quiz pages use the quiz-maker set). The cells talk about employee engagement and satisfaction templates on a diet quiz page, and none of the three vendors is quiz software.",
+    "fix": "Regenerate with `hubctl table <url>` without --vs so the quiz-maker set (ProProfs, Interact, Typeform ... with the build row) is used; do not hand-edit.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq (item 8)",
+    "quote": "No, as long as the quiz recommends rather than prescribes.",
+    "issue": "States when a nutrition professional is or is not required (a professional and legal standard; dietetics practice rules vary by US state) with no spec.domain_sources entry (domain_sources is empty). On a YMYL health page it also tells the reader the quiz may 'recommend', against the page's own preference-only framing.",
+    "fix": "Answer without asserting a legal or professional rule, or source it. For example: answer that building the quiz needs no nutrition credential in Emergent, keep results as eating-pattern preferences with no advice on what to eat, and have a registered dietitian review any nutrition wording before launch. Or replace the question with another on-topic written question.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "feature_5",
+    "quote": "which keeps a 10-question quiz under 3 minutes on a phone",
+    "issue": "A completion-time fact (and a causal claim that the progress bar produces it) with no domain source and beyond the 'conversational' claim, which covers one-question-per-screen flows only.",
+    "fix": "Drop the timing claim and keep the approved capability, e.g. 'Takers answer one question per screen with a progress bar, built for thumbs on a phone.' Keep the body within 165-182 characters.",
+    "severity": "blocking"
+   },
+   {
+    "class": "health-in-transit",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_5_des",
+    "quote": "say what the address gets: the result plus one follow-up, nothing more",
+    "issue": "Tells the builder to email the taker's diet quiz result. On this health page (YMYL), a person's eating result must stay in the app; email may only say a result is ready and link to it.",
+    "fix": "Say the address gets a link back to the result on the site plus one follow-up, and the result itself stays in the app.",
+    "severity": "blocking"
+   },
+   {
+    "class": "health-in-transit",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq (item 7)",
+    "quote": "Hold each result behind an email field, then send one follow-up tied to the pattern that taker matched.",
+    "issue": "A follow-up email whose content is keyed to the taker's eating pattern carries that result in transit. Same class as howto_step_5_des.",
+    "fix": "Send one follow-up that links to the taker's result page or offer page, with no eating details in the email itself; the per-pattern offer can live on the result screen ('the result screen routes every pattern to its own offer' already says this).",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "tab_content_3",
+    "quote": "the app turns the answers into a habit score. A score under 6 books a trainer call",
+    "issue": "YMYL framing: a score that grades someone's eating habits (also tab_content_4 'a scored quiz ... a result band', howto_step_2_des 'fits habit checks with bands', FAQ 1 'or a habit score') sits uneasily beside the preference-only framing of feature_2 and the playable quiz. Not a severity-table blocking class; flagged for Divit's YMYL read.",
+    "fix": "If Divit wants preference-only health pages, reframe tab 3 as an intake match (e.g. a pattern that books a planning call) rather than a habit score.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief tabs 1 and 3",
+    "quote": "Imani Cole (Larkglen Nutrition, Matched The Planner; Granite Row Fitness new_members, 8)",
+    "issue": "The same fictional person appears as a customer of two unrelated companies in two tabs.",
+    "fix": "Use a different name in one tab.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief tab 2 mini",
+    "quote": "448 this month",
+    "issue": "The image adds a timeframe the tab copy never states ('1,180 people finished the quiz and 448 left an address').",
+    "fix": "Drop 'this month' or name the period in the copy.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 8",
+    "field": "faq (item 5)",
+    "quote": "Keep it between 6 and 10.",
+    "issue": "Recommendation with no source (also howto_step_6 'Test it with 5 people', howto_step_7 'after the first 100 takers').",
+    "fix": "Acceptable as advice; ships.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "tab_content_3",
+   "issue": "YMYL framing: a score that grades someone's eating habits (also tab_content_4 'a scored quiz ... a result band', howto_step_2_des 'fits habit checks with bands', FAQ 1 'or a habit score') sits uneasily beside the preference-only framing of feature_2 and the playable quiz. Not a severity-table blocking class; flagged for Divit's YMYL read.",
+   "fix": "If Divit wants preference-only health pages, reframe tab 3 as an intake match (e.g. a pattern that books a planning call) rather than a habit score.",
+   "by": "B-r-623",
+   "via": "review",
+   "date": "2026-11-13 07:36 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief tabs 1 and 3",
+   "issue": "The same fictional person appears as a customer of two unrelated companies in two tabs.",
+   "fix": "Use a different name in one tab.",
+   "by": "B-r-623",
+   "via": "review",
+   "date": "2026-11-13 07:36 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief tab 2 mini",
+   "issue": "The image adds a timeframe the tab copy never states ('1,180 people finished the quiz and 448 left an address').",
+   "fix": "Drop 'this month' or name the period in the copy.",
+   "by": "B-r-623",
+   "via": "review",
+   "date": "2026-11-13 07:36 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 8",
+   "field": "faq (item 5)",
+   "issue": "Recommendation with no source (also howto_step_6 'Test it with 5 people', howto_step_7 'after the first 100 takers').",
+   "fix": "Acceptable as advice; ships.",
+   "by": "B-r-623",
+   "via": "review",
+   "date": "2026-11-13 07:36 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "8bb500a3cfc61e8e",
+   "alt:share_image": "a09db946019ea0e9",
+   "alt:tab_image_1": "7c7f4faba3d9ecb8",
+   "alt:tab_image_2": "6d5036c7ba80b7fa",
+   "alt:tab_image_3": "aa5d12becdc8308f",
+   "alt:tab_image_4": "760c2252aef87278",
+   "breadcrumb": "08d733dec79e6eae",
+   "chip_adds": "89e8c4ab550ef4d4",
+   "explore_cta": "12edb90e754dfb87",
+   "faq": "1fa161af6db8a9d8",
+   "feature_1": "966d569ad95026a4",
+   "feature_2": "c086551e434b74ad",
+   "feature_3": "084026684c4c08ff",
+   "feature_4": "16b8ff40aac216ac",
+   "feature_5": "d6977aaee4cedf3f",
+   "feature_6": "07956d9c7cbfd00a",
+   "features_heading": "b8842b1f595fe376",
+   "features_subheading": "57e824605c71e9f8",
+   "h1": "549e4d5b13681346",
+   "hero_description": "bb3528b5e86d9fe5",
+   "hero_prompt": "a78297d68259fd0d",
+   "howto_description": "f58383518d0a76f2",
+   "howto_step_1_des": "70f9fe351d29a270",
+   "howto_step_1_title": "b0df960249439a04",
+   "howto_step_2_des": "621e3bd6f962ac30",
+   "howto_step_2_title": "233ccd4c3463431d",
+   "howto_step_3_des": "c81bee4d3440a69a",
+   "howto_step_3_title": "02da0fa039c83345",
+   "howto_step_4_des": "b2e9819eb9c2e963",
+   "howto_step_4_title": "3797f56a6c7409ea",
+   "howto_step_5_des": "d0d6bb5d13cf737b",
+   "howto_step_5_title": "d97287cecdea35b7",
+   "howto_step_6_des": "9f4234326613f814",
+   "howto_step_6_title": "b59e00cf82c80b96",
+   "howto_step_7_des": "edf92564c36d4262",
+   "howto_step_7_title": "fd008f28effa2fb7",
+   "howto_title": "f6dd711cb093e1ba",
+   "meta_description": "d6fa4082dbe70245",
+   "meta_title": "6dcede8a6818f9b0",
+   "mockup": "0bce06ae57aefc90",
+   "product_name": "ab6b5d5c300878e8",
+   "prompt_chip_1": "3430366762b06167",
+   "prompt_chip_2": "504a351fd6a55c13",
+   "prompt_chip_3": "7eec3f8fc11af5bf",
+   "prompt_chip_4": "24907a79b7cb41b6",
+   "quiz": "ec432e7f28c99581",
+   "slug": "a36c443337b53097",
+   "tab_content_1": "540ca84034cf838a",
+   "tab_content_2": "81ac27a1b54a6c93",
+   "tab_content_3": "75ec7941477878f3",
+   "tab_content_4": "d6af03c416350710",
+   "tab_label_1": "6674f88dd485ed4d",
+   "tab_label_2": "07edf1716da4e999",
+   "tab_label_3": "eeac0e9e4be079c7",
+   "tab_label_4": "589000cfd4ff0861",
+   "usecase_heading": "805275d798a453c8",
+   "why_description": "aee13ca20daba078",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "840231ba3b934ebc"
+  },
+  "all": "1944b96c9bc16b8f",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "8bb500a3cfc61e8e",
+   "alt:share_image": "a09db946019ea0e9",
+   "alt:tab_image_1": "7c7f4faba3d9ecb8",
+   "alt:tab_image_2": "6d5036c7ba80b7fa",
+   "alt:tab_image_3": "aa5d12becdc8308f",
+   "alt:tab_image_4": "760c2252aef87278",
+   "breadcrumb": "08d733dec79e6eae",
+   "chip_adds": "89e8c4ab550ef4d4",
+   "explore_cta": "12edb90e754dfb87",
+   "faq": "1fa161af6db8a9d8",
+   "feature_1": "966d569ad95026a4",
+   "feature_2": "c086551e434b74ad",
+   "feature_3": "084026684c4c08ff",
+   "feature_4": "16b8ff40aac216ac",
+   "feature_5": "d6977aaee4cedf3f",
+   "feature_6": "07956d9c7cbfd00a",
+   "features_heading": "b8842b1f595fe376",
+   "features_subheading": "57e824605c71e9f8",
+   "h1": "549e4d5b13681346",
+   "hero_description": "bb3528b5e86d9fe5",
+   "hero_prompt": "a78297d68259fd0d",
+   "howto_description": "f58383518d0a76f2",
+   "howto_step_1_des": "70f9fe351d29a270",
+   "howto_step_1_title": "b0df960249439a04",
+   "howto_step_2_des": "621e3bd6f962ac30",
+   "howto_step_2_title": "233ccd4c3463431d",
+   "howto_step_3_des": "c81bee4d3440a69a",
+   "howto_step_3_title": "02da0fa039c83345",
+   "howto_step_4_des": "b2e9819eb9c2e963",
+   "howto_step_4_title": "3797f56a6c7409ea",
+   "howto_step_5_des": "d0d6bb5d13cf737b",
+   "howto_step_5_title": "d97287cecdea35b7",
+   "howto_step_6_des": "9f4234326613f814",
+   "howto_step_6_title": "b59e00cf82c80b96",
+   "howto_step_7_des": "edf92564c36d4262",
+   "howto_step_7_title": "fd008f28effa2fb7",
+   "howto_title": "f6dd711cb093e1ba",
+   "meta_description": "d6fa4082dbe70245",
+   "meta_title": "6dcede8a6818f9b0",
+   "mockup": "0bce06ae57aefc90",
+   "product_name": "ab6b5d5c300878e8",
+   "prompt_chip_1": "3430366762b06167",
+   "prompt_chip_2": "504a351fd6a55c13",
+   "prompt_chip_3": "7eec3f8fc11af5bf",
+   "prompt_chip_4": "24907a79b7cb41b6",
+   "quiz": "ec432e7f28c99581",
+   "slug": "a36c443337b53097",
+   "tab_content_1": "540ca84034cf838a",
+   "tab_content_2": "81ac27a1b54a6c93",
+   "tab_content_3": "75ec7941477878f3",
+   "tab_content_4": "d6af03c416350710",
+   "tab_label_1": "6674f88dd485ed4d",
+   "tab_label_2": "07edf1716da4e999",
+   "tab_label_3": "eeac0e9e4be079c7",
+   "tab_label_4": "589000cfd4ff0861",
+   "usecase_heading": "805275d798a453c8",
+   "why_description": "aee13ca20daba078",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "840231ba3b934ebc"
+  },
+  "all": "1944b96c9bc16b8f",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
