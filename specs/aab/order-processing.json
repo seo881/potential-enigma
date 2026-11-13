@@ -41,7 +41,7 @@
   "tab_label_3": "Backorders",
   "tab_label_4": "Order Status Page",
   "tab_content_1": "<h3>PO 7731 arrives as a PDF and leaves as SO-50388</h3><p>Harlow Hardware emails its orders to Calder Supply as PDFs. The app reads PO 7731 into sales order SO-50388, four lines in all. Three match the contract. Drawer slides come in at $12.75 against a contract price of $14.20, and any price that differs from the contract holds its line for Maren Liu, the account rep.</p>",
-  "tab_content_2": "<h3>An $8,400 order waits on the credit manager</h3><p>Pinecrest Supply owes $18,900 on open invoices against a $25,000 credit limit. Its new $8,400 order would take the balance to $27,300. Any order that takes an account over its limit is held before the warehouse sees it. Odile Varga in credit is messaged in Slack and releases it there or asks Pinecrest for prepayment.</p>",
+  "tab_content_2": "<h3>An $8,400 order waits on the credit manager</h3><p>Pinecrest Supply owes $18,900 on open invoices against a $25,000 credit limit. Its new $8,400 order would take the balance to $27,300. Any order that takes an account over its limit is held before the warehouse sees it. Dulce Ferraro in credit is messaged in Slack and releases it there or asks Pinecrest for prepayment.</p>",
   "tab_content_3": "<h3>Short on towels, the order ships in two parts</h3><p>Every line is checked against stock before release to the warehouse. SO-50412 asks for 120 cases of shop towels, and 90 are on hand. Those 90 go on today's pick list with the rest of the order, and the other 30 go on backorder against the next receipt. The buyer gets one email that lists both shipments.</p>",
   "tab_content_4": "<h3>Buyers find any order by their own PO number</h3><p>Buyers at Brindle Cafe Group used to email customer service to ask where an order stood. Ana Reyes now types PO 2290 into Calder Supply's status page and sees SO-50441 packed and waiting on a label. The carrier and tracking number fill in once the label is bought, read from the same table the warehouse updates.</p>",
   "mockup": "<p id=\"\">window.awbMockup = { emailedPdfOrders: \"Build order processing automation for my distribution company. Customers email purchase orders as PDF attachments to our orders inbox. Read each one into a sales order with the lines, quantities, prices, and ship-to address. Check every line against the customer's contract price list, and hold any line where the price differs for the account rep to review.\", creditHolds: \"Before an order goes to my warehouse, add the customer's open balance to the order total and compare it with their credit limit. If the total is over the limit, hold the order and send our credit manager a Slack message with the numbers, so she can release it or ask the customer for prepayment. Log her decision on the order.\", backorders: \"Check every line of a released order against stock on hand. When a line is short, put what we have on today's pick list and backorder the rest against our next receipt. Send the buyer one email listing what ships now and what follows later, and keep the backordered quantity open on the order.\", orderStatusPage: \"Build an order status page for my wholesale customers. A buyer types their own PO number and sees the matching sales order with its current step: received, picked, packed, or shipped. When a shipping label is bought, show the carrier and tracking number. Read everything from the same orders table my warehouse updates.\" };</p>",
@@ -162,13 +162,20 @@
    "via": null,
    "by": "B-w-637",
    "note": ""
+  },
+  {
+   "t": "2026-11-13 08:14 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-637",
+   "note": ""
   }
  ],
  "plan": {
   "angle": "The top 10 are order-to-cash vendors and explainers (Esker, NetSuite, Workato, Amazon Business, goautonomous) describing the stages in general terms. This page shows the sell side a distributor's order desk actually runs: a customer PO emailed as a PDF read into a sales order with a stale price caught, a credit hold decided by the credit manager from Slack, a short line shipped in part with the rest on backorder, and a status page buyers check themselves. Labels, carrier tracking and confirmation emails are left to the shipping and confirmation siblings.",
   "tab_stories": [
    "Harlow Hardware emails PO 7731 as a PDF, the four lines are read into sales order SO-50388, and the drawer slides line quoted at an old $12.75 against the contract price of $14.20 waits for the account rep while the other three lines go ahead.",
-   "Pinecrest Supply places an $8,400 order with $18,900 already open against a $25,000 credit limit, so the order is held and Odile Varga in credit gets a direct message in Slack to release it or ask for prepayment.",
+   "Pinecrest Supply places an $8,400 order with $18,900 already open against a $25,000 credit limit, so the order is held and Dulce Ferraro in credit gets a direct message in Slack to release it or ask for prepayment.",
    "Before release to the warehouse, each line of SO-50412 is checked against stock, and the shop towels line ships 90 of 120 cases today while the other 30 go on backorder and the buyer gets one email listing both parts.",
    "A buyer at Brindle Cafe Group types her PO number into Calder Supply's order status page and sees SO-50441 packed, with the carrier and tracking number filled in once the label is bought."
   ],
@@ -511,7 +518,7 @@
     "hero": {
      "kind": "card",
      "app": true,
-     "app_sub": "To Odile Varga",
+     "app_sub": "To Dulce Ferraro",
      "blocks": [
       {
        "type": "title",
@@ -560,8 +567,8 @@
       "image": "account over its limit"
      },
      {
-      "copy": "Odile Varga",
-      "image": "To Odile Varga"
+      "copy": "Dulce Ferraro",
+      "image": "To Dulce Ferraro"
      },
      {
       "copy": "asks Pinecrest for prepayment",
@@ -829,7 +836,7 @@
   "cover": {
    "kind": "action",
    "dm": true,
-   "channel": "Odile Varga",
+   "channel": "Dulce Ferraro",
    "title": "SO-50397 on hold",
    "sub": "$8,400.00, Pinecrest",
    "primary": "Release",
@@ -1344,5 +1351,13 @@
   "best-ai-workflow-builders: Auto fixed set: the hub's category: what an AI workflow builder is and how to choose one",
   "how-to-build-an-ai-agent: Auto fixed set: step-by-step build of an agent that handles leads and intake, the AI step inside most automations",
   "best-no-code-agent-builders: Auto fixed set: no-code agent builders for workflow automation, for readers who want automations without code"
+ ],
+ "lock_exceptions": [
+  {
+   "field": "tab_content_2",
+   "by": "B-c-2",
+   "reason": "QC A1/name reuse: credit manager 'Odile Varga' is used on 3 other pages; renamed to 'Dulce Ferraro' (unique); post-live review covers it",
+   "date": "2026-11-13 08:13 UTC"
+  }
  ]
 }
