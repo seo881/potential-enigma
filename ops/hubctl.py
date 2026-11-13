@@ -1470,6 +1470,29 @@ def cmd_postlive_backlog(args):
     print(f"post-live review backlog: {len(rows)} page(s); overdue (>24 h): {len(over)}; live: {sum(1 for r in rows if r[2] == 'published')}")
     for t, u, st_, a in rows: print(f"  {'OVERDUE ' if a > 24 else ''}{u}  ({st_}, approved {t.strftime('%m-%d %H:%M')} UTC, {a:.1f} h)")
 
+def cmd_postlive_restamp(args):
+    """hubctl postlive-restamp URL --by <COORD>-c-<n>: after a SHIP-FIRST post-live fix (blocking findings fixed by CMS item update +
+    verify-live), restamp the approval fingerprint to the fixed content. Coordinator only; refused unless the page shipped under
+    ship-first, its post-live review is recorded with fixed=true, and QC passes except R3. Logged on the spec and in today's go record."""
+    url = args[0]; by = need_by(args, "postlive-restamp")
+    if not is_coordinator(by): sys.exit(f"refused: postlive-restamp is coordinator only (--by {COORDINATOR}-c-<n>)")
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G, datetime as _dt
+    sp = spath(url); s = json.load(open(sp)); sf = s.get("ship_first") or {}; pl = sf.get("postlive_review") or {}
+    if not sf: sys.exit("refused: not a SHIP-FIRST page")
+    if not pl.get("fixed"): sys.exit("refused: the post-live review is not recorded as fixed (hubctl postlive-review; fix by CMS item update + verify-live first)")
+    if (s.get("approval") or {}).get("fingerprint") == G.fingerprint(s): sys.exit("refused: content is unchanged since approval (no R3); nothing to restamp")
+    if not pl.get("blocking"): sys.exit("refused: the post-live review had no blocking finding, so no post-live fix happened")
+    r = subprocess.run([sys.executable, os.path.join(ROOT, "qc", "qc_hub.py"), sp], capture_output=True, text=True)
+    ids = sorted({m.group(2) for m in re.finditer(r"^  (P0|P1) (\S+)", r.stdout, re.M)} - {"R3"})
+    if ids: sys.exit("refused: QC fails beyond R3: " + ", ".join(ids))
+    today = _dt.date.today().isoformat()
+    _gp, grec = go_append(today, [url], SHIP_FIRST_RULE + "; post-live fix restamp (findings fixed live, verify-live passed)", by, "postlive-restamp")
+    ap = s.setdefault("approval", {}); old = ap.get("fingerprint")
+    ap.update({"fingerprint": G.fingerprint(s), "date": now(), "go": {"date": today, "by": by, "source": "postlive-restamp", "recorded_at": grec.get("recorded_at")}})
+    ap.setdefault("restamps", []).append({"date": now(), "by": by, "from": old, "reason": f"post-live fix of {pl.get('file')}"})
+    json.dump(s, open(sp, "w"), indent=1, ensure_ascii=False)
+    print(f"{url}: approval restamped after the post-live fix ({by}); go record status/go/{today}.json")
+
 def cmd_postlive_review(args):
     """hubctl postlive-review URL FINDINGS.json --by B-r-<n>: record the independent post-live review of a SHIP-FIRST page.
     FINDINGS.json: {"blocking": [{"field", "severity", "rule", "finding"}], "notes": [...]} with severities from rules/SEVERITY.md.
@@ -1907,7 +1930,7 @@ def cmd_log(args):
 
 CMDS = {"status": cmd_status, "claim": cmd_claim, "brief": cmd_brief, "init": cmd_init, "qc": cmd_qc, "payload": cmd_payload,
         "verify": cmd_verify, "record": cmd_record, "state": cmd_state, "release": cmd_release, "paa": cmd_paa, "paa-resource": cmd_paa_resource, "paa-synonyms": cmd_paa_synonyms, "publish-payload": cmd_publish_payload, "log": cmd_log,
-        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "review-claim": cmd_review_claim, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "transfer-hold": cmd_transfer_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "feasibility": cmd_feasibility, "daily-batch": cmd_daily_batch, "unlock": cmd_unlock, "verbatim": cmd_verbatim, "defer": cmd_defer, "batch-check": cmd_batch_check, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "learn-check": cmd_learn_check, "ship-check": cmd_ship_check, "postlive-backlog": cmd_postlive_backlog, "postlive-review": cmd_postlive_review, "ymyl": lambda a: print("\n".join(f"{u}: {', '.join(ymyl(u)) or 'not YMYL'}" for u in a)), "go-record": cmd_go_record,"slug-check": cmd_slug_check, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
+        "bulk-payload": cmd_bulk_payload, "bulk-verify": cmd_bulk_verify, "next": cmd_next, "images": cmd_images, "images-batch": cmd_images_batch, "serp-save": cmd_serp_save, "serp-status": cmd_serp_status, "table": cmd_table, "library": cmd_library, "serp-keywords": cmd_serp_keywords, "review": cmd_review, "review-claim": cmd_review_claim, "verified": cmd_verified, "challenge": cmd_challenge, "ready": cmd_ready, "export-csv": cmd_export_csv, "cms-check": cmd_cms_check, "metrics": cmd_metrics, "usage-log": cmd_usage_log, "hold": cmd_hold, "transfer-hold": cmd_transfer_hold, "unhold": cmd_unhold, "review-diff": cmd_review_diff, "feasibility": cmd_feasibility, "daily-batch": cmd_daily_batch, "unlock": cmd_unlock, "verbatim": cmd_verbatim, "defer": cmd_defer, "batch-check": cmd_batch_check, "slim-review": cmd_slim_review, "learn-refs": cmd_learn_refs, "learn-check": cmd_learn_check, "ship-check": cmd_ship_check, "postlive-backlog": cmd_postlive_backlog, "postlive-review": cmd_postlive_review, "postlive-restamp": cmd_postlive_restamp, "ymyl": lambda a: print("\n".join(f"{u}: {', '.join(ymyl(u)) or 'not YMYL'}" for u in a)), "go-record": cmd_go_record,"slug-check": cmd_slug_check, "sources-check": cmd_sources_check, "pack": cmd_pack, "plan-check": cmd_plan_check, "sample": cmd_sample, "links": cmd_links,
         "lookahead": cmd_lookahead, "serp-budget": cmd_serp_budget, "ranks-save": cmd_ranks_save, "ranks-report": cmd_ranks_report,
         "recheck": cmd_recheck, "live-sync": cmd_live_sync, "image-regress": cmd_image_regress, "verify-live": cmd_verify_live,
         "swap-recheck": lambda a: __import__("swap_recheck").main(a),   # Divit 2026-10-14 step 3: r18-swap-short pages back to rework once replacements exist
