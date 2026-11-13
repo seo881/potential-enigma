@@ -25,7 +25,7 @@
   "feature_2": "<h3>ID documents read into fields</h3><p>The app reads the name, birth date, and ID number from an uploaded license or passport. A field it is unsure of goes to a person, and each one is compared with what was typed.</p>",
   "feature_3": "<h3>Your screening service, connected</h3><p>Emergent connects the app to the verification or screening service you already use, through its API. Each result lands on the case, and a possible match keeps the account on hold.</p>",
   "feature_4": "<h3>Risk ratings from rules you write</h3><p>Write the factors your compliance team rates on, such as account type or expected monthly volume, and the app scores each case. A high rating goes to a senior reviewer.</p>",
-  "feature_5": "<h3>Alerts that carry a case number only</h3><p>Reviewers get a Slack or email alert that names the case and links to it. Documents and birth dates stay in the database, and a case left overdue escalates to a manager you name.</p>",
+  "feature_5": "<h3>Alerts that name the case and the check</h3><p>Reviewers get a Slack or email alert that opens the case and says which check failed. Documents and birth dates stay in the database, and overdue cases go to a manager.</p>",
   "feature_6": "<h3>The KYC app's code, in your GitHub</h3><p>Export the full code to your GitHub repository on paid plans. Anyone on your team can trace each screening and routing rule to the exact lines of code that run it in production.</p>",
   "why_title": "Why Build a KYC Workflow on Emergent?",
   "why_description": "Emergent builds the case database and every reviewer queue as one app from a prompt, and the workflow has no task cap.",
@@ -35,11 +35,11 @@
   "tab_label_2": "Business Owners",
   "tab_label_3": "Watchlist Screening",
   "tab_label_4": "Periodic Reviews",
-  "tab_content_1": "<h3>With a mismatched birth year, case K-1182 waits for Leontyne</h3><p>Quenmore Credit Union asks each new member for a name, birth date, address, and ID number, plus a driver's license photo. On case K-1182 the app reads 1984 from the license, but the form says 1987. The case waits for analyst Leontyne Bartholdy, whose Slack alert carries only the case number and a link.</p>",
+  "tab_content_1": "<h3>With a mismatched birth year, case K-1182 waits for Leontyne</h3><p>Quenmore Credit Union asks each new member for a name, birth date, address, and ID number, plus a driver's license photo. On case K-1182 the app reads 1984 from the license, but the form says 1987. The case waits for analyst Leontyne Bartholdy, whose alert names the case and the failed check, with a link.</p>",
   "tab_content_2": "<h3>Owners with at least 25 percent each get an ID link</h3><p>Ridgemoor Community Bank opens a business account for Dunmarrow Coffee Roasters, which lists three owners. The bank wants an ID from anyone owning at least 25 percent, so Gwendolen Strathearn and Prudencia Nwosu-Hart each get an ID link by email. Ottokar Granholm owns less and is recorded without one.</p>",
   "tab_content_3": "<h3>Benedikta Talmadge clears one possible match by birth year</h3><p>A Saltreach Wealth Partners client opens a brokerage account, and the connected screening service returns 1 possible match on case K-2207. The account stays on hold. Reviewer Benedikta Talmadge sees the listed person was born in 1958 and the client in 1992. She clears the match and saves her note to the case.</p>",
   "tab_content_4": "<h3>Nine customers who never answered go to Cordelio</h3><p>Corvellan Payments reviews high-risk customers every 12 months, medium every 24, and low every 36. In March, 46 come due, and each customer gets an email link to confirm their address and occupation. Within 14 days, 37 confirm. The other 9 go to the queue of analyst Cordelio Achebe-Lowe.</p>",
-  "mockup": "<p id=\"\">window.awbMockup = { individualAccounts: \"Build a KYC intake for my credit union. Each new member enters a name, birth date, address, and ID number and uploads a driver's license. Read the birth date from the license and compare it with the form. If they differ, hold the case and send our analyst a Slack alert with only the case number and a link.\", businessOwners: \"Build a business account intake for my community bank. Ask each business to list its owners and each owner's share. Email an ID upload link to every owner at 25 percent or more, and record smaller owners without one. Keep the account pending until every requested ID is in.\", watchlistScreening: \"Build watchlist screening for new client accounts at my wealth management firm. Send each client's name and birth date to our screening service through its API. If it returns a possible match, hold the account and show a reviewer the client's details next to the listed person's, with buttons to clear or escalate and a required note.\", periodicReviews: \"Build periodic KYC reviews for my payments company. Rate each customer high, medium, or low risk, and schedule reviews every 12, 24, or 36 months. Email each customer due for review a link to confirm their address and occupation. After 14 days with no answer, put the case in our analyst's queue.\" };</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { individualAccounts: \"Build a KYC intake for my credit union. Each new member enters a name, birth date, address, and ID number and uploads a driver's license. Read the birth date from the license and compare it with the form. If they differ, hold the case and send our analyst a Slack alert with only the case number, the failed check, and a link.\", businessOwners: \"Build a business account intake for my community bank. Ask each business to list its owners and each owner's share. Email an ID upload link to every owner at 25 percent or more, and record smaller owners without one. Keep the account pending until every requested ID is in.\", watchlistScreening: \"Build watchlist screening for new client accounts at my wealth management firm. Send each client's name and birth date to our screening service through its API. If it returns a possible match, hold the account and show a reviewer the client's details next to the listed person's, with buttons to clear or escalate and a required note.\", periodicReviews: \"Build periodic KYC reviews for my payments company. Rate each customer high, medium, or low risk, and schedule reviews every 12, 24, or 36 months. Email each customer due for review a link to confirm their address and occupation. After 14 days with no answer, put the case in our analyst's queue.\" };</p>",
   "howto_title": "How to Build a KYC Workflow",
   "howto_description": "Seven steps to plan the checks in a KYC workflow and who reviews each case, then build and test it with Emergent.",
   "howto_step_1_title": "01 List what each kind of customer sends",
@@ -50,7 +50,7 @@
   "howto_step_2_des": "Choose the ID documents you accept, such as a driver's license or a passport, and the fields to read from each. Decide who checks a field the app reads with low confidence before the case moves on.",
   "howto_step_3_des": "Name the identity verification and screening services you already use. Emergent connects the app to each one through its API, so every result lands on the case. Decide which results hold an account and which only add a note.",
   "howto_step_4_des": "Describe each risk factor, such as expected monthly volume or the customer's country, and the rating each combination earns. Plain sentences in the prompt mean anyone on the team can read the rules the app applies to every case.",
-  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"KYC Workflow Questions, Answered\", \"items\": [{\"q\": \"What is a KYC workflow?\", \"a\": \"A KYC workflow is the sequence a business runs to confirm who a new customer is before opening an account. KYC stands for know your customer. The workflow collects documents and checks them, then screens the name and records every decision. It keeps going after onboarding with periodic reviews.\"}, {\"q\": \"How do I create a KYC workflow?\", \"a\": \"Start from your compliance team's checklist: what every customer type provides, which checks run, and who decides each exception. Describe that checklist in a prompt to Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>. Emergent builds the app from that prompt, with a queue for each reviewer, and you change any rule later by prompting again.\"}, {\"q\": \"Which parts of KYC automation still need a person?\", \"a\": \"Every exception still needs a person. KYC automation can collect details, read ID documents into fields, call your screening service, and score risk, but a person should decide a name mismatch, a possible watchlist match, or a high rating. In the app Emergent builds, each of those decisions records who made it and why.\"}, {\"q\": \"Does an account stay on hold during a KYC workflow?\", \"a\": \"Yes, if you set it to. You choose which open checks block the account, such as a missing owner ID or a possible match, and which only add a task for later. A hold that lifts only on a named sign-off works like a quality hold in <a href='https://emergent.sh/ai-automation-builder/manufacturing-workflow'>manufacturing workflow automation</a>, where a batch waits for one person.\"}, {\"q\": \"What customer information does a KYC workflow collect?\", \"a\": \"For a US bank, the CIP rule in 31 CFR 1020.220 says the bank must obtain, at a minimum, a customer's name, date of birth, address, and identification number prior to opening an account. Other businesses write their own list with counsel. Add any fields your risk rules use, such as occupation or expected monthly volume.\"}, {\"q\": \"How long does a KYC workflow keep records after an account closes?\", \"a\": \"For a US bank's CIP identifying information, the answer is five years after closing: 31 CFR 1020.220 says to keep it for five years after the date the account is closed. Confirm the period for your business with your compliance team, and the app keeps each case's documents and decisions until then.\"}, {\"q\": \"How does a KYC workflow handle business customers and their owners?\", \"a\": \"It collects the owners as well as the business. Under 31 CFR 1010.230, a beneficial owner is each individual who owns at least 25 percent of the equity interests of a legal entity customer. It is also a single individual with significant responsibility to control, manage, or direct that customer. For client intake without identity checks, see <a href='https://emergent.sh/ai-automation-builder/agency-workflow'>agency workflow automation</a>.\"}, {\"q\": \"What does a KYC workflow do when screening returns a possible match?\", \"a\": \"It holds the case for a reviewer. The reviewer compares the customer's details, such as birth date and country, with the listed person's, then clears or escalates the match with a note. Banks have a specific duty here: under 31 CFR 1020.220, the CIP must include procedures for determining whether the customer appears on any list of known or suspected terrorists.\"}, {\"q\": \"Should KYC workflow alerts include the customer's documents?\", \"a\": \"No. Keep IDs and birth dates inside the case. Send only the case number, the kind of check that failed, and a link, and the details stay behind your app's login. Emergent builds the Slack or email alert to carry exactly the fields you name in the prompt and nothing else.\"}, {\"q\": \"How often should a KYC workflow refresh customer information?\", \"a\": \"As often as each customer's risk rating calls for. The bank due diligence rule, 31 CFR 1020.210, calls for ongoing monitoring to maintain and update customer information on a risk basis. Pick an interval for each rating with your compliance team. Expiring IDs run on the same kind of clock as insurance certificates in <a href='https://emergent.sh/ai-automation-builder/construction-workflow'>construction workflow automation</a>.\"}]}; </script></div></div>",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"KYC Workflow Questions, Answered\", \"items\": [{\"q\": \"What is a KYC workflow?\", \"a\": \"A KYC workflow is the sequence a business runs to confirm who a new customer is before opening an account. KYC stands for know your customer. The workflow collects documents and checks them, then screens the name and records every decision. It keeps going after onboarding with periodic reviews.\"}, {\"q\": \"How do I create a KYC workflow?\", \"a\": \"Start from your compliance team's checklist: what every customer type provides, which checks run, and who decides each exception. Describe that checklist in a prompt to Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>. Emergent builds the app from that prompt, with a queue for each reviewer, and you change any rule later by prompting again.\"}, {\"q\": \"Which parts of KYC automation still need a person?\", \"a\": \"Every exception still needs a person. KYC automation can collect details, read ID documents into fields, call your screening service, and score risk, but a person should decide a name mismatch, a possible watchlist match, or a high rating. In the app Emergent builds, each of those decisions records who made it and why.\"}, {\"q\": \"Does an account stay on hold during a KYC workflow?\", \"a\": \"Yes, if you set it to. You choose which open checks block the account, such as a missing owner ID or a possible match, and which only add a task for later. A hold that lifts only on a named sign-off works like a quality hold in <a href='https://emergent.sh/ai-automation-builder/manufacturing-workflow'>manufacturing workflow automation</a>, where a batch waits for one person.\"}, {\"q\": \"What customer information does a KYC workflow collect?\", \"a\": \"For a US bank, the CIP rule in 31 CFR 1020.220 says the bank must obtain, at a minimum, a customer's name, date of birth, address, and identification number prior to opening an account. Other businesses write their own list with counsel. Add any fields your risk rules use, such as occupation or expected monthly volume.\"}, {\"q\": \"How long does a KYC workflow keep records after an account closes?\", \"a\": \"For a US bank's CIP identifying information, the answer is five years after closing: 31 CFR 1020.220 says to keep it for five years after the date the account is closed. Confirm the period for your business with your compliance team, and the app keeps each case's documents and decisions until then.\"}, {\"q\": \"How does a KYC workflow handle business customers and their owners?\", \"a\": \"It collects the owners as well as the business. Under 31 CFR 1010.230, a beneficial owner is each individual who owns at least 25 percent of the equity interests of a legal entity customer. It is also a single individual with significant responsibility to control, manage, or direct that customer. For client intake without identity checks, see <a href='https://emergent.sh/ai-automation-builder/agency-workflow'>agency workflow automation</a>.\"}, {\"q\": \"What does a KYC workflow do when screening returns a possible match?\", \"a\": \"It holds the case for a reviewer. The reviewer compares the customer's details, such as birth date and country, with the listed person's, then clears or escalates the match with a note. Banks have a specific duty here: under 31 CFR 1020.220, the CIP must include procedures for determining whether the customer appears on any list of known or suspected terrorists.\"}, {\"q\": \"Should KYC workflow alerts include the customer's documents?\", \"a\": \"No. Keep IDs and birth dates inside the case. Send only the case number, the failed check, and a link, and the details stay behind your app's login. Emergent builds the Slack or email alert to carry exactly the fields you name in the prompt and nothing else.\"}, {\"q\": \"How often should a KYC workflow refresh customer information?\", \"a\": \"As often as each customer's risk rating calls for. The bank due diligence rule, 31 CFR 1020.210, calls for ongoing monitoring to maintain and update customer information on a risk basis. Pick an interval for each rating with your compliance team. Expiring IDs run on the same kind of clock as insurance certificates in <a href='https://emergent.sh/ai-automation-builder/construction-workflow'>construction workflow automation</a>.\"}]}; </script></div></div>",
   "learn": null,
   "tutorials": null,
   "case_study": null,
@@ -70,7 +70,7 @@
  "images": {
   "tab_image_1": {
    "path": "images/aab/kyc-workflow/uc-1.svg",
-   "alt": "A KYC case for a new checking account shows a license birth year of 1984 against 1987 on the form, and the analyst gets a Slack alert with only the case number."
+   "alt": "A KYC case for a new checking account shows a license birth year of 1984 against 1987 on the form, and the analyst gets a Slack alert with only the case number, the failed check, and a link."
   },
   "tab_image_2": {
    "path": "images/aab/kyc-workflow/uc-2.svg",
@@ -78,7 +78,7 @@
   },
   "tab_image_3": {
    "path": "images/aab/kyc-workflow/uc-3.svg",
-   "alt": "A screening result for case K-2207 shows one possible match, the client born in 1992 and the listed person in 1958, and the reviewer clears it with a note."
+   "alt": "A screening result for case K-2207 shows one possible match, the case panel compares the client born in 1992 with the listed person born in 1958, and the reviewer clears it with a note."
   },
   "tab_image_4": {
    "path": "images/aab/kyc-workflow/uc-4.svg",
@@ -122,6 +122,20 @@
    "via": "review",
    "by": "B-r-636",
    "note": "[images | CONTENT_DEFECTS #20] image_brief.tabs[2].hero: The tab 3 image sends the client's birth year to the reviewer inside an app alert (same alert card style as tab 1), while FAQ 9 says 'Keep IDs and birth dates inside the case' and feature_5 says 'Documents and birth dates stay in the database'"
+  },
+  {
+   "t": "2026-11-13 12:42 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-699",
+   "note": ""
+  },
+  {
+   "t": "2026-11-13 12:42 UTC",
+   "state": "reviewed",
+   "via": "ready",
+   "by": "B-w-699",
+   "note": "one rework applied by B-w-699 after B-r-636 (2 findings marked blocking then, fixed per rules/SEVERITY.md); ready for Divit"
   }
  ],
  "pipeline": "r15",
@@ -221,7 +235,7 @@
    "secondary": null,
    "locked": false,
    "n": 9,
-   "a": "No. Keep IDs and birth dates inside the case. Send only the case number, the kind of check that failed, and a link, and the details stay behind your app's login. Emergent builds the Slack or email alert to carry exactly the fields you name in the prompt and nothing else.",
+   "a": "No. Keep IDs and birth dates inside the case. Send only the case number, the failed check, and a link, and the details stay behind your app's login. Emergent builds the Slack or email alert to carry exactly the fields you name in the prompt and nothing else.",
    "link": null
   },
   {
@@ -264,9 +278,9 @@
   "table": true
  },
  "plan": {
-  "angle": "The top results are vendor guides that list KYC stages (identification, due diligence, screening, monitoring) and sell verification software. This page shows the case-handling app around those checks: an intake form that opens a case, an ID document read into fields and compared with what the customer typed, beneficial owners collected for business accounts, possible watchlist matches held for a named reviewer, and periodic reviews scheduled by risk rating, with alerts that carry a case number and a link instead of documents. Regulatory facts are quoted from 31 CFR; the page never promises compliance, and the bank's compliance team sets every rule.",
+  "angle": "The top results are vendor guides that list KYC stages (identification, due diligence, screening, monitoring) and sell verification software. This page shows the case-handling app around those checks: an intake form that opens a case, an ID document read into fields and compared with what the customer typed, beneficial owners collected for business accounts, possible watchlist matches held for a named reviewer, and periodic reviews scheduled by risk rating, with alerts that carry the case, the failed check, and a link instead of documents. Regulatory facts are quoted from 31 CFR; the page never promises compliance, and the bank's compliance team sets every rule.",
   "tab_stories": [
-   "Quenmore Credit Union opens a checking account: the app reads the uploaded driver's license, the birth year on it differs from the one typed on the form, so case K-1182 goes to analyst Leontyne Bartholdy, whose Slack alert carries only the case number and a link.",
+   "Quenmore Credit Union opens a checking account: the app reads the uploaded driver's license, the birth year on it differs from the one typed on the form, so case K-1182 goes to analyst Leontyne Bartholdy, whose alert names the case and the failed check, with a link.",
    "Ridgemoor Community Bank opens a business account for Dunmarrow Coffee Roasters: the owners are listed at 50, 30 and 20 percent, so the app sends ID links to Gwendolen Strathearn and Prudencia Nwosu-Hart, the two at 25 percent or more, and not to Ottokar Granholm at 20 percent.",
    "Saltreach Wealth Partners screens a new client in case K-2207: the connected screening service returns 1 possible match, the account stays on hold, and reviewer Benedikta Talmadge clears it because the listed person was born in 1958 and the client in 1987, with her note saved to the case.",
    "Corvellan Payments reviews high-risk customers every 12 months, medium every 24 and low every 36: in March 46 reviews are due, 37 customers confirm their details through a link, and the 9 with no answer after 14 days go to analyst Cordelio Achebe-Lowe."
@@ -415,7 +429,7 @@
        "type": "meta",
        "icon": "lock",
        "kind": "muted",
-       "text": "Case number and link only"
+       "text": "Case, failed check, and link"
       }
      ],
      "action": {
@@ -429,7 +443,7 @@
      "sub": "Not sent to Slack",
      "kind": "acc"
     },
-    "alt": "A KYC case for a new checking account shows a license birth year of 1984 against 1987 on the form, and the analyst gets a Slack alert with only the case number.",
+    "alt": "A KYC case for a new checking account shows a license birth year of 1984 against 1987 on the form, and the analyst gets a Slack alert with only the case number, the failed check, and a link.",
     "story": [
      {
       "copy": "Quenmore Credit Union",
@@ -456,8 +470,8 @@
       "image": "Leontyne Bartholdy"
      },
      {
-      "copy": "only the case number and a link",
-      "image": "Case number and link only"
+      "copy": "names the case and the failed check, with a link",
+      "image": "Case, failed check, and link"
      }
     ]
    },
@@ -667,7 +681,7 @@
       {
        "type": "title",
        "title": "1 possible match on K-2207",
-       "sub": "Listed person born 1958, client 1992"
+       "sub": "Watchlist screening"
       },
       {
        "type": "meta",
@@ -687,7 +701,7 @@
       "icon": "check"
      }
     },
-    "alt": "A screening result for case K-2207 shows one possible match, the client born in 1992 and the listed person in 1958, and the reviewer clears it with a note.",
+    "alt": "A screening result for case K-2207 shows one possible match, the case panel compares the client born in 1992 with the listed person born in 1958, and the reviewer clears it with a note.",
     "story": [
      {
       "copy": "Saltreach Wealth Partners",
