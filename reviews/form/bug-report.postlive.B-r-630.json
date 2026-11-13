@@ -1,0 +1,39 @@
+{
+ "blocking": [
+  {
+   "field": "mockup (gameBetaTesting) vs tab_content_3",
+   "class": "wrong-fact",
+   "severity": "blocking",
+   "rule": "CONTENT_DEFECTS #10; SEVERITY cross-field mismatches (Divit 2026-11-05)",
+   "finding": "Form-field sets differ. Tab 3 copy: 'The form asks each player for the level, the device, and what they did right before the crash.' and 'sorts them by level'; image: 'Level, device, last action', 'Sorted by level'. Mockup: 'Ask for the level, the device, the build, and what they did right before the crash. Give the producer a view that sorts every report by level and build.' The mockup adds a build field and a build sort that the tab and image do not have.",
+   "fix": "Mockup gameBetaTesting: 'Build a crash report form for players in my game's closed beta on build 0.9.3. Ask for the level, the device, and what they did right before the crash. Give the producer a view that sorts every report by level.' (CMS item update + verify-live)"
+  }
+ ],
+ "notes": [
+  {
+   "field": "faq item 7",
+   "class": "craft",
+   "severity": "note",
+   "rule": "HUB_RULES 2a",
+   "finding": "'it belongs on an it request form' reads as a typo; the anchor is lowercase 'it'.",
+   "fix": "Anchor text 'IT request form' (same href), if K4 exact-match is case-insensitive."
+  },
+  {
+   "field": "mockup (qaRegression)",
+   "class": "other",
+   "severity": "note",
+   "rule": "HUB_RULES 5 (features: GitHub on paid plans)",
+   "finding": "'Connect it to GitHub on paid plans so every bug opens an issue' puts the paid-plan qualifier (which applies to code export) on the issue-tracker API connection; feature 5 and step 6 connect GitHub with no plan qualifier.",
+   "fix": "'Connect it to GitHub so every bug opens an issue with the steps, the build number, and a severity label.'"
+  },
+  {
+   "field": "hero_description",
+   "class": "craft",
+   "severity": "note",
+   "rule": "HUB_RULES 2a (US style)",
+   "finding": "'collects steps to reproduce, the build and a screenshot' lacks the serial comma used elsewhere on the page.",
+   "fix": "'steps to reproduce, the build, and a screenshot' (check D1 130-char limit)."
+  }
+ ],
+ "checked": "Mozilla quotes (steps most important; at will/occasionally/not at all; separate reports; summary uniquely identifies; facts vs speculation) match their sources. Severity set Critical/Major/Minor/Low consistent in feature 4, step 4, tab 4, mockup, image; Thursday triage consistent; 11+2+1=14; 3 steps/Safari 18, 4 steps/build 4.12.0/#2187 agree copy-image. FAQ 3 lists exactly seven fields. Live H1 matches spec."
+}
