@@ -1,0 +1,31 @@
+{
+ "blocking": [
+  {
+   "field": "image_brief.cover (cover image and alt) vs feature_4 and hero prompt",
+   "severity": "blocking",
+   "class": "image-contradiction",
+   "rule": "SEVERITY image-contradiction; CONTENT_DEFECTS #20, #25; cross-field mismatch ruling 2026-11-05",
+   "finding": "The cover draws the pick list arriving in a '# warehouse' chat channel with Packed/Hold buttons, and its alt says it 'arrives in the warehouse channel ready to pack'. The copy says the warehouse gets it by email: feature_4 'A submitted order goes to the warehouse by email as a pick list', hero prompt '...and emails each order to the warehouse', howto_step_5 'The warehouse might want an email it can print'. The delivery channel differs between copy and image.",
+   "fix": "Redraw the cover as an email to the warehouse (e.g. inbox card 'To: Warehouse', subject 'Pick list: 3 cases, Fennick Street Market', $153.00) and change the alt to 'arrives in the warehouse inbox'; re-render, CMS item update for the cover image and alt, then verify-live."
+  }
+ ],
+ "notes": [
+  {
+   "field": "image_brief.tabs[1] (Candle Makers)",
+   "severity": "note",
+   "class": "image-polish",
+   "rule": "CONTENT_DEFECTS #28 (image-polish)",
+   "finding": "The phone draws an active blue 'Submit order' button directly under 'Add $38 to submit', while the copy says she is $38 short 'before she can submit'.",
+   "fix": "Draw the submit button disabled or relabel it 'Add $38 to submit'."
+  },
+  {
+   "field": "feature_1, howto_step_7_des",
+   "severity": "note",
+   "class": "craft",
+   "rule": "HUB_RULES 2a; CONTENT_DEFECTS #4",
+   "finding": "Two ', so' endings: 'The quantity box then steps in whole cases, so nobody can order 30...' and 'Email the link to your current accounts along with their account numbers, so the next reorder starts from the last one.'",
+   "fix": "Split each into two sentences."
+  }
+ ],
+ "checked": "QC TOTAL 0; live H1 matches spec; arithmetic verified in copy, alts and images: 36 x $4.25 = $153.00 (3 cases of 12; 30 -> 24 or 36), $250 - $212 = $38, $212 + 3 x $14 = $254 (>= $250), 90 x $5.40 = $486.00, 96 x $4.80 = $460.80, saving $25.20, $1,800 > $1,000; cover $153.00 matches tab 1; 'free tier covers building and publishing' is capability free-start; no third-party facts needing domain_sources; comparison table from library."
+}
