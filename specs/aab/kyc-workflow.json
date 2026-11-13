@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-676",
    "note": ""
+  },
+  {
+   "t": "2026-11-13 12:38 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-636",
+   "note": "[images | CONTENT_DEFECTS #20] image_brief.tabs[2].hero: The tab 3 image sends the client's birth year to the reviewer inside an app alert (same alert card style as tab 1), while FAQ 9 says 'Keep IDs and birth dates inside the case' and feature_5 says 'Documents and birth dates stay in the database'"
   }
  ],
  "pipeline": "r15",
@@ -986,5 +993,345 @@
  ],
  "writers": [
   "B-w-676"
- ]
+ ],
+ "review": {
+  "by": "B-r-636",
+  "date": "2026-11-13 12:38 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a KYC Workflow With a Case File for Every Customer'; hero 'Build a KYC workflow that opens a case for each new customer...' covers intake, checks, decisions; how-to description one sentence on what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are KYC stage guides; page covers stages (FAQ 1, 5, 8, 10), a seven-step how-to and four worked cases (individual, owners, screening, periodic review)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'CIP rule in 31 CFR 1020.220', 'possible match', 'expected monthly volume', 'Run 20 sample cases with compliance'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every body opens on a full sentence, e.g. 'Quenmore Credit Union asks each new member for a name, birth date, address, and ID number'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Only QC P2s (FAQ 5 34-word sentence; two ', so' endings), kept as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, plain operator prose; no hype; minor wording notes only."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "Alert contents differ across fields: feature_5 'Alerts that carry a case number only'; tab_content_1 'carries only the case number and a link'; mockup 'with only the case number and a link'; tab_image_1 alt 'with only the case number'; image 1 hero draws 'Birth year differs' beside 'Case number and link only'; cover 'Birth year differs'; FAQ 9 'the case number, the kind of check that failed, and a link'. 31 CFR statements (FAQ 5, 6, 7, 8, 10) match their quoted spans; 'at least 25 percent' = '25 percent or more'."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No sibling primary in headings; KYC case-file angle is its own; sibling links only in FAQ 4/7/10 answers."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions each answered in its first sentence ('No. Keep IDs and birth dates inside the case.'); hub link in item 2; three sibling links; no brand or format ask."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 3 hero is an alert card 'Emergent APP To Benedikta Talmadge' carrying 'Listed person born 1958, client 1992', a client birth year in an alert, against FAQ 9 'Keep IDs and birth dates inside the case' and feature_5 'Documents and birth dates stay in the database'."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief.tabs[2].hero",
+    "quote": "app_sub: To Benedikta Talmadge / 1 possible match on K-2207 / Listed person born 1958, client 1992",
+    "issue": "The tab 3 image sends the client's birth year to the reviewer inside an app alert (same alert card style as tab 1), while FAQ 9 says 'Keep IDs and birth dates inside the case' and feature_5 says 'Documents and birth dates stay in the database'. On a YMYL KYC page the image shows personal data travelling in a notification the copy forbids.",
+    "fix": "Make the tab 3 hero an alert that carries only the case number, the failed check and a link (e.g. title '1 possible match on K-2207', sub 'Watchlist screening', action 'Open case'), and show the 1958 vs 1992 comparison only in the in-app case panel (main), which already draws it. Re-check the story pairs for 'born in 1958' and 'the client in 1992' so they point at the case panel, and the tab_image_3 alt.",
+    "severity": "blocking"
+   },
+   {
+    "class": "wrong-fact",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "feature_5, tab_content_1, mockup.individualAccounts, images.tab_image_1.alt, image_brief.tabs[0].hero, image_brief.cover, faq item 9",
+    "quote": "feature_5: 'Alerts that carry a case number only' / 'an alert that names the case and links to it'; tab_content_1: 'whose Slack alert carries only the case number and a link'; mockup: 'send our analyst a Slack alert with only the case number and a link'; tab_image_1 alt: 'a Slack alert with only the case number'; tab 1 hero: 'Birth year differs' + 'Case number and link only'; cover: 'K-1182 needs review / Birth year differs'; FAQ 9: 'Send only the case number, the kind of check that failed, and a link'",
+    "issue": "The set of fields an alert carries differs between fields: case number only (feature_5 heading, alt), case number and link (tab 1, mockup, image meta), case number plus failed check plus link (FAQ 9, and what the tab 1 image and cover actually draw). The tab 1 image contradicts itself by drawing 'Birth year differs' next to 'Case number and link only'. Cross-field field-set mismatches are blocking (SEVERITY, Divit 2026-11-05).",
+    "fix": "Use one set everywhere: the case number, the check that failed, and a link. E.g. feature_5 H3 'Alerts that carry no customer details' and body 'names the case and the check that failed and links to it'; tab_content_1 'whose Slack alert carries only the case number, the failed check, and a link'; mockup 'with only the case number, the failed check, and a link'; image 1 meta 'No ID or birth date sent' (story pair updated); tab_image_1 alt to match. Search the whole page again after the rewrite.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 10",
+    "quote": "The bank due diligence rule, 31 CFR 1020.210, calls for ongoing monitoring",
+    "issue": "31 CFR 1020.210 is headed 'Anti-money laundering program requirements for banks'; the ongoing due diligence duty is one element of it. The quoted requirement is right, the label is loose.",
+    "fix": "'The bank AML program rule, 31 CFR 1020.210, calls for ongoing monitoring...'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 7",
+    "quote": "a beneficial owner is each individual who owns at least 25 percent of the equity interests",
+    "issue": "'At least 25 percent' means the same as the source's '25 percent or more' (accepted). The source also says 'directly or indirectly'; the paraphrase drops it, which a reader could take as direct ownership only.",
+    "fix": "'each individual who owns, directly or indirectly, at least 25 percent...'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "tab_content_2",
+    "quote": "The bank wants an ID from anyone owning at least 25 percent",
+    "issue": "Framed as the bank's own choice, so no compliance claim, but FAQ 7 also names the control person and the tab never collects one; a compliance reader may notice the gap.",
+    "fix": "Optionally add the control person (e.g. a managing owner who gets an ID link) in a later refresh.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 6",
+    "quote": "and the app keeps each case's documents and decisions until then",
+    "issue": "Reads close to a retention-management feature; database-owned only supports that the data is stored.",
+    "fix": "'and the case database holds each case's documents and decisions for as long as you keep them.'",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "hero_description",
+    "quote": "sends every check to a named reviewer",
+    "issue": "The page sends only exceptions to a person (FAQ 3 'Every exception still needs a person'; tab 4's 37 confirmations need no reviewer); 'every check' overstates it.",
+    "fix": "'sends every exception to a named reviewer'",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 5",
+    "field": "faq items 4, 7, 10",
+    "quote": "works like a quality hold in manufacturing workflow automation / For client intake without identity checks, see agency workflow automation / Expiring IDs run on the same kind of clock as insurance certificates in construction workflow automation",
+    "issue": "Sibling-link sentences read bolted on; they do not mislead.",
+    "fix": "Accept; tighten in a later pass.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq item 5, tab_content_2, howto_step_3_des",
+    "quote": "For a US bank, the CIP rule in 31 CFR 1020.220 says ... / ..., so Gwendolen Strathearn and Prudencia Nwosu-Hart each get an ID link / ..., so every result lands on the case.",
+    "issue": "QC P2: one 34-word sentence and two ', so' endings.",
+    "fix": "Accepted as notes.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 10",
+   "issue": "31 CFR 1020.210 is headed 'Anti-money laundering program requirements for banks'; the ongoing due diligence duty is one element of it. The quoted requirement is right, the label is loose.",
+   "fix": "'The bank AML program rule, 31 CFR 1020.210, calls for ongoing monitoring...'",
+   "by": "B-r-636",
+   "via": "review",
+   "date": "2026-11-13 12:38 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 7",
+   "issue": "'At least 25 percent' means the same as the source's '25 percent or more' (accepted). The source also says 'directly or indirectly'; the paraphrase drops it, which a reader could take as direct ownership only.",
+   "fix": "'each individual who owns, directly or indirectly, at least 25 percent...'",
+   "by": "B-r-636",
+   "via": "review",
+   "date": "2026-11-13 12:38 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "tab_content_2",
+   "issue": "Framed as the bank's own choice, so no compliance claim, but FAQ 7 also names the control person and the tab never collects one; a compliance reader may notice the gap.",
+   "fix": "Optionally add the control person (e.g. a managing owner who gets an ID link) in a later refresh.",
+   "by": "B-r-636",
+   "via": "review",
+   "date": "2026-11-13 12:38 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 6",
+   "issue": "Reads close to a retention-management feature; database-owned only supports that the data is stored.",
+   "fix": "'and the case database holds each case's documents and decisions for as long as you keep them.'",
+   "by": "B-r-636",
+   "via": "review",
+   "date": "2026-11-13 12:38 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "hero_description",
+   "issue": "The page sends only exceptions to a person (FAQ 3 'Every exception still needs a person'; tab 4's 37 confirmations need no reviewer); 'every check' overstates it.",
+   "fix": "'sends every exception to a named reviewer'",
+   "by": "B-r-636",
+   "via": "review",
+   "date": "2026-11-13 12:38 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 5",
+   "field": "faq items 4, 7, 10",
+   "issue": "Sibling-link sentences read bolted on; they do not mislead.",
+   "fix": "Accept; tighten in a later pass.",
+   "by": "B-r-636",
+   "via": "review",
+   "date": "2026-11-13 12:38 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq item 5, tab_content_2, howto_step_3_des",
+   "issue": "QC P2: one 34-word sentence and two ', so' endings.",
+   "fix": "Accepted as notes.",
+   "by": "B-r-636",
+   "via": "review",
+   "date": "2026-11-13 12:38 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "68ae3c01c6476140",
+   "alt:share_image": "90b4462360e48ac5",
+   "alt:tab_image_1": "b5c302dbdd5c7862",
+   "alt:tab_image_2": "e6ba281f0fe35c2e",
+   "alt:tab_image_3": "c0813085e17899c4",
+   "alt:tab_image_4": "3e6f0f59c9185df2",
+   "breadcrumb": "ff8f53909249b48f",
+   "chip_adds": "654037468d2c4d9f",
+   "explore_cta": "a28be7a9546e3e5e",
+   "faq": "1d1d2f236694b85d",
+   "feature_1": "245e6dbeafed6ae3",
+   "feature_2": "452073ef5fffaca4",
+   "feature_3": "eb35017b70295800",
+   "feature_4": "908daa8ae37ad0db",
+   "feature_5": "5f0f9d90f12b78e1",
+   "feature_6": "76c8c8fca0def681",
+   "features_heading": "74386597c5d36836",
+   "features_subheading": "8454f1b1436011a5",
+   "h1": "06d18937e2990422",
+   "hero_description": "2eb0bd96507c13d8",
+   "hero_prompt": "924812405330979f",
+   "howto_description": "b51812e94544fc9e",
+   "howto_step_1_des": "7b9ca7873f807e32",
+   "howto_step_1_title": "4bdeeb6463e35673",
+   "howto_step_2_des": "03fc0a13038fe1a3",
+   "howto_step_2_title": "07d88b9aeb71fca7",
+   "howto_step_3_des": "b9201f9f4b785fef",
+   "howto_step_3_title": "6e7f8b5b07cea30d",
+   "howto_step_4_des": "57329867b309714a",
+   "howto_step_4_title": "626f09912bd3a5fb",
+   "howto_step_5_des": "75a6aabc605db6fe",
+   "howto_step_5_title": "76f330dbf8445565",
+   "howto_step_6_des": "a9405993f2097fd8",
+   "howto_step_6_title": "222dcd1c7dfcef22",
+   "howto_step_7_des": "d01fcaa551bff83f",
+   "howto_step_7_title": "7b7eb3fc7fe8357b",
+   "howto_title": "d961f2696b99bd4f",
+   "meta_description": "2b18506a33ec5e68",
+   "meta_title": "e079fae119ecc7c4",
+   "mockup": "a9034ed5763bdb49",
+   "product_name": "5d52f7c40f5a3a27",
+   "prompt_chip_1": "485e5ed573205d4c",
+   "prompt_chip_2": "7ff87616f9a55dff",
+   "prompt_chip_3": "2e7e778bc0977d68",
+   "prompt_chip_4": "169f0ffdcd3d20d8",
+   "slug": "f524a8cc668808ca",
+   "tab_content_1": "df80e01728cc40dd",
+   "tab_content_2": "f71f9c2514ad0fc7",
+   "tab_content_3": "e86ce2d20cb99a7a",
+   "tab_content_4": "7399e901ee45cbf4",
+   "tab_label_1": "303fce9bbab99836",
+   "tab_label_2": "7ff87616f9a55dff",
+   "tab_label_3": "0149449cc7554272",
+   "tab_label_4": "169f0ffdcd3d20d8",
+   "usecase_heading": "7c158a8aa1bb69d0",
+   "why_description": "5a8a77d2f35cc44c",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "0141bb7994e368a1"
+  },
+  "all": "7bfb07fcd092358d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "68ae3c01c6476140",
+   "alt:share_image": "90b4462360e48ac5",
+   "alt:tab_image_1": "b5c302dbdd5c7862",
+   "alt:tab_image_2": "e6ba281f0fe35c2e",
+   "alt:tab_image_3": "c0813085e17899c4",
+   "alt:tab_image_4": "3e6f0f59c9185df2",
+   "breadcrumb": "ff8f53909249b48f",
+   "chip_adds": "654037468d2c4d9f",
+   "explore_cta": "a28be7a9546e3e5e",
+   "faq": "1d1d2f236694b85d",
+   "feature_1": "245e6dbeafed6ae3",
+   "feature_2": "452073ef5fffaca4",
+   "feature_3": "eb35017b70295800",
+   "feature_4": "908daa8ae37ad0db",
+   "feature_5": "5f0f9d90f12b78e1",
+   "feature_6": "76c8c8fca0def681",
+   "features_heading": "74386597c5d36836",
+   "features_subheading": "8454f1b1436011a5",
+   "h1": "06d18937e2990422",
+   "hero_description": "2eb0bd96507c13d8",
+   "hero_prompt": "924812405330979f",
+   "howto_description": "b51812e94544fc9e",
+   "howto_step_1_des": "7b9ca7873f807e32",
+   "howto_step_1_title": "4bdeeb6463e35673",
+   "howto_step_2_des": "03fc0a13038fe1a3",
+   "howto_step_2_title": "07d88b9aeb71fca7",
+   "howto_step_3_des": "b9201f9f4b785fef",
+   "howto_step_3_title": "6e7f8b5b07cea30d",
+   "howto_step_4_des": "57329867b309714a",
+   "howto_step_4_title": "626f09912bd3a5fb",
+   "howto_step_5_des": "75a6aabc605db6fe",
+   "howto_step_5_title": "76f330dbf8445565",
+   "howto_step_6_des": "a9405993f2097fd8",
+   "howto_step_6_title": "222dcd1c7dfcef22",
+   "howto_step_7_des": "d01fcaa551bff83f",
+   "howto_step_7_title": "7b7eb3fc7fe8357b",
+   "howto_title": "d961f2696b99bd4f",
+   "meta_description": "2b18506a33ec5e68",
+   "meta_title": "e079fae119ecc7c4",
+   "mockup": "a9034ed5763bdb49",
+   "product_name": "5d52f7c40f5a3a27",
+   "prompt_chip_1": "485e5ed573205d4c",
+   "prompt_chip_2": "7ff87616f9a55dff",
+   "prompt_chip_3": "2e7e778bc0977d68",
+   "prompt_chip_4": "169f0ffdcd3d20d8",
+   "slug": "f524a8cc668808ca",
+   "tab_content_1": "df80e01728cc40dd",
+   "tab_content_2": "f71f9c2514ad0fc7",
+   "tab_content_3": "e86ce2d20cb99a7a",
+   "tab_content_4": "7399e901ee45cbf4",
+   "tab_label_1": "303fce9bbab99836",
+   "tab_label_2": "7ff87616f9a55dff",
+   "tab_label_3": "0149449cc7554272",
+   "tab_label_4": "169f0ffdcd3d20d8",
+   "usecase_heading": "7c158a8aa1bb69d0",
+   "why_description": "5a8a77d2f35cc44c",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "0141bb7994e368a1"
+  },
+  "all": "7bfb07fcd092358d",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
