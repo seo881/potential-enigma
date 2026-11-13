@@ -129,6 +129,13 @@
    "via": null,
    "by": "B-w-658",
    "note": ""
+  },
+  {
+   "t": "2026-11-13 12:43 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-638",
+   "note": "[truth | HUB_RULES 8] tab_content_2: The signed form carries the child's health details (the same tab: 'notes no daily medicine'; feature 2: allergies, medicines and conditions in the record; feature 3: insurance card photos), so emailing the signed form sends health data in transit. Same instance i"
   }
  ],
  "pipeline": "r15",
@@ -923,5 +930,275 @@
  ],
  "writers": [
   "B-w-658"
- ]
+ ],
+ "review": {
+  "by": "B-r-638",
+  "date": "2026-11-13 12:43 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Medical Consent Form for Minor Children While You're Away'; hero 'Build a medical consent form for minor children that names the caregiver and the dates, with allergies and insurance attached.' states the whole job, under 130 chars; how-to description is one sentence on what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is printable grandparent and travel consent forms; page covers the named adult, dates, allergies, insurance card, grandparents (tab 1, FAQ 5), travel with friends (tab 2) and a 7-step how-to. Notarization question absent (note)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'Both sides of the insurance card', 'pediatrician's name and number', 'Nobody should scroll past a peanut allergy to find a phone number.'"
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Claire Ashdown flies out for 10 days...', 'Name each adult who may consent to care...', 'Call your pediatrician's office...'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences short and varied; 'A trip form ends when the trip does.' Minor notes only (FAQ 5 California clause, tab 4 heading)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "'A paper form stays in a kitchen drawer. This one opens on the caregiver's phone, with the allergies beside the parent's signature.' reads human; no AI tells."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "tab_content_2 'Elena gets the signed form by email before they leave.' and mockup tripsWithFriends 'When I sign, email that adult the signed form.' send the medication and health record by email (health-in-transit). FAQ 3 'Texas law, for one, says the consent must include a statement of the nature of the medical treatment to be given and the date the treatment is to begin.' and FAQ 7 'Texas, for example, says the written consent is given to the doctor, hospital, or other medical facility' apply Tex. Fam. Code 32.002, which governs the consent signed by the non-parent who consents to treatment, to the parent's advance authorization form."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Angle is a parent naming a caregiver while away (grandparents, friend's family, host family, nanny), distinct from parent-consent (schools/clubs collecting activity consent) and consent-to-treat (clinic intake)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, secondaries used (child, children's, minor, grandparent, for grandparents), hub link in item 2, no brands or file formats in questions."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 2 image hero 'Sent to Elena Delgado / Signed form, 7 days / Pediatrician's phone on file' with 'Open form', and alt 'emails Elena the signed form', draw the signed form (daily medicine field, health record) traveling by email."
+   }
+  },
+  "findings": [
+   {
+    "class": "health-in-transit",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "tab_content_2",
+    "quote": "Elena gets the signed form by email before they leave.",
+    "issue": "The signed form carries the child's health details (the same tab: 'notes no daily medicine'; feature 2: allergies, medicines and conditions in the record; feature 3: insurance card photos), so emailing the signed form sends health data in transit. Same instance in mockup tripsWithFriends: 'When I sign, email that adult the signed form.'",
+    "fix": "Email Elena a link to Lucy's record (or 'the signed form is ready'), and the details stay in the app; change tab_content_2 and the tripsWithFriends mockup together.",
+    "severity": "blocking"
+   },
+   {
+    "class": "health-in-transit",
+    "criterion": "images",
+    "rule": "HUB_RULES 8",
+    "field": "image_brief.tabs[1] (tab 2 hero, alt, story)",
+    "quote": "Sent to Elena Delgado / Signed form, 7 days / Pediatrician's phone on file; alt: 'and emails Elena the signed form'; story copy 'Elena gets the signed form by email'",
+    "issue": "The image and alt text draw the signed health form being sent by email (mail icon card).",
+    "fix": "Redraw the hero as a link notification (e.g. 'Link sent to Elena Delgado / Lucy's record, 7 days / Open record'), update alt text and story link to match the reworked tab copy, re-render.",
+    "severity": "blocking"
+   },
+   {
+    "class": "untrue",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq (item 3; also item 7)",
+    "quote": "Texas law, for one, says the consent must include a statement of the nature of the medical treatment to be given and the date the treatment is to begin.",
+    "issue": "Tex. Fam. Code 32.002 governs 'Consent to medical treatment under this subchapter ... signed by the person giving consent', i.e. the consent the non-parent (grandparent, authorized caregiver) gives at treatment. The parent's form this page builds is the 'written authorization to consent' of 32.001(a)(5), not that consent; a parent signing in advance cannot state the nature of the treatment to be given. Presenting 32.002(b) as what the child medical consent form must include widens the source. Second instance, FAQ 7: 'Texas, for example, says the written consent is given to the doctor, hospital, or other medical facility that administers the treatment.' presented as what the caregiver brings with the parent's form.",
+    "fix": "FAQ 3: drop the 32.002(b) sentence or state it accurately (in Texas, the adult who consents at the clinic signs a written consent that names the child, the treatment and its start date; the parent's form is the written authorization that lets that adult consent). FAQ 7: drop the 32.002(a) sentence or attribute it to the caregiver's own signed consent. Keep both to Texas only and keep the quoted spans.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "Does a medical consent form for a minor need to be notarized?",
+    "issue": "The flagged AlsoAsked notarization question (and the 'with notary' related search) is not answered on the page.",
+    "fix": "Optional: Divit may choose to answer it in a later pass, state-sourced.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq (item 5)",
+    "quote": "California lets a parent authorize in writing an adult into whose care a minor has been entrusted.",
+    "issue": "The sentence stops before the object of the authorization; Cal. Fam. Code 6910 reads 'to consent to medical care or dental care, or both'.",
+    "fix": "...an adult into whose care a minor has been entrusted to consent to the minor's medical or dental care.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_4",
+    "quote": "Into a second year with the nanny, signed 14 days early",
+    "issue": "The copy says the email goes out 14 days before the end date and Owen signs from it, but never says he signed that same day; the heading states it.",
+    "fix": "'He signs a new form that day from the email' in the tab copy, or 'renewed from a 14-day reminder' in the heading.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "The flagged AlsoAsked notarization question (and the 'with notary' related search) is not answered on the page.",
+   "fix": "Optional: Divit may choose to answer it in a later pass, state-sourced.",
+   "by": "B-r-638",
+   "via": "review",
+   "date": "2026-11-13 12:43 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq (item 5)",
+   "issue": "The sentence stops before the object of the authorization; Cal. Fam. Code 6910 reads 'to consent to medical care or dental care, or both'.",
+   "fix": "...an adult into whose care a minor has been entrusted to consent to the minor's medical or dental care.",
+   "by": "B-r-638",
+   "via": "review",
+   "date": "2026-11-13 12:43 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_4",
+   "issue": "The copy says the email goes out 14 days before the end date and Owen signs from it, but never says he signed that same day; the heading states it.",
+   "fix": "'He signs a new form that day from the email' in the tab copy, or 'renewed from a 14-day reminder' in the heading.",
+   "by": "B-r-638",
+   "via": "review",
+   "date": "2026-11-13 12:43 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "a8e3e0a55a84da75",
+   "alt:share_image": "699715ef82481edf",
+   "alt:tab_image_1": "4c057975c4a9fad0",
+   "alt:tab_image_2": "567ecec2cd33f630",
+   "alt:tab_image_3": "fa942d16682d5f4e",
+   "alt:tab_image_4": "33284c5121559a49",
+   "breadcrumb": "84a59db13ca5d0bc",
+   "chip_adds": "3609f0b91b34a4c8",
+   "explore_cta": "77407cac05e6aaeb",
+   "faq": "c8aea6c74a1b34ae",
+   "feature_1": "a8cd5d3e0201e2f6",
+   "feature_2": "31195908d4fc7871",
+   "feature_3": "fd8295010db163df",
+   "feature_4": "adcbd20ea0401b6b",
+   "feature_5": "c9bc055ff704d05b",
+   "feature_6": "77ba22093b0cf8c3",
+   "features_heading": "9186f49e82e96f2f",
+   "features_subheading": "6f60e8d3e36c5e06",
+   "h1": "87a98debc55ae560",
+   "hero_description": "6891baf77be40cf1",
+   "hero_prompt": "617f8377a4536109",
+   "howto_description": "6de0f13d5e0c59f3",
+   "howto_step_1_des": "a384ae6729058037",
+   "howto_step_1_title": "60ffa8bc7f02d6e9",
+   "howto_step_2_des": "8f3a1f1fe0eb1f75",
+   "howto_step_2_title": "17559b6aa1661194",
+   "howto_step_3_des": "0dd64f6511434b70",
+   "howto_step_3_title": "817f21704f1f864e",
+   "howto_step_4_des": "2eafb6f6e6d00044",
+   "howto_step_4_title": "0c3112f97323c3e5",
+   "howto_step_5_des": "0ccb31ab4691fd42",
+   "howto_step_5_title": "fe5489b0d2bbd2ee",
+   "howto_step_6_des": "2c78b8d70eab1b65",
+   "howto_step_6_title": "93109ed199ccbf96",
+   "howto_step_7_des": "f9654f827357451c",
+   "howto_step_7_title": "cfbee6f20801ad0e",
+   "howto_title": "a945e3800100004a",
+   "meta_description": "bdd5c7a1749d8a30",
+   "meta_title": "9ae9555b4dafb430",
+   "mockup": "919751bcc6db93d2",
+   "product_name": "9a0151c6af6e4b13",
+   "prompt_chip_1": "1f20358df9d5791c",
+   "prompt_chip_2": "63ab79647b6528f1",
+   "prompt_chip_3": "ad33424025b174a4",
+   "prompt_chip_4": "026c118469f9d9be",
+   "slug": "91c3d1a4cd1b77a3",
+   "tab_content_1": "cf964209c58d2113",
+   "tab_content_2": "8cb58db974fb9b93",
+   "tab_content_3": "f1e92d8dcf147b8f",
+   "tab_content_4": "e38a3ec401e5619a",
+   "tab_label_1": "3884ccb2a05bf8df",
+   "tab_label_2": "1e91feef838ba5de",
+   "tab_label_3": "670588dbbaf3b918",
+   "tab_label_4": "92a2e011a91a787b",
+   "usecase_heading": "df53ba289d156bde",
+   "why_description": "a472aa2cb1205de3",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "fc1d6bda6ac3ee2c"
+  },
+  "all": "2979802cad1b5420",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "a8e3e0a55a84da75",
+   "alt:share_image": "699715ef82481edf",
+   "alt:tab_image_1": "4c057975c4a9fad0",
+   "alt:tab_image_2": "567ecec2cd33f630",
+   "alt:tab_image_3": "fa942d16682d5f4e",
+   "alt:tab_image_4": "33284c5121559a49",
+   "breadcrumb": "84a59db13ca5d0bc",
+   "chip_adds": "3609f0b91b34a4c8",
+   "explore_cta": "77407cac05e6aaeb",
+   "faq": "c8aea6c74a1b34ae",
+   "feature_1": "a8cd5d3e0201e2f6",
+   "feature_2": "31195908d4fc7871",
+   "feature_3": "fd8295010db163df",
+   "feature_4": "adcbd20ea0401b6b",
+   "feature_5": "c9bc055ff704d05b",
+   "feature_6": "77ba22093b0cf8c3",
+   "features_heading": "9186f49e82e96f2f",
+   "features_subheading": "6f60e8d3e36c5e06",
+   "h1": "87a98debc55ae560",
+   "hero_description": "6891baf77be40cf1",
+   "hero_prompt": "617f8377a4536109",
+   "howto_description": "6de0f13d5e0c59f3",
+   "howto_step_1_des": "a384ae6729058037",
+   "howto_step_1_title": "60ffa8bc7f02d6e9",
+   "howto_step_2_des": "8f3a1f1fe0eb1f75",
+   "howto_step_2_title": "17559b6aa1661194",
+   "howto_step_3_des": "0dd64f6511434b70",
+   "howto_step_3_title": "817f21704f1f864e",
+   "howto_step_4_des": "2eafb6f6e6d00044",
+   "howto_step_4_title": "0c3112f97323c3e5",
+   "howto_step_5_des": "0ccb31ab4691fd42",
+   "howto_step_5_title": "fe5489b0d2bbd2ee",
+   "howto_step_6_des": "2c78b8d70eab1b65",
+   "howto_step_6_title": "93109ed199ccbf96",
+   "howto_step_7_des": "f9654f827357451c",
+   "howto_step_7_title": "cfbee6f20801ad0e",
+   "howto_title": "a945e3800100004a",
+   "meta_description": "bdd5c7a1749d8a30",
+   "meta_title": "9ae9555b4dafb430",
+   "mockup": "919751bcc6db93d2",
+   "product_name": "9a0151c6af6e4b13",
+   "prompt_chip_1": "1f20358df9d5791c",
+   "prompt_chip_2": "63ab79647b6528f1",
+   "prompt_chip_3": "ad33424025b174a4",
+   "prompt_chip_4": "026c118469f9d9be",
+   "slug": "91c3d1a4cd1b77a3",
+   "tab_content_1": "cf964209c58d2113",
+   "tab_content_2": "8cb58db974fb9b93",
+   "tab_content_3": "f1e92d8dcf147b8f",
+   "tab_content_4": "e38a3ec401e5619a",
+   "tab_label_1": "3884ccb2a05bf8df",
+   "tab_label_2": "1e91feef838ba5de",
+   "tab_label_3": "670588dbbaf3b918",
+   "tab_label_4": "92a2e011a91a787b",
+   "usecase_heading": "df53ba289d156bde",
+   "why_description": "a472aa2cb1205de3",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "fc1d6bda6ac3ee2c"
+  },
+  "all": "2979802cad1b5420",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
