@@ -113,3 +113,5 @@
 
 ## 2026-11-13 post-live fix /ai-survey-and-quiz-builder/matching (B-fix-3)
 Item 6af7027a8e238bbbac864968: update_collection_items (acrm---key-feature-4-content, acrm---key-feature-2-image), read back clean, publish_collection_items for this item only. Before: childedits/2026-11-13/matching.fix-2026-11-13-matching.before.json; rollback: childedits/2026-11-13/fix-2026-11-13-matching-update-6ab24754757025d10940d04e.20261113T125349Z.rollback.json. No site publish.
+- 2026-11-13 13:00 UTC: api-create: 1 draft(s) created via Data API at 8156b55 (conjoint); read back 108 items; verified 1, mismatched 0; before childedits/2026-11-13/sqb.api-create.8156b55.before.json; rollback childedits/2026-11-13/sqb.api-create.8156b55.20261113T125925Z.rollback.json
+- 2026-11-13 13:00 UTC: api-publish: 1 item(s) item-published via Data API (no site publish); errors 0; not published 0; before childedits/2026-11-13/sqb.api-publish.9dc4d210.before.json; rollback childedits/2026-11-13/sqb.api-publish.9dc4d210.20261113T130042Z.rollback.json
