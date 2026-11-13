@@ -266,6 +266,9 @@ def caught(c):
     if c["kind"] == "f6-applies":   # Divit 2026-11-13: F6 only when the FAQ carries AlsoAsked questions
         sys.path.insert(0, os.path.join(ROOT, "qc")); import qc_hub as QH
         return QH.f6_applies({"faq_sources": c["faq_sources"]}) == c["expect"]
+    if c["kind"] == "quiz-table":   # Divit 2026-11-11 decision 3, enforced at ship-check 2026-11-13
+        import hubctl as H
+        return H.quiz_table_wrong({"quiz": c.get("quiz"), "fields": {"why_table": c["why_table"]}}) == c["expect_blocked"]
     if c["kind"] == "ymyl":   # SHIP-FIRST (Divit 2026-11-12): YMYL pages keep the pre-ship review (rules/ymyl.json)
         import hubctl as H
         return bool(H.ymyl(c["url"], {"keywords": {"primary": c.get("primary", "")}})) == c["expect_ymyl"]

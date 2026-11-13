@@ -1398,6 +1398,10 @@ def ymyl(url, s=None):
             rx = r"(?<![a-z])" + re.escape(t.lower()) + ("" if t in stems else r"(?:s|es)?(?![a-z])")
             if re.search(rx, text): hits.append(cat); break
     return hits
+def quiz_table_wrong(s):
+    """Divit 2026-11-11 decision 3: a quiz page compares against the quiz-maker set; the general survey set (SurveyMonkey,
+    Microsoft Forms, SurveyHero) on a quiz page blocks shipping (ship-first pages have no review to catch it; 2026-11-13)."""
+    return s.get("quiz") is not None and bool(re.search(r">\s*(SurveyMonkey|Microsoft Forms|SurveyHero)\s*<", (s.get("fields") or {}).get("why_table") or ""))
 def ship_first_ok(s):
     """True when the page was approved under SHIP-FIRST and its content is unchanged since that approval (fingerprint)."""
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G
@@ -1442,6 +1446,7 @@ def ship_check(url, review_exempt=False, reapprove=False):
         if not rk: out.append(why)
     if not SH.images_current(s): out.append("images not current (hubctl images)")
     out += ["slug rule: " + p for p in slug_rule_problems(url, s)]   # Divit 2026-10-23 PERMANENT (blocks api-create too)
+    if quiz_table_wrong(s): out.append("quiz page with the general survey comparison table: rebuild it with hubctl table (quiz-maker set, Divit 2026-11-11 decision 3)")
     if not s.get("item_id") and learn_from_item(hub_of(url)): out += learn_spec_problems(s)
     hp = re.sub(r"<[^>]+>", "", re.sub(r"<script.*?</script>", "", (s.get("fields") or {}).get("hero_prompt") or "", flags=re.S))
     # the 2026-10-09 "generic default" rule (no "my/our + number" scenario) is SUPERSEDED by Divit's HERO PROMPT FIX (2026-11-03): the
