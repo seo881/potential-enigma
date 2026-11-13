@@ -122,6 +122,13 @@
    "via": null,
    "by": "B-w-673",
    "note": ""
+  },
+  {
+   "t": "2026-11-13 12:34 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-633",
+   "note": "rubric 10/10 by B-r-633; 5 notes"
   }
  ],
  "pipeline": "r15",
@@ -981,5 +988,285 @@
  ],
  "writers": [
   "B-w-673"
- ]
+ ],
+ "review": {
+  "by": "B-r-633",
+  "date": "2026-11-13 12:34 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Finance Automation Around the Numbers You Watch', meta title 'Finance Automation for Cash Checks and the Close' and hero 'Build finance automation that watches cash and the close, and sends each exception to the person who owns it.' (110 chars, leads with Build, carries the primary) cover the finance team's job beyond the ledger work the accounting, AP, AR, payroll and bookkeeping pages own; how-to description is one sentence under 140 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Builder searchers get four working finance automations (cash floor, intercompany hold, request intake, forecast collection), a 7-step how-to, and the PAA question 'What is an example of automation in finance?' answered verbatim with 'A morning cash check is one example of finance automation.'"
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Finance vocabulary throughout: '$250,000 floor', 'Manufacturing shows $96,300 due from Retail', 'credit memo over $1,000', 'next-quarter forecast ... by business day 5', 'FP&A lead'. Table uses the general set, which is correct: 'finance' matches no aab category_sets term."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'At 7:00 every morning the app reads balances...', 'Quarrybrook's two companies, Manufacturing and Retail, bill each other monthly.', 'Requests from outside finance arrive through one form...', 'Describe a check in a sentence...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences short and single-idea ('This week 23 came in.', 'This month 7 of the 9 arrived on time.'); one tacked-on clause in FAQ 8 recorded as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain operator voice, concrete unglamorous details ('a $2,400 credit memo for a bike dealer', 'the heads of Marketing and Facilities'), no hype verbs; FAQ 6 'A check that could not get fresh data should report that it did not run, never that everything passed.' reads like a practitioner."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Every Emergent claim maps to approved ids (prompt-build, api-connect, ai-extraction, alerts, realtime, database-owned, code-export 'on paid plans', no-caps, free-start, soc2-iso 'SOC 2 Type I and ISO 27001'); no third-party, regulatory or tax facts and no financial advice; numbers agree in copy, mockup, images and alt: 186,400+412,200+686,000=1,284,600; 96,300-91,800=4,500; $2,400 > $1,000; 7 of 9 with 2 reminders; Elliot Pellegarde is the controller in tabs 1 and 3. Alerts carry no account numbers or customer details (tab 3 'Credit for a bike dealer', no dealer named), consistent with FAQ 9."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Tabs (Cash Position, Intercompany, Finance Requests, Forecast Updates) do not overlap accounting (Bank Matching, Close Tracking, Recurring Entries, Variance Notes), accounts-receivable, payroll, bookkeeping or budget-approval-workflow tabs; no sibling primary in a heading; Quarrybrook Cycle Co. is unique in the hub."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, no brand or file format; hub link in item 2 'Emergent's AI automation builder'; 3 sibling links to live pages (real-estate-workflow, manufacturing-workflow, nonprofit-workflow); secondaries 'finance workflow automation' and 'financial close automation' read naturally; every answer leads with its answer ('Yes.', 'It should say so instead of staying quiet.')."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet: tab 1 table and hero match '$186,400, floor $250,000', 'DM to Elliot Pellegarde', '$1,284,600 today'; tab 2 shows '$96,300', '$91,800', gap '$4,500', both accountants 'On hold', 'Close on hold for both companies'; tab 3 '$2,400', 'Over $1,000 goes to the controller', '23 requests this week'; tab 4 '7 of 9', '2 reminders sent by email', Marketing and Facilities 'Missing'; one hero each, text readable."
+   }
+  },
+  "findings": [
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq (items 2, 3), howto_step_1_des, howto_step_2_des",
+    "quote": "FAQ 2 'Pick one check that follows a fixed rule and has a clear owner'; FAQ 3 'Tasks with a fixed rule and a named owner suit it best.'; step 1 'Mark each one that follows a fixed rule with a number in it.'; step 2 'Every rule needs a threshold and a person.'",
+    "issue": "The fixed-rule-plus-owner idea is restated in four fields with the words swapped.",
+    "fix": "Keep it in step 1 and FAQ 3; give FAQ 2 a different first move (connect the ledger, name the first check).",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "faq (item 2), howto_step_6_des",
+    "quote": "FAQ 2 'run the check on last month's numbers, and switch it on once it flags what your team would have caught'; step 6 'Load last month's balances and requests ... Compare what the app flags with what your team caught by hand.'",
+    "issue": "The last-month dry run is told twice in near-identical terms.",
+    "fix": "Shorten the FAQ 2 version to a pointer or drop it.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "faq (item 8)",
+    "quote": "Emergent sets no task cap, which matters for checks that run every morning across every account.",
+    "issue": "Tacked-on 'which matters' clause.",
+    "fix": "A cash check that runs every morning across every account never hits a task cap on Emergent.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #5",
+    "field": "images.cover_image.alt",
+    "quote": "A direct message tells the controller, Elliot Pellegarde, that operating cash is $186,400, under its $250,000 floor.",
+    "issue": "The cover DM draws 'Cash under its floor / Balance: $186,400' but no $250,000; the alt names a figure the image does not show.",
+    "fix": "Alt: '... that operating cash is under its floor, at $186,400.'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "intent",
+    "rule": "HUB_RULES 5",
+    "field": "faq (item 1)",
+    "quote": "A morning cash check is one example of finance automation.",
+    "issue": "The SERP shows an AI Overview, and no field defines finance automation; item 1 (locked PAA) answers with an example only.",
+    "fix": "Add a one-clause definition to FAQ 1's second sentence (software that runs a finance team's rule-based checks and requests without someone doing them by hand).",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq (items 2, 3), howto_step_1_des, howto_step_2_des",
+   "issue": "The fixed-rule-plus-owner idea is restated in four fields with the words swapped.",
+   "fix": "Keep it in step 1 and FAQ 3; give FAQ 2 a different first move (connect the ledger, name the first check).",
+   "by": "B-r-633",
+   "via": "review",
+   "date": "2026-11-13 12:34 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "faq (item 2), howto_step_6_des",
+   "issue": "The last-month dry run is told twice in near-identical terms.",
+   "fix": "Shorten the FAQ 2 version to a pointer or drop it.",
+   "by": "B-r-633",
+   "via": "review",
+   "date": "2026-11-13 12:34 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "faq (item 8)",
+   "issue": "Tacked-on 'which matters' clause.",
+   "fix": "A cash check that runs every morning across every account never hits a task cap on Emergent.",
+   "by": "B-r-633",
+   "via": "review",
+   "date": "2026-11-13 12:34 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #5",
+   "field": "images.cover_image.alt",
+   "issue": "The cover DM draws 'Cash under its floor / Balance: $186,400' but no $250,000; the alt names a figure the image does not show.",
+   "fix": "Alt: '... that operating cash is under its floor, at $186,400.'",
+   "by": "B-r-633",
+   "via": "review",
+   "date": "2026-11-13 12:34 UTC"
+  },
+  {
+   "criterion": "intent",
+   "rule": "HUB_RULES 5",
+   "field": "faq (item 1)",
+   "issue": "The SERP shows an AI Overview, and no field defines finance automation; item 1 (locked PAA) answers with an example only.",
+   "fix": "Add a one-clause definition to FAQ 1's second sentence (software that runs a finance team's rule-based checks and requests without someone doing them by hand).",
+   "by": "B-r-633",
+   "via": "review",
+   "date": "2026-11-13 12:34 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "da1c8b34eb656b78",
+   "alt:share_image": "fb99dd1605c160a3",
+   "alt:tab_image_1": "b73bab8e27481078",
+   "alt:tab_image_2": "3debb41a998c09d1",
+   "alt:tab_image_3": "730965a228b3ddbf",
+   "alt:tab_image_4": "0723029afe61bb6e",
+   "breadcrumb": "bdd202b2042facb6",
+   "chip_adds": "3059edbe981985c4",
+   "explore_cta": "d7e621325e269f38",
+   "faq": "79f6168413d6c237",
+   "feature_1": "28b78e6259254143",
+   "feature_2": "70b72ee27eee043f",
+   "feature_3": "9fe88c9bc4a57696",
+   "feature_4": "08b1d765a0f15b61",
+   "feature_5": "c3ebd710f3fe82d6",
+   "feature_6": "401199750a9d07e9",
+   "features_heading": "31f0aa7171c895f1",
+   "features_subheading": "20a5a2ac9b4c01ca",
+   "h1": "86d1091d025b8bc4",
+   "hero_description": "c31363986bf475c1",
+   "hero_prompt": "8bafaa4febbbc982",
+   "howto_description": "7415380098c3e0af",
+   "howto_step_1_des": "49e09430a38b974c",
+   "howto_step_1_title": "4959af040f0a18c2",
+   "howto_step_2_des": "132eaf66205048ca",
+   "howto_step_2_title": "fcf17e2088c07e33",
+   "howto_step_3_des": "141147dd716da58c",
+   "howto_step_3_title": "b1b773808215206b",
+   "howto_step_4_des": "7852f5707e3797f5",
+   "howto_step_4_title": "2e276f8d0d1bad1e",
+   "howto_step_5_des": "82d920ddb16a40b5",
+   "howto_step_5_title": "93ca8b87ff5b6ad8",
+   "howto_step_6_des": "5763093ba9c3dcd0",
+   "howto_step_6_title": "57045c74c8341b0e",
+   "howto_step_7_des": "911706469689e511",
+   "howto_step_7_title": "57e49f2cf5567729",
+   "howto_title": "557962238fa377c4",
+   "meta_description": "2fadf9ab6dc5eae4",
+   "meta_title": "3c8442fd6f9f9de9",
+   "mockup": "3e51c82db394cd78",
+   "product_name": "376728821a64d0e3",
+   "prompt_chip_1": "136194bddbea1b8a",
+   "prompt_chip_2": "958e2614f9210c8b",
+   "prompt_chip_3": "3932f60b08e2584b",
+   "prompt_chip_4": "80ccc46279dc1a7e",
+   "slug": "eab762a03fd979a0",
+   "tab_content_1": "2854ad9c38363d45",
+   "tab_content_2": "72638a7a0ef279da",
+   "tab_content_3": "df7bb5dfba4d7002",
+   "tab_content_4": "56af97205bb3f2aa",
+   "tab_label_1": "136194bddbea1b8a",
+   "tab_label_2": "958e2614f9210c8b",
+   "tab_label_3": "3932f60b08e2584b",
+   "tab_label_4": "80ccc46279dc1a7e",
+   "usecase_heading": "a608214b6b915de9",
+   "why_description": "6047045db4a664dd",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "622981133822c382"
+  },
+  "all": "1fb48285d1b9df29",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "da1c8b34eb656b78",
+   "alt:share_image": "fb99dd1605c160a3",
+   "alt:tab_image_1": "b73bab8e27481078",
+   "alt:tab_image_2": "3debb41a998c09d1",
+   "alt:tab_image_3": "730965a228b3ddbf",
+   "alt:tab_image_4": "0723029afe61bb6e",
+   "breadcrumb": "bdd202b2042facb6",
+   "chip_adds": "3059edbe981985c4",
+   "explore_cta": "d7e621325e269f38",
+   "faq": "79f6168413d6c237",
+   "feature_1": "28b78e6259254143",
+   "feature_2": "70b72ee27eee043f",
+   "feature_3": "9fe88c9bc4a57696",
+   "feature_4": "08b1d765a0f15b61",
+   "feature_5": "c3ebd710f3fe82d6",
+   "feature_6": "401199750a9d07e9",
+   "features_heading": "31f0aa7171c895f1",
+   "features_subheading": "20a5a2ac9b4c01ca",
+   "h1": "86d1091d025b8bc4",
+   "hero_description": "c31363986bf475c1",
+   "hero_prompt": "8bafaa4febbbc982",
+   "howto_description": "7415380098c3e0af",
+   "howto_step_1_des": "49e09430a38b974c",
+   "howto_step_1_title": "4959af040f0a18c2",
+   "howto_step_2_des": "132eaf66205048ca",
+   "howto_step_2_title": "fcf17e2088c07e33",
+   "howto_step_3_des": "141147dd716da58c",
+   "howto_step_3_title": "b1b773808215206b",
+   "howto_step_4_des": "7852f5707e3797f5",
+   "howto_step_4_title": "2e276f8d0d1bad1e",
+   "howto_step_5_des": "82d920ddb16a40b5",
+   "howto_step_5_title": "93ca8b87ff5b6ad8",
+   "howto_step_6_des": "5763093ba9c3dcd0",
+   "howto_step_6_title": "57045c74c8341b0e",
+   "howto_step_7_des": "911706469689e511",
+   "howto_step_7_title": "57e49f2cf5567729",
+   "howto_title": "557962238fa377c4",
+   "meta_description": "2fadf9ab6dc5eae4",
+   "meta_title": "3c8442fd6f9f9de9",
+   "mockup": "3e51c82db394cd78",
+   "product_name": "376728821a64d0e3",
+   "prompt_chip_1": "136194bddbea1b8a",
+   "prompt_chip_2": "958e2614f9210c8b",
+   "prompt_chip_3": "3932f60b08e2584b",
+   "prompt_chip_4": "80ccc46279dc1a7e",
+   "slug": "eab762a03fd979a0",
+   "tab_content_1": "2854ad9c38363d45",
+   "tab_content_2": "72638a7a0ef279da",
+   "tab_content_3": "df7bb5dfba4d7002",
+   "tab_content_4": "56af97205bb3f2aa",
+   "tab_label_1": "136194bddbea1b8a",
+   "tab_label_2": "958e2614f9210c8b",
+   "tab_label_3": "3932f60b08e2584b",
+   "tab_label_4": "80ccc46279dc1a7e",
+   "usecase_heading": "a608214b6b915de9",
+   "why_description": "6047045db4a664dd",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "622981133822c382"
+  },
+  "all": "1fb48285d1b9df29",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
