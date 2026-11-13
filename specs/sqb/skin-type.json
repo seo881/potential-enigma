@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-608",
    "note": ""
+  },
+  {
+   "t": "2026-11-13 07:20 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-621",
+   "note": "[images | HUB_RULES 8] image_brief.tabs[2].hero: On a page classed medical (rules/ymyl.json 'skin'), the image shows a client's quiz result and a quoted answer about her skin traveling by email; the tab copy itself keeps the answers in the app ('gets an email that the quiz is in, then reads each ans"
   }
  ],
  "pipeline": "r15",
@@ -1155,5 +1162,327 @@
  },
  "writers": [
   "B-w-608"
- ]
+ ],
+ "review": {
+  "by": "B-r-621",
+  "date": "2026-11-13 07:20 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Skin Type Quiz for Your Skincare Business'; hero 'Build a skin type quiz that saves each result with its answers, or take the eight-question one below to see how your skin leans.' (under 130, carries the primary); how-to description one sentence under 140."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "AMBER quiz-taker SERP served: playable 8-question quiz names dry, oily, combination or normal, framed 'a starting point for a routine, not a medical finding'; builder angle for skincare businesses follows."
+   },
+   "specificity": {
+    "result": "fail",
+    "evidence": "why_table carries the general survey set (SurveyMonkey, Microsoft Forms, SurveyHero; Emergent row 'Survey, logic, and response database, as code you own') on a playable quiz page written 2026-11-12, after decision 3 (2026-11-11) gave new quiz pages the quiz-maker set."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: 'Ines Cardoso takes the skin type quiz...', 'Fernvale Box asks every new subscriber...', 'Settle the four results first...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences carry one idea; one ', so' ending on the page (step 1) and one 'which is why it belongs first' (step 2), kept as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous detail: 'press a blotting paper along the T-zone and the cheeks', 'his first box ships as the Dry variant on packing day, the 18th', 'so people finish it at a counter or on a bus'."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "Health page (rules/ymyl.json medical 'skin'): feature_4 'the app emails you each time one arrives, answers included. Point the alert at Slack instead'; mockup estheticianIntake 'Email me when a client finishes, with the result and every answer'. Domain claims checked against sources: five types, blotting test, seasonal change, sensitive not about oil (Cleveland Clinic), Fitzpatrick 1975 and six phototypes (skincancer.org), Baumann 4 spectra and 16 types (PMC5597652): all supported."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Apothecary, subscription box, esthetician intake and product launch stories with their own numbers; Fitzpatrick and Baumann FAQs specific to this topic."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, no brands or file formats, hub link in item 2, each answered first ('No. The Fitzpatrick skin type is...', 'By where the shine sits.'). FAQ 7 keeps the quiz descriptive: 'it should never diagnose'."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 3 hero 'Email to Ondine Brewster' draws 'Result: Oily, facial on Thursday' and the quoted answer 'Shiny all over by midday' inside the email. Tabs 1, 2, 4 match their copy (4-product routine 2+2; Dry variant, the 18th; 1,680 + 1,320 = 3,000 of 4,800)."
+   }
+  },
+  "findings": [
+   {
+    "class": "health-in-transit",
+    "criterion": "images",
+    "rule": "HUB_RULES 8",
+    "field": "image_brief.tabs[2].hero",
+    "quote": "Email to Ondine Brewster / Priya Aldana's quiz is in / Result: Oily, facial on Thursday / \"Shiny all over by midday\"",
+    "issue": "On a page classed medical (rules/ymyl.json 'skin'), the image shows a client's quiz result and a quoted answer about her skin traveling by email; the tab copy itself keeps the answers in the app ('gets an email that the quiz is in, then reads each answer in the client table').",
+    "fix": "Email shows only that Priya Aldana's quiz is in and the facial is Thursday; drop the 'Result: Oily' sub and the quote block; the button opens the client table where the result and answers live.",
+    "severity": "blocking"
+   },
+   {
+    "class": "health-in-transit",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "feature_4",
+    "quote": "the app emails you each time one arrives, answers included. Point the alert at Slack instead so the counter team sees it between customers.",
+    "issue": "Copy sends each taker's skin answers through email and Slack on a health-classed page.",
+    "fix": "The alert says a new result is ready to review and links to its row; the answers stay in the database. Retitle if needed (e.g. 'An alert when a result lands'); keep body 165-182 chars.",
+    "severity": "blocking"
+   },
+   {
+    "class": "health-in-transit",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "mockup (estheticianIntake)",
+    "quote": "Email me when a client finishes, with the result and every answer, and save it all to a client table I can read before the appointment.",
+    "issue": "Mockup prompt asks for the client's result and every answer in the email.",
+    "fix": "\"Email me when a client finishes so I can read her result and answers in a client table before the appointment.\"",
+    "severity": "blocking"
+   },
+   {
+    "class": "structure",
+    "criterion": "specificity",
+    "rule": "HUB_RULES 5",
+    "field": "why_table",
+    "quote": "SurveyMonkey | Microsoft Forms | SurveyHero; What you get: Survey, logic, and response database, as code you own",
+    "issue": "A playable quiz page written after DECISIONS 2026-11-11 (3) uses the general survey set instead of the library's quiz-maker set (ProProfs, Interact, Typeform, Slido, Mentimeter; rows build, pricing, data, ownership); the table falls back to the hub default (CONTENT_DEFECTS #26).",
+    "fix": "Rebuild with `hubctl table <url>` (no --vs, picks quiz-maker), then rewrite why_description so it still describes the new table ('The tools in the table keep responses in their accounts...').",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "quiz.results",
+    "quote": "Favor a non-foaming cleanser and a richer moisturizer morning and night; Reach for a gel moisturizer and a foaming cleanser first",
+    "issue": "Cosmetic routine recommendations with no source; advice, not fact, and not medical treatment.",
+    "fix": "Optional: source the cleanser and moisturizer guidance or soften to 'many people with dry skin start with...'.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_2_des",
+    "quote": "That one question separates the four types more cleanly than anything about products, which is why it belongs first.",
+    "issue": "Tacked-on 'which is why' ending.",
+    "fix": "End at 'than anything about products.' and open the step with 'Ask it first'.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "page",
+    "quote": "\"result\" 19 times, \"routine\" 10 times outside the FAQ (QC Q9)",
+    "issue": "Heavy repetition of result and routine across features, tabs and steps.",
+    "fix": "Vary where meaning allows (type, product list, morning and evening steps).",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "distinct",
+    "rule": "CONTENT_DEFECTS #1",
+    "field": "faq item 4",
+    "quote": "the way a style quiz sorts by taste",
+    "issue": "Names a sibling primary (style quiz) in passing, unlinked; not targeting it, but an analogy that adds nothing.",
+    "fix": "Drop the analogy or link the sibling with its exact keyword.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "chip_adds[0]",
+    "quote": "Add an email that sends each shopper the routine, with a link to every product in it.",
+    "issue": "Taker's own result routine by email to the taker; not a third party's health details, so not health-in-transit, but worth Divit's eye on a health-classed page.",
+    "fix": "None required; keep the email to the routine and product links, no answers.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "quiz.results",
+   "issue": "Cosmetic routine recommendations with no source; advice, not fact, and not medical treatment.",
+   "fix": "Optional: source the cleanser and moisturizer guidance or soften to 'many people with dry skin start with...'.",
+   "by": "B-r-621",
+   "via": "review",
+   "date": "2026-11-13 07:20 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_2_des",
+   "issue": "Tacked-on 'which is why' ending.",
+   "fix": "End at 'than anything about products.' and open the step with 'Ask it first'.",
+   "by": "B-r-621",
+   "via": "review",
+   "date": "2026-11-13 07:20 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "page",
+   "issue": "Heavy repetition of result and routine across features, tabs and steps.",
+   "fix": "Vary where meaning allows (type, product list, morning and evening steps).",
+   "by": "B-r-621",
+   "via": "review",
+   "date": "2026-11-13 07:20 UTC"
+  },
+  {
+   "criterion": "distinct",
+   "rule": "CONTENT_DEFECTS #1",
+   "field": "faq item 4",
+   "issue": "Names a sibling primary (style quiz) in passing, unlinked; not targeting it, but an analogy that adds nothing.",
+   "fix": "Drop the analogy or link the sibling with its exact keyword.",
+   "by": "B-r-621",
+   "via": "review",
+   "date": "2026-11-13 07:20 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "chip_adds[0]",
+   "issue": "Taker's own result routine by email to the taker; not a third party's health details, so not health-in-transit, but worth Divit's eye on a health-classed page.",
+   "fix": "None required; keep the email to the routine and product links, no answers.",
+   "by": "B-r-621",
+   "via": "review",
+   "date": "2026-11-13 07:20 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6d0095b94741c2a5",
+   "alt:share_image": "5ef566b1f1e6396e",
+   "alt:tab_image_1": "0b21dc41a8f6f0ba",
+   "alt:tab_image_2": "71c9aa9a788f4e46",
+   "alt:tab_image_3": "1a0018ee5ab84438",
+   "alt:tab_image_4": "f9346ac273f1438d",
+   "breadcrumb": "46f35ef775038f0f",
+   "chip_adds": "e15fa80fa48649ab",
+   "explore_cta": "4f04dd6a18aa4936",
+   "faq": "3855ba637e196a9e",
+   "feature_1": "97064cb5343f6f09",
+   "feature_2": "4656bc23ffb5107d",
+   "feature_3": "b01220349c4233fa",
+   "feature_4": "d70b28a266e042d5",
+   "feature_5": "1b10175eb775bc39",
+   "feature_6": "8715497bf8b82657",
+   "features_heading": "ec1f25732fe426d7",
+   "features_subheading": "e7595f021190058e",
+   "h1": "3d876db4ddb59173",
+   "hero_description": "924e45bb078f5c52",
+   "hero_prompt": "44e773714e070efd",
+   "howto_description": "7658e69188a111db",
+   "howto_step_1_des": "cc9e3c14e11ff5a5",
+   "howto_step_1_title": "6c6c400facefc743",
+   "howto_step_2_des": "2bf665a0cddf452c",
+   "howto_step_2_title": "3a2f3bd33d45677d",
+   "howto_step_3_des": "9c142b46597c762a",
+   "howto_step_3_title": "33f027ffb0cb5ed5",
+   "howto_step_4_des": "dfaae4134a2c08bf",
+   "howto_step_4_title": "94b2af40c617482e",
+   "howto_step_5_des": "3a3455b92026c0de",
+   "howto_step_5_title": "c07f1e518856ee63",
+   "howto_step_6_des": "9874a0027767e04b",
+   "howto_step_6_title": "94967ae3847ac387",
+   "howto_step_7_des": "b3d9f2fa6102b788",
+   "howto_step_7_title": "ca7d8c9306a10c77",
+   "howto_title": "4b7b1c89b03b1e79",
+   "meta_description": "248c6952e164f331",
+   "meta_title": "daf78fecbdc6b605",
+   "mockup": "00210916314f3e7c",
+   "product_name": "d941c9135ae8e104",
+   "prompt_chip_1": "b7f6824d31d5e3a6",
+   "prompt_chip_2": "38e76ba8808c0003",
+   "prompt_chip_3": "d8a995463b64a85d",
+   "prompt_chip_4": "fa01687681044554",
+   "quiz": "c0bc1b82daad2cb7",
+   "slug": "cf51d5aca2ef6783",
+   "tab_content_1": "e0a871bf6074284f",
+   "tab_content_2": "2b34d82bfe7a8166",
+   "tab_content_3": "2b67366aaf502f77",
+   "tab_content_4": "c36e77f0bbee78bc",
+   "tab_label_1": "29cb2689579cf38f",
+   "tab_label_2": "1861d5075f3e34bb",
+   "tab_label_3": "e21ec8a7738035dd",
+   "tab_label_4": "159f1d27c93e9be9",
+   "usecase_heading": "097ac156a341b814",
+   "why_description": "1612cd392f0faac9",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "37b752433b392f67"
+  },
+  "all": "8311d53b514a9e25",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6d0095b94741c2a5",
+   "alt:share_image": "5ef566b1f1e6396e",
+   "alt:tab_image_1": "0b21dc41a8f6f0ba",
+   "alt:tab_image_2": "71c9aa9a788f4e46",
+   "alt:tab_image_3": "1a0018ee5ab84438",
+   "alt:tab_image_4": "f9346ac273f1438d",
+   "breadcrumb": "46f35ef775038f0f",
+   "chip_adds": "e15fa80fa48649ab",
+   "explore_cta": "4f04dd6a18aa4936",
+   "faq": "3855ba637e196a9e",
+   "feature_1": "97064cb5343f6f09",
+   "feature_2": "4656bc23ffb5107d",
+   "feature_3": "b01220349c4233fa",
+   "feature_4": "d70b28a266e042d5",
+   "feature_5": "1b10175eb775bc39",
+   "feature_6": "8715497bf8b82657",
+   "features_heading": "ec1f25732fe426d7",
+   "features_subheading": "e7595f021190058e",
+   "h1": "3d876db4ddb59173",
+   "hero_description": "924e45bb078f5c52",
+   "hero_prompt": "44e773714e070efd",
+   "howto_description": "7658e69188a111db",
+   "howto_step_1_des": "cc9e3c14e11ff5a5",
+   "howto_step_1_title": "6c6c400facefc743",
+   "howto_step_2_des": "2bf665a0cddf452c",
+   "howto_step_2_title": "3a2f3bd33d45677d",
+   "howto_step_3_des": "9c142b46597c762a",
+   "howto_step_3_title": "33f027ffb0cb5ed5",
+   "howto_step_4_des": "dfaae4134a2c08bf",
+   "howto_step_4_title": "94b2af40c617482e",
+   "howto_step_5_des": "3a3455b92026c0de",
+   "howto_step_5_title": "c07f1e518856ee63",
+   "howto_step_6_des": "9874a0027767e04b",
+   "howto_step_6_title": "94967ae3847ac387",
+   "howto_step_7_des": "b3d9f2fa6102b788",
+   "howto_step_7_title": "ca7d8c9306a10c77",
+   "howto_title": "4b7b1c89b03b1e79",
+   "meta_description": "248c6952e164f331",
+   "meta_title": "daf78fecbdc6b605",
+   "mockup": "00210916314f3e7c",
+   "product_name": "d941c9135ae8e104",
+   "prompt_chip_1": "b7f6824d31d5e3a6",
+   "prompt_chip_2": "38e76ba8808c0003",
+   "prompt_chip_3": "d8a995463b64a85d",
+   "prompt_chip_4": "fa01687681044554",
+   "quiz": "c0bc1b82daad2cb7",
+   "slug": "cf51d5aca2ef6783",
+   "tab_content_1": "e0a871bf6074284f",
+   "tab_content_2": "2b34d82bfe7a8166",
+   "tab_content_3": "2b67366aaf502f77",
+   "tab_content_4": "c36e77f0bbee78bc",
+   "tab_label_1": "29cb2689579cf38f",
+   "tab_label_2": "1861d5075f3e34bb",
+   "tab_label_3": "e21ec8a7738035dd",
+   "tab_label_4": "159f1d27c93e9be9",
+   "usecase_heading": "097ac156a341b814",
+   "why_description": "1612cd392f0faac9",
+   "why_table": "e4e52b0eef073f20",
+   "why_title": "37b752433b392f67"
+  },
+  "all": "8311d53b514a9e25",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
