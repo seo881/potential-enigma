@@ -269,6 +269,9 @@ def caught(c):
     if c["kind"] == "quiz-table":   # Divit 2026-11-11 decision 3, enforced at ship-check 2026-11-13
         import hubctl as H
         return H.quiz_table_wrong({"quiz": c.get("quiz"), "fields": {"why_table": c["why_table"]}}) == c["expect_blocked"]
+    if c["kind"] == "article-display":   # Divit 2026-11-13: a/an agreement is display normalization for verbatim AlsoAsked questions
+        import spelling as SP
+        return SP.display(c["q"]) == c["expect"] and SP.verbatim_ok(c["expect"], c["q"])
     if c["kind"] == "ymyl":   # SHIP-FIRST (Divit 2026-11-12): YMYL pages keep the pre-ship review (rules/ymyl.json)
         import hubctl as H
         return bool(H.ymyl(c["url"], {"keywords": {"primary": c.get("primary", "")}})) == c["expect_ymyl"]
@@ -309,7 +312,9 @@ def caught(c):
         if not PG.pulls(g.slug): return False
         with _cl.redirect_stdout(_io.StringIO()): items, _ = PG.run_pull(g)
         it = next((i for i in items if PG.qhash(i["q"]) == c["qh"]), None)
-        return bool(it) and it["verdict"] == "reject" and any(r[0] in c["expect"] and r[1] == "reject" for r in it["reasons"])
+        if it is None:   # 2026-11-13: an authorised refresh (weekend REFRESH_RUNS) replaced the pull and the struck question is gone from it:
+            import glob as _gl; return bool(_gl.glob(PG.pull_path(g.slug)[:-5] + ".stale-*.json"))   # nothing can surface it; only valid when the old pull was archived
+        return it["verdict"] == "reject" and any(r[0] in c["expect"] and r[1] == "reject" for r in it["reasons"])
     if c["kind"] == "qc-pp-skip":   # QC F4 per-page skip reads both blocklist shapes: "q" (text) and "qh" (ruling 12 hash only)
         import qc_hub as Q, paa_gate as PG
         es = [{("qh" if k == "qh_of" else k): (PG.qhash(v) if k == "qh_of" else v) for k, v in e.items()} for e in c["entries"]]   # qh_of: synthetic text, hashed here
