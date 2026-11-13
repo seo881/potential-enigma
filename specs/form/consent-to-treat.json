@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-652",
    "note": ""
+  },
+  {
+   "t": "2026-11-13 12:38 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-635",
+   "note": "[truth | HUB_RULES 8] faq: The source (45 CFR 164.520(c)(2)) puts this duty on 'a covered health care provider that has a direct treatment relationship with an individual'. The page widens it to every provider who treats patients directly, including practices HIPAA does not cover. YMYL page: the att"
   }
  ],
  "pipeline": "r15",
@@ -876,5 +883,245 @@
  ],
  "writers": [
   "B-w-652"
- ]
+ ],
+ "review": {
+  "by": "B-r-635",
+  "date": "2026-11-13 12:38 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Consent to Treat Form Patients Sign Before Care Starts'; hero 'Build a consent to treat form patients sign on their phone before the visit, with the wording version saved.' (under 130 chars, primary, verb first); how-to description one sentence with the primary. No sibling topic (minor consent, generic consent) in H1 or title."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is clinic PDFs and the PAA asks 'What is a consent to treat form?': FAQ 1 defines it, FAQ 3 lists the sections, how-to step 1 'Paste your current paper consent into the prompt, one clause at a time', step 4 separates routine care from risky procedures."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Front-desk vocabulary throughout: 'notice of privacy practices', 'wording version', 'declined item shows on the schedule', '24-hour cancellation policy', 'limits of confidentiality'; table rows from the library."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Feature bodies open on verbs ('Send the link', 'Number each version', 'Put the notice', 'List the treatments', 'Send an email', 'Export the full code'); tabs open on full sentences ('Bellcrest Urgent Care posts a code...')."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Varied sentence lengths, no tacked-on endings: 'Nobody reaches for the needles at her first visit.' 'The last patient signs on the desk tablet.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Concrete, unglamorous details: 'At 8:40 a.m. ... 11 of 12 morning patients signed', 'Her 10:30 a.m. slot', 'Paul Becker's is 13 months old'. No hype vocabulary."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "faq item 5: 'HIPAA's rule for providers who treat patients directly reads:' widens 45 CFR 164.520(c)(2), which applies to a covered health care provider with a direct treatment relationship. faq item 7: 'Sedation is one example' asserts a medical standard (sedation needs express informed consent) that no domain source states; the Merck page cited does not mention sedation or anesthesia. All numbers agree across features, tabs, mockups, alt text and images (11 of 12, version 3, 2 days, 24 hours, 3 of 4, 10:30 a.m., 12 and 13 months, version 4, 9:05 a.m.); no HIPAA-compliance claim; alerts carry a notice plus a link only."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "General clinic consent with versioning, privacy-notice receipt, per-treatment decline and re-sign interval; tattoo, waxing and anesthesia pages are linked, not echoed, and minor consent is not targeted."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 items, PAA item 1 verbatim, hub link in item 2, three exact-match sibling links (tattoo consent form, anesthesia consent form, waxing consent form, all live), moat lines in items 8 and 9."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches tab copy: Slack hero '11 of 12 morning patients signed' at 8:40 with no names; therapist email 'No answers in the message'; '3 of 4 accepted', 'Declined: dry needling', '10:30 a.m. first visit'; '13 months old', 'Current version 4 sent', 'Signed at 9:05 a.m.'. One hero each, no health details in any message."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "HIPAA's rule for providers who treat patients directly reads: except in an emergency treatment situation, make a good faith effort to obtain a written acknowledgment of receipt of the notice.",
+    "issue": "The source (45 CFR 164.520(c)(2)) puts this duty on 'a covered health care provider that has a direct treatment relationship with an individual'. The page widens it to every provider who treats patients directly, including practices HIPAA does not cover. YMYL page: the attribution must match the regulation's scope.",
+    "fix": "Write 'HIPAA's rule for covered providers who treat patients directly reads: ...' (or 'for a covered health care provider with a direct treatment relationship'). Keep the quoted span verbatim.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Sedation is one example: an <a href='https://emergent.sh/ai-form-builder/anesthesia-consent'>anesthesia consent form</a> records the plan and its own signature.",
+    "issue": "Coming right after the Merck sentence, 'Sedation is one example' states as fact that sedation is an invasive or risky intervention needing express informed consent. No spec.domain_sources entry says this, and the cited Merck page does not mention sedation or anesthesia.",
+    "fix": "Drop the classification and keep the link as a description of a separate form, e.g. 'An <a ...>anesthesia consent form</a>, for example, is its own form that records the anesthetic plan and its own signature.' Or add a domain source (max 8) that says sedation or anesthesia requires its own informed consent and quote it.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq",
+    "quote": "Give the notice its own screen before the signature, with a checkbox for receipt. HIPAA's rule ... make a good faith effort to obtain a written acknowledgment of receipt of the notice.",
+    "issue": "Placing the checkbox advice next to the 'written acknowledgment' rule can read as saying a checkbox satisfies it. The page makes no compliance claim, so this is a note.",
+    "fix": "Optionally say the practice decides with its privacy officer what counts as its written acknowledgment.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "How is a consent to treat form different from what a tattoo studio has clients sign? / Can one consent to treat form cover a clinic that also offers spa services?",
+    "issue": "Two written questions read as built to carry sibling links rather than as questions a consent-to-treat searcher asks; on topic and answered, so a note.",
+    "fix": "Next refresh: consider 'Is a consent to treat form the same as informed consent?' style questions from the AlsoAsked pool if they clear the gate.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq",
+   "issue": "Placing the checkbox advice next to the 'written acknowledgment' rule can read as saying a checkbox satisfies it. The page makes no compliance claim, so this is a note.",
+   "fix": "Optionally say the practice decides with its privacy officer what counts as its written acknowledgment.",
+   "by": "B-r-635",
+   "via": "review",
+   "date": "2026-11-13 12:38 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "Two written questions read as built to carry sibling links rather than as questions a consent-to-treat searcher asks; on topic and answered, so a note.",
+   "fix": "Next refresh: consider 'Is a consent to treat form the same as informed consent?' style questions from the AlsoAsked pool if they clear the gate.",
+   "by": "B-r-635",
+   "via": "review",
+   "date": "2026-11-13 12:38 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "899941c10ef80a26",
+   "alt:share_image": "82e3ada5a2563a58",
+   "alt:tab_image_1": "4479795e66897cd8",
+   "alt:tab_image_2": "e0c7461def721567",
+   "alt:tab_image_3": "d63834dca5423a52",
+   "alt:tab_image_4": "a52a4768ca6b69e9",
+   "breadcrumb": "f78d7e30457734bd",
+   "chip_adds": "e38c857070fa098f",
+   "explore_cta": "604caa223b3eca5f",
+   "faq": "e29603a454788579",
+   "feature_1": "118bccdf54dfce2f",
+   "feature_2": "347bddb9ff0a2d8e",
+   "feature_3": "3daf597adcb4862b",
+   "feature_4": "34c8bf1af8f618bc",
+   "feature_5": "31244b2e0082be73",
+   "feature_6": "c6266fd5babf6cfb",
+   "features_heading": "6ed5baf42e5d48dd",
+   "features_subheading": "e18fdc8004afa9cd",
+   "h1": "32b200240081a4ce",
+   "hero_description": "0b956ef9081d1c22",
+   "hero_prompt": "cd03eee8511c0d22",
+   "howto_description": "7f5b7801d24130cb",
+   "howto_step_1_des": "d6edf4eb6444e487",
+   "howto_step_1_title": "e5facea22e0a921f",
+   "howto_step_2_des": "b794dbf16cde26de",
+   "howto_step_2_title": "172d7ff9301a3c47",
+   "howto_step_3_des": "05fa48aa55836b89",
+   "howto_step_3_title": "5e70a35225506dd4",
+   "howto_step_4_des": "2e8bd1a5f97d9825",
+   "howto_step_4_title": "5705263559def48c",
+   "howto_step_5_des": "09da072b0629038b",
+   "howto_step_5_title": "f373b0d2f6840353",
+   "howto_step_6_des": "49b597e58fac6a73",
+   "howto_step_6_title": "ef67f0ecb8d27f60",
+   "howto_step_7_des": "220a3342145b2dac",
+   "howto_step_7_title": "0bd580e868e9d1d2",
+   "howto_title": "367af280612859bd",
+   "meta_description": "7cdae5cc5278ad87",
+   "meta_title": "0876ff02b937d83d",
+   "mockup": "6ed97bc29f349014",
+   "product_name": "c5e2ba497169141a",
+   "prompt_chip_1": "840b0e9da5da5f14",
+   "prompt_chip_2": "b4f70b6aa713de6a",
+   "prompt_chip_3": "91af10f3f03a3d4c",
+   "prompt_chip_4": "17499a63e7d496cf",
+   "slug": "d65542166d5fcfac",
+   "tab_content_1": "eefb96546ce5eb93",
+   "tab_content_2": "665d2bf9c01807b4",
+   "tab_content_3": "dc30f6b44f19eecc",
+   "tab_content_4": "08b003c9f76f455b",
+   "tab_label_1": "4aceced38fcd7937",
+   "tab_label_2": "57d6e7ccc8d1d1e7",
+   "tab_label_3": "1002d947bc8957e8",
+   "tab_label_4": "3793745914b7beb4",
+   "usecase_heading": "024916bd6a34a7ca",
+   "why_description": "42744aa1bdeef228",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "ca61c2c4bc9d3498"
+  },
+  "all": "3f48d118b9c57550",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "899941c10ef80a26",
+   "alt:share_image": "82e3ada5a2563a58",
+   "alt:tab_image_1": "4479795e66897cd8",
+   "alt:tab_image_2": "e0c7461def721567",
+   "alt:tab_image_3": "d63834dca5423a52",
+   "alt:tab_image_4": "a52a4768ca6b69e9",
+   "breadcrumb": "f78d7e30457734bd",
+   "chip_adds": "e38c857070fa098f",
+   "explore_cta": "604caa223b3eca5f",
+   "faq": "e29603a454788579",
+   "feature_1": "118bccdf54dfce2f",
+   "feature_2": "347bddb9ff0a2d8e",
+   "feature_3": "3daf597adcb4862b",
+   "feature_4": "34c8bf1af8f618bc",
+   "feature_5": "31244b2e0082be73",
+   "feature_6": "c6266fd5babf6cfb",
+   "features_heading": "6ed5baf42e5d48dd",
+   "features_subheading": "e18fdc8004afa9cd",
+   "h1": "32b200240081a4ce",
+   "hero_description": "0b956ef9081d1c22",
+   "hero_prompt": "cd03eee8511c0d22",
+   "howto_description": "7f5b7801d24130cb",
+   "howto_step_1_des": "d6edf4eb6444e487",
+   "howto_step_1_title": "e5facea22e0a921f",
+   "howto_step_2_des": "b794dbf16cde26de",
+   "howto_step_2_title": "172d7ff9301a3c47",
+   "howto_step_3_des": "05fa48aa55836b89",
+   "howto_step_3_title": "5e70a35225506dd4",
+   "howto_step_4_des": "2e8bd1a5f97d9825",
+   "howto_step_4_title": "5705263559def48c",
+   "howto_step_5_des": "09da072b0629038b",
+   "howto_step_5_title": "f373b0d2f6840353",
+   "howto_step_6_des": "49b597e58fac6a73",
+   "howto_step_6_title": "ef67f0ecb8d27f60",
+   "howto_step_7_des": "220a3342145b2dac",
+   "howto_step_7_title": "0bd580e868e9d1d2",
+   "howto_title": "367af280612859bd",
+   "meta_description": "7cdae5cc5278ad87",
+   "meta_title": "0876ff02b937d83d",
+   "mockup": "6ed97bc29f349014",
+   "product_name": "c5e2ba497169141a",
+   "prompt_chip_1": "840b0e9da5da5f14",
+   "prompt_chip_2": "b4f70b6aa713de6a",
+   "prompt_chip_3": "91af10f3f03a3d4c",
+   "prompt_chip_4": "17499a63e7d496cf",
+   "slug": "d65542166d5fcfac",
+   "tab_content_1": "eefb96546ce5eb93",
+   "tab_content_2": "665d2bf9c01807b4",
+   "tab_content_3": "dc30f6b44f19eecc",
+   "tab_content_4": "08b003c9f76f455b",
+   "tab_label_1": "4aceced38fcd7937",
+   "tab_label_2": "57d6e7ccc8d1d1e7",
+   "tab_label_3": "1002d947bc8957e8",
+   "tab_label_4": "3793745914b7beb4",
+   "usecase_heading": "024916bd6a34a7ca",
+   "why_description": "42744aa1bdeef228",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "ca61c2c4bc9d3498"
+  },
+  "all": "3f48d118b9c57550",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
