@@ -30,16 +30,16 @@
   "why_title": "Why Build Bug Report Forms With Emergent?",
   "why_description": "An emailed bug gets retyped into the tracker by hand. Emergent builds the form and its tracker connection from a plain-English prompt.",
   "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Jotform</th>\n        <th scope=\"col\">Google Forms</th>\n        <th scope=\"col\">Typeform</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Describe it in plain English</td>\n        <td class=\"col-other\">Templates, editor, AI generator</td>\n        <td class=\"col-other\">Editor, with Gemini drafting on some Workspace plans</td>\n        <td class=\"col-other\">Templates, editor, AI assist</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Where responses live</th>\n        <td class=\"col-brand\">A database table you own, plus any integration</td>\n        <td class=\"col-other\">Jotform account</td>\n        <td class=\"col-other\">Google Sheets</td>\n        <td class=\"col-other\">Typeform account</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Response limits</th>\n        <td class=\"col-brand\">No response caps</td>\n        <td class=\"col-other\">Monthly submission caps by plan; the form stops at the cap</td>\n        <td class=\"col-other\">No limit</td>\n        <td class=\"col-other\">Monthly response caps by plan; the form closes at the cap</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
-  "usecase_heading": "",
-  "tab_label_1": "",
-  "tab_label_2": "",
-  "tab_label_3": "",
-  "tab_label_4": "",
-  "tab_content_1": "",
-  "tab_content_2": "",
-  "tab_content_3": "",
-  "tab_content_4": "",
-  "mockup": "",
+  "usecase_heading": "Who Files Bugs, and Where They Land",
+  "tab_label_1": "Customer Reports",
+  "tab_label_2": "QA Regression",
+  "tab_label_3": "Game Beta Testing",
+  "tab_label_4": "Critical Bugs",
+  "tab_content_1": "<h3>Blank Safari exports come in with steps attached</h3><p>Bookkeeper Rosalind Abernathy-Vale exports an invoice from Fernhallow Invoicing in Safari 18 and gets a blank PDF. On the bug report form she types 3 steps, attaches a screenshot, and marks the bug as happening every time. It lands in the support queue under Exports, steps in the order she took them.</p>",
+  "tab_content_2": "<h3>An Android crash goes into GitHub as issue #2187</h3><p>Regression week at Sablewick Transit tests every screen on build 4.12.0. QA tester Anselm Thibodeaux finds that saving a trip with no return date closes the Android app. He writes down 4 steps and picks Major. The app opens GitHub issue #2187 with his steps, the build, and a Major label, and he goes back to testing.</p>",
+  "tab_content_3": "<h3>11 of 14 beta crashes, all on level 6</h3><p>Closed beta for the new Holmgaard Games puzzle title runs on build 0.9.3. The form asks each player for the level, the device, and what they did right before the crash. In the first week, 14 crash reports come in. Producer Ines Marchetti-Cole sorts them by level and finds 11 on level 6, so level 6 goes to the engineers first.</p>",
+  "tab_content_4": "<h3>Checkout breaks, and on-call hears it first</h3><p>A customer writes to Copperlane Outfitters that checkout fails at the card step. Store manager Dashiell Okonkwo places a test order and hits the same error. He files the bug as Critical, and the app posts it to the #on-call channel in Slack. A Low bug filed that afternoon, a typo in the footer, waits for Thursday triage.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { customerReports: \"Build a bug report form for my invoicing app's customers. Ask for numbered steps, the browser, whether it happens every time, and a screenshot. Put each new bug in the support queue under the product area the customer picks, such as Exports or Billing.\", qaRegression: \"Build a bug report form for my QA testers. They pick the app build and platform, write the steps, and choose a severity. Connect it to GitHub on paid plans so every bug opens an issue with the steps, the build number, and a severity label.\", gameBetaTesting: \"Build a crash report form for players in my game's closed beta. Ask for the level, the device, the build, and what they did right before the crash. Give the producer a view that sorts every report by level and build.\", criticalBugs: \"Build a bug report form for my online store's staff. They choose Critical, Major, Minor, or Low. Post every Critical bug to the on-call channel in Slack as soon as it is filed, and hold Low bugs for the weekly triage on Thursday.\" };</p>",
   "howto_title": "",
   "howto_description": "",
   "howto_step_1_title": "",
@@ -279,5 +279,463 @@
   "Add a screenshot or screen recording upload that saves the file with the report.",
   "Add a severity choice that alerts the on-call channel in Slack for Critical bugs.",
   "Add a GitHub connection that opens an issue for each bug, labeled by severity."
- ]
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R6",
+    "title": "Customer bug",
+    "prompt": "Ask customers for steps, browser, and a screenshot on every bug",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Report a bug",
+       "sub": "Fernhallow Invoicing"
+      },
+      {
+       "type": "fields",
+       "items": [
+        [
+         "Browser",
+         "Safari 18"
+        ],
+        [
+         "Steps",
+         "3 steps, in order"
+        ],
+        [
+         "Happens",
+         "Every time"
+        ]
+       ]
+      },
+      {
+       "type": "text",
+       "text": "Screenshot attached: blank page",
+       "size": 16,
+       "color": "muted"
+      },
+      {
+       "type": "button",
+       "label": "Submit bug",
+       "icon": "send",
+       "full": true
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "inbox",
+     "tone": "acc",
+     "title": "Support queue: Exports",
+     "action": {
+      "label": "Open bug",
+      "icon": "arrow-right"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Invoice export is blank",
+       "size": 20,
+       "sub": "Safari 18, every time"
+      },
+      {
+       "type": "meta",
+       "icon": "list-ordered",
+       "kind": "acc",
+       "text": "3 steps to reproduce"
+      },
+      {
+       "type": "meta",
+       "icon": "image",
+       "kind": "muted",
+       "text": "Screenshot attached"
+      }
+     ]
+    },
+    "mini": {
+     "icon": "user",
+     "kind": "ok",
+     "title": "Rosalind Abernathy-Vale",
+     "sub": "Bookkeeper"
+    },
+    "alt": "Rosalind Abernathy-Vale reports a blank invoice export in Safari 18 on Fernhallow Invoicing's bug report form, with 3 steps and a screenshot, and the bug lands in the support queue under Exports.",
+    "story": [
+     {
+      "copy": "Safari 18",
+      "image": "Safari 18"
+     },
+     {
+      "copy": "she types 3 steps",
+      "image": "3 steps to reproduce"
+     },
+     {
+      "copy": "attaches a screenshot",
+      "image": "Screenshot attached"
+     },
+     {
+      "copy": "happening every time",
+      "image": "Every time"
+     },
+     {
+      "copy": "the support queue under Exports",
+      "image": "Support queue: Exports"
+     },
+     {
+      "copy": "Rosalind Abernathy-Vale",
+      "image": "Rosalind Abernathy-Vale"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "QA bug",
+    "prompt": "Open a GitHub issue with steps, build, and severity for each bug",
+    "main": {
+     "chrome": "Sablewick Transit QA",
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Trip save closes the app",
+       "sub": "Anselm Thibodeaux",
+       "chip": [
+        "Major",
+        "warn"
+       ]
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Build",
+         "4.12.0",
+         true
+        ],
+        [
+         "Platform",
+         "Android"
+        ],
+        [
+         "Steps",
+         "4 steps"
+        ]
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Bug filed",
+         "sub": "Regression week"
+        },
+        {
+         "state": "live",
+         "title": "GitHub issue opened",
+         "sub": "Steps and build copied"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "git-branch",
+     "tone": "acc",
+     "title": "GitHub issue #2187",
+     "action": {
+      "label": "Open issue",
+      "icon": "arrow-right"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Trip save closes the app",
+       "size": 20,
+       "sub": "Label: Major"
+      },
+      {
+       "type": "meta",
+       "icon": "smartphone",
+       "kind": "muted",
+       "text": "Android, build 4.12.0"
+      }
+     ]
+    },
+    "mini": {
+     "icon": "check",
+     "kind": "ok",
+     "title": "Back to testing",
+     "sub": "Anselm Thibodeaux"
+    },
+    "alt": "QA tester Anselm Thibodeaux files a Major bug on Sablewick Transit's Android build 4.12.0, and the app opens GitHub issue #2187 with his 4 steps and the build number.",
+    "story": [
+     {
+      "copy": "build 4.12.0",
+      "image": "Android, build 4.12.0"
+     },
+     {
+      "copy": "He writes down 4 steps",
+      "image": "4 steps"
+     },
+     {
+      "copy": "picks Major",
+      "image": "Major"
+     },
+     {
+      "copy": "GitHub issue #2187",
+      "image": "GitHub issue #2187"
+     },
+     {
+      "copy": "a Major label",
+      "image": "Label: Major"
+     },
+     {
+      "copy": "goes back to testing",
+      "image": "Back to testing"
+     },
+     {
+      "copy": "Anselm Thibodeaux",
+      "image": "Anselm Thibodeaux"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Beta crashes",
+    "prompt": "Sort every beta crash report by level and build",
+    "main": {
+     "chrome": "Holmgaard Games beta",
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Crash reports by level",
+       "sub": "Build 0.9.3, first week",
+       "right": "14"
+      },
+      {
+       "type": "bars",
+       "items": [
+        {
+         "label": "Level 6",
+         "value": 11,
+         "flag": true
+        },
+        {
+         "label": "Level 2",
+         "value": 2
+        },
+        {
+         "label": "Level 9",
+         "value": 1
+        }
+       ],
+       "max": 11
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Device",
+        "Level",
+        "Last action"
+       ],
+       "rows": [
+        [
+         "Pixel 8",
+         "Level 6",
+         "Rotated a tile"
+        ],
+        [
+         "iPad Air",
+         "Level 6",
+         "Undo twice"
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "flag",
+     "tone": "warn",
+     "title": "Level 6 to engineering",
+     "action": {
+      "label": "Send to engineers",
+      "icon": "arrow-right"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "11 of 14 on level 6",
+       "size": 20,
+       "sub": "Sorted by level"
+      },
+      {
+       "type": "meta",
+       "icon": "gamepad-2",
+       "kind": "muted",
+       "text": "Level, device, last action"
+      }
+     ]
+    },
+    "mini": {
+     "icon": "user",
+     "kind": "acc",
+     "title": "Ines Marchetti-Cole",
+     "sub": "Producer"
+    },
+    "alt": "Producer Ines Marchetti-Cole sorts the 14 crash reports from Holmgaard Games' beta on build 0.9.3 by level, and 11 of the 14 are on level 6, which goes to engineering first.",
+    "story": [
+     {
+      "copy": "build 0.9.3",
+      "image": "Build 0.9.3, first week"
+     },
+     {
+      "copy": "14 crash reports come in",
+      "image": "14"
+     },
+     {
+      "copy": "finds 11 on level 6",
+      "image": "11 of 14 on level 6"
+     },
+     {
+      "copy": "level 6 goes to the engineers first",
+      "image": "Level 6 to engineering"
+     },
+     {
+      "copy": "sorts them by level",
+      "image": "Sorted by level"
+     },
+     {
+      "copy": "Ines Marchetti-Cole",
+      "image": "Ines Marchetti-Cole"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Critical bug",
+    "prompt": "Post Critical bugs to on-call in Slack and hold Low ones for triage",
+    "main": {
+     "chrome": "Copperlane bugs",
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Bugs filed today",
+       "sub": "Copperlane Outfitters store"
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Bug",
+        "Severity",
+        "Goes to"
+       ],
+       "rows": [
+        [
+         "Card step fails",
+         [
+          "Critical",
+          "bad"
+         ],
+         "#on-call"
+        ],
+        [
+         "Footer typo",
+         [
+          "Low",
+          "ok"
+         ],
+         "Thursday triage"
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "message",
+     "channel": "#on-call",
+     "title": "Critical: card step fails at checkout",
+     "lines": [
+      "Filed by Dashiell Okonkwo",
+      "Same error on a test order"
+     ],
+     "button": "Open bug"
+    },
+    "mini": {
+     "icon": "clock",
+     "kind": "muted",
+     "title": "Low bugs wait",
+     "sub": "Thursday triage"
+    },
+    "alt": "Dashiell Okonkwo files a Critical bug when checkout fails at the card step on Copperlane Outfitters' store, and the app posts it to the #on-call channel in Slack while a Low footer typo waits for Thursday triage.",
+    "story": [
+     {
+      "copy": "files the bug as Critical",
+      "image": "Critical: card step fails at checkout"
+     },
+     {
+      "copy": "the #on-call channel in Slack",
+      "image": "#on-call"
+     },
+     {
+      "copy": "waits for Thursday triage",
+      "image": "Thursday triage"
+     },
+     {
+      "copy": "a typo in the footer",
+      "image": "Footer typo"
+     },
+     {
+      "copy": "Dashiell Okonkwo",
+      "image": "Filed by Dashiell Okonkwo"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "confirm",
+   "title": "Bug filed under Exports",
+   "button": "Report another bug",
+   "icon": "bug",
+   "alt": "Bug report form: a bug is filed under Exports, with a button to report another bug"
+  },
+  "og": {
+   "headline": "Build a bug report form that captures every step",
+   "lines": null,
+   "alt": "Build a bug report form that captures every step, with Emergent"
+  },
+  "checks": [
+   {
+    "fact": [
+     "Safari 18",
+     "3 steps to reproduce"
+    ],
+    "where": 1
+   },
+   {
+    "fact": [
+     "4.12.0",
+     "4 steps",
+     "GitHub issue #2187"
+    ],
+    "where": 2
+   },
+   {
+    "expr": "11 + 2 + 1 == 14",
+    "shows": [
+     "14",
+     "11 of 14 on level 6"
+    ],
+    "where": 3
+   },
+   {
+    "fact": [
+     "Build 0.9.3, first week"
+    ],
+    "where": 3
+   }
+  ]
+ }
 }
