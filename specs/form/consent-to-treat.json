@@ -30,16 +30,16 @@
   "why_title": "Why Build Consent to Treat on Emergent?",
   "why_description": "A clipboard copy proves a signature. This form also records when a patient signed, what they declined and who still has to sign today.",
   "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Jotform</th>\n        <th scope=\"col\">Google Forms</th>\n        <th scope=\"col\">Typeform</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Describe it in plain English</td>\n        <td class=\"col-other\">Templates, editor, AI generator</td>\n        <td class=\"col-other\">Editor, with Gemini drafting on some Workspace plans</td>\n        <td class=\"col-other\">Templates, editor, AI assist</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Where responses live</th>\n        <td class=\"col-brand\">A database table you own, plus any integration</td>\n        <td class=\"col-other\">Jotform account</td>\n        <td class=\"col-other\">Google Sheets</td>\n        <td class=\"col-other\">Typeform account</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Response limits</th>\n        <td class=\"col-brand\">No response caps</td>\n        <td class=\"col-other\">Monthly submission caps by plan; the form stops at the cap</td>\n        <td class=\"col-other\">No limit</td>\n        <td class=\"col-other\">Monthly response caps by plan; the form closes at the cap</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
-  "usecase_heading": "",
-  "tab_label_1": "",
-  "tab_label_2": "",
-  "tab_label_3": "",
-  "tab_label_4": "",
-  "tab_content_1": "",
-  "tab_content_2": "",
-  "tab_content_3": "",
-  "tab_content_4": "",
-  "mockup": "",
+  "usecase_heading": "Consent Signed Before the Appointment",
+  "tab_label_1": "Urgent Care",
+  "tab_label_2": "Counseling",
+  "tab_label_3": "Physical Therapy",
+  "tab_label_4": "Family Medicine",
+  "tab_content_1": "<h3>Who is still unsigned at 8:40 a.m.</h3><p>Cedar Point Urgent Care posts a code at its check-in window, and patients sign version 3 of its consent from a waiting room chair. At 8:40 a.m. the front desk's Slack channel gets a count, 11 of 12 morning patients signed, and a link to the list. No names go in the message. The last patient signs on the desk tablet.</p>",
+  "tab_content_2": "<h3>Every intake signed before the first hour</h3><p>Willow Street Counseling sends its consent with the intake link 2 days before a client's first session. The client initials the cancellation policy, 24 hours' notice, and the limits of confidentiality, then signs. The therapist gets an email that a consent form is in, with a link to the record and nothing else.</p>",
+  "tab_content_3": "<h3>No dry needling, and the therapist sees it</h3><p>Ridgeline Physical Therapy lists four treatments on its consent, and a new patient answers each one before she signs. Lena Ortiz accepts 3 of 4 and declines dry needling. Her 10:30 a.m. slot on the therapist's schedule shows the declined technique. Nobody reaches for the needles at her first visit.</p>",
+  "tab_content_4": "<h3>Every 12 months, by the clinic's own rule</h3><p>Brookside Family Medicine decided that patients re-sign its consent once a year. When a patient books, the app checks the date of the last signature on file. Paul Becker's is 13 months old, and the current wording, version 4, goes to him by email before the visit. He signs it at 9:05 a.m., before he reaches the front desk.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { urgentCare: \"Build a consent to treat form for my urgent care clinic. Patients scan a code at the check-in window and sign on their phone. Save the version number of the consent text and the signing time on each record. Show the front desk a list of today's patients and who has signed, and post a count with a link to our Slack channel at 8:40 a.m., with no patient names.\", counseling: \"My counseling practice needs a consent form that goes out with the intake link 2 days before a client's first session. Clients initial our cancellation policy, which asks for 24 hours' notice, and our section on limits of confidentiality, then sign. Email the therapist that a consent form is in, with a link to the record and no answers in the email.\", physicalTherapy: \"Build a consent form for my physical therapy clinic that lists four treatments: therapeutic exercise, manual therapy, dry needling, and heat and ice. The patient accepts or declines each one before signing. Show any declined treatment next to the patient's appointment on the therapist's schedule.\", familyMedicine: \"My family medicine clinic has patients re-sign consent every 12 months. When someone books, check the date of their last signed consent. If it is more than 12 months old, email them the current version before the visit and save the new signature with its version number and time.\" };</p>",
   "howto_title": "",
   "howto_description": "",
   "howto_step_1_title": "",
@@ -289,5 +289,442 @@
   "Add treatments a patient can decline one by one, shown on the schedule.",
   "Add a rule that consent older than 12 months goes back for signing.",
   "Add a check-in list of today's patients who have not signed."
- ]
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R9",
+    "title": "Morning check-in",
+    "alt": "Cedar Point Urgent Care's check-in list shows 11 of 12 morning patients signed on version 3 of the consent, and the front desk's Slack channel gets the count at 8:40 a.m. with no names.",
+    "prompt": "Show who has signed the consent before the morning check-in",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Cedar Point check-in",
+       "sub": "Morning patients, consent version 3"
+      },
+      {
+       "type": "list",
+       "cards": true,
+       "row_h": 96,
+       "items": [
+        {
+         "initials": "MR",
+         "name": "Maria Russo",
+         "sub": "Signed 8:12 a.m.",
+         "chip": [
+          "Signed",
+          "ok"
+         ]
+        },
+        {
+         "initials": "TB",
+         "name": "Tom Baker",
+         "sub": "Signed 8:21 a.m.",
+         "chip": [
+          "Signed",
+          "ok"
+         ]
+        },
+        {
+         "initials": "AN",
+         "name": "Alex Novak",
+         "sub": "Signed 8:33 a.m.",
+         "chip": [
+          "Signed",
+          "ok"
+         ]
+        },
+        {
+         "initials": "JL",
+         "name": "Jordan Lee",
+         "sub": "Waiting room",
+         "chip": [
+          "Not signed",
+          "warn"
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "message",
+     "channel": "front-desk",
+     "title": "Consent count, 8:40 a.m.",
+     "lines": [
+      "11 of 12 morning patients signed"
+     ],
+     "button": "Open the list"
+    },
+    "mini": {
+     "icon": "file-check",
+     "kind": "acc",
+     "title": "Signed, version 3",
+     "sub": "Saved with each signature"
+    },
+    "story": [
+     {
+      "copy": "11 of 12 morning patients signed",
+      "image": "11 of 12 morning patients signed"
+     },
+     {
+      "copy": "At 8:40 a.m.",
+      "image": "Consent count, 8:40 a.m."
+     },
+     {
+      "copy": "version 3",
+      "image": "Signed, version 3"
+     }
+    ]
+   },
+   {
+    "recipe": "R6",
+    "title": "Counseling consent",
+    "alt": "Willow Street Counseling's consent form, with the client's initials on the 24-hour cancellation policy and the limits of confidentiality, and an email to the therapist that a consent form is in.",
+    "prompt": "Send our consent with the intake link two days before the first session",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Willow Street Counseling",
+       "sub": "Consent for counseling services"
+      },
+      {
+       "type": "fields",
+       "items": [
+        [
+         "Cancellation policy, 24 hours' notice",
+         "Initialed JM"
+        ],
+        [
+         "Limits of confidentiality",
+         "Initialed JM"
+        ],
+        [
+         "Signature",
+         "Jamie Moss"
+        ]
+       ]
+      },
+      {
+       "type": "button",
+       "label": "Sign and submit",
+       "icon": "pen-line",
+       "full": true
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "mail",
+     "tone": "acc",
+     "title": "A consent form is in",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "Email to the therapist",
+       "size": 18,
+       "weight": 500,
+       "color": "ink"
+      },
+      {
+       "type": "text",
+       "text": "No answers in the message",
+       "size": 16,
+       "color": "muted"
+      },
+      {
+       "type": "meta",
+       "icon": "link",
+       "kind": "acc",
+       "text": "Link to the record"
+      }
+     ],
+     "action": {
+      "label": "Open record",
+      "icon": "file-text"
+     }
+    },
+    "mini": {
+     "icon": "calendar",
+     "kind": "ok",
+     "title": "2 days before session one",
+     "sub": "Sent with the intake link"
+    },
+    "story": [
+     {
+      "copy": "24 hours' notice",
+      "image": "Cancellation policy, 24 hours' notice"
+     },
+     {
+      "copy": "2 days before a client's first session",
+      "image": "2 days before session one"
+     },
+     {
+      "copy": "a consent form is in",
+      "image": "A consent form is in"
+     },
+     {
+      "copy": "limits of confidentiality",
+      "image": "Limits of confidentiality"
+     }
+    ]
+   },
+   {
+    "recipe": "R8",
+    "title": "Treatment choices",
+    "alt": "Ridgeline Physical Therapy's consent lists four treatments, Lena Ortiz accepts 3 of 4 and declines dry needling, and her 10:30 a.m. slot on the schedule shows the declined technique.",
+    "prompt": "Let patients accept or decline each treatment and show it on the schedule",
+    "rule": "If a treatment is declined → show it on the schedule",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Lena Ortiz, treatment consent",
+       "size": 20,
+       "chip": [
+        "3 of 4 accepted",
+        "acc"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Treatment",
+        "Answer"
+       ],
+       "widths": [
+        0.62,
+        0.38
+       ],
+       "row_h": 72,
+       "highlight": 2,
+       "rows": [
+        [
+         "Therapeutic exercise",
+         [
+          "Accepted",
+          "ok"
+         ]
+        ],
+        [
+         "Manual therapy",
+         [
+          "Accepted",
+          "ok"
+         ]
+        ],
+        [
+         "Dry needling",
+         [
+          "Declined",
+          "bad"
+         ]
+        ],
+        [
+         "Heat and ice",
+         [
+          "Accepted",
+          "ok"
+         ]
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "calendar",
+     "title": "10:30 a.m., Lena Ortiz",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "First visit, evaluation",
+       "size": 18,
+       "weight": 500,
+       "color": "ink"
+      },
+      {
+       "type": "meta",
+       "icon": "circle-x",
+       "kind": "acc",
+       "text": "Declined: dry needling"
+      },
+      {
+       "type": "text",
+       "text": "On the therapist's schedule",
+       "size": 16,
+       "color": "muted"
+      }
+     ],
+     "action": {
+      "label": "Open schedule",
+      "icon": "calendar-days"
+     }
+    },
+    "mini": {
+     "icon": "file-check",
+     "kind": "ok",
+     "title": "Consent signed",
+     "sub": "Accepted 3 of 4 treatments"
+    },
+    "story": [
+     {
+      "copy": "declines dry needling",
+      "image": "Declined: dry needling"
+     },
+     {
+      "copy": "accepts 3 of 4",
+      "image": "3 of 4 accepted"
+     },
+     {
+      "copy": "10:30 a.m.",
+      "image": "10:30 a.m., Lena Ortiz"
+     },
+     {
+      "copy": "shows the declined technique",
+      "image": "If a treatment is declined"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Yearly re-sign",
+    "alt": "Brookside Family Medicine's consent record shows Paul Becker's last signature at 13 months old, the current version 4 sent by email, and his new signature at 9:05 a.m.",
+    "prompt": "Send the current consent to any patient whose signature is over 12 months old",
+    "main": {
+     "chrome": "Brookside records",
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Paul Becker",
+       "sub": "Consent on file"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Clinic rule",
+         "Re-sign every 12 months"
+        ],
+        [
+         "Sent by",
+         "Email, before the visit"
+        ]
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Last signature found",
+         "sub": "13 months old"
+        },
+        {
+         "state": "done",
+         "title": "Current version 4 sent",
+         "sub": "By email, before the visit"
+        },
+        {
+         "state": "live",
+         "title": "Signed at 9:05 a.m.",
+         "sub": "Version 4 saved to his record"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "check",
+     "tone": "ok",
+     "title": "Consent renewed",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "Signed at 9:05 a.m.",
+       "size": 18,
+       "weight": 500,
+       "color": "ink"
+      },
+      {
+       "type": "text",
+       "text": "Before he reached the front desk",
+       "size": 16,
+       "color": "muted"
+      },
+      {
+       "type": "meta",
+       "icon": "calendar-clock",
+       "kind": "acc",
+       "text": "Re-sign again in 12 months"
+      }
+     ],
+     "action": {
+      "label": "Open record",
+      "icon": "file-text"
+     }
+    },
+    "mini": {
+     "icon": "mail",
+     "kind": "acc",
+     "title": "Current wording sent",
+     "sub": "Version 4, by email"
+    },
+    "story": [
+     {
+      "copy": "13 months old",
+      "image": "13 months old"
+     },
+     {
+      "copy": "version 4",
+      "image": "Current version 4 sent"
+     },
+     {
+      "copy": "He signs it at 9:05 a.m.",
+      "image": "Signed at 9:05 a.m."
+     },
+     {
+      "copy": "Every 12 months, by the clinic's own rule",
+      "image": "Re-sign again in 12 months"
+     },
+     {
+      "copy": "before he reaches the front desk",
+      "image": "Before he reached the front desk"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "confirm",
+   "title": "Consent signed",
+   "button": "See your visit",
+   "icon": "check",
+   "alt": "A consent to treat form confirmation a patient sees on their phone after signing, with a button to see the visit."
+  },
+  "og": {
+   "headline": "Build a consent to treat form patients sign ahead",
+   "alt": "Build a consent to treat form patients sign ahead, with Emergent"
+  },
+  "checks": [
+   {
+    "expr": "11 <= 12",
+    "shows": [],
+    "where": 1
+   },
+   {
+    "expr": "3 + 1 == 4",
+    "shows": [],
+    "where": 3
+   },
+   {
+    "expr": "13 > 12",
+    "shows": [],
+    "where": 4
+   }
+  ]
+ }
 }
