@@ -2,10 +2,9 @@
 # Trigger: a push to main touching specs/, pipeline/briefs/ or status/render-queue.txt, or a manual run with a page list.
 # Uses only GITHUB_TOKEN (contents: write) to commit the outputs back; no other secrets.
 name: render
+# 2026-11-13 (B-c-2): push trigger disabled. With many writers sharing one clone and rendering locally, the Action's re-render
+# commits raced their uncommitted specs/images (refused merges, autostash resets that lost writer work). Manual runs only.
 on:
-  push:
-    branches: [main]
-    paths: ["specs/**", "pipeline/briefs/**", "status/render-queue.txt"]
   workflow_dispatch:
     inputs:
       pages:
