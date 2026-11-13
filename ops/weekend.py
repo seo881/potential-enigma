@@ -41,7 +41,7 @@ AUTH_RUNS = {"auto-r1014": 22,    # Divit 2026-10-14 step 3: the 11 Automation n
 # Runs Divit authorised to REFRESH a stale pull (over 30 days) for named pages only: the saved pull is archived beside it
 # (<name>.stale-<fetched>.json), the never-re-pull and per-page rules give way to the run cap, which still stops the run.
 REFRESH_RUNS = {"diet-r1113": {"/ai-survey-and-quiz-builder/diet"},
-                "revive-r1113": {"/ai-form-builder/home-inspection", "/ai-form-builder/membership", "/ai-survey-and-quiz-builder/board"}}
+                "revive-r1113": {"/ai-form-builder/home-inspection", "/ai-form-builder/membership", "/ai-survey-and-quiz-builder/board", "/ai-automation-builder/restaurant"}}
 STATE = os.path.join(ROOT, "status", "weekend-run.json")
 PLAN = os.path.join(ROOT, "plan", "weekend-run.md")
 STOP = os.path.join(ROOT, "STOP")
