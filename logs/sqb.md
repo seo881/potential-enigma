@@ -110,3 +110,6 @@
 - 2026-11-13 12:53 UTC: api-create: 1 draft(s) created via Data API at 4882a44 (questions-for-social-media); read back 107 items; verified 1, mismatched 0; before childedits/2026-11-13/sqb.api-create.4882a44.before.json; rollback childedits/2026-11-13/sqb.api-create.4882a44.20261113T125259Z.rollback.json
 - 2026-11-13 12:54 UTC: api-update fix-2026-11-13-matching-update-6ab24754757025d10940d04e.json: 1 item(s) updated via Data API; read back; 0 field mismatch(es); rollback childedits/2026-11-13/fix-2026-11-13-matching-update-6ab24754757025d10940d04e.20261113T125349Z.rollback.json
 - 2026-11-13 12:55 UTC: api-publish: 1 item(s) item-published via Data API (no site publish); errors 0; not published 0; before childedits/2026-11-13/sqb.api-publish.5ae4b5e5.before.json; rollback childedits/2026-11-13/sqb.api-publish.5ae4b5e5.20261113T125458Z.rollback.json
+
+## 2026-11-13 post-live fix /ai-survey-and-quiz-builder/matching (B-fix-3)
+Item 6af7027a8e238bbbac864968: update_collection_items (acrm---key-feature-4-content, acrm---key-feature-2-image), read back clean, publish_collection_items for this item only. Before: childedits/2026-11-13/matching.fix-2026-11-13-matching.before.json; rollback: childedits/2026-11-13/fix-2026-11-13-matching-update-6ab24754757025d10940d04e.20261113T125349Z.rollback.json. No site publish.
