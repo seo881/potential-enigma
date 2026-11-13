@@ -1233,7 +1233,7 @@ def overnight_golden(c):
             G.LIFT_FILE = lift; G.STANDING_GO_DIR = sgd; globals()["spath"] = lambda x: sp; globals()["GO_DIR"] = os.path.join(tmp, "go")
             globals()["load_st"] = lambda h: {"pages": {u: {"state": c.get("cur", "reviewed")}}}
             globals()["set_state"] = lambda *a, **k: calls.append((a, k))
-            globals()["ship_check"] = lambda x: list(c.get("ship_problems") or [])
+            globals()["ship_check"] = lambda x, **_k: list(c.get("ship_problems") or [])
             want = G.standing_go_log()
             try:
                 with contextlib.redirect_stdout(io.StringIO()): cmd_state([u, c.get("state", "approved"), "--by", c.get("by", "standing-go")]); refused = False
