@@ -55,7 +55,7 @@
   "howto_step_2_des": "Write your hold rules as plain sentences: a quoted price off the contract, a new order that pushes an account past its credit limit, a part number missing from the catalog. Name the person who decides each one. A hold without an owner sits forever.",
   "howto_step_3_des": "Import each customer's contract prices and credit limit, with open balances from your accounting system. Emergent builds the checks against those tables. An account manager can then change a price later without anyone touching the rules themselves.",
   "howto_step_4_des": "Connect the system that holds your orders and stock, such as NetSuite or QuickBooks. Stock levels sync in before each release and released orders sync back with their status. For order fulfillment automation, the pick list reads from that same table.",
-  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Order Processing Questions, Answered\", \"items\": [{\"q\": \"What is order processing automation?\", \"a\": \"Order processing automation is software that carries a customer order from the moment it arrives until it is released to the warehouse, running the checks a person would otherwise run by hand. Clean orders go straight through. Your team only sees the orders that break a rule, such as a wrong price or a customer past their limit.\"}, {\"q\": \"How do I set up order processing automation?\", \"a\": \"Write down where orders arrive and which ones your desk stops today, then describe both in plain English to Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>. Emergent builds the workflow and the database behind it. Connect your ERP through its API so released orders land where your accounting team expects them, and change any rule later by prompting.\"}, {\"q\": \"How to automate order processing?\", \"a\": \"Automate the checks that repeat identically on every order first, such as matching part numbers to your catalog. Keep judgment calls with people: a customer asking for special terms still belongs to a rep. Widen the rules as the share of untouched orders grows. Emergent sets no task cap on the workflows it builds, however many orders arrive in a day.\"}, {\"q\": \"How can I automate the purchase order process?\", \"a\": \"A seller automates the purchase order process by turning each customer's PO into a sales order and checking it against the contract before anything ships. Buyers automate the other end: drafting purchase orders from approved requests and sending them to suppliers is the work of <a href='https://emergent.sh/ai-automation-builder/purchase-order'>purchase order automation</a>.\"}, {\"q\": \"How can I automate purchase orders?\", \"a\": \"As a supplier, stop retyping them. An app can read each emailed PO into fields with AI, from part numbers to quantities, and pass any field it is unsure of to a person. Keep the PO number on the sales order it creates. Then a buyer who calls about PO 4417 can be answered in seconds.\"}, {\"q\": \"Can AI do order entry?\", \"a\": \"Yes, for orders that arrive as emails or documents. AI reads each line into an order, and a person checks the fields it reads with low confidence. Order entry is one of the most common uses of <a href='https://emergent.sh/ai-automation-builder/data-entry'>data entry automation</a>. Measure how often people correct a field in the first month before you let any order skip review.\"}, {\"q\": \"What does automated order management cover?\", \"a\": \"It covers everything that happens to an order after entry, up to the status a buyer sees when they check on it. Automated order management keeps one record per order that every step updates, holds included. Otherwise the warehouse keeps one version of where an order stands while customer service keeps another.\"}, {\"q\": \"What should an automated order management system connect to?\", \"a\": \"At minimum, it should connect to the system that holds your inventory and invoices, such as your ERP. An automated order management system that cannot read stock levels will promise lines it cannot ship. Built on Emergent, the app connects to any tool with an API and keeps the records in sync.\"}, {\"q\": \"When does order management automation pay off?\", \"a\": \"It pays off once most orders follow the same few rules and the desk spends its day retyping them. A business keying a handful of orders a week gains little from order management automation. A distributor with hundreds of emailed POs a day gains the most. With Emergent, the full code can be exported to GitHub on paid plans if you later move it in-house.\"}, {\"q\": \"How is order fulfillment automation different from order processing?\", \"a\": \"Order processing ends when an order is checked and released, and order fulfillment automation picks up from there with picking and packing. The two share one order record, which is how a buyer sees tracking on the order they placed. Label buying and carrier choice fall under <a href='https://emergent.sh/ai-automation-builder/shipping'>shipping automation</a>.\"}]}; </script></div></div>",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Order Processing Questions, Answered\", \"items\": [{\"q\": \"What is order processing automation?\", \"a\": \"Order processing automation is software that carries a customer order from the moment it arrives until it is released to the warehouse, running the checks a person would otherwise run by hand. Clean orders go straight through. Your team only sees the orders that break a rule, such as a wrong price or a customer past their limit.\"}, {\"q\": \"How do I set up order processing automation?\", \"a\": \"Write down where orders arrive and which ones your desk stops today, then describe both in plain English to Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>. Emergent builds the workflow and the database behind it. Connect your ERP through its API so released orders land where your accounting team expects them, and change any rule later by prompting.\"}, {\"q\": \"What order data do I need before building order processing automation?\", \"a\": \"Start with your catalog and its part numbers, then the price and credit tables the checks will read. Add a cross-reference for customers who order by their own part numbers, since a PO line reading HH-DS22 has to map to your SKU. Emergent sets no task cap on the workflows it builds, however many orders arrive in a day.\"}, {\"q\": \"What should happen to an order that fails a price or credit check?\", \"a\": \"Hold the order at the step that failed and send it to the one person who owns that decision, with the reason attached. A price mismatch goes to the account rep; an account over its limit goes to credit. The buyer can still get a receipt that the order arrived, and that email is the work of <a href='https://emergent.sh/ai-automation-builder/order-confirmation'>order confirmation automation</a>, not of the hold.\"}, {\"q\": \"Can order processing automation read emailed orders into sales orders?\", \"a\": \"Yes. Point the app at the inbox where customers send orders, and it reads each attachment into fields with AI: customer, PO number, part numbers, quantities, and prices. Any field it reads with low confidence goes to a person before the sales order is drafted. Track how often the desk corrects a field during the first month, account by account.\"}, {\"q\": \"How does order processing handle a customer who sends the same order twice?\", \"a\": \"The app looks up the customer's PO number before it drafts a sales order. If that number already sits on an open order, the second email is parked for the desk with a link to the first, and nothing new reaches the warehouse. A person then decides whether it is a resend or a genuine change to quantities.\"}, {\"q\": \"What does automated order management cover after an order is entered?\", \"a\": \"It covers everything after entry, up to the status a buyer sees when they check on it. Automated order management keeps one record per order that every step writes to. The warehouse and customer service then read one status from it. Reorder points and stock counts sit with <a href='https://emergent.sh/ai-automation-builder/automated-inventory-management'>automated inventory management</a>, which feeds the stock check.\"}, {\"q\": \"What should an automated order management system connect to?\", \"a\": \"At minimum, it should connect to the system that holds your inventory and invoices, such as your ERP. An automated order management system that cannot read stock levels will promise lines it cannot ship. Built on Emergent, the app connects to any tool with an API and keeps the records in sync in both directions.\"}, {\"q\": \"When is order management automation worth building?\", \"a\": \"Build it when your desk spends its day retyping the same fields from emails into the ERP, and when holds get lost in someone's inbox. A shop keying a handful of orders a week can stay manual. Emergent builds order management automation from a plain-English description of the rules your desk already follows.\"}, {\"q\": \"How is order fulfillment automation different from order processing?\", \"a\": \"Order processing ends when an order is checked and released, and order fulfillment automation picks up from there with picking and packing. Both read one order record, which is how a buyer sees tracking on the order they placed. Buying stock from suppliers to cover a backorder is a separate job, handled by <a href='https://emergent.sh/ai-automation-builder/procurement'>procurement automation</a>.\"}]}; </script></div></div>",
   "learn": null,
   "tutorials": null,
   "case_study": null,
@@ -141,6 +141,27 @@
    "via": "slug-migration",
    "by": "slug_migrate",
    "note": "slug order-processing-automation -> order-processing; 7 child link(s) rewritten (DECISIONS 2026-10-23); stamps current before were restamped"
+  },
+  {
+   "t": "2026-11-13 08:11 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "B-w-637",
+   "note": ""
+  },
+  {
+   "t": "2026-11-13 08:12 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-637",
+   "note": ""
+  },
+  {
+   "t": "2026-11-13 08:13 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-637",
+   "note": ""
   }
  ],
  "plan": {
@@ -167,10 +188,10 @@
    "Where is my order, answered by the PO number"
   ],
   "claims_to_source": [
-   "A sales order is the seller's document created from a customer's purchase order",
-   "A credit hold stops an order when the customer's open balance plus the new order exceeds its credit limit",
-   "A backorder is the part of an order line that cannot be filled from stock on hand and ships when stock arrives",
-   "Business customers often send purchase orders by email as PDF attachments"
+   "A sales order records the items a seller promises a customer and carries the customer's PO number",
+   "An order that pushes a customer's credit used past its limit is placed on credit hold",
+   "A backorder is an accepted order, or part of one, that cannot ship because stock is not available",
+   "Customer orders arrive as PDF files and free-text email bodies that software reads into orders"
   ]
  },
  "table": {
@@ -211,120 +232,94 @@
  ],
  "domain_sources": [
   {
-   "claim": "A sales order is the seller's document created from a customer's purchase order",
+   "claim": "A sales order records the items a seller promises a customer and carries the customer's PO number",
    "source_url": "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N1216500.html",
-   "date": "2026-10-13"
+   "date": "2026-11-13",
+   "quote": "Enter sales orders to record items and services that you promise to customers."
   },
   {
-   "claim": "A credit hold stops an order when the customer's open balance plus the new order exceeds its credit limit",
+   "claim": "An order that pushes a customer's credit used past its limit is placed on credit hold",
    "source_url": "https://learn.microsoft.com/en-us/dynamics365/finance/accounts-receivable/cm-sales-order-credit-holds",
-   "date": "2026-10-13"
+   "date": "2026-11-13",
+   "quote": "If the value of an order increases the amount of the credit limit used above the percentage, the order is placed on hold."
   },
   {
-   "claim": "A backorder is the part of an order line that cannot be filled from stock on hand and ships when stock arrives",
+   "claim": "A backorder is an accepted order, or part of one, that cannot ship because stock is not available",
    "source_url": "https://simfoni.com/glossary/backorder/",
-   "date": "2026-10-13"
+   "date": "2026-11-13",
+   "quote": "A Backorder is an accepted order that cannot ship immediately because inventory is not available."
   },
   {
-   "claim": "Business customers often send purchase orders by email as PDF attachments",
+   "claim": "Customer orders arrive as PDF files and free-text email bodies that software reads into orders",
    "source_url": "https://www.esker.com/business-process-solutions/order-to-cash/customer-service-automation/order-management-automation-system/",
-   "date": "2026-10-13"
+   "date": "2026-11-13",
+   "quote": "semi-structured PDF files or unstructured free-text email bodies"
   }
  ],
  "faq_sources": [
   {
    "q": "What is order processing automation?",
-   "source": "definition",
-   "ref": "order processing automation"
+   "source": "written",
+   "ref": "order processing automation",
+   "origin": "definition"
   },
   {
    "q": "How do I set up order processing automation?",
-   "source": "definition",
-   "ref": "order processing automation"
+   "source": "written",
+   "ref": "order processing automation",
+   "origin": "definition"
   },
   {
-   "q": "How to automate order processing?",
-   "source": "alsoasked",
-   "ref": "How to automate order processing?",
-   "prov": {
-    "tool": "alsoasked-api",
-    "query": "order processing automation",
-    "depth": 1,
-    "parent": null,
-    "fetched": "2026-10-13",
-    "original": "How to automate order processing?",
-    "region": "us",
-    "language": "en",
-    "fallback": false
-   }
+   "q": "What order data do I need before building order processing automation?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
   },
   {
-   "q": "How can I automate the purchase order process?",
-   "source": "alsoasked",
-   "ref": "How can I automate the purchase order process?",
-   "prov": {
-    "tool": "alsoasked-api",
-    "query": "order processing automation",
-    "depth": 1,
-    "parent": null,
-    "fetched": "2026-10-13",
-    "original": "How can I automate the purchase order process?",
-    "region": "us",
-    "language": "en",
-    "fallback": false
-   }
+   "q": "What should happen to an order that fails a price or credit check?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
   },
   {
-   "q": "How can I automate purchase orders?",
-   "source": "alsoasked",
-   "ref": "How can I automate purchase orders?",
-   "prov": {
-    "tool": "alsoasked-api",
-    "query": "automated order management",
-    "depth": 1,
-    "parent": null,
-    "fetched": "2026-10-15",
-    "original": "How can I automate purchase orders?",
-    "region": "us",
-    "language": "en",
-    "fallback": false
-   }
+   "q": "Can order processing automation read emailed orders into sales orders?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
   },
   {
-   "q": "Can AI do order entry?",
-   "source": "alsoasked",
-   "ref": "Can AI do order entry?",
-   "prov": {
-    "tool": "alsoasked-api",
-    "query": "order processing automation",
-    "depth": 1,
-    "parent": null,
-    "fetched": "2026-10-13",
-    "original": "Can AI do order entry?",
-    "region": "us",
-    "language": "en",
-    "fallback": false
-   }
+   "q": "How does order processing handle a customer who sends the same order twice?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
   },
   {
-   "q": "What does automated order management cover?",
-   "source": "secondary",
-   "ref": "automated order management"
+   "q": "What does automated order management cover after an order is entered?",
+   "source": "written",
+   "ref": "automated order management",
+   "origin": "written",
+   "secondary": "automated order management"
   },
   {
    "q": "What should an automated order management system connect to?",
-   "source": "secondary",
-   "ref": "automated order management system"
+   "source": "written",
+   "ref": "automated order management system",
+   "origin": "written",
+   "secondary": "automated order management system"
   },
   {
-   "q": "When does order management automation pay off?",
-   "source": "secondary",
-   "ref": "order management automation"
+   "q": "When is order management automation worth building?",
+   "source": "written",
+   "ref": "order management automation",
+   "origin": "written",
+   "secondary": "order management automation"
   },
   {
    "q": "How is order fulfillment automation different from order processing?",
-   "source": "secondary",
-   "ref": "order fulfillment automation"
+   "source": "written",
+   "ref": "order fulfillment automation",
+   "origin": "written",
+   "secondary": "order fulfillment automation"
   }
  ],
  "image_brief": {
@@ -919,11 +914,12 @@
  },
  "faq_heading": "Order Processing Questions, Answered",
  "qc_passed": {
-  "rules_version": "c11ffd191398",
-  "date": "2026-10-15 13:36 UTC"
+  "rules_version": "3242945ee9b6",
+  "date": "2026-11-13 08:13 UTC"
  },
  "writers": [
-  "B-w-115"
+  "B-w-115",
+  "B-w-637"
  ],
  "review": {
   "by": "B-r-20",
@@ -1204,5 +1200,149 @@
   },
   "all": "30b90947f402be9d",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
- }
+ },
+ "pipeline": "r15",
+ "faq_plan": [
+  {
+   "kind": "definition",
+   "q": "What is order processing automation?",
+   "ref": "order processing automation",
+   "locked": true,
+   "n": 1,
+   "a": "Order processing automation is software that carries a customer order from the moment it arrives until it is released to the warehouse, running the checks a person would otherwise run by hand. Clean orders go straight through. Your team only sees the orders that break a rule, such as a wrong price or a customer past their limit.",
+   "link": null
+  },
+  {
+   "kind": "definition",
+   "q": "How do I set up order processing automation?",
+   "ref": "order processing automation",
+   "locked": true,
+   "n": 2,
+   "a": "Write down where orders arrive and which ones your desk stops today, then describe both in plain English to Emergent's AI automation builder. Emergent builds the workflow and the database behind it. Connect your ERP through its API so released orders land where your accounting team expects them, and change any rule later by prompting.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder",
+    "anchor": "AI automation builder",
+    "write_as": "Emergent's AI automation builder"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "What order data do I need before building order processing automation?",
+   "ref": null,
+   "prov": null,
+   "locked": false,
+   "flagged": [],
+   "n": 3,
+   "a": "Start with your catalog and its part numbers, then the price and credit tables the checks will read. Add a cross-reference for customers who order by their own part numbers, since a PO line reading HH-DS22 has to map to your SKU. Emergent sets no task cap on the workflows it builds, however many orders arrive in a day.",
+   "link": null,
+   "dropped": "AlsoAsked pull 2026-10-13 over 30 days (F6); near-dup of slot 2; writer may not re-pull (orchestrator brief)"
+  },
+  {
+   "kind": "written",
+   "q": "What should happen to an order that fails a price or credit check?",
+   "ref": null,
+   "prov": null,
+   "locked": false,
+   "flagged": [],
+   "n": 4,
+   "a": "Hold the order at the step that failed and send it to the one person who owns that decision, with the reason attached. A price mismatch goes to the account rep; an account over its limit goes to credit. The buyer can still get a receipt that the order arrived, and that email is the work of order confirmation automation, not of the hold.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/order-confirmation",
+    "anchor": "order confirmation automation"
+   },
+   "secondary": null,
+   "dropped": "purchase-order intent owned by live /ai-automation-builder/purchase-order (review B-r-20 2026-10-15; orchestrator brief 2026-11-13)"
+  },
+  {
+   "kind": "written",
+   "q": "Can order processing automation read emailed orders into sales orders?",
+   "ref": null,
+   "prov": null,
+   "locked": false,
+   "flagged": [],
+   "n": 5,
+   "a": "Yes. Point the app at the inbox where customers send orders, and it reads each attachment into fields with AI: customer, PO number, part numbers, quantities, and prices. Any field it reads with low confidence goes to a person before the sales order is drafted. Track how often the desk corrects a field during the first month, account by account.",
+   "link": null,
+   "secondary": null,
+   "dropped": "purchase-order intent owned by live /ai-automation-builder/purchase-order (review B-r-20 2026-10-15; orchestrator brief 2026-11-13)"
+  },
+  {
+   "kind": "written",
+   "q": "How does order processing handle a customer who sends the same order twice?",
+   "ref": null,
+   "prov": null,
+   "locked": false,
+   "flagged": [],
+   "n": 6,
+   "a": "The app looks up the customer's PO number before it drafts a sales order. If that number already sits on an open order, the second email is parked for the desk with a link to the first, and nothing new reaches the warehouse. A person then decides whether it is a resend or a genuine change to quantities.",
+   "link": null,
+   "secondary": null,
+   "dropped": "purchase-order intent owned by live /ai-automation-builder/purchase-order (review B-r-20 2026-10-15; orchestrator brief 2026-11-13)"
+  },
+  {
+   "kind": "written",
+   "q": "What does automated order management cover after an order is entered?",
+   "ref": "automated order management",
+   "secondary": "automated order management",
+   "locked": false,
+   "n": 7,
+   "a": "It covers everything after entry, up to the status a buyer sees when they check on it. Automated order management keeps one record per order that every step writes to. The warehouse and customer service then read one status from it. Reorder points and stock counts sit with automated inventory management, which feeds the stock check.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/automated-inventory-management",
+    "anchor": "automated inventory management"
+   }
+  },
+  {
+   "kind": "written",
+   "q": "What should an automated order management system connect to?",
+   "ref": "automated order management system",
+   "secondary": "automated order management system",
+   "locked": false,
+   "n": 8,
+   "a": "At minimum, it should connect to the system that holds your inventory and invoices, such as your ERP. An automated order management system that cannot read stock levels will promise lines it cannot ship. Built on Emergent, the app connects to any tool with an API and keeps the records in sync in both directions.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "When is order management automation worth building?",
+   "ref": "order management automation",
+   "secondary": "order management automation",
+   "locked": false,
+   "n": 9,
+   "a": "Build it when your desk spends its day retyping the same fields from emails into the ERP, and when holds get lost in someone's inbox. A shop keying a handful of orders a week can stay manual. Emergent builds order management automation from a plain-English description of the rules your desk already follows.",
+   "link": null
+  },
+  {
+   "kind": "written",
+   "q": "How is order fulfillment automation different from order processing?",
+   "ref": "order fulfillment automation",
+   "secondary": "order fulfillment automation",
+   "locked": false,
+   "n": 10,
+   "a": "Order processing ends when an order is checked and released, and order fulfillment automation picks up from there with picking and packing. Both read one order record, which is how a buyer sees tracking on the order they placed. Buying stock from suppliers to cover a backorder is a separate job, handled by procurement automation.",
+   "link": {
+    "url": "https://emergent.sh/ai-automation-builder/procurement",
+    "anchor": "procurement automation"
+   }
+  }
+ ],
+ "skeleton": {
+  "built_by": "B-w-637",
+  "built": "2026-11-13 08:04 UTC",
+  "slots": 10,
+  "flagged": 0,
+  "flag_subtypes": [],
+  "locked": 6,
+  "table": true
+ },
+ "learn_refs": [
+  "6a1729ad1817ffd0330c987d",
+  "6abe38fbf322d0af73b37238",
+  "6a172321c4c836a09c1ce435"
+ ],
+ "learn_refs_why": [
+  "best-ai-workflow-builders: Auto fixed set: the hub's category: what an AI workflow builder is and how to choose one",
+  "how-to-build-an-ai-agent: Auto fixed set: step-by-step build of an agent that handles leads and intake, the AI step inside most automations",
+  "best-no-code-agent-builders: Auto fixed set: no-code agent builders for workflow automation, for readers who want automations without code"
+ ]
 }
