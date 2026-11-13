@@ -26,6 +26,12 @@ FONTS = ["/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", "/Sy
 FONT = next((f for f in FONTS if os.path.exists(f)), FONTS[0])
 
 # ---------------- text helpers ----------------
+
+def f6_applies(spec):
+    """Divit 2026-11-13: F6 (AlsoAsked pull over 30 days old) applies only when the page's FAQ carries AlsoAsked questions
+    (faq_sources source 'alsoasked' or 'paa'). A FAQ of written and locked questions does not depend on the pull's freshness."""
+    return any((x or {}).get("source") in ("alsoasked", "paa") for x in (spec.get("faq_sources") or []))
+
 def strip_html(s): return unescape(re.sub(r"<[^>]+>", " ", s or "")).replace("\\\"", '"')
 def words(s): return re.findall(r"[A-Za-z0-9][A-Za-z0-9'\-/.%$]*", strip_html(s))
 def norm(s): return re.sub(r"\s+", " ", strip_html(s).lower()).strip()
@@ -1021,7 +1027,7 @@ def check(spec, siblings):
             sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate as _PG, datetime as _dt
             _ap = _PG.pull_path(_PG._store_key(spec["url"]))
             _f = json.load(open(_ap))["_meta"]["fetched"][:10] if os.path.exists(_ap) else None
-            if _f and (_dt.date.today() - _dt.date.fromisoformat(_f)).days > 30: add("P1", "F6", "serp", f"AlsoAsked pull from {_f} is over 30 days old: re-pull it and re-check the FAQ")
+            if _f and (_dt.date.today() - _dt.date.fromisoformat(_f)).days > 30 and f6_applies(spec): add("P1", "F6", "serp", f"AlsoAsked pull from {_f} is over 30 days old: re-pull it and re-check the FAQ")
         except Exception: pass
         if spec.get("approval"):
             try:

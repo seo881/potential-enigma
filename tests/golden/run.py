@@ -263,6 +263,9 @@ def caught(c):
         g = PG.Gate(c["url"]); it = {"q": c["q"], "source": "written", "origin": c.get("origin"), "n": 1, "legacy": False}
         lv = {r[1] for r in g.judge(it) if r[0] == c["rule"]}
         return lv == set(c["expect_levels"])
+    if c["kind"] == "f6-applies":   # Divit 2026-11-13: F6 only when the FAQ carries AlsoAsked questions
+        sys.path.insert(0, os.path.join(ROOT, "qc")); import qc_hub as QH
+        return QH.f6_applies({"faq_sources": c["faq_sources"]}) == c["expect"]
     if c["kind"] == "ymyl":   # SHIP-FIRST (Divit 2026-11-12): YMYL pages keep the pre-ship review (rules/ymyl.json)
         import hubctl as H
         return bool(H.ymyl(c["url"], {"keywords": {"primary": c.get("primary", "")}})) == c["expect_ymyl"]

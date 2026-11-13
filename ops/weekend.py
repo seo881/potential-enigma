@@ -34,7 +34,11 @@ AUTH_RUNS = {"auto-r1014": 22,    # Divit 2026-10-14 step 3: the 11 Automation n
              "bp1-r1015": 6,      # Divit 2026-10-15 ("pulls for the other 8 now", ruling 22): the 6 needs-pull pages of the spec triage, the final pull each
              "bp2-r1015": 24,     # Divit 2026-10-15 ("queue writers on relevance-checked queued pages across all 4 hubs", ruling 22): top 12 clean queued pages, cap 2 pulls each
              "ca-r1015": 1,       # Divit 2026-10-15: creator-application, one pull on "creator application form" (--kw secondary --term)
-             "night-r1015": 60}   # Divit 2026-10-15 night: the overnight loop's pulls, at most 60 credits (key from the keychain, B-dev-17)
+             "night-r1015": 60,   # Divit 2026-10-15 night: the overnight loop's pulls, at most 60 credits (key from the keychain, B-dev-17)
+             "diet-r1113": 10}    # Divit 2026-11-13: diet re-pull (F6 stale pull, FAQ quotes AlsoAsked), max 10 credits
+# Runs Divit authorised to REFRESH a stale pull (over 30 days) for named pages only: the saved pull is archived beside it
+# (<name>.stale-<fetched>.json), the never-re-pull and per-page rules give way to the run cap, which still stops the run.
+REFRESH_RUNS = {"diet-r1113": {"/ai-survey-and-quiz-builder/diet"}}
 STATE = os.path.join(ROOT, "status", "weekend-run.json")
 PLAN = os.path.join(ROOT, "plan", "weekend-run.md")
 STOP = os.path.join(ROOT, "STOP")
@@ -278,7 +282,13 @@ def cmd_aa(args):
     shared = os.path.realpath(os.path.expanduser("~/emergent-hubs/private/alsoasked"))
     if os.path.realpath(os.path.join(ROOT, "private", "alsoasked")) != shared:
         sys.exit(f"refused: private/alsoasked here resolves to {os.path.realpath(os.path.join(ROOT, 'private', 'alsoasked'))}, not the shared {shared} (TWO_ACCOUNTS setup 4)")
-    if saved() not in (None, "no_results"): print(f"{name}: saved pull reused (private/alsoasked/{name}.json); no new pull"); return
+    refresh = run in REFRESH_RUNS and url in REFRESH_RUNS[run] and not sec
+    if refresh:
+        try: fetched = json.load(open(pull))["_meta"]["fetched"][:10]
+        except (OSError, ValueError, KeyError): fetched = None
+        if not fetched or (datetime.date.today() - datetime.date.fromisoformat(fetched)).days <= 30:
+            sys.exit(f"{name}: refresh run {run} only refreshes a saved pull over 30 days old (saved: {fetched or 'none'})")
+    if saved() not in (None, "no_results") and not refresh: print(f"{name}: saved pull reused (private/alsoasked/{name}.json); no new pull"); return
     if opt("--term") and not (sec and run in AUTH_RUNS): sys.exit("--term needs --kw secondary and an authorised --run")
     term = opt("--term") or (top_secondary(url) if sec else (H.kmap().get(url) or {}).get("primary"))   # --term: Divit-named seed (2026-10-15)
     if not term: sys.exit(f"{s}: " + ("no secondary that PA15 allows and that differs from the primary" if sec else "not in the keyword map"))
@@ -288,13 +298,15 @@ def cmd_aa(args):
         for attempt in (1, 2):
             rows = [r for r in credits_rows("") if r.get("slug") == name]
             used = page_spent(s); total, _ = cmd_credits([])
-            verdict, why = aa_decision(rows, saved(), datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"))
+            verdict, why = ("pull-fresh", f"stale-pull refresh authorised by run {run}") if refresh else aa_decision(rows, saved(), datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"))
             if verdict == "reuse": print(f"{name}: {why}; no new pull"); return
             if verdict == "refuse": sys.exit(f"{name}: {why} ({used} credits on the page)")
             rows = [r for r in rows if not rejected(r) and r.get("status") != "reconciliation"]
-            if used + cost > PER_PAGE: sys.exit(f"{s}: {used} credits used; a pull costing {cost} would take it past {PER_PAGE}; write from the secondaries or fail the page")
+            if not refresh and used + cost > PER_PAGE: sys.exit(f"{s}: {used} credits used; a pull costing {cost} would take it past {PER_PAGE}; write from the secondaries or fail the page")
             if run not in AUTH_RUNS and total + cost > CREDIT_CAP: sys.exit(f"weekend AlsoAsked cap reached ({total}/{CREDIT_CAP}); no more pulls")
             if cap is not None and run_spent(run) + cost > cap: sys.exit(f"run {run} cap reached ({run_spent(run)}/{cap}); no more pulls")
+            if refresh and attempt == 1 and os.path.exists(pull):   # keep the stale pull on disk beside the new one (verbatim provenance)
+                os.replace(pull, pull[:-5] + f".stale-{fetched}.json"); print(f"{name}: stale pull archived as {name}.stale-{fetched}.json")
             before = len(credits_rows(""))
             cmd = [sys.executable, os.path.join(ROOT, "ops", "alsoasked_pull.py"), name, term, "--depth", str(depth), "--no-retry"] + (["--fresh"] if rows else [])
             rc = subprocess.call(cmd, cwd=ROOT, env=env)
