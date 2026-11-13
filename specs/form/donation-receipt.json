@@ -30,16 +30,16 @@
   "why_title": "Why Emergent for a Donation Receipt Form?",
   "why_description": "Every gift and its receipt sit in a database you own, with no response caps and code you can export on paid plans.",
   "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Jotform</th>\n        <th scope=\"col\">Google Forms</th>\n        <th scope=\"col\">Typeform</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Describe it in plain English</td>\n        <td class=\"col-other\">Templates, editor, AI generator</td>\n        <td class=\"col-other\">Editor, with Gemini drafting on some Workspace plans</td>\n        <td class=\"col-other\">Templates, editor, AI assist</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Where responses live</th>\n        <td class=\"col-brand\">A database table you own, plus any integration</td>\n        <td class=\"col-other\">Jotform account</td>\n        <td class=\"col-other\">Google Sheets</td>\n        <td class=\"col-other\">Typeform account</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Response limits</th>\n        <td class=\"col-brand\">No response caps</td>\n        <td class=\"col-other\">Monthly submission caps by plan; the form stops at the cap</td>\n        <td class=\"col-other\">No limit</td>\n        <td class=\"col-other\">Monthly response caps by plan; the form closes at the cap</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
-  "usecase_heading": "",
-  "tab_label_1": "",
-  "tab_label_2": "",
-  "tab_label_3": "",
-  "tab_label_4": "",
-  "tab_content_1": "",
-  "tab_content_2": "",
-  "tab_content_3": "",
-  "tab_content_4": "",
-  "mockup": "",
+  "usecase_heading": "Four Gifts, Four Kinds of Receipt",
+  "tab_label_1": "Cash and Checks",
+  "tab_label_2": "Donated Goods",
+  "tab_label_3": "Gala Tickets",
+  "tab_label_4": "Year-End Totals",
+  "tab_content_1": "<h3>By noon, Imelda's $400 check has its receipt</h3><p>Imelda Strathcove's $400 check to Tamarack Valley Food Bank becomes receipt 2026-0418. The IRS says the written acknowledgment for a gift of $250 or more must contain the organization's name and the cash amount. Her emailed receipt has both, plus a line stating that no goods or services were provided.</p>",
+  "tab_content_2": "<h3>From the loading dock, a receipt with no dollar value</h3><p>Gareth Ovington drops off a sofa and 2 bookcases at Old Mill Reuse Center's dock, and the dock lead logs them on a tablet. The IRS lists a description, but not the value, of a non-cash contribution among the contents of a written acknowledgment. His receipt describes each piece and its condition, with no dollar figure.</p>",
+  "tab_content_3": "<h3>When a $150 gala seat includes a $60 dinner</h3><p>Quillmarsh Youth Orchestra sells gala seats at $150, each with a dinner it values at $60. The IRS requires a disclosure statement when a donor's quid pro quo payment is more than $75, giving a good faith estimate of what the donor received. Every gala receipt states the $60 estimate beside the price paid.</p>",
+  "tab_content_4": "<h3>In January, one statement for 12 gifts of $30</h3><p>Rosamund Vesterholm gives Kestwood Animal Shelter $30 a month by card. In early January, the app gathers her 12 gifts from the year before into one statement, each with its date and amount, $360 in all. She gets it by email, and the shelter's copy stays on her donor record for the day she asks for it again.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { cashAndChecks: \"Build a donation receipt form for my food bank's front desk. Let a volunteer log a cash or check gift with the donor's name, email, amount, and date received. Give each gift the next receipt number in the year's series and email the donor a receipt with our name, the amount, and a statement that no goods or services were provided.\", donatedGoods: \"Add a donated goods section to my reuse center's receipt form for the loading dock tablet. Ask the dock lead to describe each item and its condition, with no field for a dollar value. Email the donor a receipt that lists the items, and post a Slack message to our team with a link to the record.\", galaTickets: \"Build receipts for my youth orchestra's gala tickets. Each seat costs $150 and includes a dinner we value at $60. When a guest buys a seat, email a receipt that shows the price paid and states the $60 dinner estimate, and save the receipt to the guest's donor record.\", yearEndTotals: \"Add a year-end statement to my animal shelter's donation receipt form. In early January, gather every gift each donor made the year before into one statement that lists each date and amount with the total. Email it to the donor and save a copy to their donor record.\" };</p>",
   "howto_title": "",
   "howto_description": "",
   "howto_step_1_title": "",
@@ -332,5 +332,554 @@
   "no-caps",
   "code-export",
   "free-start"
- ]
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R2",
+    "title": "Cash and checks",
+    "prompt": "Number each logged check and email the donor a receipt with our name",
+    "main": {
+     "blocks": [
+      {
+       "type": "doc_header",
+       "icon": "receipt",
+       "title": "Receipt 2026-0418",
+       "sub": "For Imelda Strathcove",
+       "label": "SENT"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Organization",
+         "Tamarack Valley Food Bank"
+        ],
+        [
+         "Cash amount",
+         "$400.00",
+         true
+        ],
+        [
+         "Received",
+         "Check, front desk"
+        ]
+       ]
+      },
+      {
+       "type": "text",
+       "text": "No goods or services were provided",
+       "weight": 600
+      },
+      {
+       "type": "filler",
+       "n": 2
+      },
+      {
+       "type": "note",
+       "icon": "info",
+       "text": "Thank you for feeding your neighbors"
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "rule",
+       "text": "Rule: $250 or more → written receipt"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "This gift",
+         "$400.00",
+         true
+        ],
+        [
+         "Receipt",
+         "2026-0418"
+        ]
+       ]
+      },
+      {
+       "type": "checks",
+       "items": [
+        "Organization named",
+        "Cash amount stated"
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "send",
+     "tone": "ok",
+     "title": "Receipt emailed",
+     "action": {
+      "label": "Open receipt",
+      "icon": "arrow-right"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Imelda Strathcove, $400.00",
+       "sub": "Saved to the gifts table"
+      },
+      {
+       "type": "meta",
+       "icon": "hash",
+       "kind": "acc",
+       "text": "Receipt 2026-0418"
+      }
+     ]
+    },
+    "alt": "Receipt 2026-0418 from Tamarack Valley Food Bank to Imelda Strathcove shows a $400.00 check and the line that no goods or services were provided; the $250 rule applies and the receipt is emailed.",
+    "story": [
+     {
+      "copy": "a gift of $250 or more",
+      "image": "Rule: $250 or more → written receipt"
+     },
+     {
+      "copy": "$400 check",
+      "image": "Imelda Strathcove, $400.00"
+     },
+     {
+      "copy": "becomes receipt 2026-0418",
+      "image": "Receipt 2026-0418"
+     },
+     {
+      "copy": "no goods or services were provided",
+      "image": "No goods or services were provided"
+     }
+    ]
+   },
+   {
+    "recipe": "R6",
+    "title": "Donated goods",
+    "prompt": "Let the dock lead describe donated furniture with no dollar value field",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Old Mill Reuse Center",
+       "sub": "Goods received at the dock"
+      },
+      {
+       "type": "chips",
+       "items": [
+        [
+         "Cash or check",
+         "n"
+        ],
+        [
+         "Donated goods",
+         "acc"
+        ]
+       ]
+      },
+      {
+       "type": "fields",
+       "items": [
+        [
+         "Donor",
+         "Gareth Ovington"
+        ],
+        [
+         "Item",
+         "Sofa, gray fabric, good condition"
+        ],
+        [
+         "Item",
+         "2 bookcases, oak, like new"
+        ]
+       ]
+      },
+      {
+       "type": "button",
+       "label": "Save and send receipt",
+       "icon": "send",
+       "full": true
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "package-check",
+     "tone": "ok",
+     "title": "Goods receipt sent",
+     "action": {
+      "label": "View record",
+      "icon": "arrow-right"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Gareth Ovington",
+       "sub": "Sofa and 2 bookcases described"
+      },
+      {
+       "type": "meta",
+       "icon": "ban",
+       "kind": "acc",
+       "text": "No dollar figure on the receipt"
+      },
+      {
+       "type": "text",
+       "text": "Slack: a receipt is waiting, with a link",
+       "size": 16,
+       "color": "muted"
+      }
+     ]
+    },
+    "mini": {
+     "icon": "database",
+     "kind": "ok",
+     "title": "Saved to the gifts table",
+     "sub": "Logged on the dock tablet"
+    },
+    "alt": "Old Mill Reuse Center's dock form records Gareth Ovington's donated sofa and 2 oak bookcases with their condition and no dollar value field; the goods receipt is sent with no dollar figure.",
+    "story": [
+     {
+      "copy": "a sofa and 2 bookcases",
+      "image": "Sofa and 2 bookcases described"
+     },
+     {
+      "copy": "with no dollar figure",
+      "image": "No dollar figure on the receipt"
+     },
+     {
+      "copy": "the dock lead logs them on a tablet",
+      "image": "Logged on the dock tablet"
+     }
+    ]
+   },
+   {
+    "recipe": "R8",
+    "title": "Gala tickets",
+    "prompt": "Put the $60 dinner estimate on every receipt for a $150 gala seat",
+    "rule": "If a payment is over $75 → state the dinner estimate",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Spring gala seats",
+       "size": 20,
+       "chip": [
+        "Quillmarsh",
+        "acc"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Guest",
+        "Paid",
+        "Dinner",
+        "Receipt"
+       ],
+       "widths": [
+        0.34,
+        0.22,
+        0.22,
+        0.22
+       ],
+       "highlight": 0,
+       "row_h": 62,
+       "rows": [
+        [
+         "Lucinda Farrow",
+         "$150.00",
+         "$60.00",
+         [
+          "Sent",
+          "ok"
+         ]
+        ],
+        [
+         "Tobias Wrenfield",
+         "$150.00",
+         "$60.00",
+         [
+          "Sent",
+          "ok"
+         ]
+        ],
+        [
+         "Mirela Castaine",
+         "$150.00",
+         "$60.00",
+         [
+          "Sent",
+          "ok"
+         ]
+        ],
+        [
+         "Osric Pellham",
+         "$150.00",
+         "$60.00",
+         [
+          "Sent",
+          "ok"
+         ]
+        ],
+        [
+         "Henrike Dalloway",
+         "$150.00",
+         "$60.00",
+         [
+          "Sent",
+          "ok"
+         ]
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "ticket",
+     "tone": "ok",
+     "title": "Gala receipt sent",
+     "action": {
+      "label": "Open receipt",
+      "icon": "arrow-right"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Lucinda Farrow, $150.00",
+       "sub": "Dinner estimate: $60.00"
+      },
+      {
+       "type": "meta",
+       "icon": "database",
+       "kind": "acc",
+       "text": "Saved to her donor record"
+      }
+     ]
+    },
+    "mini": {
+     "icon": "receipt",
+     "kind": "ok",
+     "title": "5 gala receipts sent",
+     "sub": "Each states the estimate"
+    },
+    "alt": "Quillmarsh Youth Orchestra's gala table lists 5 guests who each paid $150.00 for a seat with a $60.00 dinner; the rule for payments over $75 adds the dinner estimate, shown on Lucinda Farrow's receipt.",
+    "story": [
+     {
+      "copy": "more than $75",
+      "image": "If a payment is over $75 → state the dinner estimate"
+     },
+     {
+      "copy": "states the $60 estimate",
+      "image": "Dinner estimate: $60.00"
+     },
+     {
+      "copy": "gala seats at $150",
+      "image": "Lucinda Farrow, $150.00"
+     }
+    ]
+   },
+   {
+    "recipe": "R2",
+    "title": "Year-end totals",
+    "prompt": "Each January, email every donor one statement of last year's gifts",
+    "main": {
+     "blocks": [
+      {
+       "type": "doc_header",
+       "icon": "file-text",
+       "title": "Giving statement",
+       "sub": "For Rosamund Vesterholm",
+       "label": "SENT"
+      },
+      {
+       "type": "lineitems",
+       "compact": true,
+       "items": [
+        [
+         "Jan to Mar, 3 gifts",
+         "$90.00"
+        ],
+        [
+         "Apr to Jun, 3 gifts",
+         "$90.00"
+        ],
+        [
+         "Jul to Sep, 3 gifts",
+         "$90.00"
+        ],
+        [
+         "Oct to Dec, 3 gifts",
+         "$90.00"
+        ]
+       ],
+       "total": [
+        "Total, 12 gifts",
+        "$360.00"
+       ]
+      },
+      {
+       "type": "note",
+       "icon": "heart",
+       "text": "Thank you for a year of monthly gifts"
+      },
+      {
+       "type": "text",
+       "text": "Kestwood Animal Shelter",
+       "color": "muted"
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Donor record",
+       "size": 19,
+       "chip": [
+        "Monthly",
+        "acc"
+       ]
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Gifts last year",
+         "12"
+        ],
+        [
+         "Each gift",
+         "$30.00"
+        ],
+        [
+         "Statement",
+         "Emailed in January",
+         true
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "mail-check",
+     "tone": "ok",
+     "title": "Statement emailed",
+     "action": {
+      "label": "View donor",
+      "icon": "arrow-right"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Rosamund V., $360.00",
+       "sub": "Copy kept on her donor record"
+      },
+      {
+       "type": "meta",
+       "icon": "calendar",
+       "kind": "acc",
+       "text": "Sent in early January"
+      }
+     ]
+    },
+    "alt": "Kestwood Animal Shelter's year-end statement for Rosamund Vesterholm groups 12 monthly gifts of $30.00 into four quarters of $90.00, $360.00 in all; it is emailed in early January and a copy stays on her donor record.",
+    "story": [
+     {
+      "copy": "$30 a month",
+      "image": "$30.00"
+     },
+     {
+      "copy": "her 12 gifts",
+      "image": "Total, 12 gifts"
+     },
+     {
+      "copy": "$360 in all",
+      "image": "Rosamund V., $360.00"
+     },
+     {
+      "copy": "In early January",
+      "image": "Sent in early January"
+     },
+     {
+      "copy": "the shelter's copy stays on her donor record",
+      "image": "Copy kept on her donor record"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "confirm",
+   "title": "Receipt 2026-0418 sent",
+   "button": "Open the gift record",
+   "alt": "Donation receipt form: receipt 2026-0418 is confirmed as sent, with a button to open the gift record."
+  },
+  "og": {
+   "headline": "Build a donation receipt form that writes each receipt",
+   "lines": null,
+   "alt": "Build a donation receipt form that writes each receipt, with Emergent"
+  },
+  "checks": [
+   {
+    "expr": "400 >= 250",
+    "shows": [
+     "$400.00",
+     "$250"
+    ],
+    "where": 1
+   },
+   {
+    "fact": [
+     "2026-0418"
+    ],
+    "where": 1
+   },
+   {
+    "same": "2026-0418",
+    "where": [
+     1,
+     "cover"
+    ]
+   },
+   {
+    "expr": "150 > 75",
+    "shows": [
+     "$150.00",
+     "$75"
+    ],
+    "where": 3
+   },
+   {
+    "fact": [
+     "$60.00"
+    ],
+    "where": 3
+   },
+   {
+    "expr": "12 * 30 == 360",
+    "shows": [
+     "$30.00",
+     "$360.00"
+    ],
+    "where": 4
+   },
+   {
+    "expr": "90 * 4 == 360",
+    "shows": [
+     "$90.00"
+    ],
+    "where": 4
+   },
+   {
+    "expr": "3 * 30 == 90",
+    "shows": [
+     "$90.00"
+    ],
+    "where": 4
+   }
+  ]
+ }
 }
