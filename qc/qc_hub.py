@@ -974,6 +974,12 @@ def check(spec, siblings):
         # the one rework (Divit, 2026-10-07): a later move to reviewed via `hubctl ready` closes the findings of the review it followed
         _rd = (spec.get("review") or {}).get("date", "")
         if _rd and any(h.get("state") == "reviewed" and h.get("t", "") > _rd for h in spec.get("history", [])): rv = {c["id"]: {"result": "pass"} for c in RUB}
+        _sf = spec.get("ship_first") or {}
+        if _sf and not rv:   # SHIP-FIRST (Divit 2026-11-12): the independent review follows within 24 h of going live
+            _pl = _sf.get("postlive_review")
+            if not _pl: add("P2", "R1", "review", f"SHIP-FIRST page: post-live review pending (approved {_sf.get('approved', '?')}; due within 24 h; hubctl postlive-backlog)")
+            elif _pl.get("blocking") and not _pl.get("fixed"): add("P1", "R1", "review", f"SHIP-FIRST post-live review by {_pl.get('by')}: {_pl.get('blocking')} blocking finding(s) not yet fixed ({_pl.get('file')})")
+            RUB = []
         for c in RUB:
             r = rv.get(c["id"], {})
             if r.get("result") != "pass": add("P1", "R1", "review", f'rubric "{c["id"]}" is {r.get("result", "missing")}: {r.get("evidence", c["test"])[:90]}')
