@@ -30,16 +30,16 @@
   "why_title": "Why Run Gym Workflows on Emergent?",
   "why_description": "Emergent builds each gym workflow together with its check-in screen and member tables, on a database you own, with no cap on tasks.",
   "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Zapier</th>\n        <th scope=\"col\">Make (Integromat)</th>\n        <th scope=\"col\">n8n</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Prompt for the workflow and the app around it</td>\n        <td class=\"col-other\">Templates and editor, AI copilot</td>\n        <td class=\"col-other\">Visual canvas</td>\n        <td class=\"col-other\">Visual canvas, self-hosted or cloud</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">What you get</th>\n        <td class=\"col-brand\">Workflow + trigger form + database + dashboard, as code you own</td>\n        <td class=\"col-other\">Zaps, plus Tables and Interfaces inside Zapier</td>\n        <td class=\"col-other\">Scenarios inside Make</td>\n        <td class=\"col-other\">Workflows inside n8n</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Behavior at cap</th>\n        <td class=\"col-brand\">Keeps running, no task cap</td>\n        <td class=\"col-other\">Overage billed at up to 1.25× the base rate</td>\n        <td class=\"col-other\">Runs pause</td>\n        <td class=\"col-other\">Cloud workflows stop until the reset or an upgrade</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">AI and agent steps</th>\n        <td class=\"col-brand\">Native, share the same credit pool</td>\n        <td class=\"col-other\">Priced by model tier, drawn from the task pool</td>\n        <td class=\"col-other\">AI modules cost variable credits</td>\n        <td class=\"col-other\">Bring your own model API key, billed by the provider</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">Yes on Community Edition</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
-  "usecase_heading": "",
-  "tab_label_1": "",
-  "tab_label_2": "",
-  "tab_label_3": "",
-  "tab_label_4": "",
-  "tab_content_1": "",
-  "tab_content_2": "",
-  "tab_content_3": "",
-  "tab_content_4": "",
-  "mockup": "",
+  "usecase_heading": "Four Desk Jobs a Gym Can Hand Off",
+  "tab_label_1": "Failed Dues",
+  "tab_label_2": "Class Waitlists",
+  "tab_label_3": "Attendance Alerts",
+  "tab_label_4": "Trial Passes",
+  "tab_content_1": "<h3>Failed dues get two emails, then a flag at check-in</h3><p>Halyard Barbell Club bills $64 monthly dues through Stripe. When Silvano Strout's card is declined, the app emails him for a new card on day 1 and again on day 4. On day 7, with the dues still unpaid, his profile shows a flag on the front desk check-in screen. Paying clears the flag.</p>",
+  "tab_content_2": "<h3>Canceled bikes move down the waitlist every 30 minutes</h3><p>The 6:00 AM spin class holds 20 bikes, and 3 members are on the waitlist. At 4:40 AM Laszlo Wickstrom cancels bike 14, and the app emails it to Ozanne Peyton, first in line, with 30 minutes to claim it. Unclaimed at 5:10 AM, the offer moves to Marit Quillan. The roster updates when someone claims the bike.</p>",
+  "tab_content_3": "<h3>Members gone 14 days land on their coach's list</h3><p>Every Monday at 8:00 AM the app finds members with no check-in for 14 days. Each coach gets their own names in a Slack direct message, with each member's last visit and usual class. Coach Florentyna Odell has 3 this week. She logs each call from the message, and a member leaves the list at their next check-in.</p>",
+  "tab_content_4": "<h3>Any trial with fewer than 2 visits in 5 days gets a call</h3><p>A trial pass at Halyard runs 7 days and starts from a signup form on the gym's website. The app counts each trial member's check-ins. On day 5, anyone with fewer than 2 visits goes to Gideon Thackery, the front desk manager, in a Slack direct message. This week that is Esperanza Wickline, with 1 visit.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { failedDues: \"Set up failed-dues follow-up for my gym. When a monthly dues payment fails in Stripe, email the member asking for a new card on day 1 and again on day 4. If the dues are still unpaid on day 7, show a flag on their profile at the front desk check-in screen. Clear the flag as soon as they pay, and log every email on the member's record.\", classWaitlists: \"Build a class waitlist for my gym. When a booked member cancels a spot in a full class, email the open spot to the first person on the waitlist. Give them 30 minutes to claim it, then offer it to the next name. Update the class roster the moment someone claims the spot, and keep the waitlist order visible to the front desk.\", attendanceAlerts: \"Make an attendance alert for my gym coaches. Every Monday at 8:00 AM, find members with no check-in for 14 days. Send each coach a Slack direct message with only their own members, showing each member's last visit and usual class. Let the coach log how the call went from the message, and remove a member from the list after their next check-in.\", trialPasses: \"Track 7-day trial passes for my gym. A signup form on our website creates the trial member. Count every check-in during the pass. On day 5, send anyone with fewer than 2 visits to our front desk manager in a Slack direct message so he can call them. Show all active trials on one screen with their day and visit count.\" };</p>",
   "howto_title": "",
   "howto_description": "",
   "howto_step_1_title": "",
@@ -275,5 +275,498 @@
   "Add class waitlists that offer each open spot for 30 minutes.",
   "Add attendance alerts that send coaches members with no check-in for 14 days.",
   "Add trial passes that flag anyone with fewer than 2 visits by day 5."
- ]
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R1",
+    "title": "Failed dues",
+    "prompt": "Email members twice about failed dues and flag them at check-in on day 7",
+    "main": {
+     "chrome": "Halyard Barbell Club",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "MONTHLY DUES",
+       "title": "Silvano Strout, $64 unpaid",
+       "size": 24,
+       "sub": "Card declined in Stripe"
+      },
+      {
+       "type": "rule",
+       "text": "Rule: unpaid on day 7 → flag at check-in"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Payment failed",
+         "sub": "Read from Stripe",
+         "right": "Day 1"
+        },
+        {
+         "state": "done",
+         "title": "Email 1 sent",
+         "sub": "Asks for a new card",
+         "right": "Day 1"
+        },
+        {
+         "state": "done",
+         "title": "Email 2 sent",
+         "sub": "Asks for a new card",
+         "right": "Day 4"
+        },
+        {
+         "state": "live",
+         "title": "Check-in flag",
+         "sub": "Front desk screen",
+         "right": "Day 7"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "flag",
+     "tone": "warn",
+     "title": "Flag at check-in",
+     "action": {
+      "label": "View profile",
+      "icon": "arrow-right"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Silvano Strout",
+       "size": 20,
+       "sub": "2 emails sent, dues unpaid"
+      },
+      {
+       "type": "meta",
+       "icon": "monitor",
+       "kind": "acc",
+       "text": "Front desk check-in screen"
+      }
+     ]
+    },
+    "mini": {
+     "icon": "circle-check",
+     "kind": "ok",
+     "title": "Flag clears",
+     "sub": "When the dues are paid"
+    },
+    "alt": "Silvano Strout's $64 dues payment failed in Stripe; after emails on day 1 and day 4, his profile is flagged on the front desk check-in screen on day 7.",
+    "story": [
+     {
+      "copy": "two emails",
+      "image": "2 emails sent, dues unpaid"
+     },
+     {
+      "copy": "On day 7, with the dues still unpaid",
+      "image": "Rule: unpaid on day 7 → flag at check-in"
+     },
+     {
+      "copy": "$64 monthly dues",
+      "image": "Silvano Strout, $64 unpaid"
+     },
+     {
+      "copy": "front desk check-in screen",
+      "image": "Front desk check-in screen"
+     },
+     {
+      "copy": "Paying clears the flag",
+      "image": "Flag clears"
+     }
+    ]
+   },
+   {
+    "recipe": "R8",
+    "title": "Class waitlists",
+    "prompt": "Offer a canceled spin bike to the waitlist, 30 minutes per person",
+    "rule": "If a bike opens → offer it to the next name for 30 minutes",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "6:00 AM Spin, 20 bikes",
+       "size": 20,
+       "sub": "Laszlo Wickstrom canceled bike 14",
+       "chip": [
+        "3 on the waitlist",
+        "acc"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Place",
+        "Member",
+        "Offer"
+       ],
+       "widths": [
+        0.18,
+        0.42,
+        0.4
+       ],
+       "highlight": 0,
+       "row_h": 72,
+       "rows": [
+        [
+         "1",
+         "Ozanne Peyton",
+         [
+          "Sent 4:40 AM",
+          "acc"
+         ]
+        ],
+        [
+         "2",
+         "Marit Quillan",
+         [
+          "Next at 5:10 AM",
+          "warn"
+         ]
+        ],
+        [
+         "3",
+         "Wren Castellane",
+         [
+          "Waiting",
+          "ok"
+         ]
+        ]
+       ]
+      },
+      {
+       "type": "text",
+       "text": "Each offer is emailed and held for 30 minutes",
+       "color": "muted"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "mail",
+     "tone": "ok",
+     "title": "Bike 14 offered",
+     "action": {
+      "label": "Claim bike",
+      "icon": "check"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Ozanne Peyton",
+       "size": 20,
+       "sub": "Claim by 5:10 AM"
+      },
+      {
+       "type": "meta",
+       "icon": "clock",
+       "kind": "acc",
+       "text": "Canceled at 4:40 AM"
+      }
+     ]
+    },
+    "mini": {
+     "icon": "users",
+     "kind": "acc",
+     "title": "Roster updates",
+     "sub": "When the bike is claimed"
+    },
+    "alt": "Laszlo Wickstrom cancels his bike in the full 6:00 AM spin class at 4:40 AM, and bike 14 is emailed to Ozanne Peyton, first of 3 on the waitlist, with 30 minutes to claim it before Marit Quillan gets the offer at 5:10 AM.",
+    "story": [
+     {
+      "copy": "Canceled bikes move down the waitlist every 30 minutes",
+      "image": "If a bike opens → offer it to the next name for 30 minutes"
+     },
+     {
+      "copy": "The 6:00 AM spin class holds 20 bikes",
+      "image": "6:00 AM Spin, 20 bikes"
+     },
+     {
+      "copy": "3 members are on the waitlist",
+      "image": "3 on the waitlist"
+     },
+     {
+      "copy": "At 4:40 AM",
+      "image": "Canceled at 4:40 AM"
+     },
+     {
+      "copy": "Laszlo Wickstrom cancels bike 14",
+      "image": "Laszlo Wickstrom canceled bike 14"
+     },
+     {
+      "copy": "emails it to Ozanne Peyton",
+      "image": "Ozanne Peyton"
+     },
+     {
+      "copy": "Unclaimed at 5:10 AM, the offer moves to Marit Quillan",
+      "image": "Next at 5:10 AM"
+     },
+     {
+      "copy": "The roster updates when someone claims the bike",
+      "image": "Roster updates"
+     }
+    ]
+   },
+   {
+    "recipe": "R9",
+    "title": "Attendance alerts",
+    "prompt": "Send each coach the members with no check-in for 14 days every Monday",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "No check-in for 14 days",
+       "sub": "Coach: Florentyna Odell"
+      },
+      {
+       "type": "list",
+       "cards": true,
+       "row_h": 112,
+       "items": [
+        {
+         "initials": "DV",
+         "name": "Desmond Varga",
+         "sub": "Usual class: 6:00 PM strength",
+         "right": "16 days"
+        },
+        {
+         "initials": "JH",
+         "name": "Junie Hallworth",
+         "sub": "Usual class: Saturday mobility",
+         "right": "19 days"
+        },
+        {
+         "initials": "IM",
+         "name": "Ingrid Mbeki",
+         "sub": "Usual class: noon conditioning",
+         "right": "23 days"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "message-square",
+     "title": "To Florentyna Odell",
+     "action": {
+      "label": "Log call",
+      "icon": "phone"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Monday, 8:00 AM",
+       "sub": "3 members, last visit and usual class"
+      },
+      {
+       "type": "meta",
+       "icon": "message-circle",
+       "kind": "acc",
+       "text": "Slack direct message"
+      }
+     ]
+    },
+    "mini": {
+     "icon": "calendar-check",
+     "kind": "ok",
+     "title": "Checked in again",
+     "sub": "Off the list"
+    },
+    "alt": "Coach Florentyna Odell gets a Slack direct message at 8:00 AM on Monday listing her 3 members with no check-in for 14 days or more, each with their last visit and usual class.",
+    "story": [
+     {
+      "copy": "Members gone 14 days land on their coach's list",
+      "image": "No check-in for 14 days"
+     },
+     {
+      "copy": "Every Monday at 8:00 AM",
+      "image": "Monday, 8:00 AM"
+     },
+     {
+      "copy": "Coach Florentyna Odell has 3 this week",
+      "image": "3 members, last visit and usual class"
+     },
+     {
+      "copy": "in a Slack direct message",
+      "image": "Slack direct message"
+     }
+    ]
+   },
+   {
+    "recipe": "R11",
+    "title": "Trial passes",
+    "prompt": "Count trial visits and flag anyone under 2 visits on day 5 of a 7-day pass",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Active trial passes",
+       "size": 20,
+       "chip": [
+        "7-day pass",
+        "acc"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Trial member",
+        "Pass day",
+        "Visits",
+        "Status"
+       ],
+       "widths": [
+        0.36,
+        0.2,
+        0.16,
+        0.28
+       ],
+       "bad": 0,
+       "num_cols": [
+        2
+       ],
+       "rows": [
+        [
+         "Esperanza Wickline",
+         "Day 5",
+         "1",
+         [
+          "Call",
+          "warn"
+         ]
+        ],
+        [
+         "Calder Nakashima",
+         "Day 5",
+         "3",
+         [
+          "On track",
+          "ok"
+         ]
+        ],
+        [
+         "Linnea Ozanne",
+         "Day 6",
+         "2",
+         [
+          "On track",
+          "ok"
+         ]
+        ]
+       ]
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Rule on day 5",
+       "size": 18
+      },
+      {
+       "type": "bullets",
+       "items": [
+        "Fewer than 2 visits: call",
+        "2 or more: on track",
+        "Signed up on the website"
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "message-square",
+     "title": "Direct message to Gideon Thackery",
+     "action": {
+      "label": "Log call",
+      "icon": "phone"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Esperanza Wickline: 1 visit"
+      },
+      {
+       "type": "meta",
+       "icon": "calendar",
+       "kind": "acc",
+       "text": "Day 5 of a 7-day pass"
+      }
+     ]
+    },
+    "alt": "Three active 7-day trial passes are counted by visits; Esperanza Wickline has 1 visit on day 5, under the 2-visit rule, and goes to front desk manager Gideon Thackery in a Slack direct message.",
+    "story": [
+     {
+      "copy": "fewer than 2 visits",
+      "image": "Fewer than 2 visits: call"
+     },
+     {
+      "copy": "A trial pass at Halyard runs 7 days",
+      "image": "7-day pass"
+     },
+     {
+      "copy": "goes to Gideon Thackery, the front desk manager, in a Slack direct message",
+      "image": "Direct message to Gideon Thackery"
+     },
+     {
+      "copy": "Esperanza Wickline, with 1 visit",
+      "image": "Esperanza Wickline: 1 visit"
+     },
+     {
+      "copy": "starts from a signup form on the gym's website",
+      "image": "Signed up on the website"
+     },
+     {
+      "copy": "On day 5",
+      "image": "Rule on day 5"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "dm": true,
+   "channel": "Gideon Thackery",
+   "title": "Trial member to call",
+   "sub": "Esperanza Wickline, 1 visit",
+   "primary": "Log call",
+   "secondary": "View trial",
+   "alt": "Gym automation: front desk manager Gideon Thackery gets a direct message to call Esperanza Wickline, a trial member with 1 visit by day 5."
+  },
+  "og": {
+   "headline": "Build gym automation for dues and classes",
+   "lines": null,
+   "alt": "Build gym automation for memberships and classes, with Emergent"
+  },
+  "checks": [
+   {
+    "fact": [
+     "$64"
+    ],
+    "where": 1
+   },
+   {
+    "fact": [
+     "16 days",
+     "19 days",
+     "23 days"
+    ],
+    "where": 3
+   },
+   {
+    "same": "1 visit",
+    "where": [
+     4,
+     "cover"
+    ]
+   }
+  ]
+ }
 }
