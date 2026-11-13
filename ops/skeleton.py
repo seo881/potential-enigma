@@ -326,7 +326,7 @@ def plan_slots(url, cap=10, extra=()):
     carried = [P.content(x["q"]) for x in slots]
     for x in sorted(km.get("secondaries") or [], key=lambda x: -(x.get("msv") or 0)):
         if full(): break
-        c = P.content(x["kw"])
+        x = dict(x, kw=x.get("kw") or x.get("keyword") or ""); c = P.content(x["kw"])
         if not c or any(c <= q for q in carried) or any(r[0] in R.KW_RULES and r[1] == "reject" for r in g.judge({"q": x["kw"], "source": "secondary"})): continue
         carried.append(c); slots.append({"kind": "written", "q": None, "ref": x["kw"], "secondary": x["kw"], "locked": False})
     for c in [c for c in cands if c["kind"] == "semrush" and not c.get("flagged")]:

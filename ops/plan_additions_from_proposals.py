@@ -81,8 +81,8 @@ def main(argv):
         secs = []
         for part in re.split(r";|\n", col(r, "secondar")):
             m = re.match(r"\s*(.+?)\s*\((\d[\d,]*)\)\s*$", part)
-            if m: secs.append({"keyword": m.group(1), "msv": int(m.group(2).replace(",", ""))})
-            elif part.strip(): secs.append({"keyword": part.strip(), "msv": None})
+            if m: secs.append({"kw": m.group(1), "msv": int(m.group(2).replace(",", ""))})
+            elif part.strip(): secs.append({"kw": part.strip(), "msv": None})
         pm = num(col(r, "msv", "volume")); kd = num(col(r, "kd"))
         url = f"{HUBS[h]}/{slug}"
         out[url] = {"hub": h, "url": url, "tier": "Addition 2026-11-13", "display_name": primary[:1].upper() + primary[1:],
