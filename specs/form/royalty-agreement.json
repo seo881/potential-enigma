@@ -122,6 +122,13 @@
    "via": null,
    "by": "B-w-617",
    "note": ""
+  },
+  {
+   "t": "2026-11-13 07:21 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-622",
+   "note": "rubric 10/10 by B-r-622; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -1035,5 +1042,265 @@
  ],
  "writers": [
   "B-w-502"
- ]
+ ],
+ "review": {
+  "by": "B-r-622",
+  "date": "2026-11-13 07:21 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Royalty Agreement Form That Does the Math on Every Deal' and hero 'Build a royalty agreement form that works out what each deal owes and saves every agreement to a database you own.' cover the whole job (terms, splits, advances, reports); how-to description is one sentence on what the steps achieve."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Searchers of 'royalty agreement form' get a definition (FAQ 1), the fields to include (FAQ 3, features 1-3), how the money is worked out (FAQ 5, tabs 2-3) and a seven-step build ('01 Start with the deal itself' to '07 Run a test quarter')."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: 'earn-out point', 'net sales', 'quarterly minimum', 'co-writer shares', 'statement 30 days after each quarter ends'; four segments (music, books, product, art licensing)."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'The form asks for the royalty rate...', 'Night Ferry has three writers at Marrow Street Music.', 'Pick the base before the rate.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Sentences carry one idea each, e.g. 'Royalty payments to Delia start with copy 2,001.'; QC P2 serial-comma flags checked by hand: all two-item phrases, no list missing a comma."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain verbs and concrete details ('Pondhaven Press pays Delia Haskett $1.28 on each copy of her $16 paperback'); no hype or AI tells. Bolted-on source sentences in the FAQ kept as a note."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Every world fact matches its quoted source span (accountingtools royalty article: definition, percentage of sales, periodic payment, minimum, advance, audit, license limits). Math checked: 50+25+25=100%; $1.28/$16=8%, $2,560/$1.28=2,000 copies; 6% x $18,400=$1,104 < $1,500 minimum; image rows 6% x $29,800=$1,788, $31,000=$1,860, $27,500=$1,650; Q3 ends Sep 30 + 30 days = Oct 30, reminder Oct 31; FAQ 5 800 x $0.75=$600 < $1,000. Emergent claims map to claims_used (e-signature-capture with legal validity deferred: 'Whether those signatures are enforceable for a given deal is a question for a lawyer, not the form'; step 6 'Have a lawyer read the agreement wording'). Nothing reads as legal advice."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Royalty-specific mechanics (rate base, splits, earn-out, minimum, late statements) do not overlap the operating, shareholder or corporate resolution siblings; no sibling primary in any heading."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, each answered in its first sentence ('It multiplies the period's base by the rate, then compares the result with any minimum.'); hub link in item 2; links to rental agreement, equipment rental agreement and approval form pages; no brand or file-format questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches tab copy on names and numbers: Night Ferry 50%/25%/25% totaling 100% and '3 writers to sign'; Delia Haskett $16.00, $1.28, $2,560.00, '2,000 copies', 'Payments start at copy 2,001'; Tumblewick Q3 2026 $18,400, $1,104, '$1,500 due'; Sundew Calendars due Oct 30 overdue, card 'For Marguerite Lowe', 'Reminder emailed to Sundew, Sent Oct 31'. One hero per panel."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "FAQ 7: 'The license agreement also limits how far the asset can be used.'; FAQ 9: 'Licensors may have the right to audit the licensee's records.'; FAQ 8: 'Licensing agreements may include an upfront payment or advance on royalties.'; FAQ 5: 'Some royalty agreements include a minimum payment like this one.'; FAQ 3: 'Royalties are typically paid monthly, quarterly, or annually.'",
+    "issue": "Sourced sentences dropped into answers nearly verbatim from the source, without tying into the sentences around them; they read pasted in.",
+    "fix": "Fold each fact into the advice it supports (e.g. FAQ 9: 'Keep each report as its own row, since many licenses let the licensor audit the licensee's records.').",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq",
+    "quote": "FAQ 4: 'A flat fee stays the same, the way rent does on a rental agreement form.'; FAQ 7: 'An equipment rental agreement form lists each item by serial number for the same reason.'",
+    "issue": "Analogies exist to carry internal links and read forced next to a royalty question.",
+    "fix": "Anchor the links in sentences about royalty deals or move them to answers where the sibling topic arises naturally.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief.tabs[0]",
+    "quote": "hero 'Signatures requested' / '3 writers to sign' beside mini 'All 3 signatures under Night Ferry'",
+    "issue": "The hero says signatures are still requested while the mini card reads as if all three are already in; same story, two moments.",
+    "fix": "Mini sub 'All 3 signatures will sit under Night Ferry' or 'Signatures collect under Night Ferry'.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "features, tabs, how-to",
+    "quote": "QC Q9: 'sales' 12x, 'advance' 11x, 'quarter' 9x outside the FAQ",
+    "issue": "Heavy repetition of the same nouns across sections.",
+    "fix": "Vary where a synonym is exact (statement, period, units sold).",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "Sourced sentences dropped into answers nearly verbatim from the source, without tying into the sentences around them; they read pasted in.",
+   "fix": "Fold each fact into the advice it supports (e.g. FAQ 9: 'Keep each report as its own row, since many licenses let the licensor audit the licensee's records.').",
+   "by": "B-r-622",
+   "via": "review",
+   "date": "2026-11-13 07:21 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq",
+   "issue": "Analogies exist to carry internal links and read forced next to a royalty question.",
+   "fix": "Anchor the links in sentences about royalty deals or move them to answers where the sibling topic arises naturally.",
+   "by": "B-r-622",
+   "via": "review",
+   "date": "2026-11-13 07:21 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief.tabs[0]",
+   "issue": "The hero says signatures are still requested while the mini card reads as if all three are already in; same story, two moments.",
+   "fix": "Mini sub 'All 3 signatures will sit under Night Ferry' or 'Signatures collect under Night Ferry'.",
+   "by": "B-r-622",
+   "via": "review",
+   "date": "2026-11-13 07:21 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "features, tabs, how-to",
+   "issue": "Heavy repetition of the same nouns across sections.",
+   "fix": "Vary where a synonym is exact (statement, period, units sold).",
+   "by": "B-r-622",
+   "via": "review",
+   "date": "2026-11-13 07:21 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "de890cbd741a740c",
+   "alt:share_image": "2927c724c953aef2",
+   "alt:tab_image_1": "ef99199f8596551a",
+   "alt:tab_image_2": "83613a1c8a29e281",
+   "alt:tab_image_3": "4ea6e9d996e8431f",
+   "alt:tab_image_4": "bdfde7154c72af2b",
+   "breadcrumb": "9b2bd00e6faa4175",
+   "chip_adds": "df92a69010dfc9c1",
+   "explore_cta": "cc191dcbc4dc30d1",
+   "faq": "f9b903f1e0bebd2e",
+   "feature_1": "fd1cc2c0442c6929",
+   "feature_2": "6869e830f5c14ad2",
+   "feature_3": "5aaa60d4047f0987",
+   "feature_4": "8472d7a828def8be",
+   "feature_5": "3aa8445b9d5e04ee",
+   "feature_6": "dbfb89532f02dbd8",
+   "features_heading": "c8d1be77e436fcec",
+   "features_subheading": "1d93064ecb80a4c2",
+   "h1": "cb22da9cf3e1ec0d",
+   "hero_description": "0c201105516d0cb9",
+   "hero_prompt": "02116bacbbb415ac",
+   "howto_description": "cbdd0fbadc711701",
+   "howto_step_1_des": "81e00ba08baf102f",
+   "howto_step_1_title": "00ac45998b2c1b71",
+   "howto_step_2_des": "bfc84f38ccd7c0c9",
+   "howto_step_2_title": "d858bdd5395ea13b",
+   "howto_step_3_des": "1f5361fe0da25818",
+   "howto_step_3_title": "887fff73c1674e06",
+   "howto_step_4_des": "6d060e72d819e523",
+   "howto_step_4_title": "7476f67418c64e5f",
+   "howto_step_5_des": "07c6209519c4822e",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "2796438a83250342",
+   "howto_step_6_title": "b6cbb66fad6c7cc8",
+   "howto_step_7_des": "40b08f62a471ad3c",
+   "howto_step_7_title": "ce985878708fec99",
+   "howto_title": "1a10808555745bfa",
+   "meta_description": "741b3f256d2b3e59",
+   "meta_title": "f8f5ac7d330a6d0c",
+   "mockup": "bf46d149170eeaaf",
+   "product_name": "5bc1fbb283c1a1cb",
+   "prompt_chip_1": "01574bfd1b4cff9c",
+   "prompt_chip_2": "f3b862553cdf9712",
+   "prompt_chip_3": "e02d878d0e5734fe",
+   "prompt_chip_4": "99fd12713a0e96b0",
+   "slug": "61f5882639c31a32",
+   "tab_content_1": "2f78647c5d1b347c",
+   "tab_content_2": "976711292e0fd74b",
+   "tab_content_3": "7062e47f037b291a",
+   "tab_content_4": "5d1991f298b28890",
+   "tab_label_1": "a0f3bc072433a604",
+   "tab_label_2": "9917f575f6043afa",
+   "tab_label_3": "b08c367b99dbcd95",
+   "tab_label_4": "e5f77225784f3155",
+   "usecase_heading": "8c84ef244517812f",
+   "why_description": "d4620b72ef5b9d28",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "07790fc166e3eb92"
+  },
+  "all": "ac2b1e7bdb3dba47",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "de890cbd741a740c",
+   "alt:share_image": "2927c724c953aef2",
+   "alt:tab_image_1": "ef99199f8596551a",
+   "alt:tab_image_2": "83613a1c8a29e281",
+   "alt:tab_image_3": "4ea6e9d996e8431f",
+   "alt:tab_image_4": "bdfde7154c72af2b",
+   "breadcrumb": "9b2bd00e6faa4175",
+   "chip_adds": "df92a69010dfc9c1",
+   "explore_cta": "cc191dcbc4dc30d1",
+   "faq": "f9b903f1e0bebd2e",
+   "feature_1": "fd1cc2c0442c6929",
+   "feature_2": "6869e830f5c14ad2",
+   "feature_3": "5aaa60d4047f0987",
+   "feature_4": "8472d7a828def8be",
+   "feature_5": "3aa8445b9d5e04ee",
+   "feature_6": "dbfb89532f02dbd8",
+   "features_heading": "c8d1be77e436fcec",
+   "features_subheading": "1d93064ecb80a4c2",
+   "h1": "cb22da9cf3e1ec0d",
+   "hero_description": "0c201105516d0cb9",
+   "hero_prompt": "02116bacbbb415ac",
+   "howto_description": "cbdd0fbadc711701",
+   "howto_step_1_des": "81e00ba08baf102f",
+   "howto_step_1_title": "00ac45998b2c1b71",
+   "howto_step_2_des": "bfc84f38ccd7c0c9",
+   "howto_step_2_title": "d858bdd5395ea13b",
+   "howto_step_3_des": "1f5361fe0da25818",
+   "howto_step_3_title": "887fff73c1674e06",
+   "howto_step_4_des": "6d060e72d819e523",
+   "howto_step_4_title": "7476f67418c64e5f",
+   "howto_step_5_des": "07c6209519c4822e",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "2796438a83250342",
+   "howto_step_6_title": "b6cbb66fad6c7cc8",
+   "howto_step_7_des": "40b08f62a471ad3c",
+   "howto_step_7_title": "ce985878708fec99",
+   "howto_title": "1a10808555745bfa",
+   "meta_description": "741b3f256d2b3e59",
+   "meta_title": "f8f5ac7d330a6d0c",
+   "mockup": "bf46d149170eeaaf",
+   "product_name": "5bc1fbb283c1a1cb",
+   "prompt_chip_1": "01574bfd1b4cff9c",
+   "prompt_chip_2": "f3b862553cdf9712",
+   "prompt_chip_3": "e02d878d0e5734fe",
+   "prompt_chip_4": "99fd12713a0e96b0",
+   "slug": "61f5882639c31a32",
+   "tab_content_1": "2f78647c5d1b347c",
+   "tab_content_2": "976711292e0fd74b",
+   "tab_content_3": "7062e47f037b291a",
+   "tab_content_4": "5d1991f298b28890",
+   "tab_label_1": "a0f3bc072433a604",
+   "tab_label_2": "9917f575f6043afa",
+   "tab_label_3": "b08c367b99dbcd95",
+   "tab_label_4": "e5f77225784f3155",
+   "usecase_heading": "8c84ef244517812f",
+   "why_description": "d4620b72ef5b9d28",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "07790fc166e3eb92"
+  },
+  "all": "ac2b1e7bdb3dba47",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
