@@ -283,6 +283,11 @@ def caught(c):
     if c["kind"] == "keyword-in-h1":   # B-c-2 2026-11-16: possessive primaries (valentine's) match an H1 written with the apostrophe
         sys.path.insert(0, os.path.join(ROOT, "ops")); import slugs as SL
         return SL.keyword_in_h1(c["h1"], c["kw"]) == c["expect"]
+    if c["kind"] == "image-slots":   # Divit 2026-11-16 (bfix23): fixed slot map; every changed image file has its field; no no-op re-sends
+        sys.path.insert(0, os.path.join(ROOT, "ops")); import ship as SH
+        if "base" in c: return SH.changed_slots(c["img_dir"], c["base"], c["sha"]) == c["expect_changed"]
+        p = SH.image_slot_problems(c["hub"], c["img_dir"], c["fields"], c["sha"], c["changed"], c.get("allow", ()))
+        return [x.split(" ", 1)[1] if " " in x else x for x in p] == c["expect"] if "expect" in c else bool(p) == c["expect_fail"]
     if c["kind"] == "raw-tags":   # Divit 2026-11-13: any visible raw tag text on a live page fails verify-live and the live audit
         sys.path.insert(0, os.path.join(ROOT, "ops")); import verify_live as VL
         return bool(VL.raw_tag_text(c["html"])) == c["expect_fail"]

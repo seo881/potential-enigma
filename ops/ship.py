@@ -293,6 +293,37 @@ def cmd_cms(args):
         P["stage"] = "done"; P["item_id"] = it["id"]; note(P, "cms", True, f"draft {it['id']} verified"); ok += 1
     save_ledger(bf, L); write_readiness(); print(f"drafts verified {ok}; mismatched {bad}. {H.learn_note(learn)}")
 
+# Divit 2026-11-16 (after bfix23 wrote tab 2 for a tab 1 fix and left a re-rendered cover and share image out): the image slot map is
+# fixed, image fields are generated from the image files that changed in git, and every payload is checked against it.
+SLOT_FILE = {"tab_image_1": "uc-1.svg", "tab_image_2": "uc-2.svg", "tab_image_3": "uc-3.svg", "tab_image_4": "uc-4.svg",
+             "cover_image": "cover.svg", "share_image": "og.webp"}
+def slot_fields(hub):
+    """CMS field slug -> slot file for a hub (uc-1 -> awb---key-feature-1-image, uc-2/3/4 -> acrm---key-feature-N-image, cover, og -> thumbnail-image)."""
+    f = H.CFG["hubs"][hub]["fields"]; return {f[k]: v for k, v in SLOT_FILE.items() if k in f}
+def changed_slots(img_dir, base, sha):
+    """Slot files under img_dir that differ between commits base and sha (render.json and other files are ignored)."""
+    r = subprocess.run(["git", "diff", "--name-only", base, sha, "--", img_dir], cwd=ROOT, capture_output=True, text=True)
+    if r.returncode: raise ValueError(f"git diff {base}..{sha} -- {img_dir} failed: {r.stderr.strip()[:200]}")
+    return sorted({os.path.basename(p) for p in r.stdout.split()} & set(SLOT_FILE.values()))
+def _sends_file(v): return isinstance(v, dict) and bool(v.get("url")) and not v.get("fileId")   # a new file, not an alt-only change
+def image_slot_problems(hub, img_dir, fielddata, sha, changed, allow=()):
+    """Every problem with one item's image fields. changed: slot files changed since the image base (None = no base known).
+    1. each image field that sends a file sends exactly <REPO_RAW>/<sha>/<img_dir>/<its slot file>;
+    2. each changed slot file has its field in the payload (unless named in allow);
+    3. no field re-sends a slot file that did not change (a no-op upload also fails the read-back)."""
+    sf = slot_fields(hub); inv = {v: k for k, v in sf.items()}; probs = []
+    for k, v in fielddata.items():
+        if k in sf and _sends_file(v) and v["url"] != f"{H.REPO_RAW}/{sha}/{img_dir}/{sf[k]}":
+            probs.append(f"{k} sends {v['url'].split('/potential-enigma/')[-1]}, its slot is {img_dir}/{sf[k]} at {sha[:8]}")
+    if changed is None:
+        if any(k in sf and _sends_file(v) for k, v in fielddata.items()): probs.append("image files sent with no image base commit (build it with ship-update, --images-since for pages with no cms_draft.sha)")
+        return probs
+    for f in changed:
+        if f not in allow and not _sends_file(fielddata.get(inv.get(f))): probs.append(f"{img_dir}/{f} changed but {inv.get(f)} is not in the payload")
+    for k, v in fielddata.items():
+        if k in sf and _sends_file(v) and sf[k] not in changed: probs.append(f"{k} re-sends {sf[k]}, which did not change")
+    return probs
+
 def cmd_update(args):
     """hubctl ship-update BATCH READBACK [--before-only]: changed fields only, for batch pages already in the CMS (staged or draft).
     Diffs each page's export against a fresh read-back; saves the CMS before-values to childedits/<date>/<slug>.<batch>.before.json
@@ -300,7 +331,15 @@ def cmd_update(args):
     file changed since the create commit (spec.cms_draft.sha) or the alt changed. isDraft is omitted, so the item's status is kept."""
     import live_audit as LA
     bf, rb = args[0], args[1]; L = load_ledger(bf); name = L["batch"]; items = {it["id"]: it for it in H._items_from_readback(rb)}
-    sha = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    # image URLs are pinned to origin/main (fetched), never to a local HEAD other agents may have moved (shared tree, B-c-2 2026-11-16)
+    subprocess.run(["git", "fetch", "-q", "origin", "main"], cwd=ROOT, capture_output=True)
+    sha = subprocess.run(["git", "rev-parse", "origin/main"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    since = _arg(args, "--images-since") if "--images-since" in args else None   # explicit image base for pages with no cms_draft.sha (recorded in the before-value)
+    only = set(x for x in _arg(args, "--only-fields").split(",") if x) if "--only-fields" in args else None   # CMS field slugs; everything else is left out
+    allow_unshipped = {}
+    for x in (_arg(args, "--allow-unshipped") or "").split(","):
+        if "/" in x: allow_unshipped.setdefault(x.split("/")[0], []).append(x.split("/")[1])
+    images_base = {}
     day = datetime.date.today().isoformat(); out = {}; befores = []; changed_pages = []
     if "--verify" in args: return update_verify(bf, name, items, day, H.learn_index(_arg(args, "--learn")) if "--learn" in args else None)
     for url in batch_urls(bf):
@@ -314,16 +353,26 @@ def cmd_update(args):
         for k, v in ex.items():
             if k == "slug" or (v in (None, "") and k in H.CFG["optional_fields"]): continue
             if fd.get(h["fields"][k]) != v: ch[h["fields"][k]] = v
-        base = (s.get("cms_draft") or {}).get("sha")
+        base = since or (s.get("cms_draft") or {}).get("sha")   # an explicit --images-since (the fix's render base) wins
         for k, im in s["images"].items():
+            if k in SLOT_FILE and os.path.basename(im["path"]) != SLOT_FILE[k]: sys.exit(f"{url}: images.{k}.path is {im['path']}, the slot file is {SLOT_FILE[k]}")
             cur = fd.get(h["fields"][k]) or {}
-            moved = base and subprocess.run(["git", "diff", "--quiet", base, "HEAD", "--", im["path"]], cwd=ROOT).returncode != 0
+            moved = base and subprocess.run(["git", "diff", "--quiet", base, sha, "--", im["path"]], cwd=ROOT).returncode != 0
+            if moved and subprocess.run(["git", "diff", "--quiet", sha, "--", im["path"]], cwd=ROOT).returncode != 0:
+                sys.exit(f"{url}: {im['path']} differs from origin/main: commit and push the rendered images first")
             if moved: ch[h["fields"][k]] = {"url": f"{H.REPO_RAW}/{sha}/{im['path']}", "alt": im["alt"]}
             elif (im.get("alt") or "") != (cur.get("alt") or ""): ch[h["fields"][k]] = {"fileId": cur.get("fileId"), "url": cur.get("url"), "alt": im["alt"]}
+        if only is not None: ch = {k: v for k, v in ch.items() if k in only}
+        img_dir = os.path.dirname(next(iter(s["images"].values()))["path"])
+        sp = image_slot_problems(H.hub_of(url), img_dir, ch, sha, changed_slots(img_dir, base, sha) if base else None, allow_unshipped.get(url.rsplit("/", 1)[1], ()))
+        if sp: sys.exit(f"{url}: image slots:\n  " + "\n  ".join(sp) + "\n(--allow-unshipped slug/file,... leaves a changed file out on purpose)")
         if not ch: continue
+        if base and any(k in slot_fields(H.hub_of(url)) for k in ch): images_base[it["id"]] = base
         if "slug" in ch: sys.exit(f"{url}: slug would change")
         bp = os.path.join(ROOT, "childedits", day, f"{url.rsplit('/', 1)[1]}.{name}.before.json")
         before = {"id": it["id"], "collection": h["collection_id"], "isDraft": it.get("isDraft"), "lastUpdated": it.get("lastUpdated"), "fieldData": {k: fd.get(k) for k in ch}}
+        if since: before["images_since"] = since
+        if only is not None: before["only_fields"] = sorted(only)
         if not os.path.exists(bp) or json.load(open(bp)) != before:
             os.makedirs(os.path.dirname(bp), exist_ok=True); json.dump(before, open(bp, "w"), indent=1, ensure_ascii=False)
         befores.append(bp); changed_pages.append((url, sorted(ch)))
@@ -332,11 +381,14 @@ def cmd_update(args):
     if "--before-only" in args: print(f"{len(befores)} before-value file(s) written; commit and push them, then rerun without --before-only"); return
     bad = [os.path.relpath(b, ROOT) + ": " + LA.before_committed(b)[1] for b in befores if not LA.before_committed(b)[0]]
     if bad: sys.exit("before-values not committed and pushed:\n  " + "\n  ".join(bad))
-    if subprocess.run(["git", "status", "-sb"], cwd=ROOT, capture_output=True, text=True).stdout.splitlines()[0].find("ahead") >= 0: sys.exit("push first: image URLs are pinned to a pushed commit")
     os.makedirs(os.path.join(ROOT, "ops", "out", "ship"), exist_ok=True)
     for cid, its in out.items():
         p = os.path.join(ROOT, "ops", "out", "ship", f"{name}-update-{cid}.json")
-        json.dump([{"label": f"update {name}: {len(its)} item(s), changed fields only, status kept", "update_collection_items": {"collection_id": cid, "request": {"items": its}}}], open(p, "w"), indent=1, ensure_ascii=False)
+        acts = [{"label": f"update {name}: {len(its)} item(s), changed fields only, status kept", "update_collection_items": {"collection_id": cid, "request": {"items": its}},
+                 "images_base": {x["id"]: images_base[x["id"]] for x in its if x["id"] in images_base}, "allow_unshipped": allow_unshipped}]
+        if "--publish" in args:   # item publish of exactly the updated items (live pages; never a site publish)
+            acts.append({"label": f"publish {name}: {len(its)} item(s)", "publish_collection_items": {"collection_id": cid, "request": {"items": [{"id": x["id"]} for x in its]}}})
+        json.dump(acts, open(p, "w"), indent=1, ensure_ascii=False)
         print(f"  wrote {os.path.relpath(p, ROOT)}: {len(its)} item(s)")
 
 def relink_plan(items, live, specs=None, targets=None, day=None, write=True):
@@ -687,6 +739,32 @@ def apply_readback_file_ids(read, item_ids, specs=None, save=True):
             if save: json.dump({k: v for k, v in s.items() if k != "_path"}, open(s["_path"], "w"), indent=1, ensure_ascii=False)
     return out
 
+def payload_slot_problems(upd, ibase, bfile, allow=None):
+    """api-update's image check for any payload, hand-built or not: for each item that sends an image file, the slot map holds and
+    every slot file changed since its image base (payload images_base, else the before-value's images_since, else spec cms_draft.sha)
+    is in the payload. An item that sends files with no base is refused."""
+    specs = {s.get("item_id"): s for s in G.all_specs() if s.get("item_id")}; out = []
+    for c, its in upd.items():
+        hub = W_CHILD_HUB(c)
+        for it in its:
+            fdat = it["fieldData"]; sf = slot_fields(hub)
+            sends = [v["url"] for k, v in fdat.items() if k in sf and _sends_file(v)]
+            if not sends: continue
+            s = specs.get(it["id"])
+            if not s: out.append(f"{it['id']}: no spec holds this item id"); continue
+            slug = s["url"].rsplit("/", 1)[1]; img_dir = os.path.dirname(next(iter(s["images"].values()))["path"])
+            shas = {u.split("/potential-enigma/")[-1].split("/")[0] for u in sends}
+            if len(shas) != 1: out.append(f"{slug}: image URLs pin {len(shas)} different commits"); continue
+            sha = shas.pop()
+            if subprocess.run(["git", "merge-base", "--is-ancestor", sha, "origin/main"], cwd=ROOT, capture_output=True).returncode:
+                out.append(f"{slug}: image commit {sha[:8]} is not on origin/main"); continue
+            base = ibase.get(it["id"]) or (bfile.get(it["id"], (None, {}))[1] or {}).get("images_since") or (s.get("cms_draft") or {}).get("sha")
+            try: changed = changed_slots(img_dir, base, sha) if base else None
+            except ValueError as e: out.append(f"{slug}: {e}"); continue
+            out += [f"{slug}: {p}" for p in image_slot_problems(hub, img_dir, fdat, sha, changed, (allow or {}).get(slug, ()))]
+    return out
+def W_CHILD_HUB(cid): return _W().CHILD[cid]
+
 def cmd_api_update(args):
     _freeze_check(args, "api-update")
     """hubctl api-update PAYLOAD.json [--dry-run | --live]: run the item updates (and the item publishes of exactly those items) in a
@@ -695,9 +773,9 @@ def cmd_api_update(args):
     back and every sent field diffed; a mismatch stops before any publish."""
     W = _W(); pf = args[0]; mode = _mode(args)
     if mode == "before": sys.exit("api-update takes its before-values from hubctl ship-update / relink-payload --before-only")
-    upd, pub = {}, {}
+    upd, pub, ibase, allow = {}, {}, {}, {}
     for a in json.load(open(pf)):
-        if "update_collection_items" in a: x = a["update_collection_items"]; upd.setdefault(x["collection_id"], []).extend(x["request"]["items"])
+        if "update_collection_items" in a: x = a["update_collection_items"]; upd.setdefault(x["collection_id"], []).extend(x["request"]["items"]); ibase.update(a.get("images_base") or {}); allow.update(a.get("allow_unshipped") or {})
         elif "publish_collection_items" in a: x = a["publish_collection_items"]; pub.setdefault(x["collection_id"], []).extend(i["id"] for i in x["request"]["items"])
         else: sys.exit(f"refused: action {a.get('label')!r} is neither an item update nor an item publish")
     if not upd: sys.exit("refused: the payload has no item updates")
@@ -717,6 +795,8 @@ def cmd_api_update(args):
             if cov: bfile[it["id"]] = cov[-1]
             else: missing.append(it["id"])
     if missing: sys.exit(f"refused: no before-value in childedits/ covers {len(missing)} item(s): {', '.join(missing[:5])} (run ship-update / relink-payload --before-only, commit, push)")
+    slot_bad = payload_slot_problems(upd, ibase, bfile, allow)
+    if slot_bad: sys.exit("refused: image slots (Divit 2026-11-16):\n  " + "\n  ".join(slot_bad))
     n = sum(len(v) for v in upd.values()); name = os.path.splitext(os.path.basename(pf))[0]
     if mode == "dry":
         print(f"DRY RUN api-update {os.path.basename(pf)}: {n} item(s)")
