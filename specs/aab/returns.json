@@ -211,6 +211,13 @@
    "via": "reconcile",
    "by": "B-c-2",
    "note": "reconciled with status/live.json 2026-11-13 (Divit): live since 2026-10-23; was 'reviewed'"
+  },
+  {
+   "t": "2026-11-16 09:57 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-fix-21",
+   "note": ""
   }
  ],
  "pipeline": "r15",
@@ -494,8 +501,8 @@
    {
     "recipe": "R8",
     "title": "Return requests",
-    "prompt": "Email a label for returns inside 30 days, and send the rest to support",
-    "rule": "Within 30 days of delivery → label by email",
+    "prompt": "Email a label for returns inside 30 days that are not final sale, and send the rest to support",
+    "rule": "Within 30 days, not final sale → label by email",
     "main": {
      "blocks": [
       {
@@ -583,7 +590,7 @@
     "story": [
      {
       "copy": "takes returns within 30 days of delivery",
-      "image": "Within 30 days of delivery → label by email"
+      "image": "Within 30 days, not final sale → label by email"
      },
      {
       "copy": "This week brought 64 requests",
