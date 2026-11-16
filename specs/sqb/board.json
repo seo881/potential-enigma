@@ -249,6 +249,13 @@
    "via": "verify-live",
    "by": null,
    "note": "live page verified"
+  },
+  {
+   "t": "2026-11-16 12:08 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "B-s-903",
+   "note": "slim review: [slim | CONTENT_DEFECTS #10] hero_prompt: The fix changed the count from six to four to match the tab 1 table, but the page's own how-to still tells the reader to rate five or six areas (howto_step_3_title: '03 Choose five or six areas to rate'). The lead example now contradicts the pag"
   }
  ],
  "pipeline": "r15",
@@ -1327,7 +1334,7 @@
    "alt:tab_image_3": "f540dd3102b2f0eb",
    "alt:tab_image_4": "b5f2583f54157d58",
    "breadcrumb": "93fcf647bc7caf65",
-   "chip_adds": "f659833d6049e9b9",
+   "chip_adds": "1891cfd4300485bb",
    "explore_cta": "06d5f9640b3437b0",
    "faq": "9f6b74f87ce676fb",
    "feature_1": "d253d047d07ac55e",
@@ -1340,7 +1347,7 @@
    "features_subheading": "641e33278886357c",
    "h1": "93d830f7e5add1ec",
    "hero_description": "caaa3674f24e1d69",
-   "hero_prompt": "de47e117f8dca34e",
+   "hero_prompt": "6b129e8d23503fa1",
    "howto_description": "a7b34ea52441f43e",
    "howto_step_1_des": "5d9d512f23839363",
    "howto_step_1_title": "4f79cbfad88c601e",
@@ -1353,7 +1360,7 @@
    "howto_step_5_des": "2f5c7f69ab876890",
    "howto_step_5_title": "80a105deba587485",
    "howto_step_6_des": "a28668837a156666",
-   "howto_step_6_title": "7fa6b263046cd374",
+   "howto_step_6_title": "c41408ba2bb709c0",
    "howto_step_7_des": "87d3e5e0da3c2061",
    "howto_step_7_title": "458986919c4831c9",
    "howto_title": "0d02b4c67b858461",
@@ -1379,7 +1386,7 @@
    "why_table": "e4e52b0eef073f20",
    "why_title": "0feb632a3f118372"
   },
-  "all": "57fe164a1525ab65",
+  "all": "754a7399e9cc0f5c",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  },
  "pending_links": [],
@@ -1441,6 +1448,38 @@
      "rule": "HUB_RULES 8",
      "issue": "The hero prompt echoes the Larkspur tab (14 directors, no names stored) but says six areas; the tab 1 image shows four area rows and the tab copy states no count. Not a contradiction of a stated number, so a note.",
      "severity": "note"
+    }
+   ]
+  },
+  {
+   "by": "B-s-903",
+   "date": "2026-11-16 12:08 UTC",
+   "fields": [
+    "chip_adds",
+    "hero_prompt",
+    "howto_step_6_title"
+   ],
+   "baseline": "review_hash",
+   "blocking": 2,
+   "notes": 0,
+   "findings": [
+    {
+     "criterion": "slim",
+     "field": "hero_prompt",
+     "quote": "rates four governance areas and stores no names beside the scores",
+     "fix": "Drop the count: 'Build a board survey for 14 nonprofit directors that rates each governance area and stores no names beside the scores.' (or 'rates the board's governance areas'). Apply the same to chip_adds.",
+     "rule": "SEVERITY wrong-fact; cross-field mismatches always blocking (Divit 2026-11-05); CONTENT_DEFECTS #10",
+     "issue": "The fix changed the count from six to four to match the tab 1 table, but the page's own how-to still tells the reader to rate five or six areas (howto_step_3_title: '03 Choose five or six areas to rate'). The lead example now contradicts the page's advice on the same count.",
+     "severity": "blocking"
+    },
+    {
+     "criterion": "slim",
+     "field": "chip_adds",
+     "quote": "Add a board evaluation that rates four governance areas with no names stored.",
+     "fix": "'Add a board evaluation that rates each governance area with no names stored.'",
+     "rule": "SEVERITY wrong-fact; cross-field mismatches always blocking (Divit 2026-11-05); CONTENT_DEFECTS #10",
+     "issue": "Same count conflict as the hero prompt: four areas vs howto_step_3_title '03 Choose five or six areas to rate'.",
+     "severity": "blocking"
     }
    ]
   }
