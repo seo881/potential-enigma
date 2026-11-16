@@ -102,3 +102,4 @@
 - 2026-11-16 10:03 UTC: api-update B-fix-31b-update-6aaaa937fe1a8d180b7c9f83.json: 3 item(s) updated via Data API; read back; 1 field mismatch(es); rollback childedits/2026-11-16/B-fix-31b-update-6aaaa937fe1a8d180b7c9f83.20261116T100143Z.rollback.json
 - 2026-11-16 10:05 UTC: api-update B-fix-31b-update-6aaaa937fe1a8d180b7c9f83.json: 3 item(s) updated via Data API; read back; 0 field mismatch(es); rollback childedits/2026-11-16/B-fix-31b-update-6aaaa937fe1a8d180b7c9f83.20261116T100425Z.rollback.json
 - 2026-11-16 B-fix-31: lp video/waitlist/webinar live fix, item-published
+- 2026-11-16 B-fix-10: FAQ cross-hub links unlinked, 4 items updated+item-published (awb---faq-data), rollback childedits/2026-11-16/b10-lp-payload.20261116T100118Z.rollback.json
