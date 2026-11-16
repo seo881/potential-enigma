@@ -26,10 +26,10 @@
   "explore_cta": "Build My Order Automation",
   "features_heading": "What Order Processing Automation Handles",
   "features_subheading": "Order management automation reads each new order and runs your team's checks, leaving people only the lines that need a decision.",
-  "feature_1": "<h3>Orders read from email and PDF</h3><p>Customer POs sent as PDF attachments or typed into an email become a draft sales order with the customer, lines, quantities, prices, and ship-to. Unclear fields go to a person.</p>",
+  "feature_1": "<h3>Orders read from email and PDF</h3><p>Customer POs sent as PDF attachments or typed into an email become a draft sales order with the customer, PO number, lines, and ship-to. Unclear fields go to a person.</p>",
   "feature_2": "<h3>Lines checked against your price list</h3><p>Each line is matched to your catalog by part number and priced from the customer's contract. A quoted price that disagrees, or an unknown part number, holds that line for its rep.</p>",
   "feature_3": "<h3>Credit checked before release</h3><p>The open balance plus the new order is checked against the customer's credit limit before release. An order over the limit waits while the credit manager gets a direct message.</p>",
-  "feature_4": "<h3>Stock reserved when an order is released</h3><p>Released lines reserve stock on hand. A short line ships what is there and backorders the rest, and the warehouse works from one pick list built from the day's released orders.</p>",
+  "feature_4": "<h3>Stock reserved when an order is released</h3><p>Released lines reserve stock on hand. A short line ships what is there and backorders the rest, or holds the order per account. One pick list covers the day's released orders.</p>",
   "feature_5": "<h3>One orders table, synced to your ERP</h3><p>Email, store, and phone orders land in one table with one status each. Released orders sync to NetSuite or QuickBooks, and buyers look up their own progress by PO number.</p>",
   "feature_6": "<h3>Order rules you can read and export</h3><p>Every hold rule and price check is readable code you can export to your GitHub repository on paid plans. Orders, holds, and backorders sit in a database that your team owns.</p>",
   "why_title": "Why Build Order Processing With Emergent?",
@@ -55,7 +55,7 @@
   "howto_step_2_des": "Write your hold rules as plain sentences: a quoted price off the contract, a new order that pushes an account past its credit limit, a part number missing from the catalog. Name the person who decides each one. A hold without an owner sits forever.",
   "howto_step_3_des": "Import each customer's contract prices and credit limit, with open balances from your accounting system. Emergent builds the checks against those tables. An account manager can then change a price later without anyone touching the rules themselves.",
   "howto_step_4_des": "Connect the system that holds your orders and stock, such as NetSuite or QuickBooks. Stock levels sync in before each release and released orders sync back with their status. For order fulfillment automation, the pick list reads from that same table.",
-  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Order Processing Questions, Answered\", \"items\": [{\"q\": \"What is order processing automation?\", \"a\": \"Order processing automation is software that carries a customer order from the moment it arrives until it is released to the warehouse, running the checks a person would otherwise run by hand. Clean orders go straight through. Your team only sees the orders that break a rule, such as a wrong price or a customer past their limit.\"}, {\"q\": \"How do I set up order processing automation?\", \"a\": \"Write down where orders arrive and which ones your desk stops today, then describe both in plain English to Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>. Emergent builds the workflow and the database behind it. Connect your ERP through its API so released orders land where your accounting team expects them, and change any rule later by prompting.\"}, {\"q\": \"What order data do I need before building order processing automation?\", \"a\": \"Start with your catalog and its part numbers, then the price and credit tables the checks will read. Add a cross-reference for customers who order by their own part numbers, since a PO line reading HH-DS22 has to map to your SKU. Emergent sets no task cap on the workflows it builds, however many orders arrive in a day.\"}, {\"q\": \"What should happen to an order that fails a price or credit check?\", \"a\": \"Hold the order at the step that failed and send it to the one person who owns that decision, with the reason attached. A price mismatch goes to the account rep; an account over its limit goes to credit. The buyer can still get a receipt that the order arrived, and that email is the work of <a href='https://emergent.sh/ai-automation-builder/order-confirmation'>order confirmation automation</a>, not of the hold.\"}, {\"q\": \"Can order processing automation read emailed orders into sales orders?\", \"a\": \"Yes. Point the app at the inbox where customers send orders, and it reads each attachment into fields with AI: customer, PO number, part numbers, quantities, and prices. Any field it reads with low confidence goes to a person before the sales order is drafted. Track how often the desk corrects a field during the first month, account by account.\"}, {\"q\": \"How does order processing handle a customer who sends the same order twice?\", \"a\": \"The app looks up the customer's PO number before it drafts a sales order. If that number already sits on an open order, the second email is parked for the desk with a link to the first, and nothing new reaches the warehouse. A person then decides whether it is a resend or a genuine change to quantities.\"}, {\"q\": \"What does automated order management cover after an order is entered?\", \"a\": \"It covers everything after entry, up to the status a buyer sees when they check on it. Automated order management keeps one record per order that every step writes to. The warehouse and customer service then read one status from it. Reorder points and stock counts sit with <a href='https://emergent.sh/ai-automation-builder/automated-inventory-management'>automated inventory management</a>, which feeds the stock check.\"}, {\"q\": \"What should an automated order management system connect to?\", \"a\": \"At minimum, it should connect to the system that holds your inventory and invoices, such as your ERP. An automated order management system that cannot read stock levels will promise lines it cannot ship. Built on Emergent, the app connects to any tool with an API and keeps the records in sync in both directions.\"}, {\"q\": \"When is order management automation worth building?\", \"a\": \"Build it when your desk spends its day retyping the same fields from emails into the ERP, and when holds get lost in someone's inbox. A shop keying a handful of orders a week can stay manual. Emergent builds order management automation from a plain-English description of the rules your desk already follows.\"}, {\"q\": \"How is order fulfillment automation different from order processing?\", \"a\": \"Order processing ends when an order is checked and released, and order fulfillment automation picks up from there with picking and packing. Both read one order record, which is how a buyer sees tracking on the order they placed. Buying stock from suppliers to cover a backorder is a separate job, handled by <a href='https://emergent.sh/ai-automation-builder/procurement'>procurement automation</a>.\"}]}; </script></div></div>",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Order Processing Questions, Answered\", \"items\": [{\"q\": \"What is order processing automation?\", \"a\": \"Order processing automation is software that carries a customer order from the moment it arrives until it is released to the warehouse, running the checks a person would otherwise run by hand. Clean orders go straight through. Your team only sees the orders that break a rule, such as a wrong price or a customer past their limit.\"}, {\"q\": \"How do I set up order processing automation?\", \"a\": \"Write down where orders arrive and which ones your desk stops today, then describe both in plain English to Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>. Emergent builds the workflow and the database behind it. Connect your ERP through its API so released orders land where your accounting team expects them, and change any rule later by prompting.\"}, {\"q\": \"What order data do I need before building order processing automation?\", \"a\": \"Start with your catalog and its part numbers, then the price and credit tables the checks will read. Add a cross-reference for customers who order by their own part numbers, since a PO line reading HH-DS22 has to map to your SKU. Emergent sets no task cap on the workflows it builds, however many orders arrive in a day.\"}, {\"q\": \"What should happen to an order that fails a price or credit check?\", \"a\": \"Hold the order at the step that failed and send it to the one person who owns that decision, with the reason attached. A price mismatch goes to the account rep; an account over its limit goes to credit. The buyer can still get a receipt that the order arrived, and that email is the work of <a href='https://emergent.sh/ai-automation-builder/order-confirmation'>order confirmation automation</a>, not of the hold.\"}, {\"q\": \"Can order processing automation read emailed orders into sales orders?\", \"a\": \"Yes. Point the app at the inbox where customers send orders, and it reads each attachment into fields with AI: customer, PO number, part numbers, quantities, prices, and ship-to. Any field it reads with low confidence goes to a person before the sales order is drafted. Track how often the desk corrects a field during the first month, account by account.\"}, {\"q\": \"How does order processing handle a customer who sends the same order twice?\", \"a\": \"The app looks up the customer's PO number before it drafts a sales order. If that number already sits on an open order, the second email is parked for the desk with a link to the first, and nothing new reaches the warehouse. A person then decides whether it is a resend or a genuine change to quantities.\"}, {\"q\": \"What does automated order management cover after an order is entered?\", \"a\": \"It covers everything after entry, up to the status a buyer sees when they check on it. Automated order management keeps one record per order that every step writes to. The warehouse and customer service then read one status from it. Reorder points and stock counts sit with <a href='https://emergent.sh/ai-automation-builder/automated-inventory-management'>automated inventory management</a>, which feeds the stock check.\"}, {\"q\": \"What should an automated order management system connect to?\", \"a\": \"At minimum, it should connect to the system that holds your inventory and invoices, such as your ERP. An automated order management system that cannot read stock levels will promise lines it cannot ship. Built on Emergent, the app connects to any tool with an API and keeps the records in sync in both directions.\"}, {\"q\": \"When is order management automation worth building?\", \"a\": \"Build it when your desk spends its day retyping the same fields from emails into the ERP, and when holds get lost in someone's inbox. A shop keying a handful of orders a week can stay manual. Emergent builds order management automation from a plain-English description of the rules your desk already follows.\"}, {\"q\": \"How is order fulfillment automation different from order processing?\", \"a\": \"Order processing ends when an order is checked and released, and order fulfillment automation picks up from there with picking and packing. Both read one order record, which is how a buyer sees tracking on the order they placed. Buying stock from suppliers to cover a backorder is a separate job, handled by <a href='https://emergent.sh/ai-automation-builder/procurement'>procurement automation</a>.\"}]}; </script></div></div>",
   "learn": null,
   "tutorials": null,
   "case_study": null,
@@ -1325,7 +1325,7 @@
    "locked": false,
    "flagged": [],
    "n": 5,
-   "a": "Yes. Point the app at the inbox where customers send orders, and it reads each attachment into fields with AI: customer, PO number, part numbers, quantities, and prices. Any field it reads with low confidence goes to a person before the sales order is drafted. Track how often the desk corrects a field during the first month, account by account.",
+   "a": "Yes. Point the app at the inbox where customers send orders, and it reads each attachment into fields with AI: customer, PO number, part numbers, quantities, prices, and ship-to. Any field it reads with low confidence goes to a person before the sales order is drafted. Track how often the desk corrects a field during the first month, account by account.",
    "link": null,
    "secondary": null,
    "dropped": "purchase-order intent owned by live /ai-automation-builder/purchase-order (review B-r-20 2026-10-15; orchestrator brief 2026-11-13)"
@@ -1415,6 +1415,54 @@
    "by": "B-c-2",
    "reason": "QC A1/name reuse: credit manager 'Odile Varga' is used on 3 other pages; renamed to 'Dulce Ferraro' (unique); post-live review covers it",
    "date": "2026-11-13 08:13 UTC"
+  },
+  {
+   "field": "5",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-16 QC CATCH-UP: forced-link removal / cross-field mismatch fix (always blocking), CMS item update",
+   "date": "2026-11-16 09:51 UTC"
+  },
+  {
+   "field": "faq",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-16 QC CATCH-UP: forced-link removal / cross-field mismatch fix (always blocking), CMS item update",
+   "date": "2026-11-16 09:51 UTC"
+  },
+  {
+   "field": "feature_1",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-16 QC CATCH-UP: forced-link removal / cross-field mismatch fix (always blocking), CMS item update",
+   "date": "2026-11-16 09:51 UTC"
+  },
+  {
+   "field": "feature_4",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-16 QC CATCH-UP: forced-link removal / cross-field mismatch fix (always blocking), CMS item update",
+   "date": "2026-11-16 09:51 UTC"
+  },
+  {
+   "field": "howto",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-16 QC CATCH-UP: forced-link removal / cross-field mismatch fix (always blocking), CMS item update",
+   "date": "2026-11-16 09:51 UTC"
+  },
+  {
+   "field": "item",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-16 QC CATCH-UP: forced-link removal / cross-field mismatch fix (always blocking), CMS item update",
+   "date": "2026-11-16 09:51 UTC"
+  },
+  {
+   "field": "step",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-16 QC CATCH-UP: forced-link removal / cross-field mismatch fix (always blocking), CMS item update",
+   "date": "2026-11-16 09:51 UTC"
+  },
+  {
+   "field": "vs",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-16 QC CATCH-UP: forced-link removal / cross-field mismatch fix (always blocking), CMS item update",
+   "date": "2026-11-16 09:51 UTC"
   }
  ],
  "slim_reviews": [
