@@ -1,0 +1,24 @@
+{
+ "blocking": [
+  {
+   "field": "image_brief tab 3 (main) vs mockup trailMapQuiz, feature_1, faq item 1",
+   "class": "image-contradiction",
+   "severity": "blocking",
+   "rule": "CONTENT_DEFECTS #20; SEVERITY cross-field mismatches (Divit 2026-11-05)",
+   "quote": "{\"type\": \"list\", ... \"items\": [{\"initials\": \"A\", \"name\": \"Creek Loop\"}, {\"initials\": \"B\", \"name\": \"Ridge Loop\"}, {\"initials\": \"C\", \"name\": \"Meadow Loop\"}, {\"initials\": \"D\", \"name\": \"Lake Loop\"}]}",
+   "finding": "Tab 3's image draws the trail quiz as a lettered A-D multiple-choice list with a Next button. The mockup says 'Each question shows our trail map and asks where something is', feature_1 says 'each answer is a click on a region', and faq item 1 defines a map quiz as answering 'by clicking or tapping that spot on the map instead of picking from a list'. The image shows exactly the pick-from-a-list quiz the page says this is not.",
+   "fix": "image_brief.tabs[2].main.blocks: replace the list block and the Next button with {\"type\": \"table\", \"columns\": [\"Where hikers tapped\", \"Tries\"], \"widths\": [0.68, 0.32], \"row_h\": 48, \"bad\": 1, \"num_cols\": [1], \"rows\": [[\"Creek Loop (correct)\", \"548\"], [\"Ridge Loop\", [\"460\", \"bad\"]], [\"Meadow Loop\", \"74\"], [\"Lake Loop\", \"38\"]]}; change the heading sub to \"Question 5 of 8, tapped on the trail map\"; add checks {\"expr\": \"548 + 460 + 74 + 38 == 1120\", \"shows\": [\"1,120 tries this fall\"], \"where\": 3} and {\"expr\": \"round(460 / 1120 * 100) == 41\", \"shows\": [\"41% of 1,120 tries\"], \"where\": 3}. Re-render (hubctl images), then replace the tab 3 image in the CMS item + verify-live."
+  }
+ ],
+ "notes": [
+  {
+   "field": "image tab 1",
+   "class": "image-polish",
+   "severity": "note",
+   "rule": "CONTENT_DEFECTS #28",
+   "quote": "Unit 4",
+   "finding": "Chip 'Unit 4' appears nowhere in the copy; harmless but unanchored.",
+   "fix": "Use 'Unit test' on a refresh."
+  }
+ ]
+}
