@@ -2898,9 +2898,10 @@
    "cms_checked": "2026-11-16 08:42 UTC",
    "cms_exists": false,
    "cms_item_id": null,
+   "note": "[images | CONTENT_DEFECTS #25] image_brief.tabs[1].hero (tab_image_2): The tab 2 image draws the approval alert with Slack's channel glyph '#' in front of Pernille's name, so it reads as a post to a shared channel, while the copy, the mockup prompt ('send our VP of People a Slack message') and the alt text say one person gets a direct message. The cover (dm: true) draws the same alert as a DM, so the page contradicts itself. The engine's message hero (pipeline/engine.py line 120) always draws 'hash' and has no dm option. -> Redraw tab 2's hero as addressed to Pernille: either change image_brief.tabs[1].hero to a card (kind 'card', icon 'message-square', title 'Slack message to Pernille Aspelund', blocks with 'Salary top: $185,000' and 'Limit without sign-off: $160,000', action 'Approve') keeping the story link 'Approve', or have the coordinator add the cover's dm option to the message hero (engine.py line 120: icon 'message-square' when dm) and set \"dm\": true on tabs[1].hero. Re-render and confirm no '#' before her name.",
    "queue_rank": 425,
-   "state": "images",
-   "updated": "2026-11-16 08:45 UTC"
+   "state": "rework",
+   "updated": "2026-11-16 08:49 UTC"
   },
   "/ai-form-builder/reference-check": {
    "by": "A-w-135",

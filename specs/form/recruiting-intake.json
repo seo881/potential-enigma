@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-753",
    "note": ""
+  },
+  {
+   "t": "2026-11-16 08:49 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-648",
+   "note": "[images | CONTENT_DEFECTS #25] image_brief.tabs[1].hero (tab_image_2): The tab 2 image draws the approval alert with Slack's channel glyph '#' in front of Pernille's name, so it reads as a post to a shared channel, while the copy, the mockup prompt ('send our VP of People a Slack message') and the a"
   }
  ],
  "pipeline": "r15",
@@ -852,5 +859,275 @@
  ],
  "writers": [
   "B-w-753"
- ]
+ ],
+ "review": {
+  "by": "B-r-648",
+  "date": "2026-11-16 08:49 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Recruiting Intake Form for Every Open Role'; hero 'Build a recruiting intake form that gets the must-haves, salary range, and interview panel from hiring managers up front.' (121 chars); how-to description one sentence carrying the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "SERP is question lists and templates for the recruiter/hiring-manager intake; FAQ 3 lists the questions to ask, FAQ 7 separates form from intake meeting, the how-to walks through the fields, tabs show four setups (agency, VP approval, seasonal shifts, tracking)."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Recruiter vocabulary throughout: must-haves vs nice-to-haves, interview loop, kickoff call, salary top over $160,000, 24 night / 16 day pickers."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every feature and tab opens on a full sentence: 'Ask the hiring manager for no more than three must-haves', 'Bellgrove Search sends each new client an intake link', 'Kestrian Robotics caps what a hiring manager can open alone.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; notes only (13 A, B, and C lists; 'and not after the first round of interviews' tail)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain operator voice: 'The limit forces the hard choice before sourcing starts, when changing a requirement costs nothing'; no AI tells."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Indeed definition matches the quoted span ('a questionnaire that helps a recruiter and hiring manager set expectations'; 'open position, interview timeline and sourcing criteria'); Emergent claims map to prompt-build, database-owned, no-caps (incl. 'no per-approver seats'), alerts, api-connect, code-export. Numbers agree across tabs, alt text, mockups and chips: 3 must-haves, $82,000 to $94,000, 2 stages; $185,000 vs $160,000; 24 + 16 = 40, 2 requests; 14 open, more than 3 days, 2 reminders, 5 days. No hiring-law or pay-transparency advice."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own stories (Bellgrove/Tilsley, Kestrian, Haverell, Calloran); no sibling primary in headings (QC K clean)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first; hub link in item 2 only ('Emergent's AI form builder'); no related-page links, so none read forced (DECISIONS: 2-3 related links are welcome, not required)."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "tab 2 hero draws the Slack alert under '# Pernille Aspelund' (channel glyph) while tab_content_2 says Pernille 'gets a Slack message to approve it' and the cover draws the same alert as a DM (message icon)."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #25",
+    "field": "image_brief.tabs[1].hero (tab_image_2)",
+    "quote": "\"kind\": \"message\", \"channel\": \"Pernille Aspelund\" (renders '# Pernille Aspelund'); tab_content_2: 'Pernille Aspelund, the VP of People, who gets a Slack message to approve it'",
+    "issue": "The tab 2 image draws the approval alert with Slack's channel glyph '#' in front of Pernille's name, so it reads as a post to a shared channel, while the copy, the mockup prompt ('send our VP of People a Slack message') and the alt text say one person gets a direct message. The cover (dm: true) draws the same alert as a DM, so the page contradicts itself. The engine's message hero (pipeline/engine.py line 120) always draws 'hash' and has no dm option.",
+    "fix": "Redraw tab 2's hero as addressed to Pernille: either change image_brief.tabs[1].hero to a card (kind 'card', icon 'message-square', title 'Slack message to Pernille Aspelund', blocks with 'Salary top: $185,000' and 'Limit without sign-off: $160,000', action 'Approve') keeping the story link 'Approve', or have the coordinator add the cover's dm option to the message hero (engine.py line 120: icon 'message-square' when dm) and set \"dm\": true on tabs[1].hero. Re-render and confirm no '#' before her name.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 1",
+    "quote": "According to Indeed, a recruiting intake form is a questionnaire that helps a recruiter and hiring manager set expectations for an open role. It asks about the position, the interview timeline, and the sourcing criteria, and the hiring manager answers it before the search begins.",
+    "issue": "The Indeed span is quoted exactly up to 'set expectations'; 'for an open role' and the closing clause 'and the hiring manager answers it before the search begins' are the page's own framing but sit inside the attributed definition.",
+    "fix": "Optionally end the attributed sentence at the sourced span and state who fills it in as a separate, unattributed sentence.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 5",
+    "quote": "Aim for about 15 minutes.",
+    "issue": "A recommended fill time with no source; advice, so a note.",
+    "fix": "None required.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "howto_step_2_des",
+    "quote": "when changing a requirement costs nothing, and not after the first round of interviews.",
+    "issue": "Tacked-on 'and not after' ending restates the sentence's point.",
+    "fix": "End at 'costs nothing'.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "page",
+    "quote": "13 'A, B, and C' lists (QC Q8), e.g. hero 'the must-haves, salary range, and interview panel', features_subheading 'the form, the routing, and the table', faq item 2 'the form, the approval routing, and the database'",
+    "issue": "Triplet lists recur across the page and set a templated rhythm.",
+    "fix": "None required; pairs or one specific where natural on a future pass.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 1",
+   "issue": "The Indeed span is quoted exactly up to 'set expectations'; 'for an open role' and the closing clause 'and the hiring manager answers it before the search begins' are the page's own framing but sit inside the attributed definition.",
+   "fix": "Optionally end the attributed sentence at the sourced span and state who fills it in as a separate, unattributed sentence.",
+   "by": "B-r-648",
+   "via": "review",
+   "date": "2026-11-16 08:49 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 5",
+   "issue": "A recommended fill time with no source; advice, so a note.",
+   "fix": "None required.",
+   "by": "B-r-648",
+   "via": "review",
+   "date": "2026-11-16 08:49 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "howto_step_2_des",
+   "issue": "Tacked-on 'and not after' ending restates the sentence's point.",
+   "fix": "End at 'costs nothing'.",
+   "by": "B-r-648",
+   "via": "review",
+   "date": "2026-11-16 08:49 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "page",
+   "issue": "Triplet lists recur across the page and set a templated rhythm.",
+   "fix": "None required; pairs or one specific where natural on a future pass.",
+   "by": "B-r-648",
+   "via": "review",
+   "date": "2026-11-16 08:49 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "932d324a35d63c41",
+   "alt:share_image": "1eb7aa45a834add2",
+   "alt:tab_image_1": "56dcb94c90e75e74",
+   "alt:tab_image_2": "e53298059fad131a",
+   "alt:tab_image_3": "ae0292c5e05864d0",
+   "alt:tab_image_4": "4298b94651e68112",
+   "breadcrumb": "98b477a8c6821b1d",
+   "chip_adds": "88dea14bbd9b17b7",
+   "explore_cta": "e2213f61dd72fd30",
+   "faq": "0fc04e5596029f09",
+   "feature_1": "60aace912903ac05",
+   "feature_2": "dab1322ab7c30334",
+   "feature_3": "44ebf6a0b54e06df",
+   "feature_4": "62e73ee3c4f51710",
+   "feature_5": "4aacf9bf5ebb2bb2",
+   "feature_6": "94a4df54db31d6b7",
+   "features_heading": "b19fdc36d1e6c7ea",
+   "features_subheading": "259d43a02822601e",
+   "h1": "c3ec57e804f6c4db",
+   "hero_description": "33b4d1942e96263e",
+   "hero_prompt": "dfbae262af830258",
+   "howto_description": "479f14289578d246",
+   "howto_step_1_des": "836316ccaf65b030",
+   "howto_step_1_title": "dc7a78cca61760dc",
+   "howto_step_2_des": "08aee80924adf190",
+   "howto_step_2_title": "9d2b8d9265b4493f",
+   "howto_step_3_des": "059478d872c49be0",
+   "howto_step_3_title": "acce2eaca6c523c4",
+   "howto_step_4_des": "b84c11db2e281165",
+   "howto_step_4_title": "11c258ab1b87d61c",
+   "howto_step_5_des": "494984b44bc83553",
+   "howto_step_5_title": "b9442838efcd7c7b",
+   "howto_step_6_des": "df1b1a86f358ff59",
+   "howto_step_6_title": "d95bcf7909ad5e88",
+   "howto_step_7_des": "c042e56b24e8d2b2",
+   "howto_step_7_title": "507f7a5060e2b56d",
+   "howto_title": "284c1479cdd3b260",
+   "meta_description": "6d07c6dfc59783e7",
+   "meta_title": "73bfe7c12b8df8da",
+   "mockup": "ac6db0c116b8f8c1",
+   "product_name": "861f76479bd4ee59",
+   "prompt_chip_1": "7d8c8262db8204a0",
+   "prompt_chip_2": "81aea9d5dacad9e6",
+   "prompt_chip_3": "e7df999d6abc816a",
+   "prompt_chip_4": "8ba3f0bd8149442f",
+   "slug": "6c9da69192b955a8",
+   "tab_content_1": "b6e42fbf90d6e02c",
+   "tab_content_2": "d95c06e2b05b8440",
+   "tab_content_3": "04c84688a864bd91",
+   "tab_content_4": "9c0edcf244e8d4cf",
+   "tab_label_1": "eda7ec9970932db4",
+   "tab_label_2": "8902faef1581e226",
+   "tab_label_3": "a4af2bfa5e8e8b0d",
+   "tab_label_4": "beed373176b34e00",
+   "usecase_heading": "b03c1df32f810348",
+   "why_description": "53e62c1f6f7e168b",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "e021b919fda058ce"
+  },
+  "all": "a0015aa7c49221e1",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "932d324a35d63c41",
+   "alt:share_image": "1eb7aa45a834add2",
+   "alt:tab_image_1": "56dcb94c90e75e74",
+   "alt:tab_image_2": "e53298059fad131a",
+   "alt:tab_image_3": "ae0292c5e05864d0",
+   "alt:tab_image_4": "4298b94651e68112",
+   "breadcrumb": "98b477a8c6821b1d",
+   "chip_adds": "88dea14bbd9b17b7",
+   "explore_cta": "e2213f61dd72fd30",
+   "faq": "0fc04e5596029f09",
+   "feature_1": "60aace912903ac05",
+   "feature_2": "dab1322ab7c30334",
+   "feature_3": "44ebf6a0b54e06df",
+   "feature_4": "62e73ee3c4f51710",
+   "feature_5": "4aacf9bf5ebb2bb2",
+   "feature_6": "94a4df54db31d6b7",
+   "features_heading": "b19fdc36d1e6c7ea",
+   "features_subheading": "259d43a02822601e",
+   "h1": "c3ec57e804f6c4db",
+   "hero_description": "33b4d1942e96263e",
+   "hero_prompt": "dfbae262af830258",
+   "howto_description": "479f14289578d246",
+   "howto_step_1_des": "836316ccaf65b030",
+   "howto_step_1_title": "dc7a78cca61760dc",
+   "howto_step_2_des": "08aee80924adf190",
+   "howto_step_2_title": "9d2b8d9265b4493f",
+   "howto_step_3_des": "059478d872c49be0",
+   "howto_step_3_title": "acce2eaca6c523c4",
+   "howto_step_4_des": "b84c11db2e281165",
+   "howto_step_4_title": "11c258ab1b87d61c",
+   "howto_step_5_des": "494984b44bc83553",
+   "howto_step_5_title": "b9442838efcd7c7b",
+   "howto_step_6_des": "df1b1a86f358ff59",
+   "howto_step_6_title": "d95bcf7909ad5e88",
+   "howto_step_7_des": "c042e56b24e8d2b2",
+   "howto_step_7_title": "507f7a5060e2b56d",
+   "howto_title": "284c1479cdd3b260",
+   "meta_description": "6d07c6dfc59783e7",
+   "meta_title": "73bfe7c12b8df8da",
+   "mockup": "ac6db0c116b8f8c1",
+   "product_name": "861f76479bd4ee59",
+   "prompt_chip_1": "7d8c8262db8204a0",
+   "prompt_chip_2": "81aea9d5dacad9e6",
+   "prompt_chip_3": "e7df999d6abc816a",
+   "prompt_chip_4": "8ba3f0bd8149442f",
+   "slug": "6c9da69192b955a8",
+   "tab_content_1": "b6e42fbf90d6e02c",
+   "tab_content_2": "d95c06e2b05b8440",
+   "tab_content_3": "04c84688a864bd91",
+   "tab_content_4": "9c0edcf244e8d4cf",
+   "tab_label_1": "eda7ec9970932db4",
+   "tab_label_2": "8902faef1581e226",
+   "tab_label_3": "a4af2bfa5e8e8b0d",
+   "tab_label_4": "beed373176b34e00",
+   "usecase_heading": "b03c1df32f810348",
+   "why_description": "53e62c1f6f7e168b",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "e021b919fda058ce"
+  },
+  "all": "a0015aa7c49221e1",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
