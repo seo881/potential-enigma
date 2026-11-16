@@ -25,3 +25,11 @@ YMYL ones (`hubctl ymyl`) need one review (page-reviewer) before ship.
 - Blocked, need Divit: F6 stale AlsoAsked (Oct-13 pulls) on locked slots: makeup, sports, trivia (+ likely mattress, safety-quiz, supplement, wellness-quiz) -> asked for <=20 credit refresh; automotive PA4 "car" vs PA12 secondary.
 - Writers running B-w-750..785 (see agent list); unstarted claims: mattress, safety-quiz, supplement, wellness-quiz (F6 risk), underwriting.
 - Writer brief items 14-15 added (ship-check before done; F6 handling). PIP acronym added to rules/paa_patterns.json.
+
+## Update ~09:20 UTC (PRIORITY: all remaining pages live today; QC after)
+- Live ~609. Every remaining page is approved/reviewed and queued with a ship agent; no writing left.
+  - Form ship (B-ship-19): bathroom, meal-train, bake-sale (ship-first); valentines (ship-first); standing-go: pip, medical-waiver, recruiting-intake, payroll-deduction, dermaplaning, spray-tanning, real-estate-buyer-intake, bounce-house, boat-rental, employee-termination.
+  - SQ ship (B-ship-20): ~19 incl. automotive, makeup, sports, trivia, mattress, supplement, safety-quiz, wellness-quiz.
+  - Auto/LP ship (B-ship-21): dsar, tax, prior-authorization, underwriting (standing-go); affiliate draft updated 09:13 -> publish.
+- Landed today: before-value gate checks the file's own commit (c00e1ce3); PA4 per-page allow (automotive car, boat-rental boat; 2a1f882c); valentines variant + H1 apostrophe (32e82549); Q6 apostrophe (e1670db6); acronyms PIP/JHA/DSAR; AlsoAsked stale-r1116 (5 credits of 20).
+- After zero remaining -> QC catch-up (Divit 2026-11-16 item 6): audit triage (387 fails; new full run started ~09:00), escaped-tag sweep (plan/qc-later-2026-11-16.md, 11 pages), post-live review backlog, forced-link fixes, review notes (e.g. "Build Mine Now" CTA fallback, ymyl "intake"=medical false positive, render.json not written by hubctl images).
