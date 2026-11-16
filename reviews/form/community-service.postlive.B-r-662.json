@@ -1,0 +1,21 @@
+{
+ "blocking": [
+  {
+   "field": "tab_content_1 (with feature_1 and mockup.schoolGraduationHours)",
+   "severity": "blocking",
+   "class": "untrue",
+   "rule": "HUB_RULES 8; CONTENT_DEFECTS #14 (page contradicts itself)",
+   "finding": "The page states two incompatible counting rules. feature_3: \"The supervisor signs on screen, and only signed shifts count toward the total.\"; howto_step_3: \"The form counts every signed shift against that goal\"; howto_step_6: \"an unsigned shift stays out of the count until someone confirms it\"; hero: \"asks the site supervisor to confirm every shift\". But tab_content_1 counts an unsigned shift the moment it is logged: \"logs the 4-hour shift on her phone before she leaves. Her record moves from 28 to 32 hours\"; feature_1: \"Each shift a volunteer logs adds to their total\"; mockup schoolGraduationHours: \"Keep a running total on each student's record and show them how many hours they still need after every entry.\"",
+   "fix": "1) tab_content_1: replace \"Her record moves from 28 to 32 hours, and the form shows her the 8 she still needs.\" with \"Once the pantry supervisor signs it, her record moves from 28 to 32 hours, and the form shows her the 8 she still needs.\" (story phrases \"from 28 to 32 hours\" and \"the 8 she still needs\" stay; re-run QC T1 on tab_body). 2) feature_1: replace \"Each shift a volunteer logs adds to their total,\" with \"Each signed shift adds to the volunteer's total,\" 3) mockup schoolGraduationHours: replace \"Keep a running total on each student's record and show them how many hours they still need after every entry.\" with \"Email the site supervisor each shift to confirm, add confirmed hours to a running total on each student's record, and show them how many hours they still need.\" Images need no change."
+  }
+ ],
+ "notes": [
+  {
+   "field": "tab_content_3",
+   "severity": "note",
+   "class": "voice",
+   "rule": "HUB_RULES 2b",
+   "finding": "Tab H3 \"Lina's shift is back with Ezra by Friday\" is unclear: the shift was never with Lina's supervisor and returned; the tab is about a reminder."
+  }
+ ]
+}

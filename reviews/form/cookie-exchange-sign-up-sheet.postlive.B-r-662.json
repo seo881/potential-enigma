@@ -1,0 +1,21 @@
+{
+ "blocking": [
+  {
+   "field": "chip_adds[2] and mockup.scoutTroopSwaps (vs howto_step_4_des and faq item 7)",
+   "severity": "blocking",
+   "class": "wrong-fact",
+   "rule": "SEVERITY cross-field mismatch (Divit 2026-11-05); CONTENT_DEFECTS #10",
+   "finding": "The allergen field list differs between fields. howto_step_4_des: \"including peanuts, tree nuts, milk, eggs, wheat, and sesame\" and FAQ 7: \"Include sesame: the FDA lists it as the 9th major food allergen\". chip_adds[2]: \"Add allergy notes where each baker ticks peanuts, tree nuts, milk, eggs, or wheat.\" and mockup scoutTroopSwaps: \"checkboxes for what the batch contains, including peanuts, tree nuts, milk, eggs, and wheat\" both leave sesame out, so the page's own prompts build the form its advice says is incomplete.",
+   "fix": "chip_adds[2]: \"Add allergy notes where each baker ticks peanuts, tree nuts, milk, eggs, or wheat.\" -> \"Add allergy notes where each baker ticks peanuts, tree nuts, milk, eggs, wheat, or sesame.\" mockup scoutTroopSwaps: \"including peanuts, tree nuts, milk, eggs, and wheat\" -> \"including peanuts, tree nuts, milk, eggs, wheat, and sesame\". feature_3 (\"such as peanuts, tree nuts, or wheat\") is an open example and may stay."
+  }
+ ],
+ "notes": [
+  {
+   "field": "image_brief tab 4",
+   "severity": "note",
+   "class": "image-polish",
+   "rule": "CONTENT_DEFECTS #5",
+   "finding": "Copy casts Ida Pettigrove as the organizer who \"sees every match on one page\"; the image shows her as a member saving her sign-up while the form already reads \"16 of 16 members signed up\". Compatible (organizer is also a member) but reads oddly."
+  }
+ ]
+}
