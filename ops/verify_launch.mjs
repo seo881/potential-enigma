@@ -22,6 +22,16 @@ let BASE = "https://emergent.sh";
 const CANON = "https://emergent.sh";
 // a page script's rejected promise must not end the run; it is recorded with the page's console errors instead
 const strayErrors = []; process.on("unhandledRejection", (e) => strayErrors.push(String(e && (e.stack || e.message || e)).slice(0, 300)));
+// B-audit-1 2026-11-16: a live page script calls window.postMessage unbound (`var pm = window.postMessage; pm(m, "*")`); jsdom's
+// post-message.js then queues a NODE timer that fires the event on `this` = undefined and throws "Cannot read properties of undefined
+// (reading '_globalObject')", uncaught, so node exited: each shard died after 1-5 pages and every page left became a "transport error"
+// re-run serially (11-13: 440 pages, 11-14: 553, 11-16: 497). Only that exact jsdom error is swallowed (kept with the stray errors);
+// any other uncaught exception still ends the run with status 1. Golden: audit-jsdom-postmessage-* (tests/golden/fixtures/audit_retry).
+export const isJsdomTeardown = (e) => e instanceof TypeError && /_globalObject/.test(e.message || "") && /jsdom[\\/]lib[\\/]jsdom[\\/]living[\\/]post-message\.js/.test(e.stack || "");
+process.on("uncaughtException", (e) => {
+  if (isJsdomTeardown(e)) { strayErrors.push("jsdom unbound postMessage: " + String(e.message).slice(0, 120)); return; }
+  console.error(e && e.stack || e); process.exit(1);
+});
 export const setBase = (b) => { BASE = b.replace(/\/$/, ""); };
 export const norm = (s) => (s || "").replace(/\s+/g, " ").trim();
 // every request has a 30 s ceiling (2026-10-23: a full serial run hung for 6 hours on requests and jsdom loads that never ended)

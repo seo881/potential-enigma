@@ -59,8 +59,20 @@ def real_counts(F, known_list=None, today=None):
         else: real.add(f["url"])
     return real, known
 
+PARTIAL_SHARE = 0.05   # B-audit-1 2026-11-16: more than 5% of pages (at least 3) still failing on transport = a partial run, not a full one
+
+def partial(d):
+    """None for a full run, else why it is partial: pages that still failed on a transport error after the re-run (findings.json
+    transport_failed, written by ops/schedule/live_audit_checks.sh) above PARTIAL_SHARE of the pages."""
+    n, tf = len(d.get("pages") or []), int(d.get("transport_failed") or 0)
+    if n == 0: return "0 pages audited"
+    if tf >= 3 and tf > PARTIAL_SHARE * n: return f"PARTIAL RUN: {tf} of {n} pages still failing on transport after the re-run (limit {PARTIAL_SHARE:.0%})"
+    return None
+
 def success(date, runner):
     d = json.load(open(os.path.join(ROOT, "audits", "live", date, "findings.json")))
+    why = partial(d)
+    if why: raise SystemExit(why)   # exit status 1 with the reason; last_success.json is not moved
     F = d["findings"]; bad = {f["url"] for f in F if f["severity"] in ("P0", "P1")}; real, known = real_counts(F)
     rec = {"time": fmt(utcnow()), "epoch": int(utcnow().timestamp()), "runner": runner, "date": date, "base": d.get("base"),
            "pages": len(d["pages"]), "hubs": len(d["hubs"]), "fails": len(bad), "real_fails": len(real), "known": known,
@@ -118,14 +130,40 @@ def backup(runs=None):
         return False, f"BACKUP AUDIT STALE: last success #{ok_runs[0]['run_number']} {fmt(ts(ok_runs[0]))}"
     return True, f"BACKUP AUDIT: run #{last['run_number']} success {fmt(ts(last))}"
 
+LAST_RUN = os.path.join(ROOT, ".cache", "live", "last_run.json")
+LOCK_PID = os.path.join(ROOT, ".cache", "live", "checks.lock", "pid")
+
+def _alive(pid):
+    try: os.kill(int(pid), 0); return True
+    except (OSError, ValueError): return False
+
+def local_run(last=None, lock=None, now=None):
+    """(ok, line) for THIS machine's own checks runs (B-audit-1 2026-11-16). last: last_run.json as written by live_audit_checks.sh
+    ({status ok|failed, reason, time, epoch}); lock: (pid alive, lock age in hours) or None. Not ok when the newest run here failed
+    (or was partial), or a run has held the lock longer than STALE_H. The GitHub Actions backup kept last_success.json fresh through
+    11-13..11-16 while every Mac run failed or hung, so the newest-success check alone stayed quiet."""
+    now = now or utcnow().timestamp()
+    if last is None and os.path.exists(LAST_RUN):
+        try: last = json.load(open(LAST_RUN))
+        except ValueError: last = {"status": "failed", "reason": "last_run.json unreadable", "time": "?"}
+    if lock is None and os.path.exists(LOCK_PID):
+        pid = open(LOCK_PID).read().strip(); lock = (_alive(pid), (now - os.path.getmtime(LOCK_PID)) / 3600)
+    if lock and lock[0] and lock[1] > STALE_H:
+        return False, f"LOCAL AUDIT HUNG: a checks run has held the lock for {lock[1]:.0f} h (limit {STALE_H} h)"
+    if not last: return True, "LOCAL AUDIT: no run recorded on this machine yet"
+    if last.get("status") != "ok":
+        return False, f"LOCAL AUDIT FAILED: run {last.get('date', '?')} at {last.get('time', '?')}: {str(last.get('reason', ''))[:160]}"
+    return True, f"LOCAL AUDIT: run {last.get('date', '?')} ok at {last.get('time', '?')}"
+
 def watchdog(runner, runs=None):
     r, age = state(); stale = r is None or age > STALE_H
     bok, bline = backup(runs)
+    lok, lline = local_run()
     rec = {"checked": fmt(utcnow()), "checked_by": runner, "stale": stale, "limit_hours": STALE_H,
            "age_hours": None if age is None else round(age, 1), "last_success": r, "line": line(),
-           "backup_ok": bok, "backup_line": bline}
+           "backup_ok": bok, "backup_line": bline, "local_ok": lok, "local_line": lline}
     os.makedirs(os.path.dirname(WATCH), exist_ok=True); json.dump(rec, open(WATCH, "w"), indent=1)
-    print(rec["line"]); print(bline); return 3 if (stale or not bok) else 0
+    print(rec["line"]); print(bline); print(lline); return 3 if (stale or not bok or not lok) else 0
 
 if __name__ == "__main__":
     a = sys.argv[1:]

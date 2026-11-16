@@ -48,6 +48,10 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   audit-retry    {test: status|image|console, ...}        Divit 2026-11-03 (B-dev-21): a failed resource load counts only when it persists:
                                                           status {script: [code|"reset"], expect_status, expect_requests?} (statusRetry on a
                                                           local server); image {img, expect_finding} (A8-load); console {err, expect_finding} (A9-console)
+  audit-run       {test: jsdom|partial|local|date, ...}   B-audit-1 2026-11-16 (the 11-13..11-16 Mac audit lapse): jsdom {mode unbound|other,
+                                                          expect_survived} (node + ops/verify_launch.mjs survives only jsdom's unbound-postMessage
+                                                          error); partial {pages, transport_failed, expect_partial} (audit_status.partial);
+                                                          local {last, lock, expect_ok} (audit_status.local_run); date {env, expect} (live_audit.run_date)
   engine-brief   {url, path, value, expect: renders|brief-error, match?}  the image engine on the spec's brief with image_brief[path] = value
                                                           renders cleanly, or reports a BriefError issue (containing `match`); never crashes
   h3-noflag      {text}                                    the serial-comma detector must NOT call this text a certain miss (a trap)
@@ -441,6 +445,25 @@ def caught(c):
         raw = {"pages": [], "hubs": [], "held": [{"url": c["url"], "status": c["status"], "ledger": "golden.json", "item_id": None}]}
         hit = any(f["code"] == "A0-held-live" and f["severity"] == "P0" for f in LA.evaluate(raw, {"pages": []}, "https://emergent.sh"))
         return hit == c["expect_finding"]
+    if c["kind"] == "audit-run":      # B-audit-1 2026-11-16: a failed, partial or hung run is loud; one page script cannot kill a shard
+        if c["test"] == "jsdom":
+            p_ = subprocess.run(["node", os.path.join(ROOT, "tests", "golden", "fixtures", "audit_retry", "jsdom_postmessage.mjs"), c["mode"]],
+                                cwd=ROOT, capture_output=True, text=True, timeout=60)
+            return (p_.returncode == 0 and '"survived":true' in p_.stdout) == c["expect_survived"]
+        import audit_status as AS
+        if c["test"] == "partial":
+            return (AS.partial({"pages": ["/x"] * c["pages"], "transport_failed": c["transport_failed"]}) is not None) == c["expect_partial"]
+        if c["test"] == "local":
+            return AS.local_run(c.get("last") or {}, tuple(c["lock"]) if c.get("lock") else (False, 0), now=2e9)[0] == c["expect_ok"]
+        if c["test"] == "date":
+            import live_audit as LA
+            old = os.environ.get("EMG_AUDIT_DATE"); os.environ["EMG_AUDIT_DATE"] = c["env"]
+            try: got = LA.run_date()
+            finally:
+                if old is None: os.environ.pop("EMG_AUDIT_DATE", None)
+                else: os.environ["EMG_AUDIT_DATE"] = old
+            return got == (LA.today() if c["expect"] == "today" else c["expect"])
+        return False
     if c["kind"] == "audit-retry":    # Divit 2026-11-03 (B-dev-21): a failed resource load counts only when it persists across re-tries
         if c["test"] == "status":     # ops/verify_launch.mjs statusRetry on a local server answering c["script"] (offline)
             env = dict(os.environ, EMG_RETRY_MS="10,20,40")

@@ -50,6 +50,10 @@ def _migrated(u):
     return _MIG.get(u.rstrip("/"), u.rstrip("/"))
 
 def today(): return datetime.date.today().isoformat()
+def run_date():
+    """The run's date folder: EMG_AUDIT_DATE (YYYY-MM-DD, the checks script's START date) when set and well formed, else today."""
+    ed = os.environ.get("EMG_AUDIT_DATE", "")
+    return ed if re.fullmatch(r"\d{4}-\d\d-\d\d", ed) else today()
 def now(): return datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 def jload(p, d): return json.load(open(p)) if os.path.exists(p) else d
 def jsave(p, o): os.makedirs(os.path.dirname(p), exist_ok=True); json.dump(o, open(p, "w"), indent=1, ensure_ascii=False)
@@ -445,7 +449,9 @@ def sitemap_text(base):
     return "\n".join(get(re.sub(r"^https?://[^/]+", base, u)) for u in re.findall(r"<loc>([^<]+)</loc>", top))
 
 def cmd_run(args):
-    date = today(); base = (args[args.index("--base") + 1] if "--base" in args else CANON).rstrip("/"); dry = "--dry" in args
+    # B-audit-1 2026-11-16: EMG_AUDIT_DATE (set by ops/schedule/live_audit_checks.sh) is the run's START date. A run that crossed midnight
+    # scored into today's folder while the script patched and redirect-checked the start date's (2026-11-14 run, failed 2026-11-16).
+    date = run_date(); base = (args[args.index("--base") + 1] if "--base" in args else CANON).rstrip("/"); dry = "--dry" in args
     # --run-name N: a partial run (post-ship URLs, a re-run) writes to audits/live/DATE/N/ and .cache/live/DATE/N/, never over the
     # day's full run (LESSONS 2026-10-13)
     if "--run-name" in args: date = f"{date}/{re.sub(r'[^A-Za-z0-9_-]', '', args[args.index('--run-name') + 1])}"

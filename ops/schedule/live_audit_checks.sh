@@ -39,7 +39,14 @@ while [ $# -gt 0 ]; do case "$1" in
 [ "$(date +%u)" = 1 ] && EXTERNAL=1   # external links weekly (Mondays), as live_audit.py
 say() { echo "$(date '+%Y-%m-%d %H:%M:%S') checks${RUNNAME:+ [$RUNNAME]}: $*"; }
 notify() { command -v osascript >/dev/null && osascript -e "display notification \"${1//\"/\'}\" with title \"Emergent live audit\"" >/dev/null 2>&1; true; }
-fail() { say "FAILED: $*"; notify "Live audit checks FAILED: $*"; exit 1; }
+# B-audit-1 2026-11-16: every end of a run (ok, failed, partial) is written to .cache/live/last_run.json; the watchdog
+# (ops/audit_status.py watchdog) alerts when the newest run on this machine failed or a run has held the lock for over 26 h, so a failed or
+# stuck Mac run is loud even while the GitHub Actions backup keeps last_success.json fresh.
+last_run() {   # status reason
+  [ -n "$URLS" ] && return 0   # partial (post-ship) runs do not stand for the daily run
+  "$PY" -c 'import json,sys,time,datetime;json.dump({"status":sys.argv[1],"reason":sys.argv[2],"date":sys.argv[3],"runner":sys.argv[4],"epoch":int(time.time()),"time":datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")},open(sys.argv[5],"w"),indent=1)' \
+    "$1" "$2" "${RDATE:-${DATE:-?}}" "$RUNNER" "$REPO/.cache/live/last_run.json" 2>/dev/null; true; }
+fail() { say "FAILED: $*"; notify "Live audit checks FAILED: $*"; [ "$PHASE" = all ] || [ "$PHASE" = score ] && last_run failed "$*"; exit 1; }
 # one run at a time per clone (the daily job, publish_watch.sh and post-ship runs can overlap): wait for the other run (up to 3 h),
 # never skip; a lock left by a dead run is taken over
 LOCKD="$REPO/.cache/live/checks.lock"; mkdir -p "$REPO/.cache/live"
@@ -54,7 +61,9 @@ if [ "$PHASE" = all ]; then
   done
   echo $$ > "$LOCKD/pid"; trap 'rm -rf "$LOCKD"' EXIT
 fi
-DATE="$(date +%F)"; RDATE="$DATE${RUNNAME:+/$RUNNAME}"; CDIR="$REPO/.cache/live/$RDATE"; SDIR="$CDIR/shards"; mkdir -p "$SDIR"
+# B-audit-1 2026-11-16: the run keeps its START date in every phase and in live_audit.py (EMG_AUDIT_DATE); a run that crossed midnight
+# used to score into the next day's folder and then die on "findings.json missing" for its start date (2026-11-14 run).
+DATE="${EMG_AUDIT_DATE:-$(date +%F)}"; [[ "$DATE" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || DATE="$(date +%F)"; export EMG_AUDIT_DATE="$DATE"; RDATE="$DATE${RUNNAME:+/$RUNNAME}"; CDIR="$REPO/.cache/live/$RDATE"; SDIR="$CDIR/shards"; mkdir -p "$SDIR"
 SEL=(--all); [ -n "$URLS" ] && SEL=(--urls "$URLS")
 NAMEARG=(); [ -n "$RUNNAME" ] && NAMEARG=(--run-name "$RUNNAME")
 
@@ -123,6 +132,11 @@ if [ "$PHASE" = all ]; then
   [ "$NHUBS" -gt 0 ] && run_shard hubs "$SDIR/hubs.manifest.json" "$SDIR/hubs.raw.json" "$(( NHUBS * PAGE_TIMEOUT * 2 + 600 ))" --hubs-only &
   wait
   say "shards done in $(( $(date +%s) - T0 ))s: $(tr '\n' ';' < "$SDIR/summary.txt")"
+  # B-audit-1 2026-11-16: a shard whose node process died is named with its error (it is a crash, not a network failure)
+  for f in "$SDIR"/s*.log; do
+    E="$(grep -m1 -E '^(TypeError|ReferenceError|Error|RangeError|SyntaxError)[: ]|^node:internal|watchdog: killed' "$f" 2>/dev/null)"
+    [ -n "$E" ] && say "SHARD CRASHED: $(basename "$f" .log) after $(grep -c '^FAIL\|^ok' "$f") page(s): $(echo "$E" | cut -c1-160)"
+  done
 fi
 
 # ---- score: merge; a shard with no out file (killed, or a matrix job that failed) leaves its pages as transport errors ----
@@ -131,12 +145,12 @@ import json, os, sys, datetime
 man = json.load(open(sys.argv[1])); d = sys.argv[2]; n = int(sys.argv[3]); out = sys.argv[4]
 raw = {"base": sys.argv[5], "date": datetime.datetime.now(datetime.timezone.utc).isoformat(), "sitemap_ok": False, "pages": [], "hubs": [], "held": []}
 got = {}
-for name in [f"s{i}" for i in range(n)] + ["hubs", "retry"]:
+for name in [f"s{i}" for i in range(n)] + ["hubs", "retry"] + [f"retry{i}" for i in range(16)]:
     p = f"{d}/{name}.raw.json"
     if not os.path.exists(p): continue
     r = json.load(open(p)); raw["sitemap_ok"] = raw["sitemap_ok"] or r.get("sitemap_ok", False)
     for pg in r["pages"]:
-        if name == "retry" or pg["url"] not in got or got[pg["url"]].get("transport_error"): got[pg["url"]] = pg
+        if name.startswith("retry") or pg["url"] not in got or got[pg["url"]].get("transport_error"): got[pg["url"]] = pg
     raw["hubs"] += r["hubs"]; raw["held"] += r["held"]
 for p in man["pages"]:
     if p["url"] not in got: got[p["url"]] = {"url": p["url"], "checks": {"http200": False}, "verify": {"http": 0}, "transport_error": "shard did not finish (watchdog)"}
@@ -147,12 +161,22 @@ json.dump({"pages": [p for p in man["pages"] if p["url"] in bad], "hubs": [], "h
 print(len(bad))
 PY
 }
-rm -f "$SDIR/retry.raw.json"
+rm -f "$SDIR"/retry*.raw.json
 NT="$(merge)" || fail "merge"
 NRETRY="$NT"
 if [ "$NT" -gt 0 ]; then
-  say "re-running $NT page(s) that failed on a transport error (once, serially)"
-  run_shard retry "$SDIR/retry.manifest.json" "$SDIR/retry.raw.json" "$(( NT * PAGE_TIMEOUT + 300 ))"
+  # B-audit-1 2026-11-16: the re-run uses LOWER concurrency than the first pass (RETRY_PAR shards, default 3; serial when 20 pages or
+  # fewer). Fully serial re-runs of 440-553 pages took 2.5-29 h and held the lock past the next day's run.
+  RP="${RETRY_PAR:-3}"; [ "$NT" -le 20 ] && RP=1; [ "$RP" -gt "$SHARDS" ] && RP="$SHARDS"
+  say "re-running $NT page(s) that failed on a transport error (once, $RP shard(s) in parallel)"
+  "$PY" - "$SDIR" "$RP" <<'PY' || fail "retry split"
+import json, sys
+d, k = sys.argv[1], int(sys.argv[2]); m = json.load(open(f"{d}/retry.manifest.json"))
+for i in range(k): json.dump({"pages": m["pages"][i::k], "hubs": [], "held": []}, open(f"{d}/retry{i}.manifest.json", "w"))
+PY
+  RPER=$(( (NT + RP - 1) / RP ))
+  for i in $(seq 0 $((RP - 1))); do run_shard "retry$i" "$SDIR/retry$i.manifest.json" "$SDIR/retry$i.raw.json" "$(( RPER * PAGE_TIMEOUT + 300 ))" & done
+  wait
   NT="$(merge)" || fail "merge after retry"
 fi
 [ -s "$CDIR/raw.json" ] || fail "no raw.json"
@@ -175,11 +199,14 @@ if [ -z "$URLS" ]; then
 fi
 "$PY" ops/live_audit.py plain-digest "$RDATE" > "$SDIR/digest.head" 2>&1 || fail "digest: $(tail -1 "$SDIR/digest.head")"
 COUNTS="$(sed -n 2,3p "$SDIR/digest.head" | tr '\n' ' ' | sed 's/  */ /g')"
-if [ -z "$URLS" ]; then "$PY" ops/audit_status.py success "$DATE" "$RUNNER" > /dev/null || fail "last_success.json"; fi
+# B-audit-1 2026-11-16: a run with more than 5% of its pages still failing on transport is PARTIAL: audit_status.py success exits 4,
+# last_success.json is not moved, and the run ends FAILED (loud), never as a quiet "full run". The findings and digest stay for reading.
+if [ -z "$URLS" ]; then "$PY" ops/audit_status.py success "$RDATE" "$RUNNER" > "$SDIR/success.out" 2>&1 || fail "$(tail -1 "$SDIR/success.out" | cut -c1-200)"; fi
 say "done in $(( $(date +%s) - T0 ))s; transport re-checked $NRETRY, still failing $NT; digest audits/live/$RDATE/digest.txt"
 REAL="$("$PY" ops/audit_status.py real "$REPO/audits/live/$RDATE/findings.json" 2>&1)"; RRC=$?
 say "$REAL"
 # Divit 2026-10-26: alert only on REAL failures after exceptions (known open issues excluded); P2 stays in the report
 [ $RRC -eq 3 ] && notify "Checks ${RUNNAME:-$DATE}: $REAL"
 echo "COUNTS $RDATE: $COUNTS"
+{ [ "$PHASE" = all ] || [ "$PHASE" = score ]; } && last_run ok "pages $NPAGES; transport re-checked $NRETRY, still failing $NT"
 exit 0

@@ -10,7 +10,7 @@ LOG="$HOME/Library/Logs/emergent-audit-watchdog.log"
 OUT="$("$PY" ops/audit_status.py watchdog --runner "watchdog:$(hostname -s)" 2>&1)"; RC=$?
 echo "$(date '+%F %T') rc=$RC $(echo "$OUT" | tr '\n' ' ')" >> "$LOG"
 if [ $RC -ne 0 ]; then
-  MSG="$(echo "$OUT" | grep -E 'STALE|FAILED|unknown|no completed' | head -2 | tr '\n' ' ' | tr -d '"')"
+  MSG="$(echo "$OUT" | grep -E 'STALE|FAILED|HUNG|unknown|no completed' | head -3 | tr '\n' ' ' | tr -d '"')"
   # What "Open report" opens (Divit 2026-10-26: a click must open the report, not a blank Script Editor): the failing GitHub run when
   # the backup failed, else the newest audit digest.
   TARGET="$(echo "$OUT" | grep -q 'BACKUP AUDIT' && echo "$OUT" | grep -qE 'BACKUP AUDIT (FAILED|STALE)' && echo "https://github.com/seo881/potential-enigma/actions/workflows/live-audit.yml")"

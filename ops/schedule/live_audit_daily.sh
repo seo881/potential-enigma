@@ -19,6 +19,9 @@ log() { echo "$(date '+%Y-%m-%d %H:%M:%S') $*" >> "$LOG"; }
 notify() { osascript -e "display notification \"${1//\"/\'}\" with title \"Emergent live audit\"" >/dev/null 2>&1; }
 DATE="$(date +%F)"; ADIR="$REPO/audits/live/$DATE"
 log "start (checks first: ops/schedule/live_audit_checks.sh; no Claude)"
+# B-audit-1 2026-11-16: keep the Mac from idle sleep while this run lives (a closed lid still sleeps it: 11-13 18:34 to 11-16 12:26 the
+# runs crawled through Power Nap dark wakes; the watchdog's LOCAL AUDIT FAILED/HUNG line reports that afterwards)
+command -v caffeinate >/dev/null && { caffeinate -i -w $$ >/dev/null 2>&1 & }
 if [ -n "$(git status --porcelain --untracked-files=no)" ]; then log "note: work tree has uncommitted changes (not pulled; the checks read the specs as they are)"
 else git pull -q --rebase origin main >> "$LOG" 2>&1 || log "note: git pull --rebase failed; checking with the local tree"; fi
 HELD="$(.venv/bin/python3 ops/guards.py held 2>&1)" || log "note: lock held by another session ($HELD); the read-only checks run anyway"
