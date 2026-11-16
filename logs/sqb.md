@@ -122,3 +122,8 @@ Item 6af7027a8e238bbbac864968: update_collection_items (acrm---key-feature-4-con
 
 ## 2026-11-16 maxdiff (B-ship-20)
 api-create (before 21c15413) then api-publish (before 8b7a4f83); verify-live PASS. Rollback files in childedits/2026-11-16/.
+- 2026-11-16 07:58 UTC: api-create: 2 draft(s) created via Data API at ad8eb37 (lessons-learned, hoa-questions); read back 111 items; verified 2, mismatched 0; before childedits/2026-11-16/sqb.api-create.ad8eb37.before.json; rollback childedits/2026-11-16/sqb.api-create.ad8eb37.20261116T075806Z.rollback.json
+- 2026-11-16 08:00 UTC: api-publish: 2 item(s) item-published via Data API (no site publish); errors 0; not published 0; before childedits/2026-11-16/sqb.api-publish.62cadebd.before.json; rollback childedits/2026-11-16/sqb.api-publish.62cadebd.20261116T080019Z.rollback.json
+
+## 2026-11-16 hoa-questions, lessons-learned (B-ship-20)
+api-create before ad8eb37, api-publish before 62cadebd; verify-live PASS.
