@@ -33,3 +33,14 @@ YMYL ones (`hubctl ymyl`) need one review (page-reviewer) before ship.
   - Auto/LP ship (B-ship-21): dsar, tax, prior-authorization, underwriting (standing-go); affiliate draft updated 09:13 -> publish.
 - Landed today: before-value gate checks the file's own commit (c00e1ce3); PA4 per-page allow (automotive car, boat-rental boat; 2a1f882c); valentines variant + H1 apostrophe (32e82549); Q6 apostrophe (e1670db6); acronyms PIP/JHA/DSAR; AlsoAsked stale-r1116 (5 credits of 20).
 - After zero remaining -> QC catch-up (Divit 2026-11-16 item 6): audit triage (387 fails; new full run started ~09:00), escaped-tag sweep (plan/qc-later-2026-11-16.md, 11 pages), post-live review backlog, forced-link fixes, review notes (e.g. "Build Mine Now" CTA fallback, ymyl "intake"=medical false positive, render.json not written by hubctl images).
+
+## ~09:45 UTC: ALL PAGES LIVE (647 in live.json). QC CATCH-UP running (Divit 2026-11-16, order 1-7)
+Briefs: scratchpad livefix-brief.md (CMS item update + verify-live only), postlive-brief.md.
+1. Live audit: B-audit-1 (root cause of the lapse + fixes + full run on 647 + breakdown + real-failure fixes). Known so far: the 11-14 run died on a missing findings.json (redirect phase); today's local shards hit transport errors (497/553 re-run); the dirty tree means a stale 553-page live list.
+2. Escaped tags: 11 Form pages (sweep of 647 = same 11) -> B-fix-7 (also seo-client FAQ5, supply-request cover/FAQ10).
+3. Cross-field: B-fix-8 (karaoke, L&D, airline, wellness-quiz feature_4 + chip_adds[2]); B-scan-1 scanning all review notes -> scratchpad/crossfield-fixes.json -> fix agents next.
+4. Post-live backlog: 81 pages in 16 batches, reviewers B-r-660..675 -> blocking fixes next (livefix brief).
+5. Forced links: 39 found (scratchpad/forced-links-fixes.json); B-fix-9 Form, B-fix-10 Auto+LP, B-fix-11 SQ. Deferred overlaps: pages owned by B-fix-7/8.
+6. Housekeeping: live-sync done (LP 117+2, Form 285, Auto 97/98, SQ 144); redirect issues (24) still to check.
+7. Final report to Divit + backlog decisions (hero-prompt rewrite ~275, redirect cleanup).
+After any spec fix on a ship-first page: coordinator runs `hubctl postlive-restamp <url> --by B-c-2`.
