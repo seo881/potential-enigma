@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-779",
    "note": ""
+  },
+  {
+   "t": "2026-11-16 09:10 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-652",
+   "note": "[truth | CONTENT_DEFECTS #10] howto_step_1_des: Cross-field count mismatch (Divit 2026-11-05): step 1 gives four separation types, but feature_1 ('Pick resignation, involuntary termination, or layoff'), tab_content_4 and the mockup (three types in the log) and howto_step_7_des ('Run 3 past separatio"
   }
  ],
  "pipeline": "r15",
@@ -852,5 +859,295 @@
  ],
  "writers": [
   "B-w-779"
- ]
+ ],
+ "review": {
+  "by": "B-r-652",
+  "date": "2026-11-16 09:10 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build an Employee Termination Form Template With HR Review'; hero 'Build an employee termination form template that holds each request for HR review and keeps the record in your database.' covers the whole separation, D1/D2 pass in QC."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Template searchers get the field set (FAQ 3 'Five sections cover it: the employee and role, the separation type and last day, the reason, the final pay hand-off, and the acknowledgment'), a 7-step how-to and four separation scenarios."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "HR vocabulary throughout: 'prior write-ups', '36 unused PTO hours', 'Eligible for rehire is marked Yes', 'keep-until date that HR set with counsel'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every feature body opens on a verb or full sentence: 'Pick resignation...', 'A manager's request stays pending...', 'Send HR an email or Slack alert...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; sentences short and single-idea, e.g. 'The email holds no name or amount.'"
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail, no hype: 'Record a refusal to sign as its own answer instead of a blank.' Notes recorded for the meta wording and the FAQ 7 anchor."
+   },
+   "truth": {
+    "result": "fail",
+    "evidence": "howto_step_1_des lists four separation types ('resignations, involuntary terminations, layoffs, and retirements') while feature_1, tab_content_4, the mockup and howto_step_7_des ('Run 3 past separations ... one of each type') use three. DOL and EEOC facts match their quoted sources; claims map to approved ids."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Separation-specific stories (HR hold before the employee is told, final pay hand-off, involuntary filter for records review) not shared with employee-write-up or new-employee."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic written questions, hub link in item 2, 3 exact-match links to live pages (new-employee, employee-write-up, employee-training), no brands or formats, Emergent lines in items 4 and 8. Notes on items 4 and 10 as link-led questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Tab 1 'Email to Severine Pelletreau / A termination request is in' carries no employee name; tab 3 'No name or amount in this email', '36 unused PTO hours'; tab 4 12/7/4 of '23 records'. Device and channel styling notes only."
+   }
+  },
+  "findings": [
+   {
+    "class": "wrong-fact",
+    "criterion": "truth",
+    "rule": "CONTENT_DEFECTS #10",
+    "field": "howto_step_1_des",
+    "quote": "such as resignations, involuntary terminations, layoffs, and retirements",
+    "issue": "Cross-field count mismatch (Divit 2026-11-05): step 1 gives four separation types, but feature_1 ('Pick resignation, involuntary termination, or layoff'), tab_content_4 and the mockup (three types in the log) and howto_step_7_des ('Run 3 past separations through the form before you use it, one of each type') all work with three. A reader who adds retirements per step 1 is then told to test 3 cases, one of each type.",
+    "fix": "In howto_step_1_des replace 'such as resignations, involuntary terminations, layoffs, and retirements.' with 'such as resignations, involuntary terminations, and layoffs.' (37 words, within 35-50). No other field changes.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2a",
+    "field": "meta_description",
+    "quote": "sends final pay details to payroll",
+    "issue": "The page's point is that payroll gets a link and the email 'holds no name or amount' (tab_content_3, feature_3); the snippet says the details are sent.",
+    "fix": "'hands final pay to payroll by link'.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq item 10",
+    "quote": "How can an employee termination form template show completed training?",
+    "issue": "Reads as a question built to carry the employee-training link rather than one a template searcher asks; item 4 ('update the original hire record') has the same shape for the new-employee link.",
+    "fix": "Next time, link from a question the searcher asks (e.g. who signs, what to attach).",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 7",
+    "quote": "An employee write up form template that stores each write-up",
+    "issue": "Exact-match anchor 'write up' sits beside 'write-up' in the same sentence and reads stuffed.",
+    "fix": "Keep the anchor but split: 'Our employee write up form template...' style is not allowed; acceptable as is.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image tab 2",
+    "quote": "Zuzana signs on the front desk tablet to confirm her last day.",
+    "issue": "The signing screen is drawn in a phone frame (9:41 status bar); the copy and the image's own card say front desk tablet. Not a name, number or outcome.",
+    "fix": "Tablet frame if the engine has one.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image tab 3",
+    "quote": "Approval at Haverwick Freight sends payroll one email",
+    "issue": "The email card is drawn with a Slack-style '# Email to payroll' header and 'Emergent APP' badge; the title still says email.",
+    "fix": "Email card styling.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a",
+   "field": "meta_description",
+   "issue": "The page's point is that payroll gets a link and the email 'holds no name or amount' (tab_content_3, feature_3); the snippet says the details are sent.",
+   "fix": "'hands final pay to payroll by link'.",
+   "by": "B-r-652",
+   "via": "review",
+   "date": "2026-11-16 09:10 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq item 10",
+   "issue": "Reads as a question built to carry the employee-training link rather than one a template searcher asks; item 4 ('update the original hire record') has the same shape for the new-employee link.",
+   "fix": "Next time, link from a question the searcher asks (e.g. who signs, what to attach).",
+   "by": "B-r-652",
+   "via": "review",
+   "date": "2026-11-16 09:10 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 7",
+   "issue": "Exact-match anchor 'write up' sits beside 'write-up' in the same sentence and reads stuffed.",
+   "fix": "Keep the anchor but split: 'Our employee write up form template...' style is not allowed; acceptable as is.",
+   "by": "B-r-652",
+   "via": "review",
+   "date": "2026-11-16 09:10 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image tab 2",
+   "issue": "The signing screen is drawn in a phone frame (9:41 status bar); the copy and the image's own card say front desk tablet. Not a name, number or outcome.",
+   "fix": "Tablet frame if the engine has one.",
+   "by": "B-r-652",
+   "via": "review",
+   "date": "2026-11-16 09:10 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image tab 3",
+   "issue": "The email card is drawn with a Slack-style '# Email to payroll' header and 'Emergent APP' badge; the title still says email.",
+   "fix": "Email card styling.",
+   "by": "B-r-652",
+   "via": "review",
+   "date": "2026-11-16 09:10 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "73fa21ce288ff529",
+   "alt:share_image": "6754c688c29d0e32",
+   "alt:tab_image_1": "b4e8a4227a799188",
+   "alt:tab_image_2": "441dedc74d0818f3",
+   "alt:tab_image_3": "f21dac5d765d2d2f",
+   "alt:tab_image_4": "6ca82371b1848b5f",
+   "breadcrumb": "478c41b6906f51a2",
+   "chip_adds": "bb67a8cb1534c02a",
+   "explore_cta": "77407cac05e6aaeb",
+   "faq": "81f5e28862c0058c",
+   "feature_1": "9f4687088bdf4c0d",
+   "feature_2": "065ccedf686ced16",
+   "feature_3": "970506a2eed7f1cc",
+   "feature_4": "f5b0e983520af64f",
+   "feature_5": "c4fc89cb5f19d581",
+   "feature_6": "e2fdcba6b66a0e47",
+   "features_heading": "b4bbca736965e4ed",
+   "features_subheading": "aa921f44d4c6bfbc",
+   "h1": "41c87508b0f30a32",
+   "hero_description": "bd31efad2522c1e1",
+   "hero_prompt": "98e7158eeefce105",
+   "howto_description": "9b0d77d25203c892",
+   "howto_step_1_des": "d0abeaf12e192ca1",
+   "howto_step_1_title": "94dc32f01512e34b",
+   "howto_step_2_des": "4627aa37a7eb8eb7",
+   "howto_step_2_title": "41cda8f397052ea2",
+   "howto_step_3_des": "e8dbb2a909a1a2ea",
+   "howto_step_3_title": "c5d42beb157a6682",
+   "howto_step_4_des": "64abb2ab0623cf4e",
+   "howto_step_4_title": "1a1a1e86f4424aa3",
+   "howto_step_5_des": "5b83bee890a5f740",
+   "howto_step_5_title": "b729fb3fbaff2a9c",
+   "howto_step_6_des": "99b58db70d1c3f88",
+   "howto_step_6_title": "8dfbbc470f526f55",
+   "howto_step_7_des": "fd3c5e8588f3dae3",
+   "howto_step_7_title": "514fe4d3d88ad18f",
+   "howto_title": "987e8d36dce49032",
+   "meta_description": "fd75d29531e36d6d",
+   "meta_title": "66e78484afbc0c20",
+   "mockup": "03a2726d9b665ee5",
+   "product_name": "f6a1fa3b17712f44",
+   "prompt_chip_1": "659883c5299ed45d",
+   "prompt_chip_2": "2101841f1eaab17b",
+   "prompt_chip_3": "6d163840c9fbeb75",
+   "prompt_chip_4": "79fb7c99aa231294",
+   "slug": "804fd3fb1c6193b5",
+   "tab_content_1": "4c04a2851c305d4c",
+   "tab_content_2": "20a4b63665a7686a",
+   "tab_content_3": "cf9e1781361ccac0",
+   "tab_content_4": "f3980025105cf26e",
+   "tab_label_1": "6d8e985ad9c02374",
+   "tab_label_2": "2101841f1eaab17b",
+   "tab_label_3": "6d163840c9fbeb75",
+   "tab_label_4": "8f1824f1f9d086de",
+   "usecase_heading": "5646085eb2067f66",
+   "why_description": "7b78dfc0e7c24c6c",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "d05841fd7bd51d3a"
+  },
+  "all": "c1ccbdddb6a0bfcf",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "73fa21ce288ff529",
+   "alt:share_image": "6754c688c29d0e32",
+   "alt:tab_image_1": "b4e8a4227a799188",
+   "alt:tab_image_2": "441dedc74d0818f3",
+   "alt:tab_image_3": "f21dac5d765d2d2f",
+   "alt:tab_image_4": "6ca82371b1848b5f",
+   "breadcrumb": "478c41b6906f51a2",
+   "chip_adds": "bb67a8cb1534c02a",
+   "explore_cta": "77407cac05e6aaeb",
+   "faq": "81f5e28862c0058c",
+   "feature_1": "9f4687088bdf4c0d",
+   "feature_2": "065ccedf686ced16",
+   "feature_3": "970506a2eed7f1cc",
+   "feature_4": "f5b0e983520af64f",
+   "feature_5": "c4fc89cb5f19d581",
+   "feature_6": "e2fdcba6b66a0e47",
+   "features_heading": "b4bbca736965e4ed",
+   "features_subheading": "aa921f44d4c6bfbc",
+   "h1": "41c87508b0f30a32",
+   "hero_description": "bd31efad2522c1e1",
+   "hero_prompt": "98e7158eeefce105",
+   "howto_description": "9b0d77d25203c892",
+   "howto_step_1_des": "d0abeaf12e192ca1",
+   "howto_step_1_title": "94dc32f01512e34b",
+   "howto_step_2_des": "4627aa37a7eb8eb7",
+   "howto_step_2_title": "41cda8f397052ea2",
+   "howto_step_3_des": "e8dbb2a909a1a2ea",
+   "howto_step_3_title": "c5d42beb157a6682",
+   "howto_step_4_des": "64abb2ab0623cf4e",
+   "howto_step_4_title": "1a1a1e86f4424aa3",
+   "howto_step_5_des": "5b83bee890a5f740",
+   "howto_step_5_title": "b729fb3fbaff2a9c",
+   "howto_step_6_des": "99b58db70d1c3f88",
+   "howto_step_6_title": "8dfbbc470f526f55",
+   "howto_step_7_des": "fd3c5e8588f3dae3",
+   "howto_step_7_title": "514fe4d3d88ad18f",
+   "howto_title": "987e8d36dce49032",
+   "meta_description": "fd75d29531e36d6d",
+   "meta_title": "66e78484afbc0c20",
+   "mockup": "03a2726d9b665ee5",
+   "product_name": "f6a1fa3b17712f44",
+   "prompt_chip_1": "659883c5299ed45d",
+   "prompt_chip_2": "2101841f1eaab17b",
+   "prompt_chip_3": "6d163840c9fbeb75",
+   "prompt_chip_4": "79fb7c99aa231294",
+   "slug": "804fd3fb1c6193b5",
+   "tab_content_1": "4c04a2851c305d4c",
+   "tab_content_2": "20a4b63665a7686a",
+   "tab_content_3": "cf9e1781361ccac0",
+   "tab_content_4": "f3980025105cf26e",
+   "tab_label_1": "6d8e985ad9c02374",
+   "tab_label_2": "2101841f1eaab17b",
+   "tab_label_3": "6d163840c9fbeb75",
+   "tab_label_4": "8f1824f1f9d086de",
+   "usecase_heading": "5646085eb2067f66",
+   "why_description": "7b78dfc0e7c24c6c",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "d05841fd7bd51d3a"
+  },
+  "all": "c1ccbdddb6a0bfcf",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
