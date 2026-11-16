@@ -166,3 +166,5 @@ create before a76570c (first attempt failed on a transient image import; makeup+
 create before dd1d060, publish before 6a0ebf91; verify-live PASS.
 - 2026-11-16 09:55 UTC: api-update bfix8-w-update-6ab24754757025d10940d04e.json: 1 item(s) updated via Data API; read back; 0 field mismatch(es); rollback childedits/2026-11-16/bfix8-w-update-6ab24754757025d10940d04e.20261116T095422Z.rollback.json
 - 2026-11-16 B-fix-8 post-live fix: wellness-quiz feature_4 + coach-email chip; CMS item update + item publish
+- 2026-11-16 09:59 UTC: api-update bfix11-payload.json: 9 item(s) updated via Data API; read back; 0 field mismatch(es); rollback childedits/2026-11-16/bfix11-payload.20261116T095754Z.rollback.json
+- 2026-11-16 B-fix-11 post-live fix: forced cross-hub FAQ links removed on 9 SurveyQuiz pages (career, church, dog-breed, hair-type, love-language, personality, poll-questions, skin-type, spirit-animal); awb---faq-data only; read back clean, item-published 9; verify-live all PASS; rollback childedits/2026-11-16/bfix11-payload.20261116T095754Z.rollback.json
