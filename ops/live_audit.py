@@ -264,6 +264,9 @@ def evaluate(raw, man, base):
             mm = re.search(pat, vis)
             if mm: add(url, "A5-stray", "P1", f'stray template text: "{mm.group(0)}"', field=field_of(m, mm.group(0)) or "template", snippet=vis[max(0, mm.start() - 40):mm.end() + 40])
         for cls in R.get("empty_sections") or []: add(url, "A5-empty", "P2", f"empty visible section ({cls[:40]})", field="template", fix="backlog")
+        # Divit 2026-11-13: any raw tag text visible on the page ("<p>", "&lt;", ...) fails (12 live Form pages showed <p> under the H1)
+        mm = re.search(r"&(?:lt|gt|amp);|</?[a-zA-Z][a-zA-Z0-9-]*(?:\s[^<>]{0,60})?/?>", vis)
+        if mm: add(url, "A5-raw-tag", "P0", f'raw tag text visible: "{mm.group(0)}"', field=field_of(m, mm.group(0)) or "template", snippet=vis[max(0, mm.start() - 40):mm.end() + 60], fix="writer")
         # character hygiene: visible text, alt text, meta, JSON-LD
         texts = [("visible", vis_own), ("meta", (R.get("title") or "") + "\n" + (R.get("description") or ""))]
         texts += [("alt", i.get("alt") or "") for i in R.get("images") or []] + [("jsonld", j) for j in R.get("jsonld") or []]

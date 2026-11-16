@@ -154,6 +154,18 @@ def _learn_hub(spec):
     hub = next((k for k, h in _H.CFG["hubs"].items() if (spec.get("url") or "").startswith(h["path"] + "/")), None)
     return hub and _H.learn_from_item(hub)
 
+def raw_tag_text(html):
+    """Visible raw tag text on a rendered page (Divit 2026-11-13): an escaped tag ("&lt;p&gt;"), any "&lt;"/"&gt;" or double-escaped
+    entity in a text node, or a tag shape left in visible text. Scripts, styles and comments are not visible. -> [snippet]"""
+    body = re.sub(r"(?is)<(script|style|noscript|template)\b.*?</\1\s*>|<!--.*?-->", " ", html or "")
+    out = []
+    for node in re.split(r"<[^<>]*>", body):
+        if not node.strip(): continue
+        vis = unescape(node)
+        if re.search(r"&(?:lt|gt|amp);", vis) or re.search(r"</?[a-zA-Z][a-zA-Z0-9-]*(?:\s[^<>]{0,60})?/?>", vis):
+            out.append(re.sub(r"\s+", " ", vis).strip()[:100])
+    return out
+
 def verify(spec, html=None, check_links=True, fetch=None):
     F = spec["fields"]; url = "https://emergent.sh" + spec["url"]; rep = []; ok = True
     if html is None:
@@ -171,6 +183,8 @@ def verify(spec, html=None, check_links=True, fetch=None):
     chk("meta description", d and unescape(d.group(1)) == F["meta_description"], d.group(1)[:80] if d else "missing")
     h1 = re.search(r"<h1[^>]*>(.*?)</h1>", html, re.S)
     chk("H1", h1 and unescape(re.sub(r"<[^>]+>", "", h1.group(1))).strip() == F["h1"], unescape(re.sub(r"<[^>]+>", "", h1.group(1)))[:80] if h1 else "missing")
+    _rt = raw_tag_text(html)
+    chk("no raw tag text on the page", not _rt, f"{len(_rt)} hit(s): " + " | ".join(_rt[:3]))
     fq_live = re.search(r"window\.awbFAQ\s*=\s*(\{.*?\})\s*;\s*</script>", html, re.S)
     fq_spec = re.search(r"window\.awbFAQ\s*=\s*(\{.*\})\s*;\s*</script>", F.get("faq", ""), re.S)
     try:

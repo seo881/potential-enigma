@@ -38,6 +38,10 @@ def norm(s): return re.sub(r"\s+", " ", strip_html(s).lower()).strip()
 def h3p(html):
     m = re.fullmatch(r'\s*<h3(?: id="")?>(.+?)</h3>\s*<p(?: id="")?>(.+?)</p>\s*', html or "", re.S)
     return (m.group(1), m.group(2)) if m else None
+RICH_FIELDS = {"faq", "hero_prompt", "mockup", "why_table", "chip_adds"} | {f"feature_{i}" for i in range(1, 7)} | {f"tab_content_{i}" for i in range(1, 5)}
+def html_in_plain(F):
+    # plain-text CMS fields render tags as visible text (&lt;p&gt; under the H1 on 11 live Form pages, 2026-11-13)
+    return sorted(k for k, v in (F or {}).items() if k not in RICH_FIELDS and isinstance(v, str) and re.search(r"</?[a-zA-Z][^>]*>", v))
 def faq_obj(s):
     m = re.search(r"window\.awbFAQ\s*=\s*(\{.*\})\s*;\s*</script>", s or "", re.S)
     return json.loads(m.group(1)) if m else None
@@ -259,6 +263,8 @@ def check(spec, siblings):
     # S2 / S3 rich text shape
     for k in [f"feature_{i}" for i in range(1, 7)] + [f"tab_content_{i}" for i in range(1, 5)]:
         if F.get(k) and not h3p(F[k]): add("P0", "S2", k, "must be exactly <h3>title</h3><p>body</p>")
+    # S6 no HTML in plain-text fields
+    for k in html_in_plain(F): add("P0", "S6", k, "plain-text field carries HTML tags; the template shows them as text")
     # S4 how-to numbering
     for i in range(1, 8):
         t = F.get(f"howto_step_{i}_title", "")
@@ -478,7 +484,6 @@ def check(spec, siblings):
         if len(hub_items) != 1: add("P0", "K4", "faq", f"{len(hub_items)} hub links (exactly 1, to {hub_url})")
         elif hub_items[0] != 2: add("P1", "K4", "faq", f"the hub link sits in item {hub_items[0]}; it belongs in item 2 (the how-to-build answer)")
         if len(extra) > 3: add("P1", "K4", "faq", f"{len(extra)} related-page links (max 3)")
-        if len(extra) < 2 and KMAP: add("P2", "K4", "faq", f"only {len(extra)} related-page link(s); link 2-3 sibling pages with exact-match anchors")
         for idx, u, txt_ in extra:
             path = u.replace("https://emergent.sh", "").rstrip("/")
             if idx == 1: add("P1", "K4", "faq", "no links in item 1 (the definition)")

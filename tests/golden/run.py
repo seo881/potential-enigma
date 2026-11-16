@@ -269,6 +269,15 @@ def caught(c):
     if c["kind"] == "quiz-table":   # Divit 2026-11-11 decision 3, enforced at ship-check 2026-11-13
         import hubctl as H
         return H.quiz_table_wrong({"quiz": c.get("quiz"), "fields": {"why_table": c["why_table"]}}) == c["expect_blocked"]
+    if c["kind"] == "link-relevance":   # Divit 2026-11-13: FAQ link only to a genuinely related page; no forced cross-hub links
+        sys.path.insert(0, os.path.join(ROOT, "ops")); import skeleton as SK
+        return bool(SK.link_relevance(c["src"], c["tgt"], c["same_hub"])) == c["expect"]
+    if c["kind"] == "raw-tags":   # Divit 2026-11-13: any visible raw tag text on a live page fails verify-live and the live audit
+        sys.path.insert(0, os.path.join(ROOT, "ops")); import verify_live as VL
+        return bool(VL.raw_tag_text(c["html"])) == c["expect_fail"]
+    if c["kind"] == "html-in-plain":   # S6 (B-c-2 2026-11-13): tags in plain-text fields render as visible text
+        sys.path.insert(0, os.path.join(ROOT, "qc")); import qc_hub as QH
+        return QH.html_in_plain(c["fields"]) == c["expect"]
     if c["kind"] == "article-display":   # Divit 2026-11-13: a/an agreement is display normalization for verbatim AlsoAsked questions
         import spelling as SP
         return SP.display(c["q"]) == c["expect"] and SP.verbatim_ok(c["expect"], c["q"])

@@ -263,15 +263,26 @@ def candidates(url, extra=()):
     # Divit 2026-10-13: flagged questions may fill slots, after passing questions and secondaries; marked in spec and pack
     return [c for c in out if not c["flagged"]] + [c for c in out if c["flagged"]]
 
+LINK_GENERIC = {P.stem(w) for w in ("form forms sheet sheets sign up in questionnaire questionnaires question questions survey surveys quiz quizzes "
+                "template templates landing page pages automation automations workflow workflows builder generator maker app apps tool "
+                "free online best custom create example examples ai software list checklist request application").split()}
 def related_targets(url, n=3):
-    """Live child pages to link from items 3-10, anchored with their exact primary: same cluster first, then keyword overlap."""
+    """Live child pages to link from FAQ items 3-10 (Divit 2026-11-13): only a genuinely related page, same hub preferred,
+    zero links is fine. Relevance = shared topic words after hub/format words are removed; another hub needs 2 shared topic words.
+    The plan's cluster label is not used (the 2026-11-13 additions share one list-level cluster)."""
     km = H.kmap(); me = km.get(url) or {}; live = [u for u in H.live_urls() if u in km and u != url and u.count("/") == 2]
-    mine = P.content(" ".join([me.get("primary", "")] + [x["kw"] for x in me.get("secondaries") or []]))
-    def score(u):
-        p_ = km[u]; same_cluster = bool(me.get("cluster")) and p_.get("cluster") == me.get("cluster")
-        return (same_cluster, H.hub_of(u) == H.hub_of(url), len(mine & P.content(p_["primary"])))
-    ranked = sorted(live, key=score, reverse=True)
-    return [{"url": u, "anchor": km[u]["primary"]} for u in ranked if score(u)[2] > 0 or score(u)[0]][:n]
+    src = " ".join([me.get("primary", "")] + [x.get("kw") or x.get("keyword") or "" for x in me.get("secondaries") or []])
+    out = []
+    for u in live:
+        same = H.hub_of(u) == H.hub_of(url); shared = link_relevance(src, km[u].get("primary", ""), same)
+        if shared: out.append(((same, shared), u))
+    return [{"url": u, "anchor": km[u]["primary"]} for _, u in sorted(out, reverse=True)][:n]
+
+def link_relevance(src_text, tgt_primary, same_hub):
+    """Shared topic words (hub and format words removed) if the target is relevant enough to link, else 0:
+    same hub needs 1 shared topic word, another hub needs 2 (Divit 2026-11-13: no forced cross-hub links)."""
+    shared = len((P.content(src_text) - LINK_GENERIC) & (P.content(tgt_primary) - LINK_GENERIC))
+    return shared if shared >= (1 if same_hub else 2) else 0
 
 def default_table(url):
     import table as TB
