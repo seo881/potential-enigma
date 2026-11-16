@@ -1,0 +1,29 @@
+{
+ "blocking": [
+  {
+   "class": "wrong-fact",
+   "severity": "blocking",
+   "rule": "CONTENT_DEFECTS #10",
+   "field": "mockup.driverRuns; chip_adds[2]",
+   "finding": "Receipt field list differs. mockup.driverRuns: \"read the gallons and total into the report\"; chip_adds[2]: \"read the gallons and total into the report\". tab_content_3 and image tab 3 read three values: gallons, total and date (\"2 of 3 read\", date sent back to the driver).",
+   "fix": "mockup.driverRuns: \"Let drivers photograph fuel receipts and read the gallons and total into the report.\" -> \"Let drivers photograph fuel receipts and read the gallons, total, and date into the report.\" chip_adds[2]: \"Add receipt photos that read the gallons and total into the report.\" -> \"Add receipt photos that read the gallons, total, and date into the report.\""
+  },
+  {
+   "class": "image-contradiction",
+   "severity": "blocking",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief.tabs[0].hero.blocks[0].items[2]",
+   "finding": "tab_content_1 says \"Each task reaches the person named on it by email\", but image tab 1 assigns the third follow-up to a company: \"Share the line diagram / Pomfrey Dairy, due Thursday\", with initials \"PG\" that match no name drawn.",
+   "fix": "image_brief tab 1 hero list item 3 sub: \"Pomfrey Dairy, due Thursday\" -> \"Perpetua Gallimore, due Thursday\" (keep initials PG); re-render tab 1 and update the CMS image."
+  }
+ ],
+ "notes": [
+  {
+   "class": "image-polish",
+   "severity": "note",
+   "rule": "HUB_RULES 6",
+   "field": "image_brief.tabs[2].alt",
+   "finding": "Alt says the run \"logs 546 miles across Ohio, Indiana, and Illinois\"; no state is drawn or named in the copy."
+  }
+ ]
+}

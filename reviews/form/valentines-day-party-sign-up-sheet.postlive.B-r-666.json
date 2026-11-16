@@ -1,0 +1,29 @@
+{
+ "blocking": [
+  {
+   "class": "image-contradiction",
+   "severity": "blocking",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief.tabs[1].main (list)",
+   "finding": "Copy: \"So far 18 of the 22 families have confirmed, and 4 have not.\" Image tab 2 shows Ilchester family \"Waiting\" plus a separate row \"4 families not yet confirmed / Waiting\", so 5 families read as unconfirmed.",
+   "fix": "image_brief tab 2 main list item 3: {\"initials\": \"IF\", \"name\": \"Ilchester family\", \"sub\": \"Name list sent\", \"right\": \"Waiting\"} -> {\"initials\": \"IF\", \"name\": \"Ilchester family\", \"sub\": \"Name list opened\", \"right\": \"Confirmed\"}; re-render tab 2 and update the CMS image."
+  },
+  {
+   "class": "image-contradiction",
+   "severity": "blocking",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief.tabs[3].main (table)",
+   "finding": "Copy: all 120 seats are taken, 9 guests wait on the list, and the Iveson couple (seat holders) cancels. Image tab 4 lists \"Iveson couple / 2 / Canceled\" as a row under the \"Waitlist\" column, drawing seat holders as waitlist guests.",
+   "fix": "image_brief tab 4 main table: delete the row [\"Iveson couple\", \"2\", [\"Canceled\", \"warn\"]] (the hero already says \"The Iveson couple canceled\"); the remaining rows Edna Hatherleigh 2 + Next 7 guests 7 match \"9 guests on the waitlist\". Re-render tab 4 and update the CMS image."
+  }
+ ],
+ "notes": [
+  {
+   "class": "other",
+   "severity": "note",
+   "rule": "HUB_RULES 8",
+   "field": "feature_2; faq item 7",
+   "finding": "feature_2 \"When its last slot fills, the item leaves the list\" and FAQ 7 \"the next parent sees only the items still open\" sit awkwardly beside tab 1, where Oriana picks cupcakes already taken and is turned away. Readable as a stale-page race."
+  }
+ ]
+}
