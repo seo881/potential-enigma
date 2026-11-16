@@ -1,0 +1,33 @@
+{
+ "blocking": [
+  {
+   "field": "chip_adds[0] vs hero_prompt, tab_content_1, mockup hotelTraining, tab_image_1",
+   "class": "wrong-fact",
+   "severity": "blocking",
+   "rule": "CONTENT_DEFECTS #10; SEVERITY cross-field mismatches (labels, Divit 2026-11-05)",
+   "quote": "Add point values so the 5 hardest questions count double.",
+   "finding": "The Point Values chip doubles 'the 5 hardest questions', while the hero prompt it appends to ('safety questions are worth 2 points'), tab 1 copy, mockup and image all double the 5 safety (fire evacuation) questions. Clicking the chip yields a prompt with two conflicting weighting rules.",
+   "fix": "chip_adds[0]: replace 'Add point values so the 5 hardest questions count double.' with 'Add point values so the 5 safety questions count double.' CMS item update + verify-live."
+  }
+ ],
+ "notes": [
+  {
+   "field": "tab_image_1 alt vs feature_4, chip_adds[1]",
+   "class": "other",
+   "severity": "note",
+   "rule": "HUB_RULES 5",
+   "quote": "an email naming them to the training lead",
+   "finding": "Recipient role is 'training lead' in the alt and 'trainer' in feature 4 and chip 2; same role, two words.",
+   "fix": "Use 'trainer' in the alt on a refresh."
+  },
+  {
+   "field": "feature_4",
+   "class": "other",
+   "severity": "note",
+   "rule": "HUB_RULES 8",
+   "quote": "Reminders follow until the retake is done.",
+   "finding": "Reminder loop is under the 'alerts' claim but not shown anywhere in the tabs; fine, minor.",
+   "fix": "None required."
+  }
+ ]
+}
