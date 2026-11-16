@@ -37,11 +37,13 @@ AUTH_RUNS = {"auto-r1014": 22,    # Divit 2026-10-14 step 3: the 11 Automation n
              "night-r1015": 60,   # Divit 2026-10-15 night: the overnight loop's pulls, at most 60 credits (key from the keychain, B-dev-17)
              "diet-r1113": 10,    # Divit 2026-11-13: diet re-pull (F6 stale pull, FAQ quotes AlsoAsked), max 10 credits
              "revive-r1113": 20,  # Divit 2026-11-13: re-pulls for revived parked pages home-inspection, membership, board, max 20 credits
-             "wave-r1113": 200}   # Divit 2026-11-13: AlsoAsked for the approved 110-keyword wave, max 200 credits
+             "wave-r1113": 200,   # Divit 2026-11-13: AlsoAsked for the approved 110-keyword wave, max 200 credits
+             "stale-r1116": 20}   # Divit 2026-11-16 ("AlsoAsked re-pull approved (up to 20 credits)"): F6 stale pulls on October-claimed quiz pages
 # Runs Divit authorised to REFRESH a stale pull (over 30 days) for named pages only: the saved pull is archived beside it
 # (<name>.stale-<fetched>.json), the never-re-pull and per-page rules give way to the run cap, which still stops the run.
 REFRESH_RUNS = {"diet-r1113": {"/ai-survey-and-quiz-builder/diet"},
-                "revive-r1113": {"/ai-form-builder/home-inspection", "/ai-form-builder/membership", "/ai-survey-and-quiz-builder/board", "/ai-automation-builder/restaurant"}}
+                "revive-r1113": {"/ai-form-builder/home-inspection", "/ai-form-builder/membership", "/ai-survey-and-quiz-builder/board", "/ai-automation-builder/restaurant"},
+                "stale-r1116": {"/ai-survey-and-quiz-builder/makeup", "/ai-survey-and-quiz-builder/sports", "/ai-survey-and-quiz-builder/trivia", "/ai-survey-and-quiz-builder/wellness-quiz", "/ai-survey-and-quiz-builder/safety-quiz"}}
 STATE = os.path.join(ROOT, "status", "weekend-run.json")
 PLAN = os.path.join(ROOT, "plan", "weekend-run.md")
 STOP = os.path.join(ROOT, "STOP")
