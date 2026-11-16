@@ -1,6 +1,7 @@
 # Work reports (newest first)
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
+- 2026-11-16 | bfix23-rebuild | image slot guard + B-fix-23b payload rebuilt, dry run clean, awaiting Divit | 1b2e60ec
 - 2026-11-12 | take-back-sync | B coordinator again; stash+wip-A merged (render fix golden green, ship.py/weekend.py held); song-request item-published with substitute Learn ref, fitness confirmed live; gate change (locked definition flags hold); 16 writers restarted; audits re-running | 8913bcb6
 
 - 2026-11-06 · [ship-run](2026-11-06/ship-run.md) · B-ship-8: 21 item publishes, 0 errors, verify-live 21/21 (6 rulings-1-2 fixes incl. patient-intake first live; Form g1 7 + g2 6 new; quiz style). Style CLS FAIL at 390 (0.061), so vocabulary stopped; post-ship audits P0 0 P1 0; live 451 · see git log
