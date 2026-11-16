@@ -11,7 +11,7 @@
  "vendor_facts_checked": null,
  "fields": {
   "meta_title": "Prior Authorization Automation for Practices | Emergent",
-  "meta_description": "Build prior authorization automation that holds incomplete requests, reads approval letters, flags late payers, and opens renewals. Free to start.",
+  "meta_description": "Build prior authorization automation that holds incomplete requests and flags late payer decisions, on a database you own. Free to start.",
   "h1": "Build Prior Authorization Automation for Your Practice",
   "slug": "prior-authorization",
   "product_name": "Prior Authorization Automation Builder",
@@ -22,10 +22,10 @@
   "features_heading": "What Your Prior Authorization Tracker Handles",
   "features_subheading": "The tracker sits between your practice and each payer and keeps the full record of every request in one place.",
   "feature_1": "<h3>A document checklist for each payer</h3><p>List what each payer asks for by service, such as an office note or an imaging report. A request stays held until its checklist is complete, and the app names what is missing.</p>",
-  "feature_2": "<h3>Rules described in plain sentences</h3><p>Describe how requests move, who works each one, and when a late one escalates. Emergent builds the tracker, its database, and the logic, and another prompt changes a rule.</p>",
+  "feature_2": "<h3>Rules described in plain sentences</h3><p>Describe how requests move between staff and when a late one escalates. Emergent builds the tracker and its database from that description, and another prompt changes any rule later.</p>",
   "feature_3": "<h3>Faxed and scanned letters read into fields</h3><p>Upload a payer's decision letter, and AI reads the decision, the approved visits, and the authorization number into the request. A low-confidence value waits for a person.</p>",
   "feature_4": "<h3>Alerts that carry a number, not a chart</h3><p>A late request sends its coordinator an alert in Slack, by email, or in the app with the request number and a link. No patient details ever travel inside the alert itself.</p>",
-  "feature_5": "<h3>Connected to the systems you run today</h3><p>The app connects to your scheduling or billing system through its API, so a new order arrives as a request. Every request, letter, and decision is saved in a database you own.</p>",
+  "feature_5": "<h3>Connected to the systems you run today</h3><p>The app connects to your scheduling or billing system through its API. A new order arrives as a request, and every letter and decision on it is saved in a database you own.</p>",
   "feature_6": "<h3>Your tracker's code in your GitHub</h3><p>Export the full code of the tracker to your GitHub repository on paid plans. Your IT team can read how requests are stored and who can open them before the app goes live.</p>",
   "why_title": "Why Build Your Request Tracker With Emergent?",
   "why_description": "Emergent builds the workflow and the app your coordinators use from one prompt, with no task cap as request volume grows.",
@@ -35,32 +35,32 @@
   "tab_label_2": "Approval Letters",
   "tab_label_3": "Late Decisions",
   "tab_label_4": "Visit Renewals",
-  "tab_content_1": "<h3>Held until all four documents are attached</h3><p>Request PA-4127 for a lumbar MRI comes in from the scheduling system at Calderbank Orthopedics. Pelrose Health Plan's checklist for that service asks for 4 documents, and 3 are attached. The office visit note is missing, so the app marks the request Not ready to send and assigns it to Ophira Grausam.</p>",
+  "tab_content_1": "<h3>Held until all four documents are attached</h3><p>Request PA-4127 for a lumbar MRI comes in from the scheduling system at Calderbank Orthopedics. Pelrose Health Plan's checklist for that service asks for 4 documents, and 3 are attached. The office visit note is missing. The app marks the request Not ready to send and assigns it to Ophira Grausam.</p>",
   "tab_content_2": "<h3>The approval letter fills four fields in the record</h3><p>Pelrose's decision on PA-4098 arrives as a scanned letter. The app reads four fields: the decision, 12 approved physical therapy visits, a 90-day approval window, and the authorization number. That number reads at low confidence, and Halvard Wieczorek checks it against the letter before the record is saved.</p>",
   "tab_content_3": "<h3>Ophira hears on day 3 when the payer is silent</h3><p>Request PA-4133 went to Pelrose on a Tuesday, and Calderbank gives each standard request 3 business days before a coordinator follows up. By Friday there is still no decision. The app marks PA-4133 late and sends Ophira a Slack direct message that says only that the request needs action, with an Open request button.</p>",
   "tab_content_4": "<h3>Renewal starts when 2 of 12 visits remain</h3><p>Approval PA-4098 covers 12 physical therapy visits, and 10 are used. Calderbank's rule opens a renewal task when 2 visits remain, which leaves room to send a new request before the last visit. The app emails Ophira a link to the task, and the renewal starts with the first request's documents attached.</p>",
   "mockup": "<p id=\"\">window.awbMockup = { payerChecklists: \"Keep a document checklist for each payer and service. When a prior authorization request comes in from our scheduling system, compare its attachments with the payer's checklist. If anything is missing, hold the request in the coordinator's queue, mark it Not ready to send, and name the missing document.\", approvalLetters: \"When a payer's decision letter is uploaded as a scan, read the decision, the approved visits, the approval window, and the authorization number into the request record. If any field reads at low confidence, hold the record for a person to check that field against the letter before it is saved.\", lateDecisions: \"Give each standard prior authorization request 3 business days after it is sent to the payer. If no decision is logged by then, mark the request late and send the coordinator a Slack direct message that says only that the request needs action, with an Open request button and no patient details.\", visitRenewals: \"Track the visits used on each approved prior authorization. When an approval has 2 visits left, open a renewal task, copy the original request's documents into it, and email the coordinator a link to the task. Show every approval with its visits used and approved.\" };</p>",
-  "howto_title": "",
-  "howto_description": "",
-  "howto_step_1_title": "",
-  "howto_step_2_title": "",
-  "howto_step_3_title": "",
-  "howto_step_4_title": "",
-  "howto_step_1_des": "",
-  "howto_step_2_des": "",
-  "howto_step_3_des": "",
-  "howto_step_4_des": "",
-  "faq": "",
+  "howto_title": "How to Automate Prior Authorizations",
+  "howto_description": "Seven steps to plan prior authorization automation around each payer's rules, then build and test the tracker with Emergent.",
+  "howto_step_1_title": "01 Pull last month's requests",
+  "howto_step_2_title": "02 Write a checklist for each payer",
+  "howto_step_3_title": "03 Write the follow-up rule as a sentence",
+  "howto_step_4_title": "04 Connect scheduling and uploads",
+  "howto_step_1_des": "Pull last month's prior authorization requests and sort them by payer and service. Count how many waited on a missing document, how many sat without a decision, and how many approvals ran out before a renewal went in. Start with the costliest problem.",
+  "howto_step_2_des": "For each payer and service you request often, list every document that payer wants before it will review a request. Take the list from the payer's own policy, and record the page you took it from. A coordinator can then recheck it when the policy changes.",
+  "howto_step_3_des": "Decide how many business days a standard request may wait before someone follows up, and name that person. Write the rule the way you would brief a new coordinator, then paste those sentences into the prompt that describes the tracker.",
+  "howto_step_4_des": "Link the system where orders are entered, and map its payer and service fields to the request record. Then pick the folder where staff upload scanned decision letters, and name the person who checks any field the app reads at low confidence.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Prior Authorization Questions, Answered\", \"items\": [{\"q\": \"What is prior authorization automation?\", \"a\": \"Prior authorization automation is software that checks each request against the payer's document list, tracks the decision, and flags what needs a person. HealthCare.gov defines the authorization as a decision by your health insurer or plan that a health care service, treatment plan, prescription drug, or durable medical equipment is medically necessary.\"}, {\"q\": \"How do I set up prior authorization automation?\", \"a\": \"Start with one payer and one service your practice requests often. Describe its document checklist, the follow-up rule, and who works a late request in a prompt to Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>, which turns that prompt into a working app. Then link your scheduling system and run the tracker on past requests before a live one.\"}, {\"q\": \"How long should prior authorization automation wait for a payer decision?\", \"a\": \"Set the wait to the payer's own decision window. Under a CMS final rule, impacted payers (excluding QHP issuers on the FFEs) must send decisions within 72 hours for expedited requests and seven calendar days for standard requests, and Medicare Advantage organizations are among them. For other payers, use the window each one publishes.\"}, {\"q\": \"How does prior authorization automation keep a request from going out incomplete?\", \"a\": \"It compares each request's attachments with a checklist you keep for that payer and service, and holds the request until they match. The coordinator sees which document is missing and attaches it before the request can be sent. Update the checklist the day a payer changes its policy.\"}, {\"q\": \"Can prior authorization automation read a payer's decision letter?\", \"a\": \"Yes. Emergent builds the tracker so it reads a scanned or faxed decision letter into structured fields with AI, and a field read at low confidence goes to a person before the record is saved. Check the first 10 letters from each new payer by hand before you rely on the reading.\"}, {\"q\": \"What should a prior authorization automation alert say?\", \"a\": \"Only that a request needs action, with its request number and a link that opens it in the app. Leave the patient's name, the service, and any diagnosis out of the message. Staff read those details after they sign in, where the app controls who can see each screen.\"}, {\"q\": \"How does prior authorization automation track approvals that are about to run out?\", \"a\": \"It stores the approved visits and the approval window on each request, then counts visits as they are used. Pick a trigger, such as 2 visits left or 14 days to go, that leaves time to send a renewal request. Emergent sets no task cap, however many approvals the practice tracks.\"}, {\"q\": \"How should prior authorization automation handle a denied request?\", \"a\": \"Log the denial with its reason and date, then open a task for the coordinator with a due date you choose. Beginning in 2026, impacted payers must provide a specific reason for denied prior authorization decisions under a CMS final rule. Whether to appeal or resubmit stays a decision for your clinicians and billing staff.\"}, {\"q\": \"Can prior authorization automation send requests straight to the payer?\", \"a\": \"Yes, where the payer offers an API for it. A CMS final rule requires impacted payers to implement and maintain a Prior Authorization API, which must be implemented beginning January 1, 2027. For a payer without one, the app prepares the complete request and a coordinator submits it through the payer's portal or by fax.\"}, {\"q\": \"How do I measure whether prior authorization automation is working?\", \"a\": \"Compare two numbers each month against the month before you switched it on: requests sent back for missing documents, and approvals that expired before anyone renewed them. Emergent builds the tracker with a live dashboard that shows both. Review them by payer, since one slow payer can hide behind a good average.\"}]}; </script></div></div>",
   "learn": null,
   "tutorials": null,
   "case_study": null,
   "integration": null,
-  "howto_step_5_title": "",
-  "howto_step_5_des": "",
-  "howto_step_6_title": "",
-  "howto_step_6_des": "",
-  "howto_step_7_title": "",
-  "howto_step_7_des": "",
+  "howto_step_5_title": "05 Keep patient details out of alerts",
+  "howto_step_5_des": "Keep each alert to an identifier and a link, nothing more. The coordinator opens the request in the app to see the details. Ask whoever owns privacy at the practice which staff may open each screen before anyone starts using it.",
+  "howto_step_6_title": "06 Test on 20 closed requests",
+  "howto_step_6_des": "Run 20 closed requests through the tracker before it touches a live one. Check that every hold and every alert landed on the right day. Fix a rule with a prompt, then run the same 20 again until every result matches.",
+  "howto_step_7_title": "07 Switch on one payer first",
+  "howto_step_7_des": "Turn the tracker on for one payer with steady volume, and watch two weeks of live requests. Read every alert and every field a person had to correct. Add the next payer once the first one runs without corrections.",
   "prompt_chip_1": "Payer Checklists",
   "prompt_chip_2": "Letter Reading",
   "prompt_chip_3": "Late Decisions",
@@ -70,27 +70,27 @@
  "images": {
   "tab_image_1": {
    "path": "images/aab/prior-authorization/uc-1.svg",
-   "alt": ""
+   "alt": "Prior authorization request PA-4127 for a lumbar MRI has 3 of the 4 documents Pelrose Health Plan asks for, and waits in the coordinator's queue until the office visit note is attached."
   },
   "tab_image_2": {
    "path": "images/aab/prior-authorization/uc-2.svg",
-   "alt": ""
+   "alt": "A scanned approval letter from Pelrose Health Plan for request PA-4098 is read into four fields, 12 approved visits over 90 days among them, and the authorization number, read at 61% confidence, goes to a person to check."
   },
   "tab_image_3": {
    "path": "images/aab/prior-authorization/uc-3.svg",
-   "alt": ""
+   "alt": "Standard request PA-4133 has no decision from the payer 3 business days after it was sent on Tuesday, so on Friday the coordinator gets a Slack message that only says it needs action, with an Open request button."
   },
   "tab_image_4": {
    "path": "images/aab/prior-authorization/uc-4.svg",
-   "alt": ""
+   "alt": "Approval PA-4098 for 12 physical therapy visits has 10 used, so the rule opens a renewal task and emails the coordinator a link with the first request's documents attached."
   },
   "cover_image": {
    "path": "images/aab/prior-authorization/cover.svg",
-   "alt": ""
+   "alt": "Prior authorization automation: a direct message telling the coordinator that request PA-4133 needs action after 3 business days without a payer decision, with no patient details."
   },
   "share_image": {
    "path": "images/aab/prior-authorization/og.webp",
-   "alt": ""
+   "alt": "Build prior authorization automation for your practice, with Emergent"
   }
  },
  "image_spec": null,
@@ -100,6 +100,20 @@
    "state": "spec",
    "via": null,
    "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-11-16 08:59 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "B-w-784",
+   "note": ""
+  },
+  {
+   "t": "2026-11-16 08:59 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-784",
    "note": ""
   }
  ],
@@ -111,7 +125,7 @@
    "ref": "prior authorization automation",
    "locked": true,
    "n": 1,
-   "a": "",
+   "a": "Prior authorization automation is software that checks each request against the payer's document list, tracks the decision, and flags what needs a person. HealthCare.gov defines the authorization as a decision by your health insurer or plan that a health care service, treatment plan, prescription drug, or durable medical equipment is medically necessary.",
    "link": null
   },
   {
@@ -120,7 +134,7 @@
    "ref": "prior authorization automation",
    "locked": true,
    "n": 2,
-   "a": "",
+   "a": "Start with one payer and one service your practice requests often. Describe its document checklist, the follow-up rule, and who works a late request in a prompt to Emergent's AI automation builder, which turns that prompt into a working app. Then link your scheduling system and run the tracker on past requests before a live one.",
    "link": {
     "url": "https://emergent.sh/ai-automation-builder",
     "anchor": "AI automation builder",
@@ -129,82 +143,82 @@
   },
   {
    "kind": "written",
-   "q": null,
+   "q": "How long should prior authorization automation wait for a payer decision?",
    "ref": null,
    "secondary": null,
    "locked": false,
    "n": 3,
-   "a": "",
+   "a": "Set the wait to the payer's own decision window. Under a CMS final rule, impacted payers (excluding QHP issuers on the FFEs) must send decisions within 72 hours for expedited requests and seven calendar days for standard requests, and Medicare Advantage organizations are among them. For other payers, use the window each one publishes.",
    "link": null
   },
   {
    "kind": "written",
-   "q": null,
+   "q": "How does prior authorization automation keep a request from going out incomplete?",
    "ref": null,
    "secondary": null,
    "locked": false,
    "n": 4,
-   "a": "",
+   "a": "It compares each request's attachments with a checklist you keep for that payer and service, and holds the request until they match. The coordinator sees which document is missing and attaches it before the request can be sent. Update the checklist the day a payer changes its policy.",
    "link": null
   },
   {
    "kind": "written",
-   "q": null,
+   "q": "Can prior authorization automation read a payer's decision letter?",
    "ref": null,
    "secondary": null,
    "locked": false,
    "n": 5,
-   "a": "",
+   "a": "Yes. Emergent builds the tracker so it reads a scanned or faxed decision letter into structured fields with AI, and a field read at low confidence goes to a person before the record is saved. Check the first 10 letters from each new payer by hand before you rely on the reading.",
    "link": null
   },
   {
    "kind": "written",
-   "q": null,
+   "q": "What should a prior authorization automation alert say?",
    "ref": null,
    "secondary": null,
    "locked": false,
    "n": 6,
-   "a": "",
+   "a": "Only that a request needs action, with its request number and a link that opens it in the app. Leave the patient's name, the service, and any diagnosis out of the message. Staff read those details after they sign in, where the app controls who can see each screen.",
    "link": null
   },
   {
    "kind": "written",
-   "q": null,
+   "q": "How does prior authorization automation track approvals that are about to run out?",
    "ref": null,
    "secondary": null,
    "locked": false,
    "n": 7,
-   "a": "",
+   "a": "It stores the approved visits and the approval window on each request, then counts visits as they are used. Pick a trigger, such as 2 visits left or 14 days to go, that leaves time to send a renewal request. Emergent sets no task cap, however many approvals the practice tracks.",
    "link": null
   },
   {
    "kind": "written",
-   "q": null,
+   "q": "How should prior authorization automation handle a denied request?",
    "ref": null,
    "secondary": null,
    "locked": false,
    "n": 8,
-   "a": "",
+   "a": "Log the denial with its reason and date, then open a task for the coordinator with a due date you choose. Beginning in 2026, impacted payers must provide a specific reason for denied prior authorization decisions under a CMS final rule. Whether to appeal or resubmit stays a decision for your clinicians and billing staff.",
    "link": null
   },
   {
    "kind": "written",
-   "q": null,
+   "q": "Can prior authorization automation send requests straight to the payer?",
    "ref": null,
    "secondary": null,
    "locked": false,
    "n": 9,
-   "a": "",
+   "a": "Yes, where the payer offers an API for it. A CMS final rule requires impacted payers to implement and maintain a Prior Authorization API, which must be implemented beginning January 1, 2027. For a payer without one, the app prepares the complete request and a coordinator submits it through the payer's portal or by fax.",
    "link": null
   },
   {
    "kind": "written",
-   "q": null,
+   "q": "How do I measure whether prior authorization automation is working?",
    "ref": null,
    "secondary": null,
    "locked": false,
    "n": 10,
-   "a": "",
+   "a": "Compare two numbers each month against the month before you switched it on: requests sent back for missing documents, and approvals that expired before anyone renewed them. Emergent builds the tracker with a live dashboard that shows both. Review them by payer, since one slow payer can hide behind a good average.",
    "link": null
   }
  ],
@@ -301,6 +315,12 @@
    "source_url": "https://www.cms.gov/newsroom/fact-sheets/cms-interoperability-and-prior-authorization-final-rule-cms-0057-f",
    "date": "2026-11-16",
    "quote": "Medicare Advantage (MA) organizations, state Medicaid and Children"
+  },
+  {
+   "claim": "CMS requires impacted payers to implement and maintain a Prior Authorization API",
+   "source_url": "https://www.cms.gov/newsroom/fact-sheets/cms-interoperability-and-prior-authorization-final-rule-cms-0057-f",
+   "date": "2026-11-16",
+   "quote": "We are requiring impacted payers to implement and maintain a Prior Authorization API"
   }
  ],
  "chip_adds": [
@@ -829,11 +849,11 @@
    "alt": "Prior authorization automation: a direct message telling the coordinator that request PA-4133 needs action after 3 business days without a payer decision, with no patient details."
   },
   "og": {
-   "headline": "Build prior authorization automation",
+   "headline": "Automate prior authorizations at your practice",
    "lines": [
-    "Build prior",
-    "authorization",
-    "automation"
+    "Automate prior",
+    "authorizations",
+    "at your practice"
    ],
    "alt": "Build prior authorization automation for your practice, with Emergent"
   },
@@ -871,5 +891,95 @@
     "where": 4
    }
   ]
- }
+ },
+ "claims_used": [
+  "prompt-build",
+  "api-connect",
+  "ai-extraction",
+  "alerts",
+  "database-owned",
+  "code-export",
+  "no-caps",
+  "realtime",
+  "free-start"
+ ],
+ "faq_sources": [
+  {
+   "q": "What is prior authorization automation?",
+   "source": "written",
+   "ref": "prior authorization automation",
+   "origin": "definition"
+  },
+  {
+   "q": "How do I set up prior authorization automation?",
+   "source": "written",
+   "ref": "prior authorization automation",
+   "origin": "definition"
+  },
+  {
+   "q": "How long should prior authorization automation wait for a payer decision?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How does prior authorization automation keep a request from going out incomplete?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Can prior authorization automation read a payer's decision letter?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "What should a prior authorization automation alert say?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How does prior authorization automation track approvals that are about to run out?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How should prior authorization automation handle a denied request?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Can prior authorization automation send requests straight to the payer?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How do I measure whether prior authorization automation is working?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  }
+ ],
+ "qc_passed": {
+  "rules_version": "f882f2570d20",
+  "date": "2026-11-16 08:59 UTC"
+ },
+ "learn_refs": [
+  "6a1729ad1817ffd0330c987d",
+  "6abe38fbf322d0af73b37238",
+  "6a172321c4c836a09c1ce435"
+ ],
+ "learn_refs_why": [
+  "best-ai-workflow-builders: Auto fixed set: the hub's category: what an AI workflow builder is and how to choose one",
+  "how-to-build-an-ai-agent: Auto fixed set: step-by-step build of an agent that handles leads and intake, the AI step inside most automations",
+  "best-no-code-agent-builders: Auto fixed set: no-code agent builders for workflow automation, for readers who want automations without code"
+ ],
+ "writers": [
+  "B-w-784"
+ ]
 }
