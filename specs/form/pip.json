@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-711",
    "note": ""
+  },
+  {
+   "t": "2026-11-16 08:13 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-644",
+   "note": "[faq | HUB_RULES 5] faq: Items 1 and 2 (displayed questions and FAQPage schema) write the acronym PIP in lowercase, so it reads as the word pip. Ruling 18 part 4e makes a lowercase acronym in an FAQ question a QC P1 block; QC missed it only because \"pip\" is not in the r18 acronym list. Every other d"
   }
  ],
  "pipeline": "r15",
@@ -943,5 +950,295 @@
  ],
  "writers": [
   "B-w-711"
- ]
+ ],
+ "review": {
+  "by": "B-r-644",
+  "date": "2026-11-16 08:13 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a PIP Form Template That Holds Every Goal to a Date\", meta title \"PIP Form Template Builder, Free to Start | Emergent\", hero \"Build a PIP form template that saves only measurable goals, logs each check-in, and keeps every plan in a database you own.\" cover the whole plan: goals, check-ins, record. How-to description is one sentence under 140 characters."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 are downloadable templates and HR guides listing sections; FAQ 3 \"What sections should a PIP form template include?\" answers the PAA \"What should a PIP include?\", FAQ 10 covers the free-template ask, and the how-to walks the plan from concern to outcome."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: \"QA score of 71 and a target of 85\", \"3 picking errors in 2 weeks against a limit of 4\", \"7 open plans, sorted by end date\", \"A week with no session shows as a blank row\"."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences with actions: \"Dana Kilburn writes a 60-day plan\", \"Every other Thursday, supervisor Nadia Truscott meets\", \"Write each goal so the employee can hit it\", \"On paid plans, export the full codebase\"."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "QC Q2/Q5/Q7 clean; sentences short and single-idea (\"He logs each session with its date and the calls they reviewed.\"). Craft notes recorded, none blocking."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain verbs and concrete detail (\"It holds a link to the plan and nothing else.\"); no AI tells. Two voice notes recorded (feature_1 closing line, howto_step_2 absolute)."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Every Emergent claim maps to claims_used (alerts covers \"email or in Slack\"; e-signature-capture covers \"Both people sign the plan\" with no legality claim; free-start, no-caps, code-export, database-owned). Numbers agree across copy, mockups, alt and images: 60-day/#207/8 demos/50 calls; 71 -> 73/75/78 vs 85, 2 x 3 = 6 sessions; every 2 weeks, week 4, 3 vs 4, 2 days ahead, Thursday; 7 plans, 4 stores, 2 this week, 3 days ago. No legal or HR-law statements of fact; HR guidance is worded as instructions (\"Have HR read the wording before you send the first plan\", \"treat the policy you follow as the outer limit\")."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No sibling primary used (employee-coaching owns \"employee coaching form template\"; this page says \"coaching log\" only). Tab H3s are its own shapes: \"Of 7 open plans, the one past its end date\"."
+   },
+   "faq": {
+    "result": "fail",
+    "evidence": "faq item 1 \"What is a pip form template?\" and faq item 2 \"How do I create a pip form template?\" display the acronym in lowercase (also faq_plan slots 1-2, locked)."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet .cache/review/form_pip.png: tab 1 \"Goal not saved / Book more demos / Add a number and a due date\" matches tab copy; tab 2 \"Score, from 71 / 78 / Target 85\", \"6 of 6 sessions logged\"; tab 3 email hero \"Email to Nadia Truscott / Check-in on Thursday / Details stay in the plan\" carries no picker number or goal; tab 4 \"Plan 4410, Store 2 / Ended 3 days ago\" in red at the top. One hero per panel, readable text."
+   }
+  },
+  "findings": [
+   {
+    "class": "structure",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "What is a pip form template? / How do I create a pip form template?",
+    "issue": "Items 1 and 2 (displayed questions and FAQPage schema) write the acronym PIP in lowercase, so it reads as the word pip. Ruling 18 part 4e makes a lowercase acronym in an FAQ question a QC P1 block; QC missed it only because \"pip\" is not in the r18 acronym list. Every other displayed field already reads \"PIP\" after 14364ba1. Both items are locked, so faq_plan slots 1 and 2 must change with the faq field or QC R15 P0 fires.",
+    "fix": "Item 1: \"What is a PIP form template?\"; item 2: \"How do I create a PIP form template?\" in both the faq field and faq_plan[0].q / faq_plan[1].q (and faq_sources q 1-2). Coordinator: add pip -> PIP to the r18 acronyms list so QC catches it.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "howto_step_2_des",
+    "quote": "A goal with any of those missing stays a draft.",
+    "issue": "Small wording drift on what happens to an incomplete goal: feature_1 \"Goals saved only with a number and a date\" and tab_content_1 \"the form will not save it\" say the goal is not saved; howto_step_2 says the goal stays a draft; the tab 1 image says \"Plan stays a draft until fixed\"; mockup salesTeams says it \"gets sent back\". Readable as one behavior, so not a contradiction, but one term would be cleaner (HUB_RULES 2a Consistent).",
+    "fix": "Optional: \"A goal with any of those missing is not saved.\"",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "feature_1",
+    "quote": "Both people know on day one what meeting it means.",
+    "issue": "Unclear sentence: \"what meeting it means\" does not say what the reader learns.",
+    "fix": "\"Both people know on day one what will be measured and when.\"",
+    "severity": "note"
+   },
+   {
+    "class": "soft-quantifier",
+    "criterion": "voice",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_2_des",
+    "quote": "Nobody signs a plan that cannot be judged.",
+    "issue": "Absolute generalization stated as fact about people at large; reads as an aphorism rather than an instruction.",
+    "fix": "\"Ask both people to sign only once every goal can be judged.\"",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "faq",
+    "quote": "Answer more tickets is hard to judge at a check-in; close 30 tickets a week by the end of week 4 is not.",
+    "issue": "Example goals run into the sentence unmarked (also feature_1 \"Write a vague goal such as better call quality\", tab_content_1 \"Her first goal reads book more demos\"), so the reader has to find where the goal text starts and ends.",
+    "fix": "Lead the example in with a colon or rephrase: \"A goal of more tickets is hard to judge...\".",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief.cover",
+    "quote": "To: Nadia Truscott",
+    "issue": "The cover and share image draw the reminder in the chat-style action card (speech-bubble icon) while tab 3, feature_4 and the cover alt call it an email; the tab 3 hero uses the mail icon. \"To:\" keeps it readable as email, so no contradiction.",
+    "fix": "If the engine allows, render the cover with the mail icon to match tab 3.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "howto_step_2_des",
+   "issue": "Small wording drift on what happens to an incomplete goal: feature_1 \"Goals saved only with a number and a date\" and tab_content_1 \"the form will not save it\" say the goal is not saved; howto_step_2 says the goal stays a draft; the tab 1 image says \"Plan stays a draft until fixed\"; mockup salesTeams says it \"gets sent back\". Readable as one behavior, so not a contradiction, but one term would be cleaner (HUB_RULES 2a Consistent).",
+   "fix": "Optional: \"A goal with any of those missing is not saved.\"",
+   "by": "B-r-644",
+   "via": "review",
+   "date": "2026-11-16 08:13 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "feature_1",
+   "issue": "Unclear sentence: \"what meeting it means\" does not say what the reader learns.",
+   "fix": "\"Both people know on day one what will be measured and when.\"",
+   "by": "B-r-644",
+   "via": "review",
+   "date": "2026-11-16 08:13 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_2_des",
+   "issue": "Absolute generalization stated as fact about people at large; reads as an aphorism rather than an instruction.",
+   "fix": "\"Ask both people to sign only once every goal can be judged.\"",
+   "by": "B-r-644",
+   "via": "review",
+   "date": "2026-11-16 08:13 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "faq",
+   "issue": "Example goals run into the sentence unmarked (also feature_1 \"Write a vague goal such as better call quality\", tab_content_1 \"Her first goal reads book more demos\"), so the reader has to find where the goal text starts and ends.",
+   "fix": "Lead the example in with a colon or rephrase: \"A goal of more tickets is hard to judge...\".",
+   "by": "B-r-644",
+   "via": "review",
+   "date": "2026-11-16 08:13 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief.cover",
+   "issue": "The cover and share image draw the reminder in the chat-style action card (speech-bubble icon) while tab 3, feature_4 and the cover alt call it an email; the tab 3 hero uses the mail icon. \"To:\" keeps it readable as email, so no contradiction.",
+   "fix": "If the engine allows, render the cover with the mail icon to match tab 3.",
+   "by": "B-r-644",
+   "via": "review",
+   "date": "2026-11-16 08:13 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6b3515d2ca0d1959",
+   "alt:share_image": "87bca4be1d1d29b0",
+   "alt:tab_image_1": "f9dc1c4715016b52",
+   "alt:tab_image_2": "ba4b75edc642fd88",
+   "alt:tab_image_3": "b3bf54abfc03ba10",
+   "alt:tab_image_4": "8be1b0abadc25d56",
+   "breadcrumb": "63018ed9ad781b7f",
+   "chip_adds": "1397db289f9a7fb1",
+   "explore_cta": "ce503e86752fe976",
+   "faq": "5c0772ab5e275295",
+   "feature_1": "054ebde52a7db413",
+   "feature_2": "576449f19d50f310",
+   "feature_3": "c50deac7a38a5ccb",
+   "feature_4": "7fb71d49b80b562b",
+   "feature_5": "40be05c2faca016b",
+   "feature_6": "004b2efb80e6ef4e",
+   "features_heading": "a916af1ab457e80c",
+   "features_subheading": "a29f041cd8131044",
+   "h1": "c758c795355c697d",
+   "hero_description": "6f5f79d0c7803a4b",
+   "hero_prompt": "8668b0759ab6fed2",
+   "howto_description": "e7e71193680c2c09",
+   "howto_step_1_des": "1dbc3096ce12d268",
+   "howto_step_1_title": "3971d3b301600db5",
+   "howto_step_2_des": "ee80a44e9b3bd616",
+   "howto_step_2_title": "4f12a8dc79dfdee9",
+   "howto_step_3_des": "3928a07cfeb0b779",
+   "howto_step_3_title": "38f70420dcd118b6",
+   "howto_step_4_des": "4e0607689cac49b2",
+   "howto_step_4_title": "66557c8fab02c1b6",
+   "howto_step_5_des": "00d22fc1bf741ae5",
+   "howto_step_5_title": "7a1713a9ecdf8656",
+   "howto_step_6_des": "7c737f10f98e68e1",
+   "howto_step_6_title": "38887d776e4a90ad",
+   "howto_step_7_des": "2cd326ee9be67e24",
+   "howto_step_7_title": "88f5f40f1e449948",
+   "howto_title": "cb9ff193275cdf68",
+   "meta_description": "adace7639c27942c",
+   "meta_title": "7bed14d9ce4740a7",
+   "mockup": "bcf6f49301e8ba0e",
+   "product_name": "651ef5f7a2f34992",
+   "prompt_chip_1": "4d3ead59ab557aba",
+   "prompt_chip_2": "a301e96442044222",
+   "prompt_chip_3": "1852df41ee9f5ab6",
+   "prompt_chip_4": "15b5620ddd511f0d",
+   "slug": "fed5038bf2f427ab",
+   "tab_content_1": "4e5fa5dae1a5b2b7",
+   "tab_content_2": "9ed734f41d3bc93e",
+   "tab_content_3": "c71a9cbf8bb95d6e",
+   "tab_content_4": "4043c8594e8293ae",
+   "tab_label_1": "dd226af6b74d90b0",
+   "tab_label_2": "4aff7448f24a2292",
+   "tab_label_3": "0f384403d11e7fa3",
+   "tab_label_4": "46919b9b093c5edf",
+   "usecase_heading": "4f814cab3e3e3bde",
+   "why_description": "c1337ac2dd7251bd",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "02f8c16039d7f609"
+  },
+  "all": "40462057983e32d3",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "6b3515d2ca0d1959",
+   "alt:share_image": "87bca4be1d1d29b0",
+   "alt:tab_image_1": "f9dc1c4715016b52",
+   "alt:tab_image_2": "ba4b75edc642fd88",
+   "alt:tab_image_3": "b3bf54abfc03ba10",
+   "alt:tab_image_4": "8be1b0abadc25d56",
+   "breadcrumb": "63018ed9ad781b7f",
+   "chip_adds": "1397db289f9a7fb1",
+   "explore_cta": "ce503e86752fe976",
+   "faq": "5c0772ab5e275295",
+   "feature_1": "054ebde52a7db413",
+   "feature_2": "576449f19d50f310",
+   "feature_3": "c50deac7a38a5ccb",
+   "feature_4": "7fb71d49b80b562b",
+   "feature_5": "40be05c2faca016b",
+   "feature_6": "004b2efb80e6ef4e",
+   "features_heading": "a916af1ab457e80c",
+   "features_subheading": "a29f041cd8131044",
+   "h1": "c758c795355c697d",
+   "hero_description": "6f5f79d0c7803a4b",
+   "hero_prompt": "8668b0759ab6fed2",
+   "howto_description": "e7e71193680c2c09",
+   "howto_step_1_des": "1dbc3096ce12d268",
+   "howto_step_1_title": "3971d3b301600db5",
+   "howto_step_2_des": "ee80a44e9b3bd616",
+   "howto_step_2_title": "4f12a8dc79dfdee9",
+   "howto_step_3_des": "3928a07cfeb0b779",
+   "howto_step_3_title": "38f70420dcd118b6",
+   "howto_step_4_des": "4e0607689cac49b2",
+   "howto_step_4_title": "66557c8fab02c1b6",
+   "howto_step_5_des": "00d22fc1bf741ae5",
+   "howto_step_5_title": "7a1713a9ecdf8656",
+   "howto_step_6_des": "7c737f10f98e68e1",
+   "howto_step_6_title": "38887d776e4a90ad",
+   "howto_step_7_des": "2cd326ee9be67e24",
+   "howto_step_7_title": "88f5f40f1e449948",
+   "howto_title": "cb9ff193275cdf68",
+   "meta_description": "adace7639c27942c",
+   "meta_title": "7bed14d9ce4740a7",
+   "mockup": "bcf6f49301e8ba0e",
+   "product_name": "651ef5f7a2f34992",
+   "prompt_chip_1": "4d3ead59ab557aba",
+   "prompt_chip_2": "a301e96442044222",
+   "prompt_chip_3": "1852df41ee9f5ab6",
+   "prompt_chip_4": "15b5620ddd511f0d",
+   "slug": "fed5038bf2f427ab",
+   "tab_content_1": "4e5fa5dae1a5b2b7",
+   "tab_content_2": "9ed734f41d3bc93e",
+   "tab_content_3": "c71a9cbf8bb95d6e",
+   "tab_content_4": "4043c8594e8293ae",
+   "tab_label_1": "dd226af6b74d90b0",
+   "tab_label_2": "4aff7448f24a2292",
+   "tab_label_3": "0f384403d11e7fa3",
+   "tab_label_4": "46919b9b093c5edf",
+   "usecase_heading": "4f814cab3e3e3bde",
+   "why_description": "c1337ac2dd7251bd",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "02f8c16039d7f609"
+  },
+  "all": "40462057983e32d3",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
