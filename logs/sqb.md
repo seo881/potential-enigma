@@ -117,3 +117,8 @@ Item 6af7027a8e238bbbac864968: update_collection_items (acrm---key-feature-4-con
 - 2026-11-13 13:00 UTC: api-publish: 1 item(s) item-published via Data API (no site publish); errors 0; not published 0; before childedits/2026-11-13/sqb.api-publish.9dc4d210.before.json; rollback childedits/2026-11-13/sqb.api-publish.9dc4d210.20261113T130042Z.rollback.json
 - 2026-11-13 13:04 UTC: api-update fix-2026-11-13-learning-and-development-update-6ab24754757025d10940d04e.json: 1 item(s) updated via Data API; read back; 0 field mismatch(es); rollback childedits/2026-11-13/fix-2026-11-13-learning-and-development-update-6ab24754757025d10940d04e.20261113T130400Z.rollback.json
 - 2026-11-13 13:11 UTC: api-update fix-2026-11-13-airline-update-6ab24754757025d10940d04e.json: 1 item(s) updated via Data API; read back; 0 field mismatch(es); rollback childedits/2026-11-13/fix-2026-11-13-airline-update-6ab24754757025d10940d04e.20261113T130448Z.rollback.json
+- 2026-11-16 07:51 UTC: api-create: 1 draft(s) created via Data API at 5bbd770 (maxdiff); read back 109 items; verified 1, mismatched 0; before childedits/2026-11-16/sqb.api-create.5bbd770.before.json; rollback childedits/2026-11-16/sqb.api-create.5bbd770.20261116T075039Z.rollback.json
+- 2026-11-16 07:51 UTC: api-publish: 1 item(s) item-published via Data API (no site publish); errors 0; not published 0; before childedits/2026-11-16/sqb.api-publish.07e2a786.before.json; rollback childedits/2026-11-16/sqb.api-publish.07e2a786.20261116T075152Z.rollback.json
+
+## 2026-11-16 maxdiff (B-ship-20)
+api-create (before 21c15413) then api-publish (before 8b7a4f83); verify-live PASS. Rollback files in childedits/2026-11-16/.
