@@ -809,6 +809,8 @@ def _review_baseline(s, path):
     """The spec as it was when its review was recorded (git), for pages reviewed before review hashes existed."""
     import datetime as _dt
     d = ((s.get("review") or {}).get("date") or "").replace(" UTC", "")
+    # Divit 2026-11-16: a SHIP-FIRST page reviewed only after it went live has its post-live review as the baseline
+    if not d: d = (((s.get("ship_first") or {}).get("postlive_review") or {}).get("date") or "").replace(" UTC", "")
     if not d: return None, None
     iso = _dt.datetime.strptime(d, "%Y-%m-%d %H:%M").strftime("%Y-%m-%dT%H:%M:59Z")
     rel = os.path.relpath(path, ROOT)
@@ -851,7 +853,7 @@ def cmd_slim_review(args):
     s = json.load(open(spath(url))); raw = json.load(open(rf))
     writers = _authors(s) | {h.get("by") for h in s.get("history", []) if h.get("via") == "ready" or h.get("state") in ("qc_pass", "images")}
     if by in writers: sys.exit("refused: the slim reviewer wrote part of this page")
-    if not s.get("review"): sys.exit("this page has never had its full review: use hubctl review")
+    if not s.get("review") and not ((s.get("ship_first") or {}).get("postlive_review") or {}).get("date"): sys.exit("this page has never had its full review: use hubctl review")
     _why = review_refusal(load_st(hub_of(url))["pages"].get(url), by) if not hold_conflict(url) else None
     if _why: sys.exit(_why)
     if hold_conflict(url): sys.exit(f"refused: {url} is held by the other account; " + (f"as the current coordinator ({COORDINATOR}), lift it first: hubctl unhold URL --by {COORDINATOR}-c-<n> --reason TEXT" if coordinator_clone() else "only that account or the current coordinator lifts it") + " (checked before anything is written: no half-recorded review, 2026-11-03)")
@@ -1481,7 +1483,11 @@ def cmd_postlive_restamp(args):
     if not sf: sys.exit("refused: not a SHIP-FIRST page")
     if not pl.get("fixed"): sys.exit("refused: the post-live review is not recorded as fixed (hubctl postlive-review; fix by CMS item update + verify-live first)")
     if (s.get("approval") or {}).get("fingerprint") == G.fingerprint(s): sys.exit("refused: content is unchanged since approval (no R3); nothing to restamp")
-    if not pl.get("blocking"): sys.exit("refused: the post-live review had no blocking finding, so no post-live fix happened")
+    # Divit 2026-11-16: content changed by a Divit-ordered fix (not a post-live blocking finding) is restamped only after a slim review
+    # of exactly the changed fields passed (review hash current, last slim review 0 blocking, recorded after the approval); never on verify-live alone
+    sl = (s.get("slim_reviews") or [])[-1:] or [{}]
+    slim_ok = bool(sl[0].get("date")) and sl[0].get("blocking") == 0 and sl[0]["date"] >= (s.get("approval") or {}).get("date", "") and G.review_changed(s) == []
+    if not pl.get("blocking") and not slim_ok: sys.exit("refused: the post-live review had no blocking finding and no passing slim review covers the changes since approval (hubctl slim-review first)")
     r = subprocess.run([sys.executable, os.path.join(ROOT, "qc", "qc_hub.py"), sp], capture_output=True, text=True)
     ids = sorted({m.group(2) for m in re.finditer(r"^  (P0|P1) (\S+)", r.stdout, re.M)} - {"R3"})
     if ids: sys.exit("refused: QC fails beyond R3: " + ", ".join(ids))
