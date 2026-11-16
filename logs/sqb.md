@@ -146,3 +146,16 @@ verify-live PASS on all.
 
 ## 2026-11-16 fill-in-the-blank, music (create 17a9387, publish 9c566630); loyalty-program-questions (create 16fe47c, publish b247864b) (B-ship-20)
 verify-live PASS.
+- 2026-11-16 09:10 UTC: api-create: 0 draft(s) created via Data API at 0dd89bf (); read back 124 items; verified 0, mismatched 0; before childedits/2026-11-16/sqb.api-create.0dd89bf.before.json; rollback childedits/2026-11-16/sqb.api-create.0dd89bf.20261116T090924Z.rollback.json; stopped: POST /collections/6ab24754757025d10940d04e/items -> HTTP 400: {"message":"Bad Request: Remote file failed to import: Unsupported file type: text/plain; charset=utf-8 for https://raw.githubusercontent.
+- 2026-11-16 09:14 UTC: api-create: 0 draft(s) created via Data API at a76570c (); read back 124 items; verified 0, mismatched 0; before childedits/2026-11-16/sqb.api-create.a76570c.before.json; rollback childedits/2026-11-16/sqb.api-create.a76570c.20261116T091351Z.rollback.json; stopped: POST /collections/6ab24754757025d10940d04e/items -> HTTP 400: {"message":"Bad Request: Remote file failed to import: request to https://raw.githubusercontent.com/seo881/potential-enigma/a76570ce/image
+- 2026-11-16 09:19 UTC: api-create: 0 draft(s) created via Data API at a76570c (); read back 124 items; verified 0, mismatched 0; before childedits/2026-11-16/sqb.api-create.a76570c.before.json; rollback childedits/2026-11-16/sqb.api-create.a76570c.20261116T091800Z.rollback.json; stopped: POST /collections/6ab24754757025d10940d04e/items -> HTTP 504: <html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+</body>
+</html>
+
+- 2026-11-16 09:22 UTC: api-publish: 19 item(s) item-published via Data API (no site publish); errors 0; not published 0; before childedits/2026-11-16/sqb.api-publish.1ee25f39.before.json; rollback childedits/2026-11-16/sqb.api-publish.1ee25f39.20261116T092212Z.rollback.json
+
+## 2026-11-16 batch of 19 (B-ship-20)
+create before a76570c (first attempt failed on a transient image import; makeup+sports images had to be committed first), publish before 1ee25f39; verify-live 19/19 PASS.
