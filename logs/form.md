@@ -359,3 +359,5 @@
 - 2026-11-16 post-live fix B-fix-28: wedding-photography-contract (tab 3 mini card) and wholesale-order (tab 2 submit button) image fields updated by CMS item update, item-published, verify-live PASS
 - 2026-11-16 10:15 UTC: api-update bfix28y-update-6aaaaa02995bb2f9f4d6a36c.json: 1 item(s) updated via Data API; read back; 0 field mismatch(es); rollback childedits/2026-11-16/bfix28y-update-6aaaaa02995bb2f9f4d6a36c.20261116T101357Z.rollback.json
 - 2026-11-16 post-live fix B-fix-28: youth-sports-registration feature_3 text-only CMS item update, item-published, verify-live PASS
+- 2026-11-16 10:27 UTC: api-update B-fix-27-update-6aaaaa02995bb2f9f4d6a36c.json: 12 item(s) updated via Data API; read back; 0 field mismatch(es); rollback childedits/2026-11-16/B-fix-27-update-6aaaaa02995bb2f9f4d6a36c.20261116T102622Z.rollback.json
+- 2026-11-16 10:31 UTC: api-update B-fix-44-update-6aaaaa02995bb2f9f4d6a36c.json: 3 item(s) updated via Data API; read back; 0 field mismatch(es); rollback childedits/2026-11-16/B-fix-44-update-6aaaaa02995bb2f9f4d6a36c.20261116T102935Z.rollback.json
