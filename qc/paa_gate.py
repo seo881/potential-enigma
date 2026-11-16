@@ -307,7 +307,7 @@ class Gate:
             if via: out.append(("PA3w", "note", via))
             else: out.append(("PA3", "reject", f'no head phrase "{self.primary}" (exact, reordered or inflected), approved secondary or synonym'))
         # PA4 wrong sense: global blocklist and the per-page skip list
-        ws = [w for w in self.bl["wrong_sense"] if has(w, q)]
+        ws = [w for w in self.bl["wrong_sense"] if has(w, q) and w not in (self.bl.get("wrong_sense_page_allow") or {}).get(self.slug, [])]   # Divit 2026-11-16: per-page exception (automotive "car")
         if ws: out.append(("PA4", "reject", "wrong-sense term: " + ", ".join(ws)))
         if q in self.skip: out.append(("PA4", "reject", "per-page skip: " + self.skip[q]))
         elif qhash(q) in self.skip_h: out.append(("PA4", "reject", "per-page skip: " + self.skip_h[qhash(q)]))

@@ -272,6 +272,10 @@ def caught(c):
     if c["kind"] == "link-relevance":   # Divit 2026-11-13: FAQ link only to a genuinely related page; no forced cross-hub links
         sys.path.insert(0, os.path.join(ROOT, "ops")); import skeleton as SK
         return bool(SK.link_relevance(c["src"], c["tgt"], c["same_hub"])) == c["expect"]
+    if c["kind"] == "pa4-page-allow":   # Divit 2026-11-16: per-page wrong_sense exception (automotive "car")
+        sys.path.insert(0, os.path.join(ROOT, "qc")); import paa_gate as PG
+        g = PG.Gate(c["url"]); it = {"q": c["q"], "source": "written", "n": 5, "legacy": False}
+        return any(r[0] == "PA4" and r[1] == "reject" for r in g.judge(it)) == c["expect_reject"]
     if c["kind"] == "keyword-in-h1":   # B-c-2 2026-11-16: possessive primaries (valentine's) match an H1 written with the apostrophe
         sys.path.insert(0, os.path.join(ROOT, "ops")); import slugs as SL
         return SL.keyword_in_h1(c["h1"], c["kw"]) == c["expect"]
