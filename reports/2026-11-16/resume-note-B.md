@@ -18,3 +18,10 @@ YMYL ones (`hubctl ymyl`) need one review (page-reviewer) before ship.
 - QC S6: no HTML in plain-text fields. verify-live and live audit A5-raw-tag: no raw tag text on a page (Divit approved 2026-11-13).
 - Link planner: relevant-only (skeleton.link_relevance; same hub 1 shared topic word, cross-hub 2; zero links fine).
 - Held for QC: plan/qc-later-2026-11-16.md.
+
+## Update ~08:30 UTC (usage limit reached; resume from here)
+- Live ~573. Ship agents: Form (long queue incl. reviewed YMYL medical-waiver, medical-consent-for-minor, pip, haunted-house-waiver under standing-go), SurveyQuiz (music, wine, science, movie, language, spelling, business-travel, pet), Auto+LP (copywriter, lead-generation, affiliate, conversational, field-service, gmail, reconciliation + home-valuation under standing-go).
+- Ship rules learned: single commands only (no chaining/$(...)); "before-value not pushed" = HEAD ahead of origin -> sync.sh then retry; verify-live 500 right after publish is cache lag (re-run standalone).
+- Blocked, need Divit: F6 stale AlsoAsked (Oct-13 pulls) on locked slots: makeup, sports, trivia (+ likely mattress, safety-quiz, supplement, wellness-quiz) -> asked for <=20 credit refresh; automotive PA4 "car" vs PA12 secondary.
+- Writers running B-w-750..785 (see agent list); unstarted claims: mattress, safety-quiz, supplement, wellness-quiz (F6 risk), underwriting.
+- Writer brief items 14-15 added (ship-check before done; F6 handling). PIP acronym added to rules/paa_patterns.json.
