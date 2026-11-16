@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-795",
    "note": ""
+  },
+  {
+   "t": "2026-11-16 09:13 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-653",
+   "note": "rubric 10/10 by B-r-653; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -904,5 +911,265 @@
  ],
  "writers": [
   "B-w-795"
- ]
+ ],
+ "review": {
+  "by": "B-r-653",
+  "date": "2026-11-16 09:13 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Boat Rental Waiver Form Signed Before Anyone Boards'; hero 'Build a boat rental waiver form that renters sign before they arrive, with every passenger listed for the dock crew.' (under 130 chars, leads with Build, carries the primary); how-to description one sentence with the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition in FAQ 1, the fields to collect (FAQ 3), who signs (FAQ 5), minors (FAQ 6), attorney review (how-to 03), seven-step build, and four rental types (pontoon, paddle, jet ski, damage lookup): what a marina searching the primary needs to build one."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Boat-rental vocabulary throughout: '24-foot pontoon', 'boater education card number and the state that issued it', 'Count out 7 life jackets', 'QR code on the rack', 'bent propeller'; table rows from the library."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: 'Put the waiver link in every booking confirmation.', 'Ottokar Tullock booked the 24-foot pontoon...', 'Walk the dock and list every boat you rent...'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "One ', so' ending (FAQ 10), no run-on lists, sentences under 40 words; QC TOTAL 0."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain operator voice, concrete details ('Signed, 7 aboard', '2:00 PM return', 'version 4 of the wording'); two FAQ link sentences read bolted on (note)."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Legal lines match domain_sources: FAQ 1 definition verbatim from SignUpGenius; how-to 03 'Enforceability depends on how a waiver is written and on the laws of your state. Some states limit waivers for minors.' matches the source; FAQ 8 USCG lifejacket line matches the uscgboating.org rule. Emergent claims map to claims_used (prompt-build, database-owned, e-signature-capture, code-export, alerts, api-connect). No safety guarantee; no personal details in any alert; no channels drawn."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Boats, passengers, life jackets and operator cards set it apart from the yoga, salon, gym and liability waiver pages; tab H3s use no sibling primary."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic builder questions, each answered first; hub link in item 2; sibling links 'yoga waiver form' (FAQ 4) and 'salon waiver form' (FAQ 7) point to existing specs; no brands or file formats in questions."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches tab copy: tab 1 'Signed at 8:40 AM', 'Signed, 7 aboard', 'Count out 7 life jackets', 'Mirabel Haugland, dock hand'; tab 2 'Age 16', 'Signed by Saoirse Grebe', 'Parent signed'; tab 3 four rules initialed LP ending 'Back by 2:00 PM', 'Card on file'; tab 4 'Signed 10:02 AM', 'Version 4', 'Returned 4:15 PM', 'Bent propeller', 'Added by Kasimir Amsel'. One hero per tab."
+   }
+  },
+  "findings": [
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 4",
+    "quote": "A yoga waiver form follows the same timing, with new students signing before their first class.",
+    "issue": "The sibling link sentence is bolted onto a boat answer and reads placed for the link. Same class in FAQ 7: 'A salon waiver form takes the same approach, asking about reactions to products instead of diagnoses.'",
+    "fix": "Anchor the links in sentences that serve the boat question, or link a sibling the answer naturally touches.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 8",
+    "quote": "each person aboard a recreational vessel needs a lifejacket the Coast Guard has approved",
+    "issue": "Faithful to the source but paraphrased; the source says 'a recreational vessel must have a U.S. Coast Guard Approved lifejacket for each person aboard'. For a YMYL page the source wording is safer.",
+    "fix": "Use the source wording: 'a recreational vessel must have a U.S. Coast Guard approved lifejacket for each person aboard'.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "tab_image_4",
+    "quote": "searches Hollier on the office tablet",
+    "issue": "The image draws a desktop browser window ('Copperfin waivers' chrome) where the copy and mockup say an office tablet; names, numbers and outcome all agree.",
+    "fix": "On a future re-render, use the tablet framing used in tabs 1-3.",
+    "severity": "note"
+   },
+   {
+    "class": "repeated-idea",
+    "criterion": "voice",
+    "rule": "CONTENT_DEFECTS #21",
+    "field": "page",
+    "quote": "dock crew",
+    "issue": "'dock' appears 19 times outside the FAQ (QC Q9) and 'dock crew' / 'dock tablet' recur in features, how-to and FAQ.",
+    "fix": "Vary with 'staff', 'the slip', 'check-in' where meaning allows.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 4",
+   "issue": "The sibling link sentence is bolted onto a boat answer and reads placed for the link. Same class in FAQ 7: 'A salon waiver form takes the same approach, asking about reactions to products instead of diagnoses.'",
+   "fix": "Anchor the links in sentences that serve the boat question, or link a sibling the answer naturally touches.",
+   "by": "B-r-653",
+   "via": "review",
+   "date": "2026-11-16 09:13 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 8",
+   "issue": "Faithful to the source but paraphrased; the source says 'a recreational vessel must have a U.S. Coast Guard Approved lifejacket for each person aboard'. For a YMYL page the source wording is safer.",
+   "fix": "Use the source wording: 'a recreational vessel must have a U.S. Coast Guard approved lifejacket for each person aboard'.",
+   "by": "B-r-653",
+   "via": "review",
+   "date": "2026-11-16 09:13 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "tab_image_4",
+   "issue": "The image draws a desktop browser window ('Copperfin waivers' chrome) where the copy and mockup say an office tablet; names, numbers and outcome all agree.",
+   "fix": "On a future re-render, use the tablet framing used in tabs 1-3.",
+   "by": "B-r-653",
+   "via": "review",
+   "date": "2026-11-16 09:13 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "CONTENT_DEFECTS #21",
+   "field": "page",
+   "issue": "'dock' appears 19 times outside the FAQ (QC Q9) and 'dock crew' / 'dock tablet' recur in features, how-to and FAQ.",
+   "fix": "Vary with 'staff', 'the slip', 'check-in' where meaning allows.",
+   "by": "B-r-653",
+   "via": "review",
+   "date": "2026-11-16 09:13 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "d33f1fc99ea4c174",
+   "alt:share_image": "509b5960b2e16863",
+   "alt:tab_image_1": "a8e323dd5d61a026",
+   "alt:tab_image_2": "034e61be319fa2ee",
+   "alt:tab_image_3": "a8299b1c2a1c2fa7",
+   "alt:tab_image_4": "2b158444561463e5",
+   "breadcrumb": "5c09c7c147b59969",
+   "chip_adds": "4d4da5f322cd778f",
+   "explore_cta": "54fabe6b7bb72e1d",
+   "faq": "78cde870d048db3d",
+   "feature_1": "a4b72253fa27c502",
+   "feature_2": "b2d0fa26e58d8394",
+   "feature_3": "e7f308785f4cd7d2",
+   "feature_4": "2d647077896cfbb6",
+   "feature_5": "00ea1c0deccc4d23",
+   "feature_6": "108d7eaa47bb6b1a",
+   "features_heading": "1213f581dbf49bb3",
+   "features_subheading": "a4258d597f029488",
+   "h1": "3521b7ceee60c672",
+   "hero_description": "0e6734f088de8cc4",
+   "hero_prompt": "2fa09820f77f2b82",
+   "howto_description": "0b05df9d66e76d77",
+   "howto_step_1_des": "02b724631b827781",
+   "howto_step_1_title": "58bbb81980c704f7",
+   "howto_step_2_des": "c2d0fd024f4cd2fc",
+   "howto_step_2_title": "6b39b0b6e07e6af8",
+   "howto_step_3_des": "78797c5724cb3817",
+   "howto_step_3_title": "7029e95d4bf084ae",
+   "howto_step_4_des": "5522970e002efb3b",
+   "howto_step_4_title": "66682687f144aab8",
+   "howto_step_5_des": "72142e44ad2b8ed6",
+   "howto_step_5_title": "b4fb1adec6847aff",
+   "howto_step_6_des": "b82b9253a1376efa",
+   "howto_step_6_title": "756d87f3a383b122",
+   "howto_step_7_des": "8d9e8425aba5d51a",
+   "howto_step_7_title": "780885e3448a44d9",
+   "howto_title": "02f861961834e3ca",
+   "meta_description": "936cf2ce71dfe334",
+   "meta_title": "203794161b8b8ccc",
+   "mockup": "5f2ac8e152e2b899",
+   "product_name": "c228379cd84b4538",
+   "prompt_chip_1": "299df9347dcadbb5",
+   "prompt_chip_2": "936993d6bf1ffa11",
+   "prompt_chip_3": "472154106fe9f0df",
+   "prompt_chip_4": "a38aa267414906cf",
+   "slug": "223bb77db38c64d7",
+   "tab_content_1": "1a45dd82f556f575",
+   "tab_content_2": "5797def835f3bc9f",
+   "tab_content_3": "e122284b932af830",
+   "tab_content_4": "c41108b76eede148",
+   "tab_label_1": "2ac51b2a034ed747",
+   "tab_label_2": "baaf2f782eec01c8",
+   "tab_label_3": "3c75d7366d71d3b0",
+   "tab_label_4": "64a3c7a7a1db14dd",
+   "usecase_heading": "966893abbc17dc83",
+   "why_description": "c210e8521302c3c4",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "3524a91e7f6085d7"
+  },
+  "all": "9c18c0bdbc56a81c",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "d33f1fc99ea4c174",
+   "alt:share_image": "509b5960b2e16863",
+   "alt:tab_image_1": "a8e323dd5d61a026",
+   "alt:tab_image_2": "034e61be319fa2ee",
+   "alt:tab_image_3": "a8299b1c2a1c2fa7",
+   "alt:tab_image_4": "2b158444561463e5",
+   "breadcrumb": "5c09c7c147b59969",
+   "chip_adds": "4d4da5f322cd778f",
+   "explore_cta": "54fabe6b7bb72e1d",
+   "faq": "78cde870d048db3d",
+   "feature_1": "a4b72253fa27c502",
+   "feature_2": "b2d0fa26e58d8394",
+   "feature_3": "e7f308785f4cd7d2",
+   "feature_4": "2d647077896cfbb6",
+   "feature_5": "00ea1c0deccc4d23",
+   "feature_6": "108d7eaa47bb6b1a",
+   "features_heading": "1213f581dbf49bb3",
+   "features_subheading": "a4258d597f029488",
+   "h1": "3521b7ceee60c672",
+   "hero_description": "0e6734f088de8cc4",
+   "hero_prompt": "2fa09820f77f2b82",
+   "howto_description": "0b05df9d66e76d77",
+   "howto_step_1_des": "02b724631b827781",
+   "howto_step_1_title": "58bbb81980c704f7",
+   "howto_step_2_des": "c2d0fd024f4cd2fc",
+   "howto_step_2_title": "6b39b0b6e07e6af8",
+   "howto_step_3_des": "78797c5724cb3817",
+   "howto_step_3_title": "7029e95d4bf084ae",
+   "howto_step_4_des": "5522970e002efb3b",
+   "howto_step_4_title": "66682687f144aab8",
+   "howto_step_5_des": "72142e44ad2b8ed6",
+   "howto_step_5_title": "b4fb1adec6847aff",
+   "howto_step_6_des": "b82b9253a1376efa",
+   "howto_step_6_title": "756d87f3a383b122",
+   "howto_step_7_des": "8d9e8425aba5d51a",
+   "howto_step_7_title": "780885e3448a44d9",
+   "howto_title": "02f861961834e3ca",
+   "meta_description": "936cf2ce71dfe334",
+   "meta_title": "203794161b8b8ccc",
+   "mockup": "5f2ac8e152e2b899",
+   "product_name": "c228379cd84b4538",
+   "prompt_chip_1": "299df9347dcadbb5",
+   "prompt_chip_2": "936993d6bf1ffa11",
+   "prompt_chip_3": "472154106fe9f0df",
+   "prompt_chip_4": "a38aa267414906cf",
+   "slug": "223bb77db38c64d7",
+   "tab_content_1": "1a45dd82f556f575",
+   "tab_content_2": "5797def835f3bc9f",
+   "tab_content_3": "e122284b932af830",
+   "tab_content_4": "c41108b76eede148",
+   "tab_label_1": "2ac51b2a034ed747",
+   "tab_label_2": "baaf2f782eec01c8",
+   "tab_label_3": "3c75d7366d71d3b0",
+   "tab_label_4": "64a3c7a7a1db14dd",
+   "usecase_heading": "966893abbc17dc83",
+   "why_description": "c210e8521302c3c4",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "3524a91e7f6085d7"
+  },
+  "all": "9c18c0bdbc56a81c",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
