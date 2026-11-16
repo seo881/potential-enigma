@@ -43,7 +43,8 @@ AUTH_RUNS = {"auto-r1014": 22,    # Divit 2026-10-14 step 3: the 11 Automation n
 # (<name>.stale-<fetched>.json), the never-re-pull and per-page rules give way to the run cap, which still stops the run.
 REFRESH_RUNS = {"diet-r1113": {"/ai-survey-and-quiz-builder/diet"},
                 "revive-r1113": {"/ai-form-builder/home-inspection", "/ai-form-builder/membership", "/ai-survey-and-quiz-builder/board", "/ai-automation-builder/restaurant"},
-                "stale-r1116": {"/ai-survey-and-quiz-builder/makeup", "/ai-survey-and-quiz-builder/sports", "/ai-survey-and-quiz-builder/trivia", "/ai-survey-and-quiz-builder/wellness-quiz", "/ai-survey-and-quiz-builder/safety-quiz"}}
+                "stale-r1116": {"/ai-survey-and-quiz-builder/makeup", "/ai-survey-and-quiz-builder/sports", "/ai-survey-and-quiz-builder/trivia", "/ai-survey-and-quiz-builder/wellness-quiz", "/ai-survey-and-quiz-builder/safety-quiz",
+                               "/ai-form-builder/pre-order"}}   # B-c-2 2026-11-16: F6 blocks the restamp Divit ordered; inside the same 20-credit cap
 STATE = os.path.join(ROOT, "status", "weekend-run.json")
 PLAN = os.path.join(ROOT, "plan", "weekend-run.md")
 STOP = os.path.join(ROOT, "STOP")
