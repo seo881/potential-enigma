@@ -30,16 +30,16 @@
   "why_title": "Why Emergent for a Delivery Receipt Form?",
   "why_description": "A printed receipt waits in the cab to be retyped. Here each signed receipt goes into a database you own, with no response caps.",
   "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Jotform</th>\n        <th scope=\"col\">Google Forms</th>\n        <th scope=\"col\">Typeform</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Describe it in plain English</td>\n        <td class=\"col-other\">Templates, editor, AI generator</td>\n        <td class=\"col-other\">Editor, with Gemini drafting on some Workspace plans</td>\n        <td class=\"col-other\">Templates, editor, AI assist</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Where responses live</th>\n        <td class=\"col-brand\">A database table you own, plus any integration</td>\n        <td class=\"col-other\">Jotform account</td>\n        <td class=\"col-other\">Google Sheets</td>\n        <td class=\"col-other\">Typeform account</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Response limits</th>\n        <td class=\"col-brand\">No response caps</td>\n        <td class=\"col-other\">Monthly submission caps by plan; the form stops at the cap</td>\n        <td class=\"col-other\">No limit</td>\n        <td class=\"col-other\">Monthly response caps by plan; the form closes at the cap</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
-  "usecase_heading": "",
-  "tab_label_1": "",
-  "tab_label_2": "",
-  "tab_label_3": "",
-  "tab_label_4": "",
-  "tab_content_1": "",
-  "tab_content_2": "",
-  "tab_content_3": "",
-  "tab_content_4": "",
-  "mockup": "",
+  "usecase_heading": "What Four Delivery Receipts Caught",
+  "tab_label_1": "Food Distribution",
+  "tab_label_2": "Furniture Delivery",
+  "tab_label_3": "Receiving Dock",
+  "tab_label_4": "Billing Disputes",
+  "tab_content_1": "<h3>Of 40 cases ordered, 38 signed for and 2 credited</h3><p>Grindlow Foods drivers carry a phone on every restaurant route. At Stilwater Diner, the driver enters 38 cases delivered against 40 ordered, and Gwenna Reyhill signs for them. The 2 short cases of tomatoes reach the sales office as an emailed credit request.</p>",
+  "tab_content_2": "<h3>The torn seam is in the photos before Clio signs</h3><p>Clio Esmond ordered a sofa and 2 end tables from Ashlund Furniture. When the crew unwraps the sofa, she points to a torn seam on the back cushion. The crew marks the sofa Damaged and takes the photo, then Clio signs. Customer service sees the photo in Slack before the truck reaches its next stop.</p>",
+  "tab_content_3": "<h3>On a PO for 24 cartons, the dock counts 26</h3><p>Purchase order 4471 called for 24 cartons of fasteners at Tavistoke Hardware. Torvin Ingold photographs the packing slip at the dock, and the app reads the supplier, PO number, and carton count into fields. He counts 26 on the pallet, and purchasing gets an email about the 2 extra cartons.</p>",
+  "tab_content_4": "<h3>Disputed 19 days later, the receipt is one search away</h3><p>Quarlby Print Shop emails Okebridge Office Supply to say 4 boxes of toner never arrived. Billing searches the receipts table for the shop's name and opens DR-30962 from 19 days earlier. It holds Eluned Coldfield's signature and the driver's photo of the boxes in the doorway.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { foodDistribution: \"I run deliveries for Grindlow Foods, a restaurant supplier. Build a delivery receipt form template drivers fill on a phone at each stop: the customer, each line with the quantity ordered and the quantity delivered, and the receiving person's signature and printed name. When a line arrives short, email the sales office a credit request with the item and the missing quantity.\", furnitureDelivery: \"Build a delivery receipt form for Ashlund Furniture's crews. List each piece on the order with a condition of Good or Damaged. Require a photo and a note for any piece marked Damaged, then have the customer sign on the crew's phone. Post each damage report with its photo to our customer service channel in Slack.\", receivingDock: \"Build a receiving form for the dock at Tavistoke Hardware. Let the receiver photograph the packing slip and read the supplier, PO number, and carton count into fields. Compare the cartons counted with the cartons on the purchase order, and email purchasing when the two numbers differ.\", billingDisputes: \"Give the billing team at Okebridge Office Supply a search page over every delivery receipt. Search by customer name, receipt number, or date, and show each receipt with its lines, the signature, and the doorway photo the driver took at the drop.\" };</p>",
   "howto_title": "",
   "howto_description": "",
   "howto_step_1_title": "",
@@ -271,5 +271,553 @@
   "Add an email to the office when a line arrives short.",
   "Add a required photo for any item marked damaged.",
   "Add a receipt number and email the customer a copy."
- ]
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R4",
+    "title": "Restaurant delivery receipt",
+    "prompt": "Email the sales office a credit request when a line arrives short",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Delivery receipt",
+       "size": 22,
+       "sub": "Stilwater Diner"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Ordered",
+         "40 cases"
+        ],
+        [
+         "Delivered",
+         "38 cases",
+         true
+        ],
+        [
+         "Short",
+         "2 cases tomatoes"
+        ],
+        [
+         "Signed by",
+         "Gwenna Reyhill"
+        ]
+       ]
+      },
+      {
+       "type": "button",
+       "label": "Submit receipt",
+       "icon": "send",
+       "full": true
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Today's route",
+       "size": 19,
+       "chip": [
+        "Grindlow Foods",
+        "acc"
+       ]
+      },
+      {
+       "type": "list",
+       "items": [
+        {
+         "initials": "SD",
+         "name": "Stilwater Diner",
+         "sub": "38 of 40 cases",
+         "chip": [
+          "Short",
+          "warn"
+         ]
+        },
+        {
+         "initials": "PK",
+         "name": "Pinecask Kitchen",
+         "sub": "22 of 22 cases",
+         "chip": [
+          "Complete",
+          "ok"
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "mail",
+     "tone": "warn",
+     "title": "Credit request emailed",
+     "blocks": [
+      {
+       "type": "text",
+       "text": "2 cases tomatoes short",
+       "size": 18,
+       "color": "ink"
+      },
+      {
+       "type": "chips",
+       "items": [
+        [
+         "Stilwater Diner",
+         "acc"
+        ],
+        [
+         "Signed",
+         "ok"
+        ]
+       ]
+      },
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "muted",
+       "text": "Sent to the sales office"
+      }
+     ],
+     "action": {
+      "label": "Open request",
+      "icon": "arrow-right",
+      "primary": true
+     }
+    },
+    "alt": "A Grindlow Foods driver's phone shows 38 of 40 cases delivered to Stilwater Diner and signed by Gwenna Reyhill, and a credit request for 2 short cases of tomatoes is emailed to the sales office.",
+    "story": [
+     {
+      "copy": "38 cases delivered against 40 ordered",
+      "image": "38 of 40 cases"
+     },
+     {
+      "copy": "Gwenna Reyhill",
+      "image": "Gwenna Reyhill"
+     },
+     {
+      "copy": "The 2 short cases of tomatoes",
+      "image": "2 cases tomatoes short"
+     },
+     {
+      "copy": "reach the sales office",
+      "image": "Sent to the sales office"
+     },
+     {
+      "copy": "emailed credit request",
+      "image": "Credit request emailed"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Furniture delivery with damage",
+    "prompt": "Require a photo for damaged pieces and post it to customer service in Slack",
+    "main": {
+     "chrome": "Ashlund deliveries",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "DELIVERY RECEIPT",
+       "title": "Clio Esmond",
+       "size": 26,
+       "sub": "Sofa and 2 end tables"
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Piece",
+        "Qty",
+        "Condition"
+       ],
+       "widths": [
+        0.5,
+        0.2,
+        0.3
+       ],
+       "row_h": 60,
+       "highlight": 0,
+       "rows": [
+        [
+         "Sofa",
+         "1",
+         [
+          "Damaged",
+          "bad"
+         ]
+        ],
+        [
+         "End table",
+         "2",
+         [
+          "Good",
+          "ok"
+         ]
+        ]
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Photo taken",
+         "sub": "Torn seam, back cushion"
+        },
+        {
+         "state": "live",
+         "title": "Customer signs",
+         "sub": "Clio Esmond"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "message",
+     "channel": "customer-service",
+     "title": "Damage reported: sofa",
+     "lines": [
+      "Torn seam on the back cushion",
+      "Photo attached, signed by Clio Esmond"
+     ],
+     "button": "View photo"
+    },
+    "mini": {
+     "icon": "truck",
+     "title": "Next stop",
+     "sub": "Truck 3 en route",
+     "kind": "acc"
+    },
+    "alt": "Clio Esmond's delivery receipt lists a sofa marked Damaged and 2 end tables marked Good, and a Slack message in the customer service channel shows the torn seam photo.",
+    "story": [
+     {
+      "copy": "a sofa and 2 end tables",
+      "image": "Sofa and 2 end tables"
+     },
+     {
+      "copy": "a torn seam on the back cushion",
+      "image": "Torn seam on the back cushion"
+     },
+     {
+      "copy": "marks the sofa Damaged",
+      "image": "Damaged"
+     },
+     {
+      "copy": "Customer service sees the photo in Slack",
+      "image": "Damage reported: sofa"
+     }
+    ]
+   },
+   {
+    "recipe": "R2",
+    "title": "Receiving dock packing slip",
+    "prompt": "Read each packing slip and email purchasing when the count differs from the PO",
+    "main": {
+     "scan": true,
+     "blocks": [
+      {
+       "type": "doc_header",
+       "icon": "package",
+       "title": "Packing slip",
+       "sub": "Tavistoke Hardware dock",
+       "label": "SLIP"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Supplier",
+         "Dunmarle Fastener Co."
+        ],
+        [
+         "PO number",
+         "4471",
+         true
+        ],
+        [
+         "Cartons",
+         "Fasteners, assorted"
+        ]
+       ]
+      },
+      {
+       "type": "filler",
+       "n": 3
+      },
+      {
+       "type": "note",
+       "icon": "camera",
+       "text": "Photographed by Torvin Ingold"
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Read into fields",
+       "size": 19
+      },
+      {
+       "type": "extract",
+       "items": [
+        [
+         "Supplier",
+         "Dunmarle Fastener Co.",
+         98
+        ],
+        [
+         "PO number",
+         "4471",
+         99
+        ],
+        [
+         "Cartons ordered",
+         "24",
+         97
+        ]
+       ]
+      },
+      {
+       "type": "text",
+       "text": "Counted at dock: 26",
+       "size": 16,
+       "color": "sub"
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "mail",
+     "tone": "warn",
+     "title": "2 extra cartons",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "24 ordered, 26 counted",
+       "sub": "Email sent to purchasing"
+      },
+      {
+       "type": "meta",
+       "icon": "scan-line",
+       "kind": "muted",
+       "text": "Read from the packing slip"
+      }
+     ],
+     "action": {
+      "label": "Open PO 4471",
+      "icon": "arrow-right",
+      "primary": true
+     }
+    },
+    "alt": "A packing slip photographed at the Tavistoke Hardware dock is read into supplier, PO 4471 and 24 cartons ordered, and an email tells purchasing that Torvin Ingold counted 26.",
+    "story": [
+     {
+      "copy": "for 24 cartons",
+      "image": "24 ordered"
+     },
+     {
+      "copy": "counts 26 on the pallet",
+      "image": "26 counted"
+     },
+     {
+      "copy": "PO number",
+      "image": "PO number"
+     },
+     {
+      "copy": "Torvin Ingold photographs the packing slip",
+      "image": "Photographed by Torvin Ingold"
+     },
+     {
+      "copy": "the 2 extra cartons",
+      "image": "2 extra cartons"
+     },
+     {
+      "copy": "purchasing gets an email",
+      "image": "Email sent to purchasing"
+     }
+    ]
+   },
+   {
+    "recipe": "R2",
+    "title": "Disputed delivery lookup",
+    "prompt": "Let billing search every receipt by customer, number, or date",
+    "main": {
+     "blocks": [
+      {
+       "type": "doc_header",
+       "icon": "receipt",
+       "title": "Receipt DR-30962",
+       "sub": "Okebridge Office Supply",
+       "label": "SIGNED"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Customer",
+         "Quarlby Print Shop"
+        ],
+        [
+         "Items",
+         "4 boxes of toner",
+         true
+        ],
+        [
+         "Signed by",
+         "Eluned Coldfield"
+        ],
+        [
+         "Photo",
+         "Boxes in the doorway"
+        ]
+       ]
+      },
+      {
+       "type": "filler",
+       "n": 2
+      },
+      {
+       "type": "note",
+       "icon": "calendar",
+       "text": "Delivered 19 days earlier"
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Search receipts",
+       "size": 19,
+       "sub": "Quarlby Print Shop"
+      },
+      {
+       "type": "list",
+       "items": [
+        {
+         "initials": "BP",
+         "name": "DR-30962",
+         "sub": "4 boxes of toner",
+         "chip": [
+          "Signed",
+          "ok"
+         ]
+        },
+        {
+         "initials": "BP",
+         "name": "DR-30511",
+         "sub": "Paper, 10 reams",
+         "chip": [
+          "Signed",
+          "ok"
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "search",
+     "tone": "ok",
+     "title": "Receipt found",
+     "blocks": [
+      {
+       "type": "title",
+       "title": "DR-30962, signed",
+       "sub": "Signature and doorway photo on file"
+      },
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "muted",
+       "text": "Signed by Eluned Coldfield"
+      }
+     ],
+     "action": {
+      "label": "Open receipt",
+      "icon": "arrow-right",
+      "primary": true
+     }
+    },
+    "alt": "A search for Quarlby Print Shop opens receipt DR-30962 for 4 boxes of toner, signed by Eluned Coldfield 19 days earlier, with the driver's doorway photo on file.",
+    "story": [
+     {
+      "copy": "4 boxes of toner",
+      "image": "4 boxes of toner"
+     },
+     {
+      "copy": "opens DR-30962",
+      "image": "Receipt DR-30962"
+     },
+     {
+      "copy": "from 19 days earlier",
+      "image": "Delivered 19 days earlier"
+     },
+     {
+      "copy": "Eluned Coldfield's signature",
+      "image": "Eluned Coldfield"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "confirm",
+   "title": "DR-30962 signed",
+   "button": "Open the receipt",
+   "icon": "check",
+   "alt": "Delivery receipt form template: receipt DR-30962 is confirmed as signed, with a button to open the receipt."
+  },
+  "og": {
+   "headline": "Build a delivery receipt form template for drivers",
+   "lines": null,
+   "alt": "Build a delivery receipt form template for drivers, with Emergent"
+  },
+  "checks": [
+   {
+    "expr": "40 - 38 == 2",
+    "shows": [
+     "38 of 40 cases",
+     "2 cases tomatoes short"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "26 - 24 == 2",
+    "shows": [
+     "2 extra cartons",
+     "24 ordered, 26 counted"
+    ],
+    "where": 3
+   },
+   {
+    "fact": [
+     "4 boxes of toner"
+    ],
+    "where": 4
+   },
+   {
+    "fact": [
+     "98%",
+     "99%",
+     "97%"
+    ],
+    "where": 3
+   },
+   {
+    "same": "DR-30962",
+    "where": [
+     4,
+     "cover"
+    ]
+   }
+  ]
+ }
 }
