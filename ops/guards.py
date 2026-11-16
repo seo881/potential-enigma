@@ -464,3 +464,18 @@ def review_ok(spec):
     if ch is None: return False, "no review hash: the text was reviewed before 2026-10-13; run a slim review (hubctl review-diff, slim-review)"
     if ch: return False, "text changed after review in: " + ", ".join(ch) + " (slim review needed)"
     return True, ""
+
+# Divit 2026-11-16: before-value and rollback files in childedits/ are WRITE-ONCE. Two incidents that day: an api-publish --before-only
+# rerun rewrote another run's sqb.api-publish.07e2a786.before.json with post-publish state, and a writer then committed it (4a672669).
+def write_once(path, obj, indent=1):
+    """Write a childedits before/rollback file once: a new file is written (True); an existing file with identical JSON is left alone
+    (False); an existing file with other content is REFUSED (SystemExit). Never overwrites a before-value or rollback."""
+    if os.path.exists(path):
+        try: same = json.load(open(path)) == obj
+        except ValueError: same = False
+        if same: return False
+        sys.exit(f"refused (write-once, Divit 2026-11-16): {os.path.relpath(path, ROOT)} already exists with other content; before-values and "
+                 "rollbacks are never overwritten. Use a new batch/run name for a new before-value.")
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    json.dump(obj, open(path, "w"), indent=indent, ensure_ascii=False)
+    return True

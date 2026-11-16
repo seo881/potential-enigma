@@ -61,6 +61,12 @@ if ! git diff --cached --quiet -- "$@"; then
   if [ -n "$SPECS" ] && ! echo "$SPECS" | xargs "$PY" "$HERE/review_lock.py"; then
     echo "refusing to commit: review lock (see above)" >&2; unstage "$@"; exit 1
   fi
+  # childedits write-once (Divit 2026-11-16): an existing before.json/rollback.json is never modified, deleted or renamed, and a new
+  # childedits file goes in only when its name carries the committing run (SYNC_RUN=<batch/run name>, comma list allowed)
+  CE="$(git diff --cached --name-status -- "$@" | grep -E "$(printf '\t')childedits/" || true)"
+  if [ -n "$CE" ] && ! printf '%s\n' "$CE" | "$PY" "$HERE/childedits_guard.py" "${SYNC_RUN:-}"; then
+    echo "refusing to commit: childedits guard (see above; set SYNC_RUN=<your run> and pass only your run's new files)" >&2; unstage "$@"; exit 1
+  fi
   echo "committing (only these paths):"; git diff --cached --stat -- "$@"
   git commit -q --only -m "$msg" -- "$@"
   others="$(git diff --cached --name-only | wc -l | tr -d ' ')"

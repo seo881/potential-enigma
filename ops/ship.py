@@ -381,8 +381,7 @@ def cmd_update(args):
         before = {"id": it["id"], "collection": h["collection_id"], "isDraft": it.get("isDraft"), "lastUpdated": it.get("lastUpdated"), "fieldData": {k: fd.get(k) for k in ch}}
         if since: before["images_since"] = since
         if only is not None: before["only_fields"] = sorted(only)
-        if not os.path.exists(bp) or json.load(open(bp)) != before:
-            os.makedirs(os.path.dirname(bp), exist_ok=True); json.dump(before, open(bp, "w"), indent=1, ensure_ascii=False)
+        G.write_once(bp, before)   # write-once (Divit 2026-11-16): a changed before-value needs a new batch name
         befores.append(bp); changed_pages.append((url, sorted(ch)))
         out.setdefault(h["collection_id"], []).append({"id": it["id"], "fieldData": ch})
     for url, keys in changed_pages: print(f"  {url}: {len(keys)} field(s): {', '.join(keys)}")
@@ -422,8 +421,7 @@ def relink_plan(items, live, specs=None, targets=None, day=None, write=True):
         if not ch: continue
         bp = os.path.join(ROOT, "childedits", day, f"{url.rsplit('/', 1)[1]}.relink.before.json")
         before = {"id": it["id"], "collection": h["collection_id"], "isDraft": it.get("isDraft"), "lastPublished": it.get("lastPublished"), "fieldData": {k: fd.get(k) for k in ch}}
-        if write and (not os.path.exists(bp) or json.load(open(bp)) != before):
-            os.makedirs(os.path.dirname(bp), exist_ok=True); json.dump(before, open(bp, "w"), indent=1, ensure_ascii=False)
+        if write: G.write_once(bp, before)   # write-once (Divit 2026-11-16)
         befores.append(bp); upd.setdefault(h["collection_id"], []).append({"id": it["id"], "fieldData": ch}); pub.setdefault(h["collection_id"], []).append({"id": it["id"]})
         rows.append((url, sorted(ch), ready))
     return upd, pub, befores, refused, rows
@@ -686,9 +684,7 @@ def cmd_api_create(args):
     before = {"op": "create", "hub": hub, "collection": cid, "sha": sha, "read": {"file": os.path.basename(rb), "items": len(live_items)},
               "slugs_absent": sorted(slug_url), "note": "these slugs were absent from the collection when read; the write creates them as drafts"}
     if mode == "before":
-        cur = json.load(open(bp)) if os.path.exists(bp) else None
-        if not cur or cur.get("slugs_absent") != before["slugs_absent"] or cur.get("collection") != cid:
-            os.makedirs(os.path.dirname(bp), exist_ok=True); json.dump(before, open(bp, "w"), indent=1)
+        G.write_once(bp, before)   # write-once (Divit 2026-11-16)
         print(f"before-value {_rel(bp)}: {len(go)} slug(s) absent in {src}. Commit and push it (ops/sync.sh), then rerun with --live.")
         return
     if not os.path.exists(bp): sys.exit(f"refused: no before-value {_rel(bp)}; run --before-only, commit and push it first")
@@ -818,9 +814,9 @@ def cmd_api_update(args):
         return
     bad = require_before(sorted({p for p, _ in bfile.values()}))
     if bad: sys.exit("refused: before-values not committed and pushed:\n  " + "\n  ".join(bad))
-    rp = os.path.join(ROOT, "childedits", _day(), f"{name}.{_stamp()}.rollback.json"); os.makedirs(os.path.dirname(rp), exist_ok=True)
-    json.dump([{"label": f"rollback of {os.path.basename(pf)}: before-values, changed fields only", "update_collection_items": {"collection_id": c, "request": {"items": [
-        {"id": it["id"], "fieldData": {k: bfile[it["id"]][1]["fieldData"].get(k) for k in it["fieldData"]}} for it in its]}}} for c, its in upd.items()], open(rp, "w"), indent=1, ensure_ascii=False)
+    rp = os.path.join(ROOT, "childedits", _day(), f"{name}.{_stamp()}.rollback.json")
+    G.write_once(rp, [{"label": f"rollback of {os.path.basename(pf)}: before-values, changed fields only", "update_collection_items": {"collection_id": c, "request": {"items": [
+        {"id": it["id"], "fieldData": {k: bfile[it["id"]][1]["fieldData"].get(k) for k in it["fieldData"]}} for it in its]}}} for c, its in upd.items()])
     diffs = []; err = None; learn = False; read = {}
     for c, its in upd.items():
         try: W.update_items(c, its, dry=False, on_batch=lambda ch, r, c=c: _apilog({"op": "update", "collection": c, "count": len(ch), "ids": [i["id"] for i in ch], "payload": os.path.basename(pf)}))
@@ -891,16 +887,15 @@ def cmd_api_publish(args):
     if lost: sys.exit(f"refused: not in the collection under their slug: {', '.join(lost[:5])}")
     before = [{"id": i, "slug": u.rsplit("/", 1)[1], **{k: by[i].get(k) for k in ("isDraft", "isArchived", "lastPublished", "lastUpdated")}} for u, i in pairs]
     if mode == "before":
-        if not os.path.exists(bp) or json.load(open(bp)) != before:
-            os.makedirs(os.path.dirname(bp), exist_ok=True); json.dump(before, open(bp, "w"), indent=1)
+        G.write_once(bp, before)   # write-once (Divit 2026-11-16): the 07e2a786 incident was a rerun rewriting this file
         print(f"before-value {_rel(bp)}: {len(ids)} item(s). Commit and push it (ops/sync.sh), then rerun with --live."); return
     if not os.path.exists(bp): sys.exit(f"refused: no before-value {_rel(bp)}; run --before-only, commit and push it first")
     if json.load(open(bp)) != before: sys.exit(f"refused: the items changed since {_rel(bp)} was written; rerun --before-only, commit and push")
     bad = require_before([bp])
     if bad: sys.exit("refused: before-values not committed and pushed:\n  " + "\n  ".join(bad))
-    rp = os.path.join(ROOT, "childedits", _day(), f"{h['repo_dir']}.api-publish.{key}.{_stamp()}.rollback.json"); os.makedirs(os.path.dirname(rp), exist_ok=True)
-    json.dump({"op": "publish", "hub": hub, "collection": cid, "items": before, "before": _rel(bp),
-               "rollback": "unpublish is not on the API allowlist: unpublish these items in the Webflow CMS on Divit's go; their before-state is in the before file"}, open(rp, "w"), indent=1)
+    rp = os.path.join(ROOT, "childedits", _day(), f"{h['repo_dir']}.api-publish.{key}.{_stamp()}.rollback.json")
+    G.write_once(rp, {"op": "publish", "hub": hub, "collection": cid, "items": before, "before": _rel(bp),
+               "rollback": "unpublish is not on the API allowlist: unpublish these items in the Webflow CMS on Divit's go; their before-state is in the before file"})
     t0 = datetime.datetime.now(); err = None; done = set(); errs = 0
     try:
         for r in W.publish_items(cid, ids, dry=False, on_batch=lambda ch, r: _apilog({"op": "publish", "hub": hub, "collection": cid, "count": len(ch), "ids": ch, "published": len(r.get("publishedItemIds") or []), "errors": len(r.get("errors") or [])})):

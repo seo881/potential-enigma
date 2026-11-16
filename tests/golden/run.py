@@ -283,6 +283,17 @@ def caught(c):
     if c["kind"] == "keyword-in-h1":   # B-c-2 2026-11-16: possessive primaries (valentine's) match an H1 written with the apostrophe
         sys.path.insert(0, os.path.join(ROOT, "ops")); import slugs as SL
         return SL.keyword_in_h1(c["h1"], c["kw"]) == c["expect"]
+    if c["kind"] == "childedits-guard":   # Divit 2026-11-16: childedits before/rollback files are write-once; never commit another run's
+        sys.path.insert(0, os.path.join(ROOT, "ops")); import childedits_guard as CG
+        return bool(CG.problems(c["name_status"], c.get("run", ""))) == c["expect_refused"]
+    if c["kind"] == "write-once":   # Divit 2026-11-16: a writer never overwrites an existing before-value or rollback
+        sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as GW, tempfile
+        d = tempfile.mkdtemp(); f = os.path.join(d, "x.before.json")
+        if c.get("existing") is not None: json.dump(c["existing"], open(f, "w"))
+        try: GW.write_once(f, c["write"]); refused = False
+        except SystemExit: refused = True
+        kept = json.load(open(f)) == (c["existing"] if c.get("existing") is not None else c["write"])
+        return refused == c["expect_refused"] and kept
     if c["kind"] == "restamp-gate":   # Divit 2026-11-16: a go-record name alone never restamps; review + QC + verify-live always required
         sys.path.insert(0, os.path.join(ROOT, "ops")); import hubctl as HC
         why = HC.restamp_refusal(c["spec"], c["divit_go"], c.get("qc_ids", []), c["review_changed"])

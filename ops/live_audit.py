@@ -666,8 +666,8 @@ def cmd_fix_prepare(args):
     before = {"id": it["id"], "collection": h["collection_id"], "lastUpdated": it.get("lastUpdated"), "fieldData": {h["fields"][k]: fd.get(h["fields"][k]) for k in ch}}
     bp = os.path.join(ROOT, f["before_file"]) if f.get("before_file") and f.get("status") == "before-saved" else \
          os.path.join(ROOT, "childedits", today(), f"{slug_of(url)}.{iid}.before.json")
-    if not os.path.exists(bp) or json.load(open(bp)) != before:
-        jsave(bp, before); f.update(status="before-saved", before_file=os.path.relpath(bp, ROOT)); jsave(p, d)
+    import guards as _G
+    if _G.write_once(bp, before): f.update(status="before-saved", before_file=os.path.relpath(bp, ROOT)); jsave(p, d)   # write-once (Divit 2026-11-16)
     ok, why = before_committed(bp)
     if not ok:
         sys.exit(f"{iid}: before-value saved to {os.path.relpath(bp, ROOT)} but {why}. Commit and push it (ops/sync.sh), then rerun prepare with a fresh read-back.")
