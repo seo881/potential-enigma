@@ -27,3 +27,17 @@ employee-feedback tab 4 fix; restamp and slim reviews of the 11 pages after the 
 
 ## Open questions for Divit
 Run B-fix-23b.
+
+## Update 18:15 IST: verification, rebuilt batches, full audit
+- B-fix-23b (Divit's run): verify-live 11/11 PASS; every new file (dermaplaning tab 1; driver tab 3, cover, og; EVL tab 2, og) is byte-identical to its render on the CDN; tab 2 on dermaplaning is unchanged; file IDs are recorded in the specs (7937b647).
+- B-fix-21r/22r/24r/34r rebuilt with the guard (36d2209b), run by Divit: verify-live 34/34 PASS, 36 image files byte-checked (0f5b5833).
+- B-fix-29 (LP, now 11 items including chiropractic tab 2, dec57bc8/ec9a2392) and B-fix-45a (anesthesia-consent, 5146320a): dry runs clean, waiting for Divit.
+- Full live audit full647 scored: last_success 2026-11-16 12:00 UTC, 644 pages + 4 hubs, P0 0. P1 by cause:
+  - A7-link 648: LinkedIn company link returns 403 to the audit client on every page (bot block, not a broken link).
+  - A9-chip-fight 282 / A9-prompt 280: known hero-backlog (known issue expires 2026-11-19).
+  - A11-target 24: the known redirect issues (expire 2027-02-01).
+  - A4-missing / A3-meta / A8-alt 40 on 25 pages: 21 are today's post-live fixes (approval stamp predates the fix), 2 clear with B-fix-29 (404-page, app), airline-questions has the same stale-stamp cause (fixed 11-13), LP chiropractic needed its fix shipped (now in B-fix-29).
+  - A9-console 4: net::ERR_SOCKET_NOT_CONNECTED (network).
+  - P2: A5-empty-p 648 (Webflow placeholder), A4-repeat 3 (since 11-10).
+- 392 live pages carry a stale approval fingerprint: 140 changed today (7 slim reviewers B-s-901..907 running), 252 older (mostly the held hero-prompt rewrite).
+- Morning daily run (pid 7341, started 09:07 on the pre-fix code) is still re-checking 497 pages serially and holds the lock; not killed (post-live QC never stops). Question for Divit.
