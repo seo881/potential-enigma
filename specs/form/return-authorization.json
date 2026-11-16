@@ -30,16 +30,16 @@
   "why_title": "Why Emergent for Return Authorization?",
   "why_description": "Emergent builds the returns app from a plain-English description of your policy. The free tier covers building and publishing it.",
   "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Jotform</th>\n        <th scope=\"col\">Google Forms</th>\n        <th scope=\"col\">Typeform</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Describe it in plain English</td>\n        <td class=\"col-other\">Templates, editor, AI generator</td>\n        <td class=\"col-other\">Editor, with Gemini drafting on some Workspace plans</td>\n        <td class=\"col-other\">Templates, editor, AI assist</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Where responses live</th>\n        <td class=\"col-brand\">A database table you own, plus any integration</td>\n        <td class=\"col-other\">Jotform account</td>\n        <td class=\"col-other\">Google Sheets</td>\n        <td class=\"col-other\">Typeform account</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Response limits</th>\n        <td class=\"col-brand\">No response caps</td>\n        <td class=\"col-other\">Monthly submission caps by plan; the form stops at the cap</td>\n        <td class=\"col-other\">No limit</td>\n        <td class=\"col-other\">Monthly response caps by plan; the form closes at the cap</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
-  "usecase_heading": "",
-  "tab_label_1": "",
-  "tab_label_2": "",
-  "tab_label_3": "",
-  "tab_label_4": "",
-  "tab_content_1": "",
-  "tab_content_2": "",
-  "tab_content_3": "",
-  "tab_content_4": "",
-  "mockup": "",
+  "usecase_heading": "Four Returns and What Happens Next",
+  "tab_label_1": "Within the Window",
+  "tab_label_2": "Past the Window",
+  "tab_label_3": "At the Dock",
+  "tab_label_4": "Return Reasons",
+  "tab_content_1": "<h3>When a cracked lid is reported on day 9</h3><p>Gwyneira Branscombe's Dutch oven from Hearthwell Cookware arrives with a cracked lid. She opens the return form 9 days after delivery, types her order number, and picks damaged in transit. Her order sits inside the store's 30-day window. The app issues RA-1047 and emails it to her with the address to ship the pot to.</p>",
+  "tab_content_2": "<h3>On day 44, brake sets wait for a support lead</h3><p>Osmund Treadwell runs a bike shop and asks Copperbrook Cycle Supply to take back 6 brake sets 44 days after delivery. The policy allows 30 days, and the app holds the request without a number. Support lead Lisbeth Marchetti-Ross gets a Slack message with a link and decides whether this one earns an exception.</p>",
+  "tab_content_3": "<h3>With all parts in, a $240 tent earns $204</h3><p>A $240 tent reaches Stonechat Outdoor's dock with RA-2290 on the label. Ines Coldharbour types the number, counts the poles and stakes, and marks it opened with all parts present. Stonechat takes 15% off opened items as a restocking fee. The record shows $36 off and a $204 store credit waiting for a manager.</p>",
+  "tab_content_4": "<h3>One reason behind 11 of 18 returns: runs small</h3><p>Brightwater Footwear's October report groups every return request by product and the reason picked. The Trail Runner leads with 18 returns, and 11 of 18 returns say runs small. The rest split between damage in transit and a change of mind. The product team adds a sizing note to the listing that week.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { withinTheWindow: \"Build a return authorization form for my cookware store. The customer types an order number and picks a reason. Look up the delivery date through our store platform's API, and if the order is within 30 days, issue the next RA number, and email it with our return address.\", pastTheWindow: \"Add a rule to my parts supply return form: when a request comes in more than 30 days after delivery, hold it without an RA number. Send the support lead a Slack message with a link to the request, and keep the customer's name and address in the database.\", atTheDock: \"Add a dock inspection step to my outdoor store's return form. Staff type the RA number from the label, mark the item unopened or opened, and confirm all parts are present. Opened items take a 15% restocking fee, and the store credit waits for a manager to approve.\", returnReasons: \"Build a monthly returns report for my shoe store's return authorization form. Group every request by product and the reason the customer picked, show the count for each, and put the product with the most returns at the top.\" };</p>",
   "howto_title": "",
   "howto_description": "",
   "howto_step_1_title": "",
@@ -282,5 +282,510 @@
   "Add a late requests queue that holds anything past the window for a support lead.",
   "Add a dock inspection step that records condition and the restocking fee.",
   "Add a reasons report that counts returns by product and reason."
- ]
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R6",
+    "title": "Within the window",
+    "prompt": "Check each return request against the 30-day window and email the RA number",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Hearthwell Cookware",
+       "sub": "Start a return"
+      },
+      {
+       "type": "fields",
+       "items": [
+        [
+         "Order number",
+         "HW-58213"
+        ],
+        [
+         "Item",
+         "Enameled Dutch oven"
+        ]
+       ]
+      },
+      {
+       "type": "fields",
+       "items": [
+        [
+         "Reason",
+         "Damaged in transit"
+        ]
+       ]
+      },
+      {
+       "type": "button",
+       "label": "Request a return",
+       "icon": "send",
+       "full": true
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "mail-check",
+     "tone": "ok",
+     "title": "RA-1047 emailed",
+     "action": {
+      "label": "Open request",
+      "icon": "arrow-right"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Gwyneira Branscombe",
+       "sub": "Delivered 9 days ago"
+      },
+      {
+       "type": "meta",
+       "icon": "calendar-check",
+       "kind": "acc",
+       "text": "Inside the 30-day window"
+      },
+      {
+       "type": "text",
+       "text": "Return address in the email",
+       "size": 16,
+       "color": "muted"
+      }
+     ]
+    },
+    "mini": {
+     "icon": "database",
+     "kind": "ok",
+     "title": "Saved to the returns table",
+     "sub": "Return address included"
+    },
+    "alt": "Hearthwell Cookware's return form shows order HW-58213 for an enameled Dutch oven marked damaged in transit; Gwyneira Branscombe's request, 9 days after delivery and inside the 30-day window, gets RA-1047 by email.",
+    "story": [
+     {
+      "copy": "9 days after delivery",
+      "image": "Delivered 9 days ago"
+     },
+     {
+      "copy": "30-day window",
+      "image": "Inside the 30-day window"
+     },
+     {
+      "copy": "issues RA-1047",
+      "image": "RA-1047 emailed"
+     },
+     {
+      "copy": "damaged in transit",
+      "image": "Damaged in transit"
+     }
+    ]
+   },
+   {
+    "recipe": "R1",
+    "title": "Past the window",
+    "prompt": "Hold late return requests and message the support lead in Slack",
+    "main": {
+     "chrome": "Copperbrook returns",
+     "blocks": [
+      {
+       "type": "heading",
+       "eyebrow": "OSMUND TREADWELL",
+       "title": "6 brake sets",
+       "size": 28,
+       "sub": "Delivered 44 days ago"
+      },
+      {
+       "type": "rule",
+       "text": "Rule: past 30 days → support lead decides"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "state": "done",
+         "title": "Request received",
+         "sub": "Order found through the store API"
+        },
+        {
+         "state": "skip",
+         "title": "RA number",
+         "sub": "Held: outside the window"
+        },
+        {
+         "state": "live",
+         "title": "Support lead",
+         "sub": "Lisbeth Marchetti-Ross",
+         "right": "In review"
+        },
+        {
+         "state": "next",
+         "title": "Reply to Osmund",
+         "sub": "Exception or decline"
+        }
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "message-square",
+     "tone": "warn",
+     "title": "Slack: late return to review",
+     "action": {
+      "label": "Open request",
+      "icon": "arrow-right"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "To Lisbeth Marchetti-Ross",
+       "sub": "6 brake sets, day 44"
+      },
+      {
+       "type": "meta",
+       "icon": "lock",
+       "kind": "acc",
+       "text": "Address stays in the app"
+      }
+     ]
+    },
+    "mini": {
+     "icon": "database",
+     "kind": "ok",
+     "title": "Request saved",
+     "sub": "No RA number yet"
+    },
+    "alt": "Copperbrook Cycle Supply's returns app holds Osmund Treadwell's request for 6 brake sets delivered 44 days ago, past the 30-day window, and sends support lead Lisbeth Marchetti-Ross a Slack message with a link.",
+    "story": [
+     {
+      "copy": "44 days after delivery",
+      "image": "Delivered 44 days ago"
+     },
+     {
+      "copy": "The policy allows 30 days",
+      "image": "Rule: past 30 days → support lead decides"
+     },
+     {
+      "copy": "6 brake sets",
+      "image": "6 brake sets"
+     },
+     {
+      "copy": "Support lead Lisbeth Marchetti-Ross",
+      "image": "Lisbeth Marchetti-Ross"
+     }
+    ]
+   },
+   {
+    "recipe": "R2",
+    "title": "At the dock",
+    "prompt": "Record condition at the dock and apply the 15% fee to opened items",
+    "main": {
+     "blocks": [
+      {
+       "type": "doc_header",
+       "icon": "package-open",
+       "title": "RA-2290",
+       "sub": "Stonechat Outdoor",
+       "label": "RECEIVED"
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Condition",
+         "Opened, all parts present"
+        ],
+        [
+         "Price paid",
+         "$240.00"
+        ],
+        [
+         "Restocking fee, 15%",
+         "$36.00"
+        ],
+        [
+         "Store credit",
+         "$204.00",
+         true
+        ]
+       ]
+      },
+      {
+       "type": "filler",
+       "n": 2
+      },
+      {
+       "type": "note",
+       "icon": "info",
+       "text": "Credit waits for a manager"
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "rule",
+       "text": "Rule: opened → 15% restocking fee"
+      },
+      {
+       "type": "checks",
+       "items": [
+        "Poles counted",
+        "Stakes counted",
+        "Rainfly included"
+       ]
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Inspected by",
+         "Ines Coldharbour"
+        ],
+        [
+         "Condition",
+         "Opened"
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "badge-check",
+     "tone": "acc",
+     "title": "Credit waiting for approval",
+     "action": {
+      "label": "Approve credit",
+      "icon": "arrow-right"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "$204.00 store credit",
+       "sub": "RA-2290, $36.00 fee taken"
+      },
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "acc",
+       "text": "Inspected by Ines Coldharbour"
+      }
+     ]
+    },
+    "alt": "Stonechat Outdoor's dock record for RA-2290 shows a $240.00 tent marked opened with all parts present; the 15% restocking fee of $36.00 leaves a $204.00 store credit waiting for a manager.",
+    "story": [
+     {
+      "copy": "A $240 tent",
+      "image": "$240.00"
+     },
+     {
+      "copy": "15% off opened items",
+      "image": "Rule: opened → 15% restocking fee"
+     },
+     {
+      "copy": "$36 off",
+      "image": "$36.00"
+     },
+     {
+      "copy": "a $204 store credit",
+      "image": "$204.00 store credit"
+     },
+     {
+      "copy": "RA-2290",
+      "image": "RA-2290"
+     }
+    ]
+   },
+   {
+    "recipe": "R11",
+    "title": "Return reasons",
+    "prompt": "Group every return request by product and reason in one monthly report",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Trail Runner returns, October",
+       "size": 20,
+       "chip": [
+        "Brightwater",
+        "acc"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Reason picked",
+        "Returns"
+       ],
+       "widths": [
+        0.7,
+        0.3
+       ],
+       "bad": 0,
+       "num_cols": [
+        1
+       ],
+       "rows": [
+        [
+         "Runs small",
+         "11"
+        ],
+        [
+         "Damaged in transit",
+         "4"
+        ],
+        [
+         "Changed my mind",
+         "3"
+        ]
+       ]
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Most returned",
+       "size": 18,
+       "chip": [
+        "October",
+        "acc"
+       ]
+      },
+      {
+       "type": "kv",
+       "rows": [
+        [
+         "Trail Runner",
+         "18",
+         true
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "ruler",
+     "tone": "warn",
+     "title": "Top reason: runs small",
+     "action": {
+      "label": "Open report",
+      "icon": "arrow-right"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "11 of 18 returns",
+       "sub": "Sizing note added to the listing"
+      },
+      {
+       "type": "meta",
+       "icon": "tag",
+       "kind": "acc",
+       "text": "Trail Runner, October"
+      }
+     ]
+    },
+    "alt": "Brightwater Footwear's October returns report ranks the Trail Runner first with 18 returns, 11 of them marked runs small, 4 damaged in transit and 3 changed my mind; a sizing note is added to the listing.",
+    "story": [
+     {
+      "copy": "11 of 18 returns",
+      "image": "11 of 18 returns"
+     },
+     {
+      "copy": "18 returns",
+      "image": "18"
+     },
+     {
+      "copy": "adds a sizing note to the listing",
+      "image": "Sizing note added to the listing"
+     },
+     {
+      "copy": "damage in transit",
+      "image": "Damaged in transit"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "confirm",
+   "title": "RA-1047 emailed",
+   "button": "Open the return request",
+   "alt": "Return authorization form: RA-1047 is confirmed as emailed, with a button to open the return request."
+  },
+  "og": {
+   "headline": "Build a return authorization form with RA numbers",
+   "lines": [
+    "Build a return",
+    "authorization form",
+    "with RA numbers"
+   ],
+   "alt": "Build a return authorization form template with RA numbers, with Emergent"
+  },
+  "checks": [
+   {
+    "expr": "9 <= 30",
+    "shows": [
+     "Delivered 9 days ago",
+     "Inside the 30-day window"
+    ],
+    "where": 1
+   },
+   {
+    "same": "RA-1047",
+    "where": [
+     1,
+     "cover"
+    ]
+   },
+   {
+    "expr": "44 > 30",
+    "shows": [
+     "Delivered 44 days ago"
+    ],
+    "where": 2
+   },
+   {
+    "fact": [
+     "6 brake sets"
+    ],
+    "where": 2
+   },
+   {
+    "expr": "240 * 15 / 100 == 36",
+    "shows": [
+     "$240.00",
+     "$36.00"
+    ],
+    "where": 3
+   },
+   {
+    "expr": "240 - 36 == 204",
+    "shows": [
+     "$204.00"
+    ],
+    "where": 3
+   },
+   {
+    "expr": "11 + 4 + 3 == 18",
+    "shows": [
+     "11",
+     "4",
+     "3",
+     "18"
+    ],
+    "where": 4
+   },
+   {
+    "fact": [
+     "Trail Runner"
+    ],
+    "where": 4
+   }
+  ]
+ }
 }
