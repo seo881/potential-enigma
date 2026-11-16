@@ -681,7 +681,11 @@ def before_committed(bp):
     if run("cat-file", "-e", f"HEAD:{rel}"): return False, "it is not committed"
     if run("diff", "--quiet", "HEAD", "--", rel): return False, "it changed since the last commit"
     run("fetch", "-q", "origin", "main")
-    if run("merge-base", "--is-ancestor", "HEAD", "origin/main"): return False, "the commit is not pushed"
+    # the commit that last touched this file must be on origin/main; HEAD itself may carry other agents' unpushed commits
+    # (shared working tree, 40 agents: requiring HEAD pushed was a permanent race, B-c-2 2026-11-16)
+    last = subprocess.run(["git", "log", "-1", "--format=%H", "--", rel], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    if not last or run("merge-base", "--is-ancestor", last, "origin/main"): return False, "the commit is not pushed"
+    if run("diff", "--quiet", "origin/main", "--", rel): return False, "the pushed version differs"
     return True, ""
 
 def cmd_fix_approve(args):
