@@ -283,6 +283,10 @@ def caught(c):
     if c["kind"] == "keyword-in-h1":   # B-c-2 2026-11-16: possessive primaries (valentine's) match an H1 written with the apostrophe
         sys.path.insert(0, os.path.join(ROOT, "ops")); import slugs as SL
         return SL.keyword_in_h1(c["h1"], c["kw"]) == c["expect"]
+    if c["kind"] == "restamp-gate":   # Divit 2026-11-16: a go-record name alone never restamps; review + QC + verify-live always required
+        sys.path.insert(0, os.path.join(ROOT, "ops")); import hubctl as HC
+        why = HC.restamp_refusal(c["spec"], c["divit_go"], c.get("qc_ids", []), c["review_changed"])
+        return (why is None) == c["expect_restamp"]
     if c["kind"] == "image-slots":   # Divit 2026-11-16 (bfix23): fixed slot map; every changed image file has its field; no no-op re-sends
         sys.path.insert(0, os.path.join(ROOT, "ops")); import ship as SH
         if "base" in c: return SH.changed_slots(c["img_dir"], c["base"], c["sha"]) == c["expect_changed"]

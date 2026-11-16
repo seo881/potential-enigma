@@ -1472,6 +1472,27 @@ def cmd_postlive_backlog(args):
     print(f"post-live review backlog: {len(rows)} page(s); overdue (>24 h): {len(over)}; live: {sum(1 for r in rows if r[2] == 'published')}")
     for t, u, st_, a in rows: print(f"  {'OVERDUE ' if a > 24 else ''}{u}  ({st_}, approved {t.strftime('%m-%d %H:%M')} UTC, {a:.1f} h)")
 
+def restamp_refusal(s, divit_go, qc_ids, review_changed):
+    """Why postlive-restamp must refuse (None = restamp). Divit 2026-11-16: every route needs QC clean beyond R3 and a verify-live pass
+    recorded after the last change (last slim review / unlock); a page named in today's go record (divit_go) or changed by a Divit-ordered
+    fix is restamped ONLY with a passing review (full or slim) covering its changed fields: review hash current (review_changed == []) and
+    the last slim review not blocking. A go-record name alone never restamps. The SHIP-FIRST post-live route (blocking post-live
+    findings fixed, fixed=true) keeps its own condition."""
+    if qc_ids: return "QC fails beyond R3: " + ", ".join(qc_ids)
+    marks = [x.get("date", "") for x in s.get("slim_reviews") or []] + [x.get("date", "") for x in s.get("lock_exceptions") or []]
+    vl = [h.get("t", "") for h in s.get("history") or [] if h.get("via") == "verify-live"]
+    if not vl or vl[-1] < (max(marks) if marks else ""): return "no verify-live pass recorded after the last change (hubctl verify-live URL first)"
+    sl = (s.get("slim_reviews") or [])[-1:]
+    review_ok = review_changed == [] and not (sl and sl[0].get("blocking"))
+    sf = s.get("ship_first") or {}; pl = sf.get("postlive_review") or {}
+    if divit_go and not review_ok: return "a go record alone never restamps: no passing review (full or slim) covers the changed fields (hubctl slim-review first)"
+    if not sf:   # Divit approved this page himself: only his recorded go plus a passing review restamps it
+        return None if (divit_go and review_ok) else "not a SHIP-FIRST page: needs Divit's recorded go (hubctl go-record) AND a passing review of the changed fields"
+    if review_ok: return None
+    if not pl.get("fixed"): return "the post-live review is not recorded as fixed (hubctl postlive-review; fix by CMS item update + verify-live first)"
+    if not pl.get("blocking"): return "the post-live review had no blocking finding and no passing slim review covers the changes since approval (hubctl slim-review first)"
+    return None
+
 def cmd_postlive_restamp(args):
     """hubctl postlive-restamp URL --by <COORD>-c-<n>: after a SHIP-FIRST post-live fix (blocking findings fixed by CMS item update +
     verify-live), restamp the approval fingerprint to the fixed content. Coordinator only; refused unless the page shipped under
@@ -1480,22 +1501,13 @@ def cmd_postlive_restamp(args):
     if not is_coordinator(by): sys.exit(f"refused: postlive-restamp is coordinator only (--by {COORDINATOR}-c-<n>)")
     sys.path.insert(0, os.path.join(ROOT, "ops")); import guards as G, datetime as _dt
     sp = spath(url); s = json.load(open(sp)); sf = s.get("ship_first") or {}; pl = sf.get("postlive_review") or {}
-    # Divit 2026-11-16: an explicit go from Divit recorded today (hubctl go-record, not a restamp's own entry) restamps a live page whose
-    # fix he ran himself, ship-first or not, without moving it out of published; QC must still pass beyond R3
     _today = _dt.date.today().isoformat()
     divit_go = [r for d, r in go_records(_today) if url in (r.get("urls") or []) and r.get("source") not in ("postlive-restamp",)]
-    if divit_go: pass
-    elif not sf: sys.exit("refused: not a SHIP-FIRST page (or record Divit's explicit go first: hubctl go-record)")
-    if not divit_go and not pl.get("fixed"): sys.exit("refused: the post-live review is not recorded as fixed (hubctl postlive-review; fix by CMS item update + verify-live first)")
     if (s.get("approval") or {}).get("fingerprint") == G.fingerprint(s): sys.exit("refused: content is unchanged since approval (no R3); nothing to restamp")
-    # Divit 2026-11-16: content changed by a Divit-ordered fix (not a post-live blocking finding) is restamped only after a slim review
-    # of exactly the changed fields passed (review hash current, last slim review 0 blocking, recorded after the approval); never on verify-live alone
-    sl = (s.get("slim_reviews") or [])[-1:] or [{}]
-    slim_ok = bool(sl[0].get("date")) and sl[0].get("blocking") == 0 and sl[0]["date"] >= (s.get("approval") or {}).get("date", "") and G.review_changed(s) == []
-    if not divit_go and not pl.get("blocking") and not slim_ok: sys.exit("refused: the post-live review had no blocking finding and no passing slim review covers the changes since approval (hubctl slim-review first)")
     r = subprocess.run([sys.executable, os.path.join(ROOT, "qc", "qc_hub.py"), sp], capture_output=True, text=True)
     ids = sorted({m.group(2) for m in re.finditer(r"^  (P0|P1) (\S+)", r.stdout, re.M)} - {"R3"})
-    if ids: sys.exit("refused: QC fails beyond R3: " + ", ".join(ids))
+    why = restamp_refusal(s, bool(divit_go), ids, G.review_changed(s))
+    if why: sys.exit("refused: " + why)
     today = _dt.date.today().isoformat()
     _gp, grec = go_append(today, [url], SHIP_FIRST_RULE + "; post-live fix restamp (findings fixed live, verify-live passed)", by, "postlive-restamp")
     ap = s.setdefault("approval", {}); old = ap.get("fingerprint")
