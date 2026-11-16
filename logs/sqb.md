@@ -127,3 +127,8 @@ api-create (before 21c15413) then api-publish (before 8b7a4f83); verify-live PAS
 
 ## 2026-11-16 hoa-questions, lessons-learned (B-ship-20)
 api-create before ad8eb37, api-publish before 62cadebd; verify-live PASS.
+- 2026-11-16 08:06 UTC: api-create: 1 draft(s) created via Data API at 205d5f3 (pre-training-questions); read back 112 items; verified 1, mismatched 0; before childedits/2026-11-16/sqb.api-create.205d5f3.before.json; rollback childedits/2026-11-16/sqb.api-create.205d5f3.20261116T080556Z.rollback.json
+- 2026-11-16 08:07 UTC: api-publish: 1 item(s) item-published via Data API (no site publish); errors 0; not published 0; before childedits/2026-11-16/sqb.api-publish.c08a13af.before.json; rollback childedits/2026-11-16/sqb.api-publish.c08a13af.20261116T080747Z.rollback.json
+
+## 2026-11-16 pre-training-questions (B-ship-20)
+api-create before 205d5f3, api-publish before c08a13af; verify-live PASS.
