@@ -41,7 +41,7 @@
   "tab_label_3": "Signed Books",
   "tab_label_4": "Plant Nurseries",
   "tab_content_1": "<h3>40 pies an hour, and 10 am is gone</h3><p>Ambrine Bakehouse bakes pies to order for Wed, Nov 25, the day before Thanksgiving, and each pickup hour holds 40 pies. Once the 10 am hour has 40, the form stops offering it. Zubair Lockett orders 2 pumpkin pies at $28 each, $56 in all. He takes the 2 pm hour.</p>",
-  "tab_content_2": "<h3>Knife 301 is spot 1 on the waitlist</h3><p>Tavish Forge hammers out one run of 300 chef's knives at $145 each, and the form says the run ships the week of Jan 11. Every knife after 300 goes to the waitlist for the next run. Winnifred Mabe places order 301 and becomes spot 1.</p>",
+  "tab_content_2": "<h3>Knife 301 is spot 1 on the waitlist</h3><p>Tavish Forge hammers out one run of 300 chef's knives at $145 each, and the form says the run ships the week of Jan 11. Every knife after 300 goes to the waitlist for the next run. Winnifred Mabe orders knife 301 and becomes spot 1.</p>",
   "tab_content_3": "<h3>Order by Feb 16 for an inscription</h3><p>Petronella Arkwright signs every pre-ordered copy of her new novel, which releases on Tue, Mar 2. She closes inscriptions on Feb 16, which leaves 14 days for signing. Cosmin Ostby pre-orders on Feb 19. The form hides the inscription box and saves his order as a signed copy with no inscription.</p>",
   "tab_content_4": "<h3>Two days ahead, her order arrives by email</h3><p>Kestrel Hollow Nursery grows its spring starts to order, closes pre-orders on Mar 15, and holds pickup on Sat, Apr 24. Isidora Quarles ordered 6 tomato starts and 2 pepper starts at $4.50 each, $36 in all. On Thu, Apr 22, the app emails her that list and her total, 2 days before pickup.</p>",
   "mockup": "<p id=\"\">window.awbMockup = { holidayBakeries: \"My bakery takes Thanksgiving pie pre-orders for pickup on Wed, Nov 25. Build a pre-order form with hourly pickup slots that each hold 40 pies. When an hour fills, stop offering it. Show the price of each pie, total the order, and send a confirmation with the pie count, the total, and the pickup hour.\", smallBatchMakers: \"I forge one run of 300 chef's knives at $145 each, shipping the week of Jan 11. Build a pre-order form that shows the ship week, confirms orders 1 through 300 as they come in, and puts every order after 300 on a numbered waitlist for the next run. Tell each buyer their spot.\", signedBooks: \"My novel releases on Tue, Mar 2, and I sign every pre-ordered copy. Build a pre-order form with an optional inscription box that closes on Feb 16, 14 days before release. After that date, hide the box and save each order as a signed copy with no inscription.\", plantNurseries: \"My nursery grows spring starts to order. Build a pre-order form that closes on Mar 15, lists each variety at $4.50 a start, and totals the order. Pickup is Sat, Apr 24. Email every buyer their list with the total two days before pickup, on Thu, Apr 22.\" };</p>",
@@ -81,7 +81,7 @@
   },
   "tab_image_2": {
    "path": "images/form/pre-order/uc-2.svg",
-   "alt": "Tavish Forge's run of 300 chef's knives at $145 has sold out, so Winnifred Mabe's order 301 becomes spot 1 on the waitlist while the run ships the week of Jan 11.",
+   "alt": "Tavish Forge's run of 300 chef's knives at $145 has sold out, so Winnifred Mabe, who orders knife 301, becomes spot 1 on the waitlist while the run ships the week of Jan 11.",
    "file_id": "6adb1c3538ede0a6d1170136",
    "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6adb1c3538ede0a6d1170136_uc-2.svg"
   },
@@ -195,6 +195,13 @@
    "via": "slim-review",
    "by": "B-s-901",
    "note": "slim review: [slim | CONTENT_DEFECTS #20] tab_content_2: image-contradiction: the changed tab copy now caps the run per knife, but the tab 2 image (image_brief.tabs[1]) still caps it per order: rule 'Every order after 300 → waitlist for the next run', prompt 'Confirm the first 300 knife orders and w"
+  },
+  {
+   "t": "2026-11-16 12:12 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-951",
+   "note": ""
   }
  ],
  "pipeline": "r15",
@@ -531,8 +538,8 @@
    {
     "recipe": "R8",
     "title": "Limited run waitlist",
-    "prompt": "Confirm the first 300 knife orders and waitlist every order after that",
-    "rule": "Every order after 300 → waitlist for the next run",
+    "prompt": "Confirm the first 300 knives and waitlist every knife after that",
+    "rule": "Every knife after 300 → waitlist for the next run",
     "main": {
      "blocks": [
       {
@@ -547,7 +554,7 @@
       {
        "type": "table",
        "columns": [
-        "Order",
+        "Knife",
         "Buyer",
         "Status"
        ],
@@ -618,7 +625,7 @@
      "blocks": [
       {
        "type": "text",
-       "text": "Winnifred Mabe, order 301",
+       "text": "Winnifred Mabe, knife 301",
        "size": 18,
        "color": "ink"
       },
@@ -647,7 +654,7 @@
      "sub": "Sold out",
      "kind": "warn"
     },
-    "alt": "Tavish Forge's run of 300 chef's knives at $145 has sold out, so Winnifred Mabe's order 301 becomes spot 1 on the waitlist while the run ships the week of Jan 11.",
+    "alt": "Tavish Forge's run of 300 chef's knives at $145 has sold out, so Winnifred Mabe, who orders knife 301, becomes spot 1 on the waitlist while the run ships the week of Jan 11.",
     "story": [
      {
       "copy": "one run of 300 chef's knives",
@@ -662,8 +669,8 @@
       "image": "Run ships the week of Jan 11"
      },
      {
-      "copy": "places order 301",
-      "image": "Winnifred Mabe, order 301"
+      "copy": "orders knife 301",
+      "image": "Winnifred Mabe, knife 301"
      },
      {
       "copy": "becomes spot 1",
@@ -671,7 +678,7 @@
      },
      {
       "copy": "Every knife after 300 goes to the waitlist for the next run",
-      "image": "Every order after 300 → waitlist for the next run"
+      "image": "Every knife after 300 → waitlist for the next run"
      }
     ]
    },
@@ -1384,6 +1391,18 @@
    "by": "B-c-2",
    "reason": "Divit 2026-11-16 QC CATCH-UP: forced-link removal / cross-field mismatch fix (always blocking), CMS item update",
    "date": "2026-11-16 09:51 UTC"
+  },
+  {
+   "field": "tab_content_2",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-16 QC CATCH-UP: blocking slim-review finding on a live post-live fix (one rework, blocking findings only)",
+   "date": "2026-11-16 12:10 UTC"
+  },
+  {
+   "field": "alt:tab_image_2",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-16 QC CATCH-UP: blocking slim-review finding on a live post-live fix (one rework, blocking findings only)",
+   "date": "2026-11-16 12:10 UTC"
   }
  ],
  "slim_reviews": [
