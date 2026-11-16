@@ -202,6 +202,13 @@
    "via": "verify-live",
    "by": null,
    "note": "live page verified"
+  },
+  {
+   "t": "2026-11-16 12:07 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "B-s-904",
+   "note": "slim review: [truth | CONTENT_DEFECTS #20] faq (item 8) vs image_brief.cover / cover image alt: FAQ 8 now says the copy is emailed automatically the moment she submits, but the cover (and its alt, 'the confirmation a client sees after signing, with a button to email a copy of the signed form') still"
   }
  ],
  "pipeline": "r15",
@@ -1170,7 +1177,7 @@
    "breadcrumb": "e0354c1c23f975f8",
    "chip_adds": "61987a7a91ff2c9f",
    "explore_cta": "c9f37d7e1be4ffc4",
-   "faq": "4e562284dab51c23",
+   "faq": "1eddde1d1cbf37a4",
    "feature_1": "6b11280f967201d9",
    "feature_2": "3a379959c7fd90d8",
    "feature_3": "e5aac4f2befbe1b9",
@@ -1220,7 +1227,7 @@
    "why_table": "a1ff8dc7ca25ca34",
    "why_title": "c336d01dface98c2"
   },
-  "all": "47d71b5f3f964615",
+  "all": "ddd6e60e8c658f32",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  },
  "approval": {
@@ -1285,6 +1292,28 @@
    "blocking": 0,
    "notes": 0,
    "findings": []
+  },
+  {
+   "by": "B-s-904",
+   "date": "2026-11-16 12:07 UTC",
+   "fields": [
+    "faq"
+   ],
+   "baseline": "review_hash",
+   "blocking": 1,
+   "notes": 0,
+   "findings": [
+    {
+     "criterion": "truth",
+     "field": "faq (item 8) vs image_brief.cover / cover image alt",
+     "quote": "Ask Emergent to email her a copy of her answers and signature the moment she submits.",
+     "fix": "Either restore the button in FAQ 8 (e.g. 'Ask Emergent to put an Email my copy button on the confirmation screen, so she gets her answers and signature the moment she signs.') or change the cover to a confirmation that states the copy was emailed (title 'Peel consent signed', line 'Copy emailed to you', button e.g. 'Done') and update its alt.",
+     "class": "image-contradiction",
+     "rule": "CONTENT_DEFECTS #20",
+     "issue": "FAQ 8 now says the copy is emailed automatically the moment she submits, but the cover (and its alt, 'the confirmation a client sees after signing, with a button to email a copy of the signed form') still shows an 'Email my copy' button the client presses after signing. The old answer described that button; the edit removed it, so copy and image now describe two different mechanisms for the same copy.",
+     "severity": "blocking"
+    }
+   ]
   }
  ]
 }
