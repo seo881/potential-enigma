@@ -151,3 +151,4 @@
 - 2026-11-16 09:57 UTC: api-update b10-auto-payload.json: 5 item(s) updated via Data API; read back; 0 field mismatch(es); rollback childedits/2026-11-16/b10-auto-payload.20261116T095546Z.rollback.json
 - 2026-11-16 10:01 UTC: api-update B-fix-40-auto-update-6ab2470540448c8f7d1ccbf0.json: 3 item(s) updated via Data API; read back; 0 field mismatch(es); rollback childedits/2026-11-16/B-fix-40-auto-update-6ab2470540448c8f7d1ccbf0.20261116T095940Z.rollback.json
 - 2026-11-16 B-fix-10: FAQ cross-hub links unlinked, 5 items updated+item-published (awb---faq-data), rollback childedits/2026-11-16/b10-auto-payload.20261116T095546Z.rollback.json
+- 2026-11-16 B-fix-40: post-live fix affiliate (mockup), field-service (feature_1), gmail (tab_content_1), 3 items updated+item-published, rollback childedits/2026-11-16/B-fix-40-auto-update-6ab2470540448c8f7d1ccbf0.20261116T095940Z.rollback.json

@@ -103,3 +103,5 @@
 - 2026-11-16 10:05 UTC: api-update B-fix-31b-update-6aaaa937fe1a8d180b7c9f83.json: 3 item(s) updated via Data API; read back; 0 field mismatch(es); rollback childedits/2026-11-16/B-fix-31b-update-6aaaa937fe1a8d180b7c9f83.20261116T100425Z.rollback.json
 - 2026-11-16 B-fix-31: lp video/waitlist/webinar live fix, item-published
 - 2026-11-16 B-fix-10: FAQ cross-hub links unlinked, 4 items updated+item-published (awb---faq-data), rollback childedits/2026-11-16/b10-lp-payload.20261116T100118Z.rollback.json
+- 2026-11-16 10:31 UTC: api-update B-fix-40-lp-update-6aaaa937fe1a8d180b7c9f83.json: 3 item(s) updated via Data API; read back; 0 field mismatch(es); rollback childedits/2026-11-16/B-fix-40-lp-update-6aaaa937fe1a8d180b7c9f83.20261116T102926Z.rollback.json
+- 2026-11-16 B-fix-40: post-live fix dynamic (tab 3 hero image), web-hosting (tab 4 image), advertorial (cover+og image), 3 items updated+item-published
