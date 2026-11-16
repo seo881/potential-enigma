@@ -357,3 +357,5 @@
 - 2026-11-16 09:55 UTC: api-update bfix28-form-update.json: 2 item(s) updated via Data API; read back; 0 field mismatch(es); rollback childedits/2026-11-16/bfix28-form-update.20261116T095424Z.rollback.json
 - 2026-11-16 B-fix-9 post-live fix: removed forced cross-hub FAQ links (awb---faq-data only) on audition, conditional-logic, conference-registration, contest-entry, event-planning, expense-report, file-upload, photo-contest, work-order; 9 items updated and item-published; rollback childedits/2026-11-16/bfix9-update-6aaaaa02995bb2f9f4d6a36c.20261116T094915Z.rollback.json
 - 2026-11-16 post-live fix B-fix-28: wedding-photography-contract (tab 3 mini card) and wholesale-order (tab 2 submit button) image fields updated by CMS item update, item-published, verify-live PASS
+- 2026-11-16 10:15 UTC: api-update bfix28y-update-6aaaaa02995bb2f9f4d6a36c.json: 1 item(s) updated via Data API; read back; 0 field mismatch(es); rollback childedits/2026-11-16/bfix28y-update-6aaaaa02995bb2f9f4d6a36c.20261116T101357Z.rollback.json
+- 2026-11-16 post-live fix B-fix-28: youth-sports-registration feature_3 text-only CMS item update, item-published, verify-live PASS
