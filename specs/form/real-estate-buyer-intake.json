@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-759",
    "note": ""
+  },
+  {
+   "t": "2026-11-16 09:12 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-649",
+   "note": "[images | CONTENT_DEFECTS #20] mockup (relocatingBuyers) / tab_image_2: Form field sets differ between mockup and image (rework-checklist 9 and 11). Instance 1: the tab 2 image and tab copy draw the destination (\"Moving to Columbus\", \"New job in Columbus\"), but the relocatingBuyers mockup asks for t"
   }
  ],
  "pipeline": "r15",
@@ -971,5 +978,255 @@
  },
  "writers": [
   "B-w-759"
- ]
+ ],
+ "review": {
+  "by": "B-r-649",
+  "date": "2026-11-16 09:12 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Real Estate Buyer Intake Form That Acts on the Answers\"; hero 119 chars leads with \"Build\"; how-to description one sentence."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is printable templates; page gives the question set (FAQ 3), a 7-step how-to and four working intake flows."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Preapproval letter, buyer agreement before the first tour, $800,000 luxury override, 45-day relocation rule."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every feature and tab opens on a full sentence (\"Ask whether the buyer owns a home now\", \"Dara Whitfield is buying her first home\")."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Two \", so\" endings (feature_1, tab_content_4) kept as a note; sentences short and single-idea."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator voice; concrete details (\"14 Quince Lane\", \"90-day term\")."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "NAR written-agreement, Fair Housing, CFPB preapproval lines match their quoted spans; claims within claims_used."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Buyer agreement, preapproval and team routing angles are specific to real estate buyer intake."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first, hub link in item 2, no brand or file-format asks."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "FAIL: tab 1 and tab 2 images draw intake fields that the mockup prompts do not ask for (\"First home: Yes\"; \"Moving to Columbus\" vs mockup \"the city they are moving from\")."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "mockup (relocatingBuyers) / tab_image_2",
+    "quote": "the move date, the city they are moving from, and whether they can tour in person or only by live video",
+    "issue": "Form field sets differ between mockup and image (rework-checklist 9 and 11). Instance 1: the tab 2 image and tab copy draw the destination (\"Moving to Columbus\", \"New job in Columbus\"), but the relocatingBuyers mockup asks for the city the buyer is moving FROM. Instance 2: the tab 1 image form draws a third field \"First home: Yes\", but the firstTimeBuyers mockup asks only \"their budget and whether they have a preapproval letter\".",
+    "fix": "Mockup relocatingBuyers: change \"the city they are moving from\" to \"the city they are moving to\". Mockup firstTimeBuyers: \"Ask for their budget, whether this is their first home, and whether they have a preapproval letter.\" (or drop the \"First home\" row from tab_image_1 fields). Re-render images after.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "feature_4; tab_content_2",
+    "quote": "with the full answers in an email or a Slack message",
+    "issue": "Buyer budget and preapproval status travel in full through email or Slack (also tab_content_2: \"a Slack message with her answers\"). Not health data, so not health-in-transit, but personal financial answers in a channel.",
+    "fix": "Optional: alert with the buyer name, move date and a link to the record; keep budget and preapproval in the app.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 8",
+    "quote": "about 15 to 20 questions",
+    "issue": "A recommended question count with no source; advice, so a note.",
+    "fix": "Optional: tie the count to the page's own question list rather than a range.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "CONTENT_DEFECTS #4",
+    "field": "feature_1; tab_content_4",
+    "quote": "A renter is asked when the lease ends instead, so nobody reads both.",
+    "issue": "Two \", so\" endings on the page (also tab_content_4 \"..., so the form keeps the showing request locked\").",
+    "fix": "Optional: split into two sentences.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "feature_4; tab_content_2",
+   "issue": "Buyer budget and preapproval status travel in full through email or Slack (also tab_content_2: \"a Slack message with her answers\"). Not health data, so not health-in-transit, but personal financial answers in a channel.",
+   "fix": "Optional: alert with the buyer name, move date and a link to the record; keep budget and preapproval in the app.",
+   "by": "B-r-649",
+   "via": "review",
+   "date": "2026-11-16 09:12 UTC"
+  },
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 8",
+   "issue": "A recommended question count with no source; advice, so a note.",
+   "fix": "Optional: tie the count to the page's own question list rather than a range.",
+   "by": "B-r-649",
+   "via": "review",
+   "date": "2026-11-16 09:12 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "CONTENT_DEFECTS #4",
+   "field": "feature_1; tab_content_4",
+   "issue": "Two \", so\" endings on the page (also tab_content_4 \"..., so the form keeps the showing request locked\").",
+   "fix": "Optional: split into two sentences.",
+   "by": "B-r-649",
+   "via": "review",
+   "date": "2026-11-16 09:12 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "2ac4efdf73ba9867",
+   "alt:share_image": "c61be706cd7f71a7",
+   "alt:tab_image_1": "abbe8d42f471e3de",
+   "alt:tab_image_2": "2661c285e3f325bd",
+   "alt:tab_image_3": "c7cf019546b6d2f7",
+   "alt:tab_image_4": "da144c9c02571aa4",
+   "breadcrumb": "2d140a0926c7e51c",
+   "chip_adds": "c4dcbc81572b5f67",
+   "explore_cta": "e0923209e49e3210",
+   "faq": "14b14833aa748935",
+   "feature_1": "e808af538d2fd99b",
+   "feature_2": "a16472eb121002db",
+   "feature_3": "143ae715030fbd3d",
+   "feature_4": "515b6db88e4a4e16",
+   "feature_5": "d575bdb89ad31a7d",
+   "feature_6": "410c91dd2ffb871d",
+   "features_heading": "dcb8f8f9e3613ffc",
+   "features_subheading": "58517035f4668e13",
+   "h1": "9eb1386132e1ffe2",
+   "hero_description": "69fad1b1356274c1",
+   "hero_prompt": "8f33ee02a1b17066",
+   "howto_description": "157fc7861e5814ab",
+   "howto_step_1_des": "971d96577d74bfe1",
+   "howto_step_1_title": "59a4ca75eca28658",
+   "howto_step_2_des": "f654408b6ad03702",
+   "howto_step_2_title": "a54d92fd0aeebd31",
+   "howto_step_3_des": "ac8aa1f82e45ac9b",
+   "howto_step_3_title": "c88d7508b04956a2",
+   "howto_step_4_des": "4e999875c318aef1",
+   "howto_step_4_title": "3b3537f6a7077038",
+   "howto_step_5_des": "c806a397d859c480",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "b43e968c5d14042f",
+   "howto_step_6_title": "ea885ad3a8cc37a7",
+   "howto_step_7_des": "5eb961290541e4f1",
+   "howto_step_7_title": "ac2d59382fa4fba1",
+   "howto_title": "6ca443cf72bb0bda",
+   "meta_description": "b3dc6f25e7b4ce7f",
+   "meta_title": "131ab79b386c3359",
+   "mockup": "996ecfddd99a867d",
+   "product_name": "3bb5bf6cd3785c83",
+   "prompt_chip_1": "8f3e8769b9a1416d",
+   "prompt_chip_2": "43a166a2ab99d2b3",
+   "prompt_chip_3": "a1124c9b97883b7a",
+   "prompt_chip_4": "146d92666bc9bff7",
+   "slug": "db66012b49778082",
+   "tab_content_1": "314a839e58f2c8ef",
+   "tab_content_2": "232406a15acaa6bc",
+   "tab_content_3": "d39b881cc300528c",
+   "tab_content_4": "12c03ea1a2bdc54a",
+   "tab_label_1": "437f1192661061e6",
+   "tab_label_2": "f792bc99cfdd5810",
+   "tab_label_3": "a735e331c36dbaf0",
+   "tab_label_4": "b7b900bbddc61af3",
+   "usecase_heading": "ebd84000cc4ab9e6",
+   "why_description": "03e9d453a7dd88f7",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "02f09c82760734d5"
+  },
+  "all": "764776a3a2e20fc0",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "2ac4efdf73ba9867",
+   "alt:share_image": "c61be706cd7f71a7",
+   "alt:tab_image_1": "abbe8d42f471e3de",
+   "alt:tab_image_2": "2661c285e3f325bd",
+   "alt:tab_image_3": "c7cf019546b6d2f7",
+   "alt:tab_image_4": "da144c9c02571aa4",
+   "breadcrumb": "2d140a0926c7e51c",
+   "chip_adds": "c4dcbc81572b5f67",
+   "explore_cta": "e0923209e49e3210",
+   "faq": "14b14833aa748935",
+   "feature_1": "e808af538d2fd99b",
+   "feature_2": "a16472eb121002db",
+   "feature_3": "143ae715030fbd3d",
+   "feature_4": "515b6db88e4a4e16",
+   "feature_5": "d575bdb89ad31a7d",
+   "feature_6": "410c91dd2ffb871d",
+   "features_heading": "dcb8f8f9e3613ffc",
+   "features_subheading": "58517035f4668e13",
+   "h1": "9eb1386132e1ffe2",
+   "hero_description": "69fad1b1356274c1",
+   "hero_prompt": "8f33ee02a1b17066",
+   "howto_description": "157fc7861e5814ab",
+   "howto_step_1_des": "971d96577d74bfe1",
+   "howto_step_1_title": "59a4ca75eca28658",
+   "howto_step_2_des": "f654408b6ad03702",
+   "howto_step_2_title": "a54d92fd0aeebd31",
+   "howto_step_3_des": "ac8aa1f82e45ac9b",
+   "howto_step_3_title": "c88d7508b04956a2",
+   "howto_step_4_des": "4e999875c318aef1",
+   "howto_step_4_title": "3b3537f6a7077038",
+   "howto_step_5_des": "c806a397d859c480",
+   "howto_step_5_title": "3231c4b443a7b6ed",
+   "howto_step_6_des": "b43e968c5d14042f",
+   "howto_step_6_title": "ea885ad3a8cc37a7",
+   "howto_step_7_des": "5eb961290541e4f1",
+   "howto_step_7_title": "ac2d59382fa4fba1",
+   "howto_title": "6ca443cf72bb0bda",
+   "meta_description": "b3dc6f25e7b4ce7f",
+   "meta_title": "131ab79b386c3359",
+   "mockup": "996ecfddd99a867d",
+   "product_name": "3bb5bf6cd3785c83",
+   "prompt_chip_1": "8f3e8769b9a1416d",
+   "prompt_chip_2": "43a166a2ab99d2b3",
+   "prompt_chip_3": "a1124c9b97883b7a",
+   "prompt_chip_4": "146d92666bc9bff7",
+   "slug": "db66012b49778082",
+   "tab_content_1": "314a839e58f2c8ef",
+   "tab_content_2": "232406a15acaa6bc",
+   "tab_content_3": "d39b881cc300528c",
+   "tab_content_4": "12c03ea1a2bdc54a",
+   "tab_label_1": "437f1192661061e6",
+   "tab_label_2": "f792bc99cfdd5810",
+   "tab_label_3": "a735e331c36dbaf0",
+   "tab_label_4": "b7b900bbddc61af3",
+   "usecase_heading": "ebd84000cc4ab9e6",
+   "why_description": "03e9d453a7dd88f7",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "02f09c82760734d5"
+  },
+  "all": "764776a3a2e20fc0",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
