@@ -869,6 +869,13 @@
    "via": "verify-live",
    "by": null,
    "note": "live page verified"
+  },
+  {
+   "t": "2026-11-16 12:07 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "B-s-906",
+   "note": "slim review: [slim | CONTENT_DEFECTS #10] faq: The changed FAQ items now put a why box after every rating, but the support-ticket survey elsewhere on the page shows the box only for low scores: mockup.supportTicket \"a single 1-5 satisfaction question and a comment box shown for any score of 2 or low"
   }
  ],
  "chip_adds": [
@@ -1147,7 +1154,7 @@
    "breadcrumb": "f1e712b3006852ce",
    "chip_adds": "99ac7138e2da0de1",
    "explore_cta": "4e3b789ed376157b",
-   "faq": "30c857c4906630cd",
+   "faq": "970d5a76235a3347",
    "feature_1": "19cd41b31d75534b",
    "feature_2": "ecd79a61cd6107e4",
    "feature_3": "d7be1da83801b970",
@@ -1197,7 +1204,7 @@
    "why_table": "22ae91ca1b73cd07",
    "why_title": "f1bb089f99325019"
   },
-  "all": "8715c47b0e10d30f",
+  "all": "dfe62a3438911bfa",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  },
  "lock_exceptions": [
@@ -1234,6 +1241,27 @@
    "blocking": 0,
    "notes": 0,
    "findings": []
+  },
+  {
+   "by": "B-s-906",
+   "date": "2026-11-16 12:07 UTC",
+   "fields": [
+    "faq"
+   ],
+   "baseline": "review_hash",
+   "blocking": 1,
+   "notes": 0,
+   "findings": [
+    {
+     "criterion": "slim",
+     "field": "faq",
+     "quote": "FAQ 5: \"A box then asks why, and the CSAT survey saves the answer with the chat transcript and the agent.\" FAQ 3: \"Ask it once per transaction, and follow every rating with a short question asking why.\"",
+     "fix": "Pick one design for the whole page. Either (a) keep the new FAQ wording and align mockup.supportTicket ('a single 1-5 satisfaction question followed by a short why box'), tab_content_4 ('a 1-5 question about the help they received, then a short box asking why'), feature_3 (both ends are asked why; happy ones also get a review link) and howto_step_3_des; or (b) word FAQ 3 and FAQ 5 so the why question is optional for high scores and required for low ones, matching feature_3 and the support-ticket mockup. Re-render tab 4 if its drawn survey changes.",
+     "rule": "CONTENT_DEFECTS #10 (wrong-fact: form-field sets differ between fields, Divit 2026-11-05)",
+     "issue": "The changed FAQ items now put a why box after every rating, but the support-ticket survey elsewhere on the page shows the box only for low scores: mockup.supportTicket \"a single 1-5 satisfaction question and a comment box shown for any score of 2 or lower\"; tab_content_4 \"the customer gets a single question on a 1-5 scale\"; feature_3 \"Happy customers are asked to leave a review others can read, and unhappy ones get a box to explain what went wrong\"; howto_step_3_des \"a thank-you and a review link at the top, a comment box at the bottom\". The edit moved the mismatch from feature_1/tab 1 to these fields instead of resolving it, so the page describes two different question sets for the same support CSAT survey.",
+     "severity": "blocking"
+    }
+   ]
   }
  ],
  "approval": {

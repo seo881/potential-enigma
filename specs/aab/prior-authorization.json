@@ -176,6 +176,20 @@
    "via": "api-publish",
    "by": null,
    "note": "live page verified"
+  },
+  {
+   "t": "2026-11-16 10:43 UTC",
+   "state": "published",
+   "via": "verify-live",
+   "by": null,
+   "note": "live page verified"
+  },
+  {
+   "t": "2026-11-16 12:05 UTC",
+   "state": "reviewed",
+   "via": "slim-review",
+   "by": "B-s-906",
+   "note": "slim review by B-s-906 of 1 changed field(s); 1 notes"
   }
  ],
  "pipeline": "r15",
@@ -1147,6 +1161,16 @@
    "by": "B-r-650",
    "via": "review",
    "date": "2026-11-16 09:11 UTC"
+  },
+  {
+   "criterion": "slim",
+   "rule": "HUB_RULES 2a (craft)",
+   "field": "faq",
+   "issue": "The answer opens by setting the wait to the full window, then closes by flagging sooner; the two instructions pull against each other on a cold read (no cross-field conflict: tab 3's 3-business-day follow-up sits inside the 7-day window).",
+   "fix": "Open on the follow-up point, e.g. 'Follow up before the payer's decision window ends.'",
+   "by": "B-s-906",
+   "via": "slim-review",
+   "date": "2026-11-16 12:05 UTC"
   }
  ],
  "review_hash": {
@@ -1161,7 +1185,7 @@
    "breadcrumb": "759d6d5fcb6368f0",
    "chip_adds": "0024c2ac278ba5e0",
    "explore_cta": "98f8f631b70894f6",
-   "faq": "a3fd7e4058595c14",
+   "faq": "3295184910d81a88",
    "feature_1": "abcba4d926031138",
    "feature_2": "89f29990ea5165bf",
    "feature_3": "f8e4dc85a504b85a",
@@ -1211,7 +1235,7 @@
    "why_table": "f3261a7513a4d087",
    "why_title": "a3ed6c6d5df430ac"
   },
-  "all": "95570ff90b7c6b71",
+  "all": "0d8c035dc7961a95",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  },
  "lock_hash": {
@@ -1226,7 +1250,7 @@
    "breadcrumb": "759d6d5fcb6368f0",
    "chip_adds": "0024c2ac278ba5e0",
    "explore_cta": "98f8f631b70894f6",
-   "faq": "a3fd7e4058595c14",
+   "faq": "3295184910d81a88",
    "feature_1": "abcba4d926031138",
    "feature_2": "89f29990ea5165bf",
    "feature_3": "f8e4dc85a504b85a",
@@ -1276,7 +1300,7 @@
    "why_table": "f3261a7513a4d087",
    "why_title": "a3ed6c6d5df430ac"
   },
-  "all": "95570ff90b7c6b71",
+  "all": "0d8c035dc7961a95",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  },
  "slim_reviews": [
@@ -1290,6 +1314,27 @@
    "blocking": 0,
    "notes": 0,
    "findings": []
+  },
+  {
+   "by": "B-s-906",
+   "date": "2026-11-16 12:05 UTC",
+   "fields": [
+    "faq"
+   ],
+   "baseline": "review_hash",
+   "blocking": 0,
+   "notes": 1,
+   "findings": [
+    {
+     "criterion": "slim",
+     "field": "faq",
+     "quote": "Set the wait to the payer's own decision window. ... Flag a request for follow-up sooner than that window ends.",
+     "fix": "Open on the follow-up point, e.g. 'Follow up before the payer's decision window ends.'",
+     "rule": "HUB_RULES 2a (craft)",
+     "issue": "The answer opens by setting the wait to the full window, then closes by flagging sooner; the two instructions pull against each other on a cold read (no cross-field conflict: tab 3's 3-business-day follow-up sits inside the 7-day window).",
+     "severity": "note"
+    }
+   ]
   }
  ],
  "approval": {
