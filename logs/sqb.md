@@ -132,3 +132,10 @@ api-create before ad8eb37, api-publish before 62cadebd; verify-live PASS.
 
 ## 2026-11-16 pre-training-questions (B-ship-20)
 api-create before 205d5f3, api-publish before c08a13af; verify-live PASS.
+- 2026-11-16 08:16 UTC: api-create: 2 draft(s) created via Data API at 3df8d19 (matrix-question, travel); read back 114 items; verified 2, mismatched 0; before childedits/2026-11-16/sqb.api-create.3df8d19.before.json; rollback childedits/2026-11-16/sqb.api-create.3df8d19.20261116T081549Z.rollback.json
+- 2026-11-16 08:18 UTC: api-publish: 2 item(s) item-published via Data API (no site publish); errors 0; not published 0; before childedits/2026-11-16/sqb.api-publish.b74b5e46.before.json; rollback childedits/2026-11-16/sqb.api-publish.b74b5e46.20261116T081826Z.rollback.json
+- 2026-11-16 08:22 UTC: api-create: 7 draft(s) created via Data API at d41a049 (movie, spelling, science, business-travel-questions, wine, language, pet); read back 121 items; verified 7, mismatched 0; before childedits/2026-11-16/sqb.api-create.d41a049.before.json; rollback childedits/2026-11-16/sqb.api-create.d41a049.20261116T082113Z.rollback.json
+- 2026-11-16 08:42 UTC: api-publish: 7 item(s) item-published via Data API (no site publish); errors 0; not published 0; before childedits/2026-11-16/sqb.api-publish.c2ed0298.before.json; rollback childedits/2026-11-16/sqb.api-publish.c2ed0298.20261116T084213Z.rollback.json
+
+## 2026-11-16 matrix-question, travel (create 3df8d19, publish b74b5e46); business-travel-questions, language, movie, pet, science, spelling, wine (create d41a049, publish c2ed0298) (B-ship-20)
+verify-live PASS on all.
