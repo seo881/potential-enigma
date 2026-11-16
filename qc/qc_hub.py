@@ -830,6 +830,7 @@ def check(spec, siblings):
         add("P1" if len(so_hits) > 2 else "P2", "Q5", lab, f'", so" ending ({len(so_hits)} on the page; more than 2 blocks): "{x[:90]}"')
     # Q6 repetition inside the page: a 6-word phrase in two different fields (the page's own keywords excluded)
     own_kws = sorted({prim.lower()} | {x["kw"].lower() for x in (KMAP or {}).get(spec["url"], {}).get("secondaries", [])}, key=len, reverse=True) if prim else []
+    own_kws = sorted(set(own_kws) | {re.sub(r"['’]", "", k) for k in own_kws}, key=len, reverse=True)   # possessive primaries written without the apostrophe (J1) still count as the keyword
     grams = {}                                   # gram -> {field: [(segment id, position)]}
     seg_tokens = {}
     for lab, tx in units:
