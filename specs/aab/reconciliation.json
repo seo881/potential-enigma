@@ -22,7 +22,7 @@
   "features_heading": "Six Parts of a Reconciliation That Runs on Rules",
   "features_subheading": "Emergent builds the whole reconciliation app from a prompt and connects it to the ledger and bank account you already use.",
   "feature_1": "<h3>Reads the bank feed and the ledger</h3><p>Connects to QuickBooks, Xero, NetSuite, or any accounting software with an API, and to your bank feed. New bank lines and ledger entries sync in each morning, ready to match.</p>",
-  "feature_2": "<h3>Match rules written in plain English</h3><p>Describe the rule in a sentence, such as same invoice number and an amount within $1.00. Emergent builds the rule from that prompt, and a later prompt changes it.</p>",
+  "feature_2": "<h3>Match rules written in plain English</h3><p>Describe the rule in a sentence, such as the same invoice number and an amount within $1.00 of it. Emergent builds the rule from that prompt, and a later prompt changes it.</p>",
   "feature_3": "<h3>Statements read into fields by AI</h3><p>Upload a supplier statement or a bank statement, and an AI step pulls each invoice number, date, and amount into fields. A person checks any field the AI is unsure of.</p>",
   "feature_4": "<h3>A review queue for every unmatched line</h3><p>Each line with no match lands in a queue with its amount, its date, and the closest ledger entries. Its owner gets a Slack or email alert, then a reminder if it sits.</p>",
   "feature_5": "<h3>Every match kept in a database you own</h3><p>Each match records the lines it paired, the rule that paired them and who approved a manual pairing. The history lives in a database you own, open to your outside reviewer.</p>",
@@ -40,27 +40,27 @@
   "tab_content_3": "<h3>A supplier statement with one invoice the ledger never saw</h3><p>Glenmarra Builders buys framing lumber from Pellock Lumber on account. Its AP clerk, Bertrand Mewes, uploads Pellock's October statement, and the app reads its 6 invoices. Five match open bills in the ledger. Invoice 4471 for $1,836.50 has no bill and becomes a task for Bertrand, with the statement page attached.</p>",
   "tab_content_4": "<h3>Location 2 is $50.00 short when the deposit lands</h3><p>Ostrevan Kitchens runs 3 restaurants. Every morning the app sets yesterday's point-of-sale cash at each one beside its bank deposit. Location 2 counted $1,184.00 and deposited $1,134.00. That $50.00 gap is over the owner's $20.00 limit. The app sends manager Arvo Pomeroy both figures in Slack.</p>",
   "mockup": "<p id=\"\">window.awbMockup = { bankLines: \"Build reconciliation automation for my bike shop. On the 1st of each month, pull last month's lines from our business checking account and match each one to a QuickBooks entry with the same amount, posted within 3 days. Put every line that does not match in a review queue for my staff accountant, Imogen Thrale, with its amount and date.\", processorPayouts: \"When a card processor payout lands in my bank account, find the orders it covers and check that those orders, less the processing fees, equal the deposit. Record it in my ledger with sales and fees on separate lines, and mark each order in the payout as paid out.\", supplierStatements: \"I run a building company. Let my accounts payable clerk upload a supplier's monthly statement. Read each invoice number, date, and amount from it, and check each one against the open bills in my ledger. Turn any invoice with no matching bill into a task for the clerk, with the statement page attached.\", cashDeposits: \"I own 3 restaurants. Every morning, compare yesterday's cash sales from the point-of-sale system at each location with the deposit that posted to the bank. If a location's deposit is off by more than $20.00, send its manager a Slack message with both amounts.\" };</p>",
-  "howto_title": "",
-  "howto_description": "",
-  "howto_step_1_title": "",
-  "howto_step_2_title": "",
-  "howto_step_3_title": "",
-  "howto_step_4_title": "",
-  "howto_step_1_des": "",
-  "howto_step_2_des": "",
-  "howto_step_3_des": "",
-  "howto_step_4_des": "",
-  "faq": "",
+  "howto_title": "How to Automate Reconciliation",
+  "howto_description": "Seven steps to set up reconciliation automation on your ledger, one match rule at a time, tested on a closed month first.",
+  "howto_step_1_title": "01 List every reconciliation you run",
+  "howto_step_2_title": "02 Write one match rule with real values",
+  "howto_step_3_title": "03 Describe the app in a prompt",
+  "howto_step_4_title": "04 Connect one account first",
+  "howto_step_1_des": "Write down every reconciliation the team does by hand: each bank account, card processor payouts, supplier statements, and cash deposits. Next to each one, note the two records it compares and who clears the leftovers today.",
+  "howto_step_2_des": "Pick the reconciliation with the most lines and state its rule exactly. Name the fields that must agree, how many days apart two dates may be, and how far an amount may differ before a person looks.",
+  "howto_step_3_des": "Paste the rule into Emergent along with the ledger you use and the person who owns the leftovers. From that prompt, Emergent builds the matching workflow and its review queue.",
+  "howto_step_4_des": "Connect the bank feed and your accounting software, then point the rule at a single checking account. Card and savings accounts can join once the first account runs clean.",
+  "faq": "<div data-rt-embed-type='true'><div data-rt-embed-type='true'><script> window.awbFAQ = {\"heading\": \"Reconciliation Questions, Answered\", \"items\": [{\"q\": \"What is reconciliation automation?\", \"a\": \"Reconciliation automation is software that pairs two sets of records, such as bank lines and ledger entries, under a rule you set. AccountingTools defines the manual task: \\\"A reconciliation involves matching two sets of records to see if there are any differences.\\\" The automated version runs that check on new lines and leaves a person the differences.\"}, {\"q\": \"How do I set up reconciliation automation?\", \"a\": \"Describe the reconciliation in a prompt to Emergent's <a href='https://emergent.sh/ai-automation-builder'>AI automation builder</a>: the two records, the match rule, and who reviews the leftovers. Emergent builds the app from that prompt, and the app connects to your ledger and bank feed through their APIs. Test it on a month your team already closed before it runs on the current one.\"}, {\"q\": \"What does bank reconciliation automation still leave for a person to do?\", \"a\": \"It leaves every line that matches no ledger entry, and a person decides what each one is. AccountingTools says a bank reconciliation compares \\\"cash records with the bank statement, identifying deposits in transit, outstanding checks, fees, and errors.\\\" The rule pairs the clean lines, while naming an error or recording a fee stays with your accountant.\"}, {\"q\": \"Which accounts should reconciliation automation cover first?\", \"a\": \"Start with the one that has the most lines each month, because that is where a match rule saves the most hours. For a business with one busy checking account, that is the bank reconciliation. Payouts and supplier statements can follow once it runs clean, and the jobs around them, such as bill approvals, belong to <a href='https://emergent.sh/ai-automation-builder/finance'>finance automation</a> more broadly.\"}, {\"q\": \"How does reconciliation automation handle deposits in transit?\", \"a\": \"Leave them open on the ledger side until the bank line arrives and pairs with them. Sage defines the term: \\\"Deposits in transit are deposits you have recorded in your accounting system before they are cleared by the bank.\\\" Set a number of days after which a deposit still waiting goes to a person.\"}, {\"q\": \"Can reconciliation automation allow small differences in amount or date?\", \"a\": \"Yes, if you write the tolerance into the rule, such as amounts within $1.00 or dates up to 3 days apart. Keep the tolerance tight for the first month. Widen it only where the test month shows that a near miss was a true match every time.\"}, {\"q\": \"How often should reconciliation automation run?\", \"a\": \"Run each reconciliation as often as its records arrive: daily for bank lines and cash deposits, on each payout for a card processor, and monthly for supplier statements. A daily run keeps the review queue to a few lines instead of a month of them at close. Apps built on Emergent carry no task cap, which leaves room for a daily run on every account.\"}, {\"q\": \"Can one reconciliation automation cover several bank accounts?\", \"a\": \"Yes. Connect each account's feed to the same app and give each account its own rule, since a payroll account and a card account clear in different ways. The review queue can show every account together or one at a time. Every match, from all the accounts, stays in a database you own.\"}, {\"q\": \"How does reconciliation automation handle one deposit that pays several invoices?\", \"a\": \"The rule groups them: it adds open invoices from the same customer until their total equals the deposit, then records one deposit against all of them. A deposit that no group of invoices adds up to goes to the review queue with the closest combinations beside it. On paid plans, the grouping rule sits in the code Emergent exports to your GitHub repository.\"}, {\"q\": \"Can reconciliation automation check carrier invoices against loads?\", \"a\": \"Yes: a rule can compare each carrier invoice with the rate agreed on its load and send any invoice over that rate to a person. The invoice is read into fields the same way a supplier statement is. For the load side of that work, booking and tracking, see <a href='https://emergent.sh/ai-automation-builder/freight-broker'>freight broker automation</a>.\"}]}; </script></div></div>",
   "learn": null,
   "tutorials": null,
   "case_study": null,
   "integration": null,
-  "howto_step_5_title": "",
-  "howto_step_5_des": "",
-  "howto_step_6_title": "",
-  "howto_step_6_des": "",
-  "howto_step_7_title": "",
-  "howto_step_7_des": "",
+  "howto_step_5_title": "05 Test it on a month you closed",
+  "howto_step_5_des": "Export last month's bank lines and run the rule against the ledger your team already reconciled by hand. Compare the app's pairs with your team's pairs, and change the rule wherever the two disagree.",
+  "howto_step_6_title": "06 Decide who hears about each leftover",
+  "howto_step_6_des": "Choose how an unmatched line reaches its owner: a Slack message or an email, then a reminder after the number of days you set. Add an escalation to the controller for a line still open at month end.",
+  "howto_step_7_title": "07 Add the next reconciliation",
+  "howto_step_7_des": "Once the first rule has run clean for a full month, prompt Emergent to add the next one, such as processor payouts or supplier statements. Each new rule feeds the same review queue.",
   "prompt_chip_1": "Bank Matching",
   "prompt_chip_2": "Payout Matching",
   "prompt_chip_3": "Statement Checks",
@@ -70,27 +70,27 @@
  "images": {
   "tab_image_1": {
    "path": "images/aab/reconciliation/uc-1.svg",
-   "alt": ""
+   "alt": "Haldorne Cycle Works' 412 October bank lines are matched to ledger entries of the same amount posted within 3 days; 409 match, and 3, led by a $1,240.00 deposit, go to the staff accountant."
   },
   "tab_image_2": {
    "path": "images/aab/reconciliation/uc-2.svg",
-   "alt": ""
+   "alt": "Tansy Hollow Tea's $8,412.60 processor payout from November 4 is tied to 3 days of orders worth $8,690.00 less $277.40 in fees, and recorded with sales and fees on separate lines."
   },
   "tab_image_3": {
    "path": "images/aab/reconciliation/uc-3.svg",
-   "alt": ""
+   "alt": "Pellock Lumber's October statement to Glenmarra Builders lists 6 invoices; 5 match open bills, and invoice 4471 for $1,836.50 becomes a task for the accounts payable clerk."
   },
   "tab_image_4": {
    "path": "images/aab/reconciliation/uc-4.svg",
-   "alt": ""
+   "alt": "Ostrevan Kitchens' 3 locations have yesterday's cash sales set beside their bank deposits; Location 2 is $50.00 short, over the $20.00 limit, and its manager gets a Slack message."
   },
   "cover_image": {
    "path": "images/aab/reconciliation/cover.svg",
-   "alt": ""
+   "alt": "Reconciliation automation: a direct message telling the staff accountant that 3 of 412 October bank lines need review"
   },
   "share_image": {
    "path": "images/aab/reconciliation/og.webp",
-   "alt": ""
+   "alt": "Build reconciliation automation on your own ledger, with Emergent"
   }
  },
  "image_spec": null,
@@ -100,6 +100,20 @@
    "state": "spec",
    "via": null,
    "by": null,
+   "note": ""
+  },
+  {
+   "t": "2026-11-16 08:08 UTC",
+   "state": "qc_pass",
+   "via": null,
+   "by": "B-w-714",
+   "note": ""
+  },
+  {
+   "t": "2026-11-16 08:09 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-714",
    "note": ""
   }
  ],
@@ -111,7 +125,7 @@
    "ref": "reconciliation automation",
    "locked": true,
    "n": 1,
-   "a": "",
+   "a": "Reconciliation automation is software that pairs two sets of records, such as bank lines and ledger entries, under a rule you set. AccountingTools defines the manual task: \"A reconciliation involves matching two sets of records to see if there are any differences.\" The automated version runs that check on new lines and leaves a person the differences.",
    "link": null
   },
   {
@@ -120,7 +134,7 @@
    "ref": "reconciliation automation",
    "locked": true,
    "n": 2,
-   "a": "",
+   "a": "Describe the reconciliation in a prompt to Emergent's AI automation builder: the two records, the match rule, and who reviews the leftovers. Emergent builds the app from that prompt, and the app connects to your ledger and bank feed through their APIs. Test it on a month your team already closed before it runs on the current one.",
    "link": {
     "url": "https://emergent.sh/ai-automation-builder",
     "anchor": "AI automation builder",
@@ -129,22 +143,22 @@
   },
   {
    "kind": "written",
-   "q": null,
+   "q": "What does bank reconciliation automation still leave for a person to do?",
    "ref": "bank reconciliation automation",
    "secondary": "bank reconciliation automation",
    "locked": false,
    "n": 3,
-   "a": "",
+   "a": "It leaves every line that matches no ledger entry, and a person decides what each one is. AccountingTools says a bank reconciliation compares \"cash records with the bank statement, identifying deposits in transit, outstanding checks, fees, and errors.\" The rule pairs the clean lines, while naming an error or recording a fee stays with your accountant.",
    "link": null
   },
   {
    "kind": "written",
-   "q": null,
+   "q": "Which accounts should reconciliation automation cover first?",
    "ref": null,
    "secondary": null,
    "locked": false,
    "n": 4,
-   "a": "",
+   "a": "Start with the one that has the most lines each month, because that is where a match rule saves the most hours. For a business with one busy checking account, that is the bank reconciliation. Payouts and supplier statements can follow once it runs clean, and the jobs around them, such as bill approvals, belong to finance automation more broadly.",
    "link": {
     "url": "https://emergent.sh/ai-automation-builder/finance",
     "anchor": "finance automation"
@@ -152,65 +166,62 @@
   },
   {
    "kind": "written",
-   "q": null,
+   "q": "How does reconciliation automation handle deposits in transit?",
    "ref": null,
    "secondary": null,
    "locked": false,
    "n": 5,
-   "a": "",
+   "a": "Leave them open on the ledger side until the bank line arrives and pairs with them. Sage defines the term: \"Deposits in transit are deposits you have recorded in your accounting system before they are cleared by the bank.\" Set a number of days after which a deposit still waiting goes to a person.",
    "link": null
   },
   {
    "kind": "written",
-   "q": null,
+   "q": "Can reconciliation automation allow small differences in amount or date?",
    "ref": null,
    "secondary": null,
    "locked": false,
    "n": 6,
-   "a": "",
+   "a": "Yes, if you write the tolerance into the rule, such as amounts within $1.00 or dates up to 3 days apart. Keep the tolerance tight for the first month. Widen it only where the test month shows that a near miss was a true match every time.",
    "link": null
   },
   {
    "kind": "written",
-   "q": null,
+   "q": "How often should reconciliation automation run?",
    "ref": null,
    "secondary": null,
    "locked": false,
    "n": 7,
-   "a": "",
-   "link": {
-    "url": "https://emergent.sh/ai-automation-builder/gym",
-    "anchor": "gym automation"
-   }
+   "a": "Run each reconciliation as often as its records arrive: daily for bank lines and cash deposits, on each payout for a card processor, and monthly for supplier statements. A daily run keeps the review queue to a few lines instead of a month of them at close. Apps built on Emergent carry no task cap, which leaves room for a daily run on every account.",
+   "link": null
   },
   {
    "kind": "written",
-   "q": null,
+   "q": "Can one reconciliation automation cover several bank accounts?",
    "ref": null,
    "secondary": null,
    "locked": false,
    "n": 8,
-   "a": "",
+   "a": "Yes. Connect each account's feed to the same app and give each account its own rule, since a payroll account and a card account clear in different ways. The review queue can show every account together or one at a time. Every match, from all the accounts, stays in a database you own.",
    "link": null
   },
   {
    "kind": "written",
-   "q": null,
+   "q": "How does reconciliation automation handle one deposit that pays several invoices?",
    "ref": null,
    "secondary": null,
    "locked": false,
    "n": 9,
-   "a": "",
+   "a": "The rule groups them: it adds open invoices from the same customer until their total equals the deposit, then records one deposit against all of them. A deposit that no group of invoices adds up to goes to the review queue with the closest combinations beside it. On paid plans, the grouping rule sits in the code Emergent exports to your GitHub repository.",
    "link": null
   },
   {
    "kind": "written",
-   "q": null,
+   "q": "Can reconciliation automation check carrier invoices against loads?",
    "ref": null,
    "secondary": null,
    "locked": false,
    "n": 10,
-   "a": "",
+   "a": "Yes: a rule can compare each carrier invoice with the rate agreed on its load and send any invoice over that rate to a person. The invoice is read into fields the same way a supplier statement is. For the load side of that work, booking and tracking, see freight broker automation.",
    "link": {
     "url": "https://emergent.sh/ai-automation-builder/freight-broker",
     "anchor": "freight broker automation"
@@ -295,7 +306,7 @@
   "Add bank matching that pairs each bank line with one ledger entry.",
   "Add payout matching that splits each processor payout into orders and fees.",
   "Add a supplier statement check against the open bills in my ledger.",
-  "Add a daily check of register cash against each store's bank deposit."
+  "Add a daily check of point-of-sale cash against each location's bank deposit."
  ],
  "image_brief": {
   "tabs": [
@@ -992,5 +1003,94 @@
     "where": 4
    }
   ]
- }
+ },
+ "claims_used": [
+  "prompt-build",
+  "api-connect",
+  "ai-extraction",
+  "alerts",
+  "database-owned",
+  "code-export",
+  "no-caps"
+ ],
+ "faq_sources": [
+  {
+   "q": "What is reconciliation automation?",
+   "source": "written",
+   "ref": "reconciliation automation",
+   "origin": "definition"
+  },
+  {
+   "q": "How do I set up reconciliation automation?",
+   "source": "written",
+   "ref": "reconciliation automation",
+   "origin": "definition"
+  },
+  {
+   "q": "What does bank reconciliation automation still leave for a person to do?",
+   "source": "written",
+   "ref": "bank reconciliation automation",
+   "origin": "written",
+   "secondary": "bank reconciliation automation"
+  },
+  {
+   "q": "Which accounts should reconciliation automation cover first?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How does reconciliation automation handle deposits in transit?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Can reconciliation automation allow small differences in amount or date?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How often should reconciliation automation run?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Can one reconciliation automation cover several bank accounts?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "How does reconciliation automation handle one deposit that pays several invoices?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  },
+  {
+   "q": "Can reconciliation automation check carrier invoices against loads?",
+   "source": "written",
+   "ref": null,
+   "origin": "written"
+  }
+ ],
+ "qc_passed": {
+  "rules_version": "0b87da99daa5",
+  "date": "2026-11-16 08:08 UTC"
+ },
+ "learn_refs": [
+  "6a1729ad1817ffd0330c987d",
+  "6abe38fbf322d0af73b37238",
+  "6a172321c4c836a09c1ce435"
+ ],
+ "learn_refs_why": [
+  "best-ai-workflow-builders: Auto fixed set: the hub's category: what an AI workflow builder is and how to choose one",
+  "how-to-build-an-ai-agent: Auto fixed set: step-by-step build of an agent that handles leads and intake, the AI step inside most automations",
+  "best-no-code-agent-builders: Auto fixed set: no-code agent builders for workflow automation, for readers who want automations without code"
+ ],
+ "writers": [
+  "B-w-714"
+ ]
 }
