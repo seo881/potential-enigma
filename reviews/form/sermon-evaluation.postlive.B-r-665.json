@@ -1,0 +1,30 @@
+{
+ "blocking": [
+  {
+   "field": "image_brief.tabs[3] (main timeline, hero quote) and images.tab_image_4.alt",
+   "severity": "blocking",
+   "class": "image-contradiction",
+   "rule": "CONTENT_DEFECTS #20",
+   "criterion": "images",
+   "finding": "tab_content_4 says the week-4 change was 'In week 4 he began stating the point in a single sentence.' The image labels week 4 'Point first', the hero quote reads 'You said the point before the story.', and the alt says 'after the point came first in week 4'. Copy and image name different changes.",
+   "fix": "In specs/form/sermon-evaluation.json image_brief.tabs[3]: timeline item {\"label\": \"Week 4\", \"chip\": \"Point first\"} -> {\"label\": \"Week 4\", \"chip\": \"One-line point\"}; hero quote text \"You said the point before the story.\" -> \"You put the point in one sentence.\"; alt (and images.tab_image_4.alt) \"...up from 3.1 in week 1, after the point came first in week 4.\" -> \"...up from 3.1 in week 1, after he began stating the point in a single sentence in week 4.\"; re-render (hubctl images), then CMS item update + verify-live."
+  }
+ ],
+ "notes": [
+  {
+   "field": "image_brief.tabs[2].panel",
+   "severity": "note",
+   "class": "image-polish",
+   "rule": "CONTENT_DEFECTS #28",
+   "finding": "'C is close on application' while the table shows C leading application at 4.0 (A 3.7, B 3.9)."
+  },
+  {
+   "field": "faq items 4, 7, 10",
+   "severity": "note",
+   "class": "other",
+   "rule": "HUB_RULES 5",
+   "finding": "Forced cross-hub links (tryout, presentation, interview evaluation forms); being fixed separately."
+  }
+ ],
+ "checked": "5 listeners, averages 4.2/4.4/2.8/3.8 from checks, 3 application comments, 9 classmates 3.6 vs professor 3, 7 members/3 candidates B 4.6 text/A 4.3 delivery, 10-week series 3.1 to 4.2 agree across copy, mockups, chip_adds and alts; only the week-4 change label diverges. No law, health or finance claims. Live H1 matches; no raw HTML."
+}

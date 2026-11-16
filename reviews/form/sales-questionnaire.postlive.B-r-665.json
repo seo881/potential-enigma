@@ -1,0 +1,30 @@
+{
+ "blocking": [
+  {
+   "field": "image_brief.cover (cover image, share image and cover_image alt)",
+   "severity": "blocking",
+   "class": "image-contradiction",
+   "rule": "CONTENT_DEFECTS #25",
+   "criterion": "images",
+   "finding": "Tab 1 copy, mockup and tab image send Pelloway Home Care's answers to one person: 'Prospects with 50 or more staff go to Feodora Halcott, an account executive, in Slack' / hero 'Slack: Feodora Halcott'. The cover and share image draw a shared channel '# Orvanta sales' with an 'Assign' button, and the cover alt says the answers 'arrive in Orvanta's sales channel, ready to open or assign to a rep'. Recipient and channel differ from the copy.",
+   "fix": "In specs/form/sales-questionnaire.json image_brief.cover replace {\"kind\": \"action\", \"channel\": \"Orvanta sales\", \"title\": \"New questionnaire\", \"sub\": \"Pelloway Home Care\", \"primary\": \"Open\", \"secondary\": \"Assign\", ...} with {\"kind\": \"action\", \"dm\": true, \"channel\": \"Feodora Halcott\", \"title\": \"New questionnaire\", \"sub\": \"Pelloway Home Care, 140 staff\", \"primary\": \"Open\", \"secondary\": \"Later\", \"alt\": \"Sales questionnaire template in use: Pelloway Home Care's answers reach account executive Feodora Halcott as a Slack direct message, ready to open.\"}; mirror the new alt into images.cover_image.alt; re-render (hubctl images) so cover.svg and og.webp both change, then CMS item update + verify-live."
+  }
+ ],
+ "notes": [
+  {
+   "field": "faq item 4",
+   "severity": "note",
+   "class": "other",
+   "rule": "HUB_RULES 5",
+   "finding": "Forced cross-hub link: 'a boo basket questionnaire can skip the allergy questions' is off-topic for a sales questionnaire (being fixed separately)."
+  },
+  {
+   "field": "feature_2",
+   "severity": "note",
+   "class": "craft",
+   "rule": "HUB_RULES 2a",
+   "finding": "'such as 50 staff ... Anyone above it' while tab 1 uses '50 or more'; example, not the tab's rule, so not a mismatch."
+  }
+ ],
+ "checked": "140 caregivers/50+ rule/March, six redesign questions, 3 bedrooms/2021 roof/June 30/email evening before, 9+6+5+3=23 agree across copy, mockups, chip_adds and tab alts; only the cover diverges. BANT matches builtin.com source. Live H1 matches; no raw HTML."
+}
