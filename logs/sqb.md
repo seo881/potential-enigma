@@ -159,3 +159,8 @@ verify-live PASS.
 
 ## 2026-11-16 batch of 19 (B-ship-20)
 create before a76570c (first attempt failed on a transient image import; makeup+sports images had to be committed first), publish before 1ee25f39; verify-live 19/19 PASS.
+- 2026-11-16 09:29 UTC: api-create: 1 draft(s) created via Data API at dd1d060 (wellness-quiz); read back 144 items; verified 1, mismatched 0; before childedits/2026-11-16/sqb.api-create.dd1d060.before.json; rollback childedits/2026-11-16/sqb.api-create.dd1d060.20261116T092753Z.rollback.json
+- 2026-11-16 09:31 UTC: api-publish: 1 item(s) item-published via Data API (no site publish); errors 0; not published 0; before childedits/2026-11-16/sqb.api-publish.6a0ebf91.before.json; rollback childedits/2026-11-16/sqb.api-publish.6a0ebf91.20261116T093126Z.rollback.json
+
+## 2026-11-16 wellness-quiz (B-ship-20)
+create before dd1d060, publish before 6a0ebf91; verify-live PASS.
