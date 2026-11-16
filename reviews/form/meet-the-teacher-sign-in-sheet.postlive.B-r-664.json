@@ -1,0 +1,28 @@
+{
+ "blocking": [
+  {
+   "field": "image_brief.cover",
+   "severity": "blocking",
+   "class": "image-contradiction",
+   "rule": "CONTENT_DEFECTS #20, #24 (Divit 2026-11-05/11-16: channel mismatches always blocking)",
+   "finding": "The cover and OG card draw the welcome-packet notice as a chat direct message (cover kind 'action' with \"dm\": true and no icon, so the engine draws the message-square chat bubble, plus a Reply button), while every copy field says it is an email: feature_3 'Emails your welcome packet link', tab_content_1 'gets her welcome packet by email at 8:00 AM', meta 'emails absent families the packet', faq item 5 'the app can email that packet', tab 1 image hero (mail icon), and the cover's own alt 'an email to the Trevenna family'.",
+   "fix": "In image_brief.cover add \"icon\": \"mail\" (pipeline/engine.py line 358 uses d.get('icon') before the dm default), keeping channel 'To: Trevenna family', title 'Your welcome packet', sub 'From Ardith Pilkvist'; optionally secondary 'Reply' -> 'Save'. Re-render (hubctl images), then re-upload the cover and OG images by CMS item update and run verify-live."
+  }
+ ],
+ "notes": [
+  {
+   "field": "tab_title_3",
+   "severity": "note",
+   "class": "craft",
+   "rule": "HUB_RULES 2a",
+   "finding": "'A third room parent request turns into a chaperone spot': tab 3 copy never says Mirabel asked for room parent; the image implies it. Reader has to infer."
+  },
+  {
+   "field": "faq items 4, 7, 10",
+   "severity": "note",
+   "class": "other",
+   "rule": "K4 cross-hub links",
+   "finding": "Forced cross-topic links ('karaoke sign up sheet at a bar', 'parent conference forms for teachers', 'seo client questionnaire' in lowercase). Being fixed separately."
+  }
+ ]
+}
