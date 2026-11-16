@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-710",
    "note": ""
+  },
+  {
+   "t": "2026-11-16 08:46 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-647",
+   "note": "rubric 10/10 by B-r-647; 8 notes"
   }
  ],
  "pipeline": "r15",
@@ -983,5 +990,345 @@
  ],
  "writers": [
   "B-w-710"
- ]
+ ],
+ "review": {
+  "by": "B-r-647",
+  "date": "2026-11-16 08:46 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a JHA Form Template Crews Sign Before Work\", title and hero (125 chars) cover the whole job: steps, hazards, controls, crew signatures; how-to description one sentence, 121 chars."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is printable JHA sheets plus OSHA 3071; page gives the same grid (feature 1, FAQ 7 field list, FAQ 10 hazard wording) and the OSHA method (how-to 1-4, FAQ 3-6) as a phone app."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: \"engineering, administrative, or PPE\", \"PPE only\", \"tear-off\", \"lockout step before any burner work\"; no hub boilerplate."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Every paragraph opens on a full sentence: \"Each job step gets its own row\", \"Grinding castings at Brisbourne Castings starts with lifting a 15-pound casting.\""
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No tacked-on endings; longest sentences 33 and 36 words (FAQ 1, 8) are under the 40 limit. Minor items recorded as notes."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain verbs and concrete details: \"a table beside the grinder\", \"9 of 12 have signed\", \"Each of the 3 still unsigned gets an email every morning\"."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "All 8 OSHA statements match their OSHA 3071 quotes in domain_sources (definition, priority jobs, watch the job, involve employees, engineering most effective, PPE when not feasible, review after injury, train after revision). Emergent claims map to prompt-build, e-signature-capture, alerts, database-owned, code-export, no-caps, free-start. Numbers agree across fields: 4 crew/4 signatures/5 steps, 15-pound casting step 1, step 3 lifting cartons, 9 of 12 and 3 unsigned. No safety guarantees anywhere."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Own page: PPE-only flag, injury-triggered review and re-sign on new version are JHA-specific; no sibling primaries in headings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, each answered in the first sentence; one hub link in item 2 (\"AI form builder\"), no forced sibling links; no brands or file formats in questions; Emergent lines in items 7, 8, 9 are claims-backed."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy word for word: \"4 of 4 signed\"/\"5 steps\"/\"Set roof anchors\"; \"Dropped 15-pound casting\", \"Steel-toe boots\" PPE only, email to Isaura Velloway, \"Table beside grinder\"; \"Step 3: lifting cartons from the floor\" email to Stellan Quaye; \"9 of 12 signed\", \"3 still unsigned\", \"On Radomir's dashboard\". Alt text agrees; JHA cased correctly in every image."
+   }
+  },
+  "findings": [
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 3",
+    "quote": "After that, work through jobs with the most recorded injuries and any job you changed recently.",
+    "issue": "Ordering advice not in domain_sources; OSHA 3071's priority list names jobs with the highest injury or illness rates first, so 'start with severe, then most injuries' is the writer's sequence, not OSHA's. Same unsourced sequencing in howto_step_1_des: \"start with the worst three\".",
+    "fix": "If ever reworked, present OSHA's priority jobs as a set without implying an order, or source the order.",
+    "severity": "note"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "howto_step_2_des",
+    "quote": "Aim for 5 to 8 steps per job.",
+    "issue": "A step count with no source; also sits beside the tab 2 image, whose casting JHA shows 3 steps. Other unsourced recommendations of the same class: FAQ 6 \"such as once a year\"; FAQ 10 the four-part hazard description.",
+    "fix": "Drop the number or source it; keep it a recommendation.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2a (Consistent)",
+    "field": "feature_3",
+    "quote": "a job still missing a signature shows as not ready",
+    "issue": "The status label is cased \"Not ready\" in FAQ 8 (\"hold the job at Not ready\") and \"Ready\" in tab_content_1, mockup and howto_step_7, but lowercase here.",
+    "fix": "\"shows as Not ready\".",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "images",
+    "rule": "HUB_RULES 2b",
+    "field": "tab_content_4",
+    "quote": "maintenance manager Radomir Thornbeck",
+    "issue": "The Larkmoor manager shares a surname with Thornbeck Roofing (tab 1), so a reader may link two unrelated stories.",
+    "fix": "Give Radomir a different surname next time the page is touched (copy, alt, mockup).",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "tab_content_1",
+    "quote": "No tear-off until each of the 4 crew signs",
+    "issue": "\"each of the 4 crew signs\" reads awkwardly; \"crew\" as a count noun.",
+    "fix": "\"No tear-off until all 4 on the crew sign\".",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "features_subheading",
+    "quote": "the next crew opens the same steps and signatures.",
+    "issue": "Each crew signs for itself (feature 3, feature 4); \"opens the same ... signatures\" is vague about what the next crew sees.",
+    "fix": "\"the next crew opens the same steps and adds its own signatures.\"",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "HUB_RULES 5",
+    "field": "image_brief tab 2",
+    "quote": "\"columns\": [\"Step\", \"Hazard\", \"Control\", \"Status\"]",
+    "issue": "The column headed Status holds control types (Engineering, Admin) in rows 2-3 and a status chip (PPE only) in row 1.",
+    "fix": "Head the column \"Type\".",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "images",
+    "rule": "HUB_RULES 8",
+    "field": "image_brief tab 3 hero",
+    "quote": "Back strain reported",
+    "issue": "Not a healthcare page, so health-in-transit does not apply, but the email card carries the worker's injury; keeping the nature of the injury in the app is the safer pattern.",
+    "fix": "\"Injury report filed\" in the email card.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 3",
+   "issue": "Ordering advice not in domain_sources; OSHA 3071's priority list names jobs with the highest injury or illness rates first, so 'start with severe, then most injuries' is the writer's sequence, not OSHA's. Same unsourced sequencing in howto_step_1_des: \"start with the worst three\".",
+   "fix": "If ever reworked, present OSHA's priority jobs as a set without implying an order, or source the order.",
+   "by": "B-r-647",
+   "via": "review",
+   "date": "2026-11-16 08:46 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "howto_step_2_des",
+   "issue": "A step count with no source; also sits beside the tab 2 image, whose casting JHA shows 3 steps. Other unsourced recommendations of the same class: FAQ 6 \"such as once a year\"; FAQ 10 the four-part hazard description.",
+   "fix": "Drop the number or source it; keep it a recommendation.",
+   "by": "B-r-647",
+   "via": "review",
+   "date": "2026-11-16 08:46 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2a (Consistent)",
+   "field": "feature_3",
+   "issue": "The status label is cased \"Not ready\" in FAQ 8 (\"hold the job at Not ready\") and \"Ready\" in tab_content_1, mockup and howto_step_7, but lowercase here.",
+   "fix": "\"shows as Not ready\".",
+   "by": "B-r-647",
+   "via": "review",
+   "date": "2026-11-16 08:46 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 2b",
+   "field": "tab_content_4",
+   "issue": "The Larkmoor manager shares a surname with Thornbeck Roofing (tab 1), so a reader may link two unrelated stories.",
+   "fix": "Give Radomir a different surname next time the page is touched (copy, alt, mockup).",
+   "by": "B-r-647",
+   "via": "review",
+   "date": "2026-11-16 08:46 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_1",
+   "issue": "\"each of the 4 crew signs\" reads awkwardly; \"crew\" as a count noun.",
+   "fix": "\"No tear-off until all 4 on the crew sign\".",
+   "by": "B-r-647",
+   "via": "review",
+   "date": "2026-11-16 08:46 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "features_subheading",
+   "issue": "Each crew signs for itself (feature 3, feature 4); \"opens the same ... signatures\" is vague about what the next crew sees.",
+   "fix": "\"the next crew opens the same steps and adds its own signatures.\"",
+   "by": "B-r-647",
+   "via": "review",
+   "date": "2026-11-16 08:46 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 5",
+   "field": "image_brief tab 2",
+   "issue": "The column headed Status holds control types (Engineering, Admin) in rows 2-3 and a status chip (PPE only) in row 1.",
+   "fix": "Head the column \"Type\".",
+   "by": "B-r-647",
+   "via": "review",
+   "date": "2026-11-16 08:46 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "HUB_RULES 8",
+   "field": "image_brief tab 3 hero",
+   "issue": "Not a healthcare page, so health-in-transit does not apply, but the email card carries the worker's injury; keeping the nature of the injury in the app is the safer pattern.",
+   "fix": "\"Injury report filed\" in the email card.",
+   "by": "B-r-647",
+   "via": "review",
+   "date": "2026-11-16 08:46 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "2b0899cb686f77b5",
+   "alt:share_image": "341e0812eb01d4a3",
+   "alt:tab_image_1": "902d69eaec45ed6d",
+   "alt:tab_image_2": "788a8108bde8d5c5",
+   "alt:tab_image_3": "812c0d940158b3ec",
+   "alt:tab_image_4": "9089bec8f50dbd44",
+   "breadcrumb": "df683f32b6548bb9",
+   "chip_adds": "9767b6f0bfd098d6",
+   "explore_cta": "c64966d722913daf",
+   "faq": "4fb3e3ca91532d0b",
+   "feature_1": "8a7e49a26c308d50",
+   "feature_2": "98a3757f9242db64",
+   "feature_3": "5a1acc97ca803f56",
+   "feature_4": "28d4fdfded5fcec6",
+   "feature_5": "f9cdbdfa010e31f7",
+   "feature_6": "6b8b0fc80389b4b5",
+   "features_heading": "4bc288d32c0b36bb",
+   "features_subheading": "0c20dc88da887570",
+   "h1": "cf0ec6ad927b4b2f",
+   "hero_description": "70f882a9d7f100eb",
+   "hero_prompt": "e71a65de7ae4b176",
+   "howto_description": "843b17faa1e6c589",
+   "howto_step_1_des": "1264619c7f1e1274",
+   "howto_step_1_title": "d38112320e0d73d6",
+   "howto_step_2_des": "8cd879907f72b8e4",
+   "howto_step_2_title": "8418f72919c83852",
+   "howto_step_3_des": "5d7d8a3909a70ac9",
+   "howto_step_3_title": "2ff9f92f2874db78",
+   "howto_step_4_des": "8228438f50960560",
+   "howto_step_4_title": "eb9bd0bfaca2dd75",
+   "howto_step_5_des": "c39ea89f7b89d408",
+   "howto_step_5_title": "309e399421aba00e",
+   "howto_step_6_des": "9ad5eb2a12e2c3ff",
+   "howto_step_6_title": "4c48645167f085e3",
+   "howto_step_7_des": "fe1a202d94d82b62",
+   "howto_step_7_title": "e8b2fbad0159dfd5",
+   "howto_title": "2dc21eb001a448cc",
+   "meta_description": "9cc9c3c0355679bb",
+   "meta_title": "c407ae15478af93f",
+   "mockup": "8b6621295a2828e6",
+   "product_name": "29a8bb0d6605f6bf",
+   "prompt_chip_1": "808fa785b923b814",
+   "prompt_chip_2": "43ad20dbee23fb7f",
+   "prompt_chip_3": "16b2ee887408960f",
+   "prompt_chip_4": "46a03d3d8bba1213",
+   "slug": "643af5613dcbbab0",
+   "tab_content_1": "f6c0744386780293",
+   "tab_content_2": "7dc037128084d573",
+   "tab_content_3": "49cb83709ea0fa8f",
+   "tab_content_4": "b03c336a03e46102",
+   "tab_label_1": "568c09b45783f2db",
+   "tab_label_2": "b52588d93a75e9b8",
+   "tab_label_3": "fdcd9efd54158915",
+   "tab_label_4": "2c45b64658edc5fc",
+   "usecase_heading": "d4cb09657c16f723",
+   "why_description": "b5438828bbc2e32f",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "2583230ce4472eac"
+  },
+  "all": "8b2db369ec4d5156",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "2b0899cb686f77b5",
+   "alt:share_image": "341e0812eb01d4a3",
+   "alt:tab_image_1": "902d69eaec45ed6d",
+   "alt:tab_image_2": "788a8108bde8d5c5",
+   "alt:tab_image_3": "812c0d940158b3ec",
+   "alt:tab_image_4": "9089bec8f50dbd44",
+   "breadcrumb": "df683f32b6548bb9",
+   "chip_adds": "9767b6f0bfd098d6",
+   "explore_cta": "c64966d722913daf",
+   "faq": "4fb3e3ca91532d0b",
+   "feature_1": "8a7e49a26c308d50",
+   "feature_2": "98a3757f9242db64",
+   "feature_3": "5a1acc97ca803f56",
+   "feature_4": "28d4fdfded5fcec6",
+   "feature_5": "f9cdbdfa010e31f7",
+   "feature_6": "6b8b0fc80389b4b5",
+   "features_heading": "4bc288d32c0b36bb",
+   "features_subheading": "0c20dc88da887570",
+   "h1": "cf0ec6ad927b4b2f",
+   "hero_description": "70f882a9d7f100eb",
+   "hero_prompt": "e71a65de7ae4b176",
+   "howto_description": "843b17faa1e6c589",
+   "howto_step_1_des": "1264619c7f1e1274",
+   "howto_step_1_title": "d38112320e0d73d6",
+   "howto_step_2_des": "8cd879907f72b8e4",
+   "howto_step_2_title": "8418f72919c83852",
+   "howto_step_3_des": "5d7d8a3909a70ac9",
+   "howto_step_3_title": "2ff9f92f2874db78",
+   "howto_step_4_des": "8228438f50960560",
+   "howto_step_4_title": "eb9bd0bfaca2dd75",
+   "howto_step_5_des": "c39ea89f7b89d408",
+   "howto_step_5_title": "309e399421aba00e",
+   "howto_step_6_des": "9ad5eb2a12e2c3ff",
+   "howto_step_6_title": "4c48645167f085e3",
+   "howto_step_7_des": "fe1a202d94d82b62",
+   "howto_step_7_title": "e8b2fbad0159dfd5",
+   "howto_title": "2dc21eb001a448cc",
+   "meta_description": "9cc9c3c0355679bb",
+   "meta_title": "c407ae15478af93f",
+   "mockup": "8b6621295a2828e6",
+   "product_name": "29a8bb0d6605f6bf",
+   "prompt_chip_1": "808fa785b923b814",
+   "prompt_chip_2": "43ad20dbee23fb7f",
+   "prompt_chip_3": "16b2ee887408960f",
+   "prompt_chip_4": "46a03d3d8bba1213",
+   "slug": "643af5613dcbbab0",
+   "tab_content_1": "f6c0744386780293",
+   "tab_content_2": "7dc037128084d573",
+   "tab_content_3": "49cb83709ea0fa8f",
+   "tab_content_4": "b03c336a03e46102",
+   "tab_label_1": "568c09b45783f2db",
+   "tab_label_2": "b52588d93a75e9b8",
+   "tab_label_3": "fdcd9efd54158915",
+   "tab_label_4": "2c45b64658edc5fc",
+   "usecase_heading": "d4cb09657c16f723",
+   "why_description": "b5438828bbc2e32f",
+   "why_table": "a1ff8dc7ca25ca34",
+   "why_title": "2583230ce4472eac"
+  },
+  "all": "8b2db369ec4d5156",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
