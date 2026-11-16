@@ -148,6 +148,13 @@
    "via": "api-publish",
    "by": null,
    "note": "live page verified"
+  },
+  {
+   "t": "2026-11-16 09:55 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-fix-43",
+   "note": ""
   }
  ],
  "pipeline": "r15",
@@ -744,35 +751,49 @@
        "type": "heading",
        "title": "Where are the falls?",
        "size": 22,
-       "sub": "Question 5 of 8"
+       "sub": "Question 5 of 8, on the map"
       },
       {
-       "type": "list",
+       "type": "table",
+       "columns": [
+        "Tapped",
+        "Tries"
+       ],
+       "widths": [
+        0.68,
+        0.32
+       ],
        "row_h": 60,
-       "items": [
-        {
-         "initials": "A",
-         "name": "Creek Loop"
-        },
-        {
-         "initials": "B",
-         "name": "Ridge Loop"
-        },
-        {
-         "initials": "C",
-         "name": "Meadow Loop"
-        },
-        {
-         "initials": "D",
-         "name": "Lake Loop"
-        }
+       "bad": 1,
+       "num_cols": [
+        1
+       ],
+       "rows": [
+        [
+         "Creek Loop",
+         "548"
+        ],
+        [
+         "Ridge Loop",
+         [
+          "460",
+          "bad"
+         ]
+        ],
+        [
+         "Meadow Loop",
+         "74"
+        ],
+        [
+         "Lake Loop",
+         "38"
+        ]
        ]
       },
       {
-       "type": "button",
-       "label": "Next",
-       "full": true,
-       "h": 52
+       "type": "meta",
+       "icon": "map-pin",
+       "text": "Tapped on the trail map"
       }
      ]
     },
@@ -1030,6 +1051,17 @@
     "where": 2
    },
    {
+    "expr": "548 + 460 + 74 + 38 == 1120",
+    "shows": [
+     "548",
+     "460",
+     "74",
+     "38",
+     "1,120 tries this fall"
+    ],
+    "where": 3
+   },
+   {
     "expr": "round(460 / 1120 * 100) == 41",
     "shows": [
      "Ridge Loop: 460 picks",
@@ -1160,7 +1192,7 @@
    "blocking": 1,
    "notes": 1,
    "file": "reviews/sqb/map.postlive.B-r-671.json",
-   "fixed": false
+   "fixed": true
   }
  },
  "pending_links": []
