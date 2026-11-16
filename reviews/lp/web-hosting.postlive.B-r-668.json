@@ -1,0 +1,36 @@
+{
+ "blocking": [
+  {
+   "class": "image-contradiction",
+   "severity": "blocking",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief.tabs[3].main (tab 4, VPS Region Waitlist)",
+   "quote": "\"fields\", \"items\": [[\"Name\", \"Tess Prenwick\"], [\"Email\", \"tess@example.com\"], [\"Server size\", \"2 vCPU\"]]",
+   "finding": "Form field set differs between copy and image. tab_content_4 says 'the waitlist page asks for an email and a server size' and the mockup says 'Ask for an email and a server size', but the drawn form adds a Name field.",
+   "fix": "In image_brief.tabs[3].main.blocks[1].items remove [\"Name\", \"Tess Prenwick\"], leaving [[\"Email\", \"tess@example.com\"], [\"Server size\", \"2 vCPU\"]] (if the balance gate then fails, add a non-field line such as {\"type\": \"meta\", \"icon\": \"map-pin\", \"text\": \"Toronto region, opening soon\"} rather than a form field). Re-render (hubctl images), then CMS image update + verify-live."
+  }
+ ],
+ "notes": [
+  {
+   "class": "craft",
+   "severity": "note",
+   "rule": "HUB_RULES 2a",
+   "field": "chip_adds[0]",
+   "finding": "'storage, sites and email accounts' lacks the serial comma used elsewhere on the page."
+  },
+  {
+   "class": "soft-quantifier",
+   "severity": "note",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "features_subheading, faq item 5",
+   "finding": "'Buyers open several hosts side by side', 'Buyers compare hosts on the second-year cost too': general claims about buyers, no named third party."
+  },
+  {
+   "class": "image-polish",
+   "severity": "note",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief.tabs[0].hero",
+   "finding": "'Saved at 2:14 PM' uses PM; the hub copy style elsewhere is 'p.m.'."
+  }
+ ]
+}

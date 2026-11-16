@@ -1,0 +1,22 @@
+{
+ "blocking": [
+  {
+   "class": "image-contradiction",
+   "severity": "blocking",
+   "rule": "CONTENT_DEFECTS #20, #25",
+   "field": "image_brief.tabs[2].hero (tab 3, Named Accounts)",
+   "quote": "\"kind\": \"message\", \"channel\": \"DM: Ada Quarrier\"",
+   "finding": "Tab 3 copy sends a direct Slack message to one person ('Ada Quarrier, who owns the account, gets a Slack message'; mockup 'send the account owner a Slack message'), but the message hero always draws a '#' channel icon, so the rendered image shows '# DM: Ada Quarrier' (a DM drawn as a channel, Divit ruling: blocking).",
+   "fix": "Replace image_brief.tabs[2].hero with {\"kind\": \"card\", \"h\": 280, \"icon\": \"message-square\", \"tone\": \"acc\", \"title\": \"Slack DM to Ada Quarrier\", \"blocks\": [{\"type\": \"title\", \"title\": \"Call booked: Delmar Freight\", \"sub\": \"Fleet size: 220 trucks\"}, {\"type\": \"text\", \"text\": \"Booked from its own page\", \"size\": 16, \"color\": \"muted\"}]}; in tabs[2].story change {\"image\": \"DM: Ada Quarrier\"} to {\"image\": \"Slack DM to Ada Quarrier\"} and {\"image\": \"Call booked: Delmar\"} to {\"image\": \"Call booked: Delmar Freight\"}. Re-render (hubctl images), then CMS image update + verify-live."
+  }
+ ],
+ "notes": [
+  {
+   "class": "craft",
+   "severity": "note",
+   "rule": "HUB_RULES 2a",
+   "field": "tab_content_2, tab_content_3, faq item 2",
+   "finding": "33-38 word sentences (QC Q2); two ', so' endings (howto_step_4_des, faq item 6)."
+  }
+ ]
+}
