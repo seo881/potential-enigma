@@ -1,0 +1,37 @@
+{
+ "blocking": [
+  {
+   "class": "untrue",
+   "field": "quiz.q6.source.quote",
+   "severity": "blocking",
+   "rule": "HUB_RULES 8",
+   "finding": "Q6 answer (Zamenhof created Esperanto in 1887) is not stated by its quoted source span: 'it is intended to be a universal second language for international communication' names neither Zamenhof, 1887 nor Esperanto (QC Z4). The same Wikipedia article's lead does state it.",
+   "fix": "quiz.q6 source quote: replace 'it is intended to be a universal second language for international communication' with 'Created by L. L. Zamenhof in 1887 as 'the International Language', it is intended to be a universal second language for international communication' (en.wikipedia.org/wiki/Esperanto lead, checked 2026-11-16)."
+  },
+  {
+   "class": "wrong-fact",
+   "field": "mockup (festivalBooth)",
+   "severity": "blocking",
+   "rule": "CONTENT_DEFECTS #10",
+   "finding": "Sort order differs between mockup and image: mockup festivalBooth says 'show me the share of visitors who named each language correctly, lowest first'; the tab 3 image prompt says 'lowest last' and the table is drawn highest first (Spanish 88% down to Icelandic 15%), and the alt says 'Icelandic last'.",
+   "fix": "mockup festivalBooth: replace 'named each language correctly, lowest first.' with 'named each language correctly, lowest last.'"
+  },
+  {
+   "class": "image-contradiction",
+   "field": "image_brief.tabs[2].hero (meta 'Lowest of 4 languages')",
+   "severity": "blocking",
+   "rule": "CONTENT_DEFECTS #20",
+   "finding": "The hero says 'Lowest of 4 languages', but tab_content_3 says 'Each of the 10 questions showed a sentence' with 4 options per question ('the Spanish sentence', 'the Icelandic one'): 4 is the option count, not the number of languages at the booth. The KPI beside it also reads '10 questions, 4 options each'.",
+   "fix": "image_brief.tabs[2].hero meta: replace 'Lowest of 4 languages' with 'Lowest share at the booth'; re-render (hubctl images)."
+  }
+ ],
+ "notes": [
+  {
+   "class": "other",
+   "field": "faq item 4",
+   "severity": "note",
+   "rule": "HUB_RULES 5",
+   "finding": "Forced cross-hub link 'love language quiz' (being fixed separately)."
+  }
+ ]
+}

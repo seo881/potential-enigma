@@ -1,0 +1,28 @@
+{
+ "blocking": [
+  {
+   "class": "image-contradiction",
+   "field": "image_brief.tabs[0].hero.channel",
+   "severity": "blocking",
+   "rule": "CONTENT_DEFECTS #20",
+   "finding": "Tab 1 hero is drawn as a Slack-style '# plant-news' channel post with 'Send huddle script'. tab_content_1 names no channel: the result is that 'Supervisors now get a huddle script with the week's news every Monday' (people, not a channel), and the mockup plantNewsReach asks only for bars by channel.",
+   "fix": "image_brief.tabs[0].hero: delete \"channel\": \"plant-news\" (plain card, keep icon megaphone) and add a block {\"type\": \"meta\", \"icon\": \"users\", \"text\": \"Huddle script to supervisors, Mondays\"}; then re-render (hubctl images)."
+  }
+ ],
+ "notes": [
+  {
+   "class": "image-polish",
+   "field": "image_brief.tabs[0].main",
+   "severity": "note",
+   "rule": "CONTENT_DEFECTS #28",
+   "finding": "Bars (142/45/9 = 196, plant floor only) sit under the heading 'Ridlow Foods, 3 plants' next to the 268-answered KPI; a 'Plant floor, 196 answers' sub would make the base clear."
+  },
+  {
+   "class": "soft-quantifier",
+   "field": "faq item 5",
+   "severity": "note",
+   "rule": "CONTENT_DEFECTS #7",
+   "finding": "'Staff are far more willing to say a manager never passes news on when the answer cannot be traced' is a general claim with no source."
+  }
+ ]
+}
