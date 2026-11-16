@@ -117,6 +117,13 @@
    "via": null,
    "by": "B-w-786",
    "note": ""
+  },
+  {
+   "t": "2026-11-16 09:11 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-650",
+   "note": "[images | CONTENT_DEFECTS #20] image_brief.tabs[1].hero.blocks[0].sub: The copy, mockup ('send them an alert with only the submission number, the limit passed, and a link') and alt all say the alert carries only those three things; the drawn alert also carries the risk description, and does not show"
   }
  ],
  "pipeline": "r15",
@@ -984,5 +991,215 @@
  },
  "writers": [
   "B-w-786"
- ]
+ ],
+ "review": {
+  "by": "B-r-650",
+  "date": "2026-11-16 09:11 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Underwriting Automation Around Your Own Guidelines'; hero 'applies your own referral rules to every submission and records who decided each file'."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition, intake, authority limits, renewals, merchant review, how-to, NAIC human-involvement point."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'5 years of loss runs', 'up to $5,000,000 in total insured value', 'commercial auto policies renewing in March'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Tabs open on events: 'Corrowdale Insurance Brokers emails Tollemarsh Underwriting Managers a liability submission'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; two ', so' endings (QC Q5 P2)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain and specific."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "NAIC quotes match domain_sources: 'the extent to which humans are involved in the final decision-making process', adopted December 4, 2023. Numbers agree: 14+98=112, $8,400,000 over $5,000,000, $310,000 over $250,000."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Underwriting desks distinct from the insurance-claims page, which FAQ 4 links naturally ('If claims is the bigger job for your team, start with insurance claims automation')."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, hub link in item 2, one natural sibling link in item 4, decisions left to underwriters and compliance."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 2 hero alert to Ileana Thackwell shows 'S-7031 referred / Ileana Thackwell / Cold-storage warehouse / Number, limit passed, link', while tab_content_2 says 'Her alert carries only the submission number, the limit passed, and a link' (same in mockup and alt)."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief.tabs[1].hero.blocks[0].sub",
+    "quote": "\"sub\": \"Cold-storage warehouse\" inside the 'S-7031 referred' alert",
+    "issue": "The copy, mockup ('send them an alert with only the submission number, the limit passed, and a link') and alt all say the alert carries only those three things; the drawn alert also carries the risk description, and does not show the limit passed itself. Checked the other alerts: tab 1 broker email, tab 3 in-app card, tab 4 email ('Application number and link only') and cover ('Over the $5,000,000 limit') agree with their copy; this is the only instance.",
+    "fix": "Set hero.blocks[0].sub to 'Over the $5,000,000 limit' (the limit passed) and move 'Cold-storage warehouse' into the main table (for example the S-7031 row or a sub line on the queue) so the story pair 'a cold-storage warehouse' still links outside the alert. Re-render with hubctl images.",
+    "severity": "blocking"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2",
+    "field": "feature_1 / mockup.brokerSubmissions",
+    "quote": "insured name, locations, revenue and prior carrier / the insured name, locations and revenue",
+    "issue": "Lists without the serial comma used everywhere else on the page (QC H3 check-by-hand).",
+    "fix": "'locations, revenue, and prior carrier'; 'locations, and revenue'.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2",
+   "field": "feature_1 / mockup.brokerSubmissions",
+   "issue": "Lists without the serial comma used everywhere else on the page (QC H3 check-by-hand).",
+   "fix": "'locations, revenue, and prior carrier'; 'locations, and revenue'.",
+   "by": "B-r-650",
+   "via": "review",
+   "date": "2026-11-16 09:11 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "354e7a5c7dd3fe1c",
+   "alt:share_image": "cff56868f79f9b8d",
+   "alt:tab_image_1": "e001c1b2c8c18478",
+   "alt:tab_image_2": "008c9992f7c47c3d",
+   "alt:tab_image_3": "f12e61480238e124",
+   "alt:tab_image_4": "22644ba86e7a74af",
+   "breadcrumb": "736af2ce36fb3b63",
+   "chip_adds": "677da5bc66ab2d9d",
+   "explore_cta": "293547564cbe1944",
+   "faq": "d6cfa7b994236eb2",
+   "feature_1": "f1c256dd967a26d0",
+   "feature_2": "a00239852b7ab0df",
+   "feature_3": "980205e85d7dbe0c",
+   "feature_4": "021dba271c649a37",
+   "feature_5": "0d8113f14da6dc8d",
+   "feature_6": "6c3b1fad82e1a205",
+   "features_heading": "0b33bd5f7682c80a",
+   "features_subheading": "a6cc5f499c811876",
+   "h1": "a11808cd0a58a647",
+   "hero_description": "957d8c5bb347ae74",
+   "hero_prompt": "ce87b2be8592228c",
+   "howto_description": "94a5e03d89b19606",
+   "howto_step_1_des": "24c2c04a269828b3",
+   "howto_step_1_title": "0f487efd565df7ca",
+   "howto_step_2_des": "69f688e6a3834534",
+   "howto_step_2_title": "18077b54d09b9344",
+   "howto_step_3_des": "1992d5d0205823c2",
+   "howto_step_3_title": "1aed3b05fe036c99",
+   "howto_step_4_des": "4e96652388c878f0",
+   "howto_step_4_title": "b4b5597452813733",
+   "howto_step_5_des": "777195fe62cf7845",
+   "howto_step_5_title": "fccbe404eaa35638",
+   "howto_step_6_des": "741e17db6eb0fba0",
+   "howto_step_6_title": "20cf6caab6ca66ed",
+   "howto_step_7_des": "a12060ce89ab836b",
+   "howto_step_7_title": "16f33546c4aba930",
+   "howto_title": "abb00c2347fe97ef",
+   "meta_description": "0fd0d0d2e83a2adc",
+   "meta_title": "24be33db0aad52fc",
+   "mockup": "5474e5ae0e30d857",
+   "product_name": "1813394ebf6ebe30",
+   "prompt_chip_1": "d6df4d5d74cbabe0",
+   "prompt_chip_2": "cf26760c2c1cddd3",
+   "prompt_chip_3": "08e03a5fa1efcde7",
+   "prompt_chip_4": "b93ca2f7d64bcaaf",
+   "slug": "ec30c219d7c20fb7",
+   "tab_content_1": "c9c42619353e0001",
+   "tab_content_2": "dbf0177ec96e78f1",
+   "tab_content_3": "63554ed0a0663196",
+   "tab_content_4": "ce4a69f69c808916",
+   "tab_label_1": "0d39f4106ff10daa",
+   "tab_label_2": "cf26760c2c1cddd3",
+   "tab_label_3": "08e03a5fa1efcde7",
+   "tab_label_4": "b93ca2f7d64bcaaf",
+   "usecase_heading": "48a458c7655c74f1",
+   "why_description": "c675677abc50eacb",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "42a39fe154ff72b3"
+  },
+  "all": "f8fa0b5ae806f8dd",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "354e7a5c7dd3fe1c",
+   "alt:share_image": "cff56868f79f9b8d",
+   "alt:tab_image_1": "e001c1b2c8c18478",
+   "alt:tab_image_2": "008c9992f7c47c3d",
+   "alt:tab_image_3": "f12e61480238e124",
+   "alt:tab_image_4": "22644ba86e7a74af",
+   "breadcrumb": "736af2ce36fb3b63",
+   "chip_adds": "677da5bc66ab2d9d",
+   "explore_cta": "293547564cbe1944",
+   "faq": "d6cfa7b994236eb2",
+   "feature_1": "f1c256dd967a26d0",
+   "feature_2": "a00239852b7ab0df",
+   "feature_3": "980205e85d7dbe0c",
+   "feature_4": "021dba271c649a37",
+   "feature_5": "0d8113f14da6dc8d",
+   "feature_6": "6c3b1fad82e1a205",
+   "features_heading": "0b33bd5f7682c80a",
+   "features_subheading": "a6cc5f499c811876",
+   "h1": "a11808cd0a58a647",
+   "hero_description": "957d8c5bb347ae74",
+   "hero_prompt": "ce87b2be8592228c",
+   "howto_description": "94a5e03d89b19606",
+   "howto_step_1_des": "24c2c04a269828b3",
+   "howto_step_1_title": "0f487efd565df7ca",
+   "howto_step_2_des": "69f688e6a3834534",
+   "howto_step_2_title": "18077b54d09b9344",
+   "howto_step_3_des": "1992d5d0205823c2",
+   "howto_step_3_title": "1aed3b05fe036c99",
+   "howto_step_4_des": "4e96652388c878f0",
+   "howto_step_4_title": "b4b5597452813733",
+   "howto_step_5_des": "777195fe62cf7845",
+   "howto_step_5_title": "fccbe404eaa35638",
+   "howto_step_6_des": "741e17db6eb0fba0",
+   "howto_step_6_title": "20cf6caab6ca66ed",
+   "howto_step_7_des": "a12060ce89ab836b",
+   "howto_step_7_title": "16f33546c4aba930",
+   "howto_title": "abb00c2347fe97ef",
+   "meta_description": "0fd0d0d2e83a2adc",
+   "meta_title": "24be33db0aad52fc",
+   "mockup": "5474e5ae0e30d857",
+   "product_name": "1813394ebf6ebe30",
+   "prompt_chip_1": "d6df4d5d74cbabe0",
+   "prompt_chip_2": "cf26760c2c1cddd3",
+   "prompt_chip_3": "08e03a5fa1efcde7",
+   "prompt_chip_4": "b93ca2f7d64bcaaf",
+   "slug": "ec30c219d7c20fb7",
+   "tab_content_1": "c9c42619353e0001",
+   "tab_content_2": "dbf0177ec96e78f1",
+   "tab_content_3": "63554ed0a0663196",
+   "tab_content_4": "ce4a69f69c808916",
+   "tab_label_1": "0d39f4106ff10daa",
+   "tab_label_2": "cf26760c2c1cddd3",
+   "tab_label_3": "08e03a5fa1efcde7",
+   "tab_label_4": "b93ca2f7d64bcaaf",
+   "usecase_heading": "48a458c7655c74f1",
+   "why_description": "c675677abc50eacb",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "42a39fe154ff72b3"
+  },
+  "all": "f8fa0b5ae806f8dd",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

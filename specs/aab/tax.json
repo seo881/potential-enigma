@@ -129,6 +129,13 @@
    "via": null,
    "by": "B-w-785",
    "note": ""
+  },
+  {
+   "t": "2026-11-16 09:11 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-650",
+   "note": "[images | CONTENT_DEFECTS #25] image_brief.tabs[2].hero: The copy, mockup, alt and cover all say a Slack direct message to partner Halvard Nyquist; the tab 3 hero renders it as a '#' channel post. Only instance on the page (cover already has dm: true). -> Add \"dm\": true to image_brief.tabs[2].hero ("
   }
  ],
  "pipeline": "r15",
@@ -924,5 +931,255 @@
  ],
  "writers": [
   "B-w-785"
- ]
+ ],
+ "review": {
+  "by": "B-r-650",
+  "date": "2026-11-16 09:11 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Tax Automation That Chases the Paperwork' and hero 'collects client documents and W-9s, chases what is missing, and tracks every return by status' state the whole job."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Defines tax automation up top (AI Overview, PAA 'What is tax automation?'), four practice workflows, seven-step how-to, comparison table."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Firm vocabulary throughout: 'two 1099-INT forms, and a Form 1098', 'engagement letter', 'Friday's payment run', 'March 31 cutoff'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Tabs open on actions: 'Hollisbrook Tax Group builds each client's checklist', 'Ottaway Joinery pays 12 contractors'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; 13 'A, B, and C' lists noted (QC Q8)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain, specific, no hype: 'The app itself files nothing.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "IRS quotes match domain_sources exactly: 'Use Form W-9 to provide your correct Taxpayer Identification Number (TIN)...' and 'Use Form 1099-NEC to report nonemployee compensation'. Numbers agree: 52+18+61+9=140, 86-79=7, 11 of 12 W-9s."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Tax-practice stories (checklists from prior-year returns, W-9 holds, engagement letters) not shared with finance or bookkeeping siblings."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, hub link in item 2, no advice: 'Tax decisions stay with your accountant.'"
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 3 hero draws the Slack direct message to partner Halvard Nyquist as a channel '# Halvard Nyquist', while tab_content_3 says 'reach partner Halvard Nyquist in one Slack direct message' and the alt and mockup say direct message."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #25",
+    "field": "image_brief.tabs[2].hero",
+    "quote": "\"kind\": \"message\", \"channel\": \"Halvard Nyquist\" (rendered as '# Halvard Nyquist')",
+    "issue": "The copy, mockup, alt and cover all say a Slack direct message to partner Halvard Nyquist; the tab 3 hero renders it as a '#' channel post. Only instance on the page (cover already has dm: true).",
+    "fix": "Add \"dm\": true to image_brief.tabs[2].hero (as the cover does) so it renders as a direct message to Halvard Nyquist, then re-render with hubctl images.",
+    "severity": "blocking"
+   },
+   {
+    "class": "unsourced-advice",
+    "criterion": "faq",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 10",
+    "quote": "Then add a short question about anything new this year, like a new job, a home sale, or a new dependent.",
+    "issue": "Recommendation on what a firm should collect, close to tax guidance; it is tempered by 'Have your accountant review the list'.",
+    "fix": "Acceptable as is; optionally frame it as the firm's own intake question.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "page",
+    "quote": "sent, signed, or overdue / such as W-2s, 1099s, and a Form 1098 / a new job, a home sale, or a new dependent",
+    "issue": "13 'A, B, and C' lists on the page (QC Q8), which reads templated.",
+    "fix": "Turn a few triplets into pairs or one concrete item in a later pass.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "tab_content_3",
+    "quote": "reach partner Halvard Nyquist in one Slack direct message with the client names",
+    "issue": "Client names of a tax firm travel in Slack; no figures or IDs, so not a defect, but the page elsewhere keeps alerts to an item and a link.",
+    "fix": "Optional: a count and a link to the list in the app.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 10",
+   "issue": "Recommendation on what a firm should collect, close to tax guidance; it is tempered by 'Have your accountant review the list'.",
+   "fix": "Acceptable as is; optionally frame it as the firm's own intake question.",
+   "by": "B-r-650",
+   "via": "review",
+   "date": "2026-11-16 09:11 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "page",
+   "issue": "13 'A, B, and C' lists on the page (QC Q8), which reads templated.",
+   "fix": "Turn a few triplets into pairs or one concrete item in a later pass.",
+   "by": "B-r-650",
+   "via": "review",
+   "date": "2026-11-16 09:11 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "tab_content_3",
+   "issue": "Client names of a tax firm travel in Slack; no figures or IDs, so not a defect, but the page elsewhere keeps alerts to an item and a link.",
+   "fix": "Optional: a count and a link to the list in the app.",
+   "by": "B-r-650",
+   "via": "review",
+   "date": "2026-11-16 09:11 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "e5d64cc196016594",
+   "alt:share_image": "b5e7c9bad832727e",
+   "alt:tab_image_1": "539a3ff16e9862f4",
+   "alt:tab_image_2": "831d72f71d8222f0",
+   "alt:tab_image_3": "fd39852e04c34ff2",
+   "alt:tab_image_4": "cff09e8e25a55c4f",
+   "breadcrumb": "033fb58b4a7a0c65",
+   "chip_adds": "a50774580f68f13c",
+   "explore_cta": "2a4cedfefc6dbda7",
+   "faq": "1a0f2993e9b4f098",
+   "feature_1": "90863338d590e15c",
+   "feature_2": "4ddfccfbe8b44125",
+   "feature_3": "9ed5415fa4348f00",
+   "feature_4": "53b17394d57b0cf1",
+   "feature_5": "5382819d64b6669b",
+   "feature_6": "5cb71eded54db340",
+   "features_heading": "347c16f9b6fcb95d",
+   "features_subheading": "2018479ae22e3fa5",
+   "h1": "40c3fc284bf36ea7",
+   "hero_description": "81927a7c014d72e5",
+   "hero_prompt": "d2fcf680c3a133e6",
+   "howto_description": "7d24e78c7fd2e363",
+   "howto_step_1_des": "c8691c67b9c57638",
+   "howto_step_1_title": "41cc5c8b5d094e66",
+   "howto_step_2_des": "da82ac728c12a5ab",
+   "howto_step_2_title": "1a735beb4403a77e",
+   "howto_step_3_des": "64db11b8f24f74f9",
+   "howto_step_3_title": "6e68f90711dd8f6c",
+   "howto_step_4_des": "f8722d476030e07b",
+   "howto_step_4_title": "da7d02c2ddf28287",
+   "howto_step_5_des": "66dcf62a0bf8ff25",
+   "howto_step_5_title": "8b890d5bc72d199a",
+   "howto_step_6_des": "34dd5d1f4260f762",
+   "howto_step_6_title": "af7f53c8059c8b15",
+   "howto_step_7_des": "df114b297feb40f6",
+   "howto_step_7_title": "5897d9c4aac162ec",
+   "howto_title": "4e472a128060ffff",
+   "meta_description": "3e914b0c25f10562",
+   "meta_title": "9b51733ca759739d",
+   "mockup": "e10fdb99efd96c9d",
+   "product_name": "89eebe60f077c62b",
+   "prompt_chip_1": "2cb7e7cf2aeb338c",
+   "prompt_chip_2": "99e32c0684d3dcee",
+   "prompt_chip_3": "6aa3672552a5f868",
+   "prompt_chip_4": "d57c8ae18b9e5dd7",
+   "slug": "1ffc0406b9891fcd",
+   "tab_content_1": "7458e85e846828bd",
+   "tab_content_2": "cc47a37fa46cf4af",
+   "tab_content_3": "277f021e85d2272b",
+   "tab_content_4": "80933bdeb139ce7d",
+   "tab_label_1": "9ed15968e7ef1648",
+   "tab_label_2": "a79745a64bb31d2c",
+   "tab_label_3": "27ac4f4cd5719d66",
+   "tab_label_4": "a98ce41f98e62bc7",
+   "usecase_heading": "2bcbd94ee8524012",
+   "why_description": "cf1d0edb2d16b7bb",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "6350ea4012d892eb"
+  },
+  "all": "c8e5e1d2d10c7bcc",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "e5d64cc196016594",
+   "alt:share_image": "b5e7c9bad832727e",
+   "alt:tab_image_1": "539a3ff16e9862f4",
+   "alt:tab_image_2": "831d72f71d8222f0",
+   "alt:tab_image_3": "fd39852e04c34ff2",
+   "alt:tab_image_4": "cff09e8e25a55c4f",
+   "breadcrumb": "033fb58b4a7a0c65",
+   "chip_adds": "a50774580f68f13c",
+   "explore_cta": "2a4cedfefc6dbda7",
+   "faq": "1a0f2993e9b4f098",
+   "feature_1": "90863338d590e15c",
+   "feature_2": "4ddfccfbe8b44125",
+   "feature_3": "9ed5415fa4348f00",
+   "feature_4": "53b17394d57b0cf1",
+   "feature_5": "5382819d64b6669b",
+   "feature_6": "5cb71eded54db340",
+   "features_heading": "347c16f9b6fcb95d",
+   "features_subheading": "2018479ae22e3fa5",
+   "h1": "40c3fc284bf36ea7",
+   "hero_description": "81927a7c014d72e5",
+   "hero_prompt": "d2fcf680c3a133e6",
+   "howto_description": "7d24e78c7fd2e363",
+   "howto_step_1_des": "c8691c67b9c57638",
+   "howto_step_1_title": "41cc5c8b5d094e66",
+   "howto_step_2_des": "da82ac728c12a5ab",
+   "howto_step_2_title": "1a735beb4403a77e",
+   "howto_step_3_des": "64db11b8f24f74f9",
+   "howto_step_3_title": "6e68f90711dd8f6c",
+   "howto_step_4_des": "f8722d476030e07b",
+   "howto_step_4_title": "da7d02c2ddf28287",
+   "howto_step_5_des": "66dcf62a0bf8ff25",
+   "howto_step_5_title": "8b890d5bc72d199a",
+   "howto_step_6_des": "34dd5d1f4260f762",
+   "howto_step_6_title": "af7f53c8059c8b15",
+   "howto_step_7_des": "df114b297feb40f6",
+   "howto_step_7_title": "5897d9c4aac162ec",
+   "howto_title": "4e472a128060ffff",
+   "meta_description": "3e914b0c25f10562",
+   "meta_title": "9b51733ca759739d",
+   "mockup": "e10fdb99efd96c9d",
+   "product_name": "89eebe60f077c62b",
+   "prompt_chip_1": "2cb7e7cf2aeb338c",
+   "prompt_chip_2": "99e32c0684d3dcee",
+   "prompt_chip_3": "6aa3672552a5f868",
+   "prompt_chip_4": "d57c8ae18b9e5dd7",
+   "slug": "1ffc0406b9891fcd",
+   "tab_content_1": "7458e85e846828bd",
+   "tab_content_2": "cc47a37fa46cf4af",
+   "tab_content_3": "277f021e85d2272b",
+   "tab_content_4": "80933bdeb139ce7d",
+   "tab_label_1": "9ed15968e7ef1648",
+   "tab_label_2": "a79745a64bb31d2c",
+   "tab_label_3": "27ac4f4cd5719d66",
+   "tab_label_4": "a98ce41f98e62bc7",
+   "usecase_heading": "2bcbd94ee8524012",
+   "why_description": "cf1d0edb2d16b7bb",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "6350ea4012d892eb"
+  },
+  "all": "c8e5e1d2d10c7bcc",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }

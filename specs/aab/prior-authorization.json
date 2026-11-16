@@ -115,6 +115,13 @@
    "via": null,
    "by": "B-w-784",
    "note": ""
+  },
+  {
+   "t": "2026-11-16 09:11 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-650",
+   "note": "[images | CONTENT_DEFECTS #20] image_brief.tabs[3].hero.blocks[2]: The email alert is drawn carrying attachments, so the request's clinical documents (office note, imaging report from tab 1) appear to travel by email. The copy says the email holds only a link and the documents sit on the renewal tas"
   }
  ],
  "pipeline": "r15",
@@ -981,5 +988,235 @@
  ],
  "writers": [
   "B-w-784"
- ]
+ ],
+ "review": {
+  "by": "B-r-650",
+  "date": "2026-11-16 09:11 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build Prior Authorization Automation for Your Practice'; hero 'tracks each request, flags late decisions, and starts renewals before visits run out'."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Definition (HealthCare.gov), checklists, letter reading, late decisions, renewals, how-to, and the PAA on processing time answered with the CMS windows."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "'Request PA-4127 for a lumbar MRI', '12 approved physical therapy visits, a 90-day approval window'."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Tabs open on events: 'Pelrose's decision on PA-4098 arrives as a scanned letter.'"
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "No blocking craft defect; two long FAQ sentences (QC Q2 P2)."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Specific and plain; 'QHP issuers on the FFEs' noted."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "CMS-0057-F quotes match domain_sources: 72 hours expedited / seven calendar days standard, MA among impacted payers, specific denial reason beginning 2026, Prior Authorization API beginning January 1, 2027. Tuesday + 3 business days = Friday; 12-10=2; 3 of 4 attached."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Practice-side payer workflow, no overlap with sibling primaries."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, hub link in item 2, clinical calls left to staff: 'Whether to appeal or resubmit stays a decision for your clinicians and billing staff.'"
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "Tab 4 hero is an email to Ophira that reads 'Renew PA-4098 / 2 of 12 visits left / [paperclip] Documents attached', drawing the patient's clinical documents as travelling by email; tab_content_4 says 'The app emails Ophira a link to the task, and the renewal starts with the first request's documents attached' (on the task, in the app)."
+   }
+  },
+  "findings": [
+   {
+    "class": "health-in-transit",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief.tabs[3].hero.blocks[2]",
+    "quote": "Email to Ophira ... Documents attached (paperclip icon)",
+    "issue": "The email alert is drawn carrying attachments, so the request's clinical documents (office note, imaging report from tab 1) appear to travel by email. The copy says the email holds only a link and the documents sit on the renewal task in the app; FAQ 6 and how-to step 5 say alerts carry an identifier and a link only. Checked every other alert on the page: tab 1 and tab 2 heroes are in-app cards, tab 3 hero and cover say 'No patient details in this message'; this is the only instance.",
+    "fix": "Change that line to 'Link to the renewal task' (icon link) and, if the story pair needs it, show 'Documents attached' on the renewal task in the main table or the mini card ('Renewal task: documents copied'), not in the email. Update the story pair 'the first request's documents attached' to point at the in-app element and the alt to 'emails the coordinator a link to the task, which carries the first request's documents'. Re-render with hubctl images.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "faq item 3 / tab_content_3",
+    "quote": "Set the wait to the payer's own decision window. / Calderbank gives each standard request 3 business days before a coordinator follows up ... The app marks PA-4133 late",
+    "issue": "FAQ 3 says to set the wait to the payer's window (seven calendar days for standard requests at impacted payers), while tab 3 marks a standard request 'late' after 3 business days. Pelrose's window is never given, so it is not a contradiction of fact, but a reader may see two rules.",
+    "fix": "Optional: call tab 3's rule a follow-up check ('flags it for follow-up') or frame FAQ 3 as when to follow up versus when a decision is overdue.",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "faq item 3",
+    "quote": "impacted payers (excluding QHP issuers on the FFEs)",
+    "issue": "Regulatory acronyms left unexpanded for a practice-manager reader (QC Q2 also flags the 36-word sentence).",
+    "fix": "Optional: split the sentence and expand or drop the parenthetical.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "faq item 3 / tab_content_3",
+   "issue": "FAQ 3 says to set the wait to the payer's window (seven calendar days for standard requests at impacted payers), while tab 3 marks a standard request 'late' after 3 business days. Pelrose's window is never given, so it is not a contradiction of fact, but a reader may see two rules.",
+   "fix": "Optional: call tab 3's rule a follow-up check ('flags it for follow-up') or frame FAQ 3 as when to follow up versus when a decision is overdue.",
+   "by": "B-r-650",
+   "via": "review",
+   "date": "2026-11-16 09:11 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "faq item 3",
+   "issue": "Regulatory acronyms left unexpanded for a practice-manager reader (QC Q2 also flags the 36-word sentence).",
+   "fix": "Optional: split the sentence and expand or drop the parenthetical.",
+   "by": "B-r-650",
+   "via": "review",
+   "date": "2026-11-16 09:11 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "902985ef1f3c4687",
+   "alt:share_image": "79b449541a7f3c4c",
+   "alt:tab_image_1": "591adfb2c71fb1b0",
+   "alt:tab_image_2": "cb7104e4214c0bf8",
+   "alt:tab_image_3": "f37fc2fadf0e9498",
+   "alt:tab_image_4": "26271fee72743355",
+   "breadcrumb": "759d6d5fcb6368f0",
+   "chip_adds": "0024c2ac278ba5e0",
+   "explore_cta": "98f8f631b70894f6",
+   "faq": "a3fd7e4058595c14",
+   "feature_1": "abcba4d926031138",
+   "feature_2": "89f29990ea5165bf",
+   "feature_3": "f8e4dc85a504b85a",
+   "feature_4": "4a2e08fe8e160fdd",
+   "feature_5": "d1663fcac19adcb3",
+   "feature_6": "4de01da120908401",
+   "features_heading": "ab978e5b5a27f8a7",
+   "features_subheading": "a39d0616a4215110",
+   "h1": "0fe376dc15640d21",
+   "hero_description": "7eb1a23586ef9702",
+   "hero_prompt": "dbf9f8c882bdecc9",
+   "howto_description": "5af64377f542fd9e",
+   "howto_step_1_des": "4624582797cc4efb",
+   "howto_step_1_title": "5655672850465b35",
+   "howto_step_2_des": "459f09df0ac23778",
+   "howto_step_2_title": "2c6a12f05edffa96",
+   "howto_step_3_des": "a5248fd1ddf4f549",
+   "howto_step_3_title": "fba2f2ed41873743",
+   "howto_step_4_des": "6f5679917246ae0e",
+   "howto_step_4_title": "af8d0538373f78e4",
+   "howto_step_5_des": "a716f085176d7c2a",
+   "howto_step_5_title": "a7dad6245686d663",
+   "howto_step_6_des": "6001c6485e3fd35b",
+   "howto_step_6_title": "e50fb965efb533ac",
+   "howto_step_7_des": "b31248c550283909",
+   "howto_step_7_title": "7a80d24f3f52a0cc",
+   "howto_title": "65712453dbfbf111",
+   "meta_description": "51f19a288f6746d7",
+   "meta_title": "09dead16329292a8",
+   "mockup": "a42d06f4dc29d097",
+   "product_name": "ebcb61e48ff97322",
+   "prompt_chip_1": "9e2c9f68f1e2e5da",
+   "prompt_chip_2": "0e50372c009c1043",
+   "prompt_chip_3": "8d351204a6c8454f",
+   "prompt_chip_4": "4bd79d67aee3d1f3",
+   "slug": "07e43e61a7ccf1af",
+   "tab_content_1": "b160c23055af6cce",
+   "tab_content_2": "26965a5832ec85ef",
+   "tab_content_3": "39830015b2093435",
+   "tab_content_4": "3b9a9f0d67fe2333",
+   "tab_label_1": "9e2c9f68f1e2e5da",
+   "tab_label_2": "f9e54ebae80b091d",
+   "tab_label_3": "8d351204a6c8454f",
+   "tab_label_4": "82b257677c4683be",
+   "usecase_heading": "59deb68e7fd0551f",
+   "why_description": "d139e4b296561e5e",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "a3ed6c6d5df430ac"
+  },
+  "all": "0b669516a284fc37",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "902985ef1f3c4687",
+   "alt:share_image": "79b449541a7f3c4c",
+   "alt:tab_image_1": "591adfb2c71fb1b0",
+   "alt:tab_image_2": "cb7104e4214c0bf8",
+   "alt:tab_image_3": "f37fc2fadf0e9498",
+   "alt:tab_image_4": "26271fee72743355",
+   "breadcrumb": "759d6d5fcb6368f0",
+   "chip_adds": "0024c2ac278ba5e0",
+   "explore_cta": "98f8f631b70894f6",
+   "faq": "a3fd7e4058595c14",
+   "feature_1": "abcba4d926031138",
+   "feature_2": "89f29990ea5165bf",
+   "feature_3": "f8e4dc85a504b85a",
+   "feature_4": "4a2e08fe8e160fdd",
+   "feature_5": "d1663fcac19adcb3",
+   "feature_6": "4de01da120908401",
+   "features_heading": "ab978e5b5a27f8a7",
+   "features_subheading": "a39d0616a4215110",
+   "h1": "0fe376dc15640d21",
+   "hero_description": "7eb1a23586ef9702",
+   "hero_prompt": "dbf9f8c882bdecc9",
+   "howto_description": "5af64377f542fd9e",
+   "howto_step_1_des": "4624582797cc4efb",
+   "howto_step_1_title": "5655672850465b35",
+   "howto_step_2_des": "459f09df0ac23778",
+   "howto_step_2_title": "2c6a12f05edffa96",
+   "howto_step_3_des": "a5248fd1ddf4f549",
+   "howto_step_3_title": "fba2f2ed41873743",
+   "howto_step_4_des": "6f5679917246ae0e",
+   "howto_step_4_title": "af8d0538373f78e4",
+   "howto_step_5_des": "a716f085176d7c2a",
+   "howto_step_5_title": "a7dad6245686d663",
+   "howto_step_6_des": "6001c6485e3fd35b",
+   "howto_step_6_title": "e50fb965efb533ac",
+   "howto_step_7_des": "b31248c550283909",
+   "howto_step_7_title": "7a80d24f3f52a0cc",
+   "howto_title": "65712453dbfbf111",
+   "meta_description": "51f19a288f6746d7",
+   "meta_title": "09dead16329292a8",
+   "mockup": "a42d06f4dc29d097",
+   "product_name": "ebcb61e48ff97322",
+   "prompt_chip_1": "9e2c9f68f1e2e5da",
+   "prompt_chip_2": "0e50372c009c1043",
+   "prompt_chip_3": "8d351204a6c8454f",
+   "prompt_chip_4": "4bd79d67aee3d1f3",
+   "slug": "07e43e61a7ccf1af",
+   "tab_content_1": "b160c23055af6cce",
+   "tab_content_2": "26965a5832ec85ef",
+   "tab_content_3": "39830015b2093435",
+   "tab_content_4": "3b9a9f0d67fe2333",
+   "tab_label_1": "9e2c9f68f1e2e5da",
+   "tab_label_2": "f9e54ebae80b091d",
+   "tab_label_3": "8d351204a6c8454f",
+   "tab_label_4": "82b257677c4683be",
+   "usecase_heading": "59deb68e7fd0551f",
+   "why_description": "d139e4b296561e5e",
+   "why_table": "f3261a7513a4d087",
+   "why_title": "a3ed6c6d5df430ac"
+  },
+  "all": "0b669516a284fc37",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
