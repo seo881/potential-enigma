@@ -1,0 +1,32 @@
+{
+ "blocking": [
+  {
+   "class": "wrong-fact",
+   "criterion": "truth",
+   "severity": "blocking",
+   "rule": "CONTENT_DEFECTS #10 (cross-field mismatch; Divit 2026-11-05)",
+   "field": "mockup (teaBrandSignUps)",
+   "quote": "create a referral link and a discount code for it",
+   "finding": "Label mismatch for the tab 1 code: the mockup has the app create a 'discount code', while the image hero labels BRACKLINTEA 'Referral code', the image_brief alt says 'approved with the referral code BRACKLINTEA' and the image prompt says 'send each one a referral code'. Tab copy says 'its referral link and the code BRACKLINTEA'.",
+   "fix": "mockup, teaBrandSignUps: replace 'create a referral link and a discount code for it' with 'create a referral link and a referral code for it'. CMS item update of the mockup field only; no re-render needed."
+  }
+ ],
+ "notes": [
+  {
+   "class": "image-polish",
+   "severity": "note",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief tab 4 / tab_content_4",
+   "quote": "Three return an error this week",
+   "finding": "Image lists one of the three as 'Product page removed' rather than an error status; the mockup covers it ('or lands on a removed product page'). Reads fine, could be tighter."
+  },
+  {
+   "class": "unsourced-advice",
+   "severity": "note",
+   "rule": "HUB_RULES 8",
+   "field": "feature_4",
+   "quote": "keeps payment records ready for 1099 reporting",
+   "finding": "W-9/1099 framing is the approved tax-records claim; spec.domain_sources is empty. A source for the W-9/1099 relationship (IRS) would harden it."
+  }
+ ]
+}

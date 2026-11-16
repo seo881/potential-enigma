@@ -1,0 +1,40 @@
+{
+ "blocking": [
+  {
+   "class": "wrong-fact",
+   "criterion": "truth",
+   "severity": "blocking",
+   "rule": "CONTENT_DEFECTS #10 (field lists differ between fields; Divit 2026-11-05)",
+   "field": "tab_content_1",
+   "quote": "The app reads INV-4471 from Ferrovale Timber into vendor, total, and due date.",
+   "finding": "Tab 1 copy lists 3 extracted fields; the invoiceInbox mockup ('pull the vendor, invoice number, total, and due date') and the tab 1 image ('Extracted fields': Vendor, Invoice no., Total, Due date) list 4.",
+   "fix": "tab_content_1: replace 'Supplier invoices reach Hollinshead Joinery as attachments in the accounts inbox. The app reads INV-4471 from Ferrovale Timber into vendor, total, and due date.' with 'Supplier invoices reach Hollinshead Joinery's accounts inbox as attachments. The app reads INV-4471 from Ferrovale Timber into vendor, invoice number, total, and due date.' Re-run QC T1 (tab_body was 2379 of 2434px); if it overflows, also change 'Once she confirms it, the $2,840.00 bill is saved.' to 'Once she confirms, the $2,840.00 bill is saved.'"
+  }
+ ],
+ "notes": [
+  {
+   "class": "image-polish",
+   "severity": "note",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief tab 1",
+   "quote": "Due date: Net 30",
+   "finding": "The extracted due-date value is drawn as terms ('Net 30'), not a date."
+  },
+  {
+   "class": "image-polish",
+   "severity": "note",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief tab 3",
+   "quote": "Day 7: marked cold",
+   "finding": "Heading chip reads as a current status while Q-2318 shows 'Follow-up sent'; the rule is already in the mini card."
+  },
+  {
+   "class": "soft-quantifier",
+   "severity": "note",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq item 3",
+   "quote": "In most cases",
+   "finding": "Sourced verbatim from Google's help page; fine."
+  }
+ ]
+}

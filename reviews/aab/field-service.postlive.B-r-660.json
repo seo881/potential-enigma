@@ -1,0 +1,32 @@
+{
+ "blocking": [
+  {
+   "class": "untrue",
+   "criterion": "truth",
+   "severity": "blocking",
+   "rule": "CONTENT_DEFECTS #14 (page contradicts itself); Divit 2026-11-16 recipient mismatch ruling",
+   "field": "feature_1",
+   "quote": "The app offers it to the closest technician certified for that work, then the next one, until someone accepts.",
+   "finding": "Feature 1 says an unaccepted call cascades to the next technician until someone accepts. Tab 1 copy ('he has 15 minutes to accept before the dispatcher hears about it in Slack'), the jobDispatch mockup ('then send the call to our dispatcher in Slack if nobody has taken it'), chip_adds 1 and the tab 1 image ('Rule: no answer in 15 minutes -> dispatcher in Slack', 'Dispatcher alert: Only if nobody accepts') all send it to the dispatcher. Recipient after a missed offer differs between fields.",
+   "fix": "feature_1 body: replace 'The app offers it to the closest technician certified for that work, then the next one, until someone accepts.' with 'The app offers it to the closest certified technician and alerts the dispatcher in Slack if nobody accepts.' (body 178 chars, inside the 165-182 band; keep the <h3> as is). CMS item update + verify-live."
+  }
+ ],
+ "notes": [
+  {
+   "class": "soft-quantifier",
+   "severity": "note",
+   "rule": "CONTENT_DEFECTS #7",
+   "field": "faq item 5",
+   "quote": "some customers would rather pick another day than wait",
+   "finding": "Soft quantifier in advice."
+  },
+  {
+   "class": "image-polish",
+   "severity": "note",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief tab 4",
+   "quote": "Fall tune-ups",
+   "finding": "Image subtitle names the season; copy does not. Not contradictory."
+  }
+ ]
+}
