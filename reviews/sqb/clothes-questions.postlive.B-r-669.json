@@ -1,0 +1,40 @@
+{
+ "blocking": [
+  {
+   "class": "image-contradiction",
+   "severity": "blocking",
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief.tabs[1].main.blocks (phone ballot)",
+   "quote": "Rust / Oat / Moss, then Vote",
+   "finding": "The color-vote phone ballot offers 3 swatches (Rust, Oat, Moss) followed by the Vote button, while the tally beside it counts 4 colors (Navy 26), and the mockup ('show each of the 4 colors as a photo swatch'), chip_adds[1] ('a vote on 4 colors') and howto_step_4 ('Show 4 color swatches') all say 4. Option count differs between image and copy.",
+   "fix": "image_brief.tabs[1].main.blocks: add {\"type\": \"item\", \"title\": \"Navy\", \"sub\": \"Photo swatch\", \"swatch\": \"#1E3A5F\"} after the Moss item (shrink heading/button if the fit gate needs it); re-render with hubctl images and update the tab 2 image in the CMS item."
+  },
+  {
+   "class": "wrong-fact",
+   "severity": "blocking",
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #10",
+   "field": "feature_5; chip_adds[0]",
+   "quote": "feature_5: \"Set a line, such as half the buyers of one style saying it runs small.\" chip_adds[0]: \"flag any style where more than half the buyers say it runs small.\"",
+   "finding": "The alert threshold is defined on buyers in feature_5 and chip_adds[0], but on replies in the mockup ('more than half the replies say the waist runs small'), howto_step_7 ('more than half the replies'), the tab 1 image ('Over half the replies', '64 of 118') and tab 1 copy. On the page's own example the two rules disagree: 64 is over half of 118 replies but not half of 260 buyers, so the buyers rule would not fire.",
+   "fix": "feature_5: replace \"such as half the buyers of one style saying it runs small\" with \"such as more than half the replies on one style saying it runs small\". chip_adds[0]: replace \"more than half the buyers say it runs small\" with \"more than half the replies say it runs small\". Re-run qc (T1/L widths) and update the CMS item."
+  }
+ ],
+ "notes": [
+  {
+   "class": "other",
+   "severity": "note",
+   "rule": "CONTENT_DEFECTS #14",
+   "field": "tab_title_2",
+   "finding": "'rust takes 88 and the fall run' while tab_content_2 says oat also gets a short run; reads as rust taking the whole run."
+  },
+  {
+   "class": "image-polish",
+   "severity": "note",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief.tabs[2]",
+   "finding": "School uniform image posts to a #parent-council Slack channel the copy never mentions; an addition, not a contradiction."
+  }
+ ]
+}

@@ -1,0 +1,30 @@
+{
+ "blocking": [
+  {
+   "class": "image-contradiction",
+   "severity": "blocking",
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief.tabs[3].kpi.sub; image_brief.tabs[3].main.blocks[1].items[0].label",
+   "quote": "kpi.sub: \"9 tasks, 3 routes\"; bar label: \"Wait\"",
+   "finding": "tab_content_4 says Quorrel Valley Transit could afford one change on Route 7 and showed riders '3 versions of the route'; the image KPI says '3 routes', which tells a different study (three routes compared). The bar chart labels the 31-point attribute 'Wait' while the hero card in the same image and the copy call it 'Frequency', so the image names the same attribute two ways.",
+   "fix": "image_brief.tabs[3].kpi.sub: replace \"9 tasks, 3 routes\" with \"9 tasks, 3 versions each\"; story entry image \"9 tasks, 3 routes\" -> \"9 tasks, 3 versions each\". image_brief.tabs[3].main.blocks[1].items[0].label: replace \"Wait\" with \"Frequency\". Re-render with hubctl images and update the tab 4 image in the CMS item."
+  }
+ ],
+ "notes": [
+  {
+   "class": "image-polish",
+   "severity": "note",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief.tabs[2]",
+   "finding": "Phone task lists 'PTO, 401(k) match' but the two package cards show only remote days and match; PTO level not drawn."
+  },
+  {
+   "class": "craft",
+   "severity": "note",
+   "rule": "HUB_RULES 2a",
+   "field": "chip_adds[0], chip_adds[2]",
+   "finding": "'$16, $20 or $24' and 'remote days, PTO and match' drop the serial comma the rest of the page uses."
+  }
+ ]
+}

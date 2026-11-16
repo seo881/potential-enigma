@@ -1,0 +1,30 @@
+{
+ "blocking": [
+  {
+   "class": "image-contradiction",
+   "severity": "blocking",
+   "criterion": "truth",
+   "rule": "CONTENT_DEFECTS #20",
+   "field": "image_brief.tabs[1].main.blocks[0].right_sub",
+   "quote": "2 of 5 / fixed first visit",
+   "finding": "The service-survey image prints 'fixed first visit' under Vesna Saarinen's 2 of 5 score, which reads as her answering that the problem was fixed on the first visit. tab_content_2 says she scored it 2 'because the brake squeal came back' and the manager booked a recheck, so the drawn answer contradicts the copy's outcome.",
+   "fix": "image_brief.tabs[1].main.blocks[0].right_sub: replace \"fixed first visit\" with \"Not fixed first visit\" (or \"Overall rating\"); re-render with hubctl images and update the tab 2 image in the CMS item."
+  }
+ ],
+ "notes": [
+  {
+   "class": "image-polish",
+   "severity": "note",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief.tabs[1].main.blocks[2].items[2].sub",
+   "finding": "'Repair order and comment attached' omits the customer's name that feature_4 and the mockup list; a subset, not a contradiction."
+  },
+  {
+   "class": "other",
+   "severity": "note",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "finding": "Cross-hub links ('game survey questions', 'audience survey questions', 'learning and development survey questions') read forced; being fixed separately."
+  }
+ ]
+}
