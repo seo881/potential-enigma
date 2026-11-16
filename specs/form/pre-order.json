@@ -181,6 +181,20 @@
    "via": "reconcile",
    "by": "B-c-2",
    "note": "reconciled with status/live.json 2026-11-13 (Divit): live since 2026-10-23; was 'reviewed'"
+  },
+  {
+   "t": "2026-11-16 10:43 UTC",
+   "state": "published",
+   "via": "verify-live",
+   "by": null,
+   "note": "live page verified"
+  },
+  {
+   "t": "2026-11-16 12:07 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "B-s-901",
+   "note": "slim review: [slim | CONTENT_DEFECTS #20] tab_content_2: image-contradiction: the changed tab copy now caps the run per knife, but the tab 2 image (image_brief.tabs[1]) still caps it per order: rule 'Every order after 300 → waitlist for the next run', prompt 'Confirm the first 300 knife orders and w"
   }
  ],
  "pipeline": "r15",
@@ -1275,7 +1289,7 @@
    "breadcrumb": "f29021eef832db82",
    "chip_adds": "193f1deede636360",
    "explore_cta": "a60718ebb5cf1f51",
-   "faq": "9bd43a205e44b223",
+   "faq": "a80b9cc1eb928b90",
    "feature_1": "362b7888204bd8a2",
    "feature_2": "9664ada9aef68b0e",
    "feature_3": "fb3ac9df122a5388",
@@ -1313,7 +1327,7 @@
    "prompt_chip_4": "cf9c48ac85355cc6",
    "slug": "7e1dba41b64fee9b",
    "tab_content_1": "5d3066e18a7b87f6",
-   "tab_content_2": "4569e464c5110484",
+   "tab_content_2": "99d3d48f28fdf83f",
    "tab_content_3": "fa5e3e6a49765507",
    "tab_content_4": "49d9523d7307ec7b",
    "tab_label_1": "ff56e3a9c33d44fc",
@@ -1325,7 +1339,7 @@
    "why_table": "69bbebc34ee68c70",
    "why_title": "248a4aa48a3d618a"
   },
-  "all": "7af75c7010622e3a",
+  "all": "bb194edd981c370b",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  },
  "approval": {
@@ -1383,6 +1397,28 @@
    "blocking": 0,
    "notes": 0,
    "findings": []
+  },
+  {
+   "by": "B-s-901",
+   "date": "2026-11-16 12:07 UTC",
+   "fields": [
+    "faq",
+    "tab_content_2"
+   ],
+   "baseline": "review_hash",
+   "blocking": 1,
+   "notes": 0,
+   "findings": [
+    {
+     "criterion": "slim",
+     "field": "tab_content_2",
+     "quote": "Every knife after 300 goes to the waitlist for the next run. Winnifred Mabe places order 301 and becomes spot 1.",
+     "fix": "Use one unit in copy and image. Either: image rule 'Every knife after 300 → waitlist for the next run', prompt 'Confirm the first 300 knives and waitlist every knife after that', update the story pair, re-render tab 2; and in the copy state one knife per order, e.g. 'Each order is one knife, and every knife after 300 goes to the waitlist for the next run. Winnifred Mabe places order 301 and becomes spot 1.' Or revert the copy to 'Every order after 300' and add 'one knife per order' so it agrees with FAQ 5 (count units, not orders).",
+     "rule": "CONTENT_DEFECTS #20",
+     "issue": "image-contradiction: the changed tab copy now caps the run per knife, but the tab 2 image (image_brief.tabs[1]) still caps it per order: rule 'Every order after 300 → waitlist for the next run', prompt 'Confirm the first 300 knife orders and waitlist every order after that', and an Order column 296-301. The story pair links copy 'Every knife after 300' to image 'Every order after 300', so copy and image count different units, and the copy itself switches from knife to 'order 301' in the next sentence.",
+     "severity": "blocking"
+    }
+   ]
   }
  ]
 }
