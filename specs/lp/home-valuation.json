@@ -122,6 +122,13 @@
    "via": null,
    "by": "B-w-745",
    "note": ""
+  },
+  {
+   "t": "2026-11-16 08:19 UTC",
+   "state": "rework",
+   "via": "review",
+   "by": "B-r-645",
+   "note": "[images | CONTENT_DEFECTS #20] image_brief.tabs[1].main.blocks[1] (tab_image_2): Form-field sets differ between copy, mockup and image (Divit 2026-11-05: always blocking). tab_content_2 says \"An owner at 18 Birchlow Lane enters the address and an email, and the page shows a low of $388,000\"; mockup "
   }
  ],
  "pipeline": "r15",
@@ -897,5 +904,255 @@
  ],
  "writers": [
   "B-w-745"
- ]
+ ],
+ "review": {
+  "by": "B-r-645",
+  "date": "2026-11-16 08:19 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 \"Build a Home Valuation Landing Page That Finds Sellers\"; hero \"Build a home valuation landing page that asks for the address first and saves every owner's request to a database you own.\" (under 130 chars, primary, leads with Build); how-to description one sentence with the primary."
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "Top 10 is real estate landing page roundups and estimator pages; the page gives four agent setups (\"Solo Agent\", \"Instant Estimate\", \"Seller Timeline\", \"Postcard Campaign\"), a 7-step how-to and FAQ on what to ask, appraisal vs estimate, and follow-up."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Buyer vocabulary throughout: \"walkthrough\", \"#listings\", \"Within 30 days, 23 owners asked for a range\", \"Leave the mortgage balance and the reason for selling to the first phone call\"."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Paragraphs open on full sentences: \"Delphine Arroway works alone\", \"Coralind Realty connects a valuation data service\", \"Tollesby Home Team asks one timing question\", \"Cyrus Nowell mailed 600 postcards\"."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Q5 \", so\" endings at 2 (under the block); no run-on FAQ answers; one chip_adds list without a serial comma recorded as a note."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Plain, operator voice: \"A range on a lead page is not one. Say that in plain words under every number the page shows\"; no AI tells; heavy reuse of \"range\" and \"request\" noted only."
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "Both CFPB lines match spec.domain_sources quotes verbatim (\"an independent assessment of the value of the property\"; \"a written document that shows an opinion of how much a property is worth\"); claims map to capabilities.json (custom-domain \"included in Emergent and use credits\", api-connect, code-export \"on paid plans\"); copy numbers agree across tabs, alt text, mockups and cover (41/7, $388,000/$421,000, 12 of 58, 90 days, 600/23/6). Every estimate shown is labeled \"An estimate, not an appraisal\"; no valuation or appraisal advice."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "No sibling primary in headings; page is specific to seller-lead valuation pages (address-first form, estimate label, timeline routing, postcard farm)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 on-topic questions, answer-first (\"No. According to the CFPB...\", \"Yes. Point the postcard QR code...\"); hub link in item 2 reads naturally; F9 lines in items 6, 7, 10; no brand or format in questions."
+   },
+   "images": {
+    "result": "fail",
+    "evidence": "tab_image_2 (Coralind Realty) draws a third form field \"Beds and baths: 4 beds, 3 baths\" on \"Step 2 of 2\"; tab_content_2 and mockup instantEstimate give the form as the address and an email only."
+   }
+  },
+  "findings": [
+   {
+    "class": "image-contradiction",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #20",
+    "field": "image_brief.tabs[1].main.blocks[1] (tab_image_2)",
+    "quote": "[\"Beds and baths\", \"4 beds, 3 baths\"]",
+    "issue": "Form-field sets differ between copy, mockup and image (Divit 2026-11-05: always blocking). tab_content_2 says \"An owner at 18 Birchlow Lane enters the address and an email, and the page shows a low of $388,000\"; mockup instantEstimate says \"After the owner enters the address and an email, show a low and a high estimate\". The image draws the form with three fields, adding \"Beds and baths: 4 beds, 3 baths\", under \"Step 2 of 2\" while the copy describes no second step.",
+    "fix": "In image_brief.tabs[1].main.blocks: delete the [\"Beds and baths\", \"4 beds, 3 baths\"] row from the fields block so the form shows only Address and Email, and change the heading sub \"Step 2 of 2\" to a line the copy supports (for example \"Get your estimate range\"). Leave tab_content_2 and the mockup as they are. Re-render with hubctl images.",
+    "severity": "blocking"
+   },
+   {
+    "class": "other",
+    "criterion": "faq",
+    "rule": "HUB_RULES 5",
+    "field": "faq",
+    "quote": "Tell Emergent's <a href='https://emergent.sh/ai-landing-page-builder'>AI landing page builder</a>",
+    "issue": "The FAQ carries only the hub link; HUB_RULES 5 and DECISIONS (hub link and link-to-live) call for 2-3 exact-match links to related live pages, and peer r15 LP pages carry 3. None reads forced because none exists.",
+    "fix": "If a live sibling fits an answer naturally (for example a real estate or lead generation page), add one exact-match link in items 3-10.",
+    "severity": "note"
+   },
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "chip_adds[0]",
+    "quote": "Add a second step that asks for beds, baths and recent updates.",
+    "issue": "List without a serial comma; feature_2 uses one (\"beds, baths, square footage, and the year\").",
+    "fix": "\"beds, baths, and recent updates\"",
+    "severity": "note"
+   },
+   {
+    "class": "voice",
+    "criterion": "voice",
+    "rule": "HUB_RULES 2b",
+    "field": "page",
+    "quote": "\"range\" 15 times, \"request\" 14 times, \"address\" 13 times outside the FAQ (QC Q9)",
+    "issue": "The same three nouns carry nearly every paragraph, which flattens the rhythm.",
+    "fix": "Vary where a synonym is exact (\"estimate\", \"lead\", \"street\").",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "faq",
+   "rule": "HUB_RULES 5",
+   "field": "faq",
+   "issue": "The FAQ carries only the hub link; HUB_RULES 5 and DECISIONS (hub link and link-to-live) call for 2-3 exact-match links to related live pages, and peer r15 LP pages carry 3. None reads forced because none exists.",
+   "fix": "If a live sibling fits an answer naturally (for example a real estate or lead generation page), add one exact-match link in items 3-10.",
+   "by": "B-r-645",
+   "via": "review",
+   "date": "2026-11-16 08:19 UTC"
+  },
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "chip_adds[0]",
+   "issue": "List without a serial comma; feature_2 uses one (\"beds, baths, square footage, and the year\").",
+   "fix": "\"beds, baths, and recent updates\"",
+   "by": "B-r-645",
+   "via": "review",
+   "date": "2026-11-16 08:19 UTC"
+  },
+  {
+   "criterion": "voice",
+   "rule": "HUB_RULES 2b",
+   "field": "page",
+   "issue": "The same three nouns carry nearly every paragraph, which flattens the rhythm.",
+   "fix": "Vary where a synonym is exact (\"estimate\", \"lead\", \"street\").",
+   "by": "B-r-645",
+   "via": "review",
+   "date": "2026-11-16 08:19 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "b483525b058a36f3",
+   "alt:share_image": "13db30b4520d24f8",
+   "alt:tab_image_1": "f5cadfae06a715a2",
+   "alt:tab_image_2": "bb64a568c72bef07",
+   "alt:tab_image_3": "77428e9114abe251",
+   "alt:tab_image_4": "590f1bba38758e2a",
+   "breadcrumb": "caf50c5dd8d5309d",
+   "chip_adds": "d3a42e5de9fe1d62",
+   "explore_cta": "40a211c3a0a2f167",
+   "faq": "a736f02f4c3a10d7",
+   "feature_1": "3ffe101fd0cc6457",
+   "feature_2": "66dc67a5745ac2ff",
+   "feature_3": "e2a1aa4044e63b19",
+   "feature_4": "b8a74acc616c44c4",
+   "feature_5": "1ec7e3e962ae7319",
+   "feature_6": "63de6dff0ddd66f1",
+   "features_heading": "6699e774c607fd53",
+   "features_subheading": "8f501a08e0c73dc9",
+   "h1": "fbd0c6e722efcf80",
+   "hero_description": "49abacbcc3b2914e",
+   "hero_prompt": "33808465a75a278d",
+   "howto_description": "cdc1db8ceed8c85b",
+   "howto_step_1_des": "9ef1d9b4c557055e",
+   "howto_step_1_title": "1a0323ee17bc25a9",
+   "howto_step_2_des": "befd374898868a3d",
+   "howto_step_2_title": "ae5e8e6d63b24421",
+   "howto_step_3_des": "39e279586a34fa5c",
+   "howto_step_3_title": "6169db6a8bb953b7",
+   "howto_step_4_des": "485cb58e0b831b97",
+   "howto_step_4_title": "fae13e4ea047874c",
+   "howto_step_5_des": "551e19e0decac4b1",
+   "howto_step_5_title": "257cebd8d46c6ed5",
+   "howto_step_6_des": "a272c66c3c5a9647",
+   "howto_step_6_title": "f24f321a411f852d",
+   "howto_step_7_des": "0b2628a2018b0de1",
+   "howto_step_7_title": "c10d79869655d5cc",
+   "howto_title": "b841bd9fcff52c73",
+   "meta_description": "36fd0883517778c5",
+   "meta_title": "ca867b1584643296",
+   "mockup": "22a8b45c1d03c5ef",
+   "product_name": "c6610dc5df16a1e1",
+   "prompt_chip_1": "02034927a3e30e56",
+   "prompt_chip_2": "6c55f661eae9c8e2",
+   "prompt_chip_3": "e48b48b0e393deed",
+   "prompt_chip_4": "e30f94f598c6480e",
+   "slug": "63293d2af69ff790",
+   "tab_content_1": "85e680eaf1cb504b",
+   "tab_content_2": "5c552d2fa7344f90",
+   "tab_content_3": "984abe3931abe2bc",
+   "tab_content_4": "3f5f02369199d046",
+   "tab_label_1": "3747594d8bc8061d",
+   "tab_label_2": "6c13ce8821224fad",
+   "tab_label_3": "71dbe69ee07ca412",
+   "tab_label_4": "8597993206ee17a6",
+   "usecase_heading": "a65d005872f27aa5",
+   "why_description": "6d78e87bdf476f8b",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "7a0f99f7245a359c"
+  },
+  "all": "531f685de8604581",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "b483525b058a36f3",
+   "alt:share_image": "13db30b4520d24f8",
+   "alt:tab_image_1": "f5cadfae06a715a2",
+   "alt:tab_image_2": "bb64a568c72bef07",
+   "alt:tab_image_3": "77428e9114abe251",
+   "alt:tab_image_4": "590f1bba38758e2a",
+   "breadcrumb": "caf50c5dd8d5309d",
+   "chip_adds": "d3a42e5de9fe1d62",
+   "explore_cta": "40a211c3a0a2f167",
+   "faq": "a736f02f4c3a10d7",
+   "feature_1": "3ffe101fd0cc6457",
+   "feature_2": "66dc67a5745ac2ff",
+   "feature_3": "e2a1aa4044e63b19",
+   "feature_4": "b8a74acc616c44c4",
+   "feature_5": "1ec7e3e962ae7319",
+   "feature_6": "63de6dff0ddd66f1",
+   "features_heading": "6699e774c607fd53",
+   "features_subheading": "8f501a08e0c73dc9",
+   "h1": "fbd0c6e722efcf80",
+   "hero_description": "49abacbcc3b2914e",
+   "hero_prompt": "33808465a75a278d",
+   "howto_description": "cdc1db8ceed8c85b",
+   "howto_step_1_des": "9ef1d9b4c557055e",
+   "howto_step_1_title": "1a0323ee17bc25a9",
+   "howto_step_2_des": "befd374898868a3d",
+   "howto_step_2_title": "ae5e8e6d63b24421",
+   "howto_step_3_des": "39e279586a34fa5c",
+   "howto_step_3_title": "6169db6a8bb953b7",
+   "howto_step_4_des": "485cb58e0b831b97",
+   "howto_step_4_title": "fae13e4ea047874c",
+   "howto_step_5_des": "551e19e0decac4b1",
+   "howto_step_5_title": "257cebd8d46c6ed5",
+   "howto_step_6_des": "a272c66c3c5a9647",
+   "howto_step_6_title": "f24f321a411f852d",
+   "howto_step_7_des": "0b2628a2018b0de1",
+   "howto_step_7_title": "c10d79869655d5cc",
+   "howto_title": "b841bd9fcff52c73",
+   "meta_description": "36fd0883517778c5",
+   "meta_title": "ca867b1584643296",
+   "mockup": "22a8b45c1d03c5ef",
+   "product_name": "c6610dc5df16a1e1",
+   "prompt_chip_1": "02034927a3e30e56",
+   "prompt_chip_2": "6c55f661eae9c8e2",
+   "prompt_chip_3": "e48b48b0e393deed",
+   "prompt_chip_4": "e30f94f598c6480e",
+   "slug": "63293d2af69ff790",
+   "tab_content_1": "85e680eaf1cb504b",
+   "tab_content_2": "5c552d2fa7344f90",
+   "tab_content_3": "984abe3931abe2bc",
+   "tab_content_4": "3f5f02369199d046",
+   "tab_label_1": "3747594d8bc8061d",
+   "tab_label_2": "6c13ce8821224fad",
+   "tab_label_3": "71dbe69ee07ca412",
+   "tab_label_4": "8597993206ee17a6",
+   "usecase_heading": "a65d005872f27aa5",
+   "why_description": "6d78e87bdf476f8b",
+   "why_table": "2b1f9047599f7186",
+   "why_title": "7a0f99f7245a359c"
+  },
+  "all": "531f685de8604581",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
