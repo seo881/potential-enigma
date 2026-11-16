@@ -1,0 +1,36 @@
+{
+ "blocking": [
+  {
+   "field": "image_brief.tabs[2].main list",
+   "class": "image-contradiction",
+   "severity": "blocking",
+   "rule": "CONTENT_DEFECTS #20 (field list mismatch, Divit 2026-11-16)",
+   "finding": "The diary screen logs five categories (Video, Social apps, Audio, News, Games 9 min), while the mockup ('phone minutes for video, social apps, audio, and news') and the tab 3 alt ('phone minutes for video, social apps, audio, and news') name four.",
+   "fix": "image_brief.tabs[2].main.blocks[1].items: delete {\"initials\": \"GA\", \"name\": \"Games\", \"right\": \"9 min\"}; in image_brief.checks (where 3) change the fact list to [\"74 min\", \"58 min\", \"31 min\", \"12 min\"]; re-render with hubctl images."
+  }
+ ],
+ "notes": [
+  {
+   "field": "mockup.localNewsReaders",
+   "class": "other",
+   "severity": "note",
+   "rule": "HUB_RULES 2a",
+   "finding": "Mockup asks what time readers first read 'on a typical weekday', while howto step 2 tells the reader to ask about the past 7 days, not a typical week."
+  },
+  {
+   "field": "faq item 6 / feature_5",
+   "class": "repeated-idea",
+   "severity": "note",
+   "rule": "CONTENT_DEFECTS #18",
+   "finding": "FAQ 6 advises time brackets 'rather than an open number box'; feature 5 gives minutes 'a number pad, not a text box'. Not contradictory for the diary, but reads as two policies."
+  },
+  {
+   "field": "image_brief tab 1",
+   "class": "image-polish",
+   "severity": "note",
+   "rule": "CONTENT_DEFECTS #5",
+   "finding": "Bar label 'By 8 a.m.' and '8-11 a.m.' overlap at 8; copy says 'before 8 a.m.'."
+  }
+ ],
+ "checked": "QC TOTAL 0 (R1, D2 28% note); live H1 matches spec; Pew and Illinois meta-analysis claims match their spans; tab 1, 2, 4 numbers and channel lists agree across copy, mockup, alt and image (401+132+79=612, 517+201+112=830, five channels, $2,400, 388/121 of 940)."
+}

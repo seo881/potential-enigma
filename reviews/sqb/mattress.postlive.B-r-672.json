@@ -1,0 +1,37 @@
+{
+ "blocking": [
+  {
+   "field": "tab_content_3 (+ image_brief.tabs[2].alt and story copy)",
+   "class": "image-contradiction",
+   "severity": "blocking",
+   "rule": "CONTENT_DEFECTS #24, #25 (Divit 2026-11-16: recipient/channel mismatch always blocking)",
+   "finding": "Copy sends the Slack alert to one person ('a salesperson gets a Slack alert'), while the mockup and image prompt say 'my sales team', the image rule says 'alert sales in Slack' and the hero is drawn in the #moorhaven-sales channel.",
+   "fix": "tab_content_3: replace 'a salesperson gets a Slack alert with both sets of answers and calls the couple.' with 'the sales team gets a Slack alert with both sets of answers, and a salesperson calls the couple.' In image_brief.tabs[2].alt replace 'a salesperson gets a Slack alert' with 'the sales team gets a Slack alert'; in image_brief.tabs[2].story replace copy 'a salesperson gets a Slack alert with both sets of answers' with 'the sales team gets a Slack alert with both sets of answers'."
+  },
+  {
+   "field": "image_brief.tabs[3].main bars",
+   "class": "image-contradiction",
+   "severity": "blocking",
+   "rule": "CONTENT_DEFECTS #20 (label mismatch, Divit 2026-11-16)",
+   "finding": "The review-site bar chart labels a result 'Spring' (204), while the mockup names the types 'soft foam, hybrid, innerspring, or latex' and the page's quiz result is 'Firm Innerspring'.",
+   "fix": "image_brief.tabs[3].main.blocks[0].items[2].label: 'Spring' -> 'Innerspring'; re-render with hubctl images."
+  }
+ ],
+ "notes": [
+  {
+   "field": "tab_heading_1",
+   "class": "craft",
+   "severity": "note",
+   "rule": "HUB_RULES 2a",
+   "finding": "'Quiz results put 58 shoppers in the showroom' says they came in; the copy says 58 booked a visit."
+  },
+  {
+   "field": "faq item 2 / faq item 5 / howto_step_5_des",
+   "class": "craft",
+   "severity": "note",
+   "rule": "CONTENT_DEFECTS #6",
+   "finding": "35-40 word sentences (Q2 flags)."
+  }
+ ],
+ "checked": "QC TOTAL 0 (R1 only); live H1 matches spec; quiz is a 7-question matching quiz as the meta promises, results describe types without judging the person; Sleep Foundation claims (firmness, hybrid, latex) match their spans; free-start and custom-domain wording matches the ledger; tab 1, 2, 4 numbers agree (58/214, 19/31 sums, 512+391+204+133=1,240)."
+}
