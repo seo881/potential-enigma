@@ -97,6 +97,7 @@ def keyword_in_h1(h1, kw):
     """the H1 carries the target keyword (case and hyphen/space aside, the last word may be plural)."""
     tk = tokens(kw)
     if not tk: return False
+    h1 = re.sub(r"['’]", "", h1 or "")   # possessives: tokens() drops the apostrophe from the keyword, so drop it from the H1 too
     rx = r"(?<![a-z0-9])" + r"[^a-z0-9]+".join(re.escape(x) for x in tk) + r"s?(?![a-z0-9])"
     return bool(re.search(rx, (h1 or "").lower())) or bool(standalone(tk) and re.search(r"(?<![a-z0-9])" + r"[^a-z0-9]+".join(re.escape(x) for x in standalone(tk)) + r"s?(?![a-z0-9])", (h1 or "").lower()))
 
