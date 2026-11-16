@@ -283,6 +283,10 @@ def caught(c):
     if c["kind"] == "keyword-in-h1":   # B-c-2 2026-11-16: possessive primaries (valentine's) match an H1 written with the apostrophe
         sys.path.insert(0, os.path.join(ROOT, "ops")); import slugs as SL
         return SL.keyword_in_h1(c["h1"], c["kw"]) == c["expect"]
+    if c["kind"] == "faq-wrap":   # Divit 2026-11-16: the FAQ assembler never wraps link words twice (nested <a>)
+        sys.path.insert(0, os.path.join(ROOT, "ops")); import skeleton as SK
+        out, ok = SK._wrap(c["ans"], c["link"])
+        return out == c["expect"] and len(re.findall(r"<a\b[^>]*>\s*<a\b", out)) == 0
     if c["kind"] == "childedits-guard":   # Divit 2026-11-16: childedits before/rollback files are write-once; never commit another run's
         sys.path.insert(0, os.path.join(ROOT, "ops")); import childedits_guard as CG
         return bool(CG.problems(c["name_status"], c.get("run", ""))) == c["expect_refused"]

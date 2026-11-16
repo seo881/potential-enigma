@@ -512,7 +512,11 @@ def cmd_answer(a):
 def _wrap(ans, link):
     """Code places the link: the first occurrence of the anchor words becomes <a href='...'>anchor</a> (single quotes, K4)."""
     words = link.get("write_as") or link["anchor"]
-    m = re.search(re.escape(words), ans, re.I)
+    # Divit 2026-11-16 (post-meeting-questions FAQ 10 shipped <a><a>..</a></a>): an answer that already links to this URL is left as is,
+    # and words already inside an <a>...</a> are never wrapped again
+    if re.search(r"<a\b[^>]*href=['\"]" + re.escape(link["url"]) + r"['\"]", ans, re.I): return ans, True
+    spans = [(x.start(), x.end()) for x in re.finditer(r"<a\b[^>]*>.*?</a>", ans, re.I | re.S)]
+    m = next((x for x in re.finditer(re.escape(words), ans, re.I) if not any(a <= x.start() < b for a, b in spans)), None)
     if not m: return ans, False
     inner = m.group(0)
     if link.get("write_as"): pre, anc = inner[:len(inner) - len(link["anchor"])], inner[len(inner) - len(link["anchor"]):]
