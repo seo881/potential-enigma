@@ -1,0 +1,22 @@
+{
+ "blocking": [
+  {
+   "class": "wrong-fact",
+   "severity": "blocking",
+   "rule": "CONTENT_DEFECTS #10; HUB_RULES 8",
+   "field": "images.tab_image_2.alt (and image_brief.tabs[1].alt)",
+   "quote": "A 12-statement true or false quiz on a bike shop's returns and repair policy",
+   "finding": "Cross-field label mismatch: tab_content_2, the mockup (newHireCheck) and the drawn image all say the quiz is on the returns policy ('12 true or false statements on the returns policy'; image heading 'Returns policy quiz'); the alt text adds a repair policy that no other field mentions.",
+   "fix": "In images.tab_image_2.alt and image_brief.tabs[1].alt replace 'on a bike shop's returns and repair policy' with 'on a bike shop's returns policy'. CMS item update of the tab image alt + verify-live; plan text may be aligned too."
+  }
+ ],
+ "notes": [
+  {
+   "class": "craft",
+   "severity": "note",
+   "rule": "HUB_RULES 2a",
+   "field": "quiz result coin-flip",
+   "finding": "'A guesser averages 4 of 8 on this quiz, so this score is in that range' reads oddly for a score of 0 or 1."
+  }
+ ]
+}
