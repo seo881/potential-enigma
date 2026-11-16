@@ -399,6 +399,12 @@
    "urls_file": "plan/hero-backlog-urls.txt",
    "expires": "2026-11-19",
    "note": "Divit 2026-11-05: the hero-prompt rewrite for live pages is ON HOLD as backlog; these 280 specs carry the new prompt, the live page still has the old one, so the prefill/chip checks compare against an unshipped spec. Clears as each page ships; remove when the backlog ships."
+  },
+  {
+   "id": "linkedin-bot-403",
+   "code": "A7-link",
+   "msg_contains": "returns 403: https://www.linkedin.com/",
+   "note": "Divit 2026-11-16: linkedin.com answers automated clients with 403 (bot blocking) on the site-wide company link; source-based exception for linkedin.com 403s ONLY. Any other status from linkedin.com, and any other link failure, still counts as REAL."
   }
  ],
  "_note_known_open_issues": "known_open_issues (A 2026-10-26, Divit: count REAL failures only): a P0/P1 finding that matches an entry (same code and the msg_contains/snippet_contains text) is reported as known, not as a real fail, in ops/audit_status.py (line, watchdog, last_success.json real_fails). The finding itself is still recorded. Remove an entry when its issue is fixed. G2 removed 2026-10-26: Learn card titles are now exempt in the audit itself (ops/live_audit.py strip_learn_cards). Optional keys (2026-11-03): url (exact finding url) and expires (YYYY-MM-DD UTC; from that date the entry matches nothing and its findings count as real again). Optional key urls_file (2026-11-05): a repo file of URLs; the entry matches only findings on those URLs.",
