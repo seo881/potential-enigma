@@ -122,6 +122,20 @@
    "via": null,
    "by": "B-c-2",
    "note": ""
+  },
+  {
+   "t": "2026-11-16 09:10 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-r-651",
+   "note": ""
+  },
+  {
+   "t": "2026-11-16 09:10 UTC",
+   "state": "reviewed",
+   "via": "review",
+   "by": "B-r-651",
+   "note": "rubric 10/10 by B-r-651; 4 notes"
   }
  ],
  "pipeline": "r15",
@@ -1122,5 +1136,267 @@
  },
  "writers": [
   "B-c-2"
- ]
+ ],
+ "review": {
+  "by": "B-r-651",
+  "date": "2026-11-16 09:10 UTC",
+  "rubric": {
+   "scope": {
+    "result": "pass",
+    "evidence": "H1 'Build a Safety Quiz From Your Own Site Rules'; hero 'Take the safety quiz below, or build one from your site rules with a pass mark and every answer saved to a database you own.'"
+   },
+   "intent": {
+    "result": "pass",
+    "evidence": "SERP of take-it workplace quizzes: playable 8-question OSHA basics quiz with sourced answers, PAA 'What are some basic safety quiz questions?' answered, plus the training-quiz build path."
+   },
+   "specificity": {
+    "result": "pass",
+    "evidence": "Pass mark 8 of 10, Monday 7:00 toolbox talk, lab groups averaging 7.0+ vs Synthesis 5.9, assembly point moved to the back lot in May."
+   },
+   "openers": {
+    "result": "pass",
+    "evidence": "Bodies open on full sentences: 'Paste your site rules', 'Set the score a worker needs'."
+   },
+   "craft": {
+    "result": "pass",
+    "evidence": "Two ', so' endings (feature_5, howto_step_3_des), under the limit."
+   },
+   "voice": {
+    "result": "pass",
+    "evidence": "Operator detail: 'Sort by question to find the rule a whole crew keeps getting wrong.'"
+   },
+   "truth": {
+    "result": "pass",
+    "evidence": "OSHA heights 4/5/6/8 ft, 85 dBA TWA, 3-foot voice check, aim at the base, evacuate if empty, 16-section SDS all match their quoted spans; FAQ 3 quotes OSHA exactly; FAQ 6 'not proof they work safely' makes no safety guarantee; 26+5=31, 24+19+15=58, 18+15+12+19=64."
+   },
+   "distinct": {
+    "result": "pass",
+    "evidence": "Training quiz with pass marks and retakes; links the safety survey page for the opinion use case (FAQ 4)."
+   },
+   "faq": {
+    "result": "pass",
+    "evidence": "10 questions, two verbatim PAA; hub link in item 2; one natural sibling link 'safety survey' in item 4."
+   },
+   "images": {
+    "result": "pass",
+    "evidence": "Contact sheet matches copy: Pass mark 8, 26 of 31, email to Ondrej Salo; 9 of 22 to Matthias Groult by Slack; Synthesis 5.9; 58 chose the front lot across 3 restaurants of 140 staff."
+   }
+  },
+  "findings": [
+   {
+    "class": "craft",
+    "criterion": "craft",
+    "rule": "HUB_RULES 2a",
+    "field": "quiz question 4",
+    "quote": "You have to raise your voice to talk to a coworker how close to you before noise may be over 85 decibels?",
+    "issue": "The question is ungrammatical and hard to parse on first read.",
+    "fix": "'If you have to raise your voice to talk to a coworker this close, noise may be over 85 decibels. How close?' or 'How far away is a coworker you must shout to before noise may be over 85 decibels?'",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 8",
+    "field": "quiz question 5",
+    "quote": "Which color does OSHA name as the basic color for danger signs and emergency stop buttons?",
+    "issue": "The answer (red) is right, but the quoted span stops at 'Red shall be the basic color for the identification of' and 1910.144 covers 'Danger' items and stop buttons; danger signs are set in 1910.145.",
+    "fix": "Quote the full 1910.144(a)(1) stop-button line, or say 'danger and emergency stop buttons' to match 1910.144.",
+    "severity": "note"
+   },
+   {
+    "class": "image-polish",
+    "criterion": "images",
+    "rule": "CONTENT_DEFECTS #28",
+    "field": "image_brief tab 2",
+    "quote": "bars: Rails 2, Ladders 3, Height 9, Anchors 4",
+    "issue": "The chart of misses per question shows 4 bars for a 5-question quiz; no number contradicts the copy, but a reader may count.",
+    "fix": "Add the fifth question's bar.",
+    "severity": "note"
+   },
+   {
+    "class": "other",
+    "criterion": "truth",
+    "rule": "HUB_RULES 2a",
+    "field": "feature_3",
+    "quote": "Send the same alert to a Slack channel if you prefer.",
+    "issue": "The alert carries one worker's name, score and missed questions; a shared channel exposes it (CONTENT_DEFECTS #25 pattern), though no image contradicts it.",
+    "fix": "Send it to the supervisor as a Slack message rather than a channel.",
+    "severity": "note"
+   }
+  ]
+ },
+ "review_notes": [
+  {
+   "criterion": "craft",
+   "rule": "HUB_RULES 2a",
+   "field": "quiz question 4",
+   "issue": "The question is ungrammatical and hard to parse on first read.",
+   "fix": "'If you have to raise your voice to talk to a coworker this close, noise may be over 85 decibels. How close?' or 'How far away is a coworker you must shout to before noise may be over 85 decibels?'",
+   "by": "B-r-651",
+   "via": "review",
+   "date": "2026-11-16 09:10 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 8",
+   "field": "quiz question 5",
+   "issue": "The answer (red) is right, but the quoted span stops at 'Red shall be the basic color for the identification of' and 1910.144 covers 'Danger' items and stop buttons; danger signs are set in 1910.145.",
+   "fix": "Quote the full 1910.144(a)(1) stop-button line, or say 'danger and emergency stop buttons' to match 1910.144.",
+   "by": "B-r-651",
+   "via": "review",
+   "date": "2026-11-16 09:10 UTC"
+  },
+  {
+   "criterion": "images",
+   "rule": "CONTENT_DEFECTS #28",
+   "field": "image_brief tab 2",
+   "issue": "The chart of misses per question shows 4 bars for a 5-question quiz; no number contradicts the copy, but a reader may count.",
+   "fix": "Add the fifth question's bar.",
+   "by": "B-r-651",
+   "via": "review",
+   "date": "2026-11-16 09:10 UTC"
+  },
+  {
+   "criterion": "truth",
+   "rule": "HUB_RULES 2a",
+   "field": "feature_3",
+   "issue": "The alert carries one worker's name, score and missed questions; a shared channel exposes it (CONTENT_DEFECTS #25 pattern), though no image contradicts it.",
+   "fix": "Send it to the supervisor as a Slack message rather than a channel.",
+   "by": "B-r-651",
+   "via": "review",
+   "date": "2026-11-16 09:10 UTC"
+  }
+ ],
+ "review_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "389178954cd88524",
+   "alt:share_image": "8ef0aae90f705622",
+   "alt:tab_image_1": "b44b1c770d951eb6",
+   "alt:tab_image_2": "be86c396e1be4d0f",
+   "alt:tab_image_3": "ac0040eef37faaad",
+   "alt:tab_image_4": "7ef6b25cfd3c4b1b",
+   "breadcrumb": "0525c34944086921",
+   "chip_adds": "d07b3a4cb8458cef",
+   "explore_cta": "ce018a47f49c5377",
+   "faq": "19343dcde81b039f",
+   "feature_1": "cafcfedb61a9f7b9",
+   "feature_2": "060dd3ec28ef1b2d",
+   "feature_3": "05ec3eab90d17249",
+   "feature_4": "e569dfadfd3b2594",
+   "feature_5": "320004f6140e389d",
+   "feature_6": "f0744ea033d791ee",
+   "features_heading": "39d439a8721e2287",
+   "features_subheading": "582b7e467c889278",
+   "h1": "6b413de58389d966",
+   "hero_description": "e5dc8ca3c547c8a0",
+   "hero_prompt": "36569f89e6dfd0ff",
+   "howto_description": "24c843401e40c101",
+   "howto_step_1_des": "5246e38d83a6ddb5",
+   "howto_step_1_title": "781f28d4dbf784cd",
+   "howto_step_2_des": "6fee60cc270b3d77",
+   "howto_step_2_title": "f1d93c404d89bebd",
+   "howto_step_3_des": "f838e82297709b27",
+   "howto_step_3_title": "22e38856923f7ecb",
+   "howto_step_4_des": "6af39a80bd1af737",
+   "howto_step_4_title": "e38a6710463dc2b5",
+   "howto_step_5_des": "42f25bf7d463afb9",
+   "howto_step_5_title": "e2ee443b0f3cb9cf",
+   "howto_step_6_des": "b766ce4fbd16c972",
+   "howto_step_6_title": "f0be62ac69dd7476",
+   "howto_step_7_des": "d6e4bab3b269be3a",
+   "howto_step_7_title": "aa5078587e2229b5",
+   "howto_title": "f4568c9c9ba61bb8",
+   "meta_description": "9ea3e7a07a4d4530",
+   "meta_title": "df02db8d1cb8eedf",
+   "mockup": "83c94b934f9b6f9a",
+   "product_name": "c60310cc12709de9",
+   "prompt_chip_1": "2f2439b53b566e9d",
+   "prompt_chip_2": "ac6ef89f3b917297",
+   "prompt_chip_3": "9be6e470b9d28841",
+   "prompt_chip_4": "99d95ecf809f6898",
+   "quiz": "47843a854592b282",
+   "slug": "7cfd9e690d6b054d",
+   "tab_content_1": "0ff8b0cbb6169952",
+   "tab_content_2": "d76199df2a83ae01",
+   "tab_content_3": "b51729787cc9e7a5",
+   "tab_content_4": "b7d49fd6f99fd0d0",
+   "tab_label_1": "0a4d11c17ce8492f",
+   "tab_label_2": "9be6e470b9d28841",
+   "tab_label_3": "fc38c9087588b512",
+   "tab_label_4": "2200bca4ad7b13ba",
+   "usecase_heading": "60b0a64d5a88743f",
+   "why_description": "78b77280f4d8b12c",
+   "why_table": "fd8e3a9cd13ac0fc",
+   "why_title": "3d1788efa2db4fc7"
+  },
+  "all": "04b4dc525ff1c777",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ },
+ "lock_hash": {
+  "v": 1,
+  "fields": {
+   "alt:cover_image": "389178954cd88524",
+   "alt:share_image": "8ef0aae90f705622",
+   "alt:tab_image_1": "b44b1c770d951eb6",
+   "alt:tab_image_2": "be86c396e1be4d0f",
+   "alt:tab_image_3": "ac0040eef37faaad",
+   "alt:tab_image_4": "7ef6b25cfd3c4b1b",
+   "breadcrumb": "0525c34944086921",
+   "chip_adds": "d07b3a4cb8458cef",
+   "explore_cta": "ce018a47f49c5377",
+   "faq": "19343dcde81b039f",
+   "feature_1": "cafcfedb61a9f7b9",
+   "feature_2": "060dd3ec28ef1b2d",
+   "feature_3": "05ec3eab90d17249",
+   "feature_4": "e569dfadfd3b2594",
+   "feature_5": "320004f6140e389d",
+   "feature_6": "f0744ea033d791ee",
+   "features_heading": "39d439a8721e2287",
+   "features_subheading": "582b7e467c889278",
+   "h1": "6b413de58389d966",
+   "hero_description": "e5dc8ca3c547c8a0",
+   "hero_prompt": "36569f89e6dfd0ff",
+   "howto_description": "24c843401e40c101",
+   "howto_step_1_des": "5246e38d83a6ddb5",
+   "howto_step_1_title": "781f28d4dbf784cd",
+   "howto_step_2_des": "6fee60cc270b3d77",
+   "howto_step_2_title": "f1d93c404d89bebd",
+   "howto_step_3_des": "f838e82297709b27",
+   "howto_step_3_title": "22e38856923f7ecb",
+   "howto_step_4_des": "6af39a80bd1af737",
+   "howto_step_4_title": "e38a6710463dc2b5",
+   "howto_step_5_des": "42f25bf7d463afb9",
+   "howto_step_5_title": "e2ee443b0f3cb9cf",
+   "howto_step_6_des": "b766ce4fbd16c972",
+   "howto_step_6_title": "f0be62ac69dd7476",
+   "howto_step_7_des": "d6e4bab3b269be3a",
+   "howto_step_7_title": "aa5078587e2229b5",
+   "howto_title": "f4568c9c9ba61bb8",
+   "meta_description": "9ea3e7a07a4d4530",
+   "meta_title": "df02db8d1cb8eedf",
+   "mockup": "83c94b934f9b6f9a",
+   "product_name": "c60310cc12709de9",
+   "prompt_chip_1": "2f2439b53b566e9d",
+   "prompt_chip_2": "ac6ef89f3b917297",
+   "prompt_chip_3": "9be6e470b9d28841",
+   "prompt_chip_4": "99d95ecf809f6898",
+   "quiz": "47843a854592b282",
+   "slug": "7cfd9e690d6b054d",
+   "tab_content_1": "0ff8b0cbb6169952",
+   "tab_content_2": "d76199df2a83ae01",
+   "tab_content_3": "b51729787cc9e7a5",
+   "tab_content_4": "b7d49fd6f99fd0d0",
+   "tab_label_1": "0a4d11c17ce8492f",
+   "tab_label_2": "9be6e470b9d28841",
+   "tab_label_3": "fc38c9087588b512",
+   "tab_label_4": "2200bca4ad7b13ba",
+   "usecase_heading": "60b0a64d5a88743f",
+   "why_description": "78b77280f4d8b12c",
+   "why_table": "fd8e3a9cd13ac0fc",
+   "why_title": "3d1788efa2db4fc7"
+  },
+  "all": "04b4dc525ff1c777",
+  "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
+ }
 }
