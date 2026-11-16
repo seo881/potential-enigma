@@ -30,16 +30,16 @@
   "why_title": "Why Build HVAC Inspection Forms on Emergent?",
   "why_description": "Emergent builds the inspection form, its failure alerts and the plan register, and keeps every visit in a database you own.",
   "why_table": "<div data-rt-embed-type='true'><style>\n  .cmp--emg-first thead th.col-brand-head { background: #ebebeb; }\n  .cmp--emg-first tbody tr:nth-child(odd) td.col-brand { background: #f2f2f2; }\n  .cmp--emg-first tbody tr:nth-child(even) td.col-brand { background: #e6e6e6; }\n</style>\n<div class=\"cmp cmp--emg-first\">\n  <table>\n    <colgroup>\n      <col class=\"col-feature\" />\n      <col class=\"col-brand\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n      <col class=\"col-other\" />\n    </colgroup>\n    <thead>\n      <tr>\n        <th class=\"col-feature\" scope=\"col\"><span class=\"visually-hidden\"></span></th>\n        <th class=\"col-brand-head\" scope=\"col\">\n          <img class=\"brand-logo\" src=\"https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a0ef94db7f0a045fab57060_logo.svg\" alt=\"Emergent\" />\n        </th>\n        <th scope=\"col\">Jotform</th>\n        <th scope=\"col\">Google Forms</th>\n        <th scope=\"col\">Typeform</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">How you build</th>\n        <td class=\"col-brand\">Describe it in plain English</td>\n        <td class=\"col-other\">Templates, editor, AI generator</td>\n        <td class=\"col-other\">Editor, with Gemini drafting on some Workspace plans</td>\n        <td class=\"col-other\">Templates, editor, AI assist</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Where responses live</th>\n        <td class=\"col-brand\">A database table you own, plus any integration</td>\n        <td class=\"col-other\">Jotform account</td>\n        <td class=\"col-other\">Google Sheets</td>\n        <td class=\"col-other\">Typeform account</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Response limits</th>\n        <td class=\"col-brand\">No response caps</td>\n        <td class=\"col-other\">Monthly submission caps by plan; the form stops at the cap</td>\n        <td class=\"col-other\">No limit</td>\n        <td class=\"col-other\">Monthly response caps by plan; the form closes at the cap</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Code ownership</th>\n        <td class=\"col-brand\">Full code export to GitHub on paid plans</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n        <td class=\"col-other\">None</td>\n      </tr>\n    </tbody>\n  </table>\n</div></div>",
-  "usecase_heading": "",
-  "tab_label_1": "",
-  "tab_label_2": "",
-  "tab_label_3": "",
-  "tab_label_4": "",
-  "tab_content_1": "",
-  "tab_content_2": "",
-  "tab_content_3": "",
-  "tab_content_4": "",
-  "mockup": "",
+  "usecase_heading": "Who Reads the Inspection, and When",
+  "tab_label_1": "Spring Tune-Ups",
+  "tab_label_2": "Rooftop Units",
+  "tab_label_3": "Safety Failures",
+  "tab_label_4": "Maintenance Plans",
+  "tab_content_1": "<h3>The homeowner signs for all 16 checks</h3><p>Cavendale Heating and Air sells a spring tune-up for split systems. On Linden Street, Valdemar Wynkoop works through its 16 checks, logs a 19-degree split between return and supply air, and replaces a clogged filter. The homeowner signs on his tablet at 10:42 am, and the visit joins the unit's history before he packs up.</p>",
+  "tab_content_2": "<h3>Six rooftop units each quarter, and RTU-4 fails</h3><p>Every quarter, Ansgar Starkweather checks the 6 rooftop units on the Ruskwood Properties office building. This round 5 of the 6 pass. RTU-4 has a cracked, glazed drive belt, and the form flags it for repair. Property manager Hyacinth Pridmore gets an email with the unit, the failed belt, and his photo.</p>",
+  "tab_content_3": "<h3>A cracked heat exchanger reaches Slack from the basement</h3><p>Rutger Emmerich opens a fall furnace check for Tallis Creek Mechanical in a basement on Alder Road. He finds a crack in the heat exchanger and marks it failed, and the form will not move on until he adds a photo. At 3:15 pm the furnace turns Unsafe, and service manager Odilia Brunell gets a Slack direct message.</p>",
+  "tab_content_4": "<h3>All 140 plan customers, with the 13 overdue on top</h3><p>Pennwick Comfort Services carries 140 customers on its maintenance plan, and each one is owed a fall heating check. The register counts 96 done, 31 booked, and 13 overdue. Overdue customers sit at the top of the list, oldest due date first, and the office calls them before anyone else.</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { springTuneUps: \"Build an HVAC inspection form for my spring tune-ups on split systems. My technicians work through 16 checks on a tablet, type supply and return air temperatures, and note a replaced filter. The homeowner signs on the tablet at the end, and the signed visit is saved to that unit's history.\", rooftopUnits: \"Build an HVAC inspection form for the 6 rooftop units on our office building. Our facilities tech checks each unit every quarter and marks belts, filters, and coils pass or fail. A failed unit is flagged for repair, and our property manager, Hyacinth Pridmore, gets an email with the photo.\", safetyFailures: \"Build a furnace inspection form for my fall heating checks. When a technician marks the heat exchanger or a gas connection as failed, require a photo before the next check, set the furnace to Unsafe, and send our service manager, Odilia Brunell, a Slack direct message with the address.\", maintenancePlans: \"Build a register for the 140 customers on my HVAC maintenance plan. Show who has had their fall heating check, who is booked, and who is overdue. Put overdue customers at the top with the oldest due date first, so the office knows who to call.\" };</p>",
   "howto_title": "",
   "howto_description": "",
   "howto_step_1_title": "",
@@ -330,5 +330,560 @@
   "e-signature-capture",
   "api-connect",
   "code-export"
- ]
+ ],
+ "image_brief": {
+  "tabs": [
+   {
+    "recipe": "R6",
+    "title": "Spring tune-up",
+    "prompt": "Run a 16-point spring tune-up and have the homeowner sign on the tablet",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Spring tune-up, split system",
+       "sub": "Valdemar Wynkoop, Linden Street"
+      },
+      {
+       "type": "fields",
+       "items": [
+        [
+         "Checks done",
+         "16 of 16"
+        ],
+        [
+         "Temperature split",
+         "19 degrees"
+        ],
+        [
+         "Air filter",
+         "Replaced, clogged"
+        ]
+       ]
+      },
+      {
+       "type": "button",
+       "label": "Sign and finish visit",
+       "icon": "pen-line",
+       "full": true
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "blocks": [
+      {
+       "type": "status",
+       "title": "Signed by the homeowner",
+       "sub": "Signed at 10:42 am on the tablet"
+      },
+      {
+       "type": "meta",
+       "icon": "mail",
+       "kind": "acc",
+       "text": "Report emailed to the homeowner"
+      },
+      {
+       "type": "meta",
+       "icon": "building-2",
+       "kind": "muted",
+       "text": "Cavendale Heating and Air"
+      },
+      {
+       "type": "meta",
+       "icon": "user",
+       "kind": "muted",
+       "text": "Technician: Valdemar Wynkoop"
+      }
+     ],
+     "action": {
+      "label": "View report",
+      "icon": "arrow-right"
+     }
+    },
+    "mini": {
+     "icon": "database",
+     "kind": "ok",
+     "title": "Saved to the unit's history",
+     "sub": "Split system, Linden Street"
+    },
+    "alt": "Valdemar Wynkoop's spring tune-up form shows 16 of 16 checks done, a 19-degree temperature split and a replaced filter, and the homeowner signs on the tablet at 10:42 am.",
+    "story": [
+     {
+      "copy": "its 16 checks",
+      "image": "16 of 16"
+     },
+     {
+      "copy": "19-degree split",
+      "image": "19 degrees"
+     },
+     {
+      "copy": "10:42 am",
+      "image": "Signed at 10:42 am on the tablet"
+     },
+     {
+      "copy": "Valdemar Wynkoop",
+      "image": "Valdemar Wynkoop, Linden Street"
+     },
+     {
+      "copy": "replaces a clogged filter",
+      "image": "Replaced, clogged"
+     },
+     {
+      "copy": "the unit's history",
+      "image": "Saved to the unit's history"
+     }
+    ]
+   },
+   {
+    "recipe": "R11",
+    "title": "Quarterly rooftop round",
+    "prompt": "Check our 6 rooftop units each quarter and flag any unit that fails",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Rooftop units this quarter",
+       "size": 20,
+       "chip": [
+        "5 of 6 passed",
+        "acc"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Unit",
+        "Belt",
+        "Filter",
+        "Coils",
+        "Result"
+       ],
+       "widths": [
+        0.18,
+        0.2,
+        0.2,
+        0.2,
+        0.22
+       ],
+       "bad": 1,
+       "rows": [
+        [
+         "RTU-3",
+         "Pass",
+         "Pass",
+         "Pass",
+         [
+          "Passed",
+          "ok"
+         ]
+        ],
+        [
+         "RTU-4",
+         "Fail",
+         "Pass",
+         "Pass",
+         [
+          "Repair",
+          "bad"
+         ]
+        ],
+        [
+         "RTU-5",
+         "Pass",
+         "Pass",
+         "Pass",
+         [
+          "Passed",
+          "ok"
+         ]
+        ],
+        [
+         "RTU-6",
+         "Pass",
+         "Pass",
+         "Pass",
+         [
+          "Passed",
+          "ok"
+         ]
+        ]
+       ]
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "RTU-4 notes",
+       "size": 18
+      },
+      {
+       "type": "bullets",
+       "items": [
+        "Drive belt cracked and glazed",
+        "Photo by Ansgar Starkweather",
+        "Flagged for repair"
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "action": {
+      "label": "Open unit",
+      "icon": "arrow-right"
+     },
+     "blocks": [
+      {
+       "type": "chips",
+       "items": [
+        [
+         "Failed belt, photo attached",
+         "bad"
+        ]
+       ]
+      },
+      {
+       "type": "title",
+       "title": "RTU-4 flagged for repair",
+       "sub": "Email to Hyacinth Pridmore"
+      }
+     ]
+    },
+    "alt": "Ruskwood Properties' quarterly rooftop round shows 5 of 6 units passed and RTU-4 flagged for repair with a cracked, glazed drive belt, and property manager Hyacinth Pridmore gets an email with the photo.",
+    "story": [
+     {
+      "copy": "5 of the 6 pass",
+      "image": "5 of 6 passed"
+     },
+     {
+      "copy": "RTU-4 has a cracked, glazed drive belt",
+      "image": "Drive belt cracked and glazed"
+     },
+     {
+      "copy": "flags it for repair",
+      "image": "RTU-4 flagged for repair"
+     },
+     {
+      "copy": "Hyacinth Pridmore",
+      "image": "Email to Hyacinth Pridmore"
+     },
+     {
+      "copy": "Ansgar Starkweather",
+      "image": "Photo by Ansgar Starkweather"
+     }
+    ]
+   },
+   {
+    "recipe": "R4",
+    "title": "Failed furnace check",
+    "prompt": "Mark a furnace Unsafe and message the service manager when a safety item fails",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Furnace check",
+       "size": 22,
+       "sub": "Fall heating check"
+      },
+      {
+       "type": "fields",
+       "items": [
+        [
+         "Heat exchanger",
+         "Fail"
+        ],
+        [
+         "Photo",
+         "Added"
+        ],
+        [
+         "Checked at",
+         "3:15 pm"
+        ]
+       ]
+      },
+      {
+       "type": "button",
+       "label": "Submit check",
+       "icon": "check",
+       "full": true
+      }
+     ]
+    },
+    "panel": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Today's furnaces",
+       "size": 19,
+       "chip": [
+        "Tallis Creek",
+        "acc"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Street",
+        "Status"
+       ],
+       "widths": [
+        0.55,
+        0.45
+       ],
+       "row_h": 54,
+       "rows": [
+        [
+         "Birch Lane",
+         [
+          "Passed",
+          "ok"
+         ]
+        ],
+        [
+         "Quarry Road",
+         [
+          "Passed",
+          "ok"
+         ]
+        ],
+        [
+         "Alder Road",
+         [
+          "Unsafe",
+          "bad"
+         ]
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "message-square",
+     "tone": "bad",
+     "title": "To Odilia Brunell",
+     "action": {
+      "label": "Open check",
+      "icon": "arrow-right"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "Furnace marked Unsafe",
+       "size": 20,
+       "sub": "Cracked heat exchanger, Alder Road"
+      },
+      {
+       "type": "meta",
+       "icon": "camera",
+       "kind": "acc",
+       "text": "Photo from Rutger Emmerich"
+      },
+      {
+       "type": "meta",
+       "icon": "flame",
+       "kind": "muted",
+       "text": "Fall heating check"
+      }
+     ]
+    },
+    "alt": "Rutger Emmerich fails the heat exchanger on a furnace on Alder Road at 3:15 pm and adds a photo; Tallis Creek Mechanical's list marks the furnace Unsafe, and service manager Odilia Brunell gets a Slack direct message.",
+    "story": [
+     {
+      "copy": "At 3:15 pm",
+      "image": "3:15 pm"
+     },
+     {
+      "copy": "the furnace turns Unsafe",
+      "image": "Furnace marked Unsafe"
+     },
+     {
+      "copy": "Odilia Brunell",
+      "image": "To Odilia Brunell"
+     },
+     {
+      "copy": "Rutger Emmerich",
+      "image": "Photo from Rutger Emmerich"
+     },
+     {
+      "copy": "Alder Road",
+      "image": "Cracked heat exchanger, Alder Road"
+     }
+    ]
+   },
+   {
+    "recipe": "R8",
+    "title": "Plan register",
+    "prompt": "Show every plan customer's fall check and put the overdue ones first",
+    "rule": "If a fall check is past due → list the customer first",
+    "main": {
+     "blocks": [
+      {
+       "type": "heading",
+       "title": "Fall heating checks",
+       "size": 20,
+       "sub": "Pennwick Comfort Services",
+       "chip": [
+        "96 done, 31 booked",
+        "acc"
+       ]
+      },
+      {
+       "type": "table",
+       "columns": [
+        "Customer",
+        "Due",
+        "Status"
+       ],
+       "widths": [
+        0.42,
+        0.3,
+        0.28
+       ],
+       "row_h": 58,
+       "highlight": 0,
+       "rows": [
+        [
+         "Lark Meadow Road",
+         "Sep 2",
+         [
+          "Overdue",
+          "bad"
+         ]
+        ],
+        [
+         "Osier Street",
+         "Sep 9",
+         [
+          "Overdue",
+          "bad"
+         ]
+        ],
+        [
+         "Fernhill Court",
+         "Oct 28",
+         [
+          "Booked",
+          "warn"
+         ]
+        ],
+        [
+         "Wren Hollow Lane",
+         "Oct 6",
+         [
+          "Done",
+          "ok"
+         ]
+        ]
+       ]
+      }
+     ]
+    },
+    "hero": {
+     "kind": "card",
+     "icon": "phone",
+     "tone": "warn",
+     "title": "Call list",
+     "action": {
+      "label": "Call next customer",
+      "icon": "phone"
+     },
+     "blocks": [
+      {
+       "type": "title",
+       "title": "13 plan customers overdue",
+       "size": 20,
+       "sub": "Out of 140 on the plan"
+      },
+      {
+       "type": "meta",
+       "icon": "arrow-up",
+       "kind": "acc",
+       "text": "Oldest due date first"
+      }
+     ]
+    },
+    "mini": {
+     "icon": "check",
+     "kind": "ok",
+     "title": "Wren Hollow Lane done",
+     "sub": "Fall heating check"
+    },
+    "alt": "Pennwick Comfort Services' maintenance plan register shows 96 fall heating checks done and 31 booked, with 13 of its 140 plan customers overdue and listed first by oldest due date.",
+    "story": [
+     {
+      "copy": "140 customers",
+      "image": "Out of 140 on the plan"
+     },
+     {
+      "copy": "96 done, 31 booked",
+      "image": "96 done, 31 booked"
+     },
+     {
+      "copy": "13 overdue",
+      "image": "13 plan customers overdue"
+     },
+     {
+      "copy": "oldest due date first",
+      "image": "Oldest due date first"
+     },
+     {
+      "copy": "Overdue customers sit at the top of the list",
+      "image": "If a fall check is past due → list the customer first"
+     }
+    ]
+   }
+  ],
+  "cover": {
+   "kind": "action",
+   "dm": true,
+   "channel": "Odilia Brunell",
+   "title": "Furnace is Unsafe",
+   "sub": "Heat exchanger, 3:15 pm",
+   "primary": "Open",
+   "secondary": "Assign",
+   "alt": "HVAC inspection form: service manager Odilia Brunell gets a direct message that a furnace was marked Unsafe after its heat exchanger failed at 3:15 pm"
+  },
+  "og": {
+   "headline": "Build an HVAC inspection form for every service call",
+   "lines": null,
+   "alt": "Build an HVAC inspection form for every service call, with Emergent"
+  },
+  "checks": [
+   {
+    "expr": "16 == 16",
+    "shows": [
+     "16 of 16"
+    ],
+    "where": 1
+   },
+   {
+    "expr": "6 - 1 == 5",
+    "shows": [
+     "5 of 6 passed"
+    ],
+    "where": 2
+   },
+   {
+    "expr": "96 + 31 + 13 == 140",
+    "shows": [
+     "96 done, 31 booked",
+     "13 plan customers overdue",
+     "Out of 140 on the plan"
+    ],
+    "where": 4
+   },
+   {
+    "same": "3:15 pm",
+    "where": [
+     3,
+     "cover"
+    ]
+   }
+  ]
+ }
 }
