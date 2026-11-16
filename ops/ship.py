@@ -336,6 +336,11 @@ def cmd_update(args):
     sha = subprocess.run(["git", "rev-parse", "origin/main"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
     since = _arg(args, "--images-since") if "--images-since" in args else None   # explicit image base for pages with no cms_draft.sha (recorded in the before-value)
     only = set(x for x in _arg(args, "--only-fields").split(",") if x) if "--only-fields" in args else None   # CMS field slugs; everything else is left out
+    fields_from = None   # --fields-from OLD_PAYLOAD: per item, that payload's text fields plus the slot-map image fields (rebuilding a hand-built payload)
+    if "--fields-from" in args:
+        fields_from = {}
+        for x in json.load(open(_arg(args, "--fields-from"))):
+            for i in (x.get("update_collection_items") or {}).get("request", {}).get("items", []): fields_from.setdefault(i["id"], set()).update(i["fieldData"])
     allow_unshipped = {}
     for x in (_arg(args, "--allow-unshipped") or "").split(","):
         if "/" in x: allow_unshipped.setdefault(x.split("/")[0], []).append(x.split("/")[1])
@@ -363,6 +368,9 @@ def cmd_update(args):
             if moved: ch[h["fields"][k]] = {"url": f"{H.REPO_RAW}/{sha}/{im['path']}", "alt": im["alt"]}
             elif (im.get("alt") or "") != (cur.get("alt") or ""): ch[h["fields"][k]] = {"fileId": cur.get("fileId"), "url": cur.get("url"), "alt": im["alt"]}
         if only is not None: ch = {k: v for k, v in ch.items() if k in only}
+        if fields_from is not None:
+            keep = (fields_from.get(it["id"]) or set()) | set(slot_fields(H.hub_of(url)))
+            ch = {k: v for k, v in ch.items() if k in keep}
         img_dir = os.path.dirname(next(iter(s["images"].values()))["path"])
         sp = image_slot_problems(H.hub_of(url), img_dir, ch, sha, changed_slots(img_dir, base, sha) if base else None, allow_unshipped.get(url.rsplit("/", 1)[1], ()))
         if sp: sys.exit(f"{url}: image slots:\n  " + "\n  ".join(sp) + "\n(--allow-unshipped slug/file,... leaves a changed file out on purpose)")
