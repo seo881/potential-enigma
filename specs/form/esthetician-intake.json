@@ -35,11 +35,11 @@
   "tab_label_2": "Returning Clients",
   "tab_label_3": "Med Spa Intake",
   "tab_label_4": "Video Consults",
-  "tab_content_1": "<h3>Skin notes on Wren's screen the night before</h3><p>Thistle Skin Studio sends the intake link with every first-facial booking. Lena Cho answers the day she books, noting combination skin and a fragrance allergy. The evening before, esthetician Wren Ito gets an email with those answers for the 10:00 facial. They stay on Lena's profile for later visits.</p>",
+  "tab_content_1": "<h3>Skin notes on Wren's screen the night before</h3><p>Thistle Skin Studio sends the intake link with every first-facial booking. Lena Cho answers the day she books, noting combination skin and a fragrance allergy. The evening before, esthetician Wren Ito gets an in-app alert that Lena's intake is ready for the 10:00 facial. The answers stay on her profile for later visits.</p>",
   "tab_content_2": "<h3>A returning client changes one line, not the whole form</h3><p>At Birchwood Day Spa, a returning client opens the intake with last visit's answers filled in. Maya Ferris last answered on March 4. She adds a vitamin C serum to her mornings and submits, and the front desk sees 1 change since March 4 on her record. An intake older than 12 months opens blank.</p>",
   "tab_content_3": "<h3>Any yes in the health history waits for the nurse</h3><p>Calla Med Spa runs one intake form for every service it books. A yes to any question in the health history section puts the booking on hold until nurse practitioner Bea Marsh reviews the record. Of today's 4 bookings, 2 are on hold, and the front desk can see which ones.</p>",
   "tab_content_4": "<h3>Three photos ahead of every video consult</h3><p>Ivy Rowe runs Fern Mobile Facials alone and offers a free 15-minute video consult before a first visit. The consult form asks for three daylight photos, front and both sides, plus a top concern. Elise Dunn picks uneven tone and sends her photos on Sunday. Ivy reads them before their Monday call at 6:30 pm.</p>",
-  "mockup": "<p id=\"\">window.awbMockup = { firstFacials: \"I run Thistle Skin Studio. Build an esthetician intake form that goes out with every first-facial booking confirmation. Ask for skin type, the products the client uses morning and night, any allergies, and their top skin goal. The evening before the appointment, email the esthetician a card with that client's answers, and keep everything on the client's profile.\", returningClients: \"Build an intake form for returning clients at Birchwood Day Spa. Open it with last visit's answers already filled in, so the client only edits what changed, and mark each change on their record for the front desk. If the last full intake is more than 12 months old, open the form blank instead.\", medSpaIntake: \"My business is Calla Med Spa, and we use one intake form for every service. Add a health history section. If a client answers yes to any question there, put the booking on hold and send our nurse practitioner, Bea Marsh, a card with the record to review. Show the front desk which bookings are on hold.\", videoConsults: \"I'm a solo esthetician running Fern Mobile Facials. Build a consultation form for my free 15-minute video consults. Ask the client for three photos taken in daylight, one from the front and one from each side, and their top concern from a short list. Save the photos with the request so I can look at them before the call.\" };</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { firstFacials: \"I run Thistle Skin Studio. Build an esthetician intake form that goes out with every first-facial booking confirmation. Ask for skin type, the products the client uses morning and night, any allergies, and their top skin goal. The evening before the appointment, alert the esthetician in the app that the client's intake is ready, and keep the answers on the client's profile.\", returningClients: \"Build an intake form for returning clients at Birchwood Day Spa. Open it with last visit's answers already filled in, so the client only edits what changed, and mark each change on their record for the front desk. If the last full intake is more than 12 months old, open the form blank instead.\", medSpaIntake: \"My business is Calla Med Spa, and we use one intake form for every service. Add a health history section. If a client answers yes to any question there, put the booking on hold and alert our nurse practitioner, Bea Marsh, in the app to review the record. Show the front desk which bookings are on hold.\", videoConsults: \"I'm a solo esthetician running Fern Mobile Facials. Build a consultation form for my free 15-minute video consults. Ask the client for three photos taken in daylight, one from the front and one from each side, and their top concern from a short list. Save the photos with the request so I can look at them before the call.\" };</p>",
   "howto_title": "How to Create an Esthetician Intake Form",
   "howto_description": "Seven steps that turn your services and questions into a working esthetician intake form, then build it with Emergent.",
   "howto_step_1_title": "01 List every service the form covers",
@@ -70,7 +70,7 @@
  "images": {
   "tab_image_1": {
    "path": "images/form/esthetician-intake/uc-1.svg",
-   "alt": "A first-facial intake at Thistle Skin Studio records combination skin and a fragrance allergy, and an email gives esthetician Wren Ito those answers for Lena Cho's 10:00 facial.",
+   "alt": "A first-facial intake at Thistle Skin Studio records combination skin and a fragrance allergy on the client's profile, and esthetician Wren Ito gets an in-app alert that Lena Cho's intake is ready for her 10:00 facial.",
    "file_id": "6ad86a90acdd13dd168475ec",
    "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6ad86a90acdd13dd168475ec_uc-1.svg"
   },
@@ -183,6 +183,13 @@
    "via": "reconcile",
    "by": "B-c-2",
    "note": "reconciled with status/live.json 2026-11-13 (Divit): live since 2026-10-23; was 'reviewed'"
+  },
+  {
+   "t": "2026-11-17 07:53 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-972",
+   "note": ""
   }
  ],
  "pipeline": "r15",
@@ -360,7 +367,7 @@
    {
     "recipe": "R6",
     "title": "First facial intake",
-    "prompt": "Send new facial clients an intake and email the esthetician their answers",
+    "prompt": "Send new facial clients an intake and alert the esthetician when it is ready",
     "main": {
      "blocks": [
       {
@@ -395,7 +402,7 @@
     "hero": {
      "kind": "card",
      "title": "For Wren Ito",
-     "icon": "mail",
+     "icon": "bell",
      "tone": "acc",
      "action": {
       "label": "Open answers",
@@ -404,18 +411,18 @@
      "blocks": [
       {
        "type": "title",
-       "title": "Lena Cho, 10:00 facial",
-       "sub": "Intake answers"
+       "title": "Lena Cho's intake is ready",
+       "sub": "For the 10:00 facial"
       },
       {
        "type": "meta",
-       "icon": "triangle-alert",
+       "icon": "file-text",
        "kind": "acc",
-       "text": "Allergy: fragrance"
+       "text": "Answers on Lena's profile"
       },
       {
        "type": "text",
-       "text": "Night routine: retinol serum",
+       "text": "Alert in the app",
        "size": 16,
        "color": "muted"
       }
@@ -427,7 +434,7 @@
      "title": "Sent the evening before",
      "sub": "Saved to Lena's profile"
     },
-    "alt": "A first-facial intake at Thistle Skin Studio records combination skin and a fragrance allergy, and an email gives esthetician Wren Ito those answers for Lena Cho's 10:00 facial.",
+    "alt": "A first-facial intake at Thistle Skin Studio records combination skin and a fragrance allergy on the client's profile, and esthetician Wren Ito gets an in-app alert that Lena Cho's intake is ready for her 10:00 facial.",
     "story": [
      {
       "copy": "combination skin",
@@ -435,15 +442,15 @@
      },
      {
       "copy": "a fragrance allergy",
-      "image": "Allergy: fragrance"
+      "image": "Fragrance"
      },
      {
-      "copy": "esthetician Wren Ito gets an email",
+      "copy": "esthetician Wren Ito gets an in-app alert",
       "image": "For Wren Ito"
      },
      {
       "copy": "the 10:00 facial",
-      "image": "Lena Cho, 10:00 facial"
+      "image": "For the 10:00 facial"
      },
      {
       "copy": "The evening before",
@@ -1228,6 +1235,66 @@
    "by": "B-c-2",
    "reason": "Divit 2026-11-17 close-out item 2: hero-prompt backlog polish and cross-field re-check findings",
    "date": "2026-11-17 07:28 UTC"
+  },
+  {
+   "field": "alt:cover_image",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "alt:share_image",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "alt:tab_image_1",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "alt:tab_image_2",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "alt:tab_image_3",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "alt:tab_image_4",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "chip_adds",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "hero_prompt",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "mockup",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "tab_content_1",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
   }
  ],
  "slim_reviews": [

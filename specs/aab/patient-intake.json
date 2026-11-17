@@ -39,7 +39,7 @@
   "tab_content_2": "<h3>Billing checks a member ID that is one digit off</h3><p>Cormac Tennant photographs both sides of his insurance card for a Monday knee consult at Coldharbor Orthopedics. AI reads the member ID from the front. He typed QX4471902, but the card reads QX4471962. The app holds the intake for Odhran Fairclough, the billing coordinator.</p>",
   "tab_content_3": "<h3>Before Tuesday, a latex allergy reaches the day sheet</h3><p>Saoirse Ebbesen is booked for an extraction at Hollins Creek Oral Surgery on Tuesday at 8:00 a.m. On Sunday at 7:12 p.m., she answers yes to the latex allergy question. The app flags latex on the day sheet and tells Ysella Quellet, Tuesday's surgical assistant, that an intake needs review.</p>",
   "tab_content_4": "<h3>Two possible duplicates stay out of the patient records</h3><p>Pallas Ridge Sleep Clinic sends each finished intake to its scheduling system through its API. On Monday, 41 intakes finish, and 39 become new patient records. The other 2 share a last name and date of birth with an existing patient, and wait in a merge queue for Fenella Sarvari, the records lead.</p>",
-  "mockup": "<p id=\"\">window.awbMockup = { intakeReminders: \"Email every new patient an intake link the moment they book. Two days before the visit, email a reminder to anyone who has not finished. At 4 p.m. the day before, send the front desk lead a call list of the intakes still open, with each patient's visit time and phone number, earliest visit first.\", insuranceCards: \"Ask each patient to photograph the front and back of their insurance card during intake. Read the plan name, group number, and member ID from the front of the card. If the member ID read from the card does not match the one the patient typed, hold the intake for my billing coordinator to check before the visit.\", allergyAlerts: \"Add a latex allergy question to the intake for every procedure visit. When a patient answers yes, add a latex flag next to the patient on the day sheet, and message the surgical assistant on that day's schedule that a new intake needs review before surgery. Keep the allergy answer in the app, not in the message.\", duplicateRecords: \"Send each finished intake to my scheduling system through its API as a new patient record. If the last name and date of birth match an existing patient, hold the intake in a merge queue for my records lead instead of creating a record. Show each day's count of new records and held intakes.\" };</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { intakeReminders: \"Email every new patient an intake link the moment they book. Two days before the visit, email a reminder to anyone who has not finished. At 4 p.m. the day before, send the front desk lead a call list of the intakes still open, with each patient's visit time and phone number, earliest visit first.\", insuranceCards: \"Ask each patient to photograph the front and back of their insurance card during intake. Read the plan name, group number, and member ID from the front of the card. If the member ID read from the card does not match the one the patient typed, hold the intake for my billing coordinator to check before the visit.\", allergyAlerts: \"Add a latex allergy question to the intake for every procedure visit. When a patient answers yes, add a latex flag next to the patient on the day sheet, and message the surgical assistant on that day's schedule that a new intake needs review. Keep the allergy answer in the app, not in the message.\", duplicateRecords: \"Send each finished intake to my scheduling system through its API as a new patient record. If the last name and date of birth match an existing patient, hold the intake in a merge queue for my records lead instead of creating a record. Show each day's count of new records and held intakes.\" };</p>",
   "howto_title": "How to Automate Patient Intake",
   "howto_description": "Seven steps to map your intake, give every exception an owner, and build patient intake automation with Emergent.",
   "howto_step_1_title": "01 Write down how intake runs today",
@@ -82,7 +82,7 @@
   },
   "tab_image_3": {
    "path": "images/aab/patient-intake/uc-3.svg",
-   "alt": "A patient answers yes to the latex allergy question on her phone on Sunday at 7:12 p.m., the day sheet flags latex, and the surgical assistant is asked to review her intake before the Tuesday 8:00 a.m. extraction.",
+   "alt": "A patient answers yes to the latex allergy question on her phone on Sunday at 7:12 p.m., the day sheet flags latex, and the surgical assistant is asked to review her intake before Tuesday's 8:00 a.m. visit.",
    "file_id": "6aed847c848cedeabb62007b",
    "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6aed847c848cedeabb62007b_uc-3.svg"
   },
@@ -211,6 +211,13 @@
    "via": "api-publish",
    "by": null,
    "note": "live page verified"
+  },
+  {
+   "t": "2026-11-17 07:48 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-972",
+   "note": ""
   }
  ],
  "pipeline": "r15",
@@ -713,7 +720,7 @@
        "type": "title",
        "title": "Intake to review: Saoirse Ebbesen",
        "size": 20,
-       "sub": "Tuesday, 8:00 a.m. extraction"
+       "sub": "Tuesday, 8:00 a.m. visit"
       },
       {
        "type": "meta",
@@ -725,7 +732,7 @@
        "type": "meta",
        "icon": "flag",
        "kind": "bad",
-       "text": "Review before surgery"
+       "text": "Review before the visit"
       }
      ],
      "action": {
@@ -733,7 +740,7 @@
       "icon": "arrow-right"
      }
     },
-    "alt": "A patient answers yes to the latex allergy question on her phone on Sunday at 7:12 p.m., the day sheet flags latex, and the surgical assistant is asked to review her intake before the Tuesday 8:00 a.m. extraction.",
+    "alt": "A patient answers yes to the latex allergy question on her phone on Sunday at 7:12 p.m., the day sheet flags latex, and the surgical assistant is asked to review her intake before Tuesday's 8:00 a.m. visit.",
     "story": [
      {
       "copy": "Saoirse Ebbesen",
@@ -741,7 +748,7 @@
      },
      {
       "copy": "Tuesday at 8:00 a.m.",
-      "image": "Tuesday, 8:00 a.m. extraction"
+      "image": "Tuesday, 8:00 a.m. visit"
      },
      {
       "copy": "On Sunday at 7:12 p.m.",
@@ -1369,6 +1376,60 @@
    "by": "B-c-1",
    "reason": "Divit 2026-11-05 rulings 1-2: health details in transit / cross-field mismatches always blocking; fixing the reviewer's note",
    "date": "2026-11-05 10:32 UTC"
+  },
+  {
+   "field": "alt:cover_image",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "alt:share_image",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "alt:tab_image_1",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "alt:tab_image_2",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "alt:tab_image_3",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "alt:tab_image_4",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "chip_adds",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "hero_prompt",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "mockup",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
   }
  ],
  "cms_draft": {
