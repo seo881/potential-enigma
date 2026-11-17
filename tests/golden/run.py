@@ -285,7 +285,7 @@ def caught(c):
     if c["kind"] == "keyword-in-h1":   # B-c-2 2026-11-16: possessive primaries (valentine's) match an H1 written with the apostrophe
         sys.path.insert(0, os.path.join(ROOT, "ops")); import slugs as SL
         return SL.keyword_in_h1(c["h1"], c["kw"]) == c["expect"]
-    if c["kind"] == "kw-variant":   # rules/keyword_variants.json: a variant spelling carries the keyword (L10/K-checks)
+    if c["kind"] == "kw-variant-l10":   # rules/keyword_variants.json: a variant spelling carries the keyword (L10/K-checks)
         sys.path.insert(0, os.path.join(ROOT, "qc")); import qc_hub as QV
         return (QV.kwn(c["kw"]) in QV.kwn(c["text"])) == c["expect"]
     if c["kind"] == "faq-wrap":   # Divit 2026-11-16: the FAQ assembler never wraps link words twice (nested <a>)
