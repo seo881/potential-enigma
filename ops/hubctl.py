@@ -1472,6 +1472,33 @@ def cmd_postlive_backlog(args):
     print(f"post-live review backlog: {len(rows)} page(s); overdue (>24 h): {len(over)}; live: {sum(1 for r in rows if r[2] == 'published')}")
     for t, u, st_, a in rows: print(f"  {'OVERDUE ' if a > 24 else ''}{u}  ({st_}, approved {t.strftime('%m-%d %H:%M')} UTC, {a:.1f} h)")
 
+def faq_questions(s):
+    """The FAQ questions of a spec, in order (from the assembled faq field, else faq_plan)."""
+    m = re.search(r"window\.awbFAQ\s*=\s*(\{.*?\});\s*</script>", (s.get("fields") or {}).get("faq") or "", re.S)
+    if m:
+        try: return [i.get("q") for i in json.loads(m.group(1)).get("items") or []]
+        except ValueError: pass
+    return [x.get("q") for x in s.get("faq_plan") or []]
+def faq_questions_unchanged_since_approval(s, sp):
+    """Divit 2026-11-17: F6 (AlsoAsked pull over 30 days) does not block a restamp when the change since approval did not touch the FAQ
+    questions (hero prompts, hyphen alignment, health fixes); no re-pull. True when the spec as of the approval date (git) has the same
+    FAQ questions; unknown baseline -> False (F6 still blocks)."""
+    import datetime as _d
+    d = ((s.get("approval") or {}).get("date") or "").replace(" UTC", "")
+    if not d: return False
+    try: iso = _d.datetime.strptime(d, "%Y-%m-%d %H:%M").strftime("%Y-%m-%dT%H:%M:59Z")
+    except ValueError: return False
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import slugs as SL
+    rel = os.path.relpath(sp, ROOT)
+    sha = subprocess.run(["git", "log", "-1", "--format=%H", f"--before={iso}", "--", *SL.git_rels(rel)], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    if not sha: return False
+    try: old = json.loads(SL.git_show(sha, rel, ROOT))
+    except (ValueError, TypeError): return False
+    return faq_questions_equal(faq_questions(old), faq_questions(s))
+def faq_questions_equal(a, b):
+    norm = lambda q: re.sub(r"[\s\-]+", " ", re.sub(r"<[^>]+>", "", q or "")).strip().lower()
+    return [norm(x) for x in a] == [norm(x) for x in b]
+
 def restamp_refusal(s, divit_go, qc_ids, review_changed):
     """Why postlive-restamp must refuse (None = restamp). Divit 2026-11-16: every route needs QC clean beyond R3 and a verify-live pass
     recorded after the last change (last slim review / unlock); a page named in today's go record (divit_go) or changed by a Divit-ordered
@@ -1506,6 +1533,7 @@ def cmd_postlive_restamp(args):
     if (s.get("approval") or {}).get("fingerprint") == G.fingerprint(s): sys.exit("refused: content is unchanged since approval (no R3); nothing to restamp")
     r = subprocess.run([sys.executable, os.path.join(ROOT, "qc", "qc_hub.py"), sp], capture_output=True, text=True)
     ids = sorted({m.group(2) for m in re.finditer(r"^  (P0|P1) (\S+)", r.stdout, re.M)} - {"R3"})
+    if "F6" in ids and faq_questions_unchanged_since_approval(s, sp): ids.remove("F6")   # Divit 2026-11-17: F6 never blocks a change that left the FAQ questions alone
     why = restamp_refusal(s, bool(divit_go), ids, G.review_changed(s))
     if why: sys.exit("refused: " + why)
     today = _dt.date.today().isoformat()

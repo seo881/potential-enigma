@@ -308,6 +308,9 @@ def caught(c):
         except SystemExit: refused = True
         kept = json.load(open(f)) == (c["existing"] if c.get("existing") is not None else c["write"])
         return refused == c["expect_refused"] and kept
+    if c["kind"] == "f6-faq-unchanged":   # Divit 2026-11-17: F6 skips restamps whose change left the FAQ questions alone
+        sys.path.insert(0, os.path.join(ROOT, "ops")); import hubctl as HF
+        return HF.faq_questions_equal(c["a"], c["b"]) == c["expect_equal"]
     if c["kind"] == "restamp-gate":   # Divit 2026-11-16: a go-record name alone never restamps; review + QC + verify-live always required
         sys.path.insert(0, os.path.join(ROOT, "ops")); import hubctl as HC
         why = HC.restamp_refusal(c["spec"], c["divit_go"], c.get("qc_ids", []), c["review_changed"])
