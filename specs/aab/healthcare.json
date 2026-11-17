@@ -24,7 +24,7 @@
   "feature_1": "<h3>Rules written as plain sentences</h3><p>Describe each automation the way you would brief a new hire, such as who is offered a slot that opens. Emergent builds the app and its logic, and a prompt changes a rule.</p>",
   "feature_2": "<h3>Connects to the systems you already run</h3><p>Any system with an API can send data into the app or receive its updates. The scheduling and billing software the practice runs today stays in place, and the app works beside it.</p>",
   "feature_3": "<h3>Faxes and scans read into fields</h3><p>Upload a faxed form or a scanned insurance card, and AI reads it into structured fields. A value the AI is unsure of goes to a person to confirm before the record is saved.</p>",
-  "feature_4": "<h3>Every delay has one named owner</h3><p>An overdue item goes to a named person in Slack, by email, or in the app, and a reminder follows if nobody acts. You pick who hears about each delay as you write the rule.</p>",
+  "feature_4": "<h3>Every delay has one named owner</h3><p>An overdue item alerts a named person in the app, in Slack, or by email with a link, and a reminder follows if nobody acts. You pick who hears about each delay in the rule.</p>",
   "feature_5": "<h3>Records kept in a database you own</h3><p>Appointments and referrals are stored in a database you own, and each approval is logged with the name of the person who gave it. Pull a report whenever you need one.</p>",
   "feature_6": "<h3>The code is yours on paid plans</h3><p>Export the full code of the app to your GitHub repository on paid plans. An IT team or an outside developer can read every rule before the app touches a patient record.</p>",
   "why_title": "Why Build Clinic Automations With Emergent?",
@@ -37,9 +37,9 @@
   "tab_label_4": "Supply Reorders",
   "tab_content_1": "<h3>One tap on Reschedule refills a Thursday slot</h3><p>Vesna Kjellberg has a Thursday 9:30 a.m. visit at Cedarbrook Family Medicine, and the app emails her a reminder 2 days ahead. She taps Reschedule and moves to Friday at 2:15 p.m. The app then emails the open Thursday slot to Benedek Szabados, first on the waitlist, and holds it for him.</p>",
   "tab_content_2": "<h3>A faxed referral, read into the right fields</h3><p>A faxed referral for Thandiwe Mabuza arrives from Dr. Kasongo Ilunga. The app reads the referring doctor, the reason, her date of birth, and her member ID into a new record. The smudged member ID reads at low confidence, and the record waits for Ifeoma Fairweather at the front desk to check that one field.</p>",
-  "tab_content_3": "<h3>Five business days of silence reaches billing</h3><p>Request PA-3318 for Gunnhild Ferreira-Lowe's knee MRI goes to her insurer on a Monday. Each request gets 5 business days for an answer. With no answer by the next Monday, the app marks PA-3318 overdue and sends Dashiell Pellegrini, the billing coordinator, a direct message in Slack with a Call insurer button.</p>",
+  "tab_content_3": "<h3>Five business days of silence reaches billing</h3><p>Request PA-3318 goes to the insurer on a Monday. Each request gets 5 business days for an answer. With no answer by the next Monday, the app marks PA-3318 overdue and alerts Dashiell Pellegrini, the billing coordinator, in the app with a Call insurer button. The patient and procedure stay on the request record.</p>",
   "tab_content_4": "<h3>Glove orders over $500 wait for the practice manager</h3><p>The exam glove count in the supply room drops to 12 boxes, under the reorder point of 20. The app drafts a reorder of 40 boxes at $16 each, $640 in all. Orders over $500 go to Abebe Sundqvist, the practice manager, who approves this one in the app, and the log records his name next to the decision.</p>",
-  "mockup": "<p id=\"\">window.awbMockup = { visitReminders: \"Email each patient a reminder 2 days before their visit with Confirm and Reschedule buttons. When a patient reschedules, offer the open slot by email to the first patient on the waitlist and hold it for them. Show the front desk every slot that was refilled this week.\", referralFaxes: \"When a referral arrives by fax, read the referring doctor, the reason, the date of birth, and the insurance member ID into a new referral record. If any field reads at low confidence, hold the record for the front desk to check that field before it is saved.\", priorAuthorizations: \"Track every prior authorization request we send to an insurer. Give each one 5 business days for an answer. If none comes, mark the request overdue and send the billing coordinator a direct message in Slack with the request and a Call insurer button.\", supplyReorders: \"Track the supply room counts. When exam gloves drop under 20 boxes, draft a reorder of 40 boxes at the last price. Send any order over $500 to the practice manager to approve in the app, and log who approved or declined it, with the time.\" };</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { visitReminders: \"Email each patient a reminder 2 days before their visit with Confirm and Reschedule buttons. When a patient reschedules, offer the open slot by email to the first patient on the waitlist and hold it for them. Show the front desk every slot that was refilled this week.\", referralFaxes: \"When a referral arrives by fax, read the referring doctor, the reason, the date of birth, and the insurance member ID into a new referral record. If any field reads at low confidence, hold the record for the front desk to check that field before it is saved.\", priorAuthorizations: \"Track every prior authorization request we send to an insurer. Give each one 5 business days for an answer. If none comes, mark the request overdue and send the billing coordinator an in-app alert that it is overdue, with a Call insurer button.\", supplyReorders: \"Track the supply room counts. When exam gloves drop under 20 boxes, draft a reorder of 40 boxes at the last price. Send any order over $500 to the practice manager to approve in the app, and log who approved or declined it, with the time.\" };</p>",
   "howto_title": "How to Automate Your Clinic's Front Office",
   "howto_description": "Seven steps to plan healthcare automation around the tasks your front desk repeats, then build and test it with Emergent.",
   "howto_step_1_title": "01 List what the front desk repeats",
@@ -82,7 +82,7 @@
   },
   "tab_image_3": {
    "path": "images/aab/healthcare/uc-3.svg",
-   "alt": "Prior authorization request PA-3318 for a knee MRI gets no answer from the insurer in 5 business days, is marked overdue, and reaches the billing coordinator as a direct message with a Call insurer button.",
+   "alt": "Prior authorization request PA-3318 gets no answer in 5 business days, is marked overdue, and reaches the billing coordinator as an in-app alert with a Call insurer button.",
    "file_id": "6ad2295f6e1adf8777aa01c3",
    "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6ad2295f6e1adf8777aa01c3_uc-3.svg"
   },
@@ -94,7 +94,7 @@
   },
   "cover_image": {
    "path": "images/aab/healthcare/cover.svg",
-   "alt": "Healthcare automation: a direct message telling the billing coordinator that prior authorization PA-3318 has had no answer in 5 business days",
+   "alt": "Healthcare automation: an in-app alert telling the billing coordinator that prior authorization PA-3318 has had no answer in 5 business days",
    "file_id": "6ad2295e6e1adf8777aa01bc",
    "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6ad2295e6e1adf8777aa01bc_cover.svg"
   },
@@ -232,6 +232,13 @@
    "via": "reconcile",
    "by": "B-c-2",
    "note": "reconciled with status/live.json 2026-11-13 (Divit): live since 2026-10-23; was 'reviewed'"
+  },
+  {
+   "t": "2026-11-17 07:57 UTC",
+   "state": "images",
+   "via": null,
+   "by": "B-w-971",
+   "note": ""
   }
  ],
  "pipeline": "r15",
@@ -488,7 +495,7 @@
  "chip_adds": [
   "Add visit reminders that offer a canceled slot to the next patient on the waitlist.",
   "Add referral fax reading that types faxed referrals into records for the front desk.",
-  "Add prior auth alerts that message billing when an insurer is 5 business days late.",
+  "Add in-app prior auth alerts for billing when an insurer is 5 business days late.",
   "Add supply reorders that hold any order over a set amount for the practice manager."
  ],
  "image_brief": {
@@ -805,7 +812,7 @@
    {
     "recipe": "R10",
     "title": "Prior authorizations",
-    "prompt": "Message the billing coordinator when an insurer has not answered in 5 business days",
+    "prompt": "Alert billing in the app when an insurer has not answered in 5 business days",
     "kpi": {
      "icon": "timer",
      "label": "Answer window",
@@ -816,9 +823,9 @@
      "blocks": [
       {
        "type": "heading",
-       "title": "PA-3318, knee MRI",
+       "title": "PA-3318",
        "size": 20,
-       "sub": "Gunnhild Ferreira-Lowe"
+       "sub": "Prior authorization request"
       },
       {
        "type": "timeline",
@@ -840,7 +847,7 @@
         },
         {
          "label": "Dashiell Pellegrini",
-         "chip": "Direct message",
+         "chip": "In-app alert",
          "kind": "next",
          "live": true
         }
@@ -851,7 +858,7 @@
     "hero": {
      "kind": "card",
      "app": true,
-     "app_sub": "Direct message to Dashiell Pellegrini",
+     "app_sub": "In-app alert for Dashiell Pellegrini",
      "blocks": [
       {
        "type": "title",
@@ -869,10 +876,6 @@
        "type": "chips",
        "items": [
         [
-         "Knee MRI",
-         "acc"
-        ],
-        [
          "Overdue",
          "bad"
         ]
@@ -884,22 +887,18 @@
       "icon": "phone"
      }
     },
-    "alt": "Prior authorization request PA-3318 for a knee MRI gets no answer from the insurer in 5 business days, is marked overdue, and reaches the billing coordinator as a direct message with a Call insurer button.",
+    "alt": "Prior authorization request PA-3318 gets no answer in 5 business days, is marked overdue, and reaches the billing coordinator as an in-app alert with a Call insurer button.",
     "story": [
      {
       "copy": "Request PA-3318",
-      "image": "PA-3318, knee MRI"
-     },
-     {
-      "copy": "Gunnhild Ferreira-Lowe",
-      "image": "Gunnhild Ferreira-Lowe"
+      "image": "PA-3318"
      },
      {
       "copy": "5 business days for an answer",
       "image": "No answer after 5 business days"
      },
      {
-      "copy": "goes to her insurer on a Monday",
+      "copy": "goes to the insurer on a Monday",
       "image": "Sent to insurer"
      },
      {
@@ -908,15 +907,11 @@
      },
      {
       "copy": "Dashiell Pellegrini",
-      "image": "Direct message to Dashiell Pellegrini"
+      "image": "In-app alert for Dashiell Pellegrini"
      },
      {
       "copy": "a Call insurer button",
       "image": "Call insurer"
-     },
-     {
-      "copy": "knee MRI",
-      "image": "Knee MRI"
      }
     ]
    },
@@ -1036,14 +1031,14 @@
   ],
   "cover": {
    "kind": "action",
-   "dm": true,
-   "channel": "Dashiell Pellegrini",
+   "dm": false,
+   "channel": "In-app alert",
    "title": "PA-3318 is overdue",
    "sub": "5 business days, no answer",
    "primary": "Call insurer",
    "secondary": "Open",
    "icon": "file-clock",
-   "alt": "Healthcare automation: a direct message telling the billing coordinator that prior authorization PA-3318 has had no answer in 5 business days"
+   "alt": "Healthcare automation: an in-app alert telling the billing coordinator that prior authorization PA-3318 has had no answer in 5 business days"
   },
   "og": {
    "headline": "Build healthcare automation for your clinic",
@@ -1544,6 +1539,78 @@
    "by": "B-c-1",
    "reason": "Divit 2026-11-03 HERO PROMPT FIX: page-specific default prompt",
    "date": "2026-11-03 13:42 UTC"
+  },
+  {
+   "field": "alt:cover_image",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "alt:share_image",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "alt:tab_image_1",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "alt:tab_image_2",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "alt:tab_image_3",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "alt:tab_image_4",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "chip_adds",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "feature_4",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "hero_prompt",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "mockup",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "prompt_chip_3",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "tab_content_3",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
   }
  ]
 }
