@@ -312,6 +312,9 @@ def caught(c):
         sys.path.insert(0, os.path.join(ROOT, "ops")); import hubctl as HQ
         out = subprocess.run([sys.executable, os.path.join(ROOT, "qc", "qc_hub.py"), HQ.spath(c["url"])], capture_output=True, text=True).stdout
         return (re.search(r"^  P[01] Q6 ", out, re.M) is None) == c["expect_no_q6"]
+    if c["kind"] == "f6-trigger":   # Divit 2026-11-17: F6 only for AlsoAsked questions added or changed in the current edit
+        sys.path.insert(0, os.path.join(ROOT, "ops")); import hubctl as HT
+        return bool(HT.f6_triggering(c["old_qs"], c["new_sources"])) == c["expect_trigger"]
     if c["kind"] == "f6-faq-unchanged":   # Divit 2026-11-17: F6 skips restamps whose change left the FAQ questions alone
         sys.path.insert(0, os.path.join(ROOT, "ops")); import hubctl as HF
         return HF.faq_questions_equal(c["a"], c["b"]) == c["expect_equal"]

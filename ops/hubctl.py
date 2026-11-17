@@ -1495,6 +1495,27 @@ def faq_questions_unchanged_since_approval(s, sp):
     try: old = json.loads(SL.git_show(sha, rel, ROOT))
     except (ValueError, TypeError): return False
     return faq_questions_equal(faq_questions(old), faq_questions(s))
+def f6_triggering(old_qs, new_sources):
+    """Divit 2026-11-17: F6 (AlsoAsked pull > 30 days) applies only to AlsoAsked-sourced FAQ questions that were ADDED or CHANGED since
+    approval. old_qs: the approved FAQ questions; new_sources: the current spec.faq_sources ([{q, source}], source "paa" = AlsoAsked).
+    Returns the triggering questions (empty = F6 does not block). Unchanged AlsoAsked questions and written questions never trigger it."""
+    norm = lambda q: re.sub(r"[\s\-]+", " ", re.sub(r"<[^>]+>", "", q or "")).strip().lower()
+    old = {norm(q) for q in old_qs}
+    return [e.get("q") for e in new_sources or [] if e.get("source") == "paa" and norm(e.get("q")) not in old]
+def f6_triggered_since_approval(s, sp):
+    """True when the current edit added or changed an AlsoAsked question (F6 then still blocks); unknown baseline -> True (safe)."""
+    import datetime as _d
+    d = ((s.get("approval") or {}).get("date") or "").replace(" UTC", "")
+    if not d: return True
+    try: iso = _d.datetime.strptime(d, "%Y-%m-%d %H:%M").strftime("%Y-%m-%dT%H:%M:59Z")
+    except ValueError: return True
+    sys.path.insert(0, os.path.join(ROOT, "ops")); import slugs as SL
+    rel = os.path.relpath(sp, ROOT)
+    sha = subprocess.run(["git", "log", "-1", "--format=%H", f"--before={iso}", "--", *SL.git_rels(rel)], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    if not sha: return True
+    try: old = json.loads(SL.git_show(sha, rel, ROOT))
+    except (ValueError, TypeError): return True
+    return bool(f6_triggering(faq_questions(old), s.get("faq_sources") or []))
 def faq_questions_equal(a, b):
     norm = lambda q: re.sub(r"[\s\-]+", " ", re.sub(r"<[^>]+>", "", q or "")).strip().lower()
     return [norm(x) for x in a] == [norm(x) for x in b]
@@ -1533,7 +1554,7 @@ def cmd_postlive_restamp(args):
     if (s.get("approval") or {}).get("fingerprint") == G.fingerprint(s): sys.exit("refused: content is unchanged since approval (no R3); nothing to restamp")
     r = subprocess.run([sys.executable, os.path.join(ROOT, "qc", "qc_hub.py"), sp], capture_output=True, text=True)
     ids = sorted({m.group(2) for m in re.finditer(r"^  (P0|P1) (\S+)", r.stdout, re.M)} - {"R3"})
-    if "F6" in ids and faq_questions_unchanged_since_approval(s, sp): ids.remove("F6")   # Divit 2026-11-17: F6 never blocks a change that left the FAQ questions alone
+    if "F6" in ids and not f6_triggered_since_approval(s, sp): ids.remove("F6")   # Divit 2026-11-17: F6 applies only to AlsoAsked questions ADDED or CHANGED in this edit
     why = restamp_refusal(s, bool(divit_go), ids, G.review_changed(s))
     if why: sys.exit("refused: " + why)
     today = _dt.date.today().isoformat()
