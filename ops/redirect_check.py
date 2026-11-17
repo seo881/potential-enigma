@@ -16,10 +16,11 @@ ADDS checks; it never pauses, weakens or replaces an existing one (permanent rul
 
 Codes (REAL findings; severities per Divit 2026-10-26). Divit 2026-11-03: the 24 targets found on the first run are known_open_issues
 (ids redir-*, url-exact, expires 2026-11-17) until reports/2026-11-03/redirects-final-v2.csv ships with the next planned domain publish;
-CSV stays redirects-final.csv until Divit says v2 is imported. Any other A11 finding counts as real:
+CSV stays redirects-final.csv (Divit 2026-11-17: the 24 pre-existing targets are permanent known issues, no v2/v3 import). Any other A11 finding counts as real:
   A11-redirect   P0  the source does not return a single-hop 301 to exactly its target (missing, changed, 302/307/308, a chain)
   A11-target     P1  the redirect target does not return HTTP 200 (one finding per failing target, however many rows point at it)
   A11-transport  P1  not checked: transport error after a retry (like A1-transport; a re-run clears it)
+  A11-list       P0  the checked CSV is not the pinned list (rules/live_audit.json redirect_list sha256), Divit 2026-11-17
 """
 import concurrent.futures, csv, datetime, json, os, sys, time
 import urllib.error, urllib.parse, urllib.request
@@ -168,6 +169,21 @@ def append_findings(date, findings, n_rows, csv_path, base):
     return fp
 
 
+def list_change_findings(csv_path, pin=None):
+    """Divit 2026-11-17: alert on any change to the redirect list itself. The checked CSV's sha256 must equal the pin in
+    rules/live_audit.json redirect_list (set only by a deliberate, reviewed commit when Divit changes the live redirect set);
+    a mismatch is a REAL P0 A11-list finding (never a known issue)."""
+    import hashlib
+    if pin is None:
+        pin = (json.load(open(os.path.join(ROOT, "rules", "live_audit.json"))).get("redirect_list") or {})
+    got = hashlib.sha256(open(csv_path, "rb").read()).hexdigest()
+    want = pin.get("sha256"); rel = os.path.relpath(csv_path, ROOT)
+    if pin.get("csv") and pin["csv"] != rel:
+        return [{"code": "A11-list", "severity": "P0", "url": "/", "snippet": rel, "msg": f"redirect list checked from {rel}, but the pinned list is {pin['csv']}"}]
+    if want and got != want:
+        return [{"code": "A11-list", "severity": "P0", "url": "/", "snippet": got[:12], "msg": f"redirect list {rel} changed (sha256 {got[:12]} != pinned {want[:12]})"}]
+    return []
+
 def main(argv):
     if not argv or argv[0] not in ("run", "check"): sys.exit(__doc__)
     a = argv[1:]
@@ -179,6 +195,7 @@ def main(argv):
     rows = load_rows(csv_path)
     if len(rows) < min_rows: sys.exit(f"{csv_path}: only {len(rows)} rows (expected at least {min_rows}): refusing a shrunken redirect set")
     findings, results, secs = check_all(base, rows, workers)
+    findings += list_change_findings(csv_path)
     for l in summary_lines(rows, findings, results, base, secs, workers): print(l)
     if argv[0] == "check": sys.exit(3 if findings else 0)
     cdir = os.path.join(ROOT, ".cache", "live", date); os.makedirs(cdir, exist_ok=True)

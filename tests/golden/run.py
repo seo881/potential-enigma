@@ -288,6 +288,11 @@ def caught(c):
     if c["kind"] == "kw-variant-l10":   # rules/keyword_variants.json: a variant spelling carries the keyword (L10/K-checks)
         sys.path.insert(0, os.path.join(ROOT, "qc")); import qc_hub as QV
         return (QV.kwn(c["kw"]) in QV.kwn(c["text"])) == c["expect"]
+    if c["kind"] == "redirect-list":   # Divit 2026-11-17: any change to the redirect list itself is a REAL P0 A11-list
+        sys.path.insert(0, os.path.join(ROOT, "ops")); import redirect_check as RL, tempfile
+        d = tempfile.mkdtemp(); f = os.path.join(d, "r.csv"); open(f, "w").write(c["csv"])
+        import hashlib; pin = {"sha256": hashlib.sha256(c["pin_csv"].encode()).hexdigest()}
+        return bool(RL.list_change_findings(f, pin)) == c["expect_finding"]
     if c["kind"] == "faq-wrap":   # Divit 2026-11-16: the FAQ assembler never wraps link words twice (nested <a>)
         sys.path.insert(0, os.path.join(ROOT, "ops")); import skeleton as SK
         out, ok = SK._wrap(c["ans"], c["link"])
