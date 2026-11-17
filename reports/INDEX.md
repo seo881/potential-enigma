@@ -1,6 +1,7 @@
 # Work reports (newest first)
 
 One line per task: date, slug, summary, commit SHA of the work. Rule: RUNBOOK section 6.
+- 2026-11-17 | closeout-hero-health | hero backlog 280/280 live+restamped, health sweep 37 pages live, loose ends, redirect ruling, new gates | f2be6cf2
 - 2026-11-17 | redirects-v3-site-publish-checklist | B-redir-3: redirects-final-v3.csv (843 rows, 30 fixed targets, 771/771 targets 200, 0 findings), ops/redirect_set_check.py + 8 golden, site publish checklist for Divit; no Webflow call | see git log
 - 2026-11-16 | bfix23-rebuild | image slot guard + B-fix-23b payload rebuilt, dry run clean, awaiting Divit | 1b2e60ec
 - 2026-11-12 | take-back-sync | B coordinator again; stash+wip-A merged (render fix golden green, ship.py/weekend.py held); song-request item-published with substitute Learn ref, fitness confirmed live; gate change (locked definition flags hold); 16 writers restarted; audits re-running | 8913bcb6
