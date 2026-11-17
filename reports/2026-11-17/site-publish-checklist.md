@@ -13,7 +13,6 @@ Prepared by B-redir-3 for Divit's order of 2026-11-17: "Redirects: prepare the f
 | 3 | Staged Learn items (other team's content) | Learns `6a0f028d0bfe272031dbddb8` | 0 of 769 published Learn items were updated after their last publish (07:30 UTC read-back). On 11-06 there were 14, so that RED has cleared. This is a timestamp check, not the field-by-field diff from 11-06. |
 | 4 | Other collections (Blogs, News, Tutorials, Builds, App/Website/Web App Builders, FAQs, ...) | not ours | **Not checked.** Claude has no read-back of them and made no Webflow call. A site publish ships any staged edits in them. Divit checks the publish dialog, step D1. |
 | 5 | Staged template, page, component or style changes | Designer | **None by Claude since 2026-10-23.** logs/templates.md has no write after the 10-23 quiz embed, and the 2026-11-06 quiz-embed change was never staged (reports/2026-11-06/quiz-cls-390-investigation.md). The page API is not readable by us, so changes by anyone else are unknown. Divit checks the publish dialog, step D1. |
-| 6 | Font-loading fix (head code) | proposal `reports/2026-11-11/font-loading-proposal.md` | **Not applied.** Production still loads Inter through `WebFont.load` and has no Brockmann preload (checked 07:3x UTC). It is optional, and it is Divit's call whether it goes into this publish. It is not on the critical path (DECISIONS 2026-11-11). If he adds it, Claude re-runs the CLS check after the publish (section 4). |
 
 Last Published stamp on emergent.sh and on emergent-sh.webflow.io: Mon 2026-11-16 13:38:31 UTC (same on both).
 
@@ -72,7 +71,7 @@ Re-run P2 and P3 within the hour before the import. They take about 2 minutes ea
 
 ## 4. Steps
 
-**D1. DIVIT, Designer: look before publishing (about 2 min).** Open the Designer > **Publish**. Before you click, read the list of changed pages, components and styles. Anything you or KS did not intend means STOP. If other teams' CMS items are staged (Blogs, News and the like), ask KS whether they may go live. Optional: add the font-loading head code from `reports/2026-11-11/font-loading-proposal.md` (Site settings > Custom code > Head; remove Inter in Site settings > Fonts).
+**D1. DIVIT, Designer: look before publishing (about 2 min).** Open the Designer > **Publish**. Before you click, read the list of changed pages, components and styles. Anything you or KS did not intend means STOP. If other teams' CMS items are staged (Blogs, News and the like), ask KS whether they may go live.
 
 **D2. DIVIT, redirect import.** Dashboard > the Emergent site > **Site settings > Publishing > 301 redirects** > **Import CSV** > `reports/2026-11-17/redirects-final-v3.csv`. The import replaces every existing 301, which is intended: v3 holds all 843. Afterwards the list shows **843** redirects. If Webflow shows any other count, STOP and re-import the rollback file (section 6).
 
@@ -86,8 +85,7 @@ Re-run P2 and P3 within the hour before the import. They take about 2 minutes ea
 2. **Repo switch (coordinator, one commit, after 1 passes):** in `ops/redirect_check.py`, set `CSV` to `reports/2026-11-17/redirects-final-v3.csv` and update its docstring. Remove the 24 `redir-*` entries from `known_open_issues` in `rules/live_audit.json`. Add the DECISIONS line "v3 redirects imported and published, <date>". Then run `.venv/bin/python3 tests/golden/run.py` (0 regressions). The daily check then runs 843+ rows against v3 on both runners. MIN_ROWS stays 843.
 3. **Full live audit:** `launchctl kickstart -k gui/$(id -u)/sh.emergent.live-audit` (publish_watch also triggers it when the stamp changes). Wait for `audits/live/last_success.json` to update. Pass = 0 A11 findings, P0 0, and no new real fails beyond the standing known issues (LinkedIn 403, plus hero-backlog until it is handled). Template regressions (A5-learn, A9-carousel-shown, hub carousel) are P0 and would show that the publish carried a bad staged template change. If one appears, roll back (section 6).
 4. **Publish smoke:** `.venv/bin/python3 ops/publish_smoke.py` passes (publish_watch runs it on the new stamp anyway).
-5. **If the font fix went in:** `node ops/quiz/cls.mjs --base https://emergent.sh --direct /ai-survey-and-quiz-builder/style,/ai-survey-and-quiz-builder/vocabulary --runs 5 --widths 1440,390` gives every run under 0.01.
-6. Report the AUDIT line.
+5. Report the AUDIT line.
 
 **Known-issue entries to remove after a passing step 1:** the 24 `redir-*` entries (redir-attorney, -automotive, -betting, -blockchain, -charity, -cloud-based, -conference, -contractor, -course, -custom, -dating, -dealer, -gym, -healthcare, -hospitality, -instant, -interactive, -lawyer, -leadpages, -no-code, -property, -reseller, -resume, -subscription). Keep `linkedin-bot-403`. `hero-backlog-prompt` and `hero-backlog-chip-fight` are not affected by this publish: the backlog is not staged, so the publish neither ships nor clears it.
 
@@ -95,7 +93,6 @@ Re-run P2 and P3 within the hour before the import. They take about 2 minutes ea
 
 - **Redirects:** Site settings > 301 redirects > Import CSV > `reports/2026-10-23/redirects-final.csv` (the exact 843-row set live until now), then publish. After that, the daily check and the 24 known issues are correct again as they stand. The repo switch in 5.2 is reverted with a new commit, never a reset.
 - **A staged template or CMS change that should not have shipped:** Divit reverts it in the Designer, or restores a site backup (Site settings > Backups, the one from before this publish), then republishes. Claude does not do either.
-- **Font fix:** remove the head code and restore Inter in Site settings > Fonts, then republish.
 
 ## 7. If Divit has not published by 2026-11-19
 

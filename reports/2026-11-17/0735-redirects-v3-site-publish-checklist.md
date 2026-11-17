@@ -28,6 +28,9 @@ None. Only public HTTPS HEAD and GET requests to emergent.sh, plus read-backs ot
 - The staged state of the other collections and of Designer pages and styles: not readable without a Webflow call. Divit checks the publish dialog (checklist D1).
 
 ## Open questions for Divit
-- Should the font-loading head fix (reports/2026-11-11/font-loading-proposal.md) go into this publish? It is optional.
+- None.
+
+## Update: font fix (coordinator B-c-2, relaying Divit's ruling)
+Divit's ruling: the font fix goes into the publish only if it is staged and proven on staging (CLS under 0.01 on real quiz pages at 360, 390, 414 and 1440). I checked read-only over plain HTTPS, with no Webflow call. Staging (emergent-sh.webflow.io) serves no font fix on /ai-survey-and-quiz-builder/style, /ai-survey-and-quiz-builder/vocabulary or /ai-form-builder: `WebFont.load` is still present, with no `display=optional` and no Brockmann preload. That is the same as production; both were last published 2026-11-16 13:38:31 UTC. There was nothing to measure, so the fix is removed from the checklist. Any Designer change that is staged but unpublished cannot be read without a Webflow call. Under the ruling such a change is unproven either way, and it stays out.
 
 AUDIT: last full run 2026-11-16 14:11 UTC, 646 pages, 270 real fail
