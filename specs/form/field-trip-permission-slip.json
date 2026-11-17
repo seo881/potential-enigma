@@ -44,10 +44,10 @@
   "tab_label_3": "Bilingual Families",
   "tab_label_4": "Child Care Centers",
   "tab_content_1": "<h3>Two days out and four slips missing</h3><p>Ms. Ortiz booked the aquarium for her Grade 3 class of 26 students. Two days before the trip, her dashboard shows 22 signed slips and 4 still out. Those families get an email with a link to their child's slip. Each new signature updates the count on her screen.</p>",
-  "tab_content_2": "<h3>The nurse sees every inhaler before the bus leaves</h3><p>Westbrook High's band takes 2 buses to the state festival and stays overnight. The slip asks for an emergency contact and every medicine a student will carry. Each student signs a line under the parent's signature. The night before, the trip nurse gets the 5 students with medication, sorted by bus.</p>",
+  "tab_content_2": "<h3>The nurse sees every inhaler before the bus leaves</h3><p>Westbrook High's band takes 2 buses to the state festival and stays overnight. The slip asks for an emergency contact and every medicine a student will carry. Each student signs a line under the parent's signature. The night before, the trip nurse opens the app to the 5 students with medication, sorted by bus.</p>",
   "tab_content_3": "<h3>Nine families read it in Spanish</h3><p>Room 8 has 24 families, and 9 of them read Spanish first. Their slip opens in Spanish with the same questions and the same signature line. Both versions save to the same columns. Mr. Haddad sees all 24 slips in a single list, with a language column beside each name.</p>",
   "tab_content_4": "<h3>The van roster comes from signed slips</h3><p>Little Oaks Child Care takes the van to the public library on Thursday mornings. Before it leaves, the director opens a roster built from the signed slips: 11 children signed, 1 without a signature. That child stays at the center with a staff member, and the van leaves with 11.</p>",
-  "mockup": "<p id=\"\">window.awbMockup = { elementaryClasses: \"I teach Grade 3 and need a field trip permission slip for our aquarium trip. Parents should sign on their phones. Show me a dashboard with signed and missing slips for my 26 students, and two days before the trip, email every family that has not signed with a link to their child's slip.\", highSchoolTrips: \"My high school band is taking 2 buses to an overnight festival. Build a permission slip that asks for an emergency contact and every medicine each student will carry, with a line the student signs under the parent. The night before we leave, send our trip nurse a list of students with medication, sorted by bus.\", spanishSpeakingFamilies: \"Nine of the 24 families in my class read Spanish first. Build a field trip slip that opens in English or Spanish, with the same questions and signature line in both. Save both versions to the same columns and give me a single list of every family with a column showing which language they used.\", childCareCenters: \"My child care center takes the van to the public library every Thursday. Build a trip permission slip parents sign once for the season. Before the van leaves, show the director a roster built from the signed slips, and flag any child without a signature so a staff member stays back with them.\" };</p>",
+  "mockup": "<p id=\"\">window.awbMockup = { elementaryClasses: \"I teach Grade 3 and need a field trip permission slip for our aquarium trip. Parents should sign on their phones. Show me a dashboard with signed and missing slips for my 26 students, and two days before the trip, email every family that has not signed with a link to their child's slip.\", highSchoolTrips: \"My high school band is taking 2 buses to an overnight festival. Build a permission slip that asks for an emergency contact and every medicine each student will carry, with a line the student signs under the parent. The night before we leave, alert our trip nurse in the app that the list of students with medication is ready, sorted by bus, with no names or medicines in the alert.\", spanishSpeakingFamilies: \"Nine of the 24 families in my class read Spanish first. Build a field trip slip that opens in English or Spanish, with the same questions and signature line in both. Save both versions to the same columns and give me a single list of every family with a column showing which language they used.\", childCareCenters: \"My child care center takes the van to the public library every Thursday. Build a trip permission slip parents sign once for the season. Before the van leaves, show the director a roster built from the signed slips, and flag any child without a signature so a staff member stays back with them.\" };</p>",
   "howto_title": "How to Make a Field Trip Permission Slip",
   "howto_description": "Seven steps to write a field trip permission slip that covers the whole day, then build it with Emergent for signing online.",
   "howto_step_1_title": "01 Write the trip details first",
@@ -78,7 +78,7 @@
  "chip_prompts": [
   "Build a permission slip for my class zoo trip that parents sign on their phones, and record who signed and how they are related to the child.",
   "Send a reminder to parents who still owe a signature on my field trip slip two days before it is due, and stop when they sign.",
-  "Add separate questions for allergies and daily medicines to my field trip slip, and send those answers to our trip nurse sorted by bus.",
+  "Add separate questions for allergies and daily medicines to my field trip slip, and let our trip nurse open those answers in the app, sorted by bus.",
   "Make a roster for each bus from the signed slips for my Grade 5 trip, and mark any student without a signature before we board."
  ],
  "images": {
@@ -90,7 +90,7 @@
   },
   "tab_image_2": {
    "path": "images/form/field-trip-permission-slip/uc-2.svg",
-   "alt": "A Westbrook High band medication list sorted by bus goes to the trip nurse the night before an overnight festival trip, covering the 5 students who carry medicine.",
+   "alt": "A Westbrook High band medication list for an overnight festival trip covers the 5 students who carry medicine, sorted by bus, and the trip nurse gets an in-app alert the night before to open it.",
    "file_id": "6afaed13748039b1c687399f",
    "cdn_url": "https://cdn.prod.website-files.com/6a0f028de6df6a6fd88c3f89/6afaed13748039b1c687399f_uc-2.svg"
   },
@@ -501,7 +501,7 @@
    {
     "recipe": "R9",
     "title": "Trip medication list",
-    "prompt": "Send the trip nurse every student carrying medicine, sorted by bus",
+    "prompt": "Alert the trip nurse in the app when the medication list is ready",
     "main": {
      "blocks": [
       {
@@ -550,9 +550,9 @@
     },
     "hero": {
      "kind": "card",
-     "icon": "heart-pulse",
+     "icon": "bell",
      "tone": "acc",
-     "title": "Sent to the trip nurse",
+     "title": "In-app alert for the trip nurse",
      "action": {
       "label": "Open list",
       "icon": "list"
@@ -560,15 +560,15 @@
      "blocks": [
       {
        "type": "title",
-       "title": "5 students with medication",
+       "title": "Medication list ready",
        "size": 20,
-       "sub": "Sorted by bus, sent the night before"
+       "sub": "Festival trip, the night before"
       },
       {
        "type": "meta",
        "icon": "bus",
        "kind": "acc",
-       "text": "Overnight festival trip"
+       "text": "5 students, sorted by bus"
       }
      ]
     },
@@ -578,23 +578,19 @@
      "title": "Student signed too",
      "sub": "Under the parent's signature"
     },
-    "alt": "A Westbrook High band medication list sorted by bus goes to the trip nurse the night before an overnight festival trip, covering the 5 students who carry medicine.",
+    "alt": "A Westbrook High band medication list for an overnight festival trip covers the 5 students who carry medicine, sorted by bus, and the trip nurse gets an in-app alert the night before to open it.",
     "story": [
      {
       "copy": "2 buses",
       "image": "Westbrook High band, 2 buses"
      },
      {
-      "copy": "the 5 students with medication",
-      "image": "5 students with medication"
+      "copy": "5 students with medication, sorted by bus",
+      "image": "5 students, sorted by bus"
      },
      {
-      "copy": "The night before, the trip nurse gets",
-      "image": "Sent to the trip nurse"
-     },
-     {
-      "copy": "sorted by bus",
-      "image": "Sorted by bus, sent the night before"
+      "copy": "The night before, the trip nurse opens the app",
+      "image": "In-app alert for the trip nurse"
      },
      {
       "copy": "Each student signs a line under the parent's signature",
@@ -1096,7 +1092,7 @@
  "chip_adds": [
   "Add a typed signature line that asks the signer's relationship to the student.",
   "Add a reminder email, two days before the due date, to any parent yet to sign.",
-  "Add separate allergy and medicine questions, with answers sent to the school nurse.",
+  "Add allergy and medicine questions the school nurse opens in the app.",
   "Add a roster for each bus that flags every student still missing a slip."
  ],
  "slim_reviews": [
@@ -1183,5 +1179,67 @@
   "date": "2026-10-14 08:27 UTC",
   "rules_version": "d16c1f4fcafb"
  },
- "pending_links": []
+ "pending_links": [],
+ "lock_exceptions": [
+  {
+   "field": "alt:cover_image",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "alt:share_image",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "alt:tab_image_1",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "alt:tab_image_2",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "alt:tab_image_3",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "alt:tab_image_4",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "chip_adds",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "hero_prompt",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "mockup",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  },
+  {
+   "field": "tab_content_2",
+   "by": "B-c-2",
+   "reason": "Divit 2026-11-17: health/medical/allergy details sent by email, chat, SMS or chips -> in-app alert without the detail (sweep of all live pages)",
+   "date": "2026-11-17 07:46 UTC"
+  }
+ ]
 }
