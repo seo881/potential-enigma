@@ -39,6 +39,8 @@ Case kinds (tests/golden/cases.jsonl, one JSON object per line):
   redirect-row   {source, target, first, tgt, expect: [[code, sev]]}  Divit 2026-10-26: the daily 843-row redirect check
                                                           (ops/redirect_check.classify) on synthetic responses first/tgt
                                                           ({status, location} or {error}) raises exactly these findings ([] = passes)
+  redirect-set   {header?, rows: [[s, t]], live: [paths], expect: [codes]}  Divit 2026-11-17 (B-redir-3): ops/redirect_set_check.static_issues
+                                                          on a whole redirect CSV raises exactly these codes (S1-S7; [] = clean file)
   health-m1      {t, url, prim, expect_fail}              QC M1: health details in chat/email/text on healthcare pages (Divit 2026-11-05)
   mismatch-note  {finding, expect_refused}                guards.validate_findings: a #10/#20 note is refused (always blocking)
   features-l15   {t, expect_fail}                         QC L15: features subheading with an all-six/each-piece claim (Divit 2026-11-05)
@@ -445,6 +447,10 @@ def caught(c):
         import redirect_check as RC
         fs = RC.classify(c["source"], c["target"], c.get("first") or {}, c.get("tgt"), "https://emergent.sh")
         return sorted((f["code"], f["severity"]) for f in fs) == sorted((e[0], e[1]) for e in c["expect"])
+    if c["kind"] == "redirect-set":   # Divit 2026-11-17: the import file itself: no dup, chain, self-loop, shadowed live page, non-live hub target
+        import redirect_set_check as RS
+        fs = RS.static_issues(c.get("header", ["source", "target"]), [tuple(r) for r in c["rows"]], {RS.norm(p) for p in c.get("live", [])})
+        return sorted(f[0] for f in fs) == sorted(c["expect"])
     if c["kind"] == "ship-postreview":  # Divit 2026-10-26: ship-check refuses a page whose reviewed fields changed after its review without
         import hubctl as H, tempfile, shutil  # a covering slim review (approval-workflow: rework after review, shipped without a slim review)
         src = H.spath(c["url"]); d = json.load(open(src))
