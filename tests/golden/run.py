@@ -308,6 +308,10 @@ def caught(c):
         except SystemExit: refused = True
         kept = json.load(open(f)) == (c["existing"] if c.get("existing") is not None else c["write"])
         return refused == c["expect_refused"] and kept
+    if c["kind"] == "qc-q6-page":   # Divit 2026-11-17: Q6 treats a keyword's written form (rules/keyword_forms.json, e.g. "sign-in sheet") as the keyword
+        sys.path.insert(0, os.path.join(ROOT, "ops")); import hubctl as HQ
+        out = subprocess.run([sys.executable, os.path.join(ROOT, "qc", "qc_hub.py"), HQ.spath(c["url"])], capture_output=True, text=True).stdout
+        return (re.search(r"^  P[01] Q6 ", out, re.M) is None) == c["expect_no_q6"]
     if c["kind"] == "f6-faq-unchanged":   # Divit 2026-11-17: F6 skips restamps whose change left the FAQ questions alone
         sys.path.insert(0, os.path.join(ROOT, "ops")); import hubctl as HF
         return HF.faq_questions_equal(c["a"], c["b"]) == c["expect_equal"]

@@ -831,6 +831,8 @@ def check(spec, siblings):
     # Q6 repetition inside the page: a 6-word phrase in two different fields (the page's own keywords excluded)
     own_kws = sorted({prim.lower()} | {x["kw"].lower() for x in (KMAP or {}).get(spec["url"], {}).get("secondaries", [])}, key=len, reverse=True) if prim else []
     own_kws = sorted(set(own_kws) | {re.sub(r"['’]", "", k) for k in own_kws}, key=len, reverse=True)   # possessive primaries written without the apostrophe (J1) still count as the keyword
+    _KF = json.load(open(os.path.join(ROOT, "rules", "keyword_forms.json"))).get("forms", {})   # Divit 2026-11-17: the written (hyphenated) form of a keyword is still the keyword (Q6)
+    own_kws = sorted(set(own_kws) | {k.replace(f_a, f_b.lower()) for k in own_kws for f_a, f_b in _KF.items() if f_a in k}, key=len, reverse=True)
     grams = {}                                   # gram -> {field: [(segment id, position)]}
     seg_tokens = {}
     for lab, tx in units:
