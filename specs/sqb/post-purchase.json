@@ -225,6 +225,13 @@
    "via": "verify-live",
    "by": null,
    "note": "live page verified"
+  },
+  {
+   "t": "2026-11-17 07:53 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "B-s-922",
+   "note": "slim review: [slim | ] hero_prompt: The prompt is hyphenated but H1 (\"Build a Post Purchase Survey for the Moment After Checkout\"), meta_title, meta_description, hero_description (\"Get a post purchase survey...\"), product_name, breadcrumb, explore_cta, why_title, howto_title, howto_description all s"
   }
  ],
  "pipeline": "r15",
@@ -1116,6 +1123,16 @@
    "by": "B-r-53",
    "via": "review",
    "date": "2026-10-16 12:41 UTC"
+  },
+  {
+   "criterion": "slim",
+   "rule": "SEVERITY note: channel",
+   "field": "hero_prompt",
+   "issue": "No tab shows an emailed survey: tab_content_2 and mockup deliveryCheck text the buyer, feature_3 says \"the link from a shipping text\", tab_content_1 uses the confirmation page; tab_content_3 and mockup fitAndSizing do not name a channel. Only howto_step_5 mentions \"the shipping email\".",
+   "fix": "Say \"asks each buyer ten days after delivery\" or \"texts each buyer when the order is delivered\".",
+   "by": "B-s-922",
+   "via": "slim-review",
+   "date": "2026-11-17 07:53 UTC"
   }
  ],
  "review_hash": {
@@ -1206,7 +1223,7 @@
    "features_subheading": "776216f6d6158a47",
    "h1": "172fc7a569406e1b",
    "hero_description": "71e269b11cacdb0c",
-   "hero_prompt": "cf732281225bdcf8",
+   "hero_prompt": "9a1bdbec0ab5acb7",
    "howto_description": "2a2ecd0ad69cd920",
    "howto_step_1_des": "ead831898b90702c",
    "howto_step_1_title": "a10f14b1e077ba57",
@@ -1245,7 +1262,7 @@
    "why_table": "e4e52b0eef073f20",
    "why_title": "289420db33860aeb"
   },
-  "all": "e667104c7ed19147",
+  "all": "0310d83f30366851",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  },
  "slim_reviews": [
@@ -1282,6 +1299,36 @@
    "blocking": 0,
    "notes": 0,
    "findings": []
+  },
+  {
+   "by": "B-s-922",
+   "date": "2026-11-17 07:53 UTC",
+   "fields": [
+    "hero_prompt"
+   ],
+   "baseline": "review_hash",
+   "blocking": 1,
+   "notes": 1,
+   "findings": [
+    {
+     "criterion": "slim",
+     "field": "hero_prompt",
+     "quote": "Build a post-purchase survey for my online running shoe store",
+     "fix": "Hyphenate \"post-purchase\" in those fields (keyword_forms pair), or make the prompt match; Divit lists post-purchase as a hyphenated compound.",
+     "rule": "Divit hyphenation rule (hero-fix-brief) + SEVERITY cross-field mismatch",
+     "issue": "The prompt is hyphenated but H1 (\"Build a Post Purchase Survey for the Moment After Checkout\"), meta_title, meta_description, hero_description (\"Get a post purchase survey...\"), product_name, breadcrumb, explore_cta, why_title, howto_title, howto_description all say \"post purchase\". Hyphenation is inconsistent across the page and the changed prompt now disagrees with the H1.",
+     "severity": "blocking"
+    },
+    {
+     "criterion": "slim",
+     "field": "hero_prompt",
+     "quote": "emails each buyer after delivery",
+     "fix": "Say \"asks each buyer ten days after delivery\" or \"texts each buyer when the order is delivered\".",
+     "rule": "SEVERITY note: channel",
+     "issue": "No tab shows an emailed survey: tab_content_2 and mockup deliveryCheck text the buyer, feature_3 says \"the link from a shipping text\", tab_content_1 uses the confirmation page; tab_content_3 and mockup fitAndSizing do not name a channel. Only howto_step_5 mentions \"the shipping email\".",
+     "severity": "note"
+    }
+   ]
   }
  ],
  "approval": {

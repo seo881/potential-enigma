@@ -178,6 +178,13 @@
    "via": "reconcile",
    "by": "B-c-2",
    "note": "reconciled with status/live.json 2026-11-13 (Divit): live since 2026-10-23; was 'reviewed'"
+  },
+  {
+   "t": "2026-11-17 07:53 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "B-s-922",
+   "note": "slim review: [slim | ] hero_prompt: The prompt is hyphenated but H1 (\"Build a Win Loss Survey and Learn Why Deals Were Won or Lost\"), meta_title, meta_description, hero_description (\"Build a win loss survey that goes out when a deal closes\"), product_name, breadcrumb, explore_cta, features_heading, "
   }
  ],
  "pipeline": "r15",
@@ -1200,7 +1207,7 @@
    "features_subheading": "b00f3def503ceed4",
    "h1": "1f2a80215b699675",
    "hero_description": "581913a3c5d2ddf0",
-   "hero_prompt": "035bddb30dfc24ad",
+   "hero_prompt": "09e8aeff5d4fea35",
    "howto_description": "bd13d4447a422913",
    "howto_step_1_des": "9f0895af7fa9ded2",
    "howto_step_1_title": "7c67e1a467328497",
@@ -1239,7 +1246,7 @@
    "why_table": "e4e52b0eef073f20",
    "why_title": "2462d019a77c11f8"
   },
-  "all": "3b5205aaab679ab6",
+  "all": "de63aff467243b40",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  },
  "approval": {
@@ -1280,6 +1287,27 @@
    "blocking": 0,
    "notes": 0,
    "findings": []
+  },
+  {
+   "by": "B-s-922",
+   "date": "2026-11-17 07:53 UTC",
+   "fields": [
+    "hero_prompt"
+   ],
+   "baseline": "review_hash",
+   "blocking": 1,
+   "notes": 0,
+   "findings": [
+    {
+     "criterion": "slim",
+     "field": "hero_prompt",
+     "quote": "Build a win-loss survey that emails each buyer",
+     "fix": "Hyphenate \"win-loss\" in those fields (keyword_forms pair).",
+     "rule": "Divit hyphenation rule (hero-fix-brief) + SEVERITY cross-field mismatch",
+     "issue": "The prompt is hyphenated but H1 (\"Build a Win Loss Survey and Learn Why Deals Were Won or Lost\"), meta_title, meta_description, hero_description (\"Build a win loss survey that goes out when a deal closes\"), product_name, breadcrumb, explore_cta, features_heading, why_title, mockup (3 prompts, e.g. \"Build a win loss survey for my analytics software company\"), howto_title, howto_description all use \"win loss\".",
+     "severity": "blocking"
+    }
+   ]
   }
  ]
 }

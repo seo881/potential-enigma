@@ -176,6 +176,13 @@
    "via": "reconcile",
    "by": "B-c-2",
    "note": "reconciled with status/live.json 2026-11-13 (Divit): live since 2026-10-23; was 'reviewed'"
+  },
+  {
+   "t": "2026-11-17 07:53 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "B-s-922",
+   "note": "slim review: [slim | ] hero_prompt: The prompt and H1 (\"Build a Potluck Sign-Up Sheet That Tracks Every Dish\") are hyphenated, but meta_title, meta_description (\"Build a potluck sign up sheet with dish slots...\"), product_name, hero_description (\"Build a potluck sign up sheet that caps each course.."
   }
  ],
  "pipeline": "r15",
@@ -1194,7 +1201,7 @@
    "features_subheading": "a02cbc0a5d524a6c",
    "h1": "07c824aa1f50e785",
    "hero_description": "6e795db31f6d6c0d",
-   "hero_prompt": "a3a9d619831fbd8f",
+   "hero_prompt": "7731986f04f9dd73",
    "howto_description": "e808c57f04ef6375",
    "howto_step_1_des": "6cb9c7021278cfff",
    "howto_step_1_title": "6cf19ab8bd264ec4",
@@ -1233,7 +1240,7 @@
    "why_table": "9a873c4ae655076e",
    "why_title": "adc53752fe6db75e"
   },
-  "all": "4e8a51515f189643",
+  "all": "3f784ba25764a737",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  },
  "approval": {
@@ -1273,6 +1280,27 @@
    "blocking": 0,
    "notes": 0,
    "findings": []
+  },
+  {
+   "by": "B-s-922",
+   "date": "2026-11-17 07:53 UTC",
+   "fields": [
+    "hero_prompt"
+   ],
+   "baseline": "review_hash",
+   "blocking": 1,
+   "notes": 0,
+   "findings": [
+    {
+     "criterion": "slim",
+     "field": "hero_prompt",
+     "quote": "Build a potluck sign-up sheet for my office holiday lunch",
+     "fix": "Hyphenate every one of those fields to \"sign-up sheet\" (keyword_forms pair keeps the keyword match). FAQ questions are locked and stay.",
+     "rule": "Divit hyphenation rule (hero-fix-brief) + SEVERITY cross-field mismatch",
+     "issue": "The prompt and H1 (\"Build a Potluck Sign-Up Sheet That Tracks Every Dish\") are hyphenated, but meta_title, meta_description (\"Build a potluck sign up sheet with dish slots...\"), product_name, hero_description (\"Build a potluck sign up sheet that caps each course...\"), breadcrumb, explore_cta, features_subheading, mockup (4 prompts, e.g. \"Build a potluck sign up sheet for my office Thanksgiving lunch\"), howto_description (\"make a potluck sign up sheet\") all use \"sign up sheet\". Whole-page hyphenation is inconsistent; the visible hero text sits directly above the prompt.",
+     "severity": "blocking"
+    }
+   ]
   }
  ]
 }

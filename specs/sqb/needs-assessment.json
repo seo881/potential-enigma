@@ -180,6 +180,13 @@
    "via": "reconcile",
    "by": "B-c-2",
    "note": "reconciled with status/live.json 2026-11-13 (Divit): live since 2026-10-23; was 'reviewed'"
+  },
+  {
+   "t": "2026-11-17 07:53 UTC",
+   "state": "rework",
+   "via": "slim-review",
+   "by": "B-s-922",
+   "note": "slim review: [slim | ] chip_adds: The Training Needs chip describes a different survey from tab_content_2 and the staffTraining mockup, where staff of a dental group each rate 8 skills on how much their job uses it and how confident they feel (and from the FAQ answer on what a training needs survey "
   }
  ],
  "pipeline": "r15",
@@ -1430,7 +1437,7 @@
    "alt:tab_image_3": "a61a820a8cb4ab55",
    "alt:tab_image_4": "293e64875c56b044",
    "breadcrumb": "ff3c4050a9c8e84f",
-   "chip_adds": "2c34f4e0233a8696",
+   "chip_adds": "8d3e25b2abfef609",
    "explore_cta": "a0d6d5737ce0978d",
    "faq": "8ad568e6ecd48fc7",
    "feature_1": "439ab6c7f30532c5",
@@ -1482,7 +1489,7 @@
    "why_table": "1f7ae8ca7b602fb5",
    "why_title": "6654c2e00410acd1"
   },
-  "all": "0e5d3c76847ffa72",
+  "all": "55b0ace4d261612a",
   "ignores": "commas, quotes, apostrophes, ampersands, whitespace (H3/J1 autofixes)"
  },
  "approval": {
@@ -1529,6 +1536,27 @@
    "blocking": 0,
    "notes": 0,
    "findings": []
+  },
+  {
+   "by": "B-s-922",
+   "date": "2026-11-17 07:53 UTC",
+   "fields": [
+    "chip_adds"
+   ],
+   "baseline": "review_hash",
+   "blocking": 1,
+   "notes": 0,
+   "findings": [
+    {
+     "criterion": "slim",
+     "field": "chip_adds",
+     "quote": "Add training needs questions that ask residents which job skills they want classes in.",
+     "fix": "Add training needs questions that rate each skill by job use and confidence. (The community-needs default prompt can stay.)",
+     "rule": "SEVERITY wrong-fact (cross-field)",
+     "issue": "The Training Needs chip describes a different survey from tab_content_2 and the staffTraining mockup, where staff of a dental group each rate 8 skills on how much their job uses it and how confident they feel (and from the FAQ answer on what a training needs survey asks). Nothing on the page asks residents which classes they want.",
+     "severity": "blocking"
+    }
+   ]
   }
  ]
 }
