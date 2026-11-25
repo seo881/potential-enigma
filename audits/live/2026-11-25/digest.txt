@@ -1,0 +1,52 @@
+Live audit 2026-11-25 on https://emergent.sh (plain checks, no Claude) DRY
+pages 646, hubs 4; pages/hubs with P0/P1: 1; passed (no P0/P1): 645 of 646
+findings P0 1, P1 31, P2 652
+
+by code:
+  P0 A1-http: 1
+  P1 A11-target: 31
+  P2 A4-repeat: 3
+  P2 A5-empty-p: 649
+
+console: 0 page(s) with counted console errors (A9-console) (0 ignored by Divit's console exception (2026-10-14/15); in force: clarity.js, bing-uet-clarity-loader, gtm-clarity-loader, clarity-beacon, adwire)
+
+P0 A1-http (1):
+  /ai-survey-and-quiz-builder/safety  (page does not return HTTP 200 (500))
+
+P1 A11-target (31):
+  /ai-app-builder/barcode-inventory  (redirect target returns 500, expected 200)
+  /ai-app-builder/construction-project-management  (redirect target returns 500, expected 200)
+  /ai-app-builder/dinner-recipes  (redirect target returns 500, expected 200)
+  /ai-app-builder/grocery-inventory  (redirect target returns 500, expected 200)
+  /ai-app-builder/map  (redirect target returns 500, expected 200)
+  /ai-app-builder/personal  (redirect target returns 500, expected 200)
+  /ai-app-builder/real-estate-scheduling  (redirect target returns 500, expected 200)
+  /ai-website-builder/attorney  (redirect target returns 301, expected 200)
+  /ai-website-builder/automotive  (redirect target returns 301, expected 200)
+  /ai-website-builder/betting  (redirect target returns 301, expected 200)
+  /ai-website-builder/blockchain  (redirect target returns 301, expected 200)
+  /ai-website-builder/charity  (redirect target returns 301, expected 200)
+  /ai-website-builder/cloud-based  (redirect target returns 301, expected 200)
+  /ai-website-builder/conference  (redirect target returns 301, expected 200)
+  /ai-website-builder/contractor  (redirect target returns 301, expected 200 (target of 2 redirect rows))
+  /ai-website-builder/course  (redirect target returns 301, expected 200)
+  /ai-website-builder/custom  (redirect target returns 301, expected 200 (target of 4 redirect rows))
+  /ai-website-builder/dating  (redirect target returns 404, expected 200)
+  /ai-website-builder/dealer  (redirect target returns 301, expected 200 (target of 2 redirect rows))
+  /ai-website-builder/gym  (redirect target returns 301, expected 200)
+  /ai-website-builder/healthcare  (redirect target returns 301, expected 200)
+  /ai-website-builder/hospitality  (redirect target returns 301, expected 200)
+  /ai-website-builder/instant  (redirect target returns 301, expected 200)
+  /ai-website-builder/interactive  (redirect target returns 301, expected 200)
+  /ai-website-builder/lawyer  (redirect target returns 301, expected 200)
+  /ai-website-builder/leadpages  (redirect target returns 404, expected 200)
+  /ai-website-builder/no-code  (redirect target returns 301, expected 200)
+  /ai-website-builder/property  (redirect target returns 301, expected 200 (target of 2 redirect rows))
+  /ai-website-builder/reseller  (redirect target returns 301, expected 200)
+  /ai-website-builder/resume  (redirect target returns 404, expected 200)
+  /ai-website-builder/subscription  (redirect target returns 301, expected 200)
+
+resource loads re-tried and loaded (not counted, Divit 2026-11-03): 14 image(s), 0 console network error(s) on 14 page(s)
+clone: fresh checkout of main 19869ad (GitHub Actions)
+transport errors re-checked: 0; still failing after the re-check: 0
+redirects (Divit 2026-10-26): 843 rows of reports/2026-10-23/redirects-final.csv checked at 2026-11-25 15:16 UTC; findings 31
